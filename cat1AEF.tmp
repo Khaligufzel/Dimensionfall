@@ -3352,10 +3352,8 @@ collision_mask = 7
 motion_mode = 1
 script = ExtResource("4_6cewg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TacticalMap/Entities/Player"]
-position = Vector2(8, 8)
-scale = Vector2(0.8, 0.8)
-shape = SubResource("RectangleShape2D_loyyg")
+[node name="Camera2D" type="Camera2D" parent="TacticalMap/Entities/Player"]
+zoom = Vector2(1.5, 1.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="TacticalMap/Entities/Player"]
 z_index = 2
@@ -3363,15 +3361,17 @@ z_as_relative = false
 texture = ExtResource("4_dhg6n")
 centered = false
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TacticalMap/Entities/Player"]
+position = Vector2(8, 8)
+scale = Vector2(0.8, 0.8)
+shape = SubResource("RectangleShape2D_loyyg")
+
 [node name="PointLight2D" type="PointLight2D" parent="TacticalMap/Entities/Player"]
 position = Vector2(8, 8)
 shadow_enabled = true
 shadow_item_cull_mask = 2
 texture = SubResource("GradientTexture2D_m7bi3")
 texture_scale = 13.84
-
-[node name="Camera2D" type="Camera2D" parent="TacticalMap/Entities/Player"]
-zoom = Vector2(1.5, 1.5)
 
 [node name="Enemies" type="Node" parent="TacticalMap/Entities"]
 
@@ -3408,6 +3408,6 @@ shape = SubResource("RectangleShape2D_kbdf7")
 
 [node name="Detection" type="Node2D" parent="TacticalMap/Entities/Enemies/Enemy" node_paths=PackedStringArray("player")]
 script = ExtResource("7_idy5x")
-player = NodePath("../../../Player/CollisionShape2D")
+player = NodePath("../../../Player")
 
 [connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/NavigationAgent2D/Timer" to="TacticalMap/Entities/Enemies/Enemy" method="_on_timer_timeout"]
