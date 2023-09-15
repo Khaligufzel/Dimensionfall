@@ -2,12 +2,20 @@ extends Node2D
 
 @export var player: Node2D
 @export var playerCol: Node2D
-@export var sightRange: float
+@export var stats: NodePath
+
+signal player_spotted
+
+var sightRange
+var senseRange
+var hearingRange
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	sightRange = get_node(stats).sightRange
+	senseRange = get_node(stats).senseRange
+	hearingRange = get_node(stats).hearingRange
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,6 +33,7 @@ func _physics_process(delta):
 		#print("Hit: ", result.collider)
 		if result.collider == player && Vector2(global_position).distance_to(playerCol.global_position) <= sightRange:
 			print("I see the player") 
+			player_spotted.emit()
 		
 #func _draw():
 	#draw_line(position, (player.global_position - global_position).normalized() * 100, Color.GREEN, 5.0)

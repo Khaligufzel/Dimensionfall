@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=25 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c8dq1aed4n2at" path="res://player.png" id="4_dhg6n"]
 [ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://enemy.png" id="6_18t4o"]
 [ext_resource type="Script" path="res://Enemy.gd" id="6_m0noe"]
+[ext_resource type="Script" path="res://EnemyStats.gd" id="7_bp7nk"]
 [ext_resource type="Script" path="res://Detection.gd" id="7_idy5x"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1v03i"]
@@ -3347,7 +3348,7 @@ layer_1/tile_data = PackedInt32Array()
 [node name="Entities" type="Node" parent="TacticalMap"]
 
 [node name="Player" type="CharacterBody2D" parent="TacticalMap/Entities"]
-position = Vector2(351, 212)
+position = Vector2(432, 35)
 collision_mask = 7
 motion_mode = 1
 script = ExtResource("4_6cewg")
@@ -3378,13 +3379,22 @@ zoom = Vector2(1.5, 1.5)
 [node name="Enemy" type="CharacterBody2D" parent="TacticalMap/Entities/Enemies" node_paths=PackedStringArray("player")]
 light_mask = 2
 visibility_layer = 2
-position = Vector2(344, 241)
+position = Vector2(440, 332)
 collision_layer = 2
 collision_mask = 7
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("6_m0noe")
+stats = NodePath("EnemyStats")
 player = NodePath("../../Player/CollisionShape2D")
+
+[node name="EnemyStats" type="Node" parent="TacticalMap/Entities/Enemies/Enemy"]
+script = ExtResource("7_bp7nk")
+health = 100.0
+moveSpeed = 50.0
+sightRange = 200.0
+senseRange = 50.0
+hearingRange = 1000.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="TacticalMap/Entities/Enemies/Enemy"]
 path_postprocessing = 1
@@ -3410,6 +3420,7 @@ shape = SubResource("RectangleShape2D_kbdf7")
 script = ExtResource("7_idy5x")
 player = NodePath("../../../Player")
 playerCol = NodePath("../../../Player/CollisionShape2D")
-sightRange = 200.0
+stats = NodePath("../EnemyStats")
 
 [connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/NavigationAgent2D/Timer" to="TacticalMap/Entities/Enemies/Enemy" method="_on_timer_timeout"]
+[connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy" method="_on_detection_player_spotted"]
