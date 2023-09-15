@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=30 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://EnemyStats.gd" id="7_bp7nk"]
 [ext_resource type="Script" path="res://Detection.gd" id="7_idy5x"]
 [ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://bullet.tscn" id="7_uhhhq"]
+[ext_resource type="Script" path="res://StateMachine.gd" id="9_bovb1"]
+[ext_resource type="Script" path="res://EnemyIdle.gd" id="10_6eb1f"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1v03i"]
@@ -3351,7 +3353,7 @@ layer_1/tile_data = PackedInt32Array()
 
 [node name="Entities" type="Node" parent="TacticalMap"]
 
-[node name="Player" type="CharacterBody2D" parent="TacticalMap/Entities"]
+[node name="Player" type="CharacterBody2D" parent="TacticalMap/Entities" groups=["Players"]]
 position = Vector2(432, 35)
 collision_mask = 7
 motion_mode = 1
@@ -3387,7 +3389,7 @@ bullet_speed = 1000.0
 bullet_damage = 5.0
 bullet_scene = ExtResource("7_uhhhq")
 
-[node name="Enemies" type="Node" parent="TacticalMap/Entities"]
+[node name="Enemies" type="Node" parent="TacticalMap/Entities" groups=["Enemies"]]
 
 [node name="Enemy" type="CharacterBody2D" parent="TacticalMap/Entities/Enemies" node_paths=PackedStringArray("player")]
 light_mask = 2
@@ -3403,10 +3405,19 @@ sprite = NodePath("Sprite2D")
 stats = NodePath("EnemyStats")
 player = NodePath("../../Player/CollisionShape2D")
 
+[node name="StateMachine" type="Node" parent="TacticalMap/Entities/Enemies/Enemy" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("9_bovb1")
+initial_state = NodePath("EnemyIdle")
+
+[node name="EnemyIdle" type="Node" parent="TacticalMap/Entities/Enemies/Enemy/StateMachine"]
+script = ExtResource("10_6eb1f")
+
 [node name="EnemyStats" type="Node" parent="TacticalMap/Entities/Enemies/Enemy"]
 script = ExtResource("7_bp7nk")
+melee_damage = 20.0
 health = 100.0
 moveSpeed = 50.0
+idle_move_speed = 20.0
 sightRange = 200.0
 senseRange = 50.0
 hearingRange = 1000.0
@@ -3432,9 +3443,8 @@ position = Vector2(0, -3.05176e-05)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_kbdf7")
 
-[node name="Detection" type="Node2D" parent="TacticalMap/Entities/Enemies/Enemy" node_paths=PackedStringArray("player", "playerCol")]
+[node name="Detection" type="Node2D" parent="TacticalMap/Entities/Enemies/Enemy" node_paths=PackedStringArray("playerCol")]
 script = ExtResource("7_idy5x")
-player = NodePath("../../../Player")
 playerCol = NodePath("../../../Player/CollisionShape2D")
 stats = NodePath("../EnemyStats")
 

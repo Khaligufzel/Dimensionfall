@@ -45,37 +45,41 @@ theme_override_font_sizes/font_size = 49
 text = "11:20"
 vertical_alignment = 1
 
-[node name="Leftarm" type="Sprite2D" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(5, 125)
+scale = Vector2(0.8, 0.8)
+
+[node name="Leftarm" type="Sprite2D" parent="Node2D"]
 modulate = Color(0, 0.784314, 0, 1)
 position = Vector2(22.75, 552.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_n6hdf")
 
-[node name="Leftleg" type="Sprite2D" parent="."]
+[node name="Leftleg" type="Sprite2D" parent="Node2D"]
 modulate = Color(0, 0.784314, 0, 1)
 position = Vector2(55.75, 611.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_7ifw1")
 
-[node name="Rightleg" type="Sprite2D" parent="."]
+[node name="Rightleg" type="Sprite2D" parent="Node2D"]
 modulate = Color(0, 0.784314, 0, 1)
 position = Vector2(99.75, 610.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("5_o7eah")
 
-[node name="Rightarm" type="Sprite2D" parent="."]
+[node name="Rightarm" type="Sprite2D" parent="Node2D"]
 modulate = Color(0, 0.784314, 0, 1)
 position = Vector2(118.75, 547.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("6_r0ans")
 
-[node name="Head" type="Sprite2D" parent="."]
+[node name="Head" type="Sprite2D" parent="Node2D"]
 modulate = Color(0, 0.784314, 0, 1)
 position = Vector2(59.75, 498.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("7_xy21m")
 
-[node name="Torso" type="Sprite2D" parent="."]
+[node name="Torso" type="Sprite2D" parent="Node2D"]
 modulate = Color(0, 0.784314, 0, 1)
 z_index = -1
 position = Vector2(72.75, 549.375)

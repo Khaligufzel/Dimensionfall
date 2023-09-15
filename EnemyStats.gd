@@ -1,8 +1,10 @@
 extends Node
 
+@export var melee_damage: float
 @export var health: float
 @export var current_health: float
 @export var moveSpeed: float
+@export var idle_move_speed: float
 @export var sightRange: float
 @export var senseRange: float
 @export var hearingRange: float
