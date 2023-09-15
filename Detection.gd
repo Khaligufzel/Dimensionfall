@@ -1,6 +1,8 @@
 extends Node2D
 
 @export var player: Node2D
+@export var playerCol: Node2D
+@export var sightRange: float
 
 
 # Called when the node enters the scene tree for the first time.
@@ -10,17 +12,22 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	queue_redraw()
 
 
 func _physics_process(delta):
 	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsRayQueryParameters2D.create(global_position, (global_position - player.global_position).normalized() * 100, pow(2, 1-1) + pow(2, 3-1),[self])
+	var query = PhysicsRayQueryParameters2D.create(global_position, playerCol.global_position, pow(2, 1-1) + pow(2, 3-1),[self])
 
 	var result = space_state.intersect_ray(query)
 	
 	if result:
-		print("Hit at point: ", result.collider)
+		#print("Hit: ", result.collider)
+		if result.collider == player && Vector2(global_position).distance_to(playerCol.global_position) <= sightRange:
+			print("I see the player") 
+		
+#func _draw():
+	#draw_line(position, (player.global_position - global_position).normalized() * 100, Color.GREEN, 5.0)
 		
 	#print("Player: ", player.global_position)
 	

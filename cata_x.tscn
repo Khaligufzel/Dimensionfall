@@ -3384,7 +3384,7 @@ collision_mask = 7
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("6_m0noe")
-player = NodePath("../../Player")
+player = NodePath("../../Player/CollisionShape2D")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="TacticalMap/Entities/Enemies/Enemy"]
 path_postprocessing = 1
@@ -3406,8 +3406,10 @@ texture = ExtResource("6_18t4o")
 scale = Vector2(0.515, 0.515)
 shape = SubResource("RectangleShape2D_kbdf7")
 
-[node name="Detection" type="Node2D" parent="TacticalMap/Entities/Enemies/Enemy" node_paths=PackedStringArray("player")]
+[node name="Detection" type="Node2D" parent="TacticalMap/Entities/Enemies/Enemy" node_paths=PackedStringArray("player", "playerCol")]
 script = ExtResource("7_idy5x")
-player = NodePath("../../../Player/CollisionShape2D")
+player = NodePath("../../../Player")
+playerCol = NodePath("../../../Player/CollisionShape2D")
+sightRange = 200.0
 
 [connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/NavigationAgent2D/Timer" to="TacticalMap/Entities/Enemies/Enemy" method="_on_timer_timeout"]
