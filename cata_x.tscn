@@ -3319,6 +3319,7 @@ fill_from = Vector2(0.5, 0.5)
 light_mode = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kbdf7"]
+size = Vector2(31.068, 31.068)
 
 [node name="CataX" type="Node2D"]
 
@@ -3391,11 +3392,13 @@ bullet_scene = ExtResource("7_uhhhq")
 light_mask = 2
 visibility_layer = 2
 position = Vector2(440, 336)
+scale = Vector2(0.8, 0.8)
 collision_layer = 2
 collision_mask = 15
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("6_m0noe")
+sprite = NodePath("Sprite2D")
 stats = NodePath("EnemyStats")
 player = NodePath("../../Player/CollisionShape2D")
 
@@ -3421,11 +3424,11 @@ modulate = Color(0.729412, 0, 0.137255, 1)
 z_index = 2
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_6kat3")
-scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_18t4o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TacticalMap/Entities/Enemies/Enemy"]
-scale = Vector2(0.515, 0.515)
+position = Vector2(0, -3.05176e-05)
+scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_kbdf7")
 
 [node name="Detection" type="Node2D" parent="TacticalMap/Entities/Enemies/Enemy" node_paths=PackedStringArray("player", "playerCol")]
