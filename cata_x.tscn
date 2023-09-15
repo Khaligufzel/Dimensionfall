@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=27 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
@@ -7,8 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://c8dq1aed4n2at" path="res://player.png" id="4_dhg6n"]
 [ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://enemy.png" id="6_18t4o"]
 [ext_resource type="Script" path="res://Enemy.gd" id="6_m0noe"]
+[ext_resource type="Script" path="res://PlayerShooting.gd" id="6_s2ikh"]
 [ext_resource type="Script" path="res://EnemyStats.gd" id="7_bp7nk"]
 [ext_resource type="Script" path="res://Detection.gd" id="7_idy5x"]
+[ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://bullet.tscn" id="7_uhhhq"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1v03i"]
 
@@ -3297,7 +3299,7 @@ texture = ExtResource("3_0gxho")
 [sub_resource type="TileSet" id="TileSet_ky8ko"]
 occlusion_layer_0/light_mask = 2
 physics_layer_0/collision_layer = 4
-physics_layer_0/collision_mask = 7
+physics_layer_0/collision_mask = 15
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_cw4pv")
 
@@ -3372,16 +3374,25 @@ texture = SubResource("GradientTexture2D_m7bi3")
 texture_scale = 13.84
 
 [node name="Camera2D" type="Camera2D" parent="TacticalMap/Entities/Player"]
+position = Vector2(8, 8)
 zoom = Vector2(1.5, 1.5)
+
+[node name="PlayerShooting" type="Node2D" parent="TacticalMap/Entities/Player"]
+position = Vector2(8, 8)
+script = ExtResource("6_s2ikh")
+projectiles = NodePath("../../Projectiles")
+bullet_speed = 1000.0
+bullet_damage = 5.0
+bullet_scene = ExtResource("7_uhhhq")
 
 [node name="Enemies" type="Node" parent="TacticalMap/Entities"]
 
 [node name="Enemy" type="CharacterBody2D" parent="TacticalMap/Entities/Enemies" node_paths=PackedStringArray("player")]
 light_mask = 2
 visibility_layer = 2
-position = Vector2(440, 332)
+position = Vector2(440, 336)
 collision_layer = 2
-collision_mask = 7
+collision_mask = 15
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("6_m0noe")
@@ -3410,6 +3421,7 @@ modulate = Color(0.729412, 0, 0.137255, 1)
 z_index = 2
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_6kat3")
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_18t4o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TacticalMap/Entities/Enemies/Enemy"]
@@ -3421,6 +3433,8 @@ script = ExtResource("7_idy5x")
 player = NodePath("../../../Player")
 playerCol = NodePath("../../../Player/CollisionShape2D")
 stats = NodePath("../EnemyStats")
+
+[node name="Projectiles" type="Node" parent="TacticalMap/Entities"]
 
 [connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/NavigationAgent2D/Timer" to="TacticalMap/Entities/Enemies/Enemy" method="_on_timer_timeout"]
 [connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy" method="_on_detection_player_spotted"]

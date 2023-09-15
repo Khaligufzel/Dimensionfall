@@ -32,7 +32,7 @@ func _physics_process(delta):
 	if result:
 		#print("Hit: ", result.collider)
 		if result.collider == player && Vector2(global_position).distance_to(playerCol.global_position) <= sightRange:
-			print("I see the player") 
+			#print("I see the player") 
 			player_spotted.emit()
 		
 #func _draw():

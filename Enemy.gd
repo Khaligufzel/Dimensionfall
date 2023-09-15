@@ -26,3 +26,6 @@ func _on_timer_timeout():
 
 func _on_detection_player_spotted():
 	target_location = player.global_position
+	
+func _get_hit(damage):
+	print("Ouch!")
