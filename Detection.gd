@@ -34,8 +34,8 @@ func _physics_process(delta):
 #		if result.collider == player && Vector2(global_position).distance_to(playerCol.global_position) <= sightRange:
 #			#print("I see the player") 
 #			player_spotted.emit()
-		if result.collider.is_in_group("Players"):
-			player_spotted.emit()
+		if result.collider.is_in_group("Players") && Vector2(global_position).distance_to(playerCol.global_position) <= sightRange:
+			player_spotted.emit(result.collider)
 #func _draw():
 	#draw_line(position, (player.global_position - global_position).normalized() * 100, Color.GREEN, 5.0)
 		

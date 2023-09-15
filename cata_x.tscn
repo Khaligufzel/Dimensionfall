@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=31 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://bullet.tscn" id="7_uhhhq"]
 [ext_resource type="Script" path="res://StateMachine.gd" id="9_bovb1"]
 [ext_resource type="Script" path="res://EnemyIdle.gd" id="10_6eb1f"]
+[ext_resource type="Script" path="res://EnemyFollow.gd" id="11_uu5pc"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1v03i"]
@@ -3391,7 +3392,7 @@ bullet_scene = ExtResource("7_uhhhq")
 
 [node name="Enemies" type="Node" parent="TacticalMap/Entities" groups=["Enemies"]]
 
-[node name="Enemy" type="CharacterBody2D" parent="TacticalMap/Entities/Enemies" node_paths=PackedStringArray("player")]
+[node name="Enemy" type="CharacterBody2D" parent="TacticalMap/Entities/Enemies"]
 light_mask = 2
 visibility_layer = 2
 position = Vector2(440, 336)
@@ -3403,7 +3404,6 @@ wall_min_slide_angle = 0.0
 script = ExtResource("6_m0noe")
 sprite = NodePath("Sprite2D")
 stats = NodePath("EnemyStats")
-player = NodePath("../../Player/CollisionShape2D")
 
 [node name="StateMachine" type="Node" parent="TacticalMap/Entities/Enemies/Enemy" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("9_bovb1")
@@ -3411,6 +3411,13 @@ initial_state = NodePath("EnemyIdle")
 
 [node name="EnemyIdle" type="Node" parent="TacticalMap/Entities/Enemies/Enemy/StateMachine"]
 script = ExtResource("10_6eb1f")
+stats = NodePath("../../EnemyStats")
+
+[node name="EnemyFollow" type="Node" parent="TacticalMap/Entities/Enemies/Enemy/StateMachine" node_paths=PackedStringArray("nav_agent", "enemy")]
+script = ExtResource("11_uu5pc")
+nav_agent = NodePath("../../NavigationAgent2D")
+enemy = NodePath("../..")
+stats = NodePath("../../EnemyStats")
 
 [node name="EnemyStats" type="Node" parent="TacticalMap/Entities/Enemies/Enemy"]
 script = ExtResource("7_bp7nk")
@@ -3452,5 +3459,6 @@ stats = NodePath("../EnemyStats")
 
 [node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
 
-[connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/NavigationAgent2D/Timer" to="TacticalMap/Entities/Enemies/Enemy" method="_on_timer_timeout"]
-[connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy" method="_on_detection_player_spotted"]
+[connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/NavigationAgent2D/Timer" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyFollow" method="_on_timer_timeout"]
+[connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyIdle" method="_on_detection_player_spotted"]
+[connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyFollow" method="_on_detection_player_spotted"]
