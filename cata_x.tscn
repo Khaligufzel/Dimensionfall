@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=28 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://EnemyStats.gd" id="7_bp7nk"]
 [ext_resource type="Script" path="res://Detection.gd" id="7_idy5x"]
 [ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://bullet.tscn" id="7_uhhhq"]
+[ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1v03i"]
 
@@ -3438,6 +3439,8 @@ playerCol = NodePath("../../../Player/CollisionShape2D")
 stats = NodePath("../EnemyStats")
 
 [node name="Projectiles" type="Node" parent="TacticalMap/Entities"]
+
+[node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
 
 [connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/NavigationAgent2D/Timer" to="TacticalMap/Entities/Enemies/Enemy" method="_on_timer_timeout"]
 [connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy" method="_on_detection_player_spotted"]

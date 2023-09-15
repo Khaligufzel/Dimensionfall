@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://clhj525tmme3k"]
+
+[ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
+[ext_resource type="Texture2D" uid="uid://c1begynwustlp" path="res://torso.png" id="2_nwktq"]
+[ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://leftarm.png" id="3_n6hdf"]
+[ext_resource type="Texture2D" uid="uid://8pdm2gvd1v3n" path="res://leftleg.png" id="4_7ifw1"]
+[ext_resource type="Texture2D" uid="uid://jluhejkwo85q" path="res://rightleg.png" id="5_o7eah"]
+[ext_resource type="Texture2D" uid="uid://1alnt17qsyd7" path="res://rightarm.png" id="6_r0ans"]
+[ext_resource type="Texture2D" uid="uid://t7ny2gtgqll8" path="res://head.png" id="7_xy21m"]
+
+[sub_resource type="Theme" id="Theme_xn5t2"]
+default_font = ExtResource("1_pxloi")
+default_font_size = 0
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="BloodLevel" type="Label" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = -61.0
+offset_right = 344.0
+grow_vertical = 0
+theme = SubResource("Theme_xn5t2")
+theme_override_colors/font_color = Color(0.639216, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_pxloi")
+theme_override_font_sizes/font_size = 49
+text = "100%"
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -191.0
+offset_bottom = 61.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_pxloi")
+theme_override_font_sizes/font_size = 49
+text = "11:20"
+vertical_alignment = 1
+
+[node name="Leftarm" type="Sprite2D" parent="."]
+modulate = Color(0, 0.784314, 0, 1)
+position = Vector2(22.75, 552.375)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_n6hdf")
+
+[node name="Leftleg" type="Sprite2D" parent="."]
+modulate = Color(0, 0.784314, 0, 1)
+position = Vector2(55.75, 611.375)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_7ifw1")
+
+[node name="Rightleg" type="Sprite2D" parent="."]
+modulate = Color(0, 0.784314, 0, 1)
+position = Vector2(99.75, 610.375)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("5_o7eah")
+
+[node name="Rightarm" type="Sprite2D" parent="."]
+modulate = Color(0, 0.784314, 0, 1)
+position = Vector2(118.75, 547.375)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("6_r0ans")
+
+[node name="Head" type="Sprite2D" parent="."]
+modulate = Color(0, 0.784314, 0, 1)
+position = Vector2(59.75, 498.375)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("7_xy21m")
+
+[node name="Torso" type="Sprite2D" parent="."]
+modulate = Color(0, 0.784314, 0, 1)
+z_index = -1
+position = Vector2(72.75, 549.375)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_nwktq")
