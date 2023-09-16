@@ -3362,7 +3362,6 @@ motion_mode = 1
 script = ExtResource("4_6cewg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TacticalMap/Entities/Player"]
-position = Vector2(8, 8)
 scale = Vector2(0.8, 0.8)
 shape = SubResource("RectangleShape2D_loyyg")
 
@@ -3370,30 +3369,26 @@ shape = SubResource("RectangleShape2D_loyyg")
 z_index = 2
 z_as_relative = false
 texture = ExtResource("4_dhg6n")
-centered = false
 
 [node name="PointLight2D" type="PointLight2D" parent="TacticalMap/Entities/Player"]
-position = Vector2(8, 8)
 shadow_enabled = true
 shadow_item_cull_mask = 2
 texture = SubResource("GradientTexture2D_m7bi3")
 texture_scale = 13.84
 
 [node name="Camera2D" type="Camera2D" parent="TacticalMap/Entities/Player"]
-position = Vector2(8, 8)
 zoom = Vector2(1.5, 1.5)
 
 [node name="PlayerShooting" type="Node2D" parent="TacticalMap/Entities/Player"]
-position = Vector2(8, 8)
 script = ExtResource("6_s2ikh")
 projectiles = NodePath("../../Projectiles")
 bullet_speed = 1000.0
 bullet_damage = 5.0
 bullet_scene = ExtResource("7_uhhhq")
 
-[node name="Enemies" type="Node" parent="TacticalMap/Entities" groups=["Enemies"]]
+[node name="Enemies" type="Node" parent="TacticalMap/Entities"]
 
-[node name="Enemy" type="CharacterBody2D" parent="TacticalMap/Entities/Enemies"]
+[node name="Enemy" type="CharacterBody2D" parent="TacticalMap/Entities/Enemies" groups=["Enemies"]]
 light_mask = 2
 visibility_layer = 2
 position = Vector2(440, 336)
@@ -3410,8 +3405,12 @@ stats = NodePath("EnemyStats")
 script = ExtResource("9_bovb1")
 initial_state = NodePath("EnemyIdle")
 
-[node name="EnemyAttack" type="Node2D" parent="TacticalMap/Entities/Enemies/Enemy/StateMachine"]
+[node name="EnemyAttack" type="Node2D" parent="TacticalMap/Entities/Enemies/Enemy/StateMachine" node_paths=PackedStringArray("attack_timer")]
 script = ExtResource("10_h4u8w")
+stats = NodePath("../../EnemyStats")
+attack_timer = NodePath("AttackCooldown")
+enemy = NodePath("../../CollisionShape2D")
+enemy_sprite = NodePath("../../Sprite2D")
 
 [node name="AttackCooldown" type="Timer" parent="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyAttack"]
 
@@ -3430,12 +3429,14 @@ wait_time = 4.0
 script = ExtResource("11_uu5pc")
 nav_agent = NodePath("../../NavigationAgent2D")
 enemy = NodePath("../..")
+enemyCol = NodePath("../../CollisionShape2D")
 stats = NodePath("../../EnemyStats")
 pathfinding_timer = NodePath("../../NavigationAgent2D/Timer")
 
 [node name="EnemyStats" type="Node" parent="TacticalMap/Entities/Enemies/Enemy"]
 script = ExtResource("7_bp7nk")
 melee_damage = 20.0
+melee_range = 40.0
 health = 100.0
 moveSpeed = 50.0
 idle_move_speed = 20.0
@@ -3472,7 +3473,9 @@ stats = NodePath("../EnemyStats")
 
 [node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
 
+[connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyAttack/AttackCooldown" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyAttack" method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyIdle/MovingCooldown" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyIdle" method="_on_moving_cooldown_timeout"]
 [connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/NavigationAgent2D/Timer" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyFollow" method="_on_timer_timeout"]
 [connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyIdle" method="_on_detection_player_spotted"]
 [connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyFollow" method="_on_detection_player_spotted"]
+[connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyAttack" method="_on_detection_player_spotted"]
