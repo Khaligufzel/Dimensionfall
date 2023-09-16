@@ -49,9 +49,13 @@ func try_to_attack():
 
 func attack():
 	print("Attacking!")
-	
+	print(Vector2(targeted_player.position))
+	print(Vector2(targeted_player.global_position))
+	print(Vector2(to_local(targeted_player.position)))
+	print(Vector2(to_local(targeted_player.global_position)))
+	print(Vector2(targeted_player.position - get_node(enemy).global_position))
 	tween = create_tween()
-	tween.tween_property(get_node(enemy_sprite), "position", Vector2(20,0), 0.1 )
+	tween.tween_property(get_node(enemy_sprite), "position", targeted_player.position - get_node(enemy).global_position, 0.1 )
 	tween.tween_property(get_node(enemy_sprite), "position", Vector2(0,0), 0.1 )
 	
 	
