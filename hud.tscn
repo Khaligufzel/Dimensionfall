@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=10 format=3 uid="uid://clhj525tmme3k"]
 
+[ext_resource type="Script" path="res://hud.gd" id="1_a4suv"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Texture2D" uid="uid://c1begynwustlp" path="res://torso.png" id="2_nwktq"]
 [ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://leftarm.png" id="3_n6hdf"]
@@ -13,6 +14,15 @@ default_font = ExtResource("1_pxloi")
 default_font_size = 0
 
 [node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_a4suv")
+head_health = NodePath("Node2D/Head")
+right_arm_health = NodePath("Node2D/Rightarm")
+left_arm_health = NodePath("Node2D/Leftarm")
+torso_health = NodePath("Node2D/Torso")
+right_leg_health = NodePath("Node2D/Rightleg")
+left_leg_health = NodePath("Node2D/Leftleg")
+healthy_color = Color(0, 0.635294, 0, 1)
+damaged_color = Color(0.635294, 0, 0, 1)
 
 [node name="BloodLevel" type="Label" parent="."]
 anchors_preset = 2

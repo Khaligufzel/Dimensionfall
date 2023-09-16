@@ -3473,9 +3473,10 @@ stats = NodePath("../EnemyStats")
 
 [node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
 
+[connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
 [connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyAttack/AttackCooldown" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyAttack" method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyIdle/MovingCooldown" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyIdle" method="_on_moving_cooldown_timeout"]
 [connection signal="timeout" from="TacticalMap/Entities/Enemies/Enemy/NavigationAgent2D/Timer" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyFollow" method="_on_timer_timeout"]
+[connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyAttack" method="_on_detection_player_spotted"]
 [connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyIdle" method="_on_detection_player_spotted"]
 [connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyFollow" method="_on_detection_player_spotted"]
-[connection signal="player_spotted" from="TacticalMap/Entities/Enemies/Enemy/Detection" to="TacticalMap/Entities/Enemies/Enemy/StateMachine/EnemyAttack" method="_on_detection_player_spotted"]
