@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=26 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://PlayerShooting.gd" id="6_s2ikh"]
 [ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://bullet.tscn" id="7_uhhhq"]
 [ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://enemy.tscn" id="8_xl83u"]
+[ext_resource type="Script" path="res://ItemDetector.gd" id="9_ynhv1"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1v03i"]
@@ -3314,6 +3315,9 @@ gradient = SubResource("Gradient_wqjbh")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_erta2"]
+radius = 23.0
+
 [node name="CataX" type="Node2D"]
 
 [node name="Online" type="Node" parent="."]
@@ -3344,7 +3348,7 @@ layer_1/tile_data = PackedInt32Array()
 [node name="Entities" type="Node" parent="TacticalMap"]
 
 [node name="Player" type="CharacterBody2D" parent="TacticalMap/Entities" groups=["Players"]]
-position = Vector2(432, 35)
+position = Vector2(280, 40)
 collision_mask = 7
 motion_mode = 1
 script = ExtResource("4_6cewg")
@@ -3372,8 +3376,17 @@ script = ExtResource("6_qx7av")
 script = ExtResource("6_s2ikh")
 projectiles = NodePath("../../Projectiles")
 bullet_speed = 1000.0
-bullet_damage = 5.0
+bullet_damage = 50.0
 bullet_scene = ExtResource("7_uhhhq")
+
+[node name="ItemDetector" type="Area2D" parent="TacticalMap/Entities/Player"]
+collision_layer = 0
+collision_mask = 524288
+monitorable = false
+script = ExtResource("9_ynhv1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TacticalMap/Entities/Player/ItemDetector"]
+shape = SubResource("CircleShape2D_erta2")
 
 [node name="Enemies" type="Node" parent="TacticalMap/Entities"]
 
@@ -3407,3 +3420,5 @@ position = Vector2(400, 386)
 
 [connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
 [connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
+[connection signal="area_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_entered"]
+[connection signal="update_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_update_proximity_inventory"]

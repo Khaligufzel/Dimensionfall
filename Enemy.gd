@@ -28,6 +28,7 @@ func _get_hit(damage):
 	
 func _die():
 	var corpse = corpse_scene.instantiate()
-	$"../../../..".add_child(corpse)
+	#$"../../../..".add_child(corpse)
+	$"../../../..".call_deferred("add_child", corpse)
 	corpse.global_position = global_position
 	queue_free()

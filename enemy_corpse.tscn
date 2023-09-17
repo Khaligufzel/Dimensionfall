@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://mu6nbyuq02o5"]
+[gd_scene load_steps=7 format=3 uid="uid://mu6nbyuq02o5"]
 
 [ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://enemy.png" id="1_3y344"]
+[ext_resource type="Script" path="res://container.gd" id="1_78hy7"]
+[ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="3_ihncp"]
+[ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="4_ehn4b"]
+[ext_resource type="Script" path="res://addons/gloot/core/inventory_item.gd" id="5_60n0n"]
 
-[node name="Corpse" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oatwx"]
+size = Vector2(15, 5)
+
+[node name="Corpse" type="Node2D" groups=["Containers"]]
 scale = Vector2(0.8, 0.8)
+script = ExtResource("1_78hy7")
+inventory = NodePath("InventoryStacked")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.729412, 0, 0.137255, 1)
@@ -11,3 +20,31 @@ z_index = 1
 position = Vector2(0, 5.25)
 scale = Vector2(1, 0.34375)
 texture = ExtResource("1_3y344")
+
+[node name="InventoryStacked" type="Node" parent="."]
+script = ExtResource("3_ihncp")
+capacity = 99999.0
+item_protoset = ExtResource("4_ehn4b")
+
+[node name="_Node_77740" type="Node" parent="InventoryStacked"]
+script = ExtResource("5_60n0n")
+protoset = ExtResource("4_ehn4b")
+prototype_id = "stackable_item"
+
+[node name="_Node_77759" type="Node" parent="InventoryStacked"]
+script = ExtResource("5_60n0n")
+protoset = ExtResource("4_ehn4b")
+prototype_id = "heavy_item"
+
+[node name="_Node_77778" type="Node" parent="InventoryStacked"]
+script = ExtResource("5_60n0n")
+protoset = ExtResource("4_ehn4b")
+prototype_id = "very_heavy_item"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 524288
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-7.45058e-08, 5)
+shape = SubResource("RectangleShape2D_oatwx")

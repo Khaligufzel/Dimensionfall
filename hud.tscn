@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=13 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_a4suv"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
@@ -7,7 +7,6 @@
 [ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="3_jmlkb"]
 [ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://leftarm.png" id="3_n6hdf"]
 [ext_resource type="Texture2D" uid="uid://8pdm2gvd1v3n" path="res://leftleg.png" id="4_7ifw1"]
-[ext_resource type="Script" path="res://addons/gloot/core/inventory_item.gd" id="4_jesuw"]
 [ext_resource type="Texture2D" uid="uid://jluhejkwo85q" path="res://rightleg.png" id="5_o7eah"]
 [ext_resource type="Texture2D" uid="uid://1alnt17qsyd7" path="res://rightarm.png" id="6_r0ans"]
 [ext_resource type="Texture2D" uid="uid://t7ny2gtgqll8" path="res://head.png" id="7_xy21m"]
@@ -19,41 +18,47 @@ default_font_size = 0
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_a4suv")
-head_health = NodePath("Node2D/Head")
-right_arm_health = NodePath("Node2D/Rightarm")
-left_arm_health = NodePath("Node2D/Leftarm")
-torso_health = NodePath("Node2D/Torso")
-right_leg_health = NodePath("Node2D/Rightleg")
-left_leg_health = NodePath("Node2D/Leftleg")
+head_health = NodePath("Doll/Head")
+right_arm_health = NodePath("Doll/Rightarm")
+left_arm_health = NodePath("Doll/Leftarm")
+torso_health = NodePath("Doll/Torso")
+right_leg_health = NodePath("Doll/Rightleg")
+left_leg_health = NodePath("Doll/Leftleg")
 stamina_HUD = NodePath("StaminaLevel")
 healthy_color = Color(0, 0.635294, 0, 1)
 damaged_color = Color(0.635294, 0, 0, 1)
+proximity_inventory = NodePath("ProximityInventory")
+proximity_inventory_control = NodePath("CtrlProximityInventory")
 
-[node name="InventoryStacked" type="Node" parent="."]
+[node name="PlayerInventory" type="Node" parent="."]
 script = ExtResource("2_s76mm")
-capacity = 100.0
+capacity = 9999.0
 item_protoset = ExtResource("3_jmlkb")
 
-[node name="_Node_146522" type="Node" parent="InventoryStacked"]
-script = ExtResource("4_jesuw")
-protoset = ExtResource("3_jmlkb")
-prototype_id = "heavy_item"
+[node name="ProximityInventory" type="Node" parent="."]
+script = ExtResource("2_s76mm")
+capacity = 9999.0
+item_protoset = ExtResource("3_jmlkb")
 
-[node name="_Node_146541" type="Node" parent="InventoryStacked"]
-script = ExtResource("4_jesuw")
-protoset = ExtResource("3_jmlkb")
-prototype_id = "stackable_item"
-
-[node name="CtrlInventoryStacked" type="Control" parent="."]
-visible = false
+[node name="CtrlPlayerInventory" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 310.0
-offset_top = 74.0
-offset_right = 838.0
-offset_bottom = 560.0
+offset_left = 659.0
+offset_top = 451.0
+offset_right = 862.0
+offset_bottom = 634.0
 script = ExtResource("12_rljer")
-inventory_path = NodePath("../InventoryStacked")
+inventory_path = NodePath("../PlayerInventory")
+
+[node name="CtrlProximityInventory" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 889.0
+offset_top = 451.0
+offset_right = 1092.0
+offset_bottom = 634.0
+script = ExtResource("12_rljer")
+inventory_path = NodePath("../ProximityInventory")
 
 [node name="BloodLevel" type="Label" parent="."]
 anchors_preset = 2
@@ -105,41 +110,41 @@ theme_override_font_sizes/font_size = 49
 text = "11:20"
 vertical_alignment = 1
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Doll" type="Node2D" parent="."]
 position = Vector2(5, 125)
 scale = Vector2(0.8, 0.8)
 
-[node name="Leftarm" type="Sprite2D" parent="Node2D"]
+[node name="Leftarm" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 position = Vector2(22.75, 552.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_n6hdf")
 
-[node name="Leftleg" type="Sprite2D" parent="Node2D"]
+[node name="Leftleg" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 position = Vector2(55.75, 611.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_7ifw1")
 
-[node name="Rightleg" type="Sprite2D" parent="Node2D"]
+[node name="Rightleg" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 position = Vector2(99.75, 610.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("5_o7eah")
 
-[node name="Rightarm" type="Sprite2D" parent="Node2D"]
+[node name="Rightarm" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 position = Vector2(118.75, 547.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("6_r0ans")
 
-[node name="Head" type="Sprite2D" parent="Node2D"]
+[node name="Head" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 position = Vector2(59.75, 498.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("7_xy21m")
 
-[node name="Torso" type="Sprite2D" parent="Node2D"]
+[node name="Torso" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 z_index = -1
 position = Vector2(72.75, 549.375)

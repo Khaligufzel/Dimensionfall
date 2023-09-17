@@ -12,6 +12,9 @@ extends CanvasLayer
 @export var healthy_color: Color
 @export var damaged_color: Color
 
+@export var proximity_inventory: NodePath
+@export var proximity_inventory_control: NodePath
+
 
 func test():
 	print("TESTING 123 123!")
@@ -40,3 +43,12 @@ func _on_player_update_doll(head, right_arm, left_arm, torso, right_leg, left_le
 
 func _on_player_update_stamina_hud(stamina):
 	get_node(stamina_HUD).text = str(round(stamina)) + "%"
+
+
+func _on_item_detector_update_proximity_inventory(items):
+	var duplicated_items = items.duplicate()
+	
+	for item in duplicated_items:
+		item.get_parent().remove_child(item)
+		get_node(proximity_inventory).add_child(item)
+	#get_node(proximity_inventory_control).refresh()
