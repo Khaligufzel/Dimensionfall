@@ -26,13 +26,13 @@ func _process(delta):
 func _physics_process(delta):
 	var space_state = get_world_2d().direct_space_state
 	# TO-DO Change playerCol to group of players
-	var query = PhysicsRayQueryParameters2D.create(global_position, playerCol.global_position, pow(2, 1-1) + pow(2, 3-1),[self])
+	var query = PhysicsRayQueryParameters2D.create(global_position, get_tree().get_first_node_in_group("Players").global_position, pow(2, 1-1) + pow(2, 3-1),[self])
 
 	var result = space_state.intersect_ray(query)
 	
 	if result:
 		
-		if result.collider.is_in_group("Players") && Vector2(global_position).distance_to(playerCol.global_position) <= sightRange:
+		if result.collider.is_in_group("Players") && Vector2(global_position).distance_to(get_tree().get_first_node_in_group("Players").global_position) <= sightRange:
 			player_spotted.emit(result.collider)
 
 	
