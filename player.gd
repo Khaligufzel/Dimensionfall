@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 signal update_doll
 
+signal update_stamina_HUD
+
 var is_alive = true
 
 var rng = RandomNumberGenerator.new()
@@ -28,7 +30,7 @@ var current_right_leg_health
 var stamina = 100
 var current_stamina
 var stamina_lost_while_running_persec = 10
-var stamina_regen_while_standing_still = 10
+var stamina_regen_while_standing_still = 5
 
 var hunger = 0
 var current_hunger
@@ -75,6 +77,7 @@ func _physics_process(delta):
 				current_stamina = stamina
 			
 		print(current_stamina)
+		update_stamina_HUD.emit(current_stamina)
 
 func _input(event):
 	if event.is_action_pressed("run"):

@@ -7,6 +7,8 @@ extends CanvasLayer
 @export var right_leg_health: NodePath
 @export var left_leg_health: NodePath
 
+@export var stamina_HUD: NodePath
+
 @export var healthy_color: Color
 @export var damaged_color: Color
 var current_color
@@ -14,9 +16,6 @@ var current_color
 
 func test():
 	print("TESTING 123 123!")
-
-func update_doll():
-	pass
 
 
 # Called when the node enters the scene tree for the first time.
@@ -38,3 +37,7 @@ func _on_player_update_doll(head, right_arm, left_arm, torso, right_leg, left_le
 	get_node(right_leg_health).modulate = lerp(damaged_color, healthy_color, right_leg/100)
 	get_node(left_leg_health).modulate = lerp(damaged_color, healthy_color, left_leg/100)
 
+
+
+func _on_player_update_stamina_hud(stamina):
+	get_node(stamina_HUD).text = str(stamina) + "%"

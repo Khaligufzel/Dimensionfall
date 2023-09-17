@@ -3406,3 +3406,4 @@ position = Vector2(400, 386)
 [node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
 
 [connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
+[connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
