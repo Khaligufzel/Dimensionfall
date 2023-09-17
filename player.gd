@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 signal update_doll
 
+var is_alive = true
+
 var rng = RandomNumberGenerator.new()
 
 var speed = 100  # speed in pixels/sec
@@ -46,10 +48,11 @@ func _ready():
 	
 
 func _physics_process(delta):
-	var direction = Input.get_vector("left", "right", "up", "down")
-	velocity = direction * speed
+	if is_alive:
+		var direction = Input.get_vector("left", "right", "up", "down")
+		velocity = direction * speed
 
-	move_and_slide()
+		move_and_slide()
 	
 
 func _get_hit(damage: float):
@@ -108,6 +111,7 @@ func check_if_alive():
 
 func die():
 	print("Player died")
+	is_alive = false
 	
 func transfer_damage_to_torso(damage: float):
 	current_torso_health -= damage
