@@ -40,4 +40,4 @@ func _on_player_update_doll(head, right_arm, left_arm, torso, right_leg, left_le
 
 
 func _on_player_update_stamina_hud(stamina):
-	get_node(stamina_HUD).text = str(stamina) + "%"
+	get_node(stamina_HUD).text = str(round(stamina)) + "%"
