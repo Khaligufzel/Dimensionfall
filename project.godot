@@ -18,6 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
+GLoot="*res://addons/gloot/gloot_autoload.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gloot/plugin.cfg")
 
 [input]
 

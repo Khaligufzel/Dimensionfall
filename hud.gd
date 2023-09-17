@@ -11,7 +11,6 @@ extends CanvasLayer
 
 @export var healthy_color: Color
 @export var damaged_color: Color
-var current_color
 
 
 func test():
