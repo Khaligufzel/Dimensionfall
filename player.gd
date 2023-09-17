@@ -58,15 +58,57 @@ func _get_hit(damage: float):
 	match limb_number:
 		0:
 			current_head_health -= damage
+			if current_head_health <= 0:
+				current_head_health = 0
+				check_if_alive()
 		1:
-			current_right_arm_health -= damage
+			if current_right_arm_health <= 0:
+				transfer_damage_to_torso(damage)
+			else: 
+				current_right_arm_health -= damage
+				if current_right_arm_health < 0:
+					current_right_arm_health = 0
 		2:
-			current_left_arm_health -= damage
+			if current_left_arm_health <= 0:
+				transfer_damage_to_torso(damage)
+			else: 
+				current_left_arm_health -= damage
+				if current_left_arm_health < 0:
+					current_left_arm_health = 0
 		3:
 			current_torso_health -= damage
+			if current_torso_health <= 0:
+				current_torso_health = 0
+				check_if_alive()
 		4:
-			current_right_leg_health -= damage
+			if current_right_leg_health <= 0:
+				transfer_damage_to_torso(damage)
+			else: 
+				current_right_leg_health -= damage
+				if current_right_leg_health < 0:
+					current_right_leg_health = 0
 		5:
-			current_left_leg_health -= damage
+			if current_left_leg_health <= 0:
+				transfer_damage_to_torso(damage)
+			else: 
+				current_left_leg_health -= damage
+				if current_left_leg_health < 0:
+					current_left_leg_health = 0
 			
 	update_doll.emit(current_head_health, current_right_arm_health, current_left_arm_health, current_torso_health, current_right_leg_health, current_left_leg_health)
+
+func check_if_alive():
+	if current_torso_health <= 0:
+		current_torso_health = 0
+		die()
+	elif current_head_health <= 0:
+		current_head_health = 0
+		die()
+
+
+func die():
+	print("Player died")
+	
+func transfer_damage_to_torso(damage: float):
+	current_torso_health -= damage
+	check_if_alive()
