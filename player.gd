@@ -9,6 +9,9 @@ var rng = RandomNumberGenerator.new()
 var speed = 100  # speed in pixels/sec
 var current_speed
 
+var run_multiplier = 1.5
+var is_running = false
+
 var left_arm_health = 100
 var current_left_arm_health
 var right_arm_health = 100
@@ -49,11 +52,20 @@ func _ready():
 
 func _physics_process(delta):
 	if is_alive:
-		var direction = Input.get_vector("left", "right", "up", "down")
-		velocity = direction * speed
+		if !is_running:
+			var direction = Input.get_vector("left", "right", "up", "down")
+			velocity = direction * speed
+			move_and_slide()
+		else:
+			var direction = Input.get_vector("left", "right", "up", "down")
+			velocity = direction * speed * run_multiplier
+			move_and_slide()
 
-		move_and_slide()
-	
+func _input(event):
+	if event.is_action_pressed("run"):
+		is_running = true
+	if event.is_action_released("run"):
+		is_running = false
 
 func _get_hit(damage: float):
 	var limb_number = rng.randi_range(0,5)
