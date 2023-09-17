@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqfuld2dncupw"]
+
+[ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="1_0y4k6"]
+[ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="2_5nmct"]
+[ext_resource type="Script" path="res://addons/gloot/core/inventory_item.gd" id="3_8bv1a"]
+
+[node name="InventoryStacked" type="Node"]
+script = ExtResource("1_0y4k6")
+capacity = 100.0
+item_protoset = ExtResource("2_5nmct")
+
+[node name="_Node_146522" type="Node" parent="."]
+script = ExtResource("3_8bv1a")
+protoset = ExtResource("2_5nmct")
+prototype_id = "heavy_item"
+
+[node name="_Node_146541" type="Node" parent="."]
+script = ExtResource("3_8bv1a")
+protoset = ExtResource("2_5nmct")
+prototype_id = "stackable_item"

@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2r6nh12wv41k"]
+[gd_scene load_steps=12 format=3 uid="uid://b2r6nh12wv41k"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_mnj1h"]
 [ext_resource type="Script" path="res://StateMachine.gd" id="2_cl71x"]
+[ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://enemy_corpse.tscn" id="2_vyld4"]
 [ext_resource type="Script" path="res://EnemyAttack.gd" id="3_0crll"]
 [ext_resource type="Script" path="res://EnemyIdle.gd" id="4_2ojaf"]
 [ext_resource type="Script" path="res://EnemyFollow.gd" id="5_bepab"]
@@ -27,6 +28,7 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_mnj1h")
 sprite = NodePath("Sprite2D")
 stats = NodePath("EnemyStats")
+corpse_scene = ExtResource("2_vyld4")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_cl71x")

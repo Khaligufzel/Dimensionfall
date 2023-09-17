@@ -1,13 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=14 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_a4suv"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Texture2D" uid="uid://c1begynwustlp" path="res://torso.png" id="2_nwktq"]
+[ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="2_s76mm"]
+[ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="3_jmlkb"]
 [ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://leftarm.png" id="3_n6hdf"]
 [ext_resource type="Texture2D" uid="uid://8pdm2gvd1v3n" path="res://leftleg.png" id="4_7ifw1"]
+[ext_resource type="Script" path="res://addons/gloot/core/inventory_item.gd" id="4_jesuw"]
 [ext_resource type="Texture2D" uid="uid://jluhejkwo85q" path="res://rightleg.png" id="5_o7eah"]
 [ext_resource type="Texture2D" uid="uid://1alnt17qsyd7" path="res://rightarm.png" id="6_r0ans"]
 [ext_resource type="Texture2D" uid="uid://t7ny2gtgqll8" path="res://head.png" id="7_xy21m"]
+[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_stacked.gd" id="12_rljer"]
 
 [sub_resource type="Theme" id="Theme_xn5t2"]
 default_font = ExtResource("1_pxloi")
@@ -24,6 +28,32 @@ left_leg_health = NodePath("Node2D/Leftleg")
 stamina_HUD = NodePath("StaminaLevel")
 healthy_color = Color(0, 0.635294, 0, 1)
 damaged_color = Color(0.635294, 0, 0, 1)
+
+[node name="InventoryStacked" type="Node" parent="."]
+script = ExtResource("2_s76mm")
+capacity = 100.0
+item_protoset = ExtResource("3_jmlkb")
+
+[node name="_Node_146522" type="Node" parent="InventoryStacked"]
+script = ExtResource("4_jesuw")
+protoset = ExtResource("3_jmlkb")
+prototype_id = "heavy_item"
+
+[node name="_Node_146541" type="Node" parent="InventoryStacked"]
+script = ExtResource("4_jesuw")
+protoset = ExtResource("3_jmlkb")
+prototype_id = "stackable_item"
+
+[node name="CtrlInventoryStacked" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 310.0
+offset_top = 74.0
+offset_right = 838.0
+offset_bottom = 560.0
+script = ExtResource("12_rljer")
+inventory_path = NodePath("../InventoryStacked")
 
 [node name="BloodLevel" type="Label" parent="."]
 anchors_preset = 2

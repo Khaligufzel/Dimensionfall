@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://mu6nbyuq02o5"]
+
+[ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://enemy.png" id="1_3y344"]
+
+[node name="Corpse" type="Node2D"]
+scale = Vector2(0.8, 0.8)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.729412, 0, 0.137255, 1)
+z_index = 1
+position = Vector2(0, 5.25)
+scale = Vector2(1, 0.34375)
+texture = ExtResource("1_3y344")

@@ -76,7 +76,6 @@ func _physics_process(delta):
 			if current_stamina > stamina:
 				current_stamina = stamina
 			
-		print(current_stamina)
 		update_stamina_HUD.emit(current_stamina)
 
 func _input(event):

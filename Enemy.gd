@@ -5,6 +5,11 @@ var original_scale
 
 @export var sprite: NodePath
 @export var stats: NodePath
+
+@export var corpse_scene: PackedScene
+
+@export var root: NodePath
+
 @onready var nav_agent := $NavigationAgent2D  as NavigationAgent2D
 
 func _ready():
@@ -22,4 +27,7 @@ func _get_hit(damage):
 		_die()
 	
 func _die():
+	var corpse = corpse_scene.instantiate()
+	$"../../../..".add_child(corpse)
+	corpse.global_position = global_position
 	queue_free()

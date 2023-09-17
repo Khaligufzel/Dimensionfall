@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://bvrl0obu5ejqq"]
+
+[ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
+
+[resource]
+script = ExtResource("1_o35lu")
+json_data = "[
+    {
+        \"id\": \"stackable_item\",
+        \"stack_size\": 10
+    },
+    {
+        \"id\": \"heavy_item\",
+        \"weight\": 20.0
+    },
+    {
+        \"id\": \"very_heavy_item\",
+        \"stack_size\": 10,
+        \"weight\": 20.0
+    }
+]"
