@@ -27,6 +27,8 @@ var current_right_leg_health
 
 var stamina = 100
 var current_stamina
+var stamina_lost_while_running_persec = 10
+var stamina_regen_while_standing_still = 10
 
 var hunger = 0
 var current_hunger
@@ -49,17 +51,30 @@ func _ready():
 	current_head_health = head_health
 	current_torso_health = torso_health
 	
+	current_stamina = stamina
+	
 
 func _physics_process(delta):
 	if is_alive:
-		if !is_running:
+		if !is_running || current_stamina <= 0:
 			var direction = Input.get_vector("left", "right", "up", "down")
 			velocity = direction * speed
 			move_and_slide()
-		else:
+		elif is_running && current_stamina > 0:
 			var direction = Input.get_vector("left", "right", "up", "down")
 			velocity = direction * speed * run_multiplier
+			
+			if velocity.length() > 0:
+				current_stamina -= delta * stamina_lost_while_running_persec
+			
 			move_and_slide()
+			
+		if velocity.length() < 0.1:
+			current_stamina += delta * stamina_regen_while_standing_still
+			if current_stamina > stamina:
+				current_stamina = stamina
+			
+		print(current_stamina)
 
 func _input(event):
 	if event.is_action_pressed("run"):

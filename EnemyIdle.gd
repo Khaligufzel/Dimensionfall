@@ -44,7 +44,7 @@ func _on_detection_player_spotted(player):
 
 func makepath() -> void:
 	nav_agent.target_position = target_location
-	print(nav_agent.target_position)
+	#print(nav_agent.target_position)
 
 func _on_moving_cooldown_timeout():
 	
