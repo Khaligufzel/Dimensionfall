@@ -30,12 +30,6 @@ func _process(delta):
 
 
 func _on_player_update_doll(head, right_arm, left_arm, torso, right_leg, left_leg):
-#	head_health = head
-#	right_arm_health = right_arm
-#	left_arm_health = left_arm
-#	torso_health = torso
-#	right_leg_health = right_leg
-#	left_leg_health = left_leg
 	
 	get_node(head_health).modulate = lerp(damaged_color, healthy_color, head/100)
 	get_node(right_arm_health).modulate = lerp(damaged_color, healthy_color, right_arm/100)
