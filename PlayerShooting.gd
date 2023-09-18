@@ -8,7 +8,7 @@ extends Node2D
 
 
 func _input(event):
-	if event.is_action_pressed("click"):
+	if event.is_action_pressed("click") && General.is_mouse_outside_HUD:
 		var bullet = bullet_scene.instantiate()
 		bullet.speed = bullet_speed
 		bullet.damage = bullet_damage

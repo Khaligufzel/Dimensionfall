@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=15 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_a4suv"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://t7ny2gtgqll8" path="res://head.png" id="7_xy21m"]
 [ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_grid_ex.gd" id="11_m0x1l"]
 [ext_resource type="Texture2D" uid="uid://cwmsngeoc631h" path="res://Screenshot_167.png" id="13_cwu3g"]
+[ext_resource type="Script" path="res://NonHUDclick.gd" id="13_kqg34"]
 
 [sub_resource type="Theme" id="Theme_xn5t2"]
 default_font = ExtResource("1_pxloi")
@@ -30,6 +31,13 @@ healthy_color = Color(0, 0.635294, 0, 1)
 damaged_color = Color(0.635294, 0, 0, 1)
 proximity_inventory = NodePath("InventoryGridStackedProx")
 proximity_inventory_control = NodePath("CtrlInventoryGridExProx")
+
+[node name="OutsideOfHUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("13_kqg34")
 
 [node name="BloodLevel" type="Label" parent="."]
 anchors_preset = 2
@@ -165,3 +173,23 @@ script = ExtResource("11_m0x1l")
 field_dimensions = Vector2(8, 8)
 inventory_path = NodePath("../InventoryGridStackedProx")
 default_item_texture = ExtResource("13_cwu3g")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_right = 186.0
+offset_bottom = 33.0
+columns = 4
+
+[node name="Button" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Brick"
+
+[node name="Button2" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Wood"
+
+[node name="Button3" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Cement"
+
+[connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_exited"]
