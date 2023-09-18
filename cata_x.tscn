@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=46 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://enemy.tscn" id="8_xl83u"]
 [ext_resource type="Script" path="res://ItemDetector.gd" id="9_ynhv1"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
+[ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Just in Reach of Sirens.mp3" id="17_funts"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1v03i"]
 
@@ -5123,6 +5124,11 @@ position = Vector2(533, 428)
 [node name="Projectiles" type="Node" parent="TacticalMap/Entities"]
 
 [node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_funts")
+volume_db = -20.15
+autoplay = true
 
 [connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
 [connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
