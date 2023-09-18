@@ -5,6 +5,7 @@ signal update_doll
 signal update_stamina_HUD
 
 @export var animation_player: NodePath
+@export var sprite: NodePath
 
 var is_alive = true
 
@@ -83,6 +84,11 @@ func _physics_process(delta):
 			if current_stamina > stamina:
 				current_stamina = stamina
 			
+		
+		if velocity.x > 0:
+			get_node(sprite).flip_h = true
+		elif velocity.x < 0:
+			get_node(sprite).flip_h = false
 		update_stamina_HUD.emit(current_stamina)
 
 
