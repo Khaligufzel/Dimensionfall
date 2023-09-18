@@ -48,11 +48,12 @@ func _on_player_update_stamina_hud(stamina):
 
 
 func _on_item_detector_add_to_proximity_inventory(items):
-	var duplicated_items = items.duplicate()
+	var duplicated_items = items
 	
 	for item in duplicated_items:
-		item.get_parent().remove_child(item)
-		get_node(proximity_inventory).add_child(item)
+		var duplicated_item = item.duplicate()
+		#duplicated_item.get_parent().remove_child(item)
+		get_node(proximity_inventory).add_child(duplicated_item)
 
 	#get_node(proximity_inventory_control).refresh()
 
@@ -62,7 +63,12 @@ func _on_item_detector_remove_from_proximity_inventory(items):
 #		print("test")
 #		if prox_item in items:
 #			prox_item.queue_free()
-	pass
+
+	for prox_item in get_node(proximity_inventory).get_children():
+		for item in items:
+			if item.get_property("assigned_id") == prox_item.get_property("assigned_id"):
+				prox_item.queue_free()
+
 			
 	
 
