@@ -11,7 +11,7 @@ var is_alive = true
 
 var rng = RandomNumberGenerator.new()
 
-var speed = 100  # speed in pixels/sec
+var speed = 50  # speed in pixels/sec
 var current_speed
 
 var run_multiplier = 1.5
