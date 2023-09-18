@@ -16,7 +16,6 @@ func _ready():
 	original_scale = get_node(sprite).scale
 	
 func _get_hit(damage):
-	print("Ouch!")
 	
 	tween = create_tween()
 	tween.tween_property(get_node(sprite), "scale", get_node(sprite).scale * 1.35, 0.1)

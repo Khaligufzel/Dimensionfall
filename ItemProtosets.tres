@@ -16,7 +16,6 @@ json_data = "[
         \"weight\": 20
     },
     {
-        \"assigned_id\": \"0\",
         \"id\": \"very_heavy_item\",
         \"stack_size\": 10,
         \"weight\": 20

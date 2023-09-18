@@ -41,21 +41,27 @@ item_protoset = ExtResource("3_jmlkb")
 
 [node name="CtrlPlayerInventory" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 659.0
-offset_top = 451.0
-offset_right = 862.0
-offset_bottom = 634.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 387.0
+offset_top = -193.0
+offset_right = 590.0
+offset_bottom = -10.0
+grow_vertical = 0
 script = ExtResource("12_rljer")
 inventory_path = NodePath("../PlayerInventory")
 
 [node name="CtrlProximityInventory" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 889.0
-offset_top = 451.0
-offset_right = 1092.0
-offset_bottom = 634.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 601.0
+offset_top = -193.0
+offset_right = 804.0
+offset_bottom = -10.0
+grow_vertical = 0
 script = ExtResource("12_rljer")
 progress_bar_visible = false
 inventory_path = NodePath("../ProximityInventory")
@@ -110,43 +116,47 @@ theme_override_font_sizes/font_size = 49
 text = "11:20"
 vertical_alignment = 1
 
-[node name="Doll" type="Node2D" parent="."]
-position = Vector2(5, 125)
+[node name="Doll" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
 scale = Vector2(0.8, 0.8)
 
 [node name="Leftarm" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
-position = Vector2(22.75, 552.375)
+position = Vector2(35.25, -110.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_n6hdf")
 
 [node name="Leftleg" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
-position = Vector2(55.75, 611.375)
+position = Vector2(68.25, -51.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_7ifw1")
 
 [node name="Rightleg" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
-position = Vector2(99.75, 610.375)
+position = Vector2(112.25, -52.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("5_o7eah")
 
 [node name="Rightarm" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
-position = Vector2(118.75, 547.375)
+position = Vector2(131.25, -115.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("6_r0ans")
 
 [node name="Head" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
-position = Vector2(59.75, 498.375)
+position = Vector2(72.25, -164.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("7_xy21m")
 
 [node name="Torso" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 z_index = -1
-position = Vector2(72.75, 549.375)
+position = Vector2(85.25, -113.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_nwktq")

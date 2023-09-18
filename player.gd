@@ -4,6 +4,8 @@ signal update_doll
 
 signal update_stamina_HUD
 
+@export var animation_player: NodePath
+
 var is_alive = true
 
 var rng = RandomNumberGenerator.new()
@@ -61,12 +63,17 @@ func _physics_process(delta):
 		if !is_running || current_stamina <= 0:
 			var direction = Input.get_vector("left", "right", "up", "down")
 			velocity = direction * speed
+			if velocity.length() > 0.1:
+				get_node(animation_player).play("player_walking")
+			else:
+				get_node(animation_player).stop()
 			move_and_slide()
 		elif is_running && current_stamina > 0:
 			var direction = Input.get_vector("left", "right", "up", "down")
 			velocity = direction * speed * run_multiplier
 			
 			if velocity.length() > 0:
+				get_node(animation_player).play("player_running")
 				current_stamina -= delta * stamina_lost_while_running_persec
 			
 			move_and_slide()
@@ -77,6 +84,7 @@ func _physics_process(delta):
 				current_stamina = stamina
 			
 		update_stamina_HUD.emit(current_stamina)
+
 
 func _input(event):
 	if event.is_action_pressed("run"):
