@@ -3373,7 +3373,7 @@ navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_cw4pv")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_loyyg"]
-size = Vector2(16, 16)
+size = Vector2(10, 12.5)
 
 [sub_resource type="Animation" id="Animation_5g7yq"]
 resource_name = "player_walking"

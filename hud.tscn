@@ -1,16 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=14 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_a4suv"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Texture2D" uid="uid://c1begynwustlp" path="res://torso.png" id="2_nwktq"]
-[ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="2_s76mm"]
+[ext_resource type="Script" path="res://addons/gloot/core/inventory_grid_stacked.gd" id="2_pq7em"]
 [ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="3_jmlkb"]
 [ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://leftarm.png" id="3_n6hdf"]
 [ext_resource type="Texture2D" uid="uid://8pdm2gvd1v3n" path="res://leftleg.png" id="4_7ifw1"]
 [ext_resource type="Texture2D" uid="uid://jluhejkwo85q" path="res://rightleg.png" id="5_o7eah"]
 [ext_resource type="Texture2D" uid="uid://1alnt17qsyd7" path="res://rightarm.png" id="6_r0ans"]
 [ext_resource type="Texture2D" uid="uid://t7ny2gtgqll8" path="res://head.png" id="7_xy21m"]
-[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_stacked.gd" id="12_rljer"]
+[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_grid_ex.gd" id="11_m0x1l"]
+[ext_resource type="Texture2D" uid="uid://cwmsngeoc631h" path="res://Screenshot_167.png" id="13_cwu3g"]
 
 [sub_resource type="Theme" id="Theme_xn5t2"]
 default_font = ExtResource("1_pxloi")
@@ -27,44 +28,8 @@ left_leg_health = NodePath("Doll/Leftleg")
 stamina_HUD = NodePath("StaminaLevel")
 healthy_color = Color(0, 0.635294, 0, 1)
 damaged_color = Color(0.635294, 0, 0, 1)
-proximity_inventory = NodePath("ProximityInventory")
-proximity_inventory_control = NodePath("CtrlProximityInventory")
-
-[node name="PlayerInventory" type="Node" parent="."]
-script = ExtResource("2_s76mm")
-capacity = 9999.0
-item_protoset = ExtResource("3_jmlkb")
-
-[node name="ProximityInventory" type="Node" parent="."]
-script = ExtResource("2_s76mm")
-item_protoset = ExtResource("3_jmlkb")
-
-[node name="CtrlPlayerInventory" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 387.0
-offset_top = -193.0
-offset_right = 590.0
-offset_bottom = -10.0
-grow_vertical = 0
-script = ExtResource("12_rljer")
-inventory_path = NodePath("../PlayerInventory")
-
-[node name="CtrlProximityInventory" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 601.0
-offset_top = -193.0
-offset_right = 804.0
-offset_bottom = -10.0
-grow_vertical = 0
-script = ExtResource("12_rljer")
-progress_bar_visible = false
-inventory_path = NodePath("../ProximityInventory")
+proximity_inventory = NodePath("InventoryGridStackedProx")
+proximity_inventory_control = NodePath("CtrlInventoryGridExProx")
 
 [node name="BloodLevel" type="Label" parent="."]
 anchors_preset = 2
@@ -160,3 +125,43 @@ z_index = -1
 position = Vector2(85.25, -113.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_nwktq")
+
+[node name="InventoryGridStacked" type="Node" parent="."]
+script = ExtResource("2_pq7em")
+item_protoset = ExtResource("3_jmlkb")
+
+[node name="InventoryGridStackedProx" type="Node" parent="."]
+script = ExtResource("2_pq7em")
+size = Vector2i(30, 10)
+item_protoset = ExtResource("3_jmlkb")
+
+[node name="CtrlInventoryGridEx" type="Control" parent="."]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 383.0
+offset_top = -160.0
+offset_right = 543.0
+grow_vertical = 0
+script = ExtResource("11_m0x1l")
+field_dimensions = Vector2(16, 16)
+selection_color = Color(0.745098, 0.745098, 0.745098, 0.941176)
+inventory_path = NodePath("../InventoryGridStacked")
+default_item_texture = ExtResource("13_cwu3g")
+
+[node name="CtrlInventoryGridExProx" type="Control" parent="."]
+custom_minimum_size = Vector2(240, 80)
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 554.0
+offset_top = -80.0
+offset_right = 794.0
+grow_vertical = 0
+script = ExtResource("11_m0x1l")
+field_dimensions = Vector2(8, 8)
+inventory_path = NodePath("../InventoryGridStackedProx")
+default_item_texture = ExtResource("13_cwu3g")
