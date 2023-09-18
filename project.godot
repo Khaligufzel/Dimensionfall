@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 GLoot="*res://addons/gloot/gloot_autoload.gd"
+ItemManager="*res://item_manager.gd"
 
 [editor_plugins]
 

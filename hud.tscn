@@ -37,7 +37,6 @@ item_protoset = ExtResource("3_jmlkb")
 
 [node name="ProximityInventory" type="Node" parent="."]
 script = ExtResource("2_s76mm")
-capacity = 9999.0
 item_protoset = ExtResource("3_jmlkb")
 
 [node name="CtrlPlayerInventory" type="Control" parent="."]
@@ -58,6 +57,7 @@ offset_top = 451.0
 offset_right = 1092.0
 offset_bottom = 634.0
 script = ExtResource("12_rljer")
+progress_bar_visible = false
 inventory_path = NodePath("../ProximityInventory")
 
 [node name="BloodLevel" type="Label" parent="."]

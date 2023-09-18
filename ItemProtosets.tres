@@ -6,16 +6,19 @@
 script = ExtResource("1_o35lu")
 json_data = "[
     {
+        \"assigned_id\": \"0\",
         \"id\": \"stackable_item\",
         \"stack_size\": 10
     },
     {
+        \"assigned_id\": \"0\",
         \"id\": \"heavy_item\",
-        \"weight\": 20.0
+        \"weight\": 20
     },
     {
+        \"assigned_id\": \"0\",
         \"id\": \"very_heavy_item\",
         \"stack_size\": 10,
-        \"weight\": 20.0
+        \"weight\": 20
     }
 ]"
