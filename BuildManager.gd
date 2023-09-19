@@ -19,13 +19,16 @@ func _ready():
 func _process(delta):
 	if is_building:
 		ghost_sprite.visible = true
-		#ghost_sprite.global_position = get_global_mouse_position()
 		ghost_sprite.global_position = get_global_mouse_position()
-		#ghost_sprite.global_position = tile_map.map_to_local()
+
 
 func _input(event):
-	if Input.is_action_pressed("click"):
+	if Input.is_action_pressed("click") && is_building:
 		tile_map.set_cell(0, tile_map.local_to_map(get_global_mouse_position()), 0, Vector2i(9,3))
+	if Input.is_action_pressed("right_click") && is_building:
+		is_building = false
+		General.is_allowed_to_shoot = true
+		ghost_sprite.visible = false
 
 func make_tile_ghost():
 	pass
@@ -33,3 +36,4 @@ func make_tile_ghost():
 func _on_hud_construction_chosen(construction: String):
 	print("Building test")
 	is_building = true
+	General.is_allowed_to_shoot = false
