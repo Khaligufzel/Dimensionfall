@@ -15,10 +15,27 @@ extends CanvasLayer
 @export var proximity_inventory: NodePath
 @export var proximity_inventory_control: NodePath
 
+@export var building_menu: NodePath
+
+var is_building_menu_open = false
+
 
 func test():
 	print("TESTING 123 123!")
 
+
+func _input(event):
+	if event.is_action_pressed("build_menu"):
+		print("Build menu")
+		if is_building_menu_open:
+			print("Build menu should close")
+			is_building_menu_open = false
+			get_node(building_menu).set_visible(false)
+		else:
+			print("Build menu should open")
+			is_building_menu_open = true
+			get_node(building_menu).set_visible(true)
+		
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

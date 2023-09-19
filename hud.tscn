@@ -31,6 +31,7 @@ healthy_color = Color(0, 0.635294, 0, 1)
 damaged_color = Color(0.635294, 0, 0, 1)
 proximity_inventory = NodePath("InventoryGridStackedProx")
 proximity_inventory_control = NodePath("CtrlInventoryGridExProx")
+building_menu = NodePath("BuildingMenu")
 
 [node name="OutsideOfHUD" type="Control" parent="."]
 layout_mode = 3
@@ -174,20 +175,20 @@ field_dimensions = Vector2(8, 8)
 inventory_path = NodePath("../InventoryGridStackedProx")
 default_item_texture = ExtResource("13_cwu3g")
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="BuildingMenu" type="GridContainer" parent="."]
 offset_right = 186.0
 offset_bottom = 33.0
 columns = 4
 
-[node name="Button" type="Button" parent="GridContainer"]
+[node name="Button" type="Button" parent="BuildingMenu"]
 layout_mode = 2
 text = "Brick"
 
-[node name="Button2" type="Button" parent="GridContainer"]
+[node name="Button2" type="Button" parent="BuildingMenu"]
 layout_mode = 2
 text = "Wood"
 
-[node name="Button3" type="Button" parent="GridContainer"]
+[node name="Button3" type="Button" parent="BuildingMenu"]
 layout_mode = 2
 text = "Cement"
 
