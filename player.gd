@@ -152,6 +152,20 @@ func check_if_alive():
 		die()
 
 
+func check_if_visible(target_position: Vector2):
+	
+	var space_state = get_world_2d().direct_space_state
+	# TO-DO Change playerCol to group of players
+	var query = PhysicsRayQueryParameters2D.create(global_position, target_position, pow(2, 1-1) + pow(2, 3-1) + pow(2, 2-1),[self])
+	var result = space_state.intersect_ray(query)
+	
+	if result:
+		print("I see something!")
+		return false
+	else:
+		print("I see nothing!")
+		return true
+
 func die():
 	print("Player died")
 	is_alive = false

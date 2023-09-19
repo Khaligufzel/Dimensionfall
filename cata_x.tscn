@@ -5066,6 +5066,7 @@ layer_1/tile_data = PackedInt32Array()
 script = ExtResource("9_6pclo")
 tile_map_path = NodePath("../TileMap")
 ghost_sprite_path = NodePath("Ghost")
+player_path = NodePath("../Entities/Player")
 
 [node name="Ghost" type="Sprite2D" parent="TacticalMap/BuildManager"]
 texture = ExtResource("10_taif1")
