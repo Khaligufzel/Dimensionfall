@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=49 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://dssie8asguen8" path="res://kenney_roguelike-modern-city/Tiles/tile_0000.png" id="10_taif1"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
 [ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Just in Reach of Sirens.mp3" id="17_funts"]
+[ext_resource type="PackedScene" uid="uid://d1bocfddhsc3w" path="res://door.tscn" id="20_ms3nc"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1v03i"]
 
@@ -5158,6 +5159,14 @@ position = Vector2(533, 428)
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_funts")
 volume_db = -20.15
+
+[node name="Door" parent="." instance=ExtResource("20_ms3nc")]
+z_index = 1
+position = Vector2(505, 186)
+
+[node name="Door2" parent="." instance=ExtResource("20_ms3nc")]
+z_index = 1
+position = Vector2(761, 314)
 
 [connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
 [connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
