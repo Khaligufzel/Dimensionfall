@@ -19,6 +19,8 @@ extends CanvasLayer
 
 var is_building_menu_open = false
 
+signal construction_chosen
+
 
 func test():
 	print("TESTING 123 123!")
@@ -28,11 +30,9 @@ func _input(event):
 	if event.is_action_pressed("build_menu"):
 		print("Build menu")
 		if is_building_menu_open:
-			print("Build menu should close")
 			is_building_menu_open = false
 			get_node(building_menu).set_visible(false)
 		else:
-			print("Build menu should open")
 			is_building_menu_open = true
 			get_node(building_menu).set_visible(true)
 		
@@ -86,7 +86,6 @@ func _on_item_detector_remove_from_proximity_inventory(items):
 			if item.get_property("assigned_id") == prox_item.get_property("assigned_id"):
 				prox_item.queue_free()
 
-			
-	
 
-		
+func _on_concrete_button_down():
+	construction_chosen.emit("concrete_wall")
