@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=50 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://ItemDetector.gd" id="9_ynhv1"]
 [ext_resource type="Texture2D" uid="uid://dssie8asguen8" path="res://kenney_roguelike-modern-city/Tiles/tile_0000.png" id="10_taif1"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
+[ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="17_1aft6"]
 [ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Just in Reach of Sirens.mp3" id="17_funts"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1v03i"]
@@ -3566,7 +3567,7 @@ script = ExtResource("1_lng26")
 [node name="Client" type="Node" parent="Online"]
 script = ExtResource("2_5yos2")
 
-[node name="TacticalMap" type="Node" parent="."]
+[node name="TacticalMap" type="Node2D" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="TacticalMap"]
 
@@ -3594,7 +3595,7 @@ player_path = NodePath("../Entities/Player")
 [node name="Ghost" type="Sprite2D" parent="TacticalMap/BuildManager"]
 texture = ExtResource("10_taif1")
 
-[node name="Entities" type="Node" parent="TacticalMap"]
+[node name="Entities" type="Node2D" parent="TacticalMap"]
 
 [node name="Player" type="CharacterBody2D" parent="TacticalMap/Entities" groups=["Players"]]
 position = Vector2(280, 40)
@@ -3635,6 +3636,7 @@ projectiles = NodePath("../../Projectiles")
 bullet_speed = 1000.0
 bullet_damage = 50.0
 bullet_scene = ExtResource("7_uhhhq")
+bullet_line_scene = ExtResource("17_1aft6")
 
 [node name="ItemDetector" type="Area2D" parent="TacticalMap/Entities/Player"]
 collision_layer = 0
@@ -3645,7 +3647,7 @@ script = ExtResource("9_ynhv1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TacticalMap/Entities/Player/ItemDetector"]
 shape = SubResource("CircleShape2D_erta2")
 
-[node name="Enemies" type="Node" parent="TacticalMap/Entities"]
+[node name="Enemies" type="Node2D" parent="TacticalMap/Entities"]
 
 [node name="Enemy" parent="TacticalMap/Entities/Enemies" instance=ExtResource("8_xl83u")]
 position = Vector2(709, 86)
@@ -3674,14 +3676,13 @@ position = Vector2(806, 503)
 [node name="Enemy8" parent="TacticalMap/Entities/Enemies" instance=ExtResource("8_xl83u")]
 position = Vector2(533, 428)
 
-[node name="Projectiles" type="Node" parent="TacticalMap/Entities"]
+[node name="Projectiles" type="Node2D" parent="TacticalMap/Entities"]
 
 [node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_funts")
 volume_db = -20.15
-autoplay = true
 
 [connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
 [connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
