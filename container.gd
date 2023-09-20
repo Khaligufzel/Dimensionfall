@@ -15,7 +15,7 @@ func _process(delta):
 	
 func create_random_loot():
 	if get_node(inventory).get_children() == []:
-		var item = get_node(inventory).create_and_add_item("1x3_spear")
+		var item = get_node(inventory).create_and_add_item("2x2")
 		item.set_property("assigned_id", ItemManager.assign_id())
 
 

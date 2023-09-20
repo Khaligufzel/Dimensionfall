@@ -3583,7 +3583,7 @@ layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array(720927, 131073, 0, 1245231, 1, 0, 655399, 1, 0)
+layer_1/tile_data = PackedInt32Array()
 
 [node name="BuildManager" type="Node2D" parent="TacticalMap"]
 script = ExtResource("9_6pclo")
@@ -3681,6 +3681,7 @@ position = Vector2(533, 428)
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_funts")
 volume_db = -20.15
+autoplay = true
 
 [connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
 [connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]

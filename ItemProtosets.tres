@@ -12,10 +12,10 @@ json_data = "[
         \"height\": 1
     },
     {
-        \"id\": \"1x3_spear\",
+        \"id\": \"2x2\",
 		\"assigned_id\": 0,
-        \"width\": 1,
-        \"height\": 3
+        \"width\": 2,
+        \"height\": 2
     },
     {
         \"id\": \"2x2_bomb\",

@@ -10,13 +10,13 @@ extends Node2D
 func _input(event):
 	if event.is_action_pressed("click") && General.is_mouse_outside_HUD && General.is_allowed_to_shoot:
 
-#		var bullet = bullet_scene.instantiate()
-#		bullet.speed = bullet_speed
-#		bullet.damage = bullet_damage
-#		get_node(projectiles).add_child(bullet)
-#		bullet.global_position = global_position
-#		#bullet.rotation = (get_global_mouse_position() - global_position).normalized()
-#		bullet.direction = (get_global_mouse_position() - global_position).normalized()
+		var bullet = bullet_scene.instantiate()
+		bullet.speed = bullet_speed
+		bullet.damage = bullet_damage
+		get_node(projectiles).add_child(bullet)
+		bullet.global_position = global_position
+		#bullet.rotation = (get_global_mouse_position() - global_position).normalized()
+		bullet.direction = (get_global_mouse_position() - global_position).normalized()
 
 
 
