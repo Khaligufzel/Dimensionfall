@@ -95,3 +95,10 @@ func _on_concrete_button_down():
 
 func _on_player_shooting_ammo_changed(current_ammo, max_ammo):
 	get_node(ammo_HUD).text = str(current_ammo) + "/" + str(max_ammo)
+
+
+func _on_inventory_item_mouse_entered(item):
+	pass # Replace with function body.
+	
+func _on_inventory_item_mouse_exited(item):
+	pass # Replace with function body.

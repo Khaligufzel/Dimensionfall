@@ -6,21 +6,36 @@
 script = ExtResource("1_o35lu")
 json_data = "[
     {
-        \"id\": \"1x1_knife\",
-		\"assigned_id\": 0,
+        \"name\": \"Steel scrap\",
+        \"assigned_id\": 0,
+        \"id\": \"steel_scrap\",
+        \"height\": 2,
+        \"width\": 2,
+        \"weight\": 0.25,
+        \"stack_size\": 2,
+        \"description\": \"Test steel scrap test\",
+        \"flags\": []
+    },
+    {
+        \"name\": \"Plank\",
+        \"assigned_id\": 0,
+        \"id\": \"plank\",
+        \"height\": 1,
+        \"width\": 3,
+        \"weight\": 2,
+        \"stack_size\": 2,
+        \"description\": \"Test plank test\",
+        \"flags\": []
+    },
+    {
+        \"name\": \"9mm\",
+        \"assigned_id\": 0,
+        \"id\": \"9mm\",
+        \"height\": 1,
         \"width\": 1,
-        \"height\": 1
-    },
-    {
-        \"id\": \"2x2\",
-		\"assigned_id\": 0,
-        \"width\": 2,
-        \"height\": 2
-    },
-    {
-        \"id\": \"2x2_bomb\",
-        \"width\": 2,
-		\"assigned_id\": 0,
-        \"height\": 2
+        \"weight\": 0.01,
+        \"stack_size\": 100,
+        \"description\": \"Test 9mm test\",
+        \"flags\": []
     }
 ]"

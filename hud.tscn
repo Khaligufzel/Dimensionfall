@@ -210,6 +210,54 @@ columns = 4
 layout_mode = 2
 text = "Concrete"
 
+[node name="Tooltip" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 242.0
+offset_bottom = 115.0
+pivot_offset = Vector2(0, 173)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "kjkgkjghkjjhkg"
+
+[node name="Panel" type="Panel" parent="Tooltip"]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 241.0
+offset_bottom = 33.0
+size_flags_vertical = 3
+
+[node name="ItemName" type="Label" parent="Tooltip/Panel"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("1_pxloi")
+theme_override_font_sizes/font_size = 20
+text = "Item name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="Tooltip"]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 35.0
+offset_right = 241.0
+offset_bottom = 115.0
+size_flags_vertical = 3
+
+[node name="Description" type="Label" parent="Tooltip/Panel2"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("1_pxloi")
+theme_override_font_sizes/font_size = 13
+text = "Item description"
+
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_exited"]
+[connection signal="item_mouse_entered" from="CtrlInventoryGridEx" to="." method="_on_inventory_item_mouse_entered"]
+[connection signal="item_mouse_exited" from="CtrlInventoryGridEx" to="." method="_on_inventory_item_mouse_exited"]
+[connection signal="item_mouse_entered" from="CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_entered"]
+[connection signal="item_mouse_exited" from="CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_exited"]
 [connection signal="button_down" from="BuildingMenu/Concrete" to="." method="_on_concrete_button_down"]
