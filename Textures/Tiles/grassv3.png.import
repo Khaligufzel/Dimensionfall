@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://44igy8ss6sn7"
-path="res://.godot/imported/doors.png-cfabf047b0005f9e50c219d995aa004b.ctex"
+uid="uid://wm6nfo4h77k5"
+path="res://.godot/imported/grassv3.png-fd8b4dbf0696016c8cf51491f666580a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://doors.png"
-dest_files=["res://.godot/imported/doors.png-cfabf047b0005f9e50c219d995aa004b.ctex"]
+source_file="res://Textures/Tiles/grassv3.png"
+dest_files=["res://.godot/imported/grassv3.png-fd8b4dbf0696016c8cf51491f666580a.ctex"]
 
 [params]
 

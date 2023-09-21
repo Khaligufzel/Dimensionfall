@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf0a5uxbd2gec"
-path="res://.godot/imported/open_door_NS.png-53d1c2b993b31e8293420959becc2848.ctex"
+uid="uid://c1begynwustlp"
+path="res://.godot/imported/torso.png-acefca49ce10f9e75fd2dd7e806913cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://open_door_NS.png"
-dest_files=["res://.godot/imported/open_door_NS.png-53d1c2b993b31e8293420959becc2848.ctex"]
+source_file="res://Textures/torso.png"
+dest_files=["res://.godot/imported/torso.png-acefca49ce10f9e75fd2dd7e806913cf.ctex"]
 
 [params]
 

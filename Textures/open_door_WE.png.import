@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://beqlsvo0hmpwu"
-path="res://.godot/imported/GRASS+.png-30091d41235a814f531cf84eac3b8338.ctex"
+uid="uid://ccar85v3kj1g8"
+path="res://.godot/imported/open_door_WE.png-2f5b167134a7d42b4daec234d34a8eb2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GRASS+.png"
-dest_files=["res://.godot/imported/GRASS+.png-30091d41235a814f531cf84eac3b8338.ctex"]
+source_file="res://Textures/open_door_WE.png"
+dest_files=["res://.godot/imported/open_door_WE.png-2f5b167134a7d42b4daec234d34a8eb2.ctex"]
 
 [params]
 

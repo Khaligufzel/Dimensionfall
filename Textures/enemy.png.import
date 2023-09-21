@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jluhejkwo85q"
-path="res://.godot/imported/rightleg.png-524875c997a95bde48cc3be961b3952c.ctex"
+uid="uid://cy56wx4qynp3m"
+path="res://.godot/imported/enemy.png-d2d8c9a5f1e1df06afdd24a3788fa05e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://rightleg.png"
-dest_files=["res://.godot/imported/rightleg.png-524875c997a95bde48cc3be961b3952c.ctex"]
+source_file="res://Textures/enemy.png"
+dest_files=["res://.godot/imported/enemy.png-d2d8c9a5f1e1df06afdd24a3788fa05e.ctex"]
 
 [params]
 

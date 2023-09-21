@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf4to4jp01opf"
-path="res://.godot/imported/closed_door_NS.png-cde58e70b8d0e95966aaa9974d8e8a1b.ctex"
+uid="uid://1alnt17qsyd7"
+path="res://.godot/imported/rightarm.png-609778c014e61191a53a4aa6ff473b1e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://closed_door_NS.png"
-dest_files=["res://.godot/imported/closed_door_NS.png-cde58e70b8d0e95966aaa9974d8e8a1b.ctex"]
+source_file="res://Textures/rightarm.png"
+dest_files=["res://.godot/imported/rightarm.png-609778c014e61191a53a4aa6ff473b1e.ctex"]
 
 [params]
 

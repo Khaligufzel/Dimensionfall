@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://mu6nbyuq02o5"]
 
-[ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://enemy.png" id="1_3y344"]
 [ext_resource type="Script" path="res://container.gd" id="1_78hy7"]
+[ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://Textures/enemy.png" id="2_pvjek"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_grid_stacked.gd" id="3_131gg"]
 [ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="4_ehn4b"]
 
@@ -18,7 +18,7 @@ modulate = Color(0.729412, 0, 0.137255, 1)
 z_index = 1
 position = Vector2(0, 5.25)
 scale = Vector2(1, 0.34375)
-texture = ExtResource("1_3y344")
+texture = ExtResource("2_pvjek")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 524288

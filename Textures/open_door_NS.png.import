@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8uwpq1ai8qi4"
-path="res://.godot/imported/survivor.png-b0a3e951e48860f232f7c03f1dfb453b.ctex"
+uid="uid://bf0a5uxbd2gec"
+path="res://.godot/imported/open_door_NS.png-e7a9fcf3acb9e4401050eb983d02012a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://survivor.png"
-dest_files=["res://.godot/imported/survivor.png-b0a3e951e48860f232f7c03f1dfb453b.ctex"]
+source_file="res://Textures/open_door_NS.png"
+dest_files=["res://.godot/imported/open_door_NS.png-e7a9fcf3acb9e4401050eb983d02012a.ctex"]
 
 [params]
 

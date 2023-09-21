@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kn2f7jcrfnfm"
-path="res://.godot/imported/bullet.png-ff1424653e10246c11e3724e402c519e.ctex"
+uid="uid://cf4to4jp01opf"
+path="res://.godot/imported/closed_door_NS.png-8448afd5eb5bd1fb22c0adf0f1f60dc4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bullet.png"
-dest_files=["res://.godot/imported/bullet.png-ff1424653e10246c11e3724e402c519e.ctex"]
+source_file="res://Textures/closed_door_NS.png"
+dest_files=["res://.godot/imported/closed_door_NS.png-8448afd5eb5bd1fb22c0adf0f1f60dc4.ctex"]
 
 [params]
 

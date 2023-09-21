@@ -1,15 +1,14 @@
-[gd_scene load_steps=51 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=45 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
 [ext_resource type="Texture2D" uid="uid://c5qiud2ubqdts" path="res://kenney_roguelike-modern-city/Tilemap/tilemap_packed.png" id="3_0gxho"]
 [ext_resource type="Script" path="res://player.gd" id="4_6cewg"]
-[ext_resource type="Texture2D" uid="uid://44igy8ss6sn7" path="res://doors.png" id="4_xjrye"]
-[ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://survivor.png" id="5_2idfd"]
+[ext_resource type="Texture2D" uid="uid://1xji6t8nmjv4" path="res://Textures/Tiles/grassv5.png" id="5_hwdop"]
 [ext_resource type="Script" path="res://Camera.gd" id="6_qx7av"]
 [ext_resource type="Script" path="res://PlayerShooting.gd" id="6_s2ikh"]
 [ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://bullet.tscn" id="7_uhhhq"]
-[ext_resource type="Texture2D" uid="uid://1xji6t8nmjv4" path="res://grassv5.png" id="8_04s7s"]
+[ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://Textures/survivor.png" id="8_rg7i2"]
 [ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://enemy.tscn" id="8_xl83u"]
 [ext_resource type="Script" path="res://BuildManager.gd" id="9_6pclo"]
 [ext_resource type="Script" path="res://ItemDetector.gd" id="9_ynhv1"]
@@ -3408,22 +3407,6 @@ texture = ExtResource("3_0gxho")
 36:27/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 36:27/0/physics_layer_0/angular_velocity = 0.0
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_g8kqt"]
-vertices = PackedVector2Array(-8, -8, 8, -8, 8, 6, -8, 6)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 6, -8, 6)])
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_c4iuw"]
-polygon = PackedVector2Array(-8, 6, 8, 6, 8, 8, -8, 8)
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_hqnsi"]
-vertices = PackedVector2Array(-8, 8, -8, -8, 6, -8, 6, 8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, 8, -8, -8, 6, -8, 6, 8)])
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qqtcj"]
-polygon = PackedVector2Array(8, -8, 8, 8, 6, 8, 6, -8)
-
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ks4oa"]
 vertices = PackedVector2Array(8, -8, 8, 8, -6, 8, -6, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
@@ -3441,20 +3424,13 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 6, -8
 polygon = PackedVector2Array(-8, 6, 8, 6, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ldow"]
-texture = ExtResource("4_xjrye")
+texture = ExtResource("5_hwdop")
 0:0/0 = 0
-0:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_c4iuw")
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, -8, 6, 8, 6, 8, 8)
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_g8kqt")
-0:0/0/custom_data_1 = true
 1:0/0 = 0
-1:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_qqtcj")
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(6, 8, 6, -8, 8, -8, 8, 8)
-1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_hqnsi")
 2:0/0 = 0
 2:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_8qit1")
 2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -3471,22 +3447,14 @@ texture = ExtResource("4_xjrye")
 3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7wq3j")
 3:0/0/custom_data_0 = 1
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_gvd8e"]
-vertices = PackedVector2Array(8, -8, 8, 8, -8, 8, -8, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)])
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xmioi"]
-texture = ExtResource("8_04s7s")
+texture = ExtResource("5_hwdop")
 0:0/0 = 0
-0:0/0/probability = 0.2
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_gvd8e")
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_gvd8e")
 
 [sub_resource type="TileSet" id="TileSet_ky8ko"]
 occlusion_layer_0/light_mask = 2
@@ -3614,7 +3582,7 @@ shape = SubResource("RectangleShape2D_loyyg")
 z_index = 2
 z_as_relative = false
 scale = Vector2(0.05, 0.0422961)
-texture = ExtResource("5_2idfd")
+texture = ExtResource("8_rg7i2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TacticalMap/Entities/Player/Sprite2D"]
 libraries = {

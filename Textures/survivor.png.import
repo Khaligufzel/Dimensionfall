@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8pdm2gvd1v3n"
-path="res://.godot/imported/leftleg.png-7ac5e9d5d9ccb18a131415276a9212ad.ctex"
+uid="uid://8uwpq1ai8qi4"
+path="res://.godot/imported/survivor.png-ff86e9aac5ac4c5f246e2f08d6b890c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://leftleg.png"
-dest_files=["res://.godot/imported/leftleg.png-7ac5e9d5d9ccb18a131415276a9212ad.ctex"]
+source_file="res://Textures/survivor.png"
+dest_files=["res://.godot/imported/survivor.png-ff86e9aac5ac4c5f246e2f08d6b890c4.ctex"]
 
 [params]
 

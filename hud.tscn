@@ -2,16 +2,16 @@
 
 [ext_resource type="Script" path="res://hud.gd" id="1_a4suv"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
-[ext_resource type="Texture2D" uid="uid://c1begynwustlp" path="res://torso.png" id="2_nwktq"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_grid_stacked.gd" id="2_pq7em"]
 [ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="3_jmlkb"]
-[ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://leftarm.png" id="3_n6hdf"]
-[ext_resource type="Texture2D" uid="uid://8pdm2gvd1v3n" path="res://leftleg.png" id="4_7ifw1"]
-[ext_resource type="Texture2D" uid="uid://jluhejkwo85q" path="res://rightleg.png" id="5_o7eah"]
-[ext_resource type="Texture2D" uid="uid://1alnt17qsyd7" path="res://rightarm.png" id="6_r0ans"]
-[ext_resource type="Texture2D" uid="uid://t7ny2gtgqll8" path="res://head.png" id="7_xy21m"]
+[ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://Textures/leftarm.png" id="4_wt5t7"]
+[ext_resource type="Texture2D" uid="uid://8pdm2gvd1v3n" path="res://Textures/leftleg.png" id="5_si2ot"]
+[ext_resource type="Texture2D" uid="uid://jluhejkwo85q" path="res://Textures/rightleg.png" id="6_mh6l0"]
+[ext_resource type="Texture2D" uid="uid://1alnt17qsyd7" path="res://Textures/rightarm.png" id="7_td8gu"]
+[ext_resource type="Texture2D" uid="uid://t7ny2gtgqll8" path="res://Textures/head.png" id="8_vb8fm"]
+[ext_resource type="Texture2D" uid="uid://c1begynwustlp" path="res://Textures/torso.png" id="9_4u4ej"]
 [ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_grid_ex.gd" id="11_m0x1l"]
-[ext_resource type="Texture2D" uid="uid://cwmsngeoc631h" path="res://Screenshot_167.png" id="13_cwu3g"]
+[ext_resource type="Texture2D" uid="uid://cwmsngeoc631h" path="res://Textures/Screenshot_167.png" id="13_hab4t"]
 [ext_resource type="Script" path="res://NonHUDclick.gd" id="13_kqg34"]
 
 [sub_resource type="Theme" id="Theme_xn5t2"]
@@ -127,38 +127,38 @@ scale = Vector2(0.8, 0.8)
 modulate = Color(0, 0.635294, 0, 1)
 position = Vector2(35.25, -110.375)
 scale = Vector2(0.75, 0.75)
-texture = ExtResource("3_n6hdf")
+texture = ExtResource("4_wt5t7")
 
 [node name="Leftleg" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 position = Vector2(68.25, -51.375)
 scale = Vector2(0.75, 0.75)
-texture = ExtResource("4_7ifw1")
+texture = ExtResource("5_si2ot")
 
 [node name="Rightleg" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 position = Vector2(112.25, -52.375)
 scale = Vector2(0.75, 0.75)
-texture = ExtResource("5_o7eah")
+texture = ExtResource("6_mh6l0")
 
 [node name="Rightarm" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 position = Vector2(131.25, -115.375)
 scale = Vector2(0.75, 0.75)
-texture = ExtResource("6_r0ans")
+texture = ExtResource("7_td8gu")
 
 [node name="Head" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 position = Vector2(72.25, -164.375)
 scale = Vector2(0.75, 0.75)
-texture = ExtResource("7_xy21m")
+texture = ExtResource("8_vb8fm")
 
 [node name="Torso" type="Sprite2D" parent="Doll"]
 modulate = Color(0, 0.635294, 0, 1)
 z_index = -1
 position = Vector2(85.25, -113.375)
 scale = Vector2(0.75, 0.75)
-texture = ExtResource("2_nwktq")
+texture = ExtResource("9_4u4ej")
 
 [node name="InventoryGridStacked" type="Node" parent="."]
 script = ExtResource("2_pq7em")
@@ -183,7 +183,7 @@ script = ExtResource("11_m0x1l")
 field_dimensions = Vector2(16, 16)
 selection_color = Color(0.745098, 0.745098, 0.745098, 0.941176)
 inventory_path = NodePath("../InventoryGridStacked")
-default_item_texture = ExtResource("13_cwu3g")
+default_item_texture = ExtResource("13_hab4t")
 
 [node name="CtrlInventoryGridExProx" type="Control" parent="."]
 custom_minimum_size = Vector2(240, 80)
@@ -198,7 +198,7 @@ grow_vertical = 0
 script = ExtResource("11_m0x1l")
 field_dimensions = Vector2(8, 8)
 inventory_path = NodePath("../InventoryGridStackedProx")
-default_item_texture = ExtResource("13_cwu3g")
+default_item_texture = ExtResource("13_hab4t")
 
 [node name="BuildingMenu" type="GridContainer" parent="."]
 visible = false

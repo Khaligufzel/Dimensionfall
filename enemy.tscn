@@ -7,8 +7,8 @@
 [ext_resource type="Script" path="res://EnemyIdle.gd" id="4_2ojaf"]
 [ext_resource type="Script" path="res://EnemyFollow.gd" id="5_bepab"]
 [ext_resource type="Script" path="res://EnemyStats.gd" id="6_2qyjp"]
-[ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://enemy.png" id="7_ewjvh"]
 [ext_resource type="Script" path="res://Detection.gd" id="8_1bopo"]
+[ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://Textures/enemy.png" id="8_wgh4n"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6kat3"]
 light_mode = 2
@@ -86,7 +86,7 @@ modulate = Color(0.729412, 0, 0.137255, 1)
 z_index = 2
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_6kat3")
-texture = ExtResource("7_ewjvh")
+texture = ExtResource("8_wgh4n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3.05176e-05)

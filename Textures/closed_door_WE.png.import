@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy56wx4qynp3m"
-path="res://.godot/imported/enemy.png-f7d9f81714867a24a08e299bb600e611.ctex"
+uid="uid://cfdjnlws0mafd"
+path="res://.godot/imported/closed_door_WE.png-8dac975ca95eee0874f3bbe5c1346bc1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemy.png"
-dest_files=["res://.godot/imported/enemy.png-f7d9f81714867a24a08e299bb600e611.ctex"]
+source_file="res://Textures/closed_door_WE.png"
+dest_files=["res://.godot/imported/closed_door_WE.png-8dac975ca95eee0874f3bbe5c1346bc1.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jhgxssvdyxll"
-path="res://.godot/imported/imgonline-com-ua-TextureSeamless-vPpbshdid4ZMVqj.png-8ddd4d76c2afc1b911988c91f968dcc3.ctex"
+uid="uid://44igy8ss6sn7"
+path="res://.godot/imported/doors.png-49ee19644b1f0fb50e05be043ce78e86.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://imgonline-com-ua-TextureSeamless-vPpbshdid4ZMVqj.png"
-dest_files=["res://.godot/imported/imgonline-com-ua-TextureSeamless-vPpbshdid4ZMVqj.png-8ddd4d76c2afc1b911988c91f968dcc3.ctex"]
+source_file="res://Textures/Tiles/doors.png"
+dest_files=["res://.godot/imported/doors.png-49ee19644b1f0fb50e05be043ce78e86.ctex"]
 
 [params]
 
