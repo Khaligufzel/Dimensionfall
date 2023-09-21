@@ -9,6 +9,8 @@ extends CanvasLayer
 
 @export var stamina_HUD: NodePath
 
+@export var ammo_HUD: NodePath
+
 @export var healthy_color: Color
 @export var damaged_color: Color
 
@@ -89,3 +91,7 @@ func _on_item_detector_remove_from_proximity_inventory(items):
 
 func _on_concrete_button_down():
 	construction_chosen.emit("concrete_wall")
+
+
+func _on_player_shooting_ammo_changed(current_ammo, max_ammo):
+	get_node(ammo_HUD).text = str(current_ammo) + "/" + str(max_ammo)
