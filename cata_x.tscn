@@ -3565,7 +3565,7 @@ layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array()
+layer_1/tile_data = PackedInt32Array(917526, 655360, 3, 917529, 524288, 2, 983065, 524288, 3, 917531, 524288, 2, 983067, 786432, 3, 983068, 720896, 2, 1114140, 720896, 2, 1114139, 655360, 2, 1114138, 589824, 2, 917524, 589824, 2, 917525, 983040, 3, 851990, 524288, 2, 983062, 851968, 3, 917527, 720896, 2, 983061, 786432, 3, 786451, 720896, 2, 786450, 655360, 2, 786449, 655360, 2, 786448, 655360, 2, 786447, 655360, 2, 786446, 655360, 2, 786445, 589824, 2, 983056, 524288, 2, 1048592, 786432, 3, 1048593, 655360, 2, 1048594, 655360, 2, 1048595, 851968, 2, 1114131, 720896, 3, 1179667, 524288, 3)
 
 [node name="BuildManager" type="Node2D" parent="TacticalMap"]
 script = ExtResource("5_ugvie")
@@ -3646,6 +3646,7 @@ position = Vector2(709, 86)
 
 [node name="Enemy9" parent="TacticalMap/Entities/Enemies" instance=ExtResource("8_xl83u")]
 position = Vector2(358, 305)
+scale = Vector2(4, 4)
 
 [node name="Enemy2" parent="TacticalMap/Entities/Enemies" instance=ExtResource("8_xl83u")]
 position = Vector2(668, 156)
