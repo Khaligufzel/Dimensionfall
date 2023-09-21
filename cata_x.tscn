@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=42 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Scripts/Client.gd" id="2_uinhm"]
@@ -3407,46 +3407,6 @@ texture = ExtResource("3_0gxho")
 36:27/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 36:27/0/physics_layer_0/angular_velocity = 0.0
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_ks4oa"]
-vertices = PackedVector2Array(8, -8, 8, 8, -6, 8, -6, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(8, -8, 8, 8, -6, 8, -6, -8)])
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_8qit1"]
-polygon = PackedVector2Array(-8, 8, -8, -8, -6, -8, -6, 8)
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_7wq3j"]
-vertices = PackedVector2Array(-8, -8, 8, -8, 8, 6, -8, 6)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 6, -8, 6)])
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_44yt6"]
-polygon = PackedVector2Array(-8, 6, 8, 6, 8, 8, -8, 8)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ldow"]
-texture = ExtResource("5_hwdop")
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0 = 0
-1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:0/0/physics_layer_0/angular_velocity = 0.0
-2:0/0 = 0
-2:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_8qit1")
-2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-2:0/0/physics_layer_0/angular_velocity = 0.0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, -8, -8, -6, -8, -6, 8)
-2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ks4oa")
-2:0/0/custom_data_0 = 1
-2:0/0/custom_data_1 = true
-3:0/0 = 0
-3:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_44yt6")
-3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-3:0/0/physics_layer_0/angular_velocity = 0.0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, -8, 6, 8, 6, 8, 8)
-3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7wq3j")
-3:0/0/custom_data_0 = 1
-
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jxpox"]
 vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
@@ -3482,7 +3442,6 @@ custom_data_layer_1/name = "StateObject"
 custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_cw4pv")
 sources/6 = SubResource("TileSetAtlasSource_xmioi")
-sources/1 = SubResource("TileSetAtlasSource_5ldow")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_loyyg"]
 size = Vector2(10, 12.5)

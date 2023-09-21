@@ -21,6 +21,11 @@ extends CanvasLayer
 
 var is_building_menu_open = false
 
+@export var tooltip: NodePath
+var is_showing_tooltip = false
+@export var tooltip_item_name : NodePath
+@export var tooltip_item_description : NodePath
+
 signal construction_chosen
 
 
@@ -41,13 +46,16 @@ func _input(event):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-
+	if is_showing_tooltip:
+		get_node(tooltip).visible = true
+		get_node(tooltip).global_position = get_node(tooltip).get_global_mouse_position() + Vector2(0, -5 - get_node(tooltip).size.y)
+	else:
+		get_node(tooltip).visible = false
 
 func _on_player_update_doll(head, right_arm, left_arm, torso, right_leg, left_leg):
 	
@@ -98,7 +106,9 @@ func _on_player_shooting_ammo_changed(current_ammo, max_ammo):
 
 
 func _on_inventory_item_mouse_entered(item):
-	pass # Replace with function body.
+	is_showing_tooltip = true
+	get_node(tooltip_item_name).text = item.get_property("name", "")
+	get_node(tooltip_item_description).text = item.get_property("description", "")
 	
 func _on_inventory_item_mouse_exited(item):
-	pass # Replace with function body.
+	is_showing_tooltip = false
