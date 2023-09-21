@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=51 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://ItemDetector.gd" id="9_ynhv1"]
 [ext_resource type="Texture2D" uid="uid://dssie8asguen8" path="res://kenney_roguelike-modern-city/Tiles/tile_0000.png" id="10_taif1"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
+[ext_resource type="Script" path="res://HeldItem.gd" id="15_n04sb"]
 [ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="17_1aft6"]
 [ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Just in Reach of Sirens.mp3" id="17_funts"]
 
@@ -3646,6 +3647,9 @@ script = ExtResource("9_ynhv1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TacticalMap/Entities/Player/ItemDetector"]
 shape = SubResource("CircleShape2D_erta2")
+
+[node name="HeldItem" type="Node2D" parent="TacticalMap/Entities/Player"]
+script = ExtResource("15_n04sb")
 
 [node name="Enemies" type="Node2D" parent="TacticalMap/Entities"]
 

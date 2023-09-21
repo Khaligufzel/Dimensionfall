@@ -13,13 +13,15 @@ var item_id_to_assign = 0
 		"sway": "5",
 		"recoil": "20",
 		"used_skill": "short_guns",
-		"reload_speed": "2",
-		"firing_speed": "1"
+		"reload_speed": "5",
+		"firing_speed": "1",
+		"flags" : ["ranged_weapon"]
 	}
 @onready var magazine = {
 		"id_string": "pistol_magazine",
 		"name": "Pistol magazine",
 		"description": "Magazine pistol for testing",
+		"used_ammo": "9mm",
 		"max_ammo": "20"
 	}
 @onready var ammo = {

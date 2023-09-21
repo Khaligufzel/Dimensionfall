@@ -178,6 +178,7 @@ inventory_path = NodePath("../InventoryGridStackedProx")
 default_item_texture = ExtResource("13_cwu3g")
 
 [node name="BuildingMenu" type="GridContainer" parent="."]
+visible = false
 offset_right = 186.0
 offset_bottom = 33.0
 columns = 4
