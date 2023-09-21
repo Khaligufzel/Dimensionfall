@@ -13,13 +13,15 @@ var item_id_to_assign = 0
 		"sway": "5",
 		"recoil": "20",
 		"used_skill": "short_guns",
-		"reload_speed": "2",
-		"firing_speed": "1"
+		"reload_speed": "2.5",
+		"firing_speed": "0.25",
+		"flags" : ["ranged_weapon"]
 	}
 @onready var magazine = {
 		"id_string": "pistol_magazine",
 		"name": "Pistol magazine",
 		"description": "Magazine pistol for testing",
+		"used_ammo": "9mm",
 		"max_ammo": "20"
 	}
 @onready var ammo = {
@@ -46,14 +48,12 @@ func get_weapons_from_json():
 	
 func save_weapons_in_json():
 	
-
-	
-	
 	var weapons_file = FileAccess.open("user://weapons.json", FileAccess.WRITE)
 	var data_to_send = weapon
 	#var json_string = JSON.stringify(data_to_send)
 	weapons_file.store_line(JSON.stringify(data_to_send, "\t"))
 	
 	weapons_file.close()
-	
+
+
 	

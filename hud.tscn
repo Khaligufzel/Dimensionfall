@@ -27,6 +27,7 @@ torso_health = NodePath("Doll/Torso")
 right_leg_health = NodePath("Doll/Rightleg")
 left_leg_health = NodePath("Doll/Leftleg")
 stamina_HUD = NodePath("StaminaLevel")
+ammo_HUD = NodePath("Ammo")
 healthy_color = Color(0, 0.635294, 0, 1)
 damaged_color = Color(0.635294, 0, 0, 1)
 proximity_inventory = NodePath("InventoryGridStackedProx")
@@ -58,6 +59,28 @@ theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_pxloi")
 theme_override_font_sizes/font_size = 49
 text = "100%"
+vertical_alignment = 1
+
+[node name="Ammo" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -232.0
+offset_top = -56.0
+offset_right = -16.0
+offset_bottom = 5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = SubResource("Theme_xn5t2")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_pxloi")
+theme_override_font_sizes/font_size = 49
+text = "999/999"
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="StaminaLevel" type="Label" parent="."]
@@ -178,6 +201,7 @@ inventory_path = NodePath("../InventoryGridStackedProx")
 default_item_texture = ExtResource("13_cwu3g")
 
 [node name="BuildingMenu" type="GridContainer" parent="."]
+visible = false
 offset_right = 186.0
 offset_bottom = 33.0
 columns = 4
