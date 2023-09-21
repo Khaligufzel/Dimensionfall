@@ -1,14 +1,14 @@
 [gd_scene load_steps=12 format=3 uid="uid://b2r6nh12wv41k"]
 
-[ext_resource type="Script" path="res://Enemy.gd" id="1_mnj1h"]
-[ext_resource type="Script" path="res://StateMachine.gd" id="2_cl71x"]
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_eb130"]
 [ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://enemy_corpse.tscn" id="2_vyld4"]
-[ext_resource type="Script" path="res://EnemyAttack.gd" id="3_0crll"]
-[ext_resource type="Script" path="res://EnemyIdle.gd" id="4_2ojaf"]
-[ext_resource type="Script" path="res://EnemyFollow.gd" id="5_bepab"]
-[ext_resource type="Script" path="res://EnemyStats.gd" id="6_2qyjp"]
-[ext_resource type="Script" path="res://Detection.gd" id="8_1bopo"]
+[ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_68hce"]
+[ext_resource type="Script" path="res://Scripts/EnemyAttack.gd" id="4_mt4kh"]
+[ext_resource type="Script" path="res://Scripts/EnemyIdle.gd" id="5_bvewq"]
+[ext_resource type="Script" path="res://Scripts/EnemyFollow.gd" id="6_0jpem"]
+[ext_resource type="Script" path="res://Scripts/EnemyStats.gd" id="7_p4tru"]
 [ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://Textures/enemy.png" id="8_wgh4n"]
+[ext_resource type="Script" path="res://Scripts/Detection.gd" id="9_fj2x0"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6kat3"]
 light_mode = 2
@@ -25,17 +25,17 @@ collision_layer = 2
 collision_mask = 15
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_mnj1h")
+script = ExtResource("1_eb130")
 sprite = NodePath("Sprite2D")
 stats = NodePath("EnemyStats")
 corpse_scene = ExtResource("2_vyld4")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("2_cl71x")
+script = ExtResource("3_68hce")
 initial_state = NodePath("EnemyIdle")
 
 [node name="EnemyAttack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("attack_timer")]
-script = ExtResource("3_0crll")
+script = ExtResource("4_mt4kh")
 stats = NodePath("../../EnemyStats")
 attack_timer = NodePath("AttackCooldown")
 enemy = NodePath("../../CollisionShape2D")
@@ -44,7 +44,7 @@ enemy_sprite = NodePath("../../Sprite2D")
 [node name="AttackCooldown" type="Timer" parent="StateMachine/EnemyAttack"]
 
 [node name="EnemyIdle" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "moving_timer")]
-script = ExtResource("4_2ojaf")
+script = ExtResource("5_bvewq")
 nav_agent = NodePath("../../NavigationAgent2D")
 stats = NodePath("../../EnemyStats")
 enemy = NodePath("../..")
@@ -55,7 +55,7 @@ moving_timer = NodePath("MovingCooldown")
 wait_time = 4.0
 
 [node name="EnemyFollow" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "enemy", "pathfinding_timer")]
-script = ExtResource("5_bepab")
+script = ExtResource("6_0jpem")
 nav_agent = NodePath("../../NavigationAgent2D")
 enemy = NodePath("../..")
 enemyCol = NodePath("../../CollisionShape2D")
@@ -63,7 +63,7 @@ stats = NodePath("../../EnemyStats")
 pathfinding_timer = NodePath("../../NavigationAgent2D/Timer")
 
 [node name="EnemyStats" type="Node" parent="."]
-script = ExtResource("6_2qyjp")
+script = ExtResource("7_p4tru")
 melee_damage = 20.0
 melee_range = 40.0
 health = 100.0
@@ -94,7 +94,7 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_kbdf7")
 
 [node name="Detection" type="Node2D" parent="."]
-script = ExtResource("8_1bopo")
+script = ExtResource("9_fj2x0")
 stats = NodePath("../EnemyStats")
 
 [connection signal="timeout" from="StateMachine/EnemyAttack/AttackCooldown" to="StateMachine/EnemyAttack" method="_on_attack_cooldown_timeout"]

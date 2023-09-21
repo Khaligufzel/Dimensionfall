@@ -1,12 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://doyjc25kl7104"]
 
-[ext_resource type="Script" path="res://bullet_line.gd" id="1_fav04"]
+[ext_resource type="Script" path="res://Scripts/bullet_line.gd" id="1_g78py"]
 
 [node name="Line2D" type="Line2D"]
 z_index = 1
 width = 0.5
 default_color = Color(1, 1, 1, 0.733333)
-script = ExtResource("1_fav04")
+script = ExtResource("1_g78py")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5

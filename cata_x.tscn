@@ -1,22 +1,22 @@
-[gd_scene load_steps=45 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=47 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
-[ext_resource type="Script" path="res://Client.gd" id="2_5yos2"]
+[ext_resource type="Script" path="res://Scripts/Client.gd" id="2_uinhm"]
 [ext_resource type="Texture2D" uid="uid://c5qiud2ubqdts" path="res://kenney_roguelike-modern-city/Tilemap/tilemap_packed.png" id="3_0gxho"]
-[ext_resource type="Script" path="res://player.gd" id="4_6cewg"]
 [ext_resource type="Texture2D" uid="uid://1xji6t8nmjv4" path="res://Textures/Tiles/grassv5.png" id="5_hwdop"]
-[ext_resource type="Script" path="res://Camera.gd" id="6_qx7av"]
-[ext_resource type="Script" path="res://PlayerShooting.gd" id="6_s2ikh"]
+[ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="5_ugvie"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="7_gelpj"]
 [ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://bullet.tscn" id="7_uhhhq"]
 [ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://Textures/survivor.png" id="8_rg7i2"]
 [ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://enemy.tscn" id="8_xl83u"]
-[ext_resource type="Script" path="res://BuildManager.gd" id="9_6pclo"]
-[ext_resource type="Script" path="res://ItemDetector.gd" id="9_ynhv1"]
+[ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_li818"]
+[ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="10_amy2f"]
 [ext_resource type="Texture2D" uid="uid://dssie8asguen8" path="res://kenney_roguelike-modern-city/Tiles/tile_0000.png" id="10_taif1"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
-[ext_resource type="Script" path="res://HeldItem.gd" id="15_n04sb"]
+[ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="13_i5xg7"]
+[ext_resource type="Script" path="res://Scripts/HeldItem.gd" id="14_aw33d"]
 [ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="17_1aft6"]
-[ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Just in Reach of Sirens.mp3" id="17_funts"]
+[ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Sounds/Music/Just in Reach of Sirens.mp3" id="17_5dq1b"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1v03i"]
 
@@ -3447,14 +3447,26 @@ texture = ExtResource("5_hwdop")
 3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7wq3j")
 3:0/0/custom_data_0 = 1
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_jxpox"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5qceb"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xmioi"]
 texture = ExtResource("5_hwdop")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jxpox")
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_5qceb")
 
 [sub_resource type="TileSet" id="TileSet_ky8ko"]
 occlusion_layer_0/light_mask = 2
@@ -3534,7 +3546,7 @@ process_mode = 3
 script = ExtResource("1_lng26")
 
 [node name="Client" type="Node" parent="Online"]
-script = ExtResource("2_5yos2")
+script = ExtResource("2_uinhm")
 
 [node name="TacticalMap" type="Node2D" parent="."]
 
@@ -3556,7 +3568,7 @@ layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
 
 [node name="BuildManager" type="Node2D" parent="TacticalMap"]
-script = ExtResource("9_6pclo")
+script = ExtResource("5_ugvie")
 tile_map_path = NodePath("../TileMap")
 ghost_sprite_path = NodePath("Ghost")
 player_path = NodePath("../Entities/Player")
@@ -3570,7 +3582,7 @@ texture = ExtResource("10_taif1")
 position = Vector2(280, 40)
 collision_mask = 7
 motion_mode = 1
-script = ExtResource("4_6cewg")
+script = ExtResource("7_gelpj")
 animation_player = NodePath("Sprite2D/AnimationPlayer")
 sprite = NodePath("Sprite2D")
 
@@ -3597,10 +3609,10 @@ texture_scale = 13.84
 
 [node name="Camera2D" type="Camera2D" parent="TacticalMap/Entities/Player"]
 zoom = Vector2(1.5, 1.5)
-script = ExtResource("6_qx7av")
+script = ExtResource("9_li818")
 
 [node name="PlayerShooting" type="Node2D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("attack_cooldown", "reload_timer")]
-script = ExtResource("6_s2ikh")
+script = ExtResource("10_amy2f")
 projectiles = NodePath("../../Projectiles")
 bullet_speed = 1000.0
 bullet_damage = 50.0
@@ -3619,13 +3631,13 @@ one_shot = true
 collision_layer = 0
 collision_mask = 524288
 monitorable = false
-script = ExtResource("9_ynhv1")
+script = ExtResource("13_i5xg7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TacticalMap/Entities/Player/ItemDetector"]
 shape = SubResource("CircleShape2D_erta2")
 
 [node name="HeldItem" type="Node2D" parent="TacticalMap/Entities/Player"]
-script = ExtResource("15_n04sb")
+script = ExtResource("14_aw33d")
 
 [node name="Enemies" type="Node2D" parent="TacticalMap/Entities"]
 
@@ -3661,7 +3673,7 @@ position = Vector2(533, 428)
 [node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("17_funts")
+stream = ExtResource("17_5dq1b")
 volume_db = -20.15
 
 [connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b1q36r8e5wmen"
+path="res://.godot/imported/Just in Reach of Sirens.mp3-f28191a328a495ef97318e22154f657a.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/Just in Reach of Sirens.mp3"
+dest_files=["res://.godot/imported/Just in Reach of Sirens.mp3-f28191a328a495ef97318e22154f657a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

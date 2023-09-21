@@ -1,7 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://clhj525tmme3k"]
 
-[ext_resource type="Script" path="res://hud.gd" id="1_a4suv"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
+[ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
+[ext_resource type="Script" path="res://Scripts/NonHUDclick.gd" id="2_kpbhl"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_grid_stacked.gd" id="2_pq7em"]
 [ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="3_jmlkb"]
 [ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://Textures/leftarm.png" id="4_wt5t7"]
@@ -12,14 +13,13 @@
 [ext_resource type="Texture2D" uid="uid://c1begynwustlp" path="res://Textures/torso.png" id="9_4u4ej"]
 [ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_grid_ex.gd" id="11_m0x1l"]
 [ext_resource type="Texture2D" uid="uid://cwmsngeoc631h" path="res://Textures/Screenshot_167.png" id="13_hab4t"]
-[ext_resource type="Script" path="res://NonHUDclick.gd" id="13_kqg34"]
 
 [sub_resource type="Theme" id="Theme_xn5t2"]
 default_font = ExtResource("1_pxloi")
 default_font_size = 0
 
 [node name="HUD" type="CanvasLayer"]
-script = ExtResource("1_a4suv")
+script = ExtResource("1_s3xoj")
 head_health = NodePath("Doll/Head")
 right_arm_health = NodePath("Doll/Rightarm")
 left_arm_health = NodePath("Doll/Leftarm")
@@ -41,7 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("13_kqg34")
+script = ExtResource("2_kpbhl")
 
 [node name="BloodLevel" type="Label" parent="."]
 anchors_preset = 2
