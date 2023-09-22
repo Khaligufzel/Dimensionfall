@@ -20,6 +20,8 @@ signal ammo_changed
 @export var attack_cooldown : Timer
 @export var reload_timer : Timer
 
+@export var player: NodePath
+
 var damage = 25
 
 
@@ -28,6 +30,7 @@ func _input(event):
 	
 	if event.is_action_pressed("reload_weapon"):
 		reload_timer.start()
+		get_node(player).start_progress_bar(reload_timer.time_left)
 	
 	
 	if event.is_action_pressed("click") && General.is_mouse_outside_HUD && General.is_allowed_to_shoot:
