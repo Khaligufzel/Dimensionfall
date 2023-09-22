@@ -3605,6 +3605,7 @@ shape = SubResource("CircleShape2D_erta2")
 script = ExtResource("14_aw33d")
 
 [node name="ProgressBar" type="Node2D" parent="TacticalMap/Entities/Player"]
+visible = false
 z_index = 99
 position = Vector2(0, -14)
 scale = Vector2(0.2, 0.2)
