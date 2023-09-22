@@ -18,6 +18,7 @@ extends CanvasLayer
 @export var proximity_inventory_control: NodePath
 
 @export var inventory_control : NodePath
+@export var inventory : NodePath
 
 @export var building_menu: NodePath
 
@@ -44,6 +45,7 @@ func _input(event):
 		else:
 			is_building_menu_open = true
 			get_node(building_menu).set_visible(true)
+			
 	if event.is_action_pressed("toggle_inventory"):
 		get_node(inventory_control).visible = !get_node(inventory_control).visible
 		get_node(proximity_inventory_control).visible = !get_node(proximity_inventory_control).visible
@@ -118,3 +120,90 @@ func _on_inventory_item_mouse_entered(item):
 	
 func _on_inventory_item_mouse_exited(item):
 	is_showing_tooltip = false
+	
+func try_to_spend_item(item_id, amount_to_spend : int):
+	var inventory_node = get_node(inventory)
+	if inventory_node.get_item_by_id(item_id):
+		print("I have the item you need! ", item_id)
+		var item_total_amount : int
+		var current_amount_to_spend = amount_to_spend
+		var items = inventory_node.get_items_by_id(item_id)
+		
+		for item in items:
+			item_total_amount += inventory_node.get_item_stack_size(item)
+		
+		if item_total_amount >= amount_to_spend:
+			merge_items_to_total_amount(items, inventory_node, item_total_amount - current_amount_to_spend)
+			return true
+		else:
+			return false
+		
+		
+		
+#
+#		#print(item_total_amount)
+#		if item_total_amount >= current_amount_to_spend:
+#			current_amount_to_spend -= inventory_node.get_item_stack_size(inventory_node.get_item_by_id(item_id))
+#			for item in items:
+#
+#
+#
+#				if current_amount_to_spend == 0:
+#					inventory_node.set_item_stack_size(item, 0)
+#					inventory_node.remove_item(item)
+#					return true
+#				elif current_amount_to_spend < 0:
+#					#print(amount_to_spend, "  ", current_amount_to_spend, "   ", inventory_node.get_item_stack_size(inventory_node.get_item_by_id(item_id)))
+#					#inventory_node.set_item_stack_size(item, amount_to_spend + inventory_node.get_item_stack_size(inventory_node.get_item_by_id(item_id)))
+#					inventory_node.set_item_stack_size(item, inventory_node.get_item_stack_size(inventory_node.get_item_by_id(item_id)) - amount_to_spend )
+#					#print("wth    ", inventory_node.get_item_stack_size(inventory_node.get_item_by_id(item_id)))
+#					return true
+#				elif current_amount_to_spend > 0:
+#					#merge_items_to_total_amount(items, inventory_node, item_total_amount - current_amount_to_spend)
+#					print(item_total_amount - current_amount_to_spend, " 65636563665")
+#					print(inventory_node.get_item_max_stack_size(item))
+#					merge_items_to_total_amount(items, inventory_node, item_total_amount - current_amount_to_spend)
+#
+#					return true
+
+	else:
+		return false
+		
+func merge_items_to_total_amount(items, inventory, total_amount : int):
+#	var current_total_amount = total_amount
+#	for item in items:
+#		if inventory.get_item_stack_size(item) <= current_total_amount:
+#			current_total_amount -= inventory.get_item_stack_size(item)
+#			inventory.remove_item(item)
+#			#item.queue_free()
+#		else:
+#			print("WTH")
+#			inventory.set_item_stack_size(item,  current_total_amount)
+
+	var current_total_amount = total_amount
+	for item in items:
+		if inventory.get_item_stack_size(item) < current_total_amount:
+			if inventory.get_item_stack_size(item) == item.get_property("max_stack_size"):
+				current_total_amount -= inventory.get_item_stack_size(item)
+				print(current_total_amount, "111111111111")
+			elif inventory.get_item_stack_size(item) < item.get_property("max_stack_size"):
+				current_total_amount -= item.get_property("max_stack_size") - inventory.get_item_stack_size(item)
+				inventory.set_item_stack_size(item, item.get_property("max_stack_size"))
+				print(current_total_amount, "22222222222222222")
+				
+		elif inventory.get_item_stack_size(item) == current_total_amount:
+			current_total_amount = 0
+			
+		elif inventory.get_item_stack_size(item) > current_total_amount:
+			print(current_total_amount, "33333333333333333")
+			inventory.set_item_stack_size(item, current_total_amount)
+			current_total_amount = 0
+			
+			if inventory.get_item_stack_size(item) == 0:
+				inventory.remove_item(item)
+	
+			
+			
+			
+			
+			

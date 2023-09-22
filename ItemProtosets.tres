@@ -24,7 +24,8 @@ json_data = "[
         \"height\": 2,
         \"width\": 4,
         \"weight\": 2,
-        \"stack_size\": 2,
+        \"stack_size\": 3,
+		\"max_stack_size\": 3,
         \"description\": \"Test plank test\",
 		\"image\": \"res://Textures/plank.png\",
         \"flags\": []

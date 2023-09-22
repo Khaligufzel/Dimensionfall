@@ -3533,6 +3533,7 @@ script = ExtResource("5_ugvie")
 tile_map_path = NodePath("../TileMap")
 ghost_sprite_path = NodePath("Ghost")
 player_path = NodePath("../Entities/Player")
+hud = NodePath("../../HUD")
 
 [node name="Ghost" type="Sprite2D" parent="TacticalMap/BuildManager"]
 texture = ExtResource("10_taif1")
