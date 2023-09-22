@@ -107,7 +107,7 @@ func _on_player_shooting_ammo_changed(current_ammo, max_ammo):
 
 func _on_inventory_item_mouse_entered(item):
 	is_showing_tooltip = true
-	get_node(tooltip_item_name).text = item.get_property("name", "")
+	get_node(tooltip_item_name).text = str(item.get_property("name", ""))
 	get_node(tooltip_item_description).text = item.get_property("description", "")
 	
 func _on_inventory_item_mouse_exited(item):
