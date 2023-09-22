@@ -175,6 +175,7 @@ size = Vector2i(30, 10)
 item_protoset = ExtResource("3_jmlkb")
 
 [node name="CtrlInventoryGridEx" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(320, 320)
 layout_mode = 3
 anchors_preset = 2
@@ -191,6 +192,7 @@ inventory_path = NodePath("../InventoryGridStacked")
 default_item_texture = ExtResource("13_hab4t")
 
 [node name="CtrlInventoryGridExProx" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(240, 80)
 layout_mode = 3
 anchors_preset = 2
@@ -263,6 +265,49 @@ theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("1_pxloi")
 theme_override_font_sizes/font_size = 13
 text = "Item description"
+
+[node name="CraftingMenu" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -321.0
+offset_right = 250.0
+offset_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CraftingList" type="ScrollContainer" parent="CraftingMenu"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 246.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CraftingMenu/CraftingList"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="CraftingMenu/CraftingList/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+text = "An item"
+
+[node name="Panel" type="Panel" parent="CraftingMenu"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_exited"]

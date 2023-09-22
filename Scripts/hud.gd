@@ -158,17 +158,14 @@ func merge_items_to_total_amount(items, inventory, total_amount : int):
 		if inventory.get_item_stack_size(item) < current_total_amount:
 			if inventory.get_item_stack_size(item) == item.get_property("max_stack_size"):
 				current_total_amount -= inventory.get_item_stack_size(item)
-				print(current_total_amount, "111111111111")
 			elif inventory.get_item_stack_size(item) < item.get_property("max_stack_size"):
 				current_total_amount -= item.get_property("max_stack_size") - inventory.get_item_stack_size(item)
 				inventory.set_item_stack_size(item, item.get_property("max_stack_size"))
-				print(current_total_amount, "22222222222222222")
 				
 		elif inventory.get_item_stack_size(item) == current_total_amount:
 			current_total_amount = 0
 			
 		elif inventory.get_item_stack_size(item) > current_total_amount:
-			print(current_total_amount, "33333333333333333")
 			inventory.set_item_stack_size(item, current_total_amount)
 			current_total_amount = 0
 			
