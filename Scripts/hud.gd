@@ -17,6 +17,8 @@ extends CanvasLayer
 @export var proximity_inventory: NodePath
 @export var proximity_inventory_control: NodePath
 
+@export var inventory_control : NodePath
+
 @export var building_menu: NodePath
 
 var is_building_menu_open = false
@@ -42,6 +44,10 @@ func _input(event):
 		else:
 			is_building_menu_open = true
 			get_node(building_menu).set_visible(true)
+	if event.is_action_pressed("toggle_inventory"):
+		get_node(inventory_control).visible = !get_node(inventory_control).visible
+		get_node(proximity_inventory_control).visible = !get_node(proximity_inventory_control).visible
+		
 		
 
 # Called when the node enters the scene tree for the first time.
