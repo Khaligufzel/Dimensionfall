@@ -47,6 +47,13 @@ var current_nutrition
 var pain
 var current_pain = 0
 
+@export var progress_bar : NodePath
+@export var progress_bar_filling : NodePath
+@export var progress_bar_timer : NodePath
+
+var progress_bar_timer_max_time : float
+
+var is_progress_bar_well_progressing_i_guess = false
 
 func _ready():
 	current_left_arm_health = left_arm_health
@@ -58,6 +65,10 @@ func _ready():
 	
 	current_stamina = stamina
 	
+	
+func _process(delta):
+	if is_progress_bar_well_progressing_i_guess:
+		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
 
 func _physics_process(delta):
 	if is_alive:
@@ -173,3 +184,20 @@ func die():
 func transfer_damage_to_torso(damage: float):
 	current_torso_health -= damage
 	check_if_alive()
+	
+func start_progress_bar(time : float):
+	get_node(progress_bar).visible = true
+	get_node(progress_bar_timer).wait_time = time
+	get_node(progress_bar_timer).start()
+	get_node(progress_bar_filling).scale.x = 0
+	progress_bar_timer_max_time = time
+	is_progress_bar_well_progressing_i_guess = true
+	
+	
+func interrupt_progress_bar():
+	get_node(progress_bar).visible = false
+	is_progress_bar_well_progressing_i_guess = false
+
+
+func _on_progress_bar_timer_timeout():
+	interrupt_progress_bar()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=44 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
 [ext_resource type="Script" path="res://Scripts/Client.gd" id="2_uinhm"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
 [ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="13_i5xg7"]
 [ext_resource type="Script" path="res://Scripts/HeldItem.gd" id="14_aw33d"]
+[ext_resource type="Texture2D" uid="uid://dcgwgmsmi7mjn" path="res://Textures/bar_border.png" id="15_e1cbt"]
+[ext_resource type="Texture2D" uid="uid://7hppy1l45loq" path="res://Textures/bar_progress.png" id="16_b0gok"]
 [ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="17_1aft6"]
 [ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Sounds/Music/Just in Reach of Sirens.mp3" id="17_5dq1b"]
 
@@ -3407,46 +3409,6 @@ texture = ExtResource("3_0gxho")
 36:27/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 36:27/0/physics_layer_0/angular_velocity = 0.0
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_ks4oa"]
-vertices = PackedVector2Array(8, -8, 8, 8, -6, 8, -6, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(8, -8, 8, 8, -6, 8, -6, -8)])
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_8qit1"]
-polygon = PackedVector2Array(-8, 8, -8, -8, -6, -8, -6, 8)
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_7wq3j"]
-vertices = PackedVector2Array(-8, -8, 8, -8, 8, 6, -8, 6)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 6, -8, 6)])
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_44yt6"]
-polygon = PackedVector2Array(-8, 6, 8, 6, 8, 8, -8, 8)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ldow"]
-texture = ExtResource("5_hwdop")
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0 = 0
-1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:0/0/physics_layer_0/angular_velocity = 0.0
-2:0/0 = 0
-2:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_8qit1")
-2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-2:0/0/physics_layer_0/angular_velocity = 0.0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, -8, -8, -6, -8, -6, 8)
-2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ks4oa")
-2:0/0/custom_data_0 = 1
-2:0/0/custom_data_1 = true
-3:0/0 = 0
-3:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_44yt6")
-3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-3:0/0/physics_layer_0/angular_velocity = 0.0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, -8, 6, 8, 6, 8, 8)
-3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7wq3j")
-3:0/0/custom_data_0 = 1
-
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jxpox"]
 vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
@@ -3482,7 +3444,6 @@ custom_data_layer_1/name = "StateObject"
 custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_cw4pv")
 sources/6 = SubResource("TileSetAtlasSource_xmioi")
-sources/1 = SubResource("TileSetAtlasSource_5ldow")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_loyyg"]
 size = Vector2(10, 12.5)
@@ -3585,6 +3546,9 @@ motion_mode = 1
 script = ExtResource("7_gelpj")
 animation_player = NodePath("Sprite2D/AnimationPlayer")
 sprite = NodePath("Sprite2D")
+progress_bar = NodePath("ProgressBar")
+progress_bar_filling = NodePath("ProgressBar/ProgressBar")
+progress_bar_timer = NodePath("ProgressBar/Timer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TacticalMap/Entities/Player"]
 scale = Vector2(0.8, 0.8)
@@ -3620,6 +3584,7 @@ bullet_scene = ExtResource("7_uhhhq")
 bullet_line_scene = ExtResource("17_1aft6")
 attack_cooldown = NodePath("AttackCooldown")
 reload_timer = NodePath("ReloadTime")
+player = NodePath("..")
 
 [node name="AttackCooldown" type="Timer" parent="TacticalMap/Entities/Player/PlayerShooting"]
 one_shot = true
@@ -3639,6 +3604,20 @@ shape = SubResource("CircleShape2D_erta2")
 [node name="HeldItem" type="Node2D" parent="TacticalMap/Entities/Player"]
 script = ExtResource("14_aw33d")
 
+[node name="ProgressBar" type="Node2D" parent="TacticalMap/Entities/Player"]
+z_index = 99
+position = Vector2(0, -14)
+scale = Vector2(0.2, 0.2)
+
+[node name="ProgressBarBorder" type="Sprite2D" parent="TacticalMap/Entities/Player/ProgressBar"]
+texture = ExtResource("15_e1cbt")
+
+[node name="ProgressBar" type="Sprite2D" parent="TacticalMap/Entities/Player/ProgressBar"]
+texture = ExtResource("16_b0gok")
+
+[node name="Timer" type="Timer" parent="TacticalMap/Entities/Player/ProgressBar"]
+one_shot = true
+
 [node name="Enemies" type="Node2D" parent="TacticalMap/Entities"]
 
 [node name="Enemy" parent="TacticalMap/Entities/Enemies" instance=ExtResource("8_xl83u")]
@@ -3646,6 +3625,7 @@ position = Vector2(709, 86)
 
 [node name="Enemy9" parent="TacticalMap/Entities/Enemies" instance=ExtResource("8_xl83u")]
 position = Vector2(358, 305)
+scale = Vector2(1, 1)
 
 [node name="Enemy2" parent="TacticalMap/Entities/Enemies" instance=ExtResource("8_xl83u")]
 position = Vector2(668, 156)
@@ -3684,4 +3664,5 @@ volume_db = -20.15
 [connection signal="area_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_entered"]
 [connection signal="area_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_exited"]
 [connection signal="remove_from_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_remove_from_proximity_inventory"]
+[connection signal="timeout" from="TacticalMap/Entities/Player/ProgressBar/Timer" to="TacticalMap/Entities/Player" method="_on_progress_bar_timer_timeout"]
 [connection signal="construction_chosen" from="HUD" to="TacticalMap/BuildManager" method="_on_hud_construction_chosen"]
