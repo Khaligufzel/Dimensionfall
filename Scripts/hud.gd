@@ -32,6 +32,9 @@ var is_showing_tooltip = false
 signal construction_chosen
 
 
+
+@export var item_protoset : ItemProtoset
+
 func test():
 	print("TESTING 123 123!")
 
@@ -54,7 +57,9 @@ func _input(event):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	#temporary hack
+	ItemManager.create_item_protoset(item_protoset)
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

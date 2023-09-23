@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=20 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_grid_ex.gd" id="11_m0x1l"]
 [ext_resource type="Texture2D" uid="uid://cwmsngeoc631h" path="res://Textures/Screenshot_167.png" id="13_hab4t"]
 [ext_resource type="Script" path="res://Scripts/CraftingMenu.gd" id="14_g3fif"]
+[ext_resource type="PackedScene" uid="uid://cpcn3qq8okj12" path="res://item_craft_button.tscn" id="15_otw1a"]
+[ext_resource type="ButtonGroup" uid="uid://bcjuavqvre6mk" path="res://crafting_recipes_button_group.tres" id="16_2oloe"]
 
 [sub_resource type="Theme" id="Theme_xn5t2"]
 default_font = ExtResource("1_pxloi")
@@ -46,6 +48,7 @@ building_menu = NodePath("BuildingMenu")
 tooltip = NodePath("Tooltip")
 tooltip_item_name = NodePath("Tooltip/Panel/ItemName")
 tooltip_item_description = NodePath("Tooltip/Panel2/Description")
+item_protoset = ExtResource("3_jmlkb")
 
 [node name="OutsideOfHUD" type="Control" parent="."]
 layout_mode = 3
@@ -277,7 +280,7 @@ theme_override_fonts/font = ExtResource("1_pxloi")
 theme_override_font_sizes/font_size = 13
 text = "Item description"
 
-[node name="CraftingMenu" type="Panel" parent="."]
+[node name="CraftingMenu" type="Panel" parent="." groups=["CraftingMenu"]]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -292,6 +295,11 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("14_g3fif")
+button_container = NodePath("CraftingList/VBoxContainer")
+item_craft_button = ExtResource("15_otw1a")
+button_group = ExtResource("16_2oloe")
+description = NodePath("Panel/Description")
+required_items = NodePath("Panel/RequiredItems")
 
 [node name="CraftingList" type="ScrollContainer" parent="CraftingMenu"]
 layout_mode = 1
@@ -306,16 +314,6 @@ custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="CraftingMenu/CraftingList/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("1_pxloi")
-theme_override_font_sizes/font_size = 20
-toggle_mode = true
-keep_pressed_outside = true
-text = "An item"
 
 [node name="Panel" type="Panel" parent="CraftingMenu"]
 layout_mode = 1

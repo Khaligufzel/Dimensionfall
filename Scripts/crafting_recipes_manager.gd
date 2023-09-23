@@ -1,6 +1,6 @@
 extends Node
 
-@onready var crafting_recipes
+var crafting_recipes
 
 
 # Called when the node enters the scene tree for the first time.
