@@ -31,8 +31,16 @@ func _process(delta):
 
 
 func item_craft_button_clicked(recipe):
-	print("Click!")
 	active_recipe = recipe
-	get_node(description).text = active_recipe["description"]
+	var recipe_id = recipe["id"]
+	#var items = ItemManager.items[recipe_id]
+	var item_to_craft
+	for item in ItemManager.items:
+		if item["id"] == recipe_id:
+			item_to_craft = item
+	
+	get_node(description).text = item_to_craft["description"]
+	
+	
 	for required_item in active_recipe["required_resource"]:
 		get_node(required_items).text = required_item + "\n"
