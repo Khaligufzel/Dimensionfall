@@ -43,4 +43,4 @@ func item_craft_button_clicked(recipe):
 	
 	
 	for required_item in active_recipe["required_resource"]:
-		get_node(required_items).text = required_item + "\n"
+		get_node(required_items).text = required_item + ": " + str(active_recipe["required_resource"][required_item]) + "\n"
