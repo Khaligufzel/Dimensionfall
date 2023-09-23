@@ -17,10 +17,11 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
+Nakama="res://addons/com.heroiclabs.nakama/Nakama.gd"
 GLoot="*res://addons/gloot/gloot_autoload.gd"
 ItemManager="*res://Scripts/item_manager.gd"
 General="*res://Scripts/general.gd"
+CraftingRecipesManager="*res://Scripts/crafting_recipes_manager.gd"
 
 [editor]
 

@@ -42,6 +42,18 @@ json_data = "[
 		\"image\": \"res://Textures/9mm.png\",
         \"flags\": [\"ammunition\"]
     },
+		{
+        \"name\": \"Bandages\",
+        \"assigned_id\": 0,
+        \"id\": \"bandages\",
+        \"height\": 1,
+        \"width\": 1,
+        \"weight\": 0.05,
+        \"stack_size\": 1,
+        \"max_stack_size\": 20,
+        \"description\": \"Basic bandages for stopping bleeding.\",
+        \"flags\": [\"healing\"]
+    },
     {
         \"name\": \"Pistol magazine\",
         \"assigned_id\": 0,

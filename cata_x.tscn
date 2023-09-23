@@ -1,7 +1,5 @@
-[gd_scene load_steps=44 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=42 format=3 uid="uid://c1fqtjd1cxbtu"]
 
-[ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
-[ext_resource type="Script" path="res://Scripts/Client.gd" id="2_uinhm"]
 [ext_resource type="Texture2D" uid="uid://c5qiud2ubqdts" path="res://kenney_roguelike-modern-city/Tilemap/tilemap_packed.png" id="3_0gxho"]
 [ext_resource type="Texture2D" uid="uid://1xji6t8nmjv4" path="res://Textures/Tiles/grassv5.png" id="5_hwdop"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="5_ugvie"]
@@ -3501,13 +3499,6 @@ fill_from = Vector2(0.5, 0.5)
 radius = 23.0
 
 [node name="CataX" type="Node2D"]
-
-[node name="Online" type="Node" parent="."]
-process_mode = 3
-script = ExtResource("1_lng26")
-
-[node name="Client" type="Node" parent="Online"]
-script = ExtResource("2_uinhm")
 
 [node name="TacticalMap" type="Node2D" parent="."]
 
