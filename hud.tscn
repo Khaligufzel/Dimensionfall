@@ -45,6 +45,7 @@ proximity_inventory_control = NodePath("CtrlInventoryGridExProx")
 inventory_control = NodePath("CtrlInventoryGridEx")
 inventory = NodePath("InventoryGridStacked")
 building_menu = NodePath("BuildingMenu")
+crafting_menu = NodePath("CraftingMenu")
 tooltip = NodePath("Tooltip")
 tooltip_item_name = NodePath("Tooltip/Panel/ItemName")
 tooltip_item_description = NodePath("Tooltip/Panel2/Description")
@@ -300,6 +301,7 @@ item_craft_button = ExtResource("15_otw1a")
 button_group = ExtResource("16_2oloe")
 description = NodePath("Panel/Description")
 required_items = NodePath("Panel/RequiredItems")
+hud = NodePath("..")
 
 [node name="CraftingList" type="ScrollContainer" parent="CraftingMenu"]
 layout_mode = 1

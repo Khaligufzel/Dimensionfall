@@ -8,6 +8,8 @@ extends Panel
 @export var description : NodePath
 @export var required_items : NodePath
 
+@export var hud : NodePath
+
 var active_recipe
 
 var button_container_node
@@ -41,6 +43,10 @@ func item_craft_button_clicked(recipe):
 	
 	get_node(description).text = item_to_craft["description"]
 	
+	var is_craft_possible = true
 	
 	for required_item in active_recipe["required_resource"]:
 		get_node(required_items).text = required_item + ": " + str(active_recipe["required_resource"][required_item]) + "\n"
+		
+		if !get_node(hud).check_if_resources_are_available(required_item, int(active_recipe["required_resource"][required_item])):
+			is_craft_possible = false

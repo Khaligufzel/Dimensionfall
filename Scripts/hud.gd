@@ -21,6 +21,7 @@ extends CanvasLayer
 @export var inventory : NodePath
 
 @export var building_menu: NodePath
+@export var crafting_menu : NodePath
 
 var is_building_menu_open = false
 
@@ -52,7 +53,9 @@ func _input(event):
 	if event.is_action_pressed("toggle_inventory"):
 		get_node(inventory_control).visible = !get_node(inventory_control).visible
 		get_node(proximity_inventory_control).visible = !get_node(proximity_inventory_control).visible
-		
+	
+	if event.is_action_pressed("crafting_menu"):
+		get_node(crafting_menu).visible = !get_node(crafting_menu).visible
 		
 
 # Called when the node enters the scene tree for the first time.
@@ -129,15 +132,20 @@ func _on_inventory_item_mouse_exited(item):
 func check_if_resources_are_available(item_id, amount_to_spend: int):
 	
 	var inventory_node = get_node(inventory)
+	print("checking if we have the item id in inv")
 	if inventory_node.get_item_by_id(item_id):
+		print("we have the item id")
 		var item_total_amount : int
 		var current_amount_to_spend = amount_to_spend
 		var items = inventory_node.get_items_by_id(item_id)
 		
 		for item in items:
 			item_total_amount += inventory_node.get_item_stack_size(item)
+			
+		if item_total_amount >= current_amount_to_spend:
+			return true
+		
 	return false
-
 
 func try_to_spend_item(item_id, amount_to_spend : int):
 	var inventory_node = get_node(inventory)
