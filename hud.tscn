@@ -282,6 +282,7 @@ theme_override_font_sizes/font_size = 13
 text = "Item description"
 
 [node name="CraftingMenu" type="Panel" parent="." groups=["CraftingMenu"]]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
