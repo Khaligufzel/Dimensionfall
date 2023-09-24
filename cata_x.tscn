@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=48 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Texture2D" uid="uid://c5qiud2ubqdts" path="res://kenney_roguelike-modern-city/Tilemap/tilemap_packed.png" id="3_0gxho"]
 [ext_resource type="Texture2D" uid="uid://1xji6t8nmjv4" path="res://Textures/Tiles/grassv5.png" id="5_hwdop"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://7hppy1l45loq" path="res://Textures/bar_progress.png" id="16_b0gok"]
 [ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="17_1aft6"]
 [ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Sounds/Music/Just in Reach of Sirens.mp3" id="17_5dq1b"]
+[ext_resource type="AudioStream" uid="uid://rosod2ymbxo1" path="res://Sounds/footstep01.wav" id="17_e3yy1"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1v03i"]
 
@@ -3445,6 +3446,12 @@ custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_cw4pv")
 sources/6 = SubResource("TileSetAtlasSource_xmioi")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tnotd"]
+streams_count = 1
+playback_mode = 1
+stream_0/stream = ExtResource("17_e3yy1")
+stream_0/weight = 1.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_loyyg"]
 size = Vector2(10, 12.5)
 
@@ -3464,6 +3471,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -2)]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.00102138),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_footstep_audio"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_5g7yq"]
 resource_name = "player_walking"
@@ -3481,9 +3502,27 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -2)]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.00102138),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_footstep_audio"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_icwdi"]
+length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1p7ib"]
 _data = {
+"RESET": SubResource("Animation_icwdi"),
 "player_running": SubResource("Animation_lwt8x"),
 "player_walking": SubResource("Animation_5g7yq")
 }
@@ -3540,7 +3579,7 @@ texture = ExtResource("10_taif1")
 
 [node name="Entities" type="Node2D" parent="TacticalMap"]
 
-[node name="Player" type="CharacterBody2D" parent="TacticalMap/Entities" groups=["Players"]]
+[node name="Player" type="CharacterBody2D" parent="TacticalMap/Entities" node_paths=PackedStringArray("foostep_player") groups=["Players"]]
 position = Vector2(280, 40)
 collision_mask = 7
 motion_mode = 1
@@ -3550,6 +3589,8 @@ sprite = NodePath("Sprite2D")
 progress_bar = NodePath("ProgressBar")
 progress_bar_filling = NodePath("ProgressBar/ProgressBar")
 progress_bar_timer = NodePath("ProgressBar/Timer")
+foostep_player = NodePath("Footstep")
+foostep_stream_randomizer = SubResource("AudioStreamRandomizer_tnotd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TacticalMap/Entities/Player"]
 scale = Vector2(0.8, 0.8)
@@ -3562,6 +3603,7 @@ scale = Vector2(0.05, 0.0422961)
 texture = ExtResource("8_rg7i2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TacticalMap/Entities/Player/Sprite2D"]
+audio_max_polyphony = 1
 libraries = {
 "": SubResource("AnimationLibrary_1p7ib")
 }
@@ -3602,7 +3644,7 @@ volume_db = -10.587
 
 [node name="ReloadPlayer" type="AudioStreamPlayer" parent="TacticalMap/Entities/Player/PlayerShooting"]
 stream = ExtResource("12_wlvdj")
-volume_db = -10.17
+volume_db = -33.212
 
 [node name="ItemDetector" type="Area2D" parent="TacticalMap/Entities/Player"]
 collision_layer = 0
@@ -3630,6 +3672,12 @@ texture = ExtResource("16_b0gok")
 
 [node name="Timer" type="Timer" parent="TacticalMap/Entities/Player/ProgressBar"]
 one_shot = true
+
+[node name="Footstep" type="AudioStreamPlayer" parent="TacticalMap/Entities/Player"]
+stream = ExtResource("17_e3yy1")
+volume_db = -30.721
+mix_target = 2
+bus = &"PlayerFootstep"
 
 [node name="Enemies" type="Node2D" parent="TacticalMap/Entities"]
 
@@ -3665,7 +3713,7 @@ position = Vector2(533, 428)
 
 [node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_5dq1b")
 volume_db = -20.15
 

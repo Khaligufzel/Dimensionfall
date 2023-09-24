@@ -51,6 +51,9 @@ var current_pain = 0
 @export var progress_bar_filling : NodePath
 @export var progress_bar_timer : NodePath
 
+@export var foostep_player : AudioStreamPlayer
+@export var foostep_stream_randomizer : AudioStreamRandomizer
+
 var progress_bar_timer_max_time : float
 
 var is_progress_bar_well_progressing_i_guess = false
@@ -201,3 +204,8 @@ func interrupt_progress_bar():
 
 func _on_progress_bar_timer_timeout():
 	interrupt_progress_bar()
+	
+func play_footstep_audio():
+	foostep_player.stream = foostep_stream_randomizer
+	foostep_player.play()
+
