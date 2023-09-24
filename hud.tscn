@@ -301,6 +301,7 @@ item_craft_button = ExtResource("15_otw1a")
 button_group = ExtResource("16_2oloe")
 description = NodePath("Panel/Description")
 required_items = NodePath("Panel/RequiredItems")
+start_crafting_button = NodePath("Panel/StartCraftingButton")
 hud = NodePath("..")
 
 [node name="CraftingList" type="ScrollContainer" parent="CraftingMenu"]
@@ -327,7 +328,7 @@ offset_left = -371.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="CraftingMenu/Panel"]
+[node name="StartCraftingButton" type="Button" parent="CraftingMenu/Panel"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -395,3 +396,5 @@ autowrap_mode = 3
 [connection signal="item_mouse_entered" from="CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_entered"]
 [connection signal="item_mouse_exited" from="CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_exited"]
 [connection signal="button_down" from="BuildingMenu/Concrete" to="." method="_on_concrete_button_down"]
+[connection signal="start_craft" from="CraftingMenu" to="." method="_on_crafting_menu_start_craft"]
+[connection signal="pressed" from="CraftingMenu/Panel/StartCraftingButton" to="CraftingMenu" method="_on_start_crafting_button_pressed"]

@@ -8,7 +8,11 @@ extends Panel
 @export var description : NodePath
 @export var required_items : NodePath
 
+@export var start_crafting_button : NodePath
+
 @export var hud : NodePath
+
+signal start_craft
 
 var active_recipe
 
@@ -35,7 +39,6 @@ func _process(delta):
 func item_craft_button_clicked(recipe):
 	active_recipe = recipe
 	var recipe_id = recipe["id"]
-	#var items = ItemManager.items[recipe_id]
 	var item_to_craft
 	for item in ItemManager.items:
 		if item["id"] == recipe_id:
@@ -50,3 +53,15 @@ func item_craft_button_clicked(recipe):
 		
 		if !get_node(hud).check_if_resources_are_available(required_item, int(active_recipe["required_resource"][required_item])):
 			is_craft_possible = false
+	
+	if is_craft_possible:
+		get_node(start_crafting_button).text = "Craft!"
+		get_node(start_crafting_button).disabled = false
+	else:
+		get_node(start_crafting_button).text = "Not enough resources!"
+		get_node(start_crafting_button).disabled = true
+	
+
+
+func _on_start_crafting_button_pressed():
+	start_craft.emit(active_recipe)
