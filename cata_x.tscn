@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=45 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Texture2D" uid="uid://c5qiud2ubqdts" path="res://kenney_roguelike-modern-city/Tilemap/tilemap_packed.png" id="3_0gxho"]
 [ext_resource type="Texture2D" uid="uid://1xji6t8nmjv4" path="res://Textures/Tiles/grassv5.png" id="5_hwdop"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_li818"]
 [ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="10_amy2f"]
 [ext_resource type="Texture2D" uid="uid://dssie8asguen8" path="res://kenney_roguelike-modern-city/Tiles/tile_0000.png" id="10_taif1"]
+[ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="11_sif7w"]
+[ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="12_wlvdj"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
 [ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="13_i5xg7"]
 [ext_resource type="Script" path="res://Scripts/HeldItem.gd" id="14_aw33d"]
@@ -3495,6 +3497,13 @@ gradient = SubResource("Gradient_wqjbh")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_sirm6"]
+streams_count = 1
+playback_mode = 1
+random_pitch = 1.2
+stream_0/stream = ExtResource("11_sif7w")
+stream_0/weight = 1.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_erta2"]
 radius = 23.0
 
@@ -3567,7 +3576,7 @@ texture_scale = 13.84
 zoom = Vector2(1.5, 1.5)
 script = ExtResource("9_li818")
 
-[node name="PlayerShooting" type="Node2D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("attack_cooldown", "reload_timer")]
+[node name="PlayerShooting" type="Node2D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("attack_cooldown", "reload_timer", "shoot_audio_player", "reload_audio_player")]
 script = ExtResource("10_amy2f")
 projectiles = NodePath("../../Projectiles")
 bullet_speed = 1000.0
@@ -3577,12 +3586,23 @@ bullet_line_scene = ExtResource("17_1aft6")
 attack_cooldown = NodePath("AttackCooldown")
 reload_timer = NodePath("ReloadTime")
 player = NodePath("..")
+shoot_audio_player = NodePath("ShotPlayer")
+shoot_audio_randomizer = SubResource("AudioStreamRandomizer_sirm6")
+reload_audio_player = NodePath("ReloadPlayer")
 
 [node name="AttackCooldown" type="Timer" parent="TacticalMap/Entities/Player/PlayerShooting"]
 one_shot = true
 
 [node name="ReloadTime" type="Timer" parent="TacticalMap/Entities/Player/PlayerShooting"]
 one_shot = true
+
+[node name="ShotPlayer" type="AudioStreamPlayer" parent="TacticalMap/Entities/Player/PlayerShooting"]
+stream = ExtResource("11_sif7w")
+volume_db = -10.587
+
+[node name="ReloadPlayer" type="AudioStreamPlayer" parent="TacticalMap/Entities/Player/PlayerShooting"]
+stream = ExtResource("12_wlvdj")
+volume_db = -10.17
 
 [node name="ItemDetector" type="Area2D" parent="TacticalMap/Entities/Player"]
 collision_layer = 0

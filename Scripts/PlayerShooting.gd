@@ -22,6 +22,12 @@ signal ammo_changed
 
 @export var player: NodePath
 
+@export var shoot_audio_player : AudioStreamPlayer
+@export var shoot_audio_randomizer : AudioStreamRandomizer
+
+@export var reload_audio_player : AudioStreamPlayer
+#@export var reload_audio_randomizer : AudioStreamRandomizer
+
 var damage = 25
 
 
@@ -53,6 +59,9 @@ func _input(event):
 			attack_cooldown.start()
 			current_ammo -= 1
 			ammo_changed.emit(current_ammo, max_ammo)
+			shoot_audio_player.stream = shoot_audio_randomizer
+			shoot_audio_player.play()
+			
 			var space_state = get_world_2d().direct_space_state
 			var query = PhysicsRayQueryParameters2D.create(global_position, global_position + (get_global_mouse_position() - global_position).normalized() * 10000 , pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1),[self])
 
@@ -67,6 +76,9 @@ func _input(event):
 				
 				if result.collider.has_method("_get_hit"):
 					result.collider._get_hit(damage)
+					
+
+
 
 
 
@@ -96,7 +108,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	
+	# Reloading sound logic, basically we want to play the sound during the reloading phase,
+	# not before or after reloading so the end of reloading sounds will align with end of the reloading phase
+	if reload_timer.time_left <= reload_audio_player.stream.get_length() && !reload_audio_player.playing && !reload_timer.is_stopped():
+		reload_audio_player.play()
 
 
 func _on_reload_time_timeout():
