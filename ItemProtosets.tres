@@ -24,7 +24,8 @@ json_data = "[
         \"height\": 2,
         \"width\": 4,
         \"weight\": 2,
-        \"stack_size\": 2,
+        \"stack_size\": 3,
+		\"max_stack_size\": 3,
         \"description\": \"Test plank test\",
 		\"image\": \"res://Textures/plank.png\",
         \"flags\": []
@@ -39,7 +40,19 @@ json_data = "[
         \"stack_size\": 100,
         \"description\": \"Test 9mm test\",
 		\"image\": \"res://Textures/9mm.png\",
-        \"flags\": []
+        \"flags\": [\"ammunition\"]
+    },
+		{
+        \"name\": \"Bandages\",
+        \"assigned_id\": 0,
+        \"id\": \"bandages\",
+        \"height\": 1,
+        \"width\": 1,
+        \"weight\": 0.05,
+        \"stack_size\": 1,
+        \"max_stack_size\": 20,
+        \"description\": \"Basic bandages for stopping bleeding.\",
+        \"flags\": [\"healing\"]
     },
     {
         \"name\": \"Pistol magazine\",
@@ -50,6 +63,7 @@ json_data = "[
         \"weight\": 0.25,
         \"description\": \"Test pistol magazine test\",
 		\"image\": \"res://Textures/pistol_magazine.png\",
-        \"flags\": []
+		\"current_ammo\": 0,
+        \"flags\": [\"magazine\"]
     }
 ]"

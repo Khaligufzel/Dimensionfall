@@ -17,7 +17,11 @@ extends CanvasLayer
 @export var proximity_inventory: NodePath
 @export var proximity_inventory_control: NodePath
 
+@export var inventory_control : NodePath
+@export var inventory : NodePath
+
 @export var building_menu: NodePath
+@export var crafting_menu : NodePath
 
 var is_building_menu_open = false
 
@@ -28,6 +32,9 @@ var is_showing_tooltip = false
 
 signal construction_chosen
 
+
+
+@export var item_protoset : ItemProtoset
 
 func test():
 	print("TESTING 123 123!")
@@ -42,11 +49,20 @@ func _input(event):
 		else:
 			is_building_menu_open = true
 			get_node(building_menu).set_visible(true)
+			
+	if event.is_action_pressed("toggle_inventory"):
+		get_node(inventory_control).visible = !get_node(inventory_control).visible
+		get_node(proximity_inventory_control).visible = !get_node(proximity_inventory_control).visible
+	
+	if event.is_action_pressed("crafting_menu"):
+		get_node(crafting_menu).visible = !get_node(crafting_menu).visible
 		
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	#temporary hack
+	ItemManager.create_item_protoset(item_protoset)
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -112,3 +128,70 @@ func _on_inventory_item_mouse_entered(item):
 	
 func _on_inventory_item_mouse_exited(item):
 	is_showing_tooltip = false
+
+func check_if_resources_are_available(item_id, amount_to_spend: int):
+	
+	var inventory_node = get_node(inventory)
+	print("checking if we have the item id in inv")
+	if inventory_node.get_item_by_id(item_id):
+		print("we have the item id")
+		var item_total_amount : int
+		var current_amount_to_spend = amount_to_spend
+		var items = inventory_node.get_items_by_id(item_id)
+		
+		for item in items:
+			item_total_amount += inventory_node.get_item_stack_size(item)
+			
+		if item_total_amount >= current_amount_to_spend:
+			return true
+		
+	return false
+
+func try_to_spend_item(item_id, amount_to_spend : int):
+	var inventory_node = get_node(inventory)
+	if inventory_node.get_item_by_id(item_id):
+		var item_total_amount : int
+		var current_amount_to_spend = amount_to_spend
+		var items = inventory_node.get_items_by_id(item_id)
+		
+		for item in items:
+			item_total_amount += inventory_node.get_item_stack_size(item)
+		
+		if item_total_amount >= amount_to_spend:
+			merge_items_to_total_amount(items, inventory_node, item_total_amount - current_amount_to_spend)
+			return true
+		else:
+			return false
+	else:
+		return false
+		
+func merge_items_to_total_amount(items, inventory, total_amount : int):
+	var current_total_amount = total_amount
+	for item in items:
+		if inventory.get_item_stack_size(item) < current_total_amount:
+			if inventory.get_item_stack_size(item) == item.get_property("max_stack_size"):
+				current_total_amount -= inventory.get_item_stack_size(item)
+			elif inventory.get_item_stack_size(item) < item.get_property("max_stack_size"):
+				current_total_amount -= item.get_property("max_stack_size") - inventory.get_item_stack_size(item)
+				inventory.set_item_stack_size(item, item.get_property("max_stack_size"))
+				
+		elif inventory.get_item_stack_size(item) == current_total_amount:
+			current_total_amount = 0
+			
+		elif inventory.get_item_stack_size(item) > current_total_amount:
+			inventory.set_item_stack_size(item, current_total_amount)
+			current_total_amount = 0
+			
+			if inventory.get_item_stack_size(item) == 0:
+				inventory.remove_item(item)
+				
+
+func _on_crafting_menu_start_craft(recipe):
+	#first we need to use required resources for the recipe
+	for required_item in recipe["required_resource"]:
+		try_to_spend_item(required_item, recipe["required_resource"][required_item])
+		
+	#adding a new item(s) to the inventory based on the recipe
+	var item
+	item = get_node(inventory).create_and_add_item(recipe["crafts"])
+	get_node(inventory).set_item_stack_size(item, recipe["craft_amount"])

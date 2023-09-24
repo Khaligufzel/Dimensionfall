@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpcn3qq8okj12"]
+
+[ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_nejs3"]
+[ext_resource type="Script" path="res://Scripts/item_craft_button.gd" id="2_qop7p"]
+
+[node name="ItemCraftButton" type="Button"]
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_nejs3")
+theme_override_font_sizes/font_size = 20
+toggle_mode = true
+keep_pressed_outside = true
+text = "An item"
+script = ExtResource("2_qop7p")
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]

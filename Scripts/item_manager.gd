@@ -2,6 +2,11 @@ extends Node
 
 var item_id_to_assign = 0
 
+var items
+var item_json_as_text
+
+var item_protoset : ItemProtoset
+
 @onready var weapon = {
 		"id_string": "test_pistol",
 		"name": "Pistol",
@@ -54,6 +59,15 @@ func save_weapons_in_json():
 	weapons_file.store_line(JSON.stringify(data_to_send, "\t"))
 	
 	weapons_file.close()
-
-
 	
+	
+func get_items_from_json():
+	var file = "user://items.json"
+	item_json_as_text = FileAccess.get_file_as_string(file)
+	var json_as_dict = JSON.parse_string(item_json_as_text)
+	items = json_as_dict
+	
+func create_item_protoset(protoset):
+	item_protoset = protoset
+	get_items_from_json()
+	item_protoset.parse(item_json_as_text)

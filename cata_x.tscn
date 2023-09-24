@@ -1,7 +1,5 @@
-[gd_scene load_steps=44 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=42 format=3 uid="uid://c1fqtjd1cxbtu"]
 
-[ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="1_lng26"]
-[ext_resource type="Script" path="res://Scripts/Client.gd" id="2_uinhm"]
 [ext_resource type="Texture2D" uid="uid://c5qiud2ubqdts" path="res://kenney_roguelike-modern-city/Tilemap/tilemap_packed.png" id="3_0gxho"]
 [ext_resource type="Texture2D" uid="uid://1xji6t8nmjv4" path="res://Textures/Tiles/grassv5.png" id="5_hwdop"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="5_ugvie"]
@@ -3502,13 +3500,6 @@ radius = 23.0
 
 [node name="CataX" type="Node2D"]
 
-[node name="Online" type="Node" parent="."]
-process_mode = 3
-script = ExtResource("1_lng26")
-
-[node name="Client" type="Node" parent="Online"]
-script = ExtResource("2_uinhm")
-
 [node name="TacticalMap" type="Node2D" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="TacticalMap"]
@@ -3533,6 +3524,7 @@ script = ExtResource("5_ugvie")
 tile_map_path = NodePath("../TileMap")
 ghost_sprite_path = NodePath("Ghost")
 player_path = NodePath("../Entities/Player")
+hud = NodePath("../../HUD")
 
 [node name="Ghost" type="Sprite2D" parent="TacticalMap/BuildManager"]
 texture = ExtResource("10_taif1")
@@ -3605,6 +3597,7 @@ shape = SubResource("CircleShape2D_erta2")
 script = ExtResource("14_aw33d")
 
 [node name="ProgressBar" type="Node2D" parent="TacticalMap/Entities/Player"]
+visible = false
 z_index = 99
 position = Vector2(0, -14)
 scale = Vector2(0.2, 0.2)

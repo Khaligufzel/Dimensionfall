@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=20 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
@@ -13,10 +13,20 @@
 [ext_resource type="Texture2D" uid="uid://c1begynwustlp" path="res://Textures/torso.png" id="9_4u4ej"]
 [ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_grid_ex.gd" id="11_m0x1l"]
 [ext_resource type="Texture2D" uid="uid://cwmsngeoc631h" path="res://Textures/Screenshot_167.png" id="13_hab4t"]
+[ext_resource type="Script" path="res://Scripts/CraftingMenu.gd" id="14_g3fif"]
+[ext_resource type="PackedScene" uid="uid://cpcn3qq8okj12" path="res://item_craft_button.tscn" id="15_otw1a"]
+[ext_resource type="ButtonGroup" uid="uid://bcjuavqvre6mk" path="res://crafting_recipes_button_group.tres" id="16_2oloe"]
 
 [sub_resource type="Theme" id="Theme_xn5t2"]
 default_font = ExtResource("1_pxloi")
 default_font_size = 0
+
+[sub_resource type="Theme" id="Theme_1as7c"]
+default_font = ExtResource("1_pxloi")
+default_font_size = 13
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_xekk0"]
+color = Color(1, 1, 1, 1)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_s3xoj")
@@ -32,10 +42,14 @@ healthy_color = Color(0, 0.635294, 0, 1)
 damaged_color = Color(0.635294, 0, 0, 1)
 proximity_inventory = NodePath("InventoryGridStackedProx")
 proximity_inventory_control = NodePath("CtrlInventoryGridExProx")
+inventory_control = NodePath("CtrlInventoryGridEx")
+inventory = NodePath("InventoryGridStacked")
 building_menu = NodePath("BuildingMenu")
+crafting_menu = NodePath("CraftingMenu")
 tooltip = NodePath("Tooltip")
 tooltip_item_name = NodePath("Tooltip/Panel/ItemName")
 tooltip_item_description = NodePath("Tooltip/Panel2/Description")
+item_protoset = ExtResource("3_jmlkb")
 
 [node name="OutsideOfHUD" type="Control" parent="."]
 layout_mode = 3
@@ -105,6 +119,7 @@ text = "100%"
 vertical_alignment = 1
 
 [node name="Time" type="Label" parent="."]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -173,30 +188,32 @@ size = Vector2i(30, 10)
 item_protoset = ExtResource("3_jmlkb")
 
 [node name="CtrlInventoryGridEx" type="Control" parent="."]
-custom_minimum_size = Vector2(160, 160)
+visible = false
+custom_minimum_size = Vector2(320, 320)
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 383.0
-offset_top = -160.0
-offset_right = 543.0
+offset_top = -322.0
+offset_right = 703.0
+offset_bottom = -2.0
 grow_vertical = 0
 script = ExtResource("11_m0x1l")
-field_dimensions = Vector2(16, 16)
 selection_color = Color(0.745098, 0.745098, 0.745098, 0.941176)
 inventory_path = NodePath("../InventoryGridStacked")
 default_item_texture = ExtResource("13_hab4t")
 
 [node name="CtrlInventoryGridExProx" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(240, 80)
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 554.0
+offset_left = 711.0
 offset_top = -80.0
-offset_right = 794.0
+offset_right = 951.0
 grow_vertical = 0
 script = ExtResource("11_m0x1l")
 field_dimensions = Vector2(8, 8)
@@ -214,6 +231,7 @@ layout_mode = 2
 text = "Concrete"
 
 [node name="Tooltip" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 242.0
@@ -256,11 +274,121 @@ size_flags_vertical = 3
 layout_mode = 0
 offset_right = 240.0
 offset_bottom = 32.0
+theme = SubResource("Theme_1as7c")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("1_pxloi")
 theme_override_font_sizes/font_size = 13
 text = "Item description"
+
+[node name="CraftingMenu" type="Panel" parent="." groups=["CraftingMenu"]]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -321.0
+offset_right = 370.0
+offset_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("14_g3fif")
+button_container = NodePath("CraftingList/VBoxContainer")
+item_craft_button = ExtResource("15_otw1a")
+button_group = ExtResource("16_2oloe")
+description = NodePath("Panel/Description")
+required_items = NodePath("Panel/RequiredItems")
+start_crafting_button = NodePath("Panel/StartCraftingButton")
+hud = NodePath("..")
+
+[node name="CraftingList" type="ScrollContainer" parent="CraftingMenu"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 246.0
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CraftingMenu/CraftingList"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="CraftingMenu"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -371.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="StartCraftingButton" type="Button" parent="CraftingMenu/Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_pxloi")
+theme_override_font_sizes/font_size = 20
+text = "Craft!"
+
+[node name="Description" type="Label" parent="CraftingMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_right = -13.0
+offset_bottom = -322.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_pxloi")
+theme_override_font_sizes/font_size = 20
+text = "Description
+"
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="CraftingMenu/Panel"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 316.0
+offset_right = 360.0
+offset_bottom = 323.0
+theme_override_constants/separation = 1
+theme_override_styles/separator = SubResource("StyleBoxLine_xekk0")
+
+[node name="RequiredItems" type="Label" parent="CraftingMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 323.0
+offset_right = -15.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_pxloi")
+theme_override_font_sizes/font_size = 20
+text = "Required items
+"
+autowrap_mode = 3
 
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_exited"]
@@ -269,3 +397,5 @@ text = "Item description"
 [connection signal="item_mouse_entered" from="CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_entered"]
 [connection signal="item_mouse_exited" from="CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_exited"]
 [connection signal="button_down" from="BuildingMenu/Concrete" to="." method="_on_concrete_button_down"]
+[connection signal="start_craft" from="CraftingMenu" to="." method="_on_crafting_menu_start_craft"]
+[connection signal="pressed" from="CraftingMenu/Panel/StartCraftingButton" to="CraftingMenu" method="_on_start_crafting_button_pressed"]

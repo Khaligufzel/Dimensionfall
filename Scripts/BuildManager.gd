@@ -12,6 +12,8 @@ var build_range = 30
 
 @export var player_path: NodePath
 
+@export var hud : NodePath
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	tile_map = get_node(tile_map_path)
@@ -27,7 +29,7 @@ func _process(delta):
 
 
 func _input(event):
-	if Input.is_action_pressed("click") && is_building:
+	if Input.is_action_pressed("click") && is_building && get_node(hud).try_to_spend_item("plank", 2):
 		
 		if get_node(player_path).check_if_visible(get_global_mouse_position()) && Vector2(get_node(player_path).global_position).distance_to(get_global_mouse_position()) <= build_range:
 			tile_map.set_cell(0, tile_map.local_to_map(get_global_mouse_position()), 0, Vector2i(9,3))
