@@ -1,5 +1,6 @@
-[gd_scene load_steps=63 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=73 format=3 uid="uid://c1fqtjd1cxbtu"]
 
+[ext_resource type="Texture2D" uid="uid://44igy8ss6sn7" path="res://Textures/Tiles/doors.png" id="2_ar6uc"]
 [ext_resource type="Texture2D" uid="uid://c5qiud2ubqdts" path="res://kenney_roguelike-modern-city/Tilemap/tilemap_packed.png" id="3_0gxho"]
 [ext_resource type="Texture2D" uid="uid://1xji6t8nmjv4" path="res://Textures/Tiles/grassv5.png" id="5_hwdop"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="5_ugvie"]
@@ -3479,6 +3480,71 @@ texture = ExtResource("3_0gxho")
 36:27/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 36:27/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_3c54a"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 6, -8, 6)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 6, -8, 6)])
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_bdvyq"]
+polygon = PackedVector2Array(-8, 6, 8, 6, 8, 8, -8, 8)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_egrom"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ac116"]
+polygon = PackedVector2Array(6, 8, 6, -8, 8, -8, 8, 8)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_d3x26"]
+vertices = PackedVector2Array(8, -8, 8, 8, -6, 8, -6, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(8, -8, 8, 8, -6, 8, -6, -8)])
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_1jgdp"]
+polygon = PackedVector2Array(-6, -8, -6, 8, -8, 8, -8, -8)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_4jxbb"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2rwcq"]
+polygon = PackedVector2Array(-8, 6, 8, 6, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_067oc"]
+texture = ExtResource("2_ar6uc")
+0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_bdvyq")
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 6, 8, 6, 8, 8, -8, 8)
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_3c54a")
+0:0/0/custom_data_0 = 1
+0:0/0/custom_data_1 = true
+1:0/0 = 0
+1:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_ac116")
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(6, 8, 6, -8, 8, -8, 8, 8)
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_egrom")
+1:0/0/custom_data_0 = 2
+2:0/0 = 0
+2:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_1jgdp")
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, -8, -6, 8, -8, 8, -8, -8)
+2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_d3x26")
+2:0/0/custom_data_0 = 1
+2:0/0/custom_data_1 = true
+3:0/0 = 0
+3:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_2rwcq")
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 6, 8, 6, 8, 8, -8, 8)
+3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4jxbb")
+3:0/0/custom_data_0 = 2
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jxpox"]
 vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
@@ -3514,6 +3580,7 @@ custom_data_layer_1/name = "StateObject"
 custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_cw4pv")
 sources/6 = SubResource("TileSetAtlasSource_xmioi")
+sources/1 = SubResource("TileSetAtlasSource_067oc")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tnotd"]
 streams_count = 1
@@ -3634,7 +3701,7 @@ layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array(1572897, 851968, 14, 1572902, 917504, 14, 1572900, 786432, 14, 1310756, 786432, 14, 1179680, 917504, 13, 917538, 786432, 13, 720932, 786432, 13, 1114151, 917504, 14, 1179692, 851968, 13, 983092, 917504, 14, 655409, 786432, 13, 786476, 851968, 13, 720952, 851968, 14, 1048623, 851968, 13, 786479, 2162688, 3, 852015, 2228224, 3, 852016, 2097152, 3, 786480, 2097152, 3, 917551, 2097152, 3, 917552, 2228224, 3, 720949, 2097152, 3, 786485, 2228224, 3, 852021, 2228224, 3, 852022, 2162688, 3, 786486, 2162688, 3, 720950, 2228224, 3, 458799, 2162688, 3, 458800, 2228224, 3, 458801, 2228224, 3, 458797, 2097152, 3, 458796, 2228224, 3, 196665, 2162688, 3, 262201, 2162688, 3, 327737, 2097152, 3, 327738, 2097152, 3, 262202, 2228224, 3, 196666, 2162688, 3, 1638452, 2228224, 3, 1703988, 2097152, 3, 1769524, 2162688, 3, 1769525, 2097152, 3, 1703989, 2162688, 3, 1703990, 2228224, 3, 1638454, 2162688, 3, 1638453, 2162688, 3, 1769526, 2097152, 3, 2031652, 2162688, 3, 1900582, 2162688, 3, 1441833, 2162688, 3, 1507369, 2097152, 3, 1507370, 2162688, 3, 1441834, 2097152, 3, 1703983, 2228224, 3, 1769519, 2162688, 3, 1835055, 2097152, 3, 1835056, 2228224, 3, 1769520, 2162688, 3, 1703984, 2228224, 3, 1638448, 2228224, 3, 1966121, 2097152, 3, 2031657, 2097152, 3, 2031658, 2228224, 3, 1966122, 2162688, 3, 1507360, 2162688, 3, 1441824, 2097152, 3, 1376288, 2162688, 3, 1441831, 2162688, 3, 1376295, 2228224, 3, 1310759, 2228224, 3, 917541, 2162688, 3, 983077, 2228224, 3, 983078, 2097152, 3, 917542, 2228224, 3, 196643, 2162688, 3, 196644, 2097152, 3, 196645, 2097152, 3, 262179, 2162688, 3, 196642, 2228224, 3)
+layer_1/tile_data = PackedInt32Array(1572897, 851968, 14, 1572902, 917504, 14, 1572900, 786432, 14, 1310756, 786432, 14, 1179680, 917504, 13, 917538, 786432, 13, 720932, 786432, 13, 1114151, 917504, 14, 1179692, 851968, 13, 983092, 917504, 14, 655409, 786432, 13, 786476, 851968, 13, 720952, 851968, 14, 1048623, 851968, 13, 786479, 2162688, 3, 852015, 2228224, 3, 852016, 2097152, 3, 786480, 2097152, 3, 917551, 2097152, 3, 917552, 2228224, 3, 720949, 2097152, 3, 786485, 2228224, 3, 852021, 2228224, 3, 852022, 2162688, 3, 786486, 2162688, 3, 720950, 2228224, 3, 458799, 2162688, 3, 458800, 2228224, 3, 458801, 2228224, 3, 458797, 2097152, 3, 458796, 2228224, 3, 196665, 2162688, 3, 262201, 2162688, 3, 327737, 2097152, 3, 327738, 2097152, 3, 262202, 2228224, 3, 196666, 2162688, 3, 1638452, 2228224, 3, 1703988, 2097152, 3, 1769524, 2162688, 3, 1769525, 2097152, 3, 1703989, 2162688, 3, 1703990, 2228224, 3, 1638454, 2162688, 3, 1638453, 2162688, 3, 1769526, 2097152, 3, 2031652, 2162688, 3, 1900582, 2162688, 3, 1441833, 2162688, 3, 1507369, 2097152, 3, 1507370, 2162688, 3, 1441834, 2097152, 3, 1703983, 2228224, 3, 1769519, 2162688, 3, 1835055, 2097152, 3, 1835056, 2228224, 3, 1769520, 2162688, 3, 1703984, 2228224, 3, 1638448, 2228224, 3, 1966121, 2097152, 3, 2031657, 2097152, 3, 2031658, 2228224, 3, 1966122, 2162688, 3, 1507360, 2162688, 3, 1441824, 2097152, 3, 1376288, 2162688, 3, 1441831, 2162688, 3, 1376295, 2228224, 3, 1310759, 2228224, 3, 917541, 2162688, 3, 983077, 2228224, 3, 983078, 2097152, 3, 917542, 2228224, 3, 196643, 2162688, 3, 196644, 2097152, 3, 196645, 2097152, 3, 262179, 2162688, 3, 196642, 2228224, 3, 720927, 131073, 0, 720936, 131073, 0, 2097201, 131073, 0, 655399, 1, 0, 524342, 1, 0, 1245231, 1, 0)
 layer_2/name = "foreground"
 layer_2/enabled = true
 layer_2/modulate = Color(1, 1, 1, 1)
