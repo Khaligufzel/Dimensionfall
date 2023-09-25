@@ -14,7 +14,7 @@
 light_mode = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kbdf7"]
-size = Vector2(31.068, 31.068)
+size = Vector2(20, 20.0001)
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemies"]]
 light_mask = 2
@@ -74,9 +74,9 @@ senseRange = 50.0
 hearingRange = 1000.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_postprocessing = 1
 avoidance_enabled = true
 radius = 50.44
+debug_enabled = true
 
 [node name="Timer" type="Timer" parent="NavigationAgent2D"]
 wait_time = 0.5
@@ -84,12 +84,11 @@ wait_time = 0.5
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.729412, 0, 0.137255, 1)
 z_index = 2
-z_as_relative = false
 material = SubResource("CanvasItemMaterial_6kat3")
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("8_wgh4n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3.05176e-05)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_kbdf7")
 

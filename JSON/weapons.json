@@ -1,0 +1,20 @@
+{
+	"description": "Gun for testing",
+	"firing_speed": "0.25",
+	"flags": [
+		"ranged_weapon"
+	],
+	"id_string": "test_pistol",
+	"name": "Pistol",
+	"range": "1000",
+	"recoil": "20",
+	"reload_speed": "2.5",
+	"spread": "5",
+	"sway": "5",
+	"used_ammo": "9mm",
+	"used_magazine": [
+		"pistol_magazine",
+		"another_pistol_magazine"
+	],
+	"used_skill": "short_guns"
+}

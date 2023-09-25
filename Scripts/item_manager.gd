@@ -53,7 +53,7 @@ func get_weapons_from_json():
 	
 func save_weapons_in_json():
 	
-	var weapons_file = FileAccess.open("user://weapons.json", FileAccess.WRITE)
+	var weapons_file = FileAccess.open("res://JSON/weapons.json", FileAccess.WRITE)
 	var data_to_send = weapon
 	#var json_string = JSON.stringify(data_to_send)
 	weapons_file.store_line(JSON.stringify(data_to_send, "\t"))
@@ -62,7 +62,7 @@ func save_weapons_in_json():
 	
 	
 func get_items_from_json():
-	var file = "user://items.json"
+	var file = "res://JSON/items.json"
 	item_json_as_text = FileAccess.get_file_as_string(file)
 	var json_as_dict = JSON.parse_string(item_json_as_text)
 	items = json_as_dict

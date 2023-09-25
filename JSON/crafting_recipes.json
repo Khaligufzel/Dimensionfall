@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Ammo: 9mm",
+        "id": "9mm",
+        "crafts": "9mm",
+        "craft_amount": 20,
+        "required_resource": {
+            "steel_scrap" : 1
+        },
+        "craft_time": 10,
+        "flags": ["requires_light"],
+        "categories": []
+    }
+]
