@@ -3528,7 +3528,7 @@ texture = ExtResource("2_ar6uc")
 1:0/0/physics_layer_0/angular_velocity = 0.0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(6, 8, 6, -8, 8, -8, 8, 8)
 1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_egrom")
-1:0/0/custom_data_0 = 2
+1:0/0/custom_data_0 = 1
 2:0/0 = 0
 2:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_1jgdp")
 2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -3543,7 +3543,7 @@ texture = ExtResource("2_ar6uc")
 3:0/0/physics_layer_0/angular_velocity = 0.0
 3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 6, 8, 6, 8, 8, -8, 8)
 3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4jxbb")
-3:0/0/custom_data_0 = 2
+3:0/0/custom_data_0 = 1
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jxpox"]
 vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -3574,9 +3574,9 @@ terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "ConcreteWall"
 terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.25098, 1)
 navigation_layer_0/layers = 1
-custom_data_layer_0/name = "InteractionObject"
+custom_data_layer_0/name = "InteractionObjectId"
 custom_data_layer_0/type = 2
-custom_data_layer_1/name = "StateObject"
+custom_data_layer_1/name = "StateOfObject"
 custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_cw4pv")
 sources/6 = SubResource("TileSetAtlasSource_xmioi")
@@ -3688,7 +3688,7 @@ radius = 23.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="TacticalMap"]
 
-[node name="TileMap" type="TileMap" parent="TacticalMap"]
+[node name="TileMap" type="TileMap" parent="TacticalMap" groups=["TileMap"]]
 material = SubResource("CanvasItemMaterial_1v03i")
 position = Vector2(1, 2)
 tile_set = SubResource("TileSet_ky8ko")
