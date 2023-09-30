@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 
 class_name State
 

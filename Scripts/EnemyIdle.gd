@@ -3,7 +3,7 @@ class_name EnemyIdle
 
 var idle_speed
 
-@export var nav_agent: NavigationAgent2D
+@export var nav_agent: NavigationAgent3D
 @export var stats: NodePath
 @export var enemy: NodePath
 @export var move_distance: float
@@ -48,9 +48,9 @@ func makepath() -> void:
 
 func _on_moving_cooldown_timeout():
 	
-	var space_state = get_world_2d().direct_space_state
-	var random_dir = Vector2(rng.randf_range(-1,1), rng.randf_range(-1, 1))
-	var query = PhysicsRayQueryParameters2D.create(get_node(enemy).global_position, get_node(enemy).global_position + (random_dir * move_distance), pow(2, 1-1) + pow(2, 3-1),[self])
+	var space_state = get_world_3d().direct_space_state
+	var random_dir = Vector3(rng.randf_range(-1,1), get_node(enemy).global_position.y, rng.randf_range(-1, 1))
+	var query = PhysicsRayQueryParameters3D.create(get_node(enemy).global_position, get_node(enemy).global_position + (random_dir * move_distance), pow(2, 1-1) + pow(2, 3-1),[self])
 
 	var result = space_state.intersect_ray(query)
 	if !result:

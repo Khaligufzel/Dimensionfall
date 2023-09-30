@@ -1,51 +1,48 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2r6nh12wv41k"]
+[gd_scene load_steps=11 format=3 uid="uid://b2r6nh12wv41k"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_eb130"]
-[ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://enemy_corpse.tscn" id="2_vyld4"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_68hce"]
 [ext_resource type="Script" path="res://Scripts/EnemyAttack.gd" id="4_mt4kh"]
 [ext_resource type="Script" path="res://Scripts/EnemyIdle.gd" id="5_bvewq"]
 [ext_resource type="Script" path="res://Scripts/EnemyFollow.gd" id="6_0jpem"]
 [ext_resource type="Script" path="res://Scripts/EnemyStats.gd" id="7_p4tru"]
-[ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://Textures/enemy.png" id="8_wgh4n"]
 [ext_resource type="Script" path="res://Scripts/Detection.gd" id="9_fj2x0"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6kat3"]
-light_mode = 2
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xqhy"]
+albedo_color = Color(1, 0, 0.0941176, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbdf7"]
-size = Vector2(20, 20.0001)
+[sub_resource type="BoxMesh" id="BoxMesh_tckwf"]
+material = SubResource("StandardMaterial3D_2xqhy")
+size = Vector3(1, 2, 1)
 
-[node name="Enemy" type="CharacterBody2D" groups=["Enemies"]]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(440, 336)
-scale = Vector2(0.8, 0.8)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wqm36"]
+points = PackedVector3Array(-0.5, -1, -0.5, -0.5, -1, 0.5, -0.5, 1, -0.5, 0.5, -1, -0.5, 0.5, -1, 0.5, -0.5, 1, 0.5, 0.5, 1, -0.5, 0.5, 1, 0.5)
+
+[node name="Enemy" type="CharacterBody3D" groups=["Enemies"]]
 collision_layer = 2
 collision_mask = 15
-motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_eb130")
-sprite = NodePath("Sprite2D")
 stats = NodePath("EnemyStats")
-corpse_scene = ExtResource("2_vyld4")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_68hce")
 initial_state = NodePath("EnemyIdle")
 
-[node name="EnemyAttack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("attack_timer")]
+[node name="EnemyAttack" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("attack_timer")]
 script = ExtResource("4_mt4kh")
 stats = NodePath("../../EnemyStats")
 attack_timer = NodePath("AttackCooldown")
-enemy = NodePath("../../CollisionShape2D")
-enemy_sprite = NodePath("../../Sprite2D")
+enemy = NodePath("../..")
 
 [node name="AttackCooldown" type="Timer" parent="StateMachine/EnemyAttack"]
 
-[node name="EnemyIdle" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "moving_timer")]
+[node name="EnemyIdle" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "moving_timer")]
 script = ExtResource("5_bvewq")
-nav_agent = NodePath("../../NavigationAgent2D")
+nav_agent = NodePath("../../NavigationAgent3D")
 stats = NodePath("../../EnemyStats")
 enemy = NodePath("../..")
 move_distance = 50.0
@@ -54,51 +51,42 @@ moving_timer = NodePath("MovingCooldown")
 [node name="MovingCooldown" type="Timer" parent="StateMachine/EnemyIdle"]
 wait_time = 4.0
 
-[node name="EnemyFollow" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "enemy", "pathfinding_timer")]
+[node name="EnemyFollow" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "enemy", "pathfinding_timer")]
 script = ExtResource("6_0jpem")
-nav_agent = NodePath("../../NavigationAgent2D")
+nav_agent = NodePath("../../NavigationAgent3D")
 enemy = NodePath("../..")
-enemyCol = NodePath("../../CollisionShape2D")
+enemyCol = NodePath("../../CollisionShape3D")
 stats = NodePath("../../EnemyStats")
-pathfinding_timer = NodePath("../../NavigationAgent2D/Timer")
+pathfinding_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="StateMachine/EnemyFollow"]
+wait_time = 0.2
+autostart = true
 
 [node name="EnemyStats" type="Node" parent="."]
 script = ExtResource("7_p4tru")
 melee_damage = 20.0
-melee_range = 40.0
+melee_range = 5.0
 health = 100.0
-moveSpeed = 50.0
-idle_move_speed = 20.0
+moveSpeed = 10.0
+idle_move_speed = 5.0
 sightRange = 200.0
 senseRange = 50.0
 hearingRange = 1000.0
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-avoidance_enabled = true
-radius = 50.44
-debug_enabled = true
-
-[node name="Timer" type="Timer" parent="NavigationAgent2D"]
-wait_time = 0.5
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.729412, 0, 0.137255, 1)
-z_index = 2
-material = SubResource("CanvasItemMaterial_6kat3")
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("8_wgh4n")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.5, 0.5)
-shape = SubResource("RectangleShape2D_kbdf7")
-
-[node name="Detection" type="Node2D" parent="."]
+[node name="Detection" type="Node3D" parent="."]
 script = ExtResource("9_fj2x0")
 stats = NodePath("../EnemyStats")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_tckwf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_wqm36")
+
 [connection signal="timeout" from="StateMachine/EnemyAttack/AttackCooldown" to="StateMachine/EnemyAttack" method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="StateMachine/EnemyIdle/MovingCooldown" to="StateMachine/EnemyIdle" method="_on_moving_cooldown_timeout"]
-[connection signal="timeout" from="NavigationAgent2D/Timer" to="StateMachine/EnemyFollow" method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/EnemyFollow/Timer" to="StateMachine/EnemyFollow" method="_on_timer_timeout"]
 [connection signal="player_spotted" from="Detection" to="StateMachine/EnemyAttack" method="_on_detection_player_spotted"]
 [connection signal="player_spotted" from="Detection" to="StateMachine/EnemyIdle" method="_on_detection_player_spotted"]
 [connection signal="player_spotted" from="Detection" to="StateMachine/EnemyFollow" method="_on_detection_player_spotted"]

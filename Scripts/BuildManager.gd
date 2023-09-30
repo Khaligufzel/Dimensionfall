@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 
 @export var tile_map_path : NodePath
 var tile_map : TileMap
@@ -16,23 +16,28 @@ var build_range = 30
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	tile_map = get_node(tile_map_path)
+#	tile_map = get_node(tile_map_path)
 	ghost_sprite = get_node(ghost_sprite_path)
-	ghost_sprite.visible = false
+	#3D
+#	ghost_sprite.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if is_building:
 		ghost_sprite.visible = true
-		ghost_sprite.global_position = get_global_mouse_position()
+		
+		# 3d
+#		ghost_sprite.global_position = get_global_mouse_position()
 
 
 func _input(event):
-	if Input.is_action_pressed("click") && is_building && get_node(hud).try_to_spend_item("plank", 2):
+	#3D
+	
+#	if Input.is_action_pressed("click") && is_building && get_node(hud).try_to_spend_item("plank", 2):
 		
-		if get_node(player_path).check_if_visible(get_global_mouse_position()) && Vector2(get_node(player_path).global_position).distance_to(get_global_mouse_position()) <= build_range:
-			tile_map.set_cell(0, tile_map.local_to_map(get_global_mouse_position()), 0, Vector2i(9,3))
+#		if get_node(player_path).check_if_visible(get_global_mouse_position()) && Vector2(get_node(player_path).global_position).distance_to(get_global_mouse_position()) <= build_range:
+#			tile_map.set_cell(0, tile_map.local_to_map(get_global_mouse_position()), 0, Vector2i(9,3))
 		
 	if Input.is_action_pressed("right_click") && is_building:
 		is_building = false
