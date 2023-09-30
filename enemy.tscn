@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2r6nh12wv41k"]
+[gd_scene load_steps=10 format=3 uid="uid://b2r6nh12wv41k"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_eb130"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_68hce"]
@@ -6,14 +6,8 @@
 [ext_resource type="Script" path="res://Scripts/EnemyIdle.gd" id="5_bvewq"]
 [ext_resource type="Script" path="res://Scripts/EnemyFollow.gd" id="6_0jpem"]
 [ext_resource type="Script" path="res://Scripts/EnemyStats.gd" id="7_p4tru"]
+[ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://Textures/enemy.png" id="8_wgh4n"]
 [ext_resource type="Script" path="res://Scripts/Detection.gd" id="9_fj2x0"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xqhy"]
-albedo_color = Color(1, 0, 0.0941176, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_tckwf"]
-material = SubResource("StandardMaterial3D_2xqhy")
-size = Vector3(1, 2, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wqm36"]
 points = PackedVector3Array(-0.5, -1, -0.5, -0.5, -1, 0.5, -0.5, 1, -0.5, 0.5, -1, -0.5, 0.5, -1, 0.5, -0.5, 1, 0.5, 0.5, 1, -0.5, 0.5, 1, 0.5)
@@ -78,11 +72,15 @@ hearingRange = 1000.0
 script = ExtResource("9_fj2x0")
 stats = NodePath("../EnemyStats")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_tckwf")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_wqm36")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.722735, 0)
+pixel_size = 0.05
+billboard = 1
+shaded = true
+texture = ExtResource("8_wgh4n")
 
 [connection signal="timeout" from="StateMachine/EnemyAttack/AttackCooldown" to="StateMachine/EnemyAttack" method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="StateMachine/EnemyIdle/MovingCooldown" to="StateMachine/EnemyIdle" method="_on_moving_cooldown_timeout"]

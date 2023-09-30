@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://brtqounu6lu7"]
+
+[ext_resource type="Texture2D" uid="uid://e8y4eb4wdd0w" path="res://kenney_roguelike-modern-city/Tiles/tile_0160.png" id="1_6e6bw"]
+
+[resource]
+shading_mode = 0
+albedo_texture = ExtResource("1_6e6bw")
