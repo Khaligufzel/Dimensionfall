@@ -33,7 +33,7 @@ func Physics_Update(delta: float):
 		get_node(enemy).move_and_slide()
 
 	
-		if Vector2(get_node(enemy).global_position).distance_to(target_location) <= 0.5:
+		if Vector3(get_node(enemy).global_position).distance_to(target_location) <= 0.5:
 			is_looking_to_move = false
 	
 

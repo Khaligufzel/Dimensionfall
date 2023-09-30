@@ -1,17 +1,14 @@
-extends CharacterBody2D
+extends CharacterBody3D
 
 signal update_doll
 
 signal update_stamina_HUD
 
-@export var animation_player: NodePath
-@export var sprite: NodePath
-
 var is_alive = true
 
 var rng = RandomNumberGenerator.new()
 
-var speed = 50  # speed in pixels/sec
+var speed = 2  # speed in pixels/sec
 var current_speed
 
 var run_multiplier = 1.5
@@ -76,19 +73,21 @@ func _process(delta):
 func _physics_process(delta):
 	if is_alive:
 		if !is_running || current_stamina <= 0:
-			var direction = Input.get_vector("left", "right", "up", "down")
+			var input_dir = Input.get_vector("left", "right", "up", "down")
+			var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 			velocity = direction * speed
-			if velocity.length() > 0.1:
-				get_node(animation_player).play("player_walking")
-			else:
-				get_node(animation_player).stop()
+#			if velocity.length() > 0.1:
+#				get_node(animation_player).play("player_walking")
+#			else:
+#				get_node(animation_player).stop()
 			move_and_slide()
 		elif is_running && current_stamina > 0:
-			var direction = Input.get_vector("left", "right", "up", "down")
+			var input_dir = Input.get_vector("left", "right", "up", "down")
+			var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 			velocity = direction * speed * run_multiplier
 			
 			if velocity.length() > 0:
-				get_node(animation_player).play("player_running")
+#				get_node(animation_player).play("player_running")
 				current_stamina -= delta * stamina_lost_while_running_persec
 			
 			move_and_slide()
@@ -98,11 +97,11 @@ func _physics_process(delta):
 			if current_stamina > stamina:
 				current_stamina = stamina
 			
-		
-		if velocity.x > 0:
-			get_node(sprite).flip_h = true
-		elif velocity.x < 0:
-			get_node(sprite).flip_h = false
+		#3d
+#		if velocity.x > 0:
+#			get_node(sprite).flip_h = true
+#		elif velocity.x < 0:
+#			get_node(sprite).flip_h = false
 		update_stamina_HUD.emit(current_stamina)
 
 
@@ -166,11 +165,11 @@ func check_if_alive():
 		die()
 
 
-func check_if_visible(target_position: Vector2):
+func check_if_visible(target_position: Vector3):
 	
-	var space_state = get_world_2d().direct_space_state
+	var space_state = get_world_3d().direct_space_state
 	# TO-DO Change playerCol to group of players
-	var query = PhysicsRayQueryParameters2D.create(global_position, target_position, pow(2, 1-1) + pow(2, 3-1) + pow(2, 2-1),[self])
+	var query = PhysicsRayQueryParameters3D.create(global_position, target_position, pow(2, 1-1) + pow(2, 3-1) + pow(2, 2-1),[self])
 	var result = space_state.intersect_ray(query)
 	
 	if result:
