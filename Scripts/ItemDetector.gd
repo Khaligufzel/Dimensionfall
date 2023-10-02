@@ -1,4 +1,4 @@
-extends Area2D
+extends Area3D
 
 signal add_to_proximity_inventory
 signal remove_from_proximity_inventory

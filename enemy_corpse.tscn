@@ -1,12 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://mu6nbyuq02o5"]
+[gd_scene load_steps=6 format=3 uid="uid://mu6nbyuq02o5"]
 
 [ext_resource type="Script" path="res://Scripts/container.gd" id="1_4celg"]
 [ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://Textures/enemy.png" id="2_pvjek"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_grid_stacked.gd" id="3_131gg"]
 [ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="4_ehn4b"]
 
-[node name="Corpse" type="Node3D" groups=["Containers"]]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, 0, 0)
+[sub_resource type="SphereShape3D" id="SphereShape3D_0pnwx"]
+radius = 0.0683791
+
+[node name="Node3D" type="Node3D" groups=["Containers"]]
+transform = Transform3D(0.8, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_4celg")
 inventory = NodePath("InventoryGridStacked")
 
@@ -15,9 +18,11 @@ script = ExtResource("3_131gg")
 item_protoset = ExtResource("4_ehn4b")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-pixel_size = 0.05
 billboard = 1
-shaded = true
-double_sided = false
 texture = ExtResource("2_pvjek")
-region_rect = Rect2(0, 0, 24, 16)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_0pnwx")

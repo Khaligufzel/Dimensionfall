@@ -10,18 +10,21 @@
 [ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://Textures/enemy.png" id="8_wgh4n"]
 [ext_resource type="Script" path="res://Scripts/Detection.gd" id="9_fj2x0"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wqm36"]
-points = PackedVector3Array(-0.5, -1, -0.5, -0.5, -1, 0.5, -0.5, 1, -0.5, 0.5, -1, -0.5, 0.5, -1, 0.5, -0.5, 1, 0.5, 0.5, 1, -0.5, 0.5, 1, 0.5)
+[sub_resource type="SphereShape3D" id="SphereShape3D_uyii8"]
+radius = 0.357674
 
 [node name="Enemy" type="CharacterBody3D" groups=["Enemies"]]
 collision_layer = 2
 collision_mask = 15
 wall_min_slide_angle = 0.0
+floor_constant_speed = true
 script = ExtResource("1_eb130")
 stats = NodePath("EnemyStats")
 corpse_scene = ExtResource("2_vyld4")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
 debug_enabled = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -62,7 +65,7 @@ autostart = true
 [node name="EnemyStats" type="Node" parent="."]
 script = ExtResource("7_p4tru")
 melee_damage = 20.0
-melee_range = 5.0
+melee_range = 1.5
 health = 100.0
 moveSpeed = 1.0
 idle_move_speed = 0.5
@@ -74,17 +77,17 @@ hearingRange = 1000.0
 script = ExtResource("9_fj2x0")
 stats = NodePath("../EnemyStats")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_wqm36")
-
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.722735, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0275174, 0)
 gi_mode = 0
 pixel_size = 0.05
 billboard = 1
 shaded = true
 double_sided = false
 texture = ExtResource("8_wgh4n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_uyii8")
 
 [connection signal="timeout" from="StateMachine/EnemyAttack/AttackCooldown" to="StateMachine/EnemyAttack" method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="StateMachine/EnemyIdle/MovingCooldown" to="StateMachine/EnemyIdle" method="_on_moving_cooldown_timeout"]

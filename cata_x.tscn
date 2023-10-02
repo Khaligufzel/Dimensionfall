@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=24 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="PackedScene" uid="uid://mvp8pvy00mrm" path="res://level.tscn" id="1_li185"]
 [ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://enemy.tscn" id="2_ao3di"]
@@ -18,8 +18,12 @@ background_mode = 1
 fog_sky_affect = 0.0
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_3licq"]
-vertices = PackedVector3Array(-38.25, 1, -13, -46, 1, -13, -46, 1, -5.25, -46, 1, 42, -46, 1, 50, -38.25, 1, 50, 17, 1, -5.25, 17, 1, -13, 9, 1, -13, 9, 1, 50, 17, 1, 50, 17, 1, 42, -46, 1, 34.25, -46, 1, 42, -38.25, 1, 50, -30.25, 1, 50, 17, 1, -5.25, 9, 1, -13, 1.25, 1, -13, 17, 1, 2.75, -30.25, 1, -13, -38.25, 1, -13, -46, 1, -5.25, -46, 1, 2.75, 1.25, 1, 50, 9, 1, 50, 17, 1, 42, -6.75, 1, 50, 17, 1, 34.25, 17, 1, 26.25, -14.5, 1, 50, 1.25, 1, 50, 17, 1, 42, 17, 1, 34.25, -6.75, 1, 50, -14.5, 1, -13, -22.5, 1, -13, -46, 1, 10.5, -46, 1, 18.5, 17, 1, 18.5, -14.5, 1, -13, -46, 1, 18.5, -22.5, 1, 50, -14.5, 1, 50, 17, 1, 26.25, -46, 1, 34.25, -30.25, 1, 50, -22.5, 1, 50, -46, 1, 26.25, 17, 1, 10.5, 17, 1, 2.75, 1.25, 1, -13, -6.75, 1, -13, -22.5, 1, -13, -30.25, 1, -13, -46, 1, 2.75, -46, 1, 10.5, -46, 1, 18.5, -46, 1, 26.25, -22.5, 1, 50, 17, 1, 10.5, -6.75, 1, -13, -14.5, 1, -13, 17, 1, 18.5)
-polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(17, 16, 18), PackedInt32Array(18, 16, 19), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 23), PackedInt32Array(26, 25, 24), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 30), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 34), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 38), PackedInt32Array(44, 43, 39), PackedInt32Array(39, 43, 42), PackedInt32Array(39, 42, 41), PackedInt32Array(39, 41, 40), PackedInt32Array(46, 45, 47), PackedInt32Array(47, 45, 48), PackedInt32Array(50, 49, 51), PackedInt32Array(51, 49, 52), PackedInt32Array(54, 53, 55), PackedInt32Array(55, 53, 56), PackedInt32Array(59, 58, 57), PackedInt32Array(61, 60, 62), PackedInt32Array(62, 60, 63)]
+vertices = PackedVector3Array(1.8, 1.25, 0.3, 4.3, 3, 0.3, 4.3, 3, -0.3, 1.8, 1.25, -0.3, 3.3, 2.75, 0.3, 3.3, 2.75, -0.3, -46.3, 1, 18.5, -46.3, 1, 26.4, -22.5, 1, 50.3, -1.7, 1, 2.4, -0.299999, 1, 2.3, 1.8, 1, 0.8, 1.8, 1.25, 0.3, 1.8, 1, 0.8, -0.299999, 1, 2.3, -0.200001, 1, 3.7, 17.3, 1, 12.5, 17.3, 1, 6.2, 4.6, 1, 0.8, -46.3, 1, 18.5, -22.5, 1, 50.3, -14.5, 1, 50.3, 17.3, 1, 25.1, -1.6, 1, 3.8, -21.9, 1, -13.3, -1.7, 1, 2.4, 1.8, 1.25, 0.3, 1.8, 1.25, -0.3, -1.7, 1, 2.4, 1.8, 1.25, -0.3, 1.8, 1, -0.7, -14.5, 1, 50.3, -6.6, 1, 50.3, 17.3, 1, 25.1, -40.2, 1, -13.3, -46.3, 1, -13.3, -46.3, 1, -5.4, 9.3, 1, 50.3, 17.3, 1, 50.3, 17.3, 1, 44, -46.3, 1, 42.3, -46.3, 1, 50.3, -38.4, 1, 50.3, 17.3, 1, 0, 4.8, 1, 0, 4.8, 1, 0.6, 1.8, 1, -0.7, 2.6, 1, -0.7, 2.6, 1, -13.3, 17.3, 1, 0, 4.8, 1, 0.6, 4.6, 1, 0.8, 17.3, 1, 6.2, 1.8, 1, -0.7, 2.6, 1, -13.3, -3.6, 1, -13.3, -1.7, 1, 2.4, 17.3, 1, 25.1, 17.3, 1, 18.8, -1.6, 1, 3.8, -34.1, 1, -13.3, -40.2, 1, -13.3, -46.3, 1, -5.4, 9.3, 1, 50.3, 17.3, 1, 44, 17.3, 1, 37.7, -46.3, 1, 34.4, -30.4, 1, 50.3, -22.5, 1, 50.3, -46.3, 1, 26.4, -1.6, 1, 3.8, -1.7, 1, 2.4, -3.6, 1, -13.3, -9.7, 1, -13.3, -1.6, 1, 3.8, -15.8, 1, -13.3, -21.9, 1, -13.3, -46.3, 1, 34.4, -46.3, 1, 42.3, -38.4, 1, 50.3, -30.4, 1, 50.3, -21.9, 1, -13.3, -28, 1, -13.3, -46.3, 1, 2.6, -46.3, 1, 10.5, 1.4, 1, 50.3, 17.3, 1, 31.4, 17.3, 1, 25.1, -6.6, 1, 50.3, -28, 1, -13.3, -34.1, 1, -13.3, -46.3, 1, -5.4, -46.3, 1, 2.6, 1.4, 1, 50.3, 9.3, 1, 50.3, 17.3, 1, 37.7, 17.3, 1, 31.4, 17.3, 1, 12.5, -0.200001, 1, 3.7, -1.6, 1, 3.8, 17.3, 1, 18.8, -1.6, 1, 3.8, -9.7, 1, -13.3, -15.8, 1, -13.3, -21.9, 1, -13.3, -46.3, 1, 10.5, -46.3, 1, 18.5, 2.6, 1, -0.7, 3.9, 1, -0.7, 3.9, 1, -13.3, 2.6, 1, -13.3, 17.3, 1, -6.7, 17.3, 1, -13.3, 10.6, 1, -13.3, 4.7, 1, -0.7, 4.8, 1, 0, 17.3, 1, 0, 17.3, 1, -6.7, 10.6, 1, -13.3, 3.9, 1, -13.3, 3.9, 1, -13.3, 3.9, 1, -0.7, 4.7, 1, -0.7, -1.3, 2, 2.7, -1.3, 2, 3.4, -0.700001, 2, 3.4, -0.700001, 2, 2.7)
+polygons = [PackedInt32Array(1, 4, 2), PackedInt32Array(2, 4, 5), PackedInt32Array(5, 4, 0), PackedInt32Array(5, 0, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 9), PackedInt32Array(14, 13, 15), PackedInt32Array(15, 13, 18), PackedInt32Array(15, 18, 17), PackedInt32Array(15, 17, 16), PackedInt32Array(20, 19, 21), PackedInt32Array(21, 19, 24), PackedInt32Array(21, 24, 23), PackedInt32Array(21, 23, 22), PackedInt32Array(27, 26, 25), PackedInt32Array(30, 29, 28), PackedInt32Array(33, 32, 31), PackedInt32Array(36, 35, 34), PackedInt32Array(39, 38, 37), PackedInt32Array(42, 41, 40), PackedInt32Array(45, 44, 43), PackedInt32Array(48, 47, 46), PackedInt32Array(50, 49, 51), PackedInt32Array(51, 49, 52), PackedInt32Array(54, 53, 55), PackedInt32Array(55, 53, 56), PackedInt32Array(57, 59, 58), PackedInt32Array(62, 61, 60), PackedInt32Array(65, 64, 63), PackedInt32Array(67, 66, 68), PackedInt32Array(68, 66, 69), PackedInt32Array(71, 70, 72), PackedInt32Array(72, 70, 73), PackedInt32Array(76, 75, 74), PackedInt32Array(78, 77, 79), PackedInt32Array(79, 77, 80), PackedInt32Array(82, 81, 83), PackedInt32Array(83, 81, 84), PackedInt32Array(86, 85, 87), PackedInt32Array(87, 85, 88), PackedInt32Array(90, 89, 91), PackedInt32Array(91, 89, 92), PackedInt32Array(95, 94, 96), PackedInt32Array(96, 94, 93), PackedInt32Array(98, 97, 99), PackedInt32Array(99, 97, 100), PackedInt32Array(103, 102, 101), PackedInt32Array(106, 105, 104), PackedInt32Array(110, 109, 107), PackedInt32Array(107, 109, 108), PackedInt32Array(111, 113, 112), PackedInt32Array(115, 114, 116), PackedInt32Array(116, 114, 117), PackedInt32Array(117, 114, 118), PackedInt32Array(118, 114, 119), PackedInt32Array(122, 121, 120), PackedInt32Array(126, 125, 123), PackedInt32Array(123, 125, 124)]
+geometry_parsed_geometry_type = 1
+cell_size = 0.1
+agent_radius = 0.2
+agent_max_slope = 46.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m3bd2"]
 emission_enabled = true
@@ -31,12 +35,20 @@ material = SubResource("StandardMaterial3D_m3bd2")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_evp21"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_wcp7d"]
+[sub_resource type="PrismMesh" id="PrismMesh_wf5px"]
+left_to_right = 1.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qcttf"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gsdb"]
 albedo_color = Color(0, 1, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_mc21b"]
+size = Vector3(0.3, 1, 0.55)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_drnhn"]
+points = PackedVector3Array(0.15, 0.5, 0.275, -0.15, 0.5, 0.275, 0.15, -0.5, 0.275, 0.15, 0.5, -0.275, -0.15, 0.5, -0.275, -0.15, -0.5, 0.275, 0.15, -0.5, -0.275, -0.15, -0.5, -0.275)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_136pt"]
 streams_count = 1
@@ -84,6 +96,36 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("ConvexPolygonShape3D_evp21")
 
+[node name="StaticBody3D2" type="StaticBody3D" parent="TacticalMap/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/NavigationRegion3D/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_m0nef")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/NavigationRegion3D/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("ConvexPolygonShape3D_evp21")
+
+[node name="Ramp1" type="StaticBody3D" parent="TacticalMap/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/NavigationRegion3D/Ramp1"]
+mesh = SubResource("PrismMesh_wf5px")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/NavigationRegion3D/Ramp1"]
+shape = SubResource("ConvexPolygonShape3D_qcttf")
+
+[node name="Ramp2" type="StaticBody3D" parent="TacticalMap/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/NavigationRegion3D/Ramp2"]
+mesh = SubResource("PrismMesh_wf5px")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/NavigationRegion3D/Ramp2"]
+shape = SubResource("ConvexPolygonShape3D_qcttf")
+
 [node name="BuildManager" type="Node3D" parent="TacticalMap"]
 script = ExtResource("5_ugvie")
 hud = NodePath("../../HUD")
@@ -93,37 +135,38 @@ hud = NodePath("../../HUD")
 [node name="Enemies" type="Node3D" parent="TacticalMap/Entities"]
 
 [node name="Enemy" parent="TacticalMap/Entities/Enemies" instance=ExtResource("2_ao3di")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.216867, 1.60972, 6.75176)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.216867, 1.41889, 6.75176)
 
 [node name="Projectiles" type="Node3D" parent="TacticalMap/Entities"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="TacticalMap/Entities" groups=["Players"]]
+[node name="Player" type="CharacterBody3D" parent="TacticalMap/Entities" groups=["Players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1205, 0)
+floor_constant_speed = true
 script = ExtResource("7_gelpj")
 
-[node name="Camera3D" type="Camera3D" parent="TacticalMap/Entities/CharacterBody3D" groups=["Camera"]]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.6127, -0.0113735)
+[node name="Camera3D" type="Camera3D" parent="TacticalMap/Entities/Player" groups=["Camera"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 18.9245, -0.0113735)
 projection = 1
 current = true
 size = 50.0
 script = ExtResource("9_li818")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/CharacterBody3D"]
-shape = SubResource("BoxShape3D_wcp7d")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/Entities/CharacterBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/Entities/Player"]
 visible = false
 material_override = SubResource("StandardMaterial3D_7gsdb")
 mesh = SubResource("BoxMesh_mc21b")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="TacticalMap/Entities/CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.117081, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player"]
+shape = SubResource("ConvexPolygonShape3D_drnhn")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="TacticalMap/Entities/Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17078, 0)
 light_energy = 0.587
 shadow_enabled = true
 omni_range = 15.355
 omni_attenuation = 0.000270892
 
-[node name="SpotLight3D" type="SpotLight3D" parent="TacticalMap/Entities/CharacterBody3D"]
+[node name="SpotLight3D" type="SpotLight3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.459921, 0)
 visible = false
 light_energy = 1.342
@@ -133,14 +176,15 @@ spot_attenuation = 0.00961836
 spot_angle = 83.32
 spot_angle_attenuation = 0.183011
 
-[node name="Sprite3D" type="Sprite3D" parent="TacticalMap/Entities/CharacterBody3D"]
+[node name="Sprite3D" type="Sprite3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.277026, 0)
 pixel_size = 0.002
 billboard = 1
 double_sided = false
+no_depth_test = true
 texture = ExtResource("8_rg7i2")
 
-[node name="Shooting" type="Node3D" parent="TacticalMap/Entities/CharacterBody3D" node_paths=PackedStringArray("attack_cooldown", "reload_timer", "shoot_audio_player", "reload_audio_player")]
+[node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("attack_cooldown", "reload_timer", "shoot_audio_player", "reload_audio_player")]
 script = ExtResource("10_amy2f")
 bullet_damage = 25.0
 bullet_line_scene = ExtResource("17_1aft6")
@@ -151,18 +195,18 @@ shoot_audio_player = NodePath("ShootAudio")
 shoot_audio_randomizer = SubResource("AudioStreamRandomizer_136pt")
 reload_audio_player = NodePath("ReloadAudio")
 
-[node name="AttackCD" type="Timer" parent="TacticalMap/Entities/CharacterBody3D/Shooting"]
+[node name="AttackCD" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
 one_shot = true
 
-[node name="ReloadTime" type="Timer" parent="TacticalMap/Entities/CharacterBody3D/Shooting"]
+[node name="ReloadTime" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
 wait_time = 5.0
 one_shot = true
 
-[node name="ShootAudio" type="AudioStreamPlayer3D" parent="TacticalMap/Entities/CharacterBody3D/Shooting"]
+[node name="ShootAudio" type="AudioStreamPlayer3D" parent="TacticalMap/Entities/Player/Shooting"]
 stream = ExtResource("11_sif7w")
 bus = &"Sounds"
 
-[node name="ReloadAudio" type="AudioStreamPlayer3D" parent="TacticalMap/Entities/CharacterBody3D/Shooting"]
+[node name="ReloadAudio" type="AudioStreamPlayer3D" parent="TacticalMap/Entities/Player/Shooting"]
 stream = ExtResource("12_wlvdj")
 bus = &"Sounds"
 
@@ -172,5 +216,8 @@ bus = &"Sounds"
 stream = ExtResource("17_5dq1b")
 volume_db = -20.15
 bus = &"Music"
+
+[node name="TestCamera" type="Camera3D" parent="."]
+transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 2.15246, 2.21176, -2.99642)
 
 [connection signal="construction_chosen" from="HUD" to="TacticalMap/BuildManager" method="_on_hud_construction_chosen"]
