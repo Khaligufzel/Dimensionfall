@@ -17,9 +17,11 @@ var build_range = 30
 # Called when the node enters the scene tree for the first time.
 func _ready():
 #	tile_map = get_node(tile_map_path)
-	ghost_sprite = get_node(ghost_sprite_path)
+	
 	#3D
+#	ghost_sprite = get_node(ghost_sprite_path)
 #	ghost_sprite.visible = false
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

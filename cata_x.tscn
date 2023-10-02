@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=22 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="PackedScene" uid="uid://mvp8pvy00mrm" path="res://level.tscn" id="1_li185"]
 [ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://enemy.tscn" id="2_ao3di"]
@@ -6,7 +6,11 @@
 [ext_resource type="Script" path="res://Scripts/player.gd" id="7_gelpj"]
 [ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://Textures/survivor.png" id="8_rg7i2"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_li818"]
+[ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="10_amy2f"]
+[ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="11_sif7w"]
+[ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="12_wlvdj"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
+[ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="17_1aft6"]
 [ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Sounds/Music/Just in Reach of Sirens.mp3" id="17_5dq1b"]
 
 [sub_resource type="Environment" id="Environment_kc02k"]
@@ -17,12 +21,30 @@ fog_sky_affect = 0.0
 vertices = PackedVector3Array(-38.25, 1, -13, -46, 1, -13, -46, 1, -5.25, -46, 1, 42, -46, 1, 50, -38.25, 1, 50, 17, 1, -5.25, 17, 1, -13, 9, 1, -13, 9, 1, 50, 17, 1, 50, 17, 1, 42, -46, 1, 34.25, -46, 1, 42, -38.25, 1, 50, -30.25, 1, 50, 17, 1, -5.25, 9, 1, -13, 1.25, 1, -13, 17, 1, 2.75, -30.25, 1, -13, -38.25, 1, -13, -46, 1, -5.25, -46, 1, 2.75, 1.25, 1, 50, 9, 1, 50, 17, 1, 42, -6.75, 1, 50, 17, 1, 34.25, 17, 1, 26.25, -14.5, 1, 50, 1.25, 1, 50, 17, 1, 42, 17, 1, 34.25, -6.75, 1, 50, -14.5, 1, -13, -22.5, 1, -13, -46, 1, 10.5, -46, 1, 18.5, 17, 1, 18.5, -14.5, 1, -13, -46, 1, 18.5, -22.5, 1, 50, -14.5, 1, 50, 17, 1, 26.25, -46, 1, 34.25, -30.25, 1, 50, -22.5, 1, 50, -46, 1, 26.25, 17, 1, 10.5, 17, 1, 2.75, 1.25, 1, -13, -6.75, 1, -13, -22.5, 1, -13, -30.25, 1, -13, -46, 1, 2.75, -46, 1, 10.5, -46, 1, 18.5, -46, 1, 26.25, -22.5, 1, 50, 17, 1, 10.5, -6.75, 1, -13, -14.5, 1, -13, 17, 1, 18.5)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(17, 16, 18), PackedInt32Array(18, 16, 19), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 23), PackedInt32Array(26, 25, 24), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 30), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 34), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 38), PackedInt32Array(44, 43, 39), PackedInt32Array(39, 43, 42), PackedInt32Array(39, 42, 41), PackedInt32Array(39, 41, 40), PackedInt32Array(46, 45, 47), PackedInt32Array(47, 45, 48), PackedInt32Array(50, 49, 51), PackedInt32Array(51, 49, 52), PackedInt32Array(54, 53, 55), PackedInt32Array(55, 53, 56), PackedInt32Array(59, 58, 57), PackedInt32Array(61, 60, 62), PackedInt32Array(62, 60, 63)]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m3bd2"]
+emission_enabled = true
+proximity_fade_distance = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_m0nef"]
+material = SubResource("StandardMaterial3D_m3bd2")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_evp21"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_wcp7d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gsdb"]
 albedo_color = Color(0, 1, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_mc21b"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_136pt"]
+streams_count = 1
+playback_mode = 1
+random_pitch = 1.2
+random_volume_offset_db = 0.0
+stream_0/stream = ExtResource("11_sif7w")
+stream_0/weight = 1.0
 
 [node name="CataX" type="Node3D"]
 
@@ -50,6 +72,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0, 19)
 [node name="Level4" parent="TacticalMap/NavigationRegion3D" instance=ExtResource("1_li185")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0, -13)
 
+[node name="StaticBody3D" type="StaticBody3D" parent="TacticalMap/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_m0nef")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("ConvexPolygonShape3D_evp21")
+
 [node name="BuildManager" type="Node3D" parent="TacticalMap"]
 script = ExtResource("5_ugvie")
 hud = NodePath("../../HUD")
@@ -59,7 +93,7 @@ hud = NodePath("../../HUD")
 [node name="Enemies" type="Node3D" parent="TacticalMap/Entities"]
 
 [node name="Enemy" parent="TacticalMap/Entities/Enemies" instance=ExtResource("2_ao3di")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.62162, 14.7518)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.216867, 1.60972, 6.75176)
 
 [node name="Projectiles" type="Node3D" parent="TacticalMap/Entities"]
 
@@ -67,7 +101,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.62162, 14.7518)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1205, 0)
 script = ExtResource("7_gelpj")
 
-[node name="Camera3D" type="Camera3D" parent="TacticalMap/Entities/CharacterBody3D"]
+[node name="Camera3D" type="Camera3D" parent="TacticalMap/Entities/CharacterBody3D" groups=["Camera"]]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.6127, -0.0113735)
 projection = 1
 current = true
@@ -83,9 +117,11 @@ material_override = SubResource("StandardMaterial3D_7gsdb")
 mesh = SubResource("BoxMesh_mc21b")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="TacticalMap/Entities/CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.882919, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.117081, 0)
+light_energy = 0.587
+shadow_enabled = true
 omni_range = 15.355
-omni_attenuation = 0.0647044
+omni_attenuation = 0.000270892
 
 [node name="SpotLight3D" type="SpotLight3D" parent="TacticalMap/Entities/CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.459921, 0)
@@ -103,6 +139,32 @@ pixel_size = 0.002
 billboard = 1
 double_sided = false
 texture = ExtResource("8_rg7i2")
+
+[node name="Shooting" type="Node3D" parent="TacticalMap/Entities/CharacterBody3D" node_paths=PackedStringArray("attack_cooldown", "reload_timer", "shoot_audio_player", "reload_audio_player")]
+script = ExtResource("10_amy2f")
+bullet_damage = 25.0
+bullet_line_scene = ExtResource("17_1aft6")
+attack_cooldown = NodePath("AttackCD")
+reload_timer = NodePath("ReloadTime")
+player = NodePath("..")
+shoot_audio_player = NodePath("ShootAudio")
+shoot_audio_randomizer = SubResource("AudioStreamRandomizer_136pt")
+reload_audio_player = NodePath("ReloadAudio")
+
+[node name="AttackCD" type="Timer" parent="TacticalMap/Entities/CharacterBody3D/Shooting"]
+one_shot = true
+
+[node name="ReloadTime" type="Timer" parent="TacticalMap/Entities/CharacterBody3D/Shooting"]
+wait_time = 5.0
+one_shot = true
+
+[node name="ShootAudio" type="AudioStreamPlayer3D" parent="TacticalMap/Entities/CharacterBody3D/Shooting"]
+stream = ExtResource("11_sif7w")
+bus = &"Sounds"
+
+[node name="ReloadAudio" type="AudioStreamPlayer3D" parent="TacticalMap/Entities/CharacterBody3D/Shooting"]
+stream = ExtResource("12_wlvdj")
+bus = &"Sounds"
 
 [node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
 

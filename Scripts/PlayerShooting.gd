@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 
 var weapon
 var magazine
@@ -12,7 +12,7 @@ signal ammo_changed
 @export var projectiles: NodePath
 @export var bullet_speed: float
 @export var bullet_damage: float
-@export var cooldown = 0.25
+#@export var cooldown = 0.25
 @export var bullet_scene: PackedScene
 
 @export var bullet_line_scene: PackedScene
@@ -22,10 +22,10 @@ signal ammo_changed
 
 @export var player: NodePath
 
-@export var shoot_audio_player : AudioStreamPlayer
+@export var shoot_audio_player : AudioStreamPlayer3D
 @export var shoot_audio_randomizer : AudioStreamRandomizer
 
-@export var reload_audio_player : AudioStreamPlayer
+@export var reload_audio_player : AudioStreamPlayer3D
 #@export var reload_audio_randomizer : AudioStreamRandomizer
 
 var damage = 25
@@ -62,17 +62,27 @@ func _input(event):
 			shoot_audio_player.stream = shoot_audio_randomizer
 			shoot_audio_player.play()
 			
-			var space_state = get_world_2d().direct_space_state
-			var query = PhysicsRayQueryParameters2D.create(global_position, global_position + (get_global_mouse_position() - global_position).normalized() * 10000 , pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1),[self])
+			var space_state = get_world_3d().direct_space_state
+			var mouse_pos : Vector2 = get_viewport().get_mouse_position()
+			
+#			var dropPlane  = Plane(Vector3(0, 0, 1), 1)
+#			var position3D = dropPlane.intersects_ray(
+#							 get_tree().get_first_node_in_group("Camera").project_ray_origin(mouse_pos),
+#							 get_tree().get_first_node_in_group("Camera").project_ray_normal(mouse_pos))
+			
+#			var query = PhysicsRayQueryParameters3D.create(global_position, global_position + Vector3(mouse_pos.x - global_position.x, 0, mouse_pos.y - global_position.z).normalized() * 10000 , pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1),[self])
+			#var query = PhysicsRayQueryParameters3D.create(global_position, global_position + (position3D - global_position).normalized() * 10000 , pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1),[self])
+			var query = PhysicsRayQueryParameters3D.create(global_position, global_position + (Draw3D.raycast_from_mouse(mouse_pos, pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1)).position - global_position).normalized() * 10000 , pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1),[self])
 
 			var result = space_state.intersect_ray(query)
 			
 			if result:
 				print("hit")
-				var line = bullet_line_scene.instantiate()
-				get_node(projectiles).add_child(line)
-				line.add_point(global_position)
-				line.add_point(result.position)
+#				var line = bullet_line_scene.instantiate()
+#				get_node(projectiles).add_child(line)
+#				line.add_point(global_position)
+#				line.add_point(result.position)
+				Draw3D.line(global_position, result.position)
 				
 				if result.collider.has_method("_get_hit"):
 					result.collider._get_hit(damage)

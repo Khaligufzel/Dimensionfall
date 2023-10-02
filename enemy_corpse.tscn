@@ -1,33 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://mu6nbyuq02o5"]
+[gd_scene load_steps=5 format=3 uid="uid://mu6nbyuq02o5"]
 
 [ext_resource type="Script" path="res://Scripts/container.gd" id="1_4celg"]
 [ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://Textures/enemy.png" id="2_pvjek"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_grid_stacked.gd" id="3_131gg"]
 [ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="4_ehn4b"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oatwx"]
-size = Vector2(15, 5)
-
-[node name="Corpse" type="Node2D" groups=["Containers"]]
-scale = Vector2(0.8, 0.8)
+[node name="Corpse" type="Node3D" groups=["Containers"]]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, 0, 0)
 script = ExtResource("1_4celg")
 inventory = NodePath("InventoryGridStacked")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.729412, 0, 0.137255, 1)
-z_index = 1
-position = Vector2(0, 5.25)
-scale = Vector2(1, 0.34375)
-texture = ExtResource("2_pvjek")
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 524288
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-7.45058e-08, 5)
-shape = SubResource("RectangleShape2D_oatwx")
 
 [node name="InventoryGridStacked" type="Node" parent="."]
 script = ExtResource("3_131gg")
 item_protoset = ExtResource("4_ehn4b")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05
+billboard = 1
+shaded = true
+double_sided = false
+texture = ExtResource("2_pvjek")
+region_rect = Rect2(0, 0, 24, 16)

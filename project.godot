@@ -22,6 +22,7 @@ GLoot="*res://addons/gloot/gloot_autoload.gd"
 ItemManager="*res://Scripts/item_manager.gd"
 General="*res://Scripts/general.gd"
 CraftingRecipesManager="*res://Scripts/crafting_recipes_manager.gd"
+Draw3D="*res://Scripts/Draw3D.gd"
 
 [editor]
 
