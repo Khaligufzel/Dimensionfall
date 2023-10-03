@@ -14,7 +14,7 @@
 radius = 0.357674
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kv6xp"]
-size = Vector3(0.5, 0.5, 0.5)
+size = Vector3(0.35, 0.35, 0.35)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i8xnk"]
 transparency = 1
@@ -29,6 +29,7 @@ billboard_mode = 1
 [sub_resource type="QuadMesh" id="QuadMesh_bbnvr"]
 lightmap_size_hint = Vector2i(7, 7)
 material = SubResource("StandardMaterial3D_i8xnk")
+size = Vector2(0.5, 0.5)
 
 [node name="Enemy" type="CharacterBody3D" groups=["Enemies"]]
 collision_layer = 2
@@ -42,6 +43,7 @@ corpse_scene = ExtResource("2_vyld4")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_desired_distance = 0.5
 target_desired_distance = 0.5
+path_max_distance = 0.51
 avoidance_enabled = true
 debug_enabled = true
 

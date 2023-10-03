@@ -24,6 +24,11 @@ General="*res://Scripts/general.gd"
 CraftingRecipesManager="*res://Scripts/crafting_recipes_manager.gd"
 Draw3D="*res://Scripts/Draw3D.gd"
 
+[display]
+
+mouse_cursor/custom_image="res://Textures/pointer3.png"
+mouse_cursor/custom_image_hotspot=Vector2(64, 64)
+
 [editor]
 
 movie_writer/movie_file="D:/CataX resources/catax.avi"
