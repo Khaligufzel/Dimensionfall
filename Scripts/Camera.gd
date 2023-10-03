@@ -1,4 +1,4 @@
-extends Camera2D
+extends Camera3D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,7 +13,7 @@ func _process(delta):
 	
 func _input(event):
 	if event.is_action_pressed("zoom_in"):
-		zoom += Vector2(0.5, 0.5)
+		size -= 2
 		
 	if event.is_action_pressed("zoom_out"):
-		zoom += Vector2(-0.5, -0.5)
+		size += 2

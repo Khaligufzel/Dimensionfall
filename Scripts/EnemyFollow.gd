@@ -3,8 +3,8 @@ class_name EnemyFollow
 
 
 
-@export var nav_agent: NavigationAgent2D
-@export var enemy: CharacterBody2D
+@export var nav_agent: NavigationAgent3D
+@export var enemy: CharacterBody3D
 @export var enemyCol: NodePath
 @export var stats: NodePath
 @export var pathfinding_timer: Timer
@@ -28,22 +28,22 @@ func Physics_Update(delta: float):
 	enemy.move_and_slide()
 	
 	
-	var space_state = get_world_2d().direct_space_state
+	var space_state = get_world_3d().direct_space_state
 	# TO-DO Change playerCol to group of players
-	var query = PhysicsRayQueryParameters2D.create(get_node(enemyCol).global_position, targeted_player.global_position, pow(2, 1-1) + pow(2, 3-1),[self])
+	var query = PhysicsRayQueryParameters3D.create(get_node(enemyCol).global_position, targeted_player.global_position, pow(2, 1-1) + pow(2, 3-1),[self])
 	var result = space_state.intersect_ray(query)
 	
 	
 	if result:
 		
-		if result.collider.is_in_group("Players")&& Vector2(get_node(enemyCol).global_position).distance_to(targeted_player.global_position) <= get_node(stats).melee_range / 2:
+		if result.collider.is_in_group("Players")&& Vector3(get_node(enemyCol).global_position).distance_to(targeted_player.global_position) <= get_node(stats).melee_range / 2:
 			print("changing state to enemyattack...")
 			Transistioned.emit(self, "enemyattack")
 	
 	
 	
 	
-	if Vector2(enemy.global_position).distance_to(target_location) <= 0.5:
+	if Vector3(enemy.global_position).distance_to(target_location) <= 0.5:
 		Transistioned.emit(self, "enemyidle") 
 	
 	

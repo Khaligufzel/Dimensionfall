@@ -30,6 +30,14 @@ var is_showing_tooltip = false
 @export var tooltip_item_name : NodePath
 @export var tooltip_item_description : NodePath
 
+
+@export var progress_bar : NodePath
+@export var progress_bar_filling : NodePath
+@export var progress_bar_timer : NodePath
+var progress_bar_timer_max_time : float
+
+var is_progress_bar_well_progressing_i_guess = false
+
 signal construction_chosen
 
 
@@ -72,6 +80,11 @@ func _process(delta):
 		get_node(tooltip).global_position = get_node(tooltip).get_global_mouse_position() + Vector2(0, -5 - get_node(tooltip).size.y)
 	else:
 		get_node(tooltip).visible = false
+		
+		
+		
+	if is_progress_bar_well_progressing_i_guess:
+		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
 
 func _on_player_update_doll(head, right_arm, left_arm, torso, right_leg, left_leg):
 	
@@ -117,8 +130,8 @@ func _on_concrete_button_down():
 	construction_chosen.emit("concrete_wall")
 
 
-func _on_player_shooting_ammo_changed(current_ammo, max_ammo):
-	get_node(ammo_HUD).text = str(current_ammo) + "/" + str(max_ammo)
+#func _on_player_shooting_ammo_changed(current_ammo, max_ammo):
+#	get_node(ammo_HUD).text = str(current_ammo) + "/" + str(max_ammo)
 
 
 func _on_inventory_item_mouse_entered(item):
@@ -197,3 +210,26 @@ func _on_crafting_menu_start_craft(recipe):
 		var item
 		item = get_node(inventory).create_and_add_item(recipe["crafts"])
 		get_node(inventory).set_item_stack_size(item, recipe["craft_amount"])
+		
+
+
+func start_progress_bar(time : float):
+	get_node(progress_bar).visible = true
+	get_node(progress_bar_timer).wait_time = time
+	get_node(progress_bar_timer).start()
+	get_node(progress_bar_filling).scale.x = 0
+	progress_bar_timer_max_time = time
+	is_progress_bar_well_progressing_i_guess = true
+	
+	
+func interrupt_progress_bar():
+	get_node(progress_bar).visible = false
+	is_progress_bar_well_progressing_i_guess = false
+
+
+func _on_progress_bar_timer_timeout():
+	interrupt_progress_bar()
+
+
+func _on_shooting_ammo_changed(current_ammo, max_ammo):
+	get_node(ammo_HUD).text = str(current_ammo) + "/" + str(max_ammo)
