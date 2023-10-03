@@ -21,6 +21,7 @@ signal ammo_changed
 @export var reload_timer : Timer
 
 @export var player: NodePath
+@export var hud: NodePath
 
 @export var shoot_audio_player : AudioStreamPlayer3D
 @export var shoot_audio_randomizer : AudioStreamRandomizer
@@ -36,7 +37,7 @@ func _input(event):
 	
 	if event.is_action_pressed("reload_weapon"):
 		reload_timer.start()
-		get_node(player).start_progress_bar(reload_timer.time_left)
+		get_node(hud).start_progress_bar(reload_timer.time_left)
 	
 	
 	if event.is_action_pressed("click") && General.is_mouse_outside_HUD && General.is_allowed_to_shoot:

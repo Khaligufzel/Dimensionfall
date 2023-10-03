@@ -46,16 +46,16 @@ var current_pain = 0
 
 @export var sprite : Sprite3D
 
-@export var progress_bar : NodePath
-@export var progress_bar_filling : NodePath
-@export var progress_bar_timer : NodePath
+#@export var progress_bar : NodePath
+#@export var progress_bar_filling : NodePath
+#@export var progress_bar_timer : NodePath
 
 @export var foostep_player : AudioStreamPlayer
 @export var foostep_stream_randomizer : AudioStreamRandomizer
 
-var progress_bar_timer_max_time : float
+#var progress_bar_timer_max_time : float
 
-var is_progress_bar_well_progressing_i_guess = false
+#var is_progress_bar_well_progressing_i_guess = false
 
 func _ready():
 	current_left_arm_health = left_arm_health
@@ -69,8 +69,8 @@ func _ready():
 	
 	
 func _process(delta):
-	if is_progress_bar_well_progressing_i_guess:
-		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
+#	if is_progress_bar_well_progressing_i_guess:
+#		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
 		
 		
 	# player facing the mouse position
@@ -197,22 +197,22 @@ func transfer_damage_to_torso(damage: float):
 	current_torso_health -= damage
 	check_if_alive()
 	
-func start_progress_bar(time : float):
-	get_node(progress_bar).visible = true
-	get_node(progress_bar_timer).wait_time = time
-	get_node(progress_bar_timer).start()
-	get_node(progress_bar_filling).scale.x = 0
-	progress_bar_timer_max_time = time
-	is_progress_bar_well_progressing_i_guess = true
-	
-	
-func interrupt_progress_bar():
-	get_node(progress_bar).visible = false
-	is_progress_bar_well_progressing_i_guess = false
-
-
-func _on_progress_bar_timer_timeout():
-	interrupt_progress_bar()
+#func start_progress_bar(time : float):
+#	get_node(progress_bar).visible = true
+#	get_node(progress_bar_timer).wait_time = time
+#	get_node(progress_bar_timer).start()
+#	get_node(progress_bar_filling).scale.x = 0
+#	progress_bar_timer_max_time = time
+#	is_progress_bar_well_progressing_i_guess = true
+#
+#
+#func interrupt_progress_bar():
+#	get_node(progress_bar).visible = false
+#	is_progress_bar_well_progressing_i_guess = false
+#
+#
+#func _on_progress_bar_timer_timeout():
+#	interrupt_progress_bar()
 	
 func play_footstep_audio():
 	foostep_player.stream = foostep_stream_randomizer

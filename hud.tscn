@@ -1,10 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=22 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
 [ext_resource type="Script" path="res://Scripts/NonHUDclick.gd" id="2_kpbhl"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_grid_stacked.gd" id="2_pq7em"]
+[ext_resource type="Texture2D" uid="uid://7hppy1l45loq" path="res://Textures/bar_progress.png" id="3_83uwt"]
 [ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="3_jmlkb"]
+[ext_resource type="Texture2D" uid="uid://dcgwgmsmi7mjn" path="res://Textures/bar_border.png" id="3_y43f5"]
 [ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://Textures/leftarm.png" id="4_wt5t7"]
 [ext_resource type="Texture2D" uid="uid://8pdm2gvd1v3n" path="res://Textures/leftleg.png" id="5_si2ot"]
 [ext_resource type="Texture2D" uid="uid://jluhejkwo85q" path="res://Textures/rightleg.png" id="6_mh6l0"]
@@ -49,7 +51,32 @@ crafting_menu = NodePath("CraftingMenu")
 tooltip = NodePath("Tooltip")
 tooltip_item_name = NodePath("Tooltip/Panel/ItemName")
 tooltip_item_description = NodePath("Tooltip/Panel2/Description")
+progress_bar = NodePath("ProgressBar")
+progress_bar_filling = NodePath("ProgressBar/Node2D/Filling")
+progress_bar_timer = NodePath("ProgressBar/ProgressBarTimer")
 item_protoset = ExtResource("3_jmlkb")
+
+[node name="ProgressBar" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 459.0
+offset_top = -32.0
+offset_right = 460.0
+offset_bottom = -31.0
+grow_vertical = 0
+
+[node name="Node2D" type="Node2D" parent="ProgressBar"]
+
+[node name="Filling" type="Sprite2D" parent="ProgressBar/Node2D"]
+texture = ExtResource("3_83uwt")
+
+[node name="Border" type="Sprite2D" parent="ProgressBar/Node2D"]
+texture = ExtResource("3_y43f5")
+
+[node name="ProgressBarTimer" type="Timer" parent="ProgressBar"]
 
 [node name="OutsideOfHUD" type="Control" parent="."]
 layout_mode = 3
@@ -390,6 +417,7 @@ text = "Required items
 "
 autowrap_mode = 3
 
+[connection signal="timeout" from="ProgressBar/ProgressBarTimer" to="." method="_on_progress_bar_timer_timeout"]
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_exited"]
 [connection signal="item_mouse_entered" from="CtrlInventoryGridEx" to="." method="_on_inventory_item_mouse_entered"]
