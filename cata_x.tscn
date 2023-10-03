@@ -197,6 +197,10 @@ bus = &"Music"
 [node name="TestCamera" type="Camera3D" parent="."]
 transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 2.15246, 2.21176, -2.99642)
 
+[connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
+[connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
+[connection signal="ammo_changed" from="TacticalMap/Entities/Player/Shooting" to="HUD" method="_on_shooting_ammo_changed"]
+[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/ReloadTime" to="TacticalMap/Entities/Player/Shooting" method="_on_reload_time_timeout"]
 [connection signal="add_to_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_add_to_proximity_inventory"]
 [connection signal="area_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_entered"]
 [connection signal="area_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_exited"]
