@@ -22,12 +22,14 @@ GLoot="*res://addons/gloot/gloot_autoload.gd"
 ItemManager="*res://Scripts/item_manager.gd"
 General="*res://Scripts/general.gd"
 CraftingRecipesManager="*res://Scripts/crafting_recipes_manager.gd"
+
 Draw3D="*res://Scripts/Draw3D.gd"
 
 [display]
 
 mouse_cursor/custom_image="res://Textures/pointer3.png"
 mouse_cursor/custom_image_hotspot=Vector2(64, 64)
+
 
 [editor]
 
@@ -102,6 +104,11 @@ reload_weapon={
 crafting_menu={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":99,"echo":false,"script":null)
+]
+}
+interact={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"echo":false,"script":null)
 ]
 }
 
