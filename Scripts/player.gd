@@ -120,16 +120,6 @@ func _input(event):
 		is_running = true
 	if event.is_action_released("run"):
 		is_running = false
-		
-	if event.is_action_pressed("interact"):
-			# Casting a ray from player towards mouse position
-			var space_state = get_world_2d().direct_space_state
-			var query = PhysicsRayQueryParameters2D.create(global_position, global_position + (get_global_mouse_position() - global_position).normalized() * 100, pow(2, 3-1),[self])
-			var result = space_state.intersect_ray(query)
-			
-			# If hit, Interaction Manager should do the rest
-			if result:
-				InteractionManager.try_to_interact_with(result)
 
 func _get_hit(damage: float):
 	var limb_number = rng.randi_range(0,5)
