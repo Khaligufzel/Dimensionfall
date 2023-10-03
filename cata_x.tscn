@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=24 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://LevelManager.gd" id="1_4nqbo"]
 [ext_resource type="PackedScene" uid="uid://mvp8pvy00mrm" path="res://level.tscn" id="1_li185"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="11_sif7w"]
 [ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="12_wlvdj"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
+[ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="14_opmfs"]
 [ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="17_1aft6"]
 [ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Sounds/Music/Just in Reach of Sirens.mp3" id="17_5dq1b"]
 
@@ -48,6 +49,10 @@ random_pitch = 1.2
 random_volume_offset_db = 0.0
 stream_0/stream = ExtResource("11_sif7w")
 stream_0/weight = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_caadj"]
+height = 1.0
+radius = 1.5
 
 [node name="CataX" type="Node3D"]
 
@@ -173,6 +178,14 @@ bus = &"Sounds"
 stream = ExtResource("12_wlvdj")
 bus = &"Sounds"
 
+[node name="ItemDetector" type="Area3D" parent="TacticalMap/Entities/Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1205, 0)
+script = ExtResource("14_opmfs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player/ItemDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.792087, 0)
+shape = SubResource("CylinderShape3D_caadj")
+
 [node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
@@ -183,4 +196,8 @@ bus = &"Music"
 [node name="TestCamera" type="Camera3D" parent="."]
 transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 2.15246, 2.21176, -2.99642)
 
+[connection signal="add_to_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_add_to_proximity_inventory"]
+[connection signal="area_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_entered"]
+[connection signal="area_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_exited"]
+[connection signal="remove_from_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_remove_from_proximity_inventory"]
 [connection signal="construction_chosen" from="HUD" to="TacticalMap/BuildManager" method="_on_hud_construction_chosen"]
