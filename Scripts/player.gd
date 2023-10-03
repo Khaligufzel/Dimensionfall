@@ -8,7 +8,7 @@ var is_alive = true
 
 var rng = RandomNumberGenerator.new()
 
-var speed = 2  # speed in pixels/sec
+var speed = 2  # speed in meters/sec
 var current_speed
 
 var run_multiplier = 1.5
@@ -44,6 +44,8 @@ var current_nutrition
 var pain
 var current_pain = 0
 
+@export var sprite : Sprite3D
+
 @export var progress_bar : NodePath
 @export var progress_bar_filling : NodePath
 @export var progress_bar_timer : NodePath
@@ -69,6 +71,14 @@ func _ready():
 func _process(delta):
 	if is_progress_bar_well_progressing_i_guess:
 		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
+		
+		
+	# player facing the mouse position
+	var mouse_position : Vector3 =  get_tree().get_first_node_in_group("Camera").project_ray_origin(get_viewport().get_mouse_position())
+	if mouse_position.x > global_position.x:
+		sprite.flip_h = true
+	else:
+		sprite.flip_h = false
 
 func _physics_process(delta):
 	if is_alive:

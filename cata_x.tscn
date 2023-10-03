@@ -100,10 +100,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.216867, 0.758524, 6.75176)
 
 [node name="Projectiles" type="Node3D" parent="TacticalMap/Entities"]
 
-[node name="Player" type="CharacterBody3D" parent="TacticalMap/Entities" groups=["Players"]]
+[node name="Player" type="CharacterBody3D" parent="TacticalMap/Entities" node_paths=PackedStringArray("sprite") groups=["Players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1205, 0)
 floor_constant_speed = true
 script = ExtResource("7_gelpj")
+sprite = NodePath("Sprite3D")
 
 [node name="Camera3D" type="Camera3D" parent="TacticalMap/Entities/Player" groups=["Camera"]]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 18.9245, -0.0113735)
