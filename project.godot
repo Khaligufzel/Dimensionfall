@@ -102,6 +102,7 @@ crafting_menu={
 
 [layer_names]
 
+3d_render/layer_5="Enemy"
 2d_physics/layer_1="player"
 2d_physics/layer_2="enemy"
 2d_physics/layer_3="obstacles"

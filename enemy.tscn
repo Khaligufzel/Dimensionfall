@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2r6nh12wv41k"]
+[gd_scene load_steps=14 format=3 uid="uid://b2r6nh12wv41k"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_eb130"]
 [ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://enemy_corpse.tscn" id="2_vyld4"]
@@ -13,6 +13,23 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_uyii8"]
 radius = 0.357674
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_kv6xp"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i8xnk"]
+transparency = 1
+disable_ambient_light = true
+albedo_texture = ExtResource("8_wgh4n")
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+normal_enabled = true
+rim_tint = 0.45
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_bbnvr"]
+lightmap_size_hint = Vector2i(7, 7)
+material = SubResource("StandardMaterial3D_i8xnk")
+
 [node name="Enemy" type="CharacterBody3D" groups=["Enemies"]]
 collision_layer = 2
 collision_mask = 15
@@ -25,6 +42,7 @@ corpse_scene = ExtResource("2_vyld4")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_desired_distance = 0.5
 target_desired_distance = 0.5
+avoidance_enabled = true
 debug_enabled = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -79,6 +97,8 @@ stats = NodePath("../EnemyStats")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0275174, 0)
+visible = false
+layers = 16
 gi_mode = 0
 pixel_size = 0.05
 billboard = 1
@@ -87,7 +107,19 @@ double_sided = false
 texture = ExtResource("8_wgh4n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+visible = false
 shape = SubResource("SphereShape3D_uyii8")
+disabled = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_kv6xp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20019, 0)
+layers = 16
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("QuadMesh_bbnvr")
 
 [connection signal="timeout" from="StateMachine/EnemyAttack/AttackCooldown" to="StateMachine/EnemyAttack" method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="StateMachine/EnemyIdle/MovingCooldown" to="StateMachine/EnemyIdle" method="_on_moving_cooldown_timeout"]
