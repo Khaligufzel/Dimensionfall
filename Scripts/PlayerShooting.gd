@@ -72,7 +72,9 @@ func _input(event):
 			
 #			var query = PhysicsRayQueryParameters3D.create(global_position, global_position + Vector3(mouse_pos.x - global_position.x, 0, mouse_pos.y - global_position.z).normalized() * 10000 , pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1),[self])
 			#var query = PhysicsRayQueryParameters3D.create(global_position, global_position + (position3D - global_position).normalized() * 10000 , pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1),[self])
-			var query = PhysicsRayQueryParameters3D.create(global_position, global_position + (Draw3D.raycast_from_mouse(mouse_pos, pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1)).position - global_position).normalized() * 10000 , pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1),[self])
+			var layer = pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1)
+			var mouse_pos_in_world = Draw3D.raycast_from_mouse(mouse_pos, layer).position
+			var query = PhysicsRayQueryParameters3D.create(global_position, global_position + (Vector3(mouse_pos_in_world.x - global_position.x, 0, mouse_pos_in_world.z - global_position.z)).normalized() * 10000, layer, [self])
 
 			var result = space_state.intersect_ray(query)
 			

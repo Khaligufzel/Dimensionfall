@@ -153,6 +153,7 @@ no_depth_test = true
 texture = ExtResource("8_rg7i2")
 
 [node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("attack_cooldown", "reload_timer", "shoot_audio_player", "reload_audio_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 script = ExtResource("10_amy2f")
 bullet_damage = 25.0
 bullet_line_scene = ExtResource("17_1aft6")
