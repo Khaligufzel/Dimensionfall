@@ -81,6 +81,11 @@ func _process(delta):
 		sprite.flip_h = false
 
 func _physics_process(delta):
+	var gravity = 98
+	velocity.y = -gravity * delta
+	move_and_slide()
+	
+	
 	if is_alive:
 		if !is_running || current_stamina <= 0:
 			var input_dir = Input.get_vector("left", "right", "up", "down")

@@ -4,5 +4,6 @@
 
 [resource]
 shading_mode = 0
+albedo_color = Color(0.513726, 0.513726, 0.513726, 1)
 albedo_texture = ExtResource("1_onstv")
 uv1_scale = Vector3(3, 2, 1)
