@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b2r6nh12wv41k"]
+[gd_scene load_steps=15 format=3 uid="uid://b2r6nh12wv41k"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_eb130"]
 [ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://enemy_corpse.tscn" id="2_vyld4"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/EnemyStats.gd" id="7_p4tru"]
 [ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://Textures/enemy.png" id="8_wgh4n"]
 [ext_resource type="Script" path="res://Scripts/Detection.gd" id="9_fj2x0"]
+[ext_resource type="Shader" path="res://transparent_lighting.gdshader" id="10_c1y3v"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_uyii8"]
 radius = 0.357674
@@ -16,20 +17,18 @@ radius = 0.357674
 [sub_resource type="BoxShape3D" id="BoxShape3D_kv6xp"]
 size = Vector3(0.35, 0.35, 0.35)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i8xnk"]
-transparency = 1
-disable_ambient_light = true
-albedo_texture = ExtResource("8_wgh4n")
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
-normal_enabled = true
-rim_tint = 0.45
-billboard_mode = 1
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vr552"]
+render_priority = 0
+shader = ExtResource("10_c1y3v")
+shader_parameter/color = Color(1, 0.266667, 0.0509804, 1)
+shader_parameter/energy = 1.0
+shader_parameter/tex = ExtResource("8_wgh4n")
 
 [sub_resource type="QuadMesh" id="QuadMesh_bbnvr"]
 lightmap_size_hint = Vector2i(7, 7)
-material = SubResource("StandardMaterial3D_i8xnk")
+material = SubResource("ShaderMaterial_vr552")
 size = Vector2(0.5, 0.5)
+orientation = 1
 
 [node name="Enemy" type="CharacterBody3D" groups=["Enemies"]]
 collision_layer = 2
