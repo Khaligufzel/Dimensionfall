@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=28 format=3 uid="uid://c1fqtjd1cxbtu"]
 
 [ext_resource type="Script" path="res://LevelManager.gd" id="1_4nqbo"]
 [ext_resource type="PackedScene" uid="uid://d1bocfddhsc3w" path="res://door.tscn" id="1_io82l"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="12_wlvdj"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
 [ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="14_opmfs"]
+[ext_resource type="Script" path="res://Scripts/Components/ComponentInteract.gd" id="16_e7fge"]
 [ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="17_1aft6"]
 [ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Sounds/Music/Just in Reach of Sirens.mp3" id="17_5dq1b"]
 
@@ -254,6 +255,9 @@ script = ExtResource("14_opmfs")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player/ItemDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.792087, 0)
 shape = SubResource("CylinderShape3D_caadj")
+
+[node name="ComponentInteract" type="Node3D" parent="TacticalMap/Entities/Player"]
+script = ExtResource("16_e7fge")
 
 [node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
 

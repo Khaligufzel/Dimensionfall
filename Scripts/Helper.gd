@@ -22,7 +22,7 @@ func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstan
 	immediate_mesh.surface_begin(Mesh.PRIMITIVE_LINES, material)
 	immediate_mesh.surface_add_vertex(pos1)
 	immediate_mesh.surface_add_vertex(pos2)
-	immediate_mesh.surface_end()	
+	immediate_mesh.surface_end()
 	
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.albedo_color = color
@@ -43,4 +43,10 @@ func raycast_from_mouse(m_pos, collision_mask):
 	var query = PhysicsRayQueryParameters3D.create(ray_start, ray_end, collision_mask)
 	query.collide_with_areas = true
 	
+	return space_state.intersect_ray(query)
+	
+func raycast(start_position : Vector3, end_position : Vector3, layer : int, object_to_ignore):
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(start_position, end_position, layer, object_to_ignore)
+
 	return space_state.intersect_ray(query)

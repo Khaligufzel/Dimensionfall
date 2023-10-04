@@ -74,7 +74,7 @@ func _input(event):
 #			var query = PhysicsRayQueryParameters3D.create(global_position, global_position + Vector3(mouse_pos.x - global_position.x, 0, mouse_pos.y - global_position.z).normalized() * 10000 , pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1),[self])
 			#var query = PhysicsRayQueryParameters3D.create(global_position, global_position + (position3D - global_position).normalized() * 10000 , pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1),[self])
 			var layer = pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1)
-			var mouse_pos_in_world = Draw3D.raycast_from_mouse(mouse_pos, layer).position
+			var mouse_pos_in_world = Helper.raycast_from_mouse(mouse_pos, layer).position
 			var query = PhysicsRayQueryParameters3D.create(global_position, global_position + (Vector3(mouse_pos_in_world.x - global_position.x, 0, mouse_pos_in_world.z - global_position.z)).normalized() * 10000, layer, [self])
 
 			var result = space_state.intersect_ray(query)
@@ -85,7 +85,7 @@ func _input(event):
 #				get_node(projectiles).add_child(line)
 #				line.add_point(global_position)
 #				line.add_point(result.position)
-				Draw3D.line(global_position, result.position)
+				Helper.line(global_position, result.position)
 				
 				if result.collider.has_method("_get_hit"):
 					result.collider._get_hit(damage)

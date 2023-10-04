@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1bocfddhsc3w"]
+[gd_scene load_steps=7 format=3 uid="uid://d1bocfddhsc3w"]
 
+[ext_resource type="Script" path="res://Scripts/Door.gd" id="1_04iy3"]
 [ext_resource type="Material" uid="uid://ccqqfajdptd2j" path="res://Materials/door1.tres" id="1_ung5b"]
 
 [sub_resource type="Animation" id="Animation_6628n"]
@@ -8,14 +9,14 @@ length = 0.5
 tracks/0/type = "rotation_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Node3D")
+tracks/0/path = NodePath("LeftDoor")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.5, 1, 0, 0.707107, 0, 0.707107)
 tracks/1/type = "rotation_3d"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Node3D2")
+tracks/1/path = NodePath("RightDoor")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.5, 1, 0, -0.707107, 0, 0.707107)
@@ -32,33 +33,35 @@ size = Vector3(0.5, 1, 0.05)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vx01e"]
 points = PackedVector3Array(-0.25, -0.5, -0.025, -0.25, -0.5, 0.025, -0.25, 0.5, -0.025, 0.25, -0.5, -0.025, 0.25, -0.5, 0.025, -0.25, 0.5, 0.025, 0.25, 0.5, -0.025, 0.25, 0.5, 0.025)
 
-[node name="Door" type="Node3D"]
+[node name="Door" type="Node3D" node_paths=PackedStringArray("animation_player")]
+script = ExtResource("1_04iy3")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_0vyjc")
 }
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="LeftDoor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Node3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="LeftDoor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.025)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LeftDoor/StaticBody3D"]
 mesh = SubResource("BoxMesh_y5j6d")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftDoor/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_vx01e")
 
-[node name="Node3D2" type="Node3D" parent="."]
+[node name="RightDoor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Node3D2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="RightDoor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 0.025)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D2/StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RightDoor/StaticBody3D"]
 mesh = SubResource("BoxMesh_y5j6d")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightDoor/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_vx01e")

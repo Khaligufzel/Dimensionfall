@@ -46,6 +46,8 @@ var current_pain = 0
 
 @export var sprite : Sprite3D
 
+@export var interact_range : float = 10
+
 #@export var progress_bar : NodePath
 #@export var progress_bar_filling : NodePath
 #@export var progress_bar_timer : NodePath
@@ -125,6 +127,21 @@ func _input(event):
 		is_running = true
 	if event.is_action_released("run"):
 		is_running = false
+		
+	#checking if we can interact with the object
+	if event.is_action_pressed("interact"):
+		var layer = pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1)
+		var mouse_pos : Vector2 = get_viewport().get_mouse_position()
+		var world_mouse_position = Helper.raycast_from_mouse(mouse_pos, layer).position
+		var result = Helper.raycast(global_position, global_position + (Vector3(world_mouse_position.x - global_position.x, 0, world_mouse_position.z - global_position.z)).normalized() * interact_range, layer, [self])
+
+		print("Interact button pressed")
+		if result:
+			print("Found object")
+			if result.collider.get_owner().has_method("interact"):
+				print("collider has method")
+				result.collider.get_owner().interact()
+				
 
 func _get_hit(damage: float):
 	var limb_number = rng.randi_range(0,5)
