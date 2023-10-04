@@ -41,13 +41,7 @@ func try_to_unlock():
 	pass
 	
 func open():
-	if is_NS:
-		get_node(sprite).texture = open_NS
-	else:
-		get_node(sprite).texture = open_WE
+	pass
 	
 func close():
-	if is_NS:
-		get_node(sprite).texture = closed_NS
-	else:
-		get_node(sprite).texture = closed_WE
+	pass
