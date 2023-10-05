@@ -1,9 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=31 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
+[ext_resource type="PackedScene" uid="uid://cpaa3ui52a23c" path="res://Blocks/grass_001.tscn" id="2_plpeq"]
+[ext_resource type="PackedScene" uid="uid://b5b2f24f6emf3" path="res://Blocks/concrete_wall001.tscn" id="3_1oyl1"]
+[ext_resource type="PackedScene" uid="uid://cmjjw8pjtidpj" path="res://Blocks/concrete_wall002.tscn" id="4_pf75o"]
+[ext_resource type="PackedScene" uid="uid://dnsl5rk6de7na" path="res://Blocks/Stairs_to_N001.tscn" id="5_4om2c"]
+[ext_resource type="PackedScene" uid="uid://db73ys0cw3b2i" path="res://Blocks/Stairs_to_E001.tscn" id="6_x7pv6"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
+[ext_resource type="PackedScene" uid="uid://dotb8dsoarufo" path="res://Blocks/Stairs_to_S001.tscn" id="7_nhyjt"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
+[ext_resource type="PackedScene" uid="uid://h2antxtbvel4" path="res://Blocks/Stairs_to_W001.tscn" id="8_l45yd"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
 [ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://Textures/survivor.png" id="10_alql8"]
 [ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="11_6i2sa"]
@@ -63,8 +70,11 @@ radius = 1.5
 
 [node name="TacticalMap" type="Node3D" parent="."]
 
-[node name="LevelGenerator" type="Node3D" parent="TacticalMap"]
+[node name="LevelGenerator" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("level_manager")]
 script = ExtResource("1_i8qa4")
+level_manager = NodePath("../NavigationRegion3D/LevelManager")
+block_scenes = Array[PackedScene]([ExtResource("2_plpeq"), ExtResource("3_1oyl1"), ExtResource("4_pf75o"), ExtResource("5_4om2c"), ExtResource("6_x7pv6"), ExtResource("7_nhyjt"), ExtResource("8_l45yd")])
+level_json = "res://JSON/Levels/level001.json"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TacticalMap"]
 environment = SubResource("Environment_aklx6")
@@ -82,6 +92,7 @@ navigation_mesh = SubResource("NavigationMesh_3licq")
 [node name="Props" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
 
 [node name="TestWalls" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 14)
 
 [node name="TestWall" type="StaticBody3D" parent="TacticalMap/NavigationRegion3D/TestWalls"]
 
@@ -140,7 +151,7 @@ hud = NodePath("../../HUD")
 [node name="Projectiles" type="Node3D" parent="TacticalMap/Entities"]
 
 [node name="Player" type="CharacterBody3D" parent="TacticalMap/Entities" node_paths=PackedStringArray("sprite") groups=["Players"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1205, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
 floor_constant_speed = true
 floor_max_angle = 0.872665
 script = ExtResource("8_gposs")
@@ -148,7 +159,6 @@ sprite = NodePath("Sprite3D")
 
 [node name="Camera3D" type="Camera3D" parent="TacticalMap/Entities/Player" groups=["Camera"]]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 18.9245, -0.0113735)
-projection = 1
 current = true
 size = 50.0
 script = ExtResource("9_gi6l6")
@@ -234,7 +244,7 @@ volume_db = -20.15
 bus = &"Music"
 
 [node name="TestCamera" type="Camera3D" parent="."]
-transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 2.15246, 2.21176, -2.99642)
+transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, -20.8475, 0.21176, -31.9964)
 
 [connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
 [connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
