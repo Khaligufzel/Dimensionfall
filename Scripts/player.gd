@@ -8,7 +8,7 @@ var is_alive = true
 
 var rng = RandomNumberGenerator.new()
 
-var speed = 2  # speed in meters/sec
+var speed = 1  # speed in meters/sec
 var current_speed
 
 var run_multiplier = 1.5
@@ -83,10 +83,10 @@ func _process(delta):
 		sprite.flip_h = false
 
 func _physics_process(delta):
+
 	var gravity = 98
-	velocity.y = -gravity * delta
+	velocity.y += -gravity * delta
 	move_and_slide()
-	
 	
 	if is_alive:
 		if !is_running || current_stamina <= 0:
@@ -113,12 +113,7 @@ func _physics_process(delta):
 			current_stamina += delta * stamina_regen_while_standing_still
 			if current_stamina > stamina:
 				current_stamina = stamina
-			
-		#3d
-#		if velocity.x > 0:
-#			get_node(sprite).flip_h = true
-#		elif velocity.x < 0:
-#			get_node(sprite).flip_h = false
+
 		update_stamina_HUD.emit(current_stamina)
 
 

@@ -1,23 +1,23 @@
-[gd_scene load_steps=28 format=3 uid="uid://c1fqtjd1cxbtu"]
+[gd_scene load_steps=28 format=3 uid="uid://drl78uuphij1l"]
 
-[ext_resource type="Script" path="res://LevelManager.gd" id="1_4nqbo"]
-[ext_resource type="PackedScene" uid="uid://d1bocfddhsc3w" path="res://door.tscn" id="1_io82l"]
-[ext_resource type="PackedScene" uid="uid://mvp8pvy00mrm" path="res://level.tscn" id="1_li185"]
-[ext_resource type="PackedScene" uid="uid://c7do3egbjpogv" path="res://level2.tscn" id="2_2wed3"]
-[ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://enemy.tscn" id="2_ao3di"]
-[ext_resource type="PackedScene" uid="uid://cph4p1itsdmo2" path="res://level3.tscn" id="3_68271"]
-[ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="5_ugvie"]
-[ext_resource type="Script" path="res://Scripts/player.gd" id="7_gelpj"]
-[ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://Textures/survivor.png" id="8_rg7i2"]
-[ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_li818"]
-[ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="10_amy2f"]
-[ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="11_sif7w"]
-[ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="12_wlvdj"]
-[ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="12_ycq8c"]
-[ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="14_opmfs"]
-[ext_resource type="Script" path="res://Scripts/Components/ComponentInteract.gd" id="16_e7fge"]
-[ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="17_1aft6"]
-[ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Sounds/Music/Just in Reach of Sirens.mp3" id="17_5dq1b"]
+[ext_resource type="PackedScene" uid="uid://d1bocfddhsc3w" path="res://door.tscn" id="1_xj7io"]
+[ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
+[ext_resource type="PackedScene" uid="uid://mvp8pvy00mrm" path="res://level.tscn" id="3_2rhk4"]
+[ext_resource type="PackedScene" uid="uid://c7do3egbjpogv" path="res://level2.tscn" id="4_htiqs"]
+[ext_resource type="PackedScene" uid="uid://cph4p1itsdmo2" path="res://level3.tscn" id="5_bjrwe"]
+[ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
+[ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://enemy.tscn" id="7_kr4na"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
+[ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
+[ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://Textures/survivor.png" id="10_alql8"]
+[ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="11_6i2sa"]
+[ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="12_dip38"]
+[ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="13_fjasp"]
+[ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="14_x756n"]
+[ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="15_r1xed"]
+[ext_resource type="Script" path="res://Scripts/Components/ComponentInteract.gd" id="16_v28fk"]
+[ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="17_qnmns"]
+[ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Sounds/Music/Just in Reach of Sirens.mp3" id="18_ddslh"]
 
 [sub_resource type="Environment" id="Environment_aklx6"]
 background_mode = 1
@@ -56,7 +56,7 @@ streams_count = 1
 playback_mode = 1
 random_pitch = 1.2
 random_volume_offset_db = 0.0
-stream_0/stream = ExtResource("11_sif7w")
+stream_0/stream = ExtResource("13_fjasp")
 stream_0/weight = 1.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_caadj"]
@@ -82,7 +82,7 @@ navigation_mesh = SubResource("NavigationMesh_3licq")
 
 [node name="Props" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
 
-[node name="Node3D" parent="TacticalMap/NavigationRegion3D/Props" instance=ExtResource("1_io82l")]
+[node name="Node3D" parent="TacticalMap/NavigationRegion3D/Props" instance=ExtResource("1_xj7io")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 4)
 
 [node name="TestWalls" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
@@ -131,43 +131,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, 19)
 shape = SubResource("ConvexPolygonShape3D_uf01n")
 
 [node name="LevelManager" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
-script = ExtResource("1_4nqbo")
+script = ExtResource("2_gm6x7")
 
 [node name="Level0" type="Node3D" parent="TacticalMap/NavigationRegion3D/LevelManager"]
 
-[node name="Level" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("1_li185")]
+[node name="Level" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -13)
 
-[node name="Level2" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("1_li185")]
+[node name="Level2" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0, -13)
 
-[node name="Level3" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("1_li185")]
+[node name="Level3" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0, -45)
 
-[node name="Level4" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("1_li185")]
+[node name="Level4" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -45)
 
 [node name="Level1" type="Node3D" parent="TacticalMap/NavigationRegion3D/LevelManager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="Level2" parent="TacticalMap/NavigationRegion3D/LevelManager/Level1" groups=["navigation_mesh_source_group"] instance=ExtResource("2_2wed3")]
+[node name="Level2" parent="TacticalMap/NavigationRegion3D/LevelManager/Level1" groups=["navigation_mesh_source_group"] instance=ExtResource("4_htiqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
 
 [node name="Level2" type="Node3D" parent="TacticalMap/NavigationRegion3D/LevelManager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="Level3" parent="TacticalMap/NavigationRegion3D/LevelManager/Level2" groups=["navigation_mesh_source_group"] instance=ExtResource("3_68271")]
+[node name="Level3" parent="TacticalMap/NavigationRegion3D/LevelManager/Level2" groups=["navigation_mesh_source_group"] instance=ExtResource("5_bjrwe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
 
 [node name="BuildManager" type="Node3D" parent="TacticalMap"]
-script = ExtResource("5_ugvie")
+script = ExtResource("6_y7rk5")
 hud = NodePath("../../HUD")
 
 [node name="Entities" type="Node3D" parent="TacticalMap"]
 
 [node name="Enemies" type="Node3D" parent="TacticalMap/Entities"]
 
-[node name="Enemy" parent="TacticalMap/Entities/Enemies" instance=ExtResource("2_ao3di")]
+[node name="Enemy" parent="TacticalMap/Entities/Enemies" instance=ExtResource("7_kr4na")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.216867, 0.758524, 6.75176)
 
 [node name="Projectiles" type="Node3D" parent="TacticalMap/Entities"]
@@ -176,7 +176,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.216867, 0.758524, 6.75176)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1205, 0)
 floor_constant_speed = true
 floor_max_angle = 0.872665
-script = ExtResource("7_gelpj")
+script = ExtResource("8_gposs")
 sprite = NodePath("Sprite3D")
 
 [node name="Camera3D" type="Camera3D" parent="TacticalMap/Entities/Player" groups=["Camera"]]
@@ -184,7 +184,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 18.
 projection = 1
 current = true
 size = 50.0
-script = ExtResource("9_li818")
+script = ExtResource("9_gi6l6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/Entities/Player"]
 visible = false
@@ -218,13 +218,13 @@ pixel_size = 0.002
 billboard = 1
 double_sided = false
 no_depth_test = true
-texture = ExtResource("8_rg7i2")
+texture = ExtResource("10_alql8")
 
 [node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("attack_cooldown", "reload_timer", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-script = ExtResource("10_amy2f")
+script = ExtResource("11_6i2sa")
 bullet_damage = 25.0
-bullet_line_scene = ExtResource("17_1aft6")
+bullet_line_scene = ExtResource("12_dip38")
 attack_cooldown = NodePath("AttackCD")
 reload_timer = NodePath("ReloadTime")
 player = NodePath("..")
@@ -241,28 +241,28 @@ wait_time = 5.0
 one_shot = true
 
 [node name="ShootAudio" type="AudioStreamPlayer3D" parent="TacticalMap/Entities/Player/Shooting"]
-stream = ExtResource("11_sif7w")
+stream = ExtResource("13_fjasp")
 bus = &"Sounds"
 
 [node name="ReloadAudio" type="AudioStreamPlayer3D" parent="TacticalMap/Entities/Player/Shooting"]
-stream = ExtResource("12_wlvdj")
+stream = ExtResource("14_x756n")
 bus = &"Sounds"
 
 [node name="ItemDetector" type="Area3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1205, 0)
-script = ExtResource("14_opmfs")
+script = ExtResource("15_r1xed")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player/ItemDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.792087, 0)
 shape = SubResource("CylinderShape3D_caadj")
 
 [node name="ComponentInteract" type="Node3D" parent="TacticalMap/Entities/Player"]
-script = ExtResource("16_e7fge")
+script = ExtResource("16_v28fk")
 
-[node name="HUD" parent="." instance=ExtResource("12_ycq8c")]
+[node name="HUD" parent="." instance=ExtResource("17_qnmns")]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("17_5dq1b")
+stream = ExtResource("18_ddslh")
 volume_db = -20.15
 bus = &"Music"
 
