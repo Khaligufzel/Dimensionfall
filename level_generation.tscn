@@ -1,12 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=24 format=3 uid="uid://drl78uuphij1l"]
 
-[ext_resource type="PackedScene" uid="uid://d1bocfddhsc3w" path="res://door.tscn" id="1_xj7io"]
+[ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
-[ext_resource type="PackedScene" uid="uid://mvp8pvy00mrm" path="res://level.tscn" id="3_2rhk4"]
-[ext_resource type="PackedScene" uid="uid://c7do3egbjpogv" path="res://level2.tscn" id="4_htiqs"]
-[ext_resource type="PackedScene" uid="uid://cph4p1itsdmo2" path="res://level3.tscn" id="5_bjrwe"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
-[ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://enemy.tscn" id="7_kr4na"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
 [ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://Textures/survivor.png" id="10_alql8"]
@@ -67,6 +63,9 @@ radius = 1.5
 
 [node name="TacticalMap" type="Node3D" parent="."]
 
+[node name="LevelGenerator" type="Node3D" parent="TacticalMap"]
+script = ExtResource("1_i8qa4")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TacticalMap"]
 environment = SubResource("Environment_aklx6")
 
@@ -81,9 +80,6 @@ sky_mode = 1
 navigation_mesh = SubResource("NavigationMesh_3licq")
 
 [node name="Props" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
-
-[node name="Node3D" parent="TacticalMap/NavigationRegion3D/Props" instance=ExtResource("1_xj7io")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 4)
 
 [node name="TestWalls" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
 
@@ -133,32 +129,6 @@ shape = SubResource("ConvexPolygonShape3D_uf01n")
 [node name="LevelManager" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
 script = ExtResource("2_gm6x7")
 
-[node name="Level0" type="Node3D" parent="TacticalMap/NavigationRegion3D/LevelManager"]
-
-[node name="Level" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -13)
-
-[node name="Level2" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0, -13)
-
-[node name="Level3" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0, -45)
-
-[node name="Level4" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -45)
-
-[node name="Level1" type="Node3D" parent="TacticalMap/NavigationRegion3D/LevelManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="Level2" parent="TacticalMap/NavigationRegion3D/LevelManager/Level1" groups=["navigation_mesh_source_group"] instance=ExtResource("4_htiqs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
-
-[node name="Level2" type="Node3D" parent="TacticalMap/NavigationRegion3D/LevelManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="Level3" parent="TacticalMap/NavigationRegion3D/LevelManager/Level2" groups=["navigation_mesh_source_group"] instance=ExtResource("5_bjrwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
-
 [node name="BuildManager" type="Node3D" parent="TacticalMap"]
 script = ExtResource("6_y7rk5")
 hud = NodePath("../../HUD")
@@ -166,9 +136,6 @@ hud = NodePath("../../HUD")
 [node name="Entities" type="Node3D" parent="TacticalMap"]
 
 [node name="Enemies" type="Node3D" parent="TacticalMap/Entities"]
-
-[node name="Enemy" parent="TacticalMap/Entities/Enemies" instance=ExtResource("7_kr4na")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.216867, 0.758524, 6.75176)
 
 [node name="Projectiles" type="Node3D" parent="TacticalMap/Entities"]
 
