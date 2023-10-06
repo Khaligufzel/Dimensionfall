@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpaa3ui52a23c"]
+
+[ext_resource type="Material" uid="uid://buj4ukj1oh4pq" path="res://Materials/floor1.tres" id="1_tldl5"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j05ve"]
+material = ExtResource("1_tldl5")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gyg2o"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[node name="Grass001" type="StaticBody3D" groups=["navigation_mesh_source_group"]]
+disable_mode = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_j05ve")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_gyg2o")

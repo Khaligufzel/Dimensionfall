@@ -84,7 +84,7 @@ func _process(delta):
 
 func _physics_process(delta):
 
-	var gravity = 98
+	var gravity = 9.8
 	velocity.y += -gravity * delta
 	move_and_slide()
 	

@@ -1,5 +1,7 @@
 extends Node3D
 
+var current_level_name : String
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,7 +11,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
+	
+func switch_level(level_name):
+	current_level_name = level_name
+	get_tree().change_scene_to_file("res://level_generation.tscn")
+	
 
 func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:
 	var mesh_instance := MeshInstance3D.new()

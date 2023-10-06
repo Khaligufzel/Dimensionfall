@@ -1,13 +1,16 @@
-[gd_scene load_steps=28 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=31 format=3 uid="uid://drl78uuphij1l"]
 
-[ext_resource type="PackedScene" uid="uid://d1bocfddhsc3w" path="res://door.tscn" id="1_xj7io"]
+[ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
-[ext_resource type="PackedScene" uid="uid://mvp8pvy00mrm" path="res://level.tscn" id="3_2rhk4"]
-[ext_resource type="PackedScene" uid="uid://c7do3egbjpogv" path="res://level2.tscn" id="4_htiqs"]
-[ext_resource type="PackedScene" uid="uid://cph4p1itsdmo2" path="res://level3.tscn" id="5_bjrwe"]
+[ext_resource type="PackedScene" uid="uid://cpaa3ui52a23c" path="res://Blocks/grass_001.tscn" id="2_plpeq"]
+[ext_resource type="PackedScene" uid="uid://b5b2f24f6emf3" path="res://Blocks/concrete_wall001.tscn" id="3_1oyl1"]
+[ext_resource type="PackedScene" uid="uid://cmjjw8pjtidpj" path="res://Blocks/concrete_wall002.tscn" id="4_pf75o"]
+[ext_resource type="PackedScene" uid="uid://dnsl5rk6de7na" path="res://Blocks/Stairs_to_N001.tscn" id="5_4om2c"]
+[ext_resource type="PackedScene" uid="uid://db73ys0cw3b2i" path="res://Blocks/Stairs_to_E001.tscn" id="6_x7pv6"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
-[ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://enemy.tscn" id="7_kr4na"]
+[ext_resource type="PackedScene" uid="uid://dotb8dsoarufo" path="res://Blocks/Stairs_to_S001.tscn" id="7_nhyjt"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
+[ext_resource type="PackedScene" uid="uid://h2antxtbvel4" path="res://Blocks/Stairs_to_W001.tscn" id="8_l45yd"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
 [ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://Textures/survivor.png" id="10_alql8"]
 [ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="11_6i2sa"]
@@ -67,6 +70,12 @@ radius = 1.5
 
 [node name="TacticalMap" type="Node3D" parent="."]
 
+[node name="LevelGenerator" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("level_manager") groups=["level_generator"]]
+script = ExtResource("1_i8qa4")
+level_manager = NodePath("../NavigationRegion3D/LevelManager")
+block_scenes = Array[PackedScene]([ExtResource("2_plpeq"), ExtResource("3_1oyl1"), ExtResource("4_pf75o"), ExtResource("5_4om2c"), ExtResource("6_x7pv6"), ExtResource("7_nhyjt"), ExtResource("8_l45yd")])
+default_level_json = "res://JSON/Levels/level001.json"
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TacticalMap"]
 environment = SubResource("Environment_aklx6")
 
@@ -82,10 +91,8 @@ navigation_mesh = SubResource("NavigationMesh_3licq")
 
 [node name="Props" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
 
-[node name="Node3D" parent="TacticalMap/NavigationRegion3D/Props" instance=ExtResource("1_xj7io")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 4)
-
 [node name="TestWalls" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 14)
 
 [node name="TestWall" type="StaticBody3D" parent="TacticalMap/NavigationRegion3D/TestWalls"]
 
@@ -133,32 +140,6 @@ shape = SubResource("ConvexPolygonShape3D_uf01n")
 [node name="LevelManager" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
 script = ExtResource("2_gm6x7")
 
-[node name="Level0" type="Node3D" parent="TacticalMap/NavigationRegion3D/LevelManager"]
-
-[node name="Level" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -13)
-
-[node name="Level2" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0, -13)
-
-[node name="Level3" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0, -45)
-
-[node name="Level4" parent="TacticalMap/NavigationRegion3D/LevelManager/Level0" groups=["navigation_mesh_source_group"] instance=ExtResource("3_2rhk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -45)
-
-[node name="Level1" type="Node3D" parent="TacticalMap/NavigationRegion3D/LevelManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="Level2" parent="TacticalMap/NavigationRegion3D/LevelManager/Level1" groups=["navigation_mesh_source_group"] instance=ExtResource("4_htiqs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
-
-[node name="Level2" type="Node3D" parent="TacticalMap/NavigationRegion3D/LevelManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="Level3" parent="TacticalMap/NavigationRegion3D/LevelManager/Level2" groups=["navigation_mesh_source_group"] instance=ExtResource("5_bjrwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
-
 [node name="BuildManager" type="Node3D" parent="TacticalMap"]
 script = ExtResource("6_y7rk5")
 hud = NodePath("../../HUD")
@@ -167,13 +148,10 @@ hud = NodePath("../../HUD")
 
 [node name="Enemies" type="Node3D" parent="TacticalMap/Entities"]
 
-[node name="Enemy" parent="TacticalMap/Entities/Enemies" instance=ExtResource("7_kr4na")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.216867, 0.758524, 6.75176)
-
 [node name="Projectiles" type="Node3D" parent="TacticalMap/Entities"]
 
 [node name="Player" type="CharacterBody3D" parent="TacticalMap/Entities" node_paths=PackedStringArray("sprite") groups=["Players"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1205, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
 floor_constant_speed = true
 floor_max_angle = 0.872665
 script = ExtResource("8_gposs")
@@ -264,10 +242,11 @@ script = ExtResource("16_v28fk")
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_ddslh")
 volume_db = -20.15
+autoplay = true
 bus = &"Music"
 
 [node name="TestCamera" type="Camera3D" parent="."]
-transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 2.15246, 2.21176, -2.99642)
+transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, -20.8475, 0.21176, -31.9964)
 
 [connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
 [connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
