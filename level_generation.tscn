@@ -70,11 +70,11 @@ radius = 1.5
 
 [node name="TacticalMap" type="Node3D" parent="."]
 
-[node name="LevelGenerator" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("level_manager")]
+[node name="LevelGenerator" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("level_manager") groups=["level_generator"]]
 script = ExtResource("1_i8qa4")
 level_manager = NodePath("../NavigationRegion3D/LevelManager")
 block_scenes = Array[PackedScene]([ExtResource("2_plpeq"), ExtResource("3_1oyl1"), ExtResource("4_pf75o"), ExtResource("5_4om2c"), ExtResource("6_x7pv6"), ExtResource("7_nhyjt"), ExtResource("8_l45yd")])
-level_json = "res://JSON/Levels/level001.json"
+default_level_json = "res://JSON/Levels/level001.json"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TacticalMap"]
 environment = SubResource("Environment_aklx6")
@@ -159,6 +159,7 @@ sprite = NodePath("Sprite3D")
 
 [node name="Camera3D" type="Camera3D" parent="TacticalMap/Entities/Player" groups=["Camera"]]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 18.9245, -0.0113735)
+projection = 1
 current = true
 size = 50.0
 script = ExtResource("9_gi6l6")

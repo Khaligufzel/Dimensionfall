@@ -1,5 +1,9 @@
 extends Node3D
 
+var level_name
+
+
+
 var level_json_as_text
 
 var level_layers : Array
@@ -10,16 +14,22 @@ var level_layers : Array
 
 @export var level_manager : Node3D
 @export var block_scenes : Array[PackedScene]
-@export_file var level_json
+@export_file var default_level_json
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_level_json()
+	level_name = Helper.current_level_name
 	generate_level()
-
+	
 func generate_level():
+	
+	if level_name == "":
+		get_level_json()
+	else:
+		get_custom_level_json("user://levels/" + level_name)
+	
 	
 	var layer_number = 0
 	#we need to generate level layer by layer starting from the bottom
@@ -65,11 +75,17 @@ func generate_level():
 func _process(delta):
 	pass
 	
+	
+	
+	# YEAH I KNOW THAT SHOULD BE ONE FUNCTION, BUT IT'S 2:30 AM and... I'm TIRED LOL
 func get_level_json():
-	var file = level_json
+	var file = default_level_json
 	level_json_as_text = FileAccess.get_file_as_string(file)
 	var json_as_dict = JSON.parse_string(level_json_as_text)
 	level_layers = json_as_dict["layers"]
-	
-	for layer in level_layers:
-		print("layer")
+
+func get_custom_level_json(level_path):
+	var file = level_path
+	level_json_as_text = FileAccess.get_file_as_string(file)
+	var json_as_dict = JSON.parse_string(level_json_as_text)
+	level_layers = json_as_dict["layers"]
