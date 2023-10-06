@@ -242,6 +242,7 @@ script = ExtResource("16_v28fk")
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_ddslh")
 volume_db = -20.15
+autoplay = true
 bus = &"Music"
 
 [node name="TestCamera" type="Camera3D" parent="."]
