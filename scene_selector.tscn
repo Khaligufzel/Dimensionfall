@@ -39,5 +39,15 @@ offset_top = 378.0
 offset_right = 863.0
 offset_bottom = 457.0
 
+[node name="HelpButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 474.0
+offset_right = 449.0
+offset_bottom = 553.0
+theme_override_font_sizes/font_size = 25
+text = "Help"
+
 [connection signal="pressed" from="PlayDemo" to="." method="_on_play_demo_pressed"]
 [connection signal="pressed" from="ViewLevel" to="." method="_on_view_level_pressed"]
+[connection signal="pressed" from="HelpButton" to="." method="_on_help_button_pressed"]

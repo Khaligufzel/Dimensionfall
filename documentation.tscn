@@ -1,0 +1,131 @@
+[gd_scene load_steps=16 format=3 uid="uid://dddjfurdx4wcs"]
+
+[ext_resource type="Script" path="res://Scripts/Documentation.gd" id="1_bo6h8"]
+[ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="2_satcq"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="3_63ons"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="4_iqloi"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="5_fmd7x"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_gbqcg"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_3sw1n"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_lyqw1"]
+
+[sub_resource type="SystemFont" id="SystemFont_53ri7"]
+font_names = PackedStringArray("Monospace")
+
+[sub_resource type="Resource" id="Resource_n3x8q"]
+resource_local_to_scene = true
+script = ExtResource("3_63ons")
+font_size = 2.285
+is_bold = false
+is_italic = false
+is_underlined = false
+
+[sub_resource type="Resource" id="Resource_hudy4"]
+resource_local_to_scene = true
+script = ExtResource("4_iqloi")
+font_size = 1.714
+is_bold = false
+is_italic = false
+is_underlined = false
+
+[sub_resource type="Resource" id="Resource_kramt"]
+resource_local_to_scene = true
+script = ExtResource("5_fmd7x")
+font_size = 1.428
+is_bold = false
+is_italic = false
+is_underlined = false
+
+[sub_resource type="Resource" id="Resource_mdkcg"]
+resource_local_to_scene = true
+script = ExtResource("6_gbqcg")
+font_size = 1.142
+is_bold = false
+is_italic = false
+is_underlined = false
+
+[sub_resource type="Resource" id="Resource_8naro"]
+resource_local_to_scene = true
+script = ExtResource("7_3sw1n")
+font_size = 1.0
+is_bold = false
+is_italic = false
+is_underlined = false
+
+[sub_resource type="Resource" id="Resource_hwu7s"]
+resource_local_to_scene = true
+script = ExtResource("8_lyqw1")
+font_size = 0.857
+is_bold = false
+is_italic = false
+is_underlined = false
+
+[node name="HelpMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_right = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bo6h8")
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.0
+offset_right = 28.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
+text = "Help"
+
+[node name="CategoryLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 64.0
+offset_right = 235.0
+offset_bottom = 102.0
+theme_override_font_sizes/font_size = 25
+text = "Categories"
+
+[node name="CategoryTree" type="Tree" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 104.0
+offset_right = 331.0
+offset_bottom = 637.0
+
+[node name="DocumentDisplay" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 347.0
+offset_top = 64.0
+offset_right = 1163.0
+offset_bottom = 640.0
+theme_override_fonts/mono_font = SubResource("SystemFont_53ri7")
+bbcode_enabled = true
+text = "[font_size=22]Welcome to the documentation menu[/font_size]
+Select an item from the list to read more"
+script = ExtResource("2_satcq")
+markdown_text = "### Welcome to the documentation menu
+Select an item from the list to read more"
+h1 = SubResource("Resource_n3x8q")
+h2 = SubResource("Resource_hudy4")
+h3 = SubResource("Resource_kramt")
+h4 = SubResource("Resource_mdkcg")
+h5 = SubResource("Resource_8naro")
+h6 = SubResource("Resource_hwu7s")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_right = 139.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 24
+text = "Back"
+
+[connection signal="meta_clicked" from="DocumentDisplay" to="." method="_on_document_display_meta_clicked"]
+[connection signal="pressed" from="Button" to="." method="_on_back_button_pressed"]
