@@ -1,15 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=7 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/GridContainer.gd" id="2_sf17m"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Levelscroller.gd" id="3_i1qbw"]
-[ext_resource type="Texture2D" uid="uid://dxwsqlxunc3i5" path="res://Textures/Tiles/Actual textures/6.png" id="3_wtvjr"]
-[ext_resource type="Texture2D" uid="uid://djm4muwbpkhon" path="res://Textures/Tiles/Actual textures/5.png" id="4_asyqe"]
-[ext_resource type="Texture2D" uid="uid://cyy4j5vso6khu" path="res://Textures/Tiles/Actual textures/4.png" id="5_r84am"]
-[ext_resource type="Texture2D" uid="uid://c31w0wuk8qabw" path="res://Textures/Tiles/Actual textures/2.png" id="6_0hsr4"]
-[ext_resource type="Texture2D" uid="uid://de2iuxymc150j" path="res://Textures/Tiles/Actual textures/3.png" id="7_7csv2"]
-[ext_resource type="Texture2D" uid="uid://bu00lw1luehxr" path="res://Textures/Tiles/Actual textures/1.png" id="8_0gtgn"]
 
 [sub_resource type="Gradient" id="Gradient_x1sdl"]
 
@@ -99,42 +93,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="HFlowContainer" type="HFlowContainer" parent="HSplitContainer/EntitiesContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/EntitiesContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="TextureRect" type="TextureRect" parent="HSplitContainer/EntitiesContainer/HFlowContainer"]
+[node name="TilesList" type="HFlowContainer" parent="HSplitContainer/EntitiesContainer/ScrollContainer"]
+clip_contents = true
 layout_mode = 2
-texture = ExtResource("3_wtvjr")
-
-[node name="TextureRect2" type="TextureRect" parent="HSplitContainer/EntitiesContainer/HFlowContainer"]
-layout_mode = 2
-texture = ExtResource("4_asyqe")
-
-[node name="TextureRect3" type="TextureRect" parent="HSplitContainer/EntitiesContainer/HFlowContainer"]
-layout_mode = 2
-texture = ExtResource("5_r84am")
-
-[node name="TextureRect4" type="TextureRect" parent="HSplitContainer/EntitiesContainer/HFlowContainer"]
-layout_mode = 2
-texture = ExtResource("6_0hsr4")
-
-[node name="TextureRect5" type="TextureRect" parent="HSplitContainer/EntitiesContainer/HFlowContainer"]
-layout_mode = 2
-texture = ExtResource("7_7csv2")
-
-[node name="TextureRect6" type="TextureRect" parent="HSplitContainer/EntitiesContainer/HFlowContainer"]
-layout_mode = 2
-texture = ExtResource("8_0gtgn")
-
-[node name="MapSizeController" type="ColorRect" parent="HSplitContainer/EntitiesContainer/HFlowContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-color = Color(0.235294, 0.235294, 0.235294, 1)
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" method="_on_mapeditor_zoom_level_changed"]
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" method="_on_mapeditor_zoom_level_changed"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" to="." method="_on_zoom_scroller_zoom_level_changed"]
 [connection signal="gui_input" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" method="_input"]
+[connection signal="tile_clicked" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" to="." method="_on_grid_tile_clicked"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" to="." method="_on_tile_grid_zoom_level_changed"]
 [connection signal="value_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller" method="_on_level_scrollbar_value_changed"]
