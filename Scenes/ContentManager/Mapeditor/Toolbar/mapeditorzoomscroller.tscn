@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://bswccbbg6ijep"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/ZoomSlider.gd" id="1_xvved"]
+
+[node name="ZoomsliderControl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xvved")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 111.0
+offset_bottom = 26.0
+
+[node name="ZoomSliderLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Zoom: "
+
+[node name="ZoomSlider" type="HSlider" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+value = 50.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="ZoomSliderPercentLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "100%"
+
+[connection signal="changed" from="HBoxContainer/ZoomSlider" to="." method="_on_zoom_slider_changed"]
+[connection signal="value_changed" from="HBoxContainer/ZoomSlider" to="." method="_on_zoom_slider_value_changed"]
