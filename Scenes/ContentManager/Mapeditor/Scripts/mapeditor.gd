@@ -34,7 +34,6 @@ func loadTiles():
 
 			if !dir.current_is_dir():
 				if extension == "png":
-	#				print("Found file: " + file_name)
 					# Create a TextureRect node
 					var brushInstance = tileBrush.instantiate()
 
@@ -55,13 +54,13 @@ func loadTiles():
 
 #Mark the clicked tilebrush as selected, but only after deselecting all other brushes
 func tilebrush_clicked(tilebrush: Control) -> void:
-	var children: Array[Node] = tilebrush.get_parent().get_children()
-	for child in children:
-		child.deselect()
 	selected_brush = tilebrush
-	tilebrush.select()
 
 # The clicked tile gets the texture of the selected brush
 func _on_grid_tile_clicked(clicked_tile: Node):
 	if selected_brush:
 		clicked_tile.set_texture(selected_brush.get_texture())
+
+
+
+

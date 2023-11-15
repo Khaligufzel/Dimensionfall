@@ -66,27 +66,25 @@ script = ExtResource("3_i1qbw")
 [node name="LevelIndicator" type="Control" parent="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.15
+size_flags_stretch_ratio = 0.2
 
 [node name="Label" type="Label" parent="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller/LevelIndicator"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = 5.02
-offset_right = 86.02
-offset_bottom = 20.0
-grow_horizontal = 0
+offset_left = 20.685
+offset_right = 128.685
+offset_bottom = 26.0
 rotation = 1.5708
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Level: Ground"
 
 [node name="LevelScrollbar" type="VScrollBar" parent="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller"]
+custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 size_flags_vertical = 3
 min_value = -10.0
 max_value = 10.0
 step = 1.0
+rounded = true
 
 [node name="EntitiesContainer" type="VBoxContainer" parent="HSplitContainer"]
 layout_mode = 2
@@ -106,7 +104,7 @@ size_flags_vertical = 3
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" method="_on_mapeditor_zoom_level_changed"]
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" method="_on_mapeditor_zoom_level_changed"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" to="." method="_on_zoom_scroller_zoom_level_changed"]
-[connection signal="gui_input" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" method="_input"]
 [connection signal="tile_clicked" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" to="." method="_on_grid_tile_clicked"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" to="." method="_on_tile_grid_zoom_level_changed"]
+[connection signal="value_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" method="_on_level_scrollbar_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller" method="_on_level_scrollbar_value_changed"]

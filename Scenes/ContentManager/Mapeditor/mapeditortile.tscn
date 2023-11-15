@@ -1,27 +1,26 @@
 [gd_scene load_steps=3 format=3 uid="uid://3x0kjiu7lqg7"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditortile.gd" id="1_7fypm"]
-[ext_resource type="Texture2D" uid="uid://de2iuxymc150j" path="res://Textures/Tiles/Actual textures/3.png" id="1_cjv87"]
+[ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_rued1"]
 
 [node name="mapeditortile" type="Control"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_7fypm")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 16.0
-offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_cjv87")
+texture = ExtResource("2_rued1")
 expand_mode = 3
 
 [connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
