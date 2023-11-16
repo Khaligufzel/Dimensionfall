@@ -43,6 +43,12 @@ size_flags_stretch_ratio = 0.05
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="SaveButton" type="Button" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
+text = "Save"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/MapeditorContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -104,6 +110,7 @@ size_flags_vertical = 3
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" method="_on_mapeditor_zoom_level_changed"]
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" method="_on_mapeditor_zoom_level_changed"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" to="." method="_on_zoom_scroller_zoom_level_changed"]
+[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="tile_clicked" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" to="." method="_on_grid_tile_clicked"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" to="." method="_on_tile_grid_zoom_level_changed"]
 [connection signal="value_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid" method="_on_level_scrollbar_value_changed"]

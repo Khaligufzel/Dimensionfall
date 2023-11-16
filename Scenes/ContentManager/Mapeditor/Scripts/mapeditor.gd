@@ -63,4 +63,22 @@ func _on_grid_tile_clicked(clicked_tile: Node):
 
 
 
+	#This function takes the TileGrid.mapData property and saves all of it as a json file. The user will get a prompt asking for a file location.
+func _on_save_button_button_up():
+	var TileGrid: Control = $HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/TileGrid
+	var folderName: String = "./Mods/Core"
+	var fileName: String = "Generichouse.json"
+	var saveLoc: String = folderName + "/Maps" + "/" + fileName
+	# Convert the TileGrid.mapData to a JSON string
+	TileGrid.storeLevelData()
+	var map_data_json = str(TileGrid.mapData.duplicate())
 
+	var dir = DirAccess.open(folderName)
+	dir.make_dir("Maps")
+
+	# Save the JSON string to the selected file location
+	var file = FileAccess.open(saveLoc, FileAccess.WRITE)
+	if file:
+		file.store_string(map_data_json)
+	else:
+		print_debug("Unable to write file " + saveLoc)

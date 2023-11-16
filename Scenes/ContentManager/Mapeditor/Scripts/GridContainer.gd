@@ -77,6 +77,7 @@ func storeLevelData():
 	currentLevelData.clear()
 	for child in get_children():
 		currentLevelData.append(child.tileData)
+	mapData.levels[currentLevel] = currentLevelData.duplicate()
 		
 #Loads the leveldata from the mapdata
 #If no data exists, use the default to create a new map
@@ -92,7 +93,6 @@ func loadLevelData(newLevel: int):
 		#No data is present on this level. apply the default value for each tile
 		for child in get_children():
 			child.set_default()
-	storeLevelData()
 
 
 # We change from one level to another. For exmple from ground level (0) to 1
@@ -101,9 +101,9 @@ func loadLevelData(newLevel: int):
 # If no data exists for that level, create new level data
 func change_level(newlevel: int) -> void:
 	storeLevelData()
-	mapData.levels[currentLevel] = currentLevelData.duplicate()
 	loadLevelData(newlevel)
 	currentLevel = newlevel
+	storeLevelData()
 
 # We need to add 10 since the scrollbar starts at -10
 func _on_level_scrollbar_value_changed(value):
