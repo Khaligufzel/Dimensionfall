@@ -7,7 +7,11 @@ var currentLevel: int = 10
 #Contains the data of every tile in the current level, the ground level or level 0 by default
 var currentLevelData: Array[Dictionary] = []
 #Contains map metadata like size as well as the data on all levels
-var mapData: Dictionary = {"mapsize": mapsize, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
+var mapData: Dictionary = {"mapsize": mapsize, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}:
+	set(data):
+		mapData = data.duplicate()
+		loadLevelData(currentLevel)
+var is_drawing_rect: bool = false
 signal zoom_level_changed(zoom_level: int)
 signal tile_clicked(clicked_tile: Control)
 
@@ -108,6 +112,34 @@ func change_level(newlevel: int) -> void:
 # We need to add 10 since the scrollbar starts at -10
 func _on_level_scrollbar_value_changed(value):
 	change_level(10+0-value)
+	
+#This function takes two coordinates representing a rectangle. It will check which of the TileGrid's children's position falls inside this rectangle. It returns all the child tiles that fall inside this rectangle
+func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
+	var tiles_in_rectangle: Array = []
+	for tile in get_children():
+		if tile.position.x >= rect_start.x and tile.position.x <= rect_end.x:
+			if tile.position.y >= rect_start.y and tile.position.y <= rect_end.y:
+				tiles_in_rectangle.append(tile)
+	return tiles_in_rectangle
+	
+func unhighlight_children():
+	for child in get_children():
+		child.unhighlight()
+	
+
+func highlight_children_in_rect(start_point: Vector2, end_point: Vector2):
+	unhighlight_children()
+	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
+	for tile in tiles:
+		tile.highlight()
+	
+
+func paint_in_rectangle(start_point: Vector2, end_point: Vector2, res: Resource):
+	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
+	for tile in tiles:
+		tile.set_texture(res)
 
 
+	
+	
 
