@@ -19,7 +19,10 @@ signal tile_clicked(clicked_tile: Control)
 func _ready():
 	columns = mapsize
 	createTiles()
-	adjust_scale(50)
+	
+	var parent: ScrollContainer = $"../../.."
+	parent.scroll_horizontal = mapsize*tilesize
+	parent.scroll_vertical = mapsize*tilesize
 
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
@@ -31,45 +34,27 @@ func createTiles():
 			tileInstance.connect("tile_clicked",grid_tile_clicked)
 
 	
-func adjust_scale(zoom_level: int):
-	for child in get_children():
-		child.custom_minimum_size = Vector2(1.28*zoom_level, 1.28*zoom_level)
-	
-	
-var mouse_button_pressed: bool = false
 #When the user presses and holds the middle mousebutton and moves the mouse, change the parent's scroll_horizontal and scroll_vertical properties appropriately
 func _input(event):
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
 				if Input.is_key_pressed(KEY_CTRL) and event.button_mask == 0:
-					zoom_level_changed.emit($"../../../../..".zoom_level+1)
+					zoom_level_changed.emit($"../../../../../../..".zoom_level+2)
 				if Input.is_key_pressed(KEY_ALT) and event.button_mask == 0:
-					$"../../Levelscroller/LevelScrollbar".value += 1
+					$"../../../../Levelscroller/LevelScrollbar".value += 1
 				if Input.is_key_pressed(KEY_CTRL) or Input.is_key_pressed(KEY_ALT):
 					get_viewport().set_input_as_handled()
 			MOUSE_BUTTON_WHEEL_DOWN: 
 				if Input.is_key_pressed(KEY_CTRL) and event.button_mask == 0:
-					zoom_level_changed.emit($"../../../../..".zoom_level-1)
+					zoom_level_changed.emit($"../../../../../../..".zoom_level-2)
 				if Input.is_key_pressed(KEY_ALT) and event.button_mask == 0:
-					$"../../Levelscroller/LevelScrollbar".value -= 1
+					$"../../../../Levelscroller/LevelScrollbar".value -= 1
 				if Input.is_key_pressed(KEY_CTRL) or Input.is_key_pressed(KEY_ALT):
 					get_viewport().set_input_as_handled()
-			MOUSE_BUTTON_MIDDLE: 
-				if event.pressed:
-					mouse_button_pressed = true
-				else:
-					mouse_button_pressed = false
 			
-	#When the users presses and holds the mouse wheel, we scoll the grid
-	if event is InputEventMouseMotion and mouse_button_pressed:
-		var parent: ScrollContainer = get_parent()
-		parent.scroll_horizontal = parent.scroll_horizontal - event.relative.x
-		parent.scroll_vertical = parent.scroll_vertical - event.relative.y
 		
 
-func _on_mapeditor_zoom_level_changed(value: int) -> void:
-	adjust_scale(value)
 
 #When one of the grid tiles is clicked, we pass on the signal including the clicked tile
 func grid_tile_clicked(clicked_tile):
@@ -140,6 +125,6 @@ func paint_in_rectangle(start_point: Vector2, end_point: Vector2, res: Resource)
 		tile.set_texture(res)
 
 
-	
-	
+func _on_draw_rectangle_toggled(button_pressed):
+	is_drawing_rect = button_pressed
 
