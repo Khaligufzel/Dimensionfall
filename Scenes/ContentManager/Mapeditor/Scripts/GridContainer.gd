@@ -117,8 +117,8 @@ func _on_level_scrollbar_value_changed(value):
 func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
 	var tiles_in_rectangle: Array = []
 	for tile in get_children():
-		if tile.position.x >= rect_start.x and tile.position.x <= rect_end.x:
-			if tile.position.y >= rect_start.y and tile.position.y <= rect_end.y:
+		if tile.global_position.x >= rect_start.x and tile.global_position.x <= rect_end.x:
+			if tile.global_position.y >= rect_start.y-64 and tile.global_position.y <= rect_end.y:
 				tiles_in_rectangle.append(tile)
 	return tiles_in_rectangle
 	

@@ -75,10 +75,10 @@ func _input(event):
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT:
 				if event.is_pressed():
-					start_point = event.position.snapped(snapLevel)
+					start_point = event.global_position.snapped(snapLevel)
 					is_drawing = true
 				else:
-					end_point = event.position.snapped(snapLevel)
+					end_point = event.global_position.snapped(snapLevel)
 					is_drawing = false
 					paint_in_rectangle()
 	else:
@@ -86,7 +86,7 @@ func _input(event):
 	
 	#When the users presses and holds the mouse wheel, we scoll the grid
 	if event is InputEventMouseMotion and is_drawing:
-		end_point = event.position
+		end_point = event.global_position
 		update_rectangle()
 
 #Change the color to be red
