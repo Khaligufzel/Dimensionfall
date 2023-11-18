@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=8 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/GridContainer.gd" id="2_sf17m"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Levelscroller.gd" id="3_i1qbw"]
+[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/TilebrushList.gd" id="5_he816"]
 
 [sub_resource type="Gradient" id="Gradient_x1sdl"]
 
@@ -35,6 +36,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 
 [node name="Toolbar" type="HBoxContainer" parent="HSplitContainer/MapeditorContainer"]
+clip_contents = true
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_stretch_ratio = 0.05
@@ -42,6 +44,30 @@ size_flags_stretch_ratio = 0.05
 [node name="ZoomScroller" parent="HSplitContainer/MapeditorContainer/Toolbar" instance=ExtResource("1_0ytmu")]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="mapsizelabel" type="Label" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+text = "Size: W:"
+
+[node name="MapWidth" type="TextEdit" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+clip_contents = true
+custom_minimum_size = Vector2(35.08, 22)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 16
+text = "32"
+
+[node name="MapHeightLabel" type="Label" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+text = "H:"
+
+[node name="MapHeight" type="TextEdit" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+clip_contents = true
+custom_minimum_size = Vector2(35.08, 22)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 16
+text = "32"
 
 [node name="SaveButton" type="Button" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
@@ -58,6 +84,10 @@ text = "Load"
 [node name="DrawRectangle" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
 text = "Draw rectangle"
+
+[node name="Erase" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+text = "Erase"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/MapeditorContainer"]
 layout_mode = 2
@@ -131,19 +161,22 @@ size_flags_stretch_ratio = 0.2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="TilesList" type="HFlowContainer" parent="HSplitContainer/EntitiesContainer/ScrollContainer"]
+[node name="TilebrushList" type="HFlowContainer" parent="HSplitContainer/EntitiesContainer/ScrollContainer"]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("5_he816")
 
+[connection signal="ready" from="." to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_mapeditor_ready"]
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" method="_on_mapeditor_zoom_level_changed"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" to="." method="_on_zoom_scroller_zoom_level_changed"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/LoadButton" to="." method="_on_load_button_button_up"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_draw_rectangle_toggled"]
+[connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/Erase" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_erase_toggled"]
 [connection signal="ready" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow" to="." method="_on_map_scroll_window_ready"]
-[connection signal="tile_clicked" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" to="." method="_on_grid_tile_clicked"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" to="." method="_on_tile_grid_zoom_level_changed"]
 [connection signal="value_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_level_scrollbar_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller" method="_on_level_scrollbar_value_changed"]
+[connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer/ScrollContainer/TilebrushList" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_tilebrush_list_tile_brush_selection_change"]

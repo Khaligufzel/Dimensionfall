@@ -31,7 +31,6 @@ func _on_texture_rect_mouse_entered() -> void:
 func set_default() -> void:
 	tileData = defaultTileData.duplicate()
 
-
 func highlight() -> void:
 	$TextureRect.modulate = Color(0.227, 0.635, 0.757)
 	
