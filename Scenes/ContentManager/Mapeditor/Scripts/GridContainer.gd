@@ -7,8 +7,13 @@ var currentLevelData: Array[Dictionary] = []
 var mapEditor: Control
 var LevelScrollBar: VScrollBar
 var selected_brush: Control
+var levelgrid_below: GridContainer
+var levelgrid_above: GridContainer
+
 var drawRectangle: bool = false
 var erase: bool = false
+var showBelow: bool = false
+var showAbove: bool = false
 var snapAmount: float
 #Contains map metadata like size as well as the data on all levels
 var mapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}:
@@ -20,9 +25,15 @@ signal zoom_level_changed(zoom_level: int)
 func _on_mapeditor_ready():
 	mapEditor = $"../../../../../../.."
 	LevelScrollBar = $"../../../../Levelscroller/LevelScrollbar"
+	levelgrid_below = $"../Level_Below"
+	levelgrid_above = $"../Level_Above"
 	columns = mapEditor.mapWidth
+	levelgrid_below.columns = mapEditor.mapWidth
+	levelgrid_above.columns = mapEditor.mapWidth
 	createTiles()
 	snapAmount = 1.28*mapEditor.zoom_level
+	levelgrid_below.hide()
+	levelgrid_above.hide()
 
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
@@ -32,6 +43,12 @@ func createTiles():
 			var tileInstance: Control = tileScene.instantiate()
 			add_child(tileInstance)
 			tileInstance.connect("tile_clicked",grid_tile_clicked)
+			var tileBelow: Control = tileScene.instantiate()
+			tileBelow.set_clickable(false)
+			levelgrid_below.add_child(tileBelow)
+			var tileAbove: Control = tileScene.instantiate()
+			tileAbove.set_clickable(false)
+			levelgrid_above.add_child(tileAbove)
 
 	
 var start_point = Vector2()
@@ -107,17 +124,32 @@ func storeLevelData():
 #Loads the leveldata from the mapdata
 #If no data exists, use the default to create a new map
 func loadLevelData(newLevel: int):
-	var newLevelData: Array = mapData.levels[newLevel]
+	if newLevel > 0 and showBelow:
+		levelgrid_below.show()
+		loadLevel(newLevel-1, levelgrid_below)
+	else:
+		levelgrid_below.hide()
+	if newLevel < 21 and showAbove:
+		levelgrid_above.show()
+		loadLevel(newLevel+1, levelgrid_above)
+		for tile in levelgrid_above.get_children():
+			tile.set_above()
+	else:
+		levelgrid_above.hide()
+	loadLevel(newLevel, self)
+			
+func loadLevel(level: int, grid: GridContainer):
+	var newLevelData: Array = mapData.levels[level]
 	var i: int = 0
 	# If any data exists on this level, we load it
 	if newLevelData != []:
-		for child in get_children():
-			child.tileData = newLevelData[i]
+		for tile in grid.get_children():
+			tile.tileData = newLevelData[i]
 			i += 1
 	else:
 		#No data is present on this level. apply the default value for each tile
-		for child in get_children():
-			child.set_default()
+		for tile in grid.get_children():
+			tile.set_default()
 
 
 # We change from one level to another. For exmple from ground level (0) to 1
@@ -176,3 +208,60 @@ func _on_draw_rectangle_toggled(button_pressed):
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush):
 	selected_brush = tilebrush
 	
+	
+
+#This function takes the TileGrid.mapData property and saves all of it as a json file. The user will get a prompt asking for a file location.
+func _on_save_button_button_up():
+	var folderName: String = "./Mods/Core"
+	var fileName: String = "Generichouse.json"
+	var saveLoc: String = folderName + "/Maps" + "/" + fileName
+	# Convert the TileGrid.mapData to a JSON string
+	storeLevelData()
+	var map_data_json = str(mapData.duplicate())
+
+	var dir = DirAccess.open(folderName)
+	dir.make_dir("Maps")
+
+	# Save the JSON string to the selected file location
+	var file = FileAccess.open(saveLoc, FileAccess.WRITE)
+	if file:
+		file.store_string(map_data_json)
+	else:
+		print_debug("Unable to write file " + saveLoc)
+
+func _on_load_button_button_up():	
+	var folderName: String = "./Mods/Core"
+	var fileName: String = "Generichouse.json"
+	var loadLoc: String = folderName + "/Maps" + "/" + fileName
+	# Convert the tileGrid.mapData to a JSON string
+	storeLevelData()
+
+	var dir = DirAccess.open(folderName)
+	dir.make_dir("Maps")
+
+	# Save the JSON string to the selected file location
+	var file = FileAccess.open(loadLoc, FileAccess.READ)
+	if file:
+		var map_data_json: Dictionary
+		map_data_json = JSON.parse_string(file.get_as_text())
+		mapData = map_data_json
+
+	else:
+		print_debug("Unable to load file " + loadLoc)
+	
+
+
+func _on_show_below_toggled(button_pressed):
+	showBelow = button_pressed
+	if showBelow:
+		levelgrid_below.show()
+	else:
+		levelgrid_below.hide()
+
+
+func _on_show_above_toggled(button_pressed):
+	showAbove = button_pressed
+	if showAbove:
+		levelgrid_above.show()
+	else:
+		levelgrid_above.hide()
