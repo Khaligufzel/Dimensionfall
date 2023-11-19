@@ -8,8 +8,8 @@ var level_json_as_text
 
 var level_levels : Array
 
-@export var level_width : int = 32
-@export var level_height : int = 32
+var level_width : int = 32
+var level_height : int = 32
 
 
 @onready var defaultBlock: PackedScene = preload("res://Blocks/grass_001.tscn")
@@ -91,19 +91,19 @@ func get_level_json():
 	level_json_as_text = FileAccess.get_file_as_string(file)
 	var json_as_dict: Dictionary = JSON.parse_string(level_json_as_text)
 	level_levels = json_as_dict["levels"]
+	level_width = json_as_dict["mapwidth"]
+	level_width = json_as_dict["mapheight"]
 
 func get_custom_level_json(level_path):
 	var file = level_path
 	level_json_as_text = FileAccess.get_file_as_string(file)
 	var json_as_dict = JSON.parse_string(level_json_as_text)
-	level_levels = json_as_dict["layers"]
+	level_levels = json_as_dict["levels"]
 
 
 #This function takes a filename and create a new instance of block_scenes[0] which is a StaticBody3D. It will then take the material from the material dictionary based on the provided filename and apply it to the instance of StaticBody3D. Lastly it will return the StaticBody3D.
 func create_block_with_material(filename: String) -> StaticBody3D:
 	var block: StaticBody3D = defaultBlock.instantiate()
-	if filename == "beehive1.png":
-		print_debug("Was beehive")
 	if filename in tile_materials:
 		var material = tile_materials[filename]
 		block.update_texture(material)
