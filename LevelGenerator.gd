@@ -25,6 +25,7 @@ func _ready():
 	level_name = Helper.current_level_name
 	load_tiles_material()
 	generate_level()
+	$"../NavigationRegion3D".bake_navigation_mesh()
 	
 func generate_level():
 	
@@ -72,7 +73,6 @@ func generate_level():
 								var material = tile_materials[textureName]
 								block.update_texture(material)
 	#						block = block_scenes[layer["data"][current_block]-1].instantiate()
-							
 							level_node.add_child(block)
 							
 							block.global_position.x = w
