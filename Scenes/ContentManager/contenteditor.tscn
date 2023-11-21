@@ -1,0 +1,67 @@
+[gd_scene load_steps=2 format=3 uid="uid://480xqusluqrk"]
+
+[ext_resource type="PackedScene" uid="uid://d3001f5xxpup1" path="res://Scenes/ContentManager/Mapeditor/mapeditor.tscn" id="1_rwi67"]
+
+[node name="contenteditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer2" type="TabContainer" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="Recent" type="ItemList" parent="HSplitContainer/TabContainer2"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+item_count = 10
+max_columns = 2
+item_0/text = "Core"
+item_0/selectable = false
+item_1/text = "Plank"
+item_2/text = "Core"
+item_2/selectable = false
+item_3/text = "wheel"
+item_4/text = "core"
+item_5/text = "bat"
+item_6/text = "core"
+item_7/text = "snail"
+item_8/text = "core"
+item_9/text = "pistol_9mm"
+
+[node name="CurrentFile" type="ItemList" parent="HSplitContainer/TabContainer2"]
+visible = false
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+item_count = 6
+max_columns = 2
+item_0/text = "Core"
+item_1/text = "pistol_9mm"
+item_2/text = "core"
+item_3/text = "revolver_357"
+item_4/text = "core"
+item_5/text = "laser_rifle"
+
+[node name="TabContainer" type="TabContainer" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="9mm_pistol" type="Label" parent="HSplitContainer/TabContainer"]
+layout_mode = 2
+
+[node name="itemgroup_kitchen" type="Label" parent="HSplitContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="generic_house" parent="HSplitContainer/TabContainer" instance=ExtResource("1_rwi67")]
+visible = false
+layout_mode = 2
