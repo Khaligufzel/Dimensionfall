@@ -4,11 +4,11 @@ extends GridContainer
 var currentLevel: int = 10
 #Contains the data of every tile in the current level, the ground level or level 0 by default
 var currentLevelData: Array[Dictionary] = []
-var mapEditor: Control
-var LevelScrollBar: VScrollBar
+@export var mapEditor: Control
+@export var LevelScrollBar: VScrollBar
+@export var levelgrid_below: GridContainer
+@export var levelgrid_above: GridContainer
 var selected_brush: Control
-var levelgrid_below: GridContainer
-var levelgrid_above: GridContainer
 
 var drawRectangle: bool = false
 var erase: bool = false
@@ -23,10 +23,10 @@ var mapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],
 signal zoom_level_changed(zoom_level: int)
 
 func _on_mapeditor_ready():
-	mapEditor = $"../../../../../../.."
-	LevelScrollBar = $"../../../../Levelscroller/LevelScrollbar"
-	levelgrid_below = $"../Level_Below"
-	levelgrid_above = $"../Level_Above"
+#	mapEditor = $"../../../../../../.."
+#	LevelScrollBar = $"../../../../Levelscroller/LevelScrollbar"
+#	levelgrid_below = $"../Level_Below"
+#	levelgrid_above = $"../Level_Above"
 	columns = mapEditor.mapWidth
 	levelgrid_below.columns = mapEditor.mapWidth
 	levelgrid_above.columns = mapEditor.mapWidth
