@@ -12,7 +12,7 @@
 gradient = SubResource("Gradient_x1sdl")
 width = 24
 
-[node name="mapeditor" type="Control"]
+[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +20,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0c7s4")
+panWindow = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow")
+mapScrollWindow = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow")
+gridContainer = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 1
