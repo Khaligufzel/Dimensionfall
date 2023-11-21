@@ -15,14 +15,14 @@ var targeted_player
 
 
 func Enter():
-	print("Following the player")
+#	print_debug("Following the player")
 	pathfinding_timer.start()
 	makepath()
 
 func Exit():
 	pathfinding_timer.stop()
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	var dir = enemy.to_local(nav_agent.get_next_path_position()).normalized()
 	enemy.velocity = dir * get_node(stats).current_move_speed
 	enemy.move_and_slide()
@@ -37,7 +37,7 @@ func Physics_Update(delta: float):
 	if result:
 		
 		if result.collider.is_in_group("Players")&& Vector3(get_node(enemyCol).global_position).distance_to(targeted_player.global_position) <= get_node(stats).melee_range / 2:
-			print("changing state to enemyattack...")
+#			print_debug("changing state to enemyattack...")
 			Transistioned.emit(self, "enemyattack")
 	
 	

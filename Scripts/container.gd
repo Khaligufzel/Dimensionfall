@@ -7,12 +7,6 @@ extends Node3D
 func _ready():
 	create_random_loot()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-	
-	
 func create_random_loot():
 	if get_node(inventory).get_children() == []:
 		var item = get_node(inventory).create_and_add_item("plank")

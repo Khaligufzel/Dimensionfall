@@ -7,10 +7,6 @@ var current_level_name : String
 func _ready():
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 	
 func switch_level(level_name):
 	current_level_name = level_name
@@ -23,7 +19,7 @@ func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstan
 	var material := ORMMaterial3D.new()
 	
 	mesh_instance.mesh = immediate_mesh
-	mesh_instance.cast_shadow = 0
+	mesh_instance.cast_shadow = MeshInstance3D.SHADOW_CASTING_SETTING_OFF
 
 	immediate_mesh.surface_begin(Mesh.PRIMITIVE_LINES, material)
 	immediate_mesh.surface_add_vertex(pos1)

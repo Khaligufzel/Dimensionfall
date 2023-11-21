@@ -118,10 +118,6 @@ func _ready():
 	reload_timer.wait_time = float(weapon["reload_speed"])
 	
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	
 	# Reloading sound logic, basically we want to play the sound during the reloading phase,
 	# not before or after reloading so the end of reloading sounds will align with end of the reloading phase
 	if reload_timer.time_left <= reload_audio_player.stream.get_length() && !reload_audio_player.playing && !reload_timer.is_stopped():

@@ -70,7 +70,7 @@ func _ready():
 	current_stamina = stamina
 	
 	
-func _process(delta):
+func _process(_delta):
 #	if is_progress_bar_well_progressing_i_guess:
 #		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
 		
@@ -133,9 +133,11 @@ func _input(event):
 		print("Interact button pressed")
 		if result:
 			print("Found object")
-			if result.collider.get_owner().has_method("interact"):
-				print("collider has method")
-				result.collider.get_owner().interact()
+			var objectOwner: Object = result.collider.get_owner()
+			if objectOwner:
+				if objectOwner.has_method("interact"):
+					print("collider has method")
+					objectOwner.interact()
 				
 
 func _get_hit(damage: float):

@@ -19,14 +19,14 @@ var rng = RandomNumberGenerator.new()
 
 
 func Enter():
-	print("Enemy idle")
+#	print_debug("Enemy idle")
 	idle_speed = get_node(stats).idle_move_speed
 	moving_timer.start()
 	
 func Exit():
 	moving_timer.stop()
 	
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	if is_looking_to_move:
 		var dir = get_node(enemy).to_local(nav_agent.get_next_path_position()).normalized()
 		get_node(enemy).velocity = dir * get_node(stats).current_idle_move_speed
@@ -38,7 +38,7 @@ func Physics_Update(delta: float):
 	
 
 
-func _on_detection_player_spotted(player):
+func _on_detection_player_spotted(_player):
 	Transistioned.emit(self, "enemyfollow")
 	
 

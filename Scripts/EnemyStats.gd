@@ -17,8 +17,3 @@ func _ready():
 	current_health = health
 	current_move_speed = moveSpeed
 	current_idle_move_speed = idle_move_speed
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

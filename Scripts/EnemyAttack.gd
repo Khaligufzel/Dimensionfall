@@ -19,7 +19,7 @@ func Enter():
 func Exit():
 	pass
 	
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	
 	
 	var space_state = get_world_3d().direct_space_state

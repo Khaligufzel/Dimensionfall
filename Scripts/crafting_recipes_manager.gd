@@ -7,10 +7,6 @@ var crafting_recipes
 func _ready():
 	get_crafting_recipes_from_json()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 	
 func get_crafting_recipes_from_json():
 	var file = "res://JSON/crafting_recipes.json"
