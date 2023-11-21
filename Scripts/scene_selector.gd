@@ -39,3 +39,6 @@ func _on_view_level_pressed():
 
 func _on_play_demo_pressed():
 	Helper.switch_level("")
+
+func _on_help_button_pressed():
+	get_tree().change_scene_to_file("res://documentation.tscn")
