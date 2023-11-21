@@ -1,0 +1,94 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv2m4bg1uoj4p"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/content_list.gd" id="1_ly1kh"]
+
+[node name="ContentList" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton", "pupup_ID")]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_ly1kh")
+contentItems = NodePath("Content/ContentItems")
+collapseButton = NodePath("Content/HBoxContainer/CollapseButton")
+pupup_ID = NodePath("ID_Input")
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="CollapseButton" type="Button" parent="Content/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Items"
+
+[node name="AddButton" type="Button" parent="Content/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
+theme_override_font_sizes/font_size = 16
+text = "+"
+
+[node name="ContentItems" type="ItemList" parent="Content"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_vertical = 3
+max_columns = 2
+
+[node name="ID_Input" type="Popup" parent="."]
+title = "Input ID"
+initial_position = 2
+size = Vector2i(200, 150)
+unresizable = false
+borderless = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ID_Input"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextEdit" type="TextEdit" parent="ID_Input/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "ex: pistol_9mm"
+scroll_fit_content_height = true
+
+[node name="Label" type="Label" parent="ID_Input/VBoxContainer"]
+layout_mode = 2
+text = "Input an ID"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ID_Input/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="OK" type="Button" parent="ID_Input/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Ok"
+
+[node name="Cancel" type="Button" parent="ID_Input/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Cancel"
+
+[connection signal="button_up" from="Content/HBoxContainer/CollapseButton" to="." method="_on_collapse_button_button_up"]
+[connection signal="button_up" from="Content/HBoxContainer/AddButton" to="." method="_on_add_button_button_up"]
+[connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
+[connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]
