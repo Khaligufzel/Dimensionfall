@@ -54,7 +54,7 @@ text = "Size: W:"
 
 [node name="MapWidth" type="TextEdit" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 clip_contents = true
-custom_minimum_size = Vector2(35.08, 22)
+custom_minimum_size = Vector2(40, 22)
 layout_mode = 2
 theme_override_constants/line_spacing = 0
 theme_override_font_sizes/font_size = 16
@@ -66,7 +66,7 @@ text = "H:"
 
 [node name="MapHeight" type="TextEdit" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 clip_contents = true
-custom_minimum_size = Vector2(35.08, 22)
+custom_minimum_size = Vector2(40, 22)
 layout_mode = 2
 theme_override_constants/line_spacing = 0
 theme_override_font_sizes/font_size = 16
@@ -126,7 +126,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.313726, 0.313726, 0.313726, 1)
 
-[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer"]
+[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -137,6 +137,10 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 32
 script = ExtResource("2_sf17m")
+mapEditor = NodePath("../../../../../../..")
+LevelScrollBar = NodePath("../../../../Levelscroller/LevelScrollbar")
+levelgrid_below = NodePath("../Level_Below")
+levelgrid_above = NodePath("../Level_Above")
 
 [node name="Level_Below" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer"]
 modulate = Color(1, 1, 1, 0.0980392)

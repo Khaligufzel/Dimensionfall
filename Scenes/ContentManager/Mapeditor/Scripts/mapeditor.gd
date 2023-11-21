@@ -5,9 +5,9 @@ var tileSize: int = 128
 var mapHeight: int = 32
 var mapWidth: int = 32
 
-var panWindow: Control
-var mapScrollWindow: ScrollContainer
-var gridContainer: ColorRect
+@export var panWindow: Control = null
+@export var mapScrollWindow: ScrollContainer = null
+@export var gridContainer: ColorRect = null
 
 var zoom_level: int = 20:
 	set(val):
@@ -17,11 +17,6 @@ var zoom_level: int = 20:
 
 
 func _ready():
-	panWindow = $HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow
-	mapScrollWindow = $HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow
-	gridContainer = $HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer
-	
-	print_debug("editor ready")
 	setPanWindowSize()
 	
 func setPanWindowSize():
