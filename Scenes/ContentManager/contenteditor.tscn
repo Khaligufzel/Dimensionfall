@@ -1,21 +1,17 @@
-
 [gd_scene load_steps=3 format=3 uid="uid://480xqusluqrk"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/contenteditor.gd" id="1_65sl4"]
 [ext_resource type="PackedScene" uid="uid://d3001f5xxpup1" path="res://Scenes/ContentManager/Mapeditor/mapeditor.tscn" id="1_rwi67"]
 
 [node name="contenteditor" type="Control" node_paths=PackedStringArray("content")]
-
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
 script = ExtResource("1_65sl4")
 content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content")
-
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 1
@@ -24,11 +20,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
 split_offset = 200
 
 [node name="ContentLists" type="VBoxContainer" parent="HSplitContainer"]
 layout_mode = 2
+
+[node name="BackButton" type="Button" parent="HSplitContainer/ContentLists"]
+layout_mode = 2
+text = "Back to menu"
 
 [node name="SelectMods" type="OptionButton" parent="HSplitContainer/ContentLists"]
 layout_mode = 2
@@ -51,7 +50,6 @@ layout_mode = 2
 
 [node name="Recent" type="ItemList" parent="HSplitContainer/ContentLists/TabContainer2"]
 visible = false
-
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 item_count = 10
@@ -68,7 +66,6 @@ item_6/text = "core"
 item_7/text = "snail"
 item_8/text = "core"
 item_9/text = "pistol_9mm"
-
 
 [node name="TabContainer" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
@@ -92,3 +89,5 @@ On the right a content editor will be displayed that allows you to edit the sele
 [node name="generic_house" parent="HSplitContainer/TabContainer" instance=ExtResource("1_rwi67")]
 visible = false
 layout_mode = 2
+
+[connection signal="button_up" from="HSplitContainer/ContentLists/BackButton" to="." method="_on_back_button_button_up"]
