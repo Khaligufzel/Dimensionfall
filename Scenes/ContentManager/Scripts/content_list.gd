@@ -3,6 +3,7 @@ extends Control
 @export var contentItems: ItemList = null
 @export var collapseButton: Button = null
 @export var pupup_ID: Popup = null
+@export var popup_textedit: TextEdit = null
 var is_collapsed: bool = true
 var source: String = "":
 	set(path):
@@ -23,6 +24,25 @@ func _on_add_button_button_up():
 	pupup_ID.show()
 
 
+# This function will take a string and create a new json file with just {} as the contents.
+func create_new_json_file(filename: String = ""):
+	# If no string was provided, return without doing anything.
+	if filename.is_empty():
+		return
+
+	var file_path = source + filename + ".json"
+
+	# If the file already exists, alert the user that the file already exists.
+	if FileAccess.file_exists(file_path):
+		print_debug("The file already exists: " + file_path)
+		return
+
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	# The name of the json file will be the string that was passed as a parameter.
+	file.store_string("{}")
+	file.close()
+	load_data()
+
 
 #This function adds items to the content list based on the provided path
 #If the path is a directory, it will list all the files in the directory
@@ -30,6 +50,7 @@ func _on_add_button_button_up():
 func load_data():
 	if source == "":
 		return
+	contentItems.clear()
 	if source.ends_with(".json"):
 		load_file()
 	else:
@@ -68,6 +89,10 @@ func load_dir():
 
 func _on_ok_button_up():
 	pupup_ID.hide()
+	if source.ends_with(".json"):
+		print_debug("Here should be code that adds an item to the json file")
+	else:
+		create_new_json_file(popup_textedit.text)
 
 
 func _on_cancel_button_up():
