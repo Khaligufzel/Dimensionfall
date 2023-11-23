@@ -6,7 +6,7 @@ var level_files : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	dir_contents("user://levels")
+	dir_contents("./Mods/Core/Maps/")
 	
 	for level_file in level_files:
 		option_levels.add_item(level_file)

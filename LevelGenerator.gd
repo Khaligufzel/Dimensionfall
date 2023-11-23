@@ -33,7 +33,7 @@ func generate_level():
 	if level_name == "":
 		get_level_json()
 	else:
-		get_custom_level_json("user://levels/" + level_name)
+		get_custom_level_json("./Mods/Core/Maps/" + level_name)
 	
 	
 	var level_number = 0
