@@ -1,9 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://480xqusluqrk"]
+[gd_scene load_steps=2 format=3 uid="uid://480xqusluqrk"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/contenteditor.gd" id="1_65sl4"]
-[ext_resource type="PackedScene" uid="uid://d3001f5xxpup1" path="res://Scenes/ContentManager/Mapeditor/mapeditor.tscn" id="1_rwi67"]
 
-[node name="contenteditor" type="Control" node_paths=PackedStringArray("content")]
+[node name="contenteditor" type="Control" node_paths=PackedStringArray("content", "tabContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_65sl4")
 content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content")
+tabContainer = NodePath("HSplitContainer/TabContainer")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 1
@@ -85,9 +85,5 @@ Click the + sign: Allows you to add new content to the mod. Enter the name and a
 
 [font_size=22][b]Content editing[/b][/font_size]
 On the right a content editor will be displayed that allows you to edit the selected item. Multiple editors can be opened in tabs. Use the controls to edit the content and press save to save your edits"
-
-[node name="generic_house" parent="HSplitContainer/TabContainer" instance=ExtResource("1_rwi67")]
-visible = false
-layout_mode = 2
 
 [connection signal="button_up" from="HSplitContainer/ContentLists/BackButton" to="." method="_on_back_button_button_up"]

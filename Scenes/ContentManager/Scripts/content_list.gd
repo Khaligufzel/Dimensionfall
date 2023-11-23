@@ -4,6 +4,7 @@ extends Control
 @export var collapseButton: Button = null
 @export var pupup_ID: Popup = null
 @export var popup_textedit: TextEdit = null
+signal item_activated(strSource: String, itemID: String)
 var is_collapsed: bool = true
 var source: String = "":
 	set(path):
@@ -80,20 +81,33 @@ func load_dir():
 		while file_name != "":
 			if !dir.current_is_dir() and file_name.get_extension() == "json":
 				# Add all the filenames to the ContentItems list as child nodes
-				contentItems.add_item(file_name.replace(".json", ""))
+				var item_index: int = contentItems.add_item(file_name.replace(".json", ""))
+				#Add the ID as metadata which can be used to load the item data
+				contentItems.set_item_metadata(item_index, file_name.replace(".json", ""))
 			file_name = dir.get_next()
 	else:
 		print_debug("An error occurred when trying to access the path: " + source)
 	dir.list_dir_end()
 
-
+#Called after the user enters an ID into the popup textbox and presses OK
 func _on_ok_button_up():
 	pupup_ID.hide()
+	if popup_textedit.text == "":
+		return;
 	if source.ends_with(".json"):
 		print_debug("Here should be code that adds an item to the json file")
 	else:
 		create_new_json_file(popup_textedit.text)
 
-
+#Called after the users presses cancel on the popup asking for an ID
 func _on_cancel_button_up():
 	pupup_ID.hide()
+
+
+func _on_content_items_item_activated(index):
+	var strItemID: String = contentItems.get_item_metadata(index)
+	if strItemID:
+		item_activated.emit(source, strItemID)
+	else:
+		print_debug("Tried to signal that item with ID (" + str(index) + ") was activated,\
+		 but the item has no metadata")

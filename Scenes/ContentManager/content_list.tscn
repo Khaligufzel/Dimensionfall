@@ -45,7 +45,6 @@ text = "+"
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_vertical = 3
-max_columns = 2
 
 [node name="ID_Input" type="Popup" parent="."]
 title = "Input ID"
@@ -91,5 +90,6 @@ text = "Cancel"
 
 [connection signal="button_up" from="Content/HBoxContainer/CollapseButton" to="." method="_on_collapse_button_button_up"]
 [connection signal="button_up" from="Content/HBoxContainer/AddButton" to="." method="_on_add_button_button_up"]
+[connection signal="item_activated" from="Content/ContentItems" to="." method="_on_content_items_item_activated"]
 [connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
 [connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]
