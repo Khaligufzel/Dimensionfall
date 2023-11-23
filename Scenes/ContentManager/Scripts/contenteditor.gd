@@ -41,4 +41,5 @@ func _on_content_item_activated(strSource: String, itemID: String):
 		var newMapEditor: Control = mapEditor.instantiate()
 		newMapEditor.name = itemID
 		tabContainer.add_child(newMapEditor)
+		tabContainer.current_tab = tabContainer.get_child_count()-1
 		newMapEditor.mapSource = strSource + itemID + ".json"

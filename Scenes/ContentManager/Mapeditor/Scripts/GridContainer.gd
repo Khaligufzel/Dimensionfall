@@ -15,7 +15,7 @@ var erase: bool = false
 var showBelow: bool = false
 var showAbove: bool = false
 var snapAmount: float
-const defaultMapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
+var defaultMapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
 #Contains map metadata like size as well as the data on all levels
 var mapData: Dictionary = defaultMapData.duplicate():
 	set(data):
