@@ -1,0 +1,90 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8i6wfk3fngy4"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Editable_Item_List.gd" id="1_nx0sy"]
+
+[node name="Editable_Item_List" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton", "pupup_window", "popup_textedit")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nx0sy")
+contentItems = NodePath("ListControls/ContentItems")
+collapseButton = NodePath("ListControls/HBoxContainer/CollapseButton")
+pupup_window = NodePath("New_Input")
+popup_textedit = NodePath("New_Input/VBoxContainer/InputStringTextEdit")
+
+[node name="ListControls" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ListControls"]
+layout_mode = 2
+
+[node name="CollapseButton" type="Button" parent="ListControls/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Items"
+
+[node name="AddButton" type="Button" parent="ListControls/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
+theme_override_font_sizes/font_size = 16
+text = "+"
+
+[node name="ContentItems" type="ItemList" parent="ListControls"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="New_Input" type="Popup" parent="."]
+title = "Input ID"
+initial_position = 2
+size = Vector2i(200, 150)
+unresizable = false
+borderless = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="New_Input"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InputStringLabel" type="Label" parent="New_Input/VBoxContainer"]
+layout_mode = 2
+text = "Input new item"
+
+[node name="InputStringTextEdit" type="TextEdit" parent="New_Input/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+scroll_fit_content_height = true
+
+[node name="OKCancelButtons" type="HBoxContainer" parent="New_Input/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="OK" type="Button" parent="New_Input/VBoxContainer/OKCancelButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Ok"
+
+[node name="Cancel" type="Button" parent="New_Input/VBoxContainer/OKCancelButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Cancel"
+
+[connection signal="button_up" from="ListControls/HBoxContainer/CollapseButton" to="." method="_on_collapse_button_button_up"]
+[connection signal="button_up" from="ListControls/HBoxContainer/AddButton" to="." method="_on_add_button_button_up"]
+[connection signal="button_up" from="New_Input/VBoxContainer/OKCancelButtons/OK" to="." method="_on_ok_button_up"]
+[connection signal="button_up" from="New_Input/VBoxContainer/OKCancelButtons/Cancel" to="." method="_on_cancel_button_up"]

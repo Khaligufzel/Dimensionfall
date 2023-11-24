@@ -9,9 +9,9 @@ signal zoom_level_changed(value: int)
 var tileSize: int = 128
 var mapHeight: int = 32
 var mapWidth: int = 32
-var mapSource: String = "":
+var contentSource: String = "":
 	set(newSource):
-		mapSource = newSource
+		contentSource = newSource
 		tileGrid.load_map_json_file()
 
 
