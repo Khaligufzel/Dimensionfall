@@ -59,6 +59,8 @@ var snapLevel: Vector2 = Vector2(snapAmount, snapAmount).round()
 
 #When the user presses and holds the middle mousebutton and moves the mouse, change the parent's scroll_horizontal and scroll_vertical properties appropriately
 func _input(event):
+	if !mapEditor.visible:
+		return
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
