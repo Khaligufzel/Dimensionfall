@@ -50,10 +50,10 @@ func clear_list():
 	contentItems.clear()
 
 #This function returns all items in contentItems as an array
-func get_items(contentItems):
+func get_items():
 	var myArray: Array = []
 	for item in contentItems.item_count:
-		myArray.append(contentItems.get_item_Text(item))
+		myArray.append(contentItems.get_item_text(item))
 	return myArray
 	
 func add_item_to_list(itemText: String):

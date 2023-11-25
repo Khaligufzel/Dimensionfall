@@ -47,11 +47,11 @@ func tilebrush_clicked(tilebrush: Control) -> void:
 	# If the clicked brush was not select it, we select it. Otherwise we deselect it
 	if selected_brush != tilebrush:
 		selected_brush = tilebrush
-		selected_brush.modulate = Color(0.227, 0.635, 0.757)
+		selected_brush.set_selected(true)
 	else:
 		selected_brush = null
 	
 func deselect_all_brushes():
 	var children = get_children()
 	for child in children:
-		child.modulate = Color(1,1,1)
+		child.set_selected(false)

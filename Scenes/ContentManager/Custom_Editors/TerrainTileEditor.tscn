@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_erosr"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_x7b0a"]
 
-[node name="TerrainTileEditor" type="Control" node_paths=PackedStringArray("tileImageDisplay", "IDTextEdit", "NameTextEdit", "DescriptionTextEdit", "CategoriesList")]
+[node name="TerrainTileEditor" type="Control" node_paths=PackedStringArray("tileImageDisplay", "IDTextEdit", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "tileSelector", "tileBrushList", "tilePathStringLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +17,9 @@ IDTextEdit = NodePath("VBoxContainer/FormGrid/IDTextEdit")
 NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 CategoriesList = NodePath("VBoxContainer/FormGrid/Editable_Item_List")
+tileSelector = NodePath("Tile_selector")
+tileBrushList = NodePath("Tile_selector/VBoxContainer/ScrollContainer/TilebrushList")
+tilePathStringLabel = NodePath("VBoxContainer/FormGrid/PathString")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -53,7 +56,7 @@ size_flags_stretch_ratio = 0.4
 texture = ExtResource("2_x7b0a")
 expand_mode = 3
 
-[node name="IDLabel2" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="IDLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
 text = "ID:"
 
@@ -62,6 +65,13 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
+
+[node name="PathLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Path:"
+
+[node name="PathString" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
 
 [node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -93,5 +103,53 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 header = "Categories"
 
+[node name="Tile_selector" type="Popup" parent="."]
+title = "Input ID"
+initial_position = 2
+size = Vector2i(400, 400)
+unresizable = false
+borderless = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tile_selector"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Tile_selector/VBoxContainer"]
+layout_mode = 2
+text = "Select a tile"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Tile_selector/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TilebrushList" type="HFlowContainer" parent="Tile_selector/VBoxContainer/ScrollContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tile_selector/VBoxContainer"]
+layout_mode = 2
+
+[node name="OK" type="Button" parent="Tile_selector/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Ok"
+
+[node name="Cancel" type="Button" parent="Tile_selector/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Cancel"
+
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="gui_input" from="VBoxContainer/FormGrid/TileImageDisplay" to="." method="_on_tile_image_display_gui_input"]
+[connection signal="button_up" from="Tile_selector/VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
+[connection signal="button_up" from="Tile_selector/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]
