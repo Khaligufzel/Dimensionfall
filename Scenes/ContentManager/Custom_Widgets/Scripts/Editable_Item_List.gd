@@ -56,6 +56,11 @@ func get_items():
 		myArray.append(contentItems.get_item_text(item))
 	return myArray
 	
-func add_item_to_list(itemText: String):
+func add_item_to_list(itemText: String) -> void:
 	contentItems.add_item(itemText)
 	
+
+func get_selected_item_text() -> String:
+	if !contentItems.is_anything_selected():
+		return ""
+	return contentItems.get_item_text(contentItems.get_selected_items()[0])

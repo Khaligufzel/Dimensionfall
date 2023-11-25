@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_erosr"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_x7b0a"]
 
-[node name="TerrainTileEditor" type="Control" node_paths=PackedStringArray("tileImageDisplay", "IDTextEdit", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "tileSelector", "tileBrushList", "tilePathStringLabel")]
+[node name="TerrainTileEditor" type="Control" node_paths=PackedStringArray("tileImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "tileSelector", "tileBrushList", "tilePathStringLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wp6ou")
 tileImageDisplay = NodePath("VBoxContainer/FormGrid/TileImageDisplay")
-IDTextEdit = NodePath("VBoxContainer/FormGrid/IDTextEdit")
+IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
 NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 CategoriesList = NodePath("VBoxContainer/FormGrid/Editable_Item_List")
@@ -50,6 +50,7 @@ layout_mode = 2
 text = "Image:"
 
 [node name="TileImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_stretch_ratio = 0.4
@@ -60,7 +61,7 @@ expand_mode = 3
 layout_mode = 2
 text = "ID:"
 
-[node name="IDTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+[node name="IDTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3

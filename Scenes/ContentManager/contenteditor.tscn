@@ -20,7 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-split_offset = 200
+split_offset = 240
 
 [node name="ContentLists" type="VBoxContainer" parent="HSplitContainer"]
 layout_mode = 2

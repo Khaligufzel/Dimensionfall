@@ -9,7 +9,7 @@ extends Control
 @onready var tileBrush: PackedScene = preload("res://Scenes/ContentManager/Mapeditor/tilebrush.tscn")
 
 @export var tileImageDisplay: TextureRect = null
-@export var IDTextEdit: TextEdit = null
+@export var IDTextLabel: Label = null
 @export var NameTextEdit: TextEdit = null
 @export var DescriptionTextEdit: TextEdit = null
 @export var CategoriesList: Control = null
@@ -39,8 +39,8 @@ func load_tile_data():
 			if tileImageDisplay != null and item.has("imagePath"):
 				tileImageDisplay.texture = load(item["imagePath"])
 				tilePathStringLabel.text = item["imagePath"]
-			if IDTextEdit != null:
-				IDTextEdit.text = str(item["id"])
+			if IDTextLabel != null:
+				IDTextLabel.text = str(item["id"])
 			if NameTextEdit != null and item.has("name"):
 				NameTextEdit.text = item["name"]
 			if DescriptionTextEdit != null and item.has("description"):
@@ -64,7 +64,7 @@ func _on_save_button_button_up():
 	file.close()
 
 	for item in data:
-		if item["id"] == IDTextEdit.text:
+		if item["id"] == IDTextLabel.text:
 			item["imagePath"] = tileImageDisplay.texture.resource_path
 			item["name"] = NameTextEdit.text
 			item["description"] = DescriptionTextEdit.text
