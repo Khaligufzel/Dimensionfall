@@ -64,3 +64,13 @@ func get_selected_item_text() -> String:
 	if !contentItems.is_anything_selected():
 		return ""
 	return contentItems.get_item_text(contentItems.get_selected_items()[0])
+	
+	
+#This function requires that an item from the list is selected
+#Once clicked, the selected item will be removed from contentItems
+#It will also remove the item from the json file specified by source
+func _on_delete_button_button_up():
+	var selected_id: String = get_selected_item_text()
+	if selected_id == "":
+		return
+	contentItems.remove_item(contentItems.get_selected_items()[0])

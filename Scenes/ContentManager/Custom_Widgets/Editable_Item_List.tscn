@@ -29,19 +29,33 @@ layout_mode = 2
 [node name="CollapseButton" type="Button" parent="ListControls/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_next = NodePath("../AddButton")
 text = "Items"
 
 [node name="AddButton" type="Button" parent="ListControls/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.15
+focus_next = NodePath("../RemoveButton")
+focus_previous = NodePath("../CollapseButton")
 theme_override_font_sizes/font_size = 16
 text = "+"
+
+[node name="RemoveButton" type="Button" parent="ListControls/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
+focus_next = NodePath("../../ContentItems")
+focus_previous = NodePath("../AddButton")
+theme_override_font_sizes/font_size = 16
+text = "-"
 
 [node name="ContentItems" type="ItemList" parent="ListControls"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_vertical = 3
+focus_next = NodePath("../HBoxContainer/CollapseButton")
+focus_previous = NodePath("../HBoxContainer/RemoveButton")
 
 [node name="New_Input" type="Popup" parent="."]
 title = "Input ID"
@@ -86,5 +100,6 @@ text = "Cancel"
 
 [connection signal="button_up" from="ListControls/HBoxContainer/CollapseButton" to="." method="_on_collapse_button_button_up"]
 [connection signal="button_up" from="ListControls/HBoxContainer/AddButton" to="." method="_on_add_button_button_up"]
+[connection signal="button_up" from="ListControls/HBoxContainer/RemoveButton" to="." method="_on_delete_button_button_up"]
 [connection signal="button_up" from="New_Input/VBoxContainer/OKCancelButtons/OK" to="." method="_on_ok_button_up"]
 [connection signal="button_up" from="New_Input/VBoxContainer/OKCancelButtons/Cancel" to="." method="_on_cancel_button_up"]

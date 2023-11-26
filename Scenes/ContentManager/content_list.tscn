@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/content_list.gd" id="1_ly1kh"]
 
 [node name="ContentList" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton", "pupup_ID", "popup_textedit")]
-custom_minimum_size = Vector2(200, 100)
+custom_minimum_size = Vector2(200, 30)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

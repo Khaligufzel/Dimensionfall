@@ -83,6 +83,8 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
+focus_next = NodePath("../DescriptionTextEdit")
+focus_previous = NodePath("../TileImageDisplay")
 
 [node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -93,6 +95,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
+focus_next = NodePath("../Editable_Item_List")
+focus_previous = NodePath("../NameTextEdit")
 
 [node name="CategoriesLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
