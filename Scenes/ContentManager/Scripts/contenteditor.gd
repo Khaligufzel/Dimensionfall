@@ -1,13 +1,11 @@
 extends Control
 
-@onready var contentList: PackedScene = preload("res://Scenes/ContentManager/content_list.tscn")
-@onready var mapEditor: PackedScene = preload("res://Scenes/ContentManager/Mapeditor/mapeditor.tscn")
-@onready var terrainTileEditor: PackedScene = preload("res://Scenes/ContentManager/\
-Custom_Editors/TerrainTileEditor.tscn")
-var selectedMod: String = "Core"
-
+@export var contentList: PackedScene = null
+@export var mapEditor: PackedScene = null
+@export var terrainTileEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
+var selectedMod: String = "Core"
 
 # Called when the node enters the scene tree for the first time.
 #This function will instatiate a tileScene, set the source property and add it as a child to the content VBoxContainer. The source property should be set to "./Mods/Core/Maps/"

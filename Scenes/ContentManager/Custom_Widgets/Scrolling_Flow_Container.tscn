@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Scrolling_Flow_Container.gd" id="1_4knl7"]
 
 [node name="Scrolling_Flow_Container" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton")]
+custom_minimum_size = Vector2(200, 35)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

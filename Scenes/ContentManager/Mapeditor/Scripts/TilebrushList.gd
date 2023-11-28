@@ -1,9 +1,11 @@
 extends VBoxContainer
 
-@onready var tileBrush: PackedScene = preload("res://Scenes/ContentManager/Mapeditor/tilebrush.tscn")
-@onready var scrolling_Flow_Container: PackedScene = preload("res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn")
+#@onready var tileBrush: PackedScene = preload("res://Scenes/ContentManager/Mapeditor/tilebrush.tscn")
+#@onready var scrolling_Flow_Container: PackedScene = preload("res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn")
+@export var scrolling_Flow_Container: PackedScene = null
+@export var json_Helper_Class: GDScript = null
+@export var tileBrush: PackedScene = null
 
-const json_Helper_Class = preload("res://Scripts/Helper/json_helper.gd")
 var json_helper = null
 var instanced_brushes: Array[Node] = []
 
@@ -33,7 +35,7 @@ func loadTiles():
 				if !newTilesList:
 					newTilesList = scrolling_Flow_Container.instantiate()
 					newTilesList.header = category
-				add_child(newTilesList)
+					add_child(newTilesList)
 				# Load the texture from file
 				var texture: Resource = load(item["imagePath"])
 				# Create a TextureRect node
