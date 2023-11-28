@@ -47,21 +47,6 @@ func loadTiles():
 				# Add the TextureRect as a child to the TilesList
 				newTilesList.add_content_item(brushInstance)
 				instanced_brushes.append(brushInstance)
-#		if item["id"] == self.name:
-#			if tileImageDisplay != null and item.has("imagePath"):
-#				tileImageDisplay.texture = load(item["imagePath"])
-#				tilePathStringLabel.text = item["imagePath"]
-#			if IDTextLabel != null:
-#				IDTextLabel.text = str(item["id"])
-#			if NameTextEdit != null and item.has("name"):
-#				NameTextEdit.text = item["name"]
-#			if DescriptionTextEdit != null and item.has("description"):
-#				DescriptionTextEdit.text = item["description"]
-#			if CategoriesList != null and item.has("categories"):
-#				CategoriesList.clear_list()
-#				for category in item["categories"]:
-#					CategoriesList.add_item_to_list(category)
-#			break
 	
 #Find the list associated with the category
 func find_list_by_category(category: String) -> Control:
