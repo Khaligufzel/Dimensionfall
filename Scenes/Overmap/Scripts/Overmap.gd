@@ -17,12 +17,22 @@ var tile_materials = {} # Create an empty dictionary to store materials
 
 #We will connect the position_coord to this function in the _ready function
 func _ready():
-	position_coord = positionLabel.position
+#	position_coord = positionLabel.position
 	load_tiles_material()
-	noise.seed = randi()
-	noise.fractal_octaves = 4
-	noise.domain_warp_amplitude = 20.0
+#	noise.seed = randi()
+#	noise.fractal_octaves = 3
+	
+	
+#	noise.seed = 2147483646
+	noise.seed = randi() % 2147483646
+#	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+	noise.fractal_octaves = 5
 	noise.fractal_gain = 0.5
+	noise.frequency = 0.04
+#	noise.frequency = 0.02
+#	noise.noise_type = noise.TYPE_CELLULAR
+#	noise.domain_warp_amplitude = 20.0
+#	noise.fractal_gain = 0.5
 	update_chunks()
 	connect("position_coord_changed", on_position_coord_changed)
 #	draw_all_chunks()
@@ -82,22 +92,59 @@ func update_chunks():
 ##				draw_chunk(world_chunk_position, chunks[world_chunk_position])
 #	unload_chunks()
 
-#
-func generate_chunk(position_loc: Vector2):
+
+func generate_chunk(grid_position: Vector2):
 	var chunk = []
-	for x in range(chunk_size):
-		for y in range(chunk_size):
-			var tile_type = noise.get_noise_2d(position_loc.x + x, position_loc.y + y)
-			tile_type = int((tile_type + 1) / 2 * tiles.size())
-			chunk.append(tiles[tile_type])
-	chunks[position_loc] = chunk
+	for y in range(chunk_size):  # x goes from 0 to chunk_size - 1
+		for x in range(chunk_size):  # y goes from 0 to chunk_size - 1
+			# We calculate global coordinates by offsetting the local coordinates by the grid_position (which is in 'chunk units')
+#			var global_x = chunk_size + x + 0
+#			var global_y = chunk_size + y + 16
+			var global_x = x + grid_position.x / tile_size
+			var global_y = y + grid_position.y / tile_size
+#			var global_x = grid_position.x / tile_size + x
+#			var global_y = grid_position.y / tile_size + y
+#			var global_x = grid_position.x * chunk_size + x
+#			var global_y = grid_position.y * chunk_size + y
+			var noise_value = noise.get_noise_2d(global_x, global_y)
+			if x == 0 and y == 0:
+				print_debug("Global_x = ("+str(global_x)+"), global_y = ("+str(global_y)+"), noise_value = ("+str(noise_value)+"), grid_position = ("+str(grid_position)+")")
+			if x == 31 and y == 31:
+				print_debug("Global_x = ("+str(global_x)+"), global_y = ("+str(global_y)+"), noise_value = ("+str(noise_value)+"), grid_position = ("+str(grid_position)+")")
+			# Scale noise_value to a valid index in the tiles array
+			# Ensure noise_value is scaled correctly based on the number of tiles.
+			var tile_index
+			if noise_value < -0.5:
+				tile_index = 0
+			elif noise_value >-0.5 and noise_value <0:
+				tile_index = 1
+			elif noise_value >0 and noise_value <0.5:
+				tile_index = 2
+			elif noise_value >0.5:
+				tile_index = 3
+#			var tile_index = int((noise_value + 1) / 2 * tiles.size()) % tiles.size()
+			chunk.append(tiles[tile_index])
+	# Store the chunk using the grid_position as the key.
+	chunks[grid_position] = chunk
+#
+#func generate_chunk(position_loc: Vector2):
+#	var chunk = []
+#	for x in range(position_loc.x, position_loc.x + chunk_size):
+#		for y in range(position_loc.y, position_loc.y + chunk_size):
+#			var tile_type = noise.get_noise_2d(x, y)
+##			var tile_type = noise.get_noise_2d(position_loc.x + x, position_loc.y + y)
+#			tile_type = int((tile_type + 1) / 2 * tiles.size())
+#			chunk.append(tiles[tile_type])
+#	chunks[position_loc] = chunk
 
 func unload_chunks():
 	var dist = 0
 	var range = 0
 	for chunk_position in chunks.keys():
 		dist = chunk_position.distance_to(position_coord)
-		range = 8 * grid_pixel_size
+		#Lowering this number 5 will cause newly created chunks 
+		#to be instantly deleted and recreated
+		range = 5 * grid_pixel_size
 		if dist > range:
 			chunks[chunk_position].queue_free()
 			chunks.erase(chunk_position)
@@ -216,5 +263,4 @@ func load_tiles_material():
 	else:
 		print_debug("An error occurred when trying to access the path.")
 	dir.list_dir_end()
-
 
