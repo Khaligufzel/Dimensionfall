@@ -10,6 +10,7 @@ extends Control
 @export var collapseButton: Button = null
 @export var pupup_ID: Popup = null
 @export var popup_textedit: TextEdit = null
+@export var json_Helper_Class: GDScript = null
 signal item_activated(strSource: String, itemID: String)
 var is_collapsed: bool = false
 var popupAction: String = ""
@@ -85,22 +86,14 @@ func load_file():
 	else:
 		print_debug("Unable to load file: " + source)
 	
-func load_dir():
-	var dir = DirAccess.open(source)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if !dir.current_is_dir() and file_name.get_extension() == "json":
-				# Add all the filenames to the ContentItems list as child nodes
-				var item_index: int = contentItems.add_item(file_name.replace(".json", ""))
-				#Add the ID as metadata which can be used to load the item data
-				contentItems.set_item_metadata(item_index, file_name.replace(".json", ""))
-			file_name = dir.get_next()
-	else:
-		print_debug("An error occurred when trying to access the path: " + source)
-	dir.list_dir_end()
-
+func load_dir() -> void:
+	var json_helper = json_Helper_Class.new()
+	var json_files: Array = json_helper.file_names_in_dir(source, ["json"])
+	for file_name in json_files:
+		# Add all the filenames to the ContentItems list as child nodes
+		var item_index: int = contentItems.add_item(file_name.replace(".json", ""))
+		#Add the ID as metadata which can be used to load the item data
+		contentItems.set_item_metadata(item_index, file_name.replace(".json", ""))
 
 func _on_content_items_item_activated(index):
 	var strItemID: String = contentItems.get_item_metadata(index)
