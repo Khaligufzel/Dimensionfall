@@ -4,6 +4,8 @@ extends Control
 @export var tilesContainer: Control = null
 @export var json_Helper_Class: GDScript = null
 @export var overmapTile: PackedScene = null
+@export var travelButton: Button = null
+@export var overmapTileLabel: Label = null
 var position_coord: Vector2 = Vector2(0, 0)
 var last_position_coord: Vector2 = Vector2()
 var tiles: Array = ["1.png", "arcstones1.png", "forestunderbrushscale5.png", "rockyfloor4.png"]
@@ -40,11 +42,11 @@ func update_chunks():
 	# Convert the current position to grid coordinates based on the grid's pixel size
 	var grid_position = (position_coord / grid_pixel_size).floor() * grid_pixel_size
 	#The position is increase arbitrarily so it is more center of screen
-	grid_position.x += grid_pixel_size+grid_pixel_size
-	grid_position.y += grid_pixel_size+grid_pixel_size
+	grid_position.x += grid_pixel_size
+	grid_position.y += grid_pixel_size
 
-	for x in range(-2, 2):
-		for y in range(-2, 2):
+	for x in range(-1, 1):
+		for y in range(-1, 1):
 			var chunk_grid_position = grid_position + Vector2(x, y) * grid_pixel_size
 
 			if not chunks.has(chunk_grid_position):
@@ -90,7 +92,7 @@ func unload_chunks():
 		dist = chunk_position.distance_to(position_coord)
 		#Lowering this number 5 will cause newly created chunks 
 		#to be instantly deleted and recreated
-		rangeLimit = 5 * grid_pixel_size
+		rangeLimit = 3 * grid_pixel_size
 		if dist > rangeLimit:
 			chunks[chunk_position].call_deferred("queue_free")
 			chunks.erase(chunk_position)
@@ -190,7 +192,6 @@ func load_tiles_material():
 #And it will write a random item from the all_map_files array to it's metadata
 #Then it will make sure that when a user clicks on this slightly red tile, 
 #It will print the item from it's metadata
-
 func assign_map_to_tile(tile: Control):
 	var chance = randi_range(0, 100)
 	if chance < 1:
@@ -199,10 +200,23 @@ func assign_map_to_tile(tile: Control):
 		var random_file = all_map_files[random_index]
 		tile.set_meta("map_file", random_file)  # Set the metadata of the tile
 
-##This function will be connected to the signal of the random red tiles
+#This function will be connected to the signal of the tiles
 func _on_tile_clicked(clicked_tile):
-	var mapFile: String = clicked_tile.get_meta("map_file")
-	if mapFile:
-		print(mapFile)
+	if clicked_tile.has_meta("map_file"):
+		var mapFile = clicked_tile.get_meta("map_file")
+		var textureString: String = clicked_tile.tileData.texture
+		var nameString: String = "Name: " + mapFile
+		var envString: String = clicked_tile.tileData.texture
+		envString = envString.replace("res://Mods/Core/OvermapTiles/","")
+		envString = "\nEnvironment: " + envString
+		var challengeString: String = "\nChallenge: Easy"
+		overmapTileLabel.text = nameString + envString + challengeString
 		Helper.current_level_name = mapFile
-		get_tree().change_scene_to_file("res://level_generation.tscn")
+		travelButton.disabled = false
+	else: 
+		travelButton.disabled = true
+		overmapTileLabel.text = "Select a valid target"
+
+
+func _on_travel_button_button_up():
+	get_tree().change_scene_to_file("res://level_generation.tscn")
