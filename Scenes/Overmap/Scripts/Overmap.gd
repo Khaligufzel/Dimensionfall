@@ -2,6 +2,8 @@ extends Control
 
 @export var positionLabel: Label = null
 @export var tilesContainer: Control = null
+@export var json_Helper_Class: GDScript = null
+@export var overmapTile: PackedScene = null
 var position_coord: Vector2 = Vector2(0, 0)
 var last_position_coord: Vector2 = Vector2()
 var tiles: Array = ["1.png", "arcstones1.png", "forestunderbrushscale5.png", "rockyfloor4.png"]
@@ -12,9 +14,12 @@ var chunk_size = 32
 var tile_size = 32
 var grid_pixel_size = chunk_size*tile_size
 var tile_materials = {}
+var all_map_files: Array = []
 
 func _ready():
 	load_tiles_material()
+	#Remember the list of map files
+	all_map_files = json_Helper_Class.new().file_names_in_dir("./Mods/Core/Maps/", ["json"])
 	noise.seed = randi()
 	noise.fractal_octaves = 5
 	noise.fractal_gain = 0.5
@@ -51,7 +56,8 @@ func update_chunks():
 				var localized_y: float = chunk_grid_position.y-position_coord.y
 				var new_grid_container = create_and_fill_grid_container(chunk_data,\
 				Vector2(localized_x,localized_y))
-				tilesContainer.add_child(new_grid_container)
+				tilesContainer.call_deferred("add_child",new_grid_container)
+#				tilesContainer.add_child(new_grid_container)
 				# Store the GridContainer using the grid position as the key.
 				chunks[chunk_grid_position] = new_grid_container
 
@@ -86,7 +92,7 @@ func unload_chunks():
 		#to be instantly deleted and recreated
 		rangeLimit = 5 * grid_pixel_size
 		if dist > rangeLimit:
-			chunks[chunk_position].queue_free()
+			chunks[chunk_position].call_deferred("queue_free")
 			chunks.erase(chunk_position)
 
 
@@ -143,9 +149,12 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 	for i in range(chunk.size()):
 		var tile_type = chunk[i]
 		var texture = tile_materials[tile_type] # Retrieve the texture based on the tile type.
-		var tile = TextureRect.new()
-		tile.texture = texture
-		grid_container.add_child(tile)
+		var tile = overmapTile.instantiate()
+#		var tile = TextureRect.new()
+		assign_map_to_tile(tile)
+		tile.set_texture(texture)
+		tile.connect("tile_clicked", _on_tile_clicked)
+		grid_container.call_deferred("add_child",tile)
 
 	# Set the position of the grid container in pixel space.
 	grid_container.position = chunk_position
@@ -172,3 +181,26 @@ func load_tiles_material():
 	else:
 		print_debug("An error occurred when trying to access the path.")
 	dir.list_dir_end()
+
+
+#This function takes a TextureRect as an argument
+#For a chance of 1 in 100, it will modulate the TextureRect to be slightly red
+#And it will write a random item from the all_map_files array to it's metadata
+#Then it will make sure that when a user clicks on this slightly red tile, 
+#It will print the item from it's metadata
+
+func assign_map_to_tile(tile: Control):
+	var chance = randi_range(0, 100)
+	if chance < 1:
+		tile.set_color(Color(1, 0.8, 0.8))  # Make the tile slightly red
+		var random_index = randi() % all_map_files.size()
+		var random_file = all_map_files[random_index]
+		tile.set_meta("map_file", random_file)  # Set the metadata of the tile
+
+##This function will be connected to the signal of the random red tiles
+func _on_tile_clicked(clicked_tile):
+	var mapFile: String = clicked_tile.get_meta("map_file")
+	if mapFile:
+		print(mapFile)
+		Helper.current_level_name = mapFile
+		get_tree().change_scene_to_file("res://level_generation.tscn")
