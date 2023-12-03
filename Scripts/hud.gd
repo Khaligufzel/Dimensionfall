@@ -22,6 +22,7 @@ extends CanvasLayer
 
 @export var building_menu: NodePath
 @export var crafting_menu : NodePath
+@export var overmap: Control
 
 var is_building_menu_open = false
 
@@ -64,6 +65,11 @@ func _input(event):
 	
 	if event.is_action_pressed("crafting_menu"):
 		get_node(crafting_menu).visible = !get_node(crafting_menu).visible
+	if event.is_action_pressed("overmap"):
+		if overmap.visible:
+			overmap.hide()
+		else:
+			overmap.show()
 		
 
 # Called when the node enters the scene tree for the first time.

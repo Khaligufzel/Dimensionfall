@@ -100,6 +100,8 @@ var mouse_button_pressed: bool = false
 #We will emit this signal when the position_coords change
 signal position_coord_changed(delta)
 func _input(event):
+	if !visible:
+		return
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_MIDDLE: 
