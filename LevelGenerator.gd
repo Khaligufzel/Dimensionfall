@@ -16,14 +16,12 @@ var level_height : int = 32
 @export var level_manager : Node3D
 @export var block_scenes : Array[PackedScene]
 @export_file var default_level_json
-var tile_materials = {} # Create an empty dictionary to store materials
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	level_name = Helper.current_level_name
-	load_tiles_material()
 	generate_level()
 	$"../NavigationRegion3D".bake_navigation_mesh()
 	
@@ -69,8 +67,8 @@ func generate_level():
 #							block = create_block_with_material(textureName)
 													
 							var block: StaticBody3D = defaultBlock.instantiate()
-							if textureName in tile_materials:
-								var material = tile_materials[textureName]
+							if textureName in Gamedata.tile_materials:
+								var material = Gamedata.tile_materials[textureName]
 								block.update_texture(material)
 	#						block = block_scenes[layer["data"][current_block]-1].instantiate()
 							level_node.add_child(block)
@@ -104,30 +102,8 @@ func get_custom_level_json(level_path):
 #This function takes a filename and create a new instance of block_scenes[0] which is a StaticBody3D. It will then take the material from the material dictionary based on the provided filename and apply it to the instance of StaticBody3D. Lastly it will return the StaticBody3D.
 func create_block_with_material(filename: String) -> StaticBody3D:
 	var block: StaticBody3D = defaultBlock.instantiate()
-	if filename in tile_materials:
-		var material = tile_materials[filename]
+	if filename in Gamedata.tile_materials:
+		var material = Gamedata.tile_materials[filename]
 		block.update_texture(material)
 	return block
 
-
-# This function reads all the files in "res://Mods/Core/Tiles/". It will check if the file is a .png file. If the file is a .png file, it will create a new material with that .png image as the texture. It will put all of the created materials in a dictionary with the name of the file as the key and the material as the value.
-func load_tiles_material():
-	var tilesDir = "res://Mods/Core/Tiles/"	
-	var dir = DirAccess.open(tilesDir)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			var extension = file_name.get_extension()
-
-			if !dir.current_is_dir():
-				if extension == "png":
-					var texture := load("res://Mods/Core/Tiles/" + file_name) # Load the .png file as a texture
-					var material := StandardMaterial3D.new() 
-					material.albedo_texture = texture # Set the texture of the material
-					material.uv1_scale = Vector3(3,2,1)
-					tile_materials[file_name] = material # Add the material to the dictionary
-			file_name = dir.get_next()
-	else:
-		print_debug("An error occurred when trying to access the path.")
-	dir.list_dir_end()
