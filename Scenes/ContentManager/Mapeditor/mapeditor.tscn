@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=10 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/GridContainer.gd" id="2_sf17m"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Levelscroller.gd" id="3_i1qbw"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/TilebrushList.gd" id="5_he816"]
-[ext_resource type="Script" path="res://Scripts/Helper/json_helper.gd" id="6_ecso8"]
 [ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="6_onaby"]
 [ext_resource type="PackedScene" uid="uid://cccnrdolr1bfo" path="res://Scenes/ContentManager/Mapeditor/tilebrush.tscn" id="8_o4x7s"]
 
@@ -201,7 +200,6 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 script = ExtResource("5_he816")
 scrolling_Flow_Container = ExtResource("6_onaby")
-json_Helper_Class = ExtResource("6_ecso8")
 tileBrush = ExtResource("8_o4x7s")
 
 [connection signal="ready" from="." to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_mapeditor_ready"]

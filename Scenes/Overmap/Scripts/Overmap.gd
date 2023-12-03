@@ -2,7 +2,6 @@ extends Control
 
 @export var positionLabel: Label = null
 @export var tilesContainer: Control = null
-@export var json_Helper_Class: GDScript = null
 @export var overmapTile: PackedScene = null
 @export var travelButton: Button = null
 @export var overmapTileLabel: Label = null
@@ -15,13 +14,11 @@ var chunk_width: int = 32
 var chunk_size = 32
 var tile_size = 32
 var grid_pixel_size = chunk_size*tile_size
-var tile_materials = {}
 var all_map_files: Array = []
 
 func _ready():
-	load_tiles_material()
 	#Remember the list of map files
-	all_map_files = json_Helper_Class.new().file_names_in_dir("./Mods/Core/Maps/", ["json"])
+	all_map_files = Helper.json_helper.file_names_in_dir("./Mods/Core/Maps/", ["json"])
 	noise.seed = randi()
 	noise.fractal_octaves = 5
 	noise.fractal_gain = 0.5
@@ -152,7 +149,8 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 	# Iterate over the chunk array to create and add TextureRects for each tile.
 	for i in range(chunk.size()):
 		var tile_type = chunk[i]
-		var texture = tile_materials[tile_type] # Retrieve the texture based on the tile type.
+		# Retrieve the texture based on the tile type.
+		var texture = Gamedata.overmaptile_materials[tile_type] 
 		var tile = overmapTile.instantiate()
 #		var tile = TextureRect.new()
 		assign_map_to_tile(tile)
@@ -167,24 +165,6 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 	return grid_container
 
 
-# This function reads all the files in "res://Mods/Core/OvermapTiles/". It will check if the file is a .png file. If the file is a .png file, it will create a new material with that .png image as the texture. It will put all of the created materials in a dictionary with the name of the file as the key and the material as the value.
-func load_tiles_material():
-	var tilesDir = "res://Mods/Core/OvermapTiles/"	
-	var dir = DirAccess.open(tilesDir)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			var extension = file_name.get_extension()
-			if !dir.current_is_dir():
-				if extension == "png":
-					# Load the .png file as a texture
-					var texture := load("res://Mods/Core/OvermapTiles/" + file_name) 
-					tile_materials[file_name] = texture # Add the material to the dictionary
-			file_name = dir.get_next()
-	else:
-		print_debug("An error occurred when trying to access the path.")
-	dir.list_dir_end()
 
 
 #This function takes a TextureRect as an argument
@@ -204,7 +184,6 @@ func assign_map_to_tile(tile: Control):
 func _on_tile_clicked(clicked_tile):
 	if clicked_tile.has_meta("map_file"):
 		var mapFile = clicked_tile.get_meta("map_file")
-		var textureString: String = clicked_tile.tileData.texture
 		var nameString: String = "Name: " + mapFile
 		var envString: String = clicked_tile.tileData.texture
 		envString = envString.replace("res://Mods/Core/OvermapTiles/","")

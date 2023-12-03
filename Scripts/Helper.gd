@@ -1,17 +1,13 @@
 extends Node3D
 
 var current_level_name : String
-
+const json_Helper_Class = preload("res://Scripts/Helper/json_helper.gd")
+var json_helper: Node = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	json_helper = json_Helper_Class.new()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-	
 func switch_level(level_name):
 	current_level_name = level_name
 	get_tree().change_scene_to_file("res://level_generation.tscn")

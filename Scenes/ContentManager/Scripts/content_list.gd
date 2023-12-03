@@ -10,7 +10,6 @@ extends Control
 @export var collapseButton: Button = null
 @export var pupup_ID: Popup = null
 @export var popup_textedit: TextEdit = null
-@export var json_Helper_Class: GDScript = null
 signal item_activated(strSource: String, itemID: String)
 var is_collapsed: bool = false
 var popupAction: String = ""
@@ -87,8 +86,7 @@ func load_file():
 		print_debug("Unable to load file: " + source)
 	
 func load_dir() -> void:
-	var json_helper = json_Helper_Class.new()
-	var json_files: Array = json_helper.file_names_in_dir(source, ["json"])
+	var json_files: Array = Helper.json_helper.file_names_in_dir(source, ["json"])
 	for file_name in json_files:
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(file_name.replace(".json", ""))
