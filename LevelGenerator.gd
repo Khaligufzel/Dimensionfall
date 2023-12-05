@@ -1,10 +1,7 @@
 extends Node3D
 
 
-
-
 var level_json_as_text
-
 var level_levels : Array
 var map_save_folder: String
 
@@ -40,33 +37,38 @@ func get_saved_map_folder() -> String:
 	var map_folder = "map_x" + str(level_pos.x) + "_y" + str(level_pos.y)
 	var target_folder = current_save_folder+ "/" + map_folder
 	if dir.dir_exists(map_folder):
-		return map_folder
+		return target_folder
 	return ""
 
 func generate_enemies() -> void:
 	if map_save_folder == "":
 		return
 	var enemiesArray = Helper.json_helper.load_json_array_file(map_save_folder + "/enemies.json")
-	for enemy in enemiesArray:
-		var newEnemy: CharacterBody3D = defaultEnemy.instantiate()
-		newEnemy.global_position.x = enemy.global_position_x
-		newEnemy.global_position.y = enemy.global_position_y
-		newEnemy.global_position.z = enemy.global_position_z
-		newEnemy.add_to_group("Enemies")
-		get_tree().get_root().add_child(newEnemy)
+	for enemy: Dictionary in enemiesArray:
+		add_enemy_to_map.call_deferred(enemy)
 		
+func add_enemy_to_map(enemy: Dictionary):
+	var newEnemy: CharacterBody3D = defaultEnemy.instantiate()
+	newEnemy.add_to_group("Enemies")
+	get_tree().get_root().add_child(newEnemy)
+	newEnemy.global_position.x = enemy.global_position_x
+	newEnemy.global_position.y = enemy.global_position_y
+	newEnemy.global_position.z = enemy.global_position_z
 
 func generate_items() -> void:
 	if map_save_folder == "":
 		return
 	var itemsArray = Helper.json_helper.load_json_array_file(map_save_folder + "/items.json")
-	for item in itemsArray:
-		var newItem: CharacterBody3D = defaultItem.instantiate()
-		newItem.global_position.x = item.global_position_x
-		newItem.global_position.y = item.global_position_y
-		newItem.global_position.z = item.global_position_z
-		newItem.add_to_group("mapitems")
-		get_tree().get_root().add_child(newItem)
+	for item: Dictionary in itemsArray:
+		add_item_to_map.call_deferred(item)
+		
+func add_item_to_map(item: Dictionary):
+	var newItem: Node3D = defaultItem.instantiate()
+	newItem.add_to_group("mapitems")
+	get_tree().get_root().add_child(newItem)
+	newItem.global_position.x = item.global_position_x
+	newItem.global_position.y = item.global_position_y
+	newItem.global_position.z = item.global_position_z
 
 func generate_level() -> void:
 	var level_name: String = Helper.current_level_name
@@ -87,47 +89,29 @@ func generate_level() -> void:
 			var level_node = Node3D.new()
 			level_node.add_to_group("maplevels")
 			level_manager.add_child(level_node)
+			#The lowest level starts at -10 which would be rock bottom
 			level_node.global_position.y = level_number-10
 			
-			
 			var current_block = 0
-			
 			# we will generate number equal to "layer_height" of horizontal rows of blocks
 			for h in level_height:
 				
 				# this loop will generate blocks from West to East based on the tile number
 				# in json file
 
-				
 				for w in level_width:
-					
 					# checking if we have tile from json in our block array containing packedscenes
 					# of blocks that we need to instantiate.
 					# If yes, then instantiate
-					
-#					if block_scenes[level["data"][current_block]-1]:
 					if level[current_block]:
 						textureName = level[current_block].texture
 						if textureName != "":
-#							var block : StaticBody3D
-##							block = block_scenes[0].instantiate()
 							var block = create_block_with_material(textureName)
-													
-							#var block: StaticBody3D = defaultBlock.instantiate()
-							#if textureName in Gamedata.tile_materials:
-								#var material = Gamedata.tile_materials[textureName]
-								#block.update_texture(material)
-	#						block = block_scenes[layer["data"][current_block]-1].instantiate()
 							level_node.add_child(block)
-							
 							block.global_position.x = w
-							#block.global_position.y = layer_number
 							block.global_position.z = h
 					current_block += 1
-				
 		level_number += 1
-	
-
 	
 	# YEAH I KNOW THAT SHOULD BE ONE FUNCTION, BUT IT'S 2:30 AM and... I'm TIRED LOL
 func get_level_json():

@@ -208,12 +208,14 @@ func _on_tile_clicked(clicked_tile):
 	if clicked_tile.has_meta("map_file"):
 		selected_overmap_tile = clicked_tile
 		var mapFile = clicked_tile.get_meta("map_file")
-		var nameString: String = "Name: " + mapFile
+		var tilePos = clicked_tile.get_meta("global_pos")
+		var posString: String = "Pos: (" + str(tilePos.x)+","+str(tilePos.y)+")"
+		var nameString: String = "\nName: " + mapFile
 		var envString: String = clicked_tile.tileData.texture
 		envString = envString.replace("res://Mods/Core/OvermapTiles/","")
 		envString = "\nEnvironment: " + envString
 		var challengeString: String = "\nChallenge: Easy"
-		overmapTileLabel.text = nameString + envString + challengeString
+		overmapTileLabel.text = posString + nameString + envString + challengeString
 		travelButton.disabled = false
 	else: 
 		selected_overmap_tile = null

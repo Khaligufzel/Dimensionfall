@@ -20,8 +20,9 @@ func _ready():
 #see overmap.gd for how global_pos is used there
 func switch_level(level_name: String, global_pos: Vector2) -> void:
 	current_level_name = level_name
-	if global_pos != Vector2(0,0):
-		save_helper.save_current_level(global_pos)
+	if current_level_pos != Vector2(0,0):
+		save_helper.save_current_level(current_level_pos)
+	current_level_pos = global_pos
 	get_tree().change_scene_to_file("res://level_generation.tscn")
 	
 

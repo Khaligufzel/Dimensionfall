@@ -50,6 +50,7 @@ func save_enemy_data(target_folder: String) -> void:
 		newEnemyData["global_position_y"] = enemy.global_position.y
 		newEnemyData["global_position_z"] = enemy.global_position.z
 		enemyData.append(newEnemyData.duplicate())
+		enemy.queue_free()
 	Helper.json_helper.write_json_file(target_folder + "/enemies.json",\
 	JSON.stringify(enemyData))
 
@@ -67,6 +68,7 @@ func save_item_data(target_folder: String) -> void:
 		newitemData["global_position_y"] = item.global_position.y
 		newitemData["global_position_z"] = item.global_position.z
 		itemData.append(newitemData.duplicate())
+		item.queue_free()
 	Helper.json_helper.write_json_file(target_folder + "/items.json",\
 	JSON.stringify(itemData))
 
@@ -89,25 +91,32 @@ func save_map_data(target_folder: String) -> void:
 	#During map generation, the levels were added to the maplevels group
 	var tree: SceneTree = get_tree()
 	var mapLevels = tree.get_nodes_in_group("maplevels")
-	var i: int = 0
 	var block: StaticBody3D
 	var current_block: int = 0
+	var level_y: int = 0
+	var textureName: String = ""
+	var level_block_count: int = 0
 	for level: Node3D in mapLevels:
 		#The level will be destroyed after saving so we remove them from the group
 		level.remove_from_group("maplevels")
-		if level.get_child_count() > 0:
-			block = level.get_child(0)
+		#The bottom level will have y set at -10. The first item in the mapData
+		#array will be 0 so in this way we add the levels fom -10 to 10
+		level_y = level.global_position.y+10
+		level_block_count = level.get_child_count()
+		if level_block_count > 0:
+			current_block = 0
 			# Loop over every row one by one
 			for h in level_height:
 				# this loop will process blocks from West to East
 				for w in level_width:
-					if block.global_position.y == h and block.global_position.x == w:
-						mapData.levels[i].append({ "texture": block.get_texture_string(),\
-						"rotation": 0 })
-						current_block += 1
-						block = level.get_child(current_block)
+					block = level.get_child(current_block)
+					if block.global_position.z == h and block.global_position.x == w:
+						textureName = block.get_texture_string()
+						textureName = textureName.replace("res://./Mods/Core/Tiles/", "")
+						mapData.levels[level_y].append({ "texture": textureName,"rotation": 0 })
+						if current_block < level_block_count-1:
+							current_block += 1
 					else:
-						mapData.levels[i].append({ "texture": "","rotation": 0 })
-		i += 1
+						mapData.levels[level_y].append({ "texture": "","rotation": 0 })
 	#Overwrite the file if it exists and otherwise create it
 	Helper.json_helper.write_json_file(target_folder + "/map.json", JSON.stringify(mapData))
