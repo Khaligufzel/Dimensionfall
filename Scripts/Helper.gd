@@ -1,15 +1,27 @@
 extends Node3D
 
 var current_level_name : String
+var chunks: Dictionary = {} #Stores references to tilegrids representing the overmap
+var current_level_pos: Vector2 = Vector2(0,0)
+var current_map_seed: int = 0
 const json_Helper_Class = preload("res://Scripts/Helper/json_helper.gd")
 var json_helper: Node = null
+const save_Helper_Class = preload("res://Scripts/Helper/save_helper.gd")
+var save_helper: Node = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	json_helper = json_Helper_Class.new()
+	save_helper = save_Helper_Class.new()
+	add_child(save_helper)
 
-func switch_level(level_name):
+#Level_name is a filename in /mods/core/maps
+#global_pos is the absolute position on the overmap
+#see overmap.gd for how global_pos is used there
+func switch_level(level_name: String, global_pos: Vector2) -> void:
 	current_level_name = level_name
+	if global_pos != Vector2(0,0):
+		save_helper.save_current_level(global_pos)
 	get_tree().change_scene_to_file("res://level_generation.tscn")
 	
 

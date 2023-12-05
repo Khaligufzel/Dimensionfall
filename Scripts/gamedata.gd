@@ -1,12 +1,17 @@
 extends Node
 
-var tile_materials = {} # Create an empty dictionary to store materials
-var overmaptile_materials = {} # Create an empty dictionary to store materials
+#This autoload singleton loads all game data required to run the game
+#It can be accessed by using Gamedata.property
+
+var tile_materials = {} # Materials used to represent tiles
+var overmaptile_materials = {} # Materials used to represent overmap tiles
+var all_map_files: Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	load_tiles_material()
 	load_overmaptiles_material()
+	all_map_files = Helper.json_helper.file_names_in_dir("./Mods/Core/Maps/", ["json"])
 
 
 

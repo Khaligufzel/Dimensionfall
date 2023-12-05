@@ -8,18 +8,18 @@ extends Control
 var position_coord: Vector2 = Vector2(0, 0)
 var last_position_coord: Vector2 = Vector2()
 var tiles: Array = ["1.png", "arcstones1.png", "forestunderbrushscale5.png", "rockyfloor4.png"]
-var chunks: Dictionary = {} #Stores references to tilegrids representing the map
 var noise = FastNoiseLite.new()
+var grid_chunks: Dictionary = {} # Stores references to grid containers (visual tilegrids)
 var chunk_width: int = 32
 var chunk_size = 32
 var tile_size = 32
 var grid_pixel_size = chunk_size*tile_size
-var all_map_files: Array = []
+var selected_overmap_tile: Control = null
 
 func _ready():
-	#Remember the list of map files
-	all_map_files = Helper.json_helper.file_names_in_dir("./Mods/Core/Maps/", ["json"])
-	noise.seed = randi()
+	var gameFileJson: Dictionary = Helper.json_helper.load_json_dictionary_file(\
+	Helper.save_helper.current_save_folder + "/game.json")
+	noise.seed = gameFileJson.mapseed
 	noise.fractal_octaves = 5
 	noise.fractal_gain = 0.5
 	noise.frequency = 0.04
@@ -45,20 +45,22 @@ func update_chunks():
 	for x in range(-1, 1):
 		for y in range(-1, 1):
 			var chunk_grid_position = grid_position + Vector2(x, y) * grid_pixel_size
-
-			if not chunks.has(chunk_grid_position):
+			# Use the separate noise_chunks Dictionary for retrieving the noise data
+			if not Helper.chunks.has(chunk_grid_position):
 				generate_chunk(chunk_grid_position)
-				# Retrieve the chunk data for the specific position.
-				var chunk_data = chunks[chunk_grid_position]  
+			# Retrieve the chunk data for the specific position.
+			var chunk_data = Helper.chunks[chunk_grid_position]  
+			
+			if not grid_chunks.has(chunk_grid_position):
 				# Use chunk data to create and fill the GridContainer.
 				var localized_x: float = chunk_grid_position.x-position_coord.x
 				var localized_y: float = chunk_grid_position.y-position_coord.y
 				var new_grid_container = create_and_fill_grid_container(chunk_data,\
 				Vector2(localized_x,localized_y))
 				tilesContainer.call_deferred("add_child",new_grid_container)
-#				tilesContainer.add_child(new_grid_container)
+	#				tilesContainer.add_child(new_grid_container)
 				# Store the GridContainer using the grid position as the key.
-				chunks[chunk_grid_position] = new_grid_container
+				grid_chunks[chunk_grid_position] = new_grid_container
 
 	# After generating new chunks, you may want to unload any that are off-screen.
 	unload_chunks()
@@ -76,23 +78,37 @@ func generate_chunk(grid_position: Vector2):
 			# Scale noise_value to a valid index in the tiles array
 			# Ensure noise_value is scaled correctly based on the number of tiles.
 			var tile_index = int((noise_value + 1) / 2 * tiles.size()) % tiles.size()
-			chunk.append(tiles[tile_index])
+			chunk.append({"tile": tiles[tile_index], "tacticalmap":\
+			get_random_mapname_1_in_100()})
 	# Store the chunk using the grid_position as the key.
-	chunks[grid_position] = chunk
+	Helper.chunks[grid_position] = chunk
+	
+func get_random_mapname_1_in_100() -> String:
+	var random_file: String = ""
+	var chance = randi_range(0, 100)
+	if chance < 1:
+		var random_index = randi() % Gamedata.all_map_files.size()
+		random_file = Gamedata.all_map_files[random_index]
+	return random_file
+
+
 
 # The user will leave chunks behind as the map is panned around
 # Chunks that are too far from the current position will be destoroyed
+#This will only destroy the visual representation of the data stored in Helper.chunks
 func unload_chunks():
 	var dist = 0
 	var rangeLimit = 0
-	for chunk_position in chunks.keys():
+	for chunk_position in grid_chunks.keys():
 		dist = chunk_position.distance_to(position_coord)
 		#Lowering this number 5 will cause newly created chunks 
 		#to be instantly deleted and recreated
 		rangeLimit = 3 * grid_pixel_size
 		if dist > rangeLimit:
-			chunks[chunk_position].call_deferred("queue_free")
-			chunks.erase(chunk_position)
+			#Distroy the grid itself
+			grid_chunks[chunk_position].call_deferred("queue_free")
+			#Remove the reference to the grid
+			grid_chunks.erase(chunk_position)
 
 
 var mouse_button_pressed: bool = false
@@ -142,21 +158,41 @@ func on_position_coord_changed(delta):
 func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 	var grid_container = GridContainer.new()
 	grid_container.columns = chunk_width  # Set the number of columns to chunk_width.
-	#Make sure there is no space between the tiles
+	# Make sure there is no space between the tiles
 	grid_container.set("theme_override_constants/h_separation", 0)
 	grid_container.set("theme_override_constants/v_separation", 0)
 
+	# Variables to keep track of the row and column position
+	var row: int = 0
+	var column: int = 0
+
 	# Iterate over the chunk array to create and add TextureRects for each tile.
 	for i in range(chunk.size()):
-		var tile_type = chunk[i]
+		if i > 0 and i % chunk_width == 0:
+			row += 1
+			column = 0  # Reset column at the start of a new row
+
+		var tile_type = chunk[i].tile
 		# Retrieve the texture based on the tile type.
-		var texture = Gamedata.overmaptile_materials[tile_type] 
+		var texture = Gamedata.overmaptile_materials[tile_type]
 		var tile = overmapTile.instantiate()
-#		var tile = TextureRect.new()
-		assign_map_to_tile(tile)
+		var local_x = column*tile_size
+		var local_y = row*tile_size
+		var global_x = chunk_position.x + local_x
+		var global_y = chunk_position.y + local_y
+		# Assign the tile's row and column information
+		tile.set_meta("global_pos", Vector2(global_x,global_y))
+		tile.set_meta("local_pos", Vector2(local_x,local_y))
+		if chunk[i].tacticalmap != "":
+			tile.set_meta("map_file", chunk[i].tacticalmap)  # Set the metadata of the tile
+			tile.set_color(Color(1, 0.8, 0.8))  # Make the tile slightly red
 		tile.set_texture(texture)
 		tile.connect("tile_clicked", _on_tile_clicked)
-		grid_container.call_deferred("add_child",tile)
+		# Add the tile as a child to the grid container
+		grid_container.add_child(tile)
+
+		# Increase column count after placing each tile
+		column += 1
 
 	# Set the position of the grid container in pixel space.
 	grid_container.position = chunk_position
@@ -167,22 +203,10 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 
 
 
-#This function takes a TextureRect as an argument
-#For a chance of 1 in 100, it will modulate the TextureRect to be slightly red
-#And it will write a random item from the all_map_files array to it's metadata
-#Then it will make sure that when a user clicks on this slightly red tile, 
-#It will print the item from it's metadata
-func assign_map_to_tile(tile: Control):
-	var chance = randi_range(0, 100)
-	if chance < 1:
-		tile.set_color(Color(1, 0.8, 0.8))  # Make the tile slightly red
-		var random_index = randi() % all_map_files.size()
-		var random_file = all_map_files[random_index]
-		tile.set_meta("map_file", random_file)  # Set the metadata of the tile
-
 #This function will be connected to the signal of the tiles
 func _on_tile_clicked(clicked_tile):
 	if clicked_tile.has_meta("map_file"):
+		selected_overmap_tile = clicked_tile
 		var mapFile = clicked_tile.get_meta("map_file")
 		var nameString: String = "Name: " + mapFile
 		var envString: String = clicked_tile.tileData.texture
@@ -190,12 +214,14 @@ func _on_tile_clicked(clicked_tile):
 		envString = "\nEnvironment: " + envString
 		var challengeString: String = "\nChallenge: Easy"
 		overmapTileLabel.text = nameString + envString + challengeString
-		Helper.current_level_name = mapFile
 		travelButton.disabled = false
 	else: 
+		selected_overmap_tile = null
 		travelButton.disabled = true
 		overmapTileLabel.text = "Select a valid target"
 
 
 func _on_travel_button_button_up():
-	get_tree().change_scene_to_file("res://level_generation.tscn")
+	var mapFile = selected_overmap_tile.get_meta("map_file")
+	var global_pos: Vector2 = selected_overmap_tile.get_meta("global_pos")
+	Helper.switch_level(mapFile, global_pos)

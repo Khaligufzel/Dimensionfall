@@ -20,6 +20,22 @@ func load_json_array_file(source: String) -> Array:
 	else:
 		print_debug("Unable to load file: " + source)
 	return data_json
+	
+#This function takes the path to a json file and returns its contents as an array
+#It should check if the contents is an array or not. If it is not an array, 
+#it should return an empty array
+func load_json_dictionary_file(source: String) -> Dictionary:
+	var data_json: Dictionary = {}
+	var file = FileAccess.open(source, FileAccess.READ)
+	if file:
+		var parsed_data = JSON.parse_string(file.get_as_text())
+		if typeof(parsed_data) == TYPE_DICTIONARY:
+			data_json = parsed_data
+		else:
+			print_debug("The file does not contain a JSON dictionary: " + source)
+	else:
+		print_debug("Unable to load file: " + source)
+	return data_json
 
 
 # This function lists all the files in a specified directory. 
@@ -45,3 +61,13 @@ func file_names_in_dir(dirName: String, extensionFilter: Array = []) -> Array:
 		print_debug("An error occurred when trying to access the path: " + dirName)
 	dir.list_dir_end()
 	return fileNames
+
+
+#This function takes a json string and saves it as a json file.
+func write_json_file(path: String, json: String):
+	# Save the JSON string to the selected file location
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	if file:
+		file.store_string(json)
+	else:
+		print_debug("Unable to write file " + path)
