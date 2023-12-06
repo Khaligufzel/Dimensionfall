@@ -28,11 +28,6 @@ func dir_contents(path):
 		print("An error occurred when trying to access the path.")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_view_level_pressed():
 	Helper.switch_level(level_files[option_levels.get_selected_id()],Vector2(0,0))
 

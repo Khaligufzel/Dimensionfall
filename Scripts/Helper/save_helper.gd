@@ -101,7 +101,7 @@ func save_map_data(target_folder: String) -> void:
 		level.remove_from_group("maplevels")
 		#The bottom level will have y set at -10. The first item in the mapData
 		#array will be 0 so in this way we add the levels fom -10 to 10
-		level_y = level.global_position.y+10
+		level_y = int(level.global_position.y+10)
 		level_block_count = level.get_child_count()
 		if level_block_count > 0:
 			current_block = 0

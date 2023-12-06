@@ -31,10 +31,6 @@ func _ready():
 		button.crafting_menu = [self]
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 
 func item_craft_button_clicked(recipe):
 	active_recipe = recipe

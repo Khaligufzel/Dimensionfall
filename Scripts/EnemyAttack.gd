@@ -19,12 +19,12 @@ func Enter():
 func Exit():
 	pass
 	
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	
 	
 	var space_state = get_world_3d().direct_space_state
 	# TO-DO Change playerCol to group of players
-	var query = PhysicsRayQueryParameters3D.create(get_node(enemy).global_position, targeted_player.global_position, pow(2, 1-1) + pow(2, 3-1), [self])
+	var query = PhysicsRayQueryParameters3D.create(get_node(enemy).global_position, targeted_player.global_position, int(pow(2, 1-1) + pow(2, 3-1)), [self])
 	var result = space_state.intersect_ray(query)
 	
 

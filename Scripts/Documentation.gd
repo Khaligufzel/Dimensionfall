@@ -6,9 +6,6 @@ func _ready():
 	load_documentation_files()
 	$CategoryTree.item_selected.connect(_on_CategoryTree_item_selected)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func load_documentation_files():
 	var resourceDir = "./Documentation"

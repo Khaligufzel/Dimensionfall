@@ -32,7 +32,7 @@ func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstan
 	var material := ORMMaterial3D.new()
 	
 	mesh_instance.mesh = immediate_mesh
-	mesh_instance.cast_shadow = 0
+	mesh_instance.cast_shadow = mesh_instance.SHADOW_CASTING_SETTING_OFF
 
 	immediate_mesh.surface_begin(Mesh.PRIMITIVE_LINES, material)
 	immediate_mesh.surface_add_vertex(pos1)

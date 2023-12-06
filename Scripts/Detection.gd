@@ -19,20 +19,20 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 	
 	#3d
 #	queue_redraw()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var space_state = get_world_3d().direct_space_state
 	# TO-DO Change playerCol to group of players
 	var playerInstance: CharacterBody3D = get_tree().get_first_node_in_group("Players")
 	if !playerInstance:
 		return
-	var query = PhysicsRayQueryParameters3D.create(global_position, playerInstance.global_position, pow(2, 1-1) + pow(2, 3-1),[self])
+	var query = PhysicsRayQueryParameters3D.create(global_position, playerInstance.global_position, int(pow(2, 1-1) + pow(2, 3-1)),[self])
 
 	var result = space_state.intersect_ray(query)
 	

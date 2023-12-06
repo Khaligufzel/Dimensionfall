@@ -120,7 +120,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	
 	# Reloading sound logic, basically we want to play the sound during the reloading phase,
 	# not before or after reloading so the end of reloading sounds will align with end of the reloading phase

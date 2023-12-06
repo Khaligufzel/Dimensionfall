@@ -70,7 +70,7 @@ func _ready():
 	current_stamina = stamina
 	
 	
-func _process(delta):
+func _process(_delta):
 #	if is_progress_bar_well_progressing_i_guess:
 #		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
 		
@@ -191,20 +191,20 @@ func check_if_alive():
 		current_head_health = 0
 		die()
 
-
-func check_if_visible(target_position: Vector3):
-	
-	var space_state = get_world_3d().direct_space_state
-	# TO-DO Change playerCol to group of players
-	var query = PhysicsRayQueryParameters3D.create(global_position, target_position, pow(2, 1-1) + pow(2, 3-1) + pow(2, 2-1),[self])
-	var result = space_state.intersect_ray(query)
-	
-	if result:
-		print("I see something!")
-		return false
-	else:
-		print("I see nothing!")
-		return true
+#
+#func check_if_visible(target_position: Vector3):
+	#
+	#var space_state = get_world_3d().direct_space_state
+	## TO-DO Change playerCol to group of players
+	#var query = PhysicsRayQueryParameters3D.create(global_position, target_position, pow(2, 1-1) + pow(2, 3-1) + pow(2, 2-1),[self])
+	#var result = space_state.intersect_ray(query)
+	#
+	#if result:
+		#print("I see something!")
+		#return false
+	#else:
+		#print("I see nothing!")
+		#return true
 
 func die():
 	print("Player died")
