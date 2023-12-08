@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://vc1hpsum7b2u"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Selectable_Sprite_Widget.gd" id="1_ix6u3"]
+[ext_resource type="Texture2D" uid="uid://ttmfel3ylg0w" path="res://Mods/Core/Tiles/arcstones1.png" id="2_5qjrc"]
+
+[node name="SelectableSprite" type="Control"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ix6u3")
+
+[node name="SpriteImage" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_5qjrc")
+expand_mode = 3
+
+[connection signal="gui_input" from="SpriteImage" to="." method="_on_texture_rect_gui_input"]
