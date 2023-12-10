@@ -118,7 +118,7 @@ func add_id_to_data(data: Array, id: String):
 			return
 		data.append(id)
 		#Create a new json file in the directory with only {} in the file
-		Helper.json_helper.create_new_json_file(get_data_directory(data) + id, false)
+		Helper.json_helper.create_new_json_file(get_data_directory(data) + id + ".json", false)
 
 
 # Will remove an item from the data
