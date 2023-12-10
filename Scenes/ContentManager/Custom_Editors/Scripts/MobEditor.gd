@@ -48,21 +48,21 @@ func load_mob_data() -> void:
 			if DescriptionTextEdit != null and item.has("description"):
 				DescriptionTextEdit.text = item["description"]
 			if melee_damage_numedit != null and item.has("melee_damage"):
-				melee_damage_numedit.text = item["melee_damage"]
+				melee_damage_numedit.get_line_edit().text = item["melee_damage"]
 			if melee_range_numedit != null and item.has("melee_range"):
-				melee_damage_numedit.text = item["melee_range"]
+				melee_damage_numedit.get_line_edit().text = item["melee_range"]
 			if health_numedit != null and item.has("health"):
-				health_numedit.text = item["health"]
+				health_numedit.get_line_edit().text = item["health"]
 			if moveSpeed_numedit != null and item.has("move_speed"):
-				moveSpeed_numedit.text = item["move_speed"]
+				moveSpeed_numedit.get_line_edit().text = item["move_speed"]
 			if idle_move_speed_numedit != null and item.has("idle_move_speed"):
-				idle_move_speed_numedit.text = item["idle_move_speed"]
+				idle_move_speed_numedit.get_line_edit().text = item["idle_move_speed"]
 			if sightRange_numedit != null and item.has("sight_range"):
-				sightRange_numedit.text = item["sight_range"]
+				sightRange_numedit.get_line_edit().text = item["sight_range"]
 			if senseRange_numedit != null and item.has("sense_range"):
-				senseRange_numedit.text = item["sense_range"]
+				senseRange_numedit.get_line_edit().text = item["sense_range"]
 			if hearingRange_numedit != null and item.has("hearing_range"):
-				hearingRange_numedit.text = item["hearing_range"]
+				hearingRange_numedit.get_line_edit().text = item["hearing_range"]
 			break
 	
 
@@ -82,14 +82,14 @@ func _on_save_button_button_up() -> void:
 			item["imagePath"] = mobImageDisplay.texture.resource_path
 			item["name"] = NameTextEdit.text
 			item["description"] = DescriptionTextEdit.text
-			item["melee_damage"] = melee_damage_numedit.text
-			item["melee_range"] = melee_damage_numedit.text
-			item["health"] = health_numedit.text
-			item["move_speed"] = moveSpeed_numedit.text
-			item["idle_move_speed"] = idle_move_speed_numedit.text
-			item["sight_range"] = sightRange_numedit.text
-			item["sense_range"] = senseRange_numedit.text
-			item["hearing_range"] = hearingRange_numedit.text
+			item["melee_damage"] = melee_damage_numedit.get_line_edit().text
+			item["melee_range"] = melee_damage_numedit.get_line_edit().text
+			item["health"] = health_numedit.get_line_edit().text
+			item["move_speed"] = moveSpeed_numedit.get_line_edit().text
+			item["idle_move_speed"] = idle_move_speed_numedit.get_line_edit().text
+			item["sight_range"] = sightRange_numedit.get_line_edit().text
+			item["sense_range"] = senseRange_numedit.get_line_edit().text
+			item["hearing_range"] = hearingRange_numedit.get_line_edit().text
 			break
 
 	file = FileAccess.open(contentSource, FileAccess.WRITE)

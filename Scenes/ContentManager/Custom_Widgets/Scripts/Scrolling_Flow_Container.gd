@@ -8,7 +8,7 @@ extends Control
 @export var contentItems: FlowContainer = null
 @export var collapseButton: Button = null
 var is_collapsed: bool = false
-var header: String = "Items":
+@export var header: String = "Items":
 	set(newName):
 		header = newName
 		if newName == "":

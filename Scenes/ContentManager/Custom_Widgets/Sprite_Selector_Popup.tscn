@@ -26,10 +26,11 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Select a tile"
+text = "Select a sprite"
 
 [node name="Scrolling_Flow_Container" parent="VBoxContainer" instance=ExtResource("3_nkgi6")]
 layout_mode = 2
+header = ""
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -45,3 +46,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Cancel"
+
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]

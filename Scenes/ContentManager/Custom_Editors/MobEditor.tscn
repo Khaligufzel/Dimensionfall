@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_woy6i"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_847a0"]
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_damage_numedit", "melee_range_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_damage_numedit", "melee_range_numedit", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +20,7 @@ DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 mobSelector = NodePath("Sprite_selector")
 melee_damage_numedit = NodePath("VBoxContainer/FormGrid/MeleeDamageSpinBox")
 melee_range_numedit = NodePath("VBoxContainer/FormGrid/MeleeRangeSpinbox")
+health_numedit = NodePath("VBoxContainer/FormGrid/HealthSpinBox")
 moveSpeed_numedit = NodePath("VBoxContainer/FormGrid/MoveSpeedSpinBox")
 idle_move_speed_numedit = NodePath("VBoxContainer/FormGrid/IdleMoveSpeedSpinBox")
 sightRange_numedit = NodePath("VBoxContainer/FormGrid/SightRangeSpinBox")
@@ -104,6 +105,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
+focus_next = NodePath("../HealthSpinBox")
 focus_previous = NodePath("../NameTextEdit")
 placeholder_text = "A very dangerous land animal often found in dry climates"
 

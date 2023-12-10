@@ -122,9 +122,6 @@ func _on_ok_button_up():
 	var myText = popup_textedit.text
 	if myText == "":
 		return;
-	if contentdata.is_empty():
-		print_debug("Tried to add a new item to contentlist, but contentdata is empty")
-		return
 	if popupAction == "Add":
 			Gamedata.add_id_to_data(contentdata, myText)
 	if popupAction == "Duplicate":
