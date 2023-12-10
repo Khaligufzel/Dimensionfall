@@ -13,7 +13,7 @@ extends Control
 signal item_activated(data: Array, itemID: String)
 var is_collapsed: bool = false
 var popupAction: String = ""
-var contentdata: Array = [""]:
+var contentdata: Array = []:
 	set(newData):
 		contentdata = newData
 		load_data()

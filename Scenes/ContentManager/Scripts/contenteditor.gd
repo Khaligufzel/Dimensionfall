@@ -20,7 +20,7 @@ func load_content_list(data: Array, strHeader: String):
 	var contentListInstance: Control = contentList.instantiate()
 
 	# Set the source property
-	contentListInstance.data = data
+	contentListInstance.contentdata = data
 	contentListInstance.header = strHeader
 	contentListInstance.connect("item_activated", _on_content_item_activated)
 
