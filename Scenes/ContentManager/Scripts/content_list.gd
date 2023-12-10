@@ -122,16 +122,13 @@ func _on_ok_button_up():
 	var myText = popup_textedit.text
 	if myText == "":
 		return;
+	if contentdata.is_empty():
+		print_debug("Tried to add a new item to contentlist, but contentdata is empty")
+		return
 	if popupAction == "Add":
-		if contentdata[0] is Dictionary:
 			Gamedata.add_id_to_data(contentdata, myText)
-		else:
-			Gamedata.add_file_to_data(contentdata, myText)
 	if popupAction == "Duplicate":
-		if contentdata[0] is Dictionary:
 			Gamedata.duplicate_item_in_data(contentdata,get_selected_item_text(),myText)
-		else:
-			print_debug("There should be code here for when a file in the gets duplicated")
 	popupAction = ""
 	load_data()
 

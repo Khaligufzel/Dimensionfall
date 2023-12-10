@@ -70,50 +70,56 @@ func load_overmaptiles_material():
 #It will find an item with this ID in a json file specified by the source variable
 #It will then duplicate that item into the json file and change the ID to newID
 func duplicate_item_in_data(data: Array, id: String, newID: String):
-	# If the first item is a string, assume all items are strings and do nothing
-	if data[0] is String:
+	if data.is_empty():
 		return
+
+	if get_data_directory(data).ends_with((".json")):
+		# If the first item is a string, assume all items are strings and do nothing
+		if data[0] is String:
+			return
+			
+		# Check if an item with the given ID exists in the file.
+		var item_index: int = get_array_index_by_id(data,id)
+		if item_index == -1:
+			return
 		
-	# Check if an item with the given ID exists in the file.
-	var item_index: int = get_array_index_by_id(data,id)
-	if item_index == -1:
-		return
-	
-	# Duplicate the found item recursively
-	var item_to_duplicate = data[item_index].duplicate(true)
-	
-	# If there is no item to duplicate, return without doing anything.
-	if item_to_duplicate == null:
-		return
-	# Change the ID of the duplicated item.
-	item_to_duplicate["id"] = newID
-	# Add the duplicated item to the JSON data.
-	data.append(item_to_duplicate)
-	Helper.json_helper.write_json_file(get_data_directory(data),JSON.stringify(data))
+		# Duplicate the found item recursively
+		var item_to_duplicate = data[item_index].duplicate(true)
+		
+		# If there is no item to duplicate, return without doing anything.
+		if item_to_duplicate == null:
+			return
+		# Change the ID of the duplicated item.
+		item_to_duplicate["id"] = newID
+		# Add the duplicated item to the JSON data.
+		data.append(item_to_duplicate)
+		Helper.json_helper.write_json_file(get_data_directory(data),JSON.stringify(data))
+	else:
+		print_debug("There should be code here for when a file in the gets duplicated")
 
 
-#This function appends a new object to an existing array
-#Pass the array to this function and the value of the ID
-#The object that will be appended will be nothing more then {"id": id}
-#After the ID is added, the data array will be saved to disk
+# This function appends a new object to an existing array
+# Pass the array to this function and the value of the ID
+# If the data directory ends in .json, it will append an object
+# The object that will be appended will be nothing more then {"id": id}
+# if the data directory does not end in .json, a new file will be added
+# This file will get the name as specified by id, so for example "myhouse"
+# After the ID is added, the data array will be saved to disk
 func add_id_to_data(data: Array, id: String):
-	if get_array_index_by_id(data,id) != -1:
-		print_debug("Tried to add an existing id to an array")
-		return
-	data.append({"id": id})
-	Helper.json_helper.write_json_file(get_data_directory(data),JSON.stringify(data))
-	
-#This function appends a new filename to an existing array
-#Pass the array to this function and the value of the filename
-#The string that will be appended will be nothing more then the file name
-#After the filename is added, the file will be saved to disk
-func add_file_to_data(data: Array, fileName: String):
-	if fileName in data:
-		print_debug("Tried to add an existing file to a file array")
-		return
-	data.append(fileName)
-	#Create a new json file in the directory with only {} in the file
-	Helper.json_helper.create_new_json_file(get_data_directory(data) + fileName, false)
+	if get_data_directory(data).ends_with((".json")):
+		if get_array_index_by_id(data,id) != -1:
+			print_debug("Tried to add an existing id to an array")
+			return
+		data.append({"id": id})
+		Helper.json_helper.write_json_file(get_data_directory(data),JSON.stringify(data))
+	else:
+		if id in data:
+			print_debug("Tried to add an existing file to a file array")
+			return
+		data.append(id)
+		#Create a new json file in the directory with only {} in the file
+		Helper.json_helper.create_new_json_file(get_data_directory(data) + id, false)
+
 
 # Will remove an item from the data
 # If the first item in data is a dictionary, we remove an item that has the provided id
