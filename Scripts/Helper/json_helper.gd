@@ -69,5 +69,63 @@ func write_json_file(path: String, json: String):
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file:
 		file.store_string(json)
+		file.close()
 	else:
 		print_debug("Unable to write file " + path)
+		
+# This function will take a path and create a new json file with just {} or [] as the contents.
+#If the file already exists, we do not overwrite it
+func create_new_json_file(filename: String = "", isArray: bool = true):
+	# If no string was provided, return without doing anything.
+	if filename.is_empty():
+		return
+
+	# If the file already exists, alert the user that the file already exists.
+	if FileAccess.file_exists(filename):
+		return
+
+	var file = FileAccess.open(filename, FileAccess.WRITE)
+	#The file cen contain either one object or one array with a list of objects
+	if isArray:
+		file.store_string("[]")
+	else:
+		file.store_string("{}")
+	file.close()
+
+
+
+#This function enters a new item into the json file specified by the source variable
+#The item will just be an object like this: {"id": id}
+#If an item with that ID already exists in that file, do nothing
+func add_id_to_json_file(source: String, id: String):
+# If the source is not a JSON file, return without doing anything.
+	if !source.ends_with(".json"):
+		return
+
+	# If the file does not exist, create a new JSON file.
+	if !FileAccess.file_exists(source):
+		create_new_json_file(source, true)
+		
+	var data_json: Array = load_json_array_file(source)
+
+	# Check if an item with the given ID already exists in the file.
+	for item in data_json:
+		if item.get("id", "") == id:
+			print_debug("An item with ID (" + id + ") already exists in the file.")
+			return
+
+	# If no item with the given ID exists, add a new item to the JSON data.
+	data_json.append({"id": id})
+	write_json_file(source, JSON.stringify(data_json))
+
+
+#This function will take a path to a json file and delete it
+func delete_json_file(path: String):
+	var dir = DirAccess.open(path)
+	if dir:
+		# Delete the file
+		var err = dir.remove(path)
+		if err == OK:
+			print_debug("File deleted successfully: " + path)
+		else:
+			print_debug("An error occurred when trying to delete the file: " + path)
