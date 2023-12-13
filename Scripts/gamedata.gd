@@ -111,7 +111,7 @@ func add_id_to_data(data: Array, id: String):
 			print_debug("Tried to add an existing id to an array")
 			return
 		data.append({"id": id})
-		Helper.json_helper.write_json_file(get_data_directory(data),JSON.stringify(data))
+		save_data_to_file(data)
 	else:
 		if id in data:
 			print_debug("Tried to add an existing file to a file array")
@@ -153,3 +153,14 @@ func get_array_index_by_id(data: Array, id: String) -> int:
 		i += 1
 	return myIndex
 	
+func save_data_to_file(data: Array):
+	var datadir: String = get_data_directory(data)
+	if datadir.ends_with((".json")):
+		Helper.json_helper.write_json_file(datadir,JSON.stringify(data,"\t"))
+
+# This functino is called when an editor has changed data
+# The contenteditor (that initializes the individual editors)
+# connects the changed_data signal to this function
+# and binds the appropriate data array so it can be saved in this function
+func on_data_changed(data: Array):
+	save_data_to_file(data)

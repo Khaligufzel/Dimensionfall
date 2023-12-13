@@ -1,5 +1,5 @@
 extends GridContainer
-@onready var tileScene: PackedScene = preload("res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn")
+@export var tileScene: PackedScene
 #This is the index of the level we are on. 0 is ground level. can be -10 to +10
 var currentLevel: int = 10
 #Contains the data of every tile in the current level, the ground level or level 0 by default
@@ -35,7 +35,6 @@ func _on_mapeditor_ready():
 	levelgrid_below.hide()
 	levelgrid_above.hide()
 
-
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
 func createTiles():
 	for x in range(mapEditor.mapWidth):
@@ -50,7 +49,6 @@ func createTiles():
 			tileAbove.set_clickable(false)
 			levelgrid_above.add_child(tileAbove)
 
-	
 var start_point = Vector2()
 var end_point = Vector2()
 var is_drawing = false
@@ -89,7 +87,7 @@ func _input(event):
 						paint_in_rectangle()
 				else:
 					is_drawing = false
-	
+
 	#When the users presses and holds the mouse wheel, we scoll the grid
 	if event is InputEventMouseMotion:
 		if is_drawing:
@@ -106,7 +104,7 @@ func update_rectangle():
 #When one of the grid tiles is clicked, we paint the tile accordingly
 func grid_tile_clicked(clicked_tile):
 	paint_single_tile(clicked_tile)
-		
+
 #We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile):
@@ -116,14 +114,14 @@ func paint_single_tile(clicked_tile):
 		clicked_tile.set_default()
 	elif selected_brush:
 		clicked_tile.set_texture(selected_brush.get_texture())
-	
+
 #When this function is called, loop over all the TileGrid's children and get the tileData property. Store this data in the currentLevelData array
 func storeLevelData():
 	currentLevelData.clear()
 	for child in get_children():
 		currentLevelData.append(child.tileData)
 	mapData.levels[currentLevel] = currentLevelData.duplicate()
-		
+
 #Loads the leveldata from the mapdata
 #If no data exists, use the default to create a new map
 func loadLevelData(newLevel: int):
@@ -140,7 +138,7 @@ func loadLevelData(newLevel: int):
 	else:
 		levelgrid_above.hide()
 	loadLevel(newLevel, self)
-			
+
 func loadLevel(level: int, grid: GridContainer):
 	if mapData.is_empty():
 		print_debug("Tried to load data from an empty mapData dictionary")
@@ -171,7 +169,7 @@ func change_level(newlevel: int) -> void:
 # We need to add 10 since the scrollbar starts at -10
 func _on_level_scrollbar_value_changed(value):
 	change_level(10+0-value)
-	
+
 #This function takes two coordinates representing a rectangle. It will check which of the TileGrid's children's position falls inside this rectangle. It returns all the child tiles that fall inside this rectangle
 func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
 	var tiles_in_rectangle: Array = []
@@ -180,17 +178,17 @@ func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
 			if tile.global_position.y >= rect_start.y-(1*mapEditor.zoom_level) and tile.global_position.y <= rect_end.y:
 				tiles_in_rectangle.append(tile)
 	return tiles_in_rectangle
-	
+
 func unhighlight_tiles():
 	for tile in get_children():
 		tile.unhighlight()
-	
+
 func highlight_tiles_in_rect():
 	unhighlight_tiles()
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
 	for tile in tiles:
 		tile.highlight()
-		
+
 #Paint every tile in the selected rectangle
 #We always erase if erase is selected, even if no brush is selected
 #Only paint if a brush is selected and erase is false
@@ -213,7 +211,7 @@ func _on_draw_rectangle_toggled(button_pressed):
 
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush):
 	selected_brush = tilebrush
-	
+
 func _on_show_below_toggled(button_pressed):
 	showBelow = button_pressed
 	if showBelow:
@@ -227,35 +225,14 @@ func _on_show_above_toggled(button_pressed):
 		levelgrid_above.show()
 	else:
 		levelgrid_above.hide()
-		
-		
 
-	
 #This function takes the mapData property and saves all of it as a json file.
 func save_map_json_file():
 	# Convert the TileGrid.mapData to a JSON string
 	storeLevelData()
-	var map_data_json = JSON.stringify(mapData.duplicate())
-	
-	# Save the JSON string to the selected file location
-	var file = FileAccess.open(mapEditor.contentSource, FileAccess.WRITE)
-	if file:
-		file.store_string(map_data_json)
-	else:
-		print_debug("Unable to write file " + mapEditor.contentSource)
+	var map_data_json = JSON.stringify(mapData.duplicate(), "\t")
+	Helper.json_helper.write_json_file(mapEditor.contentSource, map_data_json)
 
-	
 func load_map_json_file():
 	var fileToLoad: String = mapEditor.contentSource
-	if fileToLoad == "":
-		print_debug("Tried to load mapdata, but mapEditor.contentSource is empty")
-		return;
-	# Load the JSON string from the selected file location
-	var file = FileAccess.open(fileToLoad, FileAccess.READ)
-	if file:
-		var map_data_json: Dictionary
-		map_data_json = JSON.parse_string(file.get_as_text())
-		mapData = map_data_json
-	else:
-		print_debug("Unable to load file " + fileToLoad)
-	
+	mapData = Helper.json_helper.load_json_dictionary_file(fileToLoad)

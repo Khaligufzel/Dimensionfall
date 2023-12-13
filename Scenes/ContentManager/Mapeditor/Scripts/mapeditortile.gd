@@ -22,7 +22,7 @@ func _on_texture_rect_gui_input(event: InputEvent) -> void:
 func set_texture(res: Resource) -> void:
 	$TextureRect.texture = res
 	var path: String = res.resource_path
-	tileData.texture = path.replace("res://Mods/Core/Tiles/","")
+	tileData.texture = path.get_file()
 
 func _on_texture_rect_mouse_entered() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):

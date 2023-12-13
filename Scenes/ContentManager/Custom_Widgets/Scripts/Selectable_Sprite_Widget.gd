@@ -9,7 +9,10 @@ func _on_texture_rect_gui_input(event):
 		selectableSprite_clicked.emit(self)
 	
 func set_sprite_texture(res: Resource) -> void:
-	$SpriteImage.texture = res
+	if res is BaseMaterial3D:
+		$SpriteImage.texture = res.albedo_texture
+	else:
+		$SpriteImage.texture = res
 	
 func get_texture() -> Resource:
 	return $SpriteImage.texture

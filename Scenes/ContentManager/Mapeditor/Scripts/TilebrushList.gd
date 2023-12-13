@@ -18,9 +18,7 @@ func _ready():
 	
 # this function will read all files in "res://Mods/Core/Tiles/" and for each file it will create a texturerect and assign the file as the texture of the texturerect. Then it will add the texturerect as a child to $HSplitContainer/EntitiesContainer/TilesList
 func loadTiles():
-	var tilesFile = "res://Mods/Core/Tiles/Tiles.json"
-	var tileList: Array = Helper.json_helper.load_json_array_file(tilesFile)
-	
+	var tileList: Array = Gamedata.all_tiles
 
 	for item in tileList:
 		if item.has("imagePath"):
@@ -33,8 +31,10 @@ func loadTiles():
 					newTilesList = scrolling_Flow_Container.instantiate()
 					newTilesList.header = category
 					add_child(newTilesList)
-				# Load the texture from file
-				var texture: Resource = load(item["imagePath"])
+				var imagefileName: String = item["imagePath"]
+				imagefileName = imagefileName.get_file()
+				# Get the texture from gamedata
+				var texture: Resource = Gamedata.tile_materials[imagefileName].albedo_texture
 				# Create a TextureRect node
 				var brushInstance = tileBrush.instantiate()
 				# Assign the texture to the TextureRect

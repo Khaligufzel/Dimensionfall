@@ -19,51 +19,47 @@ extends Control
 @export var sightRange_numedit: SpinBox
 @export var senseRange_numedit: SpinBox
 @export var hearingRange_numedit: SpinBox
+# This signal will be emitted when the user presses the save button
+# This signal should alert Gamedata that the mob data array should be saved to disk
+# The content editor has connected this signal to Gamedata already
+signal data_changed()
 
-#The JSON file to be edited
-var contentSource: String = "":
+# The data that represents this mob
+# The data is selected from the Gamedata.all_mobs array
+# based on the ID that the user has selected in the content editor
+var contentData: Dictionary = {}:
 	set(value):
-		contentSource = value
+		contentData = value
 		load_mob_data()
-		mobSelector.sprites_dictionary = Gamedata.mob_materials
+		mobSelector.sprites_collection = Gamedata.mob_materials
 
-#This function will find an item in the contentSource JSOn file with an iD that is equal to self.name
-#If an item is found, it will set all the elements in the editor with the corresponding values
+#This function update the form based on the contentData that has been loaded
 func load_mob_data() -> void:
-	if not FileAccess.file_exists(contentSource):
-		return
-
-	var file = FileAccess.open(contentSource, FileAccess.READ)
-	var data = JSON.parse_string(file.get_as_text())
-	file.close()
-
-	for item in data:
-		if item["id"] == self.name:
-			if mobImageDisplay != null and item.has("imagePath"):
-				mobImageDisplay.texture = load(item["imagePath"])
-			if IDTextLabel != null:
-				IDTextLabel.text = str(item["id"])
-			if NameTextEdit != null and item.has("name"):
-				NameTextEdit.text = item["name"]
-			if DescriptionTextEdit != null and item.has("description"):
-				DescriptionTextEdit.text = item["description"]
-			if melee_damage_numedit != null and item.has("melee_damage"):
-				melee_damage_numedit.get_line_edit().text = item["melee_damage"]
-			if melee_range_numedit != null and item.has("melee_range"):
-				melee_damage_numedit.get_line_edit().text = item["melee_range"]
-			if health_numedit != null and item.has("health"):
-				health_numedit.get_line_edit().text = item["health"]
-			if moveSpeed_numedit != null and item.has("move_speed"):
-				moveSpeed_numedit.get_line_edit().text = item["move_speed"]
-			if idle_move_speed_numedit != null and item.has("idle_move_speed"):
-				idle_move_speed_numedit.get_line_edit().text = item["idle_move_speed"]
-			if sightRange_numedit != null and item.has("sight_range"):
-				sightRange_numedit.get_line_edit().text = item["sight_range"]
-			if senseRange_numedit != null and item.has("sense_range"):
-				senseRange_numedit.get_line_edit().text = item["sense_range"]
-			if hearingRange_numedit != null and item.has("hearing_range"):
-				hearingRange_numedit.get_line_edit().text = item["hearing_range"]
-			break
+	if mobImageDisplay != null and contentData.has("imagePath"):
+		mobImageDisplay.texture = load(contentData["imagePath"])
+		PathTextLabel.text = contentData["imagePath"]
+	if IDTextLabel != null:
+		IDTextLabel.text = str(contentData["id"])
+	if NameTextEdit != null and contentData.has("name"):
+		NameTextEdit.text = contentData["name"]
+	if DescriptionTextEdit != null and contentData.has("description"):
+		DescriptionTextEdit.text = contentData["description"]
+	if melee_damage_numedit != null and contentData.has("melee_damage"):
+		melee_damage_numedit.get_line_edit().text = contentData["melee_damage"]
+	if melee_range_numedit != null and contentData.has("melee_range"):
+		melee_damage_numedit.get_line_edit().text = contentData["melee_range"]
+	if health_numedit != null and contentData.has("health"):
+		health_numedit.get_line_edit().text = contentData["health"]
+	if moveSpeed_numedit != null and contentData.has("move_speed"):
+		moveSpeed_numedit.get_line_edit().text = contentData["move_speed"]
+	if idle_move_speed_numedit != null and contentData.has("idle_move_speed"):
+		idle_move_speed_numedit.get_line_edit().text = contentData["idle_move_speed"]
+	if sightRange_numedit != null and contentData.has("sight_range"):
+		sightRange_numedit.get_line_edit().text = contentData["sight_range"]
+	if senseRange_numedit != null and contentData.has("sense_range"):
+		senseRange_numedit.get_line_edit().text = contentData["sense_range"]
+	if hearingRange_numedit != null and contentData.has("hearing_range"):
+		hearingRange_numedit.get_line_edit().text = contentData["hearing_range"]
 	
 
 #The editor is closed, destroy the instance
@@ -71,31 +67,23 @@ func load_mob_data() -> void:
 func _on_close_button_button_up() -> void:
 	queue_free()
 
-#This function takes all data fro the form elements and writes it to the contentSource JSON file.
+# This function takes all data fro the form elements stores them in the contentData
+# Since contentData is a reference to an item in Gamedata.all_mobs
+# the central array for mobdata is updated with the changes as well
+# The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
-	var file = FileAccess.open(contentSource, FileAccess.READ_WRITE)
-	var data = JSON.parse_string(file.get_as_text())
-	file.close()
-
-	for item in data:
-		if item["id"] == IDTextLabel.text:
-			item["imagePath"] = mobImageDisplay.texture.resource_path
-			item["name"] = NameTextEdit.text
-			item["description"] = DescriptionTextEdit.text
-			item["melee_damage"] = melee_damage_numedit.get_line_edit().text
-			item["melee_range"] = melee_damage_numedit.get_line_edit().text
-			item["health"] = health_numedit.get_line_edit().text
-			item["move_speed"] = moveSpeed_numedit.get_line_edit().text
-			item["idle_move_speed"] = idle_move_speed_numedit.get_line_edit().text
-			item["sight_range"] = sightRange_numedit.get_line_edit().text
-			item["sense_range"] = senseRange_numedit.get_line_edit().text
-			item["hearing_range"] = hearingRange_numedit.get_line_edit().text
-			break
-
-	file = FileAccess.open(contentSource, FileAccess.WRITE)
-	file.store_string(JSON.stringify(data))
-	file.close()
-
+	contentData["imagePath"] = PathTextLabel.text
+	contentData["name"] = NameTextEdit.text
+	contentData["description"] = DescriptionTextEdit.text
+	contentData["melee_damage"] = melee_damage_numedit.get_line_edit().text
+	contentData["melee_range"] = melee_damage_numedit.get_line_edit().text
+	contentData["health"] = health_numedit.get_line_edit().text
+	contentData["move_speed"] = moveSpeed_numedit.get_line_edit().text
+	contentData["idle_move_speed"] = idle_move_speed_numedit.get_line_edit().text
+	contentData["sight_range"] = sightRange_numedit.get_line_edit().text
+	contentData["sense_range"] = senseRange_numedit.get_line_edit().text
+	contentData["hearing_range"] = hearingRange_numedit.get_line_edit().text
+	data_changed.emit()
 
 #When the mobImageDisplay is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/mobs/". The texture of the mobImageDisplay will change to the selected image
@@ -107,4 +95,4 @@ func _on_mob_image_display_gui_input(event) -> void:
 func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var mobTexture: Resource = clicked_sprite.get_texture()
 	mobImageDisplay.texture = mobTexture
-	PathTextLabel.text = mobTexture.resource_path
+	PathTextLabel.text = mobTexture.resource_path.replace("res://","")
