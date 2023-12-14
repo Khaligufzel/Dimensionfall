@@ -5,8 +5,9 @@
 		],
 		"description": "Field of grass",
 		"id": "grass_plain",
-		"imagePath": "./Mods/Core/Tiles/1.png",
-		"name": "Plain grass"
+		"name": "Plain grass",
+		"shape": "cube",
+		"sprite": "1.png"
 	},
 	{
 		"categories": [
@@ -14,7 +15,7 @@
 		],
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_00",
-		"imagePath": "./Mods/Core/Tiles/woodboards.png",
+		"sprite": "woodboards.png",
 		"name": "Low quality wood floor"
 	},
 	{
@@ -23,7 +24,7 @@
 		],
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_01",
-		"imagePath": "./Mods/Core/Tiles/woodboards1.png",
+		"sprite": "woodboards1.png",
 		"name": "Low quality wood floor"
 	},
 	{
@@ -32,7 +33,7 @@
 		],
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_02",
-		"imagePath": "./Mods/Core/Tiles/woodboards2.png",
+		"sprite": "woodboards2.png",
 		"name": "Low quality wood floor"
 	},
 	{
@@ -41,7 +42,7 @@
 		],
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_dark_00",
-		"imagePath": "./Mods/Core/Tiles/woodboards3.png",
+		"sprite": "woodboards3.png",
 		"name": "Low quality wood floor"
 	},
 	{
@@ -50,7 +51,7 @@
 		],
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_dark_01",
-		"imagePath": "./Mods/Core/Tiles/woodboards4.png",
+		"sprite": "woodboards4.png",
 		"name": "Low quality wood floor"
 	},
 	{
@@ -59,7 +60,7 @@
 		],
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_dark_02",
-		"imagePath": "./Mods/Core/Tiles/woodboards5.png",
+		"sprite": "woodboards5.png",
 		"name": "Low quality wood floor"
 	},
 	{
@@ -68,7 +69,7 @@
 		],
 		"description": "A smooth surface for vehicles to drive on",
 		"id": "road_asphalt_basic",
-		"imagePath": "./Mods/Core/Tiles/asphalt_basic.png",
+		"sprite": "asphalt_basic.png",
 		"name": "Basic asphalt road"
 	},
 	{
@@ -77,7 +78,7 @@
 		],
 		"description": "A smooth surface for vehicles to drive on. It has diagonal markings",
 		"id": "road_asphalt_diagonal",
-		"imagePath": "./Mods/Core/Tiles/asphalt_diag_middle.png",
+		"sprite": "asphalt_diag_middle.png",
 		"name": "Asphalt road with diagonal markings"
 	},
 	{
@@ -86,7 +87,7 @@
 		],
 		"description": "A smooth surface for vehicles to drive on. It has markings indicating a west turn",
 		"id": "road_asphalt_turn_west",
-		"imagePath": "./Mods/Core/Tiles/asphalt_horizontal_middle_downleft.png",
+		"sprite": "asphalt_horizontal_middle_downleft.png",
 		"name": "Asphalt road with markings turning west"
 	},
 	{
@@ -95,7 +96,7 @@
 		],
 		"description": "A smooth surface for vehicles to drive on. It has markings indicating a east turn",
 		"id": "road_asphalt_turn_east",
-		"imagePath": "./Mods/Core/Tiles/asphalt_horizontal_middle_upright.png",
+		"sprite": "asphalt_horizontal_middle_upright.png",
 		"name": "Asphalt road with markings turning east"
 	},
 	{
@@ -104,7 +105,7 @@
 		],
 		"description": "A smooth surface for vehicles to drive on. It has vertical markings",
 		"id": "road_asphalt_vertical",
-		"imagePath": "./Mods/Core/Tiles/asphalt_middle.png",
+		"sprite": "asphalt_middle.png",
 		"name": "Asphalt road with vertical markings"
 	},
 	{
@@ -113,7 +114,7 @@
 		],
 		"description": "A smooth surface for vehicles to drive on. It has markings indicating a north turn",
 		"id": "road_asphalt_turn_north",
-		"imagePath": "./Mods/Core/Tiles/asphalt_middle_downleft.png",
+		"sprite": "asphalt_middle_downleft.png",
 		"name": "Asphalt road with markings turning north"
 	},
 	{
@@ -122,7 +123,7 @@
 		],
 		"description": "A smooth surface for vehicles to drive on. It has horizontal markings",
 		"id": "road_asphalt_horizontal",
-		"imagePath": "./Mods/Core/Tiles/asphalt_middle_horizontal.png",
+		"sprite": "asphalt_middle_horizontal.png",
 		"name": "Asphalt road with horizontal markings"
 	},
 	{
@@ -131,7 +132,7 @@
 		],
 		"description": "A smooth surface for vehicles to drive on. It has markings indicating a south turn",
 		"id": "road_asphalt_turn_south",
-		"imagePath": "./Mods/Core/Tiles/asphalt_middle_upright.png",
+		"sprite": "asphalt_middle_upright.png",
 		"name": "Asphalt road with markings turning south"
 	},
 	{
@@ -141,7 +142,7 @@
 		],
 		"description": "A stone floor wihere the stones are shaped like an arch. Used in an urban environement.",
 		"id": "arc_stones_floor",
-		"imagePath": "./Mods/Core/Tiles/arcstones.png",
+		"sprite": "arcstones.png",
 		"name": "Arc stones floor"
 	},
 	{
@@ -150,7 +151,73 @@
 		],
 		"description": "Field of grass",
 		"id": "grass_plain_01",
-		"imagePath": "./Mods/Core/Tiles/basegrass1.png",
+		"sprite": "basegrass1.png",
 		"name": "Plain grass"
+	},
+	{
+		"categories": [
+			"Slopes",
+			"Urban"
+		],
+		"description": "Wooden stairs that allow you to move up and down",
+		"id": "wood_stairs",
+		"sprite": "4.png",
+		"name": "Wooden stairs",
+		"shape": "slope"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Wall"
+		],
+		"description": "A solid wall made out of bricks",
+		"id": "brick_wall_00",
+		"sprite": "brickroad2.png",
+		"name": "Brick wall",
+		"shape": "cube"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A warm red carpet",
+		"id": "red_carpet_00",
+		"sprite": "redcarpet.png",
+		"name": "Red carpet",
+		"shape": "cube"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A warm blue carpet",
+		"id": "blue_carpet_00",
+		"sprite": "bluecarpet.png",
+		"name": "Blue carpet",
+		"shape": "cube"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A warm orange carpet",
+		"id": "orange_carpet_00",
+		"sprite": "browncarpet.png",
+		"name": "Orange carpet",
+		"shape": "cube"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A road made out of stones shaped like a beehive",
+		"id": "beehive_stones_00",
+		"sprite": "beehive1.png",
+		"name": "Beehive stones",
+		"shape": "cube"
 	}
 ]
