@@ -34,6 +34,7 @@ reflected_light_source = 1
 [sub_resource type="NavigationMesh" id="NavigationMesh_3licq"]
 geometry_parsed_geometry_type = 1
 geometry_source_geometry_mode = 1
+cell_size = 0.1
 agent_height = 0.5
 agent_radius = 0.3
 agent_max_slope = 46.0

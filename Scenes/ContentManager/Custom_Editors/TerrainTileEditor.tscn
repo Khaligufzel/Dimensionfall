@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_x7b0a"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="5_5ngda"]
 
-[node name="TerrainTileEditor" type="Control" node_paths=PackedStringArray("tileImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "tileSelector", "tilePathStringLabel")]
+[node name="TerrainTileEditor" type="Control" node_paths=PackedStringArray("tileImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "tileSelector", "imageNameStringLabel", "cubeShapeCheckbox", "slopeShapeCheckbox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +21,9 @@ NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 CategoriesList = NodePath("VBoxContainer/FormGrid/Editable_Item_List")
 tileSelector = NodePath("Sprite_selector")
-tilePathStringLabel = NodePath("VBoxContainer/FormGrid/PathString")
+imageNameStringLabel = NodePath("VBoxContainer/FormGrid/ImageNameStringLabel")
+cubeShapeCheckbox = NodePath("VBoxContainer/FormGrid/ShapeButtonContainer/CubeShapeCheckBox")
+slopeShapeCheckbox = NodePath("VBoxContainer/FormGrid/ShapeButtonContainer/SlopeShapeCheckBox")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -49,7 +51,7 @@ columns = 2
 
 [node name="ImageLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-text = "Image:"
+text = "Sprite:"
 
 [node name="TileImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
 custom_minimum_size = Vector2(128, 128)
@@ -58,6 +60,13 @@ size_flags_horizontal = 0
 size_flags_stretch_ratio = 0.4
 texture = ExtResource("2_x7b0a")
 expand_mode = 3
+
+[node name="ImageNameLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Sprite name:"
+
+[node name="ImageNameStringLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
 
 [node name="IDLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -68,13 +77,6 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-
-[node name="PathLabel" type="Label" parent="VBoxContainer/FormGrid"]
-layout_mode = 2
-text = "Path:"
-
-[node name="PathString" type="Label" parent="VBoxContainer/FormGrid"]
-layout_mode = 2
 
 [node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -110,10 +112,28 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 header = "Categories"
 
+[node name="ShapeLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Shape:"
+
+[node name="ShapeButtonContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="CubeShapeCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid/ShapeButtonContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Cube"
+
+[node name="SlopeShapeCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid/ShapeButtonContainer"]
+layout_mode = 2
+text = "Slope"
+
 [node name="Sprite_selector" parent="." instance=ExtResource("5_5ngda")]
 visible = false
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="gui_input" from="VBoxContainer/FormGrid/TileImageDisplay" to="." method="_on_tile_image_display_gui_input"]
+[connection signal="button_up" from="VBoxContainer/FormGrid/ShapeButtonContainer/CubeShapeCheckBox" to="." method="_on_cube_shape_check_box_button_up"]
+[connection signal="button_up" from="VBoxContainer/FormGrid/ShapeButtonContainer/SlopeShapeCheckBox" to="." method="_on_slope_shape_check_box_button_up"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

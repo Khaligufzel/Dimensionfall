@@ -1,13 +1,22 @@
 extends Control
 
-const defaultTileData: Dictionary = {"texture": "", "rotation": 0}
+const defaultTileData: Dictionary = {"id": "", "rotation": 0}
 const defaultTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png"
 const aboveTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/tileAbove.png"
 var tileData: Dictionary = defaultTileData.duplicate():
 	set(data):
 		tileData = data
-		if tileData.texture != "":
-			$TextureRect.texture = load("res://Mods/Core/Tiles/" + tileData.texture)
+		if tileData.id != "":
+			# tileData has an id. Now we want to load the json that has that tileid
+			var tileGameData = Gamedata.data.tiles
+			# The index in the tiles json data
+			var myTileIndex: int = Gamedata.get_array_index_by_id(tileGameData,tileData.id)
+			if myTileIndex != -1:
+				# We found the tile json with the specified id, so get that json by using the index
+				var myTileData: Dictionary = tileGameData.data[myTileIndex]
+				$TextureRect.texture = Gamedata.data.tiles.sprites[myTileData.sprite].albedo_texture
+			else:
+				$TextureRect.texture = load(defaultTexture)
 		else:
 			$TextureRect.texture = load(defaultTexture)
 signal tile_clicked(clicked_tile: Control)
@@ -19,10 +28,17 @@ func _on_texture_rect_gui_input(event: InputEvent) -> void:
 				if event.pressed:
 					tile_clicked.emit(self)
 
-func set_texture(res: Resource) -> void:
-	$TextureRect.texture = res
-	var path: String = res.resource_path
-	tileData.texture = path.get_file()
+#func set_texture(res: Resource) -> void:
+	#$TextureRect.texture = res
+	#var path: String = res.resource_path
+	#tileData.texture = path.get_file()
+
+func set_tile_id(id: String) -> void:
+	tileData.id = id
+	var jsonTileData: Dictionary = Gamedata.data.tiles
+	var jsonTile: Dictionary = jsonTileData.data[Gamedata.get_array_index_by_id(jsonTileData,id)]
+	var tileTexture: Resource = Gamedata.data.tiles.sprites[jsonTile.sprite]
+	$TextureRect.texture = tileTexture.albedo_texture
 
 func _on_texture_rect_mouse_entered() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -33,10 +49,10 @@ func set_default() -> void:
 
 func highlight() -> void:
 	$TextureRect.modulate = Color(0.227, 0.635, 0.757)
-	
+
 func unhighlight() -> void:
 	$TextureRect.modulate = Color(1,1,1)
-	
+
 func set_clickable(clickable: bool):
 	if !clickable:
 		mouse_filter = MOUSE_FILTER_IGNORE
@@ -45,7 +61,7 @@ func set_clickable(clickable: bool):
 #This function sets the texture to some static resource that helps the user visualize that something is above
 #If this tile has a texture in its data, set it to the above texture instead
 func set_above():
-	if tileData.texture != "":
+	if tileData.id != "":
 		$TextureRect.texture = load(aboveTexture)
 	else:
 		$TextureRect.texture = null

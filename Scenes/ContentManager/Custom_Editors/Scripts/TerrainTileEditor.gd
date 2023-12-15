@@ -13,27 +13,29 @@ extends Control
 @export var DescriptionTextEdit: TextEdit = null
 @export var CategoriesList: Control = null
 @export var tileSelector: Popup = null
-@export var tileBrushList: HFlowContainer = null
-@export var tilePathStringLabel: Label = null
+@export var imageNameStringLabel: Label = null
+@export var cubeShapeCheckbox: Button = null
+@export var slopeShapeCheckbox: Button = null
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the tile data array should be saved to disk
 # The content editor has connected this signal to Gamedata already
 signal data_changed()
 
 # The data that represents this tile
-# The data is selected from the Gamedata.all_tiles array
+# The data is selected from the Gamedata.data.tiles.data array
 # based on the ID that the user has selected in the content editor
 var contentData: Dictionary = {}:
 	set(value):
 		contentData = value
 		load_tile_data()
-		tileSelector.sprites_collection = Gamedata.tile_materials
+		tileSelector.sprites_collection = Gamedata.data.tiles.sprites
 
 # This function updates the form based on the contentData that has been loaded
 func load_tile_data():
-	if tileImageDisplay != null and contentData.has("imagePath"):
-		tileImageDisplay.texture = load(contentData["imagePath"])
-		tilePathStringLabel.text = contentData["imagePath"]
+	if tileImageDisplay != null and contentData.has("sprite"):
+		var myTexture: Resource = Gamedata.data.tiles.sprites[contentData["sprite"]]
+		tileImageDisplay.texture = myTexture.albedo_texture
+		imageNameStringLabel.text = contentData["sprite"]
 	if IDTextLabel != null:
 		IDTextLabel.text = str(contentData["id"])
 	if NameTextEdit != null and contentData.has("name"):
@@ -44,6 +46,11 @@ func load_tile_data():
 		CategoriesList.clear_list()
 		for category in contentData["categories"]:
 			CategoriesList.add_item_to_list(category)
+	if cubeShapeCheckbox != null and contentData.has("shape"):
+		# By default the cubeShapeCheckbox is selected so we only account for slope
+		if contentData["shape"] == "slope":
+			cubeShapeCheckbox.button_pressed = false
+			slopeShapeCheckbox.button_pressed = true
 
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
@@ -51,14 +58,17 @@ func _on_close_button_button_up():
 	queue_free()
 
 # This function takes all data fro the form elements stores them in the contentData
-# Since contentData is a reference to an item in Gamedata.all_tiles
+# Since contentData is a reference to an item in Gamedata.data.tiles.data
 # the central array for tiledata is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up():
-	contentData["imagePath"] = tilePathStringLabel.text
+	contentData["sprite"] = imageNameStringLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
 	contentData["categories"] = CategoriesList.get_items()
+	contentData["shape"] = "cube"
+	if slopeShapeCheckbox.button_pressed:
+		contentData["shape"] = "slope"
 	data_changed.emit()
 
 #When the tileImageDisplay is clicked, the user will be prompted to select an image from 
@@ -70,5 +80,22 @@ func _on_tile_image_display_gui_input(event):
 func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var tileTexture: Resource = clicked_sprite.get_texture()
 	tileImageDisplay.texture = tileTexture
-	var imagepath: String = tileTexture.resource_path
-	tilePathStringLabel.text = imagepath.replace("res://", "")
+	imageNameStringLabel.text = tileTexture.resource_path.get_file()
+
+# The tile can only be shaped like either a cube or a slope
+# If the user clicks the cube shape button then only the cube shape
+# button should be selected and no other shape buttons
+# Having all shape buttons deselected should not happen.
+func _on_cube_shape_check_box_button_up():
+	slopeShapeCheckbox.button_pressed = false
+	if !cubeShapeCheckbox.button_pressed:
+		cubeShapeCheckbox.button_pressed = true
+
+# The tile can only be shaped like either a cube or a slope
+# If the user clicks the slope shape button then only the slope shape
+# button should be selected and no other shape buttons.
+# Having all shape buttons deselected should not happen.
+func _on_slope_shape_check_box_button_up():
+	cubeShapeCheckbox.button_pressed = false
+	if !slopeShapeCheckbox.button_pressed:
+		slopeShapeCheckbox.button_pressed = true
