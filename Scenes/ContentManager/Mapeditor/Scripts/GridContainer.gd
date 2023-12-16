@@ -65,7 +65,6 @@ func _input(event):
 	# Convert the mouse position to MapScrollWindow's local coordinate system
 	var local_mouse_pos = mapScrollWindow.get_local_mouse_position()
 	var mapScrollWindowRect = mapScrollWindow.get_rect()
-
 	# Check if the mouse is within the MapScrollWindow's rect
 	if !mapScrollWindowRect.has_point(local_mouse_pos):
 		return
@@ -100,9 +99,10 @@ func _input(event):
 
 	#When the users presses and holds the mouse wheel, we scoll the grid
 	if event is InputEventMouseMotion:
+		end_point = event.global_position
 		if is_drawing:
-			end_point = event.global_position
-			update_rectangle()
+			if drawRectangle:
+				update_rectangle()
 
 #Change the color to be red
 func update_rectangle():
@@ -111,12 +111,13 @@ func update_rectangle():
 
 #When one of the grid tiles is clicked, we paint the tile accordingly
 func grid_tile_clicked(clicked_tile):
-	paint_single_tile(clicked_tile)
+	if is_drawing:
+		paint_single_tile(clicked_tile)
 
 #We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile):
-	if drawRectangle:
+	if drawRectangle or !clicked_tile:
 		return
 	if erase:
 		clicked_tile.set_default()
