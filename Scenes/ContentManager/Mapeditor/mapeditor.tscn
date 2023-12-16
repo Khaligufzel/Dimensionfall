@@ -130,7 +130,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.313726, 0.313726, 0.313726, 1)
 
-[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above")]
+[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above", "mapScrollWindow")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -146,6 +146,7 @@ mapEditor = NodePath("../../../../../../..")
 LevelScrollBar = NodePath("../../../../Levelscroller/LevelScrollbar")
 levelgrid_below = NodePath("../Level_Below")
 levelgrid_above = NodePath("../Level_Above")
+mapScrollWindow = NodePath("../../..")
 
 [node name="Level_Below" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer"]
 modulate = Color(1, 1, 1, 0.0980392)

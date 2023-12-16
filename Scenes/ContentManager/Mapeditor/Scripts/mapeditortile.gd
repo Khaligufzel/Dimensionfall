@@ -40,10 +40,6 @@ func set_tile_id(id: String) -> void:
 	var tileTexture: Resource = Gamedata.data.tiles.sprites[jsonTile.sprite]
 	$TextureRect.texture = tileTexture.albedo_texture
 
-func _on_texture_rect_mouse_entered() -> void:
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		tile_clicked.emit(self)
-
 func set_default() -> void:
 	tileData = defaultTileData.duplicate()
 

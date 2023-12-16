@@ -8,6 +8,7 @@ var currentLevelData: Array[Dictionary] = []
 @export var LevelScrollBar: VScrollBar
 @export var levelgrid_below: GridContainer
 @export var levelgrid_above: GridContainer
+@export var mapScrollWindow: ScrollContainer
 var selected_brush: Control
 
 var drawRectangle: bool = false
@@ -60,6 +61,15 @@ func _input(event):
 	#The mapeditor may be invisible if the user selects another tab in the content editor
 	if !mapEditor.visible:
 		return
+	
+	# Convert the mouse position to MapScrollWindow's local coordinate system
+	var local_mouse_pos = mapScrollWindow.get_local_mouse_position()
+	var mapScrollWindowRect = mapScrollWindow.get_rect()
+
+	# Check if the mouse is within the MapScrollWindow's rect
+	if !mapScrollWindowRect.has_point(local_mouse_pos):
+		return
+	
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
@@ -77,15 +87,15 @@ func _input(event):
 				if Input.is_key_pressed(KEY_CTRL) or Input.is_key_pressed(KEY_ALT):
 					get_viewport().set_input_as_handled()
 			MOUSE_BUTTON_LEFT:
-				if drawRectangle:
-					if event.is_pressed():
-						start_point = event.global_position.snapped(snapLevel)
-						is_drawing = true
-					else:
-						end_point = event.global_position.snapped(snapLevel)
-						is_drawing = false
-						paint_in_rectangle()
+				if event.is_pressed():
+					is_drawing = true
+					start_point = event.global_position.snapped(snapLevel)
 				else:
+					end_point = event.global_position.snapped(snapLevel)
+					if is_drawing == true:
+						if drawRectangle:
+							paint_in_rectangle()
+					unhighlight_tiles()
 					is_drawing = false
 
 	#When the users presses and holds the mouse wheel, we scoll the grid
@@ -96,10 +106,8 @@ func _input(event):
 
 #Change the color to be red
 func update_rectangle():
-	if is_drawing:
+	if is_drawing and drawRectangle:
 		highlight_tiles_in_rect()
-	else:
-		unhighlight_tiles()
 
 #When one of the grid tiles is clicked, we paint the tile accordingly
 func grid_tile_clicked(clicked_tile):
