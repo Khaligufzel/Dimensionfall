@@ -9,6 +9,7 @@ var currentLevelData: Array[Dictionary] = []
 @export var levelgrid_below: GridContainer
 @export var levelgrid_above: GridContainer
 @export var mapScrollWindow: ScrollContainer
+@export var brushPreviewTexture: TextureRect
 var selected_brush: Control
 
 var drawRectangle: bool = false
@@ -35,6 +36,8 @@ func _on_mapeditor_ready():
 	snapAmount = 1.28*mapEditor.zoom_level
 	levelgrid_below.hide()
 	levelgrid_above.hide()
+	zoom_level_changed.connect(_on_zoom_level_changed)
+	_on_zoom_level_changed(mapEditor.zoom_level)
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
 func createTiles():
@@ -103,6 +106,16 @@ func _input(event):
 		if is_drawing:
 			if drawRectangle:
 				update_rectangle()
+				
+		# Calculate new position for the brush preview
+		var new_position = event.position + brushPreviewTexture.get_rect().size / 2
+		# Get the boundaries of the mapScrollWindow
+		var scroll_global_pos = mapScrollWindow.get_global_position()
+		# Clamp the new position to the mapScrollWindow's boundaries
+		new_position.x = clamp(new_position.x, scroll_global_pos.x, scroll_global_pos.x + mapScrollWindowRect.size.x - brushPreviewTexture.get_rect().size.x)
+		new_position.y = clamp(new_position.y, scroll_global_pos.y, scroll_global_pos.y + mapScrollWindowRect.size.y - brushPreviewTexture.get_rect().size.y)
+		# Update the position of the brush preview
+		brushPreviewTexture.global_position = new_position
 
 #Change the color to be red
 func update_rectangle():
@@ -220,6 +233,14 @@ func _on_draw_rectangle_toggled(button_pressed):
 
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush):
 	selected_brush = tilebrush
+	update_preview_texture()
+
+func update_preview_texture():
+	if selected_brush:
+		brushPreviewTexture.texture = selected_brush.get_texture()
+		brushPreviewTexture.visible = true
+	else:
+		brushPreviewTexture.visible = false
 
 func _on_show_below_toggled(button_pressed):
 	showBelow = button_pressed
@@ -245,3 +266,9 @@ func save_map_json_file():
 func load_map_json_file():
 	var fileToLoad: String = mapEditor.contentSource
 	mapData = Helper.json_helper.load_json_dictionary_file(fileToLoad)
+
+
+func _on_zoom_level_changed(zoom_level: int):
+	# Calculate the new scale based on zoom level
+	var scale_factor = zoom_level * 0.01 # Adjust this factor as needed
+	brushPreviewTexture.scale = Vector2(scale_factor, scale_factor)

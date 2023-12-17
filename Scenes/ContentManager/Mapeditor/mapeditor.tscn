@@ -145,7 +145,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.313726, 0.313726, 0.313726, 1)
 
-[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above", "mapScrollWindow")]
+[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above", "mapScrollWindow", "brushPreviewTexture")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -162,6 +162,7 @@ LevelScrollBar = NodePath("../../../../Levelscroller/LevelScrollbar")
 levelgrid_below = NodePath("../Level_Below")
 levelgrid_above = NodePath("../Level_Above")
 mapScrollWindow = NodePath("../../..")
+brushPreviewTexture = NodePath("../../../../../../../BrushPreviewTexture")
 
 [node name="Level_Below" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer"]
 modulate = Color(1, 1, 1, 0.0980392)
@@ -219,6 +220,12 @@ size_flags_stretch_ratio = 0.2
 script = ExtResource("5_he816")
 scrolling_Flow_Container = ExtResource("6_onaby")
 tileBrush = ExtResource("8_o4x7s")
+
+[node name="BrushPreviewTexture" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="ready" from="." to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_mapeditor_ready"]
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" method="_on_mapeditor_zoom_level_changed"]

@@ -24,6 +24,7 @@ var zoom_level: int = 20:
 
 func _ready():
 	setPanWindowSize()
+	zoom_level = 20
 	
 func setPanWindowSize():
 	var panWindowWidth: float = 0.8*tileSize*mapWidth
