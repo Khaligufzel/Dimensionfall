@@ -28,10 +28,16 @@ func _on_texture_rect_gui_input(event: InputEvent) -> void:
 				if event.pressed:
 					tile_clicked.emit(self)
 
-#func set_texture(res: Resource) -> void:
-	#$TextureRect.texture = res
-	#var path: String = res.resource_path
-	#tileData.texture = path.get_file()
+func set_rotation_amount(amount: int) -> void:
+	$TextureRect.rotation_degrees = amount
+	tileData.rotation = amount
+	
+func get_rotation_amount() -> int:
+	return $TextureRect.rotation_degrees
+	
+func set_scale_amount(scaleAmount: int) -> void:
+	custom_minimum_size.x = scaleAmount
+	custom_minimum_size.y = scaleAmount
 
 func set_tile_id(id: String) -> void:
 	tileData.id = id
@@ -65,3 +71,7 @@ func set_above():
 		$TextureRect.texture = load(aboveTexture)
 	else:
 		$TextureRect.texture = null
+
+
+func _on_texture_rect_resized():
+	$TextureRect.pivot_offset = size / 2

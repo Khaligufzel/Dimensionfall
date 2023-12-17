@@ -18,6 +18,7 @@ var showBelow: bool = false
 var showAbove: bool = false
 var snapAmount: float
 var defaultMapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
+var rotationAmount: int = 0
 #Contains map metadata like size as well as the data on all levels
 var mapData: Dictionary = defaultMapData.duplicate():
 	set(data):
@@ -36,7 +37,6 @@ func _on_mapeditor_ready():
 	snapAmount = 1.28*mapEditor.zoom_level
 	levelgrid_below.hide()
 	levelgrid_above.hide()
-	zoom_level_changed.connect(_on_zoom_level_changed)
 	_on_zoom_level_changed(mapEditor.zoom_level)
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
@@ -56,7 +56,6 @@ func createTiles():
 var start_point = Vector2()
 var end_point = Vector2()
 var is_drawing = false
-var mouse_button_pressed: bool = false
 var snapLevel: Vector2 = Vector2(snapAmount, snapAmount).round()
 
 #When the user presses and holds the middle mousebutton and moves the mouse, change the parent's scroll_horizontal and scroll_vertical properties appropriately
@@ -136,6 +135,7 @@ func paint_single_tile(clicked_tile):
 		clicked_tile.set_default()
 	elif selected_brush:
 		clicked_tile.set_tile_id(selected_brush.tileID)
+		clicked_tile.set_rotation_amount(rotationAmount) # Apply rotation
 
 #When this function is called, loop over all the TileGrid's children and get the tileData property. Store this data in the currentLevelData array
 func storeLevelData():
@@ -272,3 +272,17 @@ func _on_zoom_level_changed(zoom_level: int):
 	# Calculate the new scale based on zoom level
 	var scale_factor = zoom_level * 0.01 # Adjust this factor as needed
 	brushPreviewTexture.scale = Vector2(scale_factor, scale_factor)
+	brushPreviewTexture.pivot_offset = brushPreviewTexture.size / 2
+	for tile in get_children():
+		tile.set_scale_amount(1.28*zoom_level)
+	for tile in levelgrid_below.get_children():
+		tile.set_scale_amount(1.28*zoom_level)
+	for tile in levelgrid_above.get_children():
+		tile.set_scale_amount(1.28*zoom_level)
+	
+
+# When the user releases the mouse button on the rotate right button
+func _on_rotate_right_button_up():
+	rotationAmount += 90
+	rotationAmount = rotationAmount % 360 # Keep rotation within 0-359 degrees
+	brushPreviewTexture.rotation_degrees = rotationAmount

@@ -25,3 +25,4 @@ expand_mode = 3
 
 [connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
 [connection signal="mouse_entered" from="TextureRect" to="." method="_on_texture_rect_mouse_entered"]
+[connection signal="resized" from="TextureRect" to="." method="_on_texture_rect_resized"]
