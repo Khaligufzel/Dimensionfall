@@ -1,13 +1,21 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=19 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/GridContainer.gd" id="2_sf17m"]
+[ext_resource type="Texture2D" uid="uid://cxhp6hye2ufp2" path="res://Images/Icons/IconRectangleUnchecked.png" id="3_70koh"]
+[ext_resource type="Texture2D" uid="uid://5fsf8rh6w0pb" path="res://Images/Icons/IconRectangleChecked.png" id="3_eu7pp"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Levelscroller.gd" id="3_i1qbw"]
 [ext_resource type="PackedScene" uid="uid://3x0kjiu7lqg7" path="res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn" id="4_lqbjy"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/TilebrushList.gd" id="5_he816"]
+[ext_resource type="Texture2D" uid="uid://7pbgyyv6lna1" path="res://Images/Icons/IconEraserChecked.png" id="5_n3fyt"]
+[ext_resource type="Texture2D" uid="uid://hik7bkdfc51t" path="res://Images/Icons/IconEraserUnchecked.png" id="6_6lnwx"]
 [ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="6_onaby"]
+[ext_resource type="Texture2D" uid="uid://kjsnbbs2o68u" path="res://Images/Icons/IconArrowDownChecked.png" id="7_s4wos"]
 [ext_resource type="PackedScene" uid="uid://cccnrdolr1bfo" path="res://Scenes/ContentManager/Mapeditor/tilebrush.tscn" id="8_o4x7s"]
+[ext_resource type="Texture2D" uid="uid://bsxgq272ca2kw" path="res://Images/Icons/IconArrowDownUnchecked.png" id="8_xcusj"]
+[ext_resource type="Texture2D" uid="uid://dk8cdxff84idk" path="res://Images/Icons/IconArrowUpChecked.png" id="9_etume"]
+[ext_resource type="Texture2D" uid="uid://biircfcjvj7lp" path="res://Images/Icons/IconArrowUpUnchecked.png" id="10_0rhye"]
 
 [sub_resource type="Gradient" id="Gradient_x1sdl"]
 
@@ -90,20 +98,27 @@ text = "32"
 
 [node name="DrawRectangle" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-text = "Rectangle"
+tooltip_text = "Paint in a rectangle"
+theme_override_icons/checked = ExtResource("3_eu7pp")
+theme_override_icons/unchecked = ExtResource("3_70koh")
 
 [node name="Erase" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-text = "Erase"
+tooltip_text = "Erase tiles on the map"
+theme_override_icons/checked = ExtResource("5_n3fyt")
+theme_override_icons/unchecked = ExtResource("6_6lnwx")
 
 [node name="ShowBelow" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-text = "Below"
+tooltip_text = "Show the level below"
+theme_override_icons/checked = ExtResource("7_s4wos")
+theme_override_icons/unchecked = ExtResource("8_xcusj")
 
 [node name="ShowAbove" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-text = "Above
-"
+tooltip_text = "Show the level above"
+theme_override_icons/checked = ExtResource("9_etume")
+theme_override_icons/unchecked = ExtResource("10_0rhye")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/MapeditorContainer"]
 layout_mode = 2
