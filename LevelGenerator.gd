@@ -72,7 +72,8 @@ func add_item_to_map(item: Dictionary):
 
 func generate_level() -> void:
 	var level_name: String = Helper.current_level_name
-	var tileid: String = ""
+	var tileJSON: Dictionary = {}
+	var myRotation: int = 0
 	if level_name == "":
 		get_level_json()
 	else:
@@ -104,15 +105,30 @@ func generate_level() -> void:
 					# of blocks that we need to instantiate.
 					# If yes, then instantiate
 					if level[current_block]:
-						tileid = level[current_block].id
-						if tileid != "":
-							var block = create_block_with_id(tileid)
-							level_node.add_child(block)
-							block.global_position.x = w
-							block.global_position.z = h
+						tileJSON = level[current_block]
+						if tileJSON.has("id"):
+							if tileJSON.id != "":
+								var block = create_block_with_id(tileJSON.id)
+								level_node.add_child(block)
+								block.global_position.x = w
+								block.global_position.z = h
+								if tileJSON.has("rotation"):
+									if tileJSON.rotation != 0:
+										# We subtract 90 so we know that north is 
+										# on the top of the screen
+										# The default block has a y rotation of 90
+										# So it is already pointing north (0 = 90)
+										# 90 = 0 - points east
+										# 180 (we add 90 instead of subtract) = 270 = south
+										# 270 = 180 - points west
+										myRotation = tileJSON.rotation
+										if myRotation == 180:
+											block.rotation_degrees = Vector3(0,myRotation+90,0)
+										else:
+											block.rotation_degrees = Vector3(0,myRotation-90,0)
 					current_block += 1
 		level_number += 1
-	
+
 	# YEAH I KNOW THAT SHOULD BE ONE FUNCTION, BUT IT'S 2:30 AM and... I'm TIRED LOL
 func get_level_json():
 	var file = default_level_json
@@ -145,6 +161,10 @@ func create_block_with_id(id: String) -> StaticBody3D:
 			block = defaultBlock.instantiate()
 	else:
 		block = defaultBlock.instantiate()
+		
+		
+	#tileJSON.sprite is the 'sprite' key in the json that was found for this tile
+	#If the sprite is found in the tile sprites, we assign it.
 	if tileJSON.sprite in Gamedata.data.tiles.sprites:
 		var material = Gamedata.data.tiles.sprites[tileJSON.sprite]
 		block.update_texture(material)

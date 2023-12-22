@@ -15,6 +15,7 @@ var tileData: Dictionary = defaultTileData.duplicate():
 				# We found the tile json with the specified id, so get that json by using the index
 				var myTileData: Dictionary = tileGameData.data[myTileIndex]
 				$TextureRect.texture = Gamedata.data.tiles.sprites[myTileData.sprite].albedo_texture
+				set_rotation_amount(tileData.rotation)
 			else:
 				$TextureRect.texture = load(defaultTexture)
 		else:

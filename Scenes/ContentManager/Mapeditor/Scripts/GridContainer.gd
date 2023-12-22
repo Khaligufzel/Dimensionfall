@@ -10,6 +10,7 @@ var currentLevelData: Array[Dictionary] = []
 @export var levelgrid_above: GridContainer
 @export var mapScrollWindow: ScrollContainer
 @export var brushPreviewTexture: TextureRect
+@export var buttonRotateRight: Button
 var selected_brush: Control
 
 var drawRectangle: bool = false
@@ -116,7 +117,7 @@ func _input(event):
 		# Update the position of the brush preview
 		brushPreviewTexture.global_position = new_position
 
-#Change the color to be red
+# Highlight tiles that are in the rectangle that the user has drawn with the mouse
 func update_rectangle():
 	if is_drawing and drawRectangle:
 		highlight_tiles_in_rect()
@@ -144,8 +145,8 @@ func storeLevelData():
 		currentLevelData.append(child.tileData)
 	mapData.levels[currentLevel] = currentLevelData.duplicate()
 
-#Loads the leveldata from the mapdata
-#If no data exists, use the default to create a new map
+# Loads the leveldata from the mapdata
+# If no data exists, use the default to create a new map
 func loadLevelData(newLevel: int):
 	if newLevel > 0 and showBelow:
 		levelgrid_below.show()
@@ -270,7 +271,7 @@ func load_map_json_file():
 
 func _on_zoom_level_changed(zoom_level: int):
 	# Calculate the new scale based on zoom level
-	var scale_factor = zoom_level * 0.01 # Adjust this factor as needed
+	var scale_factor = zoom_level * 0.01 
 	brushPreviewTexture.scale = Vector2(scale_factor, scale_factor)
 	brushPreviewTexture.pivot_offset = brushPreviewTexture.size / 2
 	for tile in get_children():
@@ -285,4 +286,6 @@ func _on_zoom_level_changed(zoom_level: int):
 func _on_rotate_right_button_up():
 	rotationAmount += 90
 	rotationAmount = rotationAmount % 360 # Keep rotation within 0-359 degrees
+	buttonRotateRight.text = str(rotationAmount)
 	brushPreviewTexture.rotation_degrees = rotationAmount
+	brushPreviewTexture.pivot_offset = brushPreviewTexture.size / 2
