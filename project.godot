@@ -53,6 +53,7 @@ folder_colors={
 "res://Scenes/ContentManager/Custom_Widgets/Scripts/": "green",
 "res://Scenes/ContentManager/Mapeditor/": "blue",
 "res://Scenes/ContentManager/Scripts/": "green",
+"res://Scenes/Overmap/Scripts/": "green",
 "res://Scripts/": "green",
 "res://addons/": "gray"
 }
