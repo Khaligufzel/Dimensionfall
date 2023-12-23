@@ -13,7 +13,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_7fypm")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TileSprite" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -23,6 +23,19 @@ grow_vertical = 2
 texture = ExtResource("2_rued1")
 expand_mode = 3
 
-[connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
-[connection signal="mouse_entered" from="TextureRect" to="." method="_on_texture_rect_mouse_entered"]
-[connection signal="resized" from="TextureRect" to="." method="_on_texture_rect_resized"]
+[node name="MobSprite" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rued1")
+expand_mode = 3
+
+[connection signal="gui_input" from="TileSprite" to="." method="_on_texture_rect_gui_input"]
+[connection signal="mouse_entered" from="TileSprite" to="." method="_on_texture_rect_mouse_entered"]
+[connection signal="resized" from="TileSprite" to="." method="_on_texture_rect_resized"]
+[connection signal="gui_input" from="MobSprite" to="." method="_on_texture_rect_gui_input"]
+[connection signal="mouse_entered" from="MobSprite" to="." method="_on_texture_rect_mouse_entered"]

@@ -1,7 +1,5 @@
 extends VBoxContainer
 
-#@onready var tileBrush: PackedScene = preload("res://Scenes/ContentManager/Mapeditor/tilebrush.tscn")
-#@onready var scrolling_Flow_Container: PackedScene = preload("res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn")
 @export var scrolling_Flow_Container: PackedScene = null
 @export var tileBrush: PackedScene = null
 
@@ -14,9 +12,36 @@ var selected_brush: Control:
 		tile_brush_selection_change.emit(selected_brush)
 
 func _ready():
+	loadMobs()
 	loadTiles()
 	
-# this function will read all files in "res://Mods/Core/Tiles/" and for each file it will create a texturerect and assign the file as the texture of the texturerect. Then it will add the texturerect as a child to $HSplitContainer/EntitiesContainer/TilesList
+# this function will read all files in Gamedata.data.tiles.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
+func loadMobs():
+	var mobList: Array = Gamedata.data.mobs.data
+
+	var newMobsList: Control = scrolling_Flow_Container.instantiate()
+	newMobsList.header = "Mobs"
+	add_child(newMobsList)
+	for item in mobList:
+		if item.has("sprite"):
+			var imagefileName: String = item["sprite"]
+			imagefileName = imagefileName.get_file()
+			# Get the texture from gamedata
+			var texture: Resource = Gamedata.data.mobs.sprites[imagefileName]
+			# Create a TextureRect node
+			var brushInstance = tileBrush.instantiate()
+			# Assign the texture to the TextureRect
+			brushInstance.set_tile_texture(texture)
+			# Since the map editor needs to knw what tile ID is used,
+			# We store the tile id in a variable in the brush
+			brushInstance.tileID = item.id
+			brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
+			brushInstance.entityType = "mob"
+			# Add the TextureRect as a child to the TilesList
+			newMobsList.add_content_item(brushInstance)
+			instanced_brushes.append(brushInstance)
+
+# this function will read all files in Gamedata.data.tiles.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
 func loadTiles():
 	var tileList: Array = Gamedata.data.tiles.data
 
@@ -47,7 +72,7 @@ func loadTiles():
 				# Add the TextureRect as a child to the TilesList
 				newTilesList.add_content_item(brushInstance)
 				instanced_brushes.append(brushInstance)
-	
+
 #Find the list associated with the category
 func find_list_by_category(category: String) -> Control:
 	var currentCategories: Array[Node] = get_children()

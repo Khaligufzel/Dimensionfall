@@ -141,6 +141,19 @@ func save_data_to_file(contentData: Dictionary):
 	if datapath.ends_with(".json"):
 		Helper.json_helper.write_json_file(datapath,JSON.stringify(contentData.data,"\t"))
 
+# Takes contentdata and an id and returns the json that belongs to an id
+# For example, contentData can be Gamedata.data.tiles
+# and id can be "plain_grass" and it will return the json data for plain_grass
+func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
+	return contentData.data[get_array_index_by_id(contentData,id)]
+
+#Takes contentData and an id and returns the sprite associated with the id
+# For example, contentData can be Gamedata.data.tiles
+# and id can be "plain_grass" and it will return the sprite for plain_grass
+func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
+	var item_json = get_data_by_id(contentData, id)
+	return contentData.sprites[item_json.sprite]
+
 # This functino is called when an editor has changed data
 # The contenteditor (that initializes the individual editors)
 # connects the changed_data signal to this function
