@@ -118,6 +118,7 @@ func remove_item_from_data(contentData: Dictionary, id: String):
 		return
 	if contentData.data[0] is Dictionary:
 		contentData.data.remove_at(get_array_index_by_id(contentData, id))
+		save_data_to_file(contentData)
 	elif contentData.data[0] is String:
 		contentData.data.erase(id)
 		Helper.json_helper.delete_json_file(contentData.dataPath, id)
