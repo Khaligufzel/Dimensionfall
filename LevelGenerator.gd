@@ -9,12 +9,11 @@ var level_width : int = 32
 var level_height : int = 32
 
 
-@onready var defaultBlock: PackedScene = preload("res://Blocks/grass_001.tscn")
-@onready var defaultSlope: PackedScene = preload("res://Blocks/Stairs_to_N001.tscn")
+@onready var defaultBlock: PackedScene = preload("res://Defaults/Blocks/default_block.tscn")
+@onready var defaultSlope: PackedScene = preload("res://Defaults/Blocks/default_slope.tscn")
 @export var defaultEnemy: PackedScene
 @export var defaultItem: PackedScene
 @export var level_manager : Node3D
-@export var block_scenes : Array[PackedScene]
 @export_file var default_level_json
 
 
