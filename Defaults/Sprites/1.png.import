@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c31w0wuk8qabw"
-path.s3tc="res://.godot/imported/2.png-054b4df51feed804de7ba33365535c1c.s3tc.ctex"
+uid="uid://bu00lw1luehxr"
+path.s3tc="res://.godot/imported/1.png-0a2a220d5dbae2055345f2757451ae49.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/Tiles/Actual textures/2.png"
-dest_files=["res://.godot/imported/2.png-054b4df51feed804de7ba33365535c1c.s3tc.ctex"]
+source_file="res://Defaults/Sprites/1.png"
+dest_files=["res://.godot/imported/1.png-0a2a220d5dbae2055345f2757451ae49.s3tc.ctex"]
 
 [params]
 

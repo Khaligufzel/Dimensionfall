@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://b2r6nh12wv41k"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_eb130"]
-[ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://enemy_corpse.tscn" id="2_vyld4"]
+[ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://Defaults/Mobs/enemy_corpse.tscn" id="2_vyld4"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_68hce"]
 [ext_resource type="Script" path="res://Scripts/EnemyAttack.gd" id="4_mt4kh"]
 [ext_resource type="Script" path="res://Scripts/EnemyIdle.gd" id="5_bvewq"]

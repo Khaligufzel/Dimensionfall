@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://dnsl5rk6de7na"]
 
-[ext_resource type="Script" path="res://Blocks/Stairs_to_N001.gd" id="1_5v8v6"]
-[ext_resource type="Material" uid="uid://pdqqtb1s8g6n" path="res://Materials/stairs1.tres" id="1_r8jiw"]
+[ext_resource type="Script" path="res://Defaults/Blocks/default_slope.gd" id="1_x2ar8"]
+[ext_resource type="Material" uid="uid://pdqqtb1s8g6n" path="res://Defaults/Blocks/Materials/stairs1.tres" id="2_qnimx"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_7xabc"]
-material = ExtResource("1_r8jiw")
+material = ExtResource("2_qnimx")
 left_to_right = 1.0
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7isgt"]
@@ -13,7 +13,7 @@ points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5,
 [node name="StairsToN001" type="StaticBody3D" groups=["navigation_mesh_source_group"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 disable_mode = 1
-script = ExtResource("1_5v8v6")
+script = ExtResource("1_x2ar8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)

@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://cpaa3ui52a23c"]
 
-[ext_resource type="Material" uid="uid://buj4ukj1oh4pq" path="res://Materials/floor1.tres" id="1_tldl5"]
-[ext_resource type="Script" path="res://Blocks/grass_001.gd" id="1_yge5h"]
+[ext_resource type="Script" path="res://Defaults/Blocks/default_block.gd" id="1_s3i5a"]
+[ext_resource type="Material" uid="uid://buj4ukj1oh4pq" path="res://Defaults/Blocks/Materials/floor1.tres" id="2_ukdu8"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_j05ve"]
-material = ExtResource("1_tldl5")
+material = ExtResource("2_ukdu8")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gyg2o"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
@@ -12,7 +12,7 @@ points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 
 [node name="Grass001" type="StaticBody3D" groups=["navigation_mesh_source_group"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 disable_mode = 1
-script = ExtResource("1_yge5h")
+script = ExtResource("1_s3i5a")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_j05ve")
