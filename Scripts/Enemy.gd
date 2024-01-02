@@ -35,3 +35,6 @@ func add_corpse(pos: Vector3):
 	get_tree().get_root().add_child(corpse)
 	corpse.global_position = pos
 	corpse.add_to_group("mapitems")
+	
+func set_sprite(sprite: Resource):
+	$Sprite3D.texture = sprite

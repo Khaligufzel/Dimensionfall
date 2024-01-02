@@ -26,6 +26,7 @@ func _ready():
 func generate_map():
 	map_save_folder = get_saved_map_folder()
 	generate_level()
+	# These two functions apply only to maps thet were previously saved in a save game
 	generate_enemies()
 	generate_items()
 	
@@ -45,7 +46,7 @@ func generate_enemies() -> void:
 	var enemiesArray = Helper.json_helper.load_json_array_file(map_save_folder + "/enemies.json")
 	for enemy: Dictionary in enemiesArray:
 		add_enemy_to_map.call_deferred(enemy)
-		
+
 func add_enemy_to_map(enemy: Dictionary):
 	var newEnemy: CharacterBody3D = defaultEnemy.instantiate()
 	newEnemy.add_to_group("Enemies")
@@ -69,13 +70,18 @@ func add_item_to_map(item: Dictionary):
 	newItem.global_position.y = item.global_position_y
 	newItem.global_position.z = item.global_position_z
 
+# Generate the map layer by layer
+# For each layer, add all the blocks with proper rotation
+# If a block has an enemy, add it too
 func generate_level() -> void:
 	var level_name: String = Helper.current_level_name
 	var tileJSON: Dictionary = {}
-	var myRotation: int = 0
 	if level_name == "":
 		get_level_json()
 	else:
+		# Load the default map from json
+		# Unless the map_save_folder is set
+		# In which case we load tha map instead
 		if map_save_folder == "":
 			get_custom_level_json("./Mods/Core/Maps/" + level_name)
 		else:
@@ -107,24 +113,12 @@ func generate_level() -> void:
 						tileJSON = level[current_block]
 						if tileJSON.has("id"):
 							if tileJSON.id != "":
-								var block = create_block_with_id(tileJSON.id)
+								var block: StaticBody3D = create_block_with_id(tileJSON.id)
 								level_node.add_child(block)
 								block.global_position.x = w
 								block.global_position.z = h
-								if tileJSON.has("rotation"):
-									if tileJSON.rotation != 0:
-										# We subtract 90 so we know that north is 
-										# on the top of the screen
-										# The default block has a y rotation of 90
-										# So it is already pointing north (0 = 90)
-										# 90 = 0 - points east
-										# 180 (we add 90 instead of subtract) = 270 = south
-										# 270 = 180 - points west
-										myRotation = tileJSON.rotation
-										if myRotation == 180:
-											block.rotation_degrees = Vector3(0,myRotation+90,0)
-										else:
-											block.rotation_degrees = Vector3(0,myRotation-90,0)
+								apply_block_rotation(tileJSON, block)
+								add_block_mob(tileJSON, block)
 					current_block += 1
 		level_number += 1
 
@@ -142,6 +136,33 @@ func get_custom_level_json(level_path):
 	level_json_as_text = FileAccess.get_file_as_string(file)
 	var json_as_dict = JSON.parse_string(level_json_as_text)
 	level_levels = json_as_dict["levels"]
+
+
+func apply_block_rotation(tileJSON: Dictionary, block: StaticBody3D):
+	if tileJSON.has("rotation"):
+		if tileJSON.rotation != 0:
+			# We subtract 90 so we know that north is 
+			# on the top of the screen
+			# The default block has a y rotation of 90
+			# So it is already pointing north (0 = 90)
+			# 90 = 0 - points east
+			# 180 (we add 90 instead of subtract) = 270 = south
+			# 270 = 180 - points west
+			var myRotation: int = tileJSON.rotation
+			if myRotation == 180:
+				block.rotation_degrees = Vector3(0,myRotation+90,0)
+			else:
+				block.rotation_degrees = Vector3(0,myRotation-90,0)
+
+func add_block_mob(tileJSON: Dictionary, block: StaticBody3D):
+	if tileJSON.has("mob"):
+		var newMob: CharacterBody3D = defaultEnemy.instantiate()
+		newMob.add_to_group("Enemies")
+		newMob.set_sprite(Gamedata.get_sprite_by_id(Gamedata.data.mobs,tileJSON.mob))
+		get_tree().get_root().add_child(newMob)
+		newMob.global_position.x = block.global_position.x
+		newMob.global_position.y = block.global_position.y+0.5
+		newMob.global_position.z = block.global_position.z
 
 
 # This function takes a tile id and creates a new instance of either a block
