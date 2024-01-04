@@ -37,4 +37,10 @@ func add_corpse(pos: Vector3):
 	corpse.add_to_group("mapitems")
 	
 func set_sprite(sprite: Resource):
-	$Sprite3D.texture = sprite
+	#$Sprite3D.texture = sprite
+	#$MeshInstance3D.mesh = BoxMesh.new()
+	var material := StandardMaterial3D.new() 
+	material.albedo_texture = sprite # Set the texture of the material
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	#material.uv1_scale = Vector3(3,2,1)
+	$MeshInstance3D.mesh.surface_set_material(0, material)
