@@ -3,8 +3,8 @@ extends Node
 #This script is loaded in to the helper.gd autoload singleton
 #It can be accessed trough helper.save_helper
 #This scipt provides functions to help transitioning between levels
-#It has functions to save the current level and the location of items, enemies and tiles
-#It also has functions to load saved data and place the items, enemies and tiles on the map
+#It has functions to save the current level and the location of items, mobs and tiles
+#It also has functions to load saved data and place the items, mobs and tiles on the map
 
 var current_save_folder: String = ""
 
@@ -19,7 +19,7 @@ func save_current_level(global_pos: Vector2) -> void:
 			return
 	
 	save_map_data(target_folder)
-	save_enemy_data(target_folder)
+	save_mob_data(target_folder)
 	save_item_data(target_folder)
 
 #Creates a new save folder. The name of this folder will be the current date and time
@@ -36,25 +36,26 @@ func create_new_save():
 	else:
 		print_debug("Failed to create a unique folder for the demo.")
 
-#Save the type and position of all enemies on the map
-func save_enemy_data(target_folder: String) -> void:
-	var enemyData: Array = []
-	var defaultEnemy: Dictionary = {"enemyid": "enemy1", \
+#Save the type and position of all mobs on the map
+func save_mob_data(target_folder: String) -> void:
+	var mobData: Array = []
+	var defaultMob: Dictionary = {"id": "scrapwalker", \
 	"global_position_x": 0, "global_position_y": 0, "global_position_z": 0}
-	var mapEnemies = get_tree().get_nodes_in_group("Enemies")
-	var newEnemyData: Dictionary
-	for enemy in mapEnemies:
-		enemy.remove_from_group("Enemies")
-		newEnemyData = defaultEnemy.duplicate()
-		newEnemyData["global_position_x"] = enemy.global_position.x
-		newEnemyData["global_position_y"] = enemy.global_position.y
-		newEnemyData["global_position_z"] = enemy.global_position.z
-		enemyData.append(newEnemyData.duplicate())
-		enemy.queue_free()
-	Helper.json_helper.write_json_file(target_folder + "/enemies.json",\
-	JSON.stringify(enemyData))
+	var mapMobs = get_tree().get_nodes_in_group("mobs")
+	var newMobData: Dictionary
+	for mob in mapMobs:
+		mob.remove_from_group("mobs")
+		newMobData = defaultMob.duplicate()
+		newMobData["global_position_x"] = mob.global_position.x
+		newMobData["global_position_y"] = mob.global_position.y
+		newMobData["global_position_z"] = mob.global_position.z
+		newMobData["id"] = mob.id
+		mobData.append(newMobData.duplicate())
+		mob.queue_free()
+	Helper.json_helper.write_json_file(target_folder + "/mobs.json",\
+	JSON.stringify(mobData))
 
-#Save the type and position of all enemies on the map
+#Save the type and position of all mobs on the map
 func save_item_data(target_folder: String) -> void:
 	var itemData: Array = []
 	var defaultitem: Dictionary = {"itemid": "item1", \
@@ -94,7 +95,6 @@ func save_map_data(target_folder: String) -> void:
 	var block: StaticBody3D
 	var current_block: int = 0
 	var level_y: int = 0
-	var textureName: String = ""
 	var level_block_count: int = 0
 	for level: Node3D in mapLevels:
 		#The level will be destroyed after saving so we remove them from the group
@@ -111,8 +111,19 @@ func save_map_data(target_folder: String) -> void:
 				for w in level_width:
 					block = level.get_child(current_block)
 					if block.global_position.z == h and block.global_position.x == w:
+						
+						# if the rotation is 90 it is facing north
+						# In that case we subtract 90 so it is saved as 0
+						# If the rotation is 0 it is facing east
+						# In that case we add 90, the same for 90 and 180 degrees
+						var blockRotation: int = block.rotation_degrees.y
+						var myRotation: int
+						if blockRotation == 90:
+							myRotation = blockRotation-90
+						else:
+							myRotation = blockRotation+90
 						mapData.levels[level_y].append({ "id": block.id,\
-						"rotation": block.rotation_degrees.y })
+						"rotation": myRotation })
 						if current_block < level_block_count-1:
 							current_block += 1
 					else:
