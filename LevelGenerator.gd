@@ -117,6 +117,8 @@ func generate_level() -> void:
 								level_node.add_child(block)
 								block.global_position.x = w
 								block.global_position.z = h
+								# Remmeber the id for save and load purposes
+								block.id = tileJSON.id
 								apply_block_rotation(tileJSON, block)
 								add_block_mob(tileJSON, block)
 					current_block += 1

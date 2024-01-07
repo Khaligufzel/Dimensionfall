@@ -1,5 +1,6 @@
 extends StaticBody3D
 
+var id: String = ""
 
 func update_texture(material: BaseMaterial3D) -> void:
 	$MeshInstance3D.mesh = BoxMesh.new()

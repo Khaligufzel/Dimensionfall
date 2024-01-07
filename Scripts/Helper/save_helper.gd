@@ -111,12 +111,11 @@ func save_map_data(target_folder: String) -> void:
 				for w in level_width:
 					block = level.get_child(current_block)
 					if block.global_position.z == h and block.global_position.x == w:
-						textureName = block.get_texture_string()
-						textureName = textureName.replace("res://./Mods/Core/Tiles/", "")
-						mapData.levels[level_y].append({ "texture": textureName,"rotation": 0 })
+						mapData.levels[level_y].append({ "id": block.id,\
+						"rotation": block.rotation_degrees.y })
 						if current_block < level_block_count-1:
 							current_block += 1
 					else:
-						mapData.levels[level_y].append({ "texture": "","rotation": 0 })
+						mapData.levels[level_y].append({})
 	#Overwrite the file if it exists and otherwise create it
 	Helper.json_helper.write_json_file(target_folder + "/map.json", JSON.stringify(mapData))
