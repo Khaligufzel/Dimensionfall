@@ -130,3 +130,21 @@ func save_map_data(target_folder: String) -> void:
 						mapData.levels[level_y].append({})
 	#Overwrite the file if it exists and otherwise create it
 	Helper.json_helper.write_json_file(target_folder + "/map.json", JSON.stringify(mapData))
+
+
+# This function determines the saved map folder path for the current level. 
+# It constructs this path using the current level's position and the current 
+# save folder's path. If the map folder for the level exists, it returns 
+# the full path to this folder; otherwise, it returns an empty string.
+# The current_save_folder is determined when the game is first started
+# and does not change unless the user start a new game.
+func get_saved_map_folder(level_pos: Vector2) -> String:
+	var current_save_folder: String = Helper.save_helper.current_save_folder
+	var dir = DirAccess.open(current_save_folder)
+	var map_folder = "map_x" + str(level_pos.x) + "_y" + str(level_pos.y)
+	var target_folder = current_save_folder+ "/" + map_folder
+	# For example, the target_folder could be: "C:\Users\User\AppData\Roaming\Godot\app_userdata\
+	# CataX\save\2024-01-08T202236\map_x0_y0"
+	if dir.dir_exists(map_folder):
+		return target_folder
+	return ""

@@ -24,21 +24,12 @@ func _ready():
 	$"../NavigationRegion3D".bake_navigation_mesh()
 	
 func generate_map():
-	map_save_folder = get_saved_map_folder()
+	map_save_folder = Helper.save_helper.get_saved_map_folder(Helper.current_level_pos)
 	generate_level()
 	# These two functions apply only to maps thet were previously saved in a save game
 	generate_mobs()
 	generate_items()
 	
-func get_saved_map_folder() -> String:
-	var level_pos: Vector2 = Helper.current_level_pos
-	var current_save_folder: String = Helper.save_helper.current_save_folder
-	var dir = DirAccess.open(current_save_folder)
-	var map_folder = "map_x" + str(level_pos.x) + "_y" + str(level_pos.y)
-	var target_folder = current_save_folder+ "/" + map_folder
-	if dir.dir_exists(map_folder):
-		return target_folder
-	return ""
 
 func generate_mobs() -> void:
 	if map_save_folder == "":

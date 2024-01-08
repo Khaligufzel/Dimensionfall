@@ -1,9 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhqlst5h43xwm"]
+[gd_scene load_steps=3 format=3 uid="uid://bhqlst5h43xwm"]
 
 [ext_resource type="Script" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_sue5h"]
-[ext_resource type="PackedScene" uid="uid://dddjfurdx4wcs" path="res://documentation.tscn" id="2_mdmxg"]
-[ext_resource type="PackedScene" uid="uid://buahqv18qlohm" path="res://Scenes/ContentManager/contentmanager.tscn" id="3_4iq2k"]
 
 [node name="SceneSelector" type="Control" node_paths=PackedStringArray("option_levels")]
 layout_mode = 3
@@ -14,8 +12,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_a5yxj")
 option_levels = NodePath("OptionButton")
-documentation_menu = ExtResource("2_mdmxg")
-content_manager_menu = ExtResource("3_4iq2k")
 
 [node name="PlayDemo" type="Button" parent="."]
 layout_mode = 1
