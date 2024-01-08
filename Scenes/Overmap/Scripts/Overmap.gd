@@ -65,8 +65,11 @@ func update_chunks():
 	# After generating new chunks, you may want to unload any that are off-screen.
 	unload_chunks()
 
-
-func generate_chunk(grid_position: Vector2):
+# This function creates terrain for a specific area on the overmap. It uses a grid_position 
+# to determine where to generate the terrain. The function employs a noise algorithm 
+# to select tile types from a predefined list, creating a chunk of terrain data. 
+# This data is stored in a global dictionary for later use in rendering the overmap.
+func generate_chunk(grid_position: Vector2) -> void:
 	var chunk = []
 	for y in range(chunk_size):  # x goes from 0 to chunk_size - 1
 		for x in range(chunk_size):  # y goes from 0 to chunk_size - 1
@@ -78,8 +81,12 @@ func generate_chunk(grid_position: Vector2):
 			# Scale noise_value to a valid index in the tiles array
 			# Ensure noise_value is scaled correctly based on the number of tiles.
 			var tile_index = int((noise_value + 1) / 2 * tiles.size()) % tiles.size()
-			chunk.append({"tile": tiles[tile_index], "tacticalmap":\
-			get_random_mapname_1_in_100()})
+			if global_x == 0 and global_y == 0:
+				chunk.append({"tile": tiles[tile_index], "global_x": global_x, \
+				"global_y": global_y, "tacticalmap": Gamedata.data.maps.data[0]})
+			else:
+				chunk.append({"tile": tiles[tile_index], "global_x": global_x, \
+				"global_y": global_y, "tacticalmap": get_random_mapname_1_in_100()})
 	# Store the chunk using the grid_position as the key.
 	Helper.chunks[grid_position] = chunk
 	
@@ -112,7 +119,8 @@ func unload_chunks():
 
 
 var mouse_button_pressed: bool = false
-#We will emit this signal when the position_coords change
+# We will emit this signal when the position_coords change
+# Which happens when the user has panned the overmap
 signal position_coord_changed(delta)
 func _input(event):
 	if !visible:
@@ -153,8 +161,17 @@ func on_position_coord_changed(delta):
 	update_chunks()
 	if positionLabel:
 		positionLabel.text = "Position: " + str(position_coord)
-		
-		
+
+# This function creates and populates a GridContainer with tiles based on chunk data. 
+# It takes two arguments: chunk, an array containing data for each tile in the chunk, 
+# and chunk_position, a Vector2 representing the chunk's position in the world. 
+# The function generates a new GridContainer, sets its columns to chunk_width, and 
+# ensures no space between tiles. It then iterates over the chunk array, creating 
+# a tile for each entry. Each tile's metadata is set with global and local positions, 
+# and additional data like map files if available. Tiles are added as children to 
+# the GridContainer, which is positioned based on chunk_position. The function returns 
+# the populated GridContainer. This process visually represents a section of the 
+# overmap in a grid format.
 func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 	var grid_container = GridContainer.new()
 	grid_container.columns = chunk_width  # Set the number of columns to chunk_width.
@@ -178,14 +195,18 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 		var tile = overmapTile.instantiate()
 		var local_x = column*tile_size
 		var local_y = row*tile_size
-		var global_x = chunk_position.x + local_x
-		var global_y = chunk_position.y + local_y
+		var global_x = chunk[i].global_x
+		var global_y = chunk[i].global_y
 		# Assign the tile's row and column information
 		tile.set_meta("global_pos", Vector2(global_x,global_y))
 		tile.set_meta("local_pos", Vector2(local_x,local_y))
 		if chunk[i].tacticalmap != "":
 			tile.set_meta("map_file", chunk[i].tacticalmap)  # Set the metadata of the tile
 			tile.set_color(Color(1, 0.8, 0.8))  # Make the tile slightly red
+
+		if global_x == 0 and global_y == 0:
+			tile.set_color(Color(0.3, 0.3, 1))  # blue color
+
 		tile.set_texture(texture)
 		tile.connect("tile_clicked", _on_tile_clicked)
 		# Add the tile as a child to the grid container
@@ -227,3 +248,28 @@ func _on_travel_button_button_up():
 	var mapFile = selected_overmap_tile.get_meta("map_file")
 	var global_pos: Vector2 = selected_overmap_tile.get_meta("global_pos")
 	Helper.switch_level(mapFile, global_pos)
+
+
+func _on_home_button_button_up():
+	# Calculate the screen center offset
+	var screen_center_offset = get_viewport_rect().size * 0.5
+
+	# Convert screen center offset to world coordinates based on the tile size
+	var halfTileSize = tile_size/12
+	var world_center_offset = screen_center_offset / halfTileSize
+
+	# Calculate the new position as the negative of the world center offset
+	var new_position_coord = -world_center_offset
+
+	# Calculate the delta for moving the tiles
+	var delta = new_position_coord - position_coord
+
+	# Update position_coord to the new position
+	position_coord = new_position_coord
+
+	# Emit the signal to update the overmap's position and tiles
+	emit_signal("position_coord_changed", delta)
+	
+	# Optionally, update the position label if it exists
+	if positionLabel:
+		positionLabel.text = "Position: (0, 0)"
