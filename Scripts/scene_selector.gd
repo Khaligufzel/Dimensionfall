@@ -6,27 +6,9 @@ var level_files : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	dir_contents("./Mods/Core/Maps/")
-	
+	level_files = Helper.json_helper.file_names_in_dir("./Mods/Core/Maps/")
 	for level_file in level_files:
 		load_game_list.add_item(level_file)
-
-
-func dir_contents(path):
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				print("Found directory: " + file_name)
-			else:
-				print("Found file: " + file_name)
-				level_files.append(file_name)
-			file_name = dir.get_next()
-	else:
-		print("An error occurred when trying to access the path.")
-
 
 func _on_view_level_pressed():
 	Helper.switch_level(level_files[load_game_list.get_selected_id()],Vector2(0,0))

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_sue5h"]
 
-[node name="SceneSelector" type="Control"]
+[node name="SceneSelector" type="Control" node_paths=PackedStringArray("load_game_list")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_a5yxj")
+load_game_list = NodePath("LoadGameList")
 
 [node name="PlayDemo" type="Button" parent="."]
 layout_mode = 1
