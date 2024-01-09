@@ -10,10 +10,12 @@ func _ready():
 		load_game_list.add_item(saved_game)
 
 func _on_load_game_button_pressed():
-	#Helper.switch_level(level_files[load_game_list.get_selected_id()],Vector2(0,0))
 	var selected_game_folder = saved_game_folders[load_game_list.get_selected_id()]
-	# Here you can call the function to load the game using the selected folder
-	# Example: Helper.load_game(selected_game_folder)
+	Helper.save_helper.load_game_from_folder(selected_game_folder)
+	# We pass the name of the default map and coordinates
+	# If there is a saved game, it will not load the provided map
+	# but rather the one that was saved in the game that was loaded
+	Helper.switch_level("Generichouse.json", Vector2(0, 0))
 
 # When the play demo button is pressed
 # Create a new folder in the user directory
