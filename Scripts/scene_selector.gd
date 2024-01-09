@@ -1,17 +1,19 @@
 extends Control
 
-var level_files : Array
+var saved_game_folders : Array
 @export var load_game_list : OptionButton 
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	level_files = Helper.json_helper.file_names_in_dir("./Mods/Core/Maps/")
-	for level_file in level_files:
-		load_game_list.add_item(level_file)
+	saved_game_folders = Helper.json_helper.folder_names_in_dir("user://save/")
+	for saved_game in saved_game_folders:
+		load_game_list.add_item(saved_game)
 
-func _on_view_level_pressed():
-	Helper.switch_level(level_files[load_game_list.get_selected_id()],Vector2(0,0))
+func _on_load_game_button_pressed():
+	#Helper.switch_level(level_files[load_game_list.get_selected_id()],Vector2(0,0))
+	var selected_game_folder = saved_game_folders[load_game_list.get_selected_id()]
+	# Here you can call the function to load the game using the selected folder
+	# Example: Helper.load_game(selected_game_folder)
 
 # When the play demo button is pressed
 # Create a new folder in the user directory

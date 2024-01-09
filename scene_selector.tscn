@@ -58,6 +58,6 @@ theme_override_font_sizes/font_size = 25
 text = "Content Manager"
 
 [connection signal="pressed" from="PlayDemo" to="." method="_on_play_demo_pressed"]
-[connection signal="pressed" from="LoadGameButton" to="." method="_on_view_level_pressed"]
+[connection signal="pressed" from="LoadGameButton" to="." method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="button_up" from="ContentManagerButton" to="." method="_on_content_manager_button_button_up"]

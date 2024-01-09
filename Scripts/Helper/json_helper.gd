@@ -63,6 +63,23 @@ func file_names_in_dir(dirName: String, extensionFilter: Array = []) -> Array:
 	return fileNames
 
 
+# This function lists all the files in a specified directory. 
+# it takes ne argument: `dirName` (the path of the directory
+# to list folders from) 
+func folder_names_in_dir(path: String) -> Array:
+	var dirs: Array = []
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var folder_name = dir.get_next()
+		while folder_name != "":
+			if dir.current_is_dir():
+				dirs.append(folder_name)
+			folder_name = dir.get_next()
+	else:
+		print("An error occurred when trying to access the path.")
+	return dirs
+
 #This function takes a json string and saves it as a json file.
 func write_json_file(path: String, json: String):
 	# Save the JSON string to the selected file location

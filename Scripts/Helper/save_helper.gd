@@ -1,7 +1,7 @@
 extends Node
 
 #This script is loaded in to the helper.gd autoload singleton
-#It can be accessed trough helper.save_helper
+#It can be accessed trough Helper.save_helper
 #This scipt provides functions to help transitioning between levels
 #It has functions to save the current level and the location of items, mobs and tiles
 #It also has functions to load saved data and place the items, mobs and tiles on the map
@@ -148,3 +148,10 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 	if dir.dir_exists(map_folder):
 		return target_folder
 	return ""
+
+# Function to load game.json from a given saved game folder
+func load_game_from_folder(save_folder_name: String) -> Dictionary:
+	current_save_folder = "user://save/" + save_folder_name
+	var game_data_path = current_save_folder + "/game.json"
+	var gameJSON: Dictionary = Helper.json_helper.load_json_dictionary_file(game_data_path)
+	return gameJSON
