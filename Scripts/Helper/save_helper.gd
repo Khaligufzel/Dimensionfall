@@ -149,7 +149,11 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 		return target_folder
 	return ""
 
-	# Function to save the current state of the overmap
+# Function to load game.json from a given saved game folder
+func load_game_from_folder(save_folder_name: String) -> void:
+	current_save_folder = "user://save/" + save_folder_name
+
+# Function to save the current state of the overmap
 func save_overmap_state() -> void:
 	var save_path = current_save_folder + "/overmap_state.json"
 	var save_data: Dictionary = {
