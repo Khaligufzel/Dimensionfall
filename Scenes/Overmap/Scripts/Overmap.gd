@@ -36,14 +36,14 @@ func _ready():
 # and `position_coord` is the current position in the world
 func update_chunks():
 	# Convert the current position to grid coordinates based on the grid's pixel size
-	var grid_position = (Helper.position_coord / grid_pixel_size).floor() * grid_pixel_size
+	var grid_position: Vector2 = (Helper.position_coord / grid_pixel_size).floor() * grid_pixel_size
 	#The position is increase arbitrarily so it is more center of screen
 	grid_position.x += grid_pixel_size
 	grid_position.y += grid_pixel_size
 
 	for x in range(-1, 1):
 		for y in range(-1, 1):
-			var chunk_grid_position = grid_position + Vector2(x, y) * grid_pixel_size
+			var chunk_grid_position: Vector2 = grid_position + Vector2(x, y) * grid_pixel_size
 			# Use the separate noise_chunks Dictionary for retrieving the noise data
 			if not Helper.chunks.has(chunk_grid_position):
 				generate_chunk(chunk_grid_position)
