@@ -62,6 +62,7 @@ func add_item_to_map(item: Dictionary):
 	newItem.global_position.x = item.global_position_x
 	newItem.global_position.y = item.global_position_y
 	newItem.global_position.z = item.global_position_z
+	newItem.get_node(newItem.inventory).deserialize(item.inventory)
 
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation

@@ -425,6 +425,7 @@ visible = false
 [connection signal="timeout" from="ProgressBar/ProgressBarTimer" to="." method="_on_progress_bar_timer_timeout"]
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_exited"]
+[connection signal="item_added" from="InventoryGridStacked" to="." method="_on_inventory_grid_stacked_item_added"]
 [connection signal="item_mouse_entered" from="CtrlInventoryGridEx" to="." method="_on_inventory_item_mouse_entered"]
 [connection signal="item_mouse_exited" from="CtrlInventoryGridEx" to="." method="_on_inventory_item_mouse_exited"]
 [connection signal="item_mouse_entered" from="CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_entered"]
