@@ -66,8 +66,8 @@ func _ready():
 	current_right_leg_health = right_leg_health
 	current_head_health = head_health
 	current_torso_health = torso_health
-	
 	current_stamina = stamina
+	Helper.save_helper.load_player_state(self)
 	
 	
 func _process(_delta):
@@ -207,8 +207,10 @@ func check_if_alive():
 		#return true
 
 func die():
-	print("Player died")
-	is_alive = false
+	if is_alive:
+		print("Player died")
+		is_alive = false
+		$"../../../HUD".get_node("GameOver").show()
 	
 func transfer_damage_to_torso(damage: float):
 	current_torso_health -= damage

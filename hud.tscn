@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=24 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cpcn3qq8okj12" path="res://item_craft_button.tscn" id="15_otw1a"]
 [ext_resource type="ButtonGroup" uid="uid://bcjuavqvre6mk" path="res://crafting_recipes_button_group.tres" id="16_2oloe"]
 [ext_resource type="PackedScene" uid="uid://bgswuol251m3u" path="res://Scenes/Overmap/Overmap.tscn" id="19_oomhy"]
+[ext_resource type="PackedScene" uid="uid://ckuh2s0nvwg0x" path="res://Scenes/GameOver.tscn" id="20_jlthm"]
 
 [sub_resource type="Theme" id="Theme_xn5t2"]
 default_font = ExtResource("1_pxloi")
@@ -420,6 +421,9 @@ text = "Required items
 autowrap_mode = 3
 
 [node name="Overmap" parent="." instance=ExtResource("19_oomhy")]
+visible = false
+
+[node name="GameOver" parent="." instance=ExtResource("20_jlthm")]
 visible = false
 
 [connection signal="timeout" from="ProgressBar/ProgressBarTimer" to="." method="_on_progress_bar_timer_timeout"]
