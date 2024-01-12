@@ -6,13 +6,16 @@ var saved_game_folders : Array
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	saved_game_folders = Helper.json_helper.folder_names_in_dir("user://save/")
-	for saved_game in saved_game_folders:
+	# Iterate over the saved_game_folders array in reverse order
+	for i in range(saved_game_folders.size() - 1, -1, -1):
+		var saved_game = saved_game_folders[i]
 		load_game_list.add_item(saved_game)
 
 func _on_load_game_button_pressed():
 	var selected_game_folder = saved_game_folders[load_game_list.get_selected_id()]
 	Helper.save_helper.load_game_from_folder(selected_game_folder)
 	Helper.save_helper.load_overmap_state()
+	Helper.save_helper.load_player_inventory()
 	# We pass the name of the default map and coordinates
 	# If there is a saved game, it will not load the provided map
 	# but rather the one that was saved in the game that was loaded
