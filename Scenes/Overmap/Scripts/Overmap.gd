@@ -14,6 +14,11 @@ var chunk_size = 32
 var tile_size = 32
 var grid_pixel_size = chunk_size*tile_size
 var selected_overmap_tile: Control = null
+# We will emit this signal when the position_coords change
+# Which happens when the user has panned the overmap
+signal position_coord_changed(delta)
+#Fires when the player has pressed the travel button
+signal change_level_pressed()
 
 func _ready():
 	var gameFileJson: Dictionary = Helper.json_helper.load_json_dictionary_file(\
@@ -118,9 +123,6 @@ func unload_chunks():
 
 
 var mouse_button_pressed: bool = false
-# We will emit this signal when the position_coords change
-# Which happens when the user has panned the overmap
-signal position_coord_changed(delta)
 func _input(event):
 	if !visible:
 		return
@@ -244,6 +246,7 @@ func _on_tile_clicked(clicked_tile):
 
 
 func _on_travel_button_button_up():
+	change_level_pressed.emit()
 	var mapFile = selected_overmap_tile.get_meta("map_file")
 	var global_pos: Vector2 = selected_overmap_tile.get_meta("global_pos")
 	Helper.switch_level(mapFile, global_pos)
