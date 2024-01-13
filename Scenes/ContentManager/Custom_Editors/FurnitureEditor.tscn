@@ -13,7 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wqqit")
-furnitureImageDisplay = NodePath("VBoxContainer/FormGrid/TileImageDisplay")
+furnitureImageDisplay = NodePath("VBoxContainer/FormGrid/FurnitureImageDisplay")
 IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
 NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
@@ -49,11 +49,14 @@ columns = 2
 layout_mode = 2
 text = "Sprite:"
 
-[node name="TileImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
+[node name="FurnitureImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_stretch_ratio = 0.4
+focus_next = NodePath("../NameTextEdit")
+focus_previous = NodePath("../Editable_Item_List")
+focus_mode = 2
 texture = ExtResource("1_gm4uu")
 expand_mode = 3
 
@@ -84,7 +87,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 focus_next = NodePath("../DescriptionTextEdit")
-focus_previous = NodePath("../TileImageDisplay")
+focus_previous = NodePath("../FurnitureImageDisplay")
 
 [node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -97,6 +100,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
 focus_next = NodePath("../Editable_Item_List")
 focus_previous = NodePath("../NameTextEdit")
+wrap_mode = 1
 
 [node name="CategoriesLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -106,7 +110,15 @@ text = "Categories:"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_next = NodePath("../FurnitureImageDisplay")
+focus_previous = NodePath("../DescriptionTextEdit")
+focus_mode = 2
 header = "Categories"
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_o3k3a")]
 visible = false
+
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="gui_input" from="VBoxContainer/FormGrid/FurnitureImageDisplay" to="." method="_on_furniture_image_display_gui_input"]
+[connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

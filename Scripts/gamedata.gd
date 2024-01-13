@@ -94,7 +94,7 @@ func duplicate_item_in_data(contentData: Dictionary, id: String, newID: String):
 		print_debug("There should be code here for when a file in the gets duplicated")
 
 # This function appends a new object to an existing array
-# Pass the array to this function and the value of the ID
+# Pass the contentData dictionary to this function and the value of the ID
 # If the data directory ends in .json, it will append an object
 # The object that will be appended will be nothing more then {"id": id}
 # if the data directory does not end in .json, a new file will be added

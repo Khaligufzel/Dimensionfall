@@ -3,6 +3,7 @@ extends Control
 @export var contentList: PackedScene = null
 @export var mapEditor: PackedScene = null
 @export var terrainTileEditor: PackedScene = null
+@export var furnitureEditor: PackedScene = null
 @export var mobEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
@@ -43,6 +44,8 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 		return
 	if data == Gamedata.data.tiles:
 		instantiate_editor(data, itemID, terrainTileEditor)
+	if data == Gamedata.data.furniture:
+		instantiate_editor(data, itemID, furnitureEditor)
 	if data == Gamedata.data.mobs:
 		instantiate_editor(data, itemID, mobEditor)
 	if data == Gamedata.data.maps:

@@ -12,26 +12,29 @@ extends Control
 @export var CategoriesList: Control = null
 @export var furnitureSelector: Popup = null
 @export var imageNameStringLabel: Label = null
+var control_elements: Array = []
 
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the furniture data array should be saved to disk
 # The content editor has connected this signal to Gamedata already
 signal data_changed()
 
+func _ready():
+	control_elements = [furnitureImageDisplay,NameTextEdit,DescriptionTextEdit]
+	
 # The data that represents this furniture
-# The data is selected from the Gamedata.data.furnitures.data array
+# The data is selected from the Gamedata.data.furniture.data array
 # based on the ID that the user has selected in the content editor
 var contentData: Dictionary = {}:
 	set(value):
 		contentData = value
 		load_furniture_data()
-		furnitureSelector.sprites_collection = Gamedata.data.furnitures.sprites
+		furnitureSelector.sprites_collection = Gamedata.data.furniture.sprites
 
 # This function updates the form based on the contentData that has been loaded
 func load_furniture_data():
 	if furnitureImageDisplay != null and contentData.has("sprite"):
-		var myTexture: Resource = Gamedata.data.furnitures.sprites[contentData["sprite"]]
-		furnitureImageDisplay.texture = myTexture.albedo_texture
+		furnitureImageDisplay.texture = Gamedata.data.furniture.sprites[contentData["sprite"]]
 		imageNameStringLabel.text = contentData["sprite"]
 	if IDTextLabel != null:
 		IDTextLabel.text = str(contentData["id"])
@@ -59,6 +62,19 @@ func _on_save_button_button_up():
 	contentData["description"] = DescriptionTextEdit.text
 	contentData["categories"] = CategoriesList.get_items()
 	data_changed.emit()
+
+func _input(event):
+	if event.is_action_pressed("ui_focus_next"):
+		for myControl in control_elements:
+			if myControl.has_focus():
+				if Input.is_key_pressed(KEY_SHIFT):  # Check if Shift key
+					if !myControl.focus_previous.is_empty():
+						myControl.get_node(myControl.focus_previous).grab_focus()
+				else:
+					if !myControl.focus_next.is_empty():
+						myControl.get_node(myControl.focus_next).grab_focus()
+				break
+		get_viewport().set_input_as_handled()
 
 #When the furnitureImageDisplay is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/Furnitures/". The texture of the furnitureImageDisplay will change to the selected image
