@@ -31,6 +31,10 @@ func load_data():
 	if contentData.is_empty():
 		return
 	contentItems.clear()
+	if !contentData.has("data"):
+		return
+	if contentData.data.is_empty():
+		return
 	#If the first item is a string, it's a list of files.
 	#Otherwise, it's a list of objects representing some kind of data
 	if contentData.data[0] is String:

@@ -14,6 +14,7 @@ func _ready():
 	load_content_list(Gamedata.data.maps, "Maps")
 	load_content_list(Gamedata.data.tiles, "Terrain Tiles")
 	load_content_list(Gamedata.data.mobs, "Mobs")
+	load_content_list(Gamedata.data.furniture, "Furniture")
 
 func load_content_list(data: Dictionary, strHeader: String):
 	# Instantiate a contentlist
