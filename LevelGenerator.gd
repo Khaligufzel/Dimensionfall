@@ -13,6 +13,7 @@ var level_height : int = 32
 @onready var defaultSlope: PackedScene = preload("res://Defaults/Blocks/default_slope.tscn")
 @export var defaultMob: PackedScene
 @export var defaultItem: PackedScene
+@export var defaultFurniturePhysics: PackedScene
 @export var level_manager : Node3D
 @export_file var default_level_json
 
@@ -115,6 +116,7 @@ func generate_level() -> void:
 								block.id = tileJSON.id
 								apply_block_rotation(tileJSON, block)
 								add_block_mob(tileJSON, block)
+								add_furniture_to_block(tileJSON, block)
 					current_block += 1
 		level_number += 1
 
@@ -133,6 +135,16 @@ func get_custom_level_json(level_path):
 	var json_as_dict = JSON.parse_string(level_json_as_text)
 	level_levels = json_as_dict["levels"]
 
+func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
+	if tileJSON.has("furniture"):
+		var newFurniture: Node3D = defaultFurniturePhysics.instantiate()
+		newFurniture.add_to_group("furniture")
+		newFurniture.set_sprite(Gamedata.get_sprite_by_id(\
+		Gamedata.data.furniture, tileJSON.furniture))
+		get_tree().get_root().add_child(newFurniture)
+		newFurniture.global_position.x = block.global_position.x
+		newFurniture.global_position.y = block.global_position.y+0.5
+		newFurniture.global_position.z = block.global_position.z
 
 func apply_block_rotation(tileJSON: Dictionary, block: StaticBody3D):
 	if tileJSON.has("rotation"):
