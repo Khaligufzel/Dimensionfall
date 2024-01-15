@@ -1,0 +1,137 @@
+[gd_scene load_steps=13 format=3 uid="uid://0r8ni3u0dosg"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/TacticalMapEditor.gd" id="1_bfw3n"]
+[ext_resource type="Texture2D" uid="uid://b6m2bbbpmsyik" path="res://Images/Icons/IconRotateRightDark.png" id="2_qcvqe"]
+[ext_resource type="Texture2D" uid="uid://5fsf8rh6w0pb" path="res://Images/Icons/IconRectangleChecked.png" id="3_u7g7j"]
+[ext_resource type="Texture2D" uid="uid://cxhp6hye2ufp2" path="res://Images/Icons/IconRectangleUnchecked.png" id="4_no6mb"]
+[ext_resource type="Texture2D" uid="uid://7pbgyyv6lna1" path="res://Images/Icons/IconEraserChecked.png" id="5_142rt"]
+[ext_resource type="Texture2D" uid="uid://hik7bkdfc51t" path="res://Images/Icons/IconEraserUnchecked.png" id="6_w0gff"]
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/TileGrid.gd" id="7_ji7x2"]
+[ext_resource type="PackedScene" uid="uid://f6kl6bo0wsmk" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/TacticalMapEditorTile.tscn" id="8_pt28t"]
+
+[sub_resource type="Gradient" id="Gradient_x1sdl"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rxahe"]
+gradient = SubResource("Gradient_x1sdl")
+width = 24
+
+[sub_resource type="InputEventKey" id="InputEventKey_nrfa0"]
+device = -1
+keycode = 82
+unicode = 114
+
+[sub_resource type="Shortcut" id="Shortcut_hehp2"]
+events = [SubResource("InputEventKey_nrfa0")]
+
+[node name="TacticalMapEditor" type="Control" node_paths=PackedStringArray("tileGrid")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bfw3n")
+tileGrid = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = SubResource("GradientTexture2D_rxahe")
+
+[node name="MapeditorContainer" type="VBoxContainer" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Toolbar" type="HBoxContainer" parent="HSplitContainer/MapeditorContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_stretch_ratio = 0.05
+
+[node name="CloseButton" type="Button" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
+text = "Close"
+
+[node name="SaveButton" type="Button" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
+text = "Save"
+
+[node name="mapsizelabel" type="Label" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+text = "Size: W:"
+
+[node name="MapWidth" type="TextEdit" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+clip_contents = true
+custom_minimum_size = Vector2(40, 22)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 16
+text = "3"
+
+[node name="MapHeightLabel" type="Label" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+text = "H:"
+
+[node name="MapHeight" type="TextEdit" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+clip_contents = true
+custom_minimum_size = Vector2(40, 22)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 16
+text = "3"
+
+[node name="RotateRight" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+tooltip_text = "Rotate the brush to paint with rotation"
+theme_override_icons/checked = ExtResource("2_qcvqe")
+theme_override_icons/unchecked = ExtResource("2_qcvqe")
+shortcut = SubResource("Shortcut_hehp2")
+text = "0"
+
+[node name="DrawRectangle" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+tooltip_text = "Paint in a rectangle"
+theme_override_icons/checked = ExtResource("3_u7g7j")
+theme_override_icons/unchecked = ExtResource("4_no6mb")
+
+[node name="Erase" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+tooltip_text = "Erase tiles on the map"
+theme_override_icons/checked = ExtResource("5_142rt")
+theme_override_icons/unchecked = ExtResource("6_w0gff")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/MapeditorContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer" node_paths=PackedStringArray("mapEditor", "buttonRotateRight")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 32
+script = ExtResource("7_ji7x2")
+tileScene = ExtResource("8_pt28t")
+mapEditor = NodePath("../../../..")
+buttonRotateRight = NodePath("../../Toolbar/RotateRight")
+
+[node name="EntitiesContainer" type="VBoxContainer" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="save_map_json_file"]
+[connection signal="text_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapWidth" to="." method="_on_map_width_text_changed"]
+[connection signal="text_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapHeight" to="." method="_on_map_height_text_changed"]
+[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_rotate_right_button_up"]
+[connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_draw_rectangle_toggled"]
+[connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/Erase" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_erase_toggled"]
