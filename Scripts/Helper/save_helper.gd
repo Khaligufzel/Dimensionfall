@@ -21,6 +21,7 @@ func save_current_level(global_pos: Vector2) -> void:
 	save_map_data(target_folder)
 	save_mob_data(target_folder)
 	save_item_data(target_folder)
+	save_furniture_data(target_folder)
 
 #Creates a new save folder. The name of this folder will be the current date and time
 #This is to make sure it is unique. The folder name is stored in order to perform
@@ -73,6 +74,29 @@ func save_item_data(target_folder: String) -> void:
 		item.queue_free()
 	Helper.json_helper.write_json_file(target_folder + "/items.json",\
 	JSON.stringify(itemData))
+	
+# Save the type and position of all furniture on the map
+func save_furniture_data(target_folder: String) -> void:
+	var furnitureData: Array = []
+	var defaultFurniture: Dictionary = {
+		"id": "table_round_wood",
+		"global_position_x": 0, 
+		"global_position_y": 0, 
+		"global_position_z": 0
+	}
+	var mapFurniture = get_tree().get_nodes_in_group("furniture")
+	var newFurnitureData: Dictionary
+	for furniture in mapFurniture:
+		furniture.remove_from_group("furniture")
+		newFurnitureData = defaultFurniture.duplicate()
+		newFurnitureData["global_position_x"] = furniture.global_position.x
+		newFurnitureData["global_position_y"] = furniture.global_position.y
+		newFurnitureData["global_position_z"] = furniture.global_position.z
+		newFurnitureData["id"] = furniture.id
+		furnitureData.append(newFurnitureData.duplicate())
+		furniture.queue_free()
+	Helper.json_helper.write_json_file(target_folder + "/furniture.json", JSON.stringify(furnitureData))
+
 
 #The current state of the map is saved to disk
 #Starting from the bottom level (-10), loop over every level
