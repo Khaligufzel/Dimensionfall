@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://0r8ni3u0dosg"]
+[gd_scene load_steps=16 format=3 uid="uid://0r8ni3u0dosg"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/TacticalMapEditor.gd" id="1_bfw3n"]
 [ext_resource type="Texture2D" uid="uid://b6m2bbbpmsyik" path="res://Images/Icons/IconRotateRightDark.png" id="2_qcvqe"]
@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://hik7bkdfc51t" path="res://Images/Icons/IconEraserUnchecked.png" id="6_w0gff"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/TileGrid.gd" id="7_ji7x2"]
 [ext_resource type="PackedScene" uid="uid://f6kl6bo0wsmk" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/TacticalMapEditorTile.tscn" id="8_pt28t"]
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/EntitiesContainer.gd" id="9_u8o0i"]
+[ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="10_lnsqy"]
+[ext_resource type="PackedScene" uid="uid://c28vw5hmwvmlf" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/TacticalMapEditorTileBrush.tscn" id="11_bh5ke"]
 
 [sub_resource type="Gradient" id="Gradient_x1sdl"]
 
@@ -128,6 +131,9 @@ buttonRotateRight = NodePath("../../Toolbar/RotateRight")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
+script = ExtResource("9_u8o0i")
+scrolling_Flow_Container = ExtResource("10_lnsqy")
+tileBrush = ExtResource("11_bh5ke")
 
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="save_map_json_file"]
 [connection signal="text_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapWidth" to="." method="_on_map_width_text_changed"]
@@ -135,3 +141,4 @@ size_flags_stretch_ratio = 0.2
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_rotate_right_button_up"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_draw_rectangle_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/Erase" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_erase_toggled"]
+[connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_tilebrush_list_tile_brush_selection_change"]

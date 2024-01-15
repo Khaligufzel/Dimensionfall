@@ -14,6 +14,7 @@ func _ready():
 	data.mobs = {}
 	data.overmaptiles = {}
 	data.maps = {}
+	data.tacticalmaps = {}
 	data.furniture = {}
 	data.tiles.dataPath = "./Mods/Core/Tiles/Tiles.json"
 	data.tiles.spritePath = "./Mods/Core/Tiles/"
@@ -22,6 +23,7 @@ func _ready():
 	data.furniture.spritePath = "./Mods/Core/Furniture/"
 	data.furniture.dataPath = "./Mods/Core/Furniture/Furniture.json"
 	data.overmaptiles.spritePath = "./Mods/Core/OvermapTiles/"
+	data.tacticalmaps.dataPath = "./Mods/Core/TacticalMaps/"
 	data.maps.dataPath = "./Mods/Core/Maps/"
 	# Map preview images are stored in the same folder
 	data.maps.spritePath = "./Mods/Core/Maps/"
@@ -29,6 +31,8 @@ func _ready():
 	load_tile_sprites()
 	load_data()
 	data.maps.data = Helper.json_helper.file_names_in_dir(data.maps.dataPath, ["json"])
+	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(\
+	data.tacticalmaps.dataPath, ["json"])
 
 #Loads json data. If no json file exists, it will create an empty array in a new file
 func load_data() -> void:
