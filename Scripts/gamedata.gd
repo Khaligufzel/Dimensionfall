@@ -23,6 +23,8 @@ func _ready():
 	data.furniture.dataPath = "./Mods/Core/Furniture/Furniture.json"
 	data.overmaptiles.spritePath = "./Mods/Core/OvermapTiles/"
 	data.maps.dataPath = "./Mods/Core/Maps/"
+	# Map preview images are stored in the same folder
+	data.maps.spritePath = "./Mods/Core/Maps/"
 	load_sprites()
 	load_tile_sprites()
 	load_data()
@@ -40,7 +42,7 @@ func load_data() -> void:
 				data[dict].data = []
 
 #This loads all the sprites and assigns them to the proper dictionary
-func load_sprites():
+func load_sprites() -> void:
 	for dict in data.keys():
 		if data[dict].has("spritePath"):
 			var loaded_sprites: Dictionary = {} # Materials used to represent mobs

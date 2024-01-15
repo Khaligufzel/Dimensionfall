@@ -110,3 +110,6 @@ func set_above():
 func _on_texture_rect_resized():
 	$TileSprite.pivot_offset = size / 2
 	$MobFurnitureSprite.pivot_offset = size / 2
+
+func get_tile_texture():
+	return $TileSprite.texture
