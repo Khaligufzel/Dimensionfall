@@ -8,11 +8,12 @@ const aboveTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/tileA
 var tileData: Dictionary = defaultTileData.duplicate():
 	set(data):
 		tileData = data
-		if tileData.has("id"):
+		if tileData.has("id") and tileData.id != "":
 			$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles,\
 			tileData.id).albedo_texture
 			if tileData.has("rotation"):
 				set_rotation_amount(tileData.rotation)
+			$MobFurnitureSprite.hide()
 			if tileData.has("furniture"):
 				$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(\
 				Gamedata.data.furniture, tileData.furniture)
@@ -101,7 +102,7 @@ func set_clickable(clickable: bool):
 func set_above():
 	$MobFurnitureSprite.texture = null
 	$MobFurnitureSprite.hide()
-	if tileData.id != "":
+	if tileData.has("id") and tileData.id != "":
 		$TileSprite.texture = load(aboveTexture)
 	else:
 		$TileSprite.texture = null
