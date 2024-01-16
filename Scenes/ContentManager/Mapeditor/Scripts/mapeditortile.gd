@@ -38,10 +38,10 @@ func _on_texture_rect_gui_input(event: InputEvent) -> void:
 func set_rotation_amount(amount: int) -> void:
 	$TileSprite.rotation_degrees = amount
 	tileData.rotation = amount
-	
+
 func get_rotation_amount() -> int:
 	return $TileSprite.rotation_degrees
-	
+
 func set_scale_amount(scaleAmount: int) -> void:
 	custom_minimum_size.x = scaleAmount
 	custom_minimum_size.y = scaleAmount
@@ -106,7 +106,6 @@ func set_above():
 		$TileSprite.texture = load(aboveTexture)
 	else:
 		$TileSprite.texture = null
-
 
 func _on_texture_rect_resized():
 	$TileSprite.pivot_offset = size / 2

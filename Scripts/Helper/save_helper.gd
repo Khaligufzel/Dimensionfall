@@ -113,30 +113,32 @@ func save_furniture_data(target_folder: String) -> void:
 func save_map_data(target_folder: String) -> void:
 	var level_width : int = 32
 	var level_height : int = 32
-	var mapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
+	#var mapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
+	var levelData: Dictionary = {"map_x": 0, "map_y": 0, "map_z": 0, "blocks": [], "rotation": 0}
+	var tacticalmapData: Dictionary = {"maplevels": []}
 	#During map generation, the levels were added to the maplevels group
 	var tree: SceneTree = get_tree()
 	var mapLevels = tree.get_nodes_in_group("maplevels")
 	var block: StaticBody3D
 	var current_block: int = 0
-	var level_y: int = 0
 	var level_block_count: int = 0
+	var currentLevelData: Dictionary
 	for level: Node3D in mapLevels:
 		#The level will be destroyed after saving so we remove them from the group
 		level.remove_from_group("maplevels")
-		#The bottom level will have y set at -10. The first item in the mapData
-		#array will be 0 so in this way we add the levels fom -10 to 10
-		level_y = int(level.global_position.y+10)
+		currentLevelData.map_x = level.global_position.x
+		currentLevelData.map_y = level.global_position.y
+		currentLevelData.map_z = level.global_position.z
 		level_block_count = level.get_child_count()
 		if level_block_count > 0:
+			currentLevelData = levelData.duplicate()
 			current_block = 0
 			# Loop over every row one by one
 			for h in level_height:
 				# this loop will process blocks from West to East
 				for w in level_width:
 					block = level.get_child(current_block)
-					if block.global_position.z == h and block.global_position.x == w:
-						
+					if block.position.z == h and block.position.x == w:
 						# if the rotation is 90 it is facing north
 						# In that case we subtract 90 so it is saved as 0
 						# If the rotation is 0 it is facing east
@@ -147,14 +149,16 @@ func save_map_data(target_folder: String) -> void:
 							myRotation = blockRotation-90
 						else:
 							myRotation = blockRotation+90
-						mapData.levels[level_y].append({ "id": block.id,\
+						currentLevelData.blocks.append({ "id": block.id,\
 						"rotation": myRotation })
 						if current_block < level_block_count-1:
 							current_block += 1
 					else:
-						mapData.levels[level_y].append({})
+						currentLevelData.blocks.append({})
+			tacticalmapData.maplevels.append(currentLevelData)
 	#Overwrite the file if it exists and otherwise create it
-	Helper.json_helper.write_json_file(target_folder + "/map.json", JSON.stringify(mapData))
+	Helper.json_helper.write_json_file(target_folder + "/map.json", \
+	JSON.stringify(tacticalmapData))
 
 
 # This function determines the saved map folder path for the current level. 

@@ -26,12 +26,69 @@ func _ready():
 	
 func generate_map():
 	map_save_folder = Helper.save_helper.get_saved_map_folder(Helper.current_level_pos)
-	generate_level()
+	generate_tactical_map()
 	# These tree functions apply only to maps thet were previously saved in a save game
 	generate_mobs()
 	generate_items()
 	generate_furniture()
-	
+
+# We generate a tactical map, which is made up of x by y maps of 32x32 blocks
+# If we can find a saved map on the current coordinate, we load that
+# Otherwise, we load the mapdata from the game data and make a brand new one
+func generate_tactical_map():
+	var tacticalMapJSON: Dictionary = {}
+	var level_name: String = Helper.current_level_name
+	map_save_folder = Helper.save_helper.get_saved_map_folder(Helper.current_level_pos)
+	# Load the default map from json
+	# Unless the map_save_folder is set
+	# In which case we load tha map instead
+	if map_save_folder == "":
+		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
+		Gamedata.data.tacticalmaps.dataPath + level_name)
+		var i: int = 0
+		for z in range(tacticalMapJSON.mapheight):
+			for x in range(tacticalMapJSON.mapwidth):
+				generate_tactical_map_level_segment(x, z,tacticalMapJSON.maps[i])
+				i+=1
+	else:
+		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
+		map_save_folder + "/map.json")
+		generate_saved_level(tacticalMapJSON)
+
+func generate_tactical_map_level_segment(segment_x: int, segment_z: int, mapsegment: Dictionary):
+	var offset_x = segment_x * level_width
+	var offset_z = segment_z * level_height
+	#This contains the data of one segment, loaded from maps.data, for example generichouse.json
+	var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
+		Gamedata.data.maps.dataPath + mapsegment.id)
+	var tileJSON: Dictionary = {}
+
+	var level_number = 0
+	for level in mapsegmentData.levels:
+		if level != []:
+			var level_node = Node3D.new()
+			level_node.add_to_group("maplevels")
+			level_manager.add_child(level_node)
+			level_node.global_position.y = level_number - 10
+			level_node.global_position.x = offset_x
+			level_node.global_position.z = offset_z
+
+			var current_block = 0
+			for h in range(level_height):
+				for w in range(level_width):
+					if level[current_block]:
+						tileJSON = level[current_block]
+						if tileJSON.has("id") and tileJSON.id != "":
+							var block = create_block_with_id(tileJSON.id)
+							level_node.add_child(block)
+							block.position.x = w
+							block.position.z = h
+							apply_block_rotation(tileJSON, block)
+							add_block_mob(tileJSON, block)
+							add_furniture_to_block(tileJSON, block)
+					current_block += 1
+		level_number += 1
+
 
 func generate_mobs() -> void:
 	if map_save_folder == "":
@@ -86,50 +143,40 @@ func add_furniture_to_map(furnitureData: Dictionary) -> void:
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation
 # If a block has an mob, add it too
-func generate_level() -> void:
-	var level_name: String = Helper.current_level_name
+func generate_saved_level(tacticalMapJSON: Dictionary) -> void:
 	var tileJSON: Dictionary = {}
-	if level_name == "":
-		get_level_json()
-	else:
-		# Load the default map from json
-		# Unless the map_save_folder is set
-		# In which case we load tha map instead
-		if map_save_folder == "":
-			get_custom_level_json("./Mods/Core/Maps/" + level_name)
-		else:
-			get_custom_level_json(map_save_folder + "/map.json")
-	
-	
+	var currentBlocks: Array = []
 	var level_number = 0
 	#we need to generate level layer by layer starting from the bottom
-	for level in level_levels:
-		if level != []:
+	for level: Dictionary in tacticalMapJSON.maplevels:
+		if level != {}:
 			var level_node = Node3D.new()
 			level_node.add_to_group("maplevels")
 			level_manager.add_child(level_node)
-			#The lowest level starts at -10 which would be rock bottom
-			level_node.global_position.y = level_number-10
-			
+			level_node.global_position.y = level.map_y
+			level_node.global_position.x = level.map_x
+			level_node.global_position.z = level.map_z
+			currentBlocks = level.blocks
 			var current_block = 0
 			# we will generate number equal to "layer_height" of horizontal rows of blocks
 			for h in level_height:
 				
 				# this loop will generate blocks from West to East based on the tile number
 				# in json file
-
 				for w in level_width:
 					# checking if we have tile from json in our block array containing packedscenes
 					# of blocks that we need to instantiate.
 					# If yes, then instantiate
-					if level[current_block]:
-						tileJSON = level[current_block]
+					if currentBlocks[current_block]:
+						tileJSON = currentBlocks[current_block]
 						if tileJSON.has("id"):
 							if tileJSON.id != "":
 								var block: StaticBody3D = create_block_with_id(tileJSON.id)
 								level_node.add_child(block)
-								block.global_position.x = w
-								block.global_position.z = h
+								# Because the level node already has a x and y position,
+								# We only set the local position relative to the parent
+								block.position.x = w
+								block.position.z = h
 								# Remmeber the id for save and load purposes
 								block.id = tileJSON.id
 								apply_block_rotation(tileJSON, block)
@@ -137,21 +184,6 @@ func generate_level() -> void:
 								add_furniture_to_block(tileJSON, block)
 					current_block += 1
 		level_number += 1
-
-	# YEAH I KNOW THAT SHOULD BE ONE FUNCTION, BUT IT'S 2:30 AM and... I'm TIRED LOL
-func get_level_json():
-	var file = default_level_json
-	level_json_as_text = FileAccess.get_file_as_string(file)
-	var json_as_dict: Dictionary = JSON.parse_string(level_json_as_text)
-	level_levels = json_as_dict["levels"]
-	level_width = json_as_dict["mapwidth"]
-	level_width = json_as_dict["mapheight"]
-
-func get_custom_level_json(level_path):
-	var file = level_path
-	level_json_as_text = FileAccess.get_file_as_string(file)
-	var json_as_dict = JSON.parse_string(level_json_as_text)
-	level_levels = json_as_dict["levels"]
 
 func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
 	if tileJSON.has("furniture"):

@@ -87,7 +87,7 @@ func generate_chunk(grid_position: Vector2) -> void:
 			var tile_index = int((noise_value + 1) / 2 * tiles.size()) % tiles.size()
 			if global_x == 0 and global_y == 0:
 				chunk.append({"tile": tiles[tile_index], "global_x": global_x, \
-				"global_y": global_y, "tacticalmap": Gamedata.data.maps.data[0]})
+				"global_y": global_y, "tacticalmap": Gamedata.data.tacticalmaps.data[0]})
 			else:
 				chunk.append({"tile": tiles[tile_index], "global_x": global_x, \
 				"global_y": global_y, "tacticalmap": get_random_mapname_1_in_100()})
@@ -98,8 +98,8 @@ func get_random_mapname_1_in_100() -> String:
 	var random_file: String = ""
 	var chance = randi_range(0, 100)
 	if chance < 1:
-		var random_index = randi() % Gamedata.data.maps.data.size()
-		random_file = Gamedata.data.maps.data[random_index]
+		var random_index = randi() % Gamedata.data.tacticalmaps.data.size()
+		random_file = Gamedata.data.tacticalmaps.data[random_index]
 	return random_file
 
 
