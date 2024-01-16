@@ -79,9 +79,9 @@ func duplicate_item_in_data(contentData: Dictionary, id: String, newID: String):
 	if contentData.data.is_empty():
 		return
 
-	if data.dataPath.ends_with((".json")):
+	if contentData.dataPath.ends_with((".json")):
 		# Check if an item with the given ID exists in the file.
-		var item_index: int = get_array_index_by_id(contentData.data,id)
+		var item_index: int = get_array_index_by_id(contentData,id)
 		if item_index == -1:
 			return
 		

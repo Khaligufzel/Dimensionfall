@@ -184,5 +184,60 @@
 		"name": "Beehive stones",
 		"shape": "cube",
 		"sprite": "beehive1.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_00",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards10.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_01",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards11.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_02",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards12.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_03",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards13.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_04",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards14.png"
 	}
 ]

@@ -36,15 +36,15 @@ func populate_sprite_list():
 		# Assign the texture to the TextureRect
 		selectableSpriteInstance.set_sprite_texture(material)
 		selectableSpriteInstance.selectableSprite_clicked.connect(sprite_clicked)
+		selectableSpriteInstance.selectableSprite_double_clicked.connect(\
+		_on_sprite_double_clicked)
 		spriteList.add_content_item(selectableSpriteInstance)
 		instanced_sprites.append(selectableSpriteInstance)
 
 # Called after the user selects a tile in the popup textbox and presses OK
 func _on_ok_button_up():
-	hide()
-	if selectedSprite:
-		sprite_selected_ok.emit(selectedSprite)
-			
+	_emit_sprite_selected_and_close()
+
 # Called after the users presses cancel on the popup asking for a tile
 func _on_cancel_button_up():
 	hide()
@@ -59,3 +59,12 @@ func sprite_clicked(spite_selected: Control) -> void:
 	selectedSprite = spite_selected
 	# If the clicked brush was not select it, we select it. Otherwise we deselect it
 	spite_selected.set_selected(true)
+
+func _on_sprite_double_clicked(sprite_selected: Control):
+	selectedSprite = sprite_selected
+	_emit_sprite_selected_and_close()
+	
+func _emit_sprite_selected_and_close():
+	if selectedSprite:
+		sprite_selected_ok.emit(selectedSprite)
+		hide()
