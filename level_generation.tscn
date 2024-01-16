@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=25 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
@@ -32,12 +32,6 @@ cell_size = 0.1
 agent_height = 0.5
 agent_radius = 0.3
 agent_max_slope = 46.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_yaev1"]
-size = Vector3(64, 32, 1)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_uf01n"]
-points = PackedVector3Array(32, 16, 0.5, 32, 16, -0.5, -32, 16, 0.5, 32, -16, 0.5, 32, -16, -0.5, -32, 16, -0.5, -32, -16, 0.5, -32, -16, -0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gsdb"]
 albedo_color = Color(0, 1, 0, 1)
@@ -85,52 +79,6 @@ sky_mode = 1
 navigation_mesh = SubResource("NavigationMesh_3licq")
 
 [node name="Props" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
-
-[node name="TestWalls" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 14)
-
-[node name="TestWall" type="StaticBody3D" parent="TacticalMap/NavigationRegion3D/TestWalls"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/NavigationRegion3D/TestWalls/TestWall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, 19)
-mesh = SubResource("BoxMesh_yaev1")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/NavigationRegion3D/TestWalls/TestWall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, 19)
-shape = SubResource("ConvexPolygonShape3D_uf01n")
-
-[node name="TestWall2" type="StaticBody3D" parent="TacticalMap/NavigationRegion3D/TestWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -65)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/NavigationRegion3D/TestWalls/TestWall2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, 19)
-mesh = SubResource("BoxMesh_yaev1")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/NavigationRegion3D/TestWalls/TestWall2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, 19)
-shape = SubResource("ConvexPolygonShape3D_uf01n")
-
-[node name="TestWall3" type="StaticBody3D" parent="TacticalMap/NavigationRegion3D/TestWalls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, -28)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/NavigationRegion3D/TestWalls/TestWall3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, 19)
-mesh = SubResource("BoxMesh_yaev1")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/NavigationRegion3D/TestWalls/TestWall3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, 19)
-shape = SubResource("ConvexPolygonShape3D_uf01n")
-
-[node name="TestWall4" type="StaticBody3D" parent="TacticalMap/NavigationRegion3D/TestWalls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -66, 0, -28)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/NavigationRegion3D/TestWalls/TestWall4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, 19)
-mesh = SubResource("BoxMesh_yaev1")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/NavigationRegion3D/TestWalls/TestWall4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, 19)
-shape = SubResource("ConvexPolygonShape3D_uf01n")
 
 [node name="LevelManager" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
 script = ExtResource("2_gm6x7")

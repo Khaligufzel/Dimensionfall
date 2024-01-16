@@ -2,13 +2,13 @@ extends Control
 
 var saved_game_folders : Array
 @export var load_game_list : OptionButton 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	saved_game_folders = Helper.json_helper.folder_names_in_dir("user://save/")
-	# Iterate over the saved_game_folders array in reverse order
-	for i in range(saved_game_folders.size() - 1, -1, -1):
-		var saved_game = saved_game_folders[i]
+	# Reverse the order of the saved_game_folders array
+	saved_game_folders.reverse()
+
+	# Populate the load_game_list with the saved game folders
+	for saved_game in saved_game_folders:
 		load_game_list.add_item(saved_game)
 
 func _on_load_game_button_pressed():

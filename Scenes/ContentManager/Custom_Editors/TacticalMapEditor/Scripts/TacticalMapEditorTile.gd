@@ -9,8 +9,7 @@ var tileData: Dictionary = defaultTileData.duplicate():
 	set(data):
 		tileData = data
 		if tileData.has("id") and tileData.id != "":
-			$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.maps,\
-			tileData.id)
+			$TileSprite.texture = Gamedata.data.maps.sprites[tileData.id.replace("json", "png")]
 			if tileData.has("rotation"):
 				set_rotation_amount(tileData.rotation)
 		else:

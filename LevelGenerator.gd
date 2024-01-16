@@ -67,8 +67,8 @@ func generate_tactical_map_level_segment(segment_x: int, segment_z: int, mapsegm
 	for level in mapsegmentData.levels:
 		if level != []:
 			var level_node = Node3D.new()
-			level_node.add_to_group("maplevels")
 			level_manager.add_child(level_node)
+			level_node.add_to_group("maplevels")
 			level_node.global_position.y = level_number - 10
 			level_node.global_position.x = offset_x
 			level_node.global_position.z = offset_z
@@ -87,6 +87,10 @@ func generate_tactical_map_level_segment(segment_x: int, segment_z: int, mapsegm
 							add_block_mob(tileJSON, block)
 							add_furniture_to_block(tileJSON, block)
 					current_block += 1
+			if !len(level_node.get_children()) > 0:
+				level_node.remove_from_group("maplevels")
+				level_node.queue_free()
+			
 		level_number += 1
 
 
@@ -177,8 +181,6 @@ func generate_saved_level(tacticalMapJSON: Dictionary) -> void:
 								# We only set the local position relative to the parent
 								block.position.x = w
 								block.position.z = h
-								# Remmeber the id for save and load purposes
-								block.id = tileJSON.id
 								apply_block_rotation(tileJSON, block)
 								add_block_mob(tileJSON, block)
 								add_furniture_to_block(tileJSON, block)
@@ -240,6 +242,8 @@ func create_block_with_id(id: String) -> StaticBody3D:
 			block = defaultBlock.instantiate()
 	else:
 		block = defaultBlock.instantiate()
+	# Remmeber the id for save and load purposes
+	block.id = id
 		
 		
 	#tileJSON.sprite is the 'sprite' key in the json that was found for this tile
