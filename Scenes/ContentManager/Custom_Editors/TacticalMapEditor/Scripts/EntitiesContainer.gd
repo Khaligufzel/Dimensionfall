@@ -18,17 +18,17 @@ func _ready():
 # this function will read all files in Gamedata.data.tiles.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
 func loadMaps():
 	var mapsList: Array = Gamedata.data.maps.data
+	var newTilesList: Control = scrolling_Flow_Container.instantiate()
+	newTilesList.header = "maps"
+	add_child(newTilesList)
 
 	for map in mapsList:
 		# Extract the base name without the extension
 		var base_name = map.get_basename()
 		# If the file has an image to represent it's content, load it
-		if Gamedata.maps.sprites.has(base_name + ".png"):
-			var mySprite: Resource = Gamedata.maps.sprites[base_name + ".png"]
+		if Gamedata.data.maps.sprites.has(base_name + ".png"):
+			var mySprite: Resource = Gamedata.data.maps.sprites[base_name + ".png"]
 			if mySprite:
-				var newTilesList: Control = scrolling_Flow_Container.instantiate()
-				newTilesList.header = "maps"
-				add_child(newTilesList)
 				# Create a TextureRect node
 				var brushInstance = tileBrush.instantiate()
 				# Assign the texture to the TextureRect

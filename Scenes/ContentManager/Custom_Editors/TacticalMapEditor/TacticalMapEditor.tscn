@@ -26,7 +26,7 @@ unicode = 114
 [sub_resource type="Shortcut" id="Shortcut_hehp2"]
 events = [SubResource("InputEventKey_nrfa0")]
 
-[node name="TacticalMapEditor" type="Control" node_paths=PackedStringArray("tileGrid")]
+[node name="TacticalMapEditor" type="Control" node_paths=PackedStringArray("tileGrid", "mapwidthTextEdit", "mapheightTextEdit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,6 +35,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bfw3n")
 tileGrid = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid")
+mapwidthTextEdit = NodePath("HSplitContainer/MapeditorContainer/Toolbar/MapWidth")
+mapheightTextEdit = NodePath("HSplitContainer/MapeditorContainer/Toolbar/MapHeight")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 1
@@ -121,7 +123,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
-columns = 32
+columns = 3
 script = ExtResource("7_ji7x2")
 tileScene = ExtResource("8_pt28t")
 mapEditor = NodePath("../../../..")
@@ -135,10 +137,11 @@ script = ExtResource("9_u8o0i")
 scrolling_Flow_Container = ExtResource("10_lnsqy")
 tileBrush = ExtResource("11_bh5ke")
 
+[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="save_map_json_file"]
 [connection signal="text_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapWidth" to="." method="_on_map_width_text_changed"]
 [connection signal="text_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapHeight" to="." method="_on_map_height_text_changed"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_rotate_right_button_up"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_draw_rectangle_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/Erase" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_erase_toggled"]
-[connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_tilebrush_list_tile_brush_selection_change"]
+[connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_entities_container_tile_brush_selection_change"]

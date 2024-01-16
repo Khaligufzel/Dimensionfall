@@ -13,7 +13,7 @@ var drawRectangle: bool = false
 var erase: bool = false
 var snapAmount: float
 # Initialize new mapdata with a 3x3 empty map grid
-var defaultMapData: Dictionary = {"mapwidth": 3, "mapheight": 3, "maps": [[[],[],[]],[[],[],[]],[[],[],[]]]}
+var defaultMapData: Dictionary = {"mapwidth": 3, "mapheight": 3, "maps": [{},{},{},{},{},{},{},{},{}]}
 var rotationAmount: int = 0
 #Contains map metadata like size as well as the data on all levels
 var mapData: Dictionary = defaultMapData.duplicate():
@@ -24,9 +24,12 @@ var mapData: Dictionary = defaultMapData.duplicate():
 			mapData = data.duplicate()
 		loadLevel()
 
+func _ready():
+	createTiles()
 
 # This function will fill fill this GridContainer with a grid of 3x3 instances of "res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/TacticalMapEditorTile.tscn"
 func createTiles():
+	columns = mapEditor.mapWidth
 	for x in range(mapEditor.mapWidth):
 		for y in range(mapEditor.mapHeight):
 			var tileInstance: Control = tileScene.instantiate()
@@ -55,7 +58,7 @@ func paint_single_tile(clicked_tile):
 		else:
 			clicked_tile.set_default()
 	elif selected_brush:
-		clicked_tile.set_tile_id(selected_brush.tileID)
+		clicked_tile.set_tile_id(selected_brush.mapID)
 		clicked_tile.set_rotation_amount(rotationAmount)
 
 #This function takes the mapData property and saves all of it as a json file.
@@ -93,3 +96,6 @@ func loadLevel():
 		for tile in get_children():
 			tile.set_default()
 
+
+func _on_entities_container_tile_brush_selection_change(tilebrush):
+	selected_brush = tilebrush

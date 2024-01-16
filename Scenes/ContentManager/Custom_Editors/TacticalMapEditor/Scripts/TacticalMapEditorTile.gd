@@ -37,7 +37,7 @@ func set_tile_id(id: String) -> void:
 		$TileSprite.texture = load(defaultTexture)
 	else:
 		tileData.id = id
-		$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, id).albedo_texture
+		$TileSprite.texture = Gamedata.data.maps.sprites[id.replace("json", "png")]
 
 func _on_texture_rect_mouse_entered() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
