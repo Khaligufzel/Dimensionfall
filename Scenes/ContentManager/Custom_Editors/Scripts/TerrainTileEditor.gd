@@ -19,6 +19,7 @@ extends Control
 # The content editor has connected this signal to Gamedata already
 signal data_changed()
 
+var control_elements: Array = []
 # The data that represents this tile
 # The data is selected from the Gamedata.data.tiles.data array
 # based on the ID that the user has selected in the content editor
@@ -27,6 +28,30 @@ var contentData: Dictionary = {}:
 		contentData = value
 		load_tile_data()
 		tileSelector.sprites_collection = Gamedata.data.tiles.sprites
+
+
+func _ready():
+	control_elements = [
+		tileImageDisplay,
+		NameTextEdit,
+		DescriptionTextEdit,
+		CategoriesList,
+		cubeShapeCheckbox,
+		slopeShapeCheckbox
+	]
+
+func _input(event):
+	if event.is_action_pressed("ui_focus_next"):
+		for myControl in control_elements:
+			if myControl.has_focus():
+				if Input.is_key_pressed(KEY_SHIFT):  # Check if Shift key
+					if !myControl.focus_previous.is_empty():
+						myControl.get_node(myControl.focus_previous).grab_focus()
+				else:
+					if !myControl.focus_next.is_empty():
+						myControl.get_node(myControl.focus_next).grab_focus()
+				break
+		get_viewport().set_input_as_handled()
 
 # This function updates the form based on the contentData that has been loaded
 func load_tile_data():
@@ -54,7 +79,7 @@ func load_tile_data():
 #TODO: Check for unsaved changes
 func _on_close_button_button_up():
 	queue_free()
-
+	
 # This function takes all data fro the form elements stores them in the contentData
 # Since contentData is a reference to an item in Gamedata.data.tiles.data
 # the central array for tiledata is updated with the changes as well

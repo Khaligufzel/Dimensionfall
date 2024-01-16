@@ -239,5 +239,109 @@
 		"name": "Wooden floor boards",
 		"shape": "cube",
 		"sprite": "woodboards14.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_05",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards6.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_06",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards7.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_07",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards8.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_08",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards9.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground",
+		"id": "wasteland_00",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wasteland.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground",
+		"id": "wasteland_01",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wasteland11.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground",
+		"id": "wasteland_02",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wasteland2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground. By some miracle one or two plants have managed to survive.",
+		"id": "wasteland_03",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wastelandveg.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground. By some miracle one or two plants have managed to survive.",
+		"id": "wasteland_04",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wastelandveg1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground. By some miracle one or two plants have managed to survive.",
+		"id": "wasteland_05",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wastelandveg2.png"
 	}
 ]
