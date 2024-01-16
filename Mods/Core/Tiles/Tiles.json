@@ -343,5 +343,59 @@
 		"name": "Wasteland\t",
 		"shape": "cube",
 		"sprite": "wastelandveg2.png"
+	},
+	{
+		"categories": [
+			"Hazards"
+		],
+		"description": "Very dangerous! Some toxic waste was spilled here",
+		"id": "toxic_waste_00",
+		"name": "Toxic waste",
+		"shape": "cube",
+		"sprite": "toxicwaste.png"
+	},
+	{
+		"categories": [
+			"Hazards"
+		],
+		"description": "Very dangerous! Some toxic waste was spilled here",
+		"id": "toxic_waste_01",
+		"name": "Toxic waste",
+		"shape": "cube",
+		"sprite": "toxicwaste1.png"
+	},
+	{
+		"categories": [
+			"Hazards"
+		],
+		"description": "Very dangerous! Some toxic waste was spilled here",
+		"id": "toxic_waste_02",
+		"name": "Toxic waste",
+		"shape": "cube",
+		"sprite": "toxicwaste2.png"
+	},
+	{
+		"categories": [],
+		"description": "A blanket of snow covers the ground",
+		"id": "snow_00",
+		"name": "Snow",
+		"shape": "cube",
+		"sprite": "snow.png"
+	},
+	{
+		"categories": [],
+		"description": "A blanket of snow covers the ground",
+		"id": "snow_01",
+		"name": "Snow",
+		"shape": "cube",
+		"sprite": "snow1.png"
+	},
+	{
+		"categories": [],
+		"description": "A blanket of snow covers the ground",
+		"id": "snow_02",
+		"name": "Snow",
+		"shape": "cube",
+		"sprite": "snow2.png"
 	}
 ]
