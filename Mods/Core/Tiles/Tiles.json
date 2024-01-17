@@ -729,5 +729,225 @@
 		"name": "Kitchen tiles (purple)",
 		"shape": "cube",
 		"sprite": "kitchentilespurple5.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is covered with small pebbles",
+		"id": "gravel_00",
+		"name": "Gravel",
+		"shape": "cube",
+		"sprite": "gravel.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is covered with small pebbles",
+		"id": "gravel_01",
+		"name": "Gravel",
+		"shape": "cube",
+		"sprite": "gravel1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is covered with small pebbles",
+		"id": "gravel_02",
+		"name": "Gravel",
+		"shape": "cube",
+		"sprite": "gravel2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is barely visible trough the carpet of grass",
+		"id": "grass_dirt_00",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grassdirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is barely visible trough the carpet of grass",
+		"id": "grass_dirt_01",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grassdirt1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is barely visible trough the carpet of grass",
+		"id": "grass_dirt_02",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grassdirt2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is visible trough the grass",
+		"id": "grass_medium_dirt_00",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grasssmalldirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is visible trough the grass",
+		"id": "grass_medium_dirt_01",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grasssmalldirt1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is visible trough the grass",
+		"id": "grass_medium_dirt_02",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grasssmalldirt2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "One side of the terrain is just dirt and no grass",
+		"id": "grass_dirt_north_00",
+		"name": "Grass with a patch of dirt",
+		"shape": "cube",
+		"sprite": "grassnorthdirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The center of the terrain is just dirt and no grass",
+		"id": "grass_dirt_center_00",
+		"name": "Grass with a patch of dirt",
+		"shape": "cube",
+		"sprite": "grasscenterdirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Some flowers are sprouting trough the grass",
+		"id": "grass_flowers_00",
+		"name": "Grass with flowers",
+		"shape": "cube",
+		"sprite": "grassflowers2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Some flowers are sprouting trough the grass",
+		"id": "grass_flowers_01",
+		"name": "Grass with flowers",
+		"shape": "cube",
+		"sprite": "grassflowers3.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Some flowers are sprouting trough the grass",
+		"id": "grass_flowers_02",
+		"name": "Grass with flowers",
+		"shape": "cube",
+		"sprite": "grassflowers4.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Some flowers are sprouting trough the grass",
+		"id": "grass_flowers_03",
+		"name": "Grass with flowers",
+		"shape": "cube",
+		"sprite": "grasslowers.png"
+	},
+	{
+		"categories": [
+			"Slopes"
+		],
+		"description": "This ramp is covered with grass. You can go up and down here",
+		"id": "grass_ramp_00",
+		"name": "Grass ramp",
+		"shape": "slope",
+		"sprite": "Grassrampnorth1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_00",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_01",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_02",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_03",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale3.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_04",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale4.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_05",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale5.png"
 	}
 ]
