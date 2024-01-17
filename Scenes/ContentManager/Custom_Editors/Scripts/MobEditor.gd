@@ -47,7 +47,7 @@ func load_mob_data() -> void:
 	if melee_damage_numedit != null and contentData.has("melee_damage"):
 		melee_damage_numedit.get_line_edit().text = contentData["melee_damage"]
 	if melee_range_numedit != null and contentData.has("melee_range"):
-		melee_damage_numedit.get_line_edit().text = contentData["melee_range"]
+		melee_range_numedit.get_line_edit().text = contentData["melee_range"]
 	if health_numedit != null and contentData.has("health"):
 		health_numedit.get_line_edit().text = contentData["health"]
 	if moveSpeed_numedit != null and contentData.has("move_speed"):
@@ -76,7 +76,7 @@ func _on_save_button_button_up() -> void:
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
 	contentData["melee_damage"] = melee_damage_numedit.get_line_edit().text
-	contentData["melee_range"] = melee_damage_numedit.get_line_edit().text
+	contentData["melee_range"] = melee_range_numedit.get_line_edit().text
 	contentData["health"] = health_numedit.get_line_edit().text
 	contentData["move_speed"] = moveSpeed_numedit.get_line_edit().text
 	contentData["idle_move_speed"] = idle_move_speed_numedit.get_line_edit().text

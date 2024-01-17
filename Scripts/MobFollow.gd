@@ -6,7 +6,6 @@ class_name MobFollow
 @export var nav_agent: NavigationAgent3D
 @export var mob: CharacterBody3D
 @export var mobCol: NodePath
-@export var stats: NodePath
 @export var pathfinding_timer: Timer
 
 var targeted_player
@@ -24,7 +23,7 @@ func Exit():
 
 func Physics_Update(_delta: float):
 	var dir = mob.to_local(nav_agent.get_next_path_position()).normalized()
-	mob.velocity = dir * get_node(stats).current_move_speed
+	mob.velocity = dir * mob.current_move_speed
 	mob.move_and_slide()
 
 	# Rotation towards target using look_at
@@ -43,7 +42,7 @@ func Physics_Update(_delta: float):
 	
 	if result:
 		
-		if result.collider.is_in_group("Players")&& Vector3(get_node(mobCol).global_position).distance_to(targeted_player.global_position) <= get_node(stats).melee_range / 2:
+		if result.collider.is_in_group("Players")&& Vector3(get_node(mobCol).global_position).distance_to(targeted_player.global_position) <= mob.melee_range / 2:
 			print("changing state to mobattack...")
 			Transistioned.emit(self, "mobattack")
 	

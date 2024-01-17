@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var playerCol: Node3D
-@export var stats: NodePath
+@export var mob: CharacterBody3D
 
 signal player_spotted
 
@@ -13,9 +13,9 @@ var melee_range
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	sightRange = get_node(stats).sightRange
-	senseRange = get_node(stats).senseRange
-	hearingRange = get_node(stats).hearingRange
+	sightRange = mob.sightRange
+	senseRange = mob.senseRange
+	hearingRange = mob.hearingRange
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

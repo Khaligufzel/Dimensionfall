@@ -104,12 +104,11 @@ func generate_mobs() -> void:
 func add_mob_to_map(mob: Dictionary) -> void:
 	var newMob: CharacterBody3D = defaultMob.instantiate()
 	newMob.add_to_group("mobs")
-	newMob.set_sprite(Gamedata.get_sprite_by_id(Gamedata.data.mobs,mob.id))
 	get_tree().get_root().add_child(newMob)
 	newMob.global_position.x = mob.global_position_x
 	newMob.global_position.y = mob.global_position_y
 	newMob.global_position.z = mob.global_position_z
-	newMob.id = mob.id
+	newMob.apply_stats_from_json(Gamedata.get_data_by_id(Gamedata.data.mobs,mob.id))
 
 func generate_items() -> void:
 	if map_save_folder == "":
@@ -219,11 +218,11 @@ func add_block_mob(tileJSON: Dictionary, block: StaticBody3D):
 	if tileJSON.has("mob"):
 		var newMob: CharacterBody3D = defaultMob.instantiate()
 		newMob.add_to_group("mobs")
-		newMob.set_sprite(Gamedata.get_sprite_by_id(Gamedata.data.mobs,tileJSON.mob))
 		get_tree().get_root().add_child(newMob)
 		newMob.global_position.x = block.global_position.x
 		newMob.global_position.y = block.global_position.y+0.5
 		newMob.global_position.z = block.global_position.z
+		newMob.apply_stats_from_json(Gamedata.get_data_by_id(Gamedata.data.mobs,tileJSON.mob))
 
 
 # This function takes a tile id and creates a new instance of either a block
