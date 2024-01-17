@@ -22,6 +22,13 @@ func Exit():
 func Physics_Update(_delta: float):
 	
 	
+	# Rotation towards target using look_at
+	if targeted_player:
+		var mesh_instance = $"../../MeshInstance3D"
+		var target_position = targeted_player.global_position
+		target_position.y = mesh_instance.global_position.y  # Align y-axis to avoid tilting
+		mesh_instance.look_at(target_position, Vector3.UP)
+
 	var space_state = get_world_3d().direct_space_state
 	# TO-DO Change playerCol to group of players
 	var query = PhysicsRayQueryParameters3D.create(get_node(mob).global_position, targeted_player.global_position, int(pow(2, 1-1) + pow(2, 3-1)), [self])
