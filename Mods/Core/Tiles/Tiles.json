@@ -949,5 +949,260 @@
 		"name": "Forest underbrush",
 		"shape": "cube",
 		"sprite": "forestunderbrushscale5.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is pretty dark",
+		"id": "dirt_dark_00",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is pretty dark",
+		"id": "dirt_dark_01",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is pretty dark",
+		"id": "dirt_dark_02",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is light",
+		"id": "dirt_light_00",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt3.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is light",
+		"id": "dirt_light_01",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt4.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is light",
+		"id": "dirt_light_02",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt5.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is dirt here. Part of it is covered with grass",
+		"id": "dirt_light_grass_north_00",
+		"name": "Dirt with grass",
+		"shape": "cube",
+		"sprite": "dirtgrass.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is dirt here. Part of it is covered with grass",
+		"id": "dirt_light_grass_north_01",
+		"name": "Dirt with grass",
+		"shape": "cube",
+		"sprite": "dirt_grass_north.png"
+	},
+	{
+		"categories": [
+			"Slopes"
+		],
+		"description": "A dirt slope. You can go up and down here. Be careful not to slip",
+		"id": "dirt_light_ramp_00",
+		"name": "Dirt ramp",
+		"shape": "slope",
+		"sprite": "dirtrampnorth1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_00",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrass.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_01",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrass1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_02",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrass2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_03",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrassdirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_04",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrassdirt1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_05",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrassdirt2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A tiled floor with colorful stones",
+		"id": "cobblestone_00",
+		"name": "Cobblestone",
+		"shape": "cube",
+		"sprite": "cobblestone.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A tiled floor with colorful stones",
+		"id": "cobblestone_01",
+		"name": "Cobblestone",
+		"shape": "cube",
+		"sprite": "cobblestone2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A tiled floor with colorful stones",
+		"id": "cobblestone_02",
+		"name": "Cobblestone",
+		"shape": "cube",
+		"sprite": "cobblestone3.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A tiled floor with colorful stones",
+		"id": "cobblestone_03",
+		"name": "Cobblestone",
+		"shape": "cube",
+		"sprite": "cobblestone4.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A tiled floor with brown stones laid in a beautiful pattern",
+		"id": "cobblestone_04",
+		"name": "Cobblestone",
+		"shape": "cube",
+		"sprite": "cobblestone1.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Wall"
+		],
+		"description": "A solid wall made out of bricks",
+		"id": "brick_wall_01",
+		"name": "Brick wall",
+		"shape": "cube",
+		"sprite": "brickroad.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Wall"
+		],
+		"description": "A solid wall made out of bricks",
+		"id": "brick_wall_02",
+		"name": "Brick wall",
+		"shape": "cube",
+		"sprite": "brickroad1.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Wall"
+		],
+		"description": "A solid wall made out of bricks",
+		"id": "brick_wall_03",
+		"name": "Brick wall",
+		"shape": "cube",
+		"sprite": "brickroad3.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a bathroom. The tiles are painted blue",
+		"id": "bathroom_tiles_blue_00",
+		"name": "Bathroom tiles (blue)",
+		"shape": "cube",
+		"sprite": "bathroomtiles.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A stone floor wihere the stones are shaped like an arch. Used in an urban environement.",
+		"id": "arc_stones_floor_00",
+		"name": "Arc stones floor",
+		"shape": "cube",
+		"sprite": "arcstones1.png"
 	}
 ]
