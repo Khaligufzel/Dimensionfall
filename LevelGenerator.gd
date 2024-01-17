@@ -108,7 +108,7 @@ func add_mob_to_map(mob: Dictionary) -> void:
 	newMob.global_position.x = mob.global_position_x
 	newMob.global_position.y = mob.global_position_y
 	newMob.global_position.z = mob.global_position_z
-	newMob.apply_stats_from_json(Gamedata.get_data_by_id(Gamedata.data.mobs,mob.id))
+	newMob.apply_stats_from_json(mob)
 
 func generate_items() -> void:
 	if map_save_folder == "":

@@ -108,6 +108,7 @@ size_flags_stretch_ratio = 0.9
 focus_next = NodePath("../HealthSpinBox")
 focus_previous = NodePath("../NameTextEdit")
 placeholder_text = "A very dangerous land animal often found in dry climates"
+wrap_mode = 1
 
 [node name="HealthLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -115,6 +116,7 @@ text = "Health"
 
 [node name="HealthSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
+max_value = 1000.0
 value = 100.0
 
 [node name="MeleeDamageLabel" type="Label" parent="VBoxContainer/FormGrid"]
@@ -142,6 +144,7 @@ text = "Move speed"
 [node name="MoveSpeedSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
 tooltip_text = "The speed at which it moves"
+step = 0.1
 value = 1.0
 
 [node name="IdleMoveSpeedLabel" type="Label" parent="VBoxContainer/FormGrid"]
@@ -151,7 +154,7 @@ text = "Idle move speed"
 [node name="IdleMoveSpeedSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
 tooltip_text = "The speed at which it moves when idle"
-step = 0.5
+step = 0.1
 value = 0.5
 
 [node name="SightRangeLabel" type="Label" parent="VBoxContainer/FormGrid"]

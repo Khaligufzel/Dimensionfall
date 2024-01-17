@@ -4638,6 +4638,7 @@
 			},
 			{
 				"id": "grass_plain_01",
+				"mob": "rust_sentinel",
 				"rotation": 0
 			},
 			{
