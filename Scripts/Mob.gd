@@ -53,12 +53,21 @@ func add_corpse(pos: Vector3):
 	get_tree().get_root().add_child(corpse)
 	corpse.global_position = pos
 	corpse.add_to_group("mapitems")
-	
+
+# Sets the sprite to the mob
+# TODO: In order to optimize this, instead of calling original_mesh.duplicate()
+# We should keep track of every unique mesh (one for each type of mob)
+# THen we check if there has already been a mesh created for a mob with this
+# id and assign that mesh. Right now every mob has it's own unique mesh
 func set_sprite(newSprite: Resource):
-	var material := StandardMaterial3D.new() 
-	material.albedo_texture = newSprite # Set the texture of the material
+	var original_mesh = $MeshInstance3D.mesh
+	var new_mesh = original_mesh.duplicate()  # Clone the mesh
+	var material := StandardMaterial3D.new()
+	material.albedo_texture = newSprite
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	$MeshInstance3D.mesh.surface_set_material(0, material)
+	new_mesh.surface_set_material(0, material)
+	$MeshInstance3D.mesh = new_mesh  # Set the new mesh to MeshInstance3D
+
 
 # Applies it's own data from the dictionary it received
 # If it is created as a new mob, it will spawn with the default stats
