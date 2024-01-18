@@ -14,13 +14,18 @@ var tileData: Dictionary = defaultTileData.duplicate():
 			if tileData.has("rotation"):
 				set_rotation_amount(tileData.rotation)
 			$MobFurnitureSprite.hide()
-			if tileData.has("furniture"):
-				$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(\
-				Gamedata.data.furniture, tileData.furniture)
-				$MobFurnitureSprite.show()
-			elif tileData.has("mob"):
+			$MobFurnitureSprite.rotation_degrees = 0
+			if tileData.has("mob"):
+				if tileData.mob.has("rotation"):
+					$MobFurnitureSprite.rotation_degrees = tileData.mob.rotation
 				$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs,\
-				tileData.mob)
+				tileData.mob.id)
+				$MobFurnitureSprite.show()
+			elif tileData.has("furniture"):
+				if tileData.furniture.has("rotation"):
+					$MobFurnitureSprite.rotation_degrees = tileData.furniture.rotation
+				$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(\
+				Gamedata.data.furniture, tileData.furniture.id)
 				$MobFurnitureSprite.show()
 		else:
 			$TileSprite.texture = load(defaultTexture)
@@ -37,7 +42,10 @@ func _on_texture_rect_gui_input(event: InputEvent) -> void:
 
 func set_rotation_amount(amount: int) -> void:
 	$TileSprite.rotation_degrees = amount
-	tileData.rotation = amount
+	if amount == 0:
+		tileData.erase("rotation")
+	else:
+		tileData.rotation = amount
 
 func get_rotation_amount() -> int:
 	return $TileSprite.rotation_degrees
@@ -62,7 +70,10 @@ func set_mob_id(id: String) -> void:
 	else:
 		# A tile can either have a mob or furniture. If we add a mob, remove furniture
 		tileData.erase("furniture")
-		tileData.mob = id
+		if tileData.has("mob"):
+			tileData.mob.id = id
+		else:
+			tileData.mob = {"id": id}
 		$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs, id)
 		$MobFurnitureSprite.show()
 
@@ -74,9 +85,26 @@ func set_furniture_id(id: String) -> void:
 	else:
 		# A tile can either have a mob or furniture. If we add furniture, remove the mob
 		tileData.erase("mob")
-		tileData.furniture = id
+		if tileData.has("furniture"):
+			tileData.furniture.id = id
+		else:
+			tileData.furniture = {"id": id}
 		$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture, id)
 		$MobFurnitureSprite.show()
+
+func set_mob_rotation(rotationDegrees):
+	$MobFurnitureSprite.rotation_degrees = rotationDegrees
+	if rotationDegrees == 0:
+		tileData.mob.erase("rotation")
+	else:
+		tileData.mob.rotation = rotationDegrees
+		
+func set_furniture_rotation(rotationDegrees):
+	$MobFurnitureSprite.rotation_degrees = rotationDegrees
+	if rotationDegrees == 0:
+		tileData.furniture.erase("rotation")
+	else:
+		tileData.furniture.rotation = rotationDegrees
 
 func _on_texture_rect_mouse_entered() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):

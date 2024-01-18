@@ -35,3 +35,7 @@ func set_sprite(newSprite: Resource):
 	#material.albedo_texture = newSprite # Set the texture of the material
 	#material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	#$MeshInstance3D.mesh.surface_set_material(0, material)
+
+func set_new_rotation(amount: int):
+	rotation_degrees.y = amount
+	$Sprite3D.rotation_degrees.y = amount

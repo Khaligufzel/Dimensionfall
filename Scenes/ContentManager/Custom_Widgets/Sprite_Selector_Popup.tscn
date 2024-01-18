@@ -7,10 +7,11 @@
 [node name="Sprite_selector" type="Popup" node_paths=PackedStringArray("spriteList")]
 title = "Input ID"
 initial_position = 2
-size = Vector2i(400, 400)
+size = Vector2i(600, 400)
 visible = true
 unresizable = false
 borderless = false
+min_size = Vector2i(500, 400)
 script = ExtResource("1_rag8d")
 selectable_Sprite_Widget = ExtResource("2_wjnk7")
 spriteList = NodePath("VBoxContainer/Scrolling_Flow_Container")

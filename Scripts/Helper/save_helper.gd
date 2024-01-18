@@ -49,6 +49,7 @@ func save_mob_data(target_folder: String) -> void:
 			"global_position_x": mob.global_position.x,
 			"global_position_y": mob.global_position.y,
 			"global_position_z": mob.global_position.z,
+			"rotation": mob.rotation_degrees.y,
 			"melee_damage": mob.melee_damage,
 			"melee_range": mob.melee_range,
 			"health": mob.health,
@@ -84,29 +85,25 @@ func save_item_data(target_folder: String) -> void:
 	Helper.json_helper.write_json_file(target_folder + "/items.json",\
 	JSON.stringify(itemData))
 	
-# Save the type and position of all furniture on the map
+	
 func save_furniture_data(target_folder: String) -> void:
 	var furnitureData: Array = []
-	var defaultFurniture: Dictionary = {
-		"id": "table_round_wood",
-		"moveable": false,
-		"global_position_x": 0, 
-		"global_position_y": 0, 
-		"global_position_z": 0
-	}
 	var mapFurniture = get_tree().get_nodes_in_group("furniture")
 	var newFurnitureData: Dictionary
 	for furniture in mapFurniture:
 		furniture.remove_from_group("furniture")
-		newFurnitureData = defaultFurniture.duplicate()
-		newFurnitureData["global_position_x"] = furniture.global_position.x
-		newFurnitureData["global_position_y"] = furniture.global_position.y
-		newFurnitureData["global_position_z"] = furniture.global_position.z
-		newFurnitureData["id"] = furniture.id
-		newFurnitureData["moveable"] = furniture is RigidBody3D
+		newFurnitureData = {
+			"id": furniture.id,
+			"moveable": furniture is RigidBody3D,
+			"global_position_x": furniture.global_position.x,
+			"global_position_y": furniture.global_position.y,
+			"global_position_z": furniture.global_position.z,
+			"rotation": furniture.rotation_degrees.y,  # Save the Y-axis rotation
+		}
 		furnitureData.append(newFurnitureData.duplicate())
 		furniture.queue_free()
 	Helper.json_helper.write_json_file(target_folder + "/furniture.json", JSON.stringify(furnitureData))
+
 
 # Saves all of the maplevels to disk
 # A maplevel is one 32x32 layer at a certain x,y and z position

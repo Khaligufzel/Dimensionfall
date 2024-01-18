@@ -6,6 +6,7 @@
 		],
 		"description": "A round wooden table. This weathered relic from a bygone era stands as a testament to a simpler time, a stark contrast to the harsh reality surrounding it.\nThe table's surface bears the scars a history as a dining spot.",
 		"id": "table_round_wood",
+		"moveable": true,
 		"name": "Round wooden table",
 		"sprite": "table_64.png"
 	},
@@ -16,7 +17,20 @@
 		],
 		"description": "A simple wooden chair, its construction is basic yet sturdy, a testament to durability in the face of decay. \nWith a rough-hewn seat and a backrest that bears the marks of time, this chair offers a momentary respite from the unforgiving environment.",
 		"id": "chair_wood",
+		"moveable": true,
 		"name": "Wooden chair",
 		"sprite": "chair_32.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Kitchen",
+			"Indoor"
+		],
+		"description": "One of the central pieces of fruniture that make up a kitchen",
+		"id": "countertop_wood",
+		"moveable": false,
+		"name": "Wooden countertop",
+		"sprite": "countertop_100_52.png"
 	}
 ]

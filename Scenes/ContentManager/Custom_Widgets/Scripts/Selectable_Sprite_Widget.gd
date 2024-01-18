@@ -17,20 +17,26 @@ func _on_texture_rect_gui_input(event):
 			else:
 				selectableSprite_clicked.emit(self)
 			last_click_time = current_time
-			
-#func _on_texture_rect_gui_input(event):
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		#selectableSprite_clicked.emit(self)
-	
+
 func set_sprite_texture(res: Resource) -> void:
+	var texture: Texture
 	if res is BaseMaterial3D:
-		$SpriteImage.texture = res.albedo_texture
+		texture = res.albedo_texture
 	else:
-		$SpriteImage.texture = res
-	
+		texture = res
+
+	if texture:
+		$SpriteImage.texture = texture
+		# Set the minimum size of the widget based on the texture size
+		var texture_size = texture.get_size()
+		custom_minimum_size = Vector2(texture_size.x, texture_size.y)
+	else:
+		$SpriteImage.texture = null
+		custom_minimum_size = Vector2(0, custom_minimum_size.y)  # Reset to no minimum width
+
 func get_texture() -> Resource:
 	return $SpriteImage.texture
-	
+
 #Mark the clicked spritebrush as selected
 func set_selected(is_selected: bool) -> void:
 	selected = is_selected
