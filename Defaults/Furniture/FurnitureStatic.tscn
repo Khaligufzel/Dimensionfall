@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cm4n8cljiij4w"]
+
+[ext_resource type="Script" path="res://Scripts/FurnitureStatic.gd" id="1_wituf"]
+[ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://Defaults/Mobs/mob_corpse.tscn" id="2_ln6uk"]
+[ext_resource type="Texture2D" uid="uid://cqfqxgp12asw1" path="res://Mods/Core/Furniture/table_64.png" id="2_nt0ji"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xaq3g"]
+radius = 0.2
+
+[node name="FurnitureStatic" type="StaticBody3D"]
+script = ExtResource("1_wituf")
+corpse_scene = ExtResource("2_ln6uk")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = ExtResource("2_nt0ji")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_xaq3g")

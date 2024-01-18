@@ -89,6 +89,7 @@ func save_furniture_data(target_folder: String) -> void:
 	var furnitureData: Array = []
 	var defaultFurniture: Dictionary = {
 		"id": "table_round_wood",
+		"moveable": false,
 		"global_position_x": 0, 
 		"global_position_y": 0, 
 		"global_position_z": 0
@@ -102,6 +103,7 @@ func save_furniture_data(target_folder: String) -> void:
 		newFurnitureData["global_position_y"] = furniture.global_position.y
 		newFurnitureData["global_position_z"] = furniture.global_position.z
 		newFurnitureData["id"] = furniture.id
+		newFurnitureData["moveable"] = furniture is RigidBody3D
 		furnitureData.append(newFurnitureData.duplicate())
 		furniture.queue_free()
 	Helper.json_helper.write_json_file(target_folder + "/furniture.json", JSON.stringify(furnitureData))

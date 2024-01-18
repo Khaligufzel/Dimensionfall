@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=26 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
 [ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://Defaults/Mobs/mob.tscn" id="2_jhj6h"]
 [ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://Defaults/Mobs/mob_corpse.tscn" id="3_l8ooc"]
 [ext_resource type="PackedScene" uid="uid://cpmwu7v1r8cg8" path="res://Defaults/Furniture/FurniturePhysics.tscn" id="4_30bqp"]
+[ext_resource type="PackedScene" uid="uid://cm4n8cljiij4w" path="res://Defaults/Furniture/FurnitureStatic.tscn" id="5_cakgt"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
@@ -62,6 +63,7 @@ script = ExtResource("1_i8qa4")
 defaultMob = ExtResource("2_jhj6h")
 defaultItem = ExtResource("3_l8ooc")
 defaultFurniturePhysics = ExtResource("4_30bqp")
+defaultFurnitureStatic = ExtResource("5_cakgt")
 level_manager = NodePath("../NavigationRegion3D/LevelManager")
 default_level_json = "res://Mods/Core/Maps/Generichouse.json"
 

@@ -14,6 +14,7 @@ var level_height : int = 32
 @export var defaultMob: PackedScene
 @export var defaultItem: PackedScene
 @export var defaultFurniturePhysics: PackedScene
+@export var defaultFurnitureStatic: PackedScene
 @export var level_manager : Node3D
 @export_file var default_level_json
 
@@ -134,7 +135,11 @@ func generate_furniture() -> void:
 		add_furniture_to_map.call_deferred(furnitureData)
 
 func add_furniture_to_map(furnitureData: Dictionary) -> void:
-	var newFurniture: Node3D = defaultFurniturePhysics.instantiate()
+	var newFurniture: Node3D
+	if furnitureData.has("moveable") and furnitureData.moveable:
+		newFurniture = defaultFurniturePhysics.instantiate()
+	else:
+		newFurniture = defaultFurnitureStatic.instantiate()
 	newFurniture.add_to_group("furniture")
 	newFurniture.set_sprite(Gamedata.get_sprite_by_id(Gamedata.data.furniture, furnitureData.id))
 	get_tree().get_root().add_child(newFurniture)
@@ -188,7 +193,11 @@ func generate_saved_level(tacticalMapJSON: Dictionary) -> void:
 
 func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
 	if tileJSON.has("furniture"):
-		var newFurniture: Node3D = defaultFurniturePhysics.instantiate()
+		var newFurniture: Node3D
+		if tileJSON.has("moveable") and tileJSON.moveable:
+			newFurniture = defaultFurniturePhysics.instantiate()
+		else:
+			newFurniture = defaultFurnitureStatic.instantiate()
 		newFurniture.add_to_group("furniture")
 		newFurniture.set_sprite(Gamedata.get_sprite_by_id(\
 		Gamedata.data.furniture, tileJSON.furniture))

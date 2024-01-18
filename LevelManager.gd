@@ -1,6 +1,6 @@
 extends Node3D
 
-  # Initialize with a value that's unlikely to be a valid Y-level
+  # Initialize with a value that's unlikely to be a valid starting Y-level
 var last_player_y_level: float = -1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
