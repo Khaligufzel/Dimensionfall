@@ -1,5 +1,6 @@
 extends GridContainer
 
+signal map_dimensions_changed(new_map_width, new_map_height)
 @export var tileScene: PackedScene
 #This is the index of the level we are on. 0 is ground level. can be -10 to +10
 var currentLevel: int = 10
@@ -36,10 +37,30 @@ func createTiles():
 			add_child(tileInstance)
 			tileInstance.connect("tile_clicked",grid_tile_clicked)
 
+#func resetGrid():
+	#for child in get_children():
+		#child.queue_free()
+	#createTiles()
+
 func resetGrid():
+	# Clear the existing children
 	for child in get_children():
 		child.queue_free()
+
+	# Update mapData with new dimensions
+	mapData.mapwidth = mapEditor.mapWidth
+	mapData.mapheight = mapEditor.mapHeight
+	var newMapsArray = []
+	for x in range(mapEditor.mapWidth):
+		for y in range(mapEditor.mapHeight):
+			newMapsArray.append({}) # Add an empty dictionary for each tile
+
+	mapData.maps = newMapsArray
+
+	# Recreate tiles
 	createTiles()
+
+
 
 #When one of the grid tiles is clicked, we paint the tile accordingly
 func grid_tile_clicked(clicked_tile):
@@ -78,23 +99,53 @@ func storeLevelData():
 func load_tacticalmap_json_file():
 	var fileToLoad: String = mapEditor.contentSource
 	mapData = Helper.json_helper.load_json_dictionary_file(fileToLoad)
-	
-	
+	# Notify about the change in map dimensions
+	map_dimensions_changed.emit(mapData.mapwidth, mapData.mapheight)
+
+	#
+#func loadLevel():
+	#if mapData.is_empty():
+		#print_debug("Tried to load data from an empty mapData dictionary")
+		#return;
+	#var newLevelData: Array = mapData.maps
+	#var i: int = 0
+	## If any data exists on this level, we load it
+	#if newLevelData != []:
+		#for tile in get_children():
+			#tile.tileData = newLevelData[i]
+			#i += 1
+	#else:
+		##No data is present on this level. apply the default value for each tile
+		#for tile in get_children():
+			#tile.set_default()
+
 func loadLevel():
 	if mapData.is_empty():
 		print_debug("Tried to load data from an empty mapData dictionary")
-		return;
+		return
+
+	# Clear existing children
+	for child in get_children():
+		child.queue_free()
+
+	# Set the number of columns based on mapWidth
+	columns = mapData.mapwidth
+
+	# Recreate the grid based on mapData dimensions
 	var newLevelData: Array = mapData.maps
-	var i: int = 0
-	# If any data exists on this level, we load it
-	if newLevelData != []:
-		for tile in get_children():
-			tile.tileData = newLevelData[i]
-			i += 1
-	else:
-		#No data is present on this level. apply the default value for each tile
-		for tile in get_children():
-			tile.set_default()
+	var index: int = 0
+	for x in range(mapData.mapwidth):
+		for y in range(mapData.mapheight):
+			var tileInstance: Control = tileScene.instantiate()
+			add_child(tileInstance)
+			tileInstance.connect("tile_clicked",grid_tile_clicked)
+
+			# Load tile data if available, otherwise use default data
+			if index < newLevelData.size():
+				tileInstance.tileData = newLevelData[index]
+			else:
+				tileInstance.set_default()
+			index += 1
 
 
 func _on_entities_container_tile_brush_selection_change(tilebrush):
