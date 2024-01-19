@@ -8,11 +8,13 @@
 radius = 0.2
 
 [node name="FurnitureStatic" type="StaticBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1_wituf")
 corpse_scene = ExtResource("2_ln6uk")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-billboard = 1
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 texture = ExtResource("2_nt0ji")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

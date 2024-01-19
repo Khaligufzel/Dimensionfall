@@ -27,7 +27,15 @@ func add_corpse(pos: Vector3):
 	
 func set_sprite(newSprite: Resource):
 	$Sprite3D.texture = newSprite
+#
+#func set_new_rotation(amount: int):
+	#rotation_degrees.y = amount
+	#$Sprite3D.rotation_degrees.y = amount
 
 func set_new_rotation(amount: int):
-	rotation_degrees.y = amount
-	$Sprite3D.rotation_degrees.y = amount
+	if amount == 180:
+		$Sprite3D.rotation_degrees.y = amount-180
+	elif amount == 0:
+		$Sprite3D.rotation_degrees.y = amount+180
+	else:
+		$Sprite3D.rotation_degrees.y = amount-0

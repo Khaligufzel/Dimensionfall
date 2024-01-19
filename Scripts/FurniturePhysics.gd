@@ -37,5 +37,9 @@ func set_sprite(newSprite: Resource):
 	#$MeshInstance3D.mesh.surface_set_material(0, material)
 
 func set_new_rotation(amount: int):
-	rotation_degrees.y = amount
-	$Sprite3D.rotation_degrees.y = amount
+	if amount == 180:
+		$Sprite3D.rotation_degrees.y = amount-180
+	elif amount == 0:
+		$Sprite3D.rotation_degrees.y = amount+180
+	else:
+		$Sprite3D.rotation_degrees.y = amount-0

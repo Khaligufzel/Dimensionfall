@@ -224,6 +224,8 @@ func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
 
 		if tileJSON.furniture.has("rotation"):
 			newFurniture.set_new_rotation(tileJSON.furniture.rotation)
+		else:
+			newFurniture.set_new_rotation(0)
 		newFurniture.id = furnitureJSON.id
 
 func apply_block_rotation(tileJSON: Dictionary, block: StaticBody3D):
