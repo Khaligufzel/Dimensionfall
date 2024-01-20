@@ -43,3 +43,12 @@ func set_new_rotation(amount: int):
 		$Sprite3D.rotation_degrees.y = amount+180
 	else:
 		$Sprite3D.rotation_degrees.y = amount-0
+
+func get_sprite_rotation() -> int:
+	var rot: int = $Sprite3D.rotation_degrees.y
+	if rot == 180:
+		return rot-180
+	elif rot == 0:
+		return rot+180
+	else:
+		return rot-0

@@ -163,6 +163,10 @@ func add_furniture_to_map(furnitureData: Dictionary) -> void:
 	# Check if rotation data is available and apply it
 	if furnitureData.has("rotation"):
 		newFurniture.rotation_degrees.y = furnitureData.rotation
+	
+	# Check if sprite rotation data is available and apply it
+	if furnitureData.has("sprite_rotation"):
+		newFurniture.set_new_rotation(furnitureData.sprite_rotation)
 	newFurniture.id = furnitureData.id
 
 # Generate the map layer by layer

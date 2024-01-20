@@ -99,6 +99,7 @@ func save_furniture_data(target_folder: String) -> void:
 			"global_position_y": furniture.global_position.y,
 			"global_position_z": furniture.global_position.z,
 			"rotation": furniture.rotation_degrees.y,  # Save the Y-axis rotation
+			"sprite_rotation": furniture.get_sprite_rotation()
 		}
 		furnitureData.append(newFurnitureData.duplicate())
 		furniture.queue_free()
