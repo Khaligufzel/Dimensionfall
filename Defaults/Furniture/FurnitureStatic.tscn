@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://Defaults/Mobs/mob_corpse.tscn" id="2_ln6uk"]
 [ext_resource type="Texture2D" uid="uid://cqfqxgp12asw1" path="res://Mods/Core/Furniture/table_64.png" id="2_nt0ji"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_xaq3g"]
-radius = 0.2
+[sub_resource type="BoxShape3D" id="BoxShape3D_23dag"]
+size = Vector3(0.4, 0.5, 0.4)
 
 [node name="FurnitureStatic" type="StaticBody3D"]
 axis_lock_angular_x = true
@@ -18,4 +18,4 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 texture = ExtResource("2_nt0ji")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_xaq3g")
+shape = SubResource("BoxShape3D_23dag")

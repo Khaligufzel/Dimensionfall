@@ -150,7 +150,8 @@ func generate_furniture() -> void:
 # Called by generate_furniture function when a save is loaded
 func add_furniture_to_map(furnitureData: Dictionary) -> void:
 	var newFurniture: Node3D
-	if furnitureData.has("moveable") and furnitureData.moveable:
+	var isMoveable = furnitureData.has("moveable") and furnitureData.moveable
+	if isMoveable:
 		newFurniture = defaultFurniturePhysics.instantiate()
 	else:
 		newFurniture = defaultFurnitureStatic.instantiate()
@@ -162,10 +163,13 @@ func add_furniture_to_map(furnitureData: Dictionary) -> void:
 	newFurniture.global_position.z = furnitureData.global_position_z
 	# Check if rotation data is available and apply it
 	if furnitureData.has("rotation"):
-		newFurniture.rotation_degrees.y = furnitureData.rotation
+		if isMoveable:
+			newFurniture.rotation_degrees.y = furnitureData.rotation
+		else:
+			newFurniture.set_new_rotation(furnitureData.rotation)
 	
 	# Check if sprite rotation data is available and apply it
-	if furnitureData.has("sprite_rotation"):
+	if furnitureData.has("sprite_rotation") and isMoveable:
 		newFurniture.set_new_rotation(furnitureData.sprite_rotation)
 	newFurniture.id = furnitureData.id
 

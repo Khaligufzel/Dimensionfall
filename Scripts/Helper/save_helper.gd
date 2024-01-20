@@ -90,15 +90,20 @@ func save_furniture_data(target_folder: String) -> void:
 	var furnitureData: Array = []
 	var mapFurniture = get_tree().get_nodes_in_group("furniture")
 	var newFurnitureData: Dictionary
+	var newRot: int
 	for furniture in mapFurniture:
 		furniture.remove_from_group("furniture")
+		if furniture is RigidBody3D:
+			newRot = furniture.rotation_degrees.y
+		else:
+			newRot = furniture.get_my_rotation()
 		newFurnitureData = {
 			"id": furniture.id,
 			"moveable": furniture is RigidBody3D,
 			"global_position_x": furniture.global_position.x,
 			"global_position_y": furniture.global_position.y,
 			"global_position_z": furniture.global_position.z,
-			"rotation": furniture.rotation_degrees.y,  # Save the Y-axis rotation
+			"rotation": newRot,  # Save the Y-axis rotation
 			"sprite_rotation": furniture.get_sprite_rotation()
 		}
 		furnitureData.append(newFurnitureData.duplicate())
