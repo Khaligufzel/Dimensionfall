@@ -37,11 +37,6 @@ func createTiles():
 			add_child(tileInstance)
 			tileInstance.connect("tile_clicked",grid_tile_clicked)
 
-#func resetGrid():
-	#for child in get_children():
-		#child.queue_free()
-	#createTiles()
-
 func resetGrid():
 	# Clear the existing children
 	for child in get_children():
@@ -101,23 +96,6 @@ func load_tacticalmap_json_file():
 	mapData = Helper.json_helper.load_json_dictionary_file(fileToLoad)
 	# Notify about the change in map dimensions
 	map_dimensions_changed.emit(mapData.mapwidth, mapData.mapheight)
-
-	#
-#func loadLevel():
-	#if mapData.is_empty():
-		#print_debug("Tried to load data from an empty mapData dictionary")
-		#return;
-	#var newLevelData: Array = mapData.maps
-	#var i: int = 0
-	## If any data exists on this level, we load it
-	#if newLevelData != []:
-		#for tile in get_children():
-			#tile.tileData = newLevelData[i]
-			#i += 1
-	#else:
-		##No data is present on this level. apply the default value for each tile
-		#for tile in get_children():
-			#tile.set_default()
 
 func loadLevel():
 	if mapData.is_empty():
