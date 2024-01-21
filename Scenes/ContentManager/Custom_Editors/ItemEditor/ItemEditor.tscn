@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_ghd7c"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_qb68r"]
 
-[node name="ItemEditor" type="Control" node_paths=PackedStringArray("itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "WidthNumberBox", "HeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox")]
+[node name="ItemEditor" type="Control" node_paths=PackedStringArray("itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "WidthNumberBox", "HeightNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +20,7 @@ DescriptionTextEdit = NodePath("VBoxContainer/TabContainer/Basic/DescriptionText
 itemSelector = NodePath("Sprite_selector")
 WidthNumberBox = NodePath("VBoxContainer/TabContainer/Basic/WidthNumber")
 HeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/HeightNumber")
+WeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/WeightNumber")
 StackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/StackSizeNumber")
 MaxStackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/MaxStackSizeNumber")
 
@@ -131,6 +132,18 @@ min_value = 1.0
 max_value = 8.0
 value = 1.0
 
+[node name="WeightLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Weight"
+
+[node name="WeightNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+tooltip_text = "The weight of this item in kg"
+min_value = 0.01
+max_value = 500.0
+step = 0.01
+value = 1.0
+
 [node name="StackSizeLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
 layout_mode = 2
 text = "Stack size"
@@ -139,7 +152,6 @@ text = "Stack size"
 layout_mode = 2
 tooltip_text = "The amount of this item that will spawn in a stack by default"
 min_value = 1.0
-max_value = 8.0
 value = 1.0
 
 [node name="MaxStackSizeLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
@@ -150,7 +162,6 @@ text = "Max stack size"
 layout_mode = 2
 tooltip_text = "The maximum number of this item that will fit in a stack"
 min_value = 1.0
-max_value = 8.0
 value = 1.0
 
 [node name="TypesLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
@@ -162,31 +173,43 @@ layout_mode = 2
 
 [node name="RangedWeaponCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
 layout_mode = 2
+tooltip_text = "If this is checked, the item functions as a ranged weapon and the ranged properties tab will be visible. Otherwise, this item will not function as a ranged weapon and the ranged properties tab will not be visible"
 text = "Ranged"
 
 [node name="MeleeCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
 layout_mode = 2
+tooltip_text = "If this is checked, the item functions as a melee weapon and the melee properties tab will be visible. Otherwise, this item will not function as a melee weapon and the melee properties tab will not be visible"
 text = "Melee"
 
 [node name="MedicalCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
 layout_mode = 2
+tooltip_text = "If this is checked, the item functions as a medical item, for example to be used for healing and the medical properties tab will be visible. Otherwise, this item will not function as a medical item and the medical properties tab will not be visible"
 text = "Medical"
 
 [node name="MagazineCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
 layout_mode = 2
+tooltip_text = "If this is checked, the item functions as a magazine for a gun or tool and the magazine properties tab will be visible. Otherwise, this item will not function as a magazine and the magazine properties tab will not be visible"
 text = "Magazine"
 
 [node name="AmmunitionCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
 layout_mode = 2
+tooltip_text = "If this is checked, the item functions as ammo for a magazine and the ammo properties tab will be visible. Otherwise, this item will not function as ammo and the ammo properties tab will not be visible"
 text = "Ammo"
 
 [node name="BookCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
 layout_mode = 2
+tooltip_text = "If this is checked, the item functions as a book and the book properties tab will be visible. Otherwise, this item will not function as a book and the book properties tab will not be visible"
 text = "Book"
 
 [node name="CraftableCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
 layout_mode = 2
-text = "Craftable"
+tooltip_text = "If this is checked, the item can be crafted and recipe tab will be visible. Otherwise, this item cannot be crafted and the recipe tab will not be visible"
+text = "Craft"
+
+[node name="DisassembleCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item can be disassembled and disassembly tab will be visible. Otherwise, this item cannot be disassembled and the disassembly tab will not be visible"
+text = "Disassemble"
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_qb68r")]
 visible = false

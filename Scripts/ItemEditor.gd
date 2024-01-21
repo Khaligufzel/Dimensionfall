@@ -22,6 +22,7 @@ extends Control
 # Inventory propeties
 @export var WidthNumberBox: SpinBox = null
 @export var HeightNumberBox: SpinBox = null
+@export var WeightNumberBox: SpinBox = null
 @export var StackSizeNumberBox: SpinBox = null
 @export var MaxStackSizeNumberBox: SpinBox = null
 
@@ -54,6 +55,8 @@ func load_item_data() -> void:
 		WidthNumberBox.get_line_edit().text = contentData["width"]
 	if HeightNumberBox != null and contentData.has("height"):
 		HeightNumberBox.get_line_edit().text = contentData["height"]
+	if WeightNumberBox != null and contentData.has("weight"):
+		WeightNumberBox.get_line_edit().text = contentData["weight"]
 	if StackSizeNumberBox != null and contentData.has("stack_size"):
 		StackSizeNumberBox.get_line_edit().text = contentData["stack_size"]
 	if MaxStackSizeNumberBox != null and contentData.has("max_stack_size"):
@@ -74,6 +77,7 @@ func _on_save_button_button_up() -> void:
 	contentData["description"] = DescriptionTextEdit.text
 	contentData["width"] = WidthNumberBox.get_line_edit().text
 	contentData["height"] = HeightNumberBox.get_line_edit().text
+	contentData["weight"] = WeightNumberBox.get_line_edit().text
 	contentData["stack_size"] = StackSizeNumberBox.get_line_edit().text
 	contentData["max_stack_size"] = MaxStackSizeNumberBox.get_line_edit().text
 	data_changed.emit()
