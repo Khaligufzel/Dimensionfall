@@ -1,9 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=21 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
 [ext_resource type="Script" path="res://Scripts/NonHUDclick.gd" id="2_kpbhl"]
-[ext_resource type="Script" path="res://addons/gloot/core/inventory_grid_stacked.gd" id="2_pq7em"]
 [ext_resource type="Texture2D" uid="uid://7hppy1l45loq" path="res://Textures/bar_progress.png" id="3_83uwt"]
 [ext_resource type="Resource" uid="uid://bvrl0obu5ejqq" path="res://ItemProtosets.tres" id="3_jmlkb"]
 [ext_resource type="Texture2D" uid="uid://dcgwgmsmi7mjn" path="res://Textures/bar_border.png" id="3_y43f5"]
@@ -13,8 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://1alnt17qsyd7" path="res://Textures/rightarm.png" id="7_td8gu"]
 [ext_resource type="Texture2D" uid="uid://t7ny2gtgqll8" path="res://Textures/head.png" id="8_vb8fm"]
 [ext_resource type="Texture2D" uid="uid://c1begynwustlp" path="res://Textures/torso.png" id="9_4u4ej"]
-[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_grid_ex.gd" id="11_m0x1l"]
-[ext_resource type="Texture2D" uid="uid://cwmsngeoc631h" path="res://Textures/Screenshot_167.png" id="13_hab4t"]
 [ext_resource type="Script" path="res://Scripts/CraftingMenu.gd" id="14_g3fif"]
 [ext_resource type="PackedScene" uid="uid://cpcn3qq8okj12" path="res://item_craft_button.tscn" id="15_otw1a"]
 [ext_resource type="ButtonGroup" uid="uid://bcjuavqvre6mk" path="res://crafting_recipes_button_group.tres" id="16_2oloe"]
@@ -26,14 +23,10 @@
 default_font = ExtResource("1_pxloi")
 default_font_size = 0
 
-[sub_resource type="Theme" id="Theme_1as7c"]
-default_font = ExtResource("1_pxloi")
-default_font_size = 13
-
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_xekk0"]
 color = Color(1, 1, 1, 1)
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("overmap")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("inventoryWindow", "overmap")]
 script = ExtResource("1_s3xoj")
 head_health = NodePath("Doll/Head")
 right_arm_health = NodePath("Doll/Rightarm")
@@ -45,16 +38,10 @@ stamina_HUD = NodePath("StaminaLevel")
 ammo_HUD = NodePath("Ammo")
 healthy_color = Color(0, 0.635294, 0, 1)
 damaged_color = Color(0.635294, 0, 0, 1)
-proximity_inventory = NodePath("InventoryGridStackedProx")
-proximity_inventory_control = NodePath("CtrlInventoryGridExProx")
-inventory_control = NodePath("CtrlInventoryGridEx")
-inventory = NodePath("InventoryGridStacked")
+inventoryWindow = NodePath("InventoryWindow")
 building_menu = NodePath("BuildingMenu")
 crafting_menu = NodePath("CraftingMenu")
 overmap = NodePath("Overmap")
-tooltip = NodePath("Tooltip")
-tooltip_item_name = NodePath("Tooltip/Panel/ItemName")
-tooltip_item_description = NodePath("Tooltip/Panel2/Description")
 progress_bar = NodePath("ProgressBar")
 progress_bar_filling = NodePath("ProgressBar/Node2D/Filling")
 progress_bar_timer = NodePath("ProgressBar/ProgressBarTimer")
@@ -209,48 +196,6 @@ position = Vector2(85.25, -113.375)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("9_4u4ej")
 
-[node name="InventoryGridStacked" type="Node" parent="."]
-script = ExtResource("2_pq7em")
-item_protoset = ExtResource("3_jmlkb")
-
-[node name="InventoryGridStackedProx" type="Node" parent="."]
-script = ExtResource("2_pq7em")
-size = Vector2i(30, 10)
-item_protoset = ExtResource("3_jmlkb")
-
-[node name="CtrlInventoryGridEx" type="Control" parent="."]
-visible = false
-custom_minimum_size = Vector2(320, 320)
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 383.0
-offset_top = -322.0
-offset_right = 703.0
-offset_bottom = -2.0
-grow_vertical = 0
-script = ExtResource("11_m0x1l")
-selection_color = Color(0.745098, 0.745098, 0.745098, 0.941176)
-inventory_path = NodePath("../InventoryGridStacked")
-default_item_texture = ExtResource("13_hab4t")
-
-[node name="CtrlInventoryGridExProx" type="Control" parent="."]
-visible = false
-custom_minimum_size = Vector2(240, 80)
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 711.0
-offset_top = -80.0
-offset_right = 951.0
-grow_vertical = 0
-script = ExtResource("11_m0x1l")
-field_dimensions = Vector2(8, 8)
-inventory_path = NodePath("../InventoryGridStackedProx")
-default_item_texture = ExtResource("13_hab4t")
-
 [node name="BuildingMenu" type="GridContainer" parent="."]
 visible = false
 offset_right = 186.0
@@ -260,58 +205,6 @@ columns = 4
 [node name="Concrete" type="Button" parent="BuildingMenu"]
 layout_mode = 2
 text = "Concrete"
-
-[node name="Tooltip" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 242.0
-offset_bottom = 115.0
-pivot_offset = Vector2(0, 173)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-tooltip_text = "kjkgkjghkjjhkg"
-
-[node name="Panel" type="Panel" parent="Tooltip"]
-layout_mode = 2
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 241.0
-offset_bottom = 33.0
-size_flags_vertical = 3
-
-[node name="ItemName" type="Label" parent="Tooltip/Panel"]
-layout_mode = 0
-offset_right = 240.0
-offset_bottom = 32.0
-theme_override_colors/font_color = Color(0.921569, 0.596078, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("1_pxloi")
-theme_override_font_sizes/font_size = 20
-text = "Item name"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel2" type="Panel" parent="Tooltip"]
-layout_mode = 2
-offset_left = 1.0
-offset_top = 35.0
-offset_right = 241.0
-offset_bottom = 115.0
-size_flags_vertical = 3
-
-[node name="Description" type="Label" parent="Tooltip/Panel2"]
-layout_mode = 0
-offset_right = 240.0
-offset_bottom = 32.0
-theme = SubResource("Theme_1as7c")
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("1_pxloi")
-theme_override_font_sizes/font_size = 13
-text = "Item description"
-autowrap_mode = 3
 
 [node name="CraftingMenu" type="Panel" parent="." groups=["CraftingMenu"]]
 visible = false
@@ -423,13 +316,12 @@ text = "Required items
 autowrap_mode = 3
 
 [node name="Overmap" parent="." instance=ExtResource("19_oomhy")]
+visible = false
 
 [node name="InventoryWindow" parent="." instance=ExtResource("20_0l505")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+visible = false
+offset_top = 200.0
+offset_bottom = 720.0
 
 [node name="GameOver" parent="." instance=ExtResource("20_jlthm")]
 visible = false
@@ -437,11 +329,6 @@ visible = false
 [connection signal="timeout" from="ProgressBar/ProgressBarTimer" to="." method="_on_progress_bar_timer_timeout"]
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_exited"]
-[connection signal="item_added" from="InventoryGridStacked" to="." method="_on_inventory_grid_stacked_item_added"]
-[connection signal="item_mouse_entered" from="CtrlInventoryGridEx" to="." method="_on_inventory_item_mouse_entered"]
-[connection signal="item_mouse_exited" from="CtrlInventoryGridEx" to="." method="_on_inventory_item_mouse_exited"]
-[connection signal="item_mouse_entered" from="CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_entered"]
-[connection signal="item_mouse_exited" from="CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_exited"]
 [connection signal="button_down" from="BuildingMenu/Concrete" to="." method="_on_concrete_button_down"]
 [connection signal="start_craft" from="CraftingMenu" to="." method="_on_crafting_menu_start_craft"]
 [connection signal="pressed" from="CraftingMenu/Panel/StartCraftingButton" to="CraftingMenu" method="_on_start_crafting_button_pressed"]

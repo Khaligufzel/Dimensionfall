@@ -14,15 +14,6 @@ var is_showing_tooltip = false
 
 
 
-func test():
-	print("TESTING 123 123!")
-
-
-func _input(event):
-	if event.is_action_pressed("toggle_inventory"):
-		inventory_control.visible = !inventory_control.visible
-		proximity_inventory_control.visible = !proximity_inventory_control.visible
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,9 +44,6 @@ func _on_item_detector_remove_from_proximity_inventory(items):
 			if item.get_property("assigned_id") == prox_item.get_property("assigned_id"):
 				prox_item.queue_free()
 
-#func _on_player_shooting_ammo_changed(current_ammo, max_ammo):
-#	get_node(ammo_HUD).text = str(current_ammo) + "/" + str(max_ammo)
-
 
 func _on_inventory_item_mouse_entered(item):
 	is_showing_tooltip = true
@@ -74,7 +62,7 @@ func check_if_resources_are_available(item_id, amount_to_spend: int):
 		var current_amount_to_spend = amount_to_spend
 		var items = inventory_node.get_items_by_id(item_id)
 		for item in items:
-			item_total_amount += inventory_node.get_item_stack_size(item)
+			item_total_amount += InventoryGridStacked.get_item_stack_size(item)
 		if item_total_amount >= current_amount_to_spend:
 			return true
 	return false
@@ -87,7 +75,7 @@ func try_to_spend_item(item_id, amount_to_spend : int):
 		var items = inventory_node.get_items_by_id(item_id)
 		
 		for item in items:
-			item_total_amount += inventory_node.get_item_stack_size(item)
+			item_total_amount += InventoryGridStacked.get_item_stack_size(item)
 		
 		if item_total_amount >= amount_to_spend:
 			merge_items_to_total_amount(items, inventory_node, item_total_amount - current_amount_to_spend)
@@ -97,25 +85,25 @@ func try_to_spend_item(item_id, amount_to_spend : int):
 	else:
 		return false
 
-func merge_items_to_total_amount(items, inventory, total_amount : int):
+func merge_items_to_total_amount(items, inventory_node, total_amount : int):
 	var current_total_amount = total_amount
 	for item in items:
-		if inventory.get_item_stack_size(item) < current_total_amount:
-			if inventory.get_item_stack_size(item) == item.get_property("max_stack_size"):
-				current_total_amount -= inventory.get_item_stack_size(item)
-			elif inventory.get_item_stack_size(item) < item.get_property("max_stack_size"):
-				current_total_amount -= item.get_property("max_stack_size") - inventory.get_item_stack_size(item)
-				inventory.set_item_stack_size(item, item.get_property("max_stack_size"))
+		if inventory_node.get_item_stack_size(item) < current_total_amount:
+			if inventory_node.get_item_stack_size(item) == item.get_property("max_stack_size"):
+				current_total_amount -= inventory_node.get_item_stack_size(item)
+			elif inventory_node.get_item_stack_size(item) < item.get_property("max_stack_size"):
+				current_total_amount -= item.get_property("max_stack_size") - inventory_node.get_item_stack_size(item)
+				inventory_node.set_item_stack_size(item, item.get_property("max_stack_size"))
 
-		elif inventory.get_item_stack_size(item) == current_total_amount:
+		elif inventory_node.get_item_stack_size(item) == current_total_amount:
 			current_total_amount = 0
 
-		elif inventory.get_item_stack_size(item) > current_total_amount:
-			inventory.set_item_stack_size(item, current_total_amount)
+		elif inventory_node.get_item_stack_size(item) > current_total_amount:
+			inventory_node.set_item_stack_size(item, current_total_amount)
 			current_total_amount = 0
 
-			if inventory.get_item_stack_size(item) == 0:
-				inventory.remove_item(item)
+			if inventory_node.get_item_stack_size(item) == 0:
+				inventory_node.remove_item(item)
 
 func _on_crafting_menu_start_craft(recipe):
 	
@@ -127,7 +115,7 @@ func _on_crafting_menu_start_craft(recipe):
 		#adding a new item(s) to the inventory based on the recipe
 		var item
 		item = inventory.create_and_add_item(recipe["crafts"])
-		inventory.set_item_stack_size(item, recipe["craft_amount"])
+		InventoryGridStacked.set_item_stack_size(item, recipe["craft_amount"])
 
 
 # When an item is added to the player inventory
@@ -139,3 +127,6 @@ func _on_inventory_grid_stacked_item_added(item):
 		var original_item = item.get_meta("original_item")
 		if original_parent and original_parent.has_method("remove_item"):
 			original_parent.remove_item(original_item)  # Remove from original parent 
+			
+func get_inventory() -> InventoryGridStacked:
+	return inventory

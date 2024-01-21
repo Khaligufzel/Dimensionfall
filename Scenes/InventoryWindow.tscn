@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://e0ebcv1n8jnq"]
+[gd_scene load_steps=9 format=3 uid="uid://e0ebcv1n8jnq"]
 
 [ext_resource type="Script" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_grid_stacked.gd" id="2_alcyo"]
@@ -8,10 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://cwmsngeoc631h" path="res://Textures/Screenshot_167.png" id="5_wixd1"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="6_xpf2l"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bcjil"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2f0xd"]
-
 [sub_resource type="Theme" id="Theme_6v4rg"]
 default_font = ExtResource("6_xpf2l")
 default_font_size = 13
@@ -20,8 +16,8 @@ default_font_size = 13
 layout_mode = 3
 anchors_preset = 0
 offset_top = 150.0
-offset_right = 470.0
-offset_bottom = 670.0
+offset_right = 462.0
+offset_bottom = 719.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_7kqbx")
@@ -40,7 +36,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.129412, 0.14902, 0.180392, 1)
+color = Color(0.698039, 0.729412, 0.788235, 1)
 
 [node name="InventoryGridStacked" type="Node" parent="."]
 script = ExtResource("2_alcyo")
@@ -72,16 +68,20 @@ custom_minimum_size = Vector2(384, 256)
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("4_8j4xb")
-field_style = SubResource("StyleBoxFlat_bcjil")
+grid_color = Color(0.305882, 0.305882, 0.305882, 1)
 inventory_path = NodePath("../../../InventoryGridStackedProx")
 default_item_texture = ExtResource("5_wixd1")
+
+[node name="Label" type="Label" parent="HBoxContainer/Inventories"]
+layout_mode = 2
+text = "Player inventory:"
 
 [node name="CtrlInventoryGridEx" type="Control" parent="HBoxContainer/Inventories"]
 custom_minimum_size = Vector2(384, 256)
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("4_8j4xb")
-field_style = SubResource("StyleBoxFlat_2f0xd")
+grid_color = Color(0.309804, 0.309804, 0.309804, 1)
 selection_color = Color(0.745098, 0.745098, 0.745098, 0.941176)
 inventory_path = NodePath("../../../InventoryGridStacked")
 default_item_texture = ExtResource("5_wixd1")
