@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_ghd7c"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_qb68r"]
 
-[node name="ItemEditor" type="Control" node_paths=PackedStringArray("itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector")]
+[node name="ItemEditor" type="Control" node_paths=PackedStringArray("itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "WidthNumberBox", "HeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +18,10 @@ PathTextLabel = NodePath("VBoxContainer/TabContainer/Basic/PathTextLabel")
 NameTextEdit = NodePath("VBoxContainer/TabContainer/Basic/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/TabContainer/Basic/DescriptionTextEdit")
 itemSelector = NodePath("Sprite_selector")
+WidthNumberBox = NodePath("VBoxContainer/TabContainer/Basic/WidthNumber")
+HeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/HeightNumber")
+StackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/StackSizeNumber")
+MaxStackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/MaxStackSizeNumber")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -104,6 +108,85 @@ size_flags_stretch_ratio = 0.9
 focus_previous = NodePath("../NameTextEdit")
 placeholder_text = "A very dangerous land animal often found in dry climates"
 wrap_mode = 1
+
+[node name="WidthLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Width"
+
+[node name="WidthNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+tooltip_text = "The width of this item in the inventory. A larger number means it will take up more horizontal inventory slots"
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+
+[node name="HeightLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Height"
+
+[node name="HeightNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+tooltip_text = "The height of this item in the inventory. A larger number means it will take up more vertical inventory slots"
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+
+[node name="StackSizeLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Stack size"
+
+[node name="StackSizeNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+tooltip_text = "The amount of this item that will spawn in a stack by default"
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+
+[node name="MaxStackSizeLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Max stack size"
+
+[node name="MaxStackSizeNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+tooltip_text = "The maximum number of this item that will fit in a stack"
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+
+[node name="TypesLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Type(s)"
+
+[node name="TypesContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+
+[node name="RangedWeaponCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+text = "Ranged"
+
+[node name="MeleeCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+text = "Melee"
+
+[node name="MedicalCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+text = "Medical"
+
+[node name="MagazineCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+text = "Magazine"
+
+[node name="AmmunitionCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+text = "Ammo"
+
+[node name="BookCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+text = "Book"
+
+[node name="CraftableCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+text = "Craftable"
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_qb68r")]
 visible = false

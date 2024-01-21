@@ -1,8 +1,12 @@
 [
 	{
 		"description": "A wooden plank that could be used for all kinds of crafting and construction",
+		"height": "2",
 		"id": "plank_2x4",
+		"max_stack_size": "3",
 		"name": "Plank 2x4",
-		"sprite": "plank.png"
+		"sprite": "plank.png",
+		"stack_size": "3",
+		"width": "4"
 	}
 ]

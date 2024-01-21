@@ -19,6 +19,12 @@ extends Control
 #The actual sprite selector popup
 @export var itemSelector: Popup = null
 
+# Inventory propeties
+@export var WidthNumberBox: SpinBox = null
+@export var HeightNumberBox: SpinBox = null
+@export var StackSizeNumberBox: SpinBox = null
+@export var MaxStackSizeNumberBox: SpinBox = null
+
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the item data array should be saved to disk
 # The content editor has connected this signal to Gamedata already
@@ -44,7 +50,14 @@ func load_item_data() -> void:
 		NameTextEdit.text = contentData["name"]
 	if DescriptionTextEdit != null and contentData.has("description"):
 		DescriptionTextEdit.text = contentData["description"]
-	
+	if WidthNumberBox != null and contentData.has("width"):
+		WidthNumberBox.get_line_edit().text = contentData["width"]
+	if HeightNumberBox != null and contentData.has("height"):
+		HeightNumberBox.get_line_edit().text = contentData["height"]
+	if StackSizeNumberBox != null and contentData.has("stack_size"):
+		StackSizeNumberBox.get_line_edit().text = contentData["stack_size"]
+	if MaxStackSizeNumberBox != null and contentData.has("max_stack_size"):
+		MaxStackSizeNumberBox.get_line_edit().text = contentData["max_stack_size"]
 
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
@@ -59,6 +72,10 @@ func _on_save_button_button_up() -> void:
 	contentData["sprite"] = PathTextLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
+	contentData["width"] = WidthNumberBox.get_line_edit().text
+	contentData["height"] = HeightNumberBox.get_line_edit().text
+	contentData["stack_size"] = StackSizeNumberBox.get_line_edit().text
+	contentData["max_stack_size"] = MaxStackSizeNumberBox.get_line_edit().text
 	data_changed.emit()
 
 #When the itemImageDisplay is clicked, the user will be prompted to select an image from 
