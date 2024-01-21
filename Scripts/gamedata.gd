@@ -16,10 +16,13 @@ func _ready():
 	data.maps = {}
 	data.tacticalmaps = {}
 	data.furniture = {}
+	data.items = {}
 	data.tiles.dataPath = "./Mods/Core/Tiles/Tiles.json"
 	data.tiles.spritePath = "./Mods/Core/Tiles/"
 	data.mobs.dataPath = "./Mods/Core/Mobs/Mobs.json"
 	data.mobs.spritePath = "./Mods/Core/Mobs/"
+	data.items.dataPath = "./Mods/Core/Items/Items.json"
+	data.items.spritePath = "./Mods/Core/Items/"
 	data.furniture.spritePath = "./Mods/Core/Furniture/"
 	data.furniture.dataPath = "./Mods/Core/Furniture/Furniture.json"
 	data.overmaptiles.spritePath = "./Mods/Core/OvermapTiles/"

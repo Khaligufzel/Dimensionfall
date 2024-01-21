@@ -5,20 +5,20 @@ extends Control
 #It expects to save the data to a JSON file that contains all data from a mod
 #To load data, provide the name of the item data file and an ID
 
+# Used to open the sprite selector popup
 @export var itemImageDisplay: TextureRect = null
 @export var IDTextLabel: Label = null
+
+# To show the name of the sprite
 @export var PathTextLabel: Label = null
+
+# Name and description of the item
 @export var NameTextEdit: TextEdit = null
 @export var DescriptionTextEdit: TextEdit = null
+
+#The actual sprite selector popup
 @export var itemSelector: Popup = null
-@export var melee_damage_numedit: SpinBox
-@export var melee_range_numedit: SpinBox
-@export var health_numedit: SpinBox
-@export var moveSpeed_numedit: SpinBox
-@export var idle_move_speed_numedit: SpinBox
-@export var sightRange_numedit: SpinBox
-@export var senseRange_numedit: SpinBox
-@export var hearingRange_numedit: SpinBox
+
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the item data array should be saved to disk
 # The content editor has connected this signal to Gamedata already
@@ -44,22 +44,6 @@ func load_item_data() -> void:
 		NameTextEdit.text = contentData["name"]
 	if DescriptionTextEdit != null and contentData.has("description"):
 		DescriptionTextEdit.text = contentData["description"]
-	if melee_damage_numedit != null and contentData.has("melee_damage"):
-		melee_damage_numedit.get_line_edit().text = contentData["melee_damage"]
-	if melee_range_numedit != null and contentData.has("melee_range"):
-		melee_range_numedit.get_line_edit().text = contentData["melee_range"]
-	if health_numedit != null and contentData.has("health"):
-		health_numedit.get_line_edit().text = contentData["health"]
-	if moveSpeed_numedit != null and contentData.has("move_speed"):
-		moveSpeed_numedit.get_line_edit().text = contentData["move_speed"]
-	if idle_move_speed_numedit != null and contentData.has("idle_move_speed"):
-		idle_move_speed_numedit.get_line_edit().text = contentData["idle_move_speed"]
-	if sightRange_numedit != null and contentData.has("sight_range"):
-		sightRange_numedit.get_line_edit().text = contentData["sight_range"]
-	if senseRange_numedit != null and contentData.has("sense_range"):
-		senseRange_numedit.get_line_edit().text = contentData["sense_range"]
-	if hearingRange_numedit != null and contentData.has("hearing_range"):
-		hearingRange_numedit.get_line_edit().text = contentData["hearing_range"]
 	
 
 #The editor is closed, destroy the instance
@@ -75,14 +59,6 @@ func _on_save_button_button_up() -> void:
 	contentData["sprite"] = PathTextLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
-	contentData["melee_damage"] = melee_damage_numedit.get_line_edit().text
-	contentData["melee_range"] = melee_range_numedit.get_line_edit().text
-	contentData["health"] = health_numedit.get_line_edit().text
-	contentData["move_speed"] = moveSpeed_numedit.get_line_edit().text
-	contentData["idle_move_speed"] = idle_move_speed_numedit.get_line_edit().text
-	contentData["sight_range"] = sightRange_numedit.get_line_edit().text
-	contentData["sense_range"] = senseRange_numedit.get_line_edit().text
-	contentData["hearing_range"] = hearingRange_numedit.get_line_edit().text
 	data_changed.emit()
 
 #When the itemImageDisplay is clicked, the user will be prompted to select an image from 

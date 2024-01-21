@@ -5,6 +5,7 @@ extends Control
 @export var tacticalmapEditor: PackedScene = null
 @export var terrainTileEditor: PackedScene = null
 @export var furnitureEditor: PackedScene = null
+@export var itemEditor: PackedScene = null
 @export var mobEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
@@ -15,6 +16,7 @@ var selectedMod: String = "Core"
 func _ready():
 	load_content_list(Gamedata.data.tacticalmaps, "Tactical Maps")
 	load_content_list(Gamedata.data.maps, "Maps")
+	load_content_list(Gamedata.data.items, "Items")
 	load_content_list(Gamedata.data.tiles, "Terrain Tiles")
 	load_content_list(Gamedata.data.mobs, "Mobs")
 	load_content_list(Gamedata.data.furniture, "Furniture")
@@ -48,6 +50,8 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 		instantiate_editor(data, itemID, terrainTileEditor)
 	if data == Gamedata.data.furniture:
 		instantiate_editor(data, itemID, furnitureEditor)
+	if data == Gamedata.data.items:
+		instantiate_editor(data, itemID, itemEditor)
 	if data == Gamedata.data.mobs:
 		instantiate_editor(data, itemID, mobEditor)
 	if data == Gamedata.data.maps:
