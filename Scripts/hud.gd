@@ -73,8 +73,6 @@ func _input(event):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#temporary hack
-	ItemManager.create_item_protoset(item_protoset)
 	get_node(inventory).deserialize(General.player_inventory_dict)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

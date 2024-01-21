@@ -5,65 +5,53 @@
 [resource]
 script = ExtResource("1_o35lu")
 json_data = "[
-    {
-        \"name\": \"Steel scrap\",
-        \"assigned_id\": 0,
-        \"id\": \"steel_scrap\",
-        \"height\": 2,
-        \"width\": 2,
-        \"weight\": 0.25,
-        \"stack_size\": 2,
-        \"description\": \"Test steel scrap test\",
-		\"image\": \"res://Textures/steel_scrap.png\",
-        \"flags\": []
-    },
-    {
-        \"name\": \"Plank\",
-        \"assigned_id\": 0,
-        \"id\": \"plank\",
-        \"height\": 2,
-        \"width\": 4,
-        \"weight\": 2,
-        \"stack_size\": 3,
-		\"max_stack_size\": 3,
-        \"description\": \"Test plank test\",
-		\"image\": \"res://Textures/plank.png\",
-        \"flags\": []
-    },
-    {
-        \"name\": \"Bullet: 9mm\",
-        \"assigned_id\": 0,
-        \"id\": \"9mm\",
-        \"height\": 1,
-        \"width\": 1,
-        \"weight\": 0.01,
-        \"stack_size\": 100,
-        \"description\": \"Test 9mm test\",
-		\"image\": \"res://Textures/9mm.png\",
-        \"flags\": [\"ammunition\"]
-    },
-		{
-        \"name\": \"Bandages\",
-        \"assigned_id\": 0,
-        \"id\": \"bandages\",
-        \"height\": 1,
-        \"width\": 1,
-        \"weight\": 0.05,
-        \"stack_size\": 1,
-        \"max_stack_size\": 20,
-        \"description\": \"Basic bandages for stopping bleeding.\",
-        \"flags\": [\"healing\"]
-    },
-    {
-        \"name\": \"Pistol magazine\",
-        \"assigned_id\": 0,
-        \"id\": \"pistol_magazine\",
-        \"height\": 1,
-        \"width\": 1,
-        \"weight\": 0.25,
-        \"description\": \"Test pistol magazine test\",
-		\"image\": \"res://Textures/pistol_magazine.png\",
-		\"current_ammo\": 0,
-        \"flags\": [\"magazine\"]
-    }
+	{
+		\"description\": \"A wooden plank that could be used for all kinds of crafting and construction\",
+		\"height\": \"2\",
+		\"iamge\": \"res://Textures/plank.png\",
+		\"id\": \"plank_2x4\",
+		\"image\": \"./Mods/Core/Items/plank.png\",
+		\"max_stack_size\": \"3\",
+		\"name\": \"Plank 2x4\",
+		\"sprite\": \"plank.png\",
+		\"stack_size\": \"3\",
+		\"weight\": \"2\",
+		\"width\": \"4\"
+	},
+	{
+		\"description\": \"Some metal bits and pieces. Useful for something, right?\",
+		\"height\": \"2\",
+		\"id\": \"steel_scrap\",
+		\"image\": \"./Mods/Core/Items/steel_scrap.png\",
+		\"max_stack_size\": \"100\",
+		\"name\": \"Steel scrap\",
+		\"sprite\": \"steel_scrap.png\",
+		\"stack_size\": \"2\",
+		\"weight\": \"0.25\",
+		\"width\": \"2\"
+	},
+	{
+		\"description\": \"Standard type of ammunition. Very common.\",
+		\"height\": \"1\",
+		\"id\": \"bullet_9mm\",
+		\"image\": \"./Mods/Core/Items/9mm.png\",
+		\"max_stack_size\": \"100\",
+		\"name\": \"bullet 9mm\",
+		\"sprite\": \"9mm.png\",
+		\"stack_size\": \"20\",
+		\"weight\": \"0.01\",
+		\"width\": \"1\"
+	},
+	{
+		\"description\": \"In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets\",
+		\"height\": \"1\",
+		\"id\": \"pistol_magazine\",
+		\"image\": \"./Mods/Core/Items/pistol_magazine.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Pistol magazine\",
+		\"sprite\": \"pistol_magazine.png\",
+		\"stack_size\": \"1\",
+		\"weight\": \"0.25\",
+		\"width\": \"1\"
+	}
 ]"

@@ -73,6 +73,8 @@ func _on_close_button_button_up() -> void:
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
 	contentData["sprite"] = PathTextLabel.text
+	# We add this image property only for the itemprotosets of gloot
+	contentData["image"] = Gamedata.data.items.spritePath + PathTextLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
 	contentData["width"] = WidthNumberBox.get_line_edit().text
