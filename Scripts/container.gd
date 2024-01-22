@@ -17,3 +17,9 @@ func create_random_loot():
 
 func get_items():
 	return get_node(inventory).get_children()
+
+func get_sprite():
+	return $Sprite3D.texture
+	
+func get_inventory():
+	return get_node(inventory)

@@ -14,6 +14,7 @@ inventory = NodePath("InventoryGridStacked")
 
 [node name="InventoryGridStacked" type="Node" parent="."]
 script = ExtResource("3_131gg")
+size = Vector2i(12, 8)
 item_protoset = ExtResource("4_ehn4b")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
