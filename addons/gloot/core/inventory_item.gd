@@ -1,10 +1,15 @@
 @tool
+@icon("res://addons/gloot/images/icon_item.svg")
 extends Node
 class_name InventoryItem
 
 signal protoset_changed
 signal prototype_id_changed
 signal properties_changed
+signal added_to_inventory(inventory)
+signal removed_from_inventory(inventory)
+signal equipped_in_slot(item_slot)
+signal removed_from_slot(item_slot)
 
 @export var protoset: Resource :
     get:
@@ -18,7 +23,7 @@ signal properties_changed
         if new_protoset && new_protoset._prototypes && new_protoset._prototypes.keys().size() > 0:
             self.prototype_id = new_protoset._prototypes.keys()[0]
 
-        new_protoset.changed.connect(Callable(self, "_on_protoset_modified"))
+        new_protoset.changed.connect(func(): update_configuration_warnings())
 
         protoset = new_protoset
         protoset_changed.emit()
@@ -43,7 +48,8 @@ signal properties_changed
         properties_changed.emit()
         update_configuration_warnings()
 
-var _inventory: Node
+var _inventory: Inventory
+var _item_slot: ItemSlot
 
 const KEY_PROTOSET: String = "protoset"
 const KEY_PROTOTYE_ID: String = "prototype_id"
@@ -68,10 +74,6 @@ func _get_configuration_warnings() -> PackedStringArray:
     return PackedStringArray()
 
 
-func _on_protoset_modified() -> void:
-    update_configuration_warnings()
-
-
 func reset_properties() -> void:
     if !protoset || prototype_id.is_empty():
         properties = {}
@@ -87,30 +89,63 @@ func reset_properties() -> void:
 
 func _notification(what):
     if what == NOTIFICATION_PARENTED:
-        if !(get_parent() is Inventory):
-            _inventory = null
-            return
-        _inventory = get_parent()
-        var inv_item_protoset = get_parent().get("item_protoset")
-        if inv_item_protoset:
-            protoset = inv_item_protoset
-        _on_item_added(get_parent())
+        _on_parented(get_parent())
     elif what == NOTIFICATION_UNPARENTED:
-        _on_item_removed(_inventory)
+        _on_unparented()
+
+
+func _on_parented(parent: Node) -> void:
+    if parent is Inventory:
+        _on_added_to_inventory(parent as Inventory)
+    else:
         _inventory = null
 
-
-func _on_item_removed(obj: Object):
-    if obj && obj.has_method("_on_item_removed"):
-        obj._on_item_removed(self)
-
-
-func _on_item_added(obj: Object):
-    if obj && obj.has_method("_on_item_added"):
-        obj._on_item_added(self)
+    if parent is ItemSlot:
+        _link_to_slot(parent as ItemSlot)
+    else:
+        _unlink_from_slot()
 
 
-func get_inventory() -> Node:
+func _on_added_to_inventory(inventory: Inventory) -> void:
+    assert(inventory != null)
+    _inventory = inventory
+    if _inventory.item_protoset:
+        protoset = _inventory.item_protoset
+    
+    added_to_inventory.emit(_inventory)
+    _inventory._on_item_added(self)
+
+
+func _on_unparented() -> void:
+    if _inventory:
+        _on_removed_from_inventory(_inventory)
+    _inventory = null
+
+    _unlink_from_slot()
+
+
+func _on_removed_from_inventory(inventory: Inventory) -> void:
+    if inventory:
+        removed_from_inventory.emit(inventory)
+        inventory._on_item_removed(self)
+
+
+func _link_to_slot(item_slot: ItemSlot) -> void:
+    _item_slot = item_slot
+    _item_slot._on_item_added(self)
+    equipped_in_slot.emit(item_slot)
+
+
+func _unlink_from_slot() -> void:
+    if _item_slot == null:
+        return
+    var temp_slot := _item_slot
+    _item_slot = null
+    temp_slot._on_item_removed()
+    removed_from_slot.emit(temp_slot)
+
+
+func get_inventory() -> Inventory:
     return _inventory
 
 
