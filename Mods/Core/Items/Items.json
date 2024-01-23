@@ -25,6 +25,9 @@
 		"width": "2"
 	},
 	{
+		"Ammo": {
+			"damage": "25"
+		},
 		"description": "Standard type of ammunition. Very common.",
 		"height": "1",
 		"id": "bullet_9mm",
@@ -37,6 +40,10 @@
 		"width": "1"
 	},
 	{
+		"Magazine": {
+			"max_ammo": "20",
+			"used_ammo": "9mm"
+		},
 		"description": "In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets",
 		"height": "1",
 		"id": "pistol_magazine",
