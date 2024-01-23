@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmpomdwta1pgq"]
+[gd_scene load_steps=7 format=3 uid="uid://dmpomdwta1pgq"]
 
 [ext_resource type="Script" path="res://Scripts/ItemEditor.gd" id="1_ef3j7"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_ghd7c"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_qb68r"]
+[ext_resource type="PackedScene" uid="uid://cbke1yb3m7dra" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemRangedEditor.tscn" id="3_qqmud"]
+[ext_resource type="PackedScene" uid="uid://27f4k2pq2odn" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemMagazineEditor.tscn" id="4_x8xa3"]
+[ext_resource type="PackedScene" uid="uid://c2uiumyeepree" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemAmmoEditor.tscn" id="5_mr1dn"]
 
-[node name="ItemEditor" type="Control" node_paths=PackedStringArray("itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "WidthNumberBox", "HeightNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox")]
+[node name="ItemEditor" type="Control" node_paths=PackedStringArray("tabContainer", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "WidthNumberBox", "HeightNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "typesContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ef3j7")
+tabContainer = NodePath("VBoxContainer/TabContainer")
 itemImageDisplay = NodePath("VBoxContainer/TabContainer/Basic/ItemImageDisplay")
 IDTextLabel = NodePath("VBoxContainer/TabContainer/Basic/IDTextLabel")
 PathTextLabel = NodePath("VBoxContainer/TabContainer/Basic/PathTextLabel")
@@ -23,6 +27,7 @@ HeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/HeightNumber")
 WeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/WeightNumber")
 StackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/StackSizeNumber")
 MaxStackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/MaxStackSizeNumber")
+typesContainer = NodePath("VBoxContainer/TabContainer/Basic/TypesContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -211,10 +216,48 @@ layout_mode = 2
 tooltip_text = "If this is checked, the item can be disassembled and disassembly tab will be visible. Otherwise, this item cannot be disassembled and the disassembly tab will not be visible"
 text = "Disassemble"
 
+[node name="ContainerCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item can contain items and the container tab will be visible. Otherwise, this item cannot contain items and the container tab will not be visible"
+text = "Container"
+
+[node name="ClothingCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item functions as clothing and the clothing properties tab will be visible. Otherwise, this item will not function as clothing and the clothing properties tab will not be visible"
+text = "Clothing"
+
+[node name="Food" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item functions as food and the food properties tab will be visible. Otherwise, this item will not function as food and the food properties tab will not be visible"
+text = "Food"
+
+[node name="Ranged" parent="VBoxContainer/TabContainer" instance=ExtResource("3_qqmud")]
+visible = false
+layout_mode = 2
+
+[node name="Magazine" parent="VBoxContainer/TabContainer" instance=ExtResource("4_x8xa3")]
+visible = false
+layout_mode = 2
+
+[node name="Ammo" parent="VBoxContainer/TabContainer" instance=ExtResource("5_mr1dn")]
+visible = false
+layout_mode = 2
+
 [node name="Sprite_selector" parent="." instance=ExtResource("3_qb68r")]
 visible = false
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="gui_input" from="VBoxContainer/TabContainer/Basic/ItemImageDisplay" to="." method="_on_item_image_display_gui_input"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/RangedWeaponCheck" to="." method="_on_type_check_button_up"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/MeleeCheck" to="." method="_on_type_check_button_up"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/MedicalCheck" to="." method="_on_type_check_button_up"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/MagazineCheck" to="." method="_on_type_check_button_up"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/AmmunitionCheck" to="." method="_on_type_check_button_up"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/BookCheck" to="." method="_on_type_check_button_up"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/CraftableCheck" to="." method="_on_type_check_button_up"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/DisassembleCheck" to="." method="_on_type_check_button_up"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/ContainerCheck" to="." method="_on_type_check_button_up"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/ClothingCheck" to="." method="_on_type_check_button_up"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/Food" to="." method="_on_type_check_button_up"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

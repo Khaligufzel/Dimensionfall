@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://e0ebcv1n8jnq"]
+[gd_scene load_steps=13 format=3 uid="uid://e0ebcv1n8jnq"]
 
 [ext_resource type="Script" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_grid_stacked.gd" id="2_alcyo"]
@@ -7,6 +7,12 @@
 [ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_grid_ex.gd" id="4_8j4xb"]
 [ext_resource type="Texture2D" uid="uid://cwmsngeoc631h" path="res://Textures/Screenshot_167.png" id="5_wixd1"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="6_xpf2l"]
+[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_item_slot_ex.gd" id="7_kcmi5"]
+[ext_resource type="Texture2D" uid="uid://dfmrlie57qrbo" path="res://Mods/Core/Items/9mm.png" id="8_0yr0i"]
+[ext_resource type="Script" path="res://addons/gloot/core/item_slot.gd" id="9_qoep6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyt2o"]
+bg_color = Color(0.152941, 0.152941, 0.231373, 1)
 
 [sub_resource type="Theme" id="Theme_6v4rg"]
 default_font = ExtResource("6_xpf2l")
@@ -36,6 +42,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 133.0
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -85,6 +92,50 @@ script = ExtResource("4_8j4xb")
 grid_color = Color(0.305882, 0.305882, 0.305882, 1)
 inventory_path = NodePath("../../../InventoryGridStackedProx")
 default_item_texture = ExtResource("5_wixd1")
+
+[node name="EquipmentSlotList" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+
+[node name="LeftHandEquipment" type="HBoxContainer" parent="HBoxContainer/EquipmentSlotList"]
+layout_mode = 2
+
+[node name="LeftHandEquipmentSlot" type="Node" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment"]
+script = ExtResource("9_qoep6")
+item_protoset = ExtResource("3_sqsc0")
+
+[node name="LeftHandEquipmentSlotControl" type="Control" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+script = ExtResource("7_kcmi5")
+slot_style = SubResource("StyleBoxFlat_hyt2o")
+item_slot_path = NodePath("../LeftHandEquipmentSlot")
+default_item_icon = ExtResource("8_0yr0i")
+label_visible = false
+
+[node name="Label" type="Label" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment"]
+layout_mode = 2
+text = "Left hand"
+
+[node name="RightHandEquipment" type="HBoxContainer" parent="HBoxContainer/EquipmentSlotList"]
+layout_mode = 2
+
+[node name="RightHandEquipmentSlot" type="Node" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment"]
+script = ExtResource("9_qoep6")
+item_protoset = ExtResource("3_sqsc0")
+
+[node name="RightHandEquipmentSlotControl" type="Control" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+script = ExtResource("7_kcmi5")
+slot_style = SubResource("StyleBoxFlat_hyt2o")
+item_slot_path = NodePath("../RightHandEquipmentSlot")
+default_item_icon = ExtResource("8_0yr0i")
+label_visible = false
+
+[node name="Label" type="Label" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment"]
+layout_mode = 2
+text = "Right hand"
 
 [node name="Tooltip" type="Control" parent="."]
 visible = false

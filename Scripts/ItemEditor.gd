@@ -5,6 +5,9 @@ extends Control
 #It expects to save the data to a JSON file that contains all data from a mod
 #To load data, provide the name of the item data file and an ID
 
+
+@export var tabContainer: TabContainer = null
+
 # Used to open the sprite selector popup
 @export var itemImageDisplay: TextureRect = null
 @export var IDTextLabel: Label = null
@@ -26,6 +29,10 @@ extends Control
 @export var StackSizeNumberBox: SpinBox = null
 @export var MaxStackSizeNumberBox: SpinBox = null
 
+@export var typesContainer: HBoxContainer = null
+
+
+
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the item data array should be saved to disk
 # The content editor has connected this signal to Gamedata already
@@ -39,6 +46,9 @@ var contentData: Dictionary = {}:
 		contentData = value
 		load_item_data()
 		itemSelector.sprites_collection = Gamedata.data.items.sprites
+		
+func _ready():
+	refresh_tab_visibility()
 
 #This function update the form based on the contentData that has been loaded
 func load_item_data() -> void:
@@ -95,3 +105,28 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var itemTexture: Resource = clicked_sprite.get_texture()
 	itemImageDisplay.texture = itemTexture
 	PathTextLabel.text = itemTexture.resource_path.get_file()
+
+
+func _on_type_check_button_up():
+	refresh_tab_visibility()
+
+# This function loops over the checkboxes.
+# It will show corresponding tabs in the tab container if the box is checked.
+# It will hide the corresponding tabs in the tab container if the box is unchecked.
+func refresh_tab_visibility() -> void:
+	# Loop over all children of the typesContainer
+	for i in range(typesContainer.get_child_count()):
+		# Get the child node at index 'i'
+		var child = typesContainer.get_child(i)
+		# Check if the child is a CheckBox
+		if child is CheckBox:
+			# Find the tab in the TabContainer with the same name as the checkbox text
+			tabContainer.set_tab_hidden(get_tab_by_title(child.text),!child.button_pressed)
+
+# Returns the tab control with the given name
+func get_tab_by_title(tabName: String) -> int:
+	# Loop over all children of the typesContainer
+	for i in range(tabContainer.get_tab_count()):
+		if tabContainer.get_tab_title(i) == tabName:
+			return i
+	return -1
