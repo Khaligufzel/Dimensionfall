@@ -7,3 +7,11 @@ extends Control
 # Form elements
 @export var DamageNumberBox: SpinBox = null
 
+func get_properties() -> Dictionary:
+	return {
+		"damage": DamageNumberBox.get_line_edit().text
+	}
+
+func set_properties(properties: Dictionary) -> void:
+	if properties.has("damage"):
+		DamageNumberBox.get_line_edit().text = properties["damage"]

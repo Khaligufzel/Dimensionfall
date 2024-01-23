@@ -173,7 +173,7 @@ value = 1.0
 layout_mode = 2
 text = "Type(s)"
 
-[node name="TypesContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Basic"]
+[node name="TypesContainer" type="HFlowContainer" parent="VBoxContainer/TabContainer/Basic"]
 layout_mode = 2
 
 [node name="RangedWeaponCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]

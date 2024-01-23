@@ -29,7 +29,7 @@ extends Control
 @export var StackSizeNumberBox: SpinBox = null
 @export var MaxStackSizeNumberBox: SpinBox = null
 
-@export var typesContainer: HBoxContainer = null
+@export var typesContainer: HFlowContainer = null
 
 
 
@@ -72,6 +72,18 @@ func load_item_data() -> void:
 	if MaxStackSizeNumberBox != null and contentData.has("max_stack_size"):
 		MaxStackSizeNumberBox.get_line_edit().text = contentData["max_stack_size"]
 
+	# Loop through typesContainer children to load additional properties and set button_pressed
+	for i in range(typesContainer.get_child_count()):
+		var child = typesContainer.get_child(i)
+		if child is CheckBox:
+			var tabIndex = get_tab_by_title(child.text)
+			var tab = tabContainer.get_child(tabIndex)
+			if tab and tab.has_method("set_properties") and contentData.has(child.text):
+				tab.set_properties(contentData[child.text])
+				 # Set button_pressed to true if contentData has the property
+				child.button_pressed = true 
+	refresh_tab_visibility()
+
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
@@ -92,6 +104,16 @@ func _on_save_button_button_up() -> void:
 	contentData["weight"] = WeightNumberBox.get_line_edit().text
 	contentData["stack_size"] = StackSizeNumberBox.get_line_edit().text
 	contentData["max_stack_size"] = MaxStackSizeNumberBox.get_line_edit().text
+	
+	# Loop through typesContainer children to save additional properties
+	for i in range(typesContainer.get_child_count()):
+		var child = typesContainer.get_child(i)
+		# Check if the child is a CheckBox and its button_pressed is true
+		if child is CheckBox and child.button_pressed:
+			var tabIndex = get_tab_by_title(child.text)
+			var tab = tabContainer.get_child(tabIndex)
+			if tab and tab.has_method("get_properties"):
+				contentData[child.text] = tab.get_properties()
 	data_changed.emit()
 
 #When the itemImageDisplay is clicked, the user will be prompted to select an image from 

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://bvrl0obu5ejqq"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://b1tngttyk4w2s"]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -53,5 +53,51 @@ json_data = "[
 		\"stack_size\": \"1\",
 		\"weight\": \"0.25\",
 		\"width\": \"1\"
+	},
+	{
+		\"Ranged\": {
+			\"firing_speed\": \"0.25\",
+			\"range\": \"1000\",
+			\"recoil\": \"20\",
+			\"reload_speed\": \"2.5\",
+			\"spread\": \"5\",
+			\"sway\": \"5\",
+			\"used_ammo\": \"9mm\",
+			\"used_magazine\": \"pistol_magazine\",
+			\"used_skill\": \"short_guns\"
+		},
+		\"description\": \"A standard issue pistol that uses 9mm ammunition\",
+		\"height\": \"2\",
+		\"id\": \"pistol_9mm\",
+		\"image\": \"./Mods/Core/Items/pistol_64.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Pistol 9mm\",
+		\"sprite\": \"pistol_64.png\",
+		\"stack_size\": \"1\",
+		\"weight\": \"2\",
+		\"width\": \"2\"
+	},
+	{
+		\"Ranged\": {
+			\"firing_speed\": \"0.1\",
+			\"range\": \"1000\",
+			\"recoil\": \"15\",
+			\"reload_speed\": \"2.5\",
+			\"spread\": \"8\",
+			\"sway\": \"5\",
+			\"used_ammo\": \"9mm\",
+			\"used_magazine\": \"pistol_magazine\",
+			\"used_skill\": \"short_guns\"
+		},
+		\"description\": \"A standard issue rifle that uses 9mm ammunition\",
+		\"height\": \"2\",
+		\"id\": \"rifle_m4a1\",
+		\"image\": \"./Mods/Core/Items/rifle_128_64.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"M4a1 rifle\",
+		\"sprite\": \"rifle_128_64.png\",
+		\"stack_size\": \"1\",
+		\"weight\": \"4\",
+		\"width\": \"4\"
 	}
 ]"

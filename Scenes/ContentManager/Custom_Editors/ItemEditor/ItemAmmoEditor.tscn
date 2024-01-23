@@ -13,6 +13,7 @@ script = ExtResource("1_5v06u")
 DamageNumberBox = NodePath("Ammo/DamageNumber")
 
 [node name="Ammo" type="GridContainer" parent="."]
+layout_mode = 0
 size_flags_vertical = 3
 columns = 2
 
