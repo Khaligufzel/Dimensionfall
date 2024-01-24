@@ -33,7 +33,8 @@ var damage = 25
 
 
 func _input(event):
-	
+	if not weapon:
+		return  # Return early if no weapon is equipped
 	
 	if event.is_action_pressed("reload_weapon"):
 		reload_timer.start()
@@ -105,17 +106,23 @@ func _input(event):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	weapon = ItemManager.weapon
-	magazine = ItemManager.magazine
-	ammo = ItemManager.ammo
-	
-	max_ammo = int(magazine["max_ammo"])
-	current_ammo = max_ammo
-	
-	ammo_changed.emit(current_ammo, max_ammo)
-	
-	attack_cooldown.wait_time = float(weapon["firing_speed"])
-	reload_timer.wait_time = float(weapon["reload_speed"])
+	# Initialize without assigning a default weapon, magazine, or ammo.
+	weapon = null
+	magazine = null
+	ammo = null
+	current_ammo = 0
+	max_ammo = 0
+	#weapon = Gamedata.get_data_by_id(Gamedata.data.items, "pistol_9mm")
+	#magazine = Gamedata.get_data_by_id(Gamedata.data.items, "pistol_magazine")
+	#ammo = Gamedata.get_data_by_id(Gamedata.data.items, "bullet_9mm")
+	#
+	#max_ammo = int(magazine.Magazine["max_ammo"])
+	#current_ammo = max_ammo
+	#
+	#ammo_changed.emit(current_ammo, max_ammo)
+	#
+	#attack_cooldown.wait_time = float(weapon.Ranged["firing_speed"])
+	#reload_timer.wait_time = float(weapon.Ranged["reload_speed"])
 	
 
 
@@ -129,5 +136,35 @@ func _process(_delta):
 
 
 func _on_reload_time_timeout():
-	current_ammo = max_ammo
-	ammo_changed.emit(current_ammo, max_ammo)
+	if weapon:
+		current_ammo = max_ammo
+		ammo_changed.emit(current_ammo, max_ammo)
+
+
+# The player has equipped an item in one of the equipmentslots
+# equippedItem is an InventoryItem
+# slotName is a string, for example "LeftHand" or "RightHand"
+func _on_hud_item_was_equipped(equippedItem: InventoryItem, slotName: String):
+	var weaponID = equippedItem.prototype_id
+	var weaponData = Gamedata.get_data_by_id(Gamedata.data.items, weaponID)
+	if weaponData.has("Ranged"):
+		weapon = weaponData
+		var twoHanded: bool = weapon.Ranged.two_handed
+		var newMagazineID = weapon.Ranged.used_magazine
+		var newAmmoID = weapon.Ranged.used_ammo
+		magazine = Gamedata.get_data_by_id(Gamedata.data.items, newMagazineID)
+		ammo = Gamedata.get_data_by_id(Gamedata.data.items, newAmmoID)
+		
+		max_ammo = int(magazine.Magazine["max_ammo"])
+		current_ammo = max_ammo
+		
+		attack_cooldown.wait_time = float(weapon.Ranged["firing_speed"])
+		reload_timer.wait_time = float(weapon.Ranged["reload_speed"])
+		ammo_changed.emit(current_ammo, max_ammo)
+	else:
+		# Reset weapon, magazine, and ammo if the equipped item is not a weapon
+		weapon = null
+		magazine = null
+		ammo = null
+		current_ammo = 0
+		max_ammo = 0

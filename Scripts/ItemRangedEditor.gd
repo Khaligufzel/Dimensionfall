@@ -13,6 +13,7 @@ extends Control
 @export var UsedSkillTextEdit: TextEdit = null
 @export var ReloadSpeedNumberBox: SpinBox = null
 @export var FiringSpeedNumberBox: SpinBox = null
+@export var TwoHandedCheckBox: CheckBox = null
 
 func get_properties() -> Dictionary:
 	return {
@@ -24,7 +25,8 @@ func get_properties() -> Dictionary:
 		"recoil": RecoilNumberBox.get_line_edit().text,
 		"used_skill": UsedSkillTextEdit.text,
 		"reload_speed": ReloadSpeedNumberBox.get_line_edit().text,
-		"firing_speed": FiringSpeedNumberBox.get_line_edit().text
+		"firing_speed": FiringSpeedNumberBox.get_line_edit().text,
+		"two_handed": TwoHandedCheckBox.button_pressed
 	}
 
 func set_properties(properties: Dictionary) -> void:
@@ -46,3 +48,5 @@ func set_properties(properties: Dictionary) -> void:
 		ReloadSpeedNumberBox.get_line_edit().text = properties["reload_speed"]
 	if properties.has("firing_speed"):
 		FiringSpeedNumberBox.get_line_edit().text = properties["firing_speed"]
+	if properties.has("two_handed"):
+		TwoHandedCheckBox.button_pressed = properties["two_handed"]

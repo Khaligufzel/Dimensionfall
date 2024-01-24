@@ -63,6 +63,7 @@
 			"reload_speed": "2.5",
 			"spread": "5",
 			"sway": "5",
+			"two_handed": false,
 			"used_ammo": "9mm",
 			"used_magazine": "pistol_magazine",
 			"used_skill": "short_guns"
@@ -86,6 +87,7 @@
 			"reload_speed": "2.5",
 			"spread": "8",
 			"sway": "5",
+			"two_handed": true,
 			"used_ammo": "9mm",
 			"used_magazine": "pistol_magazine",
 			"used_skill": "short_guns"

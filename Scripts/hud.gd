@@ -32,6 +32,7 @@ var progress_bar_timer_max_time : float
 var is_progress_bar_well_progressing_i_guess = false
 
 signal construction_chosen
+signal item_was_equipped(equippedItem: InventoryItem, slotName: String)
 
 
 
@@ -185,3 +186,7 @@ func _on_item_detector_add_to_proximity_inventory(container):
 # The parameter container the inventory that has left proximity
 func _on_item_detector_remove_from_proximity_inventory(container):
 	inventoryWindow._on_item_detector_remove_from_proximity_inventory(container)
+
+# When an item in the inventorywindow was equipped, we pass on the signal
+func _on_inventory_window_item_was_equipped(equippedItem, slotName):
+	item_was_equipped.emit(equippedItem, slotName)
