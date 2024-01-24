@@ -9,7 +9,8 @@ extends CanvasLayer
 
 @export var stamina_HUD: NodePath
 
-@export var ammo_HUD: NodePath
+@export var ammo_HUD_left: NodePath
+@export var ammo_HUD_right: NodePath
 
 @export var healthy_color: Color
 @export var damaged_color: Color
@@ -171,8 +172,8 @@ func interrupt_progress_bar():
 func _on_progress_bar_timer_timeout():
 	interrupt_progress_bar()
 
-func _on_shooting_ammo_changed(current_ammo, max_ammo):
-	get_node(ammo_HUD).text = str(current_ammo) + "/" + str(max_ammo)
+func _on_shooting_ammo_changed(current_ammo: int, max_ammo: int):
+	get_node(ammo_HUD_left).text = str(current_ammo) + "/" + str(max_ammo)
 
 # Called when the users presses the travel button on the overmap
 # We save the player inventory to a autoload singleton so we can load it on the next map
