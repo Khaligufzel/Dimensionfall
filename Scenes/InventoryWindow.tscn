@@ -77,6 +77,22 @@ properties = {
 "grid_position": Vector2i(0, 3)
 }
 
+[node name="_Node_27438" type="Node" parent="InventoryGridStacked"]
+script = ExtResource("5_qidb6")
+protoset = ExtResource("3_sqsc0")
+prototype_id = "rifle_m4a1"
+properties = {
+"grid_position": Vector2i(0, 4)
+}
+
+[node name="_Node_28997" type="Node" parent="InventoryGridStacked"]
+script = ExtResource("5_qidb6")
+protoset = ExtResource("3_sqsc0")
+prototype_id = "pistol_9mm"
+properties = {
+"grid_position": Vector2i(0, 6)
+}
+
 [node name="InventoryGridStackedProx" type="Node" parent="."]
 script = ExtResource("2_alcyo")
 size = Vector2i(12, 8)
@@ -218,5 +234,7 @@ autowrap_mode = 3
 [connection signal="item_mouse_exited" from="HBoxContainer/Inventories/CtrlInventoryGridEx" to="." method="_on_inventory_item_mouse_exited"]
 [connection signal="item_mouse_entered" from="HBoxContainer/Inventories/CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_entered"]
 [connection signal="item_mouse_exited" from="HBoxContainer/Inventories/CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_exited"]
+[connection signal="cleared" from="HBoxContainer/EquipmentSlotList/LeftHandEquipment/LeftHandEquipmentSlot" to="." method="_on_left_hand_equipment_slot_cleared"]
 [connection signal="item_equipped" from="HBoxContainer/EquipmentSlotList/LeftHandEquipment/LeftHandEquipmentSlot" to="." method="_on_left_hand_equipment_slot_item_equipped"]
+[connection signal="cleared" from="HBoxContainer/EquipmentSlotList/RightHandEquipment/RightHandEquipmentSlot" to="." method="_on_right_hand_equipment_slot_cleared"]
 [connection signal="item_equipped" from="HBoxContainer/EquipmentSlotList/RightHandEquipment/RightHandEquipmentSlot" to="." method="_on_right_hand_equipment_slot_item_equipped"]

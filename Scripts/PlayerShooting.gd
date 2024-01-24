@@ -1,13 +1,5 @@
 extends Node3D
 
-var weapon
-var magazine
-var ammo
-
-var current_ammo : int
-var max_ammo : int
-
-
 
 # Define properties for left-hand and right-hand weapons.
 var left_hand_weapon
@@ -51,7 +43,7 @@ var damage = 25
 
 
 func _input(event):
-	if not weapon:
+	if not left_hand_weapon and not right_hand_weapon:
 		return  # Return early if no weapon is equipped
 	
 	if event.is_action_pressed("reload_weapon"):
@@ -62,14 +54,14 @@ func _input(event):
 			reload_right_weapon()
 
 	# Handling left and right click for different weapons.
-	if event.is_action_pressed("click_left") and General.is_mouse_outside_HUD and General.is_allowed_to_shoot:
-		fire_weapon(left_hand_weapon, current_left_ammo, max_left_ammo, "left")
+	if event.is_action_pressed("click_left") and General.is_mouse_outside_HUD and General.is_allowed_to_shoot and left_hand_weapon:
+		fire_weapon(left_hand_weapon, current_left_ammo, "LeftHand")
 
-	if event.is_action_pressed("click_right") and General.is_mouse_outside_HUD and General.is_allowed_to_shoot:
-		fire_weapon(right_hand_weapon, current_right_ammo, max_right_ammo, "right")
+	if event.is_action_pressed("click_right") and General.is_mouse_outside_HUD and General.is_allowed_to_shoot and right_hand_weapon:
+		fire_weapon(right_hand_weapon, current_right_ammo, "RightHand")
 
 # New function to handle firing logic for a weapon.
-func fire_weapon(weapon, current_ammo, max_ammo, hand):
+func fire_weapon(weapon, current_ammo, hand):
 	if not weapon or current_ammo <= 0:
 		return  # Return if no weapon is equipped or no ammo.
 	
@@ -78,10 +70,10 @@ func fire_weapon(weapon, current_ammo, max_ammo, hand):
 	if cooldown_timer.is_stopped() and reload_timer_is_stopped(hand):
 		cooldown_timer.start()
 		# Update ammo and emit signal.
-		if hand == "left":
+		if hand == "LeftHand":
 			current_left_ammo -= 1
 			ammo_changed.emit(current_left_ammo, max_left_ammo, true)
-		elif hand == "right":
+		elif hand == "RightHand":
 			current_right_ammo -= 1
 			ammo_changed.emit(current_right_ammo, max_right_ammo, false)
 			
@@ -108,14 +100,14 @@ func fire_weapon(weapon, current_ammo, max_ammo, hand):
 
 # Helper function to get the appropriate cooldown timer based on the hand.
 func get_cooldown_timer(hand: String) -> Timer:
-	if hand == "left":
+	if hand == "LeftHand":
 		return left_attack_cooldown
 	else:
 		return right_attack_cooldown
 
 # Helper function to check if reload timer is stopped based on the hand.
 func reload_timer_is_stopped(hand: String) -> bool:
-	if hand == "left":
+	if hand == "LeftHand":
 		return left_reload_timer.is_stopped()
 	else:
 		return right_reload_timer.is_stopped()
@@ -125,52 +117,46 @@ func reload_timer_is_stopped(hand: String) -> bool:
 # We check that the right reload timer is stopped
 func reload_left_weapon():
 	if right_reload_timer.is_stopped():
-		# Logic to reload left-hand weapon.
 		current_left_ammo = max_left_ammo
 		left_reload_timer.start()  # Start the left reload timer
-		ammo_changed.emit(current_left_ammo, max_left_ammo, true)
+		get_node(hud).start_progress_bar(left_reload_timer.time_left)  # Start HUD progress bar for left-hand weapon
 
 # Called when the right weapon is reloaded
 # Since only one reload action can run at a time, 
 # We check that the left reload timer is stopped
 func reload_right_weapon():
 	if left_reload_timer.is_stopped():
-		# Logic to reload right-hand weapon.
 		current_right_ammo = max_right_ammo
 		right_reload_timer.start()  # Start the right reload timer
-		ammo_changed.emit(current_right_ammo, max_right_ammo, false)
-
+		get_node(hud).start_progress_bar(right_reload_timer.time_left)  # Start HUD progress bar for right-hand weapon
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Initialize without assigning a default weapon, magazine, or ammo.
-	weapon = null
-	magazine = null
-	ammo = null
-	current_ammo = 0
-	max_ammo = 0
-
+	clear_weapon_properties("LeftHand")
+	clear_weapon_properties("RightHand")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	# Check if the left-hand weapon is reloading.
-	if left_reload_timer.is_started() and not left_reload_timer.is_stopped() and left_reload_timer.time_left <= reload_audio_player.stream.get_length() and not reload_audio_player.playing:
+	if not left_reload_timer.is_stopped() and left_reload_timer.time_left <= reload_audio_player.stream.get_length() and not reload_audio_player.playing:
 		reload_audio_player.play()  # Play reload sound for left-hand weapon.
 
 	# Check if the right-hand weapon is reloading.
-	if right_reload_timer.is_started() and not right_reload_timer.is_stopped() and right_reload_timer.time_left <= reload_audio_player.stream.get_length() and not reload_audio_player.playing:
+	if not right_reload_timer.is_stopped() and right_reload_timer.time_left <= reload_audio_player.stream.get_length() and not reload_audio_player.playing:
 		reload_audio_player.play()  # Play reload sound for right-hand weapon.
 
 
+
 # The weapon is reloaded once the timer has stopped
-func _on_reload_time_timeout():
-	if left_reload_timer.is_stopped() and left_hand_weapon:
+func _on_left_reload_time_timeout():
+	if left_hand_weapon:
 		current_left_ammo = max_left_ammo
 		ammo_changed.emit(current_left_ammo, max_left_ammo, true)
 
-	if right_reload_timer.is_stopped() and right_hand_weapon:
+func _on_right_reload_time_timeout():
+	if right_hand_weapon:
 		current_right_ammo = max_right_ammo
 		ammo_changed.emit(current_right_ammo, max_right_ammo, false)
 
@@ -192,12 +178,14 @@ func _on_hud_item_was_equipped(equippedItem: InventoryItem, slotName: String):
 			left_hand_ammo = Gamedata.get_data_by_id(Gamedata.data.items, newAmmoID)
 			max_left_ammo = int(left_hand_magazine.Magazine["max_ammo"])
 			current_left_ammo = max_left_ammo
+			ammo_changed.emit(current_left_ammo, max_left_ammo, true)
 		elif slotName == "RightHand":
 			right_hand_weapon = weaponData
 			right_hand_magazine = Gamedata.get_data_by_id(Gamedata.data.items, newMagazineID)
 			right_hand_ammo = Gamedata.get_data_by_id(Gamedata.data.items, newAmmoID)
 			max_right_ammo = int(right_hand_magazine.Magazine["max_ammo"])
 			current_right_ammo = max_right_ammo
+			ammo_changed.emit(current_right_ammo, max_right_ammo, false)
 		# Check for two-handed weapon and adjust accordingly.
 		if weaponData.Ranged.two_handed:
 			if slotName == "LeftHand":
@@ -212,9 +200,32 @@ func _on_hud_item_was_equipped(equippedItem: InventoryItem, slotName: String):
 			left_hand_ammo = null
 			current_left_ammo = 0
 			max_left_ammo = 0
+			ammo_changed.emit(-1,-1, false)
 		elif slotName == "RightHand":
 			right_hand_weapon = null
 			right_hand_magazine = null
 			right_hand_ammo = null
 			current_right_ammo = 0
 			max_right_ammo = 0
+			ammo_changed.emit(-1,-1, true)
+
+# Called when an equipment slot was cleared
+# slotName can be "LeftHand" or "RightHand"
+func _on_hud_item_equipment_slot_was_cleared(slotName):
+	clear_weapon_properties(slotName)
+
+# Function to clear weapon properties for a specified hand
+func clear_weapon_properties(hand: String):
+	if hand == "LeftHand":
+		left_hand_weapon = null
+		left_hand_magazine = null
+		left_hand_ammo = null
+		current_left_ammo = 0
+		max_left_ammo = 0
+	elif hand == "RightHand":
+		right_hand_weapon = null
+		right_hand_magazine = null
+		right_hand_ammo = null
+		current_right_ammo = 0
+		max_right_ammo = 0
+	ammo_changed.emit(-1, -1, hand == "LeftHand")  # Emit signal to indicate no weapon is equipped

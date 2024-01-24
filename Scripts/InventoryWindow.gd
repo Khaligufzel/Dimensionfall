@@ -24,6 +24,7 @@ var is_showing_tooltip = false
 @export var tooltip_item_description : Label
 
 signal item_was_equipped(equippedItem: InventoryItem, slotName: String)
+signal item_was_cleared(slotName: String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -196,3 +197,10 @@ func _on_left_hand_equipment_slot_item_equipped():
 
 func _on_right_hand_equipment_slot_item_equipped():
 	item_was_equipped.emit(RightHandEquipmentSlot.get_item(), "RightHand")
+
+
+func _on_left_hand_equipment_slot_cleared():
+	item_was_cleared.emit("LeftHand")
+
+func _on_right_hand_equipment_slot_cleared():
+	item_was_cleared.emit("RightHand")

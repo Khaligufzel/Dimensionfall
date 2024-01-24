@@ -34,6 +34,7 @@ var is_progress_bar_well_progressing_i_guess = false
 
 signal construction_chosen
 signal item_was_equipped(equippedItem: InventoryItem, slotName: String)
+signal item_equipment_slot_was_cleared(slotName: String)
 
 
 
@@ -41,7 +42,16 @@ signal item_was_equipped(equippedItem: InventoryItem, slotName: String)
 
 func test():
 	print("TESTING 123 123!")
+	
+func _process(_delta):
+	if is_progress_bar_well_progressing_i_guess:
+		update_progress_bar()
 
+
+func update_progress_bar():
+	var progressBarNode = get_node(progress_bar_filling)
+	var timerNode = get_node(progress_bar_timer)
+	progressBarNode.scale.x = lerp(1, 0, timerNode.time_left / progress_bar_timer_max_time)
 
 func _input(event):
 	if event.is_action_pressed("build_menu"):
@@ -172,8 +182,18 @@ func interrupt_progress_bar():
 func _on_progress_bar_timer_timeout():
 	interrupt_progress_bar()
 
-func _on_shooting_ammo_changed(current_ammo: int, max_ammo: int):
-	get_node(ammo_HUD_left).text = str(current_ammo) + "/" + str(max_ammo)
+func _on_shooting_ammo_changed(current_ammo: int, max_ammo: int, leftHand:bool):
+	var ammo_HUD: Label = get_node(ammo_HUD_left)
+	var prefix: String = "L: "
+	if !leftHand:
+		ammo_HUD = get_node(ammo_HUD_right)
+		prefix = "R: "
+	if current_ammo == -1 and max_ammo == -1:  # Assuming -1 is the value when no weapon is equipped
+		ammo_HUD.hide()
+	else:
+		ammo_HUD.text = prefix + str(current_ammo) + "/" + str(max_ammo)
+		ammo_HUD.show()
+
 
 # Called when the users presses the travel button on the overmap
 # We save the player inventory to a autoload singleton so we can load it on the next map
@@ -191,3 +211,7 @@ func _on_item_detector_remove_from_proximity_inventory(container):
 # When an item in the inventorywindow was equipped, we pass on the signal
 func _on_inventory_window_item_was_equipped(equippedItem, slotName):
 	item_was_equipped.emit(equippedItem, slotName)
+
+# slotName can be "LeftHand" or "RightHand"
+func _on_inventory_window_item_was_cleared(slotName: String):
+	item_equipment_slot_was_cleared.emit(slotName)

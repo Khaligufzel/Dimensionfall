@@ -41,7 +41,7 @@ func _input(_event):
 #		if get_node(player_path).check_if_visible(get_global_mouse_position()) && Vector2(get_node(player_path).global_position).distance_to(get_global_mouse_position()) <= build_range:
 #			tile_map.set_cell(0, tile_map.local_to_map(get_global_mouse_position()), 0, Vector2i(9,3))
 		
-	if Input.is_action_pressed("right_click") && is_building:
+	if Input.is_action_pressed("click_right") && is_building:
 		is_building = false
 		General.is_allowed_to_shoot = true
 		ghost_sprite.visible = false
