@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://27f4k2pq2odn" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemMagazineEditor.tscn" id="4_x8xa3"]
 [ext_resource type="PackedScene" uid="uid://c2uiumyeepree" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemAmmoEditor.tscn" id="5_mr1dn"]
 
-[node name="ItemEditor" type="Control" node_paths=PackedStringArray("tabContainer", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "WidthNumberBox", "HeightNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "typesContainer", "TwoHandedCheckBox")]
+[node name="ItemEditor" type="Control" node_paths=PackedStringArray("tabContainer", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "VolumeNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "typesContainer", "TwoHandedCheckBox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,8 +22,7 @@ PathTextLabel = NodePath("VBoxContainer/TabContainer/Basic/PathTextLabel")
 NameTextEdit = NodePath("VBoxContainer/TabContainer/Basic/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/TabContainer/Basic/DescriptionTextEdit")
 itemSelector = NodePath("Sprite_selector")
-WidthNumberBox = NodePath("VBoxContainer/TabContainer/Basic/WidthNumber")
-HeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/HeightNumber")
+VolumeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/VolumeNumber")
 WeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/WeightNumber")
 StackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/StackSizeNumber")
 MaxStackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/MaxStackSizeNumber")
@@ -116,26 +115,16 @@ focus_previous = NodePath("../NameTextEdit")
 placeholder_text = "A very dangerous land animal often found in dry climates"
 wrap_mode = 1
 
-[node name="WidthLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+[node name="VolumeLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
 layout_mode = 2
-text = "Width"
+text = "Volume"
 
-[node name="WidthNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
+[node name="VolumeNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
 layout_mode = 2
-tooltip_text = "The width of this item in the inventory. A larger number means it will take up more horizontal inventory slots"
-min_value = 1.0
-max_value = 8.0
-value = 1.0
-
-[node name="HeightLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
-layout_mode = 2
-text = "Height"
-
-[node name="HeightNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
-layout_mode = 2
-tooltip_text = "The height of this item in the inventory. A larger number means it will take up more vertical inventory slots"
-min_value = 1.0
-max_value = 8.0
+tooltip_text = "The volume of this item. For reference, a grain of sand is 0.01, a bullet is 0,1 and a rifle is 300"
+min_value = 0.01
+max_value = 1000.0
+step = 0.01
 value = 1.0
 
 [node name="WeightLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
