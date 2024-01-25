@@ -30,7 +30,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_7kqbx")
 proximity_inventory = NodePath("InventoryStackedProx")
-proximity_inventory_control = NodePath("HBoxContainer/CtrlInventoryStackedProx")
+proximity_inventory_control = NodePath("HBoxContainer/VBoxContainer/CtrlInventoryStackedProx")
 inventory_control = NodePath("HBoxContainer/CtrlInventoryStacked")
 inventory = NodePath("InventoryStacked")
 containerList = NodePath("HBoxContainer/ContainersList")
@@ -97,13 +97,21 @@ grow_vertical = 2
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 
-[node name="CtrlInventoryStackedProx" type="Control" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Nearby container:"
+
+[node name="CtrlInventoryStackedProx" type="Control" parent="HBoxContainer/VBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("9_8a8sx")
-inventory_path = NodePath("../../InventoryStackedProx")
+inventory_path = NodePath("../../../InventoryStackedProx")
 default_item_icon = ExtResource("10_6ygdg")
 
 [node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
@@ -116,10 +124,6 @@ text = "->"
 [node name="TransferLeftButton" type="Button" parent="HBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "<-"
-
-[node name="Label" type="Label" parent="HBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Nearby container:"
 
 [node name="CtrlInventoryStacked" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(300, 400)
