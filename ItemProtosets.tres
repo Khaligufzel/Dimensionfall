@@ -81,6 +81,7 @@ json_data = "[
 		\"name\": \"Pistol 9mm\",
 		\"sprite\": \"pistol_64.png\",
 		\"stack_size\": \"1\",
+		\"two_handed\": false,
 		\"weight\": \"2\",
 		\"width\": \"2\"
 	},
@@ -104,6 +105,7 @@ json_data = "[
 		\"name\": \"M4a1 rifle\",
 		\"sprite\": \"rifle_128_64.png\",
 		\"stack_size\": \"1\",
+		\"two_handed\": true,
 		\"weight\": \"4\",
 		\"width\": \"4\"
 	}

@@ -186,12 +186,6 @@ func _on_hud_item_was_equipped(equippedItem: InventoryItem, slotName: String):
 			max_right_ammo = int(right_hand_magazine.Magazine["max_ammo"])
 			current_right_ammo = max_right_ammo
 			ammo_changed.emit(current_right_ammo, max_right_ammo, false)
-		# Check for two-handed weapon and adjust accordingly.
-		if weaponData.Ranged.two_handed:
-			if slotName == "LeftHand":
-				right_hand_weapon = null  # Clear the right hand if a two-handed weapon is equipped in the left hand.
-			elif slotName == "RightHand":
-				left_hand_weapon = null  # Clear the left hand if a two-handed weapon is equipped in the right hand.
 	else:
 		# Reset weapon, magazine, and ammo if the equipped item is not a weapon.
 		if slotName == "LeftHand":

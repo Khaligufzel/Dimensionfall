@@ -191,16 +191,44 @@ func remove_container_from_list(container: Node3D):
 		proximity_inventory_control.visible = false
 
 
+# This function is called when an item is equipped in the left hand equipment slot
 func _on_left_hand_equipment_slot_item_equipped():
-	item_was_equipped.emit(LeftHandEquipmentSlot.get_item(), "LeftHand")
+	var equipped_item_left = LeftHandEquipmentSlot.get_item()
+	var equipped_item_right = RightHandEquipmentSlot.get_item()
+	# If we have a weapon in the right hand and it's a two handed weapon, 
+	# We clear the left handed slot again
+	if equipped_item_right and equipped_item_right.get_property("two_handed", false):
+		LeftHandEquipmentSlot.clear()
+		item_was_cleared.emit("LeftHand")
+		return
+	# If the weapon we equip is a two handed weapon, clear the weapon in the other weapon slot
+	if equipped_item_left and equipped_item_left.get_property("two_handed", false):
+		# If the item is two-handed, clear the right hand slot
+		RightHandEquipmentSlot.clear()
+		item_was_cleared.emit("RightHand")
+	item_was_equipped.emit(equipped_item_left, "LeftHand")
 
-
+# This function is called when an item is equipped in the right hand equipment slot
 func _on_right_hand_equipment_slot_item_equipped():
-	item_was_equipped.emit(RightHandEquipmentSlot.get_item(), "RightHand")
+	var equipped_item_left = LeftHandEquipmentSlot.get_item()
+	var equipped_item_right = RightHandEquipmentSlot.get_item()
+	# If we have a weapon in the left hand and it's a two handed weapon, 
+	# We clear the right handed slot again
+	if equipped_item_left and equipped_item_left.get_property("two_handed", false):
+		RightHandEquipmentSlot.clear()
+		item_was_cleared.emit("RightHand")
+		return
+	elif equipped_item_right and equipped_item_right.get_property("two_handed", false):
+		# If the item is two-handed, clear the left hand slot
+		LeftHandEquipmentSlot.clear()
+		item_was_cleared.emit("LeftHand")
+	item_was_equipped.emit(equipped_item_right, "RightHand")
 
 
+# This function is called when an item is removed from the left hand equipment slot
 func _on_left_hand_equipment_slot_cleared():
 	item_was_cleared.emit("LeftHand")
 
+# This function is called when an item is removed from the right hand equipment slot
 func _on_right_hand_equipment_slot_cleared():
 	item_was_cleared.emit("RightHand")

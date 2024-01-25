@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://27f4k2pq2odn" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemMagazineEditor.tscn" id="4_x8xa3"]
 [ext_resource type="PackedScene" uid="uid://c2uiumyeepree" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemAmmoEditor.tscn" id="5_mr1dn"]
 
-[node name="ItemEditor" type="Control" node_paths=PackedStringArray("tabContainer", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "WidthNumberBox", "HeightNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "typesContainer")]
+[node name="ItemEditor" type="Control" node_paths=PackedStringArray("tabContainer", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "WidthNumberBox", "HeightNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "typesContainer", "TwoHandedCheckBox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,6 +28,7 @@ WeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/WeightNumber")
 StackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/StackSizeNumber")
 MaxStackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/MaxStackSizeNumber")
 typesContainer = NodePath("VBoxContainer/TabContainer/Basic/TypesContainer")
+TwoHandedCheckBox = NodePath("VBoxContainer/TabContainer/Basic/TwoHandedCheckBox")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -168,6 +169,15 @@ layout_mode = 2
 tooltip_text = "The maximum number of this item that will fit in a stack"
 min_value = 1.0
 value = 1.0
+
+[node name="TwoHandedLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Two handed"
+
+[node name="TwoHandedCheckBox" type="CheckBox" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+tooltip_text = "Enable this if the item weapon occupies both hands when held. Disable this if the item occupies one hand when held"
+text = "Two handed"
 
 [node name="TypesLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
 layout_mode = 2

@@ -63,7 +63,6 @@
 			"reload_speed": "2.5",
 			"spread": "5",
 			"sway": "5",
-			"two_handed": false,
 			"used_ammo": "9mm",
 			"used_magazine": "pistol_magazine",
 			"used_skill": "short_guns"
@@ -76,6 +75,7 @@
 		"name": "Pistol 9mm",
 		"sprite": "pistol_64.png",
 		"stack_size": "1",
+		"two_handed": false,
 		"weight": "2",
 		"width": "2"
 	},
@@ -87,7 +87,6 @@
 			"reload_speed": "2.5",
 			"spread": "8",
 			"sway": "5",
-			"two_handed": true,
 			"used_ammo": "9mm",
 			"used_magazine": "pistol_magazine",
 			"used_skill": "short_guns"
@@ -100,6 +99,7 @@
 		"name": "M4a1 rifle",
 		"sprite": "rifle_128_64.png",
 		"stack_size": "1",
+		"two_handed": true,
 		"weight": "4",
 		"width": "4"
 	}
