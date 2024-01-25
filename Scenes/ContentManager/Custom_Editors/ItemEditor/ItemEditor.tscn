@@ -226,11 +226,6 @@ layout_mode = 2
 tooltip_text = "If this is checked, the item can be disassembled and disassembly tab will be visible. Otherwise, this item cannot be disassembled and the disassembly tab will not be visible"
 text = "Disassemble"
 
-[node name="ContainerCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
-layout_mode = 2
-tooltip_text = "If this is checked, the item can contain items and the container tab will be visible. Otherwise, this item cannot contain items and the container tab will not be visible"
-text = "Container"
-
 [node name="ClothingCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
 layout_mode = 2
 tooltip_text = "If this is checked, the item functions as clothing and the clothing properties tab will be visible. Otherwise, this item will not function as clothing and the clothing properties tab will not be visible"
@@ -267,7 +262,6 @@ visible = false
 [connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/BookCheck" to="." method="_on_type_check_button_up"]
 [connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/CraftableCheck" to="." method="_on_type_check_button_up"]
 [connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/DisassembleCheck" to="." method="_on_type_check_button_up"]
-[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/ContainerCheck" to="." method="_on_type_check_button_up"]
 [connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/ClothingCheck" to="." method="_on_type_check_button_up"]
 [connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/Food" to="." method="_on_type_check_button_up"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

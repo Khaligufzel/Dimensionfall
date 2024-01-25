@@ -102,7 +102,7 @@ func _on_concrete_button_down():
 
 
 func check_if_resources_are_available(item_id, amount_to_spend: int):
-	var inventory_node: InventoryGridStacked = inventoryWindow.get_inventory()
+	var inventory_node: InventoryStacked = inventoryWindow.get_inventory()
 	print("checking if we have the item id in inv")
 	if inventory_node.get_item_by_id(item_id):
 		print("we have the item id")

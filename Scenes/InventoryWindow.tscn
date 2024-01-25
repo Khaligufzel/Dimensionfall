@@ -1,16 +1,16 @@
 [gd_scene load_steps=14 format=3 uid="uid://e0ebcv1n8jnq"]
 
 [ext_resource type="Script" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
-[ext_resource type="Script" path="res://addons/gloot/core/inventory_grid_stacked.gd" id="2_alcyo"]
 [ext_resource type="PackedScene" uid="uid://crck2fhgayxhn" path="res://Scenes/InventoryContainerListItem.tscn" id="2_xfgb3"]
+[ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="3_l8xgt"]
 [ext_resource type="Resource" uid="uid://b1tngttyk4w2s" path="res://ItemProtosets.tres" id="3_sqsc0"]
-[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_grid_ex.gd" id="4_8j4xb"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_item.gd" id="5_qidb6"]
-[ext_resource type="Texture2D" uid="uid://cwmsngeoc631h" path="res://Textures/Screenshot_167.png" id="5_wixd1"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="6_xpf2l"]
 [ext_resource type="Script" path="res://addons/gloot/ui/ctrl_item_slot_ex.gd" id="7_kcmi5"]
 [ext_resource type="Texture2D" uid="uid://dfmrlie57qrbo" path="res://Mods/Core/Items/9mm.png" id="8_0yr0i"]
+[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_stacked.gd" id="9_8a8sx"]
 [ext_resource type="Script" path="res://addons/gloot/core/item_slot.gd" id="9_qoep6"]
+[ext_resource type="Texture2D" uid="uid://df2n5aculnj82" path="res://addons/gloot/images/icon_inventory.svg" id="10_6ygdg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyt2o"]
 bg_color = Color(0.584314, 0.588235, 0.737255, 1)
@@ -21,17 +21,18 @@ default_font_size = 13
 
 [node name="InventoryWindow" type="Control" node_paths=PackedStringArray("proximity_inventory", "proximity_inventory_control", "inventory_control", "inventory", "containerList", "LeftHandEquipmentSlot", "RightHandEquipmentSlot", "tooltip", "tooltip_item_name", "tooltip_item_description")]
 layout_mode = 3
-anchors_preset = 0
-offset_top = 150.0
-offset_right = 462.0
-offset_bottom = 719.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_7kqbx")
-proximity_inventory = NodePath("InventoryGridStackedProx")
-proximity_inventory_control = NodePath("HBoxContainer/Inventories/CtrlInventoryGridExProx")
-inventory_control = NodePath("HBoxContainer/Inventories/CtrlInventoryGridEx")
-inventory = NodePath("InventoryGridStacked")
+proximity_inventory = NodePath("InventoryStackedProx")
+proximity_inventory_control = NodePath("HBoxContainer/CtrlInventoryStackedProx")
+inventory_control = NodePath("HBoxContainer/CtrlInventoryStacked")
+inventory = NodePath("InventoryStacked")
 containerList = NodePath("HBoxContainer/ContainersList")
 containerListItem = ExtResource("2_xfgb3")
 LeftHandEquipmentSlot = NodePath("HBoxContainer/EquipmentSlotList/LeftHandEquipment/LeftHandEquipmentSlot")
@@ -45,93 +46,88 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 133.0
-offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.698039, 0.729412, 0.788235, 1)
 
-[node name="InventoryGridStacked" type="Node" parent="."]
-script = ExtResource("2_alcyo")
-size = Vector2i(12, 8)
+[node name="InventoryStacked" type="Node" parent="."]
+script = ExtResource("3_l8xgt")
+capacity = 1000.0
 item_protoset = ExtResource("3_sqsc0")
 
-[node name="_Node_50375" type="Node" parent="InventoryGridStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "pistol_9mm"
-
-[node name="_Node_51104" type="Node" parent="InventoryGridStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "pistol_magazine"
-properties = {
-"grid_position": Vector2i(0, 2)
-}
-
-[node name="_Node_52218" type="Node" parent="InventoryGridStacked"]
+[node name="_Node_23278" type="Node" parent="InventoryStacked"]
 script = ExtResource("5_qidb6")
 protoset = ExtResource("3_sqsc0")
 prototype_id = "bullet_9mm"
-properties = {
-"grid_position": Vector2i(0, 3)
-}
 
-[node name="_Node_27438" type="Node" parent="InventoryGridStacked"]
+[node name="_Node_23288" type="Node" parent="InventoryStacked"]
+script = ExtResource("5_qidb6")
+protoset = ExtResource("3_sqsc0")
+prototype_id = "pistol_magazine"
+
+[node name="_Node_23298" type="Node" parent="InventoryStacked"]
 script = ExtResource("5_qidb6")
 protoset = ExtResource("3_sqsc0")
 prototype_id = "rifle_m4a1"
-properties = {
-"grid_position": Vector2i(0, 4)
-}
 
-[node name="_Node_28997" type="Node" parent="InventoryGridStacked"]
+[node name="_Node_23311" type="Node" parent="InventoryStacked"]
 script = ExtResource("5_qidb6")
 protoset = ExtResource("3_sqsc0")
 prototype_id = "pistol_9mm"
-properties = {
-"grid_position": Vector2i(0, 6)
-}
 
-[node name="InventoryGridStackedProx" type="Node" parent="."]
-script = ExtResource("2_alcyo")
-size = Vector2i(12, 8)
+[node name="_Node_65384" type="Node" parent="InventoryStacked"]
+script = ExtResource("5_qidb6")
+protoset = ExtResource("3_sqsc0")
+prototype_id = "pistol_9mm"
+
+[node name="InventoryStackedProx" type="Node" parent="."]
+script = ExtResource("3_l8xgt")
+capacity = 1000.0
 item_protoset = ExtResource("3_sqsc0")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ContainersList" type="VBoxContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 
-[node name="Inventories" type="VBoxContainer" parent="HBoxContainer"]
+[node name="CtrlInventoryStackedProx" type="Control" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("9_8a8sx")
+inventory_path = NodePath("../../InventoryStackedProx")
+default_item_icon = ExtResource("10_6ygdg")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 
-[node name="CtrlInventoryGridEx" type="Control" parent="HBoxContainer/Inventories"]
-custom_minimum_size = Vector2(384, 256)
+[node name="TransferRightButton" type="Button" parent="HBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("4_8j4xb")
-grid_color = Color(0.309804, 0.309804, 0.309804, 1)
-selection_color = Color(0.745098, 0.745098, 0.745098, 0.941176)
-inventory_path = NodePath("../../../InventoryGridStacked")
-default_item_texture = ExtResource("5_wixd1")
+text = "->"
 
-[node name="Label" type="Label" parent="HBoxContainer/Inventories"]
+[node name="TransferLeftButton" type="Button" parent="HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "<-"
+
+[node name="Label" type="Label" parent="HBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Nearby container:"
 
-[node name="CtrlInventoryGridExProx" type="Control" parent="HBoxContainer/Inventories"]
-custom_minimum_size = Vector2(384, 256)
+[node name="CtrlInventoryStacked" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("4_8j4xb")
-grid_color = Color(0.305882, 0.305882, 0.305882, 1)
-inventory_path = NodePath("../../../InventoryGridStackedProx")
-default_item_texture = ExtResource("5_wixd1")
+size_flags_horizontal = 3
+script = ExtResource("9_8a8sx")
+inventory_path = NodePath("../../InventoryStacked")
+default_item_icon = ExtResource("10_6ygdg")
 
 [node name="EquipmentSlotList" type="VBoxContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(64, 0)
@@ -139,6 +135,10 @@ layout_mode = 2
 
 [node name="LeftHandEquipment" type="HBoxContainer" parent="HBoxContainer/EquipmentSlotList"]
 layout_mode = 2
+
+[node name="EquipLeftButton" type="Button" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment"]
+layout_mode = 2
+text = "->"
 
 [node name="LeftHandEquipmentSlot" type="Node" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment"]
 script = ExtResource("9_qoep6")
@@ -159,6 +159,10 @@ text = "Left hand"
 
 [node name="RightHandEquipment" type="HBoxContainer" parent="HBoxContainer/EquipmentSlotList"]
 layout_mode = 2
+
+[node name="EquipRightButton" type="Button" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment"]
+layout_mode = 2
+text = "->"
 
 [node name="RightHandEquipmentSlot" type="Node" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment"]
 script = ExtResource("9_qoep6")
@@ -229,12 +233,11 @@ theme_override_font_sizes/font_size = 13
 text = "Item description"
 autowrap_mode = 3
 
-[connection signal="item_added" from="InventoryGridStacked" to="." method="_on_inventory_grid_stacked_item_added"]
-[connection signal="item_mouse_entered" from="HBoxContainer/Inventories/CtrlInventoryGridEx" to="." method="_on_inventory_item_mouse_entered"]
-[connection signal="item_mouse_exited" from="HBoxContainer/Inventories/CtrlInventoryGridEx" to="." method="_on_inventory_item_mouse_exited"]
-[connection signal="item_mouse_entered" from="HBoxContainer/Inventories/CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_entered"]
-[connection signal="item_mouse_exited" from="HBoxContainer/Inventories/CtrlInventoryGridExProx" to="." method="_on_inventory_item_mouse_exited"]
+[connection signal="button_up" from="HBoxContainer/HBoxContainer/TransferRightButton" to="." method="_on_transfer_right_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/HBoxContainer/TransferLeftButton" to="." method="_on_transfer_left_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/EquipmentSlotList/LeftHandEquipment/EquipLeftButton" to="." method="_on_equip_left_button_button_up"]
 [connection signal="cleared" from="HBoxContainer/EquipmentSlotList/LeftHandEquipment/LeftHandEquipmentSlot" to="." method="_on_left_hand_equipment_slot_cleared"]
 [connection signal="item_equipped" from="HBoxContainer/EquipmentSlotList/LeftHandEquipment/LeftHandEquipmentSlot" to="." method="_on_left_hand_equipment_slot_item_equipped"]
+[connection signal="button_up" from="HBoxContainer/EquipmentSlotList/RightHandEquipment/EquipRightButton" to="." method="_on_equip_right_button_button_up"]
 [connection signal="cleared" from="HBoxContainer/EquipmentSlotList/RightHandEquipment/RightHandEquipmentSlot" to="." method="_on_right_hand_equipment_slot_cleared"]
 [connection signal="item_equipped" from="HBoxContainer/EquipmentSlotList/RightHandEquipment/RightHandEquipmentSlot" to="." method="_on_right_hand_equipment_slot_item_equipped"]

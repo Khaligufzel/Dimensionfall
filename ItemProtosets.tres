@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://b1tngttyk4w2s"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -76,10 +76,10 @@ json_data = "[
 		\"description\": \"A standard issue pistol that uses 9mm ammunition\",
 		\"height\": \"2\",
 		\"id\": \"pistol_9mm\",
-		\"image\": \"./Mods/Core/Items/pistol_64.png\",
+		\"image\": \"./Mods/Core/Items/pistol_32.png\",
 		\"max_stack_size\": \"1\",
 		\"name\": \"Pistol 9mm\",
-		\"sprite\": \"pistol_64.png\",
+		\"sprite\": \"pistol_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
 		\"weight\": \"2\",
@@ -100,10 +100,10 @@ json_data = "[
 		\"description\": \"A standard issue rifle that uses 9mm ammunition\",
 		\"height\": \"2\",
 		\"id\": \"rifle_m4a1\",
-		\"image\": \"./Mods/Core/Items/rifle_128_64.png\",
+		\"image\": \"./Mods/Core/Items/rifle_64_32.png\",
 		\"max_stack_size\": \"1\",
 		\"name\": \"M4a1 rifle\",
-		\"sprite\": \"rifle_128_64.png\",
+		\"sprite\": \"rifle_64_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": true,
 		\"weight\": \"4\",
