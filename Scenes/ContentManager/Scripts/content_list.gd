@@ -125,6 +125,11 @@ func _on_ok_button_up():
 	if popupAction == "Add":
 			Gamedata.add_id_to_data(contentData, myText)
 	if popupAction == "Duplicate":
+		# This is true if contentData.data is an array of strings
+		# Else, it will be an array of dictionaries
+		if contentData.data[0] is String:
+			Gamedata.duplicate_file_in_data(contentData,get_selected_item_text(),myText)
+		else:
 			Gamedata.duplicate_item_in_data(contentData,get_selected_item_text(),myText)
 	popupAction = ""
 	load_data()

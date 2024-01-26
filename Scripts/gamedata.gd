@@ -103,6 +103,34 @@ func duplicate_item_in_data(contentData: Dictionary, id: String, newID: String):
 	else:
 		print_debug("There should be code here for when a file in the gets duplicated")
 
+
+# This function will duplicate a file with the provided original ID
+# and save it under a new ID within the same directory.
+func duplicate_file_in_data(contentData: Dictionary, original_id: String, new_id: String) -> void:
+	var data_path: String = contentData.dataPath
+	var original_file_path: String = data_path + original_id + ".json"
+	var new_file_path: String = data_path + new_id + ".json"
+
+	if not FileAccess.file_exists(original_file_path):
+		print_debug("Original file not found: " + original_file_path)
+		return
+
+	# Load the original file content.
+	var original_content = Helper.json_helper.load_json_dictionary_file(original_file_path)
+
+	# Write the original content to a new file with the new ID.
+	var save_result = Helper.json_helper.write_json_file(new_file_path, JSON.stringify(original_content))
+	if save_result == OK:
+		print_debug("File duplicated successfully: " + new_file_path)
+		# Add the new ID to the data array if it's managed as an array of IDs.
+		if contentData.data is Array and typeof(contentData.data[0]) == TYPE_STRING:
+			contentData.data.append(new_id)
+			save_data_to_file(contentData)  # Save the updated data array to file.
+	else:
+		print_debug("Failed to duplicate file to: " + new_file_path)
+
+
+
 # This function appends a new object to an existing array
 # Pass the contentData dictionary to this function and the value of the ID
 # If the data directory ends in .json, it will append an object

@@ -1,0 +1,22 @@
+{
+	"mapheight": 2,
+	"maps": [
+		{
+			"id": "RockyHill_NW.json",
+			"rotation": 0
+		},
+		{
+			"id": "RockyHill_NE.json",
+			"rotation": 0
+		},
+		{
+			"id": "RockyHill_SW.json",
+			"rotation": 0
+		},
+		{
+			"id": "RockyHill_SE.json",
+			"rotation": 0
+		}
+	],
+	"mapwidth": 2
+}
