@@ -16,6 +16,7 @@ func _on_load_game_button_pressed():
 	Helper.save_helper.load_game_from_folder(selected_game_folder)
 	Helper.save_helper.load_overmap_state()
 	Helper.save_helper.load_player_inventory()
+	Helper.save_helper.load_player_equipment()
 	# We pass the name of the default map and coordinates
 	# If there is a saved game, it will not load the provided map
 	# but rather the one that was saved in the game that was loaded
