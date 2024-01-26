@@ -399,6 +399,9 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
 				"id": "grass_flowers_00"
 			},
 			{
@@ -594,6 +597,9 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
 				"id": "grass_medium_dirt_02"
 			},
 			{
@@ -1074,6 +1080,9 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
 				"id": "grass_medium_dirt_02"
 			},
 			{
@@ -1372,6 +1381,9 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
 				"id": "grass_dirt_01",
 				"rotation": 90
 			},
@@ -2039,16 +2051,21 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_medium_dirt_02"
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "rocky_earth_00",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "rocky_earth_00",
+				"rotation": 90
 			},
 			{
 				"id": "grass_plain_01"
@@ -2133,22 +2150,28 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_dirt_north_00",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "rocky_earth_00",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "rocky_earth_00",
+				"rotation": 90
 			},
 			{
 				"id": "grass_plain_01"
@@ -2232,19 +2255,23 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_dirt_01"
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_flowers_00"
+				"id": "rocky_earth_00",
+				"rotation": 90
 			},
 			{
 				"id": "grass_dirt_00"
@@ -2325,22 +2352,30 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_dirt_north_00",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_dirt_00"
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "rocky_earth_00",
+				"rotation": 90
 			},
 			{
 				"id": "grass_plain_01"
@@ -2427,13 +2462,15 @@
 				"id": "grass_dirt_00"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "rocky_earth_00",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "rocky_earth_00",
+				"rotation": 90
 			},
 			{
 				"id": "grass_plain_01"
@@ -2524,13 +2561,16 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "rocky_earth_00",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "rocky_earth_00",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "rocky_earth_00",
+				"rotation": 90
 			},
 			{
 				"id": "grass_plain_01"
@@ -2635,6 +2675,9 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
 				"id": "grass_medium_dirt_02"
 			},
 			{
@@ -2860,6 +2903,9 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
 				"id": "grass_medium_dirt_01",
 				"rotation": 90
 			},
@@ -2912,6 +2958,9 @@
 				"id": "grass_flowers_00"
 			},
 			{
+				"furniture": {
+					"id": "Tree_00"
+				},
 				"id": "grass_medium_dirt_00"
 			},
 			{
@@ -2921,6 +2970,9 @@
 				"id": "grass_flowers_00"
 			},
 			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
 				"id": "grass_medium_dirt_00"
 			},
 			{
@@ -2987,6 +3039,9 @@
 				"id": "grass_dirt_01"
 			},
 			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
 				"id": "grass_dirt_01"
 			},
 			{
