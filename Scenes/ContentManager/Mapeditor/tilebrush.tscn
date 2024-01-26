@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cccnrdolr1bfo"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/tilebrush.gd" id="1_x2ml4"]
-[ext_resource type="Texture2D" uid="uid://ttmfel3ylg0w" path="res://Mods/Core/Tiles/arcstones1.png" id="2_7dvcp"]
+[ext_resource type="Texture2D" uid="uid://d0ec7u2d3yqqp" path="res://Mods/Core/Tiles/asphalt_middle_horizontal.png" id="2_0qm6c"]
 
 [node name="TileBrush" type="Control"]
 custom_minimum_size = Vector2(64, 64)
@@ -18,7 +18,8 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("2_7dvcp")
-expand_mode = 3
+texture = ExtResource("2_0qm6c")
+expand_mode = 2
+stretch_mode = 4
 
 [connection signal="gui_input" from="TileSprite" to="." method="_on_texture_rect_gui_input"]
