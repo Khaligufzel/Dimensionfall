@@ -16,6 +16,7 @@
 			"Livingroom"
 		],
 		"description": "A simple wooden chair, its construction is basic yet sturdy, a testament to durability in the face of decay. \nWith a rough-hewn seat and a backrest that bears the marks of time, this chair offers a momentary respite from the unforgiving environment.",
+		"edgesnapping": "None",
 		"id": "chair_wood",
 		"moveable": true,
 		"name": "Wooden chair",
@@ -28,6 +29,7 @@
 			"Indoor"
 		],
 		"description": "One of the central pieces of fruniture that make up a kitchen",
+		"edgesnapping": "North",
 		"id": "countertop_wood",
 		"moveable": false,
 		"name": "Wooden countertop",
