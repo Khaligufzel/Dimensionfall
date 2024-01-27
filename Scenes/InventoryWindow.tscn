@@ -1,13 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://e0ebcv1n8jnq"]
+[gd_scene load_steps=15 format=3 uid="uid://e0ebcv1n8jnq"]
 
 [ext_resource type="Script" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
 [ext_resource type="PackedScene" uid="uid://crck2fhgayxhn" path="res://Scenes/InventoryContainerListItem.tscn" id="2_xfgb3"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="3_l8xgt"]
-[ext_resource type="Resource" uid="uid://clehtt4tyqvdy" path="res://ItemProtosets.tres" id="3_sqsc0"]
+[ext_resource type="Resource" uid="uid://cr7u5aveonr7t" path="res://ItemProtosets.tres" id="3_sqsc0"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_item.gd" id="5_qidb6"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="6_xpf2l"]
 [ext_resource type="Script" path="res://addons/gloot/ui/ctrl_item_slot_ex.gd" id="7_kcmi5"]
 [ext_resource type="Texture2D" uid="uid://dfmrlie57qrbo" path="res://Mods/Core/Items/9mm.png" id="8_0yr0i"]
+[ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="8_f75fl"]
 [ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_stacked.gd" id="9_8a8sx"]
 [ext_resource type="Texture2D" uid="uid://df2n5aculnj82" path="res://addons/gloot/images/icon_inventory.svg" id="10_6ygdg"]
 [ext_resource type="Script" path="res://addons/gloot/core/item_ref_slot.gd" id="11_nqptt"]
@@ -126,12 +127,18 @@ layout_mode = 2
 text = "<-"
 
 [node name="CtrlInventoryStacked" type="Control" parent="HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("9_8a8sx")
 inventory_path = NodePath("../../InventoryStacked")
 default_item_icon = ExtResource("10_6ygdg")
+
+[node name="CtrlInventoryStackedCustom" parent="HBoxContainer" node_paths=PackedStringArray("myInventory") instance=ExtResource("8_f75fl")]
+layout_mode = 2
+size_flags_horizontal = 3
+myInventory = NodePath("../../InventoryStacked")
 
 [node name="EquipmentSlotList" type="VBoxContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(64, 0)
