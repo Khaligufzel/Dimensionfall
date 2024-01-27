@@ -33,6 +33,7 @@ extends Control
 
 var selectedItem: InventoryItem = null
 var selectedItems: Array = []
+var last_selected_item: Control = null
 
 signal item_selected(item)
 signal items_selected(items)
@@ -158,61 +159,91 @@ func add_header_row_to_grid():
 	header_favorite.text = "F"
 	inventoryGrid.add_child(header_favorite)
 
-#
-#
-## Function to handle item click
-#func _on_item_clicked(clickedItem: Control, ctrl_pressed: bool):
-	## Logic to handle item click, e.g., marking as selected
-	#if clickedItem.is_item_selected():
-		## The item was just selected
-		#if ctrl_pressed:
-			## Control was pressed, so add it to the selected items list
-			#selectedItems.append(clickedItem)
-		#else:
-			## Control was not pressed, so this should be the only selected item
-			#clickedItem.select_item()
-	#else:
-		## The item was just de-selected
-		## If the control key was held, the other selected items should remain selected
-		## If the control key was not held, de-select all items and re-select the cliked item
-		#clickedItem.select_item()
-#
-	## Emit signals based on selection
-	#if selectedItems.size() == 1:
-		#emit_signal("item_selected", selectedItems[0])
-	#elif selectedItems.size() > 1:
-		#emit_signal("items_selected", selectedItems)
-#
 
-func _on_item_clicked(clickedItem: Control, ctrl_pressed: bool):
-	# Check if the item is already selected
-	if clickedItem.is_item_selected():
-		# The item was just selected
-		if ctrl_pressed:
-			# Control was pressed, so add it to the selected items list
-			selectedItems.append(clickedItem)
-		else:
-			selectedItems.append(clickedItem)
-			# If control is not pressed, deselect other items
-			_deselect_all_except(clickedItem)
+
+func _on_item_clicked(clickedItem: Control):
+	var group_name = _get_group_name(clickedItem)
+	if Input.is_key_pressed(KEY_CTRL):
+		# Toggle the entire group selection
+		_toggle_group_selection(group_name, not _is_group_selected(group_name))
+	elif Input.is_key_pressed(KEY_SHIFT) and last_selected_item:
+		# Select a range of items (handled as before)
+		_select_range(last_selected_item, clickedItem)
 	else:
-		# Item was de-selected
-		if ctrl_pressed:
-			# the control key was held, the other selected items should remain selected
-			selectedItems.erase(clickedItem)
-		else:
-			if clickedItem in selectedItems:
-				selectedItems.erase(clickedItem)
-			else:
-				# If control is not pressed, clear other selections and select this one
-				_deselect_all_except(clickedItem)
-				clickedItem.select_item()
+		# Select only the clicked group
+		for selected_group in selectedItems.duplicate():
+			_toggle_group_selection(selected_group, false)
+		_toggle_group_selection(group_name, true)
 
-	# Emit signals based on selection
-	if selectedItems.size() == 1:
-		emit_signal("item_selected", selectedItems[0])
-	elif selectedItems.size() > 1:
-		emit_signal("items_selected", selectedItems)
+	# Update last selected item
+	last_selected_item = clickedItem
+
+func _toggle_group_selection(group_name: String, select: bool):
+	for group_item in get_tree().get_nodes_in_group(group_name):
+		if group_item is Control:
+			if select:
+				group_item.select_item()
+			else:
+				group_item.unselect_item()
+	if select:
+		selectedItems.append(group_name)
+	else:
+		selectedItems.erase(group_name)
+
+func _is_group_selected(group_name: String) -> bool:
+	for group_item in get_tree().get_nodes_in_group(group_name):
+		if group_item is Control and not group_item.is_item_selected():
+			return false
+	return true
+
+
+
+
+
+
+
+func _select_row_items(item: Control):
+	var group_name = _get_group_name(item)
+	for group_item in get_tree().get_nodes_in_group(group_name):
+		if group_item is Control and not group_item.is_item_selected():
+			group_item.select_item()
+
+
+func _select_range(start_item: Control, end_item: Control):
+	var start_group_name = _get_group_name(start_item)
+	var end_group_name = _get_group_name(end_item)
+
+	var start_index = _find_group_start_index(start_group_name)
+	var end_index = _find_group_start_index(end_group_name)
+
+	var min_index = min(start_index, end_index)
+	var max_index = max(start_index, end_index)
+
+	# Iterate through the grid and select groups within the range
+	for i in range(min_index, max_index + 1):
+		var item = inventoryGrid.get_child(i)
+		if item:
+			var group_name = _get_group_name(item)
+			_toggle_group_selection(group_name, true)
+
+# Find the index of the first item in a group
+func _find_group_start_index(group_name: String) -> int:
+	for i in range(inventoryGrid.get_child_count()):
+		var item = inventoryGrid.get_child(i)
+		if item and _get_group_name(item) == group_name:
+			return i
+	return -1
+
+
+
+
+func _find_child_index(item: Control) -> int:
+	for i in range(inventoryGrid.get_child_count()):
+		if inventoryGrid.get_child(i) == item:
+			return i
+	return -1
+
+
 
 func _deselect_all_except(except_item: Control):
 	for item in selectedItems:

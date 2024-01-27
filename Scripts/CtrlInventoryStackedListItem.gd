@@ -21,7 +21,7 @@ var selected_color: Color = Color(0.5, 0.5, 0.8, 1) # Selected color
 
 var is_selected: bool = false
 
-signal item_clicked(item: Control, ctrl_pressed: bool)
+signal item_clicked(item: Control)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -85,7 +85,4 @@ func _on_gui_input(event):
 						unselect_item()
 					else:
 						select_item()
-					if Input.is_key_pressed(KEY_CTRL):
-						item_clicked.emit(self, true)
-					else:
-						item_clicked.emit(self, false)
+					item_clicked.emit(self)
