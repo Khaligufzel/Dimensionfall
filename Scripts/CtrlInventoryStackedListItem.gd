@@ -52,10 +52,16 @@ func unselect_item():
 	myBackgroundRect.color = default_color
 
 func _on_mouse_entered():
+	highlight()
+
+func _on_mouse_exited():
+	unhighlight()
+		
+func highlight():
 	if not is_selected:
 		myBackgroundRect.color = hover_color
 
-func _on_mouse_exited():
+func unhighlight():
 	if not is_selected:
 		myBackgroundRect.color = default_color
 
@@ -78,20 +84,3 @@ func set_icon(texture: Texture):
 # Function to get the icon's texture.
 func get_icon() -> Texture:
 	return myIcon.texture
-
-# Adjusts the size of the item based on its content
-func adjust_size():
-	var content_width = 0
-	var content_height = 0
-
-	# Calculate size based on visible content (label or icon)
-	if myLabel.visible:
-		content_width = myLabel.get_minimum_size().x
-		content_height = myLabel.get_minimum_size().y
-	
-	# Check if the icon is visible and has a texture
-	if myIcon.visible and myIcon.texture:
-		custom_minimum_size = Vector2(32,32)
-
-	# Set the size of the background rectangle to fit the content
-	myBackgroundRect.custom_minimum_size = Vector2(content_width, content_height)

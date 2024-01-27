@@ -70,14 +70,25 @@ func _process(_delta):
 		_remove_highlight(last_hovered_item)
 		last_hovered_item = null
 
-
 func _apply_highlight(item: Node):
-	if item is Label:
-		item.modulate = Color(1, 0.8, 0.8)  # Highlight color
+	if item is Control:
+		var group_name = _get_group_name(item)
+		for group_item in get_tree().get_nodes_in_group(group_name):
+			if group_item is Control:
+				group_item.highlight()
 
 func _remove_highlight(item: Node):
-	if item is Label:
-		item.modulate = Color(1, 1, 1)  # Default color
+	if item is Control:
+		var group_name = _get_group_name(item)
+		for group_item in get_tree().get_nodes_in_group(group_name):
+			if group_item is Control:
+				group_item.unhighlight()
+
+func _get_group_name(item: Control) -> String:
+	for group in item.get_groups():
+		if group.begins_with("item_group_"):
+			return group
+	return ""
 
 
 func connect_signals():
@@ -172,42 +183,52 @@ func _on_item_clicked(clickedItem: Control):
 
 
 func add_item_to_grid(item: InventoryItem):
+	# Define a unique group name for this set of items
+	var group_name = "item_group_" + str(item.get_name())
+	
 	# Add the item icon
 	var item_icon = listItemContainer.instantiate() as Control
 	item_icon.set_icon(item.get_texture())
 	inventoryGrid.add_child(item_icon)
 	item_icon.connect("item_clicked", _on_item_clicked)
+	item_icon.add_to_group(group_name)
 
 	# Add the item name
 	var item_name = listItemContainer.instantiate() as Control
 	item_name.set_label_text(item.get_title())
 	inventoryGrid.add_child(item_name)
 	item_name.connect("item_clicked", _on_item_clicked)
+	item_name.add_to_group(group_name)
 
 	# Add the item weight
 	var item_weight = listItemContainer.instantiate() as Control
 	item_weight.set_label_text(str(item.get_property("weight", 0)))
 	inventoryGrid.add_child(item_weight)
+	item_weight.connect("item_clicked", _on_item_clicked)
+	item_weight.add_to_group(group_name)
 
 	# Add the item volume
 	var item_volume = listItemContainer.instantiate() as Control
 	item_volume.set_label_text(str(item.get_property("volume", 0)))
 	inventoryGrid.add_child(item_volume)
+	item_volume.connect("item_clicked", _on_item_clicked)
+	item_volume.add_to_group(group_name)
 
- 
 	# Add the item favorite
 	var item_favorite = listItemContainer.instantiate() as Control
 	item_favorite.set_label_text(str(item.get_property("favorite", 0)))
 	inventoryGrid.add_child(item_favorite)
+	item_favorite.connect("item_clicked", _on_item_clicked)
+	item_favorite.add_to_group(group_name)
 
 	# Assign a unique name to each UI element
 	item_icon.name = "icon_" + str(item.get_name())
-	item_icon.adjust_size()
 	item_name.name = "name_" + str(item.get_name())
 	item_weight.name = "weight_" + str(item.get_name())
 	item_volume.name = "volume_" + str(item.get_name())
 	item_favorite.name = "favorite_" + str(item.get_name())
 	item_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	item_icon.custom_minimum_size = Vector2(32,32)
 
 
 func update_bars():
