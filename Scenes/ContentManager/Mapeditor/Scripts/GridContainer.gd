@@ -3,7 +3,7 @@ extends GridContainer
 #This is the index of the level we are on. 0 is ground level. can be -10 to +10
 var currentLevel: int = 10
 #Contains the data of every tile in the current level, the ground level or level 0 by default
-var currentLevelData: Array[Dictionary] = []
+var currentLevelData: Array = []
 @export var mapEditor: Control
 @export var LevelScrollBar: VScrollBar
 @export var levelgrid_below: GridContainer
@@ -405,3 +405,52 @@ func save_miniature_map_image():
 
 func _on_create_preview_image_button_button_up():
 	save_miniature_map_image()
+	
+
+# This function will loop over all levels and rotate them if they contain tile data.
+func rotate_map():
+	# Store the data of the current level before rotating the map
+	storeLevelData()
+	
+	for i in range(mapData.levels.size()):
+		# Load each level's data into currentLevelData
+		currentLevelData = mapData.levels[i]
+		# Rotate the current level data
+		rotate_level_clockwise()
+		# Update the rotated data back into the mapData
+		mapData.levels[i] = currentLevelData.duplicate()
+
+	# After rotation, reload the current level's data
+	loadLevelData(currentLevel)
+
+
+# Rotates the current level 90 degrees clockwise.
+func rotate_level_clockwise():
+	# Check if currentLevelData has at least one item
+	if !currentLevelData.size() > 0:
+		return
+	var width = mapEditor.mapWidth
+	var height = mapEditor.mapHeight
+	var new_level_data: Array[Dictionary] = []
+
+	# Initialize new_level_data with empty dictionaries
+	for i in range(width * height):
+		new_level_data.append({})
+
+	# Rotate the tile data
+	for x in range(width):
+		for y in range(height):
+			var old_index = y * width + x
+			var new_x = width - y - 1
+			var new_y = x
+			var new_index = new_y * width + new_x
+			new_level_data[new_index] = currentLevelData[old_index].duplicate()
+
+			# Add rotation to the tile's data if it has an id
+			if new_level_data[new_index].has("id"):
+				var rotation = int(new_level_data[new_index].get("rotation", 0))
+				new_level_data[new_index]["rotation"] = (rotation + 90) % 360
+
+	# Update the current level data
+	currentLevelData = new_level_data
+	#mapData.levels[currentLevel] = currentLevelData
