@@ -448,9 +448,14 @@ func rotate_level_clockwise():
 
 			# Add rotation to the tile's data if it has an id
 			if new_level_data[new_index].has("id"):
-				var rotation = int(new_level_data[new_index].get("rotation", 0))
-				new_level_data[new_index]["rotation"] = (rotation + 90) % 360
+				var tile_rotation = int(new_level_data[new_index].get("rotation", 0))
+				new_level_data[new_index]["rotation"] = (tile_rotation + 90) % 360
+			
+			# Rotate furniture if present, initializing rotation to 0 if not set
+			if new_level_data[new_index].has("furniture"):
+				var furniture_rotation = int(new_level_data[new_index].get("furniture").get("rotation", 0))
+				new_level_data[new_index]["furniture"]["rotation"] = (furniture_rotation + 90) % 360
+
 
 	# Update the current level data
 	currentLevelData = new_level_data
-	#mapData.levels[currentLevel] = currentLevelData
