@@ -35,6 +35,8 @@ extends Control
 var selectedItem: InventoryItem = null
 var selectedItems: Array = []
 var last_selected_item: Control = null
+var group_to_item_mapping: Dictionary = {}
+
 
 signal item_selected(item)
 signal items_selected(items)
@@ -50,7 +52,6 @@ func _ready():
 
 var last_hovered_item: Node = null
 
-
 func _process(_delta):
 	var mouse_pos = get_global_mouse_position()
 	var hovered_item: Node = null
@@ -63,35 +64,36 @@ func _process(_delta):
 
 	# Apply highlight effect
 	if hovered_item and hovered_item != last_hovered_item:
-		if last_hovered_item:
+		if last_hovered_item and is_instance_valid(last_hovered_item):
 			_remove_highlight(last_hovered_item)
 		_apply_highlight(hovered_item)
 		last_hovered_item = hovered_item
-	elif last_hovered_item and not hovered_item:
+	elif last_hovered_item and not hovered_item and is_instance_valid(last_hovered_item):
 		# Remove highlight effect when cursor moves away
 		_remove_highlight(last_hovered_item)
 		last_hovered_item = null
 
-func _apply_highlight(item: Node):
-	if item is Control:
-		var group_name = _get_group_name(item)
-		for group_item in get_tree().get_nodes_in_group(group_name):
-			if group_item is Control:
-				group_item.highlight()
-
 func _remove_highlight(item: Node):
-	if item is Control:
+	if item is Control and is_instance_valid(item):
 		var group_name = _get_group_name(item)
 		for group_item in get_tree().get_nodes_in_group(group_name):
 			if group_item is Control:
 				group_item.unhighlight()
+
+
+
+func _apply_highlight(item: Node):
+	if item is Control and is_instance_valid(item):
+		var group_name = _get_group_name(item)
+		for group_item in get_tree().get_nodes_in_group(group_name):
+			if group_item is Control:
+				group_item.highlight()
 
 func _get_group_name(item: Control) -> String:
 	for group in item.get_groups():
 		if group.begins_with("item_group_"):
 			return group
 	return ""
-
 
 func connect_signals():
 	# Connect each item for selection
@@ -202,10 +204,21 @@ func _is_group_selected(group_name: String) -> bool:
 			return false
 	return true
 
-
-
-
-
+# This function will return a dictionary with 5 keys
+# The 5 keys are icon, name, weight, volume, favorite
+func _get_group_data(group_name: String) -> Dictionary:
+	var group_item = group_to_item_mapping[group_name]
+	if group_item:
+		# Now use group_item to get the data
+		return {
+			"icon": group_item.get_icon(),
+			"name": group_item.get_title(),
+			"weight": group_item.get_property("weight", 0),
+			"volume": group_item.get_property("volume", 0),
+			"favorite": group_item.is_favorite()  # Assuming is_favorite() method exists
+		}
+	else:
+		return {"icon": null, "name": "", "weight": 0, "volume": 0, "favorite": false}
 
 
 func _select_row_items(item: Control):
@@ -264,6 +277,7 @@ func _deselect_all_except(except_item: Control):
 func add_item_to_grid(item: InventoryItem):
 	# Define a unique group name for this set of items
 	var group_name = "item_group_" + str(item.get_name())
+	group_to_item_mapping[group_name] = item
 	
 	# Add the item icon
 	var item_icon = listItemContainer.instantiate() as Control
@@ -333,28 +347,6 @@ func _check_inventory_capacity():
 	if is_empty:
 		emit_signal("inventory_empty")
 
-
-func sort_inventory_by_property(property_name: String):
-	# Create an array of items with additional data for sorting
-	var items_with_data = []
-	for item in myInventory.get_children():
-		var prop_value = item.get_property(property_name, null)
-		items_with_data.append({
-			"item": item,
-			"sort_value": prop_value
-		})
-
-	# Sort the array based on the property value
-	items_with_data.sort_custom(_sort_items)
-
-	# Clear and repopulate the grid with sorted items
-	inventoryGrid.queue_free_children()
-	add_header_row_to_grid()
-	for item_data in items_with_data:
-		add_item_to_grid(item_data["item"])
-
-	emit_signal("inventory_sorted", property_name)
-
 func _sort_items(a, b):
 	var value_a = a["sort_value"]
 	var value_b = b["sort_value"]
@@ -367,12 +359,72 @@ func _sort_items(a, b):
 func _on_header_clicked(headerItem: Control) -> void:
 	var header_label = headerItem.get_label_text()
 	if header_label == "I":
-		print_debug("Icon column clicked")
+		sort_inventory_by_property("icon")
 	elif header_label == "Name":
-		print_debug("Name column clicked")
+		sort_inventory_by_property("name")
 	elif header_label == "W":
-		print_debug("Weight column clicked")
+		sort_inventory_by_property("weight")
 	elif header_label == "V":
-		print_debug("Volume column clicked")
+		sort_inventory_by_property("volume")
 	elif header_label == "F":
-		print_debug("Favorite column clicked")
+		sort_inventory_by_property("favorite")
+
+
+func sort_inventory_by_property(property_name: String):
+	var group_data = []
+	var group_names = []
+
+	# Aggregate data by group
+	for item in inventoryGrid.get_children():
+		var group_name = _get_group_name(item)
+		if not group_names.has(group_name):
+			group_names.append(group_name)
+			var representative_value = _get_representative_value_for_group(group_name, property_name)
+			group_data.append({
+				"group_name": group_name,
+				"sort_value": representative_value
+			})
+
+	# Sort the array based on the property value
+	group_data.sort_custom(_sort_groups)
+
+	# Clear and repopulate the grid with sorted groups
+	_clear_grid_children()
+	add_header_row_to_grid()
+	for group in group_data:
+		_add_group_to_grid(group["group_name"])
+	emit_signal("inventory_sorted", property_name)
+
+func _clear_grid_children():
+	while inventoryGrid.get_child_count() > 0:
+		var child = inventoryGrid.get_child(0)
+		inventoryGrid.remove_child(child)
+		child.queue_free()
+
+func _sort_groups(a, b):
+	var value_a = a["sort_value"]
+	var value_b = b["sort_value"]
+	if typeof(value_a) == TYPE_STRING:
+		return value_a.nocasecmp_to(value_b) < 0
+	else:
+		return value_a < value_b
+
+func _get_representative_value_for_group(group_name: String, property_name: String):
+	if group_to_item_mapping.has(group_name):
+		var group_item = group_to_item_mapping[group_name]
+		if group_item:
+			var property_value = group_item.get_property(property_name, null)
+			if property_value != null:
+				return property_value
+	# Return a default value based on the property type
+	if property_name == "name" or property_name == "favorite":
+		return ""  # Default value for string properties
+	else:
+		return 0  # Default value for numeric properties
+
+
+func _add_group_to_grid(group_name: String):
+	# Logic to add all items of the group to the grid in their sorted order
+	var group_items = get_tree().get_nodes_in_group(group_name)
+	for item in group_items:
+		add_item_to_grid(item)
