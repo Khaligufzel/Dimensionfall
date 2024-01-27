@@ -158,28 +158,70 @@ func add_header_row_to_grid():
 	header_favorite.text = "F"
 	inventoryGrid.add_child(header_favorite)
 
+#
+#
+## Function to handle item click
+#func _on_item_clicked(clickedItem: Control, ctrl_pressed: bool):
+	## Logic to handle item click, e.g., marking as selected
+	#if clickedItem.is_item_selected():
+		## The item was just selected
+		#if ctrl_pressed:
+			## Control was pressed, so add it to the selected items list
+			#selectedItems.append(clickedItem)
+		#else:
+			## Control was not pressed, so this should be the only selected item
+			#clickedItem.select_item()
+	#else:
+		## The item was just de-selected
+		## If the control key was held, the other selected items should remain selected
+		## If the control key was not held, de-select all items and re-select the cliked item
+		#clickedItem.select_item()
+#
+	## Emit signals based on selection
+	#if selectedItems.size() == 1:
+		#emit_signal("item_selected", selectedItems[0])
+	#elif selectedItems.size() > 1:
+		#emit_signal("items_selected", selectedItems)
+#
 
-
-# Function to handle item click
-func _on_item_clicked(clickedItem: Control):
-	# Logic to handle item click, e.g., marking as selected
+func _on_item_clicked(clickedItem: Control, ctrl_pressed: bool):
+	# Check if the item is already selected
 	if clickedItem.is_item_selected():
-		clickedItem.unselect_item()
-		selectedItems.erase(clickedItem)
+		# The item was just selected
+		if ctrl_pressed:
+			# Control was pressed, so add it to the selected items list
+			selectedItems.append(clickedItem)
+		else:
+			selectedItems.append(clickedItem)
+			# If control is not pressed, deselect other items
+			_deselect_all_except(clickedItem)
 	else:
-		clickedItem.select_item()
-		selectedItems.append(clickedItem)
-		# Optional: unselect other items if only one item should be selected at a time
-		for child in inventoryGrid.get_children():
-			if child is Control and child != clickedItem:
-				child.unselect_item()
-				selectedItems.erase(child)
+		# Item was de-selected
+		if ctrl_pressed:
+			# the control key was held, the other selected items should remain selected
+			selectedItems.erase(clickedItem)
+		else:
+			if clickedItem in selectedItems:
+				selectedItems.erase(clickedItem)
+			else:
+				# If control is not pressed, clear other selections and select this one
+				_deselect_all_except(clickedItem)
+				clickedItem.select_item()
 
 	# Emit signals based on selection
 	if selectedItems.size() == 1:
 		emit_signal("item_selected", selectedItems[0])
 	elif selectedItems.size() > 1:
 		emit_signal("items_selected", selectedItems)
+
+func _deselect_all_except(except_item: Control):
+	for item in selectedItems:
+		if item != except_item:
+			item.unselect_item()
+	selectedItems.clear()
+	selectedItems = [except_item]
+
+
 
 
 func add_item_to_grid(item: InventoryItem):

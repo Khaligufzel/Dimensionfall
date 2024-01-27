@@ -40,3 +40,5 @@ expand_mode = 2
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

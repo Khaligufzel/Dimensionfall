@@ -21,7 +21,7 @@ var selected_color: Color = Color(0.5, 0.5, 0.8, 1) # Selected color
 
 var is_selected: bool = false
 
-signal item_clicked(item)
+signal item_clicked(item: Control, ctrl_pressed: bool)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,19 +30,9 @@ func _ready():
 	connect("mouse_entered", _on_mouse_entered)
 	connect("mouse_exited", _on_mouse_exited)
 
-func _unhandled_input(event):
-	if event is InputEventMouse:
-		if get_global_rect().has_point(event.global_position):
-			if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-				_select_item()
-		else:
-			if not is_selected:
-				myBackgroundRect.color = default_color
-
-func _select_item():
+func select_item():
 	is_selected = true
 	myBackgroundRect.color = selected_color
-	emit_signal("item_clicked", self)
 
 func is_item_selected() -> bool:
 	return is_selected
@@ -84,3 +74,18 @@ func set_icon(texture: Texture):
 # Function to get the icon's texture.
 func get_icon() -> Texture:
 	return myIcon.texture
+
+
+func _on_gui_input(event):
+	if event is InputEventMouseButton:
+		match event.button_index:
+			MOUSE_BUTTON_LEFT:
+				if event.pressed:
+					if is_selected:
+						unselect_item()
+					else:
+						select_item()
+					if Input.is_key_pressed(KEY_CTRL):
+						item_clicked.emit(self, true)
+					else:
+						item_clicked.emit(self, false)
