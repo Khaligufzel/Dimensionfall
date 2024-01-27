@@ -86,11 +86,10 @@ theme_override_icons/unchecked = ExtResource("2_bib5l")
 
 [node name="RotateMap" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-tooltip_text = "Rotate the brush to paint with rotation"
+tooltip_text = "Rotate the map and all levels in it by 90 degrees clockwise. Tiles and furniture will be rotated"
 theme_override_icons/checked = ExtResource("3_8q2iq")
 theme_override_icons/unchecked = ExtResource("3_8q2iq")
 shortcut = SubResource("Shortcut_1tryc")
-text = "0"
 
 [node name="ZoomScroller" parent="HSplitContainer/MapeditorContainer/Toolbar" instance=ExtResource("1_0ytmu")]
 layout_mode = 2
