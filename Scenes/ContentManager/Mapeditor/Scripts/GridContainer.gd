@@ -225,13 +225,44 @@ func _on_level_scrollbar_value_changed(value):
 	change_level(10+0-value)
 
 #This function takes two coordinates representing a rectangle. It will check which of the TileGrid's children's position falls inside this rectangle. It returns all the child tiles that fall inside this rectangle
+#func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
+	#var tiles_in_rectangle: Array = []
+	#
+	## Normalize the rectangle coordinates
+	#var normalized_start = Vector2(min(rect_start.x, rect_end.x), min(rect_start.y, rect_end.y))
+	#var normalized_end = Vector2(max(rect_start.x, rect_end.x), max(rect_start.y, rect_end.y))
+	#
+	#for tile in get_children():
+		#var tile_pos = tile.global_position + mapScrollWindow.global_position
+		#if tile_pos.x >= normalized_start.x and tile_pos.x <= normalized_end.x:
+			#if tile_pos.y >= normalized_start.y and tile_pos.y <= normalized_end.y:
+				#tiles_in_rectangle.append(tile)
+	#return tiles_in_rectangle
+
+
+# This function takes two coordinates representing a rectangle and the current zoom level.
+# It will check which of the TileGrid's children's positions fall inside this rectangle.
+# It returns all the child tiles that fall inside this rectangle.
 func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
 	var tiles_in_rectangle: Array = []
+
+	# Normalize the rectangle coordinates
+	var normalized_start = Vector2(min(rect_start.x, rect_end.x), min(rect_start.y, rect_end.y))
+	var normalized_end = Vector2(max(rect_start.x, rect_end.x), max(rect_start.y, rect_end.y))
+
+	# Adjust the rectangle coordinates based on the zoom level
+	normalized_start /= mapEditor.zoom_level
+	normalized_end /= mapEditor.zoom_level
+
 	for tile in get_children():
-		if tile.global_position.x >= rect_start.x-(1*mapEditor.zoom_level) and tile.global_position.x <= rect_end.x:
-			if tile.global_position.y >= rect_start.y-(1*mapEditor.zoom_level) and tile.global_position.y <= rect_end.y:
+		# Calculate the position of the tile accounting for the zoom level
+		var tile_pos = tile.get_global_position() / mapEditor.zoom_level
+		# Check if the tile's position is within the normalized rectangle
+		if tile_pos.x >= normalized_start.x and tile_pos.x <= normalized_end.x:
+			if tile_pos.y >= normalized_start.y and tile_pos.y <= normalized_end.y:
 				tiles_in_rectangle.append(tile)
 	return tiles_in_rectangle
+
 
 func unhighlight_tiles():
 	for tile in get_children():
