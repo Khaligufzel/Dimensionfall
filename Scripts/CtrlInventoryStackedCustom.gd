@@ -30,6 +30,7 @@ extends Control
 @export var max_weight: int = 1000
 @export var max_volume: int = 1000
 @export var listItemContainer: PackedScene
+@export var listHeaderContainer: PackedScene
 
 var selectedItem: InventoryItem = null
 var selectedItems: Array = []
@@ -135,29 +136,34 @@ func add_header_row_to_grid():
 	# Create header elements and add them to the grid
 
 	# Already given: header for Icon
-	var header_icon = Label.new()
-	header_icon.text = "I"
+	var header_icon = listHeaderContainer.instantiate() as Control
+	header_icon.set_label_text("I")
 	inventoryGrid.add_child(header_icon)
+	header_icon.connect("header_clicked", _on_header_clicked)
 
 	# Add header for Name
-	var header_name = Label.new()
-	header_name.text = "Name"
+	var header_name = listHeaderContainer.instantiate() as Control
+	header_name.set_label_text("Name")
 	inventoryGrid.add_child(header_name)
+	header_name.connect("header_clicked", _on_header_clicked)
 
 	# Add header for Weight
-	var header_weight = Label.new()
-	header_weight.text = "W"
+	var header_weight = listHeaderContainer.instantiate() as Control
+	header_weight.set_label_text("W")
 	inventoryGrid.add_child(header_weight)
+	header_weight.connect("header_clicked", _on_header_clicked)
 
 	# Add header for Volume
-	var header_volume = Label.new()
-	header_volume.text = "V"
+	var header_volume = listHeaderContainer.instantiate() as Control
+	header_volume.set_label_text("V")
 	inventoryGrid.add_child(header_volume)
+	header_volume.connect("header_clicked", _on_header_clicked)
 
 	# Add header for Favorite (If applicable)
-	var header_favorite = Label.new()
-	header_favorite.text = "F"
+	var header_favorite = listHeaderContainer.instantiate() as Control
+	header_favorite.set_label_text("F")
 	inventoryGrid.add_child(header_favorite)
+	header_favorite.connect("header_clicked", _on_header_clicked)
 
 
 
@@ -356,3 +362,17 @@ func _sort_items(a, b):
 		return value_a.nocasecmp_to(value_b) < 0
 	else:
 		return value_a < value_b
+
+# When the header is clicked
+func _on_header_clicked(headerItem: Control) -> void:
+	var header_label = headerItem.get_label_text()
+	if header_label == "I":
+		print_debug("Icon column clicked")
+	elif header_label == "Name":
+		print_debug("Name column clicked")
+	elif header_label == "W":
+		print_debug("Weight column clicked")
+	elif header_label == "V":
+		print_debug("Volume column clicked")
+	elif header_label == "F":
+		print_debug("Favorite column clicked")
