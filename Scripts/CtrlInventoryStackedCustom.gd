@@ -29,6 +29,7 @@ extends Control
 @export var myInventory: InventoryStacked
 @export var max_weight: int = 1000
 @export var max_volume: int = 1000
+@export var listItemContainer: PackedScene
 
 var selectedItem: InventoryItem = null
 var selectedItems: Array = []
@@ -148,39 +149,65 @@ func add_header_row_to_grid():
 
 
 
+# Function to handle item click
+func _on_item_clicked(clickedItem: Control):
+	# Logic to handle item click, e.g., marking as selected
+	if clickedItem.is_item_selected():
+		clickedItem.unselect_item()
+		selectedItems.erase(clickedItem)
+	else:
+		clickedItem.select_item()
+		selectedItems.append(clickedItem)
+		# Optional: unselect other items if only one item should be selected at a time
+		for child in inventoryGrid.get_children():
+			if child is Control and child != clickedItem:
+				child.unselect_item()
+				selectedItems.erase(child)
+
+	# Emit signals based on selection
+	if selectedItems.size() == 1:
+		emit_signal("item_selected", selectedItems[0])
+	elif selectedItems.size() > 1:
+		emit_signal("items_selected", selectedItems)
+
+
 func add_item_to_grid(item: InventoryItem):
 	# Add the item icon
-	var item_icon = TextureRect.new()
-	item_icon.texture = item.get_texture()
+	var item_icon = listItemContainer.instantiate() as Control
+	item_icon.set_icon(item.get_texture())
 	inventoryGrid.add_child(item_icon)
+	item_icon.connect("item_clicked", _on_item_clicked)
 
 	# Add the item name
-	var item_name = Label.new()
-	item_name.text = item.get_title()
+	var item_name = listItemContainer.instantiate() as Control
+	item_name.set_label_text(item.get_title())
 	inventoryGrid.add_child(item_name)
+	item_name.connect("item_clicked", _on_item_clicked)
 
 	# Add the item weight
-	var item_weight = Label.new()
-	item_weight.text = str(item.get_property("weight", 0))
+	var item_weight = listItemContainer.instantiate() as Control
+	item_weight.set_label_text(str(item.get_property("weight", 0)))
 	inventoryGrid.add_child(item_weight)
 
 	# Add the item volume
-	var item_volume = Label.new()
-	item_volume.text = str(item.get_property("volume", 0))
+	var item_volume = listItemContainer.instantiate() as Control
+	item_volume.set_label_text(str(item.get_property("volume", 0)))
 	inventoryGrid.add_child(item_volume)
 
  
 	# Add the item favorite
-	var item_favorite = Label.new()
-	item_favorite.text = str(item.get_property("favorite", 0))
+	var item_favorite = listItemContainer.instantiate() as Control
+	item_favorite.set_label_text(str(item.get_property("favorite", 0)))
 	inventoryGrid.add_child(item_favorite)
 
 	# Assign a unique name to each UI element
 	item_icon.name = "icon_" + str(item.get_name())
+	item_icon.adjust_size()
 	item_name.name = "name_" + str(item.get_name())
 	item_weight.name = "weight_" + str(item.get_name())
 	item_volume.name = "volume_" + str(item.get_name())
 	item_favorite.name = "favorite_" + str(item.get_name())
+	item_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 
 func update_bars():

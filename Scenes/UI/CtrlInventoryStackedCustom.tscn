@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://y2iul2r3nysx"]
+[gd_scene load_steps=3 format=3 uid="uid://y2iul2r3nysx"]
 
 [ext_resource type="Script" path="res://Scripts/CtrlInventoryStackedCustom.gd" id="1_1pahw"]
+[ext_resource type="PackedScene" uid="uid://bgnxsnv6ltej8" path="res://Scenes/UI/CtrlInventoryStackedListItem.tscn" id="2_woew4"]
 
 [node name="CtrlInventoryStackedCustom" type="Control" node_paths=PackedStringArray("inventoryGrid", "WeightBar", "VolumeBar")]
 layout_mode = 3
@@ -9,10 +10,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_1pahw")
 inventoryGrid = NodePath("VBoxContainer/InventoryGrid")
 WeightBar = NodePath("VBoxContainer/HBoxContainer/WeightBar")
 VolumeBar = NodePath("VBoxContainer/HBoxContainer/VolumeBar")
+listItemContainer = ExtResource("2_woew4")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -35,6 +39,8 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.95
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
 columns = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
