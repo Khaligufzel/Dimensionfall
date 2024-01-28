@@ -37,6 +37,9 @@ var selectedItems: Array = []
 var last_selected_item: Control = null
 var group_to_item_mapping: Dictionary = {}
 
+# Dictionary to store header controls
+var header_controls: Dictionary = {}
+var selected_header: String = ""
 
 signal item_selected(item)
 signal items_selected(items)
@@ -114,20 +117,24 @@ func _on_item_gui_input(event):
 			selectedItems = [item]
 			emit_signal("item_selected", item)
 
+
+
 # Helper function to create a header
-func create_header(text: String, signal_name: Callable) -> void:
+func create_header(text: String) -> void:
 	var header: Control = listHeaderContainer.instantiate()
 	header.set_label_text(text)
-	header.connect("header_clicked", signal_name)
+	header.connect("header_clicked", _on_header_clicked)
 	inventoryGrid.add_child(header)
+	# Store the header control in the dictionary
+	header_controls[text] = header
 
 # Simplified function for adding headers
 func add_header_row_to_grid():
-	create_header("I", _on_header_clicked)
-	create_header("Name", _on_header_clicked)
-	create_header("W", _on_header_clicked)
-	create_header("V", _on_header_clicked)
-	create_header("F", _on_header_clicked)
+	create_header("I")
+	create_header("Name")
+	create_header("W")
+	create_header("V")
+	create_header("F")
 
 
 func _on_item_clicked(clickedItem: Control):
@@ -300,13 +307,30 @@ func _sort_items(a, b):
 	else:
 		return value_a < value_b
 
-# Improved header click handling
+# Header click handling
 func _on_header_clicked(headerItem: Control) -> void:
 	var header_mapping = {"I": "icon", "Name": "name", "W": "weight", "V": "volume", "F": "favorite"}
 	var header_label = headerItem.get_label_text()
+	var property_name = header_mapping[header_label]
+
+	if selected_header != header_label:
+		# Update the visual state of the previously selected header
+		if selected_header in header_controls:
+			_update_header_visual_state(header_controls[selected_header], false)
+		selected_header = header_label
+		_update_header_visual_state(headerItem, true)
 	if header_label in header_mapping:
 		sort_inventory_by_property(header_mapping[header_label])
 
+# Method to update the visual state of a header
+func _update_header_visual_state(header: Control, is_selected: bool):
+	# Apply visual changes to the header based on whether it is selected
+	if is_selected:
+		# Visual changes for selected state
+		header.select_item()
+	else:
+		# Visual changes for non-selected state
+		header.unselect_item()
 
 func sort_inventory_by_property(property_name: String):
 	var group_data = get_group_data_with_property(property_name)
@@ -376,3 +400,4 @@ func get_default_value_for_property(property_name: String) -> Variant:
 	match property_name:
 		"name", "favorite": return ""
 		_ : return 0
+
