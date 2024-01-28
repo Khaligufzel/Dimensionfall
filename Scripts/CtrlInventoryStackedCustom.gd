@@ -31,6 +31,8 @@ extends Control
 @export var max_volume: int = 1000
 @export var listItemContainer: PackedScene
 @export var listHeaderContainer: PackedScene
+# Context menu that will show actions for selected items
+@export var context_menu: PopupMenu
 
 var selectedItem: InventoryItem = null
 var selectedItems: Array = []
@@ -39,8 +41,6 @@ var group_to_item_mapping: Dictionary = {}
 var group_controls: Dictionary = {}
 var last_hovered_item: Node = null
 
-# Context menu that will show actions for selected items
-var context_menu: PopupMenu
 
 # Dictionary to store header controls
 var header_controls: Dictionary = {}
@@ -65,19 +65,7 @@ signal disassemble_item(items)
 func _ready():
 	populate_inventory_list()
 	update_bars()
-	setup_context_menu()
 	connect_inventory_signals()
-	
-
-func _input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-		# Check if the right mouse button was pressed
-		var mouse_pos = get_global_mouse_position()
-		var hovered_item = get_hovered_item(mouse_pos)
-		if hovered_item:
-			# If the mouse is over an inventory item, show the context menu
-			show_context_menu()
-
 
 # Take care of the hovering over items in the grid
 func _process(_delta):
@@ -109,21 +97,11 @@ func _remove_highlight(item: Control):
 		for control in group_controls[group_name]:
 			control.unhighlight()
 
-func setup_context_menu():
-	# Initialize and configure the context menu
-	context_menu = PopupMenu.new()
-	add_child(context_menu)
-	context_menu.add_item("Equip (left)", 0)
-	context_menu.add_item("Equip (right)", 1)
-	context_menu.add_item("Drop", 2)
-	context_menu.add_item("Wear", 3)
-	context_menu.add_item("Disassemble", 4)
-	context_menu.connect("id_pressed", _on_context_menu_item_selected)
-
-# Function to show context menu
-func show_context_menu():
-	# Show the context menu at the center of the screen
-	context_menu.popup_centered()
+# Function to show context menu at specified position
+func show_context_menu(myposition: Vector2):
+	# Create a small Rect2i around the position
+	var popup_rect = Rect2i(myposition.x, myposition.y, 1, 1)
+	context_menu.popup(popup_rect)
 
 
 # Handle context menu item selection
@@ -202,6 +180,9 @@ func add_header_row_to_grid():
 	create_header("W")
 	create_header("V")
 	create_header("F")
+	
+func _on_item__right_clicked(clickedItem: Control):
+	show_context_menu(clickedItem.global_position)
 
 # When an item in the inventory is clicked
 # There are 5 items per row in the grid, but they are treated as a group of 5
@@ -280,6 +261,7 @@ func create_ui_element(property: String, item: InventoryItem, group_name: String
 	# Now we can use the name to get information about the property
 	element.name = property + "_" + str(item.get_name())
 	element.connect("item_clicked", _on_item_clicked)
+	element.connect("item_right_clicked", _on_item__right_clicked)
 	# We use groups to keep track of the items
 	element.add_to_group(group_name)
 	return element

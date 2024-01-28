@@ -44,7 +44,6 @@ func _process(_delta):
 	else:
 		tooltip.visible = false
 
-
 func _on_inventory_item_mouse_entered(item):
 	is_showing_tooltip = true
 	tooltip_item_name.text = str(item.get_property("name", ""))
@@ -244,18 +243,14 @@ func _on_left_hand_equipment_slot_cleared():
 func _on_right_hand_equipment_slot_cleared():
 	item_was_cleared.emit("RightHand")
 
-
 func _on_equip_right_button_button_up():
 	RightHandEquipmentSlot.equip(inventory_control.get_selected_inventory_item())
-
 
 func _on_equip_left_button_button_up():
 	LeftHandEquipmentSlot.equip(inventory_control.get_selected_inventory_item())
 
-
 func _on_transfer_left_button_button_up():
 	inventory.transfer(inventory_control.get_selected_inventory_item(), proximity_inventory_control.inventory)
-
 
 func _on_transfer_right_button_button_up():
 	var selected_inventory_item: InventoryItem = proximity_inventory_control.get_selected_inventory_item()

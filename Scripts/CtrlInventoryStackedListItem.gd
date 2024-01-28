@@ -22,6 +22,8 @@ var selected_color: Color = Color(0.5, 0.5, 0.8, 1) # Selected color
 var is_selected: bool = false
 
 signal item_clicked(item: Control)
+signal item_right_clicked(item: Control)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -78,11 +80,15 @@ func get_icon() -> Texture:
 
 func _on_gui_input(event):
 	if event is InputEventMouseButton:
-		match event.button_index:
-			MOUSE_BUTTON_LEFT:
-				if event.pressed:
+		if event.pressed:  # Check if the mouse button was pressed down
+			match event.button_index:
+				MOUSE_BUTTON_LEFT:
+					# Handle left mouse button click
 					if is_selected:
 						unselect_item()
 					else:
 						select_item()
 					item_clicked.emit(self)
+				MOUSE_BUTTON_RIGHT:
+					# Handle right mouse button click
+					item_right_clicked.emit(self)  # Emit a new signal for right-click
