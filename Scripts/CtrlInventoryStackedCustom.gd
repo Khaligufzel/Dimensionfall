@@ -67,6 +67,17 @@ func _ready():
 	update_bars()
 	setup_context_menu()
 	connect_inventory_signals()
+	
+
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		# Check if the right mouse button was pressed
+		var mouse_pos = get_global_mouse_position()
+		var hovered_item = get_hovered_item(mouse_pos)
+		if hovered_item:
+			# If the mouse is over an inventory item, show the context menu
+			show_context_menu()
+
 
 # Take care of the hovering over items in the grid
 func _process(_delta):
@@ -109,10 +120,11 @@ func setup_context_menu():
 	context_menu.add_item("Disassemble", 4)
 	context_menu.connect("id_pressed", _on_context_menu_item_selected)
 
-
 # Function to show context menu
 func show_context_menu():
-	context_menu.popup_centered_clamped(Vector2(200, 250))
+	# Show the context menu at the center of the screen
+	context_menu.popup_centered()
+
 
 # Handle context menu item selection
 func _on_context_menu_item_selected(id):
