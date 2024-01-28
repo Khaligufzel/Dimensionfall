@@ -52,7 +52,6 @@ signal inventory_empty
 
 func _ready():
 	populate_inventory_list()
-	connect_signals()
 	update_bars()
 
 var last_hovered_item: Node = null
@@ -91,31 +90,6 @@ func _get_group_name(item: Control) -> String:
 		if group.begins_with("item_group_"):
 			return group
 	return ""
-
-func connect_signals():
-	# Connect each item for selection
-	for item_index in range(inventoryGrid.get_child_count()):
-		var child = inventoryGrid.get_child(item_index)
-		if child is TextureRect or child is Label:
-			child.connect("gui_input", _on_item_gui_input)
-
-# Function to handle GUI input on an item
-func _on_item_gui_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		var item = inventoryGrid.get_selected_item()
-		# Check if CTRL is held for multiple selections
-		if Input.is_key_pressed(KEY_CTRL):
-			# Add or remove from the selection
-			if item in selectedItems:
-				selectedItems.erase(item)
-			else:
-				selectedItems.append(item)
-			emit_signal("items_selected", selectedItems)
-		else:
-			# Single selection
-			selectedItem = item
-			selectedItems = [item]
-			emit_signal("item_selected", item)
 
 # Helper function to create a header
 func create_header(text: String) -> void:
