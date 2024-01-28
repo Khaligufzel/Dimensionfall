@@ -66,6 +66,7 @@ func _ready():
 	populate_inventory_list()
 	update_bars()
 	setup_context_menu()
+	connect_inventory_signals()
 
 # Take care of the hovering over items in the grid
 func _process(_delta):
@@ -130,6 +131,40 @@ func get_selected_inventory_items() -> Array:
 		if group_to_item_mapping.has(group_name):
 			items.append(group_to_item_mapping[group_name])
 	return items
+
+func connect_inventory_signals():
+	# Connect signals from InventoryStacked to this control script
+	myInventory.connect("item_added", _on_inventory_item_added)
+	myInventory.connect("item_removed", _on_inventory_item_removed)
+	myInventory.connect("item_modified", _on_inventory_item_modified)
+	myInventory.connect("contents_changed", _on_inventory_contents_changed)
+
+
+func _on_inventory_item_added(_item: InventoryItem):
+	# Handle item added to inventory
+	update_inventory_list()
+
+func _on_inventory_item_removed(_item: InventoryItem):
+	# Handle item removed from inventory
+	update_inventory_list()
+
+func _on_inventory_item_modified(_item: InventoryItem):
+	# Handle item modified in inventory
+	update_inventory_list()
+
+func _on_inventory_contents_changed():
+	# Handle inventory contents changed
+	update_inventory_list()
+
+func update_inventory_list():
+	# Clear and repopulate the inventory list
+	_clear_grid_children()
+	add_header_row_to_grid()
+	for item in myInventory.get_children():
+		var group_name = "item_group_" + str(item.get_name())
+		group_to_item_mapping[group_name] = item
+		add_item_to_grid(item, group_name)
+	update_bars()
 
 # Gets the group name from an item
 # An item is a control element in the inventory grid
