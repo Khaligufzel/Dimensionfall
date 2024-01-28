@@ -41,7 +41,7 @@ var group_controls: Dictionary = {}
 # Dictionary to store header controls
 var header_controls: Dictionary = {}
 var selected_header: String = ""
-
+var header_sort_order: Dictionary = {}
 
 signal item_selected(item)
 signal items_selected(items)
@@ -271,10 +271,14 @@ func _sort_items(a, b):
 	else:
 		return value_a < value_b
 
-# Header click handling
 func _on_header_clicked(headerItem: Control) -> void:
 	var header_mapping = {"I": "icon", "Name": "name", "W": "weight", "V": "volume", "F": "favorite"}
 	var header_label = headerItem.get_label_text()
+
+	var reverse_order = false
+	if selected_header == header_label and header_label in header_sort_order:
+		# Reverse the sort order if the same header is clicked again
+		reverse_order = !header_sort_order[header_label]
 
 	if selected_header != header_label:
 		# Update the visual state of the previously selected header
@@ -282,8 +286,10 @@ func _on_header_clicked(headerItem: Control) -> void:
 			header_controls[selected_header].unselect_item()
 		selected_header = header_label
 		headerItem.select_item()
+
 	if header_label in header_mapping:
-		sort_inventory_by_property(header_mapping[header_label])
+		sort_inventory_by_property(header_mapping[header_label], reverse_order)
+		header_sort_order[header_label] = reverse_order
 
 func _clear_grid_children():
 	while inventoryGrid.get_child_count() > 0:
@@ -313,8 +319,10 @@ func _get_representative_value_for_group(group_name: String, property_name: Stri
 	else:
 		return 0  # Default value for numeric properties
 
-func sort_inventory_by_property(property_name: String):
+func sort_inventory_by_property(property_name: String, reverse_order: bool = false):
 	var sorted_groups = get_sorted_groups(property_name)
+	if reverse_order:
+		sorted_groups.reverse()  # Reverse the order of the sorted groups
 	for group_name in sorted_groups:
 		move_group_to_end(group_name)
 	emit_signal("inventory_sorted", property_name)
@@ -322,6 +330,7 @@ func sort_inventory_by_property(property_name: String):
 func move_group_to_end(group_name: String):
 	for control in group_controls[group_name]:
 		inventoryGrid.move_child(control, inventoryGrid.get_child_count() - 1)
+
 
 func get_sorted_groups(property_name: String) -> Array:
 	var group_data = []
