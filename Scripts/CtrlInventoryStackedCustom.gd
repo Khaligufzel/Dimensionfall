@@ -139,33 +139,20 @@ func _on_item_clicked(clickedItem: Control):
 	var group_name = _get_group_name(clickedItem)
 	
 	if Input.is_key_pressed(KEY_CTRL):
-		print_debug("_is_group_selected(group_name) = " + str(_is_group_selected(group_name)))
-		print_debug(" selectedItems.size() > 1 = " + str( selectedItems.size() > 1))
-		print_debug("clickedItem.is_item_selected() = " + str(clickedItem.is_item_selected()))
 		# CTRL is held: check if current group is selected and if there are other groups selected
 		if _is_group_selected(group_name):
 			if selectedItems.size() > 1:
 				# Deselect the current group
 				_toggle_group_selection(group_name, false)
 		else:
-			if selectedItems.size() > 1:
-				if clickedItem.is_item_selected():
-					# Deselect the current group
-					_toggle_group_selection(group_name, true)
-				else:
-					# select the current group
-					_toggle_group_selection(group_name, false)
+			if clickedItem.is_item_selected():
+				# select the current group
+				_toggle_group_selection(group_name, true)
 			else:
-				if clickedItem.is_item_selected():
-					# Toggle selection of the group (either select or deselect)
-					_toggle_group_selection(group_name, true)
-					#_toggle_group_selection(group_name, not _is_group_selected(group_name))
-				else:
-					# select the current group
-					_toggle_group_selection(group_name, false)
+				# de-select the current group
+				_toggle_group_selection(group_name, false)
 	
 		## CTRL is held: toggle selection of the group
-		#_toggle_group_selection(group_name, not _is_group_selected(group_name))
 	elif Input.is_key_pressed(KEY_SHIFT) and last_selected_item:
 		# SHIFT is held: select a range of items
 		_select_range(last_selected_item, clickedItem)
