@@ -117,8 +117,6 @@ func _on_item_gui_input(event):
 			selectedItems = [item]
 			emit_signal("item_selected", item)
 
-
-
 # Helper function to create a header
 func create_header(text: String) -> void:
 	var header: Control = listHeaderContainer.instantiate()
@@ -163,12 +161,12 @@ func _select_range(start_item: Control, end_item: Control):
 	var min_index = min(start_index, end_index)
 	var max_index = max(start_index, end_index)
 
-	# Iterate through the grid and select groups within the range
 	for i in range(min_index, max_index + 1):
 		var item = inventoryGrid.get_child(i)
 		if item:
 			var group_name = _get_group_name(item)
-			_toggle_group_selection(group_name, true)
+			if group_controls.has(group_name):
+				_toggle_group_selection(group_name, true)
 
 # Find the index of the first item in a group
 func _find_group_start_index(group_name: String) -> int:
@@ -322,19 +320,21 @@ func get_sorted_groups(property_name: String) -> Array:
 	return sorted_group_names
 
 func _toggle_group_selection(group_name: String, select: bool):
-	for group_item in get_tree().get_nodes_in_group(group_name):
-		if group_item is Control:
+	if group_controls.has(group_name):
+		for control in group_controls[group_name]:
 			if select:
-				group_item.select_item()
+				control.select_item()
 			else:
-				group_item.unselect_item()
-	if select:
-		selectedItems.append(group_name)
-	else:
-		selectedItems.erase(group_name)
+				control.unselect_item()
+		if select:
+			selectedItems.append(group_name)
+		else:
+			selectedItems.erase(group_name)
 
 func _is_group_selected(group_name: String) -> bool:
-	for group_item in get_tree().get_nodes_in_group(group_name):
-		if group_item is Control and not group_item.is_item_selected():
-			return false
-	return true
+	if group_controls.has(group_name):
+		for control in group_controls[group_name]:
+			if not control.is_item_selected():
+				return false
+		return true
+	return false
