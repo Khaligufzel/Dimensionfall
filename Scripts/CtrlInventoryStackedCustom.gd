@@ -37,6 +37,7 @@ var selectedItems: Array = []
 var last_selected_item: Control = null
 var group_to_item_mapping: Dictionary = {}
 var group_controls: Dictionary = {}
+var last_hovered_item: Node = null
 
 # Dictionary to store header controls
 var header_controls: Dictionary = {}
@@ -54,8 +55,7 @@ func _ready():
 	populate_inventory_list()
 	update_bars()
 
-var last_hovered_item: Node = null
-
+# Take care of the hovering over items in the grid
 func _process(_delta):
 	var mouse_pos = get_global_mouse_position()
 	var hovered_item = get_hovered_item(mouse_pos)
@@ -85,6 +85,8 @@ func _remove_highlight(item: Control):
 		for control in group_controls[group_name]:
 			control.unhighlight()
 
+# Gets the group name from an item
+# An item is a control element in the inventory grid
 func _get_group_name(item: Control) -> String:
 	for group in item.get_groups():
 		if group.begins_with("item_group_"):
@@ -108,25 +110,19 @@ func add_header_row_to_grid():
 	create_header("V")
 	create_header("F")
 
-
+# When an item in the inventory is clicked
+# There are 5 items per row in the grid, but they are treated as a group of 5
+# So clicking one item will select the whole row
 func _on_item_clicked(clickedItem: Control):
 	var group_name = _get_group_name(clickedItem)
 	
 	if Input.is_key_pressed(KEY_CTRL):
 		# CTRL is held: check if current group is selected and if there are other groups selected
-		if _is_group_selected(group_name):
-			if selectedItems.size() > 1:
-				# Deselect the current group
-				_toggle_group_selection(group_name, false)
+		if _is_group_selected(group_name) and selectedItems.size() > 1:
+			# Deselect the current group
+			_toggle_group_selection(group_name, false)
 		else:
-			if clickedItem.is_item_selected():
-				# select the current group
-				_toggle_group_selection(group_name, true)
-			else:
-				# de-select the current group
-				_toggle_group_selection(group_name, false)
-	
-		## CTRL is held: toggle selection of the group
+			_toggle_group_selection(group_name, clickedItem.is_item_selected())
 	elif Input.is_key_pressed(KEY_SHIFT) and last_selected_item:
 		# SHIFT is held: select a range of items
 		_select_range(last_selected_item, clickedItem)
@@ -135,8 +131,9 @@ func _on_item_clicked(clickedItem: Control):
 		# Check if the clicked item's group is selected
 		if not _is_group_selected(group_name):
 			if selectedItems.size() == 1 and selectedItems[0] == group_name:
-				_toggle_group_selection(group_name, false)
+				_toggle_group_selection(group_name, false) # De-select
 			else:
+				# More then one group is selected
 				# Deselect all other items and select the clicked group
 				for selected_group in selectedItems.duplicate():
 					_toggle_group_selection(selected_group, false)
@@ -145,6 +142,8 @@ func _on_item_clicked(clickedItem: Control):
 	# Update last selected item
 	last_selected_item = clickedItem
 
+# Select a range of items. This is called when the user
+# selects an item and then holds shift and selects another item
 func _select_range(start_item: Control, end_item: Control):
 	var start_group_name = _get_group_name(start_item)
 	var end_group_name = _get_group_name(end_item)
@@ -170,7 +169,7 @@ func _find_group_start_index(group_name: String) -> int:
 			return i
 	return -1
 
-# Generic function to create a UI element
+# Generic function to create an item in the grid
 func create_ui_element(property: String, item: InventoryItem, group_name: String) -> Control:
 	var element = listItemContainer.instantiate() as Control
 	match property:
@@ -199,6 +198,7 @@ func add_item_to_grid(item: InventoryItem, group_name: String):
 	for property in ["icon", "name", "weight", "volume", "favorite"]:
 		var element = create_ui_element(property, item, group_name)
 		inventoryGrid.add_child(element)
+		# Keep track of the list items by group name
 		if not group_controls.has(group_name):
 			group_controls[group_name] = []
 		group_controls[group_name].append(element)
@@ -245,6 +245,7 @@ func _sort_items(a, b):
 	else:
 		return value_a < value_b
 
+# When a header is clicked, we will apply sorting to that column
 func _on_header_clicked(headerItem: Control) -> void:
 	var header_mapping = {"I": "icon", "Name": "name", "W": "weight", "V": "volume", "F": "favorite"}
 	var header_label = headerItem.get_label_text()
@@ -280,6 +281,8 @@ func _sort_groups(a, b):
 	else:
 		return value_a < value_b
 
+# Returns the value of the provided property for the provided group
+# Essentially, the group_name is a row and the property_name is a column in the grid
 func _get_representative_value_for_group(group_name: String, property_name: String):
 	if group_to_item_mapping.has(group_name):
 		var group_item = group_to_item_mapping[group_name]
@@ -293,6 +296,7 @@ func _get_representative_value_for_group(group_name: String, property_name: Stri
 	else:
 		return 0  # Default value for numeric properties
 
+# Will sort the order of the items baased on the selected column (property_name)
 func sort_inventory_by_property(property_name: String, reverse_order: bool = false):
 	var sorted_groups = get_sorted_groups(property_name)
 	if reverse_order:
@@ -305,7 +309,10 @@ func move_group_to_end(group_name: String):
 	for control in group_controls[group_name]:
 		inventoryGrid.move_child(control, inventoryGrid.get_child_count() - 1)
 
-
+# Constructs an array of the group name and the provided property
+# The group_data is essentially all the rows in the grid
+# The property_name is the column of the grid
+# With this new array of group_name and property_name, the items can be sorted
 func get_sorted_groups(property_name: String) -> Array:
 	var group_data = []
 	for group_name in group_controls.keys():
@@ -320,6 +327,8 @@ func get_sorted_groups(property_name: String) -> Array:
 	
 	return sorted_group_names
 
+# A group is made up of 5 items (a row).
+# This will select or deselect a group
 func _toggle_group_selection(group_name: String, select: bool):
 	if group_controls.has(group_name):
 		for control in group_controls[group_name]:
@@ -332,6 +341,8 @@ func _toggle_group_selection(group_name: String, select: bool):
 		else:
 			selectedItems.erase(group_name)
 
+# If any of the controls is un-selected, the group is not selected
+# Otherwise the group is selected
 func _is_group_selected(group_name: String) -> bool:
 	if group_controls.has(group_name):
 		for control in group_controls[group_name]:
