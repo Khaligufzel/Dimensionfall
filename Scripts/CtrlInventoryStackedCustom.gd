@@ -39,6 +39,9 @@ var group_to_item_mapping: Dictionary = {}
 var group_controls: Dictionary = {}
 var last_hovered_item: Node = null
 
+# Context menu that will show actions for selected items
+var context_menu: PopupMenu
+
 # Dictionary to store header controls
 var header_controls: Dictionary = {}
 var selected_header: String = ""
@@ -51,9 +54,18 @@ signal inventory_updated
 signal inventory_reached_capacity
 signal inventory_empty
 
+
+# Signals for context menu actions
+signal equip_left(items)
+signal equip_right(items)
+signal drop_item(items)
+signal wear_item(items)
+signal disassemble_item(items)
+
 func _ready():
 	populate_inventory_list()
 	update_bars()
+	setup_context_menu()
 
 # Take care of the hovering over items in the grid
 func _process(_delta):
@@ -84,6 +96,40 @@ func _remove_highlight(item: Control):
 	if group_controls.has(group_name):
 		for control in group_controls[group_name]:
 			control.unhighlight()
+
+func setup_context_menu():
+	# Initialize and configure the context menu
+	context_menu = PopupMenu.new()
+	add_child(context_menu)
+	context_menu.add_item("Equip (left)", 0)
+	context_menu.add_item("Equip (right)", 1)
+	context_menu.add_item("Drop", 2)
+	context_menu.add_item("Wear", 3)
+	context_menu.add_item("Disassemble", 4)
+	context_menu.connect("id_pressed", _on_context_menu_item_selected)
+
+
+# Function to show context menu
+func show_context_menu():
+	context_menu.popup_centered_clamped(Vector2(200, 250))
+
+# Handle context menu item selection
+func _on_context_menu_item_selected(id):
+	var selected_inventory_items = get_selected_inventory_items()
+	match id:
+		0: emit_signal("equip_left", selected_inventory_items)
+		1: emit_signal("equip_right", selected_inventory_items)
+		2: emit_signal("drop_item", selected_inventory_items)
+		3: emit_signal("wear_item", selected_inventory_items)
+		4: emit_signal("disassemble_item", selected_inventory_items)
+
+# Function to get selected inventory items
+func get_selected_inventory_items() -> Array:
+	var items = []
+	for group_name in selectedItems:
+		if group_to_item_mapping.has(group_name):
+			items.append(group_to_item_mapping[group_name])
+	return items
 
 # Gets the group name from an item
 # An item is a control element in the inventory grid
@@ -350,4 +396,3 @@ func _is_group_selected(group_name: String) -> bool:
 				return false
 		return true
 	return false
-
