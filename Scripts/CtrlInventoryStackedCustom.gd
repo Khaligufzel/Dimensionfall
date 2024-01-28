@@ -137,17 +137,25 @@ func add_header_row_to_grid():
 
 func _on_item_clicked(clickedItem: Control):
 	var group_name = _get_group_name(clickedItem)
+	
 	if Input.is_key_pressed(KEY_CTRL):
-		# Toggle the entire group selection
+		# CTRL is held: toggle selection of the group
 		_toggle_group_selection(group_name, not _is_group_selected(group_name))
 	elif Input.is_key_pressed(KEY_SHIFT) and last_selected_item:
-		# Select a range of items (handled as before)
+		# SHIFT is held: select a range of items
 		_select_range(last_selected_item, clickedItem)
 	else:
-		# Select only the clicked group
-		for selected_group in selectedItems.duplicate():
-			_toggle_group_selection(selected_group, false)
-		_toggle_group_selection(group_name, true)
+		# No modifier key: select or deselect the clicked group
+		# Check if the clicked item's group is selected
+		if not _is_group_selected(group_name):
+			if selectedItems.size() == 1 and selectedItems[0] == group_name:
+				_toggle_group_selection(group_name, false)
+			else:
+				# Deselect all other items and select the clicked group
+				for selected_group in selectedItems.duplicate():
+					_toggle_group_selection(selected_group, false)
+				_toggle_group_selection(group_name, true)
+
 	# Update last selected item
 	last_selected_item = clickedItem
 
@@ -256,7 +264,6 @@ func _sort_items(a, b):
 func _on_header_clicked(headerItem: Control) -> void:
 	var header_mapping = {"I": "icon", "Name": "name", "W": "weight", "V": "volume", "F": "favorite"}
 	var header_label = headerItem.get_label_text()
-	var property_name = header_mapping[header_label]
 
 	if selected_header != header_label:
 		# Update the visual state of the previously selected header
@@ -338,3 +345,4 @@ func _is_group_selected(group_name: String) -> bool:
 				return false
 		return true
 	return false
+
