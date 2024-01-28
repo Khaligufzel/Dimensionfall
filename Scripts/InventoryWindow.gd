@@ -213,7 +213,7 @@ func _on_right_hand_equipment_slot_cleared():
 func _on_transfer_left_button_button_up():
 	var selected_inventory_items: Array[InventoryItem] = inventory_control.get_selected_inventory_items()
 	for item in selected_inventory_items:
-		if inventory.transfer_autosplitmerge(item, proximity_inventory_control.inventory):
+		if inventory.transfer_autosplitmerge(item, proximity_inventory_control.get_inventory()):
 			print_debug("Transferred item: " + str(item))
 		else:
 			print_debug("Failed to transfer item: " + str(item))
@@ -221,7 +221,7 @@ func _on_transfer_left_button_button_up():
 func _on_transfer_right_button_button_up():
 	var selected_inventory_items: Array[InventoryItem] = proximity_inventory_control.get_selected_inventory_items()
 	for item in selected_inventory_items:
-		if proximity_inventory_control.inventory.transfer_autosplitmerge(item, inventory):
+		if proximity_inventory_control.get_inventory().transfer_autosplitmerge(item, inventory):
 			print_debug("Transferred item: " + str(item))
 		else:
 			print_debug("Failed to transfer item: " + str(item))

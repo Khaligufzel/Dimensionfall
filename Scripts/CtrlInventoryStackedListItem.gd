@@ -29,8 +29,6 @@ signal item_right_clicked(item: Control)
 func _ready():
 	myBackgroundRect.color = default_color
 	set_process_unhandled_input(true)
-	connect("mouse_entered", _on_mouse_entered)
-	connect("mouse_exited", _on_mouse_exited)
 
 func select_item():
 	is_selected = true
@@ -43,12 +41,6 @@ func unselect_item():
 	is_selected = false
 	myBackgroundRect.color = default_color
 
-func _on_mouse_entered():
-	highlight()
-
-func _on_mouse_exited():
-	unhighlight()
-		
 func highlight():
 	if not is_selected:
 		myBackgroundRect.color = hover_color

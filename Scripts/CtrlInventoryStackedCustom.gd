@@ -68,23 +68,13 @@ func _ready():
 	_connect_inventory_signals()
 
 
-# Take care of the hovering over items in the grid
-func _process(_delta):
-	var mouse_pos = get_global_mouse_position()
-	var hovered_item = get_hovered_item(mouse_pos)
-
-	if hovered_item != last_hovered_item:
+func process_highlight(item: Control):
+	if item != last_hovered_item:
 		if last_hovered_item and is_instance_valid(last_hovered_item):
 			_remove_highlight(last_hovered_item)
-		if hovered_item:
-			_apply_highlight(hovered_item)
-		last_hovered_item = hovered_item
-
-func get_hovered_item(mouse_pos: Vector2) -> Node:
-	for child in inventoryGrid.get_children():
-		if child is Control and child.get_global_rect().has_point(mouse_pos):
-			return child
-	return null
+		if item:
+			_apply_highlight(item)
+		last_hovered_item = item
 
 func _apply_highlight(item: Control):
 	var group_name = _get_group_name(item)
@@ -105,7 +95,6 @@ func show_context_menu(myposition: Vector2):
 	# Create a small Rect2i around the position
 	var popup_rect = Rect2i(int(myposition.x), int(myposition.y), 1, 1)
 	context_menu.popup(popup_rect)
-
 
 # Handle context menu item selection
 func _on_context_menu_item_selected(id):
@@ -182,11 +171,12 @@ func _create_header(text: String) -> void:
 
 # Simplified function for adding headers
 func _add_header_row_to_grid():
-	_create_header("I")	
-	_create_header("Name")
-	_create_header("W")
-	_create_header("V")
-	_create_header("F")
+	_create_header("I")	# Icon
+	_create_header("Name") # Name
+	_create_header("S") # Stack size
+	_create_header("W") # Weight
+	_create_header("V") # Volume
+	_create_header("F") # Favorite
 	
 func _on_item_right_clicked(clickedItem: Control):
 	show_context_menu(clickedItem.global_position)
@@ -259,8 +249,10 @@ func _create_ui_element(property: String, item: InventoryItem, group_name: Strin
 			element.custom_minimum_size = Vector2(32, 32)
 		"name":
 			element.set_label_text(item.get_title())
-			# We give the most space to the name, expand it horizontally
 			element.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		"stack_size":
+			# Assuming stack size is a property of the item
+			element.set_label_text(str(InventoryStacked.get_item_stack_size(item)))
 		_, "weight", "volume", "favorite":
 			# Fill in the value for the rest of the properties
 			element.set_label_text(str(item.get_property(property, 0)))
@@ -273,12 +265,14 @@ func _create_ui_element(property: String, item: InventoryItem, group_name: Strin
 	element.add_to_group(group_name)
 	return element
 
-# Refactored function to add an item to the grid
+# Function to add an item to the grid
 func _add_item_to_grid(item: InventoryItem, group_name: String):
-	# Each item has these 5 columns to fill, so we loop over each of the properties
-	for property in ["icon", "name", "weight", "volume", "favorite"]:
+	# Each item has these 6 columns to fill, so we loop over each of the properties
+	for property in ["icon", "name", "stack_size", "weight", "volume", "favorite"]:
 		var element = _create_ui_element(property, item, group_name)
 		inventoryGrid.add_child(element)
+		element.mouse_entered.connect(process_highlight.bind(element))
+		element.mouse_exited.connect(process_highlight.bind(element))
 		# Keep track of the list items by group name
 		if not group_controls.has(group_name):
 			group_controls[group_name] = []
@@ -328,7 +322,7 @@ func _sort_items(a, b):
 
 # When a header is clicked, we will apply sorting to that column
 func _on_header_clicked(headerItem: Control) -> void:
-	var header_mapping = {"I": "icon", "Name": "name", "W": "weight", "V": "volume", "F": "favorite"}
+	var header_mapping = {"I": "icon", "Name": "name", "S": "stack_size", "W": "weight", "V": "volume", "F": "favorite"}
 	var header_label = headerItem.get_label_text()
 
 	var reverse_order = false
@@ -388,7 +382,8 @@ func _sort_inventory_by_property(property_name: String, reverse_order: bool = fa
 
 func _move_group_to_end(group_name: String):
 	for control in group_controls[group_name]:
-		inventoryGrid.move_child(control, inventoryGrid.get_child_count() - 1)
+		if is_instance_valid(control):
+			inventoryGrid.move_child(control, inventoryGrid.get_child_count() - 1)
 
 # Constructs an array of the group name and the provided property
 # The group_data is essentially all the rows in the grid

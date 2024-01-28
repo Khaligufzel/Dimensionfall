@@ -44,7 +44,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.95
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
-columns = 5
+columns = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
