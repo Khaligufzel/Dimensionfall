@@ -316,21 +316,11 @@ func _on_header_clicked(headerItem: Control) -> void:
 	if selected_header != header_label:
 		# Update the visual state of the previously selected header
 		if selected_header in header_controls:
-			_update_header_visual_state(header_controls[selected_header], false)
+			header_controls[selected_header].unselect_item()
 		selected_header = header_label
-		_update_header_visual_state(headerItem, true)
+		headerItem.select_item()
 	if header_label in header_mapping:
 		sort_inventory_by_property(header_mapping[header_label])
-
-# Method to update the visual state of a header
-func _update_header_visual_state(header: Control, is_selected: bool):
-	# Apply visual changes to the header based on whether it is selected
-	if is_selected:
-		# Visual changes for selected state
-		header.select_item()
-	else:
-		# Visual changes for non-selected state
-		header.unselect_item()
 
 func sort_inventory_by_property(property_name: String):
 	var group_data = get_group_data_with_property(property_name)
