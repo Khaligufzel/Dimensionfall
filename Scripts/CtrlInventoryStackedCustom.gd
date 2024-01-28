@@ -226,12 +226,15 @@ func _select_range(start_item: Control, end_item: Control):
 	var min_index = min(start_index, end_index)
 	var max_index = max(start_index, end_index)
 
+	var processed_groups = {}  # Use a dictionary to track processed groups
+
 	for i in range(min_index, max_index + 1):
 		var item = inventoryGrid.get_child(i)
 		if item:
 			var group_name = _get_group_name(item)
-			if group_controls.has(group_name):
+			if group_controls.has(group_name) and not processed_groups.has(group_name):
 				_toggle_group_selection(group_name, true)
+				processed_groups[group_name] = true  # Mark the group as processed
 
 # Find the index of the first item in a group
 func _find_group_start_index(group_name: String) -> int:
@@ -297,7 +300,6 @@ func _update_bars(changedItem: InventoryItem, action: String):
 		if action == "removed":
 			# Something was removed. If it was the current item, do not count it
 			if changedItem != item:
-				print_debug("Updated the bars with calculations")
 				total_weight += item.get_property("weight", 0) 
 				total_volume += item.get_property("volume", 0)
 		else:
@@ -414,6 +416,11 @@ func _get_sorted_groups(property_name: String) -> Array:
 # A group is made up of 5 items (a row).
 # This will select or deselect a group
 func _toggle_group_selection(group_name: String, select: bool):
+	# Avoid processing the same group if it's already in the desired state
+	if select and group_name in selectedItems or not select and not group_name in selectedItems:
+		return
+
+	print_debug("Toggle Group: ", group_name, ", Select: ", select)
 	if group_controls.has(group_name):
 		for control in group_controls[group_name]:
 			if is_instance_valid(control):
@@ -459,6 +466,7 @@ func get_selected_inventory_items() -> Array[InventoryItem]:
 	for group_name in selectedItems:
 		if group_to_item_mapping.has(group_name):
 			items.append(group_to_item_mapping[group_name])
+	print_debug("get_selected_inventory_items length = " + str(items.size()))
 	return items
 	
 # Function to get selected inventory items
