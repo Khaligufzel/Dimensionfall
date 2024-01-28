@@ -54,24 +54,20 @@ var last_hovered_item: Node = null
 
 func _process(_delta):
 	var mouse_pos = get_global_mouse_position()
-	var hovered_item: Node = null
+	var hovered_item = get_hovered_item(mouse_pos)
 
-	# Check each child in the GridContainer
-	for child in inventoryGrid.get_children():
-		if child is Control and child.get_global_rect().has_point(mouse_pos):
-			hovered_item = child
-			break
-
-	# Apply highlight effect
-	if hovered_item and hovered_item != last_hovered_item:
+	if hovered_item != last_hovered_item:
 		if last_hovered_item and is_instance_valid(last_hovered_item):
 			_remove_highlight(last_hovered_item)
-		_apply_highlight(hovered_item)
+		if hovered_item:
+			_apply_highlight(hovered_item)
 		last_hovered_item = hovered_item
-	elif last_hovered_item and not hovered_item and is_instance_valid(last_hovered_item):
-		# Remove highlight effect when cursor moves away
-		_remove_highlight(last_hovered_item)
-		last_hovered_item = null
+
+func get_hovered_item(mouse_pos: Vector2) -> Node:
+	for child in inventoryGrid.get_children():
+		if child is Control and child.get_global_rect().has_point(mouse_pos):
+			return child
+	return null
 
 func _remove_highlight(item: Node):
 	if item is Control and is_instance_valid(item):
@@ -79,8 +75,6 @@ func _remove_highlight(item: Node):
 		for group_item in get_tree().get_nodes_in_group(group_name):
 			if group_item is Control:
 				group_item.unhighlight()
-
-
 
 func _apply_highlight(item: Node):
 	if item is Control and is_instance_valid(item):
@@ -121,51 +115,21 @@ func _on_item_gui_input(event):
 			selectedItems = [item]
 			emit_signal("item_selected", item)
 
-func populate_inventory_list():
-	# Clear current grid
-	for child in inventoryGrid.get_children():
-		child.queue_free()
 
-	# Add header row
-	add_header_row_to_grid()
+# Helper function to create a header
+func create_header(text: String, signal_name: Callable) -> void:
+	var header: Control = listHeaderContainer.instantiate()
+	header.set_label_text(text)
+	header.connect("header_clicked", signal_name)
+	inventoryGrid.add_child(header)
 
-	# Add items to grid
-	for item in myInventory.get_children():
-		add_item_to_grid(item)
-
-
+# Simplified function for adding headers
 func add_header_row_to_grid():
-	# Create header elements and add them to the grid
-
-	# Already given: header for Icon
-	var header_icon = listHeaderContainer.instantiate() as Control
-	header_icon.set_label_text("I")
-	inventoryGrid.add_child(header_icon)
-	header_icon.connect("header_clicked", _on_header_clicked)
-
-	# Add header for Name
-	var header_name = listHeaderContainer.instantiate() as Control
-	header_name.set_label_text("Name")
-	inventoryGrid.add_child(header_name)
-	header_name.connect("header_clicked", _on_header_clicked)
-
-	# Add header for Weight
-	var header_weight = listHeaderContainer.instantiate() as Control
-	header_weight.set_label_text("W")
-	inventoryGrid.add_child(header_weight)
-	header_weight.connect("header_clicked", _on_header_clicked)
-
-	# Add header for Volume
-	var header_volume = listHeaderContainer.instantiate() as Control
-	header_volume.set_label_text("V")
-	inventoryGrid.add_child(header_volume)
-	header_volume.connect("header_clicked", _on_header_clicked)
-
-	# Add header for Favorite (If applicable)
-	var header_favorite = listHeaderContainer.instantiate() as Control
-	header_favorite.set_label_text("F")
-	inventoryGrid.add_child(header_favorite)
-	header_favorite.connect("header_clicked", _on_header_clicked)
+	create_header("I", _on_header_clicked)
+	create_header("Name", _on_header_clicked)
+	create_header("W", _on_header_clicked)
+	create_header("V", _on_header_clicked)
+	create_header("F", _on_header_clicked)
 
 
 
@@ -271,58 +235,53 @@ func _deselect_all_except(except_item: Control):
 	selectedItems.clear()
 	selectedItems = [except_item]
 
+# Generic function to create a UI element
+func create_ui_element(property: String, item: InventoryItem, group_name: String) -> Control:
+	var element = listItemContainer.instantiate() as Control
+	match property:
+		"icon":
+			element.set_icon(item.get_texture())
+			element.custom_minimum_size = Vector2(32, 32)
+		"name":
+			element.set_label_text(item.get_title())
+			# We give the most space to the name, expand it horizontally
+			element.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_, "weight", "volume", "favorite":
+			# Fill in the value for the rest of the properties
+			element.set_label_text(str(item.get_property(property, 0)))
+	# The name will be something like weight_Node_211748 or icon_Node_211748
+	# Now we can use the name to get information about the property
+	element.name = property + "_" + str(item.get_name())
+	element.connect("item_clicked", _on_item_clicked)
+	# We use groups to keep track of the items
+	element.add_to_group(group_name)
+	return element
 
+# Refactored function to add an item to the grid
+func add_item_to_grid(item: InventoryItem, group_name: String):
+	# Each item has these 5 columns to fill, so we loop over each of the properties
+	for property in ["icon", "name", "weight", "volume", "favorite"]:
+		var element = create_ui_element(property, item, group_name)
+		inventoryGrid.add_child(element)
 
+func _add_group_to_grid(group_name: String):
+	# Logic to add all items of the group to the grid in their sorted order
+	var group_items = get_tree().get_nodes_in_group(group_name)
+	for item in group_items:
+		add_item_to_grid(item, group_name)
 
-func add_item_to_grid(item: InventoryItem):
-	# Define a unique group name for this set of items
-	var group_name = "item_group_" + str(item.get_name())
-	group_to_item_mapping[group_name] = item
-	
-	# Add the item icon
-	var item_icon = listItemContainer.instantiate() as Control
-	item_icon.set_icon(item.get_texture())
-	inventoryGrid.add_child(item_icon)
-	item_icon.connect("item_clicked", _on_item_clicked)
-	item_icon.add_to_group(group_name)
-
-	# Add the item name
-	var item_name = listItemContainer.instantiate() as Control
-	item_name.set_label_text(item.get_title())
-	inventoryGrid.add_child(item_name)
-	item_name.connect("item_clicked", _on_item_clicked)
-	item_name.add_to_group(group_name)
-
-	# Add the item weight
-	var item_weight = listItemContainer.instantiate() as Control
-	item_weight.set_label_text(str(item.get_property("weight", 0)))
-	inventoryGrid.add_child(item_weight)
-	item_weight.connect("item_clicked", _on_item_clicked)
-	item_weight.add_to_group(group_name)
-
-	# Add the item volume
-	var item_volume = listItemContainer.instantiate() as Control
-	item_volume.set_label_text(str(item.get_property("volume", 0)))
-	inventoryGrid.add_child(item_volume)
-	item_volume.connect("item_clicked", _on_item_clicked)
-	item_volume.add_to_group(group_name)
-
-	# Add the item favorite
-	var item_favorite = listItemContainer.instantiate() as Control
-	item_favorite.set_label_text(str(item.get_property("favorite", 0)))
-	inventoryGrid.add_child(item_favorite)
-	item_favorite.connect("item_clicked", _on_item_clicked)
-	item_favorite.add_to_group(group_name)
-
-	# Assign a unique name to each UI element
-	item_icon.name = "icon_" + str(item.get_name())
-	item_name.name = "name_" + str(item.get_name())
-	item_weight.name = "weight_" + str(item.get_name())
-	item_volume.name = "volume_" + str(item.get_name())
-	item_favorite.name = "favorite_" + str(item.get_name())
-	item_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	item_icon.custom_minimum_size = Vector2(32,32)
-
+# Populate the inventory list
+func populate_inventory_list():
+	# Clear current grid
+	for child in inventoryGrid.get_children():
+		child.queue_free()
+	# Add header
+	add_header_row_to_grid()
+	# Loop over inventory items and add them to the grid
+	for item in myInventory.get_children():
+		var group_name = "item_group_" + str(item.get_name())
+		group_to_item_mapping[group_name] = item
+		add_item_to_grid(item, group_name)
 
 func update_bars():
 	var total_weight = 0
@@ -423,8 +382,3 @@ func _get_representative_value_for_group(group_name: String, property_name: Stri
 		return 0  # Default value for numeric properties
 
 
-func _add_group_to_grid(group_name: String):
-	# Logic to add all items of the group to the grid in their sorted order
-	var group_items = get_tree().get_nodes_in_group(group_name)
-	for item in group_items:
-		add_item_to_grid(item)
