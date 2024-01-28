@@ -48,7 +48,7 @@ func equip(item: InventoryItem) -> void:
 		myInventoryItem = item
 		update_icon()
 		# Remove the item from its original inventory
-		myInventory.remove_item(item)
+		item.get_inventory().remove_item(item)	
 		emit_signal("item_equipped", myInventoryItem)
 
 

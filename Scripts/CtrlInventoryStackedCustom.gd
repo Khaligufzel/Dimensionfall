@@ -64,7 +64,7 @@ signal disassemble_item(items)
 
 func _ready():
 	_populate_inventory_list()
-	_update_bars()
+	_update_bars(null, "")
 	_connect_inventory_signals()
 
 
@@ -130,6 +130,7 @@ func _on_inventory_contents_changed():
 	update_inventory_list(null,"contentschanged")
 
 func update_inventory_list(changedItem: InventoryItem, action: String):
+	_deselect_all_items()
 	# Clear and repopulate the inventory list
 	_clear_grid_children()
 	_add_header_row_to_grid()
@@ -150,7 +151,7 @@ func update_inventory_list(changedItem: InventoryItem, action: String):
 			var group_name = "item_group_" + str(item.get_name())
 			group_to_item_mapping[group_name] = item
 			_add_item_to_grid(item, group_name)
-	_update_bars()
+	_update_bars(changedItem, action)
 
 # Gets the group name from an item
 # An item is a control element in the inventory grid
@@ -289,12 +290,19 @@ func _populate_inventory_list():
 		group_to_item_mapping[group_name] = item
 		_add_item_to_grid(item, group_name)
 
-func _update_bars():
+func _update_bars(changedItem: InventoryItem, action: String):
 	var total_weight = 0
 	var total_volume = 0
 	for item in myInventory.get_children():
-		total_weight += item.get_property("weight", 0) 
-		total_volume += item.get_property("volume", 0)
+		if action == "removed":
+			# Something was removed. If it was the current item, do not count it
+			if changedItem != item:
+				print_debug("Updated the bars with calculations")
+				total_weight += item.get_property("weight", 0) 
+				total_volume += item.get_property("volume", 0)
+		else:
+			total_weight += item.get_property("weight", 0) 
+			total_volume += item.get_property("volume", 0)
 
 	WeightBar.value = total_weight
 	WeightBar.max_value = max_weight
@@ -467,7 +475,7 @@ func set_inventory(new_inventory: InventoryStacked):
 
 	# Step 3: Rebuild the inventory list with the new inventory
 	_populate_inventory_list()
-	_update_bars()
+	_update_bars(null, "")
 	_connect_inventory_signals()
 
 func _deselect_and_clear_current_inventory():
@@ -490,3 +498,13 @@ func _deselect_and_clear_current_inventory():
 	selectedItem = null
 	last_selected_item = null
 	last_hovered_item = null
+
+
+# Helper function to deselect all items
+func _deselect_all_items():
+	for group_name in selectedItems:
+		if group_controls.has(group_name):
+			for control in group_controls[group_name]:
+				if is_instance_valid(control):
+					control.unselect_item()
+	selectedItems.clear()
