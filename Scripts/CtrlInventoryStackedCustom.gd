@@ -67,6 +67,7 @@ func _ready():
 	update_bars()
 	connect_inventory_signals()
 
+
 # Take care of the hovering over items in the grid
 func _process(_delta):
 	var mouse_pos = get_global_mouse_position()
@@ -89,13 +90,15 @@ func _apply_highlight(item: Control):
 	var group_name = _get_group_name(item)
 	if group_controls.has(group_name):
 		for control in group_controls[group_name]:
-			control.highlight()
+			if is_instance_valid(control):
+				control.highlight()
 
 func _remove_highlight(item: Control):
 	var group_name = _get_group_name(item)
 	if group_controls.has(group_name):
 		for control in group_controls[group_name]:
-			control.unhighlight()
+			if is_instance_valid(control):
+				control.unhighlight()
 
 # Function to show context menu at specified position
 func show_context_menu(myposition: Vector2):
@@ -108,15 +111,15 @@ func show_context_menu(myposition: Vector2):
 func _on_context_menu_item_selected(id):
 	var selected_inventory_items = get_selected_inventory_items()
 	match id:
-		0: emit_signal("equip_left", selected_inventory_items)
-		1: emit_signal("equip_right", selected_inventory_items)
+		0: equip_left.emit(selected_inventory_items)
+		1: equip_right.emit(selected_inventory_items)
 		2: emit_signal("drop_item", selected_inventory_items)
 		3: emit_signal("wear_item", selected_inventory_items)
 		4: emit_signal("disassemble_item", selected_inventory_items)
 
 # Function to get selected inventory items
-func get_selected_inventory_items() -> Array:
-	var items = []
+func get_selected_inventory_items() -> Array[InventoryItem]:
+	var items: Array[InventoryItem] = []
 	for group_name in selectedItems:
 		if group_to_item_mapping.has(group_name):
 			items.append(group_to_item_mapping[group_name])
@@ -268,7 +271,6 @@ func create_ui_element(property: String, item: InventoryItem, group_name: String
 
 # Refactored function to add an item to the grid
 func add_item_to_grid(item: InventoryItem, group_name: String):
-	print("Adding item to group: ", group_name)  # Debugging line
 	# Each item has these 5 columns to fill, so we loop over each of the properties
 	for property in ["icon", "name", "weight", "volume", "favorite"]:
 		var element = create_ui_element(property, item, group_name)
@@ -407,10 +409,11 @@ func get_sorted_groups(property_name: String) -> Array:
 func _toggle_group_selection(group_name: String, select: bool):
 	if group_controls.has(group_name):
 		for control in group_controls[group_name]:
-			if select:
-				control.select_item()
-			else:
-				control.unselect_item()
+			if is_instance_valid(control):
+				if select:
+					control.select_item()
+				else:
+					control.unselect_item()
 		if select:
 			selectedItems.append(group_name)
 		else:
@@ -421,7 +424,7 @@ func _toggle_group_selection(group_name: String, select: bool):
 func _is_group_selected(group_name: String) -> bool:
 	if group_controls.has(group_name):
 		for control in group_controls[group_name]:
-			if not control.is_item_selected():
+			if is_instance_valid(control) and not control.is_item_selected():
 				return false
 		return true
 	return false

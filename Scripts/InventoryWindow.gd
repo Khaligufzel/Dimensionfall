@@ -6,7 +6,7 @@ extends Control
 @export var proximity_inventory_control: CtrlInventoryStacked
 
 # The node that visualizes the player inventory
-@export var inventory_control : CtrlInventoryStacked
+@export var inventory_control : Control
 # The player inventory
 @export var inventory : InventoryStacked
 # Holds a list of containers represented by their sprite
@@ -14,8 +14,8 @@ extends Control
 @export var containerListItem : PackedScene
 
 # Equipment
-@export var LeftHandEquipmentSlot : ItemRefSlot
-@export var RightHandEquipmentSlot : ItemRefSlot
+@export var LeftHandEquipmentSlot : ItemSlot
+@export var RightHandEquipmentSlot : ItemSlot
 
 # The tooltip will show when the player hovers over an item
 @export var tooltip: Control
@@ -234,7 +234,6 @@ func _on_right_hand_equipment_slot_item_equipped():
 		item_was_cleared.emit("LeftHand")
 	item_was_equipped.emit(equipped_item_right, "RightHand")
 
-
 # This function is called when an item is removed from the left hand equipment slot
 func _on_left_hand_equipment_slot_cleared():
 	item_was_cleared.emit("LeftHand")
@@ -243,15 +242,32 @@ func _on_left_hand_equipment_slot_cleared():
 func _on_right_hand_equipment_slot_cleared():
 	item_was_cleared.emit("RightHand")
 
-func _on_equip_right_button_button_up():
-	RightHandEquipmentSlot.equip(inventory_control.get_selected_inventory_item())
-
-func _on_equip_left_button_button_up():
-	LeftHandEquipmentSlot.equip(inventory_control.get_selected_inventory_item())
-
 func _on_transfer_left_button_button_up():
 	inventory.transfer(inventory_control.get_selected_inventory_item(), proximity_inventory_control.inventory)
 
 func _on_transfer_right_button_button_up():
 	var selected_inventory_item: InventoryItem = proximity_inventory_control.get_selected_inventory_item()
 	proximity_inventory_control.inventory.transfer(selected_inventory_item, inventory)
+
+func _on_ctrl_inventory_stacked_custom_equip_left(items: Array[InventoryItem]):
+	equip_item(items, LeftHandEquipmentSlot)
+
+func _on_ctrl_inventory_stacked_custom_equip_right(items: Array[InventoryItem]):
+	equip_item(items, RightHandEquipmentSlot)
+
+func equip_item(items: Array[InventoryItem], itemSlot: ItemSlot) -> void:
+	# Check the number of selected items
+	var num_selected_items = items.size()
+
+	if num_selected_items == 0:
+		print_debug("No items selected.")
+		# Handle the case when no items are selected (optional)
+		# You can show a message to the user or perform some other action
+	elif num_selected_items == 1:
+		# Proceed with equipping the item
+		itemSlot.equip(items[0])  # Equip the first (and only) item in the list
+	else:
+		print_debug("Multiple items selected. Please select only one item to equip.")
+		# Handle the case when multiple items are selected (optional)
+		# You can show a message to the user or perform some other action
+	
