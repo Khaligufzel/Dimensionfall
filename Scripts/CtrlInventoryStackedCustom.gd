@@ -96,7 +96,6 @@ func connect_signals():
 		if child is TextureRect or child is Label:
 			child.connect("gui_input", _on_item_gui_input)
 
-
 # Function to handle GUI input on an item
 func _on_item_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -115,7 +114,6 @@ func _on_item_gui_input(event):
 			selectedItems = [item]
 			emit_signal("item_selected", item)
 
-
 # Helper function to create a header
 func create_header(text: String, signal_name: Callable) -> void:
 	var header: Control = listHeaderContainer.instantiate()
@@ -132,7 +130,6 @@ func add_header_row_to_grid():
 	create_header("F", _on_header_clicked)
 
 
-
 func _on_item_clicked(clickedItem: Control):
 	var group_name = _get_group_name(clickedItem)
 	if Input.is_key_pressed(KEY_CTRL):
@@ -146,7 +143,6 @@ func _on_item_clicked(clickedItem: Control):
 		for selected_group in selectedItems.duplicate():
 			_toggle_group_selection(selected_group, false)
 		_toggle_group_selection(group_name, true)
-
 	# Update last selected item
 	last_selected_item = clickedItem
 
@@ -184,13 +180,11 @@ func _get_group_data(group_name: String) -> Dictionary:
 	else:
 		return {"icon": null, "name": "", "weight": 0, "volume": 0, "favorite": false}
 
-
 func _select_row_items(item: Control):
 	var group_name = _get_group_name(item)
 	for group_item in get_tree().get_nodes_in_group(group_name):
 		if group_item is Control and not group_item.is_item_selected():
 			group_item.select_item()
-
 
 func _select_range(start_item: Control, end_item: Control):
 	var start_group_name = _get_group_name(start_item)
@@ -217,16 +211,11 @@ func _find_group_start_index(group_name: String) -> int:
 			return i
 	return -1
 
-
-
-
 func _find_child_index(item: Control) -> int:
 	for i in range(inventoryGrid.get_child_count()):
 		if inventoryGrid.get_child(i) == item:
 			return i
 	return -1
-
-
 
 func _deselect_all_except(except_item: Control):
 	for item in selectedItems:
@@ -255,20 +244,17 @@ func create_ui_element(property: String, item: InventoryItem, group_name: String
 	element.connect("item_clicked", _on_item_clicked)
 	# We use groups to keep track of the items
 	element.add_to_group(group_name)
+	print("Element added to group: ", group_name)  # Debugging line
 	return element
 
 # Refactored function to add an item to the grid
 func add_item_to_grid(item: InventoryItem, group_name: String):
+	print("Adding item to group: ", group_name)  # Debugging line
 	# Each item has these 5 columns to fill, so we loop over each of the properties
 	for property in ["icon", "name", "weight", "volume", "favorite"]:
 		var element = create_ui_element(property, item, group_name)
 		inventoryGrid.add_child(element)
 
-func _add_group_to_grid(group_name: String):
-	# Logic to add all items of the group to the grid in their sorted order
-	var group_items = get_tree().get_nodes_in_group(group_name)
-	for item in group_items:
-		add_item_to_grid(item, group_name)
 
 # Populate the inventory list
 func populate_inventory_list():
@@ -314,45 +300,39 @@ func _sort_items(a, b):
 	else:
 		return value_a < value_b
 
-# When the header is clicked
+# Improved header click handling
 func _on_header_clicked(headerItem: Control) -> void:
+	var header_mapping = {"I": "icon", "Name": "name", "W": "weight", "V": "volume", "F": "favorite"}
 	var header_label = headerItem.get_label_text()
-	if header_label == "I":
-		sort_inventory_by_property("icon")
-	elif header_label == "Name":
-		sort_inventory_by_property("name")
-	elif header_label == "W":
-		sort_inventory_by_property("weight")
-	elif header_label == "V":
-		sort_inventory_by_property("volume")
-	elif header_label == "F":
-		sort_inventory_by_property("favorite")
+	if header_label in header_mapping:
+		sort_inventory_by_property(header_mapping[header_label])
 
 
 func sort_inventory_by_property(property_name: String):
-	var group_data = []
-	var group_names = []
-
-	# Aggregate data by group
-	for item in inventoryGrid.get_children():
-		var group_name = _get_group_name(item)
-		if not group_names.has(group_name):
-			group_names.append(group_name)
-			var representative_value = _get_representative_value_for_group(group_name, property_name)
-			group_data.append({
-				"group_name": group_name,
-				"sort_value": representative_value
-			})
-
-	# Sort the array based on the property value
+	var group_data = get_group_data_with_property(property_name)
+	print("Before sorting: ", group_data)  # Debugging line
 	group_data.sort_custom(_sort_groups)
+	print("After sorting: ", group_data)  # Debugging line
 
-	# Clear and repopulate the grid with sorted groups
-	_clear_grid_children()
-	add_header_row_to_grid()
 	for group in group_data:
+		_clear_group_items(group["group_name"])
 		_add_group_to_grid(group["group_name"])
+
 	emit_signal("inventory_sorted", property_name)
+
+func _clear_group_items(group_name: String):
+	var group_items = get_tree().get_nodes_in_group(group_name)
+	for item in group_items:
+		if item is Control:
+			item.queue_free()
+
+func _add_group_to_grid(group_name: String):
+	print("Adding group to grid: ", group_name)  # Debugging line
+	if group_to_item_mapping.has(group_name):
+		var group_item = group_to_item_mapping[group_name]
+		add_item_to_grid(group_item, group_name)
+	else:
+		print("Group item not found in mapping: ", group_name)
 
 func _clear_grid_children():
 	while inventoryGrid.get_child_count() > 0:
@@ -363,6 +343,7 @@ func _clear_grid_children():
 func _sort_groups(a, b):
 	var value_a = a["sort_value"]
 	var value_b = b["sort_value"]
+	print("Comparing: ", value_a, " with ", value_b)  # Debugging line
 	if typeof(value_a) == TYPE_STRING:
 		return value_a.nocasecmp_to(value_b) < 0
 	else:
@@ -381,4 +362,17 @@ func _get_representative_value_for_group(group_name: String, property_name: Stri
 	else:
 		return 0  # Default value for numeric properties
 
+# Function to get group data with a specific property value
+func get_group_data_with_property(property_name: String) -> Array:
+	var data = []
+	for item in myInventory.get_children():
+		var group_name = "item_group_" + str(item.get_name())
+		var value = item.get_property(property_name, get_default_value_for_property(property_name))
+		data.append({"group_name": group_name, "sort_value": value})
+	return data
 
+# Helper function to get default values for properties
+func get_default_value_for_property(property_name: String) -> Variant:
+	match property_name:
+		"name", "favorite": return ""
+		_ : return 0

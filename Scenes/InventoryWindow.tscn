@@ -61,25 +61,25 @@ script = ExtResource("5_qidb6")
 protoset = ExtResource("3_sqsc0")
 prototype_id = "bullet_9mm"
 
-[node name="_Node_211710" type="Node" parent="InventoryStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "pistol_magazine"
-
-[node name="_Node_211729" type="Node" parent="InventoryStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "pistol_9mm"
-
-[node name="_Node_211748" type="Node" parent="InventoryStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "pistol_9mm"
-
 [node name="_Node_211767" type="Node" parent="InventoryStacked"]
 script = ExtResource("5_qidb6")
 protoset = ExtResource("3_sqsc0")
 prototype_id = "rifle_m4a1"
+
+[node name="_Node_23006" type="Node" parent="InventoryStacked"]
+script = ExtResource("5_qidb6")
+protoset = ExtResource("3_sqsc0")
+prototype_id = "pistol_9mm"
+
+[node name="_Node_23025" type="Node" parent="InventoryStacked"]
+script = ExtResource("5_qidb6")
+protoset = ExtResource("3_sqsc0")
+prototype_id = "pistol_magazine"
+
+[node name="_Node_23044" type="Node" parent="InventoryStacked"]
+script = ExtResource("5_qidb6")
+protoset = ExtResource("3_sqsc0")
+prototype_id = "pistol_9mm"
 
 [node name="InventoryStackedProx" type="Node" parent="."]
 script = ExtResource("3_l8xgt")
