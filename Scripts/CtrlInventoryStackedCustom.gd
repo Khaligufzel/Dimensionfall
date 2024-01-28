@@ -74,19 +74,17 @@ func get_hovered_item(mouse_pos: Vector2) -> Node:
 			return child
 	return null
 
-func _remove_highlight(item: Node):
-	if item is Control and is_instance_valid(item):
-		var group_name = _get_group_name(item)
-		for group_item in get_tree().get_nodes_in_group(group_name):
-			if group_item is Control:
-				group_item.unhighlight()
+func _apply_highlight(item: Control):
+	var group_name = _get_group_name(item)
+	if group_controls.has(group_name):
+		for control in group_controls[group_name]:
+			control.highlight()
 
-func _apply_highlight(item: Node):
-	if item is Control and is_instance_valid(item):
-		var group_name = _get_group_name(item)
-		for group_item in get_tree().get_nodes_in_group(group_name):
-			if group_item is Control:
-				group_item.highlight()
+func _remove_highlight(item: Control):
+	var group_name = _get_group_name(item)
+	if group_controls.has(group_name):
+		for control in group_controls[group_name]:
+			control.unhighlight()
 
 func _get_group_name(item: Control) -> String:
 	for group in item.get_groups():
@@ -155,23 +153,6 @@ func _on_item_clicked(clickedItem: Control):
 	# Update last selected item
 	last_selected_item = clickedItem
 
-func _toggle_group_selection(group_name: String, select: bool):
-	for group_item in get_tree().get_nodes_in_group(group_name):
-		if group_item is Control:
-			if select:
-				group_item.select_item()
-			else:
-				group_item.unselect_item()
-	if select:
-		selectedItems.append(group_name)
-	else:
-		selectedItems.erase(group_name)
-
-func _is_group_selected(group_name: String) -> bool:
-	for group_item in get_tree().get_nodes_in_group(group_name):
-		if group_item is Control and not group_item.is_item_selected():
-			return false
-	return true
 
 # This function will return a dictionary with 5 keys
 # The 5 keys are icon, name, weight, volume, favorite
@@ -325,18 +306,6 @@ func _on_header_clicked(headerItem: Control) -> void:
 		headerItem.select_item()
 	if header_label in header_mapping:
 		sort_inventory_by_property(header_mapping[header_label])
-#
-#func sort_inventory_by_property(property_name: String):
-	#var group_data = get_group_data_with_property(property_name)
-	#print("Before sorting: ", group_data)  # Debugging line
-	#group_data.sort_custom(_sort_groups)
-	#print("After sorting: ", group_data)  # Debugging line
-#
-	#for group in group_data:
-		#_clear_group_items(group["group_name"])
-		#_add_group_to_grid(group["group_name"])
-#
-	#emit_signal("inventory_sorted", property_name)
 
 func _clear_group_items(group_name: String):
 	var group_items = get_tree().get_nodes_in_group(group_name)
@@ -418,3 +387,24 @@ func get_sorted_groups(property_name: String) -> Array:
 		sorted_group_names.append(gd["group_name"])
 	
 	return sorted_group_names
+
+
+
+func _toggle_group_selection(group_name: String, select: bool):
+	for group_item in get_tree().get_nodes_in_group(group_name):
+		if group_item is Control:
+			if select:
+				group_item.select_item()
+			else:
+				group_item.unselect_item()
+	if select:
+		selectedItems.append(group_name)
+	else:
+		selectedItems.erase(group_name)
+
+
+func _is_group_selected(group_name: String) -> bool:
+	for group_item in get_tree().get_nodes_in_group(group_name):
+		if group_item is Control and not group_item.is_item_selected():
+			return false
+	return true
