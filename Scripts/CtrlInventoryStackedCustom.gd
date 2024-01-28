@@ -36,10 +36,12 @@ var selectedItem: InventoryItem = null
 var selectedItems: Array = []
 var last_selected_item: Control = null
 var group_to_item_mapping: Dictionary = {}
+var group_controls: Dictionary = {}
 
 # Dictionary to store header controls
 var header_controls: Dictionary = {}
 var selected_header: String = ""
+
 
 signal item_selected(item)
 signal items_selected(items)
@@ -261,7 +263,9 @@ func add_item_to_grid(item: InventoryItem, group_name: String):
 	for property in ["icon", "name", "weight", "volume", "favorite"]:
 		var element = create_ui_element(property, item, group_name)
 		inventoryGrid.add_child(element)
-
+		if not group_controls.has(group_name):
+			group_controls[group_name] = []
+		group_controls[group_name].append(element)
 
 # Populate the inventory list
 func populate_inventory_list():
@@ -321,18 +325,18 @@ func _on_header_clicked(headerItem: Control) -> void:
 		headerItem.select_item()
 	if header_label in header_mapping:
 		sort_inventory_by_property(header_mapping[header_label])
-
-func sort_inventory_by_property(property_name: String):
-	var group_data = get_group_data_with_property(property_name)
-	print("Before sorting: ", group_data)  # Debugging line
-	group_data.sort_custom(_sort_groups)
-	print("After sorting: ", group_data)  # Debugging line
-
-	for group in group_data:
-		_clear_group_items(group["group_name"])
-		_add_group_to_grid(group["group_name"])
-
-	emit_signal("inventory_sorted", property_name)
+#
+#func sort_inventory_by_property(property_name: String):
+	#var group_data = get_group_data_with_property(property_name)
+	#print("Before sorting: ", group_data)  # Debugging line
+	#group_data.sort_custom(_sort_groups)
+	#print("After sorting: ", group_data)  # Debugging line
+#
+	#for group in group_data:
+		#_clear_group_items(group["group_name"])
+		#_add_group_to_grid(group["group_name"])
+#
+	#emit_signal("inventory_sorted", property_name)
 
 func _clear_group_items(group_name: String):
 	var group_items = get_tree().get_nodes_in_group(group_name)
@@ -391,3 +395,26 @@ func get_default_value_for_property(property_name: String) -> Variant:
 		"name", "favorite": return ""
 		_ : return 0
 
+func sort_inventory_by_property(property_name: String):
+	var sorted_groups = get_sorted_groups(property_name)
+	for group_name in sorted_groups:
+		move_group_to_end(group_name)
+	emit_signal("inventory_sorted", property_name)
+
+func move_group_to_end(group_name: String):
+	for control in group_controls[group_name]:
+		inventoryGrid.move_child(control, inventoryGrid.get_child_count() - 1)
+
+func get_sorted_groups(property_name: String) -> Array:
+	var group_data = []
+	for group_name in group_controls.keys():
+		var representative_value = _get_representative_value_for_group(group_name, property_name)
+		group_data.append({"group_name": group_name, "sort_value": representative_value})
+	
+	group_data.sort_custom(_sort_groups)
+	
+	var sorted_group_names = []
+	for gd in group_data:
+		sorted_group_names.append(gd["group_name"])
+	
+	return sorted_group_names
