@@ -14,8 +14,8 @@ extends Control
 @export var containerListItem : PackedScene
 
 # Equipment
-@export var LeftHandEquipmentSlot : ItemSlot
-@export var RightHandEquipmentSlot : ItemSlot
+@export var LeftHandEquipmentSlot : Control
+@export var RightHandEquipmentSlot : Control
 
 # The tooltip will show when the player hovers over an item
 @export var tooltip: Control
@@ -200,40 +200,6 @@ func remove_container_from_list(container: Node3D):
 		proximity_inventory_control.inventory = proximity_inventory
 		proximity_inventory_control.visible = false
 
-
-# This function is called when an item is equipped in the left hand equipment slot
-func _on_left_hand_equipment_slot_item_equipped():
-	var equipped_item_left = LeftHandEquipmentSlot.get_item()
-	var equipped_item_right = RightHandEquipmentSlot.get_item()
-	# If we have a weapon in the right hand and it's a two handed weapon, 
-	# We clear the left handed slot again
-	if equipped_item_right and equipped_item_right.get_property("two_handed", false):
-		LeftHandEquipmentSlot.clear()
-		item_was_cleared.emit("LeftHand")
-		return
-	# If the weapon we equip is a two handed weapon, clear the weapon in the other weapon slot
-	if equipped_item_left and equipped_item_left.get_property("two_handed", false):
-		# If the item is two-handed, clear the right hand slot
-		RightHandEquipmentSlot.clear()
-		item_was_cleared.emit("RightHand")
-	item_was_equipped.emit(equipped_item_left, "LeftHand")
-
-# This function is called when an item is equipped in the right hand equipment slot
-func _on_right_hand_equipment_slot_item_equipped():
-	var equipped_item_left = LeftHandEquipmentSlot.get_item()
-	var equipped_item_right = RightHandEquipmentSlot.get_item()
-	# If we have a weapon in the left hand and it's a two handed weapon, 
-	# We clear the right handed slot again
-	if equipped_item_left and equipped_item_left.get_property("two_handed", false):
-		RightHandEquipmentSlot.clear()
-		item_was_cleared.emit("RightHand")
-		return
-	elif equipped_item_right and equipped_item_right.get_property("two_handed", false):
-		# If the item is two-handed, clear the left hand slot
-		LeftHandEquipmentSlot.clear()
-		item_was_cleared.emit("LeftHand")
-	item_was_equipped.emit(equipped_item_right, "RightHand")
-
 # This function is called when an item is removed from the left hand equipment slot
 func _on_left_hand_equipment_slot_cleared():
 	item_was_cleared.emit("LeftHand")
@@ -255,19 +221,34 @@ func _on_ctrl_inventory_stacked_custom_equip_left(items: Array[InventoryItem]):
 func _on_ctrl_inventory_stacked_custom_equip_right(items: Array[InventoryItem]):
 	equip_item(items, RightHandEquipmentSlot)
 
-func equip_item(items: Array[InventoryItem], itemSlot: ItemSlot) -> void:
-	# Check the number of selected items
+func equip_item(items: Array[InventoryItem], itemSlot: Control) -> void:
 	var num_selected_items = items.size()
 
 	if num_selected_items == 0:
 		print_debug("No items selected.")
 		# Handle the case when no items are selected (optional)
-		# You can show a message to the user or perform some other action
 	elif num_selected_items == 1:
-		# Proceed with equipping the item
-		itemSlot.equip(items[0])  # Equip the first (and only) item in the list
+		var item = items[0]
+		var is_two_handed = item.get_property("two_handed", false)
+		# We assume the user equips the left hand slot
+		# If it is the right hand slot instead, the other slot must be the left hand slot
+		var other_slot = RightHandEquipmentSlot
+		if itemSlot == RightHandEquipmentSlot:
+			other_slot = LeftHandEquipmentSlot
+		var other_slot_item = other_slot.get_item()
+
+		# Check if the other slot has a two-handed item equipped
+		if other_slot_item and other_slot_item.get_property("two_handed", false):
+			print_debug("Cannot equip item. The other slot has a two-handed weapon equipped.")
+			return
+
+		# If the item is two-handed, clear the other hand slot before equipping
+		if is_two_handed:
+			other_slot.unequip()
+			print_debug("Cleared other slot as the item is two-handed.")
+
+		# Equip the item
+		itemSlot.equip(item)
+		emit_signal("item_was_equipped", item, itemSlot.name)
 	else:
 		print_debug("Multiple items selected. Please select only one item to equip.")
-		# Handle the case when multiple items are selected (optional)
-		# You can show a message to the user or perform some other action
-	

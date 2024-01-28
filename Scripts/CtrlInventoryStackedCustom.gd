@@ -103,7 +103,7 @@ func _remove_highlight(item: Control):
 # Function to show context menu at specified position
 func show_context_menu(myposition: Vector2):
 	# Create a small Rect2i around the position
-	var popup_rect = Rect2i(myposition.x, myposition.y, 1, 1)
+	var popup_rect = Rect2i(int(myposition.x), int(myposition.y), 1, 1)
 	context_menu.popup(popup_rect)
 
 
@@ -133,30 +133,44 @@ func connect_inventory_signals():
 	myInventory.connect("contents_changed", _on_inventory_contents_changed)
 
 
-func _on_inventory_item_added(_item: InventoryItem):
+func _on_inventory_item_added(item: InventoryItem):
 	# Handle item added to inventory
-	update_inventory_list()
+	update_inventory_list(item, "added")
 
-func _on_inventory_item_removed(_item: InventoryItem):
+func _on_inventory_item_removed(item: InventoryItem):
 	# Handle item removed from inventory
-	update_inventory_list()
+	update_inventory_list(item, "removed")
 
-func _on_inventory_item_modified(_item: InventoryItem):
+func _on_inventory_item_modified(item: InventoryItem):
 	# Handle item modified in inventory
-	update_inventory_list()
+	update_inventory_list(item, "modified")
 
 func _on_inventory_contents_changed():
 	# Handle inventory contents changed
-	update_inventory_list()
+	update_inventory_list(null,"contentschanged")
 
-func update_inventory_list():
+func update_inventory_list(changedItem: InventoryItem, action: String):
 	# Clear and repopulate the inventory list
 	_clear_grid_children()
 	add_header_row_to_grid()
 	for item in myInventory.get_children():
-		var group_name = "item_group_" + str(item.get_name())
-		group_to_item_mapping[group_name] = item
-		add_item_to_grid(item, group_name)
+		var add_item: bool = true
+		if item and item == changedItem:
+			match action:
+				"added":
+					print_debug("item was added")
+				"removed":
+					print_debug("item was removed")
+					add_item = false
+				"modified":
+					print_debug("item was modified")
+				_, "contentschanged":
+					print_debug("contents was changed")
+		if add_item:
+			print_debug("Updated inventory with: " + str(item.get_title()))
+			var group_name = "item_group_" + str(item.get_name())
+			group_to_item_mapping[group_name] = item
+			add_item_to_grid(item, group_name)
 	update_bars()
 
 # Gets the group name from an item

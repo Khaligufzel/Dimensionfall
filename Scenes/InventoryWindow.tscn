@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://e0ebcv1n8jnq"]
+[gd_scene load_steps=12 format=3 uid="uid://e0ebcv1n8jnq"]
 
 [ext_resource type="Script" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
 [ext_resource type="PackedScene" uid="uid://crck2fhgayxhn" path="res://Scenes/InventoryContainerListItem.tscn" id="2_xfgb3"]
@@ -6,15 +6,10 @@
 [ext_resource type="Resource" uid="uid://cr7u5aveonr7t" path="res://ItemProtosets.tres" id="3_sqsc0"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_item.gd" id="5_qidb6"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="6_xpf2l"]
-[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_item_slot_ex.gd" id="7_kcmi5"]
-[ext_resource type="Texture2D" uid="uid://dfmrlie57qrbo" path="res://Mods/Core/Items/9mm.png" id="8_0yr0i"]
 [ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="8_f75fl"]
 [ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_stacked.gd" id="9_8a8sx"]
-[ext_resource type="Script" path="res://addons/gloot/core/item_slot.gd" id="9_fk32t"]
+[ext_resource type="PackedScene" uid="uid://c4g8ymi0lhkyy" path="res://Scenes/UI/EquipmentSlot.tscn" id="9_tpx1u"]
 [ext_resource type="Texture2D" uid="uid://df2n5aculnj82" path="res://addons/gloot/images/icon_inventory.svg" id="10_6ygdg"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyt2o"]
-bg_color = Color(0.584314, 0.588235, 0.737255, 1)
 
 [sub_resource type="Theme" id="Theme_6v4rg"]
 default_font = ExtResource("6_xpf2l")
@@ -127,6 +122,7 @@ layout_mode = 2
 text = "<-"
 
 [node name="CtrlInventoryStackedCustom" parent="HBoxContainer" node_paths=PackedStringArray("myInventory") instance=ExtResource("8_f75fl")]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 myInventory = NodePath("../../InventoryStacked")
 
@@ -137,18 +133,10 @@ layout_mode = 2
 [node name="LeftHandEquipment" type="HBoxContainer" parent="HBoxContainer/EquipmentSlotList"]
 layout_mode = 2
 
-[node name="LeftHandEquipmentSlot" type="Node" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment"]
-script = ExtResource("9_fk32t")
-item_protoset = ExtResource("3_sqsc0")
-
-[node name="LeftHandEquipmentSlotControl" type="Control" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment"]
+[node name="LeftHandEquipmentSlot" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment" node_paths=PackedStringArray("myInventory") instance=ExtResource("9_tpx1u")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-script = ExtResource("7_kcmi5")
-slot_style = SubResource("StyleBoxFlat_hyt2o")
-item_slot_path = NodePath("../LeftHandEquipmentSlot")
-default_item_icon = ExtResource("8_0yr0i")
-label_visible = false
+myInventory = NodePath("../../../../InventoryStacked")
 
 [node name="Label" type="Label" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment"]
 layout_mode = 2
@@ -157,18 +145,10 @@ text = "Left hand"
 [node name="RightHandEquipment" type="HBoxContainer" parent="HBoxContainer/EquipmentSlotList"]
 layout_mode = 2
 
-[node name="RightHandEquipmentSlot" type="Node" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment"]
-script = ExtResource("9_fk32t")
-item_protoset = ExtResource("3_sqsc0")
-
-[node name="RightHandEquipmentSlotControl" type="Control" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment"]
+[node name="RightHandEquipmentSlot" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment" node_paths=PackedStringArray("myInventory") instance=ExtResource("9_tpx1u")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-script = ExtResource("7_kcmi5")
-slot_style = SubResource("StyleBoxFlat_hyt2o")
-item_slot_path = NodePath("../RightHandEquipmentSlot")
-default_item_icon = ExtResource("8_0yr0i")
-label_visible = false
+myInventory = NodePath("../../../../InventoryStacked")
 
 [node name="Label" type="Label" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment"]
 layout_mode = 2
