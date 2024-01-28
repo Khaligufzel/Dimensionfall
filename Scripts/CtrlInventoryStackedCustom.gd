@@ -63,9 +63,9 @@ signal wear_item(items)
 signal disassemble_item(items)
 
 func _ready():
-	populate_inventory_list()
-	update_bars()
-	connect_inventory_signals()
+	_populate_inventory_list()
+	_update_bars()
+	_connect_inventory_signals()
 
 
 # Take care of the hovering over items in the grid
@@ -117,21 +117,12 @@ func _on_context_menu_item_selected(id):
 		3: emit_signal("wear_item", selected_inventory_items)
 		4: emit_signal("disassemble_item", selected_inventory_items)
 
-# Function to get selected inventory items
-func get_selected_inventory_items() -> Array[InventoryItem]:
-	var items: Array[InventoryItem] = []
-	for group_name in selectedItems:
-		if group_to_item_mapping.has(group_name):
-			items.append(group_to_item_mapping[group_name])
-	return items
-
-func connect_inventory_signals():
+func _connect_inventory_signals():
 	# Connect signals from InventoryStacked to this control script
 	myInventory.connect("item_added", _on_inventory_item_added)
 	myInventory.connect("item_removed", _on_inventory_item_removed)
 	myInventory.connect("item_modified", _on_inventory_item_modified)
 	myInventory.connect("contents_changed", _on_inventory_contents_changed)
-
 
 func _on_inventory_item_added(item: InventoryItem):
 	# Handle item added to inventory
@@ -152,7 +143,7 @@ func _on_inventory_contents_changed():
 func update_inventory_list(changedItem: InventoryItem, action: String):
 	# Clear and repopulate the inventory list
 	_clear_grid_children()
-	add_header_row_to_grid()
+	_add_header_row_to_grid()
 	for item in myInventory.get_children():
 		var add_item: bool = true
 		if item and item == changedItem:
@@ -167,11 +158,10 @@ func update_inventory_list(changedItem: InventoryItem, action: String):
 				_, "contentschanged":
 					print_debug("contents was changed")
 		if add_item:
-			print_debug("Updated inventory with: " + str(item.get_title()))
 			var group_name = "item_group_" + str(item.get_name())
 			group_to_item_mapping[group_name] = item
-			add_item_to_grid(item, group_name)
-	update_bars()
+			_add_item_to_grid(item, group_name)
+	_update_bars()
 
 # Gets the group name from an item
 # An item is a control element in the inventory grid
@@ -182,7 +172,7 @@ func _get_group_name(item: Control) -> String:
 	return ""
 
 # Helper function to create a header
-func create_header(text: String) -> void:
+func _create_header(text: String) -> void:
 	var header: Control = listHeaderContainer.instantiate()
 	header.set_label_text(text)
 	header.connect("header_clicked", _on_header_clicked)
@@ -191,14 +181,14 @@ func create_header(text: String) -> void:
 	header_controls[text] = header
 
 # Simplified function for adding headers
-func add_header_row_to_grid():
-	create_header("I")
-	create_header("Name")
-	create_header("W")
-	create_header("V")
-	create_header("F")
+func _add_header_row_to_grid():
+	_create_header("I")	
+	_create_header("Name")
+	_create_header("W")
+	_create_header("V")
+	_create_header("F")
 	
-func _on_item__right_clicked(clickedItem: Control):
+func _on_item_right_clicked(clickedItem: Control):
 	show_context_menu(clickedItem.global_position)
 
 # When an item in the inventory is clicked
@@ -261,7 +251,7 @@ func _find_group_start_index(group_name: String) -> int:
 	return -1
 
 # Generic function to create an item in the grid
-func create_ui_element(property: String, item: InventoryItem, group_name: String) -> Control:
+func _create_ui_element(property: String, item: InventoryItem, group_name: String) -> Control:
 	var element = listItemContainer.instantiate() as Control
 	match property:
 		"icon":
@@ -278,16 +268,16 @@ func create_ui_element(property: String, item: InventoryItem, group_name: String
 	# Now we can use the name to get information about the property
 	element.name = property + "_" + str(item.get_name())
 	element.connect("item_clicked", _on_item_clicked)
-	element.connect("item_right_clicked", _on_item__right_clicked)
+	element.connect("item_right_clicked", _on_item_right_clicked)
 	# We use groups to keep track of the items
 	element.add_to_group(group_name)
 	return element
 
 # Refactored function to add an item to the grid
-func add_item_to_grid(item: InventoryItem, group_name: String):
+func _add_item_to_grid(item: InventoryItem, group_name: String):
 	# Each item has these 5 columns to fill, so we loop over each of the properties
 	for property in ["icon", "name", "weight", "volume", "favorite"]:
-		var element = create_ui_element(property, item, group_name)
+		var element = _create_ui_element(property, item, group_name)
 		inventoryGrid.add_child(element)
 		# Keep track of the list items by group name
 		if not group_controls.has(group_name):
@@ -295,17 +285,17 @@ func add_item_to_grid(item: InventoryItem, group_name: String):
 		group_controls[group_name].append(element)
 
 # Populate the inventory list
-func populate_inventory_list():
+func _populate_inventory_list():
 	_clear_grid_children()
 	# Add header
-	add_header_row_to_grid()
+	_add_header_row_to_grid()
 	# Loop over inventory items and add them to the grid
 	for item in myInventory.get_children():
 		var group_name = "item_group_" + str(item.get_name())
 		group_to_item_mapping[group_name] = item
-		add_item_to_grid(item, group_name)
+		_add_item_to_grid(item, group_name)
 
-func update_bars():
+func _update_bars():
 	var total_weight = 0
 	var total_volume = 0
 	for item in myInventory.get_children():
@@ -354,7 +344,7 @@ func _on_header_clicked(headerItem: Control) -> void:
 		headerItem.select_item()
 
 	if header_label in header_mapping:
-		sort_inventory_by_property(header_mapping[header_label], reverse_order)
+		_sort_inventory_by_property(header_mapping[header_label], reverse_order)
 		header_sort_order[header_label] = reverse_order
 
 func _clear_grid_children():
@@ -388,15 +378,15 @@ func _get_representative_value_for_group(group_name: String, property_name: Stri
 		return 0  # Default value for numeric properties
 
 # Will sort the order of the items baased on the selected column (property_name)
-func sort_inventory_by_property(property_name: String, reverse_order: bool = false):
-	var sorted_groups = get_sorted_groups(property_name)
+func _sort_inventory_by_property(property_name: String, reverse_order: bool = false):
+	var sorted_groups = _get_sorted_groups(property_name)
 	if reverse_order:
 		sorted_groups.reverse()  # Reverse the order of the sorted groups
 	for group_name in sorted_groups:
-		move_group_to_end(group_name)
+		_move_group_to_end(group_name)
 	emit_signal("inventory_sorted", property_name)
 
-func move_group_to_end(group_name: String):
+func _move_group_to_end(group_name: String):
 	for control in group_controls[group_name]:
 		inventoryGrid.move_child(control, inventoryGrid.get_child_count() - 1)
 
@@ -404,7 +394,7 @@ func move_group_to_end(group_name: String):
 # The group_data is essentially all the rows in the grid
 # The property_name is the column of the grid
 # With this new array of group_name and property_name, the items can be sorted
-func get_sorted_groups(property_name: String) -> Array:
+func _get_sorted_groups(property_name: String) -> Array:
 	var group_data = []
 	for group_name in group_controls.keys():
 		var representative_value = _get_representative_value_for_group(group_name, property_name)
@@ -442,3 +432,66 @@ func _is_group_selected(group_name: String) -> bool:
 				return false
 		return true
 	return false
+
+# Transfer an item to another inventory associated with a Control node
+func transfer(item: InventoryItem, destinationControl: Control) -> bool:
+	var destinationInventory = _get_inventory_from_control(destinationControl)
+	if destinationInventory and myInventory.has_method("transfer_automerge"):
+		return myInventory.transfer_automerge(item, destinationInventory)
+	return false
+
+# Helper function to get the inventory from a Control node
+# This assumes that the Control node has a property or a method to access its inventory
+func _get_inventory_from_control(control: Control) -> InventoryStacked:
+	if control.has_method("get_inventory"):
+		return control.get_inventory()
+	elif control.has("inventory"):
+		return control.inventory
+	return null
+
+
+# Function to get selected inventory items
+func get_selected_inventory_items() -> Array[InventoryItem]:
+	var items: Array[InventoryItem] = []
+	for group_name in selectedItems:
+		if group_to_item_mapping.has(group_name):
+			items.append(group_to_item_mapping[group_name])
+	return items
+	
+# Function to get selected inventory items
+func get_inventory() -> InventoryStacked:
+	return myInventory
+
+
+func set_inventory(new_inventory: InventoryStacked):
+	# Step 1: Deselect and clear the current inventory display
+	_deselect_and_clear_current_inventory()
+
+	# Step 2: Set the myInventory property to the new inventory
+	myInventory = new_inventory
+
+	# Step 3: Rebuild the inventory list with the new inventory
+	_populate_inventory_list()
+	_update_bars()
+	_connect_inventory_signals()
+
+func _deselect_and_clear_current_inventory():
+	# Deselect all items
+	for group_name in selectedItems:
+		_toggle_group_selection(group_name, false)
+	selectedItems.clear()
+
+	# Clear the mapping and controls
+	group_to_item_mapping.clear()
+	group_controls.clear()
+
+	# Clear the grid children
+	_clear_grid_children()
+
+	# Add header row to grid (if necessary)
+	_add_header_row_to_grid()
+
+	# Reset other variables if needed
+	selectedItem = null
+	last_selected_item = null
+	last_hovered_item = null

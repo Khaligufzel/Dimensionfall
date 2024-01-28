@@ -3,7 +3,7 @@ extends Control
 # This node holds the data of the items in the container that is selected in the containerList
 @export var proximity_inventory: InventoryStacked
 # This node visualizes the items in the container that is selected in the containerList
-@export var proximity_inventory_control: CtrlInventoryStacked
+@export var proximity_inventory_control: Control
 
 # The node that visualizes the player inventory
 @export var inventory_control : Control
@@ -28,6 +28,8 @@ signal item_was_cleared(slotName: String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	LeftHandEquipmentSlot.name = "LeftHand"
+	RightHandEquipmentSlot.name = "RightHand"
 	# The items that were in the player inventory when they exited
 	# the previous level are loaded back into the inventory
 	inventory.deserialize(General.player_inventory_dict)
@@ -159,7 +161,7 @@ func add_container_to_list(container: Node3D):
 		# Set the inventory of the proximity inventory control to this container's inventory
 		var container_inventory = containerListItemInstance.containerInstance.get_inventory()
 		if container_inventory:
-			proximity_inventory_control.inventory = container_inventory
+			proximity_inventory_control.set_inventory(container_inventory)
 			# Make the proximity inventory control visible
 			proximity_inventory_control.visible = true
 
@@ -169,7 +171,7 @@ func _on_container_clicked(containerListItemInstance: Control):
 	if containerListItemInstance and containerListItemInstance.containerInstance:
 		var container_inventory = containerListItemInstance.containerInstance.get_inventory()
 		if container_inventory:
-			proximity_inventory_control.inventory = container_inventory
+			proximity_inventory_control.set_inventory(container_inventory)
 
 # Function to remove a container from the containerList
 func remove_container_from_list(container: Node3D):
@@ -177,7 +179,7 @@ func remove_container_from_list(container: Node3D):
 	var first_container = null
 
 	# Check if the container being removed is the currently selected one
-	if proximity_inventory_control.inventory == container.get_inventory():
+	if proximity_inventory_control.get_inventory() == container.get_inventory():
 		was_selected = true
 
 	# Remove the container from the list and count remaining containers
@@ -194,10 +196,10 @@ func remove_container_from_list(container: Node3D):
 	if was_selected and remaining_containers > 0:
 		var first_container_inventory = first_container.get_inventory()
 		if first_container_inventory:
-			proximity_inventory_control.inventory = first_container_inventory
+			proximity_inventory_control.set_inventory(first_container_inventory)
 	elif was_selected or remaining_containers == 0:
 		# Reset the inventory to proximity_inventory and hide the control
-		proximity_inventory_control.inventory = proximity_inventory
+		proximity_inventory_control.set_inventory(proximity_inventory)
 		proximity_inventory_control.visible = false
 
 # This function is called when an item is removed from the left hand equipment slot
@@ -209,15 +211,27 @@ func _on_right_hand_equipment_slot_cleared():
 	item_was_cleared.emit("RightHand")
 
 func _on_transfer_left_button_button_up():
-	inventory.transfer(inventory_control.get_selected_inventory_item(), proximity_inventory_control.inventory)
+	var selected_inventory_items: Array[InventoryItem] = inventory_control.get_selected_inventory_items()
+	for item in selected_inventory_items:
+		if inventory.transfer_autosplitmerge(item, proximity_inventory_control.inventory):
+			print_debug("Transferred item: " + str(item))
+		else:
+			print_debug("Failed to transfer item: " + str(item))
 
 func _on_transfer_right_button_button_up():
-	var selected_inventory_item: InventoryItem = proximity_inventory_control.get_selected_inventory_item()
-	proximity_inventory_control.inventory.transfer(selected_inventory_item, inventory)
+	var selected_inventory_items: Array[InventoryItem] = proximity_inventory_control.get_selected_inventory_items()
+	for item in selected_inventory_items:
+		if proximity_inventory_control.inventory.transfer_autosplitmerge(item, inventory):
+			print_debug("Transferred item: " + str(item))
+		else:
+			print_debug("Failed to transfer item: " + str(item))
 
+
+# Called when the user has pressed a button that will equip the selected item
 func _on_ctrl_inventory_stacked_custom_equip_left(items: Array[InventoryItem]):
 	equip_item(items, LeftHandEquipmentSlot)
 
+# Called when the user has pressed a button that will equip the selected item
 func _on_ctrl_inventory_stacked_custom_equip_right(items: Array[InventoryItem]):
 	equip_item(items, RightHandEquipmentSlot)
 

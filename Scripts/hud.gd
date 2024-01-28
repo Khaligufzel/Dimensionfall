@@ -99,8 +99,6 @@ func _on_concrete_button_down():
 #func _on_player_shooting_ammo_changed(current_ammo, max_ammo):
 #	get_node(ammo_HUD).text = str(current_ammo) + "/" + str(max_ammo)
 
-
-
 func check_if_resources_are_available(item_id, amount_to_spend: int):
 	var inventory_node: InventoryStacked = inventoryWindow.get_inventory()
 	print("checking if we have the item id in inv")

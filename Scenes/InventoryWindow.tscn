@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://e0ebcv1n8jnq"]
+[gd_scene load_steps=10 format=3 uid="uid://e0ebcv1n8jnq"]
 
 [ext_resource type="Script" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
 [ext_resource type="PackedScene" uid="uid://crck2fhgayxhn" path="res://Scenes/InventoryContainerListItem.tscn" id="2_xfgb3"]
@@ -7,9 +7,7 @@
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_item.gd" id="5_qidb6"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="6_xpf2l"]
 [ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="8_f75fl"]
-[ext_resource type="Script" path="res://addons/gloot/ui/ctrl_inventory_stacked.gd" id="9_8a8sx"]
 [ext_resource type="PackedScene" uid="uid://c4g8ymi0lhkyy" path="res://Scenes/UI/EquipmentSlot.tscn" id="9_tpx1u"]
-[ext_resource type="Texture2D" uid="uid://df2n5aculnj82" path="res://addons/gloot/images/icon_inventory.svg" id="10_6ygdg"]
 
 [sub_resource type="Theme" id="Theme_6v4rg"]
 default_font = ExtResource("6_xpf2l")
@@ -26,8 +24,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_7kqbx")
 proximity_inventory = NodePath("InventoryStackedProx")
-proximity_inventory_control = NodePath("HBoxContainer/VBoxContainer/CtrlInventoryStackedProx")
-inventory_control = NodePath("HBoxContainer/CtrlInventoryStackedCustom")
+proximity_inventory_control = NodePath("HBoxContainer/VBoxContainer/CtrlInventoryStackedCustomProx")
+inventory_control = NodePath("HBoxContainer/VBoxContainer2/CtrlInventoryStackedCustom")
 inventory = NodePath("InventoryStacked")
 containerList = NodePath("HBoxContainer/ContainersList")
 containerListItem = ExtResource("2_xfgb3")
@@ -101,14 +99,11 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Nearby container:"
 
-[node name="CtrlInventoryStackedProx" type="Control" parent="HBoxContainer/VBoxContainer"]
+[node name="CtrlInventoryStackedCustomProx" parent="HBoxContainer/VBoxContainer" node_paths=PackedStringArray("myInventory") instance=ExtResource("8_f75fl")]
 visible = false
-custom_minimum_size = Vector2(300, 400)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("9_8a8sx")
-inventory_path = NodePath("../../../InventoryStackedProx")
-default_item_icon = ExtResource("10_6ygdg")
+myInventory = NodePath("../../../InventoryStackedProx")
 
 [node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -121,10 +116,18 @@ text = "->"
 layout_mode = 2
 text = "<-"
 
-[node name="CtrlInventoryStackedCustom" parent="HBoxContainer" node_paths=PackedStringArray("myInventory") instance=ExtResource("8_f75fl")]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "inventory:"
+
+[node name="CtrlInventoryStackedCustom" parent="HBoxContainer/VBoxContainer2" node_paths=PackedStringArray("myInventory") instance=ExtResource("8_f75fl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-myInventory = NodePath("../../InventoryStacked")
+myInventory = NodePath("../../../InventoryStacked")
 
 [node name="EquipmentSlotList" type="VBoxContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(64, 0)
@@ -206,7 +209,11 @@ theme_override_font_sizes/font_size = 13
 text = "Item description"
 autowrap_mode = 3
 
+[connection signal="equip_left" from="HBoxContainer/VBoxContainer/CtrlInventoryStackedCustomProx" to="." method="_on_ctrl_inventory_stacked_custom_equip_left"]
+[connection signal="equip_right" from="HBoxContainer/VBoxContainer/CtrlInventoryStackedCustomProx" to="." method="_on_ctrl_inventory_stacked_custom_equip_right"]
 [connection signal="button_up" from="HBoxContainer/HBoxContainer/TransferRightButton" to="." method="_on_transfer_right_button_button_up"]
 [connection signal="button_up" from="HBoxContainer/HBoxContainer/TransferLeftButton" to="." method="_on_transfer_left_button_button_up"]
-[connection signal="equip_left" from="HBoxContainer/CtrlInventoryStackedCustom" to="." method="_on_ctrl_inventory_stacked_custom_equip_left"]
-[connection signal="equip_right" from="HBoxContainer/CtrlInventoryStackedCustom" to="." method="_on_ctrl_inventory_stacked_custom_equip_right"]
+[connection signal="equip_left" from="HBoxContainer/VBoxContainer2/CtrlInventoryStackedCustom" to="." method="_on_ctrl_inventory_stacked_custom_equip_left"]
+[connection signal="equip_right" from="HBoxContainer/VBoxContainer2/CtrlInventoryStackedCustom" to="." method="_on_ctrl_inventory_stacked_custom_equip_right"]
+[connection signal="item_unequipped" from="HBoxContainer/EquipmentSlotList/LeftHandEquipment/LeftHandEquipmentSlot" to="." method="_on_left_hand_equipment_slot_cleared"]
+[connection signal="item_unequipped" from="HBoxContainer/EquipmentSlotList/RightHandEquipment/RightHandEquipmentSlot" to="." method="_on_right_hand_equipment_slot_cleared"]

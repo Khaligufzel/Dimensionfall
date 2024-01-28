@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/container.gd" id="1_4celg"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="2_3htey"]
 [ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://Textures/enemy.png" id="2_pvjek"]
-[ext_resource type="Resource" uid="uid://b1tngttyk4w2s" path="res://ItemProtosets.tres" id="4_ehn4b"]
+[ext_resource type="Resource" uid="uid://cr7u5aveonr7t" path="res://ItemProtosets.tres" id="4_ehn4b"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0pnwx"]
 radius = 0.2
