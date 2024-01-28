@@ -110,7 +110,7 @@ func check_if_resources_are_available(item_id, amount_to_spend: int):
 		var current_amount_to_spend = amount_to_spend
 		var items = inventory_node.get_items_by_id(item_id)
 		for item in items:
-			item_total_amount += inventory_node.get_item_stack_size(item)
+			item_total_amount += InventoryStacked.get_item_stack_size(item)
 		if item_total_amount >= current_amount_to_spend:
 			return true
 	return false

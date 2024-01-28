@@ -226,7 +226,7 @@ func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
 		var spriteDepth = furnitureSprite.get_height() / 100.0 # Convert pixels to meters
 		
 		var edgeSnappingDirection = furnitureJSON.get("edgesnapping", "None")
-		var rotation = tileJSON.furniture.get("rotation", 0)
+		var newRot = tileJSON.furniture.get("rotation", 0)
 		
 		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
 			newFurniture = defaultFurniturePhysics.instantiate()
@@ -246,7 +246,7 @@ func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
 		
 		# Apply edge snapping if necessary
 		if edgeSnappingDirection != "None":
-			furniturePosition = apply_edge_snapping(furniturePosition, edgeSnappingDirection, spriteWidth, spriteDepth, rotation, block)
+			furniturePosition = apply_edge_snapping(furniturePosition, edgeSnappingDirection, spriteWidth, spriteDepth, newRot, block)
 		
 		newFurniture.global_position = furniturePosition
 		
@@ -257,33 +257,33 @@ func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
 		
 		newFurniture.id = furnitureJSON.id
 
-func apply_edge_snapping(position, direction, width, depth, rotation, block):
+func apply_edge_snapping(newpos, direction, width, depth, newRot, block):
 	# Block size, assuming a block is 1x1 meters
 	var blockSize = Vector3(1.0, 1.0, 1.0)
 	
 	# Adjust position based on edgesnapping direction and rotation
 	match direction:
 		"North":
-			position.z -= blockSize.z / 2 - depth / 2
+			newpos.z -= blockSize.z / 2 - depth / 2
 		"South":
-			position.z += blockSize.z / 2 - depth / 2
+			newpos.z += blockSize.z / 2 - depth / 2
 		"East":
-			position.x += blockSize.x / 2 - width / 2
+			newpos.x += blockSize.x / 2 - width / 2
 		"West":
-			position.x -= blockSize.x / 2 - width / 2
+			newpos.x -= blockSize.x / 2 - width / 2
 		# Add more cases if needed
 	
 	# Consider rotation if necessary
-	position = rotate_position_around_block_center(position, rotation, block.global_position)
+	newpos = rotate_position_around_block_center(newpos, newRot, block.global_position)
 	
-	return position
+	return newpos
 
-func rotate_position_around_block_center(position, rotation, block_center):
+func rotate_position_around_block_center(newpos, newRot, block_center):
 	# Convert rotation to radians for trigonometric functions
-	var radians = deg_to_rad(rotation)
+	var radians = deg_to_rad(newRot)
 	
 	# Calculate the offset from the block center
-	var offset = position - block_center
+	var offset = newpos - block_center
 	
 	# Apply rotation matrix transformation
 	var rotated_offset = Vector3(
