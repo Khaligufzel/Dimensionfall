@@ -153,29 +153,6 @@ func _on_item_clicked(clickedItem: Control):
 	# Update last selected item
 	last_selected_item = clickedItem
 
-
-# This function will return a dictionary with 5 keys
-# The 5 keys are icon, name, weight, volume, favorite
-func _get_group_data(group_name: String) -> Dictionary:
-	var group_item = group_to_item_mapping[group_name]
-	if group_item:
-		# Now use group_item to get the data
-		return {
-			"icon": group_item.get_icon(),
-			"name": group_item.get_title(),
-			"weight": group_item.get_property("weight", 0),
-			"volume": group_item.get_property("volume", 0),
-			"favorite": group_item.is_favorite()  # Assuming is_favorite() method exists
-		}
-	else:
-		return {"icon": null, "name": "", "weight": 0, "volume": 0, "favorite": false}
-
-func _select_row_items(item: Control):
-	var group_name = _get_group_name(item)
-	for group_item in get_tree().get_nodes_in_group(group_name):
-		if group_item is Control and not group_item.is_item_selected():
-			group_item.select_item()
-
 func _select_range(start_item: Control, end_item: Control):
 	var start_group_name = _get_group_name(start_item)
 	var end_group_name = _get_group_name(end_item)
@@ -200,19 +177,6 @@ func _find_group_start_index(group_name: String) -> int:
 		if item and _get_group_name(item) == group_name:
 			return i
 	return -1
-
-func _find_child_index(item: Control) -> int:
-	for i in range(inventoryGrid.get_child_count()):
-		if inventoryGrid.get_child(i) == item:
-			return i
-	return -1
-
-func _deselect_all_except(except_item: Control):
-	for item in selectedItems:
-		if item != except_item:
-			item.unselect_item()
-	selectedItems.clear()
-	selectedItems = [except_item]
 
 # Generic function to create a UI element
 func create_ui_element(property: String, item: InventoryItem, group_name: String) -> Control:
@@ -250,9 +214,7 @@ func add_item_to_grid(item: InventoryItem, group_name: String):
 
 # Populate the inventory list
 func populate_inventory_list():
-	# Clear current grid
-	for child in inventoryGrid.get_children():
-		child.queue_free()
+	_clear_grid_children()
 	# Add header
 	add_header_row_to_grid()
 	# Loop over inventory items and add them to the grid
@@ -307,20 +269,6 @@ func _on_header_clicked(headerItem: Control) -> void:
 	if header_label in header_mapping:
 		sort_inventory_by_property(header_mapping[header_label])
 
-func _clear_group_items(group_name: String):
-	var group_items = get_tree().get_nodes_in_group(group_name)
-	for item in group_items:
-		if item is Control:
-			item.queue_free()
-
-func _add_group_to_grid(group_name: String):
-	print("Adding group to grid: ", group_name)  # Debugging line
-	if group_to_item_mapping.has(group_name):
-		var group_item = group_to_item_mapping[group_name]
-		add_item_to_grid(group_item, group_name)
-	else:
-		print("Group item not found in mapping: ", group_name)
-
 func _clear_grid_children():
 	while inventoryGrid.get_child_count() > 0:
 		var child = inventoryGrid.get_child(0)
@@ -349,21 +297,6 @@ func _get_representative_value_for_group(group_name: String, property_name: Stri
 	else:
 		return 0  # Default value for numeric properties
 
-# Function to get group data with a specific property value
-func get_group_data_with_property(property_name: String) -> Array:
-	var data = []
-	for item in myInventory.get_children():
-		var group_name = "item_group_" + str(item.get_name())
-		var value = item.get_property(property_name, get_default_value_for_property(property_name))
-		data.append({"group_name": group_name, "sort_value": value})
-	return data
-
-# Helper function to get default values for properties
-func get_default_value_for_property(property_name: String) -> Variant:
-	match property_name:
-		"name", "favorite": return ""
-		_ : return 0
-
 func sort_inventory_by_property(property_name: String):
 	var sorted_groups = get_sorted_groups(property_name)
 	for group_name in sorted_groups:
@@ -388,8 +321,6 @@ func get_sorted_groups(property_name: String) -> Array:
 	
 	return sorted_group_names
 
-
-
 func _toggle_group_selection(group_name: String, select: bool):
 	for group_item in get_tree().get_nodes_in_group(group_name):
 		if group_item is Control:
@@ -401,7 +332,6 @@ func _toggle_group_selection(group_name: String, select: bool):
 		selectedItems.append(group_name)
 	else:
 		selectedItems.erase(group_name)
-
 
 func _is_group_selected(group_name: String) -> bool:
 	for group_item in get_tree().get_nodes_in_group(group_name):
