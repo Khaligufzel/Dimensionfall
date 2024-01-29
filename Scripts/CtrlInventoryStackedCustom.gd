@@ -67,31 +67,6 @@ func _ready():
 	_connect_inventory_signals()
 
 
-func process_highlight(item: Control):
-	if item != last_hovered_item:
-		if last_hovered_item and is_instance_valid(last_hovered_item):
-			_remove_highlight(last_hovered_item)
-		if item:
-			_apply_highlight(item)
-		last_hovered_item = item
-
-
-func _apply_highlight(item: Control):
-	var row_name = _get_row_name(item)
-	if inventory_rows.has(row_name):
-		for control in inventory_rows[row_name]["controls"]:
-			if is_instance_valid(control):
-				control.highlight()
-
-
-func _remove_highlight(item: Control):
-	var row_name = _get_row_name(item)
-	if inventory_rows.has(row_name):
-		for control in inventory_rows[row_name]["controls"]:
-			if is_instance_valid(control):
-				control.unhighlight()
-
-
 # Function to show context menu at specified position
 func show_context_menu(myposition: Vector2):
 	# Create a small Rect2i around the position
@@ -292,11 +267,28 @@ func _add_item_to_grid(item: InventoryItem, row_name: String):
 	for property in ["icon", "name", "stack_size", "weight", "volume", "favorite"]:
 		var element = _create_ui_element(property, item, row_name)
 		inventoryGrid.add_child(element)
-		element.mouse_entered.connect(process_highlight.bind(element))
-		element.mouse_exited.connect(process_highlight.bind(element))
-
 		# Add the control to the row's control list
 		inventory_rows[row_name]["controls"].append(element)
+	# Connect signals for all elements in the row to each other for highlighting
+	_connect_row_signals(row_name)
+
+# Connect the mouse_entered and mouse_exited signals of all controls in a row
+func _connect_row_signals(row_name: String):
+	for control in inventory_rows[row_name]["controls"]:
+		control.mouse_entered.connect(_on_row_mouse_entered.bind(row_name))
+		control.mouse_exited.connect(_on_row_mouse_exited.bind(row_name))
+
+# Highlight all controls in the row when the mouse enters any control
+func _on_row_mouse_entered(row_name: String):
+	if inventory_rows.has(row_name):
+		for control in inventory_rows[row_name]["controls"]:
+			control.highlight()
+
+# Unhighlight all controls in the row when the mouse exits any control
+func _on_row_mouse_exited(row_name: String):
+	if inventory_rows.has(row_name):
+		for control in inventory_rows[row_name]["controls"]:
+			control.unhighlight()
 
 
 # Populate the inventory list
@@ -414,8 +406,7 @@ func _sort_inventory_by_property(property_name: String, reverse_order: bool = fa
 func _move_row_to_end(row_name: String):
 	if inventory_rows.has(row_name):
 		for control in inventory_rows[row_name]["controls"]:
-			if is_instance_valid(control):
-				inventoryGrid.move_child(control, inventoryGrid.get_child_count() - 1)
+			inventoryGrid.move_child(control, inventoryGrid.get_child_count() - 1)
 
 
 # Constructs an array of the row name and the provided property
