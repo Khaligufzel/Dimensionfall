@@ -34,8 +34,6 @@ extends Control
 # Context menu that will show actions for selected items
 @export var context_menu: PopupMenu
 
-var selectedItem: InventoryItem = null
-var selectedItems: Array = []
 var last_selected_item: Control = null
 var row_controls: Dictionary = {}
 var inventory_rows: Dictionary = {}
@@ -62,6 +60,7 @@ signal drop_item(items)
 signal wear_item(items)
 signal disassemble_item(items)
 
+
 func _ready():
 	_populate_inventory_list()
 	_update_bars(null, "")
@@ -76,12 +75,14 @@ func process_highlight(item: Control):
 			_apply_highlight(item)
 		last_hovered_item = item
 
+
 func _apply_highlight(item: Control):
 	var row_name = _get_row_name(item)
 	if inventory_rows.has(row_name):
 		for control in inventory_rows[row_name]["controls"]:
 			if is_instance_valid(control):
 				control.highlight()
+
 
 func _remove_highlight(item: Control):
 	var row_name = _get_row_name(item)
@@ -97,6 +98,7 @@ func show_context_menu(myposition: Vector2):
 	var popup_rect = Rect2i(int(myposition.x), int(myposition.y), 1, 1)
 	context_menu.popup(popup_rect)
 
+
 # Handle context menu item selection
 func _on_context_menu_item_selected(id):
 	var selected_inventory_items = get_selected_inventory_items()
@@ -107,6 +109,7 @@ func _on_context_menu_item_selected(id):
 		3: emit_signal("wear_item", selected_inventory_items)
 		4: emit_signal("disassemble_item", selected_inventory_items)
 
+
 func _connect_inventory_signals():
 	# Connect signals from InventoryStacked to this control script
 	myInventory.connect("item_added", _on_inventory_item_added)
@@ -114,26 +117,31 @@ func _connect_inventory_signals():
 	myInventory.connect("item_modified", _on_inventory_item_modified)
 	myInventory.connect("contents_changed", _on_inventory_contents_changed)
 
+
 func _on_inventory_item_added(item: InventoryItem):
 	# Handle item added to inventory
 	update_inventory_list(item, "added")
+
 
 func _on_inventory_item_removed(item: InventoryItem):
 	# Handle item removed from inventory
 	update_inventory_list(item, "removed")
 
+
 func _on_inventory_item_modified(item: InventoryItem):
 	# Handle item modified in inventory
 	update_inventory_list(item, "modified")
+
 
 func _on_inventory_contents_changed():
 	# Handle inventory contents changed
 	update_inventory_list(null,"contentschanged")
 
+
 func update_inventory_list(changedItem: InventoryItem, action: String):
 	_deselect_all_items()
 	# Clear and repopulate the inventory list
-	_clear_grid_children()
+	_deselect_and_clear_current_inventory()
 	_add_header_row_to_grid()
 	for item in myInventory.get_children():
 		var add_item: bool = true
@@ -153,6 +161,7 @@ func update_inventory_list(changedItem: InventoryItem, action: String):
 			_add_item_to_grid(item, row_name)
 	_update_bars(changedItem, action)
 
+
 # Gets the row name from an item
 # An item is a control element in the inventory grid
 func _get_row_name(item: Control) -> String:
@@ -160,6 +169,7 @@ func _get_row_name(item: Control) -> String:
 		if row.begins_with("item_row_"):
 			return row
 	return ""
+
 
 # Helper function to create a header
 func _create_header(text: String) -> void:
@@ -169,6 +179,7 @@ func _create_header(text: String) -> void:
 	inventoryGrid.add_child(header)
 	# Store the header control in the dictionary
 	header_controls[text] = header
+
 
 # Simplified function for adding headers
 func _add_header_row_to_grid():
@@ -182,37 +193,40 @@ func _add_header_row_to_grid():
 func _on_item_right_clicked(clickedItem: Control):
 	show_context_menu(clickedItem.global_position)
 
+
+# When an item in the inventory is clicked
+# There are 5 items per row in the grid, but they are treated as a row of 5
+# So clicking one item will select the whole row
 # When an item in the inventory is clicked
 # There are 5 items per row in the grid, but they are treated as a row of 5
 # So clicking one item will select the whole row
 func _on_item_clicked(clickedItem: Control):
 	var row_name = _get_row_name(clickedItem)
-	
+
 	if Input.is_key_pressed(KEY_CTRL):
 		# CTRL is held: check if current row is selected and if there are other rows selected
-		if _is_row_selected(row_name) and selectedItems.size() > 1:
-			# Deselect the current row
-			_toggle_row_selection(row_name, false)
+		if _is_row_selected(row_name):
+			# Toggle the current row's selection state
+			_toggle_row_selection(row_name, !inventory_rows[row_name]["is_selected"])
 		else:
-			_toggle_row_selection(row_name, clickedItem.is_item_selected())
+			_toggle_row_selection(row_name, true)
 	elif Input.is_key_pressed(KEY_SHIFT) and last_selected_item:
 		# SHIFT is held: select a range of items
 		_select_range(last_selected_item, clickedItem)
 	else:
 		# No modifier key: select or deselect the clicked row
-		# Check if the clicked item's row is selected
-		if not _is_row_selected(row_name):
-			if selectedItems.size() == 1 and selectedItems[0] == row_name:
-				_toggle_row_selection(row_name, false) # De-select
-			else:
-				# More then one row is selected
-				# Deselect all other items and select the clicked row
-				for selected_row in selectedItems.duplicate():
-					_toggle_row_selection(selected_row, false)
-				_toggle_row_selection(row_name, true)
+		if not _is_row_selected(row_name) or len(get_selected_inventory_items()) > 1:
+			# Deselect all other items and select the clicked row
+			_deselect_all_items()
+			_toggle_row_selection(row_name, true)
+		else:
+			# Toggle the selection of the clicked row
+			_toggle_row_selection(row_name, !inventory_rows[row_name]["is_selected"])
 
 	# Update last selected item
 	last_selected_item = clickedItem
+
+
 
 # Select a range of items. This is called when the user
 # selects an item and then holds shift and selects another item
@@ -231,6 +245,7 @@ func _select_range(start_item: Control, end_item: Control):
 		if row_index >= min_index and row_index <= max_index:
 			_toggle_row_selection(row_name, true)
 
+
 # Find the index of the first item in a row
 func _find_row_start_index(row_name: String) -> int:
 	var index = 0
@@ -239,6 +254,7 @@ func _find_row_start_index(row_name: String) -> int:
 			return index
 		index += 1
 	return -1
+
 
 # Generic function to create an item in the grid
 func _create_ui_element(property: String, item: InventoryItem, row_name: String) -> Control:
@@ -265,11 +281,12 @@ func _create_ui_element(property: String, item: InventoryItem, row_name: String)
 	element.add_to_group(row_name)
 	return element
 
+
 # Function to add an item to the grid
 func _add_item_to_grid(item: InventoryItem, row_name: String):
 	# Initialize the row if it's not already present
 	if not inventory_rows.has(row_name):
-		inventory_rows[row_name] = {"item": item, "controls": []}
+		inventory_rows[row_name] = {"item": item, "controls": [], "is_selected": false}
 
 	# Each item has these 6 columns to fill, so we loop over each of the properties
 	for property in ["icon", "name", "stack_size", "weight", "volume", "favorite"]:
@@ -281,14 +298,16 @@ func _add_item_to_grid(item: InventoryItem, row_name: String):
 		# Add the control to the row's control list
 		inventory_rows[row_name]["controls"].append(element)
 
+
 # Populate the inventory list
 func _populate_inventory_list():
-	_clear_grid_children()
+	_deselect_and_clear_current_inventory()
 	_add_header_row_to_grid()
 	# Loop over inventory items and add them to the grid
 	for item in myInventory.get_children():
 		var row_name = "item_row_" + str(item.get_name())
 		_add_item_to_grid(item, row_name)
+
 
 func _update_bars(changedItem: InventoryItem, action: String):
 	var total_weight = 0
@@ -310,6 +329,7 @@ func _update_bars(changedItem: InventoryItem, action: String):
 
 	_check_inventory_capacity()
 
+
 func _check_inventory_capacity():
 	var is_full = WeightBar.value >= WeightBar.max_value or VolumeBar.value >= VolumeBar.max_value
 	var is_empty = myInventory.get_child_count() == 0
@@ -319,6 +339,7 @@ func _check_inventory_capacity():
 	if is_empty:
 		emit_signal("inventory_empty")
 
+
 func _sort_items(a, b):
 	var value_a = a["sort_value"]
 	var value_b = b["sort_value"]
@@ -326,6 +347,7 @@ func _sort_items(a, b):
 		return value_a.nocasecmp_to(value_b) < 0
 	else:
 		return value_a < value_b
+
 
 # When a header is clicked, we will apply sorting to that column
 func _on_header_clicked(headerItem: Control) -> void:
@@ -348,11 +370,13 @@ func _on_header_clicked(headerItem: Control) -> void:
 		_sort_inventory_by_property(header_mapping[header_label], reverse_order)
 		header_sort_order[header_label] = reverse_order
 
+
 func _clear_grid_children():
 	while inventoryGrid.get_child_count() > 0:
 		var child = inventoryGrid.get_child(0)
 		inventoryGrid.remove_child(child)
 		child.queue_free()
+
 
 func _sort_rows(a, b):
 	var value_a = a["sort_value"]
@@ -362,6 +386,7 @@ func _sort_rows(a, b):
 		return value_a.nocasecmp_to(value_b) < 0
 	else:
 		return value_a < value_b
+
 
 # Returns the value of the provided property for the provided row
 # Essentially, the row_name is a row and the property_name is a column in the grid
@@ -375,6 +400,7 @@ func _get_representative_value_for_row(row_name: String, property_name: String):
 	# Return default value
 	return "" if property_name in ["name", "favorite"] else 0
 
+
 # Will sort the order of the items baased on the selected column (property_name)
 func _sort_inventory_by_property(property_name: String, reverse_order: bool = false):
 	var sorted_rows = _get_sorted_rows(property_name)
@@ -384,11 +410,13 @@ func _sort_inventory_by_property(property_name: String, reverse_order: bool = fa
 		_move_row_to_end(row_name)
 	emit_signal("inventory_sorted", property_name)
 
+
 func _move_row_to_end(row_name: String):
 	if inventory_rows.has(row_name):
 		for control in inventory_rows[row_name]["controls"]:
 			if is_instance_valid(control):
 				inventoryGrid.move_child(control, inventoryGrid.get_child_count() - 1)
+
 
 # Constructs an array of the row name and the provided property
 # The row_data is essentially all the rows in the grid
@@ -408,37 +436,24 @@ func _get_sorted_rows(property_name: String) -> Array:
 	
 	return sorted_row_names
 
-# A row is made up of 5 items (a row).
-# This will select or deselect a row
-func _toggle_row_selection(row_name: String, select: bool):
-	# Avoid processing the same row if it's already in the desired state
-	if select and row_name in selectedItems or not select and not row_name in selectedItems:
-		return
 
-	print_debug("Toggle Group: ", row_name, ", Select: ", select)
+# A row is made up of 5 items (a row).
+# This will select or deselect a row, depending on the value of the select parameter
+func _toggle_row_selection(row_name: String, select: bool):
 	if inventory_rows.has(row_name):
 		var row_info = inventory_rows[row_name]
+		row_info["is_selected"] = select  # Update the is_selected property
 		for control in row_info["controls"]:
 			if is_instance_valid(control):
 				if select:
 					control.select_item()
 				else:
 					control.unselect_item()
-		if select:
-			selectedItems.append(row_name)
-		else:
-			selectedItems.erase(row_name)
 
-# If any of the controls is un-selected, the row is not selected
-# Otherwise the row is selected
+
+# Returns if the row is selected
 func _is_row_selected(row_name: String) -> bool:
-	if inventory_rows.has(row_name):
-		for control in inventory_rows[row_name]["controls"]:
-			if is_instance_valid(control) and not control.is_item_selected():
-				return false
-		return true
-	return false
-
+	return inventory_rows.has(row_name) and inventory_rows[row_name]["is_selected"]
 
 # Transfer an item to another inventory associated with a Control node
 func transfer(item: InventoryItem, destinationControl: Control) -> bool:
@@ -446,6 +461,7 @@ func transfer(item: InventoryItem, destinationControl: Control) -> bool:
 	if destinationInventory and myInventory.has_method("transfer_automerge"):
 		return myInventory.transfer_automerge(item, destinationInventory)
 	return false
+
 
 # Helper function to get the inventory from a Control node
 # This assumes that the Control node has a property or a method to access its inventory
@@ -460,10 +476,11 @@ func _get_inventory_from_control(control: Control) -> InventoryStacked:
 # Function to get selected inventory items
 func get_selected_inventory_items() -> Array[InventoryItem]:
 	var items: Array[InventoryItem] = []
-	for row_name in selectedItems:
-		if inventory_rows.has(row_name):
+	for row_name in inventory_rows.keys():
+		if inventory_rows[row_name]["is_selected"]:
 			items.append(inventory_rows[row_name]["item"])
 	return items
+
 
 # Function to get selected inventory items
 func get_inventory() -> InventoryStacked:
@@ -484,9 +501,9 @@ func set_inventory(new_inventory: InventoryStacked):
 
 func _deselect_and_clear_current_inventory():
 	# Deselect all items
-	for row_name in selectedItems:
-		_toggle_row_selection(row_name, false)
-	selectedItems.clear()
+	for row_name in inventory_rows.keys():
+		if inventory_rows.has(row_name):
+			_toggle_row_selection(row_name, false)
 
 	# Clear the rows
 	inventory_rows.clear()
@@ -494,20 +511,12 @@ func _deselect_and_clear_current_inventory():
 	# Clear the grid children
 	_clear_grid_children()
 
-	# Add header row to grid (if necessary)
-	_add_header_row_to_grid()
-
 	# Reset other variables if needed
-	selectedItem = null
 	last_selected_item = null
 	last_hovered_item = null
 
 
-# Helper function to deselect all items
 func _deselect_all_items():
-	for row_name in selectedItems:
+	for row_name in inventory_rows.keys():
 		if inventory_rows.has(row_name):
-			for control in inventory_rows[row_name]["controls"]:
-				if is_instance_valid(control):
-					control.unselect_item()
-	selectedItems.clear()
+			_toggle_row_selection(row_name, false)
