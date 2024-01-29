@@ -37,8 +37,8 @@ extends Control
 var selectedItem: InventoryItem = null
 var selectedItems: Array = []
 var last_selected_item: Control = null
-var group_controls: Dictionary = {}
-var inventory_groups: Dictionary = {}
+var row_controls: Dictionary = {}
+var inventory_rows: Dictionary = {}
 var last_hovered_item: Node = null
 
 
@@ -77,16 +77,16 @@ func process_highlight(item: Control):
 		last_hovered_item = item
 
 func _apply_highlight(item: Control):
-	var group_name = _get_group_name(item)
-	if inventory_groups.has(group_name):
-		for control in inventory_groups[group_name]["controls"]:
+	var row_name = _get_row_name(item)
+	if inventory_rows.has(row_name):
+		for control in inventory_rows[row_name]["controls"]:
 			if is_instance_valid(control):
 				control.highlight()
 
 func _remove_highlight(item: Control):
-	var group_name = _get_group_name(item)
-	if inventory_groups.has(group_name):
-		for control in inventory_groups[group_name]["controls"]:
+	var row_name = _get_row_name(item)
+	if inventory_rows.has(row_name):
+		for control in inventory_rows[row_name]["controls"]:
 			if is_instance_valid(control):
 				control.unhighlight()
 
@@ -149,16 +149,16 @@ func update_inventory_list(changedItem: InventoryItem, action: String):
 				_, "contentschanged":
 					print_debug("contents was changed")
 		if add_item:
-			var group_name = "item_group_" + str(item.get_name())
-			_add_item_to_grid(item, group_name)
+			var row_name = "item_row_" + str(item.get_name())
+			_add_item_to_grid(item, row_name)
 	_update_bars(changedItem, action)
 
-# Gets the group name from an item
+# Gets the row name from an item
 # An item is a control element in the inventory grid
-func _get_group_name(item: Control) -> String:
-	for group in item.get_groups():
-		if group.begins_with("item_group_"):
-			return group
+func _get_row_name(item: Control) -> String:
+	for row in item.get_groups():
+		if row.begins_with("item_row_"):
+			return row
 	return ""
 
 # Helper function to create a header
@@ -183,33 +183,33 @@ func _on_item_right_clicked(clickedItem: Control):
 	show_context_menu(clickedItem.global_position)
 
 # When an item in the inventory is clicked
-# There are 5 items per row in the grid, but they are treated as a group of 5
+# There are 5 items per row in the grid, but they are treated as a row of 5
 # So clicking one item will select the whole row
 func _on_item_clicked(clickedItem: Control):
-	var group_name = _get_group_name(clickedItem)
+	var row_name = _get_row_name(clickedItem)
 	
 	if Input.is_key_pressed(KEY_CTRL):
-		# CTRL is held: check if current group is selected and if there are other groups selected
-		if _is_group_selected(group_name) and selectedItems.size() > 1:
-			# Deselect the current group
-			_toggle_group_selection(group_name, false)
+		# CTRL is held: check if current row is selected and if there are other rows selected
+		if _is_row_selected(row_name) and selectedItems.size() > 1:
+			# Deselect the current row
+			_toggle_row_selection(row_name, false)
 		else:
-			_toggle_group_selection(group_name, clickedItem.is_item_selected())
+			_toggle_row_selection(row_name, clickedItem.is_item_selected())
 	elif Input.is_key_pressed(KEY_SHIFT) and last_selected_item:
 		# SHIFT is held: select a range of items
 		_select_range(last_selected_item, clickedItem)
 	else:
-		# No modifier key: select or deselect the clicked group
-		# Check if the clicked item's group is selected
-		if not _is_group_selected(group_name):
-			if selectedItems.size() == 1 and selectedItems[0] == group_name:
-				_toggle_group_selection(group_name, false) # De-select
+		# No modifier key: select or deselect the clicked row
+		# Check if the clicked item's row is selected
+		if not _is_row_selected(row_name):
+			if selectedItems.size() == 1 and selectedItems[0] == row_name:
+				_toggle_row_selection(row_name, false) # De-select
 			else:
-				# More then one group is selected
-				# Deselect all other items and select the clicked group
-				for selected_group in selectedItems.duplicate():
-					_toggle_group_selection(selected_group, false)
-				_toggle_group_selection(group_name, true)
+				# More then one row is selected
+				# Deselect all other items and select the clicked row
+				for selected_row in selectedItems.duplicate():
+					_toggle_row_selection(selected_row, false)
+				_toggle_row_selection(row_name, true)
 
 	# Update last selected item
 	last_selected_item = clickedItem
@@ -217,31 +217,31 @@ func _on_item_clicked(clickedItem: Control):
 # Select a range of items. This is called when the user
 # selects an item and then holds shift and selects another item
 func _select_range(start_item: Control, end_item: Control):
-	var start_group_name = _get_group_name(start_item)
-	var end_group_name = _get_group_name(end_item)
+	var start_row_name = _get_row_name(start_item)
+	var end_row_name = _get_row_name(end_item)
 
-	var start_index = _find_group_start_index(start_group_name)
-	var end_index = _find_group_start_index(end_group_name)
+	var start_index = _find_row_start_index(start_row_name)
+	var end_index = _find_row_start_index(end_row_name)
 
 	var min_index = min(start_index, end_index)
 	var max_index = max(start_index, end_index)
 
-	for group_name in inventory_groups.keys():
-		var group_index = _find_group_start_index(group_name)
-		if group_index >= min_index and group_index <= max_index:
-			_toggle_group_selection(group_name, true)
+	for row_name in inventory_rows.keys():
+		var row_index = _find_row_start_index(row_name)
+		if row_index >= min_index and row_index <= max_index:
+			_toggle_row_selection(row_name, true)
 
-# Find the index of the first item in a group
-func _find_group_start_index(group_name: String) -> int:
+# Find the index of the first item in a row
+func _find_row_start_index(row_name: String) -> int:
 	var index = 0
 	for control in inventoryGrid.get_children():
-		if control is Control and control in inventory_groups[group_name]["controls"]:
+		if control is Control and control in inventory_rows[row_name]["controls"]:
 			return index
 		index += 1
 	return -1
 
 # Generic function to create an item in the grid
-func _create_ui_element(property: String, item: InventoryItem, group_name: String) -> Control:
+func _create_ui_element(property: String, item: InventoryItem, row_name: String) -> Control:
 	var element = listItemContainer.instantiate() as Control
 	match property:
 		"icon":
@@ -261,25 +261,25 @@ func _create_ui_element(property: String, item: InventoryItem, group_name: Strin
 	element.name = property + "_" + str(item.get_name())
 	element.connect("item_clicked", _on_item_clicked)
 	element.connect("item_right_clicked", _on_item_right_clicked)
-	# We use groups to keep track of the items
-	element.add_to_group(group_name)
+	# We use rows to keep track of the items
+	element.add_to_group(row_name)
 	return element
 
 # Function to add an item to the grid
-func _add_item_to_grid(item: InventoryItem, group_name: String):
-	# Initialize the group if it's not already present
-	if not inventory_groups.has(group_name):
-		inventory_groups[group_name] = {"item": item, "controls": []}
+func _add_item_to_grid(item: InventoryItem, row_name: String):
+	# Initialize the row if it's not already present
+	if not inventory_rows.has(row_name):
+		inventory_rows[row_name] = {"item": item, "controls": []}
 
 	# Each item has these 6 columns to fill, so we loop over each of the properties
 	for property in ["icon", "name", "stack_size", "weight", "volume", "favorite"]:
-		var element = _create_ui_element(property, item, group_name)
+		var element = _create_ui_element(property, item, row_name)
 		inventoryGrid.add_child(element)
 		element.mouse_entered.connect(process_highlight.bind(element))
 		element.mouse_exited.connect(process_highlight.bind(element))
 
-		# Add the control to the group's control list
-		inventory_groups[group_name]["controls"].append(element)
+		# Add the control to the row's control list
+		inventory_rows[row_name]["controls"].append(element)
 
 # Populate the inventory list
 func _populate_inventory_list():
@@ -287,9 +287,8 @@ func _populate_inventory_list():
 	_add_header_row_to_grid()
 	# Loop over inventory items and add them to the grid
 	for item in myInventory.get_children():
-		var group_name = "item_group_" + str(item.get_name())
-		_add_item_to_grid(item, group_name)
-
+		var row_name = "item_row_" + str(item.get_name())
+		_add_item_to_grid(item, row_name)
 
 func _update_bars(changedItem: InventoryItem, action: String):
 	var total_weight = 0
@@ -355,7 +354,7 @@ func _clear_grid_children():
 		inventoryGrid.remove_child(child)
 		child.queue_free()
 
-func _sort_groups(a, b):
+func _sort_rows(a, b):
 	var value_a = a["sort_value"]
 	var value_b = b["sort_value"]
 	print("Comparing: ", value_a, " with ", value_b)  # Debugging line
@@ -364,13 +363,13 @@ func _sort_groups(a, b):
 	else:
 		return value_a < value_b
 
-# Returns the value of the provided property for the provided group
-# Essentially, the group_name is a row and the property_name is a column in the grid
-func _get_representative_value_for_group(group_name: String, property_name: String):
-	if inventory_groups.has(group_name):
-		var group_item = inventory_groups[group_name]["item"]
-		if group_item:
-			var property_value = group_item.get_property(property_name, null)
+# Returns the value of the provided property for the provided row
+# Essentially, the row_name is a row and the property_name is a column in the grid
+func _get_representative_value_for_row(row_name: String, property_name: String):
+	if inventory_rows.has(row_name):
+		var row_item = inventory_rows[row_name]["item"]
+		if row_item:
+			var property_value = row_item.get_property(property_name, null)
 			if property_value != null:
 				return property_value
 	# Return default value
@@ -378,63 +377,63 @@ func _get_representative_value_for_group(group_name: String, property_name: Stri
 
 # Will sort the order of the items baased on the selected column (property_name)
 func _sort_inventory_by_property(property_name: String, reverse_order: bool = false):
-	var sorted_groups = _get_sorted_groups(property_name)
+	var sorted_rows = _get_sorted_rows(property_name)
 	if reverse_order:
-		sorted_groups.reverse()  # Reverse the order of the sorted groups
-	for group_name in sorted_groups:
-		_move_group_to_end(group_name)
+		sorted_rows.reverse()  # Reverse the order of the sorted rows
+	for row_name in sorted_rows:
+		_move_row_to_end(row_name)
 	emit_signal("inventory_sorted", property_name)
 
-func _move_group_to_end(group_name: String):
-	if inventory_groups.has(group_name):
-		for control in inventory_groups[group_name]["controls"]:
+func _move_row_to_end(row_name: String):
+	if inventory_rows.has(row_name):
+		for control in inventory_rows[row_name]["controls"]:
 			if is_instance_valid(control):
 				inventoryGrid.move_child(control, inventoryGrid.get_child_count() - 1)
 
-# Constructs an array of the group name and the provided property
-# The group_data is essentially all the rows in the grid
+# Constructs an array of the row name and the provided property
+# The row_data is essentially all the rows in the grid
 # The property_name is the column of the grid
-# With this new array of group_name and property_name, the items can be sorted
-func _get_sorted_groups(property_name: String) -> Array:
-	var group_data = []
-	for group_name in inventory_groups.keys():
-		var representative_value = _get_representative_value_for_group(group_name, property_name)
-		group_data.append({"group_name": group_name, "sort_value": representative_value})
+# With this new array of row_name and property_name, the items can be sorted
+func _get_sorted_rows(property_name: String) -> Array:
+	var row_data = []
+	for row_name in inventory_rows.keys():
+		var representative_value = _get_representative_value_for_row(row_name, property_name)
+		row_data.append({"row_name": row_name, "sort_value": representative_value})
 	
-	group_data.sort_custom(_sort_groups)
+	row_data.sort_custom(_sort_rows)
 	
-	var sorted_group_names = []
-	for gd in group_data:
-		sorted_group_names.append(gd["group_name"])
+	var sorted_row_names = []
+	for gd in row_data:
+		sorted_row_names.append(gd["row_name"])
 	
-	return sorted_group_names
+	return sorted_row_names
 
-# A group is made up of 5 items (a row).
-# This will select or deselect a group
-func _toggle_group_selection(group_name: String, select: bool):
-	# Avoid processing the same group if it's already in the desired state
-	if select and group_name in selectedItems or not select and not group_name in selectedItems:
+# A row is made up of 5 items (a row).
+# This will select or deselect a row
+func _toggle_row_selection(row_name: String, select: bool):
+	# Avoid processing the same row if it's already in the desired state
+	if select and row_name in selectedItems or not select and not row_name in selectedItems:
 		return
 
-	print_debug("Toggle Group: ", group_name, ", Select: ", select)
-	if inventory_groups.has(group_name):
-		var group_info = inventory_groups[group_name]
-		for control in group_info["controls"]:
+	print_debug("Toggle Group: ", row_name, ", Select: ", select)
+	if inventory_rows.has(row_name):
+		var row_info = inventory_rows[row_name]
+		for control in row_info["controls"]:
 			if is_instance_valid(control):
 				if select:
 					control.select_item()
 				else:
 					control.unselect_item()
 		if select:
-			selectedItems.append(group_name)
+			selectedItems.append(row_name)
 		else:
-			selectedItems.erase(group_name)
+			selectedItems.erase(row_name)
 
-# If any of the controls is un-selected, the group is not selected
-# Otherwise the group is selected
-func _is_group_selected(group_name: String) -> bool:
-	if inventory_groups.has(group_name):
-		for control in inventory_groups[group_name]["controls"]:
+# If any of the controls is un-selected, the row is not selected
+# Otherwise the row is selected
+func _is_row_selected(row_name: String) -> bool:
+	if inventory_rows.has(row_name):
+		for control in inventory_rows[row_name]["controls"]:
 			if is_instance_valid(control) and not control.is_item_selected():
 				return false
 		return true
@@ -461,9 +460,9 @@ func _get_inventory_from_control(control: Control) -> InventoryStacked:
 # Function to get selected inventory items
 func get_selected_inventory_items() -> Array[InventoryItem]:
 	var items: Array[InventoryItem] = []
-	for group_name in selectedItems:
-		if inventory_groups.has(group_name):
-			items.append(inventory_groups[group_name]["item"])
+	for row_name in selectedItems:
+		if inventory_rows.has(row_name):
+			items.append(inventory_rows[row_name]["item"])
 	return items
 
 # Function to get selected inventory items
@@ -485,12 +484,12 @@ func set_inventory(new_inventory: InventoryStacked):
 
 func _deselect_and_clear_current_inventory():
 	# Deselect all items
-	for group_name in selectedItems:
-		_toggle_group_selection(group_name, false)
+	for row_name in selectedItems:
+		_toggle_row_selection(row_name, false)
 	selectedItems.clear()
 
-	# Clear the groups
-	inventory_groups.clear()
+	# Clear the rows
+	inventory_rows.clear()
 
 	# Clear the grid children
 	_clear_grid_children()
@@ -506,9 +505,9 @@ func _deselect_and_clear_current_inventory():
 
 # Helper function to deselect all items
 func _deselect_all_items():
-	for group_name in selectedItems:
-		if inventory_groups.has(group_name):
-			for control in inventory_groups[group_name]["controls"]:
+	for row_name in selectedItems:
+		if inventory_rows.has(row_name):
+			for control in inventory_rows[row_name]["controls"]:
 				if is_instance_valid(control):
 					control.unselect_item()
 	selectedItems.clear()
