@@ -37,10 +37,8 @@ var header_controls: Dictionary = {}
 var selected_header: String = ""
 var header_sort_order: Dictionary = {}
 
-# Variables to keep track of the drag operation
-var item_being_dragged: InventoryItem = null
-var drag_start_mouse_position: Vector2 = Vector2()
 
+var mouse_press_position: Vector2 = Vector2()
 
 
 # Signals for context menu actions
@@ -492,18 +490,27 @@ func _deselect_all_items():
 
 
 
-# When a cell in the grid is interacted with. It will send itself as a parameter
+
 func _on_grid_cell_gui_input(event, gridCell: Control):
 	if event is InputEventMouseButton:
 		if event.pressed:  # Check if the mouse button was pressed down
+			mouse_press_position = event.position  # Store the position of mouse press
 			match event.button_index:
 				MOUSE_BUTTON_LEFT:
-					# Handle left mouse button click
-					_on_item_clicked(gridCell)
+					print_debug("Mouse button was pressed")
+					# Do not handle click here, wait for release
 				MOUSE_BUTTON_RIGHT:
 					# Handle right mouse button click
 					_on_item_right_clicked(gridCell)
-					
+		else:  # Mouse button released
+			var mouse_release_position = event.position
+			# Check if the mouse was released within a 10 pixel area
+			if mouse_press_position.distance_to(mouse_release_position) <= 10:
+				match event.button_index:
+					MOUSE_BUTTON_LEFT:
+						# Now handle left mouse button click
+						_on_item_clicked(gridCell)
+
 
 # Function to initiate drag data for selected items
 func _get_drag_data(newpos):
