@@ -491,6 +491,7 @@ func _deselect_all_items():
 			_toggle_row_selection(row_name, false)
 
 
+
 # When a cell in the grid is interacted with. It will send itself as a parameter
 func _on_grid_cell_gui_input(event, gridCell: Control):
 	if event is InputEventMouseButton:
@@ -502,3 +503,50 @@ func _on_grid_cell_gui_input(event, gridCell: Control):
 				MOUSE_BUTTON_RIGHT:
 					# Handle right mouse button click
 					_on_item_right_clicked(gridCell)
+					
+
+# Function to initiate drag data for selected items
+func _get_drag_data(newpos):
+	var selected_items: Array[InventoryItem] = get_selected_inventory_items()
+	if selected_items.size() == 0:
+		return null
+	
+	var preview = _create_drag_preview(selected_items[0])
+	set_drag_preview(preview)
+	return selected_items
+
+# This function should return true if the dragged data can be dropped here
+func _can_drop_data(_newpos, data) -> bool:
+	return data is Array[InventoryItem]
+
+
+# This function handles the data being dropped
+func _drop_data(newpos, data):
+	if _can_drop_data(newpos, data):
+		_handle_item_drop(data, newpos)
+
+# Helper function to create a preview Control for dragging
+func _create_drag_preview(item: InventoryItem) -> Control:
+	var preview = TextureRect.new()
+	preview.texture = item.get_texture()
+	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
+	return preview
+# ... [Other code parts remain unchanged] ...
+
+# Modified _handle_item_drop function
+func _handle_item_drop(dropped_data, newpos):
+	# Check if the dropped data is valid and contains inventory items
+	if dropped_data is Array and dropped_data.size() > 0 and dropped_data[0] is InventoryItem:
+		var first_item = dropped_data[0]
+		
+		# Get the inventory of the first item
+		var item_inventory = first_item.get_inventory()
+		
+		# If the item's inventory is different from the current inventory, transfer the items
+		if item_inventory != myInventory:
+			for item in dropped_data:
+				# Transfer the item to the current inventory
+				item_inventory.transfer_automerge(item, myInventory)
+				print_debug("Transferred item from different inventory to current inventory.")
+		else:
+			print_debug("Dropped item belongs to the current inventory, no action taken.")
