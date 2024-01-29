@@ -37,8 +37,10 @@ var header_controls: Dictionary = {}
 var selected_header: String = ""
 var header_sort_order: Dictionary = {}
 
-
+# Variables to help with mouse input on the items
 var mouse_press_position: Vector2 = Vector2()
+var selection_state_changed: bool = false
+
 
 
 # Signals for context menu actions
@@ -166,6 +168,7 @@ func _on_item_right_clicked(clickedItem: Control):
 # So clicking one item will select the whole row
 func _on_item_clicked(clickedItem: Control):
 	var row_name = _get_row_name(clickedItem)
+	var was_selected = _is_row_selected(row_name)
 
 	if Input.is_key_pressed(KEY_CTRL):
 		# CTRL is held: check if current row is selected and if there are other rows selected
@@ -189,7 +192,8 @@ func _on_item_clicked(clickedItem: Control):
 
 	# Update last selected item
 	last_selected_item = clickedItem
-
+	# Update the variable based on whether the selection state changed
+	selection_state_changed = was_selected != _is_row_selected(row_name)
 
 
 # Select a range of items. This is called when the user
@@ -497,8 +501,15 @@ func _on_grid_cell_gui_input(event, gridCell: Control):
 			mouse_press_position = event.position  # Store the position of mouse press
 			match event.button_index:
 				MOUSE_BUTTON_LEFT:
-					print_debug("Mouse button was pressed")
-					# Do not handle click here, wait for release
+					# Do not handle click here if items are selected, wait for release
+					if get_selected_inventory_items().size() == 0:
+						# One item selected, handle the click immediately
+						_on_item_clicked(gridCell)
+					elif get_selected_inventory_items().size() == 1:
+						# Only one item is selected. Is it the currently clicked one?
+						if !_is_row_selected(_get_row_name(gridCell)):
+							# The currently clicked item is not the one that was selected
+							_on_item_clicked(gridCell)
 				MOUSE_BUTTON_RIGHT:
 					# Handle right mouse button click
 					_on_item_right_clicked(gridCell)
@@ -508,8 +519,11 @@ func _on_grid_cell_gui_input(event, gridCell: Control):
 			if mouse_press_position.distance_to(mouse_release_position) <= 10:
 				match event.button_index:
 					MOUSE_BUTTON_LEFT:
-						# Now handle left mouse button click
-						_on_item_clicked(gridCell)
+						# Only handle the click if the selection state did not change
+						if not selection_state_changed:
+							_on_item_clicked(gridCell)
+						# Reset the flag
+						selection_state_changed = false
 
 
 # Function to initiate drag data for selected items
