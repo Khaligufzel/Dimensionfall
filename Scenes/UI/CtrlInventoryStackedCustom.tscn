@@ -81,4 +81,5 @@ item_3/id = 3
 item_4/text = "Disassemble"
 item_4/id = 4
 
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="id_pressed" from="ContextMenu" to="." method="_on_context_menu_item_selected"]

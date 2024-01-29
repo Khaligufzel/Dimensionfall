@@ -37,6 +37,11 @@ var header_controls: Dictionary = {}
 var selected_header: String = ""
 var header_sort_order: Dictionary = {}
 
+# Variables to keep track of the drag operation
+var item_being_dragged: InventoryItem = null
+var drag_start_mouse_position: Vector2 = Vector2()
+
+
 
 # Signals for context menu actions
 signal equip_left(items)
@@ -50,6 +55,7 @@ func _ready():
 	_populate_inventory_list()
 	_update_bars(null, "")
 	_connect_inventory_signals()
+	set_process_input(true)  # Make sure input processing is enabled for drag drop
 
 
 # Function to show context menu at specified position
@@ -235,8 +241,9 @@ func _create_ui_element(property: String, item: InventoryItem, row_name: String)
 	# The name will be something like weight_Node_211748 or icon_Node_211748
 	# Now we can use the name to get information about the property
 	element.name = property + "_" + str(item.get_name())
-	element.connect("item_clicked", _on_item_clicked)
-	element.connect("item_right_clicked", _on_item_right_clicked)
+	# Connect the gui_input signal to the _on_grid_cell_gui_input function
+	element.gui_input.connect(_on_grid_cell_gui_input.bind(element))
+	
 	# We use rows to keep track of the items
 	element.add_to_group(row_name)
 	return element
@@ -482,3 +489,16 @@ func _deselect_all_items():
 	for row_name in inventory_rows.keys():
 		if inventory_rows.has(row_name):
 			_toggle_row_selection(row_name, false)
+
+
+# When a cell in the grid is interacted with. It will send itself as a parameter
+func _on_grid_cell_gui_input(event, gridCell: Control):
+	if event is InputEventMouseButton:
+		if event.pressed:  # Check if the mouse button was pressed down
+			match event.button_index:
+				MOUSE_BUTTON_LEFT:
+					# Handle left mouse button click
+					_on_item_clicked(gridCell)
+				MOUSE_BUTTON_RIGHT:
+					# Handle right mouse button click
+					_on_item_right_clicked(gridCell)

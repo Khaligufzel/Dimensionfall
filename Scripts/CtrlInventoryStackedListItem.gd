@@ -69,18 +69,3 @@ func set_icon(texture: Texture):
 func get_icon() -> Texture:
 	return myIcon.texture
 
-
-func _on_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.pressed:  # Check if the mouse button was pressed down
-			match event.button_index:
-				MOUSE_BUTTON_LEFT:
-					# Handle left mouse button click
-					if is_selected:
-						unselect_item()
-					else:
-						select_item()
-					item_clicked.emit(self)
-				MOUSE_BUTTON_RIGHT:
-					# Handle right mouse button click
-					item_right_clicked.emit(self)  # Emit a new signal for right-click
