@@ -1,23 +1,16 @@
 extends Control
 
 # This script is intended to be used with CtrlInventoryStackedCustom
-# It will display inventory items with their properties in a ItemList displayed as a grid
-# The first row in the grid will be the header
-# Below the header will be a list it inventory items
-# The first column will have the item's icon
-# The second column will have the item's name
-# The third column will have the item's weight
-# The fourth column will have the item's volume
-# The fifth column will show if an item is favorited
+# It displays inventory items with their properties in a ItemList displayed as a grid
+# The first row in the grid is the header
+# Below the header is a list it inventory items
+# The first column has the item's icon
+# The second column has the item's name
+# The third column has the item's stack size (amount)
+# The fourth column has the item's weight
+# The fifth column has the item's volume
+# The sixth column shows if an item is favorited
 # Clicking on a header column will sort the grid's items by that column
-# There will be variables and functions to keep track of the inventory's weight and volume capacity
-# There will be functions to update the weightbar and volumebar when the weight and volume changes
-# There will be signals for when items get added and removed and when the list is sorted and cleared
-# There will be functions to update the list and to populate the list
-# There will be signals for when the inventory reaches capacity and when it is empty
-# When the mouse hovers over an item, it will be highlighted
-# The user will be able to select items. Selected items will be highlighted also, but in a different color
-# There will be signals for when an item is selected and when multiple items are selected
 # The user will be able to drag the cursor over items while pressing the left mouse button, this will allow the user to select multiple items
 # Items can be dragged from the list to other controls in the interface
 # The user will be able to favorite an item in the list by selecting it and pressing F.
@@ -37,20 +30,12 @@ extends Control
 var last_selected_item: Control = null
 var row_controls: Dictionary = {}
 var inventory_rows: Dictionary = {}
-var last_hovered_item: Node = null
 
 
 # Dictionary to store header controls
 var header_controls: Dictionary = {}
 var selected_header: String = ""
 var header_sort_order: Dictionary = {}
-
-signal item_selected(item)
-signal items_selected(items)
-signal inventory_sorted(column)
-signal inventory_updated
-signal inventory_reached_capacity
-signal inventory_empty
 
 
 # Signals for context menu actions
@@ -319,19 +304,6 @@ func _update_bars(changedItem: InventoryItem, action: String):
 	VolumeBar.value = total_volume
 	VolumeBar.max_value = max_volume
 
-	_check_inventory_capacity()
-
-
-func _check_inventory_capacity():
-	var is_full = WeightBar.value >= WeightBar.max_value or VolumeBar.value >= VolumeBar.max_value
-	var is_empty = myInventory.get_child_count() == 0
-	emit_signal("inventory_updated")
-	if is_full:
-		emit_signal("inventory_reached_capacity")
-	if is_empty:
-		emit_signal("inventory_empty")
-
-
 func _sort_items(a, b):
 	var value_a = a["sort_value"]
 	var value_b = b["sort_value"]
@@ -435,16 +407,16 @@ func _toggle_row_selection(row_name: String, select: bool):
 		var row_info = inventory_rows[row_name]
 		row_info["is_selected"] = select  # Update the is_selected property
 		for control in row_info["controls"]:
-			if is_instance_valid(control):
-				if select:
-					control.select_item()
-				else:
-					control.unselect_item()
+			if select:
+				control.select_item()
+			else:
+				control.unselect_item()
 
 
 # Returns if the row is selected
 func _is_row_selected(row_name: String) -> bool:
 	return inventory_rows.has(row_name) and inventory_rows[row_name]["is_selected"]
+
 
 # Transfer an item to another inventory associated with a Control node
 func transfer(item: InventoryItem, destinationControl: Control) -> bool:
@@ -504,7 +476,6 @@ func _deselect_and_clear_current_inventory():
 
 	# Reset other variables if needed
 	last_selected_item = null
-	last_hovered_item = null
 
 
 func _deselect_all_items():
