@@ -52,8 +52,17 @@ var current_ammo: int = 0
 var max_ammo: int = 0
 var default_firing_speed: float = 0.25
 var default_reload_speed: float = 1.0
+
+# Variables for recoil
 var default_recoil: float = 0.1
-var recoil: float = default_recoil  # Current recoil value
+# Tracks the current level of recoil applied to the weapon.
+var recoil_modifier: float = 0.0
+# The maximum recoil value, derived from the Ranged.recoil property of the weapon.
+var max_recoil: float = 0.0
+# The amount by which recoil increases per shot, calculated to reach max_recoil after 25% of the max ammo is fired.
+var recoil_increment: float = 0.0
+# The amount by which recoil decreases per frame when the mouse button is not pressed.
+var recoil_decrement: float = 0.0
 
 # Additional variables to track if buttons are held down
 var is_left_button_held: bool = false
@@ -118,7 +127,8 @@ func fire_weapon():
 	var spawn_position = global_transform.origin + Vector3(0.0, -0.1, 0.0)
 	var cursor_position = get_cursor_world_position()
 	var direction = (cursor_position - spawn_position).normalized()
-	direction = apply_recoil(direction, recoil) # Apply recoil effect
+	recoil_modifier = min(recoil_modifier + recoil_increment, max_recoil)
+	direction = apply_recoil(direction, recoil_modifier) # Apply recoil effect
 	direction.y = 0 # Ensure the bullet moves parallel to the ground.
 
 	projectiles.add_child(bullet_instance) # Add bullet to the scene tree.
@@ -135,7 +145,7 @@ func on_reload_timer_stopped():
 
 # Function to apply recoil effect to the bullet direction
 func apply_recoil(direction: Vector3, recoil_value: float) -> Vector3:
-	var random_offset = Vector3(randf() - 0.5, 0, randf() - 0.5) * recoil_value/100
+	var random_offset = Vector3(randf() - 0.5, 0, randf() - 0.5) * recoil_value / 100
 	return (direction + random_offset).normalized()
 
 
@@ -157,7 +167,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	# Check if the left-hand weapon is reloading.
 	if not can_reload and reload_timer.time_left <= reload_audio_player.stream.get_length() and not reload_audio_player.playing:
 		reload_audio_player.play()  # Play reload sound for left-hand weapon.
@@ -169,6 +179,11 @@ func _process(_delta):
 	# The right mouse button is held, a weapon is in the right hand, and is ready to fire
 	if is_right_button_held and !equipped_left and can_fire_weapon():
 		fire_weapon()
+		
+	# Decrease recoil when the mouse button is not pressed
+	if not is_left_button_held and not is_right_button_held:
+		recoil_modifier = max(recoil_modifier - recoil_decrement * delta, 0.0)
+
 
 
 func _on_reload_timer_timeout():
@@ -192,21 +207,25 @@ func equip_item(equippedItem: InventoryItem):
 		heldItem = weaponData
 		
 		# Read firing speed and set cooldown timer duration
-		var firing_speed = heldItem.Ranged.firing_speed if "firing_speed" in heldItem.Ranged else default_firing_speed
-		attack_cooldown_timer.wait_time = float(firing_speed)
+		var firing_speed = float(heldItem.Ranged.firing_speed) if "firing_speed" in heldItem.Ranged else default_firing_speed
+		attack_cooldown_timer.wait_time = firing_speed
 		
 		# Reload speed setup
 		var reload_speed = heldItem.Ranged.reload_speed if "reload_speed" in heldItem.Ranged else default_reload_speed
 		reload_timer.wait_time = float(reload_speed)
-		
-		# Read recoil and set it
-		recoil = float(weaponData.Ranged.recoil) if "recoil" in weaponData.Ranged else default_recoil
 		
 		magazine = Gamedata.get_data_by_id(Gamedata.data.items, newMagazineID)
 		ammo = Gamedata.get_data_by_id(Gamedata.data.items, newAmmoID)
 		max_ammo = int(magazine.Magazine["max_ammo"])
 		current_ammo = max_ammo
 		ammo_changed.emit(current_ammo, max_ammo, equipped_left)
+		
+		# Read recoil and set it
+		max_recoil = float(weaponData.Ranged.recoil) if "recoil" in weaponData.Ranged else default_recoil
+		recoil_modifier = 0.0
+		recoil_increment = max_recoil / (max_ammo * 0.25)  # 25% of max ammo
+		recoil_decrement = 4 * recoil_increment
+		
 		visible = true
 	else:
 		# Reset weapon, magazine, and ammo if the equipped item is not a weapon.
