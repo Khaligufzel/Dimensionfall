@@ -7,40 +7,46 @@ extends Sprite3D
 # For ranged weapons it has functions and properties to keep track of ammunition and reloading
 # It has functions to spawn projectiles
 
-
-
 signal ammo_changed(current_ammo: int, max_ammo: int, lefthand:bool)
 signal fired_weapon(equippedWeapon)
 
+# Reference to the node that will hold existing projectiles
 @export var projectiles: Node3D
+
+# Variables to set the bullet speed and damage
 @export var bullet_speed: float
 @export var bullet_damage: float
-#@export var cooldown = 0.25
+
+# Reference to the scene that will be instantiated for a bullet
 @export var bullet_scene: PackedScene
+
+# A timer that will prevent the user from reloading while a reload is happening now
 @export var reload_timer: Timer
+# Will keep a weapon from firing when it's cooldown period has not passed yet
 @export var attack_cooldown_timer: Timer
 
+# Reference to the player node
 @export var player: NodePath
+# Reference to the hud node
 @export var hud: NodePath
+# True of this is the left hand. False if this is the right hand
 @export var equipped_left: bool
 
+# Reference to the audio nodes
 @export var shoot_audio_player : AudioStreamPlayer3D
 @export var shoot_audio_randomizer : AudioStreamRandomizer
-
 @export var reload_audio_player : AudioStreamPlayer3D
-#@export var reload_audio_randomizer : AudioStreamRandomizer
-
-var damage = 25
-var muzzle_offset: Vector3 = Vector3(5, -0.2, 5)
-
 
 # Define properties for the item. It can be a weapon (melee or ranged) or some other item
 var heldItem: Dictionary
 var magazine
 var ammo
+
+# Booleans to enforce the reload and cooldown timers
 var can_reload: bool
 var in_cooldown: bool
 
+# The current and max ammo
 var current_ammo : int
 var max_ammo : int
 
@@ -77,6 +83,7 @@ func get_cursor_world_position() -> Vector3:
 	else:
 		return to
 
+
 # New function to handle firing logic for a weapon.
 func fire_weapon():
 	if not heldItem or current_ammo <= 0 or !can_reload or in_cooldown:
@@ -95,7 +102,6 @@ func fire_weapon():
 	var cursor_position = get_cursor_world_position()
 	var direction = (cursor_position - spawn_position).normalized()
 	direction.y = 0 # Ensure the bullet moves parallel to the ground.
-	
 
 	projectiles.add_child(bullet_instance) # Add bullet to the scene tree.
 	bullet_instance.global_transform.origin = spawn_position
@@ -108,6 +114,7 @@ func fire_weapon():
 func on_reload_timer_stopped():
 	can_reload = true
 
+
 # Called when the left weapon is reloaded
 # Since only one reload action can run at a time, 
 # We check that the right reload timer is stopped
@@ -116,11 +123,14 @@ func reload_weapon():
 		can_reload = false
 		current_ammo = max_ammo
 		reload_timer.start()  # Start the left reload timer
-		get_node(hud).start_progress_bar(reload_timer.time_left)  # Start HUD progress bar for left-hand weapon
+		# Start HUD progress bar for left-hand weapon
+		get_node(hud).start_progress_bar(reload_timer.time_left)  
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	clear_held_item()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -128,12 +138,13 @@ func _process(_delta):
 	if not can_reload and reload_timer.time_left <= reload_audio_player.stream.get_length() and not reload_audio_player.playing:
 		reload_audio_player.play()  # Play reload sound for left-hand weapon.
 
+
 func _on_reload_timer_timeout():
 	if heldItem and not can_reload:
-		print_debug("reloading weapon done. equipped_left = " + str(equipped_left))
 		can_reload = true
 		current_ammo = max_ammo
 		ammo_changed.emit(current_ammo, max_ammo, equipped_left)
+
 
 # The player has equipped an item in one of the equipmentslots
 # equippedItem is an InventoryItem
@@ -156,6 +167,7 @@ func equip_item(equippedItem: InventoryItem):
 		# Reset weapon, magazine, and ammo if the equipped item is not a weapon.
 		clear_held_item()
 
+
 # Function to clear weapon properties for a specified hand
 func clear_held_item():
 	visible = false
@@ -167,7 +179,6 @@ func clear_held_item():
 	in_cooldown = false
 	can_reload = true
 	ammo_changed.emit(-1, -1, equipped_left)  # Emit signal to indicate no weapon is equipped
-
 
 
 func _on_left_attack_cooldown_timeout():
@@ -190,6 +201,7 @@ func _on_hud_item_was_equipped(equippedItem, slotName):
 		equip_item(equippedItem)
 	elif slotName == "RightHand" and !equipped_left:
 		equip_item(equippedItem)
+
 
 func can_weapon_reload() -> bool:
 	return heldItem and current_ammo < max_ammo and can_reload

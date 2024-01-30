@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
 [ext_resource type="PackedScene" uid="uid://crck2fhgayxhn" path="res://Scenes/InventoryContainerListItem.tscn" id="2_xfgb3"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="3_l8xgt"]
-[ext_resource type="Resource" uid="uid://cr7u5aveonr7t" path="res://ItemProtosets.tres" id="3_sqsc0"]
+[ext_resource type="Resource" uid="uid://3jcimsp05x5c" path="res://ItemProtosets.tres" id="3_sqsc0"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_item.gd" id="5_qidb6"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="6_xpf2l"]
 [ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="8_f75fl"]
@@ -128,6 +128,7 @@ text = "inventory:"
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 myInventory = NodePath("../../../InventoryStacked")
+max_weight = 100
 
 [node name="EquipmentSlotList" type="VBoxContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(64, 0)
@@ -215,5 +216,7 @@ autowrap_mode = 3
 [connection signal="button_up" from="HBoxContainer/HBoxContainer/TransferLeftButton" to="." method="_on_transfer_left_button_button_up"]
 [connection signal="equip_left" from="HBoxContainer/VBoxContainer2/CtrlInventoryStackedCustom" to="." method="_on_ctrl_inventory_stacked_custom_equip_left"]
 [connection signal="equip_right" from="HBoxContainer/VBoxContainer2/CtrlInventoryStackedCustom" to="." method="_on_ctrl_inventory_stacked_custom_equip_right"]
+[connection signal="item_equipped" from="HBoxContainer/EquipmentSlotList/LeftHandEquipment/LeftHandEquipmentSlot" to="." method="_on_left_hand_equipment_slot_item_equipped"]
 [connection signal="item_unequipped" from="HBoxContainer/EquipmentSlotList/LeftHandEquipment/LeftHandEquipmentSlot" to="." method="_on_left_hand_equipment_slot_cleared"]
+[connection signal="item_equipped" from="HBoxContainer/EquipmentSlotList/RightHandEquipment/RightHandEquipmentSlot" to="." method="_on_right_hand_equipment_slot_item_equipped"]
 [connection signal="item_unequipped" from="HBoxContainer/EquipmentSlotList/RightHandEquipment/RightHandEquipmentSlot" to="." method="_on_right_hand_equipment_slot_cleared"]

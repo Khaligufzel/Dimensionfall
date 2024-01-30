@@ -9,10 +9,10 @@ func _ready():
 	
 func create_random_loot():
 	if get_node(inventory).get_children() == []:
-		var item = get_node(inventory).create_and_add_item("plank_2x4")
-		item = get_node(inventory).create_and_add_item("bullet_9mm")
-		item = get_node(inventory).create_and_add_item("pistol_magazine")
-		item = get_node(inventory).create_and_add_item("steel_scrap")
+		var _item = get_node(inventory).create_and_add_item("plank_2x4")
+		_item = get_node(inventory).create_and_add_item("bullet_9mm")
+		_item = get_node(inventory).create_and_add_item("pistol_magazine")
+		_item = get_node(inventory).create_and_add_item("steel_scrap")
 
 
 func get_items():

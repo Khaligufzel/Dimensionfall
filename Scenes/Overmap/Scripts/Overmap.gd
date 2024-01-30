@@ -257,7 +257,7 @@ func _on_home_button_button_up():
 	var screen_center_offset = get_viewport_rect().size * 0.5
 
 	# Convert screen center offset to world coordinates based on the tile size
-	var halfTileSize = tile_size/12
+	var halfTileSize = tile_size/12.0
 	var world_center_offset = screen_center_offset / halfTileSize
 
 	# Calculate the new position as the negative of the world center offset

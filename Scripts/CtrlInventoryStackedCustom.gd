@@ -16,9 +16,13 @@ extends Control
 # The user will be able to favorite an item in the list by selecting it and pressing F.
 
 
+# The central grid to visualize the cells and columns
 @export var inventoryGrid: GridContainer
+# A visual element to show weight capacity
 @export var WeightBar: ProgressBar
+# A visual element to show volume capacity
 @export var VolumeBar: ProgressBar
+# The currently attached InventoryStacked that holds the items
 @export var myInventory: InventoryStacked
 @export var max_weight: int = 1000
 @export var max_volume: int = 1000
@@ -76,12 +80,23 @@ func _on_context_menu_item_selected(id):
 		4: emit_signal("disassemble_item", selected_inventory_items)
 
 
+func _disconnect_inventory_signals():
+	if myInventory.item_added.is_connected(_on_inventory_item_added):
+		myInventory.item_added.disconnect(_on_inventory_item_added)
+	if myInventory.item_removed.is_connected(_on_inventory_item_removed):
+		myInventory.item_removed.disconnect(_on_inventory_item_removed)
+	if myInventory.item_modified.is_connected(_on_inventory_item_modified):
+		myInventory.item_modified.disconnect(_on_inventory_item_modified)
+	if myInventory.contents_changed.is_connected(_on_inventory_contents_changed):
+		myInventory.contents_changed.disconnect(_on_inventory_contents_changed)
+
+
 func _connect_inventory_signals():
 	# Connect signals from InventoryStacked to this control script
-	myInventory.connect("item_added", _on_inventory_item_added)
-	myInventory.connect("item_removed", _on_inventory_item_removed)
-	myInventory.connect("item_modified", _on_inventory_item_modified)
-	myInventory.connect("contents_changed", _on_inventory_contents_changed)
+	myInventory.item_added.connect(_on_inventory_item_added)
+	myInventory.item_removed.connect(_on_inventory_item_removed)
+	myInventory.item_modified.connect(_on_inventory_item_modified)
+	myInventory.contents_changed.connect(_on_inventory_contents_changed)
 
 
 func _on_inventory_item_added(item: InventoryItem):
@@ -114,14 +129,13 @@ func update_inventory_list(changedItem: InventoryItem, action: String):
 		if item and item == changedItem:
 			match action:
 				"added":
-					print_debug("item was added")
+					add_item = true
 				"removed":
-					print_debug("item was removed")
 					add_item = false
 				"modified":
-					print_debug("item was modified")
+					add_item = true
 				_, "contentschanged":
-					print_debug("contents was changed")
+					add_item = true
 		if add_item:
 			var row_name = "item_row_" + str(item.get_name())
 			_add_item_to_grid(item, row_name)
@@ -155,7 +169,8 @@ func _add_header_row_to_grid():
 	_create_header("W") # Weight
 	_create_header("V") # Volume
 	_create_header("F") # Favorite
-	
+
+
 func _on_item_right_clicked(clickedItem: Control):
 	show_context_menu(clickedItem.global_position)
 
@@ -266,17 +281,20 @@ func _add_item_to_grid(item: InventoryItem, row_name: String):
 	# Connect signals for all elements in the row to each other for highlighting
 	_connect_row_signals(row_name)
 
+
 # Connect the mouse_entered and mouse_exited signals of all controls in a row
 func _connect_row_signals(row_name: String):
 	for control in inventory_rows[row_name]["controls"]:
 		control.mouse_entered.connect(_on_row_mouse_entered.bind(row_name))
 		control.mouse_exited.connect(_on_row_mouse_exited.bind(row_name))
 
+
 # Highlight all controls in the row when the mouse enters any control
 func _on_row_mouse_entered(row_name: String):
 	if inventory_rows.has(row_name):
 		for control in inventory_rows[row_name]["controls"]:
 			control.highlight()
+
 
 # Unhighlight all controls in the row when the mouse exits any control
 func _on_row_mouse_exited(row_name: String):
@@ -312,6 +330,7 @@ func _update_bars(changedItem: InventoryItem, action: String):
 	WeightBar.max_value = max_weight
 	VolumeBar.value = total_volume
 	VolumeBar.max_value = max_volume
+
 
 func _sort_items(a, b):
 	var value_a = a["sort_value"]
@@ -354,7 +373,6 @@ func _clear_grid_children():
 func _sort_rows(a, b):
 	var value_a = a["sort_value"]
 	var value_b = b["sort_value"]
-	print("Comparing: ", value_a, " with ", value_b)  # Debugging line
 	if typeof(value_a) == TYPE_STRING:
 		return value_a.nocasecmp_to(value_b) < 0
 	else:
@@ -371,7 +389,7 @@ func _get_representative_value_for_row(row_name: String, property_name: String):
 			if property_value != null:
 				return property_value
 	# Return default value
-	return "" if property_name in ["name", "favorite"] else 0
+	return "" if property_name in ["name", "favorite"] else "0"
 
 
 # Will sort the order of the items baased on the selected column (property_name)
@@ -381,7 +399,6 @@ func _sort_inventory_by_property(property_name: String, reverse_order: bool = fa
 		sorted_rows.reverse()  # Reverse the order of the sorted rows
 	for row_name in sorted_rows:
 		_move_row_to_end(row_name)
-	emit_signal("inventory_sorted", property_name)
 
 
 func _move_row_to_end(row_name: String):
@@ -409,7 +426,7 @@ func _get_sorted_rows(property_name: String) -> Array:
 	return sorted_row_names
 
 
-# A row is made up of 5 items (a row).
+# A row is made up of 6 items (a row).
 # This will select or deselect a row, depending on the value of the select parameter
 func _toggle_row_selection(row_name: String, select: bool):
 	if inventory_rows.has(row_name):
@@ -458,11 +475,12 @@ func get_selected_inventory_items() -> Array[InventoryItem]:
 func get_inventory() -> InventoryStacked:
 	return myInventory
 
-
+# Called when this inventory list is connected to a new inventory
+# For example, when the user selects a container from a list in the UI
 func set_inventory(new_inventory: InventoryStacked):
 	# Step 1: Deselect and clear the current inventory display
 	_deselect_and_clear_current_inventory()
-
+	_disconnect_inventory_signals()
 	# Step 2: Set the myInventory property to the new inventory
 	myInventory = new_inventory
 
@@ -470,6 +488,7 @@ func set_inventory(new_inventory: InventoryStacked):
 	_populate_inventory_list()
 	_update_bars(null, "")
 	_connect_inventory_signals()
+
 
 func _deselect_and_clear_current_inventory():
 	# Deselect all items
@@ -491,8 +510,6 @@ func _deselect_all_items():
 	for row_name in inventory_rows.keys():
 		if inventory_rows.has(row_name):
 			_toggle_row_selection(row_name, false)
-
-
 
 
 func _on_grid_cell_gui_input(event, gridCell: Control):
@@ -527,7 +544,7 @@ func _on_grid_cell_gui_input(event, gridCell: Control):
 
 
 # Function to initiate drag data for selected items
-func _get_drag_data(newpos):
+func _get_drag_data(_newpos):
 	var selected_items: Array[InventoryItem] = get_selected_inventory_items()
 	if selected_items.size() == 0:
 		return null
@@ -535,6 +552,7 @@ func _get_drag_data(newpos):
 	var preview = _create_drag_preview(selected_items[0])
 	set_drag_preview(preview)
 	return selected_items
+
 
 # This function should return true if the dragged data can be dropped here
 func _can_drop_data(_newpos, data) -> bool:
@@ -546,16 +564,17 @@ func _drop_data(newpos, data):
 	if _can_drop_data(newpos, data):
 		_handle_item_drop(data, newpos)
 
+
 # Helper function to create a preview Control for dragging
 func _create_drag_preview(item: InventoryItem) -> Control:
 	var preview = TextureRect.new()
 	preview.texture = item.get_texture()
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
 	return preview
-# ... [Other code parts remain unchanged] ...
+
 
 # Modified _handle_item_drop function
-func _handle_item_drop(dropped_data, newpos):
+func _handle_item_drop(dropped_data, _newpos):
 	# Check if the dropped data is valid and contains inventory items
 	if dropped_data is Array and dropped_data.size() > 0 and dropped_data[0] is InventoryItem:
 		var first_item = dropped_data[0]
@@ -568,6 +587,3 @@ func _handle_item_drop(dropped_data, newpos):
 			for item in dropped_data:
 				# Transfer the item to the current inventory
 				item_inventory.transfer_automerge(item, myInventory)
-				print_debug("Transferred item from different inventory to current inventory.")
-		else:
-			print_debug("Dropped item belongs to the current inventory, no action taken.")
