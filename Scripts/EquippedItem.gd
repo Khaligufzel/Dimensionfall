@@ -51,6 +51,7 @@ var in_cooldown: bool = false
 var current_ammo: int = 0
 var max_ammo: int = 0
 var default_firing_speed = 0.25
+var default_reload_speed = 1.0
 
 # Additional variables to track if buttons are held down
 var is_left_button_held: bool = false
@@ -184,6 +185,11 @@ func equip_item(equippedItem: InventoryItem):
 		# Read firing speed and set cooldown timer duration
 		var firing_speed = heldItem.Ranged.firing_speed if "firing_speed" in heldItem.Ranged else default_firing_speed
 		attack_cooldown_timer.wait_time = float(firing_speed)
+		
+		# Reload speed setup
+		var reload_speed = heldItem.Ranged.reload_speed if "reload_speed" in heldItem.Ranged else default_reload_speed
+		reload_timer.wait_time = float(reload_speed)
+		
 		magazine = Gamedata.get_data_by_id(Gamedata.data.items, newMagazineID)
 		ammo = Gamedata.get_data_by_id(Gamedata.data.items, newAmmoID)
 		max_ammo = int(magazine.Magazine["max_ammo"])
@@ -233,7 +239,8 @@ func _on_hud_item_was_equipped(equippedItem, slotName):
 func can_weapon_reload() -> bool:
 	return heldItem and current_ammo < max_ammo and can_reload
 
-
-func _on_hud_inventory_visibility_changed(inventoryWindow):
+# When the inventory is opened or closed, stop firing
+# Optionally we can check inventoryWindow.visible to add more control
+func _on_hud_inventory_visibility_changed(_inventoryWindow):
 	is_left_button_held = false
 	is_right_button_held = false

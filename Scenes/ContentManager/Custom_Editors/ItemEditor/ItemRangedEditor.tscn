@@ -115,7 +115,7 @@ text = "Reload speed"
 
 [node name="ReloadSpeedNumber" type="SpinBox" parent="Ranged"]
 layout_mode = 2
-tooltip_text = "The maximum number of this item that will fit in a stack"
+tooltip_text = "The time it takes to reload. A smaller number means faster reload"
 min_value = 0.1
 step = 0.1
 value = 2.5

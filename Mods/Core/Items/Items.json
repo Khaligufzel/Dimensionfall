@@ -68,7 +68,7 @@
 			"firing_speed": "0.4",
 			"range": "1000",
 			"recoil": "20",
-			"reload_speed": "2.5",
+			"reload_speed": "1.5",
 			"spread": "5",
 			"sway": "5",
 			"used_ammo": "9mm",
