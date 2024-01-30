@@ -20,8 +20,8 @@ func set_lifetime(time: float):
 	queue_free()  # Destroy the projectile after the timer
 
 func _on_Projectile_body_entered(body):
-	if body.has_method("apply_damage"):
-		body.apply_damage(damage)
+	if body.has_method("get_hit"):
+		body.get_hit(damage)
 	queue_free()  # Destroy the projectile upon collision
 
 

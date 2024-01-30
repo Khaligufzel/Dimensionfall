@@ -7,10 +7,10 @@ extends StaticBody3D
 var id: String
 
 @export var corpse_scene: PackedScene
-var current_health: float = 10.0
+var current_health: float = 100.0
 
 	
-func _get_hit(damage):
+func get_hit(damage):
 	current_health -= damage
 	if current_health <= 0:
 		_die()
