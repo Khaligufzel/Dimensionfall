@@ -40,7 +40,6 @@ func get_hit(damage):
 #	tween.tween_property(get_node(sprite), "scale", get_node(sprite).scale * 1.35, 0.1)
 #	tween.tween_property(get_node(sprite), "scale", original_scale, 0.1)
 	current_health -= damage
-	print_debug("Mob got hid with damage " + str(damage) + ", health remaining: " + str(current_health))
 	if current_health <= 0:
 		_die()
 	

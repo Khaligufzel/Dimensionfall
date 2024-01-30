@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=30 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
@@ -9,10 +9,12 @@
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
+[ext_resource type="Texture2D" uid="uid://piolgplta87y" path="res://Defaults/Player/weapon_left.png" id="10_3jjqt"]
 [ext_resource type="Texture2D" uid="uid://db0xwhrm0sliq" path="res://Defaults/Player/player_300.png" id="10_ghgoh"]
+[ext_resource type="Texture2D" uid="uid://delyq5g2t13cx" path="res://Defaults/Player/weapon_right.png" id="11_4n80n"]
 [ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="11_6i2sa"]
 [ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://Defaults/Projectiles/DefaultBullet.tscn" id="12_8xasb"]
-[ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="12_dip38"]
+[ext_resource type="Script" path="res://Scripts/EquippedItem.gd" id="12_xwnuw"]
 [ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="13_fjasp"]
 [ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="14_x756n"]
 [ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="15_r1xed"]
@@ -44,12 +46,16 @@ size = Vector3(0.3, 1, 0.55)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_drnhn"]
 points = PackedVector3Array(0.15, 0.15, 0.275, -0.15, 0.15, 0.275, 0.15, -0.5, 0.275, 0.15, 0.15, -0.275, -0.15, 0.15, -0.275, -0.15, -0.5, 0.275, 0.15, -0.5, -0.275, -0.15, -0.5, -0.275)
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_136pt"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jdgh6"]
 playback_mode = 1
 random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("13_fjasp")
 stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n8kat"]
+playback_mode = 1
+random_pitch = 1.2
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_caadj"]
 height = 1.0
@@ -103,7 +109,7 @@ collision_mask = 3
 floor_constant_speed = true
 floor_max_angle = 0.872665
 script = ExtResource("8_gposs")
-sprite = NodePath("Sprite3D")
+sprite = NodePath("Sprite3D2")
 
 [node name="Camera3D" type="Camera3D" parent="TacticalMap/Entities/Player" groups=["Camera"]]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 18.9245, -0.0113735)
@@ -138,40 +144,61 @@ spot_attenuation = 0.00961836
 spot_angle = 83.32
 spot_angle_attenuation = 0.183011
 
-[node name="Sprite3D" type="Sprite3D" parent="TacticalMap/Entities/Player"]
+[node name="Sprite3D2" type="Sprite3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
 pixel_size = 0.002
 texture = ExtResource("10_ghgoh")
 
-[node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("left_attack_cooldown", "right_attack_cooldown", "left_reload_timer", "right_reload_timer", "shoot_audio_player", "reload_audio_player")]
-script = ExtResource("11_6i2sa")
-projectiles = NodePath("../../Projectiles")
-bullet_speed = 20.0
+[node name="EquippedRight" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "reload_timer", "attack_cooldown_timer", "shoot_audio_player", "reload_audio_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.190849, -0.123334, 0)
+pixel_size = 0.002
+texture = ExtResource("10_3jjqt")
+script = ExtResource("12_xwnuw")
+projectiles = NodePath("../../../Projectiles")
+bullet_speed = 50.0
 bullet_damage = 25.0
 bullet_scene = ExtResource("12_8xasb")
-bullet_line_scene = ExtResource("12_dip38")
-left_attack_cooldown = NodePath("Left_attack_cooldown")
-right_attack_cooldown = NodePath("Right_attack_cooldown")
-left_reload_timer = NodePath("Left_reload_timer")
-right_reload_timer = NodePath("Right_reload_timer")
+reload_timer = NodePath("../../Shooting/Reload_timer")
+attack_cooldown_timer = NodePath("../../Shooting/Right_attack_cooldown")
+player = NodePath("../..")
+hud = NodePath("../../../../../HUD")
+shoot_audio_player = NodePath("../../Shooting/ShootAudio")
+shoot_audio_randomizer = SubResource("AudioStreamRandomizer_jdgh6")
+reload_audio_player = NodePath("../../Shooting/ReloadAudio")
+
+[node name="EquippedLeft" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "reload_timer", "attack_cooldown_timer", "shoot_audio_player", "reload_audio_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194626, 0.116675, 0)
+pixel_size = 0.002
+texture = ExtResource("11_4n80n")
+script = ExtResource("12_xwnuw")
+projectiles = NodePath("../../../Projectiles")
+bullet_speed = 50.0
+bullet_damage = 25.0
+bullet_scene = ExtResource("12_8xasb")
+reload_timer = NodePath("../../Shooting/Reload_timer")
+attack_cooldown_timer = NodePath("../../Shooting/Left_attack_cooldown")
+player = NodePath("../..")
+hud = NodePath("../../../../../HUD")
+equipped_left = true
+shoot_audio_player = NodePath("../../Shooting/ShootAudio")
+shoot_audio_randomizer = SubResource("AudioStreamRandomizer_n8kat")
+reload_audio_player = NodePath("../../Shooting/ReloadAudio")
+
+[node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("left_hand_item", "right_hand_item")]
+script = ExtResource("11_6i2sa")
+left_hand_item = NodePath("../Sprite3D2/EquippedLeft")
+right_hand_item = NodePath("../Sprite3D2/EquippedRight")
 player = NodePath("..")
 hud = NodePath("../../../../HUD")
-shoot_audio_player = NodePath("ShootAudio")
-shoot_audio_randomizer = SubResource("AudioStreamRandomizer_136pt")
-reload_audio_player = NodePath("ReloadAudio")
 
 [node name="Left_attack_cooldown" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
 one_shot = true
 
-[node name="Left_reload_timer" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
+[node name="Reload_timer" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
 wait_time = 5.0
 one_shot = true
 
 [node name="Right_attack_cooldown" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
-one_shot = true
-
-[node name="Right_reload_timer" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
-wait_time = 5.0
 one_shot = true
 
 [node name="ShootAudio" type="AudioStreamPlayer3D" parent="TacticalMap/Entities/Player/Shooting"]
@@ -206,13 +233,18 @@ transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 
 
 [connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
 [connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
-[connection signal="ammo_changed" from="TacticalMap/Entities/Player/Shooting" to="HUD" method="_on_shooting_ammo_changed"]
-[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Left_reload_timer" to="TacticalMap/Entities/Player/Shooting" method="_on_left_reload_time_timeout"]
-[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Right_reload_timer" to="TacticalMap/Entities/Player/Shooting" method="_on_right_reload_time_timeout"]
+[connection signal="ammo_changed" from="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" to="HUD" method="_on_shooting_ammo_changed"]
+[connection signal="ammo_changed" from="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" to="HUD" method="_on_shooting_ammo_changed"]
+[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Left_attack_cooldown" to="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" method="_on_left_attack_cooldown_timeout"]
+[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Reload_timer" to="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" method="_on_reload_timer_timeout"]
+[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Reload_timer" to="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" method="_on_reload_timer_timeout"]
+[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Right_attack_cooldown" to="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" method="_on_right_attack_cooldown_timeout"]
 [connection signal="add_to_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_add_to_proximity_inventory"]
 [connection signal="area_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_entered"]
 [connection signal="area_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_exited"]
 [connection signal="remove_from_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_remove_from_proximity_inventory"]
 [connection signal="construction_chosen" from="HUD" to="TacticalMap/BuildManager" method="_on_hud_construction_chosen"]
-[connection signal="item_equipment_slot_was_cleared" from="HUD" to="TacticalMap/Entities/Player/Shooting" method="_on_hud_item_equipment_slot_was_cleared"]
-[connection signal="item_was_equipped" from="HUD" to="TacticalMap/Entities/Player/Shooting" method="_on_hud_item_was_equipped"]
+[connection signal="item_equipment_slot_was_cleared" from="HUD" to="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" method="_on_hud_item_equipment_slot_was_cleared"]
+[connection signal="item_equipment_slot_was_cleared" from="HUD" to="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" method="_on_hud_item_equipment_slot_was_cleared"]
+[connection signal="item_was_equipped" from="HUD" to="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" method="_on_hud_item_was_equipped"]
+[connection signal="item_was_equipped" from="HUD" to="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" method="_on_hud_item_was_equipped"]

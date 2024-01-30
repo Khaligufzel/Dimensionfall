@@ -10,15 +10,14 @@ func _ready():
 
 func _process(_delta):
 	# Update the projectile's velocity each frame
-	set_linear_velocity(velocity)
-#
-#func set_direction_and_speed(direction: Vector3, speed: float):
-	#velocity = direction.normalized() * speed
-	
+	#set_linear_velocity(velocity)
+	pass
+
 func set_direction_and_speed(direction: Vector3, speed: float):
 	velocity = direction.normalized() * speed
 	# Rotate the bullet to match the direction
 	rotate_bullet_to_match_direction(direction)
+	set_linear_velocity(velocity)
 
 func rotate_bullet_to_match_direction(direction: Vector3):
 	# Ensure the direction vector is not zero
@@ -40,5 +39,5 @@ func _on_Projectile_body_entered(body):
 	queue_free()  # Destroy the projectile upon collision
 
 
-func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+func _on_body_shape_entered(_body_rid, _body, _body_shape_index, _local_shape_index):
 	queue_free()  # Destroy the projectile upon collision

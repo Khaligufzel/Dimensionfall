@@ -350,4 +350,3 @@ func create_block_with_id(id: String) -> StaticBody3D:
 		var material = Gamedata.data.tiles.sprites[tileJSON.sprite]
 		block.update_texture(material)
 	return block
-
