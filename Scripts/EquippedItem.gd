@@ -50,8 +50,10 @@ var in_cooldown: bool = false
 # The current and max ammo
 var current_ammo: int = 0
 var max_ammo: int = 0
-var default_firing_speed = 0.25
-var default_reload_speed = 1.0
+var default_firing_speed: float = 0.25
+var default_reload_speed: float = 1.0
+var default_recoil: float = 0.1
+var recoil: float = default_recoil  # Current recoil value
 
 # Additional variables to track if buttons are held down
 var is_left_button_held: bool = false
@@ -116,6 +118,7 @@ func fire_weapon():
 	var spawn_position = global_transform.origin + Vector3(0.0, -0.1, 0.0)
 	var cursor_position = get_cursor_world_position()
 	var direction = (cursor_position - spawn_position).normalized()
+	direction = apply_recoil(direction, recoil) # Apply recoil effect
 	direction.y = 0 # Ensure the bullet moves parallel to the ground.
 
 	projectiles.add_child(bullet_instance) # Add bullet to the scene tree.
@@ -128,6 +131,12 @@ func fire_weapon():
 # Helper function to check if reload timer is stopped based on the hand.
 func on_reload_timer_stopped():
 	can_reload = true
+
+
+# Function to apply recoil effect to the bullet direction
+func apply_recoil(direction: Vector3, recoil_value: float) -> Vector3:
+	var random_offset = Vector3(randf() - 0.5, 0, randf() - 0.5) * recoil_value/100
+	return (direction + random_offset).normalized()
 
 
 # Called when the left weapon is reloaded
@@ -189,6 +198,9 @@ func equip_item(equippedItem: InventoryItem):
 		# Reload speed setup
 		var reload_speed = heldItem.Ranged.reload_speed if "reload_speed" in heldItem.Ranged else default_reload_speed
 		reload_timer.wait_time = float(reload_speed)
+		
+		# Read recoil and set it
+		recoil = float(weaponData.Ranged.recoil) if "recoil" in weaponData.Ranged else default_recoil
 		
 		magazine = Gamedata.get_data_by_id(Gamedata.data.items, newMagazineID)
 		ammo = Gamedata.get_data_by_id(Gamedata.data.items, newAmmoID)

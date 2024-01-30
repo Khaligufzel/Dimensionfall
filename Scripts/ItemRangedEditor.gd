@@ -33,16 +33,16 @@ func set_properties(properties: Dictionary) -> void:
 	if properties.has("used_magazine"):
 		UsedMagazineTextEdit.text = properties["used_magazine"]
 	if properties.has("range"):
-		RangeNumberBox.get_line_edit().text = properties["range"]
+		RangeNumberBox.value = float(properties["range"])
 	if properties.has("spread"):
-		SpreadNumberBox.get_line_edit().text = properties["spread"]
+		SpreadNumberBox.value = float(properties["spread"])
 	if properties.has("sway"):
-		SwayNumberBox.get_line_edit().text = properties["sway"]
+		SwayNumberBox.value = float(properties["sway"])
 	if properties.has("recoil"):
-		RecoilNumberBox.get_line_edit().text = properties["recoil"]
+		RecoilNumberBox.value = float(properties["recoil"])
 	if properties.has("used_skill"):
 		UsedSkillTextEdit.text = properties["used_skill"]
 	if properties.has("reload_speed"):
-		ReloadSpeedNumberBox.get_line_edit().text = properties["reload_speed"]
+		ReloadSpeedNumberBox.value = float(properties["reload_speed"])
 	if properties.has("firing_speed"):
-		FiringSpeedNumberBox.get_line_edit().text = properties["firing_speed"]
+		FiringSpeedNumberBox.value = float(properties["firing_speed"])
