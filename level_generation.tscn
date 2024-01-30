@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=27 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
 [ext_resource type="Texture2D" uid="uid://db0xwhrm0sliq" path="res://Defaults/Player/player_300.png" id="10_ghgoh"]
 [ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="11_6i2sa"]
+[ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://Defaults/Projectiles/DefaultBullet.tscn" id="12_8xasb"]
 [ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="12_dip38"]
 [ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="13_fjasp"]
 [ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="14_x756n"]
@@ -143,9 +144,11 @@ pixel_size = 0.002
 texture = ExtResource("10_ghgoh")
 
 [node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("left_attack_cooldown", "right_attack_cooldown", "left_reload_timer", "right_reload_timer", "shoot_audio_player", "reload_audio_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 script = ExtResource("11_6i2sa")
+projectiles = NodePath("../../Projectiles")
+bullet_speed = 20.0
 bullet_damage = 25.0
+bullet_scene = ExtResource("12_8xasb")
 bullet_line_scene = ExtResource("12_dip38")
 left_attack_cooldown = NodePath("Left_attack_cooldown")
 right_attack_cooldown = NodePath("Right_attack_cooldown")
