@@ -60,19 +60,6 @@ func _input(event):
 	if event.is_action_pressed("click_right") and General.is_mouse_outside_HUD and General.is_allowed_to_shoot and right_hand_weapon:
 		fire_weapon(right_hand_weapon, current_right_ammo, "RightHand")
 
-#
-#func get_cursor_world_position() -> Vector3:
-	#var camera = get_viewport().get_camera()
-	#var mouse_pos = get_viewport().get_mouse_position()
-	#var from = camera.project_ray_origin(mouse_pos)
-	#var to = from + camera.project_ray_normal(mouse_pos) * 1000
-	#var space_state = get_world_3d().direct_space_state
-	#var result = space_state.intersect_ray(from, to)
-#
-	#if result:
-		#return result.position
-	#else:
-		#return to
 
 func get_cursor_world_position() -> Vector3:
 	var camera = get_tree().get_first_node_in_group("Camera")
@@ -94,13 +81,10 @@ func get_cursor_world_position() -> Vector3:
 	else:
 		return to
 
-
-
 # New function to handle firing logic for a weapon.
 func fire_weapon(weapon, current_ammo, hand):
 	if not weapon or current_ammo <= 0:
 		return  # Return if no weapon is equipped or no ammo.
-	
 	
 	var cooldown_timer = get_cooldown_timer(hand)
 	if cooldown_timer.is_stopped() and reload_timer_is_stopped(hand):
@@ -113,25 +97,12 @@ func fire_weapon(weapon, current_ammo, hand):
 			current_right_ammo -= 1
 			ammo_changed.emit(current_right_ammo, max_right_ammo, false)
 			
-		
 		shoot_audio_player.stream = shoot_audio_randomizer
 		shoot_audio_player.play()
-		#
-			#
-		#var projectile = bullet_scene.instantiate()
-		#get_parent().add_child(projectile)  # Add the projectile to the scene
-#
-		##
-		##var space_state = get_world_3d().direct_space_state
-		##var mouse_pos : Vector2 = get_viewport().get_mouse_position()
-		#
-		#var direction = (get_cursor_world_position() - global_transform.origin).normalized()
-		##projectile.global_transform.origin = muzzle_position
-		#projectile.set_direction_and_speed(direction, 100)
-
 
 		var bullet_instance = bullet_scene.instantiate()
-		var spawn_position = global_transform.origin + Vector3(0, -0.2, 0) # Slight elevation above ground.
+		# Decrease the y posistion to ensure proper collision with mobs and furniture
+		var spawn_position = global_transform.origin + Vector3(0, -0.2, 0)
 		var cursor_position = get_cursor_world_position()
 		var direction = (cursor_position - spawn_position).normalized()
 		direction.y = 0 # Ensure the bullet moves parallel to the ground.
@@ -139,20 +110,6 @@ func fire_weapon(weapon, current_ammo, hand):
 		bullet_instance.global_transform.origin = spawn_position
 		bullet_instance.set_direction_and_speed(direction, bullet_speed)
 		get_node(projectiles).add_child(bullet_instance) # Add bullet to the scene tree.
-
-		#
-		#var layer = pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1)
-		#var mouse_pos_in_world = Helper.raycast_from_mouse(mouse_pos, layer).position
-		#var query = PhysicsRayQueryParameters3D.create(global_position, global_position + (Vector3(mouse_pos_in_world.x - global_position.x, 0, mouse_pos_in_world.z - global_position.z)).normalized() * 10000, layer, [self])
-#
-		#var result = space_state.intersect_ray(query)
-		#
-		#if result:
-			#print("hit")
-			#Helper.line(global_position, result.position)
-			#
-			#if result.collider.has_method("_get_hit"):
-				#result.collider._get_hit(damage)
 
 
 # Helper function to get the appropriate cooldown timer based on the hand.

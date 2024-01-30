@@ -11,9 +11,24 @@ func _ready():
 func _process(_delta):
 	# Update the projectile's velocity each frame
 	set_linear_velocity(velocity)
-
+#
+#func set_direction_and_speed(direction: Vector3, speed: float):
+	#velocity = direction.normalized() * speed
+	
 func set_direction_and_speed(direction: Vector3, speed: float):
 	velocity = direction.normalized() * speed
+	# Rotate the bullet to match the direction
+	rotate_bullet_to_match_direction(direction)
+
+func rotate_bullet_to_match_direction(direction: Vector3):
+	# Ensure the direction vector is not zero
+	if direction.length() == 0:
+		return
+	# Calculate the rotation needed to align the bullet's forward direction (usually -Z) with the velocity direction
+	var target_rotation = Quaternion(Vector3(0, 0, -1), direction.normalized())
+	# Apply the rotation to the bullet
+	rotation = target_rotation.get_euler()
+
 
 func set_lifetime(time: float):
 	await get_tree().create_timer(time).timeout
