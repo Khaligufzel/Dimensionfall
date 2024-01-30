@@ -37,18 +37,20 @@ signal fired_weapon(equippedWeapon)
 @export var shoot_audio_randomizer : AudioStreamRandomizer
 @export var reload_audio_player : AudioStreamPlayer3D
 
+
 # Define properties for the item. It can be a weapon (melee or ranged) or some other item
 var heldItem: Dictionary
 var magazine
 var ammo
 
 # Booleans to enforce the reload and cooldown timers
-var can_reload: bool
-var in_cooldown: bool
+var can_reload: bool = true
+var in_cooldown: bool = false
 
 # The current and max ammo
-var current_ammo : int
-var max_ammo : int
+var current_ammo: int = 0
+var max_ammo: int = 0
+var default_firing_speed = 0.25
 
 # Additional variables to track if buttons are held down
 var is_left_button_held: bool = false
@@ -57,13 +59,6 @@ var is_right_button_held: bool = false
 func _input(event):
 	if not heldItem:
 		return  # Return early if no weapon is equipped
-	
-	# Handling left and right click for different weapons.
-	if event.is_action_pressed("click_left") and equipped_left:
-		fire_weapon()
-
-	if event.is_action_pressed("click_right") and !equipped_left:
-		fire_weapon()
 
 	# Update the button held state
 	if event is InputEventMouseButton:
@@ -103,7 +98,7 @@ func requires_ammo() -> bool:
 	return heldItem.has("Ranged")
 	
 	
-# New function to handle firing logic for a weapon.
+# Function to handle firing logic for a weapon.
 func fire_weapon():
 	if !can_fire_weapon():
 		return  # Return if no weapon is equipped or no ammo.
@@ -165,11 +160,13 @@ func _process(_delta):
 	if is_right_button_held and !equipped_left and can_fire_weapon():
 		fire_weapon()
 
+
 func _on_reload_timer_timeout():
 	if heldItem and not can_reload:
 		can_reload = true
 		current_ammo = max_ammo
 		ammo_changed.emit(current_ammo, max_ammo, equipped_left)
+
 
 
 # The player has equipped an item in one of the equipmentslots
@@ -183,6 +180,10 @@ func equip_item(equippedItem: InventoryItem):
 		var newAmmoID = weaponData.Ranged.used_ammo	
 		# Set the weapon for the corresponding hand.
 		heldItem = weaponData
+		
+		# Read firing speed and set cooldown timer duration
+		var firing_speed = heldItem.Ranged.firing_speed if "firing_speed" in heldItem.Ranged else default_firing_speed
+		attack_cooldown_timer.wait_time = float(firing_speed)
 		magazine = Gamedata.get_data_by_id(Gamedata.data.items, newMagazineID)
 		ammo = Gamedata.get_data_by_id(Gamedata.data.items, newAmmoID)
 		max_ammo = int(magazine.Magazine["max_ammo"])
@@ -231,3 +232,8 @@ func _on_hud_item_was_equipped(equippedItem, slotName):
 
 func can_weapon_reload() -> bool:
 	return heldItem and current_ammo < max_ammo and can_reload
+
+
+func _on_hud_inventory_visibility_changed(inventoryWindow):
+	is_left_button_held = false
+	is_right_button_held = false

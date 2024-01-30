@@ -65,7 +65,7 @@
 	},
 	{
 		"Ranged": {
-			"firing_speed": "0.25",
+			"firing_speed": "0.4",
 			"range": "1000",
 			"recoil": "20",
 			"reload_speed": "2.5",
@@ -90,7 +90,7 @@
 	},
 	{
 		"Ranged": {
-			"firing_speed": "0.1",
+			"firing_speed": "0.2",
 			"range": "1000",
 			"recoil": "15",
 			"reload_speed": "2.5",

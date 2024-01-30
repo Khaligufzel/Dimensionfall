@@ -126,7 +126,7 @@ text = "Firing speed"
 
 [node name="FiringSpeedNumber" type="SpinBox" parent="Ranged"]
 layout_mode = 2
-tooltip_text = "The maximum number of this item that will fit in a stack"
+tooltip_text = "The delay between shots. A smaller number means firing more quickly."
 min_value = 0.01
 step = 0.01
 value = 0.25
