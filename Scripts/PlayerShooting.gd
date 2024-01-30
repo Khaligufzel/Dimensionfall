@@ -131,7 +131,7 @@ func fire_weapon(weapon, current_ammo, hand):
 
 
 		var bullet_instance = bullet_scene.instantiate()
-		var spawn_position = global_transform.origin + Vector3(0, 0.5, 0) # Slight elevation above ground.
+		var spawn_position = global_transform.origin + Vector3(0, -0.2, 0) # Slight elevation above ground.
 		var cursor_position = get_cursor_world_position()
 		var direction = (cursor_position - spawn_position).normalized()
 		direction.y = 0 # Ensure the bullet moves parallel to the ground.

@@ -37,7 +37,7 @@ func set_sprite(newSprite: Texture):
 
 	var new_x = sprite_width / 100.0 # 0.1 units per 10 pixels in width
 	var new_z = sprite_height / 100.0 # 0.1 units per 10 pixels in height
-	var new_y = 0.5 # Fixed height for now
+	var new_y = 0.8 # Any lower will make the player's bullet fly over it
 
 	# Update the collision shape
 	var new_shape = BoxShape3D.new()
