@@ -50,18 +50,27 @@ var in_cooldown: bool
 var current_ammo : int
 var max_ammo : int
 
+# Additional variables to track if buttons are held down
+var is_left_button_held: bool = false
+var is_right_button_held: bool = false
 
 func _input(event):
 	if not heldItem:
 		return  # Return early if no weapon is equipped
 	
 	# Handling left and right click for different weapons.
-	if event.is_action_pressed("click_left") and General.is_mouse_outside_HUD and General.is_allowed_to_shoot and heldItem and equipped_left:
+	if event.is_action_pressed("click_left") and equipped_left:
 		fire_weapon()
 
-	if event.is_action_pressed("click_right") and General.is_mouse_outside_HUD and General.is_allowed_to_shoot and heldItem and !equipped_left:
+	if event.is_action_pressed("click_right") and !equipped_left:
 		fire_weapon()
 
+	# Update the button held state
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			is_left_button_held = event.pressed
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			is_right_button_held = event.pressed
 
 func get_cursor_world_position() -> Vector3:
 	var camera = get_tree().get_first_node_in_group("Camera")
@@ -84,9 +93,19 @@ func get_cursor_world_position() -> Vector3:
 		return to
 
 
+# Helper function to check if the weapon can fire
+func can_fire_weapon() -> bool:
+	return General.is_mouse_outside_HUD and General.is_allowed_to_shoot and heldItem and not in_cooldown and can_reload and (current_ammo > 0 or !requires_ammo())
+
+
+# Function to check if the weapon requires ammo (for ranged weapons)
+func requires_ammo() -> bool:
+	return heldItem.has("Ranged")
+	
+	
 # New function to handle firing logic for a weapon.
 func fire_weapon():
-	if not heldItem or current_ammo <= 0 or !can_reload or in_cooldown:
+	if !can_fire_weapon():
 		return  # Return if no weapon is equipped or no ammo.
 
 	# Update ammo and emit signal.
