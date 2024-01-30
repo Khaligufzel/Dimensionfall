@@ -157,6 +157,13 @@ func _process(_delta):
 	if not can_reload and reload_timer.time_left <= reload_audio_player.stream.get_length() and not reload_audio_player.playing:
 		reload_audio_player.play()  # Play reload sound for left-hand weapon.
 
+	# Check if the left mouse button is held, a weapon is in the left hand, and is ready to fire
+	if is_left_button_held and equipped_left and can_fire_weapon():
+		fire_weapon()
+
+	# The right mouse button is held, a weapon is in the right hand, and is ready to fire
+	if is_right_button_held and !equipped_left and can_fire_weapon():
+		fire_weapon()
 
 func _on_reload_timer_timeout():
 	if heldItem and not can_reload:
