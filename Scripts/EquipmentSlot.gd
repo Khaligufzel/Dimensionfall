@@ -90,10 +90,10 @@ func unequip() -> void:
 func update_icon() -> void:
 	if myInventoryItem:
 		myIcon.texture = myInventoryItem.get_texture()
-		myIcon.visible = true
+		#myIcon.visible = true
 	else:
 		myIcon.texture = null
-		myIcon.visible = false
+		#myIcon.visible = false
 
 
 # Serialize the equipped item and the magazine into one dictionary
@@ -212,3 +212,6 @@ func _drop_data(newpos, data):
 func _handle_magazine_drop(magazine: InventoryItem):
 	if myInventoryItem and myInventoryItem.get_property("Ranged"):
 		start_reload(myInventoryItem, equippedItem.reload_speed, magazine)
+	else:
+		# Equip the item if no weapon is wielded
+		equip(magazine)
