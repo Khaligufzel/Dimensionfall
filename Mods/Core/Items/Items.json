@@ -47,6 +47,7 @@
 	},
 	{
 		"Magazine": {
+			"current_ammo": "19",
 			"max_ammo": "20",
 			"used_ammo": "9mm"
 		},

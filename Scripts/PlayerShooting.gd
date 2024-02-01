@@ -17,7 +17,7 @@ func _input(event):
 		return  # Return early if no weapon is equipped
 	
 	if event.is_action_pressed("reload_weapon"):
-		if left_hand_item.can_weapon_reload() and right_hand_item.can_reload:
+		if left_hand_item.can_reload and right_hand_item.can_reload:
 			left_hand_item.reload_weapon()
-		elif right_hand_item.can_weapon_reload() and left_hand_item.can_reload:
+		elif right_hand_item.can_reload and left_hand_item.can_reload:
 			right_hand_item.reload_weapon()

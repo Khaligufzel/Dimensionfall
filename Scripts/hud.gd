@@ -33,9 +33,6 @@ var progress_bar_timer_max_time : float
 var is_progress_bar_well_progressing_i_guess = false
 
 signal construction_chosen
-signal item_was_equipped(equippedItem: InventoryItem, slotName: String)
-signal item_equipment_slot_was_cleared(slotName: String)
-signal inventory_visibility_changed(inventoryWindow: Control)
 
 
 
@@ -48,6 +45,9 @@ func _process(_delta):
 	if is_progress_bar_well_progressing_i_guess:
 		update_progress_bar()
 
+func _ready():
+	# If some node wants to start a progressbar, they will emit a signal trough the broker
+	Helper.signal_broker.hud_start_progressbar.connect(start_progress_bar)
 
 func update_progress_bar():
 	var progressBarNode = get_node(progress_bar_filling)
@@ -75,8 +75,6 @@ func _input(event):
 		else:
 			overmap.show()
 
-
-
 	if is_progress_bar_well_progressing_i_guess:
 		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
 
@@ -89,6 +87,7 @@ func _on_player_update_doll(head, right_arm, left_arm, torso, right_leg, left_le
 	get_node(right_leg_health).modulate = lerp(damaged_color, healthy_color, right_leg/100)
 	get_node(left_leg_health).modulate = lerp(damaged_color, healthy_color, left_leg/100)
 
+
 func _on_player_update_stamina_hud(stamina):
 	get_node(stamina_HUD).text = str(round(stamina)) + "%"
 
@@ -96,9 +95,6 @@ func _on_player_update_stamina_hud(stamina):
 func _on_concrete_button_down():
 	construction_chosen.emit("concrete_wall")
 
-
-#func _on_player_shooting_ammo_changed(current_ammo, max_ammo):
-#	get_node(ammo_HUD).text = str(current_ammo) + "/" + str(max_ammo)
 
 func check_if_resources_are_available(item_id, amount_to_spend: int):
 	var inventory_node: InventoryStacked = inventoryWindow.get_inventory()
@@ -152,6 +148,7 @@ func merge_items_to_total_amount(items, inventory, total_amount : int):
 			if inventory.get_item_stack_size(item) == 0:
 				inventory.remove_item(item)
 
+
 func _on_crafting_menu_start_craft(recipe):
 	
 	if recipe:
@@ -164,6 +161,7 @@ func _on_crafting_menu_start_craft(recipe):
 		item = inventoryWindow.get_inventory().create_and_add_item(recipe["crafts"])
 		inventoryWindow.get_inventory().set_item_stack_size(item, recipe["craft_amount"])
 
+
 func start_progress_bar(time : float):
 	get_node(progress_bar).visible = true
 	get_node(progress_bar_timer).wait_time = time
@@ -171,8 +169,8 @@ func start_progress_bar(time : float):
 	get_node(progress_bar_filling).scale.x = 0
 	progress_bar_timer_max_time = time
 	is_progress_bar_well_progressing_i_guess = true
-	
-	
+
+
 func interrupt_progress_bar():
 	get_node(progress_bar).visible = false
 	is_progress_bar_well_progressing_i_guess = false
@@ -180,6 +178,7 @@ func interrupt_progress_bar():
 
 func _on_progress_bar_timer_timeout():
 	interrupt_progress_bar()
+
 
 func _on_shooting_ammo_changed(current_ammo: int, max_ammo: int, leftHand:bool):
 	var ammo_HUD: Label = get_node(ammo_HUD_left)
@@ -200,22 +199,13 @@ func _on_overmap_change_level_pressed():
 	General.player_inventory_dict = inventoryWindow.get_inventory().serialize()
 	General.player_equipment_dict = inventoryWindow.get_equipment_dict()
 
+
 # The parameter container the inventory that has entered proximity
 func _on_item_detector_add_to_proximity_inventory(container):
 	inventoryWindow._on_item_detector_add_to_proximity_inventory(container)
+
 
 # The parameter container the inventory that has left proximity
 func _on_item_detector_remove_from_proximity_inventory(container):
 	inventoryWindow._on_item_detector_remove_from_proximity_inventory(container)
 
-# When an item in the inventorywindow was equipped, we pass on the signal
-func _on_inventory_window_item_was_equipped(equippedItem, slotName):
-	item_was_equipped.emit(equippedItem, slotName)
-
-# slotName can be "LeftHand" or "RightHand"
-func _on_inventory_window_item_was_cleared(slotName: String):
-	item_equipment_slot_was_cleared.emit(slotName)
-
-
-func _on_inventory_window_visibility_changed():
-	inventory_visibility_changed.emit(inventoryWindow)

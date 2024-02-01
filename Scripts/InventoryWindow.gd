@@ -23,14 +23,9 @@ var is_showing_tooltip = false
 @export var tooltip_item_name : Label
 @export var tooltip_item_description : Label
 
-signal item_was_equipped(equippedItem: InventoryItem, slotName: String)
-signal item_was_cleared(slotName: String)
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	LeftHandEquipmentSlot.name = "LeftHand"
-	RightHandEquipmentSlot.name = "RightHand"
 	# The items that were in the player inventory when they exited
 	# the previous level are loaded back into the inventory
 	inventory.deserialize(General.player_inventory_dict)
@@ -38,6 +33,8 @@ func _ready():
 		LeftHandEquipmentSlot.deserialize(General.player_equipment_dict.LeftHandEquipmentSlot)
 	if General.player_equipment_dict.has("RightHandEquipmentSlot"):
 		RightHandEquipmentSlot.deserialize(General.player_equipment_dict.RightHandEquipmentSlot)
+	# We let the signal broker forward the change in visibility so other nodes can respond
+	visibility_changed.connect(Helper.signal_broker.on_inventory_visibility_changed.bind(self))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -217,15 +214,6 @@ func remove_container_from_list(container: Node3D):
 		proximity_inventory_control.visible = false
 
 
-# This function is called when an item is removed from the left hand equipment slot
-func _on_left_hand_equipment_slot_cleared():
-	item_was_cleared.emit("LeftHand")
-
-# This function is called when an item is removed from the right hand equipment slot
-func _on_right_hand_equipment_slot_cleared():
-	item_was_cleared.emit("RightHand")
-
-
 # Items are transferred from the right list to the left list
 func _on_transfer_left_button_button_up():
 	var selected_inventory_items: Array[InventoryItem] = inventory_control.get_selected_inventory_items()
@@ -264,33 +252,6 @@ func equip_item(items: Array[InventoryItem], itemSlot: Control) -> void:
 		print_debug("No items selected.")
 		# Handle the case when no items are selected (optional)
 	elif num_selected_items == 1:
-		var item = items[0]
-		var is_two_handed = item.get_property("two_handed", false)
-		# We assume the user equips the left hand slot
-		# If it is the right hand slot instead, the other slot must be the left hand slot
-		var other_slot = RightHandEquipmentSlot
-		if itemSlot == RightHandEquipmentSlot:
-			other_slot = LeftHandEquipmentSlot
-		var other_slot_item = other_slot.get_item()
-
-		# Check if the other slot has a two-handed item equipped
-		if other_slot_item and other_slot_item.get_property("two_handed", false):
-			print_debug("Cannot equip item. The other slot has a two-handed weapon equipped.")
-			return
-
-		# If the item is two-handed, clear the other hand slot before equipping
-		if is_two_handed:
-			other_slot.unequip()
-
-		# Equip the item
-		itemSlot.equip(item)
+		itemSlot.equip(items[0])
 	else:
 		print_debug("Multiple items selected. Please select only one item to equip.")
-
-
-func _on_left_hand_equipment_slot_item_equipped(item):
-	emit_signal("item_was_equipped", item, "LeftHand")
-
-
-func _on_right_hand_equipment_slot_item_equipped(item):
-	emit_signal("item_was_equipped", item, "RightHand")
