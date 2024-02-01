@@ -165,12 +165,17 @@ func get_item() -> InventoryItem:
 # It will return the first result if a magazine is found
 # It will return null of no magazine is found
 func find_compatible_magazine(oldMagazine: InventoryItem) -> InventoryItem:
+	var bestMagazine: InventoryItem = null
+	var bestAmmo: int = 0  # Variable to track the maximum ammo found
+
 	var inventoryItems: Array = myInventory.get_items()  # Retrieve all items in the inventory
 	for item in inventoryItems:
-		# Check if the item is a magazine and is compatible with the equipped weapon
-		if not item.get_property("Magazine") == null and not item == oldMagazine:
+		if item.get_property("Magazine") and item != oldMagazine:
 			var magazine = item.get_property("Magazine")
-			if magazine.has("current_ammo"):
-				if int(magazine.current_ammo) > 0:
-					return item
-	return null  # Return null if no compatible magazine is found
+			if magazine and magazine.has("current_ammo"):
+				var currentAmmo: int = int(magazine["current_ammo"])
+				if currentAmmo > bestAmmo:
+					bestAmmo = currentAmmo
+					bestMagazine = item
+
+	return bestMagazine  # Return the magazine with the most current ammo
