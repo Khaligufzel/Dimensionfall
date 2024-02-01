@@ -247,7 +247,15 @@ func _create_ui_element(property: String, item: InventoryItem, row_name: String)
 			element.set_icon(item.get_texture())
 			element.custom_minimum_size = Vector2(32, 32)
 		"name":
-			element.set_label_text(item.get_title())
+			var item_name = item.get_title()
+			# Check if the item is a magazine and append ammo info
+			if not item.get_property("Magazine") == null:
+				var magazine_info = item.get_property("Magazine")
+				if magazine_info and magazine_info is Dictionary:
+					var current_ammo = magazine_info.get("current_ammo", 0)
+					var max_ammo = magazine_info.get("max_ammo", 0)
+					item_name += " ["+current_ammo+"/"+max_ammo+"]"  # Append ammo info
+			element.set_label_text(item_name)
 			element.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		"stack_size":
 			# Assuming stack size is a property of the item
