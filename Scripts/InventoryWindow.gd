@@ -136,12 +136,12 @@ func _on_inventory_grid_stacked_item_added(item):
 func get_inventory() -> InventoryStacked:
 	return inventory
 
-
+# Hud will call this function when the player presses the travel button on the overmap
 func get_equipment_dict() -> Dictionary:
 	var player_equipment: Dictionary = {
-			"LeftHandEquipmentSlot": LeftHandEquipmentSlot.serialize(),
-			"RightHandEquipmentSlot": RightHandEquipmentSlot.serialize()
-		}
+		"LeftHandEquipmentSlot": LeftHandEquipmentSlot.serialize(),
+		"RightHandEquipmentSlot": RightHandEquipmentSlot.serialize()
+	}
 	return player_equipment
 
 

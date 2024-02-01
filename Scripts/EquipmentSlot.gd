@@ -25,7 +25,6 @@ var myInventoryItem: InventoryItem = null
 var myMagazine: InventoryItem = null
 # The node that will actually operate the item
 var equippedItem: Sprite3D = null
-var can_reload: bool = true
 var default_reload_speed: float = 1.0
 
 # Signals
@@ -97,19 +96,31 @@ func update_icon() -> void:
 		myIcon.visible = false
 
 
-# Serialize the equipped item
+# Serialize the equipped item and the magazine into one dictionary
 func serialize() -> Dictionary:
+	var data: Dictionary = {}
 	if myInventoryItem:
-		return myInventoryItem.serialize()
-	return {}
+		data["item"] = myInventoryItem.serialize()  # Serialize equipped item
+	if myMagazine:
+		data["magazine"] = myMagazine.serialize()  # Serialize magazine
+	return data
 
 
-# Deserialize and equip an item
+# Deserialize and equip an item and a magazine from the provided data
 func deserialize(data: Dictionary) -> void:
-	if data.size() > 0:
+	# Deserialize and equip an item
+	if data.has("item"):
+		var itemData: Dictionary = data["item"]
 		var item = InventoryItem.new()
-		item.deserialize(data)
-		equip(item)
+		item.deserialize(itemData)
+		equip(item)  # Equip the deserialized item
+
+	if data.has("magazine"):
+		var magazineData: Dictionary = data["magazine"]
+		var magazine = InventoryItem.new()
+		magazine.deserialize(magazineData)
+		myMagazine = magazine  # Directly assign the deserialized magazine
+		equippedItem.on_magazine_inserted()
 
 
 # The reload has completed. We now need to remove the current magazine and put in a new one
@@ -117,7 +128,6 @@ func reload_weapon(item: InventoryItem):
 	if myInventoryItem and not myInventoryItem.get_property("Ranged") == null and item == myInventoryItem:
 		var oldMagazine = myMagazine
 		remove_magazine()
-		can_reload = true
 		insert_magazine(oldMagazine)
 
 

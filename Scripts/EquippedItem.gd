@@ -117,7 +117,7 @@ func get_cursor_world_position() -> Vector3:
 
 # Helper function to check if the weapon can fire
 func can_fire_weapon() -> bool:
-	return General.is_mouse_outside_HUD and General.is_allowed_to_shoot and heldItem and not in_cooldown and equipmentSlot.can_reload and (get_current_ammo() > 0 or !requires_ammo())
+	return General.is_mouse_outside_HUD and General.is_allowed_to_shoot and heldItem and not in_cooldown and can_reload and (get_current_ammo() > 0 or !requires_ammo())
 
 
 # Function to check if the weapon requires ammo (for ranged weapons)
@@ -278,7 +278,7 @@ func clear_held_item():
 
 # The reload has completed. We now need to remove the current magazine and put in a new one
 func _on_reload_timer_timeout():
-	if heldItem and equipmentSlot:
+	if heldItem and equipmentSlot and not can_reload:
 		can_reload = true
 		equipmentSlot.reload_weapon(heldItem)
 
@@ -311,3 +311,17 @@ func _on_hud_item_was_equipped(equippedItem, slot):
 func _on_inventory_visibility_change(_inventoryWindow):
 	is_left_button_held = false
 	is_right_button_held = false
+
+
+
+# Function to check if the weapon can be reloaded
+func can_weapon_reload() -> bool:
+	# Check if the weapon is a ranged weapon
+	if heldItem and heldItem.get_property("Ranged"):
+		# Check if neither mouse button is pressed
+		if not is_left_button_held and not is_right_button_held:
+			# Check if the weapon is not currently reloading and if a compatible magazine is available in the inventory
+			if can_reload and not equipmentSlot.find_compatible_magazine(equipmentSlot.get_magazine()) == null:
+				# Additional checks can be added here if needed
+				return true
+	return false

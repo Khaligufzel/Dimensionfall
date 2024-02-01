@@ -165,6 +165,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 myInventory = NodePath("../../../../InventoryStacked")
 otherHandSlot = NodePath("../../LeftHandEquipment/LeftHandEquipmentSlot")
+is_left_slot = false
 
 [node name="Label" type="Label" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment"]
 layout_mode = 2
