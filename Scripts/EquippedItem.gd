@@ -113,7 +113,7 @@ func get_cursor_world_position() -> Vector3:
 
 # Helper function to check if the weapon can fire
 func can_fire_weapon() -> bool:
-	return General.is_mouse_outside_HUD and General.is_allowed_to_shoot and heldItem and not in_cooldown and (get_current_ammo() > 0 or !requires_ammo())
+	return General.is_mouse_outside_HUD and not General.is_action_in_progress and General.is_allowed_to_shoot and heldItem and not in_cooldown and (get_current_ammo() > 0 or !requires_ammo())
 
 
 # Function to check if the weapon requires ammo (for ranged weapons)
