@@ -32,3 +32,11 @@ func _input(event):
 				elif right_hand_item.can_weapon_reload():
 					# Only the right hand weapon can be reloaded
 					right_hand_item.reload_weapon()
+		else:
+			# If both have equal ammo, reload the left hand first
+			if left_hand_item.can_weapon_reload():
+				# Only the left hand weapon can be reloaded
+				left_hand_item.reload_weapon()
+			elif right_hand_item.can_weapon_reload():
+				# Only the right hand weapon can be reloaded
+				right_hand_item.reload_weapon()
