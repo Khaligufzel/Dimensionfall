@@ -124,19 +124,27 @@ func deserialize(data: Dictionary) -> void:
 
 
 # The reload has completed. We now need to remove the current magazine and put in a new one
-func reload_weapon(item: InventoryItem):
+func reload_weapon(item: InventoryItem, specific_magazine: InventoryItem = null):
 	if myInventoryItem and not myInventoryItem.get_property("Ranged") == null and item == myInventoryItem:
 		var oldMagazine = myMagazine
 		remove_magazine()
-		insert_magazine(oldMagazine)
+		insert_magazine(specific_magazine, oldMagazine)
+		equippedItem.is_reloading = false
 
 
-func insert_magazine(oldMagazine = InventoryItem):
+# This will start the reload action. General will keep track of the progress
+# We pass reload_weapon as a function that will be executed when the action is done
+func start_reload(item: InventoryItem, reload_time: float, specific_magazine: InventoryItem = null):
+	var reload_callable = Callable(self, "reload_weapon").bind(item, specific_magazine)
+	equippedItem.is_reloading = true
+	General.start_action(reload_time, reload_callable)
+
+
+func insert_magazine(specific_magazine: InventoryItem = null, oldMagazine: InventoryItem = null):
 	if not myInventoryItem or myInventoryItem.get_property("Ranged") == null:
 		return  # Ensure the item is a ranged weapon
-	
-	# Assuming the inventory has a method to find a compatible magazine.
-	var magazine = find_compatible_magazine(oldMagazine)
+
+	var magazine = specific_magazine if specific_magazine else find_compatible_magazine(oldMagazine)
 	if magazine:
 		myMagazine = magazine
 		myInventory.remove_item(magazine)  # Remove the magazine from the inventory
@@ -179,3 +187,28 @@ func find_compatible_magazine(oldMagazine: InventoryItem) -> InventoryItem:
 					bestMagazine = item
 
 	return bestMagazine  # Return the magazine with the most current ammo
+
+
+
+# This function should return true if the dragged data can be dropped here
+func _can_drop_data(_newpos, data) -> bool:
+	return data is Array[InventoryItem]
+
+
+# This function handles the data being dropped
+func _drop_data(newpos, data):
+	if _can_drop_data(newpos, data):
+		if data is Array and data.size() > 0 and data[0] is InventoryItem:
+			var first_item = data[0]
+			# Check if the dropped item is a magazine
+			if first_item.get_property("Magazine"):
+				_handle_magazine_drop(first_item)
+			else:
+				# Equip the item if it's not a magazine
+				equip(first_item)
+
+
+# When the user has dropped a magaziene from the inventory
+func _handle_magazine_drop(magazine: InventoryItem):
+	if myInventoryItem and myInventoryItem.get_property("Ranged"):
+		start_reload(myInventoryItem, equippedItem.reload_speed, magazine)

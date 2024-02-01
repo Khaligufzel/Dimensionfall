@@ -17,8 +17,6 @@ extends Sprite3D
 # Reference to the scene that will be instantiated for a bullet
 @export var bullet_scene: PackedScene
 
-# A timer that will prevent the user from reloading while a reload is happening now
-@export var reload_timer: Timer
 # Will keep a weapon from firing when it's cooldown period has not passed yet
 @export var attack_cooldown_timer: Timer
 
@@ -42,8 +40,9 @@ var heldItem: InventoryItem
 var equipmentSlot: Control
 
 # Booleans to enforce the reload and cooldown timers
-var can_reload: bool = true
 var in_cooldown: bool = false
+var is_reloading: bool = false
+var reload_speed: float = 1.0
 
 # The current and max ammo
 var default_firing_speed: float = 0.25
@@ -67,8 +66,6 @@ var is_right_button_held: bool = false
 
 signal ammo_changed(current_ammo: int, max_ammo: int, lefthand:bool)
 signal fired_weapon(equippedWeapon)
-# Will signal to the equipmentslot that we want to reload
-signal start_timer_progressbar(time_left: float)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -79,7 +76,6 @@ func _ready():
 	Helper.signal_broker.inventory_window_visibility_changed.connect(_on_inventory_visibility_change)
 	Helper.signal_broker.item_was_equipped.connect(_on_hud_item_was_equipped)
 	Helper.signal_broker.item_slot_cleared.connect(_on_hud_item_equipment_slot_was_cleared)
-	start_timer_progressbar.connect(Helper.signal_broker.on_start_timer_progressbar)
 
 
 func _input(event):
@@ -117,7 +113,7 @@ func get_cursor_world_position() -> Vector3:
 
 # Helper function to check if the weapon can fire
 func can_fire_weapon() -> bool:
-	return General.is_mouse_outside_HUD and General.is_allowed_to_shoot and heldItem and not in_cooldown and can_reload and (get_current_ammo() > 0 or !requires_ammo())
+	return General.is_mouse_outside_HUD and General.is_allowed_to_shoot and heldItem and not in_cooldown and (get_current_ammo() > 0 or !requires_ammo())
 
 
 # Function to check if the weapon requires ammo (for ranged weapons)
@@ -194,24 +190,19 @@ func apply_recoil(direction: Vector3, recoil_value: float) -> Vector3:
 
 # When the user wants to reload the item
 func reload_weapon():
-	if heldItem and not heldItem.get_property("Ranged") == null and can_reload and not equipmentSlot.find_compatible_magazine(null) == null:
+	if heldItem and not heldItem.get_property("Ranged") == null and not General.is_action_in_progress and not equipmentSlot.find_compatible_magazine(equipmentSlot.get_magazine()) == null:
 		var magazine = equipmentSlot.get_magazine()
 		if not magazine:
-			start_reload()
+			equipmentSlot.start_reload(heldItem, reload_speed)
 		elif get_current_ammo() < get_max_ammo():
-			start_reload()
+			equipmentSlot.start_reload(heldItem, reload_speed)
 
-
-func start_reload():
-	can_reload = false
-	reload_timer.start()
-	start_timer_progressbar.emit(reload_timer.time_left)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Check if the left-hand weapon is reloading.
-	if not can_reload and reload_timer.time_left <= reload_audio_player.stream.get_length() and not reload_audio_player.playing:
+	if is_reloading and not reload_audio_player.playing:
 		reload_audio_player.play()  # Play reload sound for left-hand weapon.
 
 	# Check if the left mouse button is held, a weapon is in the left hand, and is ready to fire
@@ -242,6 +233,7 @@ func on_magazine_inserted():
 		recoil_increment = max_recoil / (get_max_ammo() * 0.25)
 		recoil_decrement = 2 * recoil_increment
 
+		is_reloading = false
 		ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
 
 
@@ -258,8 +250,7 @@ func equip_item(equippedItem: InventoryItem, slot: Control):
 		var firing_speed = rangedProperties.get("firing_speed", default_firing_speed)
 		attack_cooldown_timer.wait_time = float(firing_speed)
 		
-		var reload_speed = rangedProperties.get("reload_speed", default_reload_speed)
-		reload_timer.wait_time = float(reload_speed)
+		reload_speed = float(rangedProperties.get("reload_speed", default_reload_speed))
 		
 		visible = true
 		ammo_changed.emit(0, 0, equipped_left)  # Emit signal to indicate no weapon is equipped
@@ -272,15 +263,8 @@ func clear_held_item():
 	visible = false
 	heldItem = null
 	in_cooldown = false
-	can_reload = true
+	is_reloading = false
 	ammo_changed.emit(-1, -1, equipped_left)  # Emit signal to indicate no weapon is equipped
-
-
-# The reload has completed. We now need to remove the current magazine and put in a new one
-func _on_reload_timer_timeout():
-	if heldItem and equipmentSlot and not can_reload:
-		can_reload = true
-		equipmentSlot.reload_weapon(heldItem)
 
 
 func _on_left_attack_cooldown_timeout():
@@ -321,7 +305,7 @@ func can_weapon_reload() -> bool:
 		# Check if neither mouse button is pressed
 		if not is_left_button_held and not is_right_button_held:
 			# Check if the weapon is not currently reloading and if a compatible magazine is available in the inventory
-			if can_reload and not equipmentSlot.find_compatible_magazine(equipmentSlot.get_magazine()) == null:
+			if not is_reloading and not equipmentSlot.find_compatible_magazine(equipmentSlot.get_magazine()) == null:
 				# Additional checks can be added here if needed
 				return true
 	return false

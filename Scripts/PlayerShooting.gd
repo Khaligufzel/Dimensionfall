@@ -17,6 +17,8 @@ func _input(event):
 		return
 
 	if event.is_action_pressed("reload_weapon"):
+		if General.is_action_in_progress:
+			return
 		# Check if both weapons can be reloaded
 		if left_hand_item.can_weapon_reload() and right_hand_item.can_weapon_reload():
 			# Compare the current ammo to decide which weapon to reload

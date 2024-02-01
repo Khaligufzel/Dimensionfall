@@ -149,7 +149,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.
 pixel_size = 0.002
 texture = ExtResource("10_ghgoh")
 
-[node name="EquippedRight" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "reload_timer", "attack_cooldown_timer", "shoot_audio_player", "reload_audio_player")]
+[node name="EquippedRight" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.190849, -0.123334, 0)
 pixel_size = 0.002
 texture = ExtResource("10_3jjqt")
@@ -158,7 +158,6 @@ projectiles = NodePath("../../../Projectiles")
 bullet_speed = 50.0
 bullet_damage = 25.0
 bullet_scene = ExtResource("12_8xasb")
-reload_timer = NodePath("../../Shooting/Reload_timer")
 attack_cooldown_timer = NodePath("../../Shooting/Right_attack_cooldown")
 player = NodePath("../..")
 hud = NodePath("../../../../../HUD")
@@ -166,7 +165,7 @@ shoot_audio_player = NodePath("../../Shooting/ShootAudio")
 shoot_audio_randomizer = SubResource("AudioStreamRandomizer_jdgh6")
 reload_audio_player = NodePath("../../Shooting/ReloadAudio")
 
-[node name="EquippedLeft" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "reload_timer", "attack_cooldown_timer", "shoot_audio_player", "reload_audio_player")]
+[node name="EquippedLeft" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194626, 0.116675, 0)
 pixel_size = 0.002
 texture = ExtResource("11_4n80n")
@@ -175,7 +174,6 @@ projectiles = NodePath("../../../Projectiles")
 bullet_speed = 50.0
 bullet_damage = 25.0
 bullet_scene = ExtResource("12_8xasb")
-reload_timer = NodePath("../../Shooting/Reload_timer")
 attack_cooldown_timer = NodePath("../../Shooting/Left_attack_cooldown")
 player = NodePath("../..")
 hud = NodePath("../../../../../HUD")
@@ -192,10 +190,6 @@ player = NodePath("..")
 hud = NodePath("../../../../HUD")
 
 [node name="Left_attack_cooldown" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
-one_shot = true
-
-[node name="Reload_timer" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
-wait_time = 5.0
 one_shot = true
 
 [node name="Right_attack_cooldown" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
@@ -236,8 +230,6 @@ transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 
 [connection signal="ammo_changed" from="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" to="HUD" method="_on_shooting_ammo_changed"]
 [connection signal="ammo_changed" from="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" to="HUD" method="_on_shooting_ammo_changed"]
 [connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Left_attack_cooldown" to="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" method="_on_left_attack_cooldown_timeout"]
-[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Reload_timer" to="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" method="_on_reload_timer_timeout"]
-[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Reload_timer" to="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" method="_on_reload_timer_timeout"]
 [connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Right_attack_cooldown" to="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" method="_on_right_attack_cooldown_timeout"]
 [connection signal="add_to_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_add_to_proximity_inventory"]
 [connection signal="area_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_entered"]
