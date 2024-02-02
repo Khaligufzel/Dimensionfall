@@ -28,7 +28,7 @@ func start_action(duration: float, callback: Callable):
 		start_timer_progressbar.emit(duration)
 		# Other necessary code to start the action
 	else:
-		print("Another action is currently in progress.")
+		print_debug("Another action is currently in progress.")
 
 # Function called when the action timer runs out
 func _on_action_timer_timeout():

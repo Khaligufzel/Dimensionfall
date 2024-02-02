@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
 [ext_resource type="PackedScene" uid="uid://crck2fhgayxhn" path="res://Scenes/InventoryContainerListItem.tscn" id="2_xfgb3"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="3_l8xgt"]
-[ext_resource type="Resource" uid="uid://b1tngttyk4w2s" path="res://ItemProtosets.tres" id="3_sqsc0"]
+[ext_resource type="Resource" uid="uid://b0j7o54q2btuc" path="res://ItemProtosets.tres" id="3_sqsc0"]
 [ext_resource type="Script" path="res://addons/gloot/core/inventory_item.gd" id="5_qidb6"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="6_xpf2l"]
 [ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="8_f75fl"]
@@ -147,10 +147,11 @@ layout_mode = 2
 [node name="LeftHandEquipment" type="HBoxContainer" parent="HBoxContainer/EquipmentSlotList"]
 layout_mode = 2
 
-[node name="LeftHandEquipmentSlot" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment" node_paths=PackedStringArray("myInventory", "otherHandSlot") instance=ExtResource("9_tpx1u")]
+[node name="LeftHandEquipmentSlot" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment" node_paths=PackedStringArray("myInventory", "myInventoryCtrl", "otherHandSlot") instance=ExtResource("9_tpx1u")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 myInventory = NodePath("../../../../InventoryStacked")
+myInventoryCtrl = NodePath("../../../VBoxContainer2/CtrlInventoryStackedCustom")
 otherHandSlot = NodePath("../../RightHandEquipment/RightHandEquipmentSlot")
 
 [node name="Label" type="Label" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment"]
@@ -160,10 +161,11 @@ text = "Left hand"
 [node name="RightHandEquipment" type="HBoxContainer" parent="HBoxContainer/EquipmentSlotList"]
 layout_mode = 2
 
-[node name="RightHandEquipmentSlot" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment" node_paths=PackedStringArray("myInventory", "otherHandSlot") instance=ExtResource("9_tpx1u")]
+[node name="RightHandEquipmentSlot" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment" node_paths=PackedStringArray("myInventory", "myInventoryCtrl", "otherHandSlot") instance=ExtResource("9_tpx1u")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 myInventory = NodePath("../../../../InventoryStacked")
+myInventoryCtrl = NodePath("../../../VBoxContainer2/CtrlInventoryStackedCustom")
 otherHandSlot = NodePath("../../LeftHandEquipment/LeftHandEquipmentSlot")
 is_left_slot = false
 
