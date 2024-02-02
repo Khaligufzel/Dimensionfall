@@ -14,6 +14,7 @@ extends Control
 # There will be functions to serialize and deserialize the inventoryitem
 
 
+# The inventory to pull ammo from and to drop items into
 @export var myInventory: InventoryStacked
 @export var backgroundColor: ColorRect
 @export var myIcon: TextureRect

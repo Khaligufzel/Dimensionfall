@@ -247,15 +247,7 @@ func _create_ui_element(property: String, item: InventoryItem, row_name: String)
 			element.set_icon(item.get_texture())
 			element.custom_minimum_size = Vector2(32, 32)
 		"name":
-			var item_name = item.get_title()
-			# Check if the item is a magazine and append ammo info
-			if not item.get_property("Magazine") == null:
-				var magazine_info = item.get_property("Magazine")
-				if magazine_info and magazine_info is Dictionary:
-					var current_ammo = int(magazine_info.get("current_ammo", 0))
-					var max_ammo = int(magazine_info.get("max_ammo", 0))
-					item_name += " ["+str(current_ammo)+"/"+str(max_ammo)+"]"  # Append ammo info
-			element.set_label_text(item_name)
+			element.set_label_text(get_display_name(item))
 			element.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		"stack_size":
 			# Assuming stack size is a property of the item
@@ -272,6 +264,32 @@ func _create_ui_element(property: String, item: InventoryItem, row_name: String)
 	# We use rows to keep track of the items
 	element.add_to_group(row_name)
 	return element
+
+
+# In a separate InventoryItemHandler class or module:
+func get_display_name(item: InventoryItem) -> String:
+	var item_name = item.get_title()
+	
+	# A gun might have the current_magazine property
+	if not item.get_property("current_magazine") == null:
+		var magazine = InventoryItem.new()
+		magazine.deserialize(item.get_property("current_magazine"))
+		item_name += get_magazine_current_max_ammo(magazine)
+	
+	# Check if the item is a magazine and append ammo info
+	if not item.get_property("Magazine") == null:
+		item_name += get_magazine_current_max_ammo(item)
+		
+	return item_name
+
+
+func get_magazine_current_max_ammo(magazineItem: InventoryItem) -> String:
+	var magazine_info = magazineItem.get_property("Magazine")
+	if magazine_info and magazine_info is Dictionary:
+		var current_ammo = int(magazine_info.get("current_ammo", 0))
+		var max_ammo = int(magazine_info.get("max_ammo", 0))
+		return " ["+str(current_ammo)+"/"+str(max_ammo)+"]"
+	return ""
 
 
 # Function to add an item to the grid
