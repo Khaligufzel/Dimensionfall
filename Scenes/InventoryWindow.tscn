@@ -64,11 +64,6 @@ script = ExtResource("5_qidb6")
 protoset = ExtResource("3_sqsc0")
 prototype_id = "pistol_9mm"
 
-[node name="_Node_23025" type="Node" parent="InventoryStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "pistol_magazine"
-
 [node name="_Node_23044" type="Node" parent="InventoryStacked"]
 script = ExtResource("5_qidb6")
 protoset = ExtResource("3_sqsc0")
