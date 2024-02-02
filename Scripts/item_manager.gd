@@ -55,3 +55,35 @@ func find_compatible_magazine(oldMagazine: InventoryItem) -> InventoryItem:
 					bestMagazine = item
 
 	return bestMagazine  # Return the magazine with the most current ammo
+
+
+
+
+# We remove the magazine from the given item and add it to the inventory
+func unload_magazine_from_item(item: InventoryItem) -> void:
+	# Check if the item has a magazine loaded
+	if item.get_property("current_magazine"):
+		var myMagazine: InventoryItem = item.get_property("current_magazine")
+		item.clear_property("current_magazine")  # Remove the magazine from the weapon
+		playerInventory.add_item(myMagazine)  # Add the magazine back to the inventory
+
+
+# When a reload is completed and we remove the magazine from the gun into the inventory
+func remove_magazine(item: InventoryItem):
+	if not item or not item.get_property("Ranged"):
+		return  # Ensure the item is a ranged weapon
+
+	var myMagazine: InventoryItem = get_magazine(item)
+	if myMagazine:
+		playerInventory.add_item(myMagazine)
+		item.clear_property("current_magazine")
+
+
+# Get the magazine from the provided item
+func get_magazine(item: InventoryItem) -> InventoryItem:
+	if not item or not item.get_property("Ranged"):
+		return null
+	if item.get_property("current_magazine"):
+		var myMagazine: InventoryItem = item.get_property("current_magazine")
+		return myMagazine
+	return null

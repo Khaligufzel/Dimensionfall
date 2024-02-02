@@ -148,7 +148,7 @@ func fire_weapon():
 
 
 func _subtract_ammo(amount: int):
-	var magazine: InventoryItem = equipmentSlot.get_magazine(heldItem)
+	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
 	if magazine:
 		# We duplicate() because Gloot might return the original Magazine array from the protoset
 		var magazineProperties = magazine.get_property("Magazine").duplicate()
@@ -160,7 +160,7 @@ func _subtract_ammo(amount: int):
 
 
 func get_current_ammo() -> int:
-	var magazine: InventoryItem = equipmentSlot.get_magazine(heldItem)
+	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
 	if magazine:
 		var magazineProperties = magazine.get_property("Magazine")
 		if magazineProperties and magazineProperties.has("current_ammo"):
@@ -172,7 +172,7 @@ func get_current_ammo() -> int:
 
 
 func get_max_ammo() -> int:
-	var magazine: InventoryItem = equipmentSlot.get_magazine(heldItem)
+	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
 	if magazine:
 		var magazineProperties = magazine.get_property("Magazine")
 		return int(magazineProperties["max_ammo"])
@@ -189,8 +189,8 @@ func apply_recoil(direction: Vector3, recoil_value: float) -> Vector3:
 
 # When the user wants to reload the item
 func reload_weapon():
-	if heldItem and not heldItem.get_property("Ranged") == null and not General.is_action_in_progress and not ItemManager.find_compatible_magazine(equipmentSlot.get_magazine(heldItem)) == null:
-		var magazine = equipmentSlot.get_magazine(heldItem)
+	if heldItem and not heldItem.get_property("Ranged") == null and not General.is_action_in_progress and not ItemManager.find_compatible_magazine(ItemManager.get_magazine(heldItem)) == null:
+		var magazine = ItemManager.get_magazine(heldItem)
 		if not magazine:
 			equipmentSlot.start_reload(heldItem, reload_speed)
 		elif get_current_ammo() < get_max_ammo():
@@ -307,7 +307,7 @@ func can_weapon_reload() -> bool:
 		# Check if neither mouse button is pressed
 		if not is_left_button_held and not is_right_button_held:
 			# Check if the weapon is not currently reloading and if a compatible magazine is available in the inventory
-			if not is_weapon_reloading() and not ItemManager.find_compatible_magazine(equipmentSlot.get_magazine(heldItem)) == null:
+			if not is_weapon_reloading() and not ItemManager.find_compatible_magazine(ItemManager.get_magazine(heldItem)) == null:
 				# Additional checks can be added here if needed
 				return true
 	return false

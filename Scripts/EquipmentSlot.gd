@@ -146,7 +146,7 @@ func deserialize(data: Dictionary) -> void:
 func reload_weapon(item: InventoryItem, specific_magazine: InventoryItem = null):
 	if item and not item.get_property("Ranged") == null:
 		var oldMagazine: InventoryItem = item.get_property("current_magazine")
-		remove_magazine(item)
+		ItemManager.remove_magazine(item)
 		insert_magazine(item, specific_magazine, oldMagazine)
 		item.set_property("is_reloading", false)  # Mark reloading as complete
 
@@ -172,25 +172,6 @@ func insert_magazine(item: InventoryItem, specific_magazine: InventoryItem = nul
 		myInventory.remove_item(magazine)  # Remove the magazine from the inventory
 
 
-# When a reload is completed and we remove the magazine from the gun into the inventory
-func remove_magazine(item: InventoryItem):
-	if not item or not item.get_property("Ranged"):
-		return  # Ensure the item is a ranged weapon
-
-	var myMagazine: InventoryItem = get_magazine(item)
-	if myMagazine:
-		myInventory.add_item(myMagazine)
-		item.clear_property("current_magazine")
-
-
-# Get the magazine from the currently equipped item
-func get_magazine(item: InventoryItem) -> InventoryItem:
-	if not item or not item.get_property("Ranged"):
-		return null
-	if item.get_property("current_magazine"):
-		var myMagazine: InventoryItem = item.get_property("current_magazine")
-		return myMagazine
-	return null
 
 
 # Get the currently equipped item
@@ -242,14 +223,6 @@ func _on_context_menu_reload(items: Array[InventoryItem]) -> void:
 func _on_context_menu_unload(items: Array[InventoryItem]) -> void:
 	for item in items:
 		if item.get_property("Ranged") != null:
-			unload_magazine_from_item(item)
+			ItemManager.unload_magazine_from_item(item)
 			break  # Exit after unloading the first ranged item
 
-
-# We remove the magazine from the given item and add it to the inventory
-func unload_magazine_from_item(item: InventoryItem) -> void:
-	# Check if the item has a magazine loaded
-	if item.get_property("current_magazine"):
-		var myMagazine: InventoryItem = item.get_property("current_magazine")
-		item.clear_property("current_magazine")  # Remove the magazine from the weapon
-		myInventory.add_item(myMagazine)  # Add the magazine back to the inventory
