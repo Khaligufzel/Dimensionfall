@@ -166,7 +166,7 @@ func insert_magazine(item: InventoryItem, specific_magazine: InventoryItem = nul
 	if not item or item.get_property("Ranged") == null:
 		return  # Ensure the item is a ranged weapon
 
-	var magazine: InventoryItem = specific_magazine if specific_magazine else find_compatible_magazine(oldMagazine)
+	var magazine: InventoryItem = specific_magazine if specific_magazine else ItemManager.find_compatible_magazine(oldMagazine)
 	if magazine:
 		item.set_property("current_magazine", magazine)
 		myInventory.remove_item(magazine)  # Remove the magazine from the inventory
@@ -197,26 +197,6 @@ func get_magazine(item: InventoryItem) -> InventoryItem:
 func get_item() -> InventoryItem:
 	return myInventoryItem
 
-
-# This function will loop over the items in the inventory
-# It will select items that have the "magazine" property
-# It will return the first result if a magazine is found
-# It will return null of no magazine is found
-func find_compatible_magazine(oldMagazine: InventoryItem) -> InventoryItem:
-	var bestMagazine: InventoryItem = null
-	var bestAmmo: int = 0  # Variable to track the maximum ammo found
-
-	var inventoryItems: Array = myInventory.get_items()  # Retrieve all items in the inventory
-	for item in inventoryItems:
-		if item.get_property("Magazine") and item != oldMagazine:
-			var magazine = item.get_property("Magazine")
-			if magazine and magazine.has("current_ammo"):
-				var currentAmmo: int = int(magazine["current_ammo"])
-				if currentAmmo > bestAmmo:
-					bestAmmo = currentAmmo
-					bestMagazine = item
-
-	return bestMagazine  # Return the magazine with the most current ammo
 
 
 

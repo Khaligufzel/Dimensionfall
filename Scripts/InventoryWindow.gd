@@ -27,9 +27,16 @@ var is_showing_tooltip = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	inventory = ItemManager.playerInventory
+	inventory_control.myInventory = inventory
+	inventory_control.initialize_list()
+	proximity_inventory = ItemManager.proximityInventory
+	proximity_inventory_control.myInventory = proximity_inventory
+	proximity_inventory_control.initialize_list()
+	
+	LeftHandEquipmentSlot.myInventory = inventory
+	RightHandEquipmentSlot.myInventory = inventory
 	# The items that were in the player inventory when they exited
 	# the previous level are loaded back into the inventory
-	inventory.deserialize(General.player_inventory_dict)
 	if General.player_equipment_dict.has("LeftHandEquipmentSlot"):
 		LeftHandEquipmentSlot.deserialize(General.player_equipment_dict.LeftHandEquipmentSlot)
 	if General.player_equipment_dict.has("RightHandEquipmentSlot"):

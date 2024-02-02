@@ -189,7 +189,7 @@ func apply_recoil(direction: Vector3, recoil_value: float) -> Vector3:
 
 # When the user wants to reload the item
 func reload_weapon():
-	if heldItem and not heldItem.get_property("Ranged") == null and not General.is_action_in_progress and not equipmentSlot.find_compatible_magazine(equipmentSlot.get_magazine(heldItem)) == null:
+	if heldItem and not heldItem.get_property("Ranged") == null and not General.is_action_in_progress and not ItemManager.find_compatible_magazine(equipmentSlot.get_magazine(heldItem)) == null:
 		var magazine = equipmentSlot.get_magazine(heldItem)
 		if not magazine:
 			equipmentSlot.start_reload(heldItem, reload_speed)
@@ -260,7 +260,7 @@ func equip_item(equippedItem: InventoryItem, slot: Control):
 
 # Function to clear weapon properties for a specified hand
 func clear_held_item():
-	if heldItem:
+	if heldItem and heldItem.properties_changed.is_connected(_on_helditem_properties_changed):
 		heldItem.properties_changed.disconnect(_on_helditem_properties_changed)
 		heldItem.set_property("is_reloading", false)
 	visible = false
@@ -307,7 +307,7 @@ func can_weapon_reload() -> bool:
 		# Check if neither mouse button is pressed
 		if not is_left_button_held and not is_right_button_held:
 			# Check if the weapon is not currently reloading and if a compatible magazine is available in the inventory
-			if not is_weapon_reloading() and not equipmentSlot.find_compatible_magazine(equipmentSlot.get_magazine(heldItem)) == null:
+			if not is_weapon_reloading() and not ItemManager.find_compatible_magazine(equipmentSlot.get_magazine(heldItem)) == null:
 				# Additional checks can be added here if needed
 				return true
 	return false

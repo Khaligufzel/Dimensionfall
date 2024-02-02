@@ -196,7 +196,6 @@ func _on_shooting_ammo_changed(current_ammo: int, max_ammo: int, leftHand:bool):
 # Called when the users presses the travel button on the overmap
 # We save the player inventory to a autoload singleton so we can load it on the next map
 func _on_overmap_change_level_pressed():
-	General.player_inventory_dict = inventoryWindow.get_inventory().serialize()
 	General.player_equipment_dict = inventoryWindow.get_equipment_dict()
 
 

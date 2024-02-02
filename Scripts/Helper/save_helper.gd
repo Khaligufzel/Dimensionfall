@@ -224,7 +224,7 @@ func load_overmap_state() -> void:
 # Function to save the player's inventory to a JSON file.
 func save_player_inventory() -> void:
 	var save_path = current_save_folder + "/player_inventory.json"
-	var inventory_data = JSON.stringify(General.player_inventory_dict)
+	var inventory_data = JSON.stringify(ItemManager.playerInventory.serialize())
 	Helper.json_helper.write_json_file(save_path, inventory_data)
 	
 # Function to save the player's equipment to a JSON file.
@@ -243,7 +243,7 @@ func load_player_inventory() -> void:
 
 	if loaded_inventory_data:
 		# Update the General.player_inventory_dict with the loaded data
-		General.player_inventory_dict = loaded_inventory_data
+		ItemManager.playerInventory.deserialize(loaded_inventory_data)
 		print_debug("Player inventory loaded from: " + load_path)
 	else:
 		print_debug("Failed to load player inventory from: " + load_path)
