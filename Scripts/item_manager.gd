@@ -87,3 +87,17 @@ func get_magazine(item: InventoryItem) -> InventoryItem:
 		var myMagazine: InventoryItem = item.get_property("current_magazine")
 		return myMagazine
 	return null
+
+
+# We insert the magazine into the provided item from the inventory
+# The item is an InventoryItem which should have the ranged property
+# THe specific_magazine may be provided, which will be loaded into the gun
+# oldmagazine is the magazine that was removed before this function is called
+func insert_magazine(item: InventoryItem, specific_magazine: InventoryItem = null, oldMagazine: InventoryItem = null):
+	if not item or item.get_property("Ranged") == null:
+		return  # Ensure the item is a ranged weapon
+
+	var magazine: InventoryItem = specific_magazine if specific_magazine else find_compatible_magazine(oldMagazine)
+	if magazine:
+		item.set_property("current_magazine", magazine)
+		playerInventory.remove_item(magazine)  # Remove the magazine from the inventory

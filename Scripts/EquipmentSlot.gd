@@ -147,7 +147,7 @@ func reload_weapon(item: InventoryItem, specific_magazine: InventoryItem = null)
 	if item and not item.get_property("Ranged") == null:
 		var oldMagazine: InventoryItem = item.get_property("current_magazine")
 		ItemManager.remove_magazine(item)
-		insert_magazine(item, specific_magazine, oldMagazine)
+		ItemManager.insert_magazine(item, specific_magazine, oldMagazine)
 		item.set_property("is_reloading", false)  # Mark reloading as complete
 
 
@@ -161,24 +161,9 @@ func start_reload(item: InventoryItem, reload_time: float, specific_magazine: In
 	General.start_action(reload_time, reload_callable)
 
 
-# When a reload is completed and we insert the magazine from the inventory
-func insert_magazine(item: InventoryItem, specific_magazine: InventoryItem = null, oldMagazine: InventoryItem = null):
-	if not item or item.get_property("Ranged") == null:
-		return  # Ensure the item is a ranged weapon
-
-	var magazine: InventoryItem = specific_magazine if specific_magazine else ItemManager.find_compatible_magazine(oldMagazine)
-	if magazine:
-		item.set_property("current_magazine", magazine)
-		myInventory.remove_item(magazine)  # Remove the magazine from the inventory
-
-
-
-
 # Get the currently equipped item
 func get_item() -> InventoryItem:
 	return myInventoryItem
-
-
 
 
 # This function should return true if the dragged data can be dropped here
@@ -225,4 +210,3 @@ func _on_context_menu_unload(items: Array[InventoryItem]) -> void:
 		if item.get_property("Ranged") != null:
 			ItemManager.unload_magazine_from_item(item)
 			break  # Exit after unloading the first ranged item
-
