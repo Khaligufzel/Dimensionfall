@@ -27,7 +27,7 @@ var myMagazine: InventoryItem = null
 var equippedItem: Sprite3D = null
 var default_reload_speed: float = 1.0
 
-# Signals
+# Signals to commmunicate with the equippedItem node inside the Player node
 signal item_was_equipped(equippedItem: InventoryItem, equipmentSlot: Control)
 signal item_was_cleared(equippedItem: InventoryItem, equipmentSlot: Control)
 
@@ -52,11 +52,8 @@ func equip(item: InventoryItem) -> void:
 		unequip()
 
 	if item:
-		var is_two_handed: bool = item.get_property("two_handed", false)
-		var other_slot_item: InventoryItem = otherHandSlot.get_item()
-		# Check if the other slot has a two-handed item equipped
-		if other_slot_item and other_slot_item.get_property("two_handed", false):
-			print_debug("Cannot equip item. The other slot has a two-handed weapon equipped.")
+		# Enforce two-handed weapons disallowing dual wielding
+		if not handle_two_handed_constraint(item):
 			return
 		
 		myInventoryItem = item
@@ -66,37 +63,53 @@ func equip(item: InventoryItem) -> void:
 		var itemInventory = item.get_inventory()
 		if itemInventory and itemInventory.has_item(item):
 			item.get_inventory().remove_item(item)	
-		
+
+		# Tells the equippedItem node in the player node to update the weapon properties
+		item_was_equipped.emit(item, self)
+		check_and_load_magazine(item) # We load a magazine if the item contains one
+
+
+# Unequip the current item and keep the magazine in the weapon
+func unequip() -> void:
+	if myInventoryItem:
+		# If there is a magazine, serialize it and store it in the weapon's current_magazine property
+		if myMagazine:
+			myInventoryItem.set_property("current_magazine", myMagazine.serialize())
+			myMagazine = null  # Clear the myMagazine variable since it's now stored in the weapon
+
+		item_was_cleared.emit(myInventoryItem, self)
+		myInventory.add_item(myInventoryItem)
+		myInventoryItem = null
+		update_icon()
+
+
+# We make sure a two-handed weapon occupies both slots
+# We do this by disallowing the equipping of one slot and the clearing of the other slot
+func handle_two_handed_constraint(item: InventoryItem) -> bool:
+	var can_equip: bool = true
+	var is_two_handed: bool = item.get_property("two_handed", false)
+	var other_slot_item: InventoryItem = otherHandSlot.get_item()
+	# Check if the other slot has a two-handed item equipped
+	if other_slot_item and other_slot_item.get_property("two_handed", false):
+		print_debug("Cannot equip item. The other slot has a two-handed weapon equipped.")
+		can_equip = false
+	else:
 		# If the item is two-handed, clear the other hand slot before equipping
 		if is_two_handed:
 			otherHandSlot.unequip()
-		item_was_equipped.emit(item, self)
-
-
-# Unequip the current item
-func unequip() -> void:
-	if myInventoryItem:
-		item_was_cleared.emit(myInventoryItem, self)
-		myInventoryItem.clear_property("equipped_laft")
-		myInventory.add_item(myInventoryItem)
-		myInventoryItem = null
-		if myMagazine:
-			myInventory.add_item(myMagazine)
-			myMagazine = null
-		update_icon()
+	return can_equip
 
 
 # Update the icon of the equipped item
 func update_icon() -> void:
 	if myInventoryItem:
 		myIcon.texture = myInventoryItem.get_texture()
-		#myIcon.visible = true
 	else:
 		myIcon.texture = null
-		#myIcon.visible = false
 
 
 # Serialize the equipped item and the magazine into one dictionary
+# This will happen when the player pressed the travel button on the overmap
 func serialize() -> Dictionary:
 	var data: Dictionary = {}
 	if myInventoryItem:
@@ -107,6 +120,7 @@ func serialize() -> Dictionary:
 
 
 # Deserialize and equip an item and a magazine from the provided data
+# This will happen when a game is loaded or the player has travelled to a different map
 func deserialize(data: Dictionary) -> void:
 	# Deserialize and equip an item
 	if data.has("item"):
@@ -117,9 +131,24 @@ func deserialize(data: Dictionary) -> void:
 
 	if data.has("magazine"):
 		var magazineData: Dictionary = data["magazine"]
-		var magazine = InventoryItem.new()
-		magazine.deserialize(magazineData)
-		myMagazine = magazine  # Directly assign the deserialized magazine
+		load_magazine_into_weapon(magazineData)
+
+
+# Check if the weapon has a current_magazine property and load it into the slot
+# This happens when a gun is equipped from the inventory that had previously a magazine inserted
+func check_and_load_magazine(item: InventoryItem):
+	if not item.get_property("current_magazine") == null:
+		var magazineData = item.get_property("current_magazine")
+		load_magazine_into_weapon(magazineData)
+		item.clear_property("current_magazine")  # Remove the property once the magazine is loaded
+
+
+# Create and equip a magazine based on the data that was received
+# The data is expected to be a deserialized InventoryItem that has the Magazine property
+func load_magazine_into_weapon(magazineData: Dictionary):
+	if magazineData:
+		myMagazine = InventoryItem.new()
+		myMagazine.deserialize(magazineData)
 		equippedItem.on_magazine_inserted()
 
 
@@ -140,6 +169,7 @@ func start_reload(item: InventoryItem, reload_time: float, specific_magazine: In
 	General.start_action(reload_time, reload_callable)
 
 
+# When a reload is completed and we insert the magazine from the inventory
 func insert_magazine(specific_magazine: InventoryItem = null, oldMagazine: InventoryItem = null):
 	if not myInventoryItem or myInventoryItem.get_property("Ranged") == null:
 		return  # Ensure the item is a ranged weapon
@@ -151,6 +181,7 @@ func insert_magazine(specific_magazine: InventoryItem = null, oldMagazine: Inven
 		equippedItem.on_magazine_inserted()
 
 
+# When a reload is completed and we remove the magazine from the gun into the inventory
 func remove_magazine():
 	if not myInventoryItem or not myInventoryItem.get_property("Ranged") or not myMagazine:
 		return  # Ensure the item is a ranged weapon
