@@ -76,7 +76,6 @@ func _on_context_menu_item_selected(id):
 		1: equip_right.emit(selected_inventory_items)
 		2: reload_item.emit(selected_inventory_items)
 		3: unload_item.emit(selected_inventory_items)
-	get_viewport().set_input_as_handled()
 
 
 func _disconnect_inventory_signals():
