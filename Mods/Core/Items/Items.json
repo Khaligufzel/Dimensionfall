@@ -49,7 +49,7 @@
 		"Magazine": {
 			"current_ammo": "19",
 			"max_ammo": "20",
-			"used_ammo": "9mm"
+			"used_ammo": "bullet_9mm"
 		},
 		"description": "In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets",
 		"height": "1",

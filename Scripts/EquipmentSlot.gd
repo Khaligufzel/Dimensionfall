@@ -36,8 +36,6 @@ signal item_was_cleared(equippedItem: InventoryItem, equipmentSlot: Control)
 func _ready():
 	item_was_equipped.connect(Helper.signal_broker.on_item_equipped)
 	item_was_cleared.connect(Helper.signal_broker.on_item_slot_cleared)
-	myInventoryCtrl.reload_item.connect(_on_context_menu_reload)
-	myInventoryCtrl.unload_item.connect(_on_context_menu_unload)
 
 
 # Handle GUI input events
@@ -142,25 +140,6 @@ func deserialize(data: Dictionary) -> void:
 			equippedItem.on_magazine_inserted()
 
 
-# The reload has completed. We now need to remove the current magazine and put in a new one
-func reload_weapon(item: InventoryItem, specific_magazine: InventoryItem = null):
-	if item and not item.get_property("Ranged") == null:
-		var oldMagazine: InventoryItem = item.get_property("current_magazine")
-		ItemManager.remove_magazine(item)
-		ItemManager.insert_magazine(item, specific_magazine, oldMagazine)
-		item.set_property("is_reloading", false)  # Mark reloading as complete
-
-
-# This will start the reload action. General will keep track of the progress
-# We pass reload_weapon as a function that will be executed when the action is done
-func start_reload(item: InventoryItem, reload_time: float, specific_magazine: InventoryItem = null):
-	var reload_callable = Callable(self, "reload_weapon").bind(item, specific_magazine)
-	# Assuming there's a mechanism to track reloading state for each item
-	# This could be a property in InventoryItem or managed externally
-	item.set_property("is_reloading", true)
-	General.start_action(reload_time, reload_callable)
-
-
 # Get the currently equipped item
 func get_item() -> InventoryItem:
 	return myInventoryItem
@@ -187,26 +166,9 @@ func _drop_data(newpos, data):
 # When the user has dropped a magaziene from the inventory
 func _handle_magazine_drop(magazine: InventoryItem):
 	if myInventoryItem and myInventoryItem.get_property("Ranged"):
-		start_reload(myInventoryItem, equippedItem.reload_speed, magazine)
+		ItemManager.start_reload(myInventoryItem, equippedItem.reload_speed, magazine)
 	else:
 		# Equip the item if no weapon is wielded
 		equip(magazine)
 
 
-# When the user requests a reload trough the inventory context menu
-func _on_context_menu_reload(items: Array[InventoryItem]) -> void:
-	for item in items:
-		if item.get_property("Ranged") != null:
-			# Retrieve reload speed from the "Ranged" property dictionary or use the default
-			var ranged_properties = item.get_property("Ranged", {})
-			var reload_speed = float(ranged_properties.get("reload_speed", default_reload_speed))
-			start_reload(item, reload_speed)
-			break  # Only reload the first ranged item found
-
-
-# When the user requests an unload of the selected item(s) trough the inventory context menu
-func _on_context_menu_unload(items: Array[InventoryItem]) -> void:
-	for item in items:
-		if item.get_property("Ranged") != null:
-			ItemManager.unload_magazine_from_item(item)
-			break  # Exit after unloading the first ranged item

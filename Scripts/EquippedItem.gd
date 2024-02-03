@@ -192,10 +192,9 @@ func reload_weapon():
 	if heldItem and not heldItem.get_property("Ranged") == null and not General.is_action_in_progress and not ItemManager.find_compatible_magazine(ItemManager.get_magazine(heldItem)) == null:
 		var magazine = ItemManager.get_magazine(heldItem)
 		if not magazine:
-			equipmentSlot.start_reload(heldItem, reload_speed)
+			ItemManager.start_reload(heldItem, reload_speed)
 		elif get_current_ammo() < get_max_ammo():
-			equipmentSlot.start_reload(heldItem, reload_speed)
-
+			ItemManager.start_reload(heldItem, reload_speed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
