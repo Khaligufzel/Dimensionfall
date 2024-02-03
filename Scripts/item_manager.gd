@@ -108,40 +108,40 @@ func reload_magazine(magazine: InventoryItem) -> void:
 	if magazine and magazine.get_property("Magazine"):
 		var magazineProperties = magazine.get_property("Magazine")
 		# Get the ammo type required by the magazine
-		var ammo_type: String = magazineProperties.used_ammo
+		var ammo_type: String = magazineProperties["used_ammo"]
 		
-		var current_ammo: int = int(magazineProperties.current_ammo)
+		var current_ammo: int = int(magazineProperties["current_ammo"])
 		# Total amount of ammo required to fully load the magazine
-		var needed_ammo: int = int(magazineProperties.max_ammo) - current_ammo
+		var needed_ammo: int = int(magazineProperties["max_ammo"]) - current_ammo
 		
 		if needed_ammo <= 0:
 			return  # Magazine is already full or has invalid properties
 		
+		# Initialize a variable to track the total amount of ammo loaded
+		var total_ammo_loaded: int = 0
+		
 		# Find and consume ammo from the inventory
-		var ammo_item: InventoryItem = find_ammo_in_inventory(ammo_type, needed_ammo)
-		if ammo_item:
-			# Calculate how much ammo can actually be loaded into the magazine
-			var actual_ammo_to_load: int = min(needed_ammo, InventoryStacked.get_item_stack_size(ammo_item))
+		while needed_ammo > 0:
+			var ammo_item: InventoryItem = playerInventory.get_item_by_id(ammo_type)
+			if not ammo_item:
+				break  # No more ammo of the required type is available
 			
-			# Update the current_ammo property of the magazine
-			magazineProperties.current_ammo = current_ammo + actual_ammo_to_load
-			magazine.set_property("Magazine", magazineProperties)
+			# Calculate how much ammo can be loaded from this stack
+			var stack_size: int = InventoryStacked.get_item_stack_size(ammo_item)
+			var ammo_to_load: int = min(needed_ammo, stack_size)
 			
-			# Decrease the stack_size of the ammo item in the inventory
-			var new_stack_size: int = InventoryStacked.get_item_stack_size(ammo_item) - actual_ammo_to_load
+			# Update totals based on the ammo loaded
+			total_ammo_loaded += ammo_to_load
+			needed_ammo -= ammo_to_load
+			
+			# Decrease the stack size of the ammo item in the inventory
+			var new_stack_size: int = stack_size - ammo_to_load
 			InventoryStacked.set_item_stack_size(ammo_item, new_stack_size)
-
-
-# Helper function to find ammo in the inventory based on the ammo type and the needed amount
-func find_ammo_in_inventory(ammo_type: String, needed_ammo: int) -> InventoryItem:
-	var inventoryItems: Array = playerInventory.get_items()
-	for item in inventoryItems:
-		if item.prototype_id == ammo_type:
-			var stack_size: int = InventoryStacked.get_item_stack_size(item)
-			if stack_size >= needed_ammo:
-				return item
-	return null
-
+		
+		# Update the current_ammo property of the magazine
+		if total_ammo_loaded > 0:
+			magazineProperties["current_ammo"] = current_ammo + total_ammo_loaded
+			magazine.set_property("Magazine", magazineProperties)
 
 
 # The reload has completed. We now need to remove the current magazine and put in a new one
@@ -161,15 +161,6 @@ func start_reload(item: InventoryItem, reload_time: float, specific_magazine: In
 	# This could be a property in InventoryItem or managed externally
 	item.set_property("is_reloading", true)
 	General.start_action(reload_time, reload_callable)
-
-
-# Assuming you have a function to get an item by its ID (Placeholder function)
-func get_item_by_id(item_id: String) -> InventoryItem:
-	var inventoryItems: Array = playerInventory.get_items()
-	for item in inventoryItems:
-		if item.get_property("prototype_id") == item_id:
-			return item
-	return null
 
 
 # This function starts by retrieving the first property using InventoryItem.get_property()

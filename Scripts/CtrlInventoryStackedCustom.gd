@@ -627,6 +627,7 @@ func _on_context_menu_reload(items: Array[InventoryItem]) -> void:
 		if item.get_property("Magazine"):
 			# Retrieve reload speed from the "Ranged" property dictionary or use the default
 			ItemManager.reload_magazine(item)
+			update_inventory_list(item, "")
 			break  # Only reload the first ranged item found
 
 
