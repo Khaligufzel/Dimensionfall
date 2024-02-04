@@ -20,6 +20,13 @@ var showAbove: bool = false
 var snapAmount: float
 var defaultMapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
 var rotationAmount: int = 0
+
+var start_point = Vector2()
+var end_point = Vector2()
+var is_drawing = false
+var snapLevel: Vector2 = Vector2(snapAmount, snapAmount).round()
+
+
 #Contains map metadata like size as well as the data on all levels
 var mapData: Dictionary = defaultMapData.duplicate():
 	set(data):
@@ -30,7 +37,7 @@ var mapData: Dictionary = defaultMapData.duplicate():
 		loadLevelData(currentLevel)
 signal zoom_level_changed(zoom_level: int)
 
-func _on_mapeditor_ready():
+func _on_mapeditor_ready() -> void:
 	columns = mapEditor.mapWidth
 	levelgrid_below.columns = mapEditor.mapWidth
 	levelgrid_above.columns = mapEditor.mapWidth
@@ -39,6 +46,7 @@ func _on_mapeditor_ready():
 	levelgrid_below.hide()
 	levelgrid_above.hide()
 	_on_zoom_level_changed(mapEditor.zoom_level)
+
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
 func createTiles():
@@ -54,13 +62,9 @@ func createTiles():
 			tileAbove.set_clickable(false)
 			levelgrid_above.add_child(tileAbove)
 
-var start_point = Vector2()
-var end_point = Vector2()
-var is_drawing = false
-var snapLevel: Vector2 = Vector2(snapAmount, snapAmount).round()
 
 #When the user presses and holds the middle mousebutton and moves the mouse, change the parent's scroll_horizontal and scroll_vertical properties appropriately
-func _input(event):
+func _input(event) -> void:
 	#The mapeditor may be invisible if the user selects another tab in the content editor
 	if !mapEditor.visible:
 		return
@@ -118,18 +122,18 @@ func _input(event):
 		brushPreviewTexture.global_position = new_position
 
 # Highlight tiles that are in the rectangle that the user has drawn with the mouse
-func update_rectangle():
+func update_rectangle() -> void:
 	if is_drawing and drawRectangle:
 		highlight_tiles_in_rect()
 
 #When one of the grid tiles is clicked, we paint the tile accordingly
-func grid_tile_clicked(clicked_tile):
+func grid_tile_clicked(clicked_tile) -> void:
 	if is_drawing:
 		paint_single_tile(clicked_tile)
 
 # We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
-func paint_single_tile(clicked_tile):
+func paint_single_tile(clicked_tile) -> void:
 	if drawRectangle or !clicked_tile:
 		return
 	if erase:
@@ -154,7 +158,7 @@ func paint_single_tile(clicked_tile):
 			clicked_tile.set_tile_id(selected_brush.tileID)
 			clicked_tile.set_rotation_amount(rotationAmount)
 
-func storeLevelData():
+func storeLevelData() -> void:
 	currentLevelData.clear()
 	var has_significant_data = false
 
@@ -178,7 +182,7 @@ func storeLevelData():
 
 # Loads the leveldata from the mapdata
 # If no data exists, use the default to create a new map
-func loadLevelData(newLevel: int):
+func loadLevelData(newLevel: int) -> void:
 	if newLevel > 0 and showBelow:
 		levelgrid_below.show()
 		loadLevel(newLevel-1, levelgrid_below)
@@ -193,7 +197,7 @@ func loadLevelData(newLevel: int):
 		levelgrid_above.hide()
 	loadLevel(newLevel, self)
 
-func loadLevel(level: int, grid: GridContainer):
+func loadLevel(level: int, grid: GridContainer) -> void:
 	if mapData.is_empty():
 		print_debug("Tried to load data from an empty mapData dictionary")
 		return;
@@ -221,23 +225,8 @@ func change_level(newlevel: int) -> void:
 	storeLevelData()
 
 # We need to add 10 since the scrollbar starts at -10
-func _on_level_scrollbar_value_changed(value):
+func _on_level_scrollbar_value_changed(value) -> void:
 	change_level(10+0-value)
-
-#This function takes two coordinates representing a rectangle. It will check which of the TileGrid's children's position falls inside this rectangle. It returns all the child tiles that fall inside this rectangle
-#func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
-	#var tiles_in_rectangle: Array = []
-	#
-	## Normalize the rectangle coordinates
-	#var normalized_start = Vector2(min(rect_start.x, rect_end.x), min(rect_start.y, rect_end.y))
-	#var normalized_end = Vector2(max(rect_start.x, rect_end.x), max(rect_start.y, rect_end.y))
-	#
-	#for tile in get_children():
-		#var tile_pos = tile.global_position + mapScrollWindow.global_position
-		#if tile_pos.x >= normalized_start.x and tile_pos.x <= normalized_end.x:
-			#if tile_pos.y >= normalized_start.y and tile_pos.y <= normalized_end.y:
-				#tiles_in_rectangle.append(tile)
-	#return tiles_in_rectangle
 
 
 # This function takes two coordinates representing a rectangle and the current zoom level.
@@ -264,11 +253,12 @@ func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
 	return tiles_in_rectangle
 
 
-func unhighlight_tiles():
+func unhighlight_tiles() -> void:
 	for tile in get_children():
 		tile.unhighlight()
 
-func highlight_tiles_in_rect():
+
+func highlight_tiles_in_rect() -> void:
 	unhighlight_tiles()
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
 	for tile in tiles:
@@ -306,12 +296,15 @@ func paint_in_rectangle():
 func _on_erase_toggled(button_pressed):
 	erase = button_pressed
 
+
 func _on_draw_rectangle_toggled(button_pressed):
 	drawRectangle = button_pressed
+
 
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush):
 	selected_brush = tilebrush
 	update_preview_texture()
+
 
 func update_preview_texture():
 	if selected_brush:
@@ -320,6 +313,7 @@ func update_preview_texture():
 	else:
 		brushPreviewTexture.visible = false
 
+
 func _on_show_below_toggled(button_pressed):
 	showBelow = button_pressed
 	if showBelow:
@@ -327,12 +321,14 @@ func _on_show_below_toggled(button_pressed):
 	else:
 		levelgrid_below.hide()
 
+
 func _on_show_above_toggled(button_pressed):
 	showAbove = button_pressed
 	if showAbove:
 		levelgrid_above.show()
 	else:
 		levelgrid_above.hide()
+
 
 #This function takes the mapData property and saves all of it as a json file.
 func save_map_json_file():
@@ -393,6 +389,7 @@ func create_miniature_map_image() -> Image:
 			tile_image.get_size()), Vector2(x * tile_width, y * tile_height))
 	return image
 
+
 # Function to create and save a 128x128 miniature map of the current level
 func save_miniature_map_image():
 	# Call the function to create the image texture
@@ -403,12 +400,13 @@ func save_miniature_map_image():
 	var file_path = Gamedata.data.maps.spritePath + file_name
 	image.save_png(file_path)
 
+
 func _on_create_preview_image_button_button_up():
 	save_miniature_map_image()
 	
 
 # This function will loop over all levels and rotate them if they contain tile data.
-func rotate_map():
+func rotate_map() -> void:
 	# Store the data of the current level before rotating the map
 	storeLevelData()
 	
@@ -425,7 +423,7 @@ func rotate_map():
 
 
 # Rotates the current level 90 degrees clockwise.
-func rotate_level_clockwise():
+func rotate_level_clockwise() -> void:
 	# Check if currentLevelData has at least one item
 	if !currentLevelData.size() > 0:
 		return
