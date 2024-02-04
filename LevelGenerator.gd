@@ -209,7 +209,7 @@ func generate_saved_level(tacticalMapJSON: Dictionary) -> void:
 								# We only set the local position relative to the parent
 								block.position.x = w
 								block.position.z = h
-								apply_block_rotation(tileJSON, block)
+								block.rotation_degrees.y = tileJSON.get("rotation", 0)
 								add_block_mob(tileJSON, block)
 								add_furniture_to_block(tileJSON, block)
 					current_block += 1
@@ -295,25 +295,31 @@ func rotate_position_around_block_center(newpos, newRot, block_center):
 	# Return the new position
 	return block_center + rotated_offset
 
+
+# When the map is created for the first time, we will apply block rotation
+# This function will not be called when a map is loaded
 func apply_block_rotation(tileJSON: Dictionary, block: StaticBody3D):
-	var myRotation: int = tileJSON.get("rotation", 0)
-	var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,tileJSON.id)
-	var myShape: String = tileJSONData.get("shape", "block")
-	if myShape == "slope":
-		if myRotation == 180 or myRotation == 0:
-			# 0 is transformed to 90, pointing north
-			# 180 is transformed to 270, pointing south
-			block.rotation_degrees = Vector3(0,myRotation+90,0)
-		else:
-			# 90 is transformed to 0, pointing east
-			# 270 is transformed to 180, pointing west
-			block.rotation_degrees = Vector3(0,myRotation-90,0)
-	else:
-		# We flip the block to the texture is at the rigth rirection
-		if myRotation == 0 or myRotation == 180:
-			block.rotation_degrees = Vector3(0,myRotation+180,0)
-		else:
-			block.rotation_degrees = Vector3(0,myRotation+0,0)
+	# The slope has a default rotation of 90
+	# The block has a default rotation of 0
+	var myRotation: int = tileJSON.get("rotation", 0) + block.rotation_degrees.y
+	if myRotation == 0:
+		# Only the block will match this case, not the slope. The block points north
+		block.rotation_degrees = Vector3(0,myRotation+180,0)
+	elif myRotation == 90:
+		# A slope will point north
+		# A block will point east
+		block.rotation_degrees = Vector3(0,myRotation+0,0)
+	elif myRotation == 180:
+		# A block will point south
+		# A slope will point east
+		block.rotation_degrees = Vector3(0,myRotation-180,0)
+	elif myRotation == 270:
+		# A block will point west
+		# A slope will point south
+		block.rotation_degrees = Vector3(0,myRotation+0,0)
+	elif myRotation == 360:
+		# Only a slope can match this case
+		block.rotation_degrees = Vector3(0,myRotation-180,0)
 
 
 func add_block_mob(tileJSON: Dictionary, block: StaticBody3D):
