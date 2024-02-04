@@ -11,8 +11,7 @@ var tileData: Dictionary = defaultTileData.duplicate():
 		if tileData.has("id") and tileData.id != "":
 			$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles,\
 			tileData.id).albedo_texture
-			if tileData.has("rotation"):
-				set_rotation_amount(tileData.rotation)
+			set_rotation_amount(tileData.get("rotation", 0))
 			$MobFurnitureSprite.hide()
 			$MobFurnitureSprite.rotation_degrees = 0
 			if tileData.has("mob"):
