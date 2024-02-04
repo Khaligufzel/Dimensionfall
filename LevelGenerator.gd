@@ -296,20 +296,25 @@ func rotate_position_around_block_center(newpos, newRot, block_center):
 	return block_center + rotated_offset
 
 func apply_block_rotation(tileJSON: Dictionary, block: StaticBody3D):
-	if tileJSON.has("rotation"):
-		if tileJSON.rotation != 0:
-			# We subtract 90 so we know that north is 
-			# on the top of the screen
-			# The default block has a y rotation of 90
-			# So it is already pointing north (0 = 90)
-			# 90 = 0 - points east
-			# 180 (we add 90 instead of subtract) = 270 = south
-			# 270 = 180 - points west
-			var myRotation: int = tileJSON.rotation
-			if myRotation == 180:
-				block.rotation_degrees = Vector3(0,myRotation+90,0)
-			else:
-				block.rotation_degrees = Vector3(0,myRotation-90,0)
+	var myRotation: int = tileJSON.get("rotation", 0)
+	var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,tileJSON.id)
+	var myShape: String = tileJSONData.get("shape", "block")
+	if myShape == "slope":
+		if myRotation == 180 or myRotation == 0:
+			# 0 is transformed to 90, pointing north
+			# 180 is transformed to 270, pointing south
+			block.rotation_degrees = Vector3(0,myRotation+90,0)
+		else:
+			# 90 is transformed to 0, pointing east
+			# 270 is transformed to 180, pointing west
+			block.rotation_degrees = Vector3(0,myRotation-90,0)
+	else:
+		# We flip the block to the texture is at the rigth rirection
+		if myRotation == 0 or myRotation == 180:
+			block.rotation_degrees = Vector3(0,myRotation+180,0)
+		else:
+			block.rotation_degrees = Vector3(0,myRotation+0,0)
+
 
 func add_block_mob(tileJSON: Dictionary, block: StaticBody3D):
 	if tileJSON.has("mob"):
