@@ -229,3 +229,20 @@ func update_item_protoset_json_data(tres_path: String, new_json_data: String) ->
 		print("Failed to save updated ItemProtoset resource to:", tres_path)
 	else:
 		print("ItemProtoset resource updated and saved successfully to:", tres_path)
+
+
+
+# Function to filter items by type
+func get_items_by_type(item_type: String) -> Array:
+	var filtered_items = []
+	
+	# Check if the items data exists and is an array
+	if Gamedata.data.has("items") and Gamedata.data.items.has("data") and typeof(Gamedata.data.items.data) == TYPE_ARRAY:
+		# Iterate through each item in the items data
+		for item in Gamedata.data.items.data:
+			# Check if the item is a dictionary and has the specified type
+			if item is Dictionary and item.has(item_type):
+				# Add the item to the filtered items list
+				filtered_items.append(item)
+
+	return filtered_items
