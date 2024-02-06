@@ -158,6 +158,7 @@ func paint_single_tile(clicked_tile) -> void:
 			clicked_tile.set_tile_id(selected_brush.tileID)
 			clicked_tile.set_rotation_amount(rotationAmount)
 
+
 func storeLevelData() -> void:
 	currentLevelData.clear()
 	var has_significant_data = false
@@ -229,6 +230,19 @@ func _on_level_scrollbar_value_changed(value) -> void:
 	change_level(10+0-value)
 
 
+# Function to check if any corner of a tile or its edges are within or on the boundary of the normalized rectangle
+func is_tile_in_rect(tile: Control, normalized_start: Vector2, normalized_end: Vector2, zoom_level: float) -> bool:
+	var tile_size = tile.get_size() / zoom_level
+	var tile_global_pos = tile.global_position / zoom_level
+	var tile_bottom_right = tile_global_pos + tile_size
+
+	# Adjusting checks to be inclusive of the boundary conditions
+	var overlaps_top_left = tile_global_pos.x <= normalized_end.x and tile_global_pos.y <= normalized_end.y
+	var overlaps_bottom_right = tile_bottom_right.x >= normalized_start.x and tile_bottom_right.y >= normalized_start.y
+
+	return overlaps_top_left and overlaps_bottom_right
+
+
 # This function takes two coordinates representing a rectangle and the current zoom level.
 # It will check which of the TileGrid's children's positions fall inside this rectangle.
 # It returns all the child tiles that fall inside this rectangle.
@@ -244,12 +258,9 @@ func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
 	normalized_end /= mapEditor.zoom_level
 
 	for tile in get_children():
-		# Calculate the position of the tile accounting for the zoom level
-		var tile_pos = tile.get_global_position() / mapEditor.zoom_level
-		# Check if the tile's position is within the normalized rectangle
-		if tile_pos.x >= normalized_start.x and tile_pos.x <= normalized_end.x:
-			if tile_pos.y >= normalized_start.y and tile_pos.y <= normalized_end.y:
-				tiles_in_rectangle.append(tile)
+		if is_tile_in_rect(tile, normalized_start, normalized_end, mapEditor.zoom_level):
+			tiles_in_rectangle.append(tile)
+
 	return tiles_in_rectangle
 
 
@@ -263,6 +274,7 @@ func highlight_tiles_in_rect() -> void:
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
 	for tile in tiles:
 		tile.highlight()
+
 
 #Paint every tile in the selected rectangle
 #We always erase if erase is selected, even if no brush is selected
