@@ -1204,5 +1204,26 @@
 		"name": "Arc stones floor",
 		"shape": "cube",
 		"sprite": "arcstones1.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Road"
+		],
+		"description": "Part of the street that indicates this is a zone for pedestrians to walk on",
+		"id": "sidewalk_00",
+		"name": "Sidewalk",
+		"shape": "cube",
+		"sprite": "sidewalk.png"
+	},
+	{
+		"categories": [
+			"Urban"
+		],
+		"description": "Concrete provides a smooth floor for wheels and is hard to break",
+		"id": "concrete_00",
+		"name": "Concrete",
+		"shape": "cube",
+		"sprite": "concrete.png"
 	}
 ]
