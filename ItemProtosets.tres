@@ -72,14 +72,14 @@ json_data = "[
 	},
 	{
 		\"Ranged\": {
-			\"firing_speed\": \"0.4\",
-			\"range\": \"1000\",
-			\"recoil\": \"10\",
-			\"reload_speed\": \"1.5\",
-			\"spread\": \"5\",
-			\"sway\": \"5\",
+			\"firing_speed\": 0.4,
+			\"range\": 1000,
+			\"recoil\": 10,
+			\"reload_speed\": 1.5,
+			\"spread\": 5,
+			\"sway\": 5,
 			\"used_ammo\": \"9mm\",
-			\"used_magazine\": \"pistol_magazine\",
+			\"used_magazine\": \"Pistol magazine\",
 			\"used_skill\": \"short_guns\"
 		},
 		\"description\": \"A standard issue pistol that uses 9mm ammunition\",

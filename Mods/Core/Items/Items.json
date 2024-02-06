@@ -66,12 +66,12 @@
 	},
 	{
 		"Ranged": {
-			"firing_speed": "0.4",
-			"range": "1000",
-			"recoil": "10",
-			"reload_speed": "1.5",
-			"spread": "5",
-			"sway": "5",
+			"firing_speed": 0.4,
+			"range": 1000,
+			"recoil": 10,
+			"reload_speed": 1.5,
+			"spread": 5,
+			"sway": 5,
 			"used_ammo": "9mm",
 			"used_magazine": "pistol_magazine",
 			"used_skill": "short_guns"
@@ -91,12 +91,12 @@
 	},
 	{
 		"Ranged": {
-			"firing_speed": "0.2",
-			"range": "1000",
-			"recoil": "15",
-			"reload_speed": "2.5",
-			"spread": "8",
-			"sway": "5",
+			"firing_speed": 0.2,
+			"range": 1000,
+			"recoil": 15,
+			"reload_speed": 2.5,
+			"spread": 8,
+			"sway": 5,
 			"used_ammo": "9mm",
 			"used_magazine": "pistol_magazine",
 			"used_skill": "short_guns"
@@ -116,14 +116,14 @@
 	},
 	{
 		"Ranged": {
-			"firing_speed": "0.25",
-			"range": "1000",
-			"recoil": "20",
-			"reload_speed": "2.5",
-			"spread": "5",
-			"sway": "5",
+			"firing_speed": 0.25,
+			"range": 1000,
+			"recoil": 20,
+			"reload_speed": 2.5,
+			"spread": 5,
+			"sway": 5,
 			"used_ammo": "9mm",
-			"used_magazine": "pistol_magazine",
+			"used_magazine": "pistol_magazine,chuganov_mpap_magazine",
 			"used_skill": "short_guns"
 		},
 		"description": "Chugun in Russian is for cast steel, MPAP is \"Multi Purpose Automatic Pistol\"",

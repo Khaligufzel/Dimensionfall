@@ -22,8 +22,8 @@ func _ready():
 
 func initialize_magazine_selection(magazines: Array):
 	for magazine in magazines:
-		var magazine_button = CheckButton.new()
-		magazine_button.text = magazine["name"]  # Assuming each magazine has a 'name' property
+		var magazine_button = CheckBox.new()
+		magazine_button.text = magazine["id"]
 		magazine_button.toggle_mode = true
 		UsedMagazineContainer.add_child(magazine_button)
 
@@ -31,7 +31,7 @@ func initialize_magazine_selection(magazines: Array):
 func get_properties() -> Dictionary:
 	var selected_magazines = []
 	for button in UsedMagazineContainer.get_children():
-		if button is CheckButton and button.pressed:
+		if button is CheckBox and button.button_pressed:
 			selected_magazines.append(button.text)
 	
 	return {
@@ -52,8 +52,8 @@ func set_properties(properties: Dictionary) -> void:
 	if properties.has("used_magazine"):
 		var used_magazines = properties["used_magazine"].split(",")
 		for button in UsedMagazineContainer.get_children():
-			if button is CheckButton:
-				button.pressed = button.text in used_magazines
+			if button is CheckBox:
+				button.button_pressed = button.text in used_magazines
 	if properties.has("range"):
 		RangeNumberBox.value = float(properties["range"])
 	if properties.has("spread"):
