@@ -123,7 +123,7 @@
 			"spread": 5,
 			"sway": 5,
 			"used_ammo": "9mm",
-			"used_magazine": "pistol_magazine,chuganov_mpap_magazine",
+			"used_magazine": "chugunov_mpap_magazine",
 			"used_skill": "short_guns"
 		},
 		"description": "Chugun in Russian is for cast steel, MPAP is \"Multi Purpose Automatic Pistol\"",
@@ -147,7 +147,7 @@
 		},
 		"description": "A magazine to be loaded into a Chuganov MPAP",
 		"height": "1",
-		"id": "chuganov_mpap_magazine",
+		"id": "chugunov_mpap_magazine",
 		"image": "./Mods/Core/Items/chugunov_mpap_magazine_16_32.png",
 		"max_stack_size": "1",
 		"name": "Chuganov MPAP magazine",

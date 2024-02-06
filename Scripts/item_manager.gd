@@ -26,7 +26,8 @@ func initialize_inventory() -> InventoryStacked:
 func create_starting_items():
 	if playerInventory.get_children() == []:
 		playerInventory.create_and_add_item("pistol_9mm")
-		playerInventory.create_and_add_item("chuganov_mpap")
+		playerInventory.create_and_add_item("chugunov_mpap")
+		playerInventory.create_and_add_item("chugunov_mpap_magazine")
 		playerInventory.create_and_add_item("bullet_9mm")
 		playerInventory.create_and_add_item("pistol_magazine")
 		playerInventory.create_and_add_item("pistol_magazine")

@@ -621,9 +621,11 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 func _on_context_menu_reload(items: Array[InventoryItem]) -> void:
 	for item in items:
 		if item.get_property("Ranged") != null:
-			# Retrieve reload speed from the "Ranged" property dictionary or use the default
-			ItemManager.start_reload(item, float(ItemManager.get_nested_property(item, "Ranged.reload_speed")))
-			break  # Only reload the first ranged item found
+			if ItemManager.find_compatible_magazine(item):
+				var reload_speed: float = float(ItemManager.get_nested_property(item, "Ranged.reload_speed"))
+				# Retrieve reload speed from the "Ranged" property dictionary or use the default
+				ItemManager.start_reload(item, reload_speed)
+				break  # Only reload the first ranged item found
 		if item.get_property("Magazine"):
 			# Retrieve reload speed from the "Ranged" property dictionary or use the default
 			ItemManager.reload_magazine(item)
