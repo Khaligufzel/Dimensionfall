@@ -14,6 +14,7 @@ var currentLevelData: Array = []
 var selected_brush: Control
 
 var drawRectangle: bool = false
+var copyRectangle: bool = false
 var erase: bool = false
 var showBelow: bool = false
 var showAbove: bool = false
@@ -25,6 +26,8 @@ var start_point = Vector2()
 var end_point = Vector2()
 var is_drawing = false
 var snapLevel: Vector2 = Vector2(snapAmount, snapAmount).round()
+# Variable to hold copied tile data along with dimensions
+var copied_tiles_info: Dictionary = {"tiles_data": [], "width": 0, "height": 0}
 
 
 #Contains map metadata like size as well as the data on all levels
@@ -37,11 +40,12 @@ var mapData: Dictionary = defaultMapData.duplicate():
 		loadLevelData(currentLevel)
 signal zoom_level_changed(zoom_level: int)
 
+
 func _on_mapeditor_ready() -> void:
 	columns = mapEditor.mapWidth
 	levelgrid_below.columns = mapEditor.mapWidth
 	levelgrid_above.columns = mapEditor.mapWidth
-	createTiles()
+	create_tiles()
 	snapAmount = 1.28*mapEditor.zoom_level
 	levelgrid_below.hide()
 	levelgrid_above.hide()
@@ -49,18 +53,21 @@ func _on_mapeditor_ready() -> void:
 
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
-func createTiles():
-	for x in range(mapEditor.mapWidth):
-		for y in range(mapEditor.mapHeight):
-			var tileInstance: Control = tileScene.instantiate()
-			add_child(tileInstance)
-			tileInstance.connect("tile_clicked",grid_tile_clicked)
-			var tileBelow: Control = tileScene.instantiate()
-			tileBelow.set_clickable(false)
-			levelgrid_below.add_child(tileBelow)
-			var tileAbove: Control = tileScene.instantiate()
-			tileAbove.set_clickable(false)
-			levelgrid_above.add_child(tileAbove)
+func create_tiles():
+	create_level_tiles(self, mapEditor.mapWidth, mapEditor.mapHeight, true)
+	create_level_tiles(levelgrid_below, mapEditor.mapWidth, mapEditor.mapHeight, false)
+	create_level_tiles(levelgrid_above, mapEditor.mapWidth, mapEditor.mapHeight, false)
+
+
+# Helper function to create tiles for a specific level grid
+func create_level_tiles(grid: GridContainer, width: int, height: int, connect_signals: bool):
+	for x in range(width):
+		for y in range(height):
+			var tile_instance = tileScene.instantiate()
+			grid.add_child(tile_instance)
+			if connect_signals:
+				tile_instance.tile_clicked.connect(grid_tile_clicked)
+			tile_instance.set_clickable(connect_signals)
 
 
 #When the user presses and holds the middle mousebutton and moves the mouse, change the parent's scroll_horizontal and scroll_vertical properties appropriately
@@ -97,10 +104,16 @@ func _input(event) -> void:
 					is_drawing = true
 					start_point = event.global_position.snapped(snapLevel)
 				else:
+					# Finalize drawing/copying operation
 					end_point = event.global_position.snapped(snapLevel)
-					if is_drawing == true:
-						if drawRectangle:
+					if is_drawing:
+						if drawRectangle and not copyRectangle:
+							# Paint in the rectangle if drawRectangle is enabled
 							paint_in_rectangle()
+						elif copyRectangle and !drawRectangle:
+							# Copy selected tiles to memory if copyRectangle is 
+							# enabled and not in drawRectangle mode
+							copy_selected_tiles_to_memory()
 					unhighlight_tiles()
 					is_drawing = false
 
@@ -108,9 +121,9 @@ func _input(event) -> void:
 	if event is InputEventMouseMotion:
 		end_point = event.global_position
 		if is_drawing:
-			if drawRectangle:
+			if drawRectangle or copyRectangle:
 				update_rectangle()
-				
+
 		# Calculate new position for the brush preview
 		var new_position = event.position + brushPreviewTexture.get_rect().size / 2
 		# Get the boundaries of the mapScrollWindow
@@ -123,7 +136,7 @@ func _input(event) -> void:
 
 # Highlight tiles that are in the rectangle that the user has drawn with the mouse
 func update_rectangle() -> void:
-	if is_drawing and drawRectangle:
+	if is_drawing and (drawRectangle or copyRectangle):
 		highlight_tiles_in_rect()
 
 #When one of the grid tiles is clicked, we paint the tile accordingly
@@ -134,7 +147,7 @@ func grid_tile_clicked(clicked_tile) -> void:
 # We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile) -> void:
-	if drawRectangle or !clicked_tile:
+	if copyRectangle or drawRectangle or !clicked_tile:
 		return
 	if erase:
 		if selected_brush:
@@ -262,6 +275,44 @@ func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
 			tiles_in_rectangle.append(tile)
 
 	return tiles_in_rectangle
+
+
+
+# This function calculates the dimensions of the selected tiles in terms of how many tiles were selected horizontally (width) and vertically (height).
+func get_selection_dimensions(rect_start: Vector2, rect_end: Vector2) -> Dictionary:
+	var selected_tiles = get_tiles_in_rectangle(rect_start, rect_end)
+	var x_positions = []
+	var y_positions = []
+
+	# Normalize the rectangle coordinates based on the zoom level
+	rect_start /= mapEditor.zoom_level
+	rect_end /= mapEditor.zoom_level
+
+	for tile in selected_tiles:
+		# Assuming the position is based on the tile's position in the grid container
+		var tile_pos = tile.get_position() / (snapAmount * mapEditor.zoom_level)
+		var x_position = tile_pos.x
+		var y_position = tile_pos.y
+		
+		# Add the positions to the lists if they're not already there
+		if not x_positions.has(x_position):
+			x_positions.append(x_position)
+		if not y_positions.has(y_position):
+			y_positions.append(y_position)
+
+	# Sort the positions in ascending order for consistency
+	x_positions.sort()
+	y_positions.sort()
+
+	# Calculate the selection width and height based on the unique positions
+	var selection_width = x_positions.size()
+	var selection_height = y_positions.size()
+
+	# Return the dimensions as a dictionary
+	return {"width": selection_width, "height": selection_height}
+
+
+
 
 
 func unhighlight_tiles() -> void:
@@ -468,3 +519,120 @@ func rotate_level_clockwise() -> void:
 
 	# Update the current level data
 	currentLevelData = new_level_data
+
+
+func _on_copy_rectangle_toggled(toggled_on):
+	copyRectangle = toggled_on
+
+
+
+
+func copy_selected_tiles_to_memory1():
+	
+	var selection_dimensions = get_selection_dimensions(start_point, end_point)
+	print("Selected width (horizontal tiles): ", selection_dimensions["width"])
+	print("Selected height (vertical tiles): ", selection_dimensions["height"])
+	
+	copied_tiles_info["tiles_data"].clear()  # Clear previous data
+	var selected_tiles = get_tiles_in_rectangle(start_point, end_point)
+	
+	# Calculate dimensions of the copied area
+	var min_x = 999999
+	var max_x = -999999
+	var min_y = 999999
+	var max_y = -999999
+	
+	print_debug("selected_tiles.size = " + str(selected_tiles.size()))
+	for tile in selected_tiles:
+		var tile_pos = tile.get_position()
+		min_x = min(min_x, tile_pos.x)
+		max_x = max(max_x, tile_pos.x)
+		min_y = min(min_y, tile_pos.y)
+		max_y = max(max_y, tile_pos.y)
+		
+		# Assuming each tile has a script with a property 'tileData' that contains its data
+		var tile_data = tile.tileData.duplicate()  # Duplicate the dictionary to ensure a deep copy
+		copied_tiles_info["tiles_data"].append(tile_data)
+	
+	# Store the width and height of the copied area
+	copied_tiles_info["width"] = int((max_x - min_x) / snapAmount) + 1
+	copied_tiles_info["height"] = int((max_y - min_y) / snapAmount) + 1
+	
+	#print("Copied tiles info: ", copied_tiles_info)  # For debugging purposes
+	# Optionally, update a preview texture or other UI element to visualize the copied data
+	update_preview_texture_with_copied_data()
+
+
+
+
+func copy_selected_tiles_to_memory():
+	# Get selection dimensions from the new function
+	var selection_dimensions = get_selection_dimensions(start_point, end_point)
+	
+	# Clear previous copied tiles info
+	copied_tiles_info["tiles_data"].clear()
+	
+	# Get all tiles within the selected rectangle
+	var selected_tiles = get_tiles_in_rectangle(start_point, end_point)
+	
+	# Update copied_tiles_info with the new dimensions
+	copied_tiles_info["width"] = selection_dimensions["width"]
+	copied_tiles_info["height"] = selection_dimensions["height"]
+	
+	# Copy each tile's data to the copied_tiles_info dictionary
+	for tile in selected_tiles:
+		# Assuming each tile has a script with a property 'tileData' that contains its data
+		var tile_data = tile.tileData.duplicate()  # Duplicate the dictionary to ensure a deep copy
+		copied_tiles_info["tiles_data"].append(tile_data)
+	
+	# For debugging purposes, you might print out the copied_tiles_info to verify
+	#print("Copied tiles info: ", copied_tiles_info)
+	
+	# Optionally, update a preview texture or other UI element to visualize the copied data
+	update_preview_texture_with_copied_data()
+
+
+
+func update_preview_texture_with_copied_data():
+	var preview_size = Vector2(512, 512)  # Size of the preview texture
+	var tiles_width = copied_tiles_info["width"]
+	var tiles_height = copied_tiles_info["height"]
+	print_debug("tiles_width = " + str(tiles_width) + ", tiles_height = " + str(tiles_height))
+	
+	# Calculate size for each tile in the preview to fit all copied tiles
+	var tile_size_x = preview_size.x / tiles_width
+	var tile_size_y = preview_size.y / tiles_height
+	var tile_size = Vector2(tile_size_x, tile_size_y)
+	
+	# Create a new Image with a size of 128x128 pixels
+	var image = Image.create(preview_size.x, preview_size.y, false, Image.FORMAT_RGBA8)
+	#image.fill(Color(0, 0, 0, 0))  # Fill with transparent color
+
+	var idx = 0  # Tile index
+	for tile_data in copied_tiles_info["tiles_data"]:
+		# Assuming tile_data contains a key for 'texture_id' or similar
+		var texture_id = tile_data["id"]
+		# You need a way to map 'texture_id' to an actual texture; this is just a conceptual placeholder
+		var tile_texture: Texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, texture_id).albedo_texture
+		
+		if tile_texture:
+			var tile_image = tile_texture.get_image()
+			tile_image.resize(tile_size.x, tile_size.y)  # Resize image to fit the preview
+			
+			# Calculate position in the preview based on the tile index and copied area dimensions
+			var pos_x = (idx % tiles_width) * tile_size.x
+			var pos_y = (idx / tiles_width) * tile_size.y
+			var pos_in_preview = Vector2(pos_x, pos_y)
+			
+			# Convert the tile image to the same format as the main image
+			tile_image.convert(Image.FORMAT_RGBA8)
+			# Draw the resized tile image onto the main image
+			image.blit_rect(tile_image, Rect2(Vector2(), tile_image.get_size()), pos_in_preview)
+		
+		idx += 1  # Move to the next tile
+
+	# Convert the Image to a Texture and assign it to brushPreviewTexture
+	var texture = ImageTexture.create_from_image(image)
+	brushPreviewTexture.texture = texture
+
+
