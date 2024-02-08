@@ -758,7 +758,96 @@ func copy_tiles_from_all_levels(rect_start: Vector2, rect_end: Vector2) -> Array
 				if tile_data.size() > 0: # Make sure the tile has data before adding it
 					level_copied_tiles.append(tile_data)
 			all_levels_copied_data.append(level_copied_tiles)
-	
-	# Now you have all the copied tile data from all levels
-	# You can process it further as needed
+		else:
+			all_levels_copied_data.append([])
+
 	return all_levels_copied_data
+
+
+# Function to get tiles in range based on the provided start tile index, width, and height
+func get_tiles_in_range(start_tile_index: int, width: int, height: int, level_index: int) -> Array:
+	var tiles_in_range: Array = []
+	
+	# Calculate the start row and column based on the tile index and map width
+	var start_row: int = start_tile_index / mapData["mapwidth"]
+	var start_col: int = start_tile_index % mapData["mapwidth"]
+	
+	# Calculate the end row and column based on the width and height
+	var end_row: int = start_row + height
+	var end_col: int = start_col + width
+	
+	# Ensure the range does not exceed the map boundaries
+	end_row = min(end_row, mapData["mapheight"])
+	end_col = min(end_col, mapData["mapwidth"])
+	
+	# Loop through the specified range and collect tile data
+	for row in range(start_row, end_row):
+		for col in range(start_col, end_col):
+			var tile_index: int = row * mapData["mapwidth"] + col
+			# Ensure the tile index is within the level's data range
+			if tile_index >= 0 and tile_index < mapData["levels"][level_index].size():
+				tiles_in_range.append(mapData["levels"][level_index][tile_index])
+	
+	return tiles_in_range
+
+
+# Function to get tile indexes in range based on the provided start tile index, width, and height
+func get_tile_indexes_in_range(start_tile_index: int, width: int, height: int, level_index: int) -> Array:
+	var tile_indexes: Array = []
+	
+	# Calculate the start row and column based on the tile index and map width
+	var start_row: int = start_tile_index / mapData["mapwidth"]
+	var start_col: int = start_tile_index % mapData["mapwidth"]
+	
+	# Calculate the end row and column based on the width and height
+	var end_row: int = start_row + height
+	var end_col: int = start_col + width
+	
+	# Ensure the range does not exceed the map boundaries
+	end_row = min(end_row, mapData["mapheight"])
+	end_col = min(end_col, mapData["mapwidth"])
+	
+	# Loop through the specified range and collect tile indexes
+	for row in range(start_row, end_row):
+		for col in range(start_col, end_col):
+			var tile_index: int = row * mapData["mapwidth"] + col
+			# Ensure the tile index is within the map's total number of tiles
+			if tile_index < mapData["levels"][level_index].size():
+				tile_indexes.append(tile_index)
+	
+	return tile_indexes
+
+
+func apply_column_tiles_to_all_levels(clicked_tile: Control) -> void:
+	# Get the index of the clicked tile
+	var clicked_tile_index = get_index_of_child(clicked_tile)
+	
+	# Get selection dimensions from the new function
+	var selection_dimensions = get_selection_dimensions(start_point, end_point)
+	
+	# Update copied_tiles_info with the new dimensions
+	var width = selection_dimensions["width"]
+	var height = selection_dimensions["height"]
+	
+	# Copy tiles from all levels based on the clicked column
+	var copied_column_data = copy_tiles_from_all_levels(start_point, end_point)
+	
+	# Get the required tile indexes in range for the target location
+	# Assuming we use the same clicked_tile_index for simplicity; adjust as needed for the target location
+	var target_tile_indexes = get_tile_indexes_in_range(clicked_tile_index, width, height, currentLevel)
+	
+	# Loop over all levels in mapData
+	for level_index in range(mapData["levels"].size()):
+		var level_data = mapData["levels"][level_index]
+		# Ensure there's corresponding copied data for this level
+		if level_index < copied_column_data.size():
+			var column_data_for_level = copied_column_data[level_index]
+			for i in range(min(target_tile_indexes.size(), column_data_for_level.size())):
+				var target_index = target_tile_indexes[i]
+				# Check if target index is within the current level data range
+				if target_index >= 0 and target_index < level_data.size():
+					# Apply the copied tile data to the target tile index
+					level_data[target_index] = column_data_for_level[i]
+
+	# After pasting, reload the current level's data
+	loadLevelData(currentLevel)
