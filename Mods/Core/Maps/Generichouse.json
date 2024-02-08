@@ -3086,1156 +3086,1718 @@
 		[
 			{
 				"id": "grass_plain_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_plain_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_plain_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_flowers_01",
 				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_flowers_01",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_flowers_01",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"rotation": 270
+				},
+				"id": "floor_wood_boards_06",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_06",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_06",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_06",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_06",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_05",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_05",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_05",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_05",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_05",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_08",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_08",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_08",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"rotation": 270
+				},
+				"id": "blue_carpet_00",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 90
+				},
+				"id": "blue_carpet_00",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_flowers_01",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 90
+				},
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "table_round_wood",
+					"rotation": 0
+				},
+				"id": "floor_wood_boards_08",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 270
+				},
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_flowers_03",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_08",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 0
+				},
+				"id": "floor_wood_boards_08",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "bookcase_wood_00",
+					"rotation": 0
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "bookcase_wood_00",
+					"rotation": 0
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "kitchen_tiles_mint_02",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "kitchen_tiles_mint_02",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "kitchen_tiles_mint_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "bookcase_wood_00",
+					"rotation": 270
+				},
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "floor_wood_boards_05",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 270
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 180
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "kitchen_tiles_mint_02",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "bed_wood_single_00",
+					"rotation": 90
+				},
+				"id": "kitchen_tiles_mint_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "countertop_wood",
+					"rotation": 270
+				},
+				"id": "bathroom_tiles_blue_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "bathroom_tiles_blue_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"rotation": 90
+				},
+				"id": "bathroom_tiles_blue_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "countertop_wood",
+					"rotation": 270
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 90
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "table_round_wood",
+					"rotation": 0
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 270
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 270
+				},
+				"id": "kitchen_tiles_mint_02",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "kitchen_tiles_mint_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "countertop_wood",
+					"rotation": 270
+				},
+				"id": "bathroom_tiles_blue_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "bathroom_tiles_blue_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "bathroom_tiles_blue_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "kitchen_tiles_mint_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "kitchen_tiles_mint_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "countertop_wood",
+					"rotation": 270
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 0
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "countertop_wood",
+					"rotation": 180
+				},
+				"id": "bathroom_tiles_blue_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "countertop_wood",
+					"rotation": 180
+				},
+				"id": "bathroom_tiles_blue_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "refrigerator_00",
+					"rotation": 180
+				},
+				"id": "bathroom_tiles_blue_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 0
+				},
+				"id": "kitchen_tiles_mint_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "countertop_wood",
+					"rotation": 180
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "countertop_wood",
+					"rotation": 180
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "countertop_wood",
+					"rotation": 180
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "refrigerator_00",
+					"rotation": 180
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 270
+				},
+				"id": "orange_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_flowers_03",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "red_carpet_00",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "dirt_light_00",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_flowers_03",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_flowers_01",
+				"rotation": 90
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_flowers_01",
+				"rotation": 90
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "cobblestone_02",
+				"rotation": 90
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_flowers_01",
+				"rotation": 90
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "cobblestone_00",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00"
-			},
-			{
-				"id": "sidewalk_00"
-			},
-			{
-				"id": "sidewalk_00"
-			},
-			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01",
+				"rotation": 180
 			},
 			{
 				"id": "sidewalk_00"
@@ -4910,100 +5472,100 @@
 				"id": "sidewalk_00"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "cobblestone_02"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "cobblestone_02"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "grass_plain_01"
 			},
 			{
 				"id": "grass_plain_01"
@@ -5242,25 +5804,29 @@
 			},
 			{
 				"furniture": {
-					"id": "refrigerator_00"
+					"id": "refrigerator_00",
+					"rotation": 180
 				},
 				"id": "orange_carpet_00"
 			},
 			{
 				"furniture": {
-					"id": "countertop_wood"
+					"id": "countertop_wood",
+					"rotation": 0
 				},
 				"id": "orange_carpet_00"
 			},
 			{
 				"furniture": {
-					"id": "countertop_wood"
+					"id": "countertop_wood",
+					"rotation": 0
 				},
 				"id": "orange_carpet_00"
 			},
 			{
 				"furniture": {
-					"id": "cabinet_wood_00"
+					"id": "countertop_wood",
+					"rotation": 0
 				},
 				"id": "orange_carpet_00"
 			},
@@ -5305,7 +5871,8 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00"
+					"id": "plant_pot_00",
+					"rotation": 0
 				},
 				"id": "kitchen_tiles_mint_00"
 			},
@@ -5314,19 +5881,22 @@
 			},
 			{
 				"furniture": {
-					"id": "refrigerator_00"
+					"id": "refrigerator_00",
+					"rotation": 0
 				},
 				"id": "bathroom_tiles_blue_00"
 			},
 			{
 				"furniture": {
-					"id": "countertop_wood"
+					"id": "countertop_wood",
+					"rotation": 0
 				},
 				"id": "bathroom_tiles_blue_00"
 			},
 			{
 				"furniture": {
-					"id": "countertop_wood"
+					"id": "countertop_wood",
+					"rotation": 0
 				},
 				"id": "bathroom_tiles_blue_00"
 			},
@@ -5485,7 +6055,8 @@
 			},
 			{
 				"furniture": {
-					"id": "table_round_wood"
+					"id": "table_round_wood",
+					"rotation": 0
 				},
 				"id": "orange_carpet_00"
 			},
@@ -5560,7 +6131,7 @@
 			},
 			{
 				"furniture": {
-					"id": "cabinet_wood_00",
+					"id": "countertop_wood",
 					"rotation": 90
 				},
 				"id": "bathroom_tiles_blue_00"
@@ -5604,7 +6175,8 @@
 			},
 			{
 				"furniture": {
-					"id": "chair_wood"
+					"id": "chair_wood",
+					"rotation": 0
 				},
 				"id": "orange_carpet_00"
 			},
@@ -5724,7 +6296,7 @@
 			},
 			{
 				"furniture": {
-					"id": "cabinet_wood_00",
+					"id": "bookcase_wood_00",
 					"rotation": 180
 				},
 				"id": "orange_carpet_00"
@@ -5911,7 +6483,8 @@
 			},
 			{
 				"furniture": {
-					"id": "table_round_wood"
+					"id": "table_round_wood",
+					"rotation": 0
 				},
 				"id": "floor_wood_boards_08"
 			},
@@ -6027,7 +6600,8 @@
 			},
 			{
 				"furniture": {
-					"id": "chair_wood"
+					"id": "chair_wood",
+					"rotation": 0
 				},
 				"id": "floor_wood_boards_08"
 			},
@@ -6359,1244 +6933,335 @@
 		[
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 
@@ -7611,124 +7276,666 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "floor_wood_boards_02",
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "red_carpet_00",
+				"rotation": 270
+			},
+			{
+				"id": "wood_stairs",
+				"rotation": 270
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "wood_stairs"
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
 			},
 			{
 
@@ -7738,151 +7945,432 @@
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
@@ -10141,1127 +10629,1511 @@
 		[
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "bookcase_wood_00",
+					"rotation": 0
+				},
+				"id": "orange_carpet_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "bookcase_wood_00",
+					"rotation": 0
+				},
+				"id": "orange_carpet_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"rotation": 270
+				},
+				"id": "floor_wood_boards_04",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 90
+				},
+				"id": "floor_wood_boards_02",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "table_round_wood",
+					"rotation": 0
+				},
+				"id": "floor_wood_boards_04",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "bed_wood_single_00",
+					"rotation": 0
+				},
+				"id": "floor_wood_boards_04"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "orange_carpet_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "wood_stairs"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_04",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_02",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_04",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 270
+				},
+				"id": "floor_wood_boards_04"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "orange_carpet_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "wood_stairs",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_02",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "orange_carpet_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_06",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_06",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_06",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_06",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_06",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_06",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_02",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_02",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "bookcase_wood_00",
+					"rotation": 0
+				},
+				"id": "floor_wood_boards_02",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "bookcase_wood_00",
+					"rotation": 0
+				},
+				"id": "floor_wood_boards_03",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_04",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_07",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_02",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_02",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_03",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_02",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_05"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_07",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 90
+				},
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "table_round_wood",
+					"rotation": 0
+				},
+				"id": "floor_wood_boards_02",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "floor_wood_boards_03",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "bed_wood_single_00",
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_03",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"rotation": 90
+				},
+				"id": "floor_wood_boards_02",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_00"
+			},
+			{
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "blue_carpet_00",
+				"rotation": 180
+			},
+			{
+				"id": "blue_carpet_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 180
+				},
+				"id": "blue_carpet_00",
+				"rotation": 180
+			},
+			{
+				"id": "blue_carpet_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "bench_wood",
+					"rotation": 90
+				},
+				"id": "blue_carpet_00",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "bed_wood_single_00",
+					"rotation": 270
+				},
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "table_round_wood",
+					"rotation": 270
+				},
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_00"
+			},
+			{
+				"furniture": {
+					"id": "bed_wood_single_00",
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "bookcase_wood_00",
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "table_round_wood",
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_06",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 180
+				},
+				"id": "blue_carpet_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "bed_wood_single_00",
+					"rotation": 180
+				},
+				"id": "blue_carpet_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "table_round_wood",
+					"rotation": 180
+				},
+				"id": "blue_carpet_00",
+				"rotation": 180
+			},
+			{
+				"id": "blue_carpet_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "bookcase_wood_00",
+					"rotation": 90
+				},
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
 			},
 			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 
@@ -11271,405 +12143,23 @@
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
@@ -12829,7 +13319,8 @@
 			},
 			{
 				"furniture": {
-					"id": "table_round_wood"
+					"id": "table_round_wood",
+					"rotation": 180
 				},
 				"id": "blue_carpet_00"
 			},
@@ -12841,7 +13332,8 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00"
+					"id": "plant_pot_00",
+					"rotation": 180
 				},
 				"id": "blue_carpet_00"
 			},
@@ -12889,7 +13381,8 @@
 			},
 			{
 				"furniture": {
-					"id": "table_round_wood"
+					"id": "table_round_wood",
+					"rotation": 180
 				},
 				"id": "floor_wood_boards_06"
 			},
@@ -12912,7 +13405,7 @@
 			{
 				"furniture": {
 					"id": "table_round_wood",
-					"rotation": 90
+					"rotation": 270
 				},
 				"id": "floor_wood_boards_06"
 			},
@@ -13046,7 +13539,8 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00"
+					"id": "plant_pot_00",
+					"rotation": 180
 				},
 				"id": "floor_wood_boards_06"
 			},
@@ -13083,7 +13577,7 @@
 			{
 				"furniture": {
 					"id": "table_round_wood",
-					"rotation": 180
+					"rotation": 0
 				},
 				"id": "floor_wood_boards_02"
 			},
@@ -13093,7 +13587,7 @@
 			{
 				"furniture": {
 					"id": "plant_pot_00",
-					"rotation": 270
+					"rotation": 90
 				},
 				"id": "blue_carpet_00"
 			},
@@ -13499,7 +13993,7 @@
 			{
 				"furniture": {
 					"id": "plant_pot_00",
-					"rotation": 90
+					"rotation": 270
 				},
 				"id": "floor_wood_boards_04",
 				"rotation": 180
@@ -13630,7 +14124,7 @@
 			{
 				"furniture": {
 					"id": "table_round_wood",
-					"rotation": 180
+					"rotation": 0
 				},
 				"id": "floor_wood_boards_04"
 			},
@@ -13700,11 +14194,12 @@
 
 			},
 			{
-
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 				"id": "brick_wall_01"
@@ -14024,1123 +14519,818 @@
 		[
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 
@@ -15150,123 +15340,101 @@
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 
@@ -15276,283 +15444,459 @@
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 270
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_00",
+				"rotation": 270
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "brick_wall_01"
 			},
 			{
-				"id": "",
-				"rotation": 0
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
+			},
+			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
@@ -17868,1251 +18212,214 @@
 		[
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -19122,123 +18429,98 @@
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+				"id": "beehive_stones_00"
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -19248,155 +18530,998 @@
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+				"id": "beehive_stones_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+				"id": "arc_stones_floor_00",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
 			},
 			{
 				"id": "",
-				"rotation": 0
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
 			},
 			{
 				"id": "",

@@ -140,15 +140,18 @@ func _input(event) -> void:
 		# Update the position of the brush preview
 		brushPreviewTexture.global_position = new_position
 
+
 # Highlight tiles that are in the rectangle that the user has drawn with the mouse
 func update_rectangle() -> void:
 	if is_drawing and (drawRectangle or copyRectangle):
 		highlight_tiles_in_rect()
 
+
 #When one of the grid tiles is clicked, we paint the tile accordingly
 func grid_tile_clicked(clicked_tile) -> void:
 	if is_drawing:
 		paint_single_tile(clicked_tile)
+
 
 # We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
@@ -440,6 +443,8 @@ func _on_rotate_right_pressed():
 	buttonRotateRight.text = str(rotationAmount)
 	brushPreviewTexture.rotation_degrees = rotationAmount
 	brushPreviewTexture.pivot_offset = brushPreviewTexture.size / 2
+	if copied_tiles_info["tiles_data"].size() > 0:
+		rotate_selection_clockwise()
 
 
 # Function to create a 128x128 miniature map of the current level
@@ -536,11 +541,28 @@ func rotate_level_clockwise() -> void:
 	currentLevelData = new_level_data
 
 
-func _on_copy_rectangle_toggled(toggled_on):
+# Called when the Copy Rectangle ToggleButton's state changes.
+func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 	copyRectangle = toggled_on
+	# If it was toggled off, clear the data from copied_tiles_info, clear rotation, and hide the brush preview
+	if not toggled_on:
+		copied_tiles_info = {"tiles_data": [], "width": 0, "height": 0}
+		reset_rotation()
+		brushPreviewTexture.visible = false
+	# If it was toggled on, show the brush preview (if there's something to preview)
+	else:
+		if copied_tiles_info["tiles_data"].size() > 0:
+			# You might want to update the brush preview to reflect the copied tiles
+			update_preview_texture_with_copied_data()
+		# If there's nothing to copy, perhaps alert the user
+		else:
+			print("No tiles copied to preview.")
+
 
 
 func copy_selected_tiles_to_memory():
+	# We want to start with 0 rotation, the user can rotate it later
+	reset_rotation()
 	# Get selection dimensions from the new function
 	var selection_dimensions = get_selection_dimensions(start_point, end_point)
 	
@@ -585,9 +607,13 @@ func update_preview_texture_with_copied_data():
 	var idx = 0  # Tile index
 	for tile_data in copied_tiles_info["tiles_data"]:
 		# Assuming tile_data contains a key for 'texture_id' or similar
-		var texture_id = tile_data["id"]
-		# You need a way to map 'texture_id' to an actual texture; this is just a conceptual placeholder
-		var tile_texture: Texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, texture_id).albedo_texture
+		var tile_texture: Texture
+		if tile_data.has("id"):
+			var texture_id = tile_data["id"]
+			# You need a way to map 'texture_id' to an actual texture; this is just a conceptual placeholder
+			tile_texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, texture_id).albedo_texture
+		else:
+			tile_texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
 		
 		if tile_texture:
 			var tile_image = tile_texture.get_image()
@@ -608,6 +634,7 @@ func update_preview_texture_with_copied_data():
 	# Convert the Image to a Texture and assign it to brushPreviewTexture
 	var texture = ImageTexture.create_from_image(image)
 	brushPreviewTexture.texture = texture
+	brushPreviewTexture.visible = true
 
 
 func get_index_of_child(clicked_tile: Node) -> int:
@@ -618,7 +645,6 @@ func get_index_of_child(clicked_tile: Node) -> int:
 	return -1  # Return -1 if the clicked_tile is not found among the children
 
 
-
 # Function to paste copied tile data starting from the clicked tile
 func paste_copied_tile_data(clicked_tile):
 	# Check if we have copied tile data
@@ -626,11 +652,6 @@ func paste_copied_tile_data(clicked_tile):
 		print("No tile data to paste.")
 		return
 
-	# Get the starting point from the clicked tile's grid position
-	#var start_x = clicked_tile.grid_position.x
-	#var start_y = clicked_tile.grid_position.y
-	#
-	
 	# Assuming `clicked_tile` is a direct child of this GridContainer
 	var tile_index = get_index_of_child(clicked_tile)
 	var num_columns = columns  # Assuming `columns` is defined as the number of columns in the grid
@@ -667,3 +688,42 @@ func paste_copied_tile_data(clicked_tile):
 
 func _on_copy_all_levels_toggled(toggled_on):
 	pass # Replace with function body.
+
+
+# Function to rotate the selected tiles in copied_tiles_info 90 degrees clockwise
+func rotate_selection_clockwise():
+	var new_copied_tiles_info: Dictionary = {"tiles_data": [], "width": copied_tiles_info["height"], "height": copied_tiles_info["width"]}
+
+	# We'll be rotating the tiles, so we need to change width and height
+	var new_width = copied_tiles_info["height"]
+	var new_height = copied_tiles_info["width"]
+
+	for y in range(new_height):
+		for x in range(new_width):
+			var old_x = new_height - y - 1
+			var old_y = x
+			var old_index = old_y * copied_tiles_info["width"] + old_x
+			var tile_data = copied_tiles_info["tiles_data"][old_index].duplicate()
+			
+			# Add rotation to the tile's data if it has an id
+			if tile_data.has("id"):
+				var tile_rotation = int(tile_data.get("rotation", 0))
+				tile_data["rotation"] = (tile_rotation + 90) % 360
+			
+			# Rotate furniture if present, initializing rotation to 0 if not set
+			if tile_data.has("furniture"):
+				var furniture_rotation = int(tile_data.get("furniture").get("rotation", 0))
+				tile_data["furniture"]["rotation"] = (furniture_rotation + 90) % 360
+			
+			# Add rotated tile data to new_copied_tiles_info
+			new_copied_tiles_info["tiles_data"].append(tile_data)
+	
+	# Assign the newly rotated tiles to copied_tiles_info
+	copied_tiles_info = new_copied_tiles_info
+
+
+# Resets the rotation amount to 0 and updates relevant nodes
+func reset_rotation() -> void:
+	rotationAmount = 0
+	brushPreviewTexture.rotation_degrees = rotationAmount
+	buttonRotateRight.text = str(rotationAmount)
