@@ -70,6 +70,7 @@ func create_level_tiles(grid: GridContainer, width: int, height: int, connect_si
 			tile_instance.set_clickable(connect_signals)
 
 
+
 #When the user presses and holds the middle mousebutton and moves the mouse, change the parent's scroll_horizontal and scroll_vertical properties appropriately
 func _input(event) -> void:
 	#The mapeditor may be invisible if the user selects another tab in the content editor
@@ -107,7 +108,11 @@ func _input(event) -> void:
 					# Finalize drawing/copying operation
 					end_point = event.global_position.snapped(snapLevel)
 					if is_drawing:
-						if drawRectangle and not copyRectangle:
+						var drag_threshold: int = 5 # Pixels
+						var distance_dragged = start_point.distance_to(end_point)
+						if distance_dragged <= drag_threshold and copyRectangle:
+							print_debug("Released the mouse button, but clicked instead of dragged")
+						elif drawRectangle and not copyRectangle:
 							# Paint in the rectangle if drawRectangle is enabled
 							paint_in_rectangle()
 						elif copyRectangle and !drawRectangle:
@@ -116,6 +121,7 @@ func _input(event) -> void:
 							copy_selected_tiles_to_memory()
 					unhighlight_tiles()
 					is_drawing = false
+
 
 	#When the users presses and holds the mouse wheel, we scoll the grid
 	if event is InputEventMouseMotion:
@@ -147,8 +153,17 @@ func grid_tile_clicked(clicked_tile) -> void:
 # We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile) -> void:
-	if copyRectangle or drawRectangle or !clicked_tile:
+	if drawRectangle or !clicked_tile:
 		return
+		
+	# New condition to check if copyRectangle is true and copied_tiles_info has data
+	if copyRectangle:
+		if copied_tiles_info["tiles_data"].size() > 0:
+			paste_copied_tile_data(clicked_tile)
+			return  # Return after pasting to avoid executing further code
+		else:
+			return
+
 	if erase:
 		if selected_brush:
 			if selected_brush.entityType == "mob":
@@ -211,6 +226,7 @@ func loadLevelData(newLevel: int) -> void:
 		levelgrid_above.hide()
 	loadLevel(newLevel, self)
 
+
 func loadLevel(level: int, grid: GridContainer) -> void:
 	if mapData.is_empty():
 		print_debug("Tried to load data from an empty mapData dictionary")
@@ -237,6 +253,7 @@ func change_level(newlevel: int) -> void:
 	loadLevelData(newlevel)
 	currentLevel = newlevel
 	storeLevelData()
+
 
 # We need to add 10 since the scrollbar starts at -10
 func _on_level_scrollbar_value_changed(value) -> void:
@@ -310,9 +327,6 @@ func get_selection_dimensions(rect_start: Vector2, rect_end: Vector2) -> Diction
 
 	# Return the dimensions as a dictionary
 	return {"width": selection_width, "height": selection_height}
-
-
-
 
 
 func unhighlight_tiles() -> void:
@@ -399,6 +413,7 @@ func save_map_json_file():
 	storeLevelData()
 	var map_data_json = JSON.stringify(mapData.duplicate(), "\t")
 	Helper.json_helper.write_json_file(mapEditor.contentSource, map_data_json)
+
 
 func load_map_json_file():
 	var fileToLoad: String = mapEditor.contentSource
@@ -525,46 +540,6 @@ func _on_copy_rectangle_toggled(toggled_on):
 	copyRectangle = toggled_on
 
 
-
-
-func copy_selected_tiles_to_memory1():
-	
-	var selection_dimensions = get_selection_dimensions(start_point, end_point)
-	print("Selected width (horizontal tiles): ", selection_dimensions["width"])
-	print("Selected height (vertical tiles): ", selection_dimensions["height"])
-	
-	copied_tiles_info["tiles_data"].clear()  # Clear previous data
-	var selected_tiles = get_tiles_in_rectangle(start_point, end_point)
-	
-	# Calculate dimensions of the copied area
-	var min_x = 999999
-	var max_x = -999999
-	var min_y = 999999
-	var max_y = -999999
-	
-	print_debug("selected_tiles.size = " + str(selected_tiles.size()))
-	for tile in selected_tiles:
-		var tile_pos = tile.get_position()
-		min_x = min(min_x, tile_pos.x)
-		max_x = max(max_x, tile_pos.x)
-		min_y = min(min_y, tile_pos.y)
-		max_y = max(max_y, tile_pos.y)
-		
-		# Assuming each tile has a script with a property 'tileData' that contains its data
-		var tile_data = tile.tileData.duplicate()  # Duplicate the dictionary to ensure a deep copy
-		copied_tiles_info["tiles_data"].append(tile_data)
-	
-	# Store the width and height of the copied area
-	copied_tiles_info["width"] = int((max_x - min_x) / snapAmount) + 1
-	copied_tiles_info["height"] = int((max_y - min_y) / snapAmount) + 1
-	
-	#print("Copied tiles info: ", copied_tiles_info)  # For debugging purposes
-	# Optionally, update a preview texture or other UI element to visualize the copied data
-	update_preview_texture_with_copied_data()
-
-
-
-
 func copy_selected_tiles_to_memory():
 	# Get selection dimensions from the new function
 	var selection_dimensions = get_selection_dimensions(start_point, end_point)
@@ -590,7 +565,6 @@ func copy_selected_tiles_to_memory():
 	
 	# Optionally, update a preview texture or other UI element to visualize the copied data
 	update_preview_texture_with_copied_data()
-
 
 
 func update_preview_texture_with_copied_data():
@@ -636,3 +610,56 @@ func update_preview_texture_with_copied_data():
 	brushPreviewTexture.texture = texture
 
 
+func get_index_of_child(clicked_tile: Node) -> int:
+	var children = get_children()  # Get all children of this GridContainer
+	for i in range(len(children)):
+		if children[i] == clicked_tile:
+			return i  # Return the index if the child matches the clicked_tile
+	return -1  # Return -1 if the clicked_tile is not found among the children
+
+
+
+# Function to paste copied tile data starting from the clicked tile
+func paste_copied_tile_data(clicked_tile):
+	# Check if we have copied tile data
+	if copied_tiles_info.is_empty():
+		print("No tile data to paste.")
+		return
+
+	# Get the starting point from the clicked tile's grid position
+	#var start_x = clicked_tile.grid_position.x
+	#var start_y = clicked_tile.grid_position.y
+	#
+	
+	# Assuming `clicked_tile` is a direct child of this GridContainer
+	var tile_index = get_index_of_child(clicked_tile)
+	var num_columns = columns  # Assuming `columns` is defined as the number of columns in the grid
+
+	# Calculate the grid position from the tile index
+	var start_x = tile_index % num_columns
+	var start_y = tile_index / num_columns
+	
+	
+	# Calculate the ending points based on the width and height from copied_tiles_info
+	var end_x = min(start_x + copied_tiles_info["width"], 32)
+	var end_y = min(start_y + copied_tiles_info["height"], 32)
+
+	# Tile data index
+	var tile_data_index = 0
+
+	# Loop through the grid starting from the clicked tile position
+	for y in range(start_y, end_y):
+		for x in range(start_x, end_x):
+			# Calculate the index for the current tile in the grid
+			var current_tile_index = y * 32 + x
+			# Get the current tile
+			var current_tile: Control = get_child(current_tile_index)
+			# Check if the current tile and tile data index are valid
+			if current_tile and tile_data_index < copied_tiles_info["tiles_data"].size():
+				# Update the current tile with the copied data
+				current_tile.tileData = copied_tiles_info["tiles_data"][tile_data_index]
+				tile_data_index += 1
+
+	# Clear copied_tiles_info after pasting
+	copied_tiles_info = {"tiles_data": [], "width": 0, "height": 0}
+	print("Pasted tile data and cleared copied_tiles_info.")
