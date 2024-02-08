@@ -434,7 +434,7 @@ func _on_zoom_level_changed(zoom_level: int):
 	
 
 # When the user releases the mouse button on the rotate right button
-func _on_rotate_right_button_up():
+func _on_rotate_right_pressed():
 	rotationAmount += 90
 	rotationAmount = rotationAmount % 360 # Keep rotation within 0-359 degrees
 	buttonRotateRight.text = str(rotationAmount)
@@ -663,3 +663,7 @@ func paste_copied_tile_data(clicked_tile):
 	# Clear copied_tiles_info after pasting
 	copied_tiles_info = {"tiles_data": [], "width": 0, "height": 0}
 	print("Pasted tile data and cleared copied_tiles_info.")
+
+
+func _on_copy_all_levels_toggled(toggled_on):
+	pass # Replace with function body.
