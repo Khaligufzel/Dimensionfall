@@ -559,7 +559,6 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 			print("No tiles copied to preview.")
 
 
-
 func copy_selected_tiles_to_memory():
 	# We want to start with 0 rotation, the user can rotate it later
 	reset_rotation()
@@ -581,9 +580,6 @@ func copy_selected_tiles_to_memory():
 		# Assuming each tile has a script with a property 'tileData' that contains its data
 		var tile_data = tile.tileData.duplicate()  # Duplicate the dictionary to ensure a deep copy
 		copied_tiles_info["tiles_data"].append(tile_data)
-	
-	# For debugging purposes, you might print out the copied_tiles_info to verify
-	#print("Copied tiles info: ", copied_tiles_info)
 	
 	# Optionally, update a preview texture or other UI element to visualize the copied data
 	update_preview_texture_with_copied_data()
@@ -727,3 +723,42 @@ func reset_rotation() -> void:
 	rotationAmount = 0
 	brushPreviewTexture.rotation_degrees = rotationAmount
 	buttonRotateRight.text = str(rotationAmount)
+
+
+# Function to get the tile data from mapData for a given index and level
+func get_tile_data_from_mapData(index: int, level: int) -> Dictionary:
+	var level_data = mapData.levels[level]
+	if index >= 0 and index < level_data.size():
+		return level_data[index]
+	else:
+		return {} # Return an empty dictionary if the index is out of range
+
+
+func get_tile_indexes_in_rectangle(rect_start, rect_end) -> Array[int]:
+	var tile_indexes: Array[int] = []
+	for tile in get_tiles_in_rectangle(start_point, end_point):
+		var index = get_index_of_child(tile)
+		if index != -1:
+			tile_indexes.append(index)
+	return tile_indexes
+
+
+# Copies a column of tiles from all levels
+# This column is represented by an array
+func copy_tiles_from_all_levels(rect_start: Vector2, rect_end: Vector2) -> Array:
+	var all_levels_copied_data: Array = []
+	var tile_indexes = get_tile_indexes_in_rectangle(rect_start, rect_end)
+	
+	for level in range(mapData.levels.size()):
+		var level_data = mapData.levels[level]
+		if level_data.size() > 0:
+			var level_copied_tiles: Array = []
+			for tile_index in tile_indexes:
+				var tile_data = get_tile_data_from_mapData(tile_index, level)
+				if tile_data.size() > 0: # Make sure the tile has data before adding it
+					level_copied_tiles.append(tile_data)
+			all_levels_copied_data.append(level_copied_tiles)
+	
+	# Now you have all the copied tile data from all levels
+	# You can process it further as needed
+	return all_levels_copied_data
