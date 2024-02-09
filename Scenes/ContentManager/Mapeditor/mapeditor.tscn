@@ -137,7 +137,7 @@ tooltip_text = "Copy tiles in a rectangle. All layers will be copied, not just t
 theme_override_icons/checked = ExtResource("5_i6bxh")
 theme_override_icons/unchecked = ExtResource("6_0266o")
 
-[node name="DrawRectangle2" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+[node name="DrawRectangle" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
 tooltip_text = "Paint in a rectangle"
 theme_override_icons/checked = ExtResource("3_eu7pp")
@@ -146,7 +146,7 @@ theme_override_icons/unchecked = ExtResource("3_70koh")
 [node name="Erase" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
 tooltip_text = "Erase tiles on the map"
-focus_neighbor_left = NodePath("../DrawRectangle2")
+focus_neighbor_left = NodePath("../DrawRectangle")
 focus_neighbor_right = NodePath("../ShowBelow")
 theme_override_icons/checked = ExtResource("5_n3fyt")
 theme_override_icons/unchecked = ExtResource("6_6lnwx")
@@ -287,7 +287,7 @@ offset_bottom = 40.0
 [connection signal="pressed" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_rotate_right_pressed"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/CopyRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_copy_rectangle_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/CopyAllLevels" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_copy_all_levels_toggled"]
-[connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle2" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_draw_rectangle_toggled"]
+[connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_draw_rectangle_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/Erase" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_erase_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/ShowBelow" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_show_below_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/ShowAbove" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_show_above_toggled"]

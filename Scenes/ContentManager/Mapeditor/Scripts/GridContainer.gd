@@ -13,8 +13,14 @@ var currentLevelData: Array = []
 @export var buttonRotateRight: Button
 var selected_brush: Control
 
-var drawRectangle: bool = false
-var copyRectangle: bool = false
+enum EditorMode {
+	NONE,
+	DRAW_RECTANGLE, # When the user has clicked the DrawRectangle checkbox
+	COPY_RECTANGLE, # When the user has clicked the CopyRectangle checkbox
+	COPY_ALL_LEVELS # When the user has clicked the CopyAllLevels checkbox
+}
+# Replace your booleans with a single variable to track the current editor mode
+var currentMode: EditorMode = EditorMode.NONE
 var erase: bool = false
 var showBelow: bool = false
 var showAbove: bool = false
@@ -110,15 +116,21 @@ func _input(event) -> void:
 					if is_drawing:
 						var drag_threshold: int = 5 # Pixels
 						var distance_dragged = start_point.distance_to(end_point)
-						if distance_dragged <= drag_threshold and copyRectangle:
+						
+						if distance_dragged <= drag_threshold:
 							print_debug("Released the mouse button, but clicked instead of dragged")
-						elif drawRectangle and not copyRectangle:
-							# Paint in the rectangle if drawRectangle is enabled
-							paint_in_rectangle()
-						elif copyRectangle and !drawRectangle:
-							# Copy selected tiles to memory if copyRectangle is 
-							# enabled and not in drawRectangle mode
-							copy_selected_tiles_to_memory()
+						else:
+							match currentMode:
+								EditorMode.DRAW_RECTANGLE:
+									# Paint in the rectangle if drawRectangle is enabled
+									paint_in_rectangle()
+								EditorMode.COPY_RECTANGLE:
+									# Copy selected tiles to memory if copyRectangle is 
+									# enabled and not in drawRectangle mode
+									copy_selected_tiles_to_memory()
+								EditorMode.COPY_ALL_LEVELS:
+									# Handle new feature for copying all levels
+									pass
 					unhighlight_tiles()
 					is_drawing = false
 
@@ -127,7 +139,7 @@ func _input(event) -> void:
 	if event is InputEventMouseMotion:
 		end_point = event.global_position
 		if is_drawing:
-			if drawRectangle or copyRectangle:
+			if not currentMode == EditorMode.NONE:
 				update_rectangle()
 
 		# Calculate new position for the brush preview
@@ -143,7 +155,7 @@ func _input(event) -> void:
 
 # Highlight tiles that are in the rectangle that the user has drawn with the mouse
 func update_rectangle() -> void:
-	if is_drawing and (drawRectangle or copyRectangle):
+	if is_drawing and not currentMode == EditorMode.NONE:
 		highlight_tiles_in_rect()
 
 
@@ -156,11 +168,11 @@ func grid_tile_clicked(clicked_tile) -> void:
 # We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile) -> void:
-	if drawRectangle or !clicked_tile:
+	if currentMode == EditorMode.DRAW_RECTANGLE or !clicked_tile:
 		return
 		
 	# New condition to check if copyRectangle is true and copied_tiles_info has data
-	if copyRectangle:
+	if currentMode == EditorMode.DRAW_RECTANGLE:
 		if copied_tiles_info["tiles_data"].size() > 0:
 			paste_copied_tile_data(clicked_tile)
 			return  # Return after pasting to avoid executing further code
@@ -378,7 +390,10 @@ func _on_erase_toggled(button_pressed):
 
 
 func _on_draw_rectangle_toggled(button_pressed):
-	drawRectangle = button_pressed
+	if button_pressed:
+		currentMode = EditorMode.DRAW_RECTANGLE
+	else:
+		currentMode = EditorMode.NONE
 
 
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush):
@@ -541,16 +556,18 @@ func rotate_level_clockwise() -> void:
 	currentLevelData = new_level_data
 
 
+
 # Called when the Copy Rectangle ToggleButton's state changes.
 func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
-	copyRectangle = toggled_on
 	# If it was toggled off, clear the data from copied_tiles_info, clear rotation, and hide the brush preview
 	if not toggled_on:
+		currentMode = EditorMode.NONE
 		copied_tiles_info = {"tiles_data": [], "width": 0, "height": 0}
 		reset_rotation()
 		brushPreviewTexture.visible = false
 	# If it was toggled on, show the brush preview (if there's something to preview)
 	else:
+		currentMode = EditorMode.COPY_RECTANGLE
 		if copied_tiles_info["tiles_data"].size() > 0:
 			# You might want to update the brush preview to reflect the copied tiles
 			update_preview_texture_with_copied_data()
@@ -654,7 +671,7 @@ func paste_copied_tile_data(clicked_tile):
 
 	# Calculate the grid position from the tile index
 	var start_x = tile_index % num_columns
-	var start_y = tile_index / num_columns
+	var start_y = float(tile_index) / num_columns
 	
 	
 	# Calculate the ending points based on the width and height from copied_tiles_info
@@ -683,7 +700,10 @@ func paste_copied_tile_data(clicked_tile):
 
 
 func _on_copy_all_levels_toggled(toggled_on):
-	pass # Replace with function body.
+	if toggled_on:
+		currentMode = EditorMode.COPY_ALL_LEVELS
+	else:
+		currentMode = EditorMode.NONE
 
 
 # Function to rotate the selected tiles in copied_tiles_info 90 degrees clockwise
@@ -736,7 +756,7 @@ func get_tile_data_from_mapData(index: int, level: int) -> Dictionary:
 
 func get_tile_indexes_in_rectangle(rect_start, rect_end) -> Array[int]:
 	var tile_indexes: Array[int] = []
-	for tile in get_tiles_in_rectangle(start_point, end_point):
+	for tile in get_tiles_in_rectangle(rect_start, rect_end):
 		var index = get_index_of_child(tile)
 		if index != -1:
 			tile_indexes.append(index)
