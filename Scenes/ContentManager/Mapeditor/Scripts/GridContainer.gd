@@ -729,51 +729,55 @@ func rotate_selection_clockwise():
 	# We'll be rotating the tiles, so we need to change width and height
 	var new_width = copied_tiles_info["height"]
 	var new_height = copied_tiles_info["width"]
-
-	for y in range(new_height):
-		for x in range(new_width):
-			var old_x = new_height - y - 1
-			var old_y = x
-			var old_index = old_y * copied_tiles_info["width"] + old_x
-			var tile_data = copied_tiles_info["tiles_data"][old_index].duplicate()
-			
-			# Add rotation to the tile's data if it has an id
-			if tile_data.has("id"):
-				var tile_rotation = int(tile_data.get("rotation", 0))
-				tile_data["rotation"] = (tile_rotation + 90) % 360
-			
-			# Rotate furniture if present, initializing rotation to 0 if not set
-			if tile_data.has("furniture"):
-				var furniture_rotation = int(tile_data.get("furniture").get("rotation", 0))
-				tile_data["furniture"]["rotation"] = (furniture_rotation + 90) % 360
-			
-			# Add rotated tile data to new_copied_tiles_info
-			new_copied_tiles_info["tiles_data"].append(tile_data)
+	var current_tiles_data = copied_tiles_info["tiles_data"]
+	new_copied_tiles_info["tiles_data"] = rotate_tiles_data(current_tiles_data, new_width, new_height)
 	
 	# Assign the newly rotated tiles to copied_tiles_info
 	copied_tiles_info = new_copied_tiles_info
 	# Mirror the tiles after rotation. This is required because the rotation function 
 	# will mirror them, so we need to mirror them back
-	mirror_copied_tiles_info()  
+	copied_tiles_info["tiles_data"] = mirror_copied_tiles_info(copied_tiles_info["tiles_data"], new_width, new_height)
+
+
+# Helper function to rotate an array of tiles data
+func rotate_tiles_data(tiles_data: Array, width: int, height: int) -> Array:
+	var new_tiles_data: Array = []
+	for y in range(height):
+		for x in range(width):
+			var old_x = height - y - 1
+			var old_y = x
+			var old_index = old_y * height + old_x
+			if old_index < tiles_data.size():
+				var tile_data = tiles_data[old_index].duplicate()
+
+				# Add rotation to the tile's data if it has an id
+				if tile_data.has("id"):
+					var tile_rotation = int(tile_data.get("rotation", 0))
+					tile_data["rotation"] = (tile_rotation + 90) % 360
+
+				# Rotate furniture if present, initializing rotation to 0 if not set
+				if tile_data.has("furniture"):
+					var furniture_rotation = int(tile_data.get("furniture").get("rotation", 0))
+					tile_data["furniture"]["rotation"] = (furniture_rotation + 90) % 360
+
+				# Add rotated tile data to new array
+				new_tiles_data.append(tile_data)
+	return new_tiles_data
 
 
 # Function to mirror copied_tiles_info in both directions (up, down, left, right)
-func mirror_copied_tiles_info():
+func mirror_copied_tiles_info(tiles_data: Array, width: int, height: int) -> Array:
 	var mirrored_tiles_data: Array = []
-	var width = copied_tiles_info["width"]
-	var height = copied_tiles_info["height"]
 
 	# Mirror vertically and horizontally by iterating in reverse order
 	for y in range(height - 1, -1, -1):
 		for x in range(width - 1, -1, -1):
 			var original_index = y * width + x
-			var mirrored_data = copied_tiles_info["tiles_data"][original_index].duplicate()
+			var mirrored_data = tiles_data[original_index].duplicate()
 			
 			# Add the mirrored tile data to the new array
 			mirrored_tiles_data.append(mirrored_data)
-
-	# Update copied_tiles_info with the mirrored tile data
-	copied_tiles_info["tiles_data"] = mirrored_tiles_data
+	return mirrored_tiles_data
 
 
 # Resets the rotation amount to 0 and updates relevant nodes
