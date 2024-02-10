@@ -602,6 +602,14 @@ func copy_selected_tiles_to_memory():
 	update_preview_texture_with_copied_data()
 
 
+func get_index_of_child(clicked_tile: Node) -> int:
+	var children = get_children()  # Get all children of this GridContainer
+	for i in range(len(children)):
+		if children[i] == clicked_tile:
+			return i  # Return the index if the child matches the clicked_tile
+	return -1  # Return -1 if the clicked_tile is not found among the children
+
+
 func update_preview_texture_with_copied_data():
 	var preview_size = Vector2(512, 512)  # Size of the preview texture
 	var tiles_width = copied_tiles_info["width"]
@@ -613,20 +621,19 @@ func update_preview_texture_with_copied_data():
 	var tile_size_y = preview_size.y / tiles_height
 	var tile_size = Vector2(tile_size_x, tile_size_y)
 	
-	# Create a new Image with a size of 128x128 pixels
+	# Create a new Image with a size of 512x512 pixels
 	var image = Image.create(preview_size.x, preview_size.y, false, Image.FORMAT_RGBA8)
-	#image.fill(Color(0, 0, 0, 0))  # Fill with transparent color
 
-	var idx = 0  # Tile index
-	for tile_data in copied_tiles_info["tiles_data"]:
-		# Assuming tile_data contains a key for 'texture_id' or similar
-		var tile_texture: Texture
-		if tile_data.has("id"):
-			var texture_id = tile_data["id"]
-			# You need a way to map 'texture_id' to an actual texture; this is just a conceptual placeholder
-			tile_texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, texture_id).albedo_texture
-		else:
-			tile_texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
+	# Determine the source of tile data based on current mode
+	var tile_data_source = []
+	if currentMode == EditorMode.COPY_ALL_LEVELS and copied_tiles_info["all_levels_data"].size() > currentLevel:
+		tile_data_source = copied_tiles_info["all_levels_data"][currentLevel]
+	else:
+		tile_data_source = copied_tiles_info["tiles_data"]
+
+	var idx = 0  # Tile index for positioning tiles in the preview
+	for tile_data in tile_data_source:
+		var tile_texture: Texture = get_texture_from_tile_data(tile_data)
 		
 		if tile_texture:
 			var tile_image = tile_texture.get_image()
@@ -637,25 +644,30 @@ func update_preview_texture_with_copied_data():
 			var pos_y = (idx / tiles_width) * tile_size.y
 			var pos_in_preview = Vector2(pos_x, pos_y)
 			
-			# Convert the tile image to the same format as the main image
-			tile_image.convert(Image.FORMAT_RGBA8)
+			# Ensure the tile image is in the correct format
+			if tile_image.get_format() != Image.FORMAT_RGBA8:
+				tile_image.convert(Image.FORMAT_RGBA8)
+			
 			# Draw the resized tile image onto the main image
 			image.blit_rect(tile_image, Rect2(Vector2(), tile_image.get_size()), pos_in_preview)
 		
-		idx += 1  # Move to the next tile
+		idx += 1
 
-	# Convert the Image to a Texture and assign it to brushPreviewTexture
+	# Update the brushPreviewTexture with the generated image
 	var texture = ImageTexture.create_from_image(image)
 	brushPreviewTexture.texture = texture
 	brushPreviewTexture.visible = true
 
 
-func get_index_of_child(clicked_tile: Node) -> int:
-	var children = get_children()  # Get all children of this GridContainer
-	for i in range(len(children)):
-		if children[i] == clicked_tile:
-			return i  # Return the index if the child matches the clicked_tile
-	return -1  # Return -1 if the clicked_tile is not found among the children
+func get_texture_from_tile_data(tile_data: Dictionary) -> Texture:
+	var tile_texture: Texture
+	if tile_data.has("id"):
+		var texture_id = tile_data["id"]
+		# You need a way to map 'texture_id' to an actual texture; this is just a conceptual placeholder
+		tile_texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, texture_id).albedo_texture
+	else:
+		tile_texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
+	return tile_texture
 
 
 # Function to paste copied tile data starting from the clicked tile
@@ -706,6 +718,7 @@ func _on_copy_all_levels_toggled(toggled_on):
 		currentMode = EditorMode.NONE
 
 
+
 # Function to rotate the selected tiles in copied_tiles_info 90 degrees clockwise
 func rotate_selection_clockwise():
 	var new_copied_tiles_info: Dictionary = {"tiles_data": [], "width": copied_tiles_info["height"], "height": copied_tiles_info["width"]}
@@ -736,6 +749,26 @@ func rotate_selection_clockwise():
 	
 	# Assign the newly rotated tiles to copied_tiles_info
 	copied_tiles_info = new_copied_tiles_info
+	mirror_copied_tiles_info()  # Mirror the tiles after rotation
+
+
+# Function to mirror copied_tiles_info in both directions
+func mirror_copied_tiles_info():
+	var mirrored_tiles_data: Array = []
+	var width = copied_tiles_info["width"]
+	var height = copied_tiles_info["height"]
+
+	# Mirror vertically and horizontally by iterating in reverse order
+	for y in range(height - 1, -1, -1):
+		for x in range(width - 1, -1, -1):
+			var original_index = y * width + x
+			var mirrored_data = copied_tiles_info["tiles_data"][original_index].duplicate()
+			
+			# Add the mirrored tile data to the new array
+			mirrored_tiles_data.append(mirrored_data)
+
+	# Update copied_tiles_info with the mirrored tile data
+	copied_tiles_info["tiles_data"] = mirrored_tiles_data
 
 
 # Resets the rotation amount to 0 and updates relevant nodes
