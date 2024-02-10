@@ -47,6 +47,7 @@ var mapData: Dictionary = defaultMapData.duplicate():
 signal zoom_level_changed(zoom_level: int)
 
 
+# This function is called when the parent mapeditor node is ready
 func _on_mapeditor_ready() -> void:
 	columns = mapEditor.mapWidth
 	levelgrid_below.columns = mapEditor.mapWidth
@@ -74,7 +75,6 @@ func create_level_tiles(grid: GridContainer, width: int, height: int, connect_si
 			if connect_signals:
 				tile_instance.tile_clicked.connect(grid_tile_clicked)
 			tile_instance.set_clickable(connect_signals)
-
 
 
 #When the user presses and holds the middle mousebutton and moves the mouse, change the parent's scroll_horizontal and scroll_vertical properties appropriately
@@ -310,8 +310,8 @@ func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
 	return tiles_in_rectangle
 
 
-
-# This function calculates the dimensions of the selected tiles in terms of how many tiles were selected horizontally (width) and vertically (height).
+# This function calculates the dimensions of the selected tiles in terms of 
+# how many tiles were selected horizontally (width) and vertically (height).
 func get_selection_dimensions(rect_start: Vector2, rect_end: Vector2) -> Dictionary:
 	var selected_tiles = get_tiles_in_rectangle(rect_start, rect_end)
 	var x_positions = []
@@ -390,6 +390,7 @@ func _on_erase_toggled(button_pressed):
 	erase = button_pressed
 
 
+# When the user toggles the draw rectangle button in the toolbar
 func _on_draw_rectangle_toggled(button_pressed):
 	if button_pressed:
 		currentMode = EditorMode.DRAW_RECTANGLE
@@ -397,11 +398,13 @@ func _on_draw_rectangle_toggled(button_pressed):
 		currentMode = EditorMode.NONE
 
 
+# When the user has selected one of the tile brushes to paint with
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush):
 	selected_brush = tilebrush
 	update_preview_texture()
 
 
+# The cursor will have a preview of the texture that the user will paint with next to it
 func update_preview_texture():
 	if selected_brush:
 		brushPreviewTexture.texture = selected_brush.get_texture()
@@ -410,6 +413,7 @@ func update_preview_texture():
 		brushPreviewTexture.visible = false
 
 
+# When the user presses the show below button, we show a transparant view of the level below the current level
 func _on_show_below_toggled(button_pressed):
 	showBelow = button_pressed
 	if showBelow:
@@ -576,45 +580,47 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 			print("No tiles copied to preview.")
 
 
+# Called when the user has drawn a rectangle with the copy button toggled on
+# This will store the data of the selected tiles to a variable
 func copy_selected_tiles_to_memory():
-	# We want to start with 0 rotation, the user can rotate it later
-	reset_rotation()
-	# Get selection dimensions from the new function
+	reset_rotation() # We want to start with 0 rotation, the user can rotate it later
+	reset_copied_tiles_info() # Clear previous copied tiles info
+	
+	# Get selection dimensions represented by an amount of tiles
 	var selection_dimensions = get_selection_dimensions(start_point, end_point)
-	
-	# Clear previous copied tiles info
-	reset_copied_tiles_info()
-	
 	# Get all tiles within the selected rectangle
 	var selected_tiles = get_tiles_in_rectangle(start_point, end_point)
-	
+
 	# Update copied_tiles_info with the new dimensions
 	copied_tiles_info["width"] = selection_dimensions["width"]
 	copied_tiles_info["height"] = selection_dimensions["height"]
-	
+
 	# Copy each tile's data to the copied_tiles_info dictionary
 	for tile in selected_tiles:
 		# Assuming each tile has a script with a property 'tileData' that contains its data
 		var tile_data = tile.tileData.duplicate()  # Duplicate the dictionary to ensure a deep copy
 		copied_tiles_info["tiles_data"].append(tile_data)
-	
-	# Optionally, update a preview texture or other UI element to visualize the copied data
+
+	# Update a preview texture or other UI element to visualize the copied data
 	update_preview_texture_with_copied_data()
 
 
+# Return the index if the child matches the clicked_tile
 func get_index_of_child(clicked_tile: Node) -> int:
 	var children = get_children()  # Get all children of this GridContainer
 	for i in range(len(children)):
 		if children[i] == clicked_tile:
-			return i  # Return the index if the child matches the clicked_tile
+			return i  
 	return -1  # Return -1 if the clicked_tile is not found among the children
 
 
+# We create an image and put it as the brush preview texture
+# THe image is made from tiles that were selected previously
+# This provides a preview of what will be pasted
 func update_preview_texture_with_copied_data():
 	var preview_size = Vector2(512, 512)  # Size of the preview texture
 	var tiles_width = copied_tiles_info["width"]
 	var tiles_height = copied_tiles_info["height"]
-	print_debug("tiles_width = " + str(tiles_width) + ", tiles_height = " + str(tiles_height))
 	
 	# Calculate size for each tile in the preview to fit all copied tiles
 	var tile_size_x = preview_size.x / tiles_width
@@ -634,7 +640,6 @@ func update_preview_texture_with_copied_data():
 	var idx = 0  # Tile index for positioning tiles in the preview
 	for tile_data in tile_data_source:
 		var tile_texture: Texture = get_texture_from_tile_data(tile_data)
-		
 		if tile_texture:
 			var tile_image = tile_texture.get_image()
 			tile_image.resize(tile_size.x, tile_size.y)  # Resize image to fit the preview
@@ -659,11 +664,11 @@ func update_preview_texture_with_copied_data():
 	brushPreviewTexture.visible = true
 
 
+# Returns the texture associated with the tile id or the default empty tile if id is missing
 func get_texture_from_tile_data(tile_data: Dictionary) -> Texture:
 	var tile_texture: Texture
 	if tile_data.has("id"):
 		var texture_id = tile_data["id"]
-		# You need a way to map 'texture_id' to an actual texture; this is just a conceptual placeholder
 		tile_texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, texture_id).albedo_texture
 	else:
 		tile_texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
@@ -674,18 +679,17 @@ func get_texture_from_tile_data(tile_data: Dictionary) -> Texture:
 func paste_copied_tile_data(clicked_tile):
 	# Check if we have copied tile data
 	if copied_tiles_info.is_empty():
-		print("No tile data to paste.")
+		print_debug("No tile data to paste.")
 		return
 
-	# Assuming `clicked_tile` is a direct child of this GridContainer
+	# `clicked_tile` is a direct child of this GridContainer
 	var tile_index = get_index_of_child(clicked_tile)
-	var num_columns = columns  # Assuming `columns` is defined as the number of columns in the grid
+	var num_columns = columns  # `columns` is defined as the number of columns in the grid
 
 	# Calculate the grid position from the tile index
 	var start_x = tile_index % num_columns
 	var start_y = float(tile_index) / num_columns
-	
-	
+
 	# Calculate the ending points based on the width and height from copied_tiles_info
 	var end_x = min(start_x + copied_tiles_info["width"], 32)
 	var end_y = min(start_y + copied_tiles_info["height"], 32)
@@ -706,11 +710,11 @@ func paste_copied_tile_data(clicked_tile):
 				current_tile.tileData = copied_tiles_info["tiles_data"][tile_data_index]
 				tile_data_index += 1
 
-	# Clear copied_tiles_info after pasting
-	reset_copied_tiles_info()
-	print("Pasted tile data and cleared copied_tiles_info.")
+	reset_copied_tiles_info() # Clear copied_tiles_info after pasting
+	brushPreviewTexture.visible = false
 
 
+# When the user toggles the copy all levels button in the toolbar
 func _on_copy_all_levels_toggled(toggled_on):
 	if toggled_on:
 		currentMode = EditorMode.COPY_ALL_LEVELS
@@ -718,10 +722,9 @@ func _on_copy_all_levels_toggled(toggled_on):
 		currentMode = EditorMode.NONE
 
 
-
 # Function to rotate the selected tiles in copied_tiles_info 90 degrees clockwise
 func rotate_selection_clockwise():
-	var new_copied_tiles_info: Dictionary = {"tiles_data": [], "width": copied_tiles_info["height"], "height": copied_tiles_info["width"]}
+	var new_copied_tiles_info: Dictionary = {"tiles_data": [], "all_levels_data": [], "width": copied_tiles_info["height"], "height": copied_tiles_info["width"]}
 
 	# We'll be rotating the tiles, so we need to change width and height
 	var new_width = copied_tiles_info["height"]
@@ -749,10 +752,12 @@ func rotate_selection_clockwise():
 	
 	# Assign the newly rotated tiles to copied_tiles_info
 	copied_tiles_info = new_copied_tiles_info
-	mirror_copied_tiles_info()  # Mirror the tiles after rotation
+	# Mirror the tiles after rotation. This is required because the rotation function 
+	# will mirror them, so we need to mirror them back
+	mirror_copied_tiles_info()  
 
 
-# Function to mirror copied_tiles_info in both directions
+# Function to mirror copied_tiles_info in both directions (up, down, left, right)
 func mirror_copied_tiles_info():
 	var mirrored_tiles_data: Array = []
 	var width = copied_tiles_info["width"]
@@ -787,6 +792,8 @@ func get_tile_data_from_mapData(index: int, level: int) -> Dictionary:
 		return {} # Return an empty dictionary if the index is out of range
 
 
+# Returns the index of tiles in the grid, a number between 0 an 1024
+# THe index is the location of the tile in the current level
 func get_tile_indexes_in_rectangle(rect_start, rect_end) -> Array[int]:
 	var tile_indexes: Array[int] = []
 	for tile in get_tiles_in_rectangle(rect_start, rect_end):
@@ -800,15 +807,16 @@ func get_tile_indexes_in_rectangle(rect_start, rect_end) -> Array[int]:
 # Copies a column of tiles from all levels
 # This column is represented by an array
 func copy_tiles_from_all_levels(rect_start: Vector2, rect_end: Vector2) -> void:
-	reset_copied_tiles_info()
+	reset_copied_tiles_info() # Clear the previous selection if there is any
 
-	# Calculate the dimensions of the selection
+	# Calculate the dimensions of the selection as an amount of tiles
 	var selection_dimensions = get_selection_dimensions(rect_start, rect_end)
 	
 	# Update copied_tiles_info with the dimensions of the selection
 	copied_tiles_info["width"] = selection_dimensions["width"]
 	copied_tiles_info["height"] = selection_dimensions["height"]
 
+	# Keep track of the indexes of the tiles in the mapData level
 	var tile_indexes = get_tile_indexes_in_rectangle(rect_start, rect_end)
 
 	# Iterate through all levels to copy tiles
@@ -825,38 +833,12 @@ func copy_tiles_from_all_levels(rect_start: Vector2, rect_end: Vector2) -> void:
 			# Add the copied data for this level to the all_levels_data
 			copied_tiles_info["all_levels_data"].append(level_copied_tiles)
 		else:
+			# To make sure we always have 21 levels, we append an empty array for levels with no tiles
 			copied_tiles_info["all_levels_data"].append([])
 
 
-
-# Function to get tiles in range based on the provided start tile index, width, and height
-func get_tiles_in_range(start_tile_index: int, width: int, height: int, level_index: int) -> Array:
-	var tiles_in_range: Array = []
-	
-	# Calculate the start row and column based on the tile index and map width
-	var start_row: int = start_tile_index / mapData["mapwidth"]
-	var start_col: int = start_tile_index % mapData["mapwidth"]
-	
-	# Calculate the end row and column based on the width and height
-	var end_row: int = start_row + height
-	var end_col: int = start_col + width
-	
-	# Ensure the range does not exceed the map boundaries
-	end_row = min(end_row, mapData["mapheight"])
-	end_col = min(end_col, mapData["mapwidth"])
-	
-	# Loop through the specified range and collect tile data
-	for row in range(start_row, end_row):
-		for col in range(start_col, end_col):
-			var tile_index: int = row * mapData["mapwidth"] + col
-			# Ensure the tile index is within the level's data range
-			if tile_index >= 0 and tile_index < mapData["levels"][level_index].size():
-				tiles_in_range.append(mapData["levels"][level_index][tile_index])
-	
-	return tiles_in_range
-
-
 # Function to get tile indexes in range based on the provided start tile index, width, and height
+# The level_index does not really matter, as long as it's a level with tiles in it
 func get_tile_indexes_in_range(start_tile_index: int, width: int, height: int, level_index: int) -> Array:
 	var tile_indexes: Array = []
 	
@@ -883,6 +865,10 @@ func get_tile_indexes_in_range(start_tile_index: int, width: int, height: int, l
 	return tile_indexes
 
 
+# This function will apply copied_tiles_info["all_levels_data"] to the map
+# starting from the clicked tile and moving left to right, up to down
+# The amount of tiles is determined by what was selected in copy_tiles_from_all_levels
+# Each level in the data is applied to the same level that it was copied from
 func apply_column_tiles_to_all_levels(clicked_tile: Control) -> void:
 	# Get the index of the clicked tile
 	var clicked_tile_index = get_index_of_child(clicked_tile)
@@ -890,11 +876,11 @@ func apply_column_tiles_to_all_levels(clicked_tile: Control) -> void:
 	var width = copied_tiles_info["width"]
 	var height = copied_tiles_info["height"]
 	
-	# Copy tiles from all levels based on the clicked column
+	# We are using the tiles that were selected earlier
 	var copied_column_data = copied_tiles_info["all_levels_data"]
 	
 	# Get the required tile indexes in range for the target location
-	# Assuming we use the same clicked_tile_index for simplicity; adjust as needed for the target location
+	# Since we are pasting a column of tiles, the indexes will be the same on every level
 	var target_tile_indexes = get_tile_indexes_in_range(clicked_tile_index, width, height, currentLevel)
 	
 	# Loop over all levels in mapData
@@ -910,9 +896,8 @@ func apply_column_tiles_to_all_levels(clicked_tile: Control) -> void:
 					# Apply the copied tile data to the target tile index
 					level_data[target_index] = column_data_for_level[i]
 
-	# After pasting, reload the current level's data
-	loadLevelData(currentLevel)
-	reset_copied_tiles_info()
+	loadLevelData(currentLevel) # After pasting, reload the current level's data
+	reset_copied_tiles_info() # Clear the selection
 
 
 # Resets the copied_tiles_info dictionary to its default values.
