@@ -685,9 +685,34 @@ func _on_copy_all_levels_toggled(toggled_on):
 		currentMode = EditorMode.NONE
 
 
+func rotate_selection_clockwise1():
+	# Rotate single-level data if present
+	if copied_tiles_info["tiles_data"].size() > 0:
+		copied_tiles_info["tiles_data"] = rotate_data(copied_tiles_info["tiles_data"], copied_tiles_info["width"], copied_tiles_info["height"])
+		#copied_tiles_info["tiles_data"] = mirror_copied_tiles_info(copied_tiles_info["tiles_data"], copied_tiles_info["width"], copied_tiles_info["height"])
+
+	# Rotate multi-level data if present
+	if copied_tiles_info["all_levels_data"].size() > 0:
+		for i in range(copied_tiles_info["all_levels_data"].size()):
+			if copied_tiles_info["all_levels_data"][i].size() > 0:
+				copied_tiles_info["all_levels_data"][i] = rotate_data(copied_tiles_info["all_levels_data"][i], copied_tiles_info["width"], copied_tiles_info["height"])
+				#copied_tiles_info["all_levels_data"][i] = mirror_copied_tiles_info(copied_tiles_info["all_levels_data"][i], copied_tiles_info["width"], copied_tiles_info["height"])
+
+	# Swap the dimensions
+	#var temp = copied_tiles_info["width"]
+	#copied_tiles_info["width"] = copied_tiles_info["height"]
+	#copied_tiles_info["height"] = temp
+
+	# Update preview or any other necessary UI components
+	update_preview_texture_with_copied_data()
+
+
+
 # Function to rotate the selected tiles in copied_tiles_info 90 degrees clockwise
 func rotate_selection_clockwise():
-	var new_copied_tiles_info: Dictionary = {"tiles_data": [], "all_levels_data": [], "width": copied_tiles_info["height"], "height": copied_tiles_info["width"]}
+	#var new_copied_tiles_info: Dictionary = {"tiles_data": [], "all_levels_data": [], "width": copied_tiles_info["height"], "height": copied_tiles_info["width"]}
+	#new_copied_tiles_info.all_levels_data.resize(21)
+	var new_copied_tiles_info: Dictionary = {"tiles_data": [], "all_levels_data": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]], "width": copied_tiles_info["height"], "height": copied_tiles_info["width"]}
 
 	# We'll be rotating the tiles, so we need to change width and height
 	var new_width = copied_tiles_info["height"]
@@ -706,10 +731,66 @@ func rotate_selection_clockwise():
 	# Rotate all levels data if present
 	if copied_tiles_info["all_levels_data"].size() > 0 and currentMode == EditorMode.COPY_ALL_LEVELS:
 		for i in range(copied_tiles_info["all_levels_data"].size()):
-			var level_data = copied_tiles_info["all_levels_data"][i]
-			var rotated_level_data = rotate_tiles_data(level_data, new_width, new_height)
-			var mirrored_level_data = mirror_copied_tiles_info(rotated_level_data, new_width, new_height)
-			copied_tiles_info["all_levels_data"][i] = mirrored_level_data
+			if copied_tiles_info["all_levels_data"][i].size() > 0:
+				print_debug("all level data i size = " + str(copied_tiles_info["all_levels_data"][i].size()))
+				
+				#current_tiles_data = copied_tiles_info["all_levels_data"][i].duplicate()
+				copied_tiles_info["all_levels_data"][i] = rotate_tiles_data(\
+				copied_tiles_info["all_levels_data"][i], new_width, new_height)
+				copied_tiles_info["height"] = new_height
+				copied_tiles_info["width"] = new_width
+				copied_tiles_info["all_levels_data"][i] = mirror_copied_tiles_info(\
+				copied_tiles_info["all_levels_data"][i], new_width, new_height)
+				
+				#new_copied_tiles_info["tiles_data"] = rotate_tiles_data(\
+				#copied_tiles_info["all_levels_data"][i], new_width, new_height)
+				#copied_tiles_info["all_levels_data"][i] = new_copied_tiles_info["tiles_data"]
+				#new_copied_tiles_info["tiles_data"] = mirror_copied_tiles_info(\
+				#copied_tiles_info["all_levels_data"][i], new_width, new_height)
+				#copied_tiles_info["all_levels_data"][i] = new_copied_tiles_info["tiles_data"]
+				
+				#new_copied_tiles_info["all_levels_data"][i] = rotate_tiles_data(\
+				#copied_tiles_info["all_levels_data"][i], new_width, new_height)
+				## Assign the newly rotated tiles to copied_tiles_info
+				#copied_tiles_info = new_copied_tiles_info
+				## Mirror the tiles after rotation. This is required because the rotation function 
+				## will mirror them, so we need to mirror them back
+				#copied_tiles_info["all_levels_data"][i] = mirror_copied_tiles_info(\
+				#copied_tiles_info["all_levels_data"][i], new_width, new_height)
+				
+				#var column_data = copied_tiles_info["all_levels_data"][i]
+				#var rotated_column_data = rotate_tiles_data(column_data, new_width, new_height)
+				#var mirrored_column_data = mirror_copied_tiles_info(rotated_column_data, new_width, new_height)
+				#copied_tiles_info["all_levels_data"][i] = mirrored_column_data
+
+
+
+func rotate_data(data: Array, width: int, height: int) -> Array:
+	var rotated_data = Array()
+	rotated_data.resize(width * height) # Ensure the array has the correct size
+	
+	for y in range(height):
+		for x in range(width):
+			var new_x = height - y - 1
+			var new_index = new_x * width + x
+			var old_index = y * width + x
+			if old_index < data.size() and new_index < rotated_data.size():
+				var tile_data = data[old_index].duplicate()
+				
+				# Add rotation to the tile's data if it has an id
+				if tile_data.has("id"):
+					var tile_rotation = int(tile_data.get("rotation", 0))
+					tile_data["rotation"] = (tile_rotation + 90) % 360
+
+				# Rotate furniture if present, initializing rotation to 0 if not set
+				if tile_data.has("furniture"):
+					var furniture_rotation = int(tile_data.get("furniture").get("rotation", 0))
+					tile_data["furniture"]["rotation"] = (furniture_rotation + 90) % 360
+				
+				rotated_data[new_index] = tile_data
+
+	print_debug("returning rotated data = " + str(rotated_data))
+	return rotated_data
 
 
 # Helper function to rotate an array of tiles data
