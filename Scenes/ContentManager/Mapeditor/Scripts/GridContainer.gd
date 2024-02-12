@@ -11,6 +11,10 @@ var currentLevelData: Array = []
 @export var mapScrollWindow: ScrollContainer
 @export var brushPreviewTexture: TextureRect
 @export var buttonRotateRight: Button
+@export var checkboxDrawRectangle: CheckBox
+@export var checkboxCopyRectangle: CheckBox
+@export var checkboxCopyAllLevels: CheckBox
+
 var selected_brush: Control
 
 enum EditorMode {
@@ -435,11 +439,51 @@ func _on_erase_toggled(button_pressed):
 
 
 # When the user toggles the draw rectangle button in the toolbar
-func _on_draw_rectangle_toggled(button_pressed):
-	if button_pressed:
+func _on_draw_rectangle_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		checkboxCopyRectangle.set_pressed(false)
+		checkboxCopyAllLevels.set_pressed(false)
 		currentMode = EditorMode.DRAW_RECTANGLE
+		if selected_brush:
+			set_brush_preview_texture(selected_brush.get_texture())
 	else:
 		currentMode = EditorMode.NONE
+
+
+# When the user toggles the copy all levels button in the toolbar
+func _on_copy_all_levels_toggled(toggled_on: bool):
+	if toggled_on:
+		checkboxDrawRectangle.set_pressed(false)
+		checkboxCopyRectangle.set_pressed(false)
+		currentMode = EditorMode.COPY_ALL_LEVELS
+		if copied_tiles_info["all_levels_data"].size() > 0:
+			# You might want to update the brush preview to reflect the copied tiles
+			update_preview_texture_with_copied_data()
+		# If there's nothing to copy, perhaps alert the user
+		else:
+			set_brush_preview_texture(null)
+	else:
+		currentMode = EditorMode.NONE
+
+
+# Called when the Copy Rectangle ToggleButton's state changes.
+func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
+	# If it was toggled off, clear the data from copied_tiles_info, clear rotation, and hide the brush preview
+	if toggled_on:
+		checkboxDrawRectangle.set_pressed(false)
+		checkboxCopyAllLevels.set_pressed(false)
+		currentMode = EditorMode.COPY_RECTANGLE
+		if copied_tiles_info["tiles_data"].size() > 0:
+			# You might want to update the brush preview to reflect the copied tiles
+			update_preview_texture_with_copied_data()
+		# If there's nothing to copy, perhaps alert the user
+		else:
+			set_brush_preview_texture(null)
+	else:
+		currentMode = EditorMode.NONE
+		reset_copied_tiles_info()
+		reset_rotation()
+		set_brush_preview_texture(null)
 
 
 # When the user has selected one of the tile brushes to paint with
@@ -582,24 +626,6 @@ func rotate_level_clockwise() -> void:
 	currentLevelData = new_level_data
 
 
-# Called when the Copy Rectangle ToggleButton's state changes.
-func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
-	# If it was toggled off, clear the data from copied_tiles_info, clear rotation, and hide the brush preview
-	if not toggled_on:
-		currentMode = EditorMode.NONE
-		reset_copied_tiles_info()
-		reset_rotation()
-		set_brush_preview_texture(null)
-	# If it was toggled on, show the brush preview (if there's something to preview)
-	else:
-		currentMode = EditorMode.COPY_RECTANGLE
-		if copied_tiles_info["tiles_data"].size() > 0:
-			# You might want to update the brush preview to reflect the copied tiles
-			update_preview_texture_with_copied_data()
-		# If there's nothing to copy, perhaps alert the user
-		else:
-			print("No tiles copied to preview.")
-
 
 # Called when the user has drawn a rectangle with the copy button toggled on
 # This will store the data of the selected tiles to a variable
@@ -693,13 +719,6 @@ func get_texture_from_tile_data(tile_data: Dictionary) -> Texture:
 		tile_texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
 	return tile_texture
 
-
-# When the user toggles the copy all levels button in the toolbar
-func _on_copy_all_levels_toggled(toggled_on):
-	if toggled_on:
-		currentMode = EditorMode.COPY_ALL_LEVELS
-	else:
-		currentMode = EditorMode.NONE
 
 
 # Function to rotate the selected tiles in copied_tiles_info 90 degrees clockwise
@@ -955,3 +974,4 @@ func set_brush_preview_texture(image: Texture) -> void:
 	else:
 		brushPreviewTexture.texture = null
 		brushPreviewTexture.visible = false
+		brushPreviewTexture.size = Vector2(128,128)

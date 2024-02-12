@@ -189,7 +189,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.313726, 0.313726, 0.313726, 1)
 
-[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above", "mapScrollWindow", "brushPreviewTexture", "buttonRotateRight")]
+[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above", "mapScrollWindow", "brushPreviewTexture", "buttonRotateRight", "checkboxDrawRectangle", "checkboxCopyRectangle", "checkboxCopyAllLevels")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -208,6 +208,9 @@ levelgrid_above = NodePath("../Level_Above")
 mapScrollWindow = NodePath("../../..")
 brushPreviewTexture = NodePath("../../../../../../../BrushPreviewTexture")
 buttonRotateRight = NodePath("../../../../../Toolbar/RotateRight")
+checkboxDrawRectangle = NodePath("../../../../../Toolbar/DrawRectangle")
+checkboxCopyRectangle = NodePath("../../../../../Toolbar/CopyRectangle")
+checkboxCopyAllLevels = NodePath("../../../../../Toolbar/CopyAllLevels")
 
 [node name="Level_Below" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer"]
 modulate = Color(1, 1, 1, 0.117647)
