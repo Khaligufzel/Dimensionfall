@@ -142,15 +142,59 @@ func _input(event) -> void:
 			if not currentMode == EditorMode.NONE:
 				update_rectangle()
 
-		# Calculate new position for the brush preview
-		var new_position = event.position + brushPreviewTexture.get_rect().size / 2
-		# Get the boundaries of the mapScrollWindow
-		var scroll_global_pos = mapScrollWindow.get_global_position()
-		# Clamp the new position to the mapScrollWindow's boundaries
-		new_position.x = clamp(new_position.x, scroll_global_pos.x, scroll_global_pos.x + mapScrollWindowRect.size.x - brushPreviewTexture.get_rect().size.x)
-		new_position.y = clamp(new_position.y, scroll_global_pos.y, scroll_global_pos.y + mapScrollWindowRect.size.y - brushPreviewTexture.get_rect().size.y)
-		# Update the position of the brush preview
-		brushPreviewTexture.global_position = new_position
+		_update_brush_preview_position()
+
+
+# Function to update the position of the brush preview based on the mouse event
+func _update_brush_preview_position() -> void:
+	# Calculate the new scale based on zoom level
+	var scale_factor = mapEditor.zoom_level * 0.01 
+	brushPreviewTexture.scale = Vector2(scale_factor, scale_factor)
+	brushPreviewTexture.pivot_offset = calculate_scaled_center_distance()
+	
+	var mouse_position = get_viewport().get_mouse_position()
+	var constant_offset = Vector2(10, 10)  # Constant offset from the cursor
+	var scalediff = brushPreviewTexture.size - brushPreviewTexture.size * brushPreviewTexture.scale.x
+	var new_position = mouse_position
+	new_position = new_position + constant_offset - scalediff/2
+	
+	var scroll_global_pos = mapScrollWindow.get_global_position()
+	var mapScrollWindowRect = mapScrollWindow.get_rect()
+	new_position.x = clamp(new_position.x, scroll_global_pos.x, scroll_global_pos.x + mapScrollWindowRect.size.x - brushPreviewTexture.get_rect().size.x)
+	new_position.y = clamp(new_position.y, scroll_global_pos.y, scroll_global_pos.y + mapScrollWindowRect.size.y - brushPreviewTexture.get_rect().size.y)
+	brushPreviewTexture.global_position = new_position
+
+
+func _on_zoom_level_changed(zoom_level: int):
+	_update_brush_preview_position()
+	for tile in get_children():
+		tile.set_scale_amount(1.28*zoom_level)
+	for tile in levelgrid_below.get_children():
+		tile.set_scale_amount(1.28*zoom_level)
+	for tile in levelgrid_above.get_children():
+		tile.set_scale_amount(1.28*zoom_level)
+
+
+# Function to calculate the distance from top-left to center based on scaling
+func calculate_scaled_center_distance() -> Vector2:
+	var scaled_size = brushPreviewTexture.size
+	var distance_to_center = scaled_size / 2
+	return distance_to_center
+
+
+# When the user releases the mouse button on the rotate right button
+func _on_rotate_right_pressed():
+	rotationAmount += 90
+	rotationAmount = rotationAmount % 360 # Keep rotation within 0-359 degrees
+	buttonRotateRight.text = str(rotationAmount)
+	brushPreviewTexture.rotation_degrees = rotationAmount
+	brushPreviewTexture.pivot_offset = calculate_scaled_center_distance()
+	_update_brush_preview_position()
+	if copied_tiles_info["tiles_data"].size() > 0 and currentMode == EditorMode.COPY_RECTANGLE:
+		rotate_selection_clockwise()
+	if copied_tiles_info["all_levels_data"].size() > 0 and currentMode == EditorMode.COPY_ALL_LEVELS:
+		rotate_selection_clockwise()
+
 
 
 # Highlight tiles that are in the rectangle that the user has drawn with the mouse
@@ -407,10 +451,9 @@ func _on_tilebrush_list_tile_brush_selection_change(tilebrush):
 # The cursor will have a preview of the texture that the user will paint with next to it
 func update_preview_texture():
 	if selected_brush:
-		brushPreviewTexture.texture = selected_brush.get_texture()
-		brushPreviewTexture.visible = true
+		set_brush_preview_texture(selected_brush.get_texture())
 	else:
-		brushPreviewTexture.visible = false
+		set_brush_preview_texture(null)
 
 
 # When the user presses the show below button, we show a transparant view of the level below the current level
@@ -442,31 +485,7 @@ func load_map_json_file():
 	var fileToLoad: String = mapEditor.contentSource
 	mapData = Helper.json_helper.load_json_dictionary_file(fileToLoad)
 
-
-func _on_zoom_level_changed(zoom_level: int):
-	# Calculate the new scale based on zoom level
-	var scale_factor = zoom_level * 0.01 
-	brushPreviewTexture.scale = Vector2(scale_factor, scale_factor)
-	brushPreviewTexture.pivot_offset = brushPreviewTexture.size / 2
-	for tile in get_children():
-		tile.set_scale_amount(1.28*zoom_level)
-	for tile in levelgrid_below.get_children():
-		tile.set_scale_amount(1.28*zoom_level)
-	for tile in levelgrid_above.get_children():
-		tile.set_scale_amount(1.28*zoom_level)
 	
-
-# When the user releases the mouse button on the rotate right button
-func _on_rotate_right_pressed():
-	rotationAmount += 90
-	rotationAmount = rotationAmount % 360 # Keep rotation within 0-359 degrees
-	buttonRotateRight.text = str(rotationAmount)
-	brushPreviewTexture.rotation_degrees = rotationAmount
-	brushPreviewTexture.pivot_offset = brushPreviewTexture.size / 2
-	if copied_tiles_info["tiles_data"].size() > 0 and currentMode == EditorMode.COPY_RECTANGLE:
-		rotate_selection_clockwise()
-	if copied_tiles_info["all_levels_data"].size() > 0 and currentMode == EditorMode.COPY_ALL_LEVELS:
-		rotate_selection_clockwise()
 
 
 # Function to create a 128x128 miniature map of the current level
@@ -570,7 +589,7 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 		currentMode = EditorMode.NONE
 		reset_copied_tiles_info()
 		reset_rotation()
-		brushPreviewTexture.visible = false
+		set_brush_preview_texture(null)
 	# If it was toggled on, show the brush preview (if there's something to preview)
 	else:
 		currentMode = EditorMode.COPY_RECTANGLE
@@ -661,9 +680,7 @@ func update_preview_texture_with_copied_data():
 		idx += 1
 
 	# Update the brushPreviewTexture with the generated image
-	var texture = ImageTexture.create_from_image(image)
-	brushPreviewTexture.texture = texture
-	brushPreviewTexture.visible = true
+	set_brush_preview_texture(ImageTexture.create_from_image(image))
 
 
 # Returns the texture associated with the tile id or the default empty tile if id is missing
@@ -709,7 +726,6 @@ func rotate_selection_clockwise():
 		copied_tiles_info["width"] = new_width
 		for i in range(copied_tiles_info["all_levels_data"].size()):
 			if copied_tiles_info["all_levels_data"][i].size() > 0:
-				#current_tiles_data = copied_tiles_info["all_levels_data"][i].duplicate()
 				copied_tiles_info["all_levels_data"][i] = rotate_tiles_data(\
 				copied_tiles_info["all_levels_data"][i], new_width, new_height)
 				copied_tiles_info["all_levels_data"][i] = mirror_copied_tiles_info(\
@@ -867,7 +883,7 @@ func apply_column_tiles_to_all_levels(clicked_tile: Control) -> void:
 
 	#loadLevelData(currentLevel) # After pasting, reload the current level's data
 	reset_copied_tiles_info() # Clear the selection
-	brushPreviewTexture.visible = false
+	set_brush_preview_texture(null)
 
 
 # Function to paste copied tile data starting from the clicked tile
@@ -880,7 +896,7 @@ func paste_copied_tile_data(clicked_tile):
 	# `clicked_tile` is a direct child of this GridContainer
 	apply_tiles_data_to_level(clicked_tile,currentLevel,copied_tiles_info["tiles_data"])
 	reset_copied_tiles_info() # Clear copied_tiles_info after pasting
-	brushPreviewTexture.visible = false
+	set_brush_preview_texture(null)
 
 
 # Applies tile data from an array to a specific area in a specified level
@@ -929,3 +945,13 @@ func reset_copied_tiles_info() -> void:
 	copied_tiles_info["all_levels_data"] = []
 	copied_tiles_info["width"] = 0
 	copied_tiles_info["height"] = 0
+
+
+func set_brush_preview_texture(image: Texture) -> void:
+	brushPreviewTexture.rotation_degrees = rotationAmount
+	if image: 
+		brushPreviewTexture.texture = image
+		brushPreviewTexture.visible = true
+	else:
+		brushPreviewTexture.texture = null
+		brushPreviewTexture.visible = false

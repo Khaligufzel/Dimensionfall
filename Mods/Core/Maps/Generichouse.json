@@ -5804,8 +5804,7 @@
 			},
 			{
 				"furniture": {
-					"id": "refrigerator_00",
-					"rotation": 180
+					"id": "refrigerator_00"
 				},
 				"id": "orange_carpet_00"
 			},
