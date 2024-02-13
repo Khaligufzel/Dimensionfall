@@ -138,5 +138,17 @@
 		"moveable": false,
 		"name": "Refrigerator",
 		"sprite": "refrigerator_50_48.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "Centerpiece of the bathroom",
+		"edgesnapping": "North",
+		"id": "toilet_00",
+		"moveable": false,
+		"name": "Toilet",
+		"sprite": "toilet_48.png"
 	}
 ]
