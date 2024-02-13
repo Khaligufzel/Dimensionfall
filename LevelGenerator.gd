@@ -16,6 +16,7 @@ var level_height : int = 32
 @export var defaultFurniturePhysics: PackedScene
 @export var defaultFurnitureStatic: PackedScene
 @export var level_manager : Node3D
+@export var chunkScene: PackedScene = null
 @export_file var default_level_json
 
 
@@ -49,7 +50,11 @@ func generate_tactical_map():
 		var i: int = 0
 		for z in range(tacticalMapJSON.mapheight):
 			for x in range(tacticalMapJSON.mapwidth):
-				generate_tactical_map_level_segment(x, z,tacticalMapJSON.maps[i])
+				var newChunk: Node3D = chunkScene.instantiate()
+				level_manager.add_child(newChunk)
+				newChunk.global_position.x = x * level_width
+				newChunk.global_position.z = z * level_height
+				newChunk.generate_chunk(x, z,tacticalMapJSON.maps[i])
 				i+=1
 	else:
 		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
