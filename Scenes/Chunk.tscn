@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cpmwu7v1r8cg8" path="res://Defaults/Furniture/FurniturePhysics.tscn" id="4_m2mw7"]
 [ext_resource type="PackedScene" uid="uid://cm4n8cljiij4w" path="res://Defaults/Furniture/FurnitureStatic.tscn" id="5_0mn3j"]
 
-[node name="Chunk" type="Node3D"]
+[node name="Chunk" type="Node3D" groups=["chunks"]]
 script = ExtResource("1_rxvc5")
 defaultMob = ExtResource("2_ahdnb")
 defaultItem = ExtResource("3_8i3hl")

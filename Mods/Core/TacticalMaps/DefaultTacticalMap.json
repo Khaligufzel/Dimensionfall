@@ -1,6 +1,6 @@
 {
 	"mapheight": 1,
-	"maps": [
+	"chunks": [
 		{
 			"id": "Generichouse.json",
 			"rotation": 0

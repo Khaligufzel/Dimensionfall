@@ -19,9 +19,9 @@ func save_current_level(global_pos: Vector2) -> void:
 			return
 	
 	save_map_data(target_folder)
-	save_mob_data(target_folder)
-	save_item_data(target_folder)
-	save_furniture_data(target_folder)
+	#save_mob_data(target_folder)
+	#save_item_data(target_folder)
+	#save_furniture_data(target_folder)
 
 #Creates a new save folder. The name of this folder will be the current date and time
 #This is to make sure it is unique. The folder name is stored in order to perform
@@ -117,27 +117,22 @@ func save_furniture_data(target_folder: String) -> void:
 func save_map_data(target_folder: String) -> void:
 	var level_width: int = 32
 	var level_height: int = 32
-	var tacticalmapData: Dictionary = {"maplevels": []}
+	var tacticalmapData: Dictionary = {"chunks": []}
 	var tree: SceneTree = get_tree()
-	var mapLevels = tree.get_nodes_in_group("maplevels")
+	var mapChunks = tree.get_nodes_in_group("chunks")
 
-	for level: Node3D in mapLevels:
-		level.remove_from_group("maplevels")
-		var level_node_data: Array = []
-		var level_node_dict: Dictionary = {
-			"map_x": level.global_position.x, 
-			"map_y": level.global_position.y, 
-			"map_z": level.global_position.z, 
-			"blocks": level_node_data
+	for chunk: Node3D in mapChunks:
+		chunk.remove_from_group("chunks")
+		var chunkData: Dictionary = {
+			"chunk_x": chunk.global_position.x,
+			"chunk_z": chunk.global_position.z,
+			"maplevels": chunk.get_map_data(),
+			"furniture": chunk.get_furniture_data(),
+			"mobs": chunk.get_mob_data(),
+			"items": chunk.get_item_data()
 		}
-
-		# Iterate over each possible block position in the level
-		for h in range(level_height):
-			for w in range(level_width):
-				var block_data: Dictionary = get_block_data_at_position(level, Vector3(w, 0, h))
-				level_node_data.append(block_data)
-
-		tacticalmapData.maplevels.append(level_node_dict)
+		tacticalmapData.chunks.append(chunkData)
+		chunk.queue_free()
 
 	Helper.json_helper.write_json_file(target_folder + "/map.json", \
 	JSON.stringify(tacticalmapData))

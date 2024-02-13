@@ -34,13 +34,18 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 
-func generate_chunk(segment_x: int, segment_z: int, mapsegment: Dictionary):
-	var offset_x = segment_x * level_width
-	var offset_z = segment_z * level_height
+func generate_chunk(mapsegment: Dictionary):
+	if mapsegment.has("id"):
+		generate_new_chunk(mapsegment)
+	else:
+		generate_saved_chunk(mapsegment)
+
+
+func generate_new_chunk(mapsegment: Dictionary):
 	#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 	var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 		Gamedata.data.maps.dataPath + mapsegment.id)
@@ -71,11 +76,50 @@ func generate_chunk(segment_x: int, segment_z: int, mapsegment: Dictionary):
 					current_block += 1
 			if !len(level_node.get_children()) > 0:
 				level_node.remove_from_group("maplevels")
+				_levels.erase(level_node)
 				level_node.queue_free()
 			
 		level_number += 1
 
 
+# Generate the map layer by layer
+# For each layer, add all the blocks with proper rotation
+# If a block has an mob, add it too
+func generate_saved_chunk(tacticalMapJSON: Dictionary) -> void:
+	self.global_position.x = tacticalMapJSON.chunk_x
+	self.global_position.z = tacticalMapJSON.chunk_z
+	#we need to generate level layer by layer starting from the bottom
+	for level: Dictionary in tacticalMapJSON.maplevels:
+		if level != {}:
+			var level_node = Node3D.new()
+			level_node.add_to_group("maplevels")
+			add_child(level_node)
+			_levels.append(level_node)
+			level_node.global_position.y = level.map_y
+			generate_saved_level(level, level_node)
+	
+	for mob: Dictionary in tacticalMapJSON.mobs:
+		add_mob_to_map.call_deferred(mob)
+	
+	for item: Dictionary in tacticalMapJSON.items:
+		add_item_to_map.call_deferred(item)
+	
+	for furnitureData: Dictionary in tacticalMapJSON.furniture:
+		add_furniture_to_map.call_deferred(furnitureData)
+
+
+# Generates blocks on in the provided level. A level contains at most 32x32 blocks
+func generate_saved_level(level: Dictionary, level_node: Node3D) -> void:
+	for savedBlock in level.blocks:
+		if savedBlock.has("id") and not savedBlock.id == "":
+			var block: StaticBody3D = create_block_with_id(savedBlock.id)
+			level_node.add_child(block)
+			# Because the level node already has a x and y position,
+			# We only set the local position relative to the parent
+			block.position.x = savedBlock.block_x
+			block.position.z = savedBlock.block_z
+			block.rotation_degrees.y = savedBlock.get("rotation", 0)
+	
 
 # This function takes a tile id and creates a new instance of either a block
 # or a slope which is a StaticBody3D. Look up the sprite property that is specified in
@@ -103,7 +147,6 @@ func create_block_with_id(id: String) -> StaticBody3D:
 		var material = Gamedata.data.tiles.sprites[tileJSON.sprite]
 		block.update_texture(material)
 	return block
-
 
 
 # When the map is created for the first time, we will apply block rotation
@@ -232,3 +275,177 @@ func rotate_position_around_block_center(newpos, newRot, block_center):
 	
 	# Return the new position
 	return block_center + rotated_offset
+
+
+
+# Saves all of the maplevels to disk
+# A maplevel is one 32x32 layer at a certain x,y and z position
+# This layer will contain 1024 blocks
+func get_map_data() -> Array:
+	var maplevels: Array = []
+
+	# Loop over the levels in the map
+	for level: Node3D in _levels:
+		level.remove_from_group("maplevels")
+		var level_node_data: Array = []
+		var level_node_dict: Dictionary = {
+			"map_y": level.global_position.y, 
+			"blocks": level_node_data
+		}
+
+		# Loop over the blocks in the level
+		for block in level.get_children():
+			var block_data: Dictionary = {
+				"id": block.id, 
+				"rotation": int(block.rotation_degrees.y),
+				"block_x": block.position.x,
+				"block_z": block.position.z
+			}
+			level_node_data.append(block_data)
+		maplevels.append(level_node_dict)
+	return maplevels
+
+
+func get_furniture_data() -> Array:
+	var furnitureData: Array = []
+	var mapFurniture = get_tree().get_nodes_in_group("furniture")
+	var newFurnitureData: Dictionary
+	var newRot: int
+	for furniture in mapFurniture:
+		# Check if furniture's position is within the desired range
+		if _is_object_in_range(furniture):
+			furniture.remove_from_group("furniture")
+			if furniture is RigidBody3D:
+				newRot = furniture.rotation_degrees.y
+			else:
+				newRot = furniture.get_my_rotation()
+			newFurnitureData = {
+				"id": furniture.id,
+				"moveable": furniture is RigidBody3D,
+				"global_position_x": furniture.global_position.x,
+				"global_position_y": furniture.global_position.y,
+				"global_position_z": furniture.global_position.z,
+				"rotation": newRot,  # Save the Y-axis rotation
+				"sprite_rotation": furniture.get_sprite_rotation()
+			}
+			furnitureData.append(newFurnitureData.duplicate())
+			furniture.queue_free()
+	return furnitureData
+
+
+# We check if the furniture's position is inside this chunk on the x and z axis
+func _is_object_in_range(object: Node3D) -> bool:
+		return object.global_position.x >= self.global_position.x and \
+		object.global_position.x <= self.global_position.x + level_width and \
+		object.global_position.z >= self.global_position.z and \
+		object.global_position.z <= self.global_position.z + level_height
+
+
+
+# Save all the mobs and their current stats to the mobs file for this map
+func get_mob_data() -> Array:
+	var mobData: Array = []
+	var mapMobs = get_tree().get_nodes_in_group("mobs")
+	var newMobData: Dictionary
+	for mob in mapMobs:
+		# Check if furniture's position is within the desired range
+		if _is_object_in_range(mob):
+			mob.remove_from_group("mobs")
+			newMobData = {
+				"id": mob.id,
+				"global_position_x": mob.global_position.x,
+				"global_position_y": mob.global_position.y,
+				"global_position_z": mob.global_position.z,
+				"rotation": mob.rotation_degrees.y,
+				"melee_damage": mob.melee_damage,
+				"melee_range": mob.melee_range,
+				"health": mob.health,
+				"current_health": mob.current_health,
+				"move_speed": mob.moveSpeed,
+				"current_move_speed": mob.current_move_speed,
+				"idle_move_speed": mob.idle_move_speed,
+				"current_idle_move_speed": mob.current_idle_move_speed,
+				"sight_range": mob.sightRange,
+				"sense_range": mob.senseRange,
+				"hearing_range": mob.hearingRange
+			}
+			mobData.append(newMobData.duplicate())
+			mob.queue_free()
+	return mobData
+
+
+#Save the type and position of all mobs on the map
+func get_item_data() -> Array:
+	var itemData: Array = []
+	var myItem: Dictionary = {"itemid": "item1", \
+	"global_position_x": 0, "global_position_y": 0, "global_position_z": 0, "inventory": []}
+	var mapitems = get_tree().get_nodes_in_group("mapitems")
+	var newitemData: Dictionary
+	for item in mapitems:
+		if _is_object_in_range(item):
+			item.remove_from_group("mapitems")
+			newitemData = myItem.duplicate()
+			newitemData["global_position_x"] = item.global_position.x
+			newitemData["global_position_y"] = item.global_position.y
+			newitemData["global_position_z"] = item.global_position.z
+			newitemData["inventory"] = item.get_node(item.inventory).serialize()
+			itemData.append(newitemData.duplicate())
+			item.queue_free()
+	return itemData
+
+
+# Called by generate_mobs function when a save is loaded
+func add_mob_to_map(mob: Dictionary) -> void:
+	var newMob: CharacterBody3D = defaultMob.instantiate()
+	newMob.add_to_group("mobs")
+	get_tree().get_root().add_child(newMob)
+	newMob.global_position.x = mob.global_position_x
+	newMob.global_position.y = mob.global_position_y
+	newMob.global_position.z = mob.global_position_z
+	# Check if rotation data is available and apply it
+	if mob.has("rotation"):
+		newMob.rotation_degrees.y = mob.rotation
+	newMob.apply_stats_from_json(mob)
+
+
+# Called by generate_items function when a save is loaded
+func add_item_to_map(item: Dictionary):
+	var newItem: Node3D = defaultItem.instantiate()
+	newItem.add_to_group("mapitems")
+	get_tree().get_root().add_child(newItem)
+	newItem.global_position.x = item.global_position_x
+	newItem.global_position.y = item.global_position_y
+	newItem.global_position.z = item.global_position_z
+	# Check if rotation data is available and apply it
+	if item.has("rotation"):
+		newItem.rotation_degrees.y = item.rotation
+	newItem.get_node(newItem.inventory).deserialize(item.inventory)
+
+
+# Called by generate_furniture function when a save is loaded
+func add_furniture_to_map(furnitureData: Dictionary) -> void:
+	var newFurniture: Node3D
+	var isMoveable = furnitureData.has("moveable") and furnitureData.moveable
+	if isMoveable:
+		newFurniture = defaultFurniturePhysics.instantiate()
+	else:
+		newFurniture = defaultFurnitureStatic.instantiate()
+	newFurniture.add_to_group("furniture")
+	newFurniture.set_sprite(Gamedata.get_sprite_by_id(Gamedata.data.furniture, furnitureData.id))
+	get_tree().get_root().add_child(newFurniture)
+	newFurniture.global_position.x = furnitureData.global_position_x
+	newFurniture.global_position.y = furnitureData.global_position_y
+	newFurniture.global_position.z = furnitureData.global_position_z
+	# Check if rotation data is available and apply it
+	if furnitureData.has("rotation"):
+		if isMoveable:
+			newFurniture.rotation_degrees.y = furnitureData.rotation
+		else:
+			newFurniture.set_new_rotation(furnitureData.rotation)
+	
+	# Check if sprite rotation data is available and apply it
+	if furnitureData.has("sprite_rotation") and isMoveable:
+		newFurniture.set_new_rotation(furnitureData.sprite_rotation)
+	newFurniture.id = furnitureData.id
+
+
