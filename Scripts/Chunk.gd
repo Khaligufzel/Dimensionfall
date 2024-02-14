@@ -38,13 +38,6 @@ func _process(_delta):
 	pass
 
 
-func generate_chunk(mapsegment: Dictionary):
-	if mapsegment.has("id"):
-		generate_new_chunk(mapsegment)
-	else:
-		generate_saved_chunk(mapsegment)
-
-
 func generate_new_chunk(mapsegment: Dictionary):
 	#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 	var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
@@ -449,3 +442,12 @@ func add_furniture_to_map(furnitureData: Dictionary) -> void:
 	newFurniture.id = furnitureData.id
 
 
+func get_chunk_data() -> Dictionary:
+	return {
+			"chunk_x": global_position.x,
+			"chunk_z": global_position.z,
+			"maplevels": get_map_data(),
+			"furniture": get_furniture_data(),
+			"mobs": get_mob_data(),
+			"items": get_item_data()
+		}

@@ -19,9 +19,6 @@ func save_current_level(global_pos: Vector2) -> void:
 			return
 	
 	save_map_data(target_folder)
-	#save_mob_data(target_folder)
-	#save_item_data(target_folder)
-	#save_furniture_data(target_folder)
 
 #Creates a new save folder. The name of this folder will be the current date and time
 #This is to make sure it is unique. The folder name is stored in order to perform
@@ -37,121 +34,62 @@ func create_new_save():
 	else:
 		print_debug("Failed to create a unique folder for the demo.")
 
-# Save all the mobs and their current stats to the mobs file for this map
-func save_mob_data(target_folder: String) -> void:
-	var mobData: Array = []
-	var mapMobs = get_tree().get_nodes_in_group("mobs")
-	var newMobData: Dictionary
-	for mob in mapMobs:
-		mob.remove_from_group("mobs")
-		newMobData = {
-			"id": mob.id,
-			"global_position_x": mob.global_position.x,
-			"global_position_y": mob.global_position.y,
-			"global_position_z": mob.global_position.z,
-			"rotation": mob.rotation_degrees.y,
-			"melee_damage": mob.melee_damage,
-			"melee_range": mob.melee_range,
-			"health": mob.health,
-			"current_health": mob.current_health,
-			"move_speed": mob.moveSpeed,
-			"current_move_speed": mob.current_move_speed,
-			"idle_move_speed": mob.idle_move_speed,
-			"current_idle_move_speed": mob.current_idle_move_speed,
-			"sight_range": mob.sightRange,
-			"sense_range": mob.senseRange,
-			"hearing_range": mob.hearingRange
-		}
-		mobData.append(newMobData.duplicate())
-		mob.queue_free()
-	Helper.json_helper.write_json_file(target_folder + "/mobs.json", JSON.stringify(mobData))
-
-#Save the type and position of all mobs on the map
-func save_item_data(target_folder: String) -> void:
-	var itemData: Array = []
-	var defaultItem: Dictionary = {"itemid": "item1", \
-	"global_position_x": 0, "global_position_y": 0, "global_position_z": 0, "inventory": []}
-	var mapitems = get_tree().get_nodes_in_group("mapitems")
-	var newitemData: Dictionary
-	for item in mapitems:
-		item.remove_from_group("mapitems")
-		newitemData = defaultItem.duplicate()
-		newitemData["global_position_x"] = item.global_position.x
-		newitemData["global_position_y"] = item.global_position.y
-		newitemData["global_position_z"] = item.global_position.z
-		newitemData["inventory"] = item.get_node(item.inventory).serialize()
-		itemData.append(newitemData.duplicate())
-		item.queue_free()
-	Helper.json_helper.write_json_file(target_folder + "/items.json",\
-	JSON.stringify(itemData))
-	
-	
-func save_furniture_data(target_folder: String) -> void:
-	var furnitureData: Array = []
-	var mapFurniture = get_tree().get_nodes_in_group("furniture")
-	var newFurnitureData: Dictionary
-	var newRot: int
-	for furniture in mapFurniture:
-		furniture.remove_from_group("furniture")
-		if furniture is RigidBody3D:
-			newRot = furniture.rotation_degrees.y
-		else:
-			newRot = furniture.get_my_rotation()
-		newFurnitureData = {
-			"id": furniture.id,
-			"moveable": furniture is RigidBody3D,
-			"global_position_x": furniture.global_position.x,
-			"global_position_y": furniture.global_position.y,
-			"global_position_z": furniture.global_position.z,
-			"rotation": newRot,  # Save the Y-axis rotation
-			"sprite_rotation": furniture.get_sprite_rotation()
-		}
-		furnitureData.append(newFurnitureData.duplicate())
-		furniture.queue_free()
-	Helper.json_helper.write_json_file(target_folder + "/furniture.json", JSON.stringify(furnitureData))
-
 
 # Saves all of the maplevels to disk
 # A maplevel is one 32x32 layer at a certain x,y and z position
 # This layer will contain 1024 blocks
-func save_map_data(target_folder: String) -> void:
-	var level_width: int = 32
-	var level_height: int = 32
-	var tacticalmapData: Dictionary = {"chunks": []}
+func save_map_data1(target_folder: String) -> void:
+	var tacticalmapData: Dictionary = {"chunks": [], "mapheight": 0, "mapwidth": 0}
 	var tree: SceneTree = get_tree()
 	var mapChunks = tree.get_nodes_in_group("chunks")
 
 	for chunk: Node3D in mapChunks:
 		chunk.remove_from_group("chunks")
-		var chunkData: Dictionary = {
-			"chunk_x": chunk.global_position.x,
-			"chunk_z": chunk.global_position.z,
-			"maplevels": chunk.get_map_data(),
-			"furniture": chunk.get_furniture_data(),
-			"mobs": chunk.get_mob_data(),
-			"items": chunk.get_item_data()
-		}
-		tacticalmapData.chunks.append(chunkData)
+		var chunkdata: Dictionary = chunk.get_chunk_data()
+		var chunk_x = chunkdata.chunk_x
+		var chunk_z = chunkdata.chunk_z
+		tacticalmapData.chunks.append(chunkdata)
 		chunk.queue_free()
 
 	Helper.json_helper.write_json_file(target_folder + "/map.json", \
 	JSON.stringify(tacticalmapData))
 
-# Helper function to get block data at a specific position
-func get_block_data_at_position(level: Node3D, position: Vector3) -> Dictionary:
-	var block: StaticBody3D = find_block_at_position(level, position)
-	if block:
-		var myRotation: int = int(block.rotation_degrees.y)
-		return {"id": block.id, "rotation": myRotation}
-	return {}
 
+func save_map_data(target_folder: String) -> void:
+	var tacticalmapData: Dictionary = {"chunks": [], "mapheight": 0, "mapwidth": 0}
+	var tree: SceneTree = get_tree()
+	var mapChunks = tree.get_nodes_in_group("chunks")
 
-# Helper function to find a block at a specific position
-func find_block_at_position(level: Node3D, position: Vector3) -> StaticBody3D:
-	for child in level.get_children():
-		if child is StaticBody3D and child.position == position:
-			return child
-	return null
+	# New structures for calculating map dimensions
+	var z_positions = {} # Dictionary to count chunks by z position
+
+	for chunk: Node3D in mapChunks:
+		chunk.remove_from_group("chunks")
+		var chunkdata: Dictionary = chunk.get_chunk_data()
+		var chunk_z = chunkdata.chunk_z
+		# Counting the z position,s or rows of chunks
+		# Each row will have a count of one or more chunks
+		# In a 3x2 map the z_positions will be [0: 3, 1, 3]
+		z_positions[chunk_z] = (z_positions.get(chunk_z, 0) + 1)
+		tacticalmapData.chunks.append(chunkdata)
+		chunk.queue_free()
+
+	# Calculate map dimensions
+	var unique_z_positions = z_positions.size()
+	# Initialize max_chunks_per_z to an invalid low number
+	var max_chunks_per_z = -1
+
+	# Iterate over the values in z_positions to find the max
+	for count in z_positions.values():
+		if count > max_chunks_per_z:
+			max_chunks_per_z = count
+
+	# Update tactical map data with dimensions
+	tacticalmapData["mapheight"] = unique_z_positions
+	tacticalmapData["mapwidth"] = max_chunks_per_z
+
+	Helper.json_helper.write_json_file(target_folder + "/map.json", \
+	JSON.stringify(tacticalmapData))
 
 
 # This function determines the saved map folder path for the current level. 
