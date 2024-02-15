@@ -33,13 +33,44 @@ var should_stop: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initialize_map_data()
+	
+	#Example pseudo-logic for loading
+	#var chunks_to_load = calculate_chunks_to_load(Vector2(0,0))
+	#for chunk_pos in chunks_to_load:
+		#load_chunk(chunk_pos)
 	thread_mutex = Mutex.new()
 	loading_thread = Thread.new()
 	loading_semaphore = Semaphore.new()
 	loading_thread.start(_chunk_management_logic)
-	$"../NavigationRegion3D".bake_navigation_mesh()
-	# Start a loop to update chunks based on player position
+	#$"../NavigationRegion3D".bake_navigation_mesh()
+	## Start a loop to update chunks based on player position
 	set_process(true)
+	start_timer()
+
+
+
+# Function to create and start a timer
+func start_timer():
+	var my_timer = Timer.new() # Create a new Timer instance
+	my_timer.wait_time = 1 # Timer will tick every 1 second
+	my_timer.one_shot = false # False means the timer will repeat
+	add_child(my_timer) # Add the Timer to the scene as a child of this node
+	my_timer.timeout.connect(_on_Timer_timeout) # Connect the timeout signal
+	my_timer.start() # Start the timer
+
+
+# This function will be called every time the Timer ticks
+func _on_Timer_timeout():
+	var player = get_tree().get_first_node_in_group("Players")
+	var new_position = Vector2(player.global_transform.origin.x, player.global_transform.origin.z) / Vector2(level_width, level_height)
+	#var chance = randi_range(0, 100)
+	if new_position != player_position:# and chance < 1:
+		thread_mutex.lock()
+		#should_stop = false
+		player_position = new_position
+		#_chunk_management_logic()
+		thread_mutex.unlock()
+		loading_semaphore.post()  # Signal that there's work to be done
 
 
 # We store the level map width and height
@@ -74,17 +105,20 @@ func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
 		print("Position out of bounds or invalid index.")
 		return {}
 
-
-# Update the player position and update chunks using loading_semaphore.post()
-func _process(_delta):
-	var player = get_tree().get_first_node_in_group("Players")
-	var new_position = Vector2(player.global_transform.origin.x, player.global_transform.origin.z) / Vector2(level_width, level_height)
-	if new_position != player_position:
-		thread_mutex.lock()
-		player_position = new_position
-		thread_mutex.unlock()
-		loading_semaphore.post()  # Signal that there's work to be done
-
+#
+## Update the player position and update chunks using loading_semaphore.post()
+#func _process(_delta):
+	#var player = get_tree().get_first_node_in_group("Players")
+	#var new_position = Vector2(player.global_transform.origin.x, player.global_transform.origin.z) / Vector2(level_width, level_height)
+	#var chance = randi_range(0, 100)
+	#if new_position != player_position and chance < 1:
+		#thread_mutex.lock()
+		#should_stop = false
+		#player_position = new_position
+		#_chunk_management_logic()
+		#thread_mutex.unlock()
+		#loading_semaphore.post()  # Signal that there's work to be done
+#
 
 func _exit_tree():
 	thread_mutex.lock()
@@ -105,14 +139,14 @@ func _chunk_management_logic():
 		#Example pseudo-logic for loading
 		var chunks_to_load = calculate_chunks_to_load(current_player_chunk)
 		for chunk_pos in chunks_to_load:
-			var newchunk = load_chunk(chunk_pos)
-			level_manager.call_deferred("add_child", newchunk)
+			load_chunk(chunk_pos)
 
 		##And for unloading
 		var chunks_to_unload = calculate_chunks_to_unload(current_player_chunk)
 		for chunk_pos in chunks_to_unload:
 			call_deferred("unload_chunk", chunk_pos)
 
+		#should_stop = true
 		thread_mutex.unlock()
 		#if chunks_to_load.size() > 0:
 			#$"../NavigationRegion3D".bake_navigation_mesh()
@@ -146,18 +180,22 @@ func calculate_chunks_to_unload(player_chunk_pos: Vector2) -> Array:
 
 # Loads a chunk into existence. If it has been previously loaded, we get the data from loaded_chunk_data
 # If it has not been previously loaded, we get it from the map json definition
-func load_chunk(chunk_pos: Vector2) -> Node3D:
-	var newChunk = chunkScene.instantiate()
-	newChunk.global_position = Vector3(chunk_pos.x * level_width, 0, chunk_pos.y * level_height)
+func load_chunk(chunk_pos: Vector2):
+	var newChunk = Chunk.new()#chunkScene.instantiate()
+	newChunk.mypos = Vector3(chunk_pos.x * level_width, 0, chunk_pos.y * level_height)
+	if loaded_chunk_data.has(chunk_pos):
+		newChunk.chunk_data = loaded_chunk_data[chunk_pos]
+		#newChunk.generate_saved_chunk(loaded_chunk_data[chunk_pos])
+	else:
+		# This chunk has not been loaded before, so we need to use the chunk data definition instead
+		newChunk.chunk_data = get_chunk_data_at_position(chunk_pos)
+		#newChunk.generate_new_chunk(get_chunk_data_at_position(chunk_pos))
+	#newChunk.generate()
+	level_manager.add_child.call_deferred(newChunk)
+	#newChunk.global_position = Vector3(chunk_pos.x * level_width, 0, chunk_pos.y * level_height)
 	# Additional logic to initialize chunk...
 	loaded_chunks[chunk_pos] = newChunk
 	# If the chunk has been loaded before, we use that data
-	if loaded_chunk_data.has(chunk_pos):
-		newChunk.generate_saved_chunk(loaded_chunk_data[chunk_pos])
-	else:
-		# This chunk has not been loaded before, so we need to use the chunk data definition instead
-		newChunk.generate_new_chunk(get_chunk_data_at_position(chunk_pos))
-	return newChunk
 
 
 func unload_chunk(chunk_pos: Vector2):

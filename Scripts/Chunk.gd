@@ -1,3 +1,4 @@
+class_name Chunk
 extends Node3D
 
 
@@ -26,19 +27,33 @@ extends Node3D
 var level_width : int = 32
 var level_height : int = 32
 var _levels: Array = []
+var chunk_data: Dictionary
+var thread: Thread
+var mypos: Vector3
 
+func _ready():
+	transform.origin = Vector3(mypos)
+	thread = Thread.new()
+	# You can bind multiple arguments to a function Callable.
+	thread.start(generate_new_chunk.bind(chunk_data))
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func generate():
+	thread = Thread.new()
+	# You can bind multiple arguments to a function Callable.
+	thread.start(generate_new_chunk.bind(chunk_data))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
 
+# Thread must be disposed (or "joined"), for portability.
+func _exit_tree():
+	thread.wait_to_finish()
 
 func generate_new_chunk(mapsegment: Dictionary):
+	#Thread.set_thread_safety_checks_enabled(false)
 	#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 	var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 		Gamedata.data.maps.dataPath + mapsegment.id)
@@ -47,11 +62,12 @@ func generate_new_chunk(mapsegment: Dictionary):
 	var level_number = 0
 	for level in mapsegmentData.levels:
 		if level != []:
-			var level_node = Node3D.new()
+			var level_node = ChunkLevel.new()
 			level_node.add_to_group("maplevels")
-			add_child(level_node)
+			add_child.call_deferred(level_node)
 			_levels.append(level_node)
-			level_node.global_position.y = level_number - 10
+			level_node.levelposition = Vector3(0,level_number - 10,0)
+			#print_debug("_levels.size = " + str(_levels.size()))
 
 			var current_block = 0
 			for h in range(level_height):
@@ -59,18 +75,32 @@ func generate_new_chunk(mapsegment: Dictionary):
 					if level[current_block]:
 						tileJSON = level[current_block]
 						if tileJSON.has("id") and tileJSON.id != "":
-							var block = create_block_with_id(tileJSON.id)
-							level_node.add_child(block)
-							block.position.x = w
-							block.position.z = h
-							apply_block_rotation(tileJSON, block)
-							add_block_mob(tileJSON, block)
-							add_furniture_to_block(tileJSON, block)
+							var block = DefaultBlock.new()
+							var blockmeshisntance = MeshInstance3D.new()
+							var blockmesh = BoxMesh.new()
+							var collider = CollisionShape3D.new()
+							collider.shape = BoxShape3D.new()
+							blockmeshisntance.mesh = blockmesh
+							block.add_child.call_deferred(blockmeshisntance)
+							block.add_child.call_deferred(collider)
+							block.blockposition = Vector3(w,0,h)
+							var material = Gamedata.get_sprite_by_id(Gamedata.data.tiles,tileJSON.id)
+							blockmesh.surface_set_material(0, material)
+							#var block = create_block_with_id(tileJSON.id)
+							level_node.add_child.call_deferred(block)
+							
+							
+							#block.set_deferred("position",Vector3(w,level_number - 10,h))
+							
+							#block.position.z = h
+							#apply_block_rotation(tileJSON, block)
+							#add_block_mob(tileJSON, block)
+							#add_furniture_to_block(tileJSON, block)
 					current_block += 1
-			if !len(level_node.get_children()) > 0:
-				level_node.remove_from_group("maplevels")
-				_levels.erase(level_node)
-				level_node.queue_free()
+			#if !len(level_node.get_children()) > 0:
+				#level_node.remove_from_group("maplevels")
+				#_levels.erase(level_node)
+				#level_node.queue_free()
 			
 		level_number += 1
 
