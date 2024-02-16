@@ -7,10 +7,6 @@ var map_save_folder: String
 var level_width : int = 32
 var level_height : int = 32
 
-# The amount of chunks that make up the map
-var mapheight: int = 0
-var mapwidth: int = 0
-
 @export var level_manager : Node3D
 @export var chunkScene: PackedScene = null
 @export_file var default_level_json
@@ -20,7 +16,6 @@ var mapwidth: int = 0
 var creation_radius = 2
 var survival_radius = 3
 var loaded_chunks = {} # Dictionary to store loaded chunks with their positions as keys
-var loaded_chunk_data = {} # Dictionary to hold data of chunks that are unloaded
 var player_position = Vector2.ZERO # Player's position, updated regularly
 
 
@@ -48,8 +43,7 @@ func _ready():
 	start_timer()
 
 
-
-# Function to create and start a timer
+# Function to create and start a timer that will generate chunks every 1 second if applicable
 func start_timer():
 	var my_timer = Timer.new() # Create a new Timer instance
 	my_timer.wait_time = 1 # Timer will tick every 1 second
@@ -82,13 +76,14 @@ func initialize_map_data():
 	if map_save_folder == "":
 		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
 		Gamedata.data.tacticalmaps.dataPath + level_name)
+		Helper.loaded_chunk_data.mapheight = tacticalMapJSON.mapheight
+		Helper.loaded_chunk_data.mapwidth = tacticalMapJSON.mapwidth
 	else:
 		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
 		map_save_folder + "/map.json")
-		for chunk in tacticalMapJSON.chunks:
-			loaded_chunk_data[Vector2(chunk.chunk_x, chunk.chunk_z)] = chunk
-	mapheight = tacticalMapJSON.mapheight
-	mapwidth = tacticalMapJSON.mapwidth
+		Helper.loaded_chunk_data = tacticalMapJSON
+		#for chunk in tacticalMapJSON.chunks:
+			#Helper.loaded_chunk_data.chunks[Vector2(chunk.chunk_x, chunk.chunk_z)] = chunk
 
 
 # Called when no data has been put into memory yet in loaded_chunk_data
@@ -98,8 +93,8 @@ func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
 		Gamedata.data.tacticalmaps.dataPath + Helper.current_level_name)
 	var y: int = int(mypos.y)
 	var x: int = int(mypos.x)
-	var index: int = y * mapwidth + x
-	if index >= 0 and index < (mapwidth*mapheight):
+	var index: int = y * Helper.loaded_chunk_data.mapwidth + x
+	if index >= 0 and index < (Helper.loaded_chunk_data.mapwidth*Helper.loaded_chunk_data.mapheight):
 		return tacticalMapJSON.chunks[index]
 	else:
 		print("Position out of bounds or invalid index.")
@@ -166,7 +161,7 @@ func calculate_chunks_to_load(player_chunk_pos: Vector2) -> Array:
 
 # Returns if the provided position falls within the tacticalmap dimensions
 func is_pos_in_map(x, y) -> bool:
-	return x >= 0 and x < mapwidth and y >= 0 and y < mapheight
+	return x >= 0 and x < Helper.loaded_chunk_data.mapwidth and y >= 0 and y < Helper.loaded_chunk_data.mapheight
 
 
 # Returns chunks that are loaded but outside of the survival radius
@@ -183,8 +178,8 @@ func calculate_chunks_to_unload(player_chunk_pos: Vector2) -> Array:
 func load_chunk(chunk_pos: Vector2):
 	var newChunk = Chunk.new()#chunkScene.instantiate()
 	newChunk.mypos = Vector3(chunk_pos.x * level_width, 0, chunk_pos.y * level_height)
-	if loaded_chunk_data.has(chunk_pos):
-		newChunk.chunk_data = loaded_chunk_data[chunk_pos]
+	if Helper.loaded_chunk_data.chunks.has(chunk_pos):
+		newChunk.chunk_data = Helper.loaded_chunk_data.chunks[chunk_pos]
 		#newChunk.generate_saved_chunk(loaded_chunk_data[chunk_pos])
 	else:
 		# This chunk has not been loaded before, so we need to use the chunk data definition instead
@@ -201,6 +196,6 @@ func load_chunk(chunk_pos: Vector2):
 func unload_chunk(chunk_pos: Vector2):
 	if loaded_chunks.has(chunk_pos):
 		var chunk = loaded_chunks[chunk_pos]
-		loaded_chunk_data[chunk_pos] = chunk.get_chunk_data()
+		Helper.loaded_chunk_data.chunks[chunk_pos] = chunk.get_chunk_data()
 		chunk.queue_free() # Or any other cleanup logic
 		loaded_chunks.erase(chunk_pos)

@@ -56,40 +56,42 @@ func save_map_data1(target_folder: String) -> void:
 
 
 func save_map_data(target_folder: String) -> void:
-	var tacticalmapData: Dictionary = {"chunks": [], "mapheight": 0, "mapwidth": 0}
-	var tree: SceneTree = get_tree()
-	var mapChunks = tree.get_nodes_in_group("chunks")
-
-	# New structures for calculating map dimensions
-	var z_positions = {} # Dictionary to count chunks by z position
-
-	for chunk: Node3D in mapChunks:
-		chunk.remove_from_group("chunks")
-		var chunkdata: Dictionary = chunk.get_chunk_data()
-		var chunk_z = chunkdata.chunk_z
-		# Counting the z position,s or rows of chunks
-		# Each row will have a count of one or more chunks
-		# In a 3x2 map the z_positions will be [0: 3, 1, 3]
-		z_positions[chunk_z] = (z_positions.get(chunk_z, 0) + 1)
-		tacticalmapData.chunks.append(chunkdata)
-		chunk.queue_free()
-
-	# Calculate map dimensions
-	var unique_z_positions = z_positions.size()
-	# Initialize max_chunks_per_z to an invalid low number
-	var max_chunks_per_z = -1
-
-	# Iterate over the values in z_positions to find the max
-	for count in z_positions.values():
-		if count > max_chunks_per_z:
-			max_chunks_per_z = count
-
-	# Update tactical map data with dimensions
-	tacticalmapData["mapheight"] = unique_z_positions
-	tacticalmapData["mapwidth"] = max_chunks_per_z
+	#var tacticalmapData: Dictionary = {"chunks": {}, "mapheight": 0, "mapwidth": 0}
+	#var tree: SceneTree = get_tree()
+	#var mapChunks = tree.get_nodes_in_group("chunks")
+#
+	## New structures for calculating map dimensions
+	#var z_positions = {} # Dictionary to count chunks by z position
+#
+	#for chunk: Node3D in mapChunks:
+		##chunk.remove_from_group("chunks")
+		##var chunkdata: Dictionary = chunk.get_chunk_data()
+		##var chunk_z = chunkdata.chunk_z
+		### Counting the z position,s or rows of chunks
+		### Each row will have a count of one or more chunks
+		### In a 3x2 map the z_positions will be [0: 3, 1, 3]
+		##z_positions[chunk_z] = (z_positions.get(chunk_z, 0) + 1)
+		##tacticalmapData.chunks.append(chunkdata)
+		#chunk.queue_free()
+#
+	## Calculate map dimensions
+	#var unique_z_positions = z_positions.size()
+	## Initialize max_chunks_per_z to an invalid low number
+	#var max_chunks_per_z = -1
+#
+	## Iterate over the values in z_positions to find the max
+	#for count in z_positions.values():
+		#if count > max_chunks_per_z:
+			#max_chunks_per_z = count
+#
+	## Update tactical map data with dimensions
+	#tacticalmapData["mapheight"] = unique_z_positions
+	#tacticalmapData["mapwidth"] = max_chunks_per_z
+	#tacticalmapData["chunks"] = Helper.loaded_chunk_data
 
 	Helper.json_helper.write_json_file(target_folder + "/map.json", \
-	JSON.stringify(tacticalmapData))
+	JSON.stringify(Helper.loaded_chunk_data))
+	Helper.loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} 
 
 
 # This function determines the saved map folder path for the current level. 

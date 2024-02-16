@@ -1,6 +1,10 @@
 extends Node3D
 
+# Tacticalmap data
 var current_level_name : String
+# Dictionary to hold data of chunks that are unloaded
+var loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} 
+
 # Overmap data
 var chunks: Dictionary = {} #Stores references to tilegrids representing the overmap
 var current_level_pos: Vector2 = Vector2(0.1,0.1)
@@ -25,6 +29,7 @@ func _ready():
 # Called when the game is over and everything will need to be reset to default
 func reset():
 	chunks = {} #Stores references to tilegrids representing the overmap
+	loaded_chunk_data = {} # Data used to load blocks on the tacticalmap
 	current_level_pos = Vector2(0.1,0.1)
 	current_map_seed = 0
 	position_coord = Vector2(0, 0)
@@ -53,6 +58,7 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 		save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
 	current_level_pos = global_pos
 	get_tree().change_scene_to_file("res://level_generation.tscn")
+
 
 func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:
 	var mesh_instance := MeshInstance3D.new()

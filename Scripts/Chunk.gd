@@ -62,12 +62,8 @@ func generate_new_chunk(mapsegment: Dictionary):
 	var level_number = 0
 	for level in mapsegmentData.levels:
 		if level != []:
-			var level_node = ChunkLevel.new()
-			level_node.add_to_group("maplevels")
-			add_child.call_deferred(level_node)
-			_levels.append(level_node)
-			level_node.levelposition = Vector3(0,level_number - 10,0)
-			#print_debug("_levels.size = " + str(_levels.size()))
+			var level_node = create_level_node(level_number - 10)
+			var blocks_created: int = 0
 
 			var current_block = 0
 			for h in range(level_height):
@@ -80,39 +76,44 @@ func generate_new_chunk(mapsegment: Dictionary):
 							level_node.add_child.call_deferred(block)
 							#add_block_mob(tileJSON, block)
 							#add_furniture_to_block(tileJSON, block)
+							blocks_created += 1
 					current_block += 1
-			#if !len(level_node.get_children()) > 0:
-				#level_node.remove_from_group("maplevels")
-				#_levels.erase(level_node)
-				#level_node.queue_free()
+			if !blocks_created > 0:
+				level_node.remove_from_group.call_deferred("maplevels")
+				_levels.erase(level_node)
+				level_node.queue_free()
 			
 		level_number += 1
 
+
+func create_level_node(ypos: int) -> ChunkLevel:
+	var level_node = ChunkLevel.new()
+	level_node.add_to_group("maplevels")
+	add_child.call_deferred(level_node)
+	_levels.append(level_node)
+	level_node.levelposition = Vector3(0,ypos,0)
+	return level_node
+	
 
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation
 # If a block has an mob, add it too
 func generate_saved_chunk(tacticalMapJSON: Dictionary) -> void:
-	self.global_position.x = tacticalMapJSON.chunk_x
-	self.global_position.z = tacticalMapJSON.chunk_z
 	#we need to generate level layer by layer starting from the bottom
 	for level: Dictionary in tacticalMapJSON.maplevels:
 		if level != {}:
-			var level_node = Node3D.new()
-			level_node.add_to_group("maplevels")
-			add_child(level_node)
-			_levels.append(level_node)
-			level_node.global_position.y = level.map_y
+			var level_node = create_level_node(level.map_y)
 			generate_saved_level(level, level_node)
-	
-	for mob: Dictionary in tacticalMapJSON.mobs:
-		add_mob_to_map.call_deferred(mob)
-	
-	for item: Dictionary in tacticalMapJSON.items:
-		add_item_to_map.call_deferred(item)
-	
-	for furnitureData: Dictionary in tacticalMapJSON.furniture:
-		add_furniture_to_map.call_deferred(furnitureData)
+
+	#
+	#for mob: Dictionary in tacticalMapJSON.mobs:
+		#add_mob_to_map.call_deferred(mob)
+	#
+	#for item: Dictionary in tacticalMapJSON.items:
+		#add_item_to_map.call_deferred(item)
+	#
+	#for furnitureData: Dictionary in tacticalMapJSON.furniture:
+		#add_furniture_to_map.call_deferred(furnitureData)
 
 
 # Generates blocks on in the provided level. A level contains at most 32x32 blocks
@@ -123,33 +124,6 @@ func generate_saved_level(level: Dictionary, level_node: Node3D) -> void:
 			var block = DefaultBlock.new()
 			block.construct_self(Vector3(savedBlock.block_x,0,savedBlock.block_z), savedBlock)
 			level_node.add_child.call_deferred(block)
-
-
-# When the map is created for the first time, we will apply block rotation
-# This function will not be called when a map is loaded
-func apply_block_rotation(tileJSON: Dictionary, block: StaticBody3D):
-	# The slope has a default rotation of 90
-	# The block has a default rotation of 0
-	var myRotation: int = tileJSON.get("rotation", 0) + block.rotation_degrees.y
-	if myRotation == 0:
-		# Only the block will match this case, not the slope. The block points north
-		block.rotation_degrees = Vector3(0,myRotation+180,0)
-	elif myRotation == 90:
-		# A slope will point north
-		# A block will point east
-		block.rotation_degrees = Vector3(0,myRotation+0,0)
-	elif myRotation == 180:
-		# A block will point south
-		# A slope will point east
-		block.rotation_degrees = Vector3(0,myRotation-180,0)
-	elif myRotation == 270:
-		# A block will point west
-		# A slope will point south
-		block.rotation_degrees = Vector3(0,myRotation+0,0)
-	elif myRotation == 360:
-		# Only a slope can match this case
-		block.rotation_degrees = Vector3(0,myRotation-180,0)
-
 
 
 func add_block_mob(tileJSON: Dictionary, block: StaticBody3D):
@@ -164,7 +138,6 @@ func add_block_mob(tileJSON: Dictionary, block: StaticBody3D):
 			#newMob.rotation_degrees.y = tileJSON.mob.rotation
 		newMob.apply_stats_from_json(Gamedata.get_data_by_id(\
 		Gamedata.data.mobs, tileJSON.mob.id))
-
 
 
 func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
@@ -211,7 +184,6 @@ func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
 		newFurniture.id = furnitureJSON.id
 
 
-
 func apply_edge_snapping(newpos, direction, width, depth, newRot, block):
 	# Block size, assuming a block is 1x1 meters
 	var blockSize = Vector3(1.0, 1.0, 1.0)
@@ -234,7 +206,6 @@ func apply_edge_snapping(newpos, direction, width, depth, newRot, block):
 	return newpos
 
 
-
 func rotate_position_around_block_center(newpos, newRot, block_center):
 	# Convert rotation to radians for trigonometric functions
 	var radians = deg_to_rad(newRot)
@@ -251,7 +222,6 @@ func rotate_position_around_block_center(newpos, newRot, block_center):
 	
 	# Return the new position
 	return block_center + rotated_offset
-
 
 
 # Saves all of the maplevels to disk
@@ -272,7 +242,7 @@ func get_map_data() -> Array:
 		# Loop over the blocks in the level
 		for block in level.get_children():
 			var block_data: Dictionary = {
-				"id": block.id, 
+				"id": block.tileJSON.id, 
 				"rotation": int(block.rotation_degrees.y),
 				"block_x": block.position.x,
 				"block_z": block.position.z
@@ -309,13 +279,12 @@ func get_furniture_data() -> Array:
 	return furnitureData
 
 
-# We check if the furniture's position is inside this chunk on the x and z axis
+# We check if the furniture or mob or item's position is inside this chunk on the x and z axis
 func _is_object_in_range(object: Node3D) -> bool:
 		return object.global_position.x >= self.global_position.x and \
 		object.global_position.x <= self.global_position.x + level_width and \
 		object.global_position.z >= self.global_position.z and \
 		object.global_position.z <= self.global_position.z + level_height
-
 
 
 # Save all the mobs and their current stats to the mobs file for this map
