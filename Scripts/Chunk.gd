@@ -76,23 +76,8 @@ func generate_new_chunk(mapsegment: Dictionary):
 						tileJSON = level[current_block]
 						if tileJSON.has("id") and tileJSON.id != "":
 							var block = DefaultBlock.new()
-							var blockmeshisntance = MeshInstance3D.new()
-							var blockmesh = BoxMesh.new()
-							var collider = CollisionShape3D.new()
-							collider.shape = BoxShape3D.new()
-							blockmeshisntance.mesh = blockmesh
-							block.add_child.call_deferred(blockmeshisntance)
-							block.add_child.call_deferred(collider)
-							block.blockposition = Vector3(w,0,h)
-							var material = Gamedata.get_sprite_by_id(Gamedata.data.tiles,tileJSON.id)
-							blockmesh.surface_set_material(0, material)
-							#var block = create_block_with_id(tileJSON.id)
+							block.construct_self(Vector3(w,0,h), tileJSON.id)
 							level_node.add_child.call_deferred(block)
-							
-							
-							#block.set_deferred("position",Vector3(w,level_number - 10,h))
-							
-							#block.position.z = h
 							#apply_block_rotation(tileJSON, block)
 							#add_block_mob(tileJSON, block)
 							#add_furniture_to_block(tileJSON, block)
