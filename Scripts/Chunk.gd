@@ -76,9 +76,8 @@ func generate_new_chunk(mapsegment: Dictionary):
 						tileJSON = level[current_block]
 						if tileJSON.has("id") and tileJSON.id != "":
 							var block = DefaultBlock.new()
-							block.construct_self(Vector3(w,0,h), tileJSON.id)
+							block.construct_self(Vector3(w,0,h), tileJSON)
 							level_node.add_child.call_deferred(block)
-							#apply_block_rotation(tileJSON, block)
 							#add_block_mob(tileJSON, block)
 							#add_furniture_to_block(tileJSON, block)
 					current_block += 1
@@ -120,41 +119,10 @@ func generate_saved_chunk(tacticalMapJSON: Dictionary) -> void:
 func generate_saved_level(level: Dictionary, level_node: Node3D) -> void:
 	for savedBlock in level.blocks:
 		if savedBlock.has("id") and not savedBlock.id == "":
-			var block: StaticBody3D = create_block_with_id(savedBlock.id)
-			level_node.add_child(block)
-			# Because the level node already has a x and y position,
-			# We only set the local position relative to the parent
-			block.position.x = savedBlock.block_x
-			block.position.z = savedBlock.block_z
-			block.rotation_degrees.y = savedBlock.get("rotation", 0)
-	
-
-# This function takes a tile id and creates a new instance of either a block
-# or a slope which is a StaticBody3D. Look up the sprite property that is specified in
-# the json associated with the id. It will then take the sprite from the 
-# sprite dictionary based on the provided spritename and apply it 
-# to the instance of StaticBody3D. Lastly it will return the StaticBody3D.
-func create_block_with_id(id: String) -> StaticBody3D:
-	var block: StaticBody3D
-	var tileJSONData = Gamedata.data.tiles
-	var tileJSON = tileJSONData.data[Gamedata.get_array_index_by_id(tileJSONData,id)]
-	if tileJSON.has("shape"):
-		if tileJSON.shape == "slope":
-			block = defaultSlope.instantiate()
-		else:
-			block = defaultBlock.instantiate()
-	else:
-		block = defaultBlock.instantiate()
-	# Remmeber the id for save and load purposes
-	block.id = id
-		
-		
-	#tileJSON.sprite is the 'sprite' key in the json that was found for this tile
-	#If the sprite is found in the tile sprites, we assign it.
-	if tileJSON.sprite in Gamedata.data.tiles.sprites:
-		var material = Gamedata.data.tiles.sprites[tileJSON.sprite]
-		block.update_texture(material)
-	return block
+			#var block: StaticBody3D = StaticBody3D.new()#create_block_with_id(savedBlock.id)
+			var block = DefaultBlock.new()
+			block.construct_self(Vector3(savedBlock.block_x,0,savedBlock.block_z), savedBlock)
+			level_node.add_child.call_deferred(block)
 
 
 # When the map is created for the first time, we will apply block rotation

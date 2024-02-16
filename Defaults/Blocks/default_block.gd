@@ -1,11 +1,13 @@
 class_name DefaultBlock
 extends StaticBody3D
 
-var id: String = ""
 var blockposition: Vector3
+var tileJSON: Dictionary # The json that defines this block
+var shape: String = "block"
 
 func _ready():
 	position = blockposition
+	apply_block_rotation()
 
 
 func update_texture(material: BaseMaterial3D) -> void:
@@ -18,23 +20,21 @@ func get_texture_string() -> String:
 
 # Function to make it's own shape and texture based on an id and position
 # This function is called by a Chunk to construct it's blocks
-func construct_self(blockpos: Vector3, myid: String):
-	id = myid
+func construct_self(blockpos: Vector3, newTileJSON: Dictionary):
+	tileJSON = newTileJSON
 	blockposition = blockpos
-	var shape: String = "block"
-	
+
 	# Get the shape of the block
-	var tileJSONData = Gamedata.data.tiles
-	var tileJSON = tileJSONData.data[Gamedata.get_array_index_by_id(tileJSONData,id)]
-	if tileJSON.has("shape"):
-		if tileJSON.shape == "slope":
+	var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,tileJSON.id)
+	if tileJSONData.has("shape"):
+		if tileJSONData.shape == "slope":
 			shape = "slope"
 	
-	create_mesh(shape)
-	create_collider(shape)
+	create_mesh()
+	create_collider()
 
 
-func create_mesh(shape: String):
+func create_mesh():
 	var blockmeshisntance = MeshInstance3D.new()
 	var blockmesh
 	if shape == "block":
@@ -43,11 +43,11 @@ func create_mesh(shape: String):
 		blockmesh = PrismMesh.new()
 		blockmesh.left_to_right = 1
 	blockmeshisntance.mesh = blockmesh
-	blockmesh.surface_set_material(0, Gamedata.get_sprite_by_id(Gamedata.data.tiles,id))
+	blockmesh.surface_set_material(0, Gamedata.get_sprite_by_id(Gamedata.data.tiles,tileJSON.id))
 	add_child.call_deferred(blockmeshisntance)
 
 
-func create_collider(shape: String):
+func create_collider():
 	var collider = CollisionShape3D.new()
 	if shape == "block":
 		collider.shape = BoxShape3D.new()
@@ -63,3 +63,32 @@ func create_collider(shape: String):
 		]
 
 	add_child.call_deferred(collider)
+
+
+# When the map is created for the first time, we will apply block rotation
+# This function will not be called when a map is loaded
+func apply_block_rotation():
+	var defaultRotation: int = 0
+	if shape == "slope":
+		defaultRotation = 90
+	# The slope has a default rotation of 90
+	# The block has a default rotation of 0
+	var myRotation: int = tileJSON.get("rotation", 0) + defaultRotation
+	if myRotation == 0:
+		# Only the block will match this case, not the slope. The block points north
+		rotation_degrees = Vector3(0,myRotation+180,0)
+	elif myRotation == 90:
+		# A slope will point north
+		# A block will point east
+		rotation_degrees = Vector3(0,myRotation+0,0)
+	elif myRotation == 180:
+		# A block will point south
+		# A slope will point east
+		rotation_degrees = Vector3(0,myRotation-180,0)
+	elif myRotation == 270:
+		# A block will point west
+		# A slope will point south
+		rotation_degrees = Vector3(0,myRotation+0,0)
+	elif myRotation == 360:
+		# Only a slope can match this case
+		rotation_degrees = Vector3(0,myRotation-180,0)
