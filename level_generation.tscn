@@ -62,10 +62,11 @@ radius = 1.5
 
 [node name="TacticalMap" type="Node3D" parent="."]
 
-[node name="LevelGenerator" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("level_manager") groups=["level_generator"]]
+[node name="LevelGenerator" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("level_manager", "navigationregion") groups=["level_generator"]]
 script = ExtResource("1_i8qa4")
 level_manager = NodePath("../NavigationRegion3D/LevelManager")
 chunkScene = ExtResource("6_lxuu0")
+navigationregion = NodePath("../NavigationRegion3D")
 default_level_json = "res://Mods/Core/Maps/Generichouse.json"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TacticalMap"]

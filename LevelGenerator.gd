@@ -9,6 +9,7 @@ var level_height : int = 32
 
 @export var level_manager : Node3D
 @export var chunkScene: PackedScene = null
+@export var navigationregion: NavigationRegion3D = null
 @export_file var default_level_json
 
 
@@ -53,12 +54,9 @@ func start_timer():
 func _on_Timer_timeout():
 	var player = get_tree().get_first_node_in_group("Players")
 	var new_position = Vector2(player.global_transform.origin.x, player.global_transform.origin.z) / Vector2(level_width, level_height)
-	#var chance = randi_range(0, 100)
 	if new_position != player_position:# and chance < 1:
 		thread_mutex.lock()
-		#should_stop = false
 		player_position = new_position
-		#_chunk_management_logic()
 		thread_mutex.unlock()
 		loading_semaphore.post()  # Signal that there's work to be done
 
@@ -121,10 +119,9 @@ func _chunk_management_logic():
 		for chunk_pos in chunks_to_unload:
 			call_deferred("unload_chunk", chunk_pos)
 
-		#should_stop = true
+		if chunks_to_load.size() > 0 or chunks_to_unload.size() > 0:
+			navigationregion.bake_navigation_mesh.call_deferred()
 		thread_mutex.unlock()
-		#if chunks_to_load.size() > 0:
-			#$"../NavigationRegion3D".bake_navigation_mesh()
 		OS.delay_msec(100)  # Optional: delay to reduce CPU usage
 
 
@@ -173,5 +170,5 @@ func unload_chunk(chunk_pos: Vector2):
 	if loaded_chunks.has(chunk_pos):
 		var chunk = loaded_chunks[chunk_pos]
 		Helper.loaded_chunk_data.chunks[chunk_pos] = chunk.get_chunk_data()
-		chunk.queue_free() # Or any other cleanup logic
+		chunk.queue_free()
 		loaded_chunks.erase(chunk_pos)
