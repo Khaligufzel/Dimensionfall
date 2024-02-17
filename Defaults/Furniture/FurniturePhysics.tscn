@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpmwu7v1r8cg8"]
+[gd_scene load_steps=4 format=3 uid="uid://cpmwu7v1r8cg8"]
 
 [ext_resource type="Script" path="res://Scripts/FurniturePhysics.gd" id="1_klkkl"]
 [ext_resource type="Texture2D" uid="uid://cqfqxgp12asw1" path="res://Mods/Core/Furniture/table_64.png" id="1_q67ig"]
-[ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://Defaults/Mobs/mob_corpse.tscn" id="2_jy8nl"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vweei"]
 radius = 0.3
@@ -15,7 +14,6 @@ axis_lock_angular_z = true
 linear_damp = 59.0
 angular_damp = 59.0
 script = ExtResource("1_klkkl")
-corpse_scene = ExtResource("2_jy8nl")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

@@ -15,8 +15,6 @@ extends Node3D
 # Loading and unloading of chunks is managed by levelGenerator.gd
 
 
-@export var defaultBlock: PackedScene = preload("res://Defaults/Blocks/default_block.tscn")
-@export var defaultSlope: PackedScene = preload("res://Defaults/Blocks/default_slope.tscn")
 @export var defaultMob: PackedScene
 @export var defaultItem: PackedScene
 @export var defaultFurniturePhysics: PackedScene
@@ -59,7 +57,8 @@ func generate_new_chunk(mapsegment: Dictionary):
 	var level_number = 0
 	for level in mapsegmentData.levels:
 		if level != []:
-			var level_node = create_level_node(level_number - 10)
+			var y_position: int = level_number - 10
+			var level_node = create_level_node(y_position)
 			var blocks_created: int = 0
 
 			var current_block = 0
@@ -72,7 +71,7 @@ func generate_new_chunk(mapsegment: Dictionary):
 							block.construct_self(Vector3(w,0,h), tileJSON)
 							level_node.add_child.call_deferred(block)
 							#add_block_mob(tileJSON, block)
-							#add_furniture_to_block(tileJSON, block)
+							add_furniture_to_block(tileJSON, Vector3(w,y_position,h))
 							blocks_created += 1
 					current_block += 1
 			if !blocks_created > 0:
@@ -136,88 +135,19 @@ func add_block_mob(tileJSON: Dictionary, block: StaticBody3D):
 		Gamedata.data.mobs, tileJSON.mob.id))
 
 
-func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
+func add_furniture_to_block(tileJSON: Dictionary, furniturepos: Vector3):
 	if tileJSON.has("furniture"):
 		var newFurniture: Node3D
 		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
 		Gamedata.data.furniture, tileJSON.furniture.id)
-		var furnitureSprite: Texture = Gamedata.data.furniture.sprites[furnitureJSON.sprite]
-		
-		# Calculate the size of the furniture based on the sprite dimensions
-		var spriteWidth = furnitureSprite.get_width() / 100.0 # Convert pixels to meters (assuming 100 pixels per meter)
-		var spriteDepth = furnitureSprite.get_height() / 100.0 # Convert pixels to meters
-		
-		var edgeSnappingDirection = furnitureJSON.get("edgesnapping", "None")
-		var newRot = tileJSON.furniture.get("rotation", 0)
-		
 		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
-			newFurniture = defaultFurniturePhysics.instantiate()
+			#newFurniture = FurniturePhysics.new()
+			return
 		else:
-			newFurniture = defaultFurnitureStatic.instantiate()
-		
-		newFurniture.add_to_group("furniture")
-		
-		# Set the sprite and adjust the collision shape
-		newFurniture.set_sprite(furnitureSprite)
-		
-		add_child(newFurniture)
-		
-		# Position furniture at the center of the block by default
-		var furniturePosition = block.global_position
-		furniturePosition.y += 0.5 # Slightly above the block
-		
-		# Apply edge snapping if necessary
-		if edgeSnappingDirection != "None":
-			furniturePosition = apply_edge_snapping(furniturePosition, edgeSnappingDirection, spriteWidth, spriteDepth, newRot, block)
-		
-		newFurniture.global_position = furniturePosition
-		
-		if tileJSON.furniture.has("rotation"):
-			newFurniture.set_new_rotation(tileJSON.furniture.rotation)
-		else:
-			newFurniture.set_new_rotation(0)
-		
-		newFurniture.id = furnitureJSON.id
+			newFurniture = FurnitureStatic.new()
 
-
-func apply_edge_snapping(newpos, direction, width, depth, newRot, block):
-	# Block size, assuming a block is 1x1 meters
-	var blockSize = Vector3(1.0, 1.0, 1.0)
-	
-	# Adjust position based on edgesnapping direction and rotation
-	match direction:
-		"North":
-			newpos.z -= blockSize.z / 2 - depth / 2
-		"South":
-			newpos.z += blockSize.z / 2 - depth / 2
-		"East":
-			newpos.x += blockSize.x / 2 - width / 2
-		"West":
-			newpos.x -= blockSize.x / 2 - width / 2
-		# Add more cases if needed
-	
-	# Consider rotation if necessary
-	newpos = rotate_position_around_block_center(newpos, newRot, block.global_position)
-	
-	return newpos
-
-
-func rotate_position_around_block_center(newpos, newRot, block_center):
-	# Convert rotation to radians for trigonometric functions
-	var radians = deg_to_rad(newRot)
-	
-	# Calculate the offset from the block center
-	var offset = newpos - block_center
-	
-	# Apply rotation matrix transformation
-	var rotated_offset = Vector3(
-		offset.x * cos(radians) - offset.z * sin(radians),
-		offset.y,
-		offset.x * sin(radians) + offset.z * cos(radians)
-	)
-	
-	# Return the new position
-	return block_center + rotated_offset
+		newFurniture.construct_self(furniturepos, tileJSON.furniture)
+		add_child.call_deferred(newFurniture)
 
 
 # Saves all of the maplevels to disk
@@ -257,13 +187,13 @@ func get_furniture_data() -> Array:
 		# Check if furniture's position is within the desired range
 		if _is_object_in_range(furniture):
 			furniture.remove_from_group("furniture")
-			if furniture is RigidBody3D:
+			if furniture is FurniturePhysics:
 				newRot = furniture.rotation_degrees.y
-			else:
+			else: # It's FurnitureStatic
 				newRot = furniture.get_my_rotation()
 			newFurnitureData = {
 				"id": furniture.id,
-				"moveable": furniture is RigidBody3D,
+				"moveable": furniture is FurniturePhysics,
 				"global_position_x": furniture.global_position.x,
 				"global_position_y": furniture.global_position.y,
 				"global_position_z": furniture.global_position.z,

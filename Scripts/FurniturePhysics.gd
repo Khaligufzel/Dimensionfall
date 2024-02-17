@@ -1,3 +1,4 @@
+class_name FurniturePhysics
 extends RigidBody3D
 
 # id for the furniture json. this will be used to load the data when creating a furniture
@@ -5,7 +6,7 @@ extends RigidBody3D
 # and some dynamic json like the furniture health
 var id: String
 
-@export var corpse_scene: PackedScene
+@export var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
 var current_health: float = 10.0
 
 func get_hit(damage):
