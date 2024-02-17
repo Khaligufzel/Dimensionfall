@@ -2,7 +2,8 @@ class_name Chunk
 extends Node3D
 
 
-# This script is supposed to work with the Chunk scene
+# This script is it's own class and is not assigned to any particular node
+# You can call Chunk.new() to create a new instance of this class
 # This script will manage the internals of a map chunk
 # A chunk is made up of blocks, slopes, furniture and mobs
 # The first time a chunk is loaded, it will be from a map definition
@@ -12,8 +13,6 @@ extends Node3D
 # A chunk is defined by 21 levels and each level can potentially hold 32x32 blocks
 # On top of the blocks we spawn mobs and furniture
 # Loading and unloading of chunks is managed by levelGenerator.gd
-
-
 
 
 @export var defaultBlock: PackedScene = preload("res://Defaults/Blocks/default_block.tscn")
@@ -31,29 +30,27 @@ var chunk_data: Dictionary
 var thread: Thread
 var mypos: Vector3
 
+
 func _ready():
 	transform.origin = Vector3(mypos)
 	thread = Thread.new()
-	# You can bind multiple arguments to a function Callable.
-	thread.start(generate_new_chunk.bind(chunk_data))
-
-# Called when the node enters the scene tree for the first time.
-func generate():
-	thread = Thread.new()
-	# You can bind multiple arguments to a function Callable.
-	thread.start(generate_new_chunk.bind(chunk_data))
+	if chunk_data.has("id"):
+		thread.start(generate_new_chunk.bind(chunk_data))
+	else:
+		thread.start(generate_saved_chunk.bind(chunk_data))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
 
+
 # Thread must be disposed (or "joined"), for portability.
 func _exit_tree():
 	thread.wait_to_finish()
 
+
 func generate_new_chunk(mapsegment: Dictionary):
-	#Thread.set_thread_safety_checks_enabled(false)
 	#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 	var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 		Gamedata.data.maps.dataPath + mapsegment.id)
@@ -93,7 +90,7 @@ func create_level_node(ypos: int) -> ChunkLevel:
 	_levels.append(level_node)
 	level_node.levelposition = Vector3(0,ypos,0)
 	return level_node
-	
+
 
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation
@@ -120,7 +117,6 @@ func generate_saved_chunk(tacticalMapJSON: Dictionary) -> void:
 func generate_saved_level(level: Dictionary, level_node: Node3D) -> void:
 	for savedBlock in level.blocks:
 		if savedBlock.has("id") and not savedBlock.id == "":
-			#var block: StaticBody3D = StaticBody3D.new()#create_block_with_id(savedBlock.id)
 			var block = DefaultBlock.new()
 			block.construct_self(Vector3(savedBlock.block_x,0,savedBlock.block_z), savedBlock)
 			level_node.add_child.call_deferred(block)

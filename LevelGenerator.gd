@@ -29,10 +29,6 @@ var should_stop: bool = false
 func _ready():
 	initialize_map_data()
 	
-	#Example pseudo-logic for loading
-	#var chunks_to_load = calculate_chunks_to_load(Vector2(0,0))
-	#for chunk_pos in chunks_to_load:
-		#load_chunk(chunk_pos)
 	thread_mutex = Mutex.new()
 	loading_thread = Thread.new()
 	loading_semaphore = Semaphore.new()
@@ -82,8 +78,6 @@ func initialize_map_data():
 		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
 		map_save_folder + "/map.json")
 		Helper.loaded_chunk_data = tacticalMapJSON
-		#for chunk in tacticalMapJSON.chunks:
-			#Helper.loaded_chunk_data.chunks[Vector2(chunk.chunk_x, chunk.chunk_z)] = chunk
 
 
 # Called when no data has been put into memory yet in loaded_chunk_data
@@ -100,20 +94,6 @@ func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
 		print("Position out of bounds or invalid index.")
 		return {}
 
-#
-## Update the player position and update chunks using loading_semaphore.post()
-#func _process(_delta):
-	#var player = get_tree().get_first_node_in_group("Players")
-	#var new_position = Vector2(player.global_transform.origin.x, player.global_transform.origin.z) / Vector2(level_width, level_height)
-	#var chance = randi_range(0, 100)
-	#if new_position != player_position and chance < 1:
-		#thread_mutex.lock()
-		#should_stop = false
-		#player_position = new_position
-		#_chunk_management_logic()
-		#thread_mutex.unlock()
-		#loading_semaphore.post()  # Signal that there's work to be done
-#
 
 func _exit_tree():
 	thread_mutex.lock()
@@ -179,20 +159,16 @@ func load_chunk(chunk_pos: Vector2):
 	var newChunk = Chunk.new()#chunkScene.instantiate()
 	newChunk.mypos = Vector3(chunk_pos.x * level_width, 0, chunk_pos.y * level_height)
 	if Helper.loaded_chunk_data.chunks.has(chunk_pos):
+		# If the chunk has been loaded before, we use that data
 		newChunk.chunk_data = Helper.loaded_chunk_data.chunks[chunk_pos]
-		#newChunk.generate_saved_chunk(loaded_chunk_data[chunk_pos])
 	else:
 		# This chunk has not been loaded before, so we need to use the chunk data definition instead
 		newChunk.chunk_data = get_chunk_data_at_position(chunk_pos)
-		#newChunk.generate_new_chunk(get_chunk_data_at_position(chunk_pos))
-	#newChunk.generate()
 	level_manager.add_child.call_deferred(newChunk)
-	#newChunk.global_position = Vector3(chunk_pos.x * level_width, 0, chunk_pos.y * level_height)
-	# Additional logic to initialize chunk...
 	loaded_chunks[chunk_pos] = newChunk
-	# If the chunk has been loaded before, we use that data
 
 
+# When we unload the chunk, we save it's data into memory so we can re-use it later
 func unload_chunk(chunk_pos: Vector2):
 	if loaded_chunks.has(chunk_pos):
 		var chunk = loaded_chunks[chunk_pos]

@@ -5,6 +5,7 @@ var blockposition: Vector3
 var tileJSON: Dictionary # The json that defines this block
 var shape: String = "block"
 
+
 func _ready():
 	position = blockposition
 	apply_block_rotation()
@@ -69,7 +70,8 @@ func create_collider():
 # This function will not be called when a map is loaded
 func apply_block_rotation():
 	var defaultRotation: int = 0
-	if shape == "slope":
+	# Only previously saved blocks have the block_x property, so we don't need to apply default rotation again
+	if shape == "slope" and not tileJSON.has("block_x"):
 		defaultRotation = 90
 	# The slope has a default rotation of 90
 	# The block has a default rotation of 0
