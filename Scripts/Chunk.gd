@@ -17,8 +17,8 @@ extends Node3D
 
 @export var defaultMob: PackedScene
 @export var defaultItem: PackedScene
-@export var defaultFurniturePhysics: PackedScene
-@export var defaultFurnitureStatic: PackedScene
+# Reference to the level manager. Some nodes that could be moved to other chunks should be parented to this
+var level_manager : Node3D
 
 
 var level_width : int = 32
@@ -31,6 +31,7 @@ var mypos: Vector3
 
 func _ready():
 	transform.origin = Vector3(mypos)
+	add_to_group("chunks")
 	thread = Thread.new()
 	if chunk_data.has("id"):
 		thread.start(generate_new_chunk.bind(chunk_data))
@@ -108,8 +109,8 @@ func generate_saved_chunk(tacticalMapJSON: Dictionary) -> void:
 	#for item: Dictionary in tacticalMapJSON.items:
 		#add_item_to_map.call_deferred(item)
 	#
-	#for furnitureData: Dictionary in tacticalMapJSON.furniture:
-		#add_furniture_to_map.call_deferred(furnitureData)
+	for furnitureData: Dictionary in tacticalMapJSON.furniture:
+		add_furniture_to_map.call_deferred(furnitureData)
 
 
 # Generates blocks on in the provided level. A level contains at most 32x32 blocks
@@ -146,8 +147,8 @@ func add_furniture_to_block(tileJSON: Dictionary, furniturepos: Vector3):
 		else:
 			newFurniture = FurnitureStatic.new()
 
-		newFurniture.construct_self(furniturepos, tileJSON.furniture)
-		add_child.call_deferred(newFurniture)
+		newFurniture.construct_self(mypos+furniturepos, tileJSON.furniture)
+		level_manager.add_child.call_deferred(newFurniture)
 
 
 # Saves all of the maplevels to disk
@@ -192,7 +193,7 @@ func get_furniture_data() -> Array:
 			else: # It's FurnitureStatic
 				newRot = furniture.get_my_rotation()
 			newFurnitureData = {
-				"id": furniture.id,
+				"id": furniture.furnitureJSON.id,
 				"moveable": furniture is FurniturePhysics,
 				"global_position_x": furniture.global_position.x,
 				"global_position_y": furniture.global_position.y,
@@ -293,31 +294,19 @@ func add_item_to_map(item: Dictionary):
 	newItem.get_node(newItem.inventory).deserialize(item.inventory)
 
 
-# Called by generate_furniture function when a save is loaded
-func add_furniture_to_map(furnitureData: Dictionary) -> void:
+func add_furniture_to_map(furnitureData: Dictionary):
 	var newFurniture: Node3D
-	var isMoveable = furnitureData.has("moveable") and furnitureData.moveable
-	if isMoveable:
-		newFurniture = defaultFurniturePhysics.instantiate()
+	var furnitureJSON: Dictionary = Gamedata.get_data_by_id(
+	Gamedata.data.furniture, furnitureData.id)
+
+	if furnitureJSON.has("moveable") and furnitureJSON.moveable:
+		newFurniture = FurniturePhysics.new()
 	else:
-		newFurniture = defaultFurnitureStatic.instantiate()
-	newFurniture.add_to_group("furniture")
-	newFurniture.set_sprite(Gamedata.get_sprite_by_id(Gamedata.data.furniture, furnitureData.id))
-	get_tree().get_root().add_child(newFurniture)
-	newFurniture.global_position.x = furnitureData.global_position_x
-	newFurniture.global_position.y = furnitureData.global_position_y
-	newFurniture.global_position.z = furnitureData.global_position_z
-	# Check if rotation data is available and apply it
-	if furnitureData.has("rotation"):
-		if isMoveable:
-			newFurniture.rotation_degrees.y = furnitureData.rotation
-		else:
-			newFurniture.set_new_rotation(furnitureData.rotation)
-	
-	# Check if sprite rotation data is available and apply it
-	if furnitureData.has("sprite_rotation") and isMoveable:
-		newFurniture.set_new_rotation(furnitureData.sprite_rotation)
-	newFurniture.id = furnitureData.id
+		newFurniture = FurnitureStatic.new()
+
+	var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
+	newFurniture.construct_self(furniturepos,furnitureData)
+	level_manager.add_child.call_deferred(newFurniture)
 
 
 func get_chunk_data() -> Dictionary:

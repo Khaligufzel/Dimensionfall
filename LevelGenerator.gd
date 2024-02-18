@@ -68,14 +68,29 @@ func initialize_map_data():
 	var level_name: String = Helper.current_level_name
 	var tacticalMapJSON: Dictionary = {}
 	if map_save_folder == "":
+		# In this case we need to make a new map based on it's json definition
 		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
 		Gamedata.data.tacticalmaps.dataPath + level_name)
 		Helper.loaded_chunk_data.mapheight = tacticalMapJSON.mapheight
 		Helper.loaded_chunk_data.mapwidth = tacticalMapJSON.mapwidth
 	else:
+		# In this case we load the map json from disk
 		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
 		map_save_folder + "/map.json")
+		var loadingchunks: Dictionary = {}
+
+		# Since the chunk positions are no longer a Vector2 in JSON, 
+		# we have to transform it back into a Vector2
+		var chunk_data = tacticalMapJSON["chunks"]
+		for key_str in chunk_data:
+			var key_parts = key_str.split(",")
+			if key_parts.size() == 2:
+				var key_x = int(key_parts[0])
+				var key_y = int(key_parts[1])
+				var key = Vector2(key_x, key_y) # Use integers for Vector2 to avoid hash collisions
+				loadingchunks[key] = chunk_data[key_str]
 		Helper.loaded_chunk_data = tacticalMapJSON
+		Helper.loaded_chunk_data.chunks = loadingchunks
 
 
 # Called when no data has been put into memory yet in loaded_chunk_data
@@ -101,6 +116,7 @@ func _exit_tree():
 	loading_thread.wait_to_finish()
 
 
+# We determine which chunks can stay and which chunks need to go
 func _chunk_management_logic():
 	while not should_stop:
 		loading_semaphore.wait()  # Wait for signal
@@ -125,6 +141,8 @@ func _chunk_management_logic():
 		OS.delay_msec(100)  # Optional: delay to reduce CPU usage
 
 
+# Return an array of chunks that fall inside the creation radius
+# We only return chunks that have it's coordinate in the tacticalmap, so we don't go out of bounds
 func calculate_chunks_to_load(player_chunk_pos: Vector2) -> Array:
 	var chunks_to_load = []
 	for x in range(player_chunk_pos.x - creation_radius, player_chunk_pos.x + creation_radius + 1):
@@ -153,8 +171,9 @@ func calculate_chunks_to_unload(player_chunk_pos: Vector2) -> Array:
 # Loads a chunk into existence. If it has been previously loaded, we get the data from loaded_chunk_data
 # If it has not been previously loaded, we get it from the map json definition
 func load_chunk(chunk_pos: Vector2):
-	var newChunk = Chunk.new()#chunkScene.instantiate()
+	var newChunk = Chunk.new()
 	newChunk.mypos = Vector3(chunk_pos.x * level_width, 0, chunk_pos.y * level_height)
+	newChunk.level_manager = level_manager
 	if Helper.loaded_chunk_data.chunks.has(chunk_pos):
 		# If the chunk has been loaded before, we use that data
 		newChunk.chunk_data = Helper.loaded_chunk_data.chunks[chunk_pos]

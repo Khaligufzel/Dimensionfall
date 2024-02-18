@@ -96,7 +96,9 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	furnitureJSON = newFurnitureJSON
 	# Position furniture at the center of the block by default
 	furnitureposition = furniturepos
-	furnitureposition.y += 0.5 # Move the furniture to slightly above the block
+	# Only previously saved furniture will have the global_position_x key. They do not need to be raised
+	if not newFurnitureJSON.has("global_position_x"):
+		furnitureposition.y += 0.5 # Move the furniture to slightly above the block 
 	add_to_group("furniture")
 
 	# Get the shape of the block
@@ -115,8 +117,9 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	
 	var newRot = furnitureJSON.get("rotation", 0)
 
-	# Apply edge snapping if necessary
-	if edgeSnappingDirection != "None":
+	# Apply edge snapping if necessary. Previously saved blocks have the global_position_x. They do not
+	# need to apply edge snapping again
+	if edgeSnappingDirection != "None" and not newFurnitureJSON.has("global_position_x"):
 		furnitureposition = apply_edge_snapping(furnitureposition, edgeSnappingDirection, spriteWidth, spriteDepth, newRot, furniturepos)
 
 	furniturerotation = newRot

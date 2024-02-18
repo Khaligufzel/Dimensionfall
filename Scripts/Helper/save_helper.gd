@@ -20,6 +20,7 @@ func save_current_level(global_pos: Vector2) -> void:
 	
 	save_map_data(target_folder)
 
+
 #Creates a new save folder. The name of this folder will be the current date and time
 #This is to make sure it is unique. The folder name is stored in order to perform
 #save and load actions. Also, the map seed is created and stored
@@ -36,9 +37,19 @@ func create_new_save():
 
 
 func save_map_data(target_folder: String) -> void:
+	var tree: SceneTree = get_tree()
+	var mapChunks = tree.get_nodes_in_group("chunks")
+
+	# Get the chunk data before we save them
+	for chunk: Node3D in mapChunks:
+		var chunkdata: Dictionary = chunk.get_chunk_data()
+		# We save the chunks by their coordinates on the tacticalmap, so 0,0 and 0,1 etc
+		# That's why we need to devide by map width/height which is 32
+		Helper.loaded_chunk_data.chunks[Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))] = chunkdata
+	
 	Helper.json_helper.write_json_file(target_folder + "/map.json", \
 	JSON.stringify(Helper.loaded_chunk_data))
-	Helper.loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} 
+	Helper.loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} # Reset the data
 
 
 # This function determines the saved map folder path for the current level. 
@@ -60,6 +71,7 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 # Function to load game.json from a given saved game folder
 func load_game_from_folder(save_folder_name: String) -> void:
 	current_save_folder = "user://save/" + save_folder_name
+
 
 # Function to save the current state of the overmap
 func save_overmap_state() -> void:
@@ -99,12 +111,14 @@ func load_overmap_state() -> void:
 	else:
 		print_debug("Failed to parse overmap state file: ", overmap_path)
 
+
 # Function to save the player's inventory to a JSON file.
 func save_player_inventory() -> void:
 	var save_path = current_save_folder + "/player_inventory.json"
 	var inventory_data = JSON.stringify(ItemManager.playerInventory.serialize())
 	Helper.json_helper.write_json_file(save_path, inventory_data)
-	
+
+
 # Function to save the player's equipment to a JSON file.
 func save_player_equipment() -> void:
 	var save_path = current_save_folder + "/player_equipment.json"
@@ -126,7 +140,8 @@ func load_player_inventory() -> void:
 	else:
 		print_debug("Failed to load player inventory from: " + load_path)
 
-	# Function to load the player's inventory data
+
+# Function to load the player's inventory data
 func load_player_equipment() -> void:
 	var load_path = current_save_folder + "/player_equipment.json"
 
@@ -139,6 +154,7 @@ func load_player_equipment() -> void:
 		print_debug("Player equipment loaded from: " + load_path)
 	else:
 		print_debug("Failed to load player equipment from: " + load_path)
+
 
 # Function to save the player's state to a JSON file.
 func save_player_state(player: CharacterBody3D) -> void:
@@ -160,6 +176,7 @@ func save_player_state(player: CharacterBody3D) -> void:
 		"pain": player.current_pain
 	}
 	Helper.json_helper.write_json_file(save_path, JSON.stringify(player_state))
+
 
 # Function to load the player's state from a JSON file.
 func load_player_state(player: CharacterBody3D) -> void:
@@ -184,4 +201,3 @@ func load_player_state(player: CharacterBody3D) -> void:
 		player.update_stamina_HUD.emit(player.current_stamina)
 	else:
 		print_debug("Failed to load player state from: ", load_path)
-

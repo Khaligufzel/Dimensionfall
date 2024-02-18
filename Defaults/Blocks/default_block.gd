@@ -76,6 +76,9 @@ func apply_block_rotation():
 	# The slope has a default rotation of 90
 	# The block has a default rotation of 0
 	var myRotation: int = tileJSON.get("rotation", 0) + defaultRotation
+	# Hack to get previouly saved slopes into the right rotation
+	if (myRotation == 0 or myRotation == 180) and shape == "slope" and tileJSON.has("block_x"):
+		myRotation += 180
 	if myRotation == 0:
 		# Only the block will match this case, not the slope. The block points north
 		rotation_degrees = Vector3(0,myRotation+180,0)
@@ -92,5 +95,5 @@ func apply_block_rotation():
 		# A slope will point south
 		rotation_degrees = Vector3(0,myRotation+0,0)
 	elif myRotation == 360:
-		# Only a slope can match this case
+		# Only a slope can match this case if it's rotation is 270 and it gets 90 rotation by default
 		rotation_degrees = Vector3(0,myRotation-180,0)
