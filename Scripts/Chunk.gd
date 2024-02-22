@@ -142,8 +142,7 @@ func add_furniture_to_block(tileJSON: Dictionary, furniturepos: Vector3):
 		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
 		Gamedata.data.furniture, tileJSON.furniture.id)
 		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
-			#newFurniture = FurniturePhysics.new()
-			return
+			newFurniture = FurniturePhysics.new()
 		else:
 			newFurniture = FurnitureStatic.new()
 
@@ -199,7 +198,6 @@ func get_furniture_data() -> Array:
 				"global_position_y": furniture.global_position.y,
 				"global_position_z": furniture.global_position.z,
 				"rotation": newRot,  # Save the Y-axis rotation
-				"sprite_rotation": furniture.get_sprite_rotation()
 			}
 			furnitureData.append(newFurnitureData.duplicate())
 			furniture.queue_free()

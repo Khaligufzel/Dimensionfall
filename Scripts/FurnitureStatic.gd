@@ -38,10 +38,6 @@ func add_corpse(pos: Vector3):
 	corpse.add_to_group("mapitems")
 
 
-func get_sprite_rotation() -> float:
-	return sprite.rotation_degrees.y
-
-
 func set_sprite(newSprite: Texture):
 	if not sprite:
 		sprite = Sprite3D.new()
@@ -101,13 +97,10 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 		furnitureposition.y += 0.5 # Move the furniture to slightly above the block 
 	add_to_group("furniture")
 
-	# Get the shape of the block
+	# Find out if we need to apply edge snapping
 	var furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
 	var edgeSnappingDirection = furnitureJSONData.get("edgesnapping", "None")
-	
-	#var chance = randi_range(0, 100)
-	#if chance < 1:
-		#print_debug("furntirue id = " + str(furnitureJSON.id))
+
 	var furnitureSprite: Texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture,furnitureJSON.id)
 	set_sprite(furnitureSprite)
 	
