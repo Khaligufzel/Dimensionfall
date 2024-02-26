@@ -1,15 +1,17 @@
 extends State
 class_name MobAttack
 
-@export var attack_timer: Timer
-@export var mob: CharacterBody3D
-@export var mob_sprite: NodePath
+var attack_timer: Timer
+var mob: CharacterBody3D # The mob that we execute the attack for
 
 var tween: Tween
 
 var targeted_player
 
 var is_in_attack_mode = false
+
+func _ready():
+	attack_timer.timeout.connect(_on_attack_cooldown_timeout)
 
 func Enter():
 	attack_timer.start()
@@ -19,14 +21,11 @@ func Exit():
 	pass
 	
 func Physics_Update(_delta: float):
-	
-	
 	# Rotation towards target using look_at
 	if targeted_player:
-		var mesh_instance = $"../../MeshInstance3D"
 		var target_position = targeted_player.global_position
-		target_position.y = mesh_instance.global_position.y  # Align y-axis to avoid tilting
-		mesh_instance.look_at(target_position, Vector3.UP)
+		target_position.y = mob.meshInstance.global_position.y  # Align y-axis to avoid tilting
+		mob.meshInstance.look_at(target_position, Vector3.UP)
 
 	var space_state = get_world_3d().direct_space_state
 	# TO-DO Change playerCol to group of players
@@ -66,7 +65,7 @@ func attack():
 #	tween.tween_property(get_node(mob_sprite), "position", targeted_player.position - get_node(mob).global_position, 0.1 )
 #	tween.tween_property(get_node(mob_sprite), "position", Vector2(0,0), 0.1 )
 	
-	if targeted_player.has_method("_get_hit"):
+	if targeted_player and targeted_player.has_method("_get_hit"):
 		targeted_player._get_hit(mob.melee_damage)
 	
 	

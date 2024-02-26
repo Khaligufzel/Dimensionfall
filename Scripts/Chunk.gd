@@ -29,6 +29,11 @@ var thread: Thread
 var mypos: Vector3
 
 
+# Signals to let the levelgenerator update the navigationmesh
+signal chunk_created(chunkposition)
+signal chunk_destroyed(chunkposition)
+
+
 func _ready():
 	transform.origin = Vector3(mypos)
 	add_to_group("chunks")
@@ -46,6 +51,7 @@ func _process(_delta):
 
 # Thread must be disposed (or "joined"), for portability.
 func _exit_tree():
+	chunk_destroyed.emit(mypos)
 	thread.wait_to_finish()
 
 
@@ -71,7 +77,7 @@ func generate_new_chunk(mapsegment: Dictionary):
 							var block = DefaultBlock.new()
 							block.construct_self(Vector3(w,0,h), tileJSON)
 							level_node.add_child.call_deferred(block)
-							#add_block_mob(tileJSON, block)
+							add_block_mob(tileJSON, Vector3(w,y_position+1.1,h))
 							add_furniture_to_block(tileJSON, Vector3(w,y_position,h))
 							blocks_created += 1
 					current_block += 1
@@ -81,6 +87,7 @@ func generate_new_chunk(mapsegment: Dictionary):
 				level_node.queue_free()
 			
 		level_number += 1
+	call_deferred("emit_signal", "chunk_created", mypos)
 
 
 func create_level_node(ypos: int) -> ChunkLevel:
@@ -102,15 +109,16 @@ func generate_saved_chunk(tacticalMapJSON: Dictionary) -> void:
 			var level_node = create_level_node(level.map_y)
 			generate_saved_level(level, level_node)
 
-	#
-	#for mob: Dictionary in tacticalMapJSON.mobs:
-		#add_mob_to_map.call_deferred(mob)
+	for mob: Dictionary in tacticalMapJSON.mobs:
+		add_mob_to_map.call_deferred(mob)
 	#
 	#for item: Dictionary in tacticalMapJSON.items:
 		#add_item_to_map.call_deferred(item)
 	#
 	for furnitureData: Dictionary in tacticalMapJSON.furniture:
 		add_furniture_to_map.call_deferred(furnitureData)
+	
+	call_deferred("emit_signal", "chunk_created", mypos)
 
 
 # Generates blocks on in the provided level. A level contains at most 32x32 blocks
@@ -122,20 +130,16 @@ func generate_saved_level(level: Dictionary, level_node: Node3D) -> void:
 			level_node.add_child.call_deferred(block)
 
 
-func add_block_mob(tileJSON: Dictionary, block: StaticBody3D):
+# When a map is loaded for the first time we spawn the mob on the block
+func add_block_mob(tileJSON: Dictionary, mobpos: Vector3):
 	if tileJSON.has("mob"):
-		var newMob: CharacterBody3D = defaultMob.instantiate()
-		newMob.add_to_group("mobs")
-		get_tree().get_root().add_child(newMob)
-		newMob.global_position.x = block.global_position.x
-		newMob.global_position.y = block.global_position.y + 0.5
-		newMob.global_position.z = block.global_position.z
-		#if tileJSON.mob.has("rotation"):
-			#newMob.rotation_degrees.y = tileJSON.mob.rotation
-		newMob.apply_stats_from_json(Gamedata.get_data_by_id(\
-		Gamedata.data.mobs, tileJSON.mob.id))
+		var newMob: CharacterBody3D = Mob.new()
+		# Pass the position and the mob json to the newmob and have it construct itself
+		newMob.construct_self(mypos+mobpos, tileJSON.mob)
+		level_manager.add_child.call_deferred(newMob)
 
 
+# When a map is loaded for the first time we spawn the furniture on the block
 func add_furniture_to_block(tileJSON: Dictionary, furniturepos: Vector3):
 	if tileJSON.has("furniture"):
 		var newFurniture: Node3D
@@ -222,7 +226,7 @@ func get_mob_data() -> Array:
 		if _is_object_in_range(mob):
 			mob.remove_from_group("mobs")
 			newMobData = {
-				"id": mob.id,
+				"id": mob.mobJSON.id,
 				"global_position_x": mob.global_position.x,
 				"global_position_y": mob.global_position.y,
 				"global_position_z": mob.global_position.z,
@@ -264,18 +268,13 @@ func get_item_data() -> Array:
 	return itemData
 
 
-# Called by generate_mobs function when a save is loaded
+# Called when a save is loaded
 func add_mob_to_map(mob: Dictionary) -> void:
-	var newMob: CharacterBody3D = defaultMob.instantiate()
-	newMob.add_to_group("mobs")
-	get_tree().get_root().add_child(newMob)
-	newMob.global_position.x = mob.global_position_x
-	newMob.global_position.y = mob.global_position_y
-	newMob.global_position.z = mob.global_position_z
-	# Check if rotation data is available and apply it
-	if mob.has("rotation"):
-		newMob.rotation_degrees.y = mob.rotation
-	newMob.apply_stats_from_json(mob)
+	var newMob: CharacterBody3D = Mob.new()
+	# Put the mob back where it was when the map was unloaded
+	var mobpos: Vector3 = Vector3(mob.global_position_x,mob.global_position_y,mob.global_position_z)
+	newMob.construct_self(mobpos, mob)
+	level_manager.add_child.call_deferred(newMob)
 
 
 # Called by generate_items function when a save is loaded

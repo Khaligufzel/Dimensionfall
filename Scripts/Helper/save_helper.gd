@@ -68,6 +68,7 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 		return target_folder
 	return ""
 
+
 # Function to load game.json from a given saved game folder
 func load_game_from_folder(save_folder_name: String) -> void:
 	current_save_folder = "user://save/" + save_folder_name

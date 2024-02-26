@@ -45,18 +45,17 @@ func add_corpse(pos: Vector3):
 
 
 func set_new_rotation(amount: int):
-	print_debug("set_new_rotation() - amount:", amount)
 	var rotation_amount = amount
-	if amount == 180:
-		rotation_amount = amount - 180
-	elif amount == 0:
-		rotation_amount = amount + 180
-	else:
-		rotation_amount = amount
-	print_debug("set_new_rotation() - rotation_amount:", rotation_amount)
+	# Only previously saved furniture will have the global_position_x key. Rotation does not need adjustment
+	if not furnitureJSON.has("global_position_x"):
+		if amount == 180:
+			rotation_amount = amount - 180
+		elif amount == 0:
+			rotation_amount = amount + 180
+		else:
+			rotation_amount = amount
 
 	rotation_degrees.y = rotation_amount
-	print_debug("set_new_rotation() - sprite.rotation_degrees.y:", sprite.rotation_degrees.y)
 	sprite.rotation_degrees.x = 90 # Static 90 degrees to point at camera
 
 

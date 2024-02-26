@@ -24,11 +24,15 @@ var loading_thread: Thread
 var loading_semaphore: Semaphore
 var thread_mutex: Mutex
 var should_stop: bool = false
+var should_update_navmesh: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initialize_map_data()
+	# Since the cell size of the NavigationRegion3D navmesh is set to 0.1, we also
+	# have to set the map cell size to 0.1 to prevent synchronisation errors
+	NavigationServer3D.map_set_cell_size(navigationregion.get_navigation_map(),0.1)
 	
 	thread_mutex = Mutex.new()
 	loading_thread = Thread.new()
@@ -135,8 +139,11 @@ func _chunk_management_logic():
 		for chunk_pos in chunks_to_unload:
 			call_deferred("unload_chunk", chunk_pos)
 
-		if chunks_to_load.size() > 0 or chunks_to_unload.size() > 0:
+		if should_update_navmesh:
+			# For further performance tweaks, we can call 
+			# bake_navigation_mesh(true) to run it in a separate thread
 			navigationregion.bake_navigation_mesh.call_deferred()
+			should_update_navmesh = false
 		thread_mutex.unlock()
 		OS.delay_msec(100)  # Optional: delay to reduce CPU usage
 
@@ -180,6 +187,9 @@ func load_chunk(chunk_pos: Vector2):
 	else:
 		# This chunk has not been loaded before, so we need to use the chunk data definition instead
 		newChunk.chunk_data = get_chunk_data_at_position(chunk_pos)
+	# Connect to the create and destoryed signals
+	newChunk.chunk_created.connect(_on_chunk_created_or_destroyed)
+	newChunk.chunk_destroyed.connect(_on_chunk_created_or_destroyed)
 	level_manager.add_child.call_deferred(newChunk)
 	loaded_chunks[chunk_pos] = newChunk
 
@@ -191,3 +201,9 @@ func unload_chunk(chunk_pos: Vector2):
 		Helper.loaded_chunk_data.chunks[chunk_pos] = chunk.get_chunk_data()
 		chunk.queue_free()
 		loaded_chunks.erase(chunk_pos)
+
+
+# When a chunk emits the created or destroyed signal, we should update the navmesh
+func _on_chunk_created_or_destroyed(_chunkposition):
+	should_update_navmesh = true
+	print_debug("_on_chunk_created_or_destroyed")

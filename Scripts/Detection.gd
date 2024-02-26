@@ -1,7 +1,10 @@
+class_name Detection
 extends Node3D
 
-@export var playerCol: Node3D
-@export var mob: CharacterBody3D
+var playerCol: Node3D
+var mob: CharacterBody3D # The mob that we want to enable detection for
+var spotted_player: CharacterBody3D
+var state_nodes: Array # The state nodes i.e. MobAttack, MobFollow, MobIdle
 
 signal player_spotted
 
@@ -16,6 +19,9 @@ func _ready():
 	sightRange = mob.sightRange
 	senseRange = mob.senseRange
 	hearingRange = mob.hearingRange
+	# Connect the detection signal to the state nodes in the statemachine
+	for node in state_nodes:
+		player_spotted.connect(node._on_detection_player_spotted)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,6 +45,7 @@ func _physics_process(_delta):
 	if result:
 		
 		if result.collider.is_in_group("Players") && Vector3(global_position).distance_to(get_tree().get_first_node_in_group("Players").global_position) <= sightRange:
-			player_spotted.emit(result.collider)
+			spotted_player = result.collider
+			player_spotted.emit(spotted_player)
 
 	

@@ -24,6 +24,13 @@ func get_texture_string() -> String:
 func construct_self(blockpos: Vector3, newTileJSON: Dictionary):
 	tileJSON = newTileJSON
 	blockposition = blockpos
+	# Adding to this group makes sure that the NavigationRegion3D considers the block when baking the navmesh
+	add_to_group("navigation_mesh_source_group")
+	disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
+	# Set collision layer to layer 1 and 5
+	collision_layer = 1 | (1 << 4) # Layer 1 is 1, Layer 5 is 1 << 4 (16), combined with bitwise OR
+	# Set collision mask to layer 1
+	collision_mask = 1 # Layer 1 is 1
 
 	# Get the shape of the block
 	var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,tileJSON.id)
