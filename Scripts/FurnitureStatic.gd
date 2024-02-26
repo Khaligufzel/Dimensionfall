@@ -32,10 +32,10 @@ func _die():
 
 
 func add_corpse(pos: Vector3):
-	var corpse = corpse_scene.instantiate()
-	get_tree().get_root().add_child(corpse)
-	corpse.global_position = pos
-	corpse.add_to_group("mapitems")
+	var newItem: ContainerItem = ContainerItem.new()
+	newItem.add_to_group("mapitems")
+	newItem.construct_self(pos)
+	get_tree().get_root().add_child.call_deferred(newItem)
 
 
 func set_sprite(newSprite: Texture):

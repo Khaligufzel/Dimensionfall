@@ -5,11 +5,8 @@ signal remove_from_proximity_inventory
 
 
 func _on_area_entered(area):
-	
 	if area.get_owner().is_in_group("Containers"):
 		add_to_proximity_inventory.emit(area.get_owner())
-		
-	#print(area.get_owner().get_items())
 
 
 func _on_area_exited(area):

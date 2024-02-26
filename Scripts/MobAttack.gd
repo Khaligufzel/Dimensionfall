@@ -13,13 +13,16 @@ var is_in_attack_mode = false
 func _ready():
 	attack_timer.timeout.connect(_on_attack_cooldown_timeout)
 
+
 func Enter():
 	attack_timer.start()
 	print("ENTERING BATTLE MODE")
-	
+
+
 func Exit():
 	pass
-	
+
+
 func Physics_Update(_delta: float):
 	# Rotation towards target using look_at
 	if targeted_player:

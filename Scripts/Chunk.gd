@@ -14,17 +14,13 @@ extends Node3D
 # On top of the blocks we spawn mobs and furniture
 # Loading and unloading of chunks is managed by levelGenerator.gd
 
-
-@export var defaultMob: PackedScene
-@export var defaultItem: PackedScene
 # Reference to the level manager. Some nodes that could be moved to other chunks should be parented to this
 var level_manager : Node3D
-
 
 var level_width : int = 32
 var level_height : int = 32
 var _levels: Array = []
-var chunk_data: Dictionary
+var chunk_data: Dictionary # The json data that defines this chunk
 var thread: Thread
 var mypos: Vector3
 
@@ -111,10 +107,10 @@ func generate_saved_chunk(tacticalMapJSON: Dictionary) -> void:
 
 	for mob: Dictionary in tacticalMapJSON.mobs:
 		add_mob_to_map.call_deferred(mob)
-	#
-	#for item: Dictionary in tacticalMapJSON.items:
-		#add_item_to_map.call_deferred(item)
-	#
+
+	for item: Dictionary in tacticalMapJSON.items:
+		add_item_to_map.call_deferred(item)
+
 	for furnitureData: Dictionary in tacticalMapJSON.furniture:
 		add_furniture_to_map.call_deferred(furnitureData)
 	
@@ -251,8 +247,13 @@ func get_mob_data() -> Array:
 #Save the type and position of all mobs on the map
 func get_item_data() -> Array:
 	var itemData: Array = []
-	var myItem: Dictionary = {"itemid": "item1", \
-	"global_position_x": 0, "global_position_y": 0, "global_position_z": 0, "inventory": []}
+	var myItem: Dictionary = {
+		"itemid": "item1", 
+		"global_position_x": 0, 
+		"global_position_y": 0, 
+		"global_position_z": 0, 
+		"inventory": []
+	}
 	var mapitems = get_tree().get_nodes_in_group("mapitems")
 	var newitemData: Dictionary
 	for item in mapitems:
@@ -262,7 +263,7 @@ func get_item_data() -> Array:
 			newitemData["global_position_x"] = item.global_position.x
 			newitemData["global_position_y"] = item.global_position.y
 			newitemData["global_position_z"] = item.global_position.z
-			newitemData["inventory"] = item.get_node(item.inventory).serialize()
+			newitemData["inventory"] = item.inventory.serialize()
 			itemData.append(newitemData.duplicate())
 			item.queue_free()
 	return itemData
@@ -279,16 +280,12 @@ func add_mob_to_map(mob: Dictionary) -> void:
 
 # Called by generate_items function when a save is loaded
 func add_item_to_map(item: Dictionary):
-	var newItem: Node3D = defaultItem.instantiate()
+	var newItem: ContainerItem = ContainerItem.new()
 	newItem.add_to_group("mapitems")
-	get_tree().get_root().add_child(newItem)
-	newItem.global_position.x = item.global_position_x
-	newItem.global_position.y = item.global_position_y
-	newItem.global_position.z = item.global_position_z
-	# Check if rotation data is available and apply it
-	if item.has("rotation"):
-		newItem.rotation_degrees.y = item.rotation
-	newItem.get_node(newItem.inventory).deserialize(item.inventory)
+	var pos: Vector3 = Vector3(item.global_position_x,item.global_position_y,item.global_position_z)
+	newItem.construct_self(pos)
+	level_manager.add_child.call_deferred(newItem)
+	newItem.inventory.deserialize(item.inventory)
 
 
 func add_furniture_to_map(furnitureData: Dictionary):

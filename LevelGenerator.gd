@@ -38,8 +38,7 @@ func _ready():
 	loading_thread = Thread.new()
 	loading_semaphore = Semaphore.new()
 	loading_thread.start(_chunk_management_logic)
-	#$"../NavigationRegion3D".bake_navigation_mesh()
-	## Start a loop to update chunks based on player position
+	# Start a loop to update chunks based on player position
 	set_process(true)
 	start_timer()
 
@@ -206,4 +205,3 @@ func unload_chunk(chunk_pos: Vector2):
 # When a chunk emits the created or destroyed signal, we should update the navmesh
 func _on_chunk_created_or_destroyed(_chunkposition):
 	should_update_navmesh = true
-	print_debug("_on_chunk_created_or_destroyed")

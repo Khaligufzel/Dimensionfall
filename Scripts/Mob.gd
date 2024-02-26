@@ -22,8 +22,6 @@ var sightRange: float = 200.0
 var senseRange: float = 50.0
 var hearingRange: float = 1000.0
 
-@export var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
-
 
 func _ready():
 	current_health = health
@@ -48,10 +46,11 @@ func _die():
 	queue_free()
 
 func add_corpse(pos: Vector3):
-	var corpse = corpse_scene.instantiate()
-	get_tree().get_root().add_child(corpse)
-	corpse.global_position = pos
-	corpse.add_to_group("mapitems")
+	var newItem: ContainerItem = ContainerItem.new()
+	newItem.add_to_group("mapitems")
+	newItem.construct_self(pos)
+	get_tree().get_root().add_child.call_deferred(newItem)
+
 
 # Sets the sprite to the mob
 # TODO: In order to optimize this, instead of calling original_mesh.duplicate()
