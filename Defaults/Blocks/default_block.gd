@@ -11,14 +11,6 @@ func _ready():
 	apply_block_rotation()
 
 
-func update_texture(material: BaseMaterial3D) -> void:
-	$MeshInstance3D.mesh = BoxMesh.new()
-	$MeshInstance3D.mesh.surface_set_material(0, material)
-	
-func get_texture_string() -> String:
-	return $MeshInstance3D.mesh.material.albedo_texture.resource_path
-
-
 # Function to make it's own shape and texture based on an id and position
 # This function is called by a Chunk to construct it's blocks
 func construct_self(blockpos: Vector3, newTileJSON: Dictionary):
@@ -38,20 +30,15 @@ func construct_self(blockpos: Vector3, newTileJSON: Dictionary):
 		if tileJSONData.shape == "slope":
 			shape = "slope"
 	
-	create_mesh()
+	create_mesh.call_deferred()
 	create_collider()
+
 
 
 func create_mesh():
 	var blockmeshisntance = MeshInstance3D.new()
-	var blockmesh
-	if shape == "block":
-		blockmesh = BoxMesh.new()
-	else: # It's a slope
-		blockmesh = PrismMesh.new()
-		blockmesh.left_to_right = 1
+	var blockmesh = Helper.get_or_create_block_mesh(tileJSON.id, shape)
 	blockmeshisntance.mesh = blockmesh
-	blockmesh.surface_set_material(0, Gamedata.get_sprite_by_id(Gamedata.data.tiles,tileJSON.id))
 	add_child.call_deferred(blockmeshisntance)
 
 
