@@ -1,0 +1,84 @@
+[gd_scene load_steps=4 format=3 uid="uid://y2iul2r3nysx"]
+
+[ext_resource type="Script" path="res://Scripts/CtrlInventoryStackedCustom.gd" id="1_1pahw"]
+[ext_resource type="PackedScene" uid="uid://bgnxsnv6ltej8" path="res://Scenes/UI/CtrlInventoryStackedListItem.tscn" id="2_woew4"]
+[ext_resource type="PackedScene" uid="uid://dxgl4vkc313we" path="res://Scenes/UI/CtrlInventoryStackedlistHeaderItem.tscn" id="3_svicc"]
+
+[node name="CtrlInventoryStackedCustom" type="Control" node_paths=PackedStringArray("inventoryGrid", "WeightBar", "VolumeBar", "context_menu")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_1pahw")
+inventoryGrid = NodePath("VBoxContainer/InventoryGrid")
+WeightBar = NodePath("VBoxContainer/HBoxContainer/WeightBar")
+VolumeBar = NodePath("VBoxContainer/HBoxContainer/VolumeBar")
+listItemContainer = ExtResource("2_woew4")
+listHeaderContainer = ExtResource("3_svicc")
+context_menu = NodePath("ContextMenu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.278431, 0.278431, 0.278431, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventoryGrid" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.95
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="WeightLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Weight:"
+
+[node name="WeightBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VolumeLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Volume:"
+
+[node name="VolumeBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ContextMenu" type="PopupMenu" parent="."]
+size = Vector2i(112, 100)
+item_count = 5
+item_0/text = "Equip (left)"
+item_0/id = 0
+item_1/text = "Equip (right)"
+item_1/id = 1
+item_2/text = "Drop"
+item_2/id = 2
+item_3/text = "Wear"
+item_3/id = 3
+item_4/text = "Disassemble"
+item_4/id = 4
+
+[connection signal="id_pressed" from="ContextMenu" to="." method="_on_context_menu_item_selected"]

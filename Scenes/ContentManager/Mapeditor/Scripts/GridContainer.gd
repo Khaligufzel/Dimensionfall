@@ -456,6 +456,5 @@ func rotate_level_clockwise():
 				var furniture_rotation = int(new_level_data[new_index].get("furniture").get("rotation", 0))
 				new_level_data[new_index]["furniture"]["rotation"] = (furniture_rotation + 90) % 360
 
-
 	# Update the current level data
 	currentLevelData = new_level_data

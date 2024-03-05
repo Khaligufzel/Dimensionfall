@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxgl4vkc313we"]
+
+[ext_resource type="Script" path="res://Scripts/CtrlInventoryStackedlistHeaderItem.gd" id="1_obkif"]
+
+[node name="CtrlInventoryStackedHeaderItem" type="Control" node_paths=PackedStringArray("myBackgroundRect", "myLabel")]
+custom_minimum_size = Vector2(50, 24)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_obkif")
+myBackgroundRect = NodePath("ColorRect")
+myLabel = NodePath("Label")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.454902, 0.454902, 0.454902, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+text = "wadawd"
+
+[connection signal="gui_input" from="ColorRect" to="." method="_on_gui_input"]
