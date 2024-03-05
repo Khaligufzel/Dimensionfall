@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
-[ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://Textures/survivor.png" id="10_alql8"]
+[ext_resource type="Texture2D" uid="uid://db0xwhrm0sliq" path="res://Defaults/Player/player_300.png" id="10_ghgoh"]
 [ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="11_6i2sa"]
 [ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="12_dip38"]
 [ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="13_fjasp"]
@@ -138,12 +138,9 @@ spot_angle = 83.32
 spot_angle_attenuation = 0.183011
 
 [node name="Sprite3D" type="Sprite3D" parent="TacticalMap/Entities/Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.277026, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
 pixel_size = 0.002
-billboard = 1
-double_sided = false
-no_depth_test = true
-texture = ExtResource("10_alql8")
+texture = ExtResource("10_ghgoh")
 
 [node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("left_attack_cooldown", "right_attack_cooldown", "left_reload_timer", "right_reload_timer", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)

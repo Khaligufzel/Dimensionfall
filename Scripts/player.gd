@@ -68,19 +68,32 @@ func _ready():
 	current_torso_health = torso_health
 	current_stamina = stamina
 	Helper.save_helper.load_player_state(self)
-	
-	
+
+
+
+
 func _process(_delta):
+	# Get the 2D screen position of the player
+	var camera = get_tree().get_first_node_in_group("Camera")
+	var player_screen_pos = camera.unproject_position(global_position)
+
+	# Get the mouse position in 2D screen space
+	var mouse_pos_2d = get_viewport().get_mouse_position()
+
+	# Calculate the direction vector from the player to the mouse position
+	var dir = (mouse_pos_2d - player_screen_pos).normalized()
+
+	# Calculate the angle between the player and the mouse position
+	# Since the sprite is rotating in the opposite direction, change the sign of the angle
+	var angle = atan2(-dir.y, -dir.x)  # This negates both components of the direction vector
+
+	sprite.rotation.y = -angle  # Inverts the angle for rotation
+	$CollisionShape3D.rotation.y = -angle  # Inverts the angle for rotation
+
+
 #	if is_progress_bar_well_progressing_i_guess:
 #		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
 		
-		
-	# player facing the mouse position
-	var mouse_position : Vector3 =  get_tree().get_first_node_in_group("Camera").project_ray_origin(get_viewport().get_mouse_position())
-	if mouse_position.x > global_position.x:
-		sprite.flip_h = true
-	else:
-		sprite.flip_h = false
 
 func _physics_process(delta):
 
