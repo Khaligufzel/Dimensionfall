@@ -46,6 +46,7 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 		save_helper.save_current_level(current_level_pos)
 		save_helper.save_overmap_state()
 		save_helper.save_player_inventory()
+		save_helper.save_player_equipment()
 		save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
 	current_level_pos = global_pos
 	get_tree().change_scene_to_file("res://level_generation.tscn")

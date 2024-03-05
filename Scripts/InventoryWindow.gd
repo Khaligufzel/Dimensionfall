@@ -14,8 +14,8 @@ extends Control
 @export var containerListItem : PackedScene
 
 # Equipment
-@export var LeftHandEquipmentSlot : ItemSlot
-@export var RightHandEquipmentSlot : ItemSlot
+@export var LeftHandEquipmentSlot : ItemRefSlot
+@export var RightHandEquipmentSlot : ItemRefSlot
 
 # The tooltip will show when the player hovers over an item
 @export var tooltip: Control
@@ -31,6 +31,10 @@ func _ready():
 	# The items that were in the player inventory when they exited
 	# the previous level are loaded back into the inventory
 	inventory.deserialize(General.player_inventory_dict)
+	if General.player_equipment_dict.has("LeftHandEquipmentSlot"):
+		LeftHandEquipmentSlot.deserialize(General.player_equipment_dict.LeftHandEquipmentSlot)
+	if General.player_equipment_dict.has("RightHandEquipmentSlot"):
+		RightHandEquipmentSlot.deserialize(General.player_equipment_dict.RightHandEquipmentSlot)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -121,9 +125,16 @@ func _on_inventory_grid_stacked_item_added(item):
 		var original_item = item.get_meta("original_item")
 		if original_parent and original_parent.has_method("remove_item"):
 			original_parent.remove_item(original_item)  # Remove from original parent 
-			
+
 func get_inventory() -> InventoryStacked:
 	return inventory
+
+func get_equipment_dict() -> Dictionary:
+	var player_equipment: Dictionary = {
+			"LeftHandEquipmentSlot": LeftHandEquipmentSlot.serialize(),
+			"RightHandEquipmentSlot": RightHandEquipmentSlot.serialize()
+		}
+	return player_equipment
 
 # Signal handler for adding a container to the proximity
 func _on_item_detector_add_to_proximity_inventory(container: Node3D):
