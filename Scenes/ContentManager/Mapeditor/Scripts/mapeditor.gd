@@ -65,3 +65,7 @@ func _on_tile_grid_zoom_level_changed(value):
 #TODO: Check for unsaved changes
 func _on_close_button_button_up():
 	queue_free()
+
+
+func _on_rotate_map_button_up():
+	tileGrid.rotate_map()

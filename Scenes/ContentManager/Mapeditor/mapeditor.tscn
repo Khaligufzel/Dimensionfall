@@ -84,33 +84,17 @@ tooltip_text = "Creates a miniature image of the map in the /mods/core/maps fold
 theme_override_icons/checked = ExtResource("2_bib5l")
 theme_override_icons/unchecked = ExtResource("2_bib5l")
 
+[node name="RotateMap" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+tooltip_text = "Rotate the brush to paint with rotation"
+theme_override_icons/checked = ExtResource("3_8q2iq")
+theme_override_icons/unchecked = ExtResource("3_8q2iq")
+shortcut = SubResource("Shortcut_1tryc")
+text = "0"
+
 [node name="ZoomScroller" parent="HSplitContainer/MapeditorContainer/Toolbar" instance=ExtResource("1_0ytmu")]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="mapsizelabel" type="Label" parent="HSplitContainer/MapeditorContainer/Toolbar"]
-layout_mode = 2
-text = "Size: W:"
-
-[node name="MapWidth" type="TextEdit" parent="HSplitContainer/MapeditorContainer/Toolbar"]
-clip_contents = true
-custom_minimum_size = Vector2(40, 22)
-layout_mode = 2
-theme_override_constants/line_spacing = 0
-theme_override_font_sizes/font_size = 16
-text = "32"
-
-[node name="MapHeightLabel" type="Label" parent="HSplitContainer/MapeditorContainer/Toolbar"]
-layout_mode = 2
-text = "H:"
-
-[node name="MapHeight" type="TextEdit" parent="HSplitContainer/MapeditorContainer/Toolbar"]
-clip_contents = true
-custom_minimum_size = Vector2(40, 22)
-layout_mode = 2
-theme_override_constants/line_spacing = 0
-theme_override_font_sizes/font_size = 16
-text = "32"
 
 [node name="RotateRight" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
@@ -262,6 +246,7 @@ offset_bottom = 40.0
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="save_map_json_file"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/CreatePreviewImageButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_create_preview_image_button_button_up"]
+[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/RotateMap" to="." method="_on_rotate_map_button_up"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" to="." method="_on_zoom_scroller_zoom_level_changed"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_rotate_right_button_up"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_draw_rectangle_toggled"]

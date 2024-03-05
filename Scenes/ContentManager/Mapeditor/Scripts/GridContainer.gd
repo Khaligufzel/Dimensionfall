@@ -3,7 +3,7 @@ extends GridContainer
 #This is the index of the level we are on. 0 is ground level. can be -10 to +10
 var currentLevel: int = 10
 #Contains the data of every tile in the current level, the ground level or level 0 by default
-var currentLevelData: Array[Dictionary] = []
+var currentLevelData: Array = []
 @export var mapEditor: Control
 @export var LevelScrollBar: VScrollBar
 @export var levelgrid_below: GridContainer
@@ -225,13 +225,44 @@ func _on_level_scrollbar_value_changed(value):
 	change_level(10+0-value)
 
 #This function takes two coordinates representing a rectangle. It will check which of the TileGrid's children's position falls inside this rectangle. It returns all the child tiles that fall inside this rectangle
+#func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
+	#var tiles_in_rectangle: Array = []
+	#
+	## Normalize the rectangle coordinates
+	#var normalized_start = Vector2(min(rect_start.x, rect_end.x), min(rect_start.y, rect_end.y))
+	#var normalized_end = Vector2(max(rect_start.x, rect_end.x), max(rect_start.y, rect_end.y))
+	#
+	#for tile in get_children():
+		#var tile_pos = tile.global_position + mapScrollWindow.global_position
+		#if tile_pos.x >= normalized_start.x and tile_pos.x <= normalized_end.x:
+			#if tile_pos.y >= normalized_start.y and tile_pos.y <= normalized_end.y:
+				#tiles_in_rectangle.append(tile)
+	#return tiles_in_rectangle
+
+
+# This function takes two coordinates representing a rectangle and the current zoom level.
+# It will check which of the TileGrid's children's positions fall inside this rectangle.
+# It returns all the child tiles that fall inside this rectangle.
 func get_tiles_in_rectangle(rect_start: Vector2, rect_end: Vector2) -> Array:
 	var tiles_in_rectangle: Array = []
+
+	# Normalize the rectangle coordinates
+	var normalized_start = Vector2(min(rect_start.x, rect_end.x), min(rect_start.y, rect_end.y))
+	var normalized_end = Vector2(max(rect_start.x, rect_end.x), max(rect_start.y, rect_end.y))
+
+	# Adjust the rectangle coordinates based on the zoom level
+	normalized_start /= mapEditor.zoom_level
+	normalized_end /= mapEditor.zoom_level
+
 	for tile in get_children():
-		if tile.global_position.x >= rect_start.x-(1*mapEditor.zoom_level) and tile.global_position.x <= rect_end.x:
-			if tile.global_position.y >= rect_start.y-(1*mapEditor.zoom_level) and tile.global_position.y <= rect_end.y:
+		# Calculate the position of the tile accounting for the zoom level
+		var tile_pos = tile.get_global_position() / mapEditor.zoom_level
+		# Check if the tile's position is within the normalized rectangle
+		if tile_pos.x >= normalized_start.x and tile_pos.x <= normalized_end.x:
+			if tile_pos.y >= normalized_start.y and tile_pos.y <= normalized_end.y:
 				tiles_in_rectangle.append(tile)
 	return tiles_in_rectangle
+
 
 func unhighlight_tiles():
 	for tile in get_children():
@@ -374,3 +405,57 @@ func save_miniature_map_image():
 
 func _on_create_preview_image_button_button_up():
 	save_miniature_map_image()
+	
+
+# This function will loop over all levels and rotate them if they contain tile data.
+func rotate_map():
+	# Store the data of the current level before rotating the map
+	storeLevelData()
+	
+	for i in range(mapData.levels.size()):
+		# Load each level's data into currentLevelData
+		currentLevelData = mapData.levels[i]
+		# Rotate the current level data
+		rotate_level_clockwise()
+		# Update the rotated data back into the mapData
+		mapData.levels[i] = currentLevelData.duplicate()
+
+	# After rotation, reload the current level's data
+	loadLevelData(currentLevel)
+
+
+# Rotates the current level 90 degrees clockwise.
+func rotate_level_clockwise():
+	# Check if currentLevelData has at least one item
+	if !currentLevelData.size() > 0:
+		return
+	var width = mapEditor.mapWidth
+	var height = mapEditor.mapHeight
+	var new_level_data: Array[Dictionary] = []
+
+	# Initialize new_level_data with empty dictionaries
+	for i in range(width * height):
+		new_level_data.append({})
+
+	# Rotate the tile data
+	for x in range(width):
+		for y in range(height):
+			var old_index = y * width + x
+			var new_x = width - y - 1
+			var new_y = x
+			var new_index = new_y * width + new_x
+			new_level_data[new_index] = currentLevelData[old_index].duplicate()
+
+			# Add rotation to the tile's data if it has an id
+			if new_level_data[new_index].has("id"):
+				var tile_rotation = int(new_level_data[new_index].get("rotation", 0))
+				new_level_data[new_index]["rotation"] = (tile_rotation + 90) % 360
+			
+			# Rotate furniture if present, initializing rotation to 0 if not set
+			if new_level_data[new_index].has("furniture"):
+				var furniture_rotation = int(new_level_data[new_index].get("furniture").get("rotation", 0))
+				new_level_data[new_index]["furniture"]["rotation"] = (furniture_rotation + 90) % 360
+
+
+	# Update the current level data
+	currentLevelData = new_level_data
