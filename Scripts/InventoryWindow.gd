@@ -1,14 +1,14 @@
 extends Control
 
 # This node holds the data of the items in the container that is selected in the containerList
-@export var proximity_inventory: InventoryGridStacked
+@export var proximity_inventory: InventoryStacked
 # This node visualizes the items in the container that is selected in the containerList
-@export var proximity_inventory_control: CtrlInventoryGridEx
+@export var proximity_inventory_control: CtrlInventoryStacked
 
 # The node that visualizes the player inventory
-@export var inventory_control : CtrlInventoryGridEx
+@export var inventory_control : CtrlInventoryStacked
 # The player inventory
-@export var inventory : InventoryGridStacked
+@export var inventory : InventoryStacked
 # Holds a list of containers represented by their sprite
 @export var containerList : VBoxContainer
 @export var containerListItem : PackedScene
@@ -58,7 +58,7 @@ func check_if_resources_are_available(item_id, amount_to_spend: int):
 		var current_amount_to_spend = amount_to_spend
 		var items = inventory_node.get_items_by_id(item_id)
 		for item in items:
-			item_total_amount += InventoryGridStacked.get_item_stack_size(item)
+			item_total_amount += InventoryStacked.get_item_stack_size(item)
 		if item_total_amount >= current_amount_to_spend:
 			return true
 	return false
@@ -71,7 +71,7 @@ func try_to_spend_item(item_id, amount_to_spend : int):
 		var items = inventory_node.get_items_by_id(item_id)
 		
 		for item in items:
-			item_total_amount += InventoryGridStacked.get_item_stack_size(item)
+			item_total_amount += InventoryStacked.get_item_stack_size(item)
 		
 		if item_total_amount >= amount_to_spend:
 			merge_items_to_total_amount(items, inventory_node, item_total_amount - current_amount_to_spend)
@@ -109,7 +109,7 @@ func _on_crafting_menu_start_craft(recipe):
 		#adding a new item(s) to the inventory based on the recipe
 		var item
 		item = inventory.create_and_add_item(recipe["crafts"])
-		InventoryGridStacked.set_item_stack_size(item, recipe["craft_amount"])
+		InventoryStacked.set_item_stack_size(item, recipe["craft_amount"])
 
 
 # When an item is added to the player inventory
@@ -122,7 +122,7 @@ func _on_inventory_grid_stacked_item_added(item):
 		if original_parent and original_parent.has_method("remove_item"):
 			original_parent.remove_item(original_item)  # Remove from original parent 
 			
-func get_inventory() -> InventoryGridStacked:
+func get_inventory() -> InventoryStacked:
 	return inventory
 
 # Signal handler for adding a container to the proximity
@@ -232,3 +232,20 @@ func _on_left_hand_equipment_slot_cleared():
 # This function is called when an item is removed from the right hand equipment slot
 func _on_right_hand_equipment_slot_cleared():
 	item_was_cleared.emit("RightHand")
+
+
+func _on_equip_right_button_button_up():
+	RightHandEquipmentSlot.equip(inventory_control.get_selected_inventory_item())
+
+
+func _on_equip_left_button_button_up():
+	LeftHandEquipmentSlot.equip(inventory_control.get_selected_inventory_item())
+
+
+func _on_transfer_left_button_button_up():
+	inventory.transfer(inventory_control.get_selected_inventory_item(), proximity_inventory_control.inventory)
+
+
+func _on_transfer_right_button_button_up():
+	var selected_inventory_item: InventoryItem = proximity_inventory_control.get_selected_inventory_item()
+	proximity_inventory_control.inventory.transfer(selected_inventory_item, inventory)

@@ -23,8 +23,7 @@ extends Control
 @export var itemSelector: Popup = null
 
 # Inventory propeties
-@export var WidthNumberBox: SpinBox = null
-@export var HeightNumberBox: SpinBox = null
+@export var VolumeNumberBox: SpinBox = null
 @export var WeightNumberBox: SpinBox = null
 @export var StackSizeNumberBox: SpinBox = null
 @export var MaxStackSizeNumberBox: SpinBox = null
@@ -53,7 +52,7 @@ func _ready():
 
 #This function update the form based on the contentData that has been loaded
 func load_item_data() -> void:
-	if itemImageDisplay != null and contentData.has("sprite"):
+	if itemImageDisplay != null and contentData.has("sprite") and Gamedata.data.items.sprites.has(contentData["sprite"]):
 		itemImageDisplay.texture = Gamedata.data.items.sprites[contentData["sprite"]]
 		PathTextLabel.text = contentData["sprite"]
 	if IDTextLabel != null:
@@ -62,10 +61,8 @@ func load_item_data() -> void:
 		NameTextEdit.text = contentData["name"]
 	if DescriptionTextEdit != null and contentData.has("description"):
 		DescriptionTextEdit.text = contentData["description"]
-	if WidthNumberBox != null and contentData.has("width"):
-		WidthNumberBox.get_line_edit().text = contentData["width"]
-	if HeightNumberBox != null and contentData.has("height"):
-		HeightNumberBox.get_line_edit().text = contentData["height"]
+	if VolumeNumberBox != null and contentData.has("volume"):
+		VolumeNumberBox.get_line_edit().text = contentData["volume"]
 	if WeightNumberBox != null and contentData.has("weight"):
 		WeightNumberBox.get_line_edit().text = contentData["weight"]
 	if StackSizeNumberBox != null and contentData.has("stack_size"):
@@ -102,8 +99,7 @@ func _on_save_button_button_up() -> void:
 	contentData["image"] = Gamedata.data.items.spritePath + PathTextLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
-	contentData["width"] = WidthNumberBox.get_line_edit().text
-	contentData["height"] = HeightNumberBox.get_line_edit().text
+	contentData["volume"] = VolumeNumberBox.get_line_edit().text
 	contentData["weight"] = WeightNumberBox.get_line_edit().text
 	contentData["stack_size"] = StackSizeNumberBox.get_line_edit().text
 	contentData["max_stack_size"] = MaxStackSizeNumberBox.get_line_edit().text

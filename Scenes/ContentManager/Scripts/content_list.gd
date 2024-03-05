@@ -52,7 +52,7 @@ func make_item_list():
 		var item_index: int = contentItems.add_item(item_id)
 		contentItems.set_item_metadata(item_index, item_id)
 		
-		if item.has("sprite"):
+		if item.has("sprite") and contentData.sprites.has(item["sprite"]):
 			var mySprite: Resource = contentData.sprites[item["sprite"]]
 			if mySprite is BaseMaterial3D:
 				contentItems.set_item_icon(item_index,mySprite.albedo_texture)
