@@ -13,6 +13,7 @@ extends Control
 @export var furnitureSelector: Popup = null
 @export var imageNameStringLabel: Label = null
 @export var moveableCheckboxButton: CheckBox = null
+@export var edgeSnappingOptionButton: OptionButton = null
 var control_elements: Array = []
 
 # This signal will be emitted when the user presses the save button
@@ -49,11 +50,24 @@ func load_furniture_data():
 			CategoriesList.add_item_to_list(category)
 	if moveableCheckboxButton != null and contentData.has("moveable"):
 		moveableCheckboxButton.button_pressed = contentData["moveable"]
+	if edgeSnappingOptionButton != null and contentData.has("edgesnapping"):
+		self.select_option_by_string(contentData["edgesnapping"])
 
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
 func _on_close_button_button_up():
 	queue_free()
+
+
+# This function will select the option in the edgeSnappingOptionButton that matches the given string.
+# If no match is found, it does nothing.
+func select_option_by_string(option_string: String) -> void:
+	for i in range(edgeSnappingOptionButton.get_item_count()):
+		if edgeSnappingOptionButton.get_item_text(i) == option_string:
+			edgeSnappingOptionButton.selected = i
+			return
+	print_debug("No matching option found for the string: " + option_string)
+
 
 # This function takes all data from the form elements stores them in the contentData
 # Since contentData is a reference to an item in Gamedata.data.furniture.data
@@ -65,6 +79,7 @@ func _on_save_button_button_up():
 	contentData["description"] = DescriptionTextEdit.text
 	contentData["categories"] = CategoriesList.get_items()
 	contentData["moveable"] = moveableCheckboxButton.button_pressed
+	contentData["edgesnapping"] = edgeSnappingOptionButton.get_item_text(edgeSnappingOptionButton.selected)
 	data_changed.emit()
 
 func _input(event):
@@ -90,3 +105,4 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var furnitureTexture: Resource = clicked_sprite.get_texture()
 	furnitureImageDisplay.texture = furnitureTexture
 	imageNameStringLabel.text = furnitureTexture.resource_path.get_file()
+

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_ekwf5"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_o3k3a"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "edgeSnappingOptionButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +21,7 @@ CategoriesList = NodePath("VBoxContainer/FormGrid/Editable_Item_List")
 furnitureSelector = NodePath("Sprite_selector")
 imageNameStringLabel = NodePath("VBoxContainer/FormGrid/ImageNameStringLabel")
 moveableCheckboxButton = NodePath("VBoxContainer/FormGrid/UnmoveableCheckBox")
+edgeSnappingOptionButton = NodePath("VBoxContainer/FormGrid/SnappingOptionButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -124,6 +125,32 @@ text = "Can move"
 layout_mode = 2
 tooltip_text = "Check this if the furniture should be moveable, like a chair. Leave this unchecked if the furniture should not move, like a fence"
 text = "Moveable"
+
+[node name="SnappingLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Edge snapping"
+
+[node name="SnappingOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+tooltip_text = "Snapping direction for the furniture. This 
+determines in what direction the furniture will 
+snap to the edge of a block. The 'back' of the 
+furniture determines the direction.
+For example, if a fridge sprite has the back on the 
+north side, select north and the furniture will 
+snap to the north edge. Selecting none will center the sprite"
+item_count = 5
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "North"
+popup/item_1/id = 1
+popup/item_2/text = "East"
+popup/item_2/id = 2
+popup/item_3/text = "South"
+popup/item_3/id = 3
+popup/item_4/text = "West"
+popup/item_4/id = 4
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_o3k3a")]
 visible = false

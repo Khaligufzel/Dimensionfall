@@ -219,22 +219,81 @@ func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
 		var newFurniture: Node3D
 		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
 		Gamedata.data.furniture, tileJSON.furniture.id)
+		var furnitureSprite: Texture = Gamedata.data.furniture.sprites[furnitureJSON.sprite]
+		
+		# Calculate the size of the furniture based on the sprite dimensions
+		var spriteWidth = furnitureSprite.get_width() / 100.0 # Convert pixels to meters (assuming 100 pixels per meter)
+		var spriteDepth = furnitureSprite.get_height() / 100.0 # Convert pixels to meters
+		
+		var edgeSnappingDirection = furnitureJSON.get("edgesnapping", "None")
+		var rotation = tileJSON.furniture.get("rotation", 0)
+		
 		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
 			newFurniture = defaultFurniturePhysics.instantiate()
 		else:
 			newFurniture = defaultFurnitureStatic.instantiate()
+		
 		newFurniture.add_to_group("furniture")
-		newFurniture.set_sprite(Gamedata.data.furniture.sprites[furnitureJSON.sprite])
+		
+		# Set the sprite and adjust the collision shape
+		newFurniture.set_sprite(furnitureSprite)
+		
 		get_tree().get_root().add_child(newFurniture)
-		newFurniture.global_position.x = block.global_position.x
-		newFurniture.global_position.y = block.global_position.y + 0.5
-		newFurniture.global_position.z = block.global_position.z
-
+		
+		# Position furniture at the center of the block by default
+		var furniturePosition = block.global_position
+		furniturePosition.y += 0.5 # Slightly above the block
+		
+		# Apply edge snapping if necessary
+		if edgeSnappingDirection != "None":
+			furniturePosition = apply_edge_snapping(furniturePosition, edgeSnappingDirection, spriteWidth, spriteDepth, rotation, block)
+		
+		newFurniture.global_position = furniturePosition
+		
 		if tileJSON.furniture.has("rotation"):
 			newFurniture.set_new_rotation(tileJSON.furniture.rotation)
 		else:
 			newFurniture.set_new_rotation(0)
+		
 		newFurniture.id = furnitureJSON.id
+
+func apply_edge_snapping(position, direction, width, depth, rotation, block):
+	# Block size, assuming a block is 1x1 meters
+	var blockSize = Vector3(1.0, 1.0, 1.0)
+	
+	# Adjust position based on edgesnapping direction and rotation
+	match direction:
+		"North":
+			position.z -= blockSize.z / 2 - depth / 2
+		"South":
+			position.z += blockSize.z / 2 - depth / 2
+		"East":
+			position.x += blockSize.x / 2 - width / 2
+		"West":
+			position.x -= blockSize.x / 2 - width / 2
+		# Add more cases if needed
+	
+	# Consider rotation if necessary
+	position = rotate_position_around_block_center(position, rotation, block.global_position)
+	
+	return position
+
+func rotate_position_around_block_center(position, rotation, block_center):
+	# Convert rotation to radians for trigonometric functions
+	var radians = deg_to_rad(rotation)
+	
+	# Calculate the offset from the block center
+	var offset = position - block_center
+	
+	# Apply rotation matrix transformation
+	var rotated_offset = Vector3(
+		offset.x * cos(radians) - offset.z * sin(radians),
+		offset.y,
+		offset.x * sin(radians) + offset.z * cos(radians)
+	)
+	
+	# Return the new position
+	return block_center + rotated_offset
 
 func apply_block_rotation(tileJSON: Dictionary, block: StaticBody3D):
 	if tileJSON.has("rotation"):
