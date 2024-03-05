@@ -70,4 +70,9 @@ vertical_alignment = 1
 layout_mode = 2
 text = "Travel to location"
 
+[node name="HomeButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Home"
+
 [connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/TravelButton" to="." method="_on_travel_button_button_up"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/HomeButton" to="." method="_on_home_button_button_up"]
