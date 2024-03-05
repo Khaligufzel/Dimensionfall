@@ -1,22 +1,29 @@
 extends Control
 
+# This node holds the data of the items in the container that is selected in the containerList
 @export var proximity_inventory: InventoryGridStacked
+# This node visualizes the items in the container that is selected in the containerList
 @export var proximity_inventory_control: CtrlInventoryGridEx
 
+# The node that visualizes the player inventory
 @export var inventory_control : CtrlInventoryGridEx
+# The player inventory
 @export var inventory : InventoryGridStacked
+# Holds a list of containers represented by their sprite
+@export var containerList : VBoxContainer
+@export var containerListItem : PackedScene
 
-
+# The tooltip will show when the player hovers over an item
 @export var tooltip: Control
 var is_showing_tooltip = false
 @export var tooltip_item_name : Label
 @export var tooltip_item_description : Label
 
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# The items that were in the player inventory when they exited
+	# the previous level are loaded back into the inventory
 	inventory.deserialize(General.player_inventory_dict)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,23 +33,6 @@ func _process(_delta):
 		tooltip.global_position = tooltip.get_global_mouse_position() + Vector2(0, -5 - tooltip.size.y)
 	else:
 		tooltip.visible = false
-
-# The parameter items isall the items from the inventory that has entered proximity
-func _on_item_detector_add_to_proximity_inventory(items):
-	var duplicated_items = items
-	for item in duplicated_items:
-		var duplicated_item = item.duplicate()
-		# Store the original inventory
-		duplicated_item.set_meta("original_parent", item.get_inventory())
-		duplicated_item.set_meta("original_item", item)
-		proximity_inventory.add_child(duplicated_item)
-
-# The parameter items is all the items from the inventory that has left proximity
-func _on_item_detector_remove_from_proximity_inventory(items):
-	for prox_item in proximity_inventory.get_children():
-		for item in items:
-			if item.get_property("assigned_id") == prox_item.get_property("assigned_id"):
-				prox_item.queue_free()
 
 
 func _on_inventory_item_mouse_entered(item):
@@ -106,12 +96,10 @@ func merge_items_to_total_amount(items, inventory_node, total_amount : int):
 				inventory_node.remove_item(item)
 
 func _on_crafting_menu_start_craft(recipe):
-	
 	if recipe:
 		#first we need to use required resources for the recipe
 		for required_item in recipe["required_resource"]:
 			try_to_spend_item(required_item, recipe["required_resource"][required_item])
-			
 		#adding a new item(s) to the inventory based on the recipe
 		var item
 		item = inventory.create_and_add_item(recipe["crafts"])
@@ -130,3 +118,144 @@ func _on_inventory_grid_stacked_item_added(item):
 			
 func get_inventory() -> InventoryGridStacked:
 	return inventory
+#
+#
+## The parameter container is the node3d that holds the inventory that has entered proximity
+#func _on_item_detector_add_to_proximity_inventory(container: Node3D):
+	#var duplicated_items = container.get_items()
+	#for item in duplicated_items:
+		#var duplicated_item = item.duplicate()
+		## Store the original inventory
+		#duplicated_item.set_meta("original_parent", item.get_inventory())
+		#duplicated_item.set_meta("original_item", item)
+		#proximity_inventory.add_child(duplicated_item)
+#
+## The parameter container is the node3d that holds the inventory that has left proximity
+#func _on_item_detector_remove_from_proximity_inventory(container: Node3D):
+	#for prox_item in proximity_inventory.get_children():
+		#for item in container.get_items():
+			#if item.get_property("assigned_id") == prox_item.get_property("assigned_id"):
+				#prox_item.queue_free()
+
+
+# Signal handler for adding a container to the proximity
+func _on_item_detector_add_to_proximity_inventory(container: Node3D):
+	add_container_to_list(container)
+
+# Signal handler for removing a container from the proximity
+func _on_item_detector_remove_from_proximity_inventory(container: Node3D):
+	remove_container_from_list(container)
+#
+## Function to add a container to the containerList
+#func add_container_to_list(container: Node3D):
+	## Create a new instance of the containerlistitem node
+	#var containerListItemInstance = containerListItem.instantiate()
+	## Assign the texture to the TextureRect
+	#containerListItemInstance.set_item_texture(container.get_sprite())
+	## We save a reference to the container
+	#containerListItemInstance.containerInstance = container
+	#containerListItemInstance.containerlistitem_clicked.connect(_on_container_clicked)
+	#containerList.add_child(containerListItemInstance)
+
+# Function to add a container to the containerList
+func add_container_to_list(container: Node3D):
+	# Create a new instance of the containerlistitem node
+	var containerListItemInstance = containerListItem.instantiate()
+	# Assign the texture to the TextureRect
+	containerListItemInstance.set_item_texture(container.get_sprite())
+	# We save a reference to the container
+	containerListItemInstance.containerInstance = container
+	containerListItemInstance.containerlistitem_clicked.connect(_on_container_clicked)
+	containerList.add_child(containerListItemInstance)
+
+	# Check if this is the only container in the list
+	if containerList.get_child_count() == 1:
+		# Set the inventory of the proximity inventory control to this container's inventory
+		var container_inventory = containerListItemInstance.containerInstance.get_inventory()
+		if container_inventory:
+			proximity_inventory_control.inventory = container_inventory
+			# Make the proximity inventory control visible
+			proximity_inventory_control.visible = true
+
+
+# Function to update the proximity inventory control when a container is selected
+func _on_container_clicked(containerListItemInstance: Control):
+	if containerListItemInstance and containerListItemInstance.containerInstance:
+		var container_inventory = containerListItemInstance.containerInstance.get_inventory()
+		if container_inventory:
+			proximity_inventory_control.inventory = container_inventory
+
+#
+## Function to remove a container from the containerList
+#func remove_container_from_list(container: Node3D):
+	#for child in containerList.get_children():
+		#if child.containerInstance == container:
+			#child.queue_free()
+			#break
+#
+	## Check if containerList has no more children
+	#if containerList.get_child_count() == 0:
+		## Set proximity_inventory_control.inventory to proximity_inventory
+		#proximity_inventory_control.inventory = proximity_inventory
+		## Hide the proximity_inventory_control
+		#proximity_inventory_control.visible = false
+#
+#
+## Function to remove a container from the containerList
+#func remove_container_from_list(container: Node3D):
+	#var was_selected = false
+	#var first_container = null
+#
+	## Check if the container being removed is the currently selected one
+	#if proximity_inventory_control.inventory == container.get_inventory():
+		#was_selected = true
+#
+	## Remove the container from the list
+	#for child in containerList.get_children():
+		#if child.containerInstance == container:
+			#child.queue_free()
+			#break
+#
+	## Check if there are any containers left in the list
+	#if containerList.get_child_count() > 0:
+		#first_container = containerList.get_child(0).containerInstance
+#
+	## If the removed container was selected, update the inventory to the first container's inventory
+	#if was_selected and first_container:
+		#var first_container_inventory = first_container.get_inventory()
+		#if first_container_inventory:
+			#proximity_inventory_control.inventory = first_container_inventory
+	#elif was_selected or containerList.get_child_count() == 0:
+		## Reset the inventory to proximity_inventory and hide the control
+		#proximity_inventory_control.inventory = proximity_inventory
+		#proximity_inventory_control.visible = false
+#
+
+# Function to remove a container from the containerList
+func remove_container_from_list(container: Node3D):
+	var was_selected = false
+	var first_container = null
+
+	# Check if the container being removed is the currently selected one
+	if proximity_inventory_control.inventory == container.get_inventory():
+		was_selected = true
+
+	# Remove the container from the list and count remaining containers
+	var remaining_containers = 0
+	for child in containerList.get_children():
+		if child.containerInstance == container:
+			child.queue_free()
+		elif not child.is_queued_for_deletion():  # Only count children not queued for deletion
+			remaining_containers += 1
+			if first_container == null:
+				first_container = child.containerInstance
+
+	# If the removed container was selected, update the inventory to the first remaining container's inventory
+	if was_selected and remaining_containers > 0:
+		var first_container_inventory = first_container.get_inventory()
+		if first_container_inventory:
+			proximity_inventory_control.inventory = first_container_inventory
+	elif was_selected or remaining_containers == 0:
+		# Reset the inventory to proximity_inventory and hide the control
+		proximity_inventory_control.inventory = proximity_inventory
+		proximity_inventory_control.visible = false

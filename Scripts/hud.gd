@@ -178,10 +178,10 @@ func _on_shooting_ammo_changed(current_ammo, max_ammo):
 func _on_overmap_change_level_pressed():
 	General.player_inventory_dict = inventoryWindow.get_inventory().serialize()
 
-# The parameter items isall the items from the inventory that has entered proximity
-func _on_item_detector_add_to_proximity_inventory(items):
-	inventoryWindow._on_item_detector_add_to_proximity_inventory(items)
+# The parameter container the inventory that has entered proximity
+func _on_item_detector_add_to_proximity_inventory(container):
+	inventoryWindow._on_item_detector_add_to_proximity_inventory(container)
 
-# The parameter items is all the items from the inventory that has left proximity
-func _on_item_detector_remove_from_proximity_inventory(items):
-	inventoryWindow._on_item_detector_remove_from_proximity_inventory(items)
+# The parameter container the inventory that has left proximity
+func _on_item_detector_remove_from_proximity_inventory(container):
+	inventoryWindow._on_item_detector_remove_from_proximity_inventory(container)
