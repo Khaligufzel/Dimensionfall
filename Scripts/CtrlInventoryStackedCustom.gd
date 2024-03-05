@@ -59,6 +59,8 @@ func initialize_list():
 	_update_bars(null, "") # Update weight and volume bars
 	_connect_inventory_signals()
 	set_process_input(true)  # Make sure input processing is enabled for drag drop
+	reload_item.connect(_on_context_menu_reload)
+	unload_item.connect(_on_context_menu_unload)
 	
 
 # Function to show context menu at specified position
@@ -613,3 +615,25 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 			for item in dropped_data:
 				# Transfer the item to the current inventory
 				item_inventory.transfer_automerge(item, myInventory)
+
+
+# When the user requests a reload trough the inventory context menu
+func _on_context_menu_reload(items: Array[InventoryItem]) -> void:
+	for item in items:
+		if item.get_property("Ranged") != null:
+			# Retrieve reload speed from the "Ranged" property dictionary or use the default
+			ItemManager.start_reload(item, float(ItemManager.get_nested_property(item, "Ranged.reload_speed")))
+			break  # Only reload the first ranged item found
+		if item.get_property("Magazine"):
+			# Retrieve reload speed from the "Ranged" property dictionary or use the default
+			ItemManager.reload_magazine(item)
+			update_inventory_list(item, "")
+			break  # Only reload the first ranged item found
+
+
+# When the user requests an unload of the selected item(s) trough the inventory context menu
+func _on_context_menu_unload(items: Array[InventoryItem]) -> void:
+	for item in items:
+		if item.get_property("Ranged") != null:
+			ItemManager.unload_magazine_from_item(item)
+			break  # Exit after unloading the first ranged item
