@@ -2,13 +2,13 @@ extends Control
 
 var saved_game_folders : Array
 @export var load_game_list : OptionButton 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	saved_game_folders = Helper.json_helper.folder_names_in_dir("user://save/")
-	# Iterate over the saved_game_folders array in reverse order
-	for i in range(saved_game_folders.size() - 1, -1, -1):
-		var saved_game = saved_game_folders[i]
+	# Reverse the order of the saved_game_folders array
+	saved_game_folders.reverse()
+
+	# Populate the load_game_list with the saved game folders
+	for saved_game in saved_game_folders:
 		load_game_list.add_item(saved_game)
 
 func _on_load_game_button_pressed():
@@ -19,7 +19,7 @@ func _on_load_game_button_pressed():
 	# We pass the name of the default map and coordinates
 	# If there is a saved game, it will not load the provided map
 	# but rather the one that was saved in the game that was loaded
-	Helper.switch_level("Generichouse.json", Vector2(0, 0))
+	Helper.switch_level("DefaultTacticalMap.json", Vector2(0, 0))
 
 # When the play demo button is pressed
 # Create a new folder in the user directory
@@ -27,7 +27,7 @@ func _on_load_game_button_pressed():
 # This unique folder will contain save data for this game and can be loaded later
 func _on_play_demo_pressed():
 	Helper.save_helper.create_new_save()
-	Helper.switch_level("Generichouse.json", Vector2(0, 0))
+	Helper.switch_level("DefaultTacticalMap.json", Vector2(0, 0))
 
 func _on_help_button_pressed():
 	get_tree().change_scene_to_file("res://documentation.tscn")

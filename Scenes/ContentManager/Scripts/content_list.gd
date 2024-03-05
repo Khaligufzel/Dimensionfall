@@ -70,9 +70,9 @@ func make_file_list() -> void:
 		var item_index: int = contentItems.add_item(base_name)
 		# Add the ID as metadata which can be used to load the item data
 		contentItems.set_item_metadata(item_index, base_name)
-		
+
 		# If the file has an image to represent it's content, load it
-		if contentData.sprites.has(base_name + ".png"):
+		if contentData.has("sprites") and contentData.sprites.has(base_name + ".png"):
 			var mySprite: Resource = contentData.sprites[base_name + ".png"]
 			if mySprite:
 				contentItems.set_item_icon(item_index, mySprite)

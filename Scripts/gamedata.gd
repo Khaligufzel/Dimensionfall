@@ -14,6 +14,7 @@ func _ready():
 	data.mobs = {}
 	data.overmaptiles = {}
 	data.maps = {}
+	data.tacticalmaps = {}
 	data.furniture = {}
 	data.tiles.dataPath = "./Mods/Core/Tiles/Tiles.json"
 	data.tiles.spritePath = "./Mods/Core/Tiles/"
@@ -22,6 +23,7 @@ func _ready():
 	data.furniture.spritePath = "./Mods/Core/Furniture/"
 	data.furniture.dataPath = "./Mods/Core/Furniture/Furniture.json"
 	data.overmaptiles.spritePath = "./Mods/Core/OvermapTiles/"
+	data.tacticalmaps.dataPath = "./Mods/Core/TacticalMaps/"
 	data.maps.dataPath = "./Mods/Core/Maps/"
 	# Map preview images are stored in the same folder
 	data.maps.spritePath = "./Mods/Core/Maps/"
@@ -29,6 +31,8 @@ func _ready():
 	load_tile_sprites()
 	load_data()
 	data.maps.data = Helper.json_helper.file_names_in_dir(data.maps.dataPath, ["json"])
+	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(\
+	data.tacticalmaps.dataPath, ["json"])
 
 #Loads json data. If no json file exists, it will create an empty array in a new file
 func load_data() -> void:
@@ -136,14 +140,18 @@ func remove_item_from_data(contentData: Dictionary, id: String):
 		neither Dictionary nor String")
 
 func get_array_index_by_id(contentData: Dictionary, id: String) -> int:
-	var myIndex: int = -1
-	var i: int = 0
-	for item in contentData.data:
-		if item.get("id", "") == id:
-			myIndex = i
-			break
-		i += 1
-	return myIndex
+	# Iterate through the array
+	for i in range(len(contentData.data)):
+		# Check if the current item is a dictionary
+		if typeof(contentData.data[i]) == TYPE_DICTIONARY:
+			# Check if it has the 'id' key and matches the given ID
+			if contentData.data[i].has("id") and contentData.data[i]["id"] == id:
+				return i
+		# Check if the current item is a string and matches the given ID
+		elif typeof(contentData.data[i]) == TYPE_STRING and contentData.data[i] == id:
+			return i
+	# Return -1 if the ID is not found
+	return -1
 
 func save_data_to_file(contentData: Dictionary):
 	var datapath: String = contentData.dataPath

@@ -49,6 +49,7 @@ folder_colors={
 "res://Scenes/ContentManager/": "yellow",
 "res://Scenes/ContentManager/Custom_Editors/": "red",
 "res://Scenes/ContentManager/Custom_Editors/Scripts/": "green",
+"res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/": "green",
 "res://Scenes/ContentManager/Custom_Widgets/": "purple",
 "res://Scenes/ContentManager/Custom_Widgets/Scripts/": "green",
 "res://Scenes/ContentManager/Mapeditor/": "blue",

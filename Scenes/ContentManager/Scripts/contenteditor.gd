@@ -2,6 +2,7 @@ extends Control
 
 @export var contentList: PackedScene = null
 @export var mapEditor: PackedScene = null
+@export var tacticalmapEditor: PackedScene = null
 @export var terrainTileEditor: PackedScene = null
 @export var furnitureEditor: PackedScene = null
 @export var mobEditor: PackedScene = null
@@ -12,6 +13,7 @@ var selectedMod: String = "Core"
 # Called when the node enters the scene tree for the first time.
 #This function will instatiate a tileScene, set the source property and add it as a child to the content VBoxContainer. The source property should be set to "./Mods/Core/Maps/"
 func _ready():
+	load_content_list(Gamedata.data.tacticalmaps, "Tactical Maps")
 	load_content_list(Gamedata.data.maps, "Maps")
 	load_content_list(Gamedata.data.tiles, "Terrain Tiles")
 	load_content_list(Gamedata.data.mobs, "Mobs")
@@ -50,6 +52,8 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 		instantiate_editor(data, itemID, mobEditor)
 	if data == Gamedata.data.maps:
 		instantiate_editor(data, itemID, mapEditor)
+	if data == Gamedata.data.tacticalmaps:
+		instantiate_editor(data, itemID, tacticalmapEditor)
 
 #This will add an editor to the content editor tab view. 
 #The editor that should be instantiated is passed trough in the newEditor parameter

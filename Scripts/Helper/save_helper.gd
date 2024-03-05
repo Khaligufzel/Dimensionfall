@@ -97,64 +97,56 @@ func save_furniture_data(target_folder: String) -> void:
 		furniture.queue_free()
 	Helper.json_helper.write_json_file(target_folder + "/furniture.json", JSON.stringify(furnitureData))
 
-
-#The current state of the map is saved to disk
-#Starting from the bottom level (-10), loop over every level
-#Not every level is fully populated with blocks, so we need 
-#to use the position of the block to store the map information
-#If the level is fully populated by blocks, it will save all 
-#the blocks with a value in the "texture" field
-#If the level is not fully populated (for example, the level only contains
-#the walls of a house), we check every possible position where a block
-#could be and check if the position matches the position of the first
-#child in the level. If it matches, we move on to the next child.
-#If it does not match, we save information about the empty block instead.
-#If a level has no children, it will remain an empty array []
+# Saves all of the maplevels to disk
+# A maplevel is one 32x32 layer at a certain x,y and z position
+# This layer will contain 1024 blocks
 func save_map_data(target_folder: String) -> void:
-	var level_width : int = 32
-	var level_height : int = 32
-	var mapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
-	#During map generation, the levels were added to the maplevels group
+	var level_width: int = 32
+	var level_height: int = 32
+	var tacticalmapData: Dictionary = {"maplevels": []}
 	var tree: SceneTree = get_tree()
 	var mapLevels = tree.get_nodes_in_group("maplevels")
-	var block: StaticBody3D
-	var current_block: int = 0
-	var level_y: int = 0
-	var level_block_count: int = 0
+
 	for level: Node3D in mapLevels:
-		#The level will be destroyed after saving so we remove them from the group
 		level.remove_from_group("maplevels")
-		#The bottom level will have y set at -10. The first item in the mapData
-		#array will be 0 so in this way we add the levels fom -10 to 10
-		level_y = int(level.global_position.y+10)
-		level_block_count = level.get_child_count()
-		if level_block_count > 0:
-			current_block = 0
-			# Loop over every row one by one
-			for h in level_height:
-				# this loop will process blocks from West to East
-				for w in level_width:
-					block = level.get_child(current_block)
-					if block.global_position.z == h and block.global_position.x == w:
-						
-						# if the rotation is 90 it is facing north
-						# In that case we subtract 90 so it is saved as 0
-						# If the rotation is 0 it is facing east
-						# In that case we add 90, the same for 90 and 180 degrees
-						var blockRotation: int = block.rotation_degrees.y
-						var myRotation: int
-						if blockRotation == 90:
-							myRotation = blockRotation-90
-						else:
-							myRotation = blockRotation+90
-						mapData.levels[level_y].append({ "id": block.id,\
-						"rotation": myRotation })
-						if current_block < level_block_count-1:
-							current_block += 1
-					else:
-						mapData.levels[level_y].append({})
-	#Overwrite the file if it exists and otherwise create it
-	Helper.json_helper.write_json_file(target_folder + "/map.json", JSON.stringify(mapData))
+		var level_node_data: Array = []
+		var level_node_dict: Dictionary = {
+			"map_x": level.global_position.x, 
+			"map_y": level.global_position.y, 
+			"map_z": level.global_position.z, 
+			"blocks": level_node_data
+		}
+
+		# Iterate over each possible block position in the level
+		for h in range(level_height):
+			for w in range(level_width):
+				var block_data: Dictionary = get_block_data_at_position(level, Vector3(w, 0, h))
+				level_node_data.append(block_data)
+
+		tacticalmapData.maplevels.append(level_node_dict)
+
+	Helper.json_helper.write_json_file(target_folder + "/map.json", \
+	JSON.stringify(tacticalmapData))
+
+# Helper function to get block data at a specific position
+func get_block_data_at_position(level: Node3D, position: Vector3) -> Dictionary:
+	var block: StaticBody3D = find_block_at_position(level, position)
+	if block:
+		var blockRotation: int = block.rotation_degrees.y
+		var myRotation: int
+		if blockRotation == 90:
+			myRotation = blockRotation-90
+		else:
+			myRotation = blockRotation+90
+		return {"id": block.id, "rotation": myRotation}
+	return {}
+
+# Helper function to find a block at a specific position
+func find_block_at_position(level: Node3D, position: Vector3) -> StaticBody3D:
+	for child in level.get_children():
+		if child is StaticBody3D and child.position == position:
+			return child
+	return null
 
 
 # This function determines the saved map folder path for the current level. 

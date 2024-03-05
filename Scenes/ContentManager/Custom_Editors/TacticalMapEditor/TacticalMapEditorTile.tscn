@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://f6kl6bo0wsmk"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/TacticalMapEditorTile.gd" id="1_jobrn"]
+[ext_resource type="Texture2D" uid="uid://c31w0wuk8qabw" path="res://Defaults/Sprites/2.png" id="2_gashh"]
+
+[node name="TacticalMapEditorTile" type="Control"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_jobrn")
+
+[node name="TileSprite" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_gashh")
+expand_mode = 3
+
+[connection signal="gui_input" from="TileSprite" to="." method="_on_texture_rect_gui_input"]
