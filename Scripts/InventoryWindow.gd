@@ -26,6 +26,7 @@ var is_showing_tooltip = false
 signal item_was_equipped(equippedItem: InventoryItem, slotName: String)
 signal item_was_cleared(slotName: String)
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	LeftHandEquipmentSlot.name = "LeftHand"
@@ -38,6 +39,7 @@ func _ready():
 	if General.player_equipment_dict.has("RightHandEquipmentSlot"):
 		RightHandEquipmentSlot.deserialize(General.player_equipment_dict.RightHandEquipmentSlot)
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if is_showing_tooltip:
@@ -46,13 +48,16 @@ func _process(_delta):
 	else:
 		tooltip.visible = false
 
+
 func _on_inventory_item_mouse_entered(item):
 	is_showing_tooltip = true
 	tooltip_item_name.text = str(item.get_property("name", ""))
 	tooltip_item_description.text = item.get_property("description", "")
 
+
 func _on_inventory_item_mouse_exited(_item):
 	is_showing_tooltip = false
+
 
 func check_if_resources_are_available(item_id, amount_to_spend: int):
 	var inventory_node = inventory
@@ -67,6 +72,7 @@ func check_if_resources_are_available(item_id, amount_to_spend: int):
 		if item_total_amount >= current_amount_to_spend:
 			return true
 	return false
+
 
 func try_to_spend_item(item_id, amount_to_spend : int):
 	var inventory_node = inventory
@@ -85,6 +91,7 @@ func try_to_spend_item(item_id, amount_to_spend : int):
 			return false
 	else:
 		return false
+
 
 func merge_items_to_total_amount(items, inventory_node, total_amount : int):
 	var current_total_amount = total_amount
@@ -105,6 +112,7 @@ func merge_items_to_total_amount(items, inventory_node, total_amount : int):
 
 			if inventory_node.get_item_stack_size(item) == 0:
 				inventory_node.remove_item(item)
+
 
 func _on_crafting_menu_start_craft(recipe):
 	if recipe:
@@ -127,8 +135,10 @@ func _on_inventory_grid_stacked_item_added(item):
 		if original_parent and original_parent.has_method("remove_item"):
 			original_parent.remove_item(original_item)  # Remove from original parent 
 
+
 func get_inventory() -> InventoryStacked:
 	return inventory
+
 
 func get_equipment_dict() -> Dictionary:
 	var player_equipment: Dictionary = {
@@ -137,13 +147,16 @@ func get_equipment_dict() -> Dictionary:
 		}
 	return player_equipment
 
+
 # Signal handler for adding a container to the proximity
 func _on_item_detector_add_to_proximity_inventory(container: Node3D):
 	add_container_to_list(container)
 
+
 # Signal handler for removing a container from the proximity
 func _on_item_detector_remove_from_proximity_inventory(container: Node3D):
 	remove_container_from_list(container)
+
 
 # Function to add a container to the containerList
 func add_container_to_list(container: Node3D):
@@ -172,6 +185,7 @@ func _on_container_clicked(containerListItemInstance: Control):
 		var container_inventory = containerListItemInstance.containerInstance.get_inventory()
 		if container_inventory:
 			proximity_inventory_control.set_inventory(container_inventory)
+
 
 # Function to remove a container from the containerList
 func remove_container_from_list(container: Node3D):
@@ -202,6 +216,7 @@ func remove_container_from_list(container: Node3D):
 		proximity_inventory_control.set_inventory(proximity_inventory)
 		proximity_inventory_control.visible = false
 
+
 # This function is called when an item is removed from the left hand equipment slot
 func _on_left_hand_equipment_slot_cleared():
 	item_was_cleared.emit("LeftHand")
@@ -210,6 +225,8 @@ func _on_left_hand_equipment_slot_cleared():
 func _on_right_hand_equipment_slot_cleared():
 	item_was_cleared.emit("RightHand")
 
+
+# Items are transferred from the right list to the left list
 func _on_transfer_left_button_button_up():
 	var selected_inventory_items: Array[InventoryItem] = inventory_control.get_selected_inventory_items()
 	for item in selected_inventory_items:
@@ -218,6 +235,8 @@ func _on_transfer_left_button_button_up():
 		else:
 			print_debug("Failed to transfer item: " + str(item))
 
+
+# Items are transferred from the left list to the right list
 func _on_transfer_right_button_button_up():
 	var selected_inventory_items: Array[InventoryItem] = proximity_inventory_control.get_selected_inventory_items()
 	for item in selected_inventory_items:
@@ -231,10 +250,13 @@ func _on_transfer_right_button_button_up():
 func _on_ctrl_inventory_stacked_custom_equip_left(items: Array[InventoryItem]):
 	equip_item(items, LeftHandEquipmentSlot)
 
+
 # Called when the user has pressed a button that will equip the selected item
 func _on_ctrl_inventory_stacked_custom_equip_right(items: Array[InventoryItem]):
 	equip_item(items, RightHandEquipmentSlot)
 
+
+# Handles equipping of items into the hand slots
 func equip_item(items: Array[InventoryItem], itemSlot: Control) -> void:
 	var num_selected_items = items.size()
 
@@ -259,10 +281,16 @@ func equip_item(items: Array[InventoryItem], itemSlot: Control) -> void:
 		# If the item is two-handed, clear the other hand slot before equipping
 		if is_two_handed:
 			other_slot.unequip()
-			print_debug("Cleared other slot as the item is two-handed.")
 
 		# Equip the item
 		itemSlot.equip(item)
-		emit_signal("item_was_equipped", item, itemSlot.name)
 	else:
 		print_debug("Multiple items selected. Please select only one item to equip.")
+
+
+func _on_left_hand_equipment_slot_item_equipped(item):
+	emit_signal("item_was_equipped", item, "LeftHand")
+
+
+func _on_right_hand_equipment_slot_item_equipped(item):
+	emit_signal("item_was_equipped", item, "RightHand")

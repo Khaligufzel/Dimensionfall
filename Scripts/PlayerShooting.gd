@@ -18,8 +18,6 @@ func _input(event):
 	
 	if event.is_action_pressed("reload_weapon"):
 		if left_hand_item.can_weapon_reload() and right_hand_item.can_reload:
-			print_debug("reloading weapon. equipped_left")
 			left_hand_item.reload_weapon()
 		elif right_hand_item.can_weapon_reload() and left_hand_item.can_reload:
-			print_debug("reloading weapon. equipped right")
 			right_hand_item.reload_weapon()
