@@ -25,6 +25,9 @@
 		"width": "2"
 	},
 	{
+		"Ammo": {
+			"damage": "25"
+		},
 		"description": "Standard type of ammunition. Very common.",
 		"height": "1",
 		"id": "bullet_9mm",
@@ -37,6 +40,10 @@
 		"width": "1"
 	},
 	{
+		"Magazine": {
+			"max_ammo": "20",
+			"used_ammo": "9mm"
+		},
 		"description": "In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets",
 		"height": "1",
 		"id": "pistol_magazine",
@@ -47,5 +54,51 @@
 		"stack_size": "1",
 		"weight": "0.25",
 		"width": "1"
+	},
+	{
+		"Ranged": {
+			"firing_speed": "0.25",
+			"range": "1000",
+			"recoil": "20",
+			"reload_speed": "2.5",
+			"spread": "5",
+			"sway": "5",
+			"used_ammo": "9mm",
+			"used_magazine": "pistol_magazine",
+			"used_skill": "short_guns"
+		},
+		"description": "A standard issue pistol that uses 9mm ammunition",
+		"height": "2",
+		"id": "pistol_9mm",
+		"image": "./Mods/Core/Items/pistol_64.png",
+		"max_stack_size": "1",
+		"name": "Pistol 9mm",
+		"sprite": "pistol_64.png",
+		"stack_size": "1",
+		"weight": "2",
+		"width": "2"
+	},
+	{
+		"Ranged": {
+			"firing_speed": "0.1",
+			"range": "1000",
+			"recoil": "15",
+			"reload_speed": "2.5",
+			"spread": "8",
+			"sway": "5",
+			"used_ammo": "9mm",
+			"used_magazine": "pistol_magazine",
+			"used_skill": "short_guns"
+		},
+		"description": "A standard issue rifle that uses 9mm ammunition",
+		"height": "2",
+		"id": "rifle_m4a1",
+		"image": "./Mods/Core/Items/rifle_128_64.png",
+		"max_stack_size": "1",
+		"name": "M4a1 rifle",
+		"sprite": "rifle_128_64.png",
+		"stack_size": "1",
+		"weight": "4",
+		"width": "4"
 	}
 ]

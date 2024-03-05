@@ -5,6 +5,9 @@ extends Control
 #It expects to save the data to a JSON file that contains all data from a mod
 #To load data, provide the name of the item data file and an ID
 
+
+@export var tabContainer: TabContainer = null
+
 # Used to open the sprite selector popup
 @export var itemImageDisplay: TextureRect = null
 @export var IDTextLabel: Label = null
@@ -26,6 +29,10 @@ extends Control
 @export var StackSizeNumberBox: SpinBox = null
 @export var MaxStackSizeNumberBox: SpinBox = null
 
+@export var typesContainer: HFlowContainer = null
+
+
+
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the item data array should be saved to disk
 # The content editor has connected this signal to Gamedata already
@@ -39,6 +46,9 @@ var contentData: Dictionary = {}:
 		contentData = value
 		load_item_data()
 		itemSelector.sprites_collection = Gamedata.data.items.sprites
+		
+func _ready():
+	refresh_tab_visibility()
 
 #This function update the form based on the contentData that has been loaded
 func load_item_data() -> void:
@@ -62,6 +72,18 @@ func load_item_data() -> void:
 	if MaxStackSizeNumberBox != null and contentData.has("max_stack_size"):
 		MaxStackSizeNumberBox.get_line_edit().text = contentData["max_stack_size"]
 
+	# Loop through typesContainer children to load additional properties and set button_pressed
+	for i in range(typesContainer.get_child_count()):
+		var child = typesContainer.get_child(i)
+		if child is CheckBox:
+			var tabIndex = get_tab_by_title(child.text)
+			var tab = tabContainer.get_child(tabIndex)
+			if tab and tab.has_method("set_properties") and contentData.has(child.text):
+				tab.set_properties(contentData[child.text])
+				 # Set button_pressed to true if contentData has the property
+				child.button_pressed = true 
+	refresh_tab_visibility()
+
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
@@ -82,6 +104,16 @@ func _on_save_button_button_up() -> void:
 	contentData["weight"] = WeightNumberBox.get_line_edit().text
 	contentData["stack_size"] = StackSizeNumberBox.get_line_edit().text
 	contentData["max_stack_size"] = MaxStackSizeNumberBox.get_line_edit().text
+	
+	# Loop through typesContainer children to save additional properties
+	for i in range(typesContainer.get_child_count()):
+		var child = typesContainer.get_child(i)
+		# Check if the child is a CheckBox and its button_pressed is true
+		if child is CheckBox and child.button_pressed:
+			var tabIndex = get_tab_by_title(child.text)
+			var tab = tabContainer.get_child(tabIndex)
+			if tab and tab.has_method("get_properties"):
+				contentData[child.text] = tab.get_properties()
 	data_changed.emit()
 
 #When the itemImageDisplay is clicked, the user will be prompted to select an image from 
@@ -95,3 +127,28 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var itemTexture: Resource = clicked_sprite.get_texture()
 	itemImageDisplay.texture = itemTexture
 	PathTextLabel.text = itemTexture.resource_path.get_file()
+
+
+func _on_type_check_button_up():
+	refresh_tab_visibility()
+
+# This function loops over the checkboxes.
+# It will show corresponding tabs in the tab container if the box is checked.
+# It will hide the corresponding tabs in the tab container if the box is unchecked.
+func refresh_tab_visibility() -> void:
+	# Loop over all children of the typesContainer
+	for i in range(typesContainer.get_child_count()):
+		# Get the child node at index 'i'
+		var child = typesContainer.get_child(i)
+		# Check if the child is a CheckBox
+		if child is CheckBox:
+			# Find the tab in the TabContainer with the same name as the checkbox text
+			tabContainer.set_tab_hidden(get_tab_by_title(child.text),!child.button_pressed)
+
+# Returns the tab control with the given name
+func get_tab_by_title(tabName: String) -> int:
+	# Loop over all children of the typesContainer
+	for i in range(tabContainer.get_tab_count()):
+		if tabContainer.get_tab_title(i) == tabName:
+			return i
+	return -1

@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2uiumyeepree"]
+
+[ext_resource type="Script" path="res://Scripts/ItemAmmoEditor.gd" id="1_5v06u"]
+
+[node name="ItemAmmoEditor" type="Control" node_paths=PackedStringArray("DamageNumberBox")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5v06u")
+DamageNumberBox = NodePath("Ammo/DamageNumber")
+
+[node name="Ammo" type="GridContainer" parent="."]
+layout_mode = 0
+size_flags_vertical = 3
+columns = 2
+
+[node name="DamageLabel" type="Label" parent="Ammo"]
+layout_mode = 2
+text = "Damage"
+
+[node name="DamageNumber" type="SpinBox" parent="Ammo"]
+layout_mode = 2
+tooltip_text = "The width of this item in the inventory. A larger number means it will take up more horizontal inventory slots"
+value = 25.0
