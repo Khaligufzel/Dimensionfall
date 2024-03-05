@@ -53,7 +53,7 @@ columns = 2
 
 [node name="ImageLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-text = "Image:"
+text = "Sprite:"
 
 [node name="MobImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
 custom_minimum_size = Vector2(128, 128)
@@ -65,7 +65,7 @@ expand_mode = 3
 
 [node name="PathLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-text = "Path:"
+text = "Sprite name"
 
 [node name="PathTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
 custom_minimum_size = Vector2(0, 30)

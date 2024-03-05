@@ -25,19 +25,19 @@ extends Control
 signal data_changed()
 
 # The data that represents this mob
-# The data is selected from the Gamedata.all_mobs array
+# The data is selected from the Gamedata.data.mobs.data array
 # based on the ID that the user has selected in the content editor
 var contentData: Dictionary = {}:
 	set(value):
 		contentData = value
 		load_mob_data()
-		mobSelector.sprites_collection = Gamedata.mob_materials
+		mobSelector.sprites_collection = Gamedata.data.mobs.sprites
 
 #This function update the form based on the contentData that has been loaded
 func load_mob_data() -> void:
-	if mobImageDisplay != null and contentData.has("imagePath"):
-		mobImageDisplay.texture = load(contentData["imagePath"])
-		PathTextLabel.text = contentData["imagePath"]
+	if mobImageDisplay != null and contentData.has("sprite"):
+		mobImageDisplay.texture = Gamedata.data.mobs.sprites[contentData["sprite"]]
+		PathTextLabel.text = contentData["sprite"]
 	if IDTextLabel != null:
 		IDTextLabel.text = str(contentData["id"])
 	if NameTextEdit != null and contentData.has("name"):
@@ -68,11 +68,11 @@ func _on_close_button_button_up() -> void:
 	queue_free()
 
 # This function takes all data fro the form elements stores them in the contentData
-# Since contentData is a reference to an item in Gamedata.all_mobs
+# Since contentData is a reference to an item in Gamedata.data.mobs.data
 # the central array for mobdata is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
-	contentData["imagePath"] = PathTextLabel.text
+	contentData["sprite"] = PathTextLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
 	contentData["melee_damage"] = melee_damage_numedit.get_line_edit().text
@@ -95,4 +95,4 @@ func _on_mob_image_display_gui_input(event) -> void:
 func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var mobTexture: Resource = clicked_sprite.get_texture()
 	mobImageDisplay.texture = mobTexture
-	PathTextLabel.text = mobTexture.resource_path.replace("res://","")
+	PathTextLabel.text = mobTexture.resource_path.get_file()

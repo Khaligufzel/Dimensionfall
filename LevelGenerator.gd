@@ -10,6 +10,7 @@ var level_height : int = 32
 
 
 @onready var defaultBlock: PackedScene = preload("res://Blocks/grass_001.tscn")
+@onready var defaultSlope: PackedScene = preload("res://Blocks/Stairs_to_N001.tscn")
 @export var defaultEnemy: PackedScene
 @export var defaultItem: PackedScene
 @export var level_manager : Node3D
@@ -71,7 +72,7 @@ func add_item_to_map(item: Dictionary):
 
 func generate_level() -> void:
 	var level_name: String = Helper.current_level_name
-	var textureName: String = ""
+	var tileid: String = ""
 	if level_name == "":
 		get_level_json()
 	else:
@@ -103,9 +104,9 @@ func generate_level() -> void:
 					# of blocks that we need to instantiate.
 					# If yes, then instantiate
 					if level[current_block]:
-						textureName = level[current_block].texture
-						if textureName != "":
-							var block = create_block_with_material(textureName)
+						tileid = level[current_block].id
+						if tileid != "":
+							var block = create_block_with_id(tileid)
 							level_node.add_child(block)
 							block.global_position.x = w
 							block.global_position.z = h
@@ -128,11 +129,24 @@ func get_custom_level_json(level_path):
 	level_levels = json_as_dict["levels"]
 
 
-#This function takes a filename and create a new instance of block_scenes[0] which is a StaticBody3D. It will then take the material from the material dictionary based on the provided filename and apply it to the instance of StaticBody3D. Lastly it will return the StaticBody3D.
-func create_block_with_material(filename: String) -> StaticBody3D:
-	var block: StaticBody3D = defaultBlock.instantiate()
-	if filename in Gamedata.tile_materials:
-		var material = Gamedata.tile_materials[filename]
+# This function takes a tile id and creates a new instance of either a block
+# or a slope which is a StaticBody3D. Look up the sprite property that is specified in
+# the json associated with the id. It will then take the sprite from the 
+# sprite dictionary based on the provided spritename and apply it 
+# to the instance of StaticBody3D. Lastly it will return the StaticBody3D.
+func create_block_with_id(id: String) -> StaticBody3D:
+	var block: StaticBody3D
+	var tileJSONData = Gamedata.data.tiles
+	var tileJSON = tileJSONData.data[Gamedata.get_array_index_by_id(tileJSONData,id)]
+	if tileJSON.has("shape"):
+		if tileJSON.shape == "slope":
+			block = defaultSlope.instantiate()
+		else:
+			block = defaultBlock.instantiate()
+	else:
+		block = defaultBlock.instantiate()
+	if tileJSON.sprite in Gamedata.data.tiles.sprites:
+		var material = Gamedata.data.tiles.sprites[tileJSON.sprite]
 		block.update_texture(material)
 	return block
 

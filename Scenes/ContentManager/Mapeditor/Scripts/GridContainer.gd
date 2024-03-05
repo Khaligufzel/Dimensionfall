@@ -113,7 +113,7 @@ func paint_single_tile(clicked_tile):
 	if erase:
 		clicked_tile.set_default()
 	elif selected_brush:
-		clicked_tile.set_texture(selected_brush.get_texture())
+		clicked_tile.set_tile_id(selected_brush.tileID)
 
 #When this function is called, loop over all the TileGrid's children and get the tileData property. Store this data in the currentLevelData array
 func storeLevelData():
@@ -199,7 +199,7 @@ func paint_in_rectangle():
 			tile.set_default()
 	elif selected_brush:
 		for tile in tiles:
-			tile.set_texture(selected_brush.get_texture())
+			tile.set_tile_id(selected_brush.tileID)
 	update_rectangle()
 
 #The user has pressed the erase toggle button in the editor

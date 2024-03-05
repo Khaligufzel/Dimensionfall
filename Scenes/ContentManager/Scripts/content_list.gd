@@ -13,9 +13,9 @@ extends Control
 signal item_activated(data: Array, itemID: String)
 var is_collapsed: bool = false
 var popupAction: String = ""
-var contentdata: Array = []:
+var contentData: Dictionary = {}:
 	set(newData):
-		contentdata = newData
+		contentData = newData
 		load_data()
 var header: String = "Items":
 	set(newName):
@@ -24,55 +24,41 @@ var header: String = "Items":
 
 
 
-# This function will take a string and create a new json file with just {} as the contents.
-#If the file already exists, we do not overwrite it
-func create_new_json_file(filename: String = "", isArray: bool = true):
-	# If no string was provided, return without doing anything.
-	if filename.is_empty():
-		return
-
-	# If the file already exists, alert the user that the file already exists.
-	if FileAccess.file_exists(filename):
-#		print_debug("The file already exists: " + filename)
-		return
-
-	var file = FileAccess.open(filename, FileAccess.WRITE)
-	#The file cen contain either one object or one array with a list of objects
-	if isArray:
-		file.store_string("[]")
-	else:
-		file.store_string("{}")
-	file.close()
-	load_data()
-
-
 #This function adds items to the content list based on the provided path
 #If the path is a directory, it will list all the files in the directory
 #If the path is a json file, it will list all the items in the json file
 func load_data():
-	if contentdata.is_empty():
+	if contentData.is_empty():
 		return
 	contentItems.clear()
 	#If the first item is a string, it's a list of files.
 	#Otherwise, it's a list of objects representing some kind of data
-	if contentdata[0] is String:
+	if contentData.data[0] is String:
 		make_file_list()
 	else:
 		make_item_list()
 
+# Loops over all the items in contentData.data (which are dictionaries)
+# Creates a new item in the list with the id of the item as text
 func make_item_list():
-	for item in contentdata:
+	for item in contentData.data:
 		# get the id of the item, "missing_id" if not found
 		var item_id: String = item.get("id", "missing_id")
 		#Add the item and save the index number
 		var item_index: int = contentItems.add_item(item_id)
 		contentItems.set_item_metadata(item_index, item_id)
 		
-		if item.has("imagePath"):
-			contentItems.set_item_icon(item_index,load(item["imagePath"]))
+		if item.has("sprite"):
+			var mySprite: Resource = contentData.sprites[item["sprite"]]
+			if mySprite is BaseMaterial3D:
+				contentItems.set_item_icon(item_index,mySprite.albedo_texture)
+			else:
+				contentItems.set_item_icon(item_index,mySprite)
 
+# Loops over the files in contentData.data (which are filenames)
+# For each file a new item will be added to the list
 func make_file_list() -> void:
-	for file_name in contentdata:
+	for file_name in contentData.data:
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(file_name.replace(".json", ""))
 		#Add the ID as metadata which can be used to load the item data
@@ -85,14 +71,14 @@ func _on_content_items_item_activated(index: int):
 	# Get the id of the item from the metadata
 	var strItemID: String = contentItems.get_item_metadata(index)
 	if strItemID:
-		item_activated.emit(contentdata, strItemID)
+		item_activated.emit(contentData, strItemID)
 	else:
 		print_debug("Tried to signal that item with ID (" + str(index) + ") was activated,\
 		 but the item has no metadata")
 
 #This function will append an item to the game data
 func add_item_to_data(id: String):
-	Gamedata.add_id_to_data(contentdata, id)
+	Gamedata.add_id_to_data(contentData, id)
 	load_data()
 	
 #This function will show a pop-up asking the user to input an ID
@@ -123,9 +109,9 @@ func _on_ok_button_up():
 	if myText == "":
 		return;
 	if popupAction == "Add":
-			Gamedata.add_id_to_data(contentdata, myText)
+			Gamedata.add_id_to_data(contentData, myText)
 	if popupAction == "Duplicate":
-			Gamedata.duplicate_item_in_data(contentdata,get_selected_item_text(),myText)
+			Gamedata.duplicate_item_in_data(contentData,get_selected_item_text(),myText)
 	popupAction = ""
 	load_data()
 
@@ -142,7 +128,7 @@ func _on_delete_button_button_up():
 	if selected_id == "":
 		return
 	contentItems.remove_item(contentItems.get_selected_items()[0])
-	Gamedata.remove_item_from_data(contentdata, selected_id)
+	Gamedata.remove_item_from_data(contentData, selected_id)
 	load_data()
 
 func get_selected_item_text() -> String:

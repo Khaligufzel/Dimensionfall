@@ -18,10 +18,10 @@ func _ready():
 	
 # this function will read all files in "res://Mods/Core/Tiles/" and for each file it will create a texturerect and assign the file as the texture of the texturerect. Then it will add the texturerect as a child to $HSplitContainer/EntitiesContainer/TilesList
 func loadTiles():
-	var tileList: Array = Gamedata.all_tiles
+	var tileList: Array = Gamedata.data.tiles.data
 
 	for item in tileList:
-		if item.has("imagePath"):
+		if item.has("sprite"):
 			#We need to put the tiles the right catecory
 			#Each tile can have 0 or more categories
 			for category in item["categories"]:
@@ -31,14 +31,17 @@ func loadTiles():
 					newTilesList = scrolling_Flow_Container.instantiate()
 					newTilesList.header = category
 					add_child(newTilesList)
-				var imagefileName: String = item["imagePath"]
+				var imagefileName: String = item["sprite"]
 				imagefileName = imagefileName.get_file()
 				# Get the texture from gamedata
-				var texture: Resource = Gamedata.tile_materials[imagefileName].albedo_texture
+				var texture: Resource = Gamedata.data.tiles.sprites[imagefileName].albedo_texture
 				# Create a TextureRect node
 				var brushInstance = tileBrush.instantiate()
 				# Assign the texture to the TextureRect
 				brushInstance.set_tile_texture(texture)
+				# Since the map editor needs to knw what tile ID is used,
+				# We store the tile id in a variable in the brush
+				brushInstance.tileID = item.id
 				brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
 
 				# Add the TextureRect as a child to the TilesList

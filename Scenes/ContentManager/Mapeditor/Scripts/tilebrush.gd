@@ -1,6 +1,7 @@
 extends Control
 
 signal tilebrush_clicked(clicked_tile: Control)
+var tileID: String = ""
 var selected: bool = false
 
 #When the event was a left mouse button press, adjust the modulate property of the $TileSprite to be 3aa2c1

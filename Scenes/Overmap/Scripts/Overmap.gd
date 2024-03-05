@@ -87,8 +87,8 @@ func get_random_mapname_1_in_100() -> String:
 	var random_file: String = ""
 	var chance = randi_range(0, 100)
 	if chance < 1:
-		var random_index = randi() % Gamedata.all_map_files.size()
-		random_file = Gamedata.all_map_files[random_index]
+		var random_index = randi() % Gamedata.data.maps.data.size()
+		random_file = Gamedata.data.maps.data[random_index]
 	return random_file
 
 
@@ -174,7 +174,7 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 
 		var tile_type = chunk[i].tile
 		# Retrieve the texture based on the tile type.
-		var texture = Gamedata.overmaptile_materials[tile_type]
+		var texture = Gamedata.data.overmaptiles.sprites[tile_type]
 		var tile = overmapTile.instantiate()
 		var local_x = column*tile_size
 		var local_y = row*tile_size

@@ -26,7 +26,7 @@ var selectedSprite: Control = null
 signal sprite_selected_ok(clicked_sprite: Control)
 
 
-# this function will read all files in SpriteDir and for each file it will create a
+# For each item in Gamedata.data.x.sprites it will create a
 # selectable_Sprite_Widget and assign the file as the texture of the selectable_Sprite_Widget. 
 # Then it will add the selectable_Sprite_Widget as a child to spriteList
 func populate_sprite_list():
