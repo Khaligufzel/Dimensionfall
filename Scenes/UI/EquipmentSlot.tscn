@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4g8ymi0lhkyy"]
+
+[ext_resource type="Script" path="res://Scripts/EquipmentSlot.gd" id="1_hgy1f"]
+
+[node name="EquipmentSlot" type="Control" node_paths=PackedStringArray("backgroundColor", "myIcon")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hgy1f")
+backgroundColor = NodePath("ColorRect")
+myIcon = NodePath("TextureRect")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.341176, 0.376471, 0.529412, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2

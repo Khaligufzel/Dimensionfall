@@ -3,10 +3,10 @@ extends Control
 # This node holds the data of the items in the container that is selected in the containerList
 @export var proximity_inventory: InventoryStacked
 # This node visualizes the items in the container that is selected in the containerList
-@export var proximity_inventory_control: CtrlInventoryStacked
+@export var proximity_inventory_control: Control
 
 # The node that visualizes the player inventory
-@export var inventory_control : CtrlInventoryStacked
+@export var inventory_control : Control
 # The player inventory
 @export var inventory : InventoryStacked
 # Holds a list of containers represented by their sprite
@@ -14,8 +14,8 @@ extends Control
 @export var containerListItem : PackedScene
 
 # Equipment
-@export var LeftHandEquipmentSlot : ItemRefSlot
-@export var RightHandEquipmentSlot : ItemRefSlot
+@export var LeftHandEquipmentSlot : Control
+@export var RightHandEquipmentSlot : Control
 
 # The tooltip will show when the player hovers over an item
 @export var tooltip: Control
@@ -28,6 +28,8 @@ signal item_was_cleared(slotName: String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	LeftHandEquipmentSlot.name = "LeftHand"
+	RightHandEquipmentSlot.name = "RightHand"
 	# The items that were in the player inventory when they exited
 	# the previous level are loaded back into the inventory
 	inventory.deserialize(General.player_inventory_dict)
@@ -159,7 +161,7 @@ func add_container_to_list(container: Node3D):
 		# Set the inventory of the proximity inventory control to this container's inventory
 		var container_inventory = containerListItemInstance.containerInstance.get_inventory()
 		if container_inventory:
-			proximity_inventory_control.inventory = container_inventory
+			proximity_inventory_control.set_inventory(container_inventory)
 			# Make the proximity inventory control visible
 			proximity_inventory_control.visible = true
 
@@ -169,7 +171,7 @@ func _on_container_clicked(containerListItemInstance: Control):
 	if containerListItemInstance and containerListItemInstance.containerInstance:
 		var container_inventory = containerListItemInstance.containerInstance.get_inventory()
 		if container_inventory:
-			proximity_inventory_control.inventory = container_inventory
+			proximity_inventory_control.set_inventory(container_inventory)
 
 # Function to remove a container from the containerList
 func remove_container_from_list(container: Node3D):
@@ -177,7 +179,7 @@ func remove_container_from_list(container: Node3D):
 	var first_container = null
 
 	# Check if the container being removed is the currently selected one
-	if proximity_inventory_control.inventory == container.get_inventory():
+	if proximity_inventory_control.get_inventory() == container.get_inventory():
 		was_selected = true
 
 	# Remove the container from the list and count remaining containers
@@ -194,46 +196,11 @@ func remove_container_from_list(container: Node3D):
 	if was_selected and remaining_containers > 0:
 		var first_container_inventory = first_container.get_inventory()
 		if first_container_inventory:
-			proximity_inventory_control.inventory = first_container_inventory
+			proximity_inventory_control.set_inventory(first_container_inventory)
 	elif was_selected or remaining_containers == 0:
 		# Reset the inventory to proximity_inventory and hide the control
-		proximity_inventory_control.inventory = proximity_inventory
+		proximity_inventory_control.set_inventory(proximity_inventory)
 		proximity_inventory_control.visible = false
-
-
-# This function is called when an item is equipped in the left hand equipment slot
-func _on_left_hand_equipment_slot_item_equipped():
-	var equipped_item_left = LeftHandEquipmentSlot.get_item()
-	var equipped_item_right = RightHandEquipmentSlot.get_item()
-	# If we have a weapon in the right hand and it's a two handed weapon, 
-	# We clear the left handed slot again
-	if equipped_item_right and equipped_item_right.get_property("two_handed", false):
-		LeftHandEquipmentSlot.clear()
-		item_was_cleared.emit("LeftHand")
-		return
-	# If the weapon we equip is a two handed weapon, clear the weapon in the other weapon slot
-	if equipped_item_left and equipped_item_left.get_property("two_handed", false):
-		# If the item is two-handed, clear the right hand slot
-		RightHandEquipmentSlot.clear()
-		item_was_cleared.emit("RightHand")
-	item_was_equipped.emit(equipped_item_left, "LeftHand")
-
-# This function is called when an item is equipped in the right hand equipment slot
-func _on_right_hand_equipment_slot_item_equipped():
-	var equipped_item_left = LeftHandEquipmentSlot.get_item()
-	var equipped_item_right = RightHandEquipmentSlot.get_item()
-	# If we have a weapon in the left hand and it's a two handed weapon, 
-	# We clear the right handed slot again
-	if equipped_item_left and equipped_item_left.get_property("two_handed", false):
-		RightHandEquipmentSlot.clear()
-		item_was_cleared.emit("RightHand")
-		return
-	elif equipped_item_right and equipped_item_right.get_property("two_handed", false):
-		# If the item is two-handed, clear the left hand slot
-		LeftHandEquipmentSlot.clear()
-		item_was_cleared.emit("LeftHand")
-	item_was_equipped.emit(equipped_item_right, "RightHand")
-
 
 # This function is called when an item is removed from the left hand equipment slot
 func _on_left_hand_equipment_slot_cleared():
@@ -243,15 +210,59 @@ func _on_left_hand_equipment_slot_cleared():
 func _on_right_hand_equipment_slot_cleared():
 	item_was_cleared.emit("RightHand")
 
-func _on_equip_right_button_button_up():
-	RightHandEquipmentSlot.equip(inventory_control.get_selected_inventory_item())
-
-func _on_equip_left_button_button_up():
-	LeftHandEquipmentSlot.equip(inventory_control.get_selected_inventory_item())
-
 func _on_transfer_left_button_button_up():
-	inventory.transfer(inventory_control.get_selected_inventory_item(), proximity_inventory_control.inventory)
+	var selected_inventory_items: Array[InventoryItem] = inventory_control.get_selected_inventory_items()
+	for item in selected_inventory_items:
+		if inventory.transfer_autosplitmerge(item, proximity_inventory_control.get_inventory()):
+			print_debug("Transferred item: " + str(item))
+		else:
+			print_debug("Failed to transfer item: " + str(item))
 
 func _on_transfer_right_button_button_up():
-	var selected_inventory_item: InventoryItem = proximity_inventory_control.get_selected_inventory_item()
-	proximity_inventory_control.inventory.transfer(selected_inventory_item, inventory)
+	var selected_inventory_items: Array[InventoryItem] = proximity_inventory_control.get_selected_inventory_items()
+	for item in selected_inventory_items:
+		if proximity_inventory_control.get_inventory().transfer_autosplitmerge(item, inventory):
+			print_debug("Transferred item: " + str(item))
+		else:
+			print_debug("Failed to transfer item: " + str(item))
+
+
+# Called when the user has pressed a button that will equip the selected item
+func _on_ctrl_inventory_stacked_custom_equip_left(items: Array[InventoryItem]):
+	equip_item(items, LeftHandEquipmentSlot)
+
+# Called when the user has pressed a button that will equip the selected item
+func _on_ctrl_inventory_stacked_custom_equip_right(items: Array[InventoryItem]):
+	equip_item(items, RightHandEquipmentSlot)
+
+func equip_item(items: Array[InventoryItem], itemSlot: Control) -> void:
+	var num_selected_items = items.size()
+
+	if num_selected_items == 0:
+		print_debug("No items selected.")
+		# Handle the case when no items are selected (optional)
+	elif num_selected_items == 1:
+		var item = items[0]
+		var is_two_handed = item.get_property("two_handed", false)
+		# We assume the user equips the left hand slot
+		# If it is the right hand slot instead, the other slot must be the left hand slot
+		var other_slot = RightHandEquipmentSlot
+		if itemSlot == RightHandEquipmentSlot:
+			other_slot = LeftHandEquipmentSlot
+		var other_slot_item = other_slot.get_item()
+
+		# Check if the other slot has a two-handed item equipped
+		if other_slot_item and other_slot_item.get_property("two_handed", false):
+			print_debug("Cannot equip item. The other slot has a two-handed weapon equipped.")
+			return
+
+		# If the item is two-handed, clear the other hand slot before equipping
+		if is_two_handed:
+			other_slot.unequip()
+			print_debug("Cleared other slot as the item is two-handed.")
+
+		# Equip the item
+		itemSlot.equip(item)
+		emit_signal("item_was_equipped", item, itemSlot.name)
+	else:
+		print_debug("Multiple items selected. Please select only one item to equip.")
