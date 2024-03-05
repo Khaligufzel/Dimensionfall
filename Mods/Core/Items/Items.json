@@ -66,12 +66,12 @@
 	},
 	{
 		"Ranged": {
-			"firing_speed": "0.4",
-			"range": "1000",
-			"recoil": "10",
-			"reload_speed": "1.5",
-			"spread": "5",
-			"sway": "5",
+			"firing_speed": 0.4,
+			"range": 1000,
+			"recoil": 10,
+			"reload_speed": 1.5,
+			"spread": 5,
+			"sway": 5,
 			"used_ammo": "9mm",
 			"used_magazine": "pistol_magazine",
 			"used_skill": "short_guns"
@@ -91,12 +91,12 @@
 	},
 	{
 		"Ranged": {
-			"firing_speed": "0.2",
-			"range": "1000",
-			"recoil": "15",
-			"reload_speed": "2.5",
-			"spread": "8",
-			"sway": "5",
+			"firing_speed": 0.2,
+			"range": 1000,
+			"recoil": 15,
+			"reload_speed": 2.5,
+			"spread": 8,
+			"sway": 5,
 			"used_ammo": "9mm",
 			"used_magazine": "pistol_magazine",
 			"used_skill": "short_guns"
@@ -113,5 +113,49 @@
 		"volume": "300",
 		"weight": "4",
 		"width": "4"
+	},
+	{
+		"Ranged": {
+			"firing_speed": 0.25,
+			"range": 1000,
+			"recoil": 20,
+			"reload_speed": 2.5,
+			"spread": 5,
+			"sway": 5,
+			"used_ammo": "9mm",
+			"used_magazine": "chugunov_mpap_magazine",
+			"used_skill": "short_guns"
+		},
+		"description": "Chugun in Russian is for cast steel, MPAP is \"Multi Purpose Automatic Pistol\"",
+		"height": "2",
+		"id": "chugunov_mpap",
+		"image": "./Mods/Core/Items/chugunov_mpap_32_28.png",
+		"max_stack_size": "1",
+		"name": "Chugunov MPAP",
+		"sprite": "chugunov_mpap_32_28.png",
+		"stack_size": "1",
+		"two_handed": true,
+		"volume": "150",
+		"weight": "3",
+		"width": "4"
+	},
+	{
+		"Magazine": {
+			"current_ammo": "30",
+			"max_ammo": "30",
+			"used_ammo": "bullet_7.62x26"
+		},
+		"description": "A magazine to be loaded into a Chuganov MPAP",
+		"height": "1",
+		"id": "chugunov_mpap_magazine",
+		"image": "./Mods/Core/Items/chugunov_mpap_magazine_16_32.png",
+		"max_stack_size": "1",
+		"name": "Chuganov MPAP magazine",
+		"sprite": "chugunov_mpap_magazine_16_32.png",
+		"stack_size": "1",
+		"two_handed": false,
+		"volume": "10",
+		"weight": "0.25",
+		"width": "1"
 	}
 ]

@@ -1,42 +1,10 @@
 {
-	"mapheight": 3,
+	"mapheight": 1,
 	"maps": [
-		{
-			"id": "Generichouse.json",
-			"rotation": 0
-		},
-		{
-			"id": "Generichouse.json",
-			"rotation": 0
-		},
-		{
-			"id": "Generichouse.json",
-			"rotation": 0
-		},
-		{
-			"id": "urbanroad.json",
-			"rotation": 0
-		},
-		{
-			"id": "urbanroad.json",
-			"rotation": 0
-		},
-		{
-			"id": "urbanroad.json",
-			"rotation": 0
-		},
-		{
-			"id": "Generichouse.json",
-			"rotation": 0
-		},
-		{
-			"id": "Generichouse.json",
-			"rotation": 0
-		},
 		{
 			"id": "Generichouse.json",
 			"rotation": 0
 		}
 	],
-	"mapwidth": 3
+	"mapwidth": 1
 }

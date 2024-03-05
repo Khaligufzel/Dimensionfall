@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/ItemRangedEditor.gd" id="1_my1v7"]
 
-[node name="ItemRangedEditor" type="Control" node_paths=PackedStringArray("UsedAmmoTextEdit", "UsedMagazineTextEdit", "RangeNumberBox", "SpreadNumberBox", "SwayNumberBox", "RecoilNumberBox", "UsedSkillTextEdit", "ReloadSpeedNumberBox", "FiringSpeedNumberBox")]
+[node name="ItemRangedEditor" type="Control" node_paths=PackedStringArray("UsedAmmoTextEdit", "UsedMagazineContainer", "RangeNumberBox", "SpreadNumberBox", "SwayNumberBox", "RecoilNumberBox", "UsedSkillTextEdit", "ReloadSpeedNumberBox", "FiringSpeedNumberBox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_my1v7")
 UsedAmmoTextEdit = NodePath("Ranged/UsedAmmoTextEdit")
-UsedMagazineTextEdit = NodePath("Ranged/UsedMagazineTextEdit")
+UsedMagazineContainer = NodePath("Ranged/ScrollContainer/UsedMagazineContainer")
 RangeNumberBox = NodePath("Ranged/RangeNumber")
 SpreadNumberBox = NodePath("Ranged/SpreadNumber")
 SwayNumberBox = NodePath("Ranged/SwayNumber")
@@ -39,21 +39,24 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-focus_next = NodePath("../UsedMagazineTextEdit")
+focus_next = NodePath("../ScrollContainer/UsedMagazineContainer")
 placeholder_text = "9mm"
 
 [node name="UsedMagazineLabel" type="Label" parent="Ranged"]
 layout_mode = 2
 text = "Magazine"
 
-[node name="UsedMagazineTextEdit" type="TextEdit" parent="Ranged"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Ranged"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="UsedMagazineContainer" type="VBoxContainer" parent="Ranged/ScrollContainer"]
 custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.9
-focus_previous = NodePath("../UsedAmmoTextEdit")
-placeholder_text = "pistol_magazine"
-wrap_mode = 1
+focus_previous = NodePath("../../UsedAmmoTextEdit")
 
 [node name="RangeLabel" type="Label" parent="Ranged"]
 layout_mode = 2
