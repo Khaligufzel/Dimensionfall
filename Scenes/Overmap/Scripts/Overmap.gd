@@ -156,12 +156,14 @@ func update_tiles_position(delta):
 		# Update the grid container's position by subtracting the delta
 		grid_container.position -= delta
 
+
 #We will call this function when the position_coords change
 func on_position_coord_changed(delta):
 	update_tiles_position(delta)
 	update_chunks()
 	if positionLabel:
 		positionLabel.text = "Position: " + str(Helper.position_coord)
+
 
 # This function creates and populates a GridContainer with tiles based on chunk data. 
 # It takes two arguments: chunk, an array containing data for each tile in the chunk, 
@@ -221,8 +223,6 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 
 	# Return the filled grid container.
 	return grid_container
-
-
 
 
 #This function will be connected to the signal of the tiles
