@@ -4,6 +4,7 @@ extends StaticBody3D
 var blockposition: Vector3
 var tileJSON: Dictionary # The json that defines this block
 var shape: String = "block"
+var blockmeshinstance: MeshInstance3D # Reference to the MeshInstance3D
 
 
 func _ready():
@@ -34,12 +35,11 @@ func construct_self(blockpos: Vector3, newTileJSON: Dictionary):
 	create_collider()
 
 
-
 func create_mesh():
-	var blockmeshisntance = MeshInstance3D.new()
+	blockmeshinstance = MeshInstance3D.new()
 	var blockmesh = Helper.get_or_create_block_mesh(tileJSON.id, shape)
-	blockmeshisntance.mesh = blockmesh
-	add_child.call_deferred(blockmeshisntance)
+	blockmeshinstance.mesh = blockmesh
+	add_child.call_deferred(blockmeshinstance)
 
 
 func create_collider():
@@ -91,3 +91,10 @@ func apply_block_rotation():
 	elif myRotation == 360:
 		# Only a slope can match this case if it's rotation is 270 and it gets 90 rotation by default
 		rotation_degrees = Vector3(0,myRotation-180,0)
+
+
+
+func get_mesh() -> Mesh:
+	if blockmeshinstance:
+		return blockmeshinstance.mesh
+	return null

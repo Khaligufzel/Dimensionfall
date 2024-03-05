@@ -16,21 +16,23 @@ extends Node3D
 
 # Reference to the level manager. Some nodes that could be moved to other chunks should be parented to this
 var level_manager : Node3D
+var level_generator : Node3D
 
 var level_width : int = 32
 var level_height : int = 32
 var _levels: Array = []
 var chunk_data: Dictionary # The json data that defines this chunk
 var thread: Thread
+var navigationthread: Thread
 var mypos: Vector3
-
-
-# Signals to let the levelgenerator update the navigationmesh
-signal chunk_created(chunkposition)
-signal chunk_destroyed(chunkposition)
+var navigation_region: RID
+var navigation_mesh: NavigationMesh = NavigationMesh.new()
+var source_geometry_data: NavigationMeshSourceGeometryData3D
 
 
 func _ready():
+	source_geometry_data = NavigationMeshSourceGeometryData3D.new()
+	setup_navigation.call_deferred()
 	transform.origin = Vector3(mypos)
 	add_to_group("chunks")
 	thread = Thread.new()
@@ -47,11 +49,12 @@ func _process(_delta):
 
 # Thread must be disposed (or "joined"), for portability.
 func _exit_tree():
-	chunk_destroyed.emit(mypos)
 	thread.wait_to_finish()
+	navigationthread.wait_to_finish()
 
 
 func generate_new_chunk(mapsegment: Dictionary):
+	var blocks_to_process = [] # Add this line to collect block instances
 	#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 	var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 		Gamedata.data.maps.dataPath + mapsegment.id)
@@ -72,6 +75,7 @@ func generate_new_chunk(mapsegment: Dictionary):
 						if tileJSON.has("id") and tileJSON.id != "":
 							var block = DefaultBlock.new()
 							block.construct_self(Vector3(w,0,h), tileJSON)
+							blocks_to_process.append(block) # Collect block instance
 							level_node.add_child.call_deferred(block)
 							add_block_mob(tileJSON, Vector3(w,y_position+1.1,h))
 							add_furniture_to_block(tileJSON, Vector3(w,y_position,h))
@@ -83,7 +87,32 @@ func generate_new_chunk(mapsegment: Dictionary):
 				level_node.queue_free()
 			
 		level_number += 1
-	call_deferred("emit_signal", "chunk_created", mypos)
+	navigationthread = Thread.new()
+	navigationthread.start(add_meshes_to_navigation_data.bind(blocks_to_process))
+	#call_deferred("add_meshes_to_navigation_data", blocks_to_process)
+
+
+
+func setup_navigation():
+	navigation_mesh.cell_size = 0.1
+	navigation_mesh.agent_height = 0.5
+	navigation_mesh.agent_radius = 0.3
+	navigation_mesh.agent_max_slope = 46
+	# Create a new navigation region and set its transform based on mypos
+	navigation_region = NavigationServer3D.region_create()
+	
+	NavigationServer3D.region_set_map(navigation_region, Helper.navigationmap)
+	NavigationServer3D.map_set_cell_size(Helper.navigationmap,0.1)
+	NavigationServer3D.region_set_transform(navigation_region, Transform3D(Basis(), mypos))
+
+
+func update_navigation_mesh():
+	#NavigationMeshGenerator.parse_source_geometry_data(navigation_mesh, source_geometry_data, self)
+	# Bake the navigation mesh using the source geometry data
+	NavigationMeshGenerator.bake_from_source_geometry_data(navigation_mesh, source_geometry_data)
+	
+	# Apply the baked navigation mesh to the navigation region
+	NavigationServer3D.region_set_navigation_mesh(navigation_region, navigation_mesh)
 
 
 func create_level_node(ypos: int) -> ChunkLevel:
@@ -312,3 +341,26 @@ func get_chunk_data() -> Dictionary:
 			"mobs": get_mob_data(),
 			"items": get_item_data()
 		}
+
+
+
+func add_meshes_to_navigation_data(blocks):
+	# Wait for 30 seconds before proceeding.
+	# This is okay since we are in a separate thread and won't block the main game loop.
+	OS.delay_msec(10000)  # Delays for 30,000 milliseconds or 30 seconds
+	var mesh: Mesh
+	for block in blocks:
+		
+		if block.shape == "block":
+			mesh = Helper.get_or_create_block_mesh("grass_plain", "block")
+		elif block.shape == "slope":
+			mesh = Helper.get_or_create_block_mesh("wood_stairs", "slope")
+		 
+		#var mesh = block.get_mesh()
+		if mesh and mesh.get_surface_count() > 0:
+			var blockposition = block.global_transform.origin
+			source_geometry_data.add_mesh(mesh, Transform3D(Basis(), block.global_transform.origin))
+		else:
+			print("Mesh is not initialized or has no surfaces.")
+	# After all meshes have been added, update the navigation mesh
+	update_navigation_mesh()

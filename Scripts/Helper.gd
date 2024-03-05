@@ -13,7 +13,7 @@ var position_coord: Vector2 = Vector2(0, 0)
 
 # Dictionary to store meshes for each block ID
 var block_meshes: Dictionary = {}
-
+var navigationmap: RID
 
 # Helper scripts
 const json_Helper_Class = preload("res://Scripts/Helper/json_helper.gd")

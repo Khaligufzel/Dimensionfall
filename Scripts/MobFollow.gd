@@ -13,6 +13,7 @@ var targeted_player
 @onready var target_location = mob.position
 
 func _ready():
+	nav_agent.set_navigation_map(Helper.navigationmap)
 	pathfinding_timer.timeout.connect(_on_timer_timeout)
 
 func Enter():

@@ -9,7 +9,6 @@ var level_height : int = 32
 
 @export var level_manager : Node3D
 @export var chunkScene: PackedScene = null
-@export var navigationregion: NavigationRegion3D = null
 @export_file var default_level_json
 
 
@@ -24,15 +23,16 @@ var loading_thread: Thread
 var loading_semaphore: Semaphore
 var thread_mutex: Mutex
 var should_stop: bool = false
-var should_update_navmesh: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initialize_map_data()
-	# Since the cell size of the NavigationRegion3D navmesh is set to 0.1, we also
-	# have to set the map cell size to 0.1 to prevent synchronisation errors
-	NavigationServer3D.map_set_cell_size(navigationregion.get_navigation_map(),0.1)
+	
+	# create a new navigation map
+	Helper.navigationmap = NavigationServer3D.map_create()
+	NavigationServer3D.map_set_up(Helper.navigationmap, Vector3.UP)
+	NavigationServer3D.map_set_active(Helper.navigationmap, true)
 	
 	thread_mutex = Mutex.new()
 	loading_thread = Thread.new()
@@ -137,12 +137,6 @@ func _chunk_management_logic():
 		var chunks_to_unload = calculate_chunks_to_unload(current_player_chunk)
 		for chunk_pos in chunks_to_unload:
 			call_deferred("unload_chunk", chunk_pos)
-
-		if should_update_navmesh:
-			# For further performance tweaks, we can call 
-			# bake_navigation_mesh(true) to run it in a separate thread
-			navigationregion.bake_navigation_mesh.call_deferred()
-			should_update_navmesh = false
 		thread_mutex.unlock()
 		OS.delay_msec(100)  # Optional: delay to reduce CPU usage
 
@@ -180,15 +174,13 @@ func load_chunk(chunk_pos: Vector2):
 	var newChunk = Chunk.new()
 	newChunk.mypos = Vector3(chunk_pos.x * level_width, 0, chunk_pos.y * level_height)
 	newChunk.level_manager = level_manager
+	newChunk.level_generator = self
 	if Helper.loaded_chunk_data.chunks.has(chunk_pos):
 		# If the chunk has been loaded before, we use that data
 		newChunk.chunk_data = Helper.loaded_chunk_data.chunks[chunk_pos]
 	else:
 		# This chunk has not been loaded before, so we need to use the chunk data definition instead
 		newChunk.chunk_data = get_chunk_data_at_position(chunk_pos)
-	# Connect to the create and destoryed signals
-	newChunk.chunk_created.connect(_on_chunk_created_or_destroyed)
-	newChunk.chunk_destroyed.connect(_on_chunk_created_or_destroyed)
 	level_manager.add_child.call_deferred(newChunk)
 	loaded_chunks[chunk_pos] = newChunk
 
@@ -201,7 +193,3 @@ func unload_chunk(chunk_pos: Vector2):
 		chunk.queue_free()
 		loaded_chunks.erase(chunk_pos)
 
-
-# When a chunk emits the created or destroyed signal, we should update the navmesh
-func _on_chunk_created_or_destroyed(_chunkposition):
-	should_update_navmesh = true
