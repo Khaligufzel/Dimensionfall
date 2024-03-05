@@ -133,9 +133,11 @@ func _input(event):
 		print("Interact button pressed")
 		if result:
 			print("Found object")
-			if result.collider.get_owner().has_method("interact"):
-				print("collider has method")
-				result.collider.get_owner().interact()
+			var myOwner = result.collider.get_owner()
+			if myOwner:
+				if myOwner.has_method("interact"):
+					print("collider has method")
+					myOwner.interact()
 				
 
 func _get_hit(damage: float):

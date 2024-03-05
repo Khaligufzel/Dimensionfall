@@ -146,18 +146,35 @@ func paint_single_tile(clicked_tile):
 	elif selected_brush:
 		if selected_brush.entityType == "mob":
 			clicked_tile.set_mob_id(selected_brush.tileID)
+			clicked_tile.set_mob_rotation(rotationAmount)
 		elif selected_brush.entityType == "furniture":
 			clicked_tile.set_furniture_id(selected_brush.tileID)
+			clicked_tile.set_furniture_rotation(rotationAmount)
 		else:
 			clicked_tile.set_tile_id(selected_brush.tileID)
 			clicked_tile.set_rotation_amount(rotationAmount)
 
-#When this function is called, loop over all the TileGrid's children and get the tileData property. Store this data in the currentLevelData array
 func storeLevelData():
 	currentLevelData.clear()
+	var has_significant_data = false
+
+	# First pass: Check if any tile has significant data
 	for child in get_children():
-		currentLevelData.append(child.tileData)
+		if child.tileData and (child.tileData.has("id") or \
+		child.tileData.has("mob") or child.tileData.has("furniture")):
+			has_significant_data = true
+			break
+
+	# Second pass: Add all tiles to currentLevelData if any significant data is found
+	if has_significant_data:
+		for child in get_children():
+			currentLevelData.append(child.tileData)
+	else:
+		# If no tile has significant data, consider adding a special marker or log
+		print_debug("No significant tile data found for the current level")
+
 	mapData.levels[currentLevel] = currentLevelData.duplicate()
+
 
 # Loads the leveldata from the mapdata
 # If no data exists, use the default to create a new map

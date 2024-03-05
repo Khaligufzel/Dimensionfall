@@ -1,20 +1,13 @@
 extends RigidBody3D
 
-var tween: Tween 
-var original_scale
-# id for the mob json. this will be used to load the data when creating a mob
+# id for the furniture json. this will be used to load the data when creating a furniture
 # when saving a mob in between levels, we will use some static json defined by this id
-# and some dynamic json like the mob health and buffs and debuffs
+# and some dynamic json like the furniture health
 var id: String
 
 @export var corpse_scene: PackedScene
 var current_health: float = 10.0
 
-func _ready():
-	pass
-	#3d
-#	original_scale = get_node(sprite).scale
-	
 func _get_hit(damage):
 	
 	#3d
@@ -42,3 +35,20 @@ func set_sprite(newSprite: Resource):
 	#material.albedo_texture = newSprite # Set the texture of the material
 	#material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	#$MeshInstance3D.mesh.surface_set_material(0, material)
+
+func set_new_rotation(amount: int):
+	if amount == 180:
+		$Sprite3D.rotation_degrees.y = amount-180
+	elif amount == 0:
+		$Sprite3D.rotation_degrees.y = amount+180
+	else:
+		$Sprite3D.rotation_degrees.y = amount-0
+
+func get_sprite_rotation() -> int:
+	var rot: int = $Sprite3D.rotation_degrees.y
+	if rot == 180:
+		return rot-180
+	elif rot == 0:
+		return rot+180
+	else:
+		return rot-0

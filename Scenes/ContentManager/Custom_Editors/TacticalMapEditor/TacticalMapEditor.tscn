@@ -141,7 +141,4 @@ tileBrush = ExtResource("11_bh5ke")
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="save_map_json_file"]
 [connection signal="text_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapWidth" to="." method="_on_map_width_text_changed"]
 [connection signal="text_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapHeight" to="." method="_on_map_height_text_changed"]
-[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_rotate_right_button_up"]
-[connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_draw_rectangle_toggled"]
-[connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/Erase" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_erase_toggled"]
 [connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_entities_container_tile_brush_selection_change"]

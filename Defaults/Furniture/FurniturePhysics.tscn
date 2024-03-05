@@ -10,12 +10,15 @@ radius = 0.2
 [node name="FurniturePhysics" type="RigidBody3D"]
 collision_layer = 4
 collision_mask = 7
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 linear_damp = 59.0
+angular_damp = 59.0
 script = ExtResource("1_klkkl")
 corpse_scene = ExtResource("2_jy8nl")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-billboard = 1
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 texture = ExtResource("1_q67ig")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -12,6 +12,7 @@ extends Control
 @export var CategoriesList: Control = null
 @export var furnitureSelector: Popup = null
 @export var imageNameStringLabel: Label = null
+@export var moveableCheckboxButton: CheckBox = null
 var control_elements: Array = []
 
 # This signal will be emitted when the user presses the save button
@@ -46,6 +47,8 @@ func load_furniture_data():
 		CategoriesList.clear_list()
 		for category in contentData["categories"]:
 			CategoriesList.add_item_to_list(category)
+	if moveableCheckboxButton != null and contentData.has("moveable"):
+		moveableCheckboxButton.button_pressed = contentData["moveable"]
 
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
@@ -61,6 +64,7 @@ func _on_save_button_button_up():
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
 	contentData["categories"] = CategoriesList.get_items()
+	contentData["moveable"] = moveableCheckboxButton.button_pressed
 	data_changed.emit()
 
 func _input(event):

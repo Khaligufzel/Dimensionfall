@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_ekwf5"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_o3k3a"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,8 @@ NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 CategoriesList = NodePath("VBoxContainer/FormGrid/Editable_Item_List")
 furnitureSelector = NodePath("Sprite_selector")
-imageNameStringLabel = NodePath("VBoxContainer/FormGrid/ImageNameLabel")
+imageNameStringLabel = NodePath("VBoxContainer/FormGrid/ImageNameStringLabel")
+moveableCheckboxButton = NodePath("VBoxContainer/FormGrid/UnmoveableCheckBox")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -114,6 +115,15 @@ focus_next = NodePath("../FurnitureImageDisplay")
 focus_previous = NodePath("../DescriptionTextEdit")
 focus_mode = 2
 header = "Categories"
+
+[node name="MoveableLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Can move"
+
+[node name="UnmoveableCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+tooltip_text = "Check this if the furniture should be moveable, like a chair. Leave this unchecked if the furniture should not move, like a fence"
+text = "Moveable"
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_o3k3a")]
 visible = false
