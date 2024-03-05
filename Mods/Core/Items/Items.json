@@ -1,0 +1,46 @@
+[
+	{
+		"description": "A wooden plank that could be used for all kinds of crafting and construction",
+		"height": "2",
+		"id": "plank_2x4",
+		"max_stack_size": "3",
+		"name": "Plank 2x4",
+		"sprite": "plank.png",
+		"stack_size": "3",
+		"weight": "2",
+		"width": "4"
+	},
+	{
+		"description": "Some metal bits and pieces. Useful for something, right?",
+		"height": "2",
+		"id": "steel_scrap",
+		"max_stack_size": "100",
+		"name": "Steel scrap",
+		"sprite": "steel_scrap.png",
+		"stack_size": "2",
+		"weight": "0.25",
+		"width": "2"
+	},
+	{
+		"description": "Standard type of ammunition. Very common.",
+		"height": "1",
+		"id": "bullet_9mm",
+		"max_stack_size": "100",
+		"name": "9mm bullet",
+		"sprite": "9mm.png",
+		"stack_size": "20",
+		"weight": "0.01",
+		"width": "1"
+	},
+	{
+		"description": "In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets",
+		"height": "1",
+		"id": "pistol_magazine",
+		"max_stack_size": "1",
+		"name": "Pistol magazine",
+		"sprite": "pistol_magazine.png",
+		"stack_size": "1",
+		"weight": "0.25",
+		"width": "1"
+	}
+]

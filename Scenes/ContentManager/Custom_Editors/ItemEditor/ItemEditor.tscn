@@ -1,0 +1,220 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmpomdwta1pgq"]
+
+[ext_resource type="Script" path="res://Scripts/ItemEditor.gd" id="1_ef3j7"]
+[ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_ghd7c"]
+[ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_qb68r"]
+
+[node name="ItemEditor" type="Control" node_paths=PackedStringArray("itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "WidthNumberBox", "HeightNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ef3j7")
+itemImageDisplay = NodePath("VBoxContainer/TabContainer/Basic/ItemImageDisplay")
+IDTextLabel = NodePath("VBoxContainer/TabContainer/Basic/IDTextLabel")
+PathTextLabel = NodePath("VBoxContainer/TabContainer/Basic/PathTextLabel")
+NameTextEdit = NodePath("VBoxContainer/TabContainer/Basic/NameTextEdit")
+DescriptionTextEdit = NodePath("VBoxContainer/TabContainer/Basic/DescriptionTextEdit")
+itemSelector = NodePath("Sprite_selector")
+WidthNumberBox = NodePath("VBoxContainer/TabContainer/Basic/WidthNumber")
+HeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/HeightNumber")
+WeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/WeightNumber")
+StackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/StackSizeNumber")
+MaxStackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/MaxStackSizeNumber")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Basic" type="GridContainer" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="ImageLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Sprite:"
+
+[node name="ItemImageDisplay" type="TextureRect" parent="VBoxContainer/TabContainer/Basic"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_stretch_ratio = 0.4
+texture = ExtResource("2_ghd7c")
+expand_mode = 3
+
+[node name="PathLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Sprite name"
+
+[node name="PathTextLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="IDLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "ID:"
+
+[node name="IDTextLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Name"
+
+[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/TabContainer/Basic"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+focus_next = NodePath("../DescriptionTextEdit")
+focus_previous = NodePath("../ItemImageDisplay")
+placeholder_text = "Scorpion	"
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Description"
+
+[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.9
+focus_previous = NodePath("../NameTextEdit")
+placeholder_text = "A very dangerous land animal often found in dry climates"
+wrap_mode = 1
+
+[node name="WidthLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Width"
+
+[node name="WidthNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+tooltip_text = "The width of this item in the inventory. A larger number means it will take up more horizontal inventory slots"
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+
+[node name="HeightLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Height"
+
+[node name="HeightNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+tooltip_text = "The height of this item in the inventory. A larger number means it will take up more vertical inventory slots"
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+
+[node name="WeightLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Weight"
+
+[node name="WeightNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+tooltip_text = "The weight of this item in kg"
+min_value = 0.01
+max_value = 500.0
+step = 0.01
+value = 1.0
+
+[node name="StackSizeLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Stack size"
+
+[node name="StackSizeNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+tooltip_text = "The amount of this item that will spawn in a stack by default"
+min_value = 1.0
+value = 1.0
+
+[node name="MaxStackSizeLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Max stack size"
+
+[node name="MaxStackSizeNumber" type="SpinBox" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+tooltip_text = "The maximum number of this item that will fit in a stack"
+min_value = 1.0
+value = 1.0
+
+[node name="TypesLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+text = "Type(s)"
+
+[node name="TypesContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Basic"]
+layout_mode = 2
+
+[node name="RangedWeaponCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item functions as a ranged weapon and the ranged properties tab will be visible. Otherwise, this item will not function as a ranged weapon and the ranged properties tab will not be visible"
+text = "Ranged"
+
+[node name="MeleeCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item functions as a melee weapon and the melee properties tab will be visible. Otherwise, this item will not function as a melee weapon and the melee properties tab will not be visible"
+text = "Melee"
+
+[node name="MedicalCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item functions as a medical item, for example to be used for healing and the medical properties tab will be visible. Otherwise, this item will not function as a medical item and the medical properties tab will not be visible"
+text = "Medical"
+
+[node name="MagazineCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item functions as a magazine for a gun or tool and the magazine properties tab will be visible. Otherwise, this item will not function as a magazine and the magazine properties tab will not be visible"
+text = "Magazine"
+
+[node name="AmmunitionCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item functions as ammo for a magazine and the ammo properties tab will be visible. Otherwise, this item will not function as ammo and the ammo properties tab will not be visible"
+text = "Ammo"
+
+[node name="BookCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item functions as a book and the book properties tab will be visible. Otherwise, this item will not function as a book and the book properties tab will not be visible"
+text = "Book"
+
+[node name="CraftableCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item can be crafted and recipe tab will be visible. Otherwise, this item cannot be crafted and the recipe tab will not be visible"
+text = "Craft"
+
+[node name="DisassembleCheck" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the item can be disassembled and disassembly tab will be visible. Otherwise, this item cannot be disassembled and the disassembly tab will not be visible"
+text = "Disassemble"
+
+[node name="Sprite_selector" parent="." instance=ExtResource("3_qb68r")]
+visible = false
+
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="gui_input" from="VBoxContainer/TabContainer/Basic/ItemImageDisplay" to="." method="_on_item_image_display_gui_input"]
+[connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]
