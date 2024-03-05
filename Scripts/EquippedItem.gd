@@ -37,31 +37,47 @@ signal fired_weapon(equippedWeapon)
 @export var shoot_audio_randomizer : AudioStreamRandomizer
 @export var reload_audio_player : AudioStreamPlayer3D
 
+
 # Define properties for the item. It can be a weapon (melee or ranged) or some other item
 var heldItem: Dictionary
 var magazine
 var ammo
 
 # Booleans to enforce the reload and cooldown timers
-var can_reload: bool
-var in_cooldown: bool
+var can_reload: bool = true
+var in_cooldown: bool = false
 
 # The current and max ammo
-var current_ammo : int
-var max_ammo : int
+var current_ammo: int = 0
+var max_ammo: int = 0
+var default_firing_speed: float = 0.25
+var default_reload_speed: float = 1.0
 
+# Variables for recoil
+var default_recoil: float = 0.1
+# Tracks the current level of recoil applied to the weapon.
+var recoil_modifier: float = 0.0
+# The maximum recoil value, derived from the Ranged.recoil property of the weapon.
+var max_recoil: float = 0.0
+# The amount by which recoil increases per shot, calculated to reach max_recoil after 25% of the max ammo is fired.
+var recoil_increment: float = 0.0
+# The amount by which recoil decreases per frame when the mouse button is not pressed.
+var recoil_decrement: float = 0.0
+
+# Additional variables to track if buttons are held down
+var is_left_button_held: bool = false
+var is_right_button_held: bool = false
 
 func _input(event):
 	if not heldItem:
 		return  # Return early if no weapon is equipped
-	
-	# Handling left and right click for different weapons.
-	if event.is_action_pressed("click_left") and General.is_mouse_outside_HUD and General.is_allowed_to_shoot and heldItem and equipped_left:
-		fire_weapon()
 
-	if event.is_action_pressed("click_right") and General.is_mouse_outside_HUD and General.is_allowed_to_shoot and heldItem and !equipped_left:
-		fire_weapon()
-
+	# Update the button held state
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			is_left_button_held = event.pressed
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			is_right_button_held = event.pressed
 
 func get_cursor_world_position() -> Vector3:
 	var camera = get_tree().get_first_node_in_group("Camera")
@@ -84,9 +100,19 @@ func get_cursor_world_position() -> Vector3:
 		return to
 
 
-# New function to handle firing logic for a weapon.
+# Helper function to check if the weapon can fire
+func can_fire_weapon() -> bool:
+	return General.is_mouse_outside_HUD and General.is_allowed_to_shoot and heldItem and not in_cooldown and can_reload and (current_ammo > 0 or !requires_ammo())
+
+
+# Function to check if the weapon requires ammo (for ranged weapons)
+func requires_ammo() -> bool:
+	return heldItem.has("Ranged")
+	
+	
+# Function to handle firing logic for a weapon.
 func fire_weapon():
-	if not heldItem or current_ammo <= 0 or !can_reload or in_cooldown:
+	if !can_fire_weapon():
 		return  # Return if no weapon is equipped or no ammo.
 
 	# Update ammo and emit signal.
@@ -101,6 +127,8 @@ func fire_weapon():
 	var spawn_position = global_transform.origin + Vector3(0.0, -0.1, 0.0)
 	var cursor_position = get_cursor_world_position()
 	var direction = (cursor_position - spawn_position).normalized()
+	recoil_modifier = min(recoil_modifier + recoil_increment, max_recoil)
+	direction = apply_recoil(direction, recoil_modifier) # Apply recoil effect
 	direction.y = 0 # Ensure the bullet moves parallel to the ground.
 
 	projectiles.add_child(bullet_instance) # Add bullet to the scene tree.
@@ -113,6 +141,12 @@ func fire_weapon():
 # Helper function to check if reload timer is stopped based on the hand.
 func on_reload_timer_stopped():
 	can_reload = true
+
+
+# Function to apply recoil effect to the bullet direction
+func apply_recoil(direction: Vector3, recoil_value: float) -> Vector3:
+	var random_offset = Vector3(randf() - 0.5, 0, randf() - 0.5) * recoil_value / 100
+	return (direction + random_offset).normalized()
 
 
 # Called when the left weapon is reloaded
@@ -133,10 +167,23 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	# Check if the left-hand weapon is reloading.
 	if not can_reload and reload_timer.time_left <= reload_audio_player.stream.get_length() and not reload_audio_player.playing:
 		reload_audio_player.play()  # Play reload sound for left-hand weapon.
+
+	# Check if the left mouse button is held, a weapon is in the left hand, and is ready to fire
+	if is_left_button_held and equipped_left and can_fire_weapon():
+		fire_weapon()
+
+	# The right mouse button is held, a weapon is in the right hand, and is ready to fire
+	if is_right_button_held and !equipped_left and can_fire_weapon():
+		fire_weapon()
+		
+	# Decrease recoil when the mouse button is not pressed
+	if not is_left_button_held and not is_right_button_held:
+		recoil_modifier = max(recoil_modifier - recoil_decrement * delta, 0.0)
+
 
 
 func _on_reload_timer_timeout():
@@ -144,6 +191,7 @@ func _on_reload_timer_timeout():
 		can_reload = true
 		current_ammo = max_ammo
 		ammo_changed.emit(current_ammo, max_ammo, equipped_left)
+
 
 
 # The player has equipped an item in one of the equipmentslots
@@ -157,11 +205,27 @@ func equip_item(equippedItem: InventoryItem):
 		var newAmmoID = weaponData.Ranged.used_ammo	
 		# Set the weapon for the corresponding hand.
 		heldItem = weaponData
+		
+		# Read firing speed and set cooldown timer duration
+		var firing_speed = float(heldItem.Ranged.firing_speed) if "firing_speed" in heldItem.Ranged else default_firing_speed
+		attack_cooldown_timer.wait_time = firing_speed
+		
+		# Reload speed setup
+		var reload_speed = heldItem.Ranged.reload_speed if "reload_speed" in heldItem.Ranged else default_reload_speed
+		reload_timer.wait_time = float(reload_speed)
+		
 		magazine = Gamedata.get_data_by_id(Gamedata.data.items, newMagazineID)
 		ammo = Gamedata.get_data_by_id(Gamedata.data.items, newAmmoID)
 		max_ammo = int(magazine.Magazine["max_ammo"])
 		current_ammo = max_ammo
 		ammo_changed.emit(current_ammo, max_ammo, equipped_left)
+		
+		# Read recoil and set it
+		max_recoil = float(weaponData.Ranged.recoil) if "recoil" in weaponData.Ranged else default_recoil
+		recoil_modifier = 0.0
+		recoil_increment = max_recoil / (max_ammo * 0.25)  # 25% of max ammo
+		recoil_decrement = 4 * recoil_increment
+		
 		visible = true
 	else:
 		# Reset weapon, magazine, and ammo if the equipped item is not a weapon.
@@ -205,3 +269,9 @@ func _on_hud_item_was_equipped(equippedItem, slotName):
 
 func can_weapon_reload() -> bool:
 	return heldItem and current_ammo < max_ammo and can_reload
+
+# When the inventory is opened or closed, stop firing
+# Optionally we can check inventoryWindow.visible to add more control
+func _on_hud_inventory_visibility_changed(_inventoryWindow):
+	is_left_button_held = false
+	is_right_button_held = false

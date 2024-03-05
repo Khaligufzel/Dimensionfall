@@ -92,7 +92,10 @@ text = "Recoil"
 
 [node name="RecoilNumber" type="SpinBox" parent="Ranged"]
 layout_mode = 2
-tooltip_text = "The amount of this item that will spawn in a stack by default"
+tooltip_text = "The maximum recoil this weapon can have. When
+firing the weapon continiously, the recoil starts at
+0 and will reach it's maximum when 25% of the
+magazine is spent. A smaller number means less maximum recoil"
 min_value = 1.0
 value = 20.0
 
@@ -115,7 +118,7 @@ text = "Reload speed"
 
 [node name="ReloadSpeedNumber" type="SpinBox" parent="Ranged"]
 layout_mode = 2
-tooltip_text = "The maximum number of this item that will fit in a stack"
+tooltip_text = "The time it takes to reload. A smaller number means faster reload"
 min_value = 0.1
 step = 0.1
 value = 2.5
@@ -126,7 +129,7 @@ text = "Firing speed"
 
 [node name="FiringSpeedNumber" type="SpinBox" parent="Ranged"]
 layout_mode = 2
-tooltip_text = "The maximum number of this item that will fit in a stack"
+tooltip_text = "The delay between shots. A smaller number means firing more quickly."
 min_value = 0.01
 step = 0.01
 value = 0.25

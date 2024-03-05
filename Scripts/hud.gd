@@ -35,6 +35,7 @@ var is_progress_bar_well_progressing_i_guess = false
 signal construction_chosen
 signal item_was_equipped(equippedItem: InventoryItem, slotName: String)
 signal item_equipment_slot_was_cleared(slotName: String)
+signal inventory_visibility_changed(inventoryWindow: Control)
 
 
 
@@ -214,3 +215,7 @@ func _on_inventory_window_item_was_equipped(equippedItem, slotName):
 # slotName can be "LeftHand" or "RightHand"
 func _on_inventory_window_item_was_cleared(slotName: String):
 	item_equipment_slot_was_cleared.emit(slotName)
+
+
+func _on_inventory_window_visibility_changed():
+	inventory_visibility_changed.emit(inventoryWindow)

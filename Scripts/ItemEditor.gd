@@ -62,13 +62,13 @@ func load_item_data() -> void:
 	if DescriptionTextEdit != null and contentData.has("description"):
 		DescriptionTextEdit.text = contentData["description"]
 	if VolumeNumberBox != null and contentData.has("volume"):
-		VolumeNumberBox.get_line_edit().text = contentData["volume"]
+		VolumeNumberBox.value = float(contentData["volume"])
 	if WeightNumberBox != null and contentData.has("weight"):
-		WeightNumberBox.get_line_edit().text = contentData["weight"]
+		WeightNumberBox.value = float(contentData["weight"])
 	if StackSizeNumberBox != null and contentData.has("stack_size"):
-		StackSizeNumberBox.get_line_edit().text = contentData["stack_size"]
+		StackSizeNumberBox.value = float(contentData["stack_size"])
 	if MaxStackSizeNumberBox != null and contentData.has("max_stack_size"):
-		MaxStackSizeNumberBox.get_line_edit().text = contentData["max_stack_size"]
+		MaxStackSizeNumberBox.value = float(contentData["max_stack_size"])
 	if TwoHandedCheckBox != null and contentData.has("two_handed"):
 		TwoHandedCheckBox.button_pressed = contentData["two_handed"]
 
@@ -142,8 +142,10 @@ func refresh_tab_visibility() -> void:
 		var child = typesContainer.get_child(i)
 		# Check if the child is a CheckBox
 		if child is CheckBox:
-			# Find the tab in the TabContainer with the same name as the checkbox text
-			tabContainer.set_tab_hidden(get_tab_by_title(child.text),!child.button_pressed)
+			# Find the tab index in the TabContainer with the same name as the checkbox text
+			var tabIndex = get_tab_by_title(child.text)
+			if tabIndex != -1:  # Check if a valid tab index is returned
+				tabContainer.set_tab_hidden(tabIndex, !child.button_pressed)
 
 # Returns the tab control with the given name
 func get_tab_by_title(tabName: String) -> int:

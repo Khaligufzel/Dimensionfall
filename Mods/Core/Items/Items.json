@@ -65,10 +65,10 @@
 	},
 	{
 		"Ranged": {
-			"firing_speed": "0.25",
+			"firing_speed": "0.4",
 			"range": "1000",
-			"recoil": "20",
-			"reload_speed": "2.5",
+			"recoil": "10",
+			"reload_speed": "1.5",
 			"spread": "5",
 			"sway": "5",
 			"used_ammo": "9mm",
@@ -90,7 +90,7 @@
 	},
 	{
 		"Ranged": {
-			"firing_speed": "0.1",
+			"firing_speed": "0.2",
 			"range": "1000",
 			"recoil": "15",
 			"reload_speed": "2.5",
