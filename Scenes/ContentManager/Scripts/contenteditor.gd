@@ -40,20 +40,29 @@ func _on_content_item_activated(data: Array, itemID: String):
 		print_debug("Tried to load the selected contentitem, but either \
 		data (Array) or itemID ("+itemID+") is empty")
 		return
-	var strSource: String = Gamedata.get_data_directory(data)
 	if data == Gamedata.all_tiles:
-		instantiate_editor(strSource, itemID, terrainTileEditor)
+		instantiate_editor(data, itemID, terrainTileEditor)
 	if data == Gamedata.all_mobs:
-		instantiate_editor(strSource, itemID, mobEditor)
+		instantiate_editor(data, itemID, mobEditor)
 	if data == Gamedata.all_map_files:
-		instantiate_editor(strSource + itemID + ".json", itemID, mapEditor)
+		instantiate_editor(data, itemID, mapEditor)
 
 #This will add an editor to the content editor tab view. 
 #The editor that should be instantiated is passed trough in the newEditor parameter
-#It is important that the editor has the property contentSource so it can be set
-func instantiate_editor(strSource: String, itemID: String, newEditor: PackedScene):
+#It is important that the editor has the property contentSource or contentData so it can be set
+func instantiate_editor(data: Array, itemID: String, newEditor: PackedScene):
 	var newContentEditor: Control = newEditor.instantiate()
 	newContentEditor.name = itemID
 	tabContainer.add_child(newContentEditor)
 	tabContainer.current_tab = tabContainer.get_child_count()-1
-	newContentEditor.contentSource = strSource
+	var strSource: String = Gamedata.get_data_directory(data)
+	if strSource.ends_with((".json")):
+		#We only pass the data for the specific id to the editor
+		newContentEditor.contentData = data[Gamedata.get_array_index_by_id(data,itemID)]
+		#Connect the data_changed signal to the Gamedata.on_data_changed function
+		#We pass trough the data collection that the changed data belongs to
+		newContentEditor.data_changed.connect(Gamedata.on_data_changed.bind(data))
+	else:
+		#If the data source does not end with json, it's a directory
+		#So now we pass in the file we want the editor to edit
+		newContentEditor.contentSource = strSource + itemID + ".json"

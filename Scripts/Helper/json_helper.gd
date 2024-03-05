@@ -116,7 +116,7 @@ func add_id_to_json_file(source: String, id: String):
 
 	# If no item with the given ID exists, add a new item to the JSON data.
 	data_json.append({"id": id})
-	write_json_file(source, JSON.stringify(data_json))
+	write_json_file(source, JSON.stringify(data_json, "\t"))
 
 
 #This function will take a path to a json file and delete it

@@ -6,8 +6,7 @@ extends Control
 #To load data, provide the name of the tile data file and an ID
 
 
-@onready var tileBrush: PackedScene = preload("res://Scenes/ContentManager/Mapeditor/tilebrush.tscn")
-
+@export var tileBrush: PackedScene
 @export var tileImageDisplay: TextureRect = null
 @export var IDTextLabel: Label = null
 @export var NameTextEdit: TextEdit = null
@@ -16,65 +15,51 @@ extends Control
 @export var tileSelector: Popup = null
 @export var tileBrushList: HFlowContainer = null
 @export var tilePathStringLabel: Label = null
+# This signal will be emitted when the user presses the save button
+# This signal should alert Gamedata that the tile data array should be saved to disk
+# The content editor has connected this signal to Gamedata already
+signal data_changed()
 
-#The JSON file to be edited
-var contentSource: String = "":
+# The data that represents this tile
+# The data is selected from the Gamedata.all_tiles array
+# based on the ID that the user has selected in the content editor
+var contentData: Dictionary = {}:
 	set(value):
-		contentSource = value
+		contentData = value
 		load_tile_data()
-		load_Brush_List()
+		tileSelector.sprites_collection = Gamedata.tile_materials
 
-#This function will find an item in the contentSource JSOn file with an iD that is equal to self.name
-#If an item is found, it will set all the elements in the editor with the corresponding values
+# This function updates the form based on the contentData that has been loaded
 func load_tile_data():
-	if not FileAccess.file_exists(contentSource):
-		return
-
-	var file = FileAccess.open(contentSource, FileAccess.READ)
-	var data = JSON.parse_string(file.get_as_text())
-	file.close()
-
-	for item in data:
-		if item["id"] == self.name:
-			if tileImageDisplay != null and item.has("imagePath"):
-				tileImageDisplay.texture = load(item["imagePath"])
-				tilePathStringLabel.text = item["imagePath"]
-			if IDTextLabel != null:
-				IDTextLabel.text = str(item["id"])
-			if NameTextEdit != null and item.has("name"):
-				NameTextEdit.text = item["name"]
-			if DescriptionTextEdit != null and item.has("description"):
-				DescriptionTextEdit.text = item["description"]
-			if CategoriesList != null and item.has("categories"):
-				CategoriesList.clear_list()
-				for category in item["categories"]:
-					CategoriesList.add_item_to_list(category)
-			break
-	
+	if tileImageDisplay != null and contentData.has("imagePath"):
+		tileImageDisplay.texture = load(contentData["imagePath"])
+		tilePathStringLabel.text = contentData["imagePath"]
+	if IDTextLabel != null:
+		IDTextLabel.text = str(contentData["id"])
+	if NameTextEdit != null and contentData.has("name"):
+		NameTextEdit.text = contentData["name"]
+	if DescriptionTextEdit != null and contentData.has("description"):
+		DescriptionTextEdit.text = contentData["description"]
+	if CategoriesList != null and contentData.has("categories"):
+		CategoriesList.clear_list()
+		for category in contentData["categories"]:
+			CategoriesList.add_item_to_list(category)
 
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
 func _on_close_button_button_up():
 	queue_free()
 
-#This function takes all data fro the form elements and writes it to the contentSource JSON file.
+# This function takes all data fro the form elements stores them in the contentData
+# Since contentData is a reference to an item in Gamedata.all_tiles
+# the central array for tiledata is updated with the changes as well
+# The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up():
-	var file = FileAccess.open(contentSource, FileAccess.READ_WRITE)
-	var data = JSON.parse_string(file.get_as_text())
-	file.close()
-
-	for item in data:
-		if item["id"] == IDTextLabel.text:
-			item["imagePath"] = tileImageDisplay.texture.resource_path
-			item["name"] = NameTextEdit.text
-			item["description"] = DescriptionTextEdit.text
-			item["categories"] = CategoriesList.get_items()
-			break
-
-	file = FileAccess.open(contentSource, FileAccess.WRITE)
-	file.store_string(JSON.stringify(data))
-	file.close()
-
+	contentData["imagePath"] = tilePathStringLabel.text
+	contentData["name"] = NameTextEdit.text
+	contentData["description"] = DescriptionTextEdit.text
+	contentData["categories"] = CategoriesList.get_items()
+	data_changed.emit()
 
 #When the tileImageDisplay is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/Tiles/". The texture of the tileImageDisplay will change to the selected image
@@ -82,58 +67,8 @@ func _on_tile_image_display_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		tileSelector.show()
 
-
-# this function will read all files in "res://Mods/Core/Tiles/" and for each file it will create a texturerect and assign the file as the texture of the texturerect. Then it will add the texturerect as a child to $HSplitContainer/EntitiesContainer/TilesList
-func load_Brush_List():
-	var tilesDir = "res://Mods/Core/Tiles/"
-	
-	var dir = DirAccess.open(tilesDir)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			var extension = file_name.get_extension()
-
-			if !dir.current_is_dir():
-				if extension == "png":
-					# Create a TextureRect node
-					var brushInstance = tileBrush.instantiate()
-
-					# Load the texture from file
-					var texture: Resource = load(tilesDir + file_name)
-
-					# Assign the texture to the TextureRect
-					brushInstance.set_tile_texture(texture)
-					brushInstance.set_meta("path", tilesDir + file_name)
-					brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
-
-					# Add the TextureRect as a child to the TilesList
-					tileBrushList.add_child(brushInstance)
-			file_name = dir.get_next()
-	else:
-		print_debug("An error occurred when trying to access the path.")
-	dir.list_dir_end()
-
-#Called after the user selects a tile in the popup textbox and presses OK
-func _on_ok_button_up():
-	tileSelector.hide()
-	var children = tileBrushList.get_children()
-	for child in children:
-		if child.selected:
-			tileImageDisplay.texture = load(child.get_meta("path"))
-			tilePathStringLabel.text = child.get_meta("path")
-			
-#Called after the users presses cancel on the popup asking for a tile
-func _on_cancel_button_up():
-	tileSelector.hide()
-	
-func deselect_all_brushes():
-	var children = tileBrushList.get_children()
-	for child in children:
-		child.set_selected(false)
-
-#Mark the clicked tilebrush as selected, but only after deselecting all other brushes
-func tilebrush_clicked(tilebrush: Control) -> void:
-	deselect_all_brushes()
-	# If the clicked brush was not select it, we select it. Otherwise we deselect it
-	tilebrush.set_selected(true)
+func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
+	var tileTexture: Resource = clicked_sprite.get_texture()
+	tileImageDisplay.texture = tileTexture
+	var imagepath: String = tileTexture.resource_path
+	tilePathStringLabel.text = imagepath.replace("res://", "")

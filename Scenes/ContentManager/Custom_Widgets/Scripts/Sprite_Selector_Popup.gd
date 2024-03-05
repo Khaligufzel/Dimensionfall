@@ -16,9 +16,9 @@ extends Popup
 var instanced_sprites: Array[Node] = []
 # The parent control has to provide a dictionary. This dictionary
 # contains a list of textures with the name of the texture as a key
-var sprites_dictionary: Dictionary = {}:
+var sprites_collection: Dictionary = {}:
 	set(value):
-		sprites_dictionary = value
+		sprites_collection = value
 		populate_sprite_list()
 # Reference to one of the selectable_Sprite_Widgets that the user has selected
 var selectedSprite: Control = null
@@ -30,8 +30,8 @@ signal sprite_selected_ok(clicked_sprite: Control)
 # selectable_Sprite_Widget and assign the file as the texture of the selectable_Sprite_Widget. 
 # Then it will add the selectable_Sprite_Widget as a child to spriteList
 func populate_sprite_list():
-	for filename in sprites_dictionary.keys():
-		var material = sprites_dictionary[filename]
+	for filename in sprites_collection.keys():
+		var material = sprites_collection[filename]
 		var selectableSpriteInstance = selectable_Sprite_Widget.instantiate()
 		# Assign the texture to the TextureRect
 		selectableSpriteInstance.set_sprite_texture(material)
@@ -39,7 +39,6 @@ func populate_sprite_list():
 		spriteList.add_content_item(selectableSpriteInstance)
 		instanced_sprites.append(selectableSpriteInstance)
 
-#
 # Called after the user selects a tile in the popup textbox and presses OK
 func _on_ok_button_up():
 	hide()
