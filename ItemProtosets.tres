@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://b1tngttyk4w2s"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -55,7 +55,7 @@ json_data = "[
 		\"Magazine\": {
 			\"current_ammo\": \"19\",
 			\"max_ammo\": \"20\",
-			\"used_ammo\": \"9mm\"
+			\"used_ammo\": \"bullet_9mm\"
 		},
 		\"description\": \"In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets\",
 		\"height\": \"1\",

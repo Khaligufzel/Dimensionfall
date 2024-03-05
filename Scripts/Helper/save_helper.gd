@@ -146,12 +146,8 @@ func save_map_data(target_folder: String) -> void:
 func get_block_data_at_position(level: Node3D, position: Vector3) -> Dictionary:
 	var block: StaticBody3D = find_block_at_position(level, position)
 	if block:
-		var blockRotation: int = int(block.rotation_degrees.y)
-		var myRotation: int
-		if blockRotation == 90:
-			myRotation = blockRotation-90
-		else:
-			myRotation = blockRotation+90
+		var blockRotation: int = 0
+		var myRotation: int = int(block.rotation_degrees.y)
 		return {"id": block.id, "rotation": myRotation}
 	return {}
 
