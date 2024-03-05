@@ -56,6 +56,7 @@ custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_stretch_ratio = 0.4
+tooltip_text = "Select a sprite that will be used to visualize this terrain. You can add sprites by putting the image in /mods/core/Tiles."
 texture = ExtResource("2_x7b0a")
 expand_mode = 3
 
@@ -85,6 +86,7 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
+tooltip_text = "Give a descriptive name that best describes this terrain"
 focus_next = NodePath("../DescriptionTextEdit")
 focus_previous = NodePath("../TileImageDisplay")
 
@@ -97,6 +99,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
+tooltip_text = "This description helps users understand how this terrain is used"
 focus_next = NodePath("../Editable_Item_List")
 focus_previous = NodePath("../NameTextEdit")
 
@@ -108,6 +111,7 @@ text = "Categories:"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+tooltip_text = "Categories used in the map editor to separate this terrain from terrain in other categories. For example Floor and Urban"
 header = "Categories"
 
 [node name="ShapeLabel" type="Label" parent="VBoxContainer/FormGrid"]
@@ -119,11 +123,13 @@ layout_mode = 2
 
 [node name="CubeShapeCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid/ShapeButtonContainer"]
 layout_mode = 2
+tooltip_text = "Select this if this terrain is represented by a cube. This allows for it to be either a wall or a floor. This is the default value"
 button_pressed = true
 text = "Cube"
 
 [node name="SlopeShapeCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid/ShapeButtonContainer"]
 layout_mode = 2
+tooltip_text = "Select this if this terrain should be represented by a slope. Tipically ised for stairs or ramps. The player can go one level up if approached from the right angle."
 text = "Slope"
 
 [node name="Sprite_selector" parent="." instance=ExtResource("5_5ngda")]

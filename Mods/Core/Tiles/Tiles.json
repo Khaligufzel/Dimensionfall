@@ -184,5 +184,1025 @@
 		"name": "Beehive stones",
 		"shape": "cube",
 		"sprite": "beehive1.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_00",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards10.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_01",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards11.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_02",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards12.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_03",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards13.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_04",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards14.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_05",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards6.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_06",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards7.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_07",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards8.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
+		"id": "floor_wood_boards_08",
+		"name": "Wooden floor boards",
+		"shape": "cube",
+		"sprite": "woodboards9.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground",
+		"id": "wasteland_00",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wasteland.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground",
+		"id": "wasteland_01",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wasteland11.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground",
+		"id": "wasteland_02",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wasteland2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground. By some miracle one or two plants have managed to survive.",
+		"id": "wasteland_03",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wastelandveg.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground. By some miracle one or two plants have managed to survive.",
+		"id": "wasteland_04",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wastelandveg1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A place devoid of life. All that remains is dust and cracks in the ground. By some miracle one or two plants have managed to survive.",
+		"id": "wasteland_05",
+		"name": "Wasteland\t",
+		"shape": "cube",
+		"sprite": "wastelandveg2.png"
+	},
+	{
+		"categories": [
+			"Hazards"
+		],
+		"description": "Very dangerous! Some toxic waste was spilled here",
+		"id": "toxic_waste_00",
+		"name": "Toxic waste",
+		"shape": "cube",
+		"sprite": "toxicwaste.png"
+	},
+	{
+		"categories": [
+			"Hazards"
+		],
+		"description": "Very dangerous! Some toxic waste was spilled here",
+		"id": "toxic_waste_01",
+		"name": "Toxic waste",
+		"shape": "cube",
+		"sprite": "toxicwaste1.png"
+	},
+	{
+		"categories": [
+			"Hazards"
+		],
+		"description": "Very dangerous! Some toxic waste was spilled here",
+		"id": "toxic_waste_02",
+		"name": "Toxic waste",
+		"shape": "cube",
+		"sprite": "toxicwaste2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A blanket of snow covers the ground",
+		"id": "snow_00",
+		"name": "Snow",
+		"shape": "cube",
+		"sprite": "snow.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A blanket of snow covers the ground",
+		"id": "snow_01",
+		"name": "Snow",
+		"shape": "cube",
+		"sprite": "snow1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A blanket of snow covers the ground",
+		"id": "snow_02",
+		"name": "Snow",
+		"shape": "cube",
+		"sprite": "snow2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is only sand here",
+		"id": "sand_00",
+		"name": "Sand",
+		"shape": "cube",
+		"sprite": "sand.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is covered in fine sand",
+		"id": "sand_fine_00",
+		"name": "Fine sand",
+		"shape": "cube",
+		"sprite": "fineand.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A hard suface with a dark color.",
+		"id": "rock_floor_00",
+		"name": "Rock floor",
+		"shape": "cube",
+		"sprite": "rockyfloor1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A hard suface with a dark color.",
+		"id": "rock_floor_01",
+		"name": "Rock floor",
+		"shape": "cube",
+		"sprite": "rockyfloor2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A hard suface with a dark color.",
+		"id": "rock_floor_02",
+		"name": "Rock floor",
+		"shape": "cube",
+		"sprite": "rockyfloor3.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A hard suface with a dark color.",
+		"id": "rock_floor_03",
+		"name": "Rock floor",
+		"shape": "cube",
+		"sprite": "rockfloor.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A hard suface with a dark color.",
+		"id": "rock_floor_04",
+		"name": "Rock floor",
+		"shape": "cube",
+		"sprite": "rockyfloor4.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A hard suface with a dark color.",
+		"id": "rock_floor_05",
+		"name": "Rock floor",
+		"shape": "cube",
+		"sprite": "rockyfloor5.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A hard suface with a dark color.",
+		"id": "rock_floor_06",
+		"name": "Rock floor",
+		"shape": "cube",
+		"sprite": "rockyfloor6.png"
+	},
+	{
+		"categories": [
+			"Slopes"
+		],
+		"description": "A rocky surface allowing you to move up or down",
+		"id": "rock_slope_00",
+		"name": "Rock slope",
+		"shape": "slope",
+		"sprite": "rockyfloorrampnorth.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A rocky surface that doesn't leave any footprints",
+		"id": "rocky_earth_00",
+		"name": "Rock floor",
+		"shape": "cube",
+		"sprite": "rockyearth.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The terrain is made out of mud. Don't get stuck!",
+		"id": "mud_00",
+		"name": "Mud",
+		"shape": "cube",
+		"sprite": "mud.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The terrain is made out of mud. Don't get stuck!",
+		"id": "mud_01",
+		"name": "Mud",
+		"shape": "cube",
+		"sprite": "mud1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The terrain is made out of mud. Don't get stuck!",
+		"id": "mud_02",
+		"name": "Mud",
+		"shape": "cube",
+		"sprite": "mud2.png"
+	},
+	{
+		"categories": [
+			"Wall"
+		],
+		"description": "A sturdy metal wall. The surface seems scratched and a bit worn.",
+		"id": "metal_wall_00",
+		"name": "Metal wall",
+		"shape": "cube",
+		"sprite": "metalwall1.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted yellow",
+		"id": "kitchen_tiles_yellow_00",
+		"name": "Kitchen tiles (yellow)",
+		"shape": "cube",
+		"sprite": "kitchentiles.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted yellow",
+		"id": "kitchen_tiles_yellow_01",
+		"name": "Kitchen tiles (yellow)",
+		"shape": "cube",
+		"sprite": "kitchentiles1.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted yellow",
+		"id": "kitchen_tiles_yellow_02",
+		"name": "Kitchen tiles (yellow)",
+		"shape": "cube",
+		"sprite": "Kitchentiles2.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
+		"id": "kitchen_tiles_mint_00",
+		"name": "Kitchen tiles (mint)",
+		"shape": "cube",
+		"sprite": "kitchentilesblue.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
+		"id": "kitchen_tiles_mint_01",
+		"name": "Kitchen tiles (mint)",
+		"shape": "cube",
+		"sprite": "kitchentilesblue1.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
+		"id": "kitchen_tiles_mint_02",
+		"name": "Kitchen tiles (mint)",
+		"shape": "cube",
+		"sprite": "kitchentilesblue2.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
+		"id": "kitchen_tiles_mint_03",
+		"name": "Kitchen tiles (mint)",
+		"shape": "cube",
+		"sprite": "kitchentilesblue3.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted green",
+		"id": "kitchen_tiles_green_00",
+		"name": "Kitchen tiles (green)",
+		"shape": "cube",
+		"sprite": "kitchentilesgreen.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted green",
+		"id": "kitchen_tiles_green_01",
+		"name": "Kitchen tiles (green)",
+		"shape": "cube",
+		"sprite": "kitchentilesgreen1.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted green",
+		"id": "kitchen_tiles_green_02",
+		"name": "Kitchen tiles (green)",
+		"shape": "cube",
+		"sprite": "kitchentilesgreen2.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted blue",
+		"id": "kitchen_tiles_blue_00",
+		"name": "Kitchen tiles (blue)",
+		"shape": "cube",
+		"sprite": "KitchentilesPurple.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted blue",
+		"id": "kitchen_tiles_blue_01",
+		"name": "Kitchen tiles (blue)",
+		"shape": "cube",
+		"sprite": "kitchentilespurple1.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted blue",
+		"id": "kitchen_tiles_blue_02",
+		"name": "Kitchen tiles (blue)",
+		"shape": "cube",
+		"sprite": "Kitchentilespurple2.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted purple",
+		"id": "kitchen_tiles_purple_00",
+		"name": "Kitchen tiles (purple)",
+		"shape": "cube",
+		"sprite": "kitchentilespurple3.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted purple",
+		"id": "kitchen_tiles_purple_01",
+		"name": "Kitchen tiles (purple)",
+		"shape": "cube",
+		"sprite": "kitchentilespurple4.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a kitchen. The tiles are painted purple",
+		"id": "kitchen_tiles_purple_02",
+		"name": "Kitchen tiles (purple)",
+		"shape": "cube",
+		"sprite": "kitchentilespurple5.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is covered with small pebbles",
+		"id": "gravel_00",
+		"name": "Gravel",
+		"shape": "cube",
+		"sprite": "gravel.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is covered with small pebbles",
+		"id": "gravel_01",
+		"name": "Gravel",
+		"shape": "cube",
+		"sprite": "gravel1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is covered with small pebbles",
+		"id": "gravel_02",
+		"name": "Gravel",
+		"shape": "cube",
+		"sprite": "gravel2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is barely visible trough the carpet of grass",
+		"id": "grass_dirt_00",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grassdirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is barely visible trough the carpet of grass",
+		"id": "grass_dirt_01",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grassdirt1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is barely visible trough the carpet of grass",
+		"id": "grass_dirt_02",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grassdirt2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is visible trough the grass",
+		"id": "grass_medium_dirt_00",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grasssmalldirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is visible trough the grass",
+		"id": "grass_medium_dirt_01",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grasssmalldirt1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Dirt is visible trough the grass",
+		"id": "grass_medium_dirt_02",
+		"name": "Grass with dirt",
+		"shape": "cube",
+		"sprite": "grasssmalldirt2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "One side of the terrain is just dirt and no grass",
+		"id": "grass_dirt_north_00",
+		"name": "Grass with a patch of dirt",
+		"shape": "cube",
+		"sprite": "grassnorthdirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The center of the terrain is just dirt and no grass",
+		"id": "grass_dirt_center_00",
+		"name": "Grass with a patch of dirt",
+		"shape": "cube",
+		"sprite": "grasscenterdirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Some flowers are sprouting trough the grass",
+		"id": "grass_flowers_00",
+		"name": "Grass with flowers",
+		"shape": "cube",
+		"sprite": "grassflowers2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Some flowers are sprouting trough the grass",
+		"id": "grass_flowers_01",
+		"name": "Grass with flowers",
+		"shape": "cube",
+		"sprite": "grassflowers3.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Some flowers are sprouting trough the grass",
+		"id": "grass_flowers_02",
+		"name": "Grass with flowers",
+		"shape": "cube",
+		"sprite": "grassflowers4.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "Some flowers are sprouting trough the grass",
+		"id": "grass_flowers_03",
+		"name": "Grass with flowers",
+		"shape": "cube",
+		"sprite": "grasslowers.png"
+	},
+	{
+		"categories": [
+			"Slopes"
+		],
+		"description": "This ramp is covered with grass. You can go up and down here",
+		"id": "grass_ramp_00",
+		"name": "Grass ramp",
+		"shape": "slope",
+		"sprite": "Grassrampnorth1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_00",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_01",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_02",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_03",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale3.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_04",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale4.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
+		"id": "forest_underbrush_05",
+		"name": "Forest underbrush",
+		"shape": "cube",
+		"sprite": "forestunderbrushscale5.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is pretty dark",
+		"id": "dirt_dark_00",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is pretty dark",
+		"id": "dirt_dark_01",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is pretty dark",
+		"id": "dirt_dark_02",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is light",
+		"id": "dirt_light_00",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt3.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is light",
+		"id": "dirt_light_01",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt4.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is just dirt here. It's color is light",
+		"id": "dirt_light_02",
+		"name": "Dirt",
+		"shape": "cube",
+		"sprite": "dirt5.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is dirt here. Part of it is covered with grass",
+		"id": "dirt_light_grass_north_00",
+		"name": "Dirt with grass",
+		"shape": "cube",
+		"sprite": "dirtgrass.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "There is dirt here. Part of it is covered with grass",
+		"id": "dirt_light_grass_north_01",
+		"name": "Dirt with grass",
+		"shape": "cube",
+		"sprite": "dirt_grass_north.png"
+	},
+	{
+		"categories": [
+			"Slopes"
+		],
+		"description": "A dirt slope. You can go up and down here. Be careful not to slip",
+		"id": "dirt_light_ramp_00",
+		"name": "Dirt ramp",
+		"shape": "slope",
+		"sprite": "dirtrampnorth1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_00",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrass.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_01",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrass1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_02",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrass2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_03",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrassdirt.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_04",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrassdirt1.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "This grass is dead and all that remains is dry straws",
+		"id": "grass_dead_05",
+		"name": "Dead grass",
+		"shape": "cube",
+		"sprite": "deadgrassdirt2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A tiled floor with colorful stones",
+		"id": "cobblestone_00",
+		"name": "Cobblestone",
+		"shape": "cube",
+		"sprite": "cobblestone.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A tiled floor with colorful stones",
+		"id": "cobblestone_01",
+		"name": "Cobblestone",
+		"shape": "cube",
+		"sprite": "cobblestone2.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A tiled floor with colorful stones",
+		"id": "cobblestone_02",
+		"name": "Cobblestone",
+		"shape": "cube",
+		"sprite": "cobblestone3.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A tiled floor with colorful stones",
+		"id": "cobblestone_03",
+		"name": "Cobblestone",
+		"shape": "cube",
+		"sprite": "cobblestone4.png"
+	},
+	{
+		"categories": [
+			"Ground"
+		],
+		"description": "A tiled floor with brown stones laid in a beautiful pattern",
+		"id": "cobblestone_04",
+		"name": "Cobblestone",
+		"shape": "cube",
+		"sprite": "cobblestone1.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Wall"
+		],
+		"description": "A solid wall made out of bricks",
+		"id": "brick_wall_01",
+		"name": "Brick wall",
+		"shape": "cube",
+		"sprite": "brickroad.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Wall"
+		],
+		"description": "A solid wall made out of bricks",
+		"id": "brick_wall_02",
+		"name": "Brick wall",
+		"shape": "cube",
+		"sprite": "brickroad1.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Wall"
+		],
+		"description": "A solid wall made out of bricks",
+		"id": "brick_wall_03",
+		"name": "Brick wall",
+		"shape": "cube",
+		"sprite": "brickroad3.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A tiled floor you would find in a bathroom. The tiles are painted blue",
+		"id": "bathroom_tiles_blue_00",
+		"name": "Bathroom tiles (blue)",
+		"shape": "cube",
+		"sprite": "bathroomtiles.png"
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A stone floor wihere the stones are shaped like an arch. Used in an urban environement.",
+		"id": "arc_stones_floor_00",
+		"name": "Arc stones floor",
+		"shape": "cube",
+		"sprite": "arcstones1.png"
 	}
 ]

@@ -69,7 +69,15 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 		#Connect the data_changed signal to the Gamedata.on_data_changed function
 		#We pass trough the data collection that the changed data belongs to
 		newContentEditor.data_changed.connect(Gamedata.on_data_changed.bind(data))
+		newContentEditor.data_changed.connect(_on_editor_data_changed.bind(data))
+	
 	else:
 		#If the data source does not end with json, it's a directory
 		#So now we pass in the file we want the editor to edit
 		newContentEditor.contentSource = data.dataPath + itemID + ".json"
+
+# function to handle data changes
+func _on_editor_data_changed(data: Dictionary):
+	for element in content.get_children():
+		if element.contentData == data:
+			element.load_data()
