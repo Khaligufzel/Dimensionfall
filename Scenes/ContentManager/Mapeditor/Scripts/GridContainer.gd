@@ -59,6 +59,9 @@ var snapLevel: Vector2 = Vector2(snapAmount, snapAmount).round()
 
 #When the user presses and holds the middle mousebutton and moves the mouse, change the parent's scroll_horizontal and scroll_vertical properties appropriately
 func _input(event):
+	#The mapeditor may be invisible if the user selects another tab in the content editor
+	if !mapEditor.visible:
+		return
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
@@ -232,20 +235,20 @@ func _on_show_above_toggled(button_pressed):
 func save_map_json_file():
 	# Convert the TileGrid.mapData to a JSON string
 	storeLevelData()
-	var map_data_json = str(mapData.duplicate())
+	var map_data_json = JSON.stringify(mapData.duplicate())
 	
 	# Save the JSON string to the selected file location
-	var file = FileAccess.open(mapEditor.mapSource, FileAccess.WRITE)
+	var file = FileAccess.open(mapEditor.contentSource, FileAccess.WRITE)
 	if file:
 		file.store_string(map_data_json)
 	else:
-		print_debug("Unable to write file " + mapEditor.mapSource)
+		print_debug("Unable to write file " + mapEditor.contentSource)
 
 	
 func load_map_json_file():
-	var fileToLoad: String = mapEditor.mapSource
+	var fileToLoad: String = mapEditor.contentSource
 	if fileToLoad == "":
-		print_debug("Tried to load mapdata, but mapEditor.mapSource is empty")
+		print_debug("Tried to load mapdata, but mapEditor.contentSource is empty")
 		return;
 	# Load the JSON string from the selected file location
 	var file = FileAccess.open(fileToLoad, FileAccess.READ)

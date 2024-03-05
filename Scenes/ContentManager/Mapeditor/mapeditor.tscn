@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=11 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/GridContainer.gd" id="2_sf17m"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Levelscroller.gd" id="3_i1qbw"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/TilebrushList.gd" id="5_he816"]
+[ext_resource type="Script" path="res://Scripts/Helper/json_helper.gd" id="6_ecso8"]
+[ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="6_onaby"]
+[ext_resource type="PackedScene" uid="uid://cccnrdolr1bfo" path="res://Scenes/ContentManager/Mapeditor/tilebrush.tscn" id="8_o4x7s"]
 
 [sub_resource type="Gradient" id="Gradient_x1sdl"]
 
@@ -51,6 +54,12 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.15
 text = "Close"
 
+[node name="SaveButton" type="Button" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
+text = "Save"
+
 [node name="ZoomScroller" parent="HSplitContainer/MapeditorContainer/Toolbar" instance=ExtResource("1_0ytmu")]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -78,12 +87,6 @@ layout_mode = 2
 theme_override_constants/line_spacing = 0
 theme_override_font_sizes/font_size = 16
 text = "32"
-
-[node name="SaveButton" type="Button" parent="HSplitContainer/MapeditorContainer/Toolbar"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.15
-text = "Save"
 
 [node name="DrawRectangle" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
@@ -196,23 +199,16 @@ rounded = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/EntitiesContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="TilebrushList" type="HFlowContainer" parent="HSplitContainer/EntitiesContainer/ScrollContainer"]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 script = ExtResource("5_he816")
+scrolling_Flow_Container = ExtResource("6_onaby")
+json_Helper_Class = ExtResource("6_ecso8")
+tileBrush = ExtResource("8_o4x7s")
 
 [connection signal="ready" from="." to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_mapeditor_ready"]
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" method="_on_mapeditor_zoom_level_changed"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/CloseButton" to="." method="_on_close_button_button_up"]
-[connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" to="." method="_on_zoom_scroller_zoom_level_changed"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="save_map_json_file"]
+[connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" to="." method="_on_zoom_scroller_zoom_level_changed"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_draw_rectangle_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/Erase" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_erase_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/ShowBelow" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_show_below_toggled"]
@@ -221,4 +217,4 @@ script = ExtResource("5_he816")
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" to="." method="_on_tile_grid_zoom_level_changed"]
 [connection signal="value_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_level_scrollbar_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller" method="_on_level_scrollbar_value_changed"]
-[connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer/ScrollContainer/TilebrushList" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_tilebrush_list_tile_brush_selection_change"]
+[connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_tilebrush_list_tile_brush_selection_change"]

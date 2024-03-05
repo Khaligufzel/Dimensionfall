@@ -1,6 +1,7 @@
 extends Control
 
 signal tilebrush_clicked(clicked_tile: Control)
+var selected: bool = false
 
 #When the event was a left mouse button press, adjust the modulate property of the $TileSprite to be 3aa2c1
 func _on_texture_rect_gui_input(event):
@@ -12,4 +13,12 @@ func set_tile_texture(res: Resource) -> void:
 	
 func get_texture() -> Resource:
 	return $TileSprite.texture
+	
+#Mark the clicked tilebrush as selected
+func set_selected(is_selected: bool) -> void:
+	selected = is_selected
+	if selected:
+		modulate = Color(0.227, 0.635, 0.757)
+	else:
+		modulate = Color(1,1,1)
 	

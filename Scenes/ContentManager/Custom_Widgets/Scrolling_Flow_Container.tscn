@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://be62h2ytgw2kb"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Scrolling_Flow_Container.gd" id="1_4knl7"]
+
+[node name="Scrolling_Flow_Container" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton")]
+custom_minimum_size = Vector2(200, 35)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_4knl7")
+contentItems = NodePath("VBoxContainer/ScrollContainer/FlowContainer")
+collapseButton = NodePath("VBoxContainer/CollapseButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollapseButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+text = "Items"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FlowContainer" type="FlowContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="button_up" from="VBoxContainer/CollapseButton" to="." method="_on_collapse_button_button_up"]

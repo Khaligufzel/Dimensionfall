@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://480xqusluqrk"]
+[gd_scene load_steps=5 format=3 uid="uid://480xqusluqrk"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/contenteditor.gd" id="1_65sl4"]
+[ext_resource type="PackedScene" uid="uid://bhh0v7x4fjsgi" path="res://Scenes/ContentManager/content_list.tscn" id="2_4f21i"]
+[ext_resource type="PackedScene" uid="uid://d3001f5xxpup1" path="res://Scenes/ContentManager/Mapeditor/mapeditor.tscn" id="3_q062s"]
+[ext_resource type="PackedScene" uid="uid://vfj2if40vf10" path="res://Scenes/ContentManager/Custom_Editors/TerrainTileEditor.tscn" id="4_5nnw0"]
 
 [node name="contenteditor" type="Control" node_paths=PackedStringArray("content", "tabContainer")]
 layout_mode = 3
@@ -10,6 +13,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_65sl4")
+contentList = ExtResource("2_4f21i")
+mapEditor = ExtResource("3_q062s")
+terrainTileEditor = ExtResource("4_5nnw0")
 content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content")
 tabContainer = NodePath("HSplitContainer/TabContainer")
 
@@ -20,7 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-split_offset = 200
+split_offset = 240
 
 [node name="ContentLists" type="VBoxContainer" parent="HSplitContainer"]
 layout_mode = 2
