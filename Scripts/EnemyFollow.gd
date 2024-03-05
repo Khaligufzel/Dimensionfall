@@ -27,7 +27,8 @@ func Physics_Update(delta: float):
 	enemy.velocity = dir * get_node(stats).current_move_speed
 	enemy.move_and_slide()
 	
-	
+	if !targeted_player:
+		return
 	var space_state = get_world_3d().direct_space_state
 	# TO-DO Change playerCol to group of players
 	var query = PhysicsRayQueryParameters3D.create(get_node(enemyCol).global_position, targeted_player.global_position, pow(2, 1-1) + pow(2, 3-1),[self])

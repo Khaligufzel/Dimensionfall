@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgswuol251m3u"]
+[gd_scene load_steps=3 format=3 uid="uid://bgswuol251m3u"]
 
 [ext_resource type="Script" path="res://Scenes/Overmap/Scripts/Overmap.gd" id="1_fmft1"]
-[ext_resource type="Script" path="res://Scripts/Helper/json_helper.gd" id="2_yuf0t"]
 [ext_resource type="PackedScene" uid="uid://budsoodfdkaea" path="res://Scenes/Overmap/OvermapTile.tscn" id="3_uq0vr"]
 
 [node name="Overmap" type="Control" node_paths=PackedStringArray("positionLabel", "tilesContainer", "travelButton", "overmapTileLabel")]
@@ -15,7 +14,6 @@ grow_vertical = 2
 script = ExtResource("1_fmft1")
 positionLabel = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Label")
 tilesContainer = NodePath("MarginContainer/HBoxContainer/TilesContainer")
-json_Helper_Class = ExtResource("2_yuf0t")
 overmapTile = ExtResource("3_uq0vr")
 travelButton = NodePath("MarginContainer/HBoxContainer/VBoxContainer/TravelButton")
 overmapTileLabel = NodePath("MarginContainer/HBoxContainer/VBoxContainer/OvermapTileLabel")

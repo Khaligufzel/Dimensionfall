@@ -27,8 +27,11 @@ func _get_hit(damage):
 		_die()
 	
 func _die():
-	var corpse = corpse_scene.instantiate()
-	#$"../../../..".add_child(corpse)
-	get_tree().get_root().call_deferred("add_child", corpse)
-	corpse.global_position = global_position
+	add_corpse.call_deferred(global_position)
 	queue_free()
+
+func add_corpse(pos: Vector3):
+	var corpse = corpse_scene.instantiate()
+	get_tree().get_root().add_child(corpse)
+	corpse.global_position = pos
+	corpse.add_to_group("mapitems")

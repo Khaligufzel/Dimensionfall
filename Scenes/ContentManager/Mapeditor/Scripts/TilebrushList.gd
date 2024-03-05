@@ -3,10 +3,8 @@ extends VBoxContainer
 #@onready var tileBrush: PackedScene = preload("res://Scenes/ContentManager/Mapeditor/tilebrush.tscn")
 #@onready var scrolling_Flow_Container: PackedScene = preload("res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn")
 @export var scrolling_Flow_Container: PackedScene = null
-@export var json_Helper_Class: GDScript = null
 @export var tileBrush: PackedScene = null
 
-var json_helper = null
 var instanced_brushes: Array[Node] = []
 
 signal tile_brush_selection_change(tilebrush: Control)
@@ -16,13 +14,12 @@ var selected_brush: Control:
 		tile_brush_selection_change.emit(selected_brush)
 
 func _ready():
-	json_helper = json_Helper_Class.new()
 	loadTiles()
 	
 # this function will read all files in "res://Mods/Core/Tiles/" and for each file it will create a texturerect and assign the file as the texture of the texturerect. Then it will add the texturerect as a child to $HSplitContainer/EntitiesContainer/TilesList
 func loadTiles():
 	var tilesFile = "res://Mods/Core/Tiles/Tiles.json"
-	var tileList: Array = json_helper.load_json_array_file(tilesFile)
+	var tileList: Array = Helper.json_helper.load_json_array_file(tilesFile)
 	
 
 	for item in tileList:

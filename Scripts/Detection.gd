@@ -29,7 +29,10 @@ func _process(delta):
 func _physics_process(delta):
 	var space_state = get_world_3d().direct_space_state
 	# TO-DO Change playerCol to group of players
-	var query = PhysicsRayQueryParameters3D.create(global_position, get_tree().get_first_node_in_group("Players").global_position, pow(2, 1-1) + pow(2, 3-1),[self])
+	var playerInstance: CharacterBody3D = get_tree().get_first_node_in_group("Players")
+	if !playerInstance:
+		return
+	var query = PhysicsRayQueryParameters3D.create(global_position, playerInstance.global_position, pow(2, 1-1) + pow(2, 3-1),[self])
 
 	var result = space_state.intersect_ray(query)
 	

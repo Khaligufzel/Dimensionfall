@@ -34,11 +34,15 @@ func _process(delta):
 
 
 func _on_view_level_pressed():
-	Helper.switch_level(level_files[option_levels.get_selected_id()])
+	Helper.switch_level(level_files[option_levels.get_selected_id()],Vector2(0,0))
 
-
+#When the play demo button is pressed
+#Create a new folder in the user directory
+#The name of the folder should be the current date and time so it's unique
+#This unique folder will contain save data for this game and can be loaded later
 func _on_play_demo_pressed():
-	Helper.switch_level("")
+	Helper.save_helper.create_new_save()
+	Helper.switch_level("Generichouse.json", Vector2(0, 0))
 
 func _on_help_button_pressed():
 	get_tree().change_scene_to_file("res://documentation.tscn")
