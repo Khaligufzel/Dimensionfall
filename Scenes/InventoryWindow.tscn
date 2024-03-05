@@ -1,10 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://e0ebcv1n8jnq"]
+[gd_scene load_steps=7 format=3 uid="uid://e0ebcv1n8jnq"]
 
 [ext_resource type="Script" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
 [ext_resource type="PackedScene" uid="uid://crck2fhgayxhn" path="res://Scenes/InventoryContainerListItem.tscn" id="2_xfgb3"]
-[ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="3_l8xgt"]
-[ext_resource type="Resource" uid="uid://b0j7o54q2btuc" path="res://ItemProtosets.tres" id="3_sqsc0"]
-[ext_resource type="Script" path="res://addons/gloot/core/inventory_item.gd" id="5_qidb6"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="6_xpf2l"]
 [ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="8_f75fl"]
 [ext_resource type="PackedScene" uid="uid://c4g8ymi0lhkyy" path="res://Scenes/UI/EquipmentSlot.tscn" id="9_tpx1u"]
@@ -13,7 +10,7 @@
 default_font = ExtResource("6_xpf2l")
 default_font_size = 13
 
-[node name="InventoryWindow" type="Control" node_paths=PackedStringArray("proximity_inventory", "proximity_inventory_control", "inventory_control", "inventory", "containerList", "LeftHandEquipmentSlot", "RightHandEquipmentSlot", "tooltip", "tooltip_item_name", "tooltip_item_description")]
+[node name="InventoryWindow" type="Control" node_paths=PackedStringArray("proximity_inventory_control", "inventory_control", "containerList", "LeftHandEquipmentSlot", "RightHandEquipmentSlot", "tooltip", "tooltip_item_name", "tooltip_item_description")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,10 +20,8 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_7kqbx")
-proximity_inventory = NodePath("InventoryStackedProx")
 proximity_inventory_control = NodePath("HBoxContainer/ProximityInventoryControl/CtrlInventoryStackedCustomProx")
 inventory_control = NodePath("HBoxContainer/PlayerInventoryControl/CtrlInventoryStackedCustom")
-inventory = NodePath("InventoryStacked")
 containerList = NodePath("HBoxContainer/ContainersList")
 containerListItem = ExtResource("2_xfgb3")
 LeftHandEquipmentSlot = NodePath("HBoxContainer/EquipmentSlotList/LeftHandEquipment/LeftHandEquipmentSlot")
@@ -43,51 +38,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.698039, 0.729412, 0.788235, 1)
-
-[node name="InventoryStacked" type="Node" parent="."]
-script = ExtResource("3_l8xgt")
-capacity = 1000.0
-item_protoset = ExtResource("3_sqsc0")
-
-[node name="_Node_23278" type="Node" parent="InventoryStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "bullet_9mm"
-
-[node name="_Node_211767" type="Node" parent="InventoryStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "rifle_m4a1"
-
-[node name="_Node_23006" type="Node" parent="InventoryStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "pistol_9mm"
-
-[node name="_Node_23025" type="Node" parent="InventoryStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "pistol_magazine"
-
-[node name="_Node_23044" type="Node" parent="InventoryStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "pistol_9mm"
-
-[node name="_Node_98558" type="Node" parent="InventoryStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "pistol_magazine"
-
-[node name="_Node_98565" type="Node" parent="InventoryStacked"]
-script = ExtResource("5_qidb6")
-protoset = ExtResource("3_sqsc0")
-prototype_id = "pistol_magazine"
-
-[node name="InventoryStackedProx" type="Node" parent="."]
-script = ExtResource("3_l8xgt")
-capacity = 1000.0
-item_protoset = ExtResource("3_sqsc0")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -109,11 +59,10 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Nearby container:"
 
-[node name="CtrlInventoryStackedCustomProx" parent="HBoxContainer/ProximityInventoryControl" node_paths=PackedStringArray("myInventory") instance=ExtResource("8_f75fl")]
+[node name="CtrlInventoryStackedCustomProx" parent="HBoxContainer/ProximityInventoryControl" instance=ExtResource("8_f75fl")]
 visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-myInventory = NodePath("../../../InventoryStackedProx")
 
 [node name="TransferUI" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -134,10 +83,9 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "inventory:"
 
-[node name="CtrlInventoryStackedCustom" parent="HBoxContainer/PlayerInventoryControl" node_paths=PackedStringArray("myInventory") instance=ExtResource("8_f75fl")]
+[node name="CtrlInventoryStackedCustom" parent="HBoxContainer/PlayerInventoryControl" instance=ExtResource("8_f75fl")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-myInventory = NodePath("../../../InventoryStacked")
 max_weight = 100
 
 [node name="EquipmentSlotList" type="VBoxContainer" parent="HBoxContainer"]
@@ -147,10 +95,9 @@ layout_mode = 2
 [node name="LeftHandEquipment" type="HBoxContainer" parent="HBoxContainer/EquipmentSlotList"]
 layout_mode = 2
 
-[node name="LeftHandEquipmentSlot" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment" node_paths=PackedStringArray("myInventory", "myInventoryCtrl", "otherHandSlot") instance=ExtResource("9_tpx1u")]
+[node name="LeftHandEquipmentSlot" parent="HBoxContainer/EquipmentSlotList/LeftHandEquipment" node_paths=PackedStringArray("myInventoryCtrl", "otherHandSlot") instance=ExtResource("9_tpx1u")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-myInventory = NodePath("../../../../InventoryStacked")
 myInventoryCtrl = NodePath("../../../PlayerInventoryControl/CtrlInventoryStackedCustom")
 otherHandSlot = NodePath("../../RightHandEquipment/RightHandEquipmentSlot")
 
@@ -161,10 +108,9 @@ text = "Left hand"
 [node name="RightHandEquipment" type="HBoxContainer" parent="HBoxContainer/EquipmentSlotList"]
 layout_mode = 2
 
-[node name="RightHandEquipmentSlot" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment" node_paths=PackedStringArray("myInventory", "myInventoryCtrl", "otherHandSlot") instance=ExtResource("9_tpx1u")]
+[node name="RightHandEquipmentSlot" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment" node_paths=PackedStringArray("myInventoryCtrl", "otherHandSlot") instance=ExtResource("9_tpx1u")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-myInventory = NodePath("../../../../InventoryStacked")
 myInventoryCtrl = NodePath("../../../PlayerInventoryControl/CtrlInventoryStackedCustom")
 otherHandSlot = NodePath("../../LeftHandEquipment/LeftHandEquipmentSlot")
 is_left_slot = false

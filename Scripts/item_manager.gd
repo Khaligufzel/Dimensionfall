@@ -1,65 +1,103 @@
 extends Node
 
-var item_id_to_assign = 0
 
-var items
-var item_json_as_text
+# This script manages the player inventory
+# It has functions to add and remove items, reload items and do other manipulations
 
-var item_protoset : ItemProtoset
 
-@onready var weapon = {
-		"id_string": "test_pistol",
-		"name": "Pistol",
-		"description": "Gun for testing",
-		"used_ammo": "9mm",
-		"used_magazine": ["pistol_magazine", "another_pistol_magazine"],
-		"range": "1000",
-		"spread": "5",
-		"sway": "5",
-		"recoil": "20",
-		"used_skill": "short_guns",
-		"reload_speed": "2.5",
-		"firing_speed": "0.25",
-		"flags" : ["ranged_weapon"]
-	}
-@onready var magazine = {
-		"id_string": "pistol_magazine",
-		"name": "Pistol magazine",
-		"description": "Magazine pistol for testing",
-		"used_ammo": "9mm",
-		"max_ammo": "20"
-	}
-@onready var ammo = {
-		"id_string": "9mm",
-		"name": "9mm",
-		"description": "Typical 9mm ammo",
-		"damage": "25"
-	}
+# The inventory of the player
+var playerInventory: InventoryStacked = null
+# This inventory will hold items that are close to the player
+var proximityInventory: InventoryStacked = null
 
-func assign_id():
-	item_id_to_assign += 1
-	return item_id_to_assign
-	
-func get_weapons_from_json():
-	pass
-	
-func save_weapons_in_json():
-	
-	var weapons_file = FileAccess.open("res://JSON/weapons.json", FileAccess.WRITE)
-	var data_to_send = weapon
-	#var json_string = JSON.stringify(data_to_send)
-	weapons_file.store_line(JSON.stringify(data_to_send, "\t"))
-	
-	weapons_file.close()
-	
-	
-func get_items_from_json():
-	var file = "res://JSON/items.json"
-	item_json_as_text = FileAccess.get_file_as_string(file)
-	var json_as_dict = JSON.parse_string(item_json_as_text)
-	items = json_as_dict
-	
-func create_item_protoset(protoset):
-	item_protoset = protoset
-	get_items_from_json()
-	item_protoset.parse(item_json_as_text)
+
+func _ready():
+	playerInventory = initialize_inventory()
+	proximityInventory = initialize_inventory()
+	create_starting_items()
+
+
+func initialize_inventory() -> InventoryStacked:
+	var newInventory = InventoryStacked.new()
+	newInventory.capacity = 1000
+	newInventory.item_protoset = load("res://ItemProtosets.tres")
+	return newInventory
+
+func create_starting_items():
+	if playerInventory.get_children() == []:
+		playerInventory.create_and_add_item("pistol_9mm")
+		playerInventory.create_and_add_item("pistol_9mm")
+		playerInventory.create_and_add_item("bullet_9mm")
+		playerInventory.create_and_add_item("pistol_magazine")
+		playerInventory.create_and_add_item("pistol_magazine")
+		playerInventory.create_and_add_item("pistol_magazine")
+		playerInventory.create_and_add_item("rifle_m4a1")
+
+
+
+
+# This function will loop over the items in the inventory
+# It will select items that have the "magazine" property
+# It will return the first result if a magazine is found
+# It will return null of no magazine is found
+func find_compatible_magazine(oldMagazine: InventoryItem) -> InventoryItem:
+	var bestMagazine: InventoryItem = null
+	var bestAmmo: int = 0  # Variable to track the maximum ammo found
+
+	var inventoryItems: Array = playerInventory.get_items()  # Retrieve all items in the inventory
+	for item in inventoryItems:
+		if item.get_property("Magazine") and item != oldMagazine:
+			var magazine = item.get_property("Magazine")
+			if magazine and magazine.has("current_ammo"):
+				var currentAmmo: int = int(magazine["current_ammo"])
+				if currentAmmo > bestAmmo:
+					bestAmmo = currentAmmo
+					bestMagazine = item
+
+	return bestMagazine  # Return the magazine with the most current ammo
+
+
+
+
+# We remove the magazine from the given item and add it to the inventory
+func unload_magazine_from_item(item: InventoryItem) -> void:
+	# Check if the item has a magazine loaded
+	if item.get_property("current_magazine"):
+		var myMagazine: InventoryItem = item.get_property("current_magazine")
+		item.clear_property("current_magazine")  # Remove the magazine from the weapon
+		playerInventory.add_item(myMagazine)  # Add the magazine back to the inventory
+
+
+# When a reload is completed and we remove the magazine from the gun into the inventory
+func remove_magazine(item: InventoryItem):
+	if not item or not item.get_property("Ranged"):
+		return  # Ensure the item is a ranged weapon
+
+	var myMagazine: InventoryItem = get_magazine(item)
+	if myMagazine:
+		playerInventory.add_item(myMagazine)
+		item.clear_property("current_magazine")
+
+
+# Get the magazine from the provided item
+func get_magazine(item: InventoryItem) -> InventoryItem:
+	if not item or not item.get_property("Ranged"):
+		return null
+	if item.get_property("current_magazine"):
+		var myMagazine: InventoryItem = item.get_property("current_magazine")
+		return myMagazine
+	return null
+
+
+# We insert the magazine into the provided item from the inventory
+# The item is an InventoryItem which should have the ranged property
+# THe specific_magazine may be provided, which will be loaded into the gun
+# oldmagazine is the magazine that was removed before this function is called
+func insert_magazine(item: InventoryItem, specific_magazine: InventoryItem = null, oldMagazine: InventoryItem = null):
+	if not item or item.get_property("Ranged") == null:
+		return  # Ensure the item is a ranged weapon
+
+	var magazine: InventoryItem = specific_magazine if specific_magazine else find_compatible_magazine(oldMagazine)
+	if magazine:
+		item.set_property("current_magazine", magazine)
+		playerInventory.remove_item(magazine)  # Remove the magazine from the inventory

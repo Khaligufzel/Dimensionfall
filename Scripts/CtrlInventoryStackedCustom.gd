@@ -54,12 +54,12 @@ signal reload_item(items)
 signal unload_item(items)
 
 
-func _ready():
+func initialize_list():
 	_populate_inventory_list()
-	_update_bars(null, "")
+	_update_bars(null, "") # Update weight and volume bars
 	_connect_inventory_signals()
 	set_process_input(true)  # Make sure input processing is enabled for drag drop
-
+	
 
 # Function to show context menu at specified position
 func show_context_menu(myposition: Vector2):
