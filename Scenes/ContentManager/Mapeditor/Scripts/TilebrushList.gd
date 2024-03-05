@@ -14,11 +14,11 @@ var selected_brush: Control:
 func _ready():
 	loadMobs()
 	loadTiles()
+	loadFurniture()
 	
 # this function will read all files in Gamedata.data.tiles.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
 func loadMobs():
 	var mobList: Array = Gamedata.data.mobs.data
-
 	var newMobsList: Control = scrolling_Flow_Container.instantiate()
 	newMobsList.header = "Mobs"
 	add_child(newMobsList)
@@ -40,6 +40,26 @@ func loadMobs():
 			# Add the TextureRect as a child to the TilesList
 			newMobsList.add_content_item(brushInstance)
 			instanced_brushes.append(brushInstance)
+
+func loadFurniture():
+	var furnitureList: Array = Gamedata.data.furniture.data 
+	var newFurnitureList: Control = scrolling_Flow_Container.instantiate()
+	newFurnitureList.header = "Furniture"
+	add_child(newFurnitureList)
+
+	for item in furnitureList:
+		if item.has("sprite"):
+			var imagefileName: String = item["sprite"]
+			imagefileName = imagefileName.get_file()
+			var texture: Resource = Gamedata.data.furniture.sprites[imagefileName]
+			var brushInstance = tileBrush.instantiate()
+			brushInstance.set_tile_texture(texture)
+			brushInstance.tileID = item.id
+			brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
+			brushInstance.entityType = "furniture"
+			newFurnitureList.add_content_item(brushInstance)
+			instanced_brushes.append(brushInstance)
+
 
 # this function will read all files in Gamedata.data.tiles.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
 func loadTiles():

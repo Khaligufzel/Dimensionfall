@@ -13,14 +13,18 @@ var tileData: Dictionary = defaultTileData.duplicate():
 			tileData.id).albedo_texture
 			if tileData.has("rotation"):
 				set_rotation_amount(tileData.rotation)
-			if tileData.has("mob"):
-				$MobSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs,\
+			if tileData.has("furniture"):
+				$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(\
+				Gamedata.data.furniture, tileData.furniture)
+				$MobFurnitureSprite.show()
+			elif tileData.has("mob"):
+				$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs,\
 				tileData.mob)
-				$MobSprite.show()
+				$MobFurnitureSprite.show()
 		else:
 			$TileSprite.texture = load(defaultTexture)
-			$MobSprite.texture = null
-			$MobSprite.hide()
+			$MobFurnitureSprite.texture = null
+			$MobFurnitureSprite.hide()
 signal tile_clicked(clicked_tile: Control)
 
 func _on_texture_rect_gui_input(event: InputEvent) -> void:
@@ -52,11 +56,26 @@ func set_tile_id(id: String) -> void:
 func set_mob_id(id: String) -> void:
 	if id == "":
 		tileData.erase("mob")
-		$MobSprite.hide()
+		if !tileData.has("furniture"):
+			$MobFurnitureSprite.hide()
 	else:
+		# A tile can either have a mob or furniture. If we add a mob, remove furniture
+		tileData.erase("furniture")
 		tileData.mob = id
-		$MobSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs, id)
-		$MobSprite.show()
+		$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs, id)
+		$MobFurnitureSprite.show()
+
+func set_furniture_id(id: String) -> void:
+	if id == "":
+		tileData.erase("furniture")
+		if !tileData.has("mob"):
+			$MobFurnitureSprite.hide()
+	else:
+		# A tile can either have a mob or furniture. If we add furniture, remove the mob
+		tileData.erase("mob")
+		tileData.furniture = id
+		$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture, id)
+		$MobFurnitureSprite.show()
 
 func _on_texture_rect_mouse_entered() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -75,13 +94,13 @@ func set_clickable(clickable: bool):
 	if !clickable:
 		mouse_filter = MOUSE_FILTER_IGNORE
 		$TileSprite.mouse_filter = MOUSE_FILTER_IGNORE
-		$MobSprite.mouse_filter = MOUSE_FILTER_IGNORE
+		$MobFurnitureSprite.mouse_filter = MOUSE_FILTER_IGNORE
 
 #This function sets the texture to some static resource that helps the user visualize that something is above
 #If this tile has a texture in its data, set it to the above texture instead
 func set_above():
-	$MobSprite.texture = null
-	$MobSprite.hide()
+	$MobFurnitureSprite.texture = null
+	$MobFurnitureSprite.hide()
 	if tileData.id != "":
 		$TileSprite.texture = load(aboveTexture)
 	else:
@@ -90,4 +109,4 @@ func set_above():
 
 func _on_texture_rect_resized():
 	$TileSprite.pivot_offset = size / 2
-	$MobSprite.pivot_offset = size / 2
+	$MobFurnitureSprite.pivot_offset = size / 2

@@ -32,7 +32,7 @@ orientation = 1
 
 [node name="Mob" type="CharacterBody3D" groups=["Enemies"]]
 collision_layer = 2
-collision_mask = 15
+collision_mask = 3
 wall_min_slide_angle = 0.0
 floor_constant_speed = true
 script = ExtResource("1_ajqy0")

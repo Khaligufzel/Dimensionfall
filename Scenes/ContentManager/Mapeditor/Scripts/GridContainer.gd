@@ -127,7 +127,7 @@ func grid_tile_clicked(clicked_tile):
 	if is_drawing:
 		paint_single_tile(clicked_tile)
 
-#We paint a single tile if draw rectangle is not selected
+# We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile):
 	if drawRectangle or !clicked_tile:
@@ -136,6 +136,8 @@ func paint_single_tile(clicked_tile):
 		if selected_brush:
 			if selected_brush.entityType == "mob":
 				clicked_tile.set_mob_id("")
+			elif selected_brush.entityType == "furniture":
+				clicked_tile.set_furniture_id("")
 			else:
 				clicked_tile.set_tile_id("")
 				clicked_tile.set_rotation_amount(0)
@@ -144,6 +146,8 @@ func paint_single_tile(clicked_tile):
 	elif selected_brush:
 		if selected_brush.entityType == "mob":
 			clicked_tile.set_mob_id(selected_brush.tileID)
+		elif selected_brush.entityType == "furniture":
+			clicked_tile.set_furniture_id(selected_brush.tileID)
 		else:
 			clicked_tile.set_tile_id(selected_brush.tileID)
 			clicked_tile.set_rotation_amount(rotationAmount)
@@ -229,10 +233,25 @@ func paint_in_rectangle():
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
 	if erase:
 		for tile in tiles:
-			tile.set_default()
+			if selected_brush:
+				if selected_brush.entityType == "mob":
+					tile.set_mob_id("")
+				elif selected_brush.entityType == "furniture":
+					tile.set_furniture_id("")
+				else:
+					tile.set_tile_id("")
+					tile.set_rotation_amount(0)
+			else:
+				tile.set_default()
 	elif selected_brush:
 		for tile in tiles:
-			tile.set_tile_id(selected_brush.tileID)
+			if selected_brush.entityType == "mob":
+				tile.set_mob_id(selected_brush.tileID)
+			elif selected_brush.entityType == "furniture":
+				tile.set_furniture_id(selected_brush.tileID)
+			else:
+				tile.set_tile_id(selected_brush.tileID)
+				tile.set_rotation_amount(rotationAmount)
 	update_rectangle()
 
 #The user has pressed the erase toggle button in the editor

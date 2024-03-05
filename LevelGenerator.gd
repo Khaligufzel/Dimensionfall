@@ -13,6 +13,7 @@ var level_height : int = 32
 @onready var defaultSlope: PackedScene = preload("res://Defaults/Blocks/default_slope.tscn")
 @export var defaultMob: PackedScene
 @export var defaultItem: PackedScene
+@export var defaultFurniturePhysics: PackedScene
 @export var level_manager : Node3D
 @export_file var default_level_json
 
@@ -26,9 +27,10 @@ func _ready():
 func generate_map():
 	map_save_folder = Helper.save_helper.get_saved_map_folder(Helper.current_level_pos)
 	generate_level()
-	# These two functions apply only to maps thet were previously saved in a save game
+	# These tree functions apply only to maps thet were previously saved in a save game
 	generate_mobs()
 	generate_items()
+	generate_furniture()
 	
 
 func generate_mobs() -> void:
@@ -63,6 +65,23 @@ func add_item_to_map(item: Dictionary):
 	newItem.global_position.y = item.global_position_y
 	newItem.global_position.z = item.global_position_z
 	newItem.get_node(newItem.inventory).deserialize(item.inventory)
+
+func generate_furniture() -> void:
+	if map_save_folder == "":
+		return
+	var furnitureArray = Helper.json_helper.load_json_array_file(map_save_folder + "/furniture.json")
+	for furnitureData: Dictionary in furnitureArray:
+		add_furniture_to_map.call_deferred(furnitureData)
+
+func add_furniture_to_map(furnitureData: Dictionary) -> void:
+	var newFurniture: Node3D = defaultFurniturePhysics.instantiate()
+	newFurniture.add_to_group("furniture")
+	newFurniture.set_sprite(Gamedata.get_sprite_by_id(Gamedata.data.furniture, furnitureData.id))
+	get_tree().get_root().add_child(newFurniture)
+	newFurniture.global_position.x = furnitureData.global_position_x
+	newFurniture.global_position.y = furnitureData.global_position_y
+	newFurniture.global_position.z = furnitureData.global_position_z
+	newFurniture.id = furnitureData.id
 
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation
@@ -115,6 +134,7 @@ func generate_level() -> void:
 								block.id = tileJSON.id
 								apply_block_rotation(tileJSON, block)
 								add_block_mob(tileJSON, block)
+								add_furniture_to_block(tileJSON, block)
 					current_block += 1
 		level_number += 1
 
@@ -133,6 +153,17 @@ func get_custom_level_json(level_path):
 	var json_as_dict = JSON.parse_string(level_json_as_text)
 	level_levels = json_as_dict["levels"]
 
+func add_furniture_to_block(tileJSON: Dictionary, block: StaticBody3D):
+	if tileJSON.has("furniture"):
+		var newFurniture: Node3D = defaultFurniturePhysics.instantiate()
+		newFurniture.add_to_group("furniture")
+		newFurniture.set_sprite(Gamedata.get_sprite_by_id(\
+		Gamedata.data.furniture, tileJSON.furniture))
+		get_tree().get_root().add_child(newFurniture)
+		newFurniture.global_position.x = block.global_position.x
+		newFurniture.global_position.y = block.global_position.y+0.5
+		newFurniture.global_position.z = block.global_position.z
+		newFurniture.id = tileJSON.furniture
 
 func apply_block_rotation(tileJSON: Dictionary, block: StaticBody3D):
 	if tileJSON.has("rotation"):
