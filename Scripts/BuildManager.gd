@@ -25,7 +25,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if is_building:
 		ghost_sprite.visible = true
 		
@@ -33,7 +33,7 @@ func _process(delta):
 #		ghost_sprite.global_position = get_global_mouse_position()
 
 
-func _input(event):
+func _input(_event):
 	#3D
 	
 #	if Input.is_action_pressed("click") && is_building && get_node(hud).try_to_spend_item("plank", 2):
@@ -49,7 +49,7 @@ func _input(event):
 func make_tile_ghost():
 	pass
 
-func _on_hud_construction_chosen(construction: String):
+func _on_hud_construction_chosen(_construction: String):
 	print("Building test")
 	is_building = true
 	General.is_allowed_to_shoot = false

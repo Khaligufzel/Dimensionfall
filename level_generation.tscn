@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=33 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
@@ -34,7 +34,6 @@ reflected_light_source = 1
 [sub_resource type="NavigationMesh" id="NavigationMesh_3licq"]
 geometry_parsed_geometry_type = 1
 geometry_source_geometry_mode = 1
-cell_size = 0.1
 agent_height = 0.5
 agent_radius = 0.3
 agent_max_slope = 46.0
@@ -55,10 +54,9 @@ size = Vector3(0.3, 1, 0.55)
 points = PackedVector3Array(0.15, 0.15, 0.275, -0.15, 0.15, 0.275, 0.15, -0.5, 0.275, 0.15, 0.15, -0.275, -0.15, 0.15, -0.275, -0.15, -0.5, 0.275, 0.15, -0.5, -0.275, -0.15, -0.5, -0.275)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_136pt"]
-streams_count = 1
 playback_mode = 1
 random_pitch = 1.2
-random_volume_offset_db = 0.0
+streams_count = 1
 stream_0/stream = ExtResource("13_fjasp")
 stream_0/weight = 1.0
 

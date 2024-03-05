@@ -30,7 +30,6 @@ func generate_map():
 	generate_items()
 	
 func get_saved_map_folder() -> String:
-	var level_name: String = Helper.current_level_name
 	var level_pos: Vector2 = Helper.current_level_pos
 	var current_save_folder: String = Helper.save_helper.current_save_folder
 	var dir = DirAccess.open(current_save_folder)

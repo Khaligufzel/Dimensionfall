@@ -80,7 +80,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if is_showing_tooltip:
 		get_node(tooltip).visible = true
 		get_node(tooltip).global_position = get_node(tooltip).get_global_mouse_position() + Vector2(0, -5 - get_node(tooltip).size.y)
@@ -145,7 +145,7 @@ func _on_inventory_item_mouse_entered(item):
 	get_node(tooltip_item_name).text = str(item.get_property("name", ""))
 	get_node(tooltip_item_description).text = item.get_property("description", "")
 	
-func _on_inventory_item_mouse_exited(item):
+func _on_inventory_item_mouse_exited(_item):
 	is_showing_tooltip = false
 
 func check_if_resources_are_available(item_id, amount_to_spend: int):
@@ -154,7 +154,7 @@ func check_if_resources_are_available(item_id, amount_to_spend: int):
 	print("checking if we have the item id in inv")
 	if inventory_node.get_item_by_id(item_id):
 		print("we have the item id")
-		var item_total_amount : int
+		var item_total_amount : int = 0
 		var current_amount_to_spend = amount_to_spend
 		var items = inventory_node.get_items_by_id(item_id)
 		
@@ -169,7 +169,7 @@ func check_if_resources_are_available(item_id, amount_to_spend: int):
 func try_to_spend_item(item_id, amount_to_spend : int):
 	var inventory_node = get_node(inventory)
 	if inventory_node.get_item_by_id(item_id):
-		var item_total_amount : int
+		var item_total_amount : int = 0
 		var current_amount_to_spend = amount_to_spend
 		var items = inventory_node.get_items_by_id(item_id)
 		
