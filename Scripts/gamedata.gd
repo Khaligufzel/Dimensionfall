@@ -33,6 +33,7 @@ func _ready():
 	load_sprites()
 	load_tile_sprites()
 	load_data()
+	update_item_protoset_json_data("res://ItemProtosets.tres",JSON.stringify(data.items.data,"\t"))
 	data.maps.data = Helper.json_helper.file_names_in_dir(data.maps.dataPath, ["json"])
 	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(\
 	data.tacticalmaps.dataPath, ["json"])
@@ -180,3 +181,23 @@ func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 # and binds the appropriate data array so it can be saved in this function
 func on_data_changed(contentData: Dictionary):
 	save_data_to_file(contentData)
+
+# This will update the given resource file with the provided json data
+# It is intended to save item data from json to the res://ItemProtosets.tres file
+# So we can use the item json data in-game
+func update_item_protoset_json_data(tres_path: String, new_json_data: String) -> void:
+	# Load the ItemProtoset resource
+	var item_protoset = load(tres_path) as ItemProtoset
+	if not item_protoset:
+		print("Failed to load ItemProtoset resource from:", tres_path)
+		return
+
+	# Update the json_data property
+	item_protoset.json_data = new_json_data
+
+	# Save the resource back to the .tres file
+	var save_result = ResourceSaver.save(item_protoset, tres_path)
+	if save_result != OK:
+		print("Failed to save updated ItemProtoset resource to:", tres_path)
+	else:
+		print("ItemProtoset resource updated and saved successfully to:", tres_path)

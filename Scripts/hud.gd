@@ -14,22 +14,14 @@ extends CanvasLayer
 @export var healthy_color: Color
 @export var damaged_color: Color
 
-@export var proximity_inventory: NodePath
-@export var proximity_inventory_control: NodePath
-
-@export var inventory_control : NodePath
-@export var inventory : NodePath
+# This window shows the inventory to the player
+@export var inventoryWindow : Control
 
 @export var building_menu: NodePath
 @export var crafting_menu : NodePath
 @export var overmap: Control
 
 var is_building_menu_open = false
-
-@export var tooltip: NodePath
-var is_showing_tooltip = false
-@export var tooltip_item_name : NodePath
-@export var tooltip_item_description : NodePath
 
 
 @export var progress_bar : NodePath
@@ -60,8 +52,7 @@ func _input(event):
 			get_node(building_menu).set_visible(true)
 			
 	if event.is_action_pressed("toggle_inventory"):
-		get_node(inventory_control).visible = !get_node(inventory_control).visible
-		get_node(proximity_inventory_control).visible = !get_node(proximity_inventory_control).visible
+		inventoryWindow.visible = !inventoryWindow.visible
 
 	if event.is_action_pressed("crafting_menu"):
 		get_node(crafting_menu).visible = !get_node(crafting_menu).visible
@@ -71,19 +62,7 @@ func _input(event):
 		else:
 			overmap.show()
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	#temporary hack
-	ItemManager.create_item_protoset(item_protoset)
-	get_node(inventory).deserialize(General.player_inventory_dict)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	if is_showing_tooltip:
-		get_node(tooltip).visible = true
-		get_node(tooltip).global_position = get_node(tooltip).get_global_mouse_position() + Vector2(0, -5 - get_node(tooltip).size.y)
-	else:
-		get_node(tooltip).visible = false
 
 	if is_progress_bar_well_progressing_i_guess:
 		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
@@ -100,22 +79,6 @@ func _on_player_update_doll(head, right_arm, left_arm, torso, right_leg, left_le
 func _on_player_update_stamina_hud(stamina):
 	get_node(stamina_HUD).text = str(round(stamina)) + "%"
 
-# The parameter items isall the items from the inventory that has entered proximity
-func _on_item_detector_add_to_proximity_inventory(items):
-	var duplicated_items = items
-	for item in duplicated_items:
-		var duplicated_item = item.duplicate()
-		# Store the original inventory
-		duplicated_item.set_meta("original_parent", item.get_inventory())
-		duplicated_item.set_meta("original_item", item)
-		get_node(proximity_inventory).add_child(duplicated_item)
-
-# The parameter items is all the items from the inventory that has left proximity
-func _on_item_detector_remove_from_proximity_inventory(items):
-	for prox_item in get_node(proximity_inventory).get_children():
-		for item in items:
-			if item.get_property("assigned_id") == prox_item.get_property("assigned_id"):
-				prox_item.queue_free()
 
 func _on_concrete_button_down():
 	construction_chosen.emit("concrete_wall")
@@ -125,16 +88,9 @@ func _on_concrete_button_down():
 #	get_node(ammo_HUD).text = str(current_ammo) + "/" + str(max_ammo)
 
 
-func _on_inventory_item_mouse_entered(item):
-	is_showing_tooltip = true
-	get_node(tooltip_item_name).text = str(item.get_property("name", ""))
-	get_node(tooltip_item_description).text = item.get_property("description", "")
-
-func _on_inventory_item_mouse_exited(_item):
-	is_showing_tooltip = false
 
 func check_if_resources_are_available(item_id, amount_to_spend: int):
-	var inventory_node = get_node(inventory)
+	var inventory_node: InventoryGridStacked = inventoryWindow.get_inventory()
 	print("checking if we have the item id in inv")
 	if inventory_node.get_item_by_id(item_id):
 		print("we have the item id")
@@ -148,7 +104,7 @@ func check_if_resources_are_available(item_id, amount_to_spend: int):
 	return false
 
 func try_to_spend_item(item_id, amount_to_spend : int):
-	var inventory_node = get_node(inventory)
+	var inventory_node = inventoryWindow.get_inventory()
 	if inventory_node.get_item_by_id(item_id):
 		var item_total_amount : int = 0
 		var current_amount_to_spend = amount_to_spend
@@ -194,8 +150,8 @@ func _on_crafting_menu_start_craft(recipe):
 			
 		#adding a new item(s) to the inventory based on the recipe
 		var item
-		item = get_node(inventory).create_and_add_item(recipe["crafts"])
-		get_node(inventory).set_item_stack_size(item, recipe["craft_amount"])
+		item = inventoryWindow.get_inventory().create_and_add_item(recipe["crafts"])
+		inventoryWindow.get_inventory().set_item_stack_size(item, recipe["craft_amount"])
 
 func start_progress_bar(time : float):
 	get_node(progress_bar).visible = true
@@ -220,14 +176,12 @@ func _on_shooting_ammo_changed(current_ammo, max_ammo):
 # Called when the users presses the travel button on the overmap
 # We save the player inventory to a autoload singleton so we can load it on the next map
 func _on_overmap_change_level_pressed():
-	General.player_inventory_dict = get_node(inventory).serialize()
+	General.player_inventory_dict = inventoryWindow.get_inventory().serialize()
 
-# When an item is added to the player inventory
-# We check where it came from and delete it from that inventory
-# This happens when the player moves an item from $CtrlInventoryGridExProx
-func _on_inventory_grid_stacked_item_added(item):
-	if item.has_meta("original_parent"):
-		var original_parent = item.get_meta("original_parent")
-		var original_item = item.get_meta("original_item")
-		if original_parent and original_parent.has_method("remove_item"):
-			original_parent.remove_item(original_item)  # Remove from original parent 
+# The parameter items isall the items from the inventory that has entered proximity
+func _on_item_detector_add_to_proximity_inventory(items):
+	inventoryWindow._on_item_detector_add_to_proximity_inventory(items)
+
+# The parameter items is all the items from the inventory that has left proximity
+func _on_item_detector_remove_from_proximity_inventory(items):
+	inventoryWindow._on_item_detector_remove_from_proximity_inventory(items)
