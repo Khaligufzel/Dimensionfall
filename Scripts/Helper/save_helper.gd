@@ -58,16 +58,17 @@ func save_mob_data(target_folder: String) -> void:
 #Save the type and position of all mobs on the map
 func save_item_data(target_folder: String) -> void:
 	var itemData: Array = []
-	var defaultitem: Dictionary = {"itemid": "item1", \
-	"global_position_x": 0, "global_position_y": 0, "global_position_z": 0}
+	var defaultItem: Dictionary = {"itemid": "item1", \
+	"global_position_x": 0, "global_position_y": 0, "global_position_z": 0, "inventory": []}
 	var mapitems = get_tree().get_nodes_in_group("mapitems")
 	var newitemData: Dictionary
 	for item in mapitems:
 		item.remove_from_group("mapitems")
-		newitemData = defaultitem.duplicate()
+		newitemData = defaultItem.duplicate()
 		newitemData["global_position_x"] = item.global_position.x
 		newitemData["global_position_y"] = item.global_position.y
 		newitemData["global_position_z"] = item.global_position.z
+		newitemData["inventory"] = item.get_node(item.inventory).serialize()
 		itemData.append(newitemData.duplicate())
 		item.queue_free()
 	Helper.json_helper.write_json_file(target_folder + "/items.json",\
@@ -186,9 +187,9 @@ func load_overmap_state() -> void:
 				var key = Vector2(float(key_parts[0]), float(key_parts[1]))
 				Helper.chunks[key] = chunk_data[key_str]
 
-		print("Overmap state loaded from: ", overmap_path)
+		print_debug("Overmap state loaded from: ", overmap_path)
 	else:
-		print("Failed to parse overmap state file: ", overmap_path)
+		print_debug("Failed to parse overmap state file: ", overmap_path)
 
 # Function to save the player's inventory to a JSON file.
 func save_player_inventory() -> void:
