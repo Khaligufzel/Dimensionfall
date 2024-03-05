@@ -5,8 +5,6 @@ extends Control
 #It expects to save the data to a JSON file that contains all tile data from a mod
 #To load data, provide the name of the tile data file and an ID
 
-
-@export var tileBrush: PackedScene
 @export var tileImageDisplay: TextureRect = null
 @export var IDTextLabel: Label = null
 @export var NameTextEdit: TextEdit = null

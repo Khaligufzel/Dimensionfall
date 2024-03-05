@@ -14,10 +14,13 @@ func _ready():
 	data.mobs = {}
 	data.overmaptiles = {}
 	data.maps = {}
+	data.furniture = {}
 	data.tiles.dataPath = "./Mods/Core/Tiles/Tiles.json"
 	data.tiles.spritePath = "./Mods/Core/Tiles/"
 	data.mobs.dataPath = "./Mods/Core/Mobs/Mobs.json"
 	data.mobs.spritePath = "./Mods/Core/Mobs/"
+	data.furniture.spritePath = "./Mods/Core/Furniture/"
+	data.furniture.dataPath = "./Mods/Core/Furniture/Furniture.json"
 	data.overmaptiles.spritePath = "./Mods/Core/OvermapTiles/"
 	data.maps.dataPath = "./Mods/Core/Maps/"
 	load_sprites()
@@ -33,6 +36,8 @@ func load_data() -> void:
 			if FileAccess.file_exists(dataPath):
 				Helper.json_helper.create_new_json_file(dataPath)
 				data[dict].data = Helper.json_helper.load_json_array_file(dataPath)
+			else:
+				data[dict].data = []
 
 #This loads all the sprites and assigns them to the proper dictionary
 func load_sprites():
@@ -89,15 +94,17 @@ func duplicate_item_in_data(contentData: Dictionary, id: String, newID: String):
 		print_debug("There should be code here for when a file in the gets duplicated")
 
 # This function appends a new object to an existing array
-# Pass the array to this function and the value of the ID
+# Pass the contentData dictionary to this function and the value of the ID
 # If the data directory ends in .json, it will append an object
 # The object that will be appended will be nothing more then {"id": id}
 # if the data directory does not end in .json, a new file will be added
 # This file will get the name as specified by id, so for example "myhouse"
 # After the ID is added, the data array will be saved to disk
 func add_id_to_data(contentData: Dictionary, id: String):
+	if !contentData.has("data"):
+		return
 	if contentData.dataPath.ends_with((".json")):
-		if get_array_index_by_id(contentData.data,id) != -1:
+		if get_array_index_by_id(contentData,id) != -1:
 			print_debug("Tried to add an existing id to an array")
 			return
 		contentData.data.append({"id": id})
