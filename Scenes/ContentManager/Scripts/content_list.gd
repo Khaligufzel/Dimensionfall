@@ -60,13 +60,23 @@ func make_item_list():
 				contentItems.set_item_icon(item_index,mySprite)
 
 # Loops over the files in contentData.data (which are filenames)
-# For each file a new item will be added to the list
+# For each file, a new item will be added to the list
 func make_file_list() -> void:
 	for file_name in contentData.data:
+		# Extract the base name without the extension
+		var base_name = file_name.get_basename()
+
 		# Add all the filenames to the ContentItems list as child nodes
-		var item_index: int = contentItems.add_item(file_name.replace(".json", ""))
-		#Add the ID as metadata which can be used to load the item data
-		contentItems.set_item_metadata(item_index, file_name.replace(".json", ""))
+		var item_index: int = contentItems.add_item(base_name)
+		# Add the ID as metadata which can be used to load the item data
+		contentItems.set_item_metadata(item_index, base_name)
+		
+		# If the file has an image to represent it's content, load it
+		if contentData.sprites.has(base_name + ".png"):
+			var mySprite: Resource = contentData.sprites[base_name + ".png"]
+			if mySprite:
+				contentItems.set_item_icon(item_index, mySprite)
+
 
 # Executed when an item in ContentItems is double-clicked or 
 # when the user selects an item in ContentItems and presses enter

@@ -318,3 +318,42 @@ func _on_rotate_right_button_up():
 	buttonRotateRight.text = str(rotationAmount)
 	brushPreviewTexture.rotation_degrees = rotationAmount
 	brushPreviewTexture.pivot_offset = brushPreviewTexture.size / 2
+
+
+# Function to create a 128x128 miniature map of the current level
+func create_miniature_map_image() -> Image:
+	var map_width = mapEditor.mapWidth
+	var map_height = mapEditor.mapHeight
+	var tile_width = int(128 / map_width)  # Calculate tile width for the miniature map
+	var tile_height = int(128 / map_height)  # Calculate tile height for the miniature map
+
+	# Create a new Image with a size of 128x128 pixels
+	var image = Image.create(128, 128, false, Image.FORMAT_RGBA8)
+
+	# Iterate through each tile in the current level and draw it into the image
+	for x in range(map_width):
+		for y in range(map_height):
+			var tile = get_child(y * map_width + x)
+			var tile_texture = tile.get_tile_texture()
+			var tile_image = tile_texture.get_image()
+			# Resize the tile image to fit the miniature map
+			tile_image.resize(tile_width, tile_height)
+			# Convert the tile image to the same format as the main image
+			tile_image.convert(Image.FORMAT_RGBA8)
+			# Draw the resized tile image onto the main image
+			image.blit_rect(tile_image, Rect2(Vector2(), \
+			tile_image.get_size()), Vector2(x * tile_width, y * tile_height))
+	return image
+
+# Function to create and save a 128x128 miniature map of the current level
+func save_miniature_map_image():
+	# Call the function to create the image texture
+	var image_texture = create_miniature_map_image()  
+	var image = image_texture
+	# Save the image to a file
+	var file_name = mapEditor.contentSource.get_file().replace("json", "png")
+	var file_path = Gamedata.data.maps.spritePath + file_name
+	image.save_png(file_path)
+
+func _on_create_preview_image_button_button_up():
+	save_miniature_map_image()

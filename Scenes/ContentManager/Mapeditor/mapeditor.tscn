@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=23 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
+[ext_resource type="Texture2D" uid="uid://dd700uhgg8oly" path="res://Images/Icons/IconCameraUnchecked.png" id="2_bib5l"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/GridContainer.gd" id="2_sf17m"]
 [ext_resource type="Texture2D" uid="uid://b6m2bbbpmsyik" path="res://Images/Icons/IconRotateRightDark.png" id="3_8q2iq"]
 [ext_resource type="Texture2D" uid="uid://cxhp6hye2ufp2" path="res://Images/Icons/IconRectangleUnchecked.png" id="3_70koh"]
@@ -76,6 +77,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.15
 text = "Save"
+
+[node name="CreatePreviewImageButton" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+tooltip_text = "Creates a miniature image of the map in the /mods/core/maps folder. The file name will be the ID of the map + png. "
+theme_override_icons/checked = ExtResource("2_bib5l")
+theme_override_icons/unchecked = ExtResource("2_bib5l")
 
 [node name="ZoomScroller" parent="HSplitContainer/MapeditorContainer/Toolbar" instance=ExtResource("1_0ytmu")]
 layout_mode = 2
@@ -254,6 +261,7 @@ offset_bottom = 40.0
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_zoom_level_changed"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="save_map_json_file"]
+[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/CreatePreviewImageButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_create_preview_image_button_button_up"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" to="." method="_on_zoom_scroller_zoom_level_changed"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_rotate_right_button_up"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_draw_rectangle_toggled"]
