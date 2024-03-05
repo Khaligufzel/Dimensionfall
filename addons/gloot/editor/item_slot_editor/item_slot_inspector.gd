@@ -3,27 +3,27 @@ extends Control
 
 const EditorIcons = preload("res://addons/gloot/editor/common/editor_icons.gd")
 
-@onready var inventory_editor: Control = $HBoxContainer/InventoryEditor
+@onready var item_slot_editor: Control = $HBoxContainer/ItemSlotEditor
 @onready var btn_expand: Button = $HBoxContainer/BtnExpand
 @onready var _window_dialog: Window = $Window
-@onready var _inventory_editor: Control = $Window/MarginContainer/InventoryEditor
+@onready var _item_slot_editor: Control = $Window/MarginContainer/ItemSlotEditor
 
-var inventory: Inventory :
+var item_slot: ItemSlot :
     get:
-        return inventory
-    set(new_inventory):
-        inventory = new_inventory
-        if inventory_editor:
-            inventory_editor.inventory = inventory
+        return item_slot
+    set(new_item_slot):
+        item_slot = new_item_slot
+        if item_slot_editor:
+            item_slot_editor.item_slot = item_slot
 
 
-func init(inventory_: Inventory) -> void:
-    inventory = inventory_
+func init(item_slot_: ItemSlot) -> void:
+    item_slot = item_slot_
 
 
 func _ready() -> void:
-    if inventory_editor:
-        inventory_editor.inventory = inventory
+    if item_slot_editor:
+        item_slot_editor.item_slot = item_slot
     _apply_editor_settings()
     btn_expand.icon = EditorIcons.get_icon("DistractionFree")
     btn_expand.pressed.connect(on_btn_expand)
@@ -31,7 +31,7 @@ func _ready() -> void:
 
 
 func on_btn_expand() -> void:
-    _inventory_editor.inventory = inventory
+    _item_slot_editor.item_slot = item_slot
     _window_dialog.popup_centered()
 
 

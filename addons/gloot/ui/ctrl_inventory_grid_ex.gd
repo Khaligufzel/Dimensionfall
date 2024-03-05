@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/gloot/images/icon_ctrl_inventory_grid.svg")
 class_name CtrlInventoryGridEx
 extends CtrlInventoryGrid
 
@@ -48,6 +49,7 @@ func _dequeue_highlight():
 
 func _refresh() -> void:
     super._refresh()
+    _refresh_field_background_grid()
 
 
 func _refresh_selection() -> void:
@@ -101,16 +103,8 @@ func _create_selection_panel() -> void:
     _set_panel_style(_selection_panel, selection_style)
     _selection_panel.visible = (_selected_item != null) && (selection_style != null)
     _selection_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    _selection_panel.mouse_entered.connect(Callable(self, "_on_selection_mouse_entered"))
-    _selection_panel.mouse_exited.connect(Callable(self, "_on_selection_mouse_exited"))
-
-
-func _on_selection_mouse_entered() -> void:
-    item_mouse_entered.emit(_selected_item)
-
-
-func _on_selection_mouse_exited() -> void:
-    item_mouse_exited.emit(_selected_item)
+    _selection_panel.mouse_entered.connect(func(): item_mouse_entered.emit(_selected_item))
+    _selection_panel.mouse_exited.connect(func(): item_mouse_exited.emit(_selected_item))
 
 
 func _set_panel_style(panel: Panel, style: StyleBox) -> void:
@@ -124,7 +118,7 @@ func _ready() -> void:
     
     _create_selection_panel()
     _create_field_background_grid()
-    selection_changed.connect(Callable(self, "_on_selection_changed"))
+    selection_changed.connect(_on_selection_changed)
 
 
 func _on_selection_changed() -> void:
@@ -145,16 +139,14 @@ func _on_inventory_resized() -> void:
 
 
 func _input(event) -> void:
-    super._input(event)
-    
     if !(event is InputEventMouseMotion):
         return
     if !inventory:
         return
     
     var hovered_field_coords := Vector2i(-1, -1)
-    if _is_hovering(get_global_mouse_position()):
-        hovered_field_coords = get_field_coords(get_global_mouse_position())
+    if _is_hovering(get_local_mouse_position()):
+        hovered_field_coords = get_field_coords(get_local_mouse_position())
 
     _reset_highlights()
     if !field_highlighted_style:
@@ -187,15 +179,19 @@ func _highlight_grabbed_item(style: StyleBox) -> bool:
     if !grabbed_item:
         return false
 
-    var global_grabbed_item_pos: Vector2 = _get_global_grabbed_item_global_pos()
+    var global_grabbed_item_pos: Vector2 = _get_global_grabbed_item_local_pos()
     if !_is_hovering(global_grabbed_item_pos):
         return false
 
-    var grabbed_item_coords := get_field_coords(global_grabbed_item_pos)
+    var grabbed_item_coords := get_field_coords(global_grabbed_item_pos + (field_dimensions / 2))
     var item_size := inventory.get_item_size(grabbed_item)
     var rect := Rect2i(grabbed_item_coords, item_size)
     _highlight_rect(rect, style, true)
     return true
+
+
+func _is_hovering(local_pos: Vector2) -> bool:
+    return get_rect().has_point(local_pos)
 
 
 func _highlight_item(item: InventoryItem, style: StyleBox) -> bool:
@@ -228,14 +224,13 @@ func _highlight_rect(rect: Rect2i, style: StyleBox, queue_for_reset: bool) -> vo
 
 
 func _get_global_grabbed_item() -> InventoryItem:
-    var grabbed_item: InventoryItem = get_grabbed_item()
-    if !grabbed_item && _gloot:
-        grabbed_item = _gloot._grabbed_inventory_item
-    return grabbed_item
+    if CtrlDragable.get_grabbed_dragable() == null:
+        return null
+    return (CtrlDragable.get_grabbed_dragable() as CtrlInventoryItemRect).item
 
 
-func _get_global_grabbed_item_global_pos() -> Vector2:
-    if _gloot && _gloot._grabbed_inventory_item:
-        return get_global_mouse_position() - _gloot._grab_offset + (field_dimensions / 2)
+func _get_global_grabbed_item_local_pos() -> Vector2:
+    if CtrlDragable.get_grabbed_dragable():
+        return get_local_mouse_position() - CtrlDragable.get_grab_offset()
     return Vector2(-1, -1)
     
