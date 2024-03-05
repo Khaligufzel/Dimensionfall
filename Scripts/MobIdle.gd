@@ -4,8 +4,7 @@ class_name MobIdle
 var idle_speed
 
 @export var nav_agent: NavigationAgent3D
-@export var stats: NodePath
-@export var mob: NodePath
+@export var mob: CharacterBody3D
 @export var move_distance: float
 
 @export var moving_timer: Timer
@@ -20,7 +19,7 @@ var rng = RandomNumberGenerator.new()
 
 func Enter():
 	print("Mob idle")
-	idle_speed = get_node(stats).idle_move_speed
+	idle_speed = mob.idle_move_speed
 	moving_timer.start()
 	
 func Exit():
@@ -28,12 +27,12 @@ func Exit():
 	
 func Physics_Update(_delta: float):
 	if is_looking_to_move:
-		var dir = get_node(mob).to_local(nav_agent.get_next_path_position()).normalized()
-		get_node(mob).velocity = dir * get_node(stats).current_idle_move_speed
-		get_node(mob).move_and_slide()
+		var dir = mob.to_local(nav_agent.get_next_path_position()).normalized()
+		mob.velocity = dir * mob.current_idle_move_speed
+		mob.move_and_slide()
 
 	
-		if Vector3(get_node(mob).global_position).distance_to(target_location) <= 0.5:
+		if Vector3(mob.global_position).distance_to(target_location) <= 0.5:
 			is_looking_to_move = false
 	
 
@@ -49,12 +48,12 @@ func makepath() -> void:
 func _on_moving_cooldown_timeout():
 	
 	var space_state = get_world_3d().direct_space_state
-	var random_dir = Vector3(rng.randf_range(-1,1), get_node(mob).global_position.y, rng.randf_range(-1, 1))
-	var query = PhysicsRayQueryParameters3D.create(get_node(mob).global_position, get_node(mob).global_position + (random_dir * move_distance), int(pow(2, 1-1) + pow(2, 3-1)),[self])
+	var random_dir = Vector3(rng.randf_range(-1,1), mob.global_position.y, rng.randf_range(-1, 1))
+	var query = PhysicsRayQueryParameters3D.create(mob.global_position, mob.global_position + (random_dir * move_distance), int(pow(2, 1-1) + pow(2, 3-1)),[self])
 
 	var result = space_state.intersect_ray(query)
 	if !result:
 		is_looking_to_move = true
-		target_location = get_node(mob).global_position + (random_dir * move_distance)
+		target_location = mob.global_position + (random_dir * move_distance)
 		makepath()
 

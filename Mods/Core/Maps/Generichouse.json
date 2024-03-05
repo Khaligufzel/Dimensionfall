@@ -6136,7 +6136,6 @@
 			},
 			{
 				"id": "grass_plain_01",
-				"mob": "scrapwalker",
 				"rotation": 0
 			},
 			{
@@ -6266,7 +6265,6 @@
 			},
 			{
 				"id": "grass_plain_01",
-				"mob": "scrapwalker",
 				"rotation": 0
 			},
 			{
@@ -7172,6 +7170,7 @@
 			},
 			{
 				"id": "grass_plain_01",
+				"mob": "scrapwalker",
 				"rotation": 0
 			},
 			{
@@ -7552,6 +7551,7 @@
 			},
 			{
 				"id": "grass_plain_01",
+				"mob": "scrapwalker",
 				"rotation": 0
 			},
 			{
@@ -7780,6 +7780,7 @@
 			},
 			{
 				"id": "grass_plain_01",
+				"mob": "rust_sentinel",
 				"rotation": 0
 			},
 			{

@@ -37,24 +37,33 @@ func create_new_save():
 	else:
 		print_debug("Failed to create a unique folder for the demo.")
 
-#Save the type and position of all mobs on the map
+# Save all the mobs and their current stats to the mobs file for this map
 func save_mob_data(target_folder: String) -> void:
 	var mobData: Array = []
-	var defaultMob: Dictionary = {"id": "scrapwalker", \
-	"global_position_x": 0, "global_position_y": 0, "global_position_z": 0}
 	var mapMobs = get_tree().get_nodes_in_group("mobs")
 	var newMobData: Dictionary
 	for mob in mapMobs:
 		mob.remove_from_group("mobs")
-		newMobData = defaultMob.duplicate()
-		newMobData["global_position_x"] = mob.global_position.x
-		newMobData["global_position_y"] = mob.global_position.y
-		newMobData["global_position_z"] = mob.global_position.z
-		newMobData["id"] = mob.id
+		newMobData = {
+			"id": mob.id,
+			"global_position_x": mob.global_position.x,
+			"global_position_y": mob.global_position.y,
+			"global_position_z": mob.global_position.z,
+			"melee_damage": mob.melee_damage,
+			"melee_range": mob.melee_range,
+			"health": mob.health,
+			"current_health": mob.current_health,
+			"move_speed": mob.moveSpeed,
+			"current_move_speed": mob.current_move_speed,
+			"idle_move_speed": mob.idle_move_speed,
+			"current_idle_move_speed": mob.current_idle_move_speed,
+			"sight_range": mob.sightRange,
+			"sense_range": mob.senseRange,
+			"hearing_range": mob.hearingRange
+		}
 		mobData.append(newMobData.duplicate())
 		mob.queue_free()
-	Helper.json_helper.write_json_file(target_folder + "/mobs.json",\
-	JSON.stringify(mobData))
+	Helper.json_helper.write_json_file(target_folder + "/mobs.json", JSON.stringify(mobData))
 
 #Save the type and position of all mobs on the map
 func save_item_data(target_folder: String) -> void:
