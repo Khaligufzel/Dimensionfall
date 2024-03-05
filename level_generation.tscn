@@ -145,23 +145,32 @@ double_sided = false
 no_depth_test = true
 texture = ExtResource("10_alql8")
 
-[node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("attack_cooldown", "reload_timer", "shoot_audio_player", "reload_audio_player")]
+[node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("left_attack_cooldown", "right_attack_cooldown", "left_reload_timer", "right_reload_timer", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 script = ExtResource("11_6i2sa")
 bullet_damage = 25.0
 bullet_line_scene = ExtResource("12_dip38")
-attack_cooldown = NodePath("AttackCD")
-reload_timer = NodePath("ReloadTime")
+left_attack_cooldown = NodePath("Left_attack_cooldown")
+right_attack_cooldown = NodePath("Right_attack_cooldown")
+left_reload_timer = NodePath("Left_reload_timer")
+right_reload_timer = NodePath("Right_reload_timer")
 player = NodePath("..")
 hud = NodePath("../../../../HUD")
 shoot_audio_player = NodePath("ShootAudio")
 shoot_audio_randomizer = SubResource("AudioStreamRandomizer_136pt")
 reload_audio_player = NodePath("ReloadAudio")
 
-[node name="AttackCD" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
+[node name="Left_attack_cooldown" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
 one_shot = true
 
-[node name="ReloadTime" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
+[node name="Left_reload_timer" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Right_attack_cooldown" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
+one_shot = true
+
+[node name="Right_reload_timer" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
 wait_time = 5.0
 one_shot = true
 
@@ -198,9 +207,12 @@ transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 
 [connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
 [connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
 [connection signal="ammo_changed" from="TacticalMap/Entities/Player/Shooting" to="HUD" method="_on_shooting_ammo_changed"]
-[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/ReloadTime" to="TacticalMap/Entities/Player/Shooting" method="_on_reload_time_timeout"]
+[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Left_reload_timer" to="TacticalMap/Entities/Player/Shooting" method="_on_left_reload_time_timeout"]
+[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Right_reload_timer" to="TacticalMap/Entities/Player/Shooting" method="_on_right_reload_time_timeout"]
 [connection signal="add_to_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_add_to_proximity_inventory"]
 [connection signal="area_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_entered"]
 [connection signal="area_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_exited"]
 [connection signal="remove_from_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_remove_from_proximity_inventory"]
 [connection signal="construction_chosen" from="HUD" to="TacticalMap/BuildManager" method="_on_hud_construction_chosen"]
+[connection signal="item_equipment_slot_was_cleared" from="HUD" to="TacticalMap/Entities/Player/Shooting" method="_on_hud_item_equipment_slot_was_cleared"]
+[connection signal="item_was_equipped" from="HUD" to="TacticalMap/Entities/Player/Shooting" method="_on_hud_item_was_equipped"]

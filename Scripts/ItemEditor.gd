@@ -30,6 +30,7 @@ extends Control
 @export var MaxStackSizeNumberBox: SpinBox = null
 
 @export var typesContainer: HFlowContainer = null
+@export var TwoHandedCheckBox: CheckBox = null
 
 
 
@@ -71,6 +72,8 @@ func load_item_data() -> void:
 		StackSizeNumberBox.get_line_edit().text = contentData["stack_size"]
 	if MaxStackSizeNumberBox != null and contentData.has("max_stack_size"):
 		MaxStackSizeNumberBox.get_line_edit().text = contentData["max_stack_size"]
+	if TwoHandedCheckBox != null and contentData.has("two_handed"):
+		TwoHandedCheckBox.button_pressed = contentData["two_handed"]
 
 	# Loop through typesContainer children to load additional properties and set button_pressed
 	for i in range(typesContainer.get_child_count()):
@@ -104,6 +107,7 @@ func _on_save_button_button_up() -> void:
 	contentData["weight"] = WeightNumberBox.get_line_edit().text
 	contentData["stack_size"] = StackSizeNumberBox.get_line_edit().text
 	contentData["max_stack_size"] = MaxStackSizeNumberBox.get_line_edit().text
+	contentData["two_handed"] = TwoHandedCheckBox.button_pressed
 	
 	# Loop through typesContainer children to save additional properties
 	for i in range(typesContainer.get_child_count()):
