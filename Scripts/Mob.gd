@@ -33,13 +33,12 @@ func _ready():
 	current_move_speed = moveSpeed
 	current_idle_move_speed = idle_move_speed
 	
-func _get_hit(damage):
+func get_hit(damage):
 	
 	#3d
 #	tween = create_tween()
 #	tween.tween_property(get_node(sprite), "scale", get_node(sprite).scale * 1.35, 0.1)
 #	tween.tween_property(get_node(sprite), "scale", original_scale, 0.1)
-	
 	current_health -= damage
 	if current_health <= 0:
 		_die()

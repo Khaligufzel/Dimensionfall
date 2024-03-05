@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kn2f7jcrfnfm"
-path.s3tc="res://.godot/imported/bullet.png-d0683fae3e5561e9777f695f5120b009.s3tc.ctex"
+uid="uid://piolgplta87y"
+path.s3tc="res://.godot/imported/weapon_left.png-726621e3476b97f0429fff8ecf897704.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/bullet.png"
-dest_files=["res://.godot/imported/bullet.png-d0683fae3e5561e9777f695f5120b009.s3tc.ctex"]
+source_file="res://Defaults/Player/weapon_left.png"
+dest_files=["res://.godot/imported/weapon_left.png-726621e3476b97f0429fff8ecf897704.s3tc.ctex"]
 
 [params]
 
