@@ -1,47 +1,33 @@
 extends Control
 
-var level_files : Array
-@export var option_levels : OptionButton 
-
+var saved_game_folders : Array
+@export var load_game_list : OptionButton 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	dir_contents("./Mods/Core/Maps/")
-	
-	for level_file in level_files:
-		option_levels.add_item(level_file)
-	
-	
-func dir_contents(path):
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				print("Found directory: " + file_name)
-			else:
-				print("Found file: " + file_name)
-				level_files.append(file_name)
-			file_name = dir.get_next()
-	else:
-		print("An error occurred when trying to access the path.")
+	saved_game_folders = Helper.json_helper.folder_names_in_dir("user://save/")
+	for saved_game in saved_game_folders:
+		load_game_list.add_item(saved_game)
 
+func _on_load_game_button_pressed():
+	var selected_game_folder = saved_game_folders[load_game_list.get_selected_id()]
+	Helper.save_helper.load_game_from_folder(selected_game_folder)
+	Helper.save_helper.load_overmap_state()
+	# We pass the name of the default map and coordinates
+	# If there is a saved game, it will not load the provided map
+	# but rather the one that was saved in the game that was loaded
+	Helper.switch_level("Generichouse.json", Vector2(0, 0))
 
-func _on_view_level_pressed():
-	Helper.switch_level(level_files[option_levels.get_selected_id()],Vector2(0,0))
-
-#When the play demo button is pressed
-#Create a new folder in the user directory
-#The name of the folder should be the current date and time so it's unique
-#This unique folder will contain save data for this game and can be loaded later
+# When the play demo button is pressed
+# Create a new folder in the user directory
+# The name of the folder should be the current date and time so it's unique
+# This unique folder will contain save data for this game and can be loaded later
 func _on_play_demo_pressed():
 	Helper.save_helper.create_new_save()
 	Helper.switch_level("Generichouse.json", Vector2(0, 0))
 
 func _on_help_button_pressed():
 	get_tree().change_scene_to_file("res://documentation.tscn")
-
 
 func _on_content_manager_button_button_up():
 	get_tree().change_scene_to_file("res://Scenes/ContentManager/contentmanager.tscn")

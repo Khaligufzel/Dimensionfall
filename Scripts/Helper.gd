@@ -1,9 +1,13 @@
 extends Node3D
 
 var current_level_name : String
+# Overmap data
 var chunks: Dictionary = {} #Stores references to tilegrids representing the overmap
 var current_level_pos: Vector2 = Vector2(0.1,0.1)
 var current_map_seed: int = 0
+var position_coord: Vector2 = Vector2(0, 0)
+
+# Helper scripts
 const json_Helper_Class = preload("res://Scripts/Helper/json_helper.gd")
 var json_helper: Node = null
 const save_Helper_Class = preload("res://Scripts/Helper/save_helper.gd")
@@ -24,9 +28,9 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 	# In that case no level has once been loaded so there is no game to save
 	if current_level_pos != Vector2(0.1,0.1):
 		save_helper.save_current_level(current_level_pos)
+		save_helper.save_overmap_state()
 	current_level_pos = global_pos
 	get_tree().change_scene_to_file("res://level_generation.tscn")
-	
 
 func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:
 	var mesh_instance := MeshInstance3D.new()

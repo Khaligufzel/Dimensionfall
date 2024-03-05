@@ -1,7 +1,7 @@
 extends Node
 
 #This script is loaded in to the helper.gd autoload singleton
-#It can be accessed trough helper.save_helper
+#It can be accessed trough Helper.save_helper
 #This scipt provides functions to help transitioning between levels
 #It has functions to save the current level and the location of items, mobs and tiles
 #It also has functions to load saved data and place the items, mobs and tiles on the map
@@ -148,3 +148,45 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 	if dir.dir_exists(map_folder):
 		return target_folder
 	return ""
+
+# Function to load game.json from a given saved game folder
+func load_game_from_folder(save_folder_name: String) -> void:
+	current_save_folder = "user://save/" + save_folder_name
+
+# Function to save the current state of the overmap
+func save_overmap_state() -> void:
+	var save_path = current_save_folder + "/overmap_state.json"
+	var save_data: Dictionary = {
+		"position_coord_x": Helper.position_coord.x,
+		"position_coord_y": Helper.position_coord.y,
+		"chunk_data": {}
+	}
+
+	# Convert Vector2 keys to strings
+	for key in Helper.chunks:
+		var key_str = str(key.x) + "," + str(key.y)
+		save_data["chunk_data"][key_str] = Helper.chunks[key]
+
+	Helper.json_helper.write_json_file(save_path, JSON.stringify(save_data))
+
+# Function to load the saved state of the overmap
+func load_overmap_state() -> void:
+	var overmap_path = current_save_folder + "/overmap_state.json"
+	var overmap_state_data = Helper.json_helper.load_json_dictionary_file(overmap_path)
+
+	if overmap_state_data:
+		Helper.position_coord = Vector2(overmap_state_data["position_coord_x"],\
+		overmap_state_data["position_coord_y"])
+		Helper.chunks.clear()
+
+		# Convert string keys back to Vector2
+		var chunk_data = overmap_state_data["chunk_data"]
+		for key_str in chunk_data:
+			var key_parts = key_str.split(",")
+			if key_parts.size() == 2:
+				var key = Vector2(float(key_parts[0]), float(key_parts[1]))
+				Helper.chunks[key] = chunk_data[key_str]
+
+		print("Overmap state loaded from: ", overmap_path)
+	else:
+		print("Failed to parse overmap state file: ", overmap_path)

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_sue5h"]
 
-[node name="SceneSelector" type="Control" node_paths=PackedStringArray("option_levels")]
+[node name="SceneSelector" type="Control" node_paths=PackedStringArray("load_game_list")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_a5yxj")
-option_levels = NodePath("OptionButton")
+load_game_list = NodePath("LoadGameList")
 
 [node name="PlayDemo" type="Button" parent="."]
 layout_mode = 1
@@ -23,16 +23,16 @@ theme_override_fonts/font = ExtResource("1_sue5h")
 theme_override_font_sizes/font_size = 60
 text = "Play demo"
 
-[node name="ViewLevel" type="Button" parent="."]
+[node name="LoadGameButton" type="Button" parent="."]
 layout_mode = 1
 offset_top = 378.0
 offset_right = 453.0
 offset_bottom = 457.0
 theme_override_fonts/font = ExtResource("1_sue5h")
 theme_override_font_sizes/font_size = 25
-text = "View selected level ---->>>"
+text = "Load game ---->>>"
 
-[node name="OptionButton" type="OptionButton" parent="."]
+[node name="LoadGameList" type="OptionButton" parent="."]
 layout_mode = 1
 offset_left = 477.0
 offset_top = 378.0
@@ -58,6 +58,6 @@ theme_override_font_sizes/font_size = 25
 text = "Content Manager"
 
 [connection signal="pressed" from="PlayDemo" to="." method="_on_play_demo_pressed"]
-[connection signal="pressed" from="ViewLevel" to="." method="_on_view_level_pressed"]
+[connection signal="pressed" from="LoadGameButton" to="." method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="button_up" from="ContentManagerButton" to="." method="_on_content_manager_button_button_up"]

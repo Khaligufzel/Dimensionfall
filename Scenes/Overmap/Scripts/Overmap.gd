@@ -5,7 +5,6 @@ extends Control
 @export var overmapTile: PackedScene = null
 @export var travelButton: Button = null
 @export var overmapTileLabel: Label = null
-var position_coord: Vector2 = Vector2(0, 0)
 var last_position_coord: Vector2 = Vector2()
 var tiles: Array = ["1.png", "arcstones1.png", "forestunderbrushscale5.png", "rockyfloor4.png"]
 var noise = FastNoiseLite.new()
@@ -37,14 +36,14 @@ func _ready():
 # and `position_coord` is the current position in the world
 func update_chunks():
 	# Convert the current position to grid coordinates based on the grid's pixel size
-	var grid_position = (position_coord / grid_pixel_size).floor() * grid_pixel_size
+	var grid_position: Vector2 = (Helper.position_coord / grid_pixel_size).floor() * grid_pixel_size
 	#The position is increase arbitrarily so it is more center of screen
 	grid_position.x += grid_pixel_size
 	grid_position.y += grid_pixel_size
 
 	for x in range(-1, 1):
 		for y in range(-1, 1):
-			var chunk_grid_position = grid_position + Vector2(x, y) * grid_pixel_size
+			var chunk_grid_position: Vector2 = grid_position + Vector2(x, y) * grid_pixel_size
 			# Use the separate noise_chunks Dictionary for retrieving the noise data
 			if not Helper.chunks.has(chunk_grid_position):
 				generate_chunk(chunk_grid_position)
@@ -53,8 +52,8 @@ func update_chunks():
 			
 			if not grid_chunks.has(chunk_grid_position):
 				# Use chunk data to create and fill the GridContainer.
-				var localized_x: float = chunk_grid_position.x-position_coord.x
-				var localized_y: float = chunk_grid_position.y-position_coord.y
+				var localized_x: float = chunk_grid_position.x-Helper.position_coord.x
+				var localized_y: float = chunk_grid_position.y-Helper.position_coord.y
 				var new_grid_container = create_and_fill_grid_container(chunk_data,\
 				Vector2(localized_x,localized_y))
 				tilesContainer.call_deferred("add_child",new_grid_container)
@@ -107,7 +106,7 @@ func unload_chunks():
 	var dist = 0
 	var rangeLimit = 0
 	for chunk_position in grid_chunks.keys():
-		dist = chunk_position.distance_to(position_coord)
+		dist = chunk_position.distance_to(Helper.position_coord)
 		#Lowering this number 5 will cause newly created chunks 
 		#to be instantly deleted and recreated
 		rangeLimit = 3 * grid_pixel_size
@@ -134,18 +133,18 @@ func _input(event):
 		# Adjust the position based on the mouse movement, divided by 100 for sensitivity.
 		var motion = event.relative / 2
 		# Calculate the new position first.
-		var new_position_coord = position_coord - motion
+		var new_position_coord = Helper.position_coord - motion
 		# Round the new_position_coord to the nearest integer.
 		new_position_coord = new_position_coord.round()
 		# Calculate the delta based on the old and the rounded new positions.
-		var delta = new_position_coord - position_coord
+		var delta = new_position_coord - Helper.position_coord
 		if delta != Vector2.ZERO:
 			# Update position_coord to the new rounded position.
-			position_coord = new_position_coord
+			Helper.position_coord = new_position_coord
 			# Emit the signal to update other parts of the game that depend on the position.
 			emit_signal("position_coord_changed", delta)
 			# Update last_position_coord for the next input event.
-			last_position_coord = position_coord
+			last_position_coord = Helper.position_coord
 
 
 #This function will move all the tilegrids on screen when the position_coords change
@@ -160,7 +159,7 @@ func on_position_coord_changed(delta):
 	update_tiles_position(delta)
 	update_chunks()
 	if positionLabel:
-		positionLabel.text = "Position: " + str(position_coord)
+		positionLabel.text = "Position: " + str(Helper.position_coord)
 
 # This function creates and populates a GridContainer with tiles based on chunk data. 
 # It takes two arguments: chunk, an array containing data for each tile in the chunk, 
@@ -262,10 +261,10 @@ func _on_home_button_button_up():
 	var new_position_coord = -world_center_offset
 
 	# Calculate the delta for moving the tiles
-	var delta = new_position_coord - position_coord
+	var delta = new_position_coord - Helper.position_coord
 
 	# Update position_coord to the new position
-	position_coord = new_position_coord
+	Helper.position_coord = new_position_coord
 
 	# Emit the signal to update the overmap's position and tiles
 	emit_signal("position_coord_changed", delta)
