@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://budsoodfdkaea"]
+
+[ext_resource type="Script" path="res://Scenes/Overmap/Scripts/OvermapTile.gd" id="1_kxuyw"]
+
+[node name="OvermapTile" type="Control"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_kxuyw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
