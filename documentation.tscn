@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dddjfurdx4wcs"]
+[gd_scene load_steps=18 format=3 uid="uid://dddjfurdx4wcs"]
 
 [ext_resource type="Script" path="res://Scripts/Documentation.gd" id="1_bo6h8"]
 [ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="2_satcq"]
@@ -8,6 +8,14 @@
 [ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_gbqcg"]
 [ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_3sw1n"]
 [ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_lyqw1"]
+
+[sub_resource type="Gradient" id="Gradient_my8oh"]
+colors = PackedColorArray(0.651769, 0.651769, 0.651769, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2kumh"]
+gradient = SubResource("Gradient_my8oh")
+width = 5
+height = 400
 
 [sub_resource type="SystemFont" id="SystemFont_53ri7"]
 font_names = PackedStringArray("Monospace")
@@ -60,51 +68,62 @@ is_bold = false
 is_italic = false
 is_underlined = false
 
-[node name="HelpMenu" type="Control"]
+[node name="HelpMenu" type="Control" node_paths=PackedStringArray("categoryTree", "documentDisplay")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -11.0
-offset_right = -11.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bo6h8")
+categoryTree = NodePath("VBoxContainer/ContentSplitContainer/VBoxContainer/CategoryTree")
+documentDisplay = NodePath("VBoxContainer/ContentSplitContainer/DocumentDisplay")
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -28.0
-offset_right = 28.0
-offset_bottom = 38.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Back"
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 6
 theme_override_font_sizes/font_size = 25
 text = "Help"
 
-[node name="CategoryLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = 107.0
-offset_top = 64.0
-offset_right = 235.0
-offset_bottom = 102.0
+[node name="ContentSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_icons/grabber = SubResource("GradientTexture2D_2kumh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="CategoryLabel" type="Label" parent="VBoxContainer/ContentSplitContainer/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Categories"
 
-[node name="CategoryTree" type="Tree" parent="."]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 104.0
-offset_right = 331.0
-offset_bottom = 637.0
+[node name="CategoryTree" type="Tree" parent="VBoxContainer/ContentSplitContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="DocumentDisplay" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 347.0
-offset_top = 64.0
-offset_right = 1163.0
-offset_bottom = 640.0
+[node name="DocumentDisplay" type="RichTextLabel" parent="VBoxContainer/ContentSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.75
 theme_override_fonts/mono_font = SubResource("SystemFont_53ri7")
 bbcode_enabled = true
 text = "[font_size=22]Welcome to the documentation menu[/font_size]
@@ -119,13 +138,5 @@ h4 = SubResource("Resource_mdkcg")
 h5 = SubResource("Resource_8naro")
 h6 = SubResource("Resource_hwu7s")
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 11.0
-offset_right = 139.0
-offset_bottom = 48.0
-theme_override_font_sizes/font_size = 24
-text = "Back"
-
-[connection signal="meta_clicked" from="DocumentDisplay" to="." method="_on_document_display_meta_clicked"]
-[connection signal="pressed" from="Button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="meta_clicked" from="VBoxContainer/ContentSplitContainer/DocumentDisplay" to="." method="_on_document_display_meta_clicked"]
