@@ -35,3 +35,9 @@ func add_corpse(pos: Vector3):
 	get_tree().get_root().add_child(corpse)
 	corpse.global_position = pos
 	corpse.add_to_group("mapitems")
+	
+func set_sprite(sprite: Resource):
+	var material := StandardMaterial3D.new() 
+	material.albedo_texture = sprite # Set the texture of the material
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	$MeshInstance3D.mesh.surface_set_material(0, material)

@@ -133,10 +133,20 @@ func paint_single_tile(clicked_tile):
 	if drawRectangle or !clicked_tile:
 		return
 	if erase:
-		clicked_tile.set_default()
+		if selected_brush:
+			if selected_brush.entityType == "mob":
+				clicked_tile.set_mob_id("")
+			else:
+				clicked_tile.set_tile_id("")
+				clicked_tile.set_rotation_amount(0)
+		else:
+			clicked_tile.set_default()
 	elif selected_brush:
-		clicked_tile.set_tile_id(selected_brush.tileID)
-		clicked_tile.set_rotation_amount(rotationAmount) # Apply rotation
+		if selected_brush.entityType == "mob":
+			clicked_tile.set_mob_id(selected_brush.tileID)
+		else:
+			clicked_tile.set_tile_id(selected_brush.tileID)
+			clicked_tile.set_rotation_amount(rotationAmount)
 
 #When this function is called, loop over all the TileGrid's children and get the tileData property. Store this data in the currentLevelData array
 func storeLevelData():

@@ -4934,6 +4934,7 @@
 			},
 			{
 				"id": "grass_plain_01",
+				"mob": "scrapwalker",
 				"rotation": 0
 			},
 			{
