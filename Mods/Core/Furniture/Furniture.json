@@ -73,7 +73,7 @@
 		"description": "A simple wooden bench that can seat multiple people, offering a resting spot or a place for interaction.",
 		"edgesnapping": "North",
 		"id": "bench_wood",
-		"moveable": true,
+		"moveable": false,
 		"name": "Wooden bench",
 		"sprite": "bench_wood_100_50.png"
 	},

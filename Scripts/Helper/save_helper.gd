@@ -19,9 +19,7 @@ func save_current_level(global_pos: Vector2) -> void:
 			return
 	
 	save_map_data(target_folder)
-	save_mob_data(target_folder)
-	save_item_data(target_folder)
-	save_furniture_data(target_folder)
+
 
 #Creates a new save folder. The name of this folder will be the current date and time
 #This is to make sure it is unique. The folder name is stored in order to perform
@@ -37,126 +35,21 @@ func create_new_save():
 	else:
 		print_debug("Failed to create a unique folder for the demo.")
 
-# Save all the mobs and their current stats to the mobs file for this map
-func save_mob_data(target_folder: String) -> void:
-	var mobData: Array = []
-	var mapMobs = get_tree().get_nodes_in_group("mobs")
-	var newMobData: Dictionary
-	for mob in mapMobs:
-		mob.remove_from_group("mobs")
-		newMobData = {
-			"id": mob.id,
-			"global_position_x": mob.global_position.x,
-			"global_position_y": mob.global_position.y,
-			"global_position_z": mob.global_position.z,
-			"rotation": mob.rotation_degrees.y,
-			"melee_damage": mob.melee_damage,
-			"melee_range": mob.melee_range,
-			"health": mob.health,
-			"current_health": mob.current_health,
-			"move_speed": mob.moveSpeed,
-			"current_move_speed": mob.current_move_speed,
-			"idle_move_speed": mob.idle_move_speed,
-			"current_idle_move_speed": mob.current_idle_move_speed,
-			"sight_range": mob.sightRange,
-			"sense_range": mob.senseRange,
-			"hearing_range": mob.hearingRange
-		}
-		mobData.append(newMobData.duplicate())
-		mob.queue_free()
-	Helper.json_helper.write_json_file(target_folder + "/mobs.json", JSON.stringify(mobData))
 
-#Save the type and position of all mobs on the map
-func save_item_data(target_folder: String) -> void:
-	var itemData: Array = []
-	var defaultItem: Dictionary = {"itemid": "item1", \
-	"global_position_x": 0, "global_position_y": 0, "global_position_z": 0, "inventory": []}
-	var mapitems = get_tree().get_nodes_in_group("mapitems")
-	var newitemData: Dictionary
-	for item in mapitems:
-		item.remove_from_group("mapitems")
-		newitemData = defaultItem.duplicate()
-		newitemData["global_position_x"] = item.global_position.x
-		newitemData["global_position_y"] = item.global_position.y
-		newitemData["global_position_z"] = item.global_position.z
-		newitemData["inventory"] = item.get_node(item.inventory).serialize()
-		itemData.append(newitemData.duplicate())
-		item.queue_free()
-	Helper.json_helper.write_json_file(target_folder + "/items.json",\
-	JSON.stringify(itemData))
-	
-	
-func save_furniture_data(target_folder: String) -> void:
-	var furnitureData: Array = []
-	var mapFurniture = get_tree().get_nodes_in_group("furniture")
-	var newFurnitureData: Dictionary
-	var newRot: int
-	for furniture in mapFurniture:
-		furniture.remove_from_group("furniture")
-		if furniture is RigidBody3D:
-			newRot = furniture.rotation_degrees.y
-		else:
-			newRot = furniture.get_my_rotation()
-		newFurnitureData = {
-			"id": furniture.id,
-			"moveable": furniture is RigidBody3D,
-			"global_position_x": furniture.global_position.x,
-			"global_position_y": furniture.global_position.y,
-			"global_position_z": furniture.global_position.z,
-			"rotation": newRot,  # Save the Y-axis rotation
-			"sprite_rotation": furniture.get_sprite_rotation()
-		}
-		furnitureData.append(newFurnitureData.duplicate())
-		furniture.queue_free()
-	Helper.json_helper.write_json_file(target_folder + "/furniture.json", JSON.stringify(furnitureData))
-
-
-# Saves all of the maplevels to disk
-# A maplevel is one 32x32 layer at a certain x,y and z position
-# This layer will contain 1024 blocks
 func save_map_data(target_folder: String) -> void:
-	var level_width: int = 32
-	var level_height: int = 32
-	var tacticalmapData: Dictionary = {"maplevels": []}
 	var tree: SceneTree = get_tree()
-	var mapLevels = tree.get_nodes_in_group("maplevels")
+	var mapChunks = tree.get_nodes_in_group("chunks")
 
-	for level: Node3D in mapLevels:
-		level.remove_from_group("maplevels")
-		var level_node_data: Array = []
-		var level_node_dict: Dictionary = {
-			"map_x": level.global_position.x, 
-			"map_y": level.global_position.y, 
-			"map_z": level.global_position.z, 
-			"blocks": level_node_data
-		}
-
-		# Iterate over each possible block position in the level
-		for h in range(level_height):
-			for w in range(level_width):
-				var block_data: Dictionary = get_block_data_at_position(level, Vector3(w, 0, h))
-				level_node_data.append(block_data)
-
-		tacticalmapData.maplevels.append(level_node_dict)
-
+	# Get the chunk data before we save them
+	for chunk: Node3D in mapChunks:
+		var chunkdata: Dictionary = chunk.get_chunk_data()
+		# We save the chunks by their coordinates on the tacticalmap, so 0,0 and 0,1 etc
+		# That's why we need to devide by map width/height which is 32
+		Helper.loaded_chunk_data.chunks[Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))] = chunkdata
+	
 	Helper.json_helper.write_json_file(target_folder + "/map.json", \
-	JSON.stringify(tacticalmapData))
-
-# Helper function to get block data at a specific position
-func get_block_data_at_position(level: Node3D, position: Vector3) -> Dictionary:
-	var block: StaticBody3D = find_block_at_position(level, position)
-	if block:
-		var myRotation: int = int(block.rotation_degrees.y)
-		return {"id": block.id, "rotation": myRotation}
-	return {}
-
-
-# Helper function to find a block at a specific position
-func find_block_at_position(level: Node3D, position: Vector3) -> StaticBody3D:
-	for child in level.get_children():
-		if child is StaticBody3D and child.position == position:
-			return child
-	return null
+	JSON.stringify(Helper.loaded_chunk_data))
+	Helper.loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} # Reset the data
 
 
 # This function determines the saved map folder path for the current level. 
@@ -175,9 +68,11 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 		return target_folder
 	return ""
 
+
 # Function to load game.json from a given saved game folder
 func load_game_from_folder(save_folder_name: String) -> void:
 	current_save_folder = "user://save/" + save_folder_name
+
 
 # Function to save the current state of the overmap
 func save_overmap_state() -> void:
@@ -217,12 +112,14 @@ func load_overmap_state() -> void:
 	else:
 		print_debug("Failed to parse overmap state file: ", overmap_path)
 
+
 # Function to save the player's inventory to a JSON file.
 func save_player_inventory() -> void:
 	var save_path = current_save_folder + "/player_inventory.json"
 	var inventory_data = JSON.stringify(ItemManager.playerInventory.serialize())
 	Helper.json_helper.write_json_file(save_path, inventory_data)
-	
+
+
 # Function to save the player's equipment to a JSON file.
 func save_player_equipment() -> void:
 	var save_path = current_save_folder + "/player_equipment.json"
@@ -244,7 +141,8 @@ func load_player_inventory() -> void:
 	else:
 		print_debug("Failed to load player inventory from: " + load_path)
 
-	# Function to load the player's inventory data
+
+# Function to load the player's inventory data
 func load_player_equipment() -> void:
 	var load_path = current_save_folder + "/player_equipment.json"
 
@@ -257,6 +155,7 @@ func load_player_equipment() -> void:
 		print_debug("Player equipment loaded from: " + load_path)
 	else:
 		print_debug("Failed to load player equipment from: " + load_path)
+
 
 # Function to save the player's state to a JSON file.
 func save_player_state(player: CharacterBody3D) -> void:
@@ -278,6 +177,7 @@ func save_player_state(player: CharacterBody3D) -> void:
 		"pain": player.current_pain
 	}
 	Helper.json_helper.write_json_file(save_path, JSON.stringify(player_state))
+
 
 # Function to load the player's state from a JSON file.
 func load_player_state(player: CharacterBody3D) -> void:
@@ -302,4 +202,3 @@ func load_player_state(player: CharacterBody3D) -> void:
 		player.update_stamina_HUD.emit(player.current_stamina)
 	else:
 		print_debug("Failed to load player state from: ", load_path)
-

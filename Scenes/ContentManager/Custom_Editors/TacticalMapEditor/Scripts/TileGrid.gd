@@ -14,7 +14,7 @@ var drawRectangle: bool = false
 var erase: bool = false
 var snapAmount: float
 # Initialize new mapdata with a 3x3 empty map grid
-var defaultMapData: Dictionary = {"mapwidth": 3, "mapheight": 3, "maps": [{},{},{},{},{},{},{},{},{}]}
+var defaultMapData: Dictionary = {"mapwidth": 3, "mapheight": 3, "chunks": [{},{},{},{},{},{},{},{},{}]}
 var rotationAmount: int = 0
 #Contains map metadata like size as well as the data on all levels
 var mapData: Dictionary = defaultMapData.duplicate():
@@ -50,7 +50,7 @@ func resetGrid():
 		for y in range(mapEditor.mapHeight):
 			newMapsArray.append({}) # Add an empty dictionary for each tile
 
-	mapData.maps = newMapsArray
+	mapData.chunks = newMapsArray
 
 	# Recreate tiles
 	createTiles()
@@ -89,7 +89,7 @@ func storeLevelData():
 	currentLevelData.clear()
 	for child in get_children():
 		currentLevelData.append(child.tileData)
-	mapData.maps = currentLevelData.duplicate()
+	mapData.chunks = currentLevelData.duplicate()
 
 func load_tacticalmap_json_file():
 	var fileToLoad: String = mapEditor.contentSource
@@ -110,7 +110,7 @@ func loadLevel():
 	columns = mapData.mapwidth
 
 	# Recreate the grid based on mapData dimensions
-	var newLevelData: Array = mapData.maps
+	var newLevelData: Array = mapData.chunks
 	var index: int = 0
 	for x in range(mapData.mapwidth):
 		for y in range(mapData.mapheight):

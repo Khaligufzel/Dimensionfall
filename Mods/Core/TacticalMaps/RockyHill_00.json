@@ -1,6 +1,6 @@
 {
 	"mapheight": 2,
-	"maps": [
+	"chunks": [
 		{
 			"id": "RockyHill_NW.json",
 			"rotation": 0

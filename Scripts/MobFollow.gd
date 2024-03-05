@@ -3,15 +3,17 @@ class_name MobFollow
 
 
 
-@export var nav_agent: NavigationAgent3D
-@export var mob: CharacterBody3D
-@export var mobCol: NodePath
-@export var pathfinding_timer: Timer
+var nav_agent: NavigationAgent3D # Used for pathfinding
+var mob: CharacterBody3D # The mob that we are enabling the follow behaviour for
+var mobCol: CollisionShape3D # The collision shape of the mob
+var pathfinding_timer: Timer
 
 var targeted_player
 
 @onready var target_location = mob.position
 
+func _ready():
+	pathfinding_timer.timeout.connect(_on_timer_timeout)
 
 func Enter():
 	print("Following the player")
@@ -22,27 +24,27 @@ func Exit():
 	pathfinding_timer.stop()
 
 func Physics_Update(_delta: float):
-	var dir = mob.to_local(nav_agent.get_next_path_position()).normalized()
+	var next_pos: Vector3 = nav_agent.get_next_path_position()
+	var dir = mob.to_local(next_pos).normalized()
 	mob.velocity = dir * mob.current_move_speed
 	mob.move_and_slide()
 
 	# Rotation towards target using look_at
 	if targeted_player:
-		var mesh_instance = $"../../MeshInstance3D"
 		var target_position = targeted_player.global_position
-		target_position.y = mesh_instance.global_position.y  # Align y-axis to avoid tilting
-		mesh_instance.look_at(target_position, Vector3.UP)
+		target_position.y = mob.meshInstance.global_position.y  # Align y-axis to avoid tilting
+		mob.meshInstance.look_at(target_position, Vector3.UP)
 	
 	if !targeted_player:
 		return
 	var space_state = get_world_3d().direct_space_state
 	# TO-DO Change playerCol to group of players
-	var query = PhysicsRayQueryParameters3D.create(get_node(mobCol).global_position, targeted_player.global_position, int(pow(2, 1-1) + pow(2, 3-1)),[self])
+	var query = PhysicsRayQueryParameters3D.create(mobCol.global_position, targeted_player.global_position, int(pow(2, 1-1) + pow(2, 3-1)),[self])
 	var result = space_state.intersect_ray(query)
 	
 	if result:
 		
-		if result.collider.is_in_group("Players")&& Vector3(get_node(mobCol).global_position).distance_to(targeted_player.global_position) <= mob.melee_range / 2:
+		if result.collider.is_in_group("Players")&& Vector3(mobCol.global_position).distance_to(targeted_player.global_position) <= mob.melee_range / 2:
 			print("changing state to mobattack...")
 			Transistioned.emit(self, "mobattack")
 	
