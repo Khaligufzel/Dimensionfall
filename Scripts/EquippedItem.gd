@@ -41,7 +41,6 @@ var equipmentSlot: Control
 
 # Booleans to enforce the reload and cooldown timers
 var in_cooldown: bool = false
-var is_reloading: bool = false
 var reload_speed: float = 1.0
 
 # The current and max ammo
@@ -149,7 +148,7 @@ func fire_weapon():
 
 
 func _subtract_ammo(amount: int):
-	var magazine: InventoryItem = equipmentSlot.get_magazine()
+	var magazine: InventoryItem = equipmentSlot.get_magazine(heldItem)
 	if magazine:
 		# We duplicate() because Gloot might return the original Magazine array from the protoset
 		var magazineProperties = magazine.get_property("Magazine").duplicate()
@@ -161,7 +160,7 @@ func _subtract_ammo(amount: int):
 
 
 func get_current_ammo() -> int:
-	var magazine: InventoryItem = equipmentSlot.get_magazine()
+	var magazine: InventoryItem = equipmentSlot.get_magazine(heldItem)
 	if magazine:
 		var magazineProperties = magazine.get_property("Magazine")
 		if magazineProperties and magazineProperties.has("current_ammo"):
@@ -173,7 +172,7 @@ func get_current_ammo() -> int:
 
 
 func get_max_ammo() -> int:
-	var magazine: InventoryItem = equipmentSlot.get_magazine()
+	var magazine: InventoryItem = equipmentSlot.get_magazine(heldItem)
 	if magazine:
 		var magazineProperties = magazine.get_property("Magazine")
 		return int(magazineProperties["max_ammo"])
@@ -190,8 +189,8 @@ func apply_recoil(direction: Vector3, recoil_value: float) -> Vector3:
 
 # When the user wants to reload the item
 func reload_weapon():
-	if heldItem and not heldItem.get_property("Ranged") == null and not General.is_action_in_progress and not equipmentSlot.find_compatible_magazine(equipmentSlot.get_magazine()) == null:
-		var magazine = equipmentSlot.get_magazine()
+	if heldItem and not heldItem.get_property("Ranged") == null and not General.is_action_in_progress and not equipmentSlot.find_compatible_magazine(equipmentSlot.get_magazine(heldItem)) == null:
+		var magazine = equipmentSlot.get_magazine(heldItem)
 		if not magazine:
 			equipmentSlot.start_reload(heldItem, reload_speed)
 		elif get_current_ammo() < get_max_ammo():
@@ -202,7 +201,7 @@ func reload_weapon():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Check if the left-hand weapon is reloading.
-	if is_reloading and not reload_audio_player.playing:
+	if is_weapon_reloading() and not reload_audio_player.playing:
 		reload_audio_player.play()  # Play reload sound for left-hand weapon.
 
 	# Check if the left mouse button is held, a weapon is in the left hand, and is ready to fire
@@ -233,7 +232,7 @@ func on_magazine_inserted():
 		recoil_increment = max_recoil / (get_max_ammo() * 0.25)
 		recoil_decrement = 2 * recoil_increment
 
-		is_reloading = false
+		heldItem.set_property("is_reloading", false)
 		ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
 
 
@@ -254,16 +253,19 @@ func equip_item(equippedItem: InventoryItem, slot: Control):
 		
 		visible = true
 		ammo_changed.emit(0, 0, equipped_left)  # Emit signal to indicate no weapon is equipped
+		heldItem.properties_changed.connect(_on_helditem_properties_changed)
 	else:
 		clear_held_item()
 
 
 # Function to clear weapon properties for a specified hand
 func clear_held_item():
+	if heldItem:
+		heldItem.properties_changed.disconnect(_on_helditem_properties_changed)
+		heldItem.set_property("is_reloading", false)
 	visible = false
 	heldItem = null
 	in_cooldown = false
-	is_reloading = false
 	ammo_changed.emit(-1, -1, equipped_left)  # Emit signal to indicate no weapon is equipped
 
 
@@ -305,7 +307,26 @@ func can_weapon_reload() -> bool:
 		# Check if neither mouse button is pressed
 		if not is_left_button_held and not is_right_button_held:
 			# Check if the weapon is not currently reloading and if a compatible magazine is available in the inventory
-			if not is_reloading and not equipmentSlot.find_compatible_magazine(equipmentSlot.get_magazine()) == null:
+			if not is_weapon_reloading() and not equipmentSlot.find_compatible_magazine(equipmentSlot.get_magazine(heldItem)) == null:
 				# Additional checks can be added here if needed
 				return true
 	return false
+
+
+# When the properties of the held item change
+func _on_helditem_properties_changed():
+	if heldItem and heldItem.get_property("Ranged"):
+		if heldItem.get_property("current_magazine") == null:
+			on_magazine_removed()
+		else:
+			on_magazine_inserted()
+
+
+func is_weapon_reloading() -> bool:
+	if heldItem and heldItem.get_property("Ranged"):
+		if heldItem.get_property("is_reloading") == null:
+			return false
+		else:
+			return bool(heldItem.get_property("is_reloading"))
+	return false
+	

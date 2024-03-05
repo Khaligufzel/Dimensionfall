@@ -14,7 +14,9 @@ extends Control
 # There will be functions to serialize and deserialize the inventoryitem
 
 
+# The inventory to pull ammo from and to drop items into
 @export var myInventory: InventoryStacked
+@export var myInventoryCtrl: Control
 @export var backgroundColor: ColorRect
 @export var myIcon: TextureRect
 # A timer that will prevent the user from reloading while a reload is happening now
@@ -22,12 +24,11 @@ extends Control
 @export var is_left_slot: bool = true
 
 var myInventoryItem: InventoryItem = null
-var myMagazine: InventoryItem = null
 # The node that will actually operate the item
 var equippedItem: Sprite3D = null
 var default_reload_speed: float = 1.0
 
-# Signals
+# Signals to commmunicate with the equippedItem node inside the Player node
 signal item_was_equipped(equippedItem: InventoryItem, equipmentSlot: Control)
 signal item_was_cleared(equippedItem: InventoryItem, equipmentSlot: Control)
 
@@ -35,6 +36,8 @@ signal item_was_cleared(equippedItem: InventoryItem, equipmentSlot: Control)
 func _ready():
 	item_was_equipped.connect(Helper.signal_broker.on_item_equipped)
 	item_was_cleared.connect(Helper.signal_broker.on_item_slot_cleared)
+	myInventoryCtrl.reload_item.connect(_on_context_menu_reload)
+	myInventoryCtrl.unload_item.connect(_on_context_menu_unload)
 
 
 # Handle GUI input events
@@ -52,11 +55,8 @@ func equip(item: InventoryItem) -> void:
 		unequip()
 
 	if item:
-		var is_two_handed: bool = item.get_property("two_handed", false)
-		var other_slot_item: InventoryItem = otherHandSlot.get_item()
-		# Check if the other slot has a two-handed item equipped
-		if other_slot_item and other_slot_item.get_property("two_handed", false):
-			print_debug("Cannot equip item. The other slot has a two-handed weapon equipped.")
+		# Enforce two-handed weapons disallowing dual wielding
+		if not handle_two_handed_constraint(item):
 			return
 		
 		myInventoryItem = item
@@ -66,47 +66,64 @@ func equip(item: InventoryItem) -> void:
 		var itemInventory = item.get_inventory()
 		if itemInventory and itemInventory.has_item(item):
 			item.get_inventory().remove_item(item)	
-		
-		# If the item is two-handed, clear the other hand slot before equipping
-		if is_two_handed:
-			otherHandSlot.unequip()
+
+		# Tells the equippedItem node in the player node to update the weapon properties
 		item_was_equipped.emit(item, self)
+		# We load a magazine if the item contains one
+		if item.get_property("current_magazine"):
+			equippedItem.on_magazine_inserted()
 
 
-# Unequip the current item
+# Unequip the current item and keep the magazine in the weapon
 func unequip() -> void:
 	if myInventoryItem:
 		item_was_cleared.emit(myInventoryItem, self)
-		myInventoryItem.clear_property("equipped_laft")
 		myInventory.add_item(myInventoryItem)
 		myInventoryItem = null
-		if myMagazine:
-			myInventory.add_item(myMagazine)
-			myMagazine = null
 		update_icon()
+
+
+# We make sure a two-handed weapon occupies both slots
+# We do this by disallowing the equipping of one slot and the clearing of the other slot
+func handle_two_handed_constraint(item: InventoryItem) -> bool:
+	var can_equip: bool = true
+	var is_two_handed: bool = item.get_property("two_handed", false)
+	var other_slot_item: InventoryItem = otherHandSlot.get_item()
+	# Check if the other slot has a two-handed item equipped
+	if other_slot_item and other_slot_item.get_property("two_handed", false):
+		print_debug("Cannot equip item. The other slot has a two-handed weapon equipped.")
+		can_equip = false
+	else:
+		# If the item is two-handed, clear the other hand slot before equipping
+		if is_two_handed:
+			otherHandSlot.unequip()
+	return can_equip
 
 
 # Update the icon of the equipped item
 func update_icon() -> void:
 	if myInventoryItem:
 		myIcon.texture = myInventoryItem.get_texture()
-		myIcon.visible = true
 	else:
 		myIcon.texture = null
-		myIcon.visible = false
 
 
 # Serialize the equipped item and the magazine into one dictionary
+# This will happen when the player pressed the travel button on the overmap
 func serialize() -> Dictionary:
 	var data: Dictionary = {}
 	if myInventoryItem:
+		# We will separate the magazine from the weapon during serialization
+		if myInventoryItem.get_property("current_magazine"):
+			var myMagazine: InventoryItem = myInventoryItem.get_property("current_magazine")
+			data["magazine"] = myMagazine.serialize()  # Serialize magazine
+			myInventoryItem.clear_property("current_magazine")
 		data["item"] = myInventoryItem.serialize()  # Serialize equipped item
-	if myMagazine:
-		data["magazine"] = myMagazine.serialize()  # Serialize magazine
 	return data
 
 
 # Deserialize and equip an item and a magazine from the provided data
+# This will happen when a game is loaded or the player has travelled to a different map
 func deserialize(data: Dictionary) -> void:
 	# Deserialize and equip an item
 	if data.has("item"):
@@ -115,55 +132,68 @@ func deserialize(data: Dictionary) -> void:
 		item.deserialize(itemData)
 		equip(item)  # Equip the deserialized item
 
-	if data.has("magazine"):
-		var magazineData: Dictionary = data["magazine"]
-		var magazine = InventoryItem.new()
-		magazine.deserialize(magazineData)
-		myMagazine = magazine  # Directly assign the deserialized magazine
-		equippedItem.on_magazine_inserted()
+		# If there is a magazine, we create an InventoryItem instance
+		# We assign a reference to it in the curretn_magazine of the weapon
+		if data.has("magazine"):
+			var magazineData: Dictionary = data["magazine"]
+			var myMagazine = InventoryItem.new()
+			myMagazine.deserialize(magazineData)
+			item.set_property("current_magazine", myMagazine)
+			equippedItem.on_magazine_inserted()
 
 
 # The reload has completed. We now need to remove the current magazine and put in a new one
 func reload_weapon(item: InventoryItem, specific_magazine: InventoryItem = null):
-	if myInventoryItem and not myInventoryItem.get_property("Ranged") == null and item == myInventoryItem:
-		var oldMagazine = myMagazine
-		remove_magazine()
-		insert_magazine(specific_magazine, oldMagazine)
-		equippedItem.is_reloading = false
+	if item and not item.get_property("Ranged") == null:
+		var oldMagazine: InventoryItem = item.get_property("current_magazine")
+		remove_magazine(item)
+		insert_magazine(item, specific_magazine, oldMagazine)
+		item.set_property("is_reloading", false)  # Mark reloading as complete
 
 
 # This will start the reload action. General will keep track of the progress
 # We pass reload_weapon as a function that will be executed when the action is done
 func start_reload(item: InventoryItem, reload_time: float, specific_magazine: InventoryItem = null):
 	var reload_callable = Callable(self, "reload_weapon").bind(item, specific_magazine)
-	equippedItem.is_reloading = true
+	# Assuming there's a mechanism to track reloading state for each item
+	# This could be a property in InventoryItem or managed externally
+	item.set_property("is_reloading", true)
 	General.start_action(reload_time, reload_callable)
 
 
-func insert_magazine(specific_magazine: InventoryItem = null, oldMagazine: InventoryItem = null):
-	if not myInventoryItem or myInventoryItem.get_property("Ranged") == null:
+# When a reload is completed and we insert the magazine from the inventory
+func insert_magazine(item: InventoryItem, specific_magazine: InventoryItem = null, oldMagazine: InventoryItem = null):
+	if not item or item.get_property("Ranged") == null:
 		return  # Ensure the item is a ranged weapon
 
-	var magazine = specific_magazine if specific_magazine else find_compatible_magazine(oldMagazine)
+	var magazine: InventoryItem = specific_magazine if specific_magazine else find_compatible_magazine(oldMagazine)
 	if magazine:
-		myMagazine = magazine
+		item.set_property("current_magazine", magazine)
 		myInventory.remove_item(magazine)  # Remove the magazine from the inventory
-		equippedItem.on_magazine_inserted()
 
 
-func remove_magazine():
-	if not myInventoryItem or not myInventoryItem.get_property("Ranged") or not myMagazine:
+# When a reload is completed and we remove the magazine from the gun into the inventory
+func remove_magazine(item: InventoryItem):
+	if not item or not item.get_property("Ranged"):
 		return  # Ensure the item is a ranged weapon
 
-	myInventory.add_item(myMagazine)
-	equippedItem.on_magazine_removed()
-	myMagazine = null
+	var myMagazine: InventoryItem = get_magazine(item)
+	if myMagazine:
+		myInventory.add_item(myMagazine)
+		item.clear_property("current_magazine")
 
 
-func get_magazine() -> InventoryItem:
-	return myMagazine
+# Get the magazine from the currently equipped item
+func get_magazine(item: InventoryItem) -> InventoryItem:
+	if not item or not item.get_property("Ranged"):
+		return null
+	if item.get_property("current_magazine"):
+		var myMagazine: InventoryItem = item.get_property("current_magazine")
+		return myMagazine
+	return null
 
 
+# Get the currently equipped item
 func get_item() -> InventoryItem:
 	return myInventoryItem
 
@@ -212,3 +242,34 @@ func _drop_data(newpos, data):
 func _handle_magazine_drop(magazine: InventoryItem):
 	if myInventoryItem and myInventoryItem.get_property("Ranged"):
 		start_reload(myInventoryItem, equippedItem.reload_speed, magazine)
+	else:
+		# Equip the item if no weapon is wielded
+		equip(magazine)
+
+
+# When the user requests a reload trough the inventory context menu
+func _on_context_menu_reload(items: Array[InventoryItem]) -> void:
+	for item in items:
+		if item.get_property("Ranged") != null:
+			# Retrieve reload speed from the "Ranged" property dictionary or use the default
+			var ranged_properties = item.get_property("Ranged", {})
+			var reload_speed = float(ranged_properties.get("reload_speed", default_reload_speed))
+			start_reload(item, reload_speed)
+			break  # Only reload the first ranged item found
+
+
+# When the user requests an unload of the selected item(s) trough the inventory context menu
+func _on_context_menu_unload(items: Array[InventoryItem]) -> void:
+	for item in items:
+		if item.get_property("Ranged") != null:
+			unload_magazine_from_item(item)
+			break  # Exit after unloading the first ranged item
+
+
+# We remove the magazine from the given item and add it to the inventory
+func unload_magazine_from_item(item: InventoryItem) -> void:
+	# Check if the item has a magazine loaded
+	if item.get_property("current_magazine"):
+		var myMagazine: InventoryItem = item.get_property("current_magazine")
+		item.clear_property("current_magazine")  # Remove the magazine from the weapon
+		myInventory.add_item(myMagazine)  # Add the magazine back to the inventory

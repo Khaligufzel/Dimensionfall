@@ -50,9 +50,8 @@ var selection_state_changed: bool = false
 # Signals for context menu actions
 signal equip_left(items)
 signal equip_right(items)
-signal drop_item(items)
-signal wear_item(items)
-signal disassemble_item(items)
+signal reload_item(items)
+signal unload_item(items)
 
 
 func _ready():
@@ -75,9 +74,8 @@ func _on_context_menu_item_selected(id):
 	match id:
 		0: equip_left.emit(selected_inventory_items)
 		1: equip_right.emit(selected_inventory_items)
-		2: emit_signal("drop_item", selected_inventory_items)
-		3: emit_signal("wear_item", selected_inventory_items)
-		4: emit_signal("disassemble_item", selected_inventory_items)
+		2: reload_item.emit(selected_inventory_items)
+		3: unload_item.emit(selected_inventory_items)
 
 
 func _disconnect_inventory_signals():
@@ -247,7 +245,7 @@ func _create_ui_element(property: String, item: InventoryItem, row_name: String)
 			element.set_icon(item.get_texture())
 			element.custom_minimum_size = Vector2(32, 32)
 		"name":
-			element.set_label_text(item.get_title())
+			element.set_label_text(get_display_name(item))
 			element.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		"stack_size":
 			# Assuming stack size is a property of the item
@@ -264,6 +262,31 @@ func _create_ui_element(property: String, item: InventoryItem, row_name: String)
 	# We use rows to keep track of the items
 	element.add_to_group(row_name)
 	return element
+
+
+# In a separate InventoryItemHandler class or module:
+func get_display_name(item: InventoryItem) -> String:
+	var item_name = item.get_title()
+	
+	# A gun might have the current_magazine property
+	if not item.get_property("current_magazine") == null:
+		var magazine = item.get_property("current_magazine")
+		item_name += get_magazine_current_max_ammo(magazine)
+	
+	# Check if the item is a magazine and append ammo info
+	if not item.get_property("Magazine") == null:
+		item_name += get_magazine_current_max_ammo(item)
+		
+	return item_name
+
+
+func get_magazine_current_max_ammo(magazineItem: InventoryItem) -> String:
+	var magazine_info = magazineItem.get_property("Magazine")
+	if magazine_info and magazine_info is Dictionary:
+		var current_ammo = int(magazine_info.get("current_ammo", 0))
+		var max_ammo = int(magazine_info.get("max_ammo", 0))
+		return " ["+str(current_ammo)+"/"+str(max_ammo)+"]"
+	return ""
 
 
 # Function to add an item to the grid
@@ -475,6 +498,7 @@ func get_selected_inventory_items() -> Array[InventoryItem]:
 func get_inventory() -> InventoryStacked:
 	return myInventory
 
+
 # Called when this inventory list is connected to a new inventory
 # For example, when the user selects a container from a list in the UI
 func set_inventory(new_inventory: InventoryStacked):
@@ -505,11 +529,13 @@ func _deselect_and_clear_current_inventory():
 	# Reset other variables if needed
 	last_selected_item = null
 
+
 # All rows are desleected
 func _deselect_all_items():
 	for row_name in inventory_rows.keys():
 		if inventory_rows.has(row_name):
 			_toggle_row_selection(row_name, false)
+
 
 # When the user clicks on one of the cells in the grid
 func _on_grid_cell_gui_input(event, gridCell: Control):
@@ -560,7 +586,7 @@ func _can_drop_data(_newpos, data) -> bool:
 
 
 # This function handles the data being dropped
-func _drop_data(newpos, data):
+func _drop_data(newpos, data) -> void:
 	if _can_drop_data(newpos, data):
 		_handle_item_drop(data, newpos)
 
@@ -574,7 +600,7 @@ func _create_drag_preview(item: InventoryItem) -> Control:
 
 
 # Modified _handle_item_drop function
-func _handle_item_drop(dropped_data, _newpos):
+func _handle_item_drop(dropped_data, _newpos) -> void:
 	# Check if the dropped data is valid and contains inventory items
 	if dropped_data is Array and dropped_data.size() > 0 and dropped_data[0] is InventoryItem:
 		var first_item = dropped_data[0]

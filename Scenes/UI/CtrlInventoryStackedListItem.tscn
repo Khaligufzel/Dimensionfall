@@ -41,3 +41,5 @@ expand_mode = 2
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+clip_text = true
+text_overrun_behavior = 3
