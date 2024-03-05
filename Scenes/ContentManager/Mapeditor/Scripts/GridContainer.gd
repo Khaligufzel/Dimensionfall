@@ -281,7 +281,7 @@ func loadLevelData(newLevel: int) -> void:
 		loadLevel(newLevel-1, levelgrid_below)
 	else:
 		levelgrid_below.hide()
-	if newLevel < 21 and showAbove:
+	if newLevel < 20 and showAbove:
 		levelgrid_above.show()
 		loadLevel(newLevel+1, levelgrid_above)
 		for tile in levelgrid_above.get_children():

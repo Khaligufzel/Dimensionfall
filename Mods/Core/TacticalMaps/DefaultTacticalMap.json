@@ -4,7 +4,11 @@
 		{
 			"id": "Generichouse.json",
 			"rotation": 0
+		},
+		{
+			"id": "Generichouse_00.json",
+			"rotation": 0
 		}
 	],
-	"mapwidth": 1
+	"mapwidth": 2
 }
