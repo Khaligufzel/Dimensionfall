@@ -38,6 +38,25 @@ movie_writer/movie_file="D:/CataX resources/catax.avi"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gloot/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
+[file_customization]
+
+folder_colors={
+"res://Blocks/": "orange",
+"res://Documentation/": "teal",
+"res://Images/": "pink",
+"res://Mods/": "purple",
+"res://Scenes/": "red",
+"res://Scenes/ContentManager/": "yellow",
+"res://Scenes/ContentManager/Custom_Editors/": "red",
+"res://Scenes/ContentManager/Custom_Editors/Scripts/": "green",
+"res://Scenes/ContentManager/Custom_Widgets/": "purple",
+"res://Scenes/ContentManager/Custom_Widgets/Scripts/": "green",
+"res://Scenes/ContentManager/Mapeditor/": "blue",
+"res://Scenes/ContentManager/Scripts/": "green",
+"res://Scenes/Overmap/Scripts/": "green",
+"res://Scripts/": "green",
+"res://addons/": "gray"
+}
 
 [input]
 
