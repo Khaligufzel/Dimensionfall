@@ -1,13 +1,19 @@
 extends Control
 
+@export var panWindow: Control = null
+@export var mapScrollWindow: ScrollContainer = null
+@export var gridContainer: ColorRect = null
+@export var tileGrid: GridContainer = null
+
 signal zoom_level_changed(value: int)
 var tileSize: int = 128
 var mapHeight: int = 32
 var mapWidth: int = 32
+var mapSource: String = "":
+	set(newSource):
+		mapSource = newSource
+		tileGrid.load_map_json_file()
 
-@export var panWindow: Control = null
-@export var mapScrollWindow: ScrollContainer = null
-@export var gridContainer: ColorRect = null
 
 var zoom_level: int = 20:
 	set(val):
@@ -58,4 +64,9 @@ func _on_zoom_scroller_zoom_level_changed(value):
 
 func _on_tile_grid_zoom_level_changed(value):
 	zoom_level = value
-
+	
+	
+#The editor is closed, destroy the instance
+#TODO: Check for unsaved changes
+func _on_close_button_button_up():
+	queue_free()

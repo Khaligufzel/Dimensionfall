@@ -1,14 +1,17 @@
 [gd_scene load_steps=2 format=3 uid="uid://480xqusluqrk"]
 
-[ext_resource type="PackedScene" uid="uid://d3001f5xxpup1" path="res://Scenes/ContentManager/Mapeditor/mapeditor.tscn" id="1_rwi67"]
+[ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/contenteditor.gd" id="1_65sl4"]
 
-[node name="contenteditor" type="Control"]
+[node name="contenteditor" type="Control" node_paths=PackedStringArray("content", "tabContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_65sl4")
+content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content")
+tabContainer = NodePath("HSplitContainer/TabContainer")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 1
@@ -17,11 +20,36 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+split_offset = 200
 
-[node name="TabContainer2" type="TabContainer" parent="HSplitContainer"]
+[node name="ContentLists" type="VBoxContainer" parent="HSplitContainer"]
 layout_mode = 2
 
-[node name="Recent" type="ItemList" parent="HSplitContainer/TabContainer2"]
+[node name="BackButton" type="Button" parent="HSplitContainer/ContentLists"]
+layout_mode = 2
+text = "Back to menu"
+
+[node name="SelectMods" type="OptionButton" parent="HSplitContainer/ContentLists"]
+layout_mode = 2
+tooltip_text = "Select the mod you want edit"
+item_count = 3
+selected = 0
+popup/item_0/text = "Core"
+popup/item_0/id = 0
+popup/item_1/text = "MyArcheryMod"
+popup/item_1/id = 1
+popup/item_2/text = "MyFarmMod"
+popup/item_2/id = 2
+
+[node name="TabContainer2" type="TabContainer" parent="HSplitContainer/ContentLists"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Content" type="VBoxContainer" parent="HSplitContainer/ContentLists/TabContainer2"]
+layout_mode = 2
+
+[node name="Recent" type="ItemList" parent="HSplitContainer/ContentLists/TabContainer2"]
+visible = false
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 item_count = 10
@@ -39,29 +67,23 @@ item_7/text = "snail"
 item_8/text = "core"
 item_9/text = "pistol_9mm"
 
-[node name="CurrentFile" type="ItemList" parent="HSplitContainer/TabContainer2"]
-visible = false
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-item_count = 6
-max_columns = 2
-item_0/text = "Core"
-item_1/text = "pistol_9mm"
-item_2/text = "core"
-item_3/text = "revolver_357"
-item_4/text = "core"
-item_5/text = "laser_rifle"
-
 [node name="TabContainer" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
 
-[node name="9mm_pistol" type="Label" parent="HSplitContainer/TabContainer"]
+[node name="Editor_Home" type="RichTextLabel" parent="HSplitContainer/TabContainer"]
 layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=70]Content editor[/font_size]
 
-[node name="itemgroup_kitchen" type="Label" parent="HSplitContainer/TabContainer"]
-visible = false
-layout_mode = 2
+This is the content editor for CataX. 
 
-[node name="generic_house" parent="HSplitContainer/TabContainer" instance=ExtResource("1_rwi67")]
-visible = false
-layout_mode = 2
+[font_size=22][b]Content selection[/b][/font_size]
+On the left side you can select one of the mods you want to work on. The content of the mod will be displayed in the selection lists below. 
+[ul]Double click an item in the list: opens the appropriate editor to the right.
+Click the + sign: Allows you to add new content to the mod. Enter the name and a new item will be available to edit[/ul]
+
+
+[font_size=22][b]Content editing[/b][/font_size]
+On the right a content editor will be displayed that allows you to edit the selected item. Multiple editors can be opened in tabs. Use the controls to edit the content and press save to save your edits"
+
+[connection signal="button_up" from="HSplitContainer/ContentLists/BackButton" to="." method="_on_back_button_button_up"]

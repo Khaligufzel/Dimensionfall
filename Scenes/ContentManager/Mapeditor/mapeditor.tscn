@@ -12,7 +12,7 @@
 gradient = SubResource("Gradient_x1sdl")
 width = 24
 
-[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer")]
+[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +23,7 @@ script = ExtResource("1_0c7s4")
 panWindow = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow")
 mapScrollWindow = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow")
 gridContainer = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer")
+tileGrid = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 1
@@ -43,6 +44,12 @@ clip_contents = true
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_stretch_ratio = 0.05
+
+[node name="CloseButton" type="Button" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
+text = "Close"
 
 [node name="ZoomScroller" parent="HSplitContainer/MapeditorContainer/Toolbar" instance=ExtResource("1_0ytmu")]
 layout_mode = 2
@@ -77,12 +84,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.15
 text = "Save"
-
-[node name="LoadButton" type="Button" parent="HSplitContainer/MapeditorContainer/Toolbar"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.15
-text = "Load"
 
 [node name="DrawRectangle" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
@@ -209,9 +210,9 @@ script = ExtResource("5_he816")
 
 [connection signal="ready" from="." to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_mapeditor_ready"]
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" method="_on_mapeditor_zoom_level_changed"]
+[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" to="." method="_on_zoom_scroller_zoom_level_changed"]
-[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_save_button_button_up"]
-[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/LoadButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_load_button_button_up"]
+[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="save_map_json_file"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_draw_rectangle_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/Erase" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_erase_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/ShowBelow" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_show_below_toggled"]

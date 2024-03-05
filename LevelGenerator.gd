@@ -33,7 +33,7 @@ func generate_level():
 	if level_name == "":
 		get_level_json()
 	else:
-		get_custom_level_json("user://levels/" + level_name)
+		get_custom_level_json("./Mods/Core/Maps/" + level_name)
 	
 	
 	var level_number = 0
@@ -125,6 +125,7 @@ func load_tiles_material():
 					var texture := load("res://Mods/Core/Tiles/" + file_name) # Load the .png file as a texture
 					var material := StandardMaterial3D.new() 
 					material.albedo_texture = texture # Set the texture of the material
+					material.uv1_scale = Vector3(3,2,1)
 					tile_materials[file_name] = material # Add the material to the dictionary
 			file_name = dir.get_next()
 	else:

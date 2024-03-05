@@ -15,18 +15,18 @@ var erase: bool = false
 var showBelow: bool = false
 var showAbove: bool = false
 var snapAmount: float
+var defaultMapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
 #Contains map metadata like size as well as the data on all levels
-var mapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}:
+var mapData: Dictionary = defaultMapData.duplicate():
 	set(data):
-		mapData = data.duplicate()
+		if data.is_empty():
+			mapData = defaultMapData.duplicate()
+		else:
+			mapData = data.duplicate()
 		loadLevelData(currentLevel)
 signal zoom_level_changed(zoom_level: int)
 
 func _on_mapeditor_ready():
-#	mapEditor = $"../../../../../../.."
-#	LevelScrollBar = $"../../../../Levelscroller/LevelScrollbar"
-#	levelgrid_below = $"../Level_Below"
-#	levelgrid_above = $"../Level_Above"
 	columns = mapEditor.mapWidth
 	levelgrid_below.columns = mapEditor.mapWidth
 	levelgrid_above.columns = mapEditor.mapWidth
@@ -139,6 +139,9 @@ func loadLevelData(newLevel: int):
 	loadLevel(newLevel, self)
 			
 func loadLevel(level: int, grid: GridContainer):
+	if mapData.is_empty():
+		print_debug("Tried to load data from an empty mapData dictionary")
+		return;
 	var newLevelData: Array = mapData.levels[level]
 	var i: int = 0
 	# If any data exists on this level, we load it
@@ -208,49 +211,6 @@ func _on_draw_rectangle_toggled(button_pressed):
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush):
 	selected_brush = tilebrush
 	
-	
-
-#This function takes the TileGrid.mapData property and saves all of it as a json file. The user will get a prompt asking for a file location.
-func _on_save_button_button_up():
-	var folderName: String = "./Mods/Core"
-	var fileName: String = "Generichouse.json"
-	var saveLoc: String = folderName + "/Maps" + "/" + fileName
-	# Convert the TileGrid.mapData to a JSON string
-	storeLevelData()
-	var map_data_json = str(mapData.duplicate())
-
-	var dir = DirAccess.open(folderName)
-	dir.make_dir("Maps")
-
-	# Save the JSON string to the selected file location
-	var file = FileAccess.open(saveLoc, FileAccess.WRITE)
-	if file:
-		file.store_string(map_data_json)
-	else:
-		print_debug("Unable to write file " + saveLoc)
-
-func _on_load_button_button_up():	
-	var folderName: String = "./Mods/Core"
-	var fileName: String = "Generichouse.json"
-	var loadLoc: String = folderName + "/Maps" + "/" + fileName
-	# Convert the tileGrid.mapData to a JSON string
-	storeLevelData()
-
-	var dir = DirAccess.open(folderName)
-	dir.make_dir("Maps")
-
-	# Save the JSON string to the selected file location
-	var file = FileAccess.open(loadLoc, FileAccess.READ)
-	if file:
-		var map_data_json: Dictionary
-		map_data_json = JSON.parse_string(file.get_as_text())
-		mapData = map_data_json
-
-	else:
-		print_debug("Unable to load file " + loadLoc)
-	
-
-
 func _on_show_below_toggled(button_pressed):
 	showBelow = button_pressed
 	if showBelow:
@@ -258,10 +218,41 @@ func _on_show_below_toggled(button_pressed):
 	else:
 		levelgrid_below.hide()
 
-
 func _on_show_above_toggled(button_pressed):
 	showAbove = button_pressed
 	if showAbove:
 		levelgrid_above.show()
 	else:
 		levelgrid_above.hide()
+		
+		
+
+	
+#This function takes the mapData property and saves all of it as a json file.
+func save_map_json_file():
+	# Convert the TileGrid.mapData to a JSON string
+	storeLevelData()
+	var map_data_json = str(mapData.duplicate())
+	
+	# Save the JSON string to the selected file location
+	var file = FileAccess.open(mapEditor.mapSource, FileAccess.WRITE)
+	if file:
+		file.store_string(map_data_json)
+	else:
+		print_debug("Unable to write file " + mapEditor.mapSource)
+
+	
+func load_map_json_file():
+	var fileToLoad: String = mapEditor.mapSource
+	if fileToLoad == "":
+		print_debug("Tried to load mapdata, but mapEditor.mapSource is empty")
+		return;
+	# Load the JSON string from the selected file location
+	var file = FileAccess.open(fileToLoad, FileAccess.READ)
+	if file:
+		var map_data_json: Dictionary
+		map_data_json = JSON.parse_string(file.get_as_text())
+		mapData = map_data_json
+	else:
+		print_debug("Unable to load file " + fileToLoad)
+	

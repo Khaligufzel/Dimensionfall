@@ -6,7 +6,7 @@ var level_files : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	dir_contents("user://levels")
+	dir_contents("./Mods/Core/Maps/")
 	
 	for level_file in level_files:
 		option_levels.add_item(level_file)
@@ -42,3 +42,7 @@ func _on_play_demo_pressed():
 
 func _on_help_button_pressed():
 	get_tree().change_scene_to_file("res://documentation.tscn")
+
+
+func _on_content_manager_button_button_up():
+	get_tree().change_scene_to_file("res://Scenes/ContentManager/contentmanager.tscn")
