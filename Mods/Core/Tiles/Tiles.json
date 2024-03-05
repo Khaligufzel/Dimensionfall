@@ -86,33 +86,6 @@
 		"categories": [
 			"Road"
 		],
-		"description": "A smooth surface for vehicles to drive on. It has markings indicating a west turn",
-		"id": "road_asphalt_turn_west",
-		"name": "Asphalt road with markings turning west",
-		"sprite": "asphalt_horizontal_middle_downleft.png"
-	},
-	{
-		"categories": [
-			"Road"
-		],
-		"description": "A smooth surface for vehicles to drive on. It has markings indicating a east turn",
-		"id": "road_asphalt_turn_east",
-		"name": "Asphalt road with markings turning east",
-		"sprite": "asphalt_horizontal_middle_upright.png"
-	},
-	{
-		"categories": [
-			"Road"
-		],
-		"description": "A smooth surface for vehicles to drive on. It has vertical markings",
-		"id": "road_asphalt_vertical",
-		"name": "Asphalt road with vertical markings",
-		"sprite": "asphalt_middle.png"
-	},
-	{
-		"categories": [
-			"Road"
-		],
 		"description": "A smooth surface for vehicles to drive on. It has markings indicating a north turn",
 		"id": "road_asphalt_turn_north",
 		"name": "Asphalt road with markings turning north",
@@ -126,15 +99,6 @@
 		"id": "road_asphalt_horizontal",
 		"name": "Asphalt road with horizontal markings",
 		"sprite": "asphalt_middle_horizontal.png"
-	},
-	{
-		"categories": [
-			"Road"
-		],
-		"description": "A smooth surface for vehicles to drive on. It has markings indicating a south turn",
-		"id": "road_asphalt_turn_south",
-		"name": "Asphalt road with markings turning south",
-		"sprite": "asphalt_middle_upright.png"
 	},
 	{
 		"categories": [

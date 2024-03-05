@@ -1,21 +1,14 @@
-[gd_scene load_steps=33 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=26 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
-[ext_resource type="PackedScene" uid="uid://cpaa3ui52a23c" path="res://Blocks/grass_001.tscn" id="2_plpeq"]
-[ext_resource type="PackedScene" uid="uid://b5b2f24f6emf3" path="res://Blocks/concrete_wall001.tscn" id="3_1oyl1"]
-[ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://enemy_corpse.tscn" id="3_l8ooc"]
-[ext_resource type="PackedScene" uid="uid://cmjjw8pjtidpj" path="res://Blocks/concrete_wall002.tscn" id="4_pf75o"]
-[ext_resource type="PackedScene" uid="uid://dnsl5rk6de7na" path="res://Blocks/Stairs_to_N001.tscn" id="5_4om2c"]
-[ext_resource type="PackedScene" uid="uid://db73ys0cw3b2i" path="res://Blocks/Stairs_to_E001.tscn" id="6_x7pv6"]
+[ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://Defaults/Mobs/enemy_corpse.tscn" id="3_l8ooc"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
-[ext_resource type="PackedScene" uid="uid://dotb8dsoarufo" path="res://Blocks/Stairs_to_S001.tscn" id="7_nhyjt"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
-[ext_resource type="PackedScene" uid="uid://h2antxtbvel4" path="res://Blocks/Stairs_to_W001.tscn" id="8_l45yd"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
 [ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://Textures/survivor.png" id="10_alql8"]
 [ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="11_6i2sa"]
-[ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://enemy.tscn" id="11_tj1r0"]
+[ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://Defaults/Mobs/enemy.tscn" id="11_tj1r0"]
 [ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="12_dip38"]
 [ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="13_fjasp"]
 [ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="14_x756n"]
@@ -74,7 +67,6 @@ script = ExtResource("1_i8qa4")
 defaultEnemy = ExtResource("11_tj1r0")
 defaultItem = ExtResource("3_l8ooc")
 level_manager = NodePath("../NavigationRegion3D/LevelManager")
-block_scenes = Array[PackedScene]([ExtResource("2_plpeq"), ExtResource("3_1oyl1"), ExtResource("4_pf75o"), ExtResource("5_4om2c"), ExtResource("6_x7pv6"), ExtResource("7_nhyjt"), ExtResource("8_l45yd")])
 default_level_json = "res://Mods/Core/Maps/Generichouse.json"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TacticalMap"]
@@ -148,6 +140,10 @@ hud = NodePath("../../HUD")
 [node name="Entities" type="Node3D" parent="TacticalMap"]
 
 [node name="Enemies" type="Node3D" parent="TacticalMap/Entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4043, 0, -8.78679)
+
+[node name="Enemy" parent="TacticalMap/Entities/Enemies" instance=ExtResource("11_tj1r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09226, 0.991724, 23.5959)
 
 [node name="Projectiles" type="Node3D" parent="TacticalMap/Entities"]
 

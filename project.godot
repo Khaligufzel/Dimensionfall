@@ -12,7 +12,7 @@ config_version=5
 
 config/name="CataX"
 run/main_scene="res://scene_selector.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -24,7 +24,6 @@ GLoot="*res://addons/gloot/gloot_autoload.gd"
 ItemManager="*res://Scripts/item_manager.gd"
 General="*res://Scripts/general.gd"
 CraftingRecipesManager="*res://Scripts/crafting_recipes_manager.gd"
-Helper="*res://Scripts/Helper.gd"
 
 [display]
 
@@ -38,6 +37,7 @@ movie_writer/movie_file="D:/CataX resources/catax.avi"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gloot/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
