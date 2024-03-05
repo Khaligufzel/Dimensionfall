@@ -19,6 +19,22 @@ func _ready():
 	save_helper = save_Helper_Class.new()
 	add_child(save_helper)
 
+# Called when the game is over and everything will need to be reset to default
+func reset():
+	chunks = {} #Stores references to tilegrids representing the overmap
+	current_level_pos = Vector2(0.1,0.1)
+	current_map_seed = 0
+	position_coord = Vector2(0, 0)
+	save_helper.current_save_folder = ""
+	var mapMobs = get_tree().get_nodes_in_group("mobs")
+	for mob in mapMobs:
+		mob.remove_from_group("mobs")
+		mob.queue_free()
+	var mapitems = get_tree().get_nodes_in_group("mapitems")
+	for item in mapitems:
+		item.remove_from_group("mapitems")
+		item.queue_free()
+
 #Level_name is a filename in /mods/core/maps
 #global_pos is the absolute position on the overmap
 #see overmap.gd for how global_pos is used there
@@ -30,6 +46,7 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 		save_helper.save_current_level(current_level_pos)
 		save_helper.save_overmap_state()
 		save_helper.save_player_inventory()
+		save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
 	current_level_pos = global_pos
 	get_tree().change_scene_to_file("res://level_generation.tscn")
 
