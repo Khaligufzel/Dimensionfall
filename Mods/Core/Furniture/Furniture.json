@@ -64,5 +64,79 @@
 		"moveable": false,
 		"name": "Willow tree",
 		"sprite": "WillowTree_100.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Livingroom"
+		],
+		"description": "A simple wooden bench that can seat multiple people, offering a resting spot or a place for interaction.",
+		"edgesnapping": "North",
+		"id": "bench_wood",
+		"moveable": true,
+		"name": "Wooden bench",
+		"sprite": "bench_wood_100_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Livingroom"
+		],
+		"description": "A small pot holding a green plant, which can be placed indoors to enhance the aesthetics",
+		"edgesnapping": "None",
+		"id": "plant_pot_00",
+		"moveable": true,
+		"name": "Potted plant",
+		"sprite": "pot_plant_32_32.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor",
+			"Bedroom"
+		],
+		"description": "A basic wooden bed with a mattress, which could be used to rest",
+		"edgesnapping": "North",
+		"id": "bed_wood_single_00",
+		"moveable": false,
+		"name": "Wooden bed",
+		"sprite": "bed_wood_100_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "A storage unit with doors, useful for storing items or resources that you might collect.",
+		"edgesnapping": "North",
+		"id": "cabinet_wood_00",
+		"moveable": false,
+		"name": "Wooden cabinet",
+		"sprite": "cabinet_wood_100_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "A tall wooden bookcase with multiple shelves",
+		"edgesnapping": "North",
+		"id": "bookcase_wood_00",
+		"moveable": false,
+		"name": "Wooden bookcase",
+		"sprite": "bookcase_wood_100_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Kitchen",
+			"Indoor"
+		],
+		"description": "One of the central pieces of fruniture that make up a kitchen",
+		"edgesnapping": "North",
+		"id": "refrigerator_00",
+		"moveable": false,
+		"name": "Refrigerator",
+		"sprite": "refrigerator_50_48.png"
 	}
 ]
