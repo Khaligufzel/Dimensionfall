@@ -32,5 +32,35 @@
 		"moveable": false,
 		"name": "Wooden countertop",
 		"sprite": "countertop_100_52.png"
+	},
+	{
+		"categories": [
+			"Nature"
+		],
+		"description": "A common tree",
+		"id": "Tree_00",
+		"moveable": false,
+		"name": "Tree",
+		"sprite": "Tree_100.png"
+	},
+	{
+		"categories": [
+			"Nature"
+		],
+		"description": "A common pine tree",
+		"id": "PineTree_00",
+		"moveable": false,
+		"name": "Pine tree",
+		"sprite": "PineTree_100.png"
+	},
+	{
+		"categories": [
+			"Nature"
+		],
+		"description": "A common willow tree",
+		"id": "WillowTree_00",
+		"moveable": false,
+		"name": "Willow tree",
+		"sprite": "WillowTree_100.png"
 	}
 ]
