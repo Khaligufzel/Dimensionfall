@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhh0v7x4fjsgi"]
+[gd_scene load_steps=2 format=3 uid="uid://bhh0v7x4fjsgi"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/content_list.gd" id="1_ly1kh"]
-[ext_resource type="Script" path="res://Scripts/Helper/json_helper.gd" id="2_5gw28"]
 
 [node name="ContentList" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton", "pupup_ID", "popup_textedit")]
 custom_minimum_size = Vector2(200, 30)
@@ -18,7 +17,6 @@ contentItems = NodePath("Content/ContentItems")
 collapseButton = NodePath("Content/HBoxContainer/CollapseButton")
 pupup_ID = NodePath("ID_Input")
 popup_textedit = NodePath("ID_Input/VBoxContainer/TextEdit")
-json_Helper_Class = ExtResource("2_5gw28")
 
 [node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -62,7 +60,7 @@ theme_override_font_sizes/font_size = 16
 text = "-"
 
 [node name="ContentItems" type="ItemList" parent="Content"]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 size_flags_vertical = 3
 fixed_icon_size = Vector2i(32, 32)

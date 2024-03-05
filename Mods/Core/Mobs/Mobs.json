@@ -1,0 +1,1 @@
+[{"description":"A small robot","health":"100","hearing_range":"1000","id":"scrapwalker","idle_move_speed":"0.5","imagePath":"res://./Mods/Core/Mobs/scrapwalker64.png","melee_damage":"20","melee_range":"20","move_speed":"1","name":"Scrap walker","sense_range":"50","sight_range":"200"}]
