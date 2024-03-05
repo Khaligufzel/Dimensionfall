@@ -1,19 +1,36 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=22 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/GridContainer.gd" id="2_sf17m"]
+[ext_resource type="Texture2D" uid="uid://b6m2bbbpmsyik" path="res://Images/Icons/IconRotateRightDark.png" id="3_8q2iq"]
+[ext_resource type="Texture2D" uid="uid://cxhp6hye2ufp2" path="res://Images/Icons/IconRectangleUnchecked.png" id="3_70koh"]
+[ext_resource type="Texture2D" uid="uid://5fsf8rh6w0pb" path="res://Images/Icons/IconRectangleChecked.png" id="3_eu7pp"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Levelscroller.gd" id="3_i1qbw"]
 [ext_resource type="PackedScene" uid="uid://3x0kjiu7lqg7" path="res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn" id="4_lqbjy"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/TilebrushList.gd" id="5_he816"]
+[ext_resource type="Texture2D" uid="uid://7pbgyyv6lna1" path="res://Images/Icons/IconEraserChecked.png" id="5_n3fyt"]
+[ext_resource type="Texture2D" uid="uid://hik7bkdfc51t" path="res://Images/Icons/IconEraserUnchecked.png" id="6_6lnwx"]
 [ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="6_onaby"]
+[ext_resource type="Texture2D" uid="uid://kjsnbbs2o68u" path="res://Images/Icons/IconArrowDownChecked.png" id="7_s4wos"]
 [ext_resource type="PackedScene" uid="uid://cccnrdolr1bfo" path="res://Scenes/ContentManager/Mapeditor/tilebrush.tscn" id="8_o4x7s"]
+[ext_resource type="Texture2D" uid="uid://bsxgq272ca2kw" path="res://Images/Icons/IconArrowDownUnchecked.png" id="8_xcusj"]
+[ext_resource type="Texture2D" uid="uid://dk8cdxff84idk" path="res://Images/Icons/IconArrowUpChecked.png" id="9_etume"]
+[ext_resource type="Texture2D" uid="uid://biircfcjvj7lp" path="res://Images/Icons/IconArrowUpUnchecked.png" id="10_0rhye"]
 
 [sub_resource type="Gradient" id="Gradient_x1sdl"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1xgu1"]
 gradient = SubResource("Gradient_x1sdl")
 width = 24
+
+[sub_resource type="InputEventKey" id="InputEventKey_nrfa0"]
+device = -1
+keycode = 82
+unicode = 114
+
+[sub_resource type="Shortcut" id="Shortcut_1tryc"]
+events = [SubResource("InputEventKey_nrfa0")]
 
 [node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid")]
 layout_mode = 3
@@ -88,22 +105,37 @@ theme_override_constants/line_spacing = 0
 theme_override_font_sizes/font_size = 16
 text = "32"
 
+[node name="RotateRight" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+tooltip_text = "Rotate the brush to paint with rotation"
+theme_override_icons/checked = ExtResource("3_8q2iq")
+theme_override_icons/unchecked = ExtResource("3_8q2iq")
+shortcut = SubResource("Shortcut_1tryc")
+text = "0"
+
 [node name="DrawRectangle" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-text = "Rectangle"
+tooltip_text = "Paint in a rectangle"
+theme_override_icons/checked = ExtResource("3_eu7pp")
+theme_override_icons/unchecked = ExtResource("3_70koh")
 
 [node name="Erase" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-text = "Erase"
+tooltip_text = "Erase tiles on the map"
+theme_override_icons/checked = ExtResource("5_n3fyt")
+theme_override_icons/unchecked = ExtResource("6_6lnwx")
 
 [node name="ShowBelow" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-text = "Below"
+tooltip_text = "Show the level below"
+theme_override_icons/checked = ExtResource("7_s4wos")
+theme_override_icons/unchecked = ExtResource("8_xcusj")
 
 [node name="ShowAbove" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-text = "Above
-"
+tooltip_text = "Show the level above"
+theme_override_icons/checked = ExtResource("9_etume")
+theme_override_icons/unchecked = ExtResource("10_0rhye")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/MapeditorContainer"]
 layout_mode = 2
@@ -130,7 +162,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.313726, 0.313726, 0.313726, 1)
 
-[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above")]
+[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above", "mapScrollWindow", "brushPreviewTexture", "buttonRotateRight")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -146,9 +178,12 @@ mapEditor = NodePath("../../../../../../..")
 LevelScrollBar = NodePath("../../../../Levelscroller/LevelScrollbar")
 levelgrid_below = NodePath("../Level_Below")
 levelgrid_above = NodePath("../Level_Above")
+mapScrollWindow = NodePath("../../..")
+brushPreviewTexture = NodePath("../../../../../../../BrushPreviewTexture")
+buttonRotateRight = NodePath("../../../../../Toolbar/RotateRight")
 
 [node name="Level_Below" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer"]
-modulate = Color(1, 1, 1, 0.0980392)
+modulate = Color(1, 1, 1, 0.117647)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -156,6 +191,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
 columns = 32
 
 [node name="Level_Above" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer"]
@@ -167,6 +204,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
 columns = 32
 
 [node name="Levelscroller" type="VBoxContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer"]
@@ -204,11 +243,19 @@ script = ExtResource("5_he816")
 scrolling_Flow_Container = ExtResource("6_onaby")
 tileBrush = ExtResource("8_o4x7s")
 
+[node name="BrushPreviewTexture" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [connection signal="ready" from="." to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_mapeditor_ready"]
 [connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" method="_on_mapeditor_zoom_level_changed"]
+[connection signal="zoom_level_changed" from="." to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_zoom_level_changed"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="save_map_json_file"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" to="." method="_on_zoom_scroller_zoom_level_changed"]
+[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_rotate_right_button_up"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_draw_rectangle_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/Erase" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_erase_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/ShowBelow" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_show_below_toggled"]

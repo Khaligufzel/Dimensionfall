@@ -10,6 +10,7 @@ material = ExtResource("1_tldl5")
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
 [node name="Grass001" type="StaticBody3D" groups=["navigation_mesh_source_group"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 disable_mode = 1
 script = ExtResource("1_yge5h")
 

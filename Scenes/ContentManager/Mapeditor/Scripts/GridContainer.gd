@@ -8,6 +8,9 @@ var currentLevelData: Array[Dictionary] = []
 @export var LevelScrollBar: VScrollBar
 @export var levelgrid_below: GridContainer
 @export var levelgrid_above: GridContainer
+@export var mapScrollWindow: ScrollContainer
+@export var brushPreviewTexture: TextureRect
+@export var buttonRotateRight: Button
 var selected_brush: Control
 
 var drawRectangle: bool = false
@@ -16,6 +19,7 @@ var showBelow: bool = false
 var showAbove: bool = false
 var snapAmount: float
 var defaultMapData: Dictionary = {"mapwidth": 32, "mapheight": 32, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
+var rotationAmount: int = 0
 #Contains map metadata like size as well as the data on all levels
 var mapData: Dictionary = defaultMapData.duplicate():
 	set(data):
@@ -34,6 +38,7 @@ func _on_mapeditor_ready():
 	snapAmount = 1.28*mapEditor.zoom_level
 	levelgrid_below.hide()
 	levelgrid_above.hide()
+	_on_zoom_level_changed(mapEditor.zoom_level)
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
 func createTiles():
@@ -52,7 +57,6 @@ func createTiles():
 var start_point = Vector2()
 var end_point = Vector2()
 var is_drawing = false
-var mouse_button_pressed: bool = false
 var snapLevel: Vector2 = Vector2(snapAmount, snapAmount).round()
 
 #When the user presses and holds the middle mousebutton and moves the mouse, change the parent's scroll_horizontal and scroll_vertical properties appropriately
@@ -60,6 +64,14 @@ func _input(event):
 	#The mapeditor may be invisible if the user selects another tab in the content editor
 	if !mapEditor.visible:
 		return
+	
+	# Convert the mouse position to MapScrollWindow's local coordinate system
+	var local_mouse_pos = mapScrollWindow.get_local_mouse_position()
+	var mapScrollWindowRect = mapScrollWindow.get_rect()
+	# Check if the mouse is within the MapScrollWindow's rect
+	if !mapScrollWindowRect.has_point(local_mouse_pos):
+		return
+	
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
@@ -77,43 +89,54 @@ func _input(event):
 				if Input.is_key_pressed(KEY_CTRL) or Input.is_key_pressed(KEY_ALT):
 					get_viewport().set_input_as_handled()
 			MOUSE_BUTTON_LEFT:
-				if drawRectangle:
-					if event.is_pressed():
-						start_point = event.global_position.snapped(snapLevel)
-						is_drawing = true
-					else:
-						end_point = event.global_position.snapped(snapLevel)
-						is_drawing = false
-						paint_in_rectangle()
+				if event.is_pressed():
+					is_drawing = true
+					start_point = event.global_position.snapped(snapLevel)
 				else:
+					end_point = event.global_position.snapped(snapLevel)
+					if is_drawing == true:
+						if drawRectangle:
+							paint_in_rectangle()
+					unhighlight_tiles()
 					is_drawing = false
 
 	#When the users presses and holds the mouse wheel, we scoll the grid
 	if event is InputEventMouseMotion:
+		end_point = event.global_position
 		if is_drawing:
-			end_point = event.global_position
-			update_rectangle()
+			if drawRectangle:
+				update_rectangle()
+				
+		# Calculate new position for the brush preview
+		var new_position = event.position + brushPreviewTexture.get_rect().size / 2
+		# Get the boundaries of the mapScrollWindow
+		var scroll_global_pos = mapScrollWindow.get_global_position()
+		# Clamp the new position to the mapScrollWindow's boundaries
+		new_position.x = clamp(new_position.x, scroll_global_pos.x, scroll_global_pos.x + mapScrollWindowRect.size.x - brushPreviewTexture.get_rect().size.x)
+		new_position.y = clamp(new_position.y, scroll_global_pos.y, scroll_global_pos.y + mapScrollWindowRect.size.y - brushPreviewTexture.get_rect().size.y)
+		# Update the position of the brush preview
+		brushPreviewTexture.global_position = new_position
 
-#Change the color to be red
+# Highlight tiles that are in the rectangle that the user has drawn with the mouse
 func update_rectangle():
-	if is_drawing:
+	if is_drawing and drawRectangle:
 		highlight_tiles_in_rect()
-	else:
-		unhighlight_tiles()
 
 #When one of the grid tiles is clicked, we paint the tile accordingly
 func grid_tile_clicked(clicked_tile):
-	paint_single_tile(clicked_tile)
+	if is_drawing:
+		paint_single_tile(clicked_tile)
 
 #We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile):
-	if drawRectangle:
+	if drawRectangle or !clicked_tile:
 		return
 	if erase:
 		clicked_tile.set_default()
 	elif selected_brush:
 		clicked_tile.set_tile_id(selected_brush.tileID)
+		clicked_tile.set_rotation_amount(rotationAmount) # Apply rotation
 
 #When this function is called, loop over all the TileGrid's children and get the tileData property. Store this data in the currentLevelData array
 func storeLevelData():
@@ -122,8 +145,8 @@ func storeLevelData():
 		currentLevelData.append(child.tileData)
 	mapData.levels[currentLevel] = currentLevelData.duplicate()
 
-#Loads the leveldata from the mapdata
-#If no data exists, use the default to create a new map
+# Loads the leveldata from the mapdata
+# If no data exists, use the default to create a new map
 func loadLevelData(newLevel: int):
 	if newLevel > 0 and showBelow:
 		levelgrid_below.show()
@@ -211,6 +234,14 @@ func _on_draw_rectangle_toggled(button_pressed):
 
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush):
 	selected_brush = tilebrush
+	update_preview_texture()
+
+func update_preview_texture():
+	if selected_brush:
+		brushPreviewTexture.texture = selected_brush.get_texture()
+		brushPreviewTexture.visible = true
+	else:
+		brushPreviewTexture.visible = false
 
 func _on_show_below_toggled(button_pressed):
 	showBelow = button_pressed
@@ -236,3 +267,25 @@ func save_map_json_file():
 func load_map_json_file():
 	var fileToLoad: String = mapEditor.contentSource
 	mapData = Helper.json_helper.load_json_dictionary_file(fileToLoad)
+
+
+func _on_zoom_level_changed(zoom_level: int):
+	# Calculate the new scale based on zoom level
+	var scale_factor = zoom_level * 0.01 
+	brushPreviewTexture.scale = Vector2(scale_factor, scale_factor)
+	brushPreviewTexture.pivot_offset = brushPreviewTexture.size / 2
+	for tile in get_children():
+		tile.set_scale_amount(1.28*zoom_level)
+	for tile in levelgrid_below.get_children():
+		tile.set_scale_amount(1.28*zoom_level)
+	for tile in levelgrid_above.get_children():
+		tile.set_scale_amount(1.28*zoom_level)
+	
+
+# When the user releases the mouse button on the rotate right button
+func _on_rotate_right_button_up():
+	rotationAmount += 90
+	rotationAmount = rotationAmount % 360 # Keep rotation within 0-359 degrees
+	buttonRotateRight.text = str(rotationAmount)
+	brushPreviewTexture.rotation_degrees = rotationAmount
+	brushPreviewTexture.pivot_offset = brushPreviewTexture.size / 2
