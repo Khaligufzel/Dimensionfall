@@ -12,11 +12,14 @@ const json_Helper_Class = preload("res://Scripts/Helper/json_helper.gd")
 var json_helper: Node = null
 const save_Helper_Class = preload("res://Scripts/Helper/save_helper.gd")
 var save_helper: Node = null
+const signal_broker_Class = preload("res://Scripts/Helper/signal_broker.gd")
+var signal_broker: Node = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	json_helper = json_Helper_Class.new()
 	save_helper = save_Helper_Class.new()
+	signal_broker = signal_broker_Class.new()
 	add_child(save_helper)
 
 # Called when the game is over and everything will need to be reset to default

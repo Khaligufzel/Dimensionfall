@@ -505,13 +505,13 @@ func _deselect_and_clear_current_inventory():
 	# Reset other variables if needed
 	last_selected_item = null
 
-
+# All rows are desleected
 func _deselect_all_items():
 	for row_name in inventory_rows.keys():
 		if inventory_rows.has(row_name):
 			_toggle_row_selection(row_name, false)
 
-
+# When the user clicks on one of the cells in the grid
 func _on_grid_cell_gui_input(event, gridCell: Control):
 	if event is InputEventMouseButton:
 		if event.pressed:  # Check if the mouse button was pressed down
