@@ -29,6 +29,7 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 	if current_level_pos != Vector2(0.1,0.1):
 		save_helper.save_current_level(current_level_pos)
 		save_helper.save_overmap_state()
+		save_helper.save_player_inventory()
 	current_level_pos = global_pos
 	get_tree().change_scene_to_file("res://level_generation.tscn")
 

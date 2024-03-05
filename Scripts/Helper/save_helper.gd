@@ -139,7 +139,6 @@ func save_map_data(target_folder: String) -> void:
 # The current_save_folder is determined when the game is first started
 # and does not change unless the user start a new game.
 func get_saved_map_folder(level_pos: Vector2) -> String:
-	var current_save_folder: String = Helper.save_helper.current_save_folder
 	var dir = DirAccess.open(current_save_folder)
 	var map_folder = "map_x" + str(level_pos.x) + "_y" + str(level_pos.y)
 	var target_folder = current_save_folder+ "/" + map_folder
@@ -190,3 +189,25 @@ func load_overmap_state() -> void:
 		print("Overmap state loaded from: ", overmap_path)
 	else:
 		print("Failed to parse overmap state file: ", overmap_path)
+
+# Function to save the player's inventory to a JSON file.
+func save_player_inventory() -> void:
+	var save_path = current_save_folder + "/player_inventory.json"
+	var inventory_data = JSON.stringify(General.player_inventory_dict)
+	Helper.json_helper.write_json_file(save_path, inventory_data)
+
+
+	# Function to load the player's inventory data
+func load_player_inventory() -> void:
+	var load_path = current_save_folder + "/player_inventory.json"
+
+	# Load the inventory data from the file
+	var loaded_inventory_data = Helper.json_helper.load_json_dictionary_file(load_path)
+
+	if loaded_inventory_data:
+		# Update the General.player_inventory_dict with the loaded data
+		General.player_inventory_dict = loaded_inventory_data
+		print_debug("Player inventory loaded from: " + load_path)
+	else:
+		print_debug("Failed to load player inventory from: " + load_path)
+

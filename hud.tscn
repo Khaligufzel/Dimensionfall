@@ -432,3 +432,4 @@ visible = false
 [connection signal="button_down" from="BuildingMenu/Concrete" to="." method="_on_concrete_button_down"]
 [connection signal="start_craft" from="CraftingMenu" to="." method="_on_crafting_menu_start_craft"]
 [connection signal="pressed" from="CraftingMenu/Panel/StartCraftingButton" to="CraftingMenu" method="_on_start_crafting_button_pressed"]
+[connection signal="change_level_pressed" from="Overmap" to="." method="_on_overmap_change_level_pressed"]

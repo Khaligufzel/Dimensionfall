@@ -76,6 +76,7 @@ func _input(event):
 func _ready():
 	#temporary hack
 	ItemManager.create_item_protoset(item_protoset)
+	get_node(inventory).deserialize(General.player_inventory_dict)
 	
 
 
@@ -239,3 +240,7 @@ func _on_progress_bar_timer_timeout():
 
 func _on_shooting_ammo_changed(current_ammo, max_ammo):
 	get_node(ammo_HUD).text = str(current_ammo) + "/" + str(max_ammo)
+
+
+func _on_overmap_change_level_pressed():
+	General.player_inventory_dict = get_node(inventory).serialize()
