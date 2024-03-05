@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
-[ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://Defaults/Mobs/enemy_corpse.tscn" id="3_l8ooc"]
+[ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://Defaults/Mobs/mob.tscn" id="2_jhj6h"]
+[ext_resource type="PackedScene" uid="uid://mu6nbyuq02o5" path="res://Defaults/Mobs/mob_corpse.tscn" id="3_l8ooc"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
 [ext_resource type="Texture2D" uid="uid://8uwpq1ai8qi4" path="res://Textures/survivor.png" id="10_alql8"]
 [ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="11_6i2sa"]
-[ext_resource type="PackedScene" uid="uid://b2r6nh12wv41k" path="res://Defaults/Mobs/enemy.tscn" id="11_tj1r0"]
 [ext_resource type="PackedScene" uid="uid://doyjc25kl7104" path="res://bullet_line.tscn" id="12_dip38"]
 [ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="13_fjasp"]
 [ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="14_x756n"]
@@ -64,7 +64,7 @@ radius = 1.5
 
 [node name="LevelGenerator" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("level_manager") groups=["level_generator"]]
 script = ExtResource("1_i8qa4")
-defaultEnemy = ExtResource("11_tj1r0")
+defaultMob = ExtResource("2_jhj6h")
 defaultItem = ExtResource("3_l8ooc")
 level_manager = NodePath("../NavigationRegion3D/LevelManager")
 default_level_json = "res://Mods/Core/Maps/Generichouse.json"

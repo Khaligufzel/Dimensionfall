@@ -2,8 +2,11 @@ extends CharacterBody3D
 
 var tween: Tween 
 var original_scale
+# id for the mob json. this will be used to load the data when creating a mob
+# when saving a mob in between levels, we will use some static json defined by this id
+# and some dynamic json like the mob health and buffs and debuffs
+var id: String
 
-@export var sprite: NodePath
 @export var stats: NodePath
 
 @export var corpse_scene: PackedScene
@@ -36,8 +39,8 @@ func add_corpse(pos: Vector3):
 	corpse.global_position = pos
 	corpse.add_to_group("mapitems")
 	
-func set_sprite(sprite: Resource):
+func set_sprite(newSprite: Resource):
 	var material := StandardMaterial3D.new() 
-	material.albedo_texture = sprite # Set the texture of the material
+	material.albedo_texture = newSprite # Set the texture of the material
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	$MeshInstance3D.mesh.surface_set_material(0, material)

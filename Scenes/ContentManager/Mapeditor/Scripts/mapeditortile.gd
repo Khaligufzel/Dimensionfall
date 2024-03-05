@@ -1,5 +1,7 @@
 extends Control
 
+#If a tile has no data, we save an empty object. Tiledata can have:
+# id, rotation, mob
 const defaultTileData: Dictionary = {}
 const defaultTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png"
 const aboveTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/tileAbove.png"

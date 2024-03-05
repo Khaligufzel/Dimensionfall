@@ -11,7 +11,7 @@ var level_height : int = 32
 
 @onready var defaultBlock: PackedScene = preload("res://Defaults/Blocks/default_block.tscn")
 @onready var defaultSlope: PackedScene = preload("res://Defaults/Blocks/default_slope.tscn")
-@export var defaultEnemy: PackedScene
+@export var defaultMob: PackedScene
 @export var defaultItem: PackedScene
 @export var level_manager : Node3D
 @export_file var default_level_json
@@ -24,36 +24,29 @@ func _ready():
 	$"../NavigationRegion3D".bake_navigation_mesh()
 	
 func generate_map():
-	map_save_folder = get_saved_map_folder()
+	map_save_folder = Helper.save_helper.get_saved_map_folder(Helper.current_level_pos)
 	generate_level()
 	# These two functions apply only to maps thet were previously saved in a save game
-	generate_enemies()
+	generate_mobs()
 	generate_items()
 	
-func get_saved_map_folder() -> String:
-	var level_pos: Vector2 = Helper.current_level_pos
-	var current_save_folder: String = Helper.save_helper.current_save_folder
-	var dir = DirAccess.open(current_save_folder)
-	var map_folder = "map_x" + str(level_pos.x) + "_y" + str(level_pos.y)
-	var target_folder = current_save_folder+ "/" + map_folder
-	if dir.dir_exists(map_folder):
-		return target_folder
-	return ""
 
-func generate_enemies() -> void:
+func generate_mobs() -> void:
 	if map_save_folder == "":
 		return
-	var enemiesArray = Helper.json_helper.load_json_array_file(map_save_folder + "/enemies.json")
-	for enemy: Dictionary in enemiesArray:
-		add_enemy_to_map.call_deferred(enemy)
+	var mobsArray = Helper.json_helper.load_json_array_file(map_save_folder + "/mobs.json")
+	for mob: Dictionary in mobsArray:
+		add_mob_to_map.call_deferred(mob)
 
-func add_enemy_to_map(enemy: Dictionary):
-	var newEnemy: CharacterBody3D = defaultEnemy.instantiate()
-	newEnemy.add_to_group("Enemies")
-	get_tree().get_root().add_child(newEnemy)
-	newEnemy.global_position.x = enemy.global_position_x
-	newEnemy.global_position.y = enemy.global_position_y
-	newEnemy.global_position.z = enemy.global_position_z
+func add_mob_to_map(mob: Dictionary) -> void:
+	var newMob: CharacterBody3D = defaultMob.instantiate()
+	newMob.add_to_group("mobs")
+	newMob.set_sprite(Gamedata.get_sprite_by_id(Gamedata.data.mobs,mob.id))
+	get_tree().get_root().add_child(newMob)
+	newMob.global_position.x = mob.global_position_x
+	newMob.global_position.y = mob.global_position_y
+	newMob.global_position.z = mob.global_position_z
+	newMob.id = mob.id
 
 func generate_items() -> void:
 	if map_save_folder == "":
@@ -72,7 +65,7 @@ func add_item_to_map(item: Dictionary):
 
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation
-# If a block has an enemy, add it too
+# If a block has an mob, add it too
 func generate_level() -> void:
 	var level_name: String = Helper.current_level_name
 	var tileJSON: Dictionary = {}
@@ -117,6 +110,8 @@ func generate_level() -> void:
 								level_node.add_child(block)
 								block.global_position.x = w
 								block.global_position.z = h
+								# Remmeber the id for save and load purposes
+								block.id = tileJSON.id
 								apply_block_rotation(tileJSON, block)
 								add_block_mob(tileJSON, block)
 					current_block += 1
@@ -156,8 +151,8 @@ func apply_block_rotation(tileJSON: Dictionary, block: StaticBody3D):
 
 func add_block_mob(tileJSON: Dictionary, block: StaticBody3D):
 	if tileJSON.has("mob"):
-		var newMob: CharacterBody3D = defaultEnemy.instantiate()
-		newMob.add_to_group("Enemies")
+		var newMob: CharacterBody3D = defaultMob.instantiate()
+		newMob.add_to_group("mobs")
 		newMob.set_sprite(Gamedata.get_sprite_by_id(Gamedata.data.mobs,tileJSON.mob))
 		get_tree().get_root().add_child(newMob)
 		newMob.global_position.x = block.global_position.x
