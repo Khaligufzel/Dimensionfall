@@ -9,7 +9,8 @@ var blockmeshinstance: MeshInstance3D # Reference to the MeshInstance3D
 
 func _ready():
 	position = blockposition
-	apply_block_rotation()
+	rotation_degrees = Vector3(0,get_block_rotation(),0)
+	#apply_block_rotation()
 
 
 # Function to make it's own shape and texture based on an id and position
@@ -17,8 +18,6 @@ func _ready():
 func construct_self(blockpos: Vector3, newTileJSON: Dictionary):
 	tileJSON = newTileJSON
 	blockposition = blockpos
-	# Adding to this group makes sure that the NavigationRegion3D considers the block when baking the navmesh
-	add_to_group("navigation_mesh_source_group")
 	disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
 	# Set collision layer to layer 1 and 5
 	collision_layer = 1 | (1 << 4) # Layer 1 is 1, Layer 5 is 1 << 4 (16), combined with bitwise OR
@@ -31,7 +30,7 @@ func construct_self(blockpos: Vector3, newTileJSON: Dictionary):
 		if tileJSONData.shape == "slope":
 			shape = "slope"
 	
-	create_mesh.call_deferred()
+	create_mesh()
 	create_collider()
 
 
@@ -60,9 +59,7 @@ func create_collider():
 	add_child.call_deferred(collider)
 
 
-# When the map is created for the first time, we will apply block rotation
-# This function will not be called when a map is loaded
-func apply_block_rotation():
+func get_block_rotation() -> int:
 	var defaultRotation: int = 0
 	# Only previously saved blocks have the block_x property, so we don't need to apply default rotation again
 	if shape == "slope" and not tileJSON.has("block_x"):
@@ -75,23 +72,23 @@ func apply_block_rotation():
 		myRotation += 180
 	if myRotation == 0:
 		# Only the block will match this case, not the slope. The block points north
-		rotation_degrees = Vector3(0,myRotation+180,0)
+		return myRotation+180
 	elif myRotation == 90:
-		# A slope will point north
 		# A block will point east
-		rotation_degrees = Vector3(0,myRotation+0,0)
+		# A slope will point north
+		return myRotation+0
 	elif myRotation == 180:
 		# A block will point south
 		# A slope will point east
-		rotation_degrees = Vector3(0,myRotation-180,0)
+		return myRotation-180
 	elif myRotation == 270:
 		# A block will point west
 		# A slope will point south
-		rotation_degrees = Vector3(0,myRotation+0,0)
+		return myRotation+0
 	elif myRotation == 360:
 		# Only a slope can match this case if it's rotation is 270 and it gets 90 rotation by default
-		rotation_degrees = Vector3(0,myRotation-180,0)
-
+		return myRotation-180
+	return myRotation
 
 
 func get_mesh() -> Mesh:

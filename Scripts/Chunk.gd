@@ -53,12 +53,11 @@ func _process(_delta):
 
 # Thread must be disposed (or "joined"), for portability.
 func _exit_tree():
-	thread.wait_to_finish()
-	#navigationthread.wait_to_finish()
+	if thread.is_alive():
+		thread.wait_to_finish()
 
 
 func generate_new_chunk(mapsegment: Dictionary):
-	#var blocks_to_process = [] # Add this line to collect block instances
 	#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 	var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 		Gamedata.data.maps.dataPath + mapsegment.id)
@@ -82,10 +81,6 @@ func generate_new_chunk(mapsegment: Dictionary):
 						tileJSON = level[current_block]
 						if tileJSON.has("id") and tileJSON.id != "":
 							create_block_by_id(level_node,w,h,tileJSON)
-							#var block = DefaultBlock.new()
-							#block.construct_self(Vector3(w,0,h), tileJSON)
-							#blocks_to_process.append(block) # Collect block instance
-							#level_node.add_child.call_deferred(block)
 							add_block_mob(tileJSON, Vector3(w,y_position+1.5,h))
 							add_furniture_to_block(tileJSON, Vector3(w,y_position,h))
 							blocks_created += 1
@@ -96,9 +91,6 @@ func generate_new_chunk(mapsegment: Dictionary):
 				level_node.queue_free()
 			
 		level_number += 1
-	#navigationthread = Thread.new()
-	#navigationthread.start(add_meshes_to_navigation_data.bind(blocks_to_process))
-	#call_deferred("add_meshes_to_navigation_data", blocks_to_process)
 
 
 # Creates a dictionary of all block positions with a local x,y and z position
@@ -121,30 +113,19 @@ func setup_navigation():
 	navigation_mesh.agent_height = 0.5
 	navigation_mesh.agent_radius = 0.1
 	navigation_mesh.agent_max_slope = 46
-	navigation_mesh.geometry_source_geometry_mode = NavigationMesh.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
-	navigation_mesh.geometry_source_group_name = "navigation_mesh_source_group" + name
 	# Create a new navigation region and set its transform based on mypos
-	#navigation_region = NavigationServer3D.region_create()
 	navigation_region = NavigationRegion3D.new()
 	add_child(navigation_region)
-	
-	#NavigationServer3D.region_set_map(navigation_region, get_world_3d().get_navigation_map())
-	#NavigationServer3D.region_set_map(navigation_region, Helper.navigationmap)
 	NavigationServer3D.map_set_cell_size(get_world_3d().get_navigation_map(),0.1)
-	#NavigationServer3D.map_set_cell_size(Helper.navigationmap,0.1)
-	#NavigationServer3D.region_set_transform(navigation_region, Transform3D(Basis(), mypos))
 
 
 func update_navigation_mesh():
-	#NavigationMeshGenerator.parse_source_geometry_data(navigation_mesh, source_geometry_data, self)
-	# Bake the navigation mesh using the source geometry data
 	NavigationMeshGenerator.bake_from_source_geometry_data(navigation_mesh, source_geometry_data)
 	navigation_region.navigation_mesh = navigation_mesh
-	# Apply the baked navigation mesh to the navigation region
-	#NavigationServer3D.region_set_navigation_mesh(navigation_region, navigation_mesh)
-	#navigation_region.bake_navigation_mesh(true)
 
 
+# Creates one level of blocks, for example level 0 will be the ground floor
+# Can contain a maximum of 32x32 or 1024 blocks
 func create_level_node(ypos: int) -> ChunkLevel:
 	var level_node = ChunkLevel.new()
 	level_node.add_to_group("maplevels")
@@ -154,21 +135,28 @@ func create_level_node(ypos: int) -> ChunkLevel:
 	return level_node
 
 
+# Creates a new block and adds it to the level node
+# Also adds the top surface to the navigationmesh data
 func create_block_by_id(level_node,w,h,tileJSON):
 	var block = DefaultBlock.new()
-	block.construct_self(Vector3(w,0,h), tileJSON)
-	# Adding to this group makes sure that the NavigationRegion3D considers the block when baking the navmesh
-	block.add_to_group("navigation_mesh_source_group" + name)
+	block.construct_self(Vector3(w,0,h), tileJSON) # Sets its own properties that can be set before spawn
+	# Adds the top surface to the navigation data
 	add_mesh_to_navigation_data(block, level_node.levelposition.y)
-	block.ready.connect(_on_Block_ready)
+	block.ready.connect(_on_Block_ready) # Needed to know when all the blocks are created
 	level_node.add_child.call_deferred(block)
 
 
+# Called when a block is ready and added to the tree. We need to count them to be sure
+# That all the blocks have been created before we proceed
 func _on_Block_ready():
 	initialized_blocks_count += 1
 	if initialized_blocks_count == block_positions.size():
 		print_debug("All blocks have been initialized.")
+		# Since all the required block data has been added to the navigationmesh data previously,
+		# We update the navigationmesh and region using this data
 		update_navigation_mesh()
+		thread.wait_to_finish.call_deferred() #Level generation is finished, we don't need the thread anymore
+
 
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation
@@ -361,6 +349,7 @@ func add_item_to_map(item: Dictionary):
 	newItem.inventory.deserialize(item.inventory)
 
 
+# Adds furniture that has been loaded from previously saved data
 func add_furniture_to_map(furnitureData: Dictionary):
 	var newFurniture: Node3D
 	var furnitureJSON: Dictionary = Gamedata.get_data_by_id(
@@ -371,11 +360,14 @@ func add_furniture_to_map(furnitureData: Dictionary):
 	else:
 		newFurniture = FurnitureStatic.new()
 
+	# We can't set it's position until after it's in the scene tree 
+	# so we only save the position to a variable and pass it to the furniture
 	var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
 	newFurniture.construct_self(furniturepos,furnitureData)
 	level_manager.add_child.call_deferred(newFurniture)
 
 
+# Returns all the chunk data used for saving and loading
 func get_chunk_data() -> Dictionary:
 	return {
 			"chunk_x": global_position.x,
@@ -387,35 +379,17 @@ func get_chunk_data() -> Dictionary:
 		}
 
 
-
-func add_meshes_to_navigation_data1(blocks):
-	# Wait for 30 seconds before proceeding.
-	# This is okay since we are in a separate thread and won't block the main game loop.
-	OS.delay_msec(10000)  # Delays for 30,000 milliseconds or 30 seconds
-	var mesh: Mesh
-	for block in blocks:
-		
-		if block.shape == "block":
-			mesh = Helper.get_or_create_block_mesh("grass_plain", "block")
-		elif block.shape == "slope":
-			mesh = Helper.get_or_create_block_mesh("wood_stairs", "slope")
-		 
-		#var mesh = block.get_mesh()
-		if mesh and mesh.get_surface_count() > 0:
-			#var blockposition = block.global_transform.origin
-			source_geometry_data.add_mesh(mesh, Transform3D(Basis(), block.global_transform.origin))
-		else:
-			print("Mesh is not initialized or has no surfaces.")
-	# After all meshes have been added, update the navigation mesh
-	update_navigation_mesh()
-
-
+# Adds triangles represented by 3 vertices to the navigation mesh data
+# If a block is above another block, we make sure no plane is created in between
+# For blocks we will create a square represented by 2 triangles
+# The same goes for slopes, but 2 of the vertices are lowered to the ground
+# keep in mind that after the navigationmesh is added to the navigationregion
+# It will be shrunk by the navigation_mesh.agent_radius to prevent collisions
 func add_mesh_to_navigation_data(block, level_y):
 	var block_global_position: Vector3 = block.blockposition# + mypos
 	block_global_position.y = level_y
 	var blockrange: float = 0.5
 	
-	#var key = str(block.blockposition.x) + "," + str(level_y) + "," + str(block.blockposition.z)
 	# Check if there's a block directly above the current block
 	var above_key = str(block.blockposition.x) + "," + str(level_y + 1) + "," + str(block.blockposition.z)
 	if block_positions.has(above_key):
@@ -437,7 +411,7 @@ func add_mesh_to_navigation_data(block, level_y):
 		# Add the top face as two triangles.
 		source_geometry_data.add_faces(top_face_vertices, Transform3D(Basis(), block_global_position))
 	elif block.shape == "slope":
-		# Define your initial slope vertices here
+		# Define the initial slope vertices here. We define a set for each direction
 		var vertices_north = PackedVector3Array([ #Facing north
 			Vector3(-blockrange, 0.5, -blockrange), # Top front left
 			Vector3(blockrange, 0.5, -blockrange), # Top front right
@@ -463,48 +437,19 @@ func add_mesh_to_navigation_data(block, level_y):
 			Vector3(blockrange, -0.5, blockrange) # Bottom front right
 		])
 
+		# We pick a direction based on the block rotation
 		var blockrot: int = block.get_block_rotation()
 		var vertices
 		match blockrot:
 			90:
-				vertices = vertices_east
+				vertices = vertices_north
 			180:
 				vertices = vertices_west
 			270:
 				vertices = vertices_south
 			_:
-				vertices = vertices_north
+				vertices = vertices_east
 
-		# Apply rotation based on the block's rotation property
-		#var rotated_vertices = PackedVector3Array()
-		#print("blockrot = ", blockrot)
-		#for vertex in vertices:
-			#var rotated_vertex = rotate_vertex(vertex, blockrot)
-			#rotated_vertices.append(rotated_vertex)
-		#
-		#print("rotated_vertices = ", rotated_vertices)
-		# Tthe center of rotation is the center of the block
-		#var center_of_block = block.global_transform.origin + Vector3(0.5, 0.5, 0.5)
-
-		# Adjust for rotation
-		#var blockrot = block.get_block_rotation()
-		#if blockrot == 90:
-			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
-		#elif blockrot == 180:
-			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
-			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
-		#elif blockrot == 270:
-			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
-			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
-			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
-
-
-		## Transform vertices based on the block's global transform
-		#var global_vertices = PackedVector3Array()
-		#for vertex in vertices:
-			#global_vertices.push_back(Transform3D(Basis(), block_global_position) * vertex)
-		#
-		
 		# Define triangles for the slope
 		var slope_faces = PackedVector3Array([
 			vertices[0], vertices[1], vertices[2],  # Triangle 1: TFL, TFR, BBR
@@ -513,6 +458,7 @@ func add_mesh_to_navigation_data(block, level_y):
 		source_geometry_data.add_faces(slope_faces, Transform3D(Basis(), block_global_position))
 
 
+# Rotates the vertex passed in the parameter. Used to rotate slope data for the navigationmesh
 func rotate_vertex(vertex: Vector3, degrees: int) -> Vector3:
 	match degrees:
 		90:
@@ -523,16 +469,3 @@ func rotate_vertex(vertex: Vector3, degrees: int) -> Vector3:
 			return Vector3(vertex.z, vertex.y, -vertex.x)
 		_:
 			return vertex
-
-
-func rotate_slope_vertices_90(vertices : PackedVector3Array, center : Vector3) -> PackedVector3Array:
-	var rotated_vertices = PackedVector3Array()
-	for vertex in vertices:
-		# Translate vertex to origin based on center
-		var translated_vertex = vertex - center
-		# Rotate vertex 90 degrees around Y-axis
-		var rotated_vertex = Vector3(-translated_vertex.z, translated_vertex.y, translated_vertex.x)
-		# Translate vertex back to original position
-		rotated_vertex += center
-		rotated_vertices.push_back(rotated_vertex)
-	return rotated_vertices
