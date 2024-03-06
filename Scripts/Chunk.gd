@@ -27,7 +27,8 @@ var chunk_data: Dictionary # The json data that defines this chunk
 var thread: Thread
 #var navigationthread: Thread
 var mypos: Vector3
-var navigation_region: RID
+var navigation_region: NavigationRegion3D
+#var navigation_region: RID
 var navigation_mesh: NavigationMesh = NavigationMesh.new()
 var source_geometry_data: NavigationMeshSourceGeometryData3D
 var initialized_blocks_count: int = 0
@@ -118,23 +119,30 @@ func create_block_position_dictionary(mapsegmentData: Dictionary):
 func setup_navigation():
 	navigation_mesh.cell_size = 0.1
 	navigation_mesh.agent_height = 0.5
-	navigation_mesh.agent_radius = 0.3
+	navigation_mesh.agent_radius = 0.1
 	navigation_mesh.agent_max_slope = 46
+	navigation_mesh.geometry_source_geometry_mode = NavigationMesh.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
+	navigation_mesh.geometry_source_group_name = "navigation_mesh_source_group" + name
 	# Create a new navigation region and set its transform based on mypos
-	navigation_region = NavigationServer3D.region_create()
+	#navigation_region = NavigationServer3D.region_create()
+	navigation_region = NavigationRegion3D.new()
+	add_child(navigation_region)
 	
-	NavigationServer3D.region_set_map(navigation_region, Helper.navigationmap)
-	NavigationServer3D.map_set_cell_size(Helper.navigationmap,0.1)
-	NavigationServer3D.region_set_transform(navigation_region, Transform3D(Basis(), mypos))
+	#NavigationServer3D.region_set_map(navigation_region, get_world_3d().get_navigation_map())
+	#NavigationServer3D.region_set_map(navigation_region, Helper.navigationmap)
+	NavigationServer3D.map_set_cell_size(get_world_3d().get_navigation_map(),0.1)
+	#NavigationServer3D.map_set_cell_size(Helper.navigationmap,0.1)
+	#NavigationServer3D.region_set_transform(navigation_region, Transform3D(Basis(), mypos))
 
 
 func update_navigation_mesh():
 	#NavigationMeshGenerator.parse_source_geometry_data(navigation_mesh, source_geometry_data, self)
 	# Bake the navigation mesh using the source geometry data
 	NavigationMeshGenerator.bake_from_source_geometry_data(navigation_mesh, source_geometry_data)
-	
+	navigation_region.navigation_mesh = navigation_mesh
 	# Apply the baked navigation mesh to the navigation region
-	NavigationServer3D.region_set_navigation_mesh(navigation_region, navigation_mesh)
+	#NavigationServer3D.region_set_navigation_mesh(navigation_region, navigation_mesh)
+	#navigation_region.bake_navigation_mesh(true)
 
 
 func create_level_node(ypos: int) -> ChunkLevel:
@@ -149,6 +157,8 @@ func create_level_node(ypos: int) -> ChunkLevel:
 func create_block_by_id(level_node,w,h,tileJSON):
 	var block = DefaultBlock.new()
 	block.construct_self(Vector3(w,0,h), tileJSON)
+	# Adding to this group makes sure that the NavigationRegion3D considers the block when baking the navmesh
+	block.add_to_group("navigation_mesh_source_group" + name)
 	add_mesh_to_navigation_data(block, level_node.levelposition.y)
 	block.ready.connect(_on_Block_ready)
 	level_node.add_child.call_deferred(block)
@@ -178,8 +188,6 @@ func generate_saved_chunk(tacticalMapJSON: Dictionary) -> void:
 
 	for furnitureData: Dictionary in tacticalMapJSON.furniture:
 		add_furniture_to_map.call_deferred(furnitureData)
-	
-	call_deferred("emit_signal", "chunk_created", mypos)
 
 
 # Generates blocks on in the provided level. A level contains at most 32x32 blocks
@@ -405,6 +413,7 @@ func add_meshes_to_navigation_data1(blocks):
 func add_mesh_to_navigation_data(block, level_y):
 	var block_global_position: Vector3 = block.blockposition# + mypos
 	block_global_position.y = level_y
+	var blockrange: float = 0.5
 	
 	#var key = str(block.blockposition.x) + "," + str(level_y) + "," + str(block.blockposition.z)
 	# Check if there's a block directly above the current block
@@ -417,41 +426,41 @@ func add_mesh_to_navigation_data(block, level_y):
 		# Top face of a block, the block size is 1x1x1 for simplicity.
 		var top_face_vertices = PackedVector3Array([
 			# First triangle
-			Vector3(-0.5, 0.5, -0.5), # Top-left
-			Vector3(0.5, 0.5, -0.5), # Top-right
-			Vector3(0.5, 0.5, 0.5), # Bottom-right
+			Vector3(-blockrange, 0.5, -blockrange), # Top-left
+			Vector3(blockrange, 0.5, -blockrange), # Top-right
+			Vector3(blockrange, 0.5, blockrange), # Bottom-right
 			# Second triangle
-			Vector3(-0.5, 0.5, -0.5), # Top-left (repeated for the second triangle)
-			Vector3(0.5, 0.5, 0.5), # Bottom-right (repeated for the second triangle)
-			Vector3(-0.5, 0.5, 0.5)  # Bottom-left
+			Vector3(-blockrange, 0.5, -blockrange), # Top-left (repeated for the second triangle)
+			Vector3(blockrange, 0.5, blockrange), # Bottom-right (repeated for the second triangle)
+			Vector3(-blockrange, 0.5, blockrange)  # Bottom-left
 		])
 		# Add the top face as two triangles.
 		source_geometry_data.add_faces(top_face_vertices, Transform3D(Basis(), block_global_position))
 	elif block.shape == "slope":
 		# Define your initial slope vertices here
 		var vertices_north = PackedVector3Array([ #Facing north
-			Vector3(-0.5, 0.5, -0.5), # Top front left
-			Vector3(0.5, 0.5, -0.5), # Top front right
-			Vector3(0.5, -0.5, 0.5), # Bottom back right
-			Vector3(-0.5, -0.5, 0.5) # Bottom back left
+			Vector3(-blockrange, 0.5, -blockrange), # Top front left
+			Vector3(blockrange, 0.5, -blockrange), # Top front right
+			Vector3(blockrange, -0.5, blockrange), # Bottom back right
+			Vector3(-blockrange, -0.5, blockrange) # Bottom back left
 		])
 		var vertices_east = PackedVector3Array([
-			Vector3(0.5, 0.5, -0.5), # Top back right
-			Vector3(0.5, 0.5, 0.5), # Top front right
-			Vector3(-0.5, -0.5, 0.5), # Bottom front left
-			Vector3(-0.5, -0.5, -0.5) # Bottom back left
+			Vector3(blockrange, 0.5, -blockrange), # Top back right
+			Vector3(blockrange, 0.5, blockrange), # Top front right
+			Vector3(-blockrange, -0.5, blockrange), # Bottom front left
+			Vector3(-blockrange, -0.5, -blockrange) # Bottom back left
 		])
 		var vertices_south = PackedVector3Array([
-			Vector3(0.5, 0.5, 0.5), # Top front right
-			Vector3(-0.5, 0.5, 0.5), # Top front left
-			Vector3(-0.5, -0.5, -0.5), # Bottom back left
-			Vector3(0.5, -0.5, -0.5) # Bottom back right
+			Vector3(blockrange, 0.5, blockrange), # Top front right
+			Vector3(-blockrange, 0.5, blockrange), # Top front left
+			Vector3(-blockrange, -0.5, -blockrange), # Bottom back left
+			Vector3(blockrange, -0.5, -blockrange) # Bottom back right
 		])
 		var vertices_west = PackedVector3Array([
-			Vector3(-0.5, 0.5, 0.5), # Top front left
-			Vector3(-0.5, 0.5, -0.5), # Top back left
-			Vector3(0.5, -0.5, -0.5), # Bottom back right
-			Vector3(0.5, -0.5, 0.5) # Bottom front right
+			Vector3(-blockrange, 0.5, blockrange), # Top front left
+			Vector3(-blockrange, 0.5, -blockrange), # Top back left
+			Vector3(blockrange, -0.5, -blockrange), # Bottom back right
+			Vector3(blockrange, -0.5, blockrange) # Bottom front right
 		])
 
 		var blockrot: int = block.get_block_rotation()

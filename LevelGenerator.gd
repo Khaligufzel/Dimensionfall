@@ -30,9 +30,11 @@ func _ready():
 	initialize_map_data()
 	
 	# create a new navigation map
-	Helper.navigationmap = NavigationServer3D.map_create()
-	NavigationServer3D.map_set_up(Helper.navigationmap, Vector3.UP)
-	NavigationServer3D.map_set_active(Helper.navigationmap, true)
+	#Helper.navigationmap = NavigationServer3D.map_create()
+	#NavigationServer3D.map_set_up(Helper.navigationmap, Vector3.UP)
+	#NavigationServer3D.map_set_active(Helper.navigationmap, true)
+	NavigationServer3D.set_debug_enabled(true)
+	NavigationServer3D.map_set_edge_connection_margin(get_world_3d().get_navigation_map(), 0.75)
 	
 	thread_mutex = Mutex.new()
 	loading_thread = Thread.new()
