@@ -19,27 +19,13 @@ var loaded_chunks = {} # Dictionary to store loaded chunks with their positions 
 var player_position = Vector2.ZERO # Player's position, updated regularly
 
 
-var loading_thread: Thread
-var loading_semaphore: Semaphore
-var thread_mutex: Mutex
-var should_stop: bool = false
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initialize_map_data()
 	
-	# create a new navigation map
-	#Helper.navigationmap = NavigationServer3D.map_create()
-	#NavigationServer3D.map_set_up(Helper.navigationmap, Vector3.UP)
-	#NavigationServer3D.map_set_active(Helper.navigationmap, true)
 	NavigationServer3D.set_debug_enabled(true)
 	NavigationServer3D.map_set_edge_connection_margin(get_world_3d().get_navigation_map(), 0.75)
 	
-	thread_mutex = Mutex.new()
-	loading_thread = Thread.new()
-	loading_semaphore = Semaphore.new()
-	loading_thread.start(_chunk_management_logic)
 	# Start a loop to update chunks based on player position
 	set_process(true)
 	start_timer()
@@ -60,10 +46,8 @@ func _on_Timer_timeout():
 	var player = get_tree().get_first_node_in_group("Players")
 	var new_position = Vector2(player.global_transform.origin.x, player.global_transform.origin.z) / Vector2(level_width, level_height)
 	if new_position != player_position:# and chance < 1:
-		thread_mutex.lock()
 		player_position = new_position
-		thread_mutex.unlock()
-		loading_semaphore.post()  # Signal that there's work to be done
+		_chunk_management_logic()
 
 
 # We store the level map width and height
@@ -113,34 +97,21 @@ func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
 		return {}
 
 
-func _exit_tree():
-	thread_mutex.lock()
-	should_stop = true
-	thread_mutex.unlock()
-	loading_semaphore.post()  # Ensure the thread exits wait state
-	loading_thread.wait_to_finish()
-
 
 # We determine which chunks can stay and which chunks need to go
 func _chunk_management_logic():
-	while not should_stop:
-		loading_semaphore.wait()  # Wait for signal
-		if should_stop: break  # Check if should stop after waking up
+	var current_player_chunk = player_position.floor()
 
-		thread_mutex.lock()
-		var current_player_chunk = player_position.floor()
+	# Logic for loading
+	var chunks_to_load = calculate_chunks_to_load(current_player_chunk)
+	for chunk_pos in chunks_to_load:
+		load_chunk.call_deferred(chunk_pos)
 
-		#Example pseudo-logic for loading
-		var chunks_to_load = calculate_chunks_to_load(current_player_chunk)
-		for chunk_pos in chunks_to_load:
-			load_chunk(chunk_pos)
-
-		##And for unloading
-		var chunks_to_unload = calculate_chunks_to_unload(current_player_chunk)
-		for chunk_pos in chunks_to_unload:
-			call_deferred("unload_chunk", chunk_pos)
-		thread_mutex.unlock()
-		OS.delay_msec(100)  # Optional: delay to reduce CPU usage
+	# And for unloading
+	var chunks_to_unload = calculate_chunks_to_unload(current_player_chunk)
+	for chunk_pos in chunks_to_unload:
+		call_deferred("unload_chunk", chunk_pos)
+	OS.delay_msec(100)  # Optional: delay to reduce CPU usage
 
 
 # Return an array of chunks that fall inside the creation radius
