@@ -13,8 +13,8 @@ var level_height : int = 32
 
 
 # Parameters for dynamic chunk loading
-var creation_radius = 2
-var survival_radius = 3
+var creation_radius = 1
+var survival_radius = 2
 var loaded_chunks = {} # Dictionary to store loaded chunks with their positions as keys
 var player_position = Vector2.ZERO # Player's position, updated regularly
 
@@ -192,4 +192,6 @@ func unload_chunk(chunk_pos: Vector2):
 		Helper.loaded_chunk_data.chunks[chunk_pos] = chunk.get_chunk_data()
 		chunk.queue_free()
 		loaded_chunks.erase(chunk_pos)
+
+
 

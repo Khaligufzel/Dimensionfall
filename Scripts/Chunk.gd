@@ -21,6 +21,8 @@ var level_generator : Node3D
 var level_width : int = 32
 var level_height : int = 32
 var _levels: Array = []
+# This is a class variable to track block positions
+var block_positions = {}
 var chunk_data: Dictionary # The json data that defines this chunk
 var thread: Thread
 #var navigationthread: Thread
@@ -29,7 +31,7 @@ var navigation_region: RID
 var navigation_mesh: NavigationMesh = NavigationMesh.new()
 var source_geometry_data: NavigationMeshSourceGeometryData3D
 var initialized_blocks_count: int = 0
-var expected_blocks_count: int = 0
+
 
 func _ready():
 	source_geometry_data = NavigationMeshSourceGeometryData3D.new()
@@ -64,7 +66,7 @@ func generate_new_chunk(mapsegment: Dictionary):
 	var level_number = 0
 	# Initialize the counter and expected count
 	initialized_blocks_count = 0
-	expected_blocks_count = calculate_expected_blocks(mapsegmentData)
+	create_block_position_dictionary(mapsegmentData)
 
 	for level in mapsegmentData.levels:
 		if level != []:
@@ -83,7 +85,7 @@ func generate_new_chunk(mapsegment: Dictionary):
 							#block.construct_self(Vector3(w,0,h), tileJSON)
 							#blocks_to_process.append(block) # Collect block instance
 							#level_node.add_child.call_deferred(block)
-							add_block_mob(tileJSON, Vector3(w,y_position+1.1,h))
+							add_block_mob(tileJSON, Vector3(w,y_position+1.5,h))
 							add_furniture_to_block(tileJSON, Vector3(w,y_position,h))
 							blocks_created += 1
 					current_block += 1
@@ -97,22 +99,21 @@ func generate_new_chunk(mapsegment: Dictionary):
 	#navigationthread.start(add_meshes_to_navigation_data.bind(blocks_to_process))
 	#call_deferred("add_meshes_to_navigation_data", blocks_to_process)
 
-func calculate_expected_blocks(mapsegmentData) -> int:
-	var level_number = 0
-	var blocks_count = 0
 
-	for level in mapsegmentData.levels:
+# Creates a dictionary of all block positions with a local x,y and z position
+func create_block_position_dictionary(mapsegmentData: Dictionary):
+	for level_index in range(len(mapsegmentData.levels)):
+		var level = mapsegmentData.levels[level_index]
 		if level != []:
-			var current_block = 0
 			for h in range(level_height):
 				for w in range(level_width):
-					if level[current_block]:
-						var tileJSON = level[current_block]
+					var current_block_index = h * level_width + w
+					if level[current_block_index]:
+						var tileJSON = level[current_block_index]
 						if tileJSON.has("id") and tileJSON.id != "":
-							blocks_count += 1
-					current_block += 1
-		level_number += 1
-	return blocks_count
+							var block_position_key = str(w) + "," + str(level_index-10) + "," + str(h)
+							block_positions[block_position_key] = true
+
 
 func setup_navigation():
 	navigation_mesh.cell_size = 0.1
@@ -155,7 +156,7 @@ func create_block_by_id(level_node,w,h,tileJSON):
 
 func _on_Block_ready():
 	initialized_blocks_count += 1
-	if initialized_blocks_count == expected_blocks_count:
+	if initialized_blocks_count == block_positions.size():
 		print_debug("All blocks have been initialized.")
 		update_navigation_mesh()
 
@@ -393,7 +394,7 @@ func add_meshes_to_navigation_data1(blocks):
 		 
 		#var mesh = block.get_mesh()
 		if mesh and mesh.get_surface_count() > 0:
-			var blockposition = block.global_transform.origin
+			#var blockposition = block.global_transform.origin
 			source_geometry_data.add_mesh(mesh, Transform3D(Basis(), block.global_transform.origin))
 		else:
 			print("Mesh is not initialized or has no surfaces.")
@@ -402,8 +403,16 @@ func add_meshes_to_navigation_data1(blocks):
 
 
 func add_mesh_to_navigation_data(block, level_y):
-	var block_global_position: Vector3 = block.blockposition + mypos
+	var block_global_position: Vector3 = block.blockposition# + mypos
 	block_global_position.y = level_y
+	
+	#var key = str(block.blockposition.x) + "," + str(level_y) + "," + str(block.blockposition.z)
+	# Check if there's a block directly above the current block
+	var above_key = str(block.blockposition.x) + "," + str(level_y + 1) + "," + str(block.blockposition.z)
+	if block_positions.has(above_key):
+		# There's a block directly above, so we don't add a face for the current block's top
+		return
+
 	if block.shape == "block":
 		# Top face of a block, the block size is 1x1x1 for simplicity.
 		var top_face_vertices = PackedVector3Array([
@@ -420,26 +429,65 @@ func add_mesh_to_navigation_data(block, level_y):
 		source_geometry_data.add_faces(top_face_vertices, Transform3D(Basis(), block_global_position))
 	elif block.shape == "slope":
 		# Define your initial slope vertices here
-		var vertices = PackedVector3Array([
+		var vertices_north = PackedVector3Array([ #Facing north
 			Vector3(-0.5, 0.5, -0.5), # Top front left
 			Vector3(0.5, 0.5, -0.5), # Top front right
 			Vector3(0.5, -0.5, 0.5), # Bottom back right
 			Vector3(-0.5, -0.5, 0.5) # Bottom back left
 		])
+		var vertices_east = PackedVector3Array([
+			Vector3(0.5, 0.5, -0.5), # Top back right
+			Vector3(0.5, 0.5, 0.5), # Top front right
+			Vector3(-0.5, -0.5, 0.5), # Bottom front left
+			Vector3(-0.5, -0.5, -0.5) # Bottom back left
+		])
+		var vertices_south = PackedVector3Array([
+			Vector3(0.5, 0.5, 0.5), # Top front right
+			Vector3(-0.5, 0.5, 0.5), # Top front left
+			Vector3(-0.5, -0.5, -0.5), # Bottom back left
+			Vector3(0.5, -0.5, -0.5) # Bottom back right
+		])
+		var vertices_west = PackedVector3Array([
+			Vector3(-0.5, 0.5, 0.5), # Top front left
+			Vector3(-0.5, 0.5, -0.5), # Top back left
+			Vector3(0.5, -0.5, -0.5), # Bottom back right
+			Vector3(0.5, -0.5, 0.5) # Bottom front right
+		])
+
+		var blockrot: int = block.get_block_rotation()
+		var vertices
+		match blockrot:
+			90:
+				vertices = vertices_east
+			180:
+				vertices = vertices_west
+			270:
+				vertices = vertices_south
+			_:
+				vertices = vertices_north
+
+		# Apply rotation based on the block's rotation property
+		#var rotated_vertices = PackedVector3Array()
+		#print("blockrot = ", blockrot)
+		#for vertex in vertices:
+			#var rotated_vertex = rotate_vertex(vertex, blockrot)
+			#rotated_vertices.append(rotated_vertex)
+		#
+		#print("rotated_vertices = ", rotated_vertices)
 		# Tthe center of rotation is the center of the block
 		#var center_of_block = block.global_transform.origin + Vector3(0.5, 0.5, 0.5)
 
 		# Adjust for rotation
-		var blockrot = block.get_block_rotation()
-		if blockrot == 90:
-			vertices = rotate_slope_vertices_90(vertices, block_global_position)
-		elif blockrot == 180:
-			vertices = rotate_slope_vertices_90(vertices, block_global_position)
-			vertices = rotate_slope_vertices_90(vertices, block_global_position)
-		elif blockrot == 270:
-			vertices = rotate_slope_vertices_90(vertices, block_global_position)
-			vertices = rotate_slope_vertices_90(vertices, block_global_position)
-			vertices = rotate_slope_vertices_90(vertices, block_global_position)
+		#var blockrot = block.get_block_rotation()
+		#if blockrot == 90:
+			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
+		#elif blockrot == 180:
+			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
+			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
+		#elif blockrot == 270:
+			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
+			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
+			#vertices = rotate_slope_vertices_90(vertices, block_global_position)
 
 
 		## Transform vertices based on the block's global transform
@@ -454,68 +502,18 @@ func add_mesh_to_navigation_data(block, level_y):
 			vertices[0], vertices[2], vertices[3]   # Triangle 2: TFL, BBR, BBL
 		])
 		source_geometry_data.add_faces(slope_faces, Transform3D(Basis(), block_global_position))
-	
 
 
-func add_meshes_to_navigation_data(blocks):
-	var blocks_processed: int
-	# Top face of a block, the block size is 1x1x1 for simplicity.
-	var top_face_vertices = PackedVector3Array([
-		# First triangle
-		Vector3(-0.5, 0.5, -0.5), # Top-left
-		Vector3(0.5, 0.5, -0.5), # Top-right
-		Vector3(0.5, 0.5, 0.5), # Bottom-right
-		# Second triangle
-		Vector3(-0.5, 0.5, -0.5), # Top-left (repeated for the second triangle)
-		Vector3(0.5, 0.5, 0.5), # Bottom-right (repeated for the second triangle)
-		Vector3(-0.5, 0.5, 0.5)  # Bottom-left
-	])
-	for block in blocks:
-		if block.shape == "block":
-			blocks_processed +=1
-			# Add the top face as two triangles.
-			source_geometry_data.add_faces(top_face_vertices, Transform3D(Basis(), block.global_transform.origin))
-		elif block.shape == "slope":
-			# Define your initial slope vertices here
-			var vertices = PackedVector3Array([
-				Vector3(0, 1, 0), # Top front left
-				Vector3(1, 1, 0), # Top front right
-				Vector3(1, 0, 1), # Bottom back right
-				Vector3(0, 0, 1) # Bottom back left
-			])
-			# Tthe center of rotation is the center of the block
-			var center_of_block = block.global_transform.origin + Vector3(0.5, 0.5, 0.5)
-
-			# Adjust for rotation
-			var blockrot = block.rotation_degrees.y
-			if blockrot == 90:
-				vertices = rotate_slope_vertices_90(vertices, center_of_block)
-			elif blockrot == 180:
-				vertices = rotate_slope_vertices_90(vertices, center_of_block)
-				vertices = rotate_slope_vertices_90(vertices, center_of_block)
-			elif blockrot == 270:
-				vertices = rotate_slope_vertices_90(vertices, center_of_block)
-				vertices = rotate_slope_vertices_90(vertices, center_of_block)
-				vertices = rotate_slope_vertices_90(vertices, center_of_block)
-
-
-			# Transform vertices based on the block's global transform
-			var global_vertices = PackedVector3Array()
-			for vertex in vertices:
-				global_vertices.push_back(block.global_transform * vertex)
-			
-			
-			# Define triangles for the slope
-			var slope_faces = PackedVector3Array([
-				global_vertices[0], global_vertices[1], global_vertices[2],  # Triangle 1: TFL, TFR, BBR
-				global_vertices[0], global_vertices[2], global_vertices[3]   # Triangle 2: TFL, BBR, BBL
-			])
-			source_geometry_data.add_faces(slope_faces, Transform3D())
-
-	print_debug("blocks_processed = ", blocks_processed)
-	# After all geometry has been added, update the navigation mesh.
-	update_navigation_mesh()
-
+func rotate_vertex(vertex: Vector3, degrees: int) -> Vector3:
+	match degrees:
+		90:
+			return Vector3(-vertex.z, vertex.y, vertex.x)
+		180:
+			return Vector3(-vertex.x, vertex.y, -vertex.z)
+		270:
+			return Vector3(vertex.z, vertex.y, -vertex.x)
+		_:
+			return vertex
 
 
 func rotate_slope_vertices_90(vertices : PackedVector3Array, center : Vector3) -> PackedVector3Array:
