@@ -344,7 +344,7 @@ func get_chunk_data() -> Dictionary:
 
 
 
-func add_meshes_to_navigation_data(blocks):
+func add_meshes_to_navigation_data1(blocks):
 	# Wait for 30 seconds before proceeding.
 	# This is okay since we are in a separate thread and won't block the main game loop.
 	OS.delay_msec(10000)  # Delays for 30,000 milliseconds or 30 seconds
@@ -364,3 +364,78 @@ func add_meshes_to_navigation_data(blocks):
 			print("Mesh is not initialized or has no surfaces.")
 	# After all meshes have been added, update the navigation mesh
 	update_navigation_mesh()
+
+
+
+func add_meshes_to_navigation_data(blocks):
+	var blocks_processed: int
+	# Top face of a block, the block size is 1x1x1 for simplicity.
+	var top_face_vertices = PackedVector3Array([
+		# First triangle
+		Vector3(-0.5, 0.5, -0.5), # Top-left
+		Vector3(0.5, 0.5, -0.5), # Top-right
+		Vector3(0.5, 0.5, 0.5), # Bottom-right
+		# Second triangle
+		Vector3(-0.5, 0.5, -0.5), # Top-left (repeated for the second triangle)
+		Vector3(0.5, 0.5, 0.5), # Bottom-right (repeated for the second triangle)
+		Vector3(-0.5, 0.5, 0.5)  # Bottom-left
+	])
+	for block in blocks:
+		if block.shape == "block":
+			blocks_processed +=1
+			# Add the top face as two triangles.
+			source_geometry_data.add_faces(top_face_vertices, Transform3D(Basis(), block.global_transform.origin))
+		elif block.shape == "slope":
+			# Define your initial slope vertices here
+			var vertices = PackedVector3Array([
+				Vector3(0, 1, 0), # Top front left
+				Vector3(1, 1, 0), # Top front right
+				Vector3(1, 0, 1), # Bottom back right
+				Vector3(0, 0, 1) # Bottom back left
+			])
+			# Tthe center of rotation is the center of the block
+			var center_of_block = block.global_transform.origin + Vector3(0.5, 0.5, 0.5)
+
+			# Adjust for rotation
+			var blockrot = block.rotation_degrees.y
+			if blockrot == 90:
+				vertices = rotate_slope_vertices_90(vertices, center_of_block)
+			elif blockrot == 180:
+				vertices = rotate_slope_vertices_90(vertices, center_of_block)
+				vertices = rotate_slope_vertices_90(vertices, center_of_block)
+			elif blockrot == 270:
+				vertices = rotate_slope_vertices_90(vertices, center_of_block)
+				vertices = rotate_slope_vertices_90(vertices, center_of_block)
+				vertices = rotate_slope_vertices_90(vertices, center_of_block)
+
+
+			# Transform vertices based on the block's global transform
+			var global_vertices = PackedVector3Array()
+			for vertex in vertices:
+				global_vertices.push_back(block.global_transform * vertex)
+			
+			
+			# Define triangles for the slope
+			var slope_faces = PackedVector3Array([
+				global_vertices[0], global_vertices[1], global_vertices[2],  # Triangle 1: TFL, TFR, BBR
+				global_vertices[0], global_vertices[2], global_vertices[3]   # Triangle 2: TFL, BBR, BBL
+			])
+			source_geometry_data.add_faces(slope_faces, Transform3D())
+
+	print_debug("blocks_processed = ", blocks_processed)
+	# After all geometry has been added, update the navigation mesh.
+	update_navigation_mesh()
+
+
+
+func rotate_slope_vertices_90(vertices : PackedVector3Array, center : Vector3) -> PackedVector3Array:
+	var rotated_vertices = PackedVector3Array()
+	for vertex in vertices:
+		# Translate vertex to origin based on center
+		var translated_vertex = vertex - center
+		# Rotate vertex 90 degrees around Y-axis
+		var rotated_vertex = Vector3(-translated_vertex.z, translated_vertex.y, translated_vertex.x)
+		# Translate vertex back to original position
+		rotated_vertex += center
+		rotated_vertices.push_back(rotated_vertex)
+	return rotated_vertices
