@@ -23,12 +23,13 @@ var level_height : int = 32
 var _levels: Array = []
 var chunk_data: Dictionary # The json data that defines this chunk
 var thread: Thread
-var navigationthread: Thread
+#var navigationthread: Thread
 var mypos: Vector3
 var navigation_region: RID
 var navigation_mesh: NavigationMesh = NavigationMesh.new()
 var source_geometry_data: NavigationMeshSourceGeometryData3D
-
+var initialized_blocks_count: int = 0
+var expected_blocks_count: int = 0
 
 func _ready():
 	source_geometry_data = NavigationMeshSourceGeometryData3D.new()
@@ -50,17 +51,21 @@ func _process(_delta):
 # Thread must be disposed (or "joined"), for portability.
 func _exit_tree():
 	thread.wait_to_finish()
-	navigationthread.wait_to_finish()
+	#navigationthread.wait_to_finish()
 
 
 func generate_new_chunk(mapsegment: Dictionary):
-	var blocks_to_process = [] # Add this line to collect block instances
+	#var blocks_to_process = [] # Add this line to collect block instances
 	#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 	var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 		Gamedata.data.maps.dataPath + mapsegment.id)
 	var tileJSON: Dictionary = {}
 
 	var level_number = 0
+	# Initialize the counter and expected count
+	initialized_blocks_count = 0
+	expected_blocks_count = calculate_expected_blocks(mapsegmentData)
+
 	for level in mapsegmentData.levels:
 		if level != []:
 			var y_position: int = level_number - 10
@@ -73,10 +78,11 @@ func generate_new_chunk(mapsegment: Dictionary):
 					if level[current_block]:
 						tileJSON = level[current_block]
 						if tileJSON.has("id") and tileJSON.id != "":
-							var block = DefaultBlock.new()
-							block.construct_self(Vector3(w,0,h), tileJSON)
-							blocks_to_process.append(block) # Collect block instance
-							level_node.add_child.call_deferred(block)
+							create_block_by_id(level_node,w,h,tileJSON)
+							#var block = DefaultBlock.new()
+							#block.construct_self(Vector3(w,0,h), tileJSON)
+							#blocks_to_process.append(block) # Collect block instance
+							#level_node.add_child.call_deferred(block)
 							add_block_mob(tileJSON, Vector3(w,y_position+1.1,h))
 							add_furniture_to_block(tileJSON, Vector3(w,y_position,h))
 							blocks_created += 1
@@ -87,11 +93,26 @@ func generate_new_chunk(mapsegment: Dictionary):
 				level_node.queue_free()
 			
 		level_number += 1
-	navigationthread = Thread.new()
-	navigationthread.start(add_meshes_to_navigation_data.bind(blocks_to_process))
+	#navigationthread = Thread.new()
+	#navigationthread.start(add_meshes_to_navigation_data.bind(blocks_to_process))
 	#call_deferred("add_meshes_to_navigation_data", blocks_to_process)
 
+func calculate_expected_blocks(mapsegmentData) -> int:
+	var level_number = 0
+	var blocks_count = 0
 
+	for level in mapsegmentData.levels:
+		if level != []:
+			var current_block = 0
+			for h in range(level_height):
+				for w in range(level_width):
+					if level[current_block]:
+						var tileJSON = level[current_block]
+						if tileJSON.has("id") and tileJSON.id != "":
+							blocks_count += 1
+					current_block += 1
+		level_number += 1
+	return blocks_count
 
 func setup_navigation():
 	navigation_mesh.cell_size = 0.1
@@ -123,6 +144,20 @@ func create_level_node(ypos: int) -> ChunkLevel:
 	level_node.levelposition = Vector3(0,ypos,0)
 	return level_node
 
+
+func create_block_by_id(level_node,w,h,tileJSON):
+	var block = DefaultBlock.new()
+	block.construct_self(Vector3(w,0,h), tileJSON)
+	add_mesh_to_navigation_data(block, level_node.levelposition.y)
+	block.ready.connect(_on_Block_ready)
+	level_node.add_child.call_deferred(block)
+
+
+func _on_Block_ready():
+	initialized_blocks_count += 1
+	if initialized_blocks_count == expected_blocks_count:
+		print_debug("All blocks have been initialized.")
+		update_navigation_mesh()
 
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation
@@ -365,6 +400,61 @@ func add_meshes_to_navigation_data1(blocks):
 	# After all meshes have been added, update the navigation mesh
 	update_navigation_mesh()
 
+
+func add_mesh_to_navigation_data(block, level_y):
+	var block_global_position: Vector3 = block.blockposition + mypos
+	block_global_position.y = level_y
+	if block.shape == "block":
+		# Top face of a block, the block size is 1x1x1 for simplicity.
+		var top_face_vertices = PackedVector3Array([
+			# First triangle
+			Vector3(-0.5, 0.5, -0.5), # Top-left
+			Vector3(0.5, 0.5, -0.5), # Top-right
+			Vector3(0.5, 0.5, 0.5), # Bottom-right
+			# Second triangle
+			Vector3(-0.5, 0.5, -0.5), # Top-left (repeated for the second triangle)
+			Vector3(0.5, 0.5, 0.5), # Bottom-right (repeated for the second triangle)
+			Vector3(-0.5, 0.5, 0.5)  # Bottom-left
+		])
+		# Add the top face as two triangles.
+		source_geometry_data.add_faces(top_face_vertices, Transform3D(Basis(), block_global_position))
+	elif block.shape == "slope":
+		# Define your initial slope vertices here
+		var vertices = PackedVector3Array([
+			Vector3(-0.5, 0.5, -0.5), # Top front left
+			Vector3(0.5, 0.5, -0.5), # Top front right
+			Vector3(0.5, -0.5, 0.5), # Bottom back right
+			Vector3(-0.5, -0.5, 0.5) # Bottom back left
+		])
+		# Tthe center of rotation is the center of the block
+		#var center_of_block = block.global_transform.origin + Vector3(0.5, 0.5, 0.5)
+
+		# Adjust for rotation
+		var blockrot = block.get_block_rotation()
+		if blockrot == 90:
+			vertices = rotate_slope_vertices_90(vertices, block_global_position)
+		elif blockrot == 180:
+			vertices = rotate_slope_vertices_90(vertices, block_global_position)
+			vertices = rotate_slope_vertices_90(vertices, block_global_position)
+		elif blockrot == 270:
+			vertices = rotate_slope_vertices_90(vertices, block_global_position)
+			vertices = rotate_slope_vertices_90(vertices, block_global_position)
+			vertices = rotate_slope_vertices_90(vertices, block_global_position)
+
+
+		## Transform vertices based on the block's global transform
+		#var global_vertices = PackedVector3Array()
+		#for vertex in vertices:
+			#global_vertices.push_back(Transform3D(Basis(), block_global_position) * vertex)
+		#
+		
+		# Define triangles for the slope
+		var slope_faces = PackedVector3Array([
+			vertices[0], vertices[1], vertices[2],  # Triangle 1: TFL, TFR, BBR
+			vertices[0], vertices[2], vertices[3]   # Triangle 2: TFL, BBR, BBL
+		])
+		source_geometry_data.add_faces(slope_faces, Transform3D(Basis(), block_global_position))
+	
 
 
 func add_meshes_to_navigation_data(blocks):
