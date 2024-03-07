@@ -27,7 +27,7 @@ func _ready():
 	NavigationServer3D.map_set_edge_connection_margin(get_world_3d().get_navigation_map(), 0.75)
 	
 	# Start a loop to update chunks based on player position
-	set_process(true)
+	#set_process(true)
 	start_timer()
 
 
@@ -95,7 +95,6 @@ func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
 	else:
 		print("Position out of bounds or invalid index.")
 		return {}
-
 
 
 # We determine which chunks can stay and which chunks need to go

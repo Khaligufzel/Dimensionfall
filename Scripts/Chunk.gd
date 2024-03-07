@@ -20,7 +20,8 @@ var level_generator : Node3D
 
 var level_width : int = 32
 var level_height : int = 32
-var _levels: Array = []
+var _levels: Array[ChunkLevel] = [] # The level nodes that hold block nodes
+var _mapleveldata: Array = [] # Holds the data for each level in this chunk
 # This is a class variable to track block positions
 var block_positions = {}
 var chunk_data: Dictionary # The json data that defines this chunk
@@ -39,11 +40,7 @@ func _ready():
 	setup_navigation.call_deferred()
 	transform.origin = Vector3(mypos)
 	add_to_group("chunks")
-	thread = Thread.new()
-	if chunk_data.has("id"):
-		thread.start(generate_new_chunk.bind(chunk_data))
-	else:
-		thread.start(generate_saved_chunk.bind(chunk_data))
+	initialize_chunk_data()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -53,22 +50,36 @@ func _process(_delta):
 
 # Thread must be disposed (or "joined"), for portability.
 func _exit_tree():
-	if thread.is_alive():
-		thread.wait_to_finish()
+	print_debug("chunk is leaving the scene tree")
+	#thread.wait_to_finish()
 
 
-func generate_new_chunk(mapsegment: Dictionary):
-	#This contains the data of one segment, loaded from maps.data, for example generichouse.json
-	var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
-		Gamedata.data.maps.dataPath + mapsegment.id)
+func initialize_chunk_data():
+	#thread = Thread.new()
+	if chunk_data.has("id"): # This chunk is created for the first time
+		#This contains the data of one segment, loaded from maps.data, for example generichouse.json
+		var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
+			Gamedata.data.maps.dataPath + chunk_data.id)
+		_mapleveldata = mapsegmentData.levels
+		var task_id = WorkerThreadPool.add_task(create_block_position_dictionary_new)
+		WorkerThreadPool.wait_for_task_completion(task_id)
+		# Other code that depends on the enemy AI already being processed.
+		#task_id = WorkerThreadPool.add_task(generate_new_chunk)
+		generate_new_chunk()
+	else: # This chunk is created from previously saved data
+		_mapleveldata = chunk_data.maplevels
+		var task_id = WorkerThreadPool.add_task(create_block_position_dictionary_loaded)
+		WorkerThreadPool.wait_for_task_completion(task_id)
+		#task_id = WorkerThreadPool.add_task(generate_saved_chunk)
+		generate_saved_chunk()
+
+func generate_new_chunk():
 	var tileJSON: Dictionary = {}
-
-	var level_number = 0
 	# Initialize the counter and expected count
+	var level_number = 0
 	initialized_blocks_count = 0
-	create_block_position_dictionary(mapsegmentData)
 
-	for level in mapsegmentData.levels:
+	for level in _mapleveldata:
 		if level != []:
 			var y_position: int = level_number - 10
 			var level_node = create_level_node(y_position)
@@ -94,9 +105,10 @@ func generate_new_chunk(mapsegment: Dictionary):
 
 
 # Creates a dictionary of all block positions with a local x,y and z position
-func create_block_position_dictionary(mapsegmentData: Dictionary):
-	for level_index in range(len(mapsegmentData.levels)):
-		var level = mapsegmentData.levels[level_index]
+# This function works with new mapdata
+func create_block_position_dictionary_new():
+	for level_index in range(len(_mapleveldata)):
+		var level = _mapleveldata[level_index]
 		if level != []:
 			for h in range(level_height):
 				for w in range(level_width):
@@ -106,6 +118,18 @@ func create_block_position_dictionary(mapsegmentData: Dictionary):
 						if tileJSON.has("id") and tileJSON.id != "":
 							var block_position_key = str(w) + "," + str(level_index-10) + "," + str(h)
 							block_positions[block_position_key] = true
+
+
+# Creates a dictionary of all block positions with a local x,y and z position
+# This function works with previously saved chunk data
+func create_block_position_dictionary_loaded():
+	for level_index in range(len(_mapleveldata)):
+		var level = _mapleveldata[level_index]
+		if level.blocks != []:
+			for savedBlock in level.blocks:
+				if savedBlock.has("id") and not savedBlock.id == "":
+					var block_position_key = str(savedBlock.block_x) + "," + str(level.map_y) + "," + str(savedBlock.block_z)
+					block_positions[block_position_key] = true
 
 
 func setup_navigation():
@@ -155,26 +179,26 @@ func _on_Block_ready():
 		# Since all the required block data has been added to the navigationmesh data previously,
 		# We update the navigationmesh and region using this data
 		update_navigation_mesh()
-		thread.wait_to_finish.call_deferred() #Level generation is finished, we don't need the thread anymore
 
 
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation
 # If a block has an mob, add it too
-func generate_saved_chunk(tacticalMapJSON: Dictionary) -> void:
+func generate_saved_chunk() -> void:
+	initialized_blocks_count = 0
 	#we need to generate level layer by layer starting from the bottom
-	for level: Dictionary in tacticalMapJSON.maplevels:
+	for level: Dictionary in chunk_data.maplevels:
 		if level != {}:
 			var level_node = create_level_node(level.map_y)
 			generate_saved_level(level, level_node)
 
-	for mob: Dictionary in tacticalMapJSON.mobs:
+	for mob: Dictionary in chunk_data.mobs:
 		add_mob_to_map.call_deferred(mob)
 
-	for item: Dictionary in tacticalMapJSON.items:
+	for item: Dictionary in chunk_data.items:
 		add_item_to_map.call_deferred(item)
 
-	for furnitureData: Dictionary in tacticalMapJSON.furniture:
+	for furnitureData: Dictionary in chunk_data.furniture:
 		add_furniture_to_map.call_deferred(furnitureData)
 
 
@@ -182,9 +206,9 @@ func generate_saved_chunk(tacticalMapJSON: Dictionary) -> void:
 func generate_saved_level(level: Dictionary, level_node: Node3D) -> void:
 	for savedBlock in level.blocks:
 		if savedBlock.has("id") and not savedBlock.id == "":
-			var block = DefaultBlock.new()
-			block.construct_self(Vector3(savedBlock.block_x,0,savedBlock.block_z), savedBlock)
-			level_node.add_child.call_deferred(block)
+			create_block_by_id(level_node,savedBlock.block_x,savedBlock.block_z,savedBlock)
+		else:
+			print_debug("generate_saved_level: block has no id!")
 
 
 # When a map is loaded for the first time we spawn the mob on the block
