@@ -110,7 +110,6 @@ func _chunk_management_logic():
 	var chunks_to_unload = calculate_chunks_to_unload(current_player_chunk)
 	for chunk_pos in chunks_to_unload:
 		call_deferred("unload_chunk", chunk_pos)
-	OS.delay_msec(100)  # Optional: delay to reduce CPU usage
 
 
 # Return an array of chunks that fall inside the creation radius

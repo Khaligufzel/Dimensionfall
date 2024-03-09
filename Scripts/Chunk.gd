@@ -73,11 +73,30 @@ func initialize_chunk_data():
 		#task_id = WorkerThreadPool.add_task(generate_saved_chunk)
 		generate_saved_chunk()
 
+
+
 func generate_new_chunk():
-	var tileJSON: Dictionary = {}
+	var processed_levels: Array = []
+	var processed_blocks: Array = []
+	var processed_furniture: Array = []
+	var processed_mobs: Array = []
+	process_level_data(processed_levels, processed_blocks, processed_furniture, processed_mobs)
+		#OS.delay_msec(100)  # Optional: delay to reduce CPU usage
+	for block in processed_blocks:
+		create_block_by_id(block)
+	for furniture in processed_furniture:
+		add_furniture_to_block(furniture)
+	for mob in processed_mobs:
+		add_block_mob(mob)
+	for level in processed_levels:
+		add_child.call_deferred(level)
+
+
+func process_level_data(lvl:Array, block:Array, furn:Array, mobs:Array):
 	# Initialize the counter and expected count
 	var level_number = 0
 	initialized_blocks_count = 0
+	var tileJSON: Dictionary = {}
 
 	for level in _mapleveldata:
 		if level != []:
@@ -91,18 +110,18 @@ func generate_new_chunk():
 					if level[current_block]:
 						tileJSON = level[current_block]
 						if tileJSON.has("id") and tileJSON.id != "":
-							create_block_by_id(level_node,w,h,tileJSON)
-							add_block_mob(tileJSON, Vector3(w,y_position+1.5,h))
-							add_furniture_to_block(tileJSON, Vector3(w,y_position,h))
+							block.append({"lvl":level_node,"w":w,"h":h,"json":tileJSON})
+							mobs.append({"json":tileJSON, "pos":Vector3(w,y_position+1.5,h)})
+							furn.append({"json":tileJSON, "pos":Vector3(w,y_position,h)})
 							blocks_created += 1
 					current_block += 1
 			if !blocks_created > 0:
 				level_node.remove_from_group.call_deferred("maplevels")
 				_levels.erase(level_node)
 				level_node.queue_free()
-			
+			else:
+				lvl.append(level_node)
 		level_number += 1
-
 
 # Creates a dictionary of all block positions with a local x,y and z position
 # This function works with new mapdata
@@ -153,7 +172,7 @@ func update_navigation_mesh():
 func create_level_node(ypos: int) -> ChunkLevel:
 	var level_node = ChunkLevel.new()
 	level_node.add_to_group("maplevels")
-	add_child.call_deferred(level_node)
+	#add_child.call_deferred(level_node)
 	_levels.append(level_node)
 	level_node.levelposition = Vector3(0,ypos,0)
 	return level_node
@@ -161,7 +180,11 @@ func create_level_node(ypos: int) -> ChunkLevel:
 
 # Creates a new block and adds it to the level node
 # Also adds the top surface to the navigationmesh data
-func create_block_by_id(level_node,w,h,tileJSON):
+func create_block_by_id(blockdata):
+	var level_node: ChunkLevel = blockdata.lvl
+	var w: int = blockdata.w
+	var h: int = blockdata.h
+	var tileJSON: Dictionary = blockdata.json
 	var block = DefaultBlock.new()
 	block.construct_self(Vector3(w,0,h), tileJSON) # Sets its own properties that can be set before spawn
 	# Adds the top surface to the navigation data
@@ -206,13 +229,17 @@ func generate_saved_chunk() -> void:
 func generate_saved_level(level: Dictionary, level_node: Node3D) -> void:
 	for savedBlock in level.blocks:
 		if savedBlock.has("id") and not savedBlock.id == "":
-			create_block_by_id(level_node,savedBlock.block_x,savedBlock.block_z,savedBlock)
+			create_block_by_id({"lvl":level_node,"w":savedBlock.block_x,\
+			"h":savedBlock.block_z,"json":savedBlock})
+			#create_block_by_id(level_node,savedBlock.block_x,savedBlock.block_z,savedBlock)
 		else:
 			print_debug("generate_saved_level: block has no id!")
 
 
 # When a map is loaded for the first time we spawn the mob on the block
-func add_block_mob(tileJSON: Dictionary, mobpos: Vector3):
+func add_block_mob(mobdata):
+	var tileJSON: Dictionary = mobdata.json
+	var mobpos: Vector3 = mobdata.pos
 	if tileJSON.has("mob"):
 		var newMob: CharacterBody3D = Mob.new()
 		# Pass the position and the mob json to the newmob and have it construct itself
@@ -221,7 +248,9 @@ func add_block_mob(tileJSON: Dictionary, mobpos: Vector3):
 
 
 # When a map is loaded for the first time we spawn the furniture on the block
-func add_furniture_to_block(tileJSON: Dictionary, furniturepos: Vector3):
+func add_furniture_to_block(furnituredata):
+	var tileJSON: Dictionary = furnituredata.json
+	var furniturepos: Vector3 = furnituredata.pos
 	if tileJSON.has("furniture"):
 		var newFurniture: Node3D
 		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
