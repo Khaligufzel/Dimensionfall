@@ -32,10 +32,20 @@ var navigation_region: NavigationRegion3D
 #var navigation_region: RID
 var navigation_mesh: NavigationMesh = NavigationMesh.new()
 var source_geometry_data: NavigationMeshSourceGeometryData3D
-var initialized_blocks_count: int = 0
+var initialized_block_count: int = 0
+var generation_task: int
+
+signal position_dictionary_created
+signal level_data_processed
+signal levels_spawned
+signal blocks_created
+signal furniture_added
+signal mobs_added
+signal chunk_unloaded
 
 
 func _ready():
+	chunk_unloaded.connect(_finish_unload)
 	source_geometry_data = NavigationMeshSourceGeometryData3D.new()
 	setup_navigation.call_deferred()
 	transform.origin = Vector3(mypos)
@@ -48,54 +58,49 @@ func _process(_delta):
 	pass
 
 
-# Thread must be disposed (or "joined"), for portability.
-func _exit_tree():
-	print_debug("chunk is leaving the scene tree")
-	#thread.wait_to_finish()
-
-
 func initialize_chunk_data():
-	#thread = Thread.new()
 	if chunk_data.has("id"): # This chunk is created for the first time
 		#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 		var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 			Gamedata.data.maps.dataPath + chunk_data.id)
 		_mapleveldata = mapsegmentData.levels
-		var task_id = WorkerThreadPool.add_task(create_block_position_dictionary_new)
-		WorkerThreadPool.wait_for_task_completion(task_id)
-		# Other code that depends on the enemy AI already being processed.
-		#task_id = WorkerThreadPool.add_task(generate_new_chunk)
+		#generation_task = WorkerThreadPool.add_task(generate_new_chunk)
+		#WorkerThreadPool.wait_for_task_completion(generation_task)
 		generate_new_chunk()
 	else: # This chunk is created from previously saved data
 		_mapleveldata = chunk_data.maplevels
-		var task_id = WorkerThreadPool.add_task(create_block_position_dictionary_loaded)
-		WorkerThreadPool.wait_for_task_completion(task_id)
-		#task_id = WorkerThreadPool.add_task(generate_saved_chunk)
+		#WorkerThreadPool.add_task(generate_saved_chunk)
+		#generation_task = WorkerThreadPool.add_task(generate_saved_chunk)
+		#WorkerThreadPool.wait_for_task_completion(generation_task)
 		generate_saved_chunk()
 
 
-
 func generate_new_chunk():
+	generation_task = WorkerThreadPool.add_task(create_block_position_dictionary_new)
+	#create_block_position_dictionary_new()
 	var processed_levels: Array = []
 	var processed_blocks: Array = []
 	var processed_furniture: Array = []
 	var processed_mobs: Array = []
+	# After this function runs, we know how many levels, blocks, furniture and mobs we have
 	process_level_data(processed_levels, processed_blocks, processed_furniture, processed_mobs)
-		#OS.delay_msec(100)  # Optional: delay to reduce CPU usage
-	for block in processed_blocks:
-		create_block_by_id(block)
-	for furniture in processed_furniture:
-		add_furniture_to_block(furniture)
+	_spawn_levels(processed_levels)
+	create_blocks_by_id(processed_blocks)
+	add_furnitures_to_block(processed_furniture)
 	for mob in processed_mobs:
 		add_block_mob(mob)
+
+
+func _spawn_levels(processed_levels):
 	for level in processed_levels:
 		add_child.call_deferred(level)
-
+		OS.delay_msec(10)  # Optional: delay to reduce CPU usage
+	
 
 func process_level_data(lvl:Array, block:Array, furn:Array, mobs:Array):
 	# Initialize the counter and expected count
 	var level_number = 0
-	initialized_blocks_count = 0
+	initialized_block_count = 0
 	var tileJSON: Dictionary = {}
 
 	for level in _mapleveldata:
@@ -110,11 +115,14 @@ func process_level_data(lvl:Array, block:Array, furn:Array, mobs:Array):
 					if level[current_block]:
 						tileJSON = level[current_block]
 						if tileJSON.has("id") and tileJSON.id != "":
+							level_node.blocklist.append({"lvl":level_node,"w":w,"h":h,"json":tileJSON})
 							block.append({"lvl":level_node,"w":w,"h":h,"json":tileJSON})
 							mobs.append({"json":tileJSON, "pos":Vector3(w,y_position+1.5,h)})
 							furn.append({"json":tileJSON, "pos":Vector3(w,y_position,h)})
 							blocks_created += 1
 					current_block += 1
+			# Sometimes a level might not be empty, but at the same time has no actual block data,
+			# i.e. empty blocks like {}. In that case we need to remove the level again
 			if !blocks_created > 0:
 				level_node.remove_from_group.call_deferred("maplevels")
 				_levels.erase(level_node)
@@ -145,15 +153,18 @@ func create_block_position_dictionary_loaded():
 	for level_index in range(len(_mapleveldata)):
 		var level = _mapleveldata[level_index]
 		if level.blocks != []:
-			for savedBlock in level.blocks:
-				if savedBlock.has("id") and not savedBlock.id == "":
-					var block_position_key = str(savedBlock.block_x) + "," + str(level.map_y) + "," + str(savedBlock.block_z)
-					block_positions[block_position_key] = true
+			for blk in level.blocks:
+				if blk.has("id") and not blk.id == "":
+					var key = str(blk.block_x) + "," + str(level.map_y) + "," + str(blk.block_z)
+					block_positions[key] = true
 
 
+# Each chunk will have it's own navigationmesh, which will be joined automatically on the global map
 func setup_navigation():
 	navigation_mesh.cell_size = 0.1
 	navigation_mesh.agent_height = 0.5
+	# Remember that the navigation mesh will shrink if you increase the agent_radius
+	# This will happen to prevent the agent from hugging obstacles a lot
 	navigation_mesh.agent_radius = 0.1
 	navigation_mesh.agent_max_slope = 46
 	# Create a new navigation region and set its transform based on mypos
@@ -162,6 +173,7 @@ func setup_navigation():
 	NavigationServer3D.map_set_cell_size(get_world_3d().get_navigation_map(),0.1)
 
 
+# We update the navigationmesh for this chunk with data generated from the blocks
 func update_navigation_mesh():
 	NavigationMeshGenerator.bake_from_source_geometry_data(navigation_mesh, source_geometry_data)
 	navigation_region.navigation_mesh = navigation_mesh
@@ -172,66 +184,90 @@ func update_navigation_mesh():
 func create_level_node(ypos: int) -> ChunkLevel:
 	var level_node = ChunkLevel.new()
 	level_node.add_to_group("maplevels")
-	#add_child.call_deferred(level_node)
 	_levels.append(level_node)
 	level_node.levelposition = Vector3(0,ypos,0)
 	return level_node
 
 
-# Creates a new block and adds it to the level node
-# Also adds the top surface to the navigationmesh data
-func create_block_by_id(blockdata):
-	var level_node: ChunkLevel = blockdata.lvl
-	var w: int = blockdata.w
-	var h: int = blockdata.h
-	var tileJSON: Dictionary = blockdata.json
-	var block = DefaultBlock.new()
-	block.construct_self(Vector3(w,0,h), tileJSON) # Sets its own properties that can be set before spawn
-	# Adds the top surface to the navigation data
-	add_mesh_to_navigation_data(block, level_node.levelposition.y)
-	block.ready.connect(_on_Block_ready) # Needed to know when all the blocks are created
-	level_node.add_child.call_deferred(block)
+# Constructs blocks and their navigationmesh and adds them to their level nodes
+# Since this function is assumed to be run in a separate thread, we can add delays to
+# make sure the game does not stutter too much. The numbers for the delay are arbitrary
+# An important thing to keep in mind is that the stuttering will happen when to many blocks
+# are added at once, making it difficult for the gpu to keep up. 
+# This cannot be easily observed in the profiler
+func create_blocks_by_id(processed_blocks):
+	var total_blocks = processed_blocks.size()
+	var delay_every_n_blocks = max(1, total_blocks / 15) # Ensure we at least get 1 to avoid division by zero
+
+	for i in range(total_blocks):
+		var blockdata = processed_blocks[i]
+		var level_node: ChunkLevel = blockdata["lvl"]
+		var w: int = blockdata["w"]
+		var h: int = blockdata["h"]
+		var tileJSON: Dictionary = blockdata["json"]
+		
+		var block = DefaultBlock.new()
+		block.ready.connect(_on_block_ready.bind(processed_blocks.size()))
+		block.construct_self(Vector3(w,0,h), tileJSON) # Sets its own properties that can be set before spawn
+		# Adds the top surface to the navigation data
+		add_mesh_to_navigation_data(block, level_node.levelposition.y)
+		level_node.add_child.call_deferred(block)
+		
+		# Insert delay after every n blocks, evenly spreading the delay
+		if i % delay_every_n_blocks == 0 and i != 0: # Avoid delay at the very start
+			OS.delay_msec(100) # Adjust delay time as needed
+
+	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
+	if total_blocks % delay_every_n_blocks != 0:
+		OS.delay_msec(100)
 
 
 # Called when a block is ready and added to the tree. We need to count them to be sure
 # That all the blocks have been created before we proceed
-func _on_Block_ready():
-	initialized_blocks_count += 1
-	if initialized_blocks_count == block_positions.size():
-		print_debug("All blocks have been initialized.")
+func _on_block_ready(numblocks):
+	initialized_block_count += 1
+	if initialized_block_count == numblocks:
+		#print_debug("All blocks have been initialized.")
 		# Since all the required block data has been added to the navigationmesh data previously,
 		# We update the navigationmesh and region using this data
 		update_navigation_mesh()
+		#WorkerThreadPool.wait_for_task_completion(generation_task)
 
 
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation
 # If a block has an mob, add it too
 func generate_saved_chunk() -> void:
-	initialized_blocks_count = 0
+	create_block_position_dictionary_loaded()
+	var processed_levels: Array = []
+	var processed_blocks: Array = []
+	initialized_block_count = 0
 	#we need to generate level layer by layer starting from the bottom
 	for level: Dictionary in chunk_data.maplevels:
 		if level != {}:
 			var level_node = create_level_node(level.map_y)
-			generate_saved_level(level, level_node)
+			processed_levels.append(level_node)
+			generate_saved_level(level, level_node, processed_blocks)
 
+	# We spawn the levels in a separate function now that we know how many actually spawn
+	_spawn_levels(processed_levels)
+	create_blocks_by_id(processed_blocks)
 	for mob: Dictionary in chunk_data.mobs:
-		add_mob_to_map.call_deferred(mob)
+		add_mob_to_map(mob)
 
 	for item: Dictionary in chunk_data.items:
-		add_item_to_map.call_deferred(item)
+		add_item_to_map(item)
 
 	for furnitureData: Dictionary in chunk_data.furniture:
-		add_furniture_to_map.call_deferred(furnitureData)
+		add_furniture_to_map(furnitureData)
 
 
 # Generates blocks on in the provided level. A level contains at most 32x32 blocks
-func generate_saved_level(level: Dictionary, level_node: Node3D) -> void:
-	for savedBlock in level.blocks:
-		if savedBlock.has("id") and not savedBlock.id == "":
-			create_block_by_id({"lvl":level_node,"w":savedBlock.block_x,\
-			"h":savedBlock.block_z,"json":savedBlock})
-			#create_block_by_id(level_node,savedBlock.block_x,savedBlock.block_z,savedBlock)
+func generate_saved_level(level: Dictionary, level_node: Node3D, processed_blocks: Array) -> void:
+	for blk in level.blocks:
+		if blk.has("id") and not blk.id == "":
+			processed_blocks.append({"lvl":level_node,"w":blk.block_x,"h":blk.block_z,"json":blk})
+			#create_block_by_id({"lvl":level_node,"w":blk.block_x,"h":blk.block_z,"json":blk})
 		else:
 			print_debug("generate_saved_level: block has no id!")
 
@@ -248,20 +284,35 @@ func add_block_mob(mobdata):
 
 
 # When a map is loaded for the first time we spawn the furniture on the block
-func add_furniture_to_block(furnituredata):
-	var tileJSON: Dictionary = furnituredata.json
-	var furniturepos: Vector3 = furnituredata.pos
-	if tileJSON.has("furniture"):
-		var newFurniture: Node3D
-		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
-		Gamedata.data.furniture, tileJSON.furniture.id)
-		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
-			newFurniture = FurniturePhysics.new()
-		else:
-			newFurniture = FurnitureStatic.new()
+func add_furnitures_to_block(furnituredata):
+	var total_furniture = furnituredata.size()
+	 # Ensure we at least get 1 to avoid division by zero
+	var delay_every_n_furniture = max(1, total_furniture / 15)
 
-		newFurniture.construct_self(mypos+furniturepos, tileJSON.furniture)
-		level_manager.add_child.call_deferred(newFurniture)
+	for i in range(total_furniture):
+		var furniture = furnituredata[i]
+		var tileJSON: Dictionary = furniture.json
+		var furniturepos: Vector3 = furniture.pos
+		if tileJSON.has("furniture"):
+			var newFurniture: Node3D
+			var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
+			Gamedata.data.furniture, tileJSON.furniture.id)
+			if furnitureJSON.has("moveable") and furnitureJSON.moveable:
+				newFurniture = FurniturePhysics.new()
+				furniturepos.y += 0.2 # Make sure it's not in a block and let it fall
+			else:
+				newFurniture = FurnitureStatic.new()
+
+			newFurniture.construct_self(mypos+furniturepos, tileJSON.furniture)
+			level_manager.add_child.call_deferred(newFurniture)
+		
+		# Insert delay after every n blocks, evenly spreading the delay
+		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
+			OS.delay_msec(100) # Adjust delay time as needed
+
+	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
+	if total_furniture % delay_every_n_furniture != 0:
+		OS.delay_msec(100)
 
 
 # Saves all of the maplevels to disk
@@ -272,20 +323,20 @@ func get_map_data() -> Array:
 
 	# Loop over the levels in the map
 	for level: Node3D in _levels:
-		level.remove_from_group("maplevels")
+		level.remove_from_group.call_deferred("maplevels")
 		var level_node_data: Array = []
 		var level_node_dict: Dictionary = {
-			"map_y": level.global_position.y, 
+			"map_y": level.levelposition.y, 
 			"blocks": level_node_data
 		}
 
 		# Loop over the blocks in the level
-		for block in level.get_children():
+		for block in level.blocklist:
 			var block_data: Dictionary = {
-				"id": block.tileJSON.id, 
-				"rotation": int(block.rotation_degrees.y),
-				"block_x": block.position.x,
-				"block_z": block.position.z
+				"id": block.json.id, 
+				"rotation": int(block.json.blockrotation),
+				"block_x": block.w,
+				"block_z": block.h
 			}
 			level_node_data.append(block_data)
 		maplevels.append(level_node_dict)
@@ -297,33 +348,37 @@ func get_furniture_data() -> Array:
 	var mapFurniture = get_tree().get_nodes_in_group("furniture")
 	var newFurnitureData: Dictionary
 	var newRot: int
+	var furniturepos: Vector3
 	for furniture in mapFurniture:
+		if furniture is FurniturePhysics:
+			newRot = furniture.last_rotation
+			furniturepos = furniture.last_position
+		else: # It's FurnitureStatic
+			newRot = furniture.get_my_rotation()
+			furniturepos = furniture.furnitureposition
 		# Check if furniture's position is within the desired range
-		if _is_object_in_range(furniture):
-			furniture.remove_from_group("furniture")
-			if furniture is FurniturePhysics:
-				newRot = furniture.rotation_degrees.y
-			else: # It's FurnitureStatic
-				newRot = furniture.get_my_rotation()
+		if _is_object_in_range(furniturepos):
+			furniture.remove_from_group.call_deferred("furniture")
+			#print_debug("removing furniture with posdition: ", furniturepos)
 			newFurnitureData = {
 				"id": furniture.furnitureJSON.id,
 				"moveable": furniture is FurniturePhysics,
-				"global_position_x": furniture.global_position.x,
-				"global_position_y": furniture.global_position.y,
-				"global_position_z": furniture.global_position.z,
+				"global_position_x": furniturepos.x,
+				"global_position_y": furniturepos.y,
+				"global_position_z": furniturepos.z,
 				"rotation": newRot,  # Save the Y-axis rotation
 			}
 			furnitureData.append(newFurnitureData.duplicate())
-			furniture.queue_free()
+			furniture.queue_free.call_deferred()
 	return furnitureData
 
 
 # We check if the furniture or mob or item's position is inside this chunk on the x and z axis
-func _is_object_in_range(object: Node3D) -> bool:
-		return object.global_position.x >= self.global_position.x and \
-		object.global_position.x <= self.global_position.x + level_width and \
-		object.global_position.z >= self.global_position.z and \
-		object.global_position.z <= self.global_position.z + level_height
+func _is_object_in_range(objectposition: Vector3) -> bool:
+		return objectposition.x >= mypos.x and \
+		objectposition.x <= mypos.x + level_width and \
+		objectposition.z >= mypos.z and \
+		objectposition.z <= mypos.z + level_height
 
 
 # Save all the mobs and their current stats to the mobs file for this map
@@ -333,14 +388,14 @@ func get_mob_data() -> Array:
 	var newMobData: Dictionary
 	for mob in mapMobs:
 		# Check if furniture's position is within the desired range
-		if _is_object_in_range(mob):
-			mob.remove_from_group("mobs")
+		if _is_object_in_range(mob.last_position):
+			mob.remove_from_group.call_deferred("mobs")
 			newMobData = {
 				"id": mob.mobJSON.id,
-				"global_position_x": mob.global_position.x,
-				"global_position_y": mob.global_position.y,
-				"global_position_z": mob.global_position.z,
-				"rotation": mob.rotation_degrees.y,
+				"global_position_x": mob.last_position.x,
+				"global_position_y": mob.last_position.y,
+				"global_position_z": mob.last_position.z,
+				"rotation": mob.last_rotation,
 				"melee_damage": mob.melee_damage,
 				"melee_range": mob.melee_range,
 				"health": mob.health,
@@ -354,7 +409,7 @@ func get_mob_data() -> Array:
 				"hearing_range": mob.hearingRange
 			}
 			mobData.append(newMobData.duplicate())
-			mob.queue_free()
+			mob.queue_free.call_deferred()
 	return mobData
 
 
@@ -371,15 +426,15 @@ func get_item_data() -> Array:
 	var mapitems = get_tree().get_nodes_in_group("mapitems")
 	var newitemData: Dictionary
 	for item in mapitems:
-		if _is_object_in_range(item):
+		if _is_object_in_range(item.containerpos):
 			item.remove_from_group("mapitems")
 			newitemData = myItem.duplicate()
-			newitemData["global_position_x"] = item.global_position.x
-			newitemData["global_position_y"] = item.global_position.y
-			newitemData["global_position_z"] = item.global_position.z
+			newitemData["global_position_x"] = item.containerpos.x
+			newitemData["global_position_y"] = item.containerpos.y
+			newitemData["global_position_z"] = item.containerpos.z
 			newitemData["inventory"] = item.inventory.serialize()
 			itemData.append(newitemData.duplicate())
-			item.queue_free()
+			item.queue_free.call_deferred()
 	return itemData
 
 
@@ -421,15 +476,44 @@ func add_furniture_to_map(furnitureData: Dictionary):
 
 
 # Returns all the chunk data used for saving and loading
-func get_chunk_data() -> Dictionary:
-	return {
-			"chunk_x": global_position.x,
-			"chunk_z": global_position.z,
-			"maplevels": get_map_data(),
-			"furniture": get_furniture_data(),
-			"mobs": get_mob_data(),
-			"items": get_item_data()
-		}
+func get_chunk_data(chunkdata: Dictionary) -> Dictionary:
+	var mapdata: Array = get_map_data()
+	chunkdata.chunk_x = mypos.x
+	chunkdata.chunk_z = mypos.z
+	chunkdata.maplevels = mapdata
+	chunkdata.furniture = get_furniture_data()
+	chunkdata.mobs = get_mob_data()
+	chunkdata.items = get_item_data()
+	return chunkdata
+	#return {
+			#"chunk_x": 
+			#"chunk_z": global_position.z,
+			#"maplevels": mapdata,
+			#"furniture": get_furniture_data(),
+			#"mobs": get_mob_data(),
+			#"items": get_item_data()
+		#}
+
+	
+	
+func unload_chunk(chunk_pos: Vector2):
+	# Wait for any ongoing generation tasks to complete to ensure _levels are populated.
+	#WorkerThreadPool.wait_for_task_completion(generation_task)
+
+	# Example: Save chunk data before fully unloading.
+	var chunkdata: Dictionary = {}
+	var task_id = WorkerThreadPool.add_task(get_chunk_data.bind(chunkdata))
+	WorkerThreadPool.wait_for_task_completion(task_id)
+	Helper.loaded_chunk_data.chunks[chunk_pos] = chunkdata
+
+	# Queue all levels for deletion.
+	for level in _levels:
+		level.queue_free()
+
+	# Clear the _levels array since all levels are now queued for deletion.
+	_levels.clear()
+	chunk_unloaded.emit()
+
 
 
 # Adds triangles represented by 3 vertices to the navigation mesh data
@@ -522,3 +606,10 @@ func rotate_vertex(vertex: Vector3, degrees: int) -> Vector3:
 			return Vector3(vertex.z, vertex.y, -vertex.x)
 		_:
 			return vertex
+
+
+func _finish_unload():
+	#WorkerThreadPool.wait_for_task_completion(generation_task)
+	# Finally, queue the chunk itself for deletion.
+	queue_free.call_deferred()
+	

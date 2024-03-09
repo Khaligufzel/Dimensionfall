@@ -8,6 +8,8 @@ var mobRotation: int # The rotation it will rotate to when the it is created
 var mobJSON: Dictionary # The json that defines this mob
 var meshInstance: MeshInstance3D # This mob's mesh instance
 var nav_agent: NavigationAgent3D # Used for pathfinding
+var last_position: Vector3 = Vector3()
+var last_rotation: int
 
 
 var melee_damage: float = 20.0
@@ -29,6 +31,13 @@ func _ready():
 	current_idle_move_speed = idle_move_speed
 	position = mobPosition
 	meshInstance.position.y = -0.2
+
+
+func _physics_process(_delta):
+	if global_transform.origin != last_position:
+		last_position = global_transform.origin
+	if rotation_degrees.y != last_rotation:
+		last_rotation = rotation_degrees.y
 
 
 func get_hit(damage):

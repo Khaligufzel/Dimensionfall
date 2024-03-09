@@ -2,6 +2,7 @@ class_name ChunkLevel
 extends Node3D
 
 var levelposition: Vector3
+var blocklist: Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

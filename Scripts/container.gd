@@ -14,10 +14,10 @@ func _ready():
 
 func create_random_loot():
 	if inventory.get_children() == []:
-		var _item = inventory.create_and_add_item("plank_2x4")
-		_item = inventory.create_and_add_item("bullet_9mm")
-		_item = inventory.create_and_add_item("pistol_magazine")
-		_item = inventory.create_and_add_item("steel_scrap")
+		inventory.create_and_add_item.call_deferred("plank_2x4")
+		inventory.create_and_add_item.call_deferred("bullet_9mm")
+		inventory.create_and_add_item.call_deferred("pistol_magazine")
+		inventory.create_and_add_item.call_deferred("steel_scrap")
 
 
 func create_inventory():

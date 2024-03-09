@@ -77,13 +77,13 @@ func set_new_rotation(amount: int):
 	
 	
 func get_my_rotation() -> int:
-	var rot: int = int(rotation_degrees.y)
-	if rot == 180:
-		return rot-180
-	elif rot == 0:
-		return rot+180
+	#var rot: int = int(rotation_degrees.y)
+	if furniturerotation == 180:
+		return furniturerotation-180
+	elif furniturerotation == 0:
+		return furniturerotation+180
 	else:
-		return rot-0
+		return furniturerotation-0
 
 
 # Function to make it's own shape and texture based on an id and position

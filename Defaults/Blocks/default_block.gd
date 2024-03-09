@@ -9,7 +9,8 @@ var blockmeshinstance: MeshInstance3D # Reference to the MeshInstance3D
 
 func _ready():
 	position = blockposition
-	rotation_degrees = Vector3(0,get_block_rotation(),0)
+	tileJSON.blockrotation = get_block_rotation()
+	rotation_degrees = Vector3(0,tileJSON.blockrotation,0)
 	#apply_block_rotation()
 
 

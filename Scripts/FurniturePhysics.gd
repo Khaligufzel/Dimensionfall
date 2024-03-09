@@ -8,14 +8,41 @@ var furnitureposition: Vector3
 var furniturerotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture
 var sprite: Sprite3D = null
+var last_position: Vector3 = Vector3()
+var last_rotation: int
+
 
 var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
 var current_health: float = 10.0
 
 
 func _ready():
-	position = furnitureposition
+	start_timer()
+
+
+func _physics_process(_delta):
+	if global_transform.origin != last_position:
+		last_position = global_transform.origin
+	if rotation_degrees.y != last_rotation:
+		last_rotation = rotation_degrees.y
+
+# Function to create and start a timer that will generate chunks every 1 second if applicable
+func start_timer():
+	var my_timer = Timer.new() # Create a new Timer instance
+	my_timer.wait_time = 1 # Timer will tick every 1 second
+	my_timer.one_shot = true # False means the timer will repeat
+	add_child(my_timer) # Add the Timer to the scene as a child of this node
+	my_timer.timeout.connect(_on_Timer_timeout) # Connect the timeout signal
+	my_timer.start() # Start the timer
+
+
+# This function will be called every time the Timer ticks
+func _on_Timer_timeout():
+	#print_debug("setting position of furniturephysics to ", furnitureposition)
+	set_position.call_deferred(furnitureposition)
 	set_new_rotation(furniturerotation)
+	last_position = furnitureposition
+	last_rotation = furniturerotation
 
 
 func get_hit(damage):
