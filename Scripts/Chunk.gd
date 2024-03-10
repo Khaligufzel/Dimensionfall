@@ -73,15 +73,15 @@ func generate_new_chunk():
 	thread.start(create_block_position_dictionary_new)
 
 func generate_new_chunk2():
-	
 	if is_instance_valid(thread) and thread.is_started():
 		# If a thread is already running, let it finish before we start another.
 		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
 	thread = Thread.new()
 	thread.start(process_level_data)
 	#create_block_position_dictionary_new()
 	
-func generate_new_chunk3():
+func process_level_data_finished():
 	# Wait for the thread to complete, and get the returned value.
 	mutex.lock()
 	processed_level_data = thread.wait_to_finish()
@@ -146,7 +146,7 @@ func process_level_data():
 			else:
 				proc_lvl_data.lvl.append(level_node)
 		level_number += 1
-	generate_new_chunk3.call_deferred()
+	process_level_data_finished.call_deferred()
 	return proc_lvl_data
 
 # Creates a dictionary of all block positions with a local x,y and z position
@@ -194,13 +194,6 @@ func create_block_position_dictionary_new_finished():
 	mutex.unlock()
 	generate_new_chunk2()
 	
-func process_level_data_finished():
-	mutex.lock()
-	# Wait for the thread to complete, and get the returned value.
-	block_positions = thread.wait_to_finish()
-	thread = null # Threads are reference counted, so this is how we free them.
-	mutex.unlock()
-	generate_new_chunk2()
 
 func create_block_position_dictionary_loaded_finished():
 	mutex.lock()
@@ -260,6 +253,16 @@ func create_blocks_by_id1():
 	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
 	if total_blocks % delay_every_n_blocks != 0:
 		OS.delay_msec(100)
+	create_blocks_finished.call_deferred()
+
+func create_blocks_finished():
+	if is_instance_valid(thread) and thread.is_started():
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
+	thread = Thread.new()
+	thread.start(add_furnitures_to_new_block)
+
 
 # Constructs blocks and their navigationmesh and adds them to their level nodes
 # Since this function is assumed to be run in a separate thread, we can add delays to
@@ -369,6 +372,49 @@ func add_block_mob(mobdata):
 		# Pass the position and the mob json to the newmob and have it construct itself
 		newMob.construct_self(mypos+mobpos, tileJSON.mob)
 		level_manager.add_child.call_deferred(newMob)
+
+
+# When a map is loaded for the first time we spawn the furniture on the block
+func add_furnitures_to_new_block():
+	mutex.lock()
+	var furnituredata = processed_level_data.furn.duplicate()
+	mutex.unlock()
+	var total_furniture = furnituredata.size()
+	 # Ensure we at least get 1 to avoid division by zero
+	var delay_every_n_furniture = max(1, total_furniture / 15)
+
+	for i in range(total_furniture):
+		var furniture = furnituredata[i]
+		var tileJSON: Dictionary = furniture.json
+		var furniturepos: Vector3 = furniture.pos
+		if tileJSON.has("furniture"):
+			var newFurniture: Node3D
+			var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
+			Gamedata.data.furniture, tileJSON.furniture.id)
+			if furnitureJSON.has("moveable") and furnitureJSON.moveable:
+				newFurniture = FurniturePhysics.new()
+				furniturepos.y += 0.2 # Make sure it's not in a block and let it fall
+			else:
+				newFurniture = FurnitureStatic.new()
+
+			newFurniture.construct_self(mypos+furniturepos, tileJSON.furniture)
+			level_manager.add_child.call_deferred(newFurniture)
+		
+		# Insert delay after every n blocks, evenly spreading the delay
+		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
+			OS.delay_msec(100) # Adjust delay time as needed
+
+	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
+	if total_furniture % delay_every_n_furniture != 0:
+		OS.delay_msec(100)
+	add_furnitures_to_new_block_finished.call_deferred()
+
+
+func add_furnitures_to_new_block_finished():
+	if is_instance_valid(thread) and thread.is_started():
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
 
 
 # When a map is loaded for the first time we spawn the furniture on the block
