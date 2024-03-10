@@ -12,7 +12,6 @@ var current_map_seed: int = 0
 var position_coord: Vector2 = Vector2(0, 0)
 
 # Dictionary to store meshes for each block ID
-var block_meshes: Dictionary = {}
 var navigationmap: RID
 
 # Helper scripts
@@ -61,7 +60,8 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 		save_helper.save_player_equipment()
 		save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
 	current_level_pos = global_pos
-	get_tree().change_scene_to_file("res://level_generation.tscn")
+	get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
+	#get_tree().change_scene_to_file("res://level_generation.tscn")
 
 
 func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:
@@ -103,26 +103,4 @@ func raycast(start_position : Vector3, end_position : Vector3, layer : int, obje
 	var query = PhysicsRayQueryParameters3D.create(start_position, end_position, layer, object_to_ignore)
 
 	return space_state.intersect_ray(query)
-
-
-# Function to create or retrieve a mesh for a given block ID
-func get_or_create_block_mesh(block_id: String, shape: String) -> Mesh:
-	if block_meshes.has(block_id):
-		return block_meshes[block_id]
-
-	var mesh
-	if shape == "block":
-		# Create a new BoxMesh for the block
-		mesh = BoxMesh.new()
-		mesh.size = Vector3(1, 1, 1)  # Set the size of the box mesh
-	else:  # It's a slope
-		mesh = PrismMesh.new()
-		# Modify PrismMesh here as needed
-		mesh.left_to_right = 1
-
-	# Set material for the mesh
-	mesh.surface_set_material(0, Gamedata.get_sprite_by_id(Gamedata.data.tiles, block_id))
-
-	block_meshes[block_id] = mesh
-	return mesh
 

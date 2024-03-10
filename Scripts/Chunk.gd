@@ -25,7 +25,9 @@ var _mapleveldata: Array = [] # Holds the data for each level in this chunk
 # This is a class variable to track block positions
 var block_positions = {}
 var chunk_data: Dictionary # The json data that defines this chunk
+var processed_level_data: Dictionary = {}
 var mutex: Mutex = Mutex.new()
+var thread: Thread
 #var navigationthread: Thread
 var mypos: Vector3
 var navigation_region: NavigationRegion3D
@@ -47,12 +49,8 @@ func _ready():
 	initialize_chunk_data()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
-
-
 func initialize_chunk_data():
+	initialized_block_count = 0
 	if chunk_data.has("id"): # This chunk is created for the first time
 		#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 		var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
@@ -71,17 +69,36 @@ func initialize_chunk_data():
 
 func generate_new_chunk():
 	#generation_task = WorkerThreadPool.add_task(create_block_position_dictionary_new)
-	create_block_position_dictionary_new()
-	var processed_levels: Array = []
-	var processed_blocks: Array = []
-	var processed_furniture: Array = []
-	var processed_mobs: Array = []
+	thread = Thread.new()
+	thread.start(create_block_position_dictionary_new)
+
+func generate_new_chunk2():
+	
+	if is_instance_valid(thread) and thread.is_started():
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+	thread = Thread.new()
+	thread.start(process_level_data)
+	#create_block_position_dictionary_new()
+	
+func generate_new_chunk3():
+	# Wait for the thread to complete, and get the returned value.
+	mutex.lock()
+	processed_level_data = thread.wait_to_finish()
+	thread = null # Threads are reference counted, so this is how we free them.
+	mutex.unlock()
+	#create_block_position_dictionary_new()
+	var processed_levels: Array = processed_level_data.lvl
+	var processed_mobs: Array = processed_level_data.mobs
 	# After this function runs, we know how many levels, blocks, furniture and mobs we have
-	process_level_data(processed_levels, processed_blocks, processed_furniture, processed_mobs)
+	#process_level_data(processed_levels, processed_blocks, processed_furniture, processed_mobs)
 	_spawn_levels(processed_levels)
-	generation_task = WorkerThreadPool.add_task(create_blocks_by_id.bind(processed_blocks))
-	#create_blocks_by_id(processed_blocks)
-	add_furnitures_to_block(processed_furniture)
+	#generation_task = WorkerThreadPool.add_task(create_blocks_by_id.bind(processed_blocks))
+	
+	thread = Thread.new()
+	thread.start(create_blocks_by_id1)
+	#create_blocks_by_id1()
+	add_furnitures_to_block()
 	for mob in processed_mobs:
 		add_block_mob(mob)
 
@@ -92,11 +109,11 @@ func _spawn_levels(processed_levels):
 		OS.delay_msec(10)  # Optional: delay to reduce CPU usage
 	
 
-func process_level_data(lvl:Array, block:Array, furn:Array, mobs:Array):
+func process_level_data():
 	# Initialize the counter and expected count
 	var level_number = 0
-	initialized_block_count = 0
 	var tileJSON: Dictionary = {}
+	var proc_lvl_data: Dictionary = {"lvl": [],"blk": [],"furn": [],"mobs": []}
 
 	for level in _mapleveldata:
 		if level != []:
@@ -112,10 +129,10 @@ func process_level_data(lvl:Array, block:Array, furn:Array, mobs:Array):
 						if tileJSON.has("id") and tileJSON.id != "":
 							mutex.lock()
 							level_node.blocklist.append({"lvl":level_node,"w":w,"h":h,"json":tileJSON})
-							block.append({"lvl":level_node,"w":w,"h":h,"json":tileJSON})
-							mobs.append({"json":tileJSON, "pos":Vector3(w,y_position+1.5,h)})
-							furn.append({"json":tileJSON, "pos":Vector3(w,y_position,h)})
 							mutex.unlock()
+							proc_lvl_data.blk.append({"lvl":level_node,"w":w,"h":h,"json":tileJSON})
+							proc_lvl_data.mobs.append({"json":tileJSON, "pos":Vector3(w,y_position+1.5,h)})
+							proc_lvl_data.furn.append({"json":tileJSON, "pos":Vector3(w,y_position,h)})
 							blocks_created += 1
 					current_block += 1
 			# Sometimes a level might not be empty, but at the same time has no actual block data,
@@ -127,14 +144,15 @@ func process_level_data(lvl:Array, block:Array, furn:Array, mobs:Array):
 				level_node.queue_free()
 				mutex.unlock()
 			else:
-				mutex.lock()
-				lvl.append(level_node)
-				mutex.unlock()
+				proc_lvl_data.lvl.append(level_node)
 		level_number += 1
+	generate_new_chunk3.call_deferred()
+	return proc_lvl_data
 
 # Creates a dictionary of all block positions with a local x,y and z position
 # This function works with new mapdata
-func create_block_position_dictionary_new():
+func create_block_position_dictionary_new() -> Dictionary:
+	var new_block_positions:Dictionary = {}
 	for level_index in range(len(_mapleveldata)):
 		var level = _mapleveldata[level_index]
 		if level != []:
@@ -145,41 +163,53 @@ func create_block_position_dictionary_new():
 						var tileJSON = level[current_block_index]
 						if tileJSON.has("id") and tileJSON.id != "":
 							var block_position_key = str(w) + "," + str(level_index-10) + "," + str(h)
-							mutex.lock()
-							block_positions[block_position_key] = true
-							mutex.unlock()
+							new_block_positions[block_position_key] = true
+							#mutex.lock()
+							#block_positions[block_position_key] = true
+							#mutex.unlock()
+	create_block_position_dictionary_new_finished.call_deferred()
+	return new_block_positions
 
 
 # Creates a dictionary of all block positions with a local x,y and z position
 # This function works with previously saved chunk data
-func create_block_position_dictionary_loaded():
+func create_block_position_dictionary_loaded() -> Dictionary:
+	var new_block_positions:Dictionary = {}
 	for level_index in range(len(_mapleveldata)):
 		var level = _mapleveldata[level_index]
 		if level.blocks != []:
 			for blk in level.blocks:
 				if blk.has("id") and not blk.id == "":
 					var key = str(blk.block_x) + "," + str(level.map_y) + "," + str(blk.block_z)
-					block_positions[key] = true
+					new_block_positions[key] = true
+					#block_positions[key] = true
+	create_block_position_dictionary_loaded_finished.call_deferred()
+	return new_block_positions
 
+func create_block_position_dictionary_new_finished():
+	mutex.lock()
+	# Wait for the thread to complete, and get the returned value.
+	block_positions = thread.wait_to_finish()
+	thread = null # Threads are reference counted, so this is how we free them.
+	mutex.unlock()
+	generate_new_chunk2()
+	
+func process_level_data_finished():
+	mutex.lock()
+	# Wait for the thread to complete, and get the returned value.
+	block_positions = thread.wait_to_finish()
+	thread = null # Threads are reference counted, so this is how we free them.
+	mutex.unlock()
+	generate_new_chunk2()
 
-# Each chunk will have it's own navigationmesh, which will be joined automatically on the global map
-func setup_navigation():
-	navigation_mesh.cell_size = 0.1
-	navigation_mesh.agent_height = 0.5
-	# Remember that the navigation mesh will shrink if you increase the agent_radius
-	# This will happen to prevent the agent from hugging obstacles a lot
-	navigation_mesh.agent_radius = 0.1
-	navigation_mesh.agent_max_slope = 46
-	# Create a new navigation region and set its transform based on mypos
-	navigation_region = NavigationRegion3D.new()
-	add_child(navigation_region)
-	NavigationServer3D.map_set_cell_size(get_world_3d().get_navigation_map(),0.1)
-
-
-# We update the navigationmesh for this chunk with data generated from the blocks
-func update_navigation_mesh():
-	NavigationMeshGenerator.bake_from_source_geometry_data(navigation_mesh, source_geometry_data)
-	navigation_region.navigation_mesh = navigation_mesh
+func create_block_position_dictionary_loaded_finished():
+	mutex.lock()
+	# Wait for the thread to complete, and get the returned value.
+	block_positions = thread.wait_to_finish()
+	thread = null # Threads are reference counted, so this is how we free them.
+	mutex.unlock()
+	generate_saved_chunk2()
+	
 
 
 # Creates one level of blocks, for example level 0 will be the ground floor
@@ -191,6 +221,45 @@ func create_level_node(ypos: int) -> ChunkLevel:
 	level_node.levelposition = Vector3(0,ypos,0)
 	return level_node
 
+
+# Constructs blocks and their navigationmesh and adds them to their level nodes
+# Since this function is assumed to be run in a separate thread, we can add delays to
+# make sure the game does not stutter too much. The numbers for the delay are arbitrary
+# An important thing to keep in mind is that the stuttering will happen when to many blocks
+# are added at once, making it difficult for the gpu to keep up. 
+# This cannot be easily observed in the profiler
+func create_blocks_by_id1():
+	mutex.lock()
+	var myblocks = processed_level_data.blk.duplicate()
+	mutex.unlock()
+	var total_blocks = myblocks.size()
+	var delay_every_n_blocks = max(1, total_blocks / 15) # Ensure we at least get 1 to avoid division by zero
+
+	for i in range(total_blocks):
+		var blockdata = myblocks[i]
+		var level_node: ChunkLevel = blockdata["lvl"]
+		var w: int = blockdata["w"]
+		var h: int = blockdata["h"]
+		var tileJSON: Dictionary = blockdata["json"]
+		
+		var block = DefaultBlock.new()
+		block.ready.connect(_on_block_ready.bind(total_blocks))
+		block.construct_self(Vector3(w,0,h), tileJSON) # Sets its own properties that can be set before spawn
+		# Adds the top surface to the navigation data
+		var blockposition = Vector3(w,0,h)
+		var blockrotation = block.get_block_rotation()
+		var blockshape = block.shape
+		var level_y = level_node.levelposition.y
+		add_mesh_to_navigation_data(blockposition, blockrotation, blockshape, level_y)
+		level_node.add_child.call_deferred(block)
+		
+		# Insert delay after every n blocks, evenly spreading the delay
+		if i % delay_every_n_blocks == 0 and i != 0: # Avoid delay at the very start
+			OS.delay_msec(100) # Adjust delay time as needed
+
+	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
+	if total_blocks % delay_every_n_blocks != 0:
+		OS.delay_msec(100)
 
 # Constructs blocks and their navigationmesh and adds them to their level nodes
 # Since this function is assumed to be run in a separate thread, we can add delays to
@@ -213,12 +282,16 @@ func create_blocks_by_id(processed_blocks):
 		block.ready.connect(_on_block_ready.bind(total_blocks))
 		block.construct_self(Vector3(w,0,h), tileJSON) # Sets its own properties that can be set before spawn
 		# Adds the top surface to the navigation data
-		add_mesh_to_navigation_data(block, level_node.levelposition.y)
+		var blockposition = Vector3(w,0,h)
+		var blockrotation = block.get_block_rotation()
+		var blockshape = block.shape
+		var level_y = level_node.levelposition.y
+		add_mesh_to_navigation_data(blockposition, blockrotation, blockshape, level_y)
 		level_node.add_child.call_deferred(block)
 		
 		# Insert delay after every n blocks, evenly spreading the delay
-		if i % delay_every_n_blocks == 0 and i != 0: # Avoid delay at the very start
-			OS.delay_msec(100) # Adjust delay time as needed
+		#if i % delay_every_n_blocks == 0 and i != 0: # Avoid delay at the very start
+			#OS.delay_msec(100) # Adjust delay time as needed
 
 	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
 	if total_blocks % delay_every_n_blocks != 0:
@@ -241,7 +314,13 @@ func _on_block_ready(numblocks):
 # For each layer, add all the blocks with proper rotation
 # If a block has an mob, add it too
 func generate_saved_chunk() -> void:
-	create_block_position_dictionary_loaded()
+	thread = Thread.new()
+	thread.start(create_block_position_dictionary_loaded)
+
+# Generate the map layer by layer
+# For each layer, add all the blocks with proper rotation
+# If a block has an mob, add it too
+func generate_saved_chunk2() -> void:
 	var processed_levels: Array = []
 	var processed_blocks: Array = []
 	initialized_block_count = 0
@@ -256,8 +335,8 @@ func generate_saved_chunk() -> void:
 
 	# We spawn the levels in a separate function now that we know how many actually spawn
 	_spawn_levels(processed_levels)
-	generation_task = WorkerThreadPool.add_task(create_blocks_by_id.bind(processed_blocks))
-	#create_blocks_by_id(processed_blocks)
+	#generation_task = WorkerThreadPool.add_task(create_blocks_by_id.bind(processed_blocks))
+	create_blocks_by_id(processed_blocks)
 	for mob: Dictionary in chunk_data.mobs:
 		add_mob_to_map(mob)
 
@@ -293,7 +372,8 @@ func add_block_mob(mobdata):
 
 
 # When a map is loaded for the first time we spawn the furniture on the block
-func add_furnitures_to_block(furnituredata):
+func add_furnitures_to_block():
+	var furnituredata = processed_level_data.furn.duplicate()
 	var total_furniture = furnituredata.size()
 	 # Ensure we at least get 1 to avoid division by zero
 	var delay_every_n_furniture = max(1, total_furniture / 15)
@@ -501,8 +581,11 @@ func get_chunk_data(chunkdata: Dictionary) -> Dictionary:
 	
 func unload_chunk(chunk_pos: Vector2):
 	# Wait for any ongoing generation tasks to complete to ensure _levels are populated.
-	WorkerThreadPool.wait_for_task_completion(generation_task)
+	#WorkerThreadPool.wait_for_task_completion(generation_task)
 
+	if is_instance_valid(thread) and thread.is_started():
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
 	# Example: Save chunk data before fully unloading.
 	var chunkdata: Dictionary = {}
 	var task_id = WorkerThreadPool.add_task(get_chunk_data.bind(chunkdata))
@@ -525,18 +608,18 @@ func unload_chunk(chunk_pos: Vector2):
 # The same goes for slopes, but 2 of the vertices are lowered to the ground
 # keep in mind that after the navigationmesh is added to the navigationregion
 # It will be shrunk by the navigation_mesh.agent_radius to prevent collisions
-func add_mesh_to_navigation_data(block, level_y):
-	var block_global_position: Vector3 = block.blockposition# + mypos
+func add_mesh_to_navigation_data(blockposition, blockrotation, blockshape, level_y):
+	var block_global_position: Vector3 = blockposition# + mypos
 	block_global_position.y = level_y
 	var blockrange: float = 0.5
 	
 	# Check if there's a block directly above the current block
-	var above_key = str(block.blockposition.x) + "," + str(level_y + 1) + "," + str(block.blockposition.z)
+	var above_key = str(blockposition.x) + "," + str(level_y + 1) + "," + str(blockposition.z)
 	if block_positions.has(above_key):
 		# There's a block directly above, so we don't add a face for the current block's top
 		return
 
-	if block.shape == "cube":
+	if blockshape == "cube":
 		# Top face of a block, the block size is 1x1x1 for simplicity.
 		var top_face_vertices = PackedVector3Array([
 			# First triangle
@@ -552,7 +635,7 @@ func add_mesh_to_navigation_data(block, level_y):
 		mutex.lock()
 		source_geometry_data.add_faces(top_face_vertices, Transform3D(Basis(), block_global_position))
 		mutex.unlock()
-	elif block.shape == "slope":
+	elif blockshape == "slope":
 		# Define the initial slope vertices here. We define a set for each direction
 		var vertices_north = PackedVector3Array([ #Facing north
 			Vector3(-blockrange, 0.5, -blockrange), # Top front left
@@ -580,7 +663,7 @@ func add_mesh_to_navigation_data(block, level_y):
 		])
 
 		# We pick a direction based on the block rotation
-		var blockrot: int = block.get_block_rotation()
+		var blockrot: int = blockrotation
 		var vertices
 		match blockrot:
 			90:
@@ -620,3 +703,24 @@ func _finish_unload():
 	# Finally, queue the chunk itself for deletion.
 	queue_free.call_deferred()
 	
+
+
+# We update the navigationmesh for this chunk with data generated from the blocks
+func update_navigation_mesh():
+	NavigationMeshGenerator.bake_from_source_geometry_data(navigation_mesh, source_geometry_data)
+	navigation_region.navigation_mesh = navigation_mesh
+
+
+
+# Each chunk will have it's own navigationmesh, which will be joined automatically on the global map
+func setup_navigation():
+	navigation_mesh.cell_size = 0.1
+	navigation_mesh.agent_height = 0.5
+	# Remember that the navigation mesh will shrink if you increase the agent_radius
+	# This will happen to prevent the agent from hugging obstacles a lot
+	navigation_mesh.agent_radius = 0.1
+	navigation_mesh.agent_max_slope = 46
+	# Create a new navigation region and set its transform based on mypos
+	navigation_region = NavigationRegion3D.new()
+	add_child(navigation_region)
+	NavigationServer3D.map_set_cell_size(get_world_3d().get_navigation_map(),0.1)
