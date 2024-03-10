@@ -3,14 +3,17 @@ extends StaticBody3D
 
 var blockposition: Vector3
 var tileJSON: Dictionary # The json that defines this block
-var shape: String = "block"
+var shape: String = "cube"
 var blockmeshinstance: MeshInstance3D # Reference to the MeshInstance3D
+var mutex: Mutex = Mutex.new()
 
 
 func _ready():
+	mutex.lock()
 	position = blockposition
 	tileJSON.blockrotation = get_block_rotation()
 	rotation_degrees = Vector3(0,tileJSON.blockrotation,0)
+	mutex.unlock()
 	#apply_block_rotation()
 
 
@@ -24,7 +27,7 @@ func construct_self(blockpos: Vector3, newTileJSON: Dictionary):
 	collision_layer = 1 | (1 << 4) # Layer 1 is 1, Layer 5 is 1 << 4 (16), combined with bitwise OR
 	# Set collision mask to layer 1
 	collision_mask = 1 # Layer 1 is 1
-
+	
 	# Get the shape of the block
 	var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,tileJSON.id)
 	if tileJSONData.has("shape"):
@@ -37,14 +40,15 @@ func construct_self(blockpos: Vector3, newTileJSON: Dictionary):
 
 func create_mesh():
 	blockmeshinstance = MeshInstance3D.new()
-	var blockmesh = Helper.get_or_create_block_mesh(tileJSON.id, shape)
+	var blockmesh = Gamedata.block_meshes[tileJSON.id]
+	#var blockmesh = Helper.get_or_create_block_mesh(tileJSON.id, shape)
 	blockmeshinstance.mesh = blockmesh
 	add_child.call_deferred(blockmeshinstance)
 
 
 func create_collider():
 	var collider = CollisionShape3D.new()
-	if shape == "block":
+	if shape == "cube":
 		collider.shape = BoxShape3D.new()
 	else: # It's a slope
 		collider.shape = ConvexPolygonShape3D.new()
@@ -91,8 +95,3 @@ func get_block_rotation() -> int:
 		return myRotation-180
 	return myRotation
 
-
-func get_mesh() -> Mesh:
-	if blockmeshinstance:
-		return blockmeshinstance.mesh
-	return null
