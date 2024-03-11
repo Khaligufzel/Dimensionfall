@@ -495,24 +495,29 @@ func add_furnitures_to_block():
 # This layer will contain 1024 blocks
 func get_map_data() -> Array:
 	var maplevels: Array = []
+	mutex.lock()
+	var mylevels = _levels.duplicate()
+	mutex.unlock()
 
 	# Loop over the levels in the map
-	for level: Node3D in _levels:
+	for level: Node3D in mylevels:
 		level.remove_from_group.call_deferred("maplevels")
 		var level_node_data: Array = []
-		var level_node_dict: Dictionary = {
-			"map_y": level.levelposition.y, 
-			"blocks": level_node_data
-		}
+		var level_node_dict: Dictionary
+		mutex.lock()
+		level_node_dict["map_y"] = level.levelposition.y
+		mutex.unlock()
+		level_node_dict["blocks"] = level_node_data
 
 		# Loop over the blocks in the level
 		for block in level.blocklist:
-			var block_data: Dictionary = {
-				"id": block.json.id, 
-				"rotation": int(block.json.blockrotation),
-				"block_x": block.w,
-				"block_z": block.h
-			}
+			var block_data: Dictionary
+			mutex.lock()
+			block_data["id"] = block.json.id
+			block_data["rotation"] = int(block.json.blockrotation)
+			block_data["block_x"] = block.w
+			block_data["block_z"] = block.h
+			mutex.unlock()
 			level_node_data.append(block_data)
 		maplevels.append(level_node_dict)
 	return maplevels
@@ -652,15 +657,15 @@ func add_furniture_to_map(furnitureData: Dictionary):
 
 # Returns all the chunk data used for saving and loading
 func get_chunk_data(chunkdata: Dictionary) -> Dictionary:
-	mutex.lock()
 	var mapdata: Array = get_map_data()
+	mutex.lock()
 	chunkdata.chunk_x = mypos.x
 	chunkdata.chunk_z = mypos.z
 	chunkdata.maplevels = mapdata
+	mutex.unlock()
 	chunkdata.furniture = get_furniture_data()
 	chunkdata.mobs = get_mob_data()
 	chunkdata.items = get_item_data()
-	mutex.unlock()
 	return chunkdata
 
 
