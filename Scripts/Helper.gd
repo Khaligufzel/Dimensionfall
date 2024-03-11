@@ -2,6 +2,7 @@ extends Node3D
 
 # Tacticalmap data
 var current_level_name : String
+var ready_to_switch_level: Dictionary = {"save_ready": false, "chunks_unloaded": false}
 # Dictionary to hold data of chunks that are unloaded
 var loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} 
 
@@ -50,6 +51,8 @@ func reset():
 #global_pos is the absolute position on the overmap
 #see overmap.gd for how global_pos is used there
 func switch_level(level_name: String, global_pos: Vector2) -> void:
+	ready_to_switch_level.save_ready = false
+	ready_to_switch_level.chunks_unloaded = false
 	current_level_name = level_name
 	# This is only true if the game has just initialized
 	# In that case no level has once been loaded so there is no game to save
@@ -59,9 +62,32 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 		save_helper.save_player_inventory()
 		save_helper.save_player_equipment()
 		save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
+	else:
+		ready_to_switch_level.chunks_unloaded = true
 	current_level_pos = global_pos
-	get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
+	ready_to_switch_level.save_ready = true
+	start_timer()
+	#get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
 	#get_tree().change_scene_to_file("res://level_generation.tscn")
+
+
+
+# Function to create and start a timer that will wait to switch the level
+func start_timer():
+	var my_timer = Timer.new() # Create a new Timer instance
+	my_timer.wait_time = 1 # Timer will tick every 1 second
+	my_timer.one_shot = false # False means the timer will repeat
+	add_child(my_timer) # Add the Timer to the scene as a child of this node
+	my_timer.timeout.connect(_on_Timer_timeout.bind(my_timer)) # Connect the timeout signal
+	my_timer.start() # Start the timer
+
+
+# This function will be called every time the Timer ticks
+func _on_Timer_timeout(my_timer: Timer):
+	if ready_to_switch_level.save_ready == true and ready_to_switch_level.chunks_unloaded == true:
+		print_debug("Switching level")
+		my_timer.stop() # Stop the timer
+		get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
 
 
 func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:

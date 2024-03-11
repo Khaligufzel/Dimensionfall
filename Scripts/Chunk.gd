@@ -72,6 +72,7 @@ func generate_new_chunk():
 	thread = Thread.new()
 	thread.start(create_block_position_dictionary_new)
 
+
 func generate_new_chunk2():
 	if is_instance_valid(thread) and thread.is_started():
 		# If a thread is already running, let it finish before we start another.
@@ -79,29 +80,40 @@ func generate_new_chunk2():
 		thread = null # Threads are reference counted, so this is how we free them.
 	thread = Thread.new()
 	thread.start(process_level_data)
-	#create_block_position_dictionary_new()
-	
+
+
 func process_level_data_finished():
 	# Wait for the thread to complete, and get the returned value.
 	mutex.lock()
 	processed_level_data = thread.wait_to_finish()
 	thread = null # Threads are reference counted, so this is how we free them.
+	#var processed_levels: Array = processed_level_data.lvl.duplicate()
 	mutex.unlock()
-	#create_block_position_dictionary_new()
-	var processed_levels: Array = processed_level_data.lvl
-	var processed_mobs: Array = processed_level_data.mobs
-	# After this function runs, we know how many levels, blocks, furniture and mobs we have
-	#process_level_data(processed_levels, processed_blocks, processed_furniture, processed_mobs)
-	_spawn_levels(processed_levels)
-	#generation_task = WorkerThreadPool.add_task(create_blocks_by_id.bind(processed_blocks))
-	
+	_spawn_levels_new()
+	#thread = Thread.new()
+	#thread.start(_spawn_levels_new)
+
+
+func _spawn_levels_new():
+	mutex.lock()
+	var mylevels = processed_level_data.lvl.duplicate()
+	mutex.unlock()
+	for level in mylevels:
+		add_child.call_deferred(level)
+		OS.delay_msec(10)  # Optional: delay to reduce CPU usage
+	_spawn_levels_new_finished.call_deferred()
+
+
+func _spawn_levels_new_finished():
+	if is_instance_valid(thread) and thread.is_started():
+		if thread.is_alive():
+			print_debug("The thread is still alive, blocking calling thread")
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
 	thread = Thread.new()
 	thread.start(create_blocks_by_id1)
-	#create_blocks_by_id1()
-	add_furnitures_to_block()
-	for mob in processed_mobs:
-		add_block_mob(mob)
-
+	
 
 func _spawn_levels(processed_levels):
 	for level in processed_levels:
@@ -149,6 +161,7 @@ func process_level_data():
 	process_level_data_finished.call_deferred()
 	return proc_lvl_data
 
+
 # Creates a dictionary of all block positions with a local x,y and z position
 # This function works with new mapdata
 func create_block_position_dictionary_new() -> Dictionary:
@@ -185,6 +198,7 @@ func create_block_position_dictionary_loaded() -> Dictionary:
 					#block_positions[key] = true
 	create_block_position_dictionary_loaded_finished.call_deferred()
 	return new_block_positions
+
 
 func create_block_position_dictionary_new_finished():
 	mutex.lock()
@@ -255,8 +269,11 @@ func create_blocks_by_id1():
 		OS.delay_msec(100)
 	create_blocks_finished.call_deferred()
 
+
 func create_blocks_finished():
 	if is_instance_valid(thread) and thread.is_started():
+		if thread.is_alive():
+			print_debug("The thread is still alive, blocking calling thread")
 		# If a thread is already running, let it finish before we start another.
 		thread.wait_to_finish()
 		thread = null # Threads are reference counted, so this is how we free them.
@@ -373,6 +390,27 @@ func add_block_mob(mobdata):
 		newMob.construct_self(mypos+mobpos, tileJSON.mob)
 		level_manager.add_child.call_deferred(newMob)
 
+# When a map is loaded for the first time we spawn the mob on the block
+func add_block_mobs():
+	mutex.lock()
+	var mobdatalist = processed_level_data.mobs.duplicate()
+	mutex.unlock()
+	for mobdata: Dictionary in mobdatalist:
+		var tileJSON: Dictionary = mobdata.json
+		var mobpos: Vector3 = mobdata.pos
+		if tileJSON.has("mob"):
+			var newMob: CharacterBody3D = Mob.new()
+			# Pass the position and the mob json to the newmob and have it construct itself
+			newMob.construct_self(mypos+mobpos, tileJSON.mob)
+			level_manager.add_child.call_deferred(newMob)
+	add_block_mobs_finished.call_deferred()
+
+
+func add_block_mobs_finished():
+	if is_instance_valid(thread) and thread.is_started():
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
 
 # When a map is loaded for the first time we spawn the furniture on the block
 func add_furnitures_to_new_block():
@@ -415,6 +453,8 @@ func add_furnitures_to_new_block_finished():
 		# If a thread is already running, let it finish before we start another.
 		thread.wait_to_finish()
 		thread = null # Threads are reference counted, so this is how we free them.
+	thread = Thread.new()
+	thread.start(add_block_mobs)
 
 
 # When a map is loaded for the first time we spawn the furniture on the block
@@ -630,13 +670,21 @@ func unload_chunk(chunk_pos: Vector2):
 	#WorkerThreadPool.wait_for_task_completion(generation_task)
 
 	if is_instance_valid(thread) and thread.is_started():
-		# If a thread is already running, let it finish before we start another.
-		thread.wait_to_finish()
+	# Wait for the thread to complete, and get the returned value.
+		mutex.lock()
+		processed_level_data = thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
+		#var processed_levels: Array = processed_level_data.lvl.duplicate()
+		mutex.unlock()
 	# Example: Save chunk data before fully unloading.
 	var chunkdata: Dictionary = {}
 	var task_id = WorkerThreadPool.add_task(get_chunk_data.bind(chunkdata))
 	WorkerThreadPool.wait_for_task_completion(task_id)
-	Helper.loaded_chunk_data.chunks[chunk_pos] = chunkdata
+	mutex.lock()
+	
+	Helper.loaded_chunk_data.chunks[Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))] = chunkdata
+	#Helper.loaded_chunk_data.chunks[chunk_pos] = chunkdata
+	mutex.unlock()
 
 	# Queue all levels for deletion.
 	for level in _levels:
