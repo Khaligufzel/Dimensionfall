@@ -47,7 +47,7 @@ func save_map_data(target_folder: String) -> void:
 	for chunk: Node3D in mapChunks:
 		#var chunkdata: Dictionary = chunk.get_chunk_data({})
 		chunk.chunk_unloaded.connect(_on_chunk_unloaded.bind(mapChunks.size(), target_folder))
-		chunk.unload_chunk(Vector2(0,0))
+		chunk.unload_chunk()
 		# We save the chunks by their coordinates on the tacticalmap, so 0,0 and 0,1 etc
 		# That's why we need to devide by map width/height which is 32
 		#Helper.loaded_chunk_data.chunks[Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))] = chunkdata
