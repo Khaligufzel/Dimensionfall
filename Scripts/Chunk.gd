@@ -81,7 +81,7 @@ func generate_new_chunk2():
 		thread = null # Threads are reference counted, so this is how we free them.
 	#thread = Thread.new()
 	#thread.start(process_level_data)
-	process_level_data()
+	#process_level_data()
 
 
 func process_level_data_finished():
@@ -360,14 +360,16 @@ func generate_saved_chunk2() -> void:
 	_spawn_levels(processed_levels)
 	#generation_task = WorkerThreadPool.add_task(create_blocks_by_id.bind(processed_blocks))
 	create_blocks_by_id(processed_blocks)
-	for mob: Dictionary in chunk_data.mobs:
-		add_mob_to_map(mob)
 
 	for item: Dictionary in chunk_data.items:
 		add_item_to_map(item)
 
 	for furnitureData: Dictionary in chunk_data.furniture:
 		add_furniture_to_map(furnitureData)
+
+	thread = Thread.new()
+	thread.start(add_mobs_to_map.bind(chunk_data.mobs.duplicate()))
+	#add_mobs_to_map(chunk_data.mobs.duplicate())
 
 
 # Generates blocks on in the provided level. A level contains at most 32x32 blocks
@@ -382,16 +384,6 @@ func generate_saved_level(level: Dictionary, level_node: Node3D, processed_block
 		else:
 			print_debug("generate_saved_level: block has no id!")
 
-
-# When a map is loaded for the first time we spawn the mob on the block
-func add_block_mob(mobdata):
-	var tileJSON: Dictionary = mobdata.json
-	var mobpos: Vector3 = mobdata.pos
-	if tileJSON.has("mob"):
-		var newMob: CharacterBody3D = Mob.new()
-		# Pass the position and the mob json to the newmob and have it construct itself
-		newMob.construct_self(mypos+mobpos, tileJSON.mob)
-		level_manager.add_child.call_deferred(newMob)
 
 # When a map is loaded for the first time we spawn the mob on the block
 func add_block_mobs():
@@ -456,15 +448,17 @@ func add_furnitures_to_new_block_finished():
 		# If a thread is already running, let it finish before we start another.
 		thread.wait_to_finish()
 		thread = null # Threads are reference counted, so this is how we free them.
-	#thread = Thread.new()
-	#thread.start(add_block_mobs)
-	add_block_mobs()
+	thread = Thread.new()
+	thread.start(add_block_mobs)
+	#add_block_mobs()
 
 
 # When a map is loaded for the first time we spawn the furniture on the block
 func add_furnitures_to_block():
+	mutex.lock()
 	var furnituredata = processed_level_data.furn.duplicate()
 	var total_furniture = furnituredata.size()
+	mutex.unlock()
 	 # Ensure we at least get 1 to avoid division by zero
 	var delay_every_n_furniture = max(1, total_furniture / 15)
 
@@ -533,26 +527,30 @@ func get_furniture_data() -> Array:
 	var newRot: int
 	var furniturepos: Vector3
 	for furniture in mapFurniture:
-		if furniture is FurniturePhysics:
-			newRot = furniture.last_rotation
-			furniturepos = furniture.last_position
-		else: # It's FurnitureStatic
-			newRot = furniture.get_my_rotation()
-			furniturepos = furniture.furnitureposition
-		# Check if furniture's position is within the desired range
-		if _is_object_in_range(furniturepos):
-			furniture.remove_from_group.call_deferred("furniture")
-			#print_debug("removing furniture with posdition: ", furniturepos)
-			newFurnitureData = {
-				"id": furniture.furnitureJSON.id,
-				"moveable": furniture is FurniturePhysics,
-				"global_position_x": furniturepos.x,
-				"global_position_y": furniturepos.y,
-				"global_position_z": furniturepos.z,
-				"rotation": newRot,  # Save the Y-axis rotation
-			}
-			furnitureData.append(newFurnitureData.duplicate())
-			furniture.queue_free.call_deferred()
+		# We check if the furniture is a valid instance. Sometimes it isn't
+		# This might be because two chunks try to unload the furniture?
+		# We might need more work on _is_object_in_range
+		if is_instance_valid(furniture):
+			if furniture is FurniturePhysics:
+				newRot = furniture.last_rotation
+				furniturepos = furniture.last_position
+			else: # It's FurnitureStatic
+				newRot = furniture.get_my_rotation()
+				furniturepos = furniture.furnitureposition
+			# Check if furniture's position is within the desired range
+			if _is_object_in_range(furniturepos):
+				furniture.remove_from_group.call_deferred("furniture")
+				#print_debug("removing furniture with posdition: ", furniturepos)
+				newFurnitureData = {
+					"id": furniture.furnitureJSON.id,
+					"moveable": furniture is FurniturePhysics,
+					"global_position_x": furniturepos.x,
+					"global_position_y": furniturepos.y,
+					"global_position_z": furniturepos.z,
+					"rotation": newRot,  # Save the Y-axis rotation
+				}
+				furnitureData.append(newFurnitureData.duplicate())
+				furniture.queue_free.call_deferred()
 	return furnitureData
 
 
@@ -622,12 +620,13 @@ func get_item_data() -> Array:
 
 
 # Called when a save is loaded
-func add_mob_to_map(mob: Dictionary) -> void:
-	var newMob: CharacterBody3D = Mob.new()
-	# Put the mob back where it was when the map was unloaded
-	var mobpos: Vector3 = Vector3(mob.global_position_x,mob.global_position_y,mob.global_position_z)
-	newMob.construct_self(mobpos, mob)
-	level_manager.add_child.call_deferred(newMob)
+func add_mobs_to_map(mobdata: Array) -> void:
+	for mob: Dictionary in mobdata:
+		var newMob: CharacterBody3D = Mob.new()
+		# Put the mob back where it was when the map was unloaded
+		var mobpos: Vector3 = Vector3(mob.global_position_x,mob.global_position_y,mob.global_position_z)
+		newMob.construct_self(mobpos, mob)
+		level_manager.add_child.call_deferred(newMob)
 
 
 # Called by generate_items function when a save is loaded
@@ -803,7 +802,6 @@ func rotate_vertex(vertex: Vector3, degrees: int) -> Vector3:
 
 
 func _finish_unload():
-	#WorkerThreadPool.wait_for_task_completion(generation_task)
 	# Finally, queue the chunk itself for deletion.
 	queue_free.call_deferred()
 	
