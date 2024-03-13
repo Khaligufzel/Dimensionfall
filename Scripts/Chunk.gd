@@ -280,9 +280,9 @@ func create_blocks_finished():
 		# If a thread is already running, let it finish before we start another.
 		thread.wait_to_finish()
 		thread = null # Threads are reference counted, so this is how we free them.
-	#thread = Thread.new()
-	#thread.start(add_furnitures_to_new_block)
-	add_furnitures_to_new_block()
+	thread = Thread.new()
+	thread.start(add_furnitures_to_new_block)
+	#add_furnitures_to_new_block()
 
 
 # Constructs blocks and their navigationmesh and adds them to their level nodes
@@ -364,12 +364,8 @@ func generate_saved_chunk2() -> void:
 	for item: Dictionary in chunk_data.items:
 		add_item_to_map(item)
 
-	for furnitureData: Dictionary in chunk_data.furniture:
-		add_furniture_to_map(furnitureData)
-
 	thread = Thread.new()
-	thread.start(add_mobs_to_map.bind(chunk_data.mobs.duplicate()))
-	#add_mobs_to_map(chunk_data.mobs.duplicate())
+	thread.start(add_furnitures_to_map.bind(chunk_data.furniture.duplicate()))
 
 
 # Generates blocks on in the provided level. A level contains at most 32x32 blocks
@@ -407,6 +403,7 @@ func add_block_mobs_finished():
 		thread.wait_to_finish()
 		thread = null # Threads are reference counted, so this is how we free them.
 
+
 # When a map is loaded for the first time we spawn the furniture on the block
 func add_furnitures_to_new_block():
 	mutex.lock()
@@ -434,8 +431,8 @@ func add_furnitures_to_new_block():
 			level_manager.add_child.call_deferred(newFurniture)
 		
 		# Insert delay after every n blocks, evenly spreading the delay
-		#if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
-			#OS.delay_msec(100) # Adjust delay time as needed
+		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
+			OS.delay_msec(100) # Adjust delay time as needed
 
 	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
 	if total_furniture % delay_every_n_furniture != 0:
@@ -450,42 +447,6 @@ func add_furnitures_to_new_block_finished():
 		thread = null # Threads are reference counted, so this is how we free them.
 	thread = Thread.new()
 	thread.start(add_block_mobs)
-	#add_block_mobs()
-
-
-# When a map is loaded for the first time we spawn the furniture on the block
-func add_furnitures_to_block():
-	mutex.lock()
-	var furnituredata = processed_level_data.furn.duplicate()
-	var total_furniture = furnituredata.size()
-	mutex.unlock()
-	 # Ensure we at least get 1 to avoid division by zero
-	var delay_every_n_furniture = max(1, total_furniture / 15)
-
-	for i in range(total_furniture):
-		var furniture = furnituredata[i]
-		var tileJSON: Dictionary = furniture.json
-		var furniturepos: Vector3 = furniture.pos
-		if tileJSON.has("furniture"):
-			var newFurniture: Node3D
-			var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
-			Gamedata.data.furniture, tileJSON.furniture.id)
-			if furnitureJSON.has("moveable") and furnitureJSON.moveable:
-				newFurniture = FurniturePhysics.new()
-				furniturepos.y += 0.2 # Make sure it's not in a block and let it fall
-			else:
-				newFurniture = FurnitureStatic.new()
-
-			newFurniture.construct_self(mypos+furniturepos, tileJSON.furniture)
-			level_manager.add_child.call_deferred(newFurniture)
-		
-		# Insert delay after every n blocks, evenly spreading the delay
-		#if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
-			#OS.delay_msec(100) # Adjust delay time as needed
-
-	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
-	if total_furniture % delay_every_n_furniture != 0:
-		OS.delay_msec(100)
 
 
 # Saves all of the maplevels to disk
@@ -532,11 +493,15 @@ func get_furniture_data() -> Array:
 		# We might need more work on _is_object_in_range
 		if is_instance_valid(furniture):
 			if furniture is FurniturePhysics:
+				mutex.lock()
 				newRot = furniture.last_rotation
 				furniturepos = furniture.last_position
+				mutex.unlock()
 			else: # It's FurnitureStatic
+				mutex.lock()
 				newRot = furniture.get_my_rotation()
 				furniturepos = furniture.furnitureposition
+				mutex.unlock()
 			# Check if furniture's position is within the desired range
 			if _is_object_in_range(furniturepos):
 				furniture.remove_from_group.call_deferred("furniture")
@@ -551,6 +516,8 @@ func get_furniture_data() -> Array:
 				}
 				furnitureData.append(newFurnitureData.duplicate())
 				furniture.queue_free.call_deferred()
+		else:
+			print_debug("Tried to get data from furniture, but it's null!")
 	return furnitureData
 
 
@@ -620,13 +587,24 @@ func get_item_data() -> Array:
 
 
 # Called when a save is loaded
-func add_mobs_to_map(mobdata: Array) -> void:
+func add_mobs_to_map() -> void:
+	mutex.lock()
+	var mobdata: Array = chunk_data.mobs.duplicate()
+	mutex.unlock()
 	for mob: Dictionary in mobdata:
 		var newMob: CharacterBody3D = Mob.new()
 		# Put the mob back where it was when the map was unloaded
 		var mobpos: Vector3 = Vector3(mob.global_position_x,mob.global_position_y,mob.global_position_z)
 		newMob.construct_self(mobpos, mob)
 		level_manager.add_child.call_deferred(newMob)
+	add_mobs_to_map_finished.call_deferred()
+
+
+func add_mobs_to_map_finished():
+	if is_instance_valid(thread) and thread.is_started():
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
 
 
 # Called by generate_items function when a save is loaded
@@ -640,21 +618,50 @@ func add_item_to_map(item: Dictionary):
 
 
 # Adds furniture that has been loaded from previously saved data
-func add_furniture_to_map(furnitureData: Dictionary):
+func add_furnitures_to_map(furnitureDataArray: Array):
 	var newFurniture: Node3D
-	var furnitureJSON: Dictionary = Gamedata.get_data_by_id(
-	Gamedata.data.furniture, furnitureData.id)
+	
+	var total_furniture = furnitureDataArray.size()
+	 # Ensure we at least get 1 to avoid division by zero
+	var delay_every_n_furniture = max(1, total_furniture / 15)
+	for i in range(total_furniture):
+		var furnitureData = furnitureDataArray[i]
+		mutex.lock()
+		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(
+		Gamedata.data.furniture, furnitureData.id)
+		mutex.unlock()
 
-	if furnitureJSON.has("moveable") and furnitureJSON.moveable:
-		newFurniture = FurniturePhysics.new()
-	else:
-		newFurniture = FurnitureStatic.new()
+		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
+			newFurniture = FurniturePhysics.new()
+		else:
+			newFurniture = FurnitureStatic.new()
 
-	# We can't set it's position until after it's in the scene tree 
-	# so we only save the position to a variable and pass it to the furniture
-	var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
-	newFurniture.construct_self(furniturepos,furnitureData)
-	level_manager.add_child.call_deferred(newFurniture)
+		# We can't set it's position until after it's in the scene tree 
+		# so we only save the position to a variable and pass it to the furniture
+		var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
+		newFurniture.construct_self(furniturepos,furnitureData)
+		level_manager.add_child.call_deferred(newFurniture)
+		
+		# Insert delay after every n furniture, evenly spreading the delay
+		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
+			OS.delay_msec(100) # Adjust delay time as needed
+
+	# Optional: One final delay after the last furniture if the total_furniture is not perfectly divisible by delay_every_n_furniture
+	if total_furniture % delay_every_n_furniture != 0:
+		OS.delay_msec(100)
+	
+	add_furnitures_to_map_finised.call_deferred()
+
+
+func add_furnitures_to_map_finised():
+	if is_instance_valid(thread) and thread.is_started():
+		if thread.is_alive():
+			print_debug("The thread is still alive, blocking calling thread")
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
+	thread = Thread.new()
+	thread.start(add_mobs_to_map)
 
 
 # Returns all the chunk data used for saving and loading
