@@ -70,8 +70,10 @@ func initialize_chunk_data():
 func generate_new_chunk():
 	#thread = Thread.new()
 	#thread.start(create_block_position_dictionary_new)
-	create_block_position_dictionary_new_finished()
-	process_level_data_finished()
+	#create_block_position_dictionary_new_finished()
+	block_positions = create_block_position_dictionary_new_arraymesh()
+	generate_chunk_mesh()
+	#process_level_data_finished()
 
 
 func generate_new_chunk2():
@@ -114,9 +116,9 @@ func _spawn_levels_new_finished():
 		# If a thread is already running, let it finish before we start another.
 		thread.wait_to_finish()
 		thread = null # Threads are reference counted, so this is how we free them.
-	#thread = Thread.new()
-	#thread.start(create_blocks_by_id1)
-	create_blocks_by_id1()
+	thread = Thread.new()
+	thread.start(create_blocks_by_id1)
+	#create_blocks_by_id1()
 	
 
 func _spawn_levels(processed_levels):
@@ -181,6 +183,25 @@ func create_block_position_dictionary_new() -> Dictionary:
 						if tileJSON.has("id") and tileJSON.id != "":
 							var block_position_key = str(w) + "," + str(level_index-10) + "," + str(h)
 							new_block_positions[block_position_key] = true
+	#create_block_position_dictionary_new_finished.call_deferred()
+	return new_block_positions
+
+
+# Creates a dictionary of all block positions with a local x,y and z position
+# This function works with new mapdata
+func create_block_position_dictionary_new_arraymesh() -> Dictionary:
+	var new_block_positions:Dictionary = {}
+	for level_index in range(len(_mapleveldata)):
+		var level = _mapleveldata[level_index]
+		if level != []:
+			for h in range(level_height):
+				for w in range(level_width):
+					var current_block_index = h * level_width + w
+					if level[current_block_index]:
+						var tileJSON = level[current_block_index]
+						if tileJSON.has("id") and tileJSON.id != "":
+							var block_position_key = str(w) + "," + str(level_index-10) + "," + str(h)
+							new_block_positions[block_position_key] = tileJSON
 	#create_block_position_dictionary_new_finished.call_deferred()
 	return new_block_positions
 
@@ -264,8 +285,8 @@ func create_blocks_by_id1():
 		level_node.add_child.call_deferred(block)
 		
 		# Insert delay after every n blocks, evenly spreading the delay
-		#if i % delay_every_n_blocks == 0 and i != 0: # Avoid delay at the very start
-			#OS.delay_msec(100) # Adjust delay time as needed
+		if i % delay_every_n_blocks == 0 and i != 0: # Avoid delay at the very start
+			OS.delay_msec(100) # Adjust delay time as needed
 
 	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
 	if total_blocks % delay_every_n_blocks != 0:
@@ -314,12 +335,27 @@ func create_blocks_by_id(processed_blocks):
 		level_node.add_child.call_deferred(block)
 		
 		# Insert delay after every n blocks, evenly spreading the delay
-		#if i % delay_every_n_blocks == 0 and i != 0: # Avoid delay at the very start
-			#OS.delay_msec(100) # Adjust delay time as needed
+		if i % delay_every_n_blocks == 0 and i != 0: # Avoid delay at the very start
+			OS.delay_msec(100) # Adjust delay time as needed
 
 	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
 	if total_blocks % delay_every_n_blocks != 0:
 		OS.delay_msec(100)
+	create_blocks_by_id_finished.call_deferred()
+
+
+func create_blocks_by_id_finished():
+	if is_instance_valid(thread) and thread.is_started():
+		if thread.is_alive():
+			print_debug("The thread is still alive, blocking calling thread")
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
+	for item: Dictionary in chunk_data.items:
+		add_item_to_map(item)
+
+	thread = Thread.new()
+	thread.start(add_furnitures_to_map.bind(chunk_data.furniture.duplicate()))
 
 
 # Called when a block is ready and added to the tree. We need to count them to be sure
@@ -359,13 +395,10 @@ func generate_saved_chunk2() -> void:
 	# We spawn the levels in a separate function now that we know how many actually spawn
 	_spawn_levels(processed_levels)
 	#generation_task = WorkerThreadPool.add_task(create_blocks_by_id.bind(processed_blocks))
-	create_blocks_by_id(processed_blocks)
-
-	for item: Dictionary in chunk_data.items:
-		add_item_to_map(item)
-
 	thread = Thread.new()
-	thread.start(add_furnitures_to_map.bind(chunk_data.furniture.duplicate()))
+	thread.start(create_blocks_by_id.bind(processed_blocks.duplicate()))
+	#create_blocks_by_id(processed_blocks)
+
 
 
 # Generates blocks on in the provided level. A level contains at most 32x32 blocks
@@ -681,6 +714,7 @@ func get_chunk_data() -> Dictionary:
 
 
 func unload_chunk():
+	print_debug("Starting unload chunk")
 	if is_instance_valid(thread) and thread.is_started():
 	# Wait for the thread to complete, and get the returned value.
 		mutex.lock()
@@ -693,6 +727,7 @@ func unload_chunk():
 	
 
 func finish_unload_chunk():
+	print_debug("finish unload chunk")
 	var chunkdata: Dictionary
 	mutex.lock()
 	chunkdata = thread.wait_to_finish()
@@ -700,15 +735,21 @@ func finish_unload_chunk():
 	var chunkposition: Vector2 = Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))
 	Helper.loaded_chunk_data.chunks[chunkposition] = chunkdata
 	mutex.unlock()
-
-	# Queue all levels for deletion.
+	
+	# Queue all levels for deletion, freeing all children (blocks) first.
 	for level in _levels:
-		level.queue_free()
+		# Iterate through all children of the level and queue them for deletion
+		for child in level.get_children():
+			child.queue_free()
+		# Now that all children have been queued for deletion, queue the level itself
+		#level.queue_free()
 
 	# Clear the _levels array since all levels are now queued for deletion.
 	mutex.lock()
 	_levels.clear()
 	mutex.unlock()
+	
+	print_debug("emitting chunk unloaded")
 	chunk_unloaded.emit()
 
 
@@ -809,9 +850,15 @@ func rotate_vertex(vertex: Vector3, degrees: int) -> Vector3:
 
 
 func _finish_unload():
-	# Finally, queue the chunk itself for deletion.
-	queue_free.call_deferred()
+	print_debug("unloading chunk")
 	
+	# Queue all levels for deletion, freeing all children (blocks) first.
+	#for level in _levels:
+		## Now that all children have been queued for deletion, queue the level itself
+		#level.queue_free()
+	# Finally, queue the chunk itself for deletion.
+	#queue_free.call_deferred()
+
 
 
 # We update the navigationmesh for this chunk with data generated from the blocks
@@ -833,3 +880,339 @@ func setup_navigation():
 	navigation_region = NavigationRegion3D.new()
 	add_child(navigation_region)
 	NavigationServer3D.map_set_cell_size(get_world_3d().get_navigation_map(),0.1)
+
+
+
+func create_atlas() -> Dictionary:
+	var material_to_blocks = {} # Dictionary to hold blocks organized by material
+	var block_uv_map = {} # Dictionary to map block IDs to their UV coordinates in the atlas
+	
+
+	# Organize the materials we need into a dictionary
+	for key in block_positions.keys():
+		var block_data = block_positions[key]
+		var material_id = str(block_data["id"]) # Key for material ID
+		if not material_to_blocks.has(material_id):
+			var sprite = Gamedata.get_sprite_by_id(Gamedata.data.tiles, material_id)
+			if sprite:
+				material_to_blocks[material_id] = sprite.albedo_texture
+
+	# Step 1: Gather all unique textures
+	var textures = []
+	for material_id in material_to_blocks.keys():
+		textures.append(material_to_blocks[material_id].get_image())
+
+	# Calculate the atlas size needed
+	var num_textures = textures.size()
+	var atlas_dimension = int(ceil(sqrt(num_textures))) # Convert to int to ensure modulus operation works
+	var texture_size = 128 # Assuming each texture is 128x128 pixels
+	var atlas_pixel_size = atlas_dimension * texture_size
+
+	# Create a large blank Image for the atlas
+	var atlas_image = Image.create(atlas_pixel_size, atlas_pixel_size, false, Image.FORMAT_RGBA8)
+	atlas_image.fill(Color(0, 0, 0, 0)) # Transparent background
+
+	# Step 3: Blit each texture onto the atlas and update block_uv_map
+	var texposition = Vector2.ZERO
+	var index = 0
+	for material_id in material_to_blocks.keys():
+		
+		var texture: Image = material_to_blocks[material_id].get_image()
+		
+		var img = texture.duplicate()
+		if img.is_compressed():
+			img.decompress() # Decompress if the image is compressed
+		img.convert(Image.FORMAT_RGBA8) # Convert texture to RGBA8 format
+		var dest_rect = Rect2(texposition, img.get_size())
+		var used_rect: Rect2i = img.get_used_rect()
+		
+		if img.is_empty(): # Check if the image data is empty
+			continue # Skip this texture as it's not loaded properly
+		atlas_image.blit_rect(img, used_rect, dest_rect.position)
+
+		# Calculate and store the UV offset and scale for this material
+		var uv_offset = texposition / atlas_pixel_size
+		#var uv_scale = img.get_size() / atlas_pixel_size
+		#var uv_scale1 = texture.get_size() / atlas_pixel_size
+		var uv_scale = img.get_size() / float(atlas_pixel_size)
+		var uv_scale1 = texture.get_size() / float(atlas_pixel_size)
+
+		#print_debug("img.get_size() = " + str(img.get_size()) + ", texture.get_size() = " + str(texture.get_size()))
+		#print_debug("uv_scale = " + str(uv_scale) + ", uv_scale1 = " + str(uv_scale1))
+		block_uv_map[material_id] = {"offset": uv_offset, "scale": uv_scale}
+
+
+		# Update position for the next texture
+		index += 1
+		if index % atlas_dimension == 0:
+			texposition.x = 0
+			texposition.y += texture_size
+		else:
+			texposition.x = (index % atlas_dimension) * texture_size
+
+	# Convert the atlas Image to a Texture
+	var atlas_texture = ImageTexture.create_from_image(atlas_image)
+
+	return {"atlas_texture": atlas_texture, "block_uv_map": block_uv_map}
+
+
+func generate_chunk_mesh():
+	# Create the atlas and get the atlas texture
+	var atlas_output = create_atlas()
+	var atlas_texture = atlas_output.atlas_texture
+	var block_uv_map = atlas_output.block_uv_map
+	# Define a small margin to prevent seams
+	var margin = 0.01
+	
+	var verts = PackedVector3Array()
+	var uvs = PackedVector2Array()
+	var normals = PackedVector3Array()
+	var indices = PackedInt32Array()
+	
+	# Assume a block size for the calculations
+	var block_size = 1.0
+	var half_block = block_size / 2.0
+	
+	for key in block_positions.keys():
+		var pos_array = key.split(",")
+		var pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
+		
+		# Adjust position based on the block size
+		pos = pos * block_size
+		
+		var block_data = block_positions[key]
+		var material_id = str(block_data["id"])
+		
+		# Calculate UV coordinates based on the atlas
+		var uv_info = block_uv_map[material_id] if block_uv_map.has(material_id) else {"offset": Vector2(0, 0), "scale": Vector2(1, 1)}
+		var uv_offset = Vector2(uv_info["offset"])#.to_vector2() # Convert to Vector2 if needed
+		var uv_scale = Vector2(uv_info["scale"])#.to_vector2() # Convert to Vector2 if needed
+
+		# Example for top face UVs, adjusted based on the block's position in the atlas
+		#var top_face_uv = PackedVector2Array([
+			#Vector2(0, 0) * uv_scale + uv_offset, Vector2(1, 0) * uv_scale + uv_offset,
+			#Vector2(1, 1) * uv_scale + uv_offset, Vector2(0, 1) * uv_scale + uv_offset
+		#])
+		
+
+		# Adjust the UVs to include the margin uniformly
+		var top_face_uv = PackedVector2Array([
+			(Vector2(0, 0) * uv_scale + Vector2(margin, margin)) + uv_offset,
+			(Vector2(1, 0) * uv_scale + Vector2(-margin, margin)) + uv_offset,
+			(Vector2(1, 1) * uv_scale + Vector2(-margin, -margin)) + uv_offset,
+			(Vector2(0, 1) * uv_scale + Vector2(margin, -margin)) + uv_offset
+		])
+		
+		# Adjust the UVs to include the margin
+		#var top_face_uv = PackedVector2Array([
+			#(Vector2(0, 0) + Vector2(margin, margin)) * uv_scale + uv_offset,
+			#(Vector2(1, 0) + Vector2(margin, margin)) * uv_scale + uv_offset,
+			#(Vector2(1, 1) - Vector2(margin, margin)) * uv_scale + uv_offset,
+			#(Vector2(0, 1) - Vector2(margin, margin)) * uv_scale + uv_offset
+		#])
+		
+		# Get the shape of the block
+		var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,block_data.id)
+		var blockshape = tileJSONData.get("shape", "cube")
+		
+		if blockshape == "cube":
+			var top_verts = [
+				Vector3(-half_block, half_block, -half_block) + pos,
+				Vector3(half_block, half_block, -half_block) + pos,
+				Vector3(half_block, half_block, half_block) + pos,
+				Vector3(-half_block, half_block, half_block) + pos
+			]
+			verts.append_array(top_verts)
+			uvs.append_array(top_face_uv)
+			
+			# Normals for the top face
+			for _i in range(4):
+				normals.append(Vector3(0, 1, 0))
+			
+			# Indices for the top face
+			var base_index = verts.size() - 4
+			indices.append_array([
+				base_index, base_index + 1, base_index + 2,
+				base_index, base_index + 2, base_index + 3
+			])
+
+		# Handle other shapes like "slope" similarly
+	
+	# Once all blocks are processed, create the mesh
+	var mesh = ArrayMesh.new()
+	var arrays = []
+	arrays.resize(ArrayMesh.ARRAY_MAX)
+	arrays[ArrayMesh.ARRAY_VERTEX] = verts
+	arrays[ArrayMesh.ARRAY_NORMAL] = normals
+	arrays[ArrayMesh.ARRAY_TEX_UV] = uvs
+	arrays[ArrayMesh.ARRAY_INDEX] = indices
+	
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	var material = StandardMaterial3D.new()
+	material.albedo_texture = atlas_texture
+	
+	
+	# Create a new ShaderMaterial
+	var shader_material = ShaderMaterial.new()
+	
+	# Create a new Shader
+	var shader = Shader.new()
+	shader.set_code("""
+	shader_type spatial;
+	render_mode blend_mix;
+
+	// Uniforms
+	uniform sampler2D albedo_texture; // The texture image
+	uniform vec4 albedo_color : source_color;
+	uniform float sphere_size = 5.0;
+	global uniform vec3 player_pos; // Player position, set this from a script
+
+	varying vec3 world_vertex;
+
+	void vertex() {
+		world_vertex = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	}
+	void fragment() {
+	// Sample the albedo texture
+	vec4 texture_color = texture(albedo_texture, UV);
+
+	// Combine texture color with the albedo color uniform
+	vec3 final_color = texture_color.rgb * albedo_color.rgb;
+
+	// Compute the horizontal distance from the player position to the current fragment's position
+	float dist_xz = distance(player_pos.xz, world_vertex.xz);
+	// Compute the vertical distance above the player
+	float dist_y = world_vertex.y - player_pos.y;
+
+	// Compute visibility based on the sphere size and ensure we're only making parts of the mesh above the player transparent
+	float visibility = (dist_y > 0.0 && dist_xz < sphere_size) ? smoothstep(0.0, sphere_size, dist_xz) : 1.0;
+
+	// Use the visibility value to blend the mesh's alpha
+	ALPHA = visibility;
+
+	// Set the final albedo color
+	ALBEDO = final_color;
+}
+
+
+
+	""")
+	
+	shader.set_code("""
+	shader_type spatial;
+	render_mode blend_mix,depth_draw_opaque;
+
+	uniform sampler2D albedo_texture; // The texture image
+	uniform vec4 albedo_color : source_color;
+	uniform float cylinder_height = 5.0;
+	uniform float cylinder_radius = 3.0;
+	uniform float sphere_size = 5.0;
+	global uniform vec3 player_pos; // This needs to be set from script
+
+	varying vec3 world_vertex;
+
+	void vertex() {
+		world_vertex = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	}
+
+	void fragment() {
+		// Sample the albedo texture
+		vec4 texture_color = texture(albedo_texture, UV);
+		
+		// Combine texture color with the albedo color uniform
+		vec3 final_color = texture_color.rgb * albedo_color.rgb;
+
+		// Compute the distance from the player position to the current fragment's position
+		float dist_xz = distance(player_pos.xz, world_vertex.xz);
+		float dist_y = max(world_vertex.y - player_pos.y, 0.0); // Distance above the player, not below
+
+		// Compute the visibility based on the sphere size
+		float visibility_xz = smoothstep(sphere_size, 0.0, dist_xz);
+		float visibility_y = smoothstep(sphere_size, 0.0, dist_y);
+
+		// Check if the fragment is above the player within the sphere radius
+		if (world_vertex.y > player_pos.y+1.0 && dist_xz < sphere_size) {
+			// Above the player within the sphere radius, apply visibility
+			ALPHA = visibility_xz * visibility_y;
+		} else {
+			// Outside of the sphere radius or on/below the player's level, fully visible
+			ALPHA = 1.0;
+		}
+
+		// Set the final albedo color and transparency
+		ALBEDO = final_color;
+	}
+
+
+
+	""")
+	
+	
+	
+	
+	
+	
+	
+	
+	# Assign the Shader to the ShaderMaterial# Assuming 'atlas_texture' is your Texture2D you want to use
+	shader_material.set_shader_parameter('albedo_texture', atlas_texture)
+	shader_material.shader = shader
+
+	# Set the initial uniform values
+	shader_material.set_shader_parameter('albedo_color', Color(1, 1, 1, 1)) # White color, fully opaque
+	shader_material.set_shader_parameter('sphere_size', 3.0)
+	
+	
+	
+	
+	
+	mesh.surface_set_material(0, shader_material)
+	#mesh.surface_set_material(0, material)
+	
+
+	# Set the atlas texture to the mesh
+	#mesh.surface_set_material(0, atlas_texture)
+	
+	var mesh_instance = MeshInstance3D.new()
+	mesh_instance.mesh = mesh
+	# Apply the ShaderMaterial to the MeshInstance
+	#mesh_instance.material_override = shader_material
+	add_child(mesh_instance)
+	
+	
+	# Create the static body for collision
+	var static_body = StaticBody3D.new()
+	static_body.disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
+	# Set collision layer to layer 1 and 5
+	static_body.collision_layer = 1 | (1 << 4) # Layer 1 is 1, Layer 5 is 1 << 4 (16), combined with bitwise OR
+	# Set collision mask to layer 1
+	static_body.collision_mask = 1 # Layer 1 is 1
+	add_child(static_body)
+
+
+	# At the end of your generate_chunk_mesh function, after you've added the mesh instance:
+	for key in block_positions.keys():
+		var pos_array = key.split(",")
+		var block_pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
+		var block_data = block_positions[key]
+		var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,block_data.id)
+		var blockshape = tileJSONData.get("shape", "cube")
+		static_body.add_child(_create_block_collider(block_pos, blockshape))
+		
+
+func _create_block_collider(block_sub_position, shape: String) -> CollisionShape3D:
+	var collider = CollisionShape3D.new()
+	if shape == "cube":
+		collider.shape = BoxShape3D.new()
+	else: # It's a slope
+		collider.shape = ConvexPolygonShape3D.new()
+		collider.shape.points = [
+			Vector3(0.5, 0.5, 0.5),
+			Vector3(0.5, 0.5, -0.5),
+			Vector3(-0.5, -0.5, 0.5),
+			Vector3(0.5, -0.5, 0.5),
+			Vector3(0.5, -0.5, -0.5),
+			Vector3(-0.5, -0.5, -0.5)
+		]
+	collider.transform.origin = Vector3(block_sub_position)
+	return collider

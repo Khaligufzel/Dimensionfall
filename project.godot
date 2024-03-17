@@ -145,3 +145,10 @@ click_right={
 2d_physics/layer_3="obstacles"
 2d_physics/layer_4="projectiles"
 2d_physics/layer_20="Items"
+
+[shader_globals]
+
+player_pos={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}
