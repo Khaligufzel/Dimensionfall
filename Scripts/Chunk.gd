@@ -932,15 +932,8 @@ func create_atlas() -> Dictionary:
 
 		# Calculate and store the UV offset and scale for this material
 		var uv_offset = texposition / atlas_pixel_size
-		#var uv_scale = img.get_size() / atlas_pixel_size
-		#var uv_scale1 = texture.get_size() / atlas_pixel_size
 		var uv_scale = img.get_size() / float(atlas_pixel_size)
-		var uv_scale1 = texture.get_size() / float(atlas_pixel_size)
-
-		#print_debug("img.get_size() = " + str(img.get_size()) + ", texture.get_size() = " + str(texture.get_size()))
-		#print_debug("uv_scale = " + str(uv_scale) + ", uv_scale1 = " + str(uv_scale1))
 		block_uv_map[material_id] = {"offset": uv_offset, "scale": uv_scale}
-
 
 		# Update position for the next texture
 		index += 1
@@ -982,18 +975,14 @@ func generate_chunk_mesh():
 		
 		var block_data = block_positions[key]
 		var material_id = str(block_data["id"])
+		# Get the shape of the block
+		var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,block_data.id)
+		var blockshape = tileJSONData.get("shape", "cube")
 		
 		# Calculate UV coordinates based on the atlas
 		var uv_info = block_uv_map[material_id] if block_uv_map.has(material_id) else {"offset": Vector2(0, 0), "scale": Vector2(1, 1)}
 		var uv_offset = Vector2(uv_info["offset"])#.to_vector2() # Convert to Vector2 if needed
 		var uv_scale = Vector2(uv_info["scale"])#.to_vector2() # Convert to Vector2 if needed
-
-		# Example for top face UVs, adjusted based on the block's position in the atlas
-		#var top_face_uv = PackedVector2Array([
-			#Vector2(0, 0) * uv_scale + uv_offset, Vector2(1, 0) * uv_scale + uv_offset,
-			#Vector2(1, 1) * uv_scale + uv_offset, Vector2(0, 1) * uv_scale + uv_offset
-		#])
-		
 
 		# Adjust the UVs to include the margin uniformly
 		var top_face_uv = PackedVector2Array([
@@ -1003,17 +992,6 @@ func generate_chunk_mesh():
 			(Vector2(0, 1) * uv_scale + Vector2(margin, -margin)) + uv_offset
 		])
 		
-		# Adjust the UVs to include the margin
-		#var top_face_uv = PackedVector2Array([
-			#(Vector2(0, 0) + Vector2(margin, margin)) * uv_scale + uv_offset,
-			#(Vector2(1, 0) + Vector2(margin, margin)) * uv_scale + uv_offset,
-			#(Vector2(1, 1) - Vector2(margin, margin)) * uv_scale + uv_offset,
-			#(Vector2(0, 1) - Vector2(margin, margin)) * uv_scale + uv_offset
-		#])
-		
-		# Get the shape of the block
-		var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,block_data.id)
-		var blockshape = tileJSONData.get("shape", "cube")
 		
 		if blockshape == "cube":
 			var top_verts = [
@@ -1022,8 +1000,17 @@ func generate_chunk_mesh():
 				Vector3(half_block, half_block, half_block) + pos,
 				Vector3(-half_block, half_block, half_block) + pos
 			]
-			verts.append_array(top_verts)
+			
+			var rotation_angle = get_block_rotation(blockshape, block_data)
+			var rotated_top_verts = []
+			for vertex in top_verts:
+				rotated_top_verts.append(rotate_vertex_y(vertex - pos, rotation_angle) + pos)
+
+			
+			
+			verts.append_array(rotated_top_verts)
 			uvs.append_array(top_face_uv)
+			
 			
 			# Normals for the top face
 			for _i in range(4):
@@ -1035,8 +1022,60 @@ func generate_chunk_mesh():
 				base_index, base_index + 1, base_index + 2,
 				base_index, base_index + 2, base_index + 3
 			])
+		elif blockshape == "slope":
+			# Slope-specific vertices and UV mapping
+			# Determine slope orientation and vertices based on blockrotation
+			var slope_vertices: PackedVector3Array
+			var blockrotation = get_block_rotation(blockshape, block_data)
+			match blockrotation:
+				90:
+					# Slope facing Facing north
+					slope_vertices = PackedVector3Array([
+						Vector3(-half_block, half_block, -half_block) + pos, # Top front left
+						Vector3(half_block, half_block, -half_block) + pos,   # Top front right
+						Vector3(half_block, -half_block, half_block) + pos,  # Bottom back right
+						Vector3(-half_block, -half_block, half_block) + pos  # Bottom back left
+					])
+				180:
+					# Slope facing Facing west
+					slope_vertices = PackedVector3Array([
+						Vector3(-half_block, half_block, half_block) + pos, # Top front left
+						Vector3(-half_block, half_block, -half_block) + pos,   # Top front right
+						Vector3(half_block, -half_block, -half_block) + pos,  # Bottom back right
+						Vector3(half_block, -half_block, half_block) + pos  # Bottom back left
+					])
+				270:
+					# Slope facing Facing south
+					slope_vertices = PackedVector3Array([
+						Vector3(half_block, half_block, half_block) + pos, # Top front left
+						Vector3(-half_block, half_block, half_block) + pos,   # Top front right
+						Vector3(-half_block, -half_block, -half_block) + pos,  # Bottom back right
+						Vector3(half_block, -half_block, -half_block) + pos  # Bottom back left
+					])
+				_:
+					# Slope facing Facing east
+					slope_vertices = PackedVector3Array([
+						Vector3(half_block, half_block, -half_block) + pos, # Top front left
+						Vector3(half_block, half_block, half_block) + pos,   # Top front right
+						Vector3(-half_block, -half_block, half_block) + pos,  # Bottom back right
+						Vector3(-half_block, -half_block, -half_block) + pos  # Bottom back left
+					])
 
-		# Handle other shapes like "slope" similarly
+			# Assuming the top_face_uv calculated for cubes applies here as well
+			verts.append_array(slope_vertices)
+			uvs.append_array(top_face_uv)  # Reuse the UV mapping for simplicity in this example
+			
+			# Normals for the slope's top face, assuming flat shading for simplicity
+			var normal = Vector3(0, 1, 0)  # Adjust if your slope's top face orientation varies
+			for _i in range(4):
+				normals.append(normal)
+			
+			# Indices for the slope, similar to the cube but only for one triangular face
+			var base_index = verts.size() - 4
+			indices.append_array([
+				base_index, base_index + 1, base_index + 2,
+				base_index, base_index + 2, base_index + 3
+			])
 	
 	# Once all blocks are processed, create the mesh
 	var mesh = ArrayMesh.new()
@@ -1048,55 +1087,12 @@ func generate_chunk_mesh():
 	arrays[ArrayMesh.ARRAY_INDEX] = indices
 	
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-	var material = StandardMaterial3D.new()
-	material.albedo_texture = atlas_texture
-	
 	
 	# Create a new ShaderMaterial
 	var shader_material = ShaderMaterial.new()
 	
 	# Create a new Shader
 	var shader = Shader.new()
-	shader.set_code("""
-	shader_type spatial;
-	render_mode blend_mix;
-
-	// Uniforms
-	uniform sampler2D albedo_texture; // The texture image
-	uniform vec4 albedo_color : source_color;
-	uniform float sphere_size = 5.0;
-	global uniform vec3 player_pos; // Player position, set this from a script
-
-	varying vec3 world_vertex;
-
-	void vertex() {
-		world_vertex = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	}
-	void fragment() {
-	// Sample the albedo texture
-	vec4 texture_color = texture(albedo_texture, UV);
-
-	// Combine texture color with the albedo color uniform
-	vec3 final_color = texture_color.rgb * albedo_color.rgb;
-
-	// Compute the horizontal distance from the player position to the current fragment's position
-	float dist_xz = distance(player_pos.xz, world_vertex.xz);
-	// Compute the vertical distance above the player
-	float dist_y = world_vertex.y - player_pos.y;
-
-	// Compute visibility based on the sphere size and ensure we're only making parts of the mesh above the player transparent
-	float visibility = (dist_y > 0.0 && dist_xz < sphere_size) ? smoothstep(0.0, sphere_size, dist_xz) : 1.0;
-
-	// Use the visibility value to blend the mesh's alpha
-	ALPHA = visibility;
-
-	// Set the final albedo color
-	ALBEDO = final_color;
-}
-
-
-
-	""")
 	
 	shader.set_code("""
 	shader_type spatial;
@@ -1147,13 +1143,6 @@ func generate_chunk_mesh():
 
 	""")
 	
-	
-	
-	
-	
-	
-	
-	
 	# Assign the Shader to the ShaderMaterial# Assuming 'atlas_texture' is your Texture2D you want to use
 	shader_material.set_shader_parameter('albedo_texture', atlas_texture)
 	shader_material.shader = shader
@@ -1162,21 +1151,10 @@ func generate_chunk_mesh():
 	shader_material.set_shader_parameter('albedo_color', Color(1, 1, 1, 1)) # White color, fully opaque
 	shader_material.set_shader_parameter('sphere_size', 3.0)
 	
-	
-	
-	
-	
 	mesh.surface_set_material(0, shader_material)
-	#mesh.surface_set_material(0, material)
-	
-
-	# Set the atlas texture to the mesh
-	#mesh.surface_set_material(0, atlas_texture)
 	
 	var mesh_instance = MeshInstance3D.new()
 	mesh_instance.mesh = mesh
-	# Apply the ShaderMaterial to the MeshInstance
-	#mesh_instance.material_override = shader_material
 	add_child(mesh_instance)
 	
 	
@@ -1197,10 +1175,11 @@ func generate_chunk_mesh():
 		var block_data = block_positions[key]
 		var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,block_data.id)
 		var blockshape = tileJSONData.get("shape", "cube")
-		static_body.add_child(_create_block_collider(block_pos, blockshape))
-		
+		var blockrotation = get_block_rotation(blockshape, block_data)
+		static_body.add_child(_create_block_collider(block_pos, blockshape, blockrotation))
 
-func _create_block_collider(block_sub_position, shape: String) -> CollisionShape3D:
+
+func _create_block_collider(block_sub_position, shape: String, block_rotation: int) -> CollisionShape3D:
 	var collider = CollisionShape3D.new()
 	if shape == "cube":
 		collider.shape = BoxShape3D.new()
@@ -1214,5 +1193,87 @@ func _create_block_collider(block_sub_position, shape: String) -> CollisionShape
 			Vector3(0.5, -0.5, -0.5),
 			Vector3(-0.5, -0.5, -0.5)
 		]
+		# Apply rotation only for slopes
+		collider.rotation_degrees = Vector3(0, block_rotation, 0) #Y-axis rotation
+
 	collider.transform.origin = Vector3(block_sub_position)
 	return collider
+
+
+# Rotates a 3D vertex around the Y-axis
+func rotate_vertex_y(vertex: Vector3, degrees: float) -> Vector3:
+	var rad = deg_to_rad(degrees)
+	var cos_rad = cos(rad)
+	var sin_rad = sin(rad)
+	return Vector3(
+		cos_rad * vertex.x + sin_rad * vertex.z,
+		vertex.y,
+		-sin_rad * vertex.x + cos_rad * vertex.z
+	)
+
+# Assuming 'block_rotation' is the rotation angle in degrees returned by get_block_rotation
+func rotate_vertices(vertices: Array, block_rotation: int, center: Vector3 = Vector3.ZERO) -> Array:
+	var rotated_vertices = []
+	var rad = deg_to_rad(block_rotation)
+	var cos_rad = cos(rad)
+	var sin_rad = sin(rad)
+	
+	for vertex in vertices:
+		# Translate vertex to origin (if your center is not Vector3.ZERO, adjust accordingly)
+		var v = vertex - center
+		# Apply rotation around Y-axis
+		var x_new = v.x * cos_rad - v.z * sin_rad
+		var z_new = v.x * sin_rad + v.z * cos_rad
+		# Translate vertex back and add to the result
+		rotated_vertices.append(Vector3(x_new, v.y, z_new) + center)
+	
+	return rotated_vertices
+
+# Helper function to rotate UV coordinates
+func rotate_uv(uv: Vector2, angle_degrees: float, center: Vector2 = Vector2(0.5, 0.5)) -> Vector2:
+	var rad = deg_to_rad(angle_degrees)
+	var cos_rad = cos(rad)
+	var sin_rad = sin(rad)
+
+	# Translate UV to origin
+	uv -= center
+
+	# Rotate UV
+	var x_new = uv.x * cos_rad - uv.y * sin_rad
+	var y_new = uv.x * sin_rad + uv.y * cos_rad
+
+	# Translate UV back
+	uv = Vector2(x_new, y_new) + center
+	return uv
+
+
+func get_block_rotation(shape: String, tileJSON: Dictionary) -> int:
+	var defaultRotation: int = 0
+	# Only previously saved blocks have the block_x property, so we don't need to apply default rotation again
+	if shape == "slope" and not tileJSON.has("block_x"):
+		defaultRotation = 90
+	# The slope has a default rotation of 90
+	# The block has a default rotation of 0
+	var myRotation: int = tileJSON.get("rotation", 0) + defaultRotation
+	# Hack to get previouly saved slopes into the right rotation
+	if (myRotation == 0 or myRotation == 180) and shape == "slope" and tileJSON.has("block_x"):
+		myRotation += 180
+	if myRotation == 0:
+		# Only the block will match this case, not the slope. The block points north
+		return myRotation+180
+	elif myRotation == 90:
+		# A block will point east
+		# A slope will point north
+		return myRotation+0
+	elif myRotation == 180:
+		# A block will point south
+		# A slope will point east
+		return myRotation-180
+	elif myRotation == 270:
+		# A block will point west
+		# A slope will point south
+		return myRotation+0
+	elif myRotation == 360:
+		# Only a slope can match this case if it's rotation is 270 and it gets 90 rotation by default
+		return myRotation-180
+	return myRotation
