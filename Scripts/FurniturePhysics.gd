@@ -89,6 +89,11 @@ func set_sprite(newSprite: Texture):
 		add_child.call_deferred(sprite)
 	var uniqueTexture = newSprite.duplicate(true) # Duplicate the texture
 	sprite.texture = uniqueTexture
+	# We need to set the alpha cut and cast shadow because a chunk will generate a mesh for the map
+	# that will have some transparancy settings that will also make the mobs transparent
+	# That's why we need to make sure only the fully transparant pixel are invisible
+	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
+	sprite.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 	# Create a new SphereShape3D for the collision shape
 	var new_shape = SphereShape3D.new()

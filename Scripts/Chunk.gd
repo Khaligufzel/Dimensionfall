@@ -43,7 +43,7 @@ signal chunk_unloaded
 func _ready():
 	chunk_unloaded.connect(_finish_unload)
 	source_geometry_data = NavigationMeshSourceGeometryData3D.new()
-	setup_navigation.call_deferred()
+	setup_navigation()
 	transform.origin = Vector3(mypos)
 	add_to_group("chunks")
 	initialize_chunk_data()
@@ -73,7 +73,7 @@ func generate_new_chunk():
 	#create_block_position_dictionary_new_finished()
 	block_positions = create_block_position_dictionary_new_arraymesh()
 	generate_chunk_mesh()
-	#process_level_data_finished()
+	process_level_data_finished()
 
 
 func generate_new_chunk2():
@@ -94,9 +94,11 @@ func process_level_data_finished():
 	##var processed_levels: Array = processed_level_data.lvl.duplicate()
 	#mutex.unlock()
 	processed_level_data = process_level_data()
-	_spawn_levels_new()
+	#_spawn_levels_new()
 	#thread = Thread.new()
 	#thread.start(_spawn_levels_new)
+	thread = Thread.new()
+	thread.start(add_furnitures_to_new_block)
 
 
 func _spawn_levels_new():
@@ -135,9 +137,9 @@ func process_level_data():
 
 	for level in _mapleveldata:
 		if level != []:
-			var y_position: int = level_number - 10
-			var level_node = create_level_node(y_position)
-			var blocks_created: int = 0
+			var y: int = level_number - 10
+			#var level_node = create_level_node(y_position)
+			#var blocks_created: int = 0
 
 			var current_block = 0
 			for h in range(level_height):
@@ -146,23 +148,23 @@ func process_level_data():
 						tileJSON = level[current_block]
 						if tileJSON.has("id") and tileJSON.id != "":
 							mutex.lock()
-							level_node.blocklist.append({"lvl":level_node,"w":w,"h":h,"json":tileJSON})
+							#level_node.blocklist.append({"lvl":level_node,"w":w,"h":h,"json":tileJSON})
 							mutex.unlock()
-							proc_lvl_data.blk.append({"lvl":level_node,"w":w,"h":h,"json":tileJSON})
-							proc_lvl_data.mobs.append({"json":tileJSON, "pos":Vector3(w,y_position+1.5,h)})
-							proc_lvl_data.furn.append({"json":tileJSON, "pos":Vector3(w,y_position,h)})
-							blocks_created += 1
+							proc_lvl_data.blk.append({"y":y,"x":w,"z":h,"json":tileJSON})
+							proc_lvl_data.mobs.append({"json":tileJSON, "pos":Vector3(w,y+1.5,h)})
+							proc_lvl_data.furn.append({"json":tileJSON, "pos":Vector3(w,y+0.5,h)})
+							#blocks_created += 1
 					current_block += 1
 			# Sometimes a level might not be empty, but at the same time has no actual block data,
 			# i.e. empty blocks like {}. In that case we need to remove the level again
-			if !blocks_created > 0:
-				mutex.lock()
-				level_node.remove_from_group.call_deferred("maplevels")
-				_levels.erase(level_node)
-				level_node.queue_free()
-				mutex.unlock()
-			else:
-				proc_lvl_data.lvl.append(level_node)
+			#if !blocks_created > 0:
+				#mutex.lock()
+				#level_node.remove_from_group.call_deferred("maplevels")
+				#_levels.erase(level_node)
+				#level_node.queue_free()
+				#mutex.unlock()
+			#else:
+				#proc_lvl_data.lvl.append(level_node)
 		level_number += 1
 	#process_level_data_finished.call_deferred()
 	return proc_lvl_data
@@ -281,7 +283,7 @@ func create_blocks_by_id1():
 		var blockrotation = block.get_block_rotation()
 		var blockshape = block.shape
 		var level_y = level_node.levelposition.y
-		add_mesh_to_navigation_data(blockposition, blockrotation, blockshape, level_y)
+		#add_mesh_to_navigation_data(blockposition, blockrotation, blockshape, level_y)
 		level_node.add_child.call_deferred(block)
 		
 		# Insert delay after every n blocks, evenly spreading the delay
@@ -331,7 +333,7 @@ func create_blocks_by_id(processed_blocks):
 		var blockrotation = block.get_block_rotation()
 		var blockshape = block.shape
 		var level_y = level_node.levelposition.y
-		add_mesh_to_navigation_data(blockposition, blockrotation, blockshape, level_y)
+		#add_mesh_to_navigation_data(blockposition, blockrotation, blockshape, level_y)
 		level_node.add_child.call_deferred(block)
 		
 		# Insert delay after every n blocks, evenly spreading the delay
@@ -753,19 +755,19 @@ func finish_unload_chunk():
 	chunk_unloaded.emit()
 
 
+
 # Adds triangles represented by 3 vertices to the navigation mesh data
 # If a block is above another block, we make sure no plane is created in between
 # For blocks we will create a square represented by 2 triangles
 # The same goes for slopes, but 2 of the vertices are lowered to the ground
 # keep in mind that after the navigationmesh is added to the navigationregion
 # It will be shrunk by the navigation_mesh.agent_radius to prevent collisions
-func add_mesh_to_navigation_data(blockposition, blockrotation, blockshape, level_y):
+func add_mesh_to_navigation_data(blockposition: Vector3, blockrotation: int, blockshape: String):
 	var block_global_position: Vector3 = blockposition# + mypos
-	block_global_position.y = level_y
 	var blockrange: float = 0.5
 	
 	# Check if there's a block directly above the current block
-	var above_key = str(blockposition.x) + "," + str(level_y + 1) + "," + str(blockposition.z)
+	var above_key = str(blockposition.x) + "," + str(block_global_position.y + 1) + "," + str(blockposition.z)
 	if block_positions.has(above_key):
 		# There's a block directly above, so we don't add a face for the current block's top
 		return
@@ -968,10 +970,10 @@ func generate_chunk_mesh():
 	
 	for key in block_positions.keys():
 		var pos_array = key.split(",")
-		var pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
+		var poslocal = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
 		
 		# Adjust position based on the block size
-		pos = pos * block_size
+		var pos = poslocal * block_size
 		
 		var block_data = block_positions[key]
 		var material_id = str(block_data["id"])
@@ -992,6 +994,10 @@ func generate_chunk_mesh():
 			(Vector2(0, 1) * uv_scale + Vector2(margin, -margin)) + uv_offset
 		])
 		
+		var blockrotation = get_block_rotation(blockshape, block_data)
+		# After calculating and adding vertices to your mesh arrays
+		# Call add_mesh_to_navigation_data for each block
+		add_mesh_to_navigation_data(poslocal, blockrotation, blockshape)
 		
 		if blockshape == "cube":
 			var top_verts = [
@@ -1001,10 +1007,9 @@ func generate_chunk_mesh():
 				Vector3(-half_block, half_block, half_block) + pos
 			]
 			
-			var rotation_angle = get_block_rotation(blockshape, block_data)
 			var rotated_top_verts = []
 			for vertex in top_verts:
-				rotated_top_verts.append(rotate_vertex_y(vertex - pos, rotation_angle) + pos)
+				rotated_top_verts.append(rotate_vertex_y(vertex - pos, blockrotation) + pos)
 
 			
 			
@@ -1026,7 +1031,6 @@ func generate_chunk_mesh():
 			# Slope-specific vertices and UV mapping
 			# Determine slope orientation and vertices based on blockrotation
 			var slope_vertices: PackedVector3Array
-			var blockrotation = get_block_rotation(blockshape, block_data)
 			match blockrotation:
 				90:
 					# Slope facing Facing north
@@ -1177,6 +1181,8 @@ func generate_chunk_mesh():
 		var blockshape = tileJSONData.get("shape", "cube")
 		var blockrotation = get_block_rotation(blockshape, block_data)
 		static_body.add_child(_create_block_collider(block_pos, blockshape, blockrotation))
+	
+	update_navigation_mesh()
 
 
 func _create_block_collider(block_sub_position, shape: String, block_rotation: int) -> CollisionShape3D:
