@@ -439,7 +439,8 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 	
 	var total_furniture = furnitureDataArray.size()
 	 # Ensure we at least get 1 to avoid division by zero
-	var delay_every_n_furniture = max(1, total_furniture / 15)
+	#var delay_every_n_furniture = max(1, total_furniture / 15)
+	var delay_every_n_furniture = max(1, int(total_furniture / 15))
 	for i in range(total_furniture):
 		var furnitureData = furnitureDataArray[i]
 		mutex.lock()
@@ -672,13 +673,17 @@ func setup_navigation():
 	NavigationServer3D.map_set_cell_size(get_world_3d().get_navigation_map(),0.1)
 
 
-
+# This function creates a atlas texture which is a combination of the textures that we need
+# for the blocks in this chunk. When there are more different blocks in the chunk, the atlas will
+# be bigger. The atlas texture will be used by the rendering engine to render the right texture
+# This function will also create a mapping of the texture and the coordinates in the atlas
+# This will help to determine which block needs which coordinate on the atlas to display the right texture
 func create_atlas() -> Dictionary:
-	var material_to_blocks = {} # Dictionary to hold blocks organized by material
-	var block_uv_map = {} # Dictionary to map block IDs to their UV coordinates in the atlas
+	var material_to_blocks: Dictionary = {} # Dictionary to hold blocks organized by material
+	var block_uv_map: Dictionary = {} # Dictionary to map block IDs to their UV coordinates in the atlas
 	
 	# Organize the materials we need into a dictionary
-	for key in block_positions.keys():
+	for key: Dictionary in block_positions.keys():
 		var block_data = block_positions[key]
 		var material_id = str(block_data["id"]) # Key for material ID
 		if not material_to_blocks.has(material_id):
@@ -687,7 +692,7 @@ func create_atlas() -> Dictionary:
 				material_to_blocks[material_id] = sprite.albedo_texture
 
 	# Calculate the atlas size needed
-	var num_textures = material_to_blocks.keys().size()
+	var num_textures: int = material_to_blocks.keys().size()
 	var atlas_dimension = int(ceil(sqrt(num_textures))) # Convert to int to ensure modulus operation works
 	var texture_size = 128 # Assuming each texture is 128x128 pixels
 	var atlas_pixel_size = atlas_dimension * texture_size
@@ -703,7 +708,7 @@ func create_atlas() -> Dictionary:
 		
 		var texture: Image = material_to_blocks[material_id].get_image()
 		
-		var img = texture.duplicate()
+		var img: Image = texture.duplicate()
 		if img.is_compressed():
 			img.decompress() # Decompress if the image is compressed
 		img.convert(Image.FORMAT_RGBA8) # Convert texture to RGBA8 format
@@ -729,13 +734,19 @@ func create_atlas() -> Dictionary:
 
 	# Convert the atlas Image to a Texture
 	var atlas_texture = ImageTexture.create_from_image(atlas_image)
-
 	return {"atlas_texture": atlas_texture, "block_uv_map": block_uv_map}
 
 
+# This will add the following to the "arrays" parameter:
+# arrays[ArrayMesh.ARRAY_VERTEX] = verts
+# arrays[ArrayMesh.ARRAY_NORMAL] = normals
+# arrays[ArrayMesh.ARRAY_TEX_UV] = uvs
+# arrays[ArrayMesh.ARRAY_INDEX] = indices
+# This represents the data that will be used to create an arraymesh, which visualizes the blocks
+# The block_uv_map is used to map the block id to the right uv coordinates on the atlas texture
 func prepare_mesh_data(arrays: Array, block_uv_map: Dictionary):
 	# Define a small margin to prevent seams
-	var margin = 0.01
+	var margin: float = 0.01
 
 	var verts = PackedVector3Array()
 	var uvs = PackedVector2Array()
@@ -743,8 +754,7 @@ func prepare_mesh_data(arrays: Array, block_uv_map: Dictionary):
 	var indices = PackedInt32Array()
 
 	# Assume a block size for the calculations
-	var block_size = 1.0
-	var half_block = block_size / 2.0
+	var block_size: float = 1.0
 
 	for key in block_positions.keys():
 		var pos_array = key.split(",")
@@ -917,11 +927,9 @@ func setup_slope(blockrotation: int, pos: Vector3, verts, uvs, normals, indices,
 		base_index, base_index + 1, base_index + 2,
 		base_index, base_index + 2, base_index + 3
 	])
-	
 
 
-
-func setup_material(atlas_texture) -> ShaderMaterial:
+func setup_material(atlas_texture: ImageTexture) -> ShaderMaterial:
 	var shader_material = ShaderMaterial.new()
 	# Setup shader code and parameters
 	# Create a new Shader
@@ -987,8 +995,9 @@ func setup_material(atlas_texture) -> ShaderMaterial:
 	return shader_material
 
 
-
-func create_colliders(static_body):
+# Takes the chunk static body and adds a collider for each block
+# A cube and a slope will have different collider shapes
+func create_colliders(static_body: StaticBody3D):
 	# At the end of your generate_chunk_mesh function, after you've added the mesh instance:
 	for key in block_positions.keys():
 		var pos_array = key.split(",")
@@ -996,11 +1005,10 @@ func create_colliders(static_body):
 		var block_data = block_positions[key]
 		var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,block_data.id)
 		var blockshape = tileJSONData.get("shape", "cube")
-		#var blockrotation = get_block_rotation(blockshape, block_data.rotation)
 		static_body.add_child.call_deferred(_create_block_collider(block_pos, blockshape, block_data.rotation))
 
 
-
+# Creates a collider for either a slope or a cube and puts it at the right place and rotation
 func _create_block_collider(block_sub_position, shape: String, block_rotation: int) -> CollisionShape3D:
 	var collider = CollisionShape3D.new()
 	if shape == "cube":
