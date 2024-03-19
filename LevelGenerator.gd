@@ -160,7 +160,7 @@ func load_chunk(chunk_pos: Vector2):
 func unload_chunk(chunk_pos: Vector2):
 	if loaded_chunks.has(chunk_pos):
 		var chunk = loaded_chunks[chunk_pos]
-		chunk.unload_chunk()
+		chunk.unload_chunk.call_deferred()
 		loaded_chunks.erase(chunk_pos)
 
 

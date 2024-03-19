@@ -22,16 +22,17 @@ var level_width : int = 32
 var level_height : int = 32
 var _levels: Array[ChunkLevel] = [] # The level nodes that hold block nodes
 var _mapleveldata: Array = [] # Holds the data for each level in this chunk
-# This is a class variable to track block positions
+# This is a class variable to track block positions and data. It will contain:
+# The position represented by a Vector3 in local coordinates
+# The rotation represented by an int in degrees (0-360)
+# The tilejson represented by a dictionary. This contains the id of the tile
 var block_positions = {}
 var chunk_data: Dictionary # The json data that defines this chunk
 var processed_level_data: Dictionary = {}
 var mutex: Mutex = Mutex.new()
 var thread: Thread
-#var navigationthread: Thread
 var mypos: Vector3
 var navigation_region: NavigationRegion3D
-#var navigation_region: RID
 var navigation_mesh: NavigationMesh = NavigationMesh.new()
 var source_geometry_data: NavigationMeshSourceGeometryData3D
 var initialized_block_count: int = 0
@@ -56,11 +57,9 @@ func initialize_chunk_data():
 		var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 			Gamedata.data.maps.dataPath + chunk_data.id)
 		_mapleveldata = mapsegmentData.levels
-		#generation_task = WorkerThreadPool.add_task(generate_new_chunk)
-		#WorkerThreadPool.wait_for_task_completion(generation_task)
 		generate_new_chunk()
 	else: # This chunk is created from previously saved data
-		_mapleveldata = chunk_data.maplevels
+		#_mapleveldata = chunk_data.maplevels
 		#WorkerThreadPool.add_task(generate_saved_chunk)
 		#generation_task = WorkerThreadPool.add_task(generate_saved_chunk)
 		#WorkerThreadPool.wait_for_task_completion(generation_task)
@@ -72,19 +71,27 @@ func generate_new_chunk():
 	#thread.start(create_block_position_dictionary_new)
 	#create_block_position_dictionary_new_finished()
 	block_positions = create_block_position_dictionary_new_arraymesh()
-	generate_chunk_mesh()
-	process_level_data_finished()
+	thread = Thread.new()
+	thread.start(generate_chunk_mesh)
+	#generate_chunk_mesh()
 
 
-func generate_new_chunk2():
+func generate_chunk_mesh_finished():
+	# Wait for the thread to complete, and get the returned value.
 	if is_instance_valid(thread) and thread.is_started():
-		# If a thread is already running, let it finish before we start another.
+		mutex.lock()
 		thread.wait_to_finish()
 		thread = null # Threads are reference counted, so this is how we free them.
-	#thread = Thread.new()
-	#thread.start(process_level_data)
-	#process_level_data()
-
+		#var processed_levels: Array = processed_level_data.lvl.duplicate()
+		mutex.unlock()
+	if chunk_data.has("id"): # This chunk is created for the first time
+		process_level_data_finished()
+	else:
+		for item: Dictionary in chunk_data.items:
+			add_item_to_map(item)
+		thread = Thread.new()
+		thread.start(add_furnitures_to_map.bind(chunk_data.furniture.duplicate()))
+	
 
 func process_level_data_finished():
 	# Wait for the thread to complete, and get the returned value.
@@ -94,99 +101,34 @@ func process_level_data_finished():
 	##var processed_levels: Array = processed_level_data.lvl.duplicate()
 	#mutex.unlock()
 	processed_level_data = process_level_data()
-	#_spawn_levels_new()
-	#thread = Thread.new()
-	#thread.start(_spawn_levels_new)
 	thread = Thread.new()
 	thread.start(add_furnitures_to_new_block)
+	#add_furnitures_to_new_block()
 
 
-func _spawn_levels_new():
-	mutex.lock()
-	var mylevels = processed_level_data.lvl.duplicate()
-	mutex.unlock()
-	for level in mylevels:
-		add_child.call_deferred(level)
-		OS.delay_msec(10)  # Optional: delay to reduce CPU usage
-	_spawn_levels_new_finished.call_deferred()
-
-
-func _spawn_levels_new_finished():
-	if is_instance_valid(thread) and thread.is_started():
-		if thread.is_alive():
-			print_debug("The thread is still alive, blocking calling thread")
-		# If a thread is already running, let it finish before we start another.
-		thread.wait_to_finish()
-		thread = null # Threads are reference counted, so this is how we free them.
-	thread = Thread.new()
-	thread.start(create_blocks_by_id1)
-	#create_blocks_by_id1()
-	
-
-func _spawn_levels(processed_levels):
-	for level in processed_levels:
-		add_child.call_deferred(level)
-		OS.delay_msec(10)  # Optional: delay to reduce CPU usage
-	
 
 func process_level_data():
-	# Initialize the counter and expected count
 	var level_number = 0
 	var tileJSON: Dictionary = {}
-	var proc_lvl_data: Dictionary = {"lvl": [],"blk": [],"furn": [],"mobs": []}
+	var proc_lvl_data: Dictionary = {"furn": [],"mobs": []}
 
 	for level in _mapleveldata:
 		if level != []:
 			var y: int = level_number - 10
-			#var level_node = create_level_node(y_position)
-			#var blocks_created: int = 0
-
 			var current_block = 0
 			for h in range(level_height):
 				for w in range(level_width):
 					if level[current_block]:
 						tileJSON = level[current_block]
 						if tileJSON.has("id") and tileJSON.id != "":
-							mutex.lock()
-							#level_node.blocklist.append({"lvl":level_node,"w":w,"h":h,"json":tileJSON})
-							mutex.unlock()
-							proc_lvl_data.blk.append({"y":y,"x":w,"z":h,"json":tileJSON})
-							proc_lvl_data.mobs.append({"json":tileJSON, "pos":Vector3(w,y+1.5,h)})
-							proc_lvl_data.furn.append({"json":tileJSON, "pos":Vector3(w,y+0.5,h)})
-							#blocks_created += 1
+							if tileJSON.has("mob"):
+								proc_lvl_data.mobs.append({"json":tileJSON.mob, "pos":Vector3(w,y+1.5,h)})
+							if tileJSON.has("furniture"):
+								var furniturjson = tileJSON.furniture
+								proc_lvl_data.furn.append({"json":furniturjson, "pos":Vector3(w,y+0.5,h)})
 					current_block += 1
-			# Sometimes a level might not be empty, but at the same time has no actual block data,
-			# i.e. empty blocks like {}. In that case we need to remove the level again
-			#if !blocks_created > 0:
-				#mutex.lock()
-				#level_node.remove_from_group.call_deferred("maplevels")
-				#_levels.erase(level_node)
-				#level_node.queue_free()
-				#mutex.unlock()
-			#else:
-				#proc_lvl_data.lvl.append(level_node)
 		level_number += 1
-	#process_level_data_finished.call_deferred()
 	return proc_lvl_data
-
-
-# Creates a dictionary of all block positions with a local x,y and z position
-# This function works with new mapdata
-func create_block_position_dictionary_new() -> Dictionary:
-	var new_block_positions:Dictionary = {}
-	for level_index in range(len(_mapleveldata)):
-		var level = _mapleveldata[level_index]
-		if level != []:
-			for h in range(level_height):
-				for w in range(level_width):
-					var current_block_index = h * level_width + w
-					if level[current_block_index]:
-						var tileJSON = level[current_block_index]
-						if tileJSON.has("id") and tileJSON.id != "":
-							var block_position_key = str(w) + "," + str(level_index-10) + "," + str(h)
-							new_block_positions[block_position_key] = true
-	#create_block_position_dictionary_new_finished.call_deferred()
-	return new_block_positions
 
 
 # Creates a dictionary of all block positions with a local x,y and z position
@@ -203,7 +145,11 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 						var tileJSON = level[current_block_index]
 						if tileJSON.has("id") and tileJSON.id != "":
 							var block_position_key = str(w) + "," + str(level_index-10) + "," + str(h)
-							new_block_positions[block_position_key] = tileJSON
+							# We only save the data we need, exluding mob and furniture data
+							new_block_positions[block_position_key] = {
+								"id": tileJSON.id,
+								"rotation": tileJSON.get("rotation", 0)
+							}
 	#create_block_position_dictionary_new_finished.call_deferred()
 	return new_block_positions
 
@@ -223,17 +169,6 @@ func create_block_position_dictionary_loaded() -> Dictionary:
 	return new_block_positions
 
 
-func create_block_position_dictionary_new_finished():
-	#mutex.lock()
-	## Wait for the thread to complete, and get the returned value.
-	#block_positions = thread.wait_to_finish()
-	#thread = null # Threads are reference counted, so this is how we free them.
-	#mutex.unlock()
-	
-	block_positions = create_block_position_dictionary_new()
-	generate_new_chunk2()
-	
-
 func create_block_position_dictionary_loaded_finished():
 	#mutex.lock()
 	## Wait for the thread to complete, and get the returned value.
@@ -241,133 +176,6 @@ func create_block_position_dictionary_loaded_finished():
 	#thread = null # Threads are reference counted, so this is how we free them.
 	#mutex.unlock()
 	block_positions = create_block_position_dictionary_loaded()
-	generate_saved_chunk2()
-	
-
-
-# Creates one level of blocks, for example level 0 will be the ground floor
-# Can contain a maximum of 32x32 or 1024 blocks
-func create_level_node(ypos: int) -> ChunkLevel:
-	var level_node = ChunkLevel.new()
-	level_node.add_to_group("maplevels")
-	_levels.append(level_node)
-	level_node.levelposition = Vector3(0,ypos,0)
-	return level_node
-
-
-# Constructs blocks and their navigationmesh and adds them to their level nodes
-# Since this function is assumed to be run in a separate thread, we can add delays to
-# make sure the game does not stutter too much. The numbers for the delay are arbitrary
-# An important thing to keep in mind is that the stuttering will happen when to many blocks
-# are added at once, making it difficult for the gpu to keep up. 
-# This cannot be easily observed in the profiler
-func create_blocks_by_id1():
-	mutex.lock()
-	var myblocks = processed_level_data.blk.duplicate()
-	mutex.unlock()
-	var total_blocks = myblocks.size()
-	var delay_every_n_blocks = max(1, total_blocks / 15) # Ensure we at least get 1 to avoid division by zero
-
-	for i in range(total_blocks):
-		var blockdata = myblocks[i]
-		var level_node: ChunkLevel = blockdata["lvl"]
-		var w: int = blockdata["w"]
-		var h: int = blockdata["h"]
-		var tileJSON: Dictionary = blockdata["json"]
-		
-		var block = DefaultBlock.new()
-		block.ready.connect(_on_block_ready.bind(total_blocks))
-		block.construct_self(Vector3(w,0,h), tileJSON) # Sets its own properties that can be set before spawn
-		# Adds the top surface to the navigation data
-		var blockposition = Vector3(w,0,h)
-		var blockrotation = block.get_block_rotation()
-		var blockshape = block.shape
-		var level_y = level_node.levelposition.y
-		#add_mesh_to_navigation_data(blockposition, blockrotation, blockshape, level_y)
-		level_node.add_child.call_deferred(block)
-		
-		# Insert delay after every n blocks, evenly spreading the delay
-		if i % delay_every_n_blocks == 0 and i != 0: # Avoid delay at the very start
-			OS.delay_msec(100) # Adjust delay time as needed
-
-	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
-	if total_blocks % delay_every_n_blocks != 0:
-		OS.delay_msec(100)
-	create_blocks_finished.call_deferred()
-
-
-func create_blocks_finished():
-	if is_instance_valid(thread) and thread.is_started():
-		if thread.is_alive():
-			print_debug("The thread is still alive, blocking calling thread")
-		# If a thread is already running, let it finish before we start another.
-		thread.wait_to_finish()
-		thread = null # Threads are reference counted, so this is how we free them.
-	thread = Thread.new()
-	thread.start(add_furnitures_to_new_block)
-	#add_furnitures_to_new_block()
-
-
-# Constructs blocks and their navigationmesh and adds them to their level nodes
-# Since this function is assumed to be run in a separate thread, we can add delays to
-# make sure the game does not stutter too much. The numbers for the delay are arbitrary
-# An important thing to keep in mind is that the stuttering will happen when to many blocks
-# are added at once, making it difficult for the gpu to keep up. 
-# This cannot be easily observed in the profiler
-func create_blocks_by_id(processed_blocks):
-	var total_blocks = processed_blocks.size()
-	var delay_every_n_blocks = max(1, total_blocks / 15) # Ensure we at least get 1 to avoid division by zero
-
-	for i in range(total_blocks):
-		var blockdata = processed_blocks[i]
-		var level_node: ChunkLevel = blockdata["lvl"]
-		var w: int = blockdata["w"]
-		var h: int = blockdata["h"]
-		var tileJSON: Dictionary = blockdata["json"]
-		
-		var block = DefaultBlock.new()
-		block.ready.connect(_on_block_ready.bind(total_blocks))
-		block.construct_self(Vector3(w,0,h), tileJSON) # Sets its own properties that can be set before spawn
-		# Adds the top surface to the navigation data
-		var blockposition = Vector3(w,0,h)
-		var blockrotation = block.get_block_rotation()
-		var blockshape = block.shape
-		var level_y = level_node.levelposition.y
-		#add_mesh_to_navigation_data(blockposition, blockrotation, blockshape, level_y)
-		level_node.add_child.call_deferred(block)
-		
-		# Insert delay after every n blocks, evenly spreading the delay
-		if i % delay_every_n_blocks == 0 and i != 0: # Avoid delay at the very start
-			OS.delay_msec(100) # Adjust delay time as needed
-
-	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
-	if total_blocks % delay_every_n_blocks != 0:
-		OS.delay_msec(100)
-	create_blocks_by_id_finished.call_deferred()
-
-
-func create_blocks_by_id_finished():
-	if is_instance_valid(thread) and thread.is_started():
-		if thread.is_alive():
-			print_debug("The thread is still alive, blocking calling thread")
-		# If a thread is already running, let it finish before we start another.
-		thread.wait_to_finish()
-		thread = null # Threads are reference counted, so this is how we free them.
-	for item: Dictionary in chunk_data.items:
-		add_item_to_map(item)
-
-	thread = Thread.new()
-	thread.start(add_furnitures_to_map.bind(chunk_data.furniture.duplicate()))
-
-
-# Called when a block is ready and added to the tree. We need to count them to be sure
-# That all the blocks have been created before we proceed
-func _on_block_ready(numblocks):
-	initialized_block_count += 1
-	if initialized_block_count == numblocks:
-		# Since all the required block data has been added to the navigationmesh data previously,
-		# We update the navigationmesh and region using this data
-		update_navigation_mesh()
 
 
 # Generate the map layer by layer
@@ -376,59 +184,30 @@ func _on_block_ready(numblocks):
 func generate_saved_chunk() -> void:
 	#thread = Thread.new()
 	#thread.start(create_block_position_dictionary_loaded)
-	create_block_position_dictionary_loaded_finished()
-
-# Generate the map layer by layer
-# For each layer, add all the blocks with proper rotation
-# If a block has an mob, add it too
-func generate_saved_chunk2() -> void:
-	var processed_levels: Array = []
-	var processed_blocks: Array = []
-	initialized_block_count = 0
-	#we need to generate level layer by layer starting from the bottom
-	for level: Dictionary in chunk_data.maplevels:
-		if level != {}:
-			var level_node = create_level_node(level.map_y)
-			mutex.lock()
-			processed_levels.append(level_node)
-			mutex.unlock()
-			generate_saved_level(level, level_node, processed_blocks)
-
-	# We spawn the levels in a separate function now that we know how many actually spawn
-	_spawn_levels(processed_levels)
-	#generation_task = WorkerThreadPool.add_task(create_blocks_by_id.bind(processed_blocks))
+	#create_block_position_dictionary_loaded_finished()
+	block_positions = chunk_data.block_positions
 	thread = Thread.new()
-	thread.start(create_blocks_by_id.bind(processed_blocks.duplicate()))
-	#create_blocks_by_id(processed_blocks)
-
-
-
-# Generates blocks on in the provided level. A level contains at most 32x32 blocks
-func generate_saved_level(level: Dictionary, level_node: Node3D, processed_blocks: Array) -> void:
-	for blk in level.blocks:
-		if blk.has("id") and not blk.id == "":
-			mutex.lock()
-			level_node.blocklist.append({"lvl":level_node,"w":blk.block_x,"h":blk.block_z,"json":blk})
-			processed_blocks.append({"lvl":level_node,"w":blk.block_x,"h":blk.block_z,"json":blk})
-			mutex.unlock()
-			#create_block_by_id({"lvl":level_node,"w":blk.block_x,"h":blk.block_z,"json":blk})
-		else:
-			print_debug("generate_saved_level: block has no id!")
+	thread.start(generate_chunk_mesh)
+	#generate_chunk_mesh()
+	#for item: Dictionary in chunk_data.items:
+		#add_item_to_map(item)
+	#thread = Thread.new()
+	#thread.start(add_furnitures_to_map.bind(chunk_data.furniture.duplicate()))
+	#add_furnitures_to_map(chunk_data.furniture.duplicate())
 
 
 # When a map is loaded for the first time we spawn the mob on the block
 func add_block_mobs():
+	if not processed_level_data.has("mobs"):
+		return
 	mutex.lock()
 	var mobdatalist = processed_level_data.mobs.duplicate()
 	mutex.unlock()
 	for mobdata: Dictionary in mobdatalist:
-		var tileJSON: Dictionary = mobdata.json
-		var mobpos: Vector3 = mobdata.pos
-		if tileJSON.has("mob"):
-			var newMob: CharacterBody3D = Mob.new()
-			# Pass the position and the mob json to the newmob and have it construct itself
-			newMob.construct_self(mypos+mobpos, tileJSON.mob)
-			level_manager.add_child.call_deferred(newMob)
+		var newMob: CharacterBody3D = Mob.new()
+		# Pass the position and the mob json to the newmob and have it construct itself
+		newMob.construct_self(mypos+mobdata.pos, mobdata.json)
+		level_manager.add_child.call_deferred(newMob)
 	add_block_mobs_finished.call_deferred()
 
 
@@ -450,20 +229,19 @@ func add_furnitures_to_new_block():
 
 	for i in range(total_furniture):
 		var furniture = furnituredata[i]
-		var tileJSON: Dictionary = furniture.json
+		var furnituremapjson: Dictionary = furniture.json
 		var furniturepos: Vector3 = furniture.pos
-		if tileJSON.has("furniture"):
-			var newFurniture: Node3D
-			var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
-			Gamedata.data.furniture, tileJSON.furniture.id)
-			if furnitureJSON.has("moveable") and furnitureJSON.moveable:
-				newFurniture = FurniturePhysics.new()
-				furniturepos.y += 0.2 # Make sure it's not in a block and let it fall
-			else:
-				newFurniture = FurnitureStatic.new()
+		var newFurniture: Node3D
+		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
+			Gamedata.data.furniture, furnituremapjson.id)
+		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
+			newFurniture = FurniturePhysics.new()
+			furniturepos.y += 0.2 # Make sure it's not in a block and let it fall
+		else:
+			newFurniture = FurnitureStatic.new()
 
-			newFurniture.construct_self(mypos+furniturepos, tileJSON.furniture)
-			level_manager.add_child.call_deferred(newFurniture)
+		newFurniture.construct_self(mypos+furniturepos, furnituremapjson)
+		level_manager.add_child.call_deferred(newFurniture)
 		
 		# Insert delay after every n blocks, evenly spreading the delay
 		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
@@ -482,6 +260,7 @@ func add_furnitures_to_new_block_finished():
 		thread = null # Threads are reference counted, so this is how we free them.
 	thread = Thread.new()
 	thread.start(add_block_mobs)
+	#add_block_mobs()
 
 
 # Saves all of the maplevels to disk
@@ -531,6 +310,7 @@ func get_furniture_data() -> Array:
 				mutex.lock()
 				newRot = furniture.last_rotation
 				furniturepos = furniture.last_position
+				#print_debug("removing furniture with posdition: ", furniturepos)
 				mutex.unlock()
 			else: # It's FurnitureStatic
 				mutex.lock()
@@ -538,9 +318,10 @@ func get_furniture_data() -> Array:
 				furniturepos = furniture.furnitureposition
 				mutex.unlock()
 			# Check if furniture's position is within the desired range
-			if _is_object_in_range(furniturepos):
+			# It's possible some furniture is still spawning and have their position be 0,0,0
+			# We do not want to save that furniture, just the ones at the other positions
+			if _is_object_in_range(furniturepos) and not furniturepos == Vector3(0,0,0):
 				furniture.remove_from_group.call_deferred("furniture")
-				#print_debug("removing furniture with posdition: ", furniturepos)
 				newFurnitureData = {
 					"id": furniture.furnitureJSON.id,
 					"moveable": furniture is FurniturePhysics,
@@ -697,6 +478,7 @@ func add_furnitures_to_map_finised():
 		thread = null # Threads are reference counted, so this is how we free them.
 	thread = Thread.new()
 	thread.start(add_mobs_to_map)
+	#add_block_mobs()
 
 
 # Returns all the chunk data used for saving and loading
@@ -706,11 +488,12 @@ func get_chunk_data() -> Dictionary:
 	chunkdata.chunk_x = mypos.x
 	chunkdata.chunk_z = mypos.z
 	mutex.unlock()
-	chunkdata.maplevels = get_map_data()
+	#chunkdata.maplevels = get_map_data()
+	chunkdata.block_positions = block_positions.duplicate()
 	chunkdata.furniture = get_furniture_data()
 	chunkdata.mobs = get_mob_data()
 	chunkdata.items = get_item_data()
-	finish_unload_chunk.call_deferred()
+	#finish_unload_chunk.call_deferred()
 	return chunkdata
 
 
@@ -724,16 +507,21 @@ func unload_chunk():
 		thread = null # Threads are reference counted, so this is how we free them.
 		#var processed_levels: Array = processed_level_data.lvl.duplicate()
 		mutex.unlock()
-	thread = Thread.new()
-	thread.start(get_chunk_data)
+	#thread = Thread.new()
+	#thread.start(get_chunk_data)
+	#get_chunk_data()
+	finish_unload_chunk.call_deferred()
 	
 
 func finish_unload_chunk():
 	print_debug("finish unload chunk")
 	var chunkdata: Dictionary
 	mutex.lock()
-	chunkdata = thread.wait_to_finish()
-	thread = null # Threads are reference counted, so this is how we free them.
+	if is_instance_valid(thread) and thread.is_started():
+		chunkdata = thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
+		
+	chunkdata = get_chunk_data()
 	var chunkposition: Vector2 = Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))
 	Helper.loaded_chunk_data.chunks[chunkposition] = chunkdata
 	mutex.unlock()
@@ -859,7 +647,7 @@ func _finish_unload():
 		## Now that all children have been queued for deletion, queue the level itself
 		#level.queue_free()
 	# Finally, queue the chunk itself for deletion.
-	#queue_free.call_deferred()
+	queue_free.call_deferred()
 
 
 
@@ -993,9 +781,14 @@ func generate_chunk_mesh():
 			(Vector2(1, 1) * uv_scale + Vector2(-margin, -margin)) + uv_offset,
 			(Vector2(0, 1) * uv_scale + Vector2(margin, -margin)) + uv_offset
 		])
-		
-		var blockrotation = get_block_rotation(blockshape, block_data)
-		# After calculating and adding vertices to your mesh arrays
+		var blockrotation: int = 0
+		if chunk_data.has("id"): # This chunk is created for the first time, so we need to save 
+			# the rotation to the block json dictionary
+			blockrotation = get_block_rotation(blockshape, block_data.rotation)
+			block_data["rotation"] = blockrotation
+		else: # Rotation has been previously saved so we can use that
+			blockrotation = block_data.rotation
+		# After calculating and adding vertices to the mesh arrays
 		# Call add_mesh_to_navigation_data for each block
 		add_mesh_to_navigation_data(poslocal, blockrotation, blockshape)
 		
@@ -1159,7 +952,7 @@ func generate_chunk_mesh():
 	
 	var mesh_instance = MeshInstance3D.new()
 	mesh_instance.mesh = mesh
-	add_child(mesh_instance)
+	add_child.call_deferred(mesh_instance)
 	
 	
 	# Create the static body for collision
@@ -1169,9 +962,14 @@ func generate_chunk_mesh():
 	static_body.collision_layer = 1 | (1 << 4) # Layer 1 is 1, Layer 5 is 1 << 4 (16), combined with bitwise OR
 	# Set collision mask to layer 1
 	static_body.collision_mask = 1 # Layer 1 is 1
-	add_child(static_body)
+	create_colliders(static_body)
+	add_child.call_deferred(static_body)
+	
+	update_navigation_mesh.call_deferred()
+	generate_chunk_mesh_finished.call_deferred()
 
 
+func create_colliders(static_body):
 	# At the end of your generate_chunk_mesh function, after you've added the mesh instance:
 	for key in block_positions.keys():
 		var pos_array = key.split(",")
@@ -1179,16 +977,15 @@ func generate_chunk_mesh():
 		var block_data = block_positions[key]
 		var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,block_data.id)
 		var blockshape = tileJSONData.get("shape", "cube")
-		var blockrotation = get_block_rotation(blockshape, block_data)
-		static_body.add_child(_create_block_collider(block_pos, blockshape, blockrotation))
-	
-	update_navigation_mesh()
+		#var blockrotation = get_block_rotation(blockshape, block_data.rotation)
+		static_body.add_child.call_deferred(_create_block_collider(block_pos, blockshape, block_data.rotation))
 
 
 func _create_block_collider(block_sub_position, shape: String, block_rotation: int) -> CollisionShape3D:
 	var collider = CollisionShape3D.new()
 	if shape == "cube":
 		collider.shape = BoxShape3D.new()
+		collider.set_transform.call_deferred(Transform3D(Basis(), block_sub_position))
 	else: # It's a slope
 		collider.shape = ConvexPolygonShape3D.new()
 		collider.shape.points = [
@@ -1200,9 +997,16 @@ func _create_block_collider(block_sub_position, shape: String, block_rotation: i
 			Vector3(-0.5, -0.5, -0.5)
 		]
 		# Apply rotation only for slopes
-		collider.rotation_degrees = Vector3(0, block_rotation, 0) #Y-axis rotation
+		# Set the rotation part of the Transform3D
+		var rotation_transform = Transform3D(Basis().rotated(Vector3.UP, deg_to_rad(block_rotation)), Vector3.ZERO)
+		
+		# Now combine rotation and translation in the transform
+		#collider.transform = rotation_transform.translated(block_sub_position)
+		#collider.rotation_degrees = Vector3(0, block_rotation, 0) #Y-axis rotation
+		collider.set_transform.call_deferred(rotation_transform.translated(block_sub_position))
+		#collider.set_transform.call_deferred(Transform3D(Basis(), block_sub_position))
 
-	collider.transform.origin = Vector3(block_sub_position)
+	#collider.transform.origin = Vector3(block_sub_position)
 	return collider
 
 
@@ -1253,17 +1057,15 @@ func rotate_uv(uv: Vector2, angle_degrees: float, center: Vector2 = Vector2(0.5,
 	return uv
 
 
-func get_block_rotation(shape: String, tileJSON: Dictionary) -> int:
+# Only newly created blocks will need this calculation
+# Previously saved blocks do not.
+func get_block_rotation(shape: String, tilerotation: int = 0) -> int:
 	var defaultRotation: int = 0
-	# Only previously saved blocks have the block_x property, so we don't need to apply default rotation again
-	if shape == "slope" and not tileJSON.has("block_x"):
+	if shape == "slope":
 		defaultRotation = 90
 	# The slope has a default rotation of 90
 	# The block has a default rotation of 0
-	var myRotation: int = tileJSON.get("rotation", 0) + defaultRotation
-	# Hack to get previouly saved slopes into the right rotation
-	if (myRotation == 0 or myRotation == 180) and shape == "slope" and tileJSON.has("block_x"):
-		myRotation += 180
+	var myRotation: int = tilerotation + defaultRotation
 	if myRotation == 0:
 		# Only the block will match this case, not the slope. The block points north
 		return myRotation+180
