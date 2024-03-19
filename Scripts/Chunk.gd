@@ -677,7 +677,6 @@ func create_atlas() -> Dictionary:
 	var material_to_blocks = {} # Dictionary to hold blocks organized by material
 	var block_uv_map = {} # Dictionary to map block IDs to their UV coordinates in the atlas
 	
-
 	# Organize the materials we need into a dictionary
 	for key in block_positions.keys():
 		var block_data = block_positions[key]
@@ -687,13 +686,8 @@ func create_atlas() -> Dictionary:
 			if sprite:
 				material_to_blocks[material_id] = sprite.albedo_texture
 
-	# Step 1: Gather all unique textures
-	var textures = []
-	for material_id in material_to_blocks.keys():
-		textures.append(material_to_blocks[material_id].get_image())
-
 	# Calculate the atlas size needed
-	var num_textures = textures.size()
+	var num_textures = material_to_blocks.keys().size()
 	var atlas_dimension = int(ceil(sqrt(num_textures))) # Convert to int to ensure modulus operation works
 	var texture_size = 128 # Assuming each texture is 128x128 pixels
 	var atlas_pixel_size = atlas_dimension * texture_size
@@ -739,23 +733,19 @@ func create_atlas() -> Dictionary:
 	return {"atlas_texture": atlas_texture, "block_uv_map": block_uv_map}
 
 
-func generate_chunk_mesh():
-	# Create the atlas and get the atlas texture
-	var atlas_output = create_atlas()
-	var atlas_texture = atlas_output.atlas_texture
-	var block_uv_map = atlas_output.block_uv_map
+func prepare_mesh_data(arrays: Array, block_uv_map: Dictionary):
 	# Define a small margin to prevent seams
 	var margin = 0.01
-	
+
 	var verts = PackedVector3Array()
 	var uvs = PackedVector2Array()
 	var normals = PackedVector3Array()
 	var indices = PackedInt32Array()
-	
+
 	# Assume a block size for the calculations
 	var block_size = 1.0
 	var half_block = block_size / 2.0
-	
+
 	for key in block_positions.keys():
 		var pos_array = key.split(",")
 		var poslocal = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
@@ -793,101 +783,147 @@ func generate_chunk_mesh():
 		add_mesh_to_navigation_data(poslocal, blockrotation, blockshape)
 		
 		if blockshape == "cube":
-			var top_verts = [
-				Vector3(-half_block, half_block, -half_block) + pos,
-				Vector3(half_block, half_block, -half_block) + pos,
-				Vector3(half_block, half_block, half_block) + pos,
-				Vector3(-half_block, half_block, half_block) + pos
-			]
-			
-			var rotated_top_verts = []
-			for vertex in top_verts:
-				rotated_top_verts.append(rotate_vertex_y(vertex - pos, blockrotation) + pos)
-
-			
-			
-			verts.append_array(rotated_top_verts)
-			uvs.append_array(top_face_uv)
-			
-			
-			# Normals for the top face
-			for _i in range(4):
-				normals.append(Vector3(0, 1, 0))
-			
-			# Indices for the top face
-			var base_index = verts.size() - 4
-			indices.append_array([
-				base_index, base_index + 1, base_index + 2,
-				base_index, base_index + 2, base_index + 3
-			])
+			setup_cube(pos, blockrotation, verts, uvs, normals, indices, top_face_uv)
 		elif blockshape == "slope":
-			# Slope-specific vertices and UV mapping
-			# Determine slope orientation and vertices based on blockrotation
-			var slope_vertices: PackedVector3Array
-			match blockrotation:
-				90:
-					# Slope facing Facing north
-					slope_vertices = PackedVector3Array([
-						Vector3(-half_block, half_block, -half_block) + pos, # Top front left
-						Vector3(half_block, half_block, -half_block) + pos,   # Top front right
-						Vector3(half_block, -half_block, half_block) + pos,  # Bottom back right
-						Vector3(-half_block, -half_block, half_block) + pos  # Bottom back left
-					])
-				180:
-					# Slope facing Facing west
-					slope_vertices = PackedVector3Array([
-						Vector3(-half_block, half_block, half_block) + pos, # Top front left
-						Vector3(-half_block, half_block, -half_block) + pos,   # Top front right
-						Vector3(half_block, -half_block, -half_block) + pos,  # Bottom back right
-						Vector3(half_block, -half_block, half_block) + pos  # Bottom back left
-					])
-				270:
-					# Slope facing Facing south
-					slope_vertices = PackedVector3Array([
-						Vector3(half_block, half_block, half_block) + pos, # Top front left
-						Vector3(-half_block, half_block, half_block) + pos,   # Top front right
-						Vector3(-half_block, -half_block, -half_block) + pos,  # Bottom back right
-						Vector3(half_block, -half_block, -half_block) + pos  # Bottom back left
-					])
-				_:
-					# Slope facing Facing east
-					slope_vertices = PackedVector3Array([
-						Vector3(half_block, half_block, -half_block) + pos, # Top front left
-						Vector3(half_block, half_block, half_block) + pos,   # Top front right
-						Vector3(-half_block, -half_block, half_block) + pos,  # Bottom back right
-						Vector3(-half_block, -half_block, -half_block) + pos  # Bottom back left
-					])
-
-			# Assuming the top_face_uv calculated for cubes applies here as well
-			verts.append_array(slope_vertices)
-			uvs.append_array(top_face_uv)  # Reuse the UV mapping for simplicity in this example
-			
-			# Normals for the slope's top face, assuming flat shading for simplicity
-			var normal = Vector3(0, 1, 0)  # Adjust if your slope's top face orientation varies
-			for _i in range(4):
-				normals.append(normal)
-			
-			# Indices for the slope, similar to the cube but only for one triangular face
-			var base_index = verts.size() - 4
-			indices.append_array([
-				base_index, base_index + 1, base_index + 2,
-				base_index, base_index + 2, base_index + 3
-			])
-	
-	# Once all blocks are processed, create the mesh
-	var mesh = ArrayMesh.new()
-	var arrays = []
-	arrays.resize(ArrayMesh.ARRAY_MAX)
+			setup_slope(blockrotation, pos, verts, uvs, normals, indices, top_face_uv)
+		
 	arrays[ArrayMesh.ARRAY_VERTEX] = verts
 	arrays[ArrayMesh.ARRAY_NORMAL] = normals
 	arrays[ArrayMesh.ARRAY_TEX_UV] = uvs
 	arrays[ArrayMesh.ARRAY_INDEX] = indices
-	
+
+
+# Creates the entire chunk including:
+# - Mesh shape
+# - Mesh texture
+# - Navigation map
+# - Colliders
+func generate_chunk_mesh():
+	# Create the atlas and get the atlas texture
+	var atlas_output = create_atlas()
+	var atlas_texture = atlas_output.atlas_texture
+	var block_uv_map = atlas_output.block_uv_map
+
+	# Process all blocks and create the mesh
+	var mesh = ArrayMesh.new()
+	var arrays = []
+	arrays.resize(ArrayMesh.ARRAY_MAX)
+	prepare_mesh_data(arrays, block_uv_map)
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	
 	# Create a new ShaderMaterial
-	var shader_material = ShaderMaterial.new()
+	var shader_material = setup_material(atlas_texture)
+	mesh.surface_set_material(0, shader_material)
 	
+	var mesh_instance = MeshInstance3D.new()
+	mesh_instance.mesh = mesh
+	add_child.call_deferred(mesh_instance)
+	
+	# Create the static body for collision
+	var static_body = StaticBody3D.new()
+	static_body.disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
+	# Set collision layer to layer 1 and 5
+	static_body.collision_layer = 1 | (1 << 4) # Layer 1 is 1, Layer 5 is 1 << 4 (16), combined with bitwise OR
+	# Set collision mask to layer 1
+	static_body.collision_mask = 1 # Layer 1 is 1
+	create_colliders(static_body)
+	add_child.call_deferred(static_body)
+	
+	update_navigation_mesh.call_deferred()
+	generate_chunk_mesh_finished.call_deferred()
+
+
+func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, top_face_uv):
+	# Assume a block size for the calculations
+	var half_block = 0.5
+	var top_verts = [
+		Vector3(-half_block, half_block, -half_block) + pos,
+		Vector3(half_block, half_block, -half_block) + pos,
+		Vector3(half_block, half_block, half_block) + pos,
+		Vector3(-half_block, half_block, half_block) + pos
+	]
+	
+	var rotated_top_verts = []
+	for vertex in top_verts:
+		rotated_top_verts.append(rotate_vertex_y(vertex - pos, blockrotation) + pos)
+
+	verts.append_array(rotated_top_verts)
+	uvs.append_array(top_face_uv)
+	
+	# Normals for the top face
+	for _i in range(4):
+		normals.append(Vector3(0, 1, 0))
+	
+	# Indices for the top face
+	var base_index = verts.size() - 4
+	indices.append_array([
+		base_index, base_index + 1, base_index + 2,
+		base_index, base_index + 2, base_index + 3
+	])
+	
+
+func setup_slope(blockrotation: int, pos: Vector3, verts, uvs, normals, indices, top_face_uv):
+	# Slope-specific vertices and UV mapping
+	# Determine slope orientation and vertices based on blockrotation
+	var slope_vertices: PackedVector3Array
+	# Assume a block size for the calculations
+	var half_block = 0.5
+	match blockrotation:
+		90:
+			# Slope facing Facing north
+			slope_vertices = PackedVector3Array([
+				Vector3(-half_block, half_block, -half_block) + pos, # Top front left
+				Vector3(half_block, half_block, -half_block) + pos,   # Top front right
+				Vector3(half_block, -half_block, half_block) + pos,  # Bottom back right
+				Vector3(-half_block, -half_block, half_block) + pos  # Bottom back left
+			])
+		180:
+			# Slope facing Facing west
+			slope_vertices = PackedVector3Array([
+				Vector3(-half_block, half_block, half_block) + pos, # Top front left
+				Vector3(-half_block, half_block, -half_block) + pos,   # Top front right
+				Vector3(half_block, -half_block, -half_block) + pos,  # Bottom back right
+				Vector3(half_block, -half_block, half_block) + pos  # Bottom back left
+			])
+		270:
+			# Slope facing Facing south
+			slope_vertices = PackedVector3Array([
+				Vector3(half_block, half_block, half_block) + pos, # Top front left
+				Vector3(-half_block, half_block, half_block) + pos,   # Top front right
+				Vector3(-half_block, -half_block, -half_block) + pos,  # Bottom back right
+				Vector3(half_block, -half_block, -half_block) + pos  # Bottom back left
+			])
+		_:
+			# Slope facing Facing east
+			slope_vertices = PackedVector3Array([
+				Vector3(half_block, half_block, -half_block) + pos, # Top front left
+				Vector3(half_block, half_block, half_block) + pos,   # Top front right
+				Vector3(-half_block, -half_block, half_block) + pos,  # Bottom back right
+				Vector3(-half_block, -half_block, -half_block) + pos  # Bottom back left
+			])
+
+	# Assuming the top_face_uv calculated for cubes applies here as well
+	verts.append_array(slope_vertices)
+	uvs.append_array(top_face_uv)  # Reuse the UV mapping for simplicity in this example
+	
+	# Normals for the slope's top face, assuming flat shading for simplicity
+	var normal = Vector3(0, 1, 0)  # Adjust if your slope's top face orientation varies
+	for _i in range(4):
+		normals.append(normal)
+	
+	# Indices for the slope, similar to the cube but only for one triangular face
+	var base_index = verts.size() - 4
+	indices.append_array([
+		base_index, base_index + 1, base_index + 2,
+		base_index, base_index + 2, base_index + 3
+	])
+	
+
+
+
+func setup_material(atlas_texture) -> ShaderMaterial:
+	var shader_material = ShaderMaterial.new()
+	# Setup shader code and parameters
 	# Create a new Shader
 	var shader = Shader.new()
 	
@@ -947,26 +983,9 @@ func generate_chunk_mesh():
 	# Set the initial uniform values
 	shader_material.set_shader_parameter('albedo_color', Color(1, 1, 1, 1)) # White color, fully opaque
 	shader_material.set_shader_parameter('sphere_size', 3.0)
-	
-	mesh.surface_set_material(0, shader_material)
-	
-	var mesh_instance = MeshInstance3D.new()
-	mesh_instance.mesh = mesh
-	add_child.call_deferred(mesh_instance)
-	
-	
-	# Create the static body for collision
-	var static_body = StaticBody3D.new()
-	static_body.disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
-	# Set collision layer to layer 1 and 5
-	static_body.collision_layer = 1 | (1 << 4) # Layer 1 is 1, Layer 5 is 1 << 4 (16), combined with bitwise OR
-	# Set collision mask to layer 1
-	static_body.collision_mask = 1 # Layer 1 is 1
-	create_colliders(static_body)
-	add_child.call_deferred(static_body)
-	
-	update_navigation_mesh.call_deferred()
-	generate_chunk_mesh_finished.call_deferred()
+	shader_material.set_shader_parameter('albedo_texture', atlas_texture)
+	return shader_material
+
 
 
 func create_colliders(static_body):
@@ -979,6 +998,7 @@ func create_colliders(static_body):
 		var blockshape = tileJSONData.get("shape", "cube")
 		#var blockrotation = get_block_rotation(blockshape, block_data.rotation)
 		static_body.add_child.call_deferred(_create_block_collider(block_pos, blockshape, block_data.rotation))
+
 
 
 func _create_block_collider(block_sub_position, shape: String, block_rotation: int) -> CollisionShape3D:
@@ -999,14 +1019,8 @@ func _create_block_collider(block_sub_position, shape: String, block_rotation: i
 		# Apply rotation only for slopes
 		# Set the rotation part of the Transform3D
 		var rotation_transform = Transform3D(Basis().rotated(Vector3.UP, deg_to_rad(block_rotation)), Vector3.ZERO)
-		
 		# Now combine rotation and translation in the transform
-		#collider.transform = rotation_transform.translated(block_sub_position)
-		#collider.rotation_degrees = Vector3(0, block_rotation, 0) #Y-axis rotation
 		collider.set_transform.call_deferred(rotation_transform.translated(block_sub_position))
-		#collider.set_transform.call_deferred(Transform3D(Basis(), block_sub_position))
-
-	#collider.transform.origin = Vector3(block_sub_position)
 	return collider
 
 
