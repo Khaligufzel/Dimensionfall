@@ -58,6 +58,12 @@ func create_sprite():
 	sprite_3d.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	sprite_3d.render_priority = 0
 	sprite_3d.texture = load("res://Textures/enemy.png")
+	
+	# We use SpriteBase3D.ALPHA_CUT_DISCARD because a chunk will generate a mesh for the map
+	# that will have some transparancy settings that will also make the container transparent
+	# That's why we need to make sure only the fully transparant pixel are invisible
+	sprite_3d.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
+	sprite_3d.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 	# Add to the scene tree
 	add_child.call_deferred(sprite_3d)

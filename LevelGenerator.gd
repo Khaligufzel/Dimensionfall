@@ -14,20 +14,22 @@ var level_height : int = 32
 
 # Parameters for dynamic chunk loading
 var creation_radius = 1
-var survival_radius = 3.5
+var survival_radius = 2
 var loaded_chunks = {} # Dictionary to store loaded chunks with their positions as keys
 var player_position = Vector2.ZERO # Player's position, updated regularly
+# Chunks are loaded and unloaded one at a time. The load_queue will be processed before the unload_queue
+# Chunks that should be loaded and unloaded are stored inside these variables
+var load_queue = []
+var unload_queue = []
+# Enforces loading or unloading one chunk at a time
+var is_processing_chunk = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initialize_map_data()
 	
-	NavigationServer3D.set_debug_enabled(true)
-	NavigationServer3D.map_set_edge_connection_margin(get_world_3d().get_navigation_map(), 0.75)
-	
 	# Start a loop to update chunks based on player position
-	#set_process(true)
 	start_timer()
 
 
@@ -41,13 +43,18 @@ func start_timer():
 	my_timer.start() # Start the timer
 
 
-# This function will be called every time the Timer ticks
+# This will start the chunk loading and unloading if the player has moved and no chunk
+# is currently being loaded or unloaded
 func _on_Timer_timeout():
+	if is_processing_chunk:
+		return  # Wait until the current chunk operation is finished
+
 	var player = get_tree().get_first_node_in_group("Players")
 	var new_position = Vector2(player.global_transform.origin.x, player.global_transform.origin.z) / Vector2(level_width, level_height)
-	if new_position != player_position:# and chance < 1:
+	if new_position != player_position:
 		player_position = new_position
 		_chunk_management_logic()
+		process_next_chunk()
 
 
 # We store the level map width and height
@@ -97,21 +104,6 @@ func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
 		return {}
 
 
-# We determine which chunks can stay and which chunks need to go
-func _chunk_management_logic():
-	var current_player_chunk = player_position.floor()
-
-	# Logic for loading
-	var chunks_to_load = calculate_chunks_to_load(current_player_chunk)
-	for chunk_pos in chunks_to_load:
-		load_chunk.call_deferred(chunk_pos)
-
-	# And for unloading
-	var chunks_to_unload = calculate_chunks_to_unload(current_player_chunk)
-	for chunk_pos in chunks_to_unload:
-		call_deferred("unload_chunk", chunk_pos)
-
-
 # Return an array of chunks that fall inside the creation radius
 # We only return chunks that have it's coordinate in the tacticalmap, so we don't go out of bounds
 func calculate_chunks_to_load(player_chunk_pos: Vector2) -> Array:
@@ -146,6 +138,8 @@ func load_chunk(chunk_pos: Vector2):
 	newChunk.mypos = Vector3(chunk_pos.x * level_width, 0, chunk_pos.y * level_height)
 	newChunk.level_manager = level_manager
 	newChunk.level_generator = self
+	newChunk.chunk_loaded.connect(_on_chunk_un_loaded)
+	newChunk.chunk_unloaded.connect(_on_chunk_un_loaded)
 	if Helper.loaded_chunk_data.chunks.has(chunk_pos):
 		# If the chunk has been loaded before, we use that data
 		newChunk.chunk_data = Helper.loaded_chunk_data.chunks[chunk_pos]
@@ -164,4 +158,47 @@ func unload_chunk(chunk_pos: Vector2):
 		loaded_chunks.erase(chunk_pos)
 
 
+# This function is called when a chunk is loaded or unloaded
+# We set the is_processing_chunk to false so we can start processing another chunk
+func _on_chunk_un_loaded():
+	is_processing_chunk = false
 
+
+# Calculates which chunks should be loaded and unloaded
+func _chunk_management_logic():
+	var current_player_chunk = player_position.floor()
+	
+	# Calculate potential chunks for load and unload
+	var potential_loads = calculate_chunks_to_load(current_player_chunk)
+	var potential_unloads = calculate_chunks_to_unload(current_player_chunk)
+	
+	# Update queues with new chunks ensuring no duplicates across both queues
+	update_queues(potential_loads, potential_unloads)
+
+
+# Update load and unload queues
+func update_queues(potential_loads, potential_unloads):
+	for chunk_pos in potential_loads:
+		if not load_queue.has(chunk_pos) and not unload_queue.has(chunk_pos):
+			load_queue.append(chunk_pos)
+
+	for chunk_pos in potential_unloads:
+		if not unload_queue.has(chunk_pos) and not load_queue.has(chunk_pos):
+			unload_queue.append(chunk_pos)
+
+	# Remove chunks from the unload queue if they are now within the load radius
+	for chunk_pos in unload_queue.duplicate():
+		if chunk_pos.distance_to(player_position.floor()) <= creation_radius:
+			unload_queue.erase(chunk_pos)
+
+
+# This function will either load or unlaod a chunk if there are any to load or unload
+func process_next_chunk():
+	if load_queue.size() > 0:
+		var chunk_pos = load_queue.pop_front()
+		is_processing_chunk = true
+		load_chunk(chunk_pos)
+	elif unload_queue.size() > 0:
+		var chunk_pos = unload_queue.pop_front()
+		is_processing_chunk = true
+		unload_chunk(chunk_pos)

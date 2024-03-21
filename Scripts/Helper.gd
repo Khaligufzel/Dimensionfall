@@ -5,6 +5,7 @@ var current_level_name : String
 var ready_to_switch_level: Dictionary = {"save_ready": false, "chunks_unloaded": false}
 # Dictionary to hold data of chunks that are unloaded
 var loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} 
+var chunk_navigation_maps: Dictionary = {}
 
 # Overmap data
 var chunks: Dictionary = {} #Stores references to tilegrids representing the overmap
@@ -62,6 +63,7 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 		save_helper.save_player_inventory()
 		save_helper.save_player_equipment()
 		save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
+		chunk_navigation_maps.clear()
 	else:
 		ready_to_switch_level.chunks_unloaded = true
 	current_level_pos = global_pos
@@ -129,4 +131,20 @@ func raycast(start_position : Vector3, end_position : Vector3, layer : int, obje
 	var query = PhysicsRayQueryParameters3D.create(start_position, end_position, layer, object_to_ignore)
 
 	return space_state.intersect_ray(query)
+
+
+# Called when a chunk emits its loaded signal. We save the navigationmap RID to a dictionary
+# This can then be used by navigationagents that are present on the chunk
+func on_chunk_loaded(data: Dictionary):
+	# `mypos` is a Vector3, we only use the x and z since y is constant 0
+	var chunk_position = Vector2(data["mypos"].x, data["mypos"].z) 
+	var navigation_map_id = data["map"]
+	chunk_navigation_maps[chunk_position] = navigation_map_id
+
+
+# Called when a chunk emits its unloaded signal. We remove the chunk from the navigationmaps
+# Dictionary. The chunk is responsible for unloading the navigationmap itself
+func on_chunk_unloaded(data: Dictionary):
+	var chunk_position = Vector2(data["mypos"].x, data["mypos"].z) # Assuming `mypos` is a Vector3
+	chunk_navigation_maps.erase(chunk_position)
 
