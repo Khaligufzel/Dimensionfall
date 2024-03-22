@@ -17,7 +17,7 @@ signal inventory_item_context_activated(item)
         if is_inside_tree():
             assert(node is Inventory)
             
-        self.inventory = node
+        inventory = node
         update_configuration_warnings()
 
 
@@ -31,9 +31,10 @@ var inventory: Inventory = null :
         inventory = new_inventory
         _connect_inventory_signals()
 
-        _refresh()
+        _queue_refresh()
 var _vbox_container: VBoxContainer
 var _item_list: ItemList
+var _refresh_queued: bool = false
 
 const KEY_IMAGE = "image"
 const KEY_NAME = "name"
@@ -50,7 +51,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 func _ready():
     if Engine.is_editor_hint():
         # Clean up, in case it is duplicated in the editor
-        if _vbox_container:
+        if is_instance_valid(_vbox_container):
             _vbox_container.queue_free()
 
     _vbox_container = VBoxContainer.new()
@@ -68,27 +69,27 @@ func _ready():
     _vbox_container.add_child(_item_list)
 
     if has_node(inventory_path):
-        self.inventory = get_node(inventory_path)
+        inventory = get_node(inventory_path)
 
-    _refresh()
+    _queue_refresh()
 
 
 func _connect_inventory_signals() -> void:
-    if !inventory:
+    if !is_instance_valid(inventory):
         return
 
-    if !inventory.contents_changed.is_connected(_refresh):
-        inventory.contents_changed.connect(_refresh)
+    if !inventory.contents_changed.is_connected(_queue_refresh):
+        inventory.contents_changed.connect(_queue_refresh)
     if !inventory.item_modified.is_connected(_on_item_modified):
         inventory.item_modified.connect(_on_item_modified)
 
 
 func _disconnect_inventory_signals() -> void:
-    if !inventory:
+    if !is_instance_valid(inventory):
         return
 
-    if inventory.contents_changed.is_connected(_refresh):
-        inventory.contents_changed.disconnect(_refresh)
+    if inventory.contents_changed.is_connected(_queue_refresh):
+        inventory.contents_changed.disconnect(_queue_refresh)
     if inventory.item_modified.is_connected(_on_item_modified):
         inventory.item_modified.disconnect(_on_item_modified)
 
@@ -103,7 +104,17 @@ func _on_list_item_clicked(index: int, at_position: Vector2, mouse_button_index:
 
 
 func _on_item_modified(_item: InventoryItem) -> void:
-    _refresh()
+    _queue_refresh()
+
+
+func _process(_delta) -> void:
+    if _refresh_queued:
+        _refresh()
+        _refresh_queued = false
+
+
+func _queue_refresh() -> void:
+    _refresh_queued = true
 
 
 func _refresh() -> void:
@@ -113,12 +124,12 @@ func _refresh() -> void:
 
 
 func _clear_list() -> void:
-    if _item_list:
+    if is_instance_valid(_item_list):
         _item_list.clear()
 
 
 func _populate_list() -> void:
-    if inventory == null:
+    if !is_instance_valid(inventory):
         return
 
     for item in inventory.get_items():
