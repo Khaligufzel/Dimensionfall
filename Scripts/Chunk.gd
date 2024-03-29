@@ -16,166 +16,256 @@ extends Node3D
 
 # Reference to the level manager. Some nodes that could be moved to other chunks should be parented to this
 var level_manager : Node3D
+var level_generator : Node3D
 
 var level_width : int = 32
 var level_height : int = 32
-var _levels: Array = []
+var _mapleveldata: Array = [] # Holds the data for each level in this chunk
+# Each chunk has it's own navigationmap because merging many navigationregions inside one general map
+# will cause the game to stutter. The map for this chunk has one region and one navigationmesh
+var navigation_map_id: RID
+# This is a class variable to track block positions and data. It will contain:
+# The position represented by a Vector3 in local coordinates
+# The rotation represented by an int in degrees (0-360)
+# The tilejson represented by a dictionary. This contains the id of the tile
+var block_positions = {}
 var chunk_data: Dictionary # The json data that defines this chunk
-var thread: Thread
-var mypos: Vector3
+# A map is defined by the mapeditor. This variable holds the data that is processed from the map
+# editor format into something usable for this chunk's generation
+var processed_level_data: Dictionary = {}
+var mutex: Mutex = Mutex.new() # Used to synchonize the thread with the main thread
+var thread: Thread # Used to offload calculations from the main thread
+var mypos: Vector3 # The position in 3d space. Expect y to be 0
+# Variables to enable navigation.
+var navigation_region: NavigationRegion3D
+var navigation_mesh: NavigationMesh = NavigationMesh.new()
+var source_geometry_data: NavigationMeshSourceGeometryData3D
+var generation_task: int
+var chunk_mesh_body: StaticBody3D
 
-
-# Signals to let the levelgenerator update the navigationmesh
-signal chunk_created(chunkposition)
-signal chunk_destroyed(chunkposition)
+signal chunk_unloaded(chunkdata: Dictionary)
+signal chunk_loaded(chunkdata: Dictionary)
 
 
 func _ready():
+	chunk_unloaded.connect(_finish_unload)
+	source_geometry_data = NavigationMeshSourceGeometryData3D.new()
+	setup_navigation()
+	# The Helper keeps track of which navigationmap belogns to which chunk. When a navigationagent
+	# crosses the chunk boundary, it will get the current chunk's navigationmap id to work with
+	chunk_loaded.connect(Helper.on_chunk_loaded.bind({"mypos": mypos, "map": navigation_map_id}))
+	chunk_unloaded.connect(Helper.on_chunk_unloaded.bind({"mypos": mypos}))
 	transform.origin = Vector3(mypos)
 	add_to_group("chunks")
+	initialize_chunk_data()
+
+
+func initialize_chunk_data():
+	if chunk_data.has("id"): # This chunk is created for the first time
+		#This contains the data of one segment, loaded from maps.data, for example generichouse.json
+		var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
+			Gamedata.data.maps.dataPath + chunk_data.id)
+		_mapleveldata = mapsegmentData.levels
+		generate_new_chunk()
+	else: # This chunk is created from previously saved data
+		#_mapleveldata = chunk_data.maplevels
+		#WorkerThreadPool.add_task(generate_saved_chunk)
+		#generation_task = WorkerThreadPool.add_task(generate_saved_chunk)
+		#WorkerThreadPool.wait_for_task_completion(generation_task)
+		generate_saved_chunk()
+
+
+func generate_new_chunk():
+	#thread = Thread.new()
+	#thread.start(create_block_position_dictionary_new)
+	#create_block_position_dictionary_new_finished()
+	block_positions = create_block_position_dictionary_new_arraymesh()
 	thread = Thread.new()
-	if chunk_data.has("id"):
-		thread.start(generate_new_chunk.bind(chunk_data))
-	else:
-		thread.start(generate_saved_chunk.bind(chunk_data))
+	thread.start(generate_chunk_mesh)
+	#generate_chunk_mesh()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
+# The chunk mesh has finished generating. we check if the thread is finished and then we start
+# to add furniture and items to the map
+func generate_chunk_mesh_finished():
+	# Even though the chunk is not completely generated, we emit the signal now to prevent further
+	# delays in generating or unloading the next chunk. Might remove this or move it to another place.
+	chunk_loaded.emit()
+	# Wait for the thread to complete, and get the returned value.
+	if is_instance_valid(thread) and thread.is_started():
+		mutex.lock()
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
+		mutex.unlock()
+	if chunk_data.has("id"): # This chunk is created for the first time
+		processed_level_data = process_level_data()
+		thread = Thread.new()
+		thread.start(add_furnitures_to_new_block)
+	else: # This chunk has been loaded from previously saved data
+		for item: Dictionary in chunk_data.items:
+			add_item_to_map(item)
+		# We duplicate the furnituredata for thread safety
+		thread = Thread.new()
+		thread.start(add_furnitures_to_map.bind(chunk_data.furniture.duplicate()))
 
 
-# Thread must be disposed (or "joined"), for portability.
-func _exit_tree():
-	chunk_destroyed.emit(mypos)
-	thread.wait_to_finish()
-
-
-func generate_new_chunk(mapsegment: Dictionary):
-	#This contains the data of one segment, loaded from maps.data, for example generichouse.json
-	var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
-		Gamedata.data.maps.dataPath + mapsegment.id)
-	var tileJSON: Dictionary = {}
-
+# Collects the furniture and mob data from the mapdata to be spawned later
+func process_level_data():
 	var level_number = 0
-	for level in mapsegmentData.levels:
-		if level != []:
-			var y_position: int = level_number - 10
-			var level_node = create_level_node(y_position)
-			var blocks_created: int = 0
+	var tileJSON: Dictionary = {}
+	var proc_lvl_data: Dictionary = {"furn": [],"mobs": []}
 
+	for level in _mapleveldata:
+		if level != []:
+			var y: int = level_number - 10
 			var current_block = 0
 			for h in range(level_height):
 				for w in range(level_width):
 					if level[current_block]:
 						tileJSON = level[current_block]
 						if tileJSON.has("id") and tileJSON.id != "":
-							var block = DefaultBlock.new()
-							block.construct_self(Vector3(w,0,h), tileJSON)
-							level_node.add_child.call_deferred(block)
-							add_block_mob(tileJSON, Vector3(w,y_position+1.1,h))
-							add_furniture_to_block(tileJSON, Vector3(w,y_position,h))
-							blocks_created += 1
+							if tileJSON.has("mob"):
+								# We spawn it slightly above the block and let it fall. Might want to 
+								# fiddle with the Y coordinate for optimalization
+								proc_lvl_data.mobs.append({"json":tileJSON.mob, "pos":Vector3(w,y+1.5,h)})
+							if tileJSON.has("furniture"):
+								# We spawn it slightly above the block. Might want to 
+								# fiddle with the Y coordinate for optimalization
+								var furniturjson = tileJSON.furniture
+								proc_lvl_data.furn.append({"json":furniturjson, "pos":Vector3(w,y+0.5,h)})
 					current_block += 1
-			if !blocks_created > 0:
-				level_node.remove_from_group.call_deferred("maplevels")
-				_levels.erase(level_node)
-				level_node.queue_free()
-			
 		level_number += 1
-	call_deferred("emit_signal", "chunk_created", mypos)
+	return proc_lvl_data
 
 
-func create_level_node(ypos: int) -> ChunkLevel:
-	var level_node = ChunkLevel.new()
-	level_node.add_to_group("maplevels")
-	add_child.call_deferred(level_node)
-	_levels.append(level_node)
-	level_node.levelposition = Vector3(0,ypos,0)
-	return level_node
+# Creates a dictionary of all block positions with a local x,y and z position
+# This function works with new mapdata
+func create_block_position_dictionary_new_arraymesh() -> Dictionary:
+	var new_block_positions:Dictionary = {}
+	for level_index in range(len(_mapleveldata)):
+		var level = _mapleveldata[level_index]
+		if level != []:
+			for h in range(level_height):
+				for w in range(level_width):
+					var current_block_index = h * level_width + w
+					if level[current_block_index]:
+						var tileJSON = level[current_block_index]
+						if tileJSON.has("id") and tileJSON.id != "":
+							var block_position_key = str(w) + "," + str(level_index-10) + "," + str(h)
+							# We only save the data we need, exluding mob and furniture data
+							new_block_positions[block_position_key] = {
+								"id": tileJSON.id,
+								"rotation": tileJSON.get("rotation", 0)
+							}
+	return new_block_positions
+
+
+# Creates a dictionary of all block positions with a local x,y and z position
+# This function works with previously saved chunk data
+func create_block_position_dictionary_loaded() -> Dictionary:
+	var new_block_positions:Dictionary = {}
+	for level_index in range(len(_mapleveldata)):
+		var level = _mapleveldata[level_index]
+		if level.blocks != []:
+			for blk in level.blocks:
+				if blk.has("id") and not blk.id == "":
+					var key = str(blk.block_x) + "," + str(level.map_y) + "," + str(blk.block_z)
+					new_block_positions[key] = true
+	#create_block_position_dictionary_loaded_finished.call_deferred()
+	return new_block_positions
+
+
+func create_block_position_dictionary_loaded_finished():
+	#mutex.lock()
+	## Wait for the thread to complete, and get the returned value.
+	#block_positions = thread.wait_to_finish()
+	#thread = null # Threads are reference counted, so this is how we free them.
+	#mutex.unlock()
+	block_positions = create_block_position_dictionary_loaded()
 
 
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation
 # If a block has an mob, add it too
-func generate_saved_chunk(tacticalMapJSON: Dictionary) -> void:
-	#we need to generate level layer by layer starting from the bottom
-	for level: Dictionary in tacticalMapJSON.maplevels:
-		if level != {}:
-			var level_node = create_level_node(level.map_y)
-			generate_saved_level(level, level_node)
-
-	for mob: Dictionary in tacticalMapJSON.mobs:
-		add_mob_to_map.call_deferred(mob)
-
-	for item: Dictionary in tacticalMapJSON.items:
-		add_item_to_map.call_deferred(item)
-
-	for furnitureData: Dictionary in tacticalMapJSON.furniture:
-		add_furniture_to_map.call_deferred(furnitureData)
-	
-	call_deferred("emit_signal", "chunk_created", mypos)
-
-
-# Generates blocks on in the provided level. A level contains at most 32x32 blocks
-func generate_saved_level(level: Dictionary, level_node: Node3D) -> void:
-	for savedBlock in level.blocks:
-		if savedBlock.has("id") and not savedBlock.id == "":
-			var block = DefaultBlock.new()
-			block.construct_self(Vector3(savedBlock.block_x,0,savedBlock.block_z), savedBlock)
-			level_node.add_child.call_deferred(block)
+func generate_saved_chunk() -> void:
+	#thread = Thread.new()
+	#thread.start(create_block_position_dictionary_loaded)
+	#create_block_position_dictionary_loaded_finished()
+	block_positions = chunk_data.block_positions
+	thread = Thread.new()
+	thread.start(generate_chunk_mesh)
+	#generate_chunk_mesh()
+	#for item: Dictionary in chunk_data.items:
+		#add_item_to_map(item)
+	#thread = Thread.new()
+	#thread.start(add_furnitures_to_map.bind(chunk_data.furniture.duplicate()))
+	#add_furnitures_to_map(chunk_data.furniture.duplicate())
 
 
 # When a map is loaded for the first time we spawn the mob on the block
-func add_block_mob(tileJSON: Dictionary, mobpos: Vector3):
-	if tileJSON.has("mob"):
+func add_block_mobs():
+	if not processed_level_data.has("mobs"):
+		return
+	mutex.lock()
+	var mobdatalist = processed_level_data.mobs.duplicate()
+	mutex.unlock()
+	for mobdata: Dictionary in mobdatalist:
 		var newMob: CharacterBody3D = Mob.new()
 		# Pass the position and the mob json to the newmob and have it construct itself
-		newMob.construct_self(mypos+mobpos, tileJSON.mob)
+		newMob.construct_self(mypos+mobdata.pos, mobdata.json)
 		level_manager.add_child.call_deferred(newMob)
+	add_block_mobs_finished.call_deferred()
+
+
+func add_block_mobs_finished():
+	if is_instance_valid(thread) and thread.is_started():
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
 
 
 # When a map is loaded for the first time we spawn the furniture on the block
-func add_furniture_to_block(tileJSON: Dictionary, furniturepos: Vector3):
-	if tileJSON.has("furniture"):
+func add_furnitures_to_new_block():
+	mutex.lock()
+	var furnituredata = processed_level_data.furn.duplicate()
+	mutex.unlock()
+	var total_furniture = furnituredata.size()
+	 # Ensure we at least get 1 to avoid division by zero
+	var delay_every_n_furniture = max(1, total_furniture / 15)
+
+	for i in range(total_furniture):
+		var furniture = furnituredata[i]
+		var furnituremapjson: Dictionary = furniture.json
+		var furniturepos: Vector3 = furniture.pos
 		var newFurniture: Node3D
 		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
-		Gamedata.data.furniture, tileJSON.furniture.id)
+			Gamedata.data.furniture, furnituremapjson.id)
 		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
 			newFurniture = FurniturePhysics.new()
+			furniturepos.y += 0.2 # Make sure it's not in a block and let it fall
 		else:
 			newFurniture = FurnitureStatic.new()
 
-		newFurniture.construct_self(mypos+furniturepos, tileJSON.furniture)
+		newFurniture.construct_self(mypos+furniturepos, furnituremapjson)
 		level_manager.add_child.call_deferred(newFurniture)
+		
+		# Insert delay after every n blocks, evenly spreading the delay
+		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
+			OS.delay_msec(100) # Adjust delay time as needed
+
+	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
+	if total_furniture % delay_every_n_furniture != 0:
+		OS.delay_msec(100)
+	add_furnitures_to_new_block_finished.call_deferred()
 
 
-# Saves all of the maplevels to disk
-# A maplevel is one 32x32 layer at a certain x,y and z position
-# This layer will contain 1024 blocks
-func get_map_data() -> Array:
-	var maplevels: Array = []
-
-	# Loop over the levels in the map
-	for level: Node3D in _levels:
-		level.remove_from_group("maplevels")
-		var level_node_data: Array = []
-		var level_node_dict: Dictionary = {
-			"map_y": level.global_position.y, 
-			"blocks": level_node_data
-		}
-
-		# Loop over the blocks in the level
-		for block in level.get_children():
-			var block_data: Dictionary = {
-				"id": block.tileJSON.id, 
-				"rotation": int(block.rotation_degrees.y),
-				"block_x": block.position.x,
-				"block_z": block.position.z
-			}
-			level_node_data.append(block_data)
-		maplevels.append(level_node_dict)
-	return maplevels
+func add_furnitures_to_new_block_finished():
+	if is_instance_valid(thread) and thread.is_started():
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
+	thread = Thread.new()
+	thread.start(add_block_mobs)
 
 
 func get_furniture_data() -> Array:
@@ -183,33 +273,49 @@ func get_furniture_data() -> Array:
 	var mapFurniture = get_tree().get_nodes_in_group("furniture")
 	var newFurnitureData: Dictionary
 	var newRot: int
+	var furniturepos: Vector3
 	for furniture in mapFurniture:
-		# Check if furniture's position is within the desired range
-		if _is_object_in_range(furniture):
-			furniture.remove_from_group("furniture")
+		# We check if the furniture is a valid instance. Sometimes it isn't
+		# This might be because two chunks try to unload the furniture?
+		# We might need more work on _is_object_in_range
+		if is_instance_valid(furniture):
 			if furniture is FurniturePhysics:
-				newRot = furniture.rotation_degrees.y
+				mutex.lock()
+				newRot = furniture.last_rotation
+				furniturepos = furniture.last_position
+				#print_debug("removing furniture with posdition: ", furniturepos)
+				mutex.unlock()
 			else: # It's FurnitureStatic
+				mutex.lock()
 				newRot = furniture.get_my_rotation()
-			newFurnitureData = {
-				"id": furniture.furnitureJSON.id,
-				"moveable": furniture is FurniturePhysics,
-				"global_position_x": furniture.global_position.x,
-				"global_position_y": furniture.global_position.y,
-				"global_position_z": furniture.global_position.z,
-				"rotation": newRot,  # Save the Y-axis rotation
-			}
-			furnitureData.append(newFurnitureData.duplicate())
-			furniture.queue_free()
+				furniturepos = furniture.furnitureposition
+				mutex.unlock()
+			# Check if furniture's position is within the desired range
+			# It's possible some furniture is still spawning and have their position be 0,0,0
+			# We do not want to save that furniture, just the ones at the other positions
+			if _is_object_in_range(furniturepos) and not furniturepos == Vector3(0,0,0):
+				furniture.remove_from_group.call_deferred("furniture")
+				newFurnitureData = {
+					"id": furniture.furnitureJSON.id,
+					"moveable": furniture is FurniturePhysics,
+					"global_position_x": furniturepos.x,
+					"global_position_y": furniturepos.y,
+					"global_position_z": furniturepos.z,
+					"rotation": newRot,  # Save the Y-axis rotation
+				}
+				furnitureData.append(newFurnitureData.duplicate())
+				furniture.queue_free.call_deferred()
+		else:
+			print_debug("Tried to get data from furniture, but it's null!")
 	return furnitureData
 
 
 # We check if the furniture or mob or item's position is inside this chunk on the x and z axis
-func _is_object_in_range(object: Node3D) -> bool:
-		return object.global_position.x >= self.global_position.x and \
-		object.global_position.x <= self.global_position.x + level_width and \
-		object.global_position.z >= self.global_position.z and \
-		object.global_position.z <= self.global_position.z + level_height
+func _is_object_in_range(objectposition: Vector3) -> bool:
+		return objectposition.x >= mypos.x and \
+		objectposition.x <= mypos.x + level_width and \
+		objectposition.z >= mypos.z and \
+		objectposition.z <= mypos.z + level_height
 
 
 # Save all the mobs and their current stats to the mobs file for this map
@@ -219,14 +325,14 @@ func get_mob_data() -> Array:
 	var newMobData: Dictionary
 	for mob in mapMobs:
 		# Check if furniture's position is within the desired range
-		if _is_object_in_range(mob):
-			mob.remove_from_group("mobs")
+		if _is_object_in_range(mob.last_position):
+			mob.remove_from_group.call_deferred("mobs")
 			newMobData = {
 				"id": mob.mobJSON.id,
-				"global_position_x": mob.global_position.x,
-				"global_position_y": mob.global_position.y,
-				"global_position_z": mob.global_position.z,
-				"rotation": mob.rotation_degrees.y,
+				"global_position_x": mob.last_position.x,
+				"global_position_y": mob.last_position.y,
+				"global_position_z": mob.last_position.z,
+				"rotation": mob.last_rotation,
 				"melee_damage": mob.melee_damage,
 				"melee_range": mob.melee_range,
 				"health": mob.health,
@@ -240,7 +346,7 @@ func get_mob_data() -> Array:
 				"hearing_range": mob.hearingRange
 			}
 			mobData.append(newMobData.duplicate())
-			mob.queue_free()
+			mob.queue_free.call_deferred()
 	return mobData
 
 
@@ -257,25 +363,37 @@ func get_item_data() -> Array:
 	var mapitems = get_tree().get_nodes_in_group("mapitems")
 	var newitemData: Dictionary
 	for item in mapitems:
-		if _is_object_in_range(item):
-			item.remove_from_group("mapitems")
+		if _is_object_in_range(item.containerpos):
+			item.remove_from_group.call_deferred("mapitems")
 			newitemData = myItem.duplicate()
-			newitemData["global_position_x"] = item.global_position.x
-			newitemData["global_position_y"] = item.global_position.y
-			newitemData["global_position_z"] = item.global_position.z
+			newitemData["global_position_x"] = item.containerpos.x
+			newitemData["global_position_y"] = item.containerpos.y
+			newitemData["global_position_z"] = item.containerpos.z
 			newitemData["inventory"] = item.inventory.serialize()
 			itemData.append(newitemData.duplicate())
-			item.queue_free()
+			item.queue_free.call_deferred()
 	return itemData
 
 
 # Called when a save is loaded
-func add_mob_to_map(mob: Dictionary) -> void:
-	var newMob: CharacterBody3D = Mob.new()
-	# Put the mob back where it was when the map was unloaded
-	var mobpos: Vector3 = Vector3(mob.global_position_x,mob.global_position_y,mob.global_position_z)
-	newMob.construct_self(mobpos, mob)
-	level_manager.add_child.call_deferred(newMob)
+func add_mobs_to_map() -> void:
+	mutex.lock()
+	var mobdata: Array = chunk_data.mobs.duplicate()
+	mutex.unlock()
+	for mob: Dictionary in mobdata:
+		var newMob: CharacterBody3D = Mob.new()
+		# Put the mob back where it was when the map was unloaded
+		var mobpos: Vector3 = Vector3(mob.global_position_x,mob.global_position_y,mob.global_position_z)
+		newMob.construct_self(mobpos, mob)
+		level_manager.add_child.call_deferred(newMob)
+	add_mobs_to_map_finished.call_deferred()
+
+
+func add_mobs_to_map_finished():
+	if is_instance_valid(thread) and thread.is_started():
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
 
 
 # Called by generate_items function when a save is loaded
@@ -288,27 +406,720 @@ func add_item_to_map(item: Dictionary):
 	newItem.inventory.deserialize(item.inventory)
 
 
-func add_furniture_to_map(furnitureData: Dictionary):
+# Adds furniture that has been loaded from previously saved data
+func add_furnitures_to_map(furnitureDataArray: Array):
 	var newFurniture: Node3D
-	var furnitureJSON: Dictionary = Gamedata.get_data_by_id(
-	Gamedata.data.furniture, furnitureData.id)
+	
+	var total_furniture = furnitureDataArray.size()
+	 # Ensure we at least get 1 to avoid division by zero
+	#var delay_every_n_furniture = max(1, total_furniture / 15)
+	var delay_every_n_furniture = max(1, int(total_furniture / 15))
+	for i in range(total_furniture):
+		var furnitureData = furnitureDataArray[i]
+		mutex.lock()
+		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(
+		Gamedata.data.furniture, furnitureData.id)
+		mutex.unlock()
 
-	if furnitureJSON.has("moveable") and furnitureJSON.moveable:
-		newFurniture = FurniturePhysics.new()
-	else:
-		newFurniture = FurnitureStatic.new()
+		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
+			newFurniture = FurniturePhysics.new()
+		else:
+			newFurniture = FurnitureStatic.new()
 
-	var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
-	newFurniture.construct_self(furniturepos,furnitureData)
-	level_manager.add_child.call_deferred(newFurniture)
+		# We can't set it's position until after it's in the scene tree 
+		# so we only save the position to a variable and pass it to the furniture
+		var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
+		newFurniture.construct_self(furniturepos,furnitureData)
+		level_manager.add_child.call_deferred(newFurniture)
+		
+		# Insert delay after every n furniture, evenly spreading the delay
+		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
+			OS.delay_msec(100) # Adjust delay time as needed
+
+	# Optional: One final delay after the last furniture if the total_furniture is not perfectly divisible by delay_every_n_furniture
+	if total_furniture % delay_every_n_furniture != 0:
+		OS.delay_msec(100)
+	
+	add_furnitures_to_map_finised.call_deferred()
 
 
+func add_furnitures_to_map_finised():
+	if is_instance_valid(thread) and thread.is_started():
+		if thread.is_alive():
+			print_debug("The thread is still alive, blocking calling thread")
+		# If a thread is already running, let it finish before we start another.
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
+	thread = Thread.new()
+	thread.start(add_mobs_to_map)
+	#add_block_mobs()
+
+
+# Returns all the chunk data used for saving and loading
 func get_chunk_data() -> Dictionary:
-	return {
-			"chunk_x": global_position.x,
-			"chunk_z": global_position.z,
-			"maplevels": get_map_data(),
-			"furniture": get_furniture_data(),
-			"mobs": get_mob_data(),
-			"items": get_item_data()
+	var chunkdata: Dictionary = {}
+	mutex.lock()
+	chunkdata.chunk_x = mypos.x
+	chunkdata.chunk_z = mypos.z
+	mutex.unlock()
+	# The chunk is made from the block_positions data so we save this
+	chunkdata.block_positions = block_positions.duplicate()
+	chunkdata.furniture = get_furniture_data()
+	chunkdata.mobs = get_mob_data()
+	chunkdata.items = get_item_data()
+	
+	# Free the mesh and navigation elements
+	chunk_mesh_body.queue_free()
+	navigation_region.queue_free()
+	NavigationServer3D.free_rid(navigation_map_id)
+	finish_unload_chunk.call_deferred()
+	return chunkdata
+
+
+# Called by LevelGenerator.gd which manages the chunks and also by Helper.save_helper when
+# switching to a different map. We start a new thread to collect map data and save it in
+# the helper variable. First we wait until the current thread is finished.
+func unload_chunk():
+	if is_instance_valid(thread) and thread.is_started():
+	# Wait for the thread to complete, and get the returned value.
+		mutex.lock()
+		thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
+		mutex.unlock()
+	thread = Thread.new()
+	thread.start(get_chunk_data)
+
+
+# The thread has done it's work and the mapdata is gathered. We now save it to the Helper variable
+# This happens when LevelGenerator.gd unloads chunks and when Helper.save_helper saves the map
+# Lastly we emit the unloaded signal so that Helper and LevelGenerator know to act and also to call 
+# the _finish_unload function
+func finish_unload_chunk():
+	var chunkdata: Dictionary
+	mutex.lock()
+	if is_instance_valid(thread) and thread.is_started():
+		chunkdata = thread.wait_to_finish()
+		thread = null # Threads are reference counted, so this is how we free them.
+
+	var chunkposition: Vector2 = Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))
+	Helper.loaded_chunk_data.chunks[chunkposition] = chunkdata
+	mutex.unlock()
+	chunk_unloaded.emit()
+
+
+# Adds triangles represented by 3 vertices to the navigation mesh data
+# If a block is above another block, we make sure no plane is created in between
+# For blocks we will create a square represented by 2 triangles
+# The same goes for slopes, but 2 of the vertices are lowered to the ground
+# keep in mind that after the navigationmesh is added to the navigationregion
+# It will be shrunk by the navigation_mesh.agent_radius to prevent collisions
+func add_mesh_to_navigation_data(blockposition: Vector3, blockrotation: int, blockshape: String):
+	var block_global_position: Vector3 = blockposition# + mypos
+	var blockrange: float = 0.5
+	var extend: float = 1.0 # Amount to extend for edge blocks
+	
+	# Check if there's a block directly above the current block
+	var above_key = str(blockposition.x) + "," + str(block_global_position.y + 1) + "," + str(blockposition.z)
+	if block_positions.has(above_key):
+		# There's a block directly above, so we don't add a face for the current block's top
+		return
+	
+	# Determine if the block is at the edge of the chunk
+	var is_edge_x = blockposition.x == 0 || blockposition.x == level_width - 1
+	var is_edge_z = blockposition.z == 0 || blockposition.z == level_height - 1
+
+	# Adjust vertices for edge blocks
+	var adjustment_x
+	var adjustment_z
+	if is_edge_x:
+		adjustment_x = extend
+	else:
+		adjustment_x = 0
+	if is_edge_z:
+		adjustment_z = extend
+	else:
+		adjustment_z = 0
+
+	if blockshape == "cube":
+		# Top face of a block, the block size is 1x1x1 for simplicity.
+		var top_face_vertices = PackedVector3Array([
+			# First triangle
+			Vector3(-blockrange - adjustment_x, 0.5, -blockrange - adjustment_z), # Top-left
+			Vector3(blockrange + adjustment_x, 0.5, -blockrange - adjustment_z), # Top-right
+			Vector3(blockrange + adjustment_x, 0.5, blockrange + adjustment_z), # Bottom-right
+			# Second triangle
+			Vector3(-blockrange - adjustment_x, 0.5, -blockrange - adjustment_z), # Top-left (repeated for the second triangle)
+			Vector3(blockrange + adjustment_x, 0.5, blockrange + adjustment_z), # Bottom-right (repeated for the second triangle)
+			Vector3(-blockrange - adjustment_x, 0.5, blockrange + adjustment_z)  # Bottom-left
+		])
+		# Add the top face as two triangles.
+		mutex.lock()
+		source_geometry_data.add_faces(top_face_vertices, Transform3D(Basis(), block_global_position))
+		mutex.unlock()
+	elif blockshape == "slope":
+		# Define the initial slope vertices here. We define a set for each direction
+		var vertices_north = PackedVector3Array([ #Facing north
+			Vector3(-blockrange, 0.5, -blockrange), # Top front left
+			Vector3(blockrange, 0.5, -blockrange), # Top front right
+			Vector3(blockrange, -0.5, blockrange), # Bottom back right
+			Vector3(-blockrange, -0.5, blockrange) # Bottom back left
+		])
+		var vertices_east = PackedVector3Array([
+			Vector3(blockrange, 0.5, -blockrange), # Top back right
+			Vector3(blockrange, 0.5, blockrange), # Top front right
+			Vector3(-blockrange, -0.5, blockrange), # Bottom front left
+			Vector3(-blockrange, -0.5, -blockrange) # Bottom back left
+		])
+		var vertices_south = PackedVector3Array([
+			Vector3(blockrange, 0.5, blockrange), # Top front right
+			Vector3(-blockrange, 0.5, blockrange), # Top front left
+			Vector3(-blockrange, -0.5, -blockrange), # Bottom back left
+			Vector3(blockrange, -0.5, -blockrange) # Bottom back right
+		])
+		var vertices_west = PackedVector3Array([
+			Vector3(-blockrange, 0.5, blockrange), # Top front left
+			Vector3(-blockrange, 0.5, -blockrange), # Top back left
+			Vector3(blockrange, -0.5, -blockrange), # Bottom back right
+			Vector3(blockrange, -0.5, blockrange) # Bottom front right
+		])
+
+		# We pick a direction based on the block rotation
+		var blockrot: int = blockrotation
+		var vertices
+		match blockrot:
+			90:
+				vertices = vertices_north
+			180:
+				vertices = vertices_west
+			270:
+				vertices = vertices_south
+			_:
+				vertices = vertices_east
+
+		# Define triangles for the slope
+		var slope_faces = PackedVector3Array([
+			vertices[0], vertices[1], vertices[2],  # Triangle 1: TFL, TFR, BBR
+			vertices[0], vertices[2], vertices[3]   # Triangle 2: TFL, BBR, BBL
+		])
+		mutex.lock()
+		source_geometry_data.add_faces(slope_faces, Transform3D(Basis(), block_global_position))
+		mutex.unlock()
+
+
+# Rotates the vertex passed in the parameter. Used to rotate slope data for the navigationmesh
+func rotate_vertex(vertex: Vector3, degrees: int) -> Vector3:
+	match degrees:
+		90:
+			return Vector3(-vertex.z, vertex.y, vertex.x)
+		180:
+			return Vector3(-vertex.x, vertex.y, -vertex.z)
+		270:
+			return Vector3(vertex.z, vertex.y, -vertex.x)
+		_:
+			return vertex
+
+
+# Finally, queue the chunk itself for deletion.
+func _finish_unload():
+	queue_free.call_deferred()
+
+
+# We update the navigationmesh for this chunk with data generated from the blocks
+func update_navigation_mesh():
+	NavigationServer3D.bake_from_source_geometry_data_async(navigation_mesh, source_geometry_data, _on_finish_baking)
+
+
+# When the navigationserver is done baking, we update the navigationmesh. Since each chunk has it's
+# own navigationmap, this does not cause a stutter in the gameplay. However, if you change it so that all
+# chunks share the same navigationmap, calling this will cause a stutter because the navigation
+# synchronisation happens on the main thread.
+func _on_finish_baking():
+	navigation_region.set_navigation_mesh(navigation_mesh)
+
+
+# Setup the navigation for this chunk. It gets a new map and a new region
+# You can fiddle with the numbers to improve agent navigation
+func setup_navigation():
+	# Adjust the navigation mesh settings as before
+	navigation_mesh.cell_size = 0.1
+	navigation_mesh.agent_height = 0.5
+	# Changint the agent_radius will also make the navigationmesh grow or shrink. This is because 
+	# there is a margin around the navigationmesh to prevent agents from colliding with the wall.
+	navigation_mesh.agent_radius = 0.2
+	navigation_mesh.agent_max_slope = 46
+
+	# Create a new navigation region for this chunk
+	navigation_region = NavigationRegion3D.new()
+	add_child(navigation_region)
+
+	# Create a new navigation map specifically for this chunk
+	navigation_map_id = NavigationServer3D.map_create()
+	NavigationServer3D.map_set_active(navigation_map_id, true)
+
+	# The navigation region of this chunk is associated with its own navigation map
+	# The cell size should be the same as the navigation_mesh.cell_size
+	NavigationServer3D.map_set_cell_size(navigation_map_id, 0.1)
+
+	# Set the new navigation map to the navigation region
+	navigation_region.set_navigation_map(navigation_map_id)
+
+
+# This function creates a atlas texture which is a combination of the textures that we need
+# for the blocks in this chunk. When there are more different blocks in the chunk, the atlas will
+# be bigger. The atlas texture will be used by the rendering engine to render the right texture
+# This function will also create a mapping of the texture and the coordinates in the atlas
+# This will help to determine which block needs which coordinate on the atlas to display the right texture
+func create_atlas() -> Dictionary:
+	var material_to_blocks: Dictionary = {} # Dictionary to hold blocks organized by material
+	var block_uv_map: Dictionary = {} # Dictionary to map block IDs to their UV coordinates in the atlas
+	
+	# Organize the materials we need into a dictionary
+	for key: String in block_positions.keys():
+		var block_data: Dictionary = block_positions[key]
+		var material_id: String = str(block_data["id"]) # Key for material ID
+		if not material_to_blocks.has(material_id):
+			var sprite = Gamedata.get_sprite_by_id(Gamedata.data.tiles, material_id)
+			if sprite:
+				material_to_blocks[material_id] = sprite.albedo_texture
+
+	# Calculate the atlas size needed
+	var num_textures: int = material_to_blocks.keys().size()
+	var atlas_dimension = int(ceil(sqrt(num_textures))) # Convert to int to ensure modulus operation works
+	var texture_size = 128 # Assuming each texture is 128x128 pixels
+	var atlas_pixel_size = atlas_dimension * texture_size
+
+	# Create a large blank Image for the atlas
+	var atlas_image = Image.create(atlas_pixel_size, atlas_pixel_size, false, Image.FORMAT_RGBA8)
+	atlas_image.fill(Color(0, 0, 0, 0)) # Transparent background
+
+	# Step 3: Blit each texture onto the atlas and update block_uv_map
+	var texposition = Vector2.ZERO
+	var index = 0
+	for material_id in material_to_blocks.keys():
+		
+		var texture: Image = material_to_blocks[material_id].get_image()
+		
+		var img: Image = texture.duplicate()
+		if img.is_compressed():
+			img.decompress() # Decompress if the image is compressed
+		img.convert(Image.FORMAT_RGBA8) # Convert texture to RGBA8 format
+		var dest_rect = Rect2(texposition, img.get_size())
+		var used_rect: Rect2i = img.get_used_rect()
+		
+		if img.is_empty(): # Check if the image data is empty
+			continue # Skip this texture as it's not loaded properly
+		atlas_image.blit_rect(img, used_rect, dest_rect.position)
+
+		# Calculate and store the UV offset and scale for this material
+		var uv_offset = texposition / atlas_pixel_size
+		var uv_scale = img.get_size() / float(atlas_pixel_size)
+		block_uv_map[material_id] = {"offset": uv_offset, "scale": uv_scale}
+
+		# Update position for the next texture
+		index += 1
+		if index % atlas_dimension == 0:
+			texposition.x = 0
+			texposition.y += texture_size
+		else:
+			texposition.x = (index % atlas_dimension) * texture_size
+
+	# Convert the atlas Image to a Texture
+	var atlas_texture = ImageTexture.create_from_image(atlas_image)
+	return {"atlas_texture": atlas_texture, "block_uv_map": block_uv_map}
+
+
+# This will add the following to the "arrays" parameter:
+# arrays[ArrayMesh.ARRAY_VERTEX] = verts
+# arrays[ArrayMesh.ARRAY_NORMAL] = normals
+# arrays[ArrayMesh.ARRAY_TEX_UV] = uvs
+# arrays[ArrayMesh.ARRAY_INDEX] = indices
+# This represents the data that will be used to create an arraymesh, which visualizes the blocks
+# The block_uv_map is used to map the block id to the right uv coordinates on the atlas texture
+func prepare_mesh_data(arrays: Array, block_uv_map: Dictionary):
+	# Define a small margin to prevent seams
+	var margin: float = 0.01
+
+	var verts = PackedVector3Array()
+	var uvs = PackedVector2Array()
+	var normals = PackedVector3Array()
+	var indices = PackedInt32Array()
+
+	# Assume a block size for the calculations
+	var block_size: float = 1.0
+
+	for key in block_positions.keys():
+		var pos_array = key.split(",")
+		var poslocal = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
+		
+		# Adjust position based on the block size
+		var pos = poslocal * block_size
+		
+		var block_data = block_positions[key]
+		var material_id = str(block_data["id"])
+		# Get the shape of the block
+		var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,block_data.id)
+		var blockshape = tileJSONData.get("shape", "cube")
+		block_data["shape"] = blockshape # store for later use
+		
+		# Calculate UV coordinates based on the atlas
+		var uv_info = block_uv_map[material_id] if block_uv_map.has(material_id) else {"offset": Vector2(0, 0), "scale": Vector2(1, 1)}
+		var uv_offset = Vector2(uv_info["offset"])#.to_vector2() # Convert to Vector2 if needed
+		var uv_scale = Vector2(uv_info["scale"])#.to_vector2() # Convert to Vector2 if needed
+
+		# Adjust the UVs to include the margin uniformly
+		var top_face_uv = PackedVector2Array([
+			(Vector2(0, 0) * uv_scale + Vector2(margin, margin)) + uv_offset,
+			(Vector2(1, 0) * uv_scale + Vector2(-margin, margin)) + uv_offset,
+			(Vector2(1, 1) * uv_scale + Vector2(-margin, -margin)) + uv_offset,
+			(Vector2(0, 1) * uv_scale + Vector2(margin, -margin)) + uv_offset
+		])
+		var blockrotation: int = 0
+		if chunk_data.has("id"): # This chunk is created for the first time, so we need to save 
+			# the rotation to the block json dictionary
+			blockrotation = get_block_rotation(blockshape, block_data.rotation)
+			block_data["rotation"] = blockrotation
+		else: # Rotation has been previously saved so we can use that
+			blockrotation = block_data.rotation
+		# After calculating and adding vertices to the mesh arrays
+		# Call add_mesh_to_navigation_data for each block
+		add_mesh_to_navigation_data(poslocal, blockrotation, blockshape)
+		
+		if blockshape == "cube":
+			setup_cube(pos, blockrotation, verts, uvs, normals, indices, top_face_uv)
+		elif blockshape == "slope":
+			setup_slope(blockrotation, pos, verts, uvs, normals, indices, top_face_uv)
+		
+	arrays[ArrayMesh.ARRAY_VERTEX] = verts
+	arrays[ArrayMesh.ARRAY_NORMAL] = normals
+	arrays[ArrayMesh.ARRAY_TEX_UV] = uvs
+	arrays[ArrayMesh.ARRAY_INDEX] = indices
+
+
+# Creates the entire chunk including:
+# - Mesh shape
+# - Mesh texture
+# - Navigation map
+# - Colliders
+func generate_chunk_mesh():
+	# Create the atlas and get the atlas texture
+	var atlas_output = create_atlas()
+	var atlas_texture = atlas_output.atlas_texture
+	var block_uv_map = atlas_output.block_uv_map
+
+	# Process all blocks and create the mesh
+	var mesh = ArrayMesh.new()
+	var arrays = []
+	arrays.resize(ArrayMesh.ARRAY_MAX)
+	prepare_mesh_data(arrays, block_uv_map)
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	
+	# Create a new ShaderMaterial
+	var shader_material = setup_material(atlas_texture)
+	mesh.surface_set_material(0, shader_material)
+	
+	var mesh_instance = MeshInstance3D.new()
+	mesh_instance.mesh = mesh
+	add_child.call_deferred(mesh_instance)
+	
+	# Create the static body for collision
+	chunk_mesh_body = StaticBody3D.new()
+	chunk_mesh_body.disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
+	# Set collision layer to layer 1 and 5
+	chunk_mesh_body.collision_layer = 1 | (1 << 4) # Layer 1 is 1, Layer 5 is 1 << 4 (16), combined with bitwise OR
+	# Set collision mask to layer 1
+	chunk_mesh_body.collision_mask = 1 # Layer 1 is 1
+	add_child.call_deferred(chunk_mesh_body)
+	create_colliders(chunk_mesh_body)
+	
+	update_navigation_mesh()
+	generate_chunk_mesh_finished.call_deferred()
+
+
+func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, top_face_uv):
+	# Assume a block size for the calculations
+	var half_block = 0.5
+	var top_verts = [
+		Vector3(-half_block, half_block, -half_block) + pos,
+		Vector3(half_block, half_block, -half_block) + pos,
+		Vector3(half_block, half_block, half_block) + pos,
+		Vector3(-half_block, half_block, half_block) + pos
+	]
+	
+	var rotated_top_verts = []
+	for vertex in top_verts:
+		rotated_top_verts.append(rotate_vertex_y(vertex - pos, blockrotation) + pos)
+
+	verts.append_array(rotated_top_verts)
+	uvs.append_array(top_face_uv)
+	
+	# Normals for the top face
+	for _i in range(4):
+		normals.append(Vector3(0, 1, 0))
+	
+	# Indices for the top face
+	var base_index = verts.size() - 4
+	indices.append_array([
+		base_index, base_index + 1, base_index + 2,
+		base_index, base_index + 2, base_index + 3
+	])
+	
+
+func setup_slope(blockrotation: int, pos: Vector3, verts, uvs, normals, indices, top_face_uv):
+	# Slope-specific vertices and UV mapping
+	# Determine slope orientation and vertices based on blockrotation
+	var slope_vertices: PackedVector3Array
+	# Assume a block size for the calculations
+	var half_block = 0.5
+	match blockrotation:
+		90:
+			# Slope facing Facing north
+			slope_vertices = PackedVector3Array([
+				Vector3(-half_block, half_block, -half_block) + pos, # Top front left
+				Vector3(half_block, half_block, -half_block) + pos,   # Top front right
+				Vector3(half_block, -half_block, half_block) + pos,  # Bottom back right
+				Vector3(-half_block, -half_block, half_block) + pos  # Bottom back left
+			])
+		180:
+			# Slope facing Facing west
+			slope_vertices = PackedVector3Array([
+				Vector3(-half_block, half_block, half_block) + pos, # Top front left
+				Vector3(-half_block, half_block, -half_block) + pos,   # Top front right
+				Vector3(half_block, -half_block, -half_block) + pos,  # Bottom back right
+				Vector3(half_block, -half_block, half_block) + pos  # Bottom back left
+			])
+		270:
+			# Slope facing Facing south
+			slope_vertices = PackedVector3Array([
+				Vector3(half_block, half_block, half_block) + pos, # Top front left
+				Vector3(-half_block, half_block, half_block) + pos,   # Top front right
+				Vector3(-half_block, -half_block, -half_block) + pos,  # Bottom back right
+				Vector3(half_block, -half_block, -half_block) + pos  # Bottom back left
+			])
+		_:
+			# Slope facing Facing east
+			slope_vertices = PackedVector3Array([
+				Vector3(half_block, half_block, -half_block) + pos, # Top front left
+				Vector3(half_block, half_block, half_block) + pos,   # Top front right
+				Vector3(-half_block, -half_block, half_block) + pos,  # Bottom back right
+				Vector3(-half_block, -half_block, -half_block) + pos  # Bottom back left
+			])
+
+	# Assuming the top_face_uv calculated for cubes applies here as well
+	verts.append_array(slope_vertices)
+	uvs.append_array(top_face_uv)  # Reuse the UV mapping for simplicity in this example
+	
+	# Normals for the slope's top face, assuming flat shading for simplicity
+	var normal = Vector3(0, 1, 0)  # Adjust if your slope's top face orientation varies
+	for _i in range(4):
+		normals.append(normal)
+	
+	# Indices for the slope, similar to the cube but only for one triangular face
+	var base_index = verts.size() - 4
+	indices.append_array([
+		base_index, base_index + 1, base_index + 2,
+		base_index, base_index + 2, base_index + 3
+	])
+
+
+func setup_material(atlas_texture: ImageTexture) -> ShaderMaterial:
+	var shader_material = ShaderMaterial.new()
+	# Setup shader code and parameters
+	# Create a new Shader
+	var shader = Shader.new()
+	
+	# Imagine a cylinder on top of the player that hides everything, making the player and it's
+	# surroundings visible. That's what this shader does. Unfortunately it also makes other sprites 
+	# transparent, that's the reason why we have to set alpha_cut to discard in sprites (which 
+	# happens outside this shader).
+	shader.set_code("""
+	shader_type spatial;
+	render_mode blend_mix,depth_draw_opaque;
+
+	uniform sampler2D albedo_texture; // The texture image
+	uniform vec4 albedo_color : source_color;
+	uniform float cylinder_height = 5.0;
+	uniform float cylinder_radius = 3.0;
+	uniform float sphere_size = 5.0;
+	global uniform vec3 player_pos; // This needs to be set from script
+
+	varying vec3 world_vertex;
+
+	void vertex() {
+		world_vertex = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	}
+
+	void fragment() {
+		// Sample the albedo texture
+		vec4 texture_color = texture(albedo_texture, UV);
+		
+		// Combine texture color with the albedo color uniform
+		vec3 final_color = texture_color.rgb * albedo_color.rgb;
+
+		// Compute the distance from the player position to the current fragment's position
+		float dist_xz = distance(player_pos.xz, world_vertex.xz);
+		float dist_y = max(world_vertex.y - player_pos.y, 0.0); // Distance above the player, not below
+
+		// Compute the visibility based on the sphere size
+		float visibility_xz = smoothstep(sphere_size, 0.0, dist_xz);
+		float visibility_y = smoothstep(sphere_size, 0.0, dist_y);
+
+		// Check if the fragment is above the player within the sphere radius
+		if (world_vertex.y > player_pos.y+1.0 && dist_xz < sphere_size) {
+			// Above the player within the sphere radius, apply visibility
+			ALPHA = visibility_xz * visibility_y;
+		} else {
+			// Outside of the sphere radius or on/below the player's level, fully visible
+			ALPHA = 1.0;
 		}
+
+		// Set the final albedo color and transparency
+		ALBEDO = final_color;
+	}
+
+
+
+	""")
+	
+	# Assign the Shader to the ShaderMaterial. The 'atlas_texture' is the Texture2D we want to use
+	shader_material.set_shader_parameter('albedo_texture', atlas_texture)
+	shader_material.shader = shader
+
+	# Set the initial uniform values
+	shader_material.set_shader_parameter('albedo_color', Color(1, 1, 1, 1)) # White color, fully opaque
+	shader_material.set_shader_parameter('sphere_size', 3.0)
+	shader_material.set_shader_parameter('albedo_texture', atlas_texture)
+	return shader_material
+
+
+# Coroutine for creating colliders with non-blocking delays
+func create_colliders(static_body: StaticBody3D) -> void:
+	var total_blocks = block_positions.size()
+	# Ensure we at least get 1 to avoid division by zero. Aim for a maximum of 15 steps.
+	var delay_every_n_blocks = max(1, total_blocks / 15)
+	var block_counter = 0
+
+	for key in block_positions.keys():
+		var pos_array = key.split(",")
+		var block_pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
+		var block_data = block_positions[key]
+		var block_shape = block_data.get("shape", "cube")
+		var block_rotation = block_data.get("rotation", 0)
+		static_body.add_child.call_deferred(_create_block_collider(block_pos, block_shape, block_rotation))
+
+		block_counter += 1
+		# Check if it's time to delay
+		if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
+			await get_tree().create_timer(0.1).timeout
+
+
+# Takes the chunk static body and adds a collider for each block
+# A cube and a slope will have different collider shapes
+func create_colliders1(static_body: StaticBody3D):
+	# At the end of your generate_chunk_mesh function, after you've added the mesh instance:
+	for key in block_positions.keys():
+		var pos_array = key.split(",")
+		var block_pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
+		var block_data = block_positions[key]
+		var blockshape = block_data.get("shape", "cube")
+		static_body.add_child.call_deferred(_create_block_collider(block_pos, blockshape, block_data.rotation))
+
+
+# Creates a collider for either a slope or a cube and puts it at the right place and rotation
+func _create_block_collider(block_sub_position, shape: String, block_rotation: int) -> CollisionShape3D:
+	var collider = CollisionShape3D.new()
+	if shape == "cube":
+		collider.shape = BoxShape3D.new()
+		collider.set_transform.call_deferred(Transform3D(Basis(), block_sub_position))
+	else: # It's a slope
+		collider.shape = ConvexPolygonShape3D.new()
+		collider.shape.points = [
+			Vector3(0.5, 0.5, 0.5),
+			Vector3(0.5, 0.5, -0.5),
+			Vector3(-0.5, -0.5, 0.5),
+			Vector3(0.5, -0.5, 0.5),
+			Vector3(0.5, -0.5, -0.5),
+			Vector3(-0.5, -0.5, -0.5)
+		]
+		# Apply rotation only for slopes
+		# Set the rotation part of the Transform3D
+		var rotation_transform = Transform3D(Basis().rotated(Vector3.UP, deg_to_rad(block_rotation)), Vector3.ZERO)
+		# Now combine rotation and translation in the transform
+		collider.set_transform.call_deferred(rotation_transform.translated(block_sub_position))
+	return collider
+
+
+# Rotates a 3D vertex around the Y-axis
+func rotate_vertex_y(vertex: Vector3, degrees: float) -> Vector3:
+	var rad = deg_to_rad(degrees)
+	var cos_rad = cos(rad)
+	var sin_rad = sin(rad)
+	return Vector3(
+		cos_rad * vertex.x + sin_rad * vertex.z,
+		vertex.y,
+		-sin_rad * vertex.x + cos_rad * vertex.z
+	)
+
+# Assuming 'block_rotation' is the rotation angle in degrees returned by get_block_rotation
+func rotate_vertices(vertices: Array, block_rotation: int, center: Vector3 = Vector3.ZERO) -> Array:
+	var rotated_vertices = []
+	var rad = deg_to_rad(block_rotation)
+	var cos_rad = cos(rad)
+	var sin_rad = sin(rad)
+	
+	for vertex in vertices:
+		# Translate vertex to origin (if your center is not Vector3.ZERO, adjust accordingly)
+		var v = vertex - center
+		# Apply rotation around Y-axis
+		var x_new = v.x * cos_rad - v.z * sin_rad
+		var z_new = v.x * sin_rad + v.z * cos_rad
+		# Translate vertex back and add to the result
+		rotated_vertices.append(Vector3(x_new, v.y, z_new) + center)
+	
+	return rotated_vertices
+
+# Helper function to rotate UV coordinates
+func rotate_uv(uv: Vector2, angle_degrees: float, center: Vector2 = Vector2(0.5, 0.5)) -> Vector2:
+	var rad = deg_to_rad(angle_degrees)
+	var cos_rad = cos(rad)
+	var sin_rad = sin(rad)
+
+	# Translate UV to origin
+	uv -= center
+
+	# Rotate UV
+	var x_new = uv.x * cos_rad - uv.y * sin_rad
+	var y_new = uv.x * sin_rad + uv.y * cos_rad
+
+	# Translate UV back
+	uv = Vector2(x_new, y_new) + center
+	return uv
+
+
+# Only newly created blocks will need this calculation
+# Previously saved blocks do not.
+func get_block_rotation(shape: String, tilerotation: int = 0) -> int:
+	var defaultRotation: int = 0
+	if shape == "slope":
+		defaultRotation = 90
+	# The slope has a default rotation of 90
+	# The block has a default rotation of 0
+	var myRotation: int = tilerotation + defaultRotation
+	if myRotation == 0:
+		# Only the block will match this case, not the slope. The block points north
+		return myRotation+180
+	elif myRotation == 90:
+		# A block will point east
+		# A slope will point north
+		return myRotation+0
+	elif myRotation == 180:
+		# A block will point south
+		# A slope will point east
+		return myRotation-180
+	elif myRotation == 270:
+		# A block will point west
+		# A slope will point south
+		return myRotation+0
+	elif myRotation == 360:
+		# Only a slope can match this case if it's rotation is 270 and it gets 90 rotation by default
+		return myRotation-180
+	return myRotation

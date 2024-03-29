@@ -8,6 +8,10 @@ var mobRotation: int # The rotation it will rotate to when the it is created
 var mobJSON: Dictionary # The json that defines this mob
 var meshInstance: MeshInstance3D # This mob's mesh instance
 var nav_agent: NavigationAgent3D # Used for pathfinding
+var last_position: Vector3 = Vector3()
+var last_rotation: int
+var last_chunk: Vector2
+var current_chunk: Vector2
 
 
 var melee_damage: float = 20.0
@@ -28,7 +32,30 @@ func _ready():
 	current_move_speed = moveSpeed
 	current_idle_move_speed = idle_move_speed
 	position = mobPosition
+	last_position = mobPosition
 	meshInstance.position.y = -0.2
+	current_chunk = get_chunk_from_position(global_transform.origin)
+	update_navigation_agent_map(current_chunk)
+
+
+func _physics_process(_delta):
+	if global_transform.origin != last_position:
+		last_position = global_transform.origin
+		# Check if the mob has crossed into a new chunk
+		current_chunk = get_chunk_from_position(global_transform.origin)
+		if current_chunk != last_chunk:
+			last_chunk = current_chunk
+			# We have crossed over to another chunk so we use that navigationmap now.
+			update_navigation_agent_map(current_chunk)
+
+	if rotation_degrees.y != last_rotation:
+		last_rotation = rotation_degrees.y
+
+func update_navigation_agent_map(chunk_position: Vector2):
+	# Assume 'chunk_navigation_maps' is a global dictionary mapping chunk positions to navigation map IDs
+	var navigation_map_id = Helper.chunk_navigation_maps.get(chunk_position)
+	if navigation_map_id:
+		nav_agent.set_navigation_map(navigation_map_id)
 
 
 func get_hit(damage):
@@ -62,7 +89,10 @@ func set_sprite(newSprite: Resource):
 	var new_mesh = original_mesh.duplicate()  # Clone the mesh
 	var material := StandardMaterial3D.new()
 	material.albedo_texture = newSprite
-	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	# We use TRANSPARENCY_ALPHA_DEPTH_PRE_PASS because a chunk will generate a mesh for the map
+	# that will have some transparancy settings that will also make the mobs transparent
+	# That's why we need to make sure only the fully transparant pixel are invisible
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_DEPTH_PRE_PASS
 	new_mesh.surface_set_material(0, material)
 	meshInstance.mesh = new_mesh  # Set the new mesh to MeshInstance3D
 
@@ -203,3 +233,10 @@ func construct_self(mobpos: Vector3, newMobJSON: Dictionary):
 	add_child.call_deferred(meshInstance)
 	
 	apply_stats_from_json()
+
+
+# Returns which chunk the mob is in right now. for example 0,0 or 0,32 or 96,32
+func get_chunk_from_position(chunkposition: Vector3) -> Vector2:
+	var chunk_x = floor(chunkposition.x / 32) * 32
+	var chunk_z = floor(chunkposition.z / 32) * 32
+	return Vector2(chunk_x, chunk_z)

@@ -2,8 +2,10 @@ extends Node3D
 
 # Tacticalmap data
 var current_level_name : String
+var ready_to_switch_level: Dictionary = {"save_ready": false, "chunks_unloaded": false}
 # Dictionary to hold data of chunks that are unloaded
 var loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} 
+var chunk_navigation_maps: Dictionary = {}
 
 # Overmap data
 var chunks: Dictionary = {} #Stores references to tilegrids representing the overmap
@@ -12,8 +14,7 @@ var current_map_seed: int = 0
 var position_coord: Vector2 = Vector2(0, 0)
 
 # Dictionary to store meshes for each block ID
-var block_meshes: Dictionary = {}
-
+var navigationmap: RID
 
 # Helper scripts
 const json_Helper_Class = preload("res://Scripts/Helper/json_helper.gd")
@@ -51,6 +52,8 @@ func reset():
 #global_pos is the absolute position on the overmap
 #see overmap.gd for how global_pos is used there
 func switch_level(level_name: String, global_pos: Vector2) -> void:
+	ready_to_switch_level.save_ready = false
+	ready_to_switch_level.chunks_unloaded = false
 	current_level_name = level_name
 	# This is only true if the game has just initialized
 	# In that case no level has once been loaded so there is no game to save
@@ -60,8 +63,33 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 		save_helper.save_player_inventory()
 		save_helper.save_player_equipment()
 		save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
+		chunk_navigation_maps.clear()
+	else:
+		ready_to_switch_level.chunks_unloaded = true
 	current_level_pos = global_pos
-	get_tree().change_scene_to_file("res://level_generation.tscn")
+	ready_to_switch_level.save_ready = true
+	start_timer()
+	#get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
+	#get_tree().change_scene_to_file("res://level_generation.tscn")
+
+
+
+# Function to create and start a timer that will wait to switch the level
+func start_timer():
+	var my_timer = Timer.new() # Create a new Timer instance
+	my_timer.wait_time = 1 # Timer will tick every 1 second
+	my_timer.one_shot = false # False means the timer will repeat
+	add_child(my_timer) # Add the Timer to the scene as a child of this node
+	my_timer.timeout.connect(_on_Timer_timeout.bind(my_timer)) # Connect the timeout signal
+	my_timer.start() # Start the timer
+
+
+# This function will be called every time the Timer ticks
+func _on_Timer_timeout(my_timer: Timer):
+	if ready_to_switch_level.save_ready == true and ready_to_switch_level.chunks_unloaded == true:
+		print_debug("Switching level")
+		my_timer.stop() # Stop the timer
+		get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
 
 
 func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:
@@ -105,24 +133,18 @@ func raycast(start_position : Vector3, end_position : Vector3, layer : int, obje
 	return space_state.intersect_ray(query)
 
 
-# Function to create or retrieve a mesh for a given block ID
-func get_or_create_block_mesh(block_id: String, shape: String) -> Mesh:
-	if block_meshes.has(block_id):
-		return block_meshes[block_id]
+# Called when a chunk emits its loaded signal. We save the navigationmap RID to a dictionary
+# This can then be used by navigationagents that are present on the chunk
+func on_chunk_loaded(data: Dictionary):
+	# `mypos` is a Vector3, we only use the x and z since y is constant 0
+	var chunk_position = Vector2(data["mypos"].x, data["mypos"].z) 
+	var navigation_map_id = data["map"]
+	chunk_navigation_maps[chunk_position] = navigation_map_id
 
-	var mesh
-	if shape == "block":
-		# Create a new BoxMesh for the block
-		mesh = BoxMesh.new()
-		mesh.size = Vector3(1, 1, 1)  # Set the size of the box mesh
-	else:  # It's a slope
-		mesh = PrismMesh.new()
-		# Modify PrismMesh here as needed
-		mesh.left_to_right = 1
 
-	# Set material for the mesh
-	mesh.surface_set_material(0, Gamedata.get_sprite_by_id(Gamedata.data.tiles, block_id))
-
-	block_meshes[block_id] = mesh
-	return mesh
+# Called when a chunk emits its unloaded signal. We remove the chunk from the navigationmaps
+# Dictionary. The chunk is responsible for unloading the navigationmap itself
+func on_chunk_unloaded(data: Dictionary):
+	var chunk_position = Vector2(data["mypos"].x, data["mypos"].z) # Assuming `mypos` is a Vector3
+	chunk_navigation_maps.erase(chunk_position)
 

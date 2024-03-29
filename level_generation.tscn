@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=26 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
@@ -25,14 +25,6 @@ ambient_light_source = 1
 ambient_light_color = Color(0.87451, 0, 0.729412, 1)
 ambient_light_energy = 0.0
 reflected_light_source = 1
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_3licq"]
-geometry_parsed_geometry_type = 1
-geometry_source_geometry_mode = 1
-cell_size = 0.1
-agent_height = 0.5
-agent_radius = 0.3
-agent_max_slope = 46.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gsdb"]
 albedo_color = Color(0, 1, 0, 1)
@@ -62,11 +54,10 @@ radius = 1.5
 
 [node name="TacticalMap" type="Node3D" parent="."]
 
-[node name="LevelGenerator" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("level_manager", "navigationregion") groups=["level_generator"]]
+[node name="LevelGenerator" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("level_manager") groups=["level_generator"]]
 script = ExtResource("1_i8qa4")
-level_manager = NodePath("../NavigationRegion3D/LevelManager")
+level_manager = NodePath("../LevelManager")
 chunkScene = ExtResource("6_lxuu0")
-navigationregion = NodePath("../NavigationRegion3D")
 default_level_json = "res://Mods/Core/Maps/Generichouse.json"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TacticalMap"]
@@ -79,12 +70,9 @@ light_cull_mask = 4293918721
 directional_shadow_mode = 0
 sky_mode = 1
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="TacticalMap"]
-navigation_mesh = SubResource("NavigationMesh_3licq")
+[node name="Props" type="Node3D" parent="TacticalMap"]
 
-[node name="Props" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
-
-[node name="LevelManager" type="Node3D" parent="TacticalMap/NavigationRegion3D"]
+[node name="LevelManager" type="Node3D" parent="TacticalMap"]
 script = ExtResource("2_gm6x7")
 
 [node name="BuildManager" type="Node3D" parent="TacticalMap"]
@@ -141,12 +129,16 @@ spot_angle_attenuation = 0.183011
 
 [node name="Sprite3D2" type="Sprite3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
+cast_shadow = 0
 pixel_size = 0.002
+alpha_cut = 1
 texture = ExtResource("10_ghgoh")
 
 [node name="EquippedRight" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.190849, -0.123334, 0)
+cast_shadow = 0
 pixel_size = 0.002
+alpha_cut = 1
 texture = ExtResource("10_3jjqt")
 script = ExtResource("12_xwnuw")
 projectiles = NodePath("../../../Projectiles")
@@ -162,7 +154,9 @@ reload_audio_player = NodePath("../../Shooting/ReloadAudio")
 
 [node name="EquippedLeft" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194626, 0.116675, 0)
+cast_shadow = 0
 pixel_size = 0.002
+alpha_cut = 1
 texture = ExtResource("11_4n80n")
 script = ExtResource("12_xwnuw")
 projectiles = NodePath("../../../Projectiles")

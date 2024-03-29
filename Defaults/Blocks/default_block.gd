@@ -3,12 +3,18 @@ extends StaticBody3D
 
 var blockposition: Vector3
 var tileJSON: Dictionary # The json that defines this block
-var shape: String = "block"
+var shape: String = "cube"
+var blockmeshinstance: MeshInstance3D # Reference to the MeshInstance3D
+var mutex: Mutex = Mutex.new()
 
 
 func _ready():
+	mutex.lock()
 	position = blockposition
-	apply_block_rotation()
+	tileJSON.blockrotation = get_block_rotation()
+	rotation_degrees = Vector3(0,tileJSON.blockrotation,0)
+	mutex.unlock()
+	#apply_block_rotation()
 
 
 # Function to make it's own shape and texture based on an id and position
@@ -16,35 +22,33 @@ func _ready():
 func construct_self(blockpos: Vector3, newTileJSON: Dictionary):
 	tileJSON = newTileJSON
 	blockposition = blockpos
-	# Adding to this group makes sure that the NavigationRegion3D considers the block when baking the navmesh
-	add_to_group("navigation_mesh_source_group")
 	disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
 	# Set collision layer to layer 1 and 5
 	collision_layer = 1 | (1 << 4) # Layer 1 is 1, Layer 5 is 1 << 4 (16), combined with bitwise OR
 	# Set collision mask to layer 1
 	collision_mask = 1 # Layer 1 is 1
-
+	
 	# Get the shape of the block
 	var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,tileJSON.id)
 	if tileJSONData.has("shape"):
 		if tileJSONData.shape == "slope":
 			shape = "slope"
 	
-	create_mesh.call_deferred()
+	create_mesh()
 	create_collider()
 
 
-
 func create_mesh():
-	var blockmeshisntance = MeshInstance3D.new()
-	var blockmesh = Helper.get_or_create_block_mesh(tileJSON.id, shape)
-	blockmeshisntance.mesh = blockmesh
-	add_child.call_deferred(blockmeshisntance)
+	blockmeshinstance = MeshInstance3D.new()
+	var blockmesh = Gamedata.block_meshes[tileJSON.id]
+	#var blockmesh = Helper.get_or_create_block_mesh(tileJSON.id, shape)
+	blockmeshinstance.mesh = blockmesh
+	add_child.call_deferred(blockmeshinstance)
 
 
 func create_collider():
 	var collider = CollisionShape3D.new()
-	if shape == "block":
+	if shape == "cube":
 		collider.shape = BoxShape3D.new()
 	else: # It's a slope
 		collider.shape = ConvexPolygonShape3D.new()
@@ -60,9 +64,7 @@ func create_collider():
 	add_child.call_deferred(collider)
 
 
-# When the map is created for the first time, we will apply block rotation
-# This function will not be called when a map is loaded
-func apply_block_rotation():
+func get_block_rotation() -> int:
 	var defaultRotation: int = 0
 	# Only previously saved blocks have the block_x property, so we don't need to apply default rotation again
 	if shape == "slope" and not tileJSON.has("block_x"):
@@ -75,19 +77,21 @@ func apply_block_rotation():
 		myRotation += 180
 	if myRotation == 0:
 		# Only the block will match this case, not the slope. The block points north
-		rotation_degrees = Vector3(0,myRotation+180,0)
+		return myRotation+180
 	elif myRotation == 90:
-		# A slope will point north
 		# A block will point east
-		rotation_degrees = Vector3(0,myRotation+0,0)
+		# A slope will point north
+		return myRotation+0
 	elif myRotation == 180:
 		# A block will point south
 		# A slope will point east
-		rotation_degrees = Vector3(0,myRotation-180,0)
+		return myRotation-180
 	elif myRotation == 270:
 		# A block will point west
 		# A slope will point south
-		rotation_degrees = Vector3(0,myRotation+0,0)
+		return myRotation+0
 	elif myRotation == 360:
 		# Only a slope can match this case if it's rotation is 270 and it gets 90 rotation by default
-		rotation_degrees = Vector3(0,myRotation-180,0)
+		return myRotation-180
+	return myRotation
+

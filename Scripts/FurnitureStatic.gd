@@ -44,6 +44,11 @@ func set_sprite(newSprite: Texture):
 		add_child.call_deferred(sprite)
 	var uniqueTexture = newSprite.duplicate(true) # Duplicate the texture
 	sprite.texture = uniqueTexture
+	# We need to set the alpha cut and cast shadow because a chunk will generate a mesh for the map
+	# that will have some transparancy settings that will also make the mobs transparent
+	# That's why we need to make sure only the fully transparant pixel are invisible
+	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
+	sprite.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 	# Calculate new dimensions for the collision shape
 	var sprite_width = newSprite.get_width()
@@ -77,13 +82,13 @@ func set_new_rotation(amount: int):
 	
 	
 func get_my_rotation() -> int:
-	var rot: int = int(rotation_degrees.y)
-	if rot == 180:
-		return rot-180
-	elif rot == 0:
-		return rot+180
+	#var rot: int = int(rotation_degrees.y)
+	if furniturerotation == 180:
+		return furniturerotation-180
+	elif furniturerotation == 0:
+		return furniturerotation+180
 	else:
-		return rot-0
+		return furniturerotation-0
 
 
 # Function to make it's own shape and texture based on an id and position

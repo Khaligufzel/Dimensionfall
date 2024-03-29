@@ -89,6 +89,10 @@ func _process(_delta):
 
 	sprite.rotation.y = -angle  # Inverts the angle for rotation
 	$CollisionShape3D.rotation.y = -angle  # Inverts the angle for rotation
+	
+	# Update the global shader parameter with the player's world position
+	RenderingServer.global_shader_parameter_set("player_pos", global_transform.origin)
+
 
 
 #	if is_progress_bar_well_progressing_i_guess:

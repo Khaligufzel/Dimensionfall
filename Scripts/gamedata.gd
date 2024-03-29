@@ -3,6 +3,7 @@ extends Node
 #This autoload singleton loads all game data required to run the game
 #It can be accessed by using Gamedata.property
 var data: Dictionary = {}
+var block_meshes: Dictionary = {}
 
 # We write down the associated paths for the files to load
 # Next, sprites are loaded from spritesPath into the .sprites property
@@ -37,6 +38,7 @@ func _ready():
 	data.maps.data = Helper.json_helper.file_names_in_dir(data.maps.dataPath, ["json"])
 	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(\
 	data.tacticalmaps.dataPath, ["json"])
+	create_block_meshes()
 
 #Loads json data. If no json file exists, it will create an empty array in a new file
 func load_data() -> void:
@@ -246,3 +248,25 @@ func get_items_by_type(item_type: String) -> Array:
 				filtered_items.append(item)
 
 	return filtered_items
+
+
+
+# Function to create or retrieve a mesh for a given block ID
+func create_block_meshes():
+	for block: Dictionary in data.tiles.data:
+		var block_id: String = block.id
+		var shape: String = block.get("shape", "cube")
+		var mesh
+		if shape == "cube":
+			# Create a new BoxMesh for the block
+			mesh = BoxMesh.new()
+			mesh.size = Vector3(1, 1, 1)  # Set the size of the box mesh
+		else:  # It's a slope
+			mesh = PrismMesh.new()
+			# Modify PrismMesh here as needed
+			mesh.left_to_right = 1
+
+		# Set material for the mesh
+		mesh.surface_set_material(0, Gamedata.get_sprite_by_id(Gamedata.data.tiles, block_id))
+
+		block_meshes[block_id] = mesh
