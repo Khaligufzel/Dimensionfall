@@ -34,7 +34,7 @@ func _ready():
     _label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
     _progress_bar.add_child(_label)
 
-    _refresh()
+    _queue_refresh()
 
 
 func _connect_inventory_signals() -> void:
@@ -43,10 +43,10 @@ func _connect_inventory_signals() -> void:
 
     super._connect_inventory_signals()
 
-    if !inventory.capacity_changed.is_connected(_refresh):
-        inventory.capacity_changed.connect(_refresh)
-    if !inventory.occupied_space_changed.is_connected(_refresh):
-        inventory.occupied_space_changed.connect(_refresh)
+    if !inventory.capacity_changed.is_connected(_queue_refresh):
+        inventory.capacity_changed.connect(_queue_refresh)
+    if !inventory.occupied_space_changed.is_connected(_queue_refresh):
+        inventory.occupied_space_changed.connect(_queue_refresh)
 
 
 func _disconnect_inventory_signals() -> void:
@@ -55,18 +55,18 @@ func _disconnect_inventory_signals() -> void:
 
     super._disconnect_inventory_signals()
 
-    if !inventory.capacity_changed.is_connected(_refresh):
-        inventory.capacity_changed.disconnect(_refresh)
-    if !inventory.occupied_space_changed.is_connected(_refresh):
-        inventory.occupied_space_changed.disconnect(_refresh)
+    if !inventory.capacity_changed.is_connected(_queue_refresh):
+        inventory.capacity_changed.disconnect(_queue_refresh)
+    if !inventory.occupied_space_changed.is_connected(_queue_refresh):
+        inventory.occupied_space_changed.disconnect(_queue_refresh)
 
 
 func _refresh():
     super._refresh()
-    if _label:
+    if is_instance_valid(_label):
         _label.visible = label_visible
         _label.text = "%d/%d" % [inventory.occupied_space, inventory.capacity]
-    if _progress_bar:
+    if is_instance_valid(_progress_bar):
         _progress_bar.visible = progress_bar_visible
         _progress_bar.min_value = 0
         _progress_bar.max_value = inventory.capacity
