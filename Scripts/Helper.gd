@@ -23,13 +23,22 @@ const save_Helper_Class = preload("res://Scripts/Helper/save_helper.gd")
 var save_helper: Node = null
 const signal_broker_Class = preload("res://Scripts/Helper/signal_broker.gd")
 var signal_broker: Node = null
+const task_manager_Class = preload("res://Scripts/Helper/task_manager.gd")
+var task_manager: Node = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	json_helper = json_Helper_Class.new()
 	save_helper = save_Helper_Class.new()
 	signal_broker = signal_broker_Class.new()
+	task_manager = task_manager_Class.new()
 	add_child(save_helper)
+
+
+func _process(_delta: float) -> void:
+	# task_manager can't _process on it's own so we call it from here
+	task_manager._process(_delta)
+
 
 # Called when the game is over and everything will need to be reset to default
 func reset():
