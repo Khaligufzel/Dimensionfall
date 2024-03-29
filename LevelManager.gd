@@ -17,7 +17,7 @@ func _process(_delta):
 func update_visibility(player_y: float):
 	# Update level visibility
 	for level in get_tree().get_nodes_in_group("maplevels"):
-		var is_above_player = level.global_position.y > player_y
+		var is_above_player = level.y > player_y
 		level.visible = not is_above_player
 
 	# Update furniture visibility
