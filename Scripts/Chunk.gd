@@ -147,7 +147,7 @@ func generate_saved_chunk() -> void:
 		add_item_to_map(item)
 	
 	# We duplicate the furnituredata for thread safety
-	var furnituredata: Dictionary = chunk_data.furniture.duplicate()
+	var furnituredata: Array = chunk_data.furniture.duplicate()
 	await Helper.task_manager.create_task(add_furnitures_to_map.bind(furnituredata)).completed
 	await Helper.task_manager.create_task(add_mobs_to_map).completed
 
