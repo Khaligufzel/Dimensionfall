@@ -698,7 +698,7 @@ func generate_chunk_mesh():
 	# Set collision mask to layer 1
 	chunk_mesh_body.collision_mask = 1 # Layer 1 is 1
 	add_child.call_deferred(chunk_mesh_body)
-	create_colliders(chunk_mesh_body)
+	create_colliders()
 	
 	update_navigation_mesh()
 	#generate_chunk_mesh_finished.call_deferred()
@@ -804,7 +804,7 @@ func setup_slope(blockrotation: int, pos: Vector3, verts, uvs, normals, indices,
 
 
 # Coroutine for creating colliders with non-blocking delays
-func create_colliders(static_body: StaticBody3D) -> void:
+func create_colliders() -> void:
 	var total_blocks = block_positions.size()
 	# Ensure we at least get 1 to avoid division by zero. Aim for a maximum of 15 steps.
 	var delay_every_n_blocks = max(1, total_blocks / 15)
@@ -816,7 +816,7 @@ func create_colliders(static_body: StaticBody3D) -> void:
 		var block_data = block_positions[key]
 		var block_shape = block_data.get("shape", "cube")
 		var block_rotation = block_data.get("rotation", 0)
-		static_body.add_child.call_deferred(_create_block_collider(block_pos, block_shape, block_rotation))
+		chunk_mesh_body.add_child.call_deferred(_create_block_collider(block_pos, block_shape, block_rotation))
 
 		block_counter += 1
 		# Check if it's time to delay
@@ -903,16 +903,19 @@ func add_block(block_id: String, block_position: Vector3):
 	# Generate a key for the new block position
 	var block_key = "%s,%s,%s" % [block_position.x, block_position.y, block_position.z]
 	
-	# Update block_positions with the new block
+	# Update block_positions with the new block data
 	block_positions[block_key] = {
 		"id": block_id,
-		"rotation": 0,  # Default rotation of 0; implement rotation later
+		"rotation": 0,  # Assume default rotation; adjust if necessary
 	}
 	
-	# Regenerate mesh and update navigation and collision for the affected level
+	# Regenerate mesh for the affected level
 	generate_chunk_mesh_for_level(int(block_position.y))
 	update_navigation_mesh()
-	# You might want to call a specific function to update colliders if necessary
+	
+	# Create and add a new collider for the block
+	var new_collider = _create_block_collider(block_position, "cube", 0)  # Cube shape; rotation 0
+	chunk_mesh_body.add_child.call_deferred(new_collider)
 
 
 # Adjusted to accept atlas data directly
