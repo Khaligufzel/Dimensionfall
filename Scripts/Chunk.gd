@@ -44,6 +44,7 @@ var navigation_mesh: NavigationMesh = NavigationMesh.new()
 var source_geometry_data: NavigationMeshSourceGeometryData3D
 var generation_task: int
 var chunk_mesh_body: StaticBody3D
+var atlas_output: Dictionary
 
 signal chunk_unloaded(chunkdata: Dictionary) # The chunk is fully unloaded
 # Signals that the chunk is partly loaded and the next chunk can start loading
@@ -682,43 +683,11 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 # - Colliders
 func generate_chunk_mesh():
 	# Create the atlas and get the atlas texture
-	var atlas_output = create_atlas()
-	var atlas_texture = atlas_output.atlas_texture
-	var block_uv_map = atlas_output.block_uv_map
+	atlas_output = create_atlas()
 
 	for level_index in range(MAX_LEVELS):
-		# Find blocks at the current y level
-		var y_level = level_index - 10
-		var blocks_at_same_y = find_blocks_at_y_level(y_level) # Adjust based on the level indexing
-		if blocks_at_same_y.size() > 0:
-			# Prepare mesh data for this level
-			var arrays = []
-			arrays.resize(ArrayMesh.ARRAY_MAX)
-			prepare_mesh_data(arrays, blocks_at_same_y, block_uv_map)
-
-			# Create a MeshInstance3D for each level with the prepared mesh data
-			var mesh = ArrayMesh.new()
-			mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-
-			# Apply the shared atlas texture to a StandardMaterial3D
-			var material = StandardMaterial3D.new()
-			material.albedo_texture = atlas_texture
-
-			# Create and configure the mesh instance for the level
-			var mesh_instance = MeshInstance3D.new()
-			mesh_instance.mesh = mesh
-			mesh.surface_set_material(0, material)
-
-			# Add the MeshInstance3D to the appropriate level node
-			# Assuming you have a structure where each level is a child of the chunk
-			# You need to adjust this part to fit your node structure
-			var level_node = ChunkLevel.new()
-			# We don't set the y position of the chunklevel because that would mess up the mesh placement
-			# since the mesh will enhirit the position of the chunklevel. So instead we just save the
-			# y_level to the level node. The purpose of this is to allow hiding levels above the player
-			level_node.y = y_level
-			level_node.add_child(mesh_instance)
-			add_child.call_deferred(level_node) # Add the level node to the chunk
+		var y_level = level_index - 10  # Calculate the y-level offset if needed
+		generate_chunk_mesh_for_level(y_level)
 
 	# Create the static body for collision
 	chunk_mesh_body = StaticBody3D.new()
@@ -923,3 +892,57 @@ func get_block_rotation(shape: String, tilerotation: int = 0) -> int:
 # Previously saved chunks will not have id in the data and it returns false
 func is_new_chunk() -> bool:
 	return chunk_data.has("id")
+
+
+# Called when the player builds a new block on the map
+# We update the block_positions to include the new block
+# We have to update te chunk mesh and the navigationmesh
+# We also need to add a collider for the new block
+func add_block(block_id: String, block_position: Vector3):
+	# Generate a key for the new block position
+	var block_key = "%s,%s,%s" % [block_position.x, block_position.y, block_position.z]
+	
+	# Update block_positions with the new block
+	block_positions[block_key] = {
+		"id": block_id,
+		"rotation": 0,  # Default rotation of 0; implement rotation later
+	}
+	
+	# Regenerate mesh and update navigation and collision for the affected level
+	generate_chunk_mesh_for_level(int(block_position.y))
+	update_navigation_mesh()
+	# You might want to call a specific function to update colliders if necessary
+
+
+# Adjusted to accept atlas data directly
+func generate_chunk_mesh_for_level(y_level: int):
+	var blocks_at_same_y = find_blocks_at_y_level(y_level)
+	if blocks_at_same_y.size() > 0:
+		# Use the passed atlas data
+		var atlas_texture = atlas_output["atlas_texture"]
+		var block_uv_map = atlas_output["block_uv_map"]
+		var arrays = []
+		arrays.resize(ArrayMesh.ARRAY_MAX)
+		prepare_mesh_data(arrays, blocks_at_same_y, block_uv_map)
+
+		# Create a MeshInstance3D for each level with the prepared mesh data
+		var mesh = ArrayMesh.new()
+		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+
+		# Apply the shared atlas texture to a StandardMaterial3D
+		var material = StandardMaterial3D.new()
+		material.albedo_texture = atlas_texture
+
+		# Create and configure the mesh instance for the level
+		var mesh_instance = MeshInstance3D.new()
+		mesh_instance.mesh = mesh
+		mesh.surface_set_material(0, material)
+
+		# Add the MeshInstance3D to the appropriate level node
+		var level_node = ChunkLevel.new()
+		# We don't set the y position of the chunklevel because that would mess up the mesh placement
+		# since the mesh will enhirit the position of the chunklevel. So instead we just save the
+		# y_level to the level node. The purpose of this is to allow hiding levels above the player
+		level_node.y = y_level
+		level_node.add_child(mesh_instance)
+		add_child.call_deferred(level_node) # Add the level node to the chunk
