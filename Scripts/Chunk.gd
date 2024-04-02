@@ -42,9 +42,10 @@ var mypos: Vector3 # The position in 3d space. Expect y to be 0
 var navigation_region: NavigationRegion3D
 var navigation_mesh: NavigationMesh = NavigationMesh.new()
 var source_geometry_data: NavigationMeshSourceGeometryData3D
-var generation_task: int
-var chunk_mesh_body: StaticBody3D
-var atlas_output: Dictionary
+var chunk_mesh_body: StaticBody3D # The staticbody that will visualize the chunk mesh
+var atlas_output: Dictionary # An atlas texture that combines all textures of this chunk's blocks
+var level_nodes: Dictionary = {} # Keeps track of level nodes by their y_level
+
 
 signal chunk_unloaded(chunkdata: Dictionary) # The chunk is fully unloaded
 # Signals that the chunk is partly loaded and the next chunk can start loading
@@ -938,11 +939,21 @@ func generate_chunk_mesh_for_level(y_level: int):
 		mesh_instance.mesh = mesh
 		mesh.surface_set_material(0, material)
 
-		# Add the MeshInstance3D to the appropriate level node
-		var level_node = ChunkLevel.new()
-		# We don't set the y position of the chunklevel because that would mess up the mesh placement
-		# since the mesh will enhirit the position of the chunklevel. So instead we just save the
-		# y_level to the level node. The purpose of this is to allow hiding levels above the player
-		level_node.y = y_level
-		level_node.add_child(mesh_instance)
-		add_child.call_deferred(level_node) # Add the level node to the chunk
+		# Check if a level node exists for this y_level
+		if level_nodes.has(y_level):
+			var existing_level_node = level_nodes[y_level]
+			# Replace the old mesh instance with the new one
+			existing_level_node.remove_child(existing_level_node.get_child(0)) # Assumes only one child
+			existing_level_node.add_child(mesh_instance)
+		else:
+			# Create a new level node
+			var level_node = ChunkLevel.new()
+			# We don't set the y position of the chunklevel because that would mess up the mesh placement
+			# since the mesh will enhirit the position of the chunklevel. So instead we just save the
+			# y_level to the level node. The purpose of this is to allow hiding levels above the player
+			level_node.y = y_level
+			level_node.name = "Level_" + str(y_level)
+			level_node.add_child(mesh_instance)
+			add_child.call_deferred(level_node) # Add the level node to the chunk
+			# Store the reference to the new level node
+			level_nodes[y_level] = level_node
