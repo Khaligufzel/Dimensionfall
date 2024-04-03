@@ -18,8 +18,11 @@ extends Node3D
 var level_manager : Node3D
 var level_generator : Node3D
 
-var level_width : int = 32
-var level_height : int = 32
+
+# Constants
+const MAX_LEVELS = 21
+const LEVEL_WIDTH = 32
+const LEVEL_HEIGHT = 32
 var _mapleveldata: Array = [] # Holds the data for each level in this chunk
 # Each chunk has it's own navigationmap because merging many navigationregions inside one general map
 # will cause the game to stutter. The map for this chunk has one region and one navigationmesh
@@ -61,28 +64,20 @@ func _ready():
 
 
 func initialize_chunk_data():
-	if chunk_data.has("id"): # This chunk is created for the first time
+	if is_new_chunk(): # This chunk is created for the first time
 		#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 		var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 			Gamedata.data.maps.dataPath + chunk_data.id)
 		_mapleveldata = mapsegmentData.levels
 		generate_new_chunk()
 	else: # This chunk is created from previously saved data
-		#_mapleveldata = chunk_data.maplevels
-		#WorkerThreadPool.add_task(generate_saved_chunk)
-		#generation_task = WorkerThreadPool.add_task(generate_saved_chunk)
-		#WorkerThreadPool.wait_for_task_completion(generation_task)
 		generate_saved_chunk()
 
 
 func generate_new_chunk():
-	#thread = Thread.new()
-	#thread.start(create_block_position_dictionary_new)
-	#create_block_position_dictionary_new_finished()
 	block_positions = create_block_position_dictionary_new_arraymesh()
 	thread = Thread.new()
 	thread.start(generate_chunk_mesh)
-	#generate_chunk_mesh()
 
 
 # The chunk mesh has finished generating. we check if the thread is finished and then we start
@@ -97,7 +92,7 @@ func generate_chunk_mesh_finished():
 		thread.wait_to_finish()
 		thread = null # Threads are reference counted, so this is how we free them.
 		mutex.unlock()
-	if chunk_data.has("id"): # This chunk is created for the first time
+	if is_new_chunk(): # This chunk is created for the first time
 		processed_level_data = process_level_data()
 		thread = Thread.new()
 		thread.start(add_furnitures_to_new_block)
@@ -119,8 +114,8 @@ func process_level_data():
 		if level != []:
 			var y: int = level_number - 10
 			var current_block = 0
-			for h in range(level_height):
-				for w in range(level_width):
+			for h in range(LEVEL_HEIGHT):
+				for w in range(LEVEL_WIDTH):
 					if level[current_block]:
 						tileJSON = level[current_block]
 						if tileJSON.has("id") and tileJSON.id != "":
@@ -145,9 +140,9 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 	for level_index in range(len(_mapleveldata)):
 		var level = _mapleveldata[level_index]
 		if level != []:
-			for h in range(level_height):
-				for w in range(level_width):
-					var current_block_index = h * level_width + w
+			for h in range(LEVEL_HEIGHT):
+				for w in range(LEVEL_WIDTH):
+					var current_block_index = h * LEVEL_WIDTH + w
 					if level[current_block_index]:
 						var tileJSON = level[current_block_index]
 						if tileJSON.has("id") and tileJSON.id != "":
@@ -160,46 +155,13 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 	return new_block_positions
 
 
-# Creates a dictionary of all block positions with a local x,y and z position
-# This function works with previously saved chunk data
-func create_block_position_dictionary_loaded() -> Dictionary:
-	var new_block_positions:Dictionary = {}
-	for level_index in range(len(_mapleveldata)):
-		var level = _mapleveldata[level_index]
-		if level.blocks != []:
-			for blk in level.blocks:
-				if blk.has("id") and not blk.id == "":
-					var key = str(blk.block_x) + "," + str(level.map_y) + "," + str(blk.block_z)
-					new_block_positions[key] = true
-	#create_block_position_dictionary_loaded_finished.call_deferred()
-	return new_block_positions
-
-
-func create_block_position_dictionary_loaded_finished():
-	#mutex.lock()
-	## Wait for the thread to complete, and get the returned value.
-	#block_positions = thread.wait_to_finish()
-	#thread = null # Threads are reference counted, so this is how we free them.
-	#mutex.unlock()
-	block_positions = create_block_position_dictionary_loaded()
-
-
 # Generate the map layer by layer
 # For each layer, add all the blocks with proper rotation
 # If a block has an mob, add it too
 func generate_saved_chunk() -> void:
-	#thread = Thread.new()
-	#thread.start(create_block_position_dictionary_loaded)
-	#create_block_position_dictionary_loaded_finished()
 	block_positions = chunk_data.block_positions
 	thread = Thread.new()
 	thread.start(generate_chunk_mesh)
-	#generate_chunk_mesh()
-	#for item: Dictionary in chunk_data.items:
-		#add_item_to_map(item)
-	#thread = Thread.new()
-	#thread.start(add_furnitures_to_map.bind(chunk_data.furniture.duplicate()))
-	#add_furnitures_to_map(chunk_data.furniture.duplicate())
 
 
 # When a map is loaded for the first time we spawn the mob on the block
@@ -251,11 +213,11 @@ func add_furnitures_to_new_block():
 		
 		# Insert delay after every n blocks, evenly spreading the delay
 		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
-			OS.delay_msec(100) # Adjust delay time as needed
+			OS.delay_msec(10) # Adjust delay time as needed
 
 	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
 	if total_furniture % delay_every_n_furniture != 0:
-		OS.delay_msec(100)
+		OS.delay_msec(10)
 	add_furnitures_to_new_block_finished.call_deferred()
 
 
@@ -313,9 +275,9 @@ func get_furniture_data() -> Array:
 # We check if the furniture or mob or item's position is inside this chunk on the x and z axis
 func _is_object_in_range(objectposition: Vector3) -> bool:
 		return objectposition.x >= mypos.x and \
-		objectposition.x <= mypos.x + level_width and \
+		objectposition.x <= mypos.x + LEVEL_WIDTH and \
 		objectposition.z >= mypos.z and \
-		objectposition.z <= mypos.z + level_height
+		objectposition.z <= mypos.z + LEVEL_HEIGHT
 
 
 # Save all the mobs and their current stats to the mobs file for this map
@@ -434,11 +396,11 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 		
 		# Insert delay after every n furniture, evenly spreading the delay
 		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
-			OS.delay_msec(100) # Adjust delay time as needed
+			OS.delay_msec(10) # Adjust delay time as needed
 
 	# Optional: One final delay after the last furniture if the total_furniture is not perfectly divisible by delay_every_n_furniture
 	if total_furniture % delay_every_n_furniture != 0:
-		OS.delay_msec(100)
+		OS.delay_msec(10)
 	
 	add_furnitures_to_map_finised.call_deferred()
 
@@ -525,8 +487,8 @@ func add_mesh_to_navigation_data(blockposition: Vector3, blockrotation: int, blo
 		return
 	
 	# Determine if the block is at the edge of the chunk
-	var is_edge_x = blockposition.x == 0 || blockposition.x == level_width - 1
-	var is_edge_z = blockposition.z == 0 || blockposition.z == level_height - 1
+	var is_edge_x = blockposition.x == 0 || blockposition.x == LEVEL_WIDTH - 1
+	var is_edge_z = blockposition.z == 0 || blockposition.z == LEVEL_HEIGHT - 1
 
 	# Adjust vertices for edge blocks
 	var adjustment_x
@@ -604,19 +566,6 @@ func add_mesh_to_navigation_data(blockposition: Vector3, blockrotation: int, blo
 		mutex.lock()
 		source_geometry_data.add_faces(slope_faces, Transform3D(Basis(), block_global_position))
 		mutex.unlock()
-
-
-# Rotates the vertex passed in the parameter. Used to rotate slope data for the navigationmesh
-func rotate_vertex(vertex: Vector3, degrees: int) -> Vector3:
-	match degrees:
-		90:
-			return Vector3(-vertex.z, vertex.y, vertex.x)
-		180:
-			return Vector3(-vertex.x, vertex.y, -vertex.z)
-		270:
-			return Vector3(vertex.z, vertex.y, -vertex.x)
-		_:
-			return vertex
 
 
 # Finally, queue the chunk itself for deletion.
@@ -735,7 +684,8 @@ func create_atlas() -> Dictionary:
 # arrays[ArrayMesh.ARRAY_INDEX] = indices
 # This represents the data that will be used to create an arraymesh, which visualizes the blocks
 # The block_uv_map is used to map the block id to the right uv coordinates on the atlas texture
-func prepare_mesh_data(arrays: Array, block_uv_map: Dictionary):
+# This function will now take a 'blocks_at_same_y' array instead of using 'block_positions.keys()'.
+func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dictionary) -> void:
 	# Define a small margin to prevent seams
 	var margin: float = 0.01
 
@@ -747,15 +697,18 @@ func prepare_mesh_data(arrays: Array, block_uv_map: Dictionary):
 	# Assume a block size for the calculations
 	var block_size: float = 1.0
 
-	for key in block_positions.keys():
+	# Iterate over the passed 'blocks_at_same_y' array instead of 'block_positions.keys()'.
+	for block_info in blocks_at_same_y:
+		var key = block_info["position_key"]
+		var block_data = block_info["block_data"]
+		
 		var pos_array = key.split(",")
 		var poslocal = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
 		
 		# Adjust position based on the block size
 		var pos = poslocal * block_size
-		
-		var block_data = block_positions[key]
 		var material_id = str(block_data["id"])
+		
 		# Get the shape of the block
 		var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,block_data.id)
 		var blockshape = tileJSONData.get("shape", "cube")
@@ -774,7 +727,7 @@ func prepare_mesh_data(arrays: Array, block_uv_map: Dictionary):
 			(Vector2(0, 1) * uv_scale + Vector2(margin, -margin)) + uv_offset
 		])
 		var blockrotation: int = 0
-		if chunk_data.has("id"): # This chunk is created for the first time, so we need to save 
+		if is_new_chunk(): # This chunk is created for the first time, so we need to save 
 			# the rotation to the block json dictionary
 			blockrotation = get_block_rotation(blockshape, block_data.rotation)
 			block_data["rotation"] = blockrotation
@@ -788,7 +741,8 @@ func prepare_mesh_data(arrays: Array, block_uv_map: Dictionary):
 			setup_cube(pos, blockrotation, verts, uvs, normals, indices, top_face_uv)
 		elif blockshape == "slope":
 			setup_slope(blockrotation, pos, verts, uvs, normals, indices, top_face_uv)
-		
+
+	# Assign the generated mesh data to the 'arrays' parameter
 	arrays[ArrayMesh.ARRAY_VERTEX] = verts
 	arrays[ArrayMesh.ARRAY_NORMAL] = normals
 	arrays[ArrayMesh.ARRAY_TEX_UV] = uvs
@@ -806,21 +760,40 @@ func generate_chunk_mesh():
 	var atlas_texture = atlas_output.atlas_texture
 	var block_uv_map = atlas_output.block_uv_map
 
-	# Process all blocks and create the mesh
-	var mesh = ArrayMesh.new()
-	var arrays = []
-	arrays.resize(ArrayMesh.ARRAY_MAX)
-	prepare_mesh_data(arrays, block_uv_map)
-	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-	
-	# Create a new ShaderMaterial
-	var shader_material = setup_material(atlas_texture)
-	mesh.surface_set_material(0, shader_material)
-	
-	var mesh_instance = MeshInstance3D.new()
-	mesh_instance.mesh = mesh
-	add_child.call_deferred(mesh_instance)
-	
+	for level_index in range(MAX_LEVELS):
+		# Find blocks at the current y level
+		var y_level = level_index - 10
+		var blocks_at_same_y = find_blocks_at_y_level(y_level) # Adjust based on the level indexing
+		if blocks_at_same_y.size() > 0:
+			# Prepare mesh data for this level
+			var arrays = []
+			arrays.resize(ArrayMesh.ARRAY_MAX)
+			prepare_mesh_data(arrays, blocks_at_same_y, block_uv_map)
+
+			# Create a MeshInstance3D for each level with the prepared mesh data
+			var mesh = ArrayMesh.new()
+			mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+
+			# Apply the shared atlas texture to a StandardMaterial3D
+			var material = StandardMaterial3D.new()
+			material.albedo_texture = atlas_texture
+
+			# Create and configure the mesh instance for the level
+			var mesh_instance = MeshInstance3D.new()
+			mesh_instance.mesh = mesh
+			mesh.surface_set_material(0, material)
+
+			# Add the MeshInstance3D to the appropriate level node
+			# Assuming you have a structure where each level is a child of the chunk
+			# You need to adjust this part to fit your node structure
+			var level_node = ChunkLevel.new()
+			# We don't set the y position of the chunklevel because that would mess up the mesh placement
+			# since the mesh will enhirit the position of the chunklevel. So instead we just save the
+			# y_level to the level node. The purpose of this is to allow hiding levels above the player
+			level_node.y = y_level
+			level_node.add_child(mesh_instance)
+			add_child.call_deferred(level_node) # Add the level node to the chunk
+
 	# Create the static body for collision
 	chunk_mesh_body = StaticBody3D.new()
 	chunk_mesh_body.disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
@@ -862,7 +835,20 @@ func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, 
 		base_index, base_index + 1, base_index + 2,
 		base_index, base_index + 2, base_index + 3
 	])
-	
+
+
+# Function to find all blocks on the same y level
+func find_blocks_at_y_level(y_level: int) -> Array:
+	var blocks_at_same_y = []
+	for key in block_positions.keys():
+		var pos_array = key.split(",")
+		if int(pos_array[1]) == y_level:
+			blocks_at_same_y.append({
+				"position_key": key,
+				"block_data": block_positions[key]
+			})
+	return blocks_at_same_y
+
 
 func setup_slope(blockrotation: int, pos: Vector3, verts, uvs, normals, indices, top_face_uv):
 	# Slope-specific vertices and UV mapping
@@ -921,76 +907,6 @@ func setup_slope(blockrotation: int, pos: Vector3, verts, uvs, normals, indices,
 	])
 
 
-func setup_material(atlas_texture: ImageTexture) -> ShaderMaterial:
-	var shader_material = ShaderMaterial.new()
-	# Setup shader code and parameters
-	# Create a new Shader
-	var shader = Shader.new()
-	
-	# Imagine a cylinder on top of the player that hides everything, making the player and it's
-	# surroundings visible. That's what this shader does. Unfortunately it also makes other sprites 
-	# transparent, that's the reason why we have to set alpha_cut to discard in sprites (which 
-	# happens outside this shader).
-	shader.set_code("""
-	shader_type spatial;
-	render_mode blend_mix,depth_draw_opaque;
-
-	uniform sampler2D albedo_texture; // The texture image
-	uniform vec4 albedo_color : source_color;
-	uniform float cylinder_height = 5.0;
-	uniform float cylinder_radius = 3.0;
-	uniform float sphere_size = 5.0;
-	global uniform vec3 player_pos; // This needs to be set from script
-
-	varying vec3 world_vertex;
-
-	void vertex() {
-		world_vertex = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	}
-
-	void fragment() {
-		// Sample the albedo texture
-		vec4 texture_color = texture(albedo_texture, UV);
-		
-		// Combine texture color with the albedo color uniform
-		vec3 final_color = texture_color.rgb * albedo_color.rgb;
-
-		// Compute the distance from the player position to the current fragment's position
-		float dist_xz = distance(player_pos.xz, world_vertex.xz);
-		float dist_y = max(world_vertex.y - player_pos.y, 0.0); // Distance above the player, not below
-
-		// Compute the visibility based on the sphere size
-		float visibility_xz = smoothstep(sphere_size, 0.0, dist_xz);
-		float visibility_y = smoothstep(sphere_size, 0.0, dist_y);
-
-		// Check if the fragment is above the player within the sphere radius
-		if (world_vertex.y > player_pos.y+1.0 && dist_xz < sphere_size) {
-			// Above the player within the sphere radius, apply visibility
-			ALPHA = visibility_xz * visibility_y;
-		} else {
-			// Outside of the sphere radius or on/below the player's level, fully visible
-			ALPHA = 1.0;
-		}
-
-		// Set the final albedo color and transparency
-		ALBEDO = final_color;
-	}
-
-
-
-	""")
-	
-	# Assign the Shader to the ShaderMaterial. The 'atlas_texture' is the Texture2D we want to use
-	shader_material.set_shader_parameter('albedo_texture', atlas_texture)
-	shader_material.shader = shader
-
-	# Set the initial uniform values
-	shader_material.set_shader_parameter('albedo_color', Color(1, 1, 1, 1)) # White color, fully opaque
-	shader_material.set_shader_parameter('sphere_size', 3.0)
-	shader_material.set_shader_parameter('albedo_texture', atlas_texture)
-	return shader_material
-
-
 # Coroutine for creating colliders with non-blocking delays
 func create_colliders(static_body: StaticBody3D) -> void:
 	var total_blocks = block_positions.size()
@@ -1010,18 +926,6 @@ func create_colliders(static_body: StaticBody3D) -> void:
 		# Check if it's time to delay
 		if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
 			await get_tree().create_timer(0.1).timeout
-
-
-# Takes the chunk static body and adds a collider for each block
-# A cube and a slope will have different collider shapes
-func create_colliders1(static_body: StaticBody3D):
-	# At the end of your generate_chunk_mesh function, after you've added the mesh instance:
-	for key in block_positions.keys():
-		var pos_array = key.split(",")
-		var block_pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
-		var block_data = block_positions[key]
-		var blockshape = block_data.get("shape", "cube")
-		static_body.add_child.call_deferred(_create_block_collider(block_pos, blockshape, block_data.rotation))
 
 
 # Creates a collider for either a slope or a cube and puts it at the right place and rotation
@@ -1059,41 +963,6 @@ func rotate_vertex_y(vertex: Vector3, degrees: float) -> Vector3:
 		-sin_rad * vertex.x + cos_rad * vertex.z
 	)
 
-# Assuming 'block_rotation' is the rotation angle in degrees returned by get_block_rotation
-func rotate_vertices(vertices: Array, block_rotation: int, center: Vector3 = Vector3.ZERO) -> Array:
-	var rotated_vertices = []
-	var rad = deg_to_rad(block_rotation)
-	var cos_rad = cos(rad)
-	var sin_rad = sin(rad)
-	
-	for vertex in vertices:
-		# Translate vertex to origin (if your center is not Vector3.ZERO, adjust accordingly)
-		var v = vertex - center
-		# Apply rotation around Y-axis
-		var x_new = v.x * cos_rad - v.z * sin_rad
-		var z_new = v.x * sin_rad + v.z * cos_rad
-		# Translate vertex back and add to the result
-		rotated_vertices.append(Vector3(x_new, v.y, z_new) + center)
-	
-	return rotated_vertices
-
-# Helper function to rotate UV coordinates
-func rotate_uv(uv: Vector2, angle_degrees: float, center: Vector2 = Vector2(0.5, 0.5)) -> Vector2:
-	var rad = deg_to_rad(angle_degrees)
-	var cos_rad = cos(rad)
-	var sin_rad = sin(rad)
-
-	# Translate UV to origin
-	uv -= center
-
-	# Rotate UV
-	var x_new = uv.x * cos_rad - uv.y * sin_rad
-	var y_new = uv.x * sin_rad + uv.y * cos_rad
-
-	# Translate UV back
-	uv = Vector2(x_new, y_new) + center
-	return uv
-
 
 # Only newly created blocks will need this calculation
 # Previously saved blocks do not.
@@ -1123,3 +992,7 @@ func get_block_rotation(shape: String, tilerotation: int = 0) -> int:
 		# Only a slope can match this case if it's rotation is 270 and it gets 90 rotation by default
 		return myRotation-180
 	return myRotation
+
+
+func is_new_chunk() -> bool:
+	return chunk_data.has("id")

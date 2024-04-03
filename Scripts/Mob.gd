@@ -89,10 +89,7 @@ func set_sprite(newSprite: Resource):
 	var new_mesh = original_mesh.duplicate()  # Clone the mesh
 	var material := StandardMaterial3D.new()
 	material.albedo_texture = newSprite
-	# We use TRANSPARENCY_ALPHA_DEPTH_PRE_PASS because a chunk will generate a mesh for the map
-	# that will have some transparancy settings that will also make the mobs transparent
-	# That's why we need to make sure only the fully transparant pixel are invisible
-	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_DEPTH_PRE_PASS
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	new_mesh.surface_set_material(0, material)
 	meshInstance.mesh = new_mesh  # Set the new mesh to MeshInstance3D
 

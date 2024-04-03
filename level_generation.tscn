@@ -129,16 +129,12 @@ spot_angle_attenuation = 0.183011
 
 [node name="Sprite3D2" type="Sprite3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
-cast_shadow = 0
 pixel_size = 0.002
-alpha_cut = 1
 texture = ExtResource("10_ghgoh")
 
 [node name="EquippedRight" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.190849, -0.123334, 0)
-cast_shadow = 0
 pixel_size = 0.002
-alpha_cut = 1
 texture = ExtResource("10_3jjqt")
 script = ExtResource("12_xwnuw")
 projectiles = NodePath("../../../Projectiles")
@@ -154,9 +150,7 @@ reload_audio_player = NodePath("../../Shooting/ReloadAudio")
 
 [node name="EquippedLeft" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194626, 0.116675, 0)
-cast_shadow = 0
 pixel_size = 0.002
-alpha_cut = 1
 texture = ExtResource("11_4n80n")
 script = ExtResource("12_xwnuw")
 projectiles = NodePath("../../../Projectiles")
