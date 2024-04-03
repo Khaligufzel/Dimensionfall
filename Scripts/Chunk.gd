@@ -5,7 +5,7 @@ extends Node3D
 # This script is it's own class and is not assigned to any particular node
 # You can call Chunk.new() to create a new instance of this class
 # This script will manage the internals of a map chunk
-# A chunk is made up of blocks, slopes, furniture and mobs
+# A chunk is made up of blocks, slopes, furniture, mobs and items
 # The first time a chunk is loaded, it will be from a map definition
 # Each time after that, it will load whatever whas saved when the player exited the map
 # When the player exits the map, the chunk will get saved so it can be loaded later
@@ -14,10 +14,10 @@ extends Node3D
 # On top of the blocks we spawn mobs and furniture
 # Loading and unloading of chunks is managed by levelGenerator.gd
 
-# Reference to the level manager. Some nodes that could be moved to other chunks should be parented to this
+# Reference to the level manager. Some nodes that could be moved to other chunks 
+# should be parented to this (like moveable furniture and mobs)
 var level_manager : Node3D
 var level_generator : Node3D
-
 
 # Constants
 const MAX_LEVELS = 21
@@ -36,8 +36,7 @@ var chunk_data: Dictionary # The json data that defines this chunk
 # A map is defined by the mapeditor. This variable holds the data that is processed from the map
 # editor format into something usable for this chunk's generation
 var processed_level_data: Dictionary = {}
-var mutex: Mutex = Mutex.new() # Used to synchonize the thread with the main thread
-var thread: Thread # Used to offload calculations from the main thread
+var mutex: Mutex = Mutex.new() # Used to ensure thread safety
 var mypos: Vector3 # The position in 3d space. Expect y to be 0
 # Variables to enable navigation.
 var navigation_region: NavigationRegion3D
@@ -76,32 +75,13 @@ func initialize_chunk_data():
 
 func generate_new_chunk():
 	block_positions = create_block_position_dictionary_new_arraymesh()
-	thread = Thread.new()
-	thread.start(generate_chunk_mesh)
-
-
-# The chunk mesh has finished generating. we check if the thread is finished and then we start
-# to add furniture and items to the map
-func generate_chunk_mesh_finished():
+	await Helper.task_manager.create_task(generate_chunk_mesh).completed
 	# Even though the chunk is not completely generated, we emit the signal now to prevent further
 	# delays in generating or unloading the next chunk. Might remove this or move it to another place.
 	chunk_loaded.emit()
-	# Wait for the thread to complete, and get the returned value.
-	if is_instance_valid(thread) and thread.is_started():
-		mutex.lock()
-		thread.wait_to_finish()
-		thread = null # Threads are reference counted, so this is how we free them.
-		mutex.unlock()
-	if is_new_chunk(): # This chunk is created for the first time
-		processed_level_data = process_level_data()
-		thread = Thread.new()
-		thread.start(add_furnitures_to_new_block)
-	else: # This chunk has been loaded from previously saved data
-		for item: Dictionary in chunk_data.items:
-			add_item_to_map(item)
-		# We duplicate the furnituredata for thread safety
-		thread = Thread.new()
-		thread.start(add_furnitures_to_map.bind(chunk_data.furniture.duplicate()))
+	processed_level_data = process_level_data()
+	await Helper.task_manager.create_task(add_furnitures_to_new_block).completed
+	await Helper.task_manager.create_task(add_block_mobs).completed
 
 
 # Collects the furniture and mob data from the mapdata to be spawned later
@@ -155,13 +135,21 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 	return new_block_positions
 
 
-# Generate the map layer by layer
-# For each layer, add all the blocks with proper rotation
-# If a block has an mob, add it too
+# Generate a chunk that was previously saved
+# After generating the mesh we add the items, furniture and mobs
 func generate_saved_chunk() -> void:
 	block_positions = chunk_data.block_positions
-	thread = Thread.new()
-	thread.start(generate_chunk_mesh)
+	await Helper.task_manager.create_task(generate_chunk_mesh).completed
+	# Even though the chunk is not completely generated, we emit the signal now to prevent further
+	# delays in generating or unloading the next chunk. Might remove this or move it to another place.
+	chunk_loaded.emit()
+	for item: Dictionary in chunk_data.items:
+		add_item_to_map(item)
+	
+	# We duplicate the furnituredata for thread safety
+	var furnituredata: Array = chunk_data.furniture.duplicate()
+	await Helper.task_manager.create_task(add_furnitures_to_map.bind(furnituredata)).completed
+	await Helper.task_manager.create_task(add_mobs_to_map).completed
 
 
 # When a map is loaded for the first time we spawn the mob on the block
@@ -176,14 +164,6 @@ func add_block_mobs():
 		# Pass the position and the mob json to the newmob and have it construct itself
 		newMob.construct_self(mypos+mobdata.pos, mobdata.json)
 		level_manager.add_child.call_deferred(newMob)
-	add_block_mobs_finished.call_deferred()
-
-
-func add_block_mobs_finished():
-	if is_instance_valid(thread) and thread.is_started():
-		# If a thread is already running, let it finish before we start another.
-		thread.wait_to_finish()
-		thread = null # Threads are reference counted, so this is how we free them.
 
 
 # When a map is loaded for the first time we spawn the furniture on the block
@@ -218,18 +198,11 @@ func add_furnitures_to_new_block():
 	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
 	if total_furniture % delay_every_n_furniture != 0:
 		OS.delay_msec(10)
-	add_furnitures_to_new_block_finished.call_deferred()
 
 
-func add_furnitures_to_new_block_finished():
-	if is_instance_valid(thread) and thread.is_started():
-		# If a thread is already running, let it finish before we start another.
-		thread.wait_to_finish()
-		thread = null # Threads are reference counted, so this is how we free them.
-	thread = Thread.new()
-	thread.start(add_block_mobs)
-
-
+# Returns an array of furniture data that will be saved for this chunk
+# Furniture that has it's x and z position in the boundary of the chunk's position and size
+# will be included in the chunk data. So basically if the furniture is 'in' or 'on' the chunk.
 func get_furniture_data() -> Array:
 	var furnitureData: Array = []
 	var mapFurniture = get_tree().get_nodes_in_group("furniture")
@@ -348,14 +321,6 @@ func add_mobs_to_map() -> void:
 		var mobpos: Vector3 = Vector3(mob.global_position_x,mob.global_position_y,mob.global_position_z)
 		newMob.construct_self(mobpos, mob)
 		level_manager.add_child.call_deferred(newMob)
-	add_mobs_to_map_finished.call_deferred()
-
-
-func add_mobs_to_map_finished():
-	if is_instance_valid(thread) and thread.is_started():
-		# If a thread is already running, let it finish before we start another.
-		thread.wait_to_finish()
-		thread = null # Threads are reference counted, so this is how we free them.
 
 
 # Called by generate_items function when a save is loaded
@@ -401,25 +366,10 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 	# Optional: One final delay after the last furniture if the total_furniture is not perfectly divisible by delay_every_n_furniture
 	if total_furniture % delay_every_n_furniture != 0:
 		OS.delay_msec(10)
-	
-	add_furnitures_to_map_finised.call_deferred()
-
-
-func add_furnitures_to_map_finised():
-	if is_instance_valid(thread) and thread.is_started():
-		if thread.is_alive():
-			print_debug("The thread is still alive, blocking calling thread")
-		# If a thread is already running, let it finish before we start another.
-		thread.wait_to_finish()
-		thread = null # Threads are reference counted, so this is how we free them.
-	thread = Thread.new()
-	thread.start(add_mobs_to_map)
-	#add_block_mobs()
 
 
 # Returns all the chunk data used for saving and loading
-func get_chunk_data() -> Dictionary:
-	var chunkdata: Dictionary = {}
+func get_chunk_data(chunkdata: Dictionary) -> void:
 	mutex.lock()
 	chunkdata.chunk_x = mypos.x
 	chunkdata.chunk_z = mypos.z
@@ -434,38 +384,16 @@ func get_chunk_data() -> Dictionary:
 	chunk_mesh_body.queue_free()
 	navigation_region.queue_free()
 	NavigationServer3D.free_rid(navigation_map_id)
-	finish_unload_chunk.call_deferred()
-	return chunkdata
 
 
 # Called by LevelGenerator.gd which manages the chunks and also by Helper.save_helper when
 # switching to a different map. We start a new thread to collect map data and save it in
 # the helper variable. First we wait until the current thread is finished.
 func unload_chunk():
-	if is_instance_valid(thread) and thread.is_started():
-	# Wait for the thread to complete, and get the returned value.
-		mutex.lock()
-		thread.wait_to_finish()
-		thread = null # Threads are reference counted, so this is how we free them.
-		mutex.unlock()
-	thread = Thread.new()
-	thread.start(get_chunk_data)
-
-
-# The thread has done it's work and the mapdata is gathered. We now save it to the Helper variable
-# This happens when LevelGenerator.gd unloads chunks and when Helper.save_helper saves the map
-# Lastly we emit the unloaded signal so that Helper and LevelGenerator know to act and also to call 
-# the _finish_unload function
-func finish_unload_chunk():
-	var chunkdata: Dictionary
-	mutex.lock()
-	if is_instance_valid(thread) and thread.is_started():
-		chunkdata = thread.wait_to_finish()
-		thread = null # Threads are reference counted, so this is how we free them.
-
+	var chunkdata: Dictionary = {}
+	await Helper.task_manager.create_task(get_chunk_data.bind(chunkdata)).completed
 	var chunkposition: Vector2 = Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))
 	Helper.loaded_chunk_data.chunks[chunkposition] = chunkdata
-	mutex.unlock()
 	chunk_unloaded.emit()
 
 
@@ -805,7 +733,7 @@ func generate_chunk_mesh():
 	create_colliders(chunk_mesh_body)
 	
 	update_navigation_mesh()
-	generate_chunk_mesh_finished.call_deferred()
+	#generate_chunk_mesh_finished.call_deferred()
 
 
 func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, top_face_uv):
@@ -993,6 +921,7 @@ func get_block_rotation(shape: String, tilerotation: int = 0) -> int:
 		return myRotation-180
 	return myRotation
 
-
+# New chunks will have the id in the chunk data. In that case it returns true
+# Previously saved chunks will not have id in the data and it returns false
 func is_new_chunk() -> bool:
 	return chunk_data.has("id")
