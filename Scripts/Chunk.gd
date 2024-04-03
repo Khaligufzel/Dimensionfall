@@ -45,8 +45,9 @@ var source_geometry_data: NavigationMeshSourceGeometryData3D
 var generation_task: int
 var chunk_mesh_body: StaticBody3D
 
-signal chunk_unloaded(chunkdata: Dictionary)
-signal chunk_loaded(chunkdata: Dictionary)
+signal chunk_unloaded(chunkdata: Dictionary) # The chunk is fully unloaded
+# Signals that the chunk is partly loaded and the next chunk can start loading
+signal chunk_part_loaded()
 
 
 func _ready():
@@ -55,10 +56,13 @@ func _ready():
 	setup_navigation()
 	# The Helper keeps track of which navigationmap belogns to which chunk. When a navigationagent
 	# crosses the chunk boundary, it will get the current chunk's navigationmap id to work with
-	chunk_loaded.connect(Helper.on_chunk_loaded.bind({"mypos": mypos, "map": navigation_map_id}))
+	chunk_part_loaded.connect(Helper.on_chunk_loaded.bind({"mypos": mypos, "map": navigation_map_id}))
 	chunk_unloaded.connect(Helper.on_chunk_unloaded.bind({"mypos": mypos}))
 	transform.origin = Vector3(mypos)
 	add_to_group("chunks")
+	# Even though the chunk is not completely generated, we emit the signal now to prevent further
+	# delays in generating or unloading the next chunk. Might remove this or move it to another place.
+	chunk_part_loaded.emit()
 	initialize_chunk_data()
 
 
@@ -76,9 +80,6 @@ func initialize_chunk_data():
 func generate_new_chunk():
 	block_positions = create_block_position_dictionary_new_arraymesh()
 	await Helper.task_manager.create_task(generate_chunk_mesh).completed
-	# Even though the chunk is not completely generated, we emit the signal now to prevent further
-	# delays in generating or unloading the next chunk. Might remove this or move it to another place.
-	chunk_loaded.emit()
 	processed_level_data = process_level_data()
 	await Helper.task_manager.create_task(add_furnitures_to_new_block).completed
 	await Helper.task_manager.create_task(add_block_mobs).completed
@@ -140,9 +141,6 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 func generate_saved_chunk() -> void:
 	block_positions = chunk_data.block_positions
 	await Helper.task_manager.create_task(generate_chunk_mesh).completed
-	# Even though the chunk is not completely generated, we emit the signal now to prevent further
-	# delays in generating or unloading the next chunk. Might remove this or move it to another place.
-	chunk_loaded.emit()
 	for item: Dictionary in chunk_data.items:
 		add_item_to_map(item)
 	

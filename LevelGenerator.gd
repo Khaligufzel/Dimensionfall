@@ -13,8 +13,8 @@ var level_height : int = 32
 
 
 # Parameters for dynamic chunk loading
-var creation_radius = 1
-var survival_radius = 2
+var creation_radius = 2
+var survival_radius = 3
 var loaded_chunks = {} # Dictionary to store loaded chunks with their positions as keys
 var player_position = Vector2.ZERO # Player's position, updated regularly
 # Chunks are loaded and unloaded one at a time. The load_queue will be processed before the unload_queue
@@ -138,7 +138,7 @@ func load_chunk(chunk_pos: Vector2):
 	newChunk.mypos = Vector3(chunk_pos.x * level_width, 0, chunk_pos.y * level_height)
 	newChunk.level_manager = level_manager
 	newChunk.level_generator = self
-	newChunk.chunk_loaded.connect(_on_chunk_un_loaded)
+	newChunk.chunk_part_loaded.connect(_on_chunk_un_loaded)
 	newChunk.chunk_unloaded.connect(_on_chunk_un_loaded)
 	if Helper.loaded_chunk_data.chunks.has(chunk_pos):
 		# If the chunk has been loaded before, we use that data
