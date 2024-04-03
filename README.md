@@ -3,7 +3,7 @@
 Catax is a top-down real-time survival game set in a post-apocalyptic world. Survive in a strange place where you can visit multiple dimensions. Will you fight demons? Aliens? Zombies? Who knows what you will come across.
 
 <p align="center">
-    <img src="https://github.com/snipercup/CataX/blob/add-readme/Catax-Screenshot2.png" alt="Catax">
+    <img src="https://github.com/snipercup/CataX/blob/main/Catax-Screenshot2.png" alt="Catax">
 </p>
 
 ## Roadmap
