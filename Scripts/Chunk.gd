@@ -933,6 +933,9 @@ func generate_chunk_mesh_for_level(y_level: int):
 			level_nodes[y_level] = level_node
 
 
+# Rebuilds the navigationmesh for all blocks in the chunk
+# We can't do this for a specific level, since we have 1 navigationmesh
+# If we had multiple navigationmeshes, we could create one per level, which is more optimized
 func update_all_navigation_data():
 	for key in block_positions.keys():
 		var block_data: Dictionary = block_positions[key]
@@ -946,6 +949,22 @@ func update_all_navigation_data():
 	update_navigation_mesh()
 
 
+# Creates the vertices for a mesh that makes up a cube
+# Couldn't get it to work with a for-loop, so every side is explicitly defined
+# TODO: instead of making all the faces, only add them if there is no neighboring cube
+# We can do this by checking the neighbor:
+	# Directions corresponding to the faces
+	#var directions = [
+		#Vector3(0, 0, -1), # Front
+		#Vector3(1, 0, 0),  # Right
+		#Vector3(0, 0, 1),  # Back
+		#Vector3(-1, 0, 0), # Left
+		#Vector3(0, 1, 0),  # Top
+	#]
+	#var neighbor_pos = pos + directions[i]
+	#var neighbor_key = "%s,%s,%s" % [neighbor_pos.x, neighbor_pos.y, neighbor_pos.z]
+	#if not block_positions.has(neighbor_key): # Check if there is no block at the neighbor position
+# If it does not have a neighbor, we would add the face.
 func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, top_face_uv):
 	var half_block = 0.5
 
