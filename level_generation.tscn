@@ -28,8 +28,9 @@ ambient_light_color = Color(0.87451, 0, 0.729412, 1)
 ambient_light_energy = 0.0
 reflected_light_source = 1
 
-[sub_resource type="BoxMesh" id="BoxMesh_3r23p"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_usfn3"]
 material = ExtResource("5_sijm5")
+size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gsdb"]
 albedo_color = Color(0, 1, 0, 1)
@@ -89,7 +90,8 @@ hud = NodePath("../../HUD")
 [node name="ConstructionGhost" type="MeshInstance3D" parent="TacticalMap/BuildManager" node_paths=PackedStringArray("player", "sceneCam", "buildmanager")]
 editor_description = "Visualizes the construction of blocks and slopes for the player"
 visible = false
-mesh = SubResource("BoxMesh_3r23p")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_usfn3")
 script = ExtResource("5_iwiv4")
 player = NodePath("../../Entities/Player")
 sceneCam = NodePath("../../Entities/Player/Camera3D")
