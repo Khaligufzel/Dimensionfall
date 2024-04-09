@@ -11,6 +11,10 @@ signal hud_start_progressbar(time_left: float)
 # Nodes can use this signal to interrupt actions
 signal inventory_window_visibility_changed(inventoryWindow: Control)
 
+# Will sent out this signal when the user opens or closes the build window
+# Nodes can use this signal to interrupt actions
+signal build_window_visibility_changed(buildWindow: Control)
+
 # Signalled when an item was equiped in an equipmentslot
 # The item will know what slot it was
 signal item_was_equipped(heldItem: InventoryItem, equipmentSlot: Control)
@@ -28,6 +32,12 @@ func on_start_timer_progressbar(time_left: float):
 # We will forward the signal to anyone that wants it
 func on_inventory_visibility_changed(inventoryWindow: Control):
 	inventory_window_visibility_changed.emit(inventoryWindow)
+
+
+# Called when the build menu signals a visibility change
+# We will forward the signal to anyone that wants it
+func on_build_menu_visibility_changed(inventoryWindow: Control):
+	build_window_visibility_changed.emit(inventoryWindow)
 
 
 # When an equipmentslot has equipped an item

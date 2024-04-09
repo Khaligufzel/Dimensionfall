@@ -8,6 +8,8 @@ var is_building = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Connect the build menu visibility_changed signal to a local method
+	Helper.signal_broker.build_window_visibility_changed.connect(_on_build_menu_visibility_change)
 #	tile_map = get_node(tile_map_path)
 	
 	#3D
@@ -53,3 +55,11 @@ func on_construction_clicked(construction_data: Dictionary):
 		chunk.add_block(construction_data.id,construction_data.pos)
 		print_debug("Block placed at: ", construction_data.pos, " with type ", construction_data.id)
 
+
+# Respond to visibility changes of this node
+func _on_build_menu_visibility_change(buildmenu):
+	if !is_building:
+		return
+	# Set the visibility of the construction_ghost to match the building menu's visibility
+	construction_ghost.visible = buildmenu.is_visible()
+	is_building = buildmenu.is_visible()

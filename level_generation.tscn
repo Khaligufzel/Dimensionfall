@@ -88,6 +88,7 @@ hud = NodePath("../../HUD")
 
 [node name="ConstructionGhost" type="MeshInstance3D" parent="TacticalMap/BuildManager" node_paths=PackedStringArray("player", "sceneCam", "buildmanager")]
 editor_description = "Visualizes the construction of blocks and slopes for the player"
+visible = false
 mesh = SubResource("BoxMesh_3r23p")
 script = ExtResource("5_iwiv4")
 player = NodePath("../../Entities/Player")

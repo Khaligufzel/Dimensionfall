@@ -871,12 +871,22 @@ func add_block(block_id: String, block_position: Vector3):
 	# Generate a key for the new block position
 	var block_key = "%s,%s,%s" % [block_position.x, block_position.y, block_position.z]
 	
+	# Check if the block already exists
+	if block_positions.has(block_key):
+		print_debug("Block at position ", block_key, " already exists.")
+		return # Exit the function if the block already exists
+	
 	# Update block_positions with the new block data
 	block_positions[block_key] = {
 		"id": block_id,
 		"rotation": 0,  # Assume default rotation; adjust if necessary
 	}
 	
+	# We have to refresh the atlas because the player may introduce a new block ID
+	# TODO: Optimization potential: we can check if the atlas needs an update by checking
+	# if the block id is present in the material_to_blocks variable in the create_atlas function.
+	# Obviously we need access to the material_to_blocks variable and keep it's value persistent.
+	atlas_output = create_atlas()
 	# Regenerate mesh for the affected level
 	generate_chunk_mesh_for_level(int(block_position.y))
 	# Update the navigation data based on all blocks
