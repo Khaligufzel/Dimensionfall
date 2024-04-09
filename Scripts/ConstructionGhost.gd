@@ -7,7 +7,7 @@ extends MeshInstance3D
 
 # Settings
 var grid_size = 1.0
-var y_offset = 1.0  # This is the y-coordinate offset relative to the player's position
+var y_offset = 0.0  # This is the y-coordinate offset relative to the player's position
 var build_range = 5.0  # Maximum build range from the player
 var construction_data: Dictionary
 
@@ -57,4 +57,3 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		construction_data = {"pos": global_transform.origin, "id": "concrete_00"}
 		emit_signal("construction_clicked", construction_data)
-		#construction_clicked.emit()

@@ -3,7 +3,7 @@ extends Node3D
 @export var construction_ghost : MeshInstance3D
 var is_building = false
 
-@export var player_path: NodePath
+@export var LevelGenerator: Node3D
 @export var hud : NodePath
 
 # Called when the node enters the scene tree for the first time.
@@ -46,5 +46,10 @@ func _on_hud_construction_chosen(_construction: String):
 	is_building = true
 	General.is_allowed_to_shoot = false
 
+
 func on_construction_clicked(construction_data: Dictionary):
-	print_debug("Block placed at: ", construction_data.pos, "with type ", construction_data.id)
+	var chunk: Chunk = LevelGenerator.get_chunk_from_position(construction_data.pos)
+	if chunk:
+		chunk.add_block(construction_data.id,construction_data.pos)
+		print_debug("Block placed at: ", construction_data.pos, " with type ", construction_data.id)
+

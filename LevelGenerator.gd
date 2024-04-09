@@ -202,3 +202,31 @@ func process_next_chunk():
 		var chunk_pos = unload_queue.pop_front()
 		is_processing_chunk = true
 		unload_chunk(chunk_pos)
+
+
+# Returns the chunk instance at the given position
+# chunk_pos starts at 0,0 and increaes like 0,1, 0,2 ... 4,4, 4,5 etc.
+func get_chunk(chunk_pos: Vector2) -> Chunk:
+	if loaded_chunks.has(chunk_pos):
+		return loaded_chunks[chunk_pos]
+	else:
+		# Handle the case where the chunk is not found.
+		print_debug("Chunk at position ", chunk_pos, " not found.")
+		return null
+
+
+# Returns the chunk instance at the given position
+# chunk_pos starts at 0,0 and increaes like 0,32, 0,64 ... 96,0, 96,32 etc.
+func get_global_chunk(chunk_pos: Vector2) -> Chunk:
+	# Convert global position to chunk index
+	var chunk_index = chunk_pos / Vector2(level_width, level_height)
+	chunk_index = chunk_index.floor()  # Ensure index is an integer vector
+	return get_chunk(chunk_index)
+
+
+# Returns which chunk the mob is in right now
+# position_in_3d_space can be any position, like 12,2,6 or 139,-6,14
+func get_chunk_from_position(position_in_3d_space: Vector3) -> Chunk:
+	var chunk_x = floor(position_in_3d_space.x / 32) * 32
+	var chunk_z = floor(position_in_3d_space.z / 32) * 32
+	return get_global_chunk(Vector2(chunk_x, chunk_z))
