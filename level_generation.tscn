@@ -1,7 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=29 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
+[ext_resource type="Script" path="res://Scripts/ConstructionGhost.gd" id="5_iwiv4"]
+[ext_resource type="Material" uid="uid://buj4ukj1oh4pq" path="res://Defaults/Blocks/Materials/floor1.tres" id="5_leqrw"]
 [ext_resource type="PackedScene" uid="uid://b34idpsxaylbd" path="res://Scenes/Chunk.tscn" id="6_lxuu0"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
@@ -25,6 +27,9 @@ ambient_light_source = 1
 ambient_light_color = Color(0.87451, 0, 0.729412, 1)
 ambient_light_energy = 0.0
 reflected_light_source = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_3r23p"]
+material = ExtResource("5_leqrw")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gsdb"]
 albedo_color = Color(0, 1, 0, 1)
@@ -75,9 +80,19 @@ sky_mode = 1
 [node name="LevelManager" type="Node3D" parent="TacticalMap"]
 script = ExtResource("2_gm6x7")
 
-[node name="BuildManager" type="Node3D" parent="TacticalMap"]
+[node name="BuildManager" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("construction_ghost")]
 script = ExtResource("6_y7rk5")
+construction_ghost = NodePath("ConstructionGhost")
+player_path = NodePath("../Entities/Player")
 hud = NodePath("../../HUD")
+
+[node name="ConstructionGhost" type="MeshInstance3D" parent="TacticalMap/BuildManager" node_paths=PackedStringArray("player", "sceneCam", "buildmanager")]
+editor_description = "Visualizes the construction of blocks and slopes for the player"
+mesh = SubResource("BoxMesh_3r23p")
+script = ExtResource("5_iwiv4")
+player = NodePath("../../Entities/Player")
+sceneCam = NodePath("../../Entities/Player/Camera3D")
+buildmanager = NodePath("..")
 
 [node name="Entities" type="Node3D" parent="TacticalMap"]
 
