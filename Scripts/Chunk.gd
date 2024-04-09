@@ -82,6 +82,7 @@ func initialize_chunk_data():
 func generate_new_chunk():
 	block_positions = create_block_position_dictionary_new_arraymesh()
 	await Helper.task_manager.create_task(generate_chunk_mesh).completed
+	await Helper.task_manager.create_task(update_all_navigation_data).completed
 	processed_level_data = process_level_data()
 	await Helper.task_manager.create_task(add_furnitures_to_new_block).completed
 	await Helper.task_manager.create_task(add_block_mobs).completed
@@ -143,6 +144,7 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 func generate_saved_chunk() -> void:
 	block_positions = chunk_data.block_positions
 	await Helper.task_manager.create_task(generate_chunk_mesh).completed
+	await Helper.task_manager.create_task(update_all_navigation_data).completed
 	for item: Dictionary in chunk_data.items:
 		add_item_to_map(item)
 	
@@ -661,9 +663,6 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 			block_data["rotation"] = blockrotation
 		else: # Rotation has been previously saved so we can use that
 			blockrotation = block_data.rotation
-		# After calculating and adding vertices to the mesh arrays
-		# Call add_mesh_to_navigation_data for each block
-		add_mesh_to_navigation_data(poslocal, blockrotation, blockshape)
 		
 		if blockshape == "cube":
 			setup_cube(pos, blockrotation, verts, uvs, normals, indices, top_face_uv)
@@ -699,38 +698,7 @@ func generate_chunk_mesh():
 	chunk_mesh_body.collision_mask = 1 # Layer 1 is 1
 	add_child.call_deferred(chunk_mesh_body)
 	create_colliders()
-	
-	update_navigation_mesh()
-	#generate_chunk_mesh_finished.call_deferred()
 
-
-func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, top_face_uv):
-	# Assume a block size for the calculations
-	var half_block = 0.5
-	var top_verts = [
-		Vector3(-half_block, half_block, -half_block) + pos,
-		Vector3(half_block, half_block, -half_block) + pos,
-		Vector3(half_block, half_block, half_block) + pos,
-		Vector3(-half_block, half_block, half_block) + pos
-	]
-	
-	var rotated_top_verts = []
-	for vertex in top_verts:
-		rotated_top_verts.append(rotate_vertex_y(vertex - pos, blockrotation) + pos)
-
-	verts.append_array(rotated_top_verts)
-	uvs.append_array(top_face_uv)
-	
-	# Normals for the top face
-	for _i in range(4):
-		normals.append(Vector3(0, 1, 0))
-	
-	# Indices for the top face
-	var base_index = verts.size() - 4
-	indices.append_array([
-		base_index, base_index + 1, base_index + 2,
-		base_index, base_index + 2, base_index + 3
-	])
 
 
 # Function to find all blocks on the same y level
@@ -911,8 +879,11 @@ func add_block(block_id: String, block_position: Vector3):
 	
 	# Regenerate mesh for the affected level
 	generate_chunk_mesh_for_level(int(block_position.y))
-	update_navigation_mesh()
-	
+	# Update the navigation data based on all blocks
+	# We can't do this for a specific level, since we have 1 navigationmesh
+	# If we had multiple navigationmeshes, we could create one per level
+	await Helper.task_manager.create_task(update_all_navigation_data).completed
+
 	# Create and add a new collider for the block
 	var new_collider = _create_block_collider(block_position, "cube", 0)  # Cube shape; rotation 0
 	chunk_mesh_body.add_child.call_deferred(new_collider)
@@ -960,3 +931,118 @@ func generate_chunk_mesh_for_level(y_level: int):
 			add_child.call_deferred(level_node) # Add the level node to the chunk
 			# Store the reference to the new level node
 			level_nodes[y_level] = level_node
+
+
+func update_all_navigation_data():
+	for key in block_positions.keys():
+		var block_data: Dictionary = block_positions[key]
+		var pos_array = key.split(",")
+		var block_position = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
+		var block_rotation = block_data.rotation
+		var block_shape = block_data.get("shape", "cube")
+		#var block_shape = Gamedata.get_data_by_id(Gamedata.data.tiles, block_data.id).shape
+		
+		add_mesh_to_navigation_data(block_position, block_rotation, block_shape)
+	update_navigation_mesh()
+
+
+func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, top_face_uv):
+	var half_block = 0.5
+
+	# Top face vertices
+	var top_verts = [
+		Vector3(-half_block, half_block, -half_block) + pos,  # top-left-front
+		Vector3(half_block, half_block, -half_block) + pos,   # top-right-front
+		Vector3(half_block, half_block, half_block) + pos,    # top-right-back
+		Vector3(-half_block, half_block, half_block) + pos    # top-left-back
+	]
+
+	# Left face vertices
+	var left_verts = [
+		Vector3(-half_block, half_block, -half_block) + pos,  # top-left-front
+		Vector3(-half_block, half_block, half_block) + pos,   # top-left-back
+		Vector3(-half_block, -half_block, half_block) + pos,  # bottom-left-back
+		Vector3(-half_block, -half_block, -half_block) + pos  # bottom-left-front
+	]
+	
+	# Right face vertices (x value set to half_block for all, adjusted order)
+	var right_verts = [
+		Vector3(half_block, half_block, half_block) + pos,   # top-right-back
+		Vector3(half_block, half_block, -half_block) + pos,  # top-right-front
+		Vector3(half_block, -half_block, -half_block) + pos, # bottom-right-front
+		Vector3(half_block, -half_block, half_block) + pos   # bottom-right-back
+	]
+
+	# Front face vertices (z value set to -half_block for all, adjusted order)
+	var front_verts = [
+		Vector3(half_block, half_block, -half_block) + pos,   # top-right-front
+		Vector3(-half_block, half_block, -half_block) + pos,  # top-left-front
+		Vector3(-half_block, -half_block, -half_block) + pos, # bottom-left-front
+		Vector3(half_block, -half_block, -half_block) + pos   # bottom-right-front
+	]
+
+	# Back face vertices (z value set to half_block for all)
+	var back_verts = [
+		Vector3(-half_block, half_block, half_block) + pos,   # top-left-back
+		Vector3(half_block, half_block, half_block) + pos,    # top-right-back
+		Vector3(half_block, -half_block, half_block) + pos,   # bottom-right-back
+		Vector3(-half_block, -half_block, half_block) + pos   # bottom-left-back
+	]
+
+	# Rotate only the top-face vertices by blockrotation around the Y axis at position
+	var rotated_top_verts = []
+	for vertex in top_verts:
+		rotated_top_verts.append(rotate_vertex_y(vertex - pos, blockrotation) + pos)
+
+	# Add vertices to arrays
+	verts.append_array(rotated_top_verts)
+	verts.append_array(left_verts)
+	verts.append_array(right_verts)
+	verts.append_array(front_verts)        # Front face
+	verts.append_array(back_verts)        # back face
+
+	# Append UVs for each face
+	uvs.append_array(top_face_uv)   # Assuming top_face_uv is already defined
+	uvs.append_array(top_face_uv)  # We won't see the left face, so we can just apply the top face uvs
+	uvs.append_array(top_face_uv)  # We won't see the right face, so we can just apply the top face uvs
+	uvs.append_array(top_face_uv)  # We won't see the front face, so we can just apply the top face uvs
+	uvs.append_array(top_face_uv)  # We won't see the back face, so we can just apply the top face uvs
+
+	# Add normals (assuming flat shading and orthogonal faces)
+	for _i in range(4): 
+		normals.append(Vector3(0, 1, 0))  # Top face
+	for _i in range(4): 
+		normals.append(Vector3(-1, 0, 0))  # west-facing face
+	for _i in range(4): 
+		normals.append(Vector3(1, 0, 0))   # east-facing face
+	for _i in range(4):
+		normals.append(Vector3(0, 0, -1))   # north-facing face
+	for _i in range(4):
+		normals.append(Vector3(0, 0, 1))  # south-facing face
+
+	# Add indices for top, left, and right faces
+	var top_base_index = verts.size() - 20
+	var left_base_index = verts.size() - 16
+	var right_base_index = verts.size() - 12
+	var front_base_index = verts.size() - 8
+	var back_base_index = verts.size() - 4
+	indices.append_array([
+		top_base_index, top_base_index + 1, top_base_index + 2,
+		top_base_index, top_base_index + 2, top_base_index + 3
+	])
+	indices.append_array([
+		left_base_index, left_base_index + 1, left_base_index + 2,
+		left_base_index, left_base_index + 2, left_base_index + 3
+	])
+	indices.append_array([
+		right_base_index, right_base_index + 1, right_base_index + 2,
+		right_base_index, right_base_index + 2, right_base_index + 3
+	])
+	indices.append_array([
+		front_base_index, front_base_index + 1, front_base_index + 2,
+		front_base_index, front_base_index + 2, front_base_index + 3
+	])
+	indices.append_array([
+		back_base_index, back_base_index + 1, back_base_index + 2,
+		back_base_index, back_base_index + 2, back_base_index + 3
+	])
