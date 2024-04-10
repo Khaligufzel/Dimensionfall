@@ -163,5 +163,33 @@ json_data = "[
 		\"volume\": \"10\",
 		\"weight\": \"0.25\",
 		\"width\": \"1\"
+	},
+	{
+		\"description\": \"This plastic bottle only contains air\",
+		\"height\": \"2\",
+		\"id\": \"bottle_plastic_empty\",
+		\"image\": \"./Mods/Core/Items/bottle_empty_32.png\",
+		\"max_stack_size\": \"10\",
+		\"name\": \"Empty plastic bottle\",
+		\"sprite\": \"bottle_empty_32.png\",
+		\"stack_size\": \"2\",
+		\"two_handed\": false,
+		\"volume\": \"15\",
+		\"weight\": \"0.1\",
+		\"width\": \"2\"
+	},
+	{
+		\"description\": \"This plastic bottle is filled with water\",
+		\"height\": \"2\",
+		\"id\": \"bottle_plastic_water\",
+		\"image\": \"./Mods/Core/Items/bottle_water_32.png\",
+		\"max_stack_size\": \"10\",
+		\"name\": \"Plastic bottle with water\",
+		\"sprite\": \"bottle_water_32.png\",
+		\"stack_size\": \"2\",
+		\"two_handed\": false,
+		\"volume\": \"15\",
+		\"weight\": \"0.25\",
+		\"width\": \"2\"
 	}
 ]"
