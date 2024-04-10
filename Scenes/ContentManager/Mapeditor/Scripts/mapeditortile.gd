@@ -32,12 +32,14 @@ var tileData: Dictionary = defaultTileData.duplicate():
 			$MobFurnitureSprite.hide()
 signal tile_clicked(clicked_tile: Control)
 
+
 func _on_texture_rect_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				if event.pressed:
 					tile_clicked.emit(self)
+
 
 func set_rotation_amount(amount: int) -> void:
 	$TileSprite.rotation_degrees = amount
@@ -46,12 +48,15 @@ func set_rotation_amount(amount: int) -> void:
 	else:
 		tileData.rotation = amount
 
+
 func get_rotation_amount() -> int:
 	return $TileSprite.rotation_degrees
+
 
 func set_scale_amount(scaleAmount: int) -> void:
 	custom_minimum_size.x = scaleAmount
 	custom_minimum_size.y = scaleAmount
+
 
 func set_tile_id(id: String) -> void:
 	if id == "":
@@ -60,6 +65,7 @@ func set_tile_id(id: String) -> void:
 	else:
 		tileData.id = id
 		$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, id).albedo_texture
+
 
 func set_mob_id(id: String) -> void:
 	if id == "":
@@ -76,6 +82,7 @@ func set_mob_id(id: String) -> void:
 		$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs, id)
 		$MobFurnitureSprite.show()
 
+
 func set_furniture_id(id: String) -> void:
 	if id == "":
 		tileData.erase("furniture")
@@ -91,13 +98,15 @@ func set_furniture_id(id: String) -> void:
 		$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture, id)
 		$MobFurnitureSprite.show()
 
+
 func set_mob_rotation(rotationDegrees):
 	$MobFurnitureSprite.rotation_degrees = rotationDegrees
 	if rotationDegrees == 0:
 		tileData.mob.erase("rotation")
 	else:
 		tileData.mob.rotation = rotationDegrees
-		
+
+
 func set_furniture_rotation(rotationDegrees):
 	$MobFurnitureSprite.rotation_degrees = rotationDegrees
 	if rotationDegrees == 0:
@@ -105,24 +114,30 @@ func set_furniture_rotation(rotationDegrees):
 	else:
 		tileData.furniture.rotation = rotationDegrees
 
+
 func _on_texture_rect_mouse_entered() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		tile_clicked.emit(self)
 
+
 func set_default() -> void:
 	tileData = defaultTileData.duplicate()
+
 
 func highlight() -> void:
 	$TileSprite.modulate = Color(0.227, 0.635, 0.757)
 
+
 func unhighlight() -> void:
 	$TileSprite.modulate = Color(1,1,1)
+
 
 func set_clickable(clickable: bool):
 	if !clickable:
 		mouse_filter = MOUSE_FILTER_IGNORE
 		$TileSprite.mouse_filter = MOUSE_FILTER_IGNORE
 		$MobFurnitureSprite.mouse_filter = MOUSE_FILTER_IGNORE
+
 
 #This function sets the texture to some static resource that helps the user visualize that something is above
 #If this tile has a texture in its data, set it to the above texture instead
@@ -134,9 +149,11 @@ func set_above():
 	else:
 		$TileSprite.texture = null
 
+
 func _on_texture_rect_resized():
 	$TileSprite.pivot_offset = size / 2
 	$MobFurnitureSprite.pivot_offset = size / 2
+
 
 func get_tile_texture():
 	return $TileSprite.texture

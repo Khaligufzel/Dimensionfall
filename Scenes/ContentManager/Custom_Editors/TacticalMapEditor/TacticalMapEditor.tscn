@@ -26,7 +26,7 @@ unicode = 114
 [sub_resource type="Shortcut" id="Shortcut_hehp2"]
 events = [SubResource("InputEventKey_nrfa0")]
 
-[node name="TacticalMapEditor" type="Control" node_paths=PackedStringArray("tileGrid", "mapwidthTextEdit", "mapheightTextEdit")]
+[node name="TacticalMapEditor" type="Control" node_paths=PackedStringArray("tileGrid", "mapwidthTextEdit", "mapheightTextEdit", "panWindow")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,9 +34,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bfw3n")
-tileGrid = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid")
+tileGrid = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/TileGrid")
 mapwidthTextEdit = NodePath("HSplitContainer/MapeditorContainer/Toolbar/MapWidth")
 mapheightTextEdit = NodePath("HSplitContainer/MapeditorContainer/Toolbar/MapHeight")
+panWindow = NodePath("HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 1
@@ -118,16 +119,34 @@ theme_override_icons/unchecked = ExtResource("6_w0gff")
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer" node_paths=PackedStringArray("mapEditor", "buttonRotateRight")]
+[node name="MapScrollWindow" type="ScrollContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.95
+
+[node name="PanWindow" type="ColorRect" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+color = Color(0.596078, 0.341176, 0.701961, 1)
+
+[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow" node_paths=PackedStringArray("mapEditor", "buttonRotateRight")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 3
 script = ExtResource("7_ji7x2")
 tileScene = ExtResource("8_pt28t")
-mapEditor = NodePath("../../../..")
-buttonRotateRight = NodePath("../../Toolbar/RotateRight")
+mapEditor = NodePath("../../../../../..")
+buttonRotateRight = NodePath("../../../../Toolbar/RotateRight")
 
 [node name="EntitiesContainer" type="VBoxContainer" parent="HSplitContainer"]
 layout_mode = 2
@@ -138,7 +157,8 @@ scrolling_Flow_Container = ExtResource("10_lnsqy")
 tileBrush = ExtResource("11_bh5ke")
 
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/CloseButton" to="." method="_on_close_button_button_up"]
-[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="save_map_json_file"]
+[connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/TileGrid" method="save_map_json_file"]
 [connection signal="text_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapWidth" to="." method="_on_map_width_text_changed"]
 [connection signal="text_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapHeight" to="." method="_on_map_height_text_changed"]
-[connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/TileGrid" method="_on_entities_container_tile_brush_selection_change"]
+[connection signal="pressed" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/TileGrid" method="_on_rotate_right_pressed"]
+[connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/TileGrid" method="_on_entities_container_tile_brush_selection_change"]

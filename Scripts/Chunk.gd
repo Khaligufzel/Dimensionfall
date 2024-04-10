@@ -73,7 +73,7 @@ func initialize_chunk_data():
 		#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 		var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 			Gamedata.data.maps.dataPath + chunk_data.id)
-		if mapsegmentData.has("rotation") and not mapsegmentData.rotation == 0:
+		if chunk_data.has("rotation") and not chunk_data.rotation == 0:
 			rotate_map(mapsegmentData)
 		_mapleveldata = mapsegmentData.levels
 		generate_new_chunk()
@@ -1083,9 +1083,15 @@ func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, 
 # This function will loop over all levels and rotate them if they contain tile data.
 
 func rotate_map(mapsegmentData: Dictionary) -> void:
+	var rotationdegrees = int(chunk_data.get("rotation", 0)) % 360  # Ensure rotation is a valid degree
+
+	var num_rotations = rotationdegrees / 90  # Determine how many 90-degree rotations are needed
+
 	for i in range(len(mapsegmentData.levels)):
-		var level_data = mapsegmentData.levels[i]
-		mapsegmentData.levels[i] = rotate_level_clockwise(level_data)
+		var current_level = mapsegmentData.levels[i]
+		for _y in range(num_rotations):  # Apply 90-degree rotation multiple times
+			current_level = rotate_level_clockwise(current_level)
+		mapsegmentData.levels[i] = current_level
 
 
 # Function to rotate a single level's data 90 degrees clockwise
