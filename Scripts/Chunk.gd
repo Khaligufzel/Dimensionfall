@@ -42,8 +42,10 @@ var mypos: Vector3 # The position in 3d space. Expect y to be 0
 var navigation_region: NavigationRegion3D
 var navigation_mesh: NavigationMesh = NavigationMesh.new()
 var source_geometry_data: NavigationMeshSourceGeometryData3D
-var generation_task: int
-var chunk_mesh_body: StaticBody3D
+var chunk_mesh_body: StaticBody3D # The staticbody that will visualize the chunk mesh
+var atlas_output: Dictionary # An atlas texture that combines all textures of this chunk's blocks
+var level_nodes: Dictionary = {} # Keeps track of level nodes by their y_level
+
 
 signal chunk_unloaded(chunkdata: Dictionary) # The chunk is fully unloaded
 # Signals that the chunk is partly loaded and the next chunk can start loading
@@ -80,6 +82,7 @@ func initialize_chunk_data():
 func generate_new_chunk():
 	block_positions = create_block_position_dictionary_new_arraymesh()
 	await Helper.task_manager.create_task(generate_chunk_mesh).completed
+	await Helper.task_manager.create_task(update_all_navigation_data).completed
 	processed_level_data = process_level_data()
 	await Helper.task_manager.create_task(add_furnitures_to_new_block).completed
 	await Helper.task_manager.create_task(add_block_mobs).completed
@@ -141,6 +144,7 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 func generate_saved_chunk() -> void:
 	block_positions = chunk_data.block_positions
 	await Helper.task_manager.create_task(generate_chunk_mesh).completed
+	await Helper.task_manager.create_task(update_all_navigation_data).completed
 	for item: Dictionary in chunk_data.items:
 		add_item_to_map(item)
 	
@@ -659,9 +663,6 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 			block_data["rotation"] = blockrotation
 		else: # Rotation has been previously saved so we can use that
 			blockrotation = block_data.rotation
-		# After calculating and adding vertices to the mesh arrays
-		# Call add_mesh_to_navigation_data for each block
-		add_mesh_to_navigation_data(poslocal, blockrotation, blockshape)
 		
 		if blockshape == "cube":
 			setup_cube(pos, blockrotation, verts, uvs, normals, indices, top_face_uv)
@@ -682,43 +683,11 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 # - Colliders
 func generate_chunk_mesh():
 	# Create the atlas and get the atlas texture
-	var atlas_output = create_atlas()
-	var atlas_texture = atlas_output.atlas_texture
-	var block_uv_map = atlas_output.block_uv_map
+	atlas_output = create_atlas()
 
 	for level_index in range(MAX_LEVELS):
-		# Find blocks at the current y level
-		var y_level = level_index - 10
-		var blocks_at_same_y = find_blocks_at_y_level(y_level) # Adjust based on the level indexing
-		if blocks_at_same_y.size() > 0:
-			# Prepare mesh data for this level
-			var arrays = []
-			arrays.resize(ArrayMesh.ARRAY_MAX)
-			prepare_mesh_data(arrays, blocks_at_same_y, block_uv_map)
-
-			# Create a MeshInstance3D for each level with the prepared mesh data
-			var mesh = ArrayMesh.new()
-			mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-
-			# Apply the shared atlas texture to a StandardMaterial3D
-			var material = StandardMaterial3D.new()
-			material.albedo_texture = atlas_texture
-
-			# Create and configure the mesh instance for the level
-			var mesh_instance = MeshInstance3D.new()
-			mesh_instance.mesh = mesh
-			mesh.surface_set_material(0, material)
-
-			# Add the MeshInstance3D to the appropriate level node
-			# Assuming you have a structure where each level is a child of the chunk
-			# You need to adjust this part to fit your node structure
-			var level_node = ChunkLevel.new()
-			# We don't set the y position of the chunklevel because that would mess up the mesh placement
-			# since the mesh will enhirit the position of the chunklevel. So instead we just save the
-			# y_level to the level node. The purpose of this is to allow hiding levels above the player
-			level_node.y = y_level
-			level_node.add_child(mesh_instance)
-			add_child.call_deferred(level_node) # Add the level node to the chunk
+		var y_level = level_index - 10  # Calculate the y-level offset if needed
+		generate_chunk_mesh_for_level(y_level)
 
 	# Create the static body for collision
 	chunk_mesh_body = StaticBody3D.new()
@@ -728,39 +697,8 @@ func generate_chunk_mesh():
 	# Set collision mask to layer 1
 	chunk_mesh_body.collision_mask = 1 # Layer 1 is 1
 	add_child.call_deferred(chunk_mesh_body)
-	create_colliders(chunk_mesh_body)
-	
-	update_navigation_mesh()
-	#generate_chunk_mesh_finished.call_deferred()
+	create_colliders()
 
-
-func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, top_face_uv):
-	# Assume a block size for the calculations
-	var half_block = 0.5
-	var top_verts = [
-		Vector3(-half_block, half_block, -half_block) + pos,
-		Vector3(half_block, half_block, -half_block) + pos,
-		Vector3(half_block, half_block, half_block) + pos,
-		Vector3(-half_block, half_block, half_block) + pos
-	]
-	
-	var rotated_top_verts = []
-	for vertex in top_verts:
-		rotated_top_verts.append(rotate_vertex_y(vertex - pos, blockrotation) + pos)
-
-	verts.append_array(rotated_top_verts)
-	uvs.append_array(top_face_uv)
-	
-	# Normals for the top face
-	for _i in range(4):
-		normals.append(Vector3(0, 1, 0))
-	
-	# Indices for the top face
-	var base_index = verts.size() - 4
-	indices.append_array([
-		base_index, base_index + 1, base_index + 2,
-		base_index, base_index + 2, base_index + 3
-	])
 
 
 # Function to find all blocks on the same y level
@@ -834,7 +772,7 @@ func setup_slope(blockrotation: int, pos: Vector3, verts, uvs, normals, indices,
 
 
 # Coroutine for creating colliders with non-blocking delays
-func create_colliders(static_body: StaticBody3D) -> void:
+func create_colliders() -> void:
 	var total_blocks = block_positions.size()
 	# Ensure we at least get 1 to avoid division by zero. Aim for a maximum of 15 steps.
 	var delay_every_n_blocks = max(1, total_blocks / 15)
@@ -846,7 +784,7 @@ func create_colliders(static_body: StaticBody3D) -> void:
 		var block_data = block_positions[key]
 		var block_shape = block_data.get("shape", "cube")
 		var block_rotation = block_data.get("rotation", 0)
-		static_body.add_child.call_deferred(_create_block_collider(block_pos, block_shape, block_rotation))
+		chunk_mesh_body.add_child.call_deferred(_create_block_collider(block_pos, block_shape, block_rotation))
 
 		block_counter += 1
 		# Check if it's time to delay
@@ -923,3 +861,207 @@ func get_block_rotation(shape: String, tilerotation: int = 0) -> int:
 # Previously saved chunks will not have id in the data and it returns false
 func is_new_chunk() -> bool:
 	return chunk_data.has("id")
+
+
+# Called when the player builds a new block on the map
+# We update the block_positions to include the new block
+# We have to update te chunk mesh and the navigationmesh
+# We also need to add a collider for the new block
+func add_block(block_id: String, block_position: Vector3):
+	# Generate a key for the new block position
+	var block_key = "%s,%s,%s" % [block_position.x, block_position.y, block_position.z]
+	
+	# Update block_positions with the new block data
+	block_positions[block_key] = {
+		"id": block_id,
+		"rotation": 0,  # Assume default rotation; adjust if necessary
+	}
+	
+	# Regenerate mesh for the affected level
+	generate_chunk_mesh_for_level(int(block_position.y))
+	# Update the navigation data based on all blocks
+	# We can't do this for a specific level, since we have 1 navigationmesh
+	# If we had multiple navigationmeshes, we could create one per level
+	await Helper.task_manager.create_task(update_all_navigation_data).completed
+
+	# Create and add a new collider for the block
+	var new_collider = _create_block_collider(block_position, "cube", 0)  # Cube shape; rotation 0
+	chunk_mesh_body.add_child.call_deferred(new_collider)
+
+
+# Adjusted to accept atlas data directly
+func generate_chunk_mesh_for_level(y_level: int):
+	var blocks_at_same_y = find_blocks_at_y_level(y_level)
+	if blocks_at_same_y.size() > 0:
+		# Use the passed atlas data
+		var atlas_texture = atlas_output["atlas_texture"]
+		var block_uv_map = atlas_output["block_uv_map"]
+		var arrays = []
+		arrays.resize(ArrayMesh.ARRAY_MAX)
+		prepare_mesh_data(arrays, blocks_at_same_y, block_uv_map)
+
+		# Create a MeshInstance3D for each level with the prepared mesh data
+		var mesh = ArrayMesh.new()
+		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+
+		# Apply the shared atlas texture to a StandardMaterial3D
+		var material = StandardMaterial3D.new()
+		material.albedo_texture = atlas_texture
+
+		# Create and configure the mesh instance for the level
+		var mesh_instance = MeshInstance3D.new()
+		mesh_instance.mesh = mesh
+		mesh.surface_set_material(0, material)
+
+		# Check if a level node exists for this y_level
+		if level_nodes.has(y_level):
+			var existing_level_node = level_nodes[y_level]
+			# Replace the old mesh instance with the new one
+			existing_level_node.remove_child(existing_level_node.get_child(0)) # Assumes only one child
+			existing_level_node.add_child(mesh_instance)
+		else:
+			# Create a new level node
+			var level_node = ChunkLevel.new()
+			# We don't set the y position of the chunklevel because that would mess up the mesh placement
+			# since the mesh will enhirit the position of the chunklevel. So instead we just save the
+			# y_level to the level node. The purpose of this is to allow hiding levels above the player
+			level_node.y = y_level
+			level_node.name = "Level_" + str(y_level)
+			level_node.add_child(mesh_instance)
+			add_child.call_deferred(level_node) # Add the level node to the chunk
+			# Store the reference to the new level node
+			level_nodes[y_level] = level_node
+
+
+# Rebuilds the navigationmesh for all blocks in the chunk
+# We can't do this for a specific level, since we have 1 navigationmesh
+# If we had multiple navigationmeshes, we could create one per level, which is more optimized
+func update_all_navigation_data():
+	for key in block_positions.keys():
+		var block_data: Dictionary = block_positions[key]
+		var pos_array = key.split(",")
+		var block_position = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
+		var block_rotation = block_data.rotation
+		var block_shape = block_data.get("shape", "cube")
+		#var block_shape = Gamedata.get_data_by_id(Gamedata.data.tiles, block_data.id).shape
+		
+		add_mesh_to_navigation_data(block_position, block_rotation, block_shape)
+	update_navigation_mesh()
+
+
+# Creates the vertices for a mesh that makes up a cube
+# Couldn't get it to work with a for-loop, so every side is explicitly defined
+# TODO: instead of making all the faces, only add them if there is no neighboring cube
+# We can do this by checking the neighbor:
+	# Directions corresponding to the faces
+	#var directions = [
+		#Vector3(0, 0, -1), # Front
+		#Vector3(1, 0, 0),  # Right
+		#Vector3(0, 0, 1),  # Back
+		#Vector3(-1, 0, 0), # Left
+		#Vector3(0, 1, 0),  # Top
+	#]
+	#var neighbor_pos = pos + directions[i]
+	#var neighbor_key = "%s,%s,%s" % [neighbor_pos.x, neighbor_pos.y, neighbor_pos.z]
+	#if not block_positions.has(neighbor_key): # Check if there is no block at the neighbor position
+# If it does not have a neighbor, we would add the face.
+func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, top_face_uv):
+	var half_block = 0.5
+
+	# Top face vertices
+	var top_verts = [
+		Vector3(-half_block, half_block, -half_block) + pos,  # top-left-front
+		Vector3(half_block, half_block, -half_block) + pos,   # top-right-front
+		Vector3(half_block, half_block, half_block) + pos,    # top-right-back
+		Vector3(-half_block, half_block, half_block) + pos    # top-left-back
+	]
+
+	# Left face vertices
+	var left_verts = [
+		Vector3(-half_block, half_block, -half_block) + pos,  # top-left-front
+		Vector3(-half_block, half_block, half_block) + pos,   # top-left-back
+		Vector3(-half_block, -half_block, half_block) + pos,  # bottom-left-back
+		Vector3(-half_block, -half_block, -half_block) + pos  # bottom-left-front
+	]
+	
+	# Right face vertices (x value set to half_block for all, adjusted order)
+	var right_verts = [
+		Vector3(half_block, half_block, half_block) + pos,   # top-right-back
+		Vector3(half_block, half_block, -half_block) + pos,  # top-right-front
+		Vector3(half_block, -half_block, -half_block) + pos, # bottom-right-front
+		Vector3(half_block, -half_block, half_block) + pos   # bottom-right-back
+	]
+
+	# Front face vertices (z value set to -half_block for all, adjusted order)
+	var front_verts = [
+		Vector3(half_block, half_block, -half_block) + pos,   # top-right-front
+		Vector3(-half_block, half_block, -half_block) + pos,  # top-left-front
+		Vector3(-half_block, -half_block, -half_block) + pos, # bottom-left-front
+		Vector3(half_block, -half_block, -half_block) + pos   # bottom-right-front
+	]
+
+	# Back face vertices (z value set to half_block for all)
+	var back_verts = [
+		Vector3(-half_block, half_block, half_block) + pos,   # top-left-back
+		Vector3(half_block, half_block, half_block) + pos,    # top-right-back
+		Vector3(half_block, -half_block, half_block) + pos,   # bottom-right-back
+		Vector3(-half_block, -half_block, half_block) + pos   # bottom-left-back
+	]
+
+	# Rotate only the top-face vertices by blockrotation around the Y axis at position
+	var rotated_top_verts = []
+	for vertex in top_verts:
+		rotated_top_verts.append(rotate_vertex_y(vertex - pos, blockrotation) + pos)
+
+	# Add vertices to arrays
+	verts.append_array(rotated_top_verts)
+	verts.append_array(left_verts)
+	verts.append_array(right_verts)
+	verts.append_array(front_verts)        # Front face
+	verts.append_array(back_verts)        # back face
+
+	# Append UVs for each face
+	uvs.append_array(top_face_uv)   # Assuming top_face_uv is already defined
+	uvs.append_array(top_face_uv)  # We won't see the left face, so we can just apply the top face uvs
+	uvs.append_array(top_face_uv)  # We won't see the right face, so we can just apply the top face uvs
+	uvs.append_array(top_face_uv)  # We won't see the front face, so we can just apply the top face uvs
+	uvs.append_array(top_face_uv)  # We won't see the back face, so we can just apply the top face uvs
+
+	# Add normals (assuming flat shading and orthogonal faces)
+	for _i in range(4): 
+		normals.append(Vector3(0, 1, 0))  # Top face
+	for _i in range(4): 
+		normals.append(Vector3(-1, 0, 0))  # west-facing face
+	for _i in range(4): 
+		normals.append(Vector3(1, 0, 0))   # east-facing face
+	for _i in range(4):
+		normals.append(Vector3(0, 0, -1))   # north-facing face
+	for _i in range(4):
+		normals.append(Vector3(0, 0, 1))  # south-facing face
+
+	# Add indices for top, left, and right faces
+	var top_base_index = verts.size() - 20
+	var left_base_index = verts.size() - 16
+	var right_base_index = verts.size() - 12
+	var front_base_index = verts.size() - 8
+	var back_base_index = verts.size() - 4
+	indices.append_array([
+		top_base_index, top_base_index + 1, top_base_index + 2,
+		top_base_index, top_base_index + 2, top_base_index + 3
+	])
+	indices.append_array([
+		left_base_index, left_base_index + 1, left_base_index + 2,
+		left_base_index, left_base_index + 2, left_base_index + 3
+	])
+	indices.append_array([
+		right_base_index, right_base_index + 1, right_base_index + 2,
+		right_base_index, right_base_index + 2, right_base_index + 3
+	])
+	indices.append_array([
+		front_base_index, front_base_index + 1, front_base_index + 2,
+		front_base_index, front_base_index + 2, front_base_index + 3
+	])
+	indices.append_array([
+		back_base_index, back_base_index + 1, back_base_index + 2,
+		back_base_index, back_base_index + 2, back_base_index + 3
+	])
