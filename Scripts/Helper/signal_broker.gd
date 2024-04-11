@@ -3,6 +3,7 @@ extends Node
 # This script functions as a connection point for signals.
 # It is indended to aid in communication between nodes during gameplay
 # The most significant use case is communication between game entities and the hud
+# This script is loaded by Helper.gd and is accessible as Helper.signal_broker
 
 # Signalled to the hud to start a progressbar
 signal hud_start_progressbar(time_left: float)
@@ -14,6 +15,14 @@ signal inventory_window_visibility_changed(inventoryWindow: Control)
 # Will sent out this signal when the user opens or closes the build window
 # Nodes can use this signal to interrupt actions
 signal build_window_visibility_changed(buildWindow: Control)
+
+# Signalled when an items were used
+# It can be one or more items. It's up to the receiver to figure it out
+signal items_were_used(usedItems: Array[InventoryItem])
+
+# Signalled when an items were used
+# It can be one or more items. It's up to the receiver to figure it out
+signal health_item_used(usedItem: InventoryItem)
 
 # Signalled when an item was equiped in an equipmentslot
 # The item will know what slot it was

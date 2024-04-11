@@ -68,6 +68,7 @@ func _ready():
 	current_torso_health = torso_health
 	current_stamina = stamina
 	Helper.save_helper.load_player_state(self)
+	Helper.signal_broker.health_item_used.connect(_on_health_item_used)
 
 
 
@@ -234,25 +235,68 @@ func die():
 func transfer_damage_to_torso(damage: float):
 	current_torso_health -= damage
 	check_if_alive()
-	
-#func start_progress_bar(time : float):
-#	get_node(progress_bar).visible = true
-#	get_node(progress_bar_timer).wait_time = time
-#	get_node(progress_bar_timer).start()
-#	get_node(progress_bar_filling).scale.x = 0
-#	progress_bar_timer_max_time = time
-#	is_progress_bar_well_progressing_i_guess = true
-#
-#
-#func interrupt_progress_bar():
-#	get_node(progress_bar).visible = false
-#	is_progress_bar_well_progressing_i_guess = false
-#
-#
-#func _on_progress_bar_timer_timeout():
-#	interrupt_progress_bar()
-	
+
+
 func play_footstep_audio():
 	foostep_player.stream = foostep_stream_randomizer
 	foostep_player.play()
 
+
+# The player has selected one or more items in the inventory and selected
+# 'use' from the context menu.
+func _on_health_item_used(usedItem: InventoryItem) -> void:
+	var health: int = int(ItemManager.get_nested_property(usedItem, "Food.health"))
+	if health:
+		var spent_health = heal_player(health)
+		if not spent_health == health:
+			ItemManager.remove_inventory_item(usedItem)
+
+
+# Heal the player by the specified amount. We prioritize the head and torso for healing
+# After that, we prioritize the most damaged part
+# It returns the remaining amount that wasn't spent on healing
+# You can use this to see if the healing item is depleted or used at all
+func heal_player(amount: int) -> int:
+	# Create a dictionary with part names and their current/max health
+	var body_parts = {
+		"head": {"current": current_head_health, "max": head_health},
+		"torso": {"current": current_torso_health, "max": torso_health},
+		"left_arm": {"current": current_left_arm_health, "max": left_arm_health},
+		"right_arm": {"current": current_right_arm_health, "max": right_arm_health},
+		"left_leg": {"current": current_left_leg_health, "max": left_leg_health},
+		"right_leg": {"current": current_right_leg_health, "max": right_leg_health}
+	}
+
+	# Gather keys, filter, and sort. We prioritize the head and torso
+	var other_parts = body_parts.keys().filter(
+		func(k): return k != "head" and k != "torso"
+	)
+	other_parts.sort_custom(
+		func(a, b): return body_parts[a]["current"] > body_parts[b]["current"]
+	)
+
+	# Create a priority list with head and torso first, then the sorted other parts
+	var priority_parts = ["head", "torso"] + other_parts
+
+	# Distribute healing points
+	for part in priority_parts:
+		if amount <= 0:
+			break
+		var heal = min(amount, body_parts[part]["max"] - body_parts[part]["current"])
+		body_parts[part]["current"] += heal
+		amount -= heal
+
+	# Update health variables
+	current_head_health = body_parts["head"]["current"]
+	current_torso_health = body_parts["torso"]["current"]
+	current_left_arm_health = body_parts["left_arm"]["current"]
+	current_right_arm_health = body_parts["right_arm"]["current"]
+	current_left_leg_health = body_parts["left_leg"]["current"]
+	current_right_leg_health = body_parts["right_leg"]["current"]
+
+	# Emit signals to update the UI or other systems
+	update_doll.emit(
+		current_head_health, current_right_arm_health, current_left_arm_health,
+		current_torso_health, current_right_leg_health, current_left_leg_health
+	)
+	return amount
