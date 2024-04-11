@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq4t64qb15y27"]
+
+[ext_resource type="Script" path="res://Scripts/ItemFoodEditor.gd" id="1_ylt2h"]
+
+[node name="ItemFoodEditor" type="Control" node_paths=PackedStringArray("HealthNumberBox")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ylt2h")
+HealthNumberBox = NodePath("Food/HealthNumber")
+
+[node name="Food" type="GridContainer" parent="."]
+layout_mode = 0
+size_flags_vertical = 3
+columns = 2
+
+[node name="HealthLabel" type="Label" parent="Food"]
+layout_mode = 2
+text = "Health"
+
+[node name="HealthNumber" type="SpinBox" parent="Food"]
+layout_mode = 2
+tooltip_text = "Increase the health of the player by this amount when it is used. A negative number will also decrease the player's health"
+value = 5.0

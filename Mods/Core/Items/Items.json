@@ -173,6 +173,9 @@
 		"width": "2"
 	},
 	{
+		"Food": {
+			"health": "5"
+		},
 		"description": "This plastic bottle is filled with water",
 		"height": "2",
 		"id": "bottle_plastic_water",
