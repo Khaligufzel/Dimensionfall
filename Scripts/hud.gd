@@ -48,6 +48,10 @@ func _process(_delta):
 func _ready():
 	# If some node wants to start a progressbar, they will emit a signal trough the broker
 	Helper.signal_broker.hud_start_progressbar.connect(start_progress_bar)
+	# We let the signal broker forward the change in visibility so other nodes can respond
+	var buildmenu = get_node(building_menu)
+	buildmenu.visibility_changed.connect(\
+	Helper.signal_broker.on_build_menu_visibility_changed.bind(buildmenu))
 
 func update_progress_bar():
 	var progressBarNode = get_node(progress_bar_filling)

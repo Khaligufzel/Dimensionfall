@@ -5,6 +5,8 @@ var current_level_name : String
 var ready_to_switch_level: Dictionary = {"save_ready": false, "chunks_unloaded": false}
 # Dictionary to hold data of chunks that are unloaded
 var loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} 
+# Contains the navigationmap for each chunk, used to give mobs the proper navigationmap
+# When crossing chunk boundary
 var chunk_navigation_maps: Dictionary = {}
 
 # Overmap data
@@ -57,6 +59,7 @@ func reset():
 		item.remove_from_group("mapitems")
 		item.queue_free()
 
+
 #Level_name is a filename in /mods/core/maps
 #global_pos is the absolute position on the overmap
 #see overmap.gd for how global_pos is used there
@@ -80,7 +83,6 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 	start_timer()
 	#get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
 	#get_tree().change_scene_to_file("res://level_generation.tscn")
-
 
 
 # Function to create and start a timer that will wait to switch the level
@@ -120,7 +122,8 @@ func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstan
 	get_tree().get_root().add_child(mesh_instance)
 	
 	return mesh_instance
-	
+
+
 func raycast_from_mouse(m_pos, collision_mask):
 	var ray_start = get_tree().get_first_node_in_group("Camera").project_ray_origin(m_pos)
 	var ray_end = ray_start + get_tree().get_first_node_in_group("Camera").project_ray_normal(m_pos) * 1000
@@ -134,7 +137,8 @@ func raycast_from_mouse(m_pos, collision_mask):
 	query.collide_with_areas = true
 	
 	return space_state.intersect_ray(query)
-	
+
+
 func raycast(start_position : Vector3, end_position : Vector3, layer : int, object_to_ignore):
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(start_position, end_position, layer, object_to_ignore)

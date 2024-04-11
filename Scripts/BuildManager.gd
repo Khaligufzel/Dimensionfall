@@ -1,21 +1,15 @@
 extends Node3D
 
-@export var tile_map_path : NodePath
-var tile_map : TileMap
-
-@export var ghost_sprite_path : NodePath
-var ghost_sprite : Sprite2D
-
+@export var construction_ghost : MeshInstance3D
 var is_building = false
 
-var build_range = 30
-
-@export var player_path: NodePath
-
+@export var LevelGenerator: Node3D
 @export var hud : NodePath
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Connect the build menu visibility_changed signal to a local method
+	Helper.signal_broker.build_window_visibility_changed.connect(_on_build_menu_visibility_change)
 #	tile_map = get_node(tile_map_path)
 	
 	#3D
@@ -27,7 +21,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if is_building:
-		ghost_sprite.visible = true
+		construction_ghost.visible = true
 		
 		# 3d
 #		ghost_sprite.global_position = get_global_mouse_position()
@@ -44,7 +38,7 @@ func _input(_event):
 	if Input.is_action_pressed("click_right") && is_building:
 		is_building = false
 		General.is_allowed_to_shoot = true
-		ghost_sprite.visible = false
+		construction_ghost.visible = false
 
 func make_tile_ghost():
 	pass
@@ -53,3 +47,19 @@ func _on_hud_construction_chosen(_construction: String):
 	print("Building test")
 	is_building = true
 	General.is_allowed_to_shoot = false
+
+
+func on_construction_clicked(construction_data: Dictionary):
+	var chunk: Chunk = LevelGenerator.get_chunk_from_position(construction_data.pos)
+	if chunk:
+		chunk.add_block(construction_data.id,construction_data.pos)
+		print_debug("Block placed at: ", construction_data.pos, " with type ", construction_data.id)
+
+
+# Respond to visibility changes of this node
+func _on_build_menu_visibility_change(buildmenu):
+	if !is_building:
+		return
+	# Set the visibility of the construction_ghost to match the building menu's visibility
+	construction_ghost.visible = buildmenu.is_visible()
+	is_building = buildmenu.is_visible()
