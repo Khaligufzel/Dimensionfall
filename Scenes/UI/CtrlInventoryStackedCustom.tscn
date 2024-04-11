@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://y2iul2r3nysx"]
+[gd_scene load_steps=5 format=3 uid="uid://y2iul2r3nysx"]
 
 [ext_resource type="Script" path="res://Scripts/CtrlInventoryStackedCustom.gd" id="1_1pahw"]
 [ext_resource type="PackedScene" uid="uid://bgnxsnv6ltej8" path="res://Scenes/UI/CtrlInventoryStackedListItem.tscn" id="2_woew4"]
 [ext_resource type="PackedScene" uid="uid://dxgl4vkc313we" path="res://Scenes/UI/CtrlInventoryStackedlistHeaderItem.tscn" id="3_svicc"]
 
-[node name="CtrlInventoryStackedCustom" type="Control" node_paths=PackedStringArray("inventoryGrid", "WeightBar", "VolumeBar", "context_menu", "tooltipPanel", "tooltipNameLabel", "tooltipDescriptionLabel")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3t2d1"]
+bg_color = Color(0, 0, 0, 0.733333)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="CtrlInventoryStackedCustom" type="Control" node_paths=PackedStringArray("inventoryGrid", "WeightBar", "VolumeBar", "context_menu", "tooltipPanel", "tooltipNameLabel", "tooltipDescriptionLabel", "tooltipHealthLabel", "tooltipHealthValue")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +30,8 @@ context_menu = NodePath("ContextMenu")
 tooltipPanel = NodePath("Tooltip")
 tooltipNameLabel = NodePath("Tooltip/GridContainer/NameValue")
 tooltipDescriptionLabel = NodePath("Tooltip/GridContainer/DescriptionValue")
+tooltipHealthLabel = NodePath("Tooltip/GridContainer/HealthLabel")
+tooltipHealthValue = NodePath("Tooltip/GridContainer/HealthValue")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -84,10 +93,13 @@ item_3/id = 3
 item_4/text = "Use"
 item_4/id = 4
 
-[node name="Tooltip" type="PopupPanel" parent="."]
-handle_input_locally = false
-size = Vector2i(102, 112)
-mouse_passthrough = true
+[node name="Tooltip" type="Panel" parent="."]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 0
+offset_right = 102.0
+offset_bottom = 112.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3t2d1")
 
 [node name="GridContainer" type="GridContainer" parent="Tooltip"]
 offset_left = 4.0
@@ -105,10 +117,22 @@ text = "Name:"
 layout_mode = 2
 
 [node name="DescriptionLabel" type="Label" parent="Tooltip/GridContainer"]
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 text = "Description"
 
 [node name="DescriptionValue" type="Label" parent="Tooltip/GridContainer"]
+custom_minimum_size = Vector2(400, 24)
+layout_mode = 2
+autowrap_mode = 2
+
+[node name="HealthLabel" type="Label" parent="Tooltip/GridContainer"]
+layout_mode = 2
+text = "Health"
+
+[node name="HealthValue" type="Label" parent="Tooltip/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(400, 24)
 layout_mode = 2
 
 [connection signal="id_pressed" from="ContextMenu" to="." method="_on_context_menu_item_selected"]

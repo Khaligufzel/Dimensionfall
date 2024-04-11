@@ -46,9 +46,11 @@ var mouse_press_position: Vector2 = Vector2()
 var selection_state_changed: bool = false
 
 # Tooltip variables
-@export var tooltipPanel: PopupPanel  # Assume this is your tooltip panel node
+@export var tooltipPanel: Panel  # The panel that displays the tooltip contents
 @export var tooltipNameLabel: Label  # Child of tooltipPanel for the item's name
 @export var tooltipDescriptionLabel: Label  # Child for the item's description
+@export var tooltipHealthLabel: Label  # Child for the item's description
+@export var tooltipHealthValue: Label  # Child for the item's description
 var tooltip_timer: Timer = Timer.new()  # Timer to control tooltip delay
 
 
@@ -78,7 +80,6 @@ func _ready():
 
 # Function to show context menu at specified position
 func show_context_menu(myposition: Vector2):
-	tooltipPanel.visible = false
 	# Create a small Rect2i around the position
 	# We need this because the popup function requires it
 	var popup_rect = Rect2i(int(myposition.x), int(myposition.y), 1, 1)
@@ -190,7 +191,6 @@ func _add_header_row_to_grid():
 
 # When the user right-clicks on one of the inventory items
 func _on_item_right_clicked(clickedItem: Control):
-	tooltipPanel.visible = false
 	var row_name = _get_row_name(clickedItem)
 	
 	# Check if any item is selected
@@ -210,7 +210,6 @@ func _on_item_right_clicked(clickedItem: Control):
 # There are 5 items per row in the grid, but they are treated as a row of 5
 # So clicking one item will select the whole row
 func _on_item_clicked(clickedItem: Control):
-	tooltipPanel.visible = false
 	var row_name = _get_row_name(clickedItem)
 	var was_selected = _is_row_selected(row_name)
 
@@ -407,7 +406,6 @@ func _sort_items(a, b):
 
 # When a header is clicked, we will apply sorting to that column
 func _on_header_clicked(headerItem: Control) -> void:
-	tooltipPanel.visible = false
 	var header_mapping = {"I": "icon", "Name": "name", "S": "stack_size", "W": "weight", "V": "volume", "F": "favorite"}
 	var header_label = headerItem.get_label_text()
 
@@ -494,7 +492,6 @@ func _get_sorted_rows(property_name: String) -> Array:
 # A row is made up of 6 items (a row).
 # This will select or deselect a row, depending on the value of the select parameter
 func _toggle_row_selection(row_name: String, select: bool):
-	tooltipPanel.visible = false
 	if inventory_rows.has(row_name):
 		var row_info = inventory_rows[row_name]
 		row_info["is_selected"] = select  # Update the is_selected property
@@ -575,7 +572,6 @@ func _deselect_and_clear_current_inventory():
 
 # All rows are desleected
 func _deselect_all_items():
-	tooltipPanel.visible = false
 	for row_name in inventory_rows.keys():
 		if inventory_rows.has(row_name):
 			_toggle_row_selection(row_name, false)
@@ -583,7 +579,6 @@ func _deselect_all_items():
 
 # When the user clicks on one of the cells in the grid
 func _on_grid_cell_gui_input(event, gridCell: Control):
-	tooltipPanel.visible = false
 	if event is InputEventMouseButton:
 		if event.pressed:  # Check if the mouse button was pressed down
 			mouse_press_position = event.position  # Store the position of mouse press
@@ -690,8 +685,16 @@ func _on_tooltip_timer_timeout():
 	if item:
 		tooltipNameLabel.text = item.get_property("name", "[No Name]")
 		tooltipDescriptionLabel.text = item.get_property("description", "[No Description]")
+		var health = ItemManager.get_nested_property(item, "Food.health")
+		if health:
+			tooltipHealthValue.text = "+" + str(health)
+			tooltipHealthLabel.visible = true
+			tooltipHealthValue.visible = true
+		else:
+			tooltipHealthLabel.visible = false
+			tooltipHealthValue.visible = false
 		
 		# Show context menu at the global position of the clicked item
 		#show_context_menu(clickedItem.global_position)
-		tooltipPanel.position = get_global_mouse_position() + Vector2(10, 10)  # Offset the tooltip a bit
+		tooltipPanel.position = get_local_mouse_position() + Vector2(10, 10)  # Offset the tooltip a bit
 		tooltipPanel.visible = true
