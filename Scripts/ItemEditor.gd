@@ -109,12 +109,19 @@ func _on_save_button_button_up() -> void:
 	for i in range(typesContainer.get_child_count()):
 		var child = typesContainer.get_child(i)
 		# Check if the child is a CheckBox and its button_pressed is true
-		if child is CheckBox and child.button_pressed:
-			var tabIndex = get_tab_by_title(child.text)
-			var tab = tabContainer.get_child(tabIndex)
-			if tab and tab.has_method("get_properties"):
-				contentData[child.text] = tab.get_properties()
+		if child is CheckBox:
+			if child.button_pressed:
+				# Save additional properties if checkbox is checked
+				var tabIndex = get_tab_by_title(child.text)
+				var tab = tabContainer.get_child(tabIndex)
+				if tab and tab.has_method("get_properties"):
+					contentData[child.text] = tab.get_properties()
+			else:
+				# Delete the property if checkbox is not checked and it exists in contentData
+				if contentData.has(child.text):
+					contentData.erase(child.text)
 	data_changed.emit()
+
 
 #When the itemImageDisplay is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/items/". The texture of the itemImageDisplay will change to the selected image

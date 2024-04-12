@@ -102,6 +102,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3t2d1")
 
 [node name="GridContainer" type="GridContainer" parent="Tooltip"]
+layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 98.0
