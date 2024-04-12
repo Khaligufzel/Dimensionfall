@@ -46,7 +46,6 @@ var mouse_press_position: Vector2 = Vector2()
 var selection_state_changed: bool = false
 
 
-
 # Signals for context menu actions
 signal equip_left(items)
 signal equip_right(items)
@@ -66,6 +65,7 @@ func initialize_list():
 # Function to show context menu at specified position
 func show_context_menu(myposition: Vector2):
 	# Create a small Rect2i around the position
+	# We need this because the popup function requires it
 	var popup_rect = Rect2i(int(myposition.x), int(myposition.y), 1, 1)
 	context_menu.popup(popup_rect)
 
@@ -171,7 +171,17 @@ func _add_header_row_to_grid():
 	_create_header("F") # Favorite
 
 
+# When the user right-clicks on one of the inventory items
 func _on_item_right_clicked(clickedItem: Control):
+	var row_name = _get_row_name(clickedItem)
+	
+	# Check if any item is selected
+	if get_selected_inventory_items().size() == 0:
+		# If no item is selected, select the clicked item
+		_deselect_all_items()
+		_toggle_row_selection(row_name, true)
+
+	# Show context menu at the global position of the clicked item
 	show_context_menu(clickedItem.global_position)
 
 
