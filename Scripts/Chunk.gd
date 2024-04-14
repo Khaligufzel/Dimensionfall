@@ -691,6 +691,13 @@ func generate_chunk_mesh():
 		var y_level = level_index - 10  # Calculate the y-level offset if needed
 		generate_chunk_mesh_for_level(y_level)
 
+	# Set up the static body and colliders for the mesh
+	setup_collision_body()
+	create_colliders()
+
+
+# Setup a basic staticbody that will hold the colliders
+func setup_collision_body():
 	# Create the static body for collision
 	chunk_mesh_body = StaticBody3D.new()
 	chunk_mesh_body.disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
@@ -699,8 +706,7 @@ func generate_chunk_mesh():
 	# Set collision mask to layer 1
 	chunk_mesh_body.collision_mask = 1 # Layer 1 is 1
 	add_child.call_deferred(chunk_mesh_body)
-	create_colliders()
-
+	add_child(chunk_mesh_body)
 
 
 # Function to find all blocks on the same y level
@@ -901,7 +907,8 @@ func add_block(block_id: String, block_position: Vector3):
 	chunk_mesh_body.add_child.call_deferred(new_collider)
 
 
-# Adjusted to accept atlas data directly
+# This function generates the mesh for 1 level in the chunk
+# A level means all the blocks with the same Y position
 func generate_chunk_mesh_for_level(y_level: int):
 	var blocks_at_same_y = find_blocks_at_y_level(y_level)
 	if blocks_at_same_y.size() > 0:
@@ -929,7 +936,7 @@ func generate_chunk_mesh_for_level(y_level: int):
 		if level_nodes.has(y_level):
 			var existing_level_node = level_nodes[y_level]
 			# Replace the old mesh instance with the new one
-			existing_level_node.remove_child(existing_level_node.get_child(0)) # Assumes only one child
+			existing_level_node.remove_child(existing_level_node.get_child(0))
 			existing_level_node.add_child(mesh_instance)
 		else:
 			# Create a new level node
