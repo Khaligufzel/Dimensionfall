@@ -128,3 +128,11 @@ func loadLevel():
 
 func _on_entities_container_tile_brush_selection_change(tilebrush):
 	selected_brush = tilebrush
+
+
+# The user has pressed the rotate right button on the toolbar
+# We need to set the rotation so that the brush will apply rotation to the tile
+func _on_rotate_right_pressed():
+	rotationAmount += 90
+	rotationAmount = rotationAmount % 360 # Keep rotation within 0-359 degrees
+	buttonRotateRight.text = str(rotationAmount)

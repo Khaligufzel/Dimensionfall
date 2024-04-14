@@ -73,6 +73,8 @@ func initialize_chunk_data():
 		#This contains the data of one segment, loaded from maps.data, for example generichouse.json
 		var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 			Gamedata.data.maps.dataPath + chunk_data.id)
+		if chunk_data.has("rotation") and not chunk_data.rotation == 0:
+			rotate_map(mapsegmentData)
 		_mapleveldata = mapsegmentData.levels
 		generate_new_chunk()
 	else: # This chunk is created from previously saved data
@@ -341,8 +343,8 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 	
 	var total_furniture = furnitureDataArray.size()
 	 # Ensure we at least get 1 to avoid division by zero
-	#var delay_every_n_furniture = max(1, total_furniture / 15)
-	var delay_every_n_furniture = max(1, int(total_furniture / 15))
+	var delay_every_n_furniture = max(1, int(float(total_furniture) / 15.0))
+
 	for i in range(total_furniture):
 		var furnitureData = furnitureDataArray[i]
 		mutex.lock()
@@ -1075,3 +1077,49 @@ func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, 
 		back_base_index, back_base_index + 1, back_base_index + 2,
 		back_base_index, back_base_index + 2, back_base_index + 3
 	])
+
+
+
+# This function will loop over all levels and rotate them if they contain tile data.
+
+func rotate_map(mapsegmentData: Dictionary) -> void:
+	var rotationdegrees = int(chunk_data.get("rotation", 0)) % 360  # Ensure rotation is a valid degree
+
+	var num_rotations = rotationdegrees / 90  # Determine how many 90-degree rotations are needed
+
+	for i in range(len(mapsegmentData.levels)):
+		var current_level = mapsegmentData.levels[i]
+		for _y in range(num_rotations):  # Apply 90-degree rotation multiple times
+			current_level = rotate_level_clockwise(current_level)
+		mapsegmentData.levels[i] = current_level
+
+
+# Function to rotate a single level's data 90 degrees clockwise
+func rotate_level_clockwise(level_data: Array) -> Array:
+	if level_data.size() == 0:
+		return level_data
+
+	var new_level_data: Array[Dictionary] = []
+	# Initialize new_level_data with empty dictionaries
+	for i in range(LEVEL_WIDTH * LEVEL_HEIGHT):
+		new_level_data.append({})
+
+	for y in range(LEVEL_HEIGHT):
+		for x in range(LEVEL_WIDTH):
+			var old_index = y * LEVEL_WIDTH + x
+			var new_x = LEVEL_HEIGHT - y - 1
+			var new_y = x
+			var new_index = new_y * LEVEL_WIDTH + new_x
+			new_level_data[new_index] = level_data[old_index].duplicate(true)
+
+			# Add rotation to the tile's data if it has an "id"
+			if new_level_data[new_index].has("id"):
+				var tile_rotation = int(new_level_data[new_index].get("rotation", 0))
+				new_level_data[new_index]["rotation"] = (tile_rotation + 90) % 360
+			
+			# Rotate furniture if present, initializing rotation to 0 if not set
+			if new_level_data[new_index].has("furniture"):
+				var furniture_rotation = int(new_level_data[new_index]["furniture"].get("rotation", 0))
+				new_level_data[new_index]["furniture"]["rotation"] = (furniture_rotation + 90) % 360
+
+	return new_level_data
