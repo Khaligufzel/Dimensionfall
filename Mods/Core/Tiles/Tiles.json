@@ -1225,5 +1225,18 @@
 		"name": "Concrete",
 		"shape": "cube",
 		"sprite": "concrete.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Transparent",
+			"Wall"
+		],
+		"description": "This window will let light trough but blocks objects",
+		"id": "glass_window_00",
+		"name": "Glass window",
+		"shape": "cube",
+		"sprite": "glass_window.png",
+		"transparent": true
 	}
 ]
