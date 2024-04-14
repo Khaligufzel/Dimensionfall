@@ -989,9 +989,9 @@ func update_all_navigation_data():
 	#if not block_positions.has(neighbor_key): # Check if there is no block at the neighbor position
 # If it does not have a neighbor, we would add the face.
 func setup_cube(pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
-	# Define the faces to process
-	var faces = ["top", "left", "right", "front", "back"]
-
+	# Define the faces to process based on transparency using GDScript's conditional syntax
+	var faces = ["top"] if block_data.get("transparent", false) else ["top", "left", "right", "front", "back"]
+	
 	# Process each face
 	for face in faces:
 		process_face(face, pos, block_data, verts, uvs, normals, indices, top_face_uv)
