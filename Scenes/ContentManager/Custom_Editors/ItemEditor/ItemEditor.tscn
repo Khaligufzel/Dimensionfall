@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmpomdwta1pgq"]
+[gd_scene load_steps=8 format=3 uid="uid://dmpomdwta1pgq"]
 
 [ext_resource type="Script" path="res://Scripts/ItemEditor.gd" id="1_ef3j7"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_ghd7c"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cbke1yb3m7dra" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemRangedEditor.tscn" id="3_qqmud"]
 [ext_resource type="PackedScene" uid="uid://27f4k2pq2odn" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemMagazineEditor.tscn" id="4_x8xa3"]
 [ext_resource type="PackedScene" uid="uid://c2uiumyeepree" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemAmmoEditor.tscn" id="5_mr1dn"]
+[ext_resource type="PackedScene" uid="uid://cq4t64qb15y27" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemFoodEditor.tscn" id="6_htafc"]
 
 [node name="ItemEditor" type="Control" node_paths=PackedStringArray("tabContainer", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "VolumeNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "typesContainer", "TwoHandedCheckBox")]
 layout_mode = 3
@@ -234,6 +235,10 @@ visible = false
 layout_mode = 2
 
 [node name="Ammo" parent="VBoxContainer/TabContainer" instance=ExtResource("5_mr1dn")]
+visible = false
+layout_mode = 2
+
+[node name="Food" parent="VBoxContainer/TabContainer" instance=ExtResource("6_htafc")]
 visible = false
 layout_mode = 2
 

@@ -47,10 +47,11 @@ var selection_state_changed: bool = false
 
 
 # Signals for context menu actions
-signal equip_left(items)
-signal equip_right(items)
-signal reload_item(items)
-signal unload_item(items)
+signal equip_left(items: Array[InventoryItem])
+signal equip_right(items: Array[InventoryItem])
+signal reload_item(items: Array[InventoryItem])
+signal unload_item(items: Array[InventoryItem])
+signal use_item(items: Array[InventoryItem])
 
 
 func initialize_list():
@@ -71,6 +72,7 @@ func show_context_menu(myposition: Vector2):
 
 
 # Handle context menu item selection
+# The actual items are defined in CtrlInventoryStackedCustom.tscn
 func _on_context_menu_item_selected(id):
 	var selected_inventory_items = get_selected_inventory_items()
 	match id:
@@ -78,6 +80,7 @@ func _on_context_menu_item_selected(id):
 		1: equip_right.emit(selected_inventory_items)
 		2: reload_item.emit(selected_inventory_items)
 		3: unload_item.emit(selected_inventory_items)
+		4: Helper.signal_broker.items_were_used.emit(selected_inventory_items)
 
 
 func _disconnect_inventory_signals():

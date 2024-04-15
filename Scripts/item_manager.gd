@@ -15,6 +15,8 @@ func _ready():
 	playerInventory = initialize_inventory()
 	proximityInventory = initialize_inventory()
 	create_starting_items()
+	# When the user has selected the use option from the context menu of the inventory
+	Helper.signal_broker.items_were_used.connect(_on_items_used)
 
 
 func initialize_inventory() -> InventoryStacked:
@@ -22,6 +24,7 @@ func initialize_inventory() -> InventoryStacked:
 	newInventory.capacity = 1000
 	newInventory.item_protoset = load("res://ItemProtosets.tres")
 	return newInventory
+
 
 func create_starting_items():
 	if playerInventory.get_children() == []:
@@ -33,6 +36,8 @@ func create_starting_items():
 		playerInventory.create_and_add_item("pistol_magazine")
 		playerInventory.create_and_add_item("pistol_magazine")
 		playerInventory.create_and_add_item("rifle_m4a1")
+		playerInventory.create_and_add_item("bottle_plastic_empty")
+		playerInventory.create_and_add_item("bottle_plastic_water")
 
 
 # The actual reloading is executed on the item
@@ -126,6 +131,8 @@ func find_compatible_magazine(gun: InventoryItem) -> InventoryItem:
 
 # This function starts by retrieving the first property using InventoryItem.get_property()
 # and then proceeds to fetch nested properties if the first property is a dictionary.
+# Example useage: var magazine = get_nested_property(gunitem, "Ranged.used_magazine")
+# If magazine: ... rest of the code
 func get_nested_property(item: InventoryItem, property_path: String) -> Variant:
 	var keys = property_path.split(".")
 	if keys.is_empty():
@@ -196,3 +203,26 @@ func reload_magazine(magazine: InventoryItem) -> void:
 		if total_ammo_loaded > 0:
 			magazineProperties["current_ammo"] = current_ammo + total_ammo_loaded
 			magazine.set_property("Magazine", magazineProperties)
+
+
+
+# Function to remove an item from the inventory
+func remove_inventory_item(item: InventoryItem) -> bool:
+	if playerInventory.has_item(item):
+		if playerInventory.remove_item(item):
+			return true
+		else:
+			print_debug("Failed to remove item from inventory.")
+	else:
+		print_debug("Item not found in inventory.")
+	return false
+
+
+# The player has selected one or more items in the inventory and selected
+# 'use' from the context menu.
+func _on_items_used(usedItems: Array[InventoryItem]) -> void:
+	for item in usedItems:
+		if item.get_property("Food"):  # Check if the item dictionary has the key "food"
+			var foodProperties: Dictionary = item.get_property("Food")
+			if foodProperties.has("health"):
+				Helper.signal_broker.health_item_used.emit(item)

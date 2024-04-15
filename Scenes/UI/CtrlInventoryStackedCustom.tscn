@@ -69,7 +69,7 @@ size_flags_horizontal = 3
 
 [node name="ContextMenu" type="PopupMenu" parent="."]
 size = Vector2i(123, 116)
-item_count = 4
+item_count = 5
 item_0/text = "Equip (left)"
 item_0/id = 0
 item_1/text = "Equip (right)"
@@ -78,5 +78,7 @@ item_2/text = "Reload"
 item_2/id = 2
 item_3/text = "Unload"
 item_3/id = 3
+item_4/text = "Use"
+item_4/id = 4
 
 [connection signal="id_pressed" from="ContextMenu" to="." method="_on_context_menu_item_selected"]
