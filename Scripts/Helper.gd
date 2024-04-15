@@ -27,6 +27,8 @@ const signal_broker_Class = preload("res://Scripts/Helper/signal_broker.gd")
 var signal_broker: Node = null
 const task_manager_Class = preload("res://Scripts/Helper/task_manager.gd")
 var task_manager: Node = null
+const map_manager_Class = preload("res://Scripts/Helper/map_manager.gd")
+var map_manager: Node = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,6 +36,7 @@ func _ready():
 	save_helper = save_Helper_Class.new()
 	signal_broker = signal_broker_Class.new()
 	task_manager = task_manager_Class.new()
+	map_manager = map_manager_Class.new()
 	add_child(save_helper)
 
 

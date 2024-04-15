@@ -27,6 +27,7 @@ var is_processing_chunk = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Helper.map_manager.level_generator = self # Register with the map manager
 	initialize_map_data()
 	
 	# Start a loop to update chunks based on player position
