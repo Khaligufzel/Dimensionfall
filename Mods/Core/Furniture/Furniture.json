@@ -150,5 +150,20 @@
 		"moveable": false,
 		"name": "Toilet",
 		"sprite": "toilet_48.png"
+	},
+	{
+		"Function": {
+			"door": "Closed"
+		},
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "It keeps people from passing trough this area. It can be opened and closed",
+		"edgesnapping": "North",
+		"id": "door_wood",
+		"moveable": false,
+		"name": "Wooden door",
+		"sprite": "door_100_13.png"
 	}
 ]
