@@ -14,6 +14,8 @@ extends Control
 @export var imageNameStringLabel: Label = null
 @export var moveableCheckboxButton: CheckBox = null
 @export var edgeSnappingOptionButton: OptionButton = null
+@export var doorOptionButton: OptionButton = null
+# For controlling the focus when the tab button is pressed
 var control_elements: Array = []
 
 # This signal will be emitted when the user presses the save button
@@ -33,40 +35,52 @@ var contentData: Dictionary = {}:
 		load_furniture_data()
 		furnitureSelector.sprites_collection = Gamedata.data.furniture.sprites
 
-# This function updates the form based on the contentData that has been loaded
+
 func load_furniture_data():
-	if furnitureImageDisplay != null and contentData.has("sprite"):
+	if furnitureImageDisplay and contentData.has("sprite"):
 		furnitureImageDisplay.texture = Gamedata.data.furniture.sprites[contentData["sprite"]]
 		imageNameStringLabel.text = contentData["sprite"]
-	if IDTextLabel != null:
+	if IDTextLabel:
 		IDTextLabel.text = str(contentData["id"])
-	if NameTextEdit != null and contentData.has("name"):
+	if NameTextEdit and contentData.has("name"):
 		NameTextEdit.text = contentData["name"]
-	if DescriptionTextEdit != null and contentData.has("description"):
+	if DescriptionTextEdit and contentData.has("description"):
 		DescriptionTextEdit.text = contentData["description"]
-	if CategoriesList != null and contentData.has("categories"):
+	if CategoriesList and contentData.has("categories"):
 		CategoriesList.clear_list()
 		for category in contentData["categories"]:
 			CategoriesList.add_item_to_list(category)
-	if moveableCheckboxButton != null and contentData.has("moveable"):
+	if moveableCheckboxButton and contentData.has("moveable"):
 		moveableCheckboxButton.button_pressed = contentData["moveable"]
-	if edgeSnappingOptionButton != null and contentData.has("edgesnapping"):
-		self.select_option_by_string(contentData["edgesnapping"])
+	if edgeSnappingOptionButton and contentData.has("edgesnapping"):
+		select_option_by_string(edgeSnappingOptionButton, contentData["edgesnapping"])
+	if doorOptionButton:
+		update_door_option(contentData.get("Function", {}).get("door", "None"))
+
+
+func update_door_option(door_state):
+	var items = doorOptionButton.get_item_count()
+	for i in range(items):
+		if doorOptionButton.get_item_text(i) == door_state or (door_state not in ["Open", "Closed"] and doorOptionButton.get_item_text(i) == "None"):
+			doorOptionButton.selected = i
+			return
+	print_debug("No matching door state option found: " + door_state)
+
+
+# This function will select the option in the option_button that matches the given string.
+# If no match is found, it does nothing.
+func select_option_by_string(option_button: OptionButton, option_string: String) -> void:
+	for i in range(option_button.get_item_count()):
+		if option_button.get_item_text(i) == option_string:
+			option_button.selected = i
+			return
+	print_debug("No matching option found for the string: " + option_string)
+
 
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
 func _on_close_button_button_up():
 	queue_free()
-
-
-# This function will select the option in the edgeSnappingOptionButton that matches the given string.
-# If no match is found, it does nothing.
-func select_option_by_string(option_string: String) -> void:
-	for i in range(edgeSnappingOptionButton.get_item_count()):
-		if edgeSnappingOptionButton.get_item_text(i) == option_string:
-			edgeSnappingOptionButton.selected = i
-			return
-	print_debug("No matching option found for the string: " + option_string)
 
 
 # This function takes all data from the form elements stores them in the contentData
@@ -80,7 +94,19 @@ func _on_save_button_button_up():
 	contentData["categories"] = CategoriesList.get_items()
 	contentData["moveable"] = moveableCheckboxButton.button_pressed
 	contentData["edgesnapping"] = edgeSnappingOptionButton.get_item_text(edgeSnappingOptionButton.selected)
+	handle_door_option()
 	data_changed.emit()
+
+
+# If the door function is set, we save the value to contentData
+# Else, if the door state is set to none, we erase the value from contentdata
+func handle_door_option():
+	var door_state = doorOptionButton.get_item_text(doorOptionButton.selected)
+	if door_state == "None" and "Function" in contentData and "door" in contentData["Function"]:
+		contentData["Function"].erase("door")
+	elif door_state in ["Open", "Closed"]:
+		contentData["Function"] = {"door": door_state}
+
 
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):

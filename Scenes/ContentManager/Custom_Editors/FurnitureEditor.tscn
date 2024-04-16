@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_ekwf5"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_o3k3a"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "edgeSnappingOptionButton")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "edgeSnappingOptionButton", "doorOptionButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +22,7 @@ furnitureSelector = NodePath("Sprite_selector")
 imageNameStringLabel = NodePath("VBoxContainer/FormGrid/ImageNameStringLabel")
 moveableCheckboxButton = NodePath("VBoxContainer/FormGrid/UnmoveableCheckBox")
 edgeSnappingOptionButton = NodePath("VBoxContainer/FormGrid/SnappingOptionButton")
+doorOptionButton = NodePath("VBoxContainer/FormGrid/FunctionControlContainer/DoorOptionButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -151,6 +152,29 @@ popup/item_3/text = "South"
 popup/item_3/id = 3
 popup/item_4/text = "West"
 popup/item_4/id = 4
+
+[node name="FunctionLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Function"
+
+[node name="FunctionControlContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="DoorLabel" type="Label" parent="VBoxContainer/FormGrid/FunctionControlContainer"]
+layout_mode = 2
+text = "Door:"
+
+[node name="DoorOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/FunctionControlContainer"]
+layout_mode = 2
+tooltip_text = "Lets this furniture function as a door. The player can interact with it and it will open and close. Selecting None prevents this furniture from working as a door. Selecting Open will spawn this furniture in an open state. Selecting Closed will spawn this furniture in a closed state"
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Open"
+popup/item_1/id = 1
+popup/item_2/text = "Closed"
+popup/item_2/id = 2
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_o3k3a")]
 visible = false
