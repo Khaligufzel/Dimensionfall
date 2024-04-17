@@ -68,7 +68,7 @@ func initialize_list():
 	set_process_input(true)  # Make sure input processing is enabled for drag drop
 	reload_item.connect(_on_context_menu_reload)
 	unload_item.connect(_on_context_menu_unload)
-	
+
 
 # Initialize these in _ready function or similar initialization function
 func _ready():
