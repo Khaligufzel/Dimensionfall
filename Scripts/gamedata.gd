@@ -4,32 +4,26 @@ extends Node
 #It can be accessed by using Gamedata.property
 var data: Dictionary = {}
 
+
+# Dictionary keys for game data categories
+const DATA_CATEGORIES = {
+	"tiles": {"dataPath": "./Mods/Core/Tiles/Tiles.json", "spritePath": "./Mods/Core/Tiles/"},
+	"mobs": {"dataPath": "./Mods/Core/Mobs/Mobs.json", "spritePath": "./Mods/Core/Mobs/"},
+	"items": {"dataPath": "./Mods/Core/Items/Items.json", "spritePath": "./Mods/Core/Items/"},
+	"furniture": {"dataPath": "./Mods/Core/Furniture/Furniture.json", "spritePath": "./Mods/Core/Furniture/"},
+	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
+	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
+	"maps": {"dataPath": "./Mods/Core/Maps/", "spritePath": "./Mods/Core/Maps/"},
+	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"}
+}
+
 # We write down the associated paths for the files to load
 # Next, sprites are loaded from spritesPath into the .sprites property
 # Finally, the data is loaded from dataPath into the .data property
 # Maps tile sprites and map data are different so they 
 # are loaded in using their respective functions
 func _ready():
-	data.tiles = {}
-	data.mobs = {}
-	data.overmaptiles = {}
-	data.maps = {}
-	data.tacticalmaps = {}
-	data.furniture = {}
-	data.items = {}
-	data.tiles.dataPath = "./Mods/Core/Tiles/Tiles.json"
-	data.tiles.spritePath = "./Mods/Core/Tiles/"
-	data.mobs.dataPath = "./Mods/Core/Mobs/Mobs.json"
-	data.mobs.spritePath = "./Mods/Core/Mobs/"
-	data.items.dataPath = "./Mods/Core/Items/Items.json"
-	data.items.spritePath = "./Mods/Core/Items/"
-	data.furniture.spritePath = "./Mods/Core/Furniture/"
-	data.furniture.dataPath = "./Mods/Core/Furniture/Furniture.json"
-	data.overmaptiles.spritePath = "./Mods/Core/OvermapTiles/"
-	data.tacticalmaps.dataPath = "./Mods/Core/TacticalMaps/"
-	data.maps.dataPath = "./Mods/Core/Maps/"
-	# Map preview images are stored in the same folder
-	data.maps.spritePath = "./Mods/Core/Maps/"
+	initialize_data_structures()
 	load_sprites()
 	load_tile_sprites()
 	load_data()
@@ -37,6 +31,15 @@ func _ready():
 	data.maps.data = Helper.json_helper.file_names_in_dir(data.maps.dataPath, ["json"])
 	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(\
 	data.tacticalmaps.dataPath, ["json"])
+
+
+func initialize_data_structures():
+	for category in DATA_CATEGORIES.keys():
+		data[category] = {"data": [], "sprites": {}}
+		if DATA_CATEGORIES[category].has("dataPath"):
+			data[category]["dataPath"] = DATA_CATEGORIES[category]["dataPath"]
+		if DATA_CATEGORIES[category].has("spritePath"):
+			data[category]["spritePath"] = DATA_CATEGORIES[category]["spritePath"]
 
 
 #Loads json data. If no json file exists, it will create an empty array in a new file
@@ -49,6 +52,7 @@ func load_data() -> void:
 				data[dict].data = Helper.json_helper.load_json_array_file(dataPath)
 			else:
 				data[dict].data = []
+
 
 #This loads all the sprites and assigns them to the proper dictionary
 func load_sprites() -> void:
@@ -64,6 +68,7 @@ func load_sprites() -> void:
 				loaded_sprites[png_file] = texture
 			data[dict].sprites = loaded_sprites
 
+
 # This function reads all the files in "res://Mods/Core/Tiles/". It will check if the file is a .png file. If the file is a .png file, it will create a new material with that .png image as the texture. It will put all of the created materials in a dictionary with the name of the file as the key and the material as the value.
 func load_tile_sprites() -> void:
 	var tile_materials: Dictionary = {} # Materials used to represent tiles
@@ -76,6 +81,7 @@ func load_tile_sprites() -> void:
 		material.uv1_scale = Vector3(3,2,1)
 		tile_materials[png_file] = material # Add the material to the dictionary
 	data.tiles.sprites = tile_materials
+
 
 #This function will take two strings called ID and newID
 #It will find an item with this ID in a json file specified by the source variable
@@ -156,6 +162,7 @@ func add_id_to_data(contentData: Dictionary, id: String):
 		#Create a new json file in the directory with only {} in the file
 		Helper.json_helper.create_new_json_file(contentData.dataPath + id + ".json", false)
 
+
 # Will remove an item from the data
 # If the first item in data is a dictionary, we remove an item that has the provided id
 # If the first item in data is a string, we remove the string and the associated json file
@@ -172,6 +179,7 @@ func remove_item_from_data(contentData: Dictionary, id: String):
 		print_debug("Tried to remove item from data, but the data contains \
 		neither Dictionary nor String")
 
+
 func get_array_index_by_id(contentData: Dictionary, id: String) -> int:
 	# Iterate through the array
 	for i in range(len(contentData.data)):
@@ -186,16 +194,19 @@ func get_array_index_by_id(contentData: Dictionary, id: String) -> int:
 	# Return -1 if the ID is not found
 	return -1
 
+
 func save_data_to_file(contentData: Dictionary):
 	var datapath: String = contentData.dataPath
 	if datapath.ends_with(".json"):
 		Helper.json_helper.write_json_file(datapath,JSON.stringify(contentData.data,"\t"))
+
 
 # Takes contentdata and an id and returns the json that belongs to an id
 # For example, contentData can be Gamedata.data.tiles
 # and id can be "plain_grass" and it will return the json data for plain_grass
 func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 	return contentData.data[get_array_index_by_id(contentData,id)]
+
 
 #Takes contentData and an id and returns the sprite associated with the id
 # For example, contentData can be Gamedata.data.tiles
@@ -204,12 +215,14 @@ func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 	var item_json = get_data_by_id(contentData, id)
 	return contentData.sprites[item_json.sprite]
 
+
 # This functino is called when an editor has changed data
 # The contenteditor (that initializes the individual editors)
 # connects the changed_data signal to this function
 # and binds the appropriate data array so it can be saved in this function
 func on_data_changed(contentData: Dictionary):
 	save_data_to_file(contentData)
+
 
 # This will update the given resource file with the provided json data
 # It is intended to save item data from json to the res://ItemProtosets.tres file
@@ -230,7 +243,6 @@ func update_item_protoset_json_data(tres_path: String, new_json_data: String) ->
 		print("Failed to save updated ItemProtoset resource to:", tres_path)
 	else:
 		print("ItemProtoset resource updated and saved successfully to:", tres_path)
-
 
 
 # Function to filter items by type
