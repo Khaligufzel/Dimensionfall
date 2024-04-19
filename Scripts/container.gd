@@ -1,6 +1,11 @@
 class_name ContainerItem
 extends Node3D
 
+# This is a standalone class that you can use to make a container of a 3d node
+# For example, adding this a child to furniture will allow the player to add and remove
+# items from it when it's in proximity
+
+
 var inventory: InventoryStacked
 var containerpos: Vector3
 var sprite_3d: Sprite3D
