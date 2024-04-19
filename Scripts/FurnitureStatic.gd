@@ -1,13 +1,16 @@
 class_name FurnitureStatic
 extends StaticBody3D
 
+# This is a standalone script that is not attached to any node. 
+# This is the static version of furniture. There is also FurniturePhysics.gd.
+# This class is instanced by Chunk.gd when a map needs static furniture, like a bed or fridge
 
-# id for the furniture json. this will be used to load the data when creating a furniture
-# when saving a mob in between levels, we will use some static json defined by this id
-# and some dynamic json like the furniture health
+
+# Since we can't access the scene tree in a thread, we store the position in a variable and read that
 var furnitureposition: Vector3
 var furniturerotation: int
-var furnitureJSON: Dictionary # The json that defines this furniture
+var furnitureJSON: Dictionary # The json that defines this furniture on the map
+var furnitureJSONData: Dictionary # The json that defines this furniture's basics in general
 var sprite: Sprite3D = null
 
 var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
@@ -18,6 +21,8 @@ var current_health: float = 100.0
 func _ready():
 	position = furnitureposition
 	set_new_rotation(furniturerotation)
+	var new_chunk = Helper.map_manager.get_chunk_from_position(furnitureposition)
+	new_chunk.add_furniture_to_chunk(self)
 
 
 func get_hit(damage):
@@ -74,10 +79,9 @@ func set_new_rotation(amount: int):
 	# Rotate the entire StaticBody3D node, including its children
 	rotation_degrees.y = rotation_amount
 	sprite.rotation_degrees.x = 90 # Static 90 degrees to point at camera
-	
-	
+
+
 func get_my_rotation() -> int:
-	#var rot: int = int(rotation_degrees.y)
 	if furniturerotation == 180:
 		return furniturerotation-180
 	elif furniturerotation == 0:
@@ -98,7 +102,7 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	add_to_group("furniture")
 
 	# Find out if we need to apply edge snapping
-	var furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
+	furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
 	var edgeSnappingDirection = furnitureJSONData.get("edgesnapping", "None")
 
 	var furnitureSprite: Texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture,furnitureJSON.id)
@@ -116,7 +120,6 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 		furnitureposition = apply_edge_snapping(furnitureposition, edgeSnappingDirection, spriteWidth, spriteDepth, newRot, furniturepos)
 
 	furniturerotation = newRot
-
 
 
 func apply_edge_snapping(newpos, direction, width, depth, newRot, furniturepos):
@@ -141,6 +144,7 @@ func apply_edge_snapping(newpos, direction, width, depth, newRot, furniturepos):
 	return newpos
 
 
+# Called when applying edge-snapping so it's put into the right position
 func rotate_position_around_block_center(newpos, newRot, block_center):
 	# Convert rotation to radians for trigonometric functions
 	var radians = deg_to_rad(newRot)
@@ -157,3 +161,15 @@ func rotate_position_around_block_center(newpos, newRot, block_center):
 	
 	# Return the new position
 	return block_center + rotated_offset
+
+
+func get_data() -> Dictionary:
+	var newfurniturejson = {
+		"id": furnitureJSON.id,
+		"moveable": false,
+		"global_position_x": furnitureposition.x,
+		"global_position_y": furnitureposition.y,
+		"global_position_z": furnitureposition.z,
+		"rotation": get_my_rotation(),
+	}
+	return newfurniturejson

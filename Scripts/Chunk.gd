@@ -44,7 +44,8 @@ var navigation_mesh: NavigationMesh = NavigationMesh.new()
 var source_geometry_data: NavigationMeshSourceGeometryData3D
 var chunk_mesh_body: StaticBody3D # The staticbody that will visualize the chunk mesh
 var atlas_output: Dictionary # An atlas texture that combines all textures of this chunk's blocks
-var level_nodes: Dictionary = {} # Keeps track of level nodes by their y_level
+var level_nodes: Dictionary = {} # Keeps track of level nodes by their y_level# Existing properties
+var furniture_instances = [] # Keep track of what furniture is on this chunk
 
 
 signal chunk_unloaded(chunkdata: Dictionary) # The chunk is fully unloaded
@@ -204,48 +205,27 @@ func add_furnitures_to_new_block():
 		OS.delay_msec(10)
 
 
+# Function to add a furniture instance to the chunk's tracking list if not already present
+func add_furniture_to_chunk(furniture_instance: Node3D):
+	if furniture_instance not in furniture_instances:
+		furniture_instances.append(furniture_instance)
+
+
+# Update the list when furniture is removed or moves to another chunk
+func remove_furniture_from_chunk(furniture_instance: Node3D):
+	if furniture_instance in furniture_instances:
+		furniture_instances.erase(furniture_instance)
+
+
 # Returns an array of furniture data that will be saved for this chunk
 # Furniture that has it's x and z position in the boundary of the chunk's position and size
 # will be included in the chunk data. So basically if the furniture is 'in' or 'on' the chunk.
+# Modified to account for moveable furniture potentially changing chunks
 func get_furniture_data() -> Array:
 	var furnitureData: Array = []
-	var mapFurniture = get_tree().get_nodes_in_group("furniture")
-	var newFurnitureData: Dictionary
-	var newRot: int
-	var furniturepos: Vector3
-	for furniture in mapFurniture:
-		# We check if the furniture is a valid instance. Sometimes it isn't
-		# This might be because two chunks try to unload the furniture?
-		# We might need more work on _is_object_in_range
-		if is_instance_valid(furniture):
-			if furniture is FurniturePhysics:
-				mutex.lock()
-				newRot = furniture.last_rotation
-				furniturepos = furniture.last_position
-				#print_debug("removing furniture with posdition: ", furniturepos)
-				mutex.unlock()
-			else: # It's FurnitureStatic
-				mutex.lock()
-				newRot = furniture.get_my_rotation()
-				furniturepos = furniture.furnitureposition
-				mutex.unlock()
-			# Check if furniture's position is within the desired range
-			# It's possible some furniture is still spawning and have their position be 0,0,0
-			# We do not want to save that furniture, just the ones at the other positions
-			if _is_object_in_range(furniturepos) and not furniturepos == Vector3(0,0,0):
-				furniture.remove_from_group.call_deferred("furniture")
-				newFurnitureData = {
-					"id": furniture.furnitureJSON.id,
-					"moveable": furniture is FurniturePhysics,
-					"global_position_x": furniturepos.x,
-					"global_position_y": furniturepos.y,
-					"global_position_z": furniturepos.z,
-					"rotation": newRot,  # Save the Y-axis rotation
-				}
-				furnitureData.append(newFurnitureData.duplicate())
-				furniture.queue_free.call_deferred()
-		else:
-			print_debug("Tried to get data from furniture, but it's null!")
+	for furniture in furniture_instances:
+		furnitureData.append(furniture.get_data().duplicate())
+		furniture.queue_free.call_deferred()
 	return furnitureData
 
 
@@ -357,6 +337,7 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 		else:
 			newFurniture = FurnitureStatic.new()
 
+		add_furniture_to_chunk(newFurniture)
 		# We can't set it's position until after it's in the scene tree 
 		# so we only save the position to a variable and pass it to the furniture
 		var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
@@ -968,10 +949,6 @@ func update_all_navigation_data():
 	update_navigation_mesh()
 
 
-
-
-
-
 # Creates the vertices for a mesh that makes up a cube
 # Couldn't get it to work with a for-loop, so every side is explicitly defined
 # TODO: instead of making all the faces, only add them if there is no neighboring cube
@@ -1078,16 +1055,12 @@ func get_face_vertices(direction: String, pos: Vector3) -> Array:
 	return face_vertices
 
 
-
-
-
-
 # This function will loop over all levels and rotate them if they contain tile data.
-
 func rotate_map(mapsegmentData: Dictionary) -> void:
 	var rotationdegrees = int(chunk_data.get("rotation", 0)) % 360  # Ensure rotation is a valid degree
 
-	var num_rotations = rotationdegrees / 90  # Determine how many 90-degree rotations are needed
+	var num_rotations = int(float(rotationdegrees) / 90)  # Determine how many 90-degree rotations are needed using integer division
+
 
 	for i in range(len(mapsegmentData.levels)):
 		var current_level = mapsegmentData.levels[i]

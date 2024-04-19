@@ -4,12 +4,12 @@ extends RigidBody3D
 # id for the furniture json. this will be used to load the data when creating a furniture
 # when saving a mob in between levels, we will use some static json defined by this id
 # and some dynamic json like the furniture health
-var furnitureposition: Vector3
+var furnitureposition: Vector3 = Vector3()
 var furniturerotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture
 var sprite: Sprite3D = null
-var last_position: Vector3 = Vector3()
 var last_rotation: int
+var current_chunk: Chunk
 
 
 var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
@@ -20,11 +20,15 @@ func _ready():
 	start_timer()
 
 
+# Keep track of the furniture's position and rotation. It starts at 0,0,0 and the moves to it's
+# assigned position after a timer. Until that has happened, we don't need to keep track of it's position
 func _physics_process(_delta):
-	if global_transform.origin != last_position:
-		last_position = global_transform.origin
+	if global_transform.origin != furnitureposition and \
+	not global_transform.origin.x == 0 and not global_transform.origin.y == 0:
+		_moved(furnitureposition, global_transform.origin)
 	if rotation_degrees.y != last_rotation:
 		last_rotation = rotation_degrees.y
+
 
 # Function to create and start a timer that will generate chunks every 1 second if applicable
 func start_timer():
@@ -38,10 +42,8 @@ func start_timer():
 
 # This function will be called every time the Timer ticks
 func _on_Timer_timeout():
-	#print_debug("setting position of furniturephysics to ", furnitureposition)
 	set_position.call_deferred(furnitureposition)
 	set_new_rotation(furniturerotation)
-	last_position = furnitureposition
 	last_rotation = furniturerotation
 
 
@@ -135,3 +137,25 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	collision_layer = 1 << 2
 	# Set the collision mask to include layers 1, 2, and 3
 	collision_mask = (1 << 0) | (1 << 1) | (1 << 2)
+
+
+# Check if we crossed the chunk boundary and update our association with the chunks
+func _moved(oldpos: Vector3, newpos:Vector3):
+	furnitureposition = newpos
+	var new_chunk = Helper.map_manager.get_chunk_from_position(furnitureposition)
+	if not current_chunk == new_chunk:
+		if current_chunk:
+			current_chunk.remove_furniture_from_chunk(self)
+		new_chunk.add_furniture_to_chunk(self)
+		current_chunk = new_chunk
+
+
+func get_data() -> Dictionary:
+	return {
+		"id": furnitureJSON.id,
+		"moveable": true,
+		"global_position_x": furnitureposition.x,
+		"global_position_y": furnitureposition.y,
+		"global_position_z": furnitureposition.z,
+		"rotation": last_rotation
+	}
