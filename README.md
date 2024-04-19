@@ -83,7 +83,6 @@ Create new furniture or edit existing ones with this editor. After creating them
 ![Catax_furniture_editor](Media/Catax_furniture_editor.png)
 
 
-
 ## Roadmap
 
 ### Stage 1 (first release):
