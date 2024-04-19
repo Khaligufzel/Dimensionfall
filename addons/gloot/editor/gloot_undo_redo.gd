@@ -4,7 +4,7 @@ extends Object
 const GlootUndoRedo = preload("res://addons/gloot/editor/gloot_undo_redo.gd")
 
 
-static func _get_undo_redo_manager() -> EditorUndoRedoManager:
+static func _get_undo_redo_manager():
     var gloot = load("res://addons/gloot/gloot.gd")
     assert(gloot.instance())
     var undo_redo_manager = gloot.instance().get_undo_redo()
@@ -144,6 +144,32 @@ static func move_inventory_item(inventory: InventoryGrid, item: InventoryItem, t
     undo_redo_manager.add_do_method(GlootUndoRedo, "_move_item", inventory, item_index, to)
     undo_redo_manager.add_undo_method(GlootUndoRedo, "_move_item", inventory, item_index, old_position)
     undo_redo_manager.commit_action()
+
+
+static func swap_inventory_items(item1: InventoryItem, item2: InventoryItem) -> void:
+
+    var undo_redo_manager = _get_undo_redo_manager()
+
+    var inventories: Array[Inventory] = [item1.get_inventory(), item2.get_inventory()]
+    var old_inv_states: Array[Dictionary] = [{}, {}]
+    var new_inv_states: Array[Dictionary] = [{}, {}]
+    old_inv_states[0] = inventories[0].serialize()
+    old_inv_states[1] = inventories[1].serialize()
+    if !InventoryItem.swap(item1, item2):
+        return
+    new_inv_states[0] = inventories[0].serialize()
+    new_inv_states[1] = inventories[1].serialize()
+
+    undo_redo_manager.create_action("Swap Inventory Items")
+    undo_redo_manager.add_do_method(GlootUndoRedo, "_set_inventories", inventories, new_inv_states)
+    undo_redo_manager.add_undo_method(GlootUndoRedo, "_set_inventories", inventories, old_inv_states)
+    undo_redo_manager.commit_action()
+
+
+static func _set_inventories(inventories: Array[Inventory], inventory_data: Array[Dictionary]) -> void:
+    assert(inventories.size() == inventory_data.size())
+    for i in range(inventories.size()):
+        inventories[i].deserialize(inventory_data[i])
 
 
 static func rotate_inventory_item(inventory: InventoryGrid, item: InventoryItem) -> void:
