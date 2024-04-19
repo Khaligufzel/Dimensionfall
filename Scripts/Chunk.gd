@@ -641,10 +641,12 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 		var pos = poslocal * block_size
 		var material_id = str(block_data["id"])
 		
-		# Get the shape of the block
+		# Get the shape of the block and the transparency
 		var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,block_data.id)
 		var blockshape = tileJSONData.get("shape", "cube")
+		var transparent = tileJSONData.get("transparent", false)
 		block_data["shape"] = blockshape # store for later use
+		block_data["transparent"] = transparent # store for later use
 		
 		# Calculate UV coordinates based on the atlas
 		var uv_info = block_uv_map[material_id] if block_uv_map.has(material_id) else {"offset": Vector2(0, 0), "scale": Vector2(1, 1)}
@@ -658,18 +660,16 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 			(Vector2(1, 1) * uv_scale + Vector2(-margin, -margin)) + uv_offset,
 			(Vector2(0, 1) * uv_scale + Vector2(margin, -margin)) + uv_offset
 		])
-		var blockrotation: int = 0
 		if is_new_chunk(): # This chunk is created for the first time, so we need to save 
 			# the rotation to the block json dictionary
+			var blockrotation: int = 0
 			blockrotation = get_block_rotation(blockshape, block_data.rotation)
 			block_data["rotation"] = blockrotation
-		else: # Rotation has been previously saved so we can use that
-			blockrotation = block_data.rotation
 		
 		if blockshape == "cube":
-			setup_cube(pos, blockrotation, verts, uvs, normals, indices, top_face_uv)
+			setup_cube(pos, block_data, verts, uvs, normals, indices, top_face_uv)
 		elif blockshape == "slope":
-			setup_slope(blockrotation, pos, verts, uvs, normals, indices, top_face_uv)
+			setup_slope(pos, block_data, verts, uvs, normals, indices, top_face_uv)
 
 	# Assign the generated mesh data to the 'arrays' parameter
 	arrays[ArrayMesh.ARRAY_VERTEX] = verts
@@ -691,6 +691,13 @@ func generate_chunk_mesh():
 		var y_level = level_index - 10  # Calculate the y-level offset if needed
 		generate_chunk_mesh_for_level(y_level)
 
+	# Set up the static body and colliders for the mesh
+	setup_collision_body()
+	create_colliders()
+
+
+# Setup a basic staticbody that will hold the colliders
+func setup_collision_body():
 	# Create the static body for collision
 	chunk_mesh_body = StaticBody3D.new()
 	chunk_mesh_body.disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
@@ -699,8 +706,6 @@ func generate_chunk_mesh():
 	# Set collision mask to layer 1
 	chunk_mesh_body.collision_mask = 1 # Layer 1 is 1
 	add_child.call_deferred(chunk_mesh_body)
-	create_colliders()
-
 
 
 # Function to find all blocks on the same y level
@@ -716,13 +721,14 @@ func find_blocks_at_y_level(y_level: int) -> Array:
 	return blocks_at_same_y
 
 
-func setup_slope(blockrotation: int, pos: Vector3, verts, uvs, normals, indices, top_face_uv):
+func setup_slope(pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
+	var block_rotation = block_data.get("rotation", 0)  # Default to 0 if not specified
 	# Slope-specific vertices and UV mapping
 	# Determine slope orientation and vertices based on blockrotation
 	var slope_vertices: PackedVector3Array
 	# Assume a block size for the calculations
 	var half_block = 0.5
-	match blockrotation:
+	match block_rotation:
 		90:
 			# Slope facing Facing north
 			slope_vertices = PackedVector3Array([
@@ -901,7 +907,8 @@ func add_block(block_id: String, block_position: Vector3):
 	chunk_mesh_body.add_child.call_deferred(new_collider)
 
 
-# Adjusted to accept atlas data directly
+# This function generates the mesh for 1 level in the chunk
+# A level means all the blocks with the same Y position
 func generate_chunk_mesh_for_level(y_level: int):
 	var blocks_at_same_y = find_blocks_at_y_level(y_level)
 	if blocks_at_same_y.size() > 0:
@@ -929,7 +936,7 @@ func generate_chunk_mesh_for_level(y_level: int):
 		if level_nodes.has(y_level):
 			var existing_level_node = level_nodes[y_level]
 			# Replace the old mesh instance with the new one
-			existing_level_node.remove_child(existing_level_node.get_child(0)) # Assumes only one child
+			existing_level_node.remove_child(existing_level_node.get_child(0))
 			existing_level_node.add_child(mesh_instance)
 		else:
 			# Create a new level node
@@ -961,6 +968,10 @@ func update_all_navigation_data():
 	update_navigation_mesh()
 
 
+
+
+
+
 # Creates the vertices for a mesh that makes up a cube
 # Couldn't get it to work with a for-loop, so every side is explicitly defined
 # TODO: instead of making all the faces, only add them if there is no neighboring cube
@@ -977,106 +988,97 @@ func update_all_navigation_data():
 	#var neighbor_key = "%s,%s,%s" % [neighbor_pos.x, neighbor_pos.y, neighbor_pos.z]
 	#if not block_positions.has(neighbor_key): # Check if there is no block at the neighbor position
 # If it does not have a neighbor, we would add the face.
-func setup_cube(pos: Vector3, blockrotation: int, verts, uvs, normals, indices, top_face_uv):
-	var half_block = 0.5
-
-	# Top face vertices
-	var top_verts = [
-		Vector3(-half_block, half_block, -half_block) + pos,  # top-left-front
-		Vector3(half_block, half_block, -half_block) + pos,   # top-right-front
-		Vector3(half_block, half_block, half_block) + pos,    # top-right-back
-		Vector3(-half_block, half_block, half_block) + pos    # top-left-back
-	]
-
-	# Left face vertices
-	var left_verts = [
-		Vector3(-half_block, half_block, -half_block) + pos,  # top-left-front
-		Vector3(-half_block, half_block, half_block) + pos,   # top-left-back
-		Vector3(-half_block, -half_block, half_block) + pos,  # bottom-left-back
-		Vector3(-half_block, -half_block, -half_block) + pos  # bottom-left-front
-	]
+func setup_cube(pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
+	# Define the faces to process based on transparency using GDScript's conditional syntax
+	var faces = ["top"] if block_data.get("transparent", false) else ["top", "left", "right", "front", "back"]
 	
-	# Right face vertices (x value set to half_block for all, adjusted order)
-	var right_verts = [
-		Vector3(half_block, half_block, half_block) + pos,   # top-right-back
-		Vector3(half_block, half_block, -half_block) + pos,  # top-right-front
-		Vector3(half_block, -half_block, -half_block) + pos, # bottom-right-front
-		Vector3(half_block, -half_block, half_block) + pos   # bottom-right-back
-	]
+	# Process each face
+	for face in faces:
+		process_face(face, pos, block_data, verts, uvs, normals, indices, top_face_uv)
 
-	# Front face vertices (z value set to -half_block for all, adjusted order)
-	var front_verts = [
-		Vector3(half_block, half_block, -half_block) + pos,   # top-right-front
-		Vector3(-half_block, half_block, -half_block) + pos,  # top-left-front
-		Vector3(-half_block, -half_block, -half_block) + pos, # bottom-left-front
-		Vector3(half_block, -half_block, -half_block) + pos   # bottom-right-front
-	]
 
-	# Back face vertices (z value set to half_block for all)
-	var back_verts = [
-		Vector3(-half_block, half_block, half_block) + pos,   # top-left-back
-		Vector3(half_block, half_block, half_block) + pos,    # top-right-back
-		Vector3(half_block, -half_block, half_block) + pos,   # bottom-right-back
-		Vector3(-half_block, -half_block, half_block) + pos   # bottom-left-back
-	]
+func process_face(direction: String, pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
+	# Retrieve vertices for the face using the helper function
+	var face_verts = get_face_vertices(direction, pos)
 
-	# Rotate only the top-face vertices by blockrotation around the Y axis at position
-	var rotated_top_verts = []
-	for vertex in top_verts:
-		rotated_top_verts.append(rotate_vertex_y(vertex - pos, blockrotation) + pos)
+	# Rotate top face vertices if necessary
+	if direction == "top":
+		var rotated_face_verts = []
+		for vertex in face_verts:
+			rotated_face_verts.append(rotate_vertex_y(vertex - pos, block_data.get("rotation", 0)) + pos)
+		verts.append_array(rotated_face_verts)
+	else:
+		verts.append_array(face_verts)
 
-	# Add vertices to arrays
-	verts.append_array(rotated_top_verts)
-	verts.append_array(left_verts)
-	verts.append_array(right_verts)
-	verts.append_array(front_verts)        # Front face
-	verts.append_array(back_verts)        # back face
+	# Add UVs, assuming top_face_uv applies to all faces uniformly
+	uvs.append_array(top_face_uv)
 
-	# Append UVs for each face
-	uvs.append_array(top_face_uv)   # Assuming top_face_uv is already defined
-	uvs.append_array(top_face_uv)  # We won't see the left face, so we can just apply the top face uvs
-	uvs.append_array(top_face_uv)  # We won't see the right face, so we can just apply the top face uvs
-	uvs.append_array(top_face_uv)  # We won't see the front face, so we can just apply the top face uvs
-	uvs.append_array(top_face_uv)  # We won't see the back face, so we can just apply the top face uvs
+	# Determine normals based on face direction
+	var normal = Vector3.ZERO
+	match direction:
+		"top": normal = Vector3(0, 1, 0)
+		"left": normal = Vector3(-1, 0, 0)
+		"right": normal = Vector3(1, 0, 0)
+		"front": normal = Vector3(0, 0, -1)
+		"back": normal = Vector3(0, 0, 1)
 
-	# Add normals (assuming flat shading and orthogonal faces)
-	for _i in range(4): 
-		normals.append(Vector3(0, 1, 0))  # Top face
-	for _i in range(4): 
-		normals.append(Vector3(-1, 0, 0))  # west-facing face
-	for _i in range(4): 
-		normals.append(Vector3(1, 0, 0))   # east-facing face
 	for _i in range(4):
-		normals.append(Vector3(0, 0, -1))   # north-facing face
-	for _i in range(4):
-		normals.append(Vector3(0, 0, 1))  # south-facing face
+		normals.append(normal)
 
-	# Add indices for top, left, and right faces
-	var top_base_index = verts.size() - 20
-	var left_base_index = verts.size() - 16
-	var right_base_index = verts.size() - 12
-	var front_base_index = verts.size() - 8
-	var back_base_index = verts.size() - 4
+	# Calculate base index for indices
+	var base_index = verts.size() - 4
 	indices.append_array([
-		top_base_index, top_base_index + 1, top_base_index + 2,
-		top_base_index, top_base_index + 2, top_base_index + 3
+		base_index, base_index + 1, base_index + 2,
+		base_index, base_index + 2, base_index + 3
 	])
-	indices.append_array([
-		left_base_index, left_base_index + 1, left_base_index + 2,
-		left_base_index, left_base_index + 2, left_base_index + 3
-	])
-	indices.append_array([
-		right_base_index, right_base_index + 1, right_base_index + 2,
-		right_base_index, right_base_index + 2, right_base_index + 3
-	])
-	indices.append_array([
-		front_base_index, front_base_index + 1, front_base_index + 2,
-		front_base_index, front_base_index + 2, front_base_index + 3
-	])
-	indices.append_array([
-		back_base_index, back_base_index + 1, back_base_index + 2,
-		back_base_index, back_base_index + 2, back_base_index + 3
-	])
+
+
+
+# Function to get vertices for a specific face of a cube
+func get_face_vertices(direction: String, pos: Vector3) -> Array:
+	var half_block = 0.5
+	var face_vertices = []
+	
+	match direction:
+		"top":
+			face_vertices = [
+				Vector3(-half_block, half_block, -half_block) + pos, # Top-left-front
+				Vector3(half_block, half_block, -half_block) + pos,  # Top-right-front
+				Vector3(half_block, half_block, half_block) + pos,   # Top-right-back
+				Vector3(-half_block, half_block, half_block) + pos   # Top-left-back
+			]
+		"left":
+			face_vertices = [
+				Vector3(-half_block, half_block, -half_block) + pos, # Top-left-front
+				Vector3(-half_block, half_block, half_block) + pos,  # Top-left-back
+				Vector3(-half_block, -half_block, half_block) + pos, # Bottom-left-back
+				Vector3(-half_block, -half_block, -half_block) + pos # Bottom-left-front
+			]
+		"right":
+			face_vertices = [
+				Vector3(half_block, half_block, half_block) + pos,  # Top-right-back
+				Vector3(half_block, half_block, -half_block) + pos, # Top-right-front
+				Vector3(half_block, -half_block, -half_block) + pos,# Bottom-right-front
+				Vector3(half_block, -half_block, half_block) + pos  # Bottom-right-back
+			]
+		"front":
+			face_vertices = [
+				Vector3(half_block, half_block, -half_block) + pos,  # Top-right-front
+				Vector3(-half_block, half_block, -half_block) + pos, # Top-left-front
+				Vector3(-half_block, -half_block, -half_block) + pos,# Bottom-left-front
+				Vector3(half_block, -half_block, -half_block) + pos  # Bottom-right-front
+			]
+		"back":
+			face_vertices = [
+				Vector3(-half_block, half_block, half_block) + pos,  # Top-left-back
+				Vector3(half_block, half_block, half_block) + pos,   # Top-right-back
+				Vector3(half_block, -half_block, half_block) + pos,  # Bottom-right-back
+				Vector3(-half_block, -half_block, half_block) + pos  # Bottom-left-back
+			]
+	return face_vertices
+
+
+
 
 
 
