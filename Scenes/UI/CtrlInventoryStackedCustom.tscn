@@ -94,6 +94,7 @@ item_4/text = "Use"
 item_4/id = 4
 
 [node name="Tooltip" type="Panel" parent="."]
+visible = false
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 0
 offset_right = 102.0
