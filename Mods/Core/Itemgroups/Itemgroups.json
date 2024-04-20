@@ -1,0 +1,8 @@
+[
+	{
+		"description": "Anything you can find in a kitchen cupboard",
+		"id": "kitchen_cupboard",
+		"name": "Kitchen cupboard",
+		"sprite": "canned_food_32.png"
+	}
+]

@@ -30,12 +30,12 @@ var contentData: Dictionary = {}:
 	set(value):
 		contentData = value
 		load_itemgroup_data()
-		itemgroupSelector.sprites_collection = Gamedata.data.itemgroup.sprites
+		itemgroupSelector.sprites_collection = Gamedata.data.itemgroups.sprites
 
 
 func load_itemgroup_data():
-	if itemgroupImageDisplay and contentData.has("sprite"):
-		itemgroupImageDisplay.texture = Gamedata.data.itemgroup.sprites[contentData["sprite"]]
+	if itemgroupImageDisplay and contentData.has("sprite") and not contentData["sprite"].is_empty():
+		itemgroupImageDisplay.texture = Gamedata.data.itemgroups.sprites[contentData["sprite"]]
 		imageNameStringLabel.text = contentData["sprite"]
 	if IDTextLabel:
 		IDTextLabel.text = str(contentData["id"])

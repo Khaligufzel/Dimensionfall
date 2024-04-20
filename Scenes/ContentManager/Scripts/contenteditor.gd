@@ -7,6 +7,7 @@ extends Control
 @export var furnitureEditor: PackedScene = null
 @export var itemEditor: PackedScene = null
 @export var mobEditor: PackedScene = null
+@export var itemgroupEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
 var selectedMod: String = "Core"
@@ -20,6 +21,8 @@ func _ready():
 	load_content_list(Gamedata.data.tiles, "Terrain Tiles")
 	load_content_list(Gamedata.data.mobs, "Mobs")
 	load_content_list(Gamedata.data.furniture, "Furniture")
+	load_content_list(Gamedata.data.itemgroups, "Item Groups")
+
 
 func load_content_list(data: Dictionary, strHeader: String):
 	# Instantiate a contentlist
@@ -58,6 +61,9 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 		instantiate_editor(data, itemID, mapEditor)
 	if data == Gamedata.data.tacticalmaps:
 		instantiate_editor(data, itemID, tacticalmapEditor)
+	if data == Gamedata.data.itemgroups:
+		instantiate_editor(data, itemID, itemgroupEditor)
+
 
 #This will add an editor to the content editor tab view. 
 #The editor that should be instantiated is passed trough in the newEditor parameter

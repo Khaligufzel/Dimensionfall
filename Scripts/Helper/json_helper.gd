@@ -80,8 +80,12 @@ func folder_names_in_dir(path: String) -> Array:
 		print("An error occurred when trying to access the path.")
 	return dirs
 
+
 #This function takes a json string and saves it as a json file.
 func write_json_file(path: String, json: String):
+	# If the file does not exists, we create a new one.
+	if not FileAccess.file_exists(path):
+		create_new_json_file(path)
 	# Save the JSON string to the selected file location
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file:
@@ -89,7 +93,8 @@ func write_json_file(path: String, json: String):
 		file.close()
 	else:
 		print_debug("Unable to write file " + path)
-		
+
+
 # This function will take a path and create a new json file with just {} or [] as the contents.
 #If the file already exists, we do not overwrite it
 func create_new_json_file(filename: String = "", isArray: bool = true):
@@ -100,6 +105,17 @@ func create_new_json_file(filename: String = "", isArray: bool = true):
 	# If the file already exists, alert the user that the file already exists.
 	if FileAccess.file_exists(filename):
 		return
+
+	# Extract the directory path from the filename and check if it exists.
+	var directory_path = filename.get_base_dir()
+	var dir = DirAccess.open("res://")
+	if not dir.dir_exists(directory_path):
+		# Create the directory if it does not exist.
+		var err = dir.make_dir_recursive(directory_path)
+		if err != OK:
+			print_debug("Failed to create directory: " + directory_path)
+			return
+		print_debug("Directory created: " + directory_path)
 
 	var file = FileAccess.open(filename, FileAccess.WRITE)
 	#The file cen contain either one object or one array with a list of objects
