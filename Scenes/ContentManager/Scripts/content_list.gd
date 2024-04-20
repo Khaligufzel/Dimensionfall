@@ -51,13 +51,18 @@ func make_item_list():
 		#Add the item and save the index number
 		var item_index: int = contentItems.add_item(item_id)
 		contentItems.set_item_metadata(item_index, item_id)
-		
-		if item.has("sprite") and contentData.sprites.has(item["sprite"]):
-			var mySprite: Resource = contentData.sprites[item["sprite"]]
-			if mySprite is BaseMaterial3D:
-				contentItems.set_item_icon(item_index,mySprite.albedo_texture)
-			else:
-				contentItems.set_item_icon(item_index,mySprite)
+		contentItems.set_item_icon(item_index,get_item_sprite(item))
+
+
+func get_item_sprite(item) -> Texture2D:
+	if item.has("sprite") and contentData.sprites.has(item["sprite"]):
+		var mySprite: Resource = contentData.sprites[item["sprite"]]
+		if mySprite is BaseMaterial3D:
+			return mySprite.albedo_texture
+		else:
+			return mySprite
+	return null
+	
 
 # Loops over the files in contentData.data (which are filenames)
 # For each file, a new item will be added to the list
@@ -163,3 +168,79 @@ func _on_collapse_button_button_up():
 	else:
 		size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	is_collapsed = !is_collapsed
+
+
+# Function to initiate drag data for selected item
+# Only one item can be selectedand dragged at a time.
+# We get the selected item from contentItems
+# This function should return a new object with an id property that holds the item's text
+func _get_drag_data(_newpos):
+	# Check if an item is selected
+	var selected_index = contentItems.get_selected_items()
+	if selected_index.size() == 0:
+		return null  # No item selected, so no drag data should be initiated
+
+	# Get the selected item text and ID (metadata, which should be the item ID)
+	selected_index = selected_index[0]  # Take the first item in case of multiple (unlikely, but safe)
+	var selected_item_text = contentItems.get_item_text(selected_index)
+	var selected_item_id = contentItems.get_item_metadata(selected_index)
+
+	# Create a drag preview
+	#var preview = _create_drag_preview(selected_item_id)
+	#set_drag_preview(preview)
+
+	# Return an object with the necessary data
+	return {"id": selected_item_id, "text": selected_item_text}
+
+
+# This function should return true if the dragged data can be dropped here
+func _can_drop_data(_newpos, data) -> bool:
+	return false
+
+
+# This function handles the data being dropped
+func _drop_data(newpos, data) -> void:
+	if _can_drop_data(newpos, data):
+		print_debug("tried to drop data, but can't")
+
+
+# Helper function to create a preview Control for dragging
+func _create_drag_preview(item_id: String) -> Control:
+	var preview = TextureRect.new()
+	preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
+	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
+	return preview
+
+
+var start_point
+var end_point
+var mouse_button_is_pressed
+# Overriding the _gui_input function to detect drag attempts
+func _on_content_items_gui_input(event):
+	if event is InputEventMouseButton:
+		match event.button_index:
+			MOUSE_BUTTON_LEFT:
+				if event.is_pressed():
+					start_point = event.global_position
+					mouse_button_is_pressed = true
+				else:
+					# Finalize drawing/copying operation
+					end_point = event.global_position
+					if mouse_button_is_pressed:
+						var drag_threshold: int = 5 # Pixels
+						var distance_dragged = start_point.distance_to(end_point)
+						
+						if distance_dragged <= drag_threshold:
+							print_debug("Released the mouse button, but clicked instead of dragged")
+					mouse_button_is_pressed = false
+	#When the users presses and holds the mouse wheel, we scoll the grid
+	if event is InputEventMouseMotion:
+		end_point = event.global_position
+		if mouse_button_is_pressed:
+			if not _get_drag_data(end_point) == null:
+				var drag_data: Dictionary = _get_drag_data(end_point)
+				force_drag(drag_data, _create_drag_preview(drag_data.id))
+
+
+func _on_content_items_mouse_entered():
+	mouse_button_is_pressed = false

@@ -133,7 +133,7 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 	if dropped_data and "id" in dropped_data:
 		var item_id = dropped_data["id"]
 		var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
-		if item_data.empty():
+		if item_data.is_empty():
 			print_debug("No item data found for ID: " + item_id)
 			return
 		
@@ -152,7 +152,7 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 # The user clicked in the list, but not on any of the items
 # Deselect all items and reset the selectedItemNameDisplay label
 func _on_item_list_empty_clicked(at_position, mouse_button_index):
-	itemList.unselect_all()  # Deselect any selected items
+	itemList.deselect_all()  # Deselect any selected items
 	selectedItemNameDisplay.text = "No item selected"  # Reset the display label
 
 

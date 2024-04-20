@@ -212,8 +212,16 @@ func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 # For example, contentData can be Gamedata.data.tiles
 # and id can be "plain_grass" and it will return the sprite for plain_grass
 func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
-	var item_json = get_data_by_id(contentData, id)
-	return contentData.sprites[item_json.sprite]
+	if not contentData.sprites.size() > 0 or not contentData.data.size() > 0:
+		return null
+	var sprite
+	# First, check if the contentData.data is structured as an array
+	if contentData.data[0] is String:
+		sprite = contentData.sprites[id + ".png"]
+	else:
+		var item_json = get_data_by_id(contentData, id)
+		sprite = contentData.sprites[item_json.sprite]
+	return sprite
 
 
 # This functino is called when an editor has changed data

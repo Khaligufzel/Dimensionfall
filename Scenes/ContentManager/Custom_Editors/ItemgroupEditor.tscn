@@ -126,8 +126,10 @@ layout_mode = 2
 text = "Items"
 
 [node name="ItemList" type="ItemList" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 tooltip_text = "Drag items to this list from the left menu of the content editor. Once the list has been made, you can assign it to a container, for example in the furniture editor."
+mouse_filter = 1
 
 [node name="Sprite_selector" parent="." instance=ExtResource("4_tvfec")]
 visible = false
