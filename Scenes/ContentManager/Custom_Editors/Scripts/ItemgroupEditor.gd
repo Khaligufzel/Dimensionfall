@@ -11,6 +11,8 @@ extends Control
 @export var DescriptionTextEdit: TextEdit = null
 @export var itemgroupSelector: Popup = null
 @export var imageNameStringLabel: Label = null
+@export var selectedItemNameDisplay: Label = null
+@export var itemList: ItemList = null
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
 
@@ -69,6 +71,17 @@ func _on_save_button_button_up():
 	contentData["sprite"] = imageNameStringLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
+	
+	# Collect all item IDs from the itemList and update the contentData accordingly
+	var items_array = []
+	for i in range(itemList.get_item_count()):
+		items_array.append(itemList.get_item_metadata(i))  # Assuming metadata holds the item ID
+	
+	if items_array.size() > 0:
+		contentData["items"] = items_array
+	elif contentData.has("items"):
+		contentData.erase("items")  # Delete the "items" property if the list is empty
+	
 	data_changed.emit()
 
 
@@ -98,3 +111,69 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	itemgroupImageDisplay.texture = itemgroupTexture
 	imageNameStringLabel.text = itemgroupTexture.resource_path.get_file()
 
+
+# This function should return true if the dragged data can be dropped here
+func _can_drop_data(_newpos, data) -> bool:
+	return true
+
+
+# This function handles the data being dropped
+func _drop_data(newpos, data) -> void:
+	if _can_drop_data(newpos, data):
+		_handle_item_drop(data, newpos)
+
+
+# Called when the user has successfully dropped data onto the itemList
+# We have to check the dropped_data for the id property
+# Then we have to get the item data from Gamedata.get_data_by_id(Gamedata.data.items, id)
+# Then we have to get the sprite using Gamedata.get_sprite_by_id(Gamedata.data.items, id)
+# Then we have to create a new item in itemList using the id as the text and the sprite as the icon
+func _handle_item_drop(dropped_data, _newpos) -> void:
+	# Assuming dropped_data is a Dictionary that includes an 'id'
+	if dropped_data and "id" in dropped_data:
+		var item_id = dropped_data["id"]
+		var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
+		if item_data.empty():
+			print_debug("No item data found for ID: " + item_id)
+			return
+		
+		# Retrieve the sprite for the item
+		var item_sprite = Gamedata.get_sprite_by_id(Gamedata.data.items, item_id)
+		if item_sprite:
+			# Add the item to the itemList with the retrieved sprite as an icon
+			var item_index = itemList.add_item(item_id, item_sprite)
+			itemList.set_item_metadata(item_index, item_id)  # Store the item ID as metadata
+		else:
+			print_debug("No sprite found for item with ID: " + item_id)
+	else:
+		print_debug("Dropped data does not contain an 'id' key.")
+
+
+# The user clicked in the list, but not on any of the items
+# Deselect all items and reset the selectedItemNameDisplay label
+func _on_item_list_empty_clicked(at_position, mouse_button_index):
+	itemList.unselect_all()  # Deselect any selected items
+	selectedItemNameDisplay.text = "No item selected"  # Reset the display label
+
+
+# The user has selected an item from the list
+# Update the selectedItemNameDisplay label to show the selected item's text
+func _on_item_list_item_selected(index):
+	var item_text = itemList.get_item_text(index)  # Get the text of the selected item
+	selectedItemNameDisplay.text = item_text  # Display the text in the label
+
+
+# The user has released the remove item button after pressing it
+# We have to check if an item is selected in the itemList
+# If an item is selected, we remove it from the list and update the selectedItemNameDisplay label
+# If no item is selected, we do nothing
+func _on_remove_item_button_button_up():
+	var selected_index = itemList.get_selected_items()
+	if selected_index.size() > 0:
+		# Get the first selected item index (since multiple selections might be disabled, this is safe)
+		selected_index = selected_index[0]
+		itemList.remove_item(selected_index)
+		selectedItemNameDisplay.text = "No item selected"  # Update the display label after removing an item
+		print_debug("Item removed at index: " + str(selected_index))
+	else:
+		print_debug("No item selected to remove")
