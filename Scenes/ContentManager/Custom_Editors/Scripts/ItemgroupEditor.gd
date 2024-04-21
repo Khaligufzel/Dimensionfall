@@ -15,14 +15,9 @@ extends Control
 @export var itemList: ItemList = null
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
-
-# This signal will be emitted when the user presses the save button
-# This signal should alert Gamedata that the itemgroup data array should be saved to disk
-# The content editor has connected this signal to Gamedata already
-signal data_changed()
-
-func _ready():
-	control_elements = [itemgroupImageDisplay,NameTextEdit,DescriptionTextEdit]
+# Will keep track of the id's in the itemgroup list when it was loaded or saved
+# This is used to compare the list when it is saved and see the difference
+var old_list: Array[String] = []
 
 
 # The data that represents this itemgroup
@@ -35,6 +30,18 @@ var contentData: Dictionary = {}:
 		itemgroupSelector.sprites_collection = Gamedata.data.itemgroups.sprites
 
 
+# This signal will be emitted when the user presses the save button
+# This signal should alert Gamedata that the itemgroup data array should be saved to disk
+# The content editor has connected this signal to Gamedata already
+signal data_changed()
+signal itemlist_changed(itemgroup: String, oldlist: Array[String], newlist: Array[String])
+
+
+func _ready():
+	control_elements = [itemgroupImageDisplay,NameTextEdit,DescriptionTextEdit]
+	itemlist_changed.connect(Gamedata.on_itemgroup_changed)
+
+
 func load_itemgroup_data():
 	if itemgroupImageDisplay and contentData.has("sprite") and not contentData["sprite"].is_empty():
 		itemgroupImageDisplay.texture = Gamedata.data.itemgroups.sprites[contentData["sprite"]]
@@ -45,6 +52,18 @@ func load_itemgroup_data():
 		NameTextEdit.text = contentData["name"]
 	if DescriptionTextEdit and contentData.has("description"):
 		DescriptionTextEdit.text = contentData["description"]
+	# Load the items into the itemList
+	itemList.clear()  # Clear the list before populating
+	if contentData.has("items"):
+		for item_id in contentData["items"]:
+			# Get item data and sprite from the game data
+			var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
+			if not item_data.is_empty():
+				var item_sprite = Gamedata.get_sprite_by_id(Gamedata.data.items, item_id)
+				var item_index = itemList.add_item(item_data.get("name", "Unnamed Item"), item_sprite)
+				itemList.set_item_metadata(item_index, item_id)
+				old_list.append(item_id)  # Add to old list for comparison
+	_refresh_old_list()
 
 
 # This function will select the option in the option_button that matches the given string.
@@ -73,15 +92,22 @@ func _on_save_button_button_up():
 	contentData["description"] = DescriptionTextEdit.text
 	
 	# Collect all item IDs from the itemList and update the contentData accordingly
-	var items_array = []
+	var newlist: Array[String] = []
 	for i in range(itemList.get_item_count()):
-		items_array.append(itemList.get_item_metadata(i))  # Assuming metadata holds the item ID
+		var item_id = itemList.get_item_metadata(i)  # Assuming metadata holds the item ID
+		newlist.append(item_id)
 	
-	if items_array.size() > 0:
-		contentData["items"] = items_array
+	if newlist.size() > 0:
+		contentData["items"] = newlist
 	elif contentData.has("items"):
 		contentData.erase("items")  # Delete the "items" property if the list is empty
 	
+	# Check if there are any changes between old and new item lists
+	if _is_itemList_changed():
+		itemlist_changed.emit(contentData.id, old_list, newlist)
+	
+	# Update the old_list as the new baseline for future changes
+	old_list = newlist.duplicate()
 	data_changed.emit()
 
 
@@ -130,7 +156,6 @@ func _can_drop_data(_newpos, data) -> bool:
 
 	# If all checks pass, return true
 	return true
-
 
 
 # This function handles the data being dropped
@@ -193,3 +218,29 @@ func _on_remove_item_button_button_up():
 		print_debug("Item removed at index: " + str(selected_index))
 	else:
 		print_debug("No item selected to remove")
+
+
+# Function to refresh old_list with the current item IDs in itemList
+func _refresh_old_list():
+	old_list.clear()  # Clear the current contents of old_list
+	for i in range(itemList.get_item_count()):
+		var item_id = itemList.get_item_metadata(i)  # Get the item ID stored in metadata
+		old_list.append(item_id)  # Add the item ID to old_list
+
+
+# Function to compare old_list with the current itemList IDs
+func _is_itemList_changed() -> bool:
+	var current_list: Array = []
+	for i in range(itemList.get_item_count()):
+		var item_id = itemList.get_item_metadata(i)  # Assuming metadata holds the item ID
+		current_list.append(item_id)
+	
+	# Check if old_list and current_list have the same size and the same elements in the same order
+	if old_list.size() != current_list.size():
+		return true  # Sizes are different, lists are not the same
+	
+	for i in range(old_list.size()):
+		if old_list[i] != current_list[i]:
+			return true  # Found a difference in one of the positions
+	
+	return false  # No differences found
