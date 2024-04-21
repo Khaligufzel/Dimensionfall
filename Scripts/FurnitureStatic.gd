@@ -12,10 +12,12 @@ var furniturerotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture on the map
 var furnitureJSONData: Dictionary # The json that defines this furniture's basics in general
 var sprite: Sprite3D = null
+var collider: CollisionShape3D = null
+var is_door: bool = false
+var door_state: String = "Closed"  # Default state
 
 var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
 var current_health: float = 100.0
-
 
 
 func _ready():
@@ -23,6 +25,28 @@ func _ready():
 	set_new_rotation(furniturerotation)
 	var new_chunk = Helper.map_manager.get_chunk_from_position(furnitureposition)
 	new_chunk.add_furniture_to_chunk(self)
+	check_door_functionality()
+	update_door_visuals()
+
+# Check if this furniture acts as a door
+# We check if the door data for this unique furniture has been set
+# Otherwise we check the general json data for this furniture
+func check_door_functionality():
+	if furnitureJSON.get("Function", {}).get("door") or furnitureJSONData.get("Function", {}).get("door"):
+		is_door = true
+		door_state = furnitureJSON.get("Function", {}).get("door", "Closed")
+
+func interact():
+	if is_door:
+		toggle_door()
+
+
+# We set the door property in furnitureJSON, which holds the data
+# For this unique furniture
+func toggle_door():
+	door_state = "Open" if door_state == "Closed" else "Closed"
+	furnitureJSON["Function"] = {"door": door_state}
+	update_door_visuals()
 
 
 func get_hit(damage):
@@ -43,6 +67,7 @@ func add_corpse(pos: Vector3):
 	get_tree().get_root().add_child.call_deferred(newItem)
 
 
+# Will update the sprite of this furniture and set a collisionshape based on it's size
 func set_sprite(newSprite: Texture):
 	if not sprite:
 		sprite = Sprite3D.new()
@@ -62,11 +87,28 @@ func set_sprite(newSprite: Texture):
 	var new_shape = BoxShape3D.new()
 	new_shape.extents = Vector3(new_x / 2.0, new_y / 2.0, new_z / 2.0) # BoxShape3D extents are half extents
 
-	var collider = CollisionShape3D.new()
+	collider = CollisionShape3D.new()
 	collider.shape = new_shape
 	add_child.call_deferred(collider)
 
 
+func update_door_visuals():
+	if not is_door: return
+	
+	var angle = 90 if door_state == "Open" else 0
+	var position_offset = Vector3(-0.5, 0, -0.5) if door_state == "Open" else Vector3.ZERO
+	apply_transform_to_sprite_and_collider(angle, position_offset)
+
+
+func apply_transform_to_sprite_and_collider(rotationdegrees, position_offset):
+	var doortransform = Transform3D().rotated(Vector3.UP, deg_to_rad(rotationdegrees))
+	doortransform.origin = position_offset
+	sprite.set_transform(doortransform)
+	collider.set_transform(doortransform)
+	sprite.rotation_degrees.x = 90
+
+
+# Set the rotation for this furniture. We have to do some minor calculations or it will end up wrong
 func set_new_rotation(amount: int):
 	var rotation_amount = amount
 	if amount == 180:
@@ -82,12 +124,7 @@ func set_new_rotation(amount: int):
 
 
 func get_my_rotation() -> int:
-	if furniturerotation == 180:
-		return furniturerotation-180
-	elif furniturerotation == 0:
-		return furniturerotation+180
-	else:
-		return furniturerotation-0
+	return furniturerotation
 
 
 # Function to make it's own shape and texture based on an id and position
@@ -114,15 +151,19 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	
 	var newRot = furnitureJSON.get("rotation", 0)
 
-	# Apply edge snapping if necessary. Previously saved blocks have the global_position_x. They do not
-	# need to apply edge snapping again
+	# Apply edge snapping if necessary. Previously saved furniture have the global_position_x. 
+	# They do not need to apply edge snapping again
 	if edgeSnappingDirection != "None" and not newFurnitureJSON.has("global_position_x"):
-		furnitureposition = apply_edge_snapping(furnitureposition, edgeSnappingDirection, spriteWidth, spriteDepth, newRot, furniturepos)
+		furnitureposition = apply_edge_snapping(furnitureposition, edgeSnappingDirection, \
+		spriteWidth, spriteDepth, newRot, furniturepos)
 
 	furniturerotation = newRot
 
 
-func apply_edge_snapping(newpos, direction, width, depth, newRot, furniturepos):
+# If edge snapping has been set in the furniture editor, we will apply it here.
+# The direction refers to the 'backside' of the furniture, which will be facing the edge of the block
+# This is needed to put furniture against the wall, or get a fence at the right edge
+func apply_edge_snapping(newpos, direction, width, depth, newRot, furniturepos) -> Vector3:
 	# Block size, a block is 1x1 meters
 	var blockSize = Vector3(1.0, 1.0, 1.0)
 	
@@ -145,7 +186,7 @@ func apply_edge_snapping(newpos, direction, width, depth, newRot, furniturepos):
 
 
 # Called when applying edge-snapping so it's put into the right position
-func rotate_position_around_block_center(newpos, newRot, block_center):
+func rotate_position_around_block_center(newpos, newRot, block_center) -> Vector3:
 	# Convert rotation to radians for trigonometric functions
 	var radians = deg_to_rad(newRot)
 	
@@ -163,6 +204,7 @@ func rotate_position_around_block_center(newpos, newRot, block_center):
 	return block_center + rotated_offset
 
 
+# Returns this furniture's data for saving
 func get_data() -> Dictionary:
 	var newfurniturejson = {
 		"id": furnitureJSON.id,
@@ -172,4 +214,7 @@ func get_data() -> Dictionary:
 		"global_position_z": furnitureposition.z,
 		"rotation": get_my_rotation(),
 	}
+	
+	if "Function" in furnitureJSONData and "door" in furnitureJSONData.Function:
+		newfurniturejson["Function"] = {"door": door_state}
 	return newfurniturejson

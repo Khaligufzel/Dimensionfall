@@ -3546,6 +3546,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "floor_wood_boards_00",
 				"rotation": 270
 			},
@@ -3554,6 +3558,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 90
+				},
 				"id": "floor_wood_boards_00",
 				"rotation": 90
 			},
@@ -3630,6 +3638,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 90
+				},
 				"id": "blue_carpet_00",
 				"rotation": 90
 			},
@@ -3764,6 +3776,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "blue_carpet_00",
 				"rotation": 90
 			},
@@ -3847,6 +3863,10 @@
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 90
+				},
 				"id": "red_carpet_00",
 				"rotation": 90
 			},
@@ -4549,6 +4569,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "floor_wood_boards_04"
 			},
 			{
@@ -4626,6 +4650,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "floor_wood_boards_00",
 				"rotation": 90
 			},
@@ -4634,6 +4662,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 90
+				},
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
@@ -4686,6 +4718,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 180
+				},
 				"id": "floor_wood_boards_06",
 				"rotation": 180
 			},
@@ -5620,6 +5656,9 @@
 				"id": "rocky_earth_00"
 			},
 			{
+				"furniture": {
+					"id": "door_wood"
+				},
 				"id": "blue_carpet_00"
 			},
 			{
@@ -5682,6 +5721,9 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"furniture": {
+					"id": "door_wood"
+				},
 				"id": "floor_wood_boards_06"
 			},
 			{
@@ -5721,12 +5763,20 @@
 				"id": "concrete_00"
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "floor_wood_boards_07"
 			},
 			{
 				"id": "blue_carpet_00"
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 90
+				},
 				"id": "floor_wood_boards_00",
 				"rotation": 270
 			},
@@ -5797,6 +5847,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
@@ -6400,6 +6454,10 @@
 				"id": "concrete_00"
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "red_carpet_00",
 				"rotation": 270
 			},
@@ -6468,6 +6526,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 90
+				},
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -6585,6 +6647,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -6654,6 +6720,10 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "floor_wood_boards_00",
 				"rotation": 270
 			},
@@ -6662,6 +6732,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 90
+				},
 				"id": "floor_wood_boards_00",
 				"rotation": 90
 			},
@@ -10880,6 +10954,10 @@
 				"id": "floor_wood_boards_07"
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 90
+				},
 				"id": "floor_wood_boards_07",
 				"rotation": 90
 			},
@@ -10961,6 +11039,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 90
+				},
 				"id": "red_carpet_00",
 				"rotation": 270
 			},
@@ -11077,6 +11159,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "red_carpet_00",
 				"rotation": 180
 			},
@@ -11139,6 +11225,9 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "door_wood"
+				},
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
@@ -11396,6 +11485,10 @@
 				"id": "blue_carpet_00"
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "floor_wood_boards_07",
 				"rotation": 270
 			},
@@ -11442,6 +11535,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 180
+				},
 				"id": "red_carpet_00",
 				"rotation": 270
 			},
@@ -11474,6 +11571,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 180
+				},
 				"id": "red_carpet_00",
 				"rotation": 270
 			},
@@ -13532,6 +13633,9 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "door_wood"
+				},
 				"id": "red_carpet_00",
 				"rotation": 90
 			},
@@ -13564,6 +13668,9 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "door_wood"
+				},
 				"id": "red_carpet_00",
 				"rotation": 90
 			},
@@ -13610,6 +13717,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 90
+				},
 				"id": "floor_wood_boards_07",
 				"rotation": 90
 			},
@@ -13863,6 +13974,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 180
+				},
 				"id": "floor_wood_boards_07"
 			},
 			{
@@ -13923,6 +14038,10 @@
 				"id": "red_carpet_00"
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 90
+				},
 				"id": "red_carpet_00"
 			},
 			{
@@ -14039,6 +14158,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "red_carpet_00",
 				"rotation": 90
 			},
@@ -14115,6 +14238,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "floor_wood_boards_07",
 				"rotation": 270
 			},
