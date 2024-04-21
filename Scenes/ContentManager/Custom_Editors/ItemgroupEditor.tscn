@@ -95,9 +95,9 @@ layout_mode = 2
 text = "Description"
 
 [node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
 tooltip_text = "Enter the description of this itemgroup"
 focus_previous = NodePath("../NameTextEdit")
@@ -128,6 +128,8 @@ text = "Items"
 [node name="ItemList" type="ItemList" parent="VBoxContainer/FormGrid"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 tooltip_text = "Drag items to this list from the left menu of the content editor. Once the list has been made, you can assign it to a container, for example in the furniture editor."
 mouse_filter = 1
 

@@ -114,7 +114,23 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 
 # This function should return true if the dragged data can be dropped here
 func _can_drop_data(_newpos, data) -> bool:
+	# Check if the data dictionary has the 'id' property
+	if not data or not data.has("id"):
+		return false
+	
+	# Fetch item data by ID from the Gamedata to ensure it exists and is valid
+	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, data["id"])
+	if item_data.is_empty():
+		return false
+
+	# Check if the ID of the dragged item already exists in the itemList
+	for i in range(itemList.get_item_count()):
+		if itemList.get_item_metadata(i) == data["id"]:
+			return false
+
+	# If all checks pass, return true
 	return true
+
 
 
 # This function handles the data being dropped
