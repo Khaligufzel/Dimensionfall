@@ -170,6 +170,8 @@ func remove_item_from_data(contentData: Dictionary, id: String):
 	if contentData.data.is_empty():
 		return
 	if contentData.data[0] is Dictionary:
+		if contentData == Gamedata.data.itemgroups:
+			on_itemgroup_deleted(id)
 		contentData.data.remove_at(get_array_index_by_id(contentData, id))
 		save_data_to_file(contentData)
 	elif contentData.data[0] is String:
@@ -270,3 +272,91 @@ func get_items_by_type(item_type: String) -> Array:
 				filtered_items.append(item)
 
 	return filtered_items
+
+
+
+# An itemgroup has been changed. Update items that were added or removed from the list
+# oldlist and newlist are arrays with item id strings in them
+func on_itemgroup_changed(itemgroup: String, oldlist: Array[String], newlist: Array[String]):
+	var changes_made = false
+
+	# Dictionary to keep track of current memberships
+	var membership = {}
+	for item_id in oldlist:
+		membership[item_id] = false  # Assume all old items are not in the new list initially
+
+	# Process each item in the new list
+	for item_id in newlist:
+		var item_data = get_data_by_id(Gamedata.data.items, item_id)
+		if item_data.is_empty():
+			continue  # Skip if no data is found for this item
+
+		# Ensure the itemgroups field exists and is a list
+		if "itemgroups" not in item_data:
+			item_data["itemgroups"] = []
+		
+		# Add the current itemgroup if it's not already there
+		if itemgroup not in item_data["itemgroups"]:
+			item_data["itemgroups"].append(itemgroup)
+			changes_made = true
+		
+		# Mark this item as processed
+		membership[item_id] = true
+
+	# Check old items to see if they should be removed from the itemgroup
+	for item_id in oldlist:
+		if not membership[item_id]:  # This item was not in the new list
+			var item_data = get_data_by_id(Gamedata.data.items, item_id)
+			if item_data.is_empty() or "itemgroups" not in item_data:
+				continue  # Skip if no data or no itemgroups property is found
+
+			if itemgroup in item_data["itemgroups"]:
+				item_data["itemgroups"].erase(itemgroup)  # Remove the itemgroup from the item
+				# Remove the itemgroups property if it's empty
+				if item_data["itemgroups"].size() == 0:
+					item_data.erase("itemgroups")
+				changes_made = true
+
+	# Save changes if any items were updated
+	if changes_made:
+		save_data_to_file(Gamedata.data.items)
+
+
+# An itemgroup is being deleted from the data
+# We have to loop over all the items in the itemgroup
+# We can get the items by calling get_data_by_id(contentData, id) 
+# and getting the items property, which will return an array of item id's
+# For each item, we have to get the item's data, and delete the itemgroup from the item's itemgroups property if it is present
+# Function to handle the deletion of an itemgroup. This will remove the itemgroup from all items that are part of it.
+func on_itemgroup_deleted(itemgroup_id: String):
+	var changes_made = false
+	var itemgroup_data = get_data_by_id(Gamedata.data.itemgroups, itemgroup_id)
+	
+	if itemgroup_data.is_empty():
+		print("Itemgroup with ID", itemgroup_id, "not found.")
+		return
+
+	# The itemgroup data contains a list of item IDs in an 'items' attribute
+	if "items" in itemgroup_data:
+		var item_ids = itemgroup_data["items"]
+		for item_id in item_ids:
+			var item_data = get_data_by_id(Gamedata.data.items, item_id)
+			if item_data.is_empty():
+				print("Item with ID", item_id, "not found.")
+				continue
+
+			# Check if the 'itemgroups' attribute exists and contains the itemgroup to be deleted
+			if "itemgroups" in item_data and itemgroup_id in item_data["itemgroups"]:
+				item_data["itemgroups"].erase(itemgroup_id)  # Remove the itemgroup from the list
+				changes_made = true
+
+				# If no more itemgroups are left in the item, consider removing the 'itemgroups' attribute
+				if item_data["itemgroups"].size() == 0:
+					item_data.erase("itemgroups")
+					
+	# Save changes to the data file if any changes were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.items)
+		print("Itemgroup", itemgroup_id, "has been successfully deleted from all items.")
+	else:
+		print("No changes needed for itemgroup", itemgroup_id)
