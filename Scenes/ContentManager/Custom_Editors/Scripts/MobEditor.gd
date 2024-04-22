@@ -105,8 +105,6 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	PathTextLabel.text = mobTexture.resource_path.get_file()
 
 
-
-
 # This function should return true if the dragged data can be dropped here
 func _can_drop_data(_newpos, data) -> bool:
 	# Check if the data dictionary has the 'id' property
