@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_woy6i"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_847a0"]
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_damage_numedit", "melee_range_numedit", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_damage_numedit", "melee_range_numedit", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,6 +26,7 @@ idle_move_speed_numedit = NodePath("VBoxContainer/FormGrid/IdleMoveSpeedSpinBox"
 sightRange_numedit = NodePath("VBoxContainer/FormGrid/SightRangeSpinBox")
 senseRange_numedit = NodePath("VBoxContainer/FormGrid/SenseRangeSpinbox")
 hearingRange_numedit = NodePath("VBoxContainer/FormGrid/HearingRangeSpinbox")
+ItemGroupTextEdit = NodePath("VBoxContainer/FormGrid/HBoxContainer/LootItemGroupTextEdit")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -186,10 +187,35 @@ tooltip_text = "The maximum distance at which it can detect entities trough hear
 max_value = 5000.0
 value = 1000.0
 
+[node name="LootItemGroupLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Loot itemgroup"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="LootItemGroupTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid/HBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+tooltip_text = "Drag an itemgroup from the list of itemgroups on the left onto this textbox. When this mob dies, it will drop loot from that group. If no group is specified, the mob will not drop any loot"
+focus_next = NodePath("../../DescriptionTextEdit")
+focus_previous = NodePath("../../MobImageDisplay")
+mouse_filter = 1
+placeholder_text = "Drop an itemgroup here"
+editable = false
+
+[node name="ItemGroupClearButton" type="Button" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Clears the id of the itemgroup"
+text = "Clear itemgroup"
+
 [node name="Sprite_selector" parent="." instance=ExtResource("3_847a0")]
 visible = false
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="gui_input" from="VBoxContainer/FormGrid/MobImageDisplay" to="." method="_on_mob_image_display_gui_input"]
+[connection signal="button_up" from="VBoxContainer/FormGrid/HBoxContainer/ItemGroupClearButton" to="." method="_on_item_group_clear_button_button_up"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]
