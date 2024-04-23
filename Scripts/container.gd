@@ -2,7 +2,7 @@ class_name ContainerItem
 extends Node3D
 
 # This is a standalone class that you can use to make a container of a 3d node
-# For example, adding this a child to furniture will allow the player to add and remove
+# For example, adding this as a child to furniture will allow the player to add and remove
 # items from it when it's in proximity
 
 
@@ -72,6 +72,8 @@ func create_sprite():
 func create_area3d():
 	var area3d = Area3D.new()
 	add_child(area3d)
+	area3d.collision_layer = 1 << 6  # Set to layer 7
+	area3d.collision_mask = 1 << 6   # Set mask to layer 7
 	area3d.owner = self
 	var collisionshape3d = CollisionShape3D.new()
 	var sphereshape3d = SphereShape3D.new()
