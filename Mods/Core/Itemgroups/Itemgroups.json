@@ -2,7 +2,22 @@
 	{
 		"description": "Anything you can find in a kitchen cupboard",
 		"id": "kitchen_cupboard",
+		"items": [
+			"pistol_magazine"
+		],
 		"name": "Kitchen cupboard",
 		"sprite": "canned_food_32.png"
+	},
+	{
+		"description": "Loot that's dropped by a mob",
+		"id": "mob_loot",
+		"items": [
+			"bullet_9mm",
+			"pistol_magazine",
+			"steel_scrap",
+			"plank_2x4"
+		],
+		"name": "Mob loot",
+		"sprite": "machete_32.png"
 	}
 ]

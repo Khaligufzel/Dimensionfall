@@ -9,20 +9,38 @@ extends Node3D
 var inventory: InventoryStacked
 var containerpos: Vector3
 var sprite_3d: Sprite3D
+var itemgroup: String # The ID of an itemgroup that it creates loot from
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	position = containerpos
-	create_random_loot()
+	create_loot()
 
 
-func create_random_loot():
-	if inventory.get_children() == []:
-		inventory.create_and_add_item.call_deferred("plank_2x4")
-		inventory.create_and_add_item.call_deferred("bullet_9mm")
-		inventory.create_and_add_item.call_deferred("pistol_magazine")
-		inventory.create_and_add_item.call_deferred("steel_scrap")
+func create_loot():
+	# Check if the inventory is not already populated
+	if inventory.get_items() == []:
+		# Attempt to retrieve the itemgroup data from Gamedata
+		var itemgroup_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, itemgroup)
+		
+		# Check if the itemgroup data exists and has items
+		if itemgroup_data and "items" in itemgroup_data:
+			# Loop over each item ID in the itemgroup's 'items' property
+			for item_id in itemgroup_data["items"]:
+				# Fetch the individual item data for verification
+				var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
+				
+				# Check if the item data is valid before adding
+				if item_data and not item_data.is_empty():
+					# Create and add the item to the inventory deferred to ensure all properties are set
+					inventory.create_and_add_item.call_deferred(item_id)
+				else:
+					print_debug("No valid data found for item ID: " + str(item_id))
+		else:
+			# Fallback if no valid itemgroup data found or the itemgroup is empty
+			print_debug("Invalid or empty itemgroup data for itemgroup ID: " + str(itemgroup))
+			# Optional: add fallback items if needed, or handle the case accordingly
 
 
 func create_inventory():

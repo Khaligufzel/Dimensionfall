@@ -5,6 +5,9 @@
 		"iamge": "res://Textures/plank.png",
 		"id": "plank_2x4",
 		"image": "./Mods/Core/Items/plank.png",
+		"itemgroups": [
+			"mob_loot"
+		],
 		"max_stack_size": "3",
 		"name": "Plank 2x4",
 		"sprite": "plank.png",
@@ -19,6 +22,9 @@
 		"height": "2",
 		"id": "steel_scrap",
 		"image": "./Mods/Core/Items/steel_scrap.png",
+		"itemgroups": [
+			"mob_loot"
+		],
 		"max_stack_size": "100",
 		"name": "Steel scrap",
 		"sprite": "steel_scrap.png",
@@ -36,6 +42,9 @@
 		"height": "1",
 		"id": "bullet_9mm",
 		"image": "./Mods/Core/Items/9mm.png",
+		"itemgroups": [
+			"mob_loot"
+		],
 		"max_stack_size": "100",
 		"name": "bullet 9mm",
 		"sprite": "9mm.png",
@@ -55,6 +64,10 @@
 		"height": "1",
 		"id": "pistol_magazine",
 		"image": "./Mods/Core/Items/pistol_magazine.png",
+		"itemgroups": [
+			"kitchen_cupboard",
+			"mob_loot"
+		],
 		"max_stack_size": "1",
 		"name": "Pistol magazine",
 		"sprite": "pistol_magazine.png",
