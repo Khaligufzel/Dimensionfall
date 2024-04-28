@@ -88,7 +88,7 @@ func generate_new_chunk():
 	await Helper.task_manager.create_task(update_all_navigation_data).completed
 	processed_level_data = process_level_data()
 	await Helper.task_manager.create_task(add_furnitures_to_new_block).completed
-	await Helper.task_manager.create_task(add_block_mobs).completed
+	Helper.task_manager.create_task(add_block_mobs)
 
 
 # Collects the furniture and mob data from the mapdata to be spawned later
