@@ -23,6 +23,11 @@
 		"sprite": "chair_32.png"
 	},
 	{
+		"Function": {
+			"container": {
+				"itemgroup": "kitchen_cupboard"
+			}
+		},
 		"categories": [
 			"Urban",
 			"Kitchen",

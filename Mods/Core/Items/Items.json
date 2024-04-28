@@ -65,7 +65,6 @@
 		"id": "pistol_magazine",
 		"image": "./Mods/Core/Items/pistol_magazine.png",
 		"itemgroups": [
-			"kitchen_cupboard",
 			"mob_loot"
 		],
 		"max_stack_size": "1",
@@ -193,6 +192,9 @@
 		"height": "2",
 		"id": "bottle_plastic_water",
 		"image": "./Mods/Core/Items/bottle_water_32.png",
+		"itemgroups": [
+			"kitchen_cupboard"
+		],
 		"max_stack_size": "10",
 		"name": "Plastic bottle with water",
 		"sprite": "bottle_water_32.png",
@@ -207,6 +209,9 @@
 		"height": "2",
 		"id": "canned_food",
 		"image": "./Mods/Core/Items/canned_food_32.png",
+		"itemgroups": [
+			"kitchen_cupboard"
+		],
 		"max_stack_size": "5",
 		"name": "Canned food\t",
 		"sprite": "canned_food_32.png",
@@ -250,6 +255,9 @@
 		"iamge": "res://Textures/plank.png",
 		"id": "hammer",
 		"image": "./Mods/Core/Items/hammer_32.png",
+		"itemgroups": [
+			"kitchen_cupboard"
+		],
 		"max_stack_size": "1",
 		"name": "Hammer",
 		"sprite": "hammer_32.png",
@@ -265,6 +273,9 @@
 		"iamge": "res://Textures/plank.png",
 		"id": "screwdriver",
 		"image": "./Mods/Core/Items/screwdriver_32.png",
+		"itemgroups": [
+			"kitchen_cupboard"
+		],
 		"max_stack_size": "1",
 		"name": "Screwdriver",
 		"sprite": "screwdriver_32.png",
@@ -280,6 +291,9 @@
 		"iamge": "res://Textures/plank.png",
 		"id": "bandage_basic",
 		"image": "./Mods/Core/Items/bandage_32.png",
+		"itemgroups": [
+			"kitchen_cupboard"
+		],
 		"max_stack_size": "20",
 		"name": "Bandage",
 		"sprite": "bandage_32.png",
@@ -295,6 +309,9 @@
 		"iamge": "res://Textures/plank.png",
 		"id": "bottle_antibiotics",
 		"image": "./Mods/Core/Items/antibiotics_32.png",
+		"itemgroups": [
+			"kitchen_cupboard"
+		],
 		"max_stack_size": "5",
 		"name": "Bottle of antibiotics",
 		"sprite": "antibiotics_32.png",
@@ -385,6 +402,9 @@
 		"iamge": "res://Textures/plank.png",
 		"id": "flashlight_basic",
 		"image": "./Mods/Core/Items/flashlight_32.png",
+		"itemgroups": [
+			"kitchen_cupboard"
+		],
 		"max_stack_size": "1",
 		"name": "Flashlight",
 		"sprite": "flashlight_32.png",
@@ -415,6 +435,9 @@
 		"iamge": "res://Textures/plank.png",
 		"id": "pack_sigarrettes",
 		"image": "./Mods/Core/Items/sigarrette_pack_32.png",
+		"itemgroups": [
+			"kitchen_cupboard"
+		],
 		"max_stack_size": "5",
 		"name": "Pack of sigarrettes",
 		"sprite": "sigarrette_pack_32.png",
@@ -475,6 +498,9 @@
 		"iamge": "res://Textures/plank.png",
 		"id": "battery_small",
 		"image": "./Mods/Core/Items/battery_32.png",
+		"itemgroups": [
+			"kitchen_cupboard"
+		],
 		"max_stack_size": "20",
 		"name": "Small battery",
 		"sprite": "battery_32.png",
@@ -580,6 +606,9 @@
 		"iamge": "res://Textures/plank.png",
 		"id": "bottle_disinfectant",
 		"image": "./Mods/Core/Items/bottle_disinfectant_32.png",
+		"itemgroups": [
+			"kitchen_cupboard"
+		],
 		"max_stack_size": "5",
 		"name": "Bottle of disinfectant",
 		"sprite": "bottle_disinfectant_32.png",

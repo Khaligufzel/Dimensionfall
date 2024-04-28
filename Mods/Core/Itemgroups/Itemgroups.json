@@ -3,7 +3,16 @@
 		"description": "Anything you can find in a kitchen cupboard",
 		"id": "kitchen_cupboard",
 		"items": [
-			"pistol_magazine"
+			"screwdriver",
+			"hammer",
+			"bandage_basic",
+			"bottle_antibiotics",
+			"flashlight_basic",
+			"pack_sigarrettes",
+			"battery_small",
+			"bottle_disinfectant",
+			"canned_food",
+			"bottle_plastic_water"
 		],
 		"name": "Kitchen cupboard",
 		"sprite": "canned_food_32.png"
