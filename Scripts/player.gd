@@ -145,7 +145,10 @@ func _input(event):
 	if event.is_action_pressed("interact"):
 		var layer = pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1)
 		var mouse_pos : Vector2 = get_viewport().get_mouse_position()
-		var world_mouse_position = Helper.raycast_from_mouse(mouse_pos, layer).position
+		var raycast: Dictionary = Helper.raycast_from_mouse(mouse_pos, layer)
+		if not raycast.has("position"):
+			return
+		var world_mouse_position = raycast.position
 		var result = Helper.raycast(global_position, global_position + (Vector3(world_mouse_position.x - global_position.x, 0, world_mouse_position.z - global_position.z)).normalized() * interact_range, layer, [self])
 
 		print("Interact button pressed")
