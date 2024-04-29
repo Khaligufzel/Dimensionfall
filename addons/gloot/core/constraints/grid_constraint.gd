@@ -17,6 +17,7 @@ const KEY_GRID_POSITION: String = "grid_position"
 const DEFAULT_SIZE: Vector2i = Vector2i(10, 10)
 
 var _item_map := ItemMap.new(Vector2i.ZERO)
+var _swap_position := Vector2i.ZERO
 
 @export var size: Vector2i = DEFAULT_SIZE :
     set(new_size):
@@ -59,6 +60,45 @@ func _on_item_removed(item: InventoryItem) -> void:
     
 func _on_item_modified(item: InventoryItem) -> void:
     _refresh_item_map()
+
+
+func _on_pre_item_swap(item1: InventoryItem, item2: InventoryItem) -> bool:
+    if !_size_check(item1, item2):
+        return false
+
+    if inventory.has_item(item1):
+        _swap_position = get_item_position(item1)
+    elif inventory.has_item(item2):
+        _swap_position = get_item_position(item2)
+    return true
+
+
+func _size_check(item1: InventoryItem, item2: InventoryItem) -> bool:
+    var inv1 = item1.get_inventory()
+    var grid_constraint1: GridConstraint = null
+    if is_instance_valid(inv1):
+        grid_constraint1 = inv1._constraint_manager.get_grid_constraint()
+    var inv2 = item1.get_inventory()
+    var grid_constraint2: GridConstraint = null
+    if is_instance_valid(inv2):
+        grid_constraint2 = inv2._constraint_manager.get_grid_constraint()
+
+    if is_instance_valid(grid_constraint1) || is_instance_valid(grid_constraint2):
+        return get_item_size(item1) == get_item_size(item2)
+    return true
+
+
+func _on_post_item_swap(item1: InventoryItem, item2: InventoryItem) -> void:
+    var has1 := inventory.has_item(item1)
+    var has2 := inventory.has_item(item2)
+    if has1 && has2:
+        var temp_pos = get_item_position(item1)
+        _move_item_to_unsafe(item1, get_item_position(item2))
+        _move_item_to_unsafe(item2, temp_pos)
+    elif has1:
+        move_item_to(item1, _swap_position)
+    elif has2:
+        move_item_to(item2, _swap_position)
 
 
 func _bounds_broken() -> bool:
@@ -271,12 +311,13 @@ func transfer_to(item: InventoryItem, destination: GridConstraint, position: Vec
     assert(destination.inventory != null, "Destination inventory not set!")
     var item_size = get_item_size(item)
     var rect := Rect2i(position, item_size)
-    if destination.rect_free(rect):
-        if inventory.transfer(item, destination.inventory):
-            destination.move_item_to(item, position)
-            return true
+    if destination.rect_free(rect) && destination.add_item_at(item, position):
+        return true
 
-    return _merge_to(item, destination, position)
+    if _merge_to(item, destination, position):
+        return true
+
+    return InventoryItem.swap(item, destination.get_item_at(position))
 
 
 func _merge_to(item: InventoryItem, destination: GridConstraint, position: Vector2i) -> bool:
@@ -285,7 +326,6 @@ func _merge_to(item: InventoryItem, destination: GridConstraint, position: Vecto
         return false
 
     return inventory._constraint_manager.get_stacks_constraint().join_stacks(item_dst, item)
-    
 
 
 func _get_mergable_item_at(item: InventoryItem, position: Vector2i) -> InventoryItem:

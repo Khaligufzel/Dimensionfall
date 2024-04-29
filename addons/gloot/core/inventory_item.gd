@@ -16,7 +16,7 @@ signal removed_from_slot(item_slot)
         if new_protoset == protoset:
             return
 
-        if _inventory != null:
+        if (_inventory != null) && (new_protoset != _inventory.item_protoset):
             return
 
         _disconnect_protoset_signals()
@@ -51,7 +51,13 @@ signal removed_from_slot(item_slot)
         properties_changed.emit()
         update_configuration_warnings()
 
-var _inventory: Inventory
+var _inventory: Inventory :
+    set(new_inventory):
+        if new_inventory == _inventory:
+            return
+        _inventory = new_inventory
+        if _inventory:
+            protoset = _inventory.item_protoset
 var _item_slot: ItemSlot
 
 const KEY_PROTOSET: String = "protoset"
@@ -127,8 +133,6 @@ func _on_parented(parent: Node) -> void:
 func _on_added_to_inventory(inventory: Inventory) -> void:
     assert(inventory != null)
     _inventory = inventory
-    if _inventory.item_protoset:
-        protoset = _inventory.item_protoset
     
     added_to_inventory.emit(_inventory)
     _inventory._on_item_added(self)
@@ -165,6 +169,75 @@ func _unlink_from_slot() -> void:
 
 func get_inventory() -> Inventory:
     return _inventory
+
+
+func get_item_slot() -> ItemSlot:
+    return _item_slot
+
+
+static func swap(item1: InventoryItem, item2: InventoryItem) -> bool:
+    if item1 == null || item2 == null || item1 == item2:
+        return false
+
+    var owner1 = item1.get_inventory()
+    if owner1 == null:
+        owner1 = item1.get_item_slot()
+    var owner2 = item2.get_inventory()
+    if owner2 == null:
+        owner2 = item2.get_item_slot()
+    if owner1 == null || owner2 == null:
+        return false
+
+    if owner1 is Inventory:
+        if !owner1._constraint_manager._on_pre_item_swap(item1, item2):
+            return false
+    if owner2 is Inventory && owner1 != owner2:
+        if !owner2._constraint_manager._on_pre_item_swap(item1, item2):
+            return false
+
+    var idx1 = _remove_item_from_owner(item1, owner1)
+    var idx2 = _remove_item_from_owner(item2, owner2)
+    if !_add_item_to_owner(item1, owner2, idx2):
+        _add_item_to_owner(item1, owner1, idx1)
+        _add_item_to_owner(item2, owner2, idx2)
+        return false
+    if !_add_item_to_owner(item2, owner1, idx1):
+        _add_item_to_owner(item1, owner1, idx1)
+        _add_item_to_owner(item2, owner2, idx2)
+        return false
+
+    if owner1 is Inventory:
+        owner1._constraint_manager._on_post_item_swap(item1, item2)
+    if owner2 is Inventory && owner1 != owner2:
+        owner2._constraint_manager._on_post_item_swap(item1, item2)
+
+    return true;
+
+
+static func _remove_item_from_owner(item: InventoryItem, item_owner) -> int:
+    if item_owner is Inventory:
+        var inventory := (item_owner as Inventory)
+        var item_idx = inventory.get_item_index(item)
+        inventory.remove_item(item)
+        return item_idx
+    
+    # TODO: Consider removing/deprecating ItemSlot.remember_source_inventory
+    var item_slot := (item_owner as ItemSlot)
+    var temp_remember_source_inventory = item_slot.remember_source_inventory
+    item_slot.remember_source_inventory = false
+    item_slot.clear()
+    item_slot.remember_source_inventory = temp_remember_source_inventory
+    return 0
+
+
+static func _add_item_to_owner(item: InventoryItem, item_owner, index: int) -> bool:
+    if item_owner is Inventory:
+        var inventory := (item_owner as Inventory)
+        if inventory.add_item(item):
+            inventory.move_item(inventory.get_item_index(item), index)
+            return true
+        return false
+    return (item_owner as ItemSlot).equip(item)
 
 
 func get_property(property_name: String, default_value = null) -> Variant:
