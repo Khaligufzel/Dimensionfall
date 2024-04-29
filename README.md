@@ -123,6 +123,7 @@ Additional features before our first release:
 
 If you like Godot and want to contribute, feel free to submit a pull request or issue on your ideas, or join us on discord. To make edits, download [Godot](https://godotengine.org/download/) from their website or from [steam](https://store.steampowered.com/app/404790/Godot_Engine/). Download this game's source code by pressing the green 'code' button on the top-right of this page and open the project using Godot. This is and always will be a hobby project and will not be for sale. 
 
+
 ## Community
 
 Official Discord:
