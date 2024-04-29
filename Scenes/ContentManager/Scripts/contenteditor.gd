@@ -12,6 +12,7 @@ extends Control
 @export var tabContainer: TabContainer = null
 var selectedMod: String = "Core"
 
+
 # Called when the node enters the scene tree for the first time.
 #This function will instatiate a tileScene, set the source property and add it as a child to the content VBoxContainer. The source property should be set to "./Mods/Core/Maps/"
 func _ready():
@@ -29,15 +30,17 @@ func load_content_list(data: Dictionary, strHeader: String):
 	var contentListInstance: Control = contentList.instantiate()
 
 	# Set the source property
-	contentListInstance.contentData = data
 	contentListInstance.header = strHeader
+	contentListInstance.contentData = data
 	contentListInstance.connect("item_activated", _on_content_item_activated)
 
 	# Add it as a child to the content VBoxContainer
 	content.add_child(contentListInstance)
 
+
 func _on_back_button_button_up():
 	get_tree().change_scene_to_file("res://Scenes/ContentManager/contentmanager.tscn")
+
 
 #The user has doubleclicked or pressed enter on one of the items in the content lists
 #Depending on wether the source is a JSON file, we are going to load the relevant content
