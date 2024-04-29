@@ -18,6 +18,8 @@ func _ready():
 	create_loot()
 
 
+# Will add item to the inventory based on the assigned itemgroup
+# Only new furniture will have an itemgroup assigned, not previously saved furniture.
 func create_loot():
 	# Check if the inventory is not already populated
 	if inventory.get_items() == []:
@@ -104,9 +106,17 @@ func get_items():
 	return inventory.get_children()
 
 
+func get_item_ids() -> Array[String]:
+	var returnarray: Array[String] = []
+	for item: InventoryItem in inventory.get_items():
+		var id = item.prototype_id
+		returnarray.append(id)
+	return returnarray
+
+
 func get_sprite():
 	return sprite_3d.texture
 
 
-func get_inventory():
+func get_inventory() -> InventoryStacked:
 	return inventory

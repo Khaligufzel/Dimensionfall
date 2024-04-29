@@ -15,6 +15,7 @@ var sprite: Sprite3D = null
 var collider: CollisionShape3D = null
 var is_door: bool = false
 var door_state: String = "Closed"  # Default state
+var container: ContainerItem = null # Reference to the container, if this furniture acts as one
 
 var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
 var current_health: float = 100.0
@@ -61,8 +62,6 @@ func get_hit(damage):
 func _die():
 	add_corpse.call_deferred(global_position)
 	queue_free()
-
-
 
 
 # Will update the sprite of this furniture and set a collisionshape based on it's size
@@ -131,8 +130,8 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	furnitureJSON = newFurnitureJSON
 	# Position furniture at the center of the block by default
 	furnitureposition = furniturepos
-	# Only previously saved furniture will have the global_position_x key. They do not need to be raised
-	if not newFurnitureJSON.has("global_position_x"):
+	# Peviously saved furniture do not need to be raised
+	if is_new_furniture():
 		furnitureposition.y += 0.5 # Move the furniture to slightly above the block 
 	add_to_group("furniture")
 
@@ -215,6 +214,23 @@ func get_data() -> Dictionary:
 	
 	if "Function" in furnitureJSONData and "door" in furnitureJSONData.Function:
 		newfurniturejson["Function"] = {"door": door_state}
+	
+	# Check for container functionality and save item list if applicable
+	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
+		# Initialize the 'Function' sub-dictionary if not already present
+		if "Function" not in newfurniturejson:
+			newfurniturejson["Function"] = {}
+		
+		# Check if this furniture has a container attached and if it has items
+		if container:
+			var item_ids = container.get_item_ids()
+			if item_ids.size() > 0:
+				var containerdata = container.get_inventory().serialize()
+				newfurniturejson["Function"]["container"] = {"items": containerdata}
+			else:
+				# No items in the container, store the container as empty
+				newfurniturejson["Function"]["container"] = {}
+
 	return newfurniturejson
 
 
@@ -231,21 +247,43 @@ func add_corpse(pos: Vector3):
 	get_tree().get_root().add_child.call_deferred(newItem)
 
 
-# If this furniture is a container, it will add a container node to the furniture
-# If there is an itemgroup assigned to the furniture, it will be added to the container
-# Which will fill up the container with items from the itemgroup
+# If this furniture is a container, it will add a container node to the furniture.
 func add_container(pos: Vector3):
-	# Check if the furnitureJSONData has 'Function' and if 'Function' has 'container'
 	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
-		var newItem: ContainerItem = ContainerItem.new()
-		
-		# Check if the container has an 'itemgroup'
-		if "itemgroup" in furnitureJSONData["Function"]["container"]:
-			newItem.itemgroup = furnitureJSONData["Function"]["container"]["itemgroup"]
-		else:
-			# The furniture is a container, but no items are in it. We still create an empty container
-			print_debug("No itemgroup found for container in furniture ID: " + str(furnitureJSONData["id"]))
+		container = ContainerItem.new()
+		container.construct_self(pos)
+		handle_container_population()
+		add_child(container)
 
-		newItem.construct_self(pos)
-		# Add the new item with possibly set itemgroup as a child.
-		add_child.call_deferred(newItem)
+
+# Check if this is a new furniture or if it is one that was previously saved.
+func handle_container_population():
+	if is_new_furniture():
+		populate_container_from_itemgroup()
+	else:
+		deserialize_container_data()
+
+
+# If there is an itemgroup assigned to the furniture, it will be added to the container.
+# Which will fill up the container with items from the itemgroup.
+func populate_container_from_itemgroup():
+	var itemgroup = furnitureJSONData["Function"]["container"].get("itemgroup", "")
+	if itemgroup:
+		container.itemgroup = itemgroup
+	else:
+		print_debug("No itemgroup found for container in furniture ID: " + str(furnitureJSON.id))
+
+
+# It will deserialize the container data if the furniture is not new.
+func deserialize_container_data():
+	if "items" in furnitureJSON["Function"]["container"]:
+		container.get_inventory().deserialize(furnitureJSON["Function"]["container"]["items"])
+	else:
+		print_debug("No items to deserialize in container for furniture ID: " + str(furnitureJSON.id))
+
+
+# Only previously saved furniture will have the global_position_x key.
+# Returns true if this is a new furniture
+# Returns false if this is a previously saved furniture
+func is_new_furniture() -> bool:
+	return not furnitureJSON.has("global_position_x")
