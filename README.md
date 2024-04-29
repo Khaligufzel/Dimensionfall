@@ -6,7 +6,7 @@ Catax is a top-down real-time survival game set in a post-apocalyptic world. Sur
 
 
 ## How to play:
-Until releases are shared on github, you can play the game in the following way:
+Until releases are shared on GitHub, you can play the game in the following way:
 - Download [Godot](https://godotengine.org/download/) from their website or from [steam](https://store.steampowered.com/app/404790/Godot_Engine/)
 - Download this project by going to the top-right of this page and clicking the green 'code' button and then click 'download zip'
 - Extract the zip file to a location of your choosing
@@ -21,7 +21,7 @@ Ranged combat is currently implemented. One-handed weapons can be dual-wielded. 
 
 ### Inventory
 - You have to manage weight and volume.
-- You can drag and drop item from different containers
+- You can drag and drop items from different containers
 - Interact with your equipment slots
 
 ![Catax_inventory](Media/Catax_inventory.png)
@@ -89,10 +89,10 @@ Create new furniture or edit existing ones with this editor. After creating them
 
 - Building/crafting/reloading should take resources from the inventory
 - Basic crafting/building menu
-- "Progress bar" to show the player when the current action will be finished (reloading, building, crafting etc.)
+- ~~"Progress bar" to show the player when the current action will be finished (reloading, building, crafting etc.)~~
 - A few additional weapons
-- In-game content editor to make our own mods or contribute to the core mod
-- Doors
+- ~~In-game content editor to make our own mods or contribute to the core mod~~
+- ~~Doors~~
 - Sounds
 - Bug fixing
 - Polishing
@@ -112,18 +112,26 @@ Additional features before our first release:
 - Vehicles
 - Proper base building
 - Base raids?
-- World map
-- Saving
+- ~~World map~~
+- ~~Saving~~
 - Player stats and skills
 - Melee weapons
-- Recoil/sway/spread/aiming
+- ~~Recoil/sway/spread/aiming~~
 
 
 ## Contribute
 
-If you like Godot and want to contribute, feel free to submit a pull request or issue on your ideas, or join us on discord. To make edits, download [Godot](https://godotengine.org/download/) from their website or from [steam](https://store.steampowered.com/app/404790/Godot_Engine/). Download the source code and open the project using Godot. This is and always will be a hobby project and will not be for sale. 
+If you like Godot and want to contribute, feel free to submit a pull request or issue on your ideas, or join us on discord. To make edits, download [Godot](https://godotengine.org/download/) from their website or from [steam](https://store.steampowered.com/app/404790/Godot_Engine/). Download this game's source code by pressing the green 'code' button on the top-right of this page and open the project using Godot. This is and always will be a hobby project and will not be for sale. 
+
 
 ## Community
 
 Official Discord:
 [https://discord.gg/jFEc7Yp](https://discord.gg/hWJTUSnW)
+
+
+## Credits:
+- Sprites: Some sprites were created with https://github.com/int-ua/blender-pixelart
+- Sprites: Some sprites were created with https://github.com/RodZill4/material-maker
+- Inventory: This game uses https://github.com/peter-kish/gloot to implement the inventory
+- Text display: Some UI uses https://github.com/daenvil/MarkdownLabel for text display
