@@ -13,8 +13,8 @@ class Task:
 
 	signal completed
 
-	func _init(id: int):
-		self.id = id
+	func _init(ident: int):
+		self.id = ident
 
 	func get_processed_element_count() -> int:
 		return 1 if is_completed() else 0

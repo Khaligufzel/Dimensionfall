@@ -249,5 +249,3 @@ func add_container(pos: Vector3):
 		newItem.construct_self(pos)
 		# Add the new item with possibly set itemgroup as a child.
 		add_child.call_deferred(newItem)
-	else:
-		print_debug("Function or container property not found in furniture JSON Data for ID: " + str(furnitureJSONData["id"]))

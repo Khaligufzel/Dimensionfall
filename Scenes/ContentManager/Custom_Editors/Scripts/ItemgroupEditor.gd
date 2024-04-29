@@ -192,7 +192,7 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 
 # The user clicked in the list, but not on any of the items
 # Deselect all items and reset the selectedItemNameDisplay label
-func _on_item_list_empty_clicked(at_position, mouse_button_index):
+func _on_item_list_empty_clicked(_at_position, _mouse_button_index):
 	itemList.deselect_all()  # Deselect any selected items
 	selectedItemNameDisplay.text = "No item selected"  # Reset the display label
 
