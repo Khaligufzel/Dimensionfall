@@ -399,10 +399,10 @@ func add_reference(data: Dictionary, module: String, type: String, onid: String,
 # Example usage: var changes_made = remove_reference(Gamedata.data.itemgroups, "core", 
 # "furniture", itemgroup_id, furniture_id)
 # This example will remove the specified furniture from the itemgroup's references
-func remove_reference(data: Dictionary, module: String, type: String, fromid: String, refid: String) -> bool:
+func remove_reference(mydata: Dictionary, module: String, type: String, fromid: String, refid: String) -> bool:
 	var changes_made: bool = false
 	if fromid != "":
-		var entitydata = get_data_by_id(data, fromid)
+		var entitydata = get_data_by_id(mydata, fromid)
 		if entitydata.has("references") and entitydata["references"].has(module) and entitydata["references"][module].has(type):
 			var refs = entitydata["references"][module][type]
 			if refid in refs:
@@ -428,8 +428,8 @@ func remove_relations_of_deleted_id(contentData: Dictionary, id: String):
 
 
 # Erases a nested property from a given dictionary based on a dot-separated path
-func erase_property_by_path(data: Dictionary, item_id: String, property_path: String):
-	var entity_data = get_data_by_id(data, item_id)
+func erase_property_by_path(mydata: Dictionary, item_id: String, property_path: String):
+	var entity_data = get_data_by_id(mydata, item_id)
 	if entity_data.is_empty():
 		print_debug("Entity with ID", item_id, "not found.")
 		return false
@@ -511,26 +511,26 @@ func on_furniture_deleted(furniture_id: String):
 # type = the type of reference we want to handle. For example "furniture"
 # callable = a function to execute on each reference ID
 # We will check if data has the ["references"] and [type] properties and execute the callable on each found ID
-func execute_callable_on_references_of_type(data: Dictionary, module: String, type: String, callable: Callable):
+func execute_callable_on_references_of_type(mydata: Dictionary, module: String, type: String, callable: Callable):
 	# Check if 'data' contains a 'references' dictionary and if it contains the specified 'type'
-	if data.has("references") and data["references"].has(module) and data["references"][module].has(type):
+	if mydata.has("references") and mydata["references"].has(module) and mydata["references"][module].has(type):
 		# If the type exists, execute the callable on each ID found under this type
-		for ref_id in data["references"][module][type]:
+		for ref_id in mydata["references"][module][type]:
 			callable.call(ref_id)
 
 
 # Retrieves the value of a nested property from a given dictionary based on a dot-separated path
-func get_property_by_path(data: Dictionary, property_path: String, entity_id: String) -> Variant:
-	var entity_data = get_data_by_id(data, entity_id)
+func get_property_by_path(mydata: Dictionary, property_path: String, entity_id: String) -> Variant:
+	var entity_data = get_data_by_id(mydata, entity_id)
 	if entity_data.is_empty():
 		print_debug("Entity with ID", entity_id, "not found.")
 		return null
 	return get_nested_data(entity_data, property_path)
 
 
-func get_nested_data(data: Dictionary, path: String) -> Variant:
+func get_nested_data(mydata: Dictionary, path: String) -> Variant:
 	var parts = path.split(".")
-	var current = data
+	var current = mydata
 	for part in parts:
 		if current.has(part):
 			current = current[part]
