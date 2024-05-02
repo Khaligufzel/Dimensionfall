@@ -2,55 +2,18 @@
 	{
 		"description": "Anything you can find in a kitchen cupboard",
 		"id": "kitchen_cupboard",
-		"in_furniture": [
-			"countertop_wood"
-		],
-		"items": [
-			"screwdriver",
-			"hammer",
-			"bandage_basic",
-			"bottle_antibiotics",
-			"flashlight_basic",
-			"pack_sigarrettes",
-			"battery_small",
-			"bottle_disinfectant",
-			"canned_food",
-			"bottle_plastic_water"
-		],
 		"name": "Kitchen cupboard",
 		"sprite": "canned_food_32.png"
 	},
 	{
 		"description": "Loot that's dropped by a mob",
 		"id": "mob_loot",
-		"items": [
-			"bullet_9mm",
-			"pistol_magazine",
-			"steel_scrap",
-			"plank_2x4"
-		],
 		"name": "Mob loot",
 		"sprite": "machete_32.png"
 	},
 	{
 		"description": "What you would find in a cabinet in a house, for example in the living room",
 		"id": "cabinet_general",
-		"in_furniture": [
-			"cabinet_wood_00"
-		],
-		"items": [
-			"bottle_plastic_empty",
-			"canned_food",
-			"hammer",
-			"screwdriver",
-			"bandage_basic",
-			"flashlight_basic",
-			"radio_handheld",
-			"pack_sigarrettes",
-			"battery_small",
-			"radio_two_way",
-			"kit_fishing_small"
-		],
 		"name": "General cabinet contents",
 		"sprite": "flashlight_32.png"
 	}

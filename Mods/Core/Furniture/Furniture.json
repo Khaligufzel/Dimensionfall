@@ -25,7 +25,7 @@
 	{
 		"Function": {
 			"container": {
-				"itemgroup": "kitchen_cupboard"
+
 			}
 		},
 		"categories": [
@@ -110,7 +110,7 @@
 	{
 		"Function": {
 			"container": {
-				"itemgroup": "cabinet_general"
+
 			}
 		},
 		"categories": [

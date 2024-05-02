@@ -20,6 +20,7 @@ func _ready():
 	var magazines = Gamedata.get_items_by_type("Magazine")
 	initialize_magazine_selection(magazines)
 
+
 func initialize_magazine_selection(magazines: Array):
 	for magazine in magazines:
 		var magazine_button = CheckBox.new()
