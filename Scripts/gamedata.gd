@@ -274,7 +274,6 @@ func get_items_by_type(item_type: String) -> Array:
 	return filtered_items
 
 
-
 # An itemgroup has been changed. Update items that were added or removed from the list
 # oldlist and newlist are arrays with item id strings in them
 func on_itemgroup_changed(itemgroup: String, oldlist: Array[String], newlist: Array[String]):
