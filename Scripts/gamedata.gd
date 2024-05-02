@@ -4,7 +4,6 @@ extends Node
 #It can be accessed by using Gamedata.property
 var data: Dictionary = {}
 
-
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
 	"tiles": {"dataPath": "./Mods/Core/Tiles/Tiles.json", "spritePath": "./Mods/Core/Tiles/"},
@@ -16,6 +15,7 @@ const DATA_CATEGORIES = {
 	"maps": {"dataPath": "./Mods/Core/Maps/", "spritePath": "./Mods/Core/Maps/"},
 	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"}
 }
+
 
 # We write down the associated paths for the files to load
 # Next, sprites are loaded from spritesPath into the .sprites property
@@ -272,7 +272,6 @@ func get_items_by_type(item_type: String) -> Array:
 				filtered_items.append(item)
 
 	return filtered_items
-
 
 
 # An itemgroup has been changed. Update items that were added or removed from the list
