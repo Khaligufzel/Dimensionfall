@@ -15,6 +15,9 @@ extends Control
 @export var moveableCheckboxButton: CheckBox = null
 @export var edgeSnappingOptionButton: OptionButton = null
 @export var doorOptionButton: OptionButton = null
+@export var containerCheckBox: CheckBox = null
+@export var containerTextEdit: TextEdit = null
+
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
 
@@ -56,6 +59,19 @@ func load_furniture_data():
 		select_option_by_string(edgeSnappingOptionButton, contentData["edgesnapping"])
 	if doorOptionButton:
 		update_door_option(contentData.get("Function", {}).get("door", "None"))
+	
+	# Load container data if it exists within the 'Function' property
+	var function_data = contentData.get("Function", {})
+	if "container" in function_data:
+		containerCheckBox.button_pressed = true  # Check the container checkbox
+		var container_data = function_data["container"]
+		if "itemgroup" in container_data:
+			containerTextEdit.text = container_data["itemgroup"]  # Set the text edit with the itemgroup ID
+		else:
+			containerTextEdit.clear()  # Clear the text edit if no itemgroup is specified
+	else:
+		containerCheckBox.button_pressed = false  # Uncheck the container checkbox
+		containerTextEdit.clear()  # Clear the text edit as no container data is present
 
 
 func update_door_option(door_state):
@@ -95,6 +111,27 @@ func _on_save_button_button_up():
 	contentData["moveable"] = moveableCheckboxButton.button_pressed
 	contentData["edgesnapping"] = edgeSnappingOptionButton.get_item_text(edgeSnappingOptionButton.selected)
 	handle_door_option()
+	
+	# Check if the container should be saved
+	if containerCheckBox.is_pressed():
+		# Initialize 'Function' dictionary if it doesn't exist
+		if "Function" not in contentData:
+			contentData["Function"] = {}
+			
+		# the container will remain empty if no itemgroup is set, 
+		# which will just act as an empty container
+		if containerTextEdit.text != "":
+			# Update or set the container property within the 'Function' dictionary
+			contentData["Function"]["container"] = {"itemgroup": containerTextEdit.text}
+		else: # No itemgroup provided, it's an emtpy container
+			contentData["Function"]["container"] = {}
+	elif "Function" in contentData and "container" in contentData["Function"]:
+		# If the checkbox is not checked or text edit is empty, remove the container data
+		contentData["Function"].erase("container")
+		# If the 'Function' dictionary becomes empty, remove it as well
+		if contentData["Function"].is_empty():
+			contentData.erase("Function")
+
 	data_changed.emit()
 
 
@@ -127,8 +164,57 @@ func _on_furniture_image_display_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		furnitureSelector.show()
 
+
 func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var furnitureTexture: Resource = clicked_sprite.get_texture()
 	furnitureImageDisplay.texture = furnitureTexture
 	imageNameStringLabel.text = furnitureTexture.resource_path.get_file()
 
+
+func _on_container_check_box_toggled(toggled_on):
+	if not toggled_on:
+		containerTextEdit.clear()
+
+
+func _on_clear_container_button_button_up():
+	containerTextEdit.clear()
+
+
+# This function should return true if the dragged data can be dropped here
+func _can_drop_data(_newpos, data) -> bool:
+	# Check if the containerCheckBox is checked; if not, return false
+	if not containerCheckBox.is_pressed():
+		return false
+
+	# Check if the data dictionary has the 'id' property
+	if not data or not data.has("id"):
+		return false
+	
+	# Fetch itemgroup data by ID from the Gamedata to ensure it exists and is valid
+	var itemgroup_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, data["id"])
+	if itemgroup_data.is_empty():
+		return false
+
+	# If all checks pass, return true
+	return true
+
+
+# This function handles the data being dropped
+func _drop_data(newpos, data) -> void:
+	if _can_drop_data(newpos, data):
+		_handle_item_drop(data, newpos)
+
+
+# Called when the user has successfully dropped data onto the ItemGroupTextEdit
+# We have to check the dropped_data for the id property
+func _handle_item_drop(dropped_data, _newpos) -> void:
+	# Assuming dropped_data is a Dictionary that includes an 'id'
+	if dropped_data and "id" in dropped_data:
+		var itemgroup_id = dropped_data["id"]
+		var itemgroup_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, itemgroup_id)
+		if itemgroup_data.is_empty():
+			print_debug("No item data found for ID: " + itemgroup_id)
+			return
+		containerTextEdit.text = itemgroup_id
+	else:
+		print_debug("Dropped data does not contain an 'id' key.")

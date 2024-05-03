@@ -111,6 +111,8 @@ text = "Cancel"
 [connection signal="button_up" from="Content/HBoxContainer/AddButton" to="." method="_on_add_button_button_up"]
 [connection signal="button_up" from="Content/HBoxContainer/DuplicateButton" to="." method="_on_duplicate_button_button_up"]
 [connection signal="button_up" from="Content/HBoxContainer/DeleteButton" to="." method="_on_delete_button_button_up"]
+[connection signal="gui_input" from="Content/ContentItems" to="." method="_on_content_items_gui_input"]
 [connection signal="item_activated" from="Content/ContentItems" to="." method="_on_content_items_item_activated"]
+[connection signal="mouse_entered" from="Content/ContentItems" to="." method="_on_content_items_mouse_entered"]
 [connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
 [connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]
