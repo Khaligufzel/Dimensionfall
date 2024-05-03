@@ -7,7 +7,8 @@
 		"id": "grass_plain",
 		"name": "Plain grass",
 		"shape": "cube",
-		"sprite": "1.png"
+		"sprite": "1.png",
+		"transparent": false
 	},
 	{
 		"categories": [

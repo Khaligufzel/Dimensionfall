@@ -32,12 +32,11 @@ extends Control
 @export var TwoHandedCheckBox: CheckBox = null
 
 
-
 # This signal will be emitted when the user presses the save button
-# This signal should alert Gamedata that the item data array should be saved to disk
-# The content editor has connected this signal to Gamedata already
-signal data_changed()
+# This signal should alert Gamedata that the mob data array should be saved to disk
+signal data_changed(game_data: Dictionary, new_data: Dictionary, old_data: Dictionary)
 
+var olddata: Dictionary # Remember what the value of the data was before editing
 # The data that represents this item
 # The data is selected from the Gamedata.data.items.data array
 # based on the ID that the user has selected in the content editor
@@ -46,9 +45,11 @@ var contentData: Dictionary = {}:
 		contentData = value
 		load_item_data()
 		itemSelector.sprites_collection = Gamedata.data.items.sprites
+		olddata = contentData.duplicate(true)
 		
 func _ready():
 	refresh_tab_visibility()
+	data_changed.connect(Gamedata.on_data_changed)
 
 #This function update the form based on the contentData that has been loaded
 func load_item_data() -> void:
@@ -120,7 +121,8 @@ func _on_save_button_button_up() -> void:
 				# Delete the property if checkbox is not checked and it exists in contentData
 				if contentData.has(child.text):
 					contentData.erase(child.text)
-	data_changed.emit()
+	data_changed.emit(Gamedata.data.items, contentData, olddata)
+	olddata = contentData.duplicate(true)
 
 
 #When the itemImageDisplay is clicked, the user will be prompted to select an image from 
