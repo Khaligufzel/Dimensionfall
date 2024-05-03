@@ -4,6 +4,7 @@ extends Node
 #It can be accessed by using Gamedata.property
 var data: Dictionary = {}
 
+
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
 	"tiles": {"dataPath": "./Mods/Core/Tiles/Tiles.json", "spritePath": "./Mods/Core/Tiles/"},
