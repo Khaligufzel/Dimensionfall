@@ -27,6 +27,9 @@ func _ready():
 	new_chunk.add_furniture_to_chunk(self)
 	check_door_functionality()
 	update_door_visuals()
+	# Add the container as a child on the same position as this furniture
+	add_container(Vector3(0,0,0))
+
 
 # Check if this furniture acts as a door
 # We check if the door data for this unique furniture has been set
@@ -60,11 +63,6 @@ func _die():
 	queue_free()
 
 
-func add_corpse(pos: Vector3):
-	var newItem: ContainerItem = ContainerItem.new()
-	newItem.add_to_group("mapitems")
-	newItem.construct_self(pos)
-	get_tree().get_root().add_child.call_deferred(newItem)
 
 
 # Will update the sprite of this furniture and set a collisionshape based on it's size
@@ -218,3 +216,38 @@ func get_data() -> Dictionary:
 	if "Function" in furnitureJSONData and "door" in furnitureJSONData.Function:
 		newfurniturejson["Function"] = {"door": door_state}
 	return newfurniturejson
+
+
+# When the furniture is destroyed, it leaves a wreck behind
+func add_corpse(pos: Vector3):
+	var newItem: ContainerItem = ContainerItem.new()
+	
+	# TODO: Implement furniture wreck loot group and wreck property for furniture
+	newItem.itemgroup = "mob_loot"
+	
+	newItem.add_to_group("mapitems")
+	newItem.construct_self(pos)
+	# Finally add the new item with possibly set loot group to the tree
+	get_tree().get_root().add_child.call_deferred(newItem)
+
+
+# If this furniture is a container, it will add a container node to the furniture
+# If there is an itemgroup assigned to the furniture, it will be added to the container
+# Which will fill up the container with items from the itemgroup
+func add_container(pos: Vector3):
+	# Check if the furnitureJSONData has 'Function' and if 'Function' has 'container'
+	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
+		var newItem: ContainerItem = ContainerItem.new()
+		
+		# Check if the container has an 'itemgroup'
+		if "itemgroup" in furnitureJSONData["Function"]["container"]:
+			newItem.itemgroup = furnitureJSONData["Function"]["container"]["itemgroup"]
+		else:
+			# The furniture is a container, but no items are in it. We still create an empty container
+			print_debug("No itemgroup found for container in furniture ID: " + str(furnitureJSONData["id"]))
+
+		newItem.construct_self(pos)
+		# Add the new item with possibly set itemgroup as a child.
+		add_child.call_deferred(newItem)
+	else:
+		print_debug("Function or container property not found in furniture JSON Data for ID: " + str(furnitureJSONData["id"]))

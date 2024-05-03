@@ -72,10 +72,26 @@ func _die():
 	add_corpse.call_deferred(global_position)
 	queue_free()
 
+
 func add_corpse(pos: Vector3):
 	var newItem: ContainerItem = ContainerItem.new()
+	
+	# Retrieve mob data from Gamedata
+	var mob_data = Gamedata.get_data_by_id(Gamedata.data.mobs, mobJSON.id)
+	if mob_data.is_empty():
+		print_debug("No mob data found for ID: " + str(mobJSON.id))
+		return
+
+	# Check if the mob data has a 'loot_group' property
+	if "loot_group" in mob_data:
+		# Set the itemgroup property of the new ContainerItem
+		newItem.itemgroup = mob_data["loot_group"]
+	else:
+		print_debug("No loot_group found for mob ID: " + str(mobJSON.id))
+	
 	newItem.add_to_group("mapitems")
 	newItem.construct_self(pos)
+	# Finally add the new item with possibly set loot group to the tree
 	get_tree().get_root().add_child.call_deferred(newItem)
 
 

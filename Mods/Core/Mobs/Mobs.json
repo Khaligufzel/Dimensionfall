@@ -5,6 +5,7 @@
 		"hearing_range": "1000",
 		"id": "scrapwalker",
 		"idle_move_speed": "0.5",
+		"loot_group": "mob_loot",
 		"melee_damage": "20",
 		"melee_range": "1.5",
 		"move_speed": "1.1",

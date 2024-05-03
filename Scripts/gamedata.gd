@@ -17,6 +17,7 @@ const DATA_CATEGORIES = {
 	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"}
 }
 
+
 # We write down the associated paths for the files to load
 # Next, sprites are loaded from spritesPath into the .sprites property
 # Finally, the data is loaded from dataPath into the .data property

@@ -108,7 +108,10 @@ func create_new_json_file(filename: String = "", isArray: bool = true):
 
 	# Extract the directory path from the filename and check if it exists.
 	var directory_path = filename.get_base_dir()
-	var dir = DirAccess.open("res://")
+	var base_dir = "./"
+	if directory_path.begins_with("user://"):
+		base_dir = "user://"
+	var dir = DirAccess.open(base_dir)
 	if not dir.dir_exists(directory_path):
 		# Create the directory if it does not exist.
 		var err = dir.make_dir_recursive(directory_path)
