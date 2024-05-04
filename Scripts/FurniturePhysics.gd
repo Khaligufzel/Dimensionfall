@@ -27,9 +27,10 @@ func _ready():
 func _physics_process(_delta):
 	if global_transform.origin != furnitureposition and \
 	not global_transform.origin.x == 0 and not global_transform.origin.y == 0:
-		_moved(furnitureposition, global_transform.origin)
-	if rotation_degrees.y != last_rotation:
-		last_rotation = rotation_degrees.y
+		_moved(global_transform.origin)
+	var current_rotation = int(rotation_degrees.y)
+	if current_rotation != last_rotation:
+		last_rotation = current_rotation
 
 
 func get_hit(damage):
@@ -125,7 +126,7 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 
 
 # Check if we crossed the chunk boundary and update our association with the chunks
-func _moved(oldpos: Vector3, newpos:Vector3):
+func _moved(newpos:Vector3):
 	furnitureposition = newpos
 	var new_chunk = Helper.map_manager.get_chunk_from_position(furnitureposition)
 	if not current_chunk == new_chunk:

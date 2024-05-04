@@ -23,7 +23,6 @@ var header: String = "Items":
 		collapseButton.text = header
 
 
-
 #This function adds items to the content list based on the provided path
 #If the path is a directory, it will list all the files in the directory
 #If the path is a json file, it will list all the items in the json file
@@ -41,6 +40,8 @@ func load_data():
 		make_file_list()
 	else:
 		make_item_list()
+	load_collapse_state()
+
 
 # Loops over all the items in contentData.data (which are dictionaries)
 # Creates a new item in the list with the id of the item as text
@@ -95,16 +96,19 @@ func _on_content_items_item_activated(index: int):
 		print_debug("Tried to signal that item with ID (" + str(index) + ") was activated,\
 		 but the item has no metadata")
 
+
 #This function will append an item to the game data
 func add_item_to_data(id: String):
 	Gamedata.add_id_to_data(contentData, id)
 	load_data()
-	
+
+
 #This function will show a pop-up asking the user to input an ID
 func _on_add_button_button_up():
 	popupAction = "Add"
 	popup_textedit.text = ""
 	pupup_ID.show()
+
 
 #This function requires that an item from the list is selected
 #Once clicked, it will show pupup_ID to ask the user for a new ID
@@ -119,7 +123,7 @@ func _on_duplicate_button_button_up():
 	popupAction = "Duplicate"
 	popup_textedit.text = selected_id
 	pupup_ID.show()
-	
+
 
 #Called after the user enters an ID into the popup textbox and presses OK
 func _on_ok_button_up():
@@ -139,10 +143,12 @@ func _on_ok_button_up():
 	popupAction = ""
 	load_data()
 
+
 #Called after the users presses cancel on the popup asking for an ID
 func _on_cancel_button_up():
 	pupup_ID.hide()
 	popupAction = ""
+
 
 #This function requires that an item from the list is selected
 #Once clicked, the selected item will be removed from contentItems
@@ -155,13 +161,20 @@ func _on_delete_button_button_up():
 	Gamedata.remove_item_from_data(contentData, selected_id)
 	load_data()
 
+
 func get_selected_item_text() -> String:
 	if !contentItems.is_anything_selected():
 		return ""
 	return contentItems.get_item_text(contentItems.get_selected_items()[0])
 
+
 #This function will collapse and expand the $Content/ContentItems when the collapse button is pressed
 func _on_collapse_button_button_up():
+	save_collapse_state()
+	set_collapsed()
+
+
+func set_collapsed():
 	contentItems.visible = is_collapsed
 	if is_collapsed:
 		size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -194,7 +207,7 @@ func _get_drag_data(_newpos):
 
 
 # This function should return true if the dragged data can be dropped here
-func _can_drop_data(_newpos, data) -> bool:
+func _can_drop_data(_newpos, _data) -> bool:
 	return false
 
 
@@ -244,3 +257,33 @@ func _on_content_items_gui_input(event):
 
 func _on_content_items_mouse_entered():
 	mouse_button_is_pressed = false
+
+
+func save_collapse_state():
+	var config = ConfigFile.new()
+	var path = "user://settings.cfg"
+	
+	# Ensure to load existing settings to not overwrite them
+	var err = config.load(path)
+	if err != OK and err != ERR_FILE_NOT_FOUND:
+		print("Failed to load settings:", err)
+		return
+
+	config.set_value("contenteditor:contentlist:"+header, "is_collapsed", is_collapsed)
+	config.save(path)
+
+
+func load_collapse_state():
+	var config = ConfigFile.new()
+	var path = "user://settings.cfg"
+	
+	# Load the config file
+	var err = config.load(path)
+	if err == OK:
+		if config.has_section_key("contenteditor:contentlist:" + header, "is_collapsed"):
+			is_collapsed = config.get_value("contenteditor:contentlist:" + header, "is_collapsed")
+			set_collapsed()
+		else:
+			print("No saved state for:", header)
+	else:
+		print("Failed to load settings for:", header, "with error:", err)

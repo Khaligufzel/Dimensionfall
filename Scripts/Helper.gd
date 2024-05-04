@@ -127,14 +127,14 @@ func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstan
 	return mesh_instance
 
 
-func raycast_from_mouse(m_pos, collision_mask):
+func raycast_from_mouse(m_pos, collision_mask) -> Dictionary:
 	var ray_start = get_tree().get_first_node_in_group("Camera").project_ray_origin(m_pos)
 	var ray_end = ray_start + get_tree().get_first_node_in_group("Camera").project_ray_normal(m_pos) * 1000
 	var world3d : World3D = get_world_3d()
 	var space_state = world3d.direct_space_state
 	
 	if space_state == null:
-		return
+		return {}
 	
 	var query = PhysicsRayQueryParameters3D.create(ray_start, ray_end, collision_mask)
 	query.collide_with_areas = true

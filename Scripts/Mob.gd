@@ -48,8 +48,10 @@ func _physics_process(_delta):
 			# We have crossed over to another chunk so we use that navigationmap now.
 			update_navigation_agent_map(current_chunk)
 
-	if rotation_degrees.y != last_rotation:
-		last_rotation = rotation_degrees.y
+	var current_rotation = int(rotation_degrees.y)
+	if current_rotation != last_rotation:
+		last_rotation = current_rotation
+
 
 func update_navigation_agent_map(chunk_position: Vector2):
 	# Assume 'chunk_navigation_maps' is a global dictionary mapping chunk positions to navigation map IDs
