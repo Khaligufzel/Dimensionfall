@@ -515,79 +515,6 @@ func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
 		print_debug("No changes were made to furniture itemgroups.")
 
 
-# Responds to a signal in GridContainer.gd. Is triggered when the user saves a map in the mapeditor
-# Check that there is a difference between newdata["levels"] and olddata["levels"]
-# It will update the references to this map
-func on_mapdata_changed(map_path: String, newdata: Dictionary, olddata: Dictionary):
-	var max_levels = max(newdata["levels"].size(), olddata["levels"].size())
-	var map_id = map_path.get_file().replace(".json", "")
-	var changes_made = false
-	
-	for level_index in range(max_levels):
-		var new_level = newdata["levels"][level_index] if newdata["levels"].size() > level_index else []
-		var old_level = olddata["levels"][level_index] if olddata["levels"].size() > level_index else []
-		
-		if new_level.size() > 0 and old_level.size() == 0:
-			# Entire level was added
-			for new_entity in new_level:
-				if new_entity.has("mob"):
-					changes_made = add_reference(Gamedata.data.mobs, "core", "maps", \
-					new_entity["mob"]["id"], map_id) or changes_made
-				if new_entity.has("furniture"):
-					changes_made = add_reference(Gamedata.data.furniture, "core", "maps", \
-					new_entity["furniture"]["id"], map_id) or changes_made
-				if new_entity.has("id"):
-					changes_made = add_reference(Gamedata.data.tiles, "core", "maps", \
-					new_entity["id"], map_id) or changes_made
-		elif new_level.size() == 0 and old_level.size() > 0:
-			# Entire level was removed
-			for old_entity in old_level:
-				if old_entity.has("mob"):
-					changes_made = remove_reference(Gamedata.data.mobs, "core", "maps", \
-					old_entity["mob"]["id"], map_id) or changes_made
-				if old_entity.has("furniture"):
-					changes_made = remove_reference(Gamedata.data.furniture, "core", "maps", \
-					old_entity["furniture"]["id"], map_id) or changes_made
-				if old_entity.has("id"):
-					changes_made = remove_reference(Gamedata.data.tiles, "core", "maps", \
-					old_entity["id"], map_id) or changes_made
-		else:
-			# Compare individual entities in levels
-			for entity_index in range(max(new_level.size(), old_level.size())):
-				var new_entity = new_level[entity_index] if new_level.size() > entity_index else {}
-				var old_entity = old_level[entity_index] if old_level.size() > entity_index else {}
-				
-				if new_entity.get("mob", {}) != old_entity.get("mob", {}):
-					if new_entity.has("mob"):
-						changes_made = add_reference(Gamedata.data.mobs, "core", "maps", \
-						new_entity["mob"]["id"], map_id) or changes_made
-					if old_entity.has("mob") and not new_entity.has("mob"):
-						changes_made = remove_reference(Gamedata.data.mobs, "core", "maps", \
-						old_entity["mob"]["id"], map_id) or changes_made
-				if new_entity.get("furniture", {}) != old_entity.get("furniture", {}):
-					if new_entity.has("furniture"):
-						changes_made = add_reference(Gamedata.data.furniture, "core", "maps", \
-						new_entity["furniture"]["id"], map_id) or changes_made
-					if old_entity.has("furniture") and not new_entity.has("furniture"):
-						changes_made = remove_reference(Gamedata.data.furniture, "core", "maps", \
-						old_entity["furniture"]["id"], map_id) or changes_made
-
-				if new_entity.get("id", "") != old_entity.get("id", ""):
-					if new_entity.has("id"):
-						changes_made = add_reference(Gamedata.data.tiles, "core", "maps", \
-						new_entity["id"], map_id) or changes_made
-					if old_entity.has("id") and not new_entity.has("id"):
-						changes_made = remove_reference(Gamedata.data.tiles, "core", "maps", \
-						old_entity["id"], map_id) or changes_made
-
-	if changes_made:
-		# References have been added to tiles, furniture and/or mobs
-		# We could track changes individually so we only save what has actually changed.
-		save_data_to_file(Gamedata.data.tiles)
-		save_data_to_file(Gamedata.data.furniture)
-		save_data_to_file(Gamedata.data.mobs)
-
-
 # Removes all instances of the provided entity from the provided map
 # map_id is the id of one of the maps. It will be loaded from json to manipulate it.
 # entity_type can be "tile", "furniture" or "mob"
@@ -802,3 +729,66 @@ func on_map_deleted(map_id: String):
 		save_data_to_file(Gamedata.data.tiles)
 		save_data_to_file(Gamedata.data.furniture)
 		save_data_to_file(Gamedata.data.mobs)
+
+# Function to collect unique entities from each level in newdata and olddata
+func collect_unique_entities(newdata: Dictionary, olddata: Dictionary) -> Dictionary:
+	var new_entities = {
+		"mobs": [],
+		"furniture": [],
+		"tiles": []
+	}
+	var old_entities = {
+		"mobs": [],
+		"furniture": [],
+		"tiles": []
+	}
+
+	# Collect entities from newdata
+	for level in newdata.get("levels", []):
+		add_entities_to_set(level, new_entities)
+
+	# Collect entities from olddata
+	for level in olddata.get("levels", []):
+		add_entities_to_set(level, old_entities)
+	
+	return {"new_entities": new_entities, "old_entities": old_entities}
+
+
+# Helper function to add entities to the respective sets
+func add_entities_to_set(level: Array, entity_set: Dictionary):
+	for entity in level:
+		if entity.has("mob") and not entity_set["mobs"].has(entity["mob"]["id"]):
+			entity_set["mobs"].append(entity["mob"]["id"])
+		if entity.has("furniture") and not entity_set["furniture"].has(entity["furniture"]["id"]):
+			entity_set["furniture"].append(entity["furniture"]["id"])
+		if entity.has("id") and not entity_set["tiles"].has(entity["id"]):
+			entity_set["tiles"].append(entity["id"])
+
+
+# Function to update map entity references when a map's data changes
+func on_mapdata_changed(map_id: String, newdata: Dictionary, olddata: Dictionary):
+	# Collect unique entities from both new and old data
+	var entities = collect_unique_entities(newdata, olddata)
+	var new_entities = entities["new_entities"]
+	var old_entities = entities["old_entities"]
+	map_id = map_id.get_file().replace(".json", "")
+
+	# Add references for new entities
+	for entity_type in new_entities.keys():
+		for entity_id in new_entities[entity_type]:
+			if not old_entities[entity_type].has(entity_id):
+				add_reference(Gamedata.data[entity_type], "core", "maps", entity_id, map_id)
+
+	# Remove references for entities not present in new data
+	for entity_type in old_entities.keys():
+		for entity_id in old_entities[entity_type]:
+			if not new_entities[entity_type].has(entity_id):
+				remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, map_id)
+
+	# Save changes to the data files if there were any updates
+	if new_entities["mobs"].size() > 0 or old_entities["mobs"].size() > 0:
+		save_data_to_file(Gamedata.data.mobs)
+	if new_entities["furniture"].size() > 0 or old_entities["furniture"].size() > 0:
+		save_data_to_file(Gamedata.data.furniture)
+	if new_entities["tiles"].size() > 0 or old_entities["tiles"].size() > 0:
+		save_data_to_file(Gamedata.data.tiles)
