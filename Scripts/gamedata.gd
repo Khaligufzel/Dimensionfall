@@ -305,44 +305,6 @@ func on_itemgroup_changed(newdata: Dictionary, olddata: Dictionary):
 		save_data_to_file(Gamedata.data.items)
 
 
-# An itemgroup is being deleted from the data
-# We have to loop over all the items in the itemgroup
-# We can get the items by calling get_data_by_id(contentData, id) 
-# and getting the items property, which will return an array of item id's
-# For each item, we have to get the item's data, and delete the itemgroup from the item's itemgroups property if it is present
-func on_itemgroup_deleted(itemgroup_id: String):
-	var changes_made = false
-	var itemgroup_data = get_data_by_id(Gamedata.data.itemgroups, itemgroup_id)
-
-	if itemgroup_data.is_empty():
-		print_debug("Itemgroup with ID", itemgroup_id, "not found.")
-		return
-
-	# This callable will remove this itemgroups from every furniture that reference this itemgroup.
-	var myfunc: Callable = func (furn_id):
-		if erase_property_by_path(Gamedata.data.furniture, furn_id, "Function.container.itemgroup"):
-			changes_made = true
-	# Pass the callable to every furniture in the itemgroup's references
-	# It will call myfunc on every furniture in itemgroup_data.references.core.furniture
-	execute_callable_on_references_of_type(itemgroup_data, "core", "furniture", myfunc)
-
-	# The itemgroup data contains a list of item IDs in an 'items' attribute
-	# Loop over all the items in the list and remove the reference to this itemgroup
-	if "items" in itemgroup_data:
-		var item_ids = itemgroup_data["items"]
-		for item_id in item_ids:
-			# Use remove_reference to handle deletion of itemgroup references
-			changes_made = remove_reference(Gamedata.data.items, "core", "itemgroups", \
-			item_id, itemgroup_id) or changes_made
-
-
-	# Save changes to the data file if any changes were made
-	if changes_made:
-		save_data_to_file(Gamedata.data.items)
-		save_data_to_file(Gamedata.data.furniture)
-		print_debug("Itemgroup", itemgroup_id, "has been successfully deleted from all items.")
-	else:
-		print_debug("No changes needed for itemgroup", itemgroup_id)
 
 
 # Adds a reference to an entity
@@ -434,54 +396,7 @@ func erase_property_by_path(mydata: Dictionary, item_id: String, property_path: 
 		return false
 
 
-# An item is being deleted from the data
-# We have to remove it from everything that references it
-func on_item_deleted(item_id: String):
-	var changes_made = false
-	var item_data = get_data_by_id(Gamedata.data.items, item_id)
-	
-	if item_data.is_empty():
-		print_debug("Item with ID", item_data, "not found.")
-		return
-	
-	# This callable will remove this item from itemgroups that reference this item.
-	var myfunc: Callable = func (itemgroup_id):
-		var itemlist: Array = get_property_by_path(Gamedata.data.itemgroups, "items", itemgroup_id)
-		if item_id in itemlist:
-			itemlist.erase(item_id)
-			changes_made = true
-	# Pass the callable to every itemgroup in the item's references
-	# It will call myfunc on every itemgroup in item_data.references.core.itemgroups
-	execute_callable_on_references_of_type(item_data, "core", "itemgroups", myfunc)
 
-	# Save changes to the data file if any changes were made
-	if changes_made:
-		save_data_to_file(Gamedata.data.itemgroups)
-	else:
-		print_debug("No changes needed for item", item_id)
-
-
-# Some furniture is being deleted from the data
-# We have to remove it from everything that references it
-func on_furniture_deleted(furniture_id: String):
-	var changes_made = false
-	var furniture_data = get_data_by_id(Gamedata.data.furniture, furniture_id)
-	
-	if furniture_data.is_empty():
-		print_debug("Item with ID", furniture_data, "not found.")
-		return
-
-	var itemgroup: String = get_property_by_path(Gamedata.data.furniture, \
-	"Function.container.itemgroup", furniture_id)
-	# Handle the old itemgroup
-	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
-	itemgroup, furniture_id) or changes_made
-
-	# Save changes to the data file if any changes were made
-	if changes_made:
-		save_data_to_file(Gamedata.data.itemgroups)
-	else:
-		print_debug("No changes needed for item", furniture_id)
 
 
 # Executes a callable function on each reference of the given type
@@ -580,3 +495,261 @@ func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
 		print_debug("Furniture itemgroup changes saved successfully.")
 	else:
 		print_debug("No changes were made to furniture itemgroups.")
+
+
+# Responds to a signal in GridContainer.gd. Is triggered when the user saves a map in the mapeditor
+# Check that there is a difference between newdata["levels"] and olddata["levels"]
+# It will update the references to this map
+func on_mapdata_changed(map_path: String, newdata: Dictionary, olddata: Dictionary):
+	var max_levels = max(newdata["levels"].size(), olddata["levels"].size())
+	var map_id = map_path.get_file().replace(".json", "")
+	var changes_made = false
+	
+	for level_index in range(max_levels):
+		var new_level = newdata["levels"][level_index] if newdata["levels"].size() > level_index else []
+		var old_level = olddata["levels"][level_index] if olddata["levels"].size() > level_index else []
+		
+		if new_level.size() > 0 and old_level.size() == 0:
+			# Entire level was added
+			for new_entity in new_level:
+				if new_entity.has("mob"):
+					changes_made = add_reference(Gamedata.data.mobs, "core", "maps", \
+					map_id, new_entity["mob"]["id"]) or changes_made
+				if new_entity.has("furniture"):
+					changes_made = add_reference(Gamedata.data.furniture, "core", "maps", \
+					map_id, new_entity["furniture"]["id"]) or changes_made
+				if new_entity.has("id"):
+					changes_made = add_reference(Gamedata.data.tiles, "core", "maps", \
+					map_id, new_entity["id"]) or changes_made
+		elif new_level.size() == 0 and old_level.size() > 0:
+			# Entire level was removed
+			for old_entity in old_level:
+				if old_entity.has("mob"):
+					changes_made = remove_reference(Gamedata.data.mobs, "core", "maps", \
+					map_id, old_entity["mob"]["id"]) or changes_made
+				if old_entity.has("furniture"):
+					changes_made = remove_reference(Gamedata.data.furniture, "core", "maps", \
+					map_id, old_entity["furniture"]["id"]) or changes_made
+				if old_entity.has("id"):
+					changes_made = remove_reference(Gamedata.data.tiles, "core", "maps", \
+					map_id, old_entity["id"]) or changes_made
+		else:
+			# Compare individual entities in levels
+			for entity_index in range(max(new_level.size(), old_level.size())):
+				var new_entity = new_level[entity_index] if new_level.size() > entity_index else {}
+				var old_entity = old_level[entity_index] if old_level.size() > entity_index else {}
+				
+				if new_entity.get("mob", {}) != old_entity.get("mob", {}):
+					if new_entity.has("mob"):
+						changes_made = add_reference(Gamedata.data.mobs, "core", "maps", \
+						map_id, new_entity["mob"]["id"]) or changes_made
+					if old_entity.has("mob") and not new_entity.has("mob"):
+						changes_made = remove_reference(Gamedata.data.mobs, "core", "maps", \
+						map_id, old_entity["mob"]["id"]) or changes_made
+				if new_entity.get("furniture", {}) != old_entity.get("furniture", {}):
+					if new_entity.has("furniture"):
+						changes_made = add_reference(Gamedata.data.furniture, "core", "maps", \
+						map_id, new_entity["furniture"]["id"]) or changes_made
+					if old_entity.has("furniture") and not new_entity.has("furniture"):
+						changes_made = remove_reference(Gamedata.data.furniture, "core", "maps", \
+						map_id, old_entity["furniture"]["id"]) or changes_made
+
+				if new_entity.get("id", "") != old_entity.get("id", ""):
+					if new_entity.has("id"):
+						changes_made = add_reference(Gamedata.data.tiles, "core", "maps", \
+						map_id, new_entity["id"]) or changes_made
+					if old_entity.has("id") and not new_entity.has("id"):
+						changes_made = remove_reference(Gamedata.data.tiles, "core", "maps", \
+						map_id, old_entity["id"]) or changes_made
+
+	if changes_made:
+		# References have been added to tiles, furniture and/or mobs
+		# We could track changes individually so we only save what has actually changed.
+		save_data_to_file(Gamedata.data.tiles)
+		save_data_to_file(Gamedata.data.furniture)
+		save_data_to_file(Gamedata.data.mobs)
+
+
+# Removes all instances of the provided entity from the provided map
+# map_id is the id of one of the maps. It will be loaded from json to manipulate it.
+# entity_type can be "tile", "furniture" or "mob"
+# entity_id is the id of the tile, furniture or mob
+func remove_entity_from_map(map_id: String, entity_type: String, entity_id: String) -> void:
+	var fileToLoad = Gamedata.data.maps.dataPath + map_id + ".json"
+	var mapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(fileToLoad)
+	if not mapdata.has("levels"):
+		print("Map data does not contain 'levels'.")
+		return
+
+	var levels = mapdata["levels"]
+	# Translate the type to the actual key that we need
+	if entity_type == "tile":
+		entity_type = "id"
+
+	# Iterate over each level in the map
+	for level_index in range(levels.size()):
+		var level = levels[level_index]
+
+		# Iterate through each entity in the level
+		for entity_index in range(level.size()):
+			var entity = level[entity_index]
+
+			match entity_type:
+				"id":
+					# Check if the entity's 'id' matches and replace the entire 
+					# entity with an empty object
+					if entity.get("id", "") == entity_id:
+						level[entity_index] = {}  # Replacing entity with an empty object
+				"furniture":
+					# Check if the entity has 'furniture' and the 'id' within it matches
+					if entity.has("furniture") and entity["furniture"].get("id", "") == entity_id:
+						entity.erase("furniture")  # Removing the furniture object from the entity
+				"mob":
+					# Check if the entity has 'mob' and the 'id' within it matches
+					if entity.has("mob") and entity["mob"].get("id", "") == entity_id:
+						entity.erase("mob")  # Removing the mob object from the entity
+
+		# Update the level in the mapdata after modifications
+		levels[level_index] = level
+
+	# Update the mapdata levels after processing all
+	mapdata["levels"] = levels
+	print_debug("Entity removal operations completed for all levels.")
+	var map_data_json = JSON.stringify(mapdata.duplicate(), "\t")
+	Helper.json_helper.write_json_file(fileToLoad, map_data_json)
+
+
+# Some furniture is being deleted from the data
+# We have to remove it from everything that references it
+func on_furniture_deleted(furniture_id: String):
+	var changes_made = false
+	var furniture_data = get_data_by_id(Gamedata.data.furniture, furniture_id)
+	
+	if furniture_data.is_empty():
+		print_debug("Item with ID", furniture_data, "not found.")
+		return
+
+	var itemgroup: String = get_property_by_path(Gamedata.data.furniture, \
+	"Function.container.itemgroup", furniture_id)
+	# Handle the old itemgroup
+	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
+	itemgroup, furniture_id) or changes_made
+	
+	# Check if the furniture has references to maps and remove it from those maps
+	var maps = get_nested_data(furniture_data,"references.core.maps")
+	for map_id in maps:
+		remove_entity_from_map(map_id, "furniture", furniture_id)
+
+	# Save changes to the data file if any changes were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.itemgroups)
+	else:
+		print_debug("No changes needed for item", furniture_id)
+
+
+# Some mob is being deleted from the data
+# We have to remove it from everything that references it
+func on_mob_deleted(mob_id: String):
+	var changes_made = false
+	var mob_data = get_data_by_id(Gamedata.data.mobs, mob_id)
+	if mob_data.is_empty():
+		print_debug("Item with ID", mob_data, "not found.")
+		return
+
+	# Remove the reference to this mob from the loot_group
+	var loot_group: String = mob_data.get("loot_group")
+	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "mobs", \
+	loot_group, mob_id) or changes_made
+	
+	# Check if the mob has references to maps and remove it from those maps
+	var maps = get_nested_data(mob_data,"references.core.maps")
+	for map_id in maps:
+		remove_entity_from_map(map_id, "mob", mob_id)
+
+	# Save changes to the data file if any changes were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.itemgroups)
+	else:
+		print_debug("No changes needed for item", mob_id)
+
+
+# Some mob is being deleted from the data
+# We have to remove it from everything that references it
+func on_tile_deleted(tile_id: String):
+	var tile_data = get_data_by_id(Gamedata.data.tiles, tile_id)
+	if tile_data.is_empty():
+		print_debug("Item with ID", tile_data, "not found.")
+		return
+
+	# Check if the tile has references to maps and remove it from those maps
+	var modules = get_nested_data(tile_data,"references")
+	for mod in modules:
+		var maps = get_nested_data(mod,"maps")
+		for map_id in maps:
+			remove_entity_from_map(map_id, "tile", tile_id)
+
+
+# An item is being deleted from the data
+# We have to remove it from everything that references it
+func on_item_deleted(item_id: String):
+	var changes_made = false
+	var item_data = get_data_by_id(Gamedata.data.items, item_id)
+	
+	if item_data.is_empty():
+		print_debug("Item with ID", item_data, "not found.")
+		return
+	
+	# This callable will remove this item from itemgroups that reference this item.
+	var myfunc: Callable = func (itemgroup_id):
+		var itemlist: Array = get_property_by_path(Gamedata.data.itemgroups, "items", itemgroup_id)
+		if item_id in itemlist:
+			itemlist.erase(item_id)
+			changes_made = true
+	# Pass the callable to every itemgroup in the item's references
+	# It will call myfunc on every itemgroup in item_data.references.core.itemgroups
+	execute_callable_on_references_of_type(item_data, "core", "itemgroups", myfunc)
+
+	# Save changes to the data file if any changes were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.itemgroups)
+	else:
+		print_debug("No changes needed for item", item_id)
+
+
+# An itemgroup is being deleted from the data
+# We have to loop over all the items in the itemgroup
+# We can get the items by calling get_data_by_id(contentData, id) 
+# and getting the items property, which will return an array of item id's
+# For each item, we have to get the item's data, and delete the itemgroup from the item's itemgroups property if it is present
+func on_itemgroup_deleted(itemgroup_id: String):
+	var changes_made = false
+	var itemgroup_data = get_data_by_id(Gamedata.data.itemgroups, itemgroup_id)
+
+	if itemgroup_data.is_empty():
+		print_debug("Itemgroup with ID", itemgroup_id, "not found.")
+		return
+
+	# This callable will remove this itemgroups from every furniture that reference this itemgroup.
+	var myfunc: Callable = func (furn_id):
+		if erase_property_by_path(Gamedata.data.furniture, furn_id, "Function.container.itemgroup"):
+			changes_made = true
+	# Pass the callable to every furniture in the itemgroup's references
+	# It will call myfunc on every furniture in itemgroup_data.references.core.furniture
+	execute_callable_on_references_of_type(itemgroup_data, "core", "furniture", myfunc)
+
+	# The itemgroup data contains a list of item IDs in an 'items' attribute
+	# Loop over all the items in the list and remove the reference to this itemgroup
+	if "items" in itemgroup_data:
+		var item_ids = itemgroup_data["items"]
+		for item_id in item_ids:
+			# Use remove_reference to handle deletion of itemgroup references
+			changes_made = remove_reference(Gamedata.data.items, "core", "itemgroups", \
+			item_id, itemgroup_id) or changes_made
+
+	# Save changes to the data file if any changes were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.items)
+		save_data_to_file(Gamedata.data.furniture)
+		print_debug("Itemgroup", itemgroup_id, "has been successfully deleted from all items.")
+	else:
+		print_debug("No changes needed for itemgroup", itemgroup_id)

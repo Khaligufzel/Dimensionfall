@@ -36,10 +36,11 @@ var start_point = Vector2()
 var end_point = Vector2()
 var is_drawing = false
 var snapLevel: Vector2 = Vector2(snapAmount, snapAmount).round()
-# Variable to hold copied tile data along with dimensions
+# Variable to hold copied tile data along with dimensions. Used for copy-pasting.
 var copied_tiles_info: Dictionary = {"tiles_data": [], "all_levels_data": [], "width": 0, "height": 0}
 
 
+var olddata: Dictionary #Used to remember the mapdata before it was changed
 #Contains map metadata like size as well as the data on all levels
 var mapData: Dictionary = defaultMapData.duplicate():
 	set(data):
@@ -49,6 +50,7 @@ var mapData: Dictionary = defaultMapData.duplicate():
 			mapData = data.duplicate()
 		loadLevelData(currentLevel)
 signal zoom_level_changed(zoom_level: int)
+signal map_data_changed(map_path: String, new_data: Dictionary, old_data: Dictionary)
 
 
 # This function is called when the parent mapeditor node is ready
@@ -61,6 +63,7 @@ func _on_mapeditor_ready() -> void:
 	levelgrid_below.hide()
 	levelgrid_above.hide()
 	_on_zoom_level_changed(mapEditor.zoom_level)
+	map_data_changed.connect(Gamedata.on_mapdata_changed)
 
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
@@ -521,15 +524,16 @@ func _on_show_above_toggled(button_pressed):
 func save_map_json_file():
 	# Convert the TileGrid.mapData to a JSON string
 	storeLevelData()
+	map_data_changed.emit(mapEditor.contentSource, mapData, olddata)
 	var map_data_json = JSON.stringify(mapData.duplicate(), "\t")
 	Helper.json_helper.write_json_file(mapEditor.contentSource, map_data_json)
+	olddata = mapData.duplicate(true)
 
 
 func load_map_json_file():
 	var fileToLoad: String = mapEditor.contentSource
 	mapData = Helper.json_helper.load_json_dictionary_file(fileToLoad)
-
-	
+	olddata = mapData.duplicate(true)
 
 
 # Function to create a 128x128 miniature map of the current level
