@@ -134,7 +134,7 @@ func _on_ok_button_up():
 	if popupAction == "Add":
 			Gamedata.add_id_to_data(contentData, myText)
 	if popupAction == "Duplicate":
-		if contentData.data.datapath.ends_with(".json"):  # It's a json file with items
+		if contentData.dataPath.ends_with(".json"):  # It's a json file with items
 			Gamedata.duplicate_item_in_data(contentData,get_selected_item_text(),myText)
 		else: #It's folder with json files
 			Gamedata.duplicate_file_in_data(contentData,get_selected_item_text(),myText)

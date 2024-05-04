@@ -82,7 +82,7 @@ func folder_names_in_dir(path: String) -> Array:
 
 
 #This function takes a json string and saves it as a json file.
-func write_json_file(path: String, json: String):
+func write_json_file(path: String, json: String) -> Error:
 	# If the file does not exists, we create a new one.
 	if not FileAccess.file_exists(path):
 		create_new_json_file(path)
@@ -91,8 +91,10 @@ func write_json_file(path: String, json: String):
 	if file:
 		file.store_string(json)
 		file.close()
+		return OK
 	else:
 		print_debug("Unable to write file " + path)
+	return FAILED
 
 
 # This function will take a path and create a new json file with just {} or [] as the contents.
@@ -157,10 +159,12 @@ func add_id_to_json_file(source: String, id: String):
 
 #This function will take a path to a json file and delete it
 func delete_json_file(path: String):
-	var dir = DirAccess.open(path)
+	var filename: String = path.get_file()
+	var dirname: String = path.replace(filename,"")
+	var dir = DirAccess.open(dirname)
 	if dir:
 		# Delete the file
-		var err = dir.remove(path)
+		var err = dir.remove(filename)
 		if err == OK:
 			print_debug("File deleted successfully: " + path)
 		else:

@@ -124,18 +124,18 @@ func duplicate_file_in_data(contentData: Dictionary, original_id: String, new_id
 		return
 
 	# Load the original file content.
-	var original_content = Helper.json_helper.load_json_dictionary_file(original_file_path)
+	var orig_content = Helper.json_helper.load_json_dictionary_file(original_file_path)
 
 	# Write the original content to a new file with the new ID.
-	var save_result = Helper.json_helper.write_json_file(new_file_path, JSON.stringify(original_content))
+	var save_result = Helper.json_helper.write_json_file(new_file_path, JSON.stringify(orig_content,"\t"))
 	if save_result == OK:
 		print_debug("File duplicated successfully: " + new_file_path)
 		# Add the new ID to the data array if it's datapath references a folder.
-		var datapath: String = contentData.data.datapath
+		var datapath: String = contentData.dataPath
 		if contentData.data is Array and datapath.ends_with("/"):
 			contentData.data.append(new_id)
-			if datapath.ends_with("/maps/"): # Update references to this duplicated map
-				on_mapdata_changed(datapath,original_content,{})
+			if datapath.ends_with("/Maps/"): # Update references to this duplicated map
+				on_mapdata_changed(new_file_path,orig_content,{"levels":[]})
 	else:
 		print_debug("Failed to duplicate file to: " + new_file_path)
 
@@ -171,14 +171,21 @@ func add_id_to_data(contentData: Dictionary, id: String):
 func remove_item_from_data(contentData: Dictionary, id: String):
 	if contentData.data.is_empty():
 		return
-	if contentData.datapath.ends_with(".json"): # It's a json file
+	if contentData.dataPath.ends_with(".json"): # It's a json file
 		remove_references_of_deleted_id(contentData, id)
 		contentData.data.remove_at(get_array_index_by_id(contentData, id))
 		save_data_to_file(contentData)
-	elif contentData.datapath.ends_with("/"): # It's a folder
+	elif contentData.dataPath.ends_with("/"): # It's a folder
 		remove_references_of_deleted_id(contentData, id)
 		contentData.data.erase(id)
-		Helper.json_helper.delete_json_file(contentData.dataPath, id)
+		var json_file_path = contentData.dataPath + id + ".json"
+		var png_file_path = id + ".png"
+		Helper.json_helper.delete_json_file(json_file_path)
+		# Use DirAccess to check and delete the PNG file (for maps)
+		var dir = DirAccess.open(contentData.dataPath)
+		if dir.file_exists(png_file_path):
+			dir.remove(id + ".png")
+			dir.remove(id + ".png.import")
 	else:
 		print_debug("Tried to remove item from data, but the data's datapath ends with \
 		neither .json nor /")
@@ -372,6 +379,10 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		on_furniture_deleted(id)
 	if contentData == Gamedata.data.maps:
 		on_map_deleted(id)
+	if contentData == Gamedata.data.mobs:
+		on_mob_deleted(id)
+	if contentData == Gamedata.data.tiles:
+		on_tile_deleted(id)
 
 
 # Erases a nested property from a given dictionary based on a dot-separated path
@@ -471,8 +482,8 @@ func on_mob_changed(newdata: Dictionary, olddata: Dictionary):
 # Some furniture has been changed
 # We need to update the relation between the furniture and the itemgroup
 func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
-	var old_group: String = get_nested_data(olddata, "Function.container.itemgroup")
-	var new_group: String = get_nested_data(newdata, "Function.container.itemgroup")
+	var old_group = get_nested_data(olddata, "Function.container.itemgroup")
+	var new_group = get_nested_data(newdata, "Function.container.itemgroup")
 	var furniture_id: String = newdata.id
 	# Exit if old_group and new_group are the same
 	if old_group == new_group:
@@ -482,8 +493,9 @@ func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
 
 	# This furniture will be removed from the old itemgroup's references
 	# The 'or' makes sure changes_made does not change back to false
-	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
-	old_group, furniture_id) or changes_made
+	if old_group:
+		changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
+		old_group, furniture_id) or changes_made
 
 	# This furniture will be added to the new itemgroup's references
 	# The 'or' makes sure changes_made does not change back to false
@@ -520,25 +532,25 @@ func on_mapdata_changed(map_path: String, newdata: Dictionary, olddata: Dictiona
 			for new_entity in new_level:
 				if new_entity.has("mob"):
 					changes_made = add_reference(Gamedata.data.mobs, "core", "maps", \
-					map_id, new_entity["mob"]["id"]) or changes_made
+					new_entity["mob"]["id"], map_id) or changes_made
 				if new_entity.has("furniture"):
 					changes_made = add_reference(Gamedata.data.furniture, "core", "maps", \
-					map_id, new_entity["furniture"]["id"]) or changes_made
+					new_entity["furniture"]["id"], map_id) or changes_made
 				if new_entity.has("id"):
 					changes_made = add_reference(Gamedata.data.tiles, "core", "maps", \
-					map_id, new_entity["id"]) or changes_made
+					new_entity["id"], map_id) or changes_made
 		elif new_level.size() == 0 and old_level.size() > 0:
 			# Entire level was removed
 			for old_entity in old_level:
 				if old_entity.has("mob"):
 					changes_made = remove_reference(Gamedata.data.mobs, "core", "maps", \
-					map_id, old_entity["mob"]["id"]) or changes_made
+					old_entity["mob"]["id"], map_id) or changes_made
 				if old_entity.has("furniture"):
 					changes_made = remove_reference(Gamedata.data.furniture, "core", "maps", \
-					map_id, old_entity["furniture"]["id"]) or changes_made
+					old_entity["furniture"]["id"], map_id) or changes_made
 				if old_entity.has("id"):
 					changes_made = remove_reference(Gamedata.data.tiles, "core", "maps", \
-					map_id, old_entity["id"]) or changes_made
+					old_entity["id"], map_id) or changes_made
 		else:
 			# Compare individual entities in levels
 			for entity_index in range(max(new_level.size(), old_level.size())):
@@ -548,25 +560,25 @@ func on_mapdata_changed(map_path: String, newdata: Dictionary, olddata: Dictiona
 				if new_entity.get("mob", {}) != old_entity.get("mob", {}):
 					if new_entity.has("mob"):
 						changes_made = add_reference(Gamedata.data.mobs, "core", "maps", \
-						map_id, new_entity["mob"]["id"]) or changes_made
+						new_entity["mob"]["id"], map_id) or changes_made
 					if old_entity.has("mob") and not new_entity.has("mob"):
 						changes_made = remove_reference(Gamedata.data.mobs, "core", "maps", \
-						map_id, old_entity["mob"]["id"]) or changes_made
+						old_entity["mob"]["id"], map_id) or changes_made
 				if new_entity.get("furniture", {}) != old_entity.get("furniture", {}):
 					if new_entity.has("furniture"):
 						changes_made = add_reference(Gamedata.data.furniture, "core", "maps", \
-						map_id, new_entity["furniture"]["id"]) or changes_made
+						new_entity["furniture"]["id"], map_id) or changes_made
 					if old_entity.has("furniture") and not new_entity.has("furniture"):
 						changes_made = remove_reference(Gamedata.data.furniture, "core", "maps", \
-						map_id, old_entity["furniture"]["id"]) or changes_made
+						old_entity["furniture"]["id"], map_id) or changes_made
 
 				if new_entity.get("id", "") != old_entity.get("id", ""):
 					if new_entity.has("id"):
 						changes_made = add_reference(Gamedata.data.tiles, "core", "maps", \
-						map_id, new_entity["id"]) or changes_made
+						new_entity["id"], map_id) or changes_made
 					if old_entity.has("id") and not new_entity.has("id"):
 						changes_made = remove_reference(Gamedata.data.tiles, "core", "maps", \
-						map_id, old_entity["id"]) or changes_made
+						old_entity["id"], map_id) or changes_made
 
 	if changes_made:
 		# References have been added to tiles, furniture and/or mobs
@@ -688,9 +700,9 @@ func on_tile_deleted(tile_id: String):
 		return
 
 	# Check if the tile has references to maps and remove it from those maps
-	var modules = get_nested_data(tile_data,"references")
+	var modules = tile_data.get("references", [])
 	for mod in modules:
-		var maps = get_nested_data(mod,"maps")
+		var maps = get_nested_data(tile_data,"references."+mod+".maps")
 		for map_id in maps:
 			remove_entity_from_map(map_id, "tile", tile_id)
 
@@ -776,13 +788,13 @@ func on_map_deleted(map_id: String):
 		for old_entity in old_level:
 			if old_entity.has("mob"):
 				changes_made = remove_reference(Gamedata.data.mobs, "core", "maps", \
-				map_id, old_entity["mob"]["id"]) or changes_made
+				old_entity["mob"]["id"], map_id) or changes_made
 			if old_entity.has("furniture"):
 				changes_made = remove_reference(Gamedata.data.furniture, "core", "maps", \
-				map_id, old_entity["furniture"]["id"]) or changes_made
+				old_entity["furniture"]["id"], map_id) or changes_made
 			if old_entity.has("id"):
 				changes_made = remove_reference(Gamedata.data.tiles, "core", "maps", \
-				map_id, old_entity["id"]) or changes_made
+				old_entity["id"], map_id) or changes_made
 
 	if changes_made:
 		# References have been added to tiles, furniture and/or mobs
