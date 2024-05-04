@@ -169,16 +169,17 @@ func add_id_to_data(contentData: Dictionary, id: String):
 func remove_item_from_data(contentData: Dictionary, id: String):
 	if contentData.data.is_empty():
 		return
-	if contentData.data[0] is Dictionary:
-		remove_relations_of_deleted_id(contentData, id)
+	if contentData.datapath.ends_with(".json"): # It's a json file
+		remove_references_of_deleted_id(contentData, id)
 		contentData.data.remove_at(get_array_index_by_id(contentData, id))
 		save_data_to_file(contentData)
-	elif contentData.data[0] is String:
+	elif contentData.datapath.ends_with("/"): # It's a folder
+		remove_references_of_deleted_id(contentData, id)
 		contentData.data.erase(id)
 		Helper.json_helper.delete_json_file(contentData.dataPath, id)
 	else:
-		print_debug("Tried to remove item from data, but the data contains \
-		neither Dictionary nor String")
+		print_debug("Tried to remove item from data, but the data's datapath ends with \
+		neither .json nor /")
 
 
 func get_array_index_by_id(contentData: Dictionary, id: String) -> int:
@@ -359,13 +360,16 @@ func remove_reference(mydata: Dictionary, module: String, type: String, fromid: 
 	return changes_made
 
 
-func remove_relations_of_deleted_id(contentData: Dictionary, id: String):
+# Some kind of entity is deleted. We will remove all references to this entity
+func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 	if contentData == Gamedata.data.itemgroups:
 		on_itemgroup_deleted(id)
 	if contentData == Gamedata.data.items:
 		on_item_deleted(id)
 	if contentData == Gamedata.data.furniture:
 		on_furniture_deleted(id)
+	if contentData == Gamedata.data.maps:
+		on_map_deleted(id)
 
 
 # Erases a nested property from a given dictionary based on a dot-separated path
@@ -753,3 +757,34 @@ func on_itemgroup_deleted(itemgroup_id: String):
 		print_debug("Itemgroup", itemgroup_id, "has been successfully deleted from all items.")
 	else:
 		print_debug("No changes needed for itemgroup", itemgroup_id)
+
+
+# A map is being deleted. Remove all references to this map
+func on_map_deleted(map_id: String):
+	var changes_made = false
+	var fileToLoad = Gamedata.data.maps.dataPath + map_id + ".json"
+	var mapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(fileToLoad)
+	if not mapdata.has("levels"):
+		print("Map data does not contain 'levels'.")
+		return
+
+	for level_index in range(mapdata["levels"].size()):
+		var old_level = mapdata["levels"][level_index] if mapdata["levels"].size() > level_index else []
+			# Entire level was removed
+		for old_entity in old_level:
+			if old_entity.has("mob"):
+				changes_made = remove_reference(Gamedata.data.mobs, "core", "maps", \
+				map_id, old_entity["mob"]["id"]) or changes_made
+			if old_entity.has("furniture"):
+				changes_made = remove_reference(Gamedata.data.furniture, "core", "maps", \
+				map_id, old_entity["furniture"]["id"]) or changes_made
+			if old_entity.has("id"):
+				changes_made = remove_reference(Gamedata.data.tiles, "core", "maps", \
+				map_id, old_entity["id"]) or changes_made
+
+	if changes_made:
+		# References have been added to tiles, furniture and/or mobs
+		# We could track changes individually so we only save what has actually changed.
+		save_data_to_file(Gamedata.data.tiles)
+		save_data_to_file(Gamedata.data.furniture)
+		save_data_to_file(Gamedata.data.mobs)
