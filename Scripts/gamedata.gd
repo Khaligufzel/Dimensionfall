@@ -107,6 +107,7 @@ func duplicate_item_in_data(contentData: Dictionary, id: String, newID: String):
 		# Add the duplicated item to the JSON data.
 		contentData.data.append(item_to_duplicate)
 		Helper.json_helper.write_json_file(contentData.dataPath,JSON.stringify(contentData.data,"\t"))
+		on_data_changed(contentData,item_to_duplicate,{})
 	else:
 		print_debug("There should be code here for when a file in the gets duplicated")
 
@@ -129,13 +130,14 @@ func duplicate_file_in_data(contentData: Dictionary, original_id: String, new_id
 	var save_result = Helper.json_helper.write_json_file(new_file_path, JSON.stringify(original_content))
 	if save_result == OK:
 		print_debug("File duplicated successfully: " + new_file_path)
-		# Add the new ID to the data array if it's managed as an array of IDs.
-		if contentData.data is Array and typeof(contentData.data[0]) == TYPE_STRING:
+		# Add the new ID to the data array if it's datapath references a folder.
+		var datapath: String = contentData.data.datapath
+		if contentData.data is Array and datapath.ends_with("/"):
 			contentData.data.append(new_id)
-			save_data_to_file(contentData)  # Save the updated data array to file.
+			if datapath.ends_with("/maps/"): # Update references to this duplicated map
+				on_mapdata_changed(datapath,original_content,{})
 	else:
 		print_debug("Failed to duplicate file to: " + new_file_path)
-
 
 
 # This function appends a new object to an existing array
