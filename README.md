@@ -127,7 +127,7 @@ If you like Godot and want to contribute, feel free to submit a pull request or 
 ## Community
 
 Official Discord:
-[https://discord.gg/hWJTUSnW](https://discord.gg/hWJTUSnW)
+[https://discord.gg/YRFhwDvM](https://discord.gg/YRFhwDvM)
 
 
 ## Credits:
