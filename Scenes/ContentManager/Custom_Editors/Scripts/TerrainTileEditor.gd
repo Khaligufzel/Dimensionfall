@@ -16,10 +16,10 @@ extends Control
 @export var slopeShapeCheckbox: Button = null
 @export var transparentCheckbox: Button = null
 # This signal will be emitted when the user presses the save button
-# This signal should alert Gamedata that the tile data array should be saved to disk
-# The content editor has connected this signal to Gamedata already
-signal data_changed()
+# This signal should alert Gamedata that the mob data array should be saved to disk
+signal data_changed(game_data: Dictionary, new_data: Dictionary, old_data: Dictionary)
 
+var olddata: Dictionary # Remember what the value of the data was before editing
 var control_elements: Array = []
 # The data that represents this tile
 # The data is selected from the Gamedata.data.tiles.data array
@@ -29,6 +29,7 @@ var contentData: Dictionary = {}:
 		contentData = value
 		load_tile_data()
 		tileSelector.sprites_collection = Gamedata.data.tiles.sprites
+		olddata = contentData.duplicate(true)
 
 
 func _ready():
@@ -40,6 +41,8 @@ func _ready():
 		cubeShapeCheckbox,
 		slopeShapeCheckbox
 	]
+	data_changed.connect(Gamedata.on_data_changed)
+
 
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):
@@ -97,7 +100,8 @@ func _on_save_button_button_up():
 	if slopeShapeCheckbox.button_pressed:
 		contentData["shape"] = "slope"
 	contentData["transparent"] = transparentCheckbox.button_pressed
-	data_changed.emit()
+	data_changed.emit(Gamedata.data.tiles, contentData, olddata)
+	olddata = contentData.duplicate(true)
 
 #When the tileImageDisplay is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/Tiles/". The texture of the tileImageDisplay will change to the selected image

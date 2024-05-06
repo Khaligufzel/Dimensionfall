@@ -17,6 +17,9 @@
 			"core": {
 				"furniture": [
 					"countertop_wood"
+				],
+				"mobs": [
+					"scrapwalker"
 				]
 			}
 		},

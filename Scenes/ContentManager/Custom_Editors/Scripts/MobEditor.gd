@@ -22,9 +22,9 @@ extends Control
 @export var ItemGroupTextEdit: TextEdit = null
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the mob data array should be saved to disk
-# The content editor has connected this signal to Gamedata already
-signal data_changed()
+signal data_changed(game_data: Dictionary, new_data: Dictionary, old_data: Dictionary)
 
+var olddata: Dictionary # Remember what the value of the data was before editing
 # The data that represents this mob
 # The data is selected from the Gamedata.data.mobs.data array
 # based on the ID that the user has selected in the content editor
@@ -33,6 +33,12 @@ var contentData: Dictionary = {}:
 		contentData = value
 		load_mob_data()
 		mobSelector.sprites_collection = Gamedata.data.mobs.sprites
+		olddata = contentData.duplicate(true)
+
+
+func _ready():
+	data_changed.connect(Gamedata.on_data_changed)
+
 
 #This function update the form based on the contentData that has been loaded
 func load_mob_data() -> void:
@@ -90,7 +96,9 @@ func _on_save_button_button_up() -> void:
 		contentData["loot_group"] = ItemGroupTextEdit.text
 	else:
 		contentData.erase("loot_group")
-	data_changed.emit()
+	data_changed.emit(Gamedata.data.mobs, contentData, olddata)
+	olddata = contentData.duplicate(true)
+
 
 #When the mobImageDisplay is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/mobs/". The texture of the mobImageDisplay will change to the selected image

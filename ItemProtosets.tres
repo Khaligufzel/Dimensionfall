@@ -12,6 +12,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/plank.png\",
 		\"max_stack_size\": \"3\",
 		\"name\": \"Plank 2x4\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"mob_loot\"
+				]
+			}
+		},
 		\"sprite\": \"plank.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
@@ -26,6 +33,14 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/steel_scrap.png\",
 		\"max_stack_size\": \"100\",
 		\"name\": \"Steel scrap\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\",
+					\"mob_loot\"
+				]
+			}
+		},
 		\"sprite\": \"steel_scrap.png\",
 		\"stack_size\": \"2\",
 		\"two_handed\": false,
@@ -43,6 +58,14 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/9mm.png\",
 		\"max_stack_size\": \"100\",
 		\"name\": \"bullet 9mm\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\",
+					\"mob_loot\"
+				]
+			}
+		},
 		\"sprite\": \"9mm.png\",
 		\"stack_size\": \"20\",
 		\"two_handed\": false,
@@ -62,6 +85,14 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/pistol_magazine.png\",
 		\"max_stack_size\": \"1\",
 		\"name\": \"Pistol magazine\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\",
+					\"mob_loot\"
+				]
+			}
+		},
 		\"sprite\": \"pistol_magazine.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
@@ -87,6 +118,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/pistol_32.png\",
 		\"max_stack_size\": \"1\",
 		\"name\": \"Pistol 9mm\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\"
+				]
+			}
+		},
 		\"sprite\": \"pistol_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
@@ -170,6 +208,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/bottle_empty_32.png\",
 		\"max_stack_size\": \"10\",
 		\"name\": \"Empty plastic bottle\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"kitchen_cupboard\"
+				]
+			}
+		},
 		\"sprite\": \"bottle_empty_32.png\",
 		\"stack_size\": \"2\",
 		\"two_handed\": false,
@@ -187,6 +232,14 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/bottle_water_32.png\",
 		\"max_stack_size\": \"10\",
 		\"name\": \"Plastic bottle with water\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\",
+					\"kitchen_cupboard\"
+				]
+			}
+		},
 		\"sprite\": \"bottle_water_32.png\",
 		\"stack_size\": \"2\",
 		\"two_handed\": false,
@@ -201,6 +254,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/canned_food_32.png\",
 		\"max_stack_size\": \"5\",
 		\"name\": \"Canned food\\t\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"kitchen_cupboard\"
+				]
+			}
+		},
 		\"sprite\": \"canned_food_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
@@ -244,6 +304,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/hammer_32.png\",
 		\"max_stack_size\": \"1\",
 		\"name\": \"Hammer\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\"
+				]
+			}
+		},
 		\"sprite\": \"hammer_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
@@ -258,6 +325,14 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/screwdriver_32.png\",
 		\"max_stack_size\": \"1\",
 		\"name\": \"Screwdriver\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\",
+					\"kitchen_cupboard\"
+				]
+			}
+		},
 		\"sprite\": \"screwdriver_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
@@ -272,6 +347,14 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/bandage_32.png\",
 		\"max_stack_size\": \"20\",
 		\"name\": \"Bandage\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\",
+					\"kitchen_cupboard\"
+				]
+			}
+		},
 		\"sprite\": \"bandage_32.png\",
 		\"stack_size\": \"3\",
 		\"two_handed\": false,
@@ -286,6 +369,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/antibiotics_32.png\",
 		\"max_stack_size\": \"5\",
 		\"name\": \"Bottle of antibiotics\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"kitchen_cupboard\"
+				]
+			}
+		},
 		\"sprite\": \"antibiotics_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
@@ -316,6 +406,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/boots_32.png\",
 		\"max_stack_size\": \"1\",
 		\"name\": \"Boots\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\"
+				]
+			}
+		},
 		\"sprite\": \"boots_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
@@ -346,6 +443,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/can_oil_32.png\",
 		\"max_stack_size\": \"1\",
 		\"name\": \"Can of oil\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\"
+				]
+			}
+		},
 		\"sprite\": \"can_oil_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
@@ -374,6 +478,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/flashlight_32.png\",
 		\"max_stack_size\": \"1\",
 		\"name\": \"Flashlight\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\"
+				]
+			}
+		},
 		\"sprite\": \"flashlight_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
@@ -389,6 +500,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/can_beer_32.png\",
 		\"max_stack_size\": \"5\",
 		\"name\": \"Can of beer\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"kitchen_cupboard\"
+				]
+			}
+		},
 		\"sprite\": \"can_beer_32.png\",
 		\"stack_size\": \"2\",
 		\"two_handed\": false,
@@ -461,6 +579,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/battery_32.png\",
 		\"max_stack_size\": \"20\",
 		\"name\": \"Small battery\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\"
+				]
+			}
+		},
 		\"sprite\": \"battery_32.png\",
 		\"stack_size\": \"2\",
 		\"two_handed\": false,
@@ -551,6 +676,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/book_novel_32.png\",
 		\"max_stack_size\": \"5\",
 		\"name\": \"Novel\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\"
+				]
+			}
+		},
 		\"sprite\": \"book_novel_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
@@ -565,6 +697,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/bottle_disinfectant_32.png\",
 		\"max_stack_size\": \"5\",
 		\"name\": \"Bottle of disinfectant\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"kitchen_cupboard\"
+				]
+			}
+		},
 		\"sprite\": \"bottle_disinfectant_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,

@@ -233,7 +233,13 @@ func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 # The contenteditor (that initializes the individual editors)
 # connects the changed_data signal to this function
 # and binds the appropriate data array so it can be saved in this function
-func on_data_changed(contentData: Dictionary):
+func on_data_changed(contentData: Dictionary, newEntityData: Dictionary, oldEntityData: Dictionary):
+	if contentData == Gamedata.data.itemgroups:
+		on_itemgroup_changed(newEntityData, oldEntityData)
+	if contentData == Gamedata.data.mobs:
+		on_mob_changed(newEntityData, oldEntityData)
+	if contentData == Gamedata.data.furniture:
+		on_furniture_changed(newEntityData, oldEntityData)
 	save_data_to_file(contentData)
 
 
@@ -276,8 +282,11 @@ func get_items_by_type(item_type: String) -> Array:
 
 # An itemgroup has been changed. Update items that were added or removed from the list
 # oldlist and newlist are arrays with item id strings in them
-func on_itemgroup_changed(itemgroup: String, oldlist: Array[String], newlist: Array[String]):
+func on_itemgroup_changed(newdata: Dictionary, olddata: Dictionary):
 	var changes_made = false
+	var oldlist: Array = get_nested_data(olddata, "items")
+	var newlist: Array = get_nested_data(newdata, "items")
+	var itemgroup: String = newdata.id
 	# Remove itemgroup from items in the old list that are not in the new list
 	for item_id in oldlist:
 		if item_id not in newlist:
@@ -337,36 +346,6 @@ func on_itemgroup_deleted(itemgroup_id: String):
 		print_debug("No changes needed for itemgroup", itemgroup_id)
 
 
-# Some furniture has had their itemgroup changed
-# We need to update the relation between the furniture and the itemgroup
-func on_furniture_itemgroup_changed(furniture_id: String, old_group: String, new_group: String):
-	# Exit if old_group and new_group are the same
-	if old_group == new_group:
-		print_debug("No change in itemgroup. Exiting function.")
-		return
-	var changes_made = false
-
-	# Handle the old itemgroup
-	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
-	old_group, furniture_id) or changes_made
-
-	# Handle the new itemgroup the 'or' makes sure changes_made does not change back to false
-	changes_made = add_reference(Gamedata.data.itemgroups, "core", "furniture", \
-	new_group, furniture_id) or changes_made
-
-	# Save changes if any modifications were made
-	if changes_made:
-		if old_group != "":
-			save_data_to_file(Gamedata.data.itemgroups)
-		if new_group != "" and new_group != old_group:
-			save_data_to_file(Gamedata.data.itemgroups)
-
-	if changes_made:
-		print_debug("Furniture itemgroup changes saved successfully.")
-	else:
-		print_debug("No changes were made to furniture itemgroups.")
-
-
 # Adds a reference to an entity
 # data = any data group, like Gamedata.data.itemgroups
 # type = the type of reference, for example furniture
@@ -375,10 +354,10 @@ func on_furniture_itemgroup_changed(furniture_id: String, old_group: String, new
 # Example usage: var changes_made = add_reference(Gamedata.data.itemgroups, "core", 
 # "furniture", itemgroup_id, furniture_id)
 # This example will add the specified furniture from the itemgroup's references
-func add_reference(data: Dictionary, module: String, type: String, onid: String, refid: String) -> bool:
+func add_reference(mydata: Dictionary, module: String, type: String, onid: String, refid: String) -> bool:
 	var changes_made: bool = false
 	if onid != "":
-		var entitydata = get_data_by_id(data, onid)
+		var entitydata = get_data_by_id(mydata, onid)
 		if not entitydata.has("references"):
 			entitydata["references"] = {}
 		if not entitydata["references"].has(module):
@@ -538,3 +517,67 @@ func get_nested_data(mydata: Dictionary, path: String) -> Variant:
 		else:
 			return null
 	return current
+
+
+# A mob has been changed.
+func on_mob_changed(newdata: Dictionary, olddata: Dictionary):
+	var old_loot_group: String = olddata.get("loot_group")
+	var new_loot_group: String = newdata.get("loot_group")
+	var mob_id: String = newdata.get("id")
+	# Exit if old_group and new_group are the same
+	if old_loot_group == new_loot_group:
+		print_debug("No change in itemgroup. Exiting function.")
+		return
+	var changes_made = false
+
+	# This furniture will be removed from the old itemgroup's references
+	# The 'or' makes sure changes_made does not change back to false
+	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "mobs", \
+	old_loot_group, mob_id) or changes_made
+
+	# This furniture will be added to the new itemgroup's references
+	# The 'or' makes sure changes_made does not change back to false
+	changes_made = add_reference(Gamedata.data.itemgroups, "core", "mobs", \
+	new_loot_group, mob_id) or changes_made
+	
+	# Save changes if any modifications were made
+	if changes_made:
+		if old_loot_group != "":
+			save_data_to_file(Gamedata.data.itemgroups)
+		if new_loot_group != "" and new_loot_group != old_loot_group:
+			save_data_to_file(Gamedata.data.itemgroups)
+
+
+# Some furniture has been changed
+# We need to update the relation between the furniture and the itemgroup
+func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
+	var old_group: String = get_nested_data(olddata, "Function.container.itemgroup")
+	var new_group: String = get_nested_data(newdata, "Function.container.itemgroup")
+	var furniture_id: String = newdata.id
+	# Exit if old_group and new_group are the same
+	if old_group == new_group:
+		print_debug("No change in itemgroup. Exiting function.")
+		return
+	var changes_made = false
+
+	# This furniture will be removed from the old itemgroup's references
+	# The 'or' makes sure changes_made does not change back to false
+	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
+	old_group, furniture_id) or changes_made
+
+	# This furniture will be added to the new itemgroup's references
+	# The 'or' makes sure changes_made does not change back to false
+	changes_made = add_reference(Gamedata.data.itemgroups, "core", "furniture", \
+	new_group, furniture_id) or changes_made
+
+	# Save changes if any modifications were made
+	if changes_made:
+		if old_group != "":
+			save_data_to_file(Gamedata.data.itemgroups)
+		if new_group != "" and new_group != old_group:
+			save_data_to_file(Gamedata.data.itemgroups)
+
+	if changes_made:
+		print_debug("Furniture itemgroup changes saved successfully.")
+	else:
+		print_debug("No changes were made to furniture itemgroups.")
