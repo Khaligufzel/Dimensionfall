@@ -102,6 +102,9 @@ func duplicate_item_in_data(contentData: Dictionary, id: String, newID: String):
 		# If there is no item to duplicate, return without doing anything.
 		if item_to_duplicate == null:
 			return
+		# This new item cannot have anything reference it, because it was just created
+		# So we remove all refrences that might have been duplicated from the original
+		item_to_duplicate.erase("references")
 		# Change the ID of the duplicated item.
 		item_to_duplicate["id"] = newID
 		# Add the duplicated item to the JSON data.
@@ -779,8 +782,9 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 	
 	# Extract IDs from new resources
 	var new_ids = []
-	for res in new_resources:
-		new_ids.append(res["id"])
+	if new_resources:
+		for res in new_resources:
+			new_ids.append(res["id"])
 
 	var changes_made = false
 
@@ -791,8 +795,10 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 				changes_made = remove_reference(Gamedata.data.items, "core", "items", old_res["id"], item_id) or changes_made
 
 	# Add references for all new resources
-	for new_res in new_resources:
-		changes_made = add_reference(Gamedata.data.items, "core", "items", new_res["id"], item_id) or changes_made
+	if new_resources:
+		for new_res in new_resources:
+			changes_made = add_reference(Gamedata.data.items, "core", \
+			"items", new_res["id"], item_id) or changes_made
 
 	# Save changes if any modifications were made
 	if changes_made:
@@ -824,9 +830,9 @@ func on_item_deleted(item_id: String):
 	# This callable will remove this item from required_resources in another item.
 	# This might cause the recipe that had this item in it to become invalid
 	var remove_from_item: Callable = func (other_item_id: String):
-		var other_item_data = get_data_by_id(Gamedata.data.items, other_item_id)
-		if "required_resources" in other_item_data:
-			var itemlist: Array = other_item_data["required_resources"]
+		var itemlist = get_property_by_path(Gamedata.data.items, \
+		"Craft.required_resources", other_item_id)
+		if itemlist:
 			 # Iterate in reverse to avoid index issues during deletion
 			for i in range(itemlist.size() - 1, -1, -1):
 				if itemlist[i]["id"] == item_id:
@@ -836,11 +842,12 @@ func on_item_deleted(item_id: String):
 	# Pass the callable to every item in the item's references
 	# It will call remove_from_item on every item in item_data.references.core.items
 	execute_callable_on_references_of_type(item_data, "core", "items", remove_from_item)
-
+	
+	var resources = get_nested_data(item_data, "Craft.required_resources")
 	# For each item in the crafting requirement, remove the reference to this item
-	if "required_resources" in item_data:
+	if resources:
 		# Iterate over each resource in required_resources
-		for resource in item_data["required_resources"]:
+		for resource in resources:
 			# Call remove_reference to remove the reference to the item being deleted
 			# from the item that references it
 			if resource.has("id"):
