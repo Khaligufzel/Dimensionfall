@@ -13,8 +13,8 @@ extends Control
 func get_properties() -> Dictionary:
 	return {
 		"used_ammo": UsedAmmoTextEdit.text,
-		"max_ammo": MaxAmmoNumberBox.get_line_edit().text,
-		"current_ammo": CurrentAmmoNumberBox.get_line_edit().text
+		"max_ammo": MaxAmmoNumberBox.value,
+		"current_ammo": CurrentAmmoNumberBox.value
 	}
 
 func set_properties(properties: Dictionary) -> void:

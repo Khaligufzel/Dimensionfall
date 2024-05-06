@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7jwy5hpj2vyt"]
+
+[ext_resource type="Script" path="res://Scripts/ItemCraftEditor.gd" id="1_6wvrt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvald"]
+content_margin_left = 11.0
+content_margin_top = 11.0
+content_margin_right = 11.0
+content_margin_bottom = 11.0
+bg_color = Color(0.358505, 0.289355, 0.48639, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ItemCraftEditor" type="Control" node_paths=PackedStringArray("craftAmountNumber", "craftTimeNumber", "requiresLightCheckbox", "resourcesGridContainer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6wvrt")
+craftAmountNumber = NodePath("Craft/CraftAmountNumber")
+craftTimeNumber = NodePath("Craft/CraftTimeNumber")
+requiresLightCheckbox = NodePath("Craft/RequiresLightCheckBox")
+resourcesGridContainer = NodePath("Craft/PanelContainer/ResourcesGridContainer")
+
+[node name="Craft" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="CraftAmountLabel" type="Label" parent="Craft"]
+layout_mode = 2
+text = "Craft amount"
+
+[node name="CraftAmountNumber" type="SpinBox" parent="Craft"]
+layout_mode = 2
+tooltip_text = "The width of this item in the inventory. A larger number means it will take up more horizontal inventory slots"
+min_value = 1.0
+max_value = 1000.0
+value = 1.0
+
+[node name="RequiredResourceLabel" type="Label" parent="Craft"]
+layout_mode = 2
+text = "Required materials"
+
+[node name="PanelContainer" type="PanelContainer" parent="Craft"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_rvald")
+
+[node name="ResourcesGridContainer" type="GridContainer" parent="Craft/PanelContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+columns = 3
+
+[node name="CraftTimeLabel" type="Label" parent="Craft"]
+layout_mode = 2
+text = "Craft time"
+
+[node name="CraftTimeNumber" type="SpinBox" parent="Craft"]
+layout_mode = 2
+tooltip_text = "The time it takes to craft"
+min_value = 1.0
+value = 10.0
+
+[node name="FlagsLabel" type="Label" parent="Craft"]
+layout_mode = 2
+text = "Flags"
+
+[node name="RequiresLightCheckBox" type="CheckBox" parent="Craft"]
+layout_mode = 2
+tooltip_text = "Enable this if the item weapon occupies both hands when held. Disable this if the item occupies one hand when held"
+text = "Requires light"
