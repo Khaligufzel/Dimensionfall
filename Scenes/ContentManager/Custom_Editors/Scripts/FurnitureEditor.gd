@@ -20,15 +20,23 @@ extends Control
 
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
+# Original state of the container itemgroup for comparison when the itemgroup chanes
+var original_itemgroup: String = ""
 
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the furniture data array should be saved to disk
 # The content editor has connected this signal to Gamedata already
 signal data_changed()
+# Signal for container changes specifically
+signal itemgroup_changed(old_group, new_group, furniture_id)
+
 
 func _ready():
+	# For properly using the tab key to switch elements
 	control_elements = [furnitureImageDisplay,NameTextEdit,DescriptionTextEdit]
-	
+	itemgroup_changed.connect(Gamedata.on_furniture_itemgroup_changed)
+
+
 # The data that represents this furniture
 # The data is selected from the Gamedata.data.furniture.data array
 # based on the ID that the user has selected in the content editor
@@ -59,14 +67,15 @@ func load_furniture_data():
 		select_option_by_string(edgeSnappingOptionButton, contentData["edgesnapping"])
 	if doorOptionButton:
 		update_door_option(contentData.get("Function", {}).get("door", "None"))
-	
+
 	# Load container data if it exists within the 'Function' property
 	var function_data = contentData.get("Function", {})
 	if "container" in function_data:
 		containerCheckBox.button_pressed = true  # Check the container checkbox
 		var container_data = function_data["container"]
 		if "itemgroup" in container_data:
-			containerTextEdit.text = container_data["itemgroup"]  # Set the text edit with the itemgroup ID
+			containerTextEdit.text = container_data["itemgroup"]  # Set text edit with the itemgroup ID
+			original_itemgroup = containerTextEdit.text  # Initialize the original state
 		else:
 			containerTextEdit.clear()  # Clear the text edit if no itemgroup is specified
 	else:
@@ -131,6 +140,11 @@ func _on_save_button_button_up():
 		# If the 'Function' dictionary becomes empty, remove it as well
 		if contentData["Function"].is_empty():
 			contentData.erase("Function")
+	
+	var current_itemgroup = containerTextEdit.text
+	if original_itemgroup != current_itemgroup:
+		itemgroup_changed.emit(contentData["id"], original_itemgroup, current_itemgroup)
+		original_itemgroup = current_itemgroup  # Update the original state
 
 	data_changed.emit()
 

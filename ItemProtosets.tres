@@ -181,6 +181,9 @@ json_data = "[
 		\"height\": \"2\",
 		\"id\": \"bottle_plastic_empty\",
 		\"image\": \"./Mods/Core/Items/bottle_empty_32.png\",
+		\"itemgroups\": [
+			\"cabinet_general\"
+		],
 		\"max_stack_size\": \"10\",
 		\"name\": \"Empty plastic bottle\",
 		\"sprite\": \"bottle_empty_32.png\",
@@ -216,7 +219,8 @@ json_data = "[
 		\"id\": \"canned_food\",
 		\"image\": \"./Mods/Core/Items/canned_food_32.png\",
 		\"itemgroups\": [
-			\"kitchen_cupboard\"
+			\"kitchen_cupboard\",
+			\"cabinet_general\"
 		],
 		\"max_stack_size\": \"5\",
 		\"name\": \"Canned food\\t\",
@@ -262,7 +266,8 @@ json_data = "[
 		\"id\": \"hammer\",
 		\"image\": \"./Mods/Core/Items/hammer_32.png\",
 		\"itemgroups\": [
-			\"kitchen_cupboard\"
+			\"kitchen_cupboard\",
+			\"cabinet_general\"
 		],
 		\"max_stack_size\": \"1\",
 		\"name\": \"Hammer\",
@@ -280,7 +285,8 @@ json_data = "[
 		\"id\": \"screwdriver\",
 		\"image\": \"./Mods/Core/Items/screwdriver_32.png\",
 		\"itemgroups\": [
-			\"kitchen_cupboard\"
+			\"kitchen_cupboard\",
+			\"cabinet_general\"
 		],
 		\"max_stack_size\": \"1\",
 		\"name\": \"Screwdriver\",
@@ -298,7 +304,8 @@ json_data = "[
 		\"id\": \"bandage_basic\",
 		\"image\": \"./Mods/Core/Items/bandage_32.png\",
 		\"itemgroups\": [
-			\"kitchen_cupboard\"
+			\"kitchen_cupboard\",
+			\"cabinet_general\"
 		],
 		\"max_stack_size\": \"20\",
 		\"name\": \"Bandage\",
@@ -393,6 +400,9 @@ json_data = "[
 		\"iamge\": \"res://Textures/plank.png\",
 		\"id\": \"radio_handheld\",
 		\"image\": \"./Mods/Core/Items/battery_powered_radio_32.png\",
+		\"itemgroups\": [
+			\"cabinet_general\"
+		],
 		\"max_stack_size\": \"1\",
 		\"name\": \"Handheld radio\",
 		\"sprite\": \"battery_powered_radio_32.png\",
@@ -409,7 +419,8 @@ json_data = "[
 		\"id\": \"flashlight_basic\",
 		\"image\": \"./Mods/Core/Items/flashlight_32.png\",
 		\"itemgroups\": [
-			\"kitchen_cupboard\"
+			\"kitchen_cupboard\",
+			\"cabinet_general\"
 		],
 		\"max_stack_size\": \"1\",
 		\"name\": \"Flashlight\",
@@ -442,7 +453,8 @@ json_data = "[
 		\"id\": \"pack_sigarrettes\",
 		\"image\": \"./Mods/Core/Items/sigarrette_pack_32.png\",
 		\"itemgroups\": [
-			\"kitchen_cupboard\"
+			\"kitchen_cupboard\",
+			\"cabinet_general\"
 		],
 		\"max_stack_size\": \"5\",
 		\"name\": \"Pack of sigarrettes\",
@@ -505,7 +517,8 @@ json_data = "[
 		\"id\": \"battery_small\",
 		\"image\": \"./Mods/Core/Items/battery_32.png\",
 		\"itemgroups\": [
-			\"kitchen_cupboard\"
+			\"kitchen_cupboard\",
+			\"cabinet_general\"
 		],
 		\"max_stack_size\": \"20\",
 		\"name\": \"Small battery\",
@@ -630,6 +643,9 @@ json_data = "[
 		\"iamge\": \"res://Textures/plank.png\",
 		\"id\": \"radio_two_way\",
 		\"image\": \"./Mods/Core/Items/radio_two_way_32.png\",
+		\"itemgroups\": [
+			\"cabinet_general\"
+		],
 		\"max_stack_size\": \"1\",
 		\"name\": \"Two way radio\",
 		\"sprite\": \"radio_two_way_32.png\",
@@ -660,6 +676,9 @@ json_data = "[
 		\"iamge\": \"res://Textures/plank.png\",
 		\"id\": \"kit_fishing_small\",
 		\"image\": \"./Mods/Core/Items/kit_fishing_small_32.png\",
+		\"itemgroups\": [
+			\"cabinet_general\"
+		],
 		\"max_stack_size\": \"1\",
 		\"name\": \"Small fishing kit\",
 		\"sprite\": \"kit_fishing_small_32.png\",

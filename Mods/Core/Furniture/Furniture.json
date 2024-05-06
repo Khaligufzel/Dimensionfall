@@ -108,6 +108,11 @@
 		"sprite": "bed_wood_100_50.png"
 	},
 	{
+		"Function": {
+			"container": {
+				"itemgroup": "cabinet_general"
+			}
+		},
 		"categories": [
 			"Urban",
 			"Indoor"

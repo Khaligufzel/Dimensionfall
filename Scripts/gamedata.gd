@@ -335,6 +335,23 @@ func on_itemgroup_deleted(itemgroup_id: String):
 	if itemgroup_data.is_empty():
 		print("Itemgroup with ID", itemgroup_id, "not found.")
 		return
+	
+	# Handling the in_furniture attribute for furniture items
+	if "in_furniture" in itemgroup_data:
+		var furniture_ids = itemgroup_data["in_furniture"]
+		for furniture_id in furniture_ids:
+			var furniture_data = get_data_by_id(Gamedata.data.furniture, furniture_id)
+			if furniture_data.is_empty():
+				print("Furniture with ID", furniture_id, "not found.")
+				continue
+
+			# Navigate through the nested dictionary safely
+			if "Function" in furniture_data and "container" in furniture_data["Function"]:
+				if "itemgroup" in furniture_data["Function"]["container"]:
+					# Check if this itemgroup matches the one being deleted
+					if furniture_data["Function"]["container"]["itemgroup"] == itemgroup_id:
+						furniture_data["Function"]["container"].erase("itemgroup")
+						changes_made = true
 
 	# The itemgroup data contains a list of item IDs in an 'items' attribute
 	if "items" in itemgroup_data:
@@ -353,10 +370,56 @@ func on_itemgroup_deleted(itemgroup_id: String):
 				# If no more itemgroups are left in the item, consider removing the 'itemgroups' attribute
 				if item_data["itemgroups"].size() == 0:
 					item_data.erase("itemgroups")
-					
+
 	# Save changes to the data file if any changes were made
 	if changes_made:
 		save_data_to_file(Gamedata.data.items)
+		save_data_to_file(Gamedata.data.furniture)
 		print("Itemgroup", itemgroup_id, "has been successfully deleted from all items.")
 	else:
 		print("No changes needed for itemgroup", itemgroup_id)
+
+
+# Some furniture has had their itemgroup changed
+# We need to update the relation between the furniture and the itemgroup
+func on_furniture_itemgroup_changed(furniture_id: String, old_group: String, new_group: String):
+	# Exit if old_group and new_group are the same
+	if old_group == new_group:
+		print_debug("No change in itemgroup. Exiting function.")
+		return
+	var changes_made = false
+
+	# Handle the old itemgroup
+	if old_group != "":
+		var old_itemgroup_data = get_data_by_id(Gamedata.data.itemgroups, old_group)
+		if old_itemgroup_data.has("in_furniture"):
+			# Check if the furniture_id is in the old itemgroup and remove it
+			if furniture_id in old_itemgroup_data["in_furniture"]:
+				old_itemgroup_data["in_furniture"].erase(furniture_id)
+				changes_made = true
+				# If in_furniture is now empty, remove the property
+				if old_itemgroup_data["in_furniture"].size() == 0:
+					old_itemgroup_data.erase("in_furniture")
+
+	# Handle the new itemgroup
+	if new_group != "":
+		var new_itemgroup_data = get_data_by_id(Gamedata.data.itemgroups, new_group)
+		# Ensure the new group has the 'in_furniture' list initialized
+		if not new_itemgroup_data.has("in_furniture"):
+			new_itemgroup_data["in_furniture"] = []
+		# Add the furniture_id to the new itemgroup if it's not already there
+		if furniture_id not in new_itemgroup_data["in_furniture"]:
+			new_itemgroup_data["in_furniture"].append(furniture_id)
+			changes_made = true
+
+	# Save changes if any modifications were made
+	if changes_made:
+		if old_group != "":
+			save_data_to_file(Gamedata.data.itemgroups)
+		if new_group != "" and new_group != old_group:
+			save_data_to_file(Gamedata.data.itemgroups)
+
+	if changes_made:
+		print_debug("Furniture itemgroup changes saved successfully.")
+	else:
+		print_debug("No changes were made to furniture itemgroups.")
