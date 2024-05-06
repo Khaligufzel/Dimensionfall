@@ -942,6 +942,11 @@ func generate_chunk_mesh_for_level(y_level: int):
 # Rebuilds the navigationmesh for all blocks in the chunk
 # We can't do this for a specific level, since we have 1 navigationmesh
 # If we had multiple navigationmeshes, we could create one per level, which is more optimized
+# See also https://docs.godotengine.org/en/latest/tutorials/navigation/navigation_using_navigationmeshes.html#baking-navigation-mesh-chunks-for-large-worlds
+# We can try to align the edges for more seamless navigation
+#If you know your final chunk size and the border size  increase the bake bound by 2*border_size
+#in general the border size should be large enough to have all the important source geometry from the neighbours included. If not enough geometry from the neighbour chunks is included or the border size is too small edges might end up not aligned again when baked. 
+#a reasonable starting size is 10-15% of a chunk size as the border size but that all depends on how large your chunks are or how complex the geometry.
 func update_all_navigation_data():
 	for key in block_positions.keys():
 		var block_data: Dictionary = block_positions[key]
