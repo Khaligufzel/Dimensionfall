@@ -38,6 +38,9 @@ json_data = "[
 				\"itemgroups\": [
 					\"cabinet_general\",
 					\"mob_loot\"
+				],
+				\"items\": [
+					\"pistol_magazine\"
 				]
 			}
 		},
@@ -63,6 +66,9 @@ json_data = "[
 				\"itemgroups\": [
 					\"cabinet_general\",
 					\"mob_loot\"
+				],
+				\"items\": [
+					\"pistol_magazine\"
 				]
 			}
 		},
@@ -74,9 +80,26 @@ json_data = "[
 		\"width\": \"1\"
 	},
 	{
+		\"Craft\": {
+			\"craft_amount\": 1,
+			\"craft_time\": 10,
+			\"flags\": {
+				\"requires_light\": false
+			},
+			\"required_resources\": [
+				{
+					\"amount\": 1,
+					\"id\": \"steel_scrap\"
+				},
+				{
+					\"amount\": 10,
+					\"id\": \"bullet_9mm\"
+				}
+			]
+		},
 		\"Magazine\": {
-			\"current_ammo\": \"19\",
-			\"max_ammo\": \"20\",
+			\"current_ammo\": 19,
+			\"max_ammo\": 20,
 			\"used_ammo\": \"bullet_9mm\"
 		},
 		\"description\": \"In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets\",

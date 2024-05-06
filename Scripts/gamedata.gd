@@ -249,6 +249,8 @@ func on_data_changed(contentData: Dictionary, newEntityData: Dictionary, oldEnti
 		on_mob_changed(newEntityData, oldEntityData)
 	if contentData == Gamedata.data.furniture:
 		on_furniture_changed(newEntityData, oldEntityData)
+	if contentData == Gamedata.data.items:
+		on_item_changed(newEntityData, oldEntityData)
 	save_data_to_file(contentData)
 
 
@@ -634,33 +636,6 @@ func on_tile_deleted(tile_id: String):
 			remove_entity_from_map(map_id, "tile", tile_id)
 
 
-# An item is being deleted from the data
-# We have to remove it from everything that references it
-func on_item_deleted(item_id: String):
-	var changes_made = false
-	var item_data = get_data_by_id(Gamedata.data.items, item_id)
-	
-	if item_data.is_empty():
-		print_debug("Item with ID", item_data, "not found.")
-		return
-	
-	# This callable will remove this item from itemgroups that reference this item.
-	var myfunc: Callable = func (itemgroup_id):
-		var itemlist: Array = get_property_by_path(Gamedata.data.itemgroups, "items", itemgroup_id)
-		if item_id in itemlist:
-			itemlist.erase(item_id)
-			changes_made = true
-	# Pass the callable to every itemgroup in the item's references
-	# It will call myfunc on every itemgroup in item_data.references.core.itemgroups
-	execute_callable_on_references_of_type(item_data, "core", "itemgroups", myfunc)
-
-	# Save changes to the data file if any changes were made
-	if changes_made:
-		save_data_to_file(Gamedata.data.itemgroups)
-	else:
-		print_debug("No changes needed for item", item_id)
-
-
 # An itemgroup is being deleted from the data
 # We have to loop over all the items in the itemgroup
 # We can get the items by calling get_data_by_id(contentData, id) 
@@ -792,3 +767,88 @@ func on_mapdata_changed(map_id: String, newdata: Dictionary, olddata: Dictionary
 		save_data_to_file(Gamedata.data.furniture)
 	if new_entities["tiles"].size() > 0 or old_entities["tiles"].size() > 0:
 		save_data_to_file(Gamedata.data.tiles)
+
+
+# Some item has been changed
+# We need to update the relation between the item and other items
+func on_item_changed(newdata: Dictionary, olddata: Dictionary):
+	# Both old_resources and new_resources are arrays of objects
+	var old_resources = get_nested_data(olddata, "Craft.required_resources")
+	var new_resources = get_nested_data(newdata, "Craft.required_resources")
+	var item_id: String = newdata["id"]
+	
+	# Extract IDs from new resources
+	var new_ids = []
+	for res in new_resources:
+		new_ids.append(res["id"])
+
+	var changes_made = false
+
+	# Remove references for items not present in new resources
+	if old_resources:
+		for old_res in old_resources:
+			if old_res["id"] not in new_ids:
+				changes_made = remove_reference(Gamedata.data.items, "core", "items", old_res["id"], item_id) or changes_made
+
+	# Add references for all new resources
+	for new_res in new_resources:
+		changes_made = add_reference(Gamedata.data.items, "core", "items", new_res["id"], item_id) or changes_made
+
+	# Save changes if any modifications were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.items)
+
+	print_debug("Item changes saved successfully." if changes_made else "No changes were made to item.")
+
+
+# An item is being deleted from the data
+# We have to remove it from everything that references it
+func on_item_deleted(item_id: String):
+	var changes_made = false
+	var item_data = get_data_by_id(Gamedata.data.items, item_id)
+	
+	if item_data.is_empty():
+		print_debug("Item with ID", item_data, "not found.")
+		return
+	
+	# This callable will remove this item from itemgroups that reference this item.
+	var myfunc: Callable = func (itemgroup_id):
+		var itemlist: Array = get_property_by_path(Gamedata.data.itemgroups, "items", itemgroup_id)
+		if item_id in itemlist:
+			itemlist.erase(item_id)
+			changes_made = true
+	# Pass the callable to every itemgroup in the item's references
+	# It will call myfunc on every itemgroup in item_data.references.core.itemgroups
+	execute_callable_on_references_of_type(item_data, "core", "itemgroups", myfunc)
+	
+	# This callable will remove this item from required_resources in another item.
+	# This might cause the recipe that had this item in it to become invalid
+	var remove_from_item: Callable = func (other_item_id: String):
+		var other_item_data = get_data_by_id(Gamedata.data.items, other_item_id)
+		if "required_resources" in other_item_data:
+			var itemlist: Array = other_item_data["required_resources"]
+			 # Iterate in reverse to avoid index issues during deletion
+			for i in range(itemlist.size() - 1, -1, -1):
+				if itemlist[i]["id"] == item_id:
+					itemlist.remove_at(i)
+					changes_made = true
+
+	# Pass the callable to every item in the item's references
+	# It will call remove_from_item on every item in item_data.references.core.items
+	execute_callable_on_references_of_type(item_data, "core", "items", remove_from_item)
+
+	# For each item in the crafting requirement, remove the reference to this item
+	if "required_resources" in item_data:
+		# Iterate over each resource in required_resources
+		for resource in item_data["required_resources"]:
+			# Call remove_reference to remove the reference to the item being deleted
+			# from the item that references it
+			if resource.has("id"):
+				changes_made = remove_reference(Gamedata.data.items, \
+				"core", "items", resource["id"], item_id) or changes_made
+
+	# Save changes to the data file if any changes were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.itemgroups)
+	else:
+		print_debug("No changes needed for item", item_id)

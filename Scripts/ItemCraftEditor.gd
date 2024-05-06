@@ -13,29 +13,30 @@ func _ready():
 	pass
 
 
+# Called by the main item editor when the user presses the save button
 func get_properties() -> Dictionary:
 	var properties = {
 		"craft_amount": craftAmountNumber.value,
 		"craft_time": craftTimeNumber.value,
-		"flags": {"requires_light": requiresLightCheckbox.pressed},
-		"resources": []
+		"flags": {"requires_light": requiresLightCheckbox.button_pressed},
+		"required_resources": []
 	}
 	
 	# Iterate over children of resourcesGridContainer to collect resource data
 	var children = resourcesGridContainer.get_children()
-	for i in range(0, children.size(), 2): # Step by 2 to handle label-spinbox pairs
+	for i in range(0, children.size(), 3): # Step by 3 to handle label-spinbox-deleteButton triples
 		var label = children[i] as Label
 		var spinBox = children[i + 1] as SpinBox
-		properties["resources"].append({"id": label.text, "amount": spinBox.value})
+		properties["required_resources"].append({"id": label.text, "amount": spinBox.value})
 	
 	return properties
 
 
+# Called by the main item editor when the editor is loaded
 func set_properties(properties: Dictionary) -> void:
-	# Clear existing resources
-	resourcesGridContainer.queue_free()
-	resourcesGridContainer = GridContainer.new()
-	add_child(resourcesGridContainer)
+	# Clear existing resources by freeing all children
+	for child in resourcesGridContainer.get_children():
+		child.queue_free()
 
 	# Set the craft amount, time, and flags
 	craftAmountNumber.value = properties.get("craft_amount", 1)
@@ -43,8 +44,8 @@ func set_properties(properties: Dictionary) -> void:
 	requiresLightCheckbox.button_pressed = properties.get("flags", {}).get("requires_light", false)
 
 	# Populate resources grid using the new function
-	if properties.has("resources"):
-		for resource in properties["resources"]:
+	if properties.has("required_resources"):
+		for resource in properties["required_resources"]:
 			add_resource_entry(resource["id"], resource["amount"])
 
 
@@ -53,11 +54,19 @@ func _can_drop_data(_newpos, data) -> bool:
 	# Check if the data dictionary has the 'id' property
 	if not data or not data.has("id"):
 		return false
-	
+
 	# Fetch itemgroup data by ID from the Gamedata to ensure it exists and is valid
 	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, data["id"])
 	if item_data.is_empty():
 		return false
+
+	# Check if the item ID already exists in the resources grid
+	var children = resourcesGridContainer.get_children()
+	for i in range(0, children.size(), 3):  # Step by 3 to handle label-spinbox-deleteButton triples
+		var label = children[i] as Label
+		if label.text == data["id"]:
+			# Return false if this item ID already exists in the resources grid
+			return false
 
 	# If all checks pass, return true
 	return true

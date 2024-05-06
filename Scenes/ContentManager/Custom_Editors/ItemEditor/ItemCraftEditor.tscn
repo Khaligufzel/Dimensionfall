@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7jwy5hpj2vyt"]
+[gd_scene load_steps=3 format=3 uid="uid://b7jwy5hpj2vyt"]
 
 [ext_resource type="Script" path="res://Scripts/ItemCraftEditor.gd" id="1_6wvrt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvald"]
+content_margin_left = 11.0
+content_margin_top = 11.0
+content_margin_right = 11.0
+content_margin_bottom = 11.0
+bg_color = Color(0.358505, 0.289355, 0.48639, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="ItemCraftEditor" type="Control" node_paths=PackedStringArray("craftAmountNumber", "craftTimeNumber", "requiresLightCheckbox", "resourcesGridContainer")]
 layout_mode = 3
@@ -13,7 +29,7 @@ script = ExtResource("1_6wvrt")
 craftAmountNumber = NodePath("Craft/CraftAmountNumber")
 craftTimeNumber = NodePath("Craft/CraftTimeNumber")
 requiresLightCheckbox = NodePath("Craft/RequiresLightCheckBox")
-resourcesGridContainer = NodePath("Craft/ResourcesGridContainer")
+resourcesGridContainer = NodePath("Craft/PanelContainer/ResourcesGridContainer")
 
 [node name="Craft" type="GridContainer" parent="."]
 layout_mode = 1
@@ -40,10 +56,15 @@ value = 1.0
 layout_mode = 2
 text = "Required materials"
 
-[node name="ResourcesGridContainer" type="GridContainer" parent="Craft"]
+[node name="PanelContainer" type="PanelContainer" parent="Craft"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_rvald")
+
+[node name="ResourcesGridContainer" type="GridContainer" parent="Craft/PanelContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
-columns = 2
+columns = 3
 
 [node name="CraftTimeLabel" type="Label" parent="Craft"]
 layout_mode = 2
