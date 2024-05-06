@@ -2,14 +2,17 @@
 	{
 		"description": "A wooden plank that could be used for all kinds of crafting and construction",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "plank_2x4",
 		"image": "./Mods/Core/Items/plank.png",
-		"itemgroups": [
-			"mob_loot"
-		],
 		"max_stack_size": "3",
 		"name": "Plank 2x4",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"mob_loot"
+				]
+			}
+		},
 		"sprite": "plank.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -22,11 +25,16 @@
 		"height": "2",
 		"id": "steel_scrap",
 		"image": "./Mods/Core/Items/steel_scrap.png",
-		"itemgroups": [
-			"mob_loot"
-		],
 		"max_stack_size": "100",
 		"name": "Steel scrap",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general",
+					"mob_loot"
+				]
+			}
+		},
 		"sprite": "steel_scrap.png",
 		"stack_size": "2",
 		"two_handed": false,
@@ -42,11 +50,16 @@
 		"height": "1",
 		"id": "bullet_9mm",
 		"image": "./Mods/Core/Items/9mm.png",
-		"itemgroups": [
-			"mob_loot"
-		],
 		"max_stack_size": "100",
 		"name": "bullet 9mm",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general",
+					"mob_loot"
+				]
+			}
+		},
 		"sprite": "9mm.png",
 		"stack_size": "20",
 		"two_handed": false,
@@ -64,11 +77,16 @@
 		"height": "1",
 		"id": "pistol_magazine",
 		"image": "./Mods/Core/Items/pistol_magazine.png",
-		"itemgroups": [
-			"mob_loot"
-		],
 		"max_stack_size": "1",
 		"name": "Pistol magazine",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general",
+					"mob_loot"
+				]
+			}
+		},
 		"sprite": "pistol_magazine.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -94,6 +112,13 @@
 		"image": "./Mods/Core/Items/pistol_32.png",
 		"max_stack_size": "1",
 		"name": "Pistol 9mm",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general"
+				]
+			}
+		},
 		"sprite": "pistol_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -175,11 +200,15 @@
 		"height": "2",
 		"id": "bottle_plastic_empty",
 		"image": "./Mods/Core/Items/bottle_empty_32.png",
-		"itemgroups": [
-			"cabinet_general"
-		],
 		"max_stack_size": "10",
 		"name": "Empty plastic bottle",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"kitchen_cupboard"
+				]
+			}
+		},
 		"sprite": "bottle_empty_32.png",
 		"stack_size": "2",
 		"two_handed": false,
@@ -195,11 +224,16 @@
 		"height": "2",
 		"id": "bottle_plastic_water",
 		"image": "./Mods/Core/Items/bottle_water_32.png",
-		"itemgroups": [
-			"kitchen_cupboard"
-		],
 		"max_stack_size": "10",
 		"name": "Plastic bottle with water",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general",
+					"kitchen_cupboard"
+				]
+			}
+		},
 		"sprite": "bottle_water_32.png",
 		"stack_size": "2",
 		"two_handed": false,
@@ -212,12 +246,15 @@
 		"height": "2",
 		"id": "canned_food",
 		"image": "./Mods/Core/Items/canned_food_32.png",
-		"itemgroups": [
-			"kitchen_cupboard",
-			"cabinet_general"
-		],
 		"max_stack_size": "5",
 		"name": "Canned food\t",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"kitchen_cupboard"
+				]
+			}
+		},
 		"sprite": "canned_food_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -259,12 +296,15 @@
 		"iamge": "res://Textures/plank.png",
 		"id": "hammer",
 		"image": "./Mods/Core/Items/hammer_32.png",
-		"itemgroups": [
-			"kitchen_cupboard",
-			"cabinet_general"
-		],
 		"max_stack_size": "1",
 		"name": "Hammer",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general"
+				]
+			}
+		},
 		"sprite": "hammer_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -275,15 +315,18 @@
 	{
 		"description": "A handle with a rod of steel in it. The tip can be flat or shaped like a star. Useful for construction projects",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "screwdriver",
 		"image": "./Mods/Core/Items/screwdriver_32.png",
-		"itemgroups": [
-			"kitchen_cupboard",
-			"cabinet_general"
-		],
 		"max_stack_size": "1",
 		"name": "Screwdriver",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general",
+					"kitchen_cupboard"
+				]
+			}
+		},
 		"sprite": "screwdriver_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -294,15 +337,18 @@
 	{
 		"description": "A basic bandage that will help to heal a wound",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "bandage_basic",
 		"image": "./Mods/Core/Items/bandage_32.png",
-		"itemgroups": [
-			"kitchen_cupboard",
-			"cabinet_general"
-		],
 		"max_stack_size": "20",
 		"name": "Bandage",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general",
+					"kitchen_cupboard"
+				]
+			}
+		},
 		"sprite": "bandage_32.png",
 		"stack_size": "3",
 		"two_handed": false,
@@ -313,14 +359,17 @@
 	{
 		"description": "A small bottle that contains antibiotics. It helps to recover from disease.",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "bottle_antibiotics",
 		"image": "./Mods/Core/Items/antibiotics_32.png",
-		"itemgroups": [
-			"kitchen_cupboard"
-		],
 		"max_stack_size": "5",
 		"name": "Bottle of antibiotics",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"kitchen_cupboard"
+				]
+			}
+		},
 		"sprite": "antibiotics_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -351,6 +400,13 @@
 		"image": "./Mods/Core/Items/boots_32.png",
 		"max_stack_size": "1",
 		"name": "Boots",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general"
+				]
+			}
+		},
 		"sprite": "boots_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -381,6 +437,13 @@
 		"image": "./Mods/Core/Items/can_oil_32.png",
 		"max_stack_size": "1",
 		"name": "Can of oil",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general"
+				]
+			}
+		},
 		"sprite": "can_oil_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -391,12 +454,8 @@
 	{
 		"description": "A small radio that can be powered by batteries or an electical cord.",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "radio_handheld",
 		"image": "./Mods/Core/Items/battery_powered_radio_32.png",
-		"itemgroups": [
-			"cabinet_general"
-		],
 		"max_stack_size": "1",
 		"name": "Handheld radio",
 		"sprite": "battery_powered_radio_32.png",
@@ -409,15 +468,17 @@
 	{
 		"description": "A basic battery powered flashlight. It will shine a beam of light when it is turned on",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "flashlight_basic",
 		"image": "./Mods/Core/Items/flashlight_32.png",
-		"itemgroups": [
-			"kitchen_cupboard",
-			"cabinet_general"
-		],
 		"max_stack_size": "1",
 		"name": "Flashlight",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general"
+				]
+			}
+		},
 		"sprite": "flashlight_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -433,6 +494,13 @@
 		"image": "./Mods/Core/Items/can_beer_32.png",
 		"max_stack_size": "5",
 		"name": "Can of beer",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"kitchen_cupboard"
+				]
+			}
+		},
 		"sprite": "can_beer_32.png",
 		"stack_size": "2",
 		"two_handed": false,
@@ -443,13 +511,8 @@
 	{
 		"description": "It's a carton pack that contains sigarrettes. You need a fire source to light them and start smoking",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "pack_sigarrettes",
 		"image": "./Mods/Core/Items/sigarrette_pack_32.png",
-		"itemgroups": [
-			"kitchen_cupboard",
-			"cabinet_general"
-		],
 		"max_stack_size": "5",
 		"name": "Pack of sigarrettes",
 		"sprite": "sigarrette_pack_32.png",
@@ -462,7 +525,6 @@
 	{
 		"description": "A piece of clothing that offers protection from environmental hazards",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "gas_mask",
 		"image": "./Mods/Core/Items/gasmask_32.png",
 		"max_stack_size": "1",
@@ -507,15 +569,17 @@
 	{
 		"description": "A very common type of battery that fits most battery-powered devices",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "battery_small",
 		"image": "./Mods/Core/Items/battery_32.png",
-		"itemgroups": [
-			"kitchen_cupboard",
-			"cabinet_general"
-		],
 		"max_stack_size": "20",
 		"name": "Small battery",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general"
+				]
+			}
+		},
 		"sprite": "battery_32.png",
 		"stack_size": "2",
 		"two_handed": false,
@@ -606,6 +670,13 @@
 		"image": "./Mods/Core/Items/book_novel_32.png",
 		"max_stack_size": "5",
 		"name": "Novel",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"cabinet_general"
+				]
+			}
+		},
 		"sprite": "book_novel_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -616,14 +687,17 @@
 	{
 		"description": "A small bottle that contains disinfectant. It helps to disinfect wounds",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "bottle_disinfectant",
 		"image": "./Mods/Core/Items/bottle_disinfectant_32.png",
-		"itemgroups": [
-			"kitchen_cupboard"
-		],
 		"max_stack_size": "5",
 		"name": "Bottle of disinfectant",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"kitchen_cupboard"
+				]
+			}
+		},
 		"sprite": "bottle_disinfectant_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -634,12 +708,8 @@
 	{
 		"description": "A small radio that allows you to communicate with someone over a large distance",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "radio_two_way",
 		"image": "./Mods/Core/Items/radio_two_way_32.png",
-		"itemgroups": [
-			"cabinet_general"
-		],
 		"max_stack_size": "1",
 		"name": "Two way radio",
 		"sprite": "radio_two_way_32.png",
@@ -667,12 +737,8 @@
 	{
 		"description": "\n    A true survival fishing kit in a very small, lightweight package!\n    Contains 118 foot line and winder\n    2 lures, 2 hooks\n    2 swivels, 2 weghts\n    Comes in a strong durable heavy duty resealable plastic bag",
 		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "kit_fishing_small",
 		"image": "./Mods/Core/Items/kit_fishing_small_32.png",
-		"itemgroups": [
-			"cabinet_general"
-		],
 		"max_stack_size": "1",
 		"name": "Small fishing kit",
 		"sprite": "kit_fishing_small_32.png",

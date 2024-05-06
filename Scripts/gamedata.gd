@@ -107,7 +107,7 @@ func duplicate_item_in_data(contentData: Dictionary, id: String, newID: String):
 		item_to_duplicate["id"] = newID
 		# Add the duplicated item to the JSON data.
 		contentData.data.append(item_to_duplicate)
-		Helper.json_helper.write_json_file(contentData.dataPath,JSON.stringify(contentData.data))
+		Helper.json_helper.write_json_file(contentData.dataPath,JSON.stringify(contentData.data,"\t"))
 	else:
 		print_debug("There should be code here for when a file in the gets duplicated")
 
@@ -171,8 +171,7 @@ func remove_item_from_data(contentData: Dictionary, id: String):
 	if contentData.data.is_empty():
 		return
 	if contentData.data[0] is Dictionary:
-		if contentData == Gamedata.data.itemgroups:
-			on_itemgroup_deleted(id)
+		remove_relations_of_deleted_id(contentData, id)
 		contentData.data.remove_at(get_array_index_by_id(contentData, id))
 		save_data_to_file(contentData)
 	elif contentData.data[0] is String:
@@ -245,7 +244,7 @@ func update_item_protoset_json_data(tres_path: String, new_json_data: String) ->
 	# Load the ItemProtoset resource
 	var item_protoset = load(tres_path) as ItemProtoset
 	if not item_protoset:
-		print("Failed to load ItemProtoset resource from:", tres_path)
+		print_debug("Failed to load ItemProtoset resource from:", tres_path)
 		return
 
 	# Update the json_data property
@@ -254,9 +253,9 @@ func update_item_protoset_json_data(tres_path: String, new_json_data: String) ->
 	# Save the resource back to the .tres file
 	var save_result = ResourceSaver.save(item_protoset, tres_path)
 	if save_result != OK:
-		print("Failed to save updated ItemProtoset resource to:", tres_path)
+		print_debug("Failed to save updated ItemProtoset resource to:", tres_path)
 	else:
-		print("ItemProtoset resource updated and saved successfully to:", tres_path)
+		print_debug("ItemProtoset resource updated and saved successfully to:", tres_path)
 
 
 # Function to filter items by type
@@ -279,43 +278,19 @@ func get_items_by_type(item_type: String) -> Array:
 # oldlist and newlist are arrays with item id strings in them
 func on_itemgroup_changed(itemgroup: String, oldlist: Array[String], newlist: Array[String]):
 	var changes_made = false
-
-	# Dictionary to keep track of current memberships
-	var membership = {}
+	# Remove itemgroup from items in the old list that are not in the new list
 	for item_id in oldlist:
-		membership[item_id] = false  # Assume all old items are not in the new list initially
+		if item_id not in newlist:
+			# Call remove_reference to remove the itemgroup from this item
+			changes_made = remove_reference(Gamedata.data.items, "core", "itemgroups", \
+			item_id, itemgroup) or changes_made
 
-	# Process each item in the new list
+	# Add itemgroup to items in the new list that were not in the old list
 	for item_id in newlist:
-		var item_data = get_data_by_id(Gamedata.data.items, item_id)
-		if item_data.is_empty():
-			continue  # Skip if no data is found for this item
-
-		# Ensure the itemgroups field exists and is a list
-		if "itemgroups" not in item_data:
-			item_data["itemgroups"] = []
-		
-		# Add the current itemgroup if it's not already there
-		if itemgroup not in item_data["itemgroups"]:
-			item_data["itemgroups"].append(itemgroup)
-			changes_made = true
-		
-		# Mark this item as processed
-		membership[item_id] = true
-
-	# Check old items to see if they should be removed from the itemgroup
-	for item_id in oldlist:
-		if not membership[item_id]:  # This item was not in the new list
-			var item_data = get_data_by_id(Gamedata.data.items, item_id)
-			if item_data.is_empty() or "itemgroups" not in item_data:
-				continue  # Skip if no data or no itemgroups property is found
-
-			if itemgroup in item_data["itemgroups"]:
-				item_data["itemgroups"].erase(itemgroup)  # Remove the itemgroup from the item
-				# Remove the itemgroups property if it's empty
-				if item_data["itemgroups"].size() == 0:
-					item_data.erase("itemgroups")
-				changes_made = true
+		if item_id not in oldlist:
+			# Call add_reference to add the itemgroup to this item
+			changes_made = add_reference(Gamedata.data.items, "core", "itemgroups", \
+			item_id, itemgroup) or changes_made
 
 	# Save changes if any items were updated
 	if changes_made:
@@ -327,57 +302,39 @@ func on_itemgroup_changed(itemgroup: String, oldlist: Array[String], newlist: Ar
 # We can get the items by calling get_data_by_id(contentData, id) 
 # and getting the items property, which will return an array of item id's
 # For each item, we have to get the item's data, and delete the itemgroup from the item's itemgroups property if it is present
-# Function to handle the deletion of an itemgroup. This will remove the itemgroup from all items that are part of it.
 func on_itemgroup_deleted(itemgroup_id: String):
 	var changes_made = false
 	var itemgroup_data = get_data_by_id(Gamedata.data.itemgroups, itemgroup_id)
-	
-	if itemgroup_data.is_empty():
-		print("Itemgroup with ID", itemgroup_id, "not found.")
-		return
-	
-	# Handling the in_furniture attribute for furniture items
-	if "in_furniture" in itemgroup_data:
-		var furniture_ids = itemgroup_data["in_furniture"]
-		for furniture_id in furniture_ids:
-			var furniture_data = get_data_by_id(Gamedata.data.furniture, furniture_id)
-			if furniture_data.is_empty():
-				print("Furniture with ID", furniture_id, "not found.")
-				continue
 
-			# Navigate through the nested dictionary safely
-			if "Function" in furniture_data and "container" in furniture_data["Function"]:
-				if "itemgroup" in furniture_data["Function"]["container"]:
-					# Check if this itemgroup matches the one being deleted
-					if furniture_data["Function"]["container"]["itemgroup"] == itemgroup_id:
-						furniture_data["Function"]["container"].erase("itemgroup")
-						changes_made = true
+	if itemgroup_data.is_empty():
+		print_debug("Itemgroup with ID", itemgroup_id, "not found.")
+		return
+
+	# This callable will remove this itemgroups from every furniture that reference this itemgroup.
+	var myfunc: Callable = func (furn_id):
+		if erase_property_by_path(Gamedata.data.furniture, furn_id, "Function.container.itemgroup"):
+			changes_made = true
+	# Pass the callable to every furniture in the itemgroup's references
+	# It will call myfunc on every furniture in itemgroup_data.references.core.furniture
+	execute_callable_on_references_of_type(itemgroup_data, "core", "furniture", myfunc)
 
 	# The itemgroup data contains a list of item IDs in an 'items' attribute
+	# Loop over all the items in the list and remove the reference to this itemgroup
 	if "items" in itemgroup_data:
 		var item_ids = itemgroup_data["items"]
 		for item_id in item_ids:
-			var item_data = get_data_by_id(Gamedata.data.items, item_id)
-			if item_data.is_empty():
-				print("Item with ID", item_id, "not found.")
-				continue
+			# Use remove_reference to handle deletion of itemgroup references
+			changes_made = remove_reference(Gamedata.data.items, "core", "itemgroups", \
+			item_id, itemgroup_id) or changes_made
 
-			# Check if the 'itemgroups' attribute exists and contains the itemgroup to be deleted
-			if "itemgroups" in item_data and itemgroup_id in item_data["itemgroups"]:
-				item_data["itemgroups"].erase(itemgroup_id)  # Remove the itemgroup from the list
-				changes_made = true
-
-				# If no more itemgroups are left in the item, consider removing the 'itemgroups' attribute
-				if item_data["itemgroups"].size() == 0:
-					item_data.erase("itemgroups")
 
 	# Save changes to the data file if any changes were made
 	if changes_made:
 		save_data_to_file(Gamedata.data.items)
 		save_data_to_file(Gamedata.data.furniture)
-		print("Itemgroup", itemgroup_id, "has been successfully deleted from all items.")
+		print_debug("Itemgroup", itemgroup_id, "has been successfully deleted from all items.")
 	else:
-		print("No changes needed for itemgroup", itemgroup_id)
+		print_debug("No changes needed for itemgroup", itemgroup_id)
 
 
 # Some furniture has had their itemgroup changed
@@ -390,27 +347,12 @@ func on_furniture_itemgroup_changed(furniture_id: String, old_group: String, new
 	var changes_made = false
 
 	# Handle the old itemgroup
-	if old_group != "":
-		var old_itemgroup_data = get_data_by_id(Gamedata.data.itemgroups, old_group)
-		if old_itemgroup_data.has("in_furniture"):
-			# Check if the furniture_id is in the old itemgroup and remove it
-			if furniture_id in old_itemgroup_data["in_furniture"]:
-				old_itemgroup_data["in_furniture"].erase(furniture_id)
-				changes_made = true
-				# If in_furniture is now empty, remove the property
-				if old_itemgroup_data["in_furniture"].size() == 0:
-					old_itemgroup_data.erase("in_furniture")
+	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
+	old_group, furniture_id) or changes_made
 
-	# Handle the new itemgroup
-	if new_group != "":
-		var new_itemgroup_data = get_data_by_id(Gamedata.data.itemgroups, new_group)
-		# Ensure the new group has the 'in_furniture' list initialized
-		if not new_itemgroup_data.has("in_furniture"):
-			new_itemgroup_data["in_furniture"] = []
-		# Add the furniture_id to the new itemgroup if it's not already there
-		if furniture_id not in new_itemgroup_data["in_furniture"]:
-			new_itemgroup_data["in_furniture"].append(furniture_id)
-			changes_made = true
+	# Handle the new itemgroup the 'or' makes sure changes_made does not change back to false
+	changes_made = add_reference(Gamedata.data.itemgroups, "core", "furniture", \
+	new_group, furniture_id) or changes_made
 
 	# Save changes if any modifications were made
 	if changes_made:
@@ -423,3 +365,176 @@ func on_furniture_itemgroup_changed(furniture_id: String, old_group: String, new
 		print_debug("Furniture itemgroup changes saved successfully.")
 	else:
 		print_debug("No changes were made to furniture itemgroups.")
+
+
+# Adds a reference to an entity
+# data = any data group, like Gamedata.data.itemgroups
+# type = the type of reference, for example furniture
+# onid = where to add the reference to
+# refid = The reference to add on the fromid
+# Example usage: var changes_made = add_reference(Gamedata.data.itemgroups, "core", 
+# "furniture", itemgroup_id, furniture_id)
+# This example will add the specified furniture from the itemgroup's references
+func add_reference(data: Dictionary, module: String, type: String, onid: String, refid: String) -> bool:
+	var changes_made: bool = false
+	if onid != "":
+		var entitydata = get_data_by_id(data, onid)
+		if not entitydata.has("references"):
+			entitydata["references"] = {}
+		if not entitydata["references"].has(module):
+			entitydata["references"][module] = {}
+		if not entitydata["references"][module].has(type):
+			entitydata["references"][module][type] = []
+		
+		if refid not in entitydata["references"][module][type]:
+			entitydata["references"][module][type].append(refid)
+			changes_made = true
+	return changes_made
+
+
+# Removes a reference from an entity. 
+# data = any data group, like Gamedata.data.itemgroups
+# type = the type of reference, for example furniture
+# fromid = where to remove the reference from
+# refid = The reference to remove from the fromid
+# Example usage: var changes_made = remove_reference(Gamedata.data.itemgroups, "core", 
+# "furniture", itemgroup_id, furniture_id)
+# This example will remove the specified furniture from the itemgroup's references
+func remove_reference(mydata: Dictionary, module: String, type: String, fromid: String, refid: String) -> bool:
+	var changes_made: bool = false
+	if fromid != "":
+		var entitydata = get_data_by_id(mydata, fromid)
+		if entitydata.has("references") and entitydata["references"].has(module) and entitydata["references"][module].has(type):
+			var refs = entitydata["references"][module][type]
+			if refid in refs:
+				refs.erase(refid)
+				changes_made = true
+				# Clean up if necessary
+				if refs.size() == 0:
+					entitydata["references"][module].erase(type)
+				if entitydata["references"][module].is_empty():
+					entitydata["references"].erase(module)
+				if entitydata["references"].is_empty():
+					entitydata.erase("references")
+	return changes_made
+
+
+func remove_relations_of_deleted_id(contentData: Dictionary, id: String):
+	if contentData == Gamedata.data.itemgroups:
+		on_itemgroup_deleted(id)
+	if contentData == Gamedata.data.items:
+		on_item_deleted(id)
+	if contentData == Gamedata.data.furniture:
+		on_furniture_deleted(id)
+
+
+# Erases a nested property from a given dictionary based on a dot-separated path
+func erase_property_by_path(mydata: Dictionary, item_id: String, property_path: String):
+	var entity_data = get_data_by_id(mydata, item_id)
+	if entity_data.is_empty():
+		print_debug("Entity with ID", item_id, "not found.")
+		return false
+
+	# Split the path and process the nesting
+	var path_parts = property_path.split(".")
+	var current_dict = entity_data
+	for i in range(path_parts.size() - 1):  # Navigate to the last dictionary
+		if path_parts[i] in current_dict:
+			current_dict = current_dict[path_parts[i]]
+		else:
+			print_debug("Path not found:", path_parts[i])
+			return false
+
+	# Last part of the path is the key to erase
+	var last_key = path_parts[-1]
+	if last_key in current_dict:
+		current_dict.erase(last_key)
+		print_debug("Property", last_key, "erased successfully.")
+		return true
+	else:
+		print_debug("Property", last_key, "not found.")
+		return false
+
+
+# An item is being deleted from the data
+# We have to remove it from everything that references it
+func on_item_deleted(item_id: String):
+	var changes_made = false
+	var item_data = get_data_by_id(Gamedata.data.items, item_id)
+	
+	if item_data.is_empty():
+		print_debug("Item with ID", item_data, "not found.")
+		return
+	
+	# This callable will remove this item from itemgroups that reference this item.
+	var myfunc: Callable = func (itemgroup_id):
+		var itemlist: Array = get_property_by_path(Gamedata.data.itemgroups, "items", itemgroup_id)
+		if item_id in itemlist:
+			itemlist.erase(item_id)
+			changes_made = true
+	# Pass the callable to every itemgroup in the item's references
+	# It will call myfunc on every itemgroup in item_data.references.core.itemgroups
+	execute_callable_on_references_of_type(item_data, "core", "itemgroups", myfunc)
+
+	# Save changes to the data file if any changes were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.itemgroups)
+	else:
+		print_debug("No changes needed for item", item_id)
+
+
+# Some furniture is being deleted from the data
+# We have to remove it from everything that references it
+func on_furniture_deleted(furniture_id: String):
+	var changes_made = false
+	var furniture_data = get_data_by_id(Gamedata.data.furniture, furniture_id)
+	
+	if furniture_data.is_empty():
+		print_debug("Item with ID", furniture_data, "not found.")
+		return
+
+	var itemgroup: String = get_property_by_path(Gamedata.data.furniture, \
+	"Function.container.itemgroup", furniture_id)
+	# Handle the old itemgroup
+	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
+	itemgroup, furniture_id) or changes_made
+
+	# Save changes to the data file if any changes were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.itemgroups)
+	else:
+		print_debug("No changes needed for item", furniture_id)
+
+
+# Executes a callable function on each reference of the given type
+# data = json data representing one entity
+# module = name of the mod. for example "core"
+# type = the type of reference we want to handle. For example "furniture"
+# callable = a function to execute on each reference ID
+# We will check if data has the ["references"] and [type] properties and execute the callable on each found ID
+func execute_callable_on_references_of_type(mydata: Dictionary, module: String, type: String, callable: Callable):
+	# Check if 'data' contains a 'references' dictionary and if it contains the specified 'type'
+	if mydata.has("references") and mydata["references"].has(module) and mydata["references"][module].has(type):
+		# If the type exists, execute the callable on each ID found under this type
+		for ref_id in mydata["references"][module][type]:
+			callable.call(ref_id)
+
+
+# Retrieves the value of a nested property from a given dictionary based on a dot-separated path
+func get_property_by_path(mydata: Dictionary, property_path: String, entity_id: String) -> Variant:
+	var entity_data = get_data_by_id(mydata, entity_id)
+	if entity_data.is_empty():
+		print_debug("Entity with ID", entity_id, "not found.")
+		return null
+	return get_nested_data(entity_data, property_path)
+
+
+func get_nested_data(mydata: Dictionary, path: String) -> Variant:
+	var parts = path.split(".")
+	var current = mydata
+	for part in parts:
+		if current.has(part):
+			current = current[part]
+		else:
+			return null
+	return current
