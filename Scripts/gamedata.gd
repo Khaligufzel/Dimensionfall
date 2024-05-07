@@ -299,8 +299,8 @@ func get_items_by_type(item_type: String) -> Array:
 # oldlist and newlist are arrays with item id strings in them
 func on_itemgroup_changed(newdata: Dictionary, olddata: Dictionary):
 	var changes_made = false
-	var oldlist: Array = get_nested_data(olddata, "items")
-	var newlist: Array = get_nested_data(newdata, "items")
+	var oldlist: Array = Helper.json_helper.get_nested_data(olddata, "items")
+	var newlist: Array = Helper.json_helper.get_nested_data(newdata, "items")
 	var itemgroup: String = newdata.id
 	# Remove itemgroup from items in the old list that are not in the new list
 	for item_id in oldlist:
@@ -442,18 +442,8 @@ func get_property_by_path(mydata: Dictionary, property_path: String, entity_id: 
 	if entity_data.is_empty():
 		print_debug("Entity with ID", entity_id, "not found.")
 		return null
-	return get_nested_data(entity_data, property_path)
+	return Helper.json_helper.get_nested_data(entity_data, property_path)
 
-
-func get_nested_data(mydata: Dictionary, path: String) -> Variant:
-	var parts = path.split(".")
-	var current = mydata
-	for part in parts:
-		if current.has(part):
-			current = current[part]
-		else:
-			return null
-	return current
 
 
 # A mob has been changed.
@@ -488,8 +478,8 @@ func on_mob_changed(newdata: Dictionary, olddata: Dictionary):
 # Some furniture has been changed
 # We need to update the relation between the furniture and the itemgroup
 func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
-	var old_group = get_nested_data(olddata, "Function.container.itemgroup")
-	var new_group = get_nested_data(newdata, "Function.container.itemgroup")
+	var old_group = Helper.json_helper.get_nested_data(olddata, "Function.container.itemgroup")
+	var new_group = Helper.json_helper.get_nested_data(newdata, "Function.container.itemgroup")
 	var furniture_id: String = newdata.id
 	# Exit if old_group and new_group are the same
 	if old_group == new_group:
@@ -587,7 +577,7 @@ func on_furniture_deleted(furniture_id: String):
 	itemgroup, furniture_id) or changes_made
 	
 	# Check if the furniture has references to maps and remove it from those maps
-	var maps = get_nested_data(furniture_data,"references.core.maps")
+	var maps = Helper.json_helper.get_nested_data(furniture_data,"references.core.maps")
 	for map_id in maps:
 		remove_entity_from_map(map_id, "furniture", furniture_id)
 
@@ -613,7 +603,7 @@ func on_mob_deleted(mob_id: String):
 	loot_group, mob_id) or changes_made
 	
 	# Check if the mob has references to maps and remove it from those maps
-	var maps = get_nested_data(mob_data,"references.core.maps")
+	var maps = Helper.json_helper.get_nested_data(mob_data,"references.core.maps")
 	for map_id in maps:
 		remove_entity_from_map(map_id, "mob", mob_id)
 
@@ -635,7 +625,7 @@ func on_tile_deleted(tile_id: String):
 	# Check if the tile has references to maps and remove it from those maps
 	var modules = tile_data.get("references", [])
 	for mod in modules:
-		var maps = get_nested_data(tile_data,"references."+mod+".maps")
+		var maps = Helper.json_helper.get_nested_data(tile_data,"references."+mod+".maps")
 		for map_id in maps:
 			remove_entity_from_map(map_id, "tile", tile_id)
 

@@ -226,3 +226,112 @@ func _on_items_used(usedItems: Array[InventoryItem]) -> void:
 			var foodProperties: Dictionary = item.get_property("Food")
 			if foodProperties.has("health"):
 				Helper.signal_broker.health_item_used.emit(item)
+
+
+# The user has pressed a button to start crafting
+func on_crafting_menu_start_craft(item, recipe):
+	if recipe and item:
+		# If the player doesn't have the resources, return
+		if not CraftingRecipesManager.can_craft_recipe(recipe):
+			return
+		var item_id: String = item.get("id")
+		if not remove_required_resources_for_recipe(recipe):
+			return
+		var newitem = playerInventory.create_and_add_item(item_id)
+		InventoryStacked.set_item_stack_size(newitem, recipe["craft_amount"])
+
+
+func try_to_spend_item(item_id, amount_to_spend : int):
+	if playerInventory.get_item_by_id(item_id):
+		var item_total_amount : int = 0
+		var current_amount_to_spend = amount_to_spend
+		var items = playerInventory.get_items_by_id(item_id)
+		
+		for item in items:
+			item_total_amount += InventoryStacked.get_item_stack_size(item)
+		
+		if item_total_amount >= amount_to_spend:
+			merge_items_to_total_amount(items, playerInventory, item_total_amount - current_amount_to_spend)
+			return true
+		else:
+			return false
+	else:
+		return false
+
+
+func merge_items_to_total_amount(items, inventory_node, total_amount : int):
+	var current_total_amount = total_amount
+	for item in items:
+		if inventory_node.get_item_stack_size(item) < current_total_amount:
+			if inventory_node.get_item_stack_size(item) == item.get_property("max_stack_size"):
+				current_total_amount -= inventory_node.get_item_stack_size(item)
+			elif inventory_node.get_item_stack_size(item) < item.get_property("max_stack_size"):
+				current_total_amount -= item.get_property("max_stack_size") - inventory_node.get_item_stack_size(item)
+				inventory_node.set_item_stack_size(item, item.get_property("max_stack_size"))
+
+		elif inventory_node.get_item_stack_size(item) == current_total_amount:
+			current_total_amount = 0
+
+		elif inventory_node.get_item_stack_size(item) > current_total_amount:
+			inventory_node.set_item_stack_size(item, current_total_amount)
+			current_total_amount = 0
+
+			if inventory_node.get_item_stack_size(item) == 0:
+				inventory_node.remove_item(item)
+
+
+# Checks if the inventory has at least the specified amount of a given item ID.
+func has_sufficient_item_amount(item_id: String, required_amount: int) -> bool:
+	var items = playerInventory.get_items_by_id(item_id)
+	var total_amount = 0
+	
+	# Sum up the stack sizes of all items with the specified ID.
+	for item in items:
+		total_amount += InventoryStacked.get_item_stack_size(item)
+	
+	# Check if the total amount meets or exceeds the required amount.
+	return total_amount >= required_amount
+
+
+# Function to remove the required resources for a given recipe from the inventory.
+func remove_required_resources_for_recipe(recipe: Dictionary) -> bool:
+	if "required_resources" not in recipe:
+		print("Recipe does not contain required resources.")
+		return false
+
+	# Loop through each resource and amount required by the recipe.
+	for resource in recipe["required_resources"]:
+		# Check if the inventory has a sufficient amount of each required resource.
+		if not remove_resource(resource.get("id"), resource.get("amount")):
+			print_debug("Failed to remove required resource:", resource.get("id"), \
+			"needed amount:", resource.get("amount"))
+			return false  # Return false if we fail to remove the required amount for any resource.
+
+	return true  # If all resources are successfully removed, return true.
+
+
+# Helper function to remove a specific amount of a resource by ID.
+func remove_resource(item_id: String, amount: int) -> bool:
+	var items = playerInventory.get_items_by_id(item_id)
+	var amount_to_remove = amount
+	
+	for item in items:
+		if amount_to_remove <= 0:
+			break  # Stop if we have removed enough of the item.
+		
+		var current_stack_size = InventoryStacked.get_item_stack_size(item)
+		if current_stack_size <= amount_to_remove:
+			# If the current item stack size is less than or equal to the amount we need to remove,
+			# remove this item completely.
+			amount_to_remove -= current_stack_size
+			if not playerInventory.remove_item(item):
+				return false  # Return false if we fail to remove the item.
+		else:
+			# If the current item stack has more than we need, reduce its stack size.
+			var new_stack_size = current_stack_size - amount_to_remove
+			if not InventoryStacked.set_item_stack_size(item, new_stack_size):
+				return false  # Return false if we fail to set the new stack size.
+			amount_to_remove = 0  # Set to 0 as we have removed enough.
+	
+	# Check if we have removed the required amount.
+	return amount_to_remove == 0

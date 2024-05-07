@@ -153,19 +153,6 @@ func merge_items_to_total_amount(items, inventory, total_amount : int):
 				inventory.remove_item(item)
 
 
-func _on_crafting_menu_start_craft(recipe):
-	
-	if recipe:
-		#first we need to use required resources for the recipe
-		for required_item in recipe["required_resource"]:
-			try_to_spend_item(required_item, recipe["required_resource"][required_item])
-			
-		#adding a new item(s) to the inventory based on the recipe
-		var item
-		item = inventoryWindow.get_inventory().create_and_add_item(recipe["crafts"])
-		inventoryWindow.get_inventory().set_item_stack_size(item, recipe["craft_amount"])
-
-
 func start_progress_bar(time : float):
 	get_node(progress_bar).visible = true
 	get_node(progress_bar_timer).wait_time = time
