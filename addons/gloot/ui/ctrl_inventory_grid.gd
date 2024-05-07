@@ -182,8 +182,23 @@ func _ready() -> void:
     _ctrl_inventory_grid_basic.stretch_item_sprites = stretch_item_sprites
     _ctrl_inventory_grid_basic.name = "CtrlInventoryGridBasic"
     _ctrl_inventory_grid_basic.resized.connect(_update_size)
-    _ctrl_inventory_grid_basic.selection_changed.connect(_queue_refresh)
     _ctrl_inventory_grid_basic.select_mode = select_mode
+
+    _ctrl_inventory_grid_basic.item_dropped.connect(func(item: InventoryItem, drop_position: Vector2):
+        item_dropped.emit(item, drop_position)
+    )
+    _ctrl_inventory_grid_basic.selection_changed.connect(func():
+        _queue_refresh()
+        selection_changed.emit()
+    )
+    _ctrl_inventory_grid_basic.inventory_item_activated.connect(func(item: InventoryItem):
+        inventory_item_activated.emit(item)
+    )
+    _ctrl_inventory_grid_basic.inventory_item_context_activated.connect(func(item: InventoryItem):
+        inventory_item_context_activated.emit(item)
+    )
+    _ctrl_inventory_grid_basic.item_mouse_entered.connect(func(item: InventoryItem): item_mouse_entered.emit(item))
+    _ctrl_inventory_grid_basic.item_mouse_exited.connect(func(item: InventoryItem): item_mouse_exited.emit(item))
 
     _ctrl_grid = GridControl.new(grid_color, _get_inventory_dimensions())
     _ctrl_grid.color = grid_color
@@ -252,6 +267,18 @@ func _get_inventory() -> InventoryGrid:
     if !is_instance_valid(_ctrl_inventory_grid_basic.inventory):
         return null
     return _ctrl_inventory_grid_basic.inventory
+
+
+func deselect_inventory_item() -> void:
+    if !is_instance_valid(_ctrl_inventory_grid_basic):
+        return
+    _ctrl_inventory_grid_basic.deselect_inventory_item()
+
+
+func select_inventory_item(item: InventoryItem) -> void:
+    if !is_instance_valid(_ctrl_inventory_grid_basic):
+        return
+    _ctrl_inventory_grid_basic.select_inventory_item(item)
 
 
 func get_selected_inventory_item() -> InventoryItem:

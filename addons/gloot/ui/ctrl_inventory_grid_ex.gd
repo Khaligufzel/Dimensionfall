@@ -3,11 +3,16 @@
 class_name CtrlInventoryGridEx
 extends Control
 
+signal item_dropped(item, offset)
+signal selection_changed
+signal inventory_item_activated(item)
+signal inventory_item_context_activated(item)
 signal item_mouse_entered(item)
 signal item_mouse_exited(item)
 
 const Verify = preload("res://addons/gloot/core/verify.gd")
 const CtrlInventoryGridBasic = preload("res://addons/gloot/ui/ctrl_inventory_grid_basic.gd")
+const CtrlInventoryItemRect = preload("res://addons/gloot/ui/ctrl_inventory_item_rect.gd")
 const CtrlDragable = preload("res://addons/gloot/ui/ctrl_dragable.gd")
 
 
@@ -239,6 +244,15 @@ func _ready() -> void:
     _ctrl_inventory_grid_basic.stretch_item_sprites = stretch_item_sprites
     _ctrl_inventory_grid_basic.name = "CtrlInventoryGridBasic"
     _ctrl_inventory_grid_basic.resized.connect(_update_size)
+    _ctrl_inventory_grid_basic.item_dropped.connect(func(item: InventoryItem, drop_position: Vector2):
+        item_dropped.emit(item, drop_position)
+    )
+    _ctrl_inventory_grid_basic.inventory_item_activated.connect(func(item: InventoryItem):
+        inventory_item_activated.emit(item)
+    )
+    _ctrl_inventory_grid_basic.inventory_item_context_activated.connect(func(item: InventoryItem):
+        inventory_item_context_activated.emit(item)
+    )
     _ctrl_inventory_grid_basic.item_mouse_entered.connect(_on_item_mouse_entered)
     _ctrl_inventory_grid_basic.item_mouse_exited.connect(_on_item_mouse_exited)
     _ctrl_inventory_grid_basic.selection_changed.connect(_on_selection_changed)
@@ -258,6 +272,11 @@ func _ready() -> void:
     _queue_refresh()
 
 
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_DRAG_END:
+        _fill_background(field_style, PriorityPanel.StylePriority.LOW)
+
+
 func _update_size() -> void:
     custom_minimum_size = _ctrl_inventory_grid_basic.size
     size = _ctrl_inventory_grid_basic.size
@@ -265,13 +284,20 @@ func _update_size() -> void:
 
 func _on_item_mouse_entered(item: InventoryItem) -> void:
     _set_item_background(item, field_highlighted_style, PriorityPanel.StylePriority.MEDIUM)
+    item_mouse_entered.emit(item)
 
 
 func _on_item_mouse_exited(item: InventoryItem) -> void:
     _set_item_background(item, null, PriorityPanel.StylePriority.MEDIUM)
+    item_mouse_exited.emit(item)
 
 
 func _on_selection_changed() -> void:
+    _handle_selection_change()
+    selection_changed.emit()
+
+
+func _handle_selection_change() -> void:
     if !is_instance_valid(inventory):
         return
     _refresh_selection_panel()
@@ -310,10 +336,13 @@ func _highlight_grabbed_item(style: StyleBox):
         _fill_background(field_style, PriorityPanel.StylePriority.LOW)
         return
 
+    _fill_background(field_style, PriorityPanel.StylePriority.LOW)
+
     var grabbed_item_coords := _ctrl_inventory_grid_basic.get_field_coords(global_grabbed_item_pos + (field_dimensions / 2))
     var item_size := inventory.get_item_size(grabbed_item)
     var rect := Rect2i(grabbed_item_coords, item_size)
-    _fill_background(field_style, PriorityPanel.StylePriority.LOW)
+    if !Rect2i(Vector2i.ZERO, inventory.size).encloses(rect):
+        return
     _set_rect_background(rect, style, PriorityPanel.StylePriority.LOW)
 
 
@@ -350,8 +379,20 @@ func _get_global_grabbed_item() -> InventoryItem:
 
 func _get_global_grabbed_item_local_pos() -> Vector2:
     if CtrlDragable.get_grabbed_dragable():
-        return get_local_mouse_position() - CtrlDragable.get_grab_offset()
+        return get_local_mouse_position() - CtrlDragable.get_grab_offset_local_to(self)
     return Vector2(-1, -1)
+
+
+func deselect_inventory_item() -> void:
+    if !is_instance_valid(_ctrl_inventory_grid_basic):
+        return
+    _ctrl_inventory_grid_basic.deselect_inventory_item()
+
+
+func select_inventory_item(item: InventoryItem) -> void:
+    if !is_instance_valid(_ctrl_inventory_grid_basic):
+        return
+    _ctrl_inventory_grid_basic.select_inventory_item(item)
 
 
 func get_selected_inventory_item() -> InventoryItem:
