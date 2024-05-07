@@ -774,38 +774,44 @@ func on_mapdata_changed(map_id: String, newdata: Dictionary, olddata: Dictionary
 
 
 # Some item has been changed
-# We need to update the relation between the item and other items
+# We need to update the relation between the item and other items based on crafting recipes
 func on_item_changed(newdata: Dictionary, olddata: Dictionary):
-	# Both old_resources and new_resources are arrays of objects
-	var old_resources = get_nested_data(olddata, "Craft.required_resources")
-	var new_resources = get_nested_data(newdata, "Craft.required_resources")
 	var item_id: String = newdata["id"]
-	
-	# Extract IDs from new resources
-	var new_ids = []
-	if new_resources:
-		for res in new_resources:
-			new_ids.append(res["id"])
 
+	# Dictionaries to track unique resource IDs across all recipes
+	var old_resource_ids: Dictionary = {}
+	var new_resource_ids: Dictionary = {}
+
+	# Collect all unique resource IDs from old recipes
+	for recipe in olddata.get("Craft", []):
+		for resource in recipe.get("required_resources", []):
+			old_resource_ids[resource["id"]] = true
+
+	# Collect all unique resource IDs from new recipes
+	for recipe in newdata.get("Craft", []):
+		for resource in recipe.get("required_resources", []):
+			new_resource_ids[resource["id"]] = true
+
+	# Now compare the dictionaries to find resources that have been added or removed
 	var changes_made = false
 
-	# Remove references for items not present in new resources
-	if old_resources:
-		for old_res in old_resources:
-			if old_res["id"] not in new_ids:
-				changes_made = remove_reference(Gamedata.data.items, "core", "items", old_res["id"], item_id) or changes_made
+	# Resources that are no longer in the recipe will no longer reference this item
+	for res_id in old_resource_ids:
+		if not new_resource_ids.has(res_id):
+			changes_made = remove_reference(Gamedata.data.items, "core", "items", \
+			res_id, item_id) or changes_made
 
-	# Add references for all new resources
-	if new_resources:
-		for new_res in new_resources:
-			changes_made = add_reference(Gamedata.data.items, "core", \
-			"items", new_res["id"], item_id) or changes_made
+	# Add references for new resources, nothing happens if they are already present
+	for res_id in new_resource_ids:
+		changes_made = add_reference(Gamedata.data.items, "core", "items", \
+		res_id, item_id) or changes_made
 
 	# Save changes if any modifications were made
 	if changes_made:
 		save_data_to_file(Gamedata.data.items)
-
-	print_debug("Item changes saved successfully." if changes_made else "No changes were made to item.")
+		print_debug("Item changes saved successfully.")
+	else:
+		print_debug("No changes were made to item.")
 
 
 # An item is being deleted from the data
@@ -828,32 +834,29 @@ func on_item_deleted(item_id: String):
 	# It will call myfunc on every itemgroup in item_data.references.core.itemgroups
 	execute_callable_on_references_of_type(item_data, "core", "itemgroups", myfunc)
 	
-	# This callable will remove this item from required_resources in another item.
-	# This might cause the recipe that had this item in it to become invalid
-	var remove_from_item: Callable = func (other_item_id: String):
-		var itemlist = get_property_by_path(Gamedata.data.items, \
-		"Craft.required_resources", other_item_id)
-		if itemlist:
-			 # Iterate in reverse to avoid index issues during deletion
-			for i in range(itemlist.size() - 1, -1, -1):
-				if itemlist[i]["id"] == item_id:
-					itemlist.remove_at(i)
-					changes_made = true
+	# This callable will handle the removal of this item from all crafting recipes in other items
+	var remove_from_item: Callable = func(other_item_id: String):
+		var other_item_data = get_data_by_id(Gamedata.data.items, other_item_id)
+		if other_item_data and other_item_data.has("Craft"):
+			for recipe in other_item_data["Craft"]:
+				var resources = recipe.get("required_resources", [])
+				for i in range(len(resources) - 1, -1, -1):
+					if resources[i].get("id") == item_id:
+						resources.remove_at(i)
+						changes_made = true
 
 	# Pass the callable to every item in the item's references
 	# It will call remove_from_item on every item in item_data.references.core.items
 	execute_callable_on_references_of_type(item_data, "core", "items", remove_from_item)
 	
-	var resources = get_nested_data(item_data, "Craft.required_resources")
-	# For each item in the crafting requirement, remove the reference to this item
-	if resources:
-		# Iterate over each resource in required_resources
-		for resource in resources:
-			# Call remove_reference to remove the reference to the item being deleted
-			# from the item that references it
-			if resource.has("id"):
-				changes_made = remove_reference(Gamedata.data.items, \
-				"core", "items", resource["id"], item_id) or changes_made
+	# For each recipe and for each item in each recipe, remove the reference to this item
+	if item_data.has("Craft"):
+		for recipe in item_data["Craft"]:
+			var resources = recipe.get("required_resources", [])
+			for resource in resources:
+				if resource.has("id"):
+					changes_made = remove_reference(Gamedata.data.items, "core", \
+					"items", resource["id"], item_id) or changes_made
 
 	# Save changes to the data file if any changes were made
 	if changes_made:

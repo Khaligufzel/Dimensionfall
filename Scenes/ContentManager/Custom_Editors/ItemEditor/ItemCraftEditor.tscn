@@ -18,7 +18,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="ItemCraftEditor" type="Control" node_paths=PackedStringArray("craftAmountNumber", "craftTimeNumber", "requiresLightCheckbox", "resourcesGridContainer")]
+[node name="ItemCraftEditor" type="Control" node_paths=PackedStringArray("craftAmountNumber", "craftTimeNumber", "requiresLightCheckbox", "resourcesGridContainer", "recipesContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +30,7 @@ craftAmountNumber = NodePath("Craft/CraftAmountNumber")
 craftTimeNumber = NodePath("Craft/CraftTimeNumber")
 requiresLightCheckbox = NodePath("Craft/RequiresLightCheckBox")
 resourcesGridContainer = NodePath("Craft/PanelContainer/ResourcesGridContainer")
+recipesContainer = NodePath("Craft/HBoxContainer/RecipeContainerOptionButton")
 
 [node name="Craft" type="GridContainer" parent="."]
 layout_mode = 1
@@ -41,7 +42,26 @@ grow_vertical = 2
 size_flags_vertical = 3
 columns = 2
 
-[node name="CraftAmountLabel" type="Label" parent="Craft"]
+[node name="RecipeSelectLabel" type="Label" parent="Craft"]
+layout_mode = 2
+text = "Selected recipe:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Craft"]
+layout_mode = 2
+
+[node name="RecipeContainerOptionButton" type="OptionButton" parent="Craft/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddRecipeButton" type="Button" parent="Craft/HBoxContainer"]
+layout_mode = 2
+text = "+"
+
+[node name="RemoveRecipeButton" type="Button" parent="Craft/HBoxContainer"]
+layout_mode = 2
+text = "-"
+
+[node name="CraftAmountLabel2" type="Label" parent="Craft"]
 layout_mode = 2
 text = "Craft amount"
 
@@ -84,3 +104,7 @@ text = "Flags"
 layout_mode = 2
 tooltip_text = "Enable this if the item weapon occupies both hands when held. Disable this if the item occupies one hand when held"
 text = "Requires light"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="button_up" from="Craft/HBoxContainer/AddRecipeButton" to="." method="_on_add_recipe_button_button_up"]
+[connection signal="button_up" from="Craft/HBoxContainer/RemoveRecipeButton" to="." method="_on_remove_recipe_button_button_up"]
