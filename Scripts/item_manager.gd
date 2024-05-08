@@ -205,11 +205,12 @@ func reload_magazine(magazine: InventoryItem) -> void:
 			magazine.set_property("Magazine", magazineProperties)
 
 
-
 # Function to remove an item from the inventory
 func remove_inventory_item(item: InventoryItem) -> bool:
-	if playerInventory.has_item(item):
-		if playerInventory.remove_item(item):
+	var iteminventory: InventoryStacked = item.get_inventory()
+	if iteminventory.has_item(item):
+		if iteminventory.remove_item(item):
+			Helper.signal_broker.item_removed_from_inventory.emit(item)
 			return true
 		else:
 			print_debug("Failed to remove item from inventory.")
@@ -239,45 +240,6 @@ func on_crafting_menu_start_craft(item, recipe):
 			return
 		var newitem = playerInventory.create_and_add_item(item_id)
 		InventoryStacked.set_item_stack_size(newitem, recipe["craft_amount"])
-
-
-func try_to_spend_item(item_id, amount_to_spend : int):
-	if playerInventory.get_item_by_id(item_id):
-		var item_total_amount : int = 0
-		var current_amount_to_spend = amount_to_spend
-		var items = playerInventory.get_items_by_id(item_id)
-		
-		for item in items:
-			item_total_amount += InventoryStacked.get_item_stack_size(item)
-		
-		if item_total_amount >= amount_to_spend:
-			merge_items_to_total_amount(items, playerInventory, item_total_amount - current_amount_to_spend)
-			return true
-		else:
-			return false
-	else:
-		return false
-
-
-func merge_items_to_total_amount(items, inventory_node, total_amount : int):
-	var current_total_amount = total_amount
-	for item in items:
-		if inventory_node.get_item_stack_size(item) < current_total_amount:
-			if inventory_node.get_item_stack_size(item) == item.get_property("max_stack_size"):
-				current_total_amount -= inventory_node.get_item_stack_size(item)
-			elif inventory_node.get_item_stack_size(item) < item.get_property("max_stack_size"):
-				current_total_amount -= item.get_property("max_stack_size") - inventory_node.get_item_stack_size(item)
-				inventory_node.set_item_stack_size(item, item.get_property("max_stack_size"))
-
-		elif inventory_node.get_item_stack_size(item) == current_total_amount:
-			current_total_amount = 0
-
-		elif inventory_node.get_item_stack_size(item) > current_total_amount:
-			inventory_node.set_item_stack_size(item, current_total_amount)
-			current_total_amount = 0
-
-			if inventory_node.get_item_stack_size(item) == 0:
-				inventory_node.remove_item(item)
 
 
 # Checks if the inventory has at least the specified amount of a given item ID.
@@ -314,11 +276,11 @@ func remove_required_resources_for_recipe(recipe: Dictionary) -> bool:
 func remove_resource(item_id: String, amount: int) -> bool:
 	var items = playerInventory.get_items_by_id(item_id)
 	var amount_to_remove = amount
-	
+
 	for item in items:
 		if amount_to_remove <= 0:
 			break  # Stop if we have removed enough of the item.
-		
+
 		var current_stack_size = InventoryStacked.get_item_stack_size(item)
 		if current_stack_size <= amount_to_remove:
 			# If the current item stack size is less than or equal to the amount we need to remove,
@@ -326,12 +288,16 @@ func remove_resource(item_id: String, amount: int) -> bool:
 			amount_to_remove -= current_stack_size
 			if not playerInventory.remove_item(item):
 				return false  # Return false if we fail to remove the item.
+			else:
+				Helper.signal_broker.item_removed_from_inventory.emit(item)
 		else:
 			# If the current item stack has more than we need, reduce its stack size.
 			var new_stack_size = current_stack_size - amount_to_remove
 			if not InventoryStacked.set_item_stack_size(item, new_stack_size):
 				return false  # Return false if we fail to set the new stack size.
+			else:
+				Helper.signal_broker.item_stack_size_changed.emit(item)
 			amount_to_remove = 0  # Set to 0 as we have removed enough.
-	
+
 	# Check if we have removed the required amount.
 	return amount_to_remove == 0

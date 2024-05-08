@@ -653,6 +653,7 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 			for item in dropped_data:
 				# Transfer the item to the current inventory
 				item_inventory.transfer_automerge(item, myInventory)
+				Helper.signal_broker.item_changed_inventory.emit(item)
 
 
 # When the user requests a reload trough the inventory context menu
