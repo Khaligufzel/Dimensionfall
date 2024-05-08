@@ -373,9 +373,6 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"kitchen_cupboard\"
-				],
-				\"items\": [
-					\"jadet\"
 				]
 			}
 		},
@@ -586,9 +583,6 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"cabinet_general\"
-				],
-				\"items\": [
-					\"pistoldgazine\"
 				]
 			}
 		},
@@ -761,31 +755,285 @@ json_data = "[
 		\"width\": \"4\"
 	},
 	{
-		\"Craft\": {
-			\"craft_amount\": 1,
-			\"craft_time\": 10,
-			\"flags\": {
-				\"requires_light\": false
-			},
-			\"required_resources\": [
-				{
-					\"amount\": 1,
-					\"id\": \"bottle_antibiotics\"
-				}
-			]
-		},
-		\"description\": \"A piece of clothing to wear on the torso. It will keep you warm and offers a bit of protection.\",
-		\"height\": \"2\",
-		\"iamge\": \"res://Textures/plank.png\",
-		\"id\": \"jadet\",
-		\"image\": \"./Mods/Core/Items/jacket_32.png\",
+		\"description\": \"A versatile kitchen tool, essential for slicing, dicing, and chopping food.\",
+		\"height\": \"1\",
+		\"id\": \"kitchen_knife\",
+		\"image\": \"./Mods/Core/Items/kitchen_knife_64_32.png\",
 		\"max_stack_size\": \"1\",
-		\"name\": \"Jacket\",
-		\"sprite\": \"jacket_32.png\",
+		\"name\": \"Kitchen Knife\",
+		\"sprite\": \"kitchen_knife_64_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
 		\"volume\": \"100\",
+		\"weight\": \"0.4\",
+		\"width\": \"1\"
+	},
+	{
+		\"description\": \"A compact and portable stove, perfect for cooking meals during survival situations.\",
+		\"height\": \"3\",
+		\"id\": \"portable_stove\",
+		\"image\": \"./Mods/Core/Items/portable_stove_64_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Portable Stove\",
+		\"sprite\": \"portable_stove_64_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"200\",
+		\"weight\": \"3\",
+		\"width\": \"3\"
+	},
+	{
+		\"description\": \"A durable cooking pot, essential for boiling water and preparing meals.\",
+		\"height\": \"4\",
+		\"id\": \"cooking_pot\",
+		\"image\": \"./Mods/Core/Items/cooking_pot_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Cooking Pot\",
+		\"sprite\": \"cooking_pot_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"350\",
+		\"weight\": \"3\",
+		\"width\": \"4\"
+	},
+	{
+		\"description\": \"A small tool crucial for opening canned food, an essential for survival.\",
+		\"height\": \"1\",
+		\"id\": \"can_opener\",
+		\"image\": \"./Mods/Core/Items/can_opener_64_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Can opener\",
+		\"sprite\": \"can_opener_64_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"60\",
+		\"weight\": \"0.2\",
+		\"width\": \"1\"
+	},
+	{
+		\"description\": \"A sturdy cutting board, ideal for preparing food safely and efficiently.\",
+		\"height\": \"2\",
+		\"id\": \"cutting_board\",
+		\"image\": \"./Mods/Core/Items/cutting_board_64_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Cutting Board\",
+		\"sprite\": \"cutting_board_64_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"200\",
+		\"weight\": \"1\",
+		\"width\": \"3\"
+	},
+	{
+		\"description\": \"A large bowl used for mixing ingredients, indispensable for any cooking or baking tasks.\",
+		\"height\": \"3\",
+		\"id\": \"mixing_bowl\",
+		\"image\": \"./Mods/Core/Items/mixing_bowl_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Mixing Bowl\",
+		\"sprite\": \"mixing_bowl_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"250\",
+		\"weight\": \"0.5\",
+		\"width\": \"3\"
+	},
+	{
+		\"description\": \"A metal kettle perfect for boiling water to make tea or instant meals.\",
+		\"height\": \"3\",
+		\"id\": \"tea_kettle\",
+		\"image\": \"./Mods/Core/Items/tea_kettle_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Tea Kettle\",
+		\"sprite\": \"tea_kettle_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"200\",
+		\"weight\": \"1\",
+		\"width\": \"3\"
+	},
+	{
+		\"description\": \"A small rack containing various spices to enhance the flavor of food.\",
+		\"height\": \"2\",
+		\"id\": \"spice_rack\",
+		\"image\": \"./Mods/Core/Items/spice_rack_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Spice Rack\",
+		\"sprite\": \"spice_rack_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"150\",
 		\"weight\": \"1\",
 		\"width\": \"4\"
+	},
+	{
+		\"description\": \"A measuring cup, essential for precisely measuring ingredients for recipes.\",
+		\"height\": \"1\",
+		\"id\": \"measuring_cup\",
+		\"image\": \"./Mods/Core/Items/measuring_cup_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Measuring Cup\",
+		\"sprite\": \"measuring_cup_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"100\",
+		\"weight\": \"0.3\",
+		\"width\": \"2\"
+	},
+	{
+		\"description\": \"A wooden rolling pin, essential for flattening dough for baking.\",
+		\"height\": \"1\",
+		\"id\": \"rolling_pin\",
+		\"image\": \"./Mods/Core/Items/rolling_pin_64_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Rolling Pin\",
+		\"sprite\": \"rolling_pin_64_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"150\",
+		\"weight\": \"0.5\",
+		\"width\": \"3\"
+	},
+	{
+		\"description\": \"A heavy-duty frying pan, perfect for cooking everything from eggs to stir-fry.\",
+		\"height\": \"2\",
+		\"id\": \"frying_pan\",
+		\"image\": \"./Mods/Core/Items/frying_pan_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Frying Pan\",
+		\"sprite\": \"frying_pan_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"200\",
+		\"weight\": \"2\",
+		\"width\": \"4\"
+	},
+	{
+		\"description\": \"A metal colander, ideal for draining pasta or washing vegetables.\",
+		\"height\": \"3\",
+		\"id\": \"steel_colander\",
+		\"image\": \"./Mods/Core/Items/steel_colander_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Colander\",
+		\"sprite\": \"steel_colander_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"200\",
+		\"weight\": \"0.7\",
+		\"width\": \"3\"
+	},
+	{
+		\"description\": \"A handy peeler, perfect for skinning vegetables and fruits with ease.\",
+		\"height\": \"1\",
+		\"id\": \"peeler\",
+		\"image\": \"./Mods/Core/Items/peeler_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Peeler\",
+		\"sprite\": \"peeler_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"50\",
+		\"weight\": \"0.1\",
+		\"width\": \"1\"
+	},
+	{
+		\"description\": \"A metal grater, essential for shredding cheese, vegetables, and more.\",
+		\"height\": \"2\",
+		\"id\": \"grater\",
+		\"image\": \"./Mods/Core/Items/grater_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Grater\",
+		\"sprite\": \"grater_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"50\",
+		\"weight\": \"0.3\",
+		\"width\": \"2\"
+	},
+	{
+		\"description\": \"A compact electric toaster, ideal for toasting bread quickly.\",
+		\"height\": \"2\",
+		\"id\": \"toaster\",
+		\"image\": \"./Mods/Core/Items/toaster_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Toaster\",
+		\"sprite\": \"toaster_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"300\",
+		\"weight\": \"1.5\",
+		\"width\": \"2\"
+	},
+	{
+		\"description\": \"An electric blender, perfect for making smoothies, soups, and other blended concoctions.\",
+		\"id\": \"blender\",
+		\"image\": \"./Mods/Core/Items/blender_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Blender\",
+		\"sprite\": \"blender_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"300\",
+		\"weight\": \"2\"
+	},
+	{
+		\"description\": \"A coffee maker, essential for brewing the perfect cup of coffee to start your day.\",
+		\"id\": \"coffee_maker\",
+		\"image\": \"./Mods/Core/Items/coffeemaker_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Coffee Maker\",
+		\"sprite\": \"coffeemaker_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"300\",
+		\"weight\": \"2.5\"
+	},
+	{
+		\"description\": \"A microwave oven, perfect for quickly heating or cooking food.\",
+		\"id\": \"microwave_oven\",
+		\"image\": \"./Mods/Core/Items/microwave_oven_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Microwave Oven\",
+		\"sprite\": \"microwave_oven_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"400\",
+		\"weight\": \"12\"
+	},
+	{
+		\"description\": \"A dish rack, useful for organizing and drying dishes after washing.\",
+		\"id\": \"dish_rack\",
+		\"image\": \"./Mods/Core/Items/dish_rack_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Dish Rack\",
+		\"sprite\": \"dish_rack_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"400\",
+		\"weight\": \"1\"
+	},
+	{
+		\"description\": \"A pressure cooker, ideal for fast cooking and preserving nutrients in food.\",
+		\"id\": \"pressure_cooker\",
+		\"image\": \"./Mods/Core/Items/pressure_cooker_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Pressure Cooker\",
+		\"sprite\": \"pressure_cooker_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"400\",
+		\"weight\": \"5\"
+	},
+	{
+		\"description\": \"A bread maker, perfect for effortlessly baking fresh bread at home.\",
+		\"id\": \"bread_maker\",
+		\"image\": \"./Mods/Core/Items/bread_maker_32.png\",
+		\"max_stack_size\": \"1\",
+		\"name\": \"Bread Maker\",
+		\"sprite\": \"bread_maker_32.png\",
+		\"stack_size\": \"1\",
+		\"two_handed\": false,
+		\"volume\": \"30\",
+		\"weight\": \"5\"
 	}
 ]"
