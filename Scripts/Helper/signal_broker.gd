@@ -31,17 +31,11 @@ signal item_was_equipped(heldItem: InventoryItem, equipmentSlot: Control)
 # When an item slot has cleared out, we forward the signal
 signal item_slot_cleared(heldItem: InventoryItem, equipmentSlot: Control)
 
-# An item has been removed from an inventory (player or proximity) 
-# and cannot be accessed# by the player anymore
-signal item_removed_from_inventory(inventoryItem: InventoryItem)
 
-# The stack size of an item has been changed. If the stack size is 0, Gloot will
-# automatically remove it from the inventory.
-signal item_stack_size_changed(inventoryItem: InventoryItem)
-
-# An item has been moved from one inventory to another
-# May or may not be accessible by the player
-signal item_changed_inventory(inventoryItem: InventoryItem)
+# When the player moves and the ItemDetector signals that a container
+# has entered or left the player's proximity
+signal container_entered_proximity(container: Node3D)
+signal container_exited_proximity(container: Node3D)
 
 
 # We signal to the hud to start a progressbar

@@ -234,8 +234,6 @@ transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 
 [connection signal="ammo_changed" from="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" to="HUD" method="_on_shooting_ammo_changed"]
 [connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Left_attack_cooldown" to="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" method="_on_left_attack_cooldown_timeout"]
 [connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Right_attack_cooldown" to="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" method="_on_right_attack_cooldown_timeout"]
-[connection signal="add_to_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_add_to_proximity_inventory"]
 [connection signal="area_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_entered"]
 [connection signal="area_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_exited"]
-[connection signal="remove_from_proximity_inventory" from="TacticalMap/Entities/Player/ItemDetector" to="HUD" method="_on_item_detector_remove_from_proximity_inventory"]
 [connection signal="construction_chosen" from="HUD" to="TacticalMap/BuildManager" method="_on_hud_construction_chosen"]

@@ -22,9 +22,7 @@ var item_buttons = {}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_craft.connect(ItemManager.on_crafting_menu_start_craft)
-	Helper.signal_broker.item_stack_size_changed.connect(_on_item_stack_size_changed)
-	Helper.signal_broker.item_removed_from_inventory.connect(_on_item_removed_from_inventory)
-	Helper.signal_broker.item_changed_inventory.connect(_on_item_changed_inventory)
+	ItemManager.allAccessibleItems_changed.connect(_on_allAccessibleItems_changed)
 	create_item_buttons()
 
 
@@ -124,23 +122,11 @@ func can_craft_any_recipe(item_data: Dictionary) -> bool:
 
 
 # Function to update the color of the button associated with a given item data
-func update_item_button_color(item_data: Dictionary):
+func update_item_button_color(item_data: Dictionary) -> void:
 	var item_id = item_data.get("id")
 	if item_id in item_buttons:
 		var button = item_buttons[item_id]
 		update_button_color(button, item_data)
-
-
-func _on_item_stack_size_changed(item: InventoryItem):
-	_update_button_from_inventory_item(item)
-
-
-func _on_item_removed_from_inventory(item: InventoryItem):
-	_update_button_from_inventory_item(item)
-
-
-func _on_item_changed_inventory(item: InventoryItem):
-	_update_button_from_inventory_item(item)
 
 
 # Some inventory item has been moved or changed. Now we want to update the UI so that
@@ -149,10 +135,21 @@ func _on_item_changed_inventory(item: InventoryItem):
 # reference the item that was added/moved/removed. Therefore,
 # - We get the item references from the inventory item
 # - For each item reference, update the button that represents the item in the ui
-func _update_button_from_inventory_item(item: InventoryItem):
-	var item_id: String = item.get("prototype_id")
+func _update_button_from_inventory_item(item: InventoryItem) -> void:
+	var item_id = item.get("prototype_id")
 	var item_data: Dictionary = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
-	var item_references: Array = Helper.json_helper.get_nested_data(item_data,"references.core.items")
-	for item_reference in item_references:
-		var item_reference_data = Gamedata.get_data_by_id(Gamedata.data.items, item_reference)
-		update_item_button_color(item_reference_data)
+	var item_references = Helper.json_helper.get_nested_data(item_data,"references.core.items")
+	if item_references:
+		for item_reference: String in item_references:
+			var item_reference_data = Gamedata.get_data_by_id(Gamedata.data.items, item_reference)
+			update_item_button_color(item_reference_data)
+
+
+func _on_allAccessibleItems_changed(items_added: Array, items_removed: Array):
+	# Update buttons for items that were added
+	for item in items_added:
+		_update_button_from_inventory_item(item)
+
+	# Update buttons for items that were removed
+	for item in items_removed:
+		_update_button_from_inventory_item(item)

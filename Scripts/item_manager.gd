@@ -10,13 +10,78 @@ var playerInventory: InventoryStacked = null
 # This inventory will hold items that are close to the player
 var proximityInventory: InventoryStacked = null
 
+var proximityInventories = {}  # Dictionary to hold inventories and their items
+var allAccessibleItems = []  # List to hold all accessible InventoryItems
+
+
+signal allAccessibleItems_changed(items_added: Array, items_removed: Array)
+
 
 func _ready():
 	playerInventory = initialize_inventory()
 	proximityInventory = initialize_inventory()
+	connect_inventory_signals(playerInventory)
+	connect_inventory_signals(proximityInventory)
 	create_starting_items()
+	update_accessible_items_list()  # Initial update for player inventory
 	# When the user has selected the use option from the context menu of the inventory
 	Helper.signal_broker.items_were_used.connect(_on_items_used)
+	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
+	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
+
+
+func update_accessible_items_list1():
+	allAccessibleItems.clear()
+	allAccessibleItems += playerInventory.get_items()
+	for inventory in proximityInventories.values():
+		allAccessibleItems += inventory.get_items()
+
+
+# This emits a signal with two lists bounded to it
+# items_added = All items that were added, or had their count increased
+# items_removed = all items that were removed, or had their count decreased
+func update_accessible_items_list():
+	var old_items = allAccessibleItems.duplicate(true)  # Make a deep copy of the current list
+	var new_items = []
+
+	new_items += playerInventory.get_items()
+	for inventory in proximityInventories.values():
+		new_items += inventory.get_items()
+
+	# Use dictionaries to count occurrences since item references won't work across different inventories
+	var old_count = count_items(old_items)
+	var new_count = count_items(new_items)
+
+	var items_added = []
+	var items_removed = []
+
+	# Determine what's been added
+	for item in new_items:
+		var item_id = item.prototype_id  # Assuming a method to uniquely identify items
+		if old_count.get(item_id, 0) < new_count[item_id]:
+			items_added.append(item)
+			old_count[item_id] = old_count.get(item_id, 0) + 1
+
+	# Determine what's been removed
+	for item in old_items:
+		var item_id = item.prototype_id  # Assuming a method to uniquely identify items
+		if new_count.get(item_id, 0) < old_count[item_id]:
+			items_removed.append(item)
+			new_count[item_id] = new_count.get(item_id, 0) + 1
+
+	allAccessibleItems = new_items  # Update the accessible items list
+
+	# Emit the signal if there's any change
+	if items_added.size() > 0 or items_removed.size() > 0:
+		allAccessibleItems_changed.emit(items_added, items_removed)
+
+
+func count_items(items: Array) -> Dictionary:
+	var count = {}
+	for item in items:
+		var item_id = item.prototype_id  # Assuming a method to uniquely identify items
+		count[item_id] = count.get(item_id, 0) + 1
+	return count
 
 
 func initialize_inventory() -> InventoryStacked:
@@ -242,16 +307,16 @@ func on_crafting_menu_start_craft(item, recipe):
 		InventoryStacked.set_item_stack_size(newitem, recipe["craft_amount"])
 
 
-# Checks if the inventory has at least the specified amount of a given item ID.
+# Checks if there is a sufficient amount of a given item ID across all accessible items.
 func has_sufficient_item_amount(item_id: String, required_amount: int) -> bool:
-	var items = playerInventory.get_items_by_id(item_id)
 	var total_amount = 0
-	
-	# Sum up the stack sizes of all items with the specified ID.
-	for item in items:
-		total_amount += InventoryStacked.get_item_stack_size(item)
-	
-	# Check if the total amount meets or exceeds the required amount.
+
+	# Loop through the allAccessibleItems list to count the occurrences of the specified item_id
+	for item in allAccessibleItems:
+		if item.prototype_id == item_id:
+			total_amount += InventoryStacked.get_item_stack_size(item)
+
+	# Check if the total amount meets or exceeds the required amount
 	return total_amount >= required_amount
 
 
@@ -274,10 +339,16 @@ func remove_required_resources_for_recipe(recipe: Dictionary) -> bool:
 
 # Helper function to remove a specific amount of a resource by ID.
 func remove_resource(item_id: String, amount: int) -> bool:
-	var items = playerInventory.get_items_by_id(item_id)
+	var items_to_modify = []
 	var amount_to_remove = amount
 
-	for item in items:
+	# Collect all items that match the item_id
+	for item in allAccessibleItems:
+		if item.prototype_id == item_id:
+			items_to_modify.append(item)
+
+	# Try to remove the required amount from the collected items
+	for item in items_to_modify:
 		if amount_to_remove <= 0:
 			break  # Stop if we have removed enough of the item.
 
@@ -286,18 +357,53 @@ func remove_resource(item_id: String, amount: int) -> bool:
 			# If the current item stack size is less than or equal to the amount we need to remove,
 			# remove this item completely.
 			amount_to_remove -= current_stack_size
-			if not playerInventory.remove_item(item):
+			if not item.get_inventory().remove_item(item):
 				return false  # Return false if we fail to remove the item.
 			else:
-				Helper.signal_broker.item_removed_from_inventory.emit(item)
+				allAccessibleItems.erase(item)  # Ensure to update the accessible items list
 		else:
 			# If the current item stack has more than we need, reduce its stack size.
 			var new_stack_size = current_stack_size - amount_to_remove
 			if not InventoryStacked.set_item_stack_size(item, new_stack_size):
 				return false  # Return false if we fail to set the new stack size.
-			else:
-				Helper.signal_broker.item_stack_size_changed.emit(item)
 			amount_to_remove = 0  # Set to 0 as we have removed enough.
 
 	# Check if we have removed the required amount.
 	return amount_to_remove == 0
+
+
+func _on_container_entered_proximity(container: Node3D):
+	var containerInventory = container.get_inventory()
+	proximityInventories[container] = containerInventory
+	connect_inventory_signals(containerInventory)
+	update_accessible_items_list()
+
+
+func _on_container_exited_proximity(container: Node3D):
+	if container in proximityInventories:
+		disconnect_inventory_signals(proximityInventories[container])
+		proximityInventories.erase(container)
+	update_accessible_items_list()
+
+
+func connect_inventory_signals(inventory: Inventory):
+	inventory.item_added.connect(_on_inventory_item_added.bind(inventory))
+	inventory.item_removed.connect(_on_inventory_item_removed.bind(inventory))
+	inventory.item_modified.connect(_on_inventory_item_modified.bind(inventory))
+
+
+func disconnect_inventory_signals(inventory: Inventory):
+	inventory.item_added.disconnect(_on_inventory_item_added)
+	inventory.item_removed.disconnect(_on_inventory_item_removed)
+	inventory.item_modified.disconnect(_on_inventory_item_modified)
+
+
+func _on_inventory_item_added(_item, _inventory):
+	update_accessible_items_list()
+
+
+func _on_inventory_item_removed(_item, _inventory):
+	update_accessible_items_list()
+
+func _on_inventory_item_modified(_item, _inventory):
+	update_accessible_items_list()

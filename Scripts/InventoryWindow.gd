@@ -43,6 +43,9 @@ func _ready():
 		RightHandEquipmentSlot.deserialize(General.player_equipment_dict.RightHandEquipmentSlot)
 	# We let the signal broker forward the change in visibility so other nodes can respond
 	visibility_changed.connect(Helper.signal_broker.on_inventory_visibility_changed.bind(self))
+	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
+	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -103,12 +106,12 @@ func get_equipment_dict() -> Dictionary:
 
 
 # Signal handler for adding a container to the proximity
-func _on_item_detector_add_to_proximity_inventory(container: Node3D):
+func _on_container_entered_proximity(container: Node3D):
 	add_container_to_list(container)
 
 
 # Signal handler for removing a container from the proximity
-func _on_item_detector_remove_from_proximity_inventory(container: Node3D):
+func _on_container_exited_proximity(container: Node3D):
 	remove_container_from_list(container)
 
 
