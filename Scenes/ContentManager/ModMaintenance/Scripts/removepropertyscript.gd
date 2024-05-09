@@ -20,7 +20,8 @@ func _on_back_button_button_up():
 # to propertiesOptionButton if it's not already there
 func _on_get_properties_button_button_up():
 	propertiesOptionButton.clear()  # Clear existing items
-	var type_data = get_type_data()
+	var game_data = get_type_data()
+	var type_data = game_data.data
 	if not type_data or type_data.is_empty():
 		outputTextEdit.text = "No data available or type not selected."
 		return
@@ -54,7 +55,8 @@ func _on_erase_properties_button_button_up():
 		outputTextEdit.text = "No property selected."
 		return
 
-	var type_data = get_type_data()
+	var game_data = get_type_data()
+	var type_data = game_data.data
 	if type_data.is_empty():
 		outputTextEdit.text = "No data available for the selected type."
 		return
@@ -67,16 +69,17 @@ func _on_erase_properties_button_button_up():
 			entity.erase(property_to_erase)
 
 	outputTextEdit.text = "Changes made:\n" + "\n".join(changes)
-	if changes.empty():
+	if changes.is_empty():
 		outputTextEdit.text = "No changes made, property '" + property_to_erase + "' not found in any entities."
+	Gamedata.save_data_to_file(game_data)
 
 
 func get_type_data() -> Variant:
 	var selected_type = typesOptionButton.get_item_text(typesOptionButton.selected)
 	if selected_type == "Item":
-		return Gamedata.data.items.data
+		return Gamedata.data.items
 	elif selected_type == "Furniture":
-		return Gamedata.data.furniture.data
+		return Gamedata.data.furniture
 	elif selected_type == "Mob":
-		return Gamedata.data.mobs.data
+		return Gamedata.data.mobs
 	return null

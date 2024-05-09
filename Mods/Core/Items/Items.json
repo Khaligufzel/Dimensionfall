@@ -1,7 +1,6 @@
 [
 	{
 		"description": "A wooden plank that could be used for all kinds of crafting and construction",
-		"height": "2",
 		"id": "plank_2x4",
 		"image": "./Mods/Core/Items/plank.png",
 		"max_stack_size": "3",
@@ -17,12 +16,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "300",
-		"weight": "2",
-		"width": "4"
+		"weight": "2"
 	},
 	{
 		"description": "Some metal bits and pieces. Useful for something, right?",
-		"height": "2",
 		"id": "steel_scrap",
 		"image": "./Mods/Core/Items/steel_scrap.png",
 		"max_stack_size": "100",
@@ -43,15 +40,13 @@
 		"stack_size": "2",
 		"two_handed": false,
 		"volume": "15",
-		"weight": "0.25",
-		"width": "2"
+		"weight": "0.25"
 	},
 	{
 		"Ammo": {
 			"damage": "25"
 		},
 		"description": "Standard type of ammunition. Very common.",
-		"height": "1",
 		"id": "bullet_9mm",
 		"image": "./Mods/Core/Items/9mm.png",
 		"max_stack_size": "100",
@@ -71,8 +66,7 @@
 		"stack_size": "20",
 		"two_handed": false,
 		"volume": "0.1",
-		"weight": "0.01",
-		"width": "1"
+		"weight": "0.01"
 	},
 	{
 		"Craft": [
@@ -100,7 +94,6 @@
 			"used_ammo": "bullet_9mm"
 		},
 		"description": "In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets",
-		"height": "1",
 		"id": "pistol_magazine",
 		"image": "./Mods/Core/Items/pistol_magazine.png",
 		"max_stack_size": "1",
@@ -117,8 +110,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.25",
-		"width": "1"
+		"weight": "0.25"
 	},
 	{
 		"Ranged": {
@@ -133,7 +125,6 @@
 			"used_skill": "short_guns"
 		},
 		"description": "A standard issue pistol that uses 9mm ammunition",
-		"height": "2",
 		"id": "pistol_9mm",
 		"image": "./Mods/Core/Items/pistol_32.png",
 		"max_stack_size": "1",
@@ -149,8 +140,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "150",
-		"weight": "2",
-		"width": "2"
+		"weight": "2"
 	},
 	{
 		"Ranged": {
@@ -165,7 +155,6 @@
 			"used_skill": "short_guns"
 		},
 		"description": "A standard issue rifle that uses 9mm ammunition",
-		"height": "2",
 		"id": "rifle_m4a1",
 		"image": "./Mods/Core/Items/rifle_64_32.png",
 		"max_stack_size": "1",
@@ -174,8 +163,7 @@
 		"stack_size": "1",
 		"two_handed": true,
 		"volume": "300",
-		"weight": "4",
-		"width": "4"
+		"weight": "4"
 	},
 	{
 		"Ranged": {
@@ -190,7 +178,6 @@
 			"used_skill": "short_guns"
 		},
 		"description": "Chugun in Russian is for cast steel, MPAP is \"Multi Purpose Automatic Pistol\"",
-		"height": "2",
 		"id": "chugunov_mpap",
 		"image": "./Mods/Core/Items/chugunov_mpap_32_28.png",
 		"max_stack_size": "1",
@@ -199,8 +186,7 @@
 		"stack_size": "1",
 		"two_handed": true,
 		"volume": "150",
-		"weight": "3",
-		"width": "4"
+		"weight": "3"
 	},
 	{
 		"Magazine": {
@@ -209,7 +195,6 @@
 			"used_ammo": "bullet_7.62x26"
 		},
 		"description": "A magazine to be loaded into a Chuganov MPAP",
-		"height": "1",
 		"id": "chugunov_mpap_magazine",
 		"image": "./Mods/Core/Items/chugunov_mpap_magazine_16_32.png",
 		"max_stack_size": "1",
@@ -218,12 +203,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.25",
-		"width": "1"
+		"weight": "0.25"
 	},
 	{
 		"description": "This plastic bottle only contains air",
-		"height": "2",
 		"id": "bottle_plastic_empty",
 		"image": "./Mods/Core/Items/bottle_empty_32.png",
 		"max_stack_size": "10",
@@ -242,15 +225,13 @@
 		"stack_size": "2",
 		"two_handed": false,
 		"volume": "15",
-		"weight": "0.1",
-		"width": "2"
+		"weight": "0.1"
 	},
 	{
 		"Food": {
 			"health": "5"
 		},
 		"description": "This plastic bottle is filled with water",
-		"height": "2",
 		"id": "bottle_plastic_water",
 		"image": "./Mods/Core/Items/bottle_water_32.png",
 		"max_stack_size": "10",
@@ -267,12 +248,10 @@
 		"stack_size": "2",
 		"two_handed": false,
 		"volume": "15",
-		"weight": "0.25",
-		"width": "2"
+		"weight": "0.25"
 	},
 	{
 		"description": "The contents will satisfy your hunger",
-		"height": "2",
 		"id": "canned_food",
 		"image": "./Mods/Core/Items/canned_food_32.png",
 		"max_stack_size": "5",
@@ -288,12 +267,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "30",
-		"weight": "0.25",
-		"width": "2"
+		"weight": "0.25"
 	},
 	{
 		"description": "A sharp blade with a handle for excellent control",
-		"height": "1",
 		"id": "machete",
 		"image": "./Mods/Core/Items/machete_32.png",
 		"max_stack_size": "1",
@@ -302,12 +279,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "4",
-		"width": "1"
+		"weight": "4"
 	},
 	{
 		"description": "Anyone is able to craft this simple arrow",
-		"height": "1",
 		"id": "wood_arrow_basic",
 		"image": "./Mods/Core/Items/arrow_basic_32.png",
 		"max_stack_size": "20",
@@ -316,13 +291,10 @@
 		"stack_size": "5",
 		"two_handed": false,
 		"volume": "1",
-		"weight": "0.1",
-		"width": "1"
+		"weight": "0.1"
 	},
 	{
 		"description": "A stick with a block of steel on it. It is used to apply force to objects like nails",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "hammer",
 		"image": "./Mods/Core/Items/hammer_32.png",
 		"max_stack_size": "1",
@@ -338,8 +310,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "2",
-		"width": "4"
+		"weight": "2"
 	},
 	{
 		"Craft": [
@@ -362,7 +333,6 @@
 			}
 		],
 		"description": "A handle with a rod of steel in it. The tip can be flat or shaped like a star. Useful for construction projects",
-		"height": "2",
 		"id": "screwdriver",
 		"image": "./Mods/Core/Items/screwdriver_32.png",
 		"max_stack_size": "1",
@@ -379,12 +349,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "20",
-		"weight": "0.5",
-		"width": "4"
+		"weight": "0.5"
 	},
 	{
 		"description": "A basic bandage that will help to heal a wound",
-		"height": "2",
 		"id": "bandage_basic",
 		"image": "./Mods/Core/Items/bandage_32.png",
 		"max_stack_size": "20",
@@ -401,12 +369,10 @@
 		"stack_size": "3",
 		"two_handed": false,
 		"volume": "1",
-		"weight": "0.1",
-		"width": "4"
+		"weight": "0.1"
 	},
 	{
 		"description": "A small bottle that contains antibiotics. It helps to recover from disease.",
-		"height": "2",
 		"id": "bottle_antibiotics",
 		"image": "./Mods/Core/Items/antibiotics_32.png",
 		"max_stack_size": "5",
@@ -422,13 +388,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.1",
-		"width": "4"
+		"weight": "0.1"
 	},
 	{
 		"description": "A piece of clothing to wear on the torso. It will keep you warm and offers a bit of protection.",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "jacket",
 		"image": "./Mods/Core/Items/jacket_32.png",
 		"max_stack_size": "1",
@@ -437,13 +400,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "1",
-		"width": "4"
+		"weight": "1"
 	},
 	{
 		"description": "Comfortable footwear to keep your feet safe",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "boots",
 		"image": "./Mods/Core/Items/boots_32.png",
 		"max_stack_size": "1",
@@ -459,13 +419,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "1",
-		"width": "4"
+		"weight": "1"
 	},
 	{
 		"description": "A large container that holds gasoline",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "jerrycan_gasoline",
 		"image": "./Mods/Core/Items/jerrycan_gas_32.png",
 		"max_stack_size": "1",
@@ -474,13 +431,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "400",
-		"weight": "10",
-		"width": "4"
+		"weight": "10"
 	},
 	{
 		"description": "It's a can that contains oil. It has a spout that allows you to pour it out.",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "can_oil",
 		"image": "./Mods/Core/Items/can_oil_32.png",
 		"max_stack_size": "1",
@@ -496,12 +450,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "2",
-		"width": "4"
+		"weight": "2"
 	},
 	{
 		"description": "A small radio that can be powered by batteries or an electical cord.",
-		"height": "2",
 		"id": "radio_handheld",
 		"image": "./Mods/Core/Items/battery_powered_radio_32.png",
 		"max_stack_size": "1",
@@ -510,12 +462,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "1",
-		"width": "4"
+		"weight": "1"
 	},
 	{
 		"description": "A basic battery powered flashlight. It will shine a beam of light when it is turned on",
-		"height": "2",
 		"id": "flashlight_basic",
 		"image": "./Mods/Core/Items/flashlight_32.png",
 		"max_stack_size": "1",
@@ -531,13 +481,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "0.5",
-		"width": "4"
+		"weight": "0.5"
 	},
 	{
 		"description": "It's a can that contains beer. Don't drink a lot of it or you will get drunk",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "can_beer",
 		"image": "./Mods/Core/Items/can_beer_32.png",
 		"max_stack_size": "5",
@@ -553,12 +500,10 @@
 		"stack_size": "2",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.5",
-		"width": "4"
+		"weight": "0.5"
 	},
 	{
 		"description": "It's a carton pack that contains sigarrettes. You need a fire source to light them and start smoking",
-		"height": "2",
 		"id": "pack_sigarrettes",
 		"image": "./Mods/Core/Items/sigarrette_pack_32.png",
 		"max_stack_size": "5",
@@ -567,12 +512,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.1",
-		"width": "4"
+		"weight": "0.1"
 	},
 	{
 		"description": "A piece of clothing that offers protection from environmental hazards",
-		"height": "2",
 		"id": "gas_mask",
 		"image": "./Mods/Core/Items/gasmask_32.png",
 		"max_stack_size": "1",
@@ -581,13 +524,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "80",
-		"weight": "1",
-		"width": "4"
+		"weight": "1"
 	},
 	{
 		"description": "A piece of clothing that offers protection from ballistic forces",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "vest_ballistic",
 		"image": "./Mods/Core/Items/vest_ballistic_32.png",
 		"max_stack_size": "1",
@@ -596,13 +536,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "150",
-		"weight": "4",
-		"width": "4"
+		"weight": "4"
 	},
 	{
 		"description": "A device that shows your orientation relative to the earth's poles",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "compass",
 		"image": "./Mods/Core/Items/compass_32.png",
 		"max_stack_size": "1",
@@ -611,12 +548,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "6",
-		"weight": "0.1",
-		"width": "4"
+		"weight": "0.1"
 	},
 	{
 		"description": "A very common type of battery that fits most battery-powered devices",
-		"height": "2",
 		"id": "battery_small",
 		"image": "./Mods/Core/Items/battery_32.png",
 		"max_stack_size": "20",
@@ -632,13 +567,10 @@
 		"stack_size": "2",
 		"two_handed": false,
 		"volume": "0.1",
-		"weight": "0.1",
-		"width": "4"
+		"weight": "0.1"
 	},
 	{
 		"description": "A large panel that draws power from the sun",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "solar_panel",
 		"image": "./Mods/Core/Items/solar_panel_32.png",
 		"max_stack_size": "1",
@@ -647,13 +579,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "1000",
-		"weight": "10",
-		"width": "4"
+		"weight": "10"
 	},
 	{
 		"description": "A large piece of paper that visualizes the area around you",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "map_paper",
 		"image": "./Mods/Core/Items/map_paper_32.png",
 		"max_stack_size": "1",
@@ -662,13 +591,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.1",
-		"width": "4"
+		"weight": "0.1"
 	},
 	{
 		"description": "A piece of fabric and some strings. You can deploy it to get some shelter from the weather",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "tarp",
 		"image": "./Mods/Core/Items/tarp_32.png",
 		"max_stack_size": "1",
@@ -677,13 +603,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "150",
-		"weight": "3",
-		"width": "4"
+		"weight": "3"
 	},
 	{
 		"description": "A piece of fabric and some strings. You can deploy it to get some shelter from the weather. It is currently folded to save space.",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "tent",
 		"image": "./Mods/Core/Items/tent_32.png",
 		"max_stack_size": "1",
@@ -692,13 +615,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "600",
-		"weight": "9",
-		"width": "4"
+		"weight": "9"
 	},
 	{
 		"description": "A small book explaining the very basics of survival",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "guide_survival_basic",
 		"image": "./Mods/Core/Items/survival_guide_32.png",
 		"max_stack_size": "5",
@@ -707,13 +627,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.1",
-		"width": "4"
+		"weight": "0.1"
 	},
 	{
 		"description": "A book containing an entertaining story",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "book_novel",
 		"image": "./Mods/Core/Items/book_novel_32.png",
 		"max_stack_size": "5",
@@ -729,12 +646,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.4",
-		"width": "4"
+		"weight": "0.4"
 	},
 	{
 		"description": "A small bottle that contains disinfectant. It helps to disinfect wounds",
-		"height": "2",
 		"id": "bottle_disinfectant",
 		"image": "./Mods/Core/Items/bottle_disinfectant_32.png",
 		"max_stack_size": "5",
@@ -750,12 +665,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.1",
-		"width": "4"
+		"weight": "0.1"
 	},
 	{
 		"description": "A small radio that allows you to communicate with someone over a large distance",
-		"height": "2",
 		"id": "radio_two_way",
 		"image": "./Mods/Core/Items/radio_two_way_32.png",
 		"max_stack_size": "1",
@@ -764,13 +677,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "1",
-		"width": "4"
+		"weight": "1"
 	},
 	{
 		"description": "A small device that provides a spark that can be used to light a fire. No power or fuel required.",
-		"height": "2",
-		"iamge": "res://Textures/plank.png",
 		"id": "firestarter_basic",
 		"image": "./Mods/Core/Items/firestarter_32.png",
 		"max_stack_size": "1",
@@ -779,12 +689,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.2",
-		"width": "4"
+		"weight": "0.2"
 	},
 	{
 		"description": "\n    A true survival fishing kit in a very small, lightweight package!\n    Contains 118 foot line and winder\n    2 lures, 2 hooks\n    2 swivels, 2 weghts\n    Comes in a strong durable heavy duty resealable plastic bag",
-		"height": "2",
 		"id": "kit_fishing_small",
 		"image": "./Mods/Core/Items/kit_fishing_small_32.png",
 		"max_stack_size": "1",
@@ -793,12 +701,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.4",
-		"width": "4"
+		"weight": "0.4"
 	},
 	{
 		"description": "A versatile kitchen tool, essential for slicing, dicing, and chopping food.",
-		"height": "1",
 		"id": "kitchen_knife",
 		"image": "./Mods/Core/Items/kitchen_knife_64_32.png",
 		"max_stack_size": "1",
@@ -807,12 +713,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "0.4",
-		"width": "1"
+		"weight": "0.4"
 	},
 	{
 		"description": "A compact and portable stove, perfect for cooking meals during survival situations.",
-		"height": "3",
 		"id": "portable_stove",
 		"image": "./Mods/Core/Items/portable_stove_64_32.png",
 		"max_stack_size": "1",
@@ -821,12 +725,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "200",
-		"weight": "3",
-		"width": "3"
+		"weight": "3"
 	},
 	{
 		"description": "A durable cooking pot, essential for boiling water and preparing meals.",
-		"height": "4",
 		"id": "cooking_pot",
 		"image": "./Mods/Core/Items/cooking_pot_32.png",
 		"max_stack_size": "1",
@@ -835,12 +737,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "350",
-		"weight": "3",
-		"width": "4"
+		"weight": "3"
 	},
 	{
 		"description": "A small tool crucial for opening canned food, an essential for survival.",
-		"height": "1",
 		"id": "can_opener",
 		"image": "./Mods/Core/Items/can_opener_64_32.png",
 		"max_stack_size": "1",
@@ -849,12 +749,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "60",
-		"weight": "0.2",
-		"width": "1"
+		"weight": "0.2"
 	},
 	{
 		"description": "A sturdy cutting board, ideal for preparing food safely and efficiently.",
-		"height": "2",
 		"id": "cutting_board",
 		"image": "./Mods/Core/Items/cutting_board_64_32.png",
 		"max_stack_size": "1",
@@ -863,12 +761,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "200",
-		"weight": "1",
-		"width": "3"
+		"weight": "1"
 	},
 	{
 		"description": "A large bowl used for mixing ingredients, indispensable for any cooking or baking tasks.",
-		"height": "3",
 		"id": "mixing_bowl",
 		"image": "./Mods/Core/Items/mixing_bowl_32.png",
 		"max_stack_size": "1",
@@ -877,12 +773,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "250",
-		"weight": "0.5",
-		"width": "3"
+		"weight": "0.5"
 	},
 	{
 		"description": "A metal kettle perfect for boiling water to make tea or instant meals.",
-		"height": "3",
 		"id": "tea_kettle",
 		"image": "./Mods/Core/Items/tea_kettle_32.png",
 		"max_stack_size": "1",
@@ -891,12 +785,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "200",
-		"weight": "1",
-		"width": "3"
+		"weight": "1"
 	},
 	{
 		"description": "A small rack containing various spices to enhance the flavor of food.",
-		"height": "2",
 		"id": "spice_rack",
 		"image": "./Mods/Core/Items/spice_rack_32.png",
 		"max_stack_size": "1",
@@ -905,12 +797,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "150",
-		"weight": "1",
-		"width": "4"
+		"weight": "1"
 	},
 	{
 		"description": "A measuring cup, essential for precisely measuring ingredients for recipes.",
-		"height": "1",
 		"id": "measuring_cup",
 		"image": "./Mods/Core/Items/measuring_cup_32.png",
 		"max_stack_size": "1",
@@ -919,12 +809,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "0.3",
-		"width": "2"
+		"weight": "0.3"
 	},
 	{
 		"description": "A wooden rolling pin, essential for flattening dough for baking.",
-		"height": "1",
 		"id": "rolling_pin",
 		"image": "./Mods/Core/Items/rolling_pin_64_32.png",
 		"max_stack_size": "1",
@@ -933,12 +821,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "150",
-		"weight": "0.5",
-		"width": "3"
+		"weight": "0.5"
 	},
 	{
 		"description": "A heavy-duty frying pan, perfect for cooking everything from eggs to stir-fry.",
-		"height": "2",
 		"id": "frying_pan",
 		"image": "./Mods/Core/Items/frying_pan_32.png",
 		"max_stack_size": "1",
@@ -947,12 +833,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "200",
-		"weight": "2",
-		"width": "4"
+		"weight": "2"
 	},
 	{
 		"description": "A metal colander, ideal for draining pasta or washing vegetables.",
-		"height": "3",
 		"id": "steel_colander",
 		"image": "./Mods/Core/Items/steel_colander_32.png",
 		"max_stack_size": "1",
@@ -961,12 +845,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "200",
-		"weight": "0.7",
-		"width": "3"
+		"weight": "0.7"
 	},
 	{
 		"description": "A handy peeler, perfect for skinning vegetables and fruits with ease.",
-		"height": "1",
 		"id": "peeler",
 		"image": "./Mods/Core/Items/peeler_32.png",
 		"max_stack_size": "1",
@@ -975,12 +857,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.1",
-		"width": "1"
+		"weight": "0.1"
 	},
 	{
 		"description": "A metal grater, essential for shredding cheese, vegetables, and more.",
-		"height": "2",
 		"id": "grater",
 		"image": "./Mods/Core/Items/grater_32.png",
 		"max_stack_size": "1",
@@ -989,12 +869,10 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.3",
-		"width": "2"
+		"weight": "0.3"
 	},
 	{
 		"description": "A compact electric toaster, ideal for toasting bread quickly.",
-		"height": "2",
 		"id": "toaster",
 		"image": "./Mods/Core/Items/toaster_32.png",
 		"max_stack_size": "1",
@@ -1003,8 +881,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "300",
-		"weight": "1.5",
-		"width": "2"
+		"weight": "1.5"
 	},
 	{
 		"description": "An electric blender, perfect for making smoothies, soups, and other blended concoctions.",
