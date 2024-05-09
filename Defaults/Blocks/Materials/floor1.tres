@@ -1,7 +1,0 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://buj4ukj1oh4pq"]
-
-[ext_resource type="Texture2D" uid="uid://bu00lw1luehxr" path="res://Defaults/Sprites/1.png" id="1_a2cuf"]
-
-[resource]
-albedo_texture = ExtResource("1_a2cuf")
-uv1_scale = Vector3(3, 2, 1)
