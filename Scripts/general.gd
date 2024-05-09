@@ -18,7 +18,19 @@ func _ready():
 	add_child(action_timer)
 	start_timer_progressbar.connect(Helper.signal_broker.on_start_timer_progressbar)
 
+
 # Function to start an action
+# Usage example: 
+	# This example will call the 'reload_weapon" functoin in self after the timer is complete
+	# var reload_callable = Callable(self, "reload_weapon").bind(item, specific_magazine)
+	# General.start_action(reload_time, reload_callable)
+# Usage example using an inline callable:
+	# This example will call the 'myfunc' callable after the start_action timer runs out
+	# var myfunc: Callable = func (itemgroup_id):
+	#	var itemlist: Array = get_property_by_path(Gamedata.data.itemgroups, "items", itemgroup_id)
+	#	if item_id in itemlist:
+	#		itemlist.erase(item_id)
+	# General.start_action(reload_time, myfunc)
 func start_action(duration: float, callback: Callable):
 	if not is_action_in_progress:
 		is_action_in_progress = true

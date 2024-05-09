@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxyvtsslfr7kt"]
+
+[ext_resource type="Script" path="res://Scripts/CraftingMenu.gd" id="1_10pgr"]
+[ext_resource type="PackedScene" uid="uid://cpcn3qq8okj12" path="res://item_craft_button.tscn" id="2_87dwt"]
+[ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="4_xw3mg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_myv0w"]
+
+[node name="CraftingMenu" type="Panel" node_paths=PackedStringArray("item_button_container", "description", "required_items", "recipeVBoxContainer", "start_crafting_button") groups=["CraftingMenu"]]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -321.0
+offset_right = 370.0
+offset_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_10pgr")
+item_button_container = NodePath("CraftingList/VBoxContainer")
+item_craft_button = ExtResource("2_87dwt")
+description = NodePath("Panel/VBoxContainer/Description")
+required_items = NodePath("Panel/VBoxContainer/RequiredItems")
+recipeVBoxContainer = NodePath("Panel/VBoxContainer/RecipeVBoxContainer")
+start_crafting_button = NodePath("Panel/VBoxContainer/StartCraftingButton")
+hud = NodePath("..")
+
+[node name="CraftingList" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 246.0
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CraftingList"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -371.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Description" type="Label" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_xw3mg")
+theme_override_font_sizes/font_size = 20
+text = "Description
+"
+label_settings = SubResource("LabelSettings_myv0w")
+autowrap_mode = 3
+
+[node name="RecipeVBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RequiredItems" type="VBoxContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="StartCraftingButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_xw3mg")
+theme_override_font_sizes/font_size = 20
+text = "Craft!"
+
+[connection signal="pressed" from="Panel/VBoxContainer/StartCraftingButton" to="." method="_on_start_crafting_button_pressed"]

@@ -169,3 +169,19 @@ func delete_json_file(path: String):
 			print_debug("File deleted successfully: " + path)
 		else:
 			print_debug("An error occurred when trying to delete the file: " + path)
+
+
+# Returns the value from the given property from the given dictionary
+# mydata = any dictionary with properties
+# path = a dot-separated string properties.
+# Usage example: Helper.json_helper.get_nested_data(furniture_data, "Function.container.itemgroup")
+# The example will return the value of itemgroup from the furniture_data
+func get_nested_data(mydata: Dictionary, path: String) -> Variant:
+	var parts = path.split(".")
+	var current = mydata
+	for part in parts:
+		if current.has(part):
+			current = current[part]
+		else:
+			return null
+	return current

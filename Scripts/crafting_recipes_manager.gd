@@ -1,6 +1,6 @@
 extends Node
 
-var crafting_recipes
+var craftable_items
 
 
 # Called when the node enters the scene tree for the first time.
@@ -8,7 +8,22 @@ func _ready():
 	get_crafting_recipes_from_json()
 
 func get_crafting_recipes_from_json():
-	var file = "res://JSON/crafting_recipes.json"
-	var json_as_text = FileAccess.get_file_as_string(file)
-	var json_as_dict = JSON.parse_string(json_as_text)
-	crafting_recipes = json_as_dict
+	craftable_items = Gamedata.get_items_by_type("Craft")
+
+
+# Function to check if there are enough resources in the inventory to craft a given recipe.
+func can_craft_recipe(recipe: Dictionary) -> bool:
+	# Ensure that the recipe contains the 'required_resources' key.
+	if "required_resources" in recipe:
+		# Loop through each resource required by the recipe.
+		for resource in recipe["required_resources"]:
+			# Check if the inventory has a sufficient amount of each required resource.
+			if not ItemManager.has_sufficient_item_amount(resource.get("id"), resource.get("amount")):
+				print_debug("Not enough", resource.get("id"), "to craft")
+				return false  # Return false immediately if any resource is insufficient.
+	else:
+		print_debug("No required resources specified for recipe")
+		return false  # Return false if the recipe does not specify any required resources.
+	
+	# If all checks are passed, return true indicating that crafting can proceed.
+	return true

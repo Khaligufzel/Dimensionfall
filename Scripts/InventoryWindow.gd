@@ -43,6 +43,9 @@ func _ready():
 		RightHandEquipmentSlot.deserialize(General.player_equipment_dict.RightHandEquipmentSlot)
 	# We let the signal broker forward the change in visibility so other nodes can respond
 	visibility_changed.connect(Helper.signal_broker.on_inventory_visibility_changed.bind(self))
+	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
+	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -79,57 +82,6 @@ func check_if_resources_are_available(item_id, amount_to_spend: int):
 	return false
 
 
-func try_to_spend_item(item_id, amount_to_spend : int):
-	var inventory_node = inventory
-	if inventory_node.get_item_by_id(item_id):
-		var item_total_amount : int = 0
-		var current_amount_to_spend = amount_to_spend
-		var items = inventory_node.get_items_by_id(item_id)
-		
-		for item in items:
-			item_total_amount += InventoryStacked.get_item_stack_size(item)
-		
-		if item_total_amount >= amount_to_spend:
-			merge_items_to_total_amount(items, inventory_node, item_total_amount - current_amount_to_spend)
-			return true
-		else:
-			return false
-	else:
-		return false
-
-
-func merge_items_to_total_amount(items, inventory_node, total_amount : int):
-	var current_total_amount = total_amount
-	for item in items:
-		if inventory_node.get_item_stack_size(item) < current_total_amount:
-			if inventory_node.get_item_stack_size(item) == item.get_property("max_stack_size"):
-				current_total_amount -= inventory_node.get_item_stack_size(item)
-			elif inventory_node.get_item_stack_size(item) < item.get_property("max_stack_size"):
-				current_total_amount -= item.get_property("max_stack_size") - inventory_node.get_item_stack_size(item)
-				inventory_node.set_item_stack_size(item, item.get_property("max_stack_size"))
-
-		elif inventory_node.get_item_stack_size(item) == current_total_amount:
-			current_total_amount = 0
-
-		elif inventory_node.get_item_stack_size(item) > current_total_amount:
-			inventory_node.set_item_stack_size(item, current_total_amount)
-			current_total_amount = 0
-
-			if inventory_node.get_item_stack_size(item) == 0:
-				inventory_node.remove_item(item)
-
-
-func _on_crafting_menu_start_craft(recipe):
-	if recipe:
-		#first we need to use required resources for the recipe
-		for required_item in recipe["required_resource"]:
-			try_to_spend_item(required_item, recipe["required_resource"][required_item])
-		#adding a new item(s) to the inventory based on the recipe
-		var item
-		item = inventory.create_and_add_item(recipe["crafts"])
-		InventoryStacked.set_item_stack_size(item, recipe["craft_amount"])
-
-
 # When an item is added to the player inventory
 # We check where it came from and delete it from that inventory
 # This happens when the player moves an item from $CtrlInventoryGridExProx
@@ -154,12 +106,12 @@ func get_equipment_dict() -> Dictionary:
 
 
 # Signal handler for adding a container to the proximity
-func _on_item_detector_add_to_proximity_inventory(container: Node3D):
+func _on_container_entered_proximity(container: Node3D):
 	add_container_to_list(container)
 
 
 # Signal handler for removing a container from the proximity
-func _on_item_detector_remove_from_proximity_inventory(container: Node3D):
+func _on_container_exited_proximity(container: Node3D):
 	remove_container_from_list(container)
 
 

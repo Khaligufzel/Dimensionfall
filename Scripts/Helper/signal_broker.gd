@@ -32,6 +32,12 @@ signal item_was_equipped(heldItem: InventoryItem, equipmentSlot: Control)
 signal item_slot_cleared(heldItem: InventoryItem, equipmentSlot: Control)
 
 
+# When the player moves and the ItemDetector signals that a container
+# has entered or left the player's proximity
+signal container_entered_proximity(container: Node3D)
+signal container_exited_proximity(container: Node3D)
+
+
 # We signal to the hud to start a progressbar
 func on_start_timer_progressbar(time_left: float):
 	hud_start_progressbar.emit(time_left)
