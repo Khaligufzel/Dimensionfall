@@ -52,14 +52,12 @@ func file_names_in_dir(dirName: String, extensionFilter: Array = []) -> Array:
 		var file_name = dir.get_next()
 		while file_name != "":
 			if !dir.current_is_dir():
-				if extensionFilter.is_empty():
-					fileNames.append(file_name)
-				elif file_name.get_extension() in extensionFilter:
+				if extensionFilter.is_empty() or file_name.get_extension() in extensionFilter:
 					fileNames.append(file_name)
 			file_name = dir.get_next()
+		dir.list_dir_end()  # Close the directory read operation
 	else:
-		print_debug("An error occurred when trying to access the path: " + dirName)
-	dir.list_dir_end()
+		print_debug("Failed to open directory: " + dirName)
 	return fileNames
 
 

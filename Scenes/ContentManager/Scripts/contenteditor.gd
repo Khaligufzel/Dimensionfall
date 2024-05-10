@@ -8,6 +8,7 @@ extends Control
 @export var itemEditor: PackedScene = null
 @export var mobEditor: PackedScene = null
 @export var itemgroupEditor: PackedScene = null
+@export var equipmentslotEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
 var selectedMod: String = "Core"
@@ -23,6 +24,7 @@ func _ready():
 	load_content_list(Gamedata.data.mobs, "Mobs")
 	load_content_list(Gamedata.data.furniture, "Furniture")
 	load_content_list(Gamedata.data.itemgroups, "Item Groups")
+	load_content_list(Gamedata.data.equipmentslots, "Equipmentslots")
 
 
 func load_content_list(data: Dictionary, strHeader: String):
@@ -66,6 +68,8 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 		instantiate_editor(data, itemID, tacticalmapEditor)
 	if data == Gamedata.data.itemgroups:
 		instantiate_editor(data, itemID, itemgroupEditor)
+	if data == Gamedata.data.equipmentslots:
+		instantiate_editor(data, itemID, equipmentslotEditor)
 
 
 #This will add an editor to the content editor tab view. 

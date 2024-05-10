@@ -14,7 +14,8 @@ const DATA_CATEGORIES = {
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
 	"maps": {"dataPath": "./Mods/Core/Maps/", "spritePath": "./Mods/Core/Maps/"},
-	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"}
+	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"},
+	"equipmentslots": {"dataPath": "./Mods/Core/Equipmentslots/Equipmentslots.json", "spritePath": "./Mods/Core/Equipmentslots/"}
 }
 
 
@@ -429,9 +430,6 @@ func erase_property_by_path(mydata: Dictionary, item_id: String, property_path: 
 		return false
 
 
-
-
-
 # Executes a callable function on each reference of the given type
 # data = json data representing one entity
 # module = name of the mod. for example "core"
@@ -453,7 +451,6 @@ func get_property_by_path(mydata: Dictionary, property_path: String, entity_id: 
 		print_debug("Entity with ID", entity_id, "not found.")
 		return null
 	return Helper.json_helper.get_nested_data(entity_data, property_path)
-
 
 
 # A mob has been changed.
@@ -708,6 +705,7 @@ func on_map_deleted(map_id: String):
 		save_data_to_file(Gamedata.data.tiles)
 		save_data_to_file(Gamedata.data.furniture)
 		save_data_to_file(Gamedata.data.mobs)
+
 
 # Function to collect unique entities from each level in newdata and olddata
 func collect_unique_entities(newdata: Dictionary, olddata: Dictionary) -> Dictionary:
