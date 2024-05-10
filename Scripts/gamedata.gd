@@ -15,7 +15,7 @@ const DATA_CATEGORIES = {
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
 	"maps": {"dataPath": "./Mods/Core/Maps/", "spritePath": "./Mods/Core/Maps/"},
 	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"},
-	"equipmentslots": {"dataPath": "./Mods/Core/Equipmentslots/Equipmentslots.json", "spritePath": "./Mods/Core/Equipmentslots/"}
+	"wearableslots": {"dataPath": "./Mods/Core/Wearableslots/Wearableslots.json", "spritePath": "./Mods/Core/Wearableslots/"}
 }
 
 

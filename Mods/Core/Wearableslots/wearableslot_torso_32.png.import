@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b41dx3ftlmyys"
-path="res://.godot/imported/equipmentslot_back_32.png-0fa4173da057ac4c9d32badbfae0fb61.ctex"
+uid="uid://b0g307v6dk20e"
+path="res://.godot/imported/wearableslot_torso_32.png-ee79b066b4cf1e30755cb317cb97441d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Equipmentslots/equipmentslot_back_32.png"
-dest_files=["res://.godot/imported/equipmentslot_back_32.png-0fa4173da057ac4c9d32badbfae0fb61.ctex"]
+source_file="res://Mods/Core/Wearableslots/wearableslot_torso_32.png"
+dest_files=["res://.godot/imported/wearableslot_torso_32.png-ee79b066b4cf1e30755cb317cb97441d.ctex"]
 
 [params]
 

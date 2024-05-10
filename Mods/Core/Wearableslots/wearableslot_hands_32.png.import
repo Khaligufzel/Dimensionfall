@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw4bac4ghsfis"
-path="res://.godot/imported/equipmentslot_legs_32.png-3ba0a057bf49eef82bda7a02c2f7a8cf.ctex"
+uid="uid://dd4wkwckxgy83"
+path="res://.godot/imported/wearableslot_hands_32.png-b25bb307a35c6c9d2287f1de12775ff2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Equipmentslots/equipmentslot_legs_32.png"
-dest_files=["res://.godot/imported/equipmentslot_legs_32.png-3ba0a057bf49eef82bda7a02c2f7a8cf.ctex"]
+source_file="res://Mods/Core/Wearableslots/wearableslot_hands_32.png"
+dest_files=["res://.godot/imported/wearableslot_hands_32.png-b25bb307a35c6c9d2287f1de12775ff2.ctex"]
 
 [params]
 

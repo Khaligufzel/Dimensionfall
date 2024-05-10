@@ -25,7 +25,7 @@ var contentData: Dictionary = {}:
 	set(value):
 		contentData = value
 		load_slot_data()
-		slotSelector.sprites_collection = Gamedata.data.equipmentslots.sprites
+		slotSelector.sprites_collection = Gamedata.data.wearableslots.sprites
 		olddata = contentData.duplicate(true)
 
 
@@ -36,7 +36,7 @@ func _ready():
 #This function update the form based on the contentData that has been loaded
 func load_slot_data() -> void:
 	if slotImageDisplay != null and contentData.has("sprite"):
-		slotImageDisplay.texture = Gamedata.data.equipmentslots.sprites[contentData["sprite"]]
+		slotImageDisplay.texture = Gamedata.data.wearableslots.sprites[contentData["sprite"]]
 		PathTextLabel.text = contentData["sprite"]
 	if IDTextLabel != null:
 		IDTextLabel.text = str(contentData["id"])
@@ -59,7 +59,7 @@ func _on_save_button_button_up() -> void:
 	contentData["sprite"] = PathTextLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
-	data_changed.emit(Gamedata.data.equipmentslots, contentData, olddata)
+	data_changed.emit(Gamedata.data.wearableslots, contentData, olddata)
 	olddata = contentData.duplicate(true)
 
 

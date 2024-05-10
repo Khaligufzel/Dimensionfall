@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cng4m3os6smj8" path="res://Scenes/ContentManager/Custom_Editors/FurnitureEditor.tscn" id="5_r1dle"]
 [ext_resource type="PackedScene" uid="uid://dmpomdwta1pgq" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemEditor.tscn" id="7_i5608"]
 [ext_resource type="PackedScene" uid="uid://bw61ihylsl1p7" path="res://Scenes/ContentManager/Custom_Editors/ItemgroupEditor.tscn" id="9_mc021"]
-[ext_resource type="PackedScene" uid="uid://767oi7u7wkm5" path="res://Scenes/ContentManager/Custom_Editors/EquipmentslotEditor.tscn" id="10_e4ev7"]
+[ext_resource type="PackedScene" uid="uid://767oi7u7wkm5" path="res://Scenes/ContentManager/Custom_Editors/WearableslotEditor.tscn" id="10_nfqj6"]
 
 [node name="contenteditor" type="Control" node_paths=PackedStringArray("content", "tabContainer")]
 layout_mode = 3
@@ -27,7 +27,7 @@ furnitureEditor = ExtResource("5_r1dle")
 itemEditor = ExtResource("7_i5608")
 mobEditor = ExtResource("5_86se2")
 itemgroupEditor = ExtResource("9_mc021")
-equipmentslotEditor = ExtResource("10_e4ev7")
+wearableslotEditor = ExtResource("10_nfqj6")
 content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content")
 tabContainer = NodePath("HSplitContainer/TabContainer")
 
