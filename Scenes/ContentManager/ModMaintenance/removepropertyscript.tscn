@@ -49,14 +49,16 @@ text = "Selected type:"
 
 [node name="TypesOptionButton" type="OptionButton" parent="VBoxContainer/TypesHBoxContainer"]
 layout_mode = 2
-item_count = 3
+item_count = 4
 selected = 0
 popup/item_0/text = "Item"
 popup/item_0/id = 0
 popup/item_1/text = "Furniture"
 popup/item_1/id = 1
-popup/item_2/text = "Mob"
-popup/item_2/id = 2
+popup/item_2/text = "Itemgroup"
+popup/item_2/id = 3
+popup/item_3/text = "Mob"
+popup/item_3/id = 2
 
 [node name="GetPropertiesButton" type="Button" parent="VBoxContainer/TypesHBoxContainer"]
 layout_mode = 2

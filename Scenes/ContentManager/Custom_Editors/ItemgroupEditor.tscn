@@ -95,7 +95,7 @@ layout_mode = 2
 text = "Description"
 
 [node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_stretch_ratio = 0.9
 tooltip_text = "Enter the description of this itemgroup"
@@ -125,7 +125,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tooltip_text = "Drag items to this list from the left menu of the content editor. Once the list has been made, you can assign it to a container, for example in the furniture editor."
-columns = 4
+columns = 6
 
 [node name="Sprite_selector" parent="." instance=ExtResource("4_tvfec")]
 visible = false
@@ -133,5 +133,4 @@ visible = false
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="gui_input" from="VBoxContainer/FormGrid/ItemgroupImageDisplay" to="." method="_on_itemgroup_image_display_gui_input"]
-[connection signal="button_up" from="VBoxContainer/FormGrid/GroupTypeOptionButton" to="." method="_on_remove_item_button_button_up"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

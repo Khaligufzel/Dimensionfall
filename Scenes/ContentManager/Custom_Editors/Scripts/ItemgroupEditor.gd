@@ -57,7 +57,7 @@ func add_item_entry(item):
 	var item_icon = TextureRect.new()
 	var item_sprite = Gamedata.get_sprite_by_id(Gamedata.data.items, item.get("id"))
 	item_icon.texture = item_sprite
-	item_icon.custom_minimum_size = Vector2(16, 16)  # Customize as needed
+	item_icon.custom_minimum_size = Vector2(16, 16)
 
 	var item_label = Label.new()
 	item_label.text = item.get("id")
@@ -67,29 +67,63 @@ func add_item_entry(item):
 	probability_spinbox.max_value = 100.0
 	probability_spinbox.value = item.get("probability", 20)
 	probability_spinbox.step = 1
+	probability_spinbox.tooltip_text = "Set the item's spawn probability. Range: 0% (never)" +\
+									" to 100% (always).\nCollection Mode: Each item is" + \
+								  " picked independently. A probability of 100% means the " + \
+								  "item always appears, while 0% means it never does.\n" + \
+								  "Distribution Mode: One item is picked from the list. " + \
+								  "The item's probability is relative to others. \n" + \
+								  "E.g., if an item A has a probability of 30 and another " + \
+								  "item B has 20, A's chance is 60% (30 out of 50) and " + \
+								  "B's is 40% (20 out of 50)."
+
+	var min_spinbox = SpinBox.new()
+	min_spinbox.min_value = 0
+	min_spinbox.max_value = 100
+	min_spinbox.value = item.get("min", 1)
+	min_spinbox.step = 1
+	min_spinbox.tooltip_text = "Minimum amount that can spawn"
+
+	var max_spinbox = SpinBox.new()
+	max_spinbox.min_value = 1
+	max_spinbox.max_value = 100
+	max_spinbox.value = item.get("max", 1)
+	max_spinbox.step = 1
+	max_spinbox.tooltip_text = "Maximum amount that can spawn"
 
 	var delete_button = Button.new()
-	delete_button.text = "Delete"
+	delete_button.text = "X"
 	delete_button.button_up.connect(_on_delete_item_button_pressed.bind(item.get("id")))
 
 	# Add components to GridContainer
 	itemListContainer.add_child(item_icon)
 	itemListContainer.add_child(item_label)
 	itemListContainer.add_child(probability_spinbox)
+	itemListContainer.add_child(min_spinbox)
+	itemListContainer.add_child(max_spinbox)
 	itemListContainer.add_child(delete_button)
 
 
 func _on_delete_item_button_pressed(item_id):
+	var num_columns = itemListContainer.columns  # Make sure this matches the number of elements per item in your grid
+	var children_to_remove = []
+	
+	# Find the label with the matching item_id to determine which row to delete
 	for i in range(itemListContainer.get_child_count()):
 		var child = itemListContainer.get_child(i)
 		if child is Label and child.text == item_id:
-			var index = itemListContainer.get_index(child)
-			# Remove each element of the row
-			for offset in range(4):
-				var child_to_remove = itemListContainer.get_child(index - (index % 4))
-				itemListContainer.remove_child(child_to_remove)
-				child_to_remove.queue_free()
-			break
+			# Calculate the start of the row
+			var start_index = i - (i % num_columns)
+			# Queue all elements in this row for removal by offsetting from the start_index
+			for j in range(num_columns):
+				children_to_remove.append(itemListContainer.get_child(start_index + j))
+			break  # Once we find the right row, no need to check further
+	
+	# Remove and free all queued children
+	for child in children_to_remove:
+		itemListContainer.remove_child(child)
+		child.queue_free()
+
 
 
 func load_itemgroup_data():
@@ -141,9 +175,11 @@ func _on_save_button_button_up():
 	
 	# Iterate through each row based on the number of columns
 	for i in range(0, num_children, num_columns):
-		var item_id = itemListContainer.get_child(i + 1).text  # +1 because the second child in the sequence is the label
-		var probability = itemListContainer.get_child(i + 2).get_value()  # +2 because the third child in the sequence is the SpinBox
-		new_items.append({"id": item_id, "probability": probability})
+		var item_id = itemListContainer.get_child(i + 1).text
+		var probability = itemListContainer.get_child(i + 2).get_value()
+		var min_amount = itemListContainer.get_child(i + 3).get_value()
+		var max_amount = itemListContainer.get_child(i + 4).get_value()
+		new_items.append({"id": item_id, "probability": probability, "min": min_amount, "max": max_amount})
 	
 	contentData["items"] = new_items
 	
