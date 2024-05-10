@@ -22,27 +22,37 @@ func _ready():
 # Only new furniture will have an itemgroup assigned, not previously saved furniture.
 func create_loot():
 	# Check if the inventory is not already populated
-	if inventory.get_items() == []:
+	if inventory.get_items().is_empty():
 		# Attempt to retrieve the itemgroup data from Gamedata
 		var itemgroup_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, itemgroup)
 		
 		# Check if the itemgroup data exists and has items
 		if itemgroup_data and "items" in itemgroup_data:
-			# Loop over each item ID in the itemgroup's 'items' property
-			for item_id in itemgroup_data["items"]:
+			# Loop over each item object in the itemgroup's 'items' property
+			for item_object in itemgroup_data["items"]:
+				# Each item_object is expected to be a dictionary with id, probability, min, max
+				var item_id = item_object["id"]
+				var item_min = item_object["min"]
+				var item_max = item_object["max"]
+				var item_probability = item_object["probability"]  # This could be used for determining spawn chance
+
 				# Fetch the individual item data for verification
 				var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
 				
 				# Check if the item data is valid before adding
 				if item_data and not item_data.is_empty():
-					# Create and add the item to the inventory deferred to ensure all properties are set
-					inventory.create_and_add_item.call_deferred(item_id)
+					# Check probability to decide if item should be added
+					if randi_range(0, 100) <= item_probability:
+						# Determine quantity to add based on min and max
+						var quantity = randi_range(item_min, item_max)
+						for i in range(quantity):
+							# Create and add the item to the inventory
+							inventory.create_and_add_item.call_deferred(item_id)
 				else:
 					print_debug("No valid data found for item ID: " + str(item_id))
 		else:
 			# Fallback if no valid itemgroup data found or the itemgroup is empty
 			print_debug("Invalid or empty itemgroup data for itemgroup ID: " + str(itemgroup))
-			# Optional: add fallback items if needed, or handle the case accordingly
 
 
 func create_inventory():

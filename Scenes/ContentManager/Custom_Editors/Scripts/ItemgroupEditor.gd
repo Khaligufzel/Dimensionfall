@@ -41,6 +41,7 @@ func _ready():
 	modeOptionButton.selected = 0  # Default to Collection
 
 
+# Refreshes the itemlist based on the contentdata
 func update_item_list_with_probabilities():
 	# Remove all children from the existing container
 	while itemListContainer.get_child_count() > 0:
@@ -53,6 +54,7 @@ func update_item_list_with_probabilities():
 		add_item_entry(item)
 
 
+# Adds a new item and controls to the itemlist
 func add_item_entry(item):
 	var item_icon = TextureRect.new()
 	var item_sprite = Gamedata.get_sprite_by_id(Gamedata.data.items, item.get("id"))
@@ -104,6 +106,8 @@ func add_item_entry(item):
 	itemListContainer.add_child(delete_button)
 
 
+# The user has pressed the delete button next to an item in the itemlist
+# Remove the entire row of the item
 func _on_delete_item_button_pressed(item_id):
 	var num_columns = itemListContainer.columns  # Make sure this matches the number of elements per item in your grid
 	var children_to_remove = []
@@ -125,7 +129,7 @@ func _on_delete_item_button_pressed(item_id):
 		child.queue_free()
 
 
-
+# Loads the data into the editor. contentData describes exactly one itemgroup
 func load_itemgroup_data():
 	if itemgroupImageDisplay and contentData.has("sprite") and not contentData["sprite"].is_empty():
 		itemgroupImageDisplay.texture = Gamedata.data.itemgroups.sprites[contentData["sprite"]]
@@ -214,6 +218,7 @@ func _on_itemgroup_image_display_gui_input(event):
 		itemgroupSelector.show()
 
 
+# Sets the sprite in the editor based on what sprite the user has selected
 func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var itemgroupTexture: Resource = clicked_sprite.get_texture()
 	itemgroupImageDisplay.texture = itemgroupTexture
@@ -275,6 +280,7 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 		print_debug("Dropped data does not contain an 'id' key.")
 
 
+# Adds a header to the itemlist
 func add_header_row():
 	# Define a common style for all header labels
 	var header_style = StyleBoxFlat.new()
