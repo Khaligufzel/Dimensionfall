@@ -8,7 +8,6 @@ var level_width : int = 32
 var level_height : int = 32
 
 @export var level_manager : Node3D
-@export var chunkScene: PackedScene = null
 @export_file var default_level_json
 
 
