@@ -220,7 +220,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"kitchen_cupboard\"
+					\"kitchen_cupboard\",
+					\"cabinet_general\"
 				],
 				\"items\": [
 					\"screwdriver\"

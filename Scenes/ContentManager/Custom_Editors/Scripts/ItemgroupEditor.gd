@@ -47,7 +47,7 @@ func update_item_list_with_probabilities():
 		var child = itemListContainer.get_child(0)
 		itemListContainer.remove_child(child)
 		child.queue_free()
-
+	add_header_row()
 	# Populate the container with new data
 	for item in contentData.get("items", []):
 		add_item_entry(item)
@@ -172,19 +172,25 @@ func _on_save_button_button_up():
 	var new_items = []
 	var num_children = itemListContainer.get_child_count()
 	var num_columns = itemListContainer.columns
-	
-	# Iterate through each row based on the number of columns
-	for i in range(0, num_children, num_columns):
-		var item_id = itemListContainer.get_child(i + 1).text
-		var probability = itemListContainer.get_child(i + 2).get_value()
-		var min_amount = itemListContainer.get_child(i + 3).get_value()
-		var max_amount = itemListContainer.get_child(i + 4).get_value()
-		new_items.append({"id": item_id, "probability": probability, "min": min_amount, "max": max_amount})
+
+	# Start from index 6 to skip header, which occupies the first 6 indices (0 to 5)
+	for i in range(6, num_children, num_columns):
+		var item_id = itemListContainer.get_child(i + 1).text  # Second child in each row is the item ID label
+		var probability = itemListContainer.get_child(i + 2).get_value()  # Third child is the SpinBox for probability
+		var min_amount = itemListContainer.get_child(i + 3).get_value()  # Fourth child is the SpinBox for minimum count
+		var max_amount = itemListContainer.get_child(i + 4).get_value()  # Fifth child is the SpinBox for maximum count
+
+		new_items.append({
+			"id": item_id, 
+			"probability": probability, 
+			"min": min_amount, 
+			"max": max_amount
+		})
 	
 	contentData["items"] = new_items
-	
 	data_changed.emit(Gamedata.data.itemgroups, contentData, olddata)
 	olddata = contentData.duplicate(true)
+
 
 
 func _input(event):
@@ -267,3 +273,33 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 		add_item_entry({"id": item_id, "probability": 20})  # Default probability if not specified
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
+
+
+func add_header_row():
+	# Define a common style for all header labels
+	var header_style = StyleBoxFlat.new()
+	header_style.bg_color = Color(0.2, 0.2, 0.2)  # Dark gray color
+	header_style.border_width_top = 1
+	header_style.border_width_bottom = 1
+	header_style.border_color = Color(0.5, 0.5, 0.5)  # Lighter gray for the border
+
+	# Create header labels with the specified style
+	var headers = ["Icon", "Item ID", "Probability (%)", "Min Count", "Max Count", "Delete"]
+	var tooltips = [
+		"",  # Icon doesn't need a tooltip
+		"",  # Item ID is self-explanatory
+		"Set the item's spawn probability. Range: 0% (never) to 100% (always).",
+		"Minimum amount that can spawn of this item.",
+		"Maximum amount that can spawn of this item.",
+		""  # Delete is self-explanatory
+	]
+
+	for i in range(headers.size()):
+		var header = Label.new()
+		header.text = headers[i]
+		header.tooltip_text = tooltips[i]
+		header.set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER)
+		header.add_theme_stylebox_override("normal",header_style)
+		header.set("custom_styles/panel", header_style.duplicate())  # Use duplicate to ensure each header can customize further if needed
+		itemListContainer.add_child(header)
+

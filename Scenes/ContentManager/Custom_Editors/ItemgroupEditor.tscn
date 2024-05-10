@@ -5,6 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="4_tvfec"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i82vb"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
 
 [node name="ItemgroupEditor" type="Control" node_paths=PackedStringArray("itemgroupImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemgroupSelector", "imageNameStringLabel", "modeOptionButton", "itemListContainer")]
 layout_mode = 3
