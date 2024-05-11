@@ -37,18 +37,27 @@ func _ready():
 	
 	LeftHandEquipmentSlot.myInventory = inventory
 	RightHandEquipmentSlot.myInventory = inventory
-	# The items that were in the player inventory when they exited
-	# the previous level are loaded back into the inventory
-	if General.player_equipment_dict.has("LeftHandEquipmentSlot"):
-		LeftHandEquipmentSlot.deserialize(General.player_equipment_dict.LeftHandEquipmentSlot)
-	if General.player_equipment_dict.has("RightHandEquipmentSlot"):
-		RightHandEquipmentSlot.deserialize(General.player_equipment_dict.RightHandEquipmentSlot)
 	# We let the signal broker forward the change in visibility so other nodes can respond
 	visibility_changed.connect(Helper.signal_broker.on_inventory_visibility_changed.bind(self))
 	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
 	instantiate_wearable_slots()
+	deserialize_equipment(General.player_equipment_dict)
 
+
+func deserialize_equipment(equipment_dict: Dictionary):
+	if equipment_dict.has("LeftHandEquipmentSlot"):
+		LeftHandEquipmentSlot.deserialize(equipment_dict["LeftHandEquipmentSlot"])
+	if equipment_dict.has("RightHandEquipmentSlot"):
+		RightHandEquipmentSlot.deserialize(equipment_dict["RightHandEquipmentSlot"])
+
+	var counter = 0
+	for slot in EquipmentSlotList.get_children():
+		if counter < 2:
+			counter += 1
+			continue
+		if equipment_dict.has(slot.slot_id):
+			slot.deserialize(equipment_dict[slot.slot_id])
 
 
 # Gets the slots that are defined in json and instatiates WearableSlotScene
@@ -130,6 +139,14 @@ func get_equipment_dict() -> Dictionary:
 		"LeftHandEquipmentSlot": LeftHandEquipmentSlot.serialize(),
 		"RightHandEquipmentSlot": RightHandEquipmentSlot.serialize()
 	}
+	
+	var counter = 0
+	for slot in EquipmentSlotList.get_children():
+		if counter < 2:
+			counter += 1
+			continue
+		if slot.myInventoryItem:
+			player_equipment[slot.slot_id] = slot.serialize()
 	return player_equipment
 
 
