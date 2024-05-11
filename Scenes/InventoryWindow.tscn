@@ -70,6 +70,10 @@ layout_mode = 2
 [node name="TransferUI" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 
+[node name="TransferAllRightButton" type="Button" parent="HBoxContainer/TransferUI"]
+layout_mode = 2
+text = "->>"
+
 [node name="TransferRightButton" type="Button" parent="HBoxContainer/TransferUI"]
 layout_mode = 2
 text = "->"
@@ -77,6 +81,10 @@ text = "->"
 [node name="TransferLeftButton" type="Button" parent="HBoxContainer/TransferUI"]
 layout_mode = 2
 text = "<-"
+
+[node name="TransferAllLeftButton" type="Button" parent="HBoxContainer/TransferUI"]
+layout_mode = 2
+text = "<<-"
 
 [node name="PlayerInventoryControl" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -176,7 +184,9 @@ autowrap_mode = 3
 
 [connection signal="equip_left" from="HBoxContainer/ProximityInventoryControl/CtrlInventoryStackedCustomProx" to="." method="_on_ctrl_inventory_stacked_custom_equip_left"]
 [connection signal="equip_right" from="HBoxContainer/ProximityInventoryControl/CtrlInventoryStackedCustomProx" to="." method="_on_ctrl_inventory_stacked_custom_equip_right"]
+[connection signal="button_up" from="HBoxContainer/TransferUI/TransferAllRightButton" to="." method="_on_transfer_all_right_button_button_up"]
 [connection signal="button_up" from="HBoxContainer/TransferUI/TransferRightButton" to="." method="_on_transfer_right_button_button_up"]
 [connection signal="button_up" from="HBoxContainer/TransferUI/TransferLeftButton" to="." method="_on_transfer_left_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/TransferUI/TransferAllLeftButton" to="." method="_on_transfer_all_left_button_button_up"]
 [connection signal="equip_left" from="HBoxContainer/PlayerInventoryControl/CtrlInventoryStackedCustom" to="." method="_on_ctrl_inventory_stacked_custom_equip_left"]
 [connection signal="equip_right" from="HBoxContainer/PlayerInventoryControl/CtrlInventoryStackedCustom" to="." method="_on_ctrl_inventory_stacked_custom_equip_right"]

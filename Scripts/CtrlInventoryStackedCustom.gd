@@ -170,13 +170,28 @@ func _get_row_name(item: Control) -> String:
 
 
 # Helper function to create a header
-func _create_header(text: String) -> void:
+func _create_header1(text: String) -> void:
 	var header: Control = listHeaderContainer.instantiate()
 	header.set_label_text(text)
 	header.connect("header_clicked", _on_header_clicked)
 	inventoryGrid.add_child(header)
 	# Store the header control in the dictionary
 	header_controls[text] = header
+
+# Helper function to create a header
+func _create_header(text: String) -> void:
+	var header = listHeaderContainer.instantiate() as Control
+	header.set_label_text(text)
+	
+	# If this is the "favorite" header, set a smaller size
+	if text == "F":  # Assuming "F" is the text for the favorite column header
+		header.custom_minimum_size = Vector2(16, 32)  # Match the size set for favorite column elements
+	
+	header.connect("header_clicked", _on_header_clicked)
+	inventoryGrid.add_child(header)
+	# Store the header control in the dictionary
+	header_controls[text] = header
+
 
 
 # Simplified function for adding headers
@@ -213,6 +228,11 @@ func _on_item_clicked(clickedItem: Control):
 	var row_name = _get_row_name(clickedItem)
 	var was_selected = _is_row_selected(row_name)
 
+	# Check if the favorite column was clicked
+	if clickedItem.name.begins_with("favorite_"):
+		_toggle_favorite(clickedItem, inventory_rows[row_name]["item"])
+		return  # Skip selection logic if it's a favorite toggle
+
 	if Input.is_key_pressed(KEY_CTRL):
 		# CTRL is held: check if current row is selected and if there are other rows selected
 		if _is_row_selected(row_name):
@@ -237,6 +257,16 @@ func _on_item_clicked(clickedItem: Control):
 	last_selected_item = clickedItem
 	# Update the variable based on whether the selection state changed
 	selection_state_changed = was_selected != _is_row_selected(row_name)
+
+
+# Function to toggle the favorite status of an item
+func _toggle_favorite(ui_element: Control, item: InventoryItem):
+	var current_favorite = item.get_property("favorite", false)
+	item.set_property("favorite", not current_favorite)
+	# Update UI element to reflect the change
+	ui_element.set_label_text("*" if not current_favorite else "")
+	# Optionally update the inventory list or the specific row
+	#update_inventory_list(item, "modified")
 
 
 # Select a range of items. This is called when the user
@@ -280,9 +310,12 @@ func _create_ui_element(property: String, item: InventoryItem, row_name: String)
 		"stack_size":
 			# Assuming stack size is a property of the item
 			element.set_label_text(str(InventoryStacked.get_item_stack_size(item)))
-		_, "weight", "volume", "favorite":
-			# Fill in the value for the rest of the properties
+		"weight", "volume":
 			element.set_label_text(str(item.get_property(property, 0)))
+		"favorite":
+			var favorite = item.get_property("favorite", false)
+			element.custom_minimum_size = Vector2(12, 32)
+			element.set_label_text("*" if favorite else "")
 	# The name will be something like weight_Node_211748 or icon_Node_211748
 	# Now we can use the name to get information about the property
 	element.name = property + "_" + str(item.get_name())
@@ -449,10 +482,16 @@ func _get_representative_value_for_row(row_name: String, property_name: String):
 		var row_item = inventory_rows[row_name]["item"]
 		if row_item:
 			var property_value = row_item.get_property(property_name, null)
+			# Handle boolean for favorite specially to allow sorting
+			if property_name == "favorite":
+				# Convert boolean to integer (true -> 1, false -> 0)
+				# Use `false` as the default if the property value is null
+				return int(property_value if property_value != null else false)
 			if property_value != null:
 				return property_value
-	# Return default value
-	return "" if property_name in ["name", "favorite"] else "0"
+	# Return a default value based on property type
+	return 0 if property_name in ["weight", "volume", "stack_size"] else ""
+
 
 
 # Will sort the order of the items baased on the selected column (property_name)

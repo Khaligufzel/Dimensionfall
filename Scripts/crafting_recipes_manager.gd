@@ -19,7 +19,6 @@ func can_craft_recipe(recipe: Dictionary) -> bool:
 		for resource in recipe["required_resources"]:
 			# Check if the inventory has a sufficient amount of each required resource.
 			if not ItemManager.has_sufficient_item_amount(resource.get("id"), resource.get("amount")):
-				print_debug("Not enough", resource.get("id"), "to craft")
 				return false  # Return false immediately if any resource is insufficient.
 	else:
 		print_debug("No required resources specified for recipe")

@@ -219,26 +219,6 @@ func remove_container_from_list(container: Node3D):
 		proximity_inventory_control.visible = false
 
 
-# Items are transferred from the right list to the left list
-func _on_transfer_left_button_button_up():
-	var selected_inventory_items: Array[InventoryItem] = inventory_control.get_selected_inventory_items()
-	for item in selected_inventory_items:
-		if inventory.transfer_autosplitmerge(item, proximity_inventory_control.get_inventory()):
-			print_debug("Transferred item: " + str(item))
-		else:
-			print_debug("Failed to transfer item: " + str(item))
-
-
-# Items are transferred from the left list to the right list
-func _on_transfer_right_button_button_up():
-	var selected_inventory_items: Array[InventoryItem] = proximity_inventory_control.get_selected_inventory_items()
-	for item in selected_inventory_items:
-		if proximity_inventory_control.get_inventory().transfer_autosplitmerge(item, inventory):
-			print_debug("Transferred item: " + str(item))
-		else:
-			print_debug("Failed to transfer item: " + str(item))
-
-
 # Called when the user has pressed a button that will equip the selected item
 func _on_ctrl_inventory_stacked_custom_equip_left(items: Array[InventoryItem]):
 	equip_item(items, LeftHandEquipmentSlot)
@@ -260,3 +240,48 @@ func equip_item(items: Array[InventoryItem], itemSlot: Control) -> void:
 		itemSlot.equip(items[0])
 	else:
 		print_debug("Multiple items selected. Please select only one item to equip.")
+
+
+func _on_transfer_all_left_button_button_up():
+	# Attempt to transfer each item from the inventory to the proximity inventory until no items are left
+	var items_to_transfer = inventory.get_items()
+	while items_to_transfer.size() > 0:
+		var item = items_to_transfer.pop_front() # Get and remove the first item from the list
+		if inventory.transfer_autosplitmerge(item, proximity_inventory_control.get_inventory()):
+			print_debug("Transferred item: " + str(item))
+		else:
+			print_debug("Failed to transfer item: " + str(item))
+			break # If a transfer fails, break out of the loop to prevent an infinite loop
+		items_to_transfer = inventory.get_items() # Refresh the list of items after the transfer attempt
+
+func _on_transfer_all_right_button_button_up():
+	# Attempt to transfer each item from the proximity inventory to the inventory until no items are left
+	var items_to_transfer = proximity_inventory_control.get_inventory().get_items()
+	while items_to_transfer.size() > 0:
+		var item = items_to_transfer.pop_front() # Get and remove the first item from the list
+		if proximity_inventory_control.get_inventory().transfer_autosplitmerge(item, inventory):
+			print_debug("Transferred item: " + str(item))
+		else:
+			print_debug("Failed to transfer item: " + str(item))
+			break # If a transfer fails, break out of the loop to prevent an infinite loop
+		items_to_transfer = proximity_inventory_control.get_inventory().get_items() # Refresh the list of items after the transfer attempt
+
+
+# Items are transferred from the right list to the left list
+func _on_transfer_left_button_button_up():
+	var selected_inventory_items: Array[InventoryItem] = inventory_control.get_selected_inventory_items()
+	for item in selected_inventory_items:
+		if inventory.transfer_autosplitmerge(item, proximity_inventory_control.get_inventory()):
+			print_debug("Transferred item: " + str(item))
+		else:
+			print_debug("Failed to transfer item: " + str(item))
+
+
+# Items are transferred from the left list to the right list
+func _on_transfer_right_button_button_up():
+	var selected_inventory_items: Array[InventoryItem] = proximity_inventory_control.get_selected_inventory_items()
+	for item in selected_inventory_items:
+		if proximity_inventory_control.get_inventory().transfer_autosplitmerge(item, inventory):
+			print_debug("Transferred item: " + str(item))
+		else:
+			print_debug("Failed to transfer item: " + str(item))
