@@ -34,6 +34,7 @@ color = Color(0.341176, 0.376471, 0.529412, 1)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_iv7j3")
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/PanelContainer"]

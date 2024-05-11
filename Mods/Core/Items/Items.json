@@ -391,6 +391,9 @@
 		"weight": "0.1"
 	},
 	{
+		"Wearable": {
+			"slot": "torso"
+		},
 		"description": "A piece of clothing to wear on the torso. It will keep you warm and offers a bit of protection.",
 		"id": "jacket",
 		"image": "./Mods/Core/Items/jacket_32.png",
@@ -403,6 +406,9 @@
 		"weight": "1"
 	},
 	{
+		"Wearable": {
+			"slot": "feet"
+		},
 		"description": "Comfortable footwear to keep your feet safe",
 		"id": "boots",
 		"image": "./Mods/Core/Items/boots_32.png",
@@ -515,6 +521,9 @@
 		"weight": "0.1"
 	},
 	{
+		"Wearable": {
+			"slot": "head"
+		},
 		"description": "A piece of clothing that offers protection from environmental hazards",
 		"id": "gas_mask",
 		"image": "./Mods/Core/Items/gasmask_32.png",

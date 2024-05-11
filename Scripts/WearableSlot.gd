@@ -25,6 +25,7 @@ extends Control
 var myInventoryItem: InventoryItem = null
 # The node that will actually operate the item
 var equippedItem: Sprite3D = null
+var slot_id: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -101,8 +102,18 @@ func get_item() -> InventoryItem:
 
 
 # This function should return true if the dragged data can be dropped here
+# data is supposed to be an Array[InventoryItem]
 func _can_drop_data(_newpos, data) -> bool:
-	return data is Array[InventoryItem]
+	if data is Array and data.size() > 0 and data[0] is InventoryItem:
+		var item = data[0]
+		var prototype_id = item.get("prototype_id")
+
+		if prototype_id:
+			# Only allow the user to drop the item if it matches the slot id
+			var item_data = Gamedata.get_data_by_id(Gamedata.data.items, prototype_id)
+			if item_data and "Wearable" in item_data and "slot" in item_data["Wearable"]:
+				return item_data["Wearable"]["slot"] == slot_id
+	return false
 
 
 # This function handles the data being dropped

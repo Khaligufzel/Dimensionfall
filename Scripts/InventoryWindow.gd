@@ -69,6 +69,8 @@ func instantiate_wearable_slots():
 		var slot_instance = WearableSlotScene.instantiate()
 		slot_instance.custom_minimum_size.x = 32
 		slot_instance.custom_minimum_size.y = 32
+		slot_instance.slot_id = slot.get("id")
+		slot_instance.myInventory = inventory
 		if slot.has("name"):
 			slot_instance.myLabel.text = slot["name"]  # Assuming the instance has a Label node named 'myLabel'
 		EquipmentSlotList.add_child(slot_instance)
