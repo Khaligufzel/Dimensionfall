@@ -19,7 +19,7 @@ columns = 2
 
 [node name="SlotLabel" type="Label" parent="Food"]
 layout_mode = 2
-text = "Health"
+text = "Wearable slot"
 
 [node name="SlotOptionButton" type="OptionButton" parent="Food"]
 layout_mode = 2
