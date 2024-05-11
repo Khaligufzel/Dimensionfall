@@ -20,19 +20,15 @@ extends Control
 @export var myInventoryCtrl: Control
 @export var backgroundColor: ColorRect
 @export var myIcon: TextureRect
+@export var myLabel: Label
 
 var myInventoryItem: InventoryItem = null
 # The node that will actually operate the item
 var equippedItem: Sprite3D = null
 
-# Signals to commmunicate with the equippedItem node inside the Player node
-signal item_was_equipped(equippedItem: InventoryItem, wearableSlot: Control)
-signal item_was_cleared(equippedItem: InventoryItem, wearableSlot: Control)
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	item_was_equipped.connect(Helper.signal_broker.on_item_equipped)
-	item_was_cleared.connect(Helper.signal_broker.on_item_slot_cleared)
+	pass
 
 
 # Handle GUI input events
@@ -58,14 +54,14 @@ func equip(item: InventoryItem) -> void:
 		var itemInventory = item.get_inventory()
 		if itemInventory and itemInventory.has_item(item):
 			item.get_inventory().remove_item(item)	
-
-		item_was_equipped.emit(item, self)
+			
+		Helper.signal_broker.wearable_was_equipped.emit(item, self)
 
 
 # Unequip the current item and keep the magazine in the weapon
 func unequip() -> void:
 	if myInventoryItem:
-		item_was_cleared.emit(myInventoryItem, self)
+		Helper.signal_broker.wearable_slot_cleared.emit(myInventoryItem, self)
 		myInventory.add_item(myInventoryItem)
 		myInventoryItem = null
 		update_icon()
@@ -79,21 +75,16 @@ func update_icon() -> void:
 		myIcon.texture = null
 
 
-# Serialize the equipped item and the magazine into one dictionary
+# Serialize the equipped item
 # This will happen when the player pressed the travel button on the overmap
 func serialize() -> Dictionary:
 	var data: Dictionary = {}
 	if myInventoryItem:
-		# We will separate the magazine from the weapon during serialization
-		if myInventoryItem.get_property("current_magazine"):
-			var myMagazine: InventoryItem = myInventoryItem.get_property("current_magazine")
-			data["magazine"] = myMagazine.serialize()  # Serialize magazine
-			myInventoryItem.clear_property("current_magazine")
 		data["item"] = myInventoryItem.serialize()  # Serialize equipped item
 	return data
 
 
-# Deserialize and equip an item and a magazine from the provided data
+# Deserialize and equip an item 
 # This will happen when a game is loaded or the player has travelled to a different map
 func deserialize(data: Dictionary) -> void:
 	# Deserialize and equip an item
@@ -102,15 +93,6 @@ func deserialize(data: Dictionary) -> void:
 		var item = InventoryItem.new()
 		item.deserialize(itemData)
 		equip(item)  # Equip the deserialized item
-
-		# If there is a magazine, we create an InventoryItem instance
-		# We assign a reference to it in the curretn_magazine of the weapon
-		if data.has("magazine"):
-			var magazineData: Dictionary = data["magazine"]
-			var myMagazine = InventoryItem.new()
-			myMagazine.deserialize(magazineData)
-			item.set_property("current_magazine", myMagazine)
-			equippedItem.on_magazine_inserted()
 
 
 # Get the currently equipped item
@@ -128,20 +110,6 @@ func _drop_data(newpos, data):
 	if _can_drop_data(newpos, data):
 		if data is Array and data.size() > 0 and data[0] is InventoryItem:
 			var first_item = data[0]
-			# Check if the dropped item is a magazine
-			if first_item.get_property("Magazine"):
-				_handle_magazine_drop(first_item)
-			else:
-				# Equip the item if it's not a magazine
-				equip(first_item)
-
-
-# When the user has dropped a magaziene from the inventory
-func _handle_magazine_drop(magazine: InventoryItem):
-	if myInventoryItem and myInventoryItem.get_property("Ranged"):
-		ItemManager.start_reload(myInventoryItem, equippedItem.reload_speed, magazine)
-	else:
-		# Equip the item if no weapon is wielded
-		equip(magazine)
+			equip(first_item)
 
 

@@ -14,6 +14,8 @@ extends Control
 @export var containerListItem : PackedScene
 
 # Equipment
+@export var EquipmentSlotList : VBoxContainer
+@export var WearableSlotScene : PackedScene
 @export var LeftHandEquipmentSlot : Control
 @export var RightHandEquipmentSlot : Control
 
@@ -45,7 +47,31 @@ func _ready():
 	visibility_changed.connect(Helper.signal_broker.on_inventory_visibility_changed.bind(self))
 	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
+	instantiate_wearable_slots()
 
+
+
+# Gets the slots that are defined in json and instatiates WearableSlotScene
+# for each of the slots. It will add the instances to EquipmentSlotList
+# The first to children of EquipmentSlotList are static slots and we should ignore them
+# It will get the "name" property from the slot data and set it to the instance's "myLabel" property
+func instantiate_wearable_slots():
+	var slots = Gamedata.data.wearableslots.data
+
+	# Clear any dynamically created slots first to avoid duplicates and skip the first two
+	while EquipmentSlotList.get_child_count() > 2:
+		var last_child = EquipmentSlotList.get_child(EquipmentSlotList.get_child_count() - 1)
+		EquipmentSlotList.remove_child(last_child)
+		last_child.queue_free()
+
+	# Instantiate and configure a WearableSlotScene for each slot
+	for slot in slots:
+		var slot_instance = WearableSlotScene.instantiate()
+		slot_instance.custom_minimum_size.x = 32
+		slot_instance.custom_minimum_size.y = 32
+		if slot.has("name"):
+			slot_instance.myLabel.text = slot["name"]  # Assuming the instance has a Label node named 'myLabel'
+		EquipmentSlotList.add_child(slot_instance)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
