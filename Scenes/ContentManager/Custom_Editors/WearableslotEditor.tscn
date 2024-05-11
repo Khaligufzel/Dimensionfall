@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_8f3xi"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_qjob6"]
 
-[node name="EquipmentslotEditor" type="Control" node_paths=PackedStringArray("slotImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "slotSelector")]
+[node name="WearableEditor" type="Control" node_paths=PackedStringArray("slotImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "slotSelector")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

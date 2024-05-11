@@ -1,7 +1,7 @@
 extends Control
 
 # This scene is intended to be used inside the item editor
-# It is supposed to edit exactly one type of ammo
+# It is supposed to edit exactly one type of food
 
 
 # Form elements
