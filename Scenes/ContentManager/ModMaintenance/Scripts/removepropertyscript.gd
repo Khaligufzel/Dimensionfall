@@ -80,6 +80,8 @@ func get_type_data() -> Variant:
 		return Gamedata.data.items
 	elif selected_type == "Furniture":
 		return Gamedata.data.furniture
+	elif selected_type == "Itemgroup":
+		return Gamedata.data.itemgroups
 	elif selected_type == "Mob":
 		return Gamedata.data.mobs
 	return null

@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://bw61ihylsl1p7"]
+[gd_scene load_steps=5 format=3 uid="uid://bw61ihylsl1p7"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/ItemgroupEditor.gd" id="1_ulsfi"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_fq8lh"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="4_tvfec"]
 
-[node name="ItemgroupEditor" type="Control" node_paths=PackedStringArray("itemgroupImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemgroupSelector", "imageNameStringLabel", "selectedItemNameDisplay", "itemList")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i82vb"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[node name="ItemgroupEditor" type="Control" node_paths=PackedStringArray("itemgroupImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemgroupSelector", "imageNameStringLabel", "modeOptionButton", "itemListContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,8 +24,8 @@ NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 itemgroupSelector = NodePath("Sprite_selector")
 imageNameStringLabel = NodePath("VBoxContainer/FormGrid/ImageNameStringLabel")
-selectedItemNameDisplay = NodePath("VBoxContainer/FormGrid/SelectedItemControls/SelectedItemNameDisplay")
-itemList = NodePath("VBoxContainer/FormGrid/ItemList")
+modeOptionButton = NodePath("VBoxContainer/FormGrid/GroupTypeOptionButton")
+itemListContainer = NodePath("VBoxContainer/FormGrid/PanelContainer/ItemList")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -74,7 +80,6 @@ text = "ID:"
 [node name="IDTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 
 [node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid"]
@@ -84,7 +89,6 @@ text = "Name"
 [node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 tooltip_text = "Enter the name of this itemgroup"
 focus_next = NodePath("../DescriptionTextEdit")
@@ -95,43 +99,37 @@ layout_mode = 2
 text = "Description"
 
 [node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.9
 tooltip_text = "Enter the description of this itemgroup"
 focus_previous = NodePath("../NameTextEdit")
 wrap_mode = 1
 
-[node name="SelectedItemLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="GroupTypeLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-text = "Selected item"
+text = "Group type"
 
-[node name="SelectedItemControls" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
-layout_mode = 2
-
-[node name="SelectedItemName" type="Label" parent="VBoxContainer/FormGrid/SelectedItemControls"]
-layout_mode = 2
-
-[node name="SelectedItemNameDisplay" type="Label" parent="VBoxContainer/FormGrid/SelectedItemControls"]
-layout_mode = 2
-
-[node name="RemoveItemButton" type="Button" parent="VBoxContainer/FormGrid/SelectedItemControls"]
+[node name="GroupTypeOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
 tooltip_text = "Removes the selected item from the list"
-text = "Remove"
 
 [node name="ItemsLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
 text = "Items"
 
-[node name="ItemList" type="ItemList" parent="VBoxContainer/FormGrid"]
-custom_minimum_size = Vector2(0, 200)
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_i82vb")
+
+[node name="ItemList" type="GridContainer" parent="VBoxContainer/FormGrid/PanelContainer"]
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tooltip_text = "Drag items to this list from the left menu of the content editor. Once the list has been made, you can assign it to a container, for example in the furniture editor."
-mouse_filter = 1
+columns = 6
 
 [node name="Sprite_selector" parent="." instance=ExtResource("4_tvfec")]
 visible = false
@@ -139,7 +137,4 @@ visible = false
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="gui_input" from="VBoxContainer/FormGrid/ItemgroupImageDisplay" to="." method="_on_itemgroup_image_display_gui_input"]
-[connection signal="button_up" from="VBoxContainer/FormGrid/SelectedItemControls/RemoveItemButton" to="." method="_on_remove_item_button_button_up"]
-[connection signal="empty_clicked" from="VBoxContainer/FormGrid/ItemList" to="." method="_on_item_list_empty_clicked"]
-[connection signal="item_selected" from="VBoxContainer/FormGrid/ItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

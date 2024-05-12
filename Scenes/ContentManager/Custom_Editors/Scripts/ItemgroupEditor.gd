@@ -11,8 +11,8 @@ extends Control
 @export var DescriptionTextEdit: TextEdit = null
 @export var itemgroupSelector: Popup = null
 @export var imageNameStringLabel: Label = null
-@export var selectedItemNameDisplay: Label = null
-@export var itemList: ItemList = null
+@export var modeOptionButton: OptionButton
+@export var itemListContainer: GridContainer
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
 
@@ -36,8 +36,100 @@ var contentData: Dictionary = {}:
 func _ready():
 	control_elements = [itemgroupImageDisplay,NameTextEdit,DescriptionTextEdit]
 	data_changed.connect(Gamedata.on_data_changed)
+	modeOptionButton.add_item("Collection")
+	modeOptionButton.add_item("Distribution")
+	modeOptionButton.selected = 0  # Default to Collection
 
 
+# Refreshes the itemlist based on the contentdata
+func update_item_list_with_probabilities():
+	# Remove all children from the existing container
+	while itemListContainer.get_child_count() > 0:
+		var child = itemListContainer.get_child(0)
+		itemListContainer.remove_child(child)
+		child.queue_free()
+	add_header_row()
+	# Populate the container with new data
+	for item in contentData.get("items", []):
+		add_item_entry(item)
+
+
+# Adds a new item and controls to the itemlist
+func add_item_entry(item):
+	var item_icon = TextureRect.new()
+	var item_sprite = Gamedata.get_sprite_by_id(Gamedata.data.items, item.get("id"))
+	item_icon.texture = item_sprite
+	item_icon.custom_minimum_size = Vector2(16, 16)
+
+	var item_label = Label.new()
+	item_label.text = item.get("id")
+
+	var probability_spinbox = SpinBox.new()
+	probability_spinbox.min_value = 0.0
+	probability_spinbox.max_value = 100.0
+	probability_spinbox.value = item.get("probability", 20)
+	probability_spinbox.step = 1
+	probability_spinbox.tooltip_text = "Set the item's spawn probability. Range: 0% (never)" +\
+									" to 100% (always).\nCollection Mode: Each item is" + \
+								  " picked independently. A probability of 100% means the " + \
+								  "item always appears, while 0% means it never does.\n" + \
+								  "Distribution Mode: One item is picked from the list. " + \
+								  "The item's probability is relative to others. \n" + \
+								  "E.g., if an item A has a probability of 30 and another " + \
+								  "item B has 20, A's chance is 60% (30 out of 50) and " + \
+								  "B's is 40% (20 out of 50)."
+
+	var min_spinbox = SpinBox.new()
+	min_spinbox.min_value = 0
+	min_spinbox.max_value = 100
+	min_spinbox.value = item.get("min", 1)
+	min_spinbox.step = 1
+	min_spinbox.tooltip_text = "Minimum amount that can spawn"
+
+	var max_spinbox = SpinBox.new()
+	max_spinbox.min_value = 1
+	max_spinbox.max_value = 100
+	max_spinbox.value = item.get("max", 1)
+	max_spinbox.step = 1
+	max_spinbox.tooltip_text = "Maximum amount that can spawn"
+
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.button_up.connect(_on_delete_item_button_pressed.bind(item.get("id")))
+
+	# Add components to GridContainer
+	itemListContainer.add_child(item_icon)
+	itemListContainer.add_child(item_label)
+	itemListContainer.add_child(probability_spinbox)
+	itemListContainer.add_child(min_spinbox)
+	itemListContainer.add_child(max_spinbox)
+	itemListContainer.add_child(delete_button)
+
+
+# The user has pressed the delete button next to an item in the itemlist
+# Remove the entire row of the item
+func _on_delete_item_button_pressed(item_id):
+	var num_columns = itemListContainer.columns  # Make sure this matches the number of elements per item in your grid
+	var children_to_remove = []
+	
+	# Find the label with the matching item_id to determine which row to delete
+	for i in range(itemListContainer.get_child_count()):
+		var child = itemListContainer.get_child(i)
+		if child is Label and child.text == item_id:
+			# Calculate the start of the row
+			var start_index = i - (i % num_columns)
+			# Queue all elements in this row for removal by offsetting from the start_index
+			for j in range(num_columns):
+				children_to_remove.append(itemListContainer.get_child(start_index + j))
+			break  # Once we find the right row, no need to check further
+	
+	# Remove and free all queued children
+	for child in children_to_remove:
+		itemListContainer.remove_child(child)
+		child.queue_free()
+
+
+# Loads the data into the editor. contentData describes exactly one itemgroup
 func load_itemgroup_data():
 	if itemgroupImageDisplay and contentData.has("sprite") and not contentData["sprite"].is_empty():
 		itemgroupImageDisplay.texture = Gamedata.data.itemgroups.sprites[contentData["sprite"]]
@@ -48,16 +140,11 @@ func load_itemgroup_data():
 		NameTextEdit.text = contentData["name"]
 	if DescriptionTextEdit and contentData.has("description"):
 		DescriptionTextEdit.text = contentData["description"]
-	# Load the items into the itemList
-	itemList.clear()  # Clear the list before populating
-	if contentData.has("items"):
-		for item_id in contentData["items"]:
-			# Get item data and sprite from the game data
-			var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
-			if not item_data.is_empty():
-				var item_sprite = Gamedata.get_sprite_by_id(Gamedata.data.items, item_id)
-				var item_index = itemList.add_item(item_data.get("name", "Unnamed Item"), item_sprite)
-				itemList.set_item_metadata(item_index, item_id)
+	# Set the mode from contentData
+	if contentData.has("mode"):
+		select_option_by_string(modeOptionButton, contentData["mode"])
+
+	update_item_list_with_probabilities()
 
 
 # This function will select the option in the option_button that matches the given string.
@@ -84,20 +171,30 @@ func _on_save_button_button_up():
 	contentData["sprite"] = imageNameStringLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
+	contentData["mode"] = modeOptionButton.get_item_text(modeOptionButton.selected)
 	
-	# Collect all item IDs from the itemList and update the contentData accordingly
-	var newlist: Array[String] = []
-	for i in range(itemList.get_item_count()):
-		var item_id = itemList.get_item_metadata(i)  # Assuming metadata holds the item ID
-		newlist.append(item_id)
+	var new_items = []
+	var num_children = itemListContainer.get_child_count()
+	var num_columns = itemListContainer.columns
+
+	# Start from index 6 to skip header, which occupies the first 6 indices (0 to 5)
+	for i in range(6, num_children, num_columns):
+		var item_id = itemListContainer.get_child(i + 1).text  # Second child in each row is the item ID label
+		var probability = itemListContainer.get_child(i + 2).get_value()  # Third child is the SpinBox for probability
+		var min_amount = itemListContainer.get_child(i + 3).get_value()  # Fourth child is the SpinBox for minimum count
+		var max_amount = itemListContainer.get_child(i + 4).get_value()  # Fifth child is the SpinBox for maximum count
+
+		new_items.append({
+			"id": item_id, 
+			"probability": probability, 
+			"min": min_amount, 
+			"max": max_amount
+		})
 	
-	if newlist.size() > 0:
-		contentData["items"] = newlist
-	elif contentData.has("items"):
-		contentData.erase("items")  # Delete the "items" property if the list is empty
-	
+	contentData["items"] = new_items
 	data_changed.emit(Gamedata.data.itemgroups, contentData, olddata)
 	olddata = contentData.duplicate(true)
+
 
 
 func _input(event):
@@ -121,6 +218,7 @@ func _on_itemgroup_image_display_gui_input(event):
 		itemgroupSelector.show()
 
 
+# Sets the sprite in the editor based on what sprite the user has selected
 func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var itemgroupTexture: Resource = clicked_sprite.get_texture()
 	itemgroupImageDisplay.texture = itemgroupTexture
@@ -133,15 +231,17 @@ func _can_drop_data(_newpos, data) -> bool:
 	if not data or not data.has("id"):
 		return false
 	
-	# Fetch item data by ID from the Gamedata to ensure it exists and is valid
+	# Fetch item data by ID from Gamedata to ensure it exists and is valid
 	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, data["id"])
 	if item_data.is_empty():
 		return false
 
-	# Check if the ID of the dragged item already exists in the itemList
-	for i in range(itemList.get_item_count()):
-		if itemList.get_item_metadata(i) == data["id"]:
-			return false
+	# Check if the ID of the dragged item already exists in the itemListContainer
+	for child in itemListContainer.get_children():
+		if child is HBoxContainer:
+			var label = child.get_child(1)  # Assuming the ID label is the second child
+			if label.text == data["id"]:
+				return false  # The item is already in the list
 
 	# If all checks pass, return true
 	return true
@@ -157,7 +257,6 @@ func _drop_data(newpos, data) -> void:
 # We have to check the dropped_data for the id property
 # Then we have to get the item data from Gamedata.get_data_by_id(Gamedata.data.items, id)
 # Then we have to get the sprite using Gamedata.get_sprite_by_id(Gamedata.data.items, id)
-# Then we have to create a new item in itemList using the id as the text and the sprite as the icon
 func _handle_item_drop(dropped_data, _newpos) -> void:
 	# Assuming dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
@@ -166,44 +265,47 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 		if item_data.is_empty():
 			print_debug("No item data found for ID: " + item_id)
 			return
-		
-		# Retrieve the sprite for the item
-		var item_sprite = Gamedata.get_sprite_by_id(Gamedata.data.items, item_id)
-		if item_sprite:
-			# Add the item to the itemList with the retrieved sprite as an icon
-			var item_index = itemList.add_item(item_id, item_sprite)
-			itemList.set_item_metadata(item_index, item_id)  # Store the item ID as metadata
-		else:
-			print_debug("No sprite found for item with ID: " + item_id)
+
+		# Check if the item already exists in the itemListContainer to avoid duplicates
+		for child in itemListContainer.get_children():
+			if child is HBoxContainer:
+				var label = child.get_child(1)  # Assuming the ID label is the second child
+				if label.text == item_id:
+					print_debug("Item already exists in the list: " + item_id)
+					return
+
+		# If item is not already in the list, add it
+		add_item_entry({"id": item_id, "probability": 20})  # Default probability if not specified
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
 
-# The user clicked in the list, but not on any of the items
-# Deselect all items and reset the selectedItemNameDisplay label
-func _on_item_list_empty_clicked(_at_position, _mouse_button_index):
-	itemList.deselect_all()  # Deselect any selected items
-	selectedItemNameDisplay.text = "No item selected"  # Reset the display label
+# Adds a header to the itemlist
+func add_header_row():
+	# Define a common style for all header labels
+	var header_style = StyleBoxFlat.new()
+	header_style.bg_color = Color(0.2, 0.2, 0.2)  # Dark gray color
+	header_style.border_width_top = 1
+	header_style.border_width_bottom = 1
+	header_style.border_color = Color(0.5, 0.5, 0.5)  # Lighter gray for the border
 
+	# Create header labels with the specified style
+	var headers = ["Icon", "Item ID", "Probability (%)", "Min Count", "Max Count", "Delete"]
+	var tooltips = [
+		"",  # Icon doesn't need a tooltip
+		"",  # Item ID is self-explanatory
+		"Set the item's spawn probability. Range: 0% (never) to 100% (always).",
+		"Minimum amount that can spawn of this item.",
+		"Maximum amount that can spawn of this item.",
+		""  # Delete is self-explanatory
+	]
 
-# The user has selected an item from the list
-# Update the selectedItemNameDisplay label to show the selected item's text
-func _on_item_list_item_selected(index):
-	var item_text = itemList.get_item_text(index)  # Get the text of the selected item
-	selectedItemNameDisplay.text = item_text  # Display the text in the label
+	for i in range(headers.size()):
+		var header = Label.new()
+		header.text = headers[i]
+		header.tooltip_text = tooltips[i]
+		header.set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER)
+		header.add_theme_stylebox_override("normal",header_style)
+		header.set("custom_styles/panel", header_style.duplicate())  # Use duplicate to ensure each header can customize further if needed
+		itemListContainer.add_child(header)
 
-
-# The user has released the remove item button after pressing it
-# We have to check if an item is selected in the itemList
-# If an item is selected, we remove it from the list and update the selectedItemNameDisplay label
-# If no item is selected, we do nothing
-func _on_remove_item_button_button_up():
-	var selected_index = itemList.get_selected_items()
-	if selected_index.size() > 0:
-		# Get the first selected item index (since multiple selections might be disabled, this is safe)
-		selected_index = selected_index[0]
-		itemList.remove_item(selected_index)
-		selectedItemNameDisplay.text = "No item selected"  # Update the display label after removing an item
-		print_debug("Item removed at index: " + str(selected_index))
-	else:
-		print_debug("No item selected to remove")

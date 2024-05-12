@@ -3,15 +3,56 @@
 		"description": "Anything you can find in a kitchen cupboard",
 		"id": "kitchen_cupboard",
 		"items": [
-			"canned_food",
-			"bottle_plastic_water",
-			"bottle_plastic_empty",
-			"screwdriver",
-			"bandage_basic",
-			"bottle_antibiotics",
-			"can_beer",
-			"bottle_disinfectant"
+			{
+				"id": "canned_food",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bottle_plastic_water",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bottle_plastic_empty",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "screwdriver",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bandage_basic",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bottle_antibiotics",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "can_beer",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bottle_disinfectant",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			}
 		],
+		"mode": "Collection",
 		"name": "Kitchen cupboard",
 		"references": {
 			"core": {
@@ -29,11 +70,32 @@
 		"description": "Loot that's dropped by a mob",
 		"id": "mob_loot",
 		"items": [
-			"bullet_9mm",
-			"pistol_magazine",
-			"steel_scrap",
-			"plank_2x4"
+			{
+				"id": "bullet_9mm",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "pistol_magazine",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "steel_scrap",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "plank_2x4",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			}
 		],
+		"mode": "Collection",
 		"name": "Mob loot",
 		"sprite": "machete_32.png"
 	},
@@ -41,20 +103,86 @@
 		"description": "What you would find in a cabinet in a house, for example in the living room",
 		"id": "cabinet_general",
 		"items": [
-			"steel_scrap",
-			"bullet_9mm",
-			"pistol_magazine",
-			"pistol_9mm",
-			"bottle_plastic_water",
-			"hammer",
-			"screwdriver",
-			"bandage_basic",
-			"boots",
-			"can_oil",
-			"flashlight_basic",
-			"battery_small",
-			"book_novel"
+			{
+				"id": "steel_scrap",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bullet_9mm",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "pistol_magazine",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "pistol_9mm",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bottle_plastic_water",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "hammer",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "screwdriver",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bandage_basic",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "boots",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "can_oil",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "flashlight_basic",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "battery_small",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "book_novel",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			}
 		],
+		"mode": "Collection",
 		"name": "General cabinet contents",
 		"references": {
 			"core": {

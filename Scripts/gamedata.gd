@@ -295,32 +295,42 @@ func get_items_by_type(item_type: String) -> Array:
 	return filtered_items
 
 
-# An itemgroup has been changed. Update items that were added or removed from the list
-# oldlist and newlist are arrays with item id strings in them
+# An itemgroup has been changed. Update items that were added or removed from the list.
+# olddata and newdata are dictionaries that include "items" keys pointing to arrays of dictionaries.
 func on_itemgroup_changed(newdata: Dictionary, olddata: Dictionary):
 	var changes_made = false
-	var oldlist: Array = Helper.json_helper.get_nested_data(olddata, "items")
-	var newlist: Array = Helper.json_helper.get_nested_data(newdata, "items")
+	# Initialize empty arrays
+	var oldlist = []
+	var newlist = []
+
+	# Fill oldlist with IDs from olddata
+	for item in olddata.get("items", []):
+		oldlist.append(item["id"])
+
+	# Fill newlist with IDs from newdata
+	for item in newdata.get("items", []):
+		newlist.append(item["id"])
+
 	var itemgroup: String = newdata.id
 	# Remove itemgroup from items in the old list that are not in the new list
-	for item_id in oldlist:
-		if item_id not in newlist:
-			# Call remove_reference to remove the itemgroup from this item
-			changes_made = remove_reference(Gamedata.data.items, "core", "itemgroups", \
-			item_id, itemgroup) or changes_made
+	if oldlist:
+		for item_id in oldlist:
+			if item_id not in newlist:
+				# Call remove_reference to remove the itemgroup from this item
+				changes_made = remove_reference(Gamedata.data.items, "core", "itemgroups", \
+				item_id, itemgroup) or changes_made
 
 	# Add itemgroup to items in the new list that were not in the old list
-	for item_id in newlist:
-		if item_id not in oldlist:
-			# Call add_reference to add the itemgroup to this item
-			changes_made = add_reference(Gamedata.data.items, "core", "itemgroups", \
-			item_id, itemgroup) or changes_made
+	if newlist:
+		for item_id in newlist:
+			if item_id not in oldlist:
+				# Call add_reference to add the itemgroup to this item
+				changes_made = add_reference(Gamedata.data.items, "core", "itemgroups", \
+				item_id, itemgroup) or changes_made
 
 	# Save changes if any items were updated
 	if changes_made:
 		save_data_to_file(Gamedata.data.items)
-
-
 
 
 # Adds a reference to an entity
@@ -654,11 +664,11 @@ func on_itemgroup_deleted(itemgroup_id: String):
 	# The itemgroup data contains a list of item IDs in an 'items' attribute
 	# Loop over all the items in the list and remove the reference to this itemgroup
 	if "items" in itemgroup_data:
-		var item_ids = itemgroup_data["items"]
-		for item_id in item_ids:
+		var items = itemgroup_data["items"]
+		for item in items:
 			# Use remove_reference to handle deletion of itemgroup references
 			changes_made = remove_reference(Gamedata.data.items, "core", "itemgroups", \
-			item_id, itemgroup_id) or changes_made
+			item.id, itemgroup_id) or changes_made
 
 	# Save changes to the data file if any changes were made
 	if changes_made:

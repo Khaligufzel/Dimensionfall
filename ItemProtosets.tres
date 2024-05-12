@@ -245,8 +245,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"cabinet_general\",
-					\"kitchen_cupboard\"
+					\"kitchen_cupboard\",
+					\"cabinet_general\"
 				]
 			}
 		},
