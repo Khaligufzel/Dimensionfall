@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://duoxs7mpo6x3t"]
+
+[ext_resource type="Script" path="res://Scripts/ItemMeleeEditor.gd" id="1_pg18d"]
+
+[node name="ItemMeleeEditor" type="Control" node_paths=PackedStringArray("DamageSpinBox")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pg18d")
+DamageSpinBox = NodePath("Melee/DamageSpinbox")
+
+[node name="Melee" type="GridContainer" parent="."]
+layout_mode = 0
+size_flags_vertical = 3
+columns = 2
+
+[node name="DamageLabel" type="Label" parent="Melee"]
+layout_mode = 2
+text = "Damage"
+
+[node name="DamageSpinbox" type="SpinBox" parent="Melee"]
+layout_mode = 2

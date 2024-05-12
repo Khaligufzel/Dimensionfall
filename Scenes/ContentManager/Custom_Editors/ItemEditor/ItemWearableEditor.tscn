@@ -10,16 +10,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o5i08")
-SlotOptionButton = NodePath("Food/SlotOptionButton")
+SlotOptionButton = NodePath("Wearable/SlotOptionButton")
 
-[node name="Food" type="GridContainer" parent="."]
+[node name="Wearable" type="GridContainer" parent="."]
 layout_mode = 0
 size_flags_vertical = 3
 columns = 2
 
-[node name="SlotLabel" type="Label" parent="Food"]
+[node name="SlotLabel" type="Label" parent="Wearable"]
 layout_mode = 2
 text = "Wearable slot"
 
-[node name="SlotOptionButton" type="OptionButton" parent="Food"]
+[node name="SlotOptionButton" type="OptionButton" parent="Wearable"]
 layout_mode = 2

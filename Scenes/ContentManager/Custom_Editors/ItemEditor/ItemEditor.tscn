@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmpomdwta1pgq"]
+[gd_scene load_steps=11 format=3 uid="uid://dmpomdwta1pgq"]
 
 [ext_resource type="Script" path="res://Scripts/ItemEditor.gd" id="1_ef3j7"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_ghd7c"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cq4t64qb15y27" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemFoodEditor.tscn" id="6_htafc"]
 [ext_resource type="PackedScene" uid="uid://b7jwy5hpj2vyt" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemCraftEditor.tscn" id="7_itht2"]
 [ext_resource type="PackedScene" uid="uid://65bjwo1b3je2" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemWearableEditor.tscn" id="8_4bxny"]
+[ext_resource type="PackedScene" uid="uid://duoxs7mpo6x3t" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemMeleeEditor.tscn" id="9_ucd7w"]
 
 [node name="ItemEditor" type="Control" node_paths=PackedStringArray("tabContainer", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "VolumeNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "typesContainer", "TwoHandedCheckBox")]
 layout_mode = 3
@@ -249,6 +250,10 @@ visible = false
 layout_mode = 2
 
 [node name="Wearable" parent="VBoxContainer/TabContainer" instance=ExtResource("8_4bxny")]
+visible = false
+layout_mode = 2
+
+[node name="Melee" parent="VBoxContainer/TabContainer" instance=ExtResource("9_ucd7w")]
 visible = false
 layout_mode = 2
 

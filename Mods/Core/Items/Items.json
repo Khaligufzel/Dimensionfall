@@ -270,6 +270,9 @@
 		"weight": "0.25"
 	},
 	{
+		"Melee": {
+			"damage": 25
+		},
 		"description": "A sharp blade with a handle for excellent control",
 		"id": "machete",
 		"image": "./Mods/Core/Items/machete_32.png",
