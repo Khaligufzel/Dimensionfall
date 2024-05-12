@@ -243,16 +243,35 @@ func equip_item(items: Array[InventoryItem], itemSlot: Control) -> void:
 
 
 func _on_transfer_all_left_button_button_up():
-	# Attempt to transfer each item from the inventory to the proximity inventory until no items are left
 	var items_to_transfer = inventory.get_items()
-	while items_to_transfer.size() > 0:
-		var item = items_to_transfer.pop_front() # Get and remove the first item from the list
-		if inventory.transfer_autosplitmerge(item, proximity_inventory_control.get_inventory()):
-			print_debug("Transferred item: " + str(item))
+	var favorite_items = []
+	var non_favorite_items = []
+
+	# Separate items into favorite and non-favorite lists
+	for item in items_to_transfer:
+		if item.get_property("favorite", false):
+			favorite_items.append(item)
 		else:
+			non_favorite_items.append(item)
+
+	# Decide on the transfer strategy based on the content of the lists
+	if non_favorite_items.size() > 0:
+		_transfer_items(non_favorite_items)  # Transfer all non-favorite items
+	elif favorite_items.size() > 0:
+		_transfer_items(favorite_items)  # Transfer favorite items if no non-favorites are present
+
+
+func _transfer_items(items: Array) -> bool:
+	# Transfers items and returns true if all were successfully transferred, false otherwise
+	var all_transferred = true
+	while items.size() > 0:
+		var item = items.pop_front()  # Get and remove the first item from the list
+		if not inventory.transfer_autosplitmerge(item, proximity_inventory_control.get_inventory()):
 			print_debug("Failed to transfer item: " + str(item))
-			break # If a transfer fails, break out of the loop to prevent an infinite loop
-		items_to_transfer = inventory.get_items() # Refresh the list of items after the transfer attempt
+			all_transferred = false
+			break  # Stop transferring if any transfer fails
+	return all_transferred
+
 
 func _on_transfer_all_right_button_button_up():
 	# Attempt to transfer each item from the proximity inventory to the inventory until no items are left
