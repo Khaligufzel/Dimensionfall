@@ -243,6 +243,7 @@ func equip_item(items: Array[InventoryItem], itemSlot: Control) -> void:
 
 
 func _on_transfer_all_left_button_button_up():
+	Helper.signal_broker.inventory_operation_started.emit()
 	var items_to_transfer = inventory.get_items()
 	var favorite_items = []
 	var non_favorite_items = []
@@ -259,6 +260,7 @@ func _on_transfer_all_left_button_button_up():
 		_transfer_items(non_favorite_items)  # Transfer all non-favorite items
 	elif favorite_items.size() > 0:
 		_transfer_items(favorite_items)  # Transfer favorite items if no non-favorites are present
+	Helper.signal_broker.inventory_operation_finished.emit()
 
 
 func _transfer_items(items: Array) -> bool:
@@ -274,6 +276,7 @@ func _transfer_items(items: Array) -> bool:
 
 
 func _on_transfer_all_right_button_button_up():
+	Helper.signal_broker.inventory_operation_started.emit()
 	# Attempt to transfer each item from the proximity inventory to the inventory until no items are left
 	var items_to_transfer = proximity_inventory_control.get_inventory().get_items()
 	while items_to_transfer.size() > 0:
@@ -284,6 +287,7 @@ func _on_transfer_all_right_button_button_up():
 			print_debug("Failed to transfer item: " + str(item))
 			break # If a transfer fails, break out of the loop to prevent an infinite loop
 		items_to_transfer = proximity_inventory_control.get_inventory().get_items() # Refresh the list of items after the transfer attempt
+	Helper.signal_broker.inventory_operation_finished.emit()
 
 
 # Items are transferred from the right list to the left list

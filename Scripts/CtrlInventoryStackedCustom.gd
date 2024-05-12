@@ -44,6 +44,7 @@ var header_sort_order: Dictionary = {}
 # Variables to help with mouse input on the items
 var mouse_press_position: Vector2 = Vector2()
 var selection_state_changed: bool = false
+var ui_updates_enabled = true
 
 # Tooltip variables
 @export var tooltipPanel: Panel  # The panel that displays the tooltip contents
@@ -76,6 +77,8 @@ func _ready():
 	tooltip_timer.wait_time = 0.7  # 0.5 seconds delay
 	tooltip_timer.one_shot = true  # Only trigger once per hover
 	tooltip_timer.timeout.connect(_on_tooltip_timer_timeout)
+	Helper.signal_broker.inventory_operation_started.connect(_on_inventory_operation_started)
+	Helper.signal_broker.inventory_operation_finished.connect(_on_inventory_operation_finished)
 
 
 # Function to show context menu at specified position
@@ -138,6 +141,8 @@ func _on_inventory_contents_changed():
 
 
 func update_inventory_list(changedItem: InventoryItem, action: String):
+	if not ui_updates_enabled:
+		return
 	_deselect_all_items()
 	# Clear and repopulate the inventory list
 	_deselect_and_clear_current_inventory()
@@ -737,3 +742,19 @@ func _on_tooltip_timer_timeout():
 		#show_context_menu(clickedItem.global_position)
 		tooltipPanel.position = get_local_mouse_position() + Vector2(10, 10)  # Offset the tooltip a bit
 		tooltipPanel.visible = true
+
+
+func _on_inventory_operation_started():
+	ui_updates_enabled = false
+
+func _on_inventory_operation_finished():
+	ui_updates_enabled = true
+	# Optionally, refresh UI components that might have pending updates
+	update_ui_post_operation()
+
+func update_ui_post_operation():
+	if not ui_updates_enabled:
+		return
+	# Refresh UI elements that depend on the inventory state
+	_populate_inventory_list()
+	_update_bars(null, "")

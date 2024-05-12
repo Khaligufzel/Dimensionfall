@@ -45,6 +45,11 @@ signal container_entered_proximity(container: Node3D)
 signal container_exited_proximity(container: Node3D)
 
 
+# Use these signals to control UI updates. UI only needs an update after the operation is complete
+signal inventory_operation_started()
+signal inventory_operation_finished()
+
+
 # We signal to the hud to start a progressbar
 func on_start_timer_progressbar(time_left: float):
 	hud_start_progressbar.emit(time_left)
