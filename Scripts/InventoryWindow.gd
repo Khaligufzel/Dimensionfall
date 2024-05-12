@@ -243,6 +243,11 @@ func equip_item(items: Array[InventoryItem], itemSlot: Control) -> void:
 
 
 func _on_transfer_all_left_button_button_up():
+	# Check if the current proximity inventory is the default set in the ItemManager
+	if proximity_inventory_control.get_inventory() == ItemManager.proximityInventory:
+		print_debug("Attempt to transfer to default proximity inventory aborted.")
+		return  # Exit the function early if the condition is met
+
 	Helper.signal_broker.inventory_operation_started.emit()
 	var items_to_transfer = inventory.get_items()
 	var favorite_items = []
@@ -292,6 +297,11 @@ func _on_transfer_all_right_button_button_up():
 
 # Items are transferred from the right list to the left list
 func _on_transfer_left_button_button_up():
+	# Check if the current proximity inventory is the default set in the ItemManager
+	if proximity_inventory_control.get_inventory() == ItemManager.proximityInventory:
+		print_debug("Attempt to transfer to default proximity inventory aborted.")
+		return  # Exit the function early if the condition is met
+
 	var selected_inventory_items: Array[InventoryItem] = inventory_control.get_selected_inventory_items()
 	for item in selected_inventory_items:
 		if inventory.transfer_autosplitmerge(item, proximity_inventory_control.get_inventory()):
