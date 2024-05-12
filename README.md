@@ -45,7 +45,7 @@ The game will create an overmap where some areas are suitable for travel. Each v
 
 
 ### Content editor
-Content for this game is created in the content editor. On the left you can select content to edit. You can edit tacticalmaps, maps, items, tiles, furniture and mobs. 
+Content for this game is created in the content editor. On the left you can select content to edit. You can edit tacticalmaps, maps, items, tiles, furniture, mobs, itemgroups and wearable slots. 
 - All content is saved as JSON, which allows you to edit the files manually or using an external editor if you want to.
 - Content is loaded as mods, even the core content. Put all your json and sprites into /mods/yourmod/ and it can be read by the game (only core content is read at the moment, full mod support will be implemented)
 ![Catax_content_editor](Media/Catax_content_editor.png)
@@ -106,8 +106,8 @@ Ever wanted to create that unique piece of armor, but didn't have that slot to f
 
 ### Stage 1 (first release):
 
-- Building~~/crafting/reloading~~ should take resources from the inventory
-- Basic ~~crafting/~~building menu
+- Building ~~/crafting/reloading~~ should take resources from the inventory
+- Basic ~~crafting/~~ building menu
 - ~~"Progress bar" to show the player when the current action will be finished (reloading, building, crafting etc.)~~
 - A few additional weapons
 - ~~In-game content editor to make our own mods or contribute to the core mod~~
