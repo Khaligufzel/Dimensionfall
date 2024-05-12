@@ -106,8 +106,8 @@ Ever wanted to create that unique piece of armor, but didn't have that slot to f
 
 ### Stage 1 (first release):
 
-- Building~~/crafting/reloading~~ should take resources from the inventory
-- Basic ~~crafting/~~building menu
+- Building ~~/crafting/reloading~~ should take resources from the inventory
+- Basic ~~crafting/~~ building menu
 - ~~"Progress bar" to show the player when the current action will be finished (reloading, building, crafting etc.)~~
 - A few additional weapons
 - ~~In-game content editor to make our own mods or contribute to the core mod~~
