@@ -14,7 +14,8 @@ const DATA_CATEGORIES = {
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
 	"maps": {"dataPath": "./Mods/Core/Maps/", "spritePath": "./Mods/Core/Maps/"},
-	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"}
+	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"},
+	"wearableslots": {"dataPath": "./Mods/Core/Wearableslots/Wearableslots.json", "spritePath": "./Mods/Core/Wearableslots/"}
 }
 
 
@@ -399,6 +400,8 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		on_mob_deleted(id)
 	if contentData == Gamedata.data.tiles:
 		on_tile_deleted(id)
+	if contentData == Gamedata.data.wearableslots:
+		on_wearableslot_deleted(id)
 
 
 # Erases a nested property from a given dictionary based on a dot-separated path
@@ -429,9 +432,6 @@ func erase_property_by_path(mydata: Dictionary, item_id: String, property_path: 
 		return false
 
 
-
-
-
 # Executes a callable function on each reference of the given type
 # data = json data representing one entity
 # module = name of the mod. for example "core"
@@ -453,7 +453,6 @@ func get_property_by_path(mydata: Dictionary, property_path: String, entity_id: 
 		print_debug("Entity with ID", entity_id, "not found.")
 		return null
 	return Helper.json_helper.get_nested_data(entity_data, property_path)
-
 
 
 # A mob has been changed.
@@ -709,6 +708,7 @@ func on_map_deleted(map_id: String):
 		save_data_to_file(Gamedata.data.furniture)
 		save_data_to_file(Gamedata.data.mobs)
 
+
 # Function to collect unique entities from each level in newdata and olddata
 func collect_unique_entities(newdata: Dictionary, olddata: Dictionary) -> Dictionary:
 	var new_entities = {
@@ -777,6 +777,21 @@ func on_mapdata_changed(map_id: String, newdata: Dictionary, olddata: Dictionary
 # We need to update the relation between the item and other items based on crafting recipes
 func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 	var item_id: String = newdata["id"]
+	var changes_made = false
+	
+	# Handle wearable slot references
+	var new_slot = newdata.get("Wearable", {}).get("slot", null)
+	var old_slot = olddata.get("Wearable", {}).get("slot", null)
+
+	if new_slot and new_slot != old_slot:
+		# Add or update the reference to the new slot
+		changes_made = add_reference(Gamedata.data.wearableslots, "core", \
+		"items", new_slot, item_id) or changes_made
+	
+	if old_slot and old_slot != new_slot:
+		# Remove the reference from the old slot if it has been changed or removed
+		changes_made = remove_reference(Gamedata.data.wearableslots, "core", \
+		"items", old_slot, item_id) or changes_made
 
 	# Dictionaries to track unique resource IDs across all recipes
 	var old_resource_ids: Dictionary = {}
@@ -792,8 +807,6 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 		for resource in recipe.get("required_resources", []):
 			new_resource_ids[resource["id"]] = true
 
-	# Now compare the dictionaries to find resources that have been added or removed
-	var changes_made = false
 
 	# Resources that are no longer in the recipe will no longer reference this item
 	for res_id in old_resource_ids:
@@ -809,6 +822,7 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 	# Save changes if any modifications were made
 	if changes_made:
 		save_data_to_file(Gamedata.data.items)
+		save_data_to_file(Gamedata.data.wearableslots)
 		print_debug("Item changes saved successfully.")
 	else:
 		print_debug("No changes were made to item.")
@@ -863,3 +877,29 @@ func on_item_deleted(item_id: String):
 		save_data_to_file(Gamedata.data.itemgroups)
 	else:
 		print_debug("No changes needed for item", item_id)
+
+
+# A wearableslot is being deleted from the data
+# We have to remove it from everything that references it
+func on_wearableslot_deleted(wearableslot_id: String):
+	var changes_made = false
+	var wearableslot_data = get_data_by_id(Gamedata.data.wearableslots, wearableslot_id)
+	
+	if wearableslot_data.is_empty():
+		print_debug("Item with ID", wearableslot_data, "not found.")
+		return
+	
+	# This callable will remove this item from itemgroups that reference this item.
+	var myfunc: Callable = func (item_id):
+		var item_data: Dictionary = get_data_by_id(Gamedata.data.items, item_id)
+		item_data.erase("Wearable")
+		changes_made = true
+	# Pass the callable to every item in the wearableslot's references
+	# It will call myfunc on every item in wearableslot_data.references.core.items
+	execute_callable_on_references_of_type(wearableslot_data, "core", "items", myfunc)
+	
+	# Save changes to the data file if any changes were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.items)
+	else:
+		print_debug("No changes needed for item", wearableslot_id)

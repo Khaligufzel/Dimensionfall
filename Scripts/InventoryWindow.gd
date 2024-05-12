@@ -14,6 +14,8 @@ extends Control
 @export var containerListItem : PackedScene
 
 # Equipment
+@export var EquipmentSlotList : VBoxContainer
+@export var WearableSlotScene : PackedScene
 @export var LeftHandEquipmentSlot : Control
 @export var RightHandEquipmentSlot : Control
 
@@ -35,17 +37,52 @@ func _ready():
 	
 	LeftHandEquipmentSlot.myInventory = inventory
 	RightHandEquipmentSlot.myInventory = inventory
-	# The items that were in the player inventory when they exited
-	# the previous level are loaded back into the inventory
-	if General.player_equipment_dict.has("LeftHandEquipmentSlot"):
-		LeftHandEquipmentSlot.deserialize(General.player_equipment_dict.LeftHandEquipmentSlot)
-	if General.player_equipment_dict.has("RightHandEquipmentSlot"):
-		RightHandEquipmentSlot.deserialize(General.player_equipment_dict.RightHandEquipmentSlot)
 	# We let the signal broker forward the change in visibility so other nodes can respond
 	visibility_changed.connect(Helper.signal_broker.on_inventory_visibility_changed.bind(self))
 	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
+	instantiate_wearable_slots()
+	deserialize_equipment(General.player_equipment_dict)
 
+
+func deserialize_equipment(equipment_dict: Dictionary):
+	if equipment_dict.has("LeftHandEquipmentSlot"):
+		LeftHandEquipmentSlot.deserialize(equipment_dict["LeftHandEquipmentSlot"])
+	if equipment_dict.has("RightHandEquipmentSlot"):
+		RightHandEquipmentSlot.deserialize(equipment_dict["RightHandEquipmentSlot"])
+
+	var counter = 0
+	for slot in EquipmentSlotList.get_children():
+		if counter < 2:
+			counter += 1
+			continue
+		if equipment_dict.has(slot.slot_id):
+			slot.deserialize(equipment_dict[slot.slot_id])
+
+
+# Gets the slots that are defined in json and instatiates WearableSlotScene
+# for each of the slots. It will add the instances to EquipmentSlotList
+# The first to children of EquipmentSlotList are static slots and we should ignore them
+# It will get the "name" property from the slot data and set it to the instance's "myLabel" property
+func instantiate_wearable_slots():
+	var slots = Gamedata.data.wearableslots.data
+
+	# Clear any dynamically created slots first to avoid duplicates and skip the first two
+	while EquipmentSlotList.get_child_count() > 2:
+		var last_child = EquipmentSlotList.get_child(EquipmentSlotList.get_child_count() - 1)
+		EquipmentSlotList.remove_child(last_child)
+		last_child.queue_free()
+
+	# Instantiate and configure a WearableSlotScene for each slot
+	for slot in slots:
+		var slot_instance = WearableSlotScene.instantiate()
+		slot_instance.custom_minimum_size.x = 32
+		slot_instance.custom_minimum_size.y = 32
+		slot_instance.slot_id = slot.get("id")
+		slot_instance.myInventory = inventory
+		if slot.has("name"):
+			slot_instance.myLabel.text = slot["name"]  # Assuming the instance has a Label node named 'myLabel'
+		EquipmentSlotList.add_child(slot_instance)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -102,6 +139,14 @@ func get_equipment_dict() -> Dictionary:
 		"LeftHandEquipmentSlot": LeftHandEquipmentSlot.serialize(),
 		"RightHandEquipmentSlot": RightHandEquipmentSlot.serialize()
 	}
+	
+	var counter = 0
+	for slot in EquipmentSlotList.get_children():
+		if counter < 2:
+			counter += 1
+			continue
+		if slot.myInventoryItem:
+			player_equipment[slot.slot_id] = slot.serialize()
 	return player_equipment
 
 

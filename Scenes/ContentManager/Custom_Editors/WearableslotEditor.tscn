@@ -1,0 +1,110 @@
+[gd_scene load_steps=4 format=3 uid="uid://767oi7u7wkm5"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/WearableslotEditor.gd" id="1_j4ii6"]
+[ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_8f3xi"]
+[ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_qjob6"]
+
+[node name="WearableEditor" type="Control" node_paths=PackedStringArray("slotImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "slotSelector")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j4ii6")
+slotImageDisplay = NodePath("VBoxContainer/FormGrid/SlotImageDisplay")
+IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
+PathTextLabel = NodePath("VBoxContainer/FormGrid/PathTextLabel")
+NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
+DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
+slotSelector = NodePath("Sprite_selector")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="FormGrid" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="ImageLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Sprite:"
+
+[node name="SlotImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_stretch_ratio = 0.4
+texture = ExtResource("2_8f3xi")
+expand_mode = 3
+
+[node name="PathLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Sprite name"
+
+[node name="PathTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="IDLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "ID:"
+
+[node name="IDTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Name"
+
+[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+focus_next = NodePath("../DescriptionTextEdit")
+focus_previous = NodePath("../SlotImageDisplay")
+placeholder_text = "Torso"
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Description"
+
+[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.9
+focus_previous = NodePath("../NameTextEdit")
+placeholder_text = "Holds equipment on your torso"
+wrap_mode = 1
+
+[node name="Sprite_selector" parent="." instance=ExtResource("3_qjob6")]
+visible = false
+
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="gui_input" from="VBoxContainer/FormGrid/SlotImageDisplay" to="." method="_on_slot_image_display_gui_input"]
+[connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

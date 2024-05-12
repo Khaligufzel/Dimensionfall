@@ -31,6 +31,13 @@ signal item_was_equipped(heldItem: InventoryItem, equipmentSlot: Control)
 # When an item slot has cleared out, we forward the signal
 signal item_slot_cleared(heldItem: InventoryItem, equipmentSlot: Control)
 
+# Signalled when an item was equiped in an wearableslot
+# The item will know what slot it was
+signal wearable_was_equipped(wearableItem: InventoryItem, wearableSlot: Control)
+
+# When an item slot has cleared out, we forward the signal
+signal wearable_slot_cleared(wearableItem: InventoryItem, wearableSlot: Control)
+
 
 # When the player moves and the ItemDetector signals that a container
 # has entered or left the player's proximity

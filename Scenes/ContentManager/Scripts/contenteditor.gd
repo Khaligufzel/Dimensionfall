@@ -8,13 +8,13 @@ extends Control
 @export var itemEditor: PackedScene = null
 @export var mobEditor: PackedScene = null
 @export var itemgroupEditor: PackedScene = null
+@export var wearableslotEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
 var selectedMod: String = "Core"
 
 
-# Called when the node enters the scene tree for the first time.
-#This function will instatiate a tileScene, set the source property and add it as a child to the content VBoxContainer. The source property should be set to "./Mods/Core/Maps/"
+#This function will load the contents of the data into the ontentListInstance
 func _ready():
 	load_content_list(Gamedata.data.tacticalmaps, "Tactical Maps")
 	load_content_list(Gamedata.data.maps, "Maps")
@@ -23,6 +23,7 @@ func _ready():
 	load_content_list(Gamedata.data.mobs, "Mobs")
 	load_content_list(Gamedata.data.furniture, "Furniture")
 	load_content_list(Gamedata.data.itemgroups, "Item Groups")
+	load_content_list(Gamedata.data.wearableslots, "Wearable slots")
 
 
 func load_content_list(data: Dictionary, strHeader: String):
@@ -66,6 +67,8 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 		instantiate_editor(data, itemID, tacticalmapEditor)
 	if data == Gamedata.data.itemgroups:
 		instantiate_editor(data, itemID, itemgroupEditor)
+	if data == Gamedata.data.wearableslots:
+		instantiate_editor(data, itemID, wearableslotEditor)
 
 
 #This will add an editor to the content editor tab view. 

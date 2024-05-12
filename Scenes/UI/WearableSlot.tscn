@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://khk40t8u7x5b"]
+
+[ext_resource type="Script" path="res://Scripts/WearableSlot.gd" id="1_qwpah"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iv7j3"]
+bg_color = Color(0.543202, 0.56854, 0.873272, 1)
+
+[node name="WearableSlot" type="Control" node_paths=PackedStringArray("backgroundColor", "myIcon", "myLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qwpah")
+backgroundColor = NodePath("HBoxContainer/ColorRect")
+myIcon = NodePath("HBoxContainer/PanelContainer/TextureRect")
+myLabel = NodePath("HBoxContainer/Label")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+color = Color(0.341176, 0.376471, 0.529412, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_iv7j3")
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Torso"

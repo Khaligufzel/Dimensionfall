@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://e0ebcv1n8jnq"]
+[gd_scene load_steps=8 format=3 uid="uid://e0ebcv1n8jnq"]
 
 [ext_resource type="Script" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
 [ext_resource type="PackedScene" uid="uid://crck2fhgayxhn" path="res://Scenes/InventoryContainerListItem.tscn" id="2_xfgb3"]
+[ext_resource type="PackedScene" uid="uid://khk40t8u7x5b" path="res://Scenes/UI/WearableSlot.tscn" id="3_1udct"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="6_xpf2l"]
 [ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="8_f75fl"]
 [ext_resource type="PackedScene" uid="uid://c4g8ymi0lhkyy" path="res://Scenes/UI/EquipmentSlot.tscn" id="9_tpx1u"]
@@ -10,7 +11,7 @@
 default_font = ExtResource("6_xpf2l")
 default_font_size = 13
 
-[node name="InventoryWindow" type="Control" node_paths=PackedStringArray("proximity_inventory_control", "inventory_control", "containerList", "LeftHandEquipmentSlot", "RightHandEquipmentSlot", "tooltip", "tooltip_item_name", "tooltip_item_description")]
+[node name="InventoryWindow" type="Control" node_paths=PackedStringArray("proximity_inventory_control", "inventory_control", "containerList", "EquipmentSlotList", "LeftHandEquipmentSlot", "RightHandEquipmentSlot", "tooltip", "tooltip_item_name", "tooltip_item_description")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,6 +25,8 @@ proximity_inventory_control = NodePath("HBoxContainer/ProximityInventoryControl/
 inventory_control = NodePath("HBoxContainer/PlayerInventoryControl/CtrlInventoryStackedCustom")
 containerList = NodePath("HBoxContainer/ContainersList")
 containerListItem = ExtResource("2_xfgb3")
+EquipmentSlotList = NodePath("HBoxContainer/EquipmentSlotList")
+WearableSlotScene = ExtResource("3_1udct")
 LeftHandEquipmentSlot = NodePath("HBoxContainer/EquipmentSlotList/LeftHandEquipment/LeftHandEquipmentSlot")
 RightHandEquipmentSlot = NodePath("HBoxContainer/EquipmentSlotList/RightHandEquipment/RightHandEquipmentSlot")
 tooltip = NodePath("Tooltip")
