@@ -5,6 +5,7 @@ Catax is a top-down real-time survival game set in a post-apocalyptic world. Sur
 ![Catax_basic](Media/Catax_basic.png)
 
 
+The map can be as big as you make it:
 ![Catax_basic](Media/Catax_basic_zoomed_out.png)
 
 
@@ -67,7 +68,7 @@ Allows you to edit and add items in the game. An item will work as you configure
 ![Catax_item_editor](Media/Catax_item_editor.png)
 
 
-One item can have any number of crafting recipes. Use the crafting recipe editor to specify the requirements for this item.
+One item can have any number of crafting recipes. Use the crafting recipe editor to specify the requirements for this item. To add items to the recipe, drag them from the left side of the window onto the recipe!
 ![Catax_item_editor](Media/Catax_crafting_editor.png)
 
 ### Tile editor
@@ -89,7 +90,7 @@ Create new furniture or edit existing ones with this editor. After creating them
 
 
 # Itemgroup editor
-Specify itemgroups, used to spawn items in various locations including containers and corpses. By specifying a spawn chance and amount, it offers a wide veriety of possibilities.
+Specify itemgroups, used to spawn items in various locations including containers and corpses. By specifying a spawn chance and amount, it offers a wide veriety of possibilities. To add items to the itemgroup, drag them from the left side of the screen onto the itemgroup!
 
 ![Catax_furniture_editor](Media/Catax_itemgroup_editor.png)
 
@@ -105,8 +106,8 @@ Ever wanted to create that unique piece of armor, but didn't have that slot to f
 
 ### Stage 1 (first release):
 
-- Building/crafting/reloading should take resources from the inventory
-- Basic crafting/building menu
+- Building~~/crafting/reloading~~ should take resources from the inventory
+- Basic ~~crafting/~~building menu
 - ~~"Progress bar" to show the player when the current action will be finished (reloading, building, crafting etc.)~~
 - A few additional weapons
 - ~~In-game content editor to make our own mods or contribute to the core mod~~
@@ -117,7 +118,7 @@ Ever wanted to create that unique piece of armor, but didn't have that slot to f
 
 Additional features before our first release:
 
-- furniture/containers
+- ~~furniture/containers~~
 - personal goals
 - more enemies/better AI
 - noise
