@@ -5,6 +5,9 @@ Catax is a top-down real-time survival game set in a post-apocalyptic world. Sur
 ![Catax_basic](Media/Catax_basic.png)
 
 
+![Catax_basic](Media/Catax_basic_zoomed_out.png)
+
+
 ## How to play:
 Until releases are shared on GitHub, you can play the game in the following way:
 - Download [Godot](https://godotengine.org/download/) from their website or from [steam](https://store.steampowered.com/app/404790/Godot_Engine/)
@@ -53,8 +56,6 @@ A tacticalmap is made from maps. This allows you to piece together a bigger map.
 
 
 ### Map editor
-
- 
 A map has a fixed size of 32x32 and has a maximum of 21 levels in height, ranging from -10 to +10. 
 - Place tiles, mobs and furniture onto the grid and get creative
 - Controls allow you to move up and down, zoom, rotate, copy/paste and more
@@ -65,6 +66,9 @@ A map has a fixed size of 32x32 and has a maximum of 21 levels in height, rangin
 Allows you to edit and add items in the game. An item will work as you configure it. You can make it work as a weapon and as food if you choose to, the types are not mutually exclusive. Specify the item properties in the convenient editor which has tooltips and controls to help you fill in the right values.
 ![Catax_item_editor](Media/Catax_item_editor.png)
 
+
+One item can have any number of crafting recipes. Use the crafting recipe editor to specify the requirements for this item.
+![Catax_item_editor](Media/Catax_crafting_editor.png)
 
 ### Tile editor
 Allows you to specify the properties of tiles and add new ones. Sprites are loaded from /mods/core/tiles so put your sprites there if you want to add new ones.
@@ -81,6 +85,20 @@ Allows you to create new mobs and configure them. You can then use the map edito
 Create new furniture or edit existing ones with this editor. After creating them, you can place them on the map with the map editor.
 
 ![Catax_furniture_editor](Media/Catax_furniture_editor.png)
+
+
+
+# Itemgroup editor
+Specify itemgroups, used to spawn items in various locations including containers and corpses. By specifying a spawn chance and amount, it offers a wide veriety of possibilities.
+
+![Catax_furniture_editor](Media/Catax_itemgroup_editor.png)
+
+
+
+# Wearable slots editor
+Ever wanted to create that unique piece of armor, but didn't have that slot to fit it in? Now you can add your own slots. These show up in the player's inventory and enables the player to equip armor into it.
+
+![Catax_furniture_editor](Media/Catax_wearableslots_editor.png)
 
 
 ## Roadmap
