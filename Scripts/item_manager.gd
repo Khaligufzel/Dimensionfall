@@ -101,7 +101,7 @@ func create_starting_items():
 		playerInventory.create_and_add_item("pistol_magazine")
 		playerInventory.create_and_add_item("pistol_magazine")
 		playerInventory.create_and_add_item("rifle_m4a1")
-		playerInventory.create_and_add_item("bottle_plastic_empty")
+		playerInventory.create_and_add_item("machete")
 		playerInventory.create_and_add_item("bottle_plastic_water")
 		playerInventory.create_and_add_item("boots")
 		playerInventory.create_and_add_item("jacket")

@@ -21,7 +21,7 @@ Until releases are shared on GitHub, you can play the game in the following way:
 The game has the following features:
 
 ### Combat:
-Ranged combat is currently implemented. One-handed weapons can be dual-wielded. Two-handed weapons will take up both slots. You can load and unload guns and magazines. Ammunition and other loot can be looted from enemy corpses.
+Ranged and melee combat is currently implemented. One-handed weapons can be dual-wielded. Two-handed weapons will take up both slots. You can load and unload guns and magazines. Ammunition and other loot can be looted from enemy corpses.
 
 ### Inventory
 - You have to manage weight and volume.
@@ -134,7 +134,7 @@ Additional features before our first release:
 - ~~World map~~
 - ~~Saving~~
 - Player stats and skills
-- Melee weapons
+- ~~Melee weapons~~
 - ~~Recoil/sway/spread/aiming~~
 
 
