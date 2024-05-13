@@ -629,8 +629,23 @@ func on_itemgroup_deleted(itemgroup_id: String):
 
 	# This callable will remove this itemgroups from every furniture that reference this itemgroup.
 	var myfunc: Callable = func (furn_id):
-		if erase_property_by_path(Gamedata.data.furniture, furn_id, "Function.container.itemgroup"):
-			changes_made = true
+		var furniture_data = Gamedata.get_data_by_id(Gamedata.data.furniture, furn_id)
+		var container_group = furniture_data.get("Function", {}).get("container", {}).get("itemgroup", "")
+		var disassembly_group = furniture_data.get("disassembly_group", "")
+		var destruction_group = furniture_data.get("destruction_group", "")
+
+		if container_group == itemgroup_id:
+			if erase_property_by_path(Gamedata.data.furniture, furn_id, "Function.container.itemgroup"):
+				changes_made = true
+
+		if disassembly_group == itemgroup_id:
+			if erase_property_by_path(Gamedata.data.furniture, furn_id, "disassembly_group"):
+				changes_made = true
+
+		if destruction_group == itemgroup_id:
+			if erase_property_by_path(Gamedata.data.furniture, furn_id, "destruction_group"):
+				changes_made = true
+
 	# Pass the callable to every furniture in the itemgroup's references
 	# It will call myfunc on every furniture in itemgroup_data.references.core.furniture
 	execute_callable_on_references_of_type(itemgroup_data, "core", "furniture", myfunc)
