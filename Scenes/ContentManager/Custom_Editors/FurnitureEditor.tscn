@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cng4m3os6smj8"]
+[gd_scene load_steps=6 format=3 uid="uid://cng4m3os6smj8"]
 
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="1_gm4uu"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/FurnitureEditor.gd" id="1_wqqit"]
 [ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_ekwf5"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_o3k3a"]
+[ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="4_fbact"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "edgeSnappingOptionButton", "doorOptionButton", "containerCheckBox", "containerTextEdit")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "edgeSnappingOptionButton", "doorOptionButton", "containerCheckBox", "containerTextEdit", "destructionTextEdit", "disassemblyTextEdit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,6 +26,8 @@ edgeSnappingOptionButton = NodePath("VBoxContainer/FormGrid/SnappingOptionButton
 doorOptionButton = NodePath("VBoxContainer/FormGrid/FunctionControlContainer/DoorOptionButton")
 containerCheckBox = NodePath("VBoxContainer/FormGrid/FunctionControlContainer/ContainerCheckBox")
 containerTextEdit = NodePath("VBoxContainer/FormGrid/FunctionControlContainer/ContainerTextEdit")
+destructionTextEdit = NodePath("VBoxContainer/FormGrid/DestructionTextEdit")
+disassemblyTextEdit = NodePath("VBoxContainer/FormGrid/DisassemblyTextEdit")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -129,6 +132,32 @@ layout_mode = 2
 tooltip_text = "Check this if the furniture should be moveable, like a chair. Leave this unchecked if the furniture should not move, like a fence"
 text = "Moveable"
 
+[node name="DisassembleLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Disassembly loot group"
+
+[node name="DisassemblyTextEdit" parent="VBoxContainer/FormGrid" instance=ExtResource("4_fbact")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+tooltip_text = "Drag an itemgroup from the left menu onto this field. When this furniture
+is disassembled, items from that itemgroup will spawn. If no itemgroup
+is selected, no items will spawn after disassembly"
+myplaceholdertext = "Drag an itemgroup from the left to here"
+
+[node name="DestructionLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Destruction loot group"
+
+[node name="DestructionTextEdit" parent="VBoxContainer/FormGrid" instance=ExtResource("4_fbact")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+tooltip_text = "Drag an itemgroup from the left menu onto this field. When this furniture
+is destroyed, items from that itemgroup will spawn. If no itemgroup
+is selected, no items will spawn after destruction"
+myplaceholdertext = "Drag an itemgroup from the left to here"
+
 [node name="SnappingLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
 text = "Edge snapping"
@@ -191,26 +220,14 @@ right. If this is checked off, the furniture
 will not be able to contain items."
 text = "Container"
 
-[node name="ContainerTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid/FunctionControlContainer"]
-custom_minimum_size = Vector2(0, 30)
+[node name="ContainerTextEdit" parent="VBoxContainer/FormGrid/FunctionControlContainer" instance=ExtResource("4_fbact")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.1
 tooltip_text = "If container is checked on, you can drag an
 itemgroup to this field to fill the container with the
 contents of the itemgroup when it is
 spawned. If container is not checked on, it
 will not act as a container."
-focus_next = NodePath("../../DescriptionTextEdit")
-focus_previous = NodePath("../../FurnitureImageDisplay")
-mouse_filter = 1
-placeholder_text = "Drag an itemgroup from the left to here"
-editable = false
-
-[node name="ClearContainerButton" type="Button" parent="VBoxContainer/FormGrid/FunctionControlContainer"]
-layout_mode = 2
-tooltip_text = "Press this to clear the itemgroup field"
-text = "X"
+myplaceholdertext = "Drag an itemgroup from the left to here"
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_o3k3a")]
 visible = false
@@ -219,5 +236,4 @@ visible = false
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="gui_input" from="VBoxContainer/FormGrid/FurnitureImageDisplay" to="." method="_on_furniture_image_display_gui_input"]
 [connection signal="toggled" from="VBoxContainer/FormGrid/FunctionControlContainer/ContainerCheckBox" to="." method="_on_container_check_box_toggled"]
-[connection signal="button_up" from="VBoxContainer/FormGrid/FunctionControlContainer/ClearContainerButton" to="." method="_on_clear_container_button_button_up"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]
