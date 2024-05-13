@@ -9,6 +9,8 @@ extends Control
 @export var mobEditor: PackedScene = null
 @export var itemgroupEditor: PackedScene = null
 @export var wearableslotEditor: PackedScene = null
+@export var statsEditor: PackedScene = null
+@export var skillsEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
 var selectedMod: String = "Core"
@@ -24,6 +26,8 @@ func _ready():
 	load_content_list(Gamedata.data.furniture, "Furniture")
 	load_content_list(Gamedata.data.itemgroups, "Item Groups")
 	load_content_list(Gamedata.data.wearableslots, "Wearable slots")
+	load_content_list(Gamedata.data.stats, "Stats")
+	load_content_list(Gamedata.data.skills, "Skills")
 
 
 func load_content_list(data: Dictionary, strHeader: String):

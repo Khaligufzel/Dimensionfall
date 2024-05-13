@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://480xqusluqrk"]
+[gd_scene load_steps=13 format=3 uid="uid://480xqusluqrk"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/contenteditor.gd" id="1_65sl4"]
 [ext_resource type="PackedScene" uid="uid://bhh0v7x4fjsgi" path="res://Scenes/ContentManager/content_list.tscn" id="2_4f21i"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://dmpomdwta1pgq" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemEditor.tscn" id="7_i5608"]
 [ext_resource type="PackedScene" uid="uid://bw61ihylsl1p7" path="res://Scenes/ContentManager/Custom_Editors/ItemgroupEditor.tscn" id="9_mc021"]
 [ext_resource type="PackedScene" uid="uid://767oi7u7wkm5" path="res://Scenes/ContentManager/Custom_Editors/WearableslotEditor.tscn" id="10_nfqj6"]
+[ext_resource type="PackedScene" uid="uid://bcdt60dcs3sn1" path="res://Scenes/ContentManager/Custom_Editors/StatsEditor.tscn" id="11_lg6mj"]
+[ext_resource type="PackedScene" uid="uid://qn17yxy8fy0d" path="res://Scenes/ContentManager/Custom_Editors/SkillsEditor.tscn" id="12_orpls"]
 
 [node name="contenteditor" type="Control" node_paths=PackedStringArray("content", "tabContainer")]
 layout_mode = 3
@@ -28,6 +30,8 @@ itemEditor = ExtResource("7_i5608")
 mobEditor = ExtResource("5_86se2")
 itemgroupEditor = ExtResource("9_mc021")
 wearableslotEditor = ExtResource("10_nfqj6")
+statsEditor = ExtResource("11_lg6mj")
+skillsEditor = ExtResource("12_orpls")
 content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content")
 tabContainer = NodePath("HSplitContainer/TabContainer")
 
