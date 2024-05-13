@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_cy4rm"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_6r2e6"]
 
-[node name="SkillsEditor" type="Control"]
+[node name="SkillsEditor" type="Control" node_paths=PackedStringArray("skillImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "skillSelector")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +12,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vn7rw")
+skillImageDisplay = NodePath("VBoxContainer/FormGrid/SkillImageDisplay")
+IDTextLabel = NodePath("VBoxContainer/FormGrid/IDLabel")
+PathTextLabel = NodePath("VBoxContainer/FormGrid/PathLabel")
+NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
+DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
+skillSelector = NodePath("Sprite_selector")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -41,7 +47,7 @@ columns = 2
 layout_mode = 2
 text = "Sprite:"
 
-[node name="SlotImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
+[node name="SkillImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -79,7 +85,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 focus_next = NodePath("../DescriptionTextEdit")
-focus_previous = NodePath("../SlotImageDisplay")
+focus_previous = NodePath("../SkillImageDisplay")
 placeholder_text = "Torso"
 
 [node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
@@ -100,5 +106,5 @@ visible = false
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
-[connection signal="gui_input" from="VBoxContainer/FormGrid/SlotImageDisplay" to="." method="_on_slot_image_display_gui_input"]
+[connection signal="gui_input" from="VBoxContainer/FormGrid/SkillImageDisplay" to="." method="_on_skill_image_display_gui_input"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

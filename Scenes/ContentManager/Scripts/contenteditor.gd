@@ -73,6 +73,10 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 		instantiate_editor(data, itemID, itemgroupEditor)
 	if data == Gamedata.data.wearableslots:
 		instantiate_editor(data, itemID, wearableslotEditor)
+	if data == Gamedata.data.stats:
+		instantiate_editor(data, itemID, statsEditor)
+	if data == Gamedata.data.skills:
+		instantiate_editor(data, itemID, skillsEditor)
 
 
 #This will add an editor to the content editor tab view. 
