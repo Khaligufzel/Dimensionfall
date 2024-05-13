@@ -44,6 +44,9 @@ var current_nutrition
 var pain
 var current_pain = 0
 
+var stats = {}
+var skills = {}
+
 @export var sprite : Sprite3D
 
 @export var interact_range : float = 10
@@ -60,17 +63,40 @@ var current_pain = 0
 #var is_progress_bar_well_progressing_i_guess = false
 
 func _ready():
+	initialize_health()
+	initialize_condition()
+	initialize_stats_and_skills()
+	Helper.save_helper.load_player_state(self)
+	Helper.signal_broker.health_item_used.connect(_on_health_item_used)
+
+
+func initialize_health():
 	current_left_arm_health = left_arm_health
 	current_right_arm_health = right_arm_health
 	current_left_leg_health = left_leg_health
 	current_right_leg_health = right_leg_health
 	current_head_health = head_health
 	current_torso_health = torso_health
+
+
+func initialize_condition():
 	current_stamina = stamina
-	Helper.save_helper.load_player_state(self)
-	Helper.signal_broker.health_item_used.connect(_on_health_item_used)
+	current_hunger = hunger
+	current_thirst = thirst
+	current_nutrition = nutrition
+	current_pain = pain
 
 
+func initialize_stats_and_skills():
+	# Initialize all stats with a value of 5
+	for stat in Gamedata.data.stats.data:
+		stats[stat["id"]] = 5
+	Helper.signal_broker.player_stat_changed.emit(self)
+	
+	# Initialize all skills with a value of 1
+	for skill in Gamedata.data.skills.data:
+		skills[skill["id"]] = 1
+	Helper.signal_broker.player_skill_changed.emit(self)
 
 
 func _process(_delta):

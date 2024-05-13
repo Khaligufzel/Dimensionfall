@@ -49,6 +49,9 @@ signal container_exited_proximity(container: Node3D)
 signal inventory_operation_started()
 signal inventory_operation_finished()
 
+# When the player's stats and skill changes
+signal player_stat_changed(player: CharacterBody3D)
+signal player_skill_changed(player: CharacterBody3D)
 
 # We signal to the hud to start a progressbar
 func on_start_timer_progressbar(time_left: float):
