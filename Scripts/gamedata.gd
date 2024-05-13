@@ -489,89 +489,51 @@ func on_mob_changed(newdata: Dictionary, olddata: Dictionary):
 			save_data_to_file(Gamedata.data.itemgroups)
 
 
-# Some furniture has been changed
-# We need to update the relation between the furniture and the itemgroup
+# Handles changes to furniture and updates relevant references if necessary.
 func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
-	var old_group = Helper.json_helper.get_nested_data(olddata, "Function.container.itemgroup")
-	var new_group = Helper.json_helper.get_nested_data(newdata, "Function.container.itemgroup")
-	var furniture_id: String = newdata.id
-	# Exit if old_group and new_group are the same
-	if old_group == new_group:
-		print_debug("No change in itemgroup. Exiting function.")
-		return
+	var old_container_group = olddata.get("Function", {}).get("container", {}).get("itemgroup", "")
+	var new_container_group = newdata.get("Function", {}).get("container", {}).get("itemgroup", "")
+	
+	var old_destruction_group = olddata.get("destruction_group", "")
+	var new_destruction_group = newdata.get("destruction_group", "")
+	
+	var old_disassembly_group = olddata.get("disassembly_group", "")
+	var new_disassembly_group = newdata.get("disassembly_group", "")
+
+	var furniture_id: String = newdata.get("id", "")
 	var changes_made = false
 
-	# This furniture will be removed from the old itemgroup's references
-	# The 'or' makes sure changes_made does not change back to false
-	if old_group:
-		changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
-		old_group, furniture_id) or changes_made
+	# Handle container itemgroup changes
+	changes_made = update_group_reference(old_container_group, new_container_group, furniture_id, "furniture") or changes_made
 
-	# This furniture will be added to the new itemgroup's references
-	# The 'or' makes sure changes_made does not change back to false
-	changes_made = add_reference(Gamedata.data.itemgroups, "core", "furniture", \
-	new_group, furniture_id) or changes_made
+	# Handle destruction group changes
+	changes_made = update_group_reference(old_destruction_group, new_destruction_group, furniture_id, "furniture") or changes_made
 
-	# Save changes if any modifications were made
+	# Handle disassembly group changes
+	changes_made = update_group_reference(old_disassembly_group, new_disassembly_group, furniture_id, "furniture") or changes_made
+
+	# If any references were updated, save the changes to the data file
 	if changes_made:
-		if old_group != "":
-			save_data_to_file(Gamedata.data.itemgroups)
-		if new_group != "" and new_group != old_group:
-			save_data_to_file(Gamedata.data.itemgroups)
-
-	if changes_made:
-		print_debug("Furniture itemgroup changes saved successfully.")
-	else:
-		print_debug("No changes were made to furniture itemgroups.")
+		print_debug("Furniture reference updates saved successfully.")
+		save_data_to_file(Gamedata.data.itemgroups)
 
 
-# Removes all instances of the provided entity from the provided map
-# map_id is the id of one of the maps. It will be loaded from json to manipulate it.
-# entity_type can be "tile", "furniture" or "mob"
-# entity_id is the id of the tile, furniture or mob
-func remove_entity_from_map(map_id: String, entity_type: String, entity_id: String) -> void:
-	var fileToLoad = Gamedata.data.maps.dataPath + map_id + ".json"
-	var mapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(fileToLoad)
-	if not mapdata.has("levels"):
-		print("Map data does not contain 'levels'.")
-		return
+# Helper function to update group references if they have changed.
+func update_group_reference(old_group: String, new_group: String, entity_id: String, group_type: String) -> bool:
+	if old_group == new_group:
+		return false  # No change detected, exit early
 
-	var levels = mapdata["levels"]
-	# Translate the type to the actual key that we need
-	if entity_type == "tile":
-		entity_type = "id"
+	var changes_made = false
 
-	# Iterate over each level in the map
-	for level_index in range(levels.size()):
-		var level = levels[level_index]
+	# Remove from old group if necessary
+	if old_group != "":
+		changes_made = remove_reference(Gamedata.data.itemgroups, "core", group_type, old_group, entity_id) or changes_made
 
-		# Iterate through each entity in the level
-		for entity_index in range(level.size()):
-			var entity = level[entity_index]
+	# Add to new group if necessary
+	if new_group != "":
+		changes_made = add_reference(Gamedata.data.itemgroups, "core", group_type, new_group, entity_id) or changes_made
 
-			match entity_type:
-				"id":
-					# Check if the entity's 'id' matches and replace the entire 
-					# entity with an empty object
-					if entity.get("id", "") == entity_id:
-						level[entity_index] = {}  # Replacing entity with an empty object
-				"furniture":
-					# Check if the entity has 'furniture' and the 'id' within it matches
-					if entity.has("furniture") and entity["furniture"].get("id", "") == entity_id:
-						entity.erase("furniture")  # Removing the furniture object from the entity
-				"mob":
-					# Check if the entity has 'mob' and the 'id' within it matches
-					if entity.has("mob") and entity["mob"].get("id", "") == entity_id:
-						entity.erase("mob")  # Removing the mob object from the entity
-
-		# Update the level in the mapdata after modifications
-		levels[level_index] = level
-
-	# Update the mapdata levels after processing all
-	mapdata["levels"] = levels
-	print_debug("Entity removal operations completed for all levels.")
-	var map_data_json = JSON.stringify(mapdata.duplicate(), "\t")
-	Helper.json_helper.write_json_file(fileToLoad, map_data_json)
+	return changes_made
 
 
 # Some furniture is being deleted from the data
@@ -589,6 +551,14 @@ func on_furniture_deleted(furniture_id: String):
 	# Handle the old itemgroup
 	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
 	itemgroup, furniture_id) or changes_made
+	
+	var destruction_group: String = furniture_data.get("destruction_group")
+	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
+	destruction_group, furniture_id) or changes_made
+	
+	var disassembly_group: String = furniture_data.get("disassembly_group")
+	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
+	disassembly_group, furniture_id) or changes_made
 	
 	# Check if the furniture has references to maps and remove it from those maps
 	var maps = Helper.json_helper.get_nested_data(furniture_data,"references.core.maps")
@@ -908,3 +878,52 @@ func on_wearableslot_deleted(wearableslot_id: String):
 		save_data_to_file(Gamedata.data.items)
 	else:
 		print_debug("No changes needed for item", wearableslot_id)
+
+
+# Removes all instances of the provided entity from the provided map
+# map_id is the id of one of the maps. It will be loaded from json to manipulate it.
+# entity_type can be "tile", "furniture" or "mob"
+# entity_id is the id of the tile, furniture or mob
+func remove_entity_from_map(map_id: String, entity_type: String, entity_id: String) -> void:
+	var fileToLoad = Gamedata.data.maps.dataPath + map_id + ".json"
+	var mapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(fileToLoad)
+	if not mapdata.has("levels"):
+		print("Map data does not contain 'levels'.")
+		return
+
+	var levels = mapdata["levels"]
+	# Translate the type to the actual key that we need
+	if entity_type == "tile":
+		entity_type = "id"
+
+	# Iterate over each level in the map
+	for level_index in range(levels.size()):
+		var level = levels[level_index]
+
+		# Iterate through each entity in the level
+		for entity_index in range(level.size()):
+			var entity = level[entity_index]
+
+			match entity_type:
+				"id":
+					# Check if the entity's 'id' matches and replace the entire 
+					# entity with an empty object
+					if entity.get("id", "") == entity_id:
+						level[entity_index] = {}  # Replacing entity with an empty object
+				"furniture":
+					# Check if the entity has 'furniture' and the 'id' within it matches
+					if entity.has("furniture") and entity["furniture"].get("id", "") == entity_id:
+						entity.erase("furniture")  # Removing the furniture object from the entity
+				"mob":
+					# Check if the entity has 'mob' and the 'id' within it matches
+					if entity.has("mob") and entity["mob"].get("id", "") == entity_id:
+						entity.erase("mob")  # Removing the mob object from the entity
+
+		# Update the level in the mapdata after modifications
+		levels[level_index] = level
+
+	# Update the mapdata levels after processing all
+	mapdata["levels"] = levels
+	print_debug("Entity removal operations completed for all levels.")
+	var map_data_json = JSON.stringify(mapdata.duplicate(), "\t")
+	Helper.json_helper.write_json_file(fileToLoad, map_data_json)

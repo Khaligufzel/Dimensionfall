@@ -81,10 +81,10 @@ func load_furniture_data():
 		if "itemgroup" in container_data:
 			containerTextEdit.set_text(container_data["itemgroup"])  # Set text edit with the itemgroup ID
 		else:
-			containerTextEdit.clear()  # Clear the text edit if no itemgroup is specified
+			containerTextEdit.mytextedit.clear()  # Clear the text edit if no itemgroup is specified
 	else:
 		containerCheckBox.button_pressed = false  # Uncheck the container checkbox
-		containerTextEdit.clear()  # Clear the text edit as no container data is present
+		containerTextEdit.mytextedit.clear()  # Clear the text edit as no container data is present
 
 
 func update_door_option(door_state):
@@ -202,12 +202,12 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 
 func _on_container_check_box_toggled(toggled_on):
 	if not toggled_on:
-		containerTextEdit.clear()
+		containerTextEdit.mytextedit.clear()
 
 
 # Called when the user has successfully dropped data onto the ItemGroupTextEdit
 # We have to check the dropped_data for the id property
-func itemgroup_drop(dropped_data: Dictionary, texteditcontrol: TextEdit) -> void:
+func itemgroup_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
 	# Assuming dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var itemgroup_id = dropped_data["id"]
@@ -215,17 +215,15 @@ func itemgroup_drop(dropped_data: Dictionary, texteditcontrol: TextEdit) -> void
 		if itemgroup_data.is_empty():
 			print_debug("No item data found for ID: " + itemgroup_id)
 			return
-		texteditcontrol.text = itemgroup_id
+		texteditcontrol.set_text(itemgroup_id)
+		# If it's the container group, we always set the container checkbox to true
+		if texteditcontrol == containerTextEdit:
+			containerCheckBox.button_pressed = true
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
 
-func can_itemgroup_drop(dropped_data: Dictionary, texteditcontrol: TextEdit):
-	# Check if the containerCheckBox is checked; if not, return false
-	# Only applies to containerTextEdit
-	if texteditcontrol == containerTextEdit and not containerCheckBox.is_pressed():
-		return false
-
+func can_itemgroup_drop(dropped_data: Dictionary):
 	# Check if the data dictionary has the 'id' property
 	if not dropped_data or not dropped_data.has("id"):
 		return false
@@ -240,9 +238,9 @@ func can_itemgroup_drop(dropped_data: Dictionary, texteditcontrol: TextEdit):
 
 
 func set_drop_functions():
-	containerTextEdit.drop_function = itemgroup_drop.bind(containerTextEdit.mytextedit)
-	containerTextEdit.can_drop_function = can_itemgroup_drop.bind(containerTextEdit.mytextedit)
-	disassemblyTextEdit.drop_function = itemgroup_drop.bind(disassemblyTextEdit.mytextedit)
-	disassemblyTextEdit.can_drop_function = can_itemgroup_drop.bind(disassemblyTextEdit.mytextedit)
-	destructionTextEdit.drop_function = itemgroup_drop.bind(destructionTextEdit.mytextedit)
-	destructionTextEdit.can_drop_function = can_itemgroup_drop.bind(destructionTextEdit.mytextedit)
+	containerTextEdit.drop_function = itemgroup_drop.bind(containerTextEdit)
+	containerTextEdit.can_drop_function = can_itemgroup_drop
+	disassemblyTextEdit.drop_function = itemgroup_drop.bind(disassemblyTextEdit)
+	disassemblyTextEdit.can_drop_function = can_itemgroup_drop
+	destructionTextEdit.drop_function = itemgroup_drop.bind(destructionTextEdit)
+	destructionTextEdit.can_drop_function = can_itemgroup_drop
