@@ -241,7 +241,10 @@ func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 		sprite = contentData.sprites[id + ".png"]
 	else:
 		var item_json = get_data_by_id(contentData, id)
-		sprite = contentData.sprites[item_json.sprite]
+		if item_json.has("sprite"):
+			sprite = contentData.sprites[item_json.sprite]
+		else:
+			return null
 	return sprite
 
 

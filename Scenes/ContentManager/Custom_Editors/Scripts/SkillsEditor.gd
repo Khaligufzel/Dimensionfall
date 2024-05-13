@@ -35,7 +35,8 @@ func _ready():
 
 #This function update the form based on the contentData that has been loaded
 func load_skill_data() -> void:
-	if skillImageDisplay != null and contentData.has("sprite"):
+	if skillImageDisplay != null and contentData.has("sprite") and \
+	not contentData["sprite"] == "" and Gamedata.data.skills.sprites.has(contentData["sprite"]):
 		skillImageDisplay.texture = Gamedata.data.skills.sprites[contentData["sprite"]]
 		PathTextLabel.text = contentData["sprite"]
 	if IDTextLabel != null:

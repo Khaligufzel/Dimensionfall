@@ -86,7 +86,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 focus_next = NodePath("../DescriptionTextEdit")
 focus_previous = NodePath("../SkillImageDisplay")
-placeholder_text = "Torso"
+placeholder_text = "Fabrication"
 
 [node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -98,7 +98,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
 focus_previous = NodePath("../NameTextEdit")
-placeholder_text = "Holds equipment on your torso"
+placeholder_text = "Your ability to craft"
 wrap_mode = 1
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_6r2e6")]

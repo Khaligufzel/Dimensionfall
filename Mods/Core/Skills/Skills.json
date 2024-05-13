@@ -1,0 +1,164 @@
+[
+	{
+		"description": "Your ability to communicate effectively, influencing others through dialogue, negotiation, or deception. Useful in bartering, persuasion, and leadership roles.",
+		"id": "speech",
+		"name": "Speech",
+		"sprite": "speech_32.png"
+	},
+	{
+		"description": "Skill in using computers for hacking, programming, and accessing restricted digital areas. Vital for tasks that involve security bypass and data retrieval.",
+		"id": "computer",
+		"name": "Computer",
+		"sprite": "computer_32.png"
+	},
+	{
+		"description": "Proficiency in medical treatment, including using items like bandages and medication more effectively to heal injuries or cure diseases.",
+		"id": "firstaid",
+		"name": "Firstaid",
+		"sprite": "firstaid_32.png"
+	},
+	{
+		"description": "Your capability to build, maintain, and repair mechanical devices and vehicles. Also crucial for understanding and constructing complex machinery.",
+		"id": "mechanics",
+		"name": "Mechanics",
+		"sprite": "mechanics_32.png"
+	},
+	{
+		"description": "Skill in setting up and disarming traps. Essential for creating defensive or offensive strategies against threats.",
+		"id": "trapping",
+		"name": "Trapping",
+		"sprite": "trapping_32.png"
+	},
+	{
+		"description": "Ability to operate various vehicles under different conditions. Enhances control and reduces chances of accidents while driving.",
+		"id": "driving",
+		"name": "Driving",
+		"sprite": "driving_32.png"
+	},
+	{
+		"description": "Proficiency in swimming, affecting speed, endurance, and the ability to perform tasks or escape threats in water.",
+		"id": "swimming",
+		"name": "Swimming",
+		"sprite": "swimming_32.png"
+	},
+	{
+		"description": "Skill in crafting objects from raw materials, including tools, weapons, and other gear, often essential for survival.",
+		"id": "fabrication",
+		"name": "Fabrication",
+		"sprite": "crafting_32.png"
+	},
+	{
+		"description": "Knowledge of preparing and cooking food, which helps in maximizing the nutritional benefits and managing resources efficiently.",
+		"id": "cooking",
+		"name": "Cooking",
+		"sprite": "cooking_32.png"
+	},
+	{
+		"description": "Skill in creating and repairing clothing and textiles, affecting the quality and durability of wearables.",
+		"id": "tailoring",
+		"name": "Tailoring",
+		"sprite": "tailoring_32.png"
+	},
+	{
+		"description": "Key skills for enduring in hostile environments, including finding food, building shelters, and recognizing natural hazards.",
+		"id": "survival",
+		"name": "Survival",
+		"sprite": "survival_32.png"
+	},
+	{
+		"description": "Expertise in handling and repairing electronic devices and components, from simple circuits to complex systems.",
+		"id": "electronics",
+		"name": "Electronics",
+		"sprite": "electronics_32.png"
+	},
+	{
+		"description": "Skill with bows and arrows, focusing on accuracy, maintenance, and crafting of archery equipment.",
+		"id": "archery",
+		"name": "Archery",
+		"sprite": "archery_32.png"
+	},
+	{
+		"description": "General proficiency with all types of firearms, influencing accuracy, maintenance, and firearm handling.",
+		"id": "gun",
+		"name": "Gun",
+		"sprite": "handguns_32.png"
+	},
+	{
+		"description": "Skill in operating heavy weaponry like grenade launchers and rocket launchers, crucial for dealing high damage at range.",
+		"id": "launcher",
+		"name": "Launcher",
+		"sprite": "launcher_32.png"
+	},
+	{
+		"description": "Proficiency in handling and maintaining pistols, enhancing accuracy and reload speed, especially in close combat.",
+		"id": "handguns",
+		"name": "Handguns",
+		"sprite": "handgun_32.png"
+	},
+	{
+		"description": "Expertise in using rifles, improving long-range accuracy and maintenance of such firearms.",
+		"id": "rifle",
+		"name": "Rifle",
+		"sprite": "rifle_32.png"
+	},
+	{
+		"description": "Skill in operating shotguns, which are effective at close range and can deliver massive damage with varying shot spreads.",
+		"id": "shotgun",
+		"name": "Shotgun",
+		"sprite": "shotgun_32.png"
+	},
+	{
+		"description": "Proficiency with submachine guns, focusing on rapid fire and handling, ideal for close to mid-range combat.",
+		"id": "smg",
+		"name": "Smg",
+		"sprite": "smg_32.png"
+	},
+	{
+		"description": "Skill in accurately throwing objects or weapons, critical for maximizing effect and accuracy in combat situations.",
+		"id": "throw",
+		"name": "Throw",
+		"sprite": "dodge_32.png"
+	},
+	{
+		"description": "Proficiency in hand-to-hand combat, enhancing effectiveness when fighting without weapons or with melee weapons.",
+		"id": "melee",
+		"name": "Melee",
+		"sprite": "melee_32.png"
+	},
+	{
+		"description": "Skill in using blunt weapons to inflict damage, increasing force and effectiveness in close combat.",
+		"id": "bashing",
+		"name": "Bashing",
+		"sprite": "bashing_32.png"
+	},
+	{
+		"description": "Skill in using sharp weapons like knives and swords, enhancing precision and damage during melee combat.",
+		"id": "cutting",
+		"name": "Cutting",
+		"sprite": "stabbing_32.png"
+	},
+	{
+		"description": "Ability to evade attacks or dangers, crucial for survival in combat by reducing the likelihood of taking damage.",
+		"id": "dodge",
+		"name": "Dodge",
+		"sprite": "dodge_32.png"
+	},
+	{
+		"description": "Skill in fighting without weapons, utilizing techniques like punches, kicks, and other martial arts maneuvers.",
+		"id": "unarmed",
+		"name": "Unarmed",
+		"sprite": "unarmed_32.png"
+	},
+	{
+		"description": "Knowledge of chemical processes and reactions, useful for creating explosives, medicines, and other useful chemical compounds.",
+		"id": "chemistry",
+		"name": "Chemistry",
+		"sprite": "chemistry_32.png"
+	},
+	{
+		"description": "This skill encompasses a range of physical activities that improve overall fitness, agility, and endurance. Athletics helps in running faster, jumping higher, and sustaining strenuous activities for longer periods without tiring. This skill is vital for evading enemies, navigating obstacles during exploration, and enhancing performance in physical tasks and combat.",
+		"id": "athletics",
+		"name": "Athletics",
+		"sprite": "athletics_32.png"
+	}
+]
