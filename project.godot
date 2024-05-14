@@ -147,9 +147,15 @@ character_menu={
 
 3d_render/layer_5="Enemy"
 2d_physics/layer_1="player"
+3d_physics/layer_1="player"
 2d_physics/layer_2="enemy"
+3d_physics/layer_2="enemies"
 2d_physics/layer_3="obstacles"
+3d_physics/layer_3="staticobstacles"
 2d_physics/layer_4="projectiles"
+3d_physics/layer_4="moveableobstacles"
+3d_physics/layer_5="enemyprojectiles"
+3d_physics/layer_6="friendlyprojectiles"
 2d_physics/layer_20="Items"
 
 [shader_globals]

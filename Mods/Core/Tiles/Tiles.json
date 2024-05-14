@@ -118,6 +118,13 @@
 		"description": "Field of grass",
 		"id": "grass_plain_01",
 		"name": "Plain grass",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"sprite": "basegrass1.png"
 	},
 	{
@@ -768,6 +775,13 @@
 		"description": "Dirt is barely visible trough the carpet of grass",
 		"id": "grass_dirt_00",
 		"name": "Grass with dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grassdirt.png"
 	},
@@ -778,6 +792,13 @@
 		"description": "Dirt is barely visible trough the carpet of grass",
 		"id": "grass_dirt_01",
 		"name": "Grass with dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grassdirt1.png"
 	},
@@ -788,6 +809,13 @@
 		"description": "Dirt is barely visible trough the carpet of grass",
 		"id": "grass_dirt_02",
 		"name": "Grass with dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grassdirt2.png"
 	},
@@ -798,6 +826,13 @@
 		"description": "Dirt is visible trough the grass",
 		"id": "grass_medium_dirt_00",
 		"name": "Grass with dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grasssmalldirt.png"
 	},
@@ -808,6 +843,13 @@
 		"description": "Dirt is visible trough the grass",
 		"id": "grass_medium_dirt_01",
 		"name": "Grass with dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grasssmalldirt1.png"
 	},
@@ -818,6 +860,13 @@
 		"description": "Dirt is visible trough the grass",
 		"id": "grass_medium_dirt_02",
 		"name": "Grass with dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grasssmalldirt2.png"
 	},
@@ -838,6 +887,13 @@
 		"description": "The center of the terrain is just dirt and no grass",
 		"id": "grass_dirt_center_00",
 		"name": "Grass with a patch of dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grasscenterdirt.png"
 	},
@@ -848,6 +904,13 @@
 		"description": "Some flowers are sprouting trough the grass",
 		"id": "grass_flowers_00",
 		"name": "Grass with flowers",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grassflowers2.png"
 	},
@@ -858,6 +921,13 @@
 		"description": "Some flowers are sprouting trough the grass",
 		"id": "grass_flowers_01",
 		"name": "Grass with flowers",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grassflowers3.png"
 	},
@@ -868,6 +938,13 @@
 		"description": "Some flowers are sprouting trough the grass",
 		"id": "grass_flowers_02",
 		"name": "Grass with flowers",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grassflowers4.png"
 	},
@@ -878,6 +955,13 @@
 		"description": "Some flowers are sprouting trough the grass",
 		"id": "grass_flowers_03",
 		"name": "Grass with flowers",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grasslowers.png"
 	},

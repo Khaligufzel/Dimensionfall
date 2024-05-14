@@ -682,10 +682,19 @@ func setup_collision_body():
 	# Create the static body for collision
 	chunk_mesh_body = StaticBody3D.new()
 	chunk_mesh_body.disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
-	# Set collision layer to layer 1 and 5
-	chunk_mesh_body.collision_layer = 1 | (1 << 4) # Layer 1 is 1, Layer 5 is 1 << 4 (16), combined with bitwise OR
-	# Set collision mask to layer 1
-	chunk_mesh_body.collision_mask = 1 # Layer 1 is 1
+	# Set collision layer to layer 3 (obstacles layer)
+	chunk_mesh_body.collision_layer = 1 << 2 # Layer 3 is 1 << 2 (bit shift by 2 to set the third bit)
+	
+	# Set collision mask to include layers 1, 2, 3, 4, and 5
+	chunk_mesh_body.collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4)
+	# Explanation:
+	# - 1 << 0: Layer 1 (bit shift by 0, i.e., 2^0 = 1)
+	# - 1 << 1: Layer 2 (bit shift by 1, i.e., 2^1 = 2)
+	# - 1 << 2: Layer 3 (bit shift by 2, i.e., 2^2 = 4)
+	# - 1 << 3: Layer 4 (bit shift by 3, i.e., 2^3 = 8)
+	# - 1 << 4: Layer 5 (bit shift by 4, i.e., 2^4 = 16)
+	# All combined with bitwise OR to include all these layers in the collision mask.
+
 	add_child.call_deferred(chunk_mesh_body)
 
 

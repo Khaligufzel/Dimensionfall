@@ -50,6 +50,13 @@
 		"id": "Tree_00",
 		"moveable": false,
 		"name": "Tree",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"sprite": "Tree_100.png"
 	},
 	{
@@ -60,6 +67,13 @@
 		"id": "PineTree_00",
 		"moveable": false,
 		"name": "Pine tree",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"sprite": "PineTree_100.png"
 	},
 	{
@@ -70,6 +84,13 @@
 		"id": "WillowTree_00",
 		"moveable": false,
 		"name": "Willow tree",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic"
+				]
+			}
+		},
 		"sprite": "WillowTree_100.png"
 	},
 	{

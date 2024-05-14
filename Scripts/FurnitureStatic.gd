@@ -82,7 +82,7 @@ func set_sprite(newSprite: Texture):
 
 	# Update the collision shape
 	var new_shape = BoxShape3D.new()
-	new_shape.extents = Vector3(new_x / 2.0, new_y / 2.0, new_z / 2.0) # BoxShape3D extents are half extents
+	new_shape.extents = Vector3(new_x / 2.0, new_y / 1.0, new_z / 2.0) # BoxShape3D extents are half extents
 
 	collider = CollisionShape3D.new()
 	collider.shape = new_shape
@@ -155,6 +155,18 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 		spriteWidth, spriteDepth, newRot, furniturepos)
 
 	furniturerotation = newRot
+	# Set collision layer to layer 3 (static obstacles layer)
+	collision_layer = 1 << 2  # Layer 3 is 1 << 2
+
+	# Set collision mask to include layers 1, 2, 3, 4, 5, and 6
+	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5)
+	# Explanation:
+	# - 1 << 0: Layer 1 (player layer)
+	# - 1 << 1: Layer 2 (enemy layer)
+	# - 1 << 2: Layer 3 (movable obstacles layer)
+	# - 1 << 3: Layer 4 (static obstacles layer)
+	# - 1 << 4: Layer 5 (friendly projectiles layer)
+	# - 1 << 5: Layer 6 (enemy projectiles layer)
 
 
 # If edge snapping has been set in the furniture editor, we will apply it here.
