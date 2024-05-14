@@ -1,0 +1,26 @@
+[
+	{
+		"description": "Measures the character's awareness and sensory acuity. This stat affects how well the character can detect hidden objects or enemies, their accuracy in ranged combat, and their ability to navigate and understand their environment. It is crucial for spotting traps and ambushes before they become threats.",
+		"id": "perception",
+		"name": "Perception",
+		"sprite": "perception_32.png"
+	},
+	{
+		"description": "Represents the character's agility, reflexes, and balance. High dexterity improves a character's ability to perform actions that require fine motor skills, such as lock-picking, aiming, or stealth movements. It also influences the speed and accuracy of attacks in combat.",
+		"id": "dexterity",
+		"name": "Dexterity",
+		"sprite": "dexterity_32.png"
+	},
+	{
+		"description": "Indicates the physical power of the character. Strength impacts the character's ability to carry weight, the damage dealt in melee combat, and the effectiveness of using heavy weapons or equipment. It also plays a role in tasks that require brute force, such as breaking down doors or moving large obstacles.",
+		"id": "strength",
+		"name": "Strength",
+		"sprite": "strength_32.png"
+	},
+	{
+		"description": "Reflects the character's problem-solving abilities, memory, and overall mental acuity. Intelligence is key for hacking, crafting complex items, understanding and using technology, and strategizing in combat. It often affects the number of skill points the character gains per level up, enabling faster skill progression.",
+		"id": "intelligence",
+		"name": "Intelligence",
+		"sprite": "intelligence_32.png"
+	}
+]

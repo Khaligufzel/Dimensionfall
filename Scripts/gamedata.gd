@@ -15,7 +15,9 @@ const DATA_CATEGORIES = {
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
 	"maps": {"dataPath": "./Mods/Core/Maps/", "spritePath": "./Mods/Core/Maps/"},
 	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"},
-	"wearableslots": {"dataPath": "./Mods/Core/Wearableslots/Wearableslots.json", "spritePath": "./Mods/Core/Wearableslots/"}
+	"wearableslots": {"dataPath": "./Mods/Core/Wearableslots/Wearableslots.json", "spritePath": "./Mods/Core/Wearableslots/"},
+	"stats": {"dataPath": "./Mods/Core/Stats/Stats.json", "spritePath": "./Mods/Core/Stats/"},
+	"skills": {"dataPath": "./Mods/Core/Skills/Skills.json", "spritePath": "./Mods/Core/Skills/"}
 }
 
 
@@ -239,7 +241,10 @@ func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 		sprite = contentData.sprites[id + ".png"]
 	else:
 		var item_json = get_data_by_id(contentData, id)
-		sprite = contentData.sprites[item_json.sprite]
+		if item_json.has("sprite"):
+			sprite = contentData.sprites[item_json.sprite]
+		else:
+			return null
 	return sprite
 
 

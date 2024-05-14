@@ -9,6 +9,8 @@ extends Control
 @export var mobEditor: PackedScene = null
 @export var itemgroupEditor: PackedScene = null
 @export var wearableslotEditor: PackedScene = null
+@export var statsEditor: PackedScene = null
+@export var skillsEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
 var selectedMod: String = "Core"
@@ -24,6 +26,8 @@ func _ready():
 	load_content_list(Gamedata.data.furniture, "Furniture")
 	load_content_list(Gamedata.data.itemgroups, "Item Groups")
 	load_content_list(Gamedata.data.wearableslots, "Wearable slots")
+	load_content_list(Gamedata.data.stats, "Stats")
+	load_content_list(Gamedata.data.skills, "Skills")
 
 
 func load_content_list(data: Dictionary, strHeader: String):
@@ -69,6 +73,10 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 		instantiate_editor(data, itemID, itemgroupEditor)
 	if data == Gamedata.data.wearableslots:
 		instantiate_editor(data, itemID, wearableslotEditor)
+	if data == Gamedata.data.stats:
+		instantiate_editor(data, itemID, statsEditor)
+	if data == Gamedata.data.skills:
+		instantiate_editor(data, itemID, skillsEditor)
 
 
 #This will add an editor to the content editor tab view. 
