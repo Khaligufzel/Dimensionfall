@@ -1,7 +1,6 @@
 class_name Mob
 extends CharacterBody3D
 
-var tween: Tween 
 var original_scale
 var mobPosition: Vector3 # The position it will move to when it is created
 var mobRotation: int # The rotation it will rotate to when the it is created
@@ -25,6 +24,9 @@ var current_idle_move_speed: float
 var sightRange: float = 200.0
 var senseRange: float = 50.0
 var hearingRange: float = 1000.0
+
+var is_blinking: bool = false # flag to prevent multiple blink actions
+var original_material: StandardMaterial3D # To return to normal after blinking
 
 
 func _ready():
@@ -61,14 +63,12 @@ func update_navigation_agent_map(chunk_position: Vector2):
 
 
 func get_hit(damage):
-	
-	#3d
-#	tween = create_tween()
-#	tween.tween_property(get_node(sprite), "scale", get_node(sprite).scale * 1.35, 0.1)
-#	tween.tween_property(get_node(sprite), "scale", original_scale, 0.1)
 	current_health -= damage
 	if current_health <= 0:
 		_die()
+	else:
+		if not is_blinking:
+			start_blinking()
 	
 func _die():
 	add_corpse.call_deferred(global_position)
@@ -110,6 +110,8 @@ func set_sprite(newSprite: Resource):
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	new_mesh.surface_set_material(0, material)
 	meshInstance.mesh = new_mesh  # Set the new mesh to MeshInstance3D
+	# Save the original material
+	original_material = material.duplicate()
 
 
 # Applies it's own data from the dictionary it received
@@ -263,3 +265,29 @@ func get_chunk_from_position(chunkposition: Vector3) -> Vector2:
 	var chunk_x = floor(chunkposition.x / 32) * 32
 	var chunk_z = floor(chunkposition.z / 32) * 32
 	return Vector2(chunk_x, chunk_z)
+
+
+# The mob will blink once to indicate that it's hit
+# We enable emission and tween it to a white color so it's entirely white
+# Then we tween back to the normal emission color
+func start_blinking():
+	is_blinking = true
+	var blink_material = original_material.duplicate()
+	blink_material.set_feature(BaseMaterial3D.FEATURE_EMISSION, true)
+	var surfacemesh = meshInstance.mesh
+	var surfacematerial = surfacemesh.surface_get_material(0)
+	surfacematerial.set_feature(BaseMaterial3D.FEATURE_EMISSION, true)
+
+	var tween = create_tween()
+	tween.tween_property(surfacematerial, "emission", Color(1, 1, 1), 0.125).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(surfacematerial, "emission", original_material.emission, 0.125).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT).set_delay(0.125)
+
+	tween.finished.connect(_on_tween_finished)
+
+
+# The mob is done blinkinig so we reset the relevant variables
+func _on_tween_finished():
+	var surfacemesh = meshInstance.mesh
+	var surfacematerial = surfacemesh.surface_get_material(0)
+	surfacematerial.set_feature(BaseMaterial3D.FEATURE_EMISSION, false)
+	is_blinking = false
