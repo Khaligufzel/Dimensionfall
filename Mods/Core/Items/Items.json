@@ -275,7 +275,8 @@
 	},
 	{
 		"Melee": {
-			"damage": 25
+			"damage": 25,
+			"reach": 1
 		},
 		"description": "A sharp blade with a handle for excellent control",
 		"id": "machete",
