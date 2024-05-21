@@ -117,7 +117,7 @@
 		"description": "Skill in accurately throwing objects or weapons, critical for maximizing effect and accuracy in combat situations.",
 		"id": "throw",
 		"name": "Throw",
-		"sprite": "dodge_32.png"
+		"sprite": "throw_32.png"
 	},
 	{
 		"description": "Proficiency in hand-to-hand combat, enhancing effectiveness when fighting without weapons or with melee weapons.",

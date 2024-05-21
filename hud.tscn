@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=19 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://t7ny2gtgqll8" path="res://Textures/head.png" id="8_vb8fm"]
 [ext_resource type="Texture2D" uid="uid://c1begynwustlp" path="res://Textures/torso.png" id="9_4u4ej"]
 [ext_resource type="PackedScene" uid="uid://bxyvtsslfr7kt" path="res://Scenes/UI/CraftingMenu.tscn" id="13_wjtvq"]
+[ext_resource type="PackedScene" uid="uid://cgxw4cu430nst" path="res://Scenes/UI/CharacterWindow.tscn" id="17_2f357"]
 [ext_resource type="PackedScene" uid="uid://bgswuol251m3u" path="res://Scenes/Overmap/Overmap.tscn" id="19_oomhy"]
 [ext_resource type="PackedScene" uid="uid://e0ebcv1n8jnq" path="res://Scenes/InventoryWindow.tscn" id="20_0l505"]
 [ext_resource type="PackedScene" uid="uid://ckuh2s0nvwg0x" path="res://Scenes/GameOver.tscn" id="20_jlthm"]
@@ -21,7 +22,7 @@
 default_font = ExtResource("1_pxloi")
 default_font_size = 0
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("inventoryWindow", "overmap")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("inventoryWindow", "characterWindow", "overmap")]
 script = ExtResource("1_s3xoj")
 head_health = NodePath("Doll/Head")
 right_arm_health = NodePath("Doll/Rightarm")
@@ -35,6 +36,7 @@ ammo_HUD_right = NodePath("AmmoVisuals/RightAmmo")
 healthy_color = Color(0, 0.635294, 0, 1)
 damaged_color = Color(0.635294, 0, 0, 1)
 inventoryWindow = NodePath("InventoryWindow")
+characterWindow = NodePath("CharacterWindow")
 building_menu = NodePath("BuildingMenu")
 crafting_menu = NodePath("CraftingMenu")
 overmap = NodePath("Overmap")
@@ -231,6 +233,14 @@ anchor_bottom = 0.9
 
 [node name="GameOver" parent="." instance=ExtResource("20_jlthm")]
 visible = false
+
+[node name="CharacterWindow" parent="." instance=ExtResource("17_2f357")]
+visible = false
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
 
 [connection signal="timeout" from="ProgressBar/ProgressBarTimer" to="." method="_on_progress_bar_timer_timeout"]
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]
