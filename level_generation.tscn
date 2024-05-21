@@ -190,7 +190,7 @@ reload_audio_player = NodePath("../../Shooting/ReloadAudio")
 
 [node name="MeleeRange" type="Area3D" parent="TacticalMap/Entities/Player/Sprite3D2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.277026)
-collision_mask = 2
+collision_mask = 14
 
 [node name="MeleeCollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player/Sprite3D2/MeleeRange"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)

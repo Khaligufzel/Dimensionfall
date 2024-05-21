@@ -11,7 +11,7 @@ var sprite: Sprite3D = null
 var last_rotation: int
 var current_chunk: Chunk
 
-
+var is_animating_hit: bool = false # flag to prevent multiple blink actions
 var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
 var current_health: float = 10.0
 
@@ -34,14 +34,12 @@ func _physics_process(_delta):
 
 
 func get_hit(damage):
-	#3d
-#	tween = create_tween()
-#	tween.tween_property(get_node(sprite), "scale", get_node(sprite).scale * 1.35, 0.1)
-#	tween.tween_property(get_node(sprite), "scale", original_scale, 0.1)
-	
 	current_health -= damage
 	if current_health <= 0:
 		_die()
+	else:
+		if not is_animating_hit:
+			animate_hit()
 
 
 func _die():
@@ -153,3 +151,22 @@ func get_data() -> Dictionary:
 		"global_position_z": furnitureposition.z,
 		"rotation": last_rotation
 	}
+
+
+# The furniture will move 0.2 meters in a random direction to indicate that it's hit
+# Then it will return to its original position
+func animate_hit():
+	is_animating_hit = true
+
+	var directions = [Vector3(0.1, 0, 0), Vector3(-0.1, 0, 0), Vector3(0, 0, 0.1), Vector3(0, 0, -0.1)]
+	var random_direction = directions[randi() % directions.size()]
+
+	var tween = create_tween()
+	tween.tween_property(sprite, "position", sprite.position + random_direction, 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(sprite, "position", Vector3(0,0,0), 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT).set_delay(0.1)
+
+	tween.finished.connect(_on_tween_finished)
+
+# The furniture is done blinking so we reset the relevant variables
+func _on_tween_finished():
+	is_animating_hit = false
