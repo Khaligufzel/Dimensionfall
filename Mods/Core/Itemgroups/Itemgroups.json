@@ -192,5 +192,61 @@
 			}
 		},
 		"sprite": "flashlight_32.png"
+	},
+	{
+		"description": "Items that will spawn when medium sized furniture is destroyed, like countertop, table",
+		"id": "destroyed_furniture_medium",
+		"items": [
+			{
+				"id": "plank_2x4",
+				"max": 3,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "steel_scrap",
+				"max": 1,
+				"min": 0,
+				"probability": 50
+			}
+		],
+		"mode": "Collection",
+		"name": "Medium destroyed furniture",
+		"references": {
+			"core": {
+				"furniture": [
+					"countertop_wood"
+				]
+			}
+		},
+		"sprite": "plank.png"
+	},
+	{
+		"description": "Items that will spawn when medium sized furniture is disassembled, like countertop, table",
+		"id": "disassembled_furniture_medium",
+		"items": [
+			{
+				"id": "plank_2x4",
+				"max": 5,
+				"min": 2,
+				"probability": 100
+			},
+			{
+				"id": "steel_scrap",
+				"max": 2,
+				"min": 1,
+				"probability": 80
+			}
+		],
+		"mode": "Collection",
+		"name": "Medium disassembled furniture",
+		"references": {
+			"core": {
+				"furniture": [
+					"countertop_wood"
+				]
+			}
+		},
+		"sprite": "plank.png"
 	}
 ]

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://cllbo1owveorj"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -14,7 +14,9 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"mob_loot\"
+					\"mob_loot\",
+					\"destroyed_furniture_medium\",
+					\"disassembled_furniture_medium\"
 				]
 			}
 		},
@@ -34,7 +36,9 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"cabinet_general\",
-					\"mob_loot\"
+					\"mob_loot\",
+					\"destroyed_furniture_medium\",
+					\"disassembled_furniture_medium\"
 				],
 				\"items\": [
 					\"pistol_magazine\",

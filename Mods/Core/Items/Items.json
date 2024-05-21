@@ -8,7 +8,9 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"mob_loot"
+					"mob_loot",
+					"destroyed_furniture_medium",
+					"disassembled_furniture_medium"
 				]
 			}
 		},
@@ -28,7 +30,9 @@
 			"core": {
 				"itemgroups": [
 					"cabinet_general",
-					"mob_loot"
+					"mob_loot",
+					"destroyed_furniture_medium",
+					"disassembled_furniture_medium"
 				],
 				"items": [
 					"pistol_magazine",
