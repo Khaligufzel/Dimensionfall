@@ -157,7 +157,7 @@ layout_mode = 2
 text = "Loot group:"
 
 [node name="DisassemblyTextEdit" parent="VBoxContainer/FormGrid/DisassembleHboxContainer" instance=ExtResource("4_fbact")]
-custom_minimum_size = Vector2(200, 30)
+custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 size_flags_vertical = 1
 tooltip_text = "Drag an itemgroup from the left menu onto this field. When this furniture
@@ -202,6 +202,7 @@ layout_mode = 2
 text = "Loot group:"
 
 [node name="DestructionTextEdit" parent="VBoxContainer/FormGrid/DestructionHBoxContainer" instance=ExtResource("4_fbact")]
+custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 size_flags_vertical = 1
 tooltip_text = "Drag an itemgroup from the left menu onto this field. When this furniture

@@ -5,6 +5,10 @@
 			"Livingroom"
 		],
 		"description": "A round wooden table. This weathered relic from a bygone era stands as a testament to a simpler time, a stark contrast to the harsh reality surrounding it.\nThe table's surface bears the scars a history as a dining spot.",
+		"destruction": {
+
+		},
+		"edgesnapping": "None",
 		"id": "table_round_wood",
 		"moveable": true,
 		"name": "Round wooden table",
@@ -16,6 +20,9 @@
 			"Livingroom"
 		],
 		"description": "A simple wooden chair, its construction is basic yet sturdy, a testament to durability in the face of decay. \nWith a rough-hewn seat and a backrest that bears the marks of time, this chair offers a momentary respite from the unforgiving environment.",
+		"destruction": {
+
+		},
 		"edgesnapping": "None",
 		"id": "chair_wood",
 		"moveable": true,
@@ -53,6 +60,10 @@
 			"Nature"
 		],
 		"description": "A common tree",
+		"destruction": {
+
+		},
+		"edgesnapping": "None",
 		"id": "Tree_00",
 		"moveable": false,
 		"name": "Tree",
@@ -70,6 +81,10 @@
 			"Nature"
 		],
 		"description": "A common pine tree",
+		"destruction": {
+
+		},
+		"edgesnapping": "None",
 		"id": "PineTree_00",
 		"moveable": false,
 		"name": "Pine tree",
@@ -87,6 +102,10 @@
 			"Nature"
 		],
 		"description": "A common willow tree",
+		"destruction": {
+
+		},
+		"edgesnapping": "None",
 		"id": "WillowTree_00",
 		"moveable": false,
 		"name": "Willow tree",
@@ -105,6 +124,9 @@
 			"Livingroom"
 		],
 		"description": "A simple wooden bench that can seat multiple people, offering a resting spot or a place for interaction.",
+		"destruction": {
+			"sprite": "wreck_wood_generic_32.png"
+		},
 		"edgesnapping": "North",
 		"id": "bench_wood",
 		"moveable": false,
@@ -117,6 +139,9 @@
 			"Livingroom"
 		],
 		"description": "A small pot holding a green plant, which can be placed indoors to enhance the aesthetics",
+		"destruction": {
+
+		},
 		"edgesnapping": "None",
 		"id": "plant_pot_00",
 		"moveable": true,
@@ -130,6 +155,9 @@
 			"Bedroom"
 		],
 		"description": "A basic wooden bed with a mattress, which could be used to rest",
+		"destruction": {
+
+		},
 		"edgesnapping": "North",
 		"id": "bed_wood_single_00",
 		"moveable": false,
@@ -147,6 +175,9 @@
 			"Indoor"
 		],
 		"description": "A storage unit with doors, useful for storing items or resources that you might collect.",
+		"destruction": {
+			"sprite": "wreck_wood_generic_32.png"
+		},
 		"edgesnapping": "North",
 		"id": "cabinet_wood_00",
 		"moveable": false,
@@ -159,6 +190,9 @@
 			"Indoor"
 		],
 		"description": "A tall wooden bookcase with multiple shelves",
+		"destruction": {
+			"sprite": "wreck_wood_generic_32.png"
+		},
 		"edgesnapping": "North",
 		"id": "bookcase_wood_00",
 		"moveable": false,
@@ -172,6 +206,9 @@
 			"Indoor"
 		],
 		"description": "One of the central pieces of fruniture that make up a kitchen",
+		"destruction": {
+
+		},
 		"edgesnapping": "North",
 		"id": "refrigerator_00",
 		"moveable": false,
@@ -184,6 +221,9 @@
 			"Indoor"
 		],
 		"description": "Centerpiece of the bathroom",
+		"destruction": {
+
+		},
 		"edgesnapping": "North",
 		"id": "toilet_00",
 		"moveable": false,
@@ -199,6 +239,9 @@
 			"Indoor"
 		],
 		"description": "It keeps people from passing trough this area. It can be opened and closed",
+		"destruction": {
+
+		},
 		"edgesnapping": "North",
 		"id": "door_wood",
 		"moveable": false,

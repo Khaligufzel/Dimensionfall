@@ -91,8 +91,10 @@ func load_furniture_data():
 		else:
 			destructionImageDisplay.texture = null
 			destructionSpriteNameLabel.text = ""
+		set_visibility_for_children(destructionTextEdit, true)
 	else:
 		canDestroyCheckbox.button_pressed = false
+		set_visibility_for_children(destructionTextEdit, false)
 
 	if "disassembly" in contentData:
 		canDisassembleCheckbox.button_pressed = true
@@ -104,8 +106,10 @@ func load_furniture_data():
 		else:
 			disassemblyImageDisplay.texture = null
 			disassemblySpriteNameLabel.text = ""
+		set_visibility_for_children(disassemblyHboxContainer, true)
 	else:
 		canDisassembleCheckbox.button_pressed = false
+		set_visibility_for_children(disassemblyHboxContainer, false)
 
 	# Load container data if it exists within the 'Function' property
 	var function_data = contentData.get("Function", {})
@@ -119,6 +123,7 @@ func load_furniture_data():
 	else:
 		containerCheckBox.button_pressed = false  # Uncheck the container checkbox
 		containerTextEdit.mytextedit.clear()  # Clear the text edit as no container data is present
+
 
 
 func update_door_option(door_state):
@@ -310,9 +315,9 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 
 
 # Utility function to set the visibility of all children of the given container except the first one
-func set_visibility_for_children(container: Control, visible: bool):
+func set_visibility_for_children(container: Control, isvisible: bool):
 	for i in range(1, container.get_child_count()):
-		container.get_child(i).visible = visible
+		container.get_child(i).visible = isvisible
 
 func _on_can_destroy_check_box_toggled(toggled_on):
 	if not toggled_on:

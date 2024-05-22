@@ -98,6 +98,14 @@ func create_sprite():
 	add_child.call_deferred(sprite_3d)
 
 
+func set_texture(mytex: String):
+	var newsprite: Texture = Gamedata.data.furniture.sprites[mytex]
+	if newsprite:
+		sprite_3d.texture = newsprite
+	else:
+		sprite_3d.texture = load("res://Textures/enemy.png")
+
+
 # This area will be used to check if the player can reach into the inventory with ItemDetector
 func create_area3d():
 	var area3d = Area3D.new()
