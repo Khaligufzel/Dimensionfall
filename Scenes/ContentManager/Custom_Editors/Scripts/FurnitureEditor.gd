@@ -17,11 +17,23 @@ extends Control
 @export var doorOptionButton: OptionButton = null # Maks the furniture as a door
 @export var containerCheckBox: CheckBox = null # Marks the furniture as a container
 @export var containerTextEdit: HBoxContainer = null # Might contain the id of a loot group
+
+@export var destroyHboxContainer: HBoxContainer = null # contains destroy controls
+@export var canDestroyCheckbox: CheckBox = null # If the furniture can be destroyed or not
 @export var destructionTextEdit: HBoxContainer = null # Might contain the id of a loot group
+@export var destructionImageDisplay: TextureRect = null # What it looks like when destroyed
+@export var destructionSpriteNameLabel: Label = null # The name of the destroyed sprite
+
+@export var disassemblyHboxContainer: HBoxContainer = null # contains destroy controls
+@export var canDisassembleCheckbox: CheckBox = null # If the furniture can be disassembled or not
 @export var disassemblyTextEdit: HBoxContainer = null # Might contain the id of a loot group
+@export var disassemblyImageDisplay: TextureRect = null # What it looks like when disassembled
+@export var disassemblySpriteNameLabel: Label = null # The name of the disassembly sprite
 
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
+# Tracks which image display control is currently being updated
+var current_image_display: String = ""
 
 
 # This signal will be emitted when the user presses the save button
@@ -68,10 +80,32 @@ func load_furniture_data():
 		select_option_by_string(edgeSnappingOptionButton, contentData["edgesnapping"])
 	if doorOptionButton:
 		update_door_option(contentData.get("Function", {}).get("door", "None"))
-	if destructionTextEdit:
-		destructionTextEdit.set_text(contentData.get("destruction_group", ""))
-	if disassemblyTextEdit:
-		disassemblyTextEdit.set_text(contentData.get("disassembly_group", ""))
+		
+	if "destruction" in contentData:
+		canDestroyCheckbox.button_pressed = true
+		var destruction_data = contentData["destruction"]
+		destructionTextEdit.set_text(destruction_data.get("group", ""))
+		if destruction_data.has("sprite"):
+			destructionImageDisplay.texture = Gamedata.data.furniture.sprites[destruction_data["sprite"]]
+			destructionSpriteNameLabel.text = destruction_data["sprite"]
+		else:
+			destructionImageDisplay.texture = null
+			destructionSpriteNameLabel.text = ""
+	else:
+		canDestroyCheckbox.button_pressed = false
+
+	if "disassembly" in contentData:
+		canDisassembleCheckbox.button_pressed = true
+		var disassembly_data = contentData["disassembly"]
+		disassemblyTextEdit.set_text(disassembly_data.get("group", ""))
+		if disassembly_data.has("sprite"):
+			disassemblyImageDisplay.texture = Gamedata.data.furniture.sprites[disassembly_data["sprite"]]
+			disassemblySpriteNameLabel.text = disassembly_data["sprite"]
+		else:
+			disassemblyImageDisplay.texture = null
+			disassemblySpriteNameLabel.text = ""
+	else:
+		canDisassembleCheckbox.button_pressed = false
 
 	# Load container data if it exists within the 'Function' property
 	var function_data = contentData.get("Function", {})
@@ -123,45 +157,14 @@ func _on_save_button_button_up():
 	contentData["categories"] = CategoriesList.get_items()
 	contentData["moveable"] = moveableCheckboxButton.button_pressed
 	contentData["edgesnapping"] = edgeSnappingOptionButton.get_item_text(edgeSnappingOptionButton.selected)
-	# Save the destruction group only if there is a value
-	if destructionTextEdit.get_text().strip_edges() != "":
-		contentData["destruction_group"] = destructionTextEdit.get_text()
-	else:
-		# Remove the key if no value is present to avoid storing empty or outdated data
-		contentData.erase("destruction_group")
 
-	# Save the disassembly group only if there is a value
-	if disassemblyTextEdit.get_text().strip_edges() != "":
-		contentData["disassembly_group"] = disassemblyTextEdit.get_text()
-	else:
-		# Remove the key if no value is present to avoid storing empty or outdated data
-		contentData.erase("disassembly_group")
-	
 	handle_door_option()
-	
-	# Check if the container should be saved
-	if containerCheckBox.is_pressed():
-		# Initialize 'Function' dictionary if it doesn't exist
-		if "Function" not in contentData:
-			contentData["Function"] = {}
-			
-		# the container will remain empty if no itemgroup is set, 
-		# which will just act as an empty container
-		if containerTextEdit.get_text() != "":
-			# Update or set the container property within the 'Function' dictionary
-			contentData["Function"]["container"] = {"itemgroup": containerTextEdit.get_text()}
-		else: # No itemgroup provided, it's an emtpy container
-			contentData["Function"]["container"] = {}
-	elif "Function" in contentData and "container" in contentData["Function"]:
-		# If the checkbox is not checked or text edit is empty, remove the container data
-		contentData["Function"].erase("container")
-		# If the 'Function' dictionary becomes empty, remove it as well
-		if contentData["Function"].is_empty():
-			contentData.erase("Function")
+	handle_container_option()
+	handle_destruction_option()
+	handle_disassembly_option()
 
 	data_changed.emit(Gamedata.data.furniture, contentData, olddata)
 	olddata = contentData.duplicate(true)
-
 
 # If the door function is set, we save the value to contentData
 # Else, if the door state is set to none, we erase the value from contentdata
@@ -172,6 +175,45 @@ func handle_door_option():
 	elif door_state in ["Open", "Closed"]:
 		contentData["Function"] = {"door": door_state}
 
+
+func handle_container_option():
+	if containerCheckBox.is_pressed():
+		if "Function" not in contentData:
+			contentData["Function"] = {}
+		if containerTextEdit.get_text() != "":
+			contentData["Function"]["container"] = {"itemgroup": containerTextEdit.get_text()}
+		else:
+			contentData["Function"]["container"] = {}
+	elif "Function" in contentData and "container" in contentData["Function"]:
+		contentData["Function"].erase("container")
+		if contentData["Function"].is_empty():
+			contentData.erase("Function")
+
+func handle_destruction_option():
+	if canDestroyCheckbox.is_pressed():
+		if "destruction" not in contentData:
+			contentData["destruction"] = {}
+		if destructionTextEdit.get_text() != "":
+			contentData["destruction"]["group"] = destructionTextEdit.get_text()
+		if destructionSpriteNameLabel.text != "":
+			contentData["destruction"]["sprite"] = destructionSpriteNameLabel.text
+		else:
+			contentData["destruction"].erase("sprite")
+	elif "destruction" in contentData:
+		contentData.erase("destruction")
+
+func handle_disassembly_option():
+	if canDisassembleCheckbox.is_pressed():
+		if "disassembly" not in contentData:
+			contentData["disassembly"] = {}
+		if disassemblyTextEdit.get_text() != "":
+			contentData["disassembly"]["group"] = disassemblyTextEdit.get_text()
+		if disassemblySpriteNameLabel.text != "":
+			contentData["disassembly"]["sprite"] = disassemblySpriteNameLabel.text
+		else:
+			contentData["disassembly"].erase("sprite")
+	elif "disassembly" in contentData:
+		contentData.erase("disassembly")
 
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):
@@ -185,19 +227,6 @@ func _input(event):
 						myControl.get_node(myControl.focus_next).grab_focus()
 				break
 		get_viewport().set_input_as_handled()
-
-
-#When the furnitureImageDisplay is clicked, the user will be prompted to select an image from 
-# "res://Mods/Core/Furnitures/". The texture of the furnitureImageDisplay will change to the selected image
-func _on_furniture_image_display_gui_input(event):
-	if event is InputEventMouseButton and event.pressed:
-		furnitureSelector.show()
-
-
-func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
-	var furnitureTexture: Resource = clicked_sprite.get_texture()
-	furnitureImageDisplay.texture = furnitureTexture
-	imageNameStringLabel.text = furnitureTexture.resource_path.get_file()
 
 
 func _on_container_check_box_toggled(toggled_on):
@@ -219,6 +248,10 @@ func itemgroup_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) ->
 		# If it's the container group, we always set the container checkbox to true
 		if texteditcontrol == containerTextEdit:
 			containerCheckBox.button_pressed = true
+		if texteditcontrol == destructionTextEdit:
+			canDestroyCheckbox.button_pressed = true
+		if texteditcontrol == disassemblyTextEdit:
+			canDisassembleCheckbox.button_pressed = true
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
@@ -244,3 +277,53 @@ func set_drop_functions():
 	disassemblyTextEdit.can_drop_function = can_itemgroup_drop
 	destructionTextEdit.drop_function = itemgroup_drop.bind(destructionTextEdit)
 	destructionTextEdit.can_drop_function = can_itemgroup_drop
+
+
+# When the furnitureImageDisplay is clicked, the user will be prompted to select an image from
+# "res://Mods/Core/Furnitures/". The texture of the furnitureImageDisplay will change to the selected image
+func _on_furniture_image_display_gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		current_image_display = "furniture"
+		furnitureSelector.show()
+
+func _on_disassemble_image_display_gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		current_image_display = "disassemble"
+		furnitureSelector.show()
+
+func _on_destruction_image_display_gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		current_image_display = "destruction"
+		furnitureSelector.show()
+
+func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
+	var furnitureTexture: Resource = clicked_sprite.get_texture()
+	if current_image_display == "furniture":
+		furnitureImageDisplay.texture = furnitureTexture
+		imageNameStringLabel.text = furnitureTexture.resource_path.get_file()
+	elif current_image_display == "disassemble":
+		disassemblyImageDisplay.texture = furnitureTexture
+		disassemblySpriteNameLabel.text = furnitureTexture.resource_path.get_file()
+	elif current_image_display == "destruction":
+		destructionImageDisplay.texture = furnitureTexture
+		destructionSpriteNameLabel.text = furnitureTexture.resource_path.get_file()
+
+
+# Utility function to set the visibility of all children of the given container except the first one
+func set_visibility_for_children(container: Control, visible: bool):
+	for i in range(1, container.get_child_count()):
+		container.get_child(i).visible = visible
+
+func _on_can_destroy_check_box_toggled(toggled_on):
+	if not toggled_on:
+		destructionTextEdit.mytextedit.clear()
+		destructionSpriteNameLabel.text = ""
+		destructionImageDisplay.texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
+	set_visibility_for_children(destructionTextEdit, toggled_on)
+
+func _on_can_disassemble_check_box_toggled(toggled_on):
+	if not toggled_on:
+		disassemblyTextEdit.mytextedit.clear()
+		disassemblySpriteNameLabel.text = ""
+		disassemblyImageDisplay.texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
+	set_visibility_for_children(disassemblyHboxContainer, toggled_on)

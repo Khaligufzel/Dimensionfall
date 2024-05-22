@@ -34,8 +34,14 @@
 			"Indoor"
 		],
 		"description": "One of the central pieces of fruniture that make up a kitchen",
-		"destruction_group": "destroyed_furniture_medium",
-		"disassembly_group": "disassembled_furniture_medium",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"disassembly": {
+			"group": "disassembled_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
 		"edgesnapping": "North",
 		"id": "countertop_wood",
 		"moveable": false,

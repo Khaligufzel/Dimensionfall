@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_o3k3a"]
 [ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="4_fbact"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "edgeSnappingOptionButton", "doorOptionButton", "containerCheckBox", "containerTextEdit", "destructionTextEdit", "disassemblyTextEdit")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "edgeSnappingOptionButton", "doorOptionButton", "containerCheckBox", "containerTextEdit", "destroyHboxContainer", "canDestroyCheckbox", "destructionTextEdit", "destructionImageDisplay", "destructionSpriteNameLabel", "disassemblyHboxContainer", "canDisassembleCheckbox", "disassemblyTextEdit", "disassemblyImageDisplay", "disassemblySpriteNameLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,8 +26,16 @@ edgeSnappingOptionButton = NodePath("VBoxContainer/FormGrid/SnappingOptionButton
 doorOptionButton = NodePath("VBoxContainer/FormGrid/FunctionControlContainer/DoorOptionButton")
 containerCheckBox = NodePath("VBoxContainer/FormGrid/FunctionControlContainer/ContainerCheckBox")
 containerTextEdit = NodePath("VBoxContainer/FormGrid/FunctionControlContainer/ContainerTextEdit")
-destructionTextEdit = NodePath("VBoxContainer/FormGrid/DestructionTextEdit")
-disassemblyTextEdit = NodePath("VBoxContainer/FormGrid/DisassemblyTextEdit")
+destroyHboxContainer = NodePath("VBoxContainer/FormGrid/DestructionHBoxContainer")
+canDestroyCheckbox = NodePath("VBoxContainer/FormGrid/DestructionHBoxContainer/CanDestroyCheckBox")
+destructionTextEdit = NodePath("VBoxContainer/FormGrid/DestructionHBoxContainer/DestructionTextEdit")
+destructionImageDisplay = NodePath("VBoxContainer/FormGrid/DestructionHBoxContainer/DestructionImageDisplay")
+destructionSpriteNameLabel = NodePath("VBoxContainer/FormGrid/DestructionHBoxContainer/DestructionSpriteNameLabel")
+disassemblyHboxContainer = NodePath("VBoxContainer/FormGrid/DisassembleHboxContainer")
+canDisassembleCheckbox = NodePath("VBoxContainer/FormGrid/DisassembleHboxContainer/CanDisassembleCheckBox")
+disassemblyTextEdit = NodePath("VBoxContainer/FormGrid/DisassembleHboxContainer/DisassemblyTextEdit")
+disassemblyImageDisplay = NodePath("VBoxContainer/FormGrid/DisassembleHboxContainer/DisassembleImageDisplay")
+disassemblySpriteNameLabel = NodePath("VBoxContainer/FormGrid/DisassembleHboxContainer/DisassembleSpriteNameLabel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -102,9 +110,9 @@ layout_mode = 2
 text = "Description"
 
 [node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
 focus_next = NodePath("../Editable_Item_List")
 focus_previous = NodePath("../NameTextEdit")
@@ -134,29 +142,91 @@ text = "Moveable"
 
 [node name="DisassembleLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-text = "Disassembly loot group"
+text = "Disassembly:"
 
-[node name="DisassemblyTextEdit" parent="VBoxContainer/FormGrid" instance=ExtResource("4_fbact")]
+[node name="DisassembleHboxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-size_flags_horizontal = 1
+
+[node name="CanDisassembleCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid/DisassembleHboxContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the player will be able to disassemble the furniture. If this is unchecked, the player is not able to disassemble this furniture"
+text = "Can disassemble"
+
+[node name="DisassembleLootGroupLabel" type="Label" parent="VBoxContainer/FormGrid/DisassembleHboxContainer"]
+layout_mode = 2
+text = "Loot group:"
+
+[node name="DisassemblyTextEdit" parent="VBoxContainer/FormGrid/DisassembleHboxContainer" instance=ExtResource("4_fbact")]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
 size_flags_vertical = 1
 tooltip_text = "Drag an itemgroup from the left menu onto this field. When this furniture
 is disassembled, items from that itemgroup will spawn. If no itemgroup
 is selected, no items will spawn after disassembly"
 myplaceholdertext = "Drag an itemgroup from the left to here"
 
+[node name="DisassembleSpriteLabel" type="Label" parent="VBoxContainer/FormGrid/DisassembleHboxContainer"]
+layout_mode = 2
+text = "Disassembled sprite:"
+
+[node name="DisassembleImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid/DisassembleHboxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_stretch_ratio = 0.4
+tooltip_text = "Select the sprite that will represent the disassembled furniture"
+focus_next = NodePath("../../NameTextEdit")
+focus_previous = NodePath("../../Editable_Item_List")
+focus_mode = 2
+texture = ExtResource("1_gm4uu")
+expand_mode = 3
+
+[node name="DisassembleSpriteNameLabel" type="Label" parent="VBoxContainer/FormGrid/DisassembleHboxContainer"]
+layout_mode = 2
+
 [node name="DestructionLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-text = "Destruction loot group"
+text = "Destruction:"
 
-[node name="DestructionTextEdit" parent="VBoxContainer/FormGrid" instance=ExtResource("4_fbact")]
+[node name="DestructionHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-size_flags_horizontal = 1
+
+[node name="CanDestroyCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid/DestructionHBoxContainer"]
+layout_mode = 2
+tooltip_text = "If this is checked, the player will be able to disassemble the furniture. If this is unchecked, the player is not able to disassemble this furniture"
+button_pressed = true
+text = "Can destroy"
+
+[node name="DestructionLootGroupLabel" type="Label" parent="VBoxContainer/FormGrid/DestructionHBoxContainer"]
+layout_mode = 2
+text = "Loot group:"
+
+[node name="DestructionTextEdit" parent="VBoxContainer/FormGrid/DestructionHBoxContainer" instance=ExtResource("4_fbact")]
+layout_mode = 2
 size_flags_vertical = 1
 tooltip_text = "Drag an itemgroup from the left menu onto this field. When this furniture
 is destroyed, items from that itemgroup will spawn. If no itemgroup
 is selected, no items will spawn after destruction"
 myplaceholdertext = "Drag an itemgroup from the left to here"
+
+[node name="DestructionSpriteLabel" type="Label" parent="VBoxContainer/FormGrid/DestructionHBoxContainer"]
+layout_mode = 2
+text = "Destroyed sprite:"
+
+[node name="DestructionImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid/DestructionHBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_stretch_ratio = 0.4
+tooltip_text = "Select the sprite that will represent the disassembled furniture"
+focus_next = NodePath("../../NameTextEdit")
+focus_previous = NodePath("../../Editable_Item_List")
+focus_mode = 2
+texture = ExtResource("1_gm4uu")
+expand_mode = 3
+
+[node name="DestructionSpriteNameLabel" type="Label" parent="VBoxContainer/FormGrid/DestructionHBoxContainer"]
+layout_mode = 2
 
 [node name="SnappingLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -235,5 +305,9 @@ visible = false
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="gui_input" from="VBoxContainer/FormGrid/FurnitureImageDisplay" to="." method="_on_furniture_image_display_gui_input"]
+[connection signal="toggled" from="VBoxContainer/FormGrid/DisassembleHboxContainer/CanDisassembleCheckBox" to="." method="_on_can_disassemble_check_box_toggled"]
+[connection signal="gui_input" from="VBoxContainer/FormGrid/DisassembleHboxContainer/DisassembleImageDisplay" to="." method="_on_disassemble_image_display_gui_input"]
+[connection signal="toggled" from="VBoxContainer/FormGrid/DestructionHBoxContainer/CanDestroyCheckBox" to="." method="_on_can_destroy_check_box_toggled"]
+[connection signal="gui_input" from="VBoxContainer/FormGrid/DestructionHBoxContainer/DestructionImageDisplay" to="." method="_on_destruction_image_display_gui_input"]
 [connection signal="toggled" from="VBoxContainer/FormGrid/FunctionControlContainer/ContainerCheckBox" to="." method="_on_container_check_box_toggled"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]
