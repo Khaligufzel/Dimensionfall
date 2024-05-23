@@ -6,7 +6,8 @@
 		],
 		"description": "A round wooden table. This weathered relic from a bygone era stands as a testament to a simpler time, a stark contrast to the harsh reality surrounding it.\nThe table's surface bears the scars a history as a dining spot.",
 		"destruction": {
-
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "None",
 		"id": "table_round_wood",
@@ -21,7 +22,8 @@
 		],
 		"description": "A simple wooden chair, its construction is basic yet sturdy, a testament to durability in the face of decay. \nWith a rough-hewn seat and a backrest that bears the marks of time, this chair offers a momentary respite from the unforgiving environment.",
 		"destruction": {
-
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "None",
 		"id": "chair_wood",
@@ -61,7 +63,8 @@
 		],
 		"description": "A common tree",
 		"destruction": {
-
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "None",
 		"id": "Tree_00",
@@ -82,7 +85,8 @@
 		],
 		"description": "A common pine tree",
 		"destruction": {
-
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "None",
 		"id": "PineTree_00",
@@ -103,7 +107,8 @@
 		],
 		"description": "A common willow tree",
 		"destruction": {
-
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "None",
 		"id": "WillowTree_00",
@@ -125,6 +130,7 @@
 		],
 		"description": "A simple wooden bench that can seat multiple people, offering a resting spot or a place for interaction.",
 		"destruction": {
+			"group": "destroyed_furniture_medium",
 			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "North",
@@ -156,7 +162,8 @@
 		],
 		"description": "A basic wooden bed with a mattress, which could be used to rest",
 		"destruction": {
-
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "North",
 		"id": "bed_wood_single_00",
@@ -176,6 +183,7 @@
 		],
 		"description": "A storage unit with doors, useful for storing items or resources that you might collect.",
 		"destruction": {
+			"group": "destroyed_furniture_medium",
 			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "North",
@@ -191,6 +199,7 @@
 		],
 		"description": "A tall wooden bookcase with multiple shelves",
 		"destruction": {
+			"group": "destroyed_furniture_medium",
 			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "North",
@@ -240,7 +249,8 @@
 		],
 		"description": "It keeps people from passing trough this area. It can be opened and closed",
 		"destruction": {
-
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "North",
 		"id": "door_wood",

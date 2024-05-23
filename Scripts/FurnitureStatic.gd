@@ -53,15 +53,6 @@ func toggle_door():
 	furnitureJSON["Function"] = {"door": door_state}
 	update_door_visuals()
 
-func get_hit(damage):
-	if can_be_destroyed():
-		current_health -= damage
-		if current_health <= 0:
-			_die()
-		else:
-			if not is_animating_hit:
-				animate_hit()
-
 # Will update the sprite of this furniture and set a collisionshape based on it's size
 func set_sprite(newSprite: Texture):
 	if not sprite:
@@ -292,6 +283,14 @@ func _on_tween_finished():
 	is_animating_hit = false
 
 
+func get_hit(damage):
+	if can_be_destroyed():
+		current_health -= damage
+		if current_health <= 0:
+			_die()
+		else:
+			if not is_animating_hit:
+				animate_hit()
 
 func _die():
 	add_corpse.call_deferred(global_position)

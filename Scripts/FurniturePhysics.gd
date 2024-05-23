@@ -7,6 +7,7 @@ extends RigidBody3D
 var furnitureposition: Vector3 = Vector3()
 var furniturerotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture
+var furnitureJSONData: Dictionary # The json that defines this furniture's basics in general
 var sprite: Sprite3D = null
 var last_rotation: int
 var current_chunk: Chunk
@@ -33,25 +34,6 @@ func _physics_process(_delta):
 		last_rotation = current_rotation
 
 
-func get_hit(damage):
-	current_health -= damage
-	if current_health <= 0:
-		_die()
-	else:
-		if not is_animating_hit:
-			animate_hit()
-
-
-func _die():
-	add_corpse.call_deferred(global_position)
-	queue_free()
-
-
-func add_corpse(pos: Vector3):
-	var newItem: ContainerItem = ContainerItem.new()
-	newItem.add_to_group("mapitems")
-	newItem.construct_self(pos)
-	get_tree().get_root().add_child.call_deferred(newItem)
 
 
 func set_new_rotation(amount: int):
@@ -101,6 +83,7 @@ func get_my_rotation() -> int:
 # This function is called by a Chunk to construct it's blocks
 func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	furnitureJSON = newFurnitureJSON
+	furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
 	# Position furniture at the center of the block by default
 	furnitureposition = furniturepos
 	# Only previously saved furniture will have the global_position_x key. They do not need to be raised
@@ -170,3 +153,69 @@ func animate_hit():
 # The furniture is done blinking so we reset the relevant variables
 func _on_tween_finished():
 	is_animating_hit = false
+
+
+
+func get_hit(damage):
+	if can_be_destroyed():
+		current_health -= damage
+		if current_health <= 0:
+			_die()
+		else:
+			if not is_animating_hit:
+				animate_hit()
+
+func _die():
+	add_corpse.call_deferred(global_position)
+	queue_free()
+	
+
+# When the furniture is destroyed, it leaves a wreck behind
+func add_corpse(pos: Vector3):
+	if can_be_destroyed():
+		var newItem: ContainerItem = ContainerItem.new()
+		
+		var itemgroup = furnitureJSONData.get("destruction", {}).get("group", "")
+		if itemgroup:
+			newItem.itemgroup = itemgroup
+		
+		newItem.add_to_group("mapitems")
+		newItem.construct_self(pos)
+		
+		var fursprite = furnitureJSONData.get("destruction", {}).get("sprite", null)
+		if fursprite:
+			newItem.set_texture(fursprite)
+		
+		# Finally add the new item with possibly set loot group to the tree
+		get_tree().get_root().add_child.call_deferred(newItem)
+
+
+func _disassemble():
+	add_wreck.call_deferred(global_position)
+	queue_free()
+	
+
+# When the furniture is destroyed, it leaves a wreck behind
+func add_wreck(pos: Vector3):
+	if can_be_disassembled():
+		var newItem: ContainerItem = ContainerItem.new()
+		
+		var itemgroup = furnitureJSONData.get("disassembly", {}).get("group", "")
+		if itemgroup:
+			newItem.itemgroup = itemgroup
+		
+		newItem.add_to_group("mapitems")
+		newItem.construct_self(pos)
+		
+		var fursprite = furnitureJSONData.get("disassembly", {}).get("sprite", null)
+		if fursprite:
+			newItem.set_texture(fursprite)
+		
+		# Finally add the new item with possibly set loot group to the tree
+		get_tree().get_root().add_child.call_deferred(newItem)
+
+func can_be_destroyed() -> bool:
+	return "destruction" in furnitureJSONData
+
+func can_be_disassembled() -> bool:
+	return "disassembly" in furnitureJSONData

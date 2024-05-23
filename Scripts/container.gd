@@ -21,6 +21,8 @@ func _ready():
 # Will add item to the inventory based on the assigned itemgroup
 # Only new furniture will have an itemgroup assigned, not previously saved furniture.
 func create_loot():
+	# A flag to track whether items were added
+	var item_added: bool = false
 	# Check if the inventory is not already populated
 	if inventory.get_items().is_empty():
 		# Attempt to retrieve the itemgroup data from Gamedata
@@ -43,6 +45,7 @@ func create_loot():
 				if item_data and not item_data.is_empty():
 					# Check probability to decide if item should be added
 					if randi_range(0, 100) <= item_probability:
+						item_added = true # An item is about to be added
 						# Determine quantity to add based on min and max
 						var quantity = randi_range(item_min, item_max)
 						for i in range(quantity):
@@ -53,6 +56,10 @@ func create_loot():
 		else:
 			# Fallback if no valid itemgroup data found or the itemgroup is empty
 			print_debug("Invalid or empty itemgroup data for itemgroup ID: " + str(itemgroup))
+
+	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
+	if item_added and sprite_3d.texture == load("res://Textures/container_32.png"):
+		sprite_3d.texture = load("res://Textures/container_filled_32.png")
 
 
 func create_inventory():
@@ -92,7 +99,7 @@ func create_sprite():
 	sprite_3d.alpha_antialiasing_edge = 0
 	sprite_3d.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	sprite_3d.render_priority = 0
-	sprite_3d.texture = load("res://Textures/enemy.png")
+	sprite_3d.texture = load("res://Textures/container_32.png")
 
 	# Add to the scene tree
 	add_child.call_deferred(sprite_3d)
@@ -103,7 +110,7 @@ func set_texture(mytex: String):
 	if newsprite:
 		sprite_3d.texture = newsprite
 	else:
-		sprite_3d.texture = load("res://Textures/enemy.png")
+		sprite_3d.texture = load("res://Textures/container_32.png")
 
 
 # This area will be used to check if the player can reach into the inventory with ItemDetector
