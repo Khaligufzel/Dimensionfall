@@ -1,7 +1,6 @@
 extends Sprite3D
 
-
-# This script is intended to be used on a node functioning as a held item, which chould be a weapon
+# This script is intended to be used on a node functioning as a held item, which could be a weapon
 # This script will keep track of what is equipped and if it is a weapon
 # If has functions to deal with melee weapons and ranged weapons
 # For ranged weapons it has functions and properties to keep track of ammunition and reloading
@@ -19,12 +18,16 @@ extends Sprite3D
 
 # Will keep a weapon from firing when it's cooldown period has not passed yet
 @export var attack_cooldown_timer: Timer
+@export var melee_attack_area: Area3D
+@export var melee_collision_shape: CollisionShape3D
 
 # Reference to the player node
 @export var player: NodePath
+# The visual representation of the player that will actually rotate over the y axis
+@export var playerSprite: Sprite3D 
 # Reference to the hud node
 @export var hud: NodePath
-# True of this is the left hand. False if this is the right hand
+# True if this is the left hand. False if this is the right hand
 @export var equipped_left: bool
 
 # Reference to the audio nodes
@@ -32,11 +35,10 @@ extends Sprite3D
 @export var shoot_audio_randomizer : AudioStreamRandomizer
 @export var reload_audio_player : AudioStreamPlayer3D
 
-
 # Define properties for the item. It can be a weapon (melee or ranged) or some other item
 var heldItem: InventoryItem
 
-# The equipmentslot that holds this item
+# The equipment slot that holds this item
 var equipmentSlot: Control
 
 # Booleans to enforce the reload and cooldown timers
@@ -62,20 +64,21 @@ var recoil_decrement: float = 0.0
 var is_left_button_held: bool = false
 var is_right_button_held: bool = false
 
+var entities_in_melee_range = [] # Used to keep track of entities in melee range
 
-signal ammo_changed(current_ammo: int, max_ammo: int, lefthand:bool)
+signal ammo_changed(current_ammo: int, max_ammo: int, lefthand: bool)
 signal fired_weapon(equippedWeapon)
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	clear_held_item()
+	melee_attack_area.body_entered.connect(_on_entered_melee_range)
+	melee_attack_area.body_exited.connect(_on_exited_melee_range)
 	
 	# We connect to the inventory visibility change to interrupt shooting
 	Helper.signal_broker.inventory_window_visibility_changed.connect(_on_inventory_visibility_change)
 	Helper.signal_broker.item_was_equipped.connect(_on_hud_item_was_equipped)
 	Helper.signal_broker.item_slot_cleared.connect(_on_hud_item_equipment_slot_was_cleared)
-
 
 func _input(event):
 	if not heldItem:
@@ -87,7 +90,6 @@ func _input(event):
 			is_left_button_held = event.pressed
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			is_right_button_held = event.pressed
-
 
 func get_cursor_world_position() -> Vector3:
 	var camera = get_tree().get_first_node_in_group("Camera")
@@ -109,113 +111,25 @@ func get_cursor_world_position() -> Vector3:
 	else:
 		return to
 
-
 # Helper function to check if the weapon can fire
 func can_fire_weapon() -> bool:
 	if heldItem.get_property("Melee") != null:  # Assuming melee weapons have a 'Melee' property
 		return General.is_mouse_outside_HUD and not General.is_action_in_progress and heldItem and not in_cooldown
-	return General.is_mouse_outside_HUD and not General.is_action_in_progress and General.is_allowed_to_shoot and heldItem and not in_cooldown and (get_current_ammo() > 0 or !requires_ammo())
-
+	return General.is_mouse_outside_HUD and not General.is_action_in_progress and General.is_allowed_to_shoot and heldItem and not in_cooldown and (get_current_ammo() > 0 or not requires_ammo())
 
 # Function to check if the weapon requires ammo (for ranged weapons)
 func requires_ammo() -> bool:
 	return not heldItem.get_property("Ranged") == null
-	
-	
+
 # Function to handle firing logic for a weapon.
 func fire_weapon():
-	if !can_fire_weapon():
+	if not can_fire_weapon():
 		return  # Return if no weapon is equipped or no ammo.
-
 
 	if heldItem.get_property("Melee") != null:
 		perform_melee_attack()
 	else:
 		perform_ranged_attack()
-
-
-
-# The user performs a melee attack
-func perform_melee_attack():
-	# Retrieve the Melee property object
-	var melee_properties = heldItem.get_property("Melee")
-	if melee_properties == null:
-		print("Error: Melee properties not found.")
-		return
-	
-	# Retrieve the damage property from the Melee properties
-	var melee_damage = melee_properties.get("damage", 0)  # Default to 0 if not set
-
-	# Check for enemies in range
-	var melee_range = 2.0  # Melee range
-	var enemies = get_tree().get_nodes_in_group("mobs")  # enemies are in a group called 'mobs'
-	for enemy in enemies:
-		if global_transform.origin.distance_to(enemy.global_transform.origin) <= melee_range:
-			# Apply damage to the enemy
-			enemy.get_hit(melee_damage)
-
-	# Animate the attack
-	animate_attack()
-
-	in_cooldown = true
-	attack_cooldown_timer.start()  # Start the cooldown timer
-	
-	
-func animate_attack():
-	var tween = get_tree().create_tween().set_loops(1)  # Create tween and set loops
-	var original_position = position  # Use local position
-	var target_position = position  # Initialize target position
-
-	# Set the default positions for right and left hands
-	var default_right_hand_position = Vector3(-0.191, -0.123, 0)
-	var default_left_hand_position = Vector3(-0.195, 0.117, 0)
-
-	# Adjust position and calculate target based on equipped hand
-	if equipped_left:
-		position = default_left_hand_position
-		target_position.x -= 0.2  # Move forward by 0.5 units
-		tween.tween_property(self, "rotation_degrees:z", rotation_degrees.z + 15, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	else:
-		position = default_right_hand_position
-		target_position.x -= 0.2  # Move forward by 0.5 units
-		tween.tween_property(self, "rotation_degrees:z", rotation_degrees.z - 15, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-
-	# Animate the position
-	tween.tween_property(self, "position", target_position, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-
-	# Add a callback to reset position and rotation
-	tween.tween_callback(reset_attack_position.bind(original_position, rotation_degrees))
-
-func reset_attack_position(original_position, original_rotation_degrees):
-	position = original_position
-	rotation_degrees = original_rotation_degrees
-
-
-
-
-
-# The user performs a melee attack
-func perform_melee_attack1():
-	# Retrieve the Melee property object
-	var melee_properties = heldItem.get_property("Melee")
-	if melee_properties == null:
-		print("Error: Melee properties not found.")
-		return
-	
-	# Retrieve the damage property from the Melee properties
-	var melee_damage = melee_properties.get("damage", 0)  # Default to 0 if not set
-
-	# Check for enemies in range
-	var melee_range = 2.0  # Melee range
-	var enemies = get_tree().get_nodes_in_group("mobs")  # enemies are in a group called 'mobs'
-	for enemy in enemies:
-		if global_transform.origin.distance_to(enemy.global_transform.origin) <= melee_range:
-			# Apply damage to the enemy
-			enemy.get_hit(melee_damage)
-
-	in_cooldown = true
-	attack_cooldown_timer.start()  # Start the cooldown timer
-
 
 # The user performs a ranged attack
 func perform_ranged_attack():
@@ -226,7 +140,7 @@ func perform_ranged_attack():
 	shoot_audio_player.play()
 	
 	var bullet_instance = bullet_scene.instantiate()
-	# Decrease the y posistion to ensure proper collision with mobs and furniture
+	# Decrease the y position to ensure proper collision with mobs and furniture
 	var spawn_position = global_transform.origin + Vector3(0.0, -0.1, 0.0)
 	var cursor_position = get_cursor_world_position()
 	var direction = (cursor_position - spawn_position).normalized()
@@ -240,7 +154,6 @@ func perform_ranged_attack():
 	in_cooldown = true
 	attack_cooldown_timer.start()
 
-
 func _subtract_ammo(amount: int):
 	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
 	if magazine:
@@ -251,7 +164,6 @@ func _subtract_ammo(amount: int):
 		magazineProperties["current_ammo"] = ammunition
 		magazine.set_property("Magazine", magazineProperties)
 		ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
-
 
 func get_current_ammo() -> int:
 	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
@@ -264,7 +176,6 @@ func get_current_ammo() -> int:
 	else: 
 		return 0
 
-
 func get_max_ammo() -> int:
 	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
 	if magazine:
@@ -273,13 +184,10 @@ func get_max_ammo() -> int:
 	else: 
 		return 0
 
-
 # Function to apply recoil effect to the bullet direction
 func apply_recoil(direction: Vector3, recoil_value: float) -> Vector3:
 	var random_offset = Vector3(randf() - 0.5, 0, randf() - 0.5) * recoil_value / 100
 	return (direction + random_offset).normalized()
-
-
 
 # When the user wants to reload the item
 func reload_weapon():
@@ -292,7 +200,6 @@ func reload_weapon():
 		elif get_current_ammo() < get_max_ammo():
 			ItemManager.start_reload(heldItem, reload_speed)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Check if the left-hand weapon is reloading.
@@ -304,7 +211,7 @@ func _process(delta):
 		fire_weapon()
 
 	# The right mouse button is held, a weapon is in the right hand, and is ready to fire
-	if is_right_button_held and !equipped_left and can_fire_weapon():
+	if is_right_button_held and not equipped_left and can_fire_weapon():
 		fire_weapon()
 		
 	# Decrease recoil when the mouse button is not pressed
@@ -312,11 +219,9 @@ func _process(delta):
 		if not is_left_button_held and not is_right_button_held:
 			recoil_modifier = max(recoil_modifier - recoil_decrement * delta, 0.0)
 
-
 # When a magazine is removed
 func on_magazine_removed():
 	ammo_changed.emit(-1, -1, equipped_left)
-
 
 # When a magazine is inserted
 func on_magazine_inserted():
@@ -331,68 +236,28 @@ func on_magazine_inserted():
 		heldItem.set_property("is_reloading", false)
 		ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
 
-
-# The player has equipped an item in one of the equipmentslots
-# equippedItem is an InventoryItem
-# slotName is a string, for example "LeftHand" or "RightHand"
-func equip_item(equippedItem: InventoryItem, slot: Control):
-	heldItem = equippedItem
-	equipmentSlot = slot
-	equipmentSlot.equippedItem = self
-
-	# Check if the equipped item is a ranged weapon
-	var ranged_properties = heldItem.get_property("Ranged")
-	if ranged_properties != null:
-		# Set properties specific to ranged weapons
-		var firing_speed = ranged_properties.get("firing_speed", default_firing_speed)
-		attack_cooldown_timer.wait_time = float(firing_speed)
-		reload_speed = float(ranged_properties.get("reload_speed", default_reload_speed))
-		visible = true
-		ammo_changed.emit(0, 0, equipped_left)  # Signal to update ammo display for ranged weapons
-		heldItem.properties_changed.connect(_on_helditem_properties_changed)
-
-	# Check if the equipped item is a melee weapon
-	var melee_properties = heldItem.get_property("Melee")
-	if melee_properties != null:
-		# Set properties specific to melee weapons
-		visible = true
-		# Since melee weapons don't use ammo, we might set a default signal or state
-		ammo_changed.emit(-1, -1, equipped_left)  # Indicate no ammo needed
-		# Connect any specific signals if necessary
-		# No need to set reload_speed or firing speed as melee weapons don't need reloading
-
-	# Ensure the item is visible and properly set up
-	if ranged_properties == null and melee_properties == null:
-		# If the item is neither melee nor ranged, make it invisible or handle as a generic item
-		visible = false
-		clear_held_item()  # Clears any existing setup if the item is not a weapon
-
-
 # Function to clear weapon properties for a specified hand
 func clear_held_item():
 	if heldItem and heldItem.properties_changed.is_connected(_on_helditem_properties_changed):
 		heldItem.properties_changed.disconnect(_on_helditem_properties_changed)
 		heldItem.set_property("is_reloading", false)
+	disable_melee_collision_shape()
 	visible = false
 	heldItem = null
 	in_cooldown = false
 	ammo_changed.emit(-1, -1, equipped_left)  # Emit signal to indicate no weapon is equipped
 
-
 func _on_left_attack_cooldown_timeout():
 	in_cooldown = false
 
-
 func _on_right_attack_cooldown_timeout():
 	in_cooldown = false
-
 
 func _on_hud_item_equipment_slot_was_cleared(_equippedItem, slot):
 	if slot.is_left_slot and equipped_left:
 		clear_held_item()
 	elif not slot.is_left_slot and not equipped_left:
 		clear_held_item()
-
 
 # The slot has equipped something and we store it in the correct EquippedItem
 func _on_hud_item_was_equipped(equippedItem, slot):
@@ -401,14 +266,11 @@ func _on_hud_item_was_equipped(equippedItem, slot):
 	elif not slot.is_left_slot and not equipped_left:
 		equip_item(equippedItem, slot)
 
-
 # When the inventory is opened or closed, stop firing
 # Optionally we can check inventoryWindow.visible to add more control
 func _on_inventory_visibility_change(_inventoryWindow):
 	is_left_button_held = false
 	is_right_button_held = false
-
-
 
 # Function to check if the weapon can be reloaded
 func can_weapon_reload() -> bool:
@@ -422,7 +284,6 @@ func can_weapon_reload() -> bool:
 				return true
 	return false
 
-
 # When the properties of the held item change
 func _on_helditem_properties_changed():
 	if heldItem and heldItem.get_property("Ranged"):
@@ -431,7 +292,6 @@ func _on_helditem_properties_changed():
 		else:
 			on_magazine_inserted()
 
-
 func is_weapon_reloading() -> bool:
 	if heldItem and heldItem.get_property("Ranged"):
 		if heldItem.get_property("is_reloading") == null:
@@ -439,4 +299,137 @@ func is_weapon_reloading() -> bool:
 		else:
 			return bool(heldItem.get_property("is_reloading"))
 	return false
+
+# Something has entered melee range
+func _on_entered_melee_range(body):
+	if body.is_in_group("mobs") or body.is_in_group("furniture"):  # Check if the body is a mob or furniture
+		entities_in_melee_range.append(body)
+
+# Something left melee range
+func _on_exited_melee_range(body):
+	if body in entities_in_melee_range:
+		entities_in_melee_range.erase(body)
+
+# Animates a melee attack by moving the weapon sprite forward and then back
+func animate_attack():
+	var tween = get_tree().create_tween().set_loops(1)  # Create tween and set loops
+	var original_position = position  # Use local position
+	var target_position = position  # Initialize target position
+
+	# Set the default positions for right and left hands
+	var default_right_hand_position = Vector3(-0.191, -0.123, 0)
+	var default_left_hand_position = Vector3(-0.195, 0.117, 0)
+
+	# Adjust position and calculate target based on equipped hand
+	if equipped_left:
+		position = default_left_hand_position
+		target_position.x -= 0.2  # Move forward by 0.2 units
+		tween.tween_property(self, "rotation_degrees:z", rotation_degrees.z + 15, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	else:
+		position = default_right_hand_position
+		target_position.x -= 0.2  # Move forward by 0.2 units
+		tween.tween_property(self, "rotation_degrees:z", rotation_degrees.z - 15, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+
+	# Animate the position
+	tween.tween_property(self, "position", target_position, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+
+	# Add a callback to reset position and rotation
+	tween.tween_callback(reset_attack_position.bind(original_position, rotation_degrees))
+
+# Return the weapon sprite to its original position after animating
+func reset_attack_position(original_position, original_rotation_degrees):
+	position = original_position
+	rotation_degrees = original_rotation_degrees
+
+# Function to perform a melee attack
+func perform_melee_attack():
+	var melee_properties = heldItem.get_property("Melee")
+	if melee_properties == null:
+		print("Error: Melee properties not found.")
+		return
 	
+	var melee_damage = melee_properties.get("damage", 0)
+
+	# Each mob in range will get hit with the weapon
+	# TODO: Hit only one entity each swing unless the weapon has some kind of flag
+	# TODO: Check if the entity is behind an obstacle
+	for entity in entities_in_melee_range:
+		entity.get_hit(melee_damage)
+
+	animate_attack()
+	in_cooldown = true
+	attack_cooldown_timer.start()
+
+
+# The player has equipped an item in one of the equipment slots
+# equippedItem is an InventoryItem
+# slot is a Control node that represents the equipment slot
+func equip_item(equippedItem: InventoryItem, slot: Control):
+	heldItem = equippedItem
+	equipmentSlot = slot
+	equipmentSlot.equippedItem = self
+
+	# Clear any existing configurations
+	clear_melee_collision_shape()
+
+	# Check if the equipped item is a ranged weapon
+	if equippedItem.get_property("Ranged") != null:
+		# Set properties specific to ranged weapons
+		setup_ranged_weapon_properties(equippedItem)
+
+	elif equippedItem.get_property("Melee") != null:
+		# Set properties specific to melee weapons
+		setup_melee_weapon_properties(equippedItem)
+
+	else:
+		# If the item is neither melee nor ranged, handle as a generic item
+		visible = false
+		clear_held_item()  # Clears any existing setup if the item is not a weapon
+
+# Setup the properties for ranged weapons
+func setup_ranged_weapon_properties(equippedItem: InventoryItem):
+	var ranged_properties = equippedItem.get_property("Ranged")
+	var firing_speed = ranged_properties.get("firing_speed", default_firing_speed)
+	attack_cooldown_timer.wait_time = float(firing_speed)
+	reload_speed = float(ranged_properties.get("reload_speed", default_reload_speed))
+	visible = true
+	ammo_changed.emit(0, 0, equipped_left)  # Signal to update ammo display for ranged weapons
+	heldItem.properties_changed.connect(_on_helditem_properties_changed)
+
+# Setup the properties for melee weapons
+func setup_melee_weapon_properties(equippedItem: InventoryItem):
+	var melee_properties = equippedItem.get_property("Melee")
+	visible = true
+	ammo_changed.emit(-1, -1, equipped_left)  # Indicate no ammo needed for melee weapons
+
+	var reach = melee_properties.get("reach", 0)  # Default reach to 0 if not specified
+	if reach > 0:
+		configure_melee_collision_shape(reach)
+	else:
+		disable_melee_collision_shape()
+
+# Configure the melee collision shape based on the weapon's reach
+# This creates two triangles on top of each other in front of the player and pointing to the player
+# When an entity enters the boundary of the stacked triangles, it is considered within reach
+# Increasing the reach will extend the shape
+func configure_melee_collision_shape(reach: float):
+	var shape = ConvexPolygonShape3D.new()
+	var points = [
+		Vector3(0, 0, 0.325),        # First point
+		Vector3(0, 0, -0.325),       # Second point
+		Vector3(-reach, -1, 0.325),  # Third point
+		Vector3(-reach, 1, 0.325),   # Fourth point
+		Vector3(-reach, -1, -0.325), # Fifth point
+		Vector3(-reach, 1, -0.325)   # Sixth point
+	]
+	shape.points = points
+	melee_collision_shape.shape = shape
+
+# Disable the melee collision detection by setting an invalid shape or disabling it
+func disable_melee_collision_shape():
+	melee_collision_shape.disabled = true  # Disable the collision shape
+
+# Clear any configurations on the melee collision shape
+func clear_melee_collision_shape():
+	melee_collision_shape.disabled = false  # Ensure it's not disabled when changing weapons
+	melee_collision_shape.shape = null  # Clear the previous shape to reset its configuration

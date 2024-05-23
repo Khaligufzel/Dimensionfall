@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://cllbo1owveorj"]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -281,7 +281,8 @@ json_data = "[
 	},
 	{
 		\"Melee\": {
-			\"damage\": 25
+			\"damage\": 25,
+			\"reach\": 1
 		},
 		\"description\": \"A sharp blade with a handle for excellent control\",
 		\"id\": \"machete\",

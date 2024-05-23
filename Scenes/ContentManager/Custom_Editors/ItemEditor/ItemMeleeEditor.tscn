@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/ItemMeleeEditor.gd" id="1_pg18d"]
 
-[node name="ItemMeleeEditor" type="Control" node_paths=PackedStringArray("DamageSpinBox")]
+[node name="ItemMeleeEditor" type="Control" node_paths=PackedStringArray("DamageSpinBox", "ReachSpinBox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pg18d")
 DamageSpinBox = NodePath("Melee/DamageSpinbox")
+ReachSpinBox = NodePath("Melee/ReachSpinbox")
 
 [node name="Melee" type="GridContainer" parent="."]
 layout_mode = 0
@@ -23,3 +24,14 @@ text = "Damage"
 
 [node name="DamageSpinbox" type="SpinBox" parent="Melee"]
 layout_mode = 2
+tooltip_text = "The damage that the target will receive when it get's hit by this weapon"
+
+[node name="ReachLabel" type="Label" parent="Melee"]
+layout_mode = 2
+text = "Reach"
+
+[node name="ReachSpinbox" type="SpinBox" parent="Melee"]
+layout_mode = 2
+tooltip_text = "The melee range of the weapon in meters. A larger number means the wielder can attack over a larger distance."
+step = 0.1
+value = 1.0
