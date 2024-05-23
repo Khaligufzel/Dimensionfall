@@ -148,7 +148,7 @@ func select_option_by_string(option_button: OptionButton, option_string: String)
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
 func _on_close_button_button_up():
-	queue_free()
+	queue_free.call_deferred()
 
 
 # This function takes all data from the form elements stores them in the contentData

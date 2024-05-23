@@ -167,7 +167,7 @@ func get_hit(damage):
 
 func _die():
 	add_corpse.call_deferred(global_position)
-	queue_free()
+	queue_free.call_deferred()
 	
 
 # When the furniture is destroyed, it leaves a wreck behind

@@ -60,15 +60,21 @@ func create_loot():
 	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
 	if item_added and sprite_3d.texture == load("res://Textures/container_32.png"):
 		sprite_3d.texture = load("res://Textures/container_filled_32.png")
+	elif not item_added:
+		 # If no item was added we delete the container if it's not a child of some furniture
+		_on_item_removed(null)
 
 
+# Creates a new InventoryStacked to hold items in it
 func create_inventory():
 	inventory = InventoryStacked.new()
 	inventory.capacity = 1000
 	inventory.item_protoset = load("res://ItemProtosets.tres")
 	add_child.call_deferred(inventory)
+	inventory.item_removed.connect(_on_item_removed)
 
 
+# Basic setup for this container. Should be called before adding it to the scene tree
 func construct_self(containerPos: Vector3):
 	containerpos = containerPos
 	add_to_group("Containers")
@@ -77,6 +83,8 @@ func construct_self(containerPos: Vector3):
 	create_area3d()
 
 
+# Creates the sprite with some default properties
+# These properties were copied from when the sprite was an actual node in the editor
 func create_sprite():
 	sprite_3d = Sprite3D.new()
 
@@ -105,6 +113,7 @@ func create_sprite():
 	add_child.call_deferred(sprite_3d)
 
 
+# Updates the texture of this container. If no texture is provided, we use the default
 func set_texture(mytex: String):
 	var newsprite: Texture = Gamedata.data.furniture.sprites[mytex]
 	if newsprite:
@@ -127,10 +136,12 @@ func create_area3d():
 	area3d.add_child.call_deferred(collisionshape3d)
 
 
+# Returns an array of InventoryItems that are in the InventoryStacked
 func get_items():
 	return inventory.get_children()
 
 
+# Returns a list of prototype id's from the inventory items
 func get_item_ids() -> Array[String]:
 	var returnarray: Array[String] = []
 	for item: InventoryItem in inventory.get_items():
@@ -139,9 +150,23 @@ func get_item_ids() -> Array[String]:
 	return returnarray
 
 
+# Returns the sprite that represents this containeritem
 func get_sprite():
 	return sprite_3d.texture
 
 
+# Returns the inventorystacked that this container holds
 func get_inventory() -> InventoryStacked:
 	return inventory
+
+
+# Signal handler for item removed
+# We don't want empty containers on the map, but we do want them as children of furniture
+# So we delete empty containers if they are a child of the tree root.
+func _on_item_removed(_item: InventoryItem):
+	# Check if there are any items left in the inventory
+	if inventory.get_items().size() == 0:
+		# Check if this ContainerItem is a direct child of the tree root
+		if is_inside_tree() and get_parent() == get_tree().get_root():
+			Helper.signal_broker.container_exited_proximity.emit(self)
+			queue_free.call_deferred()
