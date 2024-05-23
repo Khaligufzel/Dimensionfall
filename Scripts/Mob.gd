@@ -156,10 +156,18 @@ func construct_self(mobpos: Vector3, newMobJSON: Dictionary):
 	# Set the properties of the mob node itself
 	wall_min_slide_angle = 0
 	floor_constant_speed = true
-	# Set to layer 2
-	collision_layer = 1 << 1
-	# Set mask for layers 1 and 2
-	collision_mask = (1 << 0) | (1 << 1)
+	
+	# Set to layer 2 (enemy layer)
+	collision_layer = 1 << 1  # Layer 2 is 1 << 1 (bit shift by 1)
+
+	# Set mask for layers 1 (player layer), 2 (enemy layer), 3 (static obstacles layer), and 5 (friendly projectiles layer)
+	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 4)
+	# Explanation:
+	# - 1 << 0: Layer 1 (player layer)
+	# - 1 << 1: Layer 2 (enemy layer)
+	# - 1 << 2: Layer 3 (static obstacles layer)
+	# - 1 << 4: Layer 5 (friendly projectiles layer)
+	
 	add_to_group("mobs")
 	if newMobJSON.has("rotation"):
 		mobRotation = newMobJSON.rotation
