@@ -77,6 +77,11 @@ func set_sprite(newSprite: Texture):
 	collider.shape = new_shape
 	add_child.call_deferred(collider)
 
+
+func get_sprite() -> Texture:
+	return sprite.texture
+
+
 func update_door_visuals():
 	if not is_door: return
 	
@@ -315,6 +320,13 @@ func add_corpse(pos: Vector3):
 		
 		# Finally add the new item with possibly set loot group to the tree
 		get_tree().get_root().add_child.call_deferred(newItem)
+		
+		# Check if container has items and insert them into the new item
+		if container:
+			var items = container.get_items()
+			for item in items:
+				if newItem.insert_item(item):
+					print("Item inserted successfully")
 
 
 func _disassemble():

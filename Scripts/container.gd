@@ -23,39 +23,37 @@ func _ready():
 func create_loot():
 	# A flag to track whether items were added
 	var item_added: bool = false
-	# Check if the inventory is not already populated
-	if inventory.get_items().is_empty():
-		# Attempt to retrieve the itemgroup data from Gamedata
-		var itemgroup_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, itemgroup)
-		
-		# Check if the itemgroup data exists and has items
-		if itemgroup_data and "items" in itemgroup_data:
-			# Loop over each item object in the itemgroup's 'items' property
-			for item_object in itemgroup_data["items"]:
-				# Each item_object is expected to be a dictionary with id, probability, min, max
-				var item_id = item_object["id"]
-				var item_min = item_object["min"]
-				var item_max = item_object["max"]
-				var item_probability = item_object["probability"]  # This could be used for determining spawn chance
+	# Attempt to retrieve the itemgroup data from Gamedata
+	var itemgroup_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, itemgroup)
+	
+	# Check if the itemgroup data exists and has items
+	if itemgroup_data and "items" in itemgroup_data:
+		# Loop over each item object in the itemgroup's 'items' property
+		for item_object in itemgroup_data["items"]:
+			# Each item_object is expected to be a dictionary with id, probability, min, max
+			var item_id = item_object["id"]
+			var item_min = item_object["min"]
+			var item_max = item_object["max"]
+			var item_probability = item_object["probability"]  # This could be used for determining spawn chance
 
-				# Fetch the individual item data for verification
-				var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
-				
-				# Check if the item data is valid before adding
-				if item_data and not item_data.is_empty():
-					# Check probability to decide if item should be added
-					if randi_range(0, 100) <= item_probability:
-						item_added = true # An item is about to be added
-						# Determine quantity to add based on min and max
-						var quantity = randi_range(item_min, item_max)
-						for i in range(quantity):
-							# Create and add the item to the inventory
-							inventory.create_and_add_item.call_deferred(item_id)
-				else:
-					print_debug("No valid data found for item ID: " + str(item_id))
-		else:
-			# Fallback if no valid itemgroup data found or the itemgroup is empty
-			print_debug("Invalid or empty itemgroup data for itemgroup ID: " + str(itemgroup))
+			# Fetch the individual item data for verification
+			var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
+			
+			# Check if the item data is valid before adding
+			if item_data and not item_data.is_empty():
+				# Check probability to decide if item should be added
+				if randi_range(0, 100) <= item_probability:
+					item_added = true # An item is about to be added
+					# Determine quantity to add based on min and max
+					var quantity = randi_range(item_min, item_max)
+					for i in range(quantity):
+						# Create and add the item to the inventory
+						inventory.create_and_add_item.call_deferred(item_id)
+			else:
+				print_debug("No valid data found for item ID: " + str(item_id))
+	else:
+		# Fallback if no valid itemgroup data found or the itemgroup is empty
+		print_debug("Invalid or empty itemgroup data for itemgroup ID: " + str(itemgroup))
 
 	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
 	if item_added and sprite_3d.texture == load("res://Textures/container_32.png"):
@@ -152,7 +150,12 @@ func get_item_ids() -> Array[String]:
 
 # Returns the sprite that represents this containeritem
 func get_sprite():
-	return sprite_3d.texture
+	# If this is an orphan we return the sprite of the container
+	if is_inside_tree() and get_parent() == get_tree().get_root():
+		return sprite_3d.texture
+	else:
+		# The parent is probably a furniture so return that
+		return get_parent().get_sprite()
 
 
 # Returns the inventorystacked that this container holds
@@ -170,3 +173,11 @@ func _on_item_removed(_item: InventoryItem):
 		if is_inside_tree() and get_parent() == get_tree().get_root():
 			Helper.signal_broker.container_exited_proximity.emit(self)
 			queue_free.call_deferred()
+
+func add_item(item_id: String):
+	inventory.create_and_add_item.call_deferred(item_id)
+
+func insert_item(item: InventoryItem) -> bool:
+	if not item.get_inventory().transfer_autosplitmerge(item, inventory):
+		print_debug("Failed to transfer item: " + str(item))
+	return true
