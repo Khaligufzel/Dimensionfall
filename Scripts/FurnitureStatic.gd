@@ -53,18 +53,6 @@ func toggle_door():
 	furnitureJSON["Function"] = {"door": door_state}
 	update_door_visuals()
 
-func get_hit(damage):
-	current_health -= damage
-	if current_health <= 0:
-		_die()
-	else:
-		if not is_animating_hit:
-			animate_hit()
-
-func _die():
-	add_corpse.call_deferred(global_position)
-	queue_free()
-
 # Will update the sprite of this furniture and set a collisionshape based on it's size
 func set_sprite(newSprite: Texture):
 	if not sprite:
@@ -88,6 +76,11 @@ func set_sprite(newSprite: Texture):
 	collider = CollisionShape3D.new()
 	collider.shape = new_shape
 	add_child.call_deferred(collider)
+
+
+func get_sprite() -> Texture:
+	return sprite.texture
+
 
 func update_door_visuals():
 	if not is_door: return
@@ -238,17 +231,6 @@ func get_data() -> Dictionary:
 
 	return newfurniturejson
 
-# When the furniture is destroyed, it leaves a wreck behind
-func add_corpse(pos: Vector3):
-	var newItem: ContainerItem = ContainerItem.new()
-	
-	# TODO: Implement furniture wreck loot group and wreck property for furniture
-	newItem.itemgroup = "mob_loot"
-	
-	newItem.add_to_group("mapitems")
-	newItem.construct_self(pos)
-	# Finally add the new item with possibly set loot group to the tree
-	get_tree().get_root().add_child.call_deferred(newItem)
 
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container(pos: Vector3):
@@ -304,3 +286,75 @@ func animate_hit():
 # The furniture is done blinking so we reset the relevant variables
 func _on_tween_finished():
 	is_animating_hit = false
+
+
+func get_hit(damage):
+	if can_be_destroyed():
+		current_health -= damage
+		if current_health <= 0:
+			_die()
+		else:
+			if not is_animating_hit:
+				animate_hit()
+
+func _die():
+	add_corpse.call_deferred(global_position)
+	queue_free()
+	
+
+# When the furniture is destroyed, it leaves a wreck behind
+func add_corpse(pos: Vector3):
+	if can_be_destroyed():
+		var newItem: ContainerItem = ContainerItem.new()
+		
+		var itemgroup = furnitureJSONData.get("destruction", {}).get("group", "")
+		if itemgroup:
+			newItem.itemgroup = itemgroup
+		
+		newItem.add_to_group("mapitems")
+		newItem.construct_self(pos)
+		
+		var fursprite = furnitureJSONData.get("destruction", {}).get("sprite", null)
+		if fursprite:
+			newItem.set_texture(fursprite)
+		
+		# Finally add the new item with possibly set loot group to the tree
+		get_tree().get_root().add_child.call_deferred(newItem)
+		
+		# Check if container has items and insert them into the new item
+		if container:
+			var items = container.get_items()
+			for item in items:
+				if newItem.insert_item(item):
+					print("Item inserted successfully")
+
+
+func _disassemble():
+	add_wreck.call_deferred(global_position)
+	queue_free()
+	
+
+# When the furniture is destroyed, it leaves a wreck behind
+func add_wreck(pos: Vector3):
+	if can_be_disassembled():
+		var newItem: ContainerItem = ContainerItem.new()
+		
+		var itemgroup = furnitureJSONData.get("disassembly", {}).get("group", "")
+		if itemgroup:
+			newItem.itemgroup = itemgroup
+		
+		newItem.add_to_group("mapitems")
+		newItem.construct_self(pos)
+		
+		var fursprite = furnitureJSONData.get("disassembly", {}).get("sprite", null)
+		if fursprite:
+			newItem.set_texture(fursprite)
+		
+		# Finally add the new item with possibly set loot group to the tree
+		get_tree().get_root().add_child.call_deferred(newItem)
+
+func can_be_destroyed() -> bool:
+	return "destruction" in furnitureJSONData
+
+func can_be_disassembled() -> bool:
+	return "disassembly" in furnitureJSONData

@@ -19,6 +19,6 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_qnss5")
-expand_mode = 3
+expand_mode = 2
 
 [connection signal="gui_input" from="ContainerSprite" to="." method="_on_texture_rect_gui_input"]

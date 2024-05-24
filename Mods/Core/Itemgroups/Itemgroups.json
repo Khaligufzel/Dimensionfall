@@ -215,7 +215,17 @@
 		"references": {
 			"core": {
 				"furniture": [
-					"countertop_wood"
+					"countertop_wood",
+					"table_round_wood",
+					"chair_wood",
+					"Tree_00",
+					"PineTree_00",
+					"WillowTree_00",
+					"bench_wood",
+					"bed_wood_single_00",
+					"cabinet_wood_00",
+					"bookcase_wood_00",
+					"door_wood"
 				]
 			}
 		},

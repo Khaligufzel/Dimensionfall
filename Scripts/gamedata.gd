@@ -490,15 +490,16 @@ func on_mob_changed(newdata: Dictionary, olddata: Dictionary):
 
 
 # Handles changes to furniture and updates relevant references if necessary.
+# Handles changes to furniture and updates relevant references if necessary.
 func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
 	var old_container_group = olddata.get("Function", {}).get("container", {}).get("itemgroup", "")
 	var new_container_group = newdata.get("Function", {}).get("container", {}).get("itemgroup", "")
 	
-	var old_destruction_group = olddata.get("destruction_group", "")
-	var new_destruction_group = newdata.get("destruction_group", "")
+	var old_destruction_group = olddata.get("destruction", {}).get("group", "")
+	var new_destruction_group = newdata.get("destruction", {}).get("group", "")
 	
-	var old_disassembly_group = olddata.get("disassembly_group", "")
-	var new_disassembly_group = newdata.get("disassembly_group", "")
+	var old_disassembly_group = olddata.get("disassembly", {}).get("group", "")
+	var new_disassembly_group = newdata.get("disassembly", {}).get("group", "")
 
 	var furniture_id: String = newdata.get("id", "")
 	var changes_made = false
@@ -541,36 +542,32 @@ func update_group_reference(old_group: String, new_group: String, entity_id: Str
 func on_furniture_deleted(furniture_id: String):
 	var changes_made = false
 	var furniture_data = get_data_by_id(Gamedata.data.furniture, furniture_id)
-	
+
 	if furniture_data.is_empty():
 		print_debug("Item with ID", furniture_data, "not found.")
 		return
 
-	var itemgroup: String = get_property_by_path(Gamedata.data.furniture, \
-	"Function.container.itemgroup", furniture_id)
-	# Handle the old itemgroup
-	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
-	itemgroup, furniture_id) or changes_made
-	
-	var destruction_group: String = furniture_data.get("destruction_group")
-	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
-	destruction_group, furniture_id) or changes_made
-	
-	var disassembly_group: String = furniture_data.get("disassembly_group")
-	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", \
-	disassembly_group, furniture_id) or changes_made
-	
-	# Check if the furniture has references to maps and remove it from those maps
-	var maps = Helper.json_helper.get_nested_data(furniture_data,"references.core.maps")
+	var itemgroup: String = get_property_by_path(Gamedata.data.furniture, "Function.container.itemgroup", furniture_id)
+	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", itemgroup, furniture_id) or changes_made
+
+	var destruction_group: String = ""
+	if furniture_data.has("destruction") and furniture_data["destruction"].has("group"):
+		destruction_group = furniture_data["destruction"]["group"]
+	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", destruction_group, furniture_id) or changes_made
+
+	var disassembly_group: String = ""
+	if furniture_data.has("disassembly") and furniture_data["disassembly"].has("group"):
+		disassembly_group = furniture_data["disassembly"]["group"]
+	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "furniture", disassembly_group, furniture_id) or changes_made
+
+	var maps = Helper.json_helper.get_nested_data(furniture_data, "references.core.maps")
 	for map_id in maps:
 		remove_entity_from_map(map_id, "furniture", furniture_id)
 
-	# Save changes to the data file if any changes were made
 	if changes_made:
 		save_data_to_file(Gamedata.data.itemgroups)
 	else:
 		print_debug("No changes needed for item", furniture_id)
-
 
 # Some mob is being deleted from the data
 # We have to remove it from everything that references it
@@ -627,23 +624,23 @@ func on_itemgroup_deleted(itemgroup_id: String):
 		print_debug("Itemgroup with ID", itemgroup_id, "not found.")
 		return
 
-	# This callable will remove this itemgroups from every furniture that reference this itemgroup.
+	# This callable will remove this itemgroup from every furniture that references this itemgroup.
 	var myfunc: Callable = func (furn_id):
 		var furniture_data = Gamedata.get_data_by_id(Gamedata.data.furniture, furn_id)
 		var container_group = furniture_data.get("Function", {}).get("container", {}).get("itemgroup", "")
-		var disassembly_group = furniture_data.get("disassembly_group", "")
-		var destruction_group = furniture_data.get("destruction_group", "")
+		var disassembly_group = furniture_data.get("disassembly", {}).get("group", "")
+		var destruction_group = furniture_data.get("destruction", {}).get("group", "")
 
 		if container_group == itemgroup_id:
 			if erase_property_by_path(Gamedata.data.furniture, furn_id, "Function.container.itemgroup"):
 				changes_made = true
 
 		if disassembly_group == itemgroup_id:
-			if erase_property_by_path(Gamedata.data.furniture, furn_id, "disassembly_group"):
+			if erase_property_by_path(Gamedata.data.furniture, furn_id, "disassembly.group"):
 				changes_made = true
 
 		if destruction_group == itemgroup_id:
-			if erase_property_by_path(Gamedata.data.furniture, furn_id, "destruction_group"):
+			if erase_property_by_path(Gamedata.data.furniture, furn_id, "destruction.group"):
 				changes_made = true
 
 	# Pass the callable to every furniture in the itemgroup's references

@@ -12,7 +12,7 @@ func _ready():
 func _process(_delta):
 	for area in areas_in_proximity.keys():
 		if areas_in_proximity[area]:  # If previously in proximity
-			if not is_clear_path_to_area(area):
+			if not is_clear_path_to_area(area) and is_instance_valid(area):
 				# Obstacle appeared, emit exit proximity signal
 				Helper.signal_broker.container_exited_proximity.emit(area.get_owner())
 				areas_in_proximity[area] = false
@@ -45,6 +45,11 @@ func _on_area_exited(area):
 # Checks if there is a clear path between the playernode and the specified area.
 # Returns true if there is a clear path, false otherwise.
 func is_clear_path_to_area(area) -> bool:
+	if not is_instance_valid(area):
+		# If the area is no longer valid, return false
+		areas_in_proximity[area] = false
+		return false
+
 	var player_position = playernode.global_transform.origin
 	var area_position = area.global_transform.origin
 
