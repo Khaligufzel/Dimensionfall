@@ -173,16 +173,6 @@ func _get_row_name(item: Control) -> String:
 			return row
 	return ""
 
-
-# Helper function to create a header
-func _create_header1(text: String) -> void:
-	var header: Control = listHeaderContainer.instantiate()
-	header.set_label_text(text)
-	header.connect("header_clicked", _on_header_clicked)
-	inventoryGrid.add_child(header)
-	# Store the header control in the dictionary
-	header_controls[text] = header
-
 # Helper function to create a header
 func _create_header(text: String) -> void:
 	var header = listHeaderContainer.instantiate() as Control
@@ -196,7 +186,6 @@ func _create_header(text: String) -> void:
 	inventoryGrid.add_child(header)
 	# Store the header control in the dictionary
 	header_controls[text] = header
-
 
 
 # Simplified function for adding headers
@@ -688,14 +677,17 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 	# Check if the dropped data is valid and contains inventory items
 	if dropped_data is Array and dropped_data.size() > 0 and dropped_data[0] is InventoryItem:
 		var first_item = dropped_data[0]
-		
+
 		# Get the inventory of the first item
 		var item_inventory = first_item.get_inventory()
-		
+
 		# If the item's inventory is different from the current inventory, transfer the items
 		if item_inventory != myInventory:
+			# Get the items that fit inside the remaining volume
+			var items_to_transfer = get_items_that_fit_by_volume(dropped_data)
+
 			Helper.signal_broker.inventory_operation_started.emit()
-			for item in dropped_data:
+			for item in items_to_transfer:
 				# Transfer the item to the current inventory
 				item_inventory.transfer_automerge(item, myInventory)
 			Helper.signal_broker.inventory_operation_finished.emit()
@@ -760,3 +752,39 @@ func update_ui_post_operation():
 	# Refresh UI elements that depend on the inventory state
 	_populate_inventory_list()
 	_update_bars(null, "")
+
+
+# Returns a list of items that will fit when considering volume
+func get_items_that_fit_by_volume(items: Array) -> Array:
+	var fitting_items: Array = []
+	var remaining_volume = get_remaining_volume()
+
+	# Iterate over the items to check if they can fit
+	for item in items:
+		var item_volume = item.get_property("volume", 0)
+		if item_volume <= remaining_volume:
+			fitting_items.append(item)
+			remaining_volume -= item_volume
+
+	return fitting_items
+
+
+func get_used_volume() -> float:
+	var total_current_volume = 0.0
+	# Calculate the total current volume in the inventory
+	for item in myInventory.get_children():
+		total_current_volume += item.get_property("volume", 0)
+	return total_current_volume
+
+
+func get_remaining_volume() -> float:
+	return max_volume - get_used_volume()
+
+
+func get_items() -> Array:
+	return myInventory.get_children()
+
+
+# Transfers an item from this inventory to the destination inventory
+func transfer_autosplitmerge(item: InventoryItem, destination: InventoryStacked) -> bool:
+	return myInventory.transfer_autosplitmerge(item, destination)
