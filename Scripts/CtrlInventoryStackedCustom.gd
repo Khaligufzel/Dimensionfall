@@ -683,7 +683,7 @@ func _create_drag_preview(item: InventoryItem) -> Control:
 	return preview
 
 
-# Modified _handle_item_drop function
+# When the player drops items into this list
 func _handle_item_drop(dropped_data, _newpos) -> void:
 	# Check if the dropped data is valid and contains inventory items
 	if dropped_data is Array and dropped_data.size() > 0 and dropped_data[0] is InventoryItem:
@@ -694,9 +694,11 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 		
 		# If the item's inventory is different from the current inventory, transfer the items
 		if item_inventory != myInventory:
+			Helper.signal_broker.inventory_operation_started.emit()
 			for item in dropped_data:
 				# Transfer the item to the current inventory
 				item_inventory.transfer_automerge(item, myInventory)
+			Helper.signal_broker.inventory_operation_finished.emit()
 
 
 # When the user requests a reload trough the inventory context menu

@@ -170,13 +170,14 @@ func get_inventory() -> InventoryStacked:
 func _on_item_removed(_item: InventoryItem):
 	# Check if there are any items left in the inventory
 	if inventory.get_items().size() == 0:
-		# Check if this ContainerItem is a direct child of the tree root
-		if is_inside_tree() and get_parent() == get_tree().get_root():
-			Helper.signal_broker.container_exited_proximity.emit(self)
-			queue_free.call_deferred()
-		else:
-			# It's a child of some node, probably furniture
-			sprite_3d.texture = load("res://Textures/container_32.png")
+		if is_inside_tree():
+			# Check if this ContainerItem is a direct child of the tree root
+			if get_parent() == get_tree().get_root():
+				Helper.signal_broker.container_exited_proximity.emit(self)
+				queue_free.call_deferred()
+			else:
+				# It's a child of some node, probably furniture
+				sprite_3d.texture = load("res://Textures/container_32.png")
 
 
 func _on_item_added(_item: InventoryItem):
