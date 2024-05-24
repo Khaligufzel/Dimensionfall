@@ -217,11 +217,12 @@ bus = &"Sounds"
 stream = ExtResource("14_x756n")
 bus = &"Sounds"
 
-[node name="ItemDetector" type="Area3D" parent="TacticalMap/Entities/Player"]
+[node name="ItemDetector" type="Area3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("playernode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1205, 0)
 collision_layer = 64
 collision_mask = 64
 script = ExtResource("15_r1xed")
+playernode = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player/ItemDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.792087, 0)
