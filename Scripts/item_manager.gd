@@ -57,14 +57,14 @@ func update_accessible_items_list():
 
 	# Determine what's been added
 	for item in new_items:
-		var item_id = item.prototype_id  # Assuming a method to uniquely identify items
+		var item_id = item.prototype_id  # uniquely identify items
 		if old_count.get(item_id, 0) < new_count[item_id]:
 			items_added.append(item)
 			old_count[item_id] = old_count.get(item_id, 0) + 1
 
 	# Determine what's been removed
 	for item in old_items:
-		var item_id = item.prototype_id  # Assuming a method to uniquely identify items
+		var item_id = item.prototype_id  # uniquely identify items
 		if new_count.get(item_id, 0) < old_count[item_id]:
 			items_removed.append(item)
 			new_count[item_id] = new_count.get(item_id, 0) + 1
@@ -76,10 +76,11 @@ func update_accessible_items_list():
 		allAccessibleItems_changed.emit(items_added, items_removed)
 
 
+# Returns a dictionary with the amount of occurrences of the item id
 func count_items(items: Array) -> Dictionary:
 	var count = {}
 	for item in items:
-		var item_id = item.prototype_id  # Assuming a method to uniquely identify items
+		var item_id = item.prototype_id  # uniquely identify items
 		count[item_id] = count.get(item_id, 0) + 1
 	return count
 
@@ -410,3 +411,5 @@ func _on_inventory_item_removed(_item, _inventory):
 
 func _on_inventory_item_modified(_item, _inventory):
 	update_accessible_items_list()
+
+

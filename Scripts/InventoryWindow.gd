@@ -248,7 +248,6 @@ func _on_transfer_all_left_button_button_up():
 		print_debug("Attempt to transfer to default proximity inventory aborted.")
 		return  # Exit the function early if the condition is met
 
-	Helper.signal_broker.inventory_operation_started.emit()
 	var items_to_transfer = inventory.get_items()
 	var favorite_items = []
 	var non_favorite_items = []
@@ -262,37 +261,16 @@ func _on_transfer_all_left_button_button_up():
 
 	# Decide on the transfer strategy based on the content of the lists
 	if non_favorite_items.size() > 0:
-		_transfer_items(non_favorite_items)  # Transfer all non-favorite items
+		transfer_autosplitmerge_list(non_favorite_items, inventory_control, proximity_inventory_control)
 	elif favorite_items.size() > 0:
-		_transfer_items(favorite_items)  # Transfer favorite items if no non-favorites are present
-	Helper.signal_broker.inventory_operation_finished.emit()
+		transfer_autosplitmerge_list(favorite_items, inventory_control, proximity_inventory_control)
 
 
-func _transfer_items(items: Array) -> bool:
-	# Transfers items and returns true if all were successfully transferred, false otherwise
-	var all_transferred = true
-	while items.size() > 0:
-		var item = items.pop_front()  # Get and remove the first item from the list
-		if not inventory.transfer_autosplitmerge(item, proximity_inventory_control.get_inventory()):
-			print_debug("Failed to transfer item: " + str(item))
-			all_transferred = false
-			break  # Stop transferring if any transfer fails
-	return all_transferred
-
-
+# The player is going to move items from some container into his inventory
 func _on_transfer_all_right_button_button_up():
-	Helper.signal_broker.inventory_operation_started.emit()
 	# Attempt to transfer each item from the proximity inventory to the inventory until no items are left
-	var items_to_transfer = proximity_inventory_control.get_inventory().get_items()
-	while items_to_transfer.size() > 0:
-		var item = items_to_transfer.pop_front() # Get and remove the first item from the list
-		if proximity_inventory_control.get_inventory().transfer_autosplitmerge(item, inventory):
-			print_debug("Transferred item: " + str(item))
-		else:
-			print_debug("Failed to transfer item: " + str(item))
-			break # If a transfer fails, break out of the loop to prevent an infinite loop
-		items_to_transfer = proximity_inventory_control.get_inventory().get_items() # Refresh the list of items after the transfer attempt
-	Helper.signal_broker.inventory_operation_finished.emit()
+	var items_to_transfer = proximity_inventory_control.get_items()
+	transfer_autosplitmerge_list(items_to_transfer, proximity_inventory_control, inventory_control)
 
 
 # Items are transferred from the right list to the left list
@@ -301,20 +279,30 @@ func _on_transfer_left_button_button_up():
 	if proximity_inventory_control.get_inventory() == ItemManager.proximityInventory:
 		print_debug("Attempt to transfer to default proximity inventory aborted.")
 		return  # Exit the function early if the condition is met
-
-	var selected_inventory_items: Array[InventoryItem] = inventory_control.get_selected_inventory_items()
-	for item in selected_inventory_items:
-		if inventory.transfer_autosplitmerge(item, proximity_inventory_control.get_inventory()):
-			print_debug("Transferred item: " + str(item))
-		else:
-			print_debug("Failed to transfer item: " + str(item))
+	var selected_items: Array[InventoryItem] = inventory_control.get_selected_inventory_items()
+	transfer_autosplitmerge_list(selected_items, inventory_control, proximity_inventory_control)
 
 
 # Items are transferred from the left list to the right list
 func _on_transfer_right_button_button_up():
-	var selected_inventory_items: Array[InventoryItem] = proximity_inventory_control.get_selected_inventory_items()
-	for item in selected_inventory_items:
-		if proximity_inventory_control.get_inventory().transfer_autosplitmerge(item, inventory):
+	var items: Array[InventoryItem] = proximity_inventory_control.get_selected_inventory_items()
+	transfer_autosplitmerge_list(items, proximity_inventory_control, inventory_control)
+
+
+# Transfers a list of items from src to dest
+# items = an array of InventoryItems
+# src = a CtrlInventoryStackedCustom control from which to move the items
+# dest = a CtrlInventoryStackedCustom control to which to move the items
+func transfer_autosplitmerge_list(items: Array, src: Control, dest: Control) -> bool:
+	Helper.signal_broker.inventory_operation_started.emit()
+	var success: bool = true
+	# Get the items that fit inside the remaining volume
+	var items_to_transfer = dest.get_items_that_fit_by_volume(items)
+	for item in items_to_transfer:
+		if src.transfer_autosplitmerge(item, dest.get_inventory()):
 			print_debug("Transferred item: " + str(item))
 		else:
 			print_debug("Failed to transfer item: " + str(item))
+			success = false
+	Helper.signal_broker.inventory_operation_finished.emit()
+	return success

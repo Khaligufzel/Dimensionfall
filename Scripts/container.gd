@@ -70,6 +70,7 @@ func create_inventory():
 	inventory.item_protoset = load("res://ItemProtosets.tres")
 	add_child.call_deferred(inventory)
 	inventory.item_removed.connect(_on_item_removed)
+	inventory.item_added.connect(_on_item_added)
 
 
 # Basic setup for this container. Should be called before adding it to the scene tree
@@ -169,13 +170,25 @@ func get_inventory() -> InventoryStacked:
 func _on_item_removed(_item: InventoryItem):
 	# Check if there are any items left in the inventory
 	if inventory.get_items().size() == 0:
-		# Check if this ContainerItem is a direct child of the tree root
-		if is_inside_tree() and get_parent() == get_tree().get_root():
-			Helper.signal_broker.container_exited_proximity.emit(self)
-			queue_free.call_deferred()
+		if is_inside_tree():
+			# Check if this ContainerItem is a direct child of the tree root
+			if get_parent() == get_tree().get_root():
+				Helper.signal_broker.container_exited_proximity.emit(self)
+				queue_free.call_deferred()
+			else:
+				# It's a child of some node, probably furniture
+				sprite_3d.texture = load("res://Textures/container_32.png")
+
+
+func _on_item_added(_item: InventoryItem):
+	# Check if this ContainerItem is a direct child of the tree root
+	if is_inside_tree() and not get_parent() == get_tree().get_root():
+		sprite_3d.texture = load("res://Textures/container_filled_32.png")
+
 
 func add_item(item_id: String):
 	inventory.create_and_add_item.call_deferred(item_id)
+
 
 func insert_item(item: InventoryItem) -> bool:
 	if not item.get_inventory().transfer_autosplitmerge(item, inventory):

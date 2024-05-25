@@ -21,7 +21,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_1pahw")
-inventoryGrid = NodePath("VBoxContainer/InventoryGrid")
+inventoryGrid = NodePath("VBoxContainer/ScrollContainer/InventoryGrid")
 WeightBar = NodePath("VBoxContainer/HBoxContainer/WeightBar")
 VolumeBar = NodePath("VBoxContainer/HBoxContainer/VolumeBar")
 listItemContainer = ExtResource("2_woew4")
@@ -50,8 +50,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="InventoryGrid" type="GridContainer" parent="VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InventoryGrid" type="GridContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.95
 theme_override_constants/h_separation = 0
