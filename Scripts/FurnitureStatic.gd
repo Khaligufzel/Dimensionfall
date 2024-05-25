@@ -121,7 +121,7 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	furnitureposition = furniturepos
 	# Previously saved furniture do not need to be raised
 	if is_new_furniture():
-		furnitureposition.y += 0.5 # Move the furniture to slightly above the block 
+		furnitureposition.y += 0.025 # Move the furniture to slightly above the block 
 	add_to_group("furniture")
 
 	# Find out if we need to apply edge snapping
