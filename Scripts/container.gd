@@ -105,7 +105,7 @@ func create_sprite():
 	sprite_3d.alpha_antialiasing_mode = BaseMaterial3D.ALPHA_ANTIALIASING_OFF
 	sprite_3d.alpha_antialiasing_edge = 0
 	sprite_3d.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
-	sprite_3d.render_priority = 0
+	sprite_3d.render_priority = 10
 	sprite_3d.texture = load("res://Textures/container_32.png")
 
 	# Add to the scene tree
