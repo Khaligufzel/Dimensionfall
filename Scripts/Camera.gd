@@ -8,12 +8,12 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("zoom_in") and can_zoom:
-		if position.y >= 2:
-			position.y -= 1
-		
+		if(fov > 10):
+			fov -= 5
+			
 	if event.is_action_pressed("zoom_out") and can_zoom:
-		if position.y <= 20:
-			position.y += 1	
+		if(fov < 75):
+			fov += 5
 
 # When the inventory is opened, stop zooming
 func _on_inventory_visibility_change(inventoryWindow):
