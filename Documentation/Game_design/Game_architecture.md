@@ -20,9 +20,8 @@ When you press the 'play demo' button, the game switches to 'level_generation.ts
 # Autoloads
 The game has the following [autoloads](https://docs.godotengine.org/en/stable/tutorials/scripting/singletons_autoload.html). These will initialize when the game is started and  are accessible from every script and will persist even after switching a scene:
 | Autoload | Description |
-| --- | --- |
 | Nakama | Autoload for multiplayer functionality. Disabled for now |
-| Helper | General autoload with generic helper functions. Also contains these sub-helpers: json_helper, save_helper, signal_broker, task_manager, map_manager  |
+| Helper | General autoload with generic helper functions. Also contains these sub-helpers: json_helper, save_helper, signal_broker, task_manager, map_manager |
 | Gamedata | Loads data from the /mods folder and allows any script to access it |
 | Gloot | An addon that provides functionality for the inventory. We do not access this directly, only trough the classes provided by the addon. |
 | ItemManager | Manages creation, destruction and movement of items in the player's inventory and elsewhere |
@@ -39,12 +38,12 @@ Multiplayer addon for Godot. See documentation on [Github](https://github.com/he
 
 A general helper autoload that provides generic functions used in many other scripts. It also includes several sub-helpers:
 | Sub-Autoload | Description |
-| --- | --- |
 | json_helper | Can be accessed trough `Helper.json_helper`. Provides functions for manipulating json files and data |
 | save_helper | Can be accessed trough `Helper.save_helper`. Provides functions for saving and loading data. |
 | signal_broker | Can be accessed trough `Helper.signal_broker`. This is a central point trough which to send signals for other scripts to react to. The most important use case is allowing signals between game entities (blocks, enemies, containers) and the player's UI. |
 | task_manager | Can be accessed trough `Helper.task_manager`. Provides functions to offload tasks onto a separate thread. A simple example would be `my_data = await Helper.task_manager.create_task(process_my_file.bind(filecontents)).completed`. We only need to use this for functions that show spikes in the profiler and dropping the FPS. See Chunk.gd for the current application |
 | map_manager | Can be accessed trough `Helper.map_manager`. Provides functions for accessing and manipulating map data. For example, finding out what's around the player and constructing and destructing blocks and furniture. |
+
 
 ## Gamedata
 Central management of game data. Data is loaded from the `/mods` folder. This includes all entity data and sprites. All data can be accessed trough this autoload. Ties heavily into the Content Editor. When data is changed using the content editor, the Gamedata autoload will update related entities if needed and save the data.
