@@ -2,7 +2,7 @@
 This page includes information about the overall game architecture.
 
 There are several key parts that will be described on this page
-
+|   |
 
 # Main scene
 The main scene is scene_selector.tscn. From here, you can navigate to playing the game, modifying the content or opening the help menu.
@@ -18,16 +18,16 @@ When you press the 'play demo' button, the game switches to 'level_generation.ts
 
 
 # Autoloads
-The game has the following [autoloads](https://docs.godotengine.org/en/stable/tutorials/scripting/singletons_autoload.html). These will initialize when the game is started and  are accessible from every script and will persist even after switching a scene:
+The game has the following [autoloads](https://docs.godotengine.org/en/stable/tutorials/scripting/singletons_autoload.html). These will initialize when the game is started and are accessible from every script and will persist even after switching a scene:
+
 | Autoload | Description |
-| Nakama | Autoload for multiplayer functionality. Disabled for now |
+| ------------- | ------------- |
+| json_helper | Can be accessed trough `Helper.json_helper`. Provides functions for manipulating json files and data |
 | Helper | General autoload with generic helper functions. Also contains these sub-helpers: json_helper, save_helper, signal_broker, task_manager, map_manager |
 | Gamedata | Loads data from the /mods folder and allows any script to access it |
 | Gloot | An addon that provides functionality for the inventory. We do not access this directly, only trough the classes provided by the addon. |
-| ItemManager | Manages creation, destruction and movement of items in the player's inventory and elsewhere |
 | General | A general autoload script for functions that do not fit anywhere else |
 | CraftingRecipesmanager | Manages visibility and availability of crafting recipes and performs checks on requirements |
-
 
 ## Nakama
 
@@ -38,6 +38,7 @@ Multiplayer addon for Godot. See documentation on [Github](https://github.com/he
 
 A general helper autoload that provides generic functions used in many other scripts. It also includes several sub-helpers:
 | Sub-Autoload | Description |
+| ------------- | ------------- |
 | json_helper | Can be accessed trough `Helper.json_helper`. Provides functions for manipulating json files and data |
 | save_helper | Can be accessed trough `Helper.save_helper`. Provides functions for saving and loading data. |
 | signal_broker | Can be accessed trough `Helper.signal_broker`. This is a central point trough which to send signals for other scripts to react to. The most important use case is allowing signals between game entities (blocks, enemies, containers) and the player's UI. |
@@ -47,6 +48,7 @@ A general helper autoload that provides generic functions used in many other scr
 
 ## Gamedata
 Central management of game data. Data is loaded from the `/mods` folder. This includes all entity data and sprites. All data can be accessed trough this autoload. Ties heavily into the Content Editor. When data is changed using the content editor, the Gamedata autoload will update related entities if needed and save the data.
+
 
 ## Gloot
 An autoload that is provided by the [Gloot addon](https://github.com/peter-kish/gloot). We do not access this directly, just trough the addon's classes. It provides functionality for the inventory.
