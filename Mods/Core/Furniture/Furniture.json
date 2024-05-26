@@ -73,7 +73,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01"
 				]
 			}
 		},
@@ -95,7 +96,7 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_01"
 				]
 			}
 		},
@@ -117,7 +118,7 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_01"
 				]
 			}
 		},
