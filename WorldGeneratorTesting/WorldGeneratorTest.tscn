@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctoj10vx1twmh"]
+
+[ext_resource type="Script" path="res://WorldGeneratorTesting/WorldGeneratorTest.gd" id="1_m3noy"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xbs07"]
+size = Vector2(50, 50)
+
+[node name="WorldGeneratorTest" type="Node2D"]
+script = ExtResource("1_m3noy")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="WorldBuilder" type="Node2D" parent="."]
+
+[node name="GeneratedWorld" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="GeneratedWorld"]
+texture = SubResource("PlaceholderTexture2D_xbs07")
