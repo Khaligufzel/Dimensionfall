@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
 [ext_resource type="Script" path="res://Scripts/ConstructionGhost.gd" id="5_iwiv4"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
-[ext_resource type="Texture2D" path="res://Defaults/Player/VestDude01.png" id="7_jr4x1"]
+[ext_resource type="Texture2D" uid="uid://d33h00t0fl7x" path="res://Defaults/Player/VestDude01.png" id="7_jr4x1"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
 [ext_resource type="Texture2D" uid="uid://piolgplta87y" path="res://Defaults/Player/weapon_left.png" id="10_3jjqt"]
@@ -21,6 +21,7 @@
 
 [sub_resource type="Environment" id="Environment_aklx6"]
 background_mode = 1
+background_energy_multiplier = 0.19
 ambient_light_source = 1
 ambient_light_color = Color(0.87451, 0, 0.729412, 1)
 ambient_light_energy = 0.0
