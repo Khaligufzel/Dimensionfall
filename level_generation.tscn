@@ -134,11 +134,12 @@ omni_attenuation = 0.0371628
 
 [node name="SpotLight3D" type="SpotLight3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.89, 0)
-light_energy = 7.846
+light_energy = 8.236
 shadow_enabled = true
-spot_range = 5.779
+spot_range = 4.121
+spot_attenuation = 0.00328476
 spot_angle = 83.32
-spot_angle_attenuation = 3.60501
+spot_angle_attenuation = 2.07054
 
 [node name="Sprite3D2" type="Sprite3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
