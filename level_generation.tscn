@@ -21,9 +21,7 @@
 
 [sub_resource type="Environment" id="Environment_aklx6"]
 background_mode = 1
-background_energy_multiplier = 0.19
 ambient_light_source = 1
-ambient_light_color = Color(0.87451, 0, 0.729412, 1)
 ambient_light_energy = 0.0
 reflected_light_source = 1
 
@@ -71,7 +69,8 @@ environment = SubResource("Environment_aklx6")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="TacticalMap"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.69386, 13.6025)
-light_energy = 0.103
+visible = false
+light_energy = 0.028
 light_cull_mask = 4293918721
 directional_shadow_mode = 0
 sky_mode = 1
@@ -129,20 +128,17 @@ shape = SubResource("ConvexPolygonShape3D_drnhn")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17078, 0)
-light_energy = 0.587
 shadow_enabled = true
-omni_range = 15.355
-omni_attenuation = 0.000270892
+omni_range = 18.071
+omni_attenuation = 0.0371628
 
 [node name="SpotLight3D" type="SpotLight3D" parent="TacticalMap/Entities/Player"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.459921, 0)
-visible = false
-light_energy = 1.342
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.89, 0)
+light_energy = 7.846
 shadow_enabled = true
-spot_range = 8.104
-spot_attenuation = 0.00961836
+spot_range = 5.779
 spot_angle = 83.32
-spot_angle_attenuation = 0.183011
+spot_angle_attenuation = 3.60501
 
 [node name="Sprite3D2" type="Sprite3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
