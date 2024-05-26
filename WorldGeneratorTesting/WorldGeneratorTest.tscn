@@ -1,0 +1,83 @@
+[gd_scene load_steps=12 format=3 uid="uid://ctoj10vx1twmh"]
+
+[ext_resource type="Script" path="res://WorldGeneratorTesting/WorldGeneratorTest.gd" id="1_m3noy"]
+[ext_resource type="Script" path="res://WorldGeneratorTesting/SimpleCameraMove.gd" id="2_wy1xt"]
+
+[sub_resource type="Gradient" id="Gradient_b10ix"]
+colors = PackedColorArray(0, 0.744571, 3.85046e-07, 1, 0, 0.204668, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bajek"]
+gradient = SubResource("Gradient_b10ix")
+width = 16
+height = 16
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_6cuyy"]
+colors = PackedColorArray(0, 0, 0.745098, 1, 0, 0, 0.203922, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e010p"]
+gradient = SubResource("Gradient_6cuyy")
+width = 16
+height = 16
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_3871w"]
+colors = PackedColorArray(0.745098, 0, 0, 1, 0.203922, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o7jp0"]
+gradient = SubResource("Gradient_3871w")
+width = 16
+height = 16
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_dsfx5"]
+colors = PackedColorArray(0.745098, 0.745098, 0, 1, 0.203922, 0.203922, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wd2j4"]
+gradient = SubResource("Gradient_dsfx5")
+width = 16
+height = 16
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ttvt"]
+
+[node name="WorldGeneratorTest" type="Node2D" node_paths=PackedStringArray("player", "biome_chunk_parent", "elevation_chunk_parent")]
+script = ExtResource("1_m3noy")
+player = NodePath("CharacterBody2D")
+biome_chunk_parent = NodePath("GeneratedWorld/Biomes")
+elevation_chunk_parent = NodePath("GeneratedWorld/Elevation")
+biome_seed = "CataX"
+elevation_seed = "snipercup"
+temperate_sprite = SubResource("GradientTexture2D_bajek")
+cold_sprite = SubResource("GradientTexture2D_e010p")
+hot_sprite = SubResource("GradientTexture2D_o7jp0")
+flat_sprite = SubResource("GradientTexture2D_bajek")
+ocean_sprite = SubResource("GradientTexture2D_e010p")
+hills_sprite = SubResource("GradientTexture2D_wd2j4")
+mountains_sprite = SubResource("GradientTexture2D_o7jp0")
+
+[node name="WorldBuilder" type="Node2D" parent="."]
+
+[node name="GeneratedWorld" type="Node2D" parent="."]
+
+[node name="Biomes" type="Node2D" parent="GeneratedWorld"]
+
+[node name="Elevation" type="Node2D" parent="GeneratedWorld"]
+
+[node name="Regions" type="Node2D" parent="GeneratedWorld"]
+
+[node name="POIs" type="Node2D" parent="GeneratedWorld"]
+
+[node name="Connections" type="Node2D" parent="GeneratedWorld"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_wy1xt")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_0ttvt")
