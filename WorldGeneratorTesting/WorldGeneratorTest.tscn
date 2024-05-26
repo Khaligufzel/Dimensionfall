@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctoj10vx1twmh"]
+[gd_scene load_steps=12 format=3 uid="uid://ctoj10vx1twmh"]
 
 [ext_resource type="Script" path="res://WorldGeneratorTesting/WorldGeneratorTest.gd" id="1_m3noy"]
 [ext_resource type="Script" path="res://WorldGeneratorTesting/SimpleCameraMove.gd" id="2_wy1xt"]
@@ -33,14 +33,29 @@ height = 16
 fill = 2
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="Gradient" id="Gradient_dsfx5"]
+colors = PackedColorArray(0.745098, 0.745098, 0, 1, 0.203922, 0.203922, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wd2j4"]
+gradient = SubResource("Gradient_dsfx5")
+width = 16
+height = 16
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ttvt"]
 
 [node name="WorldGeneratorTest" type="Node2D"]
 script = ExtResource("1_m3noy")
-world_seed = "CataX"
+biome_seed = "CataX"
+elevation_seed = "snipercup"
 temperate_sprite = SubResource("GradientTexture2D_bajek")
 cold_sprite = SubResource("GradientTexture2D_e010p")
 hot_sprite = SubResource("GradientTexture2D_o7jp0")
+flat_sprite = SubResource("GradientTexture2D_bajek")
+ocean_sprite = SubResource("GradientTexture2D_e010p")
+hills_sprite = SubResource("GradientTexture2D_wd2j4")
+mountains_sprite = SubResource("GradientTexture2D_o7jp0")
 
 [node name="WorldBuilder" type="Node2D" parent="."]
 
