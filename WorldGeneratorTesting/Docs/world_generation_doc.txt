@@ -5,6 +5,9 @@ RANDOM SEED-BASED WORLD GENERATION
 
 Regions then individual chunks
 
+
+https://auburn.github.io/FastNoiseLite/ FastNoiseLite viewer, very useful.
+
 1. Biomes (should be very big):
 - temperate (green)
 - hot (red)
@@ -35,7 +38,7 @@ Max size X and Y
 Density? Probably from 0-100, where 100 will be fully filled?
 Shapes? 
 
-Using OpenSimplexNoise
+Using Cellular noise type for biomes (Return type cell value, so there is not a lot of random scattered biome tiles)
 
 Steps:
 
