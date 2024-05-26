@@ -1,0 +1,35 @@
+
+
+
+RANDOM SEED-BASED WORLD GENERATION
+
+Regions then individual chunks
+
+1. Biomes (should be very big):
+- temperate (green)
+- hot (red)
+- cold (blue)
+
+2. Elevation (should be big)
+- flat
+- ocean
+- hills
+- mountains
+
+
+
+3. Regions:
+- village/town/city/metropolis,
+- forest
+- swamp
+
+4. Individual POIs
+
+5. Connections (roads, bridges, pathways etc)
+
+
+
+Steps:
+
+1. Fill a big area with one basic terrain type (grass for example)
+2. 
