@@ -27,6 +27,7 @@ var is_collapsed: bool = false:
 	set(value):
 		is_collapsed = value
 		set_collapsed()
+		save_collapse_state()
 
 # This function adds items to the content list based on the provided path
 # If the path is a directory, it will list all the files in the directory
@@ -136,6 +137,9 @@ func _on_ok_button_up():
 		else: # It's folder with json files
 			Gamedata.duplicate_file_in_data(contentData, get_selected_item_text(), myText)
 	popupAction = ""
+	# Check if the list is collapsed and expand it if true
+	if is_collapsed:
+		is_collapsed = false
 	load_data()
 
 # Called after the users presses cancel on the popup asking for an ID
@@ -161,8 +165,8 @@ func get_selected_item_text() -> String:
 
 # This function will collapse and expand the $Content/ContentItems when the collapse button is pressed
 func _on_collapse_button_button_up():
-	save_collapse_state()
 	is_collapsed = !is_collapsed
+
 
 func set_collapsed():
 	contentItems.visible = not is_collapsed
@@ -262,7 +266,7 @@ func load_collapse_state():
 	var err = config.load(path)
 	if err == OK:
 		if config.has_section_key("contenteditor:contentlist:" + header, "is_collapsed"):
-			is_collapsed = not config.get_value("contenteditor:contentlist:" + header, "is_collapsed")
+			is_collapsed = config.get_value("contenteditor:contentlist:" + header, "is_collapsed")
 			set_collapsed()
 		else:
 			print("No saved state for:", header)
