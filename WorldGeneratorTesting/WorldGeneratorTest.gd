@@ -1,7 +1,5 @@
 extends Node2D
 
-
-
 @export var player: Node2D
 @export var biome_chunk_parent: Node2D
 @export var elevation_chunk_parent: Node2D
@@ -20,6 +18,11 @@ extends Node2D
 @export var ocean_sprite : Texture
 @export var hills_sprite : Texture
 @export var mountains_sprite : Texture
+
+@export var chunk_size : int = 1 # Number of tiles per chunk
+@export var load_radius : int = 8 # Number of chunks to load around the player
+
+var loaded_chunks = {}
 
 enum Biome {
 	TEMPERATE,
@@ -40,10 +43,9 @@ var noise : FastNoiseLite
 func _ready():
 	noise = FastNoiseLite.new()
 
+	var player_position = player.position
+	load_chunks_around(player_position)
 
-
-	generate_biomes()
-	generate_elevation()
 
 	biome_chunk_parent.visible = true
 	elevation_chunk_parent.visible = false
@@ -51,7 +53,25 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+
+
+	########## TEMPORARY! We don't want to load chunks so often, we should call load_chunks_around only when
+	########## there is a need to (for example moving from one chunk to another)
+	var player_position = player.position
+	load_chunks_around(player_position)
+
+
+func load_chunks_around(position: Vector2):
+	var chunk_x = int(position.x / (chunk_size * cell_size))
+	var chunk_y = int(position.y / (chunk_size * cell_size))
+
+	for x in range(chunk_x - load_radius, chunk_x + load_radius + 1):
+		for y in range(chunk_y - load_radius, chunk_y + load_radius + 1):
+			var distance_to_chunk_center = Vector2(x - chunk_x, y - chunk_y).length()
+			if distance_to_chunk_center <= load_radius:
+				var chunk_key = Vector2(x, y)
+				if not loaded_chunks.has(chunk_key):
+					generate_chunk(chunk_key)
 
 #### By using the noise generator we probably don't need this anymore!
 
@@ -63,17 +83,25 @@ func _process(_delta):
 # 	return hash
 
 
-func generate_biomes():
+func generate_chunk(chunk_key: Vector2):
+	loaded_chunks[chunk_key] = []
+	
+	var chunk_x = int(chunk_key.x)
+	var chunk_y = int(chunk_key.y)
 
-	noise.seed = int(hash(biome_seed)) # Setting the seed for noise
+	# Generate biomes
+	noise.seed = int(hash(biome_seed))
 	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
 	noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
 	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
 	noise.frequency = 0.005 # Adjust frequency as needed
 
-	for x in range(grid_width):
-		for y in range(grid_height):
-			var biome_type = get_biome_type(x, y)
+	for x in range(chunk_size):
+		for y in range(chunk_size):
+			var global_x = chunk_x * chunk_size + x
+			var global_y = chunk_y * chunk_size + y
+
+			var biome_type = get_biome_type(global_x, global_y)
 			var sprite : Sprite2D = Sprite2D.new()
 			match biome_type:
 				Biome.TEMPERATE:
@@ -82,31 +110,23 @@ func generate_biomes():
 					sprite.texture = cold_sprite
 				Biome.HOT:
 					sprite.texture = hot_sprite
-			sprite.position = Vector2(x * cell_size + cell_size / 2, y * cell_size + cell_size / 2)
+			sprite.position = Vector2(global_x * cell_size + cell_size / 2, global_y * cell_size + cell_size / 2)
 			biome_chunk_parent.add_child(sprite)
-
-
-func get_biome_type(x: int, y: int) -> int:
-	var noise_value = noise.get_noise_2d(float(x), float(y))
-	if noise_value < -0.5:
-		return Biome.COLD
-	elif noise_value < 0.5:
-		return Biome.TEMPERATE
-	else:
-		return Biome.HOT
-
-
-func generate_elevation():
-
-	noise.seed = int(hash(elevation_seed)) # Setting the seed for noise
+			loaded_chunks[chunk_key].append(sprite)
+	
+	# Generate elevation
+	noise.seed = int(hash(elevation_seed))
 	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
 	noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
 	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
 	noise.frequency = 0.005 # Adjust frequency as needed
 
-	for x in range(grid_width):
-		for y in range(grid_height):
-			var elevation_type = get_elevation_type(x, y)
+	for x in range(chunk_size):
+		for y in range(chunk_size):
+			var global_x = chunk_x * chunk_size + x
+			var global_y = chunk_y * chunk_size + y
+
+			var elevation_type = get_elevation_type(global_x, global_y)
 			var sprite : Sprite2D = Sprite2D.new()
 			match elevation_type:
 				Elevation.FLAT:
@@ -117,9 +137,19 @@ func generate_elevation():
 					sprite.texture = hills_sprite
 				Elevation.MOUNTAINS:
 					sprite.texture = mountains_sprite
-			sprite.position = Vector2(x * cell_size + cell_size / 2, y * cell_size + cell_size / 2)
+			sprite.position = Vector2(global_x * cell_size + cell_size / 2, global_y * cell_size + cell_size / 2)
 			elevation_chunk_parent.add_child(sprite)
+			loaded_chunks[chunk_key].append(sprite)
 
+
+func get_biome_type(x: int, y: int) -> int:
+	var noise_value = noise.get_noise_2d(float(x), float(y))
+	if noise_value < -0.5:
+		return Biome.COLD
+	elif noise_value < 0.5:
+		return Biome.TEMPERATE
+	else:
+		return Biome.HOT
 
 func get_elevation_type(x: int, y: int) -> int:
 	var noise_value = noise.get_noise_2d(float(x), float(y))
