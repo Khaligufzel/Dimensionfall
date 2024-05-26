@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://vfusjggonb2d"]
+
+[ext_resource type="Shader" path="res://Defaults/Shaders/fog_of_war.gdshader" id="1_atg87"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_atg87")
+shader_parameter/fog_texture_size = null
+shader_parameter/fog_color = Vector3(0, 0, 0)

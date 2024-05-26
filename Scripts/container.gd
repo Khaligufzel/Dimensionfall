@@ -95,7 +95,7 @@ func create_sprite():
 	sprite_3d.pixel_size = 0.01
 	sprite_3d.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	sprite_3d.transparent = true
-	sprite_3d.shaded = false
+	sprite_3d.shaded = true
 	sprite_3d.double_sided = true
 	sprite_3d.no_depth_test = false
 	sprite_3d.fixed_size = false

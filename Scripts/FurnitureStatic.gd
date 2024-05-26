@@ -57,6 +57,7 @@ func toggle_door():
 func set_sprite(newSprite: Texture):
 	if not sprite:
 		sprite = Sprite3D.new()
+		sprite.shaded = true
 		add_child.call_deferred(sprite)
 	var uniqueTexture = newSprite.duplicate(true) # Duplicate the texture
 	sprite.texture = uniqueTexture
