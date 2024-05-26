@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctoj10vx1twmh"]
+[gd_scene load_steps=10 format=3 uid="uid://ctoj10vx1twmh"]
 
 [ext_resource type="Script" path="res://WorldGeneratorTesting/WorldGeneratorTest.gd" id="1_m3noy"]
+[ext_resource type="Script" path="res://WorldGeneratorTesting/SimpleCameraMove.gd" id="2_wy1xt"]
 
 [sub_resource type="Gradient" id="Gradient_b10ix"]
 colors = PackedColorArray(0, 0.744571, 3.85046e-07, 1, 0, 0.204668, 0, 1)
@@ -32,16 +33,14 @@ height = 16
 fill = 2
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ttvt"]
+
 [node name="WorldGeneratorTest" type="Node2D"]
 script = ExtResource("1_m3noy")
 world_seed = "CataX"
-cell_size = 16
 temperate_sprite = SubResource("GradientTexture2D_bajek")
 cold_sprite = SubResource("GradientTexture2D_e010p")
 hot_sprite = SubResource("GradientTexture2D_o7jp0")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(567, 309)
 
 [node name="WorldBuilder" type="Node2D" parent="."]
 
@@ -56,3 +55,12 @@ position = Vector2(567, 309)
 [node name="POIs" type="Node2D" parent="GeneratedWorld"]
 
 [node name="Connections" type="Node2D" parent="GeneratedWorld"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_wy1xt")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(567, 309)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_0ttvt")

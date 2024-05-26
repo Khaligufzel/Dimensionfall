@@ -28,6 +28,14 @@ Regions then individual chunks
 5. Connections (roads, bridges, pathways etc)
 
 
+Settings and mechanics for Biomes, Elevation and Regions:
+
+Min size X and Y
+Max size X and Y
+Density? Probably from 0-100, where 100 will be fully filled?
+Shapes? 
+
+Using OpenSimplexNoise
 
 Steps:
 

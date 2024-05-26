@@ -34,9 +34,9 @@
 extends Node2D
 
 @export var world_seed : String
-@export var grid_width : int = 100
-@export var grid_height : int = 100
-@export var cell_size : int = 32
+@export var grid_width : int = 500
+@export var grid_height : int = 500
+@export var cell_size : int = 16
 
 @export var temperate_sprite : Texture
 @export var cold_sprite : Texture
@@ -54,8 +54,10 @@ var noise : FastNoiseLite
 func _ready():
     noise = FastNoiseLite.new()
     noise.seed = int(hash(world_seed)) # Setting the seed for noise
-    noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
-    noise.frequency = 0.05 # Adjust frequency as needed
+    noise.noise_type = FastNoiseLite.TYPE_CELLULAR
+    noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
+    noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
+    noise.frequency = 0.005 # Adjust frequency as needed
 
     generate_biomes()
     generate_elevation()
@@ -91,9 +93,9 @@ func generate_biomes():
 
 func get_biome_type(x: int, y: int) -> int:
     var noise_value = noise.get_noise_2d(float(x), float(y))
-    if noise_value < -0.3:
+    if noise_value < -0.5:
         return Biome.COLD
-    elif noise_value < 0.3:
+    elif noise_value < 0.5:
         return Biome.TEMPERATE
     else:
         return Biome.HOT
