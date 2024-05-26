@@ -13,6 +13,7 @@ config_version=5
 config/name="CataX"
 run/main_scene="res://scene_selector.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
@@ -57,6 +58,7 @@ folder_colors={
 "res://Scenes/ContentManager/Scripts/": "green",
 "res://Scenes/Overmap/Scripts/": "green",
 "res://Scripts/": "green",
+"res://WorldGeneratorTesting/": "orange",
 "res://addons/": "gray"
 }
 
