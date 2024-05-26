@@ -45,8 +45,11 @@ fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ttvt"]
 
-[node name="WorldGeneratorTest" type="Node2D"]
+[node name="WorldGeneratorTest" type="Node2D" node_paths=PackedStringArray("player", "biome_chunk_parent", "elevation_chunk_parent")]
 script = ExtResource("1_m3noy")
+player = NodePath("CharacterBody2D")
+biome_chunk_parent = NodePath("GeneratedWorld/Biomes")
+elevation_chunk_parent = NodePath("GeneratedWorld/Elevation")
 biome_seed = "CataX"
 elevation_seed = "snipercup"
 temperate_sprite = SubResource("GradientTexture2D_bajek")
@@ -75,7 +78,6 @@ mountains_sprite = SubResource("GradientTexture2D_o7jp0")
 script = ExtResource("2_wy1xt")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-position = Vector2(567, 309)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("RectangleShape2D_0ttvt")

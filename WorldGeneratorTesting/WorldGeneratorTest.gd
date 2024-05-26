@@ -1,9 +1,15 @@
 extends Node2D
 
+
+
+@export var player: Node2D
+@export var biome_chunk_parent: Node2D
+@export var elevation_chunk_parent: Node2D
+
 @export var biome_seed : String
 @export var elevation_seed : String
-@export var grid_width : int = 500
-@export var grid_height : int = 500
+@export var grid_width : int = 100
+@export var grid_height : int = 100
 @export var cell_size : int = 16
 
 @export var temperate_sprite : Texture
@@ -36,20 +42,25 @@ func _ready():
 
 
 
-	#generate_biomes()
+	generate_biomes()
 	generate_elevation()
+
+	biome_chunk_parent.visible = true
+	elevation_chunk_parent.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
 
+#### By using the noise generator we probably don't need this anymore!
+
 # Generate "local hash" based on tile coordinates. We will use it together with world_seed
-func local_hash(x: int, y: int) -> int:
-	var hash: int = int(x)
-	hash ^= int(y) << 16
-	hash ^= int(y) >> 16
-	return hash
+# func local_hash(x: int, y: int) -> int:
+# 	var hash: int = int(x)
+# 	hash ^= int(y) << 16
+# 	hash ^= int(y) >> 16
+# 	return hash
 
 
 func generate_biomes():
@@ -72,7 +83,7 @@ func generate_biomes():
 				Biome.HOT:
 					sprite.texture = hot_sprite
 			sprite.position = Vector2(x * cell_size + cell_size / 2, y * cell_size + cell_size / 2)
-			add_child(sprite)
+			biome_chunk_parent.add_child(sprite)
 
 
 func get_biome_type(x: int, y: int) -> int:
@@ -107,7 +118,7 @@ func generate_elevation():
 				Elevation.MOUNTAINS:
 					sprite.texture = mountains_sprite
 			sprite.position = Vector2(x * cell_size + cell_size / 2, y * cell_size + cell_size / 2)
-			add_child(sprite)
+			elevation_chunk_parent.add_child(sprite)
 
 
 func get_elevation_type(x: int, y: int) -> int:
@@ -120,3 +131,14 @@ func get_elevation_type(x: int, y: int) -> int:
 		return Elevation.HILLS
 	else:
 		return Elevation.MOUNTAINS
+
+
+func _input(event):
+	if event.is_action_pressed("switch_to_1") :
+		biome_chunk_parent.visible = true
+		elevation_chunk_parent.visible = false
+			
+	if event.is_action_pressed("switch_to_2"):
+		biome_chunk_parent.visible = false
+		elevation_chunk_parent.visible = true
+		
