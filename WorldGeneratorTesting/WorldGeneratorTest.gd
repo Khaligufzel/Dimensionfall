@@ -19,8 +19,8 @@ extends Node2D
 @export var hills_sprite : Texture
 @export var mountains_sprite : Texture
 
-@export var chunk_size : int = 1 # Number of tiles per chunk
-@export var load_radius : int = 8 # Number of chunks to load around the player
+@export var chunk_size : int = 1 # Number of tiles per chunk. More makes it less... circular- I would keep it as is.
+@export var load_radius : int = 8 # Number of chunks to load around the player. Basically sight radius on world map.
 
 var loaded_chunks = {}
 
