@@ -81,21 +81,6 @@ func set_sprite(newSprite: Texture):
 func get_sprite() -> Texture:
 	return sprite.texture
 
-
-func update_door_visuals():
-	if not is_door: return
-	
-	var angle = 90 if door_state == "Open" else 0
-	var position_offset = Vector3(-0.5, 0, -0.5) if door_state == "Open" else Vector3.ZERO
-	apply_transform_to_sprite_and_collider(angle, position_offset)
-
-func apply_transform_to_sprite_and_collider(rotationdegrees, position_offset):
-	var doortransform = Transform3D().rotated(Vector3.UP, deg_to_rad(rotationdegrees))
-	doortransform.origin = position_offset
-	sprite.set_transform(doortransform)
-	collider.set_transform(doortransform)
-	sprite.rotation_degrees.x = 90
-
 # Set the rotation for this furniture. We have to do some minor calculations or it will end up wrong
 func set_new_rotation(amount: int):
 	var rotation_amount = amount
@@ -269,19 +254,33 @@ func deserialize_container_data():
 func is_new_furniture() -> bool:
 	return not furnitureJSON.has("global_position_x")
 
+
+func update_door_visuals():
+	if not is_door: return
+	
+	var angle = 90 if door_state == "Open" else 0
+	var position_offset = Vector3(-0.5, 0, -0.5) if door_state == "Open" else Vector3.ZERO
+	apply_transform_to_sprite_and_collider(angle, position_offset)
+
+func apply_transform_to_sprite_and_collider(rotationdegrees, position_offset):
+	var doortransform = Transform3D().rotated(Vector3.UP, deg_to_rad(rotationdegrees))
+	doortransform.origin = position_offset
+	sprite.set_transform(doortransform)
+	collider.set_transform(doortransform)
+	sprite.rotation_degrees.x = 90
+
+
 # The furniture will move 0.2 meters in a random direction to indicate that it's hit
 # Then it will return to its original position
 func animate_hit():
 	is_animating_hit = true
 
-	var directions = [Vector3(0.1, 0, 0), Vector3(-0.1, 0, 0), Vector3(0, 0, 0.1), Vector3(0, 0, -0.1)]
-	var random_direction = directions[randi() % directions.size()]
-
 	var tween = create_tween()
-	tween.tween_property(sprite, "global_transform:origin", sprite.global_transform.origin + random_direction, 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(sprite, "global_transform:origin", original_position, 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT).set_delay(0.1)
+	tween.tween_property(sprite, "modulate", Color(1, 1, 1, 0.5), 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(sprite, "modulate", Color(1, 1, 1, 1), 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT).set_delay(0.1)
 
 	tween.finished.connect(_on_tween_finished)
+
 
 # The furniture is done blinking so we reset the relevant variables
 func _on_tween_finished():

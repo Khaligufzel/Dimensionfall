@@ -113,6 +113,8 @@ func get_cursor_world_position() -> Vector3:
 
 # Helper function to check if the weapon can fire
 func can_fire_weapon() -> bool:
+	if not heldItem:
+		return false
 	if heldItem.get_property("Melee") != null:  # Assuming melee weapons have a 'Melee' property
 		return General.is_mouse_outside_HUD and not General.is_action_in_progress and heldItem and not in_cooldown
 	return General.is_mouse_outside_HUD and not General.is_action_in_progress and General.is_allowed_to_shoot and heldItem and not in_cooldown and (get_current_ammo() > 0 or not requires_ammo())
