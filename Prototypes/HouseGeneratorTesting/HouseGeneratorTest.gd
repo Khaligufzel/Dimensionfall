@@ -154,7 +154,11 @@ func make_corner_room(max_room_x : int, max_room_y : int, splitting_wall_x : int
 	# test
 	grid[inner_corner_x][inner_corner_y] = 2 # wall
 
-	## left or right room?
+
+	#### This part of code is not pretty or readable, but it works. It will stay like that for the time being.
+
+
+	## right room
 	if wall_direction == -1:
 		# we can make the smaller room in 4 different corners, so I guess to add variety let's make it random
 		match randi_range(0,3):
@@ -179,8 +183,8 @@ func make_corner_room(max_room_x : int, max_room_y : int, splitting_wall_x : int
 				for i in range(inner_corner_y, max_room_y):
 					grid[inner_corner_x][i] = 2
 
+	## left room
 	if wall_direction == 1:
-		# we can make the smaller room in 4 different corners, so I guess to add variety let's make it random
 		match randi_range(0,3):
 			0: # south west
 				for i in range(0, inner_corner_x):
