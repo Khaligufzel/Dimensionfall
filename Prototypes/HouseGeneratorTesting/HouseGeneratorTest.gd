@@ -226,6 +226,9 @@ func split_smaller_room_horizontally(max_room_x : int, max_room_y : int, splitti
 	if direction == -1:
 		for i in range(0, splitting_wall_x):
 			grid[i][random_wall_y] = 2 # wall
+	else:
+		for i in range(splitting_wall_x, max_room_x):
+			grid[i][random_wall_y] = 2 # wall
 	
 
 
