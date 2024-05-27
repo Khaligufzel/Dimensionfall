@@ -17,10 +17,15 @@ var contentData: Dictionary = {}:
 	set(newData):
 		contentData = newData
 		load_data()
+
 var header: String = "Items":
 	set(newName):
 		header = newName
 		collapseButton.text = header
+
+
+func _ready():
+	Helper.signal_broker.data_sprites_changed.connect(_on_data_sprites_changed)
 
 
 #This function adds items to the content list based on the provided path
@@ -285,3 +290,9 @@ func load_collapse_state():
 			print("No saved state for:", header)
 	else:
 		print("Failed to load settings for:", header, "with error:", err)
+
+
+# When a sprite has been added or changed in the gamedata
+func _on_data_sprites_changed(data: Dictionary, _spriteid: String):
+	if data == contentData:
+		load_data()

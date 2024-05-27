@@ -77,6 +77,7 @@ func load_sprites() -> void:
 func add_sprite_to_dictionary(contentData: Dictionary, file_name: String, texture: Texture):
 	if texture:
 		contentData.sprites[file_name] = texture
+		Helper.signal_broker.data_sprites_changed.emit(contentData, file_name)
 		print("Sprite added:", file_name)
 	else:
 		print("Failed to add sprite:", file_name)
