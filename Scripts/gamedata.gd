@@ -449,6 +449,8 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		on_furniture_deleted(id)
 	if contentData == Gamedata.data.maps:
 		on_map_deleted(id)
+	if contentData == Gamedata.data.tacticalmaps:
+		on_tacticalmap_deleted(id)
 	if contentData == Gamedata.data.mobs:
 		on_mob_deleted(id)
 	if contentData == Gamedata.data.tiles:
@@ -761,6 +763,23 @@ func on_map_deleted(map_id: String):
 		save_data_to_file(Gamedata.data.tiles)
 		save_data_to_file(Gamedata.data.furniture)
 		save_data_to_file(Gamedata.data.mobs)
+
+
+# A map is being deleted. Remove all references to this map
+func on_tacticalmap_deleted(tacticalmap_id: String):
+	var file = Gamedata.data.tacticalmaps.dataPath + tacticalmap_id + ".json"
+	var tacticalmapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(file)
+	if not tacticalmapdata.has("chunks"):
+		print("Tacticalmap data does not contain 'chunks'.")
+		return
+
+	for i in range(tacticalmapdata["chunks"].size()):
+		var chunk = tacticalmapdata["chunks"][i]
+		# If the chunk has the target id, remove the reference from the map
+		if chunk.has("id"):
+			var chunkid = chunk["id"]
+			remove_reference(Gamedata.data.maps, "core", "tacticalmaps", \
+				chunk["id"], tacticalmap_id + ".json")
 
 
 # Function to collect unique entities from each level in newdata and olddata
