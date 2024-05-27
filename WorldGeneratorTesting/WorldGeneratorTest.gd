@@ -3,24 +3,35 @@ extends Node2D
 @export var player: Node2D
 @export var biome_chunk_parent: Node2D
 @export var elevation_chunk_parent: Node2D
+@export var region_chunk_parent : Node2D
 
+@export_group("Settings")
 @export var biome_seed : String
 @export var elevation_seed : String
+@export var region_seed : String
 @export var grid_width : int = 100
 @export var grid_height : int = 100
 @export var cell_size : int = 16
+@export var chunk_size : int = 1 # Number of tiles per chunk. More makes it less... circular- I would keep it as is.
+@export var load_radius : int = 8 # Number of chunks to load around the player. Basically sight radius on world map.
 
+@export_group("Biome")
 @export var temperate_sprite : Texture
 @export var cold_sprite : Texture
 @export var hot_sprite : Texture
 
+@export_group("Elevation")
 @export var flat_sprite : Texture
 @export var ocean_sprite : Texture
 @export var hills_sprite : Texture
 @export var mountains_sprite : Texture
 
-@export var chunk_size : int = 1 # Number of tiles per chunk. More makes it less... circular- I would keep it as is.
-@export var load_radius : int = 8 # Number of chunks to load around the player. Basically sight radius on world map.
+@export_group("Region")
+@export var city_sprite : Texture
+@export var plains_sprite : Texture
+@export var forest_sprite : Texture
+
+
 
 var loaded_chunks = {}
 
@@ -37,6 +48,12 @@ enum Elevation {
 	MOUNTAINS
 }
 
+enum Region {
+	CITY,
+	FOREST,
+	PLAINS
+}
+
 var noise : FastNoiseLite
 
 # Called when the node enters the scene tree for the first time.
@@ -49,6 +66,7 @@ func _ready():
 
 	biome_chunk_parent.visible = true
 	elevation_chunk_parent.visible = false
+	region_chunk_parent.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -141,6 +159,31 @@ func generate_chunk(chunk_key: Vector2):
 			elevation_chunk_parent.add_child(sprite)
 			loaded_chunks[chunk_key].append(sprite)
 
+	# Generate regions
+	noise.seed = int(hash(region_seed))
+	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
+	noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
+	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
+	noise.frequency = 0.04 # Adjust frequency as needed
+
+	for x in range(chunk_size):
+		for y in range(chunk_size):
+			var global_x = chunk_x * chunk_size + x
+			var global_y = chunk_y * chunk_size + y
+
+			var region_type = get_region_type(global_x, global_y)
+			var sprite : Sprite2D = Sprite2D.new()
+			match region_type:
+				Region.PLAINS:
+					sprite.texture = plains_sprite
+				Region.CITY:
+					sprite.texture = city_sprite
+				Region.FOREST:
+					sprite.texture = forest_sprite
+			sprite.position = Vector2(global_x * cell_size + cell_size / 2, global_y * cell_size + cell_size / 2)
+			region_chunk_parent.add_child(sprite)
+			loaded_chunks[chunk_key].append(sprite)
+
 
 func get_biome_type(x: int, y: int) -> int:
 	var noise_value = noise.get_noise_2d(float(x), float(y))
@@ -162,13 +205,29 @@ func get_elevation_type(x: int, y: int) -> int:
 	else:
 		return Elevation.MOUNTAINS
 
+func get_region_type(x: int, y: int) -> int:
+	var noise_value = noise.get_noise_2d(float(x), float(y))
+	if noise_value < -0.5:
+		return Region.CITY
+	elif noise_value < 0.5:
+		return Region.PLAINS
+	else:
+		return Region.FOREST
+
 
 func _input(event):
 	if event.is_action_pressed("switch_to_1") :
 		biome_chunk_parent.visible = true
 		elevation_chunk_parent.visible = false
+		region_chunk_parent.visible = false
 			
 	if event.is_action_pressed("switch_to_2"):
 		biome_chunk_parent.visible = false
 		elevation_chunk_parent.visible = true
+		region_chunk_parent.visible = false
+
+	if event.is_action_pressed("switch_to_3") :
+		biome_chunk_parent.visible = false
+		elevation_chunk_parent.visible = false
+		region_chunk_parent.visible = true
 		
