@@ -46,6 +46,9 @@ folder_colors={
 "res://Documentation/": "teal",
 "res://Images/": "pink",
 "res://Mods/": "purple",
+"res://Prototypes/": "orange",
+"res://Prototypes/WorldGeneratorTesting/": "orange",
+"res://Prototypes/WorldGeneratorTesting/Docs/": "gray",
 "res://Scenes/": "red",
 "res://Scenes/ContentManager/": "yellow",
 "res://Scenes/ContentManager/Custom_Editors/": "red",
@@ -58,8 +61,6 @@ folder_colors={
 "res://Scenes/ContentManager/Scripts/": "green",
 "res://Scenes/Overmap/Scripts/": "green",
 "res://Scripts/": "green",
-"res://WorldGeneratorTesting/": "orange",
-"res://WorldGeneratorTesting/Docs/": "gray",
 "res://addons/": "gray"
 }
 

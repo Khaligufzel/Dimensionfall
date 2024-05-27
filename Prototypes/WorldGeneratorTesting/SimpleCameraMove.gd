@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var speed : float = 2000.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	velocity = input_dir.normalized() * speed
 	move_and_slide()

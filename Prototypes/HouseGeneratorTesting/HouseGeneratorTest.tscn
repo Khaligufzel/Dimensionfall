@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://mw3cib16ttm"]
+
+[ext_resource type="Script" path="res://Prototypes/HouseGeneratorTesting/HouseGeneratorTest.gd" id="1_cpode"]
+[ext_resource type="Script" path="res://Prototypes/WorldGeneratorTesting/SimpleCameraMove.gd" id="2_oa4j2"]
+
+[sub_resource type="Gradient" id="Gradient_3s87i"]
+colors = PackedColorArray(0.533333, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mo5bb"]
+gradient = SubResource("Gradient_3s87i")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.487179, 0.491453)
+fill_to = Vector2(0.880342, 0.132479)
+
+[sub_resource type="Gradient" id="Gradient_iuba0"]
+colors = PackedColorArray(0, 0.202807, 0.204098, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g7i8t"]
+gradient = SubResource("Gradient_iuba0")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.487179, 0.491453)
+fill_to = Vector2(0.880342, 0.132479)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_675lj"]
+
+[node name="HouseGeneratorTest" type="Node2D"]
+
+[node name="Generator" type="Node2D" parent="."]
+script = ExtResource("1_cpode")
+floor_texture = SubResource("GradientTexture2D_mo5bb")
+wall_texture = SubResource("GradientTexture2D_g7i8t")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_oa4j2")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_675lj")
