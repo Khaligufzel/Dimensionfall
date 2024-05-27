@@ -24,3 +24,8 @@ func update_visibility(player_y: float):
 	for furniture in get_tree().get_nodes_in_group("furniture"):
 		var is_above_player = furniture.global_position.y > player_y
 		furniture.visible = not is_above_player
+
+	# Update container visibility
+	for container in get_tree().get_nodes_in_group("Containers"):
+		var is_above_player = container.global_position.y > player_y
+		container.visible = not is_above_player
