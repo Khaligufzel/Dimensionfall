@@ -21,9 +21,7 @@ func load_json_array_file(source: String) -> Array:
 		print_debug("Unable to load file: " + source)
 	return data_json
 	
-#This function takes the path to a json file and returns its contents as an array
-#It should check if the contents is an array or not. If it is not an array, 
-#it should return an empty array
+#This function takes the path to a json file and returns its contents as an dictionary
 func load_json_dictionary_file(source: String) -> Dictionary:
 	var data_json: Dictionary = {}
 	var file = FileAccess.open(source, FileAccess.READ)

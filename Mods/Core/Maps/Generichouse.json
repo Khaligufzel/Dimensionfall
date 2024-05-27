@@ -35099,5 +35099,12 @@
 		[]
 	],
 	"mapheight": 32,
-	"mapwidth": 32
+	"mapwidth": 32,
+	"references": {
+		"core": {
+			"tacticalmaps": [
+				"./Mods/Core/TacticalMaps/DefaultTacticalMap.json"
+			]
+		}
+	}
 }

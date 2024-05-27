@@ -1,22 +1,18 @@
 {
-	"mapheight": 2,
 	"chunks": [
 		{
-			"id": "RockyHill_NW.json",
-			"rotation": 0
+			"id": "RockyHill_NW.json"
 		},
 		{
-			"id": "RockyHill_NE.json",
-			"rotation": 0
+			"id": "RockyHill_NE.json"
 		},
 		{
-			"id": "RockyHill_SW.json",
-			"rotation": 0
+			"id": "RockyHill_SW.json"
 		},
 		{
-			"id": "RockyHill_SE.json",
-			"rotation": 0
+			"id": "RockyHill_SE.json"
 		}
 	],
+	"mapheight": 2,
 	"mapwidth": 2
 }
