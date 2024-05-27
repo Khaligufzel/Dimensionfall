@@ -34,12 +34,12 @@ func load_data():
 		return
 	if contentData.data.is_empty():
 		return
-	#If the first item is a string, it's a list of files.
-	#Otherwise, it's a list of objects representing some kind of data
-	if contentData.data[0] is String:
-		make_file_list()
-	else:
+	# If the datapath ends with json, it's a list of items
+	# Otherwise, it's a folder with json files in it
+	if contentData.dataPath.ends_with((".json")):
 		make_item_list()
+	else:
+		make_file_list()
 	load_collapse_state()
 
 

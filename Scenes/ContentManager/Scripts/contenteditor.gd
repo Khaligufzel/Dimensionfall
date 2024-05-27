@@ -100,6 +100,8 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 
 # The content_list that had it's data changed refreshes
 func _on_editor_data_changed(data: Dictionary, _newdata: Dictionary, _olddata: Dictionary):
+	# Loop over each of the contentlists. Only the list that matches
+	# the data will refresh
 	for element in content.get_children():
 		if element.contentData == data:
 			element.load_data()
