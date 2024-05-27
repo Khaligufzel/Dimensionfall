@@ -149,8 +149,14 @@ func generate_house():
 	# Generate the main room in the grid
 	generate_room(max_room_x, max_room_y)
 
-	# make a vertical wall dividing the main room into two parts
-	divide_room_vertically(max_room_x, max_room_y)
+	# make a vertical wall splitting the main room into two parts
+	var splitting_wall_x : int = split_room_vertically(max_room_x, max_room_y)
+
+	# splitting the smaller room created by last function with a horizontal wall
+	# this will create the third room
+	# also giving the location of the wall here, for start/end point of horizontal wall
+
+	split_smaller_room_horizontally(max_room_x, max_room_y, splitting_wall_x)
 
 
 
@@ -183,16 +189,45 @@ func generate_room(size_x : int, size_y : int):
 			else:
 				grid[i][j] = 1 # Floor
 
-func divide_room_vertically(max_room_x : int, max_room_y : int):
+func split_room_vertically(max_room_x : int, max_room_y : int):
+
 	# first, we need to randomly pick x where we will start making the vertical wall
 	# Min. should be 4, so room will be min. 3 wide (I hope that makes sense)
-	# Max should be -4, for the same reason
+	# Max should be -5, for the same reason
 
-	var random_wall_x : int = randi_range(4, max_room_x - 4)
+	var random_wall_x : int = randi_range(4, max_room_x - 5)
 
 	# next- let's actually divide the room!
 	for i in range(0, max_room_y):
 		grid[random_wall_x][i] = 2 # wall
+	return random_wall_x
+
+func split_smaller_room_horizontally(max_room_x : int, max_room_y : int, splitting_wall_x : int):
+
+	# first, we need to randomly pick y where we will start making the horizontal wall
+	# min and max like in func split_room_vertically
+
+	var random_wall_y : int = randi_range(4, max_room_y - 5)
+
+	# next step- we need to find out which room is smaller, so we can split that one
+	var left_room_x_size : int = splitting_wall_x + 1
+	var right_room_x_size : int = max_room_x - (splitting_wall_x + 1)
+
+	# if the left room is smaller then direction = -1, else = 1
+	var direction : int
+
+	if left_room_x_size <= right_room_x_size:
+		direction = -1
+	else:
+		direction = 1
+
+	# so now when we know which room to split, let's DO IT
+	
+	if direction == -1:
+		for i in range(0, splitting_wall_x):
+			grid[i][random_wall_y] = 2 # wall
+	
+
 
 func _input(event):
 	if event.is_action_pressed("reload_weapon") :
