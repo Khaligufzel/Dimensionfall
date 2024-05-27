@@ -105,22 +105,25 @@ extends Node2D
 
 @export_group("Settings")
 @export var number_of_rooms : int = 1
-@export var rooms_size_x : int = 10
-@export var rooms_size_y : int = 10
-@export var size_random : int = 2
+@export var rooms_size_x : int = 24
+@export var rooms_size_y : int = 12
+@export var size_random_x : int = 6
+@export var size_random_y : int = 2
 @export var number_of_floors : int = 1
 
-@export_group("Variables")
+@export_group("Textures")
 @export var floor_texture : Texture2D
 @export var wall_texture : Texture2D
 
-var grid_size : int = 14
+var grid_size : int = 32
 var grid : Array = []
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	generate_house()
+
+	
 
 # Function to generate the house layout
 func generate_house():
@@ -138,9 +141,18 @@ func generate_house():
 		grid.append([])
 		for j in range(grid_size):
 			grid[i].append(0) # 0 means empty, 1 means floor, 2 means wall
+
+	# randomly assign the x and y size of the room
+	var max_room_x : int = rooms_size_x + randi_range(-size_random_x, size_random_x)
+	var max_room_y : int = rooms_size_y + randi_range(-size_random_y, size_random_y)
 	
-	# Generate one room in the grid
-	generate_room(Vector2(3, 3), rooms_size_x + randi_range(-size_random, size_random), rooms_size_y + randi_range(-size_random, size_random))
+	# Generate the main room in the grid
+	generate_room(max_room_x, max_room_y)
+
+	# make a vertical wall dividing the main room into two parts
+	divide_room_vertically(max_room_x, max_room_y)
+
+
 
 	# Create Sprite2D nodes for walls and floors
 	for x in range(grid_size):
@@ -157,211 +169,33 @@ func generate_house():
 				add_child(wall_sprite)
 
 # Function to generate a room at a given position with given size
-func generate_room(room_position : Vector2, size_x : int, size_y : int):
+func generate_room(size_x : int, size_y : int):
 	# Ensure the room fits within the grid
-	var start_x = room_position.x
-	var start_y = room_position.y
-	var end_x = min(start_x + size_x, grid_size)
-	var end_y = min(start_y + size_y, grid_size)
+
+	var end_x = min(size_x, grid_size)
+	var end_y = min(size_y, grid_size)
 
 	# Create walls around the room
-	for i in range(start_x, end_x):
-		for j in range(start_y, end_y):
-			if i == start_x or i == end_x - 1 or j == start_y or j == end_y - 1:
+	for i in range(0, end_x):
+		for j in range(0, end_y):
+			if i == 0 or i == end_x - 1 or j == 0 or j == end_y - 1:
 				grid[i][j] = 2 # Wall
 			else:
 				grid[i][j] = 1 # Floor
 
+func divide_room_vertically(max_room_x : int, max_room_y : int):
+	# first, we need to randomly pick x where we will start making the vertical wall
+	# Min. should be 4, so room will be min. 3 wide (I hope that makes sense)
+	# Max should be -4, for the same reason
+
+	var random_wall_x : int = randi_range(4, max_room_x - 4)
+
+	# next- let's actually divide the room!
+	for i in range(0, max_room_y):
+		grid[random_wall_x][i] = 2 # wall
 
 func _input(event):
 	if event.is_action_pressed("reload_weapon") :
 		generate_house()
 
 
-# extends Node2D
-
-# @export_group("Settings")
-# @export var number_of_rooms : int = 1
-# @export var rooms_size_x : int = 10
-# @export var rooms_size_y : int = 10
-# @export var size_random : int = 2
-# @export var number_of_floors : int = 1
-
-# @export_group("Variables")
-# @export var floor_texture : Texture2D
-# @export var wall_texture : Texture2D
-
-# var grid_size : int = 16
-# var grid : Array = []
-
-
-# # Called when the node enters the scene tree for the first time.
-# func _ready():
-# 	generate_house()
-
-# # Function to generate the house layout
-# func generate_house():
-
-# 	# Remove all children first if there are any from previous generation
-# 	if get_child_count() > 0:
-# 		for brave_little_child in get_children():
-# 			brave_little_child.queue_free()
-
-# 	# Initialize the grid
-# 	grid = []
-# 	for i in range(grid_size):
-# 		grid.append([])
-# 		for j in range(grid_size):
-# 			grid[i].append(0) # 0 means empty, 1 means floor, 2 means wall
-	
-# 	# Generate rooms in the grid
-# 	generate_room(Vector2(3, 3), rooms_size_x + randi_range(-size_random, size_random), rooms_size_y + randi_range(-size_random, size_random))
-
-# 	# Generate kitchen
-# 	var kitchen_size_x = randi_range(3, min(10, 32 - rooms_size_x)) # Random size constrained by available space
-# 	var kitchen_size_y = randi_range(3, min(10, 16 - rooms_size_y)) # Random size constrained by available space
-# 	var kitchen_position = Vector2(rooms_size_x + randi_range(1, 32 - rooms_size_x - kitchen_size_x), randi_range(1, 16 - kitchen_size_y))
-# 	generate_room(kitchen_position, kitchen_size_x, kitchen_size_y)
-
-# 	# Generate bathroom
-# 	var bathroom_size_x = randi_range(3, min(10, 32 - rooms_size_x - kitchen_size_x)) # Random size constrained by available space
-# 	var bathroom_size_y = randi_range(3, min(10, 16 - rooms_size_y - kitchen_size_y)) # Random size constrained by available space
-# 	var bathroom_position = Vector2(randi_range(1, 32 - bathroom_size_x), rooms_size_y + randi_range(1, 16 - rooms_size_y - bathroom_size_y))
-# 	generate_room(bathroom_position, bathroom_size_x, bathroom_size_y)
-
-# 	# Create Sprite2D nodes for walls and floors
-# 	for x in range(grid_size):
-# 		for y in range(grid_size):
-# 			if grid[x][y] == 1: # Floor
-# 				var floor_sprite = Sprite2D.new()
-# 				floor_sprite.texture = floor_texture
-# 				floor_sprite.position = Vector2(x * 32, y * 32) # Adjust position based on texture size
-# 				add_child(floor_sprite)
-# 			elif grid[x][y] == 2: # Wall
-# 				var wall_sprite = Sprite2D.new()
-# 				wall_sprite.texture = wall_texture
-# 				wall_sprite.position = Vector2(x * 32, y * 32) # Adjust position based on texture size
-# 				add_child(wall_sprite)
-
-# # Function to generate a room at a given position with given size
-# func generate_room(room_position : Vector2, size_x : int, size_y : int):
-# 	# Ensure the room fits within the grid
-# 	var start_x = max(0, min(room_position.x, grid_size - 1))
-# 	var start_y = max(0, min(room_position.y, grid_size - 1))
-# 	var end_x = min(start_x + size_x, grid_size)
-# 	var end_y = min(start_y + size_y, grid_size)
-
-# 	# Create walls around the room
-# 	for i in range(start_x, end_x):
-# 		for j in range(start_y, end_y):
-# 			if i == start_x or i == end_x - 1 or j == start_y or j == end_y - 1:
-# 				grid[i][j] = 2 # Wall
-# 			else:
-# 				grid[i][j] = 1 # Floor
-
-
-# func _input(event):
-# 	if event.is_action_pressed("reload_weapon") :
-# 		generate_house()
-
-# extends Node2D
-
-# @export_group("Settings")
-# @export var number_of_rooms : int = 1
-# @export var rooms_size_x : int = 10
-# @export var rooms_size_y : int = 10
-# @export var size_random : int = 2
-# @export var number_of_floors : int = 1
-
-# @export_group("Variables")
-# @export var floor_texture : Texture2D
-# @export var wall_texture : Texture2D
-
-# var grid_size : int = 16
-# var grid : Array = []
-
-
-# # Called when the node enters the scene tree for the first time.
-# func _ready():
-# 	generate_house()
-
-# # Function to generate the house layout
-# func generate_house():
-
-# 	# Remove all children first if there are any from previous generation
-# 	if get_child_count() > 0:
-# 		for brave_little_child in get_children():
-# 			brave_little_child.queue_free()
-
-# 	# Initialize the grid
-# 	grid = []
-# 	for i in range(grid_size):
-# 		grid.append([])
-# 		for j in range(grid_size):
-# 			grid[i].append(0) # 0 means empty, 1 means floor, 2 means wall
-	
-# 	# Generate rooms in the grid
-# 	generate_main_room(Vector2(3, 3), rooms_size_x + randi_range(-size_random, size_random), rooms_size_y + randi_range(-size_random, size_random))
-
-# 	# Generate kitchen
-# 	var kitchen_size_x = randi_range(5, min(10, grid_size)) # Random size constrained by available space
-# 	var kitchen_size_y = randi_range(1, min(10, grid_size)) # Random size constrained by available space
-# 	var kitchen_position = Vector2(randi_range(0, max(0, grid_size - kitchen_size_x)), randi_range(0, max(0, grid_size - kitchen_size_y)))
-# 	generate_room(kitchen_position, kitchen_size_x, kitchen_size_y)
-
-# 	# Generate bathroom
-# 	var bathroom_size_x = randi_range(2, min(10, grid_size - kitchen_size_x)) # Random size constrained by available space
-# 	var bathroom_size_y = randi_range(1, min(10, grid_size - kitchen_size_y)) # Random size constrained by available space
-# 	var bathroom_position = Vector2(randi_range(0, max(0, grid_size - bathroom_size_x)), randi_range(0, max(0, grid_size - bathroom_size_y)))
-# 	generate_room(bathroom_position, bathroom_size_x, bathroom_size_y)
-
-# 	# Create Sprite2D nodes for walls and floors
-# 	for x in range(grid_size):
-# 		for y in range(grid_size):
-# 			if grid[x][y] == 1: # Floor
-# 				var floor_sprite = Sprite2D.new()
-# 				floor_sprite.texture = floor_texture
-# 				floor_sprite.position = Vector2(x * 32, y * 32) # Adjust position based on texture size
-# 				add_child(floor_sprite)
-# 			elif grid[x][y] == 2: # Wall
-# 				var wall_sprite = Sprite2D.new()
-# 				wall_sprite.texture = wall_texture
-# 				wall_sprite.position = Vector2(x * 32, y * 32) # Adjust position based on texture size
-# 				add_child(wall_sprite)
-
-# # Function to generate the main room at a given position with given size
-# func generate_main_room(room_position : Vector2, size_x : int, size_y : int):
-# 	# Ensure the room fits within the grid
-# 	var start_x = max(0, min(room_position.x, grid_size - 1))
-# 	var start_y = max(0, min(room_position.y, grid_size - 1))
-# 	var end_x = min(start_x + size_x, grid_size)
-# 	var end_y = min(start_y + size_y, grid_size)
-
-# 	# Create walls around the room
-# 	for i in range(start_x, end_x):
-# 		for j in range(start_y, end_y):
-# 			if i == start_x or i == end_x - 1 or j == start_y or j == end_y - 1:
-# 				grid[i][j] = 2 # Wall
-# 			else:
-# 				grid[i][j] = 1 # Floor
-
-# # Function to generate a room at a given position with given size
-# func generate_room(room_position : Vector2, size_x : int, size_y : int):
-# 	# Ensure the room fits within the grid
-# 	var start_x = max(0, min(room_position.x, grid_size - 1))
-# 	var start_y = max(0, min(room_position.y, grid_size - 1))
-# 	var end_x = min(start_x + size_x, grid_size)
-# 	var end_y = min(start_y + size_y, grid_size)
-
-# 	# Create walls around the room
-# 	for i in range(start_x, end_x):
-# 		for j in range(start_y, end_y):
-# 			if i == start_x or i == end_x - 1 or j == start_y or j == end_y - 1:
-# 				grid[i][j] = 2 # Wall
-# 			else:
-# 				grid[i][j] = 1 # Floor
-
-
-# func _input(event):
-# 	if event.is_action_pressed("reload_weapon") :
-# 		generate_house()
