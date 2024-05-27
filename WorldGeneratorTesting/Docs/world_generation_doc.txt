@@ -1,0 +1,46 @@
+
+
+
+RANDOM SEED-BASED WORLD GENERATION
+
+Regions then individual chunks
+
+
+https://auburn.github.io/FastNoiseLite/ FastNoiseLite viewer, very useful.
+
+1. Biomes (should be very big):
+- temperate (green)
+- hot (red)
+- cold (blue)
+
+2. Elevation (should be big)
+- flat
+- ocean
+- hills
+- mountains
+
+
+
+3. Regions:
+- village/town/city/metropolis,
+- forest
+- swamp
+
+4. Individual POIs
+
+5. Connections (roads, bridges, pathways etc)
+
+
+Settings and mechanics for Biomes, Elevation and Regions:
+
+Min size X and Y
+Max size X and Y
+Density? Probably from 0-100, where 100 will be fully filled?
+Shapes? 
+
+Using Cellular noise type for biomes (Return type cell value, so there is not a lot of random scattered biome tiles)
+
+Steps:
+
+1. Fill a big area with one basic terrain type (grass for example)
+2. 
