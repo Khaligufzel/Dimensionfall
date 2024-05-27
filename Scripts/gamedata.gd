@@ -73,6 +73,16 @@ func load_sprites() -> void:
 			data[dict].sprites = loaded_sprites
 
 
+# Updated function to add a sprite to a specific dictionary
+func add_sprite_to_dictionary(contentData: Dictionary, file_name: String, texture: Texture):
+	if texture:
+		contentData.sprites[file_name] = texture
+		Helper.signal_broker.data_sprites_changed.emit(contentData, file_name)
+		print("Sprite added:", file_name)
+	else:
+		print("Failed to add sprite:", file_name)
+
+
 # This function reads all the files in "res://Mods/Core/Tiles/". It will check if the file is a .png file. If the file is a .png file, it will create a new material with that .png image as the texture. It will put all of the created materials in a dictionary with the name of the file as the key and the material as the value.
 func load_tile_sprites() -> void:
 	var tile_materials: Dictionary = {} # Materials used to represent tiles
@@ -157,7 +167,7 @@ func duplicate_file_in_data(contentData: Dictionary, original_id: String, new_id
 func add_id_to_data(contentData: Dictionary, id: String):
 	if !contentData.has("data"):
 		return
-	if contentData.dataPath.ends_with((".json")):
+	if contentData.dataPath.ends_with(".json"):
 		if get_array_index_by_id(contentData,id) != -1:
 			print_debug("Tried to add an existing id to an array")
 			return
@@ -229,23 +239,23 @@ func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 	return contentData.data[idnr]
 
 
-#Takes contentData and an id and returns the sprite associated with the id
+# Takes contentData and an id and returns the sprite associated with the id
 # For example, contentData can be Gamedata.data.tiles
 # and id can be "plain_grass" and it will return the sprite for plain_grass
 func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
-	if not contentData.sprites.size() > 0 or not contentData.data.size() > 0:
+	if contentData.sprites.is_empty() or contentData.data.is_empty():
 		return null
-	var sprite
-	# First, check if the contentData.data is structured as an array
-	if contentData.data[0] is String:
-		sprite = contentData.sprites[id + ".png"]
-	else:
+	
+	# Check if the datapath ends with .json (indicating a list item)
+	if contentData.dataPath.ends_with(".json"):
 		var item_json = get_data_by_id(contentData, id)
 		if item_json.has("sprite"):
-			sprite = contentData.sprites[item_json.sprite]
+			return contentData.sprites.get(item_json["sprite"], null)
 		else:
 			return null
-	return sprite
+	else:
+		# Treat as a file in a folder
+		return contentData.sprites.get(id + ".png", null)
 
 
 # This functino is called when an editor has changed data

@@ -53,6 +53,9 @@ signal inventory_operation_finished()
 signal player_stat_changed(player: CharacterBody3D)
 signal player_skill_changed(player: CharacterBody3D)
 
+# When sprites have been added or removed from gamedata
+signal data_sprites_changed(contentData: Dictionary, spriteid: String)
+
 # We signal to the hud to start a progressbar
 func on_start_timer_progressbar(time_left: float):
 	hud_start_progressbar.emit(time_left)

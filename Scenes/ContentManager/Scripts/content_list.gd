@@ -16,10 +16,14 @@ var contentData: Dictionary = {}:
 	set(newData):
 		contentData = newData
 		load_data()
+
 var header: String = "Items":
 	set(newName):
 		header = newName
 		collapseButton.text = header
+
+func _ready():
+	Helper.signal_broker.data_sprites_changed.connect(_on_data_sprites_changed)
 
 var is_collapsed: bool = false:
 	get:
@@ -40,13 +44,15 @@ func load_data():
 		return
 	if contentData.data.is_empty():
 		return
-	# If the first item is a string, it's a list of files.
-	# Otherwise, it's a list of objects representing some kind of data
-	if contentData.data[0] is String:
-		make_file_list()
-	else:
+    
+	# If the datapath ends with json, it's a list of items
+	# Otherwise, it's a folder with json files in it
+	if contentData.dataPath.ends_with(".json"):
 		make_item_list()
+	else:
+		make_file_list()
 	load_collapse_state()
+
 
 # Loops over all the items in contentData.data (which are dictionaries)
 # Creates a new item in the list with the id of the item as text
@@ -272,3 +278,9 @@ func load_collapse_state():
 			print("No saved state for:", header)
 	else:
 		print("Failed to load settings for:", header, "with error:", err)
+
+
+# When a sprite has been added or changed in the gamedata
+func _on_data_sprites_changed(data: Dictionary, _spriteid: String):
+	if data == contentData:
+		load_data()

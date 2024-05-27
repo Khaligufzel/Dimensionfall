@@ -50,7 +50,7 @@ var mapData: Dictionary = defaultMapData.duplicate():
 			mapData = data.duplicate()
 		loadLevelData(currentLevel)
 signal zoom_level_changed(zoom_level: int)
-signal map_data_changed(map_path: String, new_data: Dictionary, old_data: Dictionary)
+signal data_changed(map_path: String, new_data: Dictionary, old_data: Dictionary)
 
 
 # This function is called when the parent mapeditor node is ready
@@ -63,7 +63,7 @@ func _on_mapeditor_ready() -> void:
 	levelgrid_below.hide()
 	levelgrid_above.hide()
 	_on_zoom_level_changed(mapEditor.zoom_level)
-	map_data_changed.connect(Gamedata.on_mapdata_changed)
+	data_changed.connect(Gamedata.on_mapdata_changed)
 
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
@@ -524,7 +524,7 @@ func _on_show_above_toggled(button_pressed):
 func save_map_json_file():
 	# Convert the TileGrid.mapData to a JSON string
 	storeLevelData()
-	map_data_changed.emit(mapEditor.contentSource, mapData, olddata)
+	data_changed.emit(mapEditor.contentSource, mapData, olddata)
 	var map_data_json = JSON.stringify(mapData.duplicate(), "\t")
 	Helper.json_helper.write_json_file(mapEditor.contentSource, map_data_json)
 	olddata = mapData.duplicate(true)
@@ -565,12 +565,24 @@ func create_miniature_map_image() -> Image:
 # Function to create and save a 128x128 miniature map of the current level
 func save_miniature_map_image():
 	# Call the function to create the image texture
-	var image_texture = create_miniature_map_image()  
-	var image = image_texture
+	var image = create_miniature_map_image()
 	# Save the image to a file
 	var file_name = mapEditor.contentSource.get_file().replace("json", "png")
 	var file_path = Gamedata.data.maps.spritePath + file_name
-	image.save_png(file_path)
+
+	# Ensure the image is saved
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	if file:
+		image.save_png(file_path)
+		print("Image saved:", file_path)
+
+		# Create an ImageTexture from the Image
+		var image_texture = ImageTexture.create_from_image(image)
+
+		# Add the sprite to the dictionary directly using the ImageTexture
+		Gamedata.add_sprite_to_dictionary(Gamedata.data.maps, file_name, image_texture)
+	else:
+		print("Failed to save image:", file_path)
 
 
 func _on_create_preview_image_button_button_up():
