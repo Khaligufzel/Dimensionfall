@@ -1,106 +1,3 @@
-# extends Node2D
-
-# @export_group("Settings")
-# @export var number_of_rooms : int = 4
-# @export var rooms_size_x : int = 5
-# @export var rooms_size_y : int = 5
-# @export var rooms_size_random : int = 1
-
-# @export_group("Variables")
-# @export var floor_texture : Texture2D
-# @export var wall_texture : Texture2D
-
-# var grid_size : int = 24
-# var grid : Array = []
-
-# # Called when the node enters the scene tree for the first time.
-# func _ready():
-# 	generate_house()
-# 	draw_house()
-
-# # Function to generate the house layout
-# func generate_house():
-# 	# Initialize the grid
-# 	grid = []
-# 	for i in range(grid_size):
-# 		grid.append([])
-# 		for j in range(grid_size):
-# 			grid[i].append(0) # 0 means empty, 1 means floor, 2 means wall
-
-# 	# Place the first room
-# 	var start_x = randi() % (grid_size - rooms_size_x)
-# 	var start_y = randi() % (grid_size - rooms_size_y)
-# 	place_room(start_x, start_y, rooms_size_x, rooms_size_y)
-
-# 	var previous_room = Rect2(start_x, start_y, rooms_size_x, rooms_size_y)
-
-# 	for i in range(1, number_of_rooms):
-# 		var room_width = rooms_size_x + int(randi() % rooms_size_random)
-# 		var room_height = rooms_size_y + int(randi() % rooms_size_random)
-
-# 		# Ensure room dimensions are valid
-# 		room_width = max(1, room_width)
-# 		room_height = max(1, room_height)
-
-# 		var x = previous_room.position.x + previous_room.size.x + 1 # Leave a gap for the wall
-# 		var max_y_shift = max(1, int(previous_room.size.y - room_height))
-# 		var y = int(previous_room.position.y + randi() % max_y_shift)
-
-# 		# Ensure the new room fits within the grid
-# 		x = min(x, grid_size - room_width)
-# 		y = clamp(y, 0, grid_size - room_height)
-
-# 		place_room(x, y, room_width, room_height)
-
-# 		# Add a door between rooms
-# 		var door_y = clamp(previous_room.position.y + int(previous_room.size.y / 2), 0, grid_size - 1)
-# 		grid[previous_room.position.x + int(previous_room.size.x)][door_y] = 1
-
-# 		# Update previous room
-# 		previous_room = Rect2(x, y, room_width, room_height)
-
-# 	# Generate walls around floors
-# 	for i in range(grid_size):
-# 		for j in range(grid_size):
-# 			if grid[i][j] == 1: # If it's a floor
-# 				# Check adjacent cells
-# 				for dx in range(-1, 2):
-# 					for dy in range(-1, 2):
-# 						if dx == 0 and dy == 0:
-# 							continue
-# 						var nx = i + dx
-# 						var ny = j + dy
-# 						if nx >= 0 and nx < grid_size and ny >= 0 and ny < grid_size:
-# 							if grid[nx][ny] == 0:
-# 								grid[nx][ny] = 2 # Set wall
-
-# # Function to place a room at a given position
-# func place_room(x: int, y: int, width: int, height: int):
-# 	for i in range(width):
-# 		for j in range(height):
-# 			grid[x + i][y + j] = 1 # Set floor
-
-# # Function to draw the house based on the grid
-# func draw_house():
-# 	for i in range(grid_size):
-# 		for j in range(grid_size):
-# 			if grid[i][j] == 1: # Floor
-# 				var floor_instance = Sprite2D.new()
-# 				floor_instance.texture = floor_texture
-# 				floor_instance.position = Vector2(i * 32, j * 32)
-# 				add_child(floor_instance)
-# 			elif grid[i][j] == 2: # Wall
-# 				var wall_instance = Sprite2D.new()
-# 				wall_instance.texture = wall_texture
-# 				wall_instance.position = Vector2(i * 32, j * 32)
-# 				add_child(wall_instance)
-
-# # Function to print the grid layout in the console for debugging
-# func print_grid():
-# 	for row in grid:
-# 		print(row)
-
-
 extends Node2D
 
 @export_group("Settings")
@@ -155,9 +52,16 @@ func generate_house():
 	# splitting the smaller room created by last function with a horizontal wall
 	# this will create the third room
 	# also giving the location of the wall here, for start/end point of horizontal wall
+	#
+	# when we are at it, let's go ahead and get info about which room was divided. We will use that in the next step
+	var wall_direction : int = split_smaller_room_horizontally(max_room_x, max_room_y, splitting_wall_x)
 
-	split_smaller_room_horizontally(max_room_x, max_room_y, splitting_wall_x)
 
+	# making the last room. this time it will be a little different,
+	# we will not just simply split the biggest room into half with one wall.
+	# I want to make it in the corner
+
+	make_corner_room(max_room_x, max_room_y, splitting_wall_x, wall_direction)
 
 
 	# Create Sprite2D nodes for walls and floors
@@ -229,6 +133,76 @@ func split_smaller_room_horizontally(max_room_x : int, max_room_y : int, splitti
 	else:
 		for i in range(splitting_wall_x, max_room_x):
 			grid[i][random_wall_y] = 2 # wall
+	
+	return direction
+
+
+func make_corner_room(max_room_x : int, max_room_y : int, splitting_wall_x : int, wall_direction : int):
+	
+	# Let's see which room is the biggest (undivided)
+
+
+	# We need to decide where will be the inner corner of the main room.
+	var inner_corner_x : int
+	if wall_direction == -1:
+		inner_corner_x = randi_range(4 + splitting_wall_x, max_room_x - 5)
+	else:
+		inner_corner_x = randi_range(4, splitting_wall_x - 5)
+
+	var inner_corner_y : int = randi_range(4, max_room_y - 5)
+
+	# test
+	grid[inner_corner_x][inner_corner_y] = 2 # wall
+
+	## left or right room?
+	if wall_direction == -1:
+		# we can make the smaller room in 4 different corners, so I guess to add variety let's make it random
+		match randi_range(0,3):
+			0: # south west
+				for i in range(splitting_wall_x, inner_corner_x):
+					grid[i][inner_corner_y] = 2 # wall
+				for i in range(inner_corner_y, max_room_y):
+					grid[inner_corner_x][i] = 2
+			1: # north west
+				for i in range(splitting_wall_x, inner_corner_x):
+					grid[i][inner_corner_y] = 2 # wall
+				for i in range(0, inner_corner_y):
+					grid[inner_corner_x][i] = 2
+			2: # north east
+				for i in range(inner_corner_x, max_room_x):
+					grid[i][inner_corner_y] = 2 # wall
+				for i in range(0, inner_corner_y):
+					grid[inner_corner_x][i] = 2
+			3: # south east
+				for i in range(splitting_wall_x, inner_corner_x):
+					grid[i][inner_corner_y] = 2 # wall
+				for i in range(inner_corner_y, max_room_y):
+					grid[inner_corner_x][i] = 2
+
+	if wall_direction == 1:
+		# we can make the smaller room in 4 different corners, so I guess to add variety let's make it random
+		match randi_range(0,0):
+			0: # south west
+				for i in range(0, inner_corner_x):
+					grid[i][inner_corner_y] = 2
+				for i in range(inner_corner_y, max_room_y):
+					grid[inner_corner_x][i] = 2
+			1: # north west
+				for i in range(0, inner_corner_x):
+					grid[i][inner_corner_y] = 2
+				for i in range(0, inner_corner_y):
+					grid[inner_corner_x][i] = 2
+			2: # north east
+				for i in range(inner_corner_x, splitting_wall_x):
+					grid[i][inner_corner_y] = 2
+				for i in range(0, inner_corner_y):
+					grid[inner_corner_x][i] = 2
+			3: # south east
+				for i in range(inner_corner_x, splitting_wall_x):
+					grid[i][inner_corner_y] = 2
+				for i in range(inner_corner_y, max_room_y):
+					grid[inner_corner_x][i] = 2
+				
 	
 
 
