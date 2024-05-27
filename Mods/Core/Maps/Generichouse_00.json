@@ -37879,7 +37879,7 @@
 	"references": {
 		"core": {
 			"tacticalmaps": [
-				"./Mods/Core/TacticalMaps/DefaultTacticalMap.json"
+				"DefaultTacticalMap.json"
 			]
 		}
 	}

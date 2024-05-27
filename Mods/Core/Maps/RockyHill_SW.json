@@ -27773,7 +27773,7 @@
 	"references": {
 		"core": {
 			"tacticalmaps": [
-				"./Mods/Core/TacticalMaps/RockyHill_00.json"
+				"RockyHill_00.json"
 			]
 		}
 	}

@@ -724,7 +724,7 @@ func on_map_deleted(map_id: String):
 
 	# This callable will remove this map from every tacticalmap that references this itemgroup.
 	var myfunc: Callable = func (tmap_id):
-		var tfile = Gamedata.data.tacticalmaps.dataPath + tmap_id + ".json"
+		var tfile = Gamedata.data.tacticalmaps.dataPath + tmap_id
 		var tmapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(tfile)
 		# Check if the "chunks" key exists and is an array
 		if tmapdata.has("chunks") and tmapdata["chunks"] is Array:
@@ -732,7 +732,7 @@ func on_map_deleted(map_id: String):
 			for i in range(tmapdata["chunks"].size()):
 				var chunk = tmapdata["chunks"][i]
 				# If the chunk has the target id, remove it from the array
-				if chunk.has("id") and chunk["id"] == map_id:
+				if chunk.has("id") and chunk["id"] == map_id + ".json":
 					tmapdata["chunks"].remove_at(i)
 			var map_data_json = JSON.stringify(tmapdata.duplicate(), "\t")
 			Helper.json_helper.write_json_file(tfile, map_data_json)
@@ -846,6 +846,7 @@ func on_tacticalmapdata_changed(tacticalmap_id: String, newdata: Dictionary, old
 				ids_dict_new[chunk["id"]] = true
 	unique_new_ids = ids_dict_new.keys()
 
+	tacticalmap_id = tacticalmap_id.get_file()
 	# Add references for new IDs
 	for id in unique_new_ids:
 		add_reference(Gamedata.data.maps, "core", "tacticalmaps", id, tacticalmap_id)
