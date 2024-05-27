@@ -121,7 +121,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01",
+					"field_grass_flowers_00",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -745,6 +748,13 @@
 		"description": "The ground is covered with small pebbles",
 		"id": "gravel_00",
 		"name": "Gravel",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_hill_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "gravel.png"
 	},
@@ -778,7 +788,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01",
+					"field_grass_flowers_00",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -795,7 +808,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01",
+					"field_grass_flowers_00",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -812,7 +828,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01",
+					"field_grass_flowers_00",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -829,7 +848,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01",
+					"field_grass_flowers_00",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -846,7 +868,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01",
+					"field_grass_flowers_00",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -863,7 +888,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01",
+					"field_grass_flowers_00",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -890,7 +918,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -907,7 +937,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_01",
+					"field_grass_flowers_00",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -924,7 +956,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01",
+					"field_grass_flowers_00",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -941,7 +976,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01",
+					"field_grass_flowers_00",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -958,7 +996,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic_00",
+					"field_grass_basic_01",
+					"field_grass_flowers_00",
+					"field_grass_hill_00"
 				]
 			}
 		},
@@ -972,6 +1013,13 @@
 		"description": "This ramp is covered with grass. You can go up and down here",
 		"id": "grass_ramp_00",
 		"name": "Grass ramp",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_hill_00"
+				]
+			}
+		},
 		"shape": "slope",
 		"sprite": "Grassrampnorth1.png"
 	},
@@ -1072,6 +1120,13 @@
 		"description": "There is just dirt here. It's color is light",
 		"id": "dirt_light_00",
 		"name": "Dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_hill_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "dirt3.png"
 	},
@@ -1082,6 +1137,13 @@
 		"description": "There is just dirt here. It's color is light",
 		"id": "dirt_light_01",
 		"name": "Dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_hill_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "dirt4.png"
 	},
@@ -1092,6 +1154,13 @@
 		"description": "There is just dirt here. It's color is light",
 		"id": "dirt_light_02",
 		"name": "Dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_hill_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "dirt5.png"
 	},
@@ -1102,6 +1171,13 @@
 		"description": "There is dirt here. Part of it is covered with grass",
 		"id": "dirt_light_grass_north_00",
 		"name": "Dirt with grass",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_hill_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "dirtgrass.png"
 	},
@@ -1112,6 +1188,13 @@
 		"description": "There is dirt here. Part of it is covered with grass",
 		"id": "dirt_light_grass_north_01",
 		"name": "Dirt with grass",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_hill_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "dirt_grass_north.png"
 	},

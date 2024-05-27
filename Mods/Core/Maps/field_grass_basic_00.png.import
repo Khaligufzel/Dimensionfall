@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqfee0h4qxism"
-path="res://.godot/imported/field_grass_basic.png-ab0100b62569569f460b0478bfc216dd.ctex"
+uid="uid://dp232vxl3rr7q"
+path="res://.godot/imported/field_grass_basic_00.png-16cba61d31d6d254599f79494a3bdcf4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/field_grass_basic.png"
-dest_files=["res://.godot/imported/field_grass_basic.png-ab0100b62569569f460b0478bfc216dd.ctex"]
+source_file="res://Mods/Core/Maps/field_grass_basic_00.png"
+dest_files=["res://.godot/imported/field_grass_basic_00.png-16cba61d31d6d254599f79494a3bdcf4.ctex"]
 
 [params]
 
