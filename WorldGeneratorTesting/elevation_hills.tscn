@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://65wsxjo4vqin"]
+
+[sub_resource type="Gradient" id="Gradient_o6j4g"]
+colors = PackedColorArray(0.745098, 0.745098, 0, 1, 0.203922, 0.203922, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xpvpq"]
+gradient = SubResource("Gradient_o6j4g")
+width = 16
+height = 16
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[node name="ElevationHills" type="Sprite2D"]
+texture = SubResource("GradientTexture2D_xpvpq")

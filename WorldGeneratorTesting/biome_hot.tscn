@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6ypjd4ld5ia4"]
+
+[sub_resource type="Gradient" id="Gradient_3871w"]
+colors = PackedColorArray(0.745098, 0, 0, 1, 0.203922, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7eml0"]
+gradient = SubResource("Gradient_3871w")
+width = 16
+height = 16
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[node name="BiomeHot" type="Sprite2D"]
+texture = SubResource("GradientTexture2D_7eml0")

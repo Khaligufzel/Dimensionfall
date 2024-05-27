@@ -1323,5 +1323,41 @@
 		"shape": "cube",
 		"sprite": "glass_window.png",
 		"transparent": true
+	},
+	{
+		"categories": [
+			"Realistic"
+		],
+		"description": "Test",
+		"id": "floor_wood_realistic01",
+		"name": "Old wooden planks",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
+		"shape": "cube",
+		"sprite": "woodenplanks01.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Realistic"
+		],
+		"description": "Test",
+		"id": "realistic_brick01",
+		"name": "Old brick wall",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
+		"shape": "cube",
+		"sprite": "redbricks02.png",
+		"transparent": false
 	}
 ]
