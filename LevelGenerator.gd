@@ -89,6 +89,36 @@ func initialize_map_data():
 		Helper.loaded_chunk_data.chunks = loadingchunks
 
 
+
+############### Probably temp function
+func initialize_map_data_from_world_generator(map_position : Vector2, map_name : String):
+	
+	var tacticalMapJSON: Dictionary = {}
+	# In this case we need to make a new map based on it's json definition
+	tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
+	Gamedata.data.tacticalmaps.dataPath + map_name)
+	Helper.loaded_chunk_data.mapheight = tacticalMapJSON.mapheight
+	Helper.loaded_chunk_data.mapwidth = tacticalMapJSON.mapwidth
+
+	# else:
+	# 	# In this case we load the map json from disk
+	# 	tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
+	# 	map_save_folder + "/map.json")
+	# 	var loadingchunks: Dictionary = {}
+
+	# 	# Since the chunk positions are no longer a Vector2 in JSON, 
+	# 	# we have to transform it back into a Vector2
+	# 	var chunk_data = tacticalMapJSON["chunks"]
+	# 	for key_str in chunk_data:
+	# 		var key_parts = key_str.split(",")
+	# 		if key_parts.size() == 2:
+	# 			var key_x = int(key_parts[0])
+	# 			var key_y = int(key_parts[1])
+	# 			var key = Vector2(key_x, key_y) # Use integers for Vector2 to avoid hash collisions
+	# 			loadingchunks[key] = chunk_data[key_str]
+	# 	Helper.loaded_chunk_data = tacticalMapJSON
+	# 	Helper.loaded_chunk_data.chunks = loadingchunks
+
 # Called when no data has been put into memory yet in loaded_chunk_data
 # Will get the chunk data from map json definition to create a brand new chunk
 func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:

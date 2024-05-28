@@ -8,7 +8,7 @@ var is_alive = true
 
 var rng = RandomNumberGenerator.new()
 
-var speed = 1  # speed in meters/sec
+var speed = 10  # speed in meters/sec
 var current_speed
 
 var run_multiplier = 1.5

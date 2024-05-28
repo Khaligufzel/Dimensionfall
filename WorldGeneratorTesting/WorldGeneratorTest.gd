@@ -1,5 +1,6 @@
 extends Node3D
 
+@export var level_generator: Node3D
 @export var player: Node3D
 @export var biome_chunk_parent: Node3D
 @export var elevation_chunk_parent: Node3D
@@ -30,6 +31,9 @@ extends Node3D
 @export var city_sprite : Texture
 @export var plains_sprite : Texture
 @export var forest_sprite : Texture
+@export var city_map_name : String
+@export var plains_map_name : String
+@export var forest_map_name : String
 
 
 
@@ -64,9 +68,9 @@ func _ready():
 	load_chunks_around(player_position)
 
 
-	biome_chunk_parent.visible = true
+	biome_chunk_parent.visible = false
 	elevation_chunk_parent.visible = false
-	region_chunk_parent.visible = false
+	region_chunk_parent.visible = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -158,6 +162,32 @@ func generate_chunk(chunk_key: Vector2):
 			sprite.position = Vector2(global_x * cell_size + cell_size / 2, global_y * cell_size + cell_size / 2)
 			elevation_chunk_parent.add_child(sprite)
 			loaded_chunks[chunk_key].append(sprite)
+
+	# # Generate regions
+	# noise.seed = int(hash(region_seed))
+	# noise.noise_type = FastNoiseLite.TYPE_CELLULAR
+	# noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
+	# noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
+	# noise.cellular_jitter = 0.01
+	# noise.frequency = 0.04 # Adjust frequency as needed
+
+	# for x in range(chunk_size):
+	# 	for y in range(chunk_size):
+	# 		var global_x = chunk_x * chunk_size + x
+	# 		var global_y = chunk_y * chunk_size + y
+
+	# 		var region_type = get_region_type(global_x, global_y)
+	# 		var sprite : Sprite2D = Sprite2D.new()
+	# 		match region_type:
+	# 			Region.PLAINS:
+	# 				sprite.texture = plains_sprite
+	# 			Region.CITY:
+	# 				sprite.texture = city_sprite
+	# 			Region.FOREST:
+	# 				sprite.texture = forest_sprite
+	# 		sprite.position = Vector2(global_x * cell_size + cell_size / 2, global_y * cell_size + cell_size / 2)
+	# 		region_chunk_parent.add_child(sprite)
+	# 		loaded_chunks[chunk_key].append(sprite)
 
 	# Generate regions
 	noise.seed = int(hash(region_seed))
