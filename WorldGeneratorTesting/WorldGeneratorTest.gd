@@ -1,9 +1,9 @@
-extends Node2D
+extends Node3D
 
-@export var player: Node2D
-@export var biome_chunk_parent: Node2D
-@export var elevation_chunk_parent: Node2D
-@export var region_chunk_parent : Node2D
+@export var player: Node3D
+@export var biome_chunk_parent: Node3D
+@export var elevation_chunk_parent: Node3D
+@export var region_chunk_parent : Node3D
 
 @export_group("Settings")
 @export var biome_seed : String
@@ -79,15 +79,15 @@ func _process(_delta):
 	load_chunks_around(player_position)
 
 
-func load_chunks_around(position: Vector2):
+func load_chunks_around(position: Vector3):
 	var chunk_x = int(position.x / (chunk_size * cell_size))
-	var chunk_y = int(position.y / (chunk_size * cell_size))
+	var chunk_z = int(position.z / (chunk_size * cell_size))
 
 	for x in range(chunk_x - load_radius, chunk_x + load_radius + 1):
-		for y in range(chunk_y - load_radius, chunk_y + load_radius + 1):
-			var distance_to_chunk_center = Vector2(x - chunk_x, y - chunk_y).length()
+		for z in range(chunk_z - load_radius, chunk_z + load_radius + 1):
+			var distance_to_chunk_center = Vector2(x - chunk_x, z - chunk_z).length()
 			if distance_to_chunk_center <= load_radius:
-				var chunk_key = Vector2(x, y)
+				var chunk_key = Vector2(x, z)
 				if not loaded_chunks.has(chunk_key):
 					generate_chunk(chunk_key)
 
