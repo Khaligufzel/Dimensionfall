@@ -164,6 +164,7 @@ func generate_chunk(chunk_key: Vector2):
 	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
 	noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
 	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
+	noise.cellular_jitter = 0.01
 	noise.frequency = 0.04 # Adjust frequency as needed
 
 	for x in range(chunk_size):
@@ -207,9 +208,9 @@ func get_elevation_type(x: int, y: int) -> int:
 
 func get_region_type(x: int, y: int) -> int:
 	var noise_value = noise.get_noise_2d(float(x), float(y))
-	if noise_value < -0.5:
+	if noise_value < -0.6:
 		return Region.CITY
-	elif noise_value < 0.5:
+	elif noise_value < 0.4:
 		return Region.PLAINS
 	else:
 		return Region.FOREST
