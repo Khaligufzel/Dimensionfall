@@ -73,7 +73,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -95,7 +97,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -117,7 +121,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},

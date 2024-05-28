@@ -121,7 +121,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -778,7 +780,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -795,7 +799,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -812,7 +818,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -829,7 +837,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -846,7 +856,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -863,7 +875,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -890,7 +904,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -907,7 +923,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -924,7 +942,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -941,7 +961,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -958,7 +980,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic"
+					"field_grass_basic",
+					"test_building",
+					"field_forest_basic"
 				]
 			}
 		},
@@ -1072,6 +1096,13 @@
 		"description": "There is just dirt here. It's color is light",
 		"id": "dirt_light_00",
 		"name": "Dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"test_building"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "dirt3.png"
 	},
@@ -1334,7 +1365,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse"
+					"Generichouse",
+					"test_building"
 				]
 			}
 		},
@@ -1352,7 +1384,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse"
+					"Generichouse",
+					"test_building"
 				]
 			}
 		},
