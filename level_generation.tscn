@@ -298,8 +298,12 @@ shape = SubResource("CylinderShape3D_caadj")
 [node name="ComponentInteract" type="Node3D" parent="TacticalMap/Entities/Player"]
 script = ExtResource("16_v28fk")
 
-[node name="WorldGeneratorTest" type="Node3D" parent="."]
+[node name="WorldGenerator" type="Node3D" parent="." node_paths=PackedStringArray("player", "biome_chunk_parent", "elevation_chunk_parent", "region_chunk_parent")]
 script = ExtResource("17_hkyhc")
+player = NodePath("../TacticalMap/Entities/Player")
+biome_chunk_parent = NodePath("GeneratedWorld/Biomes")
+elevation_chunk_parent = NodePath("GeneratedWorld/Elevation")
+region_chunk_parent = NodePath("GeneratedWorld/Regions")
 biome_seed = "CataX"
 elevation_seed = "snipercup"
 region_seed = "Dimensionfall"
@@ -314,19 +318,17 @@ city_sprite = SubResource("GradientTexture2D_imj0d")
 plains_sprite = SubResource("GradientTexture2D_w82vo")
 forest_sprite = SubResource("GradientTexture2D_3iewo")
 
-[node name="WorldBuilder" type="Node3D" parent="WorldGeneratorTest"]
+[node name="GeneratedWorld" type="Node3D" parent="WorldGenerator"]
 
-[node name="GeneratedWorld" type="Node3D" parent="WorldGeneratorTest"]
+[node name="Biomes" type="Node3D" parent="WorldGenerator/GeneratedWorld"]
 
-[node name="Biomes" type="Node3D" parent="WorldGeneratorTest/GeneratedWorld"]
+[node name="Elevation" type="Node3D" parent="WorldGenerator/GeneratedWorld"]
 
-[node name="Elevation" type="Node3D" parent="WorldGeneratorTest/GeneratedWorld"]
+[node name="Regions" type="Node3D" parent="WorldGenerator/GeneratedWorld"]
 
-[node name="Regions" type="Node3D" parent="WorldGeneratorTest/GeneratedWorld"]
+[node name="POIs" type="Node3D" parent="WorldGenerator/GeneratedWorld"]
 
-[node name="POIs" type="Node3D" parent="WorldGeneratorTest/GeneratedWorld"]
-
-[node name="Connections" type="Node3D" parent="WorldGeneratorTest/GeneratedWorld"]
+[node name="Connections" type="Node3D" parent="WorldGenerator/GeneratedWorld"]
 
 [node name="HUD" parent="." instance=ExtResource("17_qnmns")]
 
