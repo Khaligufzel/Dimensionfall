@@ -47,6 +47,9 @@ var current_pain = 0
 var stats = {}
 var skills = {}
 
+var time_since_ready = 0.0
+var delay_before_movement = 2.0  # 2 second delay
+
 @export var sprite : Sprite3D
 
 @export var interact_range : float = 10
@@ -127,9 +130,15 @@ func _process(_delta):
 		
 
 func _physics_process(delta):
+	time_since_ready += delta
+	if time_since_ready < delay_before_movement:
+		# Skip movement updates during the delay period. Otherwise the player 
+		# will fall into the ground because the ground is still being spawned.
+		return
 
-	var gravity = 9.8
-	velocity.y += -gravity * delta
+	# Added an arbitrary multiplier because without it, the player will fall slowly
+	var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+	velocity.y -= gravity * 12 * delta
 	move_and_slide()
 	
 	if is_alive:
