@@ -1,0 +1,77 @@
+{
+    "early_life_events": {
+        "lost their parents in a disaster": [
+            {"trait": "Resilience", "change": 2}
+        ],
+        "was raised by a survivalist mentor": [
+            {"trait": "Discipline", "change": 1},
+            {"trait": "Resilience", "change": 1}
+        ],
+        "was a child prodigy": [
+            {"trait": "Curiosity", "change": 2}
+        ],
+        "grew up in a loving family": [
+            {"trait": "Loyalty", "change": 1}
+        ]
+    },
+    "childhood_events": [
+        {"event": "had a happy childhood", "trait_changes": [{"trait": "Optimism", "change": 1}]},
+        {"event": "was bullied at school", "trait_changes": [{"trait": "Resilience", "change": -1}]},
+        {"event": "was a child prodigy", "trait_changes": [{"trait": "Curiosity", "change": 2}]},
+        {"event": "grew up in a loving family", "trait_changes": [{"trait": "Loyalty", "change": 1}]},
+        {"event": "moved to a new city", "trait_changes": [{"trait": "Adaptability", "change": 1}]},
+        {"event": "had a major illness", "trait_changes": [{"trait": "Resilience", "change": 1}]},
+        {"event": "started a new school", "trait_changes": [{"trait": "Curiosity", "change": 1}]},
+        {"event": "won a school competition", "trait_changes": [{"trait": "Confidence", "change": 1}]},
+        {"event": "lost a pet", "trait_changes": [{"trait": "Empathy", "change": -1}]},
+        {"event": "had a sibling rivalry", "trait_changes": [{"trait": "Patience", "change": -1}]}
+    ],
+    "adolescence_events": [
+        {"event": "formed a band", "trait_changes": [{"trait": "Creativity", "change": 1}]},
+        {"event": "ran away from home", "trait_changes": [{"trait": "Discipline", "change": -1}, {"trait": "Resilience", "change": 1}]},
+        {"event": "excelled in sports", "trait_changes": [{"trait": "Discipline", "change": 2}]},
+        {"event": "struggled with studies", "trait_changes": [{"trait": "Patience", "change": -1}]},
+        {"event": "had a part-time job", "trait_changes": [{"trait": "Responsibility", "change": 1}]},
+        {"event": "experienced first love", "trait_changes": [{"trait": "Empathy", "change": 1}]},
+        {"event": "had a falling out with friends", "trait_changes": [{"trait": "Loyalty", "change": -1}]},
+        {"event": "led a school project", "trait_changes": [{"trait": "Leadership", "change": 1}]},
+        {"event": "volunteered for a cause", "trait_changes": [{"trait": "Altruism", "change": 1}]},
+        {"event": "learned a new skill", "trait_changes": [{"trait": "Curiosity", "change": 1}]}
+    ],
+    "young_adulthood_events": [
+        {"event": "got their first job", "trait_changes": [{"trait": "Dependability", "change": 1}]},
+        {"event": "traveled the world", "trait_changes": [{"trait": "Curiosity", "change": 1}]},
+        {"event": "went to university", "trait_changes": [{"trait": "Curiosity", "change": 1}, {"trait": "Discipline", "change": 1}]},
+        {"event": "started a business", "trait_changes": [{"trait": "Dependability", "change": 1}]},
+        {"event": "started a family", "trait_changes": [{"trait": "Responsibility", "change": 2}, {"trait": "Patience", "change": 1}]},
+        {"event": "won a major competition", "trait_changes": [{"trait": "Confidence", "change": 2}, {"trait": "Discipline", "change": 1}]},
+        {"event": "experienced a major failure", "trait_changes": [{"trait": "Resilience", "change": 2}, {"trait": "Humility", "change": 1}]},
+        {"event": "volunteered for a cause", "trait_changes": [{"trait": "Altruism", "change": 2}]},
+        {"event": "lived in a foreign country", "trait_changes": [{"trait": "Adaptability", "change": 2}]},
+        {"event": "completed a marathon", "trait_changes": [{"trait": "Discipline", "change": 2}, {"trait": "Resilience", "change": 1}]}
+    ],
+    "mature_adulthood_events": [
+        {"event": "became a mentor", "trait_changes": [{"trait": "Loyalty", "change": 1}]},
+        {"event": "faced a serious illness", "trait_changes": [{"trait": "Resilience", "change": 1}]},
+        {"event": "retired early", "trait_changes": [{"trait": "Optimism", "change": 1}]},
+        {"event": "wrote a book", "trait_changes": [{"trait": "Creativity", "change": 1}]},
+        {"event": "lost a close friend", "trait_changes": [{"trait": "Empathy", "change": 2}]},
+        {"event": "moved to a new city", "trait_changes": [{"trait": "Adaptability", "change": 1}]},
+        {"event": "started a non-profit", "trait_changes": [{"trait": "Altruism", "change": 2}]},
+        {"event": "experienced a financial loss", "trait_changes": [{"trait": "Resilience", "change": 2}]},
+        {"event": "became a grandparent", "trait_changes": [{"trait": "Responsibility", "change": 1}]},
+        {"event": "taught a class", "trait_changes": [{"trait": "Leadership", "change": 2}]}
+    ],
+    "life_stage_independent_events": [
+        {"event": "survived an accident", "trait_changes": [{"trait": "Resilience", "change": 2}, {"trait": "Caution", "change": 1}]},
+        {"event": "experienced a natural disaster", "trait_changes": [{"trait": "Resilience", "change": 2}, {"trait": "Fearfulness", "change": 1}]},
+        {"event": "served in the military", "trait_changes": [{"trait": "Discipline", "change": 2}, {"trait": "Bravery", "change": 1}]},
+        {"event": "won a lottery", "trait_changes": [{"trait": "Generosity", "change": 2}, {"trait": "Responsibility", "change": 1}]},
+        {"event": "saved someone's life", "trait_changes": [{"trait": "Bravery", "change": 2}, {"trait": "Altruism", "change": 1}]},
+        {"event": "experienced a supernatural event", "trait_changes": [{"trait": "Curiosity", "change": 2}, {"trait": "Fearfulness", "change": 1}]},
+        {"event": "became a leader", "trait_changes": [{"trait": "Leadership", "change": 2}, {"trait": "Responsibility", "change": 1}]},
+        {"event": "discovered a new species", "trait_changes": [{"trait": "Curiosity", "change": 2}, {"trait": "Creativity", "change": 1}]},
+        {"event": "became a celebrity", "trait_changes": [{"trait": "Confidence", "change": 2}, {"trait": "Vanity", "change": 1}]},
+        {"event": "lived in poverty", "trait_changes": [{"trait": "Resilience", "change": 2}, {"trait": "Empathy", "change": 1}]}
+    ]
+}

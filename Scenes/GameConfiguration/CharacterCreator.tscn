@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bu658htdqa45b"]
+[gd_scene load_steps=6 format=3 uid="uid://bu658htdqa45b"]
 
 [ext_resource type="Theme" uid="uid://cbuxrb7e8nqh7" path="res://Defaults/UIthemes/default_theme01.tres" id="1_4ioiy"]
 [ext_resource type="Texture2D" uid="uid://udkm5rlxol7c" path="res://Scenes/GameConfiguration/Textures/randomdie01.png" id="2_ghvyp"]
+[ext_resource type="Script" path="res://Scripts/StoryGenerator.gd" id="2_ish86"]
 
 [sub_resource type="Gradient" id="Gradient_pli16"]
 colors = PackedColorArray(0.584314, 0.0117647, 0.0117647, 1, 0.584314, 0.0117647, 0.0117647, 1)
@@ -19,6 +20,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_4ioiy")
+
+[node name="StoryGenerator" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ish86")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
