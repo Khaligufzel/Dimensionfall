@@ -51,6 +51,7 @@ var time_since_ready = 0.0
 var delay_before_movement = 2.0  # 2 second delay
 
 @export var sprite : Sprite3D
+@export var collisionDetector : Area3D # Used for detecting collision with furniture
 
 @export var interact_range : float = 10
 
@@ -61,6 +62,10 @@ var delay_before_movement = 2.0  # 2 second delay
 @export var foostep_player : AudioStreamPlayer
 @export var foostep_stream_randomizer : AudioStreamRandomizer
 
+
+# Variables for furniture pushing
+var pushing_furniture = false
+var furniture_body: RigidBody3D = null
 #var progress_bar_timer_max_time : float
 
 #var is_progress_bar_well_progressing_i_guess = false
@@ -71,6 +76,9 @@ func _ready():
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
 	Helper.signal_broker.health_item_used.connect(_on_health_item_used)
+	# Connect signals for collisionDetector to detect furniture
+	collisionDetector.body_entered.connect(_on_body_entered)
+	collisionDetector.body_exited.connect(_on_body_exited)
 
 
 func initialize_health():
@@ -127,8 +135,6 @@ func _process(_delta):
 
 #	if is_progress_bar_well_progressing_i_guess:
 #		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
-		
-
 func _physics_process(delta):
 	time_since_ready += delta
 	if time_since_ready < delay_before_movement:
@@ -141,33 +147,48 @@ func _physics_process(delta):
 	velocity.y -= gravity * 12 * delta
 	move_and_slide()
 	
+		
 	if is_alive:
-		if !is_running || current_stamina <= 0:
-			var input_dir = Input.get_vector("left", "right", "up", "down")
-			var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-			velocity = direction * speed
-#			if velocity.length() > 0.1:
-#				get_node(animation_player).play("player_walking")
-#			else:
-#				get_node(animation_player).stop()
-			move_and_slide()
-		elif is_running && current_stamina > 0:
-			var input_dir = Input.get_vector("left", "right", "up", "down")
-			var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-			velocity = direction * speed * run_multiplier
-			
-			if velocity.length() > 0:
-#				get_node(animation_player).play("player_running")
-				current_stamina -= delta * stamina_lost_while_running_persec
-			
-			move_and_slide()
-			
+		var input_dir = Input.get_vector("left", "right", "up", "down")
+		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		
+		# Check if the player is pushing furniture
+		if pushing_furniture and furniture_body:
+			# Get the mass of the RigidBody3D
+			var mass = furniture_body.mass
+			# Calculate resistance based on the mass
+			var resistance = 1.0 / mass
+			# Apply resistance to the player's movement
+			velocity = direction * speed * resistance
+		else:
+			if !is_running || current_stamina <= 0:
+				velocity = direction * speed
+			elif is_running and current_stamina > 0:
+				velocity = direction * speed * run_multiplier
+				
+				if velocity.length() > 0:
+					current_stamina -= delta * stamina_lost_while_running_persec
+				
 		if velocity.length() < 0.1:
 			current_stamina += delta * stamina_regen_while_standing_still
 			if current_stamina > stamina:
 				current_stamina = stamina
 
 		update_stamina_HUD.emit(current_stamina)
+		
+		move_and_slide()
+
+
+func _on_body_entered(body):
+	if body is RigidBody3D:
+		pushing_furniture = true
+		furniture_body = body
+
+
+func _on_body_exited(body):
+	if body is RigidBody3D:
+		pushing_furniture = false
+		furniture_body = null
 
 
 func _input(event):
