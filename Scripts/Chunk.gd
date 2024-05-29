@@ -841,25 +841,46 @@ func get_block_rotation(shape: String, tilerotation: int = 0) -> int:
 	# The slope has a default rotation of 90
 	# The block has a default rotation of 0
 	var myRotation: int = tilerotation + defaultRotation
-	if myRotation == 0:
-		# Only the block will match this case, not the slope. The block points north
-		return myRotation+0
-	elif myRotation == 90:
-		# A block will point east
-		# A slope will point north
-		return myRotation+180
-	elif myRotation == 180:
-		# A block will point south
-		# A slope will point east
-		return myRotation-0
-	elif myRotation == 270:
-		# A block will point west
-		# A slope will point south
-		return myRotation-180
-	elif myRotation == 360:
-		# Only a slope can match this case if it's rotation is 270 and it gets 90 rotation by default
-		return myRotation-180
+	if shape == "slope":
+		if myRotation == 0:
+			# Only the block will match this case, not the slope. The block points north
+			return myRotation+180
+		elif myRotation == 90:
+			# A block will point east
+			# A slope will point north
+			return myRotation+0
+		elif myRotation == 180:
+			# A block will point south
+			# A slope will point east
+			return myRotation-180
+		elif myRotation == 270:
+			# A block will point west
+			# A slope will point south
+			return myRotation-0
+		elif myRotation == 360:
+			# Only a slope can match this case if it's rotation is 270 and it gets 90 rotation by default
+			return myRotation-180
+	else:
+		if myRotation == 0:
+			# Only the block will match this case, not the slope. The block points north
+			return myRotation+0
+		elif myRotation == 90:
+			# A block will point east
+			# A slope will point north
+			return myRotation+180
+		elif myRotation == 180:
+			# A block will point south
+			# A slope will point east
+			return myRotation-0
+		elif myRotation == 270:
+			# A block will point west
+			# A slope will point south
+			return myRotation-180
+		elif myRotation == 360:
+			# Only a slope can match this case if it's rotation is 270 and it gets 90 rotation by default
+			return myRotation-180
 	return myRotation
+
 
 # New chunks will have the id in the chunk data. In that case it returns true
 # Previously saved chunks will not have id in the data and it returns false
