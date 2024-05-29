@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bu658htdqa45b"]
+[gd_scene load_steps=5 format=3 uid="uid://bu658htdqa45b"]
 
 [ext_resource type="Theme" uid="uid://cbuxrb7e8nqh7" path="res://Defaults/UIthemes/default_theme01.tres" id="1_4ioiy"]
 [ext_resource type="Texture2D" uid="uid://udkm5rlxol7c" path="res://Scenes/GameConfiguration/Textures/randomdie01.png" id="2_ghvyp"]
+
+[sub_resource type="Gradient" id="Gradient_pli16"]
+colors = PackedColorArray(0.584314, 0.0117647, 0.0117647, 1, 0.584314, 0.0117647, 0.0117647, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2s7jb"]
+gradient = SubResource("Gradient_pli16")
+width = 16
+height = 16
 
 [node name="CharacterCreator" type="Control"]
 layout_mode = 3
@@ -166,10 +174,19 @@ layout_mode = 2
 text = "Hair Color"
 
 [node name="ColorPicker" type="ColorPicker" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer3"]
+visible = false
 layout_mode = 2
 color_modes_visible = false
 sliders_visible = false
 presets_visible = false
+
+[node name="OptionButton2" type="OptionButton" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "Red"
+popup/item_0/icon = SubResource("GradientTexture2D_2s7jb")
+popup/item_0/id = 0
 
 [node name="Background" type="MarginContainer" parent="TabContainer"]
 visible = false
