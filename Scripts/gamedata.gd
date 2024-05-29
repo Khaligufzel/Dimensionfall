@@ -359,18 +359,41 @@ func on_itemgroup_changed(newdata: Dictionary, olddata: Dictionary):
 # This example will add the specified furniture from the itemgroup's references
 func add_reference(mydata: Dictionary, module: String, type: String, onid: String, refid: String) -> bool:
 	var changes_made: bool = false
-	if onid != "":
-		var entitydata = get_data_by_id(mydata, onid)
-		if not entitydata.has("references"):
-			entitydata["references"] = {}
-		if not entitydata["references"].has(module):
-			entitydata["references"][module] = {}
-		if not entitydata["references"][module].has(type):
-			entitydata["references"][module][type] = []
-		
-		if refid not in entitydata["references"][module][type]:
-			entitydata["references"][module][type].append(refid)
+
+	# If onid ends with ".json", handle it as a file reference case
+	if onid.ends_with(".json"):
+		var filepath = mydata.dataPath + onid
+		var file_data = Helper.json_helper.load_json_dictionary_file(filepath)
+		if not file_data.has("references"):
+			file_data["references"] = {}
+		if not file_data["references"].has(module):
+			file_data["references"][module] = {}
+		if not file_data["references"][module].has(type):
+			file_data["references"][module][type] = []
+
+		if refid not in file_data["references"][module][type]:
+			file_data["references"][module][type].append(refid)
 			changes_made = true
+
+		# Save the updated data back to the file
+		var data_json = JSON.stringify(file_data.duplicate(), "\t")
+		Helper.json_helper.write_json_file(filepath, data_json)
+
+	# Default behavior for other cases
+	else:
+		if onid != "":
+			var entitydata = get_data_by_id(mydata, onid)
+			if not entitydata.has("references"):
+				entitydata["references"] = {}
+			if not entitydata["references"].has(module):
+				entitydata["references"][module] = {}
+			if not entitydata["references"][module].has(type):
+				entitydata["references"][module][type] = []
+
+			if refid not in entitydata["references"][module][type]:
+				entitydata["references"][module][type].append(refid)
+				changes_made = true
+
 	return changes_made
 
 
@@ -384,20 +407,45 @@ func add_reference(mydata: Dictionary, module: String, type: String, onid: Strin
 # This example will remove the specified furniture from the itemgroup's references
 func remove_reference(mydata: Dictionary, module: String, type: String, fromid: String, refid: String) -> bool:
 	var changes_made: bool = false
-	if fromid != "":
-		var entitydata = get_data_by_id(mydata, fromid)
-		if entitydata.has("references") and entitydata["references"].has(module) and entitydata["references"][module].has(type):
-			var refs = entitydata["references"][module][type]
+	
+	# If fromid ends with ".json", handle it as a file reference case
+	if fromid.ends_with(".json"):
+		var filepath = mydata.dataPath + fromid
+		var file_data = Helper.json_helper.load_json_dictionary_file(filepath)
+		if file_data.has("references") and file_data["references"].has(module) and file_data["references"][module].has(type):
+			var refs = file_data["references"][module][type]
 			if refid in refs:
 				refs.erase(refid)
 				changes_made = true
 				# Clean up if necessary
 				if refs.size() == 0:
-					entitydata["references"][module].erase(type)
-				if entitydata["references"][module].is_empty():
-					entitydata["references"].erase(module)
-				if entitydata["references"].is_empty():
-					entitydata.erase("references")
+					file_data["references"][module].erase(type)
+				if file_data["references"][module].is_empty():
+					file_data["references"].erase(module)
+				if file_data["references"].is_empty():
+					file_data.erase("references")
+
+				# Save the updated data back to the file
+				var data_json = JSON.stringify(file_data.duplicate(), "\t")
+				Helper.json_helper.write_json_file(filepath, data_json)
+
+	# Default behavior for other cases
+	else:
+		if fromid != "":
+			var entitydata = get_data_by_id(mydata, fromid)
+			if entitydata.has("references") and entitydata["references"].has(module) and entitydata["references"][module].has(type):
+				var refs = entitydata["references"][module][type]
+				if refid in refs:
+					refs.erase(refid)
+					changes_made = true
+					# Clean up if necessary
+					if refs.size() == 0:
+						entitydata["references"][module].erase(type)
+					if entitydata["references"][module].is_empty():
+						entitydata["references"].erase(module)
+					if entitydata["references"].is_empty():
+						entitydata.erase("references")
+
 	return changes_made
 
 
@@ -411,6 +459,8 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		on_furniture_deleted(id)
 	if contentData == Gamedata.data.maps:
 		on_map_deleted(id)
+	if contentData == Gamedata.data.tacticalmaps:
+		on_tacticalmap_deleted(id)
 	if contentData == Gamedata.data.mobs:
 		on_mob_deleted(id)
 	if contentData == Gamedata.data.tiles:
@@ -684,6 +734,25 @@ func on_map_deleted(map_id: String):
 		print("Map data does not contain 'levels'.")
 		return
 
+	# This callable will remove this map from every tacticalmap that references this itemgroup.
+	var myfunc: Callable = func (tmap_id):
+		var tfile = Gamedata.data.tacticalmaps.dataPath + tmap_id
+		var tmapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(tfile)
+		# Check if the "chunks" key exists and is an array
+		if tmapdata.has("chunks") and tmapdata["chunks"] is Array:
+			# Iterate through the chunks array
+			for i in range(tmapdata["chunks"].size()):
+				var chunk = tmapdata["chunks"][i]
+				# If the chunk has the target id, remove it from the array
+				if chunk.has("id") and chunk["id"] == map_id + ".json":
+					tmapdata["chunks"].remove_at(i)
+			var map_data_json = JSON.stringify(tmapdata.duplicate(), "\t")
+			Helper.json_helper.write_json_file(tfile, map_data_json)
+	
+	# Pass the callable to every furniture in the itemgroup's references
+	# It will call myfunc on every furniture in itemgroup_data.references.core.furniture
+	execute_callable_on_references_of_type(mapdata, "core", "tacticalmaps", myfunc)
+	
 	for level_index in range(mapdata["levels"].size()):
 		var old_level = mapdata["levels"][level_index] if mapdata["levels"].size() > level_index else []
 			# Entire level was removed
@@ -704,6 +773,23 @@ func on_map_deleted(map_id: String):
 		save_data_to_file(Gamedata.data.tiles)
 		save_data_to_file(Gamedata.data.furniture)
 		save_data_to_file(Gamedata.data.mobs)
+
+
+# A map is being deleted. Remove all references to this map
+func on_tacticalmap_deleted(tacticalmap_id: String):
+	var file = Gamedata.data.tacticalmaps.dataPath + tacticalmap_id + ".json"
+	var tacticalmapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(file)
+	if not tacticalmapdata.has("chunks"):
+		print("Tacticalmap data does not contain 'chunks'.")
+		return
+
+	for i in range(tacticalmapdata["chunks"].size()):
+		var chunk = tacticalmapdata["chunks"][i]
+		# If the chunk has the target id, remove the reference from the map
+		if chunk.has("id"):
+			var chunkid = chunk["id"]
+			remove_reference(Gamedata.data.maps, "core", "tacticalmaps", \
+				chunk["id"], tacticalmap_id + ".json")
 
 
 # Function to collect unique entities from each level in newdata and olddata
@@ -768,6 +854,36 @@ func on_mapdata_changed(map_id: String, newdata: Dictionary, olddata: Dictionary
 		save_data_to_file(Gamedata.data.furniture)
 	if new_entities["tiles"].size() > 0 or old_entities["tiles"].size() > 0:
 		save_data_to_file(Gamedata.data.tiles)
+
+
+func on_tacticalmapdata_changed(tacticalmap_id: String, newdata: Dictionary, olddata: Dictionary):
+	# Collect unique IDs from old data
+	var unique_old_ids: Array = []
+	var ids_dict_old: Dictionary = {}
+	if olddata.has("chunks") and olddata["chunks"] is Array:
+		for chunk in olddata["chunks"]:
+			if chunk.has("id"):
+				ids_dict_old[chunk["id"]] = true
+	unique_old_ids = ids_dict_old.keys()
+
+	# Collect unique IDs from new data
+	var unique_new_ids: Array = []
+	var ids_dict_new: Dictionary = {}
+	if newdata.has("chunks") and newdata["chunks"] is Array:
+		for chunk in newdata["chunks"]:
+			if chunk.has("id"):
+				ids_dict_new[chunk["id"]] = true
+	unique_new_ids = ids_dict_new.keys()
+
+	tacticalmap_id = tacticalmap_id.get_file()
+	# Add references for new IDs
+	for id in unique_new_ids:
+		add_reference(Gamedata.data.maps, "core", "tacticalmaps", id, tacticalmap_id)
+
+	# Remove references for IDs not present in new data
+	for id in unique_old_ids:
+		if id not in unique_new_ids:
+			remove_reference(Gamedata.data.maps, "core", "tacticalmaps", id, tacticalmap_id)
 
 
 # Some item has been changed

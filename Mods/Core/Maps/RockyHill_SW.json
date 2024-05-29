@@ -27769,5 +27769,12 @@
 		[]
 	],
 	"mapheight": 32,
-	"mapwidth": 32
+	"mapwidth": 32,
+	"references": {
+		"core": {
+			"tacticalmaps": [
+				"RockyHill_00.json"
+			]
+		}
+	}
 }

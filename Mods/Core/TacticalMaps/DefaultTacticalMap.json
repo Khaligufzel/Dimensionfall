@@ -1,14 +1,12 @@
 {
-	"mapheight": 1,
 	"chunks": [
 		{
-			"id": "Generichouse.json",
-			"rotation": 0
+			"id": "Generichouse.json"
 		},
 		{
-			"id": "Generichouse_00.json",
-			"rotation": 0
+			"id": "Generichouse_00.json"
 		}
 	],
+	"mapheight": 1,
 	"mapwidth": 2
 }
