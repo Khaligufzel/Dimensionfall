@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cbuxrb7e8nqh7"]
+
+[ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_bwrvc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8up0f"]
+bg_color = Color(0, 0, 0, 1)
+
+[resource]
+Button/fonts/font = ExtResource("1_bwrvc")
+HBoxContainer/constants/separation = 25
+MarginContainer/constants/margin_bottom = 4
+MarginContainer/constants/margin_left = 4
+MarginContainer/constants/margin_right = 4
+MarginContainer/constants/margin_top = 4
+Panel/styles/panel = SubResource("StyleBoxFlat_8up0f")

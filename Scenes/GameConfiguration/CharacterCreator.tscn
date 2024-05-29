@@ -1,0 +1,199 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu658htdqa45b"]
+
+[ext_resource type="Theme" uid="uid://cbuxrb7e8nqh7" path="res://Defaults/UIthemes/default_theme01.tres" id="1_4ioiy"]
+[ext_resource type="Texture2D" uid="uid://udkm5rlxol7c" path="res://Scenes/GameConfiguration/Textures/randomdie01.png" id="2_ghvyp"]
+
+[node name="CharacterCreator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4ioiy")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="General" type="MarginContainer" parent="TabContainer"]
+layout_mode = 2
+theme = ExtResource("1_4ioiy")
+
+[node name="GeneralPanel" type="Panel" parent="TabContainer/General"]
+layout_mode = 2
+theme = ExtResource("1_4ioiy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/General/GeneralPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/General/GeneralPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "First Name"
+max_length = 20
+
+[node name="TextureButton" type="TextureButton" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_ghvyp")
+texture_pressed = ExtResource("2_ghvyp")
+texture_hover = ExtResource("2_ghvyp")
+texture_disabled = ExtResource("2_ghvyp")
+texture_focused = ExtResource("2_ghvyp")
+
+[node name="LineEdit2" type="LineEdit" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Nickname"
+max_length = 20
+
+[node name="TextureButton2" type="TextureButton" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_ghvyp")
+texture_pressed = ExtResource("2_ghvyp")
+texture_hover = ExtResource("2_ghvyp")
+texture_disabled = ExtResource("2_ghvyp")
+texture_focused = ExtResource("2_ghvyp")
+
+[node name="LineEdit3" type="LineEdit" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Last Name"
+max_length = 20
+
+[node name="TextureButton3" type="TextureButton" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_ghvyp")
+texture_pressed = ExtResource("2_ghvyp")
+texture_hover = ExtResource("2_ghvyp")
+texture_disabled = ExtResource("2_ghvyp")
+texture_focused = ExtResource("2_ghvyp")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/General/GeneralPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Sex"
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+item_count = 2
+selected = 1
+popup/item_0/text = "Male"
+popup/item_0/id = 0
+popup/item_1/text = "Female"
+popup/item_1/id = 1
+
+[node name="Label2" type="Label" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Pronouns"
+
+[node name="TextEdit" type="TextEdit" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "they"
+
+[node name="Label5" type="Label" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "/"
+
+[node name="TextEdit2" type="TextEdit" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "them"
+
+[node name="Label3" type="Label" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Age"
+
+[node name="SpinBox" type="SpinBox" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+min_value = 18.0
+value = 34.0
+
+[node name="Label4" type="Label" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Height (cm)"
+
+[node name="SpinBox2" type="SpinBox" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+min_value = 140.0
+max_value = 220.0
+value = 160.0
+
+[node name="TextureButton" type="TextureButton" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("2_ghvyp")
+texture_pressed = ExtResource("2_ghvyp")
+texture_hover = ExtResource("2_ghvyp")
+texture_disabled = ExtResource("2_ghvyp")
+texture_focused = ExtResource("2_ghvyp")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/General/GeneralPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Hairstyle"
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "No hair"
+popup/item_0/id = 0
+popup/item_1/text = "Hair"
+popup/item_1/id = 1
+popup/item_2/text = "Other Hairstyle"
+popup/item_2/id = 2
+
+[node name="Label2" type="Label" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Hair Color"
+
+[node name="ColorPicker" type="ColorPicker" parent="TabContainer/General/GeneralPanel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+color_modes_visible = false
+sliders_visible = false
+presets_visible = false
+
+[node name="Background" type="MarginContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_4ioiy")
+
+[node name="GeneralPanel" type="Panel" parent="TabContainer/Background"]
+layout_mode = 2
+theme = ExtResource("1_4ioiy")
+
+[node name="Traits" type="MarginContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_4ioiy")
+
+[node name="GeneralPanel" type="Panel" parent="TabContainer/Traits"]
+layout_mode = 2
+theme = ExtResource("1_4ioiy")
+
+[node name="Preferences" type="MarginContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_4ioiy")
+
+[node name="GeneralPanel" type="Panel" parent="TabContainer/Preferences"]
+layout_mode = 2
+theme = ExtResource("1_4ioiy")
