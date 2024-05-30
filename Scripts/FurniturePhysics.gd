@@ -18,10 +18,21 @@ var current_health: float = 10.0
 
 
 func _ready():
-	set_position.call_deferred(furnitureposition)
+	# Add a Timer node so we can wait for the chunk to pawn
+	var timer = Timer.new()
+	timer.wait_time = 2.0
+	timer.one_shot = true
+	add_child(timer)
+	timer.start()
+	timer.timeout.connect(_on_timer_timeout)
+	
+	#set_position.call_deferred(furnitureposition)
 	set_new_rotation(furniturerotation)
 	last_rotation = furniturerotation
 
+func _on_timer_timeout():
+	# After the chunk is (hopefully) spawned, set the position
+	set_position.call_deferred(furnitureposition)
 
 # Keep track of the furniture's position and rotation. It starts at 0,0,0 and the moves to it's
 # assigned position after a timer. Until that has happened, we don't need to keep track of it's position
@@ -97,7 +108,7 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	
 	furniturerotation = furnitureJSON.get("rotation", 0)
 	# Set the properties we need
-	linear_damp = 59
+	#linear_damp = 59
 	angular_damp = 59
 	axis_lock_angular_x = true
 	axis_lock_angular_z = true
