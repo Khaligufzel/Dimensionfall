@@ -1006,23 +1006,25 @@ func update_all_navigation_data():
 	#var neighbor_key = "%s,%s,%s" % [neighbor_pos.x, neighbor_pos.y, neighbor_pos.z]
 	#if not block_positions.has(neighbor_key): # Check if there is no block at the neighbor position
 # If it does not have a neighbor, we would add the face.
-
 func setup_cube(pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
 	# Define the faces to process based on transparency using GDScript's conditional syntax
-	var faces = ["top", "left", "right", "front", "back"]
+	var faces = ["left", "right", "front", "back"]
 	var directions = {
-		"top": Vector3(0, 1, 0),
 		"left": Vector3(-1, 0, 0),
 		"right": Vector3(1, 0, 0),
 		"front": Vector3(0, 0, -1),
 		"back": Vector3(0, 0, 1)
 	}
 	for face in faces:
-	# Process each face
+		# Process each face
 		var neighbor_pos = pos + directions[face]
 		var neighbor_key = "%s,%s,%s" % [neighbor_pos.x, neighbor_pos.y, neighbor_pos.z]
 		if not block_positions.has(neighbor_key): # Check if there is no block at the neighbor position
 			process_face(face, pos, block_data, verts, uvs, normals, indices, top_face_uv)
+
+	# Always process the top face as it's never excluded
+	process_face("top", pos, block_data, verts, uvs, normals, indices, top_face_uv)
+
 
 
 func process_face(direction: String, pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
