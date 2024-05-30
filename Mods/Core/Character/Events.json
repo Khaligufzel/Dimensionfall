@@ -1,10 +1,146 @@
 {
 	"early_life_events": [
-		{"event": "test1", "trait_changes": [{"trait": "Optimism", "change": 1}]},
-		{"event": "test2", "trait_changes": [{"trait": "Resilience", "change": -1}]},
-		{"event": "test3", "trait_changes": [{"trait": "Curiosity", "change": 2}]},
-		{"event": "test4", "trait_changes": [{"trait": "Loyalty", "change": 1}]}
-	],
+        {
+            "event": "lost their parents in a disaster",
+            "trait_changes": [
+                {"trait": "Resilience", "change": 2},
+                {"trait": "Bravery", "change": 1}
+            ]
+        },
+        {
+            "event": "was raised by a survivalist mentor",
+            "trait_changes": [
+                {"trait": "Discipline", "change": 2},
+                {"trait": "Resilience", "change": 1}
+            ]
+        },
+        {
+            "event": "was a child prodigy",
+            "trait_changes": [
+                {"trait": "Curiosity", "change": 2},
+                {"trait": "Creativity", "change": 1}
+            ]
+        },
+        {
+            "event": "grew up in a loving family",
+            "trait_changes": [
+                {"trait": "Loyalty", "change": 2},
+                {"trait": "Optimism", "change": 1}
+            ]
+        },
+        {
+            "event": "experienced frequent moves due to parents' jobs",
+            "trait_changes": [
+                {"trait": "Resilience", "change": 1},
+                {"trait": "Curiosity", "change": 1}
+            ]
+        },
+        {
+            "event": "was often ill and had to stay indoors",
+            "trait_changes": [
+                {"trait": "Patience", "change": 2},
+                {"trait": "Creativity", "change": 1}
+            ]
+        },
+        {
+            "event": "was homeschooled",
+            "trait_changes": [
+                {"trait": "Discipline", "change": 1},
+                {"trait": "Curiosity", "change": 2}
+            ]
+        },
+        {
+            "event": "had a sibling rivalry",
+            "trait_changes": [
+                {"trait": "Patience", "change": -1},
+                {"trait": "Loyalty", "change": -1}
+            ]
+        },
+        {
+            "event": "grew up in a large family",
+            "trait_changes": [
+                {"trait": "Patience", "change": 1},
+                {"trait": "Loyalty", "change": 1}
+            ]
+        },
+        {
+            "event": "was a victim of bullying",
+            "trait_changes": [
+                {"trait": "Resilience", "change": 2},
+                {"trait": "Bravery", "change": 1}
+            ]
+        },
+        {
+            "event": "spent a lot of time in nature",
+            "trait_changes": [
+                {"trait": "Curiosity", "change": 1},
+                {"trait": "Optimism", "change": 1}
+            ]
+        },
+        {
+            "event": "grew up in a war-torn area",
+            "trait_changes": [
+                {"trait": "Resilience", "change": 2},
+                {"trait": "Bravery", "change": 1}
+            ]
+        },
+        {
+            "event": "was part of a tight-knit community",
+            "trait_changes": [
+                {"trait": "Loyalty", "change": 2},
+                {"trait": "Optimism", "change": 1}
+            ]
+        },
+        {
+            "event": "experienced a severe accident and recovery",
+            "trait_changes": [
+                {"trait": "Resilience", "change": 2},
+                {"trait": "Patience", "change": 1}
+            ]
+        },
+        {
+            "event": "had a single parent who worked multiple jobs",
+            "trait_changes": [
+                {"trait": "Discipline", "change": 1},
+                {"trait": "Resilience", "change": 1}
+            ]
+        },
+        {
+            "event": "was mentored by a grandparent",
+            "trait_changes": [
+                {"trait": "Loyalty", "change": 1},
+                {"trait": "Patience", "change": 1}
+            ]
+        },
+        {
+            "event": "grew up in poverty",
+            "trait_changes": [
+                {"trait": "Resilience", "change": 2},
+                {"trait": "Creativity", "change": 1}
+            ]
+        },
+        {
+            "event": "traveled extensively with family",
+            "trait_changes": [
+                {"trait": "Curiosity", "change": 2},
+                {"trait": "Optimism", "change": 1}
+            ]
+        },
+        {
+            "event": "lived on a farm",
+            "trait_changes": [
+                {"trait": "Discipline", "change": 2},
+                {"trait": "Patience", "change": 1}
+            ]
+        },
+        {
+            "event": "was encouraged to pursue the arts",
+            "trait_changes": [
+                {"trait": "Creativity", "change": 2},
+                {"trait": "Optimism", "change": 1}
+            ]
+        }
+    ],
 	"childhood_events": [
 		{"event": "had a happy childhood", "trait_changes": [{"trait": "Optimism", "change": 1}]},
 		{"event": "was bullied at school", "trait_changes": [{"trait": "Resilience", "change": -1}]},
