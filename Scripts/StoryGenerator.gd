@@ -90,7 +90,7 @@ func pick_random_event(events: Array) -> Dictionary:
 	# 	if random_weight < 0:
 	# 		return event_dict
 	# return events[events.size() - 1]
-	var event_dict = events[0]
+	var event_dict = events[randi_range(0, events.size()-1)]
 
 	return event_dict
 
