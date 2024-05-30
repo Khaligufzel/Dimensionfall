@@ -73,4 +73,23 @@ Here is a small example of a change you can make. We will add `weight` to moveab
 1. Open FurnitureEditor.tscn in Godot and go to the 2D view. In the form, add two controls in a place that makes sense. We will add a label and a spinbox
 2. Name the label `WeightLabel` and the spinbox will be called `WeightSpinbox`
 3. Select the `WeightSpinbox` in the editor and go to the inspector. Find the `Tooltip` property and enter the description for this control. For example: `Specify the weight in kg for this furniture. A larger number means it will be heavier and harder to push. A smaller number means it will be lighter and easier to push. Only applies to moveable furniture`
-4. Go to the `FurnitureEditor.gd` script
+4. Go to the `FurnitureEditor.gd` script. Assign the spinbox control to an export variable like so: `@export var weightSpinbox: SpinBox = null`
+5. In the `load_furniture_data` function we add the lines:
+   ```
+	if weightSpinbox != null and contentData.has("weight"):
+		weightSpinbox.value = float(contentData["weight"])
+   ```
+6. In the `_on_save_button_button_up` function we add the line `contentData["weight"] = weightSpinbox.value`. Now the property will get saved and loaded from JSON
+7. In the `FurniturePhysics.gd` script, in the `construct_self` function, we add the line `mass = furnitureJSONData.get("weight", 0)` to set the mass according to the weight.
+8. Open the contenteditor and open one of the moveable furniture and set the weight property and save it. Now the furniture will use the weight property you implemented.
+9. The mass will get read in the `player.gd` script when the player starts to push the furniture.
+10. Follow step 14 and 15 of the [make your first change](make-your-first-change) paragraph to commit your changes.
+
+This was a simple change. Of course, the practical application of json data will vary each time and some may be more complicated then others. To make what you want, ask for help and read guides about the topic you want to work on.
+
+### UI development
+UI is another area that is somewhat accessible to contributors starting out. This means menus, windows and status indicators. The main scenes are in `/Scenes/UI`. These scenes are added to the `HUD` node in `level_generation.tscn` to have them displayed to the player when a button is pressed.
+
+Keep in mind that the UI communicates with the game world trough autoloads. For example, the Inventory menu works together with the `ItemManager` (`/Scripts/item_manager.gd`). Some game elements like the player and some windows communicate trough `Helper.signal_broker`. To find out what connects to what, press `ctrl+shift+f` in Godot and search for `Helper.signal_broker` and a list will come up.
+
+Icons used in the UI can be found in `/Textures` and `/Images/Icons`. Sometimes you don't need to use an icon and a button with an `x` or arrow `->` will suffice. In the case of the character menu, the icons are loaded from the mod data in `/Mods/Core/Stats` and `/Mods/Core/Stats`
