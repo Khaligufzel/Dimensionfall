@@ -8,6 +8,7 @@ var level_width : int = 32
 var level_height : int = 32
 
 @export var level_manager : Node3D
+@export var WorldGenerator: Node3D # Will provide map seed data
 @export_file var default_level_json
 
 
@@ -121,17 +122,38 @@ func initialize_map_data_from_world_generator(map_position : Vector2, map_name :
 
 # Called when no data has been put into memory yet in loaded_chunk_data
 # Will get the chunk data from map json definition to create a brand new chunk
+#func get_chunk_data_at_position1(mypos: Vector2) -> Dictionary:
+	#var tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
+		#Gamedata.data.tacticalmaps.dataPath + Helper.current_level_name)
+	#var y: int = int(mypos.y)
+	#var x: int = int(mypos.x)
+	#var index: int = y * Helper.loaded_chunk_data.mapwidth + x
+	#if index >= 0 and index < (Helper.loaded_chunk_data.mapwidth*Helper.loaded_chunk_data.mapheight):
+		#return tacticalMapJSON.chunks[index]
+	#else:
+		#print("Position out of bounds or invalid index.")
+		#return {}
+
+
+
+# Updated function to get chunk data at a given position
 func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
-	var tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
-		Gamedata.data.tacticalmaps.dataPath + Helper.current_level_name)
-	var y: int = int(mypos.y)
-	var x: int = int(mypos.x)
-	var index: int = y * Helper.loaded_chunk_data.mapwidth + x
-	if index >= 0 and index < (Helper.loaded_chunk_data.mapwidth*Helper.loaded_chunk_data.mapheight):
-		return tacticalMapJSON.chunks[index]
-	else:
-		print("Position out of bounds or invalid index.")
-		return {}
+	var region_type = WorldGenerator.get_region_type(mypos.x, mypos.y)
+	var json_file_path: String
+
+	match region_type:
+		WorldGenerator.Region.CITY:
+			json_file_path = "Generichouse.json"
+		WorldGenerator.Region.FOREST:
+			json_file_path = "field_forest_basic.json"
+		WorldGenerator.Region.PLAINS:
+			json_file_path = "field_grass_basic.json"
+		_:
+			print("Unknown region type.")
+			return {}
+
+	#return Helper.json_helper.load_json_dictionary_file(json_file_path)
+	return {"id":json_file_path, "rotation":0}
 
 
 # Return an array of chunks that fall inside the creation radius
@@ -142,8 +164,10 @@ func calculate_chunks_to_load(player_chunk_pos: Vector2) -> Array:
 		for y in range(player_chunk_pos.y - creation_radius, player_chunk_pos.y + creation_radius + 1):
 			var chunk_pos = Vector2(x, y)
 			# Check if chunk_pos is within the map dimensions
-			if is_pos_in_map(x,y) and not loaded_chunks.has(chunk_pos):
+			if not loaded_chunks.has(chunk_pos):
 				chunks_to_load.append(chunk_pos)
+			#if is_pos_in_map(x,y) and not loaded_chunks.has(chunk_pos):
+				#chunks_to_load.append(chunk_pos)
 	return chunks_to_load
 
 

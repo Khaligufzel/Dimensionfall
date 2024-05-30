@@ -130,9 +130,10 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="TacticalMap" type="Node3D" parent="."]
 
-[node name="LevelGenerator" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("level_manager") groups=["level_generator"]]
+[node name="LevelGenerator" type="Node3D" parent="TacticalMap" node_paths=PackedStringArray("level_manager", "WorldGenerator") groups=["level_generator"]]
 script = ExtResource("1_i8qa4")
 level_manager = NodePath("../LevelManager")
+WorldGenerator = NodePath("../../WorldGenerator")
 default_level_json = "res://Mods/Core/Maps/Generichouse.json"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TacticalMap"]
@@ -175,7 +176,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4043, 0, -8.78679)
 [node name="Projectiles" type="Node3D" parent="TacticalMap/Entities"]
 
 [node name="Player" type="CharacterBody3D" parent="TacticalMap/Entities" node_paths=PackedStringArray("sprite") groups=["Players"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 15)
 collision_mask = 22
 floor_constant_speed = true
 floor_max_angle = 0.872665
