@@ -319,9 +319,9 @@ mountains_sprite = SubResource("GradientTexture2D_o7jp0")
 city_sprite = SubResource("GradientTexture2D_imj0d")
 plains_sprite = SubResource("GradientTexture2D_w82vo")
 forest_sprite = SubResource("GradientTexture2D_3iewo")
-city_map_name = "TestCity_01"
-plains_map_name = "TestPlains_01"
-forest_map_name = "TestForest_01"
+city_map_name = "TestCity_01.json"
+plains_map_name = "TestPlains_01.json"
+forest_map_name = "TestForest_01.json"
 
 [node name="GeneratedWorld" type="Node3D" parent="WorldGenerator"]
 
