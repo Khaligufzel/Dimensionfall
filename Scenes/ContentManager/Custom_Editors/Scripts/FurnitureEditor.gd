@@ -13,6 +13,8 @@ extends Control
 @export var furnitureSelector: Popup = null
 @export var imageNameStringLabel: Label = null
 @export var moveableCheckboxButton: CheckBox = null # The player can push it if selected
+@export var weightLabel: Label = null
+@export var weightSpinBox: SpinBox = null # The wight considered when pushing
 @export var edgeSnappingOptionButton: OptionButton = null # Apply edge snapping if selected
 @export var doorOptionButton: OptionButton = null # Maks the furniture as a door
 @export var containerCheckBox: CheckBox = null # Marks the furniture as a container
@@ -58,6 +60,11 @@ func _ready():
 	control_elements = [furnitureImageDisplay,NameTextEdit,DescriptionTextEdit]
 	data_changed.connect(Gamedata.on_data_changed)
 	set_drop_functions()
+	
+	# Connect the toggle signal to the function
+	moveableCheckboxButton.toggled.connect(_on_moveable_checkbox_toggled)
+
+
 
 
 func load_furniture_data():
@@ -76,11 +83,12 @@ func load_furniture_data():
 			CategoriesList.add_item_to_list(category)
 	if moveableCheckboxButton and contentData.has("moveable"):
 		moveableCheckboxButton.button_pressed = contentData["moveable"]
+		_on_moveable_checkbox_toggled(contentData["moveable"])
 	if edgeSnappingOptionButton and contentData.has("edgesnapping"):
 		select_option_by_string(edgeSnappingOptionButton, contentData["edgesnapping"])
 	if doorOptionButton:
 		update_door_option(contentData.get("Function", {}).get("door", "None"))
-		
+
 	if "destruction" in contentData:
 		canDestroyCheckbox.button_pressed = true
 		var destruction_data = contentData["destruction"]
@@ -332,3 +340,9 @@ func _on_can_disassemble_check_box_toggled(toggled_on):
 		disassemblySpriteNameLabel.text = ""
 		disassemblyImageDisplay.texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
 	set_visibility_for_children(disassemblyHboxContainer, toggled_on)
+
+
+# Function to handle the toggle state of the checkbox
+func _on_moveable_checkbox_toggled(button_pressed):
+	weightLabel.visible = button_pressed
+	weightSpinBox.visible = button_pressed
