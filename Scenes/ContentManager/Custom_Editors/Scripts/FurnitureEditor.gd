@@ -65,8 +65,6 @@ func _ready():
 	moveableCheckboxButton.toggled.connect(_on_moveable_checkbox_toggled)
 
 
-
-
 func load_furniture_data():
 	if furnitureImageDisplay and contentData.has("sprite"):
 		furnitureImageDisplay.texture = Gamedata.data.furniture.sprites[contentData["sprite"]]
@@ -84,6 +82,8 @@ func load_furniture_data():
 	if moveableCheckboxButton and contentData.has("moveable"):
 		moveableCheckboxButton.button_pressed = contentData["moveable"]
 		_on_moveable_checkbox_toggled(contentData["moveable"])
+	if weightSpinBox and contentData.has("weight"):
+		weightSpinBox.value = contentData["weight"]
 	if edgeSnappingOptionButton and contentData.has("edgesnapping"):
 		select_option_by_string(edgeSnappingOptionButton, contentData["edgesnapping"])
 	if doorOptionButton:
@@ -159,16 +159,23 @@ func _on_close_button_button_up():
 	queue_free.call_deferred()
 
 
-# This function takes all data from the form elements stores them in the contentData
-# Since contentData is a reference to an item in Gamedata.data.furniture.data
-# the central array for furnituredata is updated with the changes as well
-# The function will signal to Gamedata that the data has changed and needs to be saved
+# This function takes all data from the form elements and stores them in the contentData.
+# Since contentData is a reference to an item in Gamedata.data.furniture.data,
+# the central array for furnituredata is updated with the changes as well.
+# The function will signal to Gamedata that the data has changed and needs to be saved.
 func _on_save_button_button_up():
 	contentData["sprite"] = imageNameStringLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
 	contentData["categories"] = CategoriesList.get_items()
 	contentData["moveable"] = moveableCheckboxButton.button_pressed
+	
+	# Save the weight only if moveableCheckboxButton is checked, otherwise erase it.
+	if moveableCheckboxButton.button_pressed:
+		contentData["weight"] = weightSpinBox.value
+	else:
+		contentData.erase("weight")
+
 	contentData["edgesnapping"] = edgeSnappingOptionButton.get_item_text(edgeSnappingOptionButton.selected)
 
 	handle_door_option()
@@ -178,6 +185,7 @@ func _on_save_button_button_up():
 
 	data_changed.emit(Gamedata.data.furniture, contentData, olddata)
 	olddata = contentData.duplicate(true)
+
 
 # If the door function is set, we save the value to contentData
 # Else, if the door state is set to none, we erase the value from contentdata
