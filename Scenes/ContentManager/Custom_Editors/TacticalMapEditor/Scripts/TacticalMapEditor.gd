@@ -23,7 +23,7 @@ var contentSource: String = "":
 	set(newSource):
 		contentSource = newSource
 		tileGrid.load_tacticalmap_json_file()
-		
+		setPanWindowSize()  # To adjust the size after loading
 
 
 # In tacticalmapeditor.gd
@@ -86,6 +86,7 @@ func _on_close_button_button_up() -> void:
 func _on_map_dimensions_changed(new_map_width: int, new_map_height: int) -> void:
 	mapWidth = new_map_width
 	mapHeight = new_map_height
+	setPanWindowSize()  # Adjust the size when dimensions change
 
 
 # Fix for tab key not properly switching control
