@@ -30,10 +30,13 @@ var mapData: Dictionary = defaultMapData.duplicate():
 		loadLevel()
 
 var olddata: Dictionary  # Used to remember the mapdata before it was changed
+var suppress_reset: bool = false  # Flag to control resetting the grid
+
 
 func _ready():
 	createTiles()
-	map_data_changed.connect(Gamedata.on_tacticalmapdata_changed)  # Connect the signal
+	map_data_changed.connect(Gamedata.on_tacticalmapdata_changed)
+
 
 # This function will fill fill this GridContainer with a grid of 3x3 instances of "res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/TacticalMapEditorTile.tscn"
 func createTiles():
@@ -42,9 +45,12 @@ func createTiles():
 		for y in range(mapEditor.mapHeight):
 			var tileInstance: Control = tileScene.instantiate()
 			add_child(tileInstance)
-			tileInstance.connect("tile_clicked",grid_tile_clicked)
+			tileInstance.tile_clicked.connect(grid_tile_clicked)
+
 
 func resetGrid():
+	if suppress_reset:
+		return
 	# Clear the existing children
 	for child in get_children():
 		child.queue_free()
@@ -62,12 +68,11 @@ func resetGrid():
 	# Recreate tiles
 	createTiles()
 
-	# Emit map_data_changed signal
-	map_data_changed.emit(mapEditor.contentSource, mapData, olddata)
 
 # When one of the grid tiles is clicked, we paint the tile accordingly
 func grid_tile_clicked(clicked_tile):
 	paint_single_tile(clicked_tile)
+
 
 # We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
@@ -84,6 +89,7 @@ func paint_single_tile(clicked_tile):
 		clicked_tile.set_tile_id(selected_brush.mapID)
 		clicked_tile.set_rotation_amount(rotationAmount)
 
+
 # This function takes the mapData property and saves all of it as a json file.
 func save_map_json_file():
 	# Convert the TileGrid.mapData to a JSON string
@@ -93,6 +99,7 @@ func save_map_json_file():
 	Helper.json_helper.write_json_file(mapEditor.contentSource, map_data_json)
 	olddata = mapData.duplicate(true)
 
+
 # When this function is called, loop over all the TileGrid's children and get the tileData property. Store this data in the currentLevelData array
 func storeLevelData():
 	currentLevelData.clear()
@@ -100,12 +107,16 @@ func storeLevelData():
 		currentLevelData.append(child.tileData)
 	mapData.chunks = currentLevelData.duplicate()
 
+
 func load_tacticalmap_json_file():
+	suppress_reset = true
 	var fileToLoad: String = mapEditor.contentSource
 	mapData = Helper.json_helper.load_json_dictionary_file(fileToLoad)
 	olddata = mapData.duplicate(true)
 	# Notify about the change in map dimensions
 	map_dimensions_changed.emit(mapData.mapwidth, mapData.mapheight)
+	suppress_reset = false
+
 
 func loadLevel():
 	if mapData.is_empty():
@@ -126,7 +137,7 @@ func loadLevel():
 		for y in range(mapData.mapheight):
 			var tileInstance: Control = tileScene.instantiate()
 			add_child(tileInstance)
-			tileInstance.connect("tile_clicked",grid_tile_clicked)
+			tileInstance.tile_clicked.connect(grid_tile_clicked)
 
 			# Load tile data if available, otherwise use default data
 			if index < newLevelData.size():
@@ -135,8 +146,10 @@ func loadLevel():
 				tileInstance.set_default()
 			index += 1
 
+
 func _on_entities_container_tile_brush_selection_change(tilebrush):
 	selected_brush = tilebrush
+
 
 # The user has pressed the rotate right button on the toolbar
 # We need to set the rotation so that the brush will apply rotation to the tile
