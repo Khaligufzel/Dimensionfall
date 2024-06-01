@@ -13,7 +13,8 @@
 		"id": "table_round_wood",
 		"moveable": true,
 		"name": "Round wooden table",
-		"sprite": "table_64.png"
+		"sprite": "table_64.png",
+		"weight": 10
 	},
 	{
 		"categories": [
@@ -29,7 +30,8 @@
 		"id": "chair_wood",
 		"moveable": true,
 		"name": "Wooden chair",
-		"sprite": "chair_32.png"
+		"sprite": "chair_32.png",
+		"weight": 2
 	},
 	{
 		"Function": {
@@ -153,7 +155,8 @@
 		"id": "plant_pot_00",
 		"moveable": true,
 		"name": "Potted plant",
-		"sprite": "pot_plant_32_32.png"
+		"sprite": "pot_plant_32_32.png",
+		"weight": 1
 	},
 	{
 		"categories": [

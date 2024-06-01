@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_o3k3a"]
 [ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="4_fbact"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "edgeSnappingOptionButton", "doorOptionButton", "containerCheckBox", "containerTextEdit", "destroyHboxContainer", "canDestroyCheckbox", "destructionTextEdit", "destructionImageDisplay", "destructionSpriteNameLabel", "disassemblyHboxContainer", "canDisassembleCheckbox", "disassemblyTextEdit", "disassemblyImageDisplay", "disassemblySpriteNameLabel")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "weightLabel", "weightSpinBox", "edgeSnappingOptionButton", "doorOptionButton", "containerCheckBox", "containerTextEdit", "destroyHboxContainer", "canDestroyCheckbox", "destructionTextEdit", "destructionImageDisplay", "destructionSpriteNameLabel", "disassemblyHboxContainer", "canDisassembleCheckbox", "disassemblyTextEdit", "disassemblyImageDisplay", "disassemblySpriteNameLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +21,9 @@ DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 CategoriesList = NodePath("VBoxContainer/FormGrid/Editable_Item_List")
 furnitureSelector = NodePath("Sprite_selector")
 imageNameStringLabel = NodePath("VBoxContainer/FormGrid/ImageNameStringLabel")
-moveableCheckboxButton = NodePath("VBoxContainer/FormGrid/UnmoveableCheckBox")
+moveableCheckboxButton = NodePath("VBoxContainer/FormGrid/MoveableHboxContainer/UnmoveableCheckBox")
+weightLabel = NodePath("VBoxContainer/FormGrid/MoveableHboxContainer/WeightLabel")
+weightSpinBox = NodePath("VBoxContainer/FormGrid/MoveableHboxContainer/WeightSpinBox")
 edgeSnappingOptionButton = NodePath("VBoxContainer/FormGrid/SnappingOptionButton")
 doorOptionButton = NodePath("VBoxContainer/FormGrid/FunctionControlContainer/DoorOptionButton")
 containerCheckBox = NodePath("VBoxContainer/FormGrid/FunctionControlContainer/ContainerCheckBox")
@@ -135,10 +137,27 @@ header = "Categories"
 layout_mode = 2
 text = "Can move"
 
-[node name="UnmoveableCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid"]
+[node name="MoveableHboxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="UnmoveableCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid/MoveableHboxContainer"]
 layout_mode = 2
 tooltip_text = "Check this if the furniture should be moveable, like a chair. Leave this unchecked if the furniture should not move, like a fence"
 text = "Moveable"
+
+[node name="WeightLabel" type="Label" parent="VBoxContainer/FormGrid/MoveableHboxContainer"]
+layout_mode = 2
+text = "| Weight"
+
+[node name="WeightSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/MoveableHboxContainer"]
+layout_mode = 2
+tooltip_text = "Specify the weight in kg for this furniture. A larger number 
+means it will be heavier and harder to push. A smaller 
+number means it will be lighter and easier to push. Only 
+applies to moveable furniture`"
+min_value = 0.1
+step = 0.1
+value = 1.0
 
 [node name="DisassembleLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -154,7 +173,7 @@ text = "Can disassemble"
 
 [node name="DisassembleLootGroupLabel" type="Label" parent="VBoxContainer/FormGrid/DisassembleHboxContainer"]
 layout_mode = 2
-text = "Loot group:"
+text = "| Loot group:"
 
 [node name="DisassemblyTextEdit" parent="VBoxContainer/FormGrid/DisassembleHboxContainer" instance=ExtResource("4_fbact")]
 custom_minimum_size = Vector2(100, 30)
@@ -167,7 +186,7 @@ myplaceholdertext = "Drag an itemgroup from the left to here"
 
 [node name="DisassembleSpriteLabel" type="Label" parent="VBoxContainer/FormGrid/DisassembleHboxContainer"]
 layout_mode = 2
-text = "Disassembled sprite:"
+text = "| Disassembled sprite:"
 
 [node name="DisassembleImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid/DisassembleHboxContainer"]
 custom_minimum_size = Vector2(32, 32)
@@ -199,7 +218,7 @@ text = "Can destroy"
 
 [node name="DestructionLootGroupLabel" type="Label" parent="VBoxContainer/FormGrid/DestructionHBoxContainer"]
 layout_mode = 2
-text = "Loot group:"
+text = "| Loot group:"
 
 [node name="DestructionTextEdit" parent="VBoxContainer/FormGrid/DestructionHBoxContainer" instance=ExtResource("4_fbact")]
 custom_minimum_size = Vector2(100, 30)
@@ -212,7 +231,7 @@ myplaceholdertext = "Drag an itemgroup from the left to here"
 
 [node name="DestructionSpriteLabel" type="Label" parent="VBoxContainer/FormGrid/DestructionHBoxContainer"]
 layout_mode = 2
-text = "Destroyed sprite:"
+text = "| Destroyed sprite:"
 
 [node name="DestructionImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid/DestructionHBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
