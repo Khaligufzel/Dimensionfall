@@ -2,13 +2,23 @@ extends Control
 
 
 @export var tileGrid: GridContainer = null
-@export var mapwidthTextEdit: TextEdit = null
-@export var mapheightTextEdit: TextEdit = null
+@export var mapwidthTextEdit: SpinBox = null
+@export var mapheightTextEdit: SpinBox = null
 @export var panWindow: Control = null
 
+# For controlling the focus when the tab button is pressed
+var control_elements: Array = []
 var tileSize: int = 128
-var mapHeight: int = 3
-var mapWidth: int = 3
+var mapHeight: int = 3:
+	set(newHeight):
+		mapHeight = newHeight
+		if not mapheightTextEdit.value == newHeight:
+			mapheightTextEdit.value = newHeight
+var mapWidth: int = 3:
+	set(newWidth):
+		mapWidth = newWidth
+		if not mapwidthTextEdit.value == newWidth:
+			mapwidthTextEdit.value = newWidth
 var contentSource: String = "":
 	set(newSource):
 		contentSource = newSource
@@ -18,22 +28,11 @@ var contentSource: String = "":
 
 # In tacticalmapeditor.gd
 func _ready() -> void:
+	# For properly using the tab key to switch elements
+	control_elements = [mapwidthTextEdit,mapheightTextEdit]
 	# Connect the signal from TileGrid to this script
-	tileGrid.connect("map_dimensions_changed",_on_map_dimensions_changed)
+	tileGrid.map_dimensions_changed.connect(_on_map_dimensions_changed)
 	setPanWindowSize()
-
-
-func _on_map_height_text_changed() -> void:
-	mapHeight = int(mapheightTextEdit.text)
-	tileGrid.resetGrid()
-	setPanWindowSize()
-
-
-func _on_map_width_text_changed() -> void:
-	mapWidth = int(mapwidthTextEdit.text)
-	tileGrid.resetGrid()
-	setPanWindowSize()
-
 
 
 func setPanWindowSize():
@@ -77,7 +76,6 @@ func setPanWindowSize():
 	tileGrid.custom_minimum_size = Vector2(maxGridWidth, maxGridHeight)
 
 
-
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
@@ -86,5 +84,32 @@ func _on_close_button_button_up() -> void:
 
 # Handler for the signal
 func _on_map_dimensions_changed(new_map_width: int, new_map_height: int) -> void:
-	mapwidthTextEdit.text = str(new_map_width)
-	mapheightTextEdit.text = str(new_map_height)
+	mapWidth = new_map_width
+	mapHeight = new_map_height
+
+
+# Fix for tab key not properly switching control
+func _input(event):
+	if event.is_action_pressed("ui_focus_next"):
+		for myControl in control_elements:
+			if myControl.has_focus():
+				if Input.is_key_pressed(KEY_SHIFT):  # Check if Shift key
+					if !myControl.focus_previous.is_empty():
+						myControl.get_node(myControl.focus_previous).grab_focus()
+				else:
+					if !myControl.focus_next.is_empty():
+						myControl.get_node(myControl.focus_next).grab_focus()
+				break
+		get_viewport().set_input_as_handled()
+
+
+func _on_map_width_value_changed(value):
+	mapWidth = value
+	tileGrid.resetGrid()
+	setPanWindowSize()
+
+
+func _on_map_height_value_changed(value):
+	mapHeight = value
+	tileGrid.resetGrid()
+	setPanWindowSize()

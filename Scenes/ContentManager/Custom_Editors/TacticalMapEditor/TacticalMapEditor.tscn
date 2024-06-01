@@ -75,25 +75,29 @@ text = "Save"
 layout_mode = 2
 text = "Size: W:"
 
-[node name="MapWidth" type="TextEdit" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+[node name="MapWidth" type="SpinBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 clip_contents = true
 custom_minimum_size = Vector2(40, 22)
 layout_mode = 2
-theme_override_constants/line_spacing = 0
-theme_override_font_sizes/font_size = 16
-text = "3"
+tooltip_text = "Sets the map width. Can be any size. Changing it will clear the grid of it's content."
+focus_next = NodePath("../MapHeight")
+focus_previous = NodePath("../SaveButton")
+min_value = 1.0
+value = 1.0
 
 [node name="MapHeightLabel" type="Label" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
 text = "H:"
 
-[node name="MapHeight" type="TextEdit" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+[node name="MapHeight" type="SpinBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 clip_contents = true
 custom_minimum_size = Vector2(40, 22)
 layout_mode = 2
-theme_override_constants/line_spacing = 0
-theme_override_font_sizes/font_size = 16
-text = "3"
+tooltip_text = "Sets the map height. Can be any size. Changing it will clear the grid of it's content."
+focus_next = NodePath("../RotateRight")
+focus_previous = NodePath("../MapWidth")
+min_value = 1.0
+value = 1.0
 
 [node name="RotateRight" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
@@ -158,7 +162,7 @@ tileBrush = ExtResource("11_bh5ke")
 
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/TileGrid" method="save_map_json_file"]
-[connection signal="text_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapWidth" to="." method="_on_map_width_text_changed"]
-[connection signal="text_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapHeight" to="." method="_on_map_height_text_changed"]
+[connection signal="value_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapWidth" to="." method="_on_map_width_value_changed"]
+[connection signal="value_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapHeight" to="." method="_on_map_height_value_changed"]
 [connection signal="pressed" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/TileGrid" method="_on_rotate_right_pressed"]
 [connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/TileGrid" method="_on_entities_container_tile_brush_selection_change"]
