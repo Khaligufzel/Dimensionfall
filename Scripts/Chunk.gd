@@ -134,9 +134,13 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 						var tileJSON = level[current_block_index]
 						if tileJSON.has("id") and tileJSON.id != "":
 							var block_position_key = str(w) + "," + str(level_index-10) + "," + str(h)
+							# Get the shape of the block and the transparency
+							var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,tileJSON.id)
 							# We only save the data we need, exluding mob and furniture data
 							new_block_positions[block_position_key] = {
 								"id": tileJSON.id,
+								"shape": tileJSONData.get("shape", "cube"),
+								"transparent": tileJSONData.get("transparent", false),
 								"rotation": tileJSON.get("rotation", 0)
 							}
 	return new_block_positions
@@ -622,13 +626,6 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 		var pos = poslocal * block_size
 		var material_id = str(block_data["id"])
 		
-		# Get the shape of the block and the transparency
-		var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,block_data.id)
-		var blockshape = tileJSONData.get("shape", "cube")
-		var transparent = tileJSONData.get("transparent", false)
-		block_data["shape"] = blockshape # store for later use
-		block_data["transparent"] = transparent # store for later use
-		
 		# Calculate UV coordinates based on the atlas
 		var uv_info = block_uv_map[material_id] if block_uv_map.has(material_id) else {"offset": Vector2(0, 0), "scale": Vector2(1, 1)}
 		var uv_offset = Vector2(uv_info["offset"])#.to_vector2() # Convert to Vector2 if needed
@@ -641,6 +638,8 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 			(Vector2(1, 1) * uv_scale + Vector2(-margin, -margin)) + uv_offset,
 			(Vector2(0, 1) * uv_scale + Vector2(margin, -margin)) + uv_offset
 		])
+		
+		var blockshape = block_data["shape"]
 		if is_new_chunk(): # This chunk is created for the first time, so we need to save 
 			# the rotation to the block json dictionary
 			var blockrotation: int = 0
@@ -1006,13 +1005,31 @@ func update_all_navigation_data():
 	#var neighbor_key = "%s,%s,%s" % [neighbor_pos.x, neighbor_pos.y, neighbor_pos.z]
 	#if not block_positions.has(neighbor_key): # Check if there is no block at the neighbor position
 # If it does not have a neighbor, we would add the face.
+# Modified to check if neighbor is a slope
 func setup_cube(pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
 	# Define the faces to process based on transparency using GDScript's conditional syntax
-	var faces = ["top", "left", "right", "front", "back"]
-	
-	# Process each face
+	var faces = ["left", "right", "front", "back"]
+	var directions = {
+		"left": Vector3(-1, 0, 0),
+		"right": Vector3(1, 0, 0),
+		"front": Vector3(0, 0, -1),
+		"back": Vector3(0, 0, 1)
+	}
 	for face in faces:
-		process_face(face, pos, block_data, verts, uvs, normals, indices, top_face_uv)
+		# Process each face
+		var neighbor_pos = pos + directions[face]
+		var neighbor_key = "%s,%s,%s" % [neighbor_pos.x, neighbor_pos.y, neighbor_pos.z]
+		if not block_positions.has(neighbor_key): # Check if there is no block at the neighbor position
+			process_face(face, pos, block_data, verts, uvs, normals, indices, top_face_uv)
+		else:
+			var neighbor_block_data = block_positions[neighbor_key]
+			if neighbor_block_data.get("shape", "cube") == "slope": # Check if the neighbor is a slope
+				process_face(face, pos, block_data, verts, uvs, normals, indices, top_face_uv)
+
+	# Always process the top face as it's never excluded
+	process_face("top", pos, block_data, verts, uvs, normals, indices, top_face_uv)
+
+
 
 
 func process_face(direction: String, pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
