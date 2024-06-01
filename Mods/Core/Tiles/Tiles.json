@@ -1442,5 +1442,16 @@
 		"shape": "cube",
 		"sprite": "redbricks02.png",
 		"transparent": false
+	},
+	{
+		"categories": [
+			"Road"
+		],
+		"description": "A smooth surface for vehicles to drive on. It has horizontal markings",
+		"id": "road_asphalt_horizontal_top",
+		"name": "Asphalt road with horizontal markings",
+		"shape": "cube",
+		"sprite": "asphalt_markings_side_top.png",
+		"transparent": false
 	}
 ]
