@@ -747,16 +747,21 @@ func setup_slope(pos: Vector3, block_data: Dictionary, verts: PackedVector3Array
 	uvs.append_array(top_face_uv)
 	
 	# Append UV coordinates for the side faces (6 vertices)
+	# The UV coordinates are not quire right but close enough
 	var side_uvs = PackedVector2Array([
-		Vector2(0, 0), Vector2(1, 0), Vector2(0.5, 1),  # North face UVs
-		Vector2(0, 0), Vector2(1, 0), Vector2(0.5, 1)   # South face UVs
+		top_face_uv[0], top_face_uv[1], top_face_uv[2],  # North face UVs
+		top_face_uv[0], top_face_uv[1], top_face_uv[2]   # South face UVs
 	])
 	uvs.append_array(side_uvs)
 	
 	# Add normals for each vertex
-	var normal = Vector3(0, 1, 0)  # Assuming a simple upward normal; adjust as needed
-	for _i in range(slope_vertices.size()):
-		normals.append(normal)
+	var top_normal = Vector3(0, 1, 0)
+	var side_normals = get_slope_side_normals(block_rotation)
+	normals.append_array([
+		top_normal, top_normal, top_normal, top_normal,  # Top face normals
+		side_normals[0], side_normals[0], side_normals[0],  # First side face normals
+		side_normals[1], side_normals[1], side_normals[1]   # Second side face normals
+	])
 	
 	# Add indices for the top face and side faces
 	var base_index = verts.size() - slope_vertices.size()
@@ -766,6 +771,23 @@ func setup_slope(pos: Vector3, block_data: Dictionary, verts: PackedVector3Array
 		base_index + 4, base_index + 5, base_index + 6,  # North face
 		base_index + 7, base_index + 8, base_index + 9   # South face
 	])
+
+func get_slope_side_normals(rotation: int) -> Array:
+	var side_normals = []
+	match rotation:
+		90:
+			side_normals.append(Vector3(0, 0, 1))  # West normal
+			side_normals.append(Vector3(1, 0, 0))   # East normal
+		180:
+			side_normals.append(Vector3(0, 0, 1))   # South normal
+			side_normals.append(Vector3(0, 0, -1))  # North normal
+		270:
+			side_normals.append(Vector3(1, 0, 0))   # East normal
+			side_normals.append(Vector3(-1, 0, 0))  # West normal
+		_:
+			side_normals.append(Vector3(0, 0, -1))  # North normal
+			side_normals.append(Vector3(0, 0, 1))   # South normal
+	return side_normals
 
 
 # Function to calculate slope vertices
