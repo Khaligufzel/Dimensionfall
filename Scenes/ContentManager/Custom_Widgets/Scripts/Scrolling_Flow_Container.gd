@@ -7,7 +7,14 @@ extends Control
 
 @export var contentItems: FlowContainer = null
 @export var collapseButton: Button = null
-var is_collapsed: bool = false
+var is_collapsed: bool = false:
+	set(collapsed):
+		is_collapsed = collapsed
+		contentItems.visible = is_collapsed
+		if is_collapsed:
+			size_flags_vertical = Control.SIZE_EXPAND_FILL
+		else:
+			size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 @export var header: String = "Items":
 	set(newName):
 		header = newName
@@ -17,17 +24,17 @@ var is_collapsed: bool = false
 			collapseButton.show()
 			collapseButton.text = header
 
+signal collapse_button_pressed(headerName:String)
+
 #This function will collapse and expand the $Content/ContentItems when the collapse button is pressed
 func _on_collapse_button_button_up():
-	contentItems.visible = is_collapsed
-	if is_collapsed:
-		size_flags_vertical = Control.SIZE_EXPAND_FILL
-	else:
-		size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	is_collapsed = !is_collapsed
+	collapse_button_pressed.emit(header)
+
 
 func add_content_item(item: Node):
 	contentItems.add_child(item)
-	
+
+
 func get_content_items() -> Array[Node]:
 	return contentItems.get_children()

@@ -4826,516 +4826,527 @@
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_dirt_00"
+			},
+			{
+				"id": "grass_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "grass_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_dirt_00"
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "grass_dirt_01"
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "grass_dirt_00"
+			},
+			{
+				"id": "grass_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "sidewalk_00",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_horizontal"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
 				"id": "road_asphalt_basic"

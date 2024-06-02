@@ -107,6 +107,7 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	set_sprite(furnitureSprite)
 	
 	furniturerotation = furnitureJSON.get("rotation", 0)
+	mass = furnitureJSONData.get("weight", 1)
 	# Set the properties we need
 	#linear_damp = 59
 	angular_damp = 59

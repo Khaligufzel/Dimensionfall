@@ -44,7 +44,7 @@ func load_data():
 		return
 	if contentData.data.is_empty():
 		return
-    
+	
 	# If the datapath ends with json, it's a list of items
 	# Otherwise, it's a folder with json files in it
 	if contentData.dataPath.ends_with(".json"):
