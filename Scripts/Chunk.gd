@@ -603,8 +603,9 @@ func create_atlas() -> Dictionary:
 # The block_uv_map is used to map the block id to the right uv coordinates on the atlas texture
 # This function will now take a 'blocks_at_same_y' array instead of using 'block_positions.keys()'.
 func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dictionary) -> void:
-	# Define a small margin to prevent seams
-	var margin: float = 0.01
+	# Define a small margin to prevent seams, adjusted dynamically based on atlas size
+	var atlas_size = block_uv_map.size()
+	var margin: float = 0.05 / atlas_size
 
 	var verts = PackedVector3Array()
 	var uvs = PackedVector2Array()
@@ -656,6 +657,7 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 	arrays[ArrayMesh.ARRAY_NORMAL] = normals
 	arrays[ArrayMesh.ARRAY_TEX_UV] = uvs
 	arrays[ArrayMesh.ARRAY_INDEX] = indices
+
 
 
 # Creates the entire chunk including:
