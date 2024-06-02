@@ -720,6 +720,7 @@ func setup_slope(pos: Vector3, block_data: Dictionary, verts, uvs, normals, indi
 	uvs.append_array(top_face_uv)
 	add_slope_normals_and_indices(verts, normals, indices)
 
+
 # Function to calculate slope vertices
 func calculate_slope_vertices(sloperotation: int, slopeposition: Vector3) -> PackedVector3Array:
 	var half_block = 0.5
@@ -735,41 +736,99 @@ func calculate_slope_vertices(sloperotation: int, slopeposition: Vector3) -> Pac
 			vertices = get_slope_vertices_east(half_block, slopeposition)
 	return vertices
 
-# Function to get slope vertices facing north
+
+# Function to get slope vertices facing north, west, and east
 func get_slope_vertices_north(half_block: float, slopeposition: Vector3) -> PackedVector3Array:
-	return PackedVector3Array([
-		Vector3(-half_block, half_block, -half_block) + slopeposition,
-		Vector3(half_block, half_block, -half_block) + slopeposition,
-		Vector3(half_block, -half_block, half_block) + slopeposition,
-		Vector3(-half_block, -half_block, half_block) + slopeposition
-	])
+	var vertices = PackedVector3Array()
+	
+	# Top face vertices
+	vertices.push_back(Vector3(-half_block, half_block, -half_block) + slopeposition)
+	vertices.push_back(Vector3(half_block, half_block, -half_block) + slopeposition)
+	vertices.push_back(Vector3(half_block, -half_block, half_block) + slopeposition)
+	vertices.push_back(Vector3(-half_block, -half_block, half_block) + slopeposition)
+	
+	# West face vertices (triangle)
+	vertices.push_back(Vector3(-half_block, half_block, -half_block) + slopeposition) # Top north-west corner
+	vertices.push_back(Vector3(-half_block, -half_block, -half_block) + slopeposition) # Bottom north-west corner
+	vertices.push_back(Vector3(-half_block, -half_block, half_block) + slopeposition) # Bottom south-west corner
+	
+	# East face vertices (triangle)
+	vertices.push_back(Vector3(half_block, half_block, -half_block) + slopeposition) # Top north-east corner
+	vertices.push_back(Vector3(half_block, -half_block, -half_block) + slopeposition) # Bottom north-east corner
+	vertices.push_back(Vector3(half_block, -half_block, half_block) + slopeposition) # Bottom south-east corner
+	
+	return vertices
+
+
 
 # Function to get slope vertices facing west
 func get_slope_vertices_west(half_block: float, slopeposition: Vector3) -> PackedVector3Array:
-	return PackedVector3Array([
-		Vector3(-half_block, half_block, half_block) + slopeposition,
-		Vector3(-half_block, half_block, -half_block) + slopeposition,
-		Vector3(half_block, -half_block, -half_block) + slopeposition,
-		Vector3(half_block, -half_block, half_block) + slopeposition
-	])
+	var vertices = PackedVector3Array()
+	
+	# Top face vertices
+	vertices.push_back(Vector3(-half_block, half_block, half_block) + slopeposition)
+	vertices.push_back(Vector3(-half_block, half_block, -half_block) + slopeposition)
+	vertices.push_back(Vector3(half_block, -half_block, -half_block) + slopeposition)
+	vertices.push_back(Vector3(half_block, -half_block, half_block) + slopeposition)
+	
+	# North face vertices (triangle)
+	vertices.push_back(Vector3(-half_block, half_block, -half_block) + slopeposition) # Top north-west corner
+	vertices.push_back(Vector3(half_block, -half_block, -half_block) + slopeposition) # Bottom north-east corner
+	vertices.push_back(Vector3(-half_block, -half_block, -half_block) + slopeposition) # Bottom north-west corner
+	
+	# South face vertices (triangle)
+	vertices.push_back(Vector3(-half_block, half_block, half_block) + slopeposition) # Top south-west corner
+	vertices.push_back(Vector3(half_block, -half_block, half_block) + slopeposition) # Bottom south-east corner
+	vertices.push_back(Vector3(-half_block, -half_block, half_block) + slopeposition) # Bottom south-west corner
+	
+	return vertices
+
+
 
 # Function to get slope vertices facing south
 func get_slope_vertices_south(half_block: float, slopeposition: Vector3) -> PackedVector3Array:
-	return PackedVector3Array([
-		Vector3(half_block, half_block, half_block) + slopeposition,
-		Vector3(-half_block, half_block, half_block) + slopeposition,
-		Vector3(-half_block, -half_block, -half_block) + slopeposition,
-		Vector3(half_block, -half_block, -half_block) + slopeposition
-	])
+	var vertices = PackedVector3Array()
+	
+	# Top face vertices
+	vertices.push_back(Vector3(half_block, half_block, half_block) + slopeposition)
+	vertices.push_back(Vector3(-half_block, half_block, half_block) + slopeposition)
+	vertices.push_back(Vector3(-half_block, -half_block, -half_block) + slopeposition)
+	vertices.push_back(Vector3(half_block, -half_block, -half_block) + slopeposition)
+	
+	# East face vertices (triangle)
+	vertices.push_back(Vector3(half_block, half_block, half_block) + slopeposition) # Top south-east corner
+	vertices.push_back(Vector3(half_block, -half_block, -half_block) + slopeposition) # Bottom north-east corner
+	vertices.push_back(Vector3(half_block, -half_block, half_block) + slopeposition) # Bottom south-east corner
+	
+	# West face vertices (triangle)
+	vertices.push_back(Vector3(-half_block, half_block, half_block) + slopeposition) # Top south-west corner
+	vertices.push_back(Vector3(-half_block, -half_block, -half_block) + slopeposition) # Bottom north-west corner
+	vertices.push_back(Vector3(-half_block, -half_block, half_block) + slopeposition) # Bottom south-west corner
+	
+	return vertices
+
 
 # Function to get slope vertices facing east
 func get_slope_vertices_east(half_block: float, slopeposition: Vector3) -> PackedVector3Array:
-	return PackedVector3Array([
-		Vector3(half_block, half_block, -half_block) + slopeposition,
-		Vector3(half_block, half_block, half_block) + slopeposition,
-		Vector3(-half_block, -half_block, half_block) + slopeposition,
-		Vector3(-half_block, -half_block, -half_block) + slopeposition
-	])
+	var vertices = PackedVector3Array()
+	
+	# Top face vertices
+	vertices.push_back(Vector3(half_block, half_block, -half_block) + slopeposition)
+	vertices.push_back(Vector3(half_block, half_block, half_block) + slopeposition)
+	vertices.push_back(Vector3(-half_block, -half_block, half_block) + slopeposition)
+	vertices.push_back(Vector3(-half_block, -half_block, -half_block) + slopeposition)
+	
+	# North face vertices (triangle)
+	vertices.push_back(Vector3(half_block, half_block, -half_block) + slopeposition) # Top north-east corner
+	vertices.push_back(Vector3(-half_block, -half_block, -half_block) + slopeposition) # Bottom north-west corner
+	vertices.push_back(Vector3(half_block, -half_block, -half_block) + slopeposition) # Bottom north-east corner
+	
+	# South face vertices (triangle)
+	vertices.push_back(Vector3(half_block, half_block, half_block) + slopeposition) # Top south-east corner
+	vertices.push_back(Vector3(-half_block, -half_block, half_block) + slopeposition) # Bottom south-west corner
+	vertices.push_back(Vector3(half_block, -half_block, half_block) + slopeposition) # Bottom south-east corner
+	
+	return vertices
 
 # Function to add normals and indices for slopes
 func add_slope_normals_and_indices(verts, normals, indices):
@@ -1038,8 +1097,6 @@ func setup_cube(pos: Vector3, block_data: Dictionary, verts, uvs, normals, indic
 
 	# Always process the top face as it's never excluded
 	process_face("top", pos, block_data, verts, uvs, normals, indices, top_face_uv)
-
-
 
 
 func process_face(direction: String, pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
