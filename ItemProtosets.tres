@@ -1179,7 +1179,7 @@ json_data = "[
 		\"sprite\": \"bottle_yogurt_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
-		\"volume\": \"15\",
+		\"volume\": \"100\",
 		\"weight\": \"0.3\"
 	},
 	{
@@ -1191,7 +1191,7 @@ json_data = "[
 		\"sprite\": \"jar_pickles_32.png\",
 		\"stack_size\": \"1\",
 		\"two_handed\": false,
-		\"volume\": \"25\",
+		\"volume\": \"50\",
 		\"weight\": \"1\"
 	},
 	{
