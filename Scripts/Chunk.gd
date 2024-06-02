@@ -711,14 +711,61 @@ func find_blocks_at_y_level(y_level: int) -> Array:
 			})
 	return blocks_at_same_y
 
-
-# Setup the slope mesh based on it's position and rotation.
-func setup_slope(pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
+func setup_slope1(pos: Vector3, block_data: Dictionary, verts: PackedVector3Array, uvs: PackedVector2Array, normals: PackedVector3Array, indices: PackedInt32Array, top_face_uv: PackedVector2Array):
 	var block_rotation = block_data.get("rotation", 0)
 	var slope_vertices = calculate_slope_vertices(block_rotation, pos)
+	
+	# Add the vertices for the slope
 	verts.append_array(slope_vertices)
+	
+	# Add UV coordinates for each vertex
+	var uv_count = slope_vertices.size()
+	for _i in range(uv_count):
+		uvs.append_array(top_face_uv)
+	
+	# Add normals for each vertex
+	var normal = Vector3(0, 1, 0)  # Assuming a simple upward normal; adjust as needed
+	for _i in range(uv_count):
+		normals.append(normal)
+	
+	# Add indices for the top face and side faces
+	var base_index = verts.size() - uv_count
+	for i in range(0, uv_count, 3):
+		indices.append(base_index + i)
+		indices.append(base_index + i + 1)
+		indices.append(base_index + i + 2)
+
+
+func setup_slope(pos: Vector3, block_data: Dictionary, verts: PackedVector3Array, uvs: PackedVector2Array, normals: PackedVector3Array, indices: PackedInt32Array, top_face_uv: PackedVector2Array):
+	var block_rotation = block_data.get("rotation", 0)
+	var slope_vertices = calculate_slope_vertices(block_rotation, pos)
+	
+	# Add the vertices for the slope
+	verts.append_array(slope_vertices)
+	
+	# Append the top face UV coordinates
 	uvs.append_array(top_face_uv)
-	add_slope_normals_and_indices(verts, normals, indices)
+	
+	# Append UV coordinates for the side faces (6 vertices)
+	var side_uvs = PackedVector2Array([
+		Vector2(0, 0), Vector2(1, 0), Vector2(0.5, 1),  # North face UVs
+		Vector2(0, 0), Vector2(1, 0), Vector2(0.5, 1)   # South face UVs
+	])
+	uvs.append_array(side_uvs)
+	
+	# Add normals for each vertex
+	var normal = Vector3(0, 1, 0)  # Assuming a simple upward normal; adjust as needed
+	for _i in range(slope_vertices.size()):
+		normals.append(normal)
+	
+	# Add indices for the top face and side faces
+	var base_index = verts.size() - slope_vertices.size()
+	indices.append_array([
+		base_index, base_index + 1, base_index + 2,  # Top face triangle 1
+		base_index, base_index + 2, base_index + 3,  # Top face triangle 2
+		base_index + 4, base_index + 5, base_index + 6,  # North face
+		base_index + 7, base_index + 8, base_index + 9   # South face
+	])
 
 
 # Function to calculate slope vertices
