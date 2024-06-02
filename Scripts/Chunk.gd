@@ -714,66 +714,74 @@ func find_blocks_at_y_level(y_level: int) -> Array:
 
 # Setup the slope mesh based on it's position and rotation.
 func setup_slope(pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
-	var block_rotation = block_data.get("rotation", 0)  # Ensure this retrieves the correct rotation
-
-	# Determine the correct vertices based on rotation
+	var block_rotation = block_data.get("rotation", 0)
 	var slope_vertices = calculate_slope_vertices(block_rotation, pos)
 	verts.append_array(slope_vertices)
-
-	# Apply the same UV mapping to all slopes for simplicity
 	uvs.append_array(top_face_uv)
-	
-	# Normals for the slope's top face
-	var normal = Vector3(0, 1, 0)
-	for _i in range(4):
-		normals.append(normal)
+	add_slope_normals_and_indices(verts, normals, indices)
 
-	# Define two triangles for the slope's top face
-	var base_index = verts.size() - slope_vertices.size()
-	indices.append_array([
-		base_index, base_index + 1, base_index + 2,  # Triangle 1
-		base_index, base_index + 2, base_index + 3   # Triangle 2
-	])
-
-
-# Helper function to calculate vertices based on slope direction
+# Function to calculate slope vertices
 func calculate_slope_vertices(sloperotation: int, slopeposition: Vector3) -> PackedVector3Array:
 	var half_block = 0.5
 	var vertices = PackedVector3Array()
 	match sloperotation:
 		90:
-			# Slope facing Facing north
-			vertices = PackedVector3Array([
-				Vector3(-half_block, half_block, -half_block) + slopeposition, # Top front left
-				Vector3(half_block, half_block, -half_block) + slopeposition,   # Top front right
-				Vector3(half_block, -half_block, half_block) + slopeposition,  # Bottom back right
-				Vector3(-half_block, -half_block, half_block) + slopeposition  # Bottom back left
-			])
+			vertices = get_slope_vertices_north(half_block, slopeposition)
 		180:
-			# Slope facing Facing west
-			vertices = PackedVector3Array([
-				Vector3(-half_block, half_block, half_block) + slopeposition, # Top front left
-				Vector3(-half_block, half_block, -half_block) + slopeposition,   # Top front right
-				Vector3(half_block, -half_block, -half_block) + slopeposition,  # Bottom back right
-				Vector3(half_block, -half_block, half_block) + slopeposition  # Bottom back left
-			])
+			vertices = get_slope_vertices_west(half_block, slopeposition)
 		270:
-			# Slope facing Facing south
-			vertices = PackedVector3Array([
-				Vector3(half_block, half_block, half_block) + slopeposition, # Top front left
-				Vector3(-half_block, half_block, half_block) + slopeposition,   # Top front right
-				Vector3(-half_block, -half_block, -half_block) + slopeposition,  # Bottom back right
-				Vector3(half_block, -half_block, -half_block) + slopeposition  # Bottom back left
-			])
+			vertices = get_slope_vertices_south(half_block, slopeposition)
 		_:
-			# Slope facing Facing east
-			vertices = PackedVector3Array([
-				Vector3(half_block, half_block, -half_block) + slopeposition, # Top front left
-				Vector3(half_block, half_block, half_block) + slopeposition,   # Top front right
-				Vector3(-half_block, -half_block, half_block) + slopeposition,  # Bottom back right
-				Vector3(-half_block, -half_block, -half_block) + slopeposition  # Bottom back left
-			])
+			vertices = get_slope_vertices_east(half_block, slopeposition)
 	return vertices
+
+# Function to get slope vertices facing north
+func get_slope_vertices_north(half_block: float, slopeposition: Vector3) -> PackedVector3Array:
+	return PackedVector3Array([
+		Vector3(-half_block, half_block, -half_block) + slopeposition,
+		Vector3(half_block, half_block, -half_block) + slopeposition,
+		Vector3(half_block, -half_block, half_block) + slopeposition,
+		Vector3(-half_block, -half_block, half_block) + slopeposition
+	])
+
+# Function to get slope vertices facing west
+func get_slope_vertices_west(half_block: float, slopeposition: Vector3) -> PackedVector3Array:
+	return PackedVector3Array([
+		Vector3(-half_block, half_block, half_block) + slopeposition,
+		Vector3(-half_block, half_block, -half_block) + slopeposition,
+		Vector3(half_block, -half_block, -half_block) + slopeposition,
+		Vector3(half_block, -half_block, half_block) + slopeposition
+	])
+
+# Function to get slope vertices facing south
+func get_slope_vertices_south(half_block: float, slopeposition: Vector3) -> PackedVector3Array:
+	return PackedVector3Array([
+		Vector3(half_block, half_block, half_block) + slopeposition,
+		Vector3(-half_block, half_block, half_block) + slopeposition,
+		Vector3(-half_block, -half_block, -half_block) + slopeposition,
+		Vector3(half_block, -half_block, -half_block) + slopeposition
+	])
+
+# Function to get slope vertices facing east
+func get_slope_vertices_east(half_block: float, slopeposition: Vector3) -> PackedVector3Array:
+	return PackedVector3Array([
+		Vector3(half_block, half_block, -half_block) + slopeposition,
+		Vector3(half_block, half_block, half_block) + slopeposition,
+		Vector3(-half_block, -half_block, half_block) + slopeposition,
+		Vector3(-half_block, -half_block, -half_block) + slopeposition
+	])
+
+# Function to add normals and indices for slopes
+func add_slope_normals_and_indices(verts, normals, indices):
+	var normal = Vector3(0, 1, 0)
+	for _i in range(4):
+		normals.append(normal)
+	var base_index = verts.size() - 4
+	indices.append_array([
+		base_index, base_index + 1, base_index + 2,
+		base_index, base_index + 2, base_index + 3
+	])
+
 
 
 # Coroutine for creating colliders with non-blocking delays
