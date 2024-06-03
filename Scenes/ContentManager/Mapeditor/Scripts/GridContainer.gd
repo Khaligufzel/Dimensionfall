@@ -279,18 +279,18 @@ func storeLevelData() -> void:
 # Loads the leveldata from the mapdata
 # If no data exists, use the default to create a new map
 func loadLevelData(newLevel: int) -> void:
-	if newLevel > 0 and showBelow:
-		levelgrid_below.show()
-		loadLevel(newLevel-1, levelgrid_below)
+	if newLevel > 0:
+		loadLevel(newLevel - 1, levelgrid_below)
 	else:
 		levelgrid_below.hide()
-	if newLevel < 20 and showAbove:
-		levelgrid_above.show()
-		loadLevel(newLevel+1, levelgrid_above)
+	
+	if newLevel < 20:
+		loadLevel(newLevel + 1, levelgrid_above)
 		for tile in levelgrid_above.get_children():
 			tile.set_above()
 	else:
 		levelgrid_above.hide()
+	
 	loadLevel(newLevel, self)
 
 
