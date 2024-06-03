@@ -84,6 +84,7 @@ focus_next = NodePath("../MapHeight")
 focus_previous = NodePath("../SaveButton")
 min_value = 1.0
 value = 1.0
+update_on_text_changed = true
 
 [node name="MapHeightLabel" type="Label" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
@@ -98,6 +99,7 @@ focus_next = NodePath("../RotateRight")
 focus_previous = NodePath("../MapWidth")
 min_value = 1.0
 value = 1.0
+update_on_text_changed = true
 
 [node name="RotateRight" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
