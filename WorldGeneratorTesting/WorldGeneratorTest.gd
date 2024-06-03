@@ -207,7 +207,7 @@ func generate_chunk(chunk_key: Vector2):
 			match region_type:
 				Region.PLAINS:
 					sprite.texture = plains_sprite
-					level_generator.initialize_map_data_from_world_generator(Vector2(chunk_x, chunk_y), plains_map_name)
+					#level_generator.initialize_map_data_from_world_generator(Vector2(chunk_x, chunk_y), plains_map_name)
 				Region.CITY:
 					sprite.texture = city_sprite
 				Region.FOREST:

@@ -37,7 +37,7 @@ func _ready():
 # Function to create and start a timer that will generate chunks every 1 second if applicable
 func start_timer():
 	var my_timer = Timer.new() # Create a new Timer instance
-	my_timer.wait_time = 1 # Timer will tick every 1 second
+	my_timer.wait_time = 0.1 # Timer will tick every 0.1 second
 	my_timer.one_shot = false # False means the timer will repeat
 	add_child(my_timer) # Add the Timer to the scene as a child of this node
 	my_timer.timeout.connect(_on_Timer_timeout) # Connect the timeout signal
@@ -92,14 +92,14 @@ func initialize_map_data():
 
 
 ############### Probably temp function
-func initialize_map_data_from_world_generator(map_position : Vector2, map_name : String):
+# func initialize_map_data_from_world_generator(map_position : Vector2, map_name : String):
 	
-	var tacticalMapJSON: Dictionary = {}
-	# In this case we need to make a new map based on it's json definition
-	tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
-	Gamedata.data.tacticalmaps.dataPath + map_name)
-	Helper.loaded_chunk_data.mapheight = tacticalMapJSON.mapheight
-	Helper.loaded_chunk_data.mapwidth = tacticalMapJSON.mapwidth
+# 	var tacticalMapJSON: Dictionary = {}
+# 	# In this case we need to make a new map based on it's json definition
+# 	tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
+# 	Gamedata.data.tacticalmaps.dataPath + map_name)
+# 	Helper.loaded_chunk_data.mapheight = tacticalMapJSON.mapheight
+# 	Helper.loaded_chunk_data.mapwidth = tacticalMapJSON.mapwidth
 
 	# else:
 	# 	# In this case we load the map json from disk
