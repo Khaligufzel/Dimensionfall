@@ -711,31 +711,8 @@ func find_blocks_at_y_level(y_level: int) -> Array:
 			})
 	return blocks_at_same_y
 
-func setup_slope1(pos: Vector3, block_data: Dictionary, verts: PackedVector3Array, uvs: PackedVector2Array, normals: PackedVector3Array, indices: PackedInt32Array, top_face_uv: PackedVector2Array):
-	var block_rotation = block_data.get("rotation", 0)
-	var slope_vertices = calculate_slope_vertices(block_rotation, pos)
-	
-	# Add the vertices for the slope
-	verts.append_array(slope_vertices)
-	
-	# Add UV coordinates for each vertex
-	var uv_count = slope_vertices.size()
-	for _i in range(uv_count):
-		uvs.append_array(top_face_uv)
-	
-	# Add normals for each vertex
-	var normal = Vector3(0, 1, 0)  # Assuming a simple upward normal; adjust as needed
-	for _i in range(uv_count):
-		normals.append(normal)
-	
-	# Add indices for the top face and side faces
-	var base_index = verts.size() - uv_count
-	for i in range(0, uv_count, 3):
-		indices.append(base_index + i)
-		indices.append(base_index + i + 1)
-		indices.append(base_index + i + 2)
 
-
+# Collects vertices, uvs, normals and indices for a slope based on it's position and rotation
 func setup_slope(pos: Vector3, block_data: Dictionary, verts: PackedVector3Array, uvs: PackedVector2Array, normals: PackedVector3Array, indices: PackedInt32Array, top_face_uv: PackedVector2Array):
 	var block_rotation = block_data.get("rotation", 0)
 	var slope_vertices = calculate_slope_vertices(block_rotation, pos)
@@ -772,6 +749,8 @@ func setup_slope(pos: Vector3, block_data: Dictionary, verts: PackedVector3Array
 		base_index + 7, base_index + 8, base_index + 9   # South face
 	])
 
+
+# Gets the normals of the sides of the slope, based on rotation
 func get_slope_side_normals(rotation: int) -> Array:
 	var side_normals = []
 	match rotation:
@@ -806,7 +785,7 @@ func calculate_slope_vertices(sloperotation: int, slopeposition: Vector3) -> Pac
 	return vertices
 
 
-# Function to get slope vertices facing north, west, and east
+# Function to get slope vertices facing north
 func get_slope_vertices_north(half_block: float, slopeposition: Vector3) -> PackedVector3Array:
 	var vertices = PackedVector3Array()
 	
@@ -856,7 +835,6 @@ func get_slope_vertices_west(half_block: float, slopeposition: Vector3) -> Packe
 	return vertices
 
 
-
 # Function to get slope vertices facing south
 func get_slope_vertices_south(half_block: float, slopeposition: Vector3) -> PackedVector3Array:
 	var vertices = PackedVector3Array()
@@ -877,7 +855,6 @@ func get_slope_vertices_south(half_block: float, slopeposition: Vector3) -> Pack
 	vertices.push_back(Vector3(-half_block, half_block, half_block) + slopeposition) # Top south-west corner
 	vertices.push_back(Vector3(-half_block, -half_block, half_block) + slopeposition) # Bottom south-west corner
 	vertices.push_back(Vector3(-half_block, -half_block, -half_block) + slopeposition) # Bottom north-west corner
-	
 	
 	return vertices
 
@@ -903,8 +880,8 @@ func get_slope_vertices_east(half_block: float, slopeposition: Vector3) -> Packe
 	vertices.push_back(Vector3(half_block, -half_block, half_block) + slopeposition) # Bottom south-east corner
 	vertices.push_back(Vector3(-half_block, -half_block, half_block) + slopeposition) # Bottom south-west corner
 	
-	
 	return vertices
+
 
 # Function to add normals and indices for slopes
 func add_slope_normals_and_indices(verts, normals, indices):
@@ -916,7 +893,6 @@ func add_slope_normals_and_indices(verts, normals, indices):
 		base_index, base_index + 1, base_index + 2,
 		base_index, base_index + 2, base_index + 3
 	])
-
 
 
 # Coroutine for creating colliders with non-blocking delays
