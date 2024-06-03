@@ -7,8 +7,8 @@
 radius = 0.2
 
 [node name="BulletProjectile" type="RigidBody3D"]
-collision_layer = 8
-collision_mask = 22
+collision_layer = 32
+collision_mask = 30
 mass = 0.01
 gravity_scale = 0.001
 max_contacts_reported = 1
