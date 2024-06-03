@@ -8,6 +8,7 @@ extends Node
 
 var current_save_folder: String = ""
 var number_of_chunks_unloaded: int = 0
+signal all_chunks_unloaded
 
 # Function to save the current map state
 func save_current_level(global_pos: Vector2) -> void:
@@ -51,7 +52,6 @@ func save_map_data(target_folder: String) -> void:
 		# We save the chunks by their coordinates on the tacticalmap, so 0,0 and 0,1 etc
 		# That's why we need to devide by map width/height which is 32
 		#Helper.loaded_chunk_data.chunks[Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))] = chunkdata
-	
 
 
 func _on_chunk_unloaded(numchunks: int, target_folder: String):
@@ -64,6 +64,7 @@ func _on_chunk_unloaded(numchunks: int, target_folder: String):
 		Helper.loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} # Reset the data
 		print_debug("Setting chunks_unloaded to true")
 		Helper.ready_to_switch_level.chunks_unloaded = true
+		all_chunks_unloaded.emit()
 
 
 # This function determines the saved map folder path for the current level. 
