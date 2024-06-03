@@ -726,8 +726,8 @@ func setup_slope(pos: Vector3, block_data: Dictionary, verts: PackedVector3Array
 	# Append UV coordinates for the side faces (6 vertices)
 	# The UV coordinates are not quire right but close enough
 	var side_uvs = PackedVector2Array([
-		top_face_uv[0], top_face_uv[1], top_face_uv[2],  # North face UVs
-		top_face_uv[0], top_face_uv[1], top_face_uv[2]   # South face UVs
+		top_face_uv[0], top_face_uv[1], top_face_uv[2],  # Right face UVs
+		top_face_uv[0], top_face_uv[1], top_face_uv[2]   # Left face UVs
 	])
 	uvs.append_array(side_uvs)
 	
@@ -745,15 +745,15 @@ func setup_slope(pos: Vector3, block_data: Dictionary, verts: PackedVector3Array
 	indices.append_array([
 		base_index, base_index + 1, base_index + 2,  # Top face triangle 1
 		base_index, base_index + 2, base_index + 3,  # Top face triangle 2
-		base_index + 4, base_index + 5, base_index + 6,  # North face
-		base_index + 7, base_index + 8, base_index + 9   # South face
+		base_index + 4, base_index + 5, base_index + 6,  # First side face
+		base_index + 7, base_index + 8, base_index + 9   # Second side face
 	])
 
 
 # Gets the normals of the sides of the slope, based on rotation
-func get_slope_side_normals(rotation: int) -> Array:
+func get_slope_side_normals(sloperotation: int) -> Array:
 	var side_normals = []
-	match rotation:
+	match sloperotation:
 		90: # North
 			side_normals.append(Vector3(-1, 0, 0))  # West normal
 			side_normals.append(Vector3(1, 0, 0))   # East normal
@@ -807,7 +807,6 @@ func get_slope_vertices_north(half_block: float, slopeposition: Vector3) -> Pack
 	vertices.push_back(Vector3(half_block, -half_block, half_block) + slopeposition) # Bottom south-east corner
 	
 	return vertices
-
 
 
 # Function to get slope vertices facing west
@@ -881,18 +880,6 @@ func get_slope_vertices_east(half_block: float, slopeposition: Vector3) -> Packe
 	vertices.push_back(Vector3(-half_block, -half_block, half_block) + slopeposition) # Bottom south-west corner
 	
 	return vertices
-
-
-# Function to add normals and indices for slopes
-func add_slope_normals_and_indices(verts, normals, indices):
-	var normal = Vector3(0, 1, 0)
-	for _i in range(4):
-		normals.append(normal)
-	var base_index = verts.size() - 4
-	indices.append_array([
-		base_index, base_index + 1, base_index + 2,
-		base_index, base_index + 2, base_index + 3
-	])
 
 
 # Coroutine for creating colliders with non-blocking delays
