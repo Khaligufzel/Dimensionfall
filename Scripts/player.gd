@@ -135,6 +135,9 @@ func _process(_delta):
 
 #	if is_progress_bar_well_progressing_i_guess:
 #		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
+
+
+
 func _physics_process(delta):
 	time_since_ready += delta
 	if time_since_ready < delay_before_movement:
@@ -177,6 +180,7 @@ func _physics_process(delta):
 		update_stamina_HUD.emit(current_stamina)
 		
 		move_and_slide()
+
 
 
 func _on_body_entered(body):
