@@ -44,7 +44,7 @@ func set_tile_id(id: String) -> void:
 		$TileSprite.texture = load(defaultTexture)
 	else:
 		tileData.id = id
-		$TileSprite.texture = Gamedata.data.maps.sprites[id.replace("json", "png")]
+		$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.maps, id.replace(".json", ""))
 
 
 func _on_texture_rect_mouse_entered() -> void:
