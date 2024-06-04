@@ -228,8 +228,9 @@ func remove_furniture_from_chunk(furniture_instance: Node3D):
 func get_furniture_data() -> Array:
 	var furnitureData: Array = []
 	for furniture in furniture_instances:
-		furnitureData.append(furniture.get_data().duplicate())
-		furniture.queue_free.call_deferred()
+		if is_instance_valid(furniture):
+			furnitureData.append(furniture.get_data().duplicate())
+			furniture.queue_free.call_deferred()
 	return furnitureData
 
 

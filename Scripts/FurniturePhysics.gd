@@ -179,6 +179,7 @@ func get_hit(damage):
 				animate_hit()
 
 func _die():
+	current_chunk.remove_furniture_from_chunk(self)
 	add_corpse.call_deferred(global_position)
 	queue_free.call_deferred()
 	
