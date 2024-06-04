@@ -48,11 +48,12 @@ func _process(_delta: float) -> void:
 # Called when the game is over and everything will need to be reset to default
 func reset():
 	chunks = {} #Stores references to tilegrids representing the overmap
-	loaded_chunk_data = {} # Data used to load blocks on the tacticalmap
+	loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0}
 	current_level_pos = Vector2(0.1,0.1)
 	current_map_seed = 0
 	position_coord = Vector2(0, 0)
 	save_helper.current_save_folder = ""
+	chunk_navigation_maps.clear()
 	var mapMobs = get_tree().get_nodes_in_group("mobs")
 	for mob in mapMobs:
 		mob.remove_from_group("mobs")
@@ -61,6 +62,15 @@ func reset():
 	for item in mapitems:
 		item.remove_from_group("mapitems")
 		item.queue_free()
+
+
+# Save game state
+func save_game():
+	save_helper.save_current_level(current_level_pos)
+	save_helper.save_overmap_state()
+	save_helper.save_player_inventory()
+	save_helper.save_player_equipment()
+	save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
 
 
 #Level_name is a filename in /mods/core/maps
@@ -73,19 +83,13 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 	# This is only true if the game has just initialized
 	# In that case no level has once been loaded so there is no game to save
 	if current_level_pos != Vector2(0.1,0.1):
-		save_helper.save_current_level(current_level_pos)
-		save_helper.save_overmap_state()
-		save_helper.save_player_inventory()
-		save_helper.save_player_equipment()
-		save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
+		save_game()
 		chunk_navigation_maps.clear()
 	else:
 		ready_to_switch_level.chunks_unloaded = true
 	current_level_pos = global_pos
 	ready_to_switch_level.save_ready = true
 	start_timer()
-	#get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
-	#get_tree().change_scene_to_file("res://level_generation.tscn")
 
 
 # Function to create and start a timer that will wait to switch the level
