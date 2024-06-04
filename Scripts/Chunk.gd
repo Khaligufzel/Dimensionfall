@@ -1097,47 +1097,44 @@ func update_all_navigation_data():
 	update_navigation_mesh()
 
 
-# Creates the vertices for a mesh that makes up a cube
-# Couldn't get it to work with a for-loop, so every side is explicitly defined
-# TODO: instead of making all the faces, only add them if there is no neighboring cube
-# We can do this by checking the neighbor:
-	# Directions corresponding to the faces
-	#var directions = [
-		#Vector3(0, 0, -1), # Front
-		#Vector3(1, 0, 0),  # Right
-		#Vector3(0, 0, 1),  # Back
-		#Vector3(-1, 0, 0), # Left
-		#Vector3(0, 1, 0),  # Top
-	#]
-	#var neighbor_pos = pos + directions[i]
-	#var neighbor_key = "%s,%s,%s" % [neighbor_pos.x, neighbor_pos.y, neighbor_pos.z]
-	#if not block_positions.has(neighbor_key): # Check if there is no block at the neighbor position
-# If it does not have a neighbor, we would add the face.
-# Modified to check if neighbor is a slope
+# Creates the cube faces based on several factors
 func setup_cube(pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
-	# Define the faces to process based on transparency using GDScript's conditional syntax
-	var faces = ["left", "right", "front", "back"]
+	
+	var faces = ["top"] # Always the top face
+	# Include the sides if side is not facing out from the edge of the chunk
+	if pos.x != 0:
+		faces.append("left")
+	if pos.x != LEVEL_WIDTH - 1:
+		faces.append("right")
+	if pos.z != 0:
+		faces.append("back")
+	if pos.z != LEVEL_HEIGHT - 1:
+		faces.append("front")
+
+	# Mapping directions to positions
 	var directions = {
 		"left": Vector3(-1, 0, 0),
 		"right": Vector3(1, 0, 0),
 		"front": Vector3(0, 0, -1),
 		"back": Vector3(0, 0, 1)
 	}
+
 	for face in faces:
 		# Process each face
-		var neighbor_pos = pos + directions[face]
-		var neighbor_key = "%s,%s,%s" % [neighbor_pos.x, neighbor_pos.y, neighbor_pos.z]
-		if not block_positions.has(neighbor_key): # Check if there is no block at the neighbor position
-			process_face(face, pos, block_data, verts, uvs, normals, indices, top_face_uv)
-		else:
-			var neighbor_block_data = block_positions[neighbor_key]
-			if neighbor_block_data.get("shape", "cube") == "slope": # Check if the neighbor is a slope
+		if face in directions:
+			# Check if there is no block at the neighbor position
+			var neighbor_pos = pos + directions[face]
+			var neighbor_key = "%s,%s,%s" % [neighbor_pos.x, neighbor_pos.y, neighbor_pos.z]
+			if not block_positions.has(neighbor_key): 
 				process_face(face, pos, block_data, verts, uvs, normals, indices, top_face_uv)
+			else: # There is a neighbor, check if it's a slope
+				var neighbor_block_data = block_positions[neighbor_key]
+				if neighbor_block_data.get("shape", "cube") == "slope": # Check if the neighbor is a slope
+					process_face(face, pos, block_data, verts, uvs, normals, indices, top_face_uv)
+		else: # The top face is always created
+			process_face(face, pos, block_data, verts, uvs, normals, indices, top_face_uv)
 
-	# Always process the top face as it's never excluded
-	process_face("top", pos, block_data, verts, uvs, normals, indices, top_face_uv)
-
-
+# Sets the vertices, indices, uv's and normals for the face of the cube
 func process_face(direction: String, pos: Vector3, block_data: Dictionary, verts, uvs, normals, indices, top_face_uv):
 	# Retrieve vertices for the face using the helper function
 	var face_verts = get_face_vertices(direction, pos)
