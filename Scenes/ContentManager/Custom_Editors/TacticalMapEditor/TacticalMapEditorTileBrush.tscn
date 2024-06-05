@@ -30,7 +30,7 @@ expand_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(64, 10)
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 14
 autowrap_mode = 3
 
 [connection signal="gui_input" from="VBoxContainer/TileSprite" to="." method="_on_texture_rect_gui_input"]
