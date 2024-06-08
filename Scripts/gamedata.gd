@@ -465,6 +465,8 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		on_mob_deleted(id)
 	if contentData == Gamedata.data.tiles:
 		on_tile_deleted(id)
+	if contentData == Gamedata.data.skills:
+		on_skill_deleted(id)
 	if contentData == Gamedata.data.wearableslots:
 		on_wearableslot_deleted(id)
 
@@ -1116,3 +1118,44 @@ func remove_entity_from_map(map_id: String, entity_type: String, entity_id: Stri
 	print_debug("Entity removal operations completed for all levels.")
 	var map_data_json = JSON.stringify(mapdata.duplicate(), "\t")
 	Helper.json_helper.write_json_file(fileToLoad, map_data_json)
+
+
+# A skill is being deleted from the data
+# We have to remove it from everything that references it
+func on_skill_deleted(skill_id: String):
+	var changes_made = false
+	var skill_data = get_data_by_id(Gamedata.data.skills, skill_id)
+
+	if skill_data.is_empty():
+		print_debug("Skill with ID", skill_id, "not found.")
+		return
+
+	# This callable will remove the skill references from items that reference this skill.
+	var myfunc: Callable = func (item_id):
+		var item_data: Dictionary = get_data_by_id(Gamedata.data.items, item_id)
+		var recipes = item_data.get("Craft", [])
+
+		# Iterate through the recipes to remove the skill reference
+		for recipe in recipes:
+			var skill_req = recipe.get("skill_requirement", {})
+			var skill_prog = recipe.get("skill_progression", {})
+
+			# Remove skill requirement if it matches the deleted skill
+			if skill_req.get("id", "") == skill_id:
+				recipe.erase("skill_requirement")
+				changes_made = true
+
+			# Remove skill progression if it matches the deleted skill
+			if skill_prog.get("id", "") == skill_id:
+				recipe.erase("skill_progression")
+				changes_made = true
+
+	# Pass the callable to every item in the skill's references
+	# It will call myfunc on every item in skill_data.references.core.items
+	execute_callable_on_references_of_type(skill_data, "core", "items", myfunc)
+
+	# Save changes to the data file if any changes were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.items)
+	else:
+		print_debug("No changes needed for skill", skill_id)
