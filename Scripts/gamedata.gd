@@ -1119,11 +1119,10 @@ func remove_entity_from_map(map_id: String, entity_type: String, entity_id: Stri
 	var map_data_json = JSON.stringify(mapdata.duplicate(), "\t")
 	Helper.json_helper.write_json_file(fileToLoad, map_data_json)
 
-
 # A skill is being deleted from the data
 # We have to remove it from everything that references it
 func on_skill_deleted(skill_id: String):
-	var changes_made = false
+	var changes_made = { "value": false }  # Using a Dictionary to hold the change status
 	var skill_data = get_data_by_id(Gamedata.data.skills, skill_id)
 
 	if skill_data.is_empty():
@@ -1143,19 +1142,19 @@ func on_skill_deleted(skill_id: String):
 			# Remove skill requirement if it matches the deleted skill
 			if skill_req.get("id", "") == skill_id:
 				recipe.erase("skill_requirement")
-				changes_made = true
+				changes_made["value"] = true
 
 			# Remove skill progression if it matches the deleted skill
 			if skill_prog.get("id", "") == skill_id:
 				recipe.erase("skill_progression")
-				changes_made = true
+				changes_made["value"] = true
 
 	# Pass the callable to every item in the skill's references
 	# It will call myfunc on every item in skill_data.references.core.items
 	execute_callable_on_references_of_type(skill_data, "core", "items", myfunc)
 
 	# Save changes to the data file if any changes were made
-	if changes_made:
+	if changes_made["value"]:
 		save_data_to_file(Gamedata.data.items)
 	else:
 		print_debug("No changes needed for skill", skill_id)
