@@ -898,13 +898,11 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 
 	if new_slot and new_slot != old_slot:
 		# Add or update the reference to the new slot
-		changes_made = add_reference(Gamedata.data.wearableslots, "core", \
-		"items", new_slot, item_id) or changes_made
+		changes_made = add_reference(Gamedata.data.wearableslots, "core", "items", new_slot, item_id) or changes_made
 	
 	if old_slot and old_slot != new_slot:
 		# Remove the reference from the old slot if it has been changed or removed
-		changes_made = remove_reference(Gamedata.data.wearableslots, "core", \
-		"items", old_slot, item_id) or changes_made
+		changes_made = remove_reference(Gamedata.data.wearableslots, "core", "items", old_slot, item_id) or changes_made
 
 	# Dictionaries to track unique resource IDs across all recipes
 	var old_resource_ids: Dictionary = {}
@@ -920,25 +918,70 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 		for resource in recipe.get("required_resources", []):
 			new_resource_ids[resource["id"]] = true
 
-
 	# Resources that are no longer in the recipe will no longer reference this item
 	for res_id in old_resource_ids:
 		if not new_resource_ids.has(res_id):
-			changes_made = remove_reference(Gamedata.data.items, "core", "items", \
-			res_id, item_id) or changes_made
+			changes_made = remove_reference(Gamedata.data.items, "core", "items", res_id, item_id) or changes_made
 
 	# Add references for new resources, nothing happens if they are already present
 	for res_id in new_resource_ids:
-		changes_made = add_reference(Gamedata.data.items, "core", "items", \
-		res_id, item_id) or changes_made
+		changes_made = add_reference(Gamedata.data.items, "core", "items", res_id, item_id) or changes_made
+
+	# Handle skill_requirement and skill_progression references
+	var old_skill_req_ids: Dictionary = {}
+	var new_skill_req_ids: Dictionary = {}
+	var old_skill_prog_ids: Dictionary = {}
+	var new_skill_prog_ids: Dictionary = {}
+
+	# Collect all unique skill_requirement and skill_progression IDs from old recipes
+	for recipe in olddata.get("Craft", []):
+		if recipe.has("skill_requirement"):
+			var skill_req_id = recipe["skill_requirement"].get("id", "")
+			if skill_req_id != "":
+				old_skill_req_ids[skill_req_id] = true
+		if recipe.has("skill_progression"):
+			var skill_prog_id = recipe["skill_progression"].get("id", "")
+			if skill_prog_id != "":
+				old_skill_prog_ids[skill_prog_id] = true
+
+	# Collect all unique skill_requirement and skill_progression IDs from new recipes
+	for recipe in newdata.get("Craft", []):
+		if recipe.has("skill_requirement"):
+			var skill_req_id = recipe["skill_requirement"].get("id", "")
+			if skill_req_id != "":
+				new_skill_req_ids[skill_req_id] = true
+		if recipe.has("skill_progression"):
+			var skill_prog_id = recipe["skill_progression"].get("id", "")
+			if skill_prog_id != "":
+				new_skill_prog_ids[skill_prog_id] = true
+
+	# Remove old skill_requirement references that are no longer in the newdata
+	for skill_req_id in old_skill_req_ids.keys():
+		if not new_skill_req_ids.has(skill_req_id):
+			changes_made = remove_reference(Gamedata.data.skills, "core", "items", skill_req_id, item_id) or changes_made
+
+	# Add new skill_requirement references
+	for skill_req_id in new_skill_req_ids.keys():
+		changes_made = add_reference(Gamedata.data.skills, "core", "items", skill_req_id, item_id) or changes_made
+
+	# Remove old skill_progression references that are no longer in the newdata
+	for skill_prog_id in old_skill_prog_ids.keys():
+		if not new_skill_prog_ids.has(skill_prog_id):
+			changes_made = remove_reference(Gamedata.data.skills, "core", "items", skill_prog_id, item_id) or changes_made
+
+	# Add new skill_progression references
+	for skill_prog_id in new_skill_prog_ids.keys():
+		changes_made = add_reference(Gamedata.data.skills, "core", "items", skill_prog_id, item_id) or changes_made
 
 	# Save changes if any modifications were made
 	if changes_made:
 		save_data_to_file(Gamedata.data.items)
 		save_data_to_file(Gamedata.data.wearableslots)
+		save_data_to_file(Gamedata.data.skills)
 		print_debug("Item changes saved successfully.")
 	else:
 		print_debug("No changes were made to item.")
+
 
 
 # An item is being deleted from the data
