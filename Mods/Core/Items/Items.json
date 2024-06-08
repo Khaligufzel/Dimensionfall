@@ -11,6 +11,10 @@
 					"mob_loot",
 					"destroyed_furniture_medium",
 					"disassembled_furniture_medium"
+				],
+				"items": [
+					"cutting_board",
+					"rolling_pin"
 				]
 			}
 		},
@@ -777,6 +781,29 @@
 		"weight": "0.2"
 	},
 	{
+		"Craft": [
+			{
+				"craft_amount": 1,
+				"craft_time": 10,
+				"flags": {
+					"requires_light": true
+				},
+				"required_resources": [
+					{
+						"amount": 1,
+						"id": "plank_2x4"
+					}
+				],
+				"skill_progression": {
+					"id": "fabrication",
+					"xp": 10
+				},
+				"skill_requirement": {
+					"id": "fabrication",
+					"level": 1
+				}
+			}
+		],
 		"description": "A sturdy cutting board, ideal for preparing food safely and efficiently.",
 		"id": "cutting_board",
 		"image": "./Mods/Core/Items/cutting_board_64_32.png",
@@ -837,6 +864,29 @@
 		"weight": "0.3"
 	},
 	{
+		"Craft": [
+			{
+				"craft_amount": 1,
+				"craft_time": 10,
+				"flags": {
+					"requires_light": true
+				},
+				"required_resources": [
+					{
+						"amount": 1,
+						"id": "plank_2x4"
+					}
+				],
+				"skill_progression": {
+					"id": "fabrication",
+					"xp": 15
+				},
+				"skill_requirement": {
+					"id": "fabrication",
+					"level": 2
+				}
+			}
+		],
 		"description": "A wooden rolling pin, essential for flattening dough for baking.",
 		"id": "rolling_pin",
 		"image": "./Mods/Core/Items/rolling_pin_64_32.png",

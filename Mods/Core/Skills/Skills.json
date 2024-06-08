@@ -48,7 +48,9 @@
 		"references": {
 			"core": {
 				"items": [
-					"pistol_magazine"
+					"pistol_magazine",
+					"cutting_board",
+					"rolling_pin"
 				]
 			}
 		},
