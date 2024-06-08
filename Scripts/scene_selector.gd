@@ -12,11 +12,8 @@ func _ready():
 		load_game_list.add_item(saved_game)
 
 func _on_load_game_button_pressed():
-	var selected_game_folder = saved_game_folders[load_game_list.get_selected_id()]
-	Helper.save_helper.load_game_from_folder(selected_game_folder)
-	Helper.save_helper.load_overmap_state()
-	Helper.save_helper.load_player_inventory()
-	Helper.save_helper.load_player_equipment()
+	var selected_game_id = load_game_list.get_selected_id()
+	try_load_game(selected_game_id)
 	# We pass the name of the default map and coordinates
 	# If there is a saved game, it will not load the provided map
 	# but rather the one that was saved in the game that was loaded
@@ -35,3 +32,14 @@ func _on_help_button_pressed():
 
 func _on_content_manager_button_button_up():
 	get_tree().change_scene_to_file("res://Scenes/ContentManager/contentmanager.tscn")
+
+func try_load_game(selected_id):
+	if selected_id < 0 or selected_id >= saved_game_folders.size():
+		print("Loading skipped: selected game ID(%d) is out of saved_game_folders range." % selected_id)
+		return
+	var selected_game_folder = saved_game_folders[selected_id]
+	Helper.save_helper.load_game_from_folder(selected_game_folder)
+	Helper.save_helper.load_overmap_state()
+	Helper.save_helper.load_player_inventory()
+	Helper.save_helper.load_player_equipment()
+
