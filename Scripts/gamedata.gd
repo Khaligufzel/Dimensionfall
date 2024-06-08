@@ -972,7 +972,6 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 	else:
 		print_debug("No changes were made to item.")
 
-
 # An item is being deleted from the data
 # We have to remove it from everything that references it
 func on_item_deleted(item_id: String):
@@ -986,9 +985,11 @@ func on_item_deleted(item_id: String):
 	# This callable will remove this item from itemgroups that reference this item.
 	var myfunc: Callable = func (itemgroup_id):
 		var itemlist: Array = get_property_by_path(Gamedata.data.itemgroups, "items", itemgroup_id)
-		if item_id in itemlist:
-			itemlist.erase(item_id)
-			changes_made = true
+		for i in range(itemlist.size()):
+			if itemlist[i].has("id") and itemlist[i]["id"] == item_id:
+				itemlist.remove_at(i)
+				changes_made = true
+				break  # Exit loop after removal to avoid index issues
 	# Pass the callable to every itemgroup in the item's references
 	# It will call myfunc on every itemgroup in item_data.references.core.itemgroups
 	execute_callable_on_references_of_type(item_data, "core", "itemgroups", myfunc)
