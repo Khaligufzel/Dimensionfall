@@ -8,11 +8,17 @@ extends Control
 @export var requiresLightCheckbox: CheckBox = null
 @export var resourcesGridContainer: GridContainer = null
 @export var recipesContainer: OptionButton = null  # Dropdown to select which recipe to edit
+@export var required_skill_text_edit: HBoxContainer
+@export var skill_level_requirement_spin_box: SpinBox
+@export var skill_progression_text_edit: HBoxContainer
+@export var skill_progression_spin_box: SpinBox
+
 
 var current_recipe_index = 0
 var craft_recipes = []
 
 func _ready():
+	set_drop_functions()
 	recipesContainer.item_selected.connect(_on_recipe_selected)
 
 
@@ -28,6 +34,16 @@ func load_recipe_into_ui(recipe: Dictionary):
 	craftAmountNumber.value = recipe.get("craft_amount", 1)
 	craftTimeNumber.value = recipe.get("craft_time", 10)
 	requiresLightCheckbox.button_pressed = recipe.get("flags", {}).get("requires_light", false)
+
+	# Load skill requirements
+	var skill_requirement = recipe.get("skill_requirement", {})
+	required_skill_text_edit.set_text(skill_requirement.get("id", ""))
+	skill_level_requirement_spin_box.value = skill_requirement.get("level", 1)
+
+	# Load skill progression
+	var skill_progression = recipe.get("skill_progression", {})
+	skill_progression_text_edit.set_text(skill_progression.get("id", ""))
+	skill_progression_spin_box.value = skill_progression.get("xp", 1)
 
 	# Clear previous entries
 	for child in resourcesGridContainer.get_children():
@@ -48,14 +64,34 @@ func get_properties() -> Array:
 
 
 # Updates the current recipe data based on UI elements
+# Updates the current recipe data based on UI elements
 func _update_current_recipe():
 	if current_recipe_index >= 0 and current_recipe_index < craft_recipes.size():
-		craft_recipes[current_recipe_index] = {
+		var current_recipe = {
 			"craft_amount": craftAmountNumber.value,
 			"craft_time": craftTimeNumber.value,
 			"flags": {"requires_light": requiresLightCheckbox.button_pressed},
 			"required_resources": _get_resources_from_ui()
 		}
+
+		# Add skill_requirement if required_skill_text_edit has a value
+		var required_skill_id = required_skill_text_edit.get_text()
+		if required_skill_id != "":
+			current_recipe["skill_requirement"] = {
+				"id": required_skill_id,
+				"level": skill_level_requirement_spin_box.value
+			}
+
+		# Add skill_progression if skill_progression_text_edit has a value
+		var skill_progression_id = skill_progression_text_edit.get_text()
+		if skill_progression_id != "":
+			current_recipe["skill_progression"] = {
+				"id": skill_progression_id,
+				"xp": skill_progression_spin_box.value
+			}
+
+		# Update the recipe in the list
+		craft_recipes[current_recipe_index] = current_recipe
 
 
 # Helper to get resources from UI
@@ -89,6 +125,8 @@ func add_new_recipe():
 		"craft_amount": 1,
 		"craft_time": 10,
 		"flags": {"requires_light": false},
+		"skill_requirement": {"id": "", "level": 1},
+		"skill_progression": {"id": "", "xp": 1},
 		"required_resources": []
 	}
 	craft_recipes.append(new_recipe)
@@ -100,7 +138,7 @@ func _can_drop_data(_newpos, data) -> bool:
 	if not data or not data.has("id"):
 		return false
 
-	# Fetch itemgroup data by ID from the Gamedata to ensure it exists and is valid
+	# Fetch skill data by ID from the Gamedata to ensure it exists and is valid
 	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, data["id"])
 	if item_data.is_empty():
 		return false
@@ -123,7 +161,7 @@ func _drop_data(newpos, data) -> void:
 		_handle_item_drop(data, newpos)
 
 
-# Called when the user has successfully dropped data onto the ItemGroupTextEdit
+# Called when the user has successfully dropped data onto the skillTextEdit
 # We have to check the dropped_data for the id property
 func _handle_item_drop(dropped_data, _newpos) -> void:
 	# Dropped_data is a Dictionary that includes an 'id'
@@ -204,3 +242,41 @@ func update_recipe_dropdown():
 	recipesContainer.clear()
 	for idx in range(len(craft_recipes)):
 		recipesContainer.add_item("Recipe " + str(idx + 1))
+
+
+# Called when the user has successfully dropped data onto the skillTextEdit
+# We have to check the dropped_data for the id property
+func skill_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
+	# Assuming dropped_data is a Dictionary that includes an 'id'
+	if dropped_data and "id" in dropped_data:
+		var skill_id = dropped_data["id"]
+		var skill_data = Gamedata.get_data_by_id(Gamedata.data.skills, skill_id)
+		if skill_data.is_empty():
+			print_debug("No item data found for ID: " + skill_id)
+			return
+		texteditcontrol.set_text(skill_id)
+	else:
+		print_debug("Dropped data does not contain an 'id' key.")
+
+
+func can_skill_drop(dropped_data: Dictionary):
+	# Check if the data dictionary has the 'id' property
+	if not dropped_data or not dropped_data.has("id"):
+		return false
+	
+	# Fetch skill data by ID from the Gamedata to ensure it exists and is valid
+	var skill_data = Gamedata.get_data_by_id(Gamedata.data.skills, dropped_data["id"])
+	if skill_data.is_empty():
+		return false
+
+	# If all checks pass, return true
+	return true
+
+
+# Set the drop funcitons on the required skill and skill progression controls
+# This enables them to receive drop data
+func set_drop_functions():
+	required_skill_text_edit.drop_function = skill_drop.bind(required_skill_text_edit)
+	required_skill_text_edit.can_drop_function = can_skill_drop
+	skill_progression_text_edit.drop_function = skill_drop.bind(skill_progression_text_edit)
+	skill_progression_text_edit.can_drop_function = can_skill_drop

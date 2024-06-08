@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7jwy5hpj2vyt"]
+[gd_scene load_steps=4 format=3 uid="uid://b7jwy5hpj2vyt"]
 
 [ext_resource type="Script" path="res://Scripts/ItemCraftEditor.gd" id="1_6wvrt"]
+[ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="2_bjy2a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvald"]
 content_margin_left = 11.0
@@ -18,7 +19,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="ItemCraftEditor" type="Control" node_paths=PackedStringArray("craftAmountNumber", "craftTimeNumber", "requiresLightCheckbox", "resourcesGridContainer", "recipesContainer")]
+[node name="ItemCraftEditor" type="Control" node_paths=PackedStringArray("craftAmountNumber", "craftTimeNumber", "requiresLightCheckbox", "resourcesGridContainer", "recipesContainer", "required_skill_text_edit", "skill_level_requirement_spin_box", "skill_progression_text_edit", "skill_progression_spin_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,6 +32,10 @@ craftTimeNumber = NodePath("Craft/CraftTimeNumber")
 requiresLightCheckbox = NodePath("Craft/RequiresLightCheckBox")
 resourcesGridContainer = NodePath("Craft/PanelContainer/ResourcesGridContainer")
 recipesContainer = NodePath("Craft/HBoxContainer/RecipeContainerOptionButton")
+required_skill_text_edit = NodePath("Craft/SkillRequirementHBoxContainer/RequiredSkillNameDropEnabledTextEdit")
+skill_level_requirement_spin_box = NodePath("Craft/SkillRequirementHBoxContainer/SkillLevelRequirementSpinBox")
+skill_progression_text_edit = NodePath("Craft/SkillProgressionHBoxContainer/SkillProgressionNameDropEnabledTextEdit")
+skill_progression_spin_box = NodePath("Craft/SkillProgressionHBoxContainer/SkillProgressionSpinBox")
 
 [node name="Craft" type="GridContainer" parent="."]
 layout_mode = 1
@@ -104,6 +109,49 @@ text = "Flags"
 layout_mode = 2
 tooltip_text = "Enable this if the item weapon occupies both hands when held. Disable this if the item occupies one hand when held"
 text = "Requires light"
+
+[node name="SkillRequirementLabel" type="Label" parent="Craft"]
+layout_mode = 2
+text = "Skill needed:"
+
+[node name="SkillRequirementHBoxContainer" type="HBoxContainer" parent="Craft"]
+layout_mode = 2
+
+[node name="RequiredSkillNameDropEnabledTextEdit" parent="Craft/SkillRequirementHBoxContainer" instance=ExtResource("2_bjy2a")]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+tooltip_text = "Drag a skill from the list on the left onto this text box. The 
+player will need this skill to be able to unlock this recipe. 
+If no skill is entered, no skill requirement is applied."
+myplaceholdertext = "drop a skill from the list on the left"
+
+[node name="SkillLevelRequirementSpinBox" type="SpinBox" parent="Craft/SkillRequirementHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The minimum skill level required for the player to 
+unlock this recipe. Only applies if a skill name is set."
+min_value = 1.0
+value = 1.0
+
+[node name="SkillProgressionLabel" type="Label" parent="Craft"]
+layout_mode = 2
+text = "Craft xp gained:"
+
+[node name="SkillProgressionHBoxContainer" type="HBoxContainer" parent="Craft"]
+layout_mode = 2
+
+[node name="SkillProgressionNameDropEnabledTextEdit" parent="Craft/SkillProgressionHBoxContainer" instance=ExtResource("2_bjy2a")]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+myplaceholdertext = "drop a skill from the list on the left"
+
+[node name="SkillProgressionSpinBox" type="SpinBox" parent="Craft/SkillProgressionHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The amount of XP the player will get when crafting this item. 
+The xp will go towards the skill configured in the textbox. If no 
+skill is set, the player does not receive XP for crafting this item.
+The amount can be a minimum of 1 and a maximum of 100."
+min_value = 1.0
+value = 1.0
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="button_up" from="Craft/HBoxContainer/AddRecipeButton" to="." method="_on_add_recipe_button_button_up"]
