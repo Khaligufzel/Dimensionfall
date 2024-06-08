@@ -45,6 +45,13 @@
 		"description": "Skill in crafting objects from raw materials, including tools, weapons, and other gear, often essential for survival.",
 		"id": "fabrication",
 		"name": "Fabrication",
+		"references": {
+			"core": {
+				"items": [
+					"pistol_magazine"
+				]
+			}
+		},
 		"sprite": "crafting_32.png"
 	},
 	{

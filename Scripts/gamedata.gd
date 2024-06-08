@@ -927,51 +927,41 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 	for res_id in new_resource_ids:
 		changes_made = add_reference(Gamedata.data.items, "core", "items", res_id, item_id) or changes_made
 
-	# Handle skill_requirement and skill_progression references
-	var old_skill_req_ids: Dictionary = {}
-	var new_skill_req_ids: Dictionary = {}
-	var old_skill_prog_ids: Dictionary = {}
-	var new_skill_prog_ids: Dictionary = {}
 
-	# Collect all unique skill_requirement and skill_progression IDs from old recipes
+	# Collect unique skill IDs from old and new recipes
+	var old_skill_ids: Dictionary = {}
+	var new_skill_ids: Dictionary = {}
+
+	# Collect skill IDs from old recipes
 	for recipe in olddata.get("Craft", []):
 		if recipe.has("skill_requirement"):
-			var skill_req_id = recipe["skill_requirement"].get("id", "")
-			if skill_req_id != "":
-				old_skill_req_ids[skill_req_id] = true
+			var old_skill_req_id = recipe["skill_requirement"].get("id", "")
+			if old_skill_req_id != "":
+				old_skill_ids[old_skill_req_id] = true
 		if recipe.has("skill_progression"):
-			var skill_prog_id = recipe["skill_progression"].get("id", "")
-			if skill_prog_id != "":
-				old_skill_prog_ids[skill_prog_id] = true
+			var old_skill_prog_id = recipe["skill_progression"].get("id", "")
+			if old_skill_prog_id != "":
+				old_skill_ids[old_skill_prog_id] = true
 
-	# Collect all unique skill_requirement and skill_progression IDs from new recipes
+	# Collect skill IDs from new recipes
 	for recipe in newdata.get("Craft", []):
 		if recipe.has("skill_requirement"):
-			var skill_req_id = recipe["skill_requirement"].get("id", "")
-			if skill_req_id != "":
-				new_skill_req_ids[skill_req_id] = true
+			var new_skill_req_id = recipe["skill_requirement"].get("id", "")
+			if new_skill_req_id != "":
+				new_skill_ids[new_skill_req_id] = true
 		if recipe.has("skill_progression"):
-			var skill_prog_id = recipe["skill_progression"].get("id", "")
-			if skill_prog_id != "":
-				new_skill_prog_ids[skill_prog_id] = true
+			var new_skill_prog_id = recipe["skill_progression"].get("id", "")
+			if new_skill_prog_id != "":
+				new_skill_ids[new_skill_prog_id] = true
 
-	# Remove old skill_requirement references that are no longer in the newdata
-	for skill_req_id in old_skill_req_ids.keys():
-		if not new_skill_req_ids.has(skill_req_id):
-			changes_made = remove_reference(Gamedata.data.skills, "core", "items", skill_req_id, item_id) or changes_made
+	# Remove old skill references that are not in the new list
+	for old_skill_id in old_skill_ids.keys():
+		if not new_skill_ids.has(old_skill_id):
+			changes_made = remove_reference(Gamedata.data.skills, "core", "items", old_skill_id, item_id) or changes_made
 
-	# Add new skill_requirement references
-	for skill_req_id in new_skill_req_ids.keys():
-		changes_made = add_reference(Gamedata.data.skills, "core", "items", skill_req_id, item_id) or changes_made
-
-	# Remove old skill_progression references that are no longer in the newdata
-	for skill_prog_id in old_skill_prog_ids.keys():
-		if not new_skill_prog_ids.has(skill_prog_id):
-			changes_made = remove_reference(Gamedata.data.skills, "core", "items", skill_prog_id, item_id) or changes_made
-
-	# Add new skill_progression references
-	for skill_prog_id in new_skill_prog_ids.keys():
-		changes_made = add_reference(Gamedata.data.skills, "core", "items", skill_prog_id, item_id) or changes_made
+	# Add new skill references
+	for new_skill_id in new_skill_ids.keys():
+		changes_made = add_reference(Gamedata.data.skills, "core", "items", new_skill_id, item_id) or changes_made
 
 	# Save changes if any modifications were made
 	if changes_made:
