@@ -973,7 +973,6 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 		print_debug("No changes were made to item.")
 
 
-
 # An item is being deleted from the data
 # We have to remove it from everything that references it
 func on_item_deleted(item_id: String):
@@ -981,7 +980,7 @@ func on_item_deleted(item_id: String):
 	var item_data = get_data_by_id(Gamedata.data.items, item_id)
 	
 	if item_data.is_empty():
-		print_debug("Item with ID", item_data, "not found.")
+		print_debug("Item with ID", item_id, "not found.")
 		return
 	
 	# This callable will remove this item from itemgroups that reference this item.
@@ -1010,6 +1009,9 @@ func on_item_deleted(item_id: String):
 	execute_callable_on_references_of_type(item_data, "core", "items", remove_from_item)
 	
 	# For each recipe and for each item in each recipe, remove the reference to this item
+	# Collect unique skill IDs from the item's recipes
+	var skill_ids: Dictionary = {}
+
 	if item_data.has("Craft"):
 		for recipe in item_data["Craft"]:
 			var resources = recipe.get("required_resources", [])
@@ -1017,12 +1019,27 @@ func on_item_deleted(item_id: String):
 				if resource.has("id"):
 					changes_made = remove_reference(Gamedata.data.items, "core", \
 					"items", resource["id"], item_id) or changes_made
+			if recipe.has("skill_requirement"):
+				var skill_req_id = recipe["skill_requirement"].get("id", "")
+				if skill_req_id != "":
+					skill_ids[skill_req_id] = true
+			if recipe.has("skill_progression"):
+				var skill_prog_id = recipe["skill_progression"].get("id", "")
+				if skill_prog_id != "":
+					skill_ids[skill_prog_id] = true
+
+	# Remove the reference of this item from each skill
+	for skill_id in skill_ids.keys():
+		changes_made = remove_reference(Gamedata.data.skills, "core", "items", skill_id, item_id) or changes_made
 
 	# Save changes to the data file if any changes were made
 	if changes_made:
 		save_data_to_file(Gamedata.data.itemgroups)
+		save_data_to_file(Gamedata.data.items)
+		save_data_to_file(Gamedata.data.skills)
 	else:
 		print_debug("No changes needed for item", item_id)
+
 
 
 # A wearableslot is being deleted from the data
