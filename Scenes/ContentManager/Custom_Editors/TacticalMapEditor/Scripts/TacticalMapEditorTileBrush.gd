@@ -5,6 +5,7 @@ var mapID: String = ""
 var selected: bool = false
 var entityType: String = "tile"
 const DEFAULT_WIDTH = 64
+const LINE_HEIGHT = 20
 @export var tile_sprite: TextureRect
 @export var label: Label
 
@@ -58,6 +59,6 @@ func _on_label_minimum_size_changed():
 # Update the minimum size of the parent container
 func update_min_size():
 	var total_height = DEFAULT_WIDTH + label.custom_minimum_size.y
-	# Because the text might wrap around to the next line, we add 20 height to accommodate
-	# that. If the label text does not wrap around, the 20 height will be empty space
-	custom_minimum_size = Vector2(custom_minimum_size.x, total_height+20)
+	# Because the text might wrap around to the next line, we add LINE_HEIGHT to accommodate
+	# that. If the label text does not wrap around, the LINE_HEIGHT will be empty space below the text.
+	custom_minimum_size = Vector2(custom_minimum_size.x, total_height+LINE_HEIGHT)
