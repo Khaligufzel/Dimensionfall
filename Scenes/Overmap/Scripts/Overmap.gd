@@ -23,7 +23,11 @@ signal change_level_pressed()
 func _ready():
 	var gameFileJson: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 	Helper.save_helper.current_save_folder + "/game.json")
-	noise.seed = gameFileJson.mapseed
+	if gameFileJson:
+		noise.seed = gameFileJson.mapseed
+	else:
+		var rng = RandomNumberGenerator.new()
+		noise.seed = rng.randi()
 	noise.fractal_octaves = 5
 	noise.fractal_gain = 0.5
 	noise.frequency = 0.04
