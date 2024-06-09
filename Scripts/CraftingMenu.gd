@@ -29,7 +29,8 @@ func _ready():
 # Function to create item buttons based on craftable items
 func create_item_buttons():
 	for item in CraftingRecipesManager.craftable_items:
-		create_item_button(item)
+		if can_craft_with_skill(item):
+			create_item_button(item)
 
 
 # Updated function to store button references
@@ -153,3 +154,16 @@ func _on_allAccessibleItems_changed(items_added: Array, items_removed: Array):
 	# Update buttons for items that were removed
 	for item in items_removed:
 		_update_button_from_inventory_item(item)
+
+
+# Function to determine if any of the item's recipes can be crafted based on player's skills
+func can_craft_with_skill(item_data: Dictionary) -> bool:
+	# Check if the item data has the 'Craft' property
+	if "Craft" in item_data:
+		# Iterate over each recipe in the 'Craft' property
+		for recipe in item_data["Craft"]:
+			# Call the CraftingRecipesManager to check if the recipe can be crafted
+			if CraftingRecipesManager.has_required_skill(recipe):
+				return true  # Return true if any recipe can be crafted based on skills
+	# Return false if no recipes can be crafted or if there are no recipes
+	return false
