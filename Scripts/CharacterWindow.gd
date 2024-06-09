@@ -14,8 +14,6 @@ func _ready():
 	_on_player_skill_changed(playerInstance)
 
 
-
-
 # Utility function to clear all children in a container
 func clear_container(container: Control):
 	for child in container.get_children():
