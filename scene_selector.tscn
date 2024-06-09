@@ -30,6 +30,7 @@ offset_right = 453.0
 offset_bottom = 457.0
 theme_override_fonts/font = ExtResource("1_sue5h")
 theme_override_font_sizes/font_size = 25
+disabled = true
 text = "Load game ---->>>"
 
 [node name="LoadGameList" type="OptionButton" parent="."]

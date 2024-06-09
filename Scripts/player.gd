@@ -99,7 +99,6 @@ func initialize_condition():
 	current_pain = pain
 
 
-
 # Initialize skills with level and XP
 func initialize_stats_and_skills():
 	# Initialize all stats with a value of 5

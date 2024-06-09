@@ -47,7 +47,8 @@ func update_accessible_items_list():
 
 	new_items += playerInventory.get_items()
 	for inventory in proximityInventories.values():
-		new_items += inventory.get_items()
+		if is_instance_valid(inventory):
+			new_items += inventory.get_items()
 
 	# Use dictionaries to count occurrences since item references won't work across different inventories
 	var old_count = count_items(old_items)

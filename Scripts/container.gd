@@ -156,7 +156,11 @@ func get_sprite():
 		return sprite_3d.texture
 	else:
 		# The parent is probably a furniture so return that
-		return get_parent().get_sprite()
+		var parent = get_parent()
+		if parent == FurniturePhysics or parent == FurnitureStatic:
+			return parent.get_sprite()
+		else:
+			return load("res://Textures/container_32.png")
 
 
 # Returns the inventorystacked that this container holds
