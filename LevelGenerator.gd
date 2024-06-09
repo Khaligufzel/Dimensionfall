@@ -208,7 +208,11 @@ func process_next_chunk():
 # chunk_pos starts at 0,0 and increaes like 0,1, 0,2 ... 4,4, 4,5 etc.
 func get_chunk(chunk_pos: Vector2) -> Chunk:
 	if loaded_chunks.has(chunk_pos):
-		return loaded_chunks[chunk_pos]
+		var chunk = loaded_chunks[chunk_pos]
+		if is_instance_valid(chunk):
+			return chunk
+		else:
+			return null
 	else:
 		# Handle the case where the chunk is not found.
 		print_debug("Chunk at position ", chunk_pos, " not found.")
