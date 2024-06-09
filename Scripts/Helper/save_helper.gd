@@ -79,7 +79,7 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 	var target_folder = current_save_folder+ "/" + map_folder
 	# For example, the target_folder could be: "C:\Users\User\AppData\Roaming\Godot\app_userdata\
 	# CataX\save\2024-01-08T202236\map_x0_y0"
-	if dir.dir_exists(map_folder):
+	if dir and dir.dir_exists(map_folder):
 		return target_folder
 	return ""
 
