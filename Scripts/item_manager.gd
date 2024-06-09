@@ -15,6 +15,7 @@ var allAccessibleItems = []  # List to hold all accessible InventoryItems
 
 
 signal allAccessibleItems_changed(items_added: Array, items_removed: Array)
+signal craft_succesful(item: Dictionary, recipe: Dictionary)
 
 
 func _ready():
@@ -309,6 +310,7 @@ func on_crafting_menu_start_craft(item, recipe):
 			return
 		var newitem = playerInventory.create_and_add_item(item_id)
 		InventoryStacked.set_item_stack_size(newitem, recipe["craft_amount"])
+		craft_succesful.emit(item, recipe)
 
 
 # Checks if there is a sufficient amount of a given item ID across all accessible items.

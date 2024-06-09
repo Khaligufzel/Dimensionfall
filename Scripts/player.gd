@@ -76,6 +76,7 @@ func _ready():
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
 	Helper.signal_broker.health_item_used.connect(_on_health_item_used)
+	ItemManager.craft_succesful.connect(_on_craft_succesful)
 	# Connect signals for collisionDetector to detect furniture
 	collisionDetector.body_entered.connect(_on_body_entered)
 	collisionDetector.body_exited.connect(_on_body_exited)
@@ -430,3 +431,14 @@ func add_skill_xp(skill_id: String, xp: int) -> void:
 		Helper.signal_broker.player_skill_changed.emit(self)
 	else:
 		push_error("Skill ID not found: %s" % skill_id)
+
+
+# The player has succesfully crafted an item. Get the skill id and xp from
+# the recipe and add it to the player's skill xp
+func _on_craft_succesful(item: Dictionary, recipe: Dictionary):
+	if recipe.has("skill_progression"):
+		var skill_progression = recipe["skill_progression"]
+		if skill_progression.has("id") and skill_progression.has("xp"):
+			var skill_id = skill_progression["id"]
+			var xp = skill_progression["xp"]
+			add_skill_xp(skill_id, xp)

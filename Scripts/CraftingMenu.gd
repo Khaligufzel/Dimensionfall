@@ -5,6 +5,7 @@ extends Panel
 
 @export var description : Label
 @export var required_items : VBoxContainer
+@export var skill_progression_label : Label
 @export var recipeVBoxContainer : VBoxContainer
 
 @export var start_crafting_button : Button
@@ -13,9 +14,8 @@ extends Panel
 
 signal start_craft(item: Dictionary, recipe: Dictionary)
 
-
 var active_recipe: Dictionary # The currently selected recipe
-var active_item: Dictionary # THe currently selected item in the itemlist
+var active_item: Dictionary # The currently selected item in the itemlist
 # Dictionary to store buttons with item IDs as keys
 var item_buttons = {}
 
@@ -23,6 +23,7 @@ var item_buttons = {}
 func _ready():
 	start_craft.connect(ItemManager.on_crafting_menu_start_craft)
 	ItemManager.allAccessibleItems_changed.connect(_on_allAccessibleItems_changed)
+	Helper.signal_broker.player_skill_changed.connect(_on_player_skill_changed)
 	create_item_buttons()
 
 
@@ -63,7 +64,7 @@ func update_button_color(button, item):
 func _on_item_button_clicked(item: Dictionary):
 	active_item = item
 	description.text = item["description"]  # Set the description label
-	var recipes = item.get("Craft",[])             # Get the recipe array from the item
+	var recipes = item.get("Craft",[])  # Get the recipe array from the item
 	for element in recipeVBoxContainer.get_children():
 		recipeVBoxContainer.remove_child(element)
 		element.queue_free()  # Properly free the node to avoid memory leaks
@@ -103,6 +104,16 @@ func _on_recipe_button_pressed(recipe):
 		var label = Label.new()
 		label.text = " %s: %d" % [item_name, amount]
 		resource_container.add_child(label)
+
+	# Display skill progression information if it exists
+	skill_progression_label.text = ""
+	if recipe.has("skill_progression"):
+		var skill_progression = recipe["skill_progression"]
+		if skill_progression.has("id") and skill_progression.has("xp"):
+			var skill_id = skill_progression["id"]
+			var skill_xp = skill_progression["xp"]
+			# Display skill progression information
+			skill_progression_label.text = "Get XP: " + str(skill_id) + ": " + str(skill_xp)
 
 
 func _on_start_crafting_button_pressed():
@@ -167,3 +178,22 @@ func can_craft_with_skill(item_data: Dictionary) -> bool:
 				return true  # Return true if any recipe can be crafted based on skills
 	# Return false if no recipes can be crafted or if there are no recipes
 	return false
+
+
+# Function to clear all item buttons from the item_button_container
+func clear_item_buttons():
+	for button in item_button_container.get_children():
+		item_button_container.remove_child(button)
+		button.queue_free()  # Properly free the node to avoid memory leaks
+	item_buttons.clear()  # Clear the item_buttons dictionary
+
+
+# Function to clear and refresh the item buttons
+func refresh_item_buttons():
+	clear_item_buttons()
+	create_item_buttons()
+
+
+# The player's skill has changed so new recipes might be unlocked. Refresh the list
+func _on_player_skill_changed(playernode: CharacterBody3D):
+	refresh_item_buttons()
