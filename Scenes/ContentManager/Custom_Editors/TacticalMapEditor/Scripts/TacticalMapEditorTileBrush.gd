@@ -4,6 +4,7 @@ signal tilebrush_clicked(clicked_tile: Control)
 var mapID: String = ""
 var selected: bool = false
 var entityType: String = "tile"
+const DEFAULT_WIDTH = 64
 @export var tile_sprite: TextureRect
 @export var label: Label
 
@@ -38,12 +39,12 @@ func set_selected(is_selected: bool) -> void:
 # Set the label text and adjust the size of the label and the tile sprite accordingly
 func set_label(text: String):
 	label.text = text
-	label.custom_minimum_size = Vector2(64, 12)
+	label.custom_minimum_size = Vector2(DEFAULT_WIDTH, 12)
 
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART  # Enable word wrapping
 	label.size_flags_horizontal = Control.SIZE_FILL
 	label.size_flags_vertical = Control.SIZE_SHRINK_END
-	label.custom_minimum_size = Vector2(64, label.get_minimum_size().y)
+	label.custom_minimum_size = Vector2(DEFAULT_WIDTH, label.get_minimum_size().y)
 
 	# Update the minimum size of the parent container
 	update_min_size()
@@ -56,5 +57,7 @@ func _on_label_minimum_size_changed():
 
 # Update the minimum size of the parent container
 func update_min_size():
-	var total_height = 64 + label.custom_minimum_size.y
+	var total_height = DEFAULT_WIDTH + label.custom_minimum_size.y
+	# Because the text might wrap around to the next line, we add 20 height to accommodate
+	# that. If the label text does not wrap around, the 20 height will be empty space
 	custom_minimum_size = Vector2(custom_minimum_size.x, total_height+20)
