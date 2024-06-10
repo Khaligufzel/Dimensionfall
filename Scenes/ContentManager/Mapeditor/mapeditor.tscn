@@ -273,14 +273,15 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="CustomBrushComposer" parent="HSplitContainer/EntitiesVBoxContainer" instance=ExtResource("18_ov0cf")]
-custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
 
 [node name="EntitiesContainer" type="VBoxContainer" parent="HSplitContainer/EntitiesVBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
+size_flags_stretch_ratio = 0.8
 script = ExtResource("5_he816")
 scrolling_Flow_Container = ExtResource("6_onaby")
 tileBrush = ExtResource("8_o4x7s")

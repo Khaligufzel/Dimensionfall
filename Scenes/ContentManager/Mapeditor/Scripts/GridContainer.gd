@@ -431,6 +431,7 @@ func paint_in_rectangle():
 				tile.set_default()
 	elif selected_brush:
 		for tile in tiles:
+			selected_brush = brushcomposer.get_random_brush()
 			if selected_brush.entityType == "mob":
 				tile.set_mob_id(selected_brush.tileID)
 			elif selected_brush.entityType == "furniture":
