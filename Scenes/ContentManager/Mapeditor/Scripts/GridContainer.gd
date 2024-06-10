@@ -14,6 +14,7 @@ var currentLevelData: Array = []
 @export var checkboxDrawRectangle: CheckBox
 @export var checkboxCopyRectangle: CheckBox
 @export var checkboxCopyAllLevels: CheckBox
+@export var brushcomposer: Control # Contains one or more selected brushes to paint with
 
 var selected_brush: Control
 
@@ -490,8 +491,9 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 
 
 # When the user has selected one of the tile brushes to paint with
-func _on_tilebrush_list_tile_brush_selection_change(tilebrush):
+func _on_tilebrush_list_tile_brush_selection_change(tilebrush: Control):
 	selected_brush = tilebrush
+	brushcomposer.add_tilebrush_to_container(tilebrush)
 	update_preview_texture()
 
 

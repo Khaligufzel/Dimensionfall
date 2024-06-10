@@ -4,6 +4,7 @@ signal tilebrush_clicked(clicked_tile: Control)
 var tileID: String = ""
 var selected: bool = false
 var entityType: String = "tile"
+const TILEMARGIN: int = 10
 
 #When the event was a left mouse button press, adjust the modulate property of the $TileSprite to be 3aa2c1
 func _on_texture_rect_gui_input(event):
@@ -23,3 +24,8 @@ func set_selected(is_selected: bool) -> void:
 		modulate = Color(0.227, 0.635, 0.757)
 	else:
 		modulate = Color(1,1,1)
+
+
+func set_minimum_size(newsize: Vector2):
+	custom_minimum_size = Vector2(newsize.x+TILEMARGIN, newsize.y+TILEMARGIN)
+	$TileSprite.custom_minimum_size = newsize

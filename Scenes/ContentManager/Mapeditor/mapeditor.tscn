@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=30 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bsxgq272ca2kw" path="res://Images/Icons/IconArrowDownUnchecked.png" id="8_xcusj"]
 [ext_resource type="Texture2D" uid="uid://dk8cdxff84idk" path="res://Images/Icons/IconArrowUpChecked.png" id="9_etume"]
 [ext_resource type="Texture2D" uid="uid://biircfcjvj7lp" path="res://Images/Icons/IconArrowUpUnchecked.png" id="10_0rhye"]
+[ext_resource type="PackedScene" uid="uid://c80hblyn3jedv" path="res://Scenes/ContentManager/Mapeditor/mapeditor_brushcomposer.tscn" id="18_ov0cf"]
 
 [sub_resource type="Gradient" id="Gradient_x1sdl"]
 
@@ -189,7 +190,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.313726, 0.313726, 0.313726, 1)
 
-[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above", "mapScrollWindow", "brushPreviewTexture", "buttonRotateRight", "checkboxDrawRectangle", "checkboxCopyRectangle", "checkboxCopyAllLevels")]
+[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above", "mapScrollWindow", "brushPreviewTexture", "buttonRotateRight", "checkboxDrawRectangle", "checkboxCopyRectangle", "checkboxCopyAllLevels", "brushcomposer")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -211,6 +212,7 @@ buttonRotateRight = NodePath("../../../../../Toolbar/RotateRight")
 checkboxDrawRectangle = NodePath("../../../../../Toolbar/DrawRectangle")
 checkboxCopyRectangle = NodePath("../../../../../Toolbar/CopyRectangle")
 checkboxCopyAllLevels = NodePath("../../../../../Toolbar/CopyAllLevels")
+brushcomposer = NodePath("../../../../../../EntitiesVBoxContainer/CustomBrushComposer")
 
 [node name="Level_Below" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer"]
 modulate = Color(1, 1, 1, 0.117647)
@@ -265,9 +267,19 @@ max_value = 10.0
 step = 1.0
 rounded = true
 
-[node name="EntitiesContainer" type="VBoxContainer" parent="HSplitContainer"]
+[node name="EntitiesVBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="CustomBrushComposer" parent="HSplitContainer/EntitiesVBoxContainer" instance=ExtResource("18_ov0cf")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="EntitiesContainer" type="VBoxContainer" parent="HSplitContainer/EntitiesVBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 script = ExtResource("5_he816")
 scrolling_Flow_Container = ExtResource("6_onaby")
@@ -298,4 +310,4 @@ offset_bottom = 40.0
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" to="." method="_on_tile_grid_zoom_level_changed"]
 [connection signal="value_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_level_scrollbar_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="HSplitContainer/MapeditorContainer/HBoxContainer/Levelscroller" method="_on_level_scrollbar_value_changed"]
-[connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_tilebrush_list_tile_brush_selection_change"]
+[connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesVBoxContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_tilebrush_list_tile_brush_selection_change"]

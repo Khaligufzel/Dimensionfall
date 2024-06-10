@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://c80hblyn3jedv"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor_brushcomposer.gd" id="1_bl6cv"]
+[ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="1_ump07"]
+[ext_resource type="PackedScene" uid="uid://cccnrdolr1bfo" path="res://Scenes/ContentManager/Mapeditor/tilebrush.tscn" id="2_epuda"]
+
+[node name="CustomBrushVBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("brush_container")]
+script = ExtResource("1_bl6cv")
+brush_container = NodePath("CurrentBrushScrolling_Flow_Container")
+tileBrush = ExtResource("2_epuda")
+
+[node name="CustomBrushToolsHBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CustomBrushToolsHBoxContainer"]
+layout_mode = 2
+text = "x"
+
+[node name="Button2" type="Button" parent="CustomBrushToolsHBoxContainer"]
+layout_mode = 2
+text = "x"
+
+[node name="Button3" type="Button" parent="CustomBrushToolsHBoxContainer"]
+layout_mode = 2
+text = "x"
+
+[node name="Button4" type="Button" parent="CustomBrushToolsHBoxContainer"]
+layout_mode = 2
+text = "x"
+
+[node name="Button5" type="Button" parent="CustomBrushToolsHBoxContainer"]
+layout_mode = 2
+text = "x"
+
+[node name="CurrentBrushScrolling_Flow_Container" parent="." instance=ExtResource("1_ump07")]
+layout_mode = 2
+header = ""
