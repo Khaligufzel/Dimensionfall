@@ -119,9 +119,11 @@ func can_fire_weapon() -> bool:
 		return General.is_mouse_outside_HUD and not General.is_action_in_progress and heldItem and not in_cooldown
 	return General.is_mouse_outside_HUD and not General.is_action_in_progress and General.is_allowed_to_shoot and heldItem and not in_cooldown and (get_current_ammo() > 0 or not requires_ammo())
 
+
 # Function to check if the weapon requires ammo (for ranged weapons)
 func requires_ammo() -> bool:
 	return not heldItem.get_property("Ranged") == null
+
 
 # Function to handle firing logic for a weapon.
 func fire_weapon():
@@ -132,6 +134,16 @@ func fire_weapon():
 		perform_melee_attack()
 	else:
 		perform_ranged_attack()
+
+
+func add_weapon_xp_on_use():
+	if heldItem.get_property("Melee") != null:
+		print_debug("Melee xp gain is not yet implemented")
+	elif heldItem.get_property("Ranged") != null:
+		var rangedproperties = heldItem.get_property("Ranged")
+		if rangedproperties.has("used_skill"):
+			var used_skill = rangedproperties.used_skill
+			player.add_skill_xp(used_skill.skill_id, used_skill.xp)
 
 
 # Return the accuracy based on skill level
@@ -181,6 +193,7 @@ func perform_ranged_attack():
 	bullet_instance.global_transform.origin = spawn_position
 	bullet_instance.set_direction_and_speed(direction, bullet_speed)
 	in_cooldown = true
+	add_weapon_xp_on_use()
 	attack_cooldown_timer.start()
 
 
