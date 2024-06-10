@@ -887,7 +887,6 @@ func on_tacticalmapdata_changed(tacticalmap_id: String, newdata: Dictionary, old
 		if id not in unique_new_ids:
 			remove_reference(Gamedata.data.maps, "core", "tacticalmaps", id, tacticalmap_id)
 
-
 # Some item has been changed
 # We need to update the relation between the item and other items based on crafting recipes
 func on_item_changed(newdata: Dictionary, olddata: Dictionary):
@@ -929,7 +928,6 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 	for res_id in new_resource_ids:
 		changes_made = add_reference(Gamedata.data.items, "core", "items", res_id, item_id) or changes_made
 
-
 	# Collect unique skill IDs from old and new recipes
 	var old_skill_ids: Dictionary = {}
 	var new_skill_ids: Dictionary = {}
@@ -956,6 +954,17 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 			if new_skill_prog_id != "":
 				new_skill_ids[new_skill_prog_id] = true
 
+	# Check for "Ranged" property in olddata and newdata, and collect skill IDs
+	if olddata.has("Ranged") and olddata["Ranged"].has("used_skill"):
+		var old_skill_id = olddata["Ranged"]["used_skill"].get("skill_id", "")
+		if old_skill_id != "":
+			old_skill_ids[old_skill_id] = true
+
+	if newdata.has("Ranged") and newdata["Ranged"].has("used_skill"):
+		var new_skill_id = newdata["Ranged"]["used_skill"].get("skill_id", "")
+		if new_skill_id != "":
+			new_skill_ids[new_skill_id] = true
+
 	# Remove old skill references that are not in the new list
 	for old_skill_id in old_skill_ids.keys():
 		if not new_skill_ids.has(old_skill_id):
@@ -973,6 +982,7 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 		print_debug("Item changes saved successfully.")
 	else:
 		print_debug("No changes were made to item.")
+
 
 # An item is being deleted from the data
 # We have to remove it from everything that references it
