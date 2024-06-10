@@ -6,7 +6,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_myv0w"]
 
-[node name="CraftingMenu" type="Panel" node_paths=PackedStringArray("item_button_container", "description", "required_items", "recipeVBoxContainer", "start_crafting_button") groups=["CraftingMenu"]]
+[node name="CraftingMenu" type="Panel" node_paths=PackedStringArray("item_button_container", "description", "required_items", "skill_progression_label", "recipeVBoxContainer", "start_crafting_button") groups=["CraftingMenu"]]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -25,6 +25,7 @@ item_button_container = NodePath("CraftingList/VBoxContainer")
 item_craft_button = ExtResource("2_87dwt")
 description = NodePath("Panel/VBoxContainer/Description")
 required_items = NodePath("Panel/VBoxContainer/RequiredItems")
+skill_progression_label = NodePath("Panel/VBoxContainer/SkillProgressionLabel")
 recipeVBoxContainer = NodePath("Panel/VBoxContainer/RecipeVBoxContainer")
 start_crafting_button = NodePath("Panel/VBoxContainer/StartCraftingButton")
 hud = NodePath("..")
@@ -76,6 +77,9 @@ autowrap_mode = 3
 [node name="RecipeVBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="SkillProgressionLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
 
 [node name="RequiredItems" type="VBoxContainer" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(200, 200)

@@ -26,3 +26,24 @@ func can_craft_recipe(recipe: Dictionary) -> bool:
 	
 	# If all checks are passed, return true indicating that crafting can proceed.
 	return true
+
+
+# Function to check if the player meets the skill requirement for a given dictionary
+func has_required_skill(recipe: Dictionary) -> bool:
+	# Check if "skill_requirement" exists in the provided dictionary
+	if recipe.has("skill_requirement"):
+		var skill_req = recipe["skill_requirement"]
+		var skill_id = skill_req.get("id", "")
+		var required_level = skill_req.get("level", 0)
+		var player = get_tree().get_first_node_in_group("Players")
+		
+		# Check if the player has the required skill and level
+		if player and player.skills.has(skill_id):
+			var player_skill_level = player.skills[skill_id]
+			if player_skill_level["level"] >= required_level:
+				return true
+	else:
+		return true
+		
+	# If the requirement is not met or the skill doesn't exist, return false
+	return false
