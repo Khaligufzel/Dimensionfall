@@ -43,15 +43,11 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 # Function to clear the children of brush_container
 func clear_brush_container():
 	for child in brush_container.get_content_items():
 		brush_container.remove_content_item(child)
+		brush_removed.emit(child)
 		child.queue_free()
 
 
@@ -86,3 +82,7 @@ func get_random_brush() -> Control:
 	if children.size() == 0:
 		return null
 	return children[randi() % children.size()]
+
+# Returns true if there are no brushes in the list. Otherwise it returns false
+func is_empty() -> bool:
+	return brush_container.get_content_items().size() == 0

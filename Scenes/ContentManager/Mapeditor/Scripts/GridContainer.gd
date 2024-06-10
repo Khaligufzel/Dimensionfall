@@ -65,6 +65,8 @@ func _on_mapeditor_ready() -> void:
 	levelgrid_above.hide()
 	_on_zoom_level_changed(mapEditor.zoom_level)
 	data_changed.connect(Gamedata.on_mapdata_changed)
+	brushcomposer.brush_added.connect(_on_composer_brush_added)
+	brushcomposer.brush_removed.connect(_on_composer_brush_removed)
 
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
@@ -493,12 +495,10 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 
 # When the user has selected one of the tile brushes to paint with
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush: Control):
-	selected_brush = tilebrush
 	if Input.is_key_pressed(KEY_CTRL):
 		brushcomposer.add_tilebrush_to_container(tilebrush)
 	else:
 		brushcomposer.replace_all_with_brush(tilebrush)
-	update_preview_texture()
 
 
 # The cursor will have a preview of the texture that the user will paint with next to it
@@ -997,3 +997,16 @@ func set_brush_preview_texture(image: Texture) -> void:
 		brushPreviewTexture.texture = null
 		brushPreviewTexture.visible = false
 		brushPreviewTexture.size = Vector2(128,128)
+
+
+# The user has added a brush to the brush composer
+func _on_composer_brush_added(composerbrush: Control):
+	selected_brush = composerbrush
+	update_preview_texture()
+
+
+# The user has removed a brush from the brush composer
+func _on_composer_brush_removed(composerbrush: Control):
+	if brushcomposer.is_empty():
+		selected_brush = null
+		update_preview_texture()
