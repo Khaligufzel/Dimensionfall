@@ -982,8 +982,6 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 		print_debug("Item changes saved successfully.")
 	else:
 		print_debug("No changes were made to item.")
-
-
 # An item is being deleted from the data
 # We have to remove it from everything that references it
 func on_item_deleted(item_id: String):
@@ -1040,6 +1038,12 @@ func on_item_deleted(item_id: String):
 				var skill_prog_id = recipe["skill_progression"].get("id", "")
 				if skill_prog_id != "":
 					skill_ids[skill_prog_id] = true
+
+	# Add the ranged skill to the skill list
+	
+	var ranged_skill_id = Helper.json_helper.get_nested_data(item_data, "Ranged.used_skill.skill_id")
+	if ranged_skill_id:
+		skill_ids[ranged_skill_id] = true
 
 	# Remove the reference of this item from each skill
 	for skill_id in skill_ids.keys():
@@ -1158,6 +1162,10 @@ func on_skill_deleted(skill_id: String):
 			if skill_prog.get("id", "") == skill_id:
 				recipe.erase("skill_progression")
 				changes_made["value"] = true
+		
+		var ranged_skill_id = Helper.json_helper.get_nested_data(item_data, "Ranged.used_skill.skill_id")
+		if ranged_skill_id and ranged_skill_id == skill_id:
+			changes_made["value"] = Helper.json_helper.delete_nested_property(item_data, "Ranged.used_skill")
 
 	# Pass the callable to every item in the skill's references
 	# It will call myfunc on every item in skill_data.references.core.items
