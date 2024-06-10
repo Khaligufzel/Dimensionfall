@@ -196,7 +196,5 @@ func delete_nested_property(mydata: Dictionary, path: String) -> bool:
 			current = current[parts[i]]
 		else:
 			return false
-	if current.has(parts[parts.size() - 1]):
-		current.erase(parts[parts.size() - 1])
-		return true
-	return false
+	var property_to_remove = parts[parts.size() - 1]
+	return current.erase(property_to_remove)
