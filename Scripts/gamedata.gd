@@ -465,6 +465,8 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		on_mob_deleted(id)
 	if contentData == Gamedata.data.tiles:
 		on_tile_deleted(id)
+	if contentData == Gamedata.data.skills:
+		on_skill_deleted(id)
 	if contentData == Gamedata.data.wearableslots:
 		on_wearableslot_deleted(id)
 
@@ -898,13 +900,11 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 
 	if new_slot and new_slot != old_slot:
 		# Add or update the reference to the new slot
-		changes_made = add_reference(Gamedata.data.wearableslots, "core", \
-		"items", new_slot, item_id) or changes_made
+		changes_made = add_reference(Gamedata.data.wearableslots, "core", "items", new_slot, item_id) or changes_made
 	
 	if old_slot and old_slot != new_slot:
 		# Remove the reference from the old slot if it has been changed or removed
-		changes_made = remove_reference(Gamedata.data.wearableslots, "core", \
-		"items", old_slot, item_id) or changes_made
+		changes_made = remove_reference(Gamedata.data.wearableslots, "core", "items", old_slot, item_id) or changes_made
 
 	# Dictionaries to track unique resource IDs across all recipes
 	var old_resource_ids: Dictionary = {}
@@ -920,26 +920,59 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 		for resource in recipe.get("required_resources", []):
 			new_resource_ids[resource["id"]] = true
 
-
 	# Resources that are no longer in the recipe will no longer reference this item
 	for res_id in old_resource_ids:
 		if not new_resource_ids.has(res_id):
-			changes_made = remove_reference(Gamedata.data.items, "core", "items", \
-			res_id, item_id) or changes_made
+			changes_made = remove_reference(Gamedata.data.items, "core", "items", res_id, item_id) or changes_made
 
 	# Add references for new resources, nothing happens if they are already present
 	for res_id in new_resource_ids:
-		changes_made = add_reference(Gamedata.data.items, "core", "items", \
-		res_id, item_id) or changes_made
+		changes_made = add_reference(Gamedata.data.items, "core", "items", res_id, item_id) or changes_made
+
+
+	# Collect unique skill IDs from old and new recipes
+	var old_skill_ids: Dictionary = {}
+	var new_skill_ids: Dictionary = {}
+
+	# Collect skill IDs from old recipes
+	for recipe in olddata.get("Craft", []):
+		if recipe.has("skill_requirement"):
+			var old_skill_req_id = recipe["skill_requirement"].get("id", "")
+			if old_skill_req_id != "":
+				old_skill_ids[old_skill_req_id] = true
+		if recipe.has("skill_progression"):
+			var old_skill_prog_id = recipe["skill_progression"].get("id", "")
+			if old_skill_prog_id != "":
+				old_skill_ids[old_skill_prog_id] = true
+
+	# Collect skill IDs from new recipes
+	for recipe in newdata.get("Craft", []):
+		if recipe.has("skill_requirement"):
+			var new_skill_req_id = recipe["skill_requirement"].get("id", "")
+			if new_skill_req_id != "":
+				new_skill_ids[new_skill_req_id] = true
+		if recipe.has("skill_progression"):
+			var new_skill_prog_id = recipe["skill_progression"].get("id", "")
+			if new_skill_prog_id != "":
+				new_skill_ids[new_skill_prog_id] = true
+
+	# Remove old skill references that are not in the new list
+	for old_skill_id in old_skill_ids.keys():
+		if not new_skill_ids.has(old_skill_id):
+			changes_made = remove_reference(Gamedata.data.skills, "core", "items", old_skill_id, item_id) or changes_made
+
+	# Add new skill references
+	for new_skill_id in new_skill_ids.keys():
+		changes_made = add_reference(Gamedata.data.skills, "core", "items", new_skill_id, item_id) or changes_made
 
 	# Save changes if any modifications were made
 	if changes_made:
 		save_data_to_file(Gamedata.data.items)
 		save_data_to_file(Gamedata.data.wearableslots)
+		save_data_to_file(Gamedata.data.skills)
 		print_debug("Item changes saved successfully.")
 	else:
 		print_debug("No changes were made to item.")
-
 
 # An item is being deleted from the data
 # We have to remove it from everything that references it
@@ -948,15 +981,17 @@ func on_item_deleted(item_id: String):
 	var item_data = get_data_by_id(Gamedata.data.items, item_id)
 	
 	if item_data.is_empty():
-		print_debug("Item with ID", item_data, "not found.")
+		print_debug("Item with ID", item_id, "not found.")
 		return
 	
 	# This callable will remove this item from itemgroups that reference this item.
 	var myfunc: Callable = func (itemgroup_id):
 		var itemlist: Array = get_property_by_path(Gamedata.data.itemgroups, "items", itemgroup_id)
-		if item_id in itemlist:
-			itemlist.erase(item_id)
-			changes_made = true
+		for i in range(itemlist.size()):
+			if itemlist[i].has("id") and itemlist[i]["id"] == item_id:
+				itemlist.remove_at(i)
+				changes_made = true
+				break  # Exit loop after removal to avoid index issues
 	# Pass the callable to every itemgroup in the item's references
 	# It will call myfunc on every itemgroup in item_data.references.core.itemgroups
 	execute_callable_on_references_of_type(item_data, "core", "itemgroups", myfunc)
@@ -977,6 +1012,9 @@ func on_item_deleted(item_id: String):
 	execute_callable_on_references_of_type(item_data, "core", "items", remove_from_item)
 	
 	# For each recipe and for each item in each recipe, remove the reference to this item
+	# Collect unique skill IDs from the item's recipes
+	var skill_ids: Dictionary = {}
+
 	if item_data.has("Craft"):
 		for recipe in item_data["Craft"]:
 			var resources = recipe.get("required_resources", [])
@@ -984,12 +1022,27 @@ func on_item_deleted(item_id: String):
 				if resource.has("id"):
 					changes_made = remove_reference(Gamedata.data.items, "core", \
 					"items", resource["id"], item_id) or changes_made
+			if recipe.has("skill_requirement"):
+				var skill_req_id = recipe["skill_requirement"].get("id", "")
+				if skill_req_id != "":
+					skill_ids[skill_req_id] = true
+			if recipe.has("skill_progression"):
+				var skill_prog_id = recipe["skill_progression"].get("id", "")
+				if skill_prog_id != "":
+					skill_ids[skill_prog_id] = true
+
+	# Remove the reference of this item from each skill
+	for skill_id in skill_ids.keys():
+		changes_made = remove_reference(Gamedata.data.skills, "core", "items", skill_id, item_id) or changes_made
 
 	# Save changes to the data file if any changes were made
 	if changes_made:
 		save_data_to_file(Gamedata.data.itemgroups)
+		save_data_to_file(Gamedata.data.items)
+		save_data_to_file(Gamedata.data.skills)
 	else:
 		print_debug("No changes needed for item", item_id)
+
 
 
 # A wearableslot is being deleted from the data
@@ -1065,3 +1118,43 @@ func remove_entity_from_map(map_id: String, entity_type: String, entity_id: Stri
 	print_debug("Entity removal operations completed for all levels.")
 	var map_data_json = JSON.stringify(mapdata.duplicate(), "\t")
 	Helper.json_helper.write_json_file(fileToLoad, map_data_json)
+
+# A skill is being deleted from the data
+# We have to remove it from everything that references it
+func on_skill_deleted(skill_id: String):
+	var changes_made = { "value": false }  # Using a Dictionary to hold the change status
+	var skill_data = get_data_by_id(Gamedata.data.skills, skill_id)
+
+	if skill_data.is_empty():
+		print_debug("Skill with ID", skill_id, "not found.")
+		return
+
+	# This callable will remove the skill references from items that reference this skill.
+	var myfunc: Callable = func (item_id):
+		var item_data: Dictionary = get_data_by_id(Gamedata.data.items, item_id)
+		var recipes = item_data.get("Craft", [])
+
+		# Iterate through the recipes to remove the skill reference
+		for recipe in recipes:
+			var skill_req = recipe.get("skill_requirement", {})
+			var skill_prog = recipe.get("skill_progression", {})
+
+			# Remove skill requirement if it matches the deleted skill
+			if skill_req.get("id", "") == skill_id:
+				recipe.erase("skill_requirement")
+				changes_made["value"] = true
+
+			# Remove skill progression if it matches the deleted skill
+			if skill_prog.get("id", "") == skill_id:
+				recipe.erase("skill_progression")
+				changes_made["value"] = true
+
+	# Pass the callable to every item in the skill's references
+	# It will call myfunc on every item in skill_data.references.core.items
+	execute_callable_on_references_of_type(skill_data, "core", "items", myfunc)
+
+	# Save changes to the data file if any changes were made
+	if changes_made["value"]:
+		save_data_to_file(Gamedata.data.items)
+	else:
+		print_debug("No changes needed for skill", skill_id)

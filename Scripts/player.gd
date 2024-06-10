@@ -76,6 +76,7 @@ func _ready():
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
 	Helper.signal_broker.health_item_used.connect(_on_health_item_used)
+	ItemManager.craft_succesful.connect(_on_craft_succesful)
 	# Connect signals for collisionDetector to detect furniture
 	collisionDetector.body_entered.connect(_on_body_entered)
 	collisionDetector.body_exited.connect(_on_body_exited)
@@ -98,15 +99,16 @@ func initialize_condition():
 	current_pain = pain
 
 
+# Initialize skills with level and XP
 func initialize_stats_and_skills():
 	# Initialize all stats with a value of 5
 	for stat in Gamedata.data.stats.data:
 		stats[stat["id"]] = 5
 	Helper.signal_broker.player_stat_changed.emit(self)
 	
-	# Initialize all skills with a value of 1
+	# Initialize all skills with a value of level 1 and 0 XP
 	for skill in Gamedata.data.skills.data:
-		skills[skill["id"]] = 1
+		skills[skill["id"]] = {"level": 1, "xp": 0}
 	Helper.signal_broker.player_skill_changed.emit(self)
 
 
@@ -363,3 +365,77 @@ func heal_player(amount: int) -> int:
 		current_torso_health, current_right_leg_health, current_left_leg_health
 	)
 	return amount
+
+
+# Method to get the current level of a skill
+func get_skill_level(skill_id: String) -> int:
+	if skills.has(skill_id):
+		return skills[skill_id]["level"]
+	else:
+		push_error("Skill ID not found: %s" % skill_id)
+		return 0  # Return 0 or an appropriate default value if the skill is not found
+
+
+# Method to get the current amount of XP for a skill
+func get_skill_xp(skill_id: String) -> int:
+	if skills.has(skill_id):
+		return skills[skill_id]["xp"]
+	else:
+		push_error("Skill ID not found: %s" % skill_id)
+		return 0  # Return 0 or an appropriate default value if the skill is not found
+
+
+# Method to set the level of a skill
+func set_skill_level(skill_id: String, level: int) -> void:
+	if skills.has(skill_id):
+		skills[skill_id]["level"] = level
+		Helper.signal_broker.player_skill_changed.emit(self)
+	else:
+		push_error("Skill ID not found: %s" % skill_id)
+
+
+# Method to set the amount of XP for a skill
+func set_skill_xp(skill_id: String, xp: int) -> void:
+	if skills.has(skill_id):
+		skills[skill_id]["xp"] = xp
+		Helper.signal_broker.player_skill_changed.emit(self)
+	else:
+		push_error("Skill ID not found: %s" % skill_id)
+
+
+# Method to add an amount of levels to a skill
+func add_skill_level(skill_id: String, levels: int) -> void:
+	if skills.has(skill_id):
+		skills[skill_id]["level"] += levels
+		Helper.signal_broker.player_skill_changed.emit(self)
+	else:
+		push_error("Skill ID not found: %s" % skill_id)
+
+
+# Method to add an amount of XP to a skill
+# This also increases the skill level when the XP reaches 100
+func add_skill_xp(skill_id: String, xp: int) -> void:
+	if skills.has(skill_id):
+		var current_xp = skills[skill_id]["xp"]
+		var current_level = skills[skill_id]["level"]
+		current_xp += xp
+		
+		# Check if XP exceeds 100 and handle level up
+		while current_xp >= 100:
+			current_xp -= 100
+			current_level += 1
+		
+		skills[skill_id]["xp"] = current_xp
+		skills[skill_id]["level"] = current_level
+		Helper.signal_broker.player_skill_changed.emit(self)
+	else:
+		push_error("Skill ID not found: %s" % skill_id)
+
+
+# The player has succesfully crafted an item. Get the skill id and xp from
+# the recipe and add it to the player's skill xp
+func _on_craft_succesful(_item: Dictionary, recipe: Dictionary):
+	var skill_id = Helper.json_helper.get_nested_data(recipe, "skill_progression.id")
+	var xp = Helper.json_helper.get_nested_data(recipe, "skill_progression.xp")
+	if skill_id and xp:
+		add_skill_xp(skill_id, xp)
