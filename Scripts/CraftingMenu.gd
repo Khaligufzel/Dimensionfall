@@ -106,14 +106,12 @@ func _on_recipe_button_pressed(recipe):
 		resource_container.add_child(label)
 
 	# Display skill progression information if it exists
-	skill_progression_label.text = ""
-	if recipe.has("skill_progression"):
-		var skill_progression = recipe["skill_progression"]
-		if skill_progression.has("id") and skill_progression.has("xp"):
-			var skill_id = skill_progression["id"]
-			var skill_xp = skill_progression["xp"]
-			# Display skill progression information
-			skill_progression_label.text = "Get XP: " + str(skill_id) + ": " + str(skill_xp)
+	var skill_id = Helper.json_helper.get_nested_data(recipe, "skill_progression.id")
+	var skill_xp = Helper.json_helper.get_nested_data(recipe, "skill_progression.xp")
+	if skill_id and skill_xp:
+		skill_progression_label.text = "Get XP: %s: %s" % [skill_id, skill_xp]
+	else:
+		skill_progression_label.text = ""
 
 
 func _on_start_crafting_button_pressed():

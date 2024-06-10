@@ -15,7 +15,7 @@ func _ready():
 	loadMaps()
 
 
-# this function will read all files in Gamedata.data.tiles.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
+# this function will read all files in Gamedata.data.maps.data and creates tilebrushes for each tile in the list. 
 func loadMaps():
 	var mapsList: Array = Gamedata.data.maps.data
 	var newTilesList: Control = scrolling_Flow_Container.instantiate()
@@ -31,6 +31,7 @@ func loadMaps():
 			if mySprite:
 				# Create a TextureRect node
 				var brushInstance = tileBrush.instantiate()
+				brushInstance.set_label(base_name)
 				# Assign the texture to the TextureRect
 				brushInstance.set_tile_texture(mySprite)
 				# Since the map editor needs to knw what tile ID is used,
