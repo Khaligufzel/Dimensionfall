@@ -150,6 +150,17 @@ func calculate_accuracy() -> float:
 		return min_accuracy + (max_accuracy - min_accuracy) * (skill_level / required_level)
 
 
+# Function to calculate direction with accuracy and recoil applied
+func calculate_direction(target_position: Vector3, spawn_position: Vector3) -> Vector3:
+	var accuracy = calculate_accuracy()
+	var direction = (target_position - spawn_position).normalized()
+	var random_offset = Vector3(randf() - 0.5, 0, randf() - 0.5) * (1.0 - accuracy) * 0.5
+	random_offset *= (1.0 - accuracy)
+	var recoil_offset = Vector3(randf() - 0.5, 0, randf() - 0.5) * recoil_modifier / 100
+	recoil_modifier = min(recoil_modifier + recoil_increment, max_recoil)  # Update recoil_modifier
+	return (direction + random_offset + recoil_offset).normalized()
+	
+
 # The user performs a ranged attack
 func perform_ranged_attack():
 	# Update ammo and emit signal.
@@ -163,9 +174,7 @@ func perform_ranged_attack():
 	# Decrease the y position to ensure proper collision with mobs and furniture
 	var spawn_position = global_transform.origin + Vector3(0.0, -0.1, 0.0)
 	var cursor_position = get_cursor_world_position()
-	var direction = (cursor_position - spawn_position).normalized()
-	recoil_modifier = min(recoil_modifier + recoil_increment, max_recoil)
-	direction = apply_recoil(direction, recoil_modifier) # Apply recoil effect
+	var direction = calculate_direction(cursor_position, spawn_position)
 	direction.y = 0 # Ensure the bullet moves parallel to the ground.
 
 	projectiles.add_child(bullet_instance) # Add bullet to the scene tree.
@@ -186,6 +195,7 @@ func _subtract_ammo(amount: int):
 		magazine.set_property("Magazine", magazineProperties)
 		ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
 
+
 func get_current_ammo() -> int:
 	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
 	if magazine:
@@ -197,6 +207,7 @@ func get_current_ammo() -> int:
 	else: 
 		return 0
 
+
 func get_max_ammo() -> int:
 	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
 	if magazine:
@@ -204,11 +215,6 @@ func get_max_ammo() -> int:
 		return int(magazineProperties["max_ammo"])
 	else: 
 		return 0
-
-# Function to apply recoil effect to the bullet direction
-func apply_recoil(direction: Vector3, recoil_value: float) -> Vector3:
-	var random_offset = Vector3(randf() - 0.5, 0, randf() - 0.5) * recoil_value / 100
-	return (direction + random_offset).normalized()
 
 # When the user wants to reload the item
 func reload_weapon():
