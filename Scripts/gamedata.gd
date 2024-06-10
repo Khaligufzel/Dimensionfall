@@ -928,31 +928,44 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 	for res_id in new_resource_ids:
 		changes_made = add_reference(Gamedata.data.items, "core", "items", res_id, item_id) or changes_made
 
+	update_item_skill_references(newdata, olddata) or changes_made
+	
+	# Save changes if any modifications were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.items)
+		save_data_to_file(Gamedata.data.wearableslots)
+		print_debug("Item changes saved successfully.")
+	else:
+		print_debug("No changes were made to item.")
+
+
+func update_item_skill_references(newdata: Dictionary, olddata: Dictionary):
+	var item_id: String = newdata["id"]
+	var changes_made = false
+
 	# Collect unique skill IDs from old and new recipes
 	var old_skill_ids: Dictionary = {}
 	var new_skill_ids: Dictionary = {}
 
 	# Collect skill IDs from old recipes
 	for recipe in olddata.get("Craft", []):
-		if recipe.has("skill_requirement"):
-			var old_skill_req_id = recipe["skill_requirement"].get("id", "")
-			if old_skill_req_id != "":
-				old_skill_ids[old_skill_req_id] = true
-		if recipe.has("skill_progression"):
-			var old_skill_prog_id = recipe["skill_progression"].get("id", "")
-			if old_skill_prog_id != "":
-				old_skill_ids[old_skill_prog_id] = true
+		var old_req = Helper.json_helper.get_nested_data(recipe,"skill_requirement.id")
+		if old_req and old_req != "":
+			old_skill_ids[old_req] = true
+		
+		var old_prog = Helper.json_helper.get_nested_data(recipe,"skill_progression.id")
+		if old_prog and old_prog != "":
+			old_skill_ids[old_prog] = true
 
 	# Collect skill IDs from new recipes
 	for recipe in newdata.get("Craft", []):
-		if recipe.has("skill_requirement"):
-			var new_skill_req_id = recipe["skill_requirement"].get("id", "")
-			if new_skill_req_id != "":
-				new_skill_ids[new_skill_req_id] = true
-		if recipe.has("skill_progression"):
-			var new_skill_prog_id = recipe["skill_progression"].get("id", "")
-			if new_skill_prog_id != "":
-				new_skill_ids[new_skill_prog_id] = true
+		var new_req = Helper.json_helper.get_nested_data(recipe,"skill_requirement.id")
+		if new_req and new_req != "":
+			new_skill_ids[new_req] = true
+		
+		var new_prog = Helper.json_helper.get_nested_data(recipe,"skill_progression.id")
+		if new_prog and new_prog != "":
+			new_skill_ids[new_prog] = true
 
 	# Check for "Ranged" property in olddata and newdata, and collect skill IDs
 	if olddata.has("Ranged") and olddata["Ranged"].has("used_skill"):
@@ -973,15 +986,15 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 	# Add new skill references
 	for new_skill_id in new_skill_ids.keys():
 		changes_made = add_reference(Gamedata.data.skills, "core", "items", new_skill_id, item_id) or changes_made
-
+	
 	# Save changes if any modifications were made
 	if changes_made:
-		save_data_to_file(Gamedata.data.items)
-		save_data_to_file(Gamedata.data.wearableslots)
 		save_data_to_file(Gamedata.data.skills)
-		print_debug("Item changes saved successfully.")
+		print_debug("Item skill changes saved successfully.")
 	else:
-		print_debug("No changes were made to item.")
+		print_debug("No skill changes were made to item.")
+	
+
 # An item is being deleted from the data
 # We have to remove it from everything that references it
 func on_item_deleted(item_id: String):
