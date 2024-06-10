@@ -1149,7 +1149,7 @@ func on_skill_deleted(skill_id: String):
 		return
 
 	# This callable will remove the skill references from items that reference this skill.
-	var myfunc: Callable = func (item_id):
+	var remove_skill_from_item: Callable = func (item_id):
 		var item_data: Dictionary = get_data_by_id(Gamedata.data.items, item_id)
 		var recipes = item_data.get("Craft", [])
 
@@ -1174,7 +1174,7 @@ func on_skill_deleted(skill_id: String):
 
 	# Pass the callable to every item in the skill's references
 	# It will call myfunc on every item in skill_data.references.core.items
-	execute_callable_on_references_of_type(skill_data, "core", "items", myfunc)
+	execute_callable_on_references_of_type(skill_data, "core", "items", remove_skill_from_item)
 
 	# Save changes to the data file if any changes were made
 	if changes_made["value"]:
