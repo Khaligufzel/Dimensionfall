@@ -147,7 +147,7 @@ pixel_size = 0.003
 render_priority = 15
 texture = ExtResource("7_jr4x1")
 
-[node name="EquippedRight" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "playerSprite", "shoot_audio_player", "reload_audio_player")]
+[node name="EquippedRight" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.190849, -0.123334, 0)
 pixel_size = 0.002
 render_priority = 15
@@ -167,7 +167,7 @@ shoot_audio_player = NodePath("../../Shooting/ShootAudio")
 shoot_audio_randomizer = SubResource("AudioStreamRandomizer_jdgh6")
 reload_audio_player = NodePath("../../Shooting/ReloadAudio")
 
-[node name="EquippedLeft" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "playerSprite", "shoot_audio_player", "reload_audio_player")]
+[node name="EquippedLeft" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194626, 0.116675, 0)
 pixel_size = 0.002
 render_priority = 15

@@ -22,7 +22,7 @@ extends Sprite3D
 @export var melee_collision_shape: CollisionShape3D
 
 # Reference to the player node
-@export var player: NodePath
+@export var player: CharacterBody3D
 # The visual representation of the player that will actually rotate over the y axis
 @export var playerSprite: Sprite3D 
 # Reference to the hud node
@@ -133,6 +133,23 @@ func fire_weapon():
 	else:
 		perform_ranged_attack()
 
+
+# Return the accuracy based on skill level
+func calculate_accuracy() -> float:
+	var rangedproperties = heldItem.get_property("Ranged")
+	var skillid = Helper.json_helper.get_nested_data(rangedproperties, "used_skill.skill_id")
+	var skill_level = player.get_skill_level(skillid)
+	# Minimum accuracy is 25%, maximum is 100% at level 30
+	var min_accuracy = 0.25
+	var max_accuracy = 1.0
+	var required_level = 30
+
+	if skill_level >= required_level:
+		return max_accuracy
+	else:
+		return min_accuracy + (max_accuracy - min_accuracy) * (skill_level / required_level)
+
+
 # The user performs a ranged attack
 func perform_ranged_attack():
 	# Update ammo and emit signal.
@@ -141,6 +158,7 @@ func perform_ranged_attack():
 	shoot_audio_player.stream = shoot_audio_randomizer
 	shoot_audio_player.play()
 	
+	var accuracy = calculate_accuracy()
 	var bullet_instance = bullet_scene.instantiate()
 	# Decrease the y position to ensure proper collision with mobs and furniture
 	var spawn_position = global_transform.origin + Vector3(0.0, -0.1, 0.0)
@@ -155,6 +173,7 @@ func perform_ranged_attack():
 	bullet_instance.set_direction_and_speed(direction, bullet_speed)
 	in_cooldown = true
 	attack_cooldown_timer.start()
+
 
 func _subtract_ammo(amount: int):
 	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
