@@ -50,13 +50,15 @@ func _process(delta):
 
 # Function to clear the children of brush_container
 func clear_brush_container():
-	for child in brush_container.get_children():
-		brush_container.remove_child(child)
+	for child in brush_container.get_content_items():
+		brush_container.remove_content_item(child)
 		child.queue_free()
 
 
 # Function to add a new tilebrush to the brush_container
 func add_tilebrush_to_container(original_tilebrush: Control):
+	if not original_tilebrush:
+		return
 	var brushInstance: Control = tileBrush.instantiate()
 	brushInstance.set_tile_texture(original_tilebrush.get_texture())
 	brushInstance.tileID = original_tilebrush.tileID
@@ -64,20 +66,23 @@ func add_tilebrush_to_container(original_tilebrush: Control):
 	brushInstance.entityType = original_tilebrush.entityType
 	brushInstance.set_minimum_size(Vector2(32,32))
 	brush_container.add_content_item(brushInstance)
-	emit_signal("brush_added", brushInstance)
+	brush_added.emit(brushInstance)
+
+
+func replace_all_with_brush(original_tilebrush: Control):
+	clear_brush_container()
+	add_tilebrush_to_container(original_tilebrush)
 
 
 # Function to handle tilebrush click and remove it from the container
 func _on_tilebrush_clicked(brush):
-	if brush_container.has_node(brush.get_path()):
-		brush_container.remove_child(brush)
-		brush.queue_free()
-		emit_signal("brush_removed", brush)
+	brush_container.remove_content_item(brush)
+	brush_removed.emit(brush)
 
 
 # Function to get a random child from the brush_container
 func get_random_brush() -> Control:
-	var children = brush_container.get_children()
+	var children = brush_container.get_content_items()
 	if children.size() == 0:
 		return null
 	return children[randi() % children.size()]

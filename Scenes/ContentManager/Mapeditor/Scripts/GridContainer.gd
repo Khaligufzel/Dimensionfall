@@ -244,6 +244,7 @@ func paint_single_tile(clicked_tile) -> void:
 		else:
 			clicked_tile.set_default()
 	elif selected_brush:
+		selected_brush = brushcomposer.get_random_brush()
 		if selected_brush.entityType == "mob":
 			clicked_tile.set_mob_id(selected_brush.tileID)
 			clicked_tile.set_mob_rotation(rotationAmount)
@@ -493,7 +494,10 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 # When the user has selected one of the tile brushes to paint with
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush: Control):
 	selected_brush = tilebrush
-	brushcomposer.add_tilebrush_to_container(tilebrush)
+	if Input.is_key_pressed(KEY_CTRL):
+		brushcomposer.add_tilebrush_to_container(tilebrush)
+	else:
+		brushcomposer.replace_all_with_brush(tilebrush)
 	update_preview_texture()
 
 
