@@ -24,7 +24,7 @@ enum EditorMode {
 	COPY_RECTANGLE, # When the user has clicked the CopyRectangle checkbox
 	COPY_ALL_LEVELS # When the user has clicked the CopyAllLevels checkbox
 }
-# Replace your booleans with a single variable to track the current editor mode
+# Track the current editor mode
 var currentMode: EditorMode = EditorMode.NONE
 var erase: bool = false
 var showBelow: bool = false
@@ -456,6 +456,10 @@ func _on_draw_rectangle_toggled(toggled_on: bool) -> void:
 			set_brush_preview_texture(selected_brush.get_texture())
 	else:
 		currentMode = EditorMode.NONE
+		if selected_brush:
+			set_brush_preview_texture(selected_brush.get_texture())
+		else:
+			set_brush_preview_texture(null)
 
 
 # When the user toggles the copy all levels button in the toolbar
@@ -472,7 +476,10 @@ func _on_copy_all_levels_toggled(toggled_on: bool):
 			set_brush_preview_texture(null)
 	else:
 		currentMode = EditorMode.NONE
-
+		if selected_brush:
+			set_brush_preview_texture(selected_brush.get_texture())
+		else:
+			set_brush_preview_texture(null)
 
 # Called when the Copy Rectangle ToggleButton's state changes.
 func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
@@ -496,6 +503,11 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 
 # When the user has selected one of the tile brushes to paint with
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush: Control):
+	# Toggle the copy buttons off
+	checkboxCopyRectangle.set_pressed(false)
+	checkboxCopyAllLevels.set_pressed(false)
+	currentMode = EditorMode.NONE
+	# Add the brush if ctrl is held, otherwise replace all
 	if Input.is_key_pressed(KEY_CTRL):
 		brushcomposer.add_tilebrush_to_container(tilebrush)
 	else:
@@ -993,6 +1005,7 @@ func set_brush_preview_texture(image: Texture) -> void:
 	brushPreviewTexture.rotation_degrees = rotationAmount
 	if image: 
 		brushPreviewTexture.texture = image
+		brushPreviewTexture.size = image.get_size()
 		brushPreviewTexture.visible = true
 	else:
 		brushPreviewTexture.texture = null
@@ -1007,7 +1020,7 @@ func _on_composer_brush_added(composerbrush: Control):
 
 
 # The user has removed a brush from the brush composer
-func _on_composer_brush_removed(composerbrush: Control):
+func _on_composer_brush_removed(_composerbrush: Control):
 	if brushcomposer.is_empty():
 		selected_brush = null
 		update_preview_texture()
