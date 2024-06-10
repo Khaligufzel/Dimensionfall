@@ -789,7 +789,6 @@ func on_tacticalmap_deleted(tacticalmap_id: String):
 		var chunk = tacticalmapdata["chunks"][i]
 		# If the chunk has the target id, remove the reference from the map
 		if chunk.has("id"):
-			var chunkid = chunk["id"]
 			remove_reference(Gamedata.data.maps, "core", "tacticalmaps", \
 				chunk["id"], tacticalmap_id + ".json")
 
@@ -928,7 +927,7 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 	for res_id in new_resource_ids:
 		changes_made = add_reference(Gamedata.data.items, "core", "items", res_id, item_id) or changes_made
 
-	update_item_skill_references(newdata, olddata) or changes_made
+	update_item_skill_references(newdata, olddata)
 	
 	# Save changes if any modifications were made
 	if changes_made:
@@ -939,44 +938,37 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 		print_debug("No changes were made to item.")
 
 
+# Collects all skills defined in an item and updates the references to that skill
 func update_item_skill_references(newdata: Dictionary, olddata: Dictionary):
 	var item_id: String = newdata["id"]
 	var changes_made = false
 
-	# Collect unique skill IDs from old and new recipes
-	var old_skill_ids: Dictionary = {}
-	var new_skill_ids: Dictionary = {}
+	# Function to collect skill IDs from recipes
+	var collect_skill_ids: Callable = func (itemdata: Dictionary):
+		var skill_ids: Dictionary = {}
+		for recipe in itemdata.get("Craft", []):
+			var req = Helper.json_helper.get_nested_data(recipe, "skill_requirement.id")
+			if req and req != "":
+				skill_ids[req] = true
+			
+			var prog = Helper.json_helper.get_nested_data(recipe, "skill_progression.id")
+			if prog and prog != "":
+				skill_ids[prog] = true
+		return skill_ids
 
-	# Collect skill IDs from old recipes
-	for recipe in olddata.get("Craft", []):
-		var old_req = Helper.json_helper.get_nested_data(recipe,"skill_requirement.id")
-		if old_req and old_req != "":
-			old_skill_ids[old_req] = true
-		
-		var old_prog = Helper.json_helper.get_nested_data(recipe,"skill_progression.id")
-		if old_prog and old_prog != "":
-			old_skill_ids[old_prog] = true
+	# Collect skill IDs from old and new recipes
+	var old_skill_ids = collect_skill_ids.call(olddata)
+	var new_skill_ids = collect_skill_ids.call(newdata)
 
-	# Collect skill IDs from new recipes
-	for recipe in newdata.get("Craft", []):
-		var new_req = Helper.json_helper.get_nested_data(recipe,"skill_requirement.id")
-		if new_req and new_req != "":
-			new_skill_ids[new_req] = true
-		
-		var new_prog = Helper.json_helper.get_nested_data(recipe,"skill_progression.id")
-		if new_prog and new_prog != "":
-			new_skill_ids[new_prog] = true
+	# Check for "Ranged" property and collect skill IDs
+	var collect_ranged_skill_id: Callable = func (itemdata: Dictionary, skill_ids: Dictionary):
+		if itemdata.has("Ranged") and itemdata["Ranged"].has("used_skill"):
+			var skill_id = itemdata["Ranged"]["used_skill"].get("skill_id", "")
+			if skill_id != "":
+				skill_ids[skill_id] = true
 
-	# Check for "Ranged" property in olddata and newdata, and collect skill IDs
-	if olddata.has("Ranged") and olddata["Ranged"].has("used_skill"):
-		var old_skill_id = olddata["Ranged"]["used_skill"].get("skill_id", "")
-		if old_skill_id != "":
-			old_skill_ids[old_skill_id] = true
-
-	if newdata.has("Ranged") and newdata["Ranged"].has("used_skill"):
-		var new_skill_id = newdata["Ranged"]["used_skill"].get("skill_id", "")
-		if new_skill_id != "":
-			new_skill_ids[new_skill_id] = true
+	collect_ranged_skill_id.call(olddata, old_skill_ids)
+	collect_ranged_skill_id.call(newdata, new_skill_ids)
 
 	# Remove old skill references that are not in the new list
 	for old_skill_id in old_skill_ids.keys():
@@ -993,7 +985,7 @@ func update_item_skill_references(newdata: Dictionary, olddata: Dictionary):
 		print_debug("Item skill changes saved successfully.")
 	else:
 		print_debug("No skill changes were made to item.")
-	
+
 
 # An item is being deleted from the data
 # We have to remove it from everything that references it
