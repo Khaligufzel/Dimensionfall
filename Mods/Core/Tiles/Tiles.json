@@ -72,6 +72,14 @@
 		"description": "A smooth surface for vehicles to drive on",
 		"id": "road_asphalt_basic",
 		"name": "Basic asphalt road",
+		"references": {
+			"core": {
+				"maps": [
+					"urbanroad_t",
+					"urbanroad_corner"
+				]
+			}
+		},
 		"sprite": "asphalt_basic.png"
 	},
 	{
@@ -124,7 +132,9 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -793,7 +803,9 @@
 					"field_grass_flowers_00",
 					"field_grass_hill_00",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -813,7 +825,9 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -834,7 +848,9 @@
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
 					"field_grass_hill_00",
-					"Generichouse"
+					"Generichouse",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -854,7 +870,9 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -874,7 +892,9 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -894,7 +914,9 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -942,7 +964,9 @@
 				"maps": [
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -962,7 +986,9 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -982,7 +1008,9 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -1002,7 +1030,9 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -1457,7 +1487,9 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},

@@ -76,7 +76,9 @@
 			"core": {
 				"maps": [
 					"field_grass_basic_00",
-					"field_grass_basic_01"
+					"field_grass_basic_01",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -98,7 +100,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic_01"
+					"field_grass_basic_01",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
@@ -120,7 +124,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic_01"
+					"field_grass_basic_01",
+					"urbanroad_t",
+					"urbanroad_corner"
 				]
 			}
 		},
