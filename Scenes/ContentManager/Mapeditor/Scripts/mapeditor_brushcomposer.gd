@@ -31,6 +31,7 @@ extends VBoxContainer
 
 @export var brush_container: Control
 @export var tileBrush: PackedScene = null
+@export var rotation_button: Button
 
 
 # Signals to indicate when a brush is added or removed
@@ -86,3 +87,13 @@ func get_random_brush() -> Control:
 # Returns true if there are no brushes in the list. Otherwise it returns false
 func is_empty() -> bool:
 	return brush_container.get_content_items().size() == 0
+
+
+# Returns a rotation amount based on whether or not the rotation button is checked
+# If the rotation button is unchecked, we return the original rotation
+# If the rotation button is checked, we return a random value of 0, 90, 180 or 270
+func get_tilerotation(original_rotation: int) -> int:
+	if rotation_button.button_pressed:
+		var rotations = [0, 90, 180, 270]
+		return rotations[randi() % rotations.size()]
+	return original_rotation

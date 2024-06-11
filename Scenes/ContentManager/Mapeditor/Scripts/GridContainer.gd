@@ -247,15 +247,16 @@ func paint_single_tile(clicked_tile) -> void:
 			clicked_tile.set_default()
 	elif selected_brush:
 		selected_brush = brushcomposer.get_random_brush()
+		var tilerotation = brushcomposer.get_tilerotation(rotationAmount)
 		if selected_brush.entityType == "mob":
 			clicked_tile.set_mob_id(selected_brush.tileID)
-			clicked_tile.set_mob_rotation(rotationAmount)
+			clicked_tile.set_mob_rotation(tilerotation)
 		elif selected_brush.entityType == "furniture":
 			clicked_tile.set_furniture_id(selected_brush.tileID)
-			clicked_tile.set_furniture_rotation(rotationAmount)
+			clicked_tile.set_furniture_rotation(tilerotation)
 		else:
 			clicked_tile.set_tile_id(selected_brush.tileID)
-			clicked_tile.set_rotation_amount(rotationAmount)
+			clicked_tile.set_rotation_amount(tilerotation)
 
 
 func storeLevelData() -> void:
@@ -432,13 +433,14 @@ func paint_in_rectangle():
 	elif selected_brush:
 		for tile in tiles:
 			selected_brush = brushcomposer.get_random_brush()
+			var tilerotation = brushcomposer.get_tilerotation(rotationAmount)
 			if selected_brush.entityType == "mob":
 				tile.set_mob_id(selected_brush.tileID)
 			elif selected_brush.entityType == "furniture":
 				tile.set_furniture_id(selected_brush.tileID)
 			else:
 				tile.set_tile_id(selected_brush.tileID)
-				tile.set_rotation_amount(rotationAmount)
+				tile.set_rotation_amount(tilerotation)
 	update_rectangle()
 
 #The user has pressed the erase toggle button in the editor
@@ -489,7 +491,7 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 		checkboxCopyAllLevels.set_pressed(false)
 		currentMode = EditorMode.COPY_RECTANGLE
 		if copied_tiles_info["tiles_data"].size() > 0:
-			# You might want to update the brush preview to reflect the copied tiles
+			# Update the brush preview to reflect the copied tiles
 			update_preview_texture_with_copied_data()
 		# If there's nothing to copy, perhaps alert the user
 		else:
@@ -506,7 +508,8 @@ func _on_tilebrush_list_tile_brush_selection_change(tilebrush: Control):
 	# Toggle the copy buttons off
 	checkboxCopyRectangle.set_pressed(false)
 	checkboxCopyAllLevels.set_pressed(false)
-	currentMode = EditorMode.NONE
+	if not currentMode == EditorMode.DRAW_RECTANGLE:
+		currentMode = EditorMode.NONE
 	# Add the brush if ctrl is held, otherwise replace all
 	if Input.is_key_pressed(KEY_CTRL):
 		brushcomposer.add_tilebrush_to_container(tilebrush)
@@ -1023,4 +1026,6 @@ func _on_composer_brush_added(composerbrush: Control):
 func _on_composer_brush_removed(_composerbrush: Control):
 	if brushcomposer.is_empty():
 		selected_brush = null
-		update_preview_texture()
+	else:
+		selected_brush = brushcomposer.get_random_brush()
+	update_preview_texture()
