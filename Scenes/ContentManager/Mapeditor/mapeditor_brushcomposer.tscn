@@ -17,26 +17,15 @@ layout_mode = 2
 
 [node name="RotationCheckbox" type="CheckBox" parent="CustomBrushToolsHBoxContainer"]
 layout_mode = 2
+tooltip_text = "Apply random rotation to the brushes in this brushcomposer. To apply a fixed 
+rotation, disable this button and click the tile rotation button on the general toolbar"
 theme_override_icons/checked = ExtResource("3_nbxmi")
 theme_override_icons/unchecked = ExtResource("4_gh7br")
-text = "x"
-
-[node name="Button2" type="Button" parent="CustomBrushToolsHBoxContainer"]
-layout_mode = 2
-text = "x"
-
-[node name="Button3" type="Button" parent="CustomBrushToolsHBoxContainer"]
-layout_mode = 2
-text = "x"
-
-[node name="Button4" type="Button" parent="CustomBrushToolsHBoxContainer"]
-layout_mode = 2
-text = "x"
-
-[node name="Button5" type="Button" parent="CustomBrushToolsHBoxContainer"]
-layout_mode = 2
-text = "x"
 
 [node name="CurrentBrushScrolling_Flow_Container" parent="." instance=ExtResource("1_ump07")]
 layout_mode = 2
+tooltip_text = "This is the brush composer. It allows you to create a custom brush to paint for your purposes. To add a tile 
+to the brush composer, click one of the tiles in the tile brush pallette below. Hold CTRL to add multiple. You 
+can add more then one of the same tile. When painting, a random brush will be picked from the collection 
+of brushes you added. You can also apply random rotation by clicking the button above."
 header = ""

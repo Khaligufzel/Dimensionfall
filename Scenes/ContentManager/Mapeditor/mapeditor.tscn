@@ -165,6 +165,31 @@ tooltip_text = "Show the level above"
 theme_override_icons/checked = ExtResource("9_etume")
 theme_override_icons/unchecked = ExtResource("10_0rhye")
 
+[node name="HelpButton" type="Button" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+tooltip_text = "This is the map editor. It allows you to create a map of 32x32x21 blocks. If you need more, you need to make a new map and combine them in a tacticalmap.
+
+You can hover your cursor over the controls to see what they do. Below you can find some general tips to use the map editor.
+
+These are the controls:
+Brushcomposer (Top-right): This area allows you to compose a custom brush with one or more tile brushes. You can add multiple brushes by 
+holding CTRL and clicking another brush. When painting, a random tile will be picked from the composer. It also has a button to enable 
+random rotation. To remove a single brush from the brushcomposer, click it with the left mouse button.
+
+Brush pallette (right): Click to add the selected brush to the brush composer. Hold CTRL and click another brush to add multiple brushes. 
+You can add multiple of the same tile to control the proportions when painting.
+
+Level Scroll Bar (vertical bar on the right): Use this scrollbar to navigate between different levels. The current level is 
+displayed on the scrollbar. ALternatively, hold ALT while using the mouse wheel to switch to a different level.
+
+Zoom Level (top): Use the slider to zoom. Alternatively, use the mouse wheel while holding CTRL to zoom in and out. 
+The current zoom level affects the size of the brush preview and grid tiles.
+"
+theme_override_colors/font_disabled_color = Color(1, 0.374252, 0.322802, 1)
+theme_override_constants/outline_size = 4
+disabled = true
+text = " ? "
+
 [node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/MapeditorContainer"]
 layout_mode = 2
 size_flags_vertical = 3

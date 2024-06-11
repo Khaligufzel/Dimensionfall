@@ -16,8 +16,6 @@ extends VBoxContainer
 	# To demonstrate the use case: Add 6 null tiles and 1 mob and you can 
 	# randomly distribute mobs on your map, having them spawn 1 in 7 chance
 	
-	# TODO: Have a button to enable/disable random rotation while painting
-	
 	# TODO: Have a button to toggle whether you want to pick a random tile each brush 
 	# stroke or each click. When selecting 'each brush stroke', it will pick a 
 	# random one each time it would paint a tile, so when clicking and dragging. 
