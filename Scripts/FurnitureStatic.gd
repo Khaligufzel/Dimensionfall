@@ -245,7 +245,7 @@ func populate_container_from_itemgroup():
 # It will deserialize the container data if the furniture is not new.
 func deserialize_container_data():
 	if "items" in furnitureJSON["Function"]["container"]:
-		container.get_inventory().deserialize(furnitureJSON["Function"]["container"]["items"])
+		container.deserialize_and_apply_items(furnitureJSON["Function"]["container"]["items"])
 	else:
 		print_debug("No items to deserialize in container for furniture ID: " + str(furnitureJSON.id))
 
