@@ -234,29 +234,35 @@ func grid_tile_clicked(clicked_tile) -> void:
 # We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile) -> void:
+	apply_paint_to_tile(clicked_tile, selected_brush, rotationAmount, erase)
+
+
+# Helper function to apply paint or erase logic to a single tile
+func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int, erase: bool):
 	if erase:
-		if selected_brush:
-			if selected_brush.entityType == "mob":
-				clicked_tile.set_mob_id("")
-			elif selected_brush.entityType == "furniture":
-				clicked_tile.set_furniture_id("")
+		if brush:
+			if brush.entityType == "mob":
+				tile.set_mob_id("")
+			elif brush.entityType == "furniture":
+				tile.set_furniture_id("")
 			else:
-				clicked_tile.set_tile_id("")
-				clicked_tile.set_rotation_amount(0)
+				tile.set_tile_id("")
+				tile.set_rotation_amount(0)
 		else:
-			clicked_tile.set_default()
-	elif selected_brush:
+			tile.set_default()
+	elif brush:
 		selected_brush = brushcomposer.get_random_brush()
-		var tilerotation = brushcomposer.get_tilerotation(rotationAmount)
-		if selected_brush.entityType == "mob":
-			clicked_tile.set_mob_id(selected_brush.tileID)
-			clicked_tile.set_mob_rotation(tilerotation)
-		elif selected_brush.entityType == "furniture":
-			clicked_tile.set_furniture_id(selected_brush.tileID)
-			clicked_tile.set_furniture_rotation(tilerotation)
+		var tilerotation = brushcomposer.get_tilerotation(tilerotate)
+		if brush.entityType == "mob":
+			tile.set_mob_id(brush.tileID)
+			tile.set_mob_rotation(tilerotation)
+		elif brush.entityType == "furniture":
+			tile.set_furniture_id(brush.tileID)
+			tile.set_furniture_rotation(tilerotation)
 		else:
-			clicked_tile.set_tile_id(selected_brush.tileID)
-			clicked_tile.set_rotation_amount(tilerotation)
+			tile.set_tile_id(brush.tileID)
+			tile.set_rotation_amount(tilerotation)
+
 
 
 func storeLevelData() -> void:
@@ -413,35 +419,15 @@ func highlight_tiles_in_rect() -> void:
 		tile.highlight()
 
 
-#Paint every tile in the selected rectangle
-#We always erase if erase is selected, even if no brush is selected
-#Only paint if a brush is selected and erase is false
+# Paint every tile in the selected rectangle
+# We always erase if erase is selected, even if no brush is selected
+# Only paint if a brush is selected and erase is false
 func paint_in_rectangle():
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
-	if erase:
-		for tile in tiles:
-			if selected_brush:
-				if selected_brush.entityType == "mob":
-					tile.set_mob_id("")
-				elif selected_brush.entityType == "furniture":
-					tile.set_furniture_id("")
-				else:
-					tile.set_tile_id("")
-					tile.set_rotation_amount(0)
-			else:
-				tile.set_default()
-	elif selected_brush:
-		for tile in tiles:
-			selected_brush = brushcomposer.get_random_brush()
-			var tilerotation = brushcomposer.get_tilerotation(rotationAmount)
-			if selected_brush.entityType == "mob":
-				tile.set_mob_id(selected_brush.tileID)
-			elif selected_brush.entityType == "furniture":
-				tile.set_furniture_id(selected_brush.tileID)
-			else:
-				tile.set_tile_id(selected_brush.tileID)
-				tile.set_rotation_amount(tilerotation)
+	for tile in tiles:
+		apply_paint_to_tile(tile, selected_brush, rotationAmount, erase)
 	update_rectangle()
+
 
 #The user has pressed the erase toggle button in the editor
 func _on_erase_toggled(button_pressed):
