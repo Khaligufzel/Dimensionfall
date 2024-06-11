@@ -237,9 +237,9 @@ func get_furniture_data() -> Array:
 # We check if the furniture or mob or item's position is inside this chunk on the x and z axis
 func _is_object_in_range(objectposition: Vector3) -> bool:
 		return objectposition.x >= mypos.x and \
-		objectposition.x <= mypos.x + LEVEL_WIDTH and \
+		objectposition.x < mypos.x + LEVEL_WIDTH and \
 		objectposition.z >= mypos.z and \
-		objectposition.z <= mypos.z + LEVEL_HEIGHT
+		objectposition.z < mypos.z + LEVEL_HEIGHT
 
 
 # Save all the mobs and their current stats to the mobs file for this map
