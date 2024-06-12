@@ -150,7 +150,7 @@ func duplicate_file_in_data(contentData: Dictionary, original_id: String, new_id
 		# Add the new ID to the data array if it's datapath references a folder.
 		var datapath: String = contentData.dataPath
 		if contentData.data is Array and datapath.ends_with("/"):
-			contentData.data.append(new_id)
+			contentData.data.append(new_id + ".json")
 			if datapath.ends_with("/Maps/"): # Update references to this duplicated map
 				on_mapdata_changed(new_file_path,orig_content,{"levels":[]})
 	else:
