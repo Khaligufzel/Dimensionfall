@@ -16,7 +16,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -40,7 +41,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -74,7 +76,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -100,7 +103,8 @@
 					"field_grass_basic_01",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -125,7 +129,8 @@
 					"field_grass_basic_01",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -150,7 +155,8 @@
 					"field_grass_basic_01",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -173,7 +179,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -195,7 +202,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -220,7 +228,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -248,7 +257,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -271,7 +281,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -294,7 +305,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -316,7 +328,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -342,7 +355,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},

@@ -77,7 +77,8 @@
 				"maps": [
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -136,7 +137,8 @@
 					"field_grass_hill_00",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -153,7 +155,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -182,7 +185,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -200,7 +204,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -218,7 +223,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -236,7 +242,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -254,7 +261,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -269,6 +277,13 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_01",
 		"name": "Wooden floor boards",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_cross"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "woodboards11.png"
 	},
@@ -301,7 +316,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -319,7 +335,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -337,7 +354,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -366,7 +384,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -680,6 +699,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted yellow",
 		"id": "kitchen_tiles_yellow_01",
 		"name": "Kitchen tiles (yellow)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_cross"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentiles1.png"
 	},
@@ -716,7 +742,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -781,7 +808,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -857,7 +885,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1011,7 +1040,8 @@
 					"field_grass_hill_00",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1034,7 +1064,8 @@
 					"field_grass_hill_00",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1131,7 +1162,8 @@
 					"field_grass_hill_00",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1154,7 +1186,8 @@
 					"field_grass_hill_00",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1177,7 +1210,8 @@
 					"field_grass_hill_00",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1302,7 +1336,8 @@
 			"core": {
 				"maps": [
 					"field_grass_hill_00",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1468,7 +1503,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1523,7 +1559,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1567,6 +1604,13 @@
 		"description": "A tiled floor you would find in a bathroom. The tiles are painted blue",
 		"id": "bathroom_tiles_blue_00",
 		"name": "Bathroom tiles (blue)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_cross"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "bathroomtiles.png"
 	},
@@ -1635,7 +1679,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1693,7 +1738,8 @@
 					"Generichouse_00",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
