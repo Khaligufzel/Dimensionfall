@@ -78,7 +78,8 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -138,7 +139,8 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -156,7 +158,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -186,7 +189,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -205,7 +209,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -224,7 +229,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -243,7 +249,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -262,7 +269,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -280,7 +288,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -298,7 +307,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -317,7 +327,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -355,7 +366,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -385,7 +397,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -403,7 +416,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -717,6 +731,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted yellow",
 		"id": "kitchen_tiles_yellow_02",
 		"name": "Kitchen tiles (yellow)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "Kitchentiles2.png"
 	},
@@ -728,6 +749,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
 		"id": "kitchen_tiles_mint_00",
 		"name": "Kitchen tiles (mint)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilesblue.png"
 	},
@@ -743,7 +771,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -794,6 +823,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted green",
 		"id": "kitchen_tiles_green_00",
 		"name": "Kitchen tiles (green)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilesgreen.png"
 	},
@@ -809,7 +845,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -835,6 +872,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted blue",
 		"id": "kitchen_tiles_blue_00",
 		"name": "Kitchen tiles (blue)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "KitchentilesPurple.png"
 	},
@@ -886,7 +930,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -970,7 +1015,8 @@
 					"Generichouse_00",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -993,7 +1039,8 @@
 					"field_grass_hill_00",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1017,7 +1064,8 @@
 					"Generichouse",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1041,7 +1089,7 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_t"
 				]
 			}
 		},
@@ -1065,7 +1113,8 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1163,7 +1212,7 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_t"
 				]
 			}
 		},
@@ -1187,7 +1236,7 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_t"
 				]
 			}
 		},
@@ -1211,7 +1260,7 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_t"
 				]
 			}
 		},
@@ -1337,7 +1386,8 @@
 				"maps": [
 					"field_grass_hill_00",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1503,8 +1553,7 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_corner"
 				]
 			}
 		},
@@ -1521,7 +1570,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1560,7 +1610,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1607,7 +1658,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1643,7 +1695,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_t",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1660,7 +1714,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1680,7 +1735,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1739,7 +1795,8 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
