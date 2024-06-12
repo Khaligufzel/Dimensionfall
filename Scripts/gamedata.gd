@@ -177,7 +177,7 @@ func add_id_to_data(contentData: Dictionary, id: String):
 		if id in contentData.data:
 			print_debug("Tried to add an existing file to a file array")
 			return
-		contentData.data.append(id)
+		contentData.data.append(id + ".json")
 		#Create a new json file in the directory with only {} in the file
 		Helper.json_helper.create_new_json_file(contentData.dataPath + id + ".json", false)
 
