@@ -63,6 +63,17 @@ func create_loot():
 		_on_item_removed(null)
 
 
+# Function to deserialize inventory and apply the correct sprite
+func deserialize_and_apply_items(items_data: Dictionary):
+	inventory.deserialize(items_data)
+	
+	if inventory.get_items().size() > 0 and sprite_3d.texture == load("res://Textures/container_32.png"):
+		sprite_3d.texture = load("res://Textures/container_filled_32.png")
+	else:
+		sprite_3d.texture = load("res://Textures/container_32.png")
+		_on_item_removed(null)
+
+
 # Creates a new InventoryStacked to hold items in it
 func create_inventory():
 	inventory = InventoryStacked.new()
@@ -157,7 +168,7 @@ func get_sprite():
 	else:
 		# The parent is probably a furniture so return that
 		var parent = get_parent()
-		if parent == FurniturePhysics or parent == FurnitureStatic:
+		if parent is FurniturePhysics or parent is FurnitureStatic:
 			return parent.get_sprite()
 		else:
 			return load("res://Textures/container_32.png")
