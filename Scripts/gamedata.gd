@@ -789,7 +789,6 @@ func on_tacticalmap_deleted(tacticalmap_id: String):
 		var chunk = tacticalmapdata["chunks"][i]
 		# If the chunk has the target id, remove the reference from the map
 		if chunk.has("id"):
-			var chunkid = chunk["id"]
 			remove_reference(Gamedata.data.maps, "core", "tacticalmaps", \
 				chunk["id"], tacticalmap_id + ".json")
 
@@ -887,7 +886,6 @@ func on_tacticalmapdata_changed(tacticalmap_id: String, newdata: Dictionary, old
 		if id not in unique_new_ids:
 			remove_reference(Gamedata.data.maps, "core", "tacticalmaps", id, tacticalmap_id)
 
-
 # Some item has been changed
 # We need to update the relation between the item and other items based on crafting recipes
 func on_item_changed(newdata: Dictionary, olddata: Dictionary):
@@ -929,32 +927,48 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 	for res_id in new_resource_ids:
 		changes_made = add_reference(Gamedata.data.items, "core", "items", res_id, item_id) or changes_made
 
+	update_item_skill_references(newdata, olddata)
+	
+	# Save changes if any modifications were made
+	if changes_made:
+		save_data_to_file(Gamedata.data.items)
+		save_data_to_file(Gamedata.data.wearableslots)
+		print_debug("Item changes saved successfully.")
+	else:
+		print_debug("No changes were made to item.")
 
-	# Collect unique skill IDs from old and new recipes
-	var old_skill_ids: Dictionary = {}
-	var new_skill_ids: Dictionary = {}
 
-	# Collect skill IDs from old recipes
-	for recipe in olddata.get("Craft", []):
-		if recipe.has("skill_requirement"):
-			var old_skill_req_id = recipe["skill_requirement"].get("id", "")
-			if old_skill_req_id != "":
-				old_skill_ids[old_skill_req_id] = true
-		if recipe.has("skill_progression"):
-			var old_skill_prog_id = recipe["skill_progression"].get("id", "")
-			if old_skill_prog_id != "":
-				old_skill_ids[old_skill_prog_id] = true
+# Collects all skills defined in an item and updates the references to that skill
+func update_item_skill_references(newdata: Dictionary, olddata: Dictionary):
+	var item_id: String = newdata["id"]
+	var changes_made = false
 
-	# Collect skill IDs from new recipes
-	for recipe in newdata.get("Craft", []):
-		if recipe.has("skill_requirement"):
-			var new_skill_req_id = recipe["skill_requirement"].get("id", "")
-			if new_skill_req_id != "":
-				new_skill_ids[new_skill_req_id] = true
-		if recipe.has("skill_progression"):
-			var new_skill_prog_id = recipe["skill_progression"].get("id", "")
-			if new_skill_prog_id != "":
-				new_skill_ids[new_skill_prog_id] = true
+	# Function to collect skill IDs from recipes
+	var collect_skill_ids: Callable = func (itemdata: Dictionary):
+		var skill_ids: Dictionary = {}
+		for recipe in itemdata.get("Craft", []):
+			var req = Helper.json_helper.get_nested_data(recipe, "skill_requirement.id")
+			if req and req != "":
+				skill_ids[req] = true
+			
+			var prog = Helper.json_helper.get_nested_data(recipe, "skill_progression.id")
+			if prog and prog != "":
+				skill_ids[prog] = true
+		return skill_ids
+
+	# Collect skill IDs from old and new recipes
+	var old_skill_ids = collect_skill_ids.call(olddata)
+	var new_skill_ids = collect_skill_ids.call(newdata)
+
+	# Check for "Ranged" property and collect skill IDs
+	var collect_ranged_skill_id: Callable = func (itemdata: Dictionary, skill_ids: Dictionary):
+		if itemdata.has("Ranged") and itemdata["Ranged"].has("used_skill"):
+			var skill_id = itemdata["Ranged"]["used_skill"].get("skill_id", "")
+			if skill_id != "":
+				skill_ids[skill_id] = true
+
+	collect_ranged_skill_id.call(olddata, old_skill_ids)
+	collect_ranged_skill_id.call(newdata, new_skill_ids)
 
 	# Remove old skill references that are not in the new list
 	for old_skill_id in old_skill_ids.keys():
@@ -964,15 +978,14 @@ func on_item_changed(newdata: Dictionary, olddata: Dictionary):
 	# Add new skill references
 	for new_skill_id in new_skill_ids.keys():
 		changes_made = add_reference(Gamedata.data.skills, "core", "items", new_skill_id, item_id) or changes_made
-
+	
 	# Save changes if any modifications were made
 	if changes_made:
-		save_data_to_file(Gamedata.data.items)
-		save_data_to_file(Gamedata.data.wearableslots)
 		save_data_to_file(Gamedata.data.skills)
-		print_debug("Item changes saved successfully.")
+		print_debug("Item skill changes saved successfully.")
 	else:
-		print_debug("No changes were made to item.")
+		print_debug("No skill changes were made to item.")
+
 
 # An item is being deleted from the data
 # We have to remove it from everything that references it
@@ -1030,6 +1043,12 @@ func on_item_deleted(item_id: String):
 				var skill_prog_id = recipe["skill_progression"].get("id", "")
 				if skill_prog_id != "":
 					skill_ids[skill_prog_id] = true
+
+	# Add the ranged skill to the skill list
+	
+	var ranged_skill_id = Helper.json_helper.get_nested_data(item_data, "Ranged.used_skill.skill_id")
+	if ranged_skill_id:
+		skill_ids[ranged_skill_id] = true
 
 	# Remove the reference of this item from each skill
 	for skill_id in skill_ids.keys():
@@ -1130,7 +1149,7 @@ func on_skill_deleted(skill_id: String):
 		return
 
 	# This callable will remove the skill references from items that reference this skill.
-	var myfunc: Callable = func (item_id):
+	var remove_skill_from_item: Callable = func (item_id):
 		var item_data: Dictionary = get_data_by_id(Gamedata.data.items, item_id)
 		var recipes = item_data.get("Craft", [])
 
@@ -1148,10 +1167,14 @@ func on_skill_deleted(skill_id: String):
 			if skill_prog.get("id", "") == skill_id:
 				recipe.erase("skill_progression")
 				changes_made["value"] = true
+		
+		var ranged_skill_id = Helper.json_helper.get_nested_data(item_data, "Ranged.used_skill.skill_id")
+		if ranged_skill_id and ranged_skill_id == skill_id:
+			changes_made["value"] = Helper.json_helper.delete_nested_property(item_data, "Ranged.used_skill")
 
 	# Pass the callable to every item in the skill's references
 	# It will call myfunc on every item in skill_data.references.core.items
-	execute_callable_on_references_of_type(skill_data, "core", "items", myfunc)
+	execute_callable_on_references_of_type(skill_data, "core", "items", remove_skill_from_item)
 
 	# Save changes to the data file if any changes were made
 	if changes_made["value"]:

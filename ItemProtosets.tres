@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://cllbo1owveorj"]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -17,6 +17,10 @@ json_data = "[
 					\"mob_loot\",
 					\"destroyed_furniture_medium\",
 					\"disassembled_furniture_medium\"
+				],
+				\"items\": [
+					\"cutting_board\",
+					\"rolling_pin\"
 				]
 			}
 		},
@@ -95,7 +99,15 @@ json_data = "[
 						\"amount\": 10,
 						\"id\": \"bullet_9mm\"
 					}
-				]
+				],
+				\"skill_progression\": {
+					\"id\": \"fabrication\",
+					\"xp\": 10
+				},
+				\"skill_requirement\": {
+					\"id\": \"fabrication\",
+					\"level\": 1
+				}
 			}
 		],
 		\"Magazine\": {
@@ -132,7 +144,10 @@ json_data = "[
 			\"sway\": 5,
 			\"used_ammo\": \"9mm\",
 			\"used_magazine\": \"pistol_magazine\",
-			\"used_skill\": \"short_guns\"
+			\"used_skill\": {
+				\"skill_id\": \"handguns\",
+				\"xp\": 1
+			}
 		},
 		\"description\": \"A standard issue pistol that uses 9mm ammunition\",
 		\"id\": \"pistol_9mm\",
@@ -162,7 +177,10 @@ json_data = "[
 			\"sway\": 5,
 			\"used_ammo\": \"9mm\",
 			\"used_magazine\": \"pistol_magazine\",
-			\"used_skill\": \"short_guns\"
+			\"used_skill\": {
+				\"skill_id\": \"rifle\",
+				\"xp\": 1
+			}
 		},
 		\"description\": \"A standard issue rifle that uses 9mm ammunition\",
 		\"id\": \"rifle_m4a1\",
@@ -185,7 +203,10 @@ json_data = "[
 			\"sway\": 5,
 			\"used_ammo\": \"9mm\",
 			\"used_magazine\": \"chugunov_mpap_magazine\",
-			\"used_skill\": \"short_guns\"
+			\"used_skill\": {
+				\"skill_id\": \"smg\",
+				\"xp\": 1
+			}
 		},
 		\"description\": \"Chugun in Russian is for cast steel, MPAP is \\\"Multi Purpose Automatic Pistol\\\"\",
 		\"id\": \"chugunov_mpap\",
@@ -775,6 +796,29 @@ json_data = "[
 		\"weight\": \"0.2\"
 	},
 	{
+		\"Craft\": [
+			{
+				\"craft_amount\": 1,
+				\"craft_time\": 10,
+				\"flags\": {
+					\"requires_light\": true
+				},
+				\"required_resources\": [
+					{
+						\"amount\": 1,
+						\"id\": \"plank_2x4\"
+					}
+				],
+				\"skill_progression\": {
+					\"id\": \"fabrication\",
+					\"xp\": 10
+				},
+				\"skill_requirement\": {
+					\"id\": \"fabrication\",
+					\"level\": 1
+				}
+			}
+		],
 		\"description\": \"A sturdy cutting board, ideal for preparing food safely and efficiently.\",
 		\"id\": \"cutting_board\",
 		\"image\": \"./Mods/Core/Items/cutting_board_64_32.png\",
@@ -835,6 +879,29 @@ json_data = "[
 		\"weight\": \"0.3\"
 	},
 	{
+		\"Craft\": [
+			{
+				\"craft_amount\": 1,
+				\"craft_time\": 10,
+				\"flags\": {
+					\"requires_light\": true
+				},
+				\"required_resources\": [
+					{
+						\"amount\": 1,
+						\"id\": \"plank_2x4\"
+					}
+				],
+				\"skill_progression\": {
+					\"id\": \"fabrication\",
+					\"xp\": 15
+				},
+				\"skill_requirement\": {
+					\"id\": \"fabrication\",
+					\"level\": 2
+				}
+			}
+		],
 		\"description\": \"A wooden rolling pin, essential for flattening dough for baking.\",
 		\"id\": \"rolling_pin\",
 		\"image\": \"./Mods/Core/Items/rolling_pin_64_32.png\",

@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbke1yb3m7dra"]
+[gd_scene load_steps=3 format=3 uid="uid://cbke1yb3m7dra"]
 
 [ext_resource type="Script" path="res://Scripts/ItemRangedEditor.gd" id="1_my1v7"]
+[ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="2_crphu"]
 
-[node name="ItemRangedEditor" type="Control" node_paths=PackedStringArray("UsedAmmoTextEdit", "UsedMagazineContainer", "RangeNumberBox", "SpreadNumberBox", "SwayNumberBox", "RecoilNumberBox", "UsedSkillTextEdit", "ReloadSpeedNumberBox", "FiringSpeedNumberBox")]
+[node name="ItemRangedEditor" type="Control" node_paths=PackedStringArray("UsedAmmoTextEdit", "UsedMagazineContainer", "RangeNumberBox", "SpreadNumberBox", "SwayNumberBox", "RecoilNumberBox", "UsedSkillTextEdit", "skill_xp_spin_box", "ReloadSpeedNumberBox", "FiringSpeedNumberBox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,7 +17,8 @@ RangeNumberBox = NodePath("Ranged/RangeNumber")
 SpreadNumberBox = NodePath("Ranged/SpreadNumber")
 SwayNumberBox = NodePath("Ranged/SwayNumber")
 RecoilNumberBox = NodePath("Ranged/RecoilNumber")
-UsedSkillTextEdit = NodePath("Ranged/UsedSkillTextEdit")
+UsedSkillTextEdit = NodePath("Ranged/SkillHBoxContainer/UsedSkillTextEdit")
+skill_xp_spin_box = NodePath("Ranged/SkillHBoxContainer/SkillXPSpinBox")
 ReloadSpeedNumberBox = NodePath("Ranged/ReloadSpeedNumber")
 FiringSpeedNumberBox = NodePath("Ranged/FiringSpeedNumber")
 
@@ -106,14 +108,24 @@ value = 20.0
 layout_mode = 2
 text = "Skill"
 
-[node name="UsedSkillTextEdit" type="TextEdit" parent="Ranged"]
-custom_minimum_size = Vector2(0, 28)
+[node name="SkillHBoxContainer" type="HBoxContainer" parent="Ranged"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.9
-focus_previous = NodePath("../UsedAmmoTextEdit")
-placeholder_text = "short_guns"
-wrap_mode = 1
+
+[node name="UsedSkillTextEdit" parent="Ranged/SkillHBoxContainer" instance=ExtResource("2_crphu")]
+layout_mode = 2
+tooltip_text = "The skill used when firing this weapon. This determines how well 
+the player can control the weapon and deliver accurate shots."
+myplaceholdertext = "Drop a skill from the list to the left"
+
+[node name="SkillXPLabel" type="Label" parent="Ranged/SkillHBoxContainer"]
+layout_mode = 2
+text = "XP per shot:"
+
+[node name="SkillXPSpinBox" type="SpinBox" parent="Ranged/SkillHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The amount of xp the player gets per shot for the skill that is set. 
+If no skill is set, the player gets no xp. If the firing speed is high, 
+set a low amount of xp otherwise the skill gain will be quick."
 
 [node name="ReloadSpeedLabel" type="Label" parent="Ranged"]
 layout_mode = 2
