@@ -14,6 +14,7 @@ var currentLevelData: Array = []
 @export var checkboxDrawRectangle: CheckBox
 @export var checkboxCopyRectangle: CheckBox
 @export var checkboxCopyAllLevels: CheckBox
+@export var brushcomposer: Control # Contains one or more selected brushes to paint with
 
 var selected_brush: Control
 
@@ -23,7 +24,7 @@ enum EditorMode {
 	COPY_RECTANGLE, # When the user has clicked the CopyRectangle checkbox
 	COPY_ALL_LEVELS # When the user has clicked the CopyAllLevels checkbox
 }
-# Replace your booleans with a single variable to track the current editor mode
+# Track the current editor mode
 var currentMode: EditorMode = EditorMode.NONE
 var erase: bool = false
 var showBelow: bool = false
@@ -64,6 +65,8 @@ func _on_mapeditor_ready() -> void:
 	levelgrid_above.hide()
 	_on_zoom_level_changed(mapEditor.zoom_level)
 	data_changed.connect(Gamedata.on_mapdata_changed)
+	brushcomposer.brush_added.connect(_on_composer_brush_added)
+	brushcomposer.brush_removed.connect(_on_composer_brush_removed)
 
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
@@ -231,27 +234,35 @@ func grid_tile_clicked(clicked_tile) -> void:
 # We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile) -> void:
+	apply_paint_to_tile(clicked_tile, selected_brush, rotationAmount, erase)
+
+
+# Helper function to apply paint or erase logic to a single tile
+func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int, erase: bool):
 	if erase:
-		if selected_brush:
-			if selected_brush.entityType == "mob":
-				clicked_tile.set_mob_id("")
-			elif selected_brush.entityType == "furniture":
-				clicked_tile.set_furniture_id("")
+		if brush:
+			if brush.entityType == "mob":
+				tile.set_mob_id("")
+			elif brush.entityType == "furniture":
+				tile.set_furniture_id("")
 			else:
-				clicked_tile.set_tile_id("")
-				clicked_tile.set_rotation_amount(0)
+				tile.set_tile_id("")
+				tile.set_rotation_amount(0)
 		else:
-			clicked_tile.set_default()
-	elif selected_brush:
-		if selected_brush.entityType == "mob":
-			clicked_tile.set_mob_id(selected_brush.tileID)
-			clicked_tile.set_mob_rotation(rotationAmount)
-		elif selected_brush.entityType == "furniture":
-			clicked_tile.set_furniture_id(selected_brush.tileID)
-			clicked_tile.set_furniture_rotation(rotationAmount)
+			tile.set_default()
+	elif brush:
+		selected_brush = brushcomposer.get_random_brush()
+		var tilerotation = brushcomposer.get_tilerotation(tilerotate)
+		if brush.entityType == "mob":
+			tile.set_mob_id(brush.tileID)
+			tile.set_mob_rotation(tilerotation)
+		elif brush.entityType == "furniture":
+			tile.set_furniture_id(brush.tileID)
+			tile.set_furniture_rotation(tilerotation)
 		else:
-			clicked_tile.set_tile_id(selected_brush.tileID)
-			clicked_tile.set_rotation_amount(rotationAmount)
+			tile.set_tile_id(brush.tileID)
+			tile.set_rotation_amount(tilerotation)
+
 
 
 func storeLevelData() -> void:
@@ -408,33 +419,15 @@ func highlight_tiles_in_rect() -> void:
 		tile.highlight()
 
 
-#Paint every tile in the selected rectangle
-#We always erase if erase is selected, even if no brush is selected
-#Only paint if a brush is selected and erase is false
+# Paint every tile in the selected rectangle
+# We always erase if erase is selected, even if no brush is selected
+# Only paint if a brush is selected and erase is false
 func paint_in_rectangle():
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
-	if erase:
-		for tile in tiles:
-			if selected_brush:
-				if selected_brush.entityType == "mob":
-					tile.set_mob_id("")
-				elif selected_brush.entityType == "furniture":
-					tile.set_furniture_id("")
-				else:
-					tile.set_tile_id("")
-					tile.set_rotation_amount(0)
-			else:
-				tile.set_default()
-	elif selected_brush:
-		for tile in tiles:
-			if selected_brush.entityType == "mob":
-				tile.set_mob_id(selected_brush.tileID)
-			elif selected_brush.entityType == "furniture":
-				tile.set_furniture_id(selected_brush.tileID)
-			else:
-				tile.set_tile_id(selected_brush.tileID)
-				tile.set_rotation_amount(rotationAmount)
+	for tile in tiles:
+		apply_paint_to_tile(tile, selected_brush, rotationAmount, erase)
 	update_rectangle()
+
 
 #The user has pressed the erase toggle button in the editor
 func _on_erase_toggled(button_pressed):
@@ -451,6 +444,10 @@ func _on_draw_rectangle_toggled(toggled_on: bool) -> void:
 			set_brush_preview_texture(selected_brush.get_texture())
 	else:
 		currentMode = EditorMode.NONE
+		if selected_brush:
+			set_brush_preview_texture(selected_brush.get_texture())
+		else:
+			set_brush_preview_texture(null)
 
 
 # When the user toggles the copy all levels button in the toolbar
@@ -467,7 +464,10 @@ func _on_copy_all_levels_toggled(toggled_on: bool):
 			set_brush_preview_texture(null)
 	else:
 		currentMode = EditorMode.NONE
-
+		if selected_brush:
+			set_brush_preview_texture(selected_brush.get_texture())
+		else:
+			set_brush_preview_texture(null)
 
 # Called when the Copy Rectangle ToggleButton's state changes.
 func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
@@ -477,7 +477,7 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 		checkboxCopyAllLevels.set_pressed(false)
 		currentMode = EditorMode.COPY_RECTANGLE
 		if copied_tiles_info["tiles_data"].size() > 0:
-			# You might want to update the brush preview to reflect the copied tiles
+			# Update the brush preview to reflect the copied tiles
 			update_preview_texture_with_copied_data()
 		# If there's nothing to copy, perhaps alert the user
 		else:
@@ -490,9 +490,17 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 
 
 # When the user has selected one of the tile brushes to paint with
-func _on_tilebrush_list_tile_brush_selection_change(tilebrush):
-	selected_brush = tilebrush
-	update_preview_texture()
+func _on_tilebrush_list_tile_brush_selection_change(tilebrush: Control):
+	# Toggle the copy buttons off
+	checkboxCopyRectangle.set_pressed(false)
+	checkboxCopyAllLevels.set_pressed(false)
+	if not currentMode == EditorMode.DRAW_RECTANGLE:
+		currentMode = EditorMode.NONE
+	# Add the brush if ctrl is held, otherwise replace all
+	if Input.is_key_pressed(KEY_CTRL):
+		brushcomposer.add_tilebrush_to_container(tilebrush)
+	else:
+		brushcomposer.replace_all_with_brush(tilebrush)
 
 
 # The cursor will have a preview of the texture that the user will paint with next to it
@@ -986,8 +994,24 @@ func set_brush_preview_texture(image: Texture) -> void:
 	brushPreviewTexture.rotation_degrees = rotationAmount
 	if image: 
 		brushPreviewTexture.texture = image
+		brushPreviewTexture.size = image.get_size()
 		brushPreviewTexture.visible = true
 	else:
 		brushPreviewTexture.texture = null
 		brushPreviewTexture.visible = false
 		brushPreviewTexture.size = Vector2(128,128)
+
+
+# The user has added a brush to the brush composer
+func _on_composer_brush_added(composerbrush: Control):
+	selected_brush = composerbrush
+	update_preview_texture()
+
+
+# The user has removed a brush from the brush composer
+func _on_composer_brush_removed(_composerbrush: Control):
+	if brushcomposer.is_empty():
+		selected_brush = null
+	else:
+		selected_brush = brushcomposer.get_random_brush()
+	update_preview_texture()
