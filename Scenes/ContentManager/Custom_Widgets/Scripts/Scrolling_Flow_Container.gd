@@ -36,5 +36,11 @@ func add_content_item(item: Node):
 	contentItems.add_child(item)
 
 
+func remove_content_item(item: Node):
+	if contentItems.has_node(item.get_path()):
+		contentItems.remove_child(item)
+		item.queue_free()
+
+
 func get_content_items() -> Array[Node]:
 	return contentItems.get_children()

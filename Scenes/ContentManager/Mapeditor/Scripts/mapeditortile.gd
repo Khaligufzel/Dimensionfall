@@ -115,6 +115,7 @@ func set_furniture_rotation(rotationDegrees):
 		tileData.furniture.rotation = rotationDegrees
 
 
+# If the user holds the mouse button while entering this tile, we consider it clicked
 func _on_texture_rect_mouse_entered() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		tile_clicked.emit(self)

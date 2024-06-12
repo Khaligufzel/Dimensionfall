@@ -114,26 +114,27 @@ func find_list_by_category(category: String) -> Control:
 			categoryFound = categoryList
 			break
 	return categoryFound
-	
+
 
 #Mark the clicked tilebrush as selected, but only after deselecting all other brushes
 func tilebrush_clicked(tilebrush: Control) -> void:
 	deselect_all_brushes()
-	# If the clicked brush was not select it, we select it. Otherwise we deselect it
-	if selected_brush != tilebrush:
-		selected_brush = tilebrush
-		selected_brush.set_selected(true)
-	else:
-		selected_brush = null
-		
+	# Update the selected brush to the one that was clicked, 
+	# even if it was already selected
+	selected_brush = tilebrush
+	selected_brush.set_selected(true)
+
+
 # Deselects all brushes by setting their selected state to false
 func deselect_all_brushes():
 	for child in instanced_brushes:
 		child.set_selected(false)
 
+
 # Called when the collapse button is pressed, saves the collapse state for the given header
 func _on_collapse_button_pressed(header: String):
 	save_collapse_state(header)
+
 
 # Saves the collapsed state of the list associated with the given header to the configuration file
 func save_collapse_state(header: String):
@@ -151,6 +152,7 @@ func save_collapse_state(header: String):
 		# Save the collapsed state to the configuration file
 		config.set_value("mapeditor:brushlist:" + header, "is_collapsed", list_node.is_collapsed)
 		config.save(path)
+
 
 # Loads the collapsed state for the given header from the configuration file and returns it
 func load_collapse_state(header: String) -> bool:

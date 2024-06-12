@@ -22,7 +22,7 @@ extends Sprite3D
 @export var melee_collision_shape: CollisionShape3D
 
 # Reference to the player node
-@export var player: NodePath
+@export var player: CharacterBody3D
 # The visual representation of the player that will actually rotate over the y axis
 @export var playerSprite: Sprite3D 
 # Reference to the hud node
@@ -119,9 +119,11 @@ func can_fire_weapon() -> bool:
 		return General.is_mouse_outside_HUD and not General.is_action_in_progress and heldItem and not in_cooldown
 	return General.is_mouse_outside_HUD and not General.is_action_in_progress and General.is_allowed_to_shoot and heldItem and not in_cooldown and (get_current_ammo() > 0 or not requires_ammo())
 
+
 # Function to check if the weapon requires ammo (for ranged weapons)
 func requires_ammo() -> bool:
 	return not heldItem.get_property("Ranged") == null
+
 
 # Function to handle firing logic for a weapon.
 func fire_weapon():
@@ -133,6 +135,44 @@ func fire_weapon():
 	else:
 		perform_ranged_attack()
 
+
+func add_weapon_xp_on_use():
+	if heldItem.get_property("Melee") != null:
+		print_debug("Melee xp gain is not yet implemented")
+	elif heldItem.get_property("Ranged") != null:
+		var rangedproperties = heldItem.get_property("Ranged")
+		if rangedproperties.has("used_skill"):
+			var used_skill = rangedproperties.used_skill
+			player.add_skill_xp(used_skill.skill_id, used_skill.xp)
+
+
+# Return the accuracy based on skill level
+func calculate_accuracy() -> float:
+	var rangedproperties = heldItem.get_property("Ranged")
+	var skillid = Helper.json_helper.get_nested_data(rangedproperties, "used_skill.skill_id")
+	var skill_level = player.get_skill_level(skillid)
+	# Minimum accuracy is 25%, maximum is 100% at level 30
+	var min_accuracy = 0.25
+	var max_accuracy = 1.0
+	var required_level = 30
+
+	if skill_level >= required_level:
+		return max_accuracy
+	else:
+		return min_accuracy + (max_accuracy - min_accuracy) * (skill_level / required_level)
+
+
+# Function to calculate direction with accuracy and recoil applied
+func calculate_direction(target_position: Vector3, spawn_position: Vector3) -> Vector3:
+	var accuracy = calculate_accuracy()
+	var direction = (target_position - spawn_position).normalized()
+	var random_offset = Vector3(randf() - 0.5, 0, randf() - 0.5) * (1.0 - accuracy) * 0.5
+	random_offset *= (1.0 - accuracy)
+	var recoil_offset = Vector3(randf() - 0.5, 0, randf() - 0.5) * recoil_modifier / 100
+	recoil_modifier = min(recoil_modifier + recoil_increment, max_recoil)  # Update recoil_modifier
+	return (direction + random_offset + recoil_offset).normalized()
+	
+
 # The user performs a ranged attack
 func perform_ranged_attack():
 	# Update ammo and emit signal.
@@ -141,20 +181,21 @@ func perform_ranged_attack():
 	shoot_audio_player.stream = shoot_audio_randomizer
 	shoot_audio_player.play()
 	
+	var accuracy = calculate_accuracy()
 	var bullet_instance = bullet_scene.instantiate()
 	# Decrease the y position to ensure proper collision with mobs and furniture
 	var spawn_position = global_transform.origin + Vector3(0.0, -0.1, 0.0)
 	var cursor_position = get_cursor_world_position()
-	var direction = (cursor_position - spawn_position).normalized()
-	recoil_modifier = min(recoil_modifier + recoil_increment, max_recoil)
-	direction = apply_recoil(direction, recoil_modifier) # Apply recoil effect
+	var direction = calculate_direction(cursor_position, spawn_position)
 	direction.y = 0 # Ensure the bullet moves parallel to the ground.
 
 	projectiles.add_child(bullet_instance) # Add bullet to the scene tree.
 	bullet_instance.global_transform.origin = spawn_position
 	bullet_instance.set_direction_and_speed(direction, bullet_speed)
 	in_cooldown = true
+	add_weapon_xp_on_use()
 	attack_cooldown_timer.start()
+
 
 func _subtract_ammo(amount: int):
 	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
@@ -167,6 +208,7 @@ func _subtract_ammo(amount: int):
 		magazine.set_property("Magazine", magazineProperties)
 		ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
 
+
 func get_current_ammo() -> int:
 	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
 	if magazine:
@@ -178,6 +220,7 @@ func get_current_ammo() -> int:
 	else: 
 		return 0
 
+
 func get_max_ammo() -> int:
 	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
 	if magazine:
@@ -185,11 +228,6 @@ func get_max_ammo() -> int:
 		return int(magazineProperties["max_ammo"])
 	else: 
 		return 0
-
-# Function to apply recoil effect to the bullet direction
-func apply_recoil(direction: Vector3, recoil_value: float) -> Vector3:
-	var random_offset = Vector3(randf() - 0.5, 0, randf() - 0.5) * recoil_value / 100
-	return (direction + random_offset).normalized()
 
 # When the user wants to reload the item
 func reload_weapon():
