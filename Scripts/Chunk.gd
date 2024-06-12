@@ -77,18 +77,18 @@ func initialize_chunk_data():
 		if chunk_data.has("rotation") and not chunk_data.rotation == 0:
 			rotate_map(mapsegmentData)
 		_mapleveldata = mapsegmentData.levels
-		generate_new_chunk()
+		Helper.task_manager.create_task(generate_new_chunk)
 	else: # This chunk is created from previously saved data
 		generate_saved_chunk()
 
 
 func generate_new_chunk():
 	block_positions = create_block_position_dictionary_new_arraymesh()
-	await Helper.task_manager.create_task(generate_chunk_mesh).completed
-	await Helper.task_manager.create_task(update_all_navigation_data).completed
+	generate_chunk_mesh()
+	update_all_navigation_data()
 	processed_level_data = process_level_data()
-	await Helper.task_manager.create_task(add_furnitures_to_new_block).completed
-	Helper.task_manager.create_task(add_block_mobs)
+	add_furnitures_to_new_block()
+	add_block_mobs()
 
 
 # Collects the furniture and mob data from the mapdata to be spawned later
@@ -899,9 +899,10 @@ func create_colliders() -> void:
 		chunk_mesh_body.add_child.call_deferred(_create_block_collider(block_pos, block_shape, block_rotation))
 
 		block_counter += 1
-		# Check if it's time to delay
+		# Check if it's time to delay. We need to delay because the call_deferred
+		# will add the child on the main thread and we weant to spread it out
 		if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
-			await get_tree().create_timer(0.1).timeout
+			OS.delay_msec(100) # Adjust delay time as needed
 
 
 # Creates a collider for either a slope or a cube and puts it at the right place and rotation
