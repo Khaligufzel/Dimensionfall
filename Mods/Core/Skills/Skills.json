@@ -102,12 +102,26 @@
 		"description": "Proficiency in handling and maintaining pistols, enhancing accuracy and reload speed, especially in close combat.",
 		"id": "handguns",
 		"name": "Handguns",
+		"references": {
+			"core": {
+				"items": [
+					"pistol_9mm"
+				]
+			}
+		},
 		"sprite": "handgun_32.png"
 	},
 	{
 		"description": "Expertise in using rifles, improving long-range accuracy and maintenance of such firearms.",
 		"id": "rifle",
 		"name": "Rifle",
+		"references": {
+			"core": {
+				"items": [
+					"rifle_m4a1"
+				]
+			}
+		},
 		"sprite": "rifle_32.png"
 	},
 	{
@@ -120,6 +134,13 @@
 		"description": "Proficiency with submachine guns, focusing on rapid fire and handling, ideal for close to mid-range combat.",
 		"id": "smg",
 		"name": "Smg",
+		"references": {
+			"core": {
+				"items": [
+					"chugunov_mpap"
+				]
+			}
+		},
 		"sprite": "smg_32.png"
 	},
 	{

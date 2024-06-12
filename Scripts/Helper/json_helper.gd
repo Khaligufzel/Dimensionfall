@@ -181,3 +181,20 @@ func get_nested_data(mydata: Dictionary, path: String) -> Variant:
 		else:
 			return null
 	return current
+
+# Deletes the nested property from the given dictionary
+# mydata = any dictionary with properties
+# path = a dot-separated string of properties.
+# Usage example: Helper.json_helper.delete_nested_property(furniture_data, "Function.container.itemgroup")
+# The example will delete the 'itemgroup' property from the 'container' inside 'Function' of 'furniture_data'
+# Returns true if the property was deleted, false if the property does not exist or could not be deleted
+func delete_nested_property(mydata: Dictionary, path: String) -> bool:
+	var parts = path.split(".")
+	var current = mydata
+	for i in range(parts.size() - 1):
+		if current.has(parts[i]):
+			current = current[parts[i]]
+		else:
+			return false
+	var property_to_remove = parts[parts.size() - 1]
+	return current.erase(property_to_remove)

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://c80hblyn3jedv"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor_brushcomposer.gd" id="1_bl6cv"]
+[ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="1_ump07"]
+[ext_resource type="PackedScene" uid="uid://cccnrdolr1bfo" path="res://Scenes/ContentManager/Mapeditor/tilebrush.tscn" id="2_epuda"]
+[ext_resource type="Texture2D" uid="uid://dixj0spya5p0y" path="res://Images/Icons/IconRotateRight.png" id="3_nbxmi"]
+[ext_resource type="Texture2D" uid="uid://b6m2bbbpmsyik" path="res://Images/Icons/IconRotateRightDark.png" id="4_gh7br"]
+
+[node name="CustomBrushVBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("brush_container", "rotation_button")]
+script = ExtResource("1_bl6cv")
+brush_container = NodePath("CurrentBrushScrolling_Flow_Container")
+tileBrush = ExtResource("2_epuda")
+rotation_button = NodePath("CustomBrushToolsHBoxContainer/RotationCheckbox")
+
+[node name="CustomBrushToolsHBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RotationCheckbox" type="CheckBox" parent="CustomBrushToolsHBoxContainer"]
+layout_mode = 2
+tooltip_text = "Apply random rotation to the brushes in this brushcomposer. To apply a fixed 
+rotation, disable this button and click the tile rotation button on the general toolbar"
+theme_override_icons/checked = ExtResource("3_nbxmi")
+theme_override_icons/unchecked = ExtResource("4_gh7br")
+
+[node name="CurrentBrushScrolling_Flow_Container" parent="." instance=ExtResource("1_ump07")]
+layout_mode = 2
+tooltip_text = "This is the brush composer. It allows you to create a custom brush to paint for your purposes. To add a tile 
+to the brush composer, click one of the tiles in the tile brush pallette below. Hold CTRL to add multiple. You 
+can add more then one of the same tile. When painting, a random brush will be picked from the collection 
+of brushes you added. You can also apply random rotation by clicking the button above."
+header = ""

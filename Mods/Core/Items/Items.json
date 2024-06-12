@@ -138,7 +138,10 @@
 			"sway": 5,
 			"used_ammo": "9mm",
 			"used_magazine": "pistol_magazine",
-			"used_skill": "short_guns"
+			"used_skill": {
+				"skill_id": "handguns",
+				"xp": 1
+			}
 		},
 		"description": "A standard issue pistol that uses 9mm ammunition",
 		"id": "pistol_9mm",
@@ -168,7 +171,10 @@
 			"sway": 5,
 			"used_ammo": "9mm",
 			"used_magazine": "pistol_magazine",
-			"used_skill": "short_guns"
+			"used_skill": {
+				"skill_id": "rifle",
+				"xp": 1
+			}
 		},
 		"description": "A standard issue rifle that uses 9mm ammunition",
 		"id": "rifle_m4a1",
@@ -191,7 +197,10 @@
 			"sway": 5,
 			"used_ammo": "9mm",
 			"used_magazine": "chugunov_mpap_magazine",
-			"used_skill": "short_guns"
+			"used_skill": {
+				"skill_id": "smg",
+				"xp": 1
+			}
 		},
 		"description": "Chugun in Russian is for cast steel, MPAP is \"Multi Purpose Automatic Pistol\"",
 		"id": "chugunov_mpap",
