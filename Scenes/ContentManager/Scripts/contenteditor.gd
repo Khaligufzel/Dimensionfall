@@ -82,19 +82,31 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 #This will add an editor to the content editor tab view. 
 #The editor that should be instantiated is passed trough in the newEditor parameter
 #It is important that the editor has the property contentSource or contentData so it can be set
+#If a tab for the given itemID already exists, switch to that tab.
+#Otherwise, instantiate a new editor.
 func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene):
+	# Check if a tab for the itemID already exists
+	for i in range(tabContainer.get_child_count()):
+		var child = tabContainer.get_child(i)
+		if child.name == itemID:
+			# Tab for itemID exists, switch to this tab
+			tabContainer.current_tab = i
+			return
+
+	# If no existing tab is found, instantiate a new editor
 	var newContentEditor: Control = newEditor.instantiate()
 	newContentEditor.name = itemID
 	tabContainer.add_child(newContentEditor)
-	tabContainer.current_tab = tabContainer.get_child_count()-1
+	tabContainer.current_tab = tabContainer.get_child_count() - 1
+	
 	if data.dataPath.ends_with(".json"):
-		var itemdata: Dictionary = data.data[Gamedata.get_array_index_by_id(data,itemID)]
-		#We only pass the data for the specific id to the editor
+		var itemdata: Dictionary = data.data[Gamedata.get_array_index_by_id(data, itemID)]
+		# We only pass the data for the specific id to the editor
 		newContentEditor.contentData = itemdata
 		newContentEditor.data_changed.connect(_on_editor_data_changed)
 	else:
-		#If the data source does not end with json, it's a directory
-		#So now we pass in the file we want the editor to edit
+		# If the data source does not end with json, it's a directory
+		# So now we pass in the file we want the editor to edit
 		newContentEditor.contentSource = data.dataPath + itemID + ".json"
 
 
