@@ -225,7 +225,18 @@
 					"bed_wood_single_00",
 					"cabinet_wood_00",
 					"bookcase_wood_00",
-					"door_wood"
+					"door_wood",
+					"bench_garden",
+					"wardrobe",
+					"table_picknic",
+					"standing_mirror",
+					"chair_office",
+					"table_metal",
+					"lamp_standing",
+					"desk",
+					"bathtub",
+					"stove",
+					"sofa"
 				]
 			}
 		},
@@ -258,5 +269,117 @@
 			}
 		},
 		"sprite": "plank.png"
+	},
+	{
+		"description": "Items you can find in a refridgerator in an urban home",
+		"id": "refridgerator",
+		"items": [
+			{
+				"id": "bottle_plastic_water",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "cheese",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "can_soda",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "can_energydrink",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "butter",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "eggs",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "carrot",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "apple",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "lettuce",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "tomato",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "vacuum_sealed_fish",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "slice_of_pizza",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bag_bacon",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bottle_yogurt",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "tofu",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "can_beer",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			}
+		],
+		"mode": "Collection",
+		"name": "Refridgerator",
+		"references": {
+			"core": {
+				"furniture": [
+					"refrigerator_00"
+				]
+			}
+		},
+		"sprite": "bottle_empty_32.png"
 	}
 ]

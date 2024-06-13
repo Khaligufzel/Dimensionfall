@@ -213,6 +213,11 @@
 		"sprite": "bookcase_wood_100_50.png"
 	},
 	{
+		"Function": {
+			"container": {
+				"itemgroup": "refridgerator"
+			}
+		},
 		"categories": [
 			"Urban",
 			"Kitchen",
@@ -261,5 +266,183 @@
 		"moveable": false,
 		"name": "Wooden door",
 		"sprite": "door_100_13.png"
+	},
+	{
+		"categories": [
+			"Rural",
+			"Outdoor"
+		],
+		"description": "A weathered garden bench, perfect for a short rest amidst the overgrown foliage.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "bench_garden",
+		"moveable": false,
+		"name": "Garden bench",
+		"sprite": "bench_garden_90_40.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "A wardrobe, once used for storing clothes.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "wardrobe",
+		"moveable": false,
+		"name": "Wardrobe",
+		"sprite": "wardrobe_80_40.png"
+	},
+	{
+		"categories": [
+			"Rural",
+			"Outdoor"
+		],
+		"description": "A wooden picnic table, often found in parks, now a place for scavengers to rest or eat.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "table_picknic",
+		"moveable": false,
+		"name": "Picnic table",
+		"sprite": "table_picknic_100_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "An office chair, uncomfortable but still functional for short rests.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "chair_office",
+		"moveable": true,
+		"name": "Office chair",
+		"sprite": "chair_office_50.png",
+		"weight": 1
+	},
+	{
+		"categories": [
+			"Industrial",
+			"Indoor"
+		],
+		"description": "A rusted metal table, sturdy enough to place heavy items or tools on.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "table_metal",
+		"moveable": false,
+		"name": "Metal table",
+		"sprite": "table_metal_100_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "A standing lamp that provides faint light, useful for dimly lit areas.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "lamp_standing",
+		"moveable": true,
+		"name": "Standing lamp",
+		"sprite": "lamp_32.png",
+		"weight": 1
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "A damaged desk, still usable for placing items or crafting tools.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "desk",
+		"moveable": false,
+		"name": "Desk",
+		"sprite": "desk_100_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "A cracked bathtub, once luxurious, now a grim reminder of the past.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "bathtub",
+		"moveable": false,
+		"name": "Bathtub",
+		"sprite": "bathtub_100_50.png"
+	},
+	{
+		"categories": [
+			"Rural",
+			"Indoor"
+		],
+		"description": "A stove, usable for cooking and can be scavenged for metal parts.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "stove",
+		"moveable": false,
+		"name": "Stove",
+		"sprite": "stove_50_48.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "A standing mirror, reflecting the harsh realities of the world.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "standing_mirror",
+		"moveable": false,
+		"name": "Standing mirror",
+		"sprite": "standing_mirror_32.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "A sofa, offering minimal comfort but useful for quick rests.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "sofa",
+		"moveable": false,
+		"name": "Sofa",
+		"sprite": "sofa_100_50.png"
 	}
 ]
