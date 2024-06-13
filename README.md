@@ -119,7 +119,7 @@ Add your own stats to the game. Stats are not implemented yet, but you can defin
 # Skills editor
 Make any and every skill you need! Some are included in the core mod, but you can easily add your own in the Skills Editor. After they are created, use them in weapon or recipe configuration for other entities.
 
-![Catax_furniture_editor](Media/Catax_skillss_editor.png)
+![Catax_furniture_editor](Media/Catax_skills_editor.png)
 
 
 ## Roadmap
