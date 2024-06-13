@@ -281,9 +281,21 @@
 		"id": "bench_garden",
 		"moveable": false,
 		"name": "Garden bench",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"sprite": "bench_garden_90_40.png"
 	},
 	{
+		"Function": {
+			"container": {
+				"itemgroup": "clothing_general"
+			}
+		},
 		"categories": [
 			"Urban",
 			"Indoor"
@@ -297,6 +309,14 @@
 		"id": "wardrobe",
 		"moveable": false,
 		"name": "Wardrobe",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse",
+					"Generichouse_00"
+				]
+			}
+		},
 		"sprite": "wardrobe_80_40.png"
 	},
 	{
@@ -313,6 +333,13 @@
 		"id": "table_picknic",
 		"moveable": false,
 		"name": "Picnic table",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"sprite": "table_picknic_100_50.png"
 	},
 	{
@@ -329,6 +356,14 @@
 		"id": "chair_office",
 		"moveable": true,
 		"name": "Office chair",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse",
+					"Generichouse_00"
+				]
+			}
+		},
 		"sprite": "chair_office_50.png",
 		"weight": 1
 	},
@@ -346,6 +381,14 @@
 		"id": "table_metal",
 		"moveable": false,
 		"name": "Metal table",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse",
+					"Generichouse_00"
+				]
+			}
+		},
 		"sprite": "table_metal_100_50.png"
 	},
 	{
@@ -362,7 +405,15 @@
 		"id": "lamp_standing",
 		"moveable": true,
 		"name": "Standing lamp",
-		"sprite": "lamp_32.png",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse",
+					"Generichouse_00"
+				]
+			}
+		},
+		"sprite": "lamp_50.png",
 		"weight": 1
 	},
 	{
@@ -379,6 +430,14 @@
 		"id": "desk",
 		"moveable": false,
 		"name": "Desk",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse",
+					"Generichouse_00"
+				]
+			}
+		},
 		"sprite": "desk_100_50.png"
 	},
 	{
@@ -395,6 +454,13 @@
 		"id": "bathtub",
 		"moveable": false,
 		"name": "Bathtub",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse_00"
+				]
+			}
+		},
 		"sprite": "bathtub_100_50.png"
 	},
 	{
@@ -411,6 +477,14 @@
 		"id": "stove",
 		"moveable": false,
 		"name": "Stove",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse",
+					"Generichouse_00"
+				]
+			}
+		},
 		"sprite": "stove_50_48.png"
 	},
 	{
@@ -427,7 +501,15 @@
 		"id": "standing_mirror",
 		"moveable": false,
 		"name": "Standing mirror",
-		"sprite": "standing_mirror_32.png"
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse",
+					"Generichouse_00"
+				]
+			}
+		},
+		"sprite": "standing_mirror_50.png"
 	},
 	{
 		"categories": [
@@ -443,6 +525,13 @@
 		"id": "sofa",
 		"moveable": false,
 		"name": "Sofa",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse_00"
+				]
+			}
+		},
 		"sprite": "sofa_100_50.png"
 	}
 ]

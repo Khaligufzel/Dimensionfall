@@ -429,6 +429,13 @@
 		"image": "./Mods/Core/Items/jacket_32.png",
 		"max_stack_size": "1",
 		"name": "Jacket",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"clothing_general"
+				]
+			}
+		},
 		"sprite": "jacket_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -447,7 +454,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"cabinet_general"
+					"cabinet_general",
+					"clothing_general"
 				]
 			}
 		},
@@ -560,6 +568,13 @@
 		"image": "./Mods/Core/Items/gasmask_32.png",
 		"max_stack_size": "1",
 		"name": "Gas mask",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"clothing_general"
+				]
+			}
+		},
 		"sprite": "gasmask_32.png",
 		"stack_size": "1",
 		"two_handed": false,

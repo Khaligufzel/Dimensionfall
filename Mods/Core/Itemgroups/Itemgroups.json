@@ -381,5 +381,39 @@
 			}
 		},
 		"sprite": "bottle_empty_32.png"
+	},
+	{
+		"description": "Items you can find in a wardrobe",
+		"id": "clothing_general",
+		"items": [
+			{
+				"id": "jacket",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "boots",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "gas_mask",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			}
+		],
+		"mode": "Collection",
+		"name": "General clothing",
+		"references": {
+			"core": {
+				"furniture": [
+					"wardrobe"
+				]
+			}
+		},
+		"sprite": "jacket_32.png"
 	}
 ]

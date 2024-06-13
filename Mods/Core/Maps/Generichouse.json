@@ -376,6 +376,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 270
+				},
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
@@ -428,6 +432,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 270
+				},
 				"id": "floor_wood_realistic01"
 			},
 			{
@@ -474,6 +482,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "table_metal"
+				},
 				"id": "concrete_00",
 				"rotation": 180
 			},
@@ -490,6 +501,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "table_metal"
+				},
 				"id": "concrete_00",
 				"rotation": 180
 			},
@@ -728,6 +742,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 270
+				},
 				"id": "floor_wood_realistic01"
 			},
 			{
@@ -978,6 +996,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "standing_mirror",
+					"rotation": 270
+				},
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 180
 			},
@@ -1258,6 +1280,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 270
+				},
 				"id": "orange_carpet_00",
 				"rotation": 180
 			},
@@ -1310,7 +1336,7 @@
 			},
 			{
 				"furniture": {
-					"id": "countertop_wood",
+					"id": "stove",
 					"rotation": 180
 				},
 				"id": "floor_wood_realistic01"
@@ -1403,7 +1429,7 @@
 			},
 			{
 				"furniture": {
-					"id": "countertop_wood",
+					"id": "stove",
 					"rotation": 180
 				},
 				"id": "orange_carpet_00",
@@ -1442,6 +1468,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "bench_garden"
+				},
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
@@ -2658,6 +2687,10 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "table_picknic",
+					"rotation": 180
+				},
 				"id": "grass_flowers_01",
 				"rotation": 270
 			},
@@ -2762,6 +2795,10 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "bench_garden",
+					"rotation": 180
+				},
 				"id": "grass_plain_01"
 			},
 			{
@@ -2791,8 +2828,7 @@
 			},
 			{
 				"furniture": {
-					"id": "countertop_wood",
-					"rotation": 0
+					"id": "stove"
 				},
 				"id": "orange_carpet_00"
 			},
@@ -2867,8 +2903,7 @@
 			},
 			{
 				"furniture": {
-					"id": "countertop_wood",
-					"rotation": 0
+					"id": "stove"
 				},
 				"id": "bathroom_tiles_blue_00"
 			},
@@ -2911,6 +2946,10 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 270
+				},
 				"id": "orange_carpet_00"
 			},
 			{
@@ -3352,6 +3391,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 90
+				},
 				"id": "blue_carpet_00"
 			},
 			{
@@ -3549,6 +3592,10 @@
 				"id": "concrete_00"
 			},
 			{
+				"furniture": {
+					"id": "table_metal",
+					"rotation": 180
+				},
 				"id": "concrete_00"
 			},
 			{
@@ -3561,6 +3608,10 @@
 				"id": "concrete_00"
 			},
 			{
+				"furniture": {
+					"id": "table_metal",
+					"rotation": 180
+				},
 				"id": "concrete_00"
 			},
 			{
@@ -3607,6 +3658,10 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 90
+				},
 				"id": "floor_wood_boards_08"
 			},
 			{
@@ -3647,6 +3702,10 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 270
+				},
 				"id": "floor_wood_boards_05"
 			},
 			{
@@ -8318,8 +8377,7 @@
 			},
 			{
 				"furniture": {
-					"id": "bookcase_wood_00",
-					"rotation": 0
+					"id": "wardrobe"
 				},
 				"id": "floor_wood_boards_03",
 				"rotation": 180
@@ -8433,8 +8491,7 @@
 			},
 			{
 				"furniture": {
-					"id": "chair_wood",
-					"rotation": 180
+					"id": "chair_office"
 				},
 				"id": "floor_wood_boards_02",
 				"rotation": 180
@@ -8448,6 +8505,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 90
+				},
 				"id": "floor_wood_boards_02",
 				"rotation": 180
 			},
@@ -8565,8 +8626,8 @@
 			},
 			{
 				"furniture": {
-					"id": "table_round_wood",
-					"rotation": 0
+					"id": "desk",
+					"rotation": 180
 				},
 				"id": "floor_wood_boards_02",
 				"rotation": 180
@@ -8621,8 +8682,7 @@
 			},
 			{
 				"furniture": {
-					"id": "chair_wood",
-					"rotation": 180
+					"id": "chair_office"
 				},
 				"id": "floor_wood_boards_06",
 				"rotation": 180
@@ -8631,6 +8691,9 @@
 				"id": "brick_wall_00"
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing"
+				},
 				"id": "floor_wood_boards_06",
 				"rotation": 180
 			},
@@ -8640,8 +8703,7 @@
 			},
 			{
 				"furniture": {
-					"id": "chair_wood",
-					"rotation": 180
+					"id": "chair_office"
 				},
 				"id": "floor_wood_boards_06",
 				"rotation": 180
@@ -8691,8 +8753,7 @@
 			},
 			{
 				"furniture": {
-					"id": "chair_wood",
-					"rotation": 180
+					"id": "chair_office"
 				},
 				"id": "blue_carpet_00",
 				"rotation": 180
@@ -8703,7 +8764,7 @@
 			},
 			{
 				"furniture": {
-					"id": "bench_wood",
+					"id": "wardrobe",
 					"rotation": 90
 				},
 				"id": "blue_carpet_00",
@@ -8754,13 +8815,17 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 180
+				},
 				"id": "floor_wood_boards_06",
 				"rotation": 180
 			},
 			{
 				"furniture": {
-					"id": "table_round_wood",
-					"rotation": 270
+					"id": "desk",
+					"rotation": 180
 				},
 				"id": "floor_wood_boards_06",
 				"rotation": 180
@@ -8786,7 +8851,7 @@
 			},
 			{
 				"furniture": {
-					"id": "table_round_wood",
+					"id": "desk",
 					"rotation": 180
 				},
 				"id": "floor_wood_boards_06",
@@ -8845,7 +8910,7 @@
 			},
 			{
 				"furniture": {
-					"id": "table_round_wood",
+					"id": "desk",
 					"rotation": 180
 				},
 				"id": "blue_carpet_00",
@@ -10274,12 +10339,14 @@
 				"id": "blue_carpet_00"
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing"
+				},
 				"id": "blue_carpet_00"
 			},
 			{
 				"furniture": {
-					"id": "table_round_wood",
-					"rotation": 180
+					"id": "desk"
 				},
 				"id": "blue_carpet_00"
 			},
@@ -10369,6 +10436,9 @@
 				"id": "floor_wood_boards_06"
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing"
+				},
 				"id": "floor_wood_boards_06"
 			},
 			{
@@ -10409,7 +10479,7 @@
 			},
 			{
 				"furniture": {
-					"id": "bench_wood",
+					"id": "wardrobe",
 					"rotation": 270
 				},
 				"id": "blue_carpet_00"
@@ -10419,7 +10489,8 @@
 			},
 			{
 				"furniture": {
-					"id": "chair_wood"
+					"id": "chair_office",
+					"rotation": 180
 				},
 				"id": "blue_carpet_00"
 			},
@@ -10481,6 +10552,10 @@
 				"id": "floor_wood_boards_06"
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 90
+				},
 				"id": "floor_wood_boards_06"
 			},
 			{
@@ -10531,12 +10606,14 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing"
+				},
 				"id": "floor_wood_boards_03"
 			},
 			{
 				"furniture": {
-					"id": "table_round_wood",
-					"rotation": 0
+					"id": "desk"
 				},
 				"id": "floor_wood_boards_02"
 			},
@@ -10658,7 +10735,8 @@
 			},
 			{
 				"furniture": {
-					"id": "chair_wood"
+					"id": "chair_office",
+					"rotation": 180
 				},
 				"id": "floor_wood_boards_02"
 			},
@@ -10763,7 +10841,7 @@
 			},
 			{
 				"furniture": {
-					"id": "bookcase_wood_00",
+					"id": "wardrobe",
 					"rotation": 180
 				},
 				"id": "floor_wood_boards_03"

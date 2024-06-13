@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://corjcfnckrcu3"
-path="res://.godot/imported/lamp_32.png-0eb83d7f7158e8234c302d16a485180d.ctex"
+uid="uid://v8j7rompn675"
+path="res://.godot/imported/standing_mirror_50.png-7c90e82018aa1bc32498d734e6b8e1cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Furniture/lamp_32.png"
-dest_files=["res://.godot/imported/lamp_32.png-0eb83d7f7158e8234c302d16a485180d.ctex"]
+source_file="res://Mods/Core/Furniture/standing_mirror_50.png"
+dest_files=["res://.godot/imported/standing_mirror_50.png-7c90e82018aa1bc32498d734e6b8e1cf.ctex"]
 
 [params]
 
