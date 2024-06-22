@@ -72,6 +72,17 @@
 		"description": "A smooth surface for vehicles to drive on",
 		"id": "road_asphalt_basic",
 		"name": "Basic asphalt road",
+		"references": {
+			"core": {
+				"maps": [
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "asphalt_basic.png"
 	},
 	{
@@ -124,7 +135,12 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -138,6 +154,15 @@
 		"description": "Wooden stairs that allow you to move up and down",
 		"id": "wood_stairs",
 		"name": "Wooden stairs",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "slope",
 		"sprite": "4.png"
 	},
@@ -160,6 +185,15 @@
 		"description": "A warm red carpet",
 		"id": "red_carpet_00",
 		"name": "Red carpet",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "redcarpet.png"
 	},
@@ -171,6 +205,15 @@
 		"description": "A warm blue carpet",
 		"id": "blue_carpet_00",
 		"name": "Blue carpet",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "bluecarpet.png"
 	},
@@ -182,6 +225,15 @@
 		"description": "A warm orange carpet",
 		"id": "orange_carpet_00",
 		"name": "Orange carpet",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "browncarpet.png"
 	},
@@ -193,6 +245,15 @@
 		"description": "A road made out of stones shaped like a beehive",
 		"id": "beehive_stones_00",
 		"name": "Beehive stones",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "beehive1.png"
 	},
@@ -204,6 +265,15 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_00",
 		"name": "Wooden floor boards",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "woodboards10.png"
 	},
@@ -215,6 +285,14 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_01",
 		"name": "Wooden floor boards",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "woodboards11.png"
 	},
@@ -226,6 +304,14 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_02",
 		"name": "Wooden floor boards",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "woodboards12.png"
 	},
@@ -237,6 +323,15 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_03",
 		"name": "Wooden floor boards",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "woodboards13.png"
 	},
@@ -248,6 +343,14 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_04",
 		"name": "Wooden floor boards",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "woodboards14.png"
 	},
@@ -259,6 +362,15 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_05",
 		"name": "Wooden floor boards",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "woodboards6.png"
 	},
@@ -281,6 +393,15 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_07",
 		"name": "Wooden floor boards",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "woodboards8.png"
 	},
@@ -292,6 +413,14 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_08",
 		"name": "Wooden floor boards",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "woodboards9.png"
 	},
@@ -584,6 +713,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted yellow",
 		"id": "kitchen_tiles_yellow_01",
 		"name": "Kitchen tiles (yellow)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_cross"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentiles1.png"
 	},
@@ -595,6 +731,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted yellow",
 		"id": "kitchen_tiles_yellow_02",
 		"name": "Kitchen tiles (yellow)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "Kitchentiles2.png"
 	},
@@ -606,6 +749,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
 		"id": "kitchen_tiles_mint_00",
 		"name": "Kitchen tiles (mint)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilesblue.png"
 	},
@@ -617,6 +767,15 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
 		"id": "kitchen_tiles_mint_01",
 		"name": "Kitchen tiles (mint)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilesblue1.png"
 	},
@@ -628,6 +787,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
 		"id": "kitchen_tiles_mint_02",
 		"name": "Kitchen tiles (mint)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilesblue2.png"
 	},
@@ -639,6 +805,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
 		"id": "kitchen_tiles_mint_03",
 		"name": "Kitchen tiles (mint)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilesblue3.png"
 	},
@@ -650,6 +823,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted green",
 		"id": "kitchen_tiles_green_00",
 		"name": "Kitchen tiles (green)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilesgreen.png"
 	},
@@ -661,6 +841,15 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted green",
 		"id": "kitchen_tiles_green_01",
 		"name": "Kitchen tiles (green)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilesgreen1.png"
 	},
@@ -683,6 +872,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted blue",
 		"id": "kitchen_tiles_blue_00",
 		"name": "Kitchen tiles (blue)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "KitchentilesPurple.png"
 	},
@@ -694,6 +890,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted blue",
 		"id": "kitchen_tiles_blue_01",
 		"name": "Kitchen tiles (blue)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilespurple1.png"
 	},
@@ -705,6 +908,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted blue",
 		"id": "kitchen_tiles_blue_02",
 		"name": "Kitchen tiles (blue)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "Kitchentilespurple2.png"
 	},
@@ -716,6 +926,15 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted purple",
 		"id": "kitchen_tiles_purple_00",
 		"name": "Kitchen tiles (purple)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilespurple3.png"
 	},
@@ -793,7 +1012,11 @@
 					"field_grass_flowers_00",
 					"field_grass_hill_00",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -813,7 +1036,11 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -834,7 +1061,11 @@
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
 					"field_grass_hill_00",
-					"Generichouse"
+					"Generichouse",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -854,7 +1085,11 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -874,7 +1109,12 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -894,7 +1134,10 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner"
 				]
 			}
 		},
@@ -942,7 +1185,10 @@
 				"maps": [
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner"
 				]
 			}
 		},
@@ -962,7 +1208,11 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -982,7 +1232,11 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1002,7 +1256,11 @@
 					"field_grass_basic_00",
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1126,7 +1384,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1143,7 +1404,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"generichouse_corner"
 				]
 			}
 		},
@@ -1288,6 +1550,13 @@
 		"description": "A tiled floor with colorful stones",
 		"id": "cobblestone_01",
 		"name": "Cobblestone",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "cobblestone2.png"
 	},
@@ -1298,6 +1567,14 @@
 		"description": "A tiled floor with colorful stones",
 		"id": "cobblestone_02",
 		"name": "Cobblestone",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "cobblestone3.png"
 	},
@@ -1329,6 +1606,15 @@
 		"description": "A solid wall made out of bricks",
 		"id": "brick_wall_01",
 		"name": "Brick wall",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "brickroad.png"
 	},
@@ -1340,6 +1626,13 @@
 		"description": "A solid wall made out of bricks",
 		"id": "brick_wall_02",
 		"name": "Brick wall",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "brickroad1.png"
 	},
@@ -1362,6 +1655,14 @@
 		"description": "A tiled floor you would find in a bathroom. The tiles are painted blue",
 		"id": "bathroom_tiles_blue_00",
 		"name": "Bathroom tiles (blue)",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "bathroomtiles.png"
 	},
@@ -1373,6 +1674,13 @@
 		"description": "A stone floor wihere the stones are shaped like an arch. Used in an urban environement.",
 		"id": "arc_stones_floor_00",
 		"name": "Arc stones floor",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "arcstones1.png"
 	},
@@ -1384,6 +1692,15 @@
 		"description": "Part of the street that indicates this is a zone for pedestrians to walk on",
 		"id": "sidewalk_00",
 		"name": "Sidewalk",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_t",
+					"generichouse_cross"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "sidewalk.png"
 	},
@@ -1394,6 +1711,14 @@
 		"description": "Concrete provides a smooth floor for wheels and is hard to break",
 		"id": "concrete_00",
 		"name": "Concrete",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "concrete.png"
 	},
@@ -1406,6 +1731,15 @@
 		"description": "This window will let light trough but blocks objects",
 		"id": "glass_window_00",
 		"name": "Glass window",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "glass_window.png",
 		"transparent": true
@@ -1457,7 +1791,12 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},

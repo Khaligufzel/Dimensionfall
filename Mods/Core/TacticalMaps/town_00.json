@@ -1,0 +1,139 @@
+{
+	"chunks": [
+		{
+			"id": "field_grass_basic_00.json",
+			"rotation": 270
+		},
+		{
+			"id": "field_grass_hill_00.json"
+		},
+		{
+			"id": "field_grass_basic_00.json",
+			"rotation": 180
+		},
+		{
+			"id": "field_grass_basic_00.json",
+			"rotation": 270
+		},
+		{
+			"id": "urbanroad_corner.json",
+			"rotation": 180
+		},
+		{
+			"id": "urbanroad.json"
+		},
+		{
+			"id": "field_grass_basic_00.json",
+			"rotation": 180
+		},
+		{
+			"id": "generichouse_corner.json",
+			"rotation": 180
+		},
+		{
+			"id": "generichouse_t.json",
+			"rotation": 270
+		},
+		{
+			"id": "generichouse_t.json",
+			"rotation": 270
+		},
+		{
+			"id": "generichouse_t.json"
+		},
+		{
+			"id": "field_grass_basic_00.json",
+			"rotation": 180
+		},
+		{
+			"id": "urbanroad.json",
+			"rotation": 180
+		},
+		{
+			"id": "generichouse_cross.json",
+			"rotation": 180
+		},
+		{
+			"id": "generichouse_cross.json"
+		},
+		{
+			"id": "generichouse_cross.json"
+		},
+		{
+			"id": "generichouse_t.json"
+		},
+		{
+			"id": "field_grass_basic_00.json"
+		},
+		{
+			"id": "field_grass_basic_00.json",
+			"rotation": 270
+		},
+		{
+			"id": "generichouse_t.json",
+			"rotation": 180
+		},
+		{
+			"id": "generichouse_cross.json"
+		},
+		{
+			"id": "generichouse_cross.json"
+		},
+		{
+			"id": "generichouse_t.json"
+		},
+		{
+			"id": "field_grass_hill_00.json",
+			"rotation": 270
+		},
+		{
+			"id": "field_grass_basic_00.json",
+			"rotation": 180
+		},
+		{
+			"id": "generichouse_corner.json",
+			"rotation": 90
+		},
+		{
+			"id": "generichouse_t.json",
+			"rotation": 90
+		},
+		{
+			"id": "generichouse_t.json",
+			"rotation": 90
+		},
+		{
+			"id": "generichouse_t.json",
+			"rotation": 90
+		},
+		{
+			"id": "urbanroad_corner.json",
+			"rotation": 270
+		},
+		{
+			"id": "field_grass_basic_00.json",
+			"rotation": 90
+		},
+		{
+			"id": "field_grass_hole_00.json"
+		},
+		{
+			"id": "field_grass_basic_00.json",
+			"rotation": 270
+		},
+		{
+			"id": "field_grass_hole_00.json",
+			"rotation": 90
+		},
+		{
+			"id": "field_grass_basic_00.json",
+			"rotation": 180
+		},
+		{
+			"id": "urbanroad.json",
+			"rotation": 90
+		}
+	],
+	"mapheight": 6,
+	"mapwidth": 6
+}

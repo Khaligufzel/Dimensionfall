@@ -13,6 +13,15 @@
 		"id": "table_round_wood",
 		"moveable": true,
 		"name": "Round wooden table",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "table_64.png",
 		"weight": 10
 	},
@@ -30,6 +39,15 @@
 		"id": "chair_wood",
 		"moveable": true,
 		"name": "Wooden chair",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "chair_32.png",
 		"weight": 2
 	},
@@ -57,6 +75,15 @@
 		"id": "countertop_wood",
 		"moveable": false,
 		"name": "Wooden countertop",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "countertop_100_52.png"
 	},
 	{
@@ -76,7 +103,10 @@
 			"core": {
 				"maps": [
 					"field_grass_basic_00",
-					"field_grass_basic_01"
+					"field_grass_basic_01",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner"
 				]
 			}
 		},
@@ -98,7 +128,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic_01"
+					"field_grass_basic_01",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner"
 				]
 			}
 		},
@@ -120,7 +153,10 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_basic_01"
+					"field_grass_basic_01",
+					"urbanroad_t",
+					"urbanroad_corner",
+					"generichouse_corner"
 				]
 			}
 		},
@@ -140,6 +176,15 @@
 		"id": "bench_wood",
 		"moveable": false,
 		"name": "Wooden bench",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "bench_wood_100_50.png"
 	},
 	{
@@ -155,6 +200,15 @@
 		"id": "plant_pot_00",
 		"moveable": true,
 		"name": "Potted plant",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "pot_plant_32_32.png",
 		"weight": 1
 	},
@@ -173,6 +227,15 @@
 		"id": "bed_wood_single_00",
 		"moveable": false,
 		"name": "Wooden bed",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "bed_wood_100_50.png"
 	},
 	{
@@ -194,6 +257,15 @@
 		"id": "cabinet_wood_00",
 		"moveable": false,
 		"name": "Wooden cabinet",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "cabinet_wood_100_50.png"
 	},
 	{
@@ -210,6 +282,15 @@
 		"id": "bookcase_wood_00",
 		"moveable": false,
 		"name": "Wooden bookcase",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "bookcase_wood_100_50.png"
 	},
 	{
@@ -226,6 +307,15 @@
 		"id": "refrigerator_00",
 		"moveable": false,
 		"name": "Refrigerator",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "refrigerator_50_48.png"
 	},
 	{
@@ -241,6 +331,15 @@
 		"id": "toilet_00",
 		"moveable": false,
 		"name": "Toilet",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "toilet_48.png"
 	},
 	{
@@ -260,6 +359,15 @@
 		"id": "door_wood",
 		"moveable": false,
 		"name": "Wooden door",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t"
+				]
+			}
+		},
 		"sprite": "door_100_13.png"
 	}
 ]
