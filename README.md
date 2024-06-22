@@ -21,7 +21,12 @@ Until releases are shared on GitHub, you can play the game in the following way:
 The game has the following features:
 
 ### Combat:
-Ranged and melee combat is currently implemented. One-handed weapons can be dual-wielded. Two-handed weapons will take up both slots. You can load and unload guns and magazines. Ammunition and other loot can be looted from enemy corpses.
+Ranged and melee combat are currently implemented. 
+- One-handed weapons can be dual-wielded, while two-handed weapons will occupy both slots.
+- Load and unload guns and magazines.
+- Ammunition and other loot can be collected from enemy corpses.
+- Increase your accuracy by gaining ranged combat skills and managing recoil.
+
 
 ### Inventory
 - You have to manage weight and volume.
@@ -45,7 +50,7 @@ The game will create an overmap where some areas are suitable for travel. Each v
 
 
 ### Content editor
-Content for this game is created in the content editor. On the left you can select content to edit. You can edit tacticalmaps, maps, items, tiles, furniture, mobs, itemgroups and wearable slots. 
+Content for this game is created in the content editor. On the left you can select content to edit. You can edit tacticalmaps, maps, items, tiles, furniture, mobs, itemgroups and wearable slots, skills and stats. 
 - All content is saved as JSON, which allows you to edit the files manually or using an external editor if you want to.
 - Content is loaded as mods, even the core content. Put all your json and sprites into /mods/yourmod/ and it can be read by the game (only core content is read at the moment, full mod support will be implemented)
 ![Catax_content_editor](Media/Catax_content_editor.png)
@@ -60,6 +65,7 @@ A tacticalmap is made from maps. This allows you to piece together a bigger map.
 A map has a fixed size of 32x32 and has a maximum of 21 levels in height, ranging from -10 to +10. 
 - Place tiles, mobs and furniture onto the grid and get creative
 - Controls allow you to move up and down, zoom, rotate, copy/paste and more
+- Compose a custom brush with the Brush Composer, aiding in quick (randomized) terrain painting.
 
 ![Catax_map_editor](Media/Catax_map_editor.png)
 
@@ -83,7 +89,7 @@ Allows you to create new mobs and configure them. You can then use the map edito
 
 
 # Furniture editor
-Create new furniture or edit existing ones with this editor. After creating them, you can place them on the map with the map editor.
+Create new furniture or edit existing ones with this editor. After creating them, you can place them on the map with the Map Editor. Hover over the controls to get information about each of them.
 
 ![Catax_furniture_editor](Media/Catax_furniture_editor.png)
 
@@ -100,6 +106,20 @@ Specify itemgroups, used to spawn items in various locations including container
 Ever wanted to create that unique piece of armor, but didn't have that slot to fit it in? Now you can add your own slots. These show up in the player's inventory and enables the player to equip armor into it.
 
 ![Catax_furniture_editor](Media/Catax_wearableslots_editor.png)
+
+
+
+# Stats editor
+Add your own stats to the game. Stats are not implemented yet, but you can define them.
+
+![Catax_furniture_editor](Media/Catax_stats_editor.png)
+
+
+
+# Skills editor
+Make any and every skill you need! Some are included in the core mod, but you can easily add your own in the Skills Editor. After they are created, use them in weapon or recipe configuration for other entities.
+
+![Catax_furniture_editor](Media/Catax_skills_editor.png)
 
 
 ## Roadmap
