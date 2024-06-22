@@ -77,18 +77,18 @@ func initialize_chunk_data():
 		if chunk_data.has("rotation") and not chunk_data.rotation == 0:
 			rotate_map(mapsegmentData)
 		_mapleveldata = mapsegmentData.levels
-		generate_new_chunk()
+		Helper.task_manager.create_task(generate_new_chunk)
 	else: # This chunk is created from previously saved data
-		generate_saved_chunk()
+		Helper.task_manager.create_task(generate_saved_chunk)
 
 
 func generate_new_chunk():
 	block_positions = create_block_position_dictionary_new_arraymesh()
-	await Helper.task_manager.create_task(generate_chunk_mesh).completed
-	await Helper.task_manager.create_task(update_all_navigation_data).completed
+	generate_chunk_mesh()
+	update_all_navigation_data()
 	processed_level_data = process_level_data()
-	await Helper.task_manager.create_task(add_furnitures_to_new_block).completed
-	Helper.task_manager.create_task(add_block_mobs)
+	add_furnitures_to_new_block()
+	add_block_mobs()
 
 
 # Collects the furniture and mob data from the mapdata to be spawned later
@@ -150,15 +150,15 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 # After generating the mesh we add the items, furniture and mobs
 func generate_saved_chunk() -> void:
 	block_positions = chunk_data.block_positions
-	await Helper.task_manager.create_task(generate_chunk_mesh).completed
-	await Helper.task_manager.create_task(update_all_navigation_data).completed
+	generate_chunk_mesh()
+	update_all_navigation_data()
 	for item: Dictionary in chunk_data.items:
 		add_item_to_map(item)
 	
 	# We duplicate the furnituredata for thread safety
 	var furnituredata: Array = chunk_data.furniture.duplicate()
-	await Helper.task_manager.create_task(add_furnitures_to_map.bind(furnituredata)).completed
-	await Helper.task_manager.create_task(add_mobs_to_map).completed
+	add_furnitures_to_map(furnituredata)
+	add_mobs_to_map()
 
 
 # When a map is loaded for the first time we spawn the mob on the block
@@ -221,82 +221,12 @@ func remove_furniture_from_chunk(furniture_instance: Node3D):
 		furniture_instances.erase(furniture_instance)
 
 
-# Returns an array of furniture data that will be saved for this chunk
-# Furniture that has it's x and z position in the boundary of the chunk's position and size
-# will be included in the chunk data. So basically if the furniture is 'in' or 'on' the chunk.
-# Modified to account for moveable furniture potentially changing chunks
-func get_furniture_data() -> Array:
-	var furnitureData: Array = []
-	for furniture in furniture_instances:
-		if is_instance_valid(furniture):
-			furnitureData.append(furniture.get_data().duplicate())
-			furniture.queue_free.call_deferred()
-	return furnitureData
-
-
 # We check if the furniture or mob or item's position is inside this chunk on the x and z axis
 func _is_object_in_range(objectposition: Vector3) -> bool:
 		return objectposition.x >= mypos.x and \
 		objectposition.x < mypos.x + LEVEL_WIDTH and \
 		objectposition.z >= mypos.z and \
 		objectposition.z < mypos.z + LEVEL_HEIGHT
-
-
-# Save all the mobs and their current stats to the mobs file for this map
-func get_mob_data() -> Array:
-	var mobData: Array = []
-	var mapMobs = get_tree().get_nodes_in_group("mobs")
-	var newMobData: Dictionary
-	for mob in mapMobs:
-		# Check if furniture's position is within the desired range
-		if _is_object_in_range(mob.last_position):
-			mob.remove_from_group.call_deferred("mobs")
-			newMobData = {
-				"id": mob.mobJSON.id,
-				"global_position_x": mob.last_position.x,
-				"global_position_y": mob.last_position.y,
-				"global_position_z": mob.last_position.z,
-				"rotation": mob.last_rotation,
-				"melee_damage": mob.melee_damage,
-				"melee_range": mob.melee_range,
-				"health": mob.health,
-				"current_health": mob.current_health,
-				"move_speed": mob.moveSpeed,
-				"current_move_speed": mob.current_move_speed,
-				"idle_move_speed": mob.idle_move_speed,
-				"current_idle_move_speed": mob.current_idle_move_speed,
-				"sight_range": mob.sightRange,
-				"sense_range": mob.senseRange,
-				"hearing_range": mob.hearingRange
-			}
-			mobData.append(newMobData.duplicate())
-			mob.queue_free.call_deferred()
-	return mobData
-
-
-#Save the type and position of all mobs on the map
-func get_item_data() -> Array:
-	var itemData: Array = []
-	var myItem: Dictionary = {
-		"itemid": "item1", 
-		"global_position_x": 0, 
-		"global_position_y": 0, 
-		"global_position_z": 0, 
-		"inventory": []
-	}
-	var mapitems = get_tree().get_nodes_in_group("mapitems")
-	var newitemData: Dictionary
-	for item in mapitems:
-		if _is_object_in_range(item.containerpos):
-			item.remove_from_group.call_deferred("mapitems")
-			newitemData = myItem.duplicate()
-			newitemData["global_position_x"] = item.containerpos.x
-			newitemData["global_position_y"] = item.containerpos.y
-			newitemData["global_position_z"] = item.containerpos.z
-			newitemData["inventory"] = item.inventory.serialize()
-			itemData.append(newitemData.duplicate())
-			item.queue_free.call_deferred()
-	return itemData
 
 
 # Called when a save is loaded
@@ -358,33 +288,95 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 		OS.delay_msec(10)
 
 
+# Function to free all chunk-related instances
+func free_chunk_resources():
+	free_furniture_instances()
+	free_mob_instances(get_tree().get_nodes_in_group("mobs"))
+	free_item_instances(get_tree().get_nodes_in_group("mapitems"))
+	chunk_mesh_body.queue_free()
+	navigation_region.queue_free()
+	NavigationServer3D.free_rid(navigation_map_id)
+
+
+# Function to free the furniture instances
+func free_furniture_instances():
+	for furniture in furniture_instances:
+		if is_instance_valid(furniture):
+			furniture.queue_free.call_deferred()
+
+# Function to free the mob instances
+func free_mob_instances(mapMobs):
+	for mob in mapMobs:
+		if _is_object_in_range(mob.last_position):
+			mob.queue_free.call_deferred()
+
+# Function to free the item instances
+func free_item_instances(mapitems):
+	for item in mapitems:
+		if _is_object_in_range(item.containerpos):
+			item.queue_free.call_deferred()
+
+# Returns an array of furniture data that will be saved for this chunk
+# Furniture that has it's x and z position in the boundary of the chunk's position and size
+# will be included in the chunk data. So basically if the furniture is 'in' or 'on' the chunk.
+func get_furniture_data() -> Array:
+	var furnitureData: Array = []
+	for furniture in furniture_instances:
+		if is_instance_valid(furniture):
+			furnitureData.append(furniture.get_data().duplicate())
+	return furnitureData
+
+
+# Save all the mobs and their current stats to the mobs file for this map
+# Modified to remove queue_free calls
+func get_mob_data() -> Array:
+	var mobData: Array = []
+	var mapMobs = get_tree().get_nodes_in_group("mobs")
+	for mob in mapMobs:
+		if _is_object_in_range(mob.last_position):
+			mobData.append(mob.get_data().duplicate())
+	return mobData
+
+
+# Save the type and position of all items on the map
+func get_item_data() -> Array:
+	var itemData: Array = []
+	var mapitems = get_tree().get_nodes_in_group("mapitems")
+
+	for item in mapitems:
+		if _is_object_in_range(item.containerpos):
+			itemData.append(item.get_data())
+
+	return itemData
+
+
 # Returns all the chunk data used for saving and loading
-func get_chunk_data(chunkdata: Dictionary) -> void:
+func get_chunk_data() -> Dictionary:
+	var chunkdata = {}
 	mutex.lock()
 	chunkdata.chunk_x = mypos.x
 	chunkdata.chunk_z = mypos.z
 	mutex.unlock()
-	# The chunk is made from the block_positions data so we save this
 	chunkdata.block_positions = block_positions.duplicate()
 	chunkdata.furniture = get_furniture_data()
 	chunkdata.mobs = get_mob_data()
 	chunkdata.items = get_item_data()
-	
-	# Free the mesh and navigation elements
-	chunk_mesh_body.queue_free()
-	navigation_region.queue_free()
-	NavigationServer3D.free_rid(navigation_map_id)
+	return chunkdata
 
 
 # Called by LevelGenerator.gd which manages the chunks and also by Helper.save_helper when
 # switching to a different map. We start a new thread to collect map data and save it in
 # the helper variable. First we wait until the current thread is finished.
 func unload_chunk():
-	var chunkdata: Dictionary = {}
-	await Helper.task_manager.create_task(get_chunk_data.bind(chunkdata)).completed
+	await Helper.task_manager.create_task(save_and_unload_chunk).completed
+	chunk_unloaded.emit()
+
+
+func save_and_unload_chunk():
+	var chunkdata: Dictionary = get_chunk_data()
 	var chunkposition: Vector2 = Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))
 	Helper.loaded_chunk_data.chunks[chunkposition] = chunkdata
-	chunk_unloaded.emit()
+	free_chunk_resources()
 
 
 # Adds triangles represented by 3 vertices to the navigation mesh data
@@ -899,9 +891,10 @@ func create_colliders() -> void:
 		chunk_mesh_body.add_child.call_deferred(_create_block_collider(block_pos, block_shape, block_rotation))
 
 		block_counter += 1
-		# Check if it's time to delay
+		# Check if it's time to delay. We need to delay because the call_deferred
+		# will add the child on the main thread and we weant to spread it out
 		if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
-			await get_tree().create_timer(0.1).timeout
+			OS.delay_msec(100) # Adjust delay time as needed
 
 
 # Creates a collider for either a slope or a cube and puts it at the right place and rotation

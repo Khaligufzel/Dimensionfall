@@ -209,3 +209,12 @@ func insert_item(item: InventoryItem) -> bool:
 	if not item.get_inventory().transfer_autosplitmerge(item, inventory):
 		print_debug("Failed to transfer item: " + str(item))
 	return true
+
+func get_data() -> Dictionary:
+	var newitemData: Dictionary = {
+		"global_position_x": containerpos.x, 
+		"global_position_y": containerpos.y, 
+		"global_position_z": containerpos.z, 
+		"inventory": inventory.serialize()
+	}
+	return newitemData

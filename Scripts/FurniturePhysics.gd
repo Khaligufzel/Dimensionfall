@@ -15,39 +15,18 @@ var current_chunk: Chunk
 var is_animating_hit: bool = false # flag to prevent multiple blink actions
 var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
 var current_health: float = 10.0
-# Wait for the chunk to completely spawn. Otherwise the furniture will fall
-# trough the floor. TODO: Replace with signal from the chunk to finish loading
-var allow_move: bool = false 
 
 
 func _ready():
-	# Add a Timer node so we can wait for the chunk to pawn
-	freeze = true
-	var timer = Timer.new()
-	timer.wait_time = 2
-	timer.one_shot = true
-	add_child(timer)
-	timer.start()
-	timer.timeout.connect(_on_timer_timeout)
-	
+	set_position(furnitureposition)
 	#set_position.call_deferred(furnitureposition)
 	set_new_rotation(furniturerotation)
 	last_rotation = furniturerotation
 
-func _on_timer_timeout():
-	# After the chunk is (hopefully) spawned, set the position
-	set_position.call_deferred(furnitureposition)
-
 # Keep track of the furniture's position and rotation. It starts at 0,0,0 and the moves to it's
 # assigned position after a timer. Until that has happened, we don't need to keep track of it's position
 func _physics_process(_delta):
-	if global_transform.origin == furnitureposition and freeze:
-		# This is a hacky way to keep the furniture in it's position after
-		# _on_timer_timeout is called. All furniture will be at 0,0,0 until
-		# _on_timer_timeout is called
-		allow_move = true
-		freeze = false
-	elif allow_move:
+	if not global_transform.origin == furnitureposition:
 		_moved(global_transform.origin)
 	var current_rotation = int(rotation_degrees.y)
 	if current_rotation != last_rotation:

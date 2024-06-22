@@ -291,3 +291,25 @@ func _on_tween_finished():
 	var surfacematerial = surfacemesh.surface_get_material(0)
 	surfacematerial.set_feature(BaseMaterial3D.FEATURE_EMISSION, false)
 	is_blinking = false
+
+
+func get_data() -> Dictionary:
+	var newMobData = {
+				"id": mobJSON.id,
+				"global_position_x": last_position.x,
+				"global_position_y": last_position.y,
+				"global_position_z": last_position.z,
+				"rotation": last_rotation,
+				"melee_damage": melee_damage,
+				"melee_range": melee_range,
+				"health": health,
+				"current_health": current_health,
+				"move_speed": moveSpeed,
+				"current_move_speed": current_move_speed,
+				"idle_move_speed": idle_move_speed,
+				"current_idle_move_speed": current_idle_move_speed,
+				"sight_range": sightRange,
+				"sense_range": senseRange,
+				"hearing_range": hearingRange
+			}
+	return newMobData
