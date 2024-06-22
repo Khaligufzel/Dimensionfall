@@ -180,11 +180,16 @@ func add_corpse(pos: Vector3):
 			newItem.itemgroup = itemgroup
 		
 		newItem.add_to_group("mapitems")
-		newItem.construct_self(pos)
-		
+		var itemdata: Dictionary = {}
+		itemdata["global_position_x"] = pos.x
+		itemdata["global_position_y"] = pos.y
+		itemdata["global_position_z"] = pos.z
+
 		var fursprite = furnitureJSONData.get("destruction", {}).get("sprite", null)
 		if fursprite:
-			newItem.set_texture(fursprite)
+			itemdata["texture_id"] = fursprite
+		
+		newItem.construct_self(itemdata)
 		
 		# Finally add the new item with possibly set loot group to the tree
 		get_tree().get_root().add_child.call_deferred(newItem)
@@ -205,11 +210,16 @@ func add_wreck(pos: Vector3):
 			newItem.itemgroup = itemgroup
 		
 		newItem.add_to_group("mapitems")
-		newItem.construct_self(pos)
+		var itemdata: Dictionary = {}
+		itemdata["global_position_x"] = pos.x
+		itemdata["global_position_y"] = pos.y
+		itemdata["global_position_z"] = pos.z
 		
 		var fursprite = furnitureJSONData.get("disassembly", {}).get("sprite", null)
 		if fursprite:
-			newItem.set_texture(fursprite)
+			itemdata["texture_id"] = fursprite
+		
+		newItem.construct_self(itemdata)
 		
 		# Finally add the new item with possibly set loot group to the tree
 		get_tree().get_root().add_child.call_deferred(newItem)

@@ -9,6 +9,7 @@ extends Node3D
 var inventory: InventoryStacked
 var containerpos: Vector3
 var sprite_3d: Sprite3D
+var texture_id: String # The ID of the texture set for this container
 var itemgroup: String # The ID of an itemgroup that it creates loot from
 
 
@@ -67,10 +68,14 @@ func create_loot():
 func deserialize_and_apply_items(items_data: Dictionary):
 	inventory.deserialize(items_data)
 	
-	if inventory.get_items().size() > 0 and sprite_3d.texture == load("res://Textures/container_32.png"):
-		sprite_3d.texture = load("res://Textures/container_filled_32.png")
+	var default_texture: Texture = load("res://Textures/container_32.png")
+	
+	if inventory.get_items().size() > 0:
+		if sprite_3d.texture == default_texture:
+			sprite_3d.texture = load("res://Textures/container_filled_32.png")
+		# Else, some other texture has been set so we keep that
 	else:
-		sprite_3d.texture = load("res://Textures/container_32.png")
+		sprite_3d.texture = default_texture
 		_on_item_removed(null)
 
 
@@ -85,12 +90,16 @@ func create_inventory():
 
 
 # Basic setup for this container. Should be called before adding it to the scene tree
-func construct_self(containerPos: Vector3):
-	containerpos = containerPos
+func construct_self(item: Dictionary):
+	containerpos = Vector3(item.global_position_x,item.global_position_y,item.global_position_z)
 	add_to_group("Containers")
 	create_inventory()
-	create_sprite()
 	create_area3d()
+	if item.has("inventory"):
+		deserialize_and_apply_items.call_deferred(item.inventory)
+	if item.has("texture_id"):
+		texture_id = item.texture_id
+	create_sprite()
 
 
 # Creates the sprite with some default properties
@@ -117,7 +126,8 @@ func create_sprite():
 	sprite_3d.alpha_antialiasing_edge = 0
 	sprite_3d.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	sprite_3d.render_priority = 10
-	sprite_3d.texture = load("res://Textures/container_32.png")
+	set_texture(texture_id)
+	#sprite_3d.texture = load("res://Textures/container_32.png")
 
 	# Add to the scene tree
 	add_child.call_deferred(sprite_3d)
@@ -125,9 +135,13 @@ func create_sprite():
 
 # Updates the texture of this container. If no texture is provided, we use the default
 func set_texture(mytex: String):
+	if not mytex:
+		sprite_3d.texture = load("res://Textures/container_32.png")
+		return
 	var newsprite: Texture = Gamedata.data.furniture.sprites[mytex]
 	if newsprite:
 		sprite_3d.texture = newsprite
+		texture_id = mytex  # Save the texture ID
 	else:
 		sprite_3d.texture = load("res://Textures/container_32.png")
 
@@ -210,6 +224,9 @@ func insert_item(item: InventoryItem) -> bool:
 		print_debug("Failed to transfer item: " + str(item))
 	return true
 
+
+# Saves the data for this container to a JSON dictionary, 
+# intended to be saved to disk
 func get_data() -> Dictionary:
 	var newitemData: Dictionary = {
 		"global_position_x": containerpos.x, 
@@ -217,4 +234,7 @@ func get_data() -> Dictionary:
 		"global_position_z": containerpos.z, 
 		"inventory": inventory.serialize()
 	}
+	if texture_id:
+		newitemData["texture_id"] = texture_id
+	
 	return newitemData

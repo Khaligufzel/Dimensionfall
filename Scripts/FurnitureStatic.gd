@@ -222,7 +222,11 @@ func get_data() -> Dictionary:
 func add_container(pos: Vector3):
 	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
 		container = ContainerItem.new()
-		container.construct_self(pos)
+		var containerdata: Dictionary = {}
+		containerdata["global_position_x"] = pos.x
+		containerdata["global_position_y"] = pos.y
+		containerdata["global_position_z"] = pos.z
+		container.construct_self(containerdata)
 		handle_container_population()
 		add_child(container)
 
@@ -312,7 +316,11 @@ func add_corpse(pos: Vector3):
 			newItem.itemgroup = itemgroup
 		
 		newItem.add_to_group("mapitems")
-		newItem.construct_self(pos)
+		var itemdata: Dictionary = {}
+		itemdata["global_position_x"] = pos.x
+		itemdata["global_position_y"] = pos.y
+		itemdata["global_position_z"] = pos.z
+		newItem.construct_self(itemdata)
 		
 		var fursprite = furnitureJSONData.get("destruction", {}).get("sprite", null)
 		if fursprite:
@@ -344,7 +352,11 @@ func add_wreck(pos: Vector3):
 			newItem.itemgroup = itemgroup
 		
 		newItem.add_to_group("mapitems")
-		newItem.construct_self(pos)
+		var itemdata: Dictionary = {}
+		itemdata["global_position_x"] = pos.x
+		itemdata["global_position_y"] = pos.y
+		itemdata["global_position_z"] = pos.z
+		newItem.construct_self(itemdata)
 		
 		var fursprite = furnitureJSONData.get("disassembly", {}).get("sprite", null)
 		if fursprite:

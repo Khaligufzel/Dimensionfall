@@ -92,7 +92,11 @@ func add_corpse(pos: Vector3):
 		print_debug("No loot_group found for mob ID: " + str(mobJSON.id))
 	
 	newItem.add_to_group("mapitems")
-	newItem.construct_self(pos)
+	var itemdata: Dictionary = {}
+	itemdata["global_position_x"] = pos.x
+	itemdata["global_position_y"] = pos.y
+	itemdata["global_position_z"] = pos.z
+	newItem.construct_self(itemdata)
 	# Finally add the new item with possibly set loot group to the tree
 	get_tree().get_root().add_child.call_deferred(newItem)
 
