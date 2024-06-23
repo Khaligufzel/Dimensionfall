@@ -3,9 +3,11 @@
 class_name ItemProtoset
 extends Resource
 
+const Utils = preload("res://addons/gloot/core/utils.gd")
+
 const KEY_ID: String = "id"
 
-@export_multiline var json_data :
+@export_multiline var json_data: String :
     set(new_json_data):
         json_data = new_json_data
         if !json_data.is_empty():
@@ -71,7 +73,7 @@ func _unstringify_prototype(prototype: Dictionary) -> void:
     for key in prototype.keys():
         var type = typeof(prototype[key])
         if type == TYPE_STRING:
-            var variant = str_to_var(prototype[key])
+            var variant = Utils.str_to_var(prototype[key])
             if variant != null:
                 prototype[key] = variant
 
