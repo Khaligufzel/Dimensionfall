@@ -112,7 +112,12 @@ text = "Group type"
 
 [node name="GroupTypeOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-tooltip_text = "Removes the selected item from the list"
+tooltip_text = "Collection Mode: Each item is picked independently. A probability of 100% 
+means the item always appears, while 0% means it never does. 
+
+Distribution Mode: One item is picked from the list. The item's probability 
+is relative to others. E.g., if an item A has a probability of 30 and another 
+item B has 20, A's chance is 60% (30 out of 50) and B's is 40% (20 out of 50)."
 
 [node name="ItemsLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2

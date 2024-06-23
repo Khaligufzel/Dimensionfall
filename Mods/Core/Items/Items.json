@@ -265,7 +265,8 @@
 			"core": {
 				"itemgroups": [
 					"kitchen_cupboard",
-					"cabinet_general"
+					"cabinet_general",
+					"refridgerator"
 				]
 			}
 		},
@@ -428,6 +429,13 @@
 		"image": "./Mods/Core/Items/jacket_32.png",
 		"max_stack_size": "1",
 		"name": "Jacket",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"clothing_general"
+				]
+			}
+		},
 		"sprite": "jacket_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -446,7 +454,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"cabinet_general"
+					"cabinet_general",
+					"clothing_general"
 				]
 			}
 		},
@@ -527,7 +536,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"kitchen_cupboard"
+					"kitchen_cupboard",
+					"refridgerator"
 				]
 			}
 		},
@@ -558,6 +568,13 @@
 		"image": "./Mods/Core/Items/gasmask_32.png",
 		"max_stack_size": "1",
 		"name": "Gas mask",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"clothing_general"
+				]
+			}
+		},
 		"sprite": "gasmask_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1225,6 +1242,13 @@
 		"image": "./Mods/Core/Items/tofu_32.png",
 		"max_stack_size": "5",
 		"name": "Tofu",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "tofu_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1237,6 +1261,13 @@
 		"image": "./Mods/Core/Items/bottle_yogurt_32.png",
 		"max_stack_size": "10",
 		"name": "Bottle of Yogurt",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "bottle_yogurt_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1297,6 +1328,13 @@
 		"image": "./Mods/Core/Items/bag_bacon_32.png",
 		"max_stack_size": "10",
 		"name": "Bag of Bacon",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "bag_bacon_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1345,6 +1383,13 @@
 		"image": "./Mods/Core/Items/slice_of_pizza_32.png",
 		"max_stack_size": "10",
 		"name": "Slice of Pizza",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "slice_of_pizza_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1357,6 +1402,13 @@
 		"image": "./Mods/Core/Items/vacuum_sealed_fish_32.png",
 		"max_stack_size": "10",
 		"name": "Vacuum Sealed Fish",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "vacuum_sealed_fish_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1369,6 +1421,13 @@
 		"image": "./Mods/Core/Items/tomato_32.png",
 		"max_stack_size": "20",
 		"name": "Tomato",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "tomato_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1381,6 +1440,13 @@
 		"image": "./Mods/Core/Items/lettuce_32.png",
 		"max_stack_size": "10",
 		"name": "Lettuce",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "lettuce_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1501,6 +1567,13 @@
 		"image": "./Mods/Core/Items/apple_32.png",
 		"max_stack_size": "20",
 		"name": "Apple",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "apple_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1525,6 +1598,13 @@
 		"image": "./Mods/Core/Items/carrot_32.png",
 		"max_stack_size": "20",
 		"name": "Carrot",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "carrot_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1537,6 +1617,13 @@
 		"image": "./Mods/Core/Items/eggs_32.png",
 		"max_stack_size": "5",
 		"name": "Eggs",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "eggs_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1549,6 +1636,13 @@
 		"image": "./Mods/Core/Items/butter_32.png",
 		"max_stack_size": "10",
 		"name": "Butter",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "butter_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1561,6 +1655,13 @@
 		"image": "./Mods/Core/Items/can_energydrink_32.png",
 		"max_stack_size": "20",
 		"name": "Energy Drink",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "can_energydrink_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1573,6 +1674,13 @@
 		"image": "./Mods/Core/Items/can_soda_32.png",
 		"max_stack_size": "20",
 		"name": "Soda",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "can_soda_32.png",
 		"stack_size": "1",
 		"two_handed": false,
@@ -1585,6 +1693,13 @@
 		"image": "./Mods/Core/Items/cheese_32.png",
 		"max_stack_size": "10",
 		"name": "Cheese",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"refridgerator"
+				]
+			}
+		},
 		"sprite": "cheese_32.png",
 		"stack_size": "1",
 		"two_handed": false,
