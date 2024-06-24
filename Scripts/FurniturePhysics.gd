@@ -17,7 +17,7 @@ var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
 var current_health: float = 10.0
 
 
-func _ready():
+func _ready() -> void:
 	set_position(furnitureposition)
 	#set_position.call_deferred(furnitureposition)
 	set_new_rotation(furniturerotation)
@@ -25,7 +25,7 @@ func _ready():
 
 # Keep track of the furniture's position and rotation. It starts at 0,0,0 and the moves to it's
 # assigned position after a timer. Until that has happened, we don't need to keep track of it's position
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	if not global_transform.origin == furnitureposition:
 		_moved(global_transform.origin)
 	var current_rotation = int(rotation_degrees.y)
@@ -33,7 +33,7 @@ func _physics_process(_delta):
 		last_rotation = current_rotation
 
 
-func set_new_rotation(amount: int):
+func set_new_rotation(amount: int) -> void:
 	var rotation_amount = amount
 	# Only previously saved furniture will have the global_position_x key. Rotation does not need adjustment
 	if not furnitureJSON.has("global_position_x"):
@@ -48,7 +48,7 @@ func set_new_rotation(amount: int):
 	sprite.rotation_degrees.x = 90 # Static 90 degrees to point at camera
 
 
-func set_sprite(newSprite: Texture):
+func set_sprite(newSprite: Texture) -> void:
 	if not sprite:
 		sprite = Sprite3D.new()
 		sprite.shaded = true
@@ -114,7 +114,7 @@ func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 
 
 # Check if we crossed the chunk boundary and update our association with the chunks
-func _moved(newpos:Vector3):
+func _moved(newpos:Vector3) -> void:
 	furnitureposition = newpos
 	var new_chunk = Helper.map_manager.get_chunk_from_position(furnitureposition)
 	if not current_chunk == new_chunk:
@@ -137,7 +137,7 @@ func get_data() -> Dictionary:
 
 # The furniture will move 0.2 meters in a random direction to indicate that it's hit
 # Then it will return to its original position
-func animate_hit():
+func animate_hit() -> void:
 	is_animating_hit = true
 
 	var directions = [Vector3(0.1, 0, 0), Vector3(-0.1, 0, 0), Vector3(0, 0, 0.1), Vector3(0, 0, -0.1)]
@@ -150,12 +150,12 @@ func animate_hit():
 	tween.finished.connect(_on_tween_finished)
 
 # The furniture is done blinking so we reset the relevant variables
-func _on_tween_finished():
+func _on_tween_finished() -> void:
 	is_animating_hit = false
 
 
 
-func get_hit(damage):
+func get_hit(damage) -> void:
 	if can_be_destroyed():
 		current_health -= damage
 		if current_health <= 0:
@@ -164,14 +164,14 @@ func get_hit(damage):
 			if not is_animating_hit:
 				animate_hit()
 
-func _die():
+func _die() -> void:
 	current_chunk.remove_furniture_from_chunk(self)
 	add_corpse.call_deferred(global_position)
 	queue_free.call_deferred()
 	
 
 # When the furniture is destroyed, it leaves a wreck behind
-func add_corpse(pos: Vector3):
+func add_corpse(pos: Vector3) -> void:
 	if can_be_destroyed():
 		var newItem: ContainerItem = ContainerItem.new()
 		
@@ -180,23 +180,28 @@ func add_corpse(pos: Vector3):
 			newItem.itemgroup = itemgroup
 		
 		newItem.add_to_group("mapitems")
-		newItem.construct_self(pos)
-		
+		var itemdata: Dictionary = {}
+		itemdata["global_position_x"] = pos.x
+		itemdata["global_position_y"] = pos.y
+		itemdata["global_position_z"] = pos.z
+
 		var fursprite = furnitureJSONData.get("destruction", {}).get("sprite", null)
 		if fursprite:
-			newItem.set_texture(fursprite)
+			itemdata["texture_id"] = fursprite
+		
+		newItem.construct_self(itemdata)
 		
 		# Finally add the new item with possibly set loot group to the tree
 		get_tree().get_root().add_child.call_deferred(newItem)
 
 
-func _disassemble():
+func _disassemble() -> void:
 	add_wreck.call_deferred(global_position)
 	queue_free()
 	
 
 # When the furniture is destroyed, it leaves a wreck behind
-func add_wreck(pos: Vector3):
+func add_wreck(pos: Vector3) -> void:
 	if can_be_disassembled():
 		var newItem: ContainerItem = ContainerItem.new()
 		
@@ -205,11 +210,16 @@ func add_wreck(pos: Vector3):
 			newItem.itemgroup = itemgroup
 		
 		newItem.add_to_group("mapitems")
-		newItem.construct_self(pos)
+		var itemdata: Dictionary = {}
+		itemdata["global_position_x"] = pos.x
+		itemdata["global_position_y"] = pos.y
+		itemdata["global_position_z"] = pos.z
 		
 		var fursprite = furnitureJSONData.get("disassembly", {}).get("sprite", null)
 		if fursprite:
-			newItem.set_texture(fursprite)
+			itemdata["texture_id"] = fursprite
+		
+		newItem.construct_self(itemdata)
 		
 		# Finally add the new item with possibly set loot group to the tree
 		get_tree().get_root().add_child.call_deferred(newItem)

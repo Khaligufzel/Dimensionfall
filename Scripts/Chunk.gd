@@ -246,10 +246,8 @@ func add_mobs_to_map() -> void:
 func add_item_to_map(item: Dictionary):
 	var newItem: ContainerItem = ContainerItem.new()
 	newItem.add_to_group("mapitems")
-	var pos: Vector3 = Vector3(item.global_position_x,item.global_position_y,item.global_position_z)
-	newItem.construct_self(pos)
-	level_manager.add_child.call_deferred(newItem)
-	newItem.inventory.deserialize(item.inventory)
+	newItem.construct_self(item)
+	get_tree().get_root().add_child.call_deferred(newItem)
 
 
 # Adds furniture that has been loaded from previously saved data
@@ -269,10 +267,12 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 
 		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
 			newFurniture = FurniturePhysics.new()
+			newFurniture.current_chunk = self
 		else:
 			newFurniture = FurnitureStatic.new()
 
 		add_furniture_to_chunk(newFurniture)
+		
 		# We can't set it's position until after it's in the scene tree 
 		# so we only save the position to a variable and pass it to the furniture
 		var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
