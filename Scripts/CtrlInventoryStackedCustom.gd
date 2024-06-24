@@ -74,7 +74,7 @@ func initialize_list():
 # Initialize these in _ready function or similar initialization function
 func _ready():
 	add_child(tooltip_timer)
-	tooltip_timer.wait_time = 0.7  # 0.5 seconds delay
+	tooltip_timer.wait_time = 0.7  # 0.7 seconds delay
 	tooltip_timer.one_shot = true  # Only trigger once per hover
 	tooltip_timer.timeout.connect(_on_tooltip_timer_timeout)
 	Helper.signal_broker.inventory_operation_started.connect(_on_inventory_operation_started)
@@ -416,10 +416,13 @@ func _update_bars(changedItem: InventoryItem, action: String):
 			total_weight += item.get_property("weight", 0) 
 			total_volume += item.get_property("volume", 0)
 
-	WeightBar.value = total_weight
 	WeightBar.max_value = max_weight
+	WeightBar.value = total_weight
+	if myInventory == ItemManager.playerInventory:
+		VolumeBar.max_value = ItemManager.player_max_inventory_volume
+	else:
+		VolumeBar.max_value = max_volume
 	VolumeBar.value = total_volume
-	VolumeBar.max_value = max_volume
 
 
 func _sort_items(a, b):
@@ -778,8 +781,10 @@ func get_used_volume() -> float:
 
 
 func get_remaining_volume() -> float:
-	return max_volume - get_used_volume()
-
+	if myInventory == ItemManager.playerInventory:
+		return ItemManager.player_max_inventory_volume - get_used_volume()
+	else:
+		return max_volume - get_used_volume()
 
 func get_items() -> Array:
 	return myInventory.get_children()
