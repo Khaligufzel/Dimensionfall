@@ -185,7 +185,7 @@
 		"stack_size": "1",
 		"two_handed": true,
 		"volume": "300",
-		"weight": "4"
+		"weight": 4
 	},
 	{
 		"Ranged": {
@@ -211,7 +211,7 @@
 		"stack_size": "1",
 		"two_handed": true,
 		"volume": "150",
-		"weight": "3"
+		"weight": 3
 	},
 	{
 		"Magazine": {
@@ -228,7 +228,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.25"
+		"weight": 0.25
 	},
 	{
 		"description": "This plastic bottle only contains air",
@@ -250,7 +250,7 @@
 		"stack_size": "2",
 		"two_handed": false,
 		"volume": "15",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"Food": {
@@ -274,7 +274,7 @@
 		"stack_size": "2",
 		"two_handed": false,
 		"volume": "15",
-		"weight": "0.25"
+		"weight": 0.25
 	},
 	{
 		"description": "The contents will satisfy your hunger",
@@ -293,7 +293,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "30",
-		"weight": "0.25"
+		"weight": 0.25
 	},
 	{
 		"Melee": {
@@ -309,7 +309,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "4"
+		"weight": 4
 	},
 	{
 		"description": "Anyone is able to craft this simple arrow",
@@ -321,7 +321,7 @@
 		"stack_size": "5",
 		"two_handed": false,
 		"volume": "1",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "A stick with a block of steel on it. It is used to apply force to objects like nails",
@@ -340,7 +340,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "2"
+		"weight": 2
 	},
 	{
 		"Craft": [
@@ -379,7 +379,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "20",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "A basic bandage that will help to heal a wound",
@@ -399,7 +399,7 @@
 		"stack_size": "3",
 		"two_handed": false,
 		"volume": "1",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "A small bottle that contains antibiotics. It helps to recover from disease.",
@@ -418,7 +418,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"Wearable": {
@@ -440,7 +440,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"Wearable": {
@@ -463,7 +463,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"description": "A large container that holds gasoline",
@@ -475,7 +475,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "400",
-		"weight": "10"
+		"weight": 10
 	},
 	{
 		"description": "It's a can that contains oil. It has a spout that allows you to pour it out.",
@@ -494,7 +494,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "2"
+		"weight": 2
 	},
 	{
 		"description": "A small radio that can be powered by batteries or an electical cord.",
@@ -506,7 +506,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"description": "A basic battery powered flashlight. It will shine a beam of light when it is turned on",
@@ -525,7 +525,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "It's a can that contains beer. Don't drink a lot of it or you will get drunk",
@@ -545,7 +545,7 @@
 		"stack_size": "2",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "It's a carton pack that contains sigarrettes. You need a fire source to light them and start smoking",
@@ -557,7 +557,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"Wearable": {
@@ -579,7 +579,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "80",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"description": "A piece of clothing that offers protection from ballistic forces",
@@ -591,7 +591,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "150",
-		"weight": "4"
+		"weight": 4
 	},
 	{
 		"description": "A device that shows your orientation relative to the earth's poles",
@@ -622,7 +622,7 @@
 		"stack_size": "2",
 		"two_handed": false,
 		"volume": "0.1",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "A large panel that draws power from the sun",
@@ -634,7 +634,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "1000",
-		"weight": "10"
+		"weight": 10
 	},
 	{
 		"description": "A large piece of paper that visualizes the area around you",
@@ -646,7 +646,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "A piece of fabric and some strings. You can deploy it to get some shelter from the weather",
@@ -658,7 +658,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "150",
-		"weight": "3"
+		"weight": 3
 	},
 	{
 		"description": "A piece of fabric and some strings. You can deploy it to get some shelter from the weather. It is currently folded to save space.",
@@ -670,7 +670,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "600",
-		"weight": "9"
+		"weight": 9
 	},
 	{
 		"description": "A small book explaining the very basics of survival",
@@ -682,7 +682,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "A book containing an entertaining story",
@@ -701,7 +701,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.4"
+		"weight": 0.4
 	},
 	{
 		"description": "A small bottle that contains disinfectant. It helps to disinfect wounds",
@@ -720,7 +720,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "A small radio that allows you to communicate with someone over a large distance",
@@ -732,7 +732,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"description": "A small device that provides a spark that can be used to light a fire. No power or fuel required.",
@@ -744,7 +744,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.2"
+		"weight": 0.2
 	},
 	{
 		"description": "\n    A true survival fishing kit in a very small, lightweight package!\n    Contains 118 foot line and winder\n    2 lures, 2 hooks\n    2 swivels, 2 weghts\n    Comes in a strong durable heavy duty resealable plastic bag",
@@ -756,7 +756,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.4"
+		"weight": 0.4
 	},
 	{
 		"description": "A versatile kitchen tool, essential for slicing, dicing, and chopping food.",
@@ -768,7 +768,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "0.4"
+		"weight": 0.4
 	},
 	{
 		"description": "A compact and portable stove, perfect for cooking meals during survival situations.",
@@ -780,7 +780,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "200",
-		"weight": "3"
+		"weight": 3
 	},
 	{
 		"description": "A durable cooking pot, essential for boiling water and preparing meals.",
@@ -792,7 +792,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "350",
-		"weight": "3"
+		"weight": 3
 	},
 	{
 		"description": "A small tool crucial for opening canned food, an essential for survival.",
@@ -804,7 +804,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "60",
-		"weight": "0.2"
+		"weight": 0.2
 	},
 	{
 		"Craft": [
@@ -851,7 +851,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "250",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "A metal kettle perfect for boiling water to make tea or instant meals.",
@@ -863,7 +863,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "200",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"description": "A small rack containing various spices to enhance the flavor of food.",
@@ -875,7 +875,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "150",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"description": "A measuring cup, essential for precisely measuring ingredients for recipes.",
@@ -887,7 +887,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "0.3"
+		"weight": 0.3
 	},
 	{
 		"Craft": [
@@ -922,7 +922,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "150",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "A heavy-duty frying pan, perfect for cooking everything from eggs to stir-fry.",
@@ -934,7 +934,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "200",
-		"weight": "2"
+		"weight": 2
 	},
 	{
 		"description": "A metal colander, ideal for draining pasta or washing vegetables.",
@@ -946,7 +946,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "200",
-		"weight": "0.7"
+		"weight": 0.7
 	},
 	{
 		"description": "A handy peeler, perfect for skinning vegetables and fruits with ease.",
@@ -958,7 +958,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "A metal grater, essential for shredding cheese, vegetables, and more.",
@@ -970,7 +970,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.3"
+		"weight": 0.3
 	},
 	{
 		"description": "A compact electric toaster, ideal for toasting bread quickly.",
@@ -982,7 +982,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "300",
-		"weight": "1.5"
+		"weight": 1.5
 	},
 	{
 		"description": "An electric blender, perfect for making smoothies, soups, and other blended concoctions.",
@@ -994,7 +994,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "300",
-		"weight": "2"
+		"weight": 2
 	},
 	{
 		"description": "A coffee maker, essential for brewing the perfect cup of coffee to start your day.",
@@ -1006,7 +1006,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "300",
-		"weight": "2.5"
+		"weight": 2.5
 	},
 	{
 		"description": "A microwave oven, perfect for quickly heating or cooking food.",
@@ -1018,7 +1018,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "400",
-		"weight": "12"
+		"weight": 12
 	},
 	{
 		"description": "A dish rack, useful for organizing and drying dishes after washing.",
@@ -1030,7 +1030,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "400",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"description": "A pressure cooker, ideal for fast cooking and preserving nutrients in food.",
@@ -1042,7 +1042,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "400",
-		"weight": "5"
+		"weight": 5
 	},
 	{
 		"description": "A bread maker, perfect for effortlessly baking fresh bread at home.",
@@ -1054,7 +1054,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "300",
-		"weight": "5"
+		"weight": 5
 	},
 	{
 		"description": "Small but crucial for holding together wooden structures and crafting. Often found in the remnants of furniture and buildings.",
@@ -1066,7 +1066,7 @@
 		"stack_size": "10",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "Large pieces of wood obtained from cutting down trees. Useful for building and crafting larger items.",
@@ -1078,7 +1078,7 @@
 		"stack_size": "1",
 		"two_handed": true,
 		"volume": "500",
-		"weight": "10"
+		"weight": 10
 	},
 	{
 		"description": "Versatile fasteners used in both wooden and metal constructions. Can be scavenged from disassembled furniture and machinery.",
@@ -1090,7 +1090,7 @@
 		"stack_size": "10",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "Smaller pieces of wood that can be used for kindling, basic crafting, and creating primitive tools.",
@@ -1102,7 +1102,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "2"
+		"weight": 2
 	},
 	{
 		"description": "Can be used for camouflage, crafting bedding, or as a basic source of compost.",
@@ -1114,7 +1114,7 @@
 		"stack_size": "5",
 		"two_handed": false,
 		"volume": "1",
-		"weight": "0.01"
+		"weight": 0.01
 	},
 	{
 		"description": "Resinous branches that can be used for kindling or basic crafting.",
@@ -1126,7 +1126,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "2"
+		"weight": 2
 	},
 	{
 		"description": "Natural material that can be molded when wet and hardens when dried, useful for creating pottery, bricks, and reinforcing structures.",
@@ -1138,7 +1138,7 @@
 		"stack_size": "5",
 		"two_handed": false,
 		"volume": "20",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"description": "Basic resource for growing plants and creating makeshift gardens for food production.",
@@ -1150,7 +1150,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "200",
-		"weight": "5"
+		"weight": 5
 	},
 	{
 		"description": "Metal parts that allow doors and cabinets to open and close. Can be used in various mechanical constructions.",
@@ -1162,7 +1162,7 @@
 		"stack_size": "5",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.2"
+		"weight": 0.2
 	},
 	{
 		"description": "Useful for creating compost, crafting, or even as emergency food sources.",
@@ -1174,7 +1174,7 @@
 		"stack_size": "5",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "Essential for repairing or crafting electronic devices.",
@@ -1186,7 +1186,7 @@
 		"stack_size": "5",
 		"two_handed": false,
 		"volume": "20",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "Versatile material used in various crafting recipes, often scavenged from modern appliances and containers.",
@@ -1198,7 +1198,7 @@
 		"stack_size": "10",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.3"
+		"weight": 0.3
 	},
 	{
 		"description": "Shards of broken ceramic items, useful for crafting new items or reinforcing existing structures.",
@@ -1210,7 +1210,7 @@
 		"stack_size": "5",
 		"two_handed": false,
 		"volume": "15",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"description": "General metal components used in various crafting and construction recipes.",
@@ -1222,7 +1222,7 @@
 		"stack_size": "10",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "A jar of preserved parsley, useful for adding flavor to dishes.",
@@ -1234,7 +1234,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "60",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "A block of tofu, a good source of protein.",
@@ -1253,7 +1253,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "30",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "A bottle of yogurt, useful for nutrition and digestion.",
@@ -1272,7 +1272,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "100",
-		"weight": "0.3"
+		"weight": 0.3
 	},
 	{
 		"description": "A jar of pickles, a tasty preserved food.",
@@ -1284,7 +1284,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"description": "A can of condensed milk, a rich source of nutrition.",
@@ -1296,7 +1296,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "60",
-		"weight": "0.8"
+		"weight": 0.8
 	},
 	{
 		"description": "A vial of insulin, necessary for diabetics.",
@@ -1308,7 +1308,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "An epinephrine auto-injector, useful for treating severe allergic reactions.",
@@ -1320,7 +1320,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "A bag of bacon, rich in fats and proteins.",
@@ -1339,7 +1339,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "30",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "A bottle of wine, useful for bartering or a morale boost.",
@@ -1351,7 +1351,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "90",
-		"weight": "1.5"
+		"weight": 1.5
 	},
 	{
 		"description": "A loaf of bread, a staple food item.",
@@ -1363,7 +1363,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "90",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "A syringe, useful for administering medical treatments.",
@@ -1375,7 +1375,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.05"
+		"weight": 0.05
 	},
 	{
 		"description": "A slice of pizza, not very fresh but still edible.",
@@ -1394,7 +1394,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.3"
+		"weight": 0.3
 	},
 	{
 		"description": "A package of vacuum-sealed fish, preserved for longer storage.",
@@ -1413,7 +1413,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.8"
+		"weight": 0.8
 	},
 	{
 		"description": "A ripe tomato, still fresh and edible.",
@@ -1432,7 +1432,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.2"
+		"weight": 0.2
 	},
 	{
 		"description": "A head of lettuce, slightly wilted but still usable.",
@@ -1451,7 +1451,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "90",
-		"weight": "0.3"
+		"weight": 0.3
 	},
 	{
 		"description": "A container of protein powder, useful for maintaining nutrition.",
@@ -1463,7 +1463,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "1"
+		"weight": 1
 	},
 	{
 		"description": "A bar of chocolate, a morale booster and energy source.",
@@ -1475,7 +1475,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "25",
-		"weight": "0.2"
+		"weight": 0.2
 	},
 	{
 		"description": "A jar of olives, preserved and ready to eat.",
@@ -1487,7 +1487,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "40",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "A jar of preserved basil, useful for seasoning.",
@@ -1499,7 +1499,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "25",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "A jar of mustard, adds flavor to meals.",
@@ -1511,7 +1511,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "25",
-		"weight": "0.3"
+		"weight": 0.3
 	},
 	{
 		"description": "A bottle of ketchup, a common condiment.",
@@ -1523,7 +1523,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "60",
-		"weight": "0.3"
+		"weight": 0.3
 	},
 	{
 		"description": "A loaf of bread that has gone stale, but still edible in a pinch.",
@@ -1535,7 +1535,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "90",
-		"weight": "0.5"
+		"weight": 0.5
 	},
 	{
 		"description": "Pain relief medication, useful for treating injuries.",
@@ -1547,7 +1547,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "5",
-		"weight": "0.1"
+		"weight": 0.1
 	},
 	{
 		"description": "A fresh orange, a good source of vitamin C.",
@@ -1559,7 +1559,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.2"
+		"weight": 0.2
 	},
 	{
 		"description": "A fresh apple, a healthy snack.",
@@ -1578,7 +1578,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.2"
+		"weight": 0.2
 	},
 	{
 		"description": "A raw potato, versatile in many recipes.",
@@ -1590,7 +1590,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "15",
-		"weight": "0.3"
+		"weight": 0.3
 	},
 	{
 		"description": "A fresh carrot, good for nutrition.",
@@ -1609,7 +1609,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "10",
-		"weight": "0.2"
+		"weight": 0.2
 	},
 	{
 		"description": "A carton of eggs, a versatile food item.",
@@ -1628,7 +1628,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.6"
+		"weight": 0.6
 	},
 	{
 		"description": "A stick of butter, useful for cooking and baking.",
@@ -1647,7 +1647,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "20",
-		"weight": "0.4"
+		"weight": 0.4
 	},
 	{
 		"description": "A can of energy drink, boosts stamina temporarily.",
@@ -1666,7 +1666,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.3"
+		"weight": 0.3
 	},
 	{
 		"description": "A can of soda, a refreshing beverage.",
@@ -1685,7 +1685,7 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "50",
-		"weight": "0.3"
+		"weight": 0.3
 	},
 	{
 		"description": "A block of cheese, a versatile food item.",
@@ -1704,6 +1704,6 @@
 		"stack_size": "1",
 		"two_handed": false,
 		"volume": "40",
-		"weight": "0.5"
+		"weight": 0.5
 	}
 ]
