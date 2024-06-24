@@ -179,10 +179,10 @@
 		"description": "A standard issue rifle that uses 9mm ammunition",
 		"id": "rifle_m4a1",
 		"image": "./Mods/Core/Items/rifle_64_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "M4a1 rifle",
 		"sprite": "rifle_64_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": true,
 		"volume": 300,
 		"weight": 4
@@ -205,10 +205,10 @@
 		"description": "Chugun in Russian is for cast steel, MPAP is \"Multi Purpose Automatic Pistol\"",
 		"id": "chugunov_mpap",
 		"image": "./Mods/Core/Items/chugunov_mpap_32_28.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Chugunov MPAP",
 		"sprite": "chugunov_mpap_32_28.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": true,
 		"volume": 150,
 		"weight": 3
@@ -222,10 +222,10 @@
 		"description": "A magazine to be loaded into a Chuganov MPAP",
 		"id": "chugunov_mpap_magazine",
 		"image": "./Mods/Core/Items/chugunov_mpap_magazine_16_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Chuganov MPAP magazine",
 		"sprite": "chugunov_mpap_magazine_16_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.25
@@ -234,7 +234,7 @@
 		"description": "This plastic bottle only contains air",
 		"id": "bottle_plastic_empty",
 		"image": "./Mods/Core/Items/bottle_empty_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Empty plastic bottle",
 		"references": {
 			"core": {
@@ -247,7 +247,7 @@
 			}
 		},
 		"sprite": "bottle_empty_32.png",
-		"stack_size": "2",
+		"stack_size": 2,
 		"two_handed": false,
 		"volume": 15,
 		"weight": 0.1
@@ -259,7 +259,7 @@
 		"description": "This plastic bottle is filled with water",
 		"id": "bottle_plastic_water",
 		"image": "./Mods/Core/Items/bottle_water_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Plastic bottle with water",
 		"references": {
 			"core": {
@@ -271,7 +271,7 @@
 			}
 		},
 		"sprite": "bottle_water_32.png",
-		"stack_size": "2",
+		"stack_size": 2,
 		"two_handed": false,
 		"volume": 15,
 		"weight": 0.25
@@ -280,7 +280,7 @@
 		"description": "The contents will satisfy your hunger",
 		"id": "canned_food",
 		"image": "./Mods/Core/Items/canned_food_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Canned food\t",
 		"references": {
 			"core": {
@@ -290,7 +290,7 @@
 			}
 		},
 		"sprite": "canned_food_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 30,
 		"weight": 0.25
@@ -303,10 +303,10 @@
 		"description": "A sharp blade with a handle for excellent control",
 		"id": "machete",
 		"image": "./Mods/Core/Items/machete_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Machete",
 		"sprite": "machete_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 100,
 		"weight": 4
@@ -315,10 +315,10 @@
 		"description": "Anyone is able to craft this simple arrow",
 		"id": "wood_arrow_basic",
 		"image": "./Mods/Core/Items/arrow_basic_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Basic wooden arrow",
 		"sprite": "arrow_basic_32.png",
-		"stack_size": "5",
+		"stack_size": 5,
 		"two_handed": false,
 		"volume": 1,
 		"weight": 0.1
@@ -327,7 +327,7 @@
 		"description": "A stick with a block of steel on it. It is used to apply force to objects like nails",
 		"id": "hammer",
 		"image": "./Mods/Core/Items/hammer_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Hammer",
 		"references": {
 			"core": {
@@ -337,7 +337,7 @@
 			}
 		},
 		"sprite": "hammer_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 2
@@ -365,7 +365,7 @@
 		"description": "A handle with a rod of steel in it. The tip can be flat or shaped like a star. Useful for construction projects",
 		"id": "screwdriver",
 		"image": "./Mods/Core/Items/screwdriver_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Screwdriver",
 		"references": {
 			"core": {
@@ -376,7 +376,7 @@
 			}
 		},
 		"sprite": "screwdriver_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 20,
 		"weight": 0.5
@@ -385,7 +385,7 @@
 		"description": "A basic bandage that will help to heal a wound",
 		"id": "bandage_basic",
 		"image": "./Mods/Core/Items/bandage_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Bandage",
 		"references": {
 			"core": {
@@ -396,7 +396,7 @@
 			}
 		},
 		"sprite": "bandage_32.png",
-		"stack_size": "3",
+		"stack_size": 3,
 		"two_handed": false,
 		"volume": 1,
 		"weight": 0.1
@@ -405,7 +405,7 @@
 		"description": "A small bottle that contains antibiotics. It helps to recover from disease.",
 		"id": "bottle_antibiotics",
 		"image": "./Mods/Core/Items/antibiotics_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Bottle of antibiotics",
 		"references": {
 			"core": {
@@ -415,7 +415,7 @@
 			}
 		},
 		"sprite": "antibiotics_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 5,
 		"weight": 0.1
@@ -427,7 +427,7 @@
 		"description": "A piece of clothing to wear on the torso. It will keep you warm and offers a bit of protection.",
 		"id": "jacket",
 		"image": "./Mods/Core/Items/jacket_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Jacket",
 		"references": {
 			"core": {
@@ -437,7 +437,7 @@
 			}
 		},
 		"sprite": "jacket_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 100,
 		"weight": 1
@@ -449,7 +449,7 @@
 		"description": "Comfortable footwear to keep your feet safe",
 		"id": "boots",
 		"image": "./Mods/Core/Items/boots_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Boots",
 		"references": {
 			"core": {
@@ -460,7 +460,7 @@
 			}
 		},
 		"sprite": "boots_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 100,
 		"weight": 1
@@ -469,10 +469,10 @@
 		"description": "A large container that holds gasoline",
 		"id": "jerrycan_gasoline",
 		"image": "./Mods/Core/Items/jerrycan_gas_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Jerrycan of gasoline",
 		"sprite": "jerrycan_gas_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 400,
 		"weight": 10
@@ -481,7 +481,7 @@
 		"description": "It's a can that contains oil. It has a spout that allows you to pour it out.",
 		"id": "can_oil",
 		"image": "./Mods/Core/Items/can_oil_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Can of oil",
 		"references": {
 			"core": {
@@ -491,7 +491,7 @@
 			}
 		},
 		"sprite": "can_oil_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 100,
 		"weight": 2
@@ -500,10 +500,10 @@
 		"description": "A small radio that can be powered by batteries or an electical cord.",
 		"id": "radio_handheld",
 		"image": "./Mods/Core/Items/battery_powered_radio_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Handheld radio",
 		"sprite": "battery_powered_radio_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 100,
 		"weight": 1
@@ -512,7 +512,7 @@
 		"description": "A basic battery powered flashlight. It will shine a beam of light when it is turned on",
 		"id": "flashlight_basic",
 		"image": "./Mods/Core/Items/flashlight_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Flashlight",
 		"references": {
 			"core": {
@@ -522,7 +522,7 @@
 			}
 		},
 		"sprite": "flashlight_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 100,
 		"weight": 0.5
@@ -531,7 +531,7 @@
 		"description": "It's a can that contains beer. Don't drink a lot of it or you will get drunk",
 		"id": "can_beer",
 		"image": "./Mods/Core/Items/can_beer_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Can of beer",
 		"references": {
 			"core": {
@@ -542,7 +542,7 @@
 			}
 		},
 		"sprite": "can_beer_32.png",
-		"stack_size": "2",
+		"stack_size": 2,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 0.5
@@ -551,10 +551,10 @@
 		"description": "It's a carton pack that contains sigarrettes. You need a fire source to light them and start smoking",
 		"id": "pack_sigarrettes",
 		"image": "./Mods/Core/Items/sigarrette_pack_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Pack of sigarrettes",
 		"sprite": "sigarrette_pack_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.1
@@ -566,7 +566,7 @@
 		"description": "A piece of clothing that offers protection from environmental hazards",
 		"id": "gas_mask",
 		"image": "./Mods/Core/Items/gasmask_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Gas mask",
 		"references": {
 			"core": {
@@ -576,7 +576,7 @@
 			}
 		},
 		"sprite": "gasmask_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 80,
 		"weight": 1
@@ -585,10 +585,10 @@
 		"description": "A piece of clothing that offers protection from ballistic forces",
 		"id": "vest_ballistic",
 		"image": "./Mods/Core/Items/vest_ballistic_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Ballistic vest",
 		"sprite": "vest_ballistic_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 150,
 		"weight": 4
@@ -609,7 +609,7 @@
 		"description": "A very common type of battery that fits most battery-powered devices",
 		"id": "battery_small",
 		"image": "./Mods/Core/Items/battery_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Small battery",
 		"references": {
 			"core": {
@@ -619,19 +619,19 @@
 			}
 		},
 		"sprite": "battery_32.png",
-		"stack_size": "2",
+		"stack_size": 2,
 		"two_handed": false,
-		"volume": 0,
+		"volume": 0.01,
 		"weight": 0.1
 	},
 	{
 		"description": "A large panel that draws power from the sun",
 		"id": "solar_panel",
 		"image": "./Mods/Core/Items/solar_panel_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Solar panel",
 		"sprite": "solar_panel_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 1000,
 		"weight": 10
@@ -640,10 +640,10 @@
 		"description": "A large piece of paper that visualizes the area around you",
 		"id": "map_paper",
 		"image": "./Mods/Core/Items/map_paper_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Paper map",
 		"sprite": "map_paper_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 5,
 		"weight": 0.1
@@ -652,10 +652,10 @@
 		"description": "A piece of fabric and some strings. You can deploy it to get some shelter from the weather",
 		"id": "tarp",
 		"image": "./Mods/Core/Items/tarp_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Tarp",
 		"sprite": "tarp_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 150,
 		"weight": 3
@@ -664,10 +664,10 @@
 		"description": "A piece of fabric and some strings. You can deploy it to get some shelter from the weather. It is currently folded to save space.",
 		"id": "tent",
 		"image": "./Mods/Core/Items/tent_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Tent",
 		"sprite": "tent_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 600,
 		"weight": 9
@@ -676,10 +676,10 @@
 		"description": "A small book explaining the very basics of survival",
 		"id": "guide_survival_basic",
 		"image": "./Mods/Core/Items/survival_guide_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Basic survival guide",
 		"sprite": "survival_guide_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.1
@@ -688,7 +688,7 @@
 		"description": "A book containing an entertaining story",
 		"id": "book_novel",
 		"image": "./Mods/Core/Items/book_novel_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Novel",
 		"references": {
 			"core": {
@@ -698,7 +698,7 @@
 			}
 		},
 		"sprite": "book_novel_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.4
@@ -707,7 +707,7 @@
 		"description": "A small bottle that contains disinfectant. It helps to disinfect wounds",
 		"id": "bottle_disinfectant",
 		"image": "./Mods/Core/Items/bottle_disinfectant_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Bottle of disinfectant",
 		"references": {
 			"core": {
@@ -717,7 +717,7 @@
 			}
 		},
 		"sprite": "bottle_disinfectant_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 5,
 		"weight": 0.1
@@ -726,10 +726,10 @@
 		"description": "A small radio that allows you to communicate with someone over a large distance",
 		"id": "radio_two_way",
 		"image": "./Mods/Core/Items/radio_two_way_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Two way radio",
 		"sprite": "radio_two_way_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 1
@@ -738,10 +738,10 @@
 		"description": "A small device that provides a spark that can be used to light a fire. No power or fuel required.",
 		"id": "firestarter_basic",
 		"image": "./Mods/Core/Items/firestarter_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Firestarter",
 		"sprite": "firestarter_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.2
@@ -750,10 +750,10 @@
 		"description": "\n    A true survival fishing kit in a very small, lightweight package!\n    Contains 118 foot line and winder\n    2 lures, 2 hooks\n    2 swivels, 2 weghts\n    Comes in a strong durable heavy duty resealable plastic bag",
 		"id": "kit_fishing_small",
 		"image": "./Mods/Core/Items/kit_fishing_small_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Small fishing kit",
 		"sprite": "kit_fishing_small_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 0.4
@@ -762,10 +762,10 @@
 		"description": "A versatile kitchen tool, essential for slicing, dicing, and chopping food.",
 		"id": "kitchen_knife",
 		"image": "./Mods/Core/Items/kitchen_knife_64_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Kitchen Knife",
 		"sprite": "kitchen_knife_64_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 100,
 		"weight": 0.4
@@ -774,10 +774,10 @@
 		"description": "A compact and portable stove, perfect for cooking meals during survival situations.",
 		"id": "portable_stove",
 		"image": "./Mods/Core/Items/portable_stove_64_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Portable Stove",
 		"sprite": "portable_stove_64_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 200,
 		"weight": 3
@@ -786,10 +786,10 @@
 		"description": "A durable cooking pot, essential for boiling water and preparing meals.",
 		"id": "cooking_pot",
 		"image": "./Mods/Core/Items/cooking_pot_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Cooking Pot",
 		"sprite": "cooking_pot_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 350,
 		"weight": 3
@@ -798,10 +798,10 @@
 		"description": "A small tool crucial for opening canned food, an essential for survival.",
 		"id": "can_opener",
 		"image": "./Mods/Core/Items/can_opener_64_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Can opener",
 		"sprite": "can_opener_64_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 60,
 		"weight": 0.2
@@ -845,10 +845,10 @@
 		"description": "A large bowl used for mixing ingredients, indispensable for any cooking or baking tasks.",
 		"id": "mixing_bowl",
 		"image": "./Mods/Core/Items/mixing_bowl_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Mixing Bowl",
 		"sprite": "mixing_bowl_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 250,
 		"weight": 0.5
@@ -857,10 +857,10 @@
 		"description": "A metal kettle perfect for boiling water to make tea or instant meals.",
 		"id": "tea_kettle",
 		"image": "./Mods/Core/Items/tea_kettle_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Tea Kettle",
 		"sprite": "tea_kettle_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 200,
 		"weight": 1
@@ -869,10 +869,10 @@
 		"description": "A small rack containing various spices to enhance the flavor of food.",
 		"id": "spice_rack",
 		"image": "./Mods/Core/Items/spice_rack_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Spice Rack",
 		"sprite": "spice_rack_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 150,
 		"weight": 1
@@ -881,10 +881,10 @@
 		"description": "A measuring cup, essential for precisely measuring ingredients for recipes.",
 		"id": "measuring_cup",
 		"image": "./Mods/Core/Items/measuring_cup_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Measuring Cup",
 		"sprite": "measuring_cup_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 100,
 		"weight": 0.3
@@ -916,10 +916,10 @@
 		"description": "A wooden rolling pin, essential for flattening dough for baking.",
 		"id": "rolling_pin",
 		"image": "./Mods/Core/Items/rolling_pin_64_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Rolling Pin",
 		"sprite": "rolling_pin_64_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 150,
 		"weight": 0.5
@@ -928,10 +928,10 @@
 		"description": "A heavy-duty frying pan, perfect for cooking everything from eggs to stir-fry.",
 		"id": "frying_pan",
 		"image": "./Mods/Core/Items/frying_pan_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Frying Pan",
 		"sprite": "frying_pan_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 200,
 		"weight": 2
@@ -940,10 +940,10 @@
 		"description": "A metal colander, ideal for draining pasta or washing vegetables.",
 		"id": "steel_colander",
 		"image": "./Mods/Core/Items/steel_colander_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Colander",
 		"sprite": "steel_colander_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 200,
 		"weight": 0.7
@@ -952,10 +952,10 @@
 		"description": "A handy peeler, perfect for skinning vegetables and fruits with ease.",
 		"id": "peeler",
 		"image": "./Mods/Core/Items/peeler_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Peeler",
 		"sprite": "peeler_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 0.1
@@ -964,10 +964,10 @@
 		"description": "A metal grater, essential for shredding cheese, vegetables, and more.",
 		"id": "grater",
 		"image": "./Mods/Core/Items/grater_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Grater",
 		"sprite": "grater_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 0.3
@@ -976,10 +976,10 @@
 		"description": "A compact electric toaster, ideal for toasting bread quickly.",
 		"id": "toaster",
 		"image": "./Mods/Core/Items/toaster_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Toaster",
 		"sprite": "toaster_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 300,
 		"weight": 1.5
@@ -988,10 +988,10 @@
 		"description": "An electric blender, perfect for making smoothies, soups, and other blended concoctions.",
 		"id": "blender",
 		"image": "./Mods/Core/Items/blender_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Blender",
 		"sprite": "blender_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 300,
 		"weight": 2
@@ -1000,10 +1000,10 @@
 		"description": "A coffee maker, essential for brewing the perfect cup of coffee to start your day.",
 		"id": "coffee_maker",
 		"image": "./Mods/Core/Items/coffeemaker_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Coffee Maker",
 		"sprite": "coffeemaker_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 300,
 		"weight": 2.5
@@ -1012,10 +1012,10 @@
 		"description": "A microwave oven, perfect for quickly heating or cooking food.",
 		"id": "microwave_oven",
 		"image": "./Mods/Core/Items/microwave_oven_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Microwave Oven",
 		"sprite": "microwave_oven_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 400,
 		"weight": 12
@@ -1024,10 +1024,10 @@
 		"description": "A dish rack, useful for organizing and drying dishes after washing.",
 		"id": "dish_rack",
 		"image": "./Mods/Core/Items/dish_rack_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Dish Rack",
 		"sprite": "dish_rack_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 400,
 		"weight": 1
@@ -1036,10 +1036,10 @@
 		"description": "A pressure cooker, ideal for fast cooking and preserving nutrients in food.",
 		"id": "pressure_cooker",
 		"image": "./Mods/Core/Items/pressure_cooker_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Pressure Cooker",
 		"sprite": "pressure_cooker_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 400,
 		"weight": 5
@@ -1048,10 +1048,10 @@
 		"description": "A bread maker, perfect for effortlessly baking fresh bread at home.",
 		"id": "bread_maker",
 		"image": "./Mods/Core/Items/bread_maker_32.png",
-		"max_stack_size": "1",
+		"max_stack_size": 1,
 		"name": "Bread Maker",
 		"sprite": "bread_maker_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 300,
 		"weight": 5
@@ -1060,10 +1060,10 @@
 		"description": "Small but crucial for holding together wooden structures and crafting. Often found in the remnants of furniture and buildings.",
 		"id": "nails",
 		"image": "./Mods/Core/Items/nails_32.png",
-		"max_stack_size": "100",
+		"max_stack_size": 100,
 		"name": "Nails",
 		"sprite": "nails_32.png",
-		"stack_size": "10",
+		"stack_size": 10,
 		"two_handed": false,
 		"volume": 5,
 		"weight": 0.1
@@ -1072,10 +1072,10 @@
 		"description": "Large pieces of wood obtained from cutting down trees. Useful for building and crafting larger items.",
 		"id": "log",
 		"image": "./Mods/Core/Items/log_32.png",
-		"max_stack_size": "3",
+		"max_stack_size": 3,
 		"name": "Log",
 		"sprite": "log_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": true,
 		"volume": 500,
 		"weight": 10
@@ -1084,10 +1084,10 @@
 		"description": "Versatile fasteners used in both wooden and metal constructions. Can be scavenged from disassembled furniture and machinery.",
 		"id": "screw",
 		"image": "./Mods/Core/Items/screw_32.png",
-		"max_stack_size": "100",
+		"max_stack_size": 100,
 		"name": "Screw",
 		"sprite": "screw_32.png",
-		"stack_size": "10",
+		"stack_size": 10,
 		"two_handed": false,
 		"volume": 5,
 		"weight": 0.1
@@ -1096,10 +1096,10 @@
 		"description": "Smaller pieces of wood that can be used for kindling, basic crafting, and creating primitive tools.",
 		"id": "branch",
 		"image": "./Mods/Core/Items/branches_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Branch",
 		"sprite": "branches_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 2
@@ -1108,10 +1108,10 @@
 		"description": "Can be used for camouflage, crafting bedding, or as a basic source of compost.",
 		"id": "leaf",
 		"image": "./Mods/Core/Items/leaves_32.png",
-		"max_stack_size": "50",
+		"max_stack_size": 50,
 		"name": "Leaf",
 		"sprite": "leaves_32.png",
-		"stack_size": "5",
+		"stack_size": 5,
 		"two_handed": false,
 		"volume": 1,
 		"weight": 0.01
@@ -1120,10 +1120,10 @@
 		"description": "Resinous branches that can be used for kindling or basic crafting.",
 		"id": "pine_branch",
 		"image": "./Mods/Core/Items/pine_branch_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Pine Branch",
 		"sprite": "pine_branch_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 2
@@ -1132,10 +1132,10 @@
 		"description": "Natural material that can be molded when wet and hardens when dried, useful for creating pottery, bricks, and reinforcing structures.",
 		"id": "clay",
 		"image": "./Mods/Core/Items/clay_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Clay",
 		"sprite": "clay_32.png",
-		"stack_size": "5",
+		"stack_size": 5,
 		"two_handed": false,
 		"volume": 20,
 		"weight": 1
@@ -1144,10 +1144,10 @@
 		"description": "Basic resource for growing plants and creating makeshift gardens for food production.",
 		"id": "soil",
 		"image": "./Mods/Core/Items/soil_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Soil",
 		"sprite": "soil_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 200,
 		"weight": 5
@@ -1156,10 +1156,10 @@
 		"description": "Metal parts that allow doors and cabinets to open and close. Can be used in various mechanical constructions.",
 		"id": "hinge",
 		"image": "./Mods/Core/Items/hinge_32.png",
-		"max_stack_size": "50",
+		"max_stack_size": 50,
 		"name": "Hinge",
 		"sprite": "hinge_32.png",
-		"stack_size": "5",
+		"stack_size": 5,
 		"two_handed": false,
 		"volume": 5,
 		"weight": 0.2
@@ -1168,10 +1168,10 @@
 		"description": "Useful for creating compost, crafting, or even as emergency food sources.",
 		"id": "plant_remnants",
 		"image": "./Mods/Core/Items/plant_remnants_32.png",
-		"max_stack_size": "50",
+		"max_stack_size": 50,
 		"name": "Plant Remnants",
 		"sprite": "plant_remnants_32.png",
-		"stack_size": "5",
+		"stack_size": 5,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.1
@@ -1180,10 +1180,10 @@
 		"description": "Essential for repairing or crafting electronic devices.",
 		"id": "electrical_components",
 		"image": "./Mods/Core/Items/electrical_components_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Electrical Components",
 		"sprite": "electrical_components_32.png",
-		"stack_size": "5",
+		"stack_size": 5,
 		"two_handed": false,
 		"volume": 20,
 		"weight": 0.5
@@ -1192,10 +1192,10 @@
 		"description": "Versatile material used in various crafting recipes, often scavenged from modern appliances and containers.",
 		"id": "plastic_parts",
 		"image": "./Mods/Core/Items/plastic_parts_32.png",
-		"max_stack_size": "50",
+		"max_stack_size": 50,
 		"name": "Plastic Parts",
 		"sprite": "plastic_parts_32.png",
-		"stack_size": "10",
+		"stack_size": 10,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.3
@@ -1204,10 +1204,10 @@
 		"description": "Shards of broken ceramic items, useful for crafting new items or reinforcing existing structures.",
 		"id": "ceramic_fragments",
 		"image": "./Mods/Core/Items/ceramic_fragments_32.png",
-		"max_stack_size": "30",
+		"max_stack_size": 30,
 		"name": "Ceramic Fragments",
 		"sprite": "ceramic_fragments_32.png",
-		"stack_size": "5",
+		"stack_size": 5,
 		"two_handed": false,
 		"volume": 15,
 		"weight": 1
@@ -1216,10 +1216,10 @@
 		"description": "General metal components used in various crafting and construction recipes.",
 		"id": "metal_parts",
 		"image": "./Mods/Core/Items/metal_parts_32.png",
-		"max_stack_size": "50",
+		"max_stack_size": 50,
 		"name": "Metal Parts",
 		"sprite": "metal_parts_32.png",
-		"stack_size": "10",
+		"stack_size": 10,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.5
@@ -1228,10 +1228,10 @@
 		"description": "A jar of preserved parsley, useful for adding flavor to dishes.",
 		"id": "jar_parsley",
 		"image": "./Mods/Core/Items/jar_parsley_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Jar of Parsley",
 		"sprite": "jar_parsley_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 60,
 		"weight": 0.5
@@ -1240,7 +1240,7 @@
 		"description": "A block of tofu, a good source of protein.",
 		"id": "tofu",
 		"image": "./Mods/Core/Items/tofu_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Tofu",
 		"references": {
 			"core": {
@@ -1250,7 +1250,7 @@
 			}
 		},
 		"sprite": "tofu_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 30,
 		"weight": 0.5
@@ -1259,7 +1259,7 @@
 		"description": "A bottle of yogurt, useful for nutrition and digestion.",
 		"id": "bottle_yogurt",
 		"image": "./Mods/Core/Items/bottle_yogurt_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Bottle of Yogurt",
 		"references": {
 			"core": {
@@ -1269,7 +1269,7 @@
 			}
 		},
 		"sprite": "bottle_yogurt_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 100,
 		"weight": 0.3
@@ -1278,10 +1278,10 @@
 		"description": "A jar of pickles, a tasty preserved food.",
 		"id": "jar_pickles",
 		"image": "./Mods/Core/Items/jar_pickles_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Jar of Pickles",
 		"sprite": "jar_pickles_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 1
@@ -1290,10 +1290,10 @@
 		"description": "A can of condensed milk, a rich source of nutrition.",
 		"id": "condensed_milk",
 		"image": "./Mods/Core/Items/condensed_milk_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Condensed Milk",
 		"sprite": "condensed_milk_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 60,
 		"weight": 0.8
@@ -1302,10 +1302,10 @@
 		"description": "A vial of insulin, necessary for diabetics.",
 		"id": "insulin",
 		"image": "./Mods/Core/Items/insulin_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Insulin",
 		"sprite": "insulin_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 5,
 		"weight": 0.1
@@ -1314,10 +1314,10 @@
 		"description": "An epinephrine auto-injector, useful for treating severe allergic reactions.",
 		"id": "epipen",
 		"image": "./Mods/Core/Items/epipen_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "EpiPen",
 		"sprite": "epipen_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 5,
 		"weight": 0.1
@@ -1326,7 +1326,7 @@
 		"description": "A bag of bacon, rich in fats and proteins.",
 		"id": "bag_bacon",
 		"image": "./Mods/Core/Items/bag_bacon_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Bag of Bacon",
 		"references": {
 			"core": {
@@ -1336,7 +1336,7 @@
 			}
 		},
 		"sprite": "bag_bacon_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 30,
 		"weight": 0.5
@@ -1345,10 +1345,10 @@
 		"description": "A bottle of wine, useful for bartering or a morale boost.",
 		"id": "wine_bottle",
 		"image": "./Mods/Core/Items/wine_bottle_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Wine Bottle",
 		"sprite": "wine_bottle_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 90,
 		"weight": 1.5
@@ -1357,10 +1357,10 @@
 		"description": "A loaf of bread, a staple food item.",
 		"id": "bread",
 		"image": "./Mods/Core/Items/bread_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Bread",
 		"sprite": "bread_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 90,
 		"weight": 0.5
@@ -1369,10 +1369,10 @@
 		"description": "A syringe, useful for administering medical treatments.",
 		"id": "syringe",
 		"image": "./Mods/Core/Items/syringe_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Syringe",
 		"sprite": "syringe_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 5,
 		"weight": 0.05
@@ -1381,7 +1381,7 @@
 		"description": "A slice of pizza, not very fresh but still edible.",
 		"id": "slice_of_pizza",
 		"image": "./Mods/Core/Items/slice_of_pizza_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Slice of Pizza",
 		"references": {
 			"core": {
@@ -1391,7 +1391,7 @@
 			}
 		},
 		"sprite": "slice_of_pizza_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 0.3
@@ -1400,7 +1400,7 @@
 		"description": "A package of vacuum-sealed fish, preserved for longer storage.",
 		"id": "vacuum_sealed_fish",
 		"image": "./Mods/Core/Items/vacuum_sealed_fish_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Vacuum Sealed Fish",
 		"references": {
 			"core": {
@@ -1410,7 +1410,7 @@
 			}
 		},
 		"sprite": "vacuum_sealed_fish_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 0.8
@@ -1419,7 +1419,7 @@
 		"description": "A ripe tomato, still fresh and edible.",
 		"id": "tomato",
 		"image": "./Mods/Core/Items/tomato_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Tomato",
 		"references": {
 			"core": {
@@ -1429,7 +1429,7 @@
 			}
 		},
 		"sprite": "tomato_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.2
@@ -1438,7 +1438,7 @@
 		"description": "A head of lettuce, slightly wilted but still usable.",
 		"id": "lettuce",
 		"image": "./Mods/Core/Items/lettuce_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Lettuce",
 		"references": {
 			"core": {
@@ -1448,7 +1448,7 @@
 			}
 		},
 		"sprite": "lettuce_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 90,
 		"weight": 0.3
@@ -1457,10 +1457,10 @@
 		"description": "A container of protein powder, useful for maintaining nutrition.",
 		"id": "protein_powder",
 		"image": "./Mods/Core/Items/protein_powder_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Protein Powder",
 		"sprite": "protein_powder_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 1
@@ -1469,10 +1469,10 @@
 		"description": "A bar of chocolate, a morale booster and energy source.",
 		"id": "chocolate",
 		"image": "./Mods/Core/Items/chocolate_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Chocolate",
 		"sprite": "chocolate_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 25,
 		"weight": 0.2
@@ -1481,10 +1481,10 @@
 		"description": "A jar of olives, preserved and ready to eat.",
 		"id": "jar_olives",
 		"image": "./Mods/Core/Items/jar_olives_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Jar of Olives",
 		"sprite": "jar_olives_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 40,
 		"weight": 0.5
@@ -1493,10 +1493,10 @@
 		"description": "A jar of preserved basil, useful for seasoning.",
 		"id": "jar_basil",
 		"image": "./Mods/Core/Items/jar_basil_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Jar of Basil",
 		"sprite": "jar_basil_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 25,
 		"weight": 0.5
@@ -1505,10 +1505,10 @@
 		"description": "A jar of mustard, adds flavor to meals.",
 		"id": "jar_mustard",
 		"image": "./Mods/Core/Items/jar_mustard_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Jar of Mustard",
 		"sprite": "jar_mustard_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 25,
 		"weight": 0.3
@@ -1517,10 +1517,10 @@
 		"description": "A bottle of ketchup, a common condiment.",
 		"id": "bottle_ketchup",
 		"image": "./Mods/Core/Items/bottle_ketchup_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Bottle of Ketchup",
 		"sprite": "bottle_ketchup_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 60,
 		"weight": 0.3
@@ -1529,10 +1529,10 @@
 		"description": "A loaf of bread that has gone stale, but still edible in a pinch.",
 		"id": "stale_bread",
 		"image": "./Mods/Core/Items/stale_bread_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Stale Bread",
 		"sprite": "stale_bread_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 90,
 		"weight": 0.5
@@ -1541,10 +1541,10 @@
 		"description": "Pain relief medication, useful for treating injuries.",
 		"id": "painkiller",
 		"image": "./Mods/Core/Items/painkiller_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Painkiller",
 		"sprite": "painkiller_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 5,
 		"weight": 0.1
@@ -1553,10 +1553,10 @@
 		"description": "A fresh orange, a good source of vitamin C.",
 		"id": "orange",
 		"image": "./Mods/Core/Items/orange_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Orange",
 		"sprite": "orange_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.2
@@ -1565,7 +1565,7 @@
 		"description": "A fresh apple, a healthy snack.",
 		"id": "apple",
 		"image": "./Mods/Core/Items/apple_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Apple",
 		"references": {
 			"core": {
@@ -1575,7 +1575,7 @@
 			}
 		},
 		"sprite": "apple_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.2
@@ -1584,10 +1584,10 @@
 		"description": "A raw potato, versatile in many recipes.",
 		"id": "potato",
 		"image": "./Mods/Core/Items/potato_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Potato",
 		"sprite": "potato_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 15,
 		"weight": 0.3
@@ -1596,7 +1596,7 @@
 		"description": "A fresh carrot, good for nutrition.",
 		"id": "carrot",
 		"image": "./Mods/Core/Items/carrot_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Carrot",
 		"references": {
 			"core": {
@@ -1606,7 +1606,7 @@
 			}
 		},
 		"sprite": "carrot_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.2
@@ -1615,7 +1615,7 @@
 		"description": "A carton of eggs, a versatile food item.",
 		"id": "eggs",
 		"image": "./Mods/Core/Items/eggs_32.png",
-		"max_stack_size": "5",
+		"max_stack_size": 5,
 		"name": "Eggs",
 		"references": {
 			"core": {
@@ -1625,7 +1625,7 @@
 			}
 		},
 		"sprite": "eggs_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 0.6
@@ -1634,7 +1634,7 @@
 		"description": "A stick of butter, useful for cooking and baking.",
 		"id": "butter",
 		"image": "./Mods/Core/Items/butter_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Butter",
 		"references": {
 			"core": {
@@ -1644,7 +1644,7 @@
 			}
 		},
 		"sprite": "butter_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 20,
 		"weight": 0.4
@@ -1653,7 +1653,7 @@
 		"description": "A can of energy drink, boosts stamina temporarily.",
 		"id": "can_energydrink",
 		"image": "./Mods/Core/Items/can_energydrink_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Energy Drink",
 		"references": {
 			"core": {
@@ -1663,7 +1663,7 @@
 			}
 		},
 		"sprite": "can_energydrink_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 0.3
@@ -1672,7 +1672,7 @@
 		"description": "A can of soda, a refreshing beverage.",
 		"id": "can_soda",
 		"image": "./Mods/Core/Items/can_soda_32.png",
-		"max_stack_size": "20",
+		"max_stack_size": 20,
 		"name": "Soda",
 		"references": {
 			"core": {
@@ -1682,7 +1682,7 @@
 			}
 		},
 		"sprite": "can_soda_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 50,
 		"weight": 0.3
@@ -1691,7 +1691,7 @@
 		"description": "A block of cheese, a versatile food item.",
 		"id": "cheese",
 		"image": "./Mods/Core/Items/cheese_32.png",
-		"max_stack_size": "10",
+		"max_stack_size": 10,
 		"name": "Cheese",
 		"references": {
 			"core": {
@@ -1701,7 +1701,7 @@
 			}
 		},
 		"sprite": "cheese_32.png",
-		"stack_size": "1",
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 40,
 		"weight": 0.5
