@@ -184,7 +184,7 @@
 		"sprite": "rifle_64_32.png",
 		"stack_size": "1",
 		"two_handed": true,
-		"volume": "300",
+		"volume": 300,
 		"weight": 4
 	},
 	{
@@ -210,7 +210,7 @@
 		"sprite": "chugunov_mpap_32_28.png",
 		"stack_size": "1",
 		"two_handed": true,
-		"volume": "150",
+		"volume": 150,
 		"weight": 3
 	},
 	{
@@ -227,7 +227,7 @@
 		"sprite": "chugunov_mpap_magazine_16_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.25
 	},
 	{
@@ -249,7 +249,7 @@
 		"sprite": "bottle_empty_32.png",
 		"stack_size": "2",
 		"two_handed": false,
-		"volume": "15",
+		"volume": 15,
 		"weight": 0.1
 	},
 	{
@@ -273,7 +273,7 @@
 		"sprite": "bottle_water_32.png",
 		"stack_size": "2",
 		"two_handed": false,
-		"volume": "15",
+		"volume": 15,
 		"weight": 0.25
 	},
 	{
@@ -292,7 +292,7 @@
 		"sprite": "canned_food_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "30",
+		"volume": 30,
 		"weight": 0.25
 	},
 	{
@@ -308,7 +308,7 @@
 		"sprite": "machete_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "100",
+		"volume": 100,
 		"weight": 4
 	},
 	{
@@ -320,7 +320,7 @@
 		"sprite": "arrow_basic_32.png",
 		"stack_size": "5",
 		"two_handed": false,
-		"volume": "1",
+		"volume": 1,
 		"weight": 0.1
 	},
 	{
@@ -339,7 +339,7 @@
 		"sprite": "hammer_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 2
 	},
 	{
@@ -378,7 +378,7 @@
 		"sprite": "screwdriver_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "20",
+		"volume": 20,
 		"weight": 0.5
 	},
 	{
@@ -398,7 +398,7 @@
 		"sprite": "bandage_32.png",
 		"stack_size": "3",
 		"two_handed": false,
-		"volume": "1",
+		"volume": 1,
 		"weight": 0.1
 	},
 	{
@@ -417,7 +417,7 @@
 		"sprite": "antibiotics_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "5",
+		"volume": 5,
 		"weight": 0.1
 	},
 	{
@@ -439,7 +439,7 @@
 		"sprite": "jacket_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "100",
+		"volume": 100,
 		"weight": 1
 	},
 	{
@@ -462,7 +462,7 @@
 		"sprite": "boots_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "100",
+		"volume": 100,
 		"weight": 1
 	},
 	{
@@ -474,7 +474,7 @@
 		"sprite": "jerrycan_gas_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "400",
+		"volume": 400,
 		"weight": 10
 	},
 	{
@@ -493,7 +493,7 @@
 		"sprite": "can_oil_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "100",
+		"volume": 100,
 		"weight": 2
 	},
 	{
@@ -505,7 +505,7 @@
 		"sprite": "battery_powered_radio_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "100",
+		"volume": 100,
 		"weight": 1
 	},
 	{
@@ -524,7 +524,7 @@
 		"sprite": "flashlight_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "100",
+		"volume": 100,
 		"weight": 0.5
 	},
 	{
@@ -544,7 +544,7 @@
 		"sprite": "can_beer_32.png",
 		"stack_size": "2",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 0.5
 	},
 	{
@@ -556,7 +556,7 @@
 		"sprite": "sigarrette_pack_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.1
 	},
 	{
@@ -578,7 +578,7 @@
 		"sprite": "gasmask_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "80",
+		"volume": 80,
 		"weight": 1
 	},
 	{
@@ -590,7 +590,7 @@
 		"sprite": "vest_ballistic_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "150",
+		"volume": 150,
 		"weight": 4
 	},
 	{
@@ -621,7 +621,7 @@
 		"sprite": "battery_32.png",
 		"stack_size": "2",
 		"two_handed": false,
-		"volume": "0.1",
+		"volume": 0,
 		"weight": 0.1
 	},
 	{
@@ -633,7 +633,7 @@
 		"sprite": "solar_panel_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "1000",
+		"volume": 1000,
 		"weight": 10
 	},
 	{
@@ -645,7 +645,7 @@
 		"sprite": "map_paper_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "5",
+		"volume": 5,
 		"weight": 0.1
 	},
 	{
@@ -657,7 +657,7 @@
 		"sprite": "tarp_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "150",
+		"volume": 150,
 		"weight": 3
 	},
 	{
@@ -669,7 +669,7 @@
 		"sprite": "tent_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "600",
+		"volume": 600,
 		"weight": 9
 	},
 	{
@@ -681,7 +681,7 @@
 		"sprite": "survival_guide_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.1
 	},
 	{
@@ -700,7 +700,7 @@
 		"sprite": "book_novel_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.4
 	},
 	{
@@ -719,7 +719,7 @@
 		"sprite": "bottle_disinfectant_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "5",
+		"volume": 5,
 		"weight": 0.1
 	},
 	{
@@ -731,7 +731,7 @@
 		"sprite": "radio_two_way_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 1
 	},
 	{
@@ -743,7 +743,7 @@
 		"sprite": "firestarter_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.2
 	},
 	{
@@ -755,7 +755,7 @@
 		"sprite": "kit_fishing_small_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 0.4
 	},
 	{
@@ -767,7 +767,7 @@
 		"sprite": "kitchen_knife_64_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "100",
+		"volume": 100,
 		"weight": 0.4
 	},
 	{
@@ -779,7 +779,7 @@
 		"sprite": "portable_stove_64_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "200",
+		"volume": 200,
 		"weight": 3
 	},
 	{
@@ -791,7 +791,7 @@
 		"sprite": "cooking_pot_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "350",
+		"volume": 350,
 		"weight": 3
 	},
 	{
@@ -803,7 +803,7 @@
 		"sprite": "can_opener_64_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "60",
+		"volume": 60,
 		"weight": 0.2
 	},
 	{
@@ -850,7 +850,7 @@
 		"sprite": "mixing_bowl_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "250",
+		"volume": 250,
 		"weight": 0.5
 	},
 	{
@@ -862,7 +862,7 @@
 		"sprite": "tea_kettle_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "200",
+		"volume": 200,
 		"weight": 1
 	},
 	{
@@ -874,7 +874,7 @@
 		"sprite": "spice_rack_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "150",
+		"volume": 150,
 		"weight": 1
 	},
 	{
@@ -886,7 +886,7 @@
 		"sprite": "measuring_cup_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "100",
+		"volume": 100,
 		"weight": 0.3
 	},
 	{
@@ -921,7 +921,7 @@
 		"sprite": "rolling_pin_64_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "150",
+		"volume": 150,
 		"weight": 0.5
 	},
 	{
@@ -933,7 +933,7 @@
 		"sprite": "frying_pan_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "200",
+		"volume": 200,
 		"weight": 2
 	},
 	{
@@ -945,7 +945,7 @@
 		"sprite": "steel_colander_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "200",
+		"volume": 200,
 		"weight": 0.7
 	},
 	{
@@ -957,7 +957,7 @@
 		"sprite": "peeler_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 0.1
 	},
 	{
@@ -969,7 +969,7 @@
 		"sprite": "grater_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 0.3
 	},
 	{
@@ -981,7 +981,7 @@
 		"sprite": "toaster_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "300",
+		"volume": 300,
 		"weight": 1.5
 	},
 	{
@@ -993,7 +993,7 @@
 		"sprite": "blender_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "300",
+		"volume": 300,
 		"weight": 2
 	},
 	{
@@ -1005,7 +1005,7 @@
 		"sprite": "coffeemaker_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "300",
+		"volume": 300,
 		"weight": 2.5
 	},
 	{
@@ -1017,7 +1017,7 @@
 		"sprite": "microwave_oven_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "400",
+		"volume": 400,
 		"weight": 12
 	},
 	{
@@ -1029,7 +1029,7 @@
 		"sprite": "dish_rack_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "400",
+		"volume": 400,
 		"weight": 1
 	},
 	{
@@ -1041,7 +1041,7 @@
 		"sprite": "pressure_cooker_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "400",
+		"volume": 400,
 		"weight": 5
 	},
 	{
@@ -1053,7 +1053,7 @@
 		"sprite": "bread_maker_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "300",
+		"volume": 300,
 		"weight": 5
 	},
 	{
@@ -1065,7 +1065,7 @@
 		"sprite": "nails_32.png",
 		"stack_size": "10",
 		"two_handed": false,
-		"volume": "5",
+		"volume": 5,
 		"weight": 0.1
 	},
 	{
@@ -1077,7 +1077,7 @@
 		"sprite": "log_32.png",
 		"stack_size": "1",
 		"two_handed": true,
-		"volume": "500",
+		"volume": 500,
 		"weight": 10
 	},
 	{
@@ -1089,7 +1089,7 @@
 		"sprite": "screw_32.png",
 		"stack_size": "10",
 		"two_handed": false,
-		"volume": "5",
+		"volume": 5,
 		"weight": 0.1
 	},
 	{
@@ -1101,7 +1101,7 @@
 		"sprite": "branches_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 2
 	},
 	{
@@ -1113,7 +1113,7 @@
 		"sprite": "leaves_32.png",
 		"stack_size": "5",
 		"two_handed": false,
-		"volume": "1",
+		"volume": 1,
 		"weight": 0.01
 	},
 	{
@@ -1125,7 +1125,7 @@
 		"sprite": "pine_branch_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 2
 	},
 	{
@@ -1137,7 +1137,7 @@
 		"sprite": "clay_32.png",
 		"stack_size": "5",
 		"two_handed": false,
-		"volume": "20",
+		"volume": 20,
 		"weight": 1
 	},
 	{
@@ -1149,7 +1149,7 @@
 		"sprite": "soil_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "200",
+		"volume": 200,
 		"weight": 5
 	},
 	{
@@ -1161,7 +1161,7 @@
 		"sprite": "hinge_32.png",
 		"stack_size": "5",
 		"two_handed": false,
-		"volume": "5",
+		"volume": 5,
 		"weight": 0.2
 	},
 	{
@@ -1173,7 +1173,7 @@
 		"sprite": "plant_remnants_32.png",
 		"stack_size": "5",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.1
 	},
 	{
@@ -1185,7 +1185,7 @@
 		"sprite": "electrical_components_32.png",
 		"stack_size": "5",
 		"two_handed": false,
-		"volume": "20",
+		"volume": 20,
 		"weight": 0.5
 	},
 	{
@@ -1197,7 +1197,7 @@
 		"sprite": "plastic_parts_32.png",
 		"stack_size": "10",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.3
 	},
 	{
@@ -1209,7 +1209,7 @@
 		"sprite": "ceramic_fragments_32.png",
 		"stack_size": "5",
 		"two_handed": false,
-		"volume": "15",
+		"volume": 15,
 		"weight": 1
 	},
 	{
@@ -1221,7 +1221,7 @@
 		"sprite": "metal_parts_32.png",
 		"stack_size": "10",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.5
 	},
 	{
@@ -1233,7 +1233,7 @@
 		"sprite": "jar_parsley_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "60",
+		"volume": 60,
 		"weight": 0.5
 	},
 	{
@@ -1252,7 +1252,7 @@
 		"sprite": "tofu_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "30",
+		"volume": 30,
 		"weight": 0.5
 	},
 	{
@@ -1271,7 +1271,7 @@
 		"sprite": "bottle_yogurt_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "100",
+		"volume": 100,
 		"weight": 0.3
 	},
 	{
@@ -1283,7 +1283,7 @@
 		"sprite": "jar_pickles_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 1
 	},
 	{
@@ -1295,7 +1295,7 @@
 		"sprite": "condensed_milk_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "60",
+		"volume": 60,
 		"weight": 0.8
 	},
 	{
@@ -1307,7 +1307,7 @@
 		"sprite": "insulin_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "5",
+		"volume": 5,
 		"weight": 0.1
 	},
 	{
@@ -1319,7 +1319,7 @@
 		"sprite": "epipen_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "5",
+		"volume": 5,
 		"weight": 0.1
 	},
 	{
@@ -1338,7 +1338,7 @@
 		"sprite": "bag_bacon_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "30",
+		"volume": 30,
 		"weight": 0.5
 	},
 	{
@@ -1350,7 +1350,7 @@
 		"sprite": "wine_bottle_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "90",
+		"volume": 90,
 		"weight": 1.5
 	},
 	{
@@ -1362,7 +1362,7 @@
 		"sprite": "bread_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "90",
+		"volume": 90,
 		"weight": 0.5
 	},
 	{
@@ -1374,7 +1374,7 @@
 		"sprite": "syringe_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "5",
+		"volume": 5,
 		"weight": 0.05
 	},
 	{
@@ -1393,7 +1393,7 @@
 		"sprite": "slice_of_pizza_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 0.3
 	},
 	{
@@ -1412,7 +1412,7 @@
 		"sprite": "vacuum_sealed_fish_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 0.8
 	},
 	{
@@ -1431,7 +1431,7 @@
 		"sprite": "tomato_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.2
 	},
 	{
@@ -1450,7 +1450,7 @@
 		"sprite": "lettuce_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "90",
+		"volume": 90,
 		"weight": 0.3
 	},
 	{
@@ -1462,7 +1462,7 @@
 		"sprite": "protein_powder_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 1
 	},
 	{
@@ -1474,7 +1474,7 @@
 		"sprite": "chocolate_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "25",
+		"volume": 25,
 		"weight": 0.2
 	},
 	{
@@ -1486,7 +1486,7 @@
 		"sprite": "jar_olives_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "40",
+		"volume": 40,
 		"weight": 0.5
 	},
 	{
@@ -1498,7 +1498,7 @@
 		"sprite": "jar_basil_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "25",
+		"volume": 25,
 		"weight": 0.5
 	},
 	{
@@ -1510,7 +1510,7 @@
 		"sprite": "jar_mustard_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "25",
+		"volume": 25,
 		"weight": 0.3
 	},
 	{
@@ -1522,7 +1522,7 @@
 		"sprite": "bottle_ketchup_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "60",
+		"volume": 60,
 		"weight": 0.3
 	},
 	{
@@ -1534,7 +1534,7 @@
 		"sprite": "stale_bread_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "90",
+		"volume": 90,
 		"weight": 0.5
 	},
 	{
@@ -1546,7 +1546,7 @@
 		"sprite": "painkiller_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "5",
+		"volume": 5,
 		"weight": 0.1
 	},
 	{
@@ -1558,7 +1558,7 @@
 		"sprite": "orange_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.2
 	},
 	{
@@ -1577,7 +1577,7 @@
 		"sprite": "apple_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.2
 	},
 	{
@@ -1589,7 +1589,7 @@
 		"sprite": "potato_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "15",
+		"volume": 15,
 		"weight": 0.3
 	},
 	{
@@ -1608,7 +1608,7 @@
 		"sprite": "carrot_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "10",
+		"volume": 10,
 		"weight": 0.2
 	},
 	{
@@ -1627,7 +1627,7 @@
 		"sprite": "eggs_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 0.6
 	},
 	{
@@ -1646,7 +1646,7 @@
 		"sprite": "butter_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "20",
+		"volume": 20,
 		"weight": 0.4
 	},
 	{
@@ -1665,7 +1665,7 @@
 		"sprite": "can_energydrink_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 0.3
 	},
 	{
@@ -1684,7 +1684,7 @@
 		"sprite": "can_soda_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "50",
+		"volume": 50,
 		"weight": 0.3
 	},
 	{
@@ -1703,7 +1703,7 @@
 		"sprite": "cheese_32.png",
 		"stack_size": "1",
 		"two_handed": false,
-		"volume": "40",
+		"volume": 40,
 		"weight": 0.5
 	}
 ]
