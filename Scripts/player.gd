@@ -11,7 +11,7 @@ var rng = RandomNumberGenerator.new()
 var speed = 1  # speed in meters/sec
 var current_speed
 
-var run_multiplier = 1.5
+var run_multiplier = 1.1
 var is_running = false
 
 var left_arm_health = 100
@@ -29,8 +29,8 @@ var current_right_leg_health
 
 var stamina = 100
 var current_stamina
-var stamina_lost_while_running_persec = 10
-var stamina_regen_while_standing_still = 5
+var stamina_lost_while_running_persec = 15
+var stamina_regen_while_standing_still = 3
 
 var hunger = 0
 var current_hunger
@@ -143,45 +143,56 @@ func _process(_delta):
 func _physics_process(delta):
 	time_since_ready += delta
 	if time_since_ready < delay_before_movement:
-		# Skip movement updates during the delay period. Otherwise the player 
-		# will fall into the ground because the ground is still being spawned.
+		# Skip movement updates during the delay period to prevent 
+		# the player from falling into the ground while the ground is spawning.
 		return
 
 	# Added an arbitrary multiplier because without it, the player will fall slowly
 	var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 	velocity.y -= gravity * 12 * delta
 	move_and_slide()
-	
-		
+
 	if is_alive:
 		var input_dir = Input.get_vector("left", "right", "up", "down")
 		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		
+
+		# Athletics skill level
+		var athletics_level = get_skill_level("athletics")
+
+		# Calculate run multiplier based on athletics skill level
+		run_multiplier = 1.1 + (athletics_level / 100.0) * (2.0 - 1.1)
+
+		# Calculate stamina lost while running based on athletics skill level
+		stamina_lost_while_running_persec = 15 - (athletics_level / 100.0) * (15 - 5)
+
+		# Calculate stamina regeneration while standing still based on athletics skill level
+		stamina_regen_while_standing_still = 3 + (athletics_level / 100.0) * (8 - 3)
+
 		# Check if the player is pushing furniture
 		if pushing_furniture and furniture_body:
-			# Get the mass of the RigidBody3D
-			var mass = furniture_body.mass
-			# Calculate resistance based on the mass
-			var resistance = 1.0 / mass
-			# Apply resistance to the player's movement
+			# Apply resistance based on the mass of the RigidBody3D
+			var resistance = 1.0 / furniture_body.mass
 			velocity = direction * speed * resistance
 		else:
-			if !is_running || current_stamina <= 0:
+			if not is_running or current_stamina <= 0:
 				velocity = direction * speed
 			elif is_running and current_stamina > 0:
 				velocity = direction * speed * run_multiplier
-				
+
 				if velocity.length() > 0:
 					current_stamina -= delta * stamina_lost_while_running_persec
-				
+					# Add XP for running
+					add_skill_xp("athletics", 0.01)
+
 		if velocity.length() < 0.1:
 			current_stamina += delta * stamina_regen_while_standing_still
 			if current_stamina > stamina:
 				current_stamina = stamina
 
 		update_stamina_HUD.emit(current_stamina)
-		
+
 		move_and_slide()
+
 
 
 
@@ -414,7 +425,7 @@ func add_skill_level(skill_id: String, levels: int) -> void:
 
 # Method to add an amount of XP to a skill
 # This also increases the skill level when the XP reaches 100
-func add_skill_xp(skill_id: String, xp: int) -> void:
+func add_skill_xp(skill_id: String, xp: float) -> void:
 	if skills.has(skill_id):
 		var current_xp = skills[skill_id]["xp"]
 		var current_level = skills[skill_id]["level"]
