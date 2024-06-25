@@ -172,7 +172,7 @@ func load_player_equipment() -> void:
 		print_debug("Failed to load player equipment from: " + load_path)
 
 
-# Function to save the player's state to a JSON file.
+# This function saves the player's state to a JSON file, including skills.
 func save_player_state(player: CharacterBody3D) -> void:
 	if !player:
 		return
@@ -189,12 +189,13 @@ func save_player_state(player: CharacterBody3D) -> void:
 		"hunger": player.current_hunger,
 		"thirst": player.current_thirst,
 		"nutrition": player.current_nutrition,
-		"pain": player.current_pain
+		"pain": player.current_pain,
+		"skills": player.skills  # Add skills dictionary
 	}
 	Helper.json_helper.write_json_file(save_path, JSON.stringify(player_state))
 
 
-# Function to load the player's state from a JSON file.
+# This function loads the player's state from a JSON file, including skills.
 func load_player_state(player: CharacterBody3D) -> void:
 	var load_path = current_save_folder + "/player_state.json"
 	var player_state = Helper.json_helper.load_json_dictionary_file(load_path)
@@ -212,6 +213,8 @@ func load_player_state(player: CharacterBody3D) -> void:
 		player.current_thirst = player_state["thirst"]
 		player.current_nutrition = player_state["nutrition"]
 		player.current_pain = player_state["pain"]
+		player.skills = player_state["skills"]  # Load skills dictionary
+
 		# Emit signals to update the HUD
 		player.update_doll.emit(player.current_head_health, player.current_right_arm_health, player.current_left_arm_health, player.current_torso_health, player.current_right_leg_health, player.current_left_leg_health)
 		player.update_stamina_HUD.emit(player.current_stamina)
