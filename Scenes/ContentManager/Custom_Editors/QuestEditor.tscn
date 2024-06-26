@@ -1,0 +1,196 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7k2j4d6wx4yy"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/QuestEditor.gd" id="1_4a2kk"]
+[ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_xxxiv"]
+[ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_2twbp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0aygx"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6fqvj"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.671296, 0.576576, 0.548227, 1)
+
+[node name="QuestEditor" type="Control" node_paths=PackedStringArray("questImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "questSelector", "step_type_option_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4a2kk")
+questImageDisplay = NodePath("VBoxContainer/FormGrid/QuestImageDisplay")
+IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
+PathTextLabel = NodePath("VBoxContainer/FormGrid/PathTextLabel")
+NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
+DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
+questSelector = NodePath("Sprite_selector")
+step_type_option_button = NodePath("VBoxContainer/FormGrid/StepControlsHBoxContainer/StepTypeOptionButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="FormGrid" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="ImageLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Sprite:"
+
+[node name="QuestImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_stretch_ratio = 0.4
+texture = ExtResource("2_xxxiv")
+expand_mode = 3
+
+[node name="PathLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Sprite name"
+
+[node name="PathTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="IDLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "ID:"
+
+[node name="IDTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Name"
+
+[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+focus_next = NodePath("../DescriptionTextEdit")
+focus_previous = NodePath("../QuestImageDisplay")
+placeholder_text = "Gather apples"
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Description"
+
+[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.9
+focus_previous = NodePath("../NameTextEdit")
+placeholder_text = "You need to collect 10 apples for the delicous apple pie you are going to make!"
+wrap_mode = 1
+
+[node name="StepControlsLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Add steps"
+
+[node name="StepControlsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="StepTypeLabel" type="Label" parent="VBoxContainer/FormGrid/StepControlsHBoxContainer"]
+layout_mode = 2
+text = "Step Type"
+
+[node name="StepTypeOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/StepControlsHBoxContainer"]
+layout_mode = 2
+tooltip_text = "Select one of the step types to add to this quest
+
+Craft item: The player needs to craft the selected item in order to complete the step
+
+Collect x amount of item: Select an item and enter a number. The player will complete this step when the number of this item is in his inventory
+
+Call function: Select a function and add parameters. When the quest reaches this step, the function will automatically be executed with the parameters
+
+Enter map: Select the id of a map. This step completes when the player has entered a chunk that is generated from the map with this id
+
+Kill x mobs of type: This step completes when the player has killed x amount of the mob you selected"
+item_count = 5
+selected = 0
+popup/item_0/text = "Craft item"
+popup/item_0/id = 0
+popup/item_1/text = "Collect x amount of item"
+popup/item_1/id = 1
+popup/item_2/text = "Call function"
+popup/item_2/id = 2
+popup/item_3/text = "Enter map"
+popup/item_3/id = 3
+popup/item_4/text = "Kill x mobs of type"
+popup/item_4/id = 4
+
+[node name="AddStepButton" type="Button" parent="VBoxContainer/FormGrid/StepControlsHBoxContainer"]
+layout_mode = 2
+text = " + Add"
+
+[node name="StepsLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Steps"
+
+[node name="StepsPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_0aygx")
+
+[node name="StepsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/StepsPanelContainer"]
+layout_mode = 2
+
+[node name="RewardssLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Rewards"
+
+[node name="RewardsPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_6fqvj")
+
+[node name="RewardsItemList" type="GridContainer" parent="VBoxContainer/FormGrid/RewardsPanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Drag items to this list from the left menu of the content editor. Once the list has been made, you can assign it to a container, for example in the furniture editor."
+columns = 6
+
+[node name="Sprite_selector" parent="." instance=ExtResource("3_2twbp")]
+visible = false
+
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="gui_input" from="VBoxContainer/FormGrid/QuestImageDisplay" to="." method="_on_skill_image_display_gui_input"]
+[connection signal="button_up" from="VBoxContainer/FormGrid/StepControlsHBoxContainer/AddStepButton" to="." method="_on_add_step_button_button_up"]
+[connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]
