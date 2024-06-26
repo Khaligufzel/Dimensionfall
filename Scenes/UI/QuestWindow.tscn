@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=3 uid="uid://b50xhj4218wjd"]
+
+[ext_resource type="Script" path="res://Scripts/QuestWindow.gd" id="1_3nwqm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]
+
+[node name="QuestWindow" type="Control" node_paths=PackedStringArray("quest_overview_tabs", "current_quests_list", "completed_quests_list", "failed_quests_list", "quest_details_section")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3nwqm")
+quest_overview_tabs = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs")
+current_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Current/QuestList")
+completed_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Completed/QuestList")
+failed_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Failed/QuestList")
+quest_details_section = NodePath("PanelContainer/HBoxContainer/QuestDetailsSection")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bu1vc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="QuestOverviewTabs" type="TabContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="Current" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestOverviewTabs"]
+layout_mode = 2
+
+[node name="QuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Current"]
+layout_mode = 2
+
+[node name="Completed" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestOverviewTabs"]
+visible = false
+layout_mode = 2
+
+[node name="QuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Completed"]
+layout_mode = 2
+
+[node name="Failed" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestOverviewTabs"]
+visible = false
+layout_mode = 2
+
+[node name="QuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Failed"]
+layout_mode = 2
+
+[node name="QuestDetailsSection" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+
+[node name="QuestTitle" type="Label" parent="PanelContainer/HBoxContainer/QuestDetailsSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Quest name"
+
+[node name="QuestDescription" type="TextEdit" parent="PanelContainer/HBoxContainer/QuestDetailsSection"]
+layout_mode = 2
+text = "Description for the quest"
+
+[node name="QuestStatus" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestDetailsSection"]
+layout_mode = 2
+
+[node name="QuestRewards" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestDetailsSection"]
+layout_mode = 2
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/QuestDetailsSection"]
+layout_mode = 2
+
+[node name="TrackQuestButton" type="Button" parent="PanelContainer/HBoxContainer/QuestDetailsSection/ButtonsContainer"]
+layout_mode = 2
+text = "Track quest"
+
+[node name="AbandonQuestButton" type="Button" parent="PanelContainer/HBoxContainer/QuestDetailsSection/ButtonsContainer"]
+layout_mode = 2
+text = "Abandon quest"
