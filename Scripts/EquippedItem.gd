@@ -138,7 +138,11 @@ func fire_weapon():
 
 func add_weapon_xp_on_use():
 	if heldItem.get_property("Melee") != null:
-		print_debug("Melee xp gain is not yet implemented")
+		var melee_properties = heldItem.get_property("Melee")
+		var used_skill = melee_properties.get("used_skill", {})
+		var skill_id = used_skill.get("skill_id", "")
+		var xp_gain = used_skill.get("xp", 0)
+		player.add_skill_xp(skill_id, xp_gain)
 	elif heldItem.get_property("Ranged") != null:
 		var rangedproperties = heldItem.get_property("Ranged")
 		if rangedproperties.has("used_skill"):
@@ -385,10 +389,19 @@ func reset_attack_position(original_position, original_rotation_degrees):
 func perform_melee_attack():
 	var melee_properties = heldItem.get_property("Melee")
 	if melee_properties == null:
-		print("Error: Melee properties not found.")
+		print_debug("Error: Melee properties not found.")
 		return
+		
+	in_cooldown = true
+	attack_cooldown_timer.start()
 	
 	var melee_damage = melee_properties.get("damage", 0)
+	var melee_skill_id = melee_properties.get("used_skill", {}).get("skill_id", "")
+	var skill_level = player.get_skill_level(melee_skill_id)
+	var hit_chance = 0.65 + (skill_level / 100.0) * (1.0 - 0.65)
+	if randf() > hit_chance:
+		print_debug("Attack missed due to low hit chance ("+str(hit_chance)+").")
+		return
 
 	# Each mob in range will get hit with the weapon
 	# TODO: Hit only one entity each swing unless the weapon has some kind of flag
@@ -397,8 +410,7 @@ func perform_melee_attack():
 		entity.get_hit(melee_damage)
 
 	animate_attack()
-	in_cooldown = true
-	attack_cooldown_timer.start()
+	add_weapon_xp_on_use()
 
 
 # The player has equipped an item in one of the equipment slots
@@ -447,6 +459,12 @@ func setup_melee_weapon_properties(equippedItem: InventoryItem):
 		configure_melee_collision_shape(reach)
 	else:
 		disable_melee_collision_shape()
+
+	var melee_skill_id = melee_properties.get("used_skill", {}).get("skill_id", "")
+	var skill_level = player.get_skill_level(melee_skill_id)
+	var cooldown_time = 1.5 - (skill_level / 100.0) * (1.5 - 0.5)
+	attack_cooldown_timer.wait_time = cooldown_time
+
 
 # Configure the melee collision shape based on the weapon's reach
 # This creates two triangles on top of each other in front of the player and pointing to the player
