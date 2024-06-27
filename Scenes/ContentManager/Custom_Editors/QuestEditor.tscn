@@ -195,6 +195,6 @@ visible = false
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
-[connection signal="gui_input" from="VBoxContainer/FormGrid/QuestImageDisplay" to="." method="_on_skill_image_display_gui_input"]
+[connection signal="gui_input" from="VBoxContainer/FormGrid/QuestImageDisplay" to="." method="_on_quest_image_display_gui_input"]
 [connection signal="button_up" from="VBoxContainer/FormGrid/StepControlsHBoxContainer/AddStepButton" to="." method="_on_add_step_button_button_up"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

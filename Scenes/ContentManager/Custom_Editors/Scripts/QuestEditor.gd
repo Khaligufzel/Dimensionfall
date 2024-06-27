@@ -54,7 +54,8 @@ func load_quest_data() -> void:
 	if DescriptionTextEdit != null and contentData.has("description"):
 		DescriptionTextEdit.text = contentData["description"]
 	if steps_container:
-		steps_container.clear()
+		for child in steps_container.get_children():
+			child.queue_free()
 		if contentData.has("steps"):
 			for step in contentData["steps"]:
 				add_step_from_data(step)
@@ -136,6 +137,7 @@ func add_step_from_data(step):
 			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
 			dropabletextedit_instance.set_text(step["item"])
 			dropabletextedit_instance.set_meta("step_type", "craft")
+			dropabletextedit_instance.myplaceholdertext = "Drop an item from the left menu"
 			set_drop_functions(dropabletextedit_instance)
 			hbox.add_child(dropabletextedit_instance)
 		"collect":
@@ -145,6 +147,7 @@ func add_step_from_data(step):
 			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
 			dropabletextedit_instance.set_text(step["item"])
 			dropabletextedit_instance.set_meta("step_type", "collect")
+			dropabletextedit_instance.myplaceholdertext = "Drop an item from the left menu"
 			set_drop_functions(dropabletextedit_instance)
 			hbox.add_child(dropabletextedit_instance)
 			var spinbox = SpinBox.new()
@@ -168,6 +171,7 @@ func add_step_from_data(step):
 			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
 			dropabletextedit_instance.set_text(step["map_id"])
 			dropabletextedit_instance.set_meta("step_type", "enter")
+			dropabletextedit_instance.myplaceholdertext = "Drop a map from the left menu"
 			set_drop_functions(dropabletextedit_instance)
 			hbox.add_child(dropabletextedit_instance)
 		"kill":
@@ -177,6 +181,7 @@ func add_step_from_data(step):
 			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
 			dropabletextedit_instance.set_text(step["mob"])
 			dropabletextedit_instance.set_meta("step_type", "kill")
+			dropabletextedit_instance.myplaceholdertext = "Drop a mob from the left menu"
 			set_drop_functions(dropabletextedit_instance)
 			hbox.add_child(dropabletextedit_instance)
 			var spinbox = SpinBox.new()
