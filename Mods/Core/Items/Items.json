@@ -298,7 +298,11 @@
 	{
 		"Melee": {
 			"damage": 25,
-			"reach": 1
+			"reach": 1,
+			"used_skill": {
+				"skill_id": "cutting",
+				"xp": 10
+			}
 		},
 		"description": "A sharp blade with a handle for excellent control",
 		"id": "machete",
