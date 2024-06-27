@@ -188,7 +188,55 @@ func add_step_from_data(step):
 			spinbox.min_value = 1
 			spinbox.value = step["amount"]
 			hbox.add_child(spinbox)
+
+	# Add move up button
+	var move_up_button = Button.new()
+	move_up_button.text = "^"
+	move_up_button.pressed.connect(_on_move_up_button_pressed.bind(hbox))
+	hbox.add_child(move_up_button)
+
+	# Add move down button
+	var move_down_button = Button.new()
+	move_down_button.text = "v"
+	move_down_button.pressed.connect(_on_move_down_button_pressed.bind(hbox))
+	hbox.add_child(move_down_button)
+
+	# Add delete button
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.pressed.connect(_on_delete_button_pressed.bind(hbox))
+	hbox.add_child(delete_button)
+
 	steps_container.add_child(hbox)
+
+
+# Function to handle moving a step up
+func _on_move_up_button_pressed(hbox: HBoxContainer):
+	var index = get_child_index(steps_container, hbox)
+	if index > 0:
+		steps_container.move_child(hbox, index - 1)
+
+
+# Function to handle moving a step down
+func _on_move_down_button_pressed(hbox: HBoxContainer):
+	var index = get_child_index(steps_container, hbox)
+	if index < steps_container.get_child_count() - 1:
+		steps_container.move_child(hbox, index + 1)
+
+
+# Function to handle deleting a step
+func _on_delete_button_pressed(hbox: HBoxContainer):
+	hbox.queue_free()
+
+
+# Function to get the index of a child in the steps_container
+func get_child_index(container: VBoxContainer, child: Control) -> int:
+	var index = 0
+	for element in container.get_children():
+		if element == child:
+			return index
+		index += 1
+	return -1
 
 
 # Called when the user has successfully dropped data onto the texteditcontrol
