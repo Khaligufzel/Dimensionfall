@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7k2j4d6wx4yy"]
+[gd_scene load_steps=7 format=3 uid="uid://b7k2j4d6wx4yy"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/QuestEditor.gd" id="1_4a2kk"]
+[ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="2_w4cgs"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_xxxiv"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_2twbp"]
 
@@ -17,7 +18,7 @@ content_margin_right = 8.0
 content_margin_bottom = 8.0
 bg_color = Color(0.671296, 0.576576, 0.548227, 1)
 
-[node name="QuestEditor" type="Control" node_paths=PackedStringArray("questImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "questSelector", "step_type_option_button")]
+[node name="QuestEditor" type="Control" node_paths=PackedStringArray("questImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "questSelector", "step_type_option_button", "steps_container", "rewards_item_list")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,6 +33,9 @@ NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 questSelector = NodePath("Sprite_selector")
 step_type_option_button = NodePath("VBoxContainer/FormGrid/StepControlsHBoxContainer/StepTypeOptionButton")
+steps_container = NodePath("VBoxContainer/FormGrid/StepsPanelContainer/StepsVBoxContainer")
+rewards_item_list = NodePath("VBoxContainer/FormGrid/RewardsPanelContainer/RewardsItemList")
+dropabletextedit = ExtResource("2_w4cgs")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
