@@ -78,59 +78,6 @@ func _on_add_step_button_button_up():
 	
 	add_step_from_data(empty_step)
 
-
-# Function to add a step based on the step type selected
-func _on_add_step_button_button_up1():
-	var step_type = step_type_option_button.get_selected_id()
-	var hbox = HBoxContainer.new()
-	
-	match step_type:
-		0: # Craft item
-			var labelinstance: Label = Label.new()
-			labelinstance.text = "Craft item:"
-			hbox.add_child(labelinstance)
-			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
-			hbox.add_child(dropabletextedit_instance)
-		1: # Collect x amount of item
-			var labelinstance: Label = Label.new()
-			labelinstance.text = "Collect:"
-			hbox.add_child(labelinstance)
-			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
-			hbox.add_child(dropabletextedit_instance)
-			var spinbox = SpinBox.new()
-			spinbox.min_value = 1
-			spinbox.value = 1
-			hbox.add_child(spinbox)
-		2: # Call function
-			var labelinstance: Label = Label.new()
-			labelinstance.text = "Call function:"
-			hbox.add_child(labelinstance)
-			var optionbutton = OptionButton.new()
-			optionbutton.add_item("QuestManager.testfunc()")
-			hbox.add_child(optionbutton)
-			var textedit = TextEdit.new()
-			textedit.placeholder_text = "Parameters"
-			hbox.add_child(textedit)
-		3: # Enter map
-			var labelinstance: Label = Label.new()
-			labelinstance.text = "Enter map:"
-			hbox.add_child(labelinstance)
-			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
-			hbox.add_child(dropabletextedit_instance)
-		4: # Kill x mobs of type
-			var labelinstance: Label = Label.new()
-			labelinstance.text = "Kill:"
-			hbox.add_child(labelinstance)
-			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
-			hbox.add_child(dropabletextedit_instance)
-			var spinbox = SpinBox.new()
-			spinbox.min_value = 1
-			spinbox.value = 1
-			hbox.add_child(spinbox)
-
-	steps_container.add_child(hbox)
-
-
 # This function collects data from each step in the steps_container and stores it in contentData
 # Since contentData is a reference to an item in Gamedata.data.quests.data
 # the central array for questdata is updated with the changes as well
@@ -188,6 +135,8 @@ func add_step_from_data(step):
 			hbox.add_child(labelinstance)
 			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
 			dropabletextedit_instance.set_text(step["item"])
+			dropabletextedit_instance.set_meta("step_type", "craft")
+			set_drop_functions(dropabletextedit_instance)
 			hbox.add_child(dropabletextedit_instance)
 		"collect":
 			var labelinstance: Label = Label.new()
@@ -195,6 +144,8 @@ func add_step_from_data(step):
 			hbox.add_child(labelinstance)
 			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
 			dropabletextedit_instance.set_text(step["item"])
+			dropabletextedit_instance.set_meta("step_type", "collect")
+			set_drop_functions(dropabletextedit_instance)
 			hbox.add_child(dropabletextedit_instance)
 			var spinbox = SpinBox.new()
 			spinbox.min_value = 1
@@ -216,6 +167,8 @@ func add_step_from_data(step):
 			hbox.add_child(labelinstance)
 			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
 			dropabletextedit_instance.set_text(step["map_id"])
+			dropabletextedit_instance.set_meta("step_type", "enter")
+			set_drop_functions(dropabletextedit_instance)
 			hbox.add_child(dropabletextedit_instance)
 		"kill":
 			var labelinstance: Label = Label.new()
@@ -223,6 +176,8 @@ func add_step_from_data(step):
 			hbox.add_child(labelinstance)
 			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
 			dropabletextedit_instance.set_text(step["mob"])
+			dropabletextedit_instance.set_meta("step_type", "kill")
+			set_drop_functions(dropabletextedit_instance)
 			hbox.add_child(dropabletextedit_instance)
 			var spinbox = SpinBox.new()
 			spinbox.min_value = 1
@@ -232,32 +187,40 @@ func add_step_from_data(step):
 
 
 # Called when the user has successfully dropped data onto the texteditcontrol
-# We have to check the dropped_data for the id property
 func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
-	# Assuming dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
-		var item_id = dropped_data["id"]
-		var item_data = Gamedata.get_data_by_id(Gamedata.data.skills, item_id)
-		if item_data.is_empty():
-			print_debug("No item data found for ID: " + item_id)
-			return
-		texteditcontrol.set_text(item_id)
-	else:
-		print_debug("Dropped data does not contain an 'id' key.")
+		var step_type = texteditcontrol.get_meta("step_type")
+		var valid_data = false
+		
+		match step_type:
+			"craft", "collect":
+				valid_data = not Gamedata.get_data_by_id(Gamedata.data.items, dropped_data["id"]).is_empty()
+			"kill":
+				valid_data = not Gamedata.get_data_by_id(Gamedata.data.mobs, dropped_data["id"]).is_empty()
+			"enter":
+				valid_data = not Gamedata.get_data_by_id(Gamedata.data.maps, dropped_data["id"]).is_empty()
+		
+		if valid_data:
+			texteditcontrol.set_text(dropped_data["id"])
 
 
-func can_entity_drop(dropped_data: Dictionary, mydropabletextedit: HBoxContainer):
-	# Check if the data dictionary has the 'id' property
+# Determines if the dropped data can be accepted
+func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> bool:
 	if not dropped_data or not dropped_data.has("id"):
 		return false
 	
-	# Fetch item data by ID from the Gamedata to ensure it exists and is valid
-	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, dropped_data["id"])
-	if item_data.is_empty():
-		return false
-
-	# If all checks pass, return true
-	return true
+	var step_type = texteditcontrol.get_meta("step_type")
+	var valid_data = false
+	
+	match step_type:
+		"craft", "collect":
+			valid_data = not Gamedata.get_data_by_id(Gamedata.data.items, dropped_data["id"]).is_empty()
+		"kill":
+			valid_data = not Gamedata.get_data_by_id(Gamedata.data.mobs, dropped_data["id"]).is_empty()
+		"enter":
+			valid_data = not Gamedata.get_data_by_id(Gamedata.data.maps, dropped_data["id"]).is_empty()
+	
+	return valid_data
 
 
 # Set the drop functions on the provided control. It should be a dropabletextedit
