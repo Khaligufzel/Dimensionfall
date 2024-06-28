@@ -12,7 +12,7 @@ func _ready():
 	Helper.signal_broker.game_loaded.connect(_on_game_loaded)
 	
 	# Connect to the QuestManager signals
-	QuestManager.quest_complete.connect(_on_quest_complete)
+	QuestManager.quest_completed.connect(_on_quest_complete)
 	QuestManager.quest_failed.connect(_on_quest_failed)
 	QuestManager.step_complete.connect(_on_step_complete)
 	QuestManager.next_step.connect(_on_next_step)
@@ -68,14 +68,14 @@ func _on_quest_reset(_quest_name: String):
 
 
 func initialize_quests():
-	QuestManager.wipe_all_quest_data()
+	QuestManager.wipe_player_data()
 	var quest_data = Gamedata.data.quests.data
 	for quest in quest_data:
 		create_quest_from_data(quest)
 
 
 func create_quest_from_data(quest_data: Dictionary):
-	if quest_data.steps.len < 1:
+	if quest_data.steps.size() < 1:
 		return # The quest has no steps
 	var Quest = ScriptQuest.new(quest_data.id, quest_data.description)
 	var steps_added: bool = false

@@ -41,6 +41,7 @@ func _ready():
 	map_manager = map_manager_Class.new()
 	quest_helper = quest_helper_Class.new()
 	add_child(save_helper)
+	add_child(quest_helper)
 
 
 func _process(_delta: float) -> void:

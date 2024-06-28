@@ -4,7 +4,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]
 
-[node name="QuestWindow" type="Control" node_paths=PackedStringArray("quest_overview_tabs", "available_quests_list", "current_quests_list", "completed_quests_list", "failed_quests_list", "quest_details_section")]
+[node name="QuestWindow" type="Control" node_paths=PackedStringArray("quest_overview_tabs", "available_quests_list", "current_quests_list", "completed_quests_list", "failed_quests_list", "quest_details_section", "step_details_text_edit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,11 +13,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3nwqm")
 quest_overview_tabs = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs")
-available_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Available/QuestList")
-current_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Available/QuestList")
-completed_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Completed/QuestList")
-failed_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Failed/QuestList")
+available_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Available/AvailableQuestList")
+current_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Current/CurrentQuestList")
+completed_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Completed/CompletedQuestList")
+failed_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Failed/FailedQuestList")
 quest_details_section = NodePath("PanelContainer/HBoxContainer/QuestDetailsSection")
+step_details_text_edit = NodePath("PanelContainer/HBoxContainer/QuestDetailsSection/QuestStatus/StepDetailsTextEdit")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -39,29 +40,33 @@ size_flags_stretch_ratio = 0.4
 [node name="Available" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestOverviewTabs"]
 layout_mode = 2
 
-[node name="QuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Available"]
+[node name="AvailableQuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Available"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Current" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestOverviewTabs"]
 visible = false
 layout_mode = 2
 
-[node name="QuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Current"]
+[node name="CurrentQuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Current"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Completed" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestOverviewTabs"]
 visible = false
 layout_mode = 2
 
-[node name="QuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Completed"]
+[node name="CompletedQuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Completed"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Failed" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestOverviewTabs"]
 visible = false
 layout_mode = 2
 
-[node name="QuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Failed"]
+[node name="FailedQuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Failed"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="QuestDetailsSection" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
@@ -75,10 +80,21 @@ text = "Quest name"
 
 [node name="QuestDescription" type="TextEdit" parent="PanelContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
 text = "Description for the quest"
+editable = false
+wrap_mode = 1
 
 [node name="QuestStatus" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StepDetailsTextEdit" type="TextEdit" parent="PanelContainer/HBoxContainer/QuestDetailsSection/QuestStatus"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+editable = false
 
 [node name="QuestRewards" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
