@@ -4,7 +4,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]
 
-[node name="QuestWindow" type="Control" node_paths=PackedStringArray("quest_overview_tabs", "available_quests_list", "current_quests_list", "completed_quests_list", "failed_quests_list", "quest_details_section", "step_details_text_edit")]
+[node name="QuestWindow" type="Control" node_paths=PackedStringArray("quest_overview_tabs", "current_quests_list", "completed_quests_list", "failed_quests_list", "quest_details_section", "step_details_text_edit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3nwqm")
 quest_overview_tabs = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs")
-available_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Available/AvailableQuestList")
 current_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Current/CurrentQuestList")
 completed_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Completed/CompletedQuestList")
 failed_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Failed/FailedQuestList")
@@ -37,15 +36,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 
-[node name="Available" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestOverviewTabs"]
-layout_mode = 2
-
-[node name="AvailableQuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Available"]
-layout_mode = 2
-size_flags_vertical = 3
-
 [node name="Current" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestOverviewTabs"]
-visible = false
 layout_mode = 2
 
 [node name="CurrentQuestList" type="ItemList" parent="PanelContainer/HBoxContainer/QuestOverviewTabs/Current"]

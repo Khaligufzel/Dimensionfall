@@ -8,17 +8,16 @@ extends Control
 
 # Main Quest Journal Window
 @export var quest_overview_tabs: TabContainer
-@export var available_quests_list: ItemList
 @export var current_quests_list: ItemList
 @export var completed_quests_list: ItemList
 @export var failed_quests_list: ItemList
 @export var quest_details_section: VBoxContainer
 @export var step_details_text_edit: TextEdit
 
+var selected_quest: String # Will be the quest ID
 
 func _ready():
 	quest_overview_tabs.tab_changed.connect(_on_tab_changed)
-	available_quests_list.item_selected.connect(_on_quest_selected.bind(available_quests_list))
 	current_quests_list.item_selected.connect(_on_quest_selected.bind(current_quests_list))
 	completed_quests_list.item_selected.connect(_on_quest_selected.bind(completed_quests_list))
 	failed_quests_list.item_selected.connect(_on_quest_selected.bind(failed_quests_list))
@@ -65,14 +64,13 @@ func _on_next_step(_step: Dictionary):
 
 # Function to handle step update
 func _on_step_updated(_step: Dictionary):
-	# To be developed later
-	pass
+	_update_quest_details(selected_quest)
 
 
 # Function to handle new quest addition
 # quest_name: Actually the quest id as defined in json
 func _on_new_quest_added(quest_name: String):
-	add_quest_to_list(quest_name, available_quests_list)
+	add_quest_to_list(quest_name, current_quests_list)
 
 
 # Adds a quest to the provided list
@@ -100,12 +98,14 @@ func _on_tab_changed(_tab):
 
 func _on_quest_selected(index, list: ItemList):
 	# Update the quest details section based on selected quest
-	var selected_quest = list.get_item_metadata(index) # Will be the quest ID
+	selected_quest = list.get_item_metadata(index) # Will be the quest ID
 	_update_quest_details(selected_quest)
 
 
 # The quest details elements are updated after the user has selected a quest
 func _update_quest_details(selected_quest: String):
+	if not selected_quest:
+		return
 	var quest_meta_data: Dictionary = QuestManager.get_meta_data(selected_quest)
 	var current_step: Dictionary = QuestManager.get_current_step(selected_quest)
 	
