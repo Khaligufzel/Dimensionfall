@@ -50,7 +50,7 @@ func _on_quest_complete(quest: Dictionary):
 	remove_quest_from_list(quest_id, current_quests_list)
 	add_quest_to_list(quest_id, completed_quests_list)
 	
-	_update_quest_details(selected_quest)
+	_update_quest_details()
 
 
 func remove_quest_from_list(quest_id: String, list: ItemList):
@@ -69,7 +69,7 @@ func _on_quest_failed(quest: Dictionary):
 	remove_quest_from_list(quest_id, current_quests_list)
 	add_quest_to_list(quest_id, failed_quests_list)
 	
-	_update_quest_details(selected_quest)
+	_update_quest_details()
 
 
 # Function to handle step completion
@@ -85,7 +85,7 @@ func _on_next_step(_step: Dictionary):
 
 # Function to handle step update
 func _on_step_updated(_step: Dictionary):
-	_update_quest_details(selected_quest)
+	_update_quest_details()
 
 
 # Function to handle new quest addition
@@ -124,11 +124,11 @@ func _on_quest_selected(index, list: ItemList):
 		abandon_quest_button.visible = true
 	else:
 		abandon_quest_button.visible = false
-	_update_quest_details(selected_quest)
+	_update_quest_details()
 
 
 # The quest details elements are updated after the user has selected a quest
-func _update_quest_details(selected_quest: String):
+func _update_quest_details():
 	if not selected_quest:
 		return
 	var quest_complete: bool = QuestManager.is_quest_complete(selected_quest)
