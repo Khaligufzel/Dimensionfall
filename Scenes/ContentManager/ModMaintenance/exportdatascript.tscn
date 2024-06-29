@@ -1,0 +1,104 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbgwn24ut2fx1"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/ModMaintenance/Scripts/exportdatascript.gd" id="1_unnnd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_avegi"]
+font_size = 36
+
+[node name="exportdata" type="Control" node_paths=PackedStringArray("typesOptionButton", "outputTextEdit", "properties_v_box_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_unnnd")
+typesOptionButton = NodePath("VBoxContainer/TypesHBoxContainer/TypesOptionButton")
+outputTextEdit = NodePath("VBoxContainer/OutputTextEdit")
+properties_v_box_container = NodePath("VBoxContainer/PropertiesHBoxContainer/ScrollContainer/PropertiesVBoxContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="modmaintenanceLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Export data"
+label_settings = SubResource("LabelSettings_avegi")
+
+[node name="explainationLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Export the selected properties from all of the entities of the selected type. All entities of the selected 
+type will be checked for the property and it will be printed if the entity has it.
+1. Select the type of entity you want to remove the property from.
+2. Select the property to be exported
+3. Press export to export the property of all entities of the selected type"
+
+[node name="TypesHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TypesLabel" type="Label" parent="VBoxContainer/TypesHBoxContainer"]
+layout_mode = 2
+text = "Selected type:"
+
+[node name="TypesOptionButton" type="OptionButton" parent="VBoxContainer/TypesHBoxContainer"]
+layout_mode = 2
+tooltip_text = "Select the type that you want to export the data of"
+item_count = 4
+selected = 0
+popup/item_0/text = "Item"
+popup/item_0/id = 0
+popup/item_1/text = "Furniture"
+popup/item_1/id = 1
+popup/item_2/text = "Itemgroup"
+popup/item_2/id = 3
+popup/item_3/text = "Mob"
+popup/item_3/id = 2
+
+[node name="GetPropertiesButton" type="Button" parent="VBoxContainer/TypesHBoxContainer"]
+layout_mode = 2
+tooltip_text = "This will get the properties of the selected entity type. "
+text = "Get properties"
+
+[node name="PropertiesHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="PropertiesLabel" type="Label" parent="VBoxContainer/PropertiesHBoxContainer"]
+layout_mode = 2
+text = "Selected property:"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/PropertiesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="PropertiesVBoxContainer" type="VBoxContainer" parent="VBoxContainer/PropertiesHBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ExportropertiesButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Click here to export all selected properties into the output below"
+text = "Export property"
+
+[node name="outputLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Output:"
+
+[node name="OutputTextEdit" type="TextEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[connection signal="button_up" from="VBoxContainer/TypesHBoxContainer/GetPropertiesButton" to="." method="_on_get_properties_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/ExportropertiesButton" to="." method="_on_exportroperties_button_button_up"]
