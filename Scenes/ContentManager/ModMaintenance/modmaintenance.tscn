@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://6d7nhwfk088o"]
+[gd_scene load_steps=5 format=3 uid="uid://6d7nhwfk088o"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/modmaintenance.gd" id="1_qyerb"]
 [ext_resource type="PackedScene" uid="uid://cycrhylvmdoo1" path="res://Scenes/ContentManager/ModMaintenance/removepropertyscript.tscn" id="2_flc2r"]
+[ext_resource type="PackedScene" uid="uid://bnf41ptw7dxpn" path="res://Scenes/ContentManager/ModMaintenance/changepropertytypescript.tscn" id="3_2oqe6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_avegi"]
 font_size = 42
 
-[node name="modmaintenance" type="Control"]
+[node name="modmaintenance" type="Control" node_paths=PackedStringArray("scriptOptionButton", "removePropertyScript", "changepropertytype")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +15,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qyerb")
+scriptOptionButton = NodePath("VBoxContainer/ScriptHBoxContainer/ScriptOptionButton")
+removePropertyScript = NodePath("VBoxContainer/removeproperty")
+changepropertytype = NodePath("VBoxContainer/changepropertytype")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -53,12 +57,18 @@ text = "Selected script:"
 
 [node name="ScriptOptionButton" type="OptionButton" parent="VBoxContainer/ScriptHBoxContainer"]
 layout_mode = 2
-item_count = 1
+item_count = 2
 selected = 0
 popup/item_0/text = "Remove property"
 popup/item_0/id = 0
+popup/item_1/text = "Change property type"
+popup/item_1/id = 1
 
 [node name="removeproperty" parent="VBoxContainer" instance=ExtResource("2_flc2r")]
+layout_mode = 2
+
+[node name="changepropertytype" parent="VBoxContainer" instance=ExtResource("3_2oqe6")]
+visible = false
 layout_mode = 2
 
 [connection signal="button_up" from="VBoxContainer/HeaderHBoxContainer/BackButton" to="." method="_on_back_button_button_up"]

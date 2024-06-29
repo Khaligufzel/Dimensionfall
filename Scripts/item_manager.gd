@@ -12,10 +12,12 @@ var proximityInventory: InventoryStacked = null
 
 var proximityInventories = {}  # Dictionary to hold inventories and their items
 var allAccessibleItems = []  # List to hold all accessible InventoryItems
+var player_max_inventory_volume: int = 1000
 
 
 signal allAccessibleItems_changed(items_added: Array, items_removed: Array)
 signal craft_succesful(item: Dictionary, recipe: Dictionary)
+signal craft_failed(item: Dictionary, recipe: Dictionary, reason: String)
 
 
 func _ready():
@@ -301,17 +303,38 @@ func _on_items_used(usedItems: Array[InventoryItem]) -> void:
 
 
 # The user has pressed a button to start crafting
-func on_crafting_menu_start_craft(item, recipe):
+# recipe: The currently selected recipe in the crafing menu
+# item: The currently selected item in the itemlist in the crafting menu
+func on_crafting_menu_start_craft(item: Dictionary, recipe: Dictionary):
 	if recipe and item:
 		# If the player doesn't have the resources, return
 		if not CraftingRecipesManager.can_craft_recipe(recipe):
+			craft_failed.emit(item, recipe, "Not enough resources!")
 			return
 		var item_id: String = item.get("id")
+		var remaining_volume = get_remaining_volume()
+		var item_volume = item.get("volume")
+		if item_volume > remaining_volume:
+			craft_failed.emit(item, recipe, "Not enough space in inventory!")
+			return # The item is too big to fit in the player inventory
 		if not remove_required_resources_for_recipe(recipe):
+			craft_failed.emit(item, recipe, "Failed to remove resources!")
 			return
 		var newitem = playerInventory.create_and_add_item(item_id)
 		InventoryStacked.set_item_stack_size(newitem, recipe["craft_amount"])
 		craft_succesful.emit(item, recipe)
+
+
+func get_used_volume() -> float:
+	var total_current_volume = 0.0
+	# Calculate the total current volume in the inventory
+	for item in playerInventory.get_children():
+		total_current_volume += item.get_property("volume", 0)
+	return total_current_volume
+
+
+func get_remaining_volume() -> float:
+	return player_max_inventory_volume - get_used_volume()
 
 
 # Checks if there is a sufficient amount of a given item ID across all accessible items.

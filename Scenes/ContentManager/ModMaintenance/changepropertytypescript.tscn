@@ -1,0 +1,129 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnf41ptw7dxpn"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/ModMaintenance/Scripts/changepropertytypescript.gd" id="1_804mc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_avegi"]
+font_size = 36
+
+[node name="changepropertytype" type="Control" node_paths=PackedStringArray("propertiesOptionButton", "typesOptionButton", "outputTextEdit", "from_option_button", "to_option_button", "change_property_type_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_804mc")
+propertiesOptionButton = NodePath("VBoxContainer/PropertiesHBoxContainer/PropertiesOptionButton")
+typesOptionButton = NodePath("VBoxContainer/TypesHBoxContainer/TypesOptionButton")
+outputTextEdit = NodePath("VBoxContainer/OutputTextEdit")
+from_option_button = NodePath("VBoxContainer/PropertiesHBoxContainer/FromOptionButton")
+to_option_button = NodePath("VBoxContainer/PropertiesHBoxContainer/ToOptionButton")
+change_property_type_button = NodePath("VBoxContainer/PropertiesHBoxContainer/ChangePropertyTypeButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="modmaintenanceLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Change property type"
+label_settings = SubResource("LabelSettings_avegi")
+
+[node name="explainationLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Create a backup before using this script! Changes the type for a property to another type. For example a string to an integer. 
+All entities of the selected type will be checked for the property and it will be changed if the entity has it.
+1. Select the type of entity you want to change the property type of.
+2. Select the property to be changed
+3. Press change property to change the property type on all entities of the selected type"
+
+[node name="TypesHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TypesLabel" type="Label" parent="VBoxContainer/TypesHBoxContainer"]
+layout_mode = 2
+text = "Selected type:"
+
+[node name="TypesOptionButton" type="OptionButton" parent="VBoxContainer/TypesHBoxContainer"]
+layout_mode = 2
+item_count = 4
+selected = 0
+popup/item_0/text = "Item"
+popup/item_0/id = 0
+popup/item_1/text = "Furniture"
+popup/item_1/id = 1
+popup/item_2/text = "Itemgroup"
+popup/item_2/id = 3
+popup/item_3/text = "Mob"
+popup/item_3/id = 2
+
+[node name="GetPropertiesButton" type="Button" parent="VBoxContainer/TypesHBoxContainer"]
+layout_mode = 2
+text = "Get properties"
+
+[node name="PropertiesHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PropertiesLabel" type="Label" parent="VBoxContainer/PropertiesHBoxContainer"]
+layout_mode = 2
+text = "Selected property:"
+
+[node name="PropertiesOptionButton" type="OptionButton" parent="VBoxContainer/PropertiesHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The property of this type of entity. If the property you want to change isn't listed here, it does not exist in the json and can't be changed."
+
+[node name="FromLabel" type="Label" parent="VBoxContainer/PropertiesHBoxContainer"]
+layout_mode = 2
+text = "From:"
+
+[node name="FromOptionButton" type="OptionButton" parent="VBoxContainer/PropertiesHBoxContainer"]
+layout_mode = 2
+tooltip_text = "Select the type to change the property from. If the type is not present in the list, the type is not supported by this script (yet)."
+item_count = 3
+popup/item_0/text = "int"
+popup/item_0/id = 0
+popup/item_1/text = "string"
+popup/item_1/id = 1
+popup/item_2/text = "float"
+popup/item_2/id = 2
+
+[node name="ToLabel" type="Label" parent="VBoxContainer/PropertiesHBoxContainer"]
+layout_mode = 2
+text = "To:"
+
+[node name="ToOptionButton" type="OptionButton" parent="VBoxContainer/PropertiesHBoxContainer"]
+layout_mode = 2
+tooltip_text = "Select the type to change the property to. If the type is not present in the list, the type is not supported by this script (yet)."
+item_count = 3
+popup/item_0/text = "int"
+popup/item_0/id = 0
+popup/item_1/text = "string"
+popup/item_1/id = 1
+popup/item_2/text = "float"
+popup/item_2/id = 2
+
+[node name="ChangePropertyTypeButton" type="Button" parent="VBoxContainer/PropertiesHBoxContainer"]
+layout_mode = 2
+tooltip_text = "Applies the changes to the selected property of the selected type. Make sure you
+ do not have the json file of the selected type opened and you made a backup."
+disabled = true
+text = "Change property type"
+
+[node name="outputLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Output:"
+
+[node name="OutputTextEdit" type="TextEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="button_up" from="VBoxContainer/TypesHBoxContainer/GetPropertiesButton" to="." method="_on_get_properties_button_button_up"]
+[connection signal="item_selected" from="VBoxContainer/PropertiesHBoxContainer/FromOptionButton" to="." method="_on_from_option_button_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/PropertiesHBoxContainer/ToOptionButton" to="." method="_on_to_option_button_item_selected"]
+[connection signal="button_up" from="VBoxContainer/PropertiesHBoxContainer/ChangePropertyTypeButton" to="." method="_on_change_property_type_button_button_up"]

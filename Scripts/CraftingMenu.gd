@@ -7,6 +7,7 @@ extends Panel
 @export var required_items : VBoxContainer
 @export var skill_progression_label : Label
 @export var recipeVBoxContainer : VBoxContainer
+@export var feedback_label : Label
 
 @export var start_crafting_button : Button
 
@@ -24,6 +25,8 @@ func _ready():
 	start_craft.connect(ItemManager.on_crafting_menu_start_craft)
 	ItemManager.allAccessibleItems_changed.connect(_on_allAccessibleItems_changed)
 	Helper.signal_broker.player_skill_changed.connect(_on_player_skill_changed)
+	ItemManager.craft_succesful.connect(_on_craft_succesful)
+	ItemManager.craft_failed.connect(_on_craft_failed)
 	create_item_buttons()
 
 
@@ -193,5 +196,33 @@ func refresh_item_buttons():
 
 
 # The player's skill has changed so new recipes might be unlocked. Refresh the list
-func _on_player_skill_changed(playernode: CharacterBody3D):
+func _on_player_skill_changed(_playernode: CharacterBody3D):
 	refresh_item_buttons()
+
+
+# Function to display feedback message temporarily
+func display_feedback(message: String, color: Color):
+	feedback_label.text = message
+	feedback_label.modulate = color  # Set the text color
+	feedback_label.visible = true
+	
+	# Create a timer to hide the feedback label after 0.5 seconds
+	var timer = Timer.new()
+	timer.wait_time = 0.5
+	timer.one_shot = true
+	timer.timeout.connect(func():
+		feedback_label.visible = false
+		timer.queue_free()  # Properly free the timer node
+	)
+	add_child(timer)  # Add the timer to the scene tree
+	timer.start()
+
+
+func _on_craft_succesful(_item: Dictionary, _recipe: Dictionary):
+	var color = Color(0.4, 1, 0.4)  # Brighter green color with more white
+	display_feedback("craft succesful!", color)
+
+
+func _on_craft_failed(_item: Dictionary, _recipe: Dictionary, reason: String):
+	var color = Color(1, 0, 0)  # Red color
+	display_feedback(reason, color)
