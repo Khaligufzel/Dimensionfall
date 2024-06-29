@@ -41,6 +41,7 @@ func _on_player_skill_changed(player_node: CharacterBody3D):
 			var skill_entry = create_stat_or_skill_entry(skill_data, skill_value, "skills")
 			skillsContainer.add_child(skill_entry)
 
+
 # Utility function to create an HBoxContainer for a stat or skill entry
 func create_stat_or_skill_entry(data: Dictionary, value: Variant, type: String) -> HBoxContainer:
 	var hbox = HBoxContainer.new()
@@ -50,8 +51,9 @@ func create_stat_or_skill_entry(data: Dictionary, value: Variant, type: String) 
 
 	var label = Label.new()
 	if type == "skills":
-		# For skills, display level and XP
-		label.text = data["name"] + ": Level " + str(value["level"]) + ", XP: " + str(value["xp"])
+		# For skills, display level and XP with a maximum of 2 decimal places
+		var xp_value = str(round(value["xp"] * 100) / 100.0)  # Round XP to 2 decimal places
+		label.text = data["name"] + ": Level " + str(value["level"]) + ", XP: " + xp_value
 	else:
 		# For stats, display the value directly
 		label.text = data["name"] + ": " + str(value)

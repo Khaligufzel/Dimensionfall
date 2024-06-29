@@ -165,6 +165,13 @@
 		"description": "Skill in using sharp weapons like knives and swords, enhancing precision and damage during melee combat.",
 		"id": "cutting",
 		"name": "Cutting",
+		"references": {
+			"core": {
+				"items": [
+					"machete"
+				]
+			}
+		},
 		"sprite": "stabbing_32.png"
 	},
 	{

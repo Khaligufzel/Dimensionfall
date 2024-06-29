@@ -970,6 +970,16 @@ func update_item_skill_references(newdata: Dictionary, olddata: Dictionary):
 	collect_ranged_skill_id.call(olddata, old_skill_ids)
 	collect_ranged_skill_id.call(newdata, new_skill_ids)
 
+	# Check for "Melee" property and collect skill IDs
+	var collect_melee_skill_id: Callable = func (itemdata: Dictionary, skill_ids: Dictionary):
+		if itemdata.has("Melee") and itemdata["Melee"].has("used_skill"):
+			var skill_id = itemdata["Melee"]["used_skill"].get("skill_id", "")
+			if skill_id != "":
+				skill_ids[skill_id] = true
+
+	collect_melee_skill_id.call(olddata, old_skill_ids)
+	collect_melee_skill_id.call(newdata, new_skill_ids)
+
 	# Remove old skill references that are not in the new list
 	for old_skill_id in old_skill_ids.keys():
 		if not new_skill_ids.has(old_skill_id):
@@ -1045,10 +1055,14 @@ func on_item_deleted(item_id: String):
 					skill_ids[skill_prog_id] = true
 
 	# Add the ranged skill to the skill list
-	
 	var ranged_skill_id = Helper.json_helper.get_nested_data(item_data, "Ranged.used_skill.skill_id")
 	if ranged_skill_id:
 		skill_ids[ranged_skill_id] = true
+
+	# Add the melee skill to the skill list
+	var melee_skill_id = Helper.json_helper.get_nested_data(item_data, "Melee.used_skill.skill_id")
+	if melee_skill_id:
+		skill_ids[melee_skill_id] = true
 
 	# Remove the reference of this item from each skill
 	for skill_id in skill_ids.keys():
@@ -1171,6 +1185,10 @@ func on_skill_deleted(skill_id: String):
 		var ranged_skill_id = Helper.json_helper.get_nested_data(item_data, "Ranged.used_skill.skill_id")
 		if ranged_skill_id and ranged_skill_id == skill_id:
 			changes_made["value"] = Helper.json_helper.delete_nested_property(item_data, "Ranged.used_skill")
+		
+		var melee_skill_id = Helper.json_helper.get_nested_data(item_data, "Melee.used_skill.skill_id")
+		if melee_skill_id and melee_skill_id == skill_id:
+			changes_made["value"] = Helper.json_helper.delete_nested_property(item_data, "Melee.used_skill")
 
 	# Pass the callable to every item in the skill's references
 	# It will call myfunc on every item in skill_data.references.core.items

@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://duoxs7mpo6x3t"]
+[gd_scene load_steps=3 format=3 uid="uid://duoxs7mpo6x3t"]
 
 [ext_resource type="Script" path="res://Scripts/ItemMeleeEditor.gd" id="1_pg18d"]
+[ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="2_etmci"]
 
-[node name="ItemMeleeEditor" type="Control" node_paths=PackedStringArray("DamageSpinBox", "ReachSpinBox")]
+[node name="ItemMeleeEditor" type="Control" node_paths=PackedStringArray("DamageSpinBox", "ReachSpinBox", "UsedSkillTextEdit", "skill_xp_spin_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +13,8 @@ grow_vertical = 2
 script = ExtResource("1_pg18d")
 DamageSpinBox = NodePath("Melee/DamageSpinbox")
 ReachSpinBox = NodePath("Melee/ReachSpinbox")
+UsedSkillTextEdit = NodePath("Melee/UsedSkillHBoxContainer/UsedSkillTextEdit")
+skill_xp_spin_box = NodePath("Melee/UsedSkillHBoxContainer/SkillXPSpinBox")
 
 [node name="Melee" type="GridContainer" parent="."]
 layout_mode = 0
@@ -35,3 +38,26 @@ layout_mode = 2
 tooltip_text = "The melee range of the weapon in meters. A larger number means the wielder can attack over a larger distance."
 step = 0.1
 value = 1.0
+
+[node name="UsedSkillLabel" type="Label" parent="Melee"]
+layout_mode = 2
+text = "Skill:"
+
+[node name="UsedSkillHBoxContainer" type="HBoxContainer" parent="Melee"]
+layout_mode = 2
+
+[node name="UsedSkillTextEdit" parent="Melee/UsedSkillHBoxContainer" instance=ExtResource("2_etmci")]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+tooltip_text = "The skill used when attacking with this weapon. This determines how well 
+the player can control the weapon and deliver accurate hits."
+myplaceholdertext = "Drag a skill from the left menu"
+
+[node name="SkillXPLabel" type="Label" parent="Melee/UsedSkillHBoxContainer"]
+layout_mode = 2
+text = "XP per attack:"
+
+[node name="SkillXPSpinBox" type="SpinBox" parent="Melee/UsedSkillHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The amount of xp the player gets per attack for the skill that is set. 
+If no skill is set, the player gets no xp. "
