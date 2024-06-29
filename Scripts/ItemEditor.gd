@@ -100,10 +100,10 @@ func _on_save_button_button_up() -> void:
 	contentData["image"] = Gamedata.data.items.spritePath + PathTextLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
-	contentData["volume"] = VolumeNumberBox.get_line_edit().text
-	contentData["weight"] = WeightNumberBox.get_line_edit().text
-	contentData["stack_size"] = StackSizeNumberBox.get_line_edit().text
-	contentData["max_stack_size"] = MaxStackSizeNumberBox.get_line_edit().text
+	contentData["volume"] = VolumeNumberBox.value
+	contentData["weight"] = WeightNumberBox.value
+	contentData["stack_size"] = StackSizeNumberBox.value
+	contentData["max_stack_size"] = MaxStackSizeNumberBox.value
 	contentData["two_handed"] = TwoHandedCheckBox.button_pressed
 	
 	# Loop through typesContainer children to save additional properties

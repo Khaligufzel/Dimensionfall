@@ -6,6 +6,7 @@ extends Control
 
 @export var scriptOptionButton: OptionButton
 @export var removePropertyScript: Control
+@export var changepropertytype: Control
 
 
 func _on_back_button_button_up():
@@ -16,7 +17,10 @@ func _on_script_option_button_item_selected(index):
 	hide_scripts()
 	if index == 0:
 		removePropertyScript.visible = true
+	if index == 1:
+		changepropertytype.visible = true
 
 
 func hide_scripts():
 	removePropertyScript.visible = false
+	changepropertytype.visible = false
