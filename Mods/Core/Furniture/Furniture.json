@@ -641,5 +641,71 @@
 			}
 		},
 		"sprite": "sofa_100_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A dilapidated cash register, with some buttons missing but still operational.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "North",
+		"id": "cash_register",
+		"moveable": false,
+		"name": "Cash Register",
+		"sprite": "cash_register_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A metal shopping cart, rusted and difficult to push but useful for carrying items.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "shopping_cart",
+		"moveable": true,
+		"name": "Shopping Cart",
+		"sprite": "shopping_cart_90_50.png",
+		"weight": 2
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A broken glass display case, now mostly empty but could hide some useful items.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "North",
+		"id": "display_case",
+		"moveable": false,
+		"name": "Display Case",
+		"sprite": "display_case_100_50.png"
+	},
+	{
+		"Function": {
+			"container": {
+				"itemgroup": "refridgerator"
+			}
+		},
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A rusted, old vending machine, with a few snacks still inside.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "South",
+		"id": "vending_machine",
+		"moveable": false,
+		"name": "Vending Machine",
+		"sprite": "vending_machine_50.png"
 	}
 ]
