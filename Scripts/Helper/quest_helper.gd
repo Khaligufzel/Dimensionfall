@@ -24,6 +24,7 @@ func _ready():
 func connect_inventory_signals() -> void:
 	ItemManager.playerInventory.item_added.connect(_on_inventory_item_added)
 	ItemManager.playerInventory.item_removed.connect(_on_inventory_item_removed)
+	ItemManager.playerInventory.item_modified.connect(_on_inventory_item_modified)
 
 
 # Function for handling game started signal
@@ -107,25 +108,27 @@ func create_quest_from_data(quest_data: Dictionary):
 
 
 # An item is added to the player inventory. Now we need to update the quests
-func _on_inventory_item_added(_item: InventoryItem):
-	update_quest_by_inventory()
+func _on_inventory_item_added(item: InventoryItem):
+	update_quest_by_inventory(item)
 
 # An item is removed to the player inventory. Now we need to update the quests
 func _on_inventory_item_removed(item: InventoryItem):
-	update_quest_by_inventory()
+	update_quest_by_inventory(item)
+
+# An item is modified to the player inventory. Now we need to update the quests
+func _on_inventory_item_modified(item: InventoryItem):
+	update_quest_by_inventory(item)
 
 
-# Loop over ItemManager.playerInventory.get_items()
-# Get the stacksize of each item from InventoryStacked.get_item_stack_size(item)
-# For each unique item, sum the stack sizes to get the accurate count
-# Get the quest names from QuestManager.get_quests_in_progress() -> Dictionary
-# Update each of the current quests with QuestManager.set_quest_step_items which is defined as:
-#func set_quest_step_items(quest_name:String,quest_item:String,amount:int=0,collected:bool=false) -> void:
-#Set a specific value for Incremental and Item Steps. For example the player could have some of an item already use this to match the players inventory
-# An item is added to the player inventory. Now we need to update the quests
-func update_quest_by_inventory():
+# Update the quest progress based on the items in the player's inventory.
+# For each quest, we ONLY update the step that the quest is currently at
+func update_quest_by_inventory(item: InventoryItem):
 	# Dictionary to keep track of the total count of each item
 	var item_counts = {}
+
+	# Check if the player has the item; if not, set its count to 0
+	if not ItemManager.playerInventory.has_item_by_id(item.prototype_id):
+		item_counts[item.prototype_id] = 0
 
 	# Loop over all items in the player's inventory
 	for inv_item in ItemManager.playerInventory.get_items():
@@ -144,7 +147,19 @@ func update_quest_by_inventory():
 	# Update each of the current quests with the collected item information
 	for quest in quests_in_progress.keys():
 		var myquest = quests_in_progress[quest]
+		var myquestname = myquest.quest_name
 		for item_id in item_counts.keys():
-			# Update the quest step items with the collected count
-			QuestManager.set_quest_step_items(myquest.quest_name, item_id, item_counts[item_id], true)
-	
+			var step = QuestManager.get_current_step(myquestname)
+			match step.step_type:
+				QuestManager.INCREMENTAL_STEP:
+					if step.item_name == item_id:
+						# Update the quest step items with the collected count
+						# Since progress_quest adds the amount, we have to set it to 0 first
+						QuestManager.set_quest_step_items(myquestname, item_id, 0)
+						# see https://github.com/Chevifier/QuestManager/issues/20
+						step["complete"] = false 
+						QuestManager.progress_quest(myquestname, item_id, item_counts[item_id])
+				QuestManager.ITEMS_STEP:
+					# Update the quest step items with the collected count
+					QuestManager.set_quest_step_items(myquestname, item_id, 0, true)
+					QuestManager.progress_quest(myquestname, item_id)

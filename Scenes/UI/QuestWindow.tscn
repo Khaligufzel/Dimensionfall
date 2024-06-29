@@ -93,10 +93,8 @@ layout_mode = 2
 [node name="ButtonsContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
 
-[node name="TrackQuestButton" type="Button" parent="PanelContainer/HBoxContainer/QuestDetailsSection/ButtonsContainer"]
-layout_mode = 2
-text = "Track quest"
-
 [node name="AbandonQuestButton" type="Button" parent="PanelContainer/HBoxContainer/QuestDetailsSection/ButtonsContainer"]
 layout_mode = 2
 text = "Abandon quest"
+
+[connection signal="button_up" from="PanelContainer/HBoxContainer/QuestDetailsSection/ButtonsContainer/AbandonQuestButton" to="." method="_on_abandon_quest_button_button_up"]
