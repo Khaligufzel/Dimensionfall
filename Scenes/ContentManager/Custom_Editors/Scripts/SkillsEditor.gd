@@ -1,7 +1,7 @@
 extends Control
 
 #This scene is intended to be used inside the content editor
-#It is supposed to edit exactly one Equipmentskill
+#It is supposed to edit exactly one skill
 #It expects to save the data to a JSON file
 #To load data, provide the name of the skill data file and an ID
 

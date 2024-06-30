@@ -205,7 +205,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -341,7 +342,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -369,7 +371,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -392,7 +395,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse"
+					"Generichouse",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -468,7 +472,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -493,7 +498,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -517,7 +523,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -542,7 +549,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -613,7 +621,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -655,6 +664,13 @@
 		"id": "cash_register",
 		"moveable": false,
 		"name": "Cash Register",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "cash_register_50.png"
 	},
 	{
@@ -670,6 +686,13 @@
 		"id": "shopping_cart",
 		"moveable": true,
 		"name": "Shopping Cart",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "shopping_cart_90_50.png",
 		"weight": 2
 	},
@@ -686,6 +709,13 @@
 		"id": "display_case",
 		"moveable": false,
 		"name": "Display Case",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "display_case_100_50.png"
 	},
 	{
@@ -706,6 +736,13 @@
 		"id": "vending_machine",
 		"moveable": false,
 		"name": "Vending Machine",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "vending_machine_50.png"
 	},
 	{
@@ -721,6 +758,13 @@
 		"id": "clothing_rack",
 		"moveable": true,
 		"name": "Clothing Rack",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "clothing_rack_90_50.png",
 		"weight": 5
 	},
@@ -737,6 +781,13 @@
 		"id": "store_shelf",
 		"moveable": false,
 		"name": "Store Shelf",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "store_shelf_90_50.png"
 	},
 	{
@@ -755,6 +806,13 @@
 		"id": "security_gate",
 		"moveable": false,
 		"name": "Security Gate",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "security_gate_100_13.png"
 	},
 	{
@@ -775,7 +833,9 @@
 				"maps": [
 					"generichouse_t",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -800,6 +860,13 @@
 		"id": "wall_shelf",
 		"moveable": false,
 		"name": "Wall Shelf",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "wall_shelf_100_40.png"
 	}
 ]

@@ -31,8 +31,7 @@
 			"rotation": 180
 		},
 		{
-			"id": "generichouse_t.json",
-			"rotation": 270
+			"id": "store_electronic_clothing.json"
 		},
 		{
 			"id": "generichouse_t.json",
@@ -54,7 +53,8 @@
 			"rotation": 180
 		},
 		{
-			"id": "generichouse_cross.json"
+			"id": "generichouse_t.json",
+			"rotation": 270
 		},
 		{
 			"id": "generichouse_cross.json"

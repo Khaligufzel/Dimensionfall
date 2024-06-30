@@ -260,7 +260,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00"
+					"id": "trash_bin"
 				},
 				"id": "floor_wood_boards_07"
 			},
@@ -744,7 +744,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00"
+					"id": "trash_bin"
 				},
 				"id": "orange_carpet_00"
 			},
@@ -983,8 +983,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00",
-					"rotation": 90
+					"id": "trash_bin"
 				},
 				"id": "kitchen_tiles_purple_00",
 				"rotation": 270
@@ -1850,10 +1849,6 @@
 				"rotation": 270
 			},
 			{
-				"furniture": {
-					"id": "plant_pot_00",
-					"rotation": 180
-				},
 				"id": "orange_carpet_00",
 				"rotation": 270
 			},
@@ -1993,8 +1988,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00",
-					"rotation": 180
+					"id": "trash_bin"
 				},
 				"id": "orange_carpet_00",
 				"rotation": 270
@@ -2919,8 +2913,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00",
-					"rotation": 270
+					"id": "trash_bin"
 				},
 				"id": "floor_wood_boards_08",
 				"rotation": 180
@@ -3758,8 +3751,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00",
-					"rotation": 180
+					"id": "trash_bin"
 				},
 				"id": "kitchen_tiles_green_01",
 				"rotation": 270
@@ -7690,8 +7682,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00",
-					"rotation": 270
+					"id": "trash_bin"
 				},
 				"id": "floor_wood_boards_05",
 				"rotation": 90
@@ -8217,8 +8208,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00",
-					"rotation": 90
+					"id": "trash_bin"
 				},
 				"id": "floor_wood_boards_07",
 				"rotation": 90
@@ -8514,8 +8504,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00",
-					"rotation": 90
+					"id": "trash_bin"
 				},
 				"id": "floor_wood_boards_00",
 				"rotation": 90
@@ -8808,8 +8797,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00",
-					"rotation": 90
+					"id": "trash_bin"
 				},
 				"id": "orange_carpet_00"
 			},
@@ -9897,7 +9885,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00"
+					"id": "trash_bin"
 				},
 				"id": "floor_wood_boards_08",
 				"rotation": 270
@@ -10689,7 +10677,7 @@
 			},
 			{
 				"furniture": {
-					"id": "plant_pot_00"
+					"id": "trash_bin"
 				},
 				"id": "floor_wood_boards_02"
 			},
