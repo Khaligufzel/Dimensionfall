@@ -707,5 +707,90 @@
 		"moveable": false,
 		"name": "Vending Machine",
 		"sprite": "vending_machine_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A sturdy metal frame with horizontal bars for hanging clothes. It often has wheels for easy mobility and can hold a variety of garments.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "clothing_rack",
+		"moveable": true,
+		"name": "Clothing Rack",
+		"sprite": "clothing_rack_90_50.png",
+		"weight": 5
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A tall shelving unit made of metal, used for displaying merchandise. It has multiple tiers for organizing products.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "store_shelf",
+		"moveable": false,
+		"name": "Store Shelf",
+		"sprite": "store_shelf_90_50.png"
+	},
+	{
+		"Function": {
+			"door": "Closed"
+		},
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A tall, narrow gate placed at store entrances and exits to prevent theft. It often has sensors that trigger alarms when unauthorized items pass through.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "security_gate",
+		"moveable": false,
+		"name": "Security Gate",
+		"sprite": "security_gate_100_13.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A container for disposing of waste, commonly found near the entrance or checkout area of a store. It can be made of plastic or metal and often has a lid.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "trash_bin",
+		"moveable": true,
+		"name": "Trash Bin",
+		"sprite": "trash_bin_32.png",
+		"weight": 1
+	},
+	{
+		"Function": {
+			"container": {
+				"itemgroup": "cabinet_general"
+			}
+		},
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A shelf mounted on the wall, used for displaying smaller items or merchandise. It's made of wood.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "wall_shelf",
+		"moveable": false,
+		"name": "Wall Shelf",
+		"sprite": "wall_shelf_100_40.png"
 	}
 ]

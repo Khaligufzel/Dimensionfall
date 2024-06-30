@@ -187,7 +187,8 @@
 		"references": {
 			"core": {
 				"furniture": [
-					"cabinet_wood_00"
+					"cabinet_wood_00",
+					"wall_shelf"
 				]
 			}
 		},
