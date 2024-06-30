@@ -1474,127 +1474,6 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_medium_dirt_01",
-				"rotation": 90
-			},
-			{
-				"id": "grass_dirt_01",
-				"rotation": 90
-			},
-			{
-				"id": "grass_dirt_00",
-				"rotation": 180
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 270
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 270
-			},
-			{
-				"id": "grass_dirt_00",
-				"rotation": 90
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 90
-			},
-			{
-				"id": "grass_dirt_01",
-				"rotation": 270
-			},
-			{
-				"id": "grass_dirt_02"
-			},
-			{
-				"id": "sidewalk_00",
-				"rotation": 270
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 270
-			},
-			{
-				"id": "grass_dirt_02",
-				"rotation": 180
-			},
-			{
-				"id": "grass_dirt_02",
-				"rotation": 180
-			},
-			{
-				"id": "grass_plain_01"
-			},
-			{
-				"id": "grass_dirt_02",
-				"rotation": 180
-			},
-			{
-				"id": "grass_dirt_00"
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 90
-			},
-			{
-				"id": "grass_dirt_00",
-				"rotation": 270
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 90
-			},
-			{
-				"id": "grass_plain_01"
-			},
-			{
-				"id": "grass_dirt_02"
-			},
-			{
-				"id": "grass_plain_01"
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_dirt_01",
-				"rotation": 90
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 270
-			},
-			{
-				"id": "grass_dirt_00",
-				"rotation": 90
-			},
-			{
-				"id": "grass_dirt_02",
-				"rotation": 180
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 270
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 270
-			},
-			{
-				"id": "grass_dirt_02"
-			},
-			{
 				"id": "sidewalk_00"
 			},
 			{
@@ -1689,6 +1568,102 @@
 			},
 			{
 				"id": "sidewalk_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
 			},
 			{
 				"id": "road_asphalt_basic"
@@ -2107,7 +2082,100 @@
 				"id": "road_asphalt_basic"
 			},
 			{
-				"id": "sidewalk_00"
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
 			},
 			{
 				"id": "sidewalk_00"
@@ -2203,124 +2271,7 @@
 				"id": "sidewalk_00"
 			},
 			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_plain_01"
-			},
-			{
-				"id": "grass_dirt_00",
-				"rotation": 90
-			},
-			{
-				"id": "grass_medium_dirt_00"
-			},
-			{
-				"id": "grass_dirt_02"
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_medium_dirt_00",
-				"rotation": 90
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 270
-			},
-			{
-				"id": "grass_medium_dirt_00",
-				"rotation": 90
-			},
-			{
-				"id": "grass_flowers_00",
-				"rotation": 180
-			},
-			{
-				"id": "grass_plain_01"
-			},
-			{
-				"id": "grass_medium_dirt_02",
-				"rotation": 270
-			},
-			{
-				"id": "grass_dirt_00",
-				"rotation": 270
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_dirt_01"
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_dirt_01",
-				"rotation": 90
-			},
-			{
 				"id": "sidewalk_00"
-			},
-			{
-				"id": "grass_plain_01"
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_medium_dirt_00",
-				"rotation": 180
-			},
-			{
-				"id": "grass_dirt_02",
-				"rotation": 90
-			},
-			{
-				"id": "grass_dirt_01",
-				"rotation": 90
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_medium_dirt_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_medium_dirt_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 180
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 90
-			},
-			{
-				"id": "grass_plain_01",
-				"rotation": 270
-			},
-			{
-				"id": "grass_dirt_00"
 			},
 			{
 				"id": "grass_medium_dirt_00",

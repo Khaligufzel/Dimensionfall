@@ -1040,8 +1040,6 @@
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
 					"field_grass_hill_00",
-					"Generichouse",
-					"Generichouse_00",
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
@@ -1070,8 +1068,7 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_t",
-					"store_electronic_clothing"
+					"generichouse_t"
 				]
 			}
 		},
@@ -1092,7 +1089,6 @@
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
 					"field_grass_hill_00",
-					"Generichouse",
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
@@ -1223,8 +1219,7 @@
 					"field_grass_hill_00",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner",
-					"store_electronic_clothing"
+					"generichouse_corner"
 				]
 			}
 		},
