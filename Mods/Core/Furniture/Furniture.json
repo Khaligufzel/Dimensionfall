@@ -770,6 +770,15 @@
 		"id": "trash_bin",
 		"moveable": true,
 		"name": "Trash Bin",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
+				]
+			}
+		},
 		"sprite": "trash_bin_32.png",
 		"weight": 1
 	},

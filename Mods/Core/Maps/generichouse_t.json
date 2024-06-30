@@ -498,6 +498,9 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "trash_bin"
+				},
 				"id": "kitchen_tiles_green_00",
 				"rotation": 90
 			},
@@ -1058,6 +1061,9 @@
 				"id": "kitchen_tiles_mint_00"
 			},
 			{
+				"furniture": {
+					"id": "trash_bin"
+				},
 				"id": "kitchen_tiles_mint_00"
 			},
 			{
@@ -3517,6 +3523,9 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "trash_bin"
+				},
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 90
 			},
@@ -3775,6 +3784,9 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "trash_bin"
+				},
 				"id": "blue_carpet_00",
 				"rotation": 90
 			},

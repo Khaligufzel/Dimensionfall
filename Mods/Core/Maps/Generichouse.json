@@ -960,6 +960,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "trash_bin"
+				},
 				"id": "orange_carpet_00",
 				"rotation": 180
 			},
@@ -3189,6 +3192,9 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"furniture": {
+					"id": "trash_bin"
+				},
 				"id": "orange_carpet_00"
 			},
 			{
@@ -8633,6 +8639,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "trash_bin"
+				},
 				"id": "floor_wood_boards_03",
 				"rotation": 180
 			},
@@ -8917,6 +8926,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "trash_bin"
+				},
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
@@ -10854,6 +10866,9 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"furniture": {
+					"id": "trash_bin"
+				},
 				"id": "floor_wood_boards_02"
 			},
 			{
