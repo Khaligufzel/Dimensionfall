@@ -101,8 +101,16 @@ func export_data():
 		outputTextEdit.text = "No properties selected."
 		return
 
-	# 3. Loop over the data for each entity of the selected type
-	var output_text = ""
+	# 3. Add property names as the header in outputTextEdit
+	var header = "id,"
+	for property in selected_properties:
+		header += property + ","
+	header = header.rstrip(",") + "\n"
+
+	# Initialize output_text with the header
+	var output_text = header
+
+	# Loop over the data for each entity of the selected type
 	for entity in type_data:
 		# 3.1 Create a new line in the outputTextEdit with the properties
 		var line = entity.id + ","  # id is always at the front of the line
