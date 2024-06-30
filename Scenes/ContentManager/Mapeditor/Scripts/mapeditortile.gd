@@ -30,6 +30,8 @@ var tileData: Dictionary = defaultTileData.duplicate():
 			$TileSprite.texture = load(defaultTexture)
 			$MobFurnitureSprite.texture = null
 			$MobFurnitureSprite.hide()
+		set_tooltip()
+
 signal tile_clicked(clicked_tile: Control)
 
 
@@ -47,6 +49,7 @@ func set_rotation_amount(amount: int) -> void:
 		tileData.erase("rotation")
 	else:
 		tileData.rotation = amount
+	set_tooltip()
 
 
 func get_rotation_amount() -> int:
@@ -65,6 +68,7 @@ func set_tile_id(id: String) -> void:
 	else:
 		tileData.id = id
 		$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, id).albedo_texture
+	set_tooltip()
 
 
 func set_mob_id(id: String) -> void:
@@ -81,6 +85,7 @@ func set_mob_id(id: String) -> void:
 			tileData.mob = {"id": id}
 		$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs, id)
 		$MobFurnitureSprite.show()
+	set_tooltip()
 
 
 func set_furniture_id(id: String) -> void:
@@ -97,6 +102,7 @@ func set_furniture_id(id: String) -> void:
 			tileData.furniture = {"id": id}
 		$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture, id)
 		$MobFurnitureSprite.show()
+	set_tooltip()
 
 
 func set_mob_rotation(rotationDegrees):
@@ -105,6 +111,7 @@ func set_mob_rotation(rotationDegrees):
 		tileData.mob.erase("rotation")
 	else:
 		tileData.mob.rotation = rotationDegrees
+	set_tooltip()
 
 
 func set_furniture_rotation(rotationDegrees):
@@ -113,6 +120,7 @@ func set_furniture_rotation(rotationDegrees):
 		tileData.furniture.erase("rotation")
 	else:
 		tileData.furniture.rotation = rotationDegrees
+	set_tooltip()
 
 
 # If the user holds the mouse button while entering this tile, we consider it clicked
@@ -158,3 +166,38 @@ func _on_texture_rect_resized():
 
 func get_tile_texture():
 	return $TileSprite.texture
+
+
+func set_tooltip():
+	var tooltiptext = "Tile Overview:\n"
+	
+	if tileData.has("id") and tileData.id != "":
+		tooltiptext += "ID: " + str(tileData.id) + "\n"
+	else:
+		tooltiptext += "ID: None\n"
+	
+	if tileData.has("rotation"):
+		tooltiptext += "Rotation: " + str(tileData.rotation) + " degrees\n"
+	else:
+		tooltiptext += "Rotation: 0 degrees\n"
+	
+	if tileData.has("mob"):
+		tooltiptext += "Mob ID: " + str(tileData.mob.id) + "\n"
+		if tileData.mob.has("rotation"):
+			tooltiptext += "Mob Rotation: " + str(tileData.mob.rotation) + " degrees\n"
+		else:
+			tooltiptext += "Mob Rotation: 0 degrees\n"
+	else:
+		tooltiptext += "Mob: None\n"
+	
+	if tileData.has("furniture"):
+		tooltiptext += "Furniture ID: " + str(tileData.furniture.id) + "\n"
+		if tileData.furniture.has("rotation"):
+			tooltiptext += "Furniture Rotation: " + str(tileData.furniture.rotation) + " degrees\n"
+		else:
+			tooltiptext += "Furniture Rotation: 0 degrees\n"
+	else:
+		tooltiptext += "Furniture: None\n"
+	
+	# Set the tooltip
+	self.tooltip_text = tooltiptext
