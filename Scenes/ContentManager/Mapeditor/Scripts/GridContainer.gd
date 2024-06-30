@@ -234,11 +234,11 @@ func grid_tile_clicked(clicked_tile) -> void:
 # We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile) -> void:
-	apply_paint_to_tile(clicked_tile, selected_brush, rotationAmount, erase)
+	apply_paint_to_tile(clicked_tile, selected_brush, rotationAmount)
 
 
 # Helper function to apply paint or erase logic to a single tile
-func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int, erase: bool):
+func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 	if erase:
 		if brush:
 			if brush.entityType == "mob":
@@ -254,13 +254,14 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int, erase: 
 		selected_brush = brushcomposer.get_random_brush()
 		var tilerotation = brushcomposer.get_tilerotation(tilerotate)
 		if brush.entityType == "mob":
-			tile.set_mob_id(brush.tileID)
+			tile.set_mob_id(brush.entityID)
 			tile.set_mob_rotation(tilerotation)
 		elif brush.entityType == "furniture":
-			tile.set_furniture_id(brush.tileID)
+			tile.set_furniture_id(brush.entityID)
 			tile.set_furniture_rotation(tilerotation)
+			tile.set_furniture_itemgroups(brushcomposer.get_itemgroup_entity_ids())
 		else:
-			tile.set_tile_id(brush.tileID)
+			tile.set_tile_id(brush.entityID)
 			tile.set_rotation_amount(tilerotation)
 
 
@@ -425,7 +426,7 @@ func highlight_tiles_in_rect() -> void:
 func paint_in_rectangle():
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
 	for tile in tiles:
-		apply_paint_to_tile(tile, selected_brush, rotationAmount, erase)
+		apply_paint_to_tile(tile, selected_brush, rotationAmount)
 	update_rectangle()
 
 

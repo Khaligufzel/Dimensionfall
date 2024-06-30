@@ -39,7 +39,7 @@ func loadMobs():
 			brushInstance.set_tile_texture(texture)
 			# Since the map editor needs to knw what tile ID is used,
 			# We store the tile id in a variable in the brush
-			brushInstance.tileID = item.id
+			brushInstance.entityID = item.id
 			brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
 			brushInstance.entityType = "mob"
 			# Add the TextureRect as a child to the TilesList
@@ -62,7 +62,7 @@ func loadFurniture():
 			var texture: Resource = Gamedata.data.furniture.sprites[imagefileName]
 			var brushInstance = tileBrush.instantiate()
 			brushInstance.set_tile_texture(texture)
-			brushInstance.tileID = item.id
+			brushInstance.entityID = item.id
 			brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
 			brushInstance.entityType = "furniture"
 			newFurnitureList.add_content_item(brushInstance)
@@ -96,7 +96,7 @@ func loadTiles():
 				brushInstance.set_tile_texture(texture)
 				# Since the map editor needs to knw what tile ID is used,
 				# We store the tile id in a variable in the brush
-				brushInstance.tileID = item.id
+				brushInstance.entityID = item.id
 				brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
 
 				# Add the TextureRect as a child to the TilesList

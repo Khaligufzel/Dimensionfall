@@ -1,8 +1,13 @@
 extends Control
 
+# This script is intended to be used with TileBrush.tscn.
+# It holds information about a tile brush that is used in the mapeditor
+
+
 signal tilebrush_clicked(clicked_tile: Control)
-var tileID: String = ""
+var entityID: String = ""
 var selected: bool = false
+# Can be "tile", "mob", "furniture", "itemgroup"
 var entityType: String = "tile"
 const TILEMARGIN: int = 10
 

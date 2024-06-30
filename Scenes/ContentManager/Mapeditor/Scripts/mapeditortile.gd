@@ -123,6 +123,25 @@ func set_furniture_rotation(rotationDegrees):
 	set_tooltip()
 
 
+# Sets the itemgroups property for the furniture on this tile
+# If the "container" property exists in the "Function" property of the furniture data, 
+# it sets the tileData.furniture.itemgroups property.
+# If the "container" property or the "Function" property does not exist, it erases the "itemgroups" property.
+func set_furniture_itemgroups(itemgroups: Array) -> void:
+	if not tileData.has("furniture"):
+		return
+	
+	if itemgroups.is_empty():
+		tileData.furniture.erase("itemgroups")
+	else:
+		var furnituredata = Gamedata.get_data_by_id(Gamedata.data.furniture, tileData.furniture.id)
+		if furnituredata.has("Function") and furnituredata.Function.has("container"):
+			tileData.furniture.itemgroups = itemgroups
+		else:
+			tileData.furniture.erase("itemgroups")
+	set_tooltip()
+
+
 # If the user holds the mouse button while entering this tile, we consider it clicked
 func _on_texture_rect_mouse_entered() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -196,8 +215,11 @@ func set_tooltip():
 			tooltiptext += "Furniture Rotation: " + str(tileData.furniture.rotation) + " degrees\n"
 		else:
 			tooltiptext += "Furniture Rotation: 0 degrees\n"
+		if tileData.furniture.has("itemgroups"):
+			tooltiptext += "Furniture Item Groups: " + str(tileData.furniture.itemgroups) + "\n"
 	else:
 		tooltiptext += "Furniture: None\n"
 	
 	# Set the tooltip
 	self.tooltip_text = tooltiptext
+
