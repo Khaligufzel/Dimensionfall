@@ -12,6 +12,7 @@ extends Control
 @export var completed_quests_list: ItemList
 @export var failed_quests_list: ItemList
 @export var quest_details_section: VBoxContainer
+@export var quest_rewards: VBoxContainer
 @export var step_details_text_edit: TextEdit
 @export var abandon_quest_button: Button
 
@@ -131,22 +132,34 @@ func _on_quest_selected(index, list: ItemList):
 func _update_quest_details():
 	if not selected_quest:
 		return
+	
 	var quest_complete: bool = QuestManager.is_quest_complete(selected_quest)
 	var quest_meta_data: Dictionary = QuestManager.get_meta_data(selected_quest)
 	var current_step: Dictionary = QuestManager.get_current_step(selected_quest)
+	var quest: Dictionary = QuestManager.get_player_quest(selected_quest)
 	
 	# Update quest title and description
 	quest_details_section.get_node("QuestTitle").text = quest_meta_data.name
 	quest_details_section.get_node("QuestDescription").text = quest_meta_data.description
 	
+	# Update rewards details
+	update_rewards_details(quest)
+	
 	if quest_complete:
 		step_details_text_edit.text = "Quest completed!"
 		return
 	
+	# Update step details
+	update_step_details(current_step)
+
+
+
+# Updates the step details for the selected quest
+func update_step_details(current_step: Dictionary):
 	if not current_step or current_step.is_empty():
 		step_details_text_edit.text = ""
 		return
-
+	
 	# Update current step details
 	var step_details_text = "Next objective: \n"
 	
@@ -170,13 +183,73 @@ func _update_quest_details():
 	step_details_text_edit.text = step_details_text
 
 
-func create_incremental_step_UI_text(step) -> String:
+# Updates the rewards details for the selected quest
+func update_rewards_details(quest: Dictionary):
+	for child in quest_rewards.get_children():
+		child.queue_free() # Clear existing children
+	
+	var rewards = quest.get("quest_rewards").get("rewards", [])
+	if rewards.size() > 0:
+		for reward in rewards:
+			# Retrieve item data using the item name (ID)
+			var itemdata = Gamedata.get_data_by_id(Gamedata.data.items, reward.item_id)
+			# Extract the item name from the item data, defaulting to "missing item name" if not found
+			var item_name = itemdata.get("name", "missing item name")
+			var amount = reward.amount
+
+			# Create a container for the reward item
+			var reward_container = HBoxContainer.new()
+			quest_rewards.add_child(reward_container)
+
+			# Add item icon to the container
+			var item_icon_texture = Gamedata.get_sprite_by_id(Gamedata.data.items, reward.item_id)
+			if item_icon_texture:
+				var icon = TextureRect.new()
+				icon.texture = item_icon_texture
+				icon.custom_minimum_size = Vector2(32, 32)  # Set a fixed size for icons
+				reward_container.add_child(icon)
+
+			# Add item label to the container
+			var label = Label.new()
+			label.text = " %s: %d" % [item_name, amount]
+			reward_container.add_child(label)
+	else:
+		# Show a label indicating no rewards available
+		var no_rewards_label = Label.new()
+		no_rewards_label.text = "No rewards available."
+		quest_rewards.add_child(no_rewards_label)
+
+
+# Updates the UI text based on the properties of the step
+func create_incremental_step_UI_text(step: Dictionary) -> String:
 	var step_details_text = ""
-	var itemdata = Gamedata.get_data_by_id(Gamedata.data.items, step.item_name)
-	var item_name = itemdata.get("name", "missing item name")
-	step_details_text += "Collect " + str(step.required) + " "
-	step_details_text += item_name + " (Collected: " 
-	step_details_text += str(step.collected) + ")"
+	
+	# Get the step type from the metadata, defaulting to "missing type" if not found
+	var step_type = step.meta_data.get("type", "missing type")
+	
+	if step_type == "collect":
+		# Retrieve item data using the item name (ID) from the step
+		var itemdata = Gamedata.get_data_by_id(Gamedata.data.items, step.item_name)
+		# Extract the item name from the item data, defaulting to "missing item name" if not found
+		var item_name = itemdata.get("name", "missing item name")
+		# Construct the step details text with the required and collected item counts
+		step_details_text += "Collect " + str(step.required) + " "
+		step_details_text += item_name + " (Collected: " 
+		step_details_text += str(step.collected) + ")"
+	elif step_type == "kill":
+		# Retrieve mob data using the item name (ID) from the step
+		var mobdata = Gamedata.get_data_by_id(Gamedata.data.mobs, step.item_name)
+		# Extract the mob name from the mob data, defaulting to "missing mob name" if not found
+		var mob_name = mobdata.get("name", "missing mob name")
+		# Construct the step details text with the required and killed mob counts
+		step_details_text += "Kill " + str(step.required) + " "
+		step_details_text += mob_name + " (Killed: " 
+		step_details_text += str(step.collected) + ")"
+	else:
+		# Handle unsupported step types
+		step_details_text += "Unsupported step type: " + step_type
+	
+	# Return the constructed step details text
 	return step_details_text
 
 

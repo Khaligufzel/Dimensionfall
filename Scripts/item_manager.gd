@@ -435,7 +435,11 @@ func _on_inventory_item_added(_item, _inventory):
 func _on_inventory_item_removed(_item, _inventory):
 	update_accessible_items_list()
 
+
 func _on_inventory_item_modified(_item, _inventory):
 	update_accessible_items_list()
 
 
+func add_item_by_id_and_amount(itemid: String, amount: int):
+	var newitem = playerInventory.create_and_add_item(itemid)
+	InventoryStacked.set_item_stack_size(newitem, amount)

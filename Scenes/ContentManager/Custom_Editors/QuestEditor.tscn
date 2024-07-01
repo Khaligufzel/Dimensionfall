@@ -188,7 +188,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tooltip_text = "Drag items to this list from the left menu of the content editor. Once the list has been made, you can assign it to a container, for example in the furniture editor."
-columns = 6
+columns = 3
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_2twbp")]
 visible = false
