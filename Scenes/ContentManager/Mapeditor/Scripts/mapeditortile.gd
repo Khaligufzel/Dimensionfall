@@ -34,15 +34,13 @@ var tileData: Dictionary = defaultTileData.duplicate():
 
 signal tile_clicked(clicked_tile: Control)
 
-
+# Emits tile_clicked signal when left mouse button is pressed
 func _on_texture_rect_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		match event.button_index:
-			MOUSE_BUTTON_LEFT:
-				if event.pressed:
-					tile_clicked.emit(self)
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		tile_clicked.emit(self)
 
 
+# Sets the rotation amount for the tile sprite and updates tile data
 func set_rotation_amount(amount: int) -> void:
 	$TileSprite.rotation_degrees = amount
 	if amount == 0:
@@ -52,10 +50,12 @@ func set_rotation_amount(amount: int) -> void:
 	set_tooltip()
 
 
+# Gets the rotation amount of the tile sprite
 func get_rotation_amount() -> int:
 	return $TileSprite.rotation_degrees
 
 
+# Sets the scale amount for the tile sprite
 func set_scale_amount(scaleAmount: int) -> void:
 	custom_minimum_size.x = scaleAmount
 	custom_minimum_size.y = scaleAmount
@@ -105,21 +105,23 @@ func set_furniture_id(id: String) -> void:
 	set_tooltip()
 
 
-func set_mob_rotation(rotationDegrees):
-	$MobFurnitureSprite.rotation_degrees = rotationDegrees
-	if rotationDegrees == 0:
-		tileData.mob.erase("rotation")
-	else:
-		tileData.mob.rotation = rotationDegrees
-	set_tooltip()
+# Sets the rotation for the mob sprite
+func set_mob_rotation(rotationDegrees: int) -> void:
+	set_entity_rotation("mob", rotationDegrees)
 
 
-func set_furniture_rotation(rotationDegrees):
+# Sets the rotation for the furniture sprite
+func set_furniture_rotation(rotationDegrees: int) -> void:
+	set_entity_rotation("furniture", rotationDegrees)
+
+
+# Helper function to set entity rotation
+func set_entity_rotation(key: String, rotationDegrees: int) -> void:
 	$MobFurnitureSprite.rotation_degrees = rotationDegrees
 	if rotationDegrees == 0:
-		tileData.furniture.erase("rotation")
+		tileData[key].erase("rotation")
 	else:
-		tileData.furniture.rotation = rotationDegrees
+		tileData[key].rotation = rotationDegrees
 	set_tooltip()
 
 
@@ -131,14 +133,13 @@ func set_furniture_itemgroups(itemgroups: Array) -> void:
 	if not tileData.has("furniture"):
 		return
 	
-	if itemgroups.is_empty():
-		tileData.furniture.erase("itemgroups")
+	var furnituredata = Gamedata.get_data_by_id(Gamedata.data.furniture, tileData.furniture.id)
+	var containervalue = Helper.json_helper.get_nested_data(furnituredata, "Function.container")
+	
+	if not itemgroups.is_empty() and containervalue:
+		tileData.furniture.itemgroups = itemgroups
 	else:
-		var furnituredata = Gamedata.get_data_by_id(Gamedata.data.furniture, tileData.furniture.id)
-		if furnituredata.has("Function") and furnituredata.Function.has("container"):
-			tileData.furniture.itemgroups = itemgroups
-		else:
-			tileData.furniture.erase("itemgroups")
+		tileData.furniture.erase("itemgroups")
 	set_tooltip()
 
 

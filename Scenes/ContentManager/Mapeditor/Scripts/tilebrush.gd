@@ -17,23 +17,23 @@ func _on_texture_rect_gui_input(event):
 		tilebrush_clicked.emit(self)
 
 
+# Set the texture of the tile sprite
 func set_tile_texture(res: Resource) -> void:
 	$TileSprite.texture = res
 
 
+# Get the texture of the tile sprite
 func get_texture() -> Resource:
 	return $TileSprite.texture
 
 
-#Mark the clicked tilebrush as selected
+# Mark the clicked tilebrush as selected
 func set_selected(is_selected: bool) -> void:
 	selected = is_selected
-	if selected:
-		modulate = Color(0.227, 0.635, 0.757)
-	else:
-		modulate = Color(1,1,1)
+	modulate = Color(0.227, 0.635, 0.757) if selected else Color(1, 1, 1)
 
 
-func set_minimum_size(newsize: Vector2):
-	custom_minimum_size = Vector2(newsize.x+TILEMARGIN, newsize.y+TILEMARGIN)
+# Set the minimum size of the tile brush with additional margin
+func set_minimum_size(newsize: Vector2) -> void:
+	custom_minimum_size = Vector2(newsize.x + TILEMARGIN, newsize.y + TILEMARGIN)
 	$TileSprite.custom_minimum_size = newsize
