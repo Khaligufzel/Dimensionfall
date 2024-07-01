@@ -32,7 +32,7 @@ func _ready():
 	check_door_functionality()
 	update_door_visuals()
 	# Add the container as a child on the same position as this furniture
-	add_container(Vector3(0,0,0))
+	add_container(Vector3(0, 0, 0))
 	original_position = sprite.global_transform.origin
 
 
@@ -233,11 +233,11 @@ func get_data() -> Dictionary:
 func add_container(pos: Vector3):
 	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
 		container = ContainerItem.new()
-		var containerdata: Dictionary = {}
-		containerdata["global_position_x"] = pos.x
-		containerdata["global_position_y"] = pos.y
-		containerdata["global_position_z"] = pos.z
-		container.construct_self(containerdata)
+		container.construct_self({
+			"global_position_x": pos.x,
+			"global_position_y": pos.y,
+			"global_position_z": pos.z
+		})
 		handle_container_population()
 		add_child(container)
 
@@ -288,6 +288,7 @@ func is_new_furniture() -> bool:
 	return not furnitureJSON.has("global_position_x")
 
 
+# Update the visuals of the door if it is a door
 func update_door_visuals():
 	if not is_door: return
 	
@@ -296,6 +297,7 @@ func update_door_visuals():
 	apply_transform_to_sprite_and_collider(angle, position_offset)
 
 
+# Rotates the door while keeping the furniture's position. Only the sprite and collider move
 func apply_transform_to_sprite_and_collider(rotationdegrees, position_offset):
 	var doortransform = Transform3D().rotated(Vector3.UP, deg_to_rad(rotationdegrees))
 	doortransform.origin = position_offset
@@ -304,8 +306,7 @@ func apply_transform_to_sprite_and_collider(rotationdegrees, position_offset):
 	sprite.rotation_degrees.x = 90
 
 
-# The furniture will move 0.2 meters in a random direction to indicate that it's hit
-# Then it will return to its original position
+# Animate the furniture color when it is hit
 func animate_hit():
 	is_animating_hit = true
 
@@ -330,6 +331,7 @@ func get_hit(damage):
 			if not is_animating_hit:
 				animate_hit()
 
+# Handle furniture death
 func _die():
 	add_corpse.call_deferred(global_position)
 	queue_free()
@@ -345,11 +347,11 @@ func add_corpse(pos: Vector3):
 			newItem.itemgroup = itemgroup
 		
 		newItem.add_to_group("mapitems")
-		var itemdata: Dictionary = {}
-		itemdata["global_position_x"] = pos.x
-		itemdata["global_position_y"] = pos.y
-		itemdata["global_position_z"] = pos.z
-		newItem.construct_self(itemdata)
+		newItem.construct_self({
+			"global_position_x": pos.x,
+			"global_position_y": pos.y,
+			"global_position_z": pos.z
+		})
 		
 		var fursprite = furnitureJSONData.get("destruction", {}).get("sprite", null)
 		if fursprite:
@@ -360,10 +362,8 @@ func add_corpse(pos: Vector3):
 		
 		# Check if container has items and insert them into the new item
 		if container:
-			var items = container.get_items()
-			for item in items:
-				if newItem.insert_item(item):
-					print("Item inserted successfully")
+			for item in container.get_items():
+				newItem.insert_item(item)
 
 
 func _disassemble():
@@ -381,11 +381,11 @@ func add_wreck(pos: Vector3):
 			newItem.itemgroup = itemgroup
 		
 		newItem.add_to_group("mapitems")
-		var itemdata: Dictionary = {}
-		itemdata["global_position_x"] = pos.x
-		itemdata["global_position_y"] = pos.y
-		itemdata["global_position_z"] = pos.z
-		newItem.construct_self(itemdata)
+		newItem.construct_self({
+			"global_position_x": pos.x,
+			"global_position_y": pos.y,
+			"global_position_z": pos.z
+		})
 		
 		var fursprite = furnitureJSONData.get("disassembly", {}).get("sprite", null)
 		if fursprite:
@@ -395,9 +395,11 @@ func add_wreck(pos: Vector3):
 		get_tree().get_root().add_child.call_deferred(newItem)
 
 
+# Check if the furniture can be destroyed
 func can_be_destroyed() -> bool:
 	return "destruction" in furnitureJSONData
 
 
+# Check if the furniture can be disassembled
 func can_be_disassembled() -> bool:
 	return "disassembly" in furnitureJSONData
