@@ -53,6 +53,9 @@ signal inventory_operation_finished()
 signal player_stat_changed(player: CharacterBody3D)
 signal player_skill_changed(player: CharacterBody3D)
 
+signal game_started() # When the user presses 'play demo' on the main menu
+signal game_loaded() # When the user presses 'load game' on the main menu
+
 # When sprites have been added or removed from gamedata
 signal data_sprites_changed(contentData: Dictionary, spriteid: String)
 
