@@ -18,6 +18,7 @@ extends CanvasLayer
 # This window shows the inventory to the player
 @export var inventoryWindow : Control
 @export var characterWindow : Control
+@export var questWindow : Control
 
 @export var building_menu: NodePath
 @export var crafting_menu : NodePath
@@ -74,6 +75,9 @@ func _input(event):
 			
 	if event.is_action_pressed("character_menu"):
 		characterWindow.visible = !characterWindow.visible
+			
+	if event.is_action_pressed("quest_menu"):
+		questWindow.visible = !questWindow.visible
 
 	if event.is_action_pressed("crafting_menu"):
 		get_node(crafting_menu).visible = !get_node(crafting_menu).visible
