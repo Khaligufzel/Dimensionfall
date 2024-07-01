@@ -16,11 +16,12 @@ var player_max_inventory_volume: int = 1000
 
 
 signal allAccessibleItems_changed(items_added: Array, items_removed: Array)
-signal craft_succesful(item: Dictionary, recipe: Dictionary)
+signal craft_successful(item: Dictionary, recipe: Dictionary)
 signal craft_failed(item: Dictionary, recipe: Dictionary, reason: String)
 
 
 func _ready():
+	# Initialize inventories and connect signals
 	playerInventory = initialize_inventory()
 	proximityInventory = initialize_inventory()
 	connect_inventory_signals(playerInventory)
@@ -124,8 +125,8 @@ func execute_reloading(item: InventoryItem, magazine: InventoryItem):
 # We pass reload_weapon as a function that will be executed when the action is done
 func start_reload(item: InventoryItem, reload_time: float, specific_magazine: InventoryItem = null):
 	var reload_callable = Callable(self, "reload_weapon").bind(item, specific_magazine)
-	# Assuming there's a mechanism to track reloading state for each item
-	# This could be a property in InventoryItem or managed externally
+	# There's a mechanism to track reloading state for each item using
+	# a property in InventoryItem
 	item.set_property("is_reloading", true)
 	General.start_action(reload_time, reload_callable)
 
@@ -322,9 +323,10 @@ func on_crafting_menu_start_craft(item: Dictionary, recipe: Dictionary):
 			return
 		var newitem = playerInventory.create_and_add_item(item_id)
 		InventoryStacked.set_item_stack_size(newitem, recipe["craft_amount"])
-		craft_succesful.emit(item, recipe)
+		craft_successful.emit(item, recipe)
 
 
+# Get the used volume of the player inventory
 func get_used_volume() -> float:
 	var total_current_volume = 0.0
 	# Calculate the total current volume in the inventory
@@ -333,11 +335,12 @@ func get_used_volume() -> float:
 	return total_current_volume
 
 
+# Get the remaining volume in the player inventory
 func get_remaining_volume() -> float:
 	return player_max_inventory_volume - get_used_volume()
 
 
-# Checks if there is a sufficient amount of a given item ID across all accessible items.
+# Check if there is a sufficient amount of a given item ID across all accessible items
 func has_sufficient_item_amount(item_id: String, required_amount: int) -> bool:
 	var total_amount = 0
 

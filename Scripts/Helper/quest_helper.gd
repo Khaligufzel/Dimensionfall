@@ -48,7 +48,7 @@ func _on_quest_complete(quest: Dictionary):
 	for reward in rewards:
 		var item_id: String = reward.get("item_id")
 		var amount: int = reward.get("amount")
-		var newitem = ItemManager.add_item_by_id_and_amount(item_id, amount)
+		ItemManager.add_item_by_id_and_amount(item_id, amount)
 
 
 # Function to handle quest failure
@@ -86,6 +86,7 @@ func _on_quest_reset(_quest_name: String):
 	pass
 
 
+# Initialize quests by wiping player data and loading quest data
 func initialize_quests():
 	QuestManager.wipe_player_data()
 	var quest_data = Gamedata.data.quests.data
@@ -98,26 +99,26 @@ func initialize_quests():
 func create_quest_from_data(quest_data: Dictionary):
 	if quest_data.steps.size() < 1:
 		return # The quest has no steps
-	var Quest = ScriptQuest.new(quest_data.id, quest_data.description)
+	var quest = ScriptQuest.new(quest_data.id, quest_data.description)
 	var steps_added: bool = false
 	var steps = quest_data.steps
 	for step in steps:
 		if step.type == "collect":
 			# Add an incremental step
-			Quest.add_incremental_step("Gather items", step.item, step.amount, {"type": "collect"})
+			quest.add_incremental_step("Gather items", step.item, step.amount, {"type": "collect"})
 			steps_added = true
 		if step.type == "kill":
 			# Add an incremental step
-			Quest.add_incremental_step("Kill mob", step.mob, step.amount, {"type": "kill"})
+			quest.add_incremental_step("Kill mob", step.mob, step.amount, {"type": "kill"})
 			steps_added = true
 
 	if steps_added:
-		Quest.set_quest_meta_data(quest_data) # The json data that defines the quest
-		Quest.set_rewards({"rewards": quest_data.get("rewards", [])})
+		quest.set_quest_meta_data(quest_data) # The json data that defines the quest
+		quest.set_rewards({"rewards": quest_data.get("rewards", [])})
 		# Finalize
-		Quest.finalize_quest()
+		quest.finalize_quest()
 		# Add quest to player quests
-		QuestManager.add_scripted_quest(Quest)
+		QuestManager.add_scripted_quest(quest)
 
 
 # An item is added to the player inventory. Now we need to update the quests
@@ -198,9 +199,5 @@ func _on_mob_killed(mobinstance: Mob):
 	# Get the current quests in progress
 	var quests_in_progress = QuestManager.get_quests_in_progress()
 	# Update each of the current quests with the collected item information
-	for quest in quests_in_progress.keys():
-		var myquest = quests_in_progress[quest]
-		var myquestname = myquest.quest_name
-		# The quest will be progressed by 1 kill of this mob id
-		# But only it's current step and only if it has the mob id
-		update_quest_step(myquestname, mob_id, 1, true)
+	for quest in quests_in_progress.values():
+		update_quest_step(quest.quest_name, mob_id, 1, true)

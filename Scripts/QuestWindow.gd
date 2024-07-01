@@ -20,12 +20,24 @@ extends Control
 var selected_quest: String # Will be the quest ID
 
 func _ready():
+	# Connect tab and quest list item selection signals
+	connect_ui_signals()
+	# Connect QuestManager signals
+	connect_quest_signals()
+	# Initialize quests if any are already present
+	initialize_quests()
+
+
+# Connect UI signals
+func connect_ui_signals():
 	quest_overview_tabs.tab_changed.connect(_on_tab_changed)
 	current_quests_list.item_selected.connect(_on_quest_selected.bind(current_quests_list))
 	completed_quests_list.item_selected.connect(_on_quest_selected.bind(completed_quests_list))
 	failed_quests_list.item_selected.connect(_on_quest_selected.bind(failed_quests_list))
-	
-	# Connect to the QuestManager signals
+
+
+# Connect QuestManager signals
+func connect_quest_signals():
 	QuestManager.quest_completed.connect(_on_quest_complete)
 	QuestManager.quest_failed.connect(_on_quest_failed)
 	QuestManager.step_complete.connect(_on_step_complete)
@@ -33,8 +45,7 @@ func _ready():
 	QuestManager.step_updated.connect(_on_step_updated)
 	QuestManager.new_quest_added.connect(_on_new_quest_added)
 	QuestManager.quest_reset.connect(_on_quest_reset)
-	
-	initialize_quests()
+
 
 # If any quests are already present, we add them to the quest journal
 func initialize_quests():
