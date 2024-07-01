@@ -102,22 +102,30 @@ func _on_tilebrush_clicked(brush):
 	brush_removed.emit(brush)
 
 
-# Function to get a random child from the brush_container, excluding those with entityType "itemgroup"
+# Function to get a random child from the brush_container
+# Excludes those with entityType "itemgroup" unless only itemgroups are present
 func get_random_brush() -> Control:
 	var children = brush_container.get_content_items()
 	var valid_brushes = []
-	
-	# Loop through the children and add those that are not "itemgroup" to valid_brushes
+	var itemgroup_brushes = []
+
+	# Loop through the children and categorize brushes
 	for child in children:
-		if child.entityType != "itemgroup":
+		if child.entityType == "itemgroup":
+			itemgroup_brushes.append(child)
+		else:
 			valid_brushes.append(child)
 	
-	# If no valid brushes are found, return null
-	if valid_brushes.size() == 0:
-		return null
+	# If no valid brushes are found, return a random itemgroup brush
+	if valid_brushes.size() == 0 and itemgroup_brushes.size() > 0:
+		return itemgroup_brushes[randi() % itemgroup_brushes.size()]
 	
-	# Return a random valid brush
-	return valid_brushes[randi() % valid_brushes.size()]
+	# If there are valid brushes, return a random valid brush
+	if valid_brushes.size() > 0:
+		return valid_brushes[randi() % valid_brushes.size()]
+	
+	# If no brushes are available, return null
+	return null
 
 
 # Function to get a list of entityIDs from children with entityType "itemgroup"
