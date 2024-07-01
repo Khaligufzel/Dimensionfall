@@ -68,7 +68,7 @@ func load_quest_data() -> void:
 			child.queue_free()
 		if contentData.has("rewards"):
 			for reward in contentData["rewards"]:
-				add_reward_entry(reward["item_id"], reward["amount"])
+				add_reward_entry(reward["item_id"], reward["amount"], true)
 
 
 # Function to add a step based on the step type selected
@@ -123,7 +123,7 @@ func _on_save_button_button_up() -> void:
 		contentData["steps"].append(step)
 
 	# Save rewards
-	contentData["rewards"] = []
+	var rewards = []
 	for i in range(0, rewards_item_list.get_child_count(), 3):
 		var label = rewards_item_list.get_child(i) as Label
 		var spinbox = rewards_item_list.get_child(i + 1) as SpinBox
@@ -131,7 +131,14 @@ func _on_save_button_button_up() -> void:
 			"item_id": label.text,
 			"amount": spinbox.value
 		}
-		contentData["rewards"].append(reward)
+		rewards.append(reward)
+
+	# If there are no rewards, remove the rewards property from contentData
+	if rewards.size() > 0:
+		contentData["rewards"] = rewards
+	else:
+		if contentData.has("rewards"):
+			contentData.erase("rewards")
 
 	data_changed.emit(Gamedata.data.quests, contentData, olddata)
 	olddata = contentData.duplicate(true)
@@ -347,7 +354,7 @@ func _handle_reward_drop(dropped_data: Dictionary, _newpos: Vector2) -> void:
 			return
 		
 		# Add the reward entry using the new function
-		add_reward_entry(item_id, 1)
+		add_reward_entry(item_id, 1, false)
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
@@ -356,7 +363,8 @@ func _handle_reward_drop(dropped_data: Dictionary, _newpos: Vector2) -> void:
 # Parameters:
 # - item_id: The ID of the item being added as a reward
 # - amount: The initial amount of the item
-func add_reward_entry(item_id: String, amount: int = 1):
+# - use_loaded_amount: Boolean to determine if the loaded amount should be used (default is false)
+func add_reward_entry(item_id: String, amount: int = 1, use_loaded_amount: bool = false):
 	# Get item data using the item ID
 	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
 	if item_data.is_empty():
@@ -370,8 +378,13 @@ func add_reward_entry(item_id: String, amount: int = 1):
 
 	# Create and configure the amount SpinBox
 	var amountSpinBox = SpinBox.new()
-	amountSpinBox.value = item_data["stack_size"]
 	amountSpinBox.max_value = item_data["max_stack_size"]
+	
+	if use_loaded_amount:
+		amountSpinBox.value = amount
+	else:
+		amountSpinBox.value = item_data["stack_size"]
+	
 	rewards_item_list.add_child(amountSpinBox)
 
 	# Create and configure the delete button
