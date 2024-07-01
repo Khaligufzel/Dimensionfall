@@ -187,7 +187,8 @@
 		"references": {
 			"core": {
 				"furniture": [
-					"cabinet_wood_00"
+					"cabinet_wood_00",
+					"wall_shelf"
 				]
 			}
 		},
@@ -236,7 +237,11 @@
 					"desk",
 					"bathtub",
 					"stove",
-					"sofa"
+					"sofa",
+					"cash_register",
+					"shopping_cart",
+					"display_case",
+					"vending_machine"
 				]
 			}
 		},
@@ -376,7 +381,8 @@
 		"references": {
 			"core": {
 				"furniture": [
-					"refrigerator_00"
+					"refrigerator_00",
+					"vending_machine"
 				]
 			}
 		},
