@@ -228,6 +228,9 @@ func save_data_to_file(contentData: Dictionary):
 	var datapath: String = contentData.dataPath
 	if datapath.ends_with(".json"):
 		Helper.json_helper.write_json_file(datapath,JSON.stringify(contentData.data,"\t"))
+	if contentData == data.items:
+		# Update the itemprotosets
+		update_item_protoset_json_data("res://ItemProtosets.tres",JSON.stringify(contentData.data,"\t"))
 
 
 # Takes contentdata and an id and returns the json that belongs to an id
