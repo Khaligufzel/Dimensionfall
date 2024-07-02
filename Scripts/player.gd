@@ -76,7 +76,7 @@ func _ready():
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
 	Helper.signal_broker.health_item_used.connect(_on_health_item_used)
-	ItemManager.craft_succesful.connect(_on_craft_succesful)
+	ItemManager.craft_successful.connect(_on_craft_successful)
 	# Connect signals for collisionDetector to detect furniture
 	collisionDetector.body_entered.connect(_on_body_entered)
 	collisionDetector.body_exited.connect(_on_body_exited)
@@ -445,7 +445,7 @@ func add_skill_xp(skill_id: String, xp: float) -> void:
 
 # The player has succesfully crafted an item. Get the skill id and xp from
 # the recipe and add it to the player's skill xp
-func _on_craft_succesful(_item: Dictionary, recipe: Dictionary):
+func _on_craft_successful(_item: Dictionary, recipe: Dictionary):
 	var skill_id = Helper.json_helper.get_nested_data(recipe, "skill_progression.id")
 	var xp = Helper.json_helper.get_nested_data(recipe, "skill_progression.xp")
 	if skill_id and xp:

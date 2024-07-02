@@ -11,5 +11,24 @@
 				"type": "collect"
 			}
 		]
+	},
+	{
+		"description": "You are tasked with killing two scrapwalkers",
+		"id": "kill_2_scrapwalkers",
+		"name": "Kill scrapwalkers",
+		"rewards": [
+			{
+				"amount": 15,
+				"item_id": "bullet_9mm"
+			}
+		],
+		"sprite": "pistol_32.png",
+		"steps": [
+			{
+				"amount": 2,
+				"mob": "scrapwalker",
+				"type": "kill"
+			}
+		]
 	}
 ]
