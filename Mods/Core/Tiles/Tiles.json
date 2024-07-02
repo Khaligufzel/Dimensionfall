@@ -1839,5 +1839,161 @@
 		"shape": "cube",
 		"sprite": "asphalt_markings_side_top.png",
 		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted blue",
+		"id": "linoleum_blue_00",
+		"name": "Linoleum tiles (blue)",
+		"shape": "cube",
+		"sprite": "linoleum_blue.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted brown",
+		"id": "linoleum_brown_00",
+		"name": "Linoleum tiles (brown)",
+		"shape": "cube",
+		"sprite": "linoleum_brown.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted brown",
+		"id": "linoleum_brown_01",
+		"name": "Linoleum tiles (brown)",
+		"shape": "cube",
+		"sprite": "linoleum_brown1.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted green",
+		"id": "linoleum_green_01",
+		"name": "Linoleum tiles (green)",
+		"shape": "cube",
+		"sprite": "linoleum_green.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted green",
+		"id": "linoleum_green_00",
+		"name": "Linoleum tiles (green)",
+		"shape": "cube",
+		"sprite": "linoleum_green1.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted green",
+		"id": "linoleum_green_02",
+		"name": "Linoleum tiles (green)",
+		"shape": "cube",
+		"sprite": "linoleum_green2.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted grey/blue",
+		"id": "linoleum_greyblue_00",
+		"name": "Linoleum tiles (grey-blue)",
+		"shape": "cube",
+		"sprite": "linoleum_greyblue.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted lightblue",
+		"id": "linoleum_lightblue_00",
+		"name": "Linoleum tiles (lightblue)",
+		"shape": "cube",
+		"sprite": "linoleum_lightblue.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted lightblue",
+		"id": "linoleum_lightblue_01",
+		"name": "Linoleum tiles (lightblue)",
+		"shape": "cube",
+		"sprite": "linoleum_lightblue1.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted lightblue",
+		"id": "linoleum_lightblue_02",
+		"name": "Linoleum tiles (lightblue)",
+		"shape": "cube",
+		"sprite": "linoleum_lightblue2.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted white",
+		"id": "linoleum_white_00",
+		"name": "Linoleum tiles (white)",
+		"shape": "cube",
+		"sprite": "linoleum_white.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted white",
+		"id": "linoleum_white_01",
+		"name": "Linoleum tiles (white)",
+		"shape": "cube",
+		"sprite": "linoleum_white1.png",
+		"transparent": false
+	},
+	{
+		"categories": [
+			"Floor",
+			"Urban"
+		],
+		"description": "A linoleum floor you would find in a store. It's are painted white",
+		"id": "linoleum_white_02",
+		"name": "Linoleum tiles (white)",
+		"shape": "cube",
+		"sprite": "linoleum_white2.png",
+		"transparent": false
 	}
 ]
