@@ -47,9 +47,14 @@ func create_loot():
 					item_added = true # An item is about to be added
 					# Determine quantity to add based on min and max
 					var quantity = randi_range(item_min, item_max)
-					for i in range(quantity):
-						# Create and add the item to the inventory
-						inventory.create_and_add_item.call_deferred(item_id)
+					
+					# Check if quantity is more than 0 before adding the item
+					if quantity > 0:
+						# Create and add the item to the inventory and keep a reference
+						var item = inventory.create_and_add_item(item_id)
+						# Set the item stack size, limited by max_stack_size
+						var stack_size = min(quantity, item_data["max_stack_size"])
+						InventoryStacked.set_item_stack_size(item, stack_size)
 			else:
 				print_debug("No valid data found for item ID: " + str(item_id))
 	else:
