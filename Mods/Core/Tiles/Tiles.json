@@ -240,8 +240,7 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing"
+					"generichouse_t"
 				]
 			}
 		},
@@ -1968,6 +1967,13 @@
 		"description": "A linoleum floor you would find in a store. It's are painted white",
 		"id": "linoleum_white_00",
 		"name": "Linoleum tiles (white)",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "linoleum_white.png",
 		"transparent": false
@@ -1980,6 +1986,13 @@
 		"description": "A linoleum floor you would find in a store. It's are painted white",
 		"id": "linoleum_white_01",
 		"name": "Linoleum tiles (white)",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "linoleum_white1.png",
 		"transparent": false
@@ -1992,6 +2005,13 @@
 		"description": "A linoleum floor you would find in a store. It's are painted white",
 		"id": "linoleum_white_02",
 		"name": "Linoleum tiles (white)",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "linoleum_white2.png",
 		"transparent": false

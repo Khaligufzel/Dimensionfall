@@ -92,7 +92,7 @@
 		],
 		"description": "A common tree",
 		"destruction": {
-			"group": "destroyed_furniture_medium",
+			"group": "tree_destroyed",
 			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "None",
@@ -106,7 +106,8 @@
 					"field_grass_basic_01",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -118,7 +119,7 @@
 		],
 		"description": "A common pine tree",
 		"destruction": {
-			"group": "destroyed_furniture_medium",
+			"group": "tree_destroyed",
 			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "None",
@@ -131,7 +132,8 @@
 					"field_grass_basic_01",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -143,7 +145,7 @@
 		],
 		"description": "A common willow tree",
 		"destruction": {
-			"group": "destroyed_furniture_medium",
+			"group": "tree_destroyed",
 			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "None",
@@ -156,7 +158,8 @@
 					"field_grass_basic_01",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -697,6 +700,11 @@
 		"weight": 2
 	},
 	{
+		"Function": {
+			"container": {
+				"itemgroup": "refridgerator"
+			}
+		},
 		"categories": [
 			"Urban",
 			"Store"
@@ -769,6 +777,11 @@
 		"weight": 5
 	},
 	{
+		"Function": {
+			"container": {
+
+			}
+		},
 		"categories": [
 			"Urban",
 			"Store"
@@ -802,7 +815,7 @@
 		"destruction": {
 			"group": "destroyed_furniture_medium"
 		},
-		"edgesnapping": "None",
+		"edgesnapping": "North",
 		"id": "security_gate",
 		"moveable": false,
 		"name": "Security Gate",
