@@ -1,0 +1,15 @@
+[
+	{
+		"description": "You are tasked with gathering 5 scraps",
+		"id": "gather_5_scraps",
+		"name": "Gather scraps",
+		"sprite": "steel_scrap.png",
+		"steps": [
+			{
+				"amount": 5,
+				"item": "steel_scrap",
+				"type": "collect"
+			}
+		]
+	}
+]

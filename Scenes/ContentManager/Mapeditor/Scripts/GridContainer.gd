@@ -1,9 +1,10 @@
 extends GridContainer
+
+
+# This script is intended to work with the mapeditor. 
+# It contains a grid of tiles that make up a map
+
 @export var tileScene: PackedScene
-#This is the index of the level we are on. 0 is ground level. can be -10 to +10
-var currentLevel: int = 10
-#Contains the data of every tile in the current level, the ground level or level 0 by default
-var currentLevelData: Array = []
 @export var mapEditor: Control
 @export var LevelScrollBar: VScrollBar
 @export var levelgrid_below: GridContainer
@@ -15,6 +16,12 @@ var currentLevelData: Array = []
 @export var checkboxCopyRectangle: CheckBox
 @export var checkboxCopyAllLevels: CheckBox
 @export var brushcomposer: Control # Contains one or more selected brushes to paint with
+
+
+#This is the index of the level we are on. 0 is ground level. can be -10 to +10
+var currentLevel: int = 10
+#Contains the data of every tile in the current level, the ground level or level 0 by default
+var currentLevelData: Array = []
 
 var selected_brush: Control
 
@@ -71,15 +78,15 @@ func _on_mapeditor_ready() -> void:
 
 # This function will fill fill this GridContainer with a grid of 32x32 instances of "res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn"
 func create_tiles():
-	create_level_tiles(self, mapEditor.mapWidth, mapEditor.mapHeight, true)
-	create_level_tiles(levelgrid_below, mapEditor.mapWidth, mapEditor.mapHeight, false)
-	create_level_tiles(levelgrid_above, mapEditor.mapWidth, mapEditor.mapHeight, false)
+	create_level_tiles(self, true)
+	create_level_tiles(levelgrid_below, false)
+	create_level_tiles(levelgrid_above, false)
 
 
 # Helper function to create tiles for a specific level grid
-func create_level_tiles(grid: GridContainer, width: int, height: int, connect_signals: bool):
-	for x in range(width):
-		for y in range(height):
+func create_level_tiles(grid: GridContainer, connect_signals: bool):
+	for x in range(mapEditor.mapWidth):
+		for y in range(mapEditor.mapHeight):
 			var tile_instance = tileScene.instantiate()
 			grid.add_child(tile_instance)
 			if connect_signals:
@@ -234,11 +241,11 @@ func grid_tile_clicked(clicked_tile) -> void:
 # We paint a single tile if draw rectangle is not selected
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile) -> void:
-	apply_paint_to_tile(clicked_tile, selected_brush, rotationAmount, erase)
+	apply_paint_to_tile(clicked_tile, selected_brush, rotationAmount)
 
 
 # Helper function to apply paint or erase logic to a single tile
-func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int, erase: bool):
+func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 	if erase:
 		if brush:
 			if brush.entityType == "mob":
@@ -254,17 +261,22 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int, erase: 
 		selected_brush = brushcomposer.get_random_brush()
 		var tilerotation = brushcomposer.get_tilerotation(tilerotate)
 		if brush.entityType == "mob":
-			tile.set_mob_id(brush.tileID)
+			tile.set_mob_id(brush.entityID)
 			tile.set_mob_rotation(tilerotation)
 		elif brush.entityType == "furniture":
-			tile.set_furniture_id(brush.tileID)
+			tile.set_furniture_id(brush.entityID)
 			tile.set_furniture_rotation(tilerotation)
+			tile.set_furniture_itemgroups(brushcomposer.get_itemgroup_entity_ids())
+		elif brush.entityType == "itemgroup":
+			# The brushcomposer only returns a brush of this type if there are only
+			# itemgroup brushes in the brushcomposer. We apply the itemgroups to the furniture
+			tile.set_furniture_itemgroups(brushcomposer.get_itemgroup_entity_ids())
 		else:
-			tile.set_tile_id(brush.tileID)
+			tile.set_tile_id(brush.entityID)
 			tile.set_rotation_amount(tilerotation)
 
 
-
+# Stores the data of the current level before changing levels
 func storeLevelData() -> void:
 	currentLevelData.clear()
 	var has_significant_data = false
@@ -425,7 +437,7 @@ func highlight_tiles_in_rect() -> void:
 func paint_in_rectangle():
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
 	for tile in tiles:
-		apply_paint_to_tile(tile, selected_brush, rotationAmount, erase)
+		apply_paint_to_tile(tile, selected_brush, rotationAmount)
 	update_rectangle()
 
 

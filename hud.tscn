@@ -1,10 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=21 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
 [ext_resource type="Script" path="res://Scripts/NonHUDclick.gd" id="2_kpbhl"]
 [ext_resource type="Texture2D" uid="uid://7hppy1l45loq" path="res://Textures/bar_progress.png" id="3_83uwt"]
-[ext_resource type="Resource" uid="uid://cllbo1owveorj" path="res://ItemProtosets.tres" id="3_jmlkb"]
+[ext_resource type="Resource" uid="uid://cqdiuynwooaok" path="res://ItemProtosets.tres" id="3_jmlkb"]
 [ext_resource type="Texture2D" uid="uid://dcgwgmsmi7mjn" path="res://Textures/bar_border.png" id="3_y43f5"]
 [ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://Textures/leftarm.png" id="4_wt5t7"]
 [ext_resource type="Texture2D" uid="uid://8pdm2gvd1v3n" path="res://Textures/leftleg.png" id="5_si2ot"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cgxw4cu430nst" path="res://Scenes/UI/CharacterWindow.tscn" id="17_2f357"]
 [ext_resource type="PackedScene" uid="uid://dpxuma5a7e4p6" path="res://Scenes/UI/EscapeMenu.tscn" id="17_ewtgs"]
 [ext_resource type="PackedScene" uid="uid://bgswuol251m3u" path="res://Scenes/Overmap/Overmap.tscn" id="19_oomhy"]
+[ext_resource type="PackedScene" uid="uid://b50xhj4218wjd" path="res://Scenes/UI/QuestWindow.tscn" id="19_orjb2"]
 [ext_resource type="PackedScene" uid="uid://e0ebcv1n8jnq" path="res://Scenes/InventoryWindow.tscn" id="20_0l505"]
 [ext_resource type="PackedScene" uid="uid://ckuh2s0nvwg0x" path="res://Scenes/GameOver.tscn" id="20_jlthm"]
 
@@ -23,7 +24,7 @@
 default_font = ExtResource("1_pxloi")
 default_font_size = 0
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("inventoryWindow", "characterWindow", "overmap")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("inventoryWindow", "characterWindow", "questWindow", "overmap")]
 script = ExtResource("1_s3xoj")
 head_health = NodePath("Doll/Head")
 right_arm_health = NodePath("Doll/Rightarm")
@@ -38,6 +39,7 @@ healthy_color = Color(0, 0.635294, 0, 1)
 damaged_color = Color(0.635294, 0, 0, 1)
 inventoryWindow = NodePath("InventoryWindow")
 characterWindow = NodePath("CharacterWindow")
+questWindow = NodePath("QuestWindow")
 building_menu = NodePath("BuildingMenu")
 crafting_menu = NodePath("CraftingMenu")
 overmap = NodePath("Overmap")
@@ -233,6 +235,14 @@ anchor_right = 0.9
 anchor_bottom = 0.9
 
 [node name="CharacterWindow" parent="." instance=ExtResource("17_2f357")]
+visible = false
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+
+[node name="QuestWindow" parent="." instance=ExtResource("19_orjb2")]
 visible = false
 anchors_preset = -1
 anchor_left = 0.2

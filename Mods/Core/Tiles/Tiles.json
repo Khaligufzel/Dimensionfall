@@ -79,7 +79,8 @@
 					"urbanroad_corner",
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -140,7 +141,8 @@
 					"urbanroad_corner",
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -174,6 +176,13 @@
 		"description": "A solid wall made out of bricks",
 		"id": "brick_wall_00",
 		"name": "Brick wall",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "brickroad2.png"
 	},
@@ -190,7 +199,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -230,7 +240,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -250,7 +261,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -398,7 +410,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -702,6 +715,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted yellow",
 		"id": "kitchen_tiles_yellow_00",
 		"name": "Kitchen tiles (yellow)",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentiles.png"
 	},
@@ -716,7 +736,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_cross"
+					"generichouse_cross",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -734,7 +755,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -752,7 +774,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -772,7 +795,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -790,7 +814,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -808,7 +833,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -875,7 +901,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -911,7 +938,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -931,7 +959,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -1011,12 +1040,11 @@
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
 					"field_grass_hill_00",
-					"Generichouse",
-					"Generichouse_00",
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -1061,11 +1089,11 @@
 					"field_grass_basic_01",
 					"field_grass_flowers_00",
 					"field_grass_hill_00",
-					"Generichouse",
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -1089,7 +1117,8 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -1114,7 +1143,8 @@
 					"urbanroad_corner",
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -1137,7 +1167,8 @@
 					"field_grass_hill_00",
 					"urbanroad_t",
 					"urbanroad_corner",
-					"generichouse_corner"
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -1387,7 +1418,8 @@
 					"field_grass_hill_00",
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -1629,7 +1661,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -1677,7 +1710,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -1697,7 +1731,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_t",
-					"generichouse_cross"
+					"generichouse_cross",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -1796,7 +1831,8 @@
 					"urbanroad_corner",
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},

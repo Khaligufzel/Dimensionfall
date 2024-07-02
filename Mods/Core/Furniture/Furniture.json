@@ -205,7 +205,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -341,7 +342,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -369,7 +371,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -392,7 +395,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse"
+					"Generichouse",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -468,7 +472,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -493,7 +498,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -517,7 +523,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -542,7 +549,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -613,7 +621,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -641,5 +650,223 @@
 			}
 		},
 		"sprite": "sofa_100_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A dilapidated cash register, with some buttons missing but still operational.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "North",
+		"id": "cash_register",
+		"moveable": false,
+		"name": "Cash Register",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sprite": "cash_register_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A metal shopping cart, rusted and difficult to push but useful for carrying items.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "shopping_cart",
+		"moveable": true,
+		"name": "Shopping Cart",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sprite": "shopping_cart_90_50.png",
+		"weight": 2
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A broken glass display case, now mostly empty but could hide some useful items.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "North",
+		"id": "display_case",
+		"moveable": false,
+		"name": "Display Case",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sprite": "display_case_100_50.png"
+	},
+	{
+		"Function": {
+			"container": {
+				"itemgroup": "refridgerator"
+			}
+		},
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A rusted, old vending machine, with a few snacks still inside.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "South",
+		"id": "vending_machine",
+		"moveable": false,
+		"name": "Vending Machine",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sprite": "vending_machine_50.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A sturdy metal frame with horizontal bars for hanging clothes. It often has wheels for easy mobility and can hold a variety of garments.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "clothing_rack",
+		"moveable": true,
+		"name": "Clothing Rack",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sprite": "clothing_rack_90_50.png",
+		"weight": 5
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A tall shelving unit made of metal, used for displaying merchandise. It has multiple tiers for organizing products.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "store_shelf",
+		"moveable": false,
+		"name": "Store Shelf",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sprite": "store_shelf_90_50.png"
+	},
+	{
+		"Function": {
+			"door": "Closed"
+		},
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A tall, narrow gate placed at store entrances and exits to prevent theft. It often has sensors that trigger alarms when unauthorized items pass through.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "security_gate",
+		"moveable": false,
+		"name": "Security Gate",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sprite": "security_gate_100_13.png"
+	},
+	{
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A container for disposing of waste, commonly found near the entrance or checkout area of a store. It can be made of plastic or metal and often has a lid.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "trash_bin",
+		"moveable": true,
+		"name": "Trash Bin",
+		"references": {
+			"core": {
+				"maps": [
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00",
+					"generichouse_corner",
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sprite": "trash_bin_32.png",
+		"weight": 1
+	},
+	{
+		"Function": {
+			"container": {
+				"itemgroup": "cabinet_general"
+			}
+		},
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A shelf mounted on the wall, used for displaying smaller items or merchandise. It's made of wood.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "wall_shelf",
+		"moveable": false,
+		"name": "Wall Shelf",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sprite": "wall_shelf_100_40.png"
 	}
 ]
