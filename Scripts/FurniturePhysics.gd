@@ -11,6 +11,7 @@ var furnitureJSONData: Dictionary # The json that defines this furniture's basic
 var sprite: Sprite3D = null
 var last_rotation: int
 var current_chunk: Chunk
+var container: ContainerItem = null # Reference to the container, if this furniture acts as one
 
 var is_animating_hit: bool = false # flag to prevent multiple blink actions
 var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
@@ -19,9 +20,11 @@ var current_health: float = 10.0
 
 func _ready() -> void:
 	set_position(furnitureposition)
-	#set_position.call_deferred(furnitureposition)
 	set_new_rotation(furniturerotation)
+	# Add the container as a child on the same position as this furniture
+	add_container(Vector3(0,0,0))
 	last_rotation = furniturerotation
+
 
 # Keep track of the furniture's position and rotation. It starts at 0,0,0 and the moves to it's
 # assigned position after a timer. Until that has happened, we don't need to keep track of it's position
@@ -125,7 +128,7 @@ func _moved(newpos:Vector3) -> void:
 
 
 func get_data() -> Dictionary:
-	return {
+	var newfurniturejson = {
 		"id": furnitureJSON.id,
 		"moveable": true,
 		"global_position_x": furnitureposition.x,
@@ -133,6 +136,24 @@ func get_data() -> Dictionary:
 		"global_position_z": furnitureposition.z,
 		"rotation": last_rotation
 	}
+	
+	# Check for container functionality and save item list if applicable
+	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
+		# Initialize the 'Function' sub-dictionary if not already present
+		if "Function" not in newfurniturejson:
+			newfurniturejson["Function"] = {}
+		
+		# Check if this furniture has a container attached and if it has items
+		if container:
+			var item_ids = container.get_item_ids()
+			if item_ids.size() > 0:
+				var containerdata = container.get_inventory().serialize()
+				newfurniturejson["Function"]["container"] = {"items": containerdata}
+			else:
+				# No items in the container, store the container as empty
+				newfurniturejson["Function"]["container"] = {}
+
+	return newfurniturejson
 
 
 # The furniture will move 0.2 meters in a random direction to indicate that it's hit
@@ -149,10 +170,10 @@ func animate_hit() -> void:
 
 	tween.finished.connect(_on_tween_finished)
 
+
 # The furniture is done blinking so we reset the relevant variables
 func _on_tween_finished() -> void:
 	is_animating_hit = false
-
 
 
 func get_hit(damage) -> void:
@@ -164,11 +185,12 @@ func get_hit(damage) -> void:
 			if not is_animating_hit:
 				animate_hit()
 
+
 func _die() -> void:
 	current_chunk.remove_furniture_from_chunk(self)
 	add_corpse.call_deferred(global_position)
 	queue_free.call_deferred()
-	
+
 
 # When the furniture is destroyed, it leaves a wreck behind
 func add_corpse(pos: Vector3) -> void:
@@ -193,6 +215,13 @@ func add_corpse(pos: Vector3) -> void:
 		
 		# Finally add the new item with possibly set loot group to the tree
 		get_tree().get_root().add_child.call_deferred(newItem)
+		
+		# Check if container has items and insert them into the new item
+		if container:
+			var items = container.get_items()
+			for item in items:
+				if newItem.insert_item(item):
+					print("Item inserted successfully")
 
 
 func _disassemble() -> void:
@@ -229,3 +258,67 @@ func can_be_destroyed() -> bool:
 
 func can_be_disassembled() -> bool:
 	return "disassembly" in furnitureJSONData
+
+
+
+# If this furniture is a container, it will add a container node to the furniture.
+func add_container(pos: Vector3):
+	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
+		container = ContainerItem.new()
+		var containerdata: Dictionary = {}
+		containerdata["global_position_x"] = pos.x
+		containerdata["global_position_y"] = pos.y
+		containerdata["global_position_z"] = pos.z
+		container.construct_self(containerdata)
+		container.sprite_3d.visible = false # The sprite blocks the furniture sprite
+		handle_container_population()
+		add_child(container)
+
+
+# Check if this is a new furniture or if it is one that was previously saved.
+func handle_container_population():
+	if is_new_furniture():
+		populate_container_from_itemgroup()
+	else:
+		deserialize_container_data()
+
+
+# If there is an itemgroup assigned to the furniture, it will be added to the container.
+# Which will fill up the container with items from the itemgroup.
+func populate_container_from_itemgroup():
+	# Check if furnitureJSON contains an itemgroups array
+	if furnitureJSON.has("itemgroups"):
+		var itemgroups_array = furnitureJSON["itemgroups"]
+		if itemgroups_array.size() > 0:
+			var random_itemgroup = itemgroups_array[randi() % itemgroups_array.size()]
+			container.itemgroup = random_itemgroup
+			print_debug("Random itemgroup selected from furnitureJSON: " + random_itemgroup)
+			return
+		else:
+			print_debug("itemgroups array is empty in furnitureJSON")
+
+	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
+	var itemgroup = furnitureJSONData["Function"]["container"].get("itemgroup", "")
+	if itemgroup:
+		container.itemgroup = itemgroup
+	else:
+		print_debug("No itemgroup found for container in furniture ID: " + str(furnitureJSON.id))
+
+
+# It will deserialize the container data if the furniture is not new.
+func deserialize_container_data():
+	if "items" in furnitureJSON["Function"]["container"]:
+		container.deserialize_and_apply_items(furnitureJSON["Function"]["container"]["items"])
+	else:
+		print_debug("No items to deserialize in container for furniture ID: " + str(furnitureJSON.id))
+
+
+# Only previously saved furniture will have the global_position_x key.
+# Returns true if this is a new furniture
+# Returns false if this is a previously saved furniture
+func is_new_furniture() -> bool:
+	return not furnitureJSON.has("global_position_x")
+
+
+func get_sprite() -> Texture:
+	return sprite.texture
