@@ -32,7 +32,9 @@ var contentData: Dictionary = {}:
 		olddata = contentData.duplicate(true)
 
 func _ready():
-	data_changed.connect(Gamedata.on_data_changed)
+	data_changed.connect(Gamedata.on_data_changed)	
+	# Set custom can_drop_func and drop_func for the brushcontainer, use default drag_func
+	rewards_item_list.set_drag_forwarding(Callable(), _can_drop_reward, _drop_reward_data)
 
 
 #The editor is closed, destroy the instance
@@ -59,6 +61,15 @@ func load_quest_data() -> void:
 		if contentData.has("steps"):
 			for step in contentData["steps"]:
 				add_step_from_data(step)
+
+	# Load rewards
+	if rewards_item_list:
+		for child in rewards_item_list.get_children():
+			child.queue_free()
+		if contentData.has("rewards"):
+			for reward in contentData["rewards"]:
+				add_reward_entry(reward["item_id"], reward["amount"], true)
+
 
 # Function to add a step based on the step type selected
 func _on_add_step_button_button_up():
@@ -110,6 +121,25 @@ func _on_save_button_button_up() -> void:
 			step["mob"] = (hbox.get_child(1)).get_text()
 			step["amount"] = (hbox.get_child(2) as SpinBox).value
 		contentData["steps"].append(step)
+
+	# Save rewards
+	var rewards = []
+	for i in range(0, rewards_item_list.get_child_count(), 3):
+		var label = rewards_item_list.get_child(i) as Label
+		var spinbox = rewards_item_list.get_child(i + 1) as SpinBox
+		var reward = {
+			"item_id": label.text,
+			"amount": spinbox.value
+		}
+		rewards.append(reward)
+
+	# If there are no rewards, remove the rewards property from contentData
+	if rewards.size() > 0:
+		contentData["rewards"] = rewards
+	else:
+		if contentData.has("rewards"):
+			contentData.erase("rewards")
+
 	data_changed.emit(Gamedata.data.quests, contentData, olddata)
 	olddata = contentData.duplicate(true)
 
@@ -281,3 +311,91 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 func set_drop_functions(mydropabletextedit):
 	mydropabletextedit.drop_function = entity_drop.bind(mydropabletextedit)
 	mydropabletextedit.can_drop_function = can_entity_drop.bind(mydropabletextedit)
+
+
+# This function should return true if the dragged data can be dropped here
+func _can_drop_reward(_newpos, data: Dictionary) -> bool:
+	# Check if the data dictionary has the 'id' property
+	if not data or not data.has("id"):
+		return false
+
+	# Fetch skill data by ID from the Gamedata to ensure it exists and is valid
+	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, data["id"])
+	if item_data.is_empty():
+		return false
+
+	# Check if the item ID already exists in the resources grid
+	var children = rewards_item_list.get_children()
+	for i in range(0, children.size(), 3):  # Step by 3 to handle label-spinbox-deleteButton triples
+		var label = children[i] as Label
+		if label.text == data["id"]:
+			# Return false if this item ID already exists in the resources grid
+			return false
+
+	# If all checks pass, return true
+	return true
+
+
+# This function handles the data being dropped
+func _drop_reward_data(newpos, data: Dictionary) -> void:
+	if _can_drop_reward(newpos, data):
+		_handle_reward_drop(data, newpos)
+
+
+# Called when the user has successfully dropped data onto the rewards_item_list
+# We have to check the dropped_data for the id property
+func _handle_reward_drop(dropped_data: Dictionary, _newpos: Vector2) -> void:
+	# Dropped_data is a Dictionary that includes an 'id'
+	if dropped_data and "id" in dropped_data:
+		var item_id = dropped_data["id"]
+		var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
+		if item_data.is_empty():
+			print_debug("No item data found for ID: " + item_id)
+			return
+		
+		# Add the reward entry using the new function
+		add_reward_entry(item_id, 1, false)
+	else:
+		print_debug("Dropped data does not contain an 'id' key.")
+
+
+# Adds UI elements to control the rewards
+# Parameters:
+# - item_id: The ID of the item being added as a reward
+# - amount: The initial amount of the item
+# - use_loaded_amount: Boolean to determine if the loaded amount should be used (default is false)
+func add_reward_entry(item_id: String, amount: int = 1, use_loaded_amount: bool = false):
+	# Get item data using the item ID
+	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
+	if item_data.is_empty():
+		print_debug("No item data found for ID: " + item_id)
+		return
+
+	# Create UI elements for the reward
+	var label = Label.new()
+	label.text = item_id
+	rewards_item_list.add_child(label)
+
+	# Create and configure the amount SpinBox
+	var amountSpinBox = SpinBox.new()
+	amountSpinBox.max_value = item_data["max_stack_size"]
+	
+	if use_loaded_amount:
+		amountSpinBox.value = amount
+	else:
+		amountSpinBox.value = item_data["stack_size"]
+	
+	rewards_item_list.add_child(amountSpinBox)
+
+	# Create and configure the delete button
+	var deleteButton = Button.new()
+	deleteButton.text = "X"
+	deleteButton.pressed.connect(_delete_reward.bind([label, amountSpinBox, deleteButton]))
+	rewards_item_list.add_child(deleteButton)
+
+
+# Deleting a reward UI element
+func _delete_reward(elements_to_remove: Array) -> void:
+	for element in elements_to_remove:
+		rewards_item_list.remove_child(element)
+		element.queue_free()  # Properly free the node to avoid memory leaks
