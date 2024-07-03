@@ -233,3 +233,31 @@ func merge_unique(array1: Array, array2: Array) -> Array:
 		if not merged_array.has(item):
 			merged_array.append(item)
 	return merged_array
+
+
+# Removes objects from an array in a dictionary if the object's property matches the given id.
+# The path will be separated by periods. The second to last part of the path is an array,
+# and the last part is the property of the objects in the array.
+# Returns true if any objects were removed, otherwise false.
+# Usage example: Helper.json_helper.remove_object_by_id(data, "steps.mob", "scrapwalker")
+# This will remove objects from the steps array where the step's mob property equals "scrapwalker".
+func remove_object_by_id(mydata: Dictionary, path: String, id: String) -> bool:
+	var parts = path.split(".")
+	var current = mydata
+	# Navigate to the second to last part of the path.
+	for i in range(parts.size() - 1):
+		if current.has(parts[i]):
+			current = current[parts[i]]
+		else:
+			return false
+	# The second to last part should be an array.
+	if typeof(current) != TYPE_ARRAY:
+		return false
+	# Remove objects where the property's value equals the given id.
+	var property_name = parts[parts.size() - 1]
+	var removed = false
+	for item in current:
+		if typeof(item) == TYPE_DICTIONARY and item.has(property_name) and item[property_name] == id:
+			current.erase(item)
+			removed = true
+	return removed
