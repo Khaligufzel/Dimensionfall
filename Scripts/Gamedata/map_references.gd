@@ -3,33 +3,32 @@ extends Node
 # This script is intended to be used inside the GameData autoload singleton
 # This script handles references between maps and other entities.
 
-
 # A map is being deleted. Remove all references to this map
 func on_map_deleted(map_id: String):
 	var changes_made = false
-	var fileToLoad = Gamedata.data.maps.dataPath + map_id + ".json"
-	var mapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(fileToLoad)
+	var file_to_load = Gamedata.data.maps.dataPath + map_id + ".json"
+	var mapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(file_to_load)
+	
 	if not mapdata.has("levels"):
 		print("Map data does not contain 'levels'.")
 		return
 
-	# This callable will remove this map from every tacticalmap that references this itemgroup.
-	var myfunc: Callable = func (tmap_id):
+	# This callable will remove this map from every tacticalmap that references this map.
+	var myfunc: Callable = func(tmap_id):
 		var tfile = Gamedata.data.tacticalmaps.dataPath + tmap_id
 		var tmapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(tfile)
+		
 		# Check if the "chunks" key exists and is an array
 		if tmapdata.has("chunks") and tmapdata["chunks"] is Array:
-			# Iterate through the chunks array in reverse order
-			for i in range(tmapdata["chunks"].size() - 1, -1, -1):
-				var chunk = tmapdata["chunks"][i]
-				# If the chunk has the target id, remove it from the array
-				if chunk.has("id") and chunk["id"] == map_id + ".json":
-					tmapdata["chunks"].remove_at(i)
+			# Filter out chunks that match the map_id, leaving only valid ones in the tacticalmap
+			tmapdata["chunks"] = tmapdata["chunks"].filter(func(chunk):
+				return not (chunk.has("id") and chunk["id"] == map_id + ".json")
+			)
 			var map_data_json = JSON.stringify(tmapdata.duplicate(), "\t")
 			Helper.json_helper.write_json_file(tfile, map_data_json)
 	
-	# Pass the callable to every furniture in the itemgroup's references
-	# It will call myfunc on every furniture in itemgroup_data.references.core.furniture
+	# Pass the callable to every tacticalmap in the map's references
+	# It will call myfunc on every tacticalmap in mapdata.references.core.tacticalmaps
 	Gamedata.execute_callable_on_references_of_type(mapdata, "core", "tacticalmaps", myfunc)
 	
 	# Collect unique entities from mapdata
@@ -124,21 +123,20 @@ func add_entities_to_set(level: Array, entity_set: Dictionary):
 			entity_set["tiles"].append(entity["id"])
 
 
-
-
-
 # Removes all instances of the provided entity from the provided map
 # map_id is the id of one of the maps. It will be loaded from json to manipulate it.
 # entity_type can be "tile", "furniture", "itemgroup" or "mob"
 # entity_id is the id of the tile, furniture, itemgroup or mob
 func remove_entity_from_map(map_id: String, entity_type: String, entity_id: String) -> void:
-	var fileToLoad = Gamedata.data.maps.dataPath + map_id + ".json"
-	var mapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(fileToLoad)
+	var file_to_load = Gamedata.data.maps.dataPath + map_id + ".json"
+	var mapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(file_to_load)
+	
 	if not mapdata.has("levels"):
 		print("Map data does not contain 'levels'.")
 		return
 
 	var levels = mapdata["levels"]
+	
 	# Translate the type to the actual key that we need
 	if entity_type == "tile":
 		entity_type = "id"
@@ -153,8 +151,7 @@ func remove_entity_from_map(map_id: String, entity_type: String, entity_id: Stri
 
 			match entity_type:
 				"id":
-					# Check if the entity's 'id' matches and replace the entire 
-					# entity with an empty object
+					# Check if the entity's 'id' matches and replace the entire entity with an empty object
 					if entity.get("id", "") == entity_id:
 						level[entity_index] = {}  # Replacing entity with an empty object
 				"furniture":
@@ -179,4 +176,4 @@ func remove_entity_from_map(map_id: String, entity_type: String, entity_id: Stri
 	mapdata["levels"] = levels
 	print_debug("Entity removal operations completed for all levels.")
 	var map_data_json = JSON.stringify(mapdata.duplicate(), "\t")
-	Helper.json_helper.write_json_file(fileToLoad, map_data_json)
+	Helper.json_helper.write_json_file(file_to_load, map_data_json)
