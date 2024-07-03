@@ -277,6 +277,8 @@ func on_data_changed(contentData: Dictionary, newEntityData: Dictionary, oldEnti
 		on_furniture_changed(newEntityData, oldEntityData)
 	if contentData == Gamedata.data.items:
 		on_item_changed(newEntityData, oldEntityData)
+	if contentData == Gamedata.data.quests:
+		on_quest_changed(newEntityData, oldEntityData)
 	save_data_to_file(contentData)
 
 
@@ -475,6 +477,8 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		on_skill_deleted(id)
 	if contentData == Gamedata.data.wearableslots:
 		on_wearableslot_deleted(id)
+	if contentData == Gamedata.data.quests:
+		on_quest_deleted(id)
 
 
 # Erases a nested property from a given dictionary based on a dot-separated path
@@ -572,13 +576,13 @@ func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
 	var changes_made = false
 
 	# Handle container itemgroup changes
-	changes_made = update_group_reference(old_container_group, new_container_group, furniture_id, "furniture") or changes_made
+	changes_made = update_reference(old_container_group, new_container_group, furniture_id, "furniture") or changes_made
 
 	# Handle destruction group changes
-	changes_made = update_group_reference(old_destruction_group, new_destruction_group, furniture_id, "furniture") or changes_made
+	changes_made = update_reference(old_destruction_group, new_destruction_group, furniture_id, "furniture") or changes_made
 
 	# Handle disassembly group changes
-	changes_made = update_group_reference(old_disassembly_group, new_disassembly_group, furniture_id, "furniture") or changes_made
+	changes_made = update_reference(old_disassembly_group, new_disassembly_group, furniture_id, "furniture") or changes_made
 
 	# If any references were updated, save the changes to the data file
 	if changes_made:
@@ -586,20 +590,27 @@ func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
 		save_data_to_file(Gamedata.data.itemgroups)
 
 
-# Helper function to update group references if they have changed.
-func update_group_reference(old_group: String, new_group: String, entity_id: String, group_type: String) -> bool:
-	if old_group == new_group:
+# Helper function to update references if they have changed.
+# old: an entity id that is present in the old data
+# new: an entity id that is present in the new data
+# entity_id: The entity that's referenced in old and/or new
+# type: The type of entity that will be referenced
+# Example usage: update_reference(old_itemgroup, new_itemgroup, furniture_id, "furniture")
+# This example will remove furniture_id from the old_itemgroup's references and
+# add the furniture_id to the new_itemgroup's refrences
+func update_reference(old: String, new: String, entity_id: String, type: String) -> bool:
+	if old == new:
 		return false  # No change detected, exit early
 
 	var changes_made = false
 
 	# Remove from old group if necessary
-	if old_group != "":
-		changes_made = remove_reference(Gamedata.data.itemgroups, "core", group_type, old_group, entity_id) or changes_made
+	if old != "":
+		changes_made = remove_reference(Gamedata.data.itemgroups, "core", type, old, entity_id) or changes_made
 
 	# Add to new group if necessary
-	if new_group != "":
-		changes_made = add_reference(Gamedata.data.itemgroups, "core", group_type, new_group, entity_id) or changes_made
+	if new != "":
+		changes_made = add_reference(Gamedata.data.itemgroups, "core", type, new, entity_id) or changes_made
 
 	return changes_made
 
@@ -1204,3 +1215,73 @@ func on_skill_deleted(skill_id: String):
 		save_data_to_file(Gamedata.data.items)
 	else:
 		print_debug("No changes needed for skill", skill_id)
+
+
+func on_quest_deleted(quest_id: String):
+	var changes_made = { "value": false }  # Using a Dictionary to hold the change status
+	var quest_data = get_data_by_id(Gamedata.data.quests, quest_id)
+
+	if quest_data.is_empty():
+		print_debug("quest with ID", quest_id, "not found.")
+		return
+
+	var stepitems: Array = quest_data.get("steps", [])
+	for step in stepitems:
+		if step.get("type") == "collect": # Remove quest reference from the item
+			var item_id: String = step.get("item")
+			changes_made = remove_reference(Gamedata.data.items, "core", "quests", item_id, quest_id) or changes_made
+		if step.get("type") == "kill": # Remove the quest reference from the mob data
+			var mob_id: String = step.get("mob")
+			changes_made = remove_reference(Gamedata.data.mobs, "core", "quests", mob_id, quest_id) or changes_made
+
+	var steprewards: Array = quest_data.get("rewards", [])
+	for reward in steprewards: # Remove the reference to this quest from the reward item
+		var item_id: String = reward.get("item_id")
+		changes_made = remove_reference(Gamedata.data.items, "core", "quests", item_id, quest_id) or changes_made
+
+	# Save changes to the data file if any changes were made
+	if changes_made["value"]:
+		save_data_to_file(Gamedata.data.items)
+		save_data_to_file(Gamedata.data.mobs)
+	else:
+		print_debug("No changes needed for quest", quest_id)
+
+
+# The quest data has changed. We need to update the references
+func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
+	# Get unique values from old and new data for items and rewards
+	var old_quest_items: Array[String] = Helper.json_helper.get_unique_values(olddata, "steps.item")
+	var new_quest_items: Array[String] = Helper.json_helper.get_unique_values(newdata, "steps.item")
+	var old_quest_rewards: Array[String] = Helper.json_helper.get_unique_values(olddata, "rewards.item_id")
+	var new_quest_rewards: Array[String] = Helper.json_helper.get_unique_values(newdata, "rewards.item_id")
+	var old_quest_mobs: Array[String] = Helper.json_helper.get_unique_values(olddata, "steps.mob")
+	var new_quest_mobs: Array[String] = Helper.json_helper.get_unique_values(newdata, "steps.mob")
+	
+	# Merge items and rewards, removing duplicates
+	var old_quest_items_and_rewards = merge_unique(old_quest_items, old_quest_rewards)
+	var new_quest_items_and_rewards = merge_unique(new_quest_items, new_quest_rewards)
+	
+	var quest_id: String = newdata.get("id", "")
+	var changes_made = false
+
+	# Remove references for old items and rewards
+	for old_item in old_quest_items_and_rewards:
+		changes_made = remove_reference(Gamedata.data.items, "core", "quests", old_item, quest_id) or changes_made
+
+	# Add references for new items and rewards
+	for new_item in new_quest_items_and_rewards:
+		changes_made = add_reference(Gamedata.data.items, "core", "quests", new_item, quest_id) or changes_made
+
+	# Remove references for old mobs
+	for old_mob in old_quest_mobs:
+		changes_made = remove_reference(Gamedata.data.mobs, "core", "quests", old_mob, quest_id) or changes_made
+
+	# Add references for new mobs
+	for new_mob in new_quest_mobs:
+		changes_made = add_reference(Gamedata.data.mobs, "core", "quests", new_mob, quest_id) or changes_made
+
+	# Save changes if any references were updated
+	if changes_made:
+		save_data_to_file(Gamedata.data.items)
+		save_data_to_file(Gamedata.data.mobs)
+

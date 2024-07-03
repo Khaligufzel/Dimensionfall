@@ -198,3 +198,38 @@ func delete_nested_property(mydata: Dictionary, path: String) -> bool:
 			return false
 	var property_to_remove = parts[parts.size() - 1]
 	return current.erase(property_to_remove)
+
+
+# Returns an array of unique values from an array of objects based on the given path.
+# The path will be separated by periods. The second to last part of the path is an array,
+# and the last part is the property of the objects in the array.
+# Usage example: Helper.json_helper.get_unique_values(quest_data, "rewards.item_id")
+# The example will return an array of all the unique mobs contained in the steps array.
+func get_unique_values(mydata: Dictionary, path: String) -> Array:
+	var parts = path.split(".")
+	var current = mydata
+	# Navigate to the second to last part of the path.
+	for i in range(parts.size() - 1):
+		if current.has(parts[i]):
+			current = current[parts[i]]
+		else:
+			return []
+	# The second to last part should be an array.
+	if typeof(current) != TYPE_ARRAY:
+		return []
+	# Extract unique values of the last part.
+	var property_name = parts[parts.size() - 1]
+	var unique_values = {}  # Use a Dictionary as a set for unique values.
+	for item in current:
+		if typeof(item) == TYPE_DICTIONARY and item.has(property_name):
+			unique_values[item[property_name]] = true
+	return unique_values.keys()
+
+
+# Merges two arrays and returns a new array with unique values
+func merge_unique(array1: Array, array2: Array) -> Array:
+	var merged_array = array1.duplicate()
+	for item in array2:
+		if not merged_array.has(item):
+			merged_array.append(item)
+	return merged_array
