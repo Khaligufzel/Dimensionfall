@@ -1,7 +1,7 @@
 extends Node
 
-#This autoload singleton loads all game data required to run the game
-#It can be accessed by using Gamedata.property
+# This autoload singleton loads all game data required to run the game
+# It can be accessed by using Gamedata.property
 var data: Dictionary = {}
 
 
@@ -32,12 +32,12 @@ func _ready():
 	load_sprites()
 	load_tile_sprites()
 	load_data()
-	update_item_protoset_json_data("res://ItemProtosets.tres",JSON.stringify(data.items.data,"\t"))
+	update_item_protoset_json_data("res://ItemProtosets.tres", JSON.stringify(data.items.data, "\t"))
 	data.maps.data = Helper.json_helper.file_names_in_dir(data.maps.dataPath, ["json"])
-	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(\
-	data.tacticalmaps.dataPath, ["json"])
+	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(data.tacticalmaps.dataPath, ["json"])
 
 
+# Initializes the data structures for each category defined in DATA_CATEGORIES
 func initialize_data_structures():
 	for category in DATA_CATEGORIES.keys():
 		data[category] = {"data": [], "sprites": {}}
@@ -74,15 +74,6 @@ func load_sprites() -> void:
 			data[dict].sprites = loaded_sprites
 
 
-# Updated function to add a sprite to a specific dictionary
-func add_sprite_to_dictionary(contentData: Dictionary, file_name: String, texture: Texture):
-	if texture:
-		contentData.sprites[file_name] = texture
-		Helper.signal_broker.data_sprites_changed.emit(contentData, file_name)
-		print("Sprite added:", file_name)
-	else:
-		print("Failed to add sprite:", file_name)
-
 
 # This function reads all the files in "res://Mods/Core/Tiles/". It will check if the file is a .png file. If the file is a .png file, it will create a new material with that .png image as the texture. It will put all of the created materials in a dictionary with the name of the file as the key and the material as the value.
 func load_tile_sprites() -> void:
@@ -96,6 +87,16 @@ func load_tile_sprites() -> void:
 		material.uv1_scale = Vector3(3,2,1)
 		tile_materials[png_file] = material # Add the material to the dictionary
 	data.tiles.sprites = tile_materials
+
+
+# Adds a sprite to a specific dictionary and emits a signal if successful
+func add_sprite_to_dictionary(contentData: Dictionary, file_name: String, texture: Texture):
+	if texture:
+		contentData.sprites[file_name] = texture
+		Helper.signal_broker.data_sprites_changed.emit(contentData, file_name)
+		print("Sprite added:", file_name)
+	else:
+		print("Failed to add sprite:", file_name)
 
 
 #This function will take two strings called ID and newID
@@ -124,8 +125,8 @@ func duplicate_item_in_data(contentData: Dictionary, id: String, newID: String):
 		item_to_duplicate["id"] = newID
 		# Add the duplicated item to the JSON data.
 		contentData.data.append(item_to_duplicate)
-		Helper.json_helper.write_json_file(contentData.dataPath,JSON.stringify(contentData.data,"\t"))
-		on_data_changed(contentData,item_to_duplicate,{})
+		Helper.json_helper.write_json_file(contentData.dataPath, JSON.stringify(contentData.data, "\t"))
+		on_data_changed(contentData, item_to_duplicate, {})
 	else:
 		print_debug("There should be code here for when a file in the gets duplicated")
 
@@ -145,7 +146,7 @@ func duplicate_file_in_data(contentData: Dictionary, original_id: String, new_id
 	var orig_content = Helper.json_helper.load_json_dictionary_file(original_file_path)
 
 	# Write the original content to a new file with the new ID.
-	var save_result = Helper.json_helper.write_json_file(new_file_path, JSON.stringify(orig_content,"\t"))
+	var save_result = Helper.json_helper.write_json_file(new_file_path, JSON.stringify(orig_content, "\t"))
 	if save_result == OK:
 		print_debug("File duplicated successfully: " + new_file_path)
 		# Add the new ID to the data array if it's datapath references a folder.
@@ -153,7 +154,7 @@ func duplicate_file_in_data(contentData: Dictionary, original_id: String, new_id
 		if contentData.data is Array and datapath.ends_with("/"):
 			contentData.data.append(new_id + ".json")
 			if datapath.ends_with("/Maps/"): # Update references to this duplicated map
-				on_mapdata_changed(new_file_path,orig_content,{"levels":[]})
+				on_mapdata_changed(new_file_path, orig_content, {"levels": []})
 	else:
 		print_debug("Failed to duplicate file to: " + new_file_path)
 
@@ -166,10 +167,10 @@ func duplicate_file_in_data(contentData: Dictionary, original_id: String, new_id
 # This file will get the name as specified by id, so for example "myhouse"
 # After the ID is added, the data array will be saved to disk
 func add_id_to_data(contentData: Dictionary, id: String):
-	if !contentData.has("data"):
+	if not contentData.has("data"):
 		return
 	if contentData.dataPath.ends_with(".json"):
-		if get_array_index_by_id(contentData,id) != -1:
+		if get_array_index_by_id(contentData, id) != -1:
 			print_debug("Tried to add an existing id to an array")
 			return
 		contentData.data.append({"id": id})
@@ -209,6 +210,7 @@ func remove_item_from_data(contentData: Dictionary, id: String):
 		neither .json nor /")
 
 
+# Gets the array index of an item by its ID
 func get_array_index_by_id(contentData: Dictionary, id: String) -> int:
 	# Iterate through the array
 	for i in range(len(contentData.data)):
@@ -227,14 +229,17 @@ func get_array_index_by_id(contentData: Dictionary, id: String) -> int:
 func save_data_to_file(contentData: Dictionary):
 	var datapath: String = contentData.dataPath
 	if datapath.ends_with(".json"):
-		Helper.json_helper.write_json_file(datapath,JSON.stringify(contentData.data,"\t"))
+		Helper.json_helper.write_json_file(datapath, JSON.stringify(contentData.data, "\t"))
+	if contentData == data.items:
+		# Update the itemprotosets
+		update_item_protoset_json_data("res://ItemProtosets.tres", JSON.stringify(contentData.data, "\t"))
 
 
 # Takes contentdata and an id and returns the json that belongs to an id
 # For example, contentData can be Gamedata.data.tiles
 # and id can be "plain_grass" and it will return the json data for plain_grass
 func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
-	var idnr: int = get_array_index_by_id(contentData,id)
+	var idnr: int = get_array_index_by_id(contentData, id)
 	if idnr < 0:
 		return {}
 	return contentData.data[idnr]
@@ -553,7 +558,6 @@ func on_mob_changed(newdata: Dictionary, olddata: Dictionary):
 
 
 # Handles changes to furniture and updates relevant references if necessary.
-# Handles changes to furniture and updates relevant references if necessary.
 func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
 	var old_container_group = olddata.get("Function", {}).get("container", {}).get("itemgroup", "")
 	var new_container_group = newdata.get("Function", {}).get("container", {}).get("itemgroup", "")
@@ -669,7 +673,7 @@ func on_tile_deleted(tile_id: String):
 	# Check if the tile has references to maps and remove it from those maps
 	var modules = tile_data.get("references", [])
 	for mod in modules:
-		var maps = Helper.json_helper.get_nested_data(tile_data,"references."+mod+".maps")
+		var maps = Helper.json_helper.get_nested_data(tile_data, "references." + mod + ".maps")
 		for map_id in maps:
 			remove_entity_from_map(map_id, "tile", tile_id)
 

@@ -25,7 +25,7 @@ func _ready():
 	start_craft.connect(ItemManager.on_crafting_menu_start_craft)
 	ItemManager.allAccessibleItems_changed.connect(_on_allAccessibleItems_changed)
 	Helper.signal_broker.player_skill_changed.connect(_on_player_skill_changed)
-	ItemManager.craft_succesful.connect(_on_craft_succesful)
+	ItemManager.craft_successful.connect(_on_craft_successful)
 	ItemManager.craft_failed.connect(_on_craft_failed)
 	create_item_buttons()
 
@@ -218,7 +218,7 @@ func display_feedback(message: String, color: Color):
 	timer.start()
 
 
-func _on_craft_succesful(_item: Dictionary, _recipe: Dictionary):
+func _on_craft_successful(_item: Dictionary, _recipe: Dictionary):
 	var color = Color(0.4, 1, 0.4)  # Brighter green color with more white
 	display_feedback("craft succesful!", color)
 
