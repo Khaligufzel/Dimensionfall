@@ -19,8 +19,8 @@ func on_map_deleted(map_id: String):
 		var tmapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(tfile)
 		# Check if the "chunks" key exists and is an array
 		if tmapdata.has("chunks") and tmapdata["chunks"] is Array:
-			# Iterate through the chunks array
-			for i in range(tmapdata["chunks"].size()):
+			# Iterate through the chunks array in reverse order
+			for i in range(tmapdata["chunks"].size() - 1, -1, -1):
 				var chunk = tmapdata["chunks"][i]
 				# If the chunk has the target id, remove it from the array
 				if chunk.has("id") and chunk["id"] == map_id + ".json":

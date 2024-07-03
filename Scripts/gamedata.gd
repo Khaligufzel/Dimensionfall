@@ -618,35 +618,38 @@ func on_furniture_deleted(furniture_id: String):
 # Some mob is being deleted from the data
 # We have to remove it from everything that references it
 func on_mob_deleted(mob_id: String):
-	var changes_made = false
+	var changes_made = { "value": false }
 	var mob_data = get_data_by_id(Gamedata.data.mobs, mob_id)
 	if mob_data.is_empty():
 		print_debug("Item with ID", mob_data, "not found.")
 		return
 
 	# Remove the reference to this mob from the loot_group
-	var loot_group: String = mob_data.get("loot_group")
-	changes_made = remove_reference(Gamedata.data.itemgroups, "core", "mobs", \
-	loot_group, mob_id) or changes_made
+	var loot_group: String = mob_data.get("loot_group", "")
+	changes_made["value"] = remove_reference(Gamedata.data.itemgroups, "core", "mobs", \
+	loot_group, mob_id) or changes_made["value"]
 	
 	# Check if the mob has references to maps and remove it from those maps
 	var maps = Helper.json_helper.get_nested_data(mob_data,"references.core.maps")
-	for map_id in maps:
-		map_references.remove_entity_from_map(map_id, "mob", mob_id)
+	if maps:
+		for map_id in maps:
+			map_references.remove_entity_from_map(map_id, "mob", mob_id)
 	
 	# This callable will handle the removal of this mob from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
 		var quest_data = get_data_by_id(Gamedata.data.quests, quest_id)
 		# Removes all steps where the mob is equal to mob_id
-		Helper.json_helper.remove_object_by_id(quest_data, "steps.mob", mob_id)
+		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, \
+		"steps.mob", mob_id) or changes_made["value"]
 
 	# Pass the callable to every quest in the mob's references
 	# It will call remove_from_quest on every mob in mob_data.references.core.quests
 	execute_callable_on_references_of_type(mob_data, "core", "quests", remove_from_quest)
 
 	# Save changes to the data file if any changes were made
-	if changes_made:
+	if changes_made["value"]:
 		save_data_to_file(Gamedata.data.itemgroups)
+		save_data_to_file(Gamedata.data.quests)
 	else:
 		print_debug("No changes needed for item", mob_id)
 
@@ -826,7 +829,7 @@ func update_item_skill_references(newdata: Dictionary, olddata: Dictionary):
 # An item is being deleted from the data
 # We have to remove it from everything that references it
 func on_item_deleted(item_id: String):
-	var changes_made = false
+	var changes_made = { "value": false }
 	var item_data = get_data_by_id(Gamedata.data.items, item_id)
 	
 	if item_data.is_empty():
@@ -839,7 +842,7 @@ func on_item_deleted(item_id: String):
 		for i in range(itemlist.size()):
 			if itemlist[i].has("id") and itemlist[i]["id"] == item_id:
 				itemlist.remove_at(i)
-				changes_made = true
+				changes_made["value"] = true
 				break  # Exit loop after removal to avoid index issues
 	# Pass the callable to every itemgroup in the item's references
 	# It will call myfunc on every itemgroup in item_data.references.core.itemgroups
@@ -854,7 +857,7 @@ func on_item_deleted(item_id: String):
 				for i in range(len(resources) - 1, -1, -1):
 					if resources[i].get("id") == item_id:
 						resources.remove_at(i)
-						changes_made = true
+						changes_made["value"] = true
 
 	# Pass the callable to every item in the item's references
 	# It will call remove_from_item on every item in item_data.references.core.items
@@ -864,9 +867,11 @@ func on_item_deleted(item_id: String):
 	var remove_from_quest: Callable = func(quest_id: String):
 		var quest_data = get_data_by_id(Gamedata.data.quests, quest_id)
 		# Removes all steps where the item is equal to item_id
-		Helper.json_helper.remove_object_by_id(quest_data, "steps.item", item_id)
+		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, \
+		"steps.item", item_id) or changes_made["value"]
 		# Removes all rewards where the reward's item_id is equal to item_id
-		Helper.json_helper.remove_object_by_id(quest_data, "rewards.item_id", item_id)
+		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, \
+		"rewards.item_id", item_id) or changes_made["value"]
 
 	# Pass the callable to every quest in the item's references
 	# It will call remove_from_quest on every item in item_data.references.core.quests
@@ -881,8 +886,8 @@ func on_item_deleted(item_id: String):
 			var resources = recipe.get("required_resources", [])
 			for resource in resources:
 				if resource.has("id"):
-					changes_made = remove_reference(Gamedata.data.items, "core", \
-					"items", resource["id"], item_id) or changes_made
+					changes_made["value"] = remove_reference(Gamedata.data.items, "core", \
+					"items", resource["id"], item_id) or changes_made["value"]
 			if recipe.has("skill_requirement"):
 				var skill_req_id = recipe["skill_requirement"].get("id", "")
 				if skill_req_id != "":
@@ -904,13 +909,15 @@ func on_item_deleted(item_id: String):
 
 	# Remove the reference of this item from each skill
 	for skill_id in skill_ids.keys():
-		changes_made = remove_reference(Gamedata.data.skills, "core", "items", skill_id, item_id) or changes_made
+		changes_made["value"] = remove_reference(Gamedata.data.skills, "core", \
+		"items", skill_id, item_id) or changes_made["value"]
 
 	# Save changes to the data file if any changes were made
-	if changes_made:
+	if changes_made["value"]:
 		save_data_to_file(Gamedata.data.itemgroups)
 		save_data_to_file(Gamedata.data.items)
 		save_data_to_file(Gamedata.data.skills)
+		save_data_to_file(Gamedata.data.quests)
 	else:
 		print_debug("No changes needed for item", item_id)
 
@@ -998,19 +1005,16 @@ func on_quest_deleted(quest_id: String):
 		print_debug("quest with ID", quest_id, "not found.")
 		return
 
-	var stepitems: Array = quest_data.get("steps", [])
-	for step in stepitems:
-		if step.get("type") == "collect": # Remove quest reference from the item
-			var item_id: String = step.get("item")
-			changes_made = remove_reference(Gamedata.data.items, "core", "quests", item_id, quest_id) or changes_made
-		if step.get("type") == "kill": # Remove the quest reference from the mob data
-			var mob_id: String = step.get("mob")
-			changes_made = remove_reference(Gamedata.data.mobs, "core", "quests", mob_id, quest_id) or changes_made
+	var stepitems: Array = Helper.json_helper.get_unique_values(quest_data, "steps.item")
+	for item_id in stepitems:
+		changes_made["value"] = remove_reference(Gamedata.data.items, "core", "quests", item_id, quest_id) or changes_made["value"]
+	var stepmobs: Array = Helper.json_helper.get_unique_values(quest_data, "steps.mob")
+	for mob_id in stepmobs:
+		changes_made["value"] = remove_reference(Gamedata.data.mobs, "core", "quests", mob_id, quest_id) or changes_made["value"]
 
-	var steprewards: Array = quest_data.get("rewards", [])
-	for reward in steprewards: # Remove the reference to this quest from the reward item
-		var item_id: String = reward.get("item_id")
-		changes_made = remove_reference(Gamedata.data.items, "core", "quests", item_id, quest_id) or changes_made
+	var steprewards: Array = Helper.json_helper.get_unique_values(quest_data, "rewards.item_id")
+	for item_id in steprewards: # Remove the reference to this quest from the reward item
+		changes_made["value"] = remove_reference(Gamedata.data.items, "core", "quests", item_id, quest_id) or changes_made["value"]
 
 	# Save changes to the data file if any changes were made
 	if changes_made["value"]:
@@ -1023,12 +1027,12 @@ func on_quest_deleted(quest_id: String):
 # The quest data has changed. We need to update the references
 func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
 	# Get unique values from old and new data for items and rewards
-	var old_quest_items: Array[String] = Helper.json_helper.get_unique_values(olddata, "steps.item")
-	var new_quest_items: Array[String] = Helper.json_helper.get_unique_values(newdata, "steps.item")
-	var old_quest_rewards: Array[String] = Helper.json_helper.get_unique_values(olddata, "rewards.item_id")
-	var new_quest_rewards: Array[String] = Helper.json_helper.get_unique_values(newdata, "rewards.item_id")
-	var old_quest_mobs: Array[String] = Helper.json_helper.get_unique_values(olddata, "steps.mob")
-	var new_quest_mobs: Array[String] = Helper.json_helper.get_unique_values(newdata, "steps.mob")
+	var old_quest_items: Array = Helper.json_helper.get_unique_values(olddata, "steps.item")
+	var new_quest_items: Array = Helper.json_helper.get_unique_values(newdata, "steps.item")
+	var old_quest_rewards: Array = Helper.json_helper.get_unique_values(olddata, "rewards.item_id")
+	var new_quest_rewards: Array = Helper.json_helper.get_unique_values(newdata, "rewards.item_id")
+	var old_quest_mobs: Array = Helper.json_helper.get_unique_values(olddata, "steps.mob")
+	var new_quest_mobs: Array = Helper.json_helper.get_unique_values(newdata, "steps.mob")
 	
 	# Merge items and rewards, removing duplicates
 	var old_items_merged = Helper.json_helper.merge_unique(old_quest_items, old_quest_rewards)

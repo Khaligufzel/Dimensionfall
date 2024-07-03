@@ -71,7 +71,7 @@ func _on_mapeditor_ready() -> void:
 	levelgrid_below.hide()
 	levelgrid_above.hide()
 	_on_zoom_level_changed(mapEditor.zoom_level)
-	data_changed.connect(Gamedata.on_mapdata_changed)
+	data_changed.connect(Gamedata.map_references.on_mapdata_changed)
 	brushcomposer.brush_added.connect(_on_composer_brush_added)
 	brushcomposer.brush_removed.connect(_on_composer_brush_removed)
 
