@@ -27,5 +27,9 @@ layout_mode = 2
 tooltip_text = "This is the brush composer. It allows you to create a custom brush to paint for your purposes. To add a tile 
 to the brush composer, click one of the tiles in the tile brush pallette below. Hold CTRL to add multiple. You 
 can add more then one of the same tile. When painting, a random brush will be picked from the collection 
-of brushes you added. You can also apply random rotation by clicking the button above."
+of brushes you added. You can also apply random rotation by clicking the button above.
+It's also possible to drag an itemgroup from the menu on the left and drop it here. All furniture in the 
+brushcomposer will have the itemgroup applied to it. If there's an itemgroup in the brushcomposer but 
+no furniture, mobs or tiles, you can paint on existing furniture on the map. Itemgroups can only be 
+applied to furniture that's marked as a container."
 header = ""

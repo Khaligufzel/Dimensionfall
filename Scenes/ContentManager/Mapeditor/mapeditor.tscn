@@ -174,7 +174,8 @@ You can hover your cursor over the controls to see what they do. Below you can f
 These are the controls:
 Brushcomposer (Top-right): This area allows you to compose a custom brush with one or more tile brushes. You can add multiple brushes by 
 holding CTRL and clicking another brush. When painting, a random tile will be picked from the composer. It also has a button to enable 
-random rotation. To remove a single brush from the brushcomposer, click it with the left mouse button.
+random rotation. To remove a single brush from the brushcomposer, click it with the left mouse button. You can also drag itemgroups 
+from the left to here and paint furniture with them to apply the itemgroup.
 
 Brush pallette (right): Click to add the selected brush to the brush composer. Hold CTRL and click another brush to add multiple brushes. 
 You can add multiple of the same tile to control the proportions when painting.

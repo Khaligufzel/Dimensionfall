@@ -71,6 +71,7 @@ func get_hit(damage):
 			start_blinking()
 	
 func _die():
+	Helper.signal_broker.mob_killed.emit(self)
 	add_corpse.call_deferred(global_position)
 	queue_free()
 
