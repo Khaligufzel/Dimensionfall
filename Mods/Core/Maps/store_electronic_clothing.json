@@ -135,6 +135,10 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
 				"id": "grass_plain_01"
 			},
 			{
@@ -319,86 +323,99 @@
 					"id": "plant_pot_00",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 270
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 270
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 270
 			},
 			{
 				"furniture": {
 					"id": "chair_office"
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 180
 			},
 			{
 				"furniture": {
 					"id": "trash_bin",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00"
 			},
 			{
 				"furniture": {
 					"id": "bench_garden"
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 90
 			},
 			{
-				"id": "dirt_light_00",
+				"id": "linoleum_white_02"
+			},
+			{
+				"furniture": {
+					"id": "standing_mirror"
+				},
+				"id": "linoleum_white_01"
+			},
+			{
+				"id": "linoleum_white_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "standing_mirror"
+				},
+				"id": "linoleum_white_01",
+				"rotation": 270
+			},
+			{
+				"id": "linoleum_white_02",
 				"rotation": 90
 			},
 			{
 				"furniture": {
 					"id": "standing_mirror"
 				},
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"furniture": {
-					"id": "standing_mirror"
-				},
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"furniture": {
-					"id": "standing_mirror"
-				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 180
 			},
 			{
 				"id": "dirt_light_00",
@@ -458,72 +475,82 @@
 					"id": "clothing_rack",
 					"rotation": 270
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"furniture": {
-					"id": "clothing_rack",
-					"rotation": 90
-				},
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 90
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 90
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "clothing_rack",
+					"rotation": 90
+				},
+				"id": "linoleum_white_00"
+			},
+			{
+				"id": "linoleum_white_01",
+				"rotation": 180
 			},
 			{
 				"furniture": {
 					"id": "table_metal"
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 180
 			},
 			{
 				"furniture": {
 					"id": "cash_register",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 90
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 90
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 90
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 270
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 270
 			},
 			{
-				"id": "dirt_light_00",
+				"id": "linoleum_white_00",
 				"rotation": 90
 			},
 			{
@@ -531,31 +558,31 @@
 					"id": "door_wood",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00",
-				"rotation": 90
+				"id": "linoleum_white_02",
+				"rotation": 270
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"furniture": {
-					"id": "door_wood",
-					"rotation": 180
-				},
-				"id": "orange_carpet_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "linoleum_white_01",
+				"rotation": 180
 			},
 			{
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00",
+				"id": "linoleum_white_02",
+				"rotation": 270
+			},
+			{
+				"id": "linoleum_white_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 180
+				},
+				"id": "linoleum_white_02",
 				"rotation": 90
 			},
 			{
@@ -602,80 +629,94 @@
 					"id": "clothing_rack",
 					"rotation": 270
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 270
 			},
 			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"furniture": {
-					"id": "clothing_rack",
-					"rotation": 90
-				},
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 90
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 90
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 180
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 90
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 180
+			},
+			{
+				"id": "linoleum_white_01",
+				"rotation": 90
+			},
+			{
+				"id": "linoleum_white_02",
+				"rotation": 90
+			},
+			{
+				"id": "linoleum_white_01",
+				"rotation": 270
+			},
+			{
+				"id": "linoleum_white_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "clothing_rack",
+					"rotation": 90
+				},
+				"id": "linoleum_white_00"
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 270
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 270
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 270
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 270
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 90
 			},
 			{
 				"id": "dirt_light_00",
@@ -731,92 +772,104 @@
 					"id": "clothing_rack",
 					"rotation": 270
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"furniture": {
-					"id": "clothing_rack",
-					"rotation": 90
-				},
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01"
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 90
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 90
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 90
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 270
+			},
+			{
+				"id": "linoleum_white_00",
+				"rotation": 270
+			},
+			{
+				"id": "linoleum_white_01"
+			},
+			{
+				"id": "linoleum_white_02"
+			},
+			{
+				"id": "linoleum_white_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "clothing_rack",
+					"rotation": 90
+				},
+				"id": "linoleum_white_00",
+				"rotation": 270
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 270
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00"
 			},
 			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"furniture": {
-					"id": "plant_pot_00",
-					"rotation": 180
-				},
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
 				"furniture": {
 					"id": "plant_pot_00",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 270
 			},
 			{
 				"furniture": {
 					"id": "plant_pot_00",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 180
+				},
+				"id": "linoleum_white_01",
+				"rotation": 180
+			},
+			{
+				"id": "linoleum_white_00"
 			},
 			{
 				"furniture": {
@@ -847,6 +900,10 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
 				"id": "grass_plain_01"
 			},
 			{
@@ -856,6 +913,9 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -867,80 +927,94 @@
 					"id": "clothing_rack",
 					"rotation": 270
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01"
 			},
 			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"furniture": {
-					"id": "clothing_rack",
-					"rotation": 90
-				},
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 90
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 90
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 90
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 90
+			},
+			{
+				"id": "linoleum_white_00",
+				"rotation": 270
+			},
+			{
+				"id": "linoleum_white_00"
+			},
+			{
+				"id": "linoleum_white_01",
+				"rotation": 90
+			},
+			{
+				"id": "linoleum_white_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "clothing_rack",
+					"rotation": 90
+				},
+				"id": "linoleum_white_01"
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 270
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 270
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 270
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 270
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 270
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 270
 			},
 			{
 				"id": "dirt_light_00",
@@ -991,95 +1065,103 @@
 					"id": "clothing_rack",
 					"rotation": 270
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"furniture": {
-					"id": "clothing_rack",
-					"rotation": 90
-				},
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 90
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 180
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 90
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 270
+			},
+			{
+				"id": "linoleum_white_00",
+				"rotation": 270
+			},
+			{
+				"id": "linoleum_white_00"
+			},
+			{
+				"id": "linoleum_white_00",
+				"rotation": 90
+			},
+			{
+				"id": "linoleum_white_00"
+			},
+			{
+				"furniture": {
+					"id": "clothing_rack",
+					"rotation": 90
+				},
+				"id": "linoleum_white_01",
+				"rotation": 270
 			},
 			{
 				"furniture": {
 					"id": "clothing_rack",
 					"rotation": 270
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
-				"id": "dirt_light_00",
+				"id": "linoleum_white_02"
+			},
+			{
+				"furniture": {
+					"id": "door_wood"
+				},
+				"id": "linoleum_white_00"
+			},
+			{
+				"id": "linoleum_white_01",
 				"rotation": 90
 			},
 			{
 				"furniture": {
 					"id": "door_wood"
 				},
-				"id": "orange_carpet_00",
+				"id": "linoleum_white_02",
 				"rotation": 90
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"furniture": {
-					"id": "door_wood"
-				},
-				"id": "orange_carpet_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "linoleum_white_01",
+				"rotation": 180
 			},
 			{
 				"furniture": {
 					"id": "door_wood"
 				},
-				"id": "orange_carpet_00",
-				"rotation": 90
+				"id": "linoleum_white_00",
+				"rotation": 180
 			},
 			{
 				"id": "dirt_light_00",
@@ -1140,57 +1222,70 @@
 					"id": "plant_pot_00",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 270
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 90
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02"
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 180
 			},
 			{
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_02",
+				"rotation": 90
 			},
 			{
 				"furniture": {
 					"id": "trash_bin",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01",
+				"rotation": 270
 			},
 			{
 				"furniture": {
 					"id": "bench_garden",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 90
 			},
 			{
-				"id": "dirt_light_00",
+				"id": "linoleum_white_01",
 				"rotation": 90
 			},
 			{
@@ -1198,22 +1293,11 @@
 					"id": "standing_mirror",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00",
-				"rotation": 90
+				"id": "linoleum_white_01",
+				"rotation": 270
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"furniture": {
-					"id": "standing_mirror",
-					"rotation": 180
-				},
-				"id": "orange_carpet_00"
-			},
-			{
-				"id": "dirt_light_00",
+				"id": "linoleum_white_01",
 				"rotation": 90
 			},
 			{
@@ -1221,7 +1305,20 @@
 					"id": "standing_mirror",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_00",
+				"rotation": 180
+			},
+			{
+				"id": "linoleum_white_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "standing_mirror",
+					"rotation": 180
+				},
+				"id": "linoleum_white_00",
+				"rotation": 90
 			},
 			{
 				"id": "dirt_light_00",
@@ -1310,7 +1407,7 @@
 					"id": "door_wood",
 					"rotation": 180
 				},
-				"id": "orange_carpet_00"
+				"id": "linoleum_white_01"
 			},
 			{
 				"id": "dirt_light_00"
@@ -1405,12 +1502,19 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "plant_pot_00"
+				},
 				"id": "grass_plain_01"
 			},
 			{
 				"id": "sidewalk_00"
 			},
 			{
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 270
+				},
 				"id": "grass_plain_01"
 			},
 			{
@@ -2329,12 +2433,20 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 270
+				},
 				"id": "grass_dirt_02"
 			},
 			{
 				"id": "sidewalk_00"
 			},
 			{
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 90
+				},
 				"id": "grass_dirt_02"
 			},
 			{
@@ -2601,6 +2713,10 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
 				"id": "grass_plain_01"
 			},
 			{
@@ -2657,6 +2773,9 @@
 			{
 				"furniture": {
 					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_02",
@@ -2665,6 +2784,9 @@
 			{
 				"furniture": {
 					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_02",
@@ -2673,6 +2795,9 @@
 			{
 				"furniture": {
 					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_01",
@@ -2681,6 +2806,9 @@
 			{
 				"furniture": {
 					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_01"
@@ -2688,6 +2816,9 @@
 			{
 				"furniture": {
 					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_00",
@@ -2696,6 +2827,9 @@
 			{
 				"furniture": {
 					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_00"
@@ -2715,6 +2849,9 @@
 			{
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_02",
@@ -2723,6 +2860,9 @@
 			{
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_02",
@@ -2731,6 +2871,9 @@
 			{
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_00",
@@ -2739,6 +2882,9 @@
 			{
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_02"
@@ -2746,6 +2892,9 @@
 			{
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_00"
@@ -2753,6 +2902,9 @@
 			{
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_01",
@@ -2761,6 +2913,9 @@
 			{
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_01"
@@ -2768,6 +2923,9 @@
 			{
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_01"
@@ -2831,42 +2989,60 @@
 			},
 			{
 				"furniture": {
-					"id": "display_case"
+					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					]
 				},
 				"id": "kitchen_tiles_yellow_01",
 				"rotation": 270
 			},
 			{
 				"furniture": {
-					"id": "display_case"
+					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					]
 				},
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 270
 			},
 			{
 				"furniture": {
-					"id": "display_case"
+					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					]
 				},
 				"id": "kitchen_tiles_yellow_00",
 				"rotation": 180
 			},
 			{
 				"furniture": {
-					"id": "display_case"
+					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					]
 				},
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 90
 			},
 			{
 				"furniture": {
-					"id": "display_case"
+					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					]
 				},
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 90
 			},
 			{
 				"furniture": {
-					"id": "display_case"
+					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					]
 				},
 				"id": "kitchen_tiles_yellow_00",
 				"rotation": 180
@@ -2885,54 +3061,78 @@
 			},
 			{
 				"furniture": {
-					"id": "wall_shelf"
+					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					]
 				},
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 270
 			},
 			{
 				"furniture": {
-					"id": "wall_shelf"
+					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					]
 				},
 				"id": "kitchen_tiles_yellow_00",
 				"rotation": 90
 			},
 			{
 				"furniture": {
-					"id": "wall_shelf"
+					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					]
 				},
 				"id": "kitchen_tiles_yellow_02"
 			},
 			{
 				"furniture": {
-					"id": "wall_shelf"
+					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					]
 				},
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 90
 			},
 			{
 				"furniture": {
-					"id": "wall_shelf"
+					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					]
 				},
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 270
 			},
 			{
 				"furniture": {
-					"id": "wall_shelf"
+					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					]
 				},
 				"id": "kitchen_tiles_yellow_01",
 				"rotation": 270
 			},
 			{
 				"furniture": {
-					"id": "wall_shelf"
+					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					]
 				},
 				"id": "kitchen_tiles_yellow_02"
 			},
 			{
 				"furniture": {
-					"id": "wall_shelf"
+					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					]
 				},
 				"id": "kitchen_tiles_yellow_01",
 				"rotation": 180
@@ -3129,6 +3329,9 @@
 			{
 				"furniture": {
 					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					],
 					"rotation": 90
 				},
 				"id": "kitchen_tiles_yellow_02",
@@ -3137,6 +3340,9 @@
 			{
 				"furniture": {
 					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					],
 					"rotation": 270
 				},
 				"id": "kitchen_tiles_yellow_01"
@@ -3144,6 +3350,9 @@
 			{
 				"furniture": {
 					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 90
 				},
 				"id": "kitchen_tiles_yellow_02",
@@ -3152,6 +3361,9 @@
 			{
 				"furniture": {
 					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 270
 				},
 				"id": "kitchen_tiles_yellow_00",
@@ -3174,6 +3386,9 @@
 			{
 				"furniture": {
 					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_02",
@@ -3182,6 +3397,9 @@
 			{
 				"furniture": {
 					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_01"
@@ -3189,6 +3407,9 @@
 			{
 				"furniture": {
 					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_01"
@@ -3196,6 +3417,9 @@
 			{
 				"furniture": {
 					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_00"
@@ -3203,6 +3427,9 @@
 			{
 				"furniture": {
 					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_02",
@@ -3211,6 +3438,9 @@
 			{
 				"furniture": {
 					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_00",
@@ -3219,6 +3449,9 @@
 			{
 				"furniture": {
 					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_00"
@@ -3226,6 +3459,9 @@
 			{
 				"furniture": {
 					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_yellow_01",
@@ -3296,6 +3532,9 @@
 			{
 				"furniture": {
 					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					],
 					"rotation": 90
 				},
 				"id": "kitchen_tiles_yellow_01",
@@ -3304,6 +3543,9 @@
 			{
 				"furniture": {
 					"id": "display_case",
+					"itemgroups": [
+						"electronics_store_small"
+					],
 					"rotation": 270
 				},
 				"id": "kitchen_tiles_yellow_02",
@@ -3312,6 +3554,9 @@
 			{
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_medium"
+					],
 					"rotation": 90
 				},
 				"id": "kitchen_tiles_yellow_02"
@@ -3319,6 +3564,9 @@
 			{
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 270
 				},
 				"id": "kitchen_tiles_yellow_00",
@@ -3342,54 +3590,78 @@
 			},
 			{
 				"furniture": {
-					"id": "store_shelf"
+					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					]
 				},
 				"id": "kitchen_tiles_yellow_01",
 				"rotation": 90
 			},
 			{
 				"furniture": {
-					"id": "store_shelf"
+					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					]
 				},
 				"id": "kitchen_tiles_yellow_00",
 				"rotation": 180
 			},
 			{
 				"furniture": {
-					"id": "store_shelf"
+					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					]
 				},
 				"id": "kitchen_tiles_yellow_00",
 				"rotation": 180
 			},
 			{
 				"furniture": {
-					"id": "store_shelf"
+					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					]
 				},
 				"id": "kitchen_tiles_yellow_02"
 			},
 			{
 				"furniture": {
-					"id": "store_shelf"
+					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					]
 				},
 				"id": "kitchen_tiles_yellow_00",
 				"rotation": 90
 			},
 			{
 				"furniture": {
-					"id": "store_shelf"
+					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					]
 				},
 				"id": "kitchen_tiles_yellow_01"
 			},
 			{
 				"furniture": {
-					"id": "store_shelf"
+					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					]
 				},
 				"id": "kitchen_tiles_yellow_01",
 				"rotation": 270
 			},
 			{
 				"furniture": {
-					"id": "store_shelf"
+					"id": "store_shelf",
+					"itemgroups": [
+						"electronics_store_mixed"
+					]
 				},
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 180
@@ -3499,7 +3771,10 @@
 			},
 			{
 				"furniture": {
-					"id": "vending_machine"
+					"id": "vending_machine",
+					"itemgroups": [
+						"vending_machine_drinks"
+					]
 				},
 				"id": "kitchen_tiles_yellow_00",
 				"rotation": 180
@@ -3671,6 +3946,10 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
 				"id": "grass_plain_01"
 			},
 			{
@@ -3737,6 +4016,10 @@
 				"id": "grass_dirt_00"
 			},
 			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
 				"id": "grass_dirt_00"
 			},
 			{

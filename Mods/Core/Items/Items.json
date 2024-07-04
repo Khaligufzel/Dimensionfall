@@ -266,7 +266,8 @@
 				"itemgroups": [
 					"kitchen_cupboard",
 					"cabinet_general",
-					"refridgerator"
+					"refridgerator",
+					"vending_machine_drinks"
 				]
 			}
 		},
@@ -375,7 +376,9 @@
 			"core": {
 				"itemgroups": [
 					"cabinet_general",
-					"kitchen_cupboard"
+					"kitchen_cupboard",
+					"electronics_store_small",
+					"electronics_store_mixed"
 				]
 			}
 		},
@@ -506,6 +509,14 @@
 		"image": "./Mods/Core/Items/battery_powered_radio_32.png",
 		"max_stack_size": 1,
 		"name": "Handheld radio",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"electronics_store_small",
+					"electronics_store_mixed"
+				]
+			}
+		},
 		"sprite": "battery_powered_radio_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -521,7 +532,9 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"cabinet_general"
+					"cabinet_general",
+					"electronics_store_small",
+					"electronics_store_mixed"
 				]
 			}
 		},
@@ -541,7 +554,8 @@
 			"core": {
 				"itemgroups": [
 					"kitchen_cupboard",
-					"refridgerator"
+					"refridgerator",
+					"vending_machine_drinks"
 				]
 			}
 		},
@@ -557,6 +571,13 @@
 		"image": "./Mods/Core/Items/sigarrette_pack_32.png",
 		"max_stack_size": 5,
 		"name": "Pack of sigarrettes",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"vending_machine_snacks"
+				]
+			}
+		},
 		"sprite": "sigarrette_pack_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -618,12 +639,14 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"cabinet_general"
+					"cabinet_general",
+					"electronics_store_small",
+					"electronics_store_mixed"
 				]
 			}
 		},
 		"sprite": "battery_32.png",
-		"stack_size": 2,
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 0.01,
 		"weight": 0.1
@@ -732,6 +755,14 @@
 		"image": "./Mods/Core/Items/radio_two_way_32.png",
 		"max_stack_size": 1,
 		"name": "Two way radio",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"electronics_store_small",
+					"electronics_store_mixed"
+				]
+			}
+		},
 		"sprite": "radio_two_way_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -982,6 +1013,14 @@
 		"image": "./Mods/Core/Items/toaster_32.png",
 		"max_stack_size": 1,
 		"name": "Toaster",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"electronics_store_medium",
+					"electronics_store_mixed"
+				]
+			}
+		},
 		"sprite": "toaster_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -994,6 +1033,14 @@
 		"image": "./Mods/Core/Items/blender_32.png",
 		"max_stack_size": 1,
 		"name": "Blender",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"electronics_store_medium",
+					"electronics_store_mixed"
+				]
+			}
+		},
 		"sprite": "blender_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1006,6 +1053,14 @@
 		"image": "./Mods/Core/Items/coffeemaker_32.png",
 		"max_stack_size": 1,
 		"name": "Coffee Maker",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"electronics_store_medium",
+					"electronics_store_mixed"
+				]
+			}
+		},
 		"sprite": "coffeemaker_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1018,6 +1073,14 @@
 		"image": "./Mods/Core/Items/microwave_oven_32.png",
 		"max_stack_size": 1,
 		"name": "Microwave Oven",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"electronics_store_medium",
+					"electronics_store_mixed"
+				]
+			}
+		},
 		"sprite": "microwave_oven_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1042,6 +1105,14 @@
 		"image": "./Mods/Core/Items/pressure_cooker_32.png",
 		"max_stack_size": 1,
 		"name": "Pressure Cooker",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"electronics_store_medium",
+					"electronics_store_mixed"
+				]
+			}
+		},
 		"sprite": "pressure_cooker_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1054,6 +1125,14 @@
 		"image": "./Mods/Core/Items/bread_maker_32.png",
 		"max_stack_size": 1,
 		"name": "Bread Maker",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"electronics_store_medium",
+					"electronics_store_mixed"
+				]
+			}
+		},
 		"sprite": "bread_maker_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1078,6 +1157,13 @@
 		"image": "./Mods/Core/Items/log_32.png",
 		"max_stack_size": 3,
 		"name": "Log",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"tree_destroyed"
+				]
+			}
+		},
 		"sprite": "log_32.png",
 		"stack_size": 1,
 		"two_handed": true,
@@ -1102,6 +1188,13 @@
 		"image": "./Mods/Core/Items/branches_32.png",
 		"max_stack_size": 10,
 		"name": "Branch",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"tree_destroyed"
+				]
+			}
+		},
 		"sprite": "branches_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1114,6 +1207,13 @@
 		"image": "./Mods/Core/Items/leaves_32.png",
 		"max_stack_size": 50,
 		"name": "Leaf",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"tree_destroyed"
+				]
+			}
+		},
 		"sprite": "leaves_32.png",
 		"stack_size": 5,
 		"two_handed": false,
@@ -1174,6 +1274,13 @@
 		"image": "./Mods/Core/Items/plant_remnants_32.png",
 		"max_stack_size": 50,
 		"name": "Plant Remnants",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"tree_destroyed"
+				]
+			}
+		},
 		"sprite": "plant_remnants_32.png",
 		"stack_size": 5,
 		"two_handed": false,
@@ -1186,8 +1293,16 @@
 		"image": "./Mods/Core/Items/electrical_components_32.png",
 		"max_stack_size": 20,
 		"name": "Electrical Components",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"electronics_store_small",
+					"electronics_store_mixed"
+				]
+			}
+		},
 		"sprite": "electrical_components_32.png",
-		"stack_size": 5,
+		"stack_size": 1,
 		"two_handed": false,
 		"volume": 20,
 		"weight": 0.5
@@ -1475,6 +1590,13 @@
 		"image": "./Mods/Core/Items/chocolate_32.png",
 		"max_stack_size": 10,
 		"name": "Chocolate",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"vending_machine_snacks"
+				]
+			}
+		},
 		"sprite": "chocolate_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1662,7 +1784,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"refridgerator"
+					"refridgerator",
+					"vending_machine_drinks"
 				]
 			}
 		},
@@ -1681,7 +1804,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"refridgerator"
+					"refridgerator",
+					"vending_machine_drinks"
 				]
 			}
 		},
