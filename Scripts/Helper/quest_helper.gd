@@ -5,6 +5,12 @@ extends Node
 # This is a helper script that manages quests in so far that the QuestManager can't
 
 func _ready():
+	# Connect signals for game start, load, end, mob killed, and quest events
+	connect_signals()
+
+
+# Connect signals for game start, load, end, mob killed, and quest events
+func connect_signals() -> void:
 	# Connect to the Helper.signal_broker.game_started signal
 	Helper.signal_broker.game_started.connect(_on_game_started)
 	Helper.signal_broker.game_ended.connect(_on_game_ended)
@@ -48,7 +54,7 @@ func _on_game_loaded():
 	# To be developed later
 	pass
 
-# Function for handling game loaded signal
+# Function for handling game ended signal
 func _on_game_ended():
 	disconnect_inventory_signals()
 
@@ -100,28 +106,19 @@ func _on_quest_reset(_quest_name: String):
 # Initialize quests by wiping player data and loading quest data
 func initialize_quests():
 	QuestManager.wipe_player_data()
-	var quest_data = Gamedata.data.quests.data
-	for quest in quest_data:
+	for quest in Gamedata.data.quests.data:
 		create_quest_from_data(quest)
 
 
 # Takes a quest as defined by json (created in the contenteditor)
-# Create an instance of a ScriptQuest and adds it to the QuestManager
+# Create an instance of a ScriptQuest and add it to the QuestManager
 func create_quest_from_data(quest_data: Dictionary):
 	if quest_data.steps.size() < 1:
 		return # The quest has no steps
 	var quest = ScriptQuest.new(quest_data.id, quest_data.description)
 	var steps_added: bool = false
-	var steps = quest_data.steps
-	for step in steps:
-		if step.type == "collect":
-			# Add an incremental step
-			quest.add_incremental_step("Gather items", step.item, step.amount, {"type": "collect"})
-			steps_added = true
-		if step.type == "kill":
-			# Add an incremental step
-			quest.add_incremental_step("Kill mob", step.mob, step.amount, {"type": "kill"})
-			steps_added = true
+	for step in quest_data.steps:
+		steps_added = add_quest_step(quest, step) or steps_added
 
 	if steps_added:
 		quest.set_quest_meta_data(quest_data) # The json data that defines the quest
@@ -130,6 +127,20 @@ func create_quest_from_data(quest_data: Dictionary):
 		quest.finalize_quest()
 		# Add quest to player quests
 		QuestManager.add_scripted_quest(quest)
+
+
+# Add a quest step to the quest
+func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
+	match step.type:
+		"collect":
+			# Add an incremental step
+			quest.add_incremental_step("Gather items", step.item, step.amount, {"type": "collect"})
+			return true
+		"kill":
+			# Add an incremental step
+			quest.add_incremental_step("Kill mob", step.mob, step.amount, {"type": "kill"})
+			return true
+	return false
 
 
 # An item is added to the player inventory. Now we need to update the quests
@@ -149,33 +160,20 @@ func _on_inventory_item_modified(item: InventoryItem, _inventory: InventoryStack
 # For each quest, we ONLY update the step that the quest is currently at
 func update_quest_by_inventory(item: InventoryItem):
 	# Dictionary to keep track of the total count of each item
-	var item_counts = {}
+	var item_counts = ItemManager.count_player_inventory_items_by_id()
 
 	# Check if the player has the item; if not, set its count to 0
 	if not ItemManager.playerInventory.has_item_by_id(item.prototype_id):
 		item_counts[item.prototype_id] = 0
 
-	# Loop over all items in the player's inventory
-	for inv_item in ItemManager.playerInventory.get_items():
-		var item_id = inv_item.prototype_id
-		var stack_size = InventoryStacked.get_item_stack_size(inv_item)
-
-		# Sum the stack sizes for each unique item
-		if item_id in item_counts:
-			item_counts[item_id] += stack_size
-		else:
-			item_counts[item_id] = stack_size
-
 	# Get the current quests in progress
 	var quests_in_progress = QuestManager.get_quests_in_progress()
 
 	# Update each of the current quests with the collected item information
-	for quest in quests_in_progress.keys():
-		var myquest = quests_in_progress[quest]
-		var myquestname = myquest.quest_name
+	for quest in quests_in_progress.values():
 		for item_id in item_counts.keys():
 			# Call the extracted function to update the quest step
-			update_quest_step(myquestname, item_id, item_counts[item_id])
+			update_quest_step(quest.quest_name, item_id, item_counts[item_id])
 
 
 # This function updates a specific quest step based on the item counts

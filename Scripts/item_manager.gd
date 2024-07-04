@@ -467,3 +467,17 @@ func _on_game_ended():
 	proximityInventory = null
 	allAccessibleItems.clear()
 	proximityInventories.clear()
+
+
+# Loop over all items in the player's inventory
+# Sum the stack sizes for each unique item
+func count_player_inventory_items_by_id() -> Dictionary:
+	var item_counts = {}
+
+	for inv_item in playerInventory.get_items():
+		var item_id = inv_item.prototype_id
+		var stack_size = InventoryStacked.get_item_stack_size(inv_item)
+
+		item_counts[item_id] = item_counts.get(item_id, 0) + stack_size
+
+	return item_counts

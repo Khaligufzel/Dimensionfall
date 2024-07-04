@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/EscapeMenu.gd" id="1_8tf3a"]
 
-[node name="EscapeMenu" type="Control"]
+[node name="EscapeMenu" type="Control" node_paths=PackedStringArray("resume_button", "return_button")]
 process_mode = 3
 layout_mode = 3
 anchor_left = 0.25
@@ -14,6 +14,8 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_8tf3a")
+resume_button = NodePath("VBoxContainer/ResumeButton")
+return_button = NodePath("VBoxContainer/ReturnButton")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -53,5 +55,3 @@ layout_mode = 2
 text = "Return to main menu"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="button_up" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_button_up"]
-[connection signal="button_up" from="VBoxContainer/ReturnButton" to="." method="_on_return_button_button_up"]
