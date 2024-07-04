@@ -7,6 +7,7 @@ extends Node
 func _ready():
 	# Connect to the Helper.signal_broker.game_started signal
 	Helper.signal_broker.game_started.connect(_on_game_started)
+	Helper.signal_broker.game_ended.connect(_on_game_ended)
 	
 	# Connect to the Helper.signal_broker.game_loaded signal
 	Helper.signal_broker.game_loaded.connect(_on_game_loaded)
@@ -25,9 +26,15 @@ func _ready():
 
 
 func connect_inventory_signals() -> void:
-	ItemManager.playerInventory.item_added.connect(_on_inventory_item_added)
-	ItemManager.playerInventory.item_removed.connect(_on_inventory_item_removed)
-	ItemManager.playerInventory.item_modified.connect(_on_inventory_item_modified)
+	Helper.signal_broker.playerInventory_item_added.connect(_on_inventory_item_added)
+	Helper.signal_broker.playerInventory_item_removed.connect(_on_inventory_item_removed)
+	Helper.signal_broker.playerInventory_item_modified.connect(_on_inventory_item_modified)
+
+
+func disconnect_inventory_signals() -> void:
+	Helper.signal_broker.playerInventory_item_added.disconnect(_on_inventory_item_added)
+	Helper.signal_broker.playerInventory_item_removed.disconnect(_on_inventory_item_removed)
+	Helper.signal_broker.playerInventory_item_modified.disconnect(_on_inventory_item_modified)
 
 
 # Function for handling game started signal
@@ -40,6 +47,10 @@ func _on_game_started():
 func _on_game_loaded():
 	# To be developed later
 	pass
+
+# Function for handling game loaded signal
+func _on_game_ended():
+	disconnect_inventory_signals()
 
 
 # Function to handle quest completion
@@ -122,15 +133,15 @@ func create_quest_from_data(quest_data: Dictionary):
 
 
 # An item is added to the player inventory. Now we need to update the quests
-func _on_inventory_item_added(item: InventoryItem):
+func _on_inventory_item_added(item: InventoryItem, _inventory: InventoryStacked):
 	update_quest_by_inventory(item)
 
 # An item is removed to the player inventory. Now we need to update the quests
-func _on_inventory_item_removed(item: InventoryItem):
+func _on_inventory_item_removed(item: InventoryItem, _inventory: InventoryStacked):
 	update_quest_by_inventory(item)
 
 # An item is modified to the player inventory. Now we need to update the quests
-func _on_inventory_item_modified(item: InventoryItem):
+func _on_inventory_item_modified(item: InventoryItem, _inventory: InventoryStacked):
 	update_quest_by_inventory(item)
 
 

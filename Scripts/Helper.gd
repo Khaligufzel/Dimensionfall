@@ -42,6 +42,7 @@ func _ready():
 	quest_helper = quest_helper_Class.new()
 	add_child(save_helper)
 	add_child(quest_helper)
+	signal_broker.game_ended.connect(_on_game_ended)
 
 
 func _process(_delta: float) -> void:
@@ -172,3 +173,7 @@ func on_chunk_unloaded(data: Dictionary):
 	var chunk_position = Vector2(data["mypos"].x, data["mypos"].z) # Assuming `mypos` is a Vector3
 	chunk_navigation_maps.erase(chunk_position)
 
+
+# When the user exits the game and returns to the main menu
+func _on_game_ended():
+	reset() # Resets the game, as though you re-started it

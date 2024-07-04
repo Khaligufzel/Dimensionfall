@@ -21,7 +21,7 @@ func _on_return_button_button_up():
 		get_tree().paused = false
 		Helper.save_game()
 		await Helper.save_helper.all_chunks_unloaded
-		Helper.reset() # Resets the game, as though you re-started it
+		Helper.signal_broker.game_ended.emit()
 		get_tree().change_scene_to_file("res://scene_selector.tscn")
 
 

@@ -21,24 +21,10 @@ signal craft_failed(item: Dictionary, recipe: Dictionary, reason: String)
 
 
 func _ready():
-	# Initialize inventories and connect signals
-	playerInventory = initialize_inventory()
-	proximityInventory = initialize_inventory()
-	connect_inventory_signals(playerInventory)
-	connect_inventory_signals(proximityInventory)
-	create_starting_items()
-	update_accessible_items_list()  # Initial update for player inventory
-	# When the user has selected the use option from the context menu of the inventory
-	Helper.signal_broker.items_were_used.connect(_on_items_used)
-	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
-	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
-
-
-func update_accessible_items_list1():
-	allAccessibleItems.clear()
-	allAccessibleItems += playerInventory.get_items()
-	for inventory in proximityInventories.values():
-		allAccessibleItems += inventory.get_items()
+	# Connect signals for game start, load, and end
+	Helper.signal_broker.game_started.connect(_on_game_started_loaded)
+	Helper.signal_broker.game_loaded.connect(_on_game_started_loaded)
+	Helper.signal_broker.game_ended.connect(_on_game_ended)
 
 
 # This emits a signal with two lists bounded to it
@@ -152,7 +138,7 @@ func get_magazine(item: InventoryItem) -> InventoryItem:
 
 # We insert the magazine into the provided item from the inventory
 # The item is an InventoryItem which should have the ranged property
-# THe specific_magazine will be loaded into the gun
+# The specific_magazine will be loaded into the gun
 func insert_magazine(item: InventoryItem, specific_magazine: InventoryItem = null):
 	if specific_magazine:
 		item.set_property("current_magazine", specific_magazine)
@@ -205,7 +191,7 @@ func find_compatible_magazine(gun: InventoryItem) -> InventoryItem:
 
 # This function starts by retrieving the first property using InventoryItem.get_property()
 # and then proceeds to fetch nested properties if the first property is a dictionary.
-# Example useage: var magazine = get_nested_property(gunitem, "Ranged.used_magazine")
+# Example usage: var magazine = get_nested_property(gunitem, "Ranged.used_magazine")
 # If magazine: ... rest of the code
 func get_nested_property(item: InventoryItem, property_path: String) -> Variant:
 	var keys = property_path.split(".")
@@ -304,7 +290,7 @@ func _on_items_used(usedItems: Array[InventoryItem]) -> void:
 
 
 # The user has pressed a button to start crafting
-# recipe: The currently selected recipe in the crafing menu
+# recipe: The currently selected recipe in the crafting menu
 # item: The currently selected item in the itemlist in the crafting menu
 func on_crafting_menu_start_craft(item: Dictionary, recipe: Dictionary):
 	if recipe and item:
@@ -431,18 +417,53 @@ func disconnect_inventory_signals(inventory: Inventory):
 	inventory.item_modified.disconnect(_on_inventory_item_modified)
 
 
-func _on_inventory_item_added(_item, _inventory):
+func _on_inventory_item_added(item, inventory):
+	Helper.signal_broker.playerInventory_item_added.emit(item, inventory)
 	update_accessible_items_list()
 
 
-func _on_inventory_item_removed(_item, _inventory):
+func _on_inventory_item_removed(item, inventory):
+	Helper.signal_broker.playerInventory_item_removed.emit(item, inventory)
 	update_accessible_items_list()
 
 
-func _on_inventory_item_modified(_item, _inventory):
+func _on_inventory_item_modified(item, inventory):
+	Helper.signal_broker.playerInventory_item_modified.emit(item, inventory)
 	update_accessible_items_list()
 
 
 func add_item_by_id_and_amount(itemid: String, amount: int):
 	var newitem = playerInventory.create_and_add_item(itemid)
 	InventoryStacked.set_item_stack_size(newitem, amount)
+
+
+# When the player starts a new game or loads a saved game
+func _on_game_started_loaded():
+	# Initialize inventories and connect signals
+	playerInventory = initialize_inventory()
+	proximityInventory = initialize_inventory()
+	connect_inventory_signals(playerInventory)
+	connect_inventory_signals(proximityInventory)
+	create_starting_items()
+	update_accessible_items_list()  # Initial update for player inventory
+	# Connect other signals related to inventory management
+	Helper.signal_broker.items_were_used.connect(_on_items_used)
+	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
+	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
+
+
+# When the user exits the game and returns to the main menu
+func _on_game_ended():
+	# Clear and discard the inventories
+	playerInventory.queue_free()
+	proximityInventory.queue_free()
+	# Disconnect signals related to inventory management
+	Helper.signal_broker.items_were_used.disconnect(_on_items_used)
+	Helper.signal_broker.container_entered_proximity.disconnect(_on_container_entered_proximity)
+	Helper.signal_broker.container_exited_proximity.disconnect(_on_container_exited_proximity)
+	disconnect_inventory_signals(playerInventory)
+	disconnect_inventory_signals(proximityInventory)
+	playerInventory = null
+	proximityInventory = null
+	allAccessibleItems.clear()
+	proximityInventories.clear()
