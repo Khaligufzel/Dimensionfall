@@ -78,8 +78,7 @@ func add_tilebrush_to_container_with_properties(properties: Dictionary):
 	brushInstance.tilebrush_clicked.connect(_on_tilebrush_clicked)
 	brushInstance.set_minimum_size(Vector2(32, 32))
 	brush_container.add_content_item(brushInstance)
-	if not brushInstance.entityType == "itemgroup":
-		brush_added.emit(brushInstance)
+	brush_added.emit(brushInstance)
 
 
 # Extracts properties from the original_tilebrush and uses them to create and add a new tilebrush instance to the container.
