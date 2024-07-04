@@ -136,7 +136,7 @@ func set_furniture_itemgroups(itemgroups: Array) -> void:
 	var furnituredata = Gamedata.get_data_by_id(Gamedata.data.furniture, tileData.furniture.id)
 	var containervalue = Helper.json_helper.get_nested_data(furnituredata, "Function.container")
 	
-	if not itemgroups.is_empty() and containervalue:
+	if not itemgroups.is_empty() and typeof(containervalue) == TYPE_DICTIONARY:
 		tileData.furniture.itemgroups = itemgroups
 	else:
 		tileData.furniture.erase("itemgroups")
