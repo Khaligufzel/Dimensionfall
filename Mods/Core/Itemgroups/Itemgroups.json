@@ -219,9 +219,6 @@
 					"countertop_wood",
 					"table_round_wood",
 					"chair_wood",
-					"Tree_00",
-					"PineTree_00",
-					"WillowTree_00",
 					"bench_wood",
 					"bed_wood_single_00",
 					"cabinet_wood_00",
@@ -382,7 +379,8 @@
 			"core": {
 				"furniture": [
 					"refrigerator_00",
-					"vending_machine"
+					"vending_machine",
+					"display_case"
 				]
 			}
 		},
@@ -421,5 +419,272 @@
 			}
 		},
 		"sprite": "jacket_32.png"
+	},
+	{
+		"description": "Medium sized appliances you would find at an electronics store.",
+		"id": "electronics_store_medium",
+		"items": [
+			{
+				"id": "toaster",
+				"max": 1,
+				"min": 1,
+				"probability": 70
+			},
+			{
+				"id": "blender",
+				"max": 1,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "coffee_maker",
+				"max": 1,
+				"min": 1,
+				"probability": 60
+			},
+			{
+				"id": "microwave_oven",
+				"max": 1,
+				"min": 1,
+				"probability": 35
+			},
+			{
+				"id": "pressure_cooker",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "bread_maker",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			}
+		],
+		"mode": "Collection",
+		"name": "Electronics store (medium appliances)",
+		"sprite": "microwave_oven_32.png"
+	},
+	{
+		"description": "Small products you would find at an electronics store.",
+		"id": "electronics_store_small",
+		"items": [
+			{
+				"id": "radio_two_way",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "battery_small",
+				"max": 3,
+				"min": 1,
+				"probability": 80
+			},
+			{
+				"id": "flashlight_basic",
+				"max": 1,
+				"min": 1,
+				"probability": 45
+			},
+			{
+				"id": "radio_handheld",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "screwdriver",
+				"max": 1,
+				"min": 1,
+				"probability": 80
+			},
+			{
+				"id": "electrical_components",
+				"max": 7,
+				"min": 1,
+				"probability": 60
+			}
+		],
+		"mode": "Collection",
+		"name": "Electronics store (small products)",
+		"sprite": "screwdriver_32.png"
+	},
+	{
+		"description": "Products of mixed sizes you would find at an electronics store.",
+		"id": "electronics_store_mixed",
+		"items": [
+			{
+				"id": "radio_two_way",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "battery_small",
+				"max": 3,
+				"min": 1,
+				"probability": 80
+			},
+			{
+				"id": "flashlight_basic",
+				"max": 1,
+				"min": 1,
+				"probability": 45
+			},
+			{
+				"id": "radio_handheld",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "screwdriver",
+				"max": 1,
+				"min": 1,
+				"probability": 80
+			},
+			{
+				"id": "electrical_components",
+				"max": 7,
+				"min": 1,
+				"probability": 60
+			},
+			{
+				"id": "toaster",
+				"max": 1,
+				"min": 1,
+				"probability": 30
+			},
+			{
+				"id": "blender",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "coffee_maker",
+				"max": 1,
+				"min": 1,
+				"probability": 35
+			},
+			{
+				"id": "microwave_oven",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "pressure_cooker",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "bread_maker",
+				"max": 1,
+				"min": 1,
+				"probability": 8
+			}
+		],
+		"mode": "Collection",
+		"name": "Electronics store (mixed products)",
+		"sprite": "electrical_components_32.png"
+	},
+	{
+		"description": "Drinks you can find in a vending in an urban shop",
+		"id": "vending_machine_drinks",
+		"items": [
+			{
+				"id": "bottle_plastic_water",
+				"max": 5,
+				"min": 1,
+				"probability": 80
+			},
+			{
+				"id": "can_soda",
+				"max": 10,
+				"min": 3,
+				"probability": 60
+			},
+			{
+				"id": "can_energydrink",
+				"max": 3,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "can_beer",
+				"max": 2,
+				"min": 1,
+				"probability": 40
+			}
+		],
+		"mode": "Collection",
+		"name": "Vending machine (drinks)",
+		"sprite": "can_beer_32.png"
+	},
+	{
+		"description": "Snacks you can find in a vending in an urban shop",
+		"id": "vending_machine_snacks",
+		"items": [
+			{
+				"id": "chocolate",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "pack_sigarrettes",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			}
+		],
+		"mode": "Collection",
+		"name": "Vending machine (snacks)",
+		"sprite": "chocolate_32.png"
+	},
+	{
+		"description": "The tree was not cut, but destroyed by some source, leaving less resources then when it would be cut.",
+		"id": "tree_destroyed",
+		"items": [
+			{
+				"id": "log",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "branch",
+				"max": 5,
+				"min": 2,
+				"probability": 80
+			},
+			{
+				"id": "leaf",
+				"max": 25,
+				"min": 10,
+				"probability": 95
+			},
+			{
+				"id": "plant_remnants",
+				"max": 10,
+				"min": 5,
+				"probability": 95
+			}
+		],
+		"mode": "Collection",
+		"name": "Destroyed tree",
+		"references": {
+			"core": {
+				"furniture": [
+					"Tree_00",
+					"PineTree_00",
+					"WillowTree_00"
+				]
+			}
+		},
+		"sprite": "log_32.png"
 	}
 ]

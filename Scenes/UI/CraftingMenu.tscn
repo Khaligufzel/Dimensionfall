@@ -88,6 +88,7 @@ layout_mode = 2
 size_flags_vertical = 6
 
 [node name="FeedbackLabel" type="Label" parent="Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Not enough space to craft!"
