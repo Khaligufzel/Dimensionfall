@@ -1877,13 +1877,6 @@
 		"image": "./Mods/Core/Items/spoon_32.png",
 		"max_stack_size": 10,
 		"name": "Silver Spoon",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"clothing_general"
-				]
-			}
-		},
 		"sprite": "spoon_32.png",
 		"stack_size": 1,
 		"two_handed": false,
