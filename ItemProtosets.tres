@@ -2061,13 +2061,6 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/strainer_sieve_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Strainer Sieve\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\"
-				]
-			}
-		},
 		\"sprite\": \"strainer_sieve_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
