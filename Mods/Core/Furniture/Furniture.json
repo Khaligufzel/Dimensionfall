@@ -677,6 +677,11 @@
 		"sprite": "cash_register_50.png"
 	},
 	{
+		"Function": {
+			"container": {
+
+			}
+		},
 		"categories": [
 			"Urban",
 			"Store"
