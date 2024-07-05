@@ -1872,14 +1872,11 @@
 		"weight": 1
 	},
 	{
-		"Wearable": {
-			"slot": "feet"
-		},
-		"description": "A pair of warm wool socks to keep your feet dry and comfortable.",
-		"id": "socks",
-		"image": "./Mods/Core/Items/socks_32.png",
-		"max_stack_size": 1,
-		"name": "Socks",
+		"description": "A basic silver spoon, used for eating or stirring.",
+		"id": "spoon_silver",
+		"image": "./Mods/Core/Items/spoon_32.png",
+		"max_stack_size": 10,
+		"name": "Silver Spoon",
 		"references": {
 			"core": {
 				"itemgroups": [
@@ -1887,12 +1884,6 @@
 				]
 			}
 		},
-		"sprite": "socks_32.png",
-		"description": "A basic silver spoon, used for eating or stirring.",
-		"id": "spoon_silver",
-		"image": "./Mods/Core/Items/spoon_32.png",
-		"max_stack_size": 10,
-		"name": "Silver Spoon",
 		"sprite": "spoon_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2056,6 +2047,21 @@
 		"image": "./Mods/Core/Items/shorts_32.png",
 		"max_stack_size": 1,
 		"name": "Shorts",
+		"sprite": "shorts_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 60,
+		"weight": 0.4
+	},
+	{
+		"Wearable": {
+			"slot": "legs"
+		},
+		"description": "A fine mesh sieve for straining liquids or sifting dry ingredients.",
+		"id": "strainer_sieve",
+		"image": "./Mods/Core/Items/strainer_sieve_32.png",
+		"max_stack_size": 3,
+		"name": "Strainer Sieve",
 		"references": {
 			"core": {
 				"itemgroups": [
@@ -2063,20 +2069,25 @@
 				]
 			}
 		},
-		"sprite": "shorts_32.png",
-		"stack_size": 1,
-		"two_handed": false,
-		"volume": 60,
-		"weight": 1
-		"description": "A fine mesh sieve for straining liquids or sifting dry ingredients.",
-		"id": "strainer_sieve",
-		"image": "./Mods/Core/Items/strainer_sieve_32.png",
-		"max_stack_size": 3,
-		"name": "Strainer Sieve",
 		"sprite": "strainer_sieve_32.png",
 		"stack_size": 1,
 		"two_handed": false,
 		"volume": 100,
+		"weight": 0.3
+	},
+	{
+		"Wearable": {
+			"slot": "feet"
+		},
+		"description": "A pair of warm wool socks to keep your feet dry and comfortable.",
+		"id": "socks",
+		"image": "./Mods/Core/Items/socks_32.png",
+		"max_stack_size": 1,
+		"name": "Socks",
+		"sprite": "socks_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 50,
 		"weight": 0.3
 	},
 	{
