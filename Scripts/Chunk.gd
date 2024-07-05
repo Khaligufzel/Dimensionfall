@@ -213,10 +213,12 @@ func add_furnitures_to_new_block():
 			Gamedata.data.furniture, furnituremapjson.id)
 		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
 			newFurniture = FurniturePhysics.new()
+			newFurniture.current_chunk = self
 			furniturepos.y += 0.2 # Make sure it's not in a block and let it fall
 		else:
 			newFurniture = FurnitureStatic.new()
-
+		
+		add_furniture_to_chunk(newFurniture)
 		newFurniture.construct_self(mypos+furniturepos, furnituremapjson)
 		level_manager.add_child.call_deferred(newFurniture)
 		

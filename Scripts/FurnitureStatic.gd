@@ -27,8 +27,6 @@ var original_position: Vector3 # To return to original position after blinking
 func _ready():
 	position = furnitureposition
 	set_new_rotation(furniturerotation)
-	var new_chunk = Helper.map_manager.get_chunk_from_position(furnitureposition)
-	new_chunk.add_furniture_to_chunk(self)
 	check_door_functionality()
 	update_door_visuals()
 	# Add the container as a child on the same position as this furniture
