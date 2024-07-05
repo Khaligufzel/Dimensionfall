@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://cqdiuynwooaok"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -599,13 +599,6 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/gasmask_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Gas mask\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\"
-				]
-			}
-		},
 		\"sprite\": \"gasmask_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -1839,5 +1832,181 @@ json_data = "[
 		\"two_handed\": false,
 		\"volume\": 40,
 		\"weight\": 0.5
+	},
+	{
+		\"Wearable\": {
+			\"slot\": \"torso\"
+		},
+		\"description\": \"A basic cotton T-shirt, comfortable and versatile.\",
+		\"id\": \"tshirt\",
+		\"image\": \"./Mods/Core/Items/t_shirt_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"T-shirt\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"clothing_general\"
+				]
+			}
+		},
+		\"sprite\": \"t_shirt_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 90,
+		\"weight\": 0.5
+	},
+	{
+		\"Wearable\": {
+			\"slot\": \"legs\"
+		},
+		\"description\": \"A pair of durable denim jeans, perfect for rough conditions.\",
+		\"id\": \"jeans\",
+		\"image\": \"./Mods/Core/Items/jeans_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Jeans\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"clothing_general\"
+				]
+			}
+		},
+		\"sprite\": \"jeans_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 100,
+		\"weight\": 1
+	},
+	{
+		\"Wearable\": {
+			\"slot\": \"feet\"
+		},
+		\"description\": \"A pair of warm wool socks to keep your feet dry and comfortable.\",
+		\"id\": \"socks\",
+		\"image\": \"./Mods/Core/Items/socks_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Socks\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"clothing_general\"
+				]
+			}
+		},
+		\"sprite\": \"socks_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 60,
+		\"weight\": 0.3
+	},
+	{
+		\"Wearable\": {
+			\"slot\": \"head\"
+		},
+		\"description\": \"A simple baseball cap to shield your eyes from the sun.\",
+		\"id\": \"hat_baseball\",
+		\"image\": \"./Mods/Core/Items/baseball_cap_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Baseball Cap\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"clothing_general\"
+				]
+			}
+		},
+		\"sprite\": \"baseball_cap_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 50,
+		\"weight\": 0.2
+	},
+	{
+		\"Wearable\": {
+			\"slot\": \"torso\"
+		},
+		\"description\": \"A cozy wool sweater, ideal for cold weather.\",
+		\"id\": \"sweater\",
+		\"image\": \"./Mods/Core/Items/sweater_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Sweater\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"clothing_general\"
+				]
+			}
+		},
+		\"sprite\": \"sweater_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 150,
+		\"weight\": 1
+	},
+	{
+		\"Wearable\": {
+			\"slot\": \"head\"
+		},
+		\"description\": \"A long scarf to keep your neck warm in chilly conditions.\",
+		\"id\": \"scarf\",
+		\"image\": \"./Mods/Core/Items/scarf_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Scarf\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"clothing_general\"
+				]
+			}
+		},
+		\"sprite\": \"scarf_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 90,
+		\"weight\": 1
+	},
+	{
+		\"Wearable\": {
+			\"slot\": \"hands\"
+		},
+		\"description\": \"A pair of sturdy leather gloves, providing good protection for your hands.\",
+		\"id\": \"gloves_leather\",
+		\"image\": \"./Mods/Core/Items/leather_gloves_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Leather Gloves\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"clothing_general\"
+				]
+			}
+		},
+		\"sprite\": \"leather_gloves_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 60,
+		\"weight\": 1
+	},
+	{
+		\"Wearable\": {
+			\"slot\": \"legs\"
+		},
+		\"description\": \"Comfortable shorts for warm weather and easy movement.\",
+		\"id\": \"shorts\",
+		\"image\": \"./Mods/Core/Items/shorts_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Shorts\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"clothing_general\"
+				]
+			}
+		},
+		\"sprite\": \"shorts_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 60,
+		\"weight\": 1
 	}
 ]"

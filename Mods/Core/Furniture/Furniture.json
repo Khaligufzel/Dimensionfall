@@ -754,6 +754,11 @@
 		"sprite": "vending_machine_50.png"
 	},
 	{
+		"Function": {
+			"container": {
+				"itemgroup": "clothing_general"
+			}
+		},
 		"categories": [
 			"Urban",
 			"Store"
@@ -829,6 +834,11 @@
 		"sprite": "security_gate_100_13.png"
 	},
 	{
+		"Function": {
+			"container": {
+
+			}
+		},
 		"categories": [
 			"Urban",
 			"Store"
