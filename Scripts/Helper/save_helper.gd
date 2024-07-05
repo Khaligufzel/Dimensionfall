@@ -39,25 +39,12 @@ func create_new_save():
 
 
 func save_map_data(target_folder: String) -> void:
-	var tree: SceneTree = get_tree()
-	var mapChunks = tree.get_nodes_in_group("chunks")
-	number_of_chunks_unloaded = 0
-	print_debug("unloading all chunks")
-
-	# Get the chunk data before we save them
-	for chunk: Node3D in mapChunks:
-		#var chunkdata: Dictionary = chunk.get_chunk_data({})
-		chunk.chunk_unloaded.connect(_on_chunk_unloaded.bind(mapChunks.size(), target_folder))
-		chunk.unload_chunk()
-		# We save the chunks by their coordinates on the tacticalmap, so 0,0 and 0,1 etc
-		# That's why we need to devide by map width/height which is 32
-		#Helper.loaded_chunk_data.chunks[Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))] = chunkdata
+	Helper.map_manager.level_generator.all_chunks_unloaded.connect(_on_chunks_unloaded.bind(target_folder))
+	Helper.map_manager.level_generator.unload_all_chunks()
 
 
-func _on_chunk_unloaded(numchunks: int, target_folder: String):
-	number_of_chunks_unloaded += 1
-	print_debug("number_of_chunks_unloaded = " + str(number_of_chunks_unloaded) + "/" + str(numchunks))
-	if numchunks == number_of_chunks_unloaded:
+# The level_generator has unloaded all the chunks. Save the data to disk
+func _on_chunks_unloaded(target_folder: String):
 		print_debug("All chunks are unloaded")
 		Helper.json_helper.write_json_file(target_folder + "/map.json", \
 		JSON.stringify(Helper.loaded_chunk_data))

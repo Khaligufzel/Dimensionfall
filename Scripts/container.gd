@@ -57,9 +57,6 @@ func create_loot():
 						InventoryStacked.set_item_stack_size(item, stack_size)
 			else:
 				print_debug("No valid data found for item ID: " + str(item_id))
-	else:
-		# Fallback if no valid itemgroup data found or the itemgroup is empty
-		print_debug("Invalid or empty itemgroup data for itemgroup ID: " + str(itemgroup))
 
 	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
 	if item_added and sprite_3d.texture == load("res://Textures/container_32.png"):

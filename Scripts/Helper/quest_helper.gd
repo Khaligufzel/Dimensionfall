@@ -32,15 +32,12 @@ func connect_signals() -> void:
 
 
 func connect_inventory_signals() -> void:
-	Helper.signal_broker.playerInventory_item_added.connect(_on_inventory_item_added)
-	Helper.signal_broker.playerInventory_item_removed.connect(_on_inventory_item_removed)
-	Helper.signal_broker.playerInventory_item_modified.connect(_on_inventory_item_modified)
-
-
-func disconnect_inventory_signals() -> void:
-	Helper.signal_broker.playerInventory_item_added.disconnect(_on_inventory_item_added)
-	Helper.signal_broker.playerInventory_item_removed.disconnect(_on_inventory_item_removed)
-	Helper.signal_broker.playerInventory_item_modified.disconnect(_on_inventory_item_modified)
+	if not Helper.signal_broker.playerInventory_item_added.is_connected(_on_inventory_item_added):
+		Helper.signal_broker.playerInventory_item_added.connect(_on_inventory_item_added)
+	if not Helper.signal_broker.playerInventory_item_removed.is_connected(_on_inventory_item_removed):
+		Helper.signal_broker.playerInventory_item_removed.connect(_on_inventory_item_removed)
+	if not Helper.signal_broker.playerInventory_item_modified.is_connected(_on_inventory_item_modified):
+		Helper.signal_broker.playerInventory_item_modified.connect(_on_inventory_item_modified)
 
 
 # Function for handling game started signal
@@ -56,7 +53,7 @@ func _on_game_loaded():
 
 # Function for handling game ended signal
 func _on_game_ended():
-	disconnect_inventory_signals()
+	pass
 
 
 # Function to handle quest completion
