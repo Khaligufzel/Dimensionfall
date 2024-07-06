@@ -347,8 +347,6 @@ func populate_container_from_itemgroup():
 func deserialize_container_data():
 	if "items" in furnitureJSON["Function"]["container"]:
 		container.deserialize_and_apply_items(furnitureJSON["Function"]["container"]["items"])
-	else:
-		print_debug("No items to deserialize in container for furniture ID: " + str(furnitureJSON.id))
 
 
 # Only previously saved furniture will have the global_position_x key.
