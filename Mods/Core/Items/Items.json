@@ -2339,5 +2339,45 @@
 		"two_handed": false,
 		"volume": 10,
 		"weight": 0.2
+	},
+	{
+		"Melee": {
+			"damage": 10,
+			"reach": 1,
+			"used_skill": {
+				"skill_id": "bashing",
+				"xp": 10
+			}
+		},
+		"description": "A simple stick, useful for crafting, kindling, or as a basic weapon.",
+		"id": "stick",
+		"image": "./Mods/Core/Items/stick_32.png",
+		"max_stack_size": 3,
+		"name": "Stick",
+		"sprite": "stick_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 100,
+		"weight": 1
+	},
+	{
+		"Melee": {
+			"damage": 15,
+			"reach": 2,
+			"used_skill": {
+				"skill_id": "bashing",
+				"xp": 10
+			}
+		},
+		"description": "A long stick, versatile for crafting, building structures, or as a makeshift weapon.",
+		"id": "long_stick",
+		"image": "./Mods/Core/Items/stick_long_32.png",
+		"max_stack_size": 2,
+		"name": "Long Stick",
+		"sprite": "stick_long_32.png",
+		"stack_size": 1,
+		"two_handed": true,
+		"volume": 200,
+		"weight": 5
 	}
 ]
