@@ -6,7 +6,9 @@
 		"references": {
 			"core": {
 				"items": [
-					"jacket"
+					"jacket",
+					"tshirt",
+					"sweater"
 				]
 			}
 		},
@@ -16,6 +18,14 @@
 		"description": "Holds equipment on your legs",
 		"id": "legs",
 		"name": "Legs",
+		"references": {
+			"core": {
+				"items": [
+					"jeans",
+					"shorts"
+				]
+			}
+		},
 		"sprite": "wearableslot_legs_32.png"
 	},
 	{
@@ -25,7 +35,8 @@
 		"references": {
 			"core": {
 				"items": [
-					"boots"
+					"boots",
+					"socks"
 				]
 			}
 		},
@@ -35,6 +46,13 @@
 		"description": "Holds equipment on your hands",
 		"id": "hands",
 		"name": "Hands",
+		"references": {
+			"core": {
+				"items": [
+					"gloves_leather"
+				]
+			}
+		},
 		"sprite": "wearableslot_hands_32.png"
 	},
 	{
@@ -44,7 +62,9 @@
 		"references": {
 			"core": {
 				"items": [
-					"gas_mask"
+					"gas_mask",
+					"hat_baseball",
+					"scarf"
 				]
 			}
 		},

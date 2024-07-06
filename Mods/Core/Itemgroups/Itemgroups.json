@@ -403,7 +403,49 @@
 				"probability": 20
 			},
 			{
-				"id": "gas_mask",
+				"id": "shorts",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "gloves_leather",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "scarf",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "sweater",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "hat_baseball",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "socks",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "jeans",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "tshirt",
 				"max": 1,
 				"min": 1,
 				"probability": 20
@@ -414,7 +456,8 @@
 		"references": {
 			"core": {
 				"furniture": [
-					"wardrobe"
+					"wardrobe",
+					"clothing_rack"
 				]
 			}
 		},

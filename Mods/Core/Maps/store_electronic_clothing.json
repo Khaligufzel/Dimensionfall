@@ -2646,7 +2646,11 @@
 			},
 			{
 				"furniture": {
-					"id": "shopping_cart"
+					"id": "shopping_cart",
+					"itemgroups": [
+						"electronics_store_mixed",
+						"electronics_store_small"
+					]
 				},
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 90
@@ -3224,6 +3228,9 @@
 			{
 				"furniture": {
 					"id": "shopping_cart",
+					"itemgroups": [
+						"electronics_store_mixed"
+					],
 					"rotation": 270
 				},
 				"id": "kitchen_tiles_yellow_00",
