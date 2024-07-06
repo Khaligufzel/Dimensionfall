@@ -47,26 +47,44 @@ var atlas_output: Dictionary # An atlas texture that combines all textures of th
 var level_nodes: Dictionary = {} # Keeps track of level nodes by their y_level# Existing properties
 var furniture_instances = [] # Keep track of what furniture is on this chunk
 
+enum LoadStates {
+	NEITHER,
+	LOADING,
+	UNLOADING
+}
+
+var load_state: LoadStates = LoadStates.NEITHER
 
 signal chunk_unloaded(chunkdata: Dictionary) # The chunk is fully unloaded
 # Signals that the chunk is partly loaded and the next chunk can start loading
-signal chunk_part_loaded()
+signal chunk_ready()
 
 
 func _ready():
+	start_loading()
 	chunk_unloaded.connect(_finish_unload)
 	source_geometry_data = NavigationMeshSourceGeometryData3D.new()
 	setup_navigation()
 	# The Helper keeps track of which navigationmap belogns to which chunk. When a navigationagent
 	# crosses the chunk boundary, it will get the current chunk's navigationmap id to work with
-	chunk_part_loaded.connect(Helper.on_chunk_loaded.bind({"mypos": mypos, "map": navigation_map_id}))
+	chunk_ready.connect(Helper.on_chunk_loaded.bind({"mypos": mypos, "map": navigation_map_id}))
 	chunk_unloaded.connect(Helper.on_chunk_unloaded.bind({"mypos": mypos}))
 	transform.origin = Vector3(mypos)
 	add_to_group("chunks")
 	# Even though the chunk is not completely generated, we emit the signal now to prevent further
 	# delays in generating or unloading the next chunk. Might remove this or move it to another place.
-	chunk_part_loaded.emit()
+	chunk_ready.emit()
 	initialize_chunk_data()
+
+
+func start_loading():
+	load_state = LoadStates.LOADING
+
+func start_unloading():
+	load_state = LoadStates.UNLOADING
+
+func reset_state():
+	load_state = LoadStates.NEITHER
 
 
 func initialize_chunk_data():
@@ -89,6 +107,7 @@ func generate_new_chunk():
 	processed_level_data = process_level_data()
 	add_furnitures_to_new_block()
 	add_block_mobs()
+	reset_state()
 
 
 # Collects the furniture and mob data from the mapdata to be spawned later
@@ -159,6 +178,7 @@ func generate_saved_chunk() -> void:
 	var furnituredata: Array = chunk_data.furniture.duplicate()
 	add_furnitures_to_map(furnituredata)
 	add_mobs_to_map()
+	reset_state()
 
 
 # When a map is loaded for the first time we spawn the mob on the block
@@ -193,10 +213,12 @@ func add_furnitures_to_new_block():
 			Gamedata.data.furniture, furnituremapjson.id)
 		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
 			newFurniture = FurniturePhysics.new()
+			newFurniture.current_chunk = self
 			furniturepos.y += 0.2 # Make sure it's not in a block and let it fall
 		else:
 			newFurniture = FurnitureStatic.new()
-
+		
+		add_furniture_to_chunk(newFurniture)
 		newFurniture.construct_self(mypos+furniturepos, furnituremapjson)
 		level_manager.add_child.call_deferred(newFurniture)
 		
@@ -368,6 +390,7 @@ func get_chunk_data() -> Dictionary:
 # switching to a different map. We start a new thread to collect map data and save it in
 # the helper variable. First we wait until the current thread is finished.
 func unload_chunk():
+	start_unloading()
 	await Helper.task_manager.create_task(save_and_unload_chunk).completed
 	chunk_unloaded.emit()
 
@@ -480,6 +503,7 @@ func add_mesh_to_navigation_data(blockposition: Vector3, blockrotation: int, blo
 
 # Finally, queue the chunk itself for deletion.
 func _finish_unload():
+	reset_state()
 	queue_free.call_deferred()
 
 

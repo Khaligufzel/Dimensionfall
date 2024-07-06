@@ -445,6 +445,7 @@ func _on_game_started_loaded():
 	connect_inventory_signals(playerInventory)
 	connect_inventory_signals(proximityInventory)
 	create_starting_items()
+	Helper.save_helper.load_player_inventory()
 	update_accessible_items_list()  # Initial update for player inventory
 	# Connect other signals related to inventory management
 	Helper.signal_broker.items_were_used.connect(_on_items_used)

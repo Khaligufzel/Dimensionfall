@@ -29,7 +29,10 @@ func _ready() -> void:
 # Keep track of the furniture's position and rotation. It starts at 0,0,0 and the moves to it's
 # assigned position after a timer. Until that has happened, we don't need to keep track of it's position
 func _physics_process(_delta) -> void:
-	if not global_transform.origin == furnitureposition:
+	# We only care about x and z. A changed y only means it's moving up or down.
+	var x_changed = not global_transform.origin.x == furnitureposition.x 
+	var z_changed = not global_transform.origin.z == furnitureposition.z
+	if x_changed or z_changed:
 		_moved(global_transform.origin)
 	var current_rotation = int(rotation_degrees.y)
 	if current_rotation != last_rotation:
