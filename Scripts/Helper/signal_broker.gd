@@ -49,12 +49,21 @@ signal container_exited_proximity(container: Node3D)
 signal inventory_operation_started()
 signal inventory_operation_finished()
 
+
+# Inventory signals
+# item: The InventoryItem that was added, removed or modified
+# inventory: the InventoryStacked that emitted the original signal of the item being added/removed
+signal playerInventory_item_added(item: InventoryItem, inventory: InventoryStacked)
+signal playerInventory_item_removed(item: InventoryItem, inventory: InventoryStacked)
+signal playerInventory_item_modified(item: InventoryItem, inventory: InventoryStacked)
+
 # When the player's stats and skill changes
 signal player_stat_changed(player: CharacterBody3D)
 signal player_skill_changed(player: CharacterBody3D)
 
 signal game_started() # When the user presses 'play demo' on the main menu
 signal game_loaded() # When the user presses 'load game' on the main menu
+signal game_ended() # When the user presses 'main menu' button on the escape menu
 
 # When sprites have been added or removed from gamedata
 signal data_sprites_changed(contentData: Dictionary, spriteid: String)
