@@ -179,14 +179,49 @@ func _on_tween_finished() -> void:
 	is_animating_hit = false
 
 
-func get_hit(damage) -> void:
-	if can_be_destroyed():
-		current_health -= damage
-		if current_health <= 0:
-			_die()
-		else:
-			if not is_animating_hit:
-				animate_hit()
+# When the furniture gets hit by an attack
+# attack: a dictionary with the "damage" and "hit_chance" properties
+func get_hit(attack: Dictionary):
+	# Extract damage and hit_chance from the dictionary
+	var damage = attack.damage
+	var hit_chance = attack.hit_chance
+
+	# Calculate actual hit chance considering moveable furniture bonus
+	var actual_hit_chance = hit_chance + 0.20 # Boost hit chance by 20%
+
+	# Determine if the attack hits
+	if randf() <= actual_hit_chance:
+		# Attack hits
+		if can_be_destroyed():
+			current_health -= damage
+			if current_health <= 0:
+				_die()
+			else:
+				if not is_animating_hit:
+					animate_hit()
+	else:
+		# Attack misses, create a visual indicator
+		show_miss_indicator()
+
+
+# Function to show a miss indicator
+func show_miss_indicator():
+	var miss_label = Label3D.new()
+	miss_label.text = "Miss!"
+	miss_label.modulate = Color(1, 0, 0)
+	miss_label.font_size = 64
+	get_tree().get_root().add_child(miss_label)
+	miss_label.position = furnitureposition
+	miss_label.position.y += 2
+	miss_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		
+
+	# Animate the miss indicator to disappear quickly
+	var tween = create_tween()
+	tween.tween_property(miss_label, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.finished.connect(func():
+		miss_label.queue_free()  # Properly free the miss_label node
+	)
 
 
 func _die() -> void:

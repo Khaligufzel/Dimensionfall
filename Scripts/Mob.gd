@@ -62,13 +62,50 @@ func update_navigation_agent_map(chunk_position: Vector2):
 		nav_agent.set_navigation_map(navigation_map_id)
 
 
-func get_hit(damage):
-	current_health -= damage
-	if current_health <= 0:
-		_die()
+# When the mob gets hit by an attack
+# attack: a dictionary with the "damage" and "hit_chance" properties
+func get_hit(attack: Dictionary):
+	# Extract damage and hit_chance from the dictionary
+	var damage = attack.damage
+	var hit_chance = attack.hit_chance
+
+	# Calculate actual hit chance considering mob bonus
+	# We may increase or decrease the hit chance based on mob or weapon stats
+	var actual_hit_chance = hit_chance + 0.0 # Boost hit chance by 0%
+
+	# Determine if the attack hits
+	if randf() <= actual_hit_chance:
+		# Attack hits
+		current_health -= damage
+		if current_health <= 0:
+			_die()
+		else:
+			if not is_blinking:
+				start_blinking()
 	else:
-		if not is_blinking:
-			start_blinking()
+		# Attack misses, create a visual indicator
+		show_miss_indicator()
+
+
+# Function to show a miss indicator
+func show_miss_indicator():
+	var miss_label = Label3D.new()
+	miss_label.text = "Miss!"
+	miss_label.modulate = Color(1, 0, 0)
+	miss_label.font_size = 64
+	get_tree().get_root().add_child(miss_label)
+	miss_label.position = position
+	miss_label.position.y += 2
+	miss_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	miss_label.render_priority = 10
+		
+
+	# Animate the miss indicator to disappear quickly
+	var tween = create_tween()
+	tween.tween_property(miss_label, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.finished.connect(func():
+		miss_label.queue_free()  # Properly free the miss_label node
+	)
 	
 func _die():
 	Helper.signal_broker.mob_killed.emit(self)
