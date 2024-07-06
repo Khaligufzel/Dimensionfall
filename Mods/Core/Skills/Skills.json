@@ -50,7 +50,8 @@
 				"items": [
 					"pistol_magazine",
 					"cutting_board",
-					"rolling_pin"
+					"rolling_pin",
+					"stone_spear"
 				]
 			}
 		},
@@ -176,7 +177,8 @@
 		"references": {
 			"core": {
 				"items": [
-					"machete"
+					"machete",
+					"stone_spear"
 				]
 			}
 		},

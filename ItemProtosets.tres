@@ -2380,10 +2380,79 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/stick_long_32.png\",
 		\"max_stack_size\": 2,
 		\"name\": \"Long Stick\",
+		\"references\": {
+			\"core\": {
+				\"items\": [
+					\"stone_spear\"
+				]
+			}
+		},
 		\"sprite\": \"stick_long_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": true,
 		\"volume\": 200,
 		\"weight\": 5
+	},
+	{
+		\"description\": \"A stone with a sharp edge, useful for cutting or crafting tools.\",
+		\"id\": \"sharp_stone\",
+		\"image\": \"./Mods/Core/Items/rock_sharp_32.png\",
+		\"max_stack_size\": 5,
+		\"name\": \"Sharp Stone\",
+		\"references\": {
+			\"core\": {
+				\"items\": [
+					\"stone_spear\"
+				]
+			}
+		},
+		\"sprite\": \"rock_sharp_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 50,
+		\"weight\": 0.8
+	},
+	{
+		\"Craft\": [
+			{
+				\"craft_amount\": 1,
+				\"craft_time\": 10,
+				\"flags\": {
+					\"requires_light\": false
+				},
+				\"required_resources\": [
+					{
+						\"amount\": 1,
+						\"id\": \"long_stick\"
+					},
+					{
+						\"amount\": 1,
+						\"id\": \"sharp_stone\"
+					}
+				],
+				\"skill_progression\": {
+					\"id\": \"fabrication\",
+					\"xp\": 25
+				}
+			}
+		],
+		\"Melee\": {
+			\"damage\": 17,
+			\"reach\": 2,
+			\"used_skill\": {
+				\"skill_id\": \"cutting\",
+				\"xp\": 10
+			}
+		},
+		\"description\": \"A long stick with a sharpened stone tip, ideal for hunting or defense.\",
+		\"id\": \"stone_spear\",
+		\"image\": \"./Mods/Core/Items/spear_stone_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Stone Spear\",
+		\"sprite\": \"spear_stone_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": true,
+		\"volume\": 200,
+		\"weight\": 4
 	}
 ]"
