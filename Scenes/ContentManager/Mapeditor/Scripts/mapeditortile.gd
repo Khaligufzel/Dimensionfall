@@ -141,23 +141,32 @@ func set_tile_itemgroups(itemgroups: Array) -> void:
 	if tileData.has("mob"):
 		return
 	
+	# If the tile doesn't have furniture
 	if not tileData.has("furniture"):
-		# Apply the itemgroup to the tile and update ObjectSprite with a random sprite
-		var random_itemgroup: String = itemgroups[randi() % itemgroups.size()]
-		$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, random_itemgroup)
-		$ObjectSprite.show()
-		$ObjectSprite.rotation_degrees = 0
-		tileData["itemgroups"] = itemgroups
-	else:
-		var furnituredata = Gamedata.get_data_by_id(Gamedata.data.furniture, tileData.furniture.id)
-		var containervalue = Helper.json_helper.get_nested_data(furnituredata, "Function.container")
-
-		if not itemgroups.is_empty() and typeof(containervalue) == TYPE_DICTIONARY:
-			tileData.furniture.itemgroups = itemgroups
+		if itemgroups.is_empty(): # Erase the itemgroups property if the itemgroups array is empty
+			tileData.erase("itemgroups")
+			$ObjectSprite.hide()
 		else:
+			# Apply the itemgroup to the tile and update ObjectSprite with a random sprite
+			var random_itemgroup: String = itemgroups.pick_random()
+			$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, random_itemgroup)
+			$ObjectSprite.show()
+			$ObjectSprite.rotation_degrees = 0
+			tileData["itemgroups"] = itemgroups
+	else:
+		if itemgroups.is_empty(): # Only erase the itemgroups property from furniture
 			tileData.furniture.erase("itemgroups")
+		else:
+			var furnituredata = Gamedata.get_data_by_id(Gamedata.data.furniture, tileData.furniture.id)
+			var containervalue = Helper.json_helper.get_nested_data(furnituredata, "Function.container")
+
+			if not itemgroups.is_empty() and typeof(containervalue) == TYPE_DICTIONARY:
+				tileData.furniture.itemgroups = itemgroups
+			else:
+				tileData.furniture.erase("itemgroups")
 	
 	set_tooltip()
+
 
 
 # If the user holds the mouse button while entering this tile, we consider it clicked

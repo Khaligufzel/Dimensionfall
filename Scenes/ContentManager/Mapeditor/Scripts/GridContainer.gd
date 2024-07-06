@@ -233,6 +233,8 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 				tile.set_mob_id("")
 			elif brush.entityType == "furniture":
 				tile.set_furniture_id("")
+			elif brush.entityType == "itemgroup":
+				tile.set_tile_itemgroups([]) # erase by passing an empty array
 			else:
 				tile.set_tile_id("")
 				tile.set_rotation_amount(0)

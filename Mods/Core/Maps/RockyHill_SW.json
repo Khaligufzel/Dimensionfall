@@ -2160,7 +2160,10 @@
 				"id": "forest_underbrush_03"
 			},
 			{
-				"id": "forest_underbrush_03"
+				"id": "forest_underbrush_03",
+				"itemgroups": [
+					"generic_field_finds"
+				]
 			},
 			{
 				"id": "forest_underbrush_03"
@@ -2466,7 +2469,10 @@
 				"rotation": 90
 			},
 			{
-				"id": "forest_underbrush_03"
+				"id": "forest_underbrush_03",
+				"itemgroups": [
+					"generic_field_finds"
+				]
 			},
 			{
 				"id": "rocky_earth_00",

@@ -2565,6 +2565,9 @@
 			},
 			{
 				"id": "grass_plain_01",
+				"itemgroups": [
+					"generic_field_finds"
+				],
 				"rotation": 90
 			},
 			{

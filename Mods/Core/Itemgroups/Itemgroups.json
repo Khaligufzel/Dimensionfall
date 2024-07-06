@@ -729,5 +729,56 @@
 			}
 		},
 		"sprite": "log_32.png"
+	},
+	{
+		"description": "Items you can find in any field of grass",
+		"id": "generic_field_finds",
+		"items": [
+			{
+				"id": "sharp_stone",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "small_rock",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "medium_rock",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "pebble",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "flower_wild",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "leaf",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "plant_remnants",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			}
+		],
+		"mode": "Collection",
+		"name": "Generic field items",
+		"sprite": "leaves_32.png"
 	}
 ]

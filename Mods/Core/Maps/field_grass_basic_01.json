@@ -372,7 +372,10 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"itemgroups": [
+					"generic_field_finds"
+				]
 			},
 			{
 				"id": "grass_plain_01"
@@ -1002,7 +1005,10 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_medium_dirt_01"
+				"id": "grass_medium_dirt_01",
+				"itemgroups": [
+					"generic_field_finds"
+				]
 			},
 			{
 				"id": "grass_plain_01"
@@ -2094,7 +2100,10 @@
 				"id": "grass_dirt_02"
 			},
 			{
-				"id": "grass_dirt_02"
+				"id": "grass_dirt_02",
+				"itemgroups": [
+					"generic_field_finds"
+				]
 			},
 			{
 				"furniture": {
