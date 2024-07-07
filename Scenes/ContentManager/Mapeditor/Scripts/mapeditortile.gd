@@ -1,10 +1,11 @@
 extends Control
 
 #If a tile has no data, we save an empty object. Tiledata can have:
-# id, rotation, mob
+# id, rotation, mob, furniture, itemgroup and groups
 const defaultTileData: Dictionary = {}
 const defaultTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png"
 const aboveTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/tileAbove.png"
+const groupTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/grouptile.png"
 var tileData: Dictionary = defaultTileData.duplicate():
 	set(data):
 		tileData = data
@@ -13,6 +14,8 @@ var tileData: Dictionary = defaultTileData.duplicate():
 			set_rotation_amount(tileData.get("rotation", 0))
 			$ObjectSprite.hide()
 			$ObjectSprite.rotation_degrees = 0
+			$GroupSprite.hide()
+			$GroupSprite.rotation_degrees = 0
 			if tileData.has("mob"):
 				if tileData.mob.has("rotation"):
 					$ObjectSprite.rotation_degrees = tileData.mob.rotation
@@ -27,10 +30,14 @@ var tileData: Dictionary = defaultTileData.duplicate():
 				var random_itemgroup: String = tileData.itemgroups.pick_random()
 				$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, random_itemgroup)
 				$ObjectSprite.show()
+			if tileData.has("groups"):
+				$GroupSprite.show()
 		else:
 			$TileSprite.texture = load(defaultTexture)
 			$ObjectSprite.texture = null
 			$ObjectSprite.hide()
+			$GroupSprite.texture = null
+			$GroupSprite.hide()
 		set_tooltip()
 
 
@@ -193,6 +200,7 @@ func set_clickable(clickable: bool):
 		mouse_filter = MOUSE_FILTER_IGNORE
 		$TileSprite.mouse_filter = MOUSE_FILTER_IGNORE
 		$ObjectSprite.mouse_filter = MOUSE_FILTER_IGNORE
+		$GroupSprite.mouse_filter = MOUSE_FILTER_IGNORE
 
 
 #This function sets the texture to some static resource that helps the user visualize that something is above
@@ -200,6 +208,8 @@ func set_clickable(clickable: bool):
 func set_above():
 	$ObjectSprite.texture = null
 	$ObjectSprite.hide()
+	$GroupSprite.texture = null
+	$GroupSprite.hide()
 	if tileData.has("id") and tileData.id != "":
 		$TileSprite.texture = load(aboveTexture)
 	else:
@@ -209,11 +219,39 @@ func set_above():
 func _on_texture_rect_resized():
 	$TileSprite.pivot_offset = size / 2
 	$ObjectSprite.pivot_offset = size / 2
+	$GroupSprite.pivot_offset = size / 2
 
 
 func get_tile_texture():
 	return $TileSprite.texture
 
+
+# Adds a group dictionary to the groups list of the tile
+func add_group_to_tile(group: Dictionary) -> void:
+	if group.is_empty():
+		return
+	if not tileData.has("groups"):
+		tileData.groups = []
+	# Check if the group id already exists
+	for existing_group in tileData.groups:
+		if existing_group.id == group.id:
+			return
+	tileData.groups.append(group)
+	$GroupSprite.show()
+	set_tooltip()
+
+# Removes a group dictionary from the groups list of the tile by its id
+func remove_group_from_tile(group_id: String) -> void:
+	if group_id == "":
+		return
+	if tileData.has("groups"):
+		for group in tileData.groups:
+			if group.id == group_id:
+				tileData.groups.erase(group)
+				break
+		if tileData.groups.is_empty():
+			$GroupSprite.hide()
+	set_tooltip()
 
 # Sets the tooltip for this tile. The user can use this to see what's on this tile.
 func set_tooltip() -> void:
@@ -259,5 +297,31 @@ func set_tooltip() -> void:
 	else:
 		tooltiptext += "Tile Item Groups: None\n"
 	
+	# Display groups information
+	if tileData.has("groups"):
+		tooltiptext += "Tile Groups: "
+		for group in tileData.groups:
+			tooltiptext += group.id + ", "
+		tooltiptext = tooltiptext.strip_edges(", ")
+		tooltiptext += "\n"
+	else:
+		tooltiptext += "Tile Groups: None\n"
+	
 	# Set the tooltip
 	self.tooltip_text = tooltiptext
+
+
+func set_group_sprite_visibility(isvisible: bool) -> void:
+	if isvisible:
+		$GroupSprite.show()
+	else:
+		$GroupSprite.hide()
+
+
+# Checks if a group with the specified id is in the groups list of the tile
+func is_group_in_tile(group_id: String) -> bool:
+	if tileData.has("groups"):
+		for group in tileData.groups:
+			if group.id == group_id:
+				return true
+	return false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=32 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
@@ -9,10 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://5fsf8rh6w0pb" path="res://Images/Icons/IconRectangleChecked.png" id="3_eu7pp"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Levelscroller.gd" id="3_i1qbw"]
 [ext_resource type="PackedScene" uid="uid://3x0kjiu7lqg7" path="res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn" id="4_lqbjy"]
+[ext_resource type="Texture2D" uid="uid://egvhw3cxrbks" path="res://Images/Icons/IconGroupPaintChecked.png" id="5_7l4v8"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/TilebrushList.gd" id="5_he816"]
 [ext_resource type="Texture2D" uid="uid://d1u77thx3r5so" path="res://Images/Icons/IconCopyChecked.png" id="5_i6bxh"]
 [ext_resource type="Texture2D" uid="uid://7pbgyyv6lna1" path="res://Images/Icons/IconEraserChecked.png" id="5_n3fyt"]
 [ext_resource type="Texture2D" uid="uid://hik7bkdfc51t" path="res://Images/Icons/IconEraserUnchecked.png" id="6_6lnwx"]
+[ext_resource type="Texture2D" uid="uid://dcv751mrp361x" path="res://Images/Icons/IconGroupPaintUnchecked.png" id="6_8fii3"]
 [ext_resource type="Texture2D" uid="uid://bqpbqvxtxey17" path="res://Images/Icons/IconCopyUnchecked.png" id="6_0266o"]
 [ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="6_onaby"]
 [ext_resource type="Texture2D" uid="uid://kjsnbbs2o68u" path="res://Images/Icons/IconArrowDownChecked.png" id="7_s4wos"]
@@ -122,6 +124,13 @@ theme_override_icons/checked = ExtResource("3_8q2iq")
 theme_override_icons/unchecked = ExtResource("3_8q2iq")
 shortcut = SubResource("Shortcut_1tryc")
 text = "0"
+
+[node name="DrawGroup" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
+layout_mode = 2
+tooltip_text = "Allows you to paint a group onto the map. This group will be applied when the map is generated in-game and will overwrite the base layer."
+theme_override_icons/checked = ExtResource("5_7l4v8")
+theme_override_icons/unchecked = ExtResource("6_8fii3")
+shortcut = SubResource("Shortcut_o4ln1")
 
 [node name="CopyRectangle" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
@@ -298,10 +307,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="CustomBrushComposer" parent="HSplitContainer/EntitiesVBoxContainer" instance=ExtResource("18_ov0cf")]
+[node name="CustomBrushComposer" parent="HSplitContainer/EntitiesVBoxContainer" node_paths=PackedStringArray("gridContainer") instance=ExtResource("18_ov0cf")]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
+gridContainer = NodePath("../../MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid")
 
 [node name="EntitiesContainer" type="VBoxContainer" parent="HSplitContainer/EntitiesVBoxContainer"]
 layout_mode = 2
@@ -327,6 +337,7 @@ offset_bottom = 40.0
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/RotateMap" to="." method="_on_rotate_map_button_up"]
 [connection signal="zoom_level_changed" from="HSplitContainer/MapeditorContainer/Toolbar/ZoomScroller" to="." method="_on_zoom_scroller_zoom_level_changed"]
 [connection signal="pressed" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_rotate_right_pressed"]
+[connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawGroup" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_draw_group_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/CopyRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_copy_rectangle_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/CopyAllLevels" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_copy_all_levels_toggled"]
 [connection signal="toggled" from="HSplitContainer/MapeditorContainer/Toolbar/DrawRectangle" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_draw_rectangle_toggled"]

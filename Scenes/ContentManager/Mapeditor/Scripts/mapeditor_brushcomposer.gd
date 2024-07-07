@@ -30,6 +30,10 @@ extends VBoxContainer
 @export var brush_container: Control
 @export var tileBrush: PackedScene = null
 @export var rotation_button: Button
+@export var groups_option_button: OptionButton
+@export var group_editor: Popup
+# Reference to the gridcontainer in the mapeditor
+@export var gridContainer: GridContainer
 
 
 # Signals to indicate when a brush is added or removed
@@ -127,6 +131,11 @@ func get_random_brush() -> Control:
 	return null
 
 
+# Function to get all brushes in the brushcomposer. Could be empty.
+func get_all_brushes() -> Array:
+	return brush_container.get_content_items()
+
+
 # Function to get a list of entityIDs from children with entityType "itemgroup"
 # If no such children are found, returns an empty array
 func get_itemgroup_entity_ids() -> Array:
@@ -191,3 +200,135 @@ func custom_drop_data(_mypos, dropped_data):
 		add_tilebrush_to_container_with_properties(properties)
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
+
+# Function to get the value of the selected option in groups_option_button
+func get_selected_group_name() -> String:
+	return groups_option_button.get_selected_text()
+
+
+# Function to process brushes and generate group data
+func generate_group_data() -> Dictionary:
+	# Get all brushes from the brush container
+	var brushes = get_all_brushes()
+	
+	# Return if the brush list is empty
+	if brushes.is_empty():
+		return {}
+	
+	# Initialize the default group data
+	var group_data: Dictionary = {
+		"id": "group1",
+		"tiles": [],
+		"furniture": [],
+		"mobs": [],
+		"itemgroups": [],
+		"rotate_random": false,
+		"spawn_chance": 100
+	}
+	
+	# Loop over each brush and sort by entityType
+	for brush in brushes:
+		var entity_type: String = brush.entityType
+		var entity_id: String = brush.entityID
+		var entity_data = {"id": entity_id, "count": 1}
+		match entity_type:
+			"tile":
+				group_data["tiles"].append(entity_data)
+			"mob":
+				group_data["mobs"].append(entity_data)
+			"furniture":
+				group_data["furniture"].append(entity_data)
+			"itemgroup":
+				group_data["itemgroups"].append(entity_data)
+	
+	# Check if a group name is selected
+	var selected_group_name = get_selected_group_name()
+	if selected_group_name == "None":
+		var new_id: String = generate_unique_group_id()
+		group_data["id"] = new_id
+		groups_option_button.add_item(new_id)  # Ensure the new ID is added to the groups_option_button
+	
+	# Set rotate_random if the rotation button is pressed
+	if rotation_button.button_pressed:
+		group_data["rotate_random"] = true
+	
+	return group_data
+
+
+# Function to generate a unique group ID not present in the groups_option_button
+func generate_unique_group_id() -> String:
+	var existing_ids = []
+	for i in range(groups_option_button.get_item_count()):
+		existing_ids.append(groups_option_button.get_item_text(i))
+
+	var new_id: String
+	while true:
+		new_id = "group" + str(Time.get_ticks_msec())
+		if new_id not in existing_ids:
+			break
+
+	return new_id
+
+
+# The user presses the button that will show the group editor popup
+func _on_map_group_settings_button_button_up():
+	group_editor.show()
+
+
+# When the user selects a group from the group optionbutton
+func _on_groups_option_button_item_selected(index):
+	# Get the selected group name
+	var selected_group_name = groups_option_button.get_item_text(index)
+	
+	# Get the current map groups from mapData
+	var map_groups = gridContainer.get_map_groups()
+	
+	# Find the selected group data in map_groups
+	var selected_group_data = null
+	for group in map_groups:
+		if group["id"] == selected_group_name:
+			selected_group_data = group
+			break
+	
+	# If the selected group is not found in mapData, return
+	if selected_group_data == null:
+		print_debug("Selected group not found in mapData.")
+		return
+	
+	# Clear all the brushes from the brush_container
+	clear_brush_container()
+	
+	
+	# Add brushes from the selected group data to the brush_container
+	add_brushes_from_group(selected_group_data["tiles"], "tile")
+	add_brushes_from_group(selected_group_data["furniture"], "furniture")
+	add_brushes_from_group(selected_group_data["mobs"], "mob")
+	add_brushes_from_group(selected_group_data["itemgroups"], "itemgroup")
+
+
+# Function to add tile brushes to the container based on entity type
+func add_brushes_from_group(entity_list: Array, entity_type: String):
+	for entity in entity_list:
+		var properties: Dictionary = {
+			"entityID": entity["id"],
+			"entityType": entity_type
+		}
+		# Get the appropriate sprite based on the entity type
+		match entity_type:
+			"tile":
+				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.tiles, entity["id"])
+			"furniture":
+				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.furniture, entity["id"])
+			"mob":
+				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.mobs, entity["id"])
+			"itemgroup":
+				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, entity["id"])
+
+		add_tilebrush_to_container_with_properties(properties)
+
+
+
+# The user has selected ok in the groups editor popup menu.
+# We now received a modified groups list that we have to send back to the GridContianer
+func _on_group_editor_group_selected_ok(groups_clone: Dictionary):
+	gridContainer.update_map_groups(groups_clone)

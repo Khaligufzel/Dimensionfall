@@ -1,0 +1,98 @@
+[gd_scene load_steps=2 format=3 uid="uid://mnwn367pi4op"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Map_Editor_Groups_Popup.gd" id="1_67a28"]
+
+[node name="Group_editor" type="Popup" node_paths=PackedStringArray("group_list", "spawn_chance_spin_box", "entities_v_box_container")]
+title = "Group editor"
+initial_position = 2
+size = Vector2i(600, 400)
+visible = true
+unresizable = false
+borderless = false
+min_size = Vector2i(500, 400)
+script = ExtResource("1_67a28")
+group_list = NodePath("HBoxContainer/GroupList")
+spawn_chance_spin_box = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/SpawnChanceSpinBox")
+entities_v_box_container = NodePath("HBoxContainer/VBoxContainer/ScrollContainer/EntitiesVBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GroupList" type="ItemList" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+tooltip_text = "The list of groups that will spawn on top of the map during map generation. The list will be processed from the top to the bottom. The groups at the bottom will overwrite the groups at the top."
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Spawn %:"
+
+[node name="SpawnChanceSpinBox" type="SpinBox" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+tooltip_text = "A chance of 1 to 100 for it to spawn on the map. When this group is processed during map generation in-game and it is picked based on the spawn chance, the tiles will be applied to the map, overwriting what was already there. If the group is not picked during generation, no tile is applied to the map."
+min_value = 1.0
+value = 100.0
+
+[node name="MoveUpButton" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+tooltip_text = "Move this group up in the list, meaning it will be overwritten by the next groups (if they overlap on the map)"
+text = "^"
+
+[node name="MoveDownButton" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+tooltip_text = "Move this group down in the list, meaning it will overwrite the previous groups (if they overlap on the map)"
+text = "v"
+
+[node name="DeleteButton" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+tooltip_text = "Delete this group"
+text = "x"
+
+[node name="RandomRotationCheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+tooltip_text = "If this is on, every entity in this group will be spawned with a random rotation. If this is off, the generator will use the rotation that was applied when you applied the group to the tile."
+text = "Random rotation"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EntitiesVBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OK" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Ok"
+
+[node name="Cancel" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Cancel"
+
+[connection signal="item_selected" from="HBoxContainer/GroupList" to="." method="_on_group_list_item_selected"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer2/MoveUpButton" to="." method="_on_move_up_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer2/MoveDownButton" to="." method="_on_move_down_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer2/DeleteButton" to="." method="_on_delete_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer2/RandomRotationCheckBox" to="." method="_on_random_rotation_check_box_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]

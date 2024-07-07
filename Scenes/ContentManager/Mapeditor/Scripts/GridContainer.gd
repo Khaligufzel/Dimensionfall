@@ -14,6 +14,7 @@ extends GridContainer
 @export var checkboxDrawRectangle: CheckBox
 @export var checkboxCopyRectangle: CheckBox
 @export var checkboxCopyAllLevels: CheckBox
+@export var checkboxDrawGroup: CheckBox
 @export var brushcomposer: Control # Contains one or more selected brushes to paint with
 
 # Constants and enums for better readability
@@ -25,7 +26,8 @@ enum EditorMode {
 	NONE,
 	DRAW_RECTANGLE, # When the user has clicked the DrawRectangle checkbox
 	COPY_RECTANGLE, # When the user has clicked the CopyRectangle checkbox
-	COPY_ALL_LEVELS # When the user has clicked the CopyAllLevels checkbox
+	COPY_ALL_LEVELS, # When the user has clicked the CopyAllLevels checkbox
+	DRAW_GROUP # When the user has clicked the draw group checkbox
 }
 
 # Variables
@@ -143,6 +145,9 @@ func _input(event) -> void:
 								EditorMode.COPY_ALL_LEVELS:
 									# Handle copying all levels
 									copy_tiles_from_all_levels(start_point, end_point)
+								EditorMode.DRAW_GROUP:
+									# Paint group in the rectangle if drawGroup is enabled
+									paint_group_in_rectangle()
 					unhighlight_tiles()
 					is_drawing = false
 
@@ -211,6 +216,8 @@ func grid_tile_clicked(clicked_tile: Control) -> void:
 	match currentMode:
 		EditorMode.DRAW_RECTANGLE:
 			return
+		EditorMode.DRAW_GROUP:
+			return
 		EditorMode.COPY_RECTANGLE:
 			if copied_tiles_info["tiles_data"].size() > 0:
 				paste_copied_tile_data(clicked_tile)
@@ -266,7 +273,8 @@ func storeLevelData() -> void:
 	# First pass: Check if any tile has significant data
 	for child in get_children():
 		if child.tileData and (child.tileData.has("id") or \
-		child.tileData.has("mob") or child.tileData.has("furniture")):
+		child.tileData.has("mob") or child.tileData.has("furniture")\
+		or child.tileData.has("itemgroups") or child.tileData.has("groups")):
 			has_significant_data = true
 			break
 
@@ -407,6 +415,16 @@ func paint_in_rectangle():
 	update_rectangle()
 
 
+# Apply the current group data to each of the tiles
+func paint_group_in_rectangle():
+	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
+	var group_data: Dictionary = brushcomposer.generate_group_data()
+	for tile in tiles:
+		tile.add_group_to_tile(group_data)
+	add_group_to_map_data(group_data)
+	update_rectangle()
+
+
 #The user has pressed the erase toggle button in the editor
 func _on_erase_toggled(button_pressed):
 	erase = button_pressed
@@ -417,6 +435,7 @@ func _on_draw_rectangle_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		checkboxCopyRectangle.set_pressed(false)
 		checkboxCopyAllLevels.set_pressed(false)
+		checkboxDrawGroup.set_pressed(false)
 		currentMode = EditorMode.DRAW_RECTANGLE
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
@@ -433,6 +452,7 @@ func _on_copy_all_levels_toggled(toggled_on: bool):
 	if toggled_on:
 		checkboxDrawRectangle.set_pressed(false)
 		checkboxCopyRectangle.set_pressed(false)
+		checkboxDrawGroup.set_pressed(false)
 		currentMode = EditorMode.COPY_ALL_LEVELS
 		if copied_tiles_info["all_levels_data"].size() > 0:
 			# You might want to update the brush preview to reflect the copied tiles
@@ -453,6 +473,7 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		checkboxDrawRectangle.set_pressed(false)
 		checkboxCopyAllLevels.set_pressed(false)
+		checkboxDrawGroup.set_pressed(false)
 		currentMode = EditorMode.COPY_RECTANGLE
 		if copied_tiles_info["tiles_data"].size() > 0:
 			# Update the brush preview to reflect the copied tiles
@@ -465,6 +486,25 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 		reset_copied_tiles_info()
 		reset_rotation()
 		set_brush_preview_texture(null)
+
+
+# Called when the draw group button's state changes
+func _on_draw_group_toggled(toggled_on) -> void:
+	if toggled_on:
+		checkboxCopyRectangle.set_pressed(false)
+		checkboxCopyAllLevels.set_pressed(false)
+		checkboxDrawRectangle.set_pressed(false)
+		currentMode = EditorMode.DRAW_GROUP
+		brushcomposer.group_mode = true
+		if selected_brush:
+			set_brush_preview_texture(selected_brush.get_texture())
+	else:
+		currentMode = EditorMode.NONE
+		brushcomposer.group_mode = false
+		if selected_brush:
+			set_brush_preview_texture(selected_brush.get_texture())
+		else:
+			set_brush_preview_texture(null)
 
 
 # When the user has selected one of the tile brushes to paint with
@@ -923,3 +963,114 @@ func _on_composer_brush_added(composerbrush: Control):
 func _on_composer_brush_removed(_composerbrush: Control):
 	selected_brush = null if brushcomposer.is_empty() else brushcomposer.get_random_brush()
 	update_preview_texture()
+
+
+# Function to add a group to mapData.groups if it doesn't already exist
+func add_group_to_map_data(group: Dictionary) -> void:
+	# Return if the dictionary is empty
+	if group.is_empty():
+		return
+	
+	# Initialize the groups array if it doesn't exist
+	if not mapData.has("groups"):
+		mapData["groups"] = []
+	
+	# Check if a group with the same id already exists
+	for existing_group in mapData["groups"]:
+		if existing_group["id"] == group["id"]:
+			return  # Group with this id already exists
+	
+	# Add the new group to the groups array
+	mapData["groups"].append(group)
+
+
+# Function to remove a group from mapData.groups by its id
+func remove_group_from_map_data(group_id: String) -> void:
+	# Check if the groups array exists in mapData
+	if not mapData.has("groups"):
+		return
+	
+	# Iterate through the groups array to find and remove the group by id
+	for i in range(mapData["groups"].size()):
+		if mapData["groups"][i]["id"] == group_id:
+			mapData["groups"].erase(mapData["groups"][i])
+			break
+	
+	# If the groups array is now empty, remove the groups key from mapData
+	if mapData["groups"].is_empty():
+		mapData.erase("groups")
+
+
+# Returns a list of groups in the mapdata
+func get_map_groups() -> Array:
+	if not mapData["groups"].is_empty():
+		return mapData.groups
+	return []
+
+
+# Function to find tiles with a specific group ID in a given level
+func find_tiles_with_group(group_id: String, level: int = currentLevel) -> Array:
+	var tiles_with_group: Array = []
+
+	# Check if the level is within valid range
+	if level < 0 or level >= mapData.levels.size():
+		print_debug("Level index out of range.")
+		return tiles_with_group
+	
+	# Get the level data
+	var level_data: Array = mapData.levels[level]
+	
+	# Iterate through the tiles in the level
+	for i in range(level_data.size()):
+		var tile_data: Dictionary = level_data[i]
+		if tile_data.has("groups"):
+			for group in tile_data["groups"]:
+				if group["id"] == group_id:
+					tiles_with_group.append(tile_data)
+					break
+
+	return tiles_with_group
+
+
+# Function to update mapData.groups based on groups_clone and remove missing groups from tiles
+func update_map_groups(groups_clone: Array) -> void:
+	# Find group IDs in mapData.groups but not in groups_clone
+	var map_groups = get_map_groups()
+	var groups_clone_ids = groups_clone.map(func(group): return group["id"])
+	var missing_group_ids = []
+
+	for group in map_groups:
+		if group["id"] not in groups_clone_ids:
+			print("Group ID present in mapData.groups but not in groups_clone: %s" % group["id"])
+			missing_group_ids.append(group["id"])
+
+	# Remove missing groups from all tiles on all levels
+	for missing_group_id in missing_group_ids:
+		for level in range(mapData.levels.size()):
+			remove_group_from_tiles(missing_group_id, level)
+
+	# Overwrite mapData.groups with groups_clone
+	mapData["groups"] = groups_clone.duplicate()
+
+	# After change, reload the current level's data
+	loadLevelData(currentLevel)
+
+
+# Function to remove a group from all tiles on a specific level
+func remove_group_from_tiles(group_id: String, level: int) -> void:
+	if level < 0 or level >= mapData.levels.size():
+		print_debug("Level index out of range.")
+		return
+
+	var level_data = mapData.levels[level]
+	for tile_data in level_data:
+		if tile_data.has("groups"):
+			var groups = tile_data["groups"]
+			for i in range(groups.size()):
+				if groups[i]["id"] == group_id:
+					groups.erase(groups[i])
+					break
+			
+			# If no groups remain, remove the "groups" property
+			if groups.size() == 0:
+				tile_data.erase("groups")
