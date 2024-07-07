@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://mnwn367pi4op"]
+[gd_scene load_steps=3 format=3 uid="uid://mnwn367pi4op"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Map_Editor_Groups_Popup.gd" id="1_67a28"]
 
-[node name="Group_editor" type="Popup" node_paths=PackedStringArray("group_list", "spawn_chance_spin_box", "entities_v_box_container")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3usm"]
+
+[node name="Group_editor" type="Popup" node_paths=PackedStringArray("group_list", "spawn_chance_spin_box", "entities_v_box_container", "random_rotation_check_box")]
 title = "Group editor"
 initial_position = 2
 size = Vector2i(600, 400)
@@ -14,6 +16,7 @@ script = ExtResource("1_67a28")
 group_list = NodePath("HBoxContainer/GroupList")
 spawn_chance_spin_box = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/SpawnChanceSpinBox")
 entities_v_box_container = NodePath("HBoxContainer/VBoxContainer/ScrollContainer/EntitiesVBoxContainer")
+random_rotation_check_box = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/RandomRotationCheckBox")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 15
@@ -27,13 +30,14 @@ size_flags_vertical = 3
 [node name="GroupList" type="ItemList" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.2
+size_flags_stretch_ratio = 0.3
 tooltip_text = "The list of groups that will spawn on top of the map during map generation. The list will be processed from the top to the bottom. The groups at the bottom will overwrite the groups at the top."
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.7
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -70,9 +74,13 @@ text = "Random rotation"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_e3usm")
 
 [node name="EntitiesVBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2

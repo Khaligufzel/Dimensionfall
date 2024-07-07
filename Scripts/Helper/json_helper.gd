@@ -196,7 +196,7 @@ func delete_nested_property(mydata: Dictionary, path: String) -> bool:
 # The path is a dot-separated string where the second to last part is an array,
 # and the last part is the property of the objects in the array.
 # Usage example: Helper.json_helper.get_unique_values(quest_data, "rewards.item_id")
-# The example will return an array of all the unique mobs contained in the steps array.
+# The example will return an array of all the unique items contained in the steps array.
 func get_unique_values(mydata: Dictionary, path: String) -> Array:
 	var parts = path.split(".")
 	var current = mydata

@@ -206,7 +206,7 @@ func _on_rotate_right_pressed():
 
 # Highlight tiles that are in the rectangle that the user has drawn with the mouse
 func update_rectangle() -> void:
-	if is_drawing and currentMode != EditorMode.NONE:
+	if is_drawing and not currentMode == EditorMode.NONE:
 		highlight_tiles_in_rect()
 
 # When one of the grid tiles is clicked, we paint the tile accordingly
@@ -495,12 +495,14 @@ func _on_draw_group_toggled(toggled_on) -> void:
 		checkboxCopyAllLevels.set_pressed(false)
 		checkboxDrawRectangle.set_pressed(false)
 		currentMode = EditorMode.DRAW_GROUP
-		brushcomposer.group_mode = true
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
+		
+		# Tiles will show the area sprite if the selected group is in the data
+		set_group_visibility_for_all_tiles(true,brushcomposer.get_selected_group_name())
 	else:
 		currentMode = EditorMode.NONE
-		brushcomposer.group_mode = false
+		set_group_visibility_for_all_tiles(false,"")
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
 		else:
@@ -1074,3 +1076,20 @@ func remove_group_from_tiles(group_id: String, level: int) -> void:
 			# If no groups remain, remove the "groups" property
 			if groups.size() == 0:
 				tile_data.erase("groups")
+
+
+# When the user selects an option in the groups optionbutton in the brushcomposer
+func on_groups_option_button_item_selected(optionbutton: Control, index: int):
+	# Get the selected group name
+	var selected_group_name = optionbutton.get_item_text(index)
+	if selected_group_name == "None":
+		set_group_visibility_for_all_tiles(false, selected_group_name)
+	else:
+		set_group_visibility_for_all_tiles(true, selected_group_name)
+	
+
+# Function to set the visibility of group sprites for all tiles in the current level
+func set_group_visibility_for_all_tiles(isvisible: bool, groupname: String) -> void:
+	# Loop over each tile in the current level
+	for tile in get_children():
+		tile.set_group_sprite_visibility(isvisible, groupname)

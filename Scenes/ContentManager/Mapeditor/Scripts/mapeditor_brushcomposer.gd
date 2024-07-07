@@ -201,9 +201,10 @@ func custom_drop_data(_mypos, dropped_data):
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
+
 # Function to get the value of the selected option in groups_option_button
 func get_selected_group_name() -> String:
-	return groups_option_button.get_selected_text()
+	return groups_option_button.get_item_text(groups_option_button.selected)
 
 
 # Function to process brushes and generate group data
@@ -226,33 +227,52 @@ func generate_group_data() -> Dictionary:
 		"spawn_chance": 100
 	}
 	
+	
 	# Loop over each brush and sort by entityType
 	for brush in brushes:
 		var entity_type: String = brush.entityType
 		var entity_id: String = brush.entityID
 		var entity_data = {"id": entity_id, "count": 1}
+		
+		# Only add the entities once and do not add duplicates of the same id
 		match entity_type:
 			"tile":
-				group_data["tiles"].append(entity_data)
+				if not entity_exists_in_array(group_data["tiles"], entity_id):
+					group_data["tiles"].append(entity_data)
 			"mob":
-				group_data["mobs"].append(entity_data)
+				if not entity_exists_in_array(group_data["mobs"], entity_id):
+					group_data["mobs"].append(entity_data)
 			"furniture":
-				group_data["furniture"].append(entity_data)
+				if not entity_exists_in_array(group_data["furniture"], entity_id):
+					group_data["furniture"].append(entity_data)
 			"itemgroup":
-				group_data["itemgroups"].append(entity_data)
+				if not entity_exists_in_array(group_data["itemgroups"], entity_id):
+					group_data["itemgroups"].append(entity_data)
 	
 	# Check if a group name is selected
-	var selected_group_name = get_selected_group_name()
+	var selected_group_name: String = get_selected_group_name()
+	print_debug("selected_group_name = " + selected_group_name)
 	if selected_group_name == "None":
 		var new_id: String = generate_unique_group_id()
 		group_data["id"] = new_id
 		groups_option_button.add_item(new_id)  # Ensure the new ID is added to the groups_option_button
+		groups_option_button.select(groups_option_button.get_item_count() - 1)  # Select the newly added item
+	else: # One of the groups is already selected
+		group_data["id"] = selected_group_name
 	
 	# Set rotate_random if the rotation button is pressed
 	if rotation_button.button_pressed:
 		group_data["rotate_random"] = true
 	
 	return group_data
+
+
+# Function to check if entity ID already exists in the array
+func entity_exists_in_array(array: Array, entity_id: String) -> bool:
+	for entity in array:
+		if entity["id"] == entity_id:
+			return true
+	return false
 
 
 # Function to generate a unique group ID not present in the groups_option_button
@@ -272,10 +292,12 @@ func generate_unique_group_id() -> String:
 
 # The user presses the button that will show the group editor popup
 func _on_map_group_settings_button_button_up():
+	group_editor.populate_group_list(gridContainer.get_map_groups())
 	group_editor.show()
 
 
 # When the user selects a group from the group optionbutton
+# Populate the brushcomposer with the brushes from the group
 func _on_groups_option_button_item_selected(index):
 	# Get the selected group name
 	var selected_group_name = groups_option_button.get_item_text(index)
@@ -290,6 +312,9 @@ func _on_groups_option_button_item_selected(index):
 			selected_group_data = group
 			break
 	
+	# Let the gridcontainer handle the selection as well
+	gridContainer.on_groups_option_button_item_selected(groups_option_button, index)
+
 	# If the selected group is not found in mapData, return
 	if selected_group_data == null:
 		print_debug("Selected group not found in mapData.")
@@ -297,7 +322,6 @@ func _on_groups_option_button_item_selected(index):
 	
 	# Clear all the brushes from the brush_container
 	clear_brush_container()
-	
 	
 	# Add brushes from the selected group data to the brush_container
 	add_brushes_from_group(selected_group_data["tiles"], "tile")
@@ -327,8 +351,26 @@ func add_brushes_from_group(entity_list: Array, entity_type: String):
 		add_tilebrush_to_container_with_properties(properties)
 
 
-
-# The user has selected ok in the groups editor popup menu.
-# We now received a modified groups list that we have to send back to the GridContianer
-func _on_group_editor_group_selected_ok(groups_clone: Dictionary):
+# The user has selected OK in the groups editor popup menu.
+# We now receive a modified groups list that we have to send back to the GridContainer.
+func _on_group_editor_group_selected_ok(groups_clone: Array):
+	# Update the map groups in gridContainer with the groups_clone data.
 	gridContainer.update_map_groups(groups_clone)
+	
+	# Get the list of all group IDs from the groups_clone list.
+	var group_ids = groups_clone.map(func(group): return group["id"])
+	
+	# Get the list of items from groups_option_button.
+	var item_count = groups_option_button.get_item_count()
+	var items_to_remove = []
+	
+	# Loop over the names in the groups_option_button.
+	for i in range(item_count):
+		var item_text = groups_option_button.get_item_text(i)
+		# If the name is not present in the group_ids list, mark it for removal.
+		if item_text not in group_ids:
+			items_to_remove.append(i)
+	
+	# Remove items from groups_option_button starting from the highest index to avoid shifting issues.
+	for i in range(items_to_remove.size() - 1, -1, -1):
+		groups_option_button.remove_item(items_to_remove[i])

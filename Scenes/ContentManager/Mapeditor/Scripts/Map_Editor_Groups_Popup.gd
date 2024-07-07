@@ -144,6 +144,7 @@ func _update_group_ui(group_id: String):
 			for entity in selected_group[entity_type]:
 				# Create a new HBoxContainer
 				var hbox = HBoxContainer.new()
+				hbox.set_meta("entity_type", entity_type)  # Store the entity type in metadata
 
 				# Create a label with the entity id
 				var label = Label.new()
@@ -165,6 +166,7 @@ func _update_group_ui(group_id: String):
 
 				# Add the HBoxContainer to entities_v_box_container
 				entities_v_box_container.add_child(hbox)
+
 
 
 # Function to handle deleting an entity from the list
@@ -207,8 +209,9 @@ func _save_current_group_data():
 			var entity_types = ["tiles", "furniture", "mobs", "itemgroups"]
 			for entity_type in entity_types:
 				group[entity_type].clear()
-				for hbox in entities_v_box_container.get_children():
-					var label = hbox.get_child(0) as Label
-					var spinbox = hbox.get_child(1) as SpinBox
-					group[entity_type].append({"id": label.text, "count": spinbox.value})
+			for hbox in entities_v_box_container.get_children():
+				var label = hbox.get_child(0) as Label
+				var spinbox = hbox.get_child(1) as SpinBox
+				var entity_type = hbox.get_meta("entity_type") as String  # Retrieve the entity type from metadata
+				group[entity_type].append({"id": label.text, "count": spinbox.value})
 			break

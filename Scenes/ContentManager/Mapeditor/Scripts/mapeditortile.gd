@@ -302,7 +302,6 @@ func set_tooltip() -> void:
 		tooltiptext += "Tile Groups: "
 		for group in tileData.groups:
 			tooltiptext += group.id + ", "
-		tooltiptext = tooltiptext.strip_edges(", ")
 		tooltiptext += "\n"
 	else:
 		tooltiptext += "Tile Groups: None\n"
@@ -311,11 +310,14 @@ func set_tooltip() -> void:
 	self.tooltip_text = tooltiptext
 
 
-func set_group_sprite_visibility(isvisible: bool) -> void:
-	if isvisible:
-		$GroupSprite.show()
-	else:
-		$GroupSprite.hide()
+# Sets the visibility of the group sprite based on the provided group name and visibility flag
+func set_group_sprite_visibility(is_visible: bool, group_name: String) -> void:
+	if tileData.has("groups"):
+		for group in tileData["groups"]:
+			if group["id"] == group_name:
+				$GroupSprite.visible = is_visible
+				return
+	$GroupSprite.visible = false
 
 
 # Checks if a group with the specified id is in the groups list of the tile

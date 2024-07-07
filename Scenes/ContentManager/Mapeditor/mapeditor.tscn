@@ -130,7 +130,6 @@ layout_mode = 2
 tooltip_text = "Allows you to paint a group onto the map. This group will be applied when the map is generated in-game and will overwrite the base layer."
 theme_override_icons/checked = ExtResource("5_7l4v8")
 theme_override_icons/unchecked = ExtResource("6_8fii3")
-shortcut = SubResource("Shortcut_o4ln1")
 
 [node name="CopyRectangle" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
@@ -225,7 +224,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.313726, 0.313726, 0.313726, 1)
 
-[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above", "mapScrollWindow", "brushPreviewTexture", "buttonRotateRight", "checkboxDrawRectangle", "checkboxCopyRectangle", "checkboxCopyAllLevels", "brushcomposer")]
+[node name="TileGrid" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer" node_paths=PackedStringArray("mapEditor", "LevelScrollBar", "levelgrid_below", "levelgrid_above", "mapScrollWindow", "brushPreviewTexture", "buttonRotateRight", "checkboxDrawRectangle", "checkboxCopyRectangle", "checkboxCopyAllLevels", "checkboxDrawGroup", "brushcomposer")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -247,6 +246,7 @@ buttonRotateRight = NodePath("../../../../../Toolbar/RotateRight")
 checkboxDrawRectangle = NodePath("../../../../../Toolbar/DrawRectangle")
 checkboxCopyRectangle = NodePath("../../../../../Toolbar/CopyRectangle")
 checkboxCopyAllLevels = NodePath("../../../../../Toolbar/CopyAllLevels")
+checkboxDrawGroup = NodePath("../../../../../Toolbar/DrawGroup")
 brushcomposer = NodePath("../../../../../../EntitiesVBoxContainer/CustomBrushComposer")
 
 [node name="Level_Below" type="GridContainer" parent="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer"]
