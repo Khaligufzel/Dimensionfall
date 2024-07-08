@@ -6,15 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://dixj0spya5p0y" path="res://Images/Icons/IconRotateRight.png" id="3_nbxmi"]
 [ext_resource type="Texture2D" uid="uid://b6m2bbbpmsyik" path="res://Images/Icons/IconRotateRightDark.png" id="4_gh7br"]
 [ext_resource type="Texture2D" uid="uid://nvh40ofps17v" path="res://Images/Icons/IconSprocketChecked.png" id="5_c3xg5"]
-[ext_resource type="PackedScene" uid="uid://mnwn367pi4op" path="res://Scenes/ContentManager/Mapeditor/Map_Editor_Groups_Popup.tscn" id="7_b3k8u"]
+[ext_resource type="PackedScene" uid="uid://mnwn367pi4op" path="res://Scenes/ContentManager/Mapeditor/Map_Editor_Areas_Popup.tscn" id="7_b3k8u"]
 
-[node name="CustomBrushVBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("brush_container", "rotation_button", "groups_option_button", "group_editor")]
+[node name="CustomBrushVBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("brush_container", "rotation_button", "areas_option_button", "area_editor")]
 script = ExtResource("1_bl6cv")
 brush_container = NodePath("CurrentBrushScrolling_Flow_Container")
 tileBrush = ExtResource("2_epuda")
 rotation_button = NodePath("CustomBrushToolsHBoxContainer/RotationCheckbox")
-groups_option_button = NodePath("CustomBrushToolsHBoxContainer/GroupsOptionButton")
-group_editor = NodePath("Group_editor")
+areas_option_button = NodePath("CustomBrushToolsHBoxContainer/AreasOptionButton")
+area_editor = NodePath("Area_editor")
 
 [node name="CustomBrushToolsHBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -26,7 +26,7 @@ rotation, disable this button and click the tile rotation button on the general 
 theme_override_icons/checked = ExtResource("3_nbxmi")
 theme_override_icons/unchecked = ExtResource("4_gh7br")
 
-[node name="GroupsOptionButton" type="OptionButton" parent="CustomBrushToolsHBoxContainer"]
+[node name="AreasOptionButton" type="OptionButton" parent="CustomBrushToolsHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Select a group to edit. To add a new group, put the option to \"None\" and press the \"paint group\" button from the toolbar. A new group will be created. You only need this for randomization during map generation. If you're making plain and static map, you can ignore this control."
 item_count = 1
@@ -34,7 +34,7 @@ selected = 0
 popup/item_0/text = "None"
 popup/item_0/id = 0
 
-[node name="MapGroupSettingsButton" type="TextureButton" parent="CustomBrushToolsHBoxContainer"]
+[node name="MapAreaSettingsButton" type="TextureButton" parent="CustomBrushToolsHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Edit the groups in detail"
 texture_normal = ExtResource("5_c3xg5")
@@ -52,9 +52,8 @@ no furniture, mobs or tiles, you can paint on existing furniture on the map. Ite
 applied to furniture that's marked as a container."
 header = ""
 
-[node name="Group_editor" parent="." instance=ExtResource("7_b3k8u")]
+[node name="Area_editor" parent="." instance=ExtResource("7_b3k8u")]
 visible = false
 
-[connection signal="item_selected" from="CustomBrushToolsHBoxContainer/GroupsOptionButton" to="." method="_on_groups_option_button_item_selected"]
-[connection signal="button_up" from="CustomBrushToolsHBoxContainer/MapGroupSettingsButton" to="." method="_on_map_group_settings_button_button_up"]
-[connection signal="group_selected_ok" from="Group_editor" to="." method="_on_group_editor_group_selected_ok"]
+[connection signal="item_selected" from="CustomBrushToolsHBoxContainer/AreasOptionButton" to="." method="_on_groups_option_button_item_selected"]
+[connection signal="button_up" from="CustomBrushToolsHBoxContainer/MapAreaSettingsButton" to="." method="_on_map_group_settings_button_button_up"]

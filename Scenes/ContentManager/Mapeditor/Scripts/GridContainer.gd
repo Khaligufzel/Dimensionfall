@@ -14,7 +14,7 @@ extends GridContainer
 @export var checkboxDrawRectangle: CheckBox
 @export var checkboxCopyRectangle: CheckBox
 @export var checkboxCopyAllLevels: CheckBox
-@export var checkboxDrawGroup: CheckBox
+@export var checkboxDrawarea: CheckBox
 @export var brushcomposer: Control # Contains one or more selected brushes to paint with
 
 # Constants and enums for better readability
@@ -27,7 +27,7 @@ enum EditorMode {
 	DRAW_RECTANGLE, # When the user has clicked the DrawRectangle checkbox
 	COPY_RECTANGLE, # When the user has clicked the CopyRectangle checkbox
 	COPY_ALL_LEVELS, # When the user has clicked the CopyAllLevels checkbox
-	DRAW_GROUP # When the user has clicked the draw group checkbox
+	DRAW_AREA # When the user has clicked the draw area checkbox
 }
 
 # Variables
@@ -145,9 +145,9 @@ func _input(event) -> void:
 								EditorMode.COPY_ALL_LEVELS:
 									# Handle copying all levels
 									copy_tiles_from_all_levels(start_point, end_point)
-								EditorMode.DRAW_GROUP:
-									# Paint group in the rectangle if drawGroup is enabled
-									paint_group_in_rectangle()
+								EditorMode.DRAW_AREA:
+									# Paint area in the rectangle if drawarea is enabled
+									paint_area_in_rectangle()
 					unhighlight_tiles()
 					is_drawing = false
 
@@ -216,7 +216,7 @@ func grid_tile_clicked(clicked_tile: Control) -> void:
 	match currentMode:
 		EditorMode.DRAW_RECTANGLE:
 			return
-		EditorMode.DRAW_GROUP:
+		EditorMode.DRAW_AREA:
 			return
 		EditorMode.COPY_RECTANGLE:
 			if copied_tiles_info["tiles_data"].size() > 0:
@@ -274,7 +274,7 @@ func storeLevelData() -> void:
 	for child in get_children():
 		if child.tileData and (child.tileData.has("id") or \
 		child.tileData.has("mob") or child.tileData.has("furniture")\
-		or child.tileData.has("itemgroups") or child.tileData.has("groups")):
+		or child.tileData.has("itemgroups") or child.tileData.has("areas")):
 			has_significant_data = true
 			break
 
@@ -415,13 +415,13 @@ func paint_in_rectangle():
 	update_rectangle()
 
 
-# Apply the current group data to each of the tiles
-func paint_group_in_rectangle():
+# Apply the current area data to each of the tiles
+func paint_area_in_rectangle():
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
-	var group_data: Dictionary = brushcomposer.generate_group_data()
+	var area_data: Dictionary = brushcomposer.generate_area_data()
 	for tile in tiles:
-		tile.add_group_to_tile(group_data)
-	add_group_to_map_data(group_data)
+		tile.add_area_to_tile(area_data)
+	add_area_to_map_data(area_data)
 	update_rectangle()
 
 
@@ -435,7 +435,7 @@ func _on_draw_rectangle_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		checkboxCopyRectangle.set_pressed(false)
 		checkboxCopyAllLevels.set_pressed(false)
-		checkboxDrawGroup.set_pressed(false)
+		checkboxDrawarea.set_pressed(false)
 		currentMode = EditorMode.DRAW_RECTANGLE
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
@@ -452,7 +452,7 @@ func _on_copy_all_levels_toggled(toggled_on: bool):
 	if toggled_on:
 		checkboxDrawRectangle.set_pressed(false)
 		checkboxCopyRectangle.set_pressed(false)
-		checkboxDrawGroup.set_pressed(false)
+		checkboxDrawarea.set_pressed(false)
 		currentMode = EditorMode.COPY_ALL_LEVELS
 		if copied_tiles_info["all_levels_data"].size() > 0:
 			# You might want to update the brush preview to reflect the copied tiles
@@ -473,7 +473,7 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		checkboxDrawRectangle.set_pressed(false)
 		checkboxCopyAllLevels.set_pressed(false)
-		checkboxDrawGroup.set_pressed(false)
+		checkboxDrawarea.set_pressed(false)
 		currentMode = EditorMode.COPY_RECTANGLE
 		if copied_tiles_info["tiles_data"].size() > 0:
 			# Update the brush preview to reflect the copied tiles
@@ -488,21 +488,21 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 		set_brush_preview_texture(null)
 
 
-# Called when the draw group button's state changes
-func _on_draw_group_toggled(toggled_on) -> void:
+# Called when the draw area button's state changes
+func _on_draw_area_toggled(toggled_on) -> void:
 	if toggled_on:
 		checkboxCopyRectangle.set_pressed(false)
 		checkboxCopyAllLevels.set_pressed(false)
 		checkboxDrawRectangle.set_pressed(false)
-		currentMode = EditorMode.DRAW_GROUP
+		currentMode = EditorMode.DRAW_AREA
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
 		
-		# Tiles will show the area sprite if the selected group is in the data
-		set_group_visibility_for_all_tiles(true,brushcomposer.get_selected_group_name())
+		# Tiles will show the area sprite if the selected area is in the data
+		set_area_visibility_for_all_tiles(true,brushcomposer.get_selected_area_name())
 	else:
 		currentMode = EditorMode.NONE
-		set_group_visibility_for_all_tiles(false,"")
+		set_area_visibility_for_all_tiles(false,"")
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
 		else:
@@ -967,57 +967,57 @@ func _on_composer_brush_removed(_composerbrush: Control):
 	update_preview_texture()
 
 
-# Function to add a group to mapData.groups if it doesn't already exist
-func add_group_to_map_data(group: Dictionary) -> void:
+# Function to add a area to mapData.areas if it doesn't already exist
+func add_area_to_map_data(area: Dictionary) -> void:
 	# Return if the dictionary is empty
-	if group.is_empty():
+	if area.is_empty():
 		return
 	
-	# Initialize the groups array if it doesn't exist
-	if not mapData.has("groups"):
-		mapData["groups"] = []
+	# Initialize the areas array if it doesn't exist
+	if not mapData.has("areas"):
+		mapData["areas"] = []
 	
-	# Check if a group with the same id already exists
-	for existing_group in mapData["groups"]:
-		if existing_group["id"] == group["id"]:
-			return  # Group with this id already exists
+	# Check if a area with the same id already exists
+	for existing_area in mapData["areas"]:
+		if existing_area["id"] == area["id"]:
+			return  # area with this id already exists
 	
-	# Add the new group to the groups array
-	mapData["groups"].append(group)
+	# Add the new area to the areas array
+	mapData["areas"].append(area)
 
 
-# Function to remove a group from mapData.groups by its id
-func remove_group_from_map_data(group_id: String) -> void:
-	# Check if the groups array exists in mapData
-	if not mapData.has("groups"):
+# Function to remove a area from mapData.areas by its id
+func remove_area_from_map_data(area_id: String) -> void:
+	# Check if the areas array exists in mapData
+	if not mapData.has("areas"):
 		return
 	
-	# Iterate through the groups array to find and remove the group by id
-	for i in range(mapData["groups"].size()):
-		if mapData["groups"][i]["id"] == group_id:
-			mapData["groups"].erase(mapData["groups"][i])
+	# Iterate through the areas array to find and remove the area by id
+	for i in range(mapData["areas"].size()):
+		if mapData["areas"][i]["id"] == area_id:
+			mapData["areas"].erase(mapData["areas"][i])
 			break
 	
-	# If the groups array is now empty, remove the groups key from mapData
-	if mapData["groups"].is_empty():
-		mapData.erase("groups")
+	# If the areas array is now empty, remove the areas key from mapData
+	if mapData["areas"].is_empty():
+		mapData.erase("areas")
 
 
-# Returns a list of groups in the mapdata
-func get_map_groups() -> Array:
-	if not mapData["groups"].is_empty():
-		return mapData.groups
+# Returns a list of areas in the mapdata
+func get_map_areas() -> Array:
+	if not mapData["areas"].is_empty():
+		return mapData.areas
 	return []
 
 
-# Function to find tiles with a specific group ID in a given level
-func find_tiles_with_group(group_id: String, level: int = currentLevel) -> Array:
-	var tiles_with_group: Array = []
+# Function to find tiles with a specific area ID in a given level
+func find_tiles_with_area(area_id: String, level: int = currentLevel) -> Array:
+	var tiles_with_area: Array = []
 
 	# Check if the level is within valid range
 	if level < 0 or level >= mapData.levels.size():
 		print_debug("Level index out of range.")
-		return tiles_with_group
+		return tiles_with_area
 	
 	# Get the level data
 	var level_data: Array = mapData.levels[level]
@@ -1025,71 +1025,71 @@ func find_tiles_with_group(group_id: String, level: int = currentLevel) -> Array
 	# Iterate through the tiles in the level
 	for i in range(level_data.size()):
 		var tile_data: Dictionary = level_data[i]
-		if tile_data.has("groups"):
-			for group in tile_data["groups"]:
-				if group["id"] == group_id:
-					tiles_with_group.append(tile_data)
+		if tile_data.has("areas"):
+			for area in tile_data["areas"]:
+				if area["id"] == area_id:
+					tiles_with_area.append(tile_data)
 					break
 
-	return tiles_with_group
+	return tiles_with_area
 
 
-# Function to update mapData.groups based on groups_clone and remove missing groups from tiles
-func update_map_groups(groups_clone: Array) -> void:
-	# Find group IDs in mapData.groups but not in groups_clone
-	var map_groups = get_map_groups()
-	var groups_clone_ids = groups_clone.map(func(group): return group["id"])
-	var missing_group_ids = []
+# Function to update mapData.areas based on areas_clone and remove missing areas from tiles
+func update_map_areas(areas_clone: Array) -> void:
+	# Find area IDs in mapData.areas but not in areas_clone
+	var map_areas = get_map_areas()
+	var areas_clone_ids = areas_clone.map(func(area): return area["id"])
+	var missing_area_ids = []
 
-	for group in map_groups:
-		if group["id"] not in groups_clone_ids:
-			print("Group ID present in mapData.groups but not in groups_clone: %s" % group["id"])
-			missing_group_ids.append(group["id"])
+	for area in map_areas:
+		if area["id"] not in areas_clone_ids:
+			print("area ID present in mapData.areas but not in areas_clone: %s" % area["id"])
+			missing_area_ids.append(area["id"])
 
-	# Remove missing groups from all tiles on all levels
-	for missing_group_id in missing_group_ids:
+	# Remove missing areas from all tiles on all levels
+	for missing_area_id in missing_area_ids:
 		for level in range(mapData.levels.size()):
-			remove_group_from_tiles(missing_group_id, level)
+			remove_area_from_tiles(missing_area_id, level)
 
-	# Overwrite mapData.groups with groups_clone
-	mapData["groups"] = groups_clone.duplicate()
+	# Overwrite mapData.areas with areas_clone
+	mapData["areas"] = areas_clone.duplicate()
 
 	# After change, reload the current level's data
 	loadLevelData(currentLevel)
 
 
-# Function to remove a group from all tiles on a specific level
-func remove_group_from_tiles(group_id: String, level: int) -> void:
+# Function to remove a area from all tiles on a specific level
+func remove_area_from_tiles(area_id: String, level: int) -> void:
 	if level < 0 or level >= mapData.levels.size():
 		print_debug("Level index out of range.")
 		return
 
 	var level_data = mapData.levels[level]
 	for tile_data in level_data:
-		if tile_data.has("groups"):
-			var groups = tile_data["groups"]
-			for i in range(groups.size()):
-				if groups[i]["id"] == group_id:
-					groups.erase(groups[i])
+		if tile_data.has("areas"):
+			var areas = tile_data["areas"]
+			for i in range(areas.size()):
+				if areas[i]["id"] == area_id:
+					areas.erase(areas[i])
 					break
 			
-			# If no groups remain, remove the "groups" property
-			if groups.size() == 0:
-				tile_data.erase("groups")
+			# If no areas remain, remove the "areas" property
+			if areas.size() == 0:
+				tile_data.erase("areas")
 
 
-# When the user selects an option in the groups optionbutton in the brushcomposer
-func on_groups_option_button_item_selected(optionbutton: Control, index: int):
-	# Get the selected group name
-	var selected_group_name = optionbutton.get_item_text(index)
-	if selected_group_name == "None":
-		set_group_visibility_for_all_tiles(false, selected_group_name)
+# When the user selects an option in the areas optionbutton in the brushcomposer
+func on_areas_option_button_item_selected(optionbutton: Control, index: int):
+	# Get the selected area name
+	var selected_area_name = optionbutton.get_item_text(index)
+	if selected_area_name == "None":
+		set_area_visibility_for_all_tiles(false, selected_area_name)
 	else:
-		set_group_visibility_for_all_tiles(true, selected_group_name)
+		set_area_visibility_for_all_tiles(true, selected_area_name)
 	
 
-# Function to set the visibility of group sprites for all tiles in the current level
-func set_group_visibility_for_all_tiles(isvisible: bool, groupname: String) -> void:
+# Function to set the visibility of area sprites for all tiles in the current level
+func set_area_visibility_for_all_tiles(isvisible: bool, areaname: String) -> void:
 	# Loop over each tile in the current level
 	for tile in get_children():
-		tile.set_group_sprite_visibility(isvisible, groupname)
+		tile.set_area_sprite_visibility(isvisible, areaname)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditortile.gd" id="1_7fypm"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_rued1"]
-[ext_resource type="Texture2D" uid="uid://bgfsgh157p5lj" path="res://Scenes/ContentManager/Mapeditor/Images/grouptile.png" id="3_cd1e8"]
+[ext_resource type="Texture2D" uid="uid://bgfsgh157p5lj" path="res://Scenes/ContentManager/Mapeditor/Images/areatile.png" id="3_tmbnb"]
 
 [node name="mapeditortile" type="Control"]
 custom_minimum_size = Vector2(16, 16)
@@ -35,7 +35,7 @@ grow_vertical = 2
 expand_mode = 2
 stretch_mode = 4
 
-[node name="GroupSprite" type="TextureRect" parent="."]
+[node name="AroupSprite" type="TextureRect" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -43,7 +43,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_cd1e8")
+texture = ExtResource("3_tmbnb")
 expand_mode = 2
 stretch_mode = 4
 

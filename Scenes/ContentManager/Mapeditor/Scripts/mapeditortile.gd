@@ -1,11 +1,11 @@
 extends Control
 
 #If a tile has no data, we save an empty object. Tiledata can have:
-# id, rotation, mob, furniture, itemgroup and groups
+# id, rotation, mob, furniture, itemgroup and areas
 const defaultTileData: Dictionary = {}
 const defaultTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png"
 const aboveTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/tileAbove.png"
-const groupTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/grouptile.png"
+const areaTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/areatile.png"
 var tileData: Dictionary = defaultTileData.duplicate():
 	set(data):
 		tileData = data
@@ -14,8 +14,8 @@ var tileData: Dictionary = defaultTileData.duplicate():
 			set_rotation_amount(tileData.get("rotation", 0))
 			$ObjectSprite.hide()
 			$ObjectSprite.rotation_degrees = 0
-			$GroupSprite.hide()
-			$GroupSprite.rotation_degrees = 0
+			$AreaSprite.hide()
+			$AreaSprite.rotation_degrees = 0
 			if tileData.has("mob"):
 				if tileData.mob.has("rotation"):
 					$ObjectSprite.rotation_degrees = tileData.mob.rotation
@@ -30,14 +30,14 @@ var tileData: Dictionary = defaultTileData.duplicate():
 				var random_itemgroup: String = tileData.itemgroups.pick_random()
 				$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, random_itemgroup)
 				$ObjectSprite.show()
-			if tileData.has("groups"):
-				$GroupSprite.show()
+			if tileData.has("areas"):
+				$AreaSprite.show()
 		else:
 			$TileSprite.texture = load(defaultTexture)
 			$ObjectSprite.texture = null
 			$ObjectSprite.hide()
-			$GroupSprite.texture = null
-			$GroupSprite.hide()
+			$AreaSprite.texture = null
+			$AreaSprite.hide()
 		set_tooltip()
 
 
@@ -200,7 +200,7 @@ func set_clickable(clickable: bool):
 		mouse_filter = MOUSE_FILTER_IGNORE
 		$TileSprite.mouse_filter = MOUSE_FILTER_IGNORE
 		$ObjectSprite.mouse_filter = MOUSE_FILTER_IGNORE
-		$GroupSprite.mouse_filter = MOUSE_FILTER_IGNORE
+		$AreaSprite.mouse_filter = MOUSE_FILTER_IGNORE
 
 
 #This function sets the texture to some static resource that helps the user visualize that something is above
@@ -208,8 +208,8 @@ func set_clickable(clickable: bool):
 func set_above():
 	$ObjectSprite.texture = null
 	$ObjectSprite.hide()
-	$GroupSprite.texture = null
-	$GroupSprite.hide()
+	$AreaSprite.texture = null
+	$AreaSprite.hide()
 	if tileData.has("id") and tileData.id != "":
 		$TileSprite.texture = load(aboveTexture)
 	else:
@@ -219,38 +219,38 @@ func set_above():
 func _on_texture_rect_resized():
 	$TileSprite.pivot_offset = size / 2
 	$ObjectSprite.pivot_offset = size / 2
-	$GroupSprite.pivot_offset = size / 2
+	$AreaSprite.pivot_offset = size / 2
 
 
 func get_tile_texture():
 	return $TileSprite.texture
 
 
-# Adds a group dictionary to the groups list of the tile
-func add_group_to_tile(group: Dictionary) -> void:
-	if group.is_empty():
+# Adds a area dictionary to the areas list of the tile
+func add_area_to_tile(area: Dictionary) -> void:
+	if area.is_empty():
 		return
-	if not tileData.has("groups"):
-		tileData.groups = []
-	# Check if the group id already exists
-	for existing_group in tileData.groups:
-		if existing_group.id == group.id:
+	if not tileData.has("areas"):
+		tileData.areas = []
+	# Check if the area id already exists
+	for existing_area in tileData.areas:
+		if existing_area.id == area.id:
 			return
-	tileData.groups.append(group)
-	$GroupSprite.show()
+	tileData.areas.append(area)
+	$AreaSprite.show()
 	set_tooltip()
 
-# Removes a group dictionary from the groups list of the tile by its id
-func remove_group_from_tile(group_id: String) -> void:
-	if group_id == "":
+# Removes a area dictionary from the areas list of the tile by its id
+func remove_area_from_tile(area_id: String) -> void:
+	if area_id == "":
 		return
-	if tileData.has("groups"):
-		for group in tileData.groups:
-			if group.id == group_id:
-				tileData.groups.erase(group)
+	if tileData.has("areas"):
+		for area in tileData.areas:
+			if area.id == area_id:
+				tileData.areas.erase(area)
 				break
-		if tileData.groups.is_empty():
-			$GroupSprite.hide()
+		if tileData.areas.is_empty():
+			$AreaSprite.hide()
 	set_tooltip()
 
 # Sets the tooltip for this tile. The user can use this to see what's on this tile.
@@ -287,43 +287,43 @@ func set_tooltip() -> void:
 		else:
 			tooltiptext += "Furniture Rotation: 0 degrees\n"
 		if tileData.furniture.has("itemgroups"):
-			tooltiptext += "Furniture Item Groups: " + str(tileData.furniture.itemgroups) + "\n"
+			tooltiptext += "Furniture Item areas: " + str(tileData.furniture.itemgroups) + "\n"
 	else:
 		tooltiptext += "Furniture: None\n"
 	
 	# Display itemgroups information
 	if tileData.has("itemgroups"):
-		tooltiptext += "Tile Item Groups: " + str(tileData.itemgroups) + "\n"
+		tooltiptext += "Tile Item areas: " + str(tileData.itemgroups) + "\n"
 	else:
-		tooltiptext += "Tile Item Groups: None\n"
+		tooltiptext += "Tile Item areas: None\n"
 	
-	# Display groups information
-	if tileData.has("groups"):
-		tooltiptext += "Tile Groups: "
-		for group in tileData.groups:
-			tooltiptext += group.id + ", "
+	# Display areas information
+	if tileData.has("areas"):
+		tooltiptext += "Tile areas: "
+		for area in tileData.areas:
+			tooltiptext += area.id + ", "
 		tooltiptext += "\n"
 	else:
-		tooltiptext += "Tile Groups: None\n"
+		tooltiptext += "Tile areas: None\n"
 	
 	# Set the tooltip
 	self.tooltip_text = tooltiptext
 
 
-# Sets the visibility of the group sprite based on the provided group name and visibility flag
-func set_group_sprite_visibility(is_visible: bool, group_name: String) -> void:
-	if tileData.has("groups"):
-		for group in tileData["groups"]:
-			if group["id"] == group_name:
-				$GroupSprite.visible = is_visible
+# Sets the visibility of the area sprite based on the provided area name and visibility flag
+func set_area_sprite_visibility(is_visible: bool, area_name: String) -> void:
+	if tileData.has("areas"):
+		for area in tileData["areas"]:
+			if area["id"] == area_name:
+				$AreaSprite.visible = is_visible
 				return
-	$GroupSprite.visible = false
+	$AreaSprite.visible = false
 
 
-# Checks if a group with the specified id is in the groups list of the tile
-func is_group_in_tile(group_id: String) -> bool:
-	if tileData.has("groups"):
-		for group in tileData.groups:
-			if group.id == group_id:
+# Checks if a area with the specified id is in the areas list of the tile
+func is_area_in_tile(area_id: String) -> bool:
+	if tileData.has("areas"):
+		for area in tileData.areas:
+			if area.id == area_id:
 				return true
 	return false

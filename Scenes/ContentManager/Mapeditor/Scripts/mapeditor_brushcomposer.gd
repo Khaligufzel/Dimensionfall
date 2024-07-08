@@ -30,8 +30,8 @@ extends VBoxContainer
 @export var brush_container: Control
 @export var tileBrush: PackedScene = null
 @export var rotation_button: Button
-@export var groups_option_button: OptionButton
-@export var group_editor: Popup
+@export var areas_option_button: OptionButton
+@export var area_editor: Popup
 # Reference to the gridcontainer in the mapeditor
 @export var gridContainer: GridContainer
 
@@ -202,13 +202,13 @@ func custom_drop_data(_mypos, dropped_data):
 		print_debug("Dropped data does not contain an 'id' key.")
 
 
-# Function to get the value of the selected option in groups_option_button
-func get_selected_group_name() -> String:
-	return groups_option_button.get_item_text(groups_option_button.selected)
+# Function to get the value of the selected option in areas_option_button
+func get_selected_area_name() -> String:
+	return areas_option_button.get_item_text(areas_option_button.selected)
 
 
-# Function to process brushes and generate group data
-func generate_group_data() -> Dictionary:
+# Function to process brushes and generate area data
+func generate_area_data() -> Dictionary:
 	# Get all brushes from the brush container
 	var brushes = get_all_brushes()
 	
@@ -216,9 +216,9 @@ func generate_group_data() -> Dictionary:
 	if brushes.is_empty():
 		return {}
 	
-	# Initialize the default group data
-	var group_data: Dictionary = {
-		"id": "group1",
+	# Initialize the default area data
+	var area_data: Dictionary = {
+		"id": "area1",
 		"tiles": [],
 		"furniture": [],
 		"mobs": [],
@@ -237,34 +237,34 @@ func generate_group_data() -> Dictionary:
 		# Only add the entities once and do not add duplicates of the same id
 		match entity_type:
 			"tile":
-				if not entity_exists_in_array(group_data["tiles"], entity_id):
-					group_data["tiles"].append(entity_data)
+				if not entity_exists_in_array(area_data["tiles"], entity_id):
+					area_data["tiles"].append(entity_data)
 			"mob":
-				if not entity_exists_in_array(group_data["mobs"], entity_id):
-					group_data["mobs"].append(entity_data)
+				if not entity_exists_in_array(area_data["mobs"], entity_id):
+					area_data["mobs"].append(entity_data)
 			"furniture":
-				if not entity_exists_in_array(group_data["furniture"], entity_id):
-					group_data["furniture"].append(entity_data)
+				if not entity_exists_in_array(area_data["furniture"], entity_id):
+					area_data["furniture"].append(entity_data)
 			"itemgroup":
-				if not entity_exists_in_array(group_data["itemgroups"], entity_id):
-					group_data["itemgroups"].append(entity_data)
+				if not entity_exists_in_array(area_data["itemgroups"], entity_id):
+					area_data["itemgroups"].append(entity_data)
 	
-	# Check if a group name is selected
-	var selected_group_name: String = get_selected_group_name()
-	print_debug("selected_group_name = " + selected_group_name)
-	if selected_group_name == "None":
-		var new_id: String = generate_unique_group_id()
-		group_data["id"] = new_id
-		groups_option_button.add_item(new_id)  # Ensure the new ID is added to the groups_option_button
-		groups_option_button.select(groups_option_button.get_item_count() - 1)  # Select the newly added item
-	else: # One of the groups is already selected
-		group_data["id"] = selected_group_name
+	# Check if a area name is selected
+	var selected_area_name: String = get_selected_area_name()
+	print_debug("selected_area_name = " + selected_area_name)
+	if selected_area_name == "None":
+		var new_id: String = generate_unique_area_id()
+		area_data["id"] = new_id
+		areas_option_button.add_item(new_id)  # Ensure the new ID is added to the areas_option_button
+		areas_option_button.select(areas_option_button.get_item_count() - 1)  # Select the newly added item
+	else: # One of the areas is already selected
+		area_data["id"] = selected_area_name
 	
 	# Set rotate_random if the rotation button is pressed
 	if rotation_button.button_pressed:
-		group_data["rotate_random"] = true
+		area_data["rotate_random"] = true
 	
-	return group_data
+	return area_data
 
 
 # Function to check if entity ID already exists in the array
@@ -275,63 +275,63 @@ func entity_exists_in_array(array: Array, entity_id: String) -> bool:
 	return false
 
 
-# Function to generate a unique group ID not present in the groups_option_button
-func generate_unique_group_id() -> String:
+# Function to generate a unique area ID not present in the areas_option_button
+func generate_unique_area_id() -> String:
 	var existing_ids = []
-	for i in range(groups_option_button.get_item_count()):
-		existing_ids.append(groups_option_button.get_item_text(i))
+	for i in range(areas_option_button.get_item_count()):
+		existing_ids.append(areas_option_button.get_item_text(i))
 
 	var new_id: String
 	while true:
-		new_id = "group" + str(Time.get_ticks_msec())
+		new_id = "area" + str(Time.get_ticks_msec())
 		if new_id not in existing_ids:
 			break
 
 	return new_id
 
 
-# The user presses the button that will show the group editor popup
-func _on_map_group_settings_button_button_up():
-	group_editor.populate_group_list(gridContainer.get_map_groups())
-	group_editor.show()
+# The user presses the button that will show the area editor popup
+func _on_map_area_settings_button_button_up():
+	area_editor.populate_area_list(gridContainer.get_map_areas())
+	area_editor.show()
 
 
-# When the user selects a group from the group optionbutton
-# Populate the brushcomposer with the brushes from the group
-func _on_groups_option_button_item_selected(index):
-	# Get the selected group name
-	var selected_group_name = groups_option_button.get_item_text(index)
+# When the user selects a area from the area optionbutton
+# Populate the brushcomposer with the brushes from the area
+func _on_areas_option_button_item_selected(index):
+	# Get the selected area name
+	var selected_area_name = areas_option_button.get_item_text(index)
 	
-	# Get the current map groups from mapData
-	var map_groups = gridContainer.get_map_groups()
+	# Get the current map areas from mapData
+	var map_areas = gridContainer.get_map_areas()
 	
-	# Find the selected group data in map_groups
-	var selected_group_data = null
-	for group in map_groups:
-		if group["id"] == selected_group_name:
-			selected_group_data = group
+	# Find the selected area data in map_areas
+	var selected_area_data = null
+	for area in map_areas:
+		if area["id"] == selected_area_name:
+			selected_area_data = area
 			break
 	
 	# Let the gridcontainer handle the selection as well
-	gridContainer.on_groups_option_button_item_selected(groups_option_button, index)
+	gridContainer.on_areas_option_button_item_selected(areas_option_button, index)
 
-	# If the selected group is not found in mapData, return
-	if selected_group_data == null:
-		print_debug("Selected group not found in mapData.")
+	# If the selected area is not found in mapData, return
+	if selected_area_data == null:
+		print_debug("Selected area not found in mapData.")
 		return
 	
 	# Clear all the brushes from the brush_container
 	clear_brush_container()
 	
-	# Add brushes from the selected group data to the brush_container
-	add_brushes_from_group(selected_group_data["tiles"], "tile")
-	add_brushes_from_group(selected_group_data["furniture"], "furniture")
-	add_brushes_from_group(selected_group_data["mobs"], "mob")
-	add_brushes_from_group(selected_group_data["itemgroups"], "itemgroup")
+	# Add brushes from the selected area data to the brush_container
+	add_brushes_from_area(selected_area_data["tiles"], "tile")
+	add_brushes_from_area(selected_area_data["furniture"], "furniture")
+	add_brushes_from_area(selected_area_data["mobs"], "mob")
+	add_brushes_from_area(selected_area_data["itemgroups"], "itemgroup")
 
 
 # Function to add tile brushes to the container based on entity type
-func add_brushes_from_group(entity_list: Array, entity_type: String):
+func add_brushes_from_area(entity_list: Array, entity_type: String):
 	for entity in entity_list:
 		var properties: Dictionary = {
 			"entityID": entity["id"],
@@ -351,26 +351,26 @@ func add_brushes_from_group(entity_list: Array, entity_type: String):
 		add_tilebrush_to_container_with_properties(properties)
 
 
-# The user has selected OK in the groups editor popup menu.
-# We now receive a modified groups list that we have to send back to the GridContainer.
-func _on_group_editor_group_selected_ok(groups_clone: Array):
-	# Update the map groups in gridContainer with the groups_clone data.
-	gridContainer.update_map_groups(groups_clone)
+# The user has selected OK in the areas editor popup menu.
+# We now receive a modified areas list that we have to send back to the GridContainer.
+func _on_area_editor_area_selected_ok(areas_clone: Array):
+	# Update the map areas in gridContainer with the areas_clone data.
+	gridContainer.update_map_areas(areas_clone)
 	
-	# Get the list of all group IDs from the groups_clone list.
-	var group_ids = groups_clone.map(func(group): return group["id"])
+	# Get the list of all area IDs from the areas_clone list.
+	var area_ids = areas_clone.map(func(area): return area["id"])
 	
-	# Get the list of items from groups_option_button.
-	var item_count = groups_option_button.get_item_count()
+	# Get the list of items from areas_option_button.
+	var item_count = areas_option_button.get_item_count()
 	var items_to_remove = []
 	
-	# Loop over the names in the groups_option_button.
+	# Loop over the names in the areas_option_button.
 	for i in range(item_count):
-		var item_text = groups_option_button.get_item_text(i)
-		# If the name is not present in the group_ids list, mark it for removal.
-		if item_text not in group_ids:
+		var item_text = areas_option_button.get_item_text(i)
+		# If the name is not present in the area_ids list, mark it for removal.
+		if item_text not in area_ids:
 			items_to_remove.append(i)
 	
-	# Remove items from groups_option_button starting from the highest index to avoid shifting issues.
+	# Remove items from areas_option_button starting from the highest index to avoid shifting issues.
 	for i in range(items_to_remove.size() - 1, -1, -1):
-		groups_option_button.remove_item(items_to_remove[i])
+		areas_option_button.remove_item(items_to_remove[i])
