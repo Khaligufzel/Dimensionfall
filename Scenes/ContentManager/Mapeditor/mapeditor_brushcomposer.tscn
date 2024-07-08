@@ -55,5 +55,6 @@ header = ""
 [node name="Area_editor" parent="." instance=ExtResource("7_b3k8u")]
 visible = false
 
-[connection signal="item_selected" from="CustomBrushToolsHBoxContainer/AreasOptionButton" to="." method="_on_groups_option_button_item_selected"]
-[connection signal="button_up" from="CustomBrushToolsHBoxContainer/MapAreaSettingsButton" to="." method="_on_map_group_settings_button_button_up"]
+[connection signal="item_selected" from="CustomBrushToolsHBoxContainer/AreasOptionButton" to="." method="_on_areas_option_button_item_selected"]
+[connection signal="button_up" from="CustomBrushToolsHBoxContainer/MapAreaSettingsButton" to="." method="_on_map_area_settings_button_button_up"]
+[connection signal="area_selected_ok" from="Area_editor" to="." method="_on_area_editor_area_selected_ok"]

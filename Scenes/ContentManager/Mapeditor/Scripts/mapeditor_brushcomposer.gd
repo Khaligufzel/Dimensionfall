@@ -74,7 +74,7 @@ func extract_tilebrush_properties(original_tilebrush: Control) -> Dictionary:
 func add_tilebrush_to_container_with_properties(properties: Dictionary):
 	if properties.is_empty():
 		return
-	
+
 	var brushInstance: Control = tileBrush.instantiate()
 	brushInstance.set_tile_texture(properties.texture)
 	brushInstance.entityID = properties.entityID
@@ -82,7 +82,56 @@ func add_tilebrush_to_container_with_properties(properties: Dictionary):
 	brushInstance.tilebrush_clicked.connect(_on_tilebrush_clicked)
 	brushInstance.set_minimum_size(Vector2(32, 32))
 	brush_container.add_content_item(brushInstance)
+	print_debug("Added brush with id " + properties.entityID + " and type " + properties.entityType)
 	brush_added.emit(brushInstance)
+	
+	# Add the brush to the area data if an area is selected
+	add_brush_to_area_data(properties)
+
+
+# Function to add a brush to the area data
+func add_brush_to_area_data(properties: Dictionary):
+	# Get the selected area name
+	var selected_area_name = get_selected_area_name()
+	
+	# If "None" is selected, do nothing
+	if selected_area_name == "None":
+		return
+	
+	# Get the current map areas from mapData
+	var map_areas = gridContainer.get_map_areas()
+	
+	# Find the selected area data in map_areas
+	var selected_area_data = null
+	for area in map_areas:
+		if area["id"] == selected_area_name:
+			selected_area_data = area
+			break
+	
+	# If the selected area is not found in mapData, return
+	if selected_area_data == null:
+		print_debug("Selected area not found in mapData.")
+		return
+	
+	# Add the brush to the appropriate category in the area data
+	var entity_data = {"id": properties.entityID, "count": 1}
+	match properties.entityType:
+		"tile":
+			if not entity_exists_in_array(selected_area_data["tiles"], properties.entityID):
+				selected_area_data["tiles"].append(entity_data)
+		"furniture":
+			if not entity_exists_in_array(selected_area_data["furniture"], properties.entityID):
+				selected_area_data["furniture"].append(entity_data)
+		"mob":
+			if not entity_exists_in_array(selected_area_data["mobs"], properties.entityID):
+				selected_area_data["mobs"].append(entity_data)
+		"itemgroup":
+			if not entity_exists_in_array(selected_area_data["itemgroups"], properties.entityID):
+				selected_area_data["itemgroups"].append(entity_data)
+	
+	# Update the map areas in gridContainer
+	gridContainer.update_map_areas(map_areas)
+
 
 
 # Extracts properties from the original_tilebrush and uses them to create and add a new tilebrush instance to the container.
@@ -101,8 +150,62 @@ func replace_all_with_brush(original_tilebrush: Control):
 
 # Function to handle tilebrush click and remove it from the container
 func _on_tilebrush_clicked(brush):
+	# Remove the brush from the brush container
 	brush_container.remove_content_item(brush)
+	
+	# Extract properties from the brush
+	var properties = extract_tilebrush_properties(brush)
+	
+	# Remove the brush from the area data
+	remove_brush_from_area_data(properties)
 	brush_removed.emit(brush)
+
+
+# Function to remove a brush from the area data
+func remove_brush_from_area_data(properties: Dictionary):
+	# Get the selected area name
+	var selected_area_name = get_selected_area_name()
+	
+	# If "None" is selected, do nothing
+	if selected_area_name == "None":
+		return
+	
+	# Get the current map areas from mapData
+	var map_areas = gridContainer.get_map_areas()
+	
+	# Find the selected area data in map_areas
+	var selected_area_data = null
+	for area in map_areas:
+		if area["id"] == selected_area_name:
+			selected_area_data = area
+			break
+	
+	# If the selected area is not found in mapData, return
+	if selected_area_data == null:
+		print_debug("Selected area not found in mapData.")
+		return
+	
+	# Remove the brush from the appropriate category in the area data
+	match properties.entityType:
+		"tile":
+			remove_entity_from_area(selected_area_data["tiles"], properties.entityID)
+		"furniture":
+			remove_entity_from_area(selected_area_data["furniture"], properties.entityID)
+		"mob":
+			remove_entity_from_area(selected_area_data["mobs"], properties.entityID)
+		"itemgroup":
+			remove_entity_from_area(selected_area_data["itemgroups"], properties.entityID)
+	
+	# Update the map areas in gridContainer
+	gridContainer.update_map_areas(map_areas)
+
+
+# Function to remove an entity from an area list by its ID
+func remove_entity_from_area(area_list: Array, entity_id: String):
+	for i in range(area_list.size()):
+		if area_list[i]["id"] == entity_id:
+			area_list.erase(i)
+			break
 
 
 # Function to get a random child from the brush_container
@@ -296,11 +399,16 @@ func _on_map_area_settings_button_button_up():
 	area_editor.show()
 
 
-# When the user selects a area from the area optionbutton
-# Populate the brushcomposer with the brushes from the area
 func _on_areas_option_button_item_selected(index):
 	# Get the selected area name
 	var selected_area_name = areas_option_button.get_item_text(index)
+	# Let the gridcontainer handle the selection as well
+	gridContainer.on_areas_option_button_item_selected(areas_option_button, index)
+	
+	# If the selected area is "None", clear the brush container and return
+	if selected_area_name == "None":
+		clear_brush_container()
+		return
 	
 	# Get the current map areas from mapData
 	var map_areas = gridContainer.get_map_areas()
@@ -311,9 +419,6 @@ func _on_areas_option_button_item_selected(index):
 		if area["id"] == selected_area_name:
 			selected_area_data = area
 			break
-	
-	# Let the gridcontainer handle the selection as well
-	gridContainer.on_areas_option_button_item_selected(areas_option_button, index)
 
 	# If the selected area is not found in mapData, return
 	if selected_area_data == null:
@@ -330,6 +435,7 @@ func _on_areas_option_button_item_selected(index):
 	add_brushes_from_area(selected_area_data["itemgroups"], "itemgroup")
 
 
+
 # Function to add tile brushes to the container based on entity type
 func add_brushes_from_area(entity_list: Array, entity_type: String):
 	for entity in entity_list:
@@ -340,7 +446,8 @@ func add_brushes_from_area(entity_list: Array, entity_type: String):
 		# Get the appropriate sprite based on the entity type
 		match entity_type:
 			"tile":
-				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.tiles, entity["id"])
+				# Get the texture from gamedata
+				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.tiles, entity["id"]).albedo_texture
 			"furniture":
 				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.furniture, entity["id"])
 			"mob":
@@ -354,23 +461,37 @@ func add_brushes_from_area(entity_list: Array, entity_type: String):
 # The user has selected OK in the areas editor popup menu.
 # We now receive a modified areas list that we have to send back to the GridContainer.
 func _on_area_editor_area_selected_ok(areas_clone: Array):
+	# Remember the selected area ID from the areas_option_button.
+	var selected_area_id = get_selected_area_name()
+	
 	# Update the map areas in gridContainer with the areas_clone data.
 	gridContainer.update_map_areas(areas_clone)
+	
+	# Clear the current items in the areas_option_button.
+	areas_option_button.clear()
+	
+	# Add the "None" option as the first item.
+	areas_option_button.add_item("None")
 	
 	# Get the list of all area IDs from the areas_clone list.
 	var area_ids = areas_clone.map(func(area): return area["id"])
 	
-	# Get the list of items from areas_option_button.
-	var item_count = areas_option_button.get_item_count()
-	var items_to_remove = []
+	# Add each area ID to the areas_option_button.
+	for area_id in area_ids:
+		areas_option_button.add_item(area_id)
 	
-	# Loop over the names in the areas_option_button.
-	for i in range(item_count):
-		var item_text = areas_option_button.get_item_text(i)
-		# If the name is not present in the area_ids list, mark it for removal.
-		if item_text not in area_ids:
-			items_to_remove.append(i)
-	
-	# Remove items from areas_option_button starting from the highest index to avoid shifting issues.
-	for i in range(items_to_remove.size() - 1, -1, -1):
-		areas_option_button.remove_item(items_to_remove[i])
+	# Re-select the previously selected area if it's still present.
+	if selected_area_id in area_ids:
+		for i in range(areas_option_button.get_item_count()):
+			if areas_option_button.get_item_text(i) == selected_area_id:
+				areas_option_button.select(i)
+				
+				# Collect data for the selected area from areas_clone.
+				var area_data = areas_clone.filter(func(area): return area["id"] == selected_area_id)[0]
+				
+				# Check the area_data["rotate_random"] property and set the rotation button accordingly.
+				rotation_button.button_pressed = area_data["rotate_random"]
+				break
+	else:
+		# If the previously selected area is not present, select "None".
+		areas_option_button.select(0)

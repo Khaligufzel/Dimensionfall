@@ -248,6 +248,7 @@ func remove_area_from_tile(area_id: String) -> void:
 		for area in tileData.areas:
 			if area.id == area_id:
 				tileData.areas.erase(area)
+				$AreaSprite.hide()
 				break
 		if tileData.areas.is_empty():
 			$AreaSprite.hide()

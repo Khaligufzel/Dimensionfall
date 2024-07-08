@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/tilebrush.gd" id="1_x2ml4"]
 [ext_resource type="Texture2D" uid="uid://d0ec7u2d3yqqp" path="res://Mods/Core/Tiles/asphalt_middle_horizontal.png" id="2_0qm6c"]
 
-[node name="TileBrush" type="Control"]
+[node name="TileBrush" type="Control" node_paths=PackedStringArray("tile_sprite")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 15
@@ -12,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x2ml4")
+tile_sprite = NodePath("TileSprite")
 
 [node name="TileSprite" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(64, 64)

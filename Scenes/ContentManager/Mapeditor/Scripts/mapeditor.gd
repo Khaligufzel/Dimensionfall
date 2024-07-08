@@ -71,4 +71,3 @@ func _on_close_button_button_up():
 func _on_rotate_map_button_up():
 	tileGrid.rotate_map()
 
-

@@ -35,7 +35,7 @@ grow_vertical = 2
 expand_mode = 2
 stretch_mode = 4
 
-[node name="AroupSprite" type="TextureRect" parent="."]
+[node name="AreaSprite" type="TextureRect" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15

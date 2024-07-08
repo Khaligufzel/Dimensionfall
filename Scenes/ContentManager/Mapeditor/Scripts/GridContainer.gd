@@ -156,6 +156,7 @@ func _input(event) -> void:
 	if event is InputEventMouseMotion:
 		end_point = event.global_position
 		if is_drawing:
+			print_debug("Current editor mode = " + str(currentMode))
 			if not currentMode == EditorMode.NONE:
 				update_rectangle()
 
@@ -406,8 +407,7 @@ func highlight_tiles_in_rect() -> void:
 		tile.highlight()
 
 # Paint every tile in the selected rectangle
-# We always erase if erase is selected, even if no brush is selected
-# Only paint if a brush is selected and erase is false
+# If erase is active, it will be handled in apply_paint_to_tile
 func paint_in_rectangle():
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
 	for tile in tiles:
@@ -415,13 +415,17 @@ func paint_in_rectangle():
 	update_rectangle()
 
 
-# Apply the current area data to each of the tiles
+# Apply the current area data to each of the tiles or erase the area if erase is active.
 func paint_area_in_rectangle():
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
 	var area_data: Dictionary = brushcomposer.generate_area_data()
 	for tile in tiles:
-		tile.add_area_to_tile(area_data)
-	add_area_to_map_data(area_data)
+		if erase:
+			tile.remove_area_from_tile(area_data["id"])
+		else:
+			tile.add_area_to_tile(area_data)
+	if not erase:
+		add_area_to_map_data(area_data)
 	update_rectangle()
 
 
@@ -441,6 +445,7 @@ func _on_draw_rectangle_toggled(toggled_on: bool) -> void:
 			set_brush_preview_texture(selected_brush.get_texture())
 	else:
 		currentMode = EditorMode.NONE
+		print_debug("set currentMode to none")
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
 		else:
@@ -462,6 +467,7 @@ func _on_copy_all_levels_toggled(toggled_on: bool):
 			set_brush_preview_texture(null)
 	else:
 		currentMode = EditorMode.NONE
+		print_debug("set currentMode to none")
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
 		else:
@@ -483,6 +489,7 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 			set_brush_preview_texture(null)
 	else:
 		currentMode = EditorMode.NONE
+		print_debug("set currentMode to none")
 		reset_copied_tiles_info()
 		reset_rotation()
 		set_brush_preview_texture(null)
@@ -502,6 +509,7 @@ func _on_draw_area_toggled(toggled_on) -> void:
 		set_area_visibility_for_all_tiles(true,brushcomposer.get_selected_area_name())
 	else:
 		currentMode = EditorMode.NONE
+		print_debug("set currentMode to none")
 		set_area_visibility_for_all_tiles(false,"")
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
@@ -514,8 +522,9 @@ func _on_tilebrush_list_tile_brush_selection_change(tilebrush: Control):
 	# Toggle the copy buttons off
 	checkboxCopyRectangle.set_pressed(false)
 	checkboxCopyAllLevels.set_pressed(false)
-	if not currentMode == EditorMode.DRAW_RECTANGLE:
+	if not currentMode == EditorMode.DRAW_RECTANGLE and not currentMode == EditorMode.DRAW_AREA:
 		currentMode = EditorMode.NONE
+		print_debug("set currentMode to none")
 	# Add the brush if ctrl is held, otherwise replace all
 	if Input.is_key_pressed(KEY_CTRL):
 		brushcomposer.add_tilebrush_to_container(tilebrush)
