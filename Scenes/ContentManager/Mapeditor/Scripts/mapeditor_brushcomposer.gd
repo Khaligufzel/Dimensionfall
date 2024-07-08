@@ -7,7 +7,7 @@ extends VBoxContainer
 # editor will pick one at random and paint it onto the map.
 
 # This allows you to compose a custom brush. For example, if I want to add a grass
-# field where some dirt patches are randomy added, I can add the grass tile six times 
+# field where some dirt patches are randomly added, I can add the grass tile six times 
 # and the dirt tile 1 time and then start painting to have it randomly distributed.
 
 #Additional features:
@@ -58,15 +58,11 @@ func clear_brush_container():
 # Extracts necessary properties from the original_tilebrush and returns them in a dictionary.
 # This function collects the texture, entityID, and entityType from the original tilebrush.
 func extract_tilebrush_properties(original_tilebrush: Control) -> Dictionary:
-	if not original_tilebrush:
-		return {}
-	
-	var properties: Dictionary = {}
-	properties.texture = original_tilebrush.get_texture()
-	properties.entityID = original_tilebrush.entityID
-	properties.entityType = original_tilebrush.entityType
-	
-	return properties
+	return {
+		"texture": original_tilebrush.get_texture(),
+		"entityID": original_tilebrush.entityID,
+		"entityType": original_tilebrush.entityType
+	} if original_tilebrush else {}
 
 
 # Creates a new tilebrush instance using the provided properties dictionary and adds it to the brush_container.
@@ -117,21 +113,22 @@ func add_brush_to_area_data(properties: Dictionary):
 	var entity_data = {"id": properties.entityID, "count": 1}
 	match properties.entityType:
 		"tile":
-			if not entity_exists_in_array(selected_area_data["tiles"], properties.entityID):
-				selected_area_data["tiles"].append(entity_data)
+			add_entity_to_area(selected_area_data["tiles"], entity_data)
 		"furniture":
-			if not entity_exists_in_array(selected_area_data["furniture"], properties.entityID):
-				selected_area_data["furniture"].append(entity_data)
+			add_entity_to_area(selected_area_data["furniture"], entity_data)
 		"mob":
-			if not entity_exists_in_array(selected_area_data["mobs"], properties.entityID):
-				selected_area_data["mobs"].append(entity_data)
+			add_entity_to_area(selected_area_data["mobs"], entity_data)
 		"itemgroup":
-			if not entity_exists_in_array(selected_area_data["itemgroups"], properties.entityID):
-				selected_area_data["itemgroups"].append(entity_data)
+			add_entity_to_area(selected_area_data["itemgroups"], entity_data)
 	
 	# Update the map areas in gridContainer
 	gridContainer.update_map_areas(map_areas)
 
+
+# Will append the entity id to the area list if it's not already in there
+func add_entity_to_area(area_list: Array, entity_data: Dictionary):
+	if not entity_exists_in_array(area_list, entity_data["id"]):
+		area_list.append(entity_data)
 
 
 # Extracts properties from the original_tilebrush and uses them to create and add a new tilebrush instance to the container.
@@ -152,12 +149,7 @@ func replace_all_with_brush(original_tilebrush: Control):
 func _on_tilebrush_clicked(brush):
 	# Remove the brush from the brush container
 	brush_container.remove_content_item(brush)
-	
-	# Extract properties from the brush
-	var properties = extract_tilebrush_properties(brush)
-	
-	# Remove the brush from the area data
-	remove_brush_from_area_data(properties)
+	remove_brush_from_area_data(extract_tilebrush_properties(brush))
 	brush_removed.emit(brush)
 
 
@@ -228,7 +220,7 @@ func get_random_brush() -> Control:
 	
 	# If there are valid brushes, return a random valid brush
 	if valid_brushes.size() > 0:
-		return valid_brushes[randi() % valid_brushes.size()]
+		return valid_brushes.pick_random()
 	
 	# If no brushes are available, return null
 	return null
@@ -263,10 +255,7 @@ func is_empty() -> bool:
 # If the rotation button is unchecked, we return the original rotation
 # If the rotation button is checked, we return a random value of 0, 90, 180 or 270
 func get_tilerotation(original_rotation: int) -> int:
-	if rotation_button.button_pressed:
-		var rotations = [0, 90, 180, 270]
-		return rotations[randi() % rotations.size()]
-	return original_rotation
+	return [0, 90, 180, 270].pick_random() if rotation_button.button_pressed else original_rotation
 
 
 # Custom function to determine if data can be dropped at the current location
@@ -296,10 +285,11 @@ func custom_drop_data(_mypos, dropped_data):
 			print_debug("No item data found for ID: " + itemgroup_id)
 			return
 		
-		var properties: Dictionary = {}
-		properties.texture = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, itemgroup_id)
-		properties.entityID = itemgroup_id
-		properties.entityType = "itemgroup"
+		var properties: Dictionary = {
+			"texture": Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, itemgroup_id),
+			"entityID": itemgroup_id,
+			"entityType": "itemgroup"
+		}
 		add_tilebrush_to_container_with_properties(properties)
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
@@ -340,17 +330,13 @@ func generate_area_data() -> Dictionary:
 		# Only add the entities once and do not add duplicates of the same id
 		match entity_type:
 			"tile":
-				if not entity_exists_in_array(area_data["tiles"], entity_id):
-					area_data["tiles"].append(entity_data)
+				add_entity_to_area(area_data["tiles"], entity_data)
 			"mob":
-				if not entity_exists_in_array(area_data["mobs"], entity_id):
-					area_data["mobs"].append(entity_data)
+				add_entity_to_area(area_data["mobs"], entity_data)
 			"furniture":
-				if not entity_exists_in_array(area_data["furniture"], entity_id):
-					area_data["furniture"].append(entity_data)
+				add_entity_to_area(area_data["furniture"], entity_data)
 			"itemgroup":
-				if not entity_exists_in_array(area_data["itemgroups"], entity_id):
-					area_data["itemgroups"].append(entity_data)
+				add_entity_to_area(area_data["itemgroups"], entity_data)
 	
 	# Check if a area name is selected
 	var selected_area_name: String = get_selected_area_name()
@@ -364,8 +350,7 @@ func generate_area_data() -> Dictionary:
 		area_data["id"] = selected_area_name
 	
 	# Set rotate_random if the rotation button is pressed
-	if rotation_button.button_pressed:
-		area_data["rotate_random"] = true
+	area_data["rotate_random"] = rotation_button.button_pressed
 	
 	return area_data
 
@@ -387,7 +372,7 @@ func generate_unique_area_id() -> String:
 	var new_id: String
 	while true:
 		new_id = "area" + str(Time.get_ticks_msec())
-		if new_id not in existing_ids:
+		if not new_id in existing_ids:
 			break
 
 	return new_id
