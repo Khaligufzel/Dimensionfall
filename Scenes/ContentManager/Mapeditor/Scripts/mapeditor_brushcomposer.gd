@@ -78,7 +78,6 @@ func add_tilebrush_to_container_with_properties(properties: Dictionary):
 	brushInstance.tilebrush_clicked.connect(_on_tilebrush_clicked)
 	brushInstance.set_minimum_size(Vector2(32, 32))
 	brush_container.add_content_item(brushInstance)
-	print_debug("Added brush with id " + properties.entityID + " and type " + properties.entityType)
 	brush_added.emit(brushInstance)
 	
 	# Add the brush to the area data if an area is selected
@@ -120,7 +119,6 @@ func add_brush_to_area_data(properties: Dictionary):
 # Will append the entity id to the area list if it's not already in there
 func add_entity_to_area(area_list: Array, entity_data: Dictionary):
 	if not entity_exists_in_array(area_list, entity_data["id"]):
-		print_debug("adding entity to area data: " + entity_data["id"])
 		area_list.append(entity_data)
 
 
@@ -324,7 +322,6 @@ func generate_area_data() -> Dictionary:
 	
 	# Check if a area name is selected
 	var selected_area_name: String = get_selected_area_name()
-	print_debug("selected_area_name = " + selected_area_name)
 	if selected_area_name == "None":
 		var new_id: String = generate_unique_area_id()
 		area_data["id"] = new_id

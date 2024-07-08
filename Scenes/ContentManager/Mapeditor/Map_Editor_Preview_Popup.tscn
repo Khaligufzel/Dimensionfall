@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmkopblan4t1x"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Map_Editor_Preview_Popup.gd" id="1_jt8s5"]
+[ext_resource type="PackedScene" uid="uid://3x0kjiu7lqg7" path="res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn" id="2_1bnrv"]
+
+[node name="Map_Preview" type="Popup" node_paths=PackedStringArray("generate_button", "map_preview_grid", "level_spin_box")]
+title = "Group editor"
+initial_position = 2
+size = Vector2i(600, 400)
+visible = true
+unresizable = false
+borderless = false
+min_size = Vector2i(500, 400)
+script = ExtResource("1_jt8s5")
+generate_button = NodePath("VBoxContainer/ControlsHBox/GenerateButton")
+map_preview_grid = NodePath("VBoxContainer/MapPreviewGrid")
+tileScene = ExtResource("2_1bnrv")
+level_spin_box = NodePath("VBoxContainer/ControlsHBox/LevelSpinBox")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ControlsHBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GenerateButton" type="Button" parent="VBoxContainer/ControlsHBox"]
+layout_mode = 2
+text = "Generate"
+
+[node name="Label" type="Label" parent="VBoxContainer/ControlsHBox"]
+layout_mode = 2
+text = "Current level:
+"
+
+[node name="LevelSpinBox" type="SpinBox" parent="VBoxContainer/ControlsHBox"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="MapPreviewGrid" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 32
+
+[connection signal="button_up" from="VBoxContainer/ControlsHBox/GenerateButton" to="." method="_on_generate_button_button_up"]
+[connection signal="value_changed" from="VBoxContainer/ControlsHBox/LevelSpinBox" to="." method="_on_level_spin_box_value_changed"]

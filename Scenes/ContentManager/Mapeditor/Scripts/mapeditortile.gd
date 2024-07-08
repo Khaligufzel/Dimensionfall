@@ -227,7 +227,7 @@ func get_tile_texture():
 
 
 # Adds a area dictionary to the areas list of the tile
-func add_area_to_tile(area: Dictionary) -> void:
+func add_area_to_tile(area: Dictionary, tilerotation: int) -> void:
 	if area.is_empty():
 		return
 	if not tileData.has("areas"):
@@ -236,7 +236,9 @@ func add_area_to_tile(area: Dictionary) -> void:
 	for existing_area in tileData.areas:
 		if existing_area.id == area.id:
 			return
-	tileData.areas.append(area)
+	# Since the area definition is stored in the main mapdata, 
+	# we only need to remember the id and rotation
+	tileData.areas.append({"id": area.id, "rotation": tilerotation})
 	$AreaSprite.show()
 	set_tooltip()
 
