@@ -1063,8 +1063,12 @@ func update_map_areas(areas_clone: Array) -> void:
 	# Overwrite mapData.areas with areas_clone
 	mapData["areas"] = areas_clone.duplicate()
 
-	# After change, reload the current level's data
-	loadLevelData(currentLevel)
+	# Check if the selected area name is in the list of missing area IDs
+	# If it is, we hide the area sprite for all tiles
+	var selected_area_name = brushcomposer.get_selected_area_name()
+	if selected_area_name in missing_area_ids:
+		for tile in get_children():
+			tile.set_area_sprite_visibility(false, "")
 
 
 # Function to remove a area from all tiles on a specific level

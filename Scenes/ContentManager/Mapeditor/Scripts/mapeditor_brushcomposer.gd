@@ -113,7 +113,7 @@ func add_brush_to_area_data(properties: Dictionary):
 			add_entity_to_area(selected_area_data["itemgroups"], entity_data)
 
 	# Update the map areas in gridContainer
-	#gridContainer.update_map_areas(gridContainer.get_map_areas())
+	gridContainer.update_map_areas(gridContainer.get_map_areas())
 
 
 
@@ -368,16 +368,24 @@ func _on_map_area_settings_button_button_up():
 	area_editor.show()
 
 
+# When the user selects one of the areas in the area option button
 func _on_areas_option_button_item_selected(index):
-	var selected_area_name = areas_option_button.get_item_text(index)
 	# Let the gridcontainer handle the selection as well
 	gridContainer.on_areas_option_button_item_selected(areas_option_button, index)
+	
+	# Refresh the brush container based on the selected area
+	refresh_brush_container_from_selected_area()
+
+
+# Function to refresh the brush container based on the selected area
+func refresh_brush_container_from_selected_area():
+	var selected_area_name = get_selected_area_name()
 	
 	# If the selected area is "None", clear the brush container and return
 	if selected_area_name == "None":
 		clear_brush_container()
 		return
-	
+		
 	# Find the selected area data in map_areas
 	var selected_area_data = get_selected_area_data(selected_area_name)
 	if selected_area_data.is_empty():
@@ -386,6 +394,7 @@ func _on_areas_option_button_item_selected(index):
 	
 	# Clear all the brushes from the brush_container
 	clear_brush_container()
+	
 	# Add brushes from the selected area data to the brush_container
 	add_brushes_from_area(selected_area_data["tiles"], "tile")
 	add_brushes_from_area(selected_area_data["furniture"], "furniture")
@@ -462,18 +471,6 @@ func _on_area_editor_area_selected_ok(areas_clone: Array):
 		# If the previously selected area is not present, select "None".
 		areas_option_button.select(0)
 		clear_brush_container()
-	remove_duplicate_brushes()
-
-
-# Function to remove duplicate brushes from the brush_container
-# Duplicate brushes are those with the same entityID and entityType
-func remove_duplicate_brushes():
-	var seen = {}
-	for brush in brush_container.get_content_items():
-		var key = brush.entityID + "_" + brush.entityType
-		if key in seen:
-			brush_container.remove_content_item(brush)
-			brush_removed.emit(brush)
-			brush.queue_free()
-		else:
-			seen[key] = true
+		
+	# Refresh the brush container based on the selected area
+	refresh_brush_container_from_selected_area()
