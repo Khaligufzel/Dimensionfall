@@ -176,6 +176,7 @@ func get_nested_data(mydata: Dictionary, path: String) -> Variant:
 			return null
 	return current
 
+
 # Deletes the nested property from the given dictionary
 # mydata = any dictionary with properties
 # path = a dot-separated string of properties.
@@ -191,6 +192,7 @@ func delete_nested_property(mydata: Dictionary, path: String) -> bool:
 		else:
 			return false
 	return current.erase(parts[parts.size() - 1])
+
 
 # Returns an array of unique values from an array of objects based on the given path.
 # The path is a dot-separated string where the second to last part is an array,
@@ -217,6 +219,7 @@ func get_unique_values(mydata: Dictionary, path: String) -> Array:
 			unique_values[item[property_name]] = true
 	return unique_values.keys()
 
+
 # Merges two arrays and returns a new array with unique values.
 func merge_unique(array1: Array, array2: Array) -> Array:
 	var merged_array = array1.duplicate()
@@ -224,6 +227,7 @@ func merge_unique(array1: Array, array2: Array) -> Array:
 		if not merged_array.has(item):
 			merged_array.append(item)
 	return merged_array
+
 
 # Removes objects from an array in a dictionary if the object's property matches the given ID.
 # The path is a dot-separated string where the second to last part is an array,

@@ -94,18 +94,9 @@ func add_brush_to_area_data(properties: Dictionary):
 	if selected_area_name == "None":
 		return
 	
-	# Get the current map areas from mapData
-	var map_areas = gridContainer.get_map_areas()
-	
 	# Find the selected area data in map_areas
-	var selected_area_data = null
-	for area in map_areas:
-		if area["id"] == selected_area_name:
-			selected_area_data = area
-			break
-	
-	# If the selected area is not found in mapData, return
-	if selected_area_data == null:
+	var selected_area_data = get_selected_area_data(selected_area_name)
+	if not selected_area_data:
 		print_debug("Selected area not found in mapData.")
 		return
 	
@@ -120,9 +111,10 @@ func add_brush_to_area_data(properties: Dictionary):
 			add_entity_to_area(selected_area_data["mobs"], entity_data)
 		"itemgroup":
 			add_entity_to_area(selected_area_data["itemgroups"], entity_data)
-	
+
 	# Update the map areas in gridContainer
-	gridContainer.update_map_areas(map_areas)
+	gridContainer.update_map_areas(gridContainer.get_map_areas())
+
 
 
 # Will append the entity id to the area list if it's not already in there
@@ -162,18 +154,8 @@ func remove_brush_from_area_data(properties: Dictionary):
 	if selected_area_name == "None":
 		return
 	
-	# Get the current map areas from mapData
-	var map_areas = gridContainer.get_map_areas()
-	
-	# Find the selected area data in map_areas
-	var selected_area_data = null
-	for area in map_areas:
-		if area["id"] == selected_area_name:
-			selected_area_data = area
-			break
-	
-	# If the selected area is not found in mapData, return
-	if selected_area_data == null:
+	var selected_area_data = get_selected_area_data(selected_area_name)
+	if not selected_area_data:
 		print_debug("Selected area not found in mapData.")
 		return
 	
@@ -189,7 +171,8 @@ func remove_brush_from_area_data(properties: Dictionary):
 			remove_entity_from_area(selected_area_data["itemgroups"], properties.entityID)
 	
 	# Update the map areas in gridContainer
-	gridContainer.update_map_areas(map_areas)
+	gridContainer.update_map_areas(gridContainer.get_map_areas())
+
 
 
 # Function to remove an entity from an area list by its ID
@@ -385,7 +368,6 @@ func _on_map_area_settings_button_button_up():
 
 
 func _on_areas_option_button_item_selected(index):
-	# Get the selected area name
 	var selected_area_name = areas_option_button.get_item_text(index)
 	# Let the gridcontainer handle the selection as well
 	gridContainer.on_areas_option_button_item_selected(areas_option_button, index)
@@ -395,30 +377,28 @@ func _on_areas_option_button_item_selected(index):
 		clear_brush_container()
 		return
 	
-	# Get the current map areas from mapData
-	var map_areas = gridContainer.get_map_areas()
-	
 	# Find the selected area data in map_areas
-	var selected_area_data = null
-	for area in map_areas:
-		if area["id"] == selected_area_name:
-			selected_area_data = area
-			break
-
-	# If the selected area is not found in mapData, return
-	if selected_area_data == null:
+	var selected_area_data = get_selected_area_data(selected_area_name)
+	if not selected_area_data:
 		print_debug("Selected area not found in mapData.")
 		return
 	
 	# Clear all the brushes from the brush_container
 	clear_brush_container()
-	
 	# Add brushes from the selected area data to the brush_container
 	add_brushes_from_area(selected_area_data["tiles"], "tile")
 	add_brushes_from_area(selected_area_data["furniture"], "furniture")
 	add_brushes_from_area(selected_area_data["mobs"], "mob")
 	add_brushes_from_area(selected_area_data["itemgroups"], "itemgroup")
 
+
+# Function to get the selected area data
+func get_selected_area_data(selected_area_name: String) -> Dictionary:
+	var map_areas = gridContainer.get_map_areas()
+	for area in map_areas.map(func(area): return area["id"]):
+		if area["id"] == selected_area_name:
+			return area
+	return {}
 
 
 # Function to add tile brushes to the container based on entity type
