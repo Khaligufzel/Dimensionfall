@@ -89,9 +89,11 @@ func reset_state():
 
 func initialize_chunk_data():
 	if is_new_chunk(): # This chunk is created for the first time
-		#This contains the data of one segment, loaded from maps.data, for example generichouse.json
+		#This contains the data of one map, loaded from maps.data, for example generichouse.json
 		var mapsegmentData: Dictionary = Helper.json_helper.load_json_dictionary_file(\
 			Gamedata.data.maps.dataPath + chunk_data.id)
+		# Area's on the map are applied to each tile that is marked with that area
+		Helper.map_manager.process_areas_in_map(mapsegmentData)
 		if chunk_data.has("rotation") and not chunk_data.rotation == 0:
 			rotate_map(mapsegmentData)
 		_mapleveldata = mapsegmentData.levels

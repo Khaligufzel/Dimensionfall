@@ -123,3 +123,14 @@ func get_area_data_based_on_spawn_chance(mapData: Dictionary) -> Array:
 			if randi() % 100 < area.get("spawn_chance", 0):
 				selected_areas.append(area)
 	return selected_areas
+
+
+# Processes a map and applies areas in that map to the mapdata
+# The provided dictionary will be modified by this function, so send a duplicate if you don't want changes
+# If no areas exist in the mapdata, no changes are made
+func process_areas_in_map(mapdata: Dictionary):
+	if not mapdata.has("areas"):
+		return
+	# Check and get area data in mapData based on spawn chance
+	var selected_areas = get_area_data_based_on_spawn_chance(mapdata)
+	apply_areas_to_tiles(selected_areas, mapdata)

@@ -65,9 +65,8 @@ func load_level_data(level: int) -> void:
 # Function to generate the map preview
 func generate_map_preview() -> void:
 	generated_mapdata = mapData.duplicate(true)
-	# Check and get area data in mapData based on spawn chance
-	var selected_areas = Helper.map_manager.get_area_data_based_on_spawn_chance(generated_mapdata)
-	Helper.map_manager.apply_areas_to_tiles(selected_areas, generated_mapdata)
+	# Transforms the map by applying the map areas to the map data
+	Helper.map_manager.process_areas_in_map(generated_mapdata)
 	load_level_data(int(level_spin_box.value))
 
 
