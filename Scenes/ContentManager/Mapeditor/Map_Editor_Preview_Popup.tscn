@@ -26,8 +26,16 @@ offset_bottom = 40.0
 [node name="ControlsHBox" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
+[node name="WindowSizeHSlider" type="HSlider" parent="VBoxContainer/ControlsHBox"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+min_value = 240.0
+max_value = 1900.0
+value = 640.0
+
 [node name="GenerateButton" type="Button" parent="VBoxContainer/ControlsHBox"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Generate"
 
 [node name="Label" type="Label" parent="VBoxContainer/ControlsHBox"]
@@ -44,13 +52,6 @@ max_value = 10.0
 layout_mode = 2
 text = "Window size: 640"
 
-[node name="WindowSizeHSlider" type="HSlider" parent="VBoxContainer/ControlsHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = 240.0
-max_value = 1900.0
-value = 640.0
-
 [node name="MapPreviewGrid" type="GridContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -58,6 +59,6 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 32
 
+[connection signal="value_changed" from="VBoxContainer/ControlsHBox/WindowSizeHSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="button_up" from="VBoxContainer/ControlsHBox/GenerateButton" to="." method="_on_generate_button_button_up"]
 [connection signal="value_changed" from="VBoxContainer/ControlsHBox/LevelSpinBox" to="." method="_on_level_spin_box_value_changed"]
-[connection signal="value_changed" from="VBoxContainer/ControlsHBox/WindowSizeHSlider" to="." method="_on_h_slider_value_changed"]
