@@ -417,6 +417,14 @@ func paint_in_rectangle():
 
 # Apply the current area data to each of the tiles or erase the area if erase is active.
 func paint_area_in_rectangle():
+	# Get the selected area name
+	var selected_area_name = brushcomposer.get_selected_area_name()
+	
+	# If the selected area is "None" and erase is true, only update the rectangle
+	if selected_area_name == "None" and erase:
+		update_rectangle()
+		return
+
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
 	var area_data: Dictionary = brushcomposer.generate_area_data()
 	var tilerotation = brushcomposer.get_tilerotation(rotationAmount)
@@ -428,6 +436,7 @@ func paint_area_in_rectangle():
 	if not erase:
 		add_area_to_map_data(area_data)
 	update_rectangle()
+
 
 
 #The user has pressed the erase toggle button in the editor
