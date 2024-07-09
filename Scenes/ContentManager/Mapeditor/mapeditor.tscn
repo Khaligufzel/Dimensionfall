@@ -94,12 +94,14 @@ size_flags_stretch_ratio = 0.05
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.15
+tooltip_text = "Closes the map editor. Make sure to hit the save button or your changes will be lost."
 text = "Close"
 
 [node name="SaveButton" type="Button" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.15
+tooltip_text = "Saves your changes to the map to disk."
 text = "Save"
 
 [node name="CreatePreviewImageButton" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
@@ -117,7 +119,7 @@ shortcut = SubResource("Shortcut_1tryc")
 
 [node name="PreviewMap" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-tooltip_text = "Rotate the map and all levels in it by 90 degrees clockwise. Tiles and furniture will be rotated"
+tooltip_text = "Only useful if any areas are painted on the map. Previews the map after the generation algorithm has applied the areas to the map. "
 theme_override_icons/checked = ExtResource("4_st61r")
 theme_override_icons/unchecked = ExtResource("4_st61r")
 shortcut = SubResource("Shortcut_1tryc")
@@ -137,13 +139,17 @@ text = "0"
 
 [node name="DrawArea" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-tooltip_text = "Allows you to paint a group onto the map. This group will be applied when the map is generated in-game and will overwrite the base layer."
+tooltip_text = "Allows you to paint an area onto the map. This area will be applied when the map is generated in-game and will 
+overwrite the base layer based on it's spawn % (see area settings in the brushcomposer to the right). To paint an area, 
+at least one brush has to be present in the brushcomposer. If no existing area is selected, a new one will be created 
+when you start painting the area on the map. To remove tiles from an area, enable this button and the erase button."
 theme_override_icons/checked = ExtResource("5_7l4v8")
 theme_override_icons/unchecked = ExtResource("6_8fii3")
 
 [node name="CopyRectangle" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-tooltip_text = "Copy tiles in a rectangle. Select this tool and draw a rectangle on the grid. The tiles in your selection will be copied and can be pasted at a later moment."
+tooltip_text = "Copy tiles in a rectangle. Select this tool and draw a rectangle on the grid. The tiles in your selection
+will be copied and can be pasted at a later moment by clicking one of the tiles in the map."
 theme_override_icons/checked = ExtResource("5_i6bxh")
 theme_override_icons/unchecked = ExtResource("6_0266o")
 shortcut = SubResource("Shortcut_o4ln1")
@@ -151,8 +157,9 @@ shortcut = SubResource("Shortcut_o4ln1")
 [node name="CopyAllLevels" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 self_modulate = Color(0.745098, 0.92549, 0.552941, 1)
 layout_mode = 2
-tooltip_text = "Copy tiles in a rectangle. All layers will be copied, not just the current one. Select this tool and draw
- a rectangle on the grid. The tiles in your selection will be copied and can be pasted at a later moment."
+tooltip_text = "Copy tiles in a rectangle. All layers will be copied, not just the current one. Select 
+this tool and draw a rectangle on the grid. The tiles in your selection will be copied 
+and can be pasted at a later moment by clicking one of the tiles on the map."
 theme_override_icons/checked = ExtResource("5_i6bxh")
 theme_override_icons/unchecked = ExtResource("6_0266o")
 
@@ -164,7 +171,13 @@ theme_override_icons/unchecked = ExtResource("3_70koh")
 
 [node name="Erase" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-tooltip_text = "Erase tiles on the map"
+tooltip_text = "Erase tiles on the map
+To erase everything from a tile: Have the brushcomposer be empty
+To erase a tile: Have one tile in the brushcomposer
+To erase furniture: Have one random furniture in the brushcomposer
+To erase mobs: Have one random mob in the brushcomposer
+To erase itemgroups: Have one random itemgroup in the brushcomposer
+To erase an area: Have the paint area button enabled"
 focus_neighbor_left = NodePath("../DrawRectangle")
 focus_neighbor_right = NodePath("../ShowBelow")
 theme_override_icons/checked = ExtResource("5_n3fyt")
@@ -173,13 +186,14 @@ shortcut = SubResource("Shortcut_jlgdg")
 
 [node name="ShowBelow" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-tooltip_text = "Show the level below"
+tooltip_text = "Show the level below in the mapeditor as a semi-transparent overlay"
 theme_override_icons/checked = ExtResource("7_s4wos")
 theme_override_icons/unchecked = ExtResource("8_xcusj")
 
 [node name="ShowAbove" type="CheckBox" parent="HSplitContainer/MapeditorContainer/Toolbar"]
 layout_mode = 2
-tooltip_text = "Show the level above"
+tooltip_text = "Show the level above. A red marker will appear on tiles 
+that have something on them in a level above this one."
 theme_override_icons/checked = ExtResource("9_etume")
 theme_override_icons/unchecked = ExtResource("10_0rhye")
 
@@ -193,7 +207,7 @@ These are the controls:
 Brushcomposer (Top-right): This area allows you to compose a custom brush with one or more tile brushes. You can add multiple brushes by 
 holding CTRL and clicking another brush. When painting, a random tile will be picked from the composer. It also has a button to enable 
 random rotation. To remove a single brush from the brushcomposer, click it with the left mouse button. You can also drag itemgroups 
-from the left to here and paint furniture with them to apply the itemgroup.
+from the left to here and paint furniture or tiles with them to apply the itemgroup. There are also controls for selection and management of areas.
 
 Brush pallette (right): Click to add the selected brush to the brush composer. Hold CTRL and click another brush to add multiple brushes. 
 You can add multiple of the same tile to control the proportions when painting.

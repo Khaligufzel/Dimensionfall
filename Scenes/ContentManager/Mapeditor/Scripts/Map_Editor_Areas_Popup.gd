@@ -8,6 +8,8 @@ extends Popup
 @export var spawn_chance_spin_box: SpinBox
 @export var entities_v_box_container: VBoxContainer
 @export var random_rotation_check_box: CheckBox
+@export var controls_h_box: HBoxContainer
+
 
 # Variable to keep track of the currently selected area
 var current_selected_area_id: String = ""
@@ -97,6 +99,7 @@ func _on_delete_button_button_up():
 		spawn_chance_spin_box.value = 0
 		for child in entities_v_box_container.get_children():
 			child.queue_free()
+		controls_h_box.visible = false  # Hide controls when the last item is deleted
 
 
 # Function to populate the area_list with the IDs of areas from an array of dictionaries
@@ -198,6 +201,8 @@ func _on_area_list_item_selected(index):
 	
 	# Update the UI with the new area's data
 	_update_area_ui(selected_area_id)
+	controls_h_box.visible = true  # Ensure controls are visible when an item is selected
+
 
 # Function to save the current area's data to areas_clone
 func _save_current_area_data():
@@ -226,4 +231,3 @@ func _save_current_area_data():
 					entity_data["type"] = entity_type
 					area["entities"].append(entity_data)
 			break
-
