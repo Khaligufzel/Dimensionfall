@@ -9,7 +9,6 @@ extends Popup
 @export var entities_v_box_container: VBoxContainer
 @export var random_rotation_check_box: CheckBox
 
-
 # Variable to keep track of the currently selected area
 var current_selected_area_id: String = ""
 var areas_clone: Array = []
@@ -17,20 +16,17 @@ var areas_clone: Array = []
 # {
 #     "id": "area1",
 #     "tiles": [{"id": entity_id, "count": 1}],
-#     "furniture": [{"id": entity_id, "count": 1}],
-#     "mobs": [{"id": entity_id, "count": 1}],
-#     "itemgroups": [{"id": entity_id, "count": 1}],
+#     "entities": [{"id": entity_id, "type": entity_type, "count": 1}],
 #     "rotate_random": false,
 #     "spawn_chance": 100
 # }
 
-#Will be sent when the user pressed OK
+# Will be sent when the user pressed OK
 signal area_selected_ok(areas_clone: Array)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass  # Replace with function body.
-
 
 # Called after the user presses OK
 func _on_ok_button_up():
@@ -39,12 +35,10 @@ func _on_ok_button_up():
 	areas_clone = []
 	hide()
 
-
 # Called after the users presses cancel on the popup
 func _on_cancel_button_up():
 	areas_clone = []
 	hide()
-
 
 # The user presses the move up button.
 # We will move the area up in the areaList
@@ -66,7 +60,6 @@ func _on_move_up_button_button_up():
 		area_list.select(selected_index - 1)
 		current_selected_area_id = area_list.get_item_text(selected_index - 1)
 
-
 # The user presses the move down button.
 # We will move the area down in the areaList
 func _on_move_down_button_button_up():
@@ -86,7 +79,6 @@ func _on_move_down_button_button_up():
 		# Update the selected index
 		area_list.select(selected_index + 1)
 		current_selected_area_id = area_list.get_item_text(selected_index + 1)
-
 
 # The user presses the delete button
 # We delete the area from the area list
@@ -119,6 +111,8 @@ func populate_area_list(areas: Array) -> void:
 
 
 # Function to update the UI based on the selected area
+# Makes a list of tiles, furniture, mobs and itemgroups in this area
+# Also displays controls for setting the count and deleting it from the area
 func _update_area_ui(area_id: String):
 	# Clear all children of entities_v_box_container
 	for child in entities_v_box_container.get_children():
@@ -138,35 +132,45 @@ func _update_area_ui(area_id: String):
 		# Update spawn_chance_spin_box
 		spawn_chance_spin_box.value = selected_area["spawn_chance"]
 
-		# Loop over entity types and add UI elements
-		var entity_types = ["tiles", "furniture", "mobs", "itemgroups"]
-		for entity_type in entity_types:
-			for entity in selected_area[entity_type]:
-				# Create a new HBoxContainer
-				var hbox = HBoxContainer.new()
-				hbox.set_meta("entity_type", entity_type)  # Store the entity type in metadata
+		# Loop over tiles and add UI elements
+		for tile in selected_area["tiles"]:
+			# Create and add the HBoxContainer for the tile
+			var hbox = create_entity_hbox(tile, "tile")
+			entities_v_box_container.add_child(hbox)
 
-				# Create a label with the entity id
-				var label = Label.new()
-				label.text = entity["id"]
-				hbox.add_child(label)
+		# Loop over entities and add UI elements
+		for entity in selected_area["entities"]:
+			# Create and add the HBoxContainer for the entity
+			var hbox = create_entity_hbox(entity, entity["type"])
+			entities_v_box_container.add_child(hbox)
 
-				# Create a spinbox with the entity count
-				var spinbox = SpinBox.new()
-				spinbox.min_value = 1
-				spinbox.max_value = 10000  # Set an appropriate max value
-				spinbox.value = entity["count"]
-				hbox.add_child(spinbox)
 
-				# Create a delete button
-				var delete_button = Button.new()
-				delete_button.text = "X"
-				delete_button.pressed.connect(_on_delete_entity_button_pressed.bind(hbox))
-				hbox.add_child(delete_button)
+# Function to create an HBoxContainer for an entity or tile
+# This function creates a label, spinbox, and delete button for the entity/tile and returns the HBoxContainer
+func create_entity_hbox(entity: Dictionary, entity_type: String) -> HBoxContainer:
+	# Create a new HBoxContainer
+	var hbox = HBoxContainer.new()
+	hbox.set_meta("entity_type", entity_type)  # Store the entity type in metadata
 
-				# Add the HBoxContainer to entities_v_box_container
-				entities_v_box_container.add_child(hbox)
+	# Create a label with the entity id
+	var label = Label.new()
+	label.text = entity["id"]
+	hbox.add_child(label)
 
+	# Create a spinbox with the entity count
+	var spinbox = SpinBox.new()
+	spinbox.min_value = 1
+	spinbox.max_value = 10000  # Set an appropriate max value
+	spinbox.value = entity["count"]
+	hbox.add_child(spinbox)
+
+	# Create a delete button
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.pressed.connect(_on_delete_entity_button_pressed.bind(hbox))
+	hbox.add_child(delete_button)
+
+	return hbox
 
 
 # Function to handle deleting an entity from the list
@@ -177,7 +181,7 @@ func _on_delete_entity_button_pressed(hbox):
 
 # When the user presses the random rotation checkbox
 func _on_random_rotation_check_box_button_up():
-	pass # Replace with function body.
+	pass  # Replace with function body.
 
 
 # An item has been selected from the list
@@ -195,7 +199,6 @@ func _on_area_list_item_selected(index):
 	# Update the UI with the new area's data
 	_update_area_ui(selected_area_id)
 
-
 # Function to save the current area's data to areas_clone
 func _save_current_area_data():
 	# Find the current selected area in areas_clone
@@ -205,13 +208,22 @@ func _save_current_area_data():
 			area["rotate_random"] = random_rotation_check_box.button_pressed
 			area["spawn_chance"] = spawn_chance_spin_box.value
 
-			# Update entities data
-			var entity_types = ["tiles", "furniture", "mobs", "itemgroups"]
-			for entity_type in entity_types:
-				area[entity_type].clear()
+			# Clear the existing data
+			area["tiles"].clear()
+			area["entities"].clear()
+
+			# Update tiles and entities data
 			for hbox in entities_v_box_container.get_children():
 				var label = hbox.get_child(0) as Label
 				var spinbox = hbox.get_child(1) as SpinBox
 				var entity_type = hbox.get_meta("entity_type") as String  # Retrieve the entity type from metadata
-				area[entity_type].append({"id": label.text, "count": spinbox.value})
+				
+				var entity_data = {"id": label.text, "count": spinbox.value}
+
+				if entity_type == "tile":
+					area["tiles"].append(entity_data)
+				else:
+					entity_data["type"] = entity_type
+					area["entities"].append(entity_data)
 			break
+

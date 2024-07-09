@@ -93,9 +93,13 @@ func add_brush_to_area_data(properties: Dictionary):
 		print_debug("Selected area not found in mapData.")
 		return
 	
+	
 	# Add the brush to the appropriate category in the area data
 	var entity_data = {"id": properties.entityID, "count": 1, "type": properties.entityType}
-	add_entity_to_area(selected_area_data["entities"], entity_data)
+	if properties.entityType == "tile":
+		add_entity_to_area(selected_area_data["tiles"], entity_data)
+	else:
+		add_entity_to_area(selected_area_data["entities"], entity_data)
 
 	# Update the map areas in gridContainer
 	gridContainer.update_map_areas(gridContainer.get_map_areas())
@@ -342,8 +346,10 @@ func refresh_brush_container_from_selected_area():
 	clear_brush_container()
 	
 	# Add brushes from the selected area data to the brush_container
-	add_brushes_from_area(selected_area_data["tiles"], "tile")
-	add_brushes_from_area(selected_area_data["entities"])
+	var tilesdata: Array = selected_area_data["tiles"]
+	add_brushes_from_area(tilesdata, "tile")
+	var entitiesdata: Array = selected_area_data["entities"]
+	add_brushes_from_area(entitiesdata)
 
 # Function to get the selected area data
 func get_selected_area_data(selected_area_name: String) -> Dictionary:
@@ -360,15 +366,20 @@ func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 			"entityID": entity["id"],
 			"entityType": entity_type
 		}
+		var newtype: String = entity.get("type", "tile")
 		# Get the appropriate sprite based on the entity type
-		match entity_type:
+		match newtype:
 			"tile":
-				# Get the texture from gamedata
 				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.tiles, entity["id"]).albedo_texture
-			_:
-				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.entities, entity["id"])
+			"mob":
+				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.mobs, entity["id"])
+			"furniture":
+				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.furniture, entity["id"])
+			"itemgroup":
+				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, entity["id"])
 
 		add_tilebrush_to_container_with_properties(properties)
+
 
 # The user has selected OK in the areas editor popup menu.
 # We now receive a modified areas list that we have to send back to the GridContainer.
