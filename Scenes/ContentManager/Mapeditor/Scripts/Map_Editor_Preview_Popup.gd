@@ -12,6 +12,10 @@ const DEFAULT_LEVELS_COUNT = 21
 @export var map_preview_grid: GridContainer
 @export var tileScene: PackedScene
 @export var level_spin_box: SpinBox
+@export var window_size_h_slider: HSlider
+@export var window_size_label: Label
+
+
 
 var defaultMapData: Dictionary = {"mapwidth": DEFAULT_MAP_WIDTH, "mapheight": DEFAULT_MAP_HEIGHT, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
 
@@ -20,6 +24,7 @@ var mapData: Dictionary = defaultMapData.duplicate():
 	set(data):
 		mapData = data.duplicate()
 		load_level_data(int(level_spin_box.value))
+
 
 # Called when the level spinbox value changes
 func _on_level_spin_box_value_changed(value: int) -> void:
@@ -69,3 +74,17 @@ func create_level_tiles(grid: GridContainer, connect_signals: bool) -> void:
 			grid.add_child(tile_instance)
 			tile_instance.set_clickable(connect_signals)
 
+
+# Called when the horizontal slider value changes
+func _on_h_slider_value_changed(value: float) -> void:
+	window_size_label.text = "Window size: " + str(value)
+	# Set the grid size based on the slider value before setting the window size
+	resize_map_preview_grid(value)
+	# Set the window size based on the slider value
+	size = Vector2(value, value)
+
+
+# Resize the map_preview_grid to fit the new size of the popup window
+func resize_map_preview_grid(value: float) -> void:
+	# Make sure the grid is a square with both dimensions equal to the smallest dimension
+	map_preview_grid.custom_minimum_size = Vector2(value, value)
