@@ -35,17 +35,14 @@ extends VBoxContainer
 # Reference to the gridcontainer in the mapeditor
 @export var gridContainer: GridContainer
 
-
 # Signals to indicate when a brush is added or removed
 signal brush_added(brush: Control)
 signal brush_removed(brush: Control)
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set custom can_drop_func and drop_func for the brushcontainer, use default drag_func
 	brush_container.set_drag_forwarding(Callable(), custom_can_drop_data, custom_drop_data)
-
 
 # Function to clear the children of brush_container
 func clear_brush_container():
@@ -53,7 +50,6 @@ func clear_brush_container():
 		brush_container.remove_content_item(child)
 		brush_removed.emit(child)
 		child.queue_free()
-
 
 # Extracts necessary properties from the original_tilebrush and returns them in a dictionary.
 # This function collects the texture, entityID, and entityType from the original tilebrush.
@@ -63,7 +59,6 @@ func extract_tilebrush_properties(original_tilebrush: Control) -> Dictionary:
 		"entityID": original_tilebrush.entityID,
 		"entityType": original_tilebrush.entityType
 	} if original_tilebrush else {}
-
 
 # Creates a new tilebrush instance using the provided properties dictionary and adds it to the brush_container.
 # The properties dictionary should contain the texture, entityID, and entityType.
@@ -83,7 +78,6 @@ func add_tilebrush_to_container_with_properties(properties: Dictionary):
 	# Add the brush to the area data if an area is selected
 	add_brush_to_area_data(properties)
 
-
 # Function to add a brush to the area data
 func add_brush_to_area_data(properties: Dictionary):
 	# Get the selected area name
@@ -100,27 +94,16 @@ func add_brush_to_area_data(properties: Dictionary):
 		return
 	
 	# Add the brush to the appropriate category in the area data
-	var entity_data = {"id": properties.entityID, "count": 1}
-	match properties.entityType:
-		"tile":
-			add_entity_to_area(selected_area_data["tiles"], entity_data)
-		"furniture":
-			add_entity_to_area(selected_area_data["furniture"], entity_data)
-		"mob":
-			add_entity_to_area(selected_area_data["mobs"], entity_data)
-		"itemgroup":
-			add_entity_to_area(selected_area_data["itemgroups"], entity_data)
+	var entity_data = {"id": properties.entityID, "count": 1, "type": properties.entityType}
+	add_entity_to_area(selected_area_data["entities"], entity_data)
 
 	# Update the map areas in gridContainer
 	gridContainer.update_map_areas(gridContainer.get_map_areas())
-
-
 
 # Will append the entity id to the area list if it's not already in there
 func add_entity_to_area(area_list: Array, entity_data: Dictionary):
 	if not entity_exists_in_array(area_list, entity_data["id"]):
 		area_list.append(entity_data)
-
 
 # Extracts properties from the original_tilebrush and uses them to create and add a new tilebrush instance to the container.
 # This function first calls extract_tilebrush_properties to get the properties and then
@@ -129,12 +112,10 @@ func add_tilebrush_to_container(original_tilebrush: Control):
 	var properties = extract_tilebrush_properties(original_tilebrush)
 	add_tilebrush_to_container_with_properties(properties)
 
-
 # Clears the brushcomposer and adds the new brush
 func replace_all_with_brush(original_tilebrush: Control):
 	clear_brush_container()
 	add_tilebrush_to_container(original_tilebrush)
-
 
 # Function to handle tilebrush click and remove it from the container
 func _on_tilebrush_clicked(brush):
@@ -142,7 +123,6 @@ func _on_tilebrush_clicked(brush):
 	brush_container.remove_content_item(brush)
 	remove_brush_from_area_data(extract_tilebrush_properties(brush))
 	brush_removed.emit(brush)
-
 
 # Function to remove a brush from the area data
 func remove_brush_from_area_data(properties: Dictionary):
@@ -158,21 +138,11 @@ func remove_brush_from_area_data(properties: Dictionary):
 		print_debug("Selected area not found in mapData.")
 		return
 	
-	# Remove the brush from the appropriate category in the area data
-	match properties.entityType:
-		"tile":
-			remove_entity_from_area(selected_area_data["tiles"], properties.entityID)
-		"furniture":
-			remove_entity_from_area(selected_area_data["furniture"], properties.entityID)
-		"mob":
-			remove_entity_from_area(selected_area_data["mobs"], properties.entityID)
-		"itemgroup":
-			remove_entity_from_area(selected_area_data["itemgroups"], properties.entityID)
+	# Remove the brush from the entities in the area data
+	remove_entity_from_area(selected_area_data["entities"], properties.entityID)
 	
 	# Update the map areas in gridContainer
 	gridContainer.update_map_areas(gridContainer.get_map_areas())
-
-
 
 # Function to remove an entity from an area list by its ID
 func remove_entity_from_area(area_list: Array, entity_id: String):
@@ -180,7 +150,6 @@ func remove_entity_from_area(area_list: Array, entity_id: String):
 		if area_list[i]["id"] == entity_id:
 			area_list.erase(i)
 			break
-
 
 # Function to get a random child from the brush_container
 # Excludes those with entityType "itemgroup" unless only itemgroups are present
@@ -207,11 +176,9 @@ func get_random_brush() -> Control:
 	# If no brushes are available, return null
 	return null
 
-
 # Function to get all brushes in the brushcomposer. Could be empty.
 func get_all_brushes() -> Array:
 	return brush_container.get_content_items()
-
 
 # Function to get a list of entityIDs from children with entityType "itemgroup"
 # If no such children are found, returns an empty array
@@ -227,18 +194,15 @@ func get_itemgroup_entity_ids() -> Array:
 	# Return the list of itemgroup IDs
 	return itemgroup_ids
 
-
 # Returns true if there are no brushes in the list. Otherwise it returns false
 func is_empty() -> bool:
 	return brush_container.get_content_items().size() == 0
-
 
 # Returns a rotation amount based on whether or not the rotation button is checked
 # If the rotation button is unchecked, we return the original rotation
 # If the rotation button is checked, we return a random value of 0, 90, 180 or 270
 func get_tilerotation(original_rotation: int) -> int:
 	return [0, 90, 180, 270].pick_random() if rotation_button.button_pressed else original_rotation
-
 
 # Custom function to determine if data can be dropped at the current location
 # It will only accept itemgroups
@@ -254,7 +218,6 @@ func custom_can_drop_data(_mypos, dropped_data: Dictionary) -> bool:
 
 	# If all checks pass, return true
 	return true
-
 
 # Custom function to process the data drop
 # It only accepts itemgroups and creates a brush out of it
@@ -276,11 +239,9 @@ func custom_drop_data(_mypos, dropped_data):
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
-
 # Function to get the value of the selected option in areas_option_button
 func get_selected_area_name() -> String:
 	return areas_option_button.get_item_text(areas_option_button.selected)
-
 
 # Function to process brushes and generate area data
 func generate_area_data() -> Dictionary:
@@ -295,30 +256,23 @@ func generate_area_data() -> Dictionary:
 	var area_data: Dictionary = {
 		"id": "area1",
 		"tiles": [],
-		"furniture": [],
-		"mobs": [],
-		"itemgroups": [],
+		"entities": [],
 		"rotate_random": false,
 		"spawn_chance": 100
 	}
-	
 	
 	# Loop over each brush and sort by entityType
 	for brush in brushes:
 		var entity_type: String = brush.entityType
 		var entity_id: String = brush.entityID
-		var entity_data = {"id": entity_id, "count": 1}
+		var entity_data = {"id": entity_id, "count": 1, "type": entity_type}
 		
 		# Only add the entities once and do not add duplicates of the same id
 		match entity_type:
 			"tile":
 				add_entity_to_area(area_data["tiles"], entity_data)
-			"mob":
-				add_entity_to_area(area_data["mobs"], entity_data)
-			"furniture":
-				add_entity_to_area(area_data["furniture"], entity_data)
-			"itemgroup":
-				add_entity_to_area(area_data["itemgroups"], entity_data)
+			_:
+				add_entity_to_area(area_data["entities"], entity_data)
 	
 	# Check if a area name is selected
 	var selected_area_name: String = get_selected_area_name()
@@ -335,14 +289,12 @@ func generate_area_data() -> Dictionary:
 	
 	return area_data
 
-
 # Function to check if entity ID already exists in the array
 func entity_exists_in_array(array: Array, entity_id: String) -> bool:
 	for entity in array:
 		if entity["id"] == entity_id:
 			return true
 	return false
-
 
 # Function to generate a unique area ID not present in the areas_option_button
 func generate_unique_area_id() -> String:
@@ -358,12 +310,10 @@ func generate_unique_area_id() -> String:
 
 	return new_id
 
-
 # The user presses the button that will show the area editor popup
 func _on_map_area_settings_button_button_up():
 	area_editor.populate_area_list(gridContainer.get_map_areas())
 	area_editor.show()
-
 
 # When the user selects one of the areas in the area option button
 func _on_areas_option_button_item_selected(index):
@@ -372,7 +322,6 @@ func _on_areas_option_button_item_selected(index):
 	
 	# Refresh the brush container based on the selected area
 	refresh_brush_container_from_selected_area()
-
 
 # Function to refresh the brush container based on the selected area
 func refresh_brush_container_from_selected_area():
@@ -394,10 +343,7 @@ func refresh_brush_container_from_selected_area():
 	
 	# Add brushes from the selected area data to the brush_container
 	add_brushes_from_area(selected_area_data["tiles"], "tile")
-	add_brushes_from_area(selected_area_data["furniture"], "furniture")
-	add_brushes_from_area(selected_area_data["mobs"], "mob")
-	add_brushes_from_area(selected_area_data["itemgroups"], "itemgroup")
-
+	add_brushes_from_area(selected_area_data["entities"])
 
 # Function to get the selected area data
 func get_selected_area_data(selected_area_name: String) -> Dictionary:
@@ -407,9 +353,8 @@ func get_selected_area_data(selected_area_name: String) -> Dictionary:
 			return area
 	return {}
 
-
 # Function to add tile brushes to the container based on entity type
-func add_brushes_from_area(entity_list: Array, entity_type: String):
+func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 	for entity in entity_list:
 		var properties: Dictionary = {
 			"entityID": entity["id"],
@@ -420,22 +365,17 @@ func add_brushes_from_area(entity_list: Array, entity_type: String):
 			"tile":
 				# Get the texture from gamedata
 				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.tiles, entity["id"]).albedo_texture
-			"furniture":
-				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.furniture, entity["id"])
-			"mob":
-				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.mobs, entity["id"])
-			"itemgroup":
-				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, entity["id"])
+			_:
+				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.entities, entity["id"])
 
 		add_tilebrush_to_container_with_properties(properties)
-
 
 # The user has selected OK in the areas editor popup menu.
 # We now receive a modified areas list that we have to send back to the GridContainer.
 func _on_area_editor_area_selected_ok(areas_clone: Array):
 	set_area_data(areas_clone)
 	
-# Provide an array of area objects and it will be loaded into tbe brushcomposer
+# Provide an array of area objects and it will be loaded into the brushcomposer
 func set_area_data(areas_clone: Array):
 	# Remember the selected area ID from the areas_option_button.
 	var selected_area_id = get_selected_area_name()

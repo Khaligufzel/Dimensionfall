@@ -52,15 +52,15 @@ func calculate_total_count(items: Array) -> int:
 
 
 # Function to pick an item based on its count property
-func pick_item_based_on_count(items: Array) -> String:
+func pick_item_based_on_count(items: Array) -> Dictionary:
 	var total_count: int = calculate_total_count(items)
 	var random_pick: int = randi() % total_count
 	for item in items:
 		if random_pick < item["count"]:
-			return item["id"]
+			return item
 		random_pick -= item["count"]
 
-	return ""  # In case no item is selected, though this should not happen if the input is valid
+	return {}  # In case no item is selected, though this should not happen if the input is valid
 
 
 # Function to loop over every tile in every level and print area IDs if present
@@ -87,10 +87,17 @@ func apply_area_to_tile(tile: Dictionary, selected_areas: Array) -> void:
 		for tile_area in tile_areas:
 			if area["id"] == tile_area["id"]:
 				var area_data = get_area_data_by_id(area["id"])
-				var tiles_data = area_data["tiles"]
-				tile["id"] = pick_item_based_on_count(tiles_data)
+				var processed_data = process_area_data(area_data)
+				
+				# Erase all keys from the tile dictionary
+				for key in tile.keys():
+					tile.erase(key)
+				
+				# Update the original tile dictionary with the processed data
+				for key in processed_data.keys():
+					tile[key] = processed_data[key]
 	
-	tile.erase("areas")
+	#tile.erase("areas")
 
 
 # Function to get area data by ID
@@ -170,22 +177,35 @@ func process_area_data(area_data: Dictionary) -> Dictionary:
 
 	# Process and assign tile ID
 	var tiles_data = area_data.get("tiles", [])
-	if not tiles_data.empty():
-		result["tile_id"] = pick_item_based_on_count(tiles_data)
+	if not tiles_data.is_empty():
+		result["id"] = pick_item_based_on_count(tiles_data)["id"]
 
-	# Process and assign mob if available
-	var mobs_data = area_data.get("mobs", [])
-	if not mobs_data.empty():
-		result["mob_id"] = pick_item_based_on_count(mobs_data)
-	else:
-		# Process and assign itemgroup if no mob
-		var itemgroups_data = area_data.get("itemgroups", [])
-		if not itemgroups_data.empty():
-			result["itemgroup_id"] = pick_item_based_on_count(itemgroups_data)
-		else:
-			# Process and assign furniture if no mob and no itemgroup
-			var furniture_data = area_data.get("furniture", [])
-			if not furniture_data.empty():
-				result["furniture_id"] = pick_item_based_on_count(furniture_data)
+	# Calculate the total count of tiles
+	var total_tiles_count: int = calculate_total_count(tiles_data)
+
+	# Duplicate the entities_data and add the "None" entity
+	var entities_data = area_data.get("entities", []).duplicate()
+	# We add an extra item to the entities list 
+	# which will affect the proportion of entities that will spawn
+	# If you have an area of grass with a grass tile with a count of 100
+	# and a tree furniture with a count of 1, the entities_data will contain
+	# the tree furniture with a count of 1 and the "None" with a count of 100
+	# This results in the tree being picked every 1 in 100 tiles.
+	entities_data.append({"id": "None", "type": "None", "count": total_tiles_count})
+
+	# Pick an entity from the duplicated entities_data
+	if not entities_data.is_empty():
+		var selected_entity = pick_item_based_on_count(entities_data)
+		if selected_entity["type"] != "None":
+			match selected_entity["type"]:
+				"furniture":
+					result["furniture"] = {"id":selected_entity["id"]}
+				"mob":
+					result["mob"] = {"id":selected_entity["id"]}
+				"itemgroup":
+					result["itemgroups"] = [selected_entity["id"]]
 
 	return result
+
+
+

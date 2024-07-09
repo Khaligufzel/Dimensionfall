@@ -1012,7 +1012,7 @@ func remove_area_from_map_data(area_id: String) -> void:
 
 # Returns a list of areas in the mapdata
 func get_map_areas() -> Array:
-	if not mapData["areas"].is_empty():
+	if mapData.has("areas") and not mapData["areas"].is_empty():
 		return mapData.areas
 	return []
 
