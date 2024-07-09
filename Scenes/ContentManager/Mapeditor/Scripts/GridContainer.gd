@@ -58,6 +58,7 @@ var mapData: Dictionary = defaultMapData.duplicate():
 		else:
 			mapData = data.duplicate()
 		loadLevelData(currentLevel)
+		load_area_data()
 signal zoom_level_changed(zoom_level: int)
 signal data_changed(map_path: String, new_data: Dictionary, old_data: Dictionary)
 
@@ -1103,3 +1104,9 @@ func set_area_visibility_for_all_tiles(isvisible: bool, areaname: String) -> voi
 	# Loop over each tile in the current level
 	for tile in get_children():
 		tile.set_area_sprite_visibility(isvisible, areaname)
+
+
+# Load the areas from mapdata into the brushcomposer
+func load_area_data():
+	brushcomposer.set_area_data(get_map_areas())
+	set_area_visibility_for_all_tiles(false, brushcomposer.get_selected_area_name())

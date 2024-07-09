@@ -43,19 +43,24 @@ func get_area_data_based_on_spawn_chance() -> Array:
 	return selected_areas
 
 
-# Function to pick a tile based on its count property
-func pick_tile_based_on_count(tiles: Array) -> String:
+# Function to calculate the total count of items
+func calculate_total_count(items: Array) -> int:
 	var total_count: int = 0
-	for tile in tiles:
-		total_count += tile["count"]
-	
+	for item in items:
+		total_count += item["count"]
+	return total_count
+
+
+# Function to pick an item based on its count property
+func pick_item_based_on_count(items: Array) -> String:
+	var total_count: int = calculate_total_count(items)
 	var random_pick: int = randi() % total_count
-	for tile in tiles:
-		if random_pick < tile["count"]:
-			return tile["id"]
-		random_pick -= tile["count"]
-	
-	return ""  # In case no tile is selected, though this should not happen if the input is valid
+	for item in items:
+		if random_pick < item["count"]:
+			return item["id"]
+		random_pick -= item["count"]
+
+	return ""  # In case no item is selected, though this should not happen if the input is valid
 
 
 # Function to loop over every tile in every level and print area IDs if present
@@ -83,7 +88,7 @@ func apply_area_to_tile(tile: Dictionary, selected_areas: Array) -> void:
 			if area["id"] == tile_area["id"]:
 				var area_data = get_area_data_by_id(area["id"])
 				var tiles_data = area_data["tiles"]
-				tile["id"] = pick_tile_based_on_count(tiles_data)
+				tile["id"] = pick_item_based_on_count(tiles_data)
 	
 	tile.erase("areas")
 
@@ -128,7 +133,7 @@ func load_level_data(level: int) -> void:
 
 # Function to generate the map preview
 func generate_map_preview() -> void:
-	generated_mapdata = mapData.duplicate()
+	generated_mapdata = mapData.duplicate(true)
 	# Check and get area data in mapData based on spawn chance
 	var selected_areas = get_area_data_based_on_spawn_chance()
 	apply_areas_to_tiles(selected_areas)
@@ -157,3 +162,30 @@ func _on_h_slider_value_changed(value: float) -> void:
 func resize_map_preview_grid(value: float) -> void:
 	# Make sure the grid is a square with both dimensions equal to the smallest dimension
 	map_preview_grid.custom_minimum_size = Vector2(value, value)
+
+
+# Function to process area data and assign to tile
+func process_area_data(area_data: Dictionary) -> Dictionary:
+	var result = {}
+
+	# Process and assign tile ID
+	var tiles_data = area_data.get("tiles", [])
+	if not tiles_data.empty():
+		result["tile_id"] = pick_item_based_on_count(tiles_data)
+
+	# Process and assign mob if available
+	var mobs_data = area_data.get("mobs", [])
+	if not mobs_data.empty():
+		result["mob_id"] = pick_item_based_on_count(mobs_data)
+	else:
+		# Process and assign itemgroup if no mob
+		var itemgroups_data = area_data.get("itemgroups", [])
+		if not itemgroups_data.empty():
+			result["itemgroup_id"] = pick_item_based_on_count(itemgroups_data)
+		else:
+			# Process and assign furniture if no mob and no itemgroup
+			var furniture_data = area_data.get("furniture", [])
+			if not furniture_data.empty():
+				result["furniture_id"] = pick_item_based_on_count(furniture_data)
+
+	return result

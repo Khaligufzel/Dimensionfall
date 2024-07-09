@@ -242,6 +242,7 @@ func add_area_to_tile(area: Dictionary, tilerotation: int) -> void:
 	$AreaSprite.show()
 	set_tooltip()
 
+
 # Removes a area dictionary from the areas list of the tile by its id
 func remove_area_from_tile(area_id: String) -> void:
 	if area_id == "":
@@ -255,6 +256,7 @@ func remove_area_from_tile(area_id: String) -> void:
 		if tileData.areas.is_empty():
 			$AreaSprite.hide()
 	set_tooltip()
+
 
 # Sets the tooltip for this tile. The user can use this to see what's on this tile.
 func set_tooltip() -> void:
