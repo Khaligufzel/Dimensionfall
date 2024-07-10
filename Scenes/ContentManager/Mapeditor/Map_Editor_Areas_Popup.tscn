@@ -4,10 +4,10 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3usm"]
 
-[node name="Area_editor" type="Popup" node_paths=PackedStringArray("area_list", "spawn_chance_spin_box", "entities_v_box_container", "random_rotation_check_box", "controls_h_box")]
+[node name="Area_editor" type="Popup" node_paths=PackedStringArray("area_list", "spawn_chance_spin_box", "entities_v_box_container", "random_rotation_check_box", "controls_h_box", "id_text_edit")]
 title = "Group editor"
 initial_position = 2
-size = Vector2i(600, 400)
+size = Vector2i(800, 600)
 visible = true
 unresizable = false
 borderless = false
@@ -18,6 +18,7 @@ spawn_chance_spin_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/Spawn
 entities_v_box_container = NodePath("HBoxContainer/VBoxContainer/ScrollContainer/EntitiesVBoxContainer")
 random_rotation_check_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/RandomRotationCheckBox")
 controls_h_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox")
+id_text_edit = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/IdTextEdit")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 15
@@ -83,6 +84,10 @@ tooltip_text = "If this is on, every entity in this area will be spawned with a
 random rotation. If this is off, the generator will use the rotation 
 that was applied when you painted the area on the map."
 text = "Random rotation"
+
+[node name="IdTextEdit" type="TextEdit" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2

@@ -9,6 +9,7 @@ extends Popup
 @export var entities_v_box_container: VBoxContainer
 @export var random_rotation_check_box: CheckBox
 @export var controls_h_box: HBoxContainer
+@export var id_text_edit: TextEdit
 
 
 # Variable to keep track of the currently selected area
@@ -135,6 +136,9 @@ func _update_area_ui(area_id: String):
 		# Update spawn_chance_spin_box
 		spawn_chance_spin_box.value = selected_area["spawn_chance"]
 
+		# Update id_text_edit
+		id_text_edit.text = selected_area["id"]
+
 		# Loop over tiles and add UI elements
 		for tile in selected_area["tiles"]:
 			# Create and add the HBoxContainer for the tile
@@ -212,6 +216,10 @@ func _save_current_area_data():
 			# Update the area's data
 			area["rotate_random"] = random_rotation_check_box.button_pressed
 			area["spawn_chance"] = spawn_chance_spin_box.value
+			var newid: String = id_text_edit.text
+			if not area["id"] == newid:
+				area["previd"] = area["id"]  # Save the previous id
+			area["id"] = newid # Save the id from id_text_edit
 
 			# Clear the existing data
 			area["tiles"].clear()
