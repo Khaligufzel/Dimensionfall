@@ -399,15 +399,13 @@ func perform_melee_attack():
 	var melee_skill_id = melee_properties.get("used_skill", {}).get("skill_id", "")
 	var skill_level = player.get_skill_level(melee_skill_id)
 	var hit_chance = 0.65 + (skill_level / 100.0) * (1.0 - 0.65)
-	if randf() > hit_chance:
-		print_debug("Attack missed due to low hit chance ("+str(hit_chance)+").")
-		return
 
+	var attack: Dictionary = {"damage": melee_damage, "hit_chance": hit_chance}
 	# Each mob in range will get hit with the weapon
 	# TODO: Hit only one entity each swing unless the weapon has some kind of flag
 	# TODO: Check if the entity is behind an obstacle
 	for entity in entities_in_melee_range:
-		entity.get_hit(melee_damage)
+		entity.get_hit(attack)
 
 	animate_attack()
 	add_weapon_xp_on_use()

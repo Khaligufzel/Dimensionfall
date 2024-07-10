@@ -35,7 +35,8 @@ func set_lifetime(time: float):
 
 func _on_Projectile_body_entered(body):
 	if body.has_method("get_hit"):
-		body.get_hit(damage)
+		var attack: Dictionary = {"damage":damage, "hit_chance":100}
+		body.get_hit(attack)
 	queue_free()  # Destroy the projectile upon collision
 
 
