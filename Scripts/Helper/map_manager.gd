@@ -76,31 +76,34 @@ func calculate_total_count(items: Array) -> int:
 	return total_count
 
 
-# Applie an area to a tile, overwriting it's id based on a picked tile
+# Apply an area to a tile, overwriting its id based on a picked tile
 # It will loop over all selected areas from mapdata in order, from top to bottom
-# Each area will pick a new tile id for this tile, so it may be overwritten more then once
-# This only happens if the tile has more then one are (i.e. overlapping areas)
-# The order of areas in the tile doesn't matter, onlt the order of areas in the mapdata.
+# Each area will pick a new tile id for this tile, so it may be overwritten more than once
+# This only happens if the tile has more than one area (i.e., overlapping areas)
+# The order of areas in the tile doesn't matter, only the order of areas in the mapdata.
 func apply_area_to_tile(tile: Dictionary, selected_areas: Array, mapData: Dictionary) -> void:
 	# Store the areas property from the tile data into a variable
 	var tile_areas = tile.get("areas", [])
-	var original_tile_id = tile.get("id", "")  # Store the original tile ID
 	
 	# Loop over every area from the selected areas
 	for area in selected_areas:
 		# Check if the area ID is present in the tile's areas list
 		for tile_area in tile_areas:
 			if area["id"] == tile_area["id"]:
+				var original_tile_id = tile.get("id", "")  # Store the original tile ID
 				var area_data = get_area_data_by_id(area["id"], mapData)
 				var processed_data = process_area_data(area_data, original_tile_id)
+				# Check if any of ["mob", "furniture", "itemgroups"] are in tile.keys()
+				var entities_to_check = ["mob", "furniture", "itemgroups"]
+				var new_has_entities = entities_to_check.any(func(entity): return processed_data.has(entity))
 				
-				# Erase all keys from the tile dictionary
-				for key in tile.keys():
-					tile.erase(key)
-				
-				# Update the original tile dictionary with the processed data
+				if new_has_entities:
+					# The processed data has an entity. Erase existing entities from the tile
+					for key in entities_to_check:
+						tile.erase(key)
 				for key in processed_data.keys():
 					tile[key] = processed_data[key]
+	tile.erase("areas")
 
 
 # Function to loop over every tile in every level and apply the area to relevant tiles

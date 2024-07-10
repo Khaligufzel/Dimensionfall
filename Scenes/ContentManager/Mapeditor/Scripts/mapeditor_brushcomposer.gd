@@ -155,6 +155,7 @@ func remove_entity_from_area(area_list: Array, entity_id: String):
 			area_list.erase(i)
 			break
 
+
 # Function to get a random child from the brush_container
 # Excludes those with entityType "itemgroup" unless only itemgroups are present
 func get_random_brush() -> Control:
@@ -180,9 +181,11 @@ func get_random_brush() -> Control:
 	# If no brushes are available, return null
 	return null
 
+
 # Function to get all brushes in the brushcomposer. Could be empty.
 func get_all_brushes() -> Array:
 	return brush_container.get_content_items()
+
 
 # Function to get a list of entityIDs from children with entityType "itemgroup"
 # If no such children are found, returns an empty array
@@ -198,15 +201,18 @@ func get_itemgroup_entity_ids() -> Array:
 	# Return the list of itemgroup IDs
 	return itemgroup_ids
 
+
 # Returns true if there are no brushes in the list. Otherwise it returns false
 func is_empty() -> bool:
 	return brush_container.get_content_items().size() == 0
+
 
 # Returns a rotation amount based on whether or not the rotation button is checked
 # If the rotation button is unchecked, we return the original rotation
 # If the rotation button is checked, we return a random value of 0, 90, 180 or 270
 func get_tilerotation(original_rotation: int) -> int:
 	return [0, 90, 180, 270].pick_random() if rotation_button.button_pressed else original_rotation
+
 
 # Custom function to determine if data can be dropped at the current location
 # It will only accept itemgroups
@@ -222,6 +228,7 @@ func custom_can_drop_data(_mypos, dropped_data: Dictionary) -> bool:
 
 	# If all checks pass, return true
 	return true
+
 
 # Custom function to process the data drop
 # It only accepts itemgroups and creates a brush out of it
@@ -243,9 +250,11 @@ func custom_drop_data(_mypos, dropped_data):
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
+
 # Function to get the value of the selected option in areas_option_button
 func get_selected_area_name() -> String:
 	return areas_option_button.get_item_text(areas_option_button.selected)
+
 
 # Function to process brushes and generate area data
 func generate_area_data() -> Dictionary:
@@ -293,12 +302,14 @@ func generate_area_data() -> Dictionary:
 	
 	return area_data
 
+
 # Function to check if entity ID already exists in the array
 func entity_exists_in_array(array: Array, entity_id: String) -> bool:
 	for entity in array:
 		if entity["id"] == entity_id:
 			return true
 	return false
+
 
 # Function to generate a unique area ID not present in the areas_option_button
 func generate_unique_area_id() -> String:
@@ -314,10 +325,12 @@ func generate_unique_area_id() -> String:
 
 	return new_id
 
+
 # The user presses the button that will show the area editor popup
 func _on_map_area_settings_button_button_up():
 	area_editor.populate_area_list(gridContainer.get_map_areas())
 	area_editor.show()
+
 
 # When the user selects one of the areas in the area option button
 func _on_areas_option_button_item_selected(index):

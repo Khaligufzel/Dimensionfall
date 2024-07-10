@@ -146,6 +146,7 @@ size_flags_vertical = 0
 tooltip_text = "Closes the group editor and discards your changes"
 text = "Cancel"
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="item_selected" from="HBoxContainer/AreaList" to="." method="_on_area_list_item_selected"]
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/MoveUpButton" to="." method="_on_move_up_button_button_up"]
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/MoveDownButton" to="." method="_on_move_down_button_button_up"]

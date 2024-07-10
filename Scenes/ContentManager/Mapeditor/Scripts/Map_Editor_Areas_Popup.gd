@@ -185,6 +185,7 @@ func create_entity_controls(entity: Dictionary, entity_type: String):
 							"while the rest only appears once. When picking a random tile \n" + \
 							"from the list, the one with 100 is more likely to be picked."
 	spinbox.value = entity["count"]
+	spinbox.update_on_text_changed = true
 	entities_grid_container.add_child(spinbox)
 
 	# Create a delete button
@@ -215,7 +216,6 @@ func _on_delete_entity_button_pressed(control):
 	for i in range(3):
 		entities_grid_container.remove_child(entities_grid_container.get_child(index - (index % 3)))
 	control.queue_free()
-
 
 
 # When the user presses the random rotation checkbox
@@ -283,7 +283,6 @@ func _save_current_area_data():
 			break
 
 
-
 # When the user selects an item from the area option button
 func _on_areas_option_button_item_selected(index):
 	# Get the selected area ID
@@ -328,6 +327,7 @@ func create_chance_mod_hbox(area_id: String, spawn_chance: int) -> HBoxContainer
 							"items. Setting it to -100 will exclude the \n" + area_id + \
 							" area entirely from spawning if this area is picked."
 	spinbox.value = spawn_chance
+	spinbox.update_on_text_changed = true
 	hbox.add_child(spinbox)
 	
 	# Create a delete button
@@ -356,3 +356,8 @@ func get_chance_modifications() -> Array:
 		var chance = child.get_child(1).value  # Assuming the second child is the spinbox with the chance value
 		chance_modifications.append({"id": id, "chance": chance})
 	return chance_modifications
+
+
+func _on_visibility_changed():
+	if visible:
+		_update_area_ui(current_selected_area_id)
