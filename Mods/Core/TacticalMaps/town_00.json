@@ -1,19 +1,16 @@
 {
 	"chunks": [
 		{
-			"id": "field_grass_basic_00.json",
-			"rotation": 270
+			"id": "field_grass_basic_00.json"
 		},
 		{
 			"id": "field_grass_hill_00.json"
 		},
 		{
-			"id": "field_grass_basic_00.json",
-			"rotation": 180
+			"id": "field_grass_basic_00.json"
 		},
 		{
-			"id": "field_grass_basic_00.json",
-			"rotation": 270
+			"id": "field_grass_basic_00.json"
 		},
 		{
 			"id": "urbanroad_corner.json",
@@ -23,8 +20,7 @@
 			"id": "urbanroad.json"
 		},
 		{
-			"id": "field_grass_basic_00.json",
-			"rotation": 180
+			"id": "field_grass_basic_00.json"
 		},
 		{
 			"id": "generichouse_corner.json",
@@ -41,8 +37,7 @@
 			"id": "generichouse_t.json"
 		},
 		{
-			"id": "field_grass_basic_00.json",
-			"rotation": 180
+			"id": "field_grass_basic_00.json"
 		},
 		{
 			"id": "urbanroad.json",
@@ -66,8 +61,7 @@
 			"id": "field_grass_basic_00.json"
 		},
 		{
-			"id": "field_grass_basic_00.json",
-			"rotation": 270
+			"id": "field_grass_basic_00.json"
 		},
 		{
 			"id": "generichouse_t.json",
@@ -87,8 +81,7 @@
 			"rotation": 270
 		},
 		{
-			"id": "field_grass_basic_00.json",
-			"rotation": 180
+			"id": "field_grass_basic_00.json"
 		},
 		{
 			"id": "generichouse_corner.json",
@@ -111,15 +104,13 @@
 			"rotation": 270
 		},
 		{
-			"id": "field_grass_basic_00.json",
-			"rotation": 90
+			"id": "field_grass_basic_00.json"
 		},
 		{
 			"id": "field_grass_hole_00.json"
 		},
 		{
-			"id": "field_grass_basic_00.json",
-			"rotation": 270
+			"id": "field_grass_basic_00.json"
 		},
 		{
 			"id": "field_grass_hole_00.json",
