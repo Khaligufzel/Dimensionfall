@@ -50,7 +50,8 @@
 				"items": [
 					"pistol_magazine",
 					"cutting_board",
-					"rolling_pin"
+					"rolling_pin",
+					"stone_spear"
 				]
 			}
 		},
@@ -159,6 +160,14 @@
 		"description": "Skill in using blunt weapons to inflict damage, increasing force and effectiveness in close combat.",
 		"id": "bashing",
 		"name": "Bashing",
+		"references": {
+			"core": {
+				"items": [
+					"stick",
+					"long_stick"
+				]
+			}
+		},
 		"sprite": "bashing_32.png"
 	},
 	{
@@ -168,7 +177,8 @@
 		"references": {
 			"core": {
 				"items": [
-					"machete"
+					"machete",
+					"stone_spear"
 				]
 			}
 		},
