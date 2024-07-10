@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c80hblyn3jedv"]
+[gd_scene load_steps=9 format=3 uid="uid://c80hblyn3jedv"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor_brushcomposer.gd" id="1_bl6cv"]
 [ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="1_ump07"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dixj0spya5p0y" path="res://Images/Icons/IconRotateRight.png" id="3_nbxmi"]
 [ext_resource type="Texture2D" uid="uid://b6m2bbbpmsyik" path="res://Images/Icons/IconRotateRightDark.png" id="4_gh7br"]
 [ext_resource type="Texture2D" uid="uid://nvh40ofps17v" path="res://Images/Icons/IconSprocketChecked.png" id="5_c3xg5"]
+[ext_resource type="Texture2D" uid="uid://is8cme122co7" path="res://Scenes/ContentManager/Mapeditor/Images/nulltile_32.png" id="6_m76ty"]
 [ext_resource type="PackedScene" uid="uid://mnwn367pi4op" path="res://Scenes/ContentManager/Mapeditor/Map_Editor_Areas_Popup.tscn" id="7_b3k8u"]
 
 [node name="CustomBrushVBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("brush_container", "rotation_button", "areas_option_button", "area_editor")]
@@ -46,6 +47,13 @@ tooltip_text = "Edit the areas in detail"
 texture_normal = ExtResource("5_c3xg5")
 stretch_mode = 3
 
+[node name="NullTileTextureButton" type="TextureButton" parent="CustomBrushToolsHBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("6_m76ty")
+stretch_mode = 3
+
 [node name="CurrentBrushScrolling_Flow_Container" parent="." instance=ExtResource("1_ump07")]
 layout_mode = 2
 tooltip_text = "This is the brush composer. It allows you to create a custom brush to paint for your purposes. To add a tile 
@@ -63,4 +71,5 @@ visible = false
 
 [connection signal="item_selected" from="CustomBrushToolsHBoxContainer/AreasOptionButton" to="." method="_on_areas_option_button_item_selected"]
 [connection signal="button_up" from="CustomBrushToolsHBoxContainer/MapAreaSettingsButton" to="." method="_on_map_area_settings_button_button_up"]
+[connection signal="button_up" from="CustomBrushToolsHBoxContainer/NullTileTextureButton" to="." method="_on_null_tile_button_up"]
 [connection signal="area_selected_ok" from="Area_editor" to="." method="_on_area_editor_area_selected_ok"]

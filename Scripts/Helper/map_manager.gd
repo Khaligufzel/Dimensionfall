@@ -15,13 +15,18 @@ func get_chunk_from_position(position_in_3d_space: Vector3) -> Chunk:
 
 
 # Function to process area data and assign to tile
-func process_area_data(area_data: Dictionary) -> Dictionary:
+func process_area_data(area_data: Dictionary, original_tile_id: String) -> Dictionary:
 	var result = {}
 
 	# Process and assign tile ID
 	var tiles_data = area_data.get("tiles", [])
 	if not tiles_data.is_empty():
-		result["id"] = pick_item_based_on_count(tiles_data)["id"]
+		var picked_tile = pick_item_based_on_count(tiles_data)
+		# Check if the picked tile is "null"
+		if picked_tile["id"] == "null":
+			result["id"] = original_tile_id  # Keep the original tile ID
+		else:
+			result["id"] = picked_tile["id"]
 
 	# Calculate the total count of tiles
 	var total_tiles_count: int = calculate_total_count(tiles_data)
@@ -79,6 +84,7 @@ func calculate_total_count(items: Array) -> int:
 func apply_area_to_tile(tile: Dictionary, selected_areas: Array, mapData: Dictionary) -> void:
 	# Store the areas property from the tile data into a variable
 	var tile_areas = tile.get("areas", [])
+	var original_tile_id = tile.get("id", "")  # Store the original tile ID
 	
 	# Loop over every area from the selected areas
 	for area in selected_areas:
@@ -86,7 +92,7 @@ func apply_area_to_tile(tile: Dictionary, selected_areas: Array, mapData: Dictio
 		for tile_area in tile_areas:
 			if area["id"] == tile_area["id"]:
 				var area_data = get_area_data_by_id(area["id"], mapData)
-				var processed_data = process_area_data(area_data)
+				var processed_data = process_area_data(area_data, original_tile_id)
 				
 				# Erase all keys from the tile dictionary
 				for key in tile.keys():

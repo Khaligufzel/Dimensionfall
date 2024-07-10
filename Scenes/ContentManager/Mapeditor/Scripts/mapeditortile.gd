@@ -8,8 +8,10 @@ const aboveTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/tileA
 const areaTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/areatile.png"
 var tileData: Dictionary = defaultTileData.duplicate():
 	set(data):
+		if tileData.has("id") and tileData.id == "null":
+			return
 		tileData = data
-		if tileData.has("id") and tileData.id != "":
+		if tileData.has("id") and not tileData.id == "":
 			$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, tileData.id).albedo_texture
 			set_rotation_amount(tileData.get("rotation", 0))
 			$ObjectSprite.hide()
@@ -70,6 +72,8 @@ func set_scale_amount(scaleAmount: int) -> void:
 
 
 func set_tile_id(id: String) -> void:
+	if id == "null":
+		return
 	if id == "":
 		tileData.erase("id")
 		$TileSprite.texture = load(defaultTexture)

@@ -362,6 +362,9 @@ func get_selected_area_data(selected_area_name: String) -> Dictionary:
 # Function to add tile brushes to the container based on entity type
 func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 	for entity in entity_list:
+		if entity["id"] == "null":
+			_on_null_tile_button_up()
+			continue
 		var properties: Dictionary = {
 			"entityID": entity["id"],
 			"entityType": entity_type
@@ -426,3 +429,13 @@ func set_area_data(areas_clone: Array):
 		
 	# Refresh the brush container based on the selected area
 	refresh_brush_container_from_selected_area()
+
+
+# Function to be called when the null tile button is pressed
+func _on_null_tile_button_up():
+	var null_tile_properties = {
+		"texture": load("res://Scenes/ContentManager/Mapeditor/Images/nulltile_32.png"),
+		"entityID": "null",
+		"entityType": "tile"
+	}
+	add_tilebrush_to_container_with_properties(null_tile_properties)
