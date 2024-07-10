@@ -7,8 +7,7 @@
 		"id": "grass_plain",
 		"name": "Plain grass",
 		"shape": "cube",
-		"sprite": "1.png",
-		"transparent": false
+		"sprite": "1.png"
 	},
 	{
 		"categories": [
@@ -1759,8 +1758,7 @@
 			}
 		},
 		"shape": "cube",
-		"sprite": "woodenplanks01.png",
-		"transparent": false
+		"sprite": "woodenplanks01.png"
 	},
 	{
 		"categories": [
@@ -1777,8 +1775,7 @@
 			}
 		},
 		"shape": "cube",
-		"sprite": "redbricks02.png",
-		"transparent": false
+		"sprite": "redbricks02.png"
 	},
 	{
 		"categories": [
@@ -1802,8 +1799,7 @@
 			}
 		},
 		"shape": "cube",
-		"sprite": "asphalt_markings_side_top.png",
-		"transparent": false
+		"sprite": "asphalt_markings_side_top.png"
 	},
 	{
 		"categories": [
@@ -1814,8 +1810,7 @@
 		"id": "linoleum_blue_00",
 		"name": "Linoleum tiles (blue)",
 		"shape": "cube",
-		"sprite": "linoleum_blue.png",
-		"transparent": false
+		"sprite": "linoleum_blue.png"
 	},
 	{
 		"categories": [
@@ -1826,8 +1821,7 @@
 		"id": "linoleum_brown_00",
 		"name": "Linoleum tiles (brown)",
 		"shape": "cube",
-		"sprite": "linoleum_brown.png",
-		"transparent": false
+		"sprite": "linoleum_brown.png"
 	},
 	{
 		"categories": [
@@ -1838,8 +1832,7 @@
 		"id": "linoleum_brown_01",
 		"name": "Linoleum tiles (brown)",
 		"shape": "cube",
-		"sprite": "linoleum_brown1.png",
-		"transparent": false
+		"sprite": "linoleum_brown1.png"
 	},
 	{
 		"categories": [
@@ -1850,8 +1843,7 @@
 		"id": "linoleum_green_01",
 		"name": "Linoleum tiles (green)",
 		"shape": "cube",
-		"sprite": "linoleum_green.png",
-		"transparent": false
+		"sprite": "linoleum_green.png"
 	},
 	{
 		"categories": [
@@ -1862,8 +1854,7 @@
 		"id": "linoleum_green_00",
 		"name": "Linoleum tiles (green)",
 		"shape": "cube",
-		"sprite": "linoleum_green1.png",
-		"transparent": false
+		"sprite": "linoleum_green1.png"
 	},
 	{
 		"categories": [
@@ -1874,8 +1865,7 @@
 		"id": "linoleum_green_02",
 		"name": "Linoleum tiles (green)",
 		"shape": "cube",
-		"sprite": "linoleum_green2.png",
-		"transparent": false
+		"sprite": "linoleum_green2.png"
 	},
 	{
 		"categories": [
@@ -1886,8 +1876,7 @@
 		"id": "linoleum_greyblue_00",
 		"name": "Linoleum tiles (grey-blue)",
 		"shape": "cube",
-		"sprite": "linoleum_greyblue.png",
-		"transparent": false
+		"sprite": "linoleum_greyblue.png"
 	},
 	{
 		"categories": [
@@ -1898,8 +1887,7 @@
 		"id": "linoleum_lightblue_00",
 		"name": "Linoleum tiles (lightblue)",
 		"shape": "cube",
-		"sprite": "linoleum_lightblue.png",
-		"transparent": false
+		"sprite": "linoleum_lightblue.png"
 	},
 	{
 		"categories": [
@@ -1910,8 +1898,7 @@
 		"id": "linoleum_lightblue_01",
 		"name": "Linoleum tiles (lightblue)",
 		"shape": "cube",
-		"sprite": "linoleum_lightblue1.png",
-		"transparent": false
+		"sprite": "linoleum_lightblue1.png"
 	},
 	{
 		"categories": [
@@ -1922,8 +1909,7 @@
 		"id": "linoleum_lightblue_02",
 		"name": "Linoleum tiles (lightblue)",
 		"shape": "cube",
-		"sprite": "linoleum_lightblue2.png",
-		"transparent": false
+		"sprite": "linoleum_lightblue2.png"
 	},
 	{
 		"categories": [
@@ -1941,8 +1927,7 @@
 			}
 		},
 		"shape": "cube",
-		"sprite": "linoleum_white.png",
-		"transparent": false
+		"sprite": "linoleum_white.png"
 	},
 	{
 		"categories": [
@@ -1960,8 +1945,7 @@
 			}
 		},
 		"shape": "cube",
-		"sprite": "linoleum_white1.png",
-		"transparent": false
+		"sprite": "linoleum_white1.png"
 	},
 	{
 		"categories": [
@@ -1979,7 +1963,6 @@
 			}
 		},
 		"shape": "cube",
-		"sprite": "linoleum_white2.png",
-		"transparent": false
+		"sprite": "linoleum_white2.png"
 	}
 ]
