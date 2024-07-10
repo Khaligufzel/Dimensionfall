@@ -228,10 +228,12 @@ func grid_tile_clicked(clicked_tile: Control) -> void:
 		EditorMode.NONE:
 			paint_single_tile(clicked_tile)
 
+
 # Paint a single tile if draw rectangle is not selected.
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile: Control) -> void:
 	apply_paint_to_tile(clicked_tile, selected_brush, rotationAmount)
+
 
 # Helper function to apply paint or erase logic to a single tile
 func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
@@ -265,6 +267,7 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 		else:
 			tile.set_tile_id(brush.entityID)
 			tile.set_rotation_amount(tilerotation)
+
 
 # Store the data of the current level before changing levels
 func storeLevelData() -> void:
@@ -1052,7 +1055,6 @@ func find_tiles_with_area(area_id: String, level: int = currentLevel) -> Array:
 
 
 # Function to update mapData.areas based on areas_clone and remove missing areas from tiles
-# Function to update mapData.areas based on areas_clone and remove missing areas from tiles
 func update_map_areas(areas_clone: Array) -> void:
 	# Find area IDs in mapData.areas but not in areas_clone
 	var map_areas = get_map_areas()
@@ -1081,11 +1083,14 @@ func update_map_areas(areas_clone: Array) -> void:
 				if map_area["id"] == previd:
 					map_area["id"] = new_id
 					break
-					
+
 			area.erase("previd") # After renaming we don't need it anymore
 			# Update all tiles referencing the old ID
 			for level in range(mapData.levels.size()):
 				rename_area_in_tiles(previd, new_id, level)
+			
+			# Update chance_modifications list in all areas
+			update_chance_modifications(previd, new_id)
 
 	# Overwrite mapData.areas with areas_clone
 	mapData["areas"] = areas_clone.duplicate()
@@ -1101,6 +1106,23 @@ func update_map_areas(areas_clone: Array) -> void:
 		for tile in get_children():
 			tile.set_area_sprite_visibility(false, "")
 			tile.set_tooltip()
+
+	# Remove missing area IDs from the chance_modifications lists in all areas
+	for missing_area_id in missing_area_ids:
+		update_chance_modifications(missing_area_id, "")
+
+
+# Function to update "chance_modifications" lists in all areas
+func update_chance_modifications(old_id: String, new_id: String) -> void:
+	for area in mapData["areas"]:
+		if area.has("chance_modifications"):
+			for i in range(area["chance_modifications"].size()):
+				if area["chance_modifications"][i].id == old_id:
+					if new_id == "":
+						area["chance_modifications"].erase(i)
+					else:
+						area["chance_modifications"][i].id = new_id
+					break
 
 
 # Function to rename an area in all tiles across all levels

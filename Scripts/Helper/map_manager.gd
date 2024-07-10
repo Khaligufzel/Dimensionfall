@@ -121,6 +121,18 @@ func get_area_data_by_id(area_id: String, mapData: Dictionary) -> Dictionary:
 	return {}
 
 
+# Function to apply spawn modifications to areas in mapData
+func apply_spawn_modifications(spawn_modifications: Array, mapData: Dictionary) -> void:
+	for mod in spawn_modifications:
+		var mod_id = mod["id"]
+		var mod_chance = mod["chance"]
+		# Find the area in mapData and modify its spawn_chance
+		for map_area in mapData["areas"]:
+			if map_area["id"] == mod_id:
+				# Allow spawn_chance to go below 0 or above 100 to provide flexibility
+				map_area["spawn_chance"] += mod_chance
+
+
 # Function to check if mapData has areas and return their data based on spawn chance
 func get_area_data_based_on_spawn_chance(mapData: Dictionary) -> Array:
 	var selected_areas = []
@@ -128,6 +140,9 @@ func get_area_data_based_on_spawn_chance(mapData: Dictionary) -> Array:
 		for area in mapData["areas"]:
 			if randi() % 100 < area.get("spawn_chance", 0):
 				selected_areas.append(area)
+				# Check for spawn_modifications
+				if area.has("spawn_modifications"):
+					apply_spawn_modifications(area["spawn_modifications"], mapData)
 	return selected_areas
 
 

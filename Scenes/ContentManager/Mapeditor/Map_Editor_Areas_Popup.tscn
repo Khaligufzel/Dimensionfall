@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://mnwn367pi4op"]
+[gd_scene load_steps=4 format=3 uid="uid://mnwn367pi4op"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Map_Editor_Areas_Popup.gd" id="1_2pewo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3usm"]
 
-[node name="Area_editor" type="Popup" node_paths=PackedStringArray("area_list", "spawn_chance_spin_box", "entities_v_box_container", "random_rotation_check_box", "controls_h_box", "id_text_edit")]
-title = "Group editor"
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lguox"]
+bg_color = Color(0.59009, 0.586311, 0.707911, 1)
+
+[node name="Area_editor" type="Popup" node_paths=PackedStringArray("area_list", "spawn_chance_spin_box", "entities_v_box_container", "random_rotation_check_box", "controls_h_box", "id_text_edit", "areas_option_button", "chance_modification_list")]
+title = "Area editor"
 initial_position = 2
 size = Vector2i(800, 600)
 visible = true
@@ -15,10 +18,12 @@ min_size = Vector2i(500, 400)
 script = ExtResource("1_2pewo")
 area_list = NodePath("HBoxContainer/AreaList")
 spawn_chance_spin_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/SpawnChanceSpinBox")
-entities_v_box_container = NodePath("HBoxContainer/VBoxContainer/ScrollContainer/EntitiesVBoxContainer")
+entities_v_box_container = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/ScrollContainer/EntitiesVBoxContainer")
 random_rotation_check_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/RandomRotationCheckBox")
 controls_h_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox")
 id_text_edit = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/IdTextEdit")
+areas_option_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/AreasOptionButton")
+chance_modification_list = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/AreasScrollContainer2/ChanceModItemList")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 15
@@ -89,12 +94,35 @@ text = "Random rotation"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_e3usm")
 
-[node name="EntitiesVBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/ScrollContainer"]
+[node name="EntitiesVBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+
+[node name="AreasOptionButton" type="OptionButton" parent="HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="AreasScrollContainer2" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_lguox")
+
+[node name="ChanceModItemList" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/AreasScrollContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -121,5 +149,6 @@ text = "Cancel"
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/MoveDownButton" to="." method="_on_move_down_button_button_up"]
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/DeleteButton" to="." method="_on_delete_button_button_up"]
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/RandomRotationCheckBox" to="." method="_on_random_rotation_check_box_button_up"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/AreasOptionButton" to="." method="_on_areas_option_button_item_selected"]
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]
