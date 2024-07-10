@@ -1051,6 +1051,7 @@ func find_tiles_with_area(area_id: String, level: int = currentLevel) -> Array:
 
 
 # Function to update mapData.areas based on areas_clone and remove missing areas from tiles
+# Function to update mapData.areas based on areas_clone and remove missing areas from tiles
 func update_map_areas(areas_clone: Array) -> void:
 	# Find area IDs in mapData.areas but not in areas_clone
 	var map_areas = get_map_areas()
@@ -1059,13 +1060,29 @@ func update_map_areas(areas_clone: Array) -> void:
 
 	for area in map_areas:
 		if area["id"] not in areas_clone_ids:
-			print("area ID present in mapData.areas but not in areas_clone: %s" % area["id"])
+			print("Area ID present in mapData.areas but not in areas_clone: %s" % area["id"])
 			missing_area_ids.append(area["id"])
 
 	# Remove missing areas from all tiles on all levels
 	for missing_area_id in missing_area_ids:
 		for level in range(mapData.levels.size()):
 			remove_area_from_tiles(missing_area_id, level)
+
+	# Handle "previd" property for renamed areas
+	var renamed_areas = {}
+	for area in areas_clone:
+		if area.has("previd"):
+			var previd = area["previd"]
+			var new_id = area["id"]
+			renamed_areas[previd] = new_id
+			# Update the area ID in map_areas
+			for map_area in map_areas:
+				if map_area["id"] == previd:
+					map_area["id"] = new_id
+					break
+			# Update all tiles referencing the old ID
+			for level in range(mapData.levels.size()):
+				rename_area_in_tiles(previd, new_id, level)
 
 	# Overwrite mapData.areas with areas_clone
 	mapData["areas"] = areas_clone.duplicate()
@@ -1074,13 +1091,29 @@ func update_map_areas(areas_clone: Array) -> void:
 	if mapData["areas"].is_empty():
 		mapData.erase("areas")
 
-	# Check if the selected area name is in the list of missing area IDs
-	# If it is, we hide the area sprite for all tiles
+	# Check if the selected area name is in the list of missing area IDs or renamed areas
+	# If it is, or if the selected area name is "None", we hide the area sprite for all tiles
 	var selected_area_name = brushcomposer.get_selected_area_name()
-	if selected_area_name in missing_area_ids:
+	if selected_area_name in missing_area_ids or selected_area_name in renamed_areas or selected_area_name == "None":
 		for tile in get_children():
 			tile.set_area_sprite_visibility(false, "")
 			tile.set_tooltip()
+
+
+# Function to rename an area in all tiles across all levels
+func rename_area_in_tiles(previd: String, new_id: String, level: int) -> void:
+	if level < 0 or level >= mapData.levels.size():
+		print_debug("Level index out of range.")
+		return
+
+	var level_data = mapData.levels[level]
+	for tile_data in level_data:
+		if tile_data.has("areas"):
+			var areas = tile_data["areas"]
+			for area in areas:
+				if area["id"] == previd:
+					area["id"] = new_id
+					break
 
 
 # Function to remove a area from all tiles on a specific level
