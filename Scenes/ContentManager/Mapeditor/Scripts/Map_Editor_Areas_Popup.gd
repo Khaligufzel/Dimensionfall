@@ -6,7 +6,7 @@ extends Popup
 
 @export var area_list: ItemList
 @export var spawn_chance_spin_box: SpinBox
-@export var entities_v_box_container: VBoxContainer
+@export var entities_grid_container: GridContainer
 @export var random_rotation_check_box: CheckBox
 @export var controls_h_box: HBoxContainer
 @export var id_text_edit: TextEdit
@@ -106,7 +106,7 @@ func _on_delete_button_button_up():
 		current_selected_area_id = ""
 		random_rotation_check_box.button_pressed = false
 		spawn_chance_spin_box.value = 0
-		for child in entities_v_box_container.get_children():
+		for child in entities_grid_container.get_children():
 			child.queue_free()
 		controls_h_box.visible = false  # Hide controls when the last item is deleted
 
@@ -126,8 +126,8 @@ func populate_area_list(areas: Array) -> void:
 # Makes a list of tiles, furniture, mobs and itemgroups in this area
 # Also displays controls for setting the count and deleting it from the area
 func _update_area_ui(area_id: String):
-	# Clear all children of entities_v_box_container
-	for child in entities_v_box_container.get_children():
+	# Clear all children of entities_grid_container
+	for child in entities_grid_container.get_children():
 		child.queue_free()
 
 	# Find the selected area in areas_clone
@@ -149,15 +149,11 @@ func _update_area_ui(area_id: String):
 
 		# Loop over tiles and add UI elements
 		for tile in selected_area["tiles"]:
-			# Create and add the HBoxContainer for the tile
-			var hbox = create_entity_hbox(tile, "tile")
-			entities_v_box_container.add_child(hbox)
+			create_entity_controls(tile, "tile")
 
 		# Loop over entities and add UI elements
 		for entity in selected_area["entities"]:
-			# Create and add the HBoxContainer for the entity
-			var hbox = create_entity_hbox(entity, entity["type"])
-			entities_v_box_container.add_child(hbox)
+			create_entity_controls(entity, entity["type"])
 
 		# Load the chance_modification list
 		for child in chance_modification_list.get_children():
@@ -168,6 +164,35 @@ func _update_area_ui(area_id: String):
 
 		# Call the new function to populate areas_option_button
 		populate_areas_option_button(area_id)
+
+
+# Function to create and add entity controls to the grid container
+func create_entity_controls(entity: Dictionary, entity_type: String):
+	# Create a label with the entity id
+	var label = Label.new()
+	label.text = entity["id"]
+	entities_grid_container.add_child(label)
+
+	# Create a spinbox with the entity count
+	var spinbox = SpinBox.new()
+	spinbox.min_value = 1
+	spinbox.max_value = 10000  # Set an appropriate max value
+	spinbox.tooltip_text = "The proportion of tiles this area will generate in this \n" + \
+							"area. Imagine each tile having a count of 1 and being \n" + \
+							"added to a list. The generator will then pick 1 of them \n" + \
+							"in equal proportion. If you give a tile a count of 100, \n" + \
+							"it will be as though that tile appears in the list 100 times, \n" + \
+							"while the rest only appears once. When picking a random tile \n" + \
+							"from the list, the one with 100 is more likely to be picked."
+	spinbox.value = entity["count"]
+	entities_grid_container.add_child(spinbox)
+
+	# Create a delete button
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.pressed.connect(_on_delete_entity_button_pressed.bind(delete_button))
+	delete_button.set_meta("entity_type", entity_type)  # Store the entity type in metadata
+	entities_grid_container.add_child(delete_button)
 
 
 # Function to populate areas_option_button with the IDs of areas in areas_clone
@@ -184,38 +209,13 @@ func populate_areas_option_button(area_id: String):
 			areas_option_button.add_item(area["id"])
 
 
-# Function to create an HBoxContainer for an entity or tile
-# This function creates a label, spinbox, and delete button for the entity/tile and returns the HBoxContainer
-func create_entity_hbox(entity: Dictionary, entity_type: String) -> HBoxContainer:
-	# Create a new HBoxContainer
-	var hbox = HBoxContainer.new()
-	hbox.set_meta("entity_type", entity_type)  # Store the entity type in metadata
-
-	# Create a label with the entity id
-	var label = Label.new()
-	label.text = entity["id"]
-	hbox.add_child(label)
-
-	# Create a spinbox with the entity count
-	var spinbox = SpinBox.new()
-	spinbox.min_value = 1
-	spinbox.max_value = 10000  # Set an appropriate max value
-	spinbox.value = entity["count"]
-	hbox.add_child(spinbox)
-
-	# Create a delete button
-	var delete_button = Button.new()
-	delete_button.text = "X"
-	delete_button.pressed.connect(_on_delete_entity_button_pressed.bind(hbox))
-	hbox.add_child(delete_button)
-
-	return hbox
-
-
 # Function to handle deleting an entity from the list
-func _on_delete_entity_button_pressed(hbox):
-	entities_v_box_container.remove_child(hbox)
-	hbox.queue_free()
+func _on_delete_entity_button_pressed(control):
+	var index = entities_grid_container.get_children().find(control)
+	for i in range(3):
+		entities_grid_container.remove_child(entities_grid_container.get_child(index - (index % 3)))
+	control.queue_free()
+
 
 
 # When the user presses the random rotation checkbox
@@ -249,20 +249,21 @@ func _save_current_area_data():
 			area["rotate_random"] = random_rotation_check_box.button_pressed
 			area["spawn_chance"] = spawn_chance_spin_box.value
 			var newid: String = id_text_edit.text
-			if not area["id"] == newid:
+			if area["id"] != newid:
 				area["previd"] = area["id"]  # Save the previous id
-			area["id"] = newid # Save the id from id_text_edit
+			area["id"] = newid  # Save the id from id_text_edit
 
 			# Clear the existing data
 			area["tiles"].clear()
 			area["entities"].clear()
 
 			# Update tiles and entities data
-			for hbox in entities_v_box_container.get_children():
-				var label = hbox.get_child(0) as Label
-				var spinbox = hbox.get_child(1) as SpinBox
-				var entity_type = hbox.get_meta("entity_type") as String  # Retrieve the entity type from metadata
-				
+			var children = entities_grid_container.get_children()
+			for i in range(0, children.size(), 3):
+				var label = children[i] as Label
+				var spinbox = children[i + 1] as SpinBox
+				var entity_type = children[i + 2].get_meta("entity_type") as String
+
 				var entity_data = {"id": label.text, "count": spinbox.value}
 
 				if entity_type == "tile":
@@ -280,6 +281,7 @@ func _save_current_area_data():
 					area.erase("chance_modifications")
 
 			break
+
 
 
 # When the user selects an item from the area option button

@@ -7,7 +7,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lguox"]
 bg_color = Color(0.59009, 0.586311, 0.707911, 1)
 
-[node name="Area_editor" type="Popup" node_paths=PackedStringArray("area_list", "spawn_chance_spin_box", "entities_v_box_container", "random_rotation_check_box", "controls_h_box", "id_text_edit", "areas_option_button", "chance_modification_list")]
+[node name="Area_editor" type="Popup" node_paths=PackedStringArray("area_list", "spawn_chance_spin_box", "entities_grid_container", "random_rotation_check_box", "controls_h_box", "id_text_edit", "areas_option_button", "chance_modification_list")]
 title = "Area editor"
 initial_position = 2
 size = Vector2i(800, 600)
@@ -18,7 +18,7 @@ min_size = Vector2i(500, 400)
 script = ExtResource("1_2pewo")
 area_list = NodePath("HBoxContainer/AreaList")
 spawn_chance_spin_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/SpawnChanceSpinBox")
-entities_v_box_container = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/ScrollContainer/EntitiesVBoxContainer")
+entities_grid_container = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/ScrollContainer/EntitiesGridContainer")
 random_rotation_check_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/RandomRotationCheckBox")
 controls_h_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox")
 id_text_edit = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/IdTextEdit")
@@ -93,6 +93,7 @@ text = "Random rotation"
 [node name="IdTextEdit" type="TextEdit" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Rename the area"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -104,10 +105,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_e3usm")
 
-[node name="EntitiesVBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2/ScrollContainer"]
+[node name="EntitiesGridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+columns = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
