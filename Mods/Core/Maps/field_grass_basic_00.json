@@ -1,4 +1,58 @@
 {
+	"areas": [
+		{
+			"entities": [],
+			"id": "base_layer",
+			"rotate_random": false,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 100,
+					"id": "grass_plain_01"
+				},
+				{
+					"count": 15,
+					"id": "grass_dirt_00"
+				},
+				{
+					"count": 15,
+					"id": "grass_dirt_01"
+				},
+				{
+					"count": 15,
+					"id": "grass_dirt_02"
+				},
+				{
+					"count": 1,
+					"id": "grass_medium_dirt_00"
+				},
+				{
+					"count": 1,
+					"id": "grass_medium_dirt_01"
+				},
+				{
+					"count": 1,
+					"id": "grass_medium_dirt_02"
+				},
+				{
+					"count": 1,
+					"id": "grass_flowers_00"
+				},
+				{
+					"count": 1,
+					"id": "grass_flowers_01"
+				},
+				{
+					"count": 1,
+					"id": "grass_flowers_02"
+				},
+				{
+					"count": 1,
+					"id": "grass_flowers_03"
+				}
+			]
+		}
+	],
 	"levels": [
 		[],
 		[],
@@ -12,3842 +66,9986 @@
 		[],
 		[
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_flowers_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_medium_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "base_layer",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			}

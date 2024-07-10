@@ -36,7 +36,6 @@ var tileData: Dictionary = defaultTileData.duplicate():
 			$TileSprite.texture = load(defaultTexture)
 			$ObjectSprite.texture = null
 			$ObjectSprite.hide()
-			$AreaSprite.texture = null
 			$AreaSprite.hide()
 		set_tooltip()
 
@@ -208,7 +207,6 @@ func set_clickable(clickable: bool):
 func set_above():
 	$ObjectSprite.texture = null
 	$ObjectSprite.hide()
-	$AreaSprite.texture = null
 	$AreaSprite.hide()
 	if tileData.has("id") and tileData.id != "":
 		$TileSprite.texture = load(aboveTexture)

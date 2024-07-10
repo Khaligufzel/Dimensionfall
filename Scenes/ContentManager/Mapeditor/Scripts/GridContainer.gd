@@ -302,6 +302,7 @@ func loadLevelData(newLevel: int) -> void:
 	else:
 		levelgrid_above.hide()
 	loadLevel(newLevel, self)
+	update_area_visibility()
 
 func loadLevel(level: int, grid: GridContainer) -> void:
 	if mapData.is_empty():
@@ -1080,6 +1081,8 @@ func update_map_areas(areas_clone: Array) -> void:
 				if map_area["id"] == previd:
 					map_area["id"] = new_id
 					break
+					
+			area.erase("previd") # After renaming we don't need it anymore
 			# Update all tiles referencing the old ID
 			for level in range(mapData.levels.size()):
 				rename_area_in_tiles(previd, new_id, level)
@@ -1144,7 +1147,16 @@ func on_areas_option_button_item_selected(optionbutton: Control, index: int):
 		set_area_visibility_for_all_tiles(false, selected_area_name)
 	else:
 		set_area_visibility_for_all_tiles(true, selected_area_name)
-	
+
+
+# Function to update the visibility of area sprites based on the selected area name
+func update_area_visibility() -> void:
+	var selected_area_name = brushcomposer.get_selected_area_name()
+	if selected_area_name != "None":
+		set_area_visibility_for_all_tiles(true, selected_area_name)
+	else:
+		set_area_visibility_for_all_tiles(false, "")
+
 
 # Function to set the visibility of area sprites for all tiles in the current level
 func set_area_visibility_for_all_tiles(isvisible: bool, areaname: String) -> void:
