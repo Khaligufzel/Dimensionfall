@@ -184,7 +184,10 @@
 				"rotation": 180
 			},
 			{
-				"id": "dirt_light_00",
+				"furniture": {
+					"id": "window_glass"
+				},
+				"id": "floor_wood_realistic01",
 				"rotation": 180
 			},
 			{
@@ -232,7 +235,10 @@
 				"rotation": 180
 			},
 			{
-				"id": "dirt_light_01",
+				"furniture": {
+					"id": "window_glass"
+				},
+				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
@@ -292,7 +298,10 @@
 				"rotation": 180
 			},
 			{
-				"id": "dirt_light_00",
+				"furniture": {
+					"id": "window_glass"
+				},
+				"id": "floor_wood_realistic01",
 				"rotation": 180
 			},
 			{
@@ -721,7 +730,11 @@
 				"rotation": 180
 			},
 			{
-				"id": "dirt_light_00",
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
+				"id": "floor_wood_realistic01",
 				"rotation": 180
 			},
 			{
@@ -1179,7 +1192,11 @@
 				"rotation": 180
 			},
 			{
-				"id": "dirt_light_00",
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
+				"id": "floor_wood_realistic01",
 				"rotation": 180
 			},
 			{
@@ -1498,7 +1515,11 @@
 				"rotation": 180
 			},
 			{
-				"id": "dirt_light_00",
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
+				"id": "floor_wood_realistic01",
 				"rotation": 180
 			},
 			{
@@ -1573,7 +1594,11 @@
 				"rotation": 180
 			},
 			{
-				"id": "dirt_light_00",
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
+				"id": "orange_carpet_00",
 				"rotation": 180
 			},
 			{
@@ -1585,7 +1610,11 @@
 				"rotation": 180
 			},
 			{
-				"id": "dirt_light_00",
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
+				"id": "orange_carpet_00",
 				"rotation": 180
 			},
 			{
@@ -2696,7 +2725,11 @@
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"furniture": {
+					"id": "window_glass"
+				},
+				"id": "orange_carpet_00",
+				"rotation": 270
 			},
 			{
 				"id": "dirt_light_00"
@@ -2708,7 +2741,11 @@
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"furniture": {
+					"id": "window_glass"
+				},
+				"id": "orange_carpet_00",
+				"rotation": 270
 			},
 			{
 				"id": "dirt_light_00"
@@ -2762,7 +2799,11 @@
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"furniture": {
+					"id": "window_glass"
+				},
+				"id": "bathroom_tiles_blue_00",
+				"rotation": 180
 			},
 			{
 				"id": "dirt_light_00"
@@ -3020,7 +3061,12 @@
 				"id": "bathroom_tiles_blue_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
+				"id": "bathroom_tiles_blue_00",
+				"rotation": 180
 			},
 			{
 				"id": "grass_plain_01"
@@ -3403,7 +3449,12 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
-				"id": "dirt_light_00"
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
+				"id": "floor_wood_boards_08",
+				"rotation": 180
 			},
 			{
 				"id": "grass_plain_01"
@@ -3681,7 +3732,12 @@
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
+				"id": "red_carpet_00",
+				"rotation": 270
 			},
 			{
 				"id": "dirt_light_00"
@@ -3759,7 +3815,12 @@
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_08",
+				"rotation": 180
 			},
 			{
 				"id": "dirt_light_00"
@@ -3805,7 +3866,12 @@
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_01"
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_05",
+				"rotation": 270
 			},
 			{
 				"id": "dirt_light_01"
@@ -3844,7 +3910,12 @@
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
 				"id": "dirt_light_00"
@@ -4141,7 +4212,7 @@
 				"id": "realistic_brick01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "realistic_brick01"
@@ -4182,7 +4253,7 @@
 				"id": "realistic_brick01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -4239,7 +4310,7 @@
 				"id": "realistic_brick01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "realistic_brick01"
@@ -4588,7 +4659,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "",
@@ -4926,116 +4997,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "realistic_brick01"
-			},
-			{
 
-			},
-			{
-
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "realistic_brick01"
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "realistic_brick01"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "realistic_brick01"
 			},
 			{
 				"id": "",
@@ -5056,7 +5018,7 @@
 
 			},
 			{
-				"id": "realistic_brick01"
+
 			},
 			{
 				"id": "",
@@ -5124,6 +5086,115 @@
 				"rotation": 180
 			},
 			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "realistic_brick01"
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "realistic_brick01"
+			},
+			{
+
+			},
+			{
+				"id": "realistic_brick01"
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+				"id": "realistic_brick01"
+			},
+			{
+				"id": "",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "realistic_brick01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
 				"id": "",
 				"rotation": 180
 			},
@@ -5150,7 +5221,7 @@
 				"id": "realistic_brick01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "realistic_brick01"
@@ -5208,7 +5279,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -5219,7 +5290,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -6410,7 +6481,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -6422,7 +6493,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -6475,7 +6546,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -6693,7 +6764,7 @@
 				"rotation": 0
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "",
@@ -7025,7 +7096,7 @@
 				"rotation": 0
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "",
@@ -7287,7 +7358,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -7359,7 +7430,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -7413,7 +7484,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -7457,7 +7528,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -7881,6 +7952,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8131,6 +8205,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8227,6 +8305,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8383,6 +8464,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8415,6 +8500,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8501,6 +8590,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8731,6 +8824,10 @@
 				"id": "beehive_stones_00"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8774,6 +8871,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8794,6 +8895,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8849,6 +8954,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8958,6 +9067,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8966,6 +9079,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8974,6 +9091,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -8982,6 +9103,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01",
 				"rotation": 270
 			},
@@ -9033,6 +9158,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -10214,6 +10343,9 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -10223,6 +10355,9 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -10271,6 +10406,9 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01",
 				"rotation": 90
 			},
@@ -10278,6 +10416,9 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -10287,6 +10428,9 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -10443,6 +10587,10 @@
 				"id": "floor_wood_boards_06"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -10460,6 +10608,9 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -10716,6 +10867,10 @@
 				"rotation": 0
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -10970,6 +11125,10 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -11063,6 +11222,10 @@
 				"id": "floor_wood_boards_04"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -11313,6 +11476,10 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -11825,7 +11992,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -12053,7 +12220,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "",
@@ -12152,7 +12319,7 @@
 				"rotation": 90
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -12299,7 +12466,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "",
@@ -12330,7 +12497,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 
@@ -12401,7 +12568,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "",
@@ -12577,7 +12744,7 @@
 
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 
@@ -12607,7 +12774,7 @@
 				"rotation": 90
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -12626,7 +12793,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "",
@@ -12657,7 +12824,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 
@@ -12739,25 +12906,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -12766,6 +12915,24 @@
 
 			},
 			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
 
 			},
 			{
@@ -12806,7 +12973,7 @@
 				"rotation": 90
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -13965,7 +14132,7 @@
 				"rotation": 270
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -13976,7 +14143,7 @@
 				"rotation": 270
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -14018,25 +14185,14 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -14047,80 +14203,11 @@
 				"rotation": 180
 			},
 			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-
-			},
-			{
 
 			},
 			{
 				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
+				"rotation": 180
 			},
 			{
 				"id": "brick_wall_01",
@@ -14139,10 +14226,6 @@
 				"rotation": 0
 			},
 			{
-				"id": "brick_wall_00",
-				"rotation": 90
-			},
-			{
 				"id": "",
 				"rotation": 0
 			},
@@ -14151,38 +14234,10 @@
 				"rotation": 0
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -14267,6 +14322,118 @@
 				"rotation": 0
 			},
 			{
+
+			},
+			{
+				"id": "",
+				"rotation": 0
+			},
+			{
+				"id": "",
+				"rotation": 0
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "",
+				"rotation": 0
+			},
+			{
+				"id": "",
+				"rotation": 0
+			},
+			{
+				"id": "",
+				"rotation": 0
+			},
+			{
+				"id": "brick_wall_00",
+				"rotation": 90
+			},
+			{
+				"id": "",
+				"rotation": 0
+			},
+			{
+				"id": "",
+				"rotation": 0
+			},
+			{
+				"id": "",
+				"rotation": 0
+			},
+			{
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -14390,7 +14557,7 @@
 				"rotation": 0
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "",
@@ -14639,7 +14806,7 @@
 				"rotation": 90
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -14738,7 +14905,7 @@
 				"rotation": 0
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "",
@@ -14977,7 +15144,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",

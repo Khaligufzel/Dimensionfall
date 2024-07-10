@@ -892,5 +892,35 @@
 			}
 		},
 		"sprite": "wall_shelf_100_40.png"
+	},
+	{
+		"Function": {
+			"door": "Closed"
+		},
+		"categories": [
+			"Urban"
+		],
+		"description": "It keeps people from passing trough this area. It is very fragile",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "window_glass",
+		"moveable": false,
+		"name": "Glass window",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse",
+					"Generichouse_00",
+					"generichouse_cross",
+					"generichouse_corner",
+					"generichouse_t",
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sprite": "windw_framed_100_95.png"
 	}
 ]
