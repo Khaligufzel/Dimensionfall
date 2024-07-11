@@ -27,5 +27,6 @@ func update_visibility(player_y: float):
 
 	# Update container visibility
 	for container in get_tree().get_nodes_in_group("Containers"):
-		var is_above_player = container.global_position.y > player_y
+		# Add 0.1 margin otherwise they are invisible on high furniture.
+		var is_above_player = container.global_position.y-0.1 > player_y
 		container.visible = not is_above_player

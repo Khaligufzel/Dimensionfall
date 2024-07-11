@@ -30,14 +30,20 @@ func _ready():
 	set_new_rotation(furniturerotation)
 	check_door_functionality()
 	update_door_visuals()
-	# Add the container as a child on the same position as this furniture
-	add_container(Vector3(0, 0, 0))
-	original_position = sprite.global_transform.origin
 
 	# Raise the sprite to the height of new_y
 	var newheight = Helper.json_helper.get_nested_data(furnitureJSONData,"support_shape.height")
-	sprite.position.y = 0.01 + newheight if newheight else 0.1 # Should be slightly above mesh
-	mesh_instance.position.y = newheight/2 if newheight else 0.25
+	if newheight:
+		sprite.position.y = 0.01 + newheight # Should be slightly above mesh so we add 0.01
+		mesh_instance.position.y = newheight/2
+		add_container(Vector3(0, newheight+0.01, 0)) # Should be slightly above mesh so we add 0.01
+	else:
+		# The default size is 0.5
+		sprite.position.y = 0.51 # Slightly above the default size
+		mesh_instance.position.y =  0.25 # Half the default size
+		# Add the container as a child on the same position as this furniture
+		add_container(Vector3(0, 0.51, 0)) # Slightly above default size
+	original_position = sprite.global_transform.origin
 
 
 # Check if this furniture acts as a door
@@ -111,16 +117,11 @@ func set_sprite(newSprite: Texture):
 		add_child.call_deferred(box_mesh_instance)
 
 
-
 # Function to create the shape based on the given parameters
 func create_shape(shape_type: String, size: Vector3, color: Color, transparent: bool):
 	if shape_type == "Box":
-		# Update the collision shape
-		var new_shape = BoxShape3D.new()
-		new_shape.extents = size / 2.0 # BoxShape3D extents are half extents
-
-		collider = CollisionShape3D.new()
-		collider.shape = new_shape
+		# Create and add BoxCollider instance
+		collider = create_collider(size)
 		add_child.call_deferred(collider)
 
 		# Create and add BoxMesh instance
@@ -140,6 +141,17 @@ func create_shape(shape_type: String, size: Vector3, color: Color, transparent: 
 		var cylinder_mesh_instance = create_cylinder_mesh(size.y, size.x, color, transparent)
 		add_child.call_deferred(cylinder_mesh_instance)
 
+
+# Function to create a BoxShape3D collider based on the given size
+func create_collider(size: Vector3) -> CollisionShape3D:
+	var new_shape = BoxShape3D.new()
+	# If size.y is reduced to half extents, the raycast that collides with doors to interact
+	# with them will no longer be able to hit them. That's why we don't reduce size.y
+	new_shape.extents = Vector3(size.x / 2.0, size.y, size.z / 2.0) # Only x and z are half extents
+
+	var mycollider = CollisionShape3D.new()
+	mycollider.shape = new_shape
+	return mycollider
 
 
 func create_box_mesh(size: Vector3, albedo_color: Color, transparent: bool) -> MeshInstance3D:
@@ -391,6 +403,7 @@ func apply_transform_to_sprite_and_collider(rotationdegrees, position_offset):
 	doortransform.origin = position_offset
 	sprite.set_transform(doortransform)
 	collider.set_transform(doortransform)
+	mesh_instance.set_transform(doortransform)
 	sprite.rotation_degrees.x = 90
 
 
