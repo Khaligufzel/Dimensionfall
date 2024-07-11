@@ -348,7 +348,7 @@ text = "Pick a shape:"
 [node name="TipLabel2" type="Label" parent="VBoxContainer/TabContainer/Shape"]
 layout_mode = 2
 text = "This shape will be visible below the furniture sprite and will cast a shadow 
-if opague. Select a box or a sylinder as shape and pick a color from the 
+if opague. Select a box or a cylinder as shape and pick a color from the 
 sprite to set a color. If light should pass trough, select transparent. The 
 scale of the shape will be relative to the sprite dimensions, so a scale of 50 
 on a sprite of size 100x50 will result in a shape with the size of 50x25."
@@ -359,6 +359,7 @@ text = "Support shape: "
 
 [node name="SupportShapeOptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/Shape"]
 layout_mode = 2
+tooltip_text = "Select the shape that will be below the furniture sprite in-game"
 item_count = 2
 selected = 0
 popup/item_0/text = "Box"
@@ -372,6 +373,8 @@ text = "Scale width:"
 
 [node name="WidthScaleSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/Shape"]
 layout_mode = 2
+tooltip_text = "The width of the shape relative to the sprite. 100 means the 
+shape is as wide as the sprite. 0 means the shape has no width."
 value = 100.0
 
 [node name="DepthScaleLabel" type="Label" parent="VBoxContainer/TabContainer/Shape"]
@@ -380,6 +383,8 @@ text = "Scale depth:"
 
 [node name="DepthScaleSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/Shape"]
 layout_mode = 2
+tooltip_text = "The depth of the shape relative to the sprite's height. 100 means the 
+shape is as deep as the sprite is high. 0 means the shape has no depth."
 value = 100.0
 
 [node name="RadiusScaleLabel" type="Label" parent="VBoxContainer/TabContainer/Shape"]
@@ -390,6 +395,8 @@ text = "Scale radius:"
 [node name="RadiusScaleSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/Shape"]
 visible = false
 layout_mode = 2
+tooltip_text = "The radius of the cylinder that will appear below the sprite. 100 
+means it is as wide as the sprite. 0 means the cylinder has no radius."
 value = 100.0
 
 [node name="HeightLabel" type="Label" parent="VBoxContainer/TabContainer/Shape"]
@@ -398,6 +405,10 @@ text = "Height:"
 
 [node name="HeigthSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/Shape"]
 layout_mode = 2
+tooltip_text = "The height of the furniture. This increases the vertical height of 
+the shape. It also increases the height of the furniture sprite 
+and the container (if this furniture is marked as a container). 0 
+means it has no height. 1 means it's as high as a wall."
 max_value = 1.0
 step = 0.1
 value = 0.5
@@ -413,6 +424,9 @@ layout_mode = 2
 [node name="ColorPicker" type="ColorPicker" parent="VBoxContainer/TabContainer/Shape/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "The color of the shape. Pick one from the furniture 
+texture or expand the furniture/items category in the 
+content editor and pick a color from one of those sprites."
 picker_shape = 4
 color_modes_visible = false
 sliders_visible = false
@@ -429,6 +443,9 @@ text = "Transparent"
 
 [node name="TransparentCheckBox" type="CheckBox" parent="VBoxContainer/TabContainer/Shape"]
 layout_mode = 2
+tooltip_text = "Turning this on means light will pass trough the 
+furniture shape and will cast no shadow. Turning this off
+means no light passes trough and it will cast a shadow."
 text = "Enable for transparency, letting light pass trough"
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_o3k3a")]
