@@ -12,6 +12,7 @@ var furniturerotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture on the map
 var furnitureJSONData: Dictionary # The json that defines this furniture's basics in general
 var sprite: Sprite3D = null
+var mesh_instance: MeshInstance3D
 var collider: CollisionShape3D = null
 var is_door: bool = false
 var door_state: String = "Closed"  # Default state
@@ -34,7 +35,9 @@ func _ready():
 	original_position = sprite.global_transform.origin
 
 	# Raise the sprite to the height of new_y
-	sprite.position.y = 0.1
+	var newheight = Helper.json_helper.get_nested_data(furnitureJSONData,"support_shape.height")
+	sprite.position.y = 0.01 + newheight if newheight else 0.1 # Should be slightly above mesh
+	mesh_instance.position.y = newheight/2 if newheight else 0.25
 
 
 # Check if this furniture acts as a door
@@ -68,35 +71,33 @@ func set_sprite(newSprite: Texture):
 	var uniqueTexture = newSprite.duplicate(true) # Duplicate the texture
 	sprite.texture = uniqueTexture
 
+	# Calculate new dimensions for the collision shape
+	var sprite_width = newSprite.get_width()
+	var sprite_height = newSprite.get_height()
+
+	var new_x = sprite_width / 100.0 # 0.1 units per 10 pixels in width
+	var new_z = sprite_height / 100.0 # 0.1 units per 10 pixels in height
+	var new_y = 0.8 # Any lower will make the player's bullet fly over it
+
 	if furnitureJSONData.has("support_shape"):
 		var support_shape = furnitureJSONData["support_shape"]
 		var shape = support_shape["shape"]
 		var height = support_shape["height"]
-		# Convert the color string to a Color object
-		var color_string = support_shape.get("color", "(1, 1, 1, 1)")  # Default to white
-		var color_components = color_string.strip_edges().replace("(", "").replace(")", "").split(", ")
-		var color = Color(
-			color_components[0].to_float(),
-			color_components[1].to_float(),
-			color_components[2].to_float(),
-			color_components[3].to_float()
-		)
+		var transparent = support_shape["transparent"]
+
+		var color = Color.html(support_shape.get("color", "#ffffff"))  # Default to white
+
 		if shape == "Box":
-			var width_scale = support_shape["width_scale"]
-			var depth_scale = support_shape["depth_scale"]
-			create_shape("Box", Vector3(width_scale, height, depth_scale), color)
+			var width_scale = support_shape["width_scale"] / 100.0
+			var depth_scale = support_shape["depth_scale"] / 100.0
+			var scaled_x = new_x * width_scale
+			var scaled_z = new_z * depth_scale
+			create_shape("Box", Vector3(scaled_x, height, scaled_z), color, transparent)
 		elif shape == "Cylinder":
-			var radius_scale = support_shape["radius_scale"]
-			create_shape("Cylinder", Vector3(radius_scale, height, radius_scale), color)
+			var radius_scale = support_shape["radius_scale"] / 100.0
+			var scaled_radius = (new_x * radius_scale)/2 # Since it's the radius we need half
+			create_shape("Cylinder", Vector3(scaled_radius, height, scaled_radius), color, transparent)
 	else:
-		# Calculate new dimensions for the collision shape
-		var sprite_width = newSprite.get_width()
-		var sprite_height = newSprite.get_height()
-
-		var new_x = sprite_width / 100.0 # 0.1 units per 10 pixels in width
-		var new_z = sprite_height / 100.0 # 0.1 units per 10 pixels in height
-		var new_y = 0.8 # Any lower will make the player's bullet fly over it
-
 		# Update the collision shape
 		var new_shape = BoxShape3D.new()
 		new_shape.extents = Vector3(new_x / 2.0, new_y / 1.0, new_z / 2.0) # BoxShape3D extents are half extents
@@ -110,8 +111,9 @@ func set_sprite(newSprite: Texture):
 		add_child.call_deferred(box_mesh_instance)
 
 
+
 # Function to create the shape based on the given parameters
-func create_shape(shape_type: String, size: Vector3, color: Color):
+func create_shape(shape_type: String, size: Vector3, color: Color, transparent: bool):
 	if shape_type == "Box":
 		# Update the collision shape
 		var new_shape = BoxShape3D.new()
@@ -122,7 +124,7 @@ func create_shape(shape_type: String, size: Vector3, color: Color):
 		add_child.call_deferred(collider)
 
 		# Create and add BoxMesh instance
-		var box_mesh_instance = create_box_mesh(size, color, true)
+		var box_mesh_instance = create_box_mesh(size, color, transparent)
 		add_child.call_deferred(box_mesh_instance)
 	elif shape_type == "Cylinder":
 		# Update the collision shape
@@ -135,7 +137,7 @@ func create_shape(shape_type: String, size: Vector3, color: Color):
 		add_child.call_deferred(collider)
 
 		# Create and add CylinderMesh instance
-		var cylinder_mesh_instance = create_cylinder_mesh(size.y, size.x, color, true)
+		var cylinder_mesh_instance = create_cylinder_mesh(size.y, size.x, color, transparent)
 		add_child.call_deferred(cylinder_mesh_instance)
 
 
@@ -150,7 +152,7 @@ func create_box_mesh(size: Vector3, albedo_color: Color, transparent: bool) -> M
 		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	box_mesh.material = material
 
-	var mesh_instance = MeshInstance3D.new()
+	mesh_instance = MeshInstance3D.new()
 	mesh_instance.mesh = box_mesh
 	return mesh_instance
 
@@ -158,7 +160,8 @@ func create_box_mesh(size: Vector3, albedo_color: Color, transparent: bool) -> M
 func create_cylinder_mesh(height: float, radius: float, albedo_color: Color, transparent: bool) -> MeshInstance3D:
 	var cylinder_mesh = CylinderMesh.new()
 	cylinder_mesh.height = height
-	cylinder_mesh.radius = radius
+	cylinder_mesh.top_radius = radius
+	cylinder_mesh.bottom_radius = radius
 	var material = StandardMaterial3D.new()
 	material.albedo_color = albedo_color
 	if transparent:
@@ -166,7 +169,7 @@ func create_cylinder_mesh(height: float, radius: float, albedo_color: Color, tra
 		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	cylinder_mesh.material = material
 
-	var mesh_instance = MeshInstance3D.new()
+	mesh_instance = MeshInstance3D.new()
 	mesh_instance.mesh = cylinder_mesh
 	return mesh_instance
 

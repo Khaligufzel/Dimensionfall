@@ -166,19 +166,10 @@ func load_support_shape_option():
 				support_shape_option_button.selected = i
 				break
 
-
-		# Convert the color string to a Color object
-		var color_string = shape_data.get("color", "(1, 1, 1, 1)")  # Default to white
-		var color_components = color_string.strip_edges().replace("(", "").replace(")", "").split(", ")
-		var color = Color(
-			color_components[0].to_float(),
-			color_components[1].to_float(),
-			color_components[2].to_float(),
-			color_components[3].to_float()
-		)
-		color_picker.color = color
+		color_picker.color = Color.html(shape_data.get("color", "#ffffff"))  # Default to white
 
 		transparent_check_box.button_pressed = shape_data.get("transparent", false)
+		heigth_spin_box.value = shape_data.get("height", 0.5)
 
 		if shape == "Box":
 			width_scale_spin_box.value = shape_data.get("width_scale", 0.0)
@@ -267,7 +258,7 @@ func handle_support_shape_option():
 		var shape_data = {
 			"shape": shape,
 			"height": heigth_spin_box.value,
-			"color": color_picker.color,
+			"color": color_picker.color.to_html(),
 			"transparent": transparent_check_box.button_pressed
 		}
 		if shape == "Box":
