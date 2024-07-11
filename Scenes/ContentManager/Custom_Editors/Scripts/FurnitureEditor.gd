@@ -5,6 +5,8 @@ extends Control
 #It expects to save the data to a JSON file that contains all furniture data from a mod
 #To load data, provide the name of the furniture data file and an ID
 
+@export var tab_container: TabContainer
+
 @export var furnitureImageDisplay: TextureRect = null
 @export var IDTextLabel: Label = null
 @export var NameTextEdit: TextEdit = null
@@ -31,6 +33,20 @@ extends Control
 @export var disassemblyTextEdit: HBoxContainer = null # Might contain the id of a loot group
 @export var disassemblyImageDisplay: TextureRect = null # What it looks like when disassembled
 @export var disassemblySpriteNameLabel: Label = null # The name of the disassembly sprite
+
+# Controls for the shape:
+@export var support_shape_option_button: OptionButton
+@export var width_scale_label: Label = null
+@export var depth_scale_label: Label = null
+@export var radius_scale_label: Label = null
+@export var width_scale_spin_box: SpinBox
+@export var depth_scale_spin_box: SpinBox
+@export var radius_scale_spin_box: SpinBox
+@export var heigth_spin_box: SpinBox
+@export var color_picker: ColorPicker
+@export var sprite_texture_rect: TextureRect
+@export var transparent_check_box: CheckBox
+
 
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
@@ -69,6 +85,7 @@ func load_furniture_data():
 	if furnitureImageDisplay and contentData.has("sprite"):
 		furnitureImageDisplay.texture = Gamedata.data.furniture.sprites[contentData["sprite"]]
 		imageNameStringLabel.text = contentData["sprite"]
+		update_sprite_texture_rect(furnitureImageDisplay.texture)
 	if IDTextLabel:
 		IDTextLabel.text = str(contentData["id"])
 	if NameTextEdit and contentData.has("name"):
@@ -132,6 +149,54 @@ func load_furniture_data():
 		containerCheckBox.button_pressed = false  # Uncheck the container checkbox
 		containerTextEdit.mytextedit.clear()  # Clear the text edit as no container data is present
 
+	# Call the function to load the support shape data
+	load_support_shape_option()
+
+
+
+# Function to load support shape data into the form
+func load_support_shape_option():
+	if contentData.has("support_shape"):
+		var shape_data = contentData["support_shape"]
+		var shape = shape_data["shape"]
+
+		# Select the appropriate shape in the option button
+		for i in range(support_shape_option_button.get_item_count()):
+			if support_shape_option_button.get_item_text(i) == shape:
+				support_shape_option_button.selected = i
+				break
+
+
+		# Convert the color string to a Color object
+		var color_string = shape_data.get("color", "(1, 1, 1, 1)")  # Default to white
+		var color_components = color_string.strip_edges().replace("(", "").replace(")", "").split(", ")
+		var color = Color(
+			color_components[0].to_float(),
+			color_components[1].to_float(),
+			color_components[2].to_float(),
+			color_components[3].to_float()
+		)
+		color_picker.color = color
+
+		transparent_check_box.button_pressed = shape_data.get("transparent", false)
+
+		if shape == "Box":
+			width_scale_spin_box.value = shape_data.get("width_scale", 0.0)
+			depth_scale_spin_box.value = shape_data.get("depth_scale", 0.0)
+			width_scale_spin_box.visible = true
+			depth_scale_spin_box.visible = true
+			width_scale_label.visible = true
+			depth_scale_label.visible = true
+			radius_scale_spin_box.visible = false
+			radius_scale_label.visible = false
+		elif shape == "Cylinder":
+			radius_scale_spin_box.value = shape_data.get("radius_scale", 0.0)
+			width_scale_spin_box.visible = false
+			depth_scale_spin_box.visible = false
+			width_scale_label.visible = false
+			depth_scale_label.visible = false
+			radius_scale_spin_box.visible = true
+			radius_scale_label.visible = true
 
 
 func update_door_option(door_state):
@@ -159,6 +224,12 @@ func _on_close_button_button_up():
 	queue_free.call_deferred()
 
 
+# Updates the sprite_texture_rect with the given texture
+func update_sprite_texture_rect(texture: Texture):
+	if sprite_texture_rect:
+		sprite_texture_rect.texture = texture
+
+
 # This function takes all data from the form elements and stores them in the contentData.
 # Since contentData is a reference to an item in Gamedata.data.furniture.data,
 # the central array for furnituredata is updated with the changes as well.
@@ -178,6 +249,8 @@ func _on_save_button_button_up():
 
 	contentData["edgesnapping"] = edgeSnappingOptionButton.get_item_text(edgeSnappingOptionButton.selected)
 
+	# Handle saving or erasing the support shape data
+	handle_support_shape_option()
 	handle_door_option()
 	handle_container_option()
 	handle_destruction_option()
@@ -185,6 +258,27 @@ func _on_save_button_button_up():
 
 	data_changed.emit(Gamedata.data.furniture, contentData, olddata)
 	olddata = contentData.duplicate(true)
+
+
+# Function to handle saving or erasing the support shape data
+func handle_support_shape_option():
+	if not moveableCheckboxButton.button_pressed:
+		var shape = support_shape_option_button.get_item_text(support_shape_option_button.selected)
+		var shape_data = {
+			"shape": shape,
+			"height": heigth_spin_box.value,
+			"color": color_picker.color,
+			"transparent": transparent_check_box.button_pressed
+		}
+		if shape == "Box":
+			shape_data["width_scale"] = width_scale_spin_box.value
+			shape_data["depth_scale"] = depth_scale_spin_box.value
+		elif shape == "Cylinder":
+			shape_data["radius_scale"] = radius_scale_spin_box.value
+
+		contentData["support_shape"] = shape_data
+	else:
+		contentData.erase("support_shape")
 
 
 # If the door function is set, we save the value to contentData
@@ -322,6 +416,7 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	if current_image_display == "furniture":
 		furnitureImageDisplay.texture = furnitureTexture
 		imageNameStringLabel.text = furnitureTexture.resource_path.get_file()
+		update_sprite_texture_rect(furnitureTexture)
 	elif current_image_display == "disassemble":
 		disassemblyImageDisplay.texture = furnitureTexture
 		disassemblySpriteNameLabel.text = furnitureTexture.resource_path.get_file()
@@ -354,3 +449,33 @@ func _on_can_disassemble_check_box_toggled(toggled_on):
 func _on_moveable_checkbox_toggled(button_pressed):
 	weightLabel.visible = button_pressed
 	weightSpinBox.visible = button_pressed
+
+
+# When the user selects a shape from the optionbutton
+func _on_support_shape_option_button_item_selected(index):
+	if index == 0:  # Box is selected
+		width_scale_spin_box.visible = true
+		depth_scale_spin_box.visible = true
+		width_scale_label.visible = true
+		depth_scale_label.visible = true
+		radius_scale_label.visible = false
+		radius_scale_spin_box.visible = false
+	elif index == 1:  # Cylinder is selected
+		width_scale_spin_box.visible = false
+		depth_scale_spin_box.visible = false
+		width_scale_label.visible = false
+		depth_scale_label.visible = false
+		radius_scale_label.visible = true
+		radius_scale_spin_box.visible = true
+
+
+# When the user toggles the moveable checkbox
+# We only show the shape tab if the furniture is not moveable but static
+func _on_unmoveable_check_box_toggled(toggled_on):
+	# Check if the checkbox is toggled on
+	if toggled_on:
+		# Hide the second tab in the tab container
+		tab_container.set_tab_hidden(1, true)
+	else:
+		# Show the second tab in the tab container
+		tab_container.set_tab_hidden(1, false)
