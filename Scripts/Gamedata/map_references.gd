@@ -106,12 +106,12 @@ func collect_unique_entities(newdata: Dictionary, olddata: Dictionary) -> Dictio
 	# Collect entities from newdata
 	if newdata.has("areas"):
 		for area in newdata["areas"]:
-			add_entities_to_set(area, new_entities)
+			add_entities_in_area_to_set(area, new_entities)
 
 	# Collect entities from olddata
 	if olddata.has("areas"):
 		for area in olddata["areas"]:
-			add_entities_to_set(area, old_entities)
+			add_entities_in_area_to_set(area, old_entities)
 	
 	return {"new_entities": new_entities, "old_entities": old_entities}
 
