@@ -33,6 +33,9 @@ func _ready():
 	add_container(Vector3(0, 0, 0))
 	original_position = sprite.global_transform.origin
 
+	# Raise the sprite to the height of new_y
+	sprite.position.y = 0.1
+
 
 # Check if this furniture acts as a door
 # We check if the door data for this unique furniture has been set
@@ -80,6 +83,41 @@ func set_sprite(newSprite: Texture):
 	collider = CollisionShape3D.new()
 	collider.shape = new_shape
 	add_child.call_deferred(collider)
+
+	# Create and add BoxMesh instance
+	var box_mesh_instance = create_box_mesh(Vector3(new_x, new_y, new_z), Color(1.0, 0.0, 0.0, 0.5), true)
+	add_child.call_deferred(box_mesh_instance)
+
+
+func create_box_mesh(size: Vector3, albedo_color: Color, transparent: bool) -> MeshInstance3D:
+	var box_mesh = BoxMesh.new()
+	box_mesh.size = size
+	var material = StandardMaterial3D.new()
+	material.albedo_color = albedo_color
+	if transparent:
+		material.flags_transparent = true
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	box_mesh.material = material
+
+	var mesh_instance = MeshInstance3D.new()
+	mesh_instance.mesh = box_mesh
+	return mesh_instance
+
+
+func create_cylinder_mesh(height: float, radius: float, albedo_color: Color, transparent: bool) -> MeshInstance3D:
+	var cylinder_mesh = CylinderMesh.new()
+	cylinder_mesh.height = height
+	cylinder_mesh.radius = radius
+	var material = StandardMaterial3D.new()
+	material.albedo_color = albedo_color
+	if transparent:
+		material.flags_transparent = true
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	cylinder_mesh.material = material
+
+	var mesh_instance = MeshInstance3D.new()
+	mesh_instance.mesh = cylinder_mesh
+	return mesh_instance
 
 
 func get_sprite() -> Texture:
