@@ -121,6 +121,11 @@ func add_entities_to_set(level: Array, entity_set: Dictionary):
 						entity_set["itemgroups"].append(itemgroup)
 		if entity.has("id") and not entity_set["tiles"].has(entity["id"]):
 			entity_set["tiles"].append(entity["id"])
+		# Add unique itemgroups directly from the entity
+		if entity.has("itemgroups"):
+			for itemgroup in entity["itemgroups"]:
+				if not entity_set["itemgroups"].has(itemgroup):
+					entity_set["itemgroups"].append(itemgroup)
 
 
 # Removes all instances of the provided entity from the provided map
@@ -168,6 +173,15 @@ func remove_entity_from_map(map_id: String, entity_type: String, entity_id: Stri
 						var itemgroups = entity["furniture"]["itemgroups"]
 						if itemgroups.has(entity_id):
 							itemgroups.erase(entity_id)
+							if itemgroups.size() == 0:
+								entity["furniture"].erase("itemgroups")
+					# Also, check and remove itemgroups from the entity itself if present
+					if entity.has("itemgroups"):
+						var entity_itemgroups = entity["itemgroups"]
+						if entity_itemgroups.has(entity_id):
+							entity_itemgroups.erase(entity_id)
+							if entity_itemgroups.size() == 0:
+								entity.erase("itemgroups")
 
 		# Update the level in the mapdata after modifications
 		levels[level_index] = level

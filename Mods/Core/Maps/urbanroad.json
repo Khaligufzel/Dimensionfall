@@ -1161,7 +1161,10 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"itemgroups": [
+					"generic_field_finds"
+				]
 			},
 			{
 				"id": "grass_plain_01"

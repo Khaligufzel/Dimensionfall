@@ -107,14 +107,15 @@ func generate_new_chunk():
 	processed_level_data = process_level_data()
 	add_furnitures_to_new_block()
 	add_block_mobs()
+	add_itemgroups_to_new_block()
 	reset_state()
 
 
-# Collects the furniture and mob data from the mapdata to be spawned later
-func process_level_data():
+# Collects the furniture, mob, and itemgroups data from the mapdata to be spawned later
+func process_level_data() -> Dictionary:
 	var level_number = 0
 	var tileJSON: Dictionary = {}
-	var proc_lvl_data: Dictionary = {"furn": [],"mobs": []}
+	var processed_level_data: Dictionary = {"furniture": [], "mobs": [], "itemgroups": []}
 
 	for level in _mapleveldata:
 		if level != []:
@@ -127,16 +128,20 @@ func process_level_data():
 						if tileJSON.has("id") and tileJSON.id != "":
 							if tileJSON.has("mob"):
 								# We spawn it slightly above the block and let it fall. Might want to 
-								# fiddle with the Y coordinate for optimalization
-								proc_lvl_data.mobs.append({"json":tileJSON.mob, "pos":Vector3(w,y+1.5,h)})
+								# fiddle with the Y coordinate for optimization
+								processed_level_data.mobs.append({"json": tileJSON.mob, "pos": Vector3(w, y + 1.5, h)})
 							if tileJSON.has("furniture"):
 								# We spawn it slightly above the block. Might want to 
-								# fiddle with the Y coordinate for optimalization
-								var furniturjson = tileJSON.furniture
-								proc_lvl_data.furn.append({"json":furniturjson, "pos":Vector3(w,y+0.5,h)})
+								# fiddle with the Y coordinate for optimization
+								var furniture_json = tileJSON.furniture
+								processed_level_data.furniture.append({"json": furniture_json, "pos": Vector3(w, y + 0.5, h)})
+							if tileJSON.has("itemgroups"):
+								var itemgroups_json = tileJSON.itemgroups
+								processed_level_data.itemgroups.append({"json": itemgroups_json, "pos": Vector3(w, y, h)})
 					current_block += 1
 		level_number += 1
-	return proc_lvl_data
+	return processed_level_data
+
 
 
 # Creates a dictionary of all block positions with a local x,y and z position
@@ -198,7 +203,7 @@ func add_block_mobs():
 # When a map is loaded for the first time we spawn the furniture on the block
 func add_furnitures_to_new_block():
 	mutex.lock()
-	var furnituredata = processed_level_data.furn.duplicate()
+	var furnituredata = processed_level_data.furniture.duplicate()
 	mutex.unlock()
 	var total_furniture = furnituredata.size()
 	 # Ensure we at least get 1 to avoid division by zero
@@ -228,6 +233,37 @@ func add_furnitures_to_new_block():
 
 	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
 	if total_furniture % delay_every_n_furniture != 0:
+		OS.delay_msec(10)
+
+
+# When a map is loaded for the first time we spawn the itemgroups on the block
+func add_itemgroups_to_new_block():
+	mutex.lock()
+	var itemgroup_data = processed_level_data.itemgroups.duplicate()
+	mutex.unlock()
+	var total_itemgroups = itemgroup_data.size()
+	# Ensure we at least get 1 to avoid division by zero
+	var delay_every_n_itemgroups = max(1, total_itemgroups / 15)
+
+	for i in range(total_itemgroups):
+		var itemgroup = itemgroup_data[i]
+		var itemgroup_map_json: Dictionary = {"itemgroups":itemgroup.json}
+		var itemgroup_pos: Vector3 = itemgroup.pos
+		var newItem: ContainerItem = ContainerItem.new()
+
+		itemgroup_map_json["global_position_x"] = mypos.x + itemgroup_pos.x
+		itemgroup_map_json["global_position_y"] = mypos.y + itemgroup_pos.y + 1.01
+		itemgroup_map_json["global_position_z"] = mypos.z + itemgroup_pos.z
+		newItem.construct_self(itemgroup_map_json)
+		newItem.add_to_group("mapitems")
+		get_tree().get_root().add_child.call_deferred(newItem)
+		
+		# Insert delay after every n itemgroups, evenly spreading the delay
+		if i % delay_every_n_itemgroups == 0 and i != 0: # Avoid delay at the very start
+			OS.delay_msec(10) # Adjust delay time as needed
+
+	# Optional: One final delay after the last itemgroup if the total_itemgroups is not perfectly divisible by delay_every_n_itemgroups
+	if total_itemgroups % delay_every_n_itemgroups != 0:
 		OS.delay_msec(10)
 
 

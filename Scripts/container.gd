@@ -60,7 +60,12 @@ func create_loot():
 
 	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
 	if item_added and sprite_3d.texture == load("res://Textures/container_32.png"):
-		sprite_3d.texture = load("res://Textures/container_filled_32.png")
+		# If this container is attached to the furniture, we set the container filled
+		var parent = get_parent()
+		if parent is FurniturePhysics or parent is FurnitureStatic:
+			sprite_3d.texture = load("res://Textures/container_filled_32.png")
+		else: # Set the sprite to one it the item's sprites
+			set_random_inventory_item_texture()
 	elif not item_added:
 		 # If no item was added we delete the container if it's not a child of some furniture
 		_on_item_removed(null)
@@ -93,15 +98,22 @@ func create_inventory():
 
 # Basic setup for this container. Should be called before adding it to the scene tree
 func construct_self(item: Dictionary):
-	containerpos = Vector3(item.global_position_x,item.global_position_y,item.global_position_z)
+	containerpos = Vector3(item.global_position_x, item.global_position_y, item.global_position_z)
 	add_to_group("Containers")
 	create_inventory()
 	create_area3d()
+
 	if item.has("inventory"):
 		deserialize_and_apply_items.call_deferred(item.inventory)
 	if item.has("texture_id"):
 		texture_id = item.texture_id
 	create_sprite()
+
+	# Check if the item has itemgroups, pick one at random and set the itemgroup property
+	if item.has("itemgroups"):
+		var itemgroups_array: Array = item.itemgroups
+		if itemgroups_array.size() > 0:
+			itemgroup = itemgroups_array.pick_random()
 
 
 # Creates the sprite with some default properties
@@ -209,6 +221,11 @@ func _on_item_removed(_item: InventoryItem):
 			else:
 				# It's a child of some node, probably furniture
 				sprite_3d.texture = load("res://Textures/container_32.png")
+	else: # There are still items in the container
+		if is_inside_tree():
+			# Check if this ContainerItem is a direct child of the tree root
+			if get_parent() == get_tree().get_root():
+				set_random_inventory_item_texture() # Update to a new sprite
 
 
 func _on_item_added(_item: InventoryItem):
@@ -240,3 +257,17 @@ func get_data() -> Dictionary:
 		newitemData["texture_id"] = texture_id
 	
 	return newitemData
+
+
+# Sets the sprite_3d texture to a texture of a random item in the container's inventory
+func set_random_inventory_item_texture():
+	var items: Array = inventory.get_items()
+	if items.size() == 0:
+		return
+	
+	# Pick a random item from the inventory
+	var random_item = items.pick_random()
+	var item_id = random_item.prototype_id
+	
+	# Set the sprite_3d texture to the item's sprite
+	sprite_3d.texture = Gamedata.get_sprite_by_id(Gamedata.data.items, item_id)

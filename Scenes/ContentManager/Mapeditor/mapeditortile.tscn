@@ -23,7 +23,7 @@ grow_vertical = 2
 texture = ExtResource("2_rued1")
 expand_mode = 3
 
-[node name="MobFurnitureSprite" type="TextureRect" parent="."]
+[node name="ObjectSprite" type="TextureRect" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -37,5 +37,5 @@ stretch_mode = 4
 [connection signal="gui_input" from="TileSprite" to="." method="_on_texture_rect_gui_input"]
 [connection signal="mouse_entered" from="TileSprite" to="." method="_on_texture_rect_mouse_entered"]
 [connection signal="resized" from="TileSprite" to="." method="_on_texture_rect_resized"]
-[connection signal="gui_input" from="MobFurnitureSprite" to="." method="_on_texture_rect_gui_input"]
-[connection signal="mouse_entered" from="MobFurnitureSprite" to="." method="_on_texture_rect_mouse_entered"]
+[connection signal="gui_input" from="ObjectSprite" to="." method="_on_texture_rect_gui_input"]
+[connection signal="mouse_entered" from="ObjectSprite" to="." method="_on_texture_rect_mouse_entered"]

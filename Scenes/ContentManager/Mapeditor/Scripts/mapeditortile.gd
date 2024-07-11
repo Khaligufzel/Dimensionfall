@@ -9,28 +9,30 @@ var tileData: Dictionary = defaultTileData.duplicate():
 	set(data):
 		tileData = data
 		if tileData.has("id") and tileData.id != "":
-			$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles,\
-			tileData.id).albedo_texture
+			$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, tileData.id).albedo_texture
 			set_rotation_amount(tileData.get("rotation", 0))
-			$MobFurnitureSprite.hide()
-			$MobFurnitureSprite.rotation_degrees = 0
+			$ObjectSprite.hide()
+			$ObjectSprite.rotation_degrees = 0
 			if tileData.has("mob"):
 				if tileData.mob.has("rotation"):
-					$MobFurnitureSprite.rotation_degrees = tileData.mob.rotation
-				$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs,\
-				tileData.mob.id)
-				$MobFurnitureSprite.show()
+					$ObjectSprite.rotation_degrees = tileData.mob.rotation
+				$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs, tileData.mob.id)
+				$ObjectSprite.show()
 			elif tileData.has("furniture"):
 				if tileData.furniture.has("rotation"):
-					$MobFurnitureSprite.rotation_degrees = tileData.furniture.rotation
-				$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(\
-				Gamedata.data.furniture, tileData.furniture.id)
-				$MobFurnitureSprite.show()
+					$ObjectSprite.rotation_degrees = tileData.furniture.rotation
+				$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture, tileData.furniture.id)
+				$ObjectSprite.show()
+			elif tileData.has("itemgroups"):
+				var random_itemgroup: String = tileData.itemgroups.pick_random()
+				$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, random_itemgroup)
+				$ObjectSprite.show()
 		else:
 			$TileSprite.texture = load(defaultTexture)
-			$MobFurnitureSprite.texture = null
-			$MobFurnitureSprite.hide()
+			$ObjectSprite.texture = null
+			$ObjectSprite.hide()
 		set_tooltip()
+
 
 signal tile_clicked(clicked_tile: Control)
 
@@ -71,37 +73,41 @@ func set_tile_id(id: String) -> void:
 	set_tooltip()
 
 
+# Place a mob on this tile. We erase furniture and itemgroups since they can't exist on the same tile
 func set_mob_id(id: String) -> void:
 	if id == "":
 		tileData.erase("mob")
-		if !tileData.has("furniture"):
-			$MobFurnitureSprite.hide()
+		if not tileData.has("furniture") and not tileData.has("itemgroups"):
+			$ObjectSprite.hide()
 	else:
-		# A tile can either have a mob or furniture. If we add a mob, remove furniture
+		# A tile can either have a mob or furniture. If we add a mob, remove furniture and itemgroups
 		tileData.erase("furniture")
+		tileData.erase("itemgroups")
 		if tileData.has("mob"):
 			tileData.mob.id = id
 		else:
 			tileData.mob = {"id": id}
-		$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs, id)
-		$MobFurnitureSprite.show()
+		$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs, id)
+		$ObjectSprite.show()
 	set_tooltip()
 
 
+# Place a furniture on this tile. We erase mob and itemgroups since they can't exist on the same tile
 func set_furniture_id(id: String) -> void:
 	if id == "":
 		tileData.erase("furniture")
-		if !tileData.has("mob"):
-			$MobFurnitureSprite.hide()
+		if not tileData.has("mob") and not tileData.has("itemgroups"):
+			$ObjectSprite.hide()
 	else:
-		# A tile can either have a mob or furniture. If we add furniture, remove the mob
+		# A tile can either have a mob or furniture. If we add furniture, remove the mob and itemgroups
 		tileData.erase("mob")
+		tileData.erase("itemgroups")
 		if tileData.has("furniture"):
 			tileData.furniture.id = id
 		else:
 			tileData.furniture = {"id": id}
-		$MobFurnitureSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture, id)
-		$MobFurnitureSprite.show()
+		$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture, id)
+		$ObjectSprite.show()
 	set_tooltip()
 
 
@@ -117,7 +123,7 @@ func set_furniture_rotation(rotationDegrees: int) -> void:
 
 # Helper function to set entity rotation
 func set_entity_rotation(key: String, rotationDegrees: int) -> void:
-	$MobFurnitureSprite.rotation_degrees = rotationDegrees
+	$ObjectSprite.rotation_degrees = rotationDegrees
 	if rotationDegrees == 0:
 		tileData[key].erase("rotation")
 	else:
@@ -129,18 +135,38 @@ func set_entity_rotation(key: String, rotationDegrees: int) -> void:
 # If the "container" property exists in the "Function" property of the furniture data, 
 # it sets the tileData.furniture.itemgroups property.
 # If the "container" property or the "Function" property does not exist, it erases the "itemgroups" property.
-func set_furniture_itemgroups(itemgroups: Array) -> void:
-	if not tileData.has("furniture"):
+# If no furniture is present, it applies the itemgroup to the tile and updates the ObjectSprite with a random sprite.
+# If the tileData has the "mob" property, it returns without making any changes.
+func set_tile_itemgroups(itemgroups: Array) -> void:
+	if tileData.has("mob"):
 		return
 	
-	var furnituredata = Gamedata.get_data_by_id(Gamedata.data.furniture, tileData.furniture.id)
-	var containervalue = Helper.json_helper.get_nested_data(furnituredata, "Function.container")
-	
-	if not itemgroups.is_empty() and typeof(containervalue) == TYPE_DICTIONARY:
-		tileData.furniture.itemgroups = itemgroups
+	# If the tile doesn't have furniture
+	if not tileData.has("furniture"):
+		if itemgroups.is_empty(): # Erase the itemgroups property if the itemgroups array is empty
+			tileData.erase("itemgroups")
+			$ObjectSprite.hide()
+		else:
+			# Apply the itemgroup to the tile and update ObjectSprite with a random sprite
+			var random_itemgroup: String = itemgroups.pick_random()
+			$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, random_itemgroup)
+			$ObjectSprite.show()
+			$ObjectSprite.rotation_degrees = 0
+			tileData["itemgroups"] = itemgroups
 	else:
-		tileData.furniture.erase("itemgroups")
+		if itemgroups.is_empty(): # Only erase the itemgroups property from furniture
+			tileData.furniture.erase("itemgroups")
+		else:
+			var furnituredata = Gamedata.get_data_by_id(Gamedata.data.furniture, tileData.furniture.id)
+			var containervalue = Helper.json_helper.get_nested_data(furnituredata, "Function.container")
+
+			if not itemgroups.is_empty() and typeof(containervalue) == TYPE_DICTIONARY:
+				tileData.furniture.itemgroups = itemgroups
+			else:
+				tileData.furniture.erase("itemgroups")
+	
 	set_tooltip()
+
 
 
 # If the user holds the mouse button while entering this tile, we consider it clicked
@@ -149,6 +175,7 @@ func _on_texture_rect_mouse_entered() -> void:
 		tile_clicked.emit(self)
 
 
+# Resets the tiledata to the default
 func set_default() -> void:
 	tileData = defaultTileData.duplicate()
 
@@ -165,14 +192,14 @@ func set_clickable(clickable: bool):
 	if !clickable:
 		mouse_filter = MOUSE_FILTER_IGNORE
 		$TileSprite.mouse_filter = MOUSE_FILTER_IGNORE
-		$MobFurnitureSprite.mouse_filter = MOUSE_FILTER_IGNORE
+		$ObjectSprite.mouse_filter = MOUSE_FILTER_IGNORE
 
 
 #This function sets the texture to some static resource that helps the user visualize that something is above
 #If this tile has a texture in its data, set it to the above texture instead
 func set_above():
-	$MobFurnitureSprite.texture = null
-	$MobFurnitureSprite.hide()
+	$ObjectSprite.texture = null
+	$ObjectSprite.hide()
 	if tileData.has("id") and tileData.id != "":
 		$TileSprite.texture = load(aboveTexture)
 	else:
@@ -181,26 +208,30 @@ func set_above():
 
 func _on_texture_rect_resized():
 	$TileSprite.pivot_offset = size / 2
-	$MobFurnitureSprite.pivot_offset = size / 2
+	$ObjectSprite.pivot_offset = size / 2
 
 
 func get_tile_texture():
 	return $TileSprite.texture
 
 
-func set_tooltip():
+# Sets the tooltip for this tile. The user can use this to see what's on this tile.
+func set_tooltip() -> void:
 	var tooltiptext = "Tile Overview:\n"
 	
+	# Display tile ID
 	if tileData.has("id") and tileData.id != "":
 		tooltiptext += "ID: " + str(tileData.id) + "\n"
 	else:
 		tooltiptext += "ID: None\n"
 	
+	# Display tile rotation
 	if tileData.has("rotation"):
 		tooltiptext += "Rotation: " + str(tileData.rotation) + " degrees\n"
 	else:
 		tooltiptext += "Rotation: 0 degrees\n"
 	
+	# Display mob information
 	if tileData.has("mob"):
 		tooltiptext += "Mob ID: " + str(tileData.mob.id) + "\n"
 		if tileData.mob.has("rotation"):
@@ -210,6 +241,7 @@ func set_tooltip():
 	else:
 		tooltiptext += "Mob: None\n"
 	
+	# Display furniture information
 	if tileData.has("furniture"):
 		tooltiptext += "Furniture ID: " + str(tileData.furniture.id) + "\n"
 		if tileData.furniture.has("rotation"):
@@ -221,6 +253,11 @@ func set_tooltip():
 	else:
 		tooltiptext += "Furniture: None\n"
 	
+	# Display itemgroups information
+	if tileData.has("itemgroups"):
+		tooltiptext += "Tile Item Groups: " + str(tileData.itemgroups) + "\n"
+	else:
+		tooltiptext += "Tile Item Groups: None\n"
+	
 	# Set the tooltip
 	self.tooltip_text = tooltiptext
-

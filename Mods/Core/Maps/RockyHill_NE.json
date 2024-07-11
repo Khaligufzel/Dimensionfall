@@ -675,7 +675,10 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_medium_dirt_02"
+				"id": "grass_medium_dirt_02",
+				"itemgroups": [
+					"generic_field_finds"
+				]
 			},
 			{
 				"id": "grass_medium_dirt_02"

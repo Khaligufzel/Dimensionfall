@@ -233,6 +233,8 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 				tile.set_mob_id("")
 			elif brush.entityType == "furniture":
 				tile.set_furniture_id("")
+			elif brush.entityType == "itemgroup":
+				tile.set_tile_itemgroups([]) # erase by passing an empty array
 			else:
 				tile.set_tile_id("")
 				tile.set_rotation_amount(0)
@@ -247,11 +249,11 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 		elif brush.entityType == "furniture":
 			tile.set_furniture_id(brush.entityID)
 			tile.set_furniture_rotation(tilerotation)
-			tile.set_furniture_itemgroups(brushcomposer.get_itemgroup_entity_ids())
+			tile.set_tile_itemgroups(brushcomposer.get_itemgroup_entity_ids())
 		elif brush.entityType == "itemgroup":
 			# The brushcomposer only returns a brush of this type if there are only
-			# itemgroup brushes in the brushcomposer. We apply the itemgroups to the furniture
-			tile.set_furniture_itemgroups(brushcomposer.get_itemgroup_entity_ids())
+			# itemgroup brushes in the brushcomposer. We apply the itemgroups to the tile
+			tile.set_tile_itemgroups(brushcomposer.get_itemgroup_entity_ids())
 		else:
 			tile.set_tile_id(brush.entityID)
 			tile.set_rotation_amount(tilerotation)

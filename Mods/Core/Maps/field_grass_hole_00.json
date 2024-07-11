@@ -1337,6 +1337,9 @@
 			},
 			{
 				"id": "grass_medium_dirt_00",
+				"itemgroups": [
+					"generic_field_finds"
+				],
 				"rotation": 270
 			},
 			{
@@ -3496,7 +3499,10 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"itemgroups": [
+					"generic_field_finds"
+				]
 			},
 			{
 				"id": "grass_plain_01"
@@ -5253,7 +5259,10 @@
 				"id": "grass_plain_01"
 			},
 			{
-				"id": "grass_plain_01"
+				"id": "grass_plain_01",
+				"itemgroups": [
+					"generic_field_finds"
+				]
 			},
 			{
 				"id": "grass_plain_01"

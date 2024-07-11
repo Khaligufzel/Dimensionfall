@@ -1203,7 +1203,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"tree_destroyed"
+					"tree_destroyed",
+					"generic_field_finds"
 				]
 			}
 		},
@@ -1270,7 +1271,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"tree_destroyed"
+					"tree_destroyed",
+					"generic_field_finds"
 				]
 			}
 		},
@@ -2262,6 +2264,13 @@
 		"image": "./Mods/Core/Items/flower_wild_32.png",
 		"max_stack_size": 10,
 		"name": "Wild Flower",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"generic_field_finds"
+				]
+			}
+		},
 		"sprite": "flower_wild_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2286,6 +2295,13 @@
 		"image": "./Mods/Core/Items/pebble_32.png",
 		"max_stack_size": 100,
 		"name": "Pebble",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"generic_field_finds"
+				]
+			}
+		},
 		"sprite": "pebble_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2322,6 +2338,13 @@
 		"image": "./Mods/Core/Items/rock_medium_32.png",
 		"max_stack_size": 10,
 		"name": "Medium Rock",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"generic_field_finds"
+				]
+			}
+		},
 		"sprite": "rock_medium_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2334,6 +2357,13 @@
 		"image": "./Mods/Core/Items/rock_small_32.png",
 		"max_stack_size": 20,
 		"name": "Small Rock",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"generic_field_finds"
+				]
+			}
+		},
 		"sprite": "rock_small_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2395,6 +2425,9 @@
 		"name": "Sharp Stone",
 		"references": {
 			"core": {
+				"itemgroups": [
+					"generic_field_finds"
+				],
 				"items": [
 					"stone_spear"
 				]
