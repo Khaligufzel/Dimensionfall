@@ -84,7 +84,15 @@
 				]
 			}
 		},
-		"sprite": "countertop_100_52.png"
+		"sprite": "countertop_100_52.png",
+		"support_shape": {
+			"color": "8d401bff",
+			"depth_scale": 100,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 100
+		}
 	},
 	{
 		"categories": [
@@ -109,7 +117,14 @@
 				]
 			}
 		},
-		"sprite": "Tree_100.png"
+		"sprite": "Tree_100.png",
+		"support_shape": {
+			"color": "653102ff",
+			"height": 0.5,
+			"radius_scale": 60,
+			"shape": "Cylinder",
+			"transparent": false
+		}
 	},
 	{
 		"categories": [
@@ -134,7 +149,14 @@
 				]
 			}
 		},
-		"sprite": "PineTree_100.png"
+		"sprite": "PineTree_100.png",
+		"support_shape": {
+			"color": "9b522fff",
+			"height": 0.5,
+			"radius_scale": 60,
+			"shape": "Cylinder",
+			"transparent": false
+		}
 	},
 	{
 		"categories": [
@@ -159,7 +181,14 @@
 				]
 			}
 		},
-		"sprite": "WillowTree_100.png"
+		"sprite": "WillowTree_100.png",
+		"support_shape": {
+			"color": "9e5137ff",
+			"height": 0.5,
+			"radius_scale": 60,
+			"shape": "Cylinder",
+			"transparent": false
+		}
 	},
 	{
 		"categories": [
@@ -184,7 +213,15 @@
 				]
 			}
 		},
-		"sprite": "bench_wood_100_50.png"
+		"sprite": "bench_wood_100_50.png",
+		"support_shape": {
+			"color": "8d4924ff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"categories": [
@@ -236,7 +273,15 @@
 				]
 			}
 		},
-		"sprite": "bed_wood_100_50.png"
+		"sprite": "bed_wood_100_50.png",
+		"support_shape": {
+			"color": "8d4925ff",
+			"depth_scale": 95,
+			"height": 0.2,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"Function": {
@@ -266,7 +311,15 @@
 				]
 			}
 		},
-		"sprite": "cabinet_wood_100_50.png"
+		"sprite": "cabinet_wood_100_50.png",
+		"support_shape": {
+			"color": "864100ff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"categories": [
@@ -346,7 +399,14 @@
 				]
 			}
 		},
-		"sprite": "toilet_48.png"
+		"sprite": "toilet_48.png",
+		"support_shape": {
+			"color": "bdbebdff",
+			"height": 0.2,
+			"radius_scale": 40,
+			"shape": "Cylinder",
+			"transparent": false
+		}
 	},
 	{
 		"Function": {
@@ -921,6 +981,14 @@
 				]
 			}
 		},
-		"sprite": "windw_framed_100_95.png"
+		"sprite": "windw_framed_100_95.png",
+		"support_shape": {
+			"color": "94c9d1ff",
+			"depth_scale": 100,
+			"height": 0.6,
+			"shape": "Box",
+			"transparent": true,
+			"width_scale": 100
+		}
 	}
 ]
