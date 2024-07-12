@@ -189,7 +189,7 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 		var tile = overmapTile.instantiate()
 		var local_pos = Vector2(column * tile_size, row * tile_size)
 		var global_pos = Vector2(chunk[i].global_x, chunk[i].global_y)
-		var map_cell = Helper.overmap_manager.get_map_cell_by_global_coordinate(global_pos)
+		var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
 		var texture: Texture = map_cell.get_sprite()
 		# Assign the tile's row and column information
 		tile.set_meta("global_pos", global_pos)

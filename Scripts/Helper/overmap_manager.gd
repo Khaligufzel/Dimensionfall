@@ -202,14 +202,13 @@ func get_map_cell_by_global_coordinate(coord: Vector2) -> map_cell:
 		# If the chunk is not loaded, generate it
 		generate_chunk(chunk_key)
 		return get_map_cell_by_local_coordinate(chunk_key)
-	
-	# Return null if no cell is found (should not happen if generation is correct)
-	return null
 
 
 # Function to get a map_cell by local coordinate within a specific chunk
 func get_map_cell_by_local_coordinate(chunk_key: Vector2) -> map_cell:
 	if loaded_chunks.has(chunk_key):
 		return loaded_chunks[chunk_key][0]
-	# Return null if no cell is found (should not happen if generation is correct)
-	return null
+	else:
+		# If the chunk is not loaded, generate it
+		generate_chunk(chunk_key)
+		return get_map_cell_by_local_coordinate(chunk_key)
