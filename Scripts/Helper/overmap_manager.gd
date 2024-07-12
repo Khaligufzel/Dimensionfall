@@ -57,12 +57,14 @@ class map_cell:
 		tacticalmapname = newdata.get("tacticalmapname", "town_00.json")
 	
 	func get_sprite() -> Texture:
-		return Gamedata.get_sprite_by_id(Gamedata.data.maps, mapname)
+		return Gamedata.get_sprite_by_id(Gamedata.data.maps, mapname.replace(".json", ""))
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	noise = FastNoiseLite.new()
+	var rng = RandomNumberGenerator.new()
+	noise.seed = rng.randi()
 	# Connect to the Helper.signal_broker.game_started signal
 	Helper.signal_broker.game_started.connect(_on_game_started)
 	Helper.signal_broker.game_ended.connect(_on_game_ended)
@@ -119,7 +121,6 @@ func generate_chunk(chunk_key: Vector2):
 	var chunk_y = int(chunk_key.y)
 
 	# Generate regions
-	noise.seed = int(hash(region_seed))
 	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
 	noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
 	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
