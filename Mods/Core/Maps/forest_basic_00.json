@@ -4899,5 +4899,6 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
-	"name": "Forest"
+	"name": "Forest",
+	"weight": 1000
 }

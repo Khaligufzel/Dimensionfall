@@ -10,6 +10,8 @@ extends Control
 @export var name_text_edit: TextEdit
 @export var description_text_edit: TextEdit
 @export var categories_list: Control
+@export var weight_spin_box: SpinBox
+
 
 
 signal zoom_level_changed(value: int)
@@ -89,7 +91,8 @@ func get_settings_values() -> Dictionary:
 	var values = {
 		"name": name_text_edit.text,
 		"description": description_text_edit.text,
-		"categories": categories_list.get_items()
+		"categories": categories_list.get_items(),
+		"weight": weight_spin_box.value
 	}
 	return values
 
@@ -102,3 +105,5 @@ func set_settings_values(values: Dictionary) -> void:
 		description_text_edit.text = values["description"]
 	if values.has("categories"):
 		categories_list.set_items(values["categories"])
+	if values.has("weight"):
+		weight_spin_box.value = values["weight"]

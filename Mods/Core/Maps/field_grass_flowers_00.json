@@ -3260,5 +3260,6 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
-	"name": "Flowered Grass Field"
+	"name": "Flowered Grass Field",
+	"weight": 1000
 }

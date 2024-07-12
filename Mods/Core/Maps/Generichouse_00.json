@@ -38277,5 +38277,6 @@
 				"DefaultTacticalMap.json"
 			]
 		}
-	}
+	},
+	"weight": 1000
 }
