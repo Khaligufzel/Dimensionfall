@@ -7,21 +7,21 @@ extends Control
 @export var overmapTileLabel: Label = null
 var last_position_coord: Vector2 = Vector2()
 var noise = FastNoiseLite.new()
-var grid_chunks: Dictionary = {} # Stores references to grid containers (visual tilegrids)
+var grid_chunks: Dictionary = {} # Stores references to grid containers (visual tile grids)
 var chunk_width: int = 16
-var chunk_size = 16
-var tile_size = 32
-var grid_pixel_size = chunk_size*tile_size
+var chunk_size: int = 16
+var tile_size: int = 32
+var grid_pixel_size: int = chunk_size * tile_size
 var selected_overmap_tile: Control = null
 # We will emit this signal when the position_coords change
 # Which happens when the user has panned the overmap
-signal position_coord_changed(delta)
+signal position_coord_changed(delta: Vector2)
 #Fires when the player has pressed the travel button
 signal change_level_pressed()
 
 func _ready():
 	update_chunks()
-	connect("position_coord_changed", on_position_coord_changed)
+	position_coord_changed.connect(on_position_coord_changed)
 
 
 # This function updates the chunks.
@@ -39,8 +39,7 @@ func _ready():
 # `chunk_size` variable determines the size of each chunk,
 # and `position_coord` is the current position in the world
 func update_chunks():
-	# Convert the current position to grid coordinates based on the grid's pixel size
-	#var grid_position: Vector2 = Helper.position_coord * grid_pixel_size
+	# Convert the current position to grid coordinates based on the chunk size
 	# The grid position will move 16 over when the Helper_coord passes the last tile
 	# The grid_position will be 0,0 between 0,0 and 15,15 if chunk_size = 16
 	# The grid_position will be 1,0 between 16,0 and 31,15 if chunk_size = 16
@@ -54,9 +53,8 @@ func update_chunks():
 		for y in range(-2, 3):
 			# At 0,0 we will have positions -32,-32 and -32, -16 and -32, 0 etc.
 			var chunk_grid_position: Vector2 = grid_position + Vector2(x, y) * chunk_size
-			#var chunk_grid_position: Vector2 = grid_position + Vector2(x, y) * grid_pixel_size
-			#print_debug("chunk_grid_position = " + str(chunk_grid_position))
-			# Use the separate noise_chunks Dictionary for retrieving the noise data
+			
+			# Use the separate Dictionary for retrieving the noise data
 			if not Helper.chunks.has(chunk_grid_position):
 				generate_chunk(chunk_grid_position)
 			# Retrieve the chunk data for the specific position.
@@ -95,38 +93,24 @@ func generate_chunk(grid_position: Vector2) -> void:
 	Helper.chunks[grid_position] = chunk
 	
 func get_random_mapname_1_in_100() -> String:
-	var random_file: String = ""
-	var chance = randi_range(0, 100)
-	if chance < 1:
-		var random_index = randi() % Gamedata.data.tacticalmaps.data.size()
-		random_file = Gamedata.data.tacticalmaps.data[random_index]
-	return random_file
-
+	if randi_range(0, 100) < 1:
+		return Gamedata.data.tacticalmaps.data.pick_random()
+	return ""
 
 
 # The user will leave chunks behind as the map is panned around
 # Chunks that are too far from the current position will be destroyed
 # This will only destroy the visual representation of the data stored in Helper.chunks
 func unload_chunks():
-	var dist = 0
-	var rangeLimit = 0
+	# Lowering this number 5 will cause newly created chunks 
+	# to be instantly deleted and recreated
+	var range_limit = 3 * grid_pixel_size
 	for chunk_position in grid_chunks.keys():
-		dist = chunk_position.distance_to(Helper.position_coord)
-		# Lowering this number 5 will cause newly created chunks 
-		# to be instantly deleted and recreated
-		rangeLimit = 3 * grid_pixel_size
-		if dist > rangeLimit:
+		if chunk_position.distance_to(Helper.position_coord) > range_limit:
 			# Destroy the grid itself
 			grid_chunks[chunk_position].call_deferred("queue_free")
 			# Remove the reference to the grid
 			grid_chunks.erase(chunk_position)
-
-
-var mouse_button_pressed: bool = false
-
-# Adjusts the motion to be smaller so that position_coord doesn't jump so far
-func scale_motion(motion: Vector2) -> Vector2:
-	return motion / 64  # Adjust this value to fine-tune the sensitivity
 
 # Function to handle keyboard input for moving the overmap
 func _input(event):
@@ -150,8 +134,7 @@ func _input(event):
 
 # Function to move the overmap by adjusting the position_coord
 func move_overmap(delta: Vector2):
-	var new_position_coord = Helper.position_coord + delta
-	new_position_coord = new_position_coord.round()
+	var new_position_coord = (Helper.position_coord + delta).round()
 	delta = new_position_coord - Helper.position_coord
 	if delta != Vector2.ZERO:
 		Helper.position_coord = new_position_coord
@@ -161,7 +144,7 @@ func move_overmap(delta: Vector2):
 
 # This function will move all the tile grids on screen when the position_coords change
 # This will make it look like the user pans across the map
-func update_tiles_position(delta):
+func update_tiles_position(delta: Vector2):
 	print_debug("moving tiles position by " + str(delta * tile_size))
 	for grid_container in tilesContainer.get_children():
 		# Update the grid container's position by subtracting the delta
@@ -169,7 +152,7 @@ func update_tiles_position(delta):
 
 
 # We will call this function when the position_coords change
-func on_position_coord_changed(delta):
+func on_position_coord_changed(delta: Vector2):
 	update_tiles_position(delta)
 	update_chunks()
 	if positionLabel:
@@ -204,17 +187,15 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 			column = 0  # Reset column at the start of a new row
 		# Retrieve the texture based on the tile type.
 		var tile = overmapTile.instantiate()
-		var local_x = column*tile_size
-		var local_y = row*tile_size
-		var global_x = chunk[i].global_x
-		var global_y = chunk[i].global_y
-		var map_cell = Helper.overmap_manager.get_map_cell_by_global_coordinate(Vector2(global_x, global_y))
+		var local_pos = Vector2(column * tile_size, row * tile_size)
+		var global_pos = Vector2(chunk[i].global_x, chunk[i].global_y)
+		var map_cell = Helper.overmap_manager.get_map_cell_by_global_coordinate(global_pos)
 		var texture: Texture = map_cell.get_sprite()
 		# Assign the tile's row and column information
-		tile.set_meta("global_pos", Vector2(global_x,global_y))
-		tile.set_meta("local_pos", Vector2(local_x,local_y))
+		tile.set_meta("global_pos", global_pos)
+		tile.set_meta("local_pos", local_pos)
 
-		if global_x == 0 and global_y == 0:
+		if global_pos == Vector2.ZERO:
 			tile.set_color(Color(0.3, 0.3, 1))  # blue color
 
 		tile.set_texture(texture)
