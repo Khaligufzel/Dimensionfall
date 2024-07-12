@@ -24,6 +24,7 @@ const save_Helper_Class = preload("res://Scripts/Helper/save_helper.gd")
 const signal_broker_Class = preload("res://Scripts/Helper/signal_broker.gd")
 const task_manager_Class = preload("res://Scripts/Helper/task_manager.gd")
 const map_manager_Class = preload("res://Scripts/Helper/map_manager.gd")
+const overmap_manager_Class = preload("res://Scripts/Helper/overmap_manager.gd")
 const quest_helper_Class = preload("res://Scripts/Helper/quest_helper.gd")
 
 var json_helper: Node = null
@@ -31,6 +32,7 @@ var save_helper: Node = null
 var signal_broker: Node = null
 var task_manager: Node = null
 var map_manager: Node = null
+var overmap_manager: Node = null
 var quest_helper: Node = null
 
 # Called when the node enters the scene tree for the first time.
@@ -38,6 +40,7 @@ func _ready():
 	initialize_helpers()
 	add_child(save_helper)
 	add_child(quest_helper)
+	add_child(overmap_manager)
 	signal_broker.game_ended.connect(_on_game_ended)
 
 func initialize_helpers():
@@ -46,6 +49,7 @@ func initialize_helpers():
 	signal_broker = signal_broker_Class.new()
 	task_manager = task_manager_Class.new()
 	map_manager = map_manager_Class.new()
+	overmap_manager = overmap_manager_Class.new()
 	quest_helper = quest_helper_Class.new()
 
 func _process(_delta: float) -> void:

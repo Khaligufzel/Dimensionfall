@@ -1,0 +1,4903 @@
+{
+	"categories": [
+		"Forest"
+	],
+	"description": "A basic forest that you can find in many places",
+	"levels": [
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "grass_medium_dirt_01"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_01"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "dirt_light_00"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "grass_medium_dirt_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_01"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 180
+				},
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "grass_medium_dirt_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "grass_medium_dirt_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00"
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 180
+				},
+				"id": "forest_underbrush_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 90
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00",
+					"rotation": 270
+				},
+				"id": "forest_underbrush_01"
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "PineTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "Tree_00"
+				},
+				"id": "forest_underbrush_02"
+			},
+			{
+				"id": "forest_underbrush_00"
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "forest_underbrush_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "WillowTree_00",
+					"rotation": 90
+				},
+				"id": "forest_underbrush_02",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			},
+			{
+				"id": "forest_underbrush_00",
+				"rotation": 180
+			}
+		],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[]
+	],
+	"mapheight": 32,
+	"mapwidth": 32,
+	"name": "Forest"
+}

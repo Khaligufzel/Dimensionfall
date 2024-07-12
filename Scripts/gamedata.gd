@@ -62,6 +62,7 @@ func load_data() -> void:
 			else:
 				data[dict].data = []
 
+
 # Loads sprites and assigns them to the proper dictionary
 func load_sprites() -> void:
 	for dict in data.keys():
@@ -77,7 +78,6 @@ func load_sprites() -> void:
 			data[dict].sprites = loaded_sprites
 
 
-
 # This function reads all the files in "res://Mods/Core/Tiles/". It will check if the file is a .png file. If the file is a .png file, it will create a new material with that .png image as the texture. It will put all of the created materials in a dictionary with the name of the file as the key and the material as the value.
 func load_tile_sprites() -> void:
 	var tile_materials: Dictionary = {} # Materials used to represent tiles
@@ -90,6 +90,7 @@ func load_tile_sprites() -> void:
 		material.uv1_scale = Vector3(3,2,1)
 		tile_materials[png_file] = material # Add the material to the dictionary
 	data.tiles.sprites = tile_materials
+
 
 # Adds a sprite to a specific dictionary and emits a signal if successful
 func add_sprite_to_dictionary(contentData: Dictionary, file_name: String, texture: Texture):
@@ -131,6 +132,7 @@ func duplicate_item_in_data(contentData: Dictionary, id: String, newID: String):
 		on_data_changed(contentData, item_to_duplicate, {})
 	else:
 		print_debug("There should be code here for when a file gets duplicated")
+
 
 # This function will duplicate a file with the provided original ID
 # and save it under a new ID within the same directory.
@@ -223,6 +225,7 @@ func get_array_index_by_id(contentData: Dictionary, id: String) -> int:
 			return i
 	# Return -1 if the ID is not found
 	return -1
+
 
 # Saves data to file
 func save_data_to_file(contentData: Dictionary):
@@ -426,6 +429,7 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 	if contentData == data.quests:
 		on_quest_deleted(id)
 
+
 # Erases a nested property from a dictionary based on a dot-separated path
 func erase_property_by_path(mydata: Dictionary, item_id: String, property_path: String):
 	var entity_data = get_data_by_id(mydata, item_id)
@@ -465,6 +469,7 @@ func execute_callable_on_references_of_type(mydata: Dictionary, module: String, 
 		# If the type exists, execute the callable on each ID found under this type
 		for ref_id in mydata["references"][module][type]:
 			callable.call(ref_id)
+
 
 # Retrieves the value of a nested property from a dictionary based on a dot-separated path
 func get_property_by_path(mydata: Dictionary, property_path: String, entity_id: String) -> Variant:
@@ -570,6 +575,7 @@ func on_furniture_deleted(furniture_id: String):
 		save_data_to_file(data.itemgroups)
 	else:
 		print_debug("No changes needed for item", furniture_id)
+
 
 # Some mob is being deleted from the data
 # We have to remove it from everything that references it
@@ -994,3 +1000,10 @@ func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
 	if changes_made:
 		save_data_to_file(data.items)
 		save_data_to_file(data.mobs)
+
+
+# map_id is a map json file, like "field_grass_basic_00.json"
+func load_map_by_id(map_id: String) -> Dictionary:
+	var file_to_load = data.maps.dataPath + map_id
+	var mapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(file_to_load)
+	return mapdata
