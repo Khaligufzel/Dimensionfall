@@ -44,7 +44,6 @@ func update_chunks():
 	# The grid_position will be 0,0 between 0,0 and 15,15 if chunk_size = 16
 	# The grid_position will be 1,0 between 16,0 and 31,15 if chunk_size = 16
 	var grid_position: Vector2 = (Helper.position_coord / chunk_size).floor() * chunk_size
-	print_debug("grid_position = " + str(grid_position))
 	# The position is increased arbitrarily so it is more center of screen
 	#grid_position.x += grid_pixel_size
 	#grid_position.y += grid_pixel_size
@@ -145,7 +144,6 @@ func move_overmap(delta: Vector2):
 # This function will move all the tile grids on screen when the position_coords change
 # This will make it look like the user pans across the map
 func update_tiles_position(delta: Vector2):
-	print_debug("moving tiles position by " + str(delta * tile_size))
 	for grid_container in tilesContainer.get_children():
 		# Update the grid container's position by subtracting the delta
 		grid_container.position -= delta * tile_size
@@ -207,7 +205,6 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 		column += 1
 
 	# Set the position of the grid container in pixel space.
-	print_debug("setting gridcontainer position at " + str(chunk_position))
 	grid_container.position = chunk_position
 
 	# Return the filled grid container.

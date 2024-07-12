@@ -21,6 +21,7 @@ var level_generator: Node = null
 var player
 var loaded_chunks = {}
 # Cache to store loaded map data
+# TODO: Have Gamedata load all map files at start and get the map data from there.
 var map_data_cache: Dictionary = {}
 enum Region {
 	CITY,
@@ -140,7 +141,7 @@ func generate_chunk(chunk_key: Vector2):
 			
 			var maps_by_category = get_maps_by_category(region_type_to_string(region_type))
 			if maps_by_category.size() > 0:
-				cell.mapname = maps_by_category.pick_random()
+				cell.mapname = pick_random_map_by_weight(maps_by_category)
 			else:
 				cell.mapname = "field_grass_basic_00.json"  # Fallback if no maps are found
 
@@ -169,25 +170,49 @@ func get_region_type(x: int, y: int) -> int:
 		return Region.FOREST
 
 
-# Function to get maps by category
+# Function to get maps by category, considering their weights
 func get_maps_by_category(category: String) -> Array:
-	var mapsList: Array = Gamedata.data.maps.data
+	var maps_list: Array = Gamedata.data.maps.data
 	var matching_maps: Array = []
-	
-	for mapname in mapsList:
+
+	for mapname in maps_list:
 		var map_data: Dictionary
-		
+
 		if map_data_cache.has(mapname):
 			map_data = map_data_cache[mapname]
 		else:
 			map_data = Gamedata.load_map_by_id(mapname)
 			map_data_cache[mapname] = map_data
-		
+
 		if map_data.has("categories") and category in map_data["categories"]:
-			matching_maps.append(mapname)
-	
+			matching_maps.append(map_data)
+
 	return matching_maps
 
+
+# Function to pick a random map based on weight
+func pick_random_map_by_weight(maps_by_category: Array) -> String:
+	var total_weight = 0
+	for map_data in maps_by_category:
+		total_weight += int(map_data.get("weight", 1000))  # Default weight is 1000
+
+	var random_value = randi() % total_weight
+	var current_weight = 0
+
+	for map_data in maps_by_category:
+		current_weight += map_data.get("weight", 1000)
+		if random_value < current_weight:
+			return get_key_from_value(map_data)  # Fallback mapname
+
+	return "field_grass_basic_00.json"  # Fallback in case of an error
+
+
+# Function to get the key from map_data_cache given the map_data dictionary
+func get_key_from_value(map_data: Dictionary) -> String:
+	for key in map_data_cache.keys():
+		if map_data_cache[key] == map_data:
+			return key
+	return "field_grass_basic_00.json"  # Fallback in case of an error
 
 
 # Function to get a map_cell by global coordinate
