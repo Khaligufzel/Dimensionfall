@@ -14,6 +14,7 @@ extends GridContainer
 @export var checkboxDrawRectangle: CheckBox
 @export var checkboxCopyRectangle: CheckBox
 @export var checkboxCopyAllLevels: CheckBox
+@export var checkboxDrawarea: CheckBox
 @export var brushcomposer: Control # Contains one or more selected brushes to paint with
 
 # Constants and enums for better readability
@@ -25,7 +26,8 @@ enum EditorMode {
 	NONE,
 	DRAW_RECTANGLE, # When the user has clicked the DrawRectangle checkbox
 	COPY_RECTANGLE, # When the user has clicked the CopyRectangle checkbox
-	COPY_ALL_LEVELS # When the user has clicked the CopyAllLevels checkbox
+	COPY_ALL_LEVELS, # When the user has clicked the CopyAllLevels checkbox
+	DRAW_AREA # When the user has clicked the draw area checkbox
 }
 
 # Variables
@@ -56,6 +58,7 @@ var mapData: Dictionary = defaultMapData.duplicate():
 		else:
 			mapData = data.duplicate()
 		loadLevelData(currentLevel)
+		load_area_data()
 signal zoom_level_changed(zoom_level: int)
 signal data_changed(map_path: String, new_data: Dictionary, old_data: Dictionary)
 
@@ -143,6 +146,9 @@ func _input(event) -> void:
 								EditorMode.COPY_ALL_LEVELS:
 									# Handle copying all levels
 									copy_tiles_from_all_levels(start_point, end_point)
+								EditorMode.DRAW_AREA:
+									# Paint area in the rectangle if drawarea is enabled
+									paint_area_in_rectangle()
 					unhighlight_tiles()
 					is_drawing = false
 
@@ -201,7 +207,7 @@ func _on_rotate_right_pressed():
 
 # Highlight tiles that are in the rectangle that the user has drawn with the mouse
 func update_rectangle() -> void:
-	if is_drawing and currentMode != EditorMode.NONE:
+	if is_drawing and not currentMode == EditorMode.NONE:
 		highlight_tiles_in_rect()
 
 # When one of the grid tiles is clicked, we paint the tile accordingly
@@ -210,6 +216,8 @@ func grid_tile_clicked(clicked_tile: Control) -> void:
 		return
 	match currentMode:
 		EditorMode.DRAW_RECTANGLE:
+			return
+		EditorMode.DRAW_AREA:
 			return
 		EditorMode.COPY_RECTANGLE:
 			if copied_tiles_info["tiles_data"].size() > 0:
@@ -220,10 +228,12 @@ func grid_tile_clicked(clicked_tile: Control) -> void:
 		EditorMode.NONE:
 			paint_single_tile(clicked_tile)
 
+
 # Paint a single tile if draw rectangle is not selected.
 # Either erase the tile or paint it if a brush is selected.
 func paint_single_tile(clicked_tile: Control) -> void:
 	apply_paint_to_tile(clicked_tile, selected_brush, rotationAmount)
+
 
 # Helper function to apply paint or erase logic to a single tile
 func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
@@ -258,6 +268,7 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 			tile.set_tile_id(brush.entityID)
 			tile.set_rotation_amount(tilerotation)
 
+
 # Store the data of the current level before changing levels
 func storeLevelData() -> void:
 	currentLevelData.clear()
@@ -266,7 +277,8 @@ func storeLevelData() -> void:
 	# First pass: Check if any tile has significant data
 	for child in get_children():
 		if child.tileData and (child.tileData.has("id") or \
-		child.tileData.has("mob") or child.tileData.has("furniture")):
+		child.tileData.has("mob") or child.tileData.has("furniture")\
+		or child.tileData.has("itemgroups") or child.tileData.has("areas")):
 			has_significant_data = true
 			break
 
@@ -293,6 +305,7 @@ func loadLevelData(newLevel: int) -> void:
 	else:
 		levelgrid_above.hide()
 	loadLevel(newLevel, self)
+	update_area_visibility()
 
 func loadLevel(level: int, grid: GridContainer) -> void:
 	if mapData.is_empty():
@@ -398,13 +411,36 @@ func highlight_tiles_in_rect() -> void:
 		tile.highlight()
 
 # Paint every tile in the selected rectangle
-# We always erase if erase is selected, even if no brush is selected
-# Only paint if a brush is selected and erase is false
+# If erase is active, it will be handled in apply_paint_to_tile
 func paint_in_rectangle():
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
 	for tile in tiles:
 		apply_paint_to_tile(tile, selected_brush, rotationAmount)
 	update_rectangle()
+
+
+# Apply the current area data to each of the tiles or erase the area if erase is active.
+func paint_area_in_rectangle():
+	# Get the selected area name
+	var selected_area_name = brushcomposer.get_selected_area_name()
+	
+	# If the selected area is "None" and erase is true, only update the rectangle
+	if selected_area_name == "None" and erase:
+		update_rectangle()
+		return
+
+	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
+	var area_data: Dictionary = brushcomposer.generate_area_data()
+	var tilerotation = brushcomposer.get_tilerotation(rotationAmount)
+	for tile in tiles:
+		if erase:
+			tile.remove_area_from_tile(area_data["id"])
+		else:
+			tile.add_area_to_tile(area_data, tilerotation)
+	if not erase:
+		add_area_to_map_data(area_data)
+	update_rectangle()
+
 
 
 #The user has pressed the erase toggle button in the editor
@@ -417,6 +453,7 @@ func _on_draw_rectangle_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		checkboxCopyRectangle.set_pressed(false)
 		checkboxCopyAllLevels.set_pressed(false)
+		checkboxDrawarea.set_pressed(false)
 		currentMode = EditorMode.DRAW_RECTANGLE
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
@@ -433,6 +470,7 @@ func _on_copy_all_levels_toggled(toggled_on: bool):
 	if toggled_on:
 		checkboxDrawRectangle.set_pressed(false)
 		checkboxCopyRectangle.set_pressed(false)
+		checkboxDrawarea.set_pressed(false)
 		currentMode = EditorMode.COPY_ALL_LEVELS
 		if copied_tiles_info["all_levels_data"].size() > 0:
 			# You might want to update the brush preview to reflect the copied tiles
@@ -453,6 +491,7 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		checkboxDrawRectangle.set_pressed(false)
 		checkboxCopyAllLevels.set_pressed(false)
+		checkboxDrawarea.set_pressed(false)
 		currentMode = EditorMode.COPY_RECTANGLE
 		if copied_tiles_info["tiles_data"].size() > 0:
 			# Update the brush preview to reflect the copied tiles
@@ -467,12 +506,33 @@ func _on_copy_rectangle_toggled(toggled_on: bool) -> void:
 		set_brush_preview_texture(null)
 
 
+# Called when the draw area button's state changes
+func _on_draw_area_toggled(toggled_on) -> void:
+	if toggled_on:
+		checkboxCopyRectangle.set_pressed(false)
+		checkboxCopyAllLevels.set_pressed(false)
+		checkboxDrawRectangle.set_pressed(false)
+		currentMode = EditorMode.DRAW_AREA
+		if selected_brush:
+			set_brush_preview_texture(selected_brush.get_texture())
+		
+		# Tiles will show the area sprite if the selected area is in the data
+		set_area_visibility_for_all_tiles(true,brushcomposer.get_selected_area_name())
+	else:
+		currentMode = EditorMode.NONE
+		set_area_visibility_for_all_tiles(false,"")
+		if selected_brush:
+			set_brush_preview_texture(selected_brush.get_texture())
+		else:
+			set_brush_preview_texture(null)
+
+
 # When the user has selected one of the tile brushes to paint with
 func _on_tilebrush_list_tile_brush_selection_change(tilebrush: Control):
 	# Toggle the copy buttons off
 	checkboxCopyRectangle.set_pressed(false)
 	checkboxCopyAllLevels.set_pressed(false)
-	if not currentMode == EditorMode.DRAW_RECTANGLE:
+	if not currentMode == EditorMode.DRAW_RECTANGLE and not currentMode == EditorMode.DRAW_AREA:
 		currentMode = EditorMode.NONE
 	# Add the brush if ctrl is held, otherwise replace all
 	if Input.is_key_pressed(KEY_CTRL):
@@ -861,7 +921,9 @@ func paste_copied_tile_data(clicked_tile: Control):
 	reset_copied_tiles_info() # Clear copied_tiles_info after pasting
 	set_brush_preview_texture(null)
 
+
 # Apply tile data from an array to a specific area in a specified level
+# This aids in pasting copied tiledata
 func apply_tiles_data_to_level(clicked_tile: Control, level_index: int, tiles_data: Array) -> void:
 	# Ensure level_index is within the valid range
 	if level_index < 0 or level_index >= mapData.levels.size():
@@ -923,3 +985,209 @@ func _on_composer_brush_added(composerbrush: Control):
 func _on_composer_brush_removed(_composerbrush: Control):
 	selected_brush = null if brushcomposer.is_empty() else brushcomposer.get_random_brush()
 	update_preview_texture()
+
+
+# Function to add a area to mapData.areas if it doesn't already exist
+func add_area_to_map_data(area: Dictionary) -> void:
+	# Return if the dictionary is empty
+	if area.is_empty():
+		return
+	
+	# Initialize the areas array if it doesn't exist
+	if not mapData.has("areas"):
+		mapData["areas"] = []
+	
+	# Check if a area with the same id already exists
+	for existing_area in mapData["areas"]:
+		if existing_area["id"] == area["id"]:
+			return  # area with this id already exists
+	
+	# Add the new area to the areas array
+	mapData["areas"].append(area)
+
+
+# Function to remove a area from mapData.areas by its id
+func remove_area_from_map_data(area_id: String) -> void:
+	# Check if the areas array exists in mapData
+	if not mapData.has("areas"):
+		return
+	
+	# Iterate through the areas array to find and remove the area by id
+	for i in range(mapData["areas"].size()):
+		if mapData["areas"][i]["id"] == area_id:
+			mapData["areas"].erase(mapData["areas"][i])
+			break
+	
+	# If the areas array is now empty, remove the areas key from mapData
+	if mapData["areas"].is_empty():
+		mapData.erase("areas")
+
+
+# Returns a list of areas in the mapdata
+func get_map_areas() -> Array:
+	if mapData.has("areas") and not mapData["areas"].is_empty():
+		return mapData.areas
+	return []
+
+
+# Function to find tiles with a specific area ID in a given level
+func find_tiles_with_area(area_id: String, level: int = currentLevel) -> Array:
+	var tiles_with_area: Array = []
+
+	# Check if the level is within valid range
+	if level < 0 or level >= mapData.levels.size():
+		print_debug("Level index out of range.")
+		return tiles_with_area
+	
+	# Get the level data
+	var level_data: Array = mapData.levels[level]
+	
+	# Iterate through the tiles in the level
+	for i in range(level_data.size()):
+		var tile_data: Dictionary = level_data[i]
+		if tile_data.has("areas"):
+			for area in tile_data["areas"]:
+				if area["id"] == area_id:
+					tiles_with_area.append(tile_data)
+					break
+
+	return tiles_with_area
+
+
+# Function to update mapData.areas based on areas_clone and remove missing areas from tiles
+func update_map_areas(areas_clone: Array) -> void:
+	# Find area IDs in mapData.areas but not in areas_clone
+	var map_areas = get_map_areas()
+	var areas_clone_ids = areas_clone.map(func(area): return area["id"])
+	var missing_area_ids = []
+
+	for area in map_areas:
+		if area["id"] not in areas_clone_ids:
+			print("Area ID present in mapData.areas but not in areas_clone: %s" % area["id"])
+			missing_area_ids.append(area["id"])
+
+	# Remove missing areas from all tiles on all levels
+	for missing_area_id in missing_area_ids:
+		for level in range(mapData.levels.size()):
+			remove_area_from_tiles(missing_area_id, level)
+
+	# Handle "previd" property for renamed areas
+	var renamed_areas = {}
+	for area in areas_clone:
+		if area.has("previd"):
+			var previd = area["previd"]
+			var new_id = area["id"]
+			renamed_areas[previd] = new_id
+			# Update the area ID in map_areas
+			for map_area in map_areas:
+				if map_area["id"] == previd:
+					map_area["id"] = new_id
+					break
+
+			area.erase("previd") # After renaming we don't need it anymore
+			# Update all tiles referencing the old ID
+			for level in range(mapData.levels.size()):
+				rename_area_in_tiles(previd, new_id, level)
+			
+			# Update chance_modifications list in all areas
+			update_chance_modifications(previd, new_id)
+
+	# Overwrite mapData.areas with areas_clone
+	mapData["areas"] = areas_clone.duplicate()
+
+	# Check if mapData["areas"] is an empty array and erase the property if true
+	if mapData["areas"].is_empty():
+		mapData.erase("areas")
+
+	# Check if the selected area name is in the list of missing area IDs or renamed areas
+	# If it is, or if the selected area name is "None", we hide the area sprite for all tiles
+	var selected_area_name = brushcomposer.get_selected_area_name()
+	if selected_area_name in missing_area_ids or selected_area_name in renamed_areas or selected_area_name == "None":
+		for tile in get_children():
+			tile.set_area_sprite_visibility(false, "")
+			tile.set_tooltip()
+
+	# Remove missing area IDs from the chance_modifications lists in all areas
+	for missing_area_id in missing_area_ids:
+		update_chance_modifications(missing_area_id, "")
+
+
+# Function to update "chance_modifications" lists in all areas
+func update_chance_modifications(old_id: String, new_id: String) -> void:
+	for area in mapData["areas"]:
+		if area.has("chance_modifications"):
+			for i in range(area["chance_modifications"].size()):
+				if area["chance_modifications"][i].id == old_id:
+					if new_id == "":
+						area["chance_modifications"].erase(i)
+					else:
+						area["chance_modifications"][i].id = new_id
+					break
+
+
+# Function to rename an area in all tiles across all levels
+func rename_area_in_tiles(previd: String, new_id: String, level: int) -> void:
+	if level < 0 or level >= mapData.levels.size():
+		print_debug("Level index out of range.")
+		return
+
+	var level_data = mapData.levels[level]
+	for tile_data in level_data:
+		if tile_data.has("areas"):
+			var areas = tile_data["areas"]
+			for area in areas:
+				if area["id"] == previd:
+					area["id"] = new_id
+					break
+
+
+# Function to remove a area from all tiles on a specific level
+func remove_area_from_tiles(area_id: String, level: int) -> void:
+	if level < 0 or level >= mapData.levels.size():
+		print_debug("Level index out of range.")
+		return
+
+	var level_data = mapData.levels[level]
+	for tile_data in level_data:
+		if tile_data.has("areas"):
+			var areas = tile_data["areas"]
+			for i in range(areas.size()):
+				if areas[i]["id"] == area_id:
+					areas.erase(areas[i])
+					break
+			
+			# If no areas remain, remove the "areas" property
+			if areas.size() == 0:
+				tile_data.erase("areas")
+
+
+# When the user selects an option in the areas optionbutton in the brushcomposer
+func on_areas_option_button_item_selected(optionbutton: Control, index: int):
+	# Get the selected area name
+	var selected_area_name = optionbutton.get_item_text(index)
+	if selected_area_name == "None":
+		set_area_visibility_for_all_tiles(false, selected_area_name)
+	else:
+		set_area_visibility_for_all_tiles(true, selected_area_name)
+
+
+# Function to update the visibility of area sprites based on the selected area name
+func update_area_visibility() -> void:
+	var selected_area_name = brushcomposer.get_selected_area_name()
+	if selected_area_name != "None":
+		set_area_visibility_for_all_tiles(true, selected_area_name)
+	else:
+		set_area_visibility_for_all_tiles(false, "")
+
+
+# Function to set the visibility of area sprites for all tiles in the current level
+func set_area_visibility_for_all_tiles(isvisible: bool, areaname: String) -> void:
+	# Loop over each tile in the current level
+	for tile in get_children():
+		tile.set_area_sprite_visibility(isvisible, areaname)
+
+
+# Load the areas from mapdata into the brushcomposer
+func load_area_data():
+	brushcomposer.set_area_data(get_map_areas())
+	set_area_visibility_for_all_tiles(false, brushcomposer.get_selected_area_name())

@@ -1,18 +1,23 @@
 extends Control
 
 #If a tile has no data, we save an empty object. Tiledata can have:
-# id, rotation, mob
+# id, rotation, mob, furniture, itemgroup and areas
 const defaultTileData: Dictionary = {}
 const defaultTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png"
 const aboveTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/tileAbove.png"
+const areaTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/areatile.png"
 var tileData: Dictionary = defaultTileData.duplicate():
 	set(data):
+		if tileData.has("id") and tileData.id == "null":
+			return
 		tileData = data
-		if tileData.has("id") and tileData.id != "":
+		if tileData.has("id") and not tileData.id == "":
 			$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, tileData.id).albedo_texture
 			set_rotation_amount(tileData.get("rotation", 0))
 			$ObjectSprite.hide()
 			$ObjectSprite.rotation_degrees = 0
+			$AreaSprite.hide()
+			$AreaSprite.rotation_degrees = 0
 			if tileData.has("mob"):
 				if tileData.mob.has("rotation"):
 					$ObjectSprite.rotation_degrees = tileData.mob.rotation
@@ -27,10 +32,13 @@ var tileData: Dictionary = defaultTileData.duplicate():
 				var random_itemgroup: String = tileData.itemgroups.pick_random()
 				$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, random_itemgroup)
 				$ObjectSprite.show()
+			if tileData.has("areas"):
+				$AreaSprite.show()
 		else:
 			$TileSprite.texture = load(defaultTexture)
 			$ObjectSprite.texture = null
 			$ObjectSprite.hide()
+			$AreaSprite.hide()
 		set_tooltip()
 
 
@@ -64,6 +72,8 @@ func set_scale_amount(scaleAmount: int) -> void:
 
 
 func set_tile_id(id: String) -> void:
+	if id == "null":
+		return
 	if id == "":
 		tileData.erase("id")
 		$TileSprite.texture = load(defaultTexture)
@@ -193,6 +203,7 @@ func set_clickable(clickable: bool):
 		mouse_filter = MOUSE_FILTER_IGNORE
 		$TileSprite.mouse_filter = MOUSE_FILTER_IGNORE
 		$ObjectSprite.mouse_filter = MOUSE_FILTER_IGNORE
+		$AreaSprite.mouse_filter = MOUSE_FILTER_IGNORE
 
 
 #This function sets the texture to some static resource that helps the user visualize that something is above
@@ -200,6 +211,7 @@ func set_clickable(clickable: bool):
 func set_above():
 	$ObjectSprite.texture = null
 	$ObjectSprite.hide()
+	$AreaSprite.hide()
 	if tileData.has("id") and tileData.id != "":
 		$TileSprite.texture = load(aboveTexture)
 	else:
@@ -209,10 +221,43 @@ func set_above():
 func _on_texture_rect_resized():
 	$TileSprite.pivot_offset = size / 2
 	$ObjectSprite.pivot_offset = size / 2
+	$AreaSprite.pivot_offset = size / 2
 
 
 func get_tile_texture():
 	return $TileSprite.texture
+
+
+# Adds a area dictionary to the areas list of the tile
+func add_area_to_tile(area: Dictionary, tilerotation: int) -> void:
+	if area.is_empty():
+		return
+	if not tileData.has("areas"):
+		tileData.areas = []
+	# Check if the area id already exists
+	for existing_area in tileData.areas:
+		if existing_area.id == area.id:
+			return
+	# Since the area definition is stored in the main mapdata, 
+	# we only need to remember the id and rotation
+	tileData.areas.append({"id": area.id, "rotation": tilerotation})
+	$AreaSprite.show()
+	set_tooltip()
+
+
+# Removes a area dictionary from the areas list of the tile by its id
+func remove_area_from_tile(area_id: String) -> void:
+	if area_id == "":
+		return
+	if tileData.has("areas"):
+		for area in tileData.areas:
+			if area.id == area_id:
+				tileData.areas.erase(area)
+				$AreaSprite.hide()
+				break
+		if tileData.areas.is_empty():
+			$AreaSprite.hide()
+	set_tooltip()
 
 
 # Sets the tooltip for this tile. The user can use this to see what's on this tile.
@@ -249,15 +294,43 @@ func set_tooltip() -> void:
 		else:
 			tooltiptext += "Furniture Rotation: 0 degrees\n"
 		if tileData.furniture.has("itemgroups"):
-			tooltiptext += "Furniture Item Groups: " + str(tileData.furniture.itemgroups) + "\n"
+			tooltiptext += "Furniture Item areas: " + str(tileData.furniture.itemgroups) + "\n"
 	else:
 		tooltiptext += "Furniture: None\n"
 	
 	# Display itemgroups information
 	if tileData.has("itemgroups"):
-		tooltiptext += "Tile Item Groups: " + str(tileData.itemgroups) + "\n"
+		tooltiptext += "Tile Item areas: " + str(tileData.itemgroups) + "\n"
 	else:
-		tooltiptext += "Tile Item Groups: None\n"
+		tooltiptext += "Tile Item areas: None\n"
+	
+	# Display areas information
+	if tileData.has("areas"):
+		tooltiptext += "Tile areas: "
+		for area in tileData.areas:
+			tooltiptext += area.id + ", "
+		tooltiptext += "\n"
+	else:
+		tooltiptext += "Tile areas: None\n"
 	
 	# Set the tooltip
 	self.tooltip_text = tooltiptext
+
+
+# Sets the visibility of the area sprite based on the provided area name and visibility flag
+func set_area_sprite_visibility(is_visible: bool, area_name: String) -> void:
+	if tileData.has("areas"):
+		for area in tileData["areas"]:
+			if area["id"] == area_name:
+				$AreaSprite.visible = is_visible
+				return
+	$AreaSprite.visible = false
+
+
+# Checks if a area with the specified id is in the areas list of the tile
+func is_area_in_tile(area_id: String) -> bool:
+	if tileData.has("areas"):
+		for area in tileData.areas:
+			if area.id == area_id:
+				return true
+	return false

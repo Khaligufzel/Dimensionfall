@@ -4,6 +4,8 @@ extends Control
 @export var mapScrollWindow: ScrollContainer = null
 @export var gridContainer: ColorRect = null
 @export var tileGrid: GridContainer = null
+@export var map_preview: Popup = null
+
 
 
 signal zoom_level_changed(value: int)
@@ -72,3 +74,7 @@ func _on_rotate_map_button_up():
 	tileGrid.rotate_map()
 
 
+# When the user presses the map preview button
+func _on_preview_map_button_up():
+	map_preview.mapData = tileGrid.mapData
+	map_preview.show()

@@ -102,8 +102,39 @@ func collect_unique_entities(newdata: Dictionary, olddata: Dictionary) -> Dictio
 	# Collect entities from olddata
 	for level in olddata.get("levels", []):
 		add_entities_to_set(level, old_entities)
+
+	# Collect entities from newdata
+	if newdata.has("areas"):
+		for area in newdata["areas"]:
+			add_entities_in_area_to_set(area, new_entities)
+
+	# Collect entities from olddata
+	if olddata.has("areas"):
+		for area in olddata["areas"]:
+			add_entities_in_area_to_set(area, old_entities)
 	
 	return {"new_entities": new_entities, "old_entities": old_entities}
+
+
+# Helper function to add entities to the respective sets
+func add_entities_in_area_to_set(area: Dictionary, entity_set: Dictionary):
+	if area.has("entities"):
+		for entity in area["entities"]:
+			match entity["type"]:
+				"mob":
+					if not entity_set["mobs"].has(entity["id"]):
+						entity_set["mobs"].append(entity["id"])
+				"furniture":
+					if not entity_set["furniture"].has(entity["id"]):
+						entity_set["furniture"].append(entity["id"])
+				"itemgroup":
+					if not entity_set["itemgroups"].has(entity["id"]):
+						entity_set["itemgroups"].append(entity["id"])
+
+	if area.has("tiles"):
+		for tile in area["tiles"]:
+			if not entity_set["tiles"].has(tile["id"]):
+				entity_set["tiles"].append(tile["id"])
 
 
 # Helper function to add entities to the respective sets
@@ -189,5 +220,33 @@ func remove_entity_from_map(map_id: String, entity_type: String, entity_id: Stri
 	# Update the mapdata levels after processing all
 	mapdata["levels"] = levels
 	print_debug("Entity removal operations completed for all levels.")
+	
+	erase_entity_from_areas(mapdata, entity_type, entity_id)
+	
 	var map_data_json = JSON.stringify(mapdata.duplicate(), "\t")
 	Helper.json_helper.write_json_file(file_to_load, map_data_json)
+
+
+# Function to erase an entity from every area in the mapdata.areas property
+func erase_entity_from_areas(mapdata: Dictionary, entity_type: String, entity_id: String) -> void:
+	if not mapdata.has("areas"):
+		print("Map data does not contain 'areas'.")
+		return
+
+	var areas = mapdata["areas"]
+
+	for area in areas:
+		match entity_type:
+			"tile":
+				if area.has("tiles"):
+					area["tiles"] = area["tiles"].filter(func(tile):
+						return tile["id"] != entity_id
+					)
+			"furniture", "mob", "itemgroup":
+				if area.has("entities"):
+					area["entities"] = area["entities"].filter(func(entity):
+						return not (entity["type"] == entity_type and entity["id"] == entity_id)
+					)
+
+	mapdata["areas"] = areas
+	print_debug("Entity removal operations completed for all areas.")

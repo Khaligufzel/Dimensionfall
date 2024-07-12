@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8xypvvobfcm1"
-path="res://.godot/imported/field_grass_basic_01.png-a7eb4faf6e206c81a1015c9b48b9a1ff.ctex"
+uid="uid://egvhw3cxrbks"
+path="res://.godot/imported/IconGroupPaintChecked.png-aa05646cc611cd3c29f6419a9f93f223.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/field_grass_basic_01.png"
-dest_files=["res://.godot/imported/field_grass_basic_01.png-a7eb4faf6e206c81a1015c9b48b9a1ff.ctex"]
+source_file="res://Images/Icons/IconGroupPaintChecked.png"
+dest_files=["res://.godot/imported/IconGroupPaintChecked.png-aa05646cc611cd3c29f6419a9f93f223.ctex"]
 
 [params]
 

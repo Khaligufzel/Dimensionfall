@@ -1,16 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://c80hblyn3jedv"]
+[gd_scene load_steps=9 format=3 uid="uid://c80hblyn3jedv"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor_brushcomposer.gd" id="1_bl6cv"]
 [ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="1_ump07"]
 [ext_resource type="PackedScene" uid="uid://cccnrdolr1bfo" path="res://Scenes/ContentManager/Mapeditor/tilebrush.tscn" id="2_epuda"]
 [ext_resource type="Texture2D" uid="uid://dixj0spya5p0y" path="res://Images/Icons/IconRotateRight.png" id="3_nbxmi"]
 [ext_resource type="Texture2D" uid="uid://b6m2bbbpmsyik" path="res://Images/Icons/IconRotateRightDark.png" id="4_gh7br"]
+[ext_resource type="Texture2D" uid="uid://nvh40ofps17v" path="res://Images/Icons/IconSprocketChecked.png" id="5_c3xg5"]
+[ext_resource type="Texture2D" uid="uid://is8cme122co7" path="res://Scenes/ContentManager/Mapeditor/Images/nulltile_32.png" id="6_m76ty"]
+[ext_resource type="PackedScene" uid="uid://mnwn367pi4op" path="res://Scenes/ContentManager/Mapeditor/Map_Editor_Areas_Popup.tscn" id="7_b3k8u"]
 
-[node name="CustomBrushVBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("brush_container", "rotation_button")]
+[node name="CustomBrushVBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("brush_container", "rotation_button", "areas_option_button", "area_editor")]
 script = ExtResource("1_bl6cv")
 brush_container = NodePath("CurrentBrushScrolling_Flow_Container")
 tileBrush = ExtResource("2_epuda")
 rotation_button = NodePath("CustomBrushToolsHBoxContainer/RotationCheckbox")
+areas_option_button = NodePath("CustomBrushToolsHBoxContainer/AreasOptionButton")
+area_editor = NodePath("Area_editor")
 
 [node name="CustomBrushToolsHBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -18,9 +23,36 @@ layout_mode = 2
 [node name="RotationCheckbox" type="CheckBox" parent="CustomBrushToolsHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Apply random rotation to the brushes in this brushcomposer. To apply a fixed 
-rotation, disable this button and click the tile rotation button on the general toolbar"
+rotation, disable this button and click the tile rotation button on the general toolbar.
+When this button is toggled on and an area is painted, all tiles in that area will get a random rotation"
 theme_override_icons/checked = ExtResource("3_nbxmi")
 theme_override_icons/unchecked = ExtResource("4_gh7br")
+
+[node name="AreasOptionButton" type="OptionButton" parent="CustomBrushToolsHBoxContainer"]
+layout_mode = 2
+tooltip_text = "If you're making plain and static map, you can ignore this control.
+
+Select an area to edit. To add a new area, put the option to \"None\" and press the \"paint area\" button from the 
+toolbar. A new area will be created. You only need this for randomization during map generation. To remove an area, 
+press the area settings button and delete the area from there. To remove tiles from an area, enable the area paint 
+button from the toolbar and enable the erase button in the toolbar and erase the area from the tiles on the map."
+item_count = 1
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+
+[node name="MapAreaSettingsButton" type="TextureButton" parent="CustomBrushToolsHBoxContainer"]
+layout_mode = 2
+tooltip_text = "Edit the areas in detail"
+texture_normal = ExtResource("5_c3xg5")
+stretch_mode = 3
+
+[node name="NullTileTextureButton" type="TextureButton" parent="CustomBrushToolsHBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("6_m76ty")
+stretch_mode = 3
 
 [node name="CurrentBrushScrolling_Flow_Container" parent="." instance=ExtResource("1_ump07")]
 layout_mode = 2
@@ -33,3 +65,11 @@ brushcomposer will have the itemgroup applied to it. If there's an itemgroup in 
 no furniture, mobs or tiles, you can paint on existing furniture on the map. Itemgroups can only be 
 applied to furniture that's marked as a container."
 header = ""
+
+[node name="Area_editor" parent="." instance=ExtResource("7_b3k8u")]
+visible = false
+
+[connection signal="item_selected" from="CustomBrushToolsHBoxContainer/AreasOptionButton" to="." method="_on_areas_option_button_item_selected"]
+[connection signal="button_up" from="CustomBrushToolsHBoxContainer/MapAreaSettingsButton" to="." method="_on_map_area_settings_button_button_up"]
+[connection signal="button_up" from="CustomBrushToolsHBoxContainer/NullTileTextureButton" to="." method="_on_null_tile_button_up"]
+[connection signal="area_selected_ok" from="Area_editor" to="." method="_on_area_editor_area_selected_ok"]

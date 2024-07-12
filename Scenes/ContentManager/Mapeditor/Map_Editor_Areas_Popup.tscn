@@ -1,0 +1,157 @@
+[gd_scene load_steps=4 format=3 uid="uid://mnwn367pi4op"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Map_Editor_Areas_Popup.gd" id="1_2pewo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3usm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lguox"]
+bg_color = Color(0.59009, 0.586311, 0.707911, 1)
+
+[node name="Area_editor" type="Popup" node_paths=PackedStringArray("area_list", "spawn_chance_spin_box", "entities_grid_container", "random_rotation_check_box", "controls_h_box", "id_text_edit", "areas_option_button", "chance_modification_list")]
+title = "Area editor"
+initial_position = 2
+size = Vector2i(800, 600)
+visible = true
+unresizable = false
+borderless = false
+min_size = Vector2i(500, 400)
+script = ExtResource("1_2pewo")
+area_list = NodePath("HBoxContainer/AreaList")
+spawn_chance_spin_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/SpawnChanceSpinBox")
+entities_grid_container = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/ScrollContainer/EntitiesGridContainer")
+random_rotation_check_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/RandomRotationCheckBox")
+controls_h_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox")
+id_text_edit = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/IdTextEdit")
+areas_option_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/AreasOptionButton")
+chance_modification_list = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/AreasScrollContainer2/ChanceModItemList")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AreaList" type="ItemList" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+tooltip_text = "The list of groups that will spawn on top of the map during map generation. The 
+list will be processed from the top to the bottom. The groups at the bottom will 
+overwrite the groups at the top. Whether or the overwrite will actually happen 
+depends on the spawn % and whether or not the areas overlap"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.7
+
+[node name="ControlsHbox" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
+layout_mode = 2
+text = "Spawn %:"
+
+[node name="SpawnChanceSpinBox" type="SpinBox" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
+layout_mode = 2
+tooltip_text = "A chance of 1 to 100 for it to spawn on the map. When this area is processed 
+during map generation in-game and it is picked based on the spawn chance, 
+the tiles will be applied to the map, overwriting what was already there. If the 
+area is not picked during generation, no tile is applied to the map."
+min_value = 1.0
+value = 100.0
+
+[node name="MoveUpButton" type="Button" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
+layout_mode = 2
+tooltip_text = "Move this area up in the list, meaning it will be overwritten by the next 
+areas (if they overlap on the map and get picked based on the spawn %)"
+text = "^"
+
+[node name="MoveDownButton" type="Button" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
+layout_mode = 2
+tooltip_text = "Move this area down in the list, meaning it will overwrite the previous 
+areas (if they overlap on the map and get picked based on the spawn %)"
+text = "v"
+
+[node name="DeleteButton" type="Button" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
+layout_mode = 2
+tooltip_text = "Delete this area from the map and all tiles in the map."
+text = "x"
+
+[node name="RandomRotationCheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
+layout_mode = 2
+tooltip_text = "If this is on, every entity in this area will be spawned with a 
+random rotation. If this is off, the generator will use the rotation 
+that was applied when you painted the area on the map."
+text = "Random rotation"
+
+[node name="IdTextEdit" type="TextEdit" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Rename the area"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_e3usm")
+
+[node name="EntitiesGridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+
+[node name="AreasOptionButton" type="OptionButton" parent="HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="AreasScrollContainer2" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_lguox")
+
+[node name="ChanceModItemList" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/AreasScrollContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OK" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+tooltip_text = "Saves your changes to the areas"
+text = "Ok"
+
+[node name="Cancel" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+tooltip_text = "Closes the group editor and discards your changes"
+text = "Cancel"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="item_selected" from="HBoxContainer/AreaList" to="." method="_on_area_list_item_selected"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/MoveUpButton" to="." method="_on_move_up_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/MoveDownButton" to="." method="_on_move_down_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/DeleteButton" to="." method="_on_delete_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/RandomRotationCheckBox" to="." method="_on_random_rotation_check_box_button_up"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/AreasOptionButton" to="." method="_on_areas_option_button_item_selected"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]
