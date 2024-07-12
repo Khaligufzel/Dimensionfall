@@ -1,4 +1,9 @@
 {
+	"categories": [
+		"House",
+		"Urban"
+	],
+	"description": "A house located at a crossroads, with multiple access points.",
 	"levels": [
 		[],
 		[],
@@ -18063,6 +18068,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Crossroad House",
 	"references": {
 		"core": {
 			"tacticalmaps": [

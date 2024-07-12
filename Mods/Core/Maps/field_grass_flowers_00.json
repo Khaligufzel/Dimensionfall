@@ -1,4 +1,8 @@
 {
+	"categories": [
+		"Field"
+	],
+	"description": "A picturesque field dotted with colorful wildflowers, offering a scenic view.",
 	"levels": [
 		[],
 		[],
@@ -3254,5 +3258,6 @@
 		[]
 	],
 	"mapheight": 32,
-	"mapwidth": 32
+	"mapwidth": 32,
+	"name": "Flowered Grass Field"
 }

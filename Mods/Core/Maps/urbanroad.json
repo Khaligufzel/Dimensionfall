@@ -1,4 +1,9 @@
 {
+	"categories": [
+		"Infrastructure",
+		"Road"
+	],
+	"description": "A standard urban road, suitable for city environments.",
 	"levels": [
 		[],
 		[],
@@ -3210,6 +3215,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Urban Road",
 	"references": {
 		"core": {
 			"tacticalmaps": [

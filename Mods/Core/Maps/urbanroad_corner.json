@@ -1,4 +1,9 @@
 {
+	"categories": [
+		"Infrastructure",
+		"Road"
+	],
+	"description": "An urban road corner, providing directional changes in cityscapes.",
 	"levels": [
 		[],
 		[],
@@ -3413,6 +3418,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Urban Road Corner",
 	"references": {
 		"core": {
 			"tacticalmaps": [

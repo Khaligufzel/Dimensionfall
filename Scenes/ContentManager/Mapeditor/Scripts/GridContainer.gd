@@ -39,7 +39,7 @@ var erase: bool = false
 var showBelow: bool = false
 var showAbove: bool = false
 var snapAmount: float
-var defaultMapData: Dictionary = {"mapwidth": DEFAULT_MAP_WIDTH, "mapheight": DEFAULT_MAP_HEIGHT, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}
+var defaultMapData: Dictionary = {"mapwidth": DEFAULT_MAP_WIDTH, "mapheight": DEFAULT_MAP_HEIGHT, "levels": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]], "name": "mymap", "description": "A basic map", "categories": []}
 var rotationAmount: int = 0
 var start_point = Vector2()
 var end_point = Vector2()
@@ -57,6 +57,7 @@ var mapData: Dictionary = defaultMapData.duplicate():
 			mapData = defaultMapData.duplicate()
 		else:
 			mapData = data.duplicate()
+		mapEditor.set_settings_values(mapData)
 		loadLevelData(currentLevel)
 		load_area_data()
 signal zoom_level_changed(zoom_level: int)
@@ -566,6 +567,9 @@ func _on_show_above_toggled(button_pressed):
 func save_map_json_file():
 	# Convert the TileGrid.mapData to a JSON string
 	storeLevelData()
+	var mapsettingsdata: Dictionary = mapEditor.get_settings_values()
+	for key in mapsettingsdata.keys():
+		mapData[key] = mapsettingsdata[key]
 	data_changed.emit(mapEditor.contentSource, mapData, olddata)
 	var map_data_json = JSON.stringify(mapData.duplicate(), "\t")
 	Helper.json_helper.write_json_file(mapEditor.contentSource, map_data_json)

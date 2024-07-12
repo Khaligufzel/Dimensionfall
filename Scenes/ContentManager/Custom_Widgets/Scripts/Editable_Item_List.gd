@@ -1,10 +1,10 @@
 extends Control
 
-#This scene is a generic widget that allows users to add an item to the list
-#It is intended to be used in the content editor
-#After instantiating, set the header to indicate its contents
-#Use the get_items function to get an array of items
-#Emits signal "item_activated" when an item is doubleclicked
+# This scene is a generic widget that allows users to add an item to the list
+# It is intended to be used in the content editor
+# After instantiating, set the header to indicate its contents
+# Use the get_items function to get an array of items
+# Emits signal "item_activated" when an item is doubleclicked
 
 @export var contentItems: ItemList = null
 @export var collapseButton: Button = null
@@ -50,12 +50,20 @@ func clear_list():
 	contentItems.clear()
 
 #This function returns all items in contentItems as an array
-func get_items():
+func get_items() -> Array:
 	var myArray: Array = []
 	for item in contentItems.item_count:
 		myArray.append(contentItems.get_item_text(item))
 	return myArray
-	
+
+
+#This function returns all items in contentItems as an array
+func set_items(itemList: Array) -> void:
+	clear_list()
+	for item in itemList:
+		add_item_to_list(item)
+
+
 func add_item_to_list(itemText: String) -> void:
 	contentItems.add_item(itemText)
 	

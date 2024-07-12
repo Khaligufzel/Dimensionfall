@@ -99,6 +99,10 @@
 			]
 		}
 	],
+	"categories": [
+		"Field"
+	],
+	"description": "A simple and vast field covered with green grass, perfect for beginners.",
 	"levels": [
 		[],
 		[],
@@ -18259,6 +18263,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Basic Grass Field",
 	"references": {
 		"core": {
 			"tacticalmaps": [

@@ -1,4 +1,9 @@
 {
+	"categories": [
+		"House",
+		"Urban"
+	],
+	"description": "A house designed for corner plots, providing unique architectural features.",
 	"levels": [
 		[],
 		[],
@@ -17687,6 +17692,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Corner House",
 	"references": {
 		"core": {
 			"tacticalmaps": [

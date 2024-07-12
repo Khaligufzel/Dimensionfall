@@ -1,4 +1,8 @@
 {
+	"categories": [
+		"Field"
+	],
+	"description": "An open grass field with a strategically placed hole, adding a layer of challenge.",
 	"levels": [
 		[],
 		[],
@@ -6358,6 +6362,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Grassy Field with Hole",
 	"references": {
 		"core": {
 			"tacticalmaps": [

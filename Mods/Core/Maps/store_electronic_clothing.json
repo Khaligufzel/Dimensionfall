@@ -1,4 +1,10 @@
 {
+	"categories": [
+		"Commercial",
+		"Store",
+		"Urban"
+	],
+	"description": "A commercial store offering a variety of electronics and clothing items.",
 	"levels": [
 		[],
 		[],
@@ -10769,6 +10775,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Electronics and Clothing Store",
 	"references": {
 		"core": {
 			"tacticalmaps": [
