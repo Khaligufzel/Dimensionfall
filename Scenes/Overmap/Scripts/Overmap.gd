@@ -20,6 +20,9 @@ signal position_coord_changed(delta: Vector2)
 signal change_level_pressed()
 
 func _ready():
+	# Centers the view when opening the ovemap. Works with default window size.
+	# TODO: Have it calculated based on the window size
+	Helper.position_coord = Vector2(-7,-5)
 	update_chunks()
 	position_coord_changed.connect(on_position_coord_changed)
 
@@ -188,7 +191,8 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 		var local_pos = Vector2(column * tile_size, row * tile_size)
 		var global_pos = Vector2(chunk[i].global_x, chunk[i].global_y)
 		var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
-		var texture: Texture = map_cell.get_sprite()
+		var texture: Texture = map_cell.get_sprite() if map_cell else null
+		tile.set_texture(texture)
 		# Assign the tile's row and column information
 		tile.set_meta("global_pos", global_pos)
 		tile.set_meta("local_pos", local_pos)
@@ -196,7 +200,6 @@ func create_and_fill_grid_container(chunk: Array, chunk_position: Vector2):
 		if global_pos == Vector2.ZERO:
 			tile.set_color(Color(0.3, 0.3, 1))  # blue color
 
-		tile.set_texture(texture)
 		tile.tile_clicked.connect(_on_tile_clicked)
 		# Add the tile as a child to the grid container
 		grid_container.add_child(tile)

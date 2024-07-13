@@ -61,6 +61,7 @@ class map_cell:
 	var coordinate_y: int = 0
 	var map_id: String = "field_grass_basic_00.json"
 	var tacticalmapname: String = "town_00.json"
+	var revealed: bool = false
 	
 	func get_data() -> Dictionary:
 		return {
@@ -82,6 +83,9 @@ class map_cell:
 	
 	func get_sprite() -> Texture:
 		return Gamedata.get_sprite_by_id(Gamedata.data.maps, map_id.replace(".json", ""))
+	
+	func reveal():
+		revealed = true
 
 
 # A grid that holds grid_width by grid_height of cells
@@ -105,12 +109,18 @@ class map_grid:
 		cells = mydata.get("cells", {})
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	noise = FastNoiseLite.new()
 	var rng = RandomNumberGenerator.new()
 	noise.seed = rng.randi()
+
+	# Generate regions
+	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
+	noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
+	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
+	noise.cellular_jitter = 0.01
+	noise.frequency = 0.04 # Adjust frequency as needed
 	# Connect to the Helper.signal_broker.game_started signal
 	Helper.signal_broker.game_started.connect(_on_game_started)
 	Helper.signal_broker.game_ended.connect(_on_game_ended)
@@ -166,13 +176,6 @@ func generate_chunk(chunk_key: Vector2):
 	
 	var chunk_x = int(chunk_key.x)
 	var chunk_y = int(chunk_key.y)
-
-	# Generate regions
-	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
-	noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
-	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
-	noise.cellular_jitter = 0.01
-	noise.frequency = 0.04 # Adjust frequency as needed
 
 	for x in range(chunk_size):
 		for y in range(chunk_size):
@@ -283,6 +286,7 @@ func get_map_cell_by_local_coordinate(chunk_key: Vector2) -> map_cell:
 		# If the chunk is not loaded, generate it
 		generate_chunk(chunk_key)
 		return get_map_cell_by_local_coordinate(chunk_key)
+		#return null
 
 
 # Load a grid based on the grid position
@@ -317,6 +321,7 @@ func unload_furthest_grid():
 		#save_grid_data(loaded_grids[furthest_grid_key].get_data())
 		loaded_grids.erase(furthest_grid_key)
 
+
 # Get the current grid position of the player
 # 
 # This function calculates which grid the player is currently in, based on their position.
@@ -325,14 +330,10 @@ func unload_furthest_grid():
 # length of one side of a cell in world units.
 # The player's position is divided by the total size of a 
 # grid (in world units) to determine the grid coordinates.
-# These grid coordinates are returned as a Vector2i, representing the x and y indices of the grid.
+# These grid coordinates are returned as a Vector2, representing the x and y indices of the grid.
 #
 # Returns:
 #   Vector2i: The grid coordinates (x, y) of the player's current position.
-#
-# Example:
-#   If the player's position is at (1600, 0, 1600) in a world where each cell is 16 units wide,
-#   each grid is 100 cells wide and high, then the grid position would be (1, 1).
 func get_player_grid_position() -> Vector2:
 	var player_pos = player.position
 	var grid_x = int(player_pos.x / (grid_width * cell_size))

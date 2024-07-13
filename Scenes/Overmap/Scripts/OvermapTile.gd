@@ -19,9 +19,11 @@ func _on_texture_rect_gui_input(event: InputEvent) -> void:
 					tile_clicked.emit(self)
 
 func set_texture(res: Resource) -> void:
-	$TextureRect.texture = res
-	var path: String = res.resource_path
-	tileData.texture = path.replace("./Mods/Core/OvermapTiles/","")
+	if res:
+		$TextureRect.texture = res
+	else:
+		$TextureRect.texture = load(defaultTexture)
+		
 
 func set_default() -> void:
 	tileData = defaultTileData.duplicate()
