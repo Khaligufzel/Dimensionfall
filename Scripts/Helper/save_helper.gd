@@ -54,6 +54,52 @@ func _on_chunks_unloaded(target_folder: String):
 		all_chunks_unloaded.emit()
 
 
+# Function to save a map segment to disk. The Helper.overmap_manager will call this
+# A segment is a 4x4 area in which chunks are selected if the coordinates fall in this area
+# This selection of chunks will be stored in the save file. It may or may not contain all 16 chunks
+func save_map_segment_data(non_empty_chunk_data: Dictionary, segment_pos: Vector2) -> void:
+	var dir = DirAccess.open(current_save_folder)
+	var map_folder = "map_x" + str(segment_pos.x) + "_y" + str(segment_pos.y)
+	var target_folder = current_save_folder + "/" + map_folder
+	
+	# Create the directory if it doesn't exist
+	if not dir.dir_exists(map_folder):
+		if dir.make_dir(map_folder) != OK:
+			print_debug("Failed to create a folder for the segment at ", segment_pos)
+			return
+	
+	# Convert the dictionary to a JSON string
+	var json_data = JSON.stringify(non_empty_chunk_data)
+	
+	# Save the JSON string to a file
+	if Helper.json_helper.write_json_file(target_folder + "/segment_data.json", json_data) != OK:
+		print_debug("Failed to save chunk data for the segment at ", segment_pos)
+
+
+# Function to load chunk data from a map file on disk
+# This function takes a segment_pos, constructs the path to the map file,
+# loads the JSON data from the file, and returns a dictionary of chunk data.
+# This dictionary represents a 4x4 segment of chunks
+func load_map_segment_data(segment_pos: Vector2) -> Dictionary:
+	var map_folder = "map_x" + str(segment_pos.x) + "_y" + str(segment_pos.y)
+	var file_path = current_save_folder + "/" + map_folder + "/segment_data.json"
+	var chunk_data = {}
+	
+	# Load the JSON data from the file
+	var tactical_map_json = Helper.json_helper.load_json_dictionary_file(file_path)
+	if tactical_map_json.empty():
+		print_debug("Failed to load chunk data for the segment at ", segment_pos)
+		return chunk_data  # Return an empty dictionary if loading fails
+	
+	# Transform the loaded chunk data back into a dictionary with Vector2 keys
+	for key in tactical_map_json.keys():
+		var chunk_pos = Vector2(key.split(",")[0].to_int(), key.split(",")[1].to_int())
+		chunk_data[chunk_pos] = tactical_map_json[key]
+	
+	return chunk_data
+
+
+
 # This function determines the saved map folder path for the current level. 
 # It constructs this path using the current level's position and the current 
 # save folder's path. If the map folder for the level exists, it returns 

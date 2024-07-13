@@ -45,6 +45,7 @@ var segment_unload_distance: int = 28
 var loaded_chunk_data: Dictionary = {"chunks": {}}
 
 var player
+var player_last_cell = Vector2.ZERO # Player's position per cell, updated regularly
 var loaded_chunks = {}
 # Cache to store loaded map data
 # TODO: Have Gamedata load all map files at start and get the map data from there.
@@ -462,3 +463,48 @@ func get_segment_pos(chunk_pos: Vector2) -> Vector2:
 	var segment_x = floor(chunk_pos.x / 4) * 4
 	var segment_y = floor(chunk_pos.y / 4) * 4
 	return Vector2(segment_x, segment_y)
+
+
+# Function to check player's position and trigger load/unload of segments
+# This function checks if the player's position has changed by comparing the new position to the stored player position.
+# If the player's position has changed, it updates the player position and calls functions to load and unload segments.
+func update_player_position_and_manage_segments():
+	var new_position = get_player_cell_position()
+	if new_position != player_last_cell:
+		player_last_cell = new_position
+		
+		# Load segments around the player
+		var segments_to_load = load_segments_around_player()
+		# Here you would call the function to actually load these segments from the filesystem
+		# e.g., load_segments_from_filesystem(segments_to_load)
+		
+		# Unload segments that are too far from the player
+		var segments_to_unload = unload_distant_segments()
+		# Here you would call the function to actually unload these segments from memory and save to the filesystem
+		# e.g., unload_segments_to_filesystem(segments_to_unload)
+
+
+# Function to process and clear each segment
+# This function takes a segment position and loops over every possible coordinate in the 4x4 range.
+# For each coordinate, it checks the chunk data from loaded_chunk_data.chunks.
+# If the chunk data is not empty, it is erased from loaded_chunk_data.chunks and added to a dictionary.
+# The function returns the dictionary of non-empty chunk data.
+func process_and_clear_segment(segment_pos: Vector2) -> Dictionary:
+	var non_empty_chunk_data = {}  # Dictionary to store non-empty chunk data with chunk_pos as keys
+	
+	for x_offset in range(4):
+		for y_offset in range(4):
+			var chunk_pos = segment_pos + Vector2(x_offset, y_offset)
+			if loaded_chunk_data.chunks.has(chunk_pos):
+				var chunk_data = loaded_chunk_data.chunks[chunk_pos]
+				if not chunk_data.is_empty():
+					non_empty_chunk_data[chunk_pos] = chunk_data
+					loaded_chunk_data.chunks.erase(chunk_pos)
+					print("Chunk data at ", chunk_pos, " was not empty and has been erased.")
+				else:
+					print("Chunk data at ", chunk_pos, " is empty.")
+			else:
+				print("Chunk data at ", chunk_pos, " does not exist.")
+	
+	return non_empty_chunk_data
+
