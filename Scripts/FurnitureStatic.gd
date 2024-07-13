@@ -12,6 +12,7 @@ var furniturerotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture on the map
 var furnitureJSONData: Dictionary # The json that defines this furniture's basics in general
 var sprite: Sprite3D = null
+var mesh_instance: MeshInstance3D
 var collider: CollisionShape3D = null
 var is_door: bool = false
 var door_state: String = "Closed"  # Default state
@@ -29,8 +30,19 @@ func _ready():
 	set_new_rotation(furniturerotation)
 	check_door_functionality()
 	update_door_visuals()
-	# Add the container as a child on the same position as this furniture
-	add_container(Vector3(0, 0, 0))
+
+	# Raise the sprite to the height of new_y
+	var newheight = Helper.json_helper.get_nested_data(furnitureJSONData,"support_shape.height")
+	if newheight:
+		sprite.position.y = 0.01 + newheight # Should be slightly above mesh so we add 0.01
+		mesh_instance.position.y = newheight/2
+		add_container(Vector3(0, newheight+0.01, 0)) # Should be slightly above mesh so we add 0.01
+	else:
+		# The default size is 0.5
+		sprite.position.y = 0.51 # Slightly above the default size
+		mesh_instance.position.y =  0.25 # Half the default size
+		# Add the container as a child on the same position as this furniture
+		add_container(Vector3(0, 0.51, 0)) # Slightly above default size
 	original_position = sprite.global_transform.origin
 
 
@@ -56,7 +68,7 @@ func toggle_door():
 	update_door_visuals()
 
 
-# Will update the sprite of this furniture and set a collisionshape based on it's size
+# Will update the sprite of this furniture and set a collisionshape based on its size
 func set_sprite(newSprite: Texture):
 	if not sprite:
 		sprite = Sprite3D.new()
@@ -73,13 +85,105 @@ func set_sprite(newSprite: Texture):
 	var new_z = sprite_height / 100.0 # 0.1 units per 10 pixels in height
 	var new_y = 0.8 # Any lower will make the player's bullet fly over it
 
-	# Update the collision shape
-	var new_shape = BoxShape3D.new()
-	new_shape.extents = Vector3(new_x / 2.0, new_y / 1.0, new_z / 2.0) # BoxShape3D extents are half extents
+	if furnitureJSONData.has("support_shape"):
+		var support_shape = furnitureJSONData["support_shape"]
+		var shape = support_shape["shape"]
+		var height = support_shape["height"]
+		var transparent = support_shape["transparent"]
 
-	collider = CollisionShape3D.new()
-	collider.shape = new_shape
-	add_child.call_deferred(collider)
+		var color = Color.html(support_shape.get("color", "#ffffff"))  # Default to white
+
+		if shape == "Box":
+			var width_scale = support_shape["width_scale"] / 100.0
+			var depth_scale = support_shape["depth_scale"] / 100.0
+			var scaled_x = new_x * width_scale
+			var scaled_z = new_z * depth_scale
+			create_shape("Box", Vector3(scaled_x, height, scaled_z), color, transparent)
+		elif shape == "Cylinder":
+			var radius_scale = support_shape["radius_scale"] / 100.0
+			var scaled_radius = (new_x * radius_scale)/2 # Since it's the radius we need half
+			create_shape("Cylinder", Vector3(scaled_radius, height, scaled_radius), color, transparent)
+	else:
+		# Update the collision shape
+		var new_shape = BoxShape3D.new()
+		new_shape.extents = Vector3(new_x / 2.0, new_y / 1.0, new_z / 2.0) # BoxShape3D extents are half extents
+
+		collider = CollisionShape3D.new()
+		collider.shape = new_shape
+		add_child.call_deferred(collider)
+
+		# Create and add BoxMesh instance
+		var box_mesh_instance = create_box_mesh(Vector3(new_x, new_y, new_z), Color(1.0, 0.0, 0.0, 0.5), true)
+		add_child.call_deferred(box_mesh_instance)
+
+
+# Function to create the shape based on the given parameters
+func create_shape(shape_type: String, size: Vector3, color: Color, transparent: bool):
+	if shape_type == "Box":
+		# Create and add BoxCollider instance
+		collider = create_collider(size)
+		add_child.call_deferred(collider)
+
+		# Create and add BoxMesh instance
+		var box_mesh_instance = create_box_mesh(size, color, transparent)
+		add_child.call_deferred(box_mesh_instance)
+	elif shape_type == "Cylinder":
+		# Update the collision shape
+		var new_shape = CylinderShape3D.new()
+		new_shape.height = size.y
+		new_shape.radius = size.x
+
+		collider = CollisionShape3D.new()
+		collider.shape = new_shape
+		add_child.call_deferred(collider)
+
+		# Create and add CylinderMesh instance
+		var cylinder_mesh_instance = create_cylinder_mesh(size.y, size.x, color, transparent)
+		add_child.call_deferred(cylinder_mesh_instance)
+
+
+# Function to create a BoxShape3D collider based on the given size
+func create_collider(size: Vector3) -> CollisionShape3D:
+	var new_shape = BoxShape3D.new()
+	# If size.y is reduced to half extents, the raycast that collides with doors to interact
+	# with them will no longer be able to hit them. That's why we don't reduce size.y
+	new_shape.extents = Vector3(size.x / 2.0, size.y, size.z / 2.0) # Only x and z are half extents
+
+	var mycollider = CollisionShape3D.new()
+	mycollider.shape = new_shape
+	return mycollider
+
+
+func create_box_mesh(size: Vector3, albedo_color: Color, transparent: bool) -> MeshInstance3D:
+	var box_mesh = BoxMesh.new()
+	box_mesh.size = size
+	var material = StandardMaterial3D.new()
+	material.albedo_color = albedo_color
+	if transparent:
+		material.flags_transparent = true
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	box_mesh.material = material
+
+	mesh_instance = MeshInstance3D.new()
+	mesh_instance.mesh = box_mesh
+	return mesh_instance
+
+
+func create_cylinder_mesh(height: float, radius: float, albedo_color: Color, transparent: bool) -> MeshInstance3D:
+	var cylinder_mesh = CylinderMesh.new()
+	cylinder_mesh.height = height
+	cylinder_mesh.top_radius = radius
+	cylinder_mesh.bottom_radius = radius
+	var material = StandardMaterial3D.new()
+	material.albedo_color = albedo_color
+	if transparent:
+		material.flags_transparent = true
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	cylinder_mesh.material = material
+
+	mesh_instance = MeshInstance3D.new()
+	mesh_instance.mesh = cylinder_mesh
+	return mesh_instance
 
 
 func get_sprite() -> Texture:
@@ -299,6 +403,7 @@ func apply_transform_to_sprite_and_collider(rotationdegrees, position_offset):
 	doortransform.origin = position_offset
 	sprite.set_transform(doortransform)
 	collider.set_transform(doortransform)
+	mesh_instance.set_transform(doortransform)
 	sprite.rotation_degrees.x = 90
 
 

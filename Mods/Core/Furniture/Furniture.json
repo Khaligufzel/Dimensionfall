@@ -84,7 +84,15 @@
 				]
 			}
 		},
-		"sprite": "countertop_100_52.png"
+		"sprite": "countertop_100_52.png",
+		"support_shape": {
+			"color": "8d401bff",
+			"depth_scale": 100,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 100
+		}
 	},
 	{
 		"categories": [
@@ -109,7 +117,14 @@
 				]
 			}
 		},
-		"sprite": "Tree_100.png"
+		"sprite": "Tree_100.png",
+		"support_shape": {
+			"color": "653102ff",
+			"height": 0.5,
+			"radius_scale": 60,
+			"shape": "Cylinder",
+			"transparent": false
+		}
 	},
 	{
 		"categories": [
@@ -134,7 +149,14 @@
 				]
 			}
 		},
-		"sprite": "PineTree_100.png"
+		"sprite": "PineTree_100.png",
+		"support_shape": {
+			"color": "9b522fff",
+			"height": 0.5,
+			"radius_scale": 60,
+			"shape": "Cylinder",
+			"transparent": false
+		}
 	},
 	{
 		"categories": [
@@ -159,7 +181,14 @@
 				]
 			}
 		},
-		"sprite": "WillowTree_100.png"
+		"sprite": "WillowTree_100.png",
+		"support_shape": {
+			"color": "9e5137ff",
+			"height": 0.5,
+			"radius_scale": 60,
+			"shape": "Cylinder",
+			"transparent": false
+		}
 	},
 	{
 		"categories": [
@@ -184,7 +213,15 @@
 				]
 			}
 		},
-		"sprite": "bench_wood_100_50.png"
+		"sprite": "bench_wood_100_50.png",
+		"support_shape": {
+			"color": "8d4924ff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"categories": [
@@ -236,7 +273,15 @@
 				]
 			}
 		},
-		"sprite": "bed_wood_100_50.png"
+		"sprite": "bed_wood_100_50.png",
+		"support_shape": {
+			"color": "8d4925ff",
+			"depth_scale": 95,
+			"height": 0.2,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"Function": {
@@ -266,7 +311,15 @@
 				]
 			}
 		},
-		"sprite": "cabinet_wood_100_50.png"
+		"sprite": "cabinet_wood_100_50.png",
+		"support_shape": {
+			"color": "864100ff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"categories": [
@@ -291,7 +344,15 @@
 				]
 			}
 		},
-		"sprite": "bookcase_wood_100_50.png"
+		"sprite": "bookcase_wood_100_50.png",
+		"support_shape": {
+			"color": "96522eff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"Function": {
@@ -321,7 +382,15 @@
 				]
 			}
 		},
-		"sprite": "refrigerator_50_48.png"
+		"sprite": "refrigerator_50_48.png",
+		"support_shape": {
+			"color": "bfbfbfff",
+			"depth_scale": 95,
+			"height": 0.6,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"categories": [
@@ -346,7 +415,14 @@
 				]
 			}
 		},
-		"sprite": "toilet_48.png"
+		"sprite": "toilet_48.png",
+		"support_shape": {
+			"color": "bdbebdff",
+			"height": 0.2,
+			"radius_scale": 40,
+			"shape": "Cylinder",
+			"transparent": false
+		}
 	},
 	{
 		"Function": {
@@ -375,7 +451,15 @@
 				]
 			}
 		},
-		"sprite": "door_100_13.png"
+		"sprite": "door_100_13.png",
+		"support_shape": {
+			"color": "c7632eff",
+			"depth_scale": 95,
+			"height": 0.6,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"categories": [
@@ -399,7 +483,15 @@
 				]
 			}
 		},
-		"sprite": "bench_garden_90_40.png"
+		"sprite": "bench_garden_90_40.png",
+		"support_shape": {
+			"color": "96522eff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"Function": {
@@ -428,7 +520,15 @@
 				]
 			}
 		},
-		"sprite": "wardrobe_80_40.png"
+		"sprite": "wardrobe_80_40.png",
+		"support_shape": {
+			"color": "b75a2eff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"categories": [
@@ -451,7 +551,15 @@
 				]
 			}
 		},
-		"sprite": "table_picknic_100_50.png"
+		"sprite": "table_picknic_100_50.png",
+		"support_shape": {
+			"color": "8d492eff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"categories": [
@@ -502,7 +610,15 @@
 				]
 			}
 		},
-		"sprite": "table_metal_100_50.png"
+		"sprite": "table_metal_100_50.png",
+		"support_shape": {
+			"color": "a7a7a7ff",
+			"depth_scale": 80,
+			"height": 0.3,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
 	},
 	{
 		"categories": [
@@ -553,7 +669,15 @@
 				]
 			}
 		},
-		"sprite": "desk_100_50.png"
+		"sprite": "desk_100_50.png",
+		"support_shape": {
+			"color": "af5225ff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"categories": [
@@ -576,7 +700,15 @@
 				]
 			}
 		},
-		"sprite": "bathtub_100_50.png"
+		"sprite": "bathtub_100_50.png",
+		"support_shape": {
+			"color": "a7a7a7ff",
+			"depth_scale": 80,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
 	},
 	{
 		"categories": [
@@ -600,7 +732,15 @@
 				]
 			}
 		},
-		"sprite": "stove_50_48.png"
+		"sprite": "stove_50_48.png",
+		"support_shape": {
+			"color": "aeaeaeff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"categories": [
@@ -625,7 +765,14 @@
 				]
 			}
 		},
-		"sprite": "standing_mirror_50.png"
+		"sprite": "standing_mirror_50.png",
+		"support_shape": {
+			"color": "8e8e8eff",
+			"height": 0.2,
+			"radius_scale": 20,
+			"shape": "Cylinder",
+			"transparent": false
+		}
 	},
 	{
 		"categories": [
@@ -648,7 +795,15 @@
 				]
 			}
 		},
-		"sprite": "sofa_100_50.png"
+		"sprite": "sofa_100_50.png",
+		"support_shape": {
+			"color": "2d369dff",
+			"depth_scale": 80,
+			"height": 0.2,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
 	},
 	{
 		"categories": [
@@ -670,7 +825,15 @@
 				]
 			}
 		},
-		"sprite": "cash_register_50.png"
+		"sprite": "cash_register_50.png",
+		"support_shape": {
+			"color": "9e9e9eff",
+			"depth_scale": 90,
+			"height": 0.3,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 90
+		}
 	},
 	{
 		"Function": {
@@ -725,7 +888,15 @@
 				]
 			}
 		},
-		"sprite": "display_case_100_50.png"
+		"sprite": "display_case_100_50.png",
+		"support_shape": {
+			"color": "9f9f9fff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"Function": {
@@ -752,7 +923,15 @@
 				]
 			}
 		},
-		"sprite": "vending_machine_50.png"
+		"sprite": "vending_machine_50.png",
+		"support_shape": {
+			"color": "bf2e2eff",
+			"depth_scale": 95,
+			"height": 0.6,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
 	},
 	{
 		"Function": {
@@ -807,7 +986,15 @@
 				]
 			}
 		},
-		"sprite": "store_shelf_90_50.png"
+		"sprite": "store_shelf_90_50.png",
+		"support_shape": {
+			"color": "a7855bff",
+			"depth_scale": 80,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
 	},
 	{
 		"Function": {
@@ -832,7 +1019,15 @@
 				]
 			}
 		},
-		"sprite": "security_gate_100_13.png"
+		"sprite": "security_gate_100_13.png",
+		"support_shape": {
+			"color": "8b8b8bff",
+			"depth_scale": 80,
+			"height": 0.6,
+			"shape": "Box",
+			"transparent": true,
+			"width_scale": 80
+		}
 	},
 	{
 		"Function": {
@@ -891,7 +1086,15 @@
 				]
 			}
 		},
-		"sprite": "wall_shelf_100_40.png"
+		"sprite": "wall_shelf_100_40.png",
+		"support_shape": {
+			"color": "965a25ff",
+			"depth_scale": 90,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 90
+		}
 	},
 	{
 		"Function": {
@@ -921,6 +1124,14 @@
 				]
 			}
 		},
-		"sprite": "windw_framed_100_95.png"
+		"sprite": "glass_window.png",
+		"support_shape": {
+			"color": "869bcdff",
+			"depth_scale": 100,
+			"height": 1,
+			"shape": "Box",
+			"transparent": true,
+			"width_scale": 100
+		}
 	}
 ]
