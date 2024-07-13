@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Overmap/Scripts/Overmap.gd" id="1_fmft1"]
 [ext_resource type="PackedScene" uid="uid://budsoodfdkaea" path="res://Scenes/Overmap/OvermapTile.tscn" id="3_uq0vr"]
 
-[node name="Overmap" type="Control" node_paths=PackedStringArray("positionLabel", "tilesContainer", "travelButton", "overmapTileLabel")]
+[node name="Overmap" type="Control" node_paths=PackedStringArray("positionLabel", "tilesContainer", "overmapTileLabel")]
 layout_mode = 3
 anchor_left = 0.2
 anchor_top = 0.2
@@ -15,7 +15,6 @@ script = ExtResource("1_fmft1")
 positionLabel = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Label")
 tilesContainer = NodePath("MarginContainer/HBoxContainer/TilesContainer")
 overmapTile = ExtResource("3_uq0vr")
-travelButton = NodePath("MarginContainer/HBoxContainer/VBoxContainer/TravelButton")
 overmapTileLabel = NodePath("MarginContainer/HBoxContainer/VBoxContainer/OvermapTileLabel")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -66,13 +65,17 @@ text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TravelButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Travel to location"
-
 [node name="HomeButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Home"
 
-[connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/TravelButton" to="." method="_on_travel_button_button_up"]
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "         up
+          🠕
+left🠔   ➔Right
+          🠗
+      Down
+         "
+
 [connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/HomeButton" to="." method="_on_home_button_button_up"]

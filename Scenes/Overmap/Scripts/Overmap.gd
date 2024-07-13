@@ -3,7 +3,6 @@ extends Control
 @export var positionLabel: Label = null
 @export var tilesContainer: Control = null
 @export var overmapTile: PackedScene = null
-@export var travelButton: Button = null
 @export var overmapTileLabel: Label = null
 var last_position_coord: Vector2 = Vector2()
 var noise = FastNoiseLite.new()
@@ -224,10 +223,8 @@ func _on_tile_clicked(clicked_tile):
 		envString = "\nEnvironment: " + envString
 		var challengeString: String = "\nChallenge: Easy"
 		overmapTileLabel.text = posString + nameString + envString + challengeString
-		travelButton.disabled = false
 	else: 
 		selected_overmap_tile = null
-		travelButton.disabled = true
 		overmapTileLabel.text = "Select a valid target"
 
 
