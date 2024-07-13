@@ -398,3 +398,27 @@ func check_grids():
 		var distance = player_grid_pos.distance_to(grid_pos) * cell_size
 		if distance > grid_unload_distance:
 			unload_furthest_grid()
+
+
+
+
+
+# Function to segment loaded chunks into 4x4 segments
+func segment_chunks() -> Dictionary:
+	var segments = {}  # Dictionary to store segments with their positions as keys
+
+	for chunk_pos in Helper.overmap_manager.loaded_chunk_data.chunks.keys():
+		var segment_pos = get_segment_pos(chunk_pos)
+
+		if not segments.has(segment_pos):
+			segments[segment_pos] = {}
+
+		segments[segment_pos][chunk_pos] = Helper.overmap_manager.loaded_chunk_data.chunks[chunk_pos]
+
+	return segments
+
+# Helper function to get the top-left coordinate of the 4x4 segment
+func get_segment_pos(chunk_pos: Vector2) -> Vector2:
+	var segment_x = floor(chunk_pos.x / 4) * 4
+	var segment_y = floor(chunk_pos.y / 4) * 4
+	return Vector2(segment_x, segment_y)
