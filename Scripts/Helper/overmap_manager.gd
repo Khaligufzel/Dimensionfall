@@ -143,7 +143,8 @@ func _process(_delta):
 
 # Function for handling game started signal
 func _on_game_started():
-	pass
+	initialize_map_categories()
+	load_cells_around(Vector3(0,0,0))
 
 # Function for handling player spawned signal
 func _on_player_spawned(playernode):
@@ -190,9 +191,9 @@ func generate_cells_for_grid(grid: map_grid):
 	print_debug("Generating cells for grid " + str(grid.pos))
 	for x in range(grid_width):
 		for y in range(grid_height):
-			var cell_key = Vector2(x, y)
 			var global_x = grid.pos.x * grid_width + x
 			var global_y = grid.pos.y * grid_height + y
+			var cell_key = Vector2(global_x, global_y)
 
 			var region_type = get_region_type(global_x, global_y)
 			var cell = map_cell.new()
@@ -289,7 +290,7 @@ func get_map_cell_by_global_coordinate(coord: Vector2) -> map_cell:
 	var grid_key = get_grid_pos_from_global_pos(coord)
 	var cell_key = get_cell_pos_from_global_pos(coord)
 
-	if loaded_grids.has(str(grid_key)):
+	if loaded_grids.has(grid_key):
 		return get_map_cell_by_local_coordinate(cell_key)
 	else:
 		# If the grid is not loaded, load it
@@ -300,8 +301,8 @@ func get_map_cell_by_global_coordinate(coord: Vector2) -> map_cell:
 # Put in a global coordinate, for example the player position (minus the y coordinate)
 # Get the grid coordinate back. Anything between (0,0) and (3200,3200) returns (0,0)
 func get_grid_pos_from_global_pos(coord: Vector2) -> Vector2:
-	var grid_x = int(coord.x*1.0 / (grid_width * cell_size))
-	var grid_y = int(coord.y*1.0 / (grid_height * cell_size))
+	var grid_x = int(coord.x * 1.0 / (grid_width * cell_size))
+	var grid_y = int(coord.y * 1.0 / (grid_height * cell_size))
 	return Vector2(grid_x, grid_y)
 
 
@@ -326,7 +327,7 @@ func get_cell_pos_from_global_pos(coord: Vector2) -> Vector2:
 
 # Function to get a map_cell by local coordinate within a specific grid
 func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:
-	var grid_key: Vector2 = get_grid_pos_from_local_pos(local_coord)
+	var grid_key = get_grid_pos_from_local_pos(local_coord)
 	var cell_key = Vector2(local_coord.x, local_coord.y)
 
 	if loaded_grids.has(grid_key):
@@ -347,8 +348,9 @@ func load_grid(grid_pos: Vector2):
 		print_debug("Creating new grid for key: " + str(grid_pos))
 		var grid = map_grid.new()
 		grid.pos = grid_pos
+		#grid.pos = Vector2(grid_pos.split(",")[0].to_int(), grid_pos.split(",")[1].to_int())
 		# Assume load_grid_data is a function that loads grid data from storage
-		#grid.set_data(load_grid_data(grid_pos))
+		# grid.set_data(load_grid_data(grid_pos))
 		loaded_grids[grid_pos] = grid
 
 

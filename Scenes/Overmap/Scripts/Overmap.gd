@@ -247,7 +247,7 @@ func _on_home_button_button_up():
 	var world_center_offset = screen_center_offset / halfTileSize
 
 	# Calculate the new position as the negative of the world center offset
-	var new_position_coord = -world_center_offset
+	var new_position_coord = -world_center_offset / tile_size
 
 	# Calculate the delta for moving the tiles
 	var delta = new_position_coord - Helper.position_coord
@@ -256,7 +256,7 @@ func _on_home_button_button_up():
 	Helper.position_coord = new_position_coord
 
 	# Emit the signal to update the overmap's position and tiles
-	emit_signal("position_coord_changed", delta)
+	position_coord_changed.emit(delta)
 	
 	# Optionally, update the position label if it exists
 	if positionLabel:
