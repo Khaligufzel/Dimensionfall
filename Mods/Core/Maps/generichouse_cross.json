@@ -124,6 +124,9 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "dirt_light_00"
 			},
 			{
@@ -187,6 +190,9 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -207,6 +213,9 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -451,6 +460,10 @@
 				"id": "sidewalk_00"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -495,6 +508,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -505,6 +522,10 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "dirt_light_00"
 			},
 			{
@@ -717,6 +738,10 @@
 				"id": "sidewalk_00"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -898,6 +923,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -947,6 +976,10 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "dirt_light_00"
 			},
 			{
@@ -978,6 +1011,10 @@
 				"id": "sidewalk_00"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -1154,6 +1191,10 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "dirt_light_00"
 			},
 			{
@@ -1429,12 +1470,20 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "dirt_light_00"
 			},
 			{
@@ -1512,6 +1561,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -2390,6 +2443,9 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "dirt_light_00",
 				"rotation": 90
 			},
@@ -2475,6 +2531,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -2483,6 +2542,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -2792,6 +2854,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -2985,6 +3051,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "dirt_light_00",
 				"rotation": 90
 			},
@@ -3018,6 +3088,10 @@
 				"id": "sidewalk_00"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -3082,6 +3156,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 90
 			},
@@ -3279,6 +3357,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "dirt_light_00",
 				"rotation": 90
 			},
@@ -3516,6 +3598,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -3528,6 +3614,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 90
 			},
@@ -3572,6 +3662,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "dirt_light_00",
 				"rotation": 90
 			},
@@ -3854,6 +3948,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "dirt_light_00",
 				"rotation": 90
 			},
@@ -3874,6 +3972,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "dirt_light_00",
 				"rotation": 90
 			},
@@ -3947,6 +4049,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -4194,7 +4300,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -4251,7 +4357,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -4266,7 +4372,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -4437,8 +4543,7 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
+
 			},
 			{
 
@@ -4468,18 +4573,16 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
-			},
-			{
 
 			},
 			{
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
+
+			},
+			{
+
 			},
 			{
 
@@ -4632,10 +4735,6 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
-			},
-			{
 
 			},
 			{
@@ -4646,36 +4745,6 @@
 			},
 			{
 
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
 			},
 			{
 
@@ -4693,6 +4762,39 @@
 				"id": "brick_wall_01"
 			},
 			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
 				"id": "brick_wall_01"
 			},
 			{
@@ -4715,21 +4817,6 @@
 			},
 			{
 
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
 			},
 			{
 
@@ -4759,8 +4846,22 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 
@@ -4799,10 +4900,6 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
-			},
-			{
 
 			},
 			{
@@ -4827,8 +4924,10 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
+
+			},
+			{
+
 			},
 			{
 
@@ -4964,46 +5063,6 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
 
 			},
 			{
@@ -5025,21 +5084,6 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
 
 			},
 			{
@@ -5049,22 +5093,7 @@
 
 			},
 			{
-
-			},
-			{
 				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
 			},
 			{
 
@@ -5092,6 +5121,48 @@
 			},
 			{
 				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
 			},
 			{
 
@@ -5145,51 +5216,10 @@
 
 			},
 			{
-
-			},
-			{
 				"id": "brick_wall_01"
 			},
 			{
 
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "glass_window_00",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "glass_window_00",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
 			},
 			{
 
@@ -5219,6 +5249,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+
+			},
+			{
+
+			},
+			{
 				"id": "brick_wall_01"
 			},
 			{
@@ -5231,8 +5267,67 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 180
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -6044,218 +6139,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
 
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
 			},
 			{
 				"id": "brick_wall_01",
@@ -6305,6 +6189,210 @@
 				"rotation": 180
 			},
 			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
 
 			},
 			{
@@ -6322,7 +6410,8 @@
 
 			},
 			{
-
+				"id": "brick_wall_01",
+				"rotation": 180
 			},
 			{
 
@@ -6334,8 +6423,13 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 
@@ -6485,10 +6579,6 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
-			},
-			{
 
 			},
 			{
@@ -6511,23 +6601,6 @@
 			},
 			{
 
-			},
-			{
-				"id": "glass_window_00",
-				"rotation": 270
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
 			},
 			{
 
@@ -6550,29 +6623,6 @@
 			},
 			{
 
-			},
-			{
-
-			},
-			{
-				"id": "glass_window_00",
-				"rotation": 270
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
 			},
 			{
 
@@ -6612,9 +6662,6 @@
 
 			},
 			{
-
-			},
-			{
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -6625,60 +6672,10 @@
 
 			},
 			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
 
 			},
 			{
 
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
 			},
 			{
 				"id": "brick_wall_01",
@@ -6697,8 +6694,101 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 
@@ -6861,18 +6951,16 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
-			},
-			{
 
 			},
 			{
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
+
+			},
+			{
+
 			},
 			{
 
@@ -6903,8 +6991,7 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
+
 			},
 			{
 
@@ -7090,8 +7177,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 180
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -7110,8 +7196,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 180
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -7178,8 +7263,7 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 180
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -7408,6 +7492,18 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -7417,12 +7513,6 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
 
 			},
 			{
@@ -7455,6 +7545,9 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01",
 				"rotation": 90
 			},
@@ -7475,6 +7568,9 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01",
 				"rotation": 90
 			},
@@ -7717,6 +7813,10 @@
 
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01",
 				"rotation": 90
 			},
@@ -7768,6 +7868,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "brick_wall_01",
 				"rotation": 90
 			},
@@ -7816,6 +7920,10 @@
 
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -8095,6 +8203,10 @@
 
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01",
 				"rotation": 90
 			},
@@ -8135,6 +8247,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "brick_wall_01",
 				"rotation": 90
 			},
@@ -8413,6 +8529,10 @@
 
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -8467,6 +8587,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -8494,6 +8618,10 @@
 
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01",
 				"rotation": 90
 			},
@@ -8722,6 +8850,10 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -8734,6 +8866,10 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01"
 			},
 			{
@@ -8778,6 +8914,10 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01",
 				"rotation": 90
 			},
@@ -9620,6 +9760,9 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01",
 				"rotation": 270
 			},
@@ -9668,6 +9811,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -9684,6 +9830,9 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass"
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -9946,6 +10095,10 @@
 
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -10002,6 +10155,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -10291,6 +10448,10 @@
 
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01",
 				"rotation": 270
 			},
@@ -10331,6 +10492,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 90
+				},
 				"id": "brick_wall_01",
 				"rotation": 270
 			},
@@ -10634,6 +10799,10 @@
 
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -10691,6 +10860,10 @@
 
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "brick_wall_01",
 				"rotation": 270
 			},
@@ -11003,6 +11176,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01",
 				"rotation": 270
 			},
@@ -11023,6 +11200,10 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01",
 				"rotation": 270
 			},
@@ -11067,6 +11248,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -11075,6 +11260,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 180
+				},
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
@@ -11327,14 +11516,14 @@
 				"rotation": 270
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
 				"rotation": 270
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -11377,26 +11566,11 @@
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00"
+
 			},
 			{
 				"id": "brick_wall_01",
 				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-				"id": "glass_window_00"
 			},
 			{
 				"id": "brick_wall_01",
@@ -11414,98 +11588,12 @@
 
 			},
 			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
 			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
 				"id": "brick_wall_01",
 				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
 			},
 			{
 				"id": "brick_wall_01",
@@ -11534,52 +11622,10 @@
 
 			},
 			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
 
 			},
 			{
 
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "glass_window_00",
-				"rotation": 270
 			},
 			{
 
@@ -11592,72 +11638,7 @@
 			},
 			{
 				"id": "brick_wall_01",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "glass_window_00",
-				"rotation": 90
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
 				"rotation": 270
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "glass_window_00",
-				"rotation": 90
 			},
 			{
 
@@ -11742,6 +11723,211 @@
 
 			},
 			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
 
 			},
 			{
@@ -11899,10 +12085,6 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
-			},
-			{
 
 			},
 			{
@@ -11930,8 +12112,10 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
+
+			},
+			{
+
 			},
 			{
 
@@ -12150,8 +12334,7 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
+
 			},
 			{
 
@@ -12182,10 +12365,6 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
-			},
-			{
 
 			},
 			{
@@ -12210,8 +12389,10 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
+
+			},
+			{
+
 			},
 			{
 
@@ -12366,24 +12547,7 @@
 				"rotation": 270
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 180
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 270
-			},
-			{
-				"id": "glass_window_00",
-				"rotation": 180
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -12401,37 +12565,51 @@
 
 			},
 			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
+				"id": "brick_wall_01",
+				"rotation": 270
 			},
 			{
 				"id": "brick_wall_01",
-				"rotation": 180
+				"rotation": 270
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 				"id": "brick_wall_01",
 				"rotation": 180
 			},
 			{
-				"id": "glass_window_00",
+				"id": "brick_wall_01",
 				"rotation": 180
+			},
+			{
+
 			},
 			{
 				"id": "brick_wall_01",
@@ -13264,115 +13442,10 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-				"id": "glass_window_00"
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-
-			},
-			{
 
 			},
 			{
 				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
 			},
 			{
 				"id": "brick_wall_01"
@@ -13406,16 +13479,8 @@
 				"rotation": 90
 			},
 			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "brick_wall_01",
@@ -13425,13 +13490,27 @@
 
 			},
 			{
-
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 
 			},
 			{
-
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
 			},
 			{
 				"id": "brick_wall_01",
@@ -13460,106 +13539,6 @@
 			},
 			{
 
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "glass_window_00",
-				"rotation": 90
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "glass_window_00",
-				"rotation": 270
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "glass_window_00",
-				"rotation": 90
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
 			},
 			{
 				"id": "brick_wall_01"
@@ -13664,6 +13643,202 @@
 				"id": "brick_wall_01"
 			},
 			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
 				"id": "brick_wall_01"
 			},
 			{
@@ -13742,10 +13917,6 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
-			},
-			{
 
 			},
 			{
@@ -13773,8 +13944,10 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
+
+			},
+			{
+
 			},
 			{
 
@@ -14004,8 +14177,7 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
+
 			},
 			{
 
@@ -14050,8 +14222,7 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 270
+
 			},
 			{
 
@@ -14081,107 +14252,7 @@
 
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 90
-			},
-			{
 
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01",
-				"rotation": 90
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "brick_wall_01"
 			},
 			{
 
@@ -14224,6 +14295,105 @@
 
 			},
 			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01",
+				"rotation": 90
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
 
 			},
 			{
@@ -14258,8 +14428,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 180
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -14274,8 +14443,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 180
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -14316,16 +14484,14 @@
 				"rotation": 90
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 180
+
 			},
 			{
 				"id": "brick_wall_01",
 				"rotation": 90
 			},
 			{
-				"id": "glass_window_00",
-				"rotation": 180
+
 			},
 			{
 				"id": "brick_wall_01",

@@ -14,7 +14,6 @@ extends Control
 @export var imageNameStringLabel: Label = null
 @export var cubeShapeCheckbox: Button = null
 @export var slopeShapeCheckbox: Button = null
-@export var transparentCheckbox: Button = null
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the mob data array should be saved to disk
 signal data_changed(game_data: Dictionary, new_data: Dictionary, old_data: Dictionary)
@@ -78,8 +77,6 @@ func load_tile_data():
 		if contentData["shape"] == "slope":
 			cubeShapeCheckbox.button_pressed = false
 			slopeShapeCheckbox.button_pressed = true
-	if transparentCheckbox != null and contentData.has("transparent"):
-		transparentCheckbox.button_pressed = contentData["transparent"]
 
 
 #The editor is closed, destroy the instance
@@ -99,7 +96,6 @@ func _on_save_button_button_up():
 	contentData["shape"] = "cube"
 	if slopeShapeCheckbox.button_pressed:
 		contentData["shape"] = "slope"
-	contentData["transparent"] = transparentCheckbox.button_pressed
 	data_changed.emit(Gamedata.data.tiles, contentData, olddata)
 	olddata = contentData.duplicate(true)
 
