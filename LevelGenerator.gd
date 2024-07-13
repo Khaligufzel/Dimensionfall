@@ -27,11 +27,10 @@ signal all_chunks_unloaded
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Helper.map_manager.level_generator = self # Register with the map manager
-	initialize_map_data()
-	
-	load_queue.append(Vector2(0,0))
-	# Start a loop to update chunks based on player position
-	start_timer()
+	# Connect to the Helper.signal_broker.game_started signal
+	Helper.signal_broker.game_started.connect(_on_game_started)
+	Helper.signal_broker.game_ended.connect(_on_game_ended)
+	Helper.signal_broker.player_spawned.connect(_on_player_spawned)
 
 
 # Function to create and start a timer that will generate chunks every 1 second if applicable
@@ -58,6 +57,23 @@ func _on_Timer_timeout():
 		process_next_chunk()
 
 
+# Function for handling game started signal
+func _on_game_started():
+	# To be developed later
+	pass
+
+# Function for handling player spawned signal
+func _on_player_spawned(playernode):
+	initialize_map_data()
+	
+	load_queue.append(Vector2(0,0))
+	# Start a loop to update chunks based on player position
+	start_timer()
+
+# Function for handling game ended signal
+func _on_game_ended():
+	pass
+
 # Updated function to get chunk data at a given position
 func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
 	var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(mypos)
@@ -79,22 +95,7 @@ func initialize_map_data():
 		Helper.overmap_manager.loaded_chunk_data.mapwidth = tacticalMapJSON.mapwidth
 	else:
 		# In this case we load the map json from disk
-		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
-		map_save_folder + "/map.json")
-		var loadingchunks: Dictionary = {}
-
-		# Since the chunk positions are no longer a Vector2 in JSON, 
-		# we have to transform it back into a Vector2
-		var chunk_data = tacticalMapJSON["chunks"]
-		for key_str in chunk_data:
-			var key_parts = key_str.split(",")
-			if key_parts.size() == 2:
-				var key_x = int(key_parts[0])
-				var key_y = int(key_parts[1])
-				var key = Vector2(key_x, key_y) # Use integers for Vector2 to avoid hash collisions
-				loadingchunks[key] = chunk_data[key_str]
-		Helper.overmap_manager.loaded_chunk_data = tacticalMapJSON
-		Helper.overmap_manager.loaded_chunk_data.chunks = loadingchunks
+		Helper.overmap_manager.update_player_position_and_manage_segments()
 
 
 # Return an array of chunks that fall inside the creation radius

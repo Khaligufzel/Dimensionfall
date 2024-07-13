@@ -44,11 +44,12 @@ func save_map_data(target_folder: String) -> void:
 
 
 # The level_generator has unloaded all the chunks. Save the data to disk
-func _on_chunks_unloaded(target_folder: String):
+func _on_chunks_unloaded(_target_folder: String):
 		print_debug("All chunks are unloaded")
-		Helper.json_helper.write_json_file(target_folder + "/map.json", \
-		JSON.stringify(Helper.overmap_manager.loaded_chunk_data))
-		Helper.overmap_manager.loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} # Reset the data
+		Helper.overmap_manager.unload_all_remaining_segments()
+		#Helper.json_helper.write_json_file(target_folder + "/map.json", \
+		#JSON.stringify(Helper.overmap_manager.loaded_chunk_data))
+		#Helper.overmap_manager.loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} # Reset the data
 		print_debug("Setting chunks_unloaded to true")
 		Helper.ready_to_switch_level.chunks_unloaded = true
 		all_chunks_unloaded.emit()
@@ -88,7 +89,6 @@ func load_map_segment_data(segment_pos: Vector2) -> Dictionary:
 	# Load the JSON data from the file
 	var tactical_map_json = Helper.json_helper.load_json_dictionary_file(file_path)
 	if tactical_map_json.is_empty():
-		print_debug("Failed to load chunk data for the segment at ", segment_pos)
 		return chunk_data  # Return an empty dictionary if loading fails
 	
 	# Transform the loaded chunk data back into a dictionary with Vector2 keys

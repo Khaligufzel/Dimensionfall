@@ -330,7 +330,6 @@ func populate_container_from_itemgroup():
 		if itemgroups_array.size() > 0:
 			var random_itemgroup = itemgroups_array[randi() % itemgroups_array.size()]
 			container.itemgroup = random_itemgroup
-			print_debug("Random itemgroup selected from furnitureJSON: " + random_itemgroup)
 			return
 		else:
 			print_debug("itemgroups array is empty in furnitureJSON")
@@ -339,8 +338,6 @@ func populate_container_from_itemgroup():
 	var itemgroup = furnitureJSONData["Function"]["container"].get("itemgroup", "")
 	if itemgroup:
 		container.itemgroup = itemgroup
-	else:
-		print_debug("No itemgroup found for container in furniture ID: " + str(furnitureJSON.id))
 
 
 # It will deserialize the container data if the furniture is not new.

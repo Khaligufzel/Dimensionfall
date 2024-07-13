@@ -119,16 +119,6 @@ class map_grid:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	noise = FastNoiseLite.new()
-	var rng = RandomNumberGenerator.new()
-	noise.seed = rng.randi()
-
-	# Generate regions
-	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
-	noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
-	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
-	noise.cellular_jitter = 0.01
-	noise.frequency = 0.04 # Adjust frequency as needed
 	# Connect to the Helper.signal_broker.game_started signal
 	Helper.signal_broker.game_started.connect(_on_game_started)
 	Helper.signal_broker.game_ended.connect(_on_game_ended)
@@ -149,6 +139,22 @@ func _process(_delta):
 
 # Function for handling game started signal
 func _on_game_started():
+	noise = FastNoiseLite.new()
+	var rng = RandomNumberGenerator.new()
+	
+	var gameFileJson: Dictionary = Helper.json_helper.load_json_dictionary_file(\
+	Helper.save_helper.current_save_folder + "/game.json")
+	if gameFileJson:
+		noise.seed = gameFileJson.mapseed
+	else:
+		noise.seed = rng.randi()
+
+	# Generate regions
+	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
+	noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
+	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
+	noise.cellular_jitter = 0.01
+	noise.frequency = 0.04 # Adjust frequency as needed
 	initialize_map_categories()
 	load_cells_around(Vector3(0, 0, 0))
 
@@ -407,7 +413,7 @@ func check_grids():
 			unload_furthest_grid()
 
 	
-# Load segments within the specified distance from the player
+# Selects segment coordinates to load within the specified distance from the player
 func load_segments_around_player() -> Array:
 	var segments_to_load = []
 	var player_cell_pos = get_player_cell_position()
@@ -465,7 +471,8 @@ func update_player_position_and_manage_segments():
 			var loaded_segment_data = Helper.save_helper.load_map_segment_data(segment_pos)
 			# Merge loaded segment data into loaded_chunk_data.chunks
 			for chunk_pos in loaded_segment_data.keys():
-				loaded_chunk_data.chunks[chunk_pos] = loaded_segment_data[chunk_pos]
+				if not loaded_chunk_data.chunks.has(chunk_pos):
+					loaded_chunk_data.chunks[chunk_pos] = loaded_segment_data[chunk_pos]
 		
 		# Unload segments that are too far from the player
 		var segments_to_unload = unload_distant_segments()
@@ -499,3 +506,20 @@ func process_and_clear_segment(segment_pos: Vector2) -> Dictionary:
 	
 	return non_empty_chunk_data
 
+
+# Function to unload and save all remaining segments from loaded_chunk_data.chunks
+# This function processes and clears each segment, ensuring that no chunk data remains in memory
+# and all segments are saved to the disk.
+func unload_all_remaining_segments():
+	var all_segments_to_unload = []
+	# Collect all unique segment positions
+	for chunk_pos in loaded_chunk_data.chunks.keys():
+		var segment_pos = get_segment_pos(chunk_pos)
+		if not all_segments_to_unload.has(segment_pos):
+			all_segments_to_unload.append(segment_pos)
+
+	# Process and save each segment
+	for segment_pos in all_segments_to_unload:
+		var non_empty_chunk_data = process_and_clear_segment(segment_pos)
+		if not non_empty_chunk_data.is_empty():
+			Helper.save_helper.save_map_segment_data(non_empty_chunk_data, segment_pos)

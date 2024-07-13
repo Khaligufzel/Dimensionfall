@@ -15,8 +15,6 @@ func load_json_array_file(source: String) -> Array:
 			data_json = parsed_data
 		else:
 			print_debug("The file does not contain a JSON array: " + source)
-	else:
-		print_debug("Unable to load file: " + source)
 	return data_json
 
 # This function takes the path to a JSON file and returns its contents as a dictionary.
@@ -29,8 +27,6 @@ func load_json_dictionary_file(source: String) -> Dictionary:
 			data_json = parsed_data
 		else:
 			print_debug("The file does not contain a JSON dictionary: " + source)
-	else:
-		print_debug("Unable to load file: " + source)
 	return data_json
 
 # This function lists all the files in a specified directory. 
