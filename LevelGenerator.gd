@@ -61,9 +61,7 @@ func _on_Timer_timeout():
 # Updated function to get chunk data at a given position
 func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
 	var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(mypos)
-	var json_file_path: String = map_cell.mapname
-
-	#return Helper.json_helper.load_json_dictionary_file(json_file_path)
+	var json_file_path: String = map_cell.map_id
 	return {"id":json_file_path, "rotation":0}
 
 
@@ -99,34 +97,6 @@ func initialize_map_data():
 		Helper.loaded_chunk_data.chunks = loadingchunks
 
 
-# Called when no data has been put into memory yet in loaded_chunk_data
-# Will get the chunk data from map json definition to create a brand new chunk
-func get_chunk_data_at_position1(mypos: Vector2) -> Dictionary:
-	var tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
-		Gamedata.data.tacticalmaps.dataPath + Helper.current_level_name)
-	var y: int = int(mypos.y)
-	var x: int = int(mypos.x)
-	var index: int = y * Helper.loaded_chunk_data.mapwidth + x
-	if index >= 0 and index < (Helper.loaded_chunk_data.mapwidth*Helper.loaded_chunk_data.mapheight):
-		return tacticalMapJSON.chunks[index]
-	else:
-		print("Position out of bounds or invalid index.")
-		return {}
-
-
-# Return an array of chunks that fall inside the creation radius
-# We only return chunks that have its coordinate in the tacticalmap, so we don't go out of bounds
-func calculate_chunks_to_load1(player_chunk_pos: Vector2) -> Array:
-	var chunks_to_load = []
-	for x in range(player_chunk_pos.x - creation_radius, player_chunk_pos.x + creation_radius + 1):
-		for y in range(player_chunk_pos.y - creation_radius, player_chunk_pos.y + creation_radius + 1):
-			var chunk_pos = Vector2(x, y)
-			# Check if chunk_pos is within the map dimensions
-			if is_pos_in_map(x, y) and not loaded_chunks.has(chunk_pos):
-				chunks_to_load.append(chunk_pos)
-	return chunks_to_load
-
-
 # Return an array of chunks that fall inside the creation radius
 # We only return chunks that have it's coordinate in the tacticalmap, so we don't go out of bounds
 func calculate_chunks_to_load(player_chunk_pos: Vector2) -> Array:
@@ -137,8 +107,6 @@ func calculate_chunks_to_load(player_chunk_pos: Vector2) -> Array:
 			# Check if chunk_pos is within the map dimensions
 			if not loaded_chunks.has(chunk_pos):
 				chunks_to_load.append(chunk_pos)
-			#if is_pos_in_map(x,y) and not loaded_chunks.has(chunk_pos):
-				#chunks_to_load.append(chunk_pos)
 	return chunks_to_load
 
 

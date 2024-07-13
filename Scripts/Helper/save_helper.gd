@@ -92,6 +92,7 @@ func save_overmap_state() -> void:
 
 	Helper.json_helper.write_json_file(save_path, JSON.stringify(save_data))
 
+
 # Function to load the saved state of the overmap
 func load_overmap_state() -> void:
 	var overmap_path = current_save_folder + "/overmap_state.json"

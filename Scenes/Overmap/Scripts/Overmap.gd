@@ -8,8 +8,8 @@ extends Control
 var last_position_coord: Vector2 = Vector2()
 var noise = FastNoiseLite.new()
 var grid_chunks: Dictionary = {} # Stores references to grid containers (visual tile grids)
-var chunk_width: int = 16
-var chunk_size: int = 16
+var chunk_width: int = 32
+var chunk_size: int = 32
 var tile_size: int = 32
 var grid_pixel_size: int = chunk_size * tile_size
 var selected_overmap_tile: Control = null
@@ -40,9 +40,9 @@ func _ready():
 # and `position_coord` is the current position in the world
 func update_chunks():
 	# Convert the current position to grid coordinates based on the chunk size
-	# The grid position will move 16 over when the Helper_coord passes the last tile
-	# The grid_position will be 0,0 between 0,0 and 15,15 if chunk_size = 16
-	# The grid_position will be 1,0 between 16,0 and 31,15 if chunk_size = 16
+	# The grid position will move 32 over when the Helper_coord passes the last tile
+	# The grid_position will be 0,0 between 0,0 and 31,31 if chunk_size = 32
+	# The grid_position will be 1,0 between 32,0 and 64,31 if chunk_size = 32
 	var grid_position: Vector2 = (Helper.position_coord / chunk_size).floor() * chunk_size
 	# The position is increased arbitrarily so it is more center of screen
 	#grid_position.x += grid_pixel_size
@@ -50,7 +50,7 @@ func update_chunks():
 
 	for x in range(-2, 3):
 		for y in range(-2, 3):
-			# At 0,0 we will have positions -32,-32 and -32, -16 and -32, 0 etc.
+			# At 0,0 we will have positions -64,-64 and -64, -32 and -64, 0 etc.
 			var chunk_grid_position: Vector2 = grid_position + Vector2(x, y) * chunk_size
 			
 			# Use the separate Dictionary for retrieving the noise data
