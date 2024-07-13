@@ -3,8 +3,6 @@ extends Node3D
 # Tacticalmap data
 var current_level_name: String
 var ready_to_switch_level: Dictionary = {"save_ready": false, "chunks_unloaded": false}
-# Dictionary to hold data of chunks that are unloaded
-var loaded_chunk_data: Dictionary = {"chunks": {}, "mapheight": 0, "mapwidth": 0} 
 # Contains the navigationmap for each chunk, used to give mobs the proper navigationmap
 # When crossing chunk boundary
 var chunk_navigation_maps: Dictionary = {}
@@ -59,7 +57,7 @@ func _process(_delta: float) -> void:
 # Called when the game is over and everything will need to be reset to default
 func reset():
 	chunks.clear() # Stores references to tilegrids representing the overmap
-	loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0}
+	overmap_manager.loaded_chunk_data = {"chunks": {}}
 	current_level_pos = Vector2(0.1, 0.1)
 	current_map_seed = 0
 	position_coord = Vector2(0, 0)

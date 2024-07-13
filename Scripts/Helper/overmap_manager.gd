@@ -39,6 +39,8 @@ var max_grids: int = 9
 var grid_load_distance: int = 25 * cell_size  # Load when 25 cells away from the border
 var grid_unload_distance: int = 50 * cell_size  # Unload when 50 cells away from the border
 
+# Dictionary to hold data of chunks that are unloaded
+var loaded_chunk_data: Dictionary = {"chunks": {}} 
 
 var player
 var loaded_chunks = {}
@@ -323,7 +325,7 @@ func get_cell_pos_from_global_pos(coord: Vector2) -> Vector2:
 	var local_y = floor(coord.y / cell_size)
 	var cell_pos = Vector2(local_x, local_y)
 	return cell_pos
-	
+
 
 # Function to get a map_cell by local coordinate within a specific grid
 func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:

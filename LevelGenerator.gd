@@ -75,8 +75,8 @@ func initialize_map_data():
 		# In this case we need to make a new map based on it's json definition
 		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
 		Gamedata.data.tacticalmaps.dataPath + level_name)
-		Helper.loaded_chunk_data.mapheight = tacticalMapJSON.mapheight
-		Helper.loaded_chunk_data.mapwidth = tacticalMapJSON.mapwidth
+		Helper.overmap_manager.loaded_chunk_data.mapheight = tacticalMapJSON.mapheight
+		Helper.overmap_manager.loaded_chunk_data.mapwidth = tacticalMapJSON.mapwidth
 	else:
 		# In this case we load the map json from disk
 		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
@@ -93,8 +93,8 @@ func initialize_map_data():
 				var key_y = int(key_parts[1])
 				var key = Vector2(key_x, key_y) # Use integers for Vector2 to avoid hash collisions
 				loadingchunks[key] = chunk_data[key_str]
-		Helper.loaded_chunk_data = tacticalMapJSON
-		Helper.loaded_chunk_data.chunks = loadingchunks
+		Helper.overmap_manager.loaded_chunk_data = tacticalMapJSON
+		Helper.overmap_manager.loaded_chunk_data.chunks = loadingchunks
 
 
 # Return an array of chunks that fall inside the creation radius
@@ -108,11 +108,6 @@ func calculate_chunks_to_load(player_chunk_pos: Vector2) -> Array:
 			if not loaded_chunks.has(chunk_pos):
 				chunks_to_load.append(chunk_pos)
 	return chunks_to_load
-
-
-# Returns if the provided position falls within the tacticalmap dimensions
-func is_pos_in_map(x, y) -> bool:
-	return x >= 0 and x < Helper.loaded_chunk_data.mapwidth and y >= 0 and y < Helper.loaded_chunk_data.mapheight
 
 
 # Returns chunks that are loaded but outside of the survival radius
@@ -133,9 +128,9 @@ func load_chunk(chunk_pos: Vector2):
 	new_chunk.level_generator = self
 	new_chunk.chunk_ready.connect(_on_chunk_un_loaded)
 	new_chunk.chunk_unloaded.connect(_on_chunk_un_loaded)
-	if Helper.loaded_chunk_data.chunks.has(chunk_pos):
+	if Helper.overmap_manager.loaded_chunk_data.chunks.has(chunk_pos):
 		# If the chunk has been loaded before, we use that data
-		new_chunk.chunk_data = Helper.loaded_chunk_data.chunks[chunk_pos]
+		new_chunk.chunk_data = Helper.overmap_manager.loaded_chunk_data.chunks[chunk_pos]
 	else:
 		# This chunk has not been loaded before, so we need to use the chunk data definition instead
 		new_chunk.chunk_data = get_chunk_data_at_position(chunk_pos)

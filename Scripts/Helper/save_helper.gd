@@ -47,8 +47,8 @@ func save_map_data(target_folder: String) -> void:
 func _on_chunks_unloaded(target_folder: String):
 		print_debug("All chunks are unloaded")
 		Helper.json_helper.write_json_file(target_folder + "/map.json", \
-		JSON.stringify(Helper.loaded_chunk_data))
-		Helper.loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} # Reset the data
+		JSON.stringify(Helper.overmap_manager.loaded_chunk_data))
+		Helper.overmap_manager.loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} # Reset the data
 		print_debug("Setting chunks_unloaded to true")
 		Helper.ready_to_switch_level.chunks_unloaded = true
 		all_chunks_unloaded.emit()
