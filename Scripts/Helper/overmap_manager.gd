@@ -319,8 +319,8 @@ func get_grid_pos_from_local_pos(local_coord: Vector2) -> Vector2:
 # Put in a global coordinate, for example the player position (minus the y coordinate)
 # Get the cell coordinate back. For example (22,0) would return (0,0) and (34,0) would return (1,0)
 func get_cell_pos_from_global_pos(coord: Vector2) -> Vector2:
-	var local_x = int(coord.x) % (grid_width * cell_size)
-	var local_y = int(coord.y) % (grid_height * cell_size)
+	var local_x = floor(coord.x / cell_size)
+	var local_y = floor(coord.y / cell_size)
 	var cell_pos = Vector2(local_x, local_y)
 	return cell_pos
 	
@@ -385,6 +385,7 @@ func check_grids():
 	for dx in range(-1, 1):
 		for dy in range(-1, 1):
 			var grid_pos = Vector2(player_grid_pos.x + dx, player_grid_pos.y + dy)
+			
 			var grid_key = grid_pos
 			
 			if not loaded_grids.has(grid_key):
