@@ -45,6 +45,8 @@ var loaded_chunks = {}
 # Cache to store loaded map data
 # TODO: Have Gamedata load all map files at start and get the map data from there.
 var map_data_cache: Dictionary = {}
+# Dictionary to store maps by category
+var maps_by_category_cache: Dictionary = {}
 enum Region {
 	CITY,
 	FOREST,
@@ -108,8 +110,6 @@ class map_grid:
 	func set_data(mydata: Dictionary) -> void:
 		pos = mydata.get("pos", Vector2.ZERO)
 		cells = mydata.get("cells", {})
-		
-
 
 
 # Called when the node enters the scene tree for the first time.
@@ -137,7 +137,7 @@ func _process(_delta):
 	########## there is a need to (for example moving from one chunk to another)
 	if player:
 		var player_position = player.position
-		load_chunks_around(player_position)
+		load_cells_around(player_position)
 		check_grids()
 
 
@@ -149,7 +149,7 @@ func _on_game_started():
 func _on_player_spawned(playernode):
 	player = playernode
 	var player_position = player.position
-	load_chunks_around(player_position)
+	load_cells_around(player_position)
 
 # Function for handling game loaded signal
 func _on_game_loaded():
@@ -161,47 +161,33 @@ func _on_game_ended():
 	player = null
 
 
-func load_chunks_around(position: Vector3):
-	var chunk_x = int(position.x / (chunk_size * cell_size))
-	var chunk_z = int(position.z / (chunk_size * cell_size))
+# Takes a global position, like the player's position
+# It calculates the cell positions around the cell of the given position
+# If the position is (12,3), cellpos will be (0,0), since anything between (0,0) and (32,32) results in (0,0)
+# If cellpos is 0,0, it will loop over the cells surrounding it, for example (-8,-8), (-8,-7) up to (8,8)
+func load_cells_around(position: Vector3):
+	var cellpos: Vector2 = get_cell_pos_from_global_pos(Vector2(position.x, position.z))
 
-	for x in range(chunk_x - load_radius, chunk_x + load_radius + 1):
-		for z in range(chunk_z - load_radius, chunk_z + load_radius + 1):
-			var distance_to_chunk_center = Vector2(x - chunk_x, z - chunk_z).length()
-			if distance_to_chunk_center <= load_radius:
-				var chunk_key = Vector2(x, z)
-				if not loaded_chunks.has(chunk_key):
-					generate_chunk(chunk_key)
-
-
-func generate_chunk(chunk_key: Vector2):
-	loaded_chunks[chunk_key] = []
-	
-	var chunk_x = int(chunk_key.x)
-	var chunk_y = int(chunk_key.y)
-
-	for x in range(chunk_size):
-		for y in range(chunk_size):
-			var global_x = chunk_x * chunk_size + x
-			var global_y = chunk_y * chunk_size + y
-
-			var region_type = get_region_type(global_x, global_y)
-			var cell = map_cell.new()
-			cell.coordinate_x = global_x
-			cell.coordinate_y = global_y
-			cell.region = region_type
-			
-			var maps_by_category = get_maps_by_category(region_type_to_string(region_type))
-			if maps_by_category.size() > 0:
-				cell.map_id = pick_random_map_by_weight(maps_by_category)
-			else:
-				cell.map_id = "field_grass_basic_00.json"  # Fallback if no maps are found
-
-			loaded_chunks[chunk_key].append(cell)
+	for x in range(cellpos.x - load_radius, cellpos.x + load_radius + 1):
+		for y in range(cellpos.y - load_radius, cellpos.y + load_radius + 1):
+			var distance_to_cell = Vector2(x - cellpos.x, y - cellpos.y).length()
+			if distance_to_cell <= load_radius:
+				var cell_key = Vector2(x, y)
+				var grid_key = get_grid_pos_from_local_pos(cell_key)
+				
+				if loaded_grids.has(grid_key):
+					var grid = loaded_grids[grid_key]
+					if not grid.cells.has(cell_key):
+						generate_cells_for_grid(grid)
+				else:
+					load_grid(grid_key)
+					var grid = loaded_grids[grid_key]
+					generate_cells_for_grid(grid)
 
 
 # This function generates chunks for each cell in the grid, ensuring the grid is filled with cells.
-func generate_chunks_for_grid(grid: map_grid):
+func generate_cells_for_grid(grid: map_grid):
+	print_debug("Generating cells for grid " + str(grid.pos))
 	for x in range(grid_width):
 		for y in range(grid_height):
 			var cell_key = Vector2(x, y)
@@ -246,10 +232,8 @@ func get_region_type(x: int, y: int) -> int:
 
 
 # Function to get maps by category, considering their weights
-func get_maps_by_category(category: String) -> Array:
+func initialize_map_categories():
 	var maps_list: Array = Gamedata.data.maps.data
-	var matching_maps: Array = []
-
 	for mapname in maps_list:
 		var map_data: Dictionary
 
@@ -259,10 +243,18 @@ func get_maps_by_category(category: String) -> Array:
 			map_data = Gamedata.load_map_by_id(mapname)
 			map_data_cache[mapname] = map_data
 
-		if map_data.has("categories") and category in map_data["categories"]:
-			matching_maps.append(map_data)
+		if map_data.has("categories"):
+			for category in map_data["categories"]:
+				if not maps_by_category_cache.has(category):
+					maps_by_category_cache[category] = []
+				maps_by_category_cache[category].append(map_data)
 
-	return matching_maps
+
+# Function to get maps by category
+func get_maps_by_category(category: String) -> Array:
+	if maps_by_category_cache.has(category):
+		return maps_by_category_cache[category]
+	return []
 
 
 # Function to pick a random map based on weight
@@ -337,8 +329,8 @@ func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:
 	var grid_key: Vector2 = get_grid_pos_from_local_pos(local_coord)
 	var cell_key = Vector2(local_coord.x, local_coord.y)
 
-	if loaded_grids.has(str(grid_key)):
-		var grid = loaded_grids[str(grid_key)]
+	if loaded_grids.has(grid_key):
+		var grid = loaded_grids[grid_key]
 		if grid.cells.has(cell_key):
 			return grid.cells[cell_key]
 	
@@ -348,15 +340,16 @@ func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:
 # Load a grid based on the grid position
 func load_grid(grid_pos: Vector2):
 	if loaded_grids.size() >= max_grids:
+		print_debug("unloading grid that's far away")
 		unload_furthest_grid()
 	
-	var grid_key = grid_pos
-	if not loaded_grids.has(grid_key):
+	if not loaded_grids.has(grid_pos):
+		print_debug("Creating new grid for key: " + str(grid_pos))
 		var grid = map_grid.new()
 		grid.pos = grid_pos
 		# Assume load_grid_data is a function that loads grid data from storage
 		#grid.set_data(load_grid_data(grid_pos))
-		loaded_grids[grid_key] = grid
+		loaded_grids[grid_pos] = grid
 
 
 # Unload the furthest grid from the player
@@ -380,17 +373,17 @@ func unload_furthest_grid():
 
 # Get the current grid position of the player
 func get_player_grid_position() -> Vector2:
-	return get_grid_pos_from_global_pos(player.position)
+	return get_grid_pos_from_global_pos(Vector2(player.position.x,player.position.z))
 
 
 # Check and load/unload grids based on player position
 func check_grids():
 	var player_grid_pos = get_player_grid_position()
 
-	for dx in range(-1, 2):
-		for dy in range(-1, 2):
+	for dx in range(-1, 1):
+		for dy in range(-1, 1):
 			var grid_pos = Vector2(player_grid_pos.x + dx, player_grid_pos.y + dy)
-			var grid_key = str(grid_pos.x) + "_" + str(grid_pos.y)
+			var grid_key = grid_pos
 			
 			if not loaded_grids.has(grid_key):
 				load_grid(grid_pos)

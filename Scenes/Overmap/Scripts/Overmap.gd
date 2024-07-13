@@ -47,9 +47,6 @@ func update_chunks():
 	# The grid_position will be 0,0 between 0,0 and 31,31 if chunk_size = 32
 	# The grid_position will be 1,0 between 32,0 and 64,31 if chunk_size = 32
 	var grid_position: Vector2 = (Helper.position_coord / chunk_size).floor() * chunk_size
-	# The position is increased arbitrarily so it is more center of screen
-	#grid_position.x += grid_pixel_size
-	#grid_position.y += grid_pixel_size
 
 	for x in range(-2, 3):
 		for y in range(-2, 3):
