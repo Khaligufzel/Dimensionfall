@@ -144,6 +144,7 @@ func _process(_delta):
 		var player_position = player.position
 		load_cells_around(player_position)
 		check_grids()
+		update_player_position_and_manage_segments()
 
 
 # Function for handling game started signal
@@ -419,21 +420,6 @@ func load_segments_around_player() -> Array:
 	return segments_to_load
 
 
-# Function to segment loaded chunks into 4x4 segments
-func segment_chunks() -> Dictionary:
-	var segments = {}  # Dictionary to store segments with their positions as keys
-
-	for chunk_pos in loaded_chunk_data.chunks.keys():
-		var segment_pos = get_segment_pos(chunk_pos)
-
-		if not segments.has(segment_pos):
-			segments[segment_pos] = {}
-
-		segments[segment_pos][chunk_pos] = loaded_chunk_data.chunks[chunk_pos]
-
-	return segments
-
-
 # Unload segments that are too far from the player. This is only to keep loaded_chunk_data limted in size
 # This function calculates which segments should be unloaded based on the player's current cell position.
 # It loops over the keys of loaded_chunk_data.chunks to get the chunk positions.
@@ -475,13 +461,18 @@ func update_player_position_and_manage_segments():
 		
 		# Load segments around the player
 		var segments_to_load = load_segments_around_player()
-		# Here you would call the function to actually load these segments from the filesystem
-		# e.g., load_segments_from_filesystem(segments_to_load)
+		for segment_pos in segments_to_load:
+			var loaded_segment_data = Helper.save_helper.load_map_segment_data(segment_pos)
+			# Merge loaded segment data into loaded_chunk_data.chunks
+			for chunk_pos in loaded_segment_data.keys():
+				loaded_chunk_data.chunks[chunk_pos] = loaded_segment_data[chunk_pos]
 		
 		# Unload segments that are too far from the player
 		var segments_to_unload = unload_distant_segments()
-		# Here you would call the function to actually unload these segments from memory and save to the filesystem
-		# e.g., unload_segments_to_filesystem(segments_to_unload)
+		for segment_pos in segments_to_unload:
+			var non_empty_chunk_data = process_and_clear_segment(segment_pos)
+			if not non_empty_chunk_data.is_empty():
+				Helper.save_helper.save_map_segment_data(non_empty_chunk_data, segment_pos)
 
 
 # Function to process and clear each segment

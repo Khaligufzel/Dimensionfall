@@ -87,7 +87,7 @@ func load_map_segment_data(segment_pos: Vector2) -> Dictionary:
 	
 	# Load the JSON data from the file
 	var tactical_map_json = Helper.json_helper.load_json_dictionary_file(file_path)
-	if tactical_map_json.empty():
+	if tactical_map_json.is_empty():
 		print_debug("Failed to load chunk data for the segment at ", segment_pos)
 		return chunk_data  # Return an empty dictionary if loading fails
 	
