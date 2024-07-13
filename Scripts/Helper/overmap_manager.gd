@@ -1,3 +1,4 @@
+
 extends Node
 
 # This script manages the overmap, the terrain that makes up the world.
@@ -197,6 +198,29 @@ func generate_chunk(chunk_key: Vector2):
 			loaded_chunks[chunk_key].append(cell)
 
 
+# This function generates chunks for each cell in the grid, ensuring the grid is filled with cells.
+func generate_chunks_for_grid(grid: map_grid):
+	for x in range(grid_width):
+		for y in range(grid_height):
+			var cell_key = Vector2i(x, y)
+			var global_x = grid.pos.x * grid_width + x
+			var global_y = grid.pos.y * grid_height + y
+
+			var region_type = get_region_type(global_x, global_y)
+			var cell = map_cell.new()
+			cell.coordinate_x = global_x
+			cell.coordinate_y = global_y
+			cell.region = region_type
+
+			var maps_by_category = get_maps_by_category(region_type_to_string(region_type))
+			if maps_by_category.size() > 0:
+				cell.map_id = pick_random_map_by_weight(maps_by_category)
+			else:
+				cell.map_id = "field_grass_basic_00.json"  # Fallback if no maps are found
+
+			grid.cells[cell_key] = cell
+
+
 # Helper function to convert Region enum to string
 func region_type_to_string(region_type: int) -> String:
 	match region_type:
@@ -266,27 +290,42 @@ func get_key_from_value(map_data: Dictionary) -> String:
 
 # Function to get a map_cell by global coordinate
 func get_map_cell_by_global_coordinate(coord: Vector2) -> map_cell:
-	var chunk_x = int(coord.x / (chunk_size * cell_size))
-	var chunk_y = int(coord.y / (chunk_size * cell_size))
-	var chunk_key = Vector2(chunk_x, chunk_y)
-	
-	if loaded_chunks.has(chunk_key):
-		return get_map_cell_by_local_coordinate(chunk_key)
+	var global_x = int(coord.x)
+	var global_y = int(coord.y)
+	var grid_x = int(global_x*1.0 / (grid_width * cell_size))
+	var grid_y = int(global_y*1.0 / (grid_height * cell_size))
+	var grid_key = Vector2(grid_x, grid_y)
+	var local_x = global_x % (grid_width * cell_size)
+	var local_y = global_y % (grid_height * cell_size)
+
+	if loaded_grids.has(str(grid_key)):
+		return get_map_cell_by_local_coordinate(grid_key, Vector2(local_x, local_y))
 	else:
-		# If the chunk is not loaded, generate it
-		generate_chunk(chunk_key)
-		return get_map_cell_by_local_coordinate(chunk_key)
+		# If the grid is not loaded, load it
+		load_grid(Vector2i(grid_x, grid_y))
+		return get_map_cell_by_local_coordinate(grid_key, Vector2(local_x, local_y))
 
 
-# Function to get a map_cell by local coordinate within a specific chunk
-func get_map_cell_by_local_coordinate(chunk_key: Vector2) -> map_cell:
-	if loaded_chunks.has(chunk_key):
-		return loaded_chunks[chunk_key][0]
+# Function to get a map_cell by local coordinate within a specific grid
+func get_map_cell_by_local_coordinate(grid_key: Vector2, local_coord: Vector2) -> map_cell:
+	var local_x = int(local_coord.x / cell_size)
+	var local_y = int(local_coord.y / cell_size)
+	var cell_key = Vector2i(local_x, local_y)
+
+	if loaded_grids.has(str(grid_key)):
+		var grid = loaded_grids[str(grid_key)]
+		if grid.cells.has(cell_key):
+			return grid.cells[cell_key]
+		else:
+			# If the cell is not present in the grid, generate it
+			var cell = map_cell.new()
+			grid.cells[cell_key] = cell
+			return cell
 	else:
-		# If the chunk is not loaded, generate it
-		generate_chunk(chunk_key)
-		return get_map_cell_by_local_coordinate(chunk_key)
-		#return null
+		# If the grid is not loaded, load it
+		load_grid(Vector2(grid_key.x, grid_key.y))
+		return get_map_cell_by_local_coordinate(grid_key, local_coord)
+
 
 
 # Load a grid based on the grid position
