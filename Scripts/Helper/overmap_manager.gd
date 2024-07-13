@@ -106,8 +106,10 @@ class map_grid:
 		return mydata
 		
 	func set_data(mydata: Dictionary) -> void:
-		pos = mydata.get("pos", Vector2i.ZERO)
+		pos = mydata.get("pos", Vector2.ZERO)
 		cells = mydata.get("cells", {})
+		
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -202,7 +204,7 @@ func generate_chunk(chunk_key: Vector2):
 func generate_chunks_for_grid(grid: map_grid):
 	for x in range(grid_width):
 		for y in range(grid_height):
-			var cell_key = Vector2i(x, y)
+			var cell_key = Vector2(x, y)
 			var global_x = grid.pos.x * grid_width + x
 			var global_y = grid.pos.y * grid_height + y
 
@@ -289,51 +291,66 @@ func get_key_from_value(map_data: Dictionary) -> String:
 
 
 # Function to get a map_cell by global coordinate
+# Put in a global coordinate, for example the player position (minus the y coordinate)
+# Get the map cell back. Anything between (0,0) and (32,32) returns the cell at (0,0)
 func get_map_cell_by_global_coordinate(coord: Vector2) -> map_cell:
-	var global_x = int(coord.x)
-	var global_y = int(coord.y)
-	var grid_x = int(global_x*1.0 / (grid_width * cell_size))
-	var grid_y = int(global_y*1.0 / (grid_height * cell_size))
-	var grid_key = Vector2(grid_x, grid_y)
-	var local_x = global_x % (grid_width * cell_size)
-	var local_y = global_y % (grid_height * cell_size)
+	var grid_key = get_grid_pos_from_global_pos(coord)
+	var cell_key = get_cell_pos_from_global_pos(coord)
 
 	if loaded_grids.has(str(grid_key)):
-		return get_map_cell_by_local_coordinate(grid_key, Vector2(local_x, local_y))
+		return get_map_cell_by_local_coordinate(cell_key)
 	else:
 		# If the grid is not loaded, load it
-		load_grid(Vector2i(grid_x, grid_y))
-		return get_map_cell_by_local_coordinate(grid_key, Vector2(local_x, local_y))
+		load_grid(grid_key)
+		return get_map_cell_by_local_coordinate(cell_key)
 
+
+# Put in a global coordinate, for example the player position (minus the y coordinate)
+# Get the grid coordinate back. Anything between (0,0) and (3200,3200) returns (0,0)
+func get_grid_pos_from_global_pos(coord: Vector2) -> Vector2:
+	var grid_x = int(coord.x*1.0 / (grid_width * cell_size))
+	var grid_y = int(coord.y*1.0 / (grid_height * cell_size))
+	return Vector2(grid_x, grid_y)
+
+
+# Function to get a grid key from local coordinates
+# Coordinates between 0,0 and 99,99 return 0,0.
+# Coordinates between 100,0 and 99,99 return 1,0.
+# Coordinates between -100,-100 and -1,-1 return -1,-1.
+func get_grid_pos_from_local_pos(local_coord: Vector2) -> Vector2:
+	var grid_x = floor(local_coord.x / grid_width)
+	var grid_y = floor(local_coord.y / grid_height)
+	return Vector2(grid_x, grid_y)
+
+
+# Put in a global coordinate, for example the player position (minus the y coordinate)
+# Get the cell coordinate back. For example (22,0) would return (0,0) and (34,0) would return (1,0)
+func get_cell_pos_from_global_pos(coord: Vector2) -> Vector2:
+	var local_x = int(coord.x) % (grid_width * cell_size)
+	var local_y = int(coord.y) % (grid_height * cell_size)
+	var cell_pos = Vector2(local_x, local_y)
+	return cell_pos
+	
 
 # Function to get a map_cell by local coordinate within a specific grid
-func get_map_cell_by_local_coordinate(grid_key: Vector2, local_coord: Vector2) -> map_cell:
-	var local_x = int(local_coord.x / cell_size)
-	var local_y = int(local_coord.y / cell_size)
-	var cell_key = Vector2i(local_x, local_y)
+func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:
+	var grid_key: Vector2 = get_grid_pos_from_local_pos(local_coord)
+	var cell_key = Vector2(local_coord.x, local_coord.y)
 
 	if loaded_grids.has(str(grid_key)):
 		var grid = loaded_grids[str(grid_key)]
 		if grid.cells.has(cell_key):
 			return grid.cells[cell_key]
-		else:
-			# If the cell is not present in the grid, generate it
-			var cell = map_cell.new()
-			grid.cells[cell_key] = cell
-			return cell
-	else:
-		# If the grid is not loaded, load it
-		load_grid(Vector2(grid_key.x, grid_key.y))
-		return get_map_cell_by_local_coordinate(grid_key, local_coord)
-
+	
+	return null
 
 
 # Load a grid based on the grid position
-func load_grid(grid_pos: Vector2i):
+func load_grid(grid_pos: Vector2):
 	if loaded_grids.size() >= max_grids:
 		unload_furthest_grid()
 	
-	var grid_key = str(grid_pos.x) + "_" + str(grid_pos.y)
+	var grid_key = grid_pos
 	if not loaded_grids.has(grid_key):
 		var grid = map_grid.new()
 		grid.pos = grid_pos
@@ -362,22 +379,8 @@ func unload_furthest_grid():
 
 
 # Get the current grid position of the player
-# 
-# This function calculates which grid the player is currently in, based on their position.
-# The overmap is divided into multiple grids, each consisting of `grid_width` by `grid_height` cells.
-# Each cell has a size defined by `cell_size`, which represents the 
-# length of one side of a cell in world units.
-# The player's position is divided by the total size of a 
-# grid (in world units) to determine the grid coordinates.
-# These grid coordinates are returned as a Vector2, representing the x and y indices of the grid.
-#
-# Returns:
-#   Vector2i: The grid coordinates (x, y) of the player's current position.
 func get_player_grid_position() -> Vector2:
-	var player_pos = player.position
-	var grid_x = int(player_pos.x / (grid_width * cell_size))
-	var grid_y = int(player_pos.z / (grid_height * cell_size))
-	return Vector2(grid_x, grid_y)
+	return get_grid_pos_from_global_pos(player.position)
 
 
 # Check and load/unload grids based on player position
