@@ -63,6 +63,24 @@ func set_data(newdata: Dictionary) -> void:
 	areas = newdata.get("areas", [])
 
 
+func get_data() -> Dictionary:
+	var mydata: Dictionary = {}
+	mydata["id"] = id
+	mydata["name"] = name
+	mydata["description"] = description
+	if not categories.is_empty():
+		mydata["categories"] = categories
+	mydata["weight"] = weight
+	mydata["mapwidth"] = mapwidth
+	mydata["mapheight"] = mapheight
+	mydata["levels"] = levels
+	if not references.is_empty():
+		mydata["references"] = references
+	if not areas.is_empty():
+		mydata["areas"] = areas
+	return mydata
+
+
 func load_data_from_disk():
 	set_data(Helper.json_helper.load_json_dictionary_file(get_file_path()))
 	sprite = load(get_file_path().replace(".json", ".png")) 
@@ -71,21 +89,6 @@ func load_data_from_disk():
 func save_data_to_disk() -> void:
 	var map_data_json = JSON.stringify(get_data().duplicate(), "\t")
 	Helper.json_helper.write_json_file(get_file_path(), map_data_json)
-
-
-func get_data() -> Dictionary:
-	var mydata: Dictionary = {}
-	mydata["id"] = id
-	mydata["name"] = name
-	mydata["description"] = description
-	mydata["categories"] = categories
-	mydata["weight"] = weight
-	mydata["mapwidth"] = mapwidth
-	mydata["mapheight"] = mapheight
-	mydata["levels"] = levels
-	mydata["references"] = references
-	mydata["areas"] = areas
-	return mydata
 
 
 func get_filename() -> String:
@@ -211,20 +214,20 @@ func collect_unique_entities(oldmap: DMap) -> Dictionary:
 		add_entities_to_set(level, old_entities)
 
 	# Collect entities from newdata
-	for area in areas:
-		add_entities_in_area_to_set(area, new_entities)
+	for myarea in areas:
+		add_entities_in_area_to_set(myarea, new_entities)
 
 	# Collect entities from olddata
-	for area in oldmap.areas:
-		add_entities_in_area_to_set(area, old_entities)
+	for myarea in oldmap.areas:
+		add_entities_in_area_to_set(myarea, old_entities)
 	
 	return {"new_entities": new_entities, "old_entities": old_entities}
 
 
 # Helper function to add entities to the respective sets
-func add_entities_in_area_to_set(area: Dictionary, entity_set: Dictionary):
-	if area.has("entities"):
-		for entity in area["entities"]:
+func add_entities_in_area_to_set(myarea: Dictionary, entity_set: Dictionary):
+	if myarea.has("entities"):
+		for entity in myarea["entities"]:
 			match entity["type"]:
 				"mob":
 					if not entity_set["mobs"].has(entity["id"]):
@@ -236,8 +239,8 @@ func add_entities_in_area_to_set(area: Dictionary, entity_set: Dictionary):
 					if not entity_set["itemgroups"].has(entity["id"]):
 						entity_set["itemgroups"].append(entity["id"])
 
-	if area.has("tiles"):
-		for tile in area["tiles"]:
+	if myarea.has("tiles"):
+		for tile in myarea["tiles"]:
 			if not entity_set["tiles"].has(tile["id"]):
 				entity_set["tiles"].append(tile["id"])
 
@@ -264,15 +267,22 @@ func add_entities_to_set(level: Array, entity_set: Dictionary):
 					entity_set["itemgroups"].append(itemgroup)
 
 
-# Removes all instances of the provided entity from the provided map
-# map_id is the id of one of the maps. It will be loaded from json to manipulate it.
+# Removes all instances of the provided entity from the map
 # entity_type can be "tile", "furniture", "itemgroup" or "mob"
 # entity_id is the id of the tile, furniture, itemgroup or mob
 func remove_entity_from_map(entity_type: String, entity_id: String) -> void:
 	# Translate the type to the actual key that we need
 	if entity_type == "tile":
 		entity_type = "id"
+	remove_entity_from_levels(entity_type, entity_id)
+	erase_entity_from_areas(entity_type, entity_id)
+	save_data_to_disk()
 
+
+# Removes all instances of the provided entity from the levels
+# entity_type can be "tile", "furniture", "itemgroup" or "mob"
+# entity_id is the id of the tile, furniture, itemgroup or mob
+func remove_entity_from_levels(entity_type: String, entity_id: String) -> void:
 	# Iterate over each level in the map
 	for level in levels:
 		# Iterate through each entity in the level
@@ -308,20 +318,56 @@ func remove_entity_from_map(entity_type: String, entity_id: String) -> void:
 							if entity_itemgroups.size() == 0:
 								entity.erase("itemgroups")
 
-	erase_entity_from_areas(entity_type, entity_id)
 
-
-# Function to erase an entity from every area in the mapdata.areas property
+# Function to erase an entity from every area
 func erase_entity_from_areas(entity_type: String, entity_id: String) -> void:
-	for area in areas:
+	for myarea in areas:
 		match entity_type:
 			"tile":
-				if area.has("tiles"):
-					area["tiles"] = area["tiles"].filter(func(tile):
+				if myarea.has("tiles"):
+					myarea["tiles"] = myarea["tiles"].filter(func(tile):
 						return tile["id"] != entity_id
 					)
 			"furniture", "mob", "itemgroup":
-				if area.has("entities"):
-					area["entities"] = area["entities"].filter(func(entity):
+				if myarea.has("entities"):
+					myarea["entities"] = myarea["entities"].filter(func(entity):
 						return not (entity["type"] == entity_type and entity["id"] == entity_id)
 					)
+
+
+# Removes the provided reference from references
+# For example, remove "town_00" from references.Core.tacticalmaps
+# module: the mod that the entity belongs to, for example "Core"
+# type: The type of entity, for example "tacticlmaps"
+# refid: The id of the entity, for example "town_00"
+func remove_reference(module: String, type: String, refid: String):
+	var changes_made = false
+	var refs = references[module][type]
+	if refid in refs:
+		refs.erase(refid)
+		changes_made = true
+		# Clean up if necessary
+		if refs.size() == 0:
+			references[module].erase(type)
+		if references[module].is_empty():
+			references.erase(module)
+	if changes_made:
+		save_data_to_disk()
+
+
+# Adds a reference to the references list
+# For example, add "town_00" to references.Core.tacticalmaps
+# module: the mod that the entity belongs to, for example "Core"
+# type: The type of entity, for example "tacticlmaps"
+# refid: The id of the entity, for example "town_00"
+func add_reference(module: String, type: String, refid: String):
+	var changes_made: bool = false
+	if not references.has(module):
+		references[module] = {}
+	if not references[module].has(type):
+		references[module][type] = []
+	if refid not in references[module][type]:
+		references[module][type].append(refid)
+		changes_made = true
+	if changes_made:
+		save_data_to_disk()

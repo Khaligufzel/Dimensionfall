@@ -196,11 +196,6 @@ func remove_item_from_data(contentData: Dictionary, id: String):
 		var json_file_path = contentData.dataPath + id + ".json"
 		var png_file_path = id + ".png"
 		Helper.json_helper.delete_json_file(json_file_path)
-		# Use DirAccess to check and delete the PNG file (for maps)
-		var dir = DirAccess.open(contentData.dataPath)
-		if dir.file_exists(png_file_path):
-			dir.remove(id + ".png")
-			dir.remove(id + ".png.import")
 	else:
 		print_debug("Tried to remove item from data, but the data's datapath ends with \
 		neither .json nor /")
@@ -551,8 +546,9 @@ func on_furniture_deleted(furniture_id: String):
 	if furniture_data.is_empty():
 		print_debug("Item with ID", furniture_data, "not found.")
 		return
-	var itemgroup: String = get_property_by_path(data.furniture, "Function.container.itemgroup", furniture_id)
-	changes_made = remove_reference(data.itemgroups, "core", "furniture", itemgroup, furniture_id) or changes_made
+	var itemgroup = get_property_by_path(data.furniture, "Function.container.itemgroup", furniture_id)
+	if itemgroup:
+		changes_made = remove_reference(data.itemgroups, "core", "furniture", itemgroup, furniture_id) or changes_made
 	var destruction_group: String = ""
 	if furniture_data.has("destruction") and furniture_data["destruction"].has("group"):
 		destruction_group = furniture_data["destruction"]["group"]
@@ -562,9 +558,7 @@ func on_furniture_deleted(furniture_id: String):
 		disassembly_group = furniture_data["disassembly"]["group"]
 	changes_made = remove_reference(data.itemgroups, "core", "furniture", disassembly_group, furniture_id) or changes_made
 	var mapsdata = Helper.json_helper.get_nested_data(furniture_data, "references.core.maps")
-	for map_id in mapsdata:
-		print("")
-		#map_references.remove_entity_from_map(map_id, "furniture", furniture_id)
+	maps.remove_entity_from_selected_maps("furniture", furniture_id, mapsdata)
 	if changes_made:
 		save_data_to_file(data.itemgroups)
 	else:
@@ -587,9 +581,7 @@ func on_mob_deleted(mob_id: String):
 	# Check if the mob has references to maps and remove it from those maps
 	var mapsdata = Helper.json_helper.get_nested_data(mob_data,"references.core.maps")
 	if mapsdata:
-		for map_id in mapsdata:
-			print("")
-			#map_references.remove_entity_from_map(map_id, "mob", mob_id)
+		maps.remove_entity_from_selected_maps("mob", mob_id, mapsdata)
 	
 	# This callable will handle the removal of this mob from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
@@ -619,12 +611,10 @@ func on_tile_deleted(tile_id: String):
 	var modules = tile_data.get("references", [])
 	for mod in modules:
 		var mapsdata = Helper.json_helper.get_nested_data(tile_data, "references." + mod + ".maps")
-		for map_id in mapsdata:
-			print("")
-			#map_references.remove_entity_from_map(map_id, "tile", tile_id)
+		maps.remove_entity_from_selected_maps("tile", tile_id, mapsdata)
 
 
-# A map is being deleted. Remove all references to this map
+# A tacticalmap is being deleted. Remove all references to this tacticalmap
 func on_tacticalmap_deleted(tacticalmap_id: String):
 	var file = data.tacticalmaps.dataPath + tacticalmap_id + ".json"
 	var tacticalmapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(file)
@@ -635,8 +625,7 @@ func on_tacticalmap_deleted(tacticalmap_id: String):
 		var chunk = tacticalmapdata["chunks"][i]
 		# If the chunk has the target id, remove the reference from the map
 		if chunk.has("id"):
-			remove_reference(Gamedata.data.maps, "core", "tacticalmaps", \
-				chunk["id"], tacticalmap_id + ".json")
+			maps.remove_reference_from_map(chunk["id"],"core", "tacticalmaps",tacticalmap_id + ".json")
 
 
 func on_tacticalmapdata_changed(tacticalmap_id: String, newdata: Dictionary, olddata: Dictionary):
@@ -660,11 +649,11 @@ func on_tacticalmapdata_changed(tacticalmap_id: String, newdata: Dictionary, old
 	tacticalmap_id = tacticalmap_id.get_file()
 	# Add references for new IDs
 	for id in unique_new_ids:
-		add_reference(data.maps, "core", "tacticalmaps", id, tacticalmap_id)
+		maps.add_reference_to_map(id, "core", "tacticalmaps", tacticalmap_id)
 	# Remove references for IDs not present in new data
 	for id in unique_old_ids:
 		if id not in unique_new_ids:
-			remove_reference(data.maps, "core", "tacticalmaps", id, tacticalmap_id)
+			maps.remove_reference_from_map(id, "core", "tacticalmaps", tacticalmap_id)
 
 # Some item has been changed
 # We need to update the relation between the item and other items based on crafting recipes
@@ -996,10 +985,3 @@ func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
 	if changes_made:
 		save_data_to_file(data.items)
 		save_data_to_file(data.mobs)
-
-
-# map_id is a map json file, like "field_grass_basic_00.json"
-func load_map_by_id(map_id: String) -> Dictionary:
-	var file_to_load = data.maps.dataPath + map_id
-	var mapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(file_to_load)
-	return mapdata
