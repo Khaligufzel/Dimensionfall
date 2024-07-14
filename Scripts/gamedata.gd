@@ -3,8 +3,6 @@ extends Node
 # Autoload singleton that loads all game data required to run the game
 # Accessible via Gamedata.property
 var data: Dictionary = {}
-const map_references_Class = preload("res://Scripts/Gamedata/map_references.gd")
-var map_references: Node = null
 const itemgroup_references_Class = preload("res://Scripts/Gamedata/itemgroup_references.gd")
 var itemgroup_references: Node = null
 var maps: DMaps
@@ -17,7 +15,6 @@ const DATA_CATEGORIES = {
 	"furniture": {"dataPath": "./Mods/Core/Furniture/Furniture.json", "spritePath": "./Mods/Core/Furniture/"},
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
-	"maps": {"dataPath": "./Mods/Core/Maps/", "spritePath": "./Mods/Core/Maps/"},
 	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"},
 	"wearableslots": {"dataPath": "./Mods/Core/Wearableslots/Wearableslots.json", "spritePath": "./Mods/Core/Wearableslots/"},
 	"stats": {"dataPath": "./Mods/Core/Stats/Stats.json", "spritePath": "./Mods/Core/Stats/"},
@@ -37,9 +34,7 @@ func _ready():
 	load_tile_sprites()
 	load_data()
 	update_item_protoset_json_data("res://ItemProtosets.tres", JSON.stringify(data.items.data, "\t"))
-	data.maps.data = Helper.json_helper.file_names_in_dir(data.maps.dataPath, ["json"])
 	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(data.tacticalmaps.dataPath, ["json"])
-	map_references = map_references_Class.new()
 	itemgroup_references = itemgroup_references_Class.new()
 	maps = DMaps.new()
 
@@ -156,8 +151,8 @@ func duplicate_file_in_data(contentData: Dictionary, original_id: String, new_id
 		print_debug("File duplicated successfully: " + new_file_path)
 		if contentData.data is Array and data_path.ends_with("/"):
 			contentData.data.append(new_id + ".json")
-			if data_path.ends_with("/Maps/"): # Update references to this duplicated map
-				map_references.on_mapdata_changed(new_file_path, orig_content, {"levels": []})
+			#if data_path.ends_with("/Maps/"): # Update references to this duplicated map
+				#map_references.on_mapdata_changed(new_file_path, orig_content, {"levels": []})
 	else:
 		print_debug("Failed to duplicate file to: " + new_file_path)
 
@@ -417,7 +412,8 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 	if contentData == data.furniture:
 		on_furniture_deleted(id)
 	if contentData == data.maps:
-		map_references.on_map_deleted(id)
+		return
+		#map_references.on_map_deleted(id)
 	if contentData == data.tacticalmaps:
 		on_tacticalmap_deleted(id)
 	if contentData == data.mobs:
@@ -572,7 +568,8 @@ func on_furniture_deleted(furniture_id: String):
 	changes_made = remove_reference(data.itemgroups, "core", "furniture", disassembly_group, furniture_id) or changes_made
 	var mapsdata = Helper.json_helper.get_nested_data(furniture_data, "references.core.maps")
 	for map_id in mapsdata:
-		map_references.remove_entity_from_map(map_id, "furniture", furniture_id)
+		print("")
+		#map_references.remove_entity_from_map(map_id, "furniture", furniture_id)
 	if changes_made:
 		save_data_to_file(data.itemgroups)
 	else:
@@ -596,7 +593,8 @@ func on_mob_deleted(mob_id: String):
 	var mapsdata = Helper.json_helper.get_nested_data(mob_data,"references.core.maps")
 	if mapsdata:
 		for map_id in mapsdata:
-			map_references.remove_entity_from_map(map_id, "mob", mob_id)
+			print("")
+			#map_references.remove_entity_from_map(map_id, "mob", mob_id)
 	
 	# This callable will handle the removal of this mob from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
@@ -627,7 +625,8 @@ func on_tile_deleted(tile_id: String):
 	for mod in modules:
 		var mapsdata = Helper.json_helper.get_nested_data(tile_data, "references." + mod + ".maps")
 		for map_id in mapsdata:
-			map_references.remove_entity_from_map(map_id, "tile", tile_id)
+			print("")
+			#map_references.remove_entity_from_map(map_id, "tile", tile_id)
 
 
 # A map is being deleted. Remove all references to this map

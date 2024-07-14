@@ -6,7 +6,6 @@ extends RefCounted
 # This script handles the list of maps. You can access it trough Gamedata.maps
 
 var dataPath: String = "./Mods/Core/Maps/"
-var spritePath: String = "./Mods/Core/Maps/"
 var mapdict: Dictionary = {}
 
 
@@ -20,3 +19,7 @@ func load_maps_from_disk() -> void:
 		var map: DMap = DMap.new(mapitem, dataPath)
 		map.load_data_from_disk()
 		mapdict[mapitem] = map
+
+
+func get_maps() -> Dictionary:
+	return mapdict

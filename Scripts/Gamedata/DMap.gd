@@ -18,6 +18,7 @@ var mapheight: int = 32
 var levels: Array = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 var references: Dictionary = {}
 var areas: Array = []
+var sprite: Texture = null
 
 var dataPath: String
 
@@ -28,7 +29,6 @@ func _init(newid: String, newdataPath: String):
 
 
 func set_data(newdata: Dictionary) -> void:
-	id = newdata.get("id", "")
 	name = newdata.get("name", "")
 	description = newdata.get("description", "")
 	categories = newdata.get("categories", [])
@@ -42,6 +42,7 @@ func set_data(newdata: Dictionary) -> void:
 
 func load_data_from_disk():
 	set_data(Helper.json_helper.load_json_dictionary_file(get_file_path()))
+	sprite = load(get_file_path().replace(".json", ".png")) 
 
 
 func save_data_to_disk() -> void:

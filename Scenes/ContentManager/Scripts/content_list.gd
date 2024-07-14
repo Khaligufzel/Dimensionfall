@@ -40,6 +40,10 @@ func load_data():
 	if contentData.is_empty():
 		return
 	contentItems.clear()
+	# Hacky exception for maps, need to find a better solution
+	if contentData == {"maps": true}:
+		load_map_list()
+		return
 	if not contentData.has("data"):
 		return
 	if contentData.data.is_empty():
@@ -284,3 +288,15 @@ func load_collapse_state():
 func _on_data_sprites_changed(data: Dictionary, _spriteid: String):
 	if data == contentData:
 		load_data()
+
+
+func load_map_list():
+	var maplist: Dictionary = Gamedata.maps.get_maps()
+	for map: String in maplist.keys():
+		# Add all the filenames to the ContentItems list as child nodes
+		var item_index: int = contentItems.add_item(map)
+		# Add the ID as metadata which can be used to load the item data
+		contentItems.set_item_metadata(item_index, map)
+		var mySprite: Texture = maplist[map].sprite
+		if mySprite:
+			contentItems.set_item_icon(item_index, mySprite)
