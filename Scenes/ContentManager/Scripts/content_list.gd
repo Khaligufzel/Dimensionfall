@@ -138,7 +138,7 @@ func _on_ok_button_up():
 	pupup_ID.hide()
 	# Hacky exception for maps, need to find a better solution
 	if contentData == {"maps": true}:
-		duplicate_map()
+		add_map_popup_ok()
 		return
 	var myText = popup_textedit.text
 	if myText == "":
@@ -306,11 +306,14 @@ func load_map_list():
 			contentItems.set_item_icon(item_index, mySprite)
 
 
-func duplicate_map():
+func add_map_popup_ok():
 	var myText = popup_textedit.text
 	if myText == "":
 		return
-	Gamedata.maps.duplicate_map_to_disk(get_selected_item_text(), myText)
+	if popupAction == "Add":
+		Gamedata.maps.add_new_map(myText)
+	if popupAction == "Duplicate":
+		Gamedata.maps.duplicate_map_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:

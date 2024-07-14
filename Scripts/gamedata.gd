@@ -151,8 +151,6 @@ func duplicate_file_in_data(contentData: Dictionary, original_id: String, new_id
 		print_debug("File duplicated successfully: " + new_file_path)
 		if contentData.data is Array and data_path.ends_with("/"):
 			contentData.data.append(new_id + ".json")
-			#if data_path.ends_with("/Maps/"): # Update references to this duplicated map
-				#map_references.on_mapdata_changed(new_file_path, orig_content, {"levels": []})
 	else:
 		print_debug("Failed to duplicate file to: " + new_file_path)
 
