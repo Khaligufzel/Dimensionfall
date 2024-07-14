@@ -105,13 +105,14 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 	tabContainer.add_child(newContentEditor)
 	tabContainer.current_tab = tabContainer.get_child_count() - 1
 	
+	if data == {"maps": true}:# HACK Hacky exception for maps, need to find a better solution
+		newContentEditor.currentMap = Gamedata.maps.by_id(itemID)
+		return
 	if data.dataPath.ends_with(".json"):
 		var itemdata: Dictionary = data.data[Gamedata.get_array_index_by_id(data, itemID)]
 		# We only pass the data for the specific id to the editor
 		newContentEditor.contentData = itemdata
 		newContentEditor.data_changed.connect(_on_editor_data_changed)
-	elif data == {"maps": true}:# HACK Hacky exception for maps, need to find a better solution
-		newContentEditor.currentMap = Gamedata.maps.by_id(itemID)
 	else:
 		# If the data source does not end with json, it's a directory
 		# So now we pass in the file we want the editor to edit
