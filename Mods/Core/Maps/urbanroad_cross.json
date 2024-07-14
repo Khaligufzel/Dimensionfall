@@ -1,4 +1,9 @@
 {
+	"categories": [
+		"Infrastructure",
+		"Road"
+	],
+	"description": "An intersection of urban roads, facilitating traffic flow in multiple directions.",
 	"levels": [
 		[],
 		[],
@@ -3339,5 +3344,6 @@
 		[]
 	],
 	"mapheight": 32,
-	"mapwidth": 32
+	"mapwidth": 32,
+	"name": "Urban Road Cross"
 }

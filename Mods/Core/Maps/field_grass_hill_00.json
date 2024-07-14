@@ -1,4 +1,8 @@
 {
+	"categories": [
+		"Field"
+	],
+	"description": "A gentle hill covered in lush green grass, ideal for elevated viewpoints.",
 	"levels": [
 		[],
 		[],
@@ -6345,6 +6349,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Grassy Hill",
 	"references": {
 		"core": {
 			"tacticalmaps": [

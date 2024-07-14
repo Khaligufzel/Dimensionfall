@@ -1,4 +1,9 @@
 {
+	"categories": [
+		"Infrastructure",
+		"Road"
+	],
+	"description": "A T-junction urban road, offering a three-way traffic intersection.",
 	"levels": [
 		[],
 		[],
@@ -3592,5 +3597,6 @@
 		[]
 	],
 	"mapheight": 32,
-	"mapwidth": 32
+	"mapwidth": 32,
+	"name": "Urban Road T-Junction"
 }

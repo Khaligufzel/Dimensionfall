@@ -1,4 +1,9 @@
 {
+	"categories": [
+		"House",
+		"Urban"
+	],
+	"description": "A slight variation of the standard house, with minor changes in design.",
 	"levels": [
 		[],
 		[],
@@ -38264,6 +38269,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Generic House Variant",
 	"references": {
 		"core": {
 			"tacticalmaps": [

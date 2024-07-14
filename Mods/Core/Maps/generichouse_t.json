@@ -1,4 +1,9 @@
 {
+	"categories": [
+		"House",
+		"Urban"
+	],
+	"description": "A house situated at a T-junction, offering strategic entry and exit points.",
 	"levels": [
 		[],
 		[],
@@ -18204,6 +18209,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "T-Junction House",
 	"references": {
 		"core": {
 			"tacticalmaps": [

@@ -32,9 +32,15 @@ func _on_get_properties_button_button_up():
 		return
 
 	var properties_set = {}  # Dictionary to track unique properties
-	for entity in type_data:
-		for property in entity.keys():
-			properties_set[property] = true
+	
+	# If the datapath ends with json, it's a list of items
+	# Otherwise, it's a folder with json files in it
+	if game_data.dataPath.ends_with(".json"):
+		for entity in type_data:
+			for property in entity.keys():
+				properties_set[property] = true
+	else:
+		properties_set["id"] = true
 
 	for property in properties_set.keys():
 		# Create a new CheckBox for each unique property
@@ -62,6 +68,8 @@ func get_type_data() -> Variant:
 		return Gamedata.data.mobs
 	elif selected_type == "Tile":
 		return Gamedata.data.tiles
+	elif selected_type == "Map":
+		return Gamedata.data.maps
 	return null
 
 
@@ -99,7 +107,7 @@ func export_data():
 			if checkbox.text != "id":  # Exclude 'id' from selected properties
 				selected_properties.append(checkbox.text)
 
-	if selected_properties.is_empty():
+	if selected_properties.is_empty() and game_data.dataPath.ends_with(".json"):
 		outputTextEdit.text = "No properties selected."
 		return
 
@@ -112,27 +120,39 @@ func export_data():
 	# Initialize output_text with the header
 	var output_text = header
 
-	# Loop over the data for each entity of the selected type
-	for entity in type_data:
-		# 3.1 Create a new line in the outputTextEdit with the properties
-		var line = entity.id + ","  # id is always at the front of the line
-		for property in selected_properties:
-			if property in entity:
-				var value = entity[property]
-				match typeof(value):
-					TYPE_FLOAT, TYPE_INT, TYPE_STRING, TYPE_BOOL:
-						line += str(value) + ","
-					TYPE_ARRAY:
-						line += "[array],"
-					TYPE_DICTIONARY:
-						line += "[object],"
-					_:
-						line += "null,"
-			else:
-				line += "null,"
-		# Remove the last comma and add a new line
-		line = line.rstrip(",") + "\n"
-		output_text += line
+
+	# If the datapath ends with json, it's a list of items
+	# Otherwise, it's a folder with json files in it
+	if game_data.dataPath.ends_with(".json"):
+		# Loop over the data for each entity of the selected type
+		for entity in type_data:
+			# 3.1 Create a new line in the outputTextEdit with the properties
+			var line = entity.id + ","  # id is always at the front of the line
+			for property in selected_properties:
+				if property in entity:
+					var value = entity[property]
+					match typeof(value):
+						TYPE_FLOAT, TYPE_INT, TYPE_STRING, TYPE_BOOL:
+							line += str(value) + ","
+						TYPE_ARRAY:
+							line += "[array],"
+						TYPE_DICTIONARY:
+							line += "[object],"
+						_:
+							line += "null,"
+				else:
+					line += "null,"
+			# Remove the last comma and add a new line
+			line = line.rstrip(",") + "\n"
+			output_text += line
+	else:
+		# Loop over the data for each entity of the selected type
+		for entity in type_data:
+			# 3.1 Create a new line in the outputTextEdit with the properties
+			var line = entity + ","  # id is always at the front of the line
+			# Remove the last comma and add a new line
+			line = line.rstrip(",") + "\n"
+			output_text += line
 
 	# Set the outputTextEdit text
 	outputTextEdit.text = output_text

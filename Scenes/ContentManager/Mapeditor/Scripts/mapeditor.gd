@@ -6,6 +6,10 @@ extends Control
 @export var tileGrid: GridContainer = null
 @export var map_preview: Popup = null
 
+# Settings controls:
+@export var name_text_edit: TextEdit
+@export var description_text_edit: TextEdit
+@export var categories_list: Control
 
 
 signal zoom_level_changed(value: int)
@@ -78,3 +82,23 @@ func _on_rotate_map_button_up():
 func _on_preview_map_button_up():
 	map_preview.mapData = tileGrid.mapData
 	map_preview.show()
+
+
+# Function to get the values of the controls
+func get_settings_values() -> Dictionary:
+	var values = {
+		"name": name_text_edit.text,
+		"description": description_text_edit.text,
+		"categories": categories_list.get_items()
+	}
+	return values
+
+
+# Function to set the values of the controls
+func set_settings_values(values: Dictionary) -> void:
+	if values.has("name"):
+		name_text_edit.text = values["name"]
+	if values.has("description"):
+		description_text_edit.text = values["description"]
+	if values.has("categories"):
+		categories_list.set_items(values["categories"])

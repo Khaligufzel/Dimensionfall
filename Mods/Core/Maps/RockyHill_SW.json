@@ -1,4 +1,9 @@
 {
+	"categories": [
+		"Outdoor",
+		"Mountain"
+	],
+	"description": "A rocky hill located in the southwest, perfect for adventurous climbs.",
 	"levels": [
 		[],
 		[],
@@ -27776,6 +27781,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Rocky Hill (Southwest)",
 	"references": {
 		"core": {
 			"tacticalmaps": [

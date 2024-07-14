@@ -1,4 +1,9 @@
 {
+	"categories": [
+		"House",
+		"Urban"
+	],
+	"description": "A standard house layout suitable for various scenarios.",
 	"levels": [
 		[],
 		[],
@@ -35392,6 +35397,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Generic House",
 	"references": {
 		"core": {
 			"tacticalmaps": [

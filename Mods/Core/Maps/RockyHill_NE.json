@@ -1,4 +1,9 @@
 {
+	"categories": [
+		"Outdoor",
+		"Mountain"
+	],
+	"description": "A rocky hill located in the northeast, providing a rugged terrain.",
 	"levels": [
 		[],
 		[],
@@ -27739,6 +27744,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
+	"name": "Rocky Hill (Northeast)",
 	"references": {
 		"core": {
 			"tacticalmaps": [
