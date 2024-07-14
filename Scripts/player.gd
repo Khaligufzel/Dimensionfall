@@ -80,6 +80,7 @@ func _ready():
 	# Connect signals for collisionDetector to detect furniture
 	collisionDetector.body_entered.connect(_on_body_entered)
 	collisionDetector.body_exited.connect(_on_body_exited)
+	Helper.signal_broker.player_spawned.emit(self)
 
 
 func initialize_health():

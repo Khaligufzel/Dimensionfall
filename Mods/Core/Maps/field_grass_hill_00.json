@@ -1,6 +1,7 @@
 {
 	"categories": [
-		"Field"
+		"Field",
+		"Plains"
 	],
 	"description": "A gentle hill covered in lush green grass, ideal for elevated viewpoints.",
 	"levels": [
@@ -6356,5 +6357,6 @@
 				"town_00.json"
 			]
 		}
-	}
+	},
+	"weight": 10
 }

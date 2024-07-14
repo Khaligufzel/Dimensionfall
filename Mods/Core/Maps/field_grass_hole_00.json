@@ -1,6 +1,7 @@
 {
 	"categories": [
-		"Field"
+		"Field",
+		"Plains"
 	],
 	"description": "An open grass field with a strategically placed hole, adding a layer of challenge.",
 	"levels": [
@@ -6369,5 +6370,6 @@
 				"town_00.json"
 			]
 		}
-	}
+	},
+	"weight": 10
 }

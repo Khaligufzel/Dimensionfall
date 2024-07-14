@@ -64,6 +64,7 @@ signal player_skill_changed(player: CharacterBody3D)
 signal game_started() # When the user presses 'play demo' on the main menu
 signal game_loaded() # When the user presses 'load game' on the main menu
 signal game_ended() # When the user presses 'main menu' button on the escape menu
+signal player_spawned(player: CharacterBody3D) # When the player has spawned in-game
 
 # When sprites have been added or removed from gamedata
 signal data_sprites_changed(contentData: Dictionary, spriteid: String)

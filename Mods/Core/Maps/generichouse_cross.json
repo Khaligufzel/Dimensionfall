@@ -1,7 +1,8 @@
 {
 	"categories": [
 		"House",
-		"Urban"
+		"Urban",
+		"City"
 	],
 	"description": "A house located at a crossroads, with multiple access points.",
 	"levels": [
@@ -18075,5 +18076,6 @@
 				"town_00.json"
 			]
 		}
-	}
+	},
+	"weight": 1000
 }

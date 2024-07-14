@@ -1111,7 +1111,8 @@
 					"urbanroad_corner",
 					"generichouse_corner",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"forest_basic_00"
 				]
 			}
 		},
@@ -1136,7 +1137,8 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"forest_basic_00"
 				]
 			}
 		},
@@ -1159,7 +1161,8 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"forest_basic_00"
 				]
 			}
 		},
@@ -1308,6 +1311,13 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_00",
 		"name": "Forest underbrush",
+		"references": {
+			"core": {
+				"maps": [
+					"forest_basic_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale.png"
 	},
@@ -1318,6 +1328,13 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_01",
 		"name": "Forest underbrush",
+		"references": {
+			"core": {
+				"maps": [
+					"forest_basic_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale1.png"
 	},
@@ -1328,6 +1345,13 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_02",
 		"name": "Forest underbrush",
+		"references": {
+			"core": {
+				"maps": [
+					"forest_basic_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale2.png"
 	},
@@ -1405,7 +1429,8 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"forest_basic_00"
 				]
 			}
 		},

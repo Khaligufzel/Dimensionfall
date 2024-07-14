@@ -57,7 +57,7 @@ unicode = 101
 [sub_resource type="Shortcut" id="Shortcut_jlgdg"]
 events = [SubResource("InputEventKey_rjlhc")]
 
-[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list")]
+[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,6 +73,7 @@ map_preview = NodePath("Map_Preview")
 name_text_edit = NodePath("TabContainer/Settings/NameTextEdit")
 description_text_edit = NodePath("TabContainer/Settings/DescriptionTextEdit")
 categories_list = NodePath("TabContainer/Settings/CategoriesList")
+weight_spin_box = NodePath("TabContainer/Settings/WeightSpinBox")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
@@ -366,6 +367,8 @@ text = "Name:"
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Name of the map. Can be useful for in-game observation 
+or when interacting with the map outside the map editor."
 placeholder_text = "Enter a name"
 
 [node name="DescriptionLabel" type="Label" parent="TabContainer/Settings"]
@@ -376,6 +379,8 @@ text = "Description:"
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Description of the map. Can be useful for in-game observation 
+or when interacting with the map outside the map editor."
 placeholder_text = "Enter a description"
 
 [node name="CategoriesLabel" type="Label" parent="TabContainer/Settings"]
@@ -385,7 +390,20 @@ text = "Categories:"
 [node name="CategoriesList" parent="TabContainer/Settings" instance=ExtResource("25_yq61u")]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+tooltip_text = "Used for separating the map by category. Adding the category \"Field\", \"City\" or 
+\"Forest\" will mark them for random spawning in the world outside the tacticalmap."
 header = "Categories"
+
+[node name="WeightLabel" type="Label" parent="TabContainer/Settings"]
+layout_mode = 2
+
+[node name="WeightSpinBox" type="SpinBox" parent="TabContainer/Settings"]
+layout_mode = 2
+tooltip_text = "The weight used to select this map and not others. The default is 1000. If 
+you have one map with a weight of 1000 and another map with a weight 
+of 500, the map with weight of 1000 will be twice as likely to be picked."
+max_value = 1e+06
+value = 1000.0
 
 [node name="BrushPreviewTexture" type="TextureRect" parent="."]
 visible = false

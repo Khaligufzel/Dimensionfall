@@ -1,7 +1,8 @@
 {
 	"categories": [
 		"House",
-		"Urban"
+		"Urban",
+		"City"
 	],
 	"description": "A standard house layout suitable for various scenarios.",
 	"levels": [
@@ -35404,5 +35405,6 @@
 				"DefaultTacticalMap.json"
 			]
 		}
-	}
+	},
+	"weight": 1000
 }
