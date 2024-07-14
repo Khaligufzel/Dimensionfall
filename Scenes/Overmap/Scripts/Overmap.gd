@@ -12,6 +12,10 @@ var chunk_size: int = 32
 var tile_size: int = 32
 var grid_pixel_size: int = chunk_size * tile_size
 var selected_overmap_tile: Control = null
+
+# Variable to keep track of the previously visible overmap tile
+var previous_visible_tile: Control = null
+
 # We will emit this signal when the position_coords change
 # Which happens when the user has panned the overmap
 signal position_coord_changed(delta: Vector2)
@@ -24,6 +28,7 @@ func _ready():
 	Helper.position_coord = Vector2(-7,-5)
 	update_chunks()
 	position_coord_changed.connect(on_position_coord_changed)
+	Helper.overmap_manager.player_coord_changed.connect(on_player_coord_changed)
 
 
 # This function updates the chunks.
@@ -258,3 +263,29 @@ func _on_home_button_button_up():
 	# Optionally, update the position label if it exists
 	if positionLabel:
 		positionLabel.text = "Position: (0, 0)"
+
+
+# Function to update the visibility of overmap tile text
+func update_overmap_tile_visibility(new_pos: Vector2):
+	var current_tile = get_overmap_tile_at_position(new_pos)
+	if current_tile:
+		if previous_visible_tile and previous_visible_tile != current_tile:
+			previous_visible_tile.set_text_visible(false)
+		current_tile.set_text_visible(true)
+		previous_visible_tile = current_tile
+
+
+# Function to find the overmap tile at the given position
+func get_overmap_tile_at_position(myposition: Vector2) -> Control:
+	for chunk_position in grid_chunks.keys():
+		var chunk = grid_chunks[chunk_position]
+		for tile in chunk.get_children():
+			if tile.get_meta("global_pos") == myposition:
+				return tile
+	return null
+
+
+# When the player moves a coordinate on the map, i.e. when crossing the chunk border.
+# Move ment could be between (0,0) and (0,1) for example
+func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
+	update_overmap_tile_visibility(new_pos)
