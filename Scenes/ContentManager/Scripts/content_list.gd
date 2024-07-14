@@ -136,6 +136,10 @@ func _on_duplicate_button_button_up():
 # Called after the user enters an ID into the popup textbox and presses OK
 func _on_ok_button_up():
 	pupup_ID.hide()
+	# Hacky exception for maps, need to find a better solution
+	if contentData == {"maps": true}:
+		duplicate_map()
+		return
 	var myText = popup_textedit.text
 	if myText == "":
 		return
@@ -300,3 +304,16 @@ func load_map_list():
 		var mySprite: Texture = maplist[map].sprite
 		if mySprite:
 			contentItems.set_item_icon(item_index, mySprite)
+
+
+func duplicate_map():
+	var myText = popup_textedit.text
+	if myText == "":
+		return
+	Gamedata.maps.duplicate_map_to_disk(get_selected_item_text(), myText)
+	popupAction = ""
+	# Check if the list is collapsed and expand it if true
+	if is_collapsed:
+		is_collapsed = false
+	load_data()
+	

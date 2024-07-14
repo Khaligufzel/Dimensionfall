@@ -23,3 +23,10 @@ func load_maps_from_disk() -> void:
 
 func get_maps() -> Dictionary:
 	return mapdict
+
+
+func duplicate_map_to_disk(mapid: String, newmapid: String) -> void:
+	var newmap: DMap = DMap.new(newmapid, dataPath)
+	newmap.set_data(mapdict[mapid].get_data().duplicate())
+	newmap.save_data_to_disk()
+	mapdict[newmapid] = newmap
