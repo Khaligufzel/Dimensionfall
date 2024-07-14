@@ -7,6 +7,7 @@ const map_references_Class = preload("res://Scripts/Gamedata/map_references.gd")
 var map_references: Node = null
 const itemgroup_references_Class = preload("res://Scripts/Gamedata/itemgroup_references.gd")
 var itemgroup_references: Node = null
+var maps: DMaps
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
@@ -40,6 +41,7 @@ func _ready():
 	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(data.tacticalmaps.dataPath, ["json"])
 	map_references = map_references_Class.new()
 	itemgroup_references = itemgroup_references_Class.new()
+	maps = DMaps.new()
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES
 func initialize_data_structures():
@@ -568,8 +570,8 @@ func on_furniture_deleted(furniture_id: String):
 	if furniture_data.has("disassembly") and furniture_data["disassembly"].has("group"):
 		disassembly_group = furniture_data["disassembly"]["group"]
 	changes_made = remove_reference(data.itemgroups, "core", "furniture", disassembly_group, furniture_id) or changes_made
-	var maps = Helper.json_helper.get_nested_data(furniture_data, "references.core.maps")
-	for map_id in maps:
+	var mapsdata = Helper.json_helper.get_nested_data(furniture_data, "references.core.maps")
+	for map_id in mapsdata:
 		map_references.remove_entity_from_map(map_id, "furniture", furniture_id)
 	if changes_made:
 		save_data_to_file(data.itemgroups)
@@ -591,9 +593,9 @@ func on_mob_deleted(mob_id: String):
 	changes_made["value"] = remove_reference(data.itemgroups, "core", "mobs", loot_group, mob_id) or changes_made["value"]
 	
 	# Check if the mob has references to maps and remove it from those maps
-	var maps = Helper.json_helper.get_nested_data(mob_data,"references.core.maps")
-	if maps:
-		for map_id in maps:
+	var mapsdata = Helper.json_helper.get_nested_data(mob_data,"references.core.maps")
+	if mapsdata:
+		for map_id in mapsdata:
 			map_references.remove_entity_from_map(map_id, "mob", mob_id)
 	
 	# This callable will handle the removal of this mob from all steps in quests
@@ -623,8 +625,8 @@ func on_tile_deleted(tile_id: String):
 	# Check if the tile has references to maps and remove it from those maps
 	var modules = tile_data.get("references", [])
 	for mod in modules:
-		var maps = Helper.json_helper.get_nested_data(tile_data, "references." + mod + ".maps")
-		for map_id in maps:
+		var mapsdata = Helper.json_helper.get_nested_data(tile_data, "references." + mod + ".maps")
+		for map_id in mapsdata:
 			map_references.remove_entity_from_map(map_id, "tile", tile_id)
 
 
