@@ -409,9 +409,6 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		on_item_deleted(id)
 	if contentData == data.furniture:
 		on_furniture_deleted(id)
-	if contentData == data.maps:
-		return
-		#map_references.on_map_deleted(id)
 	if contentData == data.tacticalmaps:
 		on_tacticalmap_deleted(id)
 	if contentData == data.mobs:

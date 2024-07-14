@@ -9,10 +9,10 @@ extends RefCounted
 var id: String = "":
 	set(newid):
 		id = newid.replace(".json", "") # In case the filename is passed, we remove json
-var name: String
-var description: String
-var categories: Array
-var weight: int
+var name: String = ""
+var description: String = ""
+var categories: Array = []
+var weight: int = 1000
 var mapwidth: int = 32
 var mapheight: int = 32
 var levels: Array = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
@@ -21,6 +21,29 @@ var areas: Array = []
 var sprite: Texture = null
 
 var dataPath: String
+
+
+# The area that may be present on the map
+# TODO: Implement this into the script
+class area:
+	var entities: Array = []
+	var id: String = ""
+	var rotate_random: bool = false
+	var spawn_chance: int = 100
+	var tiles: Array = []
+
+
+# Definition of a tile on the map, in one of the levels
+# TODO: Implement this into the script
+class maptile:
+	# Only a reference to an area, not an instance of an area. Can have "id" and "rotation"
+	var areas: Array = [] 
+	var id: String = "" # The id of the tile
+	var rotation: int = 0
+	# Furniture, Mob and Itemgroups are mutually exclusive. Only one can exist at a time
+	var furniture: String = ""
+	var mob: String = ""
+	var itemgroups: Array = []
 
 
 func _init(newid: String, newdataPath: String):
@@ -70,9 +93,12 @@ func get_filename() -> String:
 	
 func get_file_path() -> String:
 	return dataPath + get_filename()
+	
+func get_sprite_path() -> String:
+	return get_file_path().replace(".json", ".png")
 
 
-func remove_self_from_tacticalmap(tacticalmap_id: String):
+func remove_self_from_tacticalmap(tacticalmap_id: String) -> void:
 	var tfile = Gamedata.data.tacticalmaps.dataPath + tacticalmap_id
 	var tmapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(tfile)
 
@@ -87,15 +113,32 @@ func remove_self_from_tacticalmap(tacticalmap_id: String):
 
 
 # A map is being deleted. Remove all references to this map
-func on_map_deleted(map_id: String):
-	var changes_made = false
+func delete_files():
+	var json_file_path = get_file_path()
+	var png_file_path = get_sprite_path()
+	Helper.json_helper.delete_json_file(json_file_path)
+	# Use DirAccess to check and delete the PNG file
+	var dir = DirAccess.open(dataPath)
+	if dir.file_exists(png_file_path):
+		dir.remove(id + ".png")
+		dir.remove(id + ".png.import")
+	
 
+func delete():
+	delete_files()
+	
 	# Remove this map from the tacticalmaps in this map's references
 	for ref in references:
 		for mod in references.keys():
-			for tmap in mod.get("tacticalmaps", []):
+			for tmap in references[mod].get("tacticalmaps", []):
 				remove_self_from_tacticalmap(tmap)
+	
+	remove_my_reference_from_all_entities()
 
+
+func remove_my_reference_from_all_entities() -> void:
+	var changes_made = false
+	
 	# Collect unique entities from mapdata
 	var entities = collect_unique_entities(DMap.new(id, dataPath))
 	var unique_entities = entities["new_entities"]
@@ -103,7 +146,7 @@ func on_map_deleted(map_id: String):
 	# Remove references for unique entities
 	for entity_type in unique_entities.keys():
 		for entity_id in unique_entities[entity_type]:
-			changes_made = Gamedata.remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, map_id) or changes_made
+			changes_made = Gamedata.remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id) or changes_made
 
 	if changes_made:
 		# References have been added to tiles, furniture and/or mobs

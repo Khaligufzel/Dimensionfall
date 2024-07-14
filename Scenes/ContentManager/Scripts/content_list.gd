@@ -168,6 +168,10 @@ func _on_delete_button_button_up():
 	var selected_id: String = get_selected_item_text()
 	if selected_id == "":
 		return
+	# HACK Exception for maps, need to find a better solution
+	if contentData == {"maps": true}:
+		delete_map(selected_id)
+		return
 	contentItems.remove_item(contentItems.get_selected_items()[0])
 	Gamedata.remove_item_from_data(contentData, selected_id)
 	load_data()
@@ -319,4 +323,8 @@ func add_map_popup_ok():
 	if is_collapsed:
 		is_collapsed = false
 	load_data()
-	
+
+
+func delete_map(selected_id) -> void:
+	Gamedata.maps.delete_map(selected_id)
+	load_data()
