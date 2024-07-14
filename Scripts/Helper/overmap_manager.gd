@@ -47,11 +47,6 @@ var loaded_chunk_data: Dictionary = {"chunks": {}}
 var player
 var player_last_cell = Vector2.ZERO # Player's position per cell, updated regularly
 var loaded_chunks = {}
-# Cache to store loaded map data
-# TODO: Have Gamedata load all map files at start and get the map data from there.
-var map_data_cache: Dictionary = {}
-# Dictionary to store maps by category
-var maps_by_category_cache: Dictionary = {}
 enum Region {
 	CITY,
 	FOREST,
@@ -90,7 +85,7 @@ class map_cell:
 		tacticalmapname = newdata.get("tacticalmapname", "town_00.json")
 
 	func get_sprite() -> Texture:
-		return Gamedata.get_sprite_by_id(Gamedata.data.maps, map_id.replace(".json", ""))
+		return Gamedata.maps.by_id(map_id).sprite
 
 	func reveal():
 		revealed = true
@@ -155,7 +150,6 @@ func _on_game_started():
 	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
 	noise.cellular_jitter = 0.01
 	noise.frequency = 0.04 # Adjust frequency as needed
-	initialize_map_categories()
 	load_cells_around(Vector3(0, 0, 0))
 
 # Function for handling player spawned signal
@@ -213,7 +207,7 @@ func generate_cells_for_grid(grid: map_grid):
 			cell.coordinate_y = global_y
 			cell.region = region_type
 
-			var maps_by_category = get_maps_by_category(region_type_to_string(region_type))
+			var maps_by_category = Gamedata.maps.get_maps_by_category(region_type_to_string(region_type))
 			if maps_by_category.size() > 0:
 				cell.map_id = pick_random_map_by_weight(maps_by_category)
 			else:
@@ -244,55 +238,22 @@ func get_region_type(x: int, y: int) -> int:
 		return Region.FOREST
 
 
-# Function to get maps by category, considering their weights
-func initialize_map_categories():
-	var maps_list: Array = Gamedata.data.maps.data
-	for mapname in maps_list:
-		var map_data: Dictionary
-
-		if map_data_cache.has(mapname):
-			map_data = map_data_cache[mapname]
-		else:
-			map_data = Gamedata.load_map_by_id(mapname)
-			map_data_cache[mapname] = map_data
-
-		if map_data.has("categories"):
-			for category in map_data["categories"]:
-				if not maps_by_category_cache.has(category):
-					maps_by_category_cache[category] = []
-				maps_by_category_cache[category].append(map_data)
-
-
-# Function to get maps by category
-func get_maps_by_category(category: String) -> Array:
-	if maps_by_category_cache.has(category):
-		return maps_by_category_cache[category]
-	return []
-
-
 # Function to pick a random map based on weight
-func pick_random_map_by_weight(maps_by_category: Array) -> String:
+func pick_random_map_by_weight(maps_by_category: Array[DMap]) -> String:
 	var total_weight = 0
-	for map_data in maps_by_category:
-		total_weight += int(map_data.get("weight", 1000))  # Default weight is 1000
+	for map: DMap in maps_by_category:
+		total_weight += map.weight
 
 	var random_value = randi() % total_weight
 	var current_weight = 0
 
-	for map_data in maps_by_category:
-		current_weight += map_data.get("weight", 1000)
+	for map: DMap in maps_by_category:
+		current_weight += map.weight
 		if random_value < current_weight:
-			return get_key_from_value(map_data)  # Fallback mapname
+			return map.id
 
 	return "field_grass_basic_00.json"  # Fallback in case of an error
 
-
-# Function to get the key from map_data_cache given the map_data dictionary
-func get_key_from_value(map_data: Dictionary) -> String:
-	for key in map_data_cache.keys():
-		if map_data_cache[key] == map_data:
-			return key
-	return "field_grass_basic_00.json"  # Fallback in case of an error
 
 
 # Function to get a map_cell by global coordinate

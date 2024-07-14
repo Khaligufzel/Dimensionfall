@@ -77,3 +77,13 @@ func remove_reference_from_map(mapid: String, module: String, type: String, refi
 func add_reference_to_map(mapid: String, module: String, type: String, refid: String):
 	var mymap: DMap = mapdict[mapid]
 	mymap.add_reference(module, type, refid)
+
+
+
+# Function to get maps by category
+func get_maps_by_category(category: String) -> Array[DMap]:
+	var maplist: Array[DMap] = []
+	for key in mapdict.keys():
+		if mapdict[key].categories.has(category):
+			maplist.append(mapdict[key])
+	return maplist

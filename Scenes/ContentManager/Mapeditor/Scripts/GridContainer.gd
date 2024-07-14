@@ -596,8 +596,7 @@ func save_miniature_map_image():
 	# Call the function to create the image texture
 	var image = create_miniature_map_image()
 	# Save the image to a file
-	var file_name = mapEditor.contentSource.get_file().replace("json", "png")
-	var file_path = Gamedata.data.maps.spritePath + file_name
+	var file_path = mapEditor.currentMap.get_sprite_path()
 
 	# Ensure the image is saved
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
@@ -605,9 +604,7 @@ func save_miniature_map_image():
 		image.save_png(file_path)
 		# Create an ImageTexture from the Image
 		var image_texture = ImageTexture.create_from_image(image)
-
-		# Add the sprite to the dictionary directly using the ImageTexture
-		Gamedata.add_sprite_to_dictionary(Gamedata.data.maps, file_name, image_texture)
+		mapEditor.currentMap.sprite = image_texture
 	else:
 		print("Failed to save image:", file_path)
 
