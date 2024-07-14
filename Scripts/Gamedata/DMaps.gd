@@ -43,6 +43,9 @@ func delete_map(mapid: String) -> void:
 	mapdict.erase(mapid)
 
 
+func by_id(mapid: String) -> DMap:
+	return mapdict[mapid]
+
 # Loop over all maps and delete the entity from it. It will be removed from all levels and areas
 # entity_type: "tile", "furniture", "mob", "itemgroup"
 # entity_id: the id of the entity

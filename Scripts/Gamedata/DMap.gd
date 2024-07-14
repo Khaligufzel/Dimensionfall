@@ -371,3 +371,13 @@ func add_reference(module: String, type: String, refid: String):
 		changes_made = true
 	if changes_made:
 		save_data_to_disk()
+
+
+
+# Function to remove a area from mapData.areas by its id
+func remove_area(area_id: String) -> void:	
+	# Iterate through the areas array to find and remove the area by id
+	for i in range(areas.size()):
+		if areas[i]["id"] == area_id:
+			areas.erase(areas[i])
+			break

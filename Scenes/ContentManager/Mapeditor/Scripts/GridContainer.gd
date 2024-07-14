@@ -32,7 +32,7 @@ enum EditorMode {
 
 # Variables
 var currentLevel: int = 10
-var currentLevelData: Array = []
+var currentLevelData: Array = [] # Data for the map level we're currently editing
 var selected_brush: Control
 var currentMode: EditorMode = EditorMode.NONE # Track the current editor mode
 var erase: bool = false
@@ -49,19 +49,8 @@ var snapLevel: Vector2 = Vector2(snapAmount, snapAmount).round()
 var copied_tiles_info: Dictionary = {"tiles_data": [], "all_levels_data": [], "width": 0, "height": 0}
 
 
-var olddata: Dictionary #Used to remember the mapdata before it was changed
-#Contains map metadata like size as well as the data on all levels
-var mapData: Dictionary = defaultMapData.duplicate():
-	set(data):
-		if data.is_empty():
-			mapData = defaultMapData.duplicate()
-		else:
-			mapData = data.duplicate()
-		mapEditor.set_settings_values(mapData)
-		loadLevelData(currentLevel)
-		load_area_data()
+var oldmap: DMap #Used to remember the mapdata before it was changed
 signal zoom_level_changed(zoom_level: int)
-signal data_changed(map_path: String, new_data: Dictionary, old_data: Dictionary)
 
 # This function is called when the parent mapeditor node is ready
 func _on_mapeditor_ready() -> void:
@@ -73,9 +62,16 @@ func _on_mapeditor_ready() -> void:
 	levelgrid_below.hide()
 	levelgrid_above.hide()
 	_on_zoom_level_changed(mapEditor.zoom_level)
-	data_changed.connect(Gamedata.map_references.on_mapdata_changed)
 	brushcomposer.brush_added.connect(_on_composer_brush_added)
 	brushcomposer.brush_removed.connect(_on_composer_brush_removed)
+
+
+func on_map_data_changed():
+		oldmap = DMap.new(mapEditor.currentMap.id, "")
+		oldmap.set_data(mapEditor.currentMap.get_data().duplicate(true))
+		loadLevelData(currentLevel)
+		load_area_data()
+
 
 # This function will fill this GridContainer with a grid of 32x32 instances of "tileScene"
 func create_tiles():
@@ -291,7 +287,8 @@ func storeLevelData() -> void:
 		# If no tile has significant data, consider adding a special marker or log
 		print_debug("No significant tile data found for the current level")
 
-	mapData.levels[currentLevel] = currentLevelData.duplicate()
+	mapEditor.currentMap.levels[currentLevel] = currentLevelData.duplicate(true)
+
 
 # Load the level data from the map data. If no data exists, use the default to create a new map.
 func loadLevelData(newLevel: int) -> void:
@@ -309,10 +306,7 @@ func loadLevelData(newLevel: int) -> void:
 	update_area_visibility()
 
 func loadLevel(level: int, grid: GridContainer) -> void:
-	if mapData.is_empty():
-		print_debug("Tried to load data from an empty mapData dictionary")
-		return
-	var newLevelData: Array = mapData.levels[level]
+	var newLevelData: Array = mapEditor.currentMap.levels[level]
 	var i: int = 0
 	# If any data exists on this level, we load it
 	if newLevelData != []:
@@ -567,19 +561,11 @@ func _on_show_above_toggled(button_pressed):
 func save_map_json_file():
 	# Convert the TileGrid.mapData to a JSON string
 	storeLevelData()
-	var mapsettingsdata: Dictionary = mapEditor.get_settings_values()
-	for key in mapsettingsdata.keys():
-		mapData[key] = mapsettingsdata[key]
-	data_changed.emit(mapEditor.contentSource, mapData, olddata)
-	var map_data_json = JSON.stringify(mapData.duplicate(), "\t")
-	Helper.json_helper.write_json_file(mapEditor.contentSource, map_data_json)
-	olddata = mapData.duplicate(true)
+	mapEditor.update_settings_values()
+	mapEditor.currentMap.save_data_to_disk()
+	oldmap = DMap.new(mapEditor.currentMap.id,"")
+	oldmap.set_data(mapEditor.currentMap.get_data().duplicate(true))
 
-# Load the map data from a JSON file
-func load_map_json_file():
-	var fileToLoad: String = mapEditor.contentSource
-	mapData = Helper.json_helper.load_json_dictionary_file(fileToLoad)
-	olddata = mapData.duplicate(true)
 
 # Create a 128x128 miniature map image of the current level
 func create_miniature_map_image() -> Image:
@@ -632,13 +618,13 @@ func _on_create_preview_image_button_button_up():
 func rotate_map() -> void:
 	# Store the data of the current level before rotating the map
 	storeLevelData()
-	for i in range(mapData.levels.size()):
+	for i in range(mapEditor.currentMap.levels.size()):
 		# Load each level's data into currentLevelData
-		currentLevelData = mapData.levels[i]
+		currentLevelData = mapEditor.currentMap.levels[i]
 		# Rotate the current level data
 		rotate_level_clockwise()
 		# Update the rotated data back into the mapData
-		mapData.levels[i] = currentLevelData.duplicate()
+		mapEditor.currentMap.levels[i] = currentLevelData.duplicate()
 
 	# After rotation, reload the current level's data
 	loadLevelData(currentLevel)
@@ -828,7 +814,7 @@ func reset_rotation() -> void:
 
 # Get the tile data from mapData for a given index and level
 func get_tile_data_from_mapData(index: int, level: int) -> Dictionary:
-	var level_data = mapData.levels[level]
+	var level_data = mapEditor.currentMap.levels[level]
 	return level_data[index] if index >= 0 and index < level_data.size() else {}
 
 # Returns the index of tiles in the grid, a number between 0 an 1024
@@ -860,8 +846,8 @@ func copy_tiles_from_all_levels(rect_start: Vector2, rect_end: Vector2) -> void:
 	var tile_indexes = get_tile_indexes_in_rectangle(rect_start, rect_end)
 
 	# Iterate through all levels to copy tiles
-	for level in range(mapData.levels.size()):
-		var level_data = mapData.levels[level]
+	for level in range(mapEditor.currentMap.levels.size()):
+		var level_data = mapEditor.currentMap.levels[level]
 		var level_copied_tiles: Array = []
 		if level_data.size() > 0:
 			for tile_index in tile_indexes:
@@ -882,17 +868,17 @@ func get_tile_indexes_in_range(start_tile_index: int, width: int, height: int, l
 	var tile_indexes: Array = []
 	
 	# Calculate the start row and column based on the tile index and map width
-	var start_row: int = start_tile_index / mapData["mapwidth"]
-	var start_col: int = start_tile_index % int(mapData["mapwidth"])
+	var start_row: int = start_tile_index / mapEditor.currentMap.mapwidth
+	var start_col: int = start_tile_index % int(mapEditor.currentMap.mapwidth)
 	# Ensure the range does not exceed the map boundaries
-	var end_row: int = min(start_row + height, mapData["mapheight"])
-	var end_col: int = min(start_col + width, mapData["mapwidth"])
+	var end_row: int = min(start_row + height, mapEditor.currentMap.mapheight)
+	var end_col: int = min(start_col + width, mapEditor.currentMap.mapwidth)
 	# Loop through the specified range and collect tile indexes
 	for row in range(start_row, end_row):
 		for col in range(start_col, end_col):
-			var tile_index: int = row * mapData["mapwidth"] + col
+			var tile_index: int = row * mapEditor.currentMap.mapwidth + col
 			# Ensure the tile index is within the map's total number of tiles
-			if tile_index < mapData["levels"][level_index].size():
+			if tile_index < mapEditor.currentMap.levels[level_index].size():
 				tile_indexes.append(tile_index)
 	return tile_indexes
 
@@ -906,7 +892,7 @@ func apply_column_tiles_to_all_levels(clicked_tile: Control) -> void:
 	var copied_column_data = copied_tiles_info["all_levels_data"]
 	
 	# Loop over all levels in mapData
-	for level_index in range(mapData["levels"].size()):
+	for level_index in range(mapEditor.currentMap.levels.size()):
 		# Ensure there's corresponding copied data for this level
 		if level_index < copied_column_data.size():
 			var column_data_for_level = copied_column_data[level_index]
@@ -930,7 +916,7 @@ func paste_copied_tile_data(clicked_tile: Control):
 # This aids in pasting copied tiledata
 func apply_tiles_data_to_level(clicked_tile: Control, level_index: int, tiles_data: Array) -> void:
 	# Ensure level_index is within the valid range
-	if level_index < 0 or level_index >= mapData.levels.size():
+	if level_index < 0 or level_index >= mapEditor.currentMap.levels.size():
 		print_debug("Level index out of range.")
 		return
 
@@ -941,7 +927,7 @@ func apply_tiles_data_to_level(clicked_tile: Control, level_index: int, tiles_da
 	var tile_index = get_index_of_child(clicked_tile)
 	var width = copied_tiles_info["width"]
 	var height = copied_tiles_info["height"]
-	var level_data = mapData.levels[level_index]
+	var level_data = mapEditor.currentMap.levels[level_index]
 	var num_columns = columns
 
 	# Calculate the grid position from the starting tile index
@@ -996,42 +982,20 @@ func add_area_to_map_data(area: Dictionary) -> void:
 	# Return if the dictionary is empty
 	if area.is_empty():
 		return
-	
-	# Initialize the areas array if it doesn't exist
-	if not mapData.has("areas"):
-		mapData["areas"] = []
-	
+		
 	# Check if a area with the same id already exists
-	for existing_area in mapData["areas"]:
+	for existing_area in mapEditor.currentMap.areas:
 		if existing_area["id"] == area["id"]:
 			return  # area with this id already exists
 	
 	# Add the new area to the areas array
-	mapData["areas"].append(area)
+	mapEditor.currentMap.areas.append(area)
 
-
-# Function to remove a area from mapData.areas by its id
-func remove_area_from_map_data(area_id: String) -> void:
-	# Check if the areas array exists in mapData
-	if not mapData.has("areas"):
-		return
-	
-	# Iterate through the areas array to find and remove the area by id
-	for i in range(mapData["areas"].size()):
-		if mapData["areas"][i]["id"] == area_id:
-			mapData["areas"].erase(mapData["areas"][i])
-			break
-	
-	# If the areas array is now empty, remove the areas key from mapData
-	if mapData["areas"].is_empty():
-		mapData.erase("areas")
 
 
 # Returns a list of areas in the mapdata
 func get_map_areas() -> Array:
-	if mapData.has("areas") and not mapData["areas"].is_empty():
-		return mapData.areas
-	return []
+	return mapEditor.currentMap.areas
 
 
 # Function to find tiles with a specific area ID in a given level
@@ -1039,12 +1003,12 @@ func find_tiles_with_area(area_id: String, level: int = currentLevel) -> Array:
 	var tiles_with_area: Array = []
 
 	# Check if the level is within valid range
-	if level < 0 or level >= mapData.levels.size():
+	if level < 0 or level >= mapEditor.currentMap.levels.size():
 		print_debug("Level index out of range.")
 		return tiles_with_area
 	
 	# Get the level data
-	var level_data: Array = mapData.levels[level]
+	var level_data: Array = mapEditor.currentMap.levels[level]
 	
 	# Iterate through the tiles in the level
 	for i in range(level_data.size()):
@@ -1072,7 +1036,7 @@ func update_map_areas(areas_clone: Array) -> void:
 
 	# Remove missing areas from all tiles on all levels
 	for missing_area_id in missing_area_ids:
-		for level in range(mapData.levels.size()):
+		for level in range(mapEditor.currentMap.levels.size()):
 			remove_area_from_tiles(missing_area_id, level)
 
 	# Handle "previd" property for renamed areas
@@ -1090,18 +1054,14 @@ func update_map_areas(areas_clone: Array) -> void:
 
 			area.erase("previd") # After renaming we don't need it anymore
 			# Update all tiles referencing the old ID
-			for level in range(mapData.levels.size()):
+			for level in range(mapEditor.currentMap.levels.size()):
 				rename_area_in_tiles(previd, new_id, level)
 			
 			# Update chance_modifications list in all areas
 			update_chance_modifications(previd, new_id)
 
 	# Overwrite mapData.areas with areas_clone
-	mapData["areas"] = areas_clone.duplicate()
-
-	# Check if mapData["areas"] is an empty array and erase the property if true
-	if mapData["areas"].is_empty():
-		mapData.erase("areas")
+	mapEditor.currentMap.areas = areas_clone.duplicate()
 
 	# Check if the selected area name is in the list of missing area IDs or renamed areas
 	# If it is, or if the selected area name is "None", we hide the area sprite for all tiles
@@ -1118,7 +1078,7 @@ func update_map_areas(areas_clone: Array) -> void:
 
 # Function to update "chance_modifications" lists in all areas
 func update_chance_modifications(old_id: String, new_id: String) -> void:
-	for area in mapData["areas"]:
+	for area in mapEditor.currentMap.areas:
 		if area.has("chance_modifications"):
 			for i in range(area["chance_modifications"].size()):
 				if area["chance_modifications"][i].id == old_id:
@@ -1131,11 +1091,11 @@ func update_chance_modifications(old_id: String, new_id: String) -> void:
 
 # Function to rename an area in all tiles across all levels
 func rename_area_in_tiles(previd: String, new_id: String, level: int) -> void:
-	if level < 0 or level >= mapData.levels.size():
+	if level < 0 or level >= mapEditor.currentMap.levels.size():
 		print_debug("Level index out of range.")
 		return
 
-	var level_data = mapData.levels[level]
+	var level_data = mapEditor.currentMap.levels[level]
 	for tile_data in level_data:
 		if tile_data.has("areas"):
 			var areas = tile_data["areas"]
@@ -1147,11 +1107,11 @@ func rename_area_in_tiles(previd: String, new_id: String, level: int) -> void:
 
 # Function to remove a area from all tiles on a specific level
 func remove_area_from_tiles(area_id: String, level: int) -> void:
-	if level < 0 or level >= mapData.levels.size():
+	if level < 0 or level >= mapEditor.currentMap.levels.size():
 		print_debug("Level index out of range.")
 		return
 
-	var level_data = mapData.levels[level]
+	var level_data = mapEditor.currentMap.levels[level]
 	for tile_data in level_data:
 		if tile_data.has("areas"):
 			var areas = tile_data["areas"]
