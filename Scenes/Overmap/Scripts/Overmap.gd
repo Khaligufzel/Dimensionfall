@@ -56,14 +56,14 @@ func update_chunks():
 		for y in range(-1, 1):
 			# At 0,0 we will have positions -64,-64 and -64, -32 and -64, 0 etc.
 			var chunk_grid_position: Vector2 = grid_position + Vector2(x, y) * chunk_size
-			print_debug("Creating chunk in overmap at " + str(chunk_grid_position))
 
 			if not grid_chunks.has(chunk_grid_position):
+				print_debug("Creating chunk in overmap at " + str(chunk_grid_position))
 				# Directly create and fill the GridContainer with chunk data.
 				var localized_x: float = chunk_grid_position.x * tile_size - Helper.position_coord.x * tile_size
 				var localized_y: float = chunk_grid_position.y * tile_size - Helper.position_coord.y * tile_size
 				var new_grid_container = create_and_fill_grid_container(chunk_grid_position, Vector2(localized_x, localized_y))
-				tilesContainer.call_deferred("add_child", new_grid_container)
+				#tilesContainer.add_child(new_grid_container)
 				# Store the GridContainer using the grid position as the key.
 				grid_chunks[chunk_grid_position] = new_grid_container
 
@@ -81,7 +81,7 @@ func unload_chunks():
 	for chunk_position in grid_chunks.keys():
 		if chunk_position.distance_to(Helper.position_coord) > range_limit:
 			# Destroy the grid itself
-			grid_chunks[chunk_position].call_deferred("queue_free")
+			grid_chunks[chunk_position].queue_free()
 			# Remove the reference to the grid
 			grid_chunks.erase(chunk_position)
 
@@ -167,7 +167,7 @@ func create_and_fill_grid_container(grid_position: Vector2, chunk_position: Vect
 			grid_container.add_child(tile)
 
 	# Set the position of the grid container in pixel space.
-	grid_container.position = chunk_position
+	grid_container.position = chunk_position+Vector2(200,200)
 
 	# Return the filled grid container.
 	return grid_container
