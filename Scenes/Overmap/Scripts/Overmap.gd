@@ -7,14 +7,17 @@ extends Control
 var last_position_coord: Vector2 = Vector2()
 var noise = FastNoiseLite.new()
 var grid_chunks: Dictionary = {} # Stores references to grid containers (visual tile grids)
-var chunk_width: int = 32
-var chunk_size: int = 32
+var chunk_width: int = 8  # Updated from 32 to 8
+var chunk_size: int = 8  # Updated from 32 to 8
 var tile_size: int = 32
 var grid_pixel_size: int = chunk_size * tile_size
 var selected_overmap_tile: Control = null
 
 # Variable to keep track of the previously visible overmap tile
 var previous_visible_tile: Control = null
+
+# Object pool for reusing tiles
+var tile_pool: Array = []
 
 # We will emit this signal when the position_coords change
 # Which happens when the user has panned the overmap
@@ -25,7 +28,7 @@ signal change_level_pressed()
 func _ready():
 	# Centers the view when opening the ovemap. Works with default window size.
 	# TODO: Have it calculated based on the window size
-	Helper.position_coord = Vector2(-0,-0)
+	Helper.position_coord = Vector2(-0, -0)
 	update_chunks()
 	position_coord_changed.connect(on_position_coord_changed)
 	Helper.overmap_manager.player_coord_changed.connect(on_player_coord_changed)
@@ -52,9 +55,8 @@ func update_chunks():
 	# The grid_position will be 1,0 between 32,0 and 64,31 if chunk_size = 32
 	var grid_position: Vector2 = (Helper.position_coord / chunk_size).floor() * chunk_size
 
-	for x in range(-1, 1):
-		for y in range(-1, 1):
-			# At 0,0 we will have positions -64,-64 and -64, -32 and -64, 0 etc.
+	for x in range(0, 7):
+		for y in range(0, 5):
 			var chunk_grid_position: Vector2 = grid_position + Vector2(x, y) * chunk_size
 
 			if not grid_chunks.has(chunk_grid_position):
@@ -63,7 +65,7 @@ func update_chunks():
 				var localized_x: float = chunk_grid_position.x * tile_size - Helper.position_coord.x * tile_size
 				var localized_y: float = chunk_grid_position.y * tile_size - Helper.position_coord.y * tile_size
 				var new_grid_container = create_and_fill_grid_container(chunk_grid_position, Vector2(localized_x, localized_y))
-				#tilesContainer.add_child(new_grid_container)
+				tilesContainer.add_child(new_grid_container)
 				# Store the GridContainer using the grid position as the key.
 				grid_chunks[chunk_grid_position] = new_grid_container
 
@@ -71,18 +73,34 @@ func update_chunks():
 	unload_chunks()
 
 
+# Get a tile from the pool or create a new one if the pool is empty
+func get_pooled_tile() -> Control:
+	if tile_pool.size() > 0:
+		return tile_pool.pop_back()
+	else:
+		var tile = overmapTile.instantiate()
+		tile.tile_clicked.connect(_on_tile_clicked)
+		return tile
+
+# Return a tile to the pool
+func return_pooled_tile(tile: Control):
+	if tile.get_parent() != null:
+		tile.get_parent().remove_child(tile)
+	tile_pool.append(tile)
+
 # The user will leave chunks behind as the map is panned around
 # Chunks that are too far from the current position will be destroyed
 # This will only destroy the visual representation of the data.
 func unload_chunks():
 	# Lowering this number 5 will cause newly created chunks 
 	# to be instantly deleted and recreated
-	var range_limit = 3 * grid_pixel_size
+	var range_limit = 6 * chunk_size
 	for chunk_position in grid_chunks.keys():
-		if chunk_position.distance_to(Helper.position_coord) > range_limit:
-			# Destroy the grid itself
-			grid_chunks[chunk_position].queue_free()
-			# Remove the reference to the grid
+		if chunk_position.distance_to(Helper.position_coord + Vector2(24,24)) > range_limit:
+			var grid_container = grid_chunks[chunk_position]
+			for tile in grid_container.get_children():
+				return_pooled_tile(tile)
+			grid_container.queue_free()
 			grid_chunks.erase(chunk_position)
 
 
@@ -147,8 +165,7 @@ func create_and_fill_grid_container(grid_position: Vector2, chunk_position: Vect
 	# Iterate over the chunk size to create and add TextureRects for each tile.
 	for y in range(chunk_size):
 		for x in range(chunk_size):
-
-			var tile = overmapTile.instantiate()
+			var tile = get_pooled_tile()
 			var local_pos = Vector2(x * tile_size, y * tile_size)
 			var global_pos = grid_position + Vector2(x, y)
 
@@ -161,15 +178,12 @@ func create_and_fill_grid_container(grid_position: Vector2, chunk_position: Vect
 
 			if global_pos == Vector2.ZERO:
 				tile.set_color(Color(0.3, 0.3, 1))  # blue color
+			else:
+				tile.set_color(Color(1,1,1))
 
-			tile.tile_clicked.connect(_on_tile_clicked)
-			# Add the tile as a child to the grid container
 			grid_container.add_child(tile)
 
-	# Set the position of the grid container in pixel space.
-	grid_container.position = chunk_position+Vector2(200,200)
-
-	# Return the filled grid container.
+	grid_container.position = chunk_position
 	return grid_container
 
 
