@@ -435,7 +435,7 @@ func unload_chunk():
 func save_and_unload_chunk():
 	var chunkdata: Dictionary = get_chunk_data()
 	var chunkposition: Vector2 = Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))
-	Helper.loaded_chunk_data.chunks[chunkposition] = chunkdata
+	Helper.overmap_manager.loaded_chunk_data.chunks[chunkposition] = chunkdata
 	free_chunk_resources()
 
 
