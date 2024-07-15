@@ -32,6 +32,8 @@ func _on_load_game_button_pressed():
 # The name of the folder should be the current date and time so it's unique
 # This unique folder will contain save data for this game and can be loaded later
 func _on_play_demo_pressed():
+	var rng = RandomNumberGenerator.new()
+	Helper.mapseed = rng.randi()
 	Helper.save_helper.create_new_save()
 	Helper.signal_broker.game_started.emit()
 	Helper.switch_level("DefaultTacticalMap.json", Vector2(0, 0))

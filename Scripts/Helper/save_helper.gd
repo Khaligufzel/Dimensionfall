@@ -33,7 +33,7 @@ func create_new_save():
 	if dir.make_dir_recursive(sanitized_path) == OK:
 		current_save_folder = "user://" + sanitized_path
 		Helper.json_helper.write_json_file(current_save_folder + "/game.json",\
-		JSON.stringify({"mapseed": randi()}))
+		JSON.stringify({"mapseed": Helper.mapseed}))
 	else:
 		print_debug("Failed to create a unique folder for the demo.")
 
@@ -120,6 +120,10 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 # Function to load game.json from a given saved game folder
 func load_game_from_folder(save_folder_name: String) -> void:
 	current_save_folder = "user://save/" + save_folder_name
+	var gameFileJson: Dictionary = Helper.json_helper.load_json_dictionary_file(\
+	current_save_folder + "/game.json")
+	if gameFileJson:
+		Helper.mapseed = gameFileJson.mapseed
 
 
 # Function to save the player's inventory to a JSON file.

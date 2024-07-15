@@ -11,6 +11,7 @@ var chunk_navigation_maps: Dictionary = {}
 var current_level_pos: Vector2 = Vector2(0.1, 0.1) #Stores references to tilegrids representing the overmap
 var current_map_seed: int = 0
 var position_coord: Vector2 = Vector2(0, 0)
+var mapseed: int # Is generated once per game. Defines the unique map!
 
 # Dictionary to store meshes for each block ID
 var navigationmap: RID
