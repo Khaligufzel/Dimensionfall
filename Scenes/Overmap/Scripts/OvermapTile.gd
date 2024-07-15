@@ -41,3 +41,14 @@ func set_clickable(clickable: bool):
 	if !clickable:
 		mouse_filter = MOUSE_FILTER_IGNORE
 		$TextureRect.mouse_filter = MOUSE_FILTER_IGNORE
+
+
+# Useful for alerting the player about this location by using a symbol
+func set_text(newtext: String):
+	$TextLabel.text = newtext
+	$TextLabel.visible = true
+	
+
+# Hide or show the textlabel
+func set_text_visible(isvisible: bool):
+	$TextLabel.visible = isvisible

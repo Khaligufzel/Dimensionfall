@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://budsoodfdkaea"]
+[gd_scene load_steps=3 format=3 uid="uid://budsoodfdkaea"]
 
 [ext_resource type="Script" path="res://Scenes/Overmap/Scripts/OvermapTile.gd" id="1_kxuyw"]
+[ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_e5d56"]
 
 [node name="OvermapTile" type="Control"]
 custom_minimum_size = Vector2(32, 32)
@@ -21,6 +22,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_e5d56")
 expand_mode = 3
+
+[node name="TextLabel" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.981509, 0, 0.133244, 1)
+theme_override_font_sizes/font_size = 40
+text = "✠"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]

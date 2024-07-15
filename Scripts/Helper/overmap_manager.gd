@@ -55,6 +55,8 @@ enum Region {
 
 var noise: FastNoiseLite
 
+signal player_coord_changed(player: CharacterBody3D, old_pos: Vector2, new_pos: Vector2)
+
 
 # A cell in the grid. This will tell you it's coordinate and if it's part
 # of something bigger like the tacticalmap
@@ -424,6 +426,7 @@ func get_segment_pos(chunk_pos: Vector2) -> Vector2:
 func update_player_position_and_manage_segments():
 	var new_position = get_player_cell_position()
 	if new_position != player_last_cell:
+		player_coord_changed.emit(player, player_last_cell, new_position)
 		player_last_cell = new_position
 		
 		# Load segments around the player
