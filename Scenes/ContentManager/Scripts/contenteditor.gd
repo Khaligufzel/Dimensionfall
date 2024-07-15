@@ -20,7 +20,8 @@ var selectedMod: String = "Core"
 # This function will load the contents of the data into the contentListInstance
 func _ready():
 	load_content_list(Gamedata.data.tacticalmaps, "Tactical Maps")
-	load_content_list(Gamedata.data.maps, "Maps")
+	# Hacky exception for maps, need to find a better solution
+	load_content_list({"maps": true}, "Maps")
 	load_content_list(Gamedata.data.items, "Items")
 	load_content_list(Gamedata.data.tiles, "Terrain Tiles")
 	load_content_list(Gamedata.data.mobs, "Mobs")
@@ -67,7 +68,8 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 		instantiate_editor(data, itemID, itemEditor)
 	if data == Gamedata.data.mobs:
 		instantiate_editor(data, itemID, mobEditor)
-	if data == Gamedata.data.maps:
+	if data == {"maps": true}:
+		# Hacky exception for maps, need to find a better solution
 		instantiate_editor(data, itemID, mapEditor)
 	if data == Gamedata.data.tacticalmaps:
 		instantiate_editor(data, itemID, tacticalmapEditor)
@@ -103,6 +105,9 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 	tabContainer.add_child(newContentEditor)
 	tabContainer.current_tab = tabContainer.get_child_count() - 1
 	
+	if data == {"maps": true}:# HACK Hacky exception for maps, need to find a better solution
+		newContentEditor.currentMap = Gamedata.maps.by_id(itemID)
+		return
 	if data.dataPath.ends_with(".json"):
 		var itemdata: Dictionary = data.data[Gamedata.get_array_index_by_id(data, itemID)]
 		# We only pass the data for the specific id to the editor

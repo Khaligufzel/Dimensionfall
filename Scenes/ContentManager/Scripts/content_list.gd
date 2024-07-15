@@ -40,6 +40,10 @@ func load_data():
 	if contentData.is_empty():
 		return
 	contentItems.clear()
+	# Hacky exception for maps, need to find a better solution
+	if contentData == {"maps": true}:
+		load_map_list()
+		return
 	if not contentData.has("data"):
 		return
 	if contentData.data.is_empty():
@@ -132,6 +136,10 @@ func _on_duplicate_button_button_up():
 # Called after the user enters an ID into the popup textbox and presses OK
 func _on_ok_button_up():
 	pupup_ID.hide()
+	# Hacky exception for maps, need to find a better solution
+	if contentData == {"maps": true}:
+		add_map_popup_ok()
+		return
 	var myText = popup_textedit.text
 	if myText == "":
 		return
@@ -159,6 +167,10 @@ func _on_cancel_button_up():
 func _on_delete_button_button_up():
 	var selected_id: String = get_selected_item_text()
 	if selected_id == "":
+		return
+	# HACK Exception for maps, need to find a better solution
+	if contentData == {"maps": true}:
+		delete_map(selected_id)
 		return
 	contentItems.remove_item(contentItems.get_selected_items()[0])
 	Gamedata.remove_item_from_data(contentData, selected_id)
@@ -284,3 +296,35 @@ func load_collapse_state():
 func _on_data_sprites_changed(data: Dictionary, _spriteid: String):
 	if data == contentData:
 		load_data()
+
+
+func load_map_list():
+	var maplist: Dictionary = Gamedata.maps.get_maps()
+	for map: String in maplist.keys():
+		# Add all the filenames to the ContentItems list as child nodes
+		var item_index: int = contentItems.add_item(map)
+		# Add the ID as metadata which can be used to load the item data
+		contentItems.set_item_metadata(item_index, map)
+		var mySprite: Texture = maplist[map].sprite
+		if mySprite:
+			contentItems.set_item_icon(item_index, mySprite)
+
+
+func add_map_popup_ok():
+	var myText = popup_textedit.text
+	if myText == "":
+		return
+	if popupAction == "Add":
+		Gamedata.maps.add_new_map(myText)
+	if popupAction == "Duplicate":
+		Gamedata.maps.duplicate_map_to_disk(get_selected_item_text(), myText)
+	popupAction = ""
+	# Check if the list is collapsed and expand it if true
+	if is_collapsed:
+		is_collapsed = false
+	load_data()
+
+
+func delete_map(selected_id) -> void:
+	Gamedata.maps.delete_map(selected_id)
+	load_data()

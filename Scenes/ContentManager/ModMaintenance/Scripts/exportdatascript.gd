@@ -25,6 +25,12 @@ func _on_get_properties_button_button_up():
 	for child in properties_v_box_container.get_children():
 		child.queue_free()
 	
+	var selected_type = typesOptionButton.get_item_text(typesOptionButton.selected)
+	# HACK Exception for maps, need to find a better solution
+	if selected_type == "Map":
+		select_map_properties()
+		return
+	
 	var game_data = get_type_data()
 	var type_data = game_data.data
 	if not type_data or type_data.is_empty():
@@ -68,8 +74,6 @@ func get_type_data() -> Variant:
 		return Gamedata.data.mobs
 	elif selected_type == "Tile":
 		return Gamedata.data.tiles
-	elif selected_type == "Map":
-		return Gamedata.data.maps
 	return null
 
 
@@ -90,6 +94,12 @@ func export_data():
 	var selected_type_index = typesOptionButton.selected
 	if selected_type_index == -1:
 		outputTextEdit.text = "No type selected."
+		return
+
+	var selected_type = typesOptionButton.get_item_text(typesOptionButton.selected)
+	# HACK Exception for maps, need to find a better solution
+	if selected_type == "Map":
+		export_map_data()
 		return
 
 	# Get the selected type data
@@ -156,3 +166,56 @@ func export_data():
 
 	# Set the outputTextEdit text
 	outputTextEdit.text = output_text
+
+
+func export_map_data():
+	# 1. Check if any properties in the properties_v_box_container have been selected. Return if not
+	var selected_properties = []
+	for i in range(properties_v_box_container.get_child_count()):
+		var checkbox = properties_v_box_container.get_child(i)
+		if checkbox is CheckBox and checkbox.button_pressed:
+			selected_properties.append(checkbox.text)
+
+	if selected_properties.is_empty():
+		outputTextEdit.text = "No properties selected."
+		return
+
+	# 2. Add property names as the header in outputTextEdit
+	var header = "id,"
+	for property in selected_properties:
+		header += property + ","
+	header = header.rstrip(",") + "\n"
+
+	# Initialize output_text with the header
+	var output_text = header
+
+
+	# Loop over the data for each entity of the selected type
+	var maplist: Dictionary = Gamedata.maps.get_maps()
+	for mapkey in maplist.keys():
+		var map: DMap = maplist[mapkey]
+		# 3.1 Create a new line in the outputTextEdit with the properties
+		var line = map.id + ","  # id is always at the front of the line
+		# Remove the last comma and add a new line
+		line = line.rstrip(",") + "\n"
+		output_text += line
+
+	# Set the outputTextEdit text
+	outputTextEdit.text = output_text
+
+
+func select_map_properties():
+	var properties_set = {}  # Dictionary to track unique properties
+	properties_set["id"] = true
+
+	for property in properties_set.keys():
+		# Create a new CheckBox for each unique property
+		var checkbox = CheckBox.new()
+		checkbox.text = property
+		# Add the CheckBox to the VBoxContainer
+		properties_v_box_container.add_child(checkbox)
+
+	if properties_v_box_container.get_child_count() == 0:
+		outputTextEdit.text = "No properties found for selected type."
+	else:
+		outputTextEdit.text = "Properties loaded for selected type."

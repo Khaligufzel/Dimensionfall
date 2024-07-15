@@ -18,10 +18,11 @@ signal zoom_level_changed(value: int)
 var tileSize: int = 128
 var mapHeight: int = 32
 var mapWidth: int = 32
-var contentSource: String = "":
-	set(newSource):
-		contentSource = newSource
-		tileGrid.load_map_json_file()
+var currentMap: DMap:
+	set(newMap):
+		currentMap = newMap
+		set_settings_values()
+		tileGrid.on_map_data_changed()
 
 
 var zoom_level: int = 20:
@@ -87,23 +88,17 @@ func _on_preview_map_button_up():
 
 
 # Function to get the values of the controls
-func get_settings_values() -> Dictionary:
-	var values = {
-		"name": name_text_edit.text,
-		"description": description_text_edit.text,
-		"categories": categories_list.get_items(),
-		"weight": weight_spin_box.value
-	}
-	return values
+func update_settings_values():
+	currentMap.name = name_text_edit.text
+	currentMap.description = description_text_edit.text
+	currentMap.categories = categories_list.get_items()
+	currentMap.weight = weight_spin_box.value
 
 
 # Function to set the values of the controls
-func set_settings_values(values: Dictionary) -> void:
-	if values.has("name"):
-		name_text_edit.text = values["name"]
-	if values.has("description"):
-		description_text_edit.text = values["description"]
-	if values.has("categories"):
-		categories_list.set_items(values["categories"])
-	if values.has("weight"):
-		weight_spin_box.value = values["weight"]
+func set_settings_values() -> void:
+	name_text_edit.text = currentMap.name
+	description_text_edit.text = currentMap.description
+	if not currentMap.categories.is_empty():
+		categories_list.set_items(currentMap.categories)
+	weight_spin_box.value = currentMap.weight

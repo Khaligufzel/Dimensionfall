@@ -15,32 +15,29 @@ func _ready():
 	loadMaps()
 
 
-# this function will read all files in Gamedata.data.maps.data and creates tilebrushes for each tile in the list. 
+# loop over Gamedata.maps and creates tilebrushes for each map sprite in the list. 
 func loadMaps():
-	var mapsList: Array = Gamedata.data.maps.data
+	var mapsList: Dictionary = Gamedata.maps.get_maps()
 	var newTilesList: Control = scrolling_Flow_Container.instantiate()
 	newTilesList.header = "maps"
 	add_child(newTilesList)
 
-	for map in mapsList:
-		# Extract the base name without the extension
-		var base_name = map.get_basename()
-		# If the file has an image to represent it's content, load it
-		if Gamedata.data.maps.sprites.has(base_name + ".png"):
-			var mySprite: Resource = Gamedata.data.maps.sprites[base_name + ".png"]
-			if mySprite:
-				# Create a TextureRect node
-				var brushInstance = tileBrush.instantiate()
-				brushInstance.set_label(base_name)
-				# Assign the texture to the TextureRect
-				brushInstance.set_tile_texture(mySprite)
-				# Since the map editor needs to knw what tile ID is used,
-				# We store the tile id in a variable in the brush
-				brushInstance.mapID = map
-				brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
-				# Add the TextureRect as a child to the TilesList
-				newTilesList.add_content_item(brushInstance)
-				instanced_brushes.append(brushInstance)
+	for mapkey in mapsList.keys():
+		var map: DMap = mapsList[mapkey]
+		var mySprite: Resource = map.sprite
+		if mySprite:
+			# Create a TextureRect node
+			var brushInstance = tileBrush.instantiate()
+			brushInstance.set_label(map.id)
+			# Assign the texture to the TextureRect
+			brushInstance.set_tile_texture(mySprite)
+			# Since the map editor needs to knw what tile ID is used,
+			# We store the tile id in a variable in the brush
+			brushInstance.mapID = map.id
+			brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
+			# Add the TextureRect as a child to the TilesList
+			newTilesList.add_content_item(brushInstance)
+			instanced_brushes.append(brushInstance)
 
 #Mark the clicked tilebrush as selected, but only after deselecting all other brushes
 func tilebrush_clicked(tilebrush: Control) -> void:

@@ -59,8 +59,7 @@ func on_itemgroup_deleted(itemgroup_id: String):
 	# Remove references to this itemgroup from maps.
 	for mod in itemgroup_data.get("references", []):
 		var maps = Helper.json_helper.get_nested_data(itemgroup_data, "references." + mod + ".maps")
-		for map_id in maps:
-			Gamedata.map_references.remove_entity_from_map(map_id, "itemgroup", itemgroup_id)
+		Gamedata.maps.remove_entity_from_selected_maps("itemgroup", itemgroup_id,maps)
 
 	# Save changes to the data files if any changes were made.
 	if changes_made:

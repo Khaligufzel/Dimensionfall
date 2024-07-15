@@ -281,7 +281,7 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 			"kill":
 				valid_data = not Gamedata.get_data_by_id(Gamedata.data.mobs, dropped_data["id"]).is_empty()
 			"enter":
-				valid_data = not Gamedata.get_data_by_id(Gamedata.data.maps, dropped_data["id"]).is_empty()
+				valid_data = not Gamedata.maps.by_id(dropped_data["id"]).is_empty()
 		
 		if valid_data:
 			texteditcontrol.set_text(dropped_data["id"])
@@ -301,7 +301,7 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 		"kill":
 			valid_data = not Gamedata.get_data_by_id(Gamedata.data.mobs, dropped_data["id"]).is_empty()
 		"enter":
-			valid_data = not Gamedata.get_data_by_id(Gamedata.data.maps, dropped_data["id"]).is_empty()
+			valid_data = not Gamedata.maps.by_id(dropped_data["id"]).is_empty()
 	
 	return valid_data
 
