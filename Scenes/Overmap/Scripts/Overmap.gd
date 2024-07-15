@@ -25,7 +25,7 @@ signal change_level_pressed()
 func _ready():
 	# Centers the view when opening the ovemap. Works with default window size.
 	# TODO: Have it calculated based on the window size
-	Helper.position_coord = Vector2(-7,-5)
+	Helper.position_coord = Vector2(-0,-0)
 	update_chunks()
 	position_coord_changed.connect(on_position_coord_changed)
 	Helper.overmap_manager.player_coord_changed.connect(on_player_coord_changed)
@@ -52,10 +52,11 @@ func update_chunks():
 	# The grid_position will be 1,0 between 32,0 and 64,31 if chunk_size = 32
 	var grid_position: Vector2 = (Helper.position_coord / chunk_size).floor() * chunk_size
 
-	for x in range(-2, 3):
-		for y in range(-2, 3):
+	for x in range(-1, 1):
+		for y in range(-1, 1):
 			# At 0,0 we will have positions -64,-64 and -64, -32 and -64, 0 etc.
 			var chunk_grid_position: Vector2 = grid_position + Vector2(x, y) * chunk_size
+			print_debug("Creating chunk in overmap at " + str(chunk_grid_position))
 			
 			# Use the separate Dictionary for retrieving the noise data
 			if not Helper.chunks.has(chunk_grid_position):
@@ -89,16 +90,11 @@ func generate_chunk(grid_position: Vector2) -> void:
 			var global_x = grid_position.x + x # at 0,0 it will be between 0 and 15
 			var global_y = grid_position.y + y
 			if global_x == 0 and global_y == 0:
-				chunk.append({"global_x": global_x, "global_y": global_y, "tacticalmap": Gamedata.data.tacticalmaps.data[0]})
+				chunk.append({"global_x": global_x, "global_y": global_y})
 			else:
-				chunk.append({"global_x": global_x, "global_y": global_y, "tacticalmap": get_random_mapname_1_in_100()})
+				chunk.append({"global_x": global_x, "global_y": global_y})
 	# Store the chunk using the grid_position as the key.
 	Helper.chunks[grid_position] = chunk
-	
-func get_random_mapname_1_in_100() -> String:
-	if randi_range(0, 100) < 1:
-		return Gamedata.data.tacticalmaps.data.pick_random()
-	return ""
 
 
 # The user will leave chunks behind as the map is panned around

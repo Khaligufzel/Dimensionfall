@@ -78,12 +78,14 @@ func _ready():
 
 
 func start_loading():
+	print_debug("Chunk started loading at " + str(mypos))
 	load_state = LoadStates.LOADING
 
 func start_unloading():
 	load_state = LoadStates.UNLOADING
 
 func reset_state():
+	print_debug("Chunk reset state at " + str(mypos))
 	load_state = LoadStates.NEITHER
 
 
