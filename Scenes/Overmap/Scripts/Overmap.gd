@@ -60,7 +60,6 @@ func update_chunks():
 			var chunk_grid_position: Vector2 = grid_position + Vector2(x, y) * chunk_size
 
 			if not grid_chunks.has(chunk_grid_position):
-				print_debug("Creating chunk in overmap at " + str(chunk_grid_position))
 				# Directly create and fill the GridContainer with chunk data.
 				var localized_x: float = chunk_grid_position.x * tile_size - Helper.position_coord.x * tile_size
 				var localized_y: float = chunk_grid_position.y * tile_size - Helper.position_coord.y * tile_size
