@@ -174,12 +174,12 @@ func _on_player_spawned(playernode):
 # Function for handling game loaded signal
 func _on_game_loaded():
 	make_noise_and_load_cells()
-	load_overmap_state()
+	load_all_grids()
 
 
 # Function for handling game ended signal
 func _on_game_ended():
-	save_overmap_state()
+	save_all_grids()
 	player = null
 
 
@@ -344,6 +344,7 @@ func load_grid(grid_pos: Vector2):
 		# Assume load_grid_data is a function that loads grid data from storage
 		# grid.set_data(load_grid_data(grid_pos))
 		loaded_grids[grid_pos] = grid
+		load_grid_from_file(grid_pos)
 
 
 # Unload the furthest grid from the player
@@ -360,8 +361,7 @@ func unload_furthest_grid():
 			furthest_grid_key = key
 
 	if furthest_grid_key:
-		# Assume save_grid_data is a function that saves grid data to storage
-		save_grid_data(loaded_grids[furthest_grid_key].get_data())
+		save_grid_to_file(loaded_grids[furthest_grid_key].get_data(), furthest_grid_key)
 		loaded_grids.erase(furthest_grid_key)
 
 
@@ -507,40 +507,23 @@ func unload_all_remaining_segments():
 
 
 
-# Function to save the current state of the overmap
-func save_overmap_state() -> void:
-	var save_path = current_save_folder + "/overmap_state.json"
-	var save_data: Dictionary = {
-		"position_coord_x": Helper.position_coord.x,
-		"position_coord_y": Helper.position_coord.y,
-		"grids": {}
-	}
+# Function to save the current state of the grid
+func save_grid_to_file(grid_data: Dictionary, grid_key: Vector2) -> void:
+	Helper.save_helper.save_overmap_grid_to_file(grid_data, grid_key)
 
-	# Collect data from all loaded grids
-	for grid_key in loaded_grids.keys():
-		save_data["grids"][str(grid_key)] = loaded_grids[grid_key].get_data()
 
-	Helper.json_helper.write_json_file(save_path, JSON.stringify(save_data))
-	
-	
-# Function to load the saved state of the overmap
-func load_overmap_state() -> void:
-	var overmap_path = current_save_folder + "/overmap_state.json"
-	var overmap_state_data = Helper.json_helper.load_json_dictionary_file(overmap_path)
-
-	if overmap_state_data:
-		Helper.position_coord = Vector2(overmap_state_data["position_coord_x"], overmap_state_data["position_coord_y"])
-		loaded_grids.clear()
-
-		# Load grids data
-		for grid_key_str in overmap_state_data["grids"].keys():
-			var grid_key_parts = grid_key_str.split(",")
-			if grid_key_parts.size() == 2:
-				var grid_key = Vector2(float(grid_key_parts[0]), float(grid_key_parts[1]))
-				var grid = map_grid.new()
-				grid.set_data(overmap_state_data["grids"][grid_key_str])
-				loaded_grids[grid_key] = grid
-
-		print_debug("Overmap state loaded from: ", overmap_path)
+# Function to load the state of the grid
+func load_grid_from_file(grid_key: Vector2) -> void:
+	var grid_data = Helper.save_helper.load_overmap_grid_from_file(grid_key)
+	if grid_data:
+		var grid = map_grid.new()
+		grid.set_data(grid_data)
+		loaded_grids[grid_key] = grid
+		print_debug("Grid loaded from file")
 	else:
-		print_debug("Failed to parse overmap state file: ", overmap_path)
+		print_debug("Failed to parse grid file")
+
+
+# Function to save all remaining grids
+func save_all_grids() -> void:
+	save_grid_to_file(loaded_grids[grid_key].get_data(), grid_key)

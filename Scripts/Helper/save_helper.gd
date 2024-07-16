@@ -218,3 +218,15 @@ func load_player_state(player: CharacterBody3D) -> void:
 		player.update_stamina_HUD.emit(player.current_stamina)
 	else:
 		print_debug("Failed to load player state from: ", load_path)
+
+
+
+# Function to save the current state of the grid
+func save_overmap_grid_to_file(grid_data: Dictionary, grid_key: Vector2) -> void:
+	var save_path = current_save_folder + "/overmap/grid_" + str(grid_key.x) + "_" + str(grid_key.y) + ".json"
+	Helper.json_helper.write_json_file(save_path, JSON.stringify(grid_data))
+
+# Function to load the state of the grid
+func load_overmap_grid_from_file(grid_key: Vector2) -> Dictionary:
+	var load_path = current_save_folder + "/overmap/grid_" + str(grid_key.x) + "_" + str(grid_key.y) + ".json"
+	return Helper.json_helper.load_json_dictionary_file(load_path)
