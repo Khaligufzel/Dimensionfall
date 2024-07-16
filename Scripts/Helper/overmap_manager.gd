@@ -38,8 +38,14 @@ var max_grids: int = 9
 var grid_load_distance: int = 25 * cell_size  # Load when 25 cells away from the border
 var grid_unload_distance: int = 50 * cell_size  # Unload when 50 cells away from the border
 
+
+# Distance to load and unload data from loaded_chunk_data.chunks. Loading and unloading happens
+# in segments, since one big file will be too big and saving each chunk separately will
+# result in too many files.
 var segment_load_distance: int = 16
 var segment_unload_distance: int = 28
+# Dictionary to cache loaded segment data to avoid redundant load calls to save_helper
+var loaded_segments: Dictionary = {}
 
 # Dictionary to hold data of chunks that are unloaded
 # These chunks are the actual 32x32x21 collection of blocks, furniture, mobs and items
@@ -210,7 +216,6 @@ func load_cells_around(position: Vector3):
 
 # This function generates chunks for each cell in the grid, ensuring the grid is filled with cells.
 func generate_cells_for_grid(grid: map_grid):
-	print_debug("Generating cells for grid " + str(grid.pos))
 	for x in range(grid_width):
 		for y in range(grid_height):
 			var global_x = grid.pos.x * grid_width + x
@@ -334,11 +339,9 @@ func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:
 # Load a grid based on the grid position
 func load_grid(grid_pos: Vector2):
 	if loaded_grids.size() >= max_grids:
-		print_debug("unloading grid that's far away")
 		unload_furthest_grid()
 
 	if not loaded_grids.has(grid_pos):
-		print_debug("Creating new grid for key: " + str(grid_pos))
 		var grid = map_grid.new()
 		grid.pos = grid_pos
 		#grid.pos = Vector2(grid_pos.split(",")[0].to_int(), grid_pos.split(",")[1].to_int())
@@ -441,24 +444,30 @@ func get_segment_pos(chunk_pos: Vector2) -> Vector2:
 # Function to check player's position and trigger load/unload of segments
 # This function checks if the player's position has changed by comparing the new position to the stored player position.
 # If the player's position has changed, it updates the player position and calls functions to load and unload segments.
-func update_player_position_and_manage_segments():
+func update_player_position_and_manage_segments(force_update: bool = false):
 	var new_position = get_player_cell_position()
-	if new_position != player_last_cell:
+	if new_position != player_last_cell or force_update:
 		player_coord_changed.emit(player, player_last_cell, new_position)
 		player_last_cell = new_position
 		
 		# Load segments around the player
 		var segments_to_load = load_segments_around_player()
-		for segment_pos in segments_to_load:
-			var loaded_segment_data = Helper.save_helper.load_map_segment_data(segment_pos)
-			# Merge loaded segment data into loaded_chunk_data.chunks
-			for chunk_pos in loaded_segment_data.keys():
-				if not loaded_chunk_data.chunks.has(chunk_pos):
-					loaded_chunk_data.chunks[chunk_pos] = loaded_segment_data[chunk_pos]
 		
+		for segment_pos in segments_to_load:
+			if not loaded_segments.has(segment_pos):
+				var loaded_segment_data = Helper.save_helper.load_map_segment_data(segment_pos)
+				loaded_segments[segment_pos] = loaded_segment_data
+				# Merge loaded segment data into loaded_chunk_data.chunks
+				for chunk_pos in loaded_segment_data.keys():
+					if not loaded_chunk_data.chunks.has(chunk_pos):
+						loaded_chunk_data.chunks[chunk_pos] = loaded_segment_data[chunk_pos]
+
 		# Unload segments that are too far from the player
 		var segments_to_unload = unload_distant_segments()
+		
 		for segment_pos in segments_to_unload:
+			if loaded_segments.has(segment_pos):
+				loaded_segments.erase(segment_pos)
 			var non_empty_chunk_data = process_and_clear_segment(segment_pos)
 			if not non_empty_chunk_data.is_empty():
 				Helper.save_helper.save_map_segment_data(non_empty_chunk_data, segment_pos)
@@ -505,7 +514,7 @@ func unload_all_remaining_segments():
 		var non_empty_chunk_data = process_and_clear_segment(segment_pos)
 		if not non_empty_chunk_data.is_empty():
 			Helper.save_helper.save_map_segment_data(non_empty_chunk_data, segment_pos)
-
+	loaded_segments.clear()
 
 
 # Function to save the current state of the grid
@@ -525,7 +534,7 @@ func process_loaded_grid_data(grid_data: Dictionary):
 		var grid = map_grid.new()
 		grid.set_data(grid_data)
 		loaded_grids[grid.pos] = grid
-		print_debug("Grid loaded from file")
+		print_debug("Grid loaded from file at " + str(grid.pos))
 	else:
 		print_debug("Failed to parse grid file")
 
