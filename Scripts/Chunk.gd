@@ -961,26 +961,36 @@ func create_colliders() -> void:
 
 # Creates a collider for either a slope or a cube and puts it at the right place and rotation
 func _create_block_collider(block_sub_position, shape: String, block_rotation: int) -> CollisionShape3D:
-	var collider = CollisionShape3D.new()
 	if shape == "cube":
-		collider.shape = BoxShape3D.new()
-		collider.set_transform.call_deferred(Transform3D(Basis(), block_sub_position))
+		return _create_cube_collider(block_sub_position)
 	else: # It's a slope
-		collider.shape = ConvexPolygonShape3D.new()
-		collider.shape.points = [
-			Vector3(0.5, 0.5, 0.5),
-			Vector3(0.5, 0.5, -0.5),
-			Vector3(-0.5, -0.5, 0.5),
-			Vector3(0.5, -0.5, 0.5),
-			Vector3(0.5, -0.5, -0.5),
-			Vector3(-0.5, -0.5, -0.5)
-		]
-		# Apply rotation only for slopes
-		# Set the rotation part of the Transform3D
-		var rotation_transform = Transform3D(Basis().rotated(Vector3.UP, deg_to_rad(block_rotation)), Vector3.ZERO)
-		# Now combine rotation and translation in the transform
-		collider.set_transform.call_deferred(rotation_transform.translated(block_sub_position))
+		return _create_slope_collider(block_sub_position, block_rotation)
+
+# Creates a collider for a cube and puts it at the right place
+func _create_cube_collider(block_sub_position: Vector3) -> CollisionShape3D:
+	var collider = CollisionShape3D.new()
+	collider.shape = BoxShape3D.new()
+	collider.set_transform.call_deferred(Transform3D(Basis(), block_sub_position))
 	return collider
+
+# Creates a collider for a slope and puts it at the right place and rotation
+func _create_slope_collider(block_sub_position: Vector3, block_rotation: int) -> CollisionShape3D:
+	var collider = CollisionShape3D.new()
+	collider.shape = ConvexPolygonShape3D.new()
+	collider.shape.points = [
+		Vector3(0.5, 0.5, 0.5),
+		Vector3(0.5, 0.5, -0.5),
+		Vector3(-0.5, -0.5, 0.5),
+		Vector3(0.5, -0.5, 0.5),
+		Vector3(0.5, -0.5, -0.5),
+		Vector3(-0.5, -0.5, -0.5)
+	]
+	# Apply rotation for slopes
+	var rotation_transform = Transform3D(Basis().rotated(Vector3.UP, deg_to_rad(block_rotation)), Vector3.ZERO)
+	# Combine rotation and translation in the transform
+	collider.set_transform.call_deferred(rotation_transform.translated(block_sub_position))
+	return collider
+
 
 
 # Rotates a 3D vertex around the Y-axis
