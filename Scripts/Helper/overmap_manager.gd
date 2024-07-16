@@ -42,6 +42,8 @@ var segment_load_distance: int = 16
 var segment_unload_distance: int = 28
 
 # Dictionary to hold data of chunks that are unloaded
+# These chunks are the actual 32x32x21 collection of blocks, furniture, mobs and items
+# That makes up the map that the player is walking on.
 var loaded_chunk_data: Dictionary = {"chunks": {}}
 
 var player
@@ -77,7 +79,8 @@ class map_cell:
 			"coordinate_x": coordinate_x,
 			"coordinate_y": coordinate_y,
 			"map_id": map_id,
-			"tacticalmapname": tacticalmapname
+			"tacticalmapname": tacticalmapname,
+			"revealed": revealed
 		}
 
 	func set_data(newdata: Dictionary):
@@ -88,6 +91,7 @@ class map_cell:
 		coordinate_y = newdata.get("coordinate_y", 0)
 		map_id = newdata.get("map_id", "field_grass_basic_00.json")
 		tacticalmapname = newdata.get("tacticalmapname", "town_00.json")
+		revealed = newdata.get("revealed", false)
 
 	func get_sprite() -> Texture:
 		return Gamedata.maps.by_id(map_id).sprite
@@ -302,6 +306,11 @@ func get_cell_pos_from_global_pos(coord: Vector2) -> Vector2:
 
 
 # Function to get a map_cell by local coordinate within a specific grid
+# A local coord will start at (0,0), the next cell will be (0,1) and so on
+# It will return the map cell from the grid. 
+# The grid can contain grid_width x grid_height amount of cells
+# If the grid's position is in the negative range, for example (-1,-1) it will
+# contain cells from (-100,100) up to (-1,-1)
 func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:
 	var grid_key = get_grid_pos_from_local_pos(local_coord)
 	var cell_key = Vector2(local_coord.x, local_coord.y)
