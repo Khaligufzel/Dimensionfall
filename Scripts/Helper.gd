@@ -8,7 +8,6 @@ var ready_to_switch_level: Dictionary = {"save_ready": false, "chunks_unloaded":
 var chunk_navigation_maps: Dictionary = {}
 
 # Overmap data
-var chunks: Dictionary = {}
 var current_level_pos: Vector2 = Vector2(0.1, 0.1) #Stores references to tilegrids representing the overmap
 var current_map_seed: int = 0
 var position_coord: Vector2 = Vector2(0, 0)
@@ -56,7 +55,6 @@ func _process(_delta: float) -> void:
 
 # Called when the game is over and everything will need to be reset to default
 func reset():
-	chunks.clear() # Stores references to tilegrids representing the overmap
 	overmap_manager.loaded_chunk_data = {"chunks": {}}
 	current_level_pos = Vector2(0.1, 0.1)
 	current_map_seed = 0
@@ -76,7 +74,7 @@ func free_group_nodes(group_name: String):
 # Save game state
 func save_game():
 	save_helper.save_current_level(current_level_pos)
-	save_helper.save_overmap_state()
+	#save_helper.save_overmap_state()
 	save_helper.save_player_inventory()
 	save_helper.save_player_equipment()
 	save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))

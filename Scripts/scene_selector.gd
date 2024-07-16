@@ -49,7 +49,7 @@ func try_load_game(selected_id: int) -> bool:
 		return false
 	var selected_game_folder = saved_game_folders[selected_id]
 	Helper.save_helper.load_game_from_folder(selected_game_folder)
-	Helper.save_helper.load_overmap_state()
+	#Helper.save_helper.load_overmap_state()
 	Helper.save_helper.load_player_equipment()
 	return true
 
