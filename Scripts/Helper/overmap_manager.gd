@@ -514,11 +514,16 @@ func save_grid_to_file(grid_data: Dictionary, grid_key: Vector2) -> void:
 
 # Function to load the state of the grid
 func load_grid_from_file(grid_key: Vector2) -> void:
-	var grid_data = Helper.save_helper.load_overmap_grid_from_file(grid_key)
+	var grid_data: Dictionary = Helper.save_helper.load_overmap_grid_from_file(grid_key)
+	process_loaded_grid_data(grid_data)
+
+
+# Creates a new grid from grid data loaded from disk 
+func process_loaded_grid_data(grid_data: Dictionary):
 	if grid_data:
 		var grid = map_grid.new()
 		grid.set_data(grid_data)
-		loaded_grids[grid_key] = grid
+		loaded_grids[grid.pos] = grid
 		print_debug("Grid loaded from file")
 	else:
 		print_debug("Failed to parse grid file")
@@ -526,4 +531,11 @@ func load_grid_from_file(grid_key: Vector2) -> void:
 
 # Function to save all remaining grids
 func save_all_grids() -> void:
-	save_grid_to_file(loaded_grids[grid_key].get_data(), grid_key)
+	for gridkey in loaded_grids.keys():
+		save_grid_to_file(loaded_grids[gridkey].get_data(), gridkey)
+
+
+func load_all_grids():
+	var loaded_grids_array: Array = Helper.save_helper.load_all_overmap_grids_from_file()
+	for loadedgrid: Dictionary in loaded_grids_array:
+		process_loaded_grid_data(loadedgrid)

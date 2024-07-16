@@ -226,7 +226,19 @@ func save_overmap_grid_to_file(grid_data: Dictionary, grid_key: Vector2) -> void
 	var save_path = current_save_folder + "/overmap/grid_" + str(grid_key.x) + "_" + str(grid_key.y) + ".json"
 	Helper.json_helper.write_json_file(save_path, JSON.stringify(grid_data))
 
+
 # Function to load the state of the grid
 func load_overmap_grid_from_file(grid_key: Vector2) -> Dictionary:
 	var load_path = current_save_folder + "/overmap/grid_" + str(grid_key.x) + "_" + str(grid_key.y) + ".json"
 	return Helper.json_helper.load_json_dictionary_file(load_path)
+
+
+# Loads all files in the /overmap folder and returns the contents as an array
+func load_all_overmap_grids_from_file() -> Array:
+	var loaded_overmap_grids: Array = []
+	var load_path = current_save_folder + "/overmap"
+	var overmap_grid_files: Array = Helper.json_helper.file_names_in_dir(load_path)
+	for overmap in overmap_grid_files:
+		var file_path = load_path + "/" + overmap
+		loaded_overmap_grids.append(Helper.json_helper.load_json_dictionary_file(file_path))
+	return loaded_overmap_grids
