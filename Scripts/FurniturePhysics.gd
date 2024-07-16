@@ -32,11 +32,30 @@ func _physics_process(_delta) -> void:
 	# We only care about x and z. A changed y only means it's moving up or down.
 	var x_changed = not global_transform.origin.x == furnitureposition.x 
 	var z_changed = not global_transform.origin.z == furnitureposition.z
-	if x_changed or z_changed:
+	# HACK Sometimes when it calls set_position in _ready() it will say it moved when it didn't,
+	# or set_position is too late and it's differs from furnitureposition because it's still 0,0
+	# So we add in extra checks to handle those edge cases. There's probably a better way
+	var is_zero = global_transform.origin.x == 0 and global_transform.origin.z == 0
+	if (x_changed or z_changed) and not is_in_current_chunk() and not is_zero:
 		_moved(global_transform.origin)
 	var current_rotation = int(rotation_degrees.y)
 	if current_rotation != last_rotation:
 		last_rotation = current_rotation
+
+
+# Returns if the current position is inside the current chunk
+func is_in_current_chunk() -> bool:
+	var chunk_pos: Vector3 = current_chunk.mypos
+	var chunk_range: Vector3 = chunk_pos + Vector3(32, 0, 32)
+
+	var position: Vector3 = global_transform.origin
+
+	# Check if position is within chunk bounds in the x and z axes
+	var in_x_range: bool = (position.x >= chunk_pos.x) and (position.x <= chunk_range.x)
+	var in_z_range: bool = (position.z >= chunk_pos.z) and (position.z <= chunk_range.z)
+
+	return in_x_range and in_z_range
+
 
 
 func set_new_rotation(amount: int) -> void:
