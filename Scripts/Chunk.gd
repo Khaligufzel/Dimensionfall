@@ -936,7 +936,6 @@ func get_slope_vertices_east(half_block: float, slopeposition: Vector3) -> Packe
 	
 	return vertices
 
-
 # Coroutine for creating colliders with non-blocking delays
 func create_colliders() -> void:
 	var total_blocks = block_positions.size()
@@ -944,7 +943,10 @@ func create_colliders() -> void:
 	var delay_every_n_blocks = max(1, total_blocks / 15)
 	var block_counter = 0
 
-	# First, create colliders for slopes
+	# Create a duplicate of block_positions
+	var block_positions_copy = block_positions.duplicate(true)
+
+	# First, collect slopes and create colliders for them
 	for key in block_positions.keys():
 		var pos_array = key.split(",")
 		var block_pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
@@ -954,21 +956,26 @@ func create_colliders() -> void:
 		
 		if block_shape == "slope":
 			chunk_mesh_body.add_child.call_deferred(_create_slope_collider(block_pos, block_rotation))
+			block_positions_copy.erase(key)
 
 			block_counter += 1
 			if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
 				OS.delay_msec(100) # Adjust delay time as needed
 
-	# Reset counter for cubes
-	block_counter = 0
+	# Create colliders for cubes using the modified copy of block_positions
+	create_cube_colliders(block_positions_copy, total_blocks, delay_every_n_blocks)
 
-	# Then, create colliders for cubes
-	for key in block_positions.keys():
+
+# Function to create colliders for cubes with non-blocking delays
+# We know for sure that block_positions_copy only contains cubes
+func create_cube_colliders(block_positions_copy: Dictionary, total_blocks: int, delay_every_n_blocks: int) -> void:
+	var block_counter = 0
+
+	for key in block_positions_copy.keys():
 		var pos_array = key.split(",")
 		var block_pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
-		var block_data = block_positions[key]
+		var block_data = block_positions_copy[key]
 		var block_shape = block_data.get("shape", "cube")
-		var block_rotation = block_data.get("rotation", 0)
 
 		if block_shape == "cube":
 			chunk_mesh_body.add_child.call_deferred(_create_cube_collider(block_pos))
@@ -976,6 +983,7 @@ func create_colliders() -> void:
 			block_counter += 1
 			if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
 				OS.delay_msec(100) # Adjust delay time as needed
+
 
 
 # Creates a collider for either a slope or a cube and puts it at the right place and rotation
