@@ -117,7 +117,8 @@ class map_grid:
 		return mydata
 
 	func set_data(mydata: Dictionary) -> void:
-		pos = mydata.get("pos", Vector2.ZERO)
+		var newpos = mydata.get("pos", "0,0")
+		pos = Vector2(newpos.split(",")[0].to_int(), newpos.split(",")[1].to_int())
 		cells.clear()
 		for cell_key in mydata["cells"].keys():
 			var cell = map_cell.new()
