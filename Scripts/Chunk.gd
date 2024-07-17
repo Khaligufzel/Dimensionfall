@@ -974,15 +974,12 @@ func create_cube_colliders(block_positions_copy: Dictionary, total_blocks: int, 
 	for key in block_positions_copy.keys():
 		var pos_array = key.split(",")
 		var block_pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
-		var block_data = block_positions_copy[key]
-		var block_shape = block_data.get("shape", "cube")
 
-		if block_shape == "cube":
-			chunk_mesh_body.add_child.call_deferred(_create_cube_collider(block_pos))
+		chunk_mesh_body.add_child.call_deferred(_create_cube_collider(block_pos))
 
-			block_counter += 1
-			if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
-				OS.delay_msec(100) # Adjust delay time as needed
+		block_counter += 1
+		if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
+			OS.delay_msec(100) # Adjust delay time as needed
 
 
 
