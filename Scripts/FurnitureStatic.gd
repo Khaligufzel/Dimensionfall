@@ -334,42 +334,38 @@ func get_data() -> Dictionary:
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container(pos: Vector3):
 	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
-		container = ContainerItem.new()
-		container.construct_self({
+		var newcontainerjson: Dictionary = {
 			"global_position_x": pos.x,
 			"global_position_y": pos.y,
 			"global_position_z": pos.z
-		})
-		handle_container_population()
+		}
+		var newfurniture: bool = is_new_furniture()
+		if newfurniture:
+			newcontainerjson["itemgroups"] = [populate_container_from_itemgroup()]
+		container = ContainerItem.new(newcontainerjson)
+		if not newfurniture:
+			deserialize_container_data()
 		add_child(container)
-
-
-# Check if this is a new furniture or if it is one that was previously saved.
-func handle_container_population():
-	if is_new_furniture():
-		populate_container_from_itemgroup()
-	else:
-		deserialize_container_data()
 
 
 # If there is an itemgroup assigned to the furniture, it will be added to the container.
 # It will check both furnitureJSON and furnitureJSONData for itemgroup information.
 # The container will be filled with items from the itemgroup.
-func populate_container_from_itemgroup():
+func populate_container_from_itemgroup() -> String:
 	# Check if furnitureJSON contains an itemgroups array
 	if furnitureJSON.has("itemgroups"):
 		var itemgroups_array = furnitureJSON["itemgroups"]
 		if itemgroups_array.size() > 0:
 			var random_itemgroup = itemgroups_array[randi() % itemgroups_array.size()]
-			container.itemgroup = random_itemgroup
-			return
+			return random_itemgroup
 		else:
 			print_debug("itemgroups array is empty in furnitureJSON")
 	
 	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
 	var itemgroup = furnitureJSONData["Function"]["container"].get("itemgroup", "")
 	if itemgroup:
-		container.itemgroup = itemgroup
+		return itemgroup
+	return ""
 
 
 # It will deserialize the container data if the furniture is not new.
@@ -474,18 +470,19 @@ func _die():
 # When the furniture is destroyed, it leaves a wreck behind
 func add_corpse(pos: Vector3):
 	if can_be_destroyed():
-		var newItem: ContainerItem = ContainerItem.new()
 		
-		var itemgroup = furnitureJSONData.get("destruction", {}).get("group", "")
-		if itemgroup:
-			newItem.itemgroup = itemgroup
-		
-		newItem.add_to_group("mapitems")
-		newItem.construct_self({
+		var newitemjson: Dictionary = {
 			"global_position_x": pos.x,
 			"global_position_y": pos.y,
 			"global_position_z": pos.z
-		})
+		}
+		
+		var itemgroup = furnitureJSONData.get("destruction", {}).get("group", "")
+		if itemgroup:
+			newitemjson["itemgroups"] = [itemgroup]
+		
+		var newItem: ContainerItem = ContainerItem.new(newitemjson)
+		newItem.add_to_group("mapitems")
 		
 		var fursprite = furnitureJSONData.get("destruction", {}).get("sprite", null)
 		if fursprite:
@@ -508,18 +505,19 @@ func _disassemble():
 # When the furniture is destroyed, it leaves a wreck behind
 func add_wreck(pos: Vector3):
 	if can_be_disassembled():
-		var newItem: ContainerItem = ContainerItem.new()
 		
-		var itemgroup = furnitureJSONData.get("disassembly", {}).get("group", "")
-		if itemgroup:
-			newItem.itemgroup = itemgroup
-		
-		newItem.add_to_group("mapitems")
-		newItem.construct_self({
+		var newfurniturejson: Dictionary = {
 			"global_position_x": pos.x,
 			"global_position_y": pos.y,
 			"global_position_z": pos.z
-		})
+		}
+		
+		var itemgroup = furnitureJSONData.get("disassembly", {}).get("group", "")
+		if itemgroup:
+			newfurniturejson["itemgroups"] = [itemgroup]
+		
+		var newItem: ContainerItem = ContainerItem.new(newfurniturejson)
+		newItem.add_to_group("mapitems")
 		
 		var fursprite = furnitureJSONData.get("disassembly", {}).get("sprite", null)
 		if fursprite:

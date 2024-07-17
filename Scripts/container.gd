@@ -16,8 +16,30 @@ var itemgroup: String # The ID of an itemgroup that it creates loot from
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	position = containerpos
-	create_loot()
+	 # If no item was added we delete the container if it's not a child of some furniture
+	_on_item_removed(null)
 
+# Called when a function creates this class using ContainerItem.new(container_json)
+# Basic setup for this container. Should be called before adding it to the scene tree
+func _init(item: Dictionary):
+	containerpos = Vector3(item.global_position_x, item.global_position_y, item.global_position_z)
+	add_to_group("Containers")
+	create_inventory()
+	create_area3d()
+
+	if item.has("inventory"):
+		deserialize_and_apply_items.call_deferred(item.inventory)
+	if item.has("texture_id"):
+		texture_id = item.texture_id
+	create_sprite()
+
+	# Check if the item has itemgroups, pick one at random and set the itemgroup property
+	if item.has("itemgroups"):
+		var itemgroups_array: Array = item.itemgroups
+		if itemgroups_array.size() > 0:
+			itemgroup = itemgroups_array.pick_random()
+
+	create_loot()
 
 # Will add item to the inventory based on the assigned itemgroup
 # Only new furniture will have an itemgroup assigned, not previously saved furniture.
@@ -94,26 +116,6 @@ func create_inventory():
 	add_child.call_deferred(inventory)
 	inventory.item_removed.connect(_on_item_removed)
 	inventory.item_added.connect(_on_item_added)
-
-
-# Basic setup for this container. Should be called before adding it to the scene tree
-func construct_self(item: Dictionary):
-	containerpos = Vector3(item.global_position_x, item.global_position_y, item.global_position_z)
-	add_to_group("Containers")
-	create_inventory()
-	create_area3d()
-
-	if item.has("inventory"):
-		deserialize_and_apply_items.call_deferred(item.inventory)
-	if item.has("texture_id"):
-		texture_id = item.texture_id
-	create_sprite()
-
-	# Check if the item has itemgroups, pick one at random and set the itemgroup property
-	if item.has("itemgroups"):
-		var itemgroups_array: Array = item.itemgroups
-		if itemgroups_array.size() > 0:
-			itemgroup = itemgroups_array.pick_random()
 
 
 # Creates the sprite with some default properties
@@ -221,6 +223,7 @@ func _on_item_removed(_item: InventoryItem):
 			else:
 				# It's a child of some node, probably furniture
 				sprite_3d.texture = load("res://Textures/container_32.png")
+			
 	else: # There are still items in the container
 		if is_inside_tree():
 			# Check if this ContainerItem is a direct child of the tree root
