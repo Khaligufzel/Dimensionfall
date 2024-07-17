@@ -989,7 +989,26 @@ func create_cube_colliders(block_positions_copy: Dictionary, total_blocks: int, 
 			else:
 				break
 		
-		_create_combined_cube_collider(start_pos, end_pos)
+		# Now attempt to combine along the z-axis
+		var z_end_pos = end_pos
+		
+		while true:
+			var can_extend_z = true
+			# Check if the entire x-range can be extended along the z-axis
+			for x in range(start_pos.x, end_pos.x + 1):
+				var check_key = str(x) + "," + str(start_pos.y) + "," + str(z_end_pos.z + 1)
+				if check_key not in block_positions_copy or check_key in processed_positions:
+					can_extend_z = false
+					break
+			if can_extend_z:
+				for x in range(start_pos.x, end_pos.x + 1):
+					var extend_key = str(x) + "," + str(start_pos.y) + "," + str(z_end_pos.z + 1)
+					processed_positions[extend_key] = true
+				z_end_pos.z += 1
+			else:
+				break
+		
+		_create_combined_cube_collider(start_pos, Vector3(end_pos.x, end_pos.y, z_end_pos.z))
 		
 		block_counter += 1
 		if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
@@ -1002,7 +1021,7 @@ func _create_combined_cube_collider(start_pos: Vector3, end_pos: Vector3) -> voi
 	var shape = BoxShape3D.new()
 	
 	# Calculate the size of the combined collider
-	var size = Vector3(end_pos.x - start_pos.x + 1, 1, 1)
+	var size = Vector3(end_pos.x - start_pos.x + 1, 1, end_pos.z - start_pos.z + 1)
 	shape.extents = size / 2
 	
 	collider.shape = shape
