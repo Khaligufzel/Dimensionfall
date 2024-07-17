@@ -970,17 +970,46 @@ func create_colliders() -> void:
 # We know for sure that block_positions_copy only contains cubes
 func create_cube_colliders(block_positions_copy: Dictionary, total_blocks: int, delay_every_n_blocks: int) -> void:
 	var block_counter = 0
-
+	var processed_positions = {}
+	
 	for key in block_positions_copy.keys():
+		if key in processed_positions:
+			continue
+		
 		var pos_array = key.split(",")
-		var block_pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
-
-		chunk_mesh_body.add_child.call_deferred(_create_cube_collider(block_pos))
-
+		var start_pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
+		var end_pos = start_pos
+		
+		# Combine consecutive blocks along the x-axis
+		while true:
+			var next_key = str(end_pos.x + 1) + "," + str(end_pos.y) + "," + str(end_pos.z)
+			if next_key in block_positions_copy and next_key not in processed_positions:
+				end_pos.x += 1
+				processed_positions[next_key] = true
+			else:
+				break
+		
+		_create_combined_cube_collider(start_pos, end_pos)
+		
 		block_counter += 1
 		if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
 			OS.delay_msec(100) # Adjust delay time as needed
 
+
+# Creates a combined collider for cubes and puts it at the right place
+func _create_combined_cube_collider(start_pos: Vector3, end_pos: Vector3) -> void:
+	var collider = CollisionShape3D.new()
+	var shape = BoxShape3D.new()
+	
+	# Calculate the size of the combined collider
+	var size = Vector3(end_pos.x - start_pos.x + 1, 1, 1)
+	shape.extents = size / 2
+	
+	collider.shape = shape
+	var myposition = (start_pos + end_pos) / 2
+	collider.set_transform.call_deferred(Transform3D(Basis(), myposition))
+	
+	chunk_mesh_body.add_child.call_deferred(collider)
 
 
 # Creates a collider for either a slope or a cube and puts it at the right place and rotation
