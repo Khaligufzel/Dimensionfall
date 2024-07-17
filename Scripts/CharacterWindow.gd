@@ -12,6 +12,7 @@ func _ready():
 	playerInstance = get_tree().get_first_node_in_group("Players")
 	_on_player_stat_changed(playerInstance)
 	_on_player_skill_changed(playerInstance)
+	visibility_changed.connect(_on_visibility_changed)
 
 
 # Utility function to clear all children in a container
@@ -33,6 +34,8 @@ func _on_player_stat_changed(player_node: CharacterBody3D):
 
 # Handles the update of the skills display when player skills change
 func _on_player_skill_changed(player_node: CharacterBody3D):
+	if not visible:
+		return
 	clear_container(skillsContainer)  # Clear existing content
 	for skill_id in player_node.skills:
 		var skill_data = Gamedata.get_data_by_id(Gamedata.data.skills, skill_id)
@@ -61,3 +64,10 @@ func create_stat_or_skill_entry(data: Dictionary, value: Variant, type: String) 
 	hbox.add_child(label)
 
 	return hbox
+
+
+# New function to refresh stats and skills when the window becomes visible
+func _on_visibility_changed():
+	if visible:
+		_on_player_stat_changed(playerInstance)
+		_on_player_skill_changed(playerInstance)
