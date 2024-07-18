@@ -25,6 +25,21 @@ extends Control
 #			}
 #		},
 
+
+# Define an array of 10 colors
+const COLORS = [
+	Color(0.964, 0.341, 0.477),
+	Color(0.758, 0.476, 0.751),
+	Color(0, 0.4, 0.308),
+	Color(0.314, 0.484, 0),
+	Color(1, 0, 1), # Magenta
+	Color(0, 1, 1), # Cyan
+	Color(0.5, 0.5, 0.5), # Gray
+	Color(1, 0.5, 0), # Orange
+	Color(0.5, 0, 0.5), # Purple
+	Color(0.5, 0.5, 0)  # Olive
+]
+
 @export var references_grid: GridContainer
 
 var reference_data: Dictionary = {}:
@@ -80,7 +95,6 @@ func calculate_and_set_columns():
 # Each of the following columns will have the name of that entity type in the cell
 
 
-
 # Function to calculate the maximum number of rows required for each mod
 func calculate_max_rows_per_mod() -> Dictionary:
 	var max_rows_per_mod = {}
@@ -92,6 +106,19 @@ func calculate_max_rows_per_mod() -> Dictionary:
 		max_rows_per_mod[mod] = max_rows
 	return max_rows_per_mod
 
+# Function to create a new StyleBoxFlat for a label with a random color
+func create_stylebox(column_index: int) -> StyleBoxFlat:
+	var stylebox = StyleBoxFlat.new()
+	stylebox.bg_color = COLORS[column_index % COLORS.size()]
+	return stylebox
+
+# Function to create a new Label with a StyleBoxFlat
+func create_label(text: String, column_index: int) -> Label:
+	var label = Label.new()
+	label.text = text
+	var stylebox = create_stylebox(column_index)
+	label.add_theme_stylebox_override("normal", stylebox)
+	return label
 
 # Function to generate the rows for a given mod based on headers
 func generate_mod_rows(headers: Array, mod: String) -> Array:
@@ -104,13 +131,13 @@ func generate_mod_rows(headers: Array, mod: String) -> Array:
 	for i in range(max_rows):
 		var row = []
 		# Create label for the mod name
-		var mod_label = Label.new()
-		mod_label.text = mod if i == 0 else ""
+		var mod_label = create_label(mod if i == 0 else "", 0)
 		row.append(mod_label)
 		
-		for entity_type in headers.slice(1, headers.size()):
-			var entity_label = Label.new()
-			var entities = reference_data[mod].get(entity_type.to_lower(), [])
+		for column_index in range(1, headers.size()):
+			var entity_label = create_label("", column_index)
+			var entity_type = headers[column_index].to_lower()
+			var entities = reference_data[mod].get(entity_type, [])
 			entity_label.text = entities[i] if i < entities.size() else ""
 			row.append(entity_label)
 		
@@ -118,9 +145,8 @@ func generate_mod_rows(headers: Array, mod: String) -> Array:
 	
 	# Add separator row
 	var separator_row = []
-	for header in headers:
-		var separator_label = Label.new()
-		separator_label.text = "---"
+	for column_index in range(headers.size()):
+		var separator_label = create_label("---", column_index)
 		separator_row.append(separator_label)
 	rows.append(separator_row)
 
@@ -141,9 +167,8 @@ func update_reference_grid():
 				if not headers.has(key.capitalize()):
 					headers.append(key.capitalize())
 
-	for header in headers:
-		var label = Label.new()
-		label.text = header
+	for column_index in range(headers.size()):
+		var label = create_label(headers[column_index], column_index)
 		references_grid.add_child(label)
 
 	# Generate and add the rows for each mod
