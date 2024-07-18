@@ -95,7 +95,7 @@ func initialize_map_data():
 		Helper.overmap_manager.loaded_chunk_data.mapwidth = tacticalMapJSON.mapwidth
 	else:
 		# In this case we load the map json from disk
-		Helper.overmap_manager.update_player_position_and_manage_segments()
+		Helper.overmap_manager.update_player_position_and_manage_segments(true)
 
 
 # Return an array of chunks that fall inside the creation radius

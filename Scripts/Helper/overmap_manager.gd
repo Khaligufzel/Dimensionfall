@@ -38,10 +38,18 @@ var max_grids: int = 9
 var grid_load_distance: int = 25 * cell_size  # Load when 25 cells away from the border
 var grid_unload_distance: int = 50 * cell_size  # Unload when 50 cells away from the border
 
+
+# Distance to load and unload data from loaded_chunk_data.chunks. Loading and unloading happens
+# in segments, since one big file will be too big and saving each chunk separately will
+# result in too many files.
 var segment_load_distance: int = 16
 var segment_unload_distance: int = 28
+# Dictionary to cache loaded segment data to avoid redundant load calls to save_helper
+var loaded_segments: Dictionary = {}
 
 # Dictionary to hold data of chunks that are unloaded
+# These chunks are the actual 32x32x21 collection of blocks, furniture, mobs and items
+# That makes up the map that the player is walking on.
 var loaded_chunk_data: Dictionary = {"chunks": {}}
 
 var player
@@ -77,7 +85,8 @@ class map_cell:
 			"coordinate_x": coordinate_x,
 			"coordinate_y": coordinate_y,
 			"map_id": map_id,
-			"tacticalmapname": tacticalmapname
+			"tacticalmapname": tacticalmapname,
+			"revealed": revealed
 		}
 
 	func set_data(newdata: Dictionary):
@@ -88,6 +97,7 @@ class map_cell:
 		coordinate_y = newdata.get("coordinate_y", 0)
 		map_id = newdata.get("map_id", "field_grass_basic_00.json")
 		tacticalmapname = newdata.get("tacticalmapname", "town_00.json")
+		revealed = newdata.get("revealed", false)
 
 	func get_sprite() -> Texture:
 		return Gamedata.maps.by_id(map_id).sprite
@@ -107,14 +117,19 @@ class map_grid:
 	var cells: Dictionary = {}
 
 	func get_data() -> Dictionary:
-		var mydata: Dictionary = {}
-		mydata["pos"] = pos
-		mydata["cells"] = cells
+		var mydata: Dictionary = {"pos": pos, "cells": {}}
+		for cell_key in cells.keys():
+			mydata["cells"][str(cell_key)] = cells[cell_key].get_data()
 		return mydata
 
 	func set_data(mydata: Dictionary) -> void:
-		pos = mydata.get("pos", Vector2.ZERO)
-		cells = mydata.get("cells", {})
+		var newpos = mydata.get("pos", "0,0")
+		pos = Vector2(newpos.split(",")[0].to_int(), newpos.split(",")[1].to_int())
+		cells.clear()
+		for cell_key in mydata["cells"].keys():
+			var cell = map_cell.new()
+			cell.set_data(mydata["cells"][cell_key])
+			cells[Vector2(cell_key.split(",")[0].to_int(), cell_key.split(",")[1].to_int())] = cell
 
 
 # Called when the node enters the scene tree for the first time.
@@ -166,9 +181,12 @@ func _on_player_spawned(playernode):
 # Function for handling game loaded signal
 func _on_game_loaded():
 	make_noise_and_load_cells()
+	load_all_grids()
+
 
 # Function for handling game ended signal
 func _on_game_ended():
+	save_all_grids()
 	player = null
 
 
@@ -198,7 +216,6 @@ func load_cells_around(position: Vector3):
 
 # This function generates chunks for each cell in the grid, ensuring the grid is filled with cells.
 func generate_cells_for_grid(grid: map_grid):
-	print_debug("Generating cells for grid " + str(grid.pos))
 	for x in range(grid_width):
 		for y in range(grid_height):
 			var global_x = grid.pos.x * grid_width + x
@@ -302,6 +319,11 @@ func get_cell_pos_from_global_pos(coord: Vector2) -> Vector2:
 
 
 # Function to get a map_cell by local coordinate within a specific grid
+# A local coord will start at (0,0), the next cell will be (0,1) and so on
+# It will return the map cell from the grid. 
+# The grid can contain grid_width x grid_height amount of cells
+# If the grid's position is in the negative range, for example (-1,-1) it will
+# contain cells from (-100,100) up to (-1,-1)
 func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:
 	var grid_key = get_grid_pos_from_local_pos(local_coord)
 	var cell_key = Vector2(local_coord.x, local_coord.y)
@@ -317,17 +339,16 @@ func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:
 # Load a grid based on the grid position
 func load_grid(grid_pos: Vector2):
 	if loaded_grids.size() >= max_grids:
-		print_debug("unloading grid that's far away")
 		unload_furthest_grid()
 
 	if not loaded_grids.has(grid_pos):
-		print_debug("Creating new grid for key: " + str(grid_pos))
 		var grid = map_grid.new()
 		grid.pos = grid_pos
 		#grid.pos = Vector2(grid_pos.split(",")[0].to_int(), grid_pos.split(",")[1].to_int())
 		# Assume load_grid_data is a function that loads grid data from storage
 		# grid.set_data(load_grid_data(grid_pos))
 		loaded_grids[grid_pos] = grid
+		load_grid_from_file(grid_pos)
 
 
 # Unload the furthest grid from the player
@@ -344,8 +365,7 @@ func unload_furthest_grid():
 			furthest_grid_key = key
 
 	if furthest_grid_key:
-		# Assume save_grid_data is a function that saves grid data to storage
-		#save_grid_data(loaded_grids[furthest_grid_key].get_data())
+		save_grid_to_file(loaded_grids[furthest_grid_key].get_data(), furthest_grid_key)
 		loaded_grids.erase(furthest_grid_key)
 
 
@@ -424,24 +444,30 @@ func get_segment_pos(chunk_pos: Vector2) -> Vector2:
 # Function to check player's position and trigger load/unload of segments
 # This function checks if the player's position has changed by comparing the new position to the stored player position.
 # If the player's position has changed, it updates the player position and calls functions to load and unload segments.
-func update_player_position_and_manage_segments():
+func update_player_position_and_manage_segments(force_update: bool = false):
 	var new_position = get_player_cell_position()
-	if new_position != player_last_cell:
+	if new_position != player_last_cell or force_update:
 		player_coord_changed.emit(player, player_last_cell, new_position)
 		player_last_cell = new_position
 		
 		# Load segments around the player
 		var segments_to_load = load_segments_around_player()
-		for segment_pos in segments_to_load:
-			var loaded_segment_data = Helper.save_helper.load_map_segment_data(segment_pos)
-			# Merge loaded segment data into loaded_chunk_data.chunks
-			for chunk_pos in loaded_segment_data.keys():
-				if not loaded_chunk_data.chunks.has(chunk_pos):
-					loaded_chunk_data.chunks[chunk_pos] = loaded_segment_data[chunk_pos]
 		
+		for segment_pos in segments_to_load:
+			if not loaded_segments.has(segment_pos):
+				var loaded_segment_data = Helper.save_helper.load_map_segment_data(segment_pos)
+				loaded_segments[segment_pos] = loaded_segment_data
+				# Merge loaded segment data into loaded_chunk_data.chunks
+				for chunk_pos in loaded_segment_data.keys():
+					if not loaded_chunk_data.chunks.has(chunk_pos):
+						loaded_chunk_data.chunks[chunk_pos] = loaded_segment_data[chunk_pos]
+
 		# Unload segments that are too far from the player
 		var segments_to_unload = unload_distant_segments()
+		
 		for segment_pos in segments_to_unload:
+			if loaded_segments.has(segment_pos):
+				loaded_segments.erase(segment_pos)
 			var non_empty_chunk_data = process_and_clear_segment(segment_pos)
 			if not non_empty_chunk_data.is_empty():
 				Helper.save_helper.save_map_segment_data(non_empty_chunk_data, segment_pos)
@@ -488,3 +514,38 @@ func unload_all_remaining_segments():
 		var non_empty_chunk_data = process_and_clear_segment(segment_pos)
 		if not non_empty_chunk_data.is_empty():
 			Helper.save_helper.save_map_segment_data(non_empty_chunk_data, segment_pos)
+	loaded_segments.clear()
+
+
+# Function to save the current state of the grid
+func save_grid_to_file(grid_data: Dictionary, grid_key: Vector2) -> void:
+	Helper.save_helper.save_overmap_grid_to_file(grid_data, grid_key)
+
+
+# Function to load the state of the grid
+func load_grid_from_file(grid_key: Vector2) -> void:
+	var grid_data: Dictionary = Helper.save_helper.load_overmap_grid_from_file(grid_key)
+	process_loaded_grid_data(grid_data)
+
+
+# Creates a new grid from grid data loaded from disk 
+func process_loaded_grid_data(grid_data: Dictionary):
+	if grid_data:
+		var grid = map_grid.new()
+		grid.set_data(grid_data)
+		loaded_grids[grid.pos] = grid
+		print_debug("Grid loaded from file at " + str(grid.pos))
+	else:
+		print_debug("Failed to parse grid file")
+
+
+# Function to save all remaining grids
+func save_all_grids() -> void:
+	for gridkey in loaded_grids.keys():
+		save_grid_to_file(loaded_grids[gridkey].get_data(), gridkey)
+
+
+func load_all_grids():
+	var loaded_grids_array: Array = Helper.save_helper.load_all_overmap_grids_from_file()
+	for loadedgrid: Dictionary in loaded_grids_array:
+		process_loaded_grid_data(loadedgrid)
