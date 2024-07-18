@@ -5,6 +5,7 @@ extends Control
 # The resume button hides the menu and unpauses the game.
 @export var resume_button: Button
 @export var return_button: Button
+@export var save_button: Button
 
 
 # Called when the node enters the scene tree for the first time.
@@ -12,12 +13,23 @@ func _ready():
 	# Connect button signals
 	resume_button.button_up.connect(_on_resume_button_pressed)
 	return_button.button_up.connect(_on_return_button_pressed)
+	save_button.button_up.connect(_on_save_button_pressed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_action_just_pressed("escape"):
 		_toggle_menu()
+
+
+# Called when the save button is pressed.
+# TODO: We should just call Helper.save_helper.save_game() instead
+# But before we can do that, we need to separate saving the map data from unloading the chunks
+# We will need to modify Chunk.gd for that.
+func _on_save_button_pressed():
+	Helper.save_helper.save_player_inventory()
+	Helper.save_helper.save_player_equipment()
+	Helper.save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
 
 
 # Called when the resume button is pressed.
