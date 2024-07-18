@@ -16,7 +16,34 @@ var itemgroup: String # The ID of an itemgroup that it creates loot from
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	position = containerpos
+	 # If no item was added we delete the container if it's not a child of some furniture
+	_on_item_removed(null)
+	if texture_id:
+		set_texture(texture_id)
+
+# Called when a function creates this class using ContainerItem.new(container_json)
+# Basic setup for this container. Should be called before adding it to the scene tree
+func _init(item: Dictionary):
+	_initialize_container(item)
 	create_loot()
+
+func _initialize_container(item: Dictionary):
+	containerpos = Vector3(item.global_position_x, item.global_position_y, item.global_position_z)
+	add_to_group("Containers")
+	_create_inventory()
+	_create_area3d()
+
+	if item.has("inventory"):
+		deserialize_and_apply_items.call_deferred(item.inventory)
+	if item.has("texture_id"):
+		texture_id = item.texture_id
+	create_sprite()
+
+	# Check if the item has itemgroups, pick one at random and set the itemgroup property
+	if item.has("itemgroups"):
+		var itemgroups_array: Array = item.itemgroups
+		if itemgroups_array.size() > 0:
+			itemgroup = itemgroups_array.pick_random()
 
 
 # Will add item to the inventory based on the assigned itemgroup
@@ -29,34 +56,7 @@ func create_loot():
 	
 	# Check if the itemgroup data exists and has items
 	if itemgroup_data and "items" in itemgroup_data:
-		# Loop over each item object in the itemgroup's 'items' property
-		for item_object in itemgroup_data["items"]:
-			# Each item_object is expected to be a dictionary with id, probability, min, max
-			var item_id = item_object["id"]
-			var item_min = item_object["min"]
-			var item_max = item_object["max"]
-			var item_probability = item_object["probability"]  # This could be used for determining spawn chance
-
-			# Fetch the individual item data for verification
-			var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
-			
-			# Check if the item data is valid before adding
-			if item_data and not item_data.is_empty():
-				# Check probability to decide if item should be added
-				if randi_range(0, 100) <= item_probability:
-					item_added = true # An item is about to be added
-					# Determine quantity to add based on min and max
-					var quantity = randi_range(item_min, item_max)
-					
-					# Check if quantity is more than 0 before adding the item
-					if quantity > 0:
-						# Create and add the item to the inventory and keep a reference
-						var item = inventory.create_and_add_item(item_id)
-						# Set the item stack size, limited by max_stack_size
-						var stack_size = min(quantity, item_data["max_stack_size"])
-						InventoryStacked.set_item_stack_size(item, stack_size)
-			else:
-				print_debug("No valid data found for item ID: " + str(item_id))
+		item_added = _add_items_to_inventory(itemgroup_data["items"])
 
 	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
 	if item_added and sprite_3d.texture == load("res://Textures/container_32.png"):
@@ -69,6 +69,34 @@ func create_loot():
 	elif not item_added:
 		 # If no item was added we delete the container if it's not a child of some furniture
 		_on_item_removed(null)
+
+
+# Takes a list of items and adds them to the inventory of the chance allows it.
+func _add_items_to_inventory(items: Array) -> bool:
+	var item_added: bool = false
+	# Loop over each item object in the itemgroup's 'items' property
+	for item_object in items:
+		# Each item_object is expected to be a dictionary with id, probability, min, max
+		var item_id = item_object["id"]
+		var item_probability = item_object["probability"]
+		if randi_range(0, 100) <= item_probability:
+			item_added = true # An item is about to be added
+			# Determine quantity to add based on min and max
+			var quantity = randi_range(item_object["min"], item_object["max"])
+			_add_item_to_inventory(item_id, quantity)
+	return item_added
+
+# Takes an item_id and quantity and adds it to the inventory
+func _add_item_to_inventory(item_id: String, quantity: int):
+	# Fetch the individual item data for verification
+	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
+	# Check if the item data is valid before adding
+	if item_data and not item_data.is_empty() and quantity > 0:
+		# Create and add the item to the inventory and keep a reference
+		var item = inventory.create_and_add_item(item_id)
+		# Set the item stack size, limited by max_stack_size
+		var stack_size = min(quantity, item_data["max_stack_size"])
+		InventoryStacked.set_item_stack_size(item, stack_size)
 
 
 # Function to deserialize inventory and apply the correct sprite
@@ -87,33 +115,13 @@ func deserialize_and_apply_items(items_data: Dictionary):
 
 
 # Creates a new InventoryStacked to hold items in it
-func create_inventory():
+func _create_inventory():
 	inventory = InventoryStacked.new()
 	inventory.capacity = 1000
 	inventory.item_protoset = load("res://ItemProtosets.tres")
 	add_child.call_deferred(inventory)
 	inventory.item_removed.connect(_on_item_removed)
 	inventory.item_added.connect(_on_item_added)
-
-
-# Basic setup for this container. Should be called before adding it to the scene tree
-func construct_self(item: Dictionary):
-	containerpos = Vector3(item.global_position_x, item.global_position_y, item.global_position_z)
-	add_to_group("Containers")
-	create_inventory()
-	create_area3d()
-
-	if item.has("inventory"):
-		deserialize_and_apply_items.call_deferred(item.inventory)
-	if item.has("texture_id"):
-		texture_id = item.texture_id
-	create_sprite()
-
-	# Check if the item has itemgroups, pick one at random and set the itemgroup property
-	if item.has("itemgroups"):
-		var itemgroups_array: Array = item.itemgroups
-		if itemgroups_array.size() > 0:
-			itemgroup = itemgroups_array.pick_random()
 
 
 # Creates the sprite with some default properties
@@ -161,7 +169,7 @@ func set_texture(mytex: String):
 
 
 # This area will be used to check if the player can reach into the inventory with ItemDetector
-func create_area3d():
+func _create_area3d():
 	var area3d = Area3D.new()
 	add_child(area3d)
 	area3d.collision_layer = 1 << 6  # Set to layer 7
@@ -221,6 +229,7 @@ func _on_item_removed(_item: InventoryItem):
 			else:
 				# It's a child of some node, probably furniture
 				sprite_3d.texture = load("res://Textures/container_32.png")
+			
 	else: # There are still items in the container
 		if is_inside_tree():
 			# Check if this ContainerItem is a direct child of the tree root

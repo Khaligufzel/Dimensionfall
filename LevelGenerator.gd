@@ -141,9 +141,9 @@ func load_chunk(chunk_pos: Vector2):
 
 # When we unload the chunk, we save its data into memory so we can re-use it later
 func unload_chunk(chunk_pos: Vector2):
-	print_debug("Unloading chunk at chunk_pos (" + str(chunk_pos) + ")")
+	#print_debug("Unloading chunk at chunk_pos (" + str(chunk_pos) + ")")
 	if loaded_chunks.has(chunk_pos):
-		print_debug("found chunk at chunk_pos (" + str(chunk_pos) + ")")
+		#print_debug("found chunk at chunk_pos (" + str(chunk_pos) + ")")
 		var chunk = loaded_chunks[chunk_pos]
 		chunk.unload_chunk()
 		loaded_chunks.erase(chunk_pos)

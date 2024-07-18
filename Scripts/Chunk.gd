@@ -78,14 +78,14 @@ func _ready():
 
 
 func start_loading():
-	print_debug("Chunk started loading at " + str(mypos))
+	#print_debug("Chunk started loading at " + str(mypos))
 	load_state = LoadStates.LOADING
 
 func start_unloading():
 	load_state = LoadStates.UNLOADING
 
 func reset_state():
-	print_debug("Chunk reset state at " + str(mypos))
+	#print_debug("Chunk reset state at " + str(mypos))
 	load_state = LoadStates.NEITHER
 
 
@@ -251,12 +251,11 @@ func add_itemgroups_to_new_block():
 		var itemgroup = itemgroup_data[i]
 		var itemgroup_map_json: Dictionary = {"itemgroups":itemgroup.json}
 		var itemgroup_pos: Vector3 = itemgroup.pos
-		var newItem: ContainerItem = ContainerItem.new()
 
 		itemgroup_map_json["global_position_x"] = mypos.x + itemgroup_pos.x
 		itemgroup_map_json["global_position_y"] = mypos.y + itemgroup_pos.y + 1.01
 		itemgroup_map_json["global_position_z"] = mypos.z + itemgroup_pos.z
-		newItem.construct_self(itemgroup_map_json)
+		var newItem: ContainerItem = ContainerItem.new(itemgroup_map_json)
 		newItem.add_to_group("mapitems")
 		get_tree().get_root().add_child.call_deferred(newItem)
 		
@@ -304,9 +303,8 @@ func add_mobs_to_map() -> void:
 
 # Called by generate_items function when a save is loaded
 func add_item_to_map(item: Dictionary):
-	var newItem: ContainerItem = ContainerItem.new()
+	var newItem: ContainerItem = ContainerItem.new(item)
 	newItem.add_to_group("mapitems")
-	newItem.construct_self(item)
 	get_tree().get_root().add_child.call_deferred(newItem)
 
 
