@@ -79,6 +79,44 @@ func calculate_and_set_columns():
 # Each row in the table will have the mod name in the first column
 # Each of the following columns will have the name of that entity type in the cell
 
+
+
+# Function to calculate the maximum number of rows required for each mod
+func calculate_max_rows_per_mod() -> Dictionary:
+	var max_rows_per_mod = {}
+	for mod in reference_data:
+		var max_rows = 0
+		for entity_type in reference_data[mod].keys():
+			var entities = reference_data[mod][entity_type]
+			max_rows = max(max_rows, entities.size())
+		max_rows_per_mod[mod] = max_rows
+	return max_rows_per_mod
+
+# Function to generate the rows for a given mod based on headers
+func generate_mod_rows(headers: Array, mod: String) -> Array:
+	var rows = []
+	var max_rows = 0
+	for entity_type in headers.slice(1, headers.size()):
+		var entities = reference_data[mod].get(entity_type.to_lower(), [])
+		max_rows = max(max_rows, entities.size())
+	
+	for i in range(max_rows):
+		var row = []
+		# Create label for the mod name
+		var mod_label = Label.new()
+		mod_label.text = mod if i == 0 else ""
+		row.append(mod_label)
+		
+		for entity_type in headers.slice(1, headers.size()):
+			var entity_label = Label.new()
+			var entities = reference_data[mod].get(entity_type.to_lower(), [])
+			entity_label.text = entities[i] if i < entities.size() else ""
+			row.append(entity_label)
+		
+		rows.append(row)
+	
+	return rows
+
 # Function to update the reference grid based on the reference data
 func update_reference_grid():
 	# Clear existing children from the grid
@@ -99,18 +137,9 @@ func update_reference_grid():
 		label.text = header
 		references_grid.add_child(label)
 
-	# Add the data rows
+	# Generate and add the rows for each mod
 	for mod in reference_data:
-		var mod_label = Label.new()
-		mod_label.text = mod
-		references_grid.add_child(mod_label)
-
-		for entity_type in headers.slice(1, headers.size()):
-			var entity_label = Label.new()
-			if entity_type.to_lower() in reference_data[mod]:
-				var entities = reference_data[mod][entity_type.to_lower()]
-				if entities is Array:
-					entity_label.text = ", ".join(entities)
-				else:
-					entity_label.text = str(entities)
-			references_grid.add_child(entity_label)
+		var rows = generate_mod_rows(headers, mod)
+		for row in rows:
+			for label in row:
+				references_grid.add_child(label)
