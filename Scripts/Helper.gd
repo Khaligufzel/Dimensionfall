@@ -6,7 +6,6 @@ var ready_to_switch_level: Dictionary = {"save_ready": false, "chunks_unloaded":
 var chunk_navigation_maps: Dictionary = {}
 
 # Overmap data
-var current_level_pos: Vector2 = Vector2(0.1, 0.1) #Stores references to tilegrids representing the overmap
 var current_map_seed: int = 0
 var position_coord: Vector2 = Vector2(0, 0)
 var mapseed: int # Is generated once per game. Defines the unique map!
@@ -55,7 +54,6 @@ func _process(_delta: float) -> void:
 # Called when the game is over and everything will need to be reset to default
 func reset():
 	overmap_manager.loaded_chunk_data = {"chunks": {}}
-	current_level_pos = Vector2(0.1, 0.1)
 	current_map_seed = 0
 	position_coord = Vector2(0, 0)
 	save_helper.current_save_folder = ""
@@ -82,19 +80,9 @@ func save_game():
 #Level_name is a filename in /mods/core/maps
 #global_pos is the absolute position on the overmap
 #see overmap.gd for how global_pos is used there
-func initiate_game(level_name: String, global_pos: Vector2) -> void:
-	ready_to_switch_level = {"save_ready": false, "chunks_unloaded": false}
-	
-	# This is only true if the game has just initialized
-	# In that case no level has once been loaded so there is no game to save
-	if current_level_pos != Vector2(0.1, 0.1):
-		save_game()
-		chunk_navigation_maps.clear()
-	else:
-		ready_to_switch_level.chunks_unloaded = true
-
-	current_level_pos = global_pos
-	ready_to_switch_level.save_ready = true
+func initiate_game() -> void:
+	ready_to_switch_level = {"save_ready": true, "chunks_unloaded": true}
+	chunk_navigation_maps.clear()
 	start_timer()
 
 

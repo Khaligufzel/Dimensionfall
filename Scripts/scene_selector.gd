@@ -24,7 +24,7 @@ func _on_load_game_button_pressed():
 		# We pass the name of the default map and coordinates
 		# If there is a saved game, it will not load the provided map
 		# but rather the one that was saved in the game that was loaded
-		Helper.initiate_game("DefaultTacticalMap.json", Vector2(0, 0))
+		Helper.initiate_game()
 
 
 # When the play demo button is pressed
@@ -36,7 +36,7 @@ func _on_play_demo_pressed():
 	Helper.mapseed = rng.randi()
 	Helper.save_helper.create_new_save()
 	Helper.signal_broker.game_started.emit()
-	Helper.initiate_game("DefaultTacticalMap.json", Vector2(0, 0))
+	Helper.initiate_game()
 
 
 func _on_help_button_pressed():

@@ -26,6 +26,7 @@ func create_new_save():
 		print_debug("Failed to create a unique folder for the demo.")
 
 
+# We can only save the data when all chunks are unloaded.
 func save_map_data() -> void:
 	Helper.map_manager.level_generator.all_chunks_unloaded.connect(_on_chunks_unloaded)
 	Helper.map_manager.level_generator.unload_all_chunks()
@@ -34,10 +35,8 @@ func save_map_data() -> void:
 # The level_generator has unloaded all the chunks. Save the data to disk
 func _on_chunks_unloaded():
 		print_debug("All chunks are unloaded")
+		# Devides the loaded_chunk_data.chunks into segments and saves them to disk
 		Helper.overmap_manager.unload_all_remaining_segments()
-		#Helper.json_helper.write_json_file(target_folder + "/map.json", \
-		#JSON.stringify(Helper.overmap_manager.loaded_chunk_data))
-		#Helper.overmap_manager.loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} # Reset the data
 		print_debug("Setting chunks_unloaded to true")
 		Helper.ready_to_switch_level.chunks_unloaded = true
 		all_chunks_unloaded.emit()
