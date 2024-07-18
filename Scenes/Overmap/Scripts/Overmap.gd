@@ -204,13 +204,6 @@ func _on_tile_clicked(clicked_tile):
 		overmapTileLabel.text = "Select a valid target"
 
 
-func _on_travel_button_button_up():
-	change_level_pressed.emit()
-	var mapFile = selected_overmap_tile.get_meta("map_file")
-	var global_pos: Vector2 = selected_overmap_tile.get_meta("global_pos")
-	Helper.switch_level(mapFile, global_pos)
-
-
 func _on_home_button_button_up():
 	# Calculate the screen center offset
 	var screen_center_offset = get_viewport_rect().size * 0.5

@@ -84,7 +84,7 @@ func save_game():
 #Level_name is a filename in /mods/core/maps
 #global_pos is the absolute position on the overmap
 #see overmap.gd for how global_pos is used there
-func switch_level(level_name: String, global_pos: Vector2) -> void:
+func initiate_game(level_name: String, global_pos: Vector2) -> void:
 	ready_to_switch_level = {"save_ready": false, "chunks_unloaded": false}
 	current_level_name = level_name
 	
@@ -99,6 +99,7 @@ func switch_level(level_name: String, global_pos: Vector2) -> void:
 	current_level_pos = global_pos
 	ready_to_switch_level.save_ready = true
 	start_timer()
+
 
 # Function to create and start a timer that will wait to switch the level
 func start_timer():
@@ -116,6 +117,7 @@ func _on_timer_timeout(my_timer: Timer):
 		print_debug("Switching level")
 		my_timer.stop()
 		get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
+
 
 # Function to draw a line in the 3D space
 func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:
