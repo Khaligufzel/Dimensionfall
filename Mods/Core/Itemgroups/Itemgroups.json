@@ -715,6 +715,12 @@
 				"max": 10,
 				"min": 5,
 				"probability": 95
+			},
+			{
+				"id": "long_stick",
+				"max": 3,
+				"min": 1,
+				"probability": 20
 			}
 		],
 		"mode": "Collection",
@@ -780,5 +786,110 @@
 		"mode": "Collection",
 		"name": "Generic field items",
 		"sprite": "leaves_32.png"
+	},
+	{
+		"description": "Stuff you might find in a forest",
+		"id": "generic_forest_finds",
+		"items": [
+			{
+				"id": "herbs_wild",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "long_stick",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "stick",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "small_rock",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "pebble",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "acorn",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "pinecone",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bird_egg",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "mushrooms_forest",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "berries_wild",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "small_stick",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "plant_remnants",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "pine_branch",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "leaf",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "branch",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "log",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			}
+		],
+		"mode": "Collection",
+		"name": "Generic forest finds",
+		"sprite": "branches_32.png"
 	}
 ]
