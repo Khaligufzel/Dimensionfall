@@ -890,6 +890,13 @@
 		],
 		"mode": "Collection",
 		"name": "Generic forest finds",
+		"references": {
+			"core": {
+				"maps": [
+					"forest_basic_00"
+				]
+			}
+		},
 		"sprite": "branches_32.png"
 	}
 ]
