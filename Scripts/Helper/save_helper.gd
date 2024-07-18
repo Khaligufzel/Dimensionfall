@@ -10,18 +10,6 @@ var current_save_folder: String = ""
 var number_of_chunks_unloaded: int = 0
 signal all_chunks_unloaded
 
-# Function to save the current map state
-func save_current_level(global_pos: Vector2) -> void:
-	var dir = DirAccess.open(current_save_folder)
-	var map_folder = "map_x" + str(global_pos.x) + "_y" + str(global_pos.y)
-	var target_folder = current_save_folder+ "/" + map_folder
-	if !dir.dir_exists(map_folder):
-		if !dir.make_dir(map_folder) == OK:
-			print_debug("Failed to create a folder for the current map")
-			return
-	
-	save_map_data(target_folder)
-
 
 #Creates a new save folder. The name of this folder will be the current date and time
 #This is to make sure it is unique. The folder name is stored in order to perform
@@ -38,13 +26,13 @@ func create_new_save():
 		print_debug("Failed to create a unique folder for the demo.")
 
 
-func save_map_data(target_folder: String) -> void:
-	Helper.map_manager.level_generator.all_chunks_unloaded.connect(_on_chunks_unloaded.bind(target_folder))
+func save_map_data() -> void:
+	Helper.map_manager.level_generator.all_chunks_unloaded.connect(_on_chunks_unloaded)
 	Helper.map_manager.level_generator.unload_all_chunks()
 
 
 # The level_generator has unloaded all the chunks. Save the data to disk
-func _on_chunks_unloaded(_target_folder: String):
+func _on_chunks_unloaded():
 		print_debug("All chunks are unloaded")
 		Helper.overmap_manager.unload_all_remaining_segments()
 		#Helper.json_helper.write_json_file(target_folder + "/map.json", \

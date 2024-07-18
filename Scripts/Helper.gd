@@ -1,7 +1,5 @@
 extends Node3D
 
-# Tacticalmap data
-var current_level_name: String
 var ready_to_switch_level: Dictionary = {"save_ready": false, "chunks_unloaded": false}
 # Contains the navigationmap for each chunk, used to give mobs the proper navigationmap
 # When crossing chunk boundary
@@ -74,7 +72,7 @@ func free_group_nodes(group_name: String):
 
 # Save game state
 func save_game():
-	save_helper.save_current_level(current_level_pos)
+	save_helper.save_map_data()
 	#save_helper.save_overmap_state()
 	save_helper.save_player_inventory()
 	save_helper.save_player_equipment()
@@ -86,7 +84,6 @@ func save_game():
 #see overmap.gd for how global_pos is used there
 func initiate_game(level_name: String, global_pos: Vector2) -> void:
 	ready_to_switch_level = {"save_ready": false, "chunks_unloaded": false}
-	current_level_name = level_name
 	
 	# This is only true if the game has just initialized
 	# In that case no level has once been loaded so there is no game to save
