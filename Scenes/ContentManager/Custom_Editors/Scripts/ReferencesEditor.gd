@@ -28,8 +28,8 @@ extends Control
 
 # Define an array of 10 colors
 const COLORS = [
-	Color(0.964, 0.341, 0.477),
-	Color(0.758, 0.476, 0.751),
+	Color(0.75, 0.26, 0.35), # Dark red
+	Color(0.57, 0.3, 0.57), # Dark purple
 	Color(0, 0.4, 0.308),
 	Color(0.314, 0.484, 0),
 	Color(1, 0, 1), # Magenta
