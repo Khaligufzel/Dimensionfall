@@ -92,6 +92,7 @@ func calculate_max_rows_per_mod() -> Dictionary:
 		max_rows_per_mod[mod] = max_rows
 	return max_rows_per_mod
 
+
 # Function to generate the rows for a given mod based on headers
 func generate_mod_rows(headers: Array, mod: String) -> Array:
 	var rows = []
@@ -115,6 +116,14 @@ func generate_mod_rows(headers: Array, mod: String) -> Array:
 		
 		rows.append(row)
 	
+	# Add separator row
+	var separator_row = []
+	for header in headers:
+		var separator_label = Label.new()
+		separator_label.text = "---"
+		separator_row.append(separator_label)
+	rows.append(separator_row)
+
 	return rows
 
 # Function to update the reference grid based on the reference data
