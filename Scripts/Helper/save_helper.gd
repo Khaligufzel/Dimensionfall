@@ -101,6 +101,15 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 	return ""
 
 
+# Save game state
+func save_game():
+	save_map_data()
+	#save_overmap_state()
+	save_player_inventory()
+	save_player_equipment()
+	save_player_state(get_tree().get_first_node_in_group("Players"))
+
+
 # Function to load game.json from a given saved game folder
 func load_game_from_folder(save_folder_name: String) -> void:
 	current_save_folder = "user://save/" + save_folder_name
@@ -226,3 +235,4 @@ func load_all_overmap_grids_from_file() -> Array:
 		var file_path = load_path + "/" + overmap
 		loaded_overmap_grids.append(Helper.json_helper.load_json_dictionary_file(file_path))
 	return loaded_overmap_grids
+

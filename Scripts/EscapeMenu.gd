@@ -13,18 +13,22 @@ func _ready():
 	resume_button.button_up.connect(_on_resume_button_pressed)
 	return_button.button_up.connect(_on_return_button_pressed)
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_action_just_pressed("escape"):
 		_toggle_menu()
 
+
 # Called when the resume button is pressed.
 func _on_resume_button_pressed():
 	_resume_game()
 
+
 # Called when the return button is pressed.
 func _on_return_button_pressed():
 	_return_to_main_menu()
+
 
 # Called when the node's visibility changes.
 func _on_visibility_changed():
@@ -32,9 +36,11 @@ func _on_visibility_changed():
 		return
 	get_tree().paused = is_visible()
 
+
 # Toggle the menu's visibility
 func _toggle_menu():
 	visible = not visible
+
 
 # Resume the game by hiding the menu and unpausing the game.
 func _resume_game():
@@ -42,11 +48,12 @@ func _resume_game():
 	if is_inside_tree():
 		get_tree().paused = false
 
+
 # Handle the return to the main menu, unpause the game, save the game, and change the scene.
 func _return_to_main_menu():
 	if is_inside_tree():
 		get_tree().paused = false
-		Helper.save_game()
+		Helper.save_helper.save_game()
 		await Helper.save_helper.all_chunks_unloaded
 		Helper.signal_broker.game_ended.emit()
 		get_tree().change_scene_to_file("res://scene_selector.tscn")

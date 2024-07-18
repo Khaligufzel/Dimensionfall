@@ -5,7 +5,6 @@ extends Node3D
 var chunk_navigation_maps: Dictionary = {}
 
 # Overmap data
-var current_map_seed: int = 0
 var position_coord: Vector2 = Vector2(0, 0)
 var mapseed: int # Is generated once per game. Defines the unique map!
 
@@ -37,6 +36,7 @@ func _ready():
 	add_child(overmap_manager)
 	signal_broker.game_ended.connect(_on_game_ended)
 
+
 func initialize_helpers():
 	json_helper = json_Helper_Class.new()
 	save_helper = save_Helper_Class.new()
@@ -46,34 +46,20 @@ func initialize_helpers():
 	overmap_manager = overmap_manager_Class.new()
 	quest_helper = quest_helper_Class.new()
 
+
 func _process(_delta: float) -> void:
 	# task_manager can't _process on it's own so we call it from here
 	task_manager._process(_delta)
 
+
 # Called when the game is over and everything will need to be reset to default
 func reset():
 	overmap_manager.loaded_chunk_data = {"chunks": {}}
-	current_map_seed = 0
+	mapseed = 0
 	position_coord = Vector2(0, 0)
 	save_helper.current_save_folder = ""
 	chunk_navigation_maps.clear()
 
-	free_group_nodes("mobs")
-	free_group_nodes("mapitems")
-
-func free_group_nodes(group_name: String):
-	var nodes = get_tree().get_nodes_in_group(group_name)
-	for node in nodes:
-		node.remove_from_group(group_name)
-		node.queue_free()
-
-# Save game state
-func save_game():
-	save_helper.save_map_data()
-	#save_helper.save_overmap_state()
-	save_helper.save_player_inventory()
-	save_helper.save_player_equipment()
-	save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
 
 
 #Level_name is a filename in /mods/core/maps
