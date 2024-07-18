@@ -43,6 +43,7 @@ func load_data():
 	# Hacky exception for maps, need to find a better solution
 	if contentData == {"maps": true}:
 		load_map_list()
+		load_collapse_state()
 		return
 	if not contentData.has("data"):
 		return
