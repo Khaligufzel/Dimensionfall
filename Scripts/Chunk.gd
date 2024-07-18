@@ -936,7 +936,6 @@ func get_slope_vertices_east(half_block: float, slopeposition: Vector3) -> Packe
 	
 	return vertices
 
-
 # Coroutine for creating colliders with non-blocking delays
 func create_colliders() -> void:
 	var total_blocks = block_positions.size()
@@ -944,43 +943,126 @@ func create_colliders() -> void:
 	var delay_every_n_blocks = max(1, total_blocks / 15)
 	var block_counter = 0
 
+	# Create a duplicate of block_positions
+	var block_positions_copy = block_positions.duplicate(true)
+
+	# First, collect slopes and create colliders for them
 	for key in block_positions.keys():
 		var pos_array = key.split(",")
 		var block_pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
 		var block_data = block_positions[key]
 		var block_shape = block_data.get("shape", "cube")
 		var block_rotation = block_data.get("rotation", 0)
-		chunk_mesh_body.add_child.call_deferred(_create_block_collider(block_pos, block_shape, block_rotation))
+		
+		if block_shape == "slope":
+			chunk_mesh_body.add_child.call_deferred(_create_slope_collider(block_pos, block_rotation))
+			block_positions_copy.erase(key)
 
+			block_counter += 1
+			if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
+				OS.delay_msec(100) # Adjust delay time as needed
+
+	# Create colliders for cubes using the modified copy of block_positions
+	create_cube_colliders(block_positions_copy, total_blocks, delay_every_n_blocks)
+
+
+# Function to create colliders for cubes with non-blocking delays
+# We know for sure that block_positions_copy only contains cubes
+func create_cube_colliders(block_positions_copy: Dictionary, total_blocks: int, delay_every_n_blocks: int) -> void:
+	var block_counter = 0
+	var processed_positions = {}
+	
+	for key in block_positions_copy.keys():
+		if key in processed_positions:
+			continue
+		
+		var pos_array = key.split(",")
+		var start_pos = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
+		var end_pos = start_pos
+		
+		# Combine consecutive blocks along the x-axis
+		while true:
+			var next_key = str(end_pos.x + 1) + "," + str(end_pos.y) + "," + str(end_pos.z)
+			if next_key in block_positions_copy and next_key not in processed_positions:
+				end_pos.x += 1
+				processed_positions[next_key] = true
+			else:
+				break
+		
+		# Now attempt to combine along the z-axis
+		var z_end_pos = end_pos
+		
+		while true:
+			var can_extend_z = true
+			# Check if the entire x-range can be extended along the z-axis
+			for x in range(start_pos.x, end_pos.x + 1):
+				var check_key = str(x) + "," + str(start_pos.y) + "," + str(z_end_pos.z + 1)
+				if check_key not in block_positions_copy or check_key in processed_positions:
+					can_extend_z = false
+					break
+			if can_extend_z:
+				for x in range(start_pos.x, end_pos.x + 1):
+					var extend_key = str(x) + "," + str(start_pos.y) + "," + str(z_end_pos.z + 1)
+					processed_positions[extend_key] = true
+				z_end_pos.z += 1
+			else:
+				break
+		
+		_create_combined_cube_collider(start_pos, Vector3(end_pos.x, end_pos.y, z_end_pos.z))
+		
 		block_counter += 1
-		# Check if it's time to delay. We need to delay because the call_deferred
-		# will add the child on the main thread and we weant to spread it out
 		if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
 			OS.delay_msec(100) # Adjust delay time as needed
 
 
+# Creates a combined collider for cubes and puts it at the right place
+func _create_combined_cube_collider(start_pos: Vector3, end_pos: Vector3) -> void:
+	var collider = CollisionShape3D.new()
+	var shape = BoxShape3D.new()
+	
+	# Calculate the size of the combined collider
+	var size = Vector3(end_pos.x - start_pos.x + 1, 1, end_pos.z - start_pos.z + 1)
+	shape.extents = size / 2
+	
+	collider.shape = shape
+	var myposition = (start_pos + end_pos) / 2
+	collider.set_transform.call_deferred(Transform3D(Basis(), myposition))
+	
+	chunk_mesh_body.add_child.call_deferred(collider)
+
+
 # Creates a collider for either a slope or a cube and puts it at the right place and rotation
 func _create_block_collider(block_sub_position, shape: String, block_rotation: int) -> CollisionShape3D:
-	var collider = CollisionShape3D.new()
 	if shape == "cube":
-		collider.shape = BoxShape3D.new()
-		collider.set_transform.call_deferred(Transform3D(Basis(), block_sub_position))
+		return _create_cube_collider(block_sub_position)
 	else: # It's a slope
-		collider.shape = ConvexPolygonShape3D.new()
-		collider.shape.points = [
-			Vector3(0.5, 0.5, 0.5),
-			Vector3(0.5, 0.5, -0.5),
-			Vector3(-0.5, -0.5, 0.5),
-			Vector3(0.5, -0.5, 0.5),
-			Vector3(0.5, -0.5, -0.5),
-			Vector3(-0.5, -0.5, -0.5)
-		]
-		# Apply rotation only for slopes
-		# Set the rotation part of the Transform3D
-		var rotation_transform = Transform3D(Basis().rotated(Vector3.UP, deg_to_rad(block_rotation)), Vector3.ZERO)
-		# Now combine rotation and translation in the transform
-		collider.set_transform.call_deferred(rotation_transform.translated(block_sub_position))
+		return _create_slope_collider(block_sub_position, block_rotation)
+
+# Creates a collider for a cube and puts it at the right place
+func _create_cube_collider(block_sub_position: Vector3) -> CollisionShape3D:
+	var collider = CollisionShape3D.new()
+	collider.shape = BoxShape3D.new()
+	collider.set_transform.call_deferred(Transform3D(Basis(), block_sub_position))
 	return collider
+
+# Creates a collider for a slope and puts it at the right place and rotation
+func _create_slope_collider(block_sub_position: Vector3, block_rotation: int) -> CollisionShape3D:
+	var collider = CollisionShape3D.new()
+	collider.shape = ConvexPolygonShape3D.new()
+	collider.shape.points = [
+		Vector3(0.5, 0.5, 0.5),
+		Vector3(0.5, 0.5, -0.5),
+		Vector3(-0.5, -0.5, 0.5),
+		Vector3(0.5, -0.5, 0.5),
+		Vector3(0.5, -0.5, -0.5),
+		Vector3(-0.5, -0.5, -0.5)
+	]
+	# Apply rotation for slopes
+	var rotation_transform = Transform3D(Basis().rotated(Vector3.UP, deg_to_rad(block_rotation)), Vector3.ZERO)
+	# Combine rotation and translation in the transform
+	collider.set_transform.call_deferred(rotation_transform.translated(block_sub_position))
+	return collider
+
 
 
 # Rotates a 3D vertex around the Y-axis
