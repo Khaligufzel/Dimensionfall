@@ -53,6 +53,9 @@ enum Region {
 	PLAINS
 }
 
+const NOISE_VALUE_CITY = -0.2
+const NOISE_VALUE_PLAINS = 0.3
+
 var noise: FastNoiseLite
 
 signal player_coord_changed(player: CharacterBody3D, old_pos: Vector2, new_pos: Vector2)
@@ -118,6 +121,7 @@ class map_grid:
 func _ready():
 	# Connect to the Helper.signal_broker.game_started signal
 	Helper.signal_broker.game_started.connect(_on_game_started)
+	Helper.signal_broker.game_loaded.connect(_on_game_loaded)
 	Helper.signal_broker.game_ended.connect(_on_game_ended)
 	Helper.signal_broker.player_spawned.connect(_on_player_spawned)
 
@@ -136,22 +140,21 @@ func _process(_delta):
 
 # Function for handling game started signal
 func _on_game_started():
-	noise = FastNoiseLite.new()
-	var rng = RandomNumberGenerator.new()
+	make_noise_and_load_cells()
 	
-	var gameFileJson: Dictionary = Helper.json_helper.load_json_dictionary_file(\
-	Helper.save_helper.current_save_folder + "/game.json")
-	if gameFileJson:
-		noise.seed = gameFileJson.mapseed
-	else:
-		noise.seed = rng.randi()
+func make_noise_and_load_cells():
+	noise = FastNoiseLite.new()
+	noise.seed = Helper.mapseed
 
 	# Generate regions
-	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
+	noise.noise_type = FastNoiseLite.TYPE_PERLIN
+	#noise.noise_type = FastNoiseLite.TYPE_CELLULAR
 	noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
 	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
-	noise.cellular_jitter = 0.01
-	noise.frequency = 0.04 # Adjust frequency as needed
+	noise.cellular_jitter = 0.04
+	noise.frequency = 0.1 # Adjust frequency as needed
+	
+	loaded_grids.clear()
 	load_cells_around(Vector3(0, 0, 0))
 
 # Function for handling player spawned signal
@@ -162,8 +165,7 @@ func _on_player_spawned(playernode):
 
 # Function for handling game loaded signal
 func _on_game_loaded():
-	# To be developed later
-	pass
+	make_noise_and_load_cells()
 
 # Function for handling game ended signal
 func _on_game_ended():
@@ -229,12 +231,11 @@ func region_type_to_string(region_type: int) -> String:
 			return "Forest"
 	return ""
 
-
 func get_region_type(x: int, y: int) -> int:
 	var noise_value = noise.get_noise_2d(float(x), float(y))
-	if noise_value < -0.6:
+	if noise_value < NOISE_VALUE_CITY:
 		return Region.CITY
-	elif noise_value < 0.4:
+	elif noise_value < NOISE_VALUE_PLAINS:
 		return Region.PLAINS
 	else:
 		return Region.FOREST
