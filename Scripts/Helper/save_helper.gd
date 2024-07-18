@@ -7,7 +7,6 @@ extends Node
 #It also has functions to load saved data and place the items, mobs and tiles on the map
 
 var current_save_folder: String = ""
-var number_of_chunks_unloaded: int = 0
 signal all_chunks_unloaded
 
 
@@ -37,8 +36,6 @@ func _on_chunks_unloaded():
 		print_debug("All chunks are unloaded")
 		# Devides the loaded_chunk_data.chunks into segments and saves them to disk
 		Helper.overmap_manager.unload_all_remaining_segments()
-		print_debug("Setting chunks_unloaded to true")
-		Helper.ready_to_switch_level.chunks_unloaded = true
 		all_chunks_unloaded.emit()
 
 

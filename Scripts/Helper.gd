@@ -1,6 +1,5 @@
 extends Node3D
 
-var ready_to_switch_level: Dictionary = {"save_ready": false, "chunks_unloaded": false}
 # Contains the navigationmap for each chunk, used to give mobs the proper navigationmap
 # When crossing chunk boundary
 var chunk_navigation_maps: Dictionary = {}
@@ -81,27 +80,8 @@ func save_game():
 #global_pos is the absolute position on the overmap
 #see overmap.gd for how global_pos is used there
 func initiate_game() -> void:
-	ready_to_switch_level = {"save_ready": true, "chunks_unloaded": true}
 	chunk_navigation_maps.clear()
-	start_timer()
-
-
-# Function to create and start a timer that will wait to switch the level
-func start_timer():
-	var my_timer = Timer.new() # Create a new Timer instance
-	my_timer.wait_time = 1 # Timer will tick every 1 second
-	my_timer.one_shot = false # False means the timer will repeat
-	add_child(my_timer) # Add the Timer to the scene as a child of this node
-	my_timer.timeout.connect(_on_timer_timeout.bind(my_timer)) # Connect the timeout signal
-	my_timer.start() # Start the timer
-
-
-# This function will be called every time the Timer ticks
-func _on_timer_timeout(my_timer: Timer):
-	if ready_to_switch_level.save_ready and ready_to_switch_level.chunks_unloaded:
-		print_debug("Switching level")
-		my_timer.stop()
-		get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
+	get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
 
 
 # Function to draw a line in the 3D space
