@@ -26,7 +26,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Relationships: This shows what entities reference this entity."
+text = "References: This shows what entities reference this entity."
 
 [node name="ReferencesGrid" type="GridContainer" parent="VBoxContainer"]
 layout_mode = 2
