@@ -18,7 +18,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -44,7 +46,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -80,7 +84,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -114,7 +120,9 @@
 					"urbanroad_corner",
 					"generichouse_corner",
 					"store_electronic_clothing",
-					"forest_basic_00"
+					"forest_basic_00",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -180,7 +188,9 @@
 					"urbanroad_corner",
 					"generichouse_corner",
 					"store_electronic_clothing",
-					"forest_basic_00"
+					"forest_basic_00",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -245,7 +255,9 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -272,7 +284,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -310,7 +324,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -343,7 +359,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -381,7 +399,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -414,7 +434,9 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -450,7 +472,9 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},

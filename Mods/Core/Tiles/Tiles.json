@@ -79,7 +79,9 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -140,7 +142,9 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -159,7 +163,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -177,7 +183,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse"
 				]
 			}
 		},
@@ -198,7 +205,9 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -218,7 +227,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -238,7 +249,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -259,7 +272,9 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -279,7 +294,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -317,7 +333,9 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -337,7 +355,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -356,7 +376,9 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -376,7 +398,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -391,6 +415,14 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_06",
 		"name": "Wooden floor boards",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse",
+					"Generichouse_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "woodboards7.png"
 	},
@@ -408,7 +440,9 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -427,7 +461,9 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -661,6 +697,13 @@
 		"description": "A rocky surface that doesn't leave any footprints",
 		"id": "rocky_earth_00",
 		"name": "Rock floor",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "rockyearth.png"
 	},
@@ -772,7 +815,9 @@
 			"core": {
 				"maps": [
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -793,7 +838,8 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse"
 				]
 			}
 		},
@@ -812,7 +858,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse"
 				]
 			}
 		},
@@ -869,7 +916,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -936,7 +984,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -957,7 +1006,8 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1065,7 +1115,8 @@
 					"urbanroad_corner",
 					"generichouse_corner",
 					"generichouse_t",
-					"forest_basic_00"
+					"forest_basic_00",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1115,7 +1166,8 @@
 					"generichouse_corner",
 					"generichouse_t",
 					"store_electronic_clothing",
-					"forest_basic_00"
+					"forest_basic_00",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1141,7 +1193,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"store_electronic_clothing",
-					"forest_basic_00"
+					"forest_basic_00",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1165,7 +1218,8 @@
 					"urbanroad_corner",
 					"generichouse_corner",
 					"store_electronic_clothing",
-					"forest_basic_00"
+					"forest_basic_00",
+					"Generichouse"
 				]
 			}
 		},
@@ -1237,7 +1291,9 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1283,7 +1339,9 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1454,7 +1512,9 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"store_electronic_clothing",
-					"forest_basic_00"
+					"forest_basic_00",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1473,7 +1533,8 @@
 				"maps": [
 					"field_grass_hill_00",
 					"generichouse_corner",
-					"forest_basic_00"
+					"forest_basic_00",
+					"Generichouse"
 				]
 			}
 		},
@@ -1609,6 +1670,13 @@
 		"description": "A tiled floor with colorful stones",
 		"id": "cobblestone_00",
 		"name": "Cobblestone",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "cobblestone.png"
 	},
@@ -1640,7 +1708,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse"
 				]
 			}
 		},
@@ -1680,7 +1749,9 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1729,7 +1800,9 @@
 			"core": {
 				"maps": [
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1748,7 +1821,9 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1769,7 +1844,9 @@
 					"generichouse_corner",
 					"generichouse_t",
 					"generichouse_cross",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1787,7 +1864,9 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},

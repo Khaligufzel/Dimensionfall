@@ -36,7 +36,7 @@ func _ready():
 # Function to create and start a timer that will generate chunks every 1 second if applicable
 func start_timer():
 	var my_timer = Timer.new() # Create a new Timer instance
-	my_timer.wait_time = 1 # Timer will tick every 1 second
+	my_timer.wait_time = 0.5 # Timer will tick every 0.5 second
 	my_timer.one_shot = false # False means the timer will repeat
 	add_child(my_timer) # Add the Timer to the scene as a child of this node
 	my_timer.timeout.connect(_on_Timer_timeout) # Connect the timeout signal

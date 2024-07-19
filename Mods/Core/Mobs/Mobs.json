@@ -10,6 +10,14 @@
 		"melee_range": "1.5",
 		"move_speed": "1.1",
 		"name": "Scrap walker",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse",
+					"Generichouse_00"
+				]
+			}
+		},
 		"sense_range": "50",
 		"sight_range": "200",
 		"sprite": "scrapwalker64.png"
@@ -24,6 +32,13 @@
 		"melee_range": "1.5",
 		"move_speed": "0.8",
 		"name": "Rust sentinel",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse_00"
+				]
+			}
+		},
 		"sense_range": "50",
 		"sight_range": "200",
 		"sprite": "rust_sentinel_72.png"
