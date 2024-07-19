@@ -89,11 +89,6 @@ func on_build_menu_visibility_changed(inventoryWindow: Control):
 	build_window_visibility_changed.emit(inventoryWindow)
 
 
-# When an equipmentslot has equipped an item
-func on_item_equipped(heldItem: InventoryItem, equipmentSlot: Control):
-	item_was_equipped.emit(heldItem, equipmentSlot)
-
-
 # When an equipmentslot has cleared an item
 func on_item_slot_cleared(heldItem: InventoryItem, equipmentSlot: Control):
 	item_slot_cleared.emit(heldItem, equipmentSlot)

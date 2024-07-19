@@ -28,15 +28,6 @@ var myInventoryItem: InventoryItem = null
 var equippedItem: Sprite3D = null
 var default_reload_speed: float = 1.0
 
-# Signals to commmunicate with the equippedItem node inside the Player node
-signal item_was_equipped(equippedItem: InventoryItem, equipmentSlot: Control)
-signal item_was_cleared(equippedItem: InventoryItem, equipmentSlot: Control)
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	item_was_equipped.connect(Helper.signal_broker.on_item_equipped)
-	item_was_cleared.connect(Helper.signal_broker.on_item_slot_cleared)
-
 
 # Handle GUI input events
 func _gui_input(event):
@@ -66,7 +57,7 @@ func equip(item: InventoryItem) -> void:
 			item.get_inventory().remove_item(item)	
 
 		# Tells the equippedItem node in the player node to update the weapon properties
-		item_was_equipped.emit(item, self)
+		Helper.signal_broker.item_was_equipped.emit(item, self)
 		# We load a magazine if the item contains one
 		if item.get_property("current_magazine"):
 			equippedItem.on_magazine_inserted()
@@ -75,7 +66,7 @@ func equip(item: InventoryItem) -> void:
 # Unequip the current item and keep the magazine in the weapon
 func unequip() -> void:
 	if myInventoryItem:
-		item_was_cleared.emit(myInventoryItem, self)
+		Helper.signal_broker.item_slot_cleared.emit(myInventoryItem, self)
 		myInventory.add_item(myInventoryItem)
 		myInventoryItem = null
 		update_icon()

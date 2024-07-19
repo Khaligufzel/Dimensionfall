@@ -260,4 +260,3 @@ visible = false
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_exited"]
 [connection signal="button_down" from="BuildingMenu/Concrete" to="." method="_on_concrete_button_down"]
-[connection signal="change_level_pressed" from="Overmap" to="." method="_on_overmap_change_level_pressed"]
