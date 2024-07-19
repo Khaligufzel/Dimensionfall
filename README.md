@@ -5,7 +5,7 @@ Catax is a top-down real-time survival game set in a post-apocalyptic world. Sur
 ![Catax_basic](Media/Catax_basic.png)
 
 
-The map can be as big as you make it:
+The world is infinite in every direction. Explore and survive as long as you can!
 ![Catax_basic](Media/Catax_basic_zoomed_out.png)
 
 
@@ -36,7 +36,7 @@ Ranged and melee combat are currently implemented.
 ![Catax_inventory](Media/Catax_inventory.png)
 
 ### Overmap
-The game will create an overmap where some areas are suitable for travel. Each viable location will let you enter into a new tacticalmap and explore. The overmap is infinite.
+The game will create an infinite map to explore. The world is devided by regions, each having their own oppertunities and challenges. A marker will indicate your current location.
 
 ![Catax_overmap](Media/Catax_overmap.png)
 
@@ -57,7 +57,7 @@ Content for this game is created in the content editor. On the left you can sele
 
 
 ### Tacticalmap editor
-A tacticalmap is made from maps. This allows you to piece together a bigger map. You can specify any size and start filling the grid with maps from the selection on the right. The tiles in the grid can be rotated to properly connect roads and create symmetry.
+A tacticalmap is made from maps and can be used to define a fixed area in the infinite world. This allows you to piece together a bigger map. You can specify any size and start filling the grid with maps from the selection on the right. The tiles in the grid can be rotated to properly connect roads and create symmetry. Tacticalmaps will spawn randomly on the map (not implemented yet)
 ![Catax_tacticalmap_editor](Media/Catax_tacticalmap_editor.png)
 
 
@@ -68,6 +68,16 @@ A map has a fixed size of 32x32 and has a maximum of 21 levels in height, rangin
 - Compose a custom brush with the Brush Composer, aiding in quick (randomized) terrain painting.
 
 ![Catax_map_editor](Media/Catax_map_editor.png)
+
+Define areas on the map to allow more randomization:
+![Catax_map_editor](Media/Catax_map_editor_areas.png)
+
+Use the map preview to balance the areas and adjust the randomization. Hit the generate button multiple times to visualize the spawn chance and area coverage:
+![Catax_map_editor](Media/Catax_map_editor_preview.png)
+
+With the area editor, you can finetune the area to your liking. Set the proportions of tiles, set the spawn chance and exclude other areas from spawning. You can also rename the area and enable random rotation:
+![Catax_map_editor](Media/Catax_map_editor_area_editor.png)
+	
 
 ### Item editor
 Allows you to edit and add items in the game. An item will work as you configure it. You can make it work as a weapon and as food if you choose to, the types are not mutually exclusive. Specify the item properties in the convenient editor which has tooltips and controls to help you fill in the right values.
