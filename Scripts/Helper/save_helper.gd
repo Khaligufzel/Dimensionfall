@@ -104,7 +104,6 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 # Save game state
 func save_game():
 	save_map_data()
-	#save_overmap_state()
 	save_player_inventory()
 	save_player_equipment()
 	save_player_state(get_tree().get_first_node_in_group("Players"))
