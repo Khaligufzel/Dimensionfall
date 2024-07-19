@@ -22,8 +22,8 @@ signal craft_failed(item: Dictionary, recipe: Dictionary, reason: String)
 
 func _ready():
 	# Connect signals for game start, load, and end
-	Helper.signal_broker.game_started.connect(_on_game_started_loaded)
-	Helper.signal_broker.game_loaded.connect(_on_game_started_loaded)
+	Helper.signal_broker.game_started.connect(_on_game_started_loaded.bind(true))
+	Helper.signal_broker.game_loaded.connect(_on_game_started_loaded.bind(false))
 	Helper.signal_broker.game_ended.connect(_on_game_ended)
 
 
@@ -85,19 +85,13 @@ func initialize_inventory() -> InventoryStacked:
 
 func create_starting_items():
 	if playerInventory.get_children() == []:
-		playerInventory.create_and_add_item("pistol_9mm")
-		playerInventory.create_and_add_item("chugunov_mpap")
-		playerInventory.create_and_add_item("chugunov_mpap_magazine")
-		playerInventory.create_and_add_item("bullet_9mm")
-		playerInventory.create_and_add_item("pistol_magazine")
-		playerInventory.create_and_add_item("pistol_magazine")
-		playerInventory.create_and_add_item("pistol_magazine")
-		playerInventory.create_and_add_item("machete")
 		playerInventory.create_and_add_item("bottle_plastic_water")
-		playerInventory.create_and_add_item("boots")
-		playerInventory.create_and_add_item("jacket")
-		playerInventory.create_and_add_item("gas_mask")
-	General.player_equipment_dict = {"LeftHandEquipmentSlot":{"item":{"node_name":"@Node@16","properties":{"is_reloading":{"type":1,"value":"false"}},"protoset":"res://ItemProtosets.tres","prototype_id":"rifle_m4a1"},"magazine":{"node_name":"@Node@13","protoset":"res://ItemProtosets.tres","prototype_id":"pistol_magazine"}},"RightHandEquipmentSlot":{}}
+		playerInventory.create_and_add_item("bread")
+		playerInventory.create_and_add_item("apple")
+		playerInventory.create_and_add_item("can_soda")
+		playerInventory.create_and_add_item("bandage_basic")
+		playerInventory.create_and_add_item("bottle_antibiotics")
+	General.player_equipment_dict = {"LeftHandEquipmentSlot":{},"RightHandEquipmentSlot":{},"feet":{"item":{"node_name":"_Node_21","protoset":"res://ItemProtosets.tres","prototype_id":"boots"}},"hands":{"item":{"node_name":"@Node@57664","properties":{"stack_size":{"type":2,"value":"1"}},"protoset":"res://ItemProtosets.tres","prototype_id":"gloves_leather"}},"head":{"item":{"node_name":"@Node@57593","properties":{"stack_size":{"type":2,"value":"1"}},"protoset":"res://ItemProtosets.tres","prototype_id":"scarf"}},"legs":{"item":{"node_name":"@Node@57594","properties":{"stack_size":{"type":2,"value":"1"}},"protoset":"res://ItemProtosets.tres","prototype_id":"jeans"}},"torso":{"item":{"node_name":"_Node_22","protoset":"res://ItemProtosets.tres","prototype_id":"jacket"}}}
 
 
 # The actual reloading is executed on the item
@@ -438,13 +432,15 @@ func add_item_by_id_and_amount(itemid: String, amount: int):
 
 
 # When the player starts a new game or loads a saved game
-func _on_game_started_loaded():
+# isnew: true when it's a new game. False if it's a loaded game
+func _on_game_started_loaded(isnew: bool):
 	# Initialize inventories and connect signals
 	playerInventory = initialize_inventory()
 	proximityInventory = initialize_inventory()
 	connect_inventory_signals(playerInventory)
 	connect_inventory_signals(proximityInventory)
-	create_starting_items()
+	if isnew:
+		create_starting_items()
 	Helper.save_helper.load_player_inventory()
 	update_accessible_items_list()  # Initial update for player inventory
 	# Connect other signals related to inventory management

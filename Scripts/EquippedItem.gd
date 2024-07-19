@@ -78,7 +78,7 @@ func _ready():
 	# We connect to the inventory visibility change to interrupt shooting
 	Helper.signal_broker.inventory_window_visibility_changed.connect(_on_inventory_visibility_change)
 	Helper.signal_broker.item_was_equipped.connect(_on_hud_item_was_equipped)
-	Helper.signal_broker.item_slot_cleared.connect(_on_hud_item_equipment_slot_was_cleared)
+	Helper.signal_broker.item_was_unequipped.connect(_on_hud_item_equipment_slot_was_cleared)
 
 func _input(event):
 	if not heldItem:

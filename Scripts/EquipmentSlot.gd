@@ -66,7 +66,7 @@ func equip(item: InventoryItem) -> void:
 # Unequip the current item and keep the magazine in the weapon
 func unequip() -> void:
 	if myInventoryItem:
-		Helper.signal_broker.item_slot_cleared.emit(myInventoryItem, self)
+		Helper.signal_broker.item_was_unequipped.emit(myInventoryItem, self)
 		myInventory.add_item(myInventoryItem)
 		myInventoryItem = null
 		update_icon()

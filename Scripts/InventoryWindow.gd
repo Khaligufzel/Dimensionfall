@@ -37,12 +37,16 @@ func _ready():
 	
 	LeftHandEquipmentSlot.myInventory = inventory
 	RightHandEquipmentSlot.myInventory = inventory
+	instantiate_wearable_slots()
+	deserialize_equipment(General.player_equipment_dict)
 	# We let the signal broker forward the change in visibility so other nodes can respond
 	visibility_changed.connect(Helper.signal_broker.on_inventory_visibility_changed.bind(self))
 	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
-	instantiate_wearable_slots()
-	deserialize_equipment(General.player_equipment_dict)
+	Helper.signal_broker.item_was_equipped.connect(store_equipment_dict)
+	Helper.signal_broker.item_was_unequipped.connect(store_equipment_dict)
+	Helper.signal_broker.wearable_was_equipped.connect(store_equipment_dict)
+	Helper.signal_broker.wearable_was_unequipped.connect(store_equipment_dict)
 
 
 func deserialize_equipment(equipment_dict: Dictionary):
@@ -133,8 +137,8 @@ func _on_inventory_grid_stacked_item_added(item):
 func get_inventory() -> InventoryStacked:
 	return inventory
 
-# Hud will call this function when the player presses the travel button on the overmap
-func get_equipment_dict() -> Dictionary:
+# When an item was equipped, we update the player equipment dict for saving and loading
+func store_equipment_dict(_item: InventoryItem, _slot: Control) -> Dictionary:
 	var player_equipment: Dictionary = {
 		"LeftHandEquipmentSlot": LeftHandEquipmentSlot.serialize(),
 		"RightHandEquipmentSlot": RightHandEquipmentSlot.serialize()
@@ -147,6 +151,7 @@ func get_equipment_dict() -> Dictionary:
 			continue
 		if slot.myInventoryItem:
 			player_equipment[slot.slot_id] = slot.serialize()
+	General.player_equipment_dict = player_equipment
 	return player_equipment
 
 
