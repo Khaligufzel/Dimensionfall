@@ -47,9 +47,8 @@ func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: D
 			result["id"] = original_tile_id  # Keep the original tile ID
 		else:
 			result["id"] = picked_tile["id"]
-	
-	# Apply the rotation to the result
-	result["rotation"] = _get_random_rotation(area_data)
+			# Apply the rotation to the result
+			result["rotation"] = _get_random_rotation(area_data)
 
 
 # Function to process entities data and add them to result
