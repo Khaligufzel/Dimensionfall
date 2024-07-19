@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://cba63mf23i3ky"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/ReferencesEditor.gd" id="1_cpbgb"]
+
+[node name="ReferencesEditor" type="Control" node_paths=PackedStringArray("references_grid")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cpbgb")
+references_grid = NodePath("VBoxContainer/ReferencesGrid")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "References: This shows what entities reference this entity."
+
+[node name="ReferencesGrid" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2

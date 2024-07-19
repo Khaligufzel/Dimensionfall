@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmpomdwta1pgq"]
+[gd_scene load_steps=12 format=3 uid="uid://dmpomdwta1pgq"]
 
 [ext_resource type="Script" path="res://Scripts/ItemEditor.gd" id="1_ef3j7"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_ghd7c"]
@@ -10,8 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://b7jwy5hpj2vyt" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemCraftEditor.tscn" id="7_itht2"]
 [ext_resource type="PackedScene" uid="uid://65bjwo1b3je2" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemWearableEditor.tscn" id="8_4bxny"]
 [ext_resource type="PackedScene" uid="uid://duoxs7mpo6x3t" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemMeleeEditor.tscn" id="9_ucd7w"]
+[ext_resource type="PackedScene" uid="uid://cba63mf23i3ky" path="res://Scenes/ContentManager/Custom_Editors/ReferencesEditor.tscn" id="10_m8qfw"]
 
-[node name="ItemEditor" type="Control" node_paths=PackedStringArray("tabContainer", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "VolumeNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "typesContainer", "TwoHandedCheckBox")]
+[node name="ItemEditor" type="Control" node_paths=PackedStringArray("tabContainer", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "VolumeNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "typesContainer", "TwoHandedCheckBox", "references_editor")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,6 +33,7 @@ StackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/StackSizeNumber"
 MaxStackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/MaxStackSizeNumber")
 typesContainer = NodePath("VBoxContainer/TabContainer/Basic/TypesContainer")
 TwoHandedCheckBox = NodePath("VBoxContainer/TabContainer/Basic/TwoHandedCheckBox")
+references_editor = NodePath("VBoxContainer/TabContainer/References")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -254,6 +256,10 @@ visible = false
 layout_mode = 2
 
 [node name="Melee" parent="VBoxContainer/TabContainer" instance=ExtResource("9_ucd7w")]
+visible = false
+layout_mode = 2
+
+[node name="References" parent="VBoxContainer/TabContainer" instance=ExtResource("10_m8qfw")]
 visible = false
 layout_mode = 2
 

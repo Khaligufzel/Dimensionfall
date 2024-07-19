@@ -31,6 +31,9 @@ extends Control
 @export var typesContainer: HFlowContainer = null
 @export var TwoHandedCheckBox: CheckBox = null
 
+@export var references_editor: Control = null
+
+
 
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the mob data array should be saved to disk
@@ -84,6 +87,7 @@ func load_item_data() -> void:
 				 # Set button_pressed to true if contentData has the property
 				child.button_pressed = true 
 	refresh_tab_visibility()
+	references_editor.reference_data = contentData.get("references", {})
 
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
@@ -155,6 +159,7 @@ func refresh_tab_visibility() -> void:
 			var tabIndex = get_tab_by_title(child.text)
 			if tabIndex != -1:  # Check if a valid tab index is returned
 				tabContainer.set_tab_hidden(tabIndex, !child.button_pressed)
+
 
 # Returns the tab control with the given name
 func get_tab_by_title(tabName: String) -> int:
