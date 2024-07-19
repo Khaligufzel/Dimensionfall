@@ -19,6 +19,26 @@ func process_area_data(area_data: Dictionary, original_tile_id: String) -> Dicti
 	var result = {}
 
 	# Process and assign tile ID
+	_process_tile_id(area_data, original_tile_id, result)
+
+	# Process entities data and add them to result
+	_process_entities_data(area_data, result)
+
+	return result
+
+
+# Function to get a random rotation
+func _get_random_rotation(area_data: Dictionary) -> int:
+	var rotate_random: bool = area_data.get("rotate_random", false)
+	var rotations: Array = [0, 90, 180, 270]
+	
+	if rotate_random:
+		return rotations[randi() % rotations.size()]
+	return 0  # Default rotation
+
+
+# Function to process and assign tile ID
+func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: Dictionary) -> void:
 	var tiles_data = area_data.get("tiles", [])
 	if not tiles_data.is_empty():
 		var picked_tile = pick_item_based_on_count(tiles_data)
@@ -27,8 +47,15 @@ func process_area_data(area_data: Dictionary, original_tile_id: String) -> Dicti
 			result["id"] = original_tile_id  # Keep the original tile ID
 		else:
 			result["id"] = picked_tile["id"]
+	
+	# Apply the rotation to the result
+	result["rotation"] = _get_random_rotation(area_data)
 
+
+# Function to process entities data and add them to result
+func _process_entities_data(area_data: Dictionary, result: Dictionary) -> void:
 	# Calculate the total count of tiles
+	var tiles_data = area_data.get("tiles", [])
 	var total_tiles_count: int = calculate_total_count(tiles_data)
 
 	# Duplicate the entities_data and add the "None" entity
@@ -45,15 +72,14 @@ func process_area_data(area_data: Dictionary, original_tile_id: String) -> Dicti
 	if not entities_data.is_empty():
 		var selected_entity = pick_item_based_on_count(entities_data)
 		if selected_entity["type"] != "None":
+			var rotation = _get_random_rotation(area_data)
 			match selected_entity["type"]:
 				"furniture":
-					result["furniture"] = {"id":selected_entity["id"]}
+					result["furniture"] = {"id": selected_entity["id"], "rotation": rotation}
 				"mob":
-					result["mob"] = {"id":selected_entity["id"]}
+					result["mob"] = {"id": selected_entity["id"], "rotation": rotation}
 				"itemgroup":
 					result["itemgroups"] = [selected_entity["id"]]
-
-	return result
 
 
 # Function to pick an item based on its count property
