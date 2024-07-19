@@ -7,20 +7,7 @@ extends Node
 #It also has functions to load saved data and place the items, mobs and tiles on the map
 
 var current_save_folder: String = ""
-var number_of_chunks_unloaded: int = 0
 signal all_chunks_unloaded
-
-# Function to save the current map state
-func save_current_level(global_pos: Vector2) -> void:
-	var dir = DirAccess.open(current_save_folder)
-	var map_folder = "map_x" + str(global_pos.x) + "_y" + str(global_pos.y)
-	var target_folder = current_save_folder+ "/" + map_folder
-	if !dir.dir_exists(map_folder):
-		if !dir.make_dir(map_folder) == OK:
-			print_debug("Failed to create a folder for the current map")
-			return
-	
-	save_map_data(target_folder)
 
 
 #Creates a new save folder. The name of this folder will be the current date and time
@@ -38,20 +25,17 @@ func create_new_save():
 		print_debug("Failed to create a unique folder for the demo.")
 
 
-func save_map_data(target_folder: String) -> void:
-	Helper.map_manager.level_generator.all_chunks_unloaded.connect(_on_chunks_unloaded.bind(target_folder))
+# We can only save the data when all chunks are unloaded.
+func save_map_data() -> void:
+	Helper.map_manager.level_generator.all_chunks_unloaded.connect(_on_chunks_unloaded)
 	Helper.map_manager.level_generator.unload_all_chunks()
 
 
 # The level_generator has unloaded all the chunks. Save the data to disk
-func _on_chunks_unloaded(_target_folder: String):
+func _on_chunks_unloaded():
 		print_debug("All chunks are unloaded")
+		# Devides the loaded_chunk_data.chunks into segments and saves them to disk
 		Helper.overmap_manager.unload_all_remaining_segments()
-		#Helper.json_helper.write_json_file(target_folder + "/map.json", \
-		#JSON.stringify(Helper.overmap_manager.loaded_chunk_data))
-		#Helper.overmap_manager.loaded_chunk_data = {"chunks": {}, "mapheight": 0, "mapwidth": 0} # Reset the data
-		print_debug("Setting chunks_unloaded to true")
-		Helper.ready_to_switch_level.chunks_unloaded = true
 		all_chunks_unloaded.emit()
 
 
@@ -115,6 +99,15 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 	if dir and dir.dir_exists(map_folder):
 		return target_folder
 	return ""
+
+
+# Save game state
+func save_game():
+	save_map_data()
+	#save_overmap_state()
+	save_player_inventory()
+	save_player_equipment()
+	save_player_state(get_tree().get_first_node_in_group("Players"))
 
 
 # Function to load game.json from a given saved game folder
@@ -242,3 +235,4 @@ func load_all_overmap_grids_from_file() -> Array:
 		var file_path = load_path + "/" + overmap
 		loaded_overmap_grids.append(Helper.json_helper.load_json_dictionary_file(file_path))
 	return loaded_overmap_grids
+

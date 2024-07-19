@@ -84,18 +84,8 @@ func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
 # We store the level map width and height
 # If the map has been previously saved, load the saved chunks into memory
 func initialize_map_data():
-	map_save_folder = Helper.save_helper.get_saved_map_folder(Helper.current_level_pos)
-	var level_name: String = Helper.current_level_name
-	var tacticalMapJSON: Dictionary = {}
-	if map_save_folder == "":
-		# In this case we need to make a new map based on it's json definition
-		tacticalMapJSON = Helper.json_helper.load_json_dictionary_file(\
-		Gamedata.data.tacticalmaps.dataPath + level_name)
-		Helper.overmap_manager.loaded_chunk_data.mapheight = tacticalMapJSON.mapheight
-		Helper.overmap_manager.loaded_chunk_data.mapwidth = tacticalMapJSON.mapwidth
-	else:
-		# In this case we load the map json from disk
-		Helper.overmap_manager.update_player_position_and_manage_segments(true)
+	# In this case we load the map json from disk
+	Helper.overmap_manager.update_player_position_and_manage_segments(true)
 
 
 # Return an array of chunks that fall inside the creation radius
