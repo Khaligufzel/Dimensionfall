@@ -29,14 +29,14 @@ signal health_item_used(usedItem: InventoryItem)
 signal item_was_equipped(heldItem: InventoryItem, equipmentSlot: Control)
 
 # When an item slot has cleared out, we forward the signal
-signal item_slot_cleared(heldItem: InventoryItem, equipmentSlot: Control)
+signal item_was_unequipped(heldItem: InventoryItem, equipmentSlot: Control)
 
 # Signalled when an item was equiped in an wearableslot
 # The item will know what slot it was
 signal wearable_was_equipped(wearableItem: InventoryItem, wearableSlot: Control)
 
 # When an item slot has cleared out, we forward the signal
-signal wearable_slot_cleared(wearableItem: InventoryItem, wearableSlot: Control)
+signal wearable_was_unequipped(wearableItem: InventoryItem, wearableSlot: Control)
 
 
 # When the player moves and the ItemDetector signals that a container
@@ -87,13 +87,3 @@ func on_inventory_visibility_changed(inventoryWindow: Control):
 # We will forward the signal to anyone that wants it
 func on_build_menu_visibility_changed(inventoryWindow: Control):
 	build_window_visibility_changed.emit(inventoryWindow)
-
-
-# When an equipmentslot has equipped an item
-func on_item_equipped(heldItem: InventoryItem, equipmentSlot: Control):
-	item_was_equipped.emit(heldItem, equipmentSlot)
-
-
-# When an equipmentslot has cleared an item
-func on_item_slot_cleared(heldItem: InventoryItem, equipmentSlot: Control):
-	item_slot_cleared.emit(heldItem, equipmentSlot)

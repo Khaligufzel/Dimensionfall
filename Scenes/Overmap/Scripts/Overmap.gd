@@ -22,8 +22,7 @@ var tile_pool: Array = []
 # We will emit this signal when the position_coords change
 # Which happens when the user has panned the overmap
 signal position_coord_changed(delta: Vector2)
-# Fires when the player has pressed the travel button
-signal change_level_pressed()
+
 
 func _ready():
 	# Centers the view when opening the ovemap. Works with default window size.
