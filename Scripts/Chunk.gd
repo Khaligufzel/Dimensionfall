@@ -654,7 +654,7 @@ func create_atlas() -> Dictionary:
 # arrays[ArrayMesh.ARRAY_INDEX] = indices
 # This represents the data that will be used to create an arraymesh, which visualizes the blocks
 # The block_uv_map is used to map the block id to the right uv coordinates on the atlas texture
-# This function will now take a 'blocks_at_same_y' array instead of using 'block_positions.keys()'.
+# This function takes a 'blocks_at_same_y' array which represents all blocks on a level.
 func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dictionary) -> void:
 	# Define a small margin to prevent seams, adjusted dynamically based on atlas size
 	var atlas_size = block_uv_map.size()
@@ -1243,9 +1243,9 @@ func setup_cube(pos: Vector3, block_data: Dictionary, verts, uvs, normals, indic
 	if pos.x != LEVEL_WIDTH - 1:
 		faces.append("right")
 	if pos.z != 0:
-		faces.append("back")
-	if pos.z != LEVEL_HEIGHT - 1:
 		faces.append("front")
+	if pos.z != LEVEL_HEIGHT - 1:
+		faces.append("back")
 
 	# Mapping directions to positions
 	var directions = {
