@@ -170,8 +170,7 @@ func data_changed(oldmap: DMap):
 	# Add references for new entities
 	for entity_type in new_entities.keys():
 		for entity_id in new_entities[entity_type]:
-			if not old_entities[entity_type].has(entity_id):
-				Gamedata.add_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
+			Gamedata.add_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
 
 	# Remove references for entities not present in new data
 	for entity_type in old_entities.keys():

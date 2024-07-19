@@ -148,6 +148,7 @@ func remove_brush_from_area_data(properties: Dictionary):
 	# Update the map areas in gridContainer
 	gridContainer.update_map_areas(gridContainer.get_map_areas())
 
+
 # Function to remove an entity from an area list by its ID
 func remove_entity_from_area(area_list: Array, entity_id: String):
 	for i in range(area_list.size()):
@@ -401,7 +402,8 @@ func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 # We now receive a modified areas list that we have to send back to the GridContainer.
 func _on_area_editor_area_selected_ok(areas_clone: Array):
 	set_area_data(areas_clone)
-	
+
+
 # Provide an array of area objects and it will be loaded into the brushcomposer
 func set_area_data(areas_clone: Array):
 	# Remember the selected area ID from the areas_option_button.

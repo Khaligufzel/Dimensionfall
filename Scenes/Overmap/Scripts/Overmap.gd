@@ -32,6 +32,7 @@ func _ready():
 	update_chunks()
 	position_coord_changed.connect(on_position_coord_changed)
 	Helper.overmap_manager.player_coord_changed.connect(on_player_coord_changed)
+	move_overmap(Vector2(-7, -5)) # Center the map, at least for small resolution
 
 
 # This function updates the chunks.

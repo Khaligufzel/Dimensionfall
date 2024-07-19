@@ -1040,7 +1040,8 @@
 					"urbanroad_corner",
 					"generichouse_corner",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"forest_basic_00"
 				]
 			}
 		},
@@ -1063,7 +1064,8 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_t"
+					"generichouse_t",
+					"forest_basic_00"
 				]
 			}
 		},
@@ -1087,7 +1089,8 @@
 					"urbanroad_corner",
 					"generichouse_corner",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"forest_basic_00"
 				]
 			}
 		},
@@ -1362,6 +1365,13 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_03",
 		"name": "Forest underbrush",
+		"references": {
+			"core": {
+				"maps": [
+					"forest_basic_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale3.png"
 	},
@@ -1372,6 +1382,13 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_04",
 		"name": "Forest underbrush",
+		"references": {
+			"core": {
+				"maps": [
+					"forest_basic_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale4.png"
 	},
@@ -1382,6 +1399,13 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_05",
 		"name": "Forest underbrush",
+		"references": {
+			"core": {
+				"maps": [
+					"forest_basic_00"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale5.png"
 	},
@@ -1448,7 +1472,8 @@
 			"core": {
 				"maps": [
 					"field_grass_hill_00",
-					"generichouse_corner"
+					"generichouse_corner",
+					"forest_basic_00"
 				]
 			}
 		},
@@ -1465,7 +1490,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"forest_basic_00"
 				]
 			}
 		},

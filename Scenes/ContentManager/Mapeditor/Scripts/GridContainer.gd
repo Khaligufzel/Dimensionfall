@@ -79,6 +79,7 @@ func create_tiles():
 	create_level_tiles(levelgrid_below, false)
 	create_level_tiles(levelgrid_above, false)
 
+
 # Helper function to create tiles for a specific level grid
 func create_level_tiles(grid: GridContainer, connect_signals: bool):
 	for x in range(mapEditor.mapWidth):
@@ -88,6 +89,7 @@ func create_level_tiles(grid: GridContainer, connect_signals: bool):
 			if connect_signals:
 				tile_instance.tile_clicked.connect(grid_tile_clicked)
 			tile_instance.set_clickable(connect_signals)
+
 
 # When the user presses and holds the middle mouse button and moves the mouse,
 # change the parent's scroll_horizontal and scroll_vertical properties appropriately
@@ -563,6 +565,7 @@ func save_map_json_file():
 	storeLevelData()
 	mapEditor.update_settings_values()
 	mapEditor.currentMap.save_data_to_disk()
+	mapEditor.currentMap.data_changed(oldmap)
 	oldmap = DMap.new(mapEditor.currentMap.id,"")
 	oldmap.set_data(mapEditor.currentMap.get_data().duplicate(true))
 
@@ -963,10 +966,12 @@ func set_brush_preview_texture(image: Texture) -> void:
 		brushPreviewTexture.visible = false
 		brushPreviewTexture.size = Vector2(128, 128)
 
+
 # The user has added a brush to the brush composer
 func _on_composer_brush_added(composerbrush: Control):
 	selected_brush = composerbrush
 	update_preview_texture()
+
 
 # The user has removed a brush from the brush composer
 func _on_composer_brush_removed(_composerbrush: Control):

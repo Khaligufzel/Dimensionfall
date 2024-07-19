@@ -86,13 +86,12 @@ func _on_quest_failed(quest: Dictionary):
 
 # Function to handle step completion
 func _on_step_complete(_step: Dictionary):
-	# To be developed later
-	pass
+	_update_quest_details()
+
 
 # Function to handle next step
 func _on_next_step(_step: Dictionary):
-	# To be developed later
-	pass
+	_update_quest_details()
 
 
 # Function to handle step update
@@ -231,37 +230,57 @@ func update_rewards_details(quest: Dictionary):
 		quest_rewards.add_child(no_rewards_label)
 
 
-# Updates the UI text based on the properties of the step
+# Main function to update the UI text based on the properties of the step
 func create_incremental_step_UI_text(step: Dictionary) -> String:
 	var step_details_text = ""
 	
 	# Get the step type from the metadata, defaulting to "missing type" if not found
 	var step_type = step.meta_data.get("type", "missing type")
 	
-	if step_type == "collect":
-		# Retrieve item data using the item name (ID) from the step
-		var itemdata = Gamedata.get_data_by_id(Gamedata.data.items, step.item_name)
-		# Extract the item name from the item data, defaulting to "missing item name" if not found
-		var item_name = itemdata.get("name", "missing item name")
-		# Construct the step details text with the required and collected item counts
-		step_details_text += "Collect " + str(step.required) + " "
-		step_details_text += item_name + " (Collected: " 
-		step_details_text += str(step.collected) + ")"
-	elif step_type == "kill":
-		# Retrieve mob data using the item name (ID) from the step
-		var mobdata = Gamedata.get_data_by_id(Gamedata.data.mobs, step.item_name)
-		# Extract the mob name from the mob data, defaulting to "missing mob name" if not found
-		var mob_name = mobdata.get("name", "missing mob name")
-		# Construct the step details text with the required and killed mob counts
-		step_details_text += "Kill " + str(step.required) + " "
-		step_details_text += mob_name + " (Killed: " 
-		step_details_text += str(step.collected) + ")"
-	else:
-		# Handle unsupported step types
-		step_details_text += "Unsupported step type: " + step_type
+	# Call the appropriate function based on the step type
+	match step_type:
+		"collect":
+			step_details_text = _handle_collect_step(step)
+		"kill":
+			step_details_text = _handle_kill_step(step)
+		_:
+			step_details_text = _handle_unsupported_step(step_type)
 	
 	# Return the constructed step details text
 	return step_details_text
+
+
+# Function to handle the "collect" step type
+func _handle_collect_step(step: Dictionary) -> String:
+	var step_details_text = ""
+	# Retrieve item data using the item name (ID) from the step
+	var itemdata = Gamedata.get_data_by_id(Gamedata.data.items, step.item_name)
+	# Extract the item name from the item data, defaulting to "missing item name" if not found
+	var item_name = itemdata.get("name", "missing item name")
+	# Construct the step details text with the required and collected item counts
+	step_details_text += "Collect " + str(step.required) + " "
+	step_details_text += item_name + " (Collected: " 
+	step_details_text += str(step.collected) + ")"
+	return step_details_text
+
+
+# Function to handle the "kill" step type
+func _handle_kill_step(step: Dictionary) -> String:
+	var step_details_text = ""
+	# Retrieve mob data using the item name (ID) from the step
+	var mobdata = Gamedata.get_data_by_id(Gamedata.data.mobs, step.item_name)
+	# Extract the mob name from the mob data, defaulting to "missing mob name" if not found
+	var mob_name = mobdata.get("name", "missing mob name")
+	# Construct the step details text with the required and killed mob counts
+	step_details_text += "Kill " + str(step.required) + " "
+	step_details_text += mob_name + " (Killed: " 
+	step_details_text += str(step.collected) + ")"
+	return step_details_text
+
+
+# Function to handle unsupported step types
+func _handle_unsupported_step(step_type: String) -> String:
+	return "Unsupported step type: " + step_type
 
 
 # The player abandons the quest, so we move it to the failed list
