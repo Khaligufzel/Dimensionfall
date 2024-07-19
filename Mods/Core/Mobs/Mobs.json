@@ -1,14 +1,14 @@
 [
 	{
 		"description": "A small robot",
-		"health": "80",
-		"hearing_range": "1000",
+		"health": 80,
+		"hearing_range": 1000,
 		"id": "scrapwalker",
-		"idle_move_speed": "0.5",
+		"idle_move_speed": 0.5,
 		"loot_group": "mob_loot",
-		"melee_damage": "20",
-		"melee_range": "1.5",
-		"move_speed": "1.1",
+		"melee_damage": 20,
+		"melee_range": 1.5,
+		"move_speed": 2.1,
 		"name": "Scrap walker",
 		"references": {
 			"core": {
@@ -22,19 +22,20 @@
 				]
 			}
 		},
-		"sense_range": "50",
-		"sight_range": "200",
+		"sense_range": 50,
+		"sight_range": 200,
 		"sprite": "scrapwalker64.png"
 	},
 	{
 		"description": "A slightly more advanced robot but still considered a weaker enemy in the robot faction. The Rust Sentinel stands tall and imposing, with a sturdy build. Its design incorporates rusted and recycled metal parts, giving it a rugged, battle-worn appearance.\n\nThe Rust Sentinel features a broad, slightly dome-shaped head with glowing red eyes that serve as visual sensors. Its torso is bulkier, reinforced with scrap metal plates, and it has two powerful arms ending in claws. The legs are designed for stability and power rather than speed. Its color scheme is a mix of rusted orange, steel gray, and hints of worn-out blue paint, suggesting it was once part of a larger machinery or vehicle.\n\nThe Rust Sentinel moves with deliberate, heavy steps, making it slower but more resilient. It's equipped with basic tools and weaponry, which it uses to scavenges and patrol.",
-		"health": "120",
-		"hearing_range": "1000",
+		"health": 120,
+		"hearing_range": 1000,
 		"id": "rust_sentinel",
-		"idle_move_speed": "0.4",
-		"melee_damage": "20",
-		"melee_range": "1.5",
-		"move_speed": "0.8",
+		"idle_move_speed": 0.4,
+		"loot_group": "mob_loot",
+		"melee_damage": 20,
+		"melee_range": 1.5,
+		"move_speed": 1.8,
 		"name": "Rust sentinel",
 		"references": {
 			"core": {
@@ -47,8 +48,8 @@
 				]
 			}
 		},
-		"sense_range": "50",
-		"sight_range": "200",
+		"sense_range": 50,
+		"sight_range": 200,
 		"sprite": "rust_sentinel_72.png"
 	}
 ]

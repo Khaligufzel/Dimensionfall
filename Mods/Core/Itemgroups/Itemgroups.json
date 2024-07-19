@@ -97,6 +97,13 @@
 		],
 		"mode": "Collection",
 		"name": "Mob loot",
+		"references": {
+			"core": {
+				"mobs": [
+					"rust_sentinel"
+				]
+			}
+		},
 		"sprite": "machete_32.png"
 	},
 	{
