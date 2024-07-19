@@ -2245,6 +2245,9 @@
 			"core": {
 				"itemgroups": [
 					"generic_forest_finds"
+				],
+				"quests": [
+					"starter_tutorial_00"
 				]
 			}
 		},
@@ -2481,6 +2484,9 @@
 				],
 				"items": [
 					"stone_spear"
+				],
+				"quests": [
+					"starter_tutorial_00"
 				]
 			}
 		},
@@ -2503,6 +2509,9 @@
 				],
 				"items": [
 					"stone_spear"
+				],
+				"quests": [
+					"starter_tutorial_00"
 				]
 			}
 		},
@@ -2549,6 +2558,13 @@
 		"image": "./Mods/Core/Items/spear_stone_32.png",
 		"max_stack_size": 1,
 		"name": "Stone Spear",
+		"references": {
+			"core": {
+				"quests": [
+					"starter_tutorial_00"
+				]
+			}
+		},
 		"sprite": "spear_stone_32.png",
 		"stack_size": 1,
 		"two_handed": true,

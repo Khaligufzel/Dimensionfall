@@ -30,5 +30,33 @@
 				"type": "kill"
 			}
 		]
+	},
+	{
+		"description": "This will teach you the basics of survival. You will complete some goals that will prepare you to survive on your own.\n\nYou will perform this task step by step. The current step will tell you what to do next.",
+		"id": "starter_tutorial_00",
+		"name": "Beginnings",
+		"rewards": [
+			{
+				"amount": 10,
+				"item_id": "berries_wild"
+			}
+		],
+		"sprite": "spear_stone_32.png",
+		"steps": [
+			{
+				"amount": 1,
+				"item": "long_stick",
+				"type": "collect"
+			},
+			{
+				"amount": 1,
+				"item": "sharp_stone",
+				"type": "collect"
+			},
+			{
+				"item": "stone_spear",
+				"type": "craft"
+			}
+		]
 	}
 ]

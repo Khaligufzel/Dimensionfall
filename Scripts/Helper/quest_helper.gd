@@ -20,6 +20,7 @@ func connect_signals() -> void:
 	
 	# Connect to the mob killed signal
 	Helper.signal_broker.mob_killed.connect(_on_mob_killed)
+	ItemManager.craft_successful.connect(_on_craft_successful)
 	
 	# Connect to the QuestManager signals
 	QuestManager.quest_completed.connect(_on_quest_complete)
@@ -137,6 +138,11 @@ func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 			# Add an incremental step
 			quest.add_incremental_step("Kill mob", step.mob, step.amount, {"type": "kill"})
 			return true
+		"craft":
+			# Add an incremental step
+			var itemdata = Gamedata.get_data_by_id(Gamedata.data.items, step.item)
+			quest.add_action_step("Craft a " + itemdata.name, {"type": "craft", "item": step.item})
+			return true
 	return false
 
 
@@ -207,3 +213,23 @@ func _on_mob_killed(mobinstance: Mob):
 	# Update each of the current quests with the collected item information
 	for quest in quests_in_progress.values():
 		update_quest_step(quest.quest_name, mob_id, 1, true)
+
+
+# The player has succesfully crafted an item.
+func _on_craft_successful(item: Dictionary, _recipe: Dictionary):
+	# Get the current quests in progress
+	var quests_in_progress = QuestManager.get_quests_in_progress()
+	# Update each of the current quests with the collected item information
+	for quest in quests_in_progress.values():
+		var step = QuestManager.get_current_step(quest.quest_name)
+		if step.step_type == QuestManager.ACTION_STEP:
+			var stepmeta: String = step.meta_data.get("type", "missing type")
+			if stepmeta == "craft":
+				# This quest's current step is a craft step
+				var itemid: String = step.meta_data.get("item", "missing id")
+				if itemid == item.id:
+					# The item that was crafted has the same id as the item in this step
+					QuestManager.progress_quest(quest.quest_name)
+				
+			
+
