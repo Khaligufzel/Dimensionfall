@@ -14,7 +14,11 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -35,7 +39,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse_00"
+					"Generichouse_00",
+					"generichouse_corner",
+					"generichouse_cross",
+					"generichouse_t",
+					"store_electronic_clothing"
 				]
 			}
 		},
