@@ -219,14 +219,13 @@ func add_furnitures_to_new_block():
 		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
 			Gamedata.data.furniture, furnituremapjson.id)
 		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
-			newFurniture = FurniturePhysics.new()
+			newFurniture = FurniturePhysics.new(mypos+furniturepos, furnituremapjson)
 			newFurniture.current_chunk = self
 			furniturepos.y += 0.2 # Make sure it's not in a block and let it fall
 		else:
-			newFurniture = FurnitureStatic.new()
+			newFurniture = FurnitureStatic.new(mypos+furniturepos, furnituremapjson)
 		
 		add_furniture_to_chunk(newFurniture)
-		newFurniture.construct_self(mypos+furniturepos, furnituremapjson)
 		level_manager.add_child.call_deferred(newFurniture)
 		
 		# Insert delay after every n blocks, evenly spreading the delay
@@ -323,18 +322,17 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 		Gamedata.data.furniture, furnitureData.id)
 		mutex.unlock()
 
-		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
-			newFurniture = FurniturePhysics.new()
-			newFurniture.current_chunk = self
-		else:
-			newFurniture = FurnitureStatic.new()
-
-		add_furniture_to_chunk(newFurniture)
-		
 		# We can't set it's position until after it's in the scene tree 
 		# so we only save the position to a variable and pass it to the furniture
 		var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
-		newFurniture.construct_self(furniturepos,furnitureData)
+		
+		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
+			newFurniture = FurniturePhysics.new(furniturepos,furnitureData)
+			newFurniture.current_chunk = self
+		else:
+			newFurniture = FurnitureStatic.new(furniturepos,furnitureData)
+
+		add_furniture_to_chunk(newFurniture)
 		level_manager.add_child.call_deferred(newFurniture)
 		
 		# Insert delay after every n furniture, evenly spreading the delay

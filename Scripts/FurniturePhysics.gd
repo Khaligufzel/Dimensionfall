@@ -18,6 +18,42 @@ var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
 var current_health: float = 10.0
 
 
+# Function to make it's own shape and texture based on an id and position
+# This function is called by a Chunk to construct it's blocks
+func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
+	furnitureJSON = newFurnitureJSON
+	furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
+	# Position furniture at the center of the block by default
+	furnitureposition = furniturepos
+	# Only previously saved furniture will have the global_position_x key. They do not need to be raised
+	if not newFurnitureJSON.has("global_position_x"):
+		furnitureposition.y += 0.5 # Move the furniture to slightly above the block 
+	add_to_group("furniture")
+
+	var furnitureSprite: Texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture,furnitureJSON.id)
+	set_sprite(furnitureSprite)
+	
+	furniturerotation = furnitureJSON.get("rotation", 0)
+	mass = furnitureJSONData.get("weight", 1)
+	# Set the properties we need
+	#linear_damp = 59
+	angular_damp = 59
+	axis_lock_angular_x = true
+	axis_lock_angular_z = true
+	# Set collision layer to layer 4 (moveable obstacles layer)
+	collision_layer = 1 << 3  # Layer 4 is 1 << 3
+
+	# Set collision mask to include layers 1, 2, 3, 4, 5, and 6
+	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5)
+	# Explanation:
+	# - 1 << 0: Layer 1 (player layer)
+	# - 1 << 1: Layer 2 (enemy layer)
+	# - 1 << 2: Layer 3 (movable obstacles layer)
+	# - 1 << 3: Layer 4 (static obstacles layer)
+	# - 1 << 4: Layer 5 (friendly projectiles layer)
+	# - 1 << 5: Layer 6 (enemy projectiles layer)
+
+
 func _ready() -> void:
 	set_position(furnitureposition)
 	set_new_rotation(furniturerotation)
@@ -100,41 +136,6 @@ func get_my_rotation() -> int:
 	else:
 		return rot-0
 
-
-# Function to make it's own shape and texture based on an id and position
-# This function is called by a Chunk to construct it's blocks
-func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
-	furnitureJSON = newFurnitureJSON
-	furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
-	# Position furniture at the center of the block by default
-	furnitureposition = furniturepos
-	# Only previously saved furniture will have the global_position_x key. They do not need to be raised
-	if not newFurnitureJSON.has("global_position_x"):
-		furnitureposition.y += 0.5 # Move the furniture to slightly above the block 
-	add_to_group("furniture")
-
-	var furnitureSprite: Texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture,furnitureJSON.id)
-	set_sprite(furnitureSprite)
-	
-	furniturerotation = furnitureJSON.get("rotation", 0)
-	mass = furnitureJSONData.get("weight", 1)
-	# Set the properties we need
-	#linear_damp = 59
-	angular_damp = 59
-	axis_lock_angular_x = true
-	axis_lock_angular_z = true
-	# Set collision layer to layer 4 (moveable obstacles layer)
-	collision_layer = 1 << 3  # Layer 4 is 1 << 3
-
-	# Set collision mask to include layers 1, 2, 3, 4, 5, and 6
-	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5)
-	# Explanation:
-	# - 1 << 0: Layer 1 (player layer)
-	# - 1 << 1: Layer 2 (enemy layer)
-	# - 1 << 2: Layer 3 (movable obstacles layer)
-	# - 1 << 3: Layer 4 (static obstacles layer)
-	# - 1 << 4: Layer 5 (friendly projectiles layer)
-	# - 1 << 5: Layer 6 (enemy projectiles layer)
 
 
 # Check if we crossed the chunk boundary and update our association with the chunks

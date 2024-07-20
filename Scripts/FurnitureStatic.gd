@@ -25,6 +25,51 @@ var is_animating_hit: bool = false # flag to prevent multiple blink actions
 var original_position: Vector3 # To return to original position after blinking
 
 
+# Function to make it's own shape and texture based on an id and position
+# This function is called by a Chunk to construct it's blocks
+func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
+	furnitureJSON = newFurnitureJSON
+	# Position furniture at the center of the block by default
+	furnitureposition = furniturepos
+	# Previously saved furniture do not need to be raised
+	if is_new_furniture():
+		furnitureposition.y += 0.025 # Move the furniture to slightly above the block 
+	add_to_group("furniture")
+
+	# Find out if we need to apply edge snapping
+	furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
+	var edgeSnappingDirection = furnitureJSONData.get("edgesnapping", "None")
+
+	var furnitureSprite: Texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture,furnitureJSON.id)
+	set_sprite(furnitureSprite)
+	
+	# Calculate the size of the furniture based on the sprite dimensions
+	var spriteWidth = furnitureSprite.get_width() / 100.0 # Convert pixels to meters (assuming 100 pixels per meter)
+	var spriteDepth = furnitureSprite.get_height() / 100.0 # Convert pixels to meters
+	
+	var newRot = furnitureJSON.get("rotation", 0)
+
+	# Apply edge snapping if necessary. Previously saved furniture have the global_position_x. 
+	# They do not need to apply edge snapping again
+	if edgeSnappingDirection != "None" and not newFurnitureJSON.has("global_position_x"):
+		furnitureposition = apply_edge_snapping(furnitureposition, edgeSnappingDirection, \
+		spriteWidth, spriteDepth, newRot, furniturepos)
+
+	furniturerotation = newRot
+	# Set collision layer to layer 3 (static obstacles layer)
+	collision_layer = 1 << 2  # Layer 3 is 1 << 2
+
+	# Set collision mask to include layers 1, 2, 3, 4, 5, and 6
+	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5)
+	# Explanation:
+	# - 1 << 0: Layer 1 (player layer)
+	# - 1 << 1: Layer 2 (enemy layer)
+	# - 1 << 2: Layer 3 (movable obstacles layer)
+	# - 1 << 3: Layer 4 (static obstacles layer)
+	# - 1 << 4: Layer 5 (friendly projectiles layer)
+	# - 1 << 5: Layer 6 (enemy projectiles layer)
+
+
 func _ready():
 	position = furnitureposition
 	set_new_rotation(furniturerotation)
@@ -207,51 +252,6 @@ func set_new_rotation(amount: int):
 
 func get_my_rotation() -> int:
 	return furniturerotation
-
-
-# Function to make it's own shape and texture based on an id and position
-# This function is called by a Chunk to construct it's blocks
-func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
-	furnitureJSON = newFurnitureJSON
-	# Position furniture at the center of the block by default
-	furnitureposition = furniturepos
-	# Previously saved furniture do not need to be raised
-	if is_new_furniture():
-		furnitureposition.y += 0.025 # Move the furniture to slightly above the block 
-	add_to_group("furniture")
-
-	# Find out if we need to apply edge snapping
-	furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
-	var edgeSnappingDirection = furnitureJSONData.get("edgesnapping", "None")
-
-	var furnitureSprite: Texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture,furnitureJSON.id)
-	set_sprite(furnitureSprite)
-	
-	# Calculate the size of the furniture based on the sprite dimensions
-	var spriteWidth = furnitureSprite.get_width() / 100.0 # Convert pixels to meters (assuming 100 pixels per meter)
-	var spriteDepth = furnitureSprite.get_height() / 100.0 # Convert pixels to meters
-	
-	var newRot = furnitureJSON.get("rotation", 0)
-
-	# Apply edge snapping if necessary. Previously saved furniture have the global_position_x. 
-	# They do not need to apply edge snapping again
-	if edgeSnappingDirection != "None" and not newFurnitureJSON.has("global_position_x"):
-		furnitureposition = apply_edge_snapping(furnitureposition, edgeSnappingDirection, \
-		spriteWidth, spriteDepth, newRot, furniturepos)
-
-	furniturerotation = newRot
-	# Set collision layer to layer 3 (static obstacles layer)
-	collision_layer = 1 << 2  # Layer 3 is 1 << 2
-
-	# Set collision mask to include layers 1, 2, 3, 4, 5, and 6
-	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5)
-	# Explanation:
-	# - 1 << 0: Layer 1 (player layer)
-	# - 1 << 1: Layer 2 (enemy layer)
-	# - 1 << 2: Layer 3 (movable obstacles layer)
-	# - 1 << 3: Layer 4 (static obstacles layer)
-	# - 1 << 4: Layer 5 (friendly projectiles layer)
-	# - 1 << 5: Layer 6 (enemy projectiles layer)
 
 
 # If edge snapping has been set in the furniture editor, we will apply it here.
