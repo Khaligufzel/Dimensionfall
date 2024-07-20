@@ -28,7 +28,7 @@ func get_maps() -> Dictionary:
 
 func duplicate_map_to_disk(mapid: String, newmapid: String) -> void:
 	var newmap: DMap = DMap.new(newmapid, dataPath)
-	newmap.set_data(mapdict[mapid].get_data().duplicate())
+	newmap.set_data(mapdict[mapid].get_data().duplicate(true))
 	newmap.save_data_to_disk()
 	mapdict[newmapid] = newmap
 

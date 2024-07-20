@@ -194,7 +194,6 @@ func remove_item_from_data(contentData: Dictionary, id: String):
 		remove_references_of_deleted_id(contentData, id)
 		contentData.data.erase(id)
 		var json_file_path = contentData.dataPath + id + ".json"
-		var png_file_path = id + ".png"
 		Helper.json_helper.delete_json_file(json_file_path)
 	else:
 		print_debug("Tried to remove item from data, but the data's datapath ends with \
@@ -985,3 +984,45 @@ func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
 	if changes_made:
 		save_data_to_file(data.items)
 		save_data_to_file(data.mobs)
+
+
+
+
+# Removes the provided reference from references
+# For example, remove "town_00" from references.Core.tacticalmaps
+# module: the mod that the entity belongs to, for example "Core"
+# type: The type of entity, for example "tacticlmaps"
+# refid: The id of the entity, for example "town_00"
+# TODO: Have this function replace add_reference when all entities have been transformed into
+# their own class. Until then, a d is added to the front to indicate it's used in data classes
+func dremove_reference(references: Dictionary, module: String, type: String, refid: String) -> bool:
+	var changes_made = false
+	var refs = references[module][type]
+	if refid in refs:
+		refs.erase(refid)
+		changes_made = true
+		# Clean up if necessary
+		if refs.size() == 0:
+			references[module].erase(type)
+		if references[module].is_empty():
+			references.erase(module)
+	return changes_made
+
+
+# Adds a reference to the references list
+# For example, add "town_00" to references.Core.tacticalmaps
+# module: the mod that the entity belongs to, for example "Core"
+# type: The type of entity, for example "tacticlmaps"
+# refid: The id of the entity, for example "town_00"
+# TODO: Have this function replace add_reference when all entities have been transformed into
+# their own class. Until then, a d is added to the front to indicate it's used in data classes
+func dadd_reference(references: Dictionary, module: String, type: String, refid: String) -> bool:
+	var changes_made: bool = false
+	if not references.has(module):
+		references[module] = {}
+	if not references[module].has(type):
+		references[module][type] = []
+	if refid not in references[module][type]:
+		references[module][type].append(refid)
+		changes_made = true
+	return changes_made

@@ -340,16 +340,7 @@ func erase_entity_from_areas(entity_type: String, entity_id: String) -> void:
 # type: The type of entity, for example "tacticlmaps"
 # refid: The id of the entity, for example "town_00"
 func remove_reference(module: String, type: String, refid: String):
-	var changes_made = false
-	var refs = references[module][type]
-	if refid in refs:
-		refs.erase(refid)
-		changes_made = true
-		# Clean up if necessary
-		if refs.size() == 0:
-			references[module].erase(type)
-		if references[module].is_empty():
-			references.erase(module)
+	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
 	if changes_made:
 		save_data_to_disk()
 
@@ -360,17 +351,9 @@ func remove_reference(module: String, type: String, refid: String):
 # type: The type of entity, for example "tacticlmaps"
 # refid: The id of the entity, for example "town_00"
 func add_reference(module: String, type: String, refid: String):
-	var changes_made: bool = false
-	if not references.has(module):
-		references[module] = {}
-	if not references[module].has(type):
-		references[module][type] = []
-	if refid not in references[module][type]:
-		references[module][type].append(refid)
-		changes_made = true
+	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
 	if changes_made:
 		save_data_to_disk()
-
 
 
 # Function to remove a area from mapData.areas by its id
