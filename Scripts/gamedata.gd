@@ -6,13 +6,13 @@ var data: Dictionary = {}
 const itemgroup_references_Class = preload("res://Scripts/Gamedata/itemgroup_references.gd")
 var itemgroup_references: Node = null
 var maps: DMaps
+var furnitures: DFurnitures
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
 	"tiles": {"dataPath": "./Mods/Core/Tiles/Tiles.json", "spritePath": "./Mods/Core/Tiles/"},
 	"mobs": {"dataPath": "./Mods/Core/Mobs/Mobs.json", "spritePath": "./Mods/Core/Mobs/"},
 	"items": {"dataPath": "./Mods/Core/Items/Items.json", "spritePath": "./Mods/Core/Items/"},
-	"furniture": {"dataPath": "./Mods/Core/Furniture/Furniture.json", "spritePath": "./Mods/Core/Furniture/"},
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
 	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"},
@@ -37,6 +37,7 @@ func _ready():
 	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(data.tacticalmaps.dataPath, ["json"])
 	itemgroup_references = itemgroup_references_Class.new()
 	maps = DMaps.new()
+	furnitures = DFurnitures.new()
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES
 func initialize_data_structures():
@@ -263,8 +264,6 @@ func on_data_changed(contentData: Dictionary, newEntityData: Dictionary, oldEnti
 		itemgroup_references.on_itemgroup_changed(newEntityData, oldEntityData)
 	if contentData == data.mobs:
 		on_mob_changed(newEntityData, oldEntityData)
-	if contentData == data.furniture:
-		on_furniture_changed(newEntityData, oldEntityData)
 	if contentData == data.items:
 		on_item_changed(newEntityData, oldEntityData)
 	if contentData == data.quests:
@@ -401,8 +400,6 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		itemgroup_references.on_itemgroup_deleted(id)
 	if contentData == data.items:
 		on_item_deleted(id)
-	if contentData == data.furniture:
-		on_furniture_deleted(id)
 	if contentData == data.tacticalmaps:
 		on_tacticalmap_deleted(id)
 	if contentData == data.mobs:
@@ -490,30 +487,6 @@ func on_mob_changed(newdata: Dictionary, olddata: Dictionary):
 		if new_loot_group != "" and new_loot_group != old_loot_group:
 			save_data_to_file(data.itemgroups)
 
-# Handles furniture changes and updates references if necessary
-func on_furniture_changed(newdata: Dictionary, olddata: Dictionary):
-	var old_container_group = olddata.get("Function", {}).get("container", {}).get("itemgroup", "")
-	var new_container_group = newdata.get("Function", {}).get("container", {}).get("itemgroup", "")
-	var old_destruction_group = olddata.get("destruction", {}).get("group", "")
-	var new_destruction_group = newdata.get("destruction", {}).get("group", "")
-	var old_disassembly_group = olddata.get("disassembly", {}).get("group", "")
-	var new_disassembly_group = newdata.get("disassembly", {}).get("group", "")
-	var furniture_id: String = newdata.get("id", "")
-	var changes_made = false
-
-	# Handle container itemgroup changes
-	changes_made = update_reference(old_container_group, new_container_group, furniture_id, "furniture") or changes_made
-
-	# Handle destruction group changes
-	changes_made = update_reference(old_destruction_group, new_destruction_group, furniture_id, "furniture") or changes_made
-
-	# Handle disassembly group changes
-	changes_made = update_reference(old_disassembly_group, new_disassembly_group, furniture_id, "furniture") or changes_made
-
-	# If any references were updated, save the changes to the data file
-	if changes_made:
-		print_debug("Furniture reference updates saved successfully.")
-		save_data_to_file(data.itemgroups)
 
 # Helper function to update references if they have changed.
 # old: an entity id that is present in the old data
@@ -535,33 +508,6 @@ func update_reference(old: String, new: String, entity_id: String, type: String)
 	if new != "":
 		changes_made = add_reference(data.itemgroups, "core", type, new, entity_id) or changes_made
 	return changes_made
-
-
-# Some furniture is being deleted from the data
-# We have to remove it from everything that references it
-func on_furniture_deleted(furniture_id: String):
-	var changes_made = false
-	var furniture_data = get_data_by_id(data.furniture, furniture_id)
-	if furniture_data.is_empty():
-		print_debug("Item with ID", furniture_data, "not found.")
-		return
-	var itemgroup = get_property_by_path(data.furniture, "Function.container.itemgroup", furniture_id)
-	if itemgroup:
-		changes_made = remove_reference(data.itemgroups, "core", "furniture", itemgroup, furniture_id) or changes_made
-	var destruction_group: String = ""
-	if furniture_data.has("destruction") and furniture_data["destruction"].has("group"):
-		destruction_group = furniture_data["destruction"]["group"]
-	changes_made = remove_reference(data.itemgroups, "core", "furniture", destruction_group, furniture_id) or changes_made
-	var disassembly_group: String = ""
-	if furniture_data.has("disassembly") and furniture_data["disassembly"].has("group"):
-		disassembly_group = furniture_data["disassembly"]["group"]
-	changes_made = remove_reference(data.itemgroups, "core", "furniture", disassembly_group, furniture_id) or changes_made
-	var mapsdata = Helper.json_helper.get_nested_data(furniture_data, "references.core.maps")
-	maps.remove_entity_from_selected_maps("furniture", furniture_id, mapsdata)
-	if changes_made:
-		save_data_to_file(data.itemgroups)
-	else:
-		print_debug("No changes needed for item", furniture_id)
 
 
 # Some mob is being deleted from the data
@@ -1025,4 +971,28 @@ func dadd_reference(references: Dictionary, module: String, type: String, refid:
 	if refid not in references[module][type]:
 		references[module][type].append(refid)
 		changes_made = true
+	return changes_made
+
+
+# Helper function to update references if they have changed.
+# old: an entity id that is present in the old data
+# new: an entity id that is present in the new data
+# entity_id: The entity that's referenced in old and/or new
+# type: The type of entity that will be referenced
+# Example usage: update_reference(old_itemgroup, new_itemgroup, furniture_id, "furniture")
+# This example will remove furniture_id from the old_itemgroup's references and
+# add the furniture_id to the new_itemgroup's refrences
+# TODO: Have this function replace update_reference when all entities have been transformed into
+# their own class. Until then, a d is added to the front to indicate it's used in data classes
+func dupdate_reference(ref: Dictionary, old: String, new: String, type: String) -> bool:
+	if old == new:
+		return false  # No change detected, exit early
+
+	var changes_made = false
+
+	# Remove from old group if necessary
+	if old != "":
+		changes_made = dremove_reference(ref, "core", type, old) or changes_made
+	if new != "":
+		changes_made = dadd_reference(ref, "core", type, new) or changes_made
 	return changes_made

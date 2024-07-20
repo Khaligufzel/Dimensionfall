@@ -83,7 +83,7 @@ func get_data() -> Dictionary:
 
 func load_data_from_disk():
 	set_data(Helper.json_helper.load_json_dictionary_file(get_file_path()))
-	sprite = load(get_file_path().replace(".json", ".png")) 
+	sprite = load(get_sprite_path()) 
 
 
 func save_data_to_disk() -> void:

@@ -7,7 +7,9 @@ extends RefCounted
 
 
 var dataPath: String = "./Mods/Core/Furniture/Furniture.json"
+var spritePath: String = "./Mods/Core/Furniture/"
 var furnituredict: Dictionary = {}
+var sprites: Dictionary = {}
 
 
 func _init():
@@ -22,6 +24,27 @@ func load_furnitures_from_disk() -> void:
 		furnituredict[furniture.id] = furniture
 
 
+# Loads sprites and assigns them to the proper dictionary
+func load_sprites() -> void:
+	var png_files: Array = Helper.json_helper.file_names_in_dir(spritePath, ["png"])
+	for png_file in png_files:
+		# Load the .png file as a texture
+		var texture := load(spritePath + png_file) 
+		# Add the material to the dictionary
+		sprites[png_file] = texture
+
+
+func on_data_changed():
+	save_furnitures_to_disk()
+
+# Saves all furnitures to disk
+func save_furnitures_to_disk() -> void:
+	var save_data: Array = []
+	for furniture in furnituredict:
+		save_data.append(furniture.get_data())
+	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+
+
 func get_furnitures() -> Dictionary:
 	return furnituredict
 
@@ -31,27 +54,34 @@ func duplicate_furniture_to_disk(furnitureid: String, newfurnitureid: String) ->
 	furnituredata.id = newfurnitureid
 	var newfurniture: DFurniture = DFurniture.new(furnituredata)
 	furnituredict[newfurnitureid] = newfurniture
-	save_data_to_disk()
+	save_furnitures_to_disk()
 
 
-func add_new_furniture(newdata: Dictionary) -> void:
-	var newfurniture: DFurniture = DFurniture.new(newdata)
+func add_new_furniture(newid: String) -> void:
+	var newfurniture: DFurniture = DFurniture.new({"id":newid})
 	furnituredict[newfurniture.id] = newfurniture
-	save_data_to_disk()
+	save_furnitures_to_disk()
 
-
-func save_data_to_disk():
-	var furniture_data_json = JSON.stringify(furnituredict, "\t")
-	Helper.json_helper.write_json_file(dataPath, furniture_data_json)
-	
 
 func delete_furniture(furnitureid: String) -> void:
 	furnituredict[furnitureid].delete()
 	furnituredict.erase(furnitureid)
+	save_furnitures_to_disk()
 
 
 func by_id(furnitureid: String) -> DFurniture:
 	return furnituredict[furnitureid]
+
+
+# Returns the sprite of the furniture
+# furnitureid: The id of the furniture to return the sprite of
+func sprite_by_id(furnitureid: String) -> Texture:
+	return sprites[furnituredict[furnitureid].sprite]
+
+# Returns the sprite of the furniture
+# furnitureid: The id of the furniture to return the sprite of
+func sprite_by_file(spritefile: String) -> Texture:
+	return sprites[spritefile]
 
 
 # Removes the reference from the selected furniture

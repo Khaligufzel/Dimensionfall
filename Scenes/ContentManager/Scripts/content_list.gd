@@ -40,9 +40,14 @@ func load_data():
 	if contentData.is_empty():
 		return
 	contentItems.clear()
-	# Hacky exception for maps, need to find a better solution
+	# HACK Hacky exception for maps, need to find a better solution
 	if contentData == {"maps": true}:
 		load_map_list()
+		load_collapse_state()
+		return
+	# HACK Hacky exception for furniture, need to find a better solution
+	if contentData == {"furnitures": true}:
+		load_furnitures_list()
 		load_collapse_state()
 		return
 	if not contentData.has("data"):
@@ -137,9 +142,13 @@ func _on_duplicate_button_button_up():
 # Called after the user enters an ID into the popup textbox and presses OK
 func _on_ok_button_up():
 	pupup_ID.hide()
-	# Hacky exception for maps, need to find a better solution
+	# HACK Hacky exception for maps, need to find a better solution
 	if contentData == {"maps": true}:
 		add_map_popup_ok()
+		return
+	# HACK Hacky exception for maps, need to find a better solution
+	if contentData == {"furnitures": true}:
+		add_furniture_popup_ok()
 		return
 	var myText = popup_textedit.text
 	if myText == "":
@@ -173,6 +182,10 @@ func _on_delete_button_button_up():
 	if contentData == {"maps": true}:
 		delete_map(selected_id)
 		return
+	# HACK Exception for furnitures, need to find a better solution
+	if contentData == {"furnitures": true}:
+		delete_furniture(selected_id)
+		return
 	contentItems.remove_item(contentItems.get_selected_items()[0])
 	Gamedata.remove_item_from_data(contentData, selected_id)
 	load_data()
@@ -181,6 +194,7 @@ func get_selected_item_text() -> String:
 	if not contentItems.is_anything_selected():
 		return ""
 	return contentItems.get_item_text(contentItems.get_selected_items()[0])
+
 
 # This function will collapse and expand the $Content/ContentItems when the collapse button is pressed
 func _on_collapse_button_button_up():
@@ -193,6 +207,7 @@ func set_collapsed():
 		size_flags_vertical = Control.SIZE_EXPAND_FILL
 	else:
 		size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+
 
 # Function to initiate drag data for selected item
 # Only one item can be selected and dragged at a time.
@@ -216,14 +231,17 @@ func _get_drag_data(_newpos):
 	# Return an object with the necessary data
 	return {"id": selected_item_id, "text": selected_item_text}
 
+
 # This function should return true if the dragged data can be dropped here
 func _can_drop_data(_newpos, _data) -> bool:
 	return false
+
 
 # This function handles the data being dropped
 func _drop_data(newpos, data) -> void:
 	if _can_drop_data(newpos, data):
 		print_debug("tried to drop data, but can't")
+
 
 # Helper function to create a preview Control for dragging
 func _create_drag_preview(item_id: String) -> Control:
@@ -231,6 +249,7 @@ func _create_drag_preview(item_id: String) -> Control:
 	preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
 	return preview
+
 
 var start_point
 var end_point
@@ -261,8 +280,10 @@ func _on_content_items_gui_input(event):
 				var drag_data: Dictionary = _get_drag_data(end_point)
 				force_drag(drag_data, _create_drag_preview(drag_data.id))
 
+
 func _on_content_items_mouse_entered():
 	mouse_button_is_pressed = false
+
 
 func save_collapse_state():
 	var config = ConfigFile.new()
@@ -276,6 +297,7 @@ func save_collapse_state():
 
 	config.set_value("contenteditor:contentlist:" + header, "is_collapsed", is_collapsed)
 	config.save(path)
+
 
 func load_collapse_state():
 	var config = ConfigFile.new()
@@ -311,6 +333,19 @@ func load_map_list():
 			contentItems.set_item_icon(item_index, mySprite)
 
 
+# Load the furniture list
+func load_furnitures_list():
+	var furniturelist: Dictionary = Gamedata.furnitures.get_furnitures()
+	for furniture: DFurniture in furniturelist:
+		# Add all the filenames to the ContentItems list as child nodes
+		var item_index: int = contentItems.add_item(furniture.id)
+		# Add the ID as metadata which can be used to load the item data
+		contentItems.set_item_metadata(item_index, furniture.id)
+		var mySprite: Texture = furniture.sprite
+		if mySprite:
+			contentItems.set_item_icon(item_index, mySprite)
+
+
 func add_map_popup_ok():
 	var myText = popup_textedit.text
 	if myText == "":
@@ -326,6 +361,25 @@ func add_map_popup_ok():
 	load_data()
 
 
+func add_furniture_popup_ok():
+	var myText = popup_textedit.text
+	if myText == "":
+		return
+	if popupAction == "Add":
+		Gamedata.furnitures.add_new_furniture(myText)
+	if popupAction == "Duplicate":
+		Gamedata.furnitures.duplicate_furniture_to_disk(get_selected_item_text(), myText)
+	popupAction = ""
+	# Check if the list is collapsed and expand it if true
+	if is_collapsed:
+		is_collapsed = false
+	load_data()
+
+
 func delete_map(selected_id) -> void:
 	Gamedata.maps.delete_map(selected_id)
+	load_data()
+
+func delete_furniture(selected_id) -> void:
+	Gamedata.furnitures.delete_furniture(selected_id)
 	load_data()

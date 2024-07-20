@@ -56,25 +56,25 @@ var current_image_display: String = ""
 
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the mob data array should be saved to disk
-signal data_changed(game_data: Dictionary, new_data: Dictionary, old_data: Dictionary)
+signal data_changed()
 
 
-var olddata: Dictionary # Remember what the value of the data was before editing
+var olddata: DFurniture # Remember what the value of the data was before editing
 # The data that represents this furniture
 # The data is selected from the Gamedata.data.furniture.data array
 # based on the ID that the user has selected in the content editor
-var contentData: Dictionary = {}:
+var dfurniture: DFurniture:
 	set(value):
-		contentData = value
+		dfurniture = value
 		load_furniture_data()
-		furnitureSelector.sprites_collection = Gamedata.data.furniture.sprites
-		olddata = contentData.duplicate(true)
+		furnitureSelector.sprites_collection = Gamedata.furnitures.furnituresprites.values()
+		olddata = dfurniture.duplicate(true)
 
 
 func _ready():
 	# For properly using the tab key to switch elements
 	control_elements = [furnitureImageDisplay,NameTextEdit,DescriptionTextEdit]
-	data_changed.connect(Gamedata.on_data_changed)
+	data_changed.connect(Gamedata.furnitures.on_data_changed)
 	set_drop_functions()
 	
 	# Connect the toggle signal to the function
@@ -82,67 +82,56 @@ func _ready():
 
 
 func load_furniture_data():
-	if furnitureImageDisplay and contentData.has("sprite"):
-		furnitureImageDisplay.texture = Gamedata.data.furniture.sprites[contentData["sprite"]]
-		imageNameStringLabel.text = contentData["sprite"]
+	if furnitureImageDisplay and dfurniture.sprite:
+		furnitureImageDisplay.texture = dfurniture.sprite
+		imageNameStringLabel.text = dfurniture.spriteid
 		update_sprite_texture_rect(furnitureImageDisplay.texture)
 	if IDTextLabel:
-		IDTextLabel.text = str(contentData["id"])
-	if NameTextEdit and contentData.has("name"):
-		NameTextEdit.text = contentData["name"]
-	if DescriptionTextEdit and contentData.has("description"):
-		DescriptionTextEdit.text = contentData["description"]
-	if CategoriesList and contentData.has("categories"):
+		IDTextLabel.text = dfurniture.id
+	if NameTextEdit:
+		NameTextEdit.text = dfurniture.name
+	if DescriptionTextEdit:
+		DescriptionTextEdit.text = dfurniture.description
+	if CategoriesList:
 		CategoriesList.clear_list()
-		for category in contentData["categories"]:
+		for category in dfurniture.categories:
 			CategoriesList.add_item_to_list(category)
-	if moveableCheckboxButton and contentData.has("moveable"):
-		moveableCheckboxButton.button_pressed = contentData["moveable"]
-		_on_moveable_checkbox_toggled(contentData["moveable"])
-	if weightSpinBox and contentData.has("weight"):
-		weightSpinBox.value = contentData["weight"]
-	if edgeSnappingOptionButton and contentData.has("edgesnapping"):
-		select_option_by_string(edgeSnappingOptionButton, contentData["edgesnapping"])
+	if moveableCheckboxButton:
+		moveableCheckboxButton.button_pressed = dfurniture.moveable
+		_on_moveable_checkbox_toggled(dfurniture.moveable)
+	if weightSpinBox:
+		weightSpinBox.value = dfurniture.weight
+	if edgeSnappingOptionButton:
+		select_option_by_string(edgeSnappingOptionButton, dfurniture.edgesnapping)
 	if doorOptionButton:
-		update_door_option(contentData.get("Function", {}).get("door", "None"))
+		update_door_option(dfurniture.function.door)
 
-	if "destruction" in contentData:
+	if not dfurniture.destruction.is_empty():
 		canDestroyCheckbox.button_pressed = true
-		var destruction_data = contentData["destruction"]
-		destructionTextEdit.set_text(destruction_data.get("group", ""))
-		if destruction_data.has("sprite"):
-			destructionImageDisplay.texture = Gamedata.data.furniture.sprites[destruction_data["sprite"]]
-			destructionSpriteNameLabel.text = destruction_data["sprite"]
-		else:
-			destructionImageDisplay.texture = null
-			destructionSpriteNameLabel.text = ""
+		destructionTextEdit.set_text(dfurniture.destruction.group)
+		destructionImageDisplay.texture = Gamedata.furnitures.sprite_by_file(dfurniture.destruction.sprite)
+		destructionSpriteNameLabel.text = dfurniture.destruction.sprite
 		set_visibility_for_children(destructionTextEdit, true)
 	else:
 		canDestroyCheckbox.button_pressed = false
 		set_visibility_for_children(destructionTextEdit, false)
 
-	if "disassembly" in contentData:
+	if not dfurniture.disassembly.is_empty():
 		canDisassembleCheckbox.button_pressed = true
-		var disassembly_data = contentData["disassembly"]
-		disassemblyTextEdit.set_text(disassembly_data.get("group", ""))
-		if disassembly_data.has("sprite"):
-			disassemblyImageDisplay.texture = Gamedata.data.furniture.sprites[disassembly_data["sprite"]]
-			disassemblySpriteNameLabel.text = disassembly_data["sprite"]
-		else:
-			disassemblyImageDisplay.texture = null
-			disassemblySpriteNameLabel.text = ""
-		set_visibility_for_children(disassemblyHboxContainer, true)
+		disassemblyTextEdit.set_text(dfurniture.disassembly.group)
+		disassemblyImageDisplay.texture = Gamedata.furnitures.sprite_by_file(dfurniture.disassembly.sprite)
+		disassemblySpriteNameLabel.text = dfurniture.disassembly.sprite
+		set_visibility_for_children(disassemblyTextEdit, true)
 	else:
 		canDisassembleCheckbox.button_pressed = false
-		set_visibility_for_children(disassemblyHboxContainer, false)
+		set_visibility_for_children(disassemblyTextEdit, false)
 
 	# Load container data if it exists within the 'Function' property
-	var function_data = contentData.get("Function", {})
-	if "container" in function_data:
+	if not dfurniture.function.container.is_empty():
 		containerCheckBox.button_pressed = true  # Check the container checkbox
-		var container_data = function_data["container"]
-		if "itemgroup" in container_data:
-			containerTextEdit.set_text(container_data["itemgroup"])  # Set text edit with the itemgroup ID
+		var itemgroup: String = dfurniture.function.container.get("itemgroup", "")
+		if not itemgroup == "":
+			containerTextEdit.set_text(itemgroup)
 		else:
 			containerTextEdit.mytextedit.clear()  # Clear the text edit if no itemgroup is specified
 	else:
@@ -153,41 +142,39 @@ func load_furniture_data():
 	load_support_shape_option()
 
 
-
 # Function to load support shape data into the form
 func load_support_shape_option():
-	if contentData.has("support_shape"):
-		var shape_data = contentData["support_shape"]
-		var shape = shape_data["shape"]
+	var supportshape = dfurniture.support_shape
+	var shape = supportshape.shape
 
-		# Select the appropriate shape in the option button
-		for i in range(support_shape_option_button.get_item_count()):
-			if support_shape_option_button.get_item_text(i) == shape:
-				support_shape_option_button.selected = i
-				break
+	# Select the appropriate shape in the option button
+	for i in range(support_shape_option_button.get_item_count()):
+		if support_shape_option_button.get_item_text(i) == shape:
+			support_shape_option_button.selected = i
+			break
 
-		color_picker.color = Color.html(shape_data.get("color", "#ffffff"))  # Default to white
+	color_picker.color = Color.html(supportshape.color)
 
-		transparent_check_box.button_pressed = shape_data.get("transparent", false)
-		heigth_spin_box.value = shape_data.get("height", 0.5)
+	transparent_check_box.button_pressed = supportshape.transparent
+	heigth_spin_box.value = supportshape.height
 
-		if shape == "Box":
-			width_scale_spin_box.value = shape_data.get("width_scale", 0.0)
-			depth_scale_spin_box.value = shape_data.get("depth_scale", 0.0)
-			width_scale_spin_box.visible = true
-			depth_scale_spin_box.visible = true
-			width_scale_label.visible = true
-			depth_scale_label.visible = true
-			radius_scale_spin_box.visible = false
-			radius_scale_label.visible = false
-		elif shape == "Cylinder":
-			radius_scale_spin_box.value = shape_data.get("radius_scale", 0.0)
-			width_scale_spin_box.visible = false
-			depth_scale_spin_box.visible = false
-			width_scale_label.visible = false
-			depth_scale_label.visible = false
-			radius_scale_spin_box.visible = true
-			radius_scale_label.visible = true
+	if shape == "Box":
+		width_scale_spin_box.value = supportshape.height.width_scale
+		depth_scale_spin_box.value = supportshape.depth_scale
+		width_scale_spin_box.visible = true
+		depth_scale_spin_box.visible = true
+		width_scale_label.visible = true
+		depth_scale_label.visible = true
+		radius_scale_spin_box.visible = false
+		radius_scale_label.visible = false
+	elif shape == "Cylinder":
+		radius_scale_spin_box.value = supportshape.radius_scale
+		width_scale_spin_box.visible = false
+		depth_scale_spin_box.visible = false
+		width_scale_label.visible = false
+		depth_scale_label.visible = false
+		radius_scale_spin_box.visible = true
+		radius_scale_label.visible = true
 
 
 func update_door_option(door_state):
@@ -226,19 +213,13 @@ func update_sprite_texture_rect(texture: Texture):
 # the central array for furnituredata is updated with the changes as well.
 # The function will signal to Gamedata that the data has changed and needs to be saved.
 func _on_save_button_button_up():
-	contentData["sprite"] = imageNameStringLabel.text
-	contentData["name"] = NameTextEdit.text
-	contentData["description"] = DescriptionTextEdit.text
-	contentData["categories"] = CategoriesList.get_items()
-	contentData["moveable"] = moveableCheckboxButton.button_pressed
-	
-	# Save the weight only if moveableCheckboxButton is checked, otherwise erase it.
-	if moveableCheckboxButton.button_pressed:
-		contentData["weight"] = weightSpinBox.value
-	else:
-		contentData.erase("weight")
-
-	contentData["edgesnapping"] = edgeSnappingOptionButton.get_item_text(edgeSnappingOptionButton.selected)
+	dfurniture.spriteid = imageNameStringLabel.text
+	dfurniture.name = NameTextEdit.text
+	dfurniture.description = DescriptionTextEdit.text
+	dfurniture.categories = CategoriesList.get_items()
+	dfurniture.moveable = moveableCheckboxButton.button_pressed
+	dfurniture.weight = weightSpinBox.value
+	dfurniture.edgesnapping = edgeSnappingOptionButton.get_item_text(edgeSnappingOptionButton.selected)
 
 	# Handle saving or erasing the support shape data
 	handle_support_shape_option()
@@ -246,80 +227,59 @@ func _on_save_button_button_up():
 	handle_container_option()
 	handle_destruction_option()
 	handle_disassembly_option()
-
-	data_changed.emit(Gamedata.data.furniture, contentData, olddata)
-	olddata = contentData.duplicate(true)
+	dfurniture.on_data_changed(olddata)
+	data_changed.emit()
+	olddata = dfurniture.duplicate(true)
 
 
 # Function to handle saving or erasing the support shape data
 func handle_support_shape_option():
 	if not moveableCheckboxButton.button_pressed:
 		var shape = support_shape_option_button.get_item_text(support_shape_option_button.selected)
-		var shape_data = {
-			"shape": shape,
-			"height": heigth_spin_box.value,
-			"color": color_picker.color.to_html(),
-			"transparent": transparent_check_box.button_pressed
-		}
+		dfurniture.support_shape.shape = shape
+		dfurniture.support_shape.height = heigth_spin_box.value
+		dfurniture.support_shape.color = color_picker.color.to_html()
+		dfurniture.support_shape.transparent = transparent_check_box.button_pressed
 		if shape == "Box":
-			shape_data["width_scale"] = width_scale_spin_box.value
-			shape_data["depth_scale"] = depth_scale_spin_box.value
+			dfurniture.support_shape.width_scale = width_scale_spin_box.value
+			dfurniture.support_shape.depth_scale = depth_scale_spin_box.value
 		elif shape == "Cylinder":
-			shape_data["radius_scale"] = radius_scale_spin_box.value
-
-		contentData["support_shape"] = shape_data
-	else:
-		contentData.erase("support_shape")
+			dfurniture.support_shape.radius_scale = radius_scale_spin_box.value
 
 
 # If the door function is set, we save the value to contentData
 # Else, if the door state is set to none, we erase the value from contentdata
 func handle_door_option():
 	var door_state = doorOptionButton.get_item_text(doorOptionButton.selected)
-	if door_state == "None" and "Function" in contentData and "door" in contentData["Function"]:
-		contentData["Function"].erase("door")
-	elif door_state in ["Open", "Closed"]:
-		contentData["Function"] = {"door": door_state}
+	dfurniture.function.door = door_state
 
 
 func handle_container_option():
 	if containerCheckBox.is_pressed():
-		if "Function" not in contentData:
-			contentData["Function"] = {}
-		if containerTextEdit.get_text() != "":
-			contentData["Function"]["container"] = {"itemgroup": containerTextEdit.get_text()}
-		else:
-			contentData["Function"]["container"] = {}
-	elif "Function" in contentData and "container" in contentData["Function"]:
-		contentData["Function"].erase("container")
-		if contentData["Function"].is_empty():
-			contentData.erase("Function")
+		dfurniture.function.is_container = true
+		dfurniture.function.container_group = containerTextEdit.get_text()
+	else:
+		dfurniture.function.is_container = false
+		dfurniture.function.container_group = ""
+
 
 func handle_destruction_option():
 	if canDestroyCheckbox.is_pressed():
-		if "destruction" not in contentData:
-			contentData["destruction"] = {}
-		if destructionTextEdit.get_text() != "":
-			contentData["destruction"]["group"] = destructionTextEdit.get_text()
-		if destructionSpriteNameLabel.text != "":
-			contentData["destruction"]["sprite"] = destructionSpriteNameLabel.text
-		else:
-			contentData["destruction"].erase("sprite")
-	elif "destruction" in contentData:
-		contentData.erase("destruction")
+		dfurniture.destruction.group = destructionTextEdit.get_text()
+		dfurniture.destruction.sprite = destructionSpriteNameLabel.text
+	else:
+		dfurniture.destruction.group = ""
+		dfurniture.destruction.sprite = ""
+
 
 func handle_disassembly_option():
-	if canDisassembleCheckbox.is_pressed():
-		if "disassembly" not in contentData:
-			contentData["disassembly"] = {}
-		if disassemblyTextEdit.get_text() != "":
-			contentData["disassembly"]["group"] = disassemblyTextEdit.get_text()
-		if disassemblySpriteNameLabel.text != "":
-			contentData["disassembly"]["sprite"] = disassemblySpriteNameLabel.text
-		else:
-			contentData["disassembly"].erase("sprite")
-	elif "disassembly" in contentData:
-		contentData.erase("disassembly")
+	if canDestroyCheckbox.is_pressed():
+		dfurniture.disassembly.group = disassemblyTextEdit.get_text()
+		dfurniture.disassembly.sprite = disassemblySpriteNameLabel.text
+	else:
+		dfurniture.disassembly.group = ""
+		dfurniture.disassembly.sprite = ""
+
 
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):
