@@ -21,11 +21,13 @@ func _ready():
 	if texture_id:
 		set_texture(texture_id)
 
+
 # Called when a function creates this class using ContainerItem.new(container_json)
 # Basic setup for this container. Should be called before adding it to the scene tree
 func _init(item: Dictionary):
 	_initialize_container(item)
 	create_loot()
+
 
 func _initialize_container(item: Dictionary):
 	containerpos = Vector3(item.global_position_x, item.global_position_y, item.global_position_z)
@@ -85,6 +87,7 @@ func _add_items_to_inventory(items: Array) -> bool:
 			var quantity = randi_range(item_object["min"], item_object["max"])
 			_add_item_to_inventory(item_id, quantity)
 	return item_added
+
 
 # Takes an item_id and quantity and adds it to the inventory
 func _add_item_to_inventory(item_id: String, quantity: int):
@@ -232,15 +235,13 @@ func _on_item_removed(_item: InventoryItem):
 			
 	else: # There are still items in the container
 		if is_inside_tree():
-			# Check if this ContainerItem is a direct child of the tree root
-			if get_parent() == get_tree().get_root():
-				set_random_inventory_item_texture() # Update to a new sprite
+			set_random_inventory_item_texture() # Update to a new sprite
 
 
 func _on_item_added(_item: InventoryItem):
 	# Check if this ContainerItem is a direct child of the tree root
 	if is_inside_tree() and not get_parent() == get_tree().get_root():
-		sprite_3d.texture = load("res://Textures/container_filled_32.png")
+		set_random_inventory_item_texture() # Update to a new sprite
 
 
 func add_item(item_id: String):
