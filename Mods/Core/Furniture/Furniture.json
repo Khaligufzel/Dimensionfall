@@ -57,9 +57,8 @@
 	},
 	{
 		"Function": {
-			"container": {
-				"itemgroup": "kitchen_cupboard"
-			}
+			"is_container":  true,
+			"container_group": "kitchen_cupboard"
 		},
 		"categories": [
 			"Urban",
@@ -302,9 +301,8 @@
 	},
 	{
 		"Function": {
-			"container": {
-				"itemgroup": "cabinet_general"
-			}
+			"is_container": true,
+			"container_group": "cabinet_general"
 		},
 		"categories": [
 			"Urban",
@@ -377,9 +375,8 @@
 	},
 	{
 		"Function": {
-			"container": {
-				"itemgroup": "refridgerator"
-			}
+			"is_container": true,
+			"container_group": "refridgerator"
 		},
 		"categories": [
 			"Urban",
@@ -522,9 +519,8 @@
 	},
 	{
 		"Function": {
-			"container": {
-				"itemgroup": "clothing_general"
-			}
+			"is_container": true,
+			"container_group": "clothing_general"
 		},
 		"categories": [
 			"Urban",
@@ -864,9 +860,7 @@
 	},
 	{
 		"Function": {
-			"container": {
-
-			}
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -892,9 +886,8 @@
 	},
 	{
 		"Function": {
-			"container": {
-				"itemgroup": "refridgerator"
-			}
+			"is_container": true,
+			"container_group": "refridgerator"
 		},
 		"categories": [
 			"Urban",
@@ -927,9 +920,8 @@
 	},
 	{
 		"Function": {
-			"container": {
-				"itemgroup": "refridgerator"
-			}
+			"is_container": true,
+			"container_group": "refridgerator"
 		},
 		"categories": [
 			"Urban",
@@ -962,9 +954,8 @@
 	},
 	{
 		"Function": {
-			"container": {
-				"itemgroup": "clothing_general"
-			}
+			"is_container": true,
+			"container_group": "clothing_general"
 		},
 		"categories": [
 			"Urban",
@@ -990,9 +981,7 @@
 	},
 	{
 		"Function": {
-			"container": {
-
-			}
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -1058,9 +1047,7 @@
 	},
 	{
 		"Function": {
-			"container": {
-
-			}
+			"is_container":  true
 		},
 		"categories": [
 			"Urban",
@@ -1090,9 +1077,8 @@
 	},
 	{
 		"Function": {
-			"container": {
-				"itemgroup": "cabinet_general"
-			}
+			"is_container":  true,
+			"container_group": "cabinet_general"
 		},
 		"categories": [
 			"Urban",
@@ -1124,9 +1110,6 @@
 		}
 	},
 	{
-		"Function": {
-
-		},
 		"categories": [
 			"Urban"
 		],

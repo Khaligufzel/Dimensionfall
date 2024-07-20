@@ -50,20 +50,18 @@ text = "Selected type:"
 [node name="TypesOptionButton" type="OptionButton" parent="VBoxContainer/TypesHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Select the type that you want to export the data of"
-item_count = 6
+item_count = 5
 selected = 0
 popup/item_0/text = "Item"
 popup/item_0/id = 0
-popup/item_1/text = "Furniture"
-popup/item_1/id = 1
-popup/item_2/text = "Itemgroup"
-popup/item_2/id = 3
-popup/item_3/text = "Mob"
-popup/item_3/id = 2
-popup/item_4/text = "Tile"
-popup/item_4/id = 4
-popup/item_5/text = "Map"
-popup/item_5/id = 5
+popup/item_1/text = "Itemgroup"
+popup/item_1/id = 3
+popup/item_2/text = "Mob"
+popup/item_2/id = 2
+popup/item_3/text = "Tile"
+popup/item_3/id = 4
+popup/item_4/text = "Map"
+popup/item_4/id = 5
 
 [node name="GetPropertiesButton" type="Button" parent="VBoxContainer/TypesHBoxContainer"]
 layout_mode = 2

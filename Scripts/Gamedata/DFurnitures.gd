@@ -13,6 +13,7 @@ var sprites: Dictionary = {}
 
 
 func _init():
+	load_sprites()
 	load_furnitures_from_disk()
 
 
@@ -21,6 +22,7 @@ func load_furnitures_from_disk() -> void:
 	var furniturelist: Array = Helper.json_helper.load_json_array_file(dataPath)
 	for furnitureitem in furniturelist:
 		var furniture: DFurniture = DFurniture.new(furnitureitem)
+		furniture.sprite = sprites[furniture.spriteid]
 		furnituredict[furniture.id] = furniture
 
 
@@ -76,7 +78,7 @@ func by_id(furnitureid: String) -> DFurniture:
 # Returns the sprite of the furniture
 # furnitureid: The id of the furniture to return the sprite of
 func sprite_by_id(furnitureid: String) -> Texture:
-	return sprites[furnituredict[furnitureid].sprite]
+	return furnituredict[furnitureid].sprite
 
 # Returns the sprite of the furniture
 # furnitureid: The id of the furniture to return the sprite of

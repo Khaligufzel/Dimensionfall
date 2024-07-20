@@ -42,11 +42,8 @@ func on_itemgroup_deleted(itemgroup_id: String):
 
 	# Callable to remove the itemgroup from every furniture that references this itemgroup.
 	var myfunc: Callable = func(furn_id):
-		var furniture_data = Gamedata.get_data_by_id(Gamedata.data.furniture, furn_id)
-		var paths = ["Function.container.itemgroup", "disassembly.group", "destruction.group"]
-		for path in paths:
-			if Helper.json_helper.get_nested_data(furniture_data, path) == itemgroup_id:
-				changes_made = Helper.json_helper.delete_nested_property(furniture_data, path) or changes_made
+		var furniture: DFurniture = Gamedata.furnitures.by_id(furn_id)
+		furniture.remove_itemgroup(itemgroup_id)
 
 	# Pass the callable to every furniture in the itemgroup's references
 	# It will call myfunc on every furniture in itemgroup_data.references.core.furniture
@@ -64,7 +61,6 @@ func on_itemgroup_deleted(itemgroup_id: String):
 	# Save changes to the data files if any changes were made.
 	if changes_made:
 		Gamedata.save_data_to_file(Gamedata.data.items)
-		Gamedata.save_data_to_file(Gamedata.data.furniture)
 		print_debug("Itemgroup", itemgroup_id, "has been successfully deleted from all items.")
 	else:
 		print_debug("No changes needed for itemgroup", itemgroup_id)

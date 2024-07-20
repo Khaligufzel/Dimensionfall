@@ -7,7 +7,7 @@ extends RigidBody3D
 var furnitureposition: Vector3 = Vector3()
 var furniturerotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture
-var furnitureJSONData: Dictionary # The json that defines this furniture's basics in general
+var dfurniture: DFurniture # The json that defines this furniture's basics in general
 var sprite: Sprite3D = null
 var last_rotation: int
 var current_chunk: Chunk
@@ -23,7 +23,7 @@ var current_health: float = 10.0
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	freeze = true # Prevent physics from occurring before it's positioned
 	furnitureJSON = newFurnitureJSON
-	furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
+	dfurniture = Gamedata.furnitures.by_id(furnitureJSON.id)
 	# Position furniture at the center of the block by default
 	furnitureposition = furniturepos
 	# Only previously saved furniture will have the global_position_x key. They do not need to be raised
@@ -31,11 +31,10 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 		furnitureposition.y += 0.5 # Move the furniture to slightly above the block 
 	add_to_group("furniture")
 
-	var furnitureSprite: Texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture,furnitureJSON.id)
-	set_sprite(furnitureSprite)
+	set_sprite(dfurniture.sprite)
 	
 	furniturerotation = furnitureJSON.get("rotation", 0)
-	mass = furnitureJSONData.get("weight", 1)
+	mass = dfurniture.weight
 	# Set the properties we need
 	#linear_damp = 59
 	angular_damp = 59
@@ -163,21 +162,18 @@ func get_data() -> Dictionary:
 		"rotation": last_rotation
 	}
 	
-	# Check for container functionality and save item list if applicable
-	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
+	# Check if this furniture has a container attached and if it has items
+	if container:
 		# Initialize the 'Function' sub-dictionary if not already present
 		if "Function" not in newfurniturejson:
 			newfurniturejson["Function"] = {}
-		
-		# Check if this furniture has a container attached and if it has items
-		if container:
-			var item_ids = container.get_item_ids()
-			if item_ids.size() > 0:
-				var containerdata = container.get_inventory().serialize()
-				newfurniturejson["Function"]["container"] = {"items": containerdata}
-			else:
-				# No items in the container, store the container as empty
-				newfurniturejson["Function"]["container"] = {}
+		var item_ids = container.get_item_ids()
+		if item_ids.size() > 0:
+			var containerdata = container.get_inventory().serialize()
+			newfurniturejson["Function"]["container"] = {"items": containerdata}
+		else:
+			# No items in the container, store the container as empty
+			newfurniturejson["Function"]["container"] = {}
 
 	return newfurniturejson
 
@@ -261,11 +257,11 @@ func add_corpse(pos: Vector3) -> void:
 		itemdata["global_position_y"] = pos.y
 		itemdata["global_position_z"] = pos.z
 		
-		var itemgroup = furnitureJSONData.get("destruction", {}).get("group", "")
+		var itemgroup = dfurniture.destruction.group
 		if itemgroup:
 			itemdata["itemgroups"] = [itemgroup]
 		
-		var fursprite = furnitureJSONData.get("destruction", {}).get("sprite", null)
+		var fursprite = dfurniture.destruction.sprite
 		if fursprite:
 			itemdata["texture_id"] = fursprite
 		
@@ -287,7 +283,7 @@ func _disassemble() -> void:
 	queue_free()
 	
 
-# When the furniture is destroyed, it leaves a wreck behind
+# When the furniture is disassembled, it leaves a wreck behind
 func add_wreck(pos: Vector3) -> void:
 	if can_be_disassembled():
 		var itemdata: Dictionary = {}
@@ -295,11 +291,11 @@ func add_wreck(pos: Vector3) -> void:
 		itemdata["global_position_y"] = pos.y
 		itemdata["global_position_z"] = pos.z
 		
-		var itemgroup = furnitureJSONData.get("disassembly", {}).get("group", "")
+		var itemgroup = dfurniture.disassembly.group
 		if itemgroup:
 			itemdata["itemgroups"] = [itemgroup]
 		
-		var fursprite = furnitureJSONData.get("disassembly", {}).get("sprite", null)
+		var fursprite = dfurniture.disassembly.sprite
 		if fursprite:
 			itemdata["texture_id"] = fursprite
 		
@@ -310,16 +306,15 @@ func add_wreck(pos: Vector3) -> void:
 		get_tree().get_root().add_child.call_deferred(newItem)
 
 func can_be_destroyed() -> bool:
-	return "destruction" in furnitureJSONData
+	return dfurniture.destruction.get_data().is_empty()
 
 func can_be_disassembled() -> bool:
-	return "disassembly" in furnitureJSONData
-
+	return dfurniture.disassembly.get_data().is_empty()
 
 
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container(pos: Vector3):
-	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
+	if dfurniture.function.is_container:
 		var containerdata: Dictionary = {}
 		containerdata["global_position_x"] = pos.x
 		containerdata["global_position_y"] = pos.y
@@ -348,7 +343,7 @@ func populate_container_from_itemgroup() -> String:
 			print_debug("itemgroups array is empty in furnitureJSON")
 
 	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
-	var itemgroup = furnitureJSONData["Function"]["container"].get("itemgroup", "")
+	var itemgroup = dfurniture.function.container_group
 	if itemgroup:
 		return itemgroup
 	return ""

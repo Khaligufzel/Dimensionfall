@@ -60,15 +60,13 @@ signal data_changed()
 
 
 var olddata: DFurniture # Remember what the value of the data was before editing
-# The data that represents this furniture
-# The data is selected from the Gamedata.data.furniture.data array
-# based on the ID that the user has selected in the content editor
+# The DFurniture that represents this furniture
 var dfurniture: DFurniture:
 	set(value):
 		dfurniture = value
 		load_furniture_data()
-		furnitureSelector.sprites_collection = Gamedata.furnitures.furnituresprites.values()
-		olddata = dfurniture.duplicate(true)
+		furnitureSelector.sprites_collection = Gamedata.furnitures.sprites
+		olddata = DFurniture.new(dfurniture.get_data().duplicate(true))
 
 
 func _ready():
@@ -106,7 +104,7 @@ func load_furniture_data():
 	if doorOptionButton:
 		update_door_option(dfurniture.function.door)
 
-	if not dfurniture.destruction.is_empty():
+	if not dfurniture.destruction.get_data().is_empty():
 		canDestroyCheckbox.button_pressed = true
 		destructionTextEdit.set_text(dfurniture.destruction.group)
 		destructionImageDisplay.texture = Gamedata.furnitures.sprite_by_file(dfurniture.destruction.sprite)
@@ -116,7 +114,7 @@ func load_furniture_data():
 		canDestroyCheckbox.button_pressed = false
 		set_visibility_for_children(destructionTextEdit, false)
 
-	if not dfurniture.disassembly.is_empty():
+	if not dfurniture.disassembly.get_data().is_empty():
 		canDisassembleCheckbox.button_pressed = true
 		disassemblyTextEdit.set_text(dfurniture.disassembly.group)
 		disassemblyImageDisplay.texture = Gamedata.furnitures.sprite_by_file(dfurniture.disassembly.sprite)
@@ -127,9 +125,9 @@ func load_furniture_data():
 		set_visibility_for_children(disassemblyTextEdit, false)
 
 	# Load container data if it exists within the 'Function' property
-	if not dfurniture.function.container.is_empty():
+	if dfurniture.function.is_container:
 		containerCheckBox.button_pressed = true  # Check the container checkbox
-		var itemgroup: String = dfurniture.function.container.get("itemgroup", "")
+		var itemgroup: String = dfurniture.function.container_group
 		if not itemgroup == "":
 			containerTextEdit.set_text(itemgroup)
 		else:
@@ -159,7 +157,7 @@ func load_support_shape_option():
 	heigth_spin_box.value = supportshape.height
 
 	if shape == "Box":
-		width_scale_spin_box.value = supportshape.height.width_scale
+		width_scale_spin_box.value = supportshape.width_scale
 		depth_scale_spin_box.value = supportshape.depth_scale
 		width_scale_spin_box.visible = true
 		depth_scale_spin_box.visible = true
@@ -208,10 +206,7 @@ func update_sprite_texture_rect(texture: Texture):
 		sprite_texture_rect.texture = texture
 
 
-# This function takes all data from the form elements and stores them in the contentData.
-# Since contentData is a reference to an item in Gamedata.data.furniture.data,
-# the central array for furnituredata is updated with the changes as well.
-# The function will signal to Gamedata that the data has changed and needs to be saved.
+# This function takes all data from the form elements and stores them in the dfurniture.
 func _on_save_button_button_up():
 	dfurniture.spriteid = imageNameStringLabel.text
 	dfurniture.name = NameTextEdit.text

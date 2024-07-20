@@ -62,12 +62,12 @@ class SupportShape:
 
 	func set_data(data: Dictionary):
 		color = data.get("color", "ffffffff")
-		depth_scale = data.get("depth_scale", 0.0)
+		depth_scale = data.get("depth_scale", 100.0)
 		height = data.get("height", 0.5)
 		shape = data.get("shape", "Box")
 		transparent = data.get("transparent", false)
-		width_scale = data.get("width_scale", 0.0)
-		radius_scale = data.get("radius_scale", 0.0)
+		width_scale = data.get("width_scale", 100.0)
+		radius_scale = data.get("radius_scale", 100.0)
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
@@ -139,7 +139,6 @@ func _init(data: Dictionary):
 	support_shape = SupportShape.new(data.get("support_shape", {}))  # Initialize SupportShape inner class
 	destruction = Destruction.new(data.get("destruction", {}))  # Initialize Destruction inner class
 	disassembly = Disassembly.new(data.get("disassembly", {}))  # Initialize Disassembly inner class
-	sprite = Gamedata.furnitures.sprite_by_id(id)
 
 
 # Get data function to return a dictionary with all properties
@@ -152,7 +151,7 @@ func get_data() -> Dictionary:
 		"moveable": moveable,
 		"weight": weight,
 		"edgesnapping": edgesnapping,
-		"sprite": sprite,
+		"sprite": spriteid,
 		"destruction": destruction.get_data(),
 		"disassembly": disassembly.get_data()
 	}
@@ -204,8 +203,8 @@ func get_sprite_path() -> String:
 
 # Handles furniture changes and updates references if necessary
 func on_data_changed(olddfurniture: DFurniture):
-	var old_container_group = olddfurniture.function.container.get("itemgroup", "")
-	var new_container_group = function.container.get("itemgroup", "")
+	var old_container_group = olddfurniture.function.container_group
+	var new_container_group = function.container_group
 	var old_destruction_group = olddfurniture.destruction.group
 	var old_disassembly_group = olddfurniture.disassembly.group
 	var changes_made = false
@@ -240,3 +239,14 @@ func delete():
 		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
 	else:
 		print_debug("No changes needed for item", id)
+
+
+# Removes any instance of an itemgroup from the furniture
+func remove_itemgroup(itemgroup_id: String) -> void:
+	if function.container_group == itemgroup_id:
+		function.container_group = ""
+	if destruction.group == itemgroup_id:
+		destruction.group = ""
+	if disassembly.group == itemgroup_id:
+		disassembly.group = ""
+	Gamedata.furnitures.save_furnitures_to_disk()

@@ -246,7 +246,13 @@ func _drop_data(newpos, data) -> void:
 # Helper function to create a preview Control for dragging
 func _create_drag_preview(item_id: String) -> Control:
 	var preview = TextureRect.new()
-	preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
+	# HACK Hacky exception for furniture, need to find a better solution
+	if contentData == {"furnitures": true}:
+		preview.texture = Gamedata.furnitures.sprite_by_id(item_id)
+	if contentData == {"maps": true}:
+		preview.texture = Gamedata.maps.by_id(item_id).sprite
+	else:
+		preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
 	return preview
 
@@ -336,7 +342,7 @@ func load_map_list():
 # Load the furniture list
 func load_furnitures_list():
 	var furniturelist: Dictionary = Gamedata.furnitures.get_furnitures()
-	for furniture: DFurniture in furniturelist:
+	for furniture: DFurniture in furniturelist.values():
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(furniture.id)
 		# Add the ID as metadata which can be used to load the item data

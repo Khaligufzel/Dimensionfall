@@ -111,7 +111,7 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 		newContentEditor.currentMap = Gamedata.maps.by_id(itemID)
 		return
 	if data == {"furnitures": true}:# HACK Hacky exception for furniture, need to find a better solution
-		newContentEditor.currentFurniture = Gamedata.furnitures.by_id(itemID)
+		newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
 		return
 	if data.dataPath.ends_with(".json"):
 		var itemdata: Dictionary = data.data[Gamedata.get_array_index_by_id(data, itemID)]

@@ -10,7 +10,7 @@ extends StaticBody3D
 var furnitureposition: Vector3
 var furniturerotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture on the map
-var furnitureJSONData: Dictionary # The json that defines this furniture's basics in general
+var dfurniture: DFurniture # The json that defines this furniture's basics in general
 var sprite: Sprite3D = null
 var mesh_instance: MeshInstance3D
 var collider: CollisionShape3D = null
@@ -37,15 +37,14 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	add_to_group("furniture")
 
 	# Find out if we need to apply edge snapping
-	furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
-	var edgeSnappingDirection = furnitureJSONData.get("edgesnapping", "None")
+	dfurniture = Gamedata.furnitures.by_id(furnitureJSON.id)
+	var edgeSnappingDirection = dfurniture.edgesnapping
 
-	var furnitureSprite: Texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture,furnitureJSON.id)
-	set_sprite(furnitureSprite)
+	set_sprite(dfurniture.sprite)
 	
 	# Calculate the size of the furniture based on the sprite dimensions
-	var spriteWidth = furnitureSprite.get_width() / 100.0 # Convert pixels to meters (assuming 100 pixels per meter)
-	var spriteDepth = furnitureSprite.get_height() / 100.0 # Convert pixels to meters
+	var spriteWidth = dfurniture.sprite.get_width() / 100.0 # Convert pixels to meters (assuming 100 pixels per meter)
+	var spriteDepth = dfurniture.sprite.get_height() / 100.0 # Convert pixels to meters
 	
 	var newRot = furnitureJSON.get("rotation", 0)
 
@@ -77,7 +76,7 @@ func _ready():
 	update_door_visuals()
 
 	# Raise the sprite to the height of new_y
-	var newheight = Helper.json_helper.get_nested_data(furnitureJSONData,"support_shape.height")
+	var newheight = dfurniture.support_shape.height
 	if newheight:
 		sprite.position.y = 0.01 + newheight # Should be slightly above mesh so we add 0.01
 		mesh_instance.position.y = newheight/2
@@ -95,9 +94,8 @@ func _ready():
 # We check if the door data for this unique furniture has been set
 # Otherwise we check the general json data for this furniture
 func check_door_functionality():
-	if furnitureJSON.get("Function", {}).get("door") or furnitureJSONData.get("Function", {}).get("door"):
-		is_door = true
-		door_state = furnitureJSON.get("Function", {}).get("door", "Closed")
+	is_door = not dfurniture.function.door == "None"
+	door_state = dfurniture.function.door
 
 
 func interact():
@@ -128,38 +126,24 @@ func set_sprite(newSprite: Texture):
 
 	var new_x = sprite_width / 100.0 # 0.1 units per 10 pixels in width
 	var new_z = sprite_height / 100.0 # 0.1 units per 10 pixels in height
-	var new_y = 0.8 # Any lower will make the player's bullet fly over it
 
-	if furnitureJSONData.has("support_shape"):
-		var support_shape = furnitureJSONData["support_shape"]
-		var shape = support_shape["shape"]
-		var height = support_shape["height"]
-		var transparent = support_shape["transparent"]
+	# Set support shape
+	var shape = dfurniture.support_shape.shape
+	var height = dfurniture.support_shape.height
+	var transparent = dfurniture.support_shape.transparent
 
-		var color = Color.html(support_shape.get("color", "#ffffff"))  # Default to white
+	var color = Color.html(dfurniture.support_shape.color)  # Default to white
 
-		if shape == "Box":
-			var width_scale = support_shape["width_scale"] / 100.0
-			var depth_scale = support_shape["depth_scale"] / 100.0
-			var scaled_x = new_x * width_scale
-			var scaled_z = new_z * depth_scale
-			create_shape("Box", Vector3(scaled_x, height, scaled_z), color, transparent)
-		elif shape == "Cylinder":
-			var radius_scale = support_shape["radius_scale"] / 100.0
-			var scaled_radius = (new_x * radius_scale)/2 # Since it's the radius we need half
-			create_shape("Cylinder", Vector3(scaled_radius, height, scaled_radius), color, transparent)
-	else:
-		# Update the collision shape
-		var new_shape = BoxShape3D.new()
-		new_shape.extents = Vector3(new_x / 2.0, new_y / 1.0, new_z / 2.0) # BoxShape3D extents are half extents
-
-		collider = CollisionShape3D.new()
-		collider.shape = new_shape
-		add_child.call_deferred(collider)
-
-		# Create and add BoxMesh instance
-		var box_mesh_instance = create_box_mesh(Vector3(new_x, new_y, new_z), Color(1.0, 0.0, 0.0, 0.5), true)
-		add_child.call_deferred(box_mesh_instance)
+	if shape == "Box":
+		var width_scale = dfurniture.support_shape.width_scale / 100.0
+		var depth_scale = dfurniture.support_shape.depth_scale / 100.0
+		var scaled_x = new_x * width_scale
+		var scaled_z = new_z * depth_scale
+		create_shape("Box", Vector3(scaled_x, height, scaled_z), color, transparent)
+	elif shape == "Cylinder":
+		var radius_scale = dfurniture.support_shape.radius_scale / 100.0
+		var scaled_radius = (new_x * radius_scale)/2 # Since it's the radius we need half
+		create_shape("Cylinder", Vector3(scaled_radius, height, scaled_radius), color, transparent)
 
 
 # Function to create the shape based on the given parameters
@@ -309,17 +293,14 @@ func get_data() -> Dictionary:
 		"rotation": get_my_rotation(),
 	}
 	
-	if "Function" in furnitureJSONData and "door" in furnitureJSONData.Function:
+	if is_door:
 		newfurniturejson["Function"] = {"door": door_state}
 	
-	# Check for container functionality and save item list if applicable
-	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
-		# Initialize the 'Function' sub-dictionary if not already present
-		if "Function" not in newfurniturejson:
-			newfurniturejson["Function"] = {}
-		
 		# Check if this furniture has a container attached and if it has items
 		if container:
+			# Initialize the 'Function' sub-dictionary if not already present
+			if "Function" not in newfurniturejson:
+				newfurniturejson["Function"] = {}
 			var item_ids = container.get_item_ids()
 			if item_ids.size() > 0:
 				var containerdata = container.get_inventory().serialize()
@@ -333,7 +314,7 @@ func get_data() -> Dictionary:
 
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container(pos: Vector3):
-	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
+	if dfurniture.function.is_container:
 		var newcontainerjson: Dictionary = {
 			"global_position_x": pos.x,
 			"global_position_y": pos.y,
@@ -362,7 +343,7 @@ func populate_container_from_itemgroup() -> String:
 			print_debug("itemgroups array is empty in furnitureJSON")
 	
 	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
-	var itemgroup = furnitureJSONData["Function"]["container"].get("itemgroup", "")
+	var itemgroup = dfurniture.function.container_group
 	if itemgroup:
 		return itemgroup
 	return ""
@@ -477,14 +458,14 @@ func add_corpse(pos: Vector3):
 			"global_position_z": pos.z
 		}
 		
-		var itemgroup = furnitureJSONData.get("destruction", {}).get("group", "")
+		var itemgroup = dfurniture.destruction.group
 		if itemgroup:
 			newitemjson["itemgroups"] = [itemgroup]
 		
 		var newItem: ContainerItem = ContainerItem.new(newitemjson)
 		newItem.add_to_group("mapitems")
 		
-		var fursprite = furnitureJSONData.get("destruction", {}).get("sprite", null)
+		var fursprite = dfurniture.destruction.sprite
 		if fursprite:
 			newItem.set_texture(fursprite)
 		
@@ -512,14 +493,14 @@ func add_wreck(pos: Vector3):
 			"global_position_z": pos.z
 		}
 		
-		var itemgroup = furnitureJSONData.get("disassembly", {}).get("group", "")
+		var itemgroup = dfurniture.disassembly.group
 		if itemgroup:
 			newfurniturejson["itemgroups"] = [itemgroup]
 		
 		var newItem: ContainerItem = ContainerItem.new(newfurniturejson)
 		newItem.add_to_group("mapitems")
 		
-		var fursprite = furnitureJSONData.get("disassembly", {}).get("sprite", null)
+		var fursprite = dfurniture.disassembly.sprite
 		if fursprite:
 			newItem.set_texture(fursprite)
 		
@@ -529,9 +510,9 @@ func add_wreck(pos: Vector3):
 
 # Check if the furniture can be destroyed
 func can_be_destroyed() -> bool:
-	return "destruction" in furnitureJSONData
+	return dfurniture.destruction.get_data().is_empty()
 
 
 # Check if the furniture can be disassembled
 func can_be_disassembled() -> bool:
-	return "disassembly" in furnitureJSONData
+	return dfurniture.disassembly.get_data().is_empty()

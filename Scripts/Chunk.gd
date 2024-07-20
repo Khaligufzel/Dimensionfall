@@ -216,9 +216,8 @@ func add_furnitures_to_new_block():
 		var furnituremapjson: Dictionary = furniture.json
 		var furniturepos: Vector3 = furniture.pos
 		var newFurniture: Node3D
-		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(\
-			Gamedata.data.furniture, furnituremapjson.id)
-		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
+		var dfurniture: DFurniture = Gamedata.furnitures.by_id(furnituremapjson.id)
+		if dfurniture.moveable:
 			newFurniture = FurniturePhysics.new(mypos+furniturepos, furnituremapjson)
 			newFurniture.current_chunk = self
 			furniturepos.y += 0.2 # Make sure it's not in a block and let it fall
@@ -318,15 +317,14 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 	for i in range(total_furniture):
 		var furnitureData = furnitureDataArray[i]
 		mutex.lock()
-		var furnitureJSON: Dictionary = Gamedata.get_data_by_id(
-		Gamedata.data.furniture, furnitureData.id)
+		var dfurniture: DFurniture = Gamedata.furnitures.by_id(furnitureData.id)
 		mutex.unlock()
 
 		# We can't set it's position until after it's in the scene tree 
 		# so we only save the position to a variable and pass it to the furniture
 		var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
 		
-		if furnitureJSON.has("moveable") and furnitureJSON.moveable:
+		if dfurniture.moveable:
 			newFurniture = FurniturePhysics.new(furniturepos,furnitureData)
 			newFurniture.current_chunk = self
 		else:
