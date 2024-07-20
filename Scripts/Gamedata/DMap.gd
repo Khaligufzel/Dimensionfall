@@ -3,7 +3,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles map data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of maps. You can access it trough Gamedata.maps
+# This script handles data for one map. You can access it trough Gamedata.maps
 
 
 var id: String = "":
