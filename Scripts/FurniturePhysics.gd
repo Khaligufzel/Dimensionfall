@@ -21,6 +21,7 @@ var current_health: float = 10.0
 # Function to make it's own shape and texture based on an id and position
 # This function is called by a Chunk to construct it's blocks
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
+	freeze = true # Prevent physics from occurring before it's positioned
 	furnitureJSON = newFurnitureJSON
 	furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
 	# Position furniture at the center of the block by default
@@ -60,11 +61,14 @@ func _ready() -> void:
 	# Add the container as a child on the same position as this furniture
 	add_container(Vector3(0,0,0))
 	last_rotation = furniturerotation
+	freeze = false # Now that it's positioned, unfreeze it
 
 
 # Keep track of the furniture's position and rotation. It starts at 0,0,0 and the moves to it's
 # assigned position after a timer. Until that has happened, we don't need to keep track of it's position
 func _physics_process(_delta) -> void:
+	if freeze: # Don't care about the position changing when it's frozen
+		return
 	# We only care about x and z. A changed y only means it's moving up or down.
 	var x_changed = not global_transform.origin.x == furnitureposition.x 
 	var z_changed = not global_transform.origin.z == furnitureposition.z

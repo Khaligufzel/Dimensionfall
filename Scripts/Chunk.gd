@@ -230,7 +230,7 @@ func add_furnitures_to_new_block():
 		
 		# Insert delay after every n blocks, evenly spreading the delay
 		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
-			OS.delay_msec(10) # Adjust delay time as needed
+			OS.delay_msec(100) # Adjust delay time as needed
 
 	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
 	if total_furniture % delay_every_n_furniture != 0:
@@ -337,7 +337,7 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 		
 		# Insert delay after every n furniture, evenly spreading the delay
 		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
-			OS.delay_msec(10) # Adjust delay time as needed
+			OS.delay_msec(100) # Adjust delay time as needed
 
 	# Optional: One final delay after the last furniture if the total_furniture is not perfectly divisible by delay_every_n_furniture
 	if total_furniture % delay_every_n_furniture != 0:
