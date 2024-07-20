@@ -470,8 +470,8 @@ func get_property_by_path(mydata: Dictionary, property_path: String, entity_id: 
 
 # A mob has been changed.
 func on_mob_changed(newdata: Dictionary, olddata: Dictionary):
-	var old_loot_group: String = olddata.get("loot_group")
-	var new_loot_group: String = newdata.get("loot_group")
+	var old_loot_group: String = olddata.get("loot_group", "")
+	var new_loot_group: String = newdata.get("loot_group", "")
 	var mob_id: String = newdata.get("id")
 	# Exit if old_group and new_group are the same
 	if old_loot_group == new_loot_group:

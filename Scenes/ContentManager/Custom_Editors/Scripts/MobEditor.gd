@@ -52,21 +52,21 @@ func load_mob_data() -> void:
 	if DescriptionTextEdit != null and contentData.has("description"):
 		DescriptionTextEdit.text = contentData["description"]
 	if melee_damage_numedit != null and contentData.has("melee_damage"):
-		melee_damage_numedit.get_line_edit().text = contentData["melee_damage"]
+		melee_damage_numedit.value = int(contentData["melee_damage"])
 	if melee_range_numedit != null and contentData.has("melee_range"):
-		melee_range_numedit.get_line_edit().text = contentData["melee_range"]
+		melee_range_numedit.value = float(contentData["melee_range"])
 	if health_numedit != null and contentData.has("health"):
-		health_numedit.get_line_edit().text = contentData["health"]
+		health_numedit.value = int(contentData["health"])
 	if moveSpeed_numedit != null and contentData.has("move_speed"):
-		moveSpeed_numedit.get_line_edit().text = contentData["move_speed"]
+		moveSpeed_numedit.value = float(contentData["move_speed"])
 	if idle_move_speed_numedit != null and contentData.has("idle_move_speed"):
-		idle_move_speed_numedit.get_line_edit().text = contentData["idle_move_speed"]
+		idle_move_speed_numedit.value = float(contentData["idle_move_speed"])
 	if sightRange_numedit != null and contentData.has("sight_range"):
-		sightRange_numedit.get_line_edit().text = contentData["sight_range"]
+		sightRange_numedit.value = int(contentData["sight_range"])
 	if senseRange_numedit != null and contentData.has("sense_range"):
-		senseRange_numedit.get_line_edit().text = contentData["sense_range"]
+		senseRange_numedit.value = int(contentData["sense_range"])
 	if hearingRange_numedit != null and contentData.has("hearing_range"):
-		hearingRange_numedit.get_line_edit().text = contentData["hearing_range"]
+		hearingRange_numedit.value = int(contentData["hearing_range"])
 	if ItemGroupTextEdit != null and contentData.has("loot_group"):
 		ItemGroupTextEdit.text = contentData["loot_group"]
 	
@@ -84,14 +84,14 @@ func _on_save_button_button_up() -> void:
 	contentData["sprite"] = PathTextLabel.text
 	contentData["name"] = NameTextEdit.text
 	contentData["description"] = DescriptionTextEdit.text
-	contentData["melee_damage"] = melee_damage_numedit.get_line_edit().text
-	contentData["melee_range"] = melee_range_numedit.get_line_edit().text
-	contentData["health"] = health_numedit.get_line_edit().text
-	contentData["move_speed"] = moveSpeed_numedit.get_line_edit().text
-	contentData["idle_move_speed"] = idle_move_speed_numedit.get_line_edit().text
-	contentData["sight_range"] = sightRange_numedit.get_line_edit().text
-	contentData["sense_range"] = senseRange_numedit.get_line_edit().text
-	contentData["hearing_range"] = hearingRange_numedit.get_line_edit().text
+	contentData["melee_damage"] = melee_damage_numedit.value
+	contentData["melee_range"] = melee_range_numedit.value
+	contentData["health"] = health_numedit.value
+	contentData["move_speed"] = moveSpeed_numedit.value
+	contentData["idle_move_speed"] = idle_move_speed_numedit.value
+	contentData["sight_range"] = sightRange_numedit.value
+	contentData["sense_range"] = senseRange_numedit.value
+	contentData["hearing_range"] = hearingRange_numedit.value
 	if ItemGroupTextEdit.text:
 		contentData["loot_group"] = ItemGroupTextEdit.text
 	else:

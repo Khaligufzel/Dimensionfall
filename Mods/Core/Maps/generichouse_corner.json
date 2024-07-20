@@ -1,10 +1,36 @@
 {
+	"areas": [
+		{
+			"entities": [
+				{
+					"count": 2,
+					"id": "scrapwalker",
+					"type": "mob"
+				},
+				{
+					"count": 1,
+					"id": "rust_sentinel",
+					"type": "mob"
+				}
+			],
+			"id": "mob_spawn",
+			"rotate_random": false,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1500,
+					"id": "null"
+				}
+			]
+		}
+	],
 	"categories": [
 		"House",
 		"Urban",
 		"City"
 	],
 	"description": "A house designed for corner plots, providing unique architectural features.",
+	"id": "generichouse_corner",
 	"levels": [
 		[],
 		[],
@@ -54,31 +80,79 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -170,31 +244,79 @@
 				"id": "grass_medium_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -295,31 +417,79 @@
 				"id": "grass_medium_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -423,31 +593,79 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -544,31 +762,79 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -677,31 +943,79 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -812,31 +1126,79 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -934,31 +1296,79 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -1073,31 +1483,79 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -1210,31 +1668,79 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -1343,31 +1849,79 @@
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -1469,31 +2023,79 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -1551,67 +2153,187 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -1679,67 +2401,187 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -1805,67 +2647,187 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -1928,82 +2890,202 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -2074,67 +3156,187 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00",
 				"rotation": 180
 			},
@@ -2199,64 +3401,184 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00",
 				"rotation": 180
 			},
@@ -2312,64 +3634,184 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00",
 				"rotation": 180
 			},
@@ -2433,63 +3875,183 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{

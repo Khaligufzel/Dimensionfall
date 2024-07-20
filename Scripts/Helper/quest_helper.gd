@@ -187,7 +187,7 @@ func update_quest_by_inventory(item: InventoryItem):
 # - item_count: The count of the item in the player's inventory
 func update_quest_step(myquestname: String, item_id: String, item_count: int, add: bool = false) -> void:
 	var step = QuestManager.get_current_step(myquestname)
-	match step.step_type:
+	match step.get("step_type", ""):	
 		QuestManager.INCREMENTAL_STEP:
 			if step.item_name == item_id:
 				# Update the quest step items with the collected count

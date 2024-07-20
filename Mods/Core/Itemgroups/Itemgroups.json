@@ -97,6 +97,13 @@
 		],
 		"mode": "Collection",
 		"name": "Mob loot",
+		"references": {
+			"core": {
+				"mobs": [
+					"rust_sentinel"
+				]
+			}
+		},
 		"sprite": "machete_32.png"
 	},
 	{
@@ -506,6 +513,13 @@
 		],
 		"mode": "Collection",
 		"name": "Electronics store (medium appliances)",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "microwave_oven_32.png"
 	},
 	{
@@ -551,6 +565,13 @@
 		],
 		"mode": "Collection",
 		"name": "Electronics store (small products)",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "screwdriver_32.png"
 	},
 	{
@@ -632,6 +653,13 @@
 		],
 		"mode": "Collection",
 		"name": "Electronics store (mixed products)",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "electrical_components_32.png"
 	},
 	{
@@ -665,6 +693,13 @@
 		],
 		"mode": "Collection",
 		"name": "Vending machine (drinks)",
+		"references": {
+			"core": {
+				"maps": [
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sprite": "can_beer_32.png"
 	},
 	{
