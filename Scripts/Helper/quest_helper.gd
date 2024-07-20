@@ -72,16 +72,22 @@ func _on_quest_failed(_quest: Dictionary):
 	pass
 
 
-# Function to handle step completion
+# When a step is complete.
+# step: the step dictionary
 func _on_step_complete(_step: Dictionary):
 	# To be developed later
 	pass
 
 
-# Function to handle next step
-func _on_next_step(_step: Dictionary):
-	# To be developed later
-	pass
+# Called after the previous step was completed
+# step: the new step in the quest
+func _on_next_step(step: Dictionary):
+	# The player might already have the item for the next step so check it
+	match step.get("step_type", ""):	
+		QuestManager.INCREMENTAL_STEP:
+			update_quest_by_inventory(null)
+		QuestManager.ITEMS_STEP:
+			update_quest_by_inventory(null)
 
 
 # Function to handle step update
@@ -166,7 +172,7 @@ func update_quest_by_inventory(item: InventoryItem):
 	var item_counts = ItemManager.count_player_inventory_items_by_id()
 
 	# Check if the player has the item; if not, set its count to 0
-	if not ItemManager.playerInventory.has_item_by_id(item.prototype_id):
+	if item and not ItemManager.playerInventory.has_item_by_id(item.prototype_id):
 		item_counts[item.prototype_id] = 0
 
 	# Get the current quests in progress
