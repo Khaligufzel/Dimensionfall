@@ -57,8 +57,8 @@
 	},
 	{
 		"Function": {
-			"is_container":  true,
-			"container_group": "kitchen_cupboard"
+			"container_group": "kitchen_cupboard",
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -97,7 +97,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 100
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -132,7 +133,8 @@
 			"radius_scale": 60,
 			"shape": "Cylinder",
 			"transparent": false
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -165,7 +167,8 @@
 			"radius_scale": 60,
 			"shape": "Cylinder",
 			"transparent": false
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -200,7 +203,8 @@
 			"radius_scale": 60,
 			"shape": "Cylinder",
 			"transparent": false
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -233,7 +237,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -242,7 +247,8 @@
 		],
 		"description": "A small pot holding a green plant, which can be placed indoors to enhance the aesthetics",
 		"destruction": {
-
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "None",
 		"id": "plant_pot_00",
@@ -297,12 +303,13 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"container_group": "cabinet_general"
+			"container_group": "cabinet_general",
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -336,7 +343,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -371,12 +379,13 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"container_group": "refridgerator"
+			"container_group": "refridgerator",
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -385,7 +394,8 @@
 		],
 		"description": "One of the central pieces of fruniture that make up a kitchen",
 		"destruction": {
-
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "North",
 		"id": "refrigerator_00",
@@ -410,7 +420,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -419,7 +430,8 @@
 		],
 		"description": "Centerpiece of the bathroom",
 		"destruction": {
-
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
 		},
 		"edgesnapping": "North",
 		"id": "toilet_00",
@@ -444,7 +456,8 @@
 			"radius_scale": 40,
 			"shape": "Cylinder",
 			"transparent": false
-		}
+		},
+		"weight": 1
 	},
 	{
 		"Function": {
@@ -483,7 +496,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -515,12 +529,13 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"container_group": "clothing_general"
+			"container_group": "clothing_general",
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -551,7 +566,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -582,7 +598,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -641,7 +658,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 80
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -700,7 +718,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -731,7 +750,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 80
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -763,7 +783,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -795,7 +816,8 @@
 			"radius_scale": 20,
 			"shape": "Cylinder",
 			"transparent": false
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -826,7 +848,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 80
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -856,7 +879,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 90
-		}
+		},
+		"weight": 1
 	},
 	{
 		"Function": {
@@ -886,8 +910,8 @@
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"container_group": "refridgerator"
+			"container_group": "refridgerator",
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -916,12 +940,13 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"container_group": "refridgerator"
+			"container_group": "refridgerator",
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -950,12 +975,13 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		}
+		},
+		"weight": 1
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"container_group": "clothing_general"
+			"container_group": "clothing_general",
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -1010,7 +1036,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 80
-		}
+		},
+		"weight": 1
 	},
 	{
 		"Function": {
@@ -1043,11 +1070,12 @@
 			"shape": "Box",
 			"transparent": true,
 			"width_scale": 80
-		}
+		},
+		"weight": 1
 	},
 	{
 		"Function": {
-			"is_container":  true
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -1077,8 +1105,8 @@
 	},
 	{
 		"Function": {
-			"is_container":  true,
-			"container_group": "cabinet_general"
+			"container_group": "cabinet_general",
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -1107,7 +1135,8 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 90
-		}
+		},
+		"weight": 1
 	},
 	{
 		"categories": [
@@ -1142,6 +1171,7 @@
 			"shape": "Box",
 			"transparent": true,
 			"width_scale": 100
-		}
+		},
+		"weight": 1
 	}
 ]

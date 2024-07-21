@@ -42,7 +42,7 @@ func on_data_changed():
 # Saves all furnitures to disk
 func save_furnitures_to_disk() -> void:
 	var save_data: Array = []
-	for furniture in furnituredict:
+	for furniture in furnituredict.values():
 		save_data.append(furniture.get_data())
 	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
 

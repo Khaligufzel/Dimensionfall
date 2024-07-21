@@ -224,7 +224,7 @@ func _on_save_button_button_up():
 	handle_disassembly_option()
 	dfurniture.on_data_changed(olddata)
 	data_changed.emit()
-	olddata = dfurniture.duplicate(true)
+	olddata = DFurniture.new(dfurniture.get_data().duplicate(true))
 
 
 # Function to handle saving or erasing the support shape data

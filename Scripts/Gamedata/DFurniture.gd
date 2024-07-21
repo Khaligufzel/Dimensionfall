@@ -132,13 +132,14 @@ func _init(data: Dictionary):
 	description = data.get("description", "")
 	categories = data.get("categories", [])
 	moveable = data.get("moveable", false)
-	weight = data.get("weight", 0.0)
+	weight = data.get("weight", 1.0)
 	edgesnapping = data.get("edgesnapping", "")
 	spriteid = data.get("sprite", "")
 	function = Function.new(data.get("Function", {}))  # Initialize Function inner class
 	support_shape = SupportShape.new(data.get("support_shape", {}))  # Initialize SupportShape inner class
 	destruction = Destruction.new(data.get("destruction", {}))  # Initialize Destruction inner class
 	disassembly = Disassembly.new(data.get("disassembly", {}))  # Initialize Disassembly inner class
+	references = data.get("references", {})
 
 
 # Get data function to return a dictionary with all properties
@@ -152,12 +153,12 @@ func get_data() -> Dictionary:
 		"weight": weight,
 		"edgesnapping": edgesnapping,
 		"sprite": spriteid,
-		"destruction": destruction.get_data(),
-		"disassembly": disassembly.get_data()
+		"references": references
 	}
 	# Save the weight only if moveable true, otherwise erase it.
 	if moveable:
 		data["weight"] = weight
+	else: # Support shape only applies to static furniture
 		data["support_shape"] = support_shape.get_data()
 		
 	var functiondata: Dictionary = function.get_data()
@@ -210,13 +211,13 @@ func on_data_changed(olddfurniture: DFurniture):
 	var changes_made = false
 
 	# Handle container itemgroup changes
-	changes_made = Gamedata.dupdate_reference(references, old_container_group, new_container_group, "furniture") or changes_made
+	changes_made = Gamedata.update_reference(old_container_group, new_container_group, id, "furniture") or changes_made
 
 	# Handle destruction group changes
-	changes_made = Gamedata.dupdate_reference(references, old_destruction_group, destruction.group, "furniture") or changes_made
+	changes_made = Gamedata.update_reference(old_destruction_group, destruction.group, id, "furniture") or changes_made
 
 	# Handle disassembly group changes
-	changes_made = Gamedata.dupdate_reference(references, old_disassembly_group, disassembly.group, "furniture") or changes_made
+	changes_made = Gamedata.update_reference(old_disassembly_group, disassembly.group, id, "furniture") or changes_made
 
 	# If any references were updated, save the changes to the data file
 	if changes_made:
