@@ -128,7 +128,7 @@ func save_player_inventory() -> void:
 # Function to save the player's equipment to a JSON file.
 func save_player_equipment() -> void:
 	var save_path = current_save_folder + "/player_equipment.json"
-	var equipment_data = JSON.stringify(General.player_equipment_dict)
+	var equipment_data = JSON.stringify(ItemManager.player_equipment.serialize())
 	Helper.json_helper.write_json_file(save_path, equipment_data)
 
 
@@ -155,8 +155,8 @@ func load_player_equipment() -> void:
 	var loaded_equipment_data = Helper.json_helper.load_json_dictionary_file(load_path)
 
 	if loaded_equipment_data:
-		# Update the General.player_inventory_dict with the loaded data
-		General.player_equipment_dict = loaded_equipment_data
+		# Update the ItemManager.player_equipment with the loaded data
+		ItemManager.player_equipment.deserialize(loaded_equipment_data)
 		print_debug("Player equipment loaded from: " + load_path)
 	else:
 		print_debug("Failed to load player equipment from: " + load_path)

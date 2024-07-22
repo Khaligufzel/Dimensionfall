@@ -821,6 +821,14 @@
 		],
 		"mode": "Collection",
 		"name": "Generic field items",
+		"references": {
+			"core": {
+				"maps": [
+					"field_grass_basic_00",
+					"field_grass_flowers_00"
+				]
+			}
+		},
 		"sprite": "leaves_32.png"
 	},
 	{
@@ -934,5 +942,32 @@
 			}
 		},
 		"sprite": "branches_32.png"
+	},
+	{
+		"description": "Does not spawn under normal circumstances. Only used for testing. Can be used for any testing purposes, just update the items to suit your needs.",
+		"id": "test_items",
+		"items": [
+			{
+				"id": "pistol_9mm",
+				"max": 4,
+				"min": 2,
+				"probability": 100
+			},
+			{
+				"id": "pistol_magazine",
+				"max": 7,
+				"min": 2,
+				"probability": 100
+			},
+			{
+				"id": "bullet_9mm",
+				"max": 100,
+				"min": 100,
+				"probability": 100
+			}
+		],
+		"mode": "Collection",
+		"name": "Test items",
+		"sprite": "screw_32.png"
 	}
 ]

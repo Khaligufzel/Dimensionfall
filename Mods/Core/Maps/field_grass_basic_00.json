@@ -104,6 +104,7 @@
 		"Plains"
 	],
 	"description": "A simple and vast field covered with green grass, perfect for beginners.",
+	"id": "field_grass_basic_00",
 	"levels": [
 		[],
 		[],

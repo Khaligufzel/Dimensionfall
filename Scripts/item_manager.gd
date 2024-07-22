@@ -14,6 +14,8 @@ var proximityInventories = {}  # Dictionary to hold inventories and their items
 var allAccessibleItems = []  # List to hold all accessible InventoryItems
 var player_max_inventory_volume: int = 1000
 var item_protosets: Resource = preload("res://ItemProtosets.tres")
+ # Keeps track of player equipment, used for saving
+var player_equipment: PlayerEquipment = null
 
 
 signal allAccessibleItems_changed(items_added: Array, items_removed: Array)
@@ -21,11 +23,82 @@ signal craft_successful(item: Dictionary, recipe: Dictionary)
 signal craft_failed(item: Dictionary, recipe: Dictionary, reason: String)
 
 
+class PlayerEquipment:
+	var LeftHandItem: InventoryItem = null
+	var RightHandItem: InventoryItem = null
+	var EquipmentItemList: Dictionary = {}
+
+	# Connect signals to relevant functions
+	func _init():
+		Helper.signal_broker.item_was_equipped.connect(_on_item_was_equipped)
+		Helper.signal_broker.item_was_unequipped.connect(_on_item_was_unequipped)
+		Helper.signal_broker.wearable_was_equipped.connect(_on_wearable_was_equipped)
+		Helper.signal_broker.wearable_was_unequipped.connect(_on_wearable_was_unequipped)
+
+	# Serialize the equipment data into a dictionary
+	func serialize() -> Dictionary:
+		var player_equipment: Dictionary = {}
+		if LeftHandItem:
+			player_equipment["LeftHandItem"] = LeftHandItem.serialize()
+		if RightHandItem:
+			player_equipment["RightHandItem"] = RightHandItem.serialize()
+		
+		if not EquipmentItemList.is_empty():
+			player_equipment["wearables"] = {}
+			for slot in EquipmentItemList.keys():
+				var item: InventoryItem = EquipmentItemList[slot]
+				player_equipment["wearables"][slot] = item.serialize()
+		return player_equipment
+
+	# Deserialize the equipment data from a dictionary
+	func deserialize(equipment_dict: Dictionary):
+		if equipment_dict.has("LeftHandItem"):
+			var item = InventoryItem.new()
+			item.deserialize(equipment_dict["LeftHandItem"])
+			LeftHandItem = item
+		if equipment_dict.has("RightHandItem"):
+			var item = InventoryItem.new()
+			item.deserialize(equipment_dict["RightHandItem"])
+			RightHandItem = item
+
+		if equipment_dict.has("wearables"):
+			for slot in equipment_dict["wearables"]:
+				var item = InventoryItem.new()
+				item.deserialize(equipment_dict["wearables"][slot])
+				EquipmentItemList[slot] = item
+				
+	# We keep track of what slots have equipment
+	func _on_item_was_equipped(heldItem: InventoryItem, equipmentSlot: Control):
+		if equipmentSlot.is_left_slot:
+			LeftHandItem = heldItem
+		else:
+			RightHandItem = heldItem
+
+	func _on_item_was_unequipped(_heldItem: InventoryItem, equipmentSlot: Control):
+		if equipmentSlot.is_left_slot:
+			LeftHandItem = null
+		else:
+			RightHandItem = null
+
+	func _on_wearable_was_equipped(wearableItem: InventoryItem, wearableSlot: Control):
+		EquipmentItemList[wearableSlot.slot_id] = wearableItem
+
+	func _on_wearable_was_unequipped(_wearableItem: InventoryItem, wearableSlot: Control):
+		EquipmentItemList.erase(wearableSlot.slot_id)
+
+	# Reset the player equipment to default values
+	func reset_to_default():
+		LeftHandItem = null
+		RightHandItem = null
+		EquipmentItemList.clear()
+
+
 func _ready():
 	# Connect signals for game start, load, and end
 	Helper.signal_broker.game_started.connect(_on_game_started_loaded.bind(true))
 	Helper.signal_broker.game_loaded.connect(_on_game_started_loaded.bind(false))
 	Helper.signal_broker.game_ended.connect(_on_game_ended)
+	player_equipment = PlayerEquipment.new()
 
 
 # This emits a signal with two lists bounded to it
@@ -83,7 +156,6 @@ func initialize_inventory() -> InventoryStacked:
 	newInventory.item_protoset = load("res://ItemProtosets.tres")
 	return newInventory
 
-
 func create_starting_items():
 	if playerInventory.get_children() == []:
 		playerInventory.create_and_add_item("bottle_plastic_water")
@@ -92,7 +164,68 @@ func create_starting_items():
 		playerInventory.create_and_add_item("can_soda")
 		playerInventory.create_and_add_item("bandage_basic")
 		playerInventory.create_and_add_item("bottle_antibiotics")
-	General.player_equipment_dict = {"LeftHandEquipmentSlot":{},"RightHandEquipmentSlot":{},"feet":{"item":{"node_name":"_Node_21","protoset":"res://ItemProtosets.tres","prototype_id":"boots"}},"hands":{"item":{"node_name":"@Node@57664","properties":{"stack_size":{"type":2,"value":"1"}},"protoset":"res://ItemProtosets.tres","prototype_id":"gloves_leather"}},"head":{"item":{"node_name":"@Node@57593","properties":{"stack_size":{"type":2,"value":"1"}},"protoset":"res://ItemProtosets.tres","prototype_id":"scarf"}},"legs":{"item":{"node_name":"@Node@57594","properties":{"stack_size":{"type":2,"value":"1"}},"protoset":"res://ItemProtosets.tres","prototype_id":"jeans"}},"torso":{"item":{"node_name":"_Node_22","protoset":"res://ItemProtosets.tres","prototype_id":"jacket"}}}
+
+	var wearables: Dictionary = {
+		"wearables": {
+			"feet": {
+				"node_name": "@Node@9036",
+				"properties": {
+					"stack_size": {
+						"type": 2,
+						"value": "1"
+					}
+				},
+				"protoset": "res://ItemProtosets.tres",
+				"prototype_id": "boots"
+			},
+			"hands": {
+				"node_name": "@Node@9342",
+				"properties": {
+					"stack_size": {
+						"type": 2,
+						"value": "1"
+					}
+				},
+				"protoset": "res://ItemProtosets.tres",
+				"prototype_id": "gloves_leather"
+			},
+			"head": {
+				"node_name": "@Node@9055",
+				"properties": {
+					"stack_size": {
+						"type": 2,
+						"value": "1"
+					}
+				},
+				"protoset": "res://ItemProtosets.tres",
+				"prototype_id": "hat_baseball"
+			},
+			"legs": {
+				"node_name": "@Node@9395",
+				"properties": {
+					"stack_size": {
+						"type": 2,
+						"value": "1"
+					}
+				},
+				"protoset": "res://ItemProtosets.tres",
+				"prototype_id": "jeans"
+			},
+			"torso": {
+				"node_name": "@Node@9394",
+				"properties": {
+					"stack_size": {
+						"type": 2,
+						"value": "1"
+					}
+				},
+				"protoset": "res://ItemProtosets.tres",
+				"prototype_id": "jacket"
+			}
+		}
+	}
+	ItemManager.player_equipment.deserialize(wearables)
+
 
 
 # The actual reloading is executed on the item

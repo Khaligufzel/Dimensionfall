@@ -3,7 +3,6 @@ extends Node
 # Existing variables
 var is_mouse_outside_HUD = false
 var is_allowed_to_shoot = true
-var player_equipment_dict: Dictionary
 
 # New variables
 var is_action_in_progress = false

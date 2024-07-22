@@ -1,7 +1,7 @@
 extends Control
 
 # This script is intended to be used with the EquipmentSlot scene
-# The equipmentslot will hold one piece of equipment
+# The equipmentslot will hold one piece of equipment (a weapon)
 # The equipment will be represented by en InventoryItem
 # The equipment will be visualized by a texture provided by the InventoryItem
 # There will be signals for equipping, unequipping and clearing the slot
@@ -95,40 +95,6 @@ func update_icon() -> void:
 		myIcon.texture = myInventoryItem.get_texture()
 	else:
 		myIcon.texture = null
-
-
-# Serialize the equipped item and the magazine into one dictionary
-# This will happen when the player pressed the travel button on the overmap
-func serialize() -> Dictionary:
-	var data: Dictionary = {}
-	if myInventoryItem:
-		# We will separate the magazine from the weapon during serialization
-		if myInventoryItem.get_property("current_magazine"):
-			var myMagazine: InventoryItem = myInventoryItem.get_property("current_magazine")
-			data["magazine"] = myMagazine.serialize()  # Serialize magazine
-			myInventoryItem.clear_property("current_magazine")
-		data["item"] = myInventoryItem.serialize()  # Serialize equipped item
-	return data
-
-
-# Deserialize and equip an item and a magazine from the provided data
-# This will happen when a game is loaded or the player has travelled to a different map
-func deserialize(data: Dictionary) -> void:
-	# Deserialize and equip an item
-	if data.has("item"):
-		var itemData: Dictionary = data["item"]
-		var item = InventoryItem.new()
-		item.deserialize(itemData)
-		equip(item)  # Equip the deserialized item
-
-		# If there is a magazine, we create an InventoryItem instance
-		# We assign a reference to it in the curretn_magazine of the weapon
-		if data.has("magazine"):
-			var magazineData: Dictionary = data["magazine"]
-			var myMagazine = InventoryItem.new()
-			myMagazine.deserialize(magazineData)
-			item.set_property("current_magazine", myMagazine)
-			equippedItem.on_magazine_inserted()
 
 
 # Get the currently equipped item
