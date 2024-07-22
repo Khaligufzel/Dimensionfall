@@ -3,7 +3,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles map data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of maps. You can access it trough Gamedata.maps
+# This script handles data for one map. You can access it trough Gamedata.maps
 
 
 var id: String = "":
@@ -83,7 +83,7 @@ func get_data() -> Dictionary:
 
 func load_data_from_disk():
 	set_data(Helper.json_helper.load_json_dictionary_file(get_file_path()))
-	sprite = load(get_file_path().replace(".json", ".png")) 
+	sprite = load(get_sprite_path()) 
 
 
 func save_data_to_disk() -> void:
@@ -155,7 +155,7 @@ func remove_my_reference_from_all_entities() -> void:
 		# References have been added to tiles, furniture and/or mobs
 		# We could track changes individually so we only save what has actually changed.
 		Gamedata.save_data_to_file(Gamedata.data.tiles)
-		Gamedata.save_data_to_file(Gamedata.data.furniture)
+		Gamedata.furnitures.save_furnitures_to_disk()
 		Gamedata.save_data_to_file(Gamedata.data.mobs)
 		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
 
@@ -169,20 +169,30 @@ func data_changed(oldmap: DMap):
 
 	# Add references for new entities
 	for entity_type in new_entities.keys():
-		for entity_id in new_entities[entity_type]:
-			Gamedata.add_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
+		if entity_type == "furniture":
+			for entity_id in new_entities[entity_type]:
+				var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
+				furniture.add_reference("core","maps",id)
+		else:
+			for entity_id in new_entities[entity_type]:
+				Gamedata.add_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
 
 	# Remove references for entities not present in new data
 	for entity_type in old_entities.keys():
-		for entity_id in old_entities[entity_type]:
-			if not new_entities[entity_type].has(entity_id):
-				Gamedata.remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
+		if entity_type == "furniture":
+			for entity_id in old_entities[entity_type]:
+				var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
+				furniture.remove_reference("core","maps",id)
+		else:
+			for entity_id in old_entities[entity_type]:
+				if not new_entities[entity_type].has(entity_id):
+					Gamedata.remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
 
 	# Save changes to the data files if there were any updates
 	if new_entities["mobs"].size() > 0 or old_entities["mobs"].size() > 0:
 		Gamedata.save_data_to_file(Gamedata.data.mobs)
 	if new_entities["furniture"].size() > 0 or old_entities["furniture"].size() > 0:
-		Gamedata.save_data_to_file(Gamedata.data.furniture)
+		Gamedata.furnitures.save_furnitures_to_disk()
 	if new_entities["tiles"].size() > 0 or old_entities["tiles"].size() > 0:
 		Gamedata.save_data_to_file(Gamedata.data.tiles)
 	if new_entities["itemgroups"].size() > 0 or old_entities["itemgroups"].size() > 0:
@@ -340,16 +350,7 @@ func erase_entity_from_areas(entity_type: String, entity_id: String) -> void:
 # type: The type of entity, for example "tacticlmaps"
 # refid: The id of the entity, for example "town_00"
 func remove_reference(module: String, type: String, refid: String):
-	var changes_made = false
-	var refs = references[module][type]
-	if refid in refs:
-		refs.erase(refid)
-		changes_made = true
-		# Clean up if necessary
-		if refs.size() == 0:
-			references[module].erase(type)
-		if references[module].is_empty():
-			references.erase(module)
+	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
 	if changes_made:
 		save_data_to_disk()
 
@@ -360,17 +361,9 @@ func remove_reference(module: String, type: String, refid: String):
 # type: The type of entity, for example "tacticlmaps"
 # refid: The id of the entity, for example "town_00"
 func add_reference(module: String, type: String, refid: String):
-	var changes_made: bool = false
-	if not references.has(module):
-		references[module] = {}
-	if not references[module].has(type):
-		references[module][type] = []
-	if refid not in references[module][type]:
-		references[module][type].append(refid)
-		changes_made = true
+	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
 	if changes_made:
 		save_data_to_disk()
-
 
 
 # Function to remove a area from mapData.areas by its id

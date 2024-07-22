@@ -391,7 +391,7 @@ func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 			"mob":
 				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.mobs, entity["id"])
 			"furniture":
-				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.furniture, entity["id"])
+				properties["texture"] = Gamedata.furnitures.sprite_by_id(entity["id"])
 			"itemgroup":
 				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, entity["id"])
 

@@ -26,7 +26,7 @@ var tileData: Dictionary = defaultTileData.duplicate():
 			elif tileData.has("furniture"):
 				if tileData.furniture.has("rotation"):
 					$ObjectSprite.rotation_degrees = tileData.furniture.rotation
-				$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture, tileData.furniture.id)
+				$ObjectSprite.texture = Gamedata.furnitures.sprite_by_id(tileData.furniture.id)
 				$ObjectSprite.show()
 			elif tileData.has("itemgroups"):
 				var random_itemgroup: String = tileData.itemgroups.pick_random()
@@ -116,7 +116,7 @@ func set_furniture_id(id: String) -> void:
 			tileData.furniture.id = id
 		else:
 			tileData.furniture = {"id": id}
-		$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture, id)
+		$ObjectSprite.texture = Gamedata.furnitures.sprite_by_id(id)
 		$ObjectSprite.show()
 	set_tooltip()
 
@@ -167,10 +167,8 @@ func set_tile_itemgroups(itemgroups: Array) -> void:
 		if itemgroups.is_empty(): # Only erase the itemgroups property from furniture
 			tileData.furniture.erase("itemgroups")
 		else:
-			var furnituredata = Gamedata.get_data_by_id(Gamedata.data.furniture, tileData.furniture.id)
-			var containervalue = Helper.json_helper.get_nested_data(furnituredata, "Function.container")
-
-			if not itemgroups.is_empty() and typeof(containervalue) == TYPE_DICTIONARY:
+			var furniture: DFurniture = Gamedata.furnitures.by_id(tileData.furniture.id)
+			if not itemgroups.is_empty() and furniture.function.is_container:
 				tileData.furniture.itemgroups = itemgroups
 			else:
 				tileData.furniture.erase("itemgroups")
@@ -318,11 +316,11 @@ func set_tooltip() -> void:
 
 
 # Sets the visibility of the area sprite based on the provided area name and visibility flag
-func set_area_sprite_visibility(is_visible: bool, area_name: String) -> void:
+func set_area_sprite_visibility(isvisible: bool, area_name: String) -> void:
 	if tileData.has("areas"):
 		for area in tileData["areas"]:
 			if area["id"] == area_name:
-				$AreaSprite.visible = is_visible
+				$AreaSprite.visible = isvisible
 				return
 	$AreaSprite.visible = false
 

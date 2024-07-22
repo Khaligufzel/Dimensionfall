@@ -7,7 +7,7 @@ extends RigidBody3D
 var furnitureposition: Vector3 = Vector3()
 var furniturerotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture
-var furnitureJSONData: Dictionary # The json that defines this furniture's basics in general
+var dfurniture: DFurniture # The json that defines this furniture's basics in general
 var sprite: Sprite3D = null
 var last_rotation: int
 var current_chunk: Chunk
@@ -18,17 +18,56 @@ var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
 var current_health: float = 10.0
 
 
+# Function to make it's own shape and texture based on an id and position
+# This function is called by a Chunk to construct it's blocks
+func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
+	freeze = true # Prevent physics from occurring before it's positioned
+	furnitureJSON = newFurnitureJSON
+	dfurniture = Gamedata.furnitures.by_id(furnitureJSON.id)
+	# Position furniture at the center of the block by default
+	furnitureposition = furniturepos
+	# Only previously saved furniture will have the global_position_x key. They do not need to be raised
+	if not newFurnitureJSON.has("global_position_x"):
+		furnitureposition.y += 0.5 # Move the furniture to slightly above the block 
+	add_to_group("furniture")
+
+	set_sprite(dfurniture.sprite)
+	
+	furniturerotation = furnitureJSON.get("rotation", 0)
+	mass = dfurniture.weight
+	# Set the properties we need
+	#linear_damp = 59
+	angular_damp = 59
+	axis_lock_angular_x = true
+	axis_lock_angular_z = true
+	# Set collision layer to layer 4 (moveable obstacles layer)
+	collision_layer = 1 << 3  # Layer 4 is 1 << 3
+
+	# Set collision mask to include layers 1, 2, 3, 4, 5, and 6
+	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5)
+	# Explanation:
+	# - 1 << 0: Layer 1 (player layer)
+	# - 1 << 1: Layer 2 (enemy layer)
+	# - 1 << 2: Layer 3 (movable obstacles layer)
+	# - 1 << 3: Layer 4 (static obstacles layer)
+	# - 1 << 4: Layer 5 (friendly projectiles layer)
+	# - 1 << 5: Layer 6 (enemy projectiles layer)
+
+
 func _ready() -> void:
 	set_position(furnitureposition)
 	set_new_rotation(furniturerotation)
 	# Add the container as a child on the same position as this furniture
 	add_container(Vector3(0,0,0))
 	last_rotation = furniturerotation
+	freeze = false # Now that it's positioned, unfreeze it
 
 
 # Keep track of the furniture's position and rotation. It starts at 0,0,0 and the moves to it's
 # assigned position after a timer. Until that has happened, we don't need to keep track of it's position
 func _physics_process(_delta) -> void:
+	if freeze: # Don't care about the position changing when it's frozen
+		return
 	# We only care about x and z. A changed y only means it's moving up or down.
 	var x_changed = not global_transform.origin.x == furnitureposition.x 
 	var z_changed = not global_transform.origin.z == furnitureposition.z
@@ -101,41 +140,6 @@ func get_my_rotation() -> int:
 		return rot-0
 
 
-# Function to make it's own shape and texture based on an id and position
-# This function is called by a Chunk to construct it's blocks
-func construct_self(furniturepos: Vector3, newFurnitureJSON: Dictionary):
-	furnitureJSON = newFurnitureJSON
-	furnitureJSONData = Gamedata.get_data_by_id(Gamedata.data.furniture,furnitureJSON.id)
-	# Position furniture at the center of the block by default
-	furnitureposition = furniturepos
-	# Only previously saved furniture will have the global_position_x key. They do not need to be raised
-	if not newFurnitureJSON.has("global_position_x"):
-		furnitureposition.y += 0.5 # Move the furniture to slightly above the block 
-	add_to_group("furniture")
-
-	var furnitureSprite: Texture = Gamedata.get_sprite_by_id(Gamedata.data.furniture,furnitureJSON.id)
-	set_sprite(furnitureSprite)
-	
-	furniturerotation = furnitureJSON.get("rotation", 0)
-	mass = furnitureJSONData.get("weight", 1)
-	# Set the properties we need
-	#linear_damp = 59
-	angular_damp = 59
-	axis_lock_angular_x = true
-	axis_lock_angular_z = true
-	# Set collision layer to layer 4 (moveable obstacles layer)
-	collision_layer = 1 << 3  # Layer 4 is 1 << 3
-
-	# Set collision mask to include layers 1, 2, 3, 4, 5, and 6
-	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5)
-	# Explanation:
-	# - 1 << 0: Layer 1 (player layer)
-	# - 1 << 1: Layer 2 (enemy layer)
-	# - 1 << 2: Layer 3 (movable obstacles layer)
-	# - 1 << 3: Layer 4 (static obstacles layer)
-	# - 1 << 4: Layer 5 (friendly projectiles layer)
-	# - 1 << 5: Layer 6 (enemy projectiles layer)
-
 
 # Check if we crossed the chunk boundary and update our association with the chunks
 func _moved(newpos:Vector3) -> void:
@@ -158,21 +162,18 @@ func get_data() -> Dictionary:
 		"rotation": last_rotation
 	}
 	
-	# Check for container functionality and save item list if applicable
-	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
+	# Check if this furniture has a container attached and if it has items
+	if container:
 		# Initialize the 'Function' sub-dictionary if not already present
 		if "Function" not in newfurniturejson:
 			newfurniturejson["Function"] = {}
-		
-		# Check if this furniture has a container attached and if it has items
-		if container:
-			var item_ids = container.get_item_ids()
-			if item_ids.size() > 0:
-				var containerdata = container.get_inventory().serialize()
-				newfurniturejson["Function"]["container"] = {"items": containerdata}
-			else:
-				# No items in the container, store the container as empty
-				newfurniturejson["Function"]["container"] = {}
+		var item_ids = container.get_item_ids()
+		if item_ids.size() > 0:
+			var containerdata = container.get_inventory().serialize()
+			newfurniturejson["Function"]["container"] = {"items": containerdata}
+		else:
+			# No items in the container, store the container as empty
+			newfurniturejson["Function"]["container"] = {}
 
 	return newfurniturejson
 
@@ -256,11 +257,11 @@ func add_corpse(pos: Vector3) -> void:
 		itemdata["global_position_y"] = pos.y
 		itemdata["global_position_z"] = pos.z
 		
-		var itemgroup = furnitureJSONData.get("destruction", {}).get("group", "")
+		var itemgroup = dfurniture.destruction.group
 		if itemgroup:
 			itemdata["itemgroups"] = [itemgroup]
 		
-		var fursprite = furnitureJSONData.get("destruction", {}).get("sprite", null)
+		var fursprite = dfurniture.destruction.sprite
 		if fursprite:
 			itemdata["texture_id"] = fursprite
 		
@@ -282,7 +283,7 @@ func _disassemble() -> void:
 	queue_free()
 	
 
-# When the furniture is destroyed, it leaves a wreck behind
+# When the furniture is disassembled, it leaves a wreck behind
 func add_wreck(pos: Vector3) -> void:
 	if can_be_disassembled():
 		var itemdata: Dictionary = {}
@@ -290,11 +291,11 @@ func add_wreck(pos: Vector3) -> void:
 		itemdata["global_position_y"] = pos.y
 		itemdata["global_position_z"] = pos.z
 		
-		var itemgroup = furnitureJSONData.get("disassembly", {}).get("group", "")
+		var itemgroup = dfurniture.disassembly.group
 		if itemgroup:
 			itemdata["itemgroups"] = [itemgroup]
 		
-		var fursprite = furnitureJSONData.get("disassembly", {}).get("sprite", null)
+		var fursprite = dfurniture.disassembly.sprite
 		if fursprite:
 			itemdata["texture_id"] = fursprite
 		
@@ -305,16 +306,15 @@ func add_wreck(pos: Vector3) -> void:
 		get_tree().get_root().add_child.call_deferred(newItem)
 
 func can_be_destroyed() -> bool:
-	return "destruction" in furnitureJSONData
+	return dfurniture.destruction.get_data().is_empty()
 
 func can_be_disassembled() -> bool:
-	return "disassembly" in furnitureJSONData
-
+	return dfurniture.disassembly.get_data().is_empty()
 
 
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container(pos: Vector3):
-	if "Function" in furnitureJSONData and "container" in furnitureJSONData["Function"]:
+	if dfurniture.function.is_container:
 		var containerdata: Dictionary = {}
 		containerdata["global_position_x"] = pos.x
 		containerdata["global_position_y"] = pos.y
@@ -343,7 +343,7 @@ func populate_container_from_itemgroup() -> String:
 			print_debug("itemgroups array is empty in furnitureJSON")
 
 	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
-	var itemgroup = furnitureJSONData["Function"]["container"].get("itemgroup", "")
+	var itemgroup = dfurniture.function.container_group
 	if itemgroup:
 		return itemgroup
 	return ""
