@@ -313,29 +313,39 @@ func get_data() -> Dictionary:
 	return newfurniturejson
 
 
+
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
 	if dfurniture.function.is_container:
-		var height = dfurniture.support_shape.height
 		# Should be slightly above mesh so we add 0.01
-		var pos: Vector3 = Vector3(0, height + 0.01, 0) if height > 0 else Vector3(0, 0.51, 0)
 		var newcontainerjson: Dictionary = {
-			"global_position_x": pos.x,
-			"global_position_y": pos.y,
-			"global_position_z": pos.z
+			"global_position_x": 0,
+			"global_position_y": dfurniture.support_shape.height + 0.01,
+			"global_position_z": 0
 		}
-		var newfurniture: bool = is_new_furniture()
-		if newfurniture:
-			newcontainerjson["itemgroups"] = [populate_container_from_itemgroup()]
-		container = ContainerItem.new(newcontainerjson)
-		if not newfurniture:
-			deserialize_container_data()
-		add_child(container)
+		if is_new_furniture():
+			add_new_container(newcontainerjson)
+		else:
+			add_existing_container(newcontainerjson)
+
+
+# Handle the case where the furniture is new
+func add_new_container(newcontainerjson: Dictionary):
+	newcontainerjson["itemgroups"] = [populate_container_from_itemgroup()]
+	container = ContainerItem.new(newcontainerjson)
+	add_child(container)
+
+
+# Handle the case where the furniture already exists
+func add_existing_container(newcontainerjson: Dictionary):
+	container = ContainerItem.new(newcontainerjson)
+	deserialize_container_data()
+	add_child(container)
 
 
 # If there is an itemgroup assigned to the furniture, it will be added to the container.
-# It will check both furnitureJSON and furnitureJSONData for itemgroup information.
-# The container will be filled with items from the itemgroup.
+# It will check both furnitureJSON and dfurniture for itemgroup information.
+# The function will return the id of the itemgroup so that the container may use it
 func populate_container_from_itemgroup() -> String:
 	# Check if furnitureJSON contains an itemgroups array
 	if furnitureJSON.has("itemgroups"):
