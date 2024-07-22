@@ -307,6 +307,8 @@ func loadLevelData(newLevel: int) -> void:
 	loadLevel(newLevel, self)
 	update_area_visibility()
 
+
+# Loads one of the levels into the grid
 func loadLevel(level: int, grid: GridContainer) -> void:
 	var newLevelData: Array = mapEditor.currentMap.levels[level]
 	var i: int = 0
