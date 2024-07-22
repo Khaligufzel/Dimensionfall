@@ -130,7 +130,7 @@
 		"support_shape": {
 			"color": "653102ff",
 			"height": 0.5,
-			"radius_scale": 60,
+			"radius_scale": 50,
 			"shape": "Cylinder",
 			"transparent": false
 		},
@@ -164,7 +164,7 @@
 		"support_shape": {
 			"color": "9b522fff",
 			"height": 0.5,
-			"radius_scale": 60,
+			"radius_scale": 50,
 			"shape": "Cylinder",
 			"transparent": false
 		},
@@ -200,7 +200,7 @@
 		"support_shape": {
 			"color": "9e5137ff",
 			"height": 0.5,
-			"radius_scale": 60,
+			"radius_scale": 50,
 			"shape": "Cylinder",
 			"transparent": false
 		},

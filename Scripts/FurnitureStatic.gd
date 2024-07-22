@@ -296,18 +296,18 @@ func get_data() -> Dictionary:
 	if is_door:
 		newfurniturejson["Function"] = {"door": door_state}
 	
-		# Check if this furniture has a container attached and if it has items
-		if container:
-			# Initialize the 'Function' sub-dictionary if not already present
-			if "Function" not in newfurniturejson:
-				newfurniturejson["Function"] = {}
-			var item_ids = container.get_item_ids()
-			if item_ids.size() > 0:
-				var containerdata = container.get_inventory().serialize()
-				newfurniturejson["Function"]["container"] = {"items": containerdata}
-			else:
-				# No items in the container, store the container as empty
-				newfurniturejson["Function"]["container"] = {}
+	# Check if this furniture has a container attached and if it has items
+	if container:
+		# Initialize the 'Function' sub-dictionary if not already present
+		if "Function" not in newfurniturejson:
+			newfurniturejson["Function"] = {}
+		var item_ids = container.get_item_ids()
+		if item_ids.size() > 0:
+			var containerdata = container.get_inventory().serialize()
+			newfurniturejson["Function"]["container"] = {"items": containerdata}
+		else:
+			# No items in the container, store the container as empty
+			newfurniturejson["Function"]["container"] = {}
 
 	return newfurniturejson
 
@@ -510,9 +510,9 @@ func add_wreck(pos: Vector3):
 
 # Check if the furniture can be destroyed
 func can_be_destroyed() -> bool:
-	return dfurniture.destruction.get_data().is_empty()
+	return not dfurniture.destruction.get_data().is_empty()
 
 
 # Check if the furniture can be disassembled
 func can_be_disassembled() -> bool:
-	return dfurniture.disassembly.get_data().is_empty()
+	return not dfurniture.disassembly.get_data().is_empty()
