@@ -46,15 +46,13 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	var spriteWidth = dfurniture.sprite.get_width() / 100.0 # Convert pixels to meters (assuming 100 pixels per meter)
 	var spriteDepth = dfurniture.sprite.get_height() / 100.0 # Convert pixels to meters
 	
-	var newRot = furnitureJSON.get("rotation", 0)
+	furniturerotation = furnitureJSON.get("rotation", 0)
 
-	# Apply edge snapping if necessary. Previously saved furniture have the global_position_x. 
-	# They do not need to apply edge snapping again
-	if edgeSnappingDirection != "None" and not newFurnitureJSON.has("global_position_x"):
+	# Apply edge snapping if necessary. Previously saved does not need to apply edge snapping again
+	if edgeSnappingDirection != "None" and is_new_furniture():
 		furnitureposition = apply_edge_snapping(furnitureposition, edgeSnappingDirection, \
-		spriteWidth, spriteDepth, newRot, furniturepos)
+		spriteWidth, spriteDepth, furniturerotation, furniturepos)
 
-	furniturerotation = newRot
 	# Set collision layer to layer 3 (static obstacles layer)
 	collision_layer = 1 << 2  # Layer 3 is 1 << 2
 
