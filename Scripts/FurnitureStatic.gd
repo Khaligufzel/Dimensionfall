@@ -25,7 +25,7 @@ var is_animating_hit: bool = false # flag to prevent multiple blink actions
 var original_position: Vector3 # To return to original position after blinking
 
 
-# Function to make it's own shape and texture based on an id and position
+# Function to make its own shape and texture based on an id and position
 # This function is called by a Chunk to construct it's blocks
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	furnitureJSON = newFurnitureJSON
@@ -38,18 +38,19 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	if is_new_furniture():
 		furniture_position.y += 0.025 # Move the furniture to slightly above the block 
 	add_to_group("furniture")
-
 	set_sprite(dfurniture.sprite)
 	apply_edge_snapping_if_needed()
 	set_collision_layers()
 
 
+# Ready function to set initial position and rotation
 func _ready():
 	position = furniture_position
 	set_new_rotation(furniture_rotation)
 	check_door_functionality()
 	update_door_visuals()
 	adjust_sprite_and_mesh_height()
+	add_container()
 	original_position = sprite.global_transform.origin
 
 
@@ -59,13 +60,10 @@ func adjust_sprite_and_mesh_height():
 	if new_height:
 		sprite.position.y = 0.01 + new_height
 		mesh_instance.position.y = new_height / 2
-		add_container(Vector3(0, new_height + 0.01, 0)) # Should be slightly above mesh so we add 0.01
 	else:
 		# The default size is 0.5
 		sprite.position.y = 0.51 # Slightly above the default size
 		mesh_instance.position.y = 0.25 # Half the default size
-		# Add the container as a child on the same position as this furniture
-		add_container(Vector3(0, 0.51, 0)) # Slightly above default size
 
 
 # Apply edge snapping if necessary. Previously saved does not need to apply edge snapping again
@@ -118,17 +116,17 @@ func toggle_door():
 
 
 # Will update the sprite of this furniture and set a collisionshape based on its size
-func set_sprite(newSprite: Texture):
+func set_sprite(new_sprite: Texture):
 	if not sprite:
 		sprite = Sprite3D.new()
 		sprite.shaded = true
 		add_child.call_deferred(sprite)
-	var uniqueTexture = newSprite.duplicate(true) # Duplicate the texture
+	var uniqueTexture = new_sprite.duplicate(true) # Duplicate the texture
 	sprite.texture = uniqueTexture
 
 	# Calculate new dimensions for the collision shape
-	var sprite_width = newSprite.get_width()
-	var sprite_height = newSprite.get_height()
+	var sprite_width = new_sprite.get_width()
+	var sprite_height = new_sprite.get_height()
 
 	var new_x = sprite_width / 100.0 # 0.1 units per 10 pixels in width
 	var new_z = sprite_height / 100.0 # 0.1 units per 10 pixels in height
@@ -232,9 +230,6 @@ func set_new_rotation(amount: int):
 		rotation_amount = amount - 180
 	elif amount == 0:
 		rotation_amount = amount + 180
-	else:
-		rotation_amount = amount
-
 	# Rotate the entire StaticBody3D node, including its children
 	rotation_degrees.y = rotation_amount
 	sprite.rotation_degrees.x = 90 # Static 90 degrees to point at camera
@@ -319,8 +314,11 @@ func get_data() -> Dictionary:
 
 
 # If this furniture is a container, it will add a container node to the furniture.
-func add_container(pos: Vector3):
+func add_container():
 	if dfurniture.function.is_container:
+		var height = dfurniture.support_shape.height
+		# Should be slightly above mesh so we add 0.01
+		var pos: Vector3 = Vector3(0, height + 0.01, 0) if height > 0 else Vector3(0, 0.51, 0)
 		var newcontainerjson: Dictionary = {
 			"global_position_x": pos.x,
 			"global_position_y": pos.y,
