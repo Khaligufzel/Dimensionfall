@@ -11,6 +11,7 @@ var dfurniture: DFurniture # The json that defines this furniture's basics in ge
 var sprite: Sprite3D = null
 var last_rotation: int
 var current_chunk: Chunk
+var in_starting_chunk: bool = false
 var container: ContainerItem = null # Reference to the container, if this furniture acts as one
 
 var is_animating_hit: bool = false # flag to prevent multiple blink actions
@@ -60,13 +61,30 @@ func _ready() -> void:
 	# Add the container as a child on the same position as this furniture
 	add_container(Vector3(0,0,0))
 	last_rotation = furniturerotation
+
+
+func is_in_starting_chunk():
+	if global_transform.origin.x < current_chunk.mypos.x:
+		in_starting_chunk = false
+		return
+	if global_transform.origin.x > current_chunk.mypos.x+32:
+		in_starting_chunk = false
+		return
+	if global_transform.origin.z < current_chunk.mypos.z:
+		in_starting_chunk = false
+		return
+	if global_transform.origin.z > current_chunk.mypos.z+32:
+		in_starting_chunk = false
+		return
+	in_starting_chunk = true
 	freeze = false # Now that it's positioned, unfreeze it
 
 
 # Keep track of the furniture's position and rotation. It starts at 0,0,0 and the moves to it's
 # assigned position after a timer. Until that has happened, we don't need to keep track of it's position
 func _physics_process(_delta) -> void:
-	if freeze: # Don't care about the position changing when it's frozen
+	if freeze or not in_starting_chunk: # Don't care about the position changing when it's frozen
+		is_in_starting_chunk()
 		return
 	# We only care about x and z. A changed y only means it's moving up or down.
 	var x_changed = not global_transform.origin.x == furnitureposition.x 
