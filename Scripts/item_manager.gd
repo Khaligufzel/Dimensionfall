@@ -13,6 +13,7 @@ var proximityInventory: InventoryStacked = null
 var proximityInventories = {}  # Dictionary to hold inventories and their items
 var allAccessibleItems = []  # List to hold all accessible InventoryItems
 var player_max_inventory_volume: int = 1000
+var item_protosets: Resource = preload("res://ItemProtosets.tres")
 
 
 signal allAccessibleItems_changed(items_added: Array, items_removed: Array)
