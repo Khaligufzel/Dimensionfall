@@ -55,7 +55,7 @@ func loadFurniture():
 	add_child(newFurnitureList)
 	newFurnitureList.is_collapsed = load_collapse_state("Furniture")
 
-	for furniture in furnitureList:
+	for furniture in furnitureList.values():
 		var texture: Texture = furniture.sprite
 		var brushInstance = tileBrush.instantiate()
 		brushInstance.set_tile_texture(texture)

@@ -169,14 +169,24 @@ func data_changed(oldmap: DMap):
 
 	# Add references for new entities
 	for entity_type in new_entities.keys():
-		for entity_id in new_entities[entity_type]:
-			Gamedata.add_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
+		if entity_type == "furniture":
+			for entity_id in new_entities[entity_type]:
+				var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
+				furniture.add_reference("core","maps",id)
+		else:
+			for entity_id in new_entities[entity_type]:
+				Gamedata.add_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
 
 	# Remove references for entities not present in new data
 	for entity_type in old_entities.keys():
-		for entity_id in old_entities[entity_type]:
-			if not new_entities[entity_type].has(entity_id):
-				Gamedata.remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
+		if entity_type == "furniture":
+			for entity_id in old_entities[entity_type]:
+				var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
+				furniture.remove_reference("core","maps",id)
+		else:
+			for entity_id in old_entities[entity_type]:
+				if not new_entities[entity_type].has(entity_id):
+					Gamedata.remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
 
 	# Save changes to the data files if there were any updates
 	if new_entities["mobs"].size() > 0 or old_entities["mobs"].size() > 0:
