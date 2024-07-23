@@ -25,6 +25,7 @@ var magazine: Magazine
 var ranged: Ranged
 var melee: Melee
 var food: Food
+var ammo: Ammo
 var wearable: Wearable
 
 # Inner class to handle the Craft property
@@ -47,14 +48,17 @@ class CraftRecipe:
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		return {
+		var mydata: Dictionary = {
 			"craft_amount": craft_amount,
 			"craft_time": craft_time,
 			"flags": flags,
-			"required_resources": required_resources,
-			"skill_progression": skill_progression,
-			"skill_requirement": skill_requirement
+			"required_resources": required_resources
 		}
+		if not skill_requirement.is_empty():
+			mydata["skill_requirement"] = skill_requirement
+		if not skill_progression.is_empty():
+			mydata["skill_progression"] = skill_progression
+		return mydata
 		
 	# Function to get used skill IDs
 	func get_used_skill_ids() -> Array:
@@ -252,6 +256,21 @@ class Food:
 		}
 
 
+# Inner class to handle the Ammo property
+class Ammo:
+	var damage: int
+
+	# Constructor to initialize food properties from a dictionary
+	func _init(data: Dictionary):
+		damage = int(data.get("damage", 0))
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		return {
+			"damage": damage
+		}
+
+
 # Inner class to handle the Wearable property
 class Wearable:
 	var slot: String
@@ -319,6 +338,11 @@ func _init(data: Dictionary):
 	else:
 		food = null
 
+	if data.has("Ammo"):
+		ammo = Ammo.new(data["Ammo"])
+	else:
+		ammo = null
+
 	if data.has("Wearable"):
 		wearable = Wearable.new(data["Wearable"])
 	else:
@@ -337,9 +361,10 @@ func get_data() -> Dictionary:
 		"image": image,
 		"stack_size": stack_size,
 		"max_stack_size": max_stack_size,
-		"two_handed": two_handed,
-		"references": references
+		"two_handed": two_handed
 	}
+	if not references.is_empty():
+		data["references"] = references
 
 	# Add Craft and Magazine data if they exist
 	if craft:
@@ -357,6 +382,9 @@ func get_data() -> Dictionary:
 	if food:
 		data["Food"] = food.get_data()
 
+	if ammo:
+		data["Ammo"] = ammo.get_data()
+
 	if wearable:
 		data["Wearable"] = wearable.get_data()
 
@@ -369,7 +397,8 @@ func get_data() -> Dictionary:
 # type: The type of entity, for example "maps"
 # refid: The id of the entity, for example "grass_field"
 func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
+	var refitem: DItem = Gamedata.items.by_id(refid)
+	var changes_made = Gamedata.dremove_reference(refitem.references, module, type, id)
 	if changes_made:
 		Gamedata.items.save_items_to_disk()
 
@@ -380,7 +409,8 @@ func remove_reference(module: String, type: String, refid: String):
 # type: The type of entity, for example "maps"
 # refid: The id of the entity, for example "grass_field"
 func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
+	var refitem: DItem = Gamedata.items.by_id(refid)
+	var changes_made = Gamedata.dadd_reference(refitem.references, module, type, id)
 	if changes_made:
 		Gamedata.items.save_items_to_disk()
 
@@ -448,9 +478,9 @@ func changed(olddata: DItem):
 		changes_made = add_reference("core", "items", res_id) or changes_made
 	update_item_skill_references(olddata)
 	
+	Gamedata.items.save_items_to_disk()
 	# Save changes if any modifications were made
 	if changes_made:
-		Gamedata.items.save_items_to_disk()
 		Gamedata.save_data_to_file(Gamedata.data.wearableslots)
 		print_debug("Item changes saved successfully.")
 	else:

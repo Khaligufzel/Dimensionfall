@@ -52,7 +52,7 @@
 	},
 	{
 		"Ammo": {
-			"damage": "25"
+			"damage": 25
 		},
 		"description": "Standard type of ammunition. Very common.",
 		"id": "bullet_9mm",
@@ -218,8 +218,8 @@
 	},
 	{
 		"Magazine": {
-			"current_ammo": "30",
-			"max_ammo": "30",
+			"current_ammo": 30,
+			"max_ammo": 30,
 			"used_ammo": "bullet_7.62x26"
 		},
 		"description": "A magazine to be loaded into a Chuganov MPAP",
@@ -257,7 +257,7 @@
 	},
 	{
 		"Food": {
-			"health": "5"
+			"health": 5
 		},
 		"description": "This plastic bottle is filled with water",
 		"id": "bottle_plastic_water",

@@ -15,7 +15,7 @@ extends Control
 
 
 var current_recipe_index = 0
-var craft_recipes = []
+var craft_recipes: Array[DItem.CraftRecipe] = []
 
 var ditem: DItem = null:
 	set(value):
