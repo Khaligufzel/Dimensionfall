@@ -135,6 +135,6 @@ func update_item_protoset_json_data(tres_path: String, new_json_data: String) ->
 func get_items_by_type(item_type: String) -> Array[DItem]:
 	var filtered_items: Array[DItem] = []
 	for item in itemdict.values():
-		if item_type in item:
+		if not item.get(item_type) == null:
 			filtered_items.append(item)
 	return filtered_items

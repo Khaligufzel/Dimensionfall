@@ -27,7 +27,7 @@ func can_craft_recipe(recipe: DItem.CraftRecipe) -> bool:
 # Function to check if the player meets the skill requirement for a given dictionary
 func has_required_skill(recipe: DItem.CraftRecipe) -> bool:
 	# Check if "skill_requirement" exists in the provided dictionary
-	if recipe.has("skill_requirement"):
+	if recipe.skill_requirement:
 		var skill_req = recipe.skill_requirement
 		var skill_id = skill_req.get("id", "")
 		var required_level = skill_req.get("level", 0)
