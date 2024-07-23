@@ -7,6 +7,7 @@ const itemgroup_references_Class = preload("res://Scripts/Gamedata/itemgroup_ref
 var itemgroup_references: Node = null
 var maps: DMaps
 var furnitures: DFurnitures
+var items: DItems
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
@@ -38,6 +39,7 @@ func _ready():
 	itemgroup_references = itemgroup_references_Class.new()
 	maps = DMaps.new()
 	furnitures = DFurnitures.new()
+	items = DItems.new()
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES
 func initialize_data_structures():
