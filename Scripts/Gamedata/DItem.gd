@@ -566,7 +566,7 @@ func delete():
 	
 	# For each recipe and for each item in each recipe, remove the reference to this item
 	for resource in craft.get_all_used_items():
-		changes_made["value"] = remove_reference("core", "items", resource["id"]) or changes_made["value"]
+		changes_made["value"] = remove_reference("core", "items", resource) or changes_made["value"]
 
 	# Collect unique skill IDs from the item's recipes
 	var skill_ids: Dictionary = {}
@@ -574,14 +574,12 @@ func delete():
 		skill_ids[skillid] = true
 
 	# Add the ranged skill to the skill list
-	var ranged_skill_id = ranged.used_skill.skill_id
-	if ranged_skill_id:
-		skill_ids[ranged_skill_id] = true
+	if ranged and ranged.used_skill:
+		skill_ids[ranged.used_skill.skill_id] = true
 
 	# Add the melee skill to the skill list
-	var melee_skill_id = melee.used_skill.skill_id
-	if melee_skill_id:
-		skill_ids[melee_skill_id] = true
+	if melee and melee.used_skill:
+		skill_ids[melee.used_skill.skill_id] = true
 
 	# Remove the reference of this item from each skill
 	for skill_id in skill_ids.keys():
