@@ -76,26 +76,6 @@ func update_icon() -> void:
 		myIcon.texture = null
 
 
-# Serialize the equipped item
-# This will happen when the player pressed the travel button on the overmap
-func serialize() -> Dictionary:
-	var data: Dictionary = {}
-	if myInventoryItem:
-		data["item"] = myInventoryItem.serialize()  # Serialize equipped item
-	return data
-
-
-# Deserialize and equip an item 
-# This will happen when a game is loaded or the player has travelled to a different map
-func deserialize(data: Dictionary) -> void:
-	# Deserialize and equip an item
-	if data.has("item"):
-		var itemData: Dictionary = data["item"]
-		var item = InventoryItem.new()
-		item.deserialize(itemData)
-		equip(item)  # Equip the deserialized item
-
-
 # Get the currently equipped item
 func get_item() -> InventoryItem:
 	return myInventoryItem

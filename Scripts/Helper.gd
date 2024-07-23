@@ -59,6 +59,7 @@ func reset():
 	position_coord = Vector2(0, 0)
 	save_helper.current_save_folder = ""
 	chunk_navigation_maps.clear()
+	ItemManager.player_equipment.reset_to_default()
 
 
 

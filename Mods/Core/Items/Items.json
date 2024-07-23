@@ -63,7 +63,8 @@
 			"core": {
 				"itemgroups": [
 					"cabinet_general",
-					"mob_loot"
+					"mob_loot",
+					"test_items"
 				],
 				"items": [
 					"pistol_magazine"
@@ -118,7 +119,8 @@
 			"core": {
 				"itemgroups": [
 					"cabinet_general",
-					"mob_loot"
+					"mob_loot",
+					"test_items"
 				]
 			}
 		},
@@ -151,7 +153,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"cabinet_general"
+					"cabinet_general",
+					"test_items"
 				]
 			}
 		},

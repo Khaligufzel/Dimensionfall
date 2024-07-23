@@ -4,6 +4,7 @@
 		"Plains"
 	],
 	"description": "A picturesque field dotted with colorful wildflowers, offering a scenic view.",
+	"id": "field_grass_flowers_00",
 	"levels": [
 		[],
 		[],
@@ -3261,5 +3262,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Flowered Grass Field",
-	"weight": 1000
+	"weight": 10
 }

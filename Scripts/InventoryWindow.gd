@@ -38,30 +38,28 @@ func _ready():
 	LeftHandEquipmentSlot.myInventory = inventory
 	RightHandEquipmentSlot.myInventory = inventory
 	instantiate_wearable_slots()
-	deserialize_equipment(General.player_equipment_dict)
+	equip_loaded_items()
 	# We let the signal broker forward the change in visibility so other nodes can respond
 	visibility_changed.connect(Helper.signal_broker.on_inventory_visibility_changed.bind(self))
 	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
-	Helper.signal_broker.item_was_equipped.connect(store_equipment_dict)
-	Helper.signal_broker.item_was_unequipped.connect(store_equipment_dict)
-	Helper.signal_broker.wearable_was_equipped.connect(store_equipment_dict)
-	Helper.signal_broker.wearable_was_unequipped.connect(store_equipment_dict)
 
 
-func deserialize_equipment(equipment_dict: Dictionary):
-	if equipment_dict.has("LeftHandEquipmentSlot"):
-		LeftHandEquipmentSlot.deserialize(equipment_dict["LeftHandEquipmentSlot"])
-	if equipment_dict.has("RightHandEquipmentSlot"):
-		RightHandEquipmentSlot.deserialize(equipment_dict["RightHandEquipmentSlot"])
+# If any items are present in the player equipment, load them
+func equip_loaded_items():
+	if ItemManager.player_equipment.LeftHandItem:
+		LeftHandEquipmentSlot.equip(ItemManager.player_equipment.LeftHandItem)
+	if ItemManager.player_equipment.RightHandItem:
+		RightHandEquipmentSlot.equip(ItemManager.player_equipment.RightHandItem)
 
+	var wearablelist: Dictionary = ItemManager.player_equipment.EquipmentItemList
 	var counter = 0
 	for slot in EquipmentSlotList.get_children():
 		if counter < 2:
 			counter += 1
 			continue
-		if equipment_dict.has(slot.slot_id):
-			slot.deserialize(equipment_dict[slot.slot_id])
+		if wearablelist.has(slot.slot_id):
+			slot.equip(wearablelist[slot.slot_id])
 
 
 # Gets the slots that are defined in json and instatiates WearableSlotScene
@@ -136,23 +134,6 @@ func _on_inventory_grid_stacked_item_added(item):
 
 func get_inventory() -> InventoryStacked:
 	return inventory
-
-# When an item was equipped, we update the player equipment dict for saving and loading
-func store_equipment_dict(_item: InventoryItem, _slot: Control) -> Dictionary:
-	var player_equipment: Dictionary = {
-		"LeftHandEquipmentSlot": LeftHandEquipmentSlot.serialize(),
-		"RightHandEquipmentSlot": RightHandEquipmentSlot.serialize()
-	}
-	
-	var counter = 0
-	for slot in EquipmentSlotList.get_children():
-		if counter < 2:
-			counter += 1
-			continue
-		if slot.myInventoryItem:
-			player_equipment[slot.slot_id] = slot.serialize()
-	General.player_equipment_dict = player_equipment
-	return player_equipment
 
 
 # Signal handler for adding a container to the proximity
