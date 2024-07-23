@@ -133,7 +133,7 @@ func update_item_protoset_json_data(tres_path: String, new_json_data: String) ->
 # Filters items by type. Returns a list of items of that type
 # item_type: Any of craft, magazine, ranged, melee, food, wearable
 func get_items_by_type(item_type: String) -> Array[DItem]:
-	var filtered_items = []
+	var filtered_items: Array[DItem] = []
 	for item in itemdict.values():
 		if item_type in item:
 			filtered_items.append(item)

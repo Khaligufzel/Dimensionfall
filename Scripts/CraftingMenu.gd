@@ -15,8 +15,8 @@ extends Panel
 
 signal start_craft(item: Dictionary, recipe: Dictionary)
 
-var active_recipe: Dictionary # The currently selected recipe
-var active_item: Dictionary # The currently selected item in the itemlist
+var active_recipe: DItem.CraftRecipe # The currently selected recipe
+var active_item: DItem # The currently selected item in the itemlist
 # Dictionary to store buttons with item IDs as keys
 var item_buttons = {}
 
@@ -62,10 +62,10 @@ func update_button_color(button, item: DItem):
 
 # The user has clicked on one of the item buttons in the itemlist
 # Update the list of recipes for this item
-func _on_item_button_clicked(item: Dictionary):
+func _on_item_button_clicked(item: DItem):
 	active_item = item
 	description.text = item["description"]  # Set the description label
-	var recipes = item.get("Craft",[])  # Get the recipe array from the item
+	var recipes = item.craft.recipes  # Get the recipe array from the item
 	for element in recipeVBoxContainer.get_children():
 		recipeVBoxContainer.remove_child(element)
 		element.queue_free()  # Properly free the node to avoid memory leaks
@@ -81,13 +81,13 @@ func _on_item_button_clicked(item: Dictionary):
 
 
 # When a recipe button is pressed, update the required items label
-func _on_recipe_button_pressed(recipe):
+func _on_recipe_button_pressed(recipe: DItem.CraftRecipe):
 	active_recipe = recipe
 	for element in required_items.get_children():
 		required_items.remove_child(element)
 		element.queue_free()  # Properly free the node to avoid memory leaks
 
-	for resource in recipe.get("required_resources", []):
+	for resource in recipe.required_resources:
 		var item_id = resource["id"]
 		var amount = resource["amount"]
 		var resource_container = HBoxContainer.new()

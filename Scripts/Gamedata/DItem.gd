@@ -138,8 +138,8 @@ class Magazine:
 
 	# Constructor to initialize magazine properties from a dictionary
 	func _init(data: Dictionary):
-		current_ammo = data.get("current_ammo", 0)
-		max_ammo = data.get("max_ammo", 0)
+		current_ammo = int(data.get("current_ammo", 0))
+		max_ammo = int(data.get("max_ammo", 0))
 		used_ammo = data.get("used_ammo", "")
 
 	# Get data function to return a dictionary with all properties
@@ -243,7 +243,7 @@ class Food:
 
 	# Constructor to initialize food properties from a dictionary
 	func _init(data: Dictionary):
-		health = data.get("health", 0)
+		health = int(data.get("health", 0))
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:

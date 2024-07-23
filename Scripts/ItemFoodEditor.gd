@@ -7,11 +7,13 @@ extends Control
 # Form elements
 @export var HealthNumberBox: SpinBox = null
 
-func get_properties() -> Dictionary:
-	return {
-		"health": HealthNumberBox.get_line_edit().text
-	}
+var ditem: DItem = null:
+	set(value):
+		ditem = value
+		load_properties()
 
-func set_properties(properties: Dictionary) -> void:
-	if properties.has("damage"):
-		HealthNumberBox.get_line_edit().text = properties["health"]
+func save_properties() -> void:
+	ditem.food.health = HealthNumberBox.value
+
+func load_properties() -> void:
+	HealthNumberBox.value = ditem.food.health
