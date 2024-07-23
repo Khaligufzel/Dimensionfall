@@ -181,8 +181,9 @@ func data_changed(oldmap: DMap):
 	for entity_type in old_entities.keys():
 		if entity_type == "furniture":
 			for entity_id in old_entities[entity_type]:
-				var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
-				furniture.remove_reference("core","maps",id)
+				if not new_entities[entity_type].has(entity_id):
+					var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
+					furniture.remove_reference("core","maps",id)
 		else:
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):
