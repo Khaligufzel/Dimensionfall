@@ -13,7 +13,6 @@ var items: DItems
 const DATA_CATEGORIES = {
 	"tiles": {"dataPath": "./Mods/Core/Tiles/Tiles.json", "spritePath": "./Mods/Core/Tiles/"},
 	"mobs": {"dataPath": "./Mods/Core/Mobs/Mobs.json", "spritePath": "./Mods/Core/Mobs/"},
-	"items": {"dataPath": "./Mods/Core/Items/Items.json", "spritePath": "./Mods/Core/Items/"},
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
 	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"},
@@ -34,7 +33,6 @@ func _ready():
 	load_sprites()
 	load_tile_sprites()
 	load_data()
-	update_item_protoset_json_data("res://ItemProtosets.tres", JSON.stringify(data.items.data, "\t"))
 	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(data.tacticalmaps.dataPath, ["json"])
 	itemgroup_references = itemgroup_references_Class.new()
 	maps = DMaps.new()
@@ -224,9 +222,6 @@ func save_data_to_file(contentData: Dictionary):
 	var datapath: String = contentData.dataPath
 	if datapath.ends_with(".json"):
 		Helper.json_helper.write_json_file(datapath, JSON.stringify(contentData.data, "\t"))
-	if contentData == data.items:
-		# Update the itemprotosets
-		update_item_protoset_json_data("res://ItemProtosets.tres", JSON.stringify(contentData.data, "\t"))
 
 
 # Takes contentdata and an id and returns the json that belongs to an id
@@ -266,41 +261,10 @@ func on_data_changed(contentData: Dictionary, newEntityData: Dictionary, oldEnti
 		itemgroup_references.on_itemgroup_changed(newEntityData, oldEntityData)
 	if contentData == data.mobs:
 		on_mob_changed(newEntityData, oldEntityData)
-	if contentData == data.items:
-		on_item_changed(newEntityData, oldEntityData)
 	if contentData == data.quests:
 		on_quest_changed(newEntityData, oldEntityData)
 	save_data_to_file(contentData)
 
-
-# This will update the given resource file with the provided json data
-# It is intended to save item data from json to the res://ItemProtosets.tres file
-# So we can use the item json data in-game
-func update_item_protoset_json_data(tres_path: String, new_json_data: String) -> void:
-	# Load the ItemProtoset resource
-	var item_protoset = load(tres_path) as ItemProtoset
-	if not item_protoset:
-		print_debug("Failed to load ItemProtoset resource from:", tres_path)
-		return
-
-	# Update the json_data property
-	item_protoset.json_data = new_json_data
-
-	# Save the resource back to the .tres file
-	var save_result = ResourceSaver.save(item_protoset, tres_path)
-	if save_result != OK:
-		print_debug("Failed to save updated ItemProtoset resource to:", tres_path)
-	else:
-		print_debug("ItemProtoset resource updated and saved successfully to:", tres_path)
-
-# Filters items by type
-func get_items_by_type(item_type: String) -> Array:
-	var filtered_items = []
-	if data.has("items") and data.items.has("data") and typeof(data.items.data) == TYPE_ARRAY:
-		for item in data.items.data:
-			if item is Dictionary and item.has(item_type):
-				filtered_items.append(item)
-	return filtered_items
 
 # Adds a reference to an entity
 # data = any data group, like Gamedata.data.itemgroups
@@ -400,8 +364,6 @@ func remove_reference(mydata: Dictionary, module: String, type: String, fromid: 
 func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 	if contentData == data.itemgroups:
 		itemgroup_references.on_itemgroup_deleted(id)
-	if contentData == data.items:
-		on_item_deleted(id)
 	if contentData == data.tacticalmaps:
 		on_tacticalmap_deleted(id)
 	if contentData == data.mobs:
@@ -601,201 +563,6 @@ func on_tacticalmapdata_changed(tacticalmap_id: String, newdata: Dictionary, old
 	for id in unique_old_ids:
 		if id not in unique_new_ids:
 			maps.remove_reference_from_map(id, "core", "tacticalmaps", tacticalmap_id)
-
-# Some item has been changed
-# We need to update the relation between the item and other items based on crafting recipes
-func on_item_changed(newdata: Dictionary, olddata: Dictionary):
-	var item_id: String = newdata["id"]
-	var changes_made = false
-	
-	# Handle wearable slot references
-	var new_slot = newdata.get("Wearable", {}).get("slot", null)
-	var old_slot = olddata.get("Wearable", {}).get("slot", null)
-	if new_slot and new_slot != old_slot:
-		# Add or update the reference to the new slot
-		changes_made = add_reference(data.wearableslots, "core", "items", new_slot, item_id) or changes_made
-	if old_slot and old_slot != new_slot:
-		changes_made = remove_reference(data.wearableslots, "core", "items", old_slot, item_id) or changes_made
-	
-	# Dictionaries to track unique resource IDs across all recipes
-	var old_resource_ids: Dictionary = {}
-	var new_resource_ids: Dictionary = {}
-
-	# Collect all unique resource IDs from old recipes
-	for recipe in olddata.get("Craft", []):
-		for resource in recipe.get("required_resources", []):
-			old_resource_ids[resource["id"]] = true
-
-	# Collect all unique resource IDs from new recipes
-	for recipe in newdata.get("Craft", []):
-		for resource in recipe.get("required_resources", []):
-			new_resource_ids[resource["id"]] = true
-
-	# Resources that are no longer in the recipe will no longer reference this item
-	for res_id in old_resource_ids:
-		if not new_resource_ids.has(res_id):
-			changes_made = remove_reference(data.items, "core", "items", res_id, item_id) or changes_made
-	
-	# Add references for new resources, nothing happens if they are already present
-	for res_id in new_resource_ids:
-		changes_made = add_reference(data.items, "core", "items", res_id, item_id) or changes_made
-	update_item_skill_references(newdata, olddata)
-	
-	# Save changes if any modifications were made
-	if changes_made:
-		save_data_to_file(data.items)
-		save_data_to_file(data.wearableslots)
-		print_debug("Item changes saved successfully.")
-	else:
-		print_debug("No changes were made to item.")
-
-
-# Collects all skills defined in an item and updates the references to that skill
-func update_item_skill_references(newdata: Dictionary, olddata: Dictionary):
-	var item_id: String = newdata["id"]
-	var changes_made = false
-
-	# Function to collect skill IDs from recipes
-	var collect_skill_ids: Callable = func (itemdata: Dictionary):
-		var skill_ids: Dictionary = {}
-		for recipe in itemdata.get("Craft", []):
-			var req = Helper.json_helper.get_nested_data(recipe, "skill_requirement.id")
-			if req and req != "":
-				skill_ids[req] = true
-			var prog = Helper.json_helper.get_nested_data(recipe, "skill_progression.id")
-			if prog and prog != "":
-				skill_ids[prog] = true
-		return skill_ids
-
-	# Collect skill IDs from old and new recipes
-	var old_skill_ids = collect_skill_ids.call(olddata)
-	var new_skill_ids = collect_skill_ids.call(newdata)
-
-	# Check for "Ranged" property and collect skill IDs
-	var collect_ranged_skill_id: Callable = func (itemdata: Dictionary, skill_ids: Dictionary):
-		if itemdata.has("Ranged") and itemdata["Ranged"].has("used_skill"):
-			var skill_id = itemdata["Ranged"]["used_skill"].get("skill_id", "")
-			if skill_id != "":
-				skill_ids[skill_id] = true
-	collect_ranged_skill_id.call(olddata, old_skill_ids)
-	collect_ranged_skill_id.call(newdata, new_skill_ids)
-
-	# Check for "Melee" property and collect skill IDs
-	var collect_melee_skill_id: Callable = func (itemdata: Dictionary, skill_ids: Dictionary):
-		if itemdata.has("Melee") and itemdata["Melee"].has("used_skill"):
-			var skill_id = itemdata["Melee"]["used_skill"].get("skill_id", "")
-			if skill_id != "":
-				skill_ids[skill_id] = true
-	collect_melee_skill_id.call(olddata, old_skill_ids)
-	collect_melee_skill_id.call(newdata, new_skill_ids)
-
-	# Remove old skill references that are not in the new list
-	for old_skill_id in old_skill_ids.keys():
-		if not new_skill_ids.has(old_skill_id):
-			changes_made = remove_reference(data.skills, "core", "items", old_skill_id, item_id) or changes_made
-	
-	# Add new skill references
-	for new_skill_id in new_skill_ids.keys():
-		changes_made = add_reference(data.skills, "core", "items", new_skill_id, item_id) or changes_made
-		
-	# Save changes if any modifications were made
-	if changes_made:
-		save_data_to_file(data.skills)
-		print_debug("Item skill changes saved successfully.")
-	else:
-		print_debug("No skill changes were made to item.")
-
-
-# An item is being deleted from the data
-# We have to remove it from everything that references it
-func on_item_deleted(item_id: String):
-	var changes_made = { "value": false }
-	var item_data = get_data_by_id(data.items, item_id)
-	if item_data.is_empty():
-		print_debug("Item with ID", item_id, "not found.")
-		return
-	# This callable will remove this item from itemgroups that reference this item.
-	var myfunc: Callable = func (itemgroup_id):
-		var itemlist: Array = get_property_by_path(data.itemgroups, "items", itemgroup_id)
-		for i in range(itemlist.size()):
-			if itemlist[i].has("id") and itemlist[i]["id"] == item_id:
-				itemlist.remove_at(i)
-				changes_made["value"] = true
-				break  # Exit loop after removal to avoid index issues
-	# Pass the callable to every itemgroup in the item's references
-	# It will call myfunc on every itemgroup in item_data.references.core.itemgroups
-	execute_callable_on_references_of_type(item_data, "core", "itemgroups", myfunc)
-	
-	# This callable will handle the removal of this item from all crafting recipes in other items
-	var remove_from_item: Callable = func(other_item_id: String):
-		var other_item_data = get_data_by_id(data.items, other_item_id)
-		if other_item_data and other_item_data.has("Craft"):
-			for recipe in other_item_data["Craft"]:
-				var resources = recipe.get("required_resources", [])
-				for i in range(len(resources) - 1, -1, -1):
-					if resources[i].get("id") == item_id:
-						resources.remove_at(i)
-						changes_made["value"] = true
-
-	# Pass the callable to every item in the item's references
-	# It will call remove_from_item on every item in item_data.references.core.items
-	execute_callable_on_references_of_type(item_data, "core", "items", remove_from_item)
-	
-	# This callable will handle the removal of this item from all steps in quests
-	var remove_from_quest: Callable = func(quest_id: String):
-		var quest_data = get_data_by_id(Gamedata.data.quests, quest_id)
-		# Removes all steps where the item is equal to item_id
-		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, \
-		"steps.item", item_id) or changes_made["value"]
-		# Removes all rewards where the reward's item_id is equal to item_id
-		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, \
-		"rewards.item_id", item_id) or changes_made["value"]
-
-	# Pass the callable to every quest in the item's references
-	# It will call remove_from_quest on every item in item_data.references.core.quests
-	execute_callable_on_references_of_type(item_data, "core", "quests", remove_from_quest)
-	
-	# For each recipe and for each item in each recipe, remove the reference to this item
-	# Collect unique skill IDs from the item's recipes
-	var skill_ids: Dictionary = {}
-	if item_data.has("Craft"):
-		for recipe in item_data["Craft"]:
-			var resources = recipe.get("required_resources", [])
-			for resource in resources:
-				if resource.has("id"):
-					changes_made["value"] = remove_reference(data.items, "core", "items", resource["id"], item_id) or changes_made["value"]
-			if recipe.has("skill_requirement"):
-				var skill_req_id = recipe["skill_requirement"].get("id", "")
-				if skill_req_id != "":
-					skill_ids[skill_req_id] = true
-			if recipe.has("skill_progression"):
-				var skill_prog_id = recipe["skill_progression"].get("id", "")
-				if skill_prog_id != "":
-					skill_ids[skill_prog_id] = true
-
-	# Add the ranged skill to the skill list
-	var ranged_skill_id = Helper.json_helper.get_nested_data(item_data, "Ranged.used_skill.skill_id")
-	if ranged_skill_id:
-		skill_ids[ranged_skill_id] = true
-
-	# Add the melee skill to the skill list
-	var melee_skill_id = Helper.json_helper.get_nested_data(item_data, "Melee.used_skill.skill_id")
-	if melee_skill_id:
-		skill_ids[melee_skill_id] = true
-
-	# Remove the reference of this item from each skill
-	for skill_id in skill_ids.keys():
-		changes_made["value"] = remove_reference(data.skills, "core", \
-		"items", skill_id, item_id) or changes_made["value"]
-
-	# Save changes to the data file if any changes were made
-	if changes_made["value"]:
-		save_data_to_file(data.itemgroups)
-		save_data_to_file(data.items)
-		save_data_to_file(data.skills)
-		save_data_to_file(data.quests)
-	else:
-		print_debug("No changes needed for item", item_id)
 
 
 # A wearableslot is being deleted from the data

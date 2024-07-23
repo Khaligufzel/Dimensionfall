@@ -19,7 +19,7 @@ extends Control
 func _ready():
 	set_drop_functions()
 	# Assume Gamedata.get_items_by_type() is implemented as discussed previously
-	var magazines = Gamedata.get_items_by_type("Magazine")
+	var magazines = Gamedata.items.get_items_by_type("magazine")
 	initialize_magazine_selection(magazines)
 
 

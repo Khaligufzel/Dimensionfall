@@ -46,6 +46,7 @@ func save_items_to_disk() -> void:
 	for item in itemdict.values():
 		save_data.append(item.get_data())
 	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	update_item_protoset_json_data("res://ItemProtosets.tres", JSON.stringify(save_data, "\t"))
 
 
 func get_items() -> Dictionary:
@@ -102,3 +103,36 @@ func remove_reference_from_item(itemid: String, module: String, type: String, re
 func add_reference_to_item(itemid: String, module: String, type: String, refid: String):
 	var myitem: DItem = itemdict[itemid]
 	myitem.add_reference(module, type, refid)
+
+
+
+
+# This will update the given resource file with the provided json data
+# It is intended to save item data from json to the res://ItemProtosets.tres file
+# So we can use the item json data in-game
+func update_item_protoset_json_data(tres_path: String, new_json_data: String) -> void:
+	# Load the ItemProtoset resource
+	var item_protoset = load(tres_path) as ItemProtoset
+	if not item_protoset:
+		print_debug("Failed to load ItemProtoset resource from:", tres_path)
+		return
+
+	# Update the json_data property
+	item_protoset.json_data = new_json_data
+
+	# Save the resource back to the .tres file
+	var save_result = ResourceSaver.save(item_protoset, tres_path)
+	if save_result != OK:
+		print_debug("Failed to save updated ItemProtoset resource to:", tres_path)
+	else:
+		print_debug("ItemProtoset resource updated and saved successfully to:", tres_path)
+
+
+# Filters items by type. Returns a list of items of that type
+# item_type: Any of craft, magazine, ranged, melee, food, wearable
+func get_items_by_type(item_type: String) -> Array[DItem]:
+	var filtered_items = []
+	for item in itemdict.values():
+		if item_type in item:
+			filtered_items.append(item)
+	return filtered_items

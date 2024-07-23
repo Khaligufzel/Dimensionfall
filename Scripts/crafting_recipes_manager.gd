@@ -8,7 +8,7 @@ func _ready():
 	get_crafting_recipes_from_json()
 
 func get_crafting_recipes_from_json():
-	craftable_items = Gamedata.get_items_by_type("Craft")
+	craftable_items = Gamedata.items.get_items_by_type("craft")
 
 
 # Function to check if there are enough resources in the inventory to craft a given recipe.
