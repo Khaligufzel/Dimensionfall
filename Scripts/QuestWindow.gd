@@ -14,7 +14,6 @@ extends Control
 @export var quest_details_section: VBoxContainer
 @export var quest_rewards: VBoxContainer
 @export var step_details_text_edit: TextEdit
-@export var abandon_quest_button: Button
 
 
 var selected_quest: String # Will be the quest ID
@@ -131,10 +130,6 @@ func _on_tab_changed(_tab):
 func _on_quest_selected(index, list: ItemList):
 	# Update the quest details section based on selected quest
 	selected_quest = list.get_item_metadata(index) # Will be the quest ID
-	if list == current_quests_list:
-		abandon_quest_button.visible = true
-	else:
-		abandon_quest_button.visible = false
 	_update_quest_details()
 
 
