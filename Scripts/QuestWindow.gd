@@ -170,7 +170,6 @@ func update_step_details(current_step: Dictionary):
 		step_details_text_edit.text = ""
 		return
 	
-	var stepmeta: Dictionary = current_step.meta_data.get("stepjson", {})
 	# Update current step details in the quest window UI
 	var step_details_text = "Next objective: \n"
 	
@@ -190,8 +189,9 @@ func update_step_details(current_step: Dictionary):
 		QuestManager.BRANCH_STEP:
 			step_details_text += "Branch: " + current_step.details
 	
+	var stepmeta: Dictionary = current_step.get("meta_data", {}).get("stepjson", {})
 	if stepmeta.has("tip"):
-		step_details_text += "\n Tip: " + stepmeta.tip
+		step_details_text += "\nTip: " + stepmeta.tip
 		
 	# Set step details in the QuestDescription node or another UI element if preferred
 	step_details_text_edit.text = step_details_text

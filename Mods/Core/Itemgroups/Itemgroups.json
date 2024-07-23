@@ -964,6 +964,18 @@
 				"max": 100,
 				"min": 100,
 				"probability": 100
+			},
+			{
+				"id": "long_stick",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "sharp_stone",
+				"max": 1,
+				"min": 1,
+				"probability": 100
 			}
 		],
 		"mode": "Collection",

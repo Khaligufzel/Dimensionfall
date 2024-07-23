@@ -2483,7 +2483,8 @@
 			"core": {
 				"itemgroups": [
 					"tree_destroyed",
-					"generic_forest_finds"
+					"generic_forest_finds",
+					"test_items"
 				],
 				"items": [
 					"stone_spear"
@@ -2508,7 +2509,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"generic_field_finds"
+					"generic_field_finds",
+					"test_items"
 				],
 				"items": [
 					"stone_spear"
