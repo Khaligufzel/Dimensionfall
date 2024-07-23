@@ -1,37 +1,5 @@
 [
 	{
-		"description": "You are tasked with gathering 5 scraps",
-		"id": "gather_5_scraps",
-		"name": "Gather scraps",
-		"sprite": "steel_scrap.png",
-		"steps": [
-			{
-				"amount": 5,
-				"item": "steel_scrap",
-				"type": "collect"
-			}
-		]
-	},
-	{
-		"description": "You are tasked with killing two scrapwalkers",
-		"id": "kill_2_scrapwalkers",
-		"name": "Kill scrapwalkers",
-		"rewards": [
-			{
-				"amount": 15,
-				"item_id": "bullet_9mm"
-			}
-		],
-		"sprite": "pistol_32.png",
-		"steps": [
-			{
-				"amount": 2,
-				"mob": "scrapwalker",
-				"type": "kill"
-			}
-		]
-	},
-	{
 		"description": "This will teach you the basics of survival. You will complete some goals that will prepare you to survive on your own.\n\nYou will perform this task step by step. The current step will tell you what to do next.",
 		"id": "starter_tutorial_00",
 		"name": "Beginnings",
@@ -46,16 +14,25 @@
 			{
 				"amount": 1,
 				"item": "long_stick",
+				"tip": "You can find one in the forest",
 				"type": "collect"
 			},
 			{
 				"amount": 1,
 				"item": "sharp_stone",
+				"tip": "You can find one in the field",
 				"type": "collect"
 			},
 			{
 				"item": "stone_spear",
+				"tip": "Press c to open the craft menu",
 				"type": "craft"
+			},
+			{
+				"amount": 2,
+				"mob": "scrapwalker",
+				"tip": "You can find them in town",
+				"type": "kill"
 			}
 		]
 	}

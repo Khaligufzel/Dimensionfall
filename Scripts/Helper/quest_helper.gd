@@ -133,21 +133,21 @@ func create_quest_from_data(quest_data: Dictionary):
 		QuestManager.add_scripted_quest(quest)
 
 
-# Add a quest step to the quest
+# Add a quest step to the quest. In this case, the step is just a dictionary with some data
 func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 	match step.type:
 		"collect":
 			# Add an incremental step
-			quest.add_incremental_step("Gather items", step.item, step.amount, {"type": "collect"})
+			quest.add_incremental_step("Gather items", step.item, step.amount, {"stepjson": step})
 			return true
 		"kill":
 			# Add an incremental step
-			quest.add_incremental_step("Kill mob", step.mob, step.amount, {"type": "kill"})
+			quest.add_incremental_step("Kill mob", step.mob, step.amount, {"stepjson": step})
 			return true
 		"craft":
 			# Add an incremental step
 			var itemdata = Gamedata.get_data_by_id(Gamedata.data.items, step.item)
-			quest.add_action_step("Craft a " + itemdata.name, {"type": "craft", "item": step.item})
+			quest.add_action_step("Craft a " + itemdata.name, {"stepjson": step})
 			return true
 	return false
 
@@ -229,11 +229,10 @@ func _on_craft_successful(item: Dictionary, _recipe: Dictionary):
 	for quest in quests_in_progress.values():
 		var step = QuestManager.get_current_step(quest.quest_name)
 		if step.step_type == QuestManager.ACTION_STEP:
-			var stepmeta: String = step.meta_data.get("type", "missing type")
-			if stepmeta == "craft":
+			var stepmeta: Dictionary = step.meta_data.get("stepjson", {})
+			if stepmeta.type == "craft":
 				# This quest's current step is a craft step
-				var itemid: String = step.meta_data.get("item", "missing id")
-				if itemid == item.id:
+				if stepmeta.item == item.id:
 					# The item that was crafted has the same id as the item in this step
 					QuestManager.progress_quest(quest.quest_name)
 				
