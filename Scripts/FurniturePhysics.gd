@@ -5,12 +5,13 @@ extends RigidBody3D
 # when saving a mob in between levels, we will use some static json defined by this id
 # and some dynamic json like the furniture health
 var furnitureposition: Vector3 = Vector3()
-var furniturerotation: int
+var furniture_rotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture
 var dfurniture: DFurniture # The json that defines this furniture's basics in general
 var sprite: Sprite3D = null
 var last_rotation: int
 var current_chunk: Chunk
+var in_starting_chunk: bool = false
 var container: ContainerItem = null # Reference to the container, if this furniture acts as one
 
 var is_animating_hit: bool = false # flag to prevent multiple blink actions
@@ -30,11 +31,22 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	if not newFurnitureJSON.has("global_position_x"):
 		furnitureposition.y += 0.5 # Move the furniture to slightly above the block 
 	add_to_group("furniture")
-
 	set_sprite(dfurniture.sprite)
-	
-	furniturerotation = furnitureJSON.get("rotation", 0)
-	mass = dfurniture.weight
+	furniture_rotation = furnitureJSON.get("rotation", 0)
+	setup_physics_properties(dfurniture.weight)
+
+
+func _ready() -> void:
+	set_position(furnitureposition)
+	set_new_rotation(furniture_rotation)
+	# Add the container as a child on the same position as this furniture
+	add_container(Vector3(0,0,0))
+	last_rotation = furniture_rotation
+
+
+# Setup the physics properties of the furniture
+func setup_physics_properties(weight: float) -> void:
+	mass = weight
 	# Set the properties we need
 	#linear_damp = 59
 	angular_damp = 59
@@ -54,19 +66,28 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	# - 1 << 5: Layer 6 (enemy projectiles layer)
 
 
-func _ready() -> void:
-	set_position(furnitureposition)
-	set_new_rotation(furniturerotation)
-	# Add the container as a child on the same position as this furniture
-	add_container(Vector3(0,0,0))
-	last_rotation = furniturerotation
+func is_in_starting_chunk():
+	if global_transform.origin.x < current_chunk.mypos.x:
+		in_starting_chunk = false
+		return
+	if global_transform.origin.x > current_chunk.mypos.x+32:
+		in_starting_chunk = false
+		return
+	if global_transform.origin.z < current_chunk.mypos.z:
+		in_starting_chunk = false
+		return
+	if global_transform.origin.z > current_chunk.mypos.z+32:
+		in_starting_chunk = false
+		return
+	in_starting_chunk = true
 	freeze = false # Now that it's positioned, unfreeze it
 
 
 # Keep track of the furniture's position and rotation. It starts at 0,0,0 and the moves to it's
 # assigned position after a timer. Until that has happened, we don't need to keep track of it's position
 func _physics_process(_delta) -> void:
-	if freeze: # Don't care about the position changing when it's frozen
+	if freeze or not in_starting_chunk: # Don't care about the position changing when it's frozen
+		is_in_starting_chunk()
 		return
 	# We only care about x and z. A changed y only means it's moving up or down.
 	var x_changed = not global_transform.origin.x == furnitureposition.x 
@@ -96,10 +117,11 @@ func is_in_current_chunk() -> bool:
 	return in_x_range and in_z_range
 
 
+# Set the new rotation for the furniture
 func set_new_rotation(amount: int) -> void:
 	var rotation_amount = amount
-	# Only previously saved furniture will have the global_position_x key. Rotation does not need adjustment
-	if not furnitureJSON.has("global_position_x"):
+	# Only new furniture needs adjustment
+	if is_new_furniture():
 		if amount == 180:
 			rotation_amount = amount - 180
 		elif amount == 0:
@@ -111,15 +133,19 @@ func set_new_rotation(amount: int) -> void:
 	sprite.rotation_degrees.x = 90 # Static 90 degrees to point at camera
 
 
-func set_sprite(newSprite: Texture) -> void:
+# Set the sprite texture and collision shape
+func set_sprite(new_sprite: Texture) -> void:
 	if not sprite:
 		sprite = Sprite3D.new()
 		sprite.shaded = true
 		add_child.call_deferred(sprite)
-	var uniqueTexture = newSprite.duplicate(true) # Duplicate the texture
+	var uniqueTexture = new_sprite.duplicate(true) # Duplicate the texture
 	sprite.texture = uniqueTexture
 
-	# Create a new SphereShape3D for the collision shape
+	create_collision_shape()
+
+# Create the collision shape for the furniture
+func create_collision_shape() -> void:
 	var new_shape = SphereShape3D.new()
 	new_shape.radius = 0.3
 	new_shape.margin = 0.04

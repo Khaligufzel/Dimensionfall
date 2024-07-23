@@ -121,7 +121,7 @@ func deserialize_and_apply_items(items_data: Dictionary):
 func _create_inventory():
 	inventory = InventoryStacked.new()
 	inventory.capacity = 1000
-	inventory.item_protoset = load("res://ItemProtosets.tres")
+	inventory.item_protoset = ItemManager.item_protosets
 	add_child.call_deferred(inventory)
 	inventory.item_removed.connect(_on_item_removed)
 	inventory.item_added.connect(_on_item_added)

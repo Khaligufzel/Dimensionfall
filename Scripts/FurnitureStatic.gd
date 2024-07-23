@@ -7,8 +7,8 @@ extends StaticBody3D
 
 
 # Since we can't access the scene tree in a thread, we store the position in a variable and read that
-var furnitureposition: Vector3
-var furniturerotation: int
+var furniture_position: Vector3
+var furniture_rotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture on the map
 var dfurniture: DFurniture # The json that defines this furniture's basics in general
 var sprite: Sprite3D = null
@@ -25,36 +25,61 @@ var is_animating_hit: bool = false # flag to prevent multiple blink actions
 var original_position: Vector3 # To return to original position after blinking
 
 
-# Function to make it's own shape and texture based on an id and position
+# Function to make its own shape and texture based on an id and position
 # This function is called by a Chunk to construct it's blocks
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	furnitureJSON = newFurnitureJSON
 	# Position furniture at the center of the block by default
-	furnitureposition = furniturepos
+	furniture_position = furniturepos
+	furniture_rotation = furnitureJSON.get("rotation", 0)
+	dfurniture = Gamedata.furnitures.by_id(furnitureJSON.id)
+	
 	# Previously saved furniture do not need to be raised
 	if is_new_furniture():
-		furnitureposition.y += 0.025 # Move the furniture to slightly above the block 
+		furniture_position.y += 0.025 # Move the furniture to slightly above the block 
 	add_to_group("furniture")
-
-	# Find out if we need to apply edge snapping
-	dfurniture = Gamedata.furnitures.by_id(furnitureJSON.id)
-	var edgeSnappingDirection = dfurniture.edgesnapping
-
 	set_sprite(dfurniture.sprite)
-	
-	# Calculate the size of the furniture based on the sprite dimensions
-	var spriteWidth = dfurniture.sprite.get_width() / 100.0 # Convert pixels to meters (assuming 100 pixels per meter)
-	var spriteDepth = dfurniture.sprite.get_height() / 100.0 # Convert pixels to meters
-	
-	var newRot = furnitureJSON.get("rotation", 0)
+	apply_edge_snapping_if_needed()
+	set_collision_layers()
 
-	# Apply edge snapping if necessary. Previously saved furniture have the global_position_x. 
-	# They do not need to apply edge snapping again
-	if edgeSnappingDirection != "None" and not newFurnitureJSON.has("global_position_x"):
-		furnitureposition = apply_edge_snapping(furnitureposition, edgeSnappingDirection, \
-		spriteWidth, spriteDepth, newRot, furniturepos)
 
-	furniturerotation = newRot
+# Ready function to set initial position and rotation
+func _ready():
+	position = furniture_position
+	set_new_rotation(furniture_rotation)
+	check_door_functionality()
+	update_door_visuals()
+	adjust_sprite_and_mesh_height()
+	add_container()
+	original_position = sprite.global_transform.origin
+
+
+# Adjust the sprite and mesh heights based on support shape
+func adjust_sprite_and_mesh_height():
+	var new_height = dfurniture.support_shape.height
+	if new_height:
+		sprite.position.y = 0.01 + new_height
+		mesh_instance.position.y = new_height / 2
+	else:
+		# The default size is 0.5
+		sprite.position.y = 0.51 # Slightly above the default size
+		mesh_instance.position.y = 0.25 # Half the default size
+
+
+# Apply edge snapping if necessary. Previously saved does not need to apply edge snapping again
+func apply_edge_snapping_if_needed():
+	if dfurniture.edgesnapping != "None" and is_new_furniture():
+		# Calculate the size of the furniture based on the sprite dimensions
+		var sprite_width = dfurniture.sprite.get_width() / 100.0 # Convert pixels to meters 
+		var sprite_depth = dfurniture.sprite.get_height() / 100.0 # (assuming 100 pixels per meter)
+		furniture_position = apply_edge_snapping(
+			furniture_position, dfurniture.edgesnapping, 
+			sprite_width, sprite_depth, furniture_rotation, furniture_position
+		)
+
+
+# Set collision layers and masks
+func set_collision_layers():
 	# Set collision layer to layer 3 (static obstacles layer)
 	collision_layer = 1 << 2  # Layer 3 is 1 << 2
 
@@ -67,27 +92,6 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary):
 	# - 1 << 3: Layer 4 (static obstacles layer)
 	# - 1 << 4: Layer 5 (friendly projectiles layer)
 	# - 1 << 5: Layer 6 (enemy projectiles layer)
-
-
-func _ready():
-	position = furnitureposition
-	set_new_rotation(furniturerotation)
-	check_door_functionality()
-	update_door_visuals()
-
-	# Raise the sprite to the height of new_y
-	var newheight = dfurniture.support_shape.height
-	if newheight:
-		sprite.position.y = 0.01 + newheight # Should be slightly above mesh so we add 0.01
-		mesh_instance.position.y = newheight/2
-		add_container(Vector3(0, newheight+0.01, 0)) # Should be slightly above mesh so we add 0.01
-	else:
-		# The default size is 0.5
-		sprite.position.y = 0.51 # Slightly above the default size
-		mesh_instance.position.y =  0.25 # Half the default size
-		# Add the container as a child on the same position as this furniture
-		add_container(Vector3(0, 0.51, 0)) # Slightly above default size
-	original_position = sprite.global_transform.origin
 
 
 # Check if this furniture acts as a door
@@ -112,17 +116,17 @@ func toggle_door():
 
 
 # Will update the sprite of this furniture and set a collisionshape based on its size
-func set_sprite(newSprite: Texture):
+func set_sprite(new_sprite: Texture):
 	if not sprite:
 		sprite = Sprite3D.new()
 		sprite.shaded = true
 		add_child.call_deferred(sprite)
-	var uniqueTexture = newSprite.duplicate(true) # Duplicate the texture
+	var uniqueTexture = new_sprite.duplicate(true) # Duplicate the texture
 	sprite.texture = uniqueTexture
 
 	# Calculate new dimensions for the collision shape
-	var sprite_width = newSprite.get_width()
-	var sprite_height = newSprite.get_height()
+	var sprite_width = new_sprite.get_width()
+	var sprite_height = new_sprite.get_height()
 
 	var new_x = sprite_width / 100.0 # 0.1 units per 10 pixels in width
 	var new_z = sprite_height / 100.0 # 0.1 units per 10 pixels in height
@@ -226,16 +230,13 @@ func set_new_rotation(amount: int):
 		rotation_amount = amount - 180
 	elif amount == 0:
 		rotation_amount = amount + 180
-	else:
-		rotation_amount = amount
-
 	# Rotate the entire StaticBody3D node, including its children
 	rotation_degrees.y = rotation_amount
 	sprite.rotation_degrees.x = 90 # Static 90 degrees to point at camera
 
 
 func get_my_rotation() -> int:
-	return furniturerotation
+	return furniture_rotation
 
 
 # If edge snapping has been set in the furniture editor, we will apply it here.
@@ -287,9 +288,9 @@ func get_data() -> Dictionary:
 	var newfurniturejson = {
 		"id": furnitureJSON.id,
 		"moveable": false,
-		"global_position_x": furnitureposition.x,
-		"global_position_y": furnitureposition.y,
-		"global_position_z": furnitureposition.z,
+		"global_position_x": furniture_position.x,
+		"global_position_y": furniture_position.y,
+		"global_position_z": furniture_position.z,
 		"rotation": get_my_rotation(),
 	}
 	
@@ -312,26 +313,39 @@ func get_data() -> Dictionary:
 	return newfurniturejson
 
 
+
 # If this furniture is a container, it will add a container node to the furniture.
-func add_container(pos: Vector3):
+func add_container():
 	if dfurniture.function.is_container:
+		# Should be slightly above mesh so we add 0.01
 		var newcontainerjson: Dictionary = {
-			"global_position_x": pos.x,
-			"global_position_y": pos.y,
-			"global_position_z": pos.z
+			"global_position_x": 0,
+			"global_position_y": dfurniture.support_shape.height + 0.01,
+			"global_position_z": 0
 		}
-		var newfurniture: bool = is_new_furniture()
-		if newfurniture:
-			newcontainerjson["itemgroups"] = [populate_container_from_itemgroup()]
-		container = ContainerItem.new(newcontainerjson)
-		if not newfurniture:
-			deserialize_container_data()
-		add_child(container)
+		if is_new_furniture():
+			add_new_container(newcontainerjson)
+		else:
+			add_existing_container(newcontainerjson)
+
+
+# Handle the case where the furniture is new
+func add_new_container(newcontainerjson: Dictionary):
+	newcontainerjson["itemgroups"] = [populate_container_from_itemgroup()]
+	container = ContainerItem.new(newcontainerjson)
+	add_child(container)
+
+
+# Handle the case where the furniture already exists
+func add_existing_container(newcontainerjson: Dictionary):
+	container = ContainerItem.new(newcontainerjson)
+	deserialize_container_data()
+	add_child(container)
 
 
 # If there is an itemgroup assigned to the furniture, it will be added to the container.
-# It will check both furnitureJSON and furnitureJSONData for itemgroup information.
-# The container will be filled with items from the itemgroup.
+# It will check both furnitureJSON and dfurniture for itemgroup information.
+# The function will return the id of the itemgroup so that the container may use it
 func populate_container_from_itemgroup() -> String:
 	# Check if furnitureJSON contains an itemgroups array
 	if furnitureJSON.has("itemgroups"):
