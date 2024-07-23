@@ -270,7 +270,7 @@ func get_magazine(item: InventoryItem) -> InventoryItem:
 func insert_magazine(item: InventoryItem, specific_magazine: InventoryItem = null):
 	if specific_magazine:
 		item.set_property("current_magazine", specific_magazine)
-		playerInventory.remove_item(specific_magazine)  # Remove the magazine from the inventory
+		specific_magazine.get_inventory().remove_item(specific_magazine)  # Remove the magazine from the inventory
 
 
 # After the reloading timer runs out, the item will be reloaded
