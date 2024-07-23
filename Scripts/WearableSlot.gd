@@ -90,9 +90,7 @@ func _can_drop_data(_newpos, data) -> bool:
 
 		if prototype_id:
 			# Only allow the user to drop the item if it matches the slot id
-			var item_data = Gamedata.get_data_by_id(Gamedata.data.items, prototype_id)
-			if item_data and "Wearable" in item_data and "slot" in item_data["Wearable"]:
-				return item_data["Wearable"]["slot"] == slot_id
+			return Gamedata.items.by_id(prototype_id).wearable.slot == slot_id
 	return false
 
 

@@ -138,9 +138,8 @@ func _can_drop_data(_newpos, data) -> bool:
 	if not data or not data.has("id"):
 		return false
 
-	# Fetch skill data by ID from the Gamedata to ensure it exists and is valid
-	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, data["id"])
-	if item_data.is_empty():
+	# Fetch item by ID from the Gamedata to ensure it exists and is valid
+	if not Gamedata.items.has_id(data["id"]):
 		return false
 
 	# Check if the item ID already exists in the resources grid
@@ -167,8 +166,7 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 	# Dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var item_id = dropped_data["id"]
-		var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
-		if item_data.is_empty():
+		if not Gamedata.items.has_id(item_id):
 			print_debug("No item data found for ID: " + item_id)
 			return
 		

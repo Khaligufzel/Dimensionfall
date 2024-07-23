@@ -65,6 +65,17 @@ class CraftRecipe:
 			skill_ids.append(skill_progression["id"])
 		return skill_ids
 
+	# Function to remove all instances of a skill from the recipe
+	func remove_skill(skill_id: String) -> bool:
+		var changes_made = false
+		if skill_requirement.has("id") and skill_requirement["id"] == skill_id:
+			skill_requirement.clear()
+			changes_made = true
+		if skill_progression.has("id") and skill_progression["id"] == skill_id:
+			skill_progression.clear()
+			changes_made = true
+		return changes_made
+
 
 class Craft:
 	var recipes: Array[CraftRecipe] = []
@@ -109,6 +120,14 @@ class Craft:
 				if not used_items.has(resource["id"]):
 					used_items.append(resource["id"])
 		return used_items
+	
+	# Function to remove all instances of a skill from all recipes
+	func remove_skill_from_recipes(skill_id: String) -> bool:
+		var changes_made = false
+		for recipe in recipes:
+			if recipe.remove_skill(skill_id):
+				changes_made = true
+		return changes_made
 	
 
 # Inner class to handle the Magazine property
@@ -176,6 +195,13 @@ class Ranged:
 			return [used_skill["skill_id"]]
 		return []
 
+	# Function to remove all instances of a skill
+	func remove_skill(skill_id: String) -> bool:
+		if used_skill.has("skill_id") and used_skill["skill_id"] == skill_id:
+			used_skill.clear()
+			return true
+		return false
+
 
 # Inner class to handle the Melee property
 class Melee:
@@ -202,6 +228,13 @@ class Melee:
 		if used_skill.has("skill_id"):
 			return [used_skill["skill_id"]]
 		return []
+
+	# Function to remove all instances of a skill
+	func remove_skill(skill_id: String) -> bool:
+		if used_skill.has("skill_id") and used_skill["skill_id"] == skill_id:
+			used_skill.clear()
+			return true
+		return false
 
 
 # Inner class to handle the Food property
@@ -395,7 +428,7 @@ func changed(olddata: DItem):
 	
 	# Save changes if any modifications were made
 	if changes_made:
-		Gamedata.save_data_to_file(Gamedata.data.items)
+		Gamedata.items.save_items_to_disk()
 		Gamedata.save_data_to_file(Gamedata.data.wearableslots)
 		print_debug("Item changes saved successfully.")
 	else:
@@ -524,3 +557,16 @@ func execute_callable_on_references_of_type(module: String, type: String, callab
 		# If the type exists, execute the callable on each ID found under this type
 		for ref_id in references[module][type]:
 			callable.call(ref_id)
+
+
+
+# Function to remove all instances of a skill from the item
+func remove_skill(skill_id: String) -> bool:
+	var changes_made = false
+	if craft and craft.remove_skill_from_recipes(skill_id):
+		changes_made = true
+	if ranged and ranged.remove_skill(skill_id):
+		changes_made = true
+	if melee and melee.remove_skill(skill_id):
+		changes_made = true
+	return changes_made

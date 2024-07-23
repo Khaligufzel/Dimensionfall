@@ -22,7 +22,7 @@ func _ready():
 	load_content_list(Gamedata.data.tacticalmaps, "Tactical Maps")
 	# Hacky exception for maps, need to find a better solution
 	load_content_list({"maps": true}, "Maps")
-	load_content_list(Gamedata.data.items, "Items")
+	load_content_list({"items": true}, "Items")
 	load_content_list(Gamedata.data.tiles, "Terrain Tiles")
 	load_content_list(Gamedata.data.mobs, "Mobs")
 	# Hacky exception for furnitures, need to find a better solution
@@ -64,9 +64,10 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 	if data == Gamedata.data.tiles:
 		instantiate_editor(data, itemID, terrainTileEditor)
 	if data == {"furnitures": true}:
-		# HACK Hacky exception for maps, need to find a better solution
+		# HACK Hacky exception for furniture, need to find a better solution
 		instantiate_editor(data, itemID, furnitureEditor)
-	if data == Gamedata.data.items:
+	if data == {"items": true}:
+		# HACK Hacky exception for items, need to find a better solution
 		instantiate_editor(data, itemID, itemEditor)
 	if data == Gamedata.data.mobs:
 		instantiate_editor(data, itemID, mobEditor)
@@ -112,6 +113,9 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 		return
 	if data == {"furnitures": true}:# HACK Hacky exception for furniture, need to find a better solution
 		newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
+		return
+	if data == {"items": true}:# HACK Hacky exception for furniture, need to find a better solution
+		newContentEditor.ditem = Gamedata.items.by_id(itemID)
 		return
 	if data.dataPath.ends_with(".json"):
 		var itemdata: Dictionary = data.data[Gamedata.get_array_index_by_id(data, itemID)]

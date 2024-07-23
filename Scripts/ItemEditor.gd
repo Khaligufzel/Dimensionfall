@@ -39,42 +39,42 @@ extends Control
 # This signal should alert Gamedata that the mob data array should be saved to disk
 signal data_changed(game_data: Dictionary, new_data: Dictionary, old_data: Dictionary)
 
-var olddata: Dictionary # Remember what the value of the data was before editing
+var olddata: DItem # Remember what the value of the data was before editing
 # The data that represents this item
-# The data is selected from the Gamedata.data.items.data array
 # based on the ID that the user has selected in the content editor
-var contentData: Dictionary = {}:
+var ditem: DItem = null:
 	set(value):
-		contentData = value
+		ditem = value
 		load_item_data()
-		itemSelector.sprites_collection = Gamedata.data.items.sprites
-		olddata = contentData.duplicate(true)
+		itemSelector.sprites_collection = Gamedata.items.sprites
+		olddata = DItem.new(ditem.get_data().duplicate(true))
 		
 func _ready():
 	refresh_tab_visibility()
 	data_changed.connect(Gamedata.on_data_changed)
 
+
 #This function update the form based on the contentData that has been loaded
 func load_item_data() -> void:
-	if itemImageDisplay != null and contentData.has("sprite") and Gamedata.data.items.sprites.has(contentData["sprite"]):
-		itemImageDisplay.texture = Gamedata.data.items.sprites[contentData["sprite"]]
-		PathTextLabel.text = contentData["sprite"]
+	if itemImageDisplay != null:
+		itemImageDisplay.texture = Gamedata.items.sprite_by_file(ditem.spriteid)
+		PathTextLabel.text = ditem.spriteid
 	if IDTextLabel != null:
-		IDTextLabel.text = str(contentData["id"])
-	if NameTextEdit != null and contentData.has("name"):
-		NameTextEdit.text = contentData["name"]
-	if DescriptionTextEdit != null and contentData.has("description"):
-		DescriptionTextEdit.text = contentData["description"]
-	if VolumeNumberBox != null and contentData.has("volume"):
-		VolumeNumberBox.value = float(contentData["volume"])
-	if WeightNumberBox != null and contentData.has("weight"):
-		WeightNumberBox.value = float(contentData["weight"])
-	if StackSizeNumberBox != null and contentData.has("stack_size"):
-		StackSizeNumberBox.value = float(contentData["stack_size"])
-	if MaxStackSizeNumberBox != null and contentData.has("max_stack_size"):
-		MaxStackSizeNumberBox.value = float(contentData["max_stack_size"])
-	if TwoHandedCheckBox != null and contentData.has("two_handed"):
-		TwoHandedCheckBox.button_pressed = contentData["two_handed"]
+		IDTextLabel.text = str(ditem.id)
+	if NameTextEdit != null:
+		NameTextEdit.text = ditem.name
+	if DescriptionTextEdit != null:
+		DescriptionTextEdit.text = ditem.description
+	if VolumeNumberBox != null:
+		VolumeNumberBox.value = float(ditem.volume)
+	if WeightNumberBox != null:
+		WeightNumberBox.value = float(ditem.weight)
+	if StackSizeNumberBox != null:
+		StackSizeNumberBox.value = float(ditem.stack_size)
+	if MaxStackSizeNumberBox != null:
+		MaxStackSizeNumberBox.value = float(ditem.max_stack_size)
+	if TwoHandedCheckBox != null:
+		TwoHandedCheckBox.button_pressed = ditem.two_handed
 
 	# Loop through typesContainer children to load additional properties and set button_pressed
 	for i in range(typesContainer.get_child_count()):
@@ -82,33 +82,33 @@ func load_item_data() -> void:
 		if child is CheckBox:
 			var tabIndex = get_tab_by_title(child.text)
 			var tab = tabContainer.get_child(tabIndex)
-			if tab and tab.has_method("set_properties") and contentData.has(child.text):
-				tab.set_properties(contentData[child.text])
+			if not ditem.get(child.text.to_lower()) == null:
+				tab.ditem = ditem
 				 # Set button_pressed to true if contentData has the property
 				child.button_pressed = true 
 	refresh_tab_visibility()
-	references_editor.reference_data = contentData.get("references", {})
+	references_editor.reference_data = ditem.references
+
 
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
 	queue_free()
 
-# This function takes all data fro the form elements stores them in the contentData
-# Since contentData is a reference to an item in Gamedata.data.items.data
-# the central array for itemdata is updated with the changes as well
+# This function takes all data from the form elements and stores them in the ditem
+# The central array for item data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
-	contentData["sprite"] = PathTextLabel.text
+	ditem.spriteid = PathTextLabel.text
 	# We add this image property only for the itemprotosets of gloot
-	contentData["image"] = Gamedata.data.items.spritePath + PathTextLabel.text
-	contentData["name"] = NameTextEdit.text
-	contentData["description"] = DescriptionTextEdit.text
-	contentData["volume"] = VolumeNumberBox.value
-	contentData["weight"] = WeightNumberBox.value
-	contentData["stack_size"] = StackSizeNumberBox.value
-	contentData["max_stack_size"] = MaxStackSizeNumberBox.value
-	contentData["two_handed"] = TwoHandedCheckBox.button_pressed
+	ditem.image = Gamedata.items.spritePath + PathTextLabel.text
+	ditem.name = NameTextEdit.text
+	ditem.description = DescriptionTextEdit.text
+	ditem.volume = VolumeNumberBox.value
+	ditem.weight = WeightNumberBox.value
+	ditem.stack_size = int(StackSizeNumberBox.value)
+	ditem.max_stack_size = int(MaxStackSizeNumberBox.value)
+	ditem.two_handed = TwoHandedCheckBox.button_pressed
 	
 	# Loop through typesContainer children to save additional properties
 	for i in range(typesContainer.get_child_count()):
@@ -119,14 +119,14 @@ func _on_save_button_button_up() -> void:
 				# Save additional properties if checkbox is checked
 				var tabIndex = get_tab_by_title(child.text)
 				var tab = tabContainer.get_child(tabIndex)
-				if tab and tab.has_method("get_properties"):
-					contentData[child.text] = tab.get_properties()
+				if tab:
+					tab.save_properties()
 			else:
 				# Delete the property if checkbox is not checked and it exists in contentData
-				if contentData.has(child.text):
-					contentData.erase(child.text)
-	data_changed.emit(Gamedata.data.items, contentData, olddata)
-	olddata = contentData.duplicate(true)
+				if not ditem.get(child.text.to_lower()) == null:
+					ditem.set(child.text.to_lower(),null)
+	ditem.changed(olddata)
+	olddata = DItem.new(ditem.get_data().duplicate(true))
 
 
 #When the itemImageDisplay is clicked, the user will be prompted to select an image from 

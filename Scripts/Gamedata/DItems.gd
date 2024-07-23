@@ -77,6 +77,10 @@ func by_id(itemid: String) -> DItem:
 	return itemdict[itemid]
 
 
+func has_id(itemid: String) -> bool:
+	return itemdict.has(itemid)
+
+
 # Returns the sprite of the item
 # itemid: The id of the item to return the sprite of
 func sprite_by_id(itemid: String) -> Texture:
@@ -103,8 +107,6 @@ func remove_reference_from_item(itemid: String, module: String, type: String, re
 func add_reference_to_item(itemid: String, module: String, type: String, refid: String):
 	var myitem: DItem = itemdict[itemid]
 	myitem.add_reference(module, type, refid)
-
-
 
 
 # This will update the given resource file with the provided json data

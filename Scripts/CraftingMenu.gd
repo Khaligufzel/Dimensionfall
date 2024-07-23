@@ -32,18 +32,16 @@ func _ready():
 
 # Function to create item buttons based on craftable items
 func create_item_buttons():
-	for item in CraftingRecipesManager.craftable_items:
+	for item: DItem in CraftingRecipesManager.craftable_items:
 		if can_craft_with_skill(item):
 			create_item_button(item)
 
 
 # Updated function to store button references
-func create_item_button(item: Dictionary):
+func create_item_button(item: DItem):
 	var button = Button.new()
-	var button_icon = Gamedata.get_sprite_by_id(Gamedata.data.items, item.get("id"))
-	if button_icon:
-		button.icon = button_icon
-	button.text = item["name"]
+	button.icon = item.sprite
+	button.text = item.name
 	button.button_up.connect(_on_item_button_clicked.bind(item))
 
 	# Initially set the button color based on craftability
@@ -51,11 +49,11 @@ func create_item_button(item: Dictionary):
 
 	item_button_container.add_child(button)
 	# Store the button reference keyed by item's ID
-	item_buttons[item.get("id")] = button
+	item_buttons[item.id] = button
 
 
 # Function to update a button's color based on the item's craftability
-func update_button_color(button, item):
+func update_button_color(button, item: DItem):
 	if can_craft_any_recipe(item):
 		button.modulate = Color(0.4, 1, 0.4)  # Green for craftable
 	else:
@@ -93,11 +91,10 @@ func _on_recipe_button_pressed(recipe):
 		var item_id = resource["id"]
 		var amount = resource["amount"]
 		var resource_container = HBoxContainer.new()
-		var item_data = Gamedata.get_data_by_id(Gamedata.data.items,item_id)
-		var item_name: String = item_data["name"]
+		var item_name: String = Gamedata.items.by_id(item_id).name
 		required_items.add_child(resource_container)
 
-		var item_icon_texture = Gamedata.get_sprite_by_id(Gamedata.data.items, item_id)
+		var item_icon_texture = Gamedata.items.sprite_by_id(item_id)
 		if item_icon_texture:
 			var icon = TextureRect.new()
 			icon.texture = item_icon_texture
@@ -122,24 +119,21 @@ func _on_start_crafting_button_pressed():
 
 
 # Function to determine if any of the item's recipes can be crafted
-func can_craft_any_recipe(item_data: Dictionary) -> bool:
-	# Check if the item data has the 'Craft' property
-	if "Craft" in item_data:
-		# Iterate over each recipe in the 'Craft' property
-		for recipe in item_data["Craft"]:
-			# Call the CraftingRecipesManager to check if the recipe can be crafted
-			if CraftingRecipesManager.can_craft_recipe(recipe):
-				return true  # Return true if any recipe can be crafted
+func can_craft_any_recipe(item: DItem) -> bool:
+	# Iterate over each recipe in the 'Craft' property
+	for recipe in item.craft.recipes:
+		# Call the CraftingRecipesManager to check if the recipe can be crafted
+		if CraftingRecipesManager.can_craft_recipe(recipe):
+			return true  # Return true if any recipe can be crafted
 	# Return false if no recipes can be crafted or if there are no recipes
 	return false
 
 
 # Function to update the color of the button associated with a given item data
-func update_item_button_color(item_data: Dictionary) -> void:
-	var item_id = item_data.get("id")
-	if item_id in item_buttons:
-		var button = item_buttons[item_id]
-		update_button_color(button, item_data)
+func update_item_button_color(item: DItem) -> void:
+	if item.id in item_buttons:
+		var button = item_buttons[item.id]
+		update_button_color(button, item)
 
 
 # Some inventory item has been moved or changed. Now we want to update the UI so that
@@ -149,13 +143,12 @@ func update_item_button_color(item_data: Dictionary) -> void:
 # - We get the item references from the inventory item
 # - For each item reference, update the button that represents the item in the ui
 func _update_button_from_inventory_item(item: InventoryItem) -> void:
-	var item_id = item.get("prototype_id")
-	var item_data: Dictionary = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
-	var item_references = Helper.json_helper.get_nested_data(item_data,"references.core.items")
+	var ditem: DItem = Gamedata.items.by_id(item.get("prototype_id"))
+	var item_references = Helper.json_helper.get_nested_data(ditem.references, "core.items")
 	if item_references:
 		for item_reference: String in item_references:
-			var item_reference_data = Gamedata.get_data_by_id(Gamedata.data.items, item_reference)
-			update_item_button_color(item_reference_data)
+			var ditem_reference: DItem = Gamedata.items.by_id(item_reference)
+			update_item_button_color(ditem_reference)
 
 
 func _on_allAccessibleItems_changed(items_added: Array, items_removed: Array):
@@ -169,14 +162,12 @@ func _on_allAccessibleItems_changed(items_added: Array, items_removed: Array):
 
 
 # Function to determine if any of the item's recipes can be crafted based on player's skills
-func can_craft_with_skill(item_data: Dictionary) -> bool:
-	# Check if the item data has the 'Craft' property
-	if "Craft" in item_data:
-		# Iterate over each recipe in the 'Craft' property
-		for recipe in item_data["Craft"]:
-			# Call the CraftingRecipesManager to check if the recipe can be crafted
-			if CraftingRecipesManager.has_required_skill(recipe):
-				return true  # Return true if any recipe can be crafted based on skills
+func can_craft_with_skill(item: DItem) -> bool:
+	# Iterate over each recipe in the 'Craft' property
+	for recipe in item.craft.recipes:
+		# Call the CraftingRecipesManager to check if the recipe can be crafted
+		if CraftingRecipesManager.has_required_skill(recipe):
+			return true  # Return true if any recipe can be crafted based on skills
 	# Return false if no recipes can be crafted or if there are no recipes
 	return false
 

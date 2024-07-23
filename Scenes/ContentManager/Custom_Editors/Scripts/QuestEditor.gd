@@ -326,7 +326,7 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 		
 		match step_type:
 			"craft", "collect":
-				valid_data = not Gamedata.get_data_by_id(Gamedata.data.items, dropped_data["id"]).is_empty()
+				valid_data = Gamedata.items.has_id(dropped_data["id"])
 			"kill":
 				valid_data = not Gamedata.get_data_by_id(Gamedata.data.mobs, dropped_data["id"]).is_empty()
 			"enter":
@@ -346,7 +346,7 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 	
 	match step_type:
 		"craft", "collect":
-			valid_data = not Gamedata.get_data_by_id(Gamedata.data.items, dropped_data["id"]).is_empty()
+			valid_data = Gamedata.items.has_id(dropped_data["id"])
 		"kill":
 			valid_data = not Gamedata.get_data_by_id(Gamedata.data.mobs, dropped_data["id"]).is_empty()
 		"enter":
@@ -369,8 +369,7 @@ func _can_drop_reward(_newpos, data: Dictionary) -> bool:
 		return false
 
 	# Fetch skill data by ID from the Gamedata to ensure it exists and is valid
-	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, data["id"])
-	if item_data.is_empty():
+	if not Gamedata.items.has_id(data["id"]):
 		return false
 
 	# Check if the item ID already exists in the resources grid
@@ -397,8 +396,7 @@ func _handle_reward_drop(dropped_data: Dictionary, _newpos: Vector2) -> void:
 	# Dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var item_id = dropped_data["id"]
-		var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
-		if item_data.is_empty():
+		if not Gamedata.items.has_id(item_id):
 			print_debug("No item data found for ID: " + item_id)
 			return
 		
@@ -415,10 +413,7 @@ func _handle_reward_drop(dropped_data: Dictionary, _newpos: Vector2) -> void:
 # - use_loaded_amount: Boolean to determine if the loaded amount should be used (default is false)
 func add_reward_entry(item_id: String, amount: int = 1, use_loaded_amount: bool = false):
 	# Get item data using the item ID
-	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
-	if item_data.is_empty():
-		print_debug("No item data found for ID: " + item_id)
-		return
+	var item: DItem = Gamedata.items.by_id(item_id)
 
 	# Create UI elements for the reward
 	var label = Label.new()
@@ -427,12 +422,12 @@ func add_reward_entry(item_id: String, amount: int = 1, use_loaded_amount: bool 
 
 	# Create and configure the amount SpinBox
 	var amountSpinBox = SpinBox.new()
-	amountSpinBox.max_value = item_data["max_stack_size"]
+	amountSpinBox.max_value = item.max_stack_size
 	
 	if use_loaded_amount:
 		amountSpinBox.value = amount
 	else:
-		amountSpinBox.value = item_data["stack_size"]
+		amountSpinBox.value = item.stack_size
 	
 	rewards_item_list.add_child(amountSpinBox)
 

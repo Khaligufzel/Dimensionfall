@@ -576,8 +576,8 @@ func on_wearableslot_deleted(wearableslot_id: String):
 	
 	# This callable will remove this item from itemgroups that reference this item.
 	var myfunc: Callable = func (item_id):
-		var item_data: Dictionary = get_data_by_id(data.items, item_id)
-		item_data.erase("Wearable")
+		var item_data: DItem = items.by_id(item_id)
+		item_data.wearable = null
 		changes_made = true
 	# Pass the callable to every item in the wearableslot's references
 	# It will call myfunc on every item in wearableslot_data.references.core.items
@@ -585,7 +585,7 @@ func on_wearableslot_deleted(wearableslot_id: String):
 	
 	# Save changes to the data file if any changes were made
 	if changes_made:
-		save_data_to_file(data.items)
+		items.save_items_to_disk()
 	else:
 		print_debug("No changes needed for item", wearableslot_id)
 
@@ -602,29 +602,8 @@ func on_skill_deleted(skill_id: String):
 
 	# This callable will remove the skill references from items that reference this skill.
 	var remove_skill_from_item: Callable = func (item_id):
-		var item_data: Dictionary = get_data_by_id(data.items, item_id)
-		var recipes = item_data.get("Craft", [])
-
-		# Iterate through the recipes to remove the skill reference
-		for recipe in recipes:
-			var skill_req = recipe.get("skill_requirement", {})
-			var skill_prog = recipe.get("skill_progression", {})
-
-			# Remove skill requirement if it matches the deleted skill
-			if skill_req.get("id", "") == skill_id:
-				recipe.erase("skill_requirement")
-				changes_made["value"] = true
-
-			# Remove skill progression if it matches the deleted skill
-			if skill_prog.get("id", "") == skill_id:
-				recipe.erase("skill_progression")
-				changes_made["value"] = true
-		var ranged_skill_id = Helper.json_helper.get_nested_data(item_data, "Ranged.used_skill.skill_id")
-		if ranged_skill_id and ranged_skill_id == skill_id:
-			changes_made["value"] = Helper.json_helper.delete_nested_property(item_data, "Ranged.used_skill")
-		var melee_skill_id = Helper.json_helper.get_nested_data(item_data, "Melee.used_skill.skill_id")
-		if melee_skill_id and melee_skill_id == skill_id:
-			changes_made["value"] = Helper.json_helper.delete_nested_property(item_data, "Melee.used_skill")
+		var ditem: DItem = items.by_id(item_id)
+		changes_made["value"] = ditem.remove_skill(skill_id)
 
 	# Pass the callable to every item in the skill's references
 	# It will call myfunc on every item in skill_data.references.core.items
@@ -632,7 +611,7 @@ func on_skill_deleted(skill_id: String):
 
 	# Save changes to the data file if any changes were made
 	if changes_made["value"]:
-		save_data_to_file(data.items)
+		items.save_items_to_disk()
 	else:
 		print_debug("No changes needed for skill", skill_id)
 
@@ -646,17 +625,16 @@ func on_quest_deleted(quest_id: String):
 		return
 	var stepitems: Array = Helper.json_helper.get_unique_values(quest_data, "steps.item")
 	for item_id in stepitems:
-		changes_made["value"] = remove_reference(data.items, "core", "quests", item_id, quest_id) or changes_made["value"]
+		items.remove_reference_from_item(item_id, "core", "quests", quest_id)
 	var stepmobs: Array = Helper.json_helper.get_unique_values(quest_data, "steps.mob")
 	for mob_id in stepmobs:
 		changes_made["value"] = remove_reference(data.mobs, "core", "quests", mob_id, quest_id) or changes_made["value"]
 	var steprewards: Array = Helper.json_helper.get_unique_values(quest_data, "rewards.item_id")
 	for item_id in steprewards: # Remove the reference to this quest from the reward item
-		changes_made["value"] = remove_reference(data.items, "core", "quests", item_id, quest_id) or changes_made["value"]
+		items.remove_reference_from_item(item_id, "core", "quests", quest_id)
 
 	# Save changes to the data file if any changes were made
 	if changes_made["value"]:
-		save_data_to_file(data.items)
 		save_data_to_file(data.mobs)
 	else:
 		print_debug("No changes needed for quest", quest_id)
@@ -680,11 +658,11 @@ func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
 	# Remove references for old items and rewards
 	for old_item in old_items_merged:
 		if old_item not in new_items_merged:
-			changes_made = remove_reference(data.items, "core", "quests", old_item, quest_id) or changes_made
+			items.remove_reference(old_item, "core", "quests", quest_id)
 
 	# Add references for new items and rewards
 	for new_item in new_items_merged:
-		changes_made = add_reference(data.items, "core", "quests", new_item, quest_id) or changes_made
+		items.add_reference(new_item, "core", "quests", quest_id)
 
 	# Remove references for old mobs
 	for old_mob in old_quest_mobs:
@@ -697,10 +675,7 @@ func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
 
 	# Save changes if any references were updated
 	if changes_made:
-		save_data_to_file(data.items)
 		save_data_to_file(data.mobs)
-
-
 
 
 # Removes the provided reference from references

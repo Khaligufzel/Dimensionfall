@@ -76,9 +76,7 @@ func _on_erase_properties_button_button_up():
 
 func get_type_data() -> Variant:
 	var selected_type = typesOptionButton.get_item_text(typesOptionButton.selected)
-	if selected_type == "Item":
-		return Gamedata.data.items
-	elif selected_type == "Itemgroup":
+	if selected_type == "Itemgroup":
 		return Gamedata.data.itemgroups
 	elif selected_type == "Mob":
 		return Gamedata.data.mobs
