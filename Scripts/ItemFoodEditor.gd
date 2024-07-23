@@ -13,7 +13,7 @@ var ditem: DItem = null:
 		load_properties()
 
 func save_properties() -> void:
-	ditem.food.health = HealthNumberBox.value
+	ditem.food.health = int(HealthNumberBox.value)
 
 func load_properties() -> void:
 	HealthNumberBox.value = ditem.food.health

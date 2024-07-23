@@ -17,6 +17,12 @@ extends Control
 var current_recipe_index = 0
 var craft_recipes = []
 
+var ditem: DItem = null:
+	set(value):
+		ditem = value
+		load_properties()
+
+
 func _ready():
 	set_drop_functions()
 	recipesContainer.item_selected.connect(_on_recipe_selected)
@@ -30,68 +36,69 @@ func _on_recipe_selected(index: int):
 
 
 # Loads a recipe into the UI elements
-func load_recipe_into_ui(recipe: Dictionary):
-	craftAmountNumber.value = recipe.get("craft_amount", 1)
-	craftTimeNumber.value = recipe.get("craft_time", 10)
-	requiresLightCheckbox.button_pressed = recipe.get("flags", {}).get("requires_light", false)
+func load_recipe_into_ui(recipe: DItem.CraftRecipe):
+	craftAmountNumber.value = recipe.craft_amount
+	craftTimeNumber.value = recipe.craft_time
+	requiresLightCheckbox.button_pressed = recipe.flags.get("requires_light", false)
 
 	# Load skill requirements
-	var skill_requirement = recipe.get("skill_requirement", {})
-	required_skill_text_edit.set_text(skill_requirement.get("id", ""))
-	skill_level_requirement_spin_box.value = skill_requirement.get("level", 1)
+	required_skill_text_edit.set_text(recipe.skill_requirement.get("id", ""))
+	skill_level_requirement_spin_box.value = recipe.skill_requirement.get("level", 1)
 
 	# Load skill progression
-	var skill_progression = recipe.get("skill_progression", {})
-	skill_progression_text_edit.set_text(skill_progression.get("id", ""))
-	skill_progression_spin_box.value = skill_progression.get("xp", 1)
+	skill_progression_text_edit.set_text(recipe.skill_progression.get("id", ""))
+	skill_progression_spin_box.value = recipe.skill_progression.get("xp", 1)
 
 	# Clear previous entries
 	for child in resourcesGridContainer.get_children():
 		child.queue_free()
 
 	# Load resources from the selected recipe
-	for resource in recipe.get("required_resources", []):
+	for resource in recipe.required_resources:
 		add_resource_entry(resource["id"], resource["amount"])
 
 
 # Gathers the properties from the UI for saving
-func get_properties() -> Array:
+func save_properties() -> void:
 	# First update the current viewed recipe with UI values
 	_update_current_recipe()
 
-	# Return the array of all recipes
-	return craft_recipes
+	# Replace all recipes in ditem.craft.recipes with the recipes in craft_recipes
+	if ditem.craft:
+		ditem.craft.recipes = craft_recipes.duplicate(true)
+	else:
+		ditem.craft = DItem.Craft.new([])
+		ditem.craft.recipes = craft_recipes.duplicate(true)
 
 
-# Updates the current recipe data based on UI elements
 # Updates the current recipe data based on UI elements
 func _update_current_recipe():
 	if current_recipe_index >= 0 and current_recipe_index < craft_recipes.size():
-		var current_recipe = {
-			"craft_amount": craftAmountNumber.value,
-			"craft_time": craftTimeNumber.value,
-			"flags": {"requires_light": requiresLightCheckbox.button_pressed},
-			"required_resources": _get_resources_from_ui()
-		}
+		var current_recipe = craft_recipes[current_recipe_index]
+		current_recipe.craft_amount = craftAmountNumber.value
+		current_recipe.craft_time = craftTimeNumber.value
+		current_recipe.flags = {"requires_light": requiresLightCheckbox.button_pressed}
+		current_recipe.required_resources = _get_resources_from_ui()
 
 		# Add skill_requirement if required_skill_text_edit has a value
 		var required_skill_id = required_skill_text_edit.get_text()
 		if required_skill_id != "":
-			current_recipe["skill_requirement"] = {
+			current_recipe.skill_requirement = {
 				"id": required_skill_id,
 				"level": skill_level_requirement_spin_box.value
 			}
+		else:
+			current_recipe.skill_requirement.clear()
 
 		# Add skill_progression if skill_progression_text_edit has a value
 		var skill_progression_id = skill_progression_text_edit.get_text()
 		if skill_progression_id != "":
-			current_recipe["skill_progression"] = {
+			current_recipe.skill_progression = {
 				"id": skill_progression_id,
 				"xp": skill_progression_spin_box.value
 			}
-
-		# Update the recipe in the list
-		craft_recipes[current_recipe_index] = current_recipe
+		else:
+			current_recipe.skill_progression.clear()
 
 
 # Helper to get resources from UI
@@ -106,8 +113,12 @@ func _get_resources_from_ui() -> Array:
 
 
 # Sets properties for all recipes and initializes the recipe editor
-func set_properties(recipes: Array):
-	craft_recipes = recipes
+func load_properties():
+	if not ditem:
+		return
+	craft_recipes.clear()
+	for drecipe: DItem.CraftRecipe in ditem.craft.recipes:
+		craft_recipes.append(DItem.CraftRecipe.new(drecipe.get_data().duplicate(true)))
 	recipesContainer.clear()
 	
 	if craft_recipes.is_empty():
@@ -121,7 +132,7 @@ func set_properties(recipes: Array):
 
 # Helper function to add a new recipe
 func add_new_recipe():
-	var new_recipe = {
+	var new_recipe_data = {
 		"craft_amount": 1,
 		"craft_time": 10,
 		"flags": {"requires_light": false},
@@ -129,7 +140,9 @@ func add_new_recipe():
 		"skill_progression": {"id": "", "xp": 1},
 		"required_resources": []
 	}
+	var new_recipe = DItem.CraftRecipe.new(new_recipe_data)
 	craft_recipes.append(new_recipe)
+	update_recipe_dropdown()
 
 
 # This function should return true if the dragged data can be dropped here
@@ -205,7 +218,7 @@ func add_resource_entry(item_id: String, amount: int = 1):
 
 # This editor becomes visible when the user checks the 'craft' checkbox in the main item editor
 func _on_visibility_changed():
-	set_properties(craft_recipes)
+	load_properties()
 
 
 func _on_add_recipe_button_button_up():

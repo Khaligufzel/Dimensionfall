@@ -266,6 +266,18 @@ class Wearable:
 			"slot": slot
 		}
 
+	# Function to add a reference for the wearable slot
+	func add_reference(item_id: String) -> bool:
+		if slot != "":
+			return Gamedata.add_reference(Gamedata.data.wearableslots, "core", "items", slot, item_id)
+		return false
+
+	# Function to remove a reference for the wearable slot
+	func remove_reference(item_id: String) -> bool:
+		if slot != "":
+			return Gamedata.remove_reference(Gamedata.data.wearableslots, "core", "items", slot, item_id)
+		return false
+
 
 # Constructor to initialize item properties from a dictionary
 func _init(data: Dictionary):
@@ -393,28 +405,38 @@ func on_data_changed(_oldditem: DItem):
 func changed(olddata: DItem):
 	var changes_made = false
 	
-	# Handle wearable slot references
-	var new_slot = wearable.slot
-	var old_slot = olddata.wearable.slot
-	if new_slot and new_slot != old_slot:
-		# Add or update the reference to the new slot
-		changes_made = Gamedata.add_reference(Gamedata.data.wearableslots, "core", "items", new_slot, id) or changes_made
-	if old_slot and old_slot != new_slot:
-		changes_made = Gamedata.remove_reference(Gamedata.data.wearableslots, "core", "items", old_slot, id) or changes_made
+	# Handle wearable slot reference. 
+	if wearable:
+		# If the slot data changed between old and new, we update the reference
+		var old_slot = null
+		if olddata.wearable:
+			old_slot = olddata.wearable.slot
+
+		if old_slot != wearable.slot:
+			if old_slot:
+				changes_made = olddata.wearable.remove_reference(id) or changes_made
+			if wearable.slot:
+				changes_made = wearable.add_reference(id) or changes_made
+	elif olddata.wearable and olddata.wearable.slot:
+		# The wearable is present in the old data but not in the new, so we remove the reference
+		changes_made = olddata.wearable.remove_reference(id) or changes_made
+	
 	
 	# Dictionaries to track unique resource IDs across all recipes
 	var old_resource_ids: Dictionary = {}
 	var new_resource_ids: Dictionary = {}
 
-	# Collect all unique resource IDs from old recipes
-	for recipe: CraftRecipe in olddata.craft.recipes:
-		for resource in recipe.required_resources:
-			old_resource_ids[resource["id"]] = true
+	# Collect all unique resource IDs from old recipes if olddata.craft is not null
+	if olddata.craft:
+		for recipe: CraftRecipe in olddata.craft.recipes:
+			for resource in recipe.required_resources:
+				old_resource_ids[resource["id"]] = true
 
-	# Collect all unique resource IDs from new recipes
-	for recipe in craft.recipes:
-		for resource in recipe.required_resources:
-			new_resource_ids[resource["id"]] = true
+	# Collect all unique resource IDs from new recipes if craft is not null
+	if craft:
+		for recipe in craft.recipes:
+			for resource in recipe.required_resources:
+				new_resource_ids[resource["id"]] = true
 
 	# Resources that are no longer in the recipe will no longer reference this item
 	for res_id in old_resource_ids:

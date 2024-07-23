@@ -50,6 +50,11 @@ func load_data():
 		load_furnitures_list()
 		load_collapse_state()
 		return
+	# HACK Hacky exception for furniture, need to find a better solution
+	if contentData == {"items": true}:
+		load_items_list()
+		load_collapse_state()
+		return
 	if not contentData.has("data"):
 		return
 	if contentData.data.is_empty():
@@ -185,6 +190,10 @@ func _on_delete_button_button_up():
 	# HACK Exception for furnitures, need to find a better solution
 	if contentData == {"furnitures": true}:
 		delete_furniture(selected_id)
+		return
+	# HACK Exception for furnitures, need to find a better solution
+	if contentData == {"items": true}:
+		delete_item(selected_id)
 		return
 	contentItems.remove_item(contentItems.get_selected_items()[0])
 	Gamedata.remove_item_from_data(contentData, selected_id)
@@ -351,6 +360,18 @@ func load_furnitures_list():
 		if mySprite:
 			contentItems.set_item_icon(item_index, mySprite)
 
+# Load the furniture list
+func load_items_list():
+	var itemlist: Dictionary = Gamedata.items.get_items()
+	for item: DItem in itemlist.values():
+		# Add all the filenames to the ContentItems list as child nodes
+		var item_index: int = contentItems.add_item(item.id)
+		# Add the ID as metadata which can be used to load the item data
+		contentItems.set_item_metadata(item_index, item.id)
+		var mySprite: Texture = item.sprite
+		if mySprite:
+			contentItems.set_item_icon(item_index, mySprite)
+
 
 func add_map_popup_ok():
 	var myText = popup_textedit.text
@@ -388,4 +409,8 @@ func delete_map(selected_id) -> void:
 
 func delete_furniture(selected_id) -> void:
 	Gamedata.furnitures.delete_furniture(selected_id)
+	load_data()
+
+func delete_item(selected_id) -> void:
+	Gamedata.items.delete_item(selected_id)
 	load_data()

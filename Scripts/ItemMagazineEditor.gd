@@ -17,8 +17,8 @@ var ditem: DItem = null:
 
 func save_properties() -> void:
 	ditem.magazine.used_ammo = UsedAmmoTextEdit.text
-	ditem.magazine.max_ammo = MaxAmmoNumberBox.value
-	ditem.magazine.current_ammo = CurrentAmmoNumberBox.value
+	ditem.magazine.max_ammo = int(MaxAmmoNumberBox.value)
+	ditem.magazine.current_ammo = int(CurrentAmmoNumberBox.value)
 
 func load_properties() -> void:
 	UsedAmmoTextEdit.text = ditem.magazine.used_ammo
