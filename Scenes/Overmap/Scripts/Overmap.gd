@@ -253,3 +253,5 @@ func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 # Movement could be between (0,0) and (0,1) for example
 func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
 	update_overmap_tile_visibility(new_pos)
+	var delta = new_pos - Helper.position_coord
+	move_overmap(delta)
