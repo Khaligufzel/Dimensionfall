@@ -4,7 +4,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]
 
-[node name="QuestWindow" type="Control" node_paths=PackedStringArray("quest_overview_tabs", "current_quests_list", "completed_quests_list", "failed_quests_list", "quest_details_section", "quest_rewards", "step_details_text_edit", "abandon_quest_button")]
+[node name="QuestWindow" type="Control" node_paths=PackedStringArray("quest_overview_tabs", "current_quests_list", "completed_quests_list", "failed_quests_list", "quest_details_section", "quest_rewards", "step_details_text_edit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,6 @@ failed_quests_list = NodePath("PanelContainer/HBoxContainer/QuestOverviewTabs/Fa
 quest_details_section = NodePath("PanelContainer/HBoxContainer/QuestDetailsSection")
 quest_rewards = NodePath("PanelContainer/HBoxContainer/QuestDetailsSection/QuestRewards")
 step_details_text_edit = NodePath("PanelContainer/HBoxContainer/QuestDetailsSection/StepDetailsTextEdit")
-abandon_quest_button = NodePath("PanelContainer/HBoxContainer/QuestDetailsSection/ButtonsContainer/AbandonQuestButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -91,12 +90,3 @@ text = "Rewards:"
 
 [node name="QuestRewards" type="VBoxContainer" parent="PanelContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
-
-[node name="ButtonsContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/QuestDetailsSection"]
-layout_mode = 2
-
-[node name="AbandonQuestButton" type="Button" parent="PanelContainer/HBoxContainer/QuestDetailsSection/ButtonsContainer"]
-layout_mode = 2
-text = "Abandon quest"
-
-[connection signal="button_up" from="PanelContainer/HBoxContainer/QuestDetailsSection/ButtonsContainer/AbandonQuestButton" to="." method="_on_abandon_quest_button_button_up"]

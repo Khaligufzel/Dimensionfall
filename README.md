@@ -41,6 +41,12 @@ The game will create an infinite map to explore. The world is devided by regions
 ![Catax_overmap](Media/Catax_overmap.png)
 
 
+### Quest journal
+Follow quests to guide your way trough this dangerous world. A quest may have multiple objectives, which will be displayed step-by-step
+
+![Catax_overmap](Media/Catax_quest_journal.png)
+
+
 ### Main menu
 - Play the game
 - Load a game
@@ -125,11 +131,16 @@ Add your own stats to the game. Stats are not implemented yet, but you can defin
 ![Catax_furniture_editor](Media/Catax_stats_editor.png)
 
 
-
 # Skills editor
 Make any and every skill you need! Some are included in the core mod, but you can easily add your own in the Skills Editor. After they are created, use them in weapon or recipe configuration for other entities.
 
 ![Catax_furniture_editor](Media/Catax_skills_editor.png)
+
+
+# Quests editor
+Create a story for the player using the quest editor. These will show up in the quest journal in-game. It allows you to guide the player to their next destination and reward them for their efforts. There are multiple step types available. You can set many details and add a tip for the player.
+
+![Catax_furniture_editor](Media/Catax_quest_editor.png)
 
 
 ## Roadmap

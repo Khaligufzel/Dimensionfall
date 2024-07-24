@@ -19,6 +19,9 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"store_electronic_clothing"
+				],
+				"quests": [
+					"starter_tutorial_00"
 				]
 			}
 		},

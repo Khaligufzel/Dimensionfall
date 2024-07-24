@@ -14,7 +14,6 @@ extends Control
 @export var quest_details_section: VBoxContainer
 @export var quest_rewards: VBoxContainer
 @export var step_details_text_edit: TextEdit
-@export var abandon_quest_button: Button
 
 
 var selected_quest: String # Will be the quest ID
@@ -131,10 +130,6 @@ func _on_tab_changed(_tab):
 func _on_quest_selected(index, list: ItemList):
 	# Update the quest details section based on selected quest
 	selected_quest = list.get_item_metadata(index) # Will be the quest ID
-	if list == current_quests_list:
-		abandon_quest_button.visible = true
-	else:
-		abandon_quest_button.visible = false
 	_update_quest_details()
 
 
@@ -170,7 +165,7 @@ func update_step_details(current_step: Dictionary):
 		step_details_text_edit.text = ""
 		return
 	
-	# Update current step details
+	# Update current step details in the quest window UI
 	var step_details_text = "Next objective: \n"
 	
 	match current_step.step_type:
@@ -189,6 +184,10 @@ func update_step_details(current_step: Dictionary):
 		QuestManager.BRANCH_STEP:
 			step_details_text += "Branch: " + current_step.details
 	
+	var stepmeta: Dictionary = current_step.get("meta_data", {}).get("stepjson", {})
+	if stepmeta.has("tip"):
+		step_details_text += "\nTip: " + stepmeta.tip
+		
 	# Set step details in the QuestDescription node or another UI element if preferred
 	step_details_text_edit.text = step_details_text
 
@@ -235,16 +234,16 @@ func create_incremental_step_UI_text(step: Dictionary) -> String:
 	var step_details_text = ""
 	
 	# Get the step type from the metadata, defaulting to "missing type" if not found
-	var step_type = step.meta_data.get("type", "missing type")
+	var step_meta = step.meta_data.get("stepjson", {})
 	
 	# Call the appropriate function based on the step type
-	match step_type:
+	match step_meta.type:
 		"collect":
 			step_details_text = _handle_collect_step(step)
 		"kill":
 			step_details_text = _handle_kill_step(step)
 		_:
-			step_details_text = _handle_unsupported_step(step_type)
+			step_details_text = _handle_unsupported_step(step_meta.type)
 	
 	# Return the constructed step details text
 	return step_details_text

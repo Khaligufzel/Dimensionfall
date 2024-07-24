@@ -90,6 +90,7 @@ func _on_add_step_button_button_up():
 	
 	add_step_from_data(empty_step)
 
+
 # This function collects data from each step in the steps_container and stores it in contentData
 # Since contentData is a reference to an item in Gamedata.data.quests.data
 # the central array for questdata is updated with the changes as well
@@ -105,21 +106,28 @@ func _on_save_button_button_up() -> void:
 		if step_type_label.text == "Craft item:":
 			step["type"] = "craft"
 			step["item"] = (hbox.get_child(1)).get_text()
+			step["tip"] = (hbox.get_child(2) as TextEdit).text
 		elif step_type_label.text == "Collect:":
 			step["type"] = "collect"
 			step["item"] = (hbox.get_child(1)).get_text()
 			step["amount"] = (hbox.get_child(2) as SpinBox).value
+			step["tip"] = (hbox.get_child(3) as TextEdit).text
 		elif step_type_label.text == "Call function:":
 			step["type"] = "call"
 			step["function"] = (hbox.get_child(1) as OptionButton).get_item_text(0)
 			step["params"] = (hbox.get_child(2) as TextEdit).text
+			step["tip"] = (hbox.get_child(2) as TextEdit).text
 		elif step_type_label.text == "Enter map:":
 			step["type"] = "enter"
 			step["map_id"] = (hbox.get_child(1)).get_text()
+			step["tip"] = (hbox.get_child(2) as TextEdit).text
 		elif step_type_label.text == "Kill:":
 			step["type"] = "kill"
 			step["mob"] = (hbox.get_child(1)).get_text()
 			step["amount"] = (hbox.get_child(2) as SpinBox).value
+			step["tip"] = (hbox.get_child(3) as TextEdit).text
+		if step["tip"] == "":
+			step.erase("tip")
 		contentData["steps"].append(step)
 
 	# Save rewards
@@ -144,6 +152,7 @@ func _on_save_button_button_up() -> void:
 	olddata = contentData.duplicate(true)
 
 
+
 # When the questImageDisplay is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/Quests/". The texture of the questImageDisplay will change to the selected image
 func _on_quest_image_display_gui_input(event) -> void:
@@ -156,87 +165,127 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	PathTextLabel.text = questTexture.resource_path.get_file()
 
 
-# Function to create a step from loaded data
-func add_step_from_data(step):
+# This function adds a craft step
+func add_craft_step(step: Dictionary) -> HBoxContainer:
 	var hbox = HBoxContainer.new()
-	match step["type"]:
-		"craft":
-			var labelinstance: Label = Label.new()
-			labelinstance.text = "Craft item:"
-			hbox.add_child(labelinstance)
-			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
-			dropabletextedit_instance.set_text(step["item"])
-			dropabletextedit_instance.set_meta("step_type", "craft")
-			dropabletextedit_instance.myplaceholdertext = "Drop an item from the left menu"
-			set_drop_functions(dropabletextedit_instance)
-			hbox.add_child(dropabletextedit_instance)
-		"collect":
-			var labelinstance: Label = Label.new()
-			labelinstance.text = "Collect:"
-			hbox.add_child(labelinstance)
-			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
-			dropabletextedit_instance.set_text(step["item"])
-			dropabletextedit_instance.set_meta("step_type", "collect")
-			dropabletextedit_instance.myplaceholdertext = "Drop an item from the left menu"
-			set_drop_functions(dropabletextedit_instance)
-			hbox.add_child(dropabletextedit_instance)
-			var spinbox = SpinBox.new()
-			spinbox.min_value = 1
-			spinbox.value = step["amount"]
-			hbox.add_child(spinbox)
-		"call":
-			var labelinstance: Label = Label.new()
-			labelinstance.text = "Call function:"
-			hbox.add_child(labelinstance)
-			var optionbutton = OptionButton.new()
-			optionbutton.add_item(step["function"])
-			hbox.add_child(optionbutton)
-			var textedit = TextEdit.new()
-			textedit.text = step["params"]
-			hbox.add_child(textedit)
-		"enter":
-			var labelinstance: Label = Label.new()
-			labelinstance.text = "Enter map:"
-			hbox.add_child(labelinstance)
-			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
-			dropabletextedit_instance.set_text(step["map_id"])
-			dropabletextedit_instance.set_meta("step_type", "enter")
-			dropabletextedit_instance.myplaceholdertext = "Drop a map from the left menu"
-			set_drop_functions(dropabletextedit_instance)
-			hbox.add_child(dropabletextedit_instance)
-		"kill":
-			var labelinstance: Label = Label.new()
-			labelinstance.text = "Kill:"
-			hbox.add_child(labelinstance)
-			var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
-			dropabletextedit_instance.set_text(step["mob"])
-			dropabletextedit_instance.set_meta("step_type", "kill")
-			dropabletextedit_instance.myplaceholdertext = "Drop a mob from the left menu"
-			set_drop_functions(dropabletextedit_instance)
-			hbox.add_child(dropabletextedit_instance)
-			var spinbox = SpinBox.new()
-			spinbox.min_value = 1
-			spinbox.value = step["amount"]
-			hbox.add_child(spinbox)
+	var labelinstance: Label = Label.new()
+	labelinstance.text = "Craft item:"
+	hbox.add_child(labelinstance)
+	var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
+	dropabletextedit_instance.set_text(step["item"])
+	dropabletextedit_instance.set_meta("step_type", "craft")
+	dropabletextedit_instance.myplaceholdertext = "Drop an item from the left menu"
+	set_drop_functions(dropabletextedit_instance)
+	hbox.add_child(dropabletextedit_instance)
+	return hbox
 
-	# Add move up button
+# This function adds a collect step
+func add_collect_step(step: Dictionary) -> HBoxContainer:
+	var hbox = HBoxContainer.new()
+	var labelinstance: Label = Label.new()
+	labelinstance.text = "Collect:"
+	hbox.add_child(labelinstance)
+	var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
+	dropabletextedit_instance.set_text(step["item"])
+	dropabletextedit_instance.set_meta("step_type", "collect")
+	dropabletextedit_instance.myplaceholdertext = "Drop an item from the left menu"
+	set_drop_functions(dropabletextedit_instance)
+	hbox.add_child(dropabletextedit_instance)
+	var spinbox = SpinBox.new()
+	spinbox.min_value = 1
+	spinbox.value = step["amount"]
+	hbox.add_child(spinbox)
+	return hbox
+
+# This function adds a call step
+func add_call_step(step: Dictionary) -> HBoxContainer:
+	var hbox = HBoxContainer.new()
+	var labelinstance: Label = Label.new()
+	labelinstance.text = "Call function:"
+	hbox.add_child(labelinstance)
+	var optionbutton = OptionButton.new()
+	optionbutton.add_item(step["function"])
+	hbox.add_child(optionbutton)
+	var textedit = TextEdit.new()
+	textedit.text = step["params"]
+	hbox.add_child(textedit)
+	return hbox
+
+# This function adds an enter step
+func add_enter_step(step: Dictionary) -> HBoxContainer:
+	var hbox = HBoxContainer.new()
+	var labelinstance: Label = Label.new()
+	labelinstance.text = "Enter map:"
+	hbox.add_child(labelinstance)
+	var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
+	dropabletextedit_instance.set_text(step["map_id"])
+	dropabletextedit_instance.set_meta("step_type", "enter")
+	dropabletextedit_instance.myplaceholdertext = "Drop a map from the left menu"
+	set_drop_functions(dropabletextedit_instance)
+	hbox.add_child(dropabletextedit_instance)
+	return hbox
+
+
+# This function adds a kill step
+func add_kill_step(step: Dictionary) -> HBoxContainer:
+	var hbox = HBoxContainer.new()
+	var labelinstance: Label = Label.new()
+	labelinstance.text = "Kill:"
+	hbox.add_child(labelinstance)
+	var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
+	dropabletextedit_instance.set_text(step["mob"])
+	dropabletextedit_instance.set_meta("step_type", "kill")
+	dropabletextedit_instance.myplaceholdertext = "Drop a mob from the left menu"
+	set_drop_functions(dropabletextedit_instance)
+	hbox.add_child(dropabletextedit_instance)
+	var spinbox = SpinBox.new()
+	spinbox.min_value = 1
+	spinbox.value = step["amount"]
+	hbox.add_child(spinbox)
+	return hbox
+
+
+# This function adds the move up, move down, and delete controls to a step
+func add_step_controls(hbox: HBoxContainer, step: Dictionary):
+	# Add custom tip TextEdit
+	var tip_textedit = TextEdit.new()
+	tip_textedit.placeholder_text = "Enter custom tip here"
+	tip_textedit.size_flags_horizontal = Control.SIZE_EXPAND_FILL  # Make TextEdit stretch horizontally
+	if step.has("tip"):
+		tip_textedit.text = step["tip"]
+	hbox.add_child(tip_textedit)
+	
 	var move_up_button = Button.new()
 	move_up_button.text = "^"
 	move_up_button.pressed.connect(_on_move_up_button_pressed.bind(hbox))
 	hbox.add_child(move_up_button)
 
-	# Add move down button
 	var move_down_button = Button.new()
 	move_down_button.text = "v"
 	move_down_button.pressed.connect(_on_move_down_button_pressed.bind(hbox))
 	hbox.add_child(move_down_button)
 
-	# Add delete button
 	var delete_button = Button.new()
 	delete_button.text = "X"
 	delete_button.pressed.connect(_on_delete_button_pressed.bind(hbox))
 	hbox.add_child(delete_button)
 
+
+# This function creates a step from loaded data
+func add_step_from_data(step: Dictionary):
+	var hbox: HBoxContainer
+	match step["type"]:
+		"craft":
+			hbox = add_craft_step(step)
+		"collect":
+			hbox = add_collect_step(step)
+		"call":
+			hbox = add_call_step(step)
+		"enter":
+			hbox = add_enter_step(step)
+		"kill":
+			hbox = add_kill_step(step)
+	add_step_controls(hbox, step)
 	steps_container.add_child(hbox)
 
 
