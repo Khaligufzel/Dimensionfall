@@ -93,17 +93,17 @@ func initialize_chunk_data():
 	if is_new_chunk(): # This chunk is created for the first time
 		#This contains the data of one map, loaded from maps.data, for example generichouse.json
 		var mapsegmentData: Dictionary = Gamedata.maps.by_id(chunk_data.id).get_data().duplicate(true)
-		# Area's on the map are applied to each tile that is marked with that area
-		Helper.map_manager.process_areas_in_map(mapsegmentData)
-		if chunk_data.has("rotation") and not chunk_data.rotation == 0:
-			rotate_map(mapsegmentData)
-		_mapleveldata = mapsegmentData.levels
-		Helper.task_manager.create_task(generate_new_chunk)
+		Helper.task_manager.create_task(generate_new_chunk.bind(mapsegmentData))
 	else: # This chunk is created from previously saved data
 		Helper.task_manager.create_task(generate_saved_chunk)
 
 
-func generate_new_chunk():
+func generate_new_chunk(mapsegmentData: Dictionary):
+	# Area's on the map are applied to each tile that is marked with that area
+	Helper.map_manager.process_areas_in_map(mapsegmentData)
+	if chunk_data.has("rotation") and not chunk_data.rotation == 0:
+		rotate_map(mapsegmentData)
+	_mapleveldata = mapsegmentData.levels
 	block_positions = create_block_position_dictionary_new_arraymesh()
 	generate_chunk_mesh()
 	update_all_navigation_data()
