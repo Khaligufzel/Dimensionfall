@@ -83,10 +83,13 @@ func calculate_initial_chunks(playerpos):
 	process_initial_chunks()
 
 
+# Spawn the chunks directly around the player, so he doesn't see darkness while
+# the chunks are still spawning
 func process_initial_chunks():
-	while load_queue.size() > 0:
+	if load_queue.size() > 0 and not is_processing_chunk:
 		process_next_chunk()
-	all_chunks_loaded.emit()  # Emit the signal when all initial chunks are loaded
+	else:
+		all_chunks_loaded.emit()  # Emit the signal when all initial chunks are loaded
 
 
 # Function for handling game ended signal
@@ -163,6 +166,10 @@ func unload_chunk(chunk_pos: Vector2):
 # We set the is_processing_chunk to false so we can start processing another chunk
 func _on_chunk_un_loaded():
 	is_processing_chunk = false
+	if load_queue.size() > 0 or unload_queue.size() > 0:
+		process_next_chunk()
+	else:
+		all_chunks_loaded.emit()  # Emit the signal when all chunks are loaded
 
 
 # Calculates which chunks should be loaded and unloaded
@@ -203,6 +210,8 @@ func process_next_chunk():
 		var chunk_pos = unload_queue.pop_front()
 		is_processing_chunk = true
 		unload_chunk(chunk_pos)
+	else:
+		is_processing_chunk = false  # No chunks left to process
 
 
 # Returns the chunk instance at the given position
