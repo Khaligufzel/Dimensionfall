@@ -23,6 +23,8 @@ var unload_queue = []
 var is_processing_chunk = false
 
 signal all_chunks_unloaded
+signal all_chunks_loaded  # Signal to indicate all initial chunks are loaded for the first time
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -66,13 +68,31 @@ func _on_game_started():
 func _on_player_spawned(playernode):
 	initialize_map_data()
 	
-	load_queue.append(Vector2(0,0))
+	var new_position = Vector2(playernode.global_transform.origin.x, playernode.global_transform.origin.z) / Vector2(level_width, level_height)
+	load_queue.append(new_position.floor())
 	# Start a loop to update chunks based on player position
+	calculate_initial_chunks(new_position.floor())  # Calculate and add initial chunks to the load queue
 	start_timer()
+
+
+func calculate_initial_chunks(playerpos):
+	var initial_chunks = calculate_chunks_to_load(playerpos)
+	for chunk_pos in initial_chunks:
+		if not loaded_chunks.has(chunk_pos) and not load_queue.has(chunk_pos):  # Ensure chunk isn't already loaded or queued
+			load_queue.append(chunk_pos)
+	process_initial_chunks()
+
+
+func process_initial_chunks():
+	while load_queue.size() > 0:
+		process_next_chunk()
+	all_chunks_loaded.emit()  # Emit the signal when all initial chunks are loaded
+
 
 # Function for handling game ended signal
 func _on_game_ended():
 	pass
+
 
 # Updated function to get chunk data at a given position
 func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
