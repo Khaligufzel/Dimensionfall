@@ -181,10 +181,3 @@ quest_menu={
 3d_physics/layer_5="enemyprojectiles"
 3d_physics/layer_6="friendlyprojectiles"
 2d_physics/layer_20="Items"
-
-[shader_globals]
-
-player_pos={
-"type": "vec3",
-"value": Vector3(0, 0, 0)
-}

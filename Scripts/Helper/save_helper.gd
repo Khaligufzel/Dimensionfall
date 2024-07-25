@@ -180,7 +180,10 @@ func save_player_state(player: CharacterBody3D) -> void:
 		"thirst": player.current_thirst,
 		"nutrition": player.current_nutrition,
 		"pain": player.current_pain,
-		"skills": player.skills  # Add skills dictionary
+		"skills": player.skills,  # Add skills dictionary
+		"global_position_x": player.global_transform.origin.x,
+		"global_position_y": player.global_transform.origin.y,
+		"global_position_z": player.global_transform.origin.z
 	}
 	Helper.json_helper.write_json_file(save_path, JSON.stringify(player_state))
 
@@ -204,6 +207,9 @@ func load_player_state(player: CharacterBody3D) -> void:
 		player.current_nutrition = player_state["nutrition"]
 		player.current_pain = player_state["pain"]
 		player.skills = player_state["skills"]  # Load skills dictionary
+		player.global_transform.origin.x = player_state["global_position_x"]
+		player.global_transform.origin.y = player_state["global_position_y"]
+		player.global_transform.origin.z = player_state["global_position_z"]
 
 		# Emit signals to update the HUD
 		player.update_doll.emit(player.current_head_health, player.current_right_arm_health, player.current_left_arm_health, player.current_torso_health, player.current_right_leg_health, player.current_left_leg_health)
