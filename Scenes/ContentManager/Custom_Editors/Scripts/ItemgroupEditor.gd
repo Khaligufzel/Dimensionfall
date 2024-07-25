@@ -57,7 +57,7 @@ func update_item_list_with_probabilities():
 # Adds a new item and controls to the itemlist
 func add_item_entry(item):
 	var item_icon = TextureRect.new()
-	var item_sprite = Gamedata.get_sprite_by_id(Gamedata.data.items, item.get("id"))
+	var item_sprite = Gamedata.items.sprite_by_id(item.get("id"))
 	item_icon.texture = item_sprite
 	item_icon.custom_minimum_size = Vector2(16, 16)
 
@@ -232,8 +232,7 @@ func _can_drop_data(_newpos, data) -> bool:
 		return false
 	
 	# Fetch item data by ID from Gamedata to ensure it exists and is valid
-	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, data["id"])
-	if item_data.is_empty():
+	if not Gamedata.items.has_id(data["id"]):
 		return false
 
 	# Check if the ID of the dragged item already exists in the itemListContainer
@@ -254,18 +253,13 @@ func _drop_data(newpos, data) -> void:
 
 
 # Called when the user has successfully dropped data onto the itemList
-# We have to check the dropped_data for the id property
-# Then we have to get the item data from Gamedata.get_data_by_id(Gamedata.data.items, id)
-# Then we have to get the sprite using Gamedata.get_sprite_by_id(Gamedata.data.items, id)
 func _handle_item_drop(dropped_data, _newpos) -> void:
 	# Assuming dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var item_id = dropped_data["id"]
-		var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
-		if item_data.is_empty():
-			print_debug("No item data found for ID: " + item_id)
+		if not Gamedata.items.has_id(item_id):
 			return
-
+		
 		# Check if the item already exists in the itemListContainer to avoid duplicates
 		for child in itemListContainer.get_children():
 			if child is HBoxContainer:

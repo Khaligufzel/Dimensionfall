@@ -10,17 +10,17 @@ extends Control
 @export var CurrentAmmoNumberBox: SpinBox = null
 
 
-func get_properties() -> Dictionary:
-	return {
-		"used_ammo": UsedAmmoTextEdit.text,
-		"max_ammo": MaxAmmoNumberBox.value,
-		"current_ammo": CurrentAmmoNumberBox.value
-	}
+var ditem: DItem = null:
+	set(value):
+		ditem = value
+		load_properties()
 
-func set_properties(properties: Dictionary) -> void:
-	if properties.has("used_ammo"):
-		UsedAmmoTextEdit.text = properties["used_ammo"]
-	if properties.has("max_ammo"):
-		MaxAmmoNumberBox.value = float(properties["max_ammo"])
-	if properties.has("current_ammo"):
-		CurrentAmmoNumberBox.value = float(properties["current_ammo"])
+func save_properties() -> void:
+	ditem.magazine.used_ammo = UsedAmmoTextEdit.text
+	ditem.magazine.max_ammo = int(MaxAmmoNumberBox.value)
+	ditem.magazine.current_ammo = int(CurrentAmmoNumberBox.value)
+
+func load_properties() -> void:
+	UsedAmmoTextEdit.text = ditem.magazine.used_ammo
+	MaxAmmoNumberBox.value = ditem.magazine.max_ammo
+	CurrentAmmoNumberBox.value = ditem.magazine.current_ammo

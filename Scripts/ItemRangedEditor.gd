@@ -15,11 +15,16 @@ extends Control
 @export var ReloadSpeedNumberBox: SpinBox = null
 @export var FiringSpeedNumberBox: SpinBox = null
 
+var ditem: DItem = null:
+	set(value):
+		ditem = value
+		load_properties()
+
 
 func _ready():
 	set_drop_functions()
 	# Assume Gamedata.get_items_by_type() is implemented as discussed previously
-	var magazines = Gamedata.get_items_by_type("Magazine")
+	var magazines = Gamedata.items.get_items_by_type("magazine")
 	initialize_magazine_selection(magazines)
 
 
@@ -32,59 +37,52 @@ func initialize_magazine_selection(magazines: Array):
 
 
 # Returns the properties of the ranged tab in the item editor
-func get_properties() -> Dictionary:
+func save_properties() -> void:
 	var selected_magazines = []
 	for button in UsedMagazineContainer.get_children():
 		if button is CheckBox and button.button_pressed:
 			selected_magazines.append(button.text)
 	
-	var properties = {
-		"used_ammo": UsedAmmoTextEdit.text,
-		"used_magazine": ",".join(selected_magazines),  # Join the selected magazines by commas
-		"range": RangeNumberBox.value,
-		"spread": SpreadNumberBox.value,
-		"sway": SwayNumberBox.value,
-		"recoil": RecoilNumberBox.value,
-		"reload_speed": ReloadSpeedNumberBox.value,
-		"firing_speed": FiringSpeedNumberBox.value
-	}
+	
+	ditem.ranged.used_ammo = UsedAmmoTextEdit.text
+	ditem.ranged.used_magazine = ",".join(selected_magazines)  # Join the selected magazines by commas
+	ditem.ranged.firing_range = int(RangeNumberBox.value)
+	ditem.ranged.spread = int(SpreadNumberBox.value)
+	ditem.ranged.sway = int(SwayNumberBox.value)
+	ditem.ranged.recoil = int(RecoilNumberBox.value)
+	ditem.ranged.reload_speed = ReloadSpeedNumberBox.value
+	ditem.ranged.firing_speed = FiringSpeedNumberBox.value
 	
 	# Only include used_skill if UsedSkillTextEdit has a value
 	if UsedSkillTextEdit.get_text() != "":
-		properties["used_skill"] = {
+		ditem.ranged.used_skill = {
 			"skill_id": UsedSkillTextEdit.get_text(),
 			"xp": skill_xp_spin_box.value
 		}
-	
-	return properties
+	else:
+		ditem.ranged.used_skill.clear()
 
 
-func set_properties(properties: Dictionary) -> void:
-	if properties.has("used_ammo"):
-		UsedAmmoTextEdit.text = properties["used_ammo"]
-	if properties.has("used_magazine"):
-		var used_magazines = properties["used_magazine"].split(",")
+func load_properties() -> void:
+	if ditem.ranged.used_ammo != "":
+		UsedAmmoTextEdit.text = ditem.ranged.used_ammo
+	if ditem.ranged.used_magazine != "":
+		var used_magazines = ditem.ranged.used_magazine.split(",")
 		for button in UsedMagazineContainer.get_children():
 			if button is CheckBox:
 				button.button_pressed = button.text in used_magazines
-	if properties.has("range"):
-		RangeNumberBox.value = float(properties["range"])
-	if properties.has("spread"):
-		SpreadNumberBox.value = float(properties["spread"])
-	if properties.has("sway"):
-		SwayNumberBox.value = float(properties["sway"])
-	if properties.has("recoil"):
-		RecoilNumberBox.value = float(properties["recoil"])
-	if properties.has("used_skill"):
-		var used_skill = properties["used_skill"]
-		if used_skill.has("skill_id"):
-			UsedSkillTextEdit.set_text(used_skill["skill_id"])
-		if used_skill.has("xp"):
-			skill_xp_spin_box.value = used_skill["xp"]
-	if properties.has("reload_speed"):
-		ReloadSpeedNumberBox.value = float(properties["reload_speed"])
-	if properties.has("firing_speed"):
-		FiringSpeedNumberBox.value = float(properties["firing_speed"])
+	RangeNumberBox.value = ditem.ranged.firing_range
+	SpreadNumberBox.value = ditem.ranged.spread
+	SwayNumberBox.value = ditem.ranged.sway
+	RecoilNumberBox.value = ditem.ranged.recoil
+	ReloadSpeedNumberBox.value = ditem.ranged.reload_speed
+	FiringSpeedNumberBox.value = ditem.ranged.firing_speed
+	
+	if ditem.ranged.used_skill.has("skill_id"):
+		UsedSkillTextEdit.set_text(ditem.ranged.used_skill["skill_id"])
+	if ditem.ranged.used_skill.has("xp"):
+		skill_xp_spin_box.value = ditem.ranged.used_skill["xp"]
+
 
 
 # Called when the user has successfully dropped data onto the skillTextEdit

@@ -92,7 +92,7 @@ func update_settings_values():
 	currentMap.name = name_text_edit.text
 	currentMap.description = description_text_edit.text
 	currentMap.categories = categories_list.get_items()
-	currentMap.weight = weight_spin_box.value
+	currentMap.weight = int(weight_spin_box.value)
 
 
 # Function to set the values of the controls

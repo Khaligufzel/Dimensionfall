@@ -420,7 +420,7 @@ func _on_items_used(usedItems: Array[InventoryItem]) -> void:
 # The user has pressed a button to start crafting
 # recipe: The currently selected recipe in the crafting menu
 # item: The currently selected item in the itemlist in the crafting menu
-func on_crafting_menu_start_craft(item: Dictionary, recipe: Dictionary):
+func on_crafting_menu_start_craft(item: DItem, recipe: DItem.CraftRecipe):
 	if recipe and item:
 		# If the player doesn't have the resources, return
 		if not CraftingRecipesManager.can_craft_recipe(recipe):
@@ -468,13 +468,13 @@ func has_sufficient_item_amount(item_id: String, required_amount: int) -> bool:
 
 
 # Function to remove the required resources for a given recipe from the inventory.
-func remove_required_resources_for_recipe(recipe: Dictionary) -> bool:
+func remove_required_resources_for_recipe(recipe: DItem.CraftRecipe) -> bool:
 	if "required_resources" not in recipe:
 		print("Recipe does not contain required resources.")
 		return false
 
 	# Loop through each resource and amount required by the recipe.
-	for resource in recipe["required_resources"]:
+	for resource in recipe.required_resources:
 		# Check if the inventory has a sufficient amount of each required resource.
 		if not remove_resource(resource.get("id"), resource.get("amount")):
 			print_debug("Failed to remove required resource:", resource.get("id"), \

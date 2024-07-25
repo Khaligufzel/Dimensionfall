@@ -1,5 +1,6 @@
 extends Node
 
+# Items that have the "craft" property and can be crafted
 var craftable_items
 
 
@@ -8,31 +9,26 @@ func _ready():
 	get_crafting_recipes_from_json()
 
 func get_crafting_recipes_from_json():
-	craftable_items = Gamedata.get_items_by_type("Craft")
+	craftable_items = Gamedata.items.get_items_by_type("craft")
 
 
 # Function to check if there are enough resources in the inventory to craft a given recipe.
-func can_craft_recipe(recipe: Dictionary) -> bool:
-	# Ensure that the recipe contains the 'required_resources' key.
-	if "required_resources" in recipe:
-		# Loop through each resource required by the recipe.
-		for resource in recipe["required_resources"]:
-			# Check if the inventory has a sufficient amount of each required resource.
-			if not ItemManager.has_sufficient_item_amount(resource.get("id"), resource.get("amount")):
-				return false  # Return false immediately if any resource is insufficient.
-	else:
-		print_debug("No required resources specified for recipe")
-		return false  # Return false if the recipe does not specify any required resources.
+func can_craft_recipe(recipe: DItem.CraftRecipe) -> bool:
+	# Loop through each resource required by the recipe.
+	for resource in recipe.required_resources:
+		# Check if the inventory has a sufficient amount of each required resource.
+		if not ItemManager.has_sufficient_item_amount(resource.get("id"), resource.get("amount")):
+			return false  # Return false immediately if any resource is insufficient.
 	
 	# If all checks are passed, return true indicating that crafting can proceed.
 	return true
 
 
 # Function to check if the player meets the skill requirement for a given dictionary
-func has_required_skill(recipe: Dictionary) -> bool:
+func has_required_skill(recipe: DItem.CraftRecipe) -> bool:
 	# Check if "skill_requirement" exists in the provided dictionary
-	if recipe.has("skill_requirement"):
-		var skill_req = recipe["skill_requirement"]
+	if recipe.skill_requirement:
+		var skill_req = recipe.skill_requirement
 		var skill_id = skill_req.get("id", "")
 		var required_level = skill_req.get("level", 0)
 		var player = get_tree().get_first_node_in_group("Players")

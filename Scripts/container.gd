@@ -92,13 +92,13 @@ func _add_items_to_inventory(items: Array) -> bool:
 # Takes an item_id and quantity and adds it to the inventory
 func _add_item_to_inventory(item_id: String, quantity: int):
 	# Fetch the individual item data for verification
-	var item_data = Gamedata.get_data_by_id(Gamedata.data.items, item_id)
+	var ditem: DItem = Gamedata.items.by_id(item_id)
 	# Check if the item data is valid before adding
-	if item_data and not item_data.is_empty() and quantity > 0:
+	if ditem and quantity > 0:
 		# Create and add the item to the inventory and keep a reference
 		var item = inventory.create_and_add_item(item_id)
 		# Set the item stack size, limited by max_stack_size
-		var stack_size = min(quantity, item_data["max_stack_size"])
+		var stack_size = min(quantity, ditem.max_stack_size)
 		InventoryStacked.set_item_stack_size(item, stack_size)
 
 
@@ -280,4 +280,4 @@ func set_random_inventory_item_texture():
 	var item_id = random_item.prototype_id
 	
 	# Set the sprite_3d texture to the item's sprite
-	sprite_3d.texture = Gamedata.get_sprite_by_id(Gamedata.data.items, item_id)
+	sprite_3d.texture = Gamedata.items.sprite_by_id(item_id)

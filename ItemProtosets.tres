@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://bxubu34gjes1y"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -58,7 +58,7 @@ json_data = "[
 	},
 	{
 		\"Ammo\": {
-			\"damage\": \"25\"
+			\"damage\": 25
 		},
 		\"description\": \"Standard type of ammunition. Very common.\",
 		\"id\": \"bullet_9mm\",
@@ -224,8 +224,8 @@ json_data = "[
 	},
 	{
 		\"Magazine\": {
-			\"current_ammo\": \"30\",
-			\"max_ammo\": \"30\",
+			\"current_ammo\": 30,
+			\"max_ammo\": 30,
 			\"used_ammo\": \"bullet_7.62x26\"
 		},
 		\"description\": \"A magazine to be loaded into a Chuganov MPAP\",
@@ -263,7 +263,7 @@ json_data = "[
 	},
 	{
 		\"Food\": {
-			\"health\": \"5\"
+			\"health\": 5
 		},
 		\"description\": \"This plastic bottle is filled with water\",
 		\"id\": \"bottle_plastic_water\",
@@ -2489,7 +2489,8 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"tree_destroyed\",
-					\"generic_forest_finds\"
+					\"generic_forest_finds\",
+					\"test_items\"
 				],
 				\"items\": [
 					\"stone_spear\"
@@ -2514,7 +2515,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"generic_field_finds\"
+					\"generic_field_finds\",
+					\"test_items\"
 				],
 				\"items\": [
 					\"stone_spear\"
