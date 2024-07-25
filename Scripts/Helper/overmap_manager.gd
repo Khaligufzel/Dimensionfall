@@ -80,6 +80,7 @@ class map_cell:
 	var map_id: String = "field_grass_basic_00.json"
 	var tacticalmapname: String = "town_00.json"
 	var revealed: bool = false
+	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
 
 	func get_data() -> Dictionary:
 		return {
@@ -88,7 +89,8 @@ class map_cell:
 			"coordinate_y": coordinate_y,
 			"map_id": map_id,
 			"tacticalmapname": tacticalmapname,
-			"revealed": revealed
+			"revealed": revealed,
+			"rotation": rotation  # Include rotation in data
 		}
 
 	func set_data(newdata: Dictionary):
@@ -100,6 +102,7 @@ class map_cell:
 		map_id = newdata.get("map_id", "field_grass_basic_00.json")
 		tacticalmapname = newdata.get("tacticalmapname", "town_00.json")
 		revealed = newdata.get("revealed", false)
+		rotation = newdata.get("rotation", 0)  # Set rotation from data
 
 	func get_sprite() -> Texture:
 		return Gamedata.maps.by_id(map_id).sprite
@@ -608,7 +611,7 @@ func place_tactical_maps_on_grid(grid: map_grid):
 		if position == Vector2(-1, -1):
 			print("Failed to find a valid position for tactical map")
 			continue
-		print_debug("Placing chunk " + chunks[0].id)
+		print_debug("Placing chunk " + chunks[0].id + ", at position " + str(position))
 
 		var random_x = position.x
 		var random_y = position.y
@@ -621,11 +624,12 @@ func place_tactical_maps_on_grid(grid: map_grid):
 					var cell_key = Vector2(local_x, local_y)
 					var chunk_index = j * map_width + i
 					var chunk_data = chunks[chunk_index]
-					update_cell_map_id(grid, cell_key, chunk_data["id"])
+					update_cell_map_id(grid, cell_key, chunk_data["id"], chunk_data.get("rotation", 0))
 					placed_positions.append(cell_key)
 
 
 # Helper function to update a cell's map ID if it exists
-func update_cell_map_id(grid: map_grid, cell_key: Vector2, map_id: String):
+func update_cell_map_id(grid: map_grid, cell_key: Vector2, map_id: String, rotation: int):
 	if grid.cells.has(cell_key):
 		grid.cells[cell_key].map_id = map_id.replace(".json", "")
+		grid.cells[cell_key].rotation = rotation  # Update rotation
