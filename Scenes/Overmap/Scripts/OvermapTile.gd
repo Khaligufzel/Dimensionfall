@@ -57,7 +57,7 @@ func set_text_visible(isvisible: bool):
 # Set the rotation of the TextureRect based on the given rotation angle
 func set_texture_rotation(myrotation: int) -> void:
 	# Set the rotation pivot to the center of the TextureRect
-	$TextureRect.set_pivot_offset(Vector2($TextureRect.size.x / 2, $TextureRect.size.y / 2))
+	$TextureRect.pivot_offset = size / 2
 	# Set the rotation of the TextureRect based on the given rotation angle
 	match myrotation:
 		0:

@@ -566,7 +566,6 @@ func load_all_grids():
 func load_random_tactical_map() -> Dictionary:
 	var tacticalmaps = Helper.json_helper.file_names_in_dir(Gamedata.data.tacticalmaps.dataPath)
 	var random_tactical_map = tacticalmaps[randi() % tacticalmaps.size()]
-	print_debug("Picked taclcalmap: " + random_tactical_map)
 	return Helper.json_helper.load_json_dictionary_file(Gamedata.data.tacticalmaps.dataPath + random_tactical_map)
 
 
@@ -593,7 +592,6 @@ func find_valid_position(placed_positions: Array, map_width: int, map_height: in
 			return Vector2(random_x, random_y)
 		
 		attempts += 1
-	print_debug("Failed to find a position")
 	return Vector2(-1, -1)  # Indicate that a valid position was not found
 
 
@@ -611,7 +609,6 @@ func place_tactical_maps_on_grid(grid: map_grid):
 		if position == Vector2(-1, -1):
 			print("Failed to find a valid position for tactical map")
 			continue
-		print_debug("Placing chunk " + chunks[0].id + ", at position " + str(position))
 
 		var random_x = position.x
 		var random_y = position.y
@@ -630,6 +627,7 @@ func place_tactical_maps_on_grid(grid: map_grid):
 
 # Helper function to update a cell's map ID if it exists
 func update_cell_map_id(grid: map_grid, cell_key: Vector2, map_id: String, rotation: int):
-	if grid.cells.has(cell_key):
-		grid.cells[cell_key].map_id = map_id.replace(".json", "")
-		grid.cells[cell_key].rotation = rotation  # Update rotation
+	var adjusted_cell_key = cell_key + grid.pos * grid_width
+	if grid.cells.has(adjusted_cell_key):
+		grid.cells[adjusted_cell_key].map_id = map_id.replace(".json", "")
+		grid.cells[adjusted_cell_key].rotation = rotation  # Update rotation
