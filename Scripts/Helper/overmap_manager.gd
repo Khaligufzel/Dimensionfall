@@ -66,6 +66,8 @@ const NOISE_VALUE_PLAINS = 0.3
 
 var noise: FastNoiseLite
 
+# When the player coordinate changed. player: The player node. 
+# old_pos: The old coordinate in the grid. new_pos: The new coordinate in the grid
 signal player_coord_changed(player: CharacterBody3D, old_pos: Vector2, new_pos: Vector2)
 
 
@@ -177,6 +179,9 @@ func _on_player_spawned(playernode):
 	player = playernode
 	var player_position = player.position
 	load_cells_around(player_position)
+	var cellpos: Vector2 = get_cell_pos_from_global_pos(Vector2(player_position.x, player_position.z))
+	player_coord_changed.emit(player, player_last_cell, cellpos)
+
 
 # Function for handling game loaded signal
 func _on_game_loaded():

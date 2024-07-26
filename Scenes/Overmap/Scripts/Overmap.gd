@@ -31,7 +31,9 @@ func _ready():
 	update_chunks()
 	position_coord_changed.connect(on_position_coord_changed)
 	Helper.overmap_manager.player_coord_changed.connect(on_player_coord_changed)
-	move_overmap(Vector2(-7, -5)) # Center the map, at least for small resolution
+	# Center the map
+	move_overmap(Helper.overmap_manager.player_last_cell - calculate_screen_center_offset()) 
+	update_overmap_tile_visibility(Helper.overmap_manager.player_last_cell)
 
 
 # This function updates the chunks.
@@ -253,3 +255,12 @@ func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 # Movement could be between (0,0) and (0,1) for example
 func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
 	update_overmap_tile_visibility(new_pos)
+	var delta = new_pos - Helper.position_coord - calculate_screen_center_offset()
+	move_overmap(delta)
+
+
+# Calculates the center of the window. We subtract 50% because the
+# overmap doesn't cover the whole screen, only about 50%
+func calculate_screen_center_offset() -> Vector2:
+	var screen_center_offset = get_viewport_rect().size * 0.5 / tile_size
+	return screen_center_offset * 0.5  # Reduce by 50%
