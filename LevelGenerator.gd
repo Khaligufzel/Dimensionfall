@@ -51,12 +51,15 @@ func _on_Timer_timeout():
 	if is_processing_chunk:
 		return  # Wait until the current chunk operation is finished
 
-	var player = get_tree().get_first_node_in_group("Players")
-	var new_position = Vector2(player.global_transform.origin.x, player.global_transform.origin.z) / Vector2(level_width, level_height)
-	if new_position != player_position:
-		player_position = new_position
-		_chunk_management_logic()
-		process_next_chunk()
+	if load_queue.size() > 0:
+		process_next_chunk()  # Process the next chunk from the load queue
+	else:
+		var player = get_tree().get_first_node_in_group("Players")
+		var new_position = Vector2(player.global_transform.origin.x, player.global_transform.origin.z) / Vector2(level_width, level_height)
+		if new_position != player_position:
+			player_position = new_position
+			_chunk_management_logic()
+			process_next_chunk()
 
 
 # Function for handling game started signal
@@ -69,6 +72,7 @@ func _on_player_spawned(playernode):
 	initialize_map_data()
 	
 	var new_position = Vector2(playernode.global_transform.origin.x, playernode.global_transform.origin.z) / Vector2(level_width, level_height)
+	print_debug("player position is " + str(new_position))
 	load_queue.append(new_position.floor())
 	# Start a loop to update chunks based on player position
 	calculate_initial_chunks(new_position.floor())  # Calculate and add initial chunks to the load queue
@@ -80,17 +84,6 @@ func calculate_initial_chunks(playerpos):
 	for chunk_pos in initial_chunks:
 		if not loaded_chunks.has(chunk_pos) and not load_queue.has(chunk_pos):  # Ensure chunk isn't already loaded or queued
 			load_queue.append(chunk_pos)
-	process_initial_chunks()
-
-
-# Spawn the chunks directly around the player, so he doesn't see darkness while
-# the chunks are still spawning
-func process_initial_chunks():
-	if load_queue.size() > 0 and not is_processing_chunk:
-		process_next_chunk()
-	else:
-		all_chunks_loaded.emit()  # Emit the signal when all initial chunks are loaded
-
 
 # Function for handling game ended signal
 func _on_game_ended():
@@ -165,9 +158,7 @@ func unload_chunk(chunk_pos: Vector2):
 # We set the is_processing_chunk to false so we can start processing another chunk
 func _on_chunk_un_loaded():
 	is_processing_chunk = false
-	if load_queue.size() > 0 or unload_queue.size() > 0:
-		process_next_chunk()
-	else:
+	if load_queue.size() <= 0 or unload_queue.size() <= 0:
 		all_chunks_loaded.emit()  # Emit the signal when all chunks are loaded
 
 
@@ -202,6 +193,7 @@ func update_queues(potential_loads, potential_unloads):
 # This function will either load or unload a chunk if there are any to load or unload
 func process_next_chunk():
 	if load_queue.size() > 0:
+		print_debug("Processing next chunk. load_queue.size() = " + str(load_queue.size()))
 		var chunk_pos = load_queue.pop_front()
 		is_processing_chunk = true
 		load_chunk(chunk_pos)
