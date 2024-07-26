@@ -398,7 +398,6 @@ func remove_inventory_item(item: InventoryItem) -> bool:
 	var iteminventory: InventoryStacked = item.get_inventory()
 	if iteminventory.has_item(item):
 		if iteminventory.remove_item(item):
-			Helper.signal_broker.item_removed_from_inventory.emit(item)
 			return true
 		else:
 			print_debug("Failed to remove item from inventory.")
