@@ -72,7 +72,6 @@ func _on_player_spawned(playernode):
 	initialize_map_data()
 	
 	var new_position = Vector2(playernode.global_transform.origin.x, playernode.global_transform.origin.z) / Vector2(level_width, level_height)
-	print_debug("player position is " + str(new_position))
 	load_queue.append(new_position.floor())
 	# Start a loop to update chunks based on player position
 	load_initial_chunks_around_player(new_position.floor())
@@ -157,9 +156,7 @@ func load_chunk(chunk_pos: Vector2):
 
 # When we unload the chunk, we save its data into memory so we can re-use it later
 func unload_chunk(chunk_pos: Vector2):
-	#print_debug("Unloading chunk at chunk_pos (" + str(chunk_pos) + ")")
 	if loaded_chunks.has(chunk_pos):
-		#print_debug("found chunk at chunk_pos (" + str(chunk_pos) + ")")
 		var chunk = loaded_chunks[chunk_pos]
 		chunk.unload_chunk()
 		loaded_chunks.erase(chunk_pos)
@@ -204,7 +201,6 @@ func update_queues(potential_loads, potential_unloads):
 # This function will either load or unload a chunk if there are any to load or unload
 func process_next_chunk():
 	if load_queue.size() > 0:
-		print_debug("Processing next chunk. load_queue.size() = " + str(load_queue.size()))
 		var chunk_pos = load_queue.pop_front()
 		is_processing_chunk = true
 		load_chunk(chunk_pos)
@@ -250,7 +246,6 @@ func get_chunk_from_position(position_in_3d_space: Vector3) -> Chunk:
 
 # Function to get chunk_pos from mypos
 func get_chunk_pos_from_mypos(mypos: Vector3) -> Vector2:
-	print_debug("Unloading chunk at mypos (" + str(mypos) + ")")
 	var chunk_x = mypos.x / level_width
 	var chunk_y = mypos.z / level_height
 	return Vector2(chunk_x, chunk_y)
