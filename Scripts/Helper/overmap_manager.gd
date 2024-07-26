@@ -80,6 +80,7 @@ class map_cell:
 	var map_id: String = "field_grass_basic_00.json"
 	var tacticalmapname: String = "town_00.json"
 	var revealed: bool = false
+	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
 
 	func get_data() -> Dictionary:
 		return {
@@ -88,7 +89,8 @@ class map_cell:
 			"coordinate_y": coordinate_y,
 			"map_id": map_id,
 			"tacticalmapname": tacticalmapname,
-			"revealed": revealed
+			"revealed": revealed,
+			"rotation": rotation  # Include rotation in data
 		}
 
 	func set_data(newdata: Dictionary):
@@ -100,6 +102,7 @@ class map_cell:
 		map_id = newdata.get("map_id", "field_grass_basic_00.json")
 		tacticalmapname = newdata.get("tacticalmapname", "town_00.json")
 		revealed = newdata.get("revealed", false)
+		rotation = newdata.get("rotation", 0)  # Set rotation from data
 
 	func get_sprite() -> Texture:
 		return Gamedata.maps.by_id(map_id).sprite
@@ -219,6 +222,7 @@ func load_cells_around(position: Vector3):
 					generate_cells_for_grid(grid)
 
 
+
 # This function generates chunks for each cell in the grid, ensuring the grid is filled with cells.
 func generate_cells_for_grid(grid: map_grid):
 	for x in range(grid_width):
@@ -240,6 +244,8 @@ func generate_cells_for_grid(grid: map_grid):
 				cell.map_id = "field_grass_basic_00.json"  # Fallback if no maps are found
 
 			grid.cells[cell_key] = cell
+
+	place_tactical_maps_on_grid(grid)
 
 
 # Helper function to convert Region enum to string
@@ -554,3 +560,74 @@ func load_all_grids():
 	var loaded_grids_array: Array = Helper.save_helper.load_all_overmap_grids_from_file()
 	for loadedgrid: Dictionary in loaded_grids_array:
 		process_loaded_grid_data(loadedgrid)
+
+
+# Function to randomly load and return a tactical map
+func load_random_tactical_map() -> Dictionary:
+	var tacticalmaps = Helper.json_helper.file_names_in_dir(Gamedata.data.tacticalmaps.dataPath)
+	var random_tactical_map = tacticalmaps[randi() % tacticalmaps.size()]
+	return Helper.json_helper.load_json_dictionary_file(Gamedata.data.tacticalmaps.dataPath + random_tactical_map)
+
+
+# Function to find a valid position for placing a tactical map
+func find_valid_position(placed_positions: Array, map_width: int, map_height: int) -> Vector2:
+	var attempts = 0
+	while attempts < 100:
+		var random_x = randi() % (grid_width - map_width + 1)
+		var random_y = randi() % (grid_height - map_height + 1)
+		var valid_position_found = true
+
+		for i in range(map_width):
+			for j in range(map_height):
+				var local_x = random_x + i
+				var local_y = random_y + j
+				var cell_key = Vector2(local_x, local_y)
+				if cell_key in placed_positions:
+					valid_position_found = false
+					break
+			if not valid_position_found:
+				break
+
+		if valid_position_found:
+			return Vector2(random_x, random_y)
+		
+		attempts += 1
+	return Vector2(-1, -1)  # Indicate that a valid position was not found
+
+
+# Function to place tactical maps on a specific grid
+func place_tactical_maps_on_grid(grid: map_grid):
+	var placed_positions = []
+	for n in range(10):
+		var tactical_map_data = load_random_tactical_map()
+
+		var map_width = tactical_map_data.get("mapwidth", 0)
+		var map_height = tactical_map_data.get("mapheight", 0)
+		var chunks = tactical_map_data.get("chunks", [])
+
+		var position = find_valid_position(placed_positions, map_width, map_height)
+		if position == Vector2(-1, -1):
+			print("Failed to find a valid position for tactical map")
+			continue
+
+		var random_x = position.x
+		var random_y = position.y
+
+		for i in range(map_width):
+			for j in range(map_height):
+				var local_x = random_x + i
+				var local_y = random_y + j
+				if local_x < grid_width and local_y < grid_height:
+					var cell_key = Vector2(local_x, local_y)
+					var chunk_index = j * map_width + i
+					var chunk_data = chunks[chunk_index]
+					update_cell_map_id(grid, cell_key, chunk_data["id"], chunk_data.get("rotation", 0))
+					placed_positions.append(cell_key)
+
+
+# Helper function to update a cell's map ID if it exists
+func update_cell_map_id(grid: map_grid, cell_key: Vector2, map_id: String, rotation: int):
+	var adjusted_cell_key = cell_key + grid.pos * grid_width
+	if grid.cells.has(adjusted_cell_key):
+		grid.cells[adjusted_cell_key].map_id = map_id.replace(".json", "")
+		grid.cells[adjusted_cell_key].rotation = rotation  # Update rotation

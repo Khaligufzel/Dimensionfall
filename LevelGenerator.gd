@@ -112,7 +112,6 @@ func initialize_map_data():
 
 
 # Return an array of chunks that fall inside the creation radius
-# We only return chunks that have it's coordinate in the tacticalmap, so we don't go out of bounds
 func calculate_chunks_to_load(player_chunk_pos: Vector2) -> Array:
 	var chunks_to_load = []
 	for x in range(player_chunk_pos.x - creation_radius, player_chunk_pos.x + creation_radius + 1):

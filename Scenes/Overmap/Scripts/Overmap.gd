@@ -174,6 +174,8 @@ func create_and_fill_grid_container(grid_position: Vector2, chunk_position: Vect
 			var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
 			var texture: Texture = map_cell.get_sprite() if map_cell else null
 			tile.set_texture(texture)
+			# Set the rotation of the tile based on the map_cell's rotation property
+			tile.set_texture_rotation(map_cell.rotation if map_cell else 0)
 			tile.set_meta("global_pos", global_pos)
 			tile.set_meta("local_pos", local_pos)
 

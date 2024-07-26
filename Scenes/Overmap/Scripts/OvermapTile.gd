@@ -52,3 +52,21 @@ func set_text(newtext: String):
 # Hide or show the textlabel
 func set_text_visible(isvisible: bool):
 	$TextLabel.visible = isvisible
+
+
+# Set the rotation of the TextureRect based on the given rotation angle
+func set_texture_rotation(myrotation: int) -> void:
+	# Set the rotation pivot to the center of the TextureRect
+	$TextureRect.pivot_offset = size / 2
+	# Set the rotation of the TextureRect based on the given rotation angle
+	match myrotation:
+		0:
+			$TextureRect.rotation_degrees = 0
+		90:
+			$TextureRect.rotation_degrees = 90
+		180:
+			$TextureRect.rotation_degrees = 180
+		270:
+			$TextureRect.rotation_degrees = 270
+		_:
+			$TextureRect.rotation_degrees = 0  # Default to 0 if an invalid rotation is provided

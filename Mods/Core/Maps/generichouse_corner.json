@@ -4536,6 +4536,10 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
