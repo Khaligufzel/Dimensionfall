@@ -19,6 +19,9 @@ var previous_visible_tile: Control = null
 # Object pool for reusing tiles
 var tile_pool: Array = []
 
+# Dictionary to keep track of text visibility by coordinate
+var text_visible_by_coord: Dictionary = {}
+
 # We will emit this signal when the position_coords change
 # Which happens when the user has panned the overmap
 signal position_coord_changed(delta: Vector2)
@@ -179,6 +182,12 @@ func create_and_fill_grid_container(grid_position: Vector2, chunk_position: Vect
 			tile.set_meta("global_pos", global_pos)
 			tile.set_meta("local_pos", local_pos)
 
+			# Check if this global position has text visibility set
+			if text_visible_by_coord.has(global_pos) and text_visible_by_coord[global_pos]:
+				tile.set_text_visible(true)
+			else:
+				tile.set_text_visible(false)
+
 			if global_pos == Vector2.ZERO:
 				tile.set_color(Color(0.3, 0.3, 1))  # blue color
 			else:
@@ -190,7 +199,7 @@ func create_and_fill_grid_container(grid_position: Vector2, chunk_position: Vect
 	return grid_container
 
 
-#This function will be connected to the signal of the tiles
+# This function will be connected to the signal of the tiles
 func _on_tile_clicked(clicked_tile):
 	if clicked_tile.has_meta("map_file"):
 		selected_overmap_tile = clicked_tile
@@ -235,10 +244,16 @@ func _on_home_button_button_up():
 
 # Function to update the visibility of overmap tile text
 func update_overmap_tile_visibility(new_pos: Vector2):
+	if previous_visible_tile:
+		previous_visible_tile.set_text_visible(false)
+
+	# Update the dictionary to reflect the new position with visible text
+	text_visible_by_coord.clear()
+	text_visible_by_coord[new_pos] = true
+
 	var current_tile = get_overmap_tile_at_position(new_pos)
 	if current_tile:
-		if previous_visible_tile and previous_visible_tile != current_tile:
-			previous_visible_tile.set_text_visible(false)
+		print_debug("Setting new text on tile at pos " + str(new_pos))
 		current_tile.set_text_visible(true)
 		previous_visible_tile = current_tile
 
