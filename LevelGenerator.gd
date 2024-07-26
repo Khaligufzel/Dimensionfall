@@ -75,15 +75,26 @@ func _on_player_spawned(playernode):
 	print_debug("player position is " + str(new_position))
 	load_queue.append(new_position.floor())
 	# Start a loop to update chunks based on player position
-	calculate_initial_chunks(new_position.floor())  # Calculate and add initial chunks to the load queue
+	load_initial_chunks_around_player(new_position.floor())
 	start_timer()
 
-
-func calculate_initial_chunks(playerpos):
-	var initial_chunks = calculate_chunks_to_load(playerpos)
+# Function to load initial chunks around the player's position
+func load_initial_chunks_around_player(player_pos: Vector2):
+	var initial_chunks = [
+		player_pos,  # Center
+		player_pos + Vector2(1, 0),  # East
+		player_pos + Vector2(-1, 0),  # West
+		player_pos + Vector2(0, 1),  # South
+		player_pos + Vector2(0, -1),  # North
+		player_pos + Vector2(-1, -1),  # North-west
+		player_pos + Vector2(1, -1),  # North-east
+		player_pos + Vector2(-1, 1)  # South-west
+	]
+	
 	for chunk_pos in initial_chunks:
 		if not loaded_chunks.has(chunk_pos) and not load_queue.has(chunk_pos):  # Ensure chunk isn't already loaded or queued
 			load_queue.append(chunk_pos)
+
 
 # Function for handling game ended signal
 func _on_game_ended():
