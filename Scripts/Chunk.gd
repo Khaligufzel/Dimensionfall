@@ -65,7 +65,7 @@ func _ready():
 	chunk_unloaded.connect(_finish_unload)
 	source_geometry_data = NavigationMeshSourceGeometryData3D.new()
 	setup_navigation()
-	# The Helper keeps track of which navigationmap belogns to which chunk. When a navigationagent
+	# The Helper keeps track of which navigationmap belongs to which chunk. When a navigationagent
 	# crosses the chunk boundary, it will get the current chunk's navigationmap id to work with
 	chunk_ready.connect(Helper.on_chunk_loaded.bind({"mypos": mypos, "map": navigation_map_id}))
 	chunk_unloaded.connect(Helper.on_chunk_unloaded.bind({"mypos": mypos}))

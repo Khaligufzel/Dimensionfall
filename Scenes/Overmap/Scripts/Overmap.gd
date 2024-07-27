@@ -253,7 +253,6 @@ func update_overmap_tile_visibility(new_pos: Vector2):
 
 	var current_tile = get_overmap_tile_at_position(new_pos)
 	if current_tile:
-		print_debug("Setting new text on tile at pos " + str(new_pos))
 		current_tile.set_text_visible(true)
 		previous_visible_tile = current_tile
 

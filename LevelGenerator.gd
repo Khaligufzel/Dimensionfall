@@ -25,6 +25,8 @@ var is_processing_chunk = false
 signal all_chunks_unloaded
 signal all_chunks_loaded  # Signal to indicate all initial chunks are loaded for the first time
 
+var initial_chunks_status = {}  # Dictionary to track initial chunks loading status
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -93,6 +95,7 @@ func load_initial_chunks_around_player(player_pos: Vector2):
 	for chunk_pos in initial_chunks:
 		if not loaded_chunks.has(chunk_pos) and not load_queue.has(chunk_pos):  # Ensure chunk isn't already loaded or queued
 			load_queue.append(chunk_pos)
+			initial_chunks_status[chunk_pos] = false  # Mark chunk as not loaded
 
 
 # Function for handling game ended signal
@@ -152,6 +155,21 @@ func load_chunk(chunk_pos: Vector2):
 		new_chunk.chunk_data = get_chunk_data_at_position(chunk_pos)
 	level_manager.add_child.call_deferred(new_chunk)
 	loaded_chunks[chunk_pos] = new_chunk
+	
+	# Mark the initial chunk as loaded
+	mark_initial_chunk_as_loaded(chunk_pos)
+
+# New function to mark initial chunks as loaded
+func mark_initial_chunk_as_loaded(chunk_pos: Vector2):
+	if initial_chunks_status.size() == 0:
+		return  # Already empty, signal already emitted
+	
+	if initial_chunks_status.has(chunk_pos):
+		initial_chunks_status.erase(chunk_pos)
+	
+	# Emit the signal if all initial chunks are loaded and the dictionary is empty
+	if initial_chunks_status.size() == 0:
+		Helper.signal_broker.initial_chunks_generated.emit()
 
 
 # When we unload the chunk, we save its data into memory so we can re-use it later
