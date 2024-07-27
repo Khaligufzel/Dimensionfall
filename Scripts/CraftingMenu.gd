@@ -106,12 +106,13 @@ func _on_recipe_button_pressed(recipe: DItem.CraftRecipe):
 		resource_container.add_child(label)
 
 	# Display skill progression information if it exists
-	var skill_id = Helper.json_helper.get_nested_data(recipe, "skill_progression.id")
-	var skill_xp = Helper.json_helper.get_nested_data(recipe, "skill_progression.xp")
-	if skill_id and skill_xp:
-		skill_progression_label.text = "Get XP: %s: %s" % [skill_id, skill_xp]
-	else:
-		skill_progression_label.text = ""
+	if recipe.skill_progression:
+		var skill_id = recipe.skill_progression.id
+		var skill_xp = recipe.skill_progression.xp
+		if skill_id and skill_xp:
+			skill_progression_label.text = "Get XP: %s: %s" % [skill_id, skill_xp]
+		else:
+			skill_progression_label.text = ""
 
 
 func _on_start_crafting_button_pressed():
@@ -209,11 +210,11 @@ func display_feedback(message: String, color: Color):
 	timer.start()
 
 
-func _on_craft_successful(_item: Dictionary, _recipe: Dictionary):
+func _on_craft_successful(_item: DItem, _recipe: DItem.CraftRecipe):
 	var color = Color(0.4, 1, 0.4)  # Brighter green color with more white
 	display_feedback("craft succesful!", color)
 
 
-func _on_craft_failed(_item: Dictionary, _recipe: Dictionary, reason: String):
+func _on_craft_failed(_item: DItem, _recipe: DItem.CraftRecipe, reason: String):
 	var color = Color(1, 0, 0)  # Red color
 	display_feedback(reason, color)

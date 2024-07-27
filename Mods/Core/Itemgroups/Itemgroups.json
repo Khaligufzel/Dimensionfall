@@ -168,7 +168,7 @@
 				"id": "can_oil",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "flashlight_basic",
@@ -780,7 +780,7 @@
 				"id": "sharp_stone",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 40
 			},
 			{
 				"id": "small_rock",
@@ -845,7 +845,7 @@
 				"id": "long_stick",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 50
 			},
 			{
 				"id": "stick",

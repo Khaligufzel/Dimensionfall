@@ -221,7 +221,7 @@ func _on_mob_killed(mobinstance: Mob):
 
 
 # The player has succesfully crafted an item.
-func _on_craft_successful(item: Dictionary, _recipe: Dictionary):
+func _on_craft_successful(item: Dictionary, _recipe: DItem.CraftRecipe):
 	# Get the current quests in progress
 	var quests_in_progress = QuestManager.get_quests_in_progress()
 	# Update each of the current quests with the collected item information
