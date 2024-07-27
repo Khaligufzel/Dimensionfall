@@ -1,7 +1,7 @@
 class_name DFurniture
 extends RefCounted
 
-# There's a D in front of the class name to indicate this class only handles map data, nothing more
+# There's a D in front of the class name to indicate this class only handles furniture data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
 # This script handles the data for one furniture. You can access it through Gamedata.furnitures
 
