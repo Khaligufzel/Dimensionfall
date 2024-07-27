@@ -108,27 +108,6 @@ func add_reference_to_tile(tileid: String, module: String, type: String, refid: 
 	mytile.add_reference(module, type, refid)
 
 
-# This will update the given resource file with the provided json data
-# It is intended to save tile data from json to the res://ItemProtosets.tres file
-# So we can use the tile json data in-game
-func update_tile_protoset_json_data(tres_path: String, new_json_data: String) -> void:
-	# Load the ItemProtoset resource
-	var tile_protoset = load(tres_path) as ItemProtoset
-	if not tile_protoset:
-		print_debug("Failed to load ItemProtoset resource from:", tres_path)
-		return
-
-	# Update the json_data property
-	tile_protoset.json_data = new_json_data
-
-	# Save the resource back to the .tres file
-	var save_result = ResourceSaver.save(tile_protoset, tres_path)
-	if save_result != OK:
-		print_debug("Failed to save updated ItemProtoset resource to:", tres_path)
-	else:
-		print_debug("ItemProtoset resource updated and saved successfully to:", tres_path)
-
-
 # Filters tiles by type. Returns a list of tiles of that type
 # tile_type: Any of craft, magazine, ranged, melee, food, wearable
 func get_tiles_by_type(tile_type: String) -> Array[DTile]:
