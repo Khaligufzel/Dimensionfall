@@ -7,7 +7,6 @@ extends Node
 #It also has functions to load saved data and place the items, mobs and tiles on the map
 
 var current_save_folder: String = ""
-signal all_chunks_unloaded
 
 
 #Creates a new save folder. The name of this folder will be the current date and time
@@ -27,16 +26,11 @@ func create_new_save():
 
 # We can only save the data when all chunks are unloaded.
 func save_map_data() -> void:
-	Helper.map_manager.level_generator.all_chunks_unloaded.connect(_on_chunks_unloaded)
-	Helper.map_manager.level_generator.unload_all_chunks()
-
-
-# The level_generator has unloaded all the chunks. Save the data to disk
-func _on_chunks_unloaded():
-		print_debug("All chunks are unloaded")
-		# Devides the loaded_chunk_data.chunks into segments and saves them to disk
-		Helper.overmap_manager.unload_all_remaining_segments()
-		all_chunks_unloaded.emit()
+	# Get all chunks in the group "chunks"
+	var chunks = get_tree().get_nodes_in_group("chunks")
+	for chunk in chunks:
+		if is_instance_valid(chunk): # some might be queue_freed at this point
+			await Helper.task_manager.create_task(chunk.save_chunk).completed
 
 
 # Function to save a map segment to disk. The Helper.overmap_manager will call this
@@ -81,7 +75,6 @@ func load_map_segment_data(segment_pos: Vector2) -> Dictionary:
 		chunk_data[chunk_pos] = tactical_map_json[key]
 	
 	return chunk_data
-
 
 
 # This function determines the saved map folder path for the current level. 

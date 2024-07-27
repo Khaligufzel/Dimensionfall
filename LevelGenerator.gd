@@ -50,18 +50,13 @@ func start_timer():
 # This will start the chunk loading and unloading if the player has moved and no chunk
 # is currently being loaded or unloaded
 func _on_Timer_timeout():
-	if is_processing_chunk:
-		return  # Wait until the current chunk operation is finished
-
-	if load_queue.size() > 0:
-		process_next_chunk()  # Process the next chunk from the load queue
-	else:
-		var player = get_tree().get_first_node_in_group("Players")
-		var new_position = Vector2(player.global_transform.origin.x, player.global_transform.origin.z) / Vector2(level_width, level_height)
-		if new_position != player_position:
-			player_position = new_position
-			_chunk_management_logic()
-			process_next_chunk()
+	var player = get_tree().get_first_node_in_group("Players")
+	var new_position = Vector2(player.global_transform.origin.x, player.global_transform.origin.z) / Vector2(level_width, level_height)
+	# The initial chunks always generate, even when the player stands still
+	if new_position != player_position or initial_chunks_status.size() > 0:
+		player_position = new_position
+		_chunk_management_logic()
+		process_next_chunk()
 
 
 # Function for handling game started signal
@@ -170,13 +165,22 @@ func mark_initial_chunk_as_loaded(chunk_pos: Vector2):
 	# Emit the signal if all initial chunks are loaded and the dictionary is empty
 	if initial_chunks_status.size() == 0:
 		Helper.signal_broker.initial_chunks_generated.emit()
+		is_processing_chunk = false
 
 
-# When we unload the chunk, we save its data into memory so we can re-use it later
+# When we unload the chunk, we do not save its data.
 func unload_chunk(chunk_pos: Vector2):
 	if loaded_chunks.has(chunk_pos):
 		var chunk = loaded_chunks[chunk_pos]
 		chunk.unload_chunk()
+		loaded_chunks.erase(chunk_pos)
+
+
+# When we unload the chunk, we save its data into memory so we can re-use it later
+func save_and_unload_chunk(chunk_pos: Vector2):
+	if loaded_chunks.has(chunk_pos):
+		var chunk = loaded_chunks[chunk_pos]
+		chunk.save_and_unload_chunk()
 		loaded_chunks.erase(chunk_pos)
 
 
@@ -215,19 +219,27 @@ func update_queues(potential_loads, potential_unloads):
 		if chunk_pos.distance_to(player_position.floor()) <= creation_radius:
 			unload_queue.erase(chunk_pos)
 
-
 # This function will either load or unload a chunk if there are any to load or unload
 func process_next_chunk():
+	print_debug("process_next_chunk called")
+	if is_processing_chunk:
+		print_debug("is_processing_chunk is true, returning")
+		return  # Wait until the current chunk operation is finished
+
 	if load_queue.size() > 0:
 		var chunk_pos = load_queue.pop_front()
+		print_debug("Loading chunk at position: ", chunk_pos)
 		is_processing_chunk = true
 		load_chunk(chunk_pos)
 	elif unload_queue.size() > 0:
 		var chunk_pos = unload_queue.pop_front()
+		print_debug("Unloading chunk at position: ", chunk_pos)
 		is_processing_chunk = true
-		unload_chunk(chunk_pos)
+		save_and_unload_chunk(chunk_pos)
 	else:
+		print_debug("No chunks left to process")
 		is_processing_chunk = false  # No chunks left to process
+
 
 
 # Returns the chunk instance at the given position
@@ -279,12 +291,14 @@ func unload_all_chunks():
 	handle_chunk_unload()
 
 
-# Function to handle chunk unloading
+# Function to handle chunk unloading. Chunk data will NOT be saved.
+# If you need to save chunk data beforehand, call Helper.save_helper.save_map_data()
 func handle_chunk_unload():
 		var all_unloaded = true
 		# Get all chunks in the group "chunks"
 		var chunks = get_tree().get_nodes_in_group("chunks")
 		for chunk in chunks:
+			await get_tree().create_timer(0.5).timeout # Wait for a bit before checking again
 			if is_instance_valid(chunk): # some might be queue_freed at this point
 				match chunk.load_state:
 					chunk.LoadStates.NEITHER:

@@ -4495,6 +4495,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 270
+				},
 				"id": "orange_carpet_00",
 				"rotation": 180
 			},
@@ -16361,7 +16365,7 @@
 				"rotation": 180
 			},
 			{
-
+				"id": "brick_wall_01"
 			},
 			{
 
