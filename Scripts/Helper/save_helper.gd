@@ -30,7 +30,8 @@ func save_map_data() -> void:
 	var chunks = get_tree().get_nodes_in_group("chunks")
 	for chunk in chunks:
 		if is_instance_valid(chunk): # some might be queue_freed at this point
-			await Helper.task_manager.create_task(chunk.save_chunk).completed
+			chunk.save_chunk()
+			#await Helper.task_manager.create_task(chunk.save_chunk).completed
 
 
 # Function to save a map segment to disk. The Helper.overmap_manager will call this
@@ -97,6 +98,7 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 # Save game state
 func save_game():
 	save_map_data()
+	Helper.overmap_manager.save_all_segments()
 	save_player_inventory()
 	save_player_equipment()
 	save_player_state(get_tree().get_first_node_in_group("Players"))

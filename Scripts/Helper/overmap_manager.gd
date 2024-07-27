@@ -509,9 +509,8 @@ func process_and_clear_segment(segment_pos: Vector2) -> Dictionary:
 	return non_empty_chunk_data
 
 
-# Function to unload and save all remaining segments from loaded_chunk_data.chunks
-# This function processes and clears each segment, ensuring that no chunk data remains in memory
-# and all segments are saved to the disk.
+# Function to unload all remaining segments from loaded_chunk_data.chunks without saving
+# This function processes and clears each segment, ensuring that no chunk data remains in memory.
 func unload_all_remaining_segments():
 	var all_segments_to_unload = []
 	# Collect all unique segment positions
@@ -520,11 +519,9 @@ func unload_all_remaining_segments():
 		if not all_segments_to_unload.has(segment_pos):
 			all_segments_to_unload.append(segment_pos)
 
-	# Process and save each segment
+	# Process and clear each segment
 	for segment_pos in all_segments_to_unload:
-		var non_empty_chunk_data = process_and_clear_segment(segment_pos)
-		if not non_empty_chunk_data.is_empty():
-			Helper.save_helper.save_map_segment_data(non_empty_chunk_data, segment_pos)
+		process_and_clear_segment(segment_pos)  # Erase chunks without saving
 	loaded_segments.clear()
 
 
@@ -631,3 +628,39 @@ func update_cell_map_id(grid: map_grid, cell_key: Vector2, map_id: String, rotat
 	if grid.cells.has(adjusted_cell_key):
 		grid.cells[adjusted_cell_key].map_id = map_id.replace(".json", "")
 		grid.cells[adjusted_cell_key].rotation = rotation  # Update rotation
+
+
+# Function to save all remaining segments without unloading
+func save_all_segments():
+	var all_segments_to_save = []
+	# Collect all unique segment positions
+	for chunk_pos in loaded_chunk_data.chunks.keys():
+		var segment_pos = get_segment_pos(chunk_pos)
+		if not all_segments_to_save.has(segment_pos):
+			all_segments_to_save.append(segment_pos)
+
+	# Process and save each segment
+	for segment_pos in all_segments_to_save:
+		var non_empty_chunk_data = collect_segment_data(segment_pos)
+		if not non_empty_chunk_data.is_empty():
+			Helper.save_helper.save_map_segment_data(non_empty_chunk_data, segment_pos)
+
+
+# Function to collect data for each segment without clearing it
+func collect_segment_data(segment_pos: Vector2) -> Dictionary:
+	var non_empty_chunk_data = {}  # Dictionary to store non-empty chunk data with chunk_pos as keys
+	
+	for x_offset in range(4):
+		for y_offset in range(4):
+			var chunk_pos = segment_pos + Vector2(x_offset, y_offset)
+			if loaded_chunk_data.chunks.has(chunk_pos):
+				var chunk_data = loaded_chunk_data.chunks[chunk_pos]
+				if not chunk_data.is_empty():
+					non_empty_chunk_data[chunk_pos] = chunk_data
+					print("Chunk data at ", chunk_pos, " was not empty and has been collected.")
+				else:
+					print("Chunk data at ", chunk_pos, " is empty.")
+			else:
+				print("Chunk data at ", chunk_pos, " does not exist.")
+	
+	return non_empty_chunk_data
