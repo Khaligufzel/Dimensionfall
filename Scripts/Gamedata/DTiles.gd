@@ -107,12 +107,3 @@ func add_reference_to_tile(tileid: String, module: String, type: String, refid: 
 	var mytile: DTile = tiledict[tileid]
 	mytile.add_reference(module, type, refid)
 
-
-# Filters tiles by type. Returns a list of tiles of that type
-# tile_type: Any of craft, magazine, ranged, melee, food, wearable
-func get_tiles_by_type(tile_type: String) -> Array[DTile]:
-	var filtered_tiles: Array[DTile] = []
-	for tile in tiledict.values():
-		if not tile.get(tile_type) == null:
-			filtered_tiles.append(tile)
-	return filtered_tiles

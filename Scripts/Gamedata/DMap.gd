@@ -154,7 +154,7 @@ func remove_my_reference_from_all_entities() -> void:
 	if changes_made:
 		# References have been added to tiles, furniture and/or mobs
 		# We could track changes individually so we only save what has actually changed.
-		Gamedata.save_data_to_file(Gamedata.data.tiles)
+		Gamedata.tiles.save_tiles_to_disk()
 		Gamedata.furnitures.save_furnitures_to_disk()
 		Gamedata.save_data_to_file(Gamedata.data.mobs)
 		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
@@ -195,7 +195,7 @@ func data_changed(oldmap: DMap):
 	if new_entities["furniture"].size() > 0 or old_entities["furniture"].size() > 0:
 		Gamedata.furnitures.save_furnitures_to_disk()
 	if new_entities["tiles"].size() > 0 or old_entities["tiles"].size() > 0:
-		Gamedata.save_data_to_file(Gamedata.data.tiles)
+		Gamedata.tiles.save_tiles_to_disk()
 	if new_entities["itemgroups"].size() > 0 or old_entities["itemgroups"].size() > 0:
 		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
 

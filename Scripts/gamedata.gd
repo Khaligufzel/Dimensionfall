@@ -211,7 +211,7 @@ func save_data_to_file(contentData: Dictionary):
 
 
 # Takes contentdata and an id and returns the json that belongs to an id
-# For example, contentData can be Gamedata.data.tiles
+# For example, contentData can be Gamedata.data.mobs
 # and id can be "plain_grass" and it will return the json data for plain_grass
 func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 	var idnr: int = get_array_index_by_id(contentData, id)
@@ -221,7 +221,7 @@ func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 
 
 # Takes contentData and an id and returns the sprite associated with the id
-# For example, contentData can be Gamedata.data.tiles
+# For example, contentData can be Gamedata.data.mobs
 # and id can be "plain_grass" and it will return the sprite for plain_grass
 func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 	if contentData.sprites.is_empty() or contentData.data.is_empty():

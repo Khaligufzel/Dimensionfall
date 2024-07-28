@@ -19,7 +19,7 @@ func _ready():
 	loadTiles()
 	loadFurniture()
 	
-# this function will read all files in Gamedata.data.tiles.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
+# this function will read all files in Gamedata.data.mobs.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
 func loadMobs():
 	var mobList: Array = Gamedata.data.mobs.data
 	var newMobsList: Control = scrolling_Flow_Container.instantiate()
@@ -66,16 +66,16 @@ func loadFurniture():
 		instanced_brushes.append(brushInstance)
 
 
-# this function will read all files in Gamedata.data.tiles.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
+# this function will read all files in Gamedata.tiles and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
 func loadTiles():
-	var tileList: Array = Gamedata.data.tiles.data
+	var tileList: Dictionary = Gamedata.tiles.get_tiles()
 
-	for item in tileList:
-		if item.has("sprite"):
-			#We need to put the tiles the right catecory
-			#Each tile can have 0 or more categories
-			for category in item["categories"]:
-				#Check if the category was already added
+	for tile: DTile in tileList.values():
+		if tile.spriteid:
+			# We need to put the tiles in the right category
+			# Each tile can have 0 or more categories
+			for category in tile.categories:
+				# Check if the category was already added
 				var newTilesList: Control = find_list_by_category(category)
 				if !newTilesList:
 					newTilesList = scrolling_Flow_Container.instantiate()
@@ -83,22 +83,24 @@ func loadTiles():
 					newTilesList.collapse_button_pressed.connect(_on_collapse_button_pressed)
 					add_child(newTilesList)
 					newTilesList.is_collapsed = load_collapse_state(category)
-				var imagefileName: String = item["sprite"]
+				
+				var imagefileName: String = tile.spriteid
 				imagefileName = imagefileName.get_file()
 				# Get the texture from gamedata
-				var texture: Resource = Gamedata.data.tiles.sprites[imagefileName].albedo_texture
-				# Create a TextureRect node
+				var texture: Resource = Gamedata.tiles.sprite_by_file(imagefileName)
+				# Create a TileBrush node
 				var brushInstance = tileBrush.instantiate()
-				# Assign the texture to the TextureRect
+				# Assign the texture to the TileBrush
 				brushInstance.set_tile_texture(texture)
-				# Since the map editor needs to knw what tile ID is used,
-				# We store the tile id in a variable in the brush
-				brushInstance.entityID = item.id
+				# Since the map editor needs to know what tile ID is used,
+				# we store the tile id in a variable in the brush
+				brushInstance.entityID = tile.id
 				brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
 
-				# Add the TextureRect as a child to the TilesList
+				# Add the TileBrush as a child to the newTilesList
 				newTilesList.add_content_item(brushInstance)
 				instanced_brushes.append(brushInstance)
+
 
 
 #Find the list associated with the category

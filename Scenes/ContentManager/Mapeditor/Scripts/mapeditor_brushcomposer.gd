@@ -387,7 +387,7 @@ func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 		# Get the appropriate sprite based on the entity type
 		match newtype:
 			"tile":
-				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.tiles, entity["id"]).albedo_texture
+				properties["texture"] = Gamedata.tiles.sprite_by_id(entity["id"])
 			"mob":
 				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.mobs, entity["id"])
 			"furniture":
