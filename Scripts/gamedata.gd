@@ -8,6 +8,7 @@ var itemgroup_references: Node = null
 var maps: DMaps
 var furnitures: DFurnitures
 var items: DItems
+var tiles: DTiles
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
@@ -30,13 +31,13 @@ const DATA_CATEGORIES = {
 func _ready():
 	initialize_data_structures()
 	load_sprites()
-	load_tile_sprites()
 	load_data()
 	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(data.tacticalmaps.dataPath, ["json"])
 	itemgroup_references = itemgroup_references_Class.new()
 	maps = DMaps.new()
 	furnitures = DFurnitures.new()
 	items = DItems.new()
+	tiles = DTiles.new()
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES
 func initialize_data_structures():
@@ -73,20 +74,6 @@ func load_sprites() -> void:
 				# Add the material to the dictionary
 				loaded_sprites[png_file] = texture
 			data[dict].sprites = loaded_sprites
-
-
-# This function reads all the files in "res://Mods/Core/Tiles/". It will check if the file is a .png file. If the file is a .png file, it will create a new material with that .png image as the texture. It will put all of the created materials in a dictionary with the name of the file as the key and the material as the value.
-func load_tile_sprites() -> void:
-	var tile_materials: Dictionary = {} # Materials used to represent tiles
-	var tilesDir = data.tiles.spritePath
-	var png_files: Array = Helper.json_helper.file_names_in_dir(tilesDir, ["png"])
-	for png_file in png_files:
-		var texture := load(tilesDir + png_file) # Load the .png file as a texture
-		var material := StandardMaterial3D.new() 
-		material.albedo_texture = texture # Set the texture of the material
-		material.uv1_scale = Vector3(3,2,1)
-		tile_materials[png_file] = material # Add the material to the dictionary
-	data.tiles.sprites = tile_materials
 
 
 # Adds a sprite to a specific dictionary and emits a signal if successful
