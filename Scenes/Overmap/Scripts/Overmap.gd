@@ -4,7 +4,6 @@ extends Control
 @export var tilesContainer: Control = null
 @export var overmapTile: PackedScene = null
 @export var overmapTileLabel: Label = null
-var last_position_coord: Vector2 = Vector2()
 var noise = FastNoiseLite.new()
 var grid_chunks: Dictionary = {} # Stores references to grid containers (visual tile grids)
 var chunk_width: int = 8  # Updated from 32 to 8
@@ -28,8 +27,7 @@ signal position_coord_changed(delta: Vector2)
 
 
 func _ready():
-	# Centers the view when opening the ovemap. Works with default window size.
-	# TODO: Have it calculated based on the window size
+	# Centers the view when opening the ovemap.
 	Helper.position_coord = Vector2(-0, -0)
 	update_chunks()
 	position_coord_changed.connect(on_position_coord_changed)
@@ -37,6 +35,8 @@ func _ready():
 	# Center the map
 	move_overmap(Helper.overmap_manager.player_last_cell - calculate_screen_center_offset()) 
 	update_overmap_tile_visibility(Helper.overmap_manager.player_last_cell)
+	# Connect the visibility toggling signal
+	visibility_changed.connect(on_overmap_visibility_toggled)
 
 
 # This function updates the chunks.
@@ -86,11 +86,13 @@ func get_pooled_tile() -> Control:
 		tile.tile_clicked.connect(_on_tile_clicked)
 		return tile
 
+
 # Return a tile to the pool
 func return_pooled_tile(tile: Control):
 	if tile.get_parent() != null:
 		tile.get_parent().remove_child(tile)
 	tile_pool.append(tile)
+
 
 # The user will leave chunks behind as the map is panned around
 # Chunks that are too far from the current position will be destroyed
@@ -135,7 +137,6 @@ func move_overmap(delta: Vector2):
 	if delta != Vector2.ZERO:
 		Helper.position_coord = new_position_coord
 		position_coord_changed.emit(delta)
-		last_position_coord = Helper.position_coord
 
 
 # This function will move all the tile grids on screen when the position_coords change
@@ -270,6 +271,9 @@ func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 # When the player moves a coordinate on the map, i.e. when crossing the chunk border.
 # Movement could be between (0,0) and (0,1) for example
 func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
+	if not visible:
+		return
+
 	update_overmap_tile_visibility(new_pos)
 	var delta = new_pos - Helper.position_coord - calculate_screen_center_offset()
 	move_overmap(delta)
@@ -280,3 +284,12 @@ func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_po
 func calculate_screen_center_offset() -> Vector2:
 	var screen_center_offset = get_viewport_rect().size * 0.5 / tile_size
 	return screen_center_offset * 0.5  # Reduce by 50%
+
+
+# New function to handle overmap visibility toggling
+func on_overmap_visibility_toggled():
+	if visible:
+		# Force update of the player position and chunks
+		# This will cause the player_coord_changed signal to be emitted,
+		# triggering on_position_coord_changed and centering the map on the player's position
+		Helper.overmap_manager.update_player_position_and_manage_segments(true)
