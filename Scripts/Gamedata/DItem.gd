@@ -34,8 +34,8 @@ class CraftRecipe:
 	var craft_time: int
 	var flags: Dictionary
 	var required_resources: Array # A list of objects like {"amount": 1, "id": "steel_scrap"}
-	var skill_progression: Dictionary
-	var skill_requirement: Dictionary
+	var skill_progression: Dictionary # example: { "id": "fabrication", "xp": 10 }
+	var skill_requirement: Dictionary # example: { "id": "fabrication", "level": 1 }
 
 	# Constructor to initialize craft properties from a dictionary
 	func _init(data: Dictionary):

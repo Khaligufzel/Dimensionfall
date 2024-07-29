@@ -442,8 +442,6 @@ func add_skill_xp(skill_id: String, xp: float) -> void:
 
 # The player has succesfully crafted an item. Get the skill id and xp from
 # the recipe and add it to the player's skill xp
-func _on_craft_successful(_item: Dictionary, recipe: Dictionary):
-	var skill_id = Helper.json_helper.get_nested_data(recipe, "skill_progression.id")
-	var xp = Helper.json_helper.get_nested_data(recipe, "skill_progression.xp")
-	if skill_id and xp:
-		add_skill_xp(skill_id, xp)
+func _on_craft_successful(_item: DItem, recipe: DItem.CraftRecipe):
+	if recipe.skill_progression:
+		add_skill_xp(recipe.skill_progression.id, recipe.skill_progression.xp)
