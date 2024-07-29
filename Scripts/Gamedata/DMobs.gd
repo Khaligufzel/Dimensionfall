@@ -92,7 +92,7 @@ func sprite_by_file(spritefile: String) -> Texture:
 
 
 # Removes the reference from the selected mob
-func remove_reference_from_mob(mobid: String, module: String, type: String, refid: String):
+func remove_reference(mobid: String, module: String, type: String, refid: String):
 	var mymob: DMob = mobdict[mobid]
 	mymob.remove_reference(module, type, refid)
 
@@ -103,7 +103,7 @@ func remove_reference_from_mob(mobid: String, module: String, type: String, refi
 # module: the mod that the entity belongs to, for example "Core"
 # type: The type of entity, for example "maps"
 # refid: The id of the entity to reference, for example "grass_field"
-func add_reference_to_mob(mobid: String, module: String, type: String, refid: String):
+func add_reference(mobid: String, module: String, type: String, refid: String):
 	var mymob: DMob = mobdict[mobid]
 	mymob.add_reference(module, type, refid)
 

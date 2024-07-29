@@ -524,7 +524,6 @@ func on_skill_deleted(skill_id: String):
 
 # Handles quest deletion
 func on_quest_deleted(quest_id: String):
-	var changes_made = { "value": false }  # Using a Dictionary to hold the change status
 	var quest_data = get_data_by_id(data.quests, quest_id)
 
 	if quest_data.is_empty():
@@ -532,19 +531,14 @@ func on_quest_deleted(quest_id: String):
 		return
 	var stepitems: Array = Helper.json_helper.get_unique_values(quest_data, "steps.item")
 	for item_id in stepitems:
-		items.remove_reference_from_item(item_id, "core", "quests", quest_id)
+		items.remove_reference(item_id, "core", "quests", quest_id)
 	var stepmobs: Array = Helper.json_helper.get_unique_values(quest_data, "steps.mob")
 	for mob_id in stepmobs:
-		changes_made["value"] = remove_reference(data.mobs, "core", "quests", mob_id, quest_id) or changes_made["value"]
+		mobs.remove_reference(mob_id, "core", "quests", quest_id)
 	var steprewards: Array = Helper.json_helper.get_unique_values(quest_data, "rewards.item_id")
 	for item_id in steprewards: # Remove the reference to this quest from the reward item
-		items.remove_reference_from_item(item_id, "core", "quests", quest_id)
+		items.remove_reference(item_id, "core", "quests", quest_id)
 
-	# Save changes to the data file if any changes were made
-	if changes_made["value"]:
-		save_data_to_file(data.mobs)
-	else:
-		print_debug("No changes needed for quest", quest_id)
 
 # Handles quest changes
 func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
@@ -560,7 +554,6 @@ func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
 	var old_items_merged = Helper.json_helper.merge_unique(old_quest_items, old_quest_rewards)
 	var new_items_merged = Helper.json_helper.merge_unique(new_quest_items, new_quest_rewards)
 	var quest_id: String = newdata.get("id", "")
-	var changes_made = false
 
 	# Remove references for old items and rewards
 	for old_item in old_items_merged:
@@ -574,15 +567,11 @@ func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
 	# Remove references for old mobs
 	for old_mob in old_quest_mobs:
 		if old_mob not in new_quest_mobs:
-			changes_made = remove_reference(data.mobs, "core", "quests", old_mob, quest_id) or changes_made
+			mobs.remove_reference(old_mob, "core", "quests", quest_id)
 
 	# Add references for new mobs
 	for new_mob in new_quest_mobs:
-		changes_made = add_reference(data.mobs, "core", "quests", new_mob, quest_id) or changes_made
-
-	# Save changes if any references were updated
-	if changes_made:
-		save_data_to_file(data.mobs)
+		mobs.add_reference(new_mob, "core", "quests", quest_id)
 
 
 # Removes the provided reference from references
