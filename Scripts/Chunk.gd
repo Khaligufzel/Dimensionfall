@@ -423,15 +423,27 @@ func get_chunk_data() -> Dictionary:
 # the helper variable. First we wait until the current thread is finished.
 func unload_chunk():
 	start_unloading()
-	await Helper.task_manager.create_task(save_and_unload_chunk).completed
+	await Helper.task_manager.create_task(free_chunk_resources).completed
 	chunk_unloaded.emit()
 
 
+# Saves all the chunk data and then unloads it
+# You might want to call this by:
+# await Helper.task_manager.create_task(chunk.save_and_unload_chunk).completed
 func save_and_unload_chunk():
+	start_unloading()
+	save_chunk()  # Save the chunk data
+	free_chunk_resources()
+	chunk_unloaded.emit()
+
+
+# Save chunk data without unloading the chunk
+# You might want to call this by:
+# await Helper.task_manager.create_task(chunk.save_chunk).completed
+func save_chunk():
 	var chunkdata: Dictionary = get_chunk_data()
 	var chunkposition: Vector2 = Vector2(int(chunkdata.chunk_x/32),int(chunkdata.chunk_z/32))
 	Helper.overmap_manager.loaded_chunk_data.chunks[chunkposition] = chunkdata
-	free_chunk_resources()
 
 
 # Adds triangles represented by 3 vertices to the navigation mesh data

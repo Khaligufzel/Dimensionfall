@@ -96,25 +96,11 @@ func _physics_process(_delta) -> void:
 	# or set_position is too late and it's differs from furnitureposition because it's still 0,0
 	# So we add in extra checks to handle those edge cases. There's probably a better way
 	var is_zero = global_transform.origin.x == 0 and global_transform.origin.z == 0
-	if (x_changed or z_changed) and not is_in_current_chunk() and not is_zero:
+	if (x_changed or z_changed) and not is_zero:
 		_moved(global_transform.origin)
 	var current_rotation = int(rotation_degrees.y)
 	if current_rotation != last_rotation:
 		last_rotation = current_rotation
-
-
-# Returns if the current position is inside the current chunk
-func is_in_current_chunk() -> bool:
-	var chunk_pos: Vector3 = current_chunk.mypos
-	var chunk_range: Vector3 = chunk_pos + Vector3(32, 0, 32)
-
-	var myposition: Vector3 = global_transform.origin
-
-	# Check if position is within chunk bounds in the x and z axes
-	var in_x_range: bool = (myposition.x >= chunk_pos.x) and (myposition.x <= chunk_range.x)
-	var in_z_range: bool = (myposition.z >= chunk_pos.z) and (myposition.z <= chunk_range.z)
-
-	return in_x_range and in_z_range
 
 
 # Set the new rotation for the furniture

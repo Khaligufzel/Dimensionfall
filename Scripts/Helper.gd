@@ -62,6 +62,22 @@ func reset():
 	ItemManager.player_equipment.reset_to_default()
 
 
+# When the player quits without saving (i.e. game over)
+func exit_game():
+	Helper.overmap_manager.player.axis_lock_linear_y = true # Stop vertical movement
+	Helper.map_manager.level_generator.unload_all_chunks()
+	await Helper.map_manager.level_generator.all_chunks_unloaded
+	# Devides the loaded_chunk_data.chunks into segments and saves them to disk
+	Helper.overmap_manager.unload_all_remaining_segments()
+	Helper.signal_broker.game_ended.emit()
+	get_tree().change_scene_to_file("res://scene_selector.tscn")
+
+
+# When the player saves and quits (i.e. return to main menu)
+func save_and_exit_game():
+	Helper.save_helper.save_game()
+	exit_game()
+
 
 #Level_name is a filename in /mods/core/maps
 #global_pos is the absolute position on the overmap

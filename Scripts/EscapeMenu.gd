@@ -23,13 +23,8 @@ func _process(_delta):
 
 
 # Called when the save button is pressed.
-# TODO: We should just call Helper.save_helper.save_game() instead
-# But before we can do that, we need to separate saving the map data from unloading the chunks
-# We will need to modify Chunk.gd for that.
 func _on_save_button_pressed():
-	Helper.save_helper.save_player_inventory()
-	Helper.save_helper.save_player_equipment()
-	Helper.save_helper.save_player_state(get_tree().get_first_node_in_group("Players"))
+	Helper.save_helper.save_game()
 
 
 # Called when the resume button is pressed.
@@ -65,7 +60,4 @@ func _resume_game():
 func _return_to_main_menu():
 	if is_inside_tree():
 		get_tree().paused = false
-		Helper.save_helper.save_game()
-		await Helper.save_helper.all_chunks_unloaded
-		Helper.signal_broker.game_ended.emit()
-		get_tree().change_scene_to_file("res://scene_selector.tscn")
+		Helper.save_and_exit_game()

@@ -126,7 +126,7 @@
 				"id": "pistol_magazine",
 				"max": 1,
 				"min": 1,
-				"probability": 10
+				"probability": 15
 			},
 			{
 				"id": "pistol_9mm",
