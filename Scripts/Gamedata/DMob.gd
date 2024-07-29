@@ -6,42 +6,50 @@ extends RefCounted
 # This script is intended to be used inside the GameData autoload singleton
 # This script handles the data for one mob. You can access it through Gamedata.mobs
 
-#Example mob data:
-#	{
-#		"description": "A small robot",
-#		"health": 80,
-#		"hearing_range": 1000,
-#		"id": "scrapwalker",
-#		"idle_move_speed": 0.5,
-#		"loot_group": "mob_loot",
-#		"melee_damage": 20,
-#		"melee_range": 1.5,
-#		"move_speed": 2.1,
-#		"name": "Scrap walker",
-#		"references": {
-#			"core": {
-#				"maps": [
-#					"Generichouse",
-#					"store_electronic_clothing"
-#				],
-#				"quests": [
-#					"starter_tutorial_00"
-#				]
-#			}
-#		},
-#		"sense_range": 50,
-#		"sight_range": 200,
-#		"sprite": "scrapwalker64.png"
-#	}
 
-# This class represents a piece of item with its properties
+# This class represents a mob with its properties
+# Example mob data:
+# {
+# 	"description": "A small robot",
+# 	"health": 80,
+# 	"hearing_range": 1000,
+# 	"id": "scrapwalker",
+# 	"idle_move_speed": 0.5,
+# 	"loot_group": "mob_loot",
+# 	"melee_damage": 20,
+# 	"melee_range": 1.5,
+# 	"move_speed": 2.1,
+# 	"name": "Scrap walker",
+# 	"references": {
+# 		"core": {
+# 			"maps": [
+# 				"Generichouse",
+# 				"store_electronic_clothing"
+# 			],
+# 			"quests": [
+# 				"starter_tutorial_00"
+# 			]
+# 		}
+# 	},
+# 	"sense_range": 50,
+# 	"sight_range": 200,
+# 	"sprite": "scrapwalker64.png"
+# }
+
+# Properties defined in the JSON
 var id: String
 var name: String
 var description: String
-var shape: String
-var sprite: Texture
-var spriteid: String
-var categories: Array
+var health: int
+var hearing_range: int
+var idle_move_speed: float
+var loot_group: String
+var melee_damage: int
+var melee_range: float
+var move_speed: float
+var sense_range: int
+var sight_range: int
+var sprite: String
 var references: Dictionary = {}
 
 # Constructor to initialize mob properties from a dictionary
@@ -49,9 +57,16 @@ func _init(data: Dictionary):
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
-	shape = data.get("shape", "")
-	spriteid = data.get("sprite", "")
-	categories = data.get("categories", [])
+	health = data.get("health", 100)
+	hearing_range = data.get("hearing_range", 1000)
+	idle_move_speed = data.get("idle_move_speed", 0.5)
+	loot_group = data.get("loot_group", "")
+	melee_damage = data.get("melee_damage", 20)
+	melee_range = data.get("melee_range", 1.5)
+	move_speed = data.get("move_speed", 1.0)
+	sense_range = data.get("sense_range", 50)
+	sight_range = data.get("sight_range", 200)
+	sprite = data.get("sprite", "")
 	references = data.get("references", {})
 
 # Get data function to return a dictionary with all properties
@@ -60,15 +75,19 @@ func get_data() -> Dictionary:
 		"id": id,
 		"name": name,
 		"description": description,
-		"sprite": spriteid,
-		"categories": categories
+		"health": health,
+		"hearing_range": hearing_range,
+		"idle_move_speed": idle_move_speed,
+		"loot_group": loot_group,
+		"melee_damage": melee_damage,
+		"melee_range": melee_range,
+		"move_speed": move_speed,
+		"sense_range": sense_range,
+		"sight_range": sight_range,
+		"sprite": sprite
 	}
 	if not references.is_empty():
 		data["references"] = references
-	
-	if shape and not shape == "":
-		data["shape"] = shape
-
 	return data
 
 # Removes the provided reference from references
@@ -85,23 +104,20 @@ func add_reference(module: String, type: String, refid: String):
 
 # Returns the path of the sprite
 func get_sprite_path() -> String:
-	return Gamedata.mobs.spritePath + spriteid
+	return Gamedata.mobs.spritePath + sprite
 
 # Handles mob changes and updates references if necessary
 func on_data_changed(_oldmob: DMob):
 	var changes_made = false
-
 	# If any references were updated, save the changes to the data file
 	if changes_made:
 		print_debug("mob reference updates saved successfully.")
 		Gamedata.save_data_to_file(Gamedata.data.mobgroups)
 
-
 # Some mob has been changed
 # INFO if the mobs reference other entities, update them here
 func changed(_olddata: DMob):
 	Gamedata.mobs.save_mobs_to_disk()
-
 
 # A mob is being deleted from the data
 # We have to remove it from everything that references it
@@ -110,7 +126,6 @@ func delete():
 	var mapsdata = Helper.json_helper.get_nested_data(references, "core.maps")
 	if mapsdata:
 		Gamedata.maps.remove_entity_from_selected_maps("mob", id, mapsdata)
-
 
 # Executes a callable function on each reference of the given type
 func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
