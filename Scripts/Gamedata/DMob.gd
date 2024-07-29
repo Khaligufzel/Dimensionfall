@@ -33,7 +33,7 @@ extends RefCounted
 # 	},
 # 	"sense_range": 50,
 # 	"sight_range": 200,
-# 	"sprite": "scrapwalker64.png"
+# 	"spriteid": "scrapwalker64.png"
 # }
 
 # Properties defined in the JSON
@@ -49,7 +49,8 @@ var melee_range: float
 var move_speed: float
 var sense_range: int
 var sight_range: int
-var sprite: String
+var spriteid: String
+var sprite: Texture
 var references: Dictionary = {}
 
 # Constructor to initialize mob properties from a dictionary
@@ -66,7 +67,7 @@ func _init(data: Dictionary):
 	move_speed = data.get("move_speed", 1.0)
 	sense_range = data.get("sense_range", 50)
 	sight_range = data.get("sight_range", 200)
-	sprite = data.get("sprite", "")
+	spriteid = data.get("sprite", "")
 	references = data.get("references", {})
 
 # Get data function to return a dictionary with all properties
@@ -84,7 +85,7 @@ func get_data() -> Dictionary:
 		"move_speed": move_speed,
 		"sense_range": sense_range,
 		"sight_range": sight_range,
-		"sprite": sprite
+		"sprite": spriteid
 	}
 	if not references.is_empty():
 		data["references"] = references
@@ -102,9 +103,9 @@ func add_reference(module: String, type: String, refid: String):
 	if changes_made:
 		Gamedata.mobs.save_mobs_to_disk()
 
-# Returns the path of the sprite
-func get_sprite_path() -> String:
-	return Gamedata.mobs.spritePath + sprite
+# Returns the path of the spriteid
+func get_spriteid_path() -> String:
+	return Gamedata.mobs.spriteidPath + spriteid
 
 # Handles mob changes and updates references if necessary
 func on_data_changed(_oldmob: DMob):
@@ -122,7 +123,7 @@ func changed(olddata: DMob):
 
 	# Exit if old_group and new_group are the same
 	if old_loot_group == loot_group:
-		print_debug("No change in itemgroup. Exiting function.")
+		print_debug("No change in mob. Exiting function.")
 		return
 	var changes_made = false
 	# This mob will be removed from the old itemgroup's references
@@ -161,7 +162,7 @@ func delete():
 		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
 		Gamedata.save_data_to_file(Gamedata.data.quests)
 	else:
-		print_debug("No changes needed for item", id)
+		print_debug("No changes needed for mob", id)
 
 
 # Executes a callable function on each reference of the given type

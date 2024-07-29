@@ -36,8 +36,8 @@ var dmob: DMob:
 # This function update the form based on the DMob data that has been loaded
 func load_mob_data() -> void:
 	if mobImageDisplay != null:
-		mobImageDisplay.texture = Gamedata.data.mobs.sprites.get(dmob.sprite, null)
-		PathTextLabel.text = dmob.sprite
+		mobImageDisplay.texture = dmob.sprite
+		PathTextLabel.text = dmob.spriteid
 	if IDTextLabel != null:
 		IDTextLabel.text = str(dmob.id)
 	if NameTextEdit != null:
@@ -71,7 +71,7 @@ func _on_close_button_button_up() -> void:
 # This function takes all data from the form elements and stores them in the DMob instance
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
-	dmob.sprite = PathTextLabel.text
+	dmob.spriteid = PathTextLabel.text
 	dmob.name = NameTextEdit.text
 	dmob.description = DescriptionTextEdit.text
 	dmob.melee_damage = int(melee_damage_numedit.value)
