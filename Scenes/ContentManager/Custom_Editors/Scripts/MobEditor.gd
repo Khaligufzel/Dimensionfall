@@ -23,7 +23,7 @@ extends Control
 
 var olddata: DMob # Remember what the value of the data was before editing
 # The data that represents this mob
-# The data is selected from the Gamedata.data.mobs.data array
+# The data is selected from Gamedata.mobs
 # based on the ID that the user has selected in the content editor
 var dmob: DMob:
 	set(value):

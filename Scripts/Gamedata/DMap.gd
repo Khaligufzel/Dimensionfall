@@ -155,6 +155,9 @@ func remove_my_reference_from_all_entities() -> void:
 			elif entity_type == "tiles":
 				var dtile: DTile = Gamedata.tiles.by_id(entity_id)
 				dtile.remove_reference("core","maps",id)
+			elif entity_type == "mobs":
+				var dtile: DMob = Gamedata.mobs.by_id(entity_id)
+				dtile.remove_reference("core","maps",id)
 			else:
 				changes_made = Gamedata.remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id) or changes_made
 
@@ -202,7 +205,7 @@ func data_changed(oldmap: DMap):
 
 	# Save changes to the data files if there were any updates
 	if new_entities["mobs"].size() > 0 or old_entities["mobs"].size() > 0:
-		Gamedata.save_data_to_file(Gamedata.data.mobs)
+		Gamedata.mobs.save_mobs_to_disk()
 	if new_entities["furniture"].size() > 0 or old_entities["furniture"].size() > 0:
 		Gamedata.furnitures.save_furnitures_to_disk()
 	if new_entities["tiles"].size() > 0 or old_entities["tiles"].size() > 0:

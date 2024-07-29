@@ -21,30 +21,27 @@ func _ready():
 	
 # this function will read all files in Gamedata.data.mobs.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
 func loadMobs():
-	var mobList: Array = Gamedata.data.mobs.data
+	var mobList: Dictionary = Gamedata.mobs.get_mobs()
 	var newMobsList: Control = scrolling_Flow_Container.instantiate()
 	newMobsList.header = "Mobs"
 	newMobsList.collapse_button_pressed.connect(_on_collapse_button_pressed)
 	add_child(newMobsList)
 	newMobsList.is_collapsed = load_collapse_state("Mobs")
-	for item in mobList:
-		if item.has("sprite"):
-			var imagefileName: String = item["sprite"]
-			imagefileName = imagefileName.get_file()
-			# Get the texture from gamedata
-			var texture: Resource = Gamedata.data.mobs.sprites[imagefileName]
-			# Create a TextureRect node
-			var brushInstance = tileBrush.instantiate()
-			# Assign the texture to the TextureRect
-			brushInstance.set_tile_texture(texture)
-			# Since the map editor needs to knw what tile ID is used,
-			# We store the tile id in a variable in the brush
-			brushInstance.entityID = item.id
-			brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
-			brushInstance.entityType = "mob"
-			# Add the TextureRect as a child to the TilesList
-			newMobsList.add_content_item(brushInstance)
-			instanced_brushes.append(brushInstance)
+	for dmob: DMob in mobList.values():
+		# Get the texture from dmob
+		var texture: Resource = dmob.sprite
+		# Create a TextureRect node
+		var brushInstance = tileBrush.instantiate()
+		# Assign the texture to the TextureRect
+		brushInstance.set_tile_texture(texture)
+		# Since the map editor needs to knw what tile ID is used,
+		# We store the tile id in a variable in the brush
+		brushInstance.entityID = dmob.id
+		brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
+		brushInstance.entityType = "mob"
+		# Add the TextureRect as a child to the TilesList
+		newMobsList.add_content_item(brushInstance)
+		instanced_brushes.append(brushInstance)
 
 
 func loadFurniture():

@@ -17,13 +17,13 @@ var melee_damage: float = 20.0
 var melee_range: float = 1.5
 var health: float = 100.0
 var current_health: float
-var moveSpeed: float = 1.0
+var move_speed: float = 1.0
 var current_move_speed: float
 var idle_move_speed: float = 0.5
 var current_idle_move_speed: float
-var sightRange: float = 200.0
-var senseRange: float = 50.0
-var hearingRange: float = 1000.0
+var sight_range: float = 200.0
+var sense_range: float = 50.0
+var hearing_range: float = 1000.0
 
 var is_blinking: bool = false # flag to prevent multiple blink actions
 var original_material: StandardMaterial3D # To return to normal after blinking
@@ -31,7 +31,7 @@ var original_material: StandardMaterial3D # To return to normal after blinking
 
 func _ready():
 	current_health = health
-	current_move_speed = moveSpeed
+	current_move_speed = move_speed
 	current_idle_move_speed = idle_move_speed
 	position = mobPosition
 	last_position = mobPosition
@@ -120,15 +120,12 @@ func add_corpse(pos: Vector3):
 	itemdata["global_position_z"] = pos.z
 	
 	# Retrieve mob data from Gamedata
-	var mob_data = Gamedata.get_data_by_id(Gamedata.data.mobs, mobJSON.id)
-	if mob_data.is_empty():
-		print_debug("No mob data found for ID: " + str(mobJSON.id))
-		return
+	var dmob = Gamedata.mobs.by_id(mobJSON.id)
 
 	# Check if the mob data has a 'loot_group' property
-	if "loot_group" in mob_data:
+	if dmob.loot_group and not dmob.loot_group == "":
 		# Set the itemgroup property of the new ContainerItem
-		itemdata["itemgroups"] = [mob_data["loot_group"]]
+		itemdata["itemgroups"] = [dmob.loot_group]
 	else:
 		print_debug("No loot_group found for mob ID: " + str(mobJSON.id))
 	
@@ -155,40 +152,25 @@ func set_sprite(newSprite: Resource):
 	original_material = material.duplicate()
 
 
-# Applies it's own data from the dictionary it received
+	# Applies its own data from the DMob instance it received
 # If it is created as a new mob, it will spawn with the default stats
 # If it is created from a saved game, it might have lower health for example
 func apply_stats_from_json() -> void:
-	var json_data = Gamedata.get_data_by_id(Gamedata.data.mobs, mobJSON.id)
-	set_sprite(Gamedata.get_sprite_by_id(Gamedata.data.mobs,json_data.id))
-	if json_data.has("melee_damage"):
-		melee_damage = float(json_data["melee_damage"])
-	if json_data.has("melee_range"):
-		melee_range = float(json_data["melee_range"])
-	if json_data.has("health"):
-		health = float(json_data["health"])
-		if json_data.has("current_health"):
-			current_health =  float(json_data["current_health"])
-		else: # Reset current health to max health
-			current_health = health
-	if json_data.has("move_speed"):
-		moveSpeed = float(json_data["move_speed"])
-		if json_data.has("current_move_speed"):
-			current_move_speed =  float(json_data["current_move_speed"])
-		else: # Reset current moveSpeed to max moveSpeed
-			current_move_speed = moveSpeed
-	if json_data.has("idle_move_speed"):
-		idle_move_speed = float(json_data["idle_move_speed"])
-		if json_data.has("current_idle_move_speed"):
-			current_idle_move_speed =  float(json_data["current_idle_move_speed"])
-		else: # Reset current idle_move_speed to max idle_move_speed
-			current_idle_move_speed = idle_move_speed
-	if json_data.has("sight_range"):
-		sightRange = float(json_data["sight_range"])
-	if json_data.has("sense_range"):
-		senseRange = float(json_data["sense_range"])
-	if json_data.has("hearing_range"):
-		hearingRange = float(json_data["hearing_range"])
+	var dmob :DMob = Gamedata.mobs.by_id(mobJSON.id)
+	set_sprite(Gamedata.mobs.sprite_by_id(dmob.id))
+	
+	melee_damage = dmob.melee_damage
+	melee_range = dmob.melee_range
+	health = dmob.health
+	current_health = dmob.current_health if dmob.current_health else dmob.health
+	move_speed = dmob.move_speed
+	current_move_speed = dmob.current_move_speed if dmob.current_move_speed else dmob.move_speed
+	idle_move_speed = dmob.idle_move_speed
+	current_idle_move_speed = dmob.current_idle_move_speed if dmob.current_idle_move_speed else dmob.idle_move_speed
+	sight_range = dmob.sight_range
+	sense_range = dmob.sense_range
+	hearing_range = dmob.hearing_range
+
 
 
 # Previously the Mob node was configured in the node editor
@@ -345,12 +327,12 @@ func get_data() -> Dictionary:
 				"melee_range": melee_range,
 				"health": health,
 				"current_health": current_health,
-				"move_speed": moveSpeed,
+				"move_speed": move_speed,
 				"current_move_speed": current_move_speed,
 				"idle_move_speed": idle_move_speed,
 				"current_idle_move_speed": current_idle_move_speed,
-				"sight_range": sightRange,
-				"sense_range": senseRange,
-				"hearing_range": hearingRange
+				"sight_range": sight_range,
+				"sense_range": sense_range,
+				"hearing_range": hearing_range
 			}
 	return newMobData

@@ -328,7 +328,7 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 			"craft", "collect":
 				valid_data = Gamedata.items.has_id(dropped_data["id"])
 			"kill":
-				valid_data = not Gamedata.get_data_by_id(Gamedata.data.mobs, dropped_data["id"]).is_empty()
+				valid_data = Gamedata.mobs.has_id(dropped_data["id"])
 			"enter":
 				valid_data = not Gamedata.maps.by_id(dropped_data["id"]).is_empty()
 		
@@ -348,7 +348,7 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 		"craft", "collect":
 			valid_data = Gamedata.items.has_id(dropped_data["id"])
 		"kill":
-			valid_data = not Gamedata.get_data_by_id(Gamedata.data.mobs, dropped_data["id"]).is_empty()
+			valid_data = Gamedata.mobs.has_id(dropped_data["id"])
 		"enter":
 			valid_data = not Gamedata.maps.by_id(dropped_data["id"]).is_empty()
 	
