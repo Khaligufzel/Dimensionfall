@@ -397,8 +397,7 @@ func get_data() -> Dictionary:
 # type: The type of entity, for example "maps"
 # refid: The id of the entity, for example "grass_field"
 func remove_reference(module: String, type: String, refid: String):
-	var refitem: DItem = Gamedata.items.by_id(refid)
-	var changes_made = Gamedata.dremove_reference(refitem.references, module, type, id)
+	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
 	if changes_made:
 		Gamedata.items.save_items_to_disk()
 
@@ -409,8 +408,7 @@ func remove_reference(module: String, type: String, refid: String):
 # type: The type of entity, for example "maps"
 # refid: The id of the entity, for example "grass_field"
 func add_reference(module: String, type: String, refid: String):
-	var refitem: DItem = Gamedata.items.by_id(refid)
-	var changes_made = Gamedata.dadd_reference(refitem.references, module, type, id)
+	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
 	if changes_made:
 		Gamedata.items.save_items_to_disk()
 

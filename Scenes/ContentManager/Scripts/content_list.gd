@@ -269,6 +269,10 @@ func _create_drag_preview(item_id: String) -> Control:
 		preview.texture = Gamedata.furnitures.sprite_by_id(item_id)
 	if contentData == {"maps": true}:
 		preview.texture = Gamedata.maps.by_id(item_id).sprite
+	if contentData == {"tiles": true}:
+		preview.texture = Gamedata.tiles.by_id(item_id).sprite
+	if contentData == {"items": true}:
+		preview.texture = Gamedata.items.by_id(item_id).sprite
 	else:
 		preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview

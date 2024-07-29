@@ -42,9 +42,11 @@ json_data = "[
 					\"cabinet_general\",
 					\"mob_loot\",
 					\"destroyed_furniture_medium\",
-					\"disassembled_furniture_medium\"
+					\"disassembled_furniture_medium\",
+					\"test_items\"
 				],
 				\"items\": [
+					\"pistol_magazine\",
 					\"screwdriver\"
 				]
 			}
@@ -70,6 +72,9 @@ json_data = "[
 					\"cabinet_general\",
 					\"mob_loot\",
 					\"test_items\"
+				],
+				\"items\": [
+					\"pistol_magazine\"
 				]
 			}
 		},
@@ -78,6 +83,59 @@ json_data = "[
 		\"two_handed\": false,
 		\"volume\": 0.1,
 		\"weight\": 0.01
+	},
+	{
+		\"Craft\": [
+			{
+				\"craft_amount\": 1,
+				\"craft_time\": 10,
+				\"flags\": {
+					\"requires_light\": true
+				},
+				\"required_resources\": [
+					{
+						\"amount\": 1,
+						\"id\": \"steel_scrap\"
+					},
+					{
+						\"amount\": 10,
+						\"id\": \"bullet_9mm\"
+					}
+				],
+				\"skill_progression\": {
+					\"id\": \"fabrication\",
+					\"xp\": 10
+				},
+				\"skill_requirement\": {
+					\"id\": \"fabrication\",
+					\"level\": 1
+				}
+			}
+		],
+		\"Magazine\": {
+			\"current_ammo\": 19,
+			\"max_ammo\": 20,
+			\"used_ammo\": \"bullet_9mm\"
+		},
+		\"description\": \"In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets\",
+		\"id\": \"pistol_magazine\",
+		\"image\": \"./Mods/Core/Items/pistol_magazine.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Pistol magazine\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"cabinet_general\",
+					\"mob_loot\",
+					\"test_items\"
+				]
+			}
+		},
+		\"sprite\": \"pistol_magazine.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 10,
+		\"weight\": 0.25
 	},
 	{
 		\"Ranged\": {
