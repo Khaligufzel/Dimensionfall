@@ -14,9 +14,6 @@ extends Control
 @export var imageNameStringLabel: Label = null
 @export var cubeShapeCheckbox: Button = null
 @export var slopeShapeCheckbox: Button = null
-# This signal will be emitted when the user presses the save button
-# This signal should alert Gamedata that the tile data array should be saved to disk
-signal data_changed(game_data: Dictionary, new_data: Dictionary, old_data: Dictionary)
 
 var olddata: DTile # Remember what the value of the data was before editing
 var control_elements: Array = []
@@ -40,7 +37,6 @@ func _ready():
 		cubeShapeCheckbox,
 		slopeShapeCheckbox
 	]
-	data_changed.connect(Gamedata.on_data_changed)
 
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):
@@ -68,9 +64,9 @@ func load_tile_data():
 	if DescriptionTextEdit != null:
 		DescriptionTextEdit.text = dtile.description
 	if CategoriesList != null:
-		CategoriesList.clear()
+		CategoriesList.clear_list()
 		for category in dtile.categories:
-			CategoriesList.add_item(category)
+			CategoriesList.add_item_to_list(category)
 	if cubeShapeCheckbox != null and dtile.shape:
 		# By default the cubeShapeCheckbox is selected so we only account for slope
 		if dtile.shape == "slope":
@@ -90,11 +86,9 @@ func _on_save_button_button_up():
 	dtile.spriteid = imageNameStringLabel.text
 	dtile.name = NameTextEdit.text
 	dtile.description = DescriptionTextEdit.text
-	dtile.categories = []
-	for i in range(CategoriesList.get_child_count()):
-		dtile.categories.append(CategoriesList.get_child(i).text)
+	dtile.categories = CategoriesList.get_items()
 	dtile.shape = "cube"
-	if slopeShapeCheckbox.pressed:
+	if slopeShapeCheckbox.button_pressed:
 		dtile.shape = "slope"
 	dtile.changed(olddata)
 	olddata = DTile.new(dtile.get_data().duplicate(true))

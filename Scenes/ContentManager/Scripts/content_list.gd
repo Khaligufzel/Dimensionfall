@@ -386,12 +386,12 @@ func load_tiles_list():
 	var tilelist: Dictionary = Gamedata.tiles.get_tiles()
 	for tile: DTile in tilelist.values():
 		# Add all the filenames to the Contenttiles list as child nodes
-		var tile_index: int = contentItems.add_tile(tile.id)
+		var tile_index: int = contentItems.add_item(tile.id)
 		# Add the ID as metadata which can be used to load the tile data
 		contentItems.set_item_metadata(tile_index, tile.id)
 		var mySprite: Texture = tile.sprite
 		if mySprite:
-			contentItems.set_tile_icon(tile_index, mySprite)
+			contentItems.set_item_icon(tile_index, mySprite)
 
 
 func add_map_popup_ok():

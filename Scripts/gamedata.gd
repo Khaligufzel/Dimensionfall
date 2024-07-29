@@ -26,8 +26,6 @@ const DATA_CATEGORIES = {
 # We write down the associated paths for the files to load
 # Next, sprites are loaded from spritesPath into the .sprites property
 # Finally, the data is loaded from dataPath into the .data property
-# Maps tile sprites and map data are different so they 
-# are loaded in using their respective functions
 func _ready():
 	initialize_data_structures()
 	load_sprites()
@@ -354,8 +352,6 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		on_tacticalmap_deleted(id)
 	if contentData == data.mobs:
 		on_mob_deleted(id)
-	if contentData == data.tiles:
-		on_tile_deleted(id)
 	if contentData == data.skills:
 		on_skill_deleted(id)
 	if contentData == data.wearableslots:
@@ -493,20 +489,6 @@ func on_mob_deleted(mob_id: String):
 		save_data_to_file(data.quests)
 	else:
 		print_debug("No changes needed for item", mob_id)
-
-# Some tile is being deleted from the data
-# We have to remove it from everything that references it
-func on_tile_deleted(tile_id: String):
-	var tile_data = get_data_by_id(data.tiles, tile_id)
-	if tile_data.is_empty():
-		print_debug("Item with ID", tile_data, "not found.")
-		return
-
-	# Check if the tile has references to maps and remove it from those maps
-	var modules = tile_data.get("references", [])
-	for mod in modules:
-		var mapsdata = Helper.json_helper.get_nested_data(tile_data, "references." + mod + ".maps")
-		maps.remove_entity_from_selected_maps("tile", tile_id, mapsdata)
 
 
 # A tacticalmap is being deleted. Remove all references to this tacticalmap

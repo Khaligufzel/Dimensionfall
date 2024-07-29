@@ -166,7 +166,7 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 							# We only save the data we need, exluding mob and furniture data
 							new_block_positions[block_position_key] = {
 								"id": tileJSON.id,
-								"shape": dtile.shape,
+								"shape": dtile.shape if dtile.shape else "cube",
 								"rotation": tileJSON.get("rotation", 0)
 							}
 	return new_block_positions
@@ -607,7 +607,7 @@ func create_atlas() -> Dictionary:
 		if not material_to_blocks.has(material_id):
 			var sprite = Gamedata.tiles.sprite_by_id(material_id)
 			if sprite:
-				material_to_blocks[material_id] = sprite.albedo_texture
+				material_to_blocks[material_id] = sprite
 
 	# Calculate the atlas size needed
 	var num_textures: int = material_to_blocks.keys().size()
@@ -701,7 +701,7 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 			(Vector2(0, 1) * uv_scale + Vector2(margin, -margin)) + uv_offset
 		])
 		
-		var blockshape = block_data["shape"]
+		var blockshape = block_data.get("shape", "cube")
 		if is_new_chunk(): # This chunk is created for the first time, so we need to save 
 			# the rotation to the block json dictionary
 			var blockrotation: int = 0
