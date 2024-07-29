@@ -114,18 +114,55 @@ func on_data_changed(_oldmob: DMob):
 		print_debug("mob reference updates saved successfully.")
 		Gamedata.save_data_to_file(Gamedata.data.mobgroups)
 
+
 # Some mob has been changed
-# INFO if the mobs reference other entities, update them here
-func changed(_olddata: DMob):
-	Gamedata.mobs.save_mobs_to_disk()
+# INFO if the mob reference other entities, update them here
+func changed(olddata: DMob):
+	var old_loot_group: String = olddata.loot_group
+
+	# Exit if old_group and new_group are the same
+	if old_loot_group == loot_group:
+		print_debug("No change in itemgroup. Exiting function.")
+		return
+	var changes_made = false
+	# This mob will be removed from the old itemgroup's references
+	# The 'or' makes sure changes_made does not change back to false
+	changes_made = Gamedata.remove_reference(Gamedata.data.itemgroups, "core", "mobs", old_loot_group, id) or changes_made
+	# This mob will be added to the new itemgroup's references
+	# The 'or' makes sure changes_made does not change back to false
+	changes_made = Gamedata.add_reference(Gamedata.data.itemgroups, "core", "mobs", loot_group, id) or changes_made
+	# Save changes if any modifications were made
+	if changes_made:
+			Gamedata.save_data_to_file(Gamedata.data.itemgroups)
+
 
 # A mob is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
+	var changes_made = { "value": false }
+	changes_made["value"] = Gamedata.remove_reference(Gamedata.data.itemgroups, "core", "mobs", loot_group, id) or changes_made["value"]
+	
 	# Check if the mob has references to maps and remove it from those maps
-	var mapsdata = Helper.json_helper.get_nested_data(references, "core.maps")
+	var mapsdata = Helper.json_helper.get_nested_data(references,"core.maps")
 	if mapsdata:
 		Gamedata.maps.remove_entity_from_selected_maps("mob", id, mapsdata)
+	
+	# This callable will handle the removal of this mob from all steps in quests
+	var remove_from_quest: Callable = func(quest_id: String):
+		var quest_data = Gamedata.get_data_by_id(Gamedata.data.quests, quest_id)
+		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, "steps.mob", id) or changes_made["value"]
+		
+	# Pass the callable to every quest in the mob's references
+	# It will call remove_from_quest on every mob in mob_data.references.core.quests
+	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
+
+	# Save changes to the data file if any changes were made
+	if changes_made["value"]:
+		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
+		Gamedata.save_data_to_file(Gamedata.data.quests)
+	else:
+		print_debug("No changes needed for item", id)
+
 
 # Executes a callable function on each reference of the given type
 func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
