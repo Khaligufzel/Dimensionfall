@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=22 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://b50xhj4218wjd" path="res://Scenes/UI/QuestWindow.tscn" id="19_orjb2"]
 [ext_resource type="PackedScene" uid="uid://e0ebcv1n8jnq" path="res://Scenes/InventoryWindow.tscn" id="20_0l505"]
 [ext_resource type="PackedScene" uid="uid://ckuh2s0nvwg0x" path="res://Scenes/GameOver.tscn" id="20_jlthm"]
+[ext_resource type="PackedScene" uid="uid://dowehl4nfwxm" path="res://Scenes/LoadingScreen.tscn" id="20_kxcpa"]
 
 [sub_resource type="Theme" id="Theme_xn5t2"]
 default_font = ExtResource("1_pxloi")
@@ -250,11 +251,14 @@ anchor_top = 0.2
 anchor_right = 0.8
 anchor_bottom = 0.8
 
-[node name="EscapeMenu" parent="." instance=ExtResource("17_ewtgs")]
+[node name="EscapeMenu" parent="." node_paths=PackedStringArray("loadingscreen") instance=ExtResource("17_ewtgs")]
 visible = false
+loadingscreen = NodePath("../LoadingScreen")
 
 [node name="GameOver" parent="." instance=ExtResource("20_jlthm")]
 visible = false
+
+[node name="LoadingScreen" parent="." instance=ExtResource("20_kxcpa")]
 
 [connection signal="timeout" from="ProgressBar/ProgressBarTimer" to="." method="_on_progress_bar_timer_timeout"]
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]

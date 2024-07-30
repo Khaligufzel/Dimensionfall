@@ -61,6 +61,7 @@ signal playerInventory_item_modified(item: InventoryItem, inventory: InventorySt
 signal player_stat_changed(player: CharacterBody3D)
 signal player_skill_changed(player: CharacterBody3D)
 
+# Save load start end events
 signal game_started() # When the user presses 'play demo' on the main menu
 signal game_loaded() # When the user presses 'load game' on the main menu
 signal game_ended() # When the user presses 'main menu' button on the escape menu

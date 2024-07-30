@@ -6,6 +6,7 @@ extends Control
 @export var resume_button: Button
 @export var return_button: Button
 @export var save_button: Button
+@export var loadingscreen: Control
 
 
 # Called when the node enters the scene tree for the first time.
@@ -60,4 +61,5 @@ func _resume_game():
 func _return_to_main_menu():
 	if is_inside_tree():
 		get_tree().paused = false
+		loadingscreen.on_exit_game()
 		Helper.save_and_exit_game()

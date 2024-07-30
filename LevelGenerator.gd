@@ -221,25 +221,19 @@ func update_queues(potential_loads, potential_unloads):
 
 # This function will either load or unload a chunk if there are any to load or unload
 func process_next_chunk():
-	print_debug("process_next_chunk called")
 	if is_processing_chunk:
-		print_debug("is_processing_chunk is true, returning")
 		return  # Wait until the current chunk operation is finished
 
 	if load_queue.size() > 0:
 		var chunk_pos = load_queue.pop_front()
-		print_debug("Loading chunk at position: ", chunk_pos)
 		is_processing_chunk = true
 		load_chunk(chunk_pos)
 	elif unload_queue.size() > 0:
 		var chunk_pos = unload_queue.pop_front()
-		print_debug("Unloading chunk at position: ", chunk_pos)
 		is_processing_chunk = true
 		save_and_unload_chunk(chunk_pos)
 	else:
-		print_debug("No chunks left to process")
 		is_processing_chunk = false  # No chunks left to process
-
 
 
 # Returns the chunk instance at the given position
