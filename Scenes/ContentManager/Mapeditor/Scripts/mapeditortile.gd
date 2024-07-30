@@ -332,3 +332,12 @@ func is_area_in_tile(area_id: String) -> bool:
 			if area.id == area_id:
 				return true
 	return false
+
+
+# Gets the tileData with specific checks and returns it
+func get_tileData() -> Dictionary:
+	if tileData.has("id") and tileData.id == "":
+		tileData.erase("id")
+	if tileData.has("rotation") and tileData.rotation == 0:
+		tileData.erase("rotation")
+	return tileData

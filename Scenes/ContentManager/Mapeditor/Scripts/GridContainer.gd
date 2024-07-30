@@ -284,7 +284,7 @@ func storeLevelData() -> void:
 	# Second pass: Add all tiles to currentLevelData if any significant data is found
 	if has_significant_data:
 		for child in get_children():
-			currentLevelData.append(child.tileData)
+			currentLevelData.append(child.get_tileData())
 	else:
 		# If no tile has significant data, consider adding a special marker or log
 		print_debug("No significant tile data found for the current level")
