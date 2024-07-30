@@ -36,7 +36,8 @@
 					"cabinet_general",
 					"mob_loot",
 					"destroyed_furniture_medium",
-					"disassembled_furniture_medium"
+					"disassembled_furniture_medium",
+					"test_items"
 				],
 				"items": [
 					"pistol_magazine",

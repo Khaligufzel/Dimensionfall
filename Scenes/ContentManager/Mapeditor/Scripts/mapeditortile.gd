@@ -12,7 +12,7 @@ var tileData: Dictionary = defaultTileData.duplicate():
 			return
 		tileData = data
 		if tileData.has("id") and not tileData.id == "":
-			$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, tileData.id).albedo_texture
+			$TileSprite.texture = Gamedata.tiles.sprite_by_id(tileData.id)
 			set_rotation_amount(tileData.get("rotation", 0))
 			$ObjectSprite.hide()
 			$ObjectSprite.rotation_degrees = 0
@@ -79,7 +79,7 @@ func set_tile_id(id: String) -> void:
 		$TileSprite.texture = load(defaultTexture)
 	else:
 		tileData.id = id
-		$TileSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.tiles, id).albedo_texture
+		$TileSprite.texture = Gamedata.tiles.sprite_by_id(id)
 	set_tooltip()
 
 

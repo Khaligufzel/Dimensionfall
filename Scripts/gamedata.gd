@@ -8,10 +8,10 @@ var itemgroup_references: Node = null
 var maps: DMaps
 var furnitures: DFurnitures
 var items: DItems
+var tiles: DTiles
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
-	"tiles": {"dataPath": "./Mods/Core/Tiles/Tiles.json", "spritePath": "./Mods/Core/Tiles/"},
 	"mobs": {"dataPath": "./Mods/Core/Mobs/Mobs.json", "spritePath": "./Mods/Core/Mobs/"},
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
@@ -26,18 +26,16 @@ const DATA_CATEGORIES = {
 # We write down the associated paths for the files to load
 # Next, sprites are loaded from spritesPath into the .sprites property
 # Finally, the data is loaded from dataPath into the .data property
-# Maps tile sprites and map data are different so they 
-# are loaded in using their respective functions
 func _ready():
 	initialize_data_structures()
 	load_sprites()
-	load_tile_sprites()
 	load_data()
 	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(data.tacticalmaps.dataPath, ["json"])
 	itemgroup_references = itemgroup_references_Class.new()
 	maps = DMaps.new()
 	furnitures = DFurnitures.new()
 	items = DItems.new()
+	tiles = DTiles.new()
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES
 func initialize_data_structures():
@@ -74,20 +72,6 @@ func load_sprites() -> void:
 				# Add the material to the dictionary
 				loaded_sprites[png_file] = texture
 			data[dict].sprites = loaded_sprites
-
-
-# This function reads all the files in "res://Mods/Core/Tiles/". It will check if the file is a .png file. If the file is a .png file, it will create a new material with that .png image as the texture. It will put all of the created materials in a dictionary with the name of the file as the key and the material as the value.
-func load_tile_sprites() -> void:
-	var tile_materials: Dictionary = {} # Materials used to represent tiles
-	var tilesDir = data.tiles.spritePath
-	var png_files: Array = Helper.json_helper.file_names_in_dir(tilesDir, ["png"])
-	for png_file in png_files:
-		var texture := load(tilesDir + png_file) # Load the .png file as a texture
-		var material := StandardMaterial3D.new() 
-		material.albedo_texture = texture # Set the texture of the material
-		material.uv1_scale = Vector3(3,2,1)
-		tile_materials[png_file] = material # Add the material to the dictionary
-	data.tiles.sprites = tile_materials
 
 
 # Adds a sprite to a specific dictionary and emits a signal if successful
@@ -225,7 +209,7 @@ func save_data_to_file(contentData: Dictionary):
 
 
 # Takes contentdata and an id and returns the json that belongs to an id
-# For example, contentData can be Gamedata.data.tiles
+# For example, contentData can be Gamedata.data.mobs
 # and id can be "plain_grass" and it will return the json data for plain_grass
 func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 	var idnr: int = get_array_index_by_id(contentData, id)
@@ -235,7 +219,7 @@ func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 
 
 # Takes contentData and an id and returns the sprite associated with the id
-# For example, contentData can be Gamedata.data.tiles
+# For example, contentData can be Gamedata.data.mobs
 # and id can be "plain_grass" and it will return the sprite for plain_grass
 func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 	if contentData.sprites.is_empty() or contentData.data.is_empty():
@@ -368,8 +352,6 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		on_tacticalmap_deleted(id)
 	if contentData == data.mobs:
 		on_mob_deleted(id)
-	if contentData == data.tiles:
-		on_tile_deleted(id)
 	if contentData == data.skills:
 		on_skill_deleted(id)
 	if contentData == data.wearableslots:
@@ -507,20 +489,6 @@ func on_mob_deleted(mob_id: String):
 		save_data_to_file(data.quests)
 	else:
 		print_debug("No changes needed for item", mob_id)
-
-# Some tile is being deleted from the data
-# We have to remove it from everything that references it
-func on_tile_deleted(tile_id: String):
-	var tile_data = get_data_by_id(data.tiles, tile_id)
-	if tile_data.is_empty():
-		print_debug("Item with ID", tile_data, "not found.")
-		return
-
-	# Check if the tile has references to maps and remove it from those maps
-	var modules = tile_data.get("references", [])
-	for mod in modules:
-		var mapsdata = Helper.json_helper.get_nested_data(tile_data, "references." + mod + ".maps")
-		maps.remove_entity_from_selected_maps("tile", tile_id, mapsdata)
 
 
 # A tacticalmap is being deleted. Remove all references to this tacticalmap

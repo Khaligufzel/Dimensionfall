@@ -55,6 +55,11 @@ func load_data():
 		load_items_list()
 		load_collapse_state()
 		return
+	# HACK Hacky exception for furniture, need to find a better solution
+	if contentData == {"tiles": true}:
+		load_tiles_list()
+		load_collapse_state()
+		return
 	if not contentData.has("data"):
 		return
 	if contentData.data.is_empty():
@@ -191,9 +196,13 @@ func _on_delete_button_button_up():
 	if contentData == {"furnitures": true}:
 		delete_furniture(selected_id)
 		return
-	# HACK Exception for furnitures, need to find a better solution
+	# HACK Exception for items, need to find a better solution
 	if contentData == {"items": true}:
 		delete_item(selected_id)
+		return
+	# HACK Exception for tiles, need to find a better solution
+	if contentData == {"tiles": true}:
+		delete_tile(selected_id)
 		return
 	contentItems.remove_item(contentItems.get_selected_items()[0])
 	Gamedata.remove_item_from_data(contentData, selected_id)
@@ -260,6 +269,10 @@ func _create_drag_preview(item_id: String) -> Control:
 		preview.texture = Gamedata.furnitures.sprite_by_id(item_id)
 	if contentData == {"maps": true}:
 		preview.texture = Gamedata.maps.by_id(item_id).sprite
+	if contentData == {"tiles": true}:
+		preview.texture = Gamedata.tiles.by_id(item_id).sprite
+	if contentData == {"items": true}:
+		preview.texture = Gamedata.items.by_id(item_id).sprite
 	else:
 		preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
@@ -360,7 +373,7 @@ func load_furnitures_list():
 		if mySprite:
 			contentItems.set_item_icon(item_index, mySprite)
 
-# Load the furniture list
+# Load the items list
 func load_items_list():
 	var itemlist: Dictionary = Gamedata.items.get_items()
 	for item: DItem in itemlist.values():
@@ -371,6 +384,18 @@ func load_items_list():
 		var mySprite: Texture = item.sprite
 		if mySprite:
 			contentItems.set_item_icon(item_index, mySprite)
+
+# Load the tiles list
+func load_tiles_list():
+	var tilelist: Dictionary = Gamedata.tiles.get_tiles()
+	for tile: DTile in tilelist.values():
+		# Add all the filenames to the Contenttiles list as child nodes
+		var tile_index: int = contentItems.add_item(tile.id)
+		# Add the ID as metadata which can be used to load the tile data
+		contentItems.set_item_metadata(tile_index, tile.id)
+		var mySprite: Texture = tile.sprite
+		if mySprite:
+			contentItems.set_item_icon(tile_index, mySprite)
 
 
 func add_map_popup_ok():
@@ -413,4 +438,8 @@ func delete_furniture(selected_id) -> void:
 
 func delete_item(selected_id) -> void:
 	Gamedata.items.delete_item(selected_id)
+	load_data()
+
+func delete_tile(selected_id) -> void:
+	Gamedata.tiles.delete_tile(selected_id)
 	load_data()

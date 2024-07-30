@@ -162,11 +162,11 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 						if tileJSON.has("id") and tileJSON.id != "":
 							var block_position_key = str(w) + "," + str(level_index-10) + "," + str(h)
 							# Get the shape of the block and the transparency
-							var tileJSONData = Gamedata.get_data_by_id(Gamedata.data.tiles,tileJSON.id)
+							var dtile: DTile = Gamedata.tiles.by_id(tileJSON.id)
 							# We only save the data we need, exluding mob and furniture data
 							new_block_positions[block_position_key] = {
 								"id": tileJSON.id,
-								"shape": tileJSONData.get("shape", "cube"),
+								"shape": dtile.shape if dtile.shape else "cube",
 								"rotation": tileJSON.get("rotation", 0)
 							}
 	return new_block_positions
@@ -605,9 +605,9 @@ func create_atlas() -> Dictionary:
 		var block_data: Dictionary = block_positions[key]
 		var material_id: String = str(block_data["id"]) # Key for material ID
 		if not material_to_blocks.has(material_id):
-			var sprite = Gamedata.get_sprite_by_id(Gamedata.data.tiles, material_id)
+			var sprite = Gamedata.tiles.sprite_by_id(material_id)
 			if sprite:
-				material_to_blocks[material_id] = sprite.albedo_texture
+				material_to_blocks[material_id] = sprite
 
 	# Calculate the atlas size needed
 	var num_textures: int = material_to_blocks.keys().size()
@@ -701,7 +701,7 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 			(Vector2(0, 1) * uv_scale + Vector2(margin, -margin)) + uv_offset
 		])
 		
-		var blockshape = block_data["shape"]
+		var blockshape = block_data.get("shape", "cube")
 		if is_new_chunk(): # This chunk is created for the first time, so we need to save 
 			# the rotation to the block json dictionary
 			var blockrotation: int = 0
@@ -1235,7 +1235,6 @@ func update_all_navigation_data():
 		var block_position = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
 		var block_rotation = block_data.rotation
 		var block_shape = block_data.get("shape", "cube")
-		#var block_shape = Gamedata.get_data_by_id(Gamedata.data.tiles, block_data.id).shape
 		
 		add_mesh_to_navigation_data(block_position, block_rotation, block_shape)
 	update_navigation_mesh()

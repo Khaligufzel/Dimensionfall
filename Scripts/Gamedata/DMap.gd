@@ -149,12 +149,19 @@ func remove_my_reference_from_all_entities() -> void:
 	# Remove references for unique entities
 	for entity_type in unique_entities.keys():
 		for entity_id in unique_entities[entity_type]:
-			changes_made = Gamedata.remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id) or changes_made
+			if entity_type == "furniture":
+				var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
+				furniture.remove_reference("core","maps",id)
+			elif entity_type == "tiles":
+				var dtile: DTile = Gamedata.tiles.by_id(entity_id)
+				dtile.remove_reference("core","maps",id)
+			else:
+				changes_made = Gamedata.remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id) or changes_made
 
 	if changes_made:
 		# References have been added to tiles, furniture and/or mobs
 		# We could track changes individually so we only save what has actually changed.
-		Gamedata.save_data_to_file(Gamedata.data.tiles)
+		Gamedata.tiles.save_tiles_to_disk()
 		Gamedata.furnitures.save_furnitures_to_disk()
 		Gamedata.save_data_to_file(Gamedata.data.mobs)
 		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
@@ -173,6 +180,10 @@ func data_changed(oldmap: DMap):
 			for entity_id in new_entities[entity_type]:
 				var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
 				furniture.add_reference("core","maps",id)
+		elif entity_type == "tiles":
+			for entity_id in new_entities[entity_type]:
+				var dtile: DTile = Gamedata.tiles.by_id(entity_id)
+				dtile.add_reference("core","maps",id)
 		else:
 			for entity_id in new_entities[entity_type]:
 				Gamedata.add_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
@@ -195,7 +206,7 @@ func data_changed(oldmap: DMap):
 	if new_entities["furniture"].size() > 0 or old_entities["furniture"].size() > 0:
 		Gamedata.furnitures.save_furnitures_to_disk()
 	if new_entities["tiles"].size() > 0 or old_entities["tiles"].size() > 0:
-		Gamedata.save_data_to_file(Gamedata.data.tiles)
+		Gamedata.tiles.save_tiles_to_disk()
 	if new_entities["itemgroups"].size() > 0 or old_entities["itemgroups"].size() > 0:
 		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
 
@@ -251,7 +262,8 @@ func add_entities_in_area_to_set(myarea: Dictionary, entity_set: Dictionary):
 
 	if myarea.has("tiles"):
 		for tile in myarea["tiles"]:
-			if not entity_set["tiles"].has(tile["id"]):
+			# The "null" tile in areas is used to control propoprtions and is not really an entity
+			if not entity_set["tiles"].has(tile["id"]) and not tile["id"] == "null":
 				entity_set["tiles"].append(tile["id"])
 
 
