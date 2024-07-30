@@ -16,9 +16,9 @@ var melee_range
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	sightRange = mob.sightRange
-	senseRange = mob.senseRange
-	hearingRange = mob.hearingRange
+	sightRange = mob.sight_range
+	senseRange = mob.sense_range
+	hearingRange = mob.hearing_range
 	# Connect the detection signal to the state nodes in the statemachine
 	for node in state_nodes:
 		player_spotted.connect(node._on_detection_player_spotted)

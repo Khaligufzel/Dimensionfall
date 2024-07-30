@@ -162,11 +162,11 @@ func apply_stats_from_json() -> void:
 	melee_damage = dmob.melee_damage
 	melee_range = dmob.melee_range
 	health = dmob.health
-	current_health = dmob.current_health if dmob.current_health else dmob.health
+	current_health = dmob.health
 	move_speed = dmob.move_speed
-	current_move_speed = dmob.current_move_speed if dmob.current_move_speed else dmob.move_speed
+	current_move_speed = dmob.move_speed
 	idle_move_speed = dmob.idle_move_speed
-	current_idle_move_speed = dmob.current_idle_move_speed if dmob.current_idle_move_speed else dmob.idle_move_speed
+	current_idle_move_speed = dmob.idle_move_speed
 	sight_range = dmob.sight_range
 	sense_range = dmob.sense_range
 	hearing_range = dmob.hearing_range
