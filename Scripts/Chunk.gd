@@ -196,9 +196,8 @@ func add_block_mobs():
 	var mobdatalist = processed_level_data.mobs.duplicate()
 	mutex.unlock()
 	for mobdata: Dictionary in mobdatalist:
-		var newMob: CharacterBody3D = Mob.new()
 		# Pass the position and the mob json to the newmob and have it construct itself
-		newMob.construct_self(mypos+mobdata.pos, mobdata.json)
+		var newMob: CharacterBody3D = Mob.new(mypos+mobdata.pos, mobdata.json)
 		level_manager.add_child.call_deferred(newMob)
 
 
@@ -292,10 +291,9 @@ func add_mobs_to_map() -> void:
 	var mobdata: Array = chunk_data.mobs.duplicate()
 	mutex.unlock()
 	for mob: Dictionary in mobdata:
-		var newMob: CharacterBody3D = Mob.new()
 		# Put the mob back where it was when the map was unloaded
 		var mobpos: Vector3 = Vector3(mob.global_position_x,mob.global_position_y,mob.global_position_z)
-		newMob.construct_self(mobpos, mob)
+		var newMob: CharacterBody3D = Mob.new(mobpos, mob)
 		level_manager.add_child.call_deferred(newMob)
 
 

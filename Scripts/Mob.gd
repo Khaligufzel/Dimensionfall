@@ -29,6 +29,117 @@ var is_blinking: bool = false # flag to prevent multiple blink actions
 var original_material: StandardMaterial3D # To return to normal after blinking
 
 
+# Previously the Mob node was configured in the node editor
+# This function tries to re-create that node structure and properties
+func _init(mobpos: Vector3, newMobJSON: Dictionary):
+	mobJSON = newMobJSON
+	mobPosition = mobpos
+	# Set the properties of the mob node itself
+	wall_min_slide_angle = 0
+	floor_constant_speed = true
+	
+	# Set to layer 2 (enemy layer)
+	collision_layer = 1 << 1  # Layer 2 is 1 << 1 (bit shift by 1)
+
+	# Set mask for layers 1 (player layer), 2 (enemy layer), 3 (static obstacles layer), and 5 (friendly projectiles layer)
+	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 4)
+	# Explanation:
+	# - 1 << 0: Layer 1 (player layer)
+	# - 1 << 1: Layer 2 (enemy layer)
+	# - 1 << 2: Layer 3 (static obstacles layer)
+	# - 1 << 4: Layer 5 (friendly projectiles layer)
+	
+	add_to_group("mobs")
+	if newMobJSON.has("rotation"):
+		mobRotation = newMobJSON.rotation
+
+	# Create and configure NavigationAgent3D
+	nav_agent = NavigationAgent3D.new()
+	nav_agent.path_desired_distance = 0.5
+	nav_agent.target_desired_distance = 0.5
+	nav_agent.path_max_distance = 0.5
+	nav_agent.avoidance_enabled = true
+	nav_agent.debug_enabled = true
+	add_child.call_deferred(nav_agent)
+	
+	# Create and configure StateMachine
+	var state_machine = StateMachine.new()
+	add_child.call_deferred(state_machine)
+	
+	# Create and configure MobAttack
+	var mob_attack = MobAttack.new()
+	mob_attack.name = "MobAttack"
+	state_machine.add_child.call_deferred(mob_attack)
+	
+	# Create and configure AttackCooldown Timer
+	var attack_cooldown = Timer.new()
+	mob_attack.attack_timer = attack_cooldown
+	mob_attack.mob = self
+	mob_attack.add_child.call_deferred(attack_cooldown)
+	
+	# Create and configure MobIdle
+	var mob_idle = MobIdle.new()
+	mob_idle.name = "MobIdle"
+	mob_idle.nav_agent = nav_agent
+	mob_idle.mob = self
+	state_machine.initial_state = mob_idle
+	state_machine.add_child.call_deferred(mob_idle)
+	
+	# Create and configure MovingCooldown Timer
+	var moving_cooldown = Timer.new()
+	moving_cooldown.wait_time = 4
+	mob_idle.moving_timer = moving_cooldown
+	mob_idle.add_child.call_deferred(moving_cooldown)
+	
+	# Create and configure MobFollow
+	var mob_follow = MobFollow.new()
+	mob_follow.name = "MobFollow"
+	mob_follow.nav_agent = nav_agent
+	mob_follow.mob = self
+	state_machine.add_child.call_deferred(mob_follow)
+	
+	# Create and configure Follow Timer
+	var follow_timer = Timer.new()
+	follow_timer.wait_time = 0.2
+	follow_timer.autostart = true
+	mob_follow.pathfinding_timer = follow_timer
+	mob_follow.add_child.call_deferred(follow_timer)
+	
+	# Create and configure Detection
+	var detection = Detection.new()
+	detection.state_nodes = [mob_attack,mob_idle,mob_follow]
+	detection.mob = self
+	add_child.call_deferred(detection)
+	
+	# Create and configure CollisionShape3D
+	# Update the collision shape
+	var new_shape = BoxShape3D.new()
+	new_shape.size = Vector3(0.35,0.35,0.35)
+	var collision_shape_3d = CollisionShape3D.new()
+	collision_shape_3d.shape = new_shape
+	mob_follow.mobCol = collision_shape_3d
+	add_child.call_deferred(collision_shape_3d)
+
+	# Create and configure MeshInstance3D
+	meshInstance = MeshInstance3D.new()
+	# Set the layers to layer 5
+	meshInstance.layers = 1 << 4 # Layer numbers start at 0, so layer 5 is 1 shifted 4 times to the left
+	#meshInstance.skeleton = self
+	meshInstance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	meshInstance.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
+
+	# Give the mesh instance a quadmesh
+	var quadmesh: QuadMesh = QuadMesh.new()
+	quadmesh.size = Vector2(0.5,0.5)
+	quadmesh.orientation = PlaneMesh.FACE_Y
+	quadmesh.lightmap_size_hint = Vector2(7,7)
+	meshInstance.mesh = quadmesh
+	add_child.call_deferred(meshInstance)
+	
+	apply_stats_from_json()
+
+
+
 func _ready():
 	current_health = health
 	current_move_speed = move_speed
@@ -172,115 +283,6 @@ func apply_stats_from_json() -> void:
 	hearing_range = dmob.hearing_range
 
 
-
-# Previously the Mob node was configured in the node editor
-# This function tries to re-create that node structure and properties
-func construct_self(mobpos: Vector3, newMobJSON: Dictionary):
-	mobJSON = newMobJSON
-	mobPosition = mobpos
-	# Set the properties of the mob node itself
-	wall_min_slide_angle = 0
-	floor_constant_speed = true
-	
-	# Set to layer 2 (enemy layer)
-	collision_layer = 1 << 1  # Layer 2 is 1 << 1 (bit shift by 1)
-
-	# Set mask for layers 1 (player layer), 2 (enemy layer), 3 (static obstacles layer), and 5 (friendly projectiles layer)
-	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 4)
-	# Explanation:
-	# - 1 << 0: Layer 1 (player layer)
-	# - 1 << 1: Layer 2 (enemy layer)
-	# - 1 << 2: Layer 3 (static obstacles layer)
-	# - 1 << 4: Layer 5 (friendly projectiles layer)
-	
-	add_to_group("mobs")
-	if newMobJSON.has("rotation"):
-		mobRotation = newMobJSON.rotation
-
-	# Create and configure NavigationAgent3D
-	nav_agent = NavigationAgent3D.new()
-	nav_agent.path_desired_distance = 0.5
-	nav_agent.target_desired_distance = 0.5
-	nav_agent.path_max_distance = 0.5
-	nav_agent.avoidance_enabled = true
-	nav_agent.debug_enabled = true
-	add_child.call_deferred(nav_agent)
-	
-	# Create and configure StateMachine
-	var state_machine = StateMachine.new()
-	add_child.call_deferred(state_machine)
-	
-	# Create and configure MobAttack
-	var mob_attack = MobAttack.new()
-	mob_attack.name = "MobAttack"
-	state_machine.add_child.call_deferred(mob_attack)
-	
-	# Create and configure AttackCooldown Timer
-	var attack_cooldown = Timer.new()
-	mob_attack.attack_timer = attack_cooldown
-	mob_attack.mob = self
-	mob_attack.add_child.call_deferred(attack_cooldown)
-	
-	# Create and configure MobIdle
-	var mob_idle = MobIdle.new()
-	mob_idle.name = "MobIdle"
-	mob_idle.nav_agent = nav_agent
-	mob_idle.mob = self
-	state_machine.initial_state = mob_idle
-	state_machine.add_child.call_deferred(mob_idle)
-	
-	# Create and configure MovingCooldown Timer
-	var moving_cooldown = Timer.new()
-	moving_cooldown.wait_time = 4
-	mob_idle.moving_timer = moving_cooldown
-	mob_idle.add_child.call_deferred(moving_cooldown)
-	
-	# Create and configure MobFollow
-	var mob_follow = MobFollow.new()
-	mob_follow.name = "MobFollow"
-	mob_follow.nav_agent = nav_agent
-	mob_follow.mob = self
-	state_machine.add_child.call_deferred(mob_follow)
-	
-	# Create and configure Follow Timer
-	var follow_timer = Timer.new()
-	follow_timer.wait_time = 0.2
-	follow_timer.autostart = true
-	mob_follow.pathfinding_timer = follow_timer
-	mob_follow.add_child.call_deferred(follow_timer)
-	
-	# Create and configure Detection
-	var detection = Detection.new()
-	detection.state_nodes = [mob_attack,mob_idle,mob_follow]
-	detection.mob = self
-	add_child.call_deferred(detection)
-	
-	# Create and configure CollisionShape3D
-	# Update the collision shape
-	var new_shape = BoxShape3D.new()
-	new_shape.size = Vector3(0.35,0.35,0.35)
-	var collision_shape_3d = CollisionShape3D.new()
-	collision_shape_3d.shape = new_shape
-	mob_follow.mobCol = collision_shape_3d
-	add_child.call_deferred(collision_shape_3d)
-
-	# Create and configure MeshInstance3D
-	meshInstance = MeshInstance3D.new()
-	# Set the layers to layer 5
-	meshInstance.layers = 1 << 4 # Layer numbers start at 0, so layer 5 is 1 shifted 4 times to the left
-	#meshInstance.skeleton = self
-	meshInstance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	meshInstance.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
-
-	# Give the mesh instance a quadmesh
-	var quadmesh: QuadMesh = QuadMesh.new()
-	quadmesh.size = Vector2(0.5,0.5)
-	quadmesh.orientation = PlaneMesh.FACE_Y
-	quadmesh.lightmap_size_hint = Vector2(7,7)
-	meshInstance.mesh = quadmesh
-	add_child.call_deferred(meshInstance)
-	
-	apply_stats_from_json()
 
 
 # Returns which chunk the mob is in right now. for example 0,0 or 0,32 or 96,32
