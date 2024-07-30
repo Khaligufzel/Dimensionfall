@@ -347,7 +347,6 @@ func free_chunk_resources():
 	free_item_instances(get_tree().get_nodes_in_group("mapitems"))
 	chunk_mesh_body.queue_free()
 	navigation_region.queue_free()
-	NavigationServer3D.free_rid(navigation_map_id)
 
 
 # Function to free the furniture instances
