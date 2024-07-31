@@ -7,7 +7,7 @@ extends RefCounted
 
 
 var dataPath: String = "./Mods/Core/Itemgroups/Itemgroups.json"
-var spritePath: String = "./Mods/Core/Itemgroups/"
+var spritePath: String = "./Mods/Core/Items/"
 var itemgroupdict: Dictionary = {}
 var sprites: Dictionary = {}
 

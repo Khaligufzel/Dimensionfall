@@ -97,20 +97,12 @@ func remove_reference(module: String, type: String, refid: String):
 	if changes_made:
 		Gamedata.mobs.save_mobs_to_disk()
 
+
 # Adds a reference to the references list
 func add_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
 	if changes_made:
 		Gamedata.mobs.save_mobs_to_disk()
-
-
-# Handles mob changes and updates references if necessary
-func on_data_changed(_oldmob: DMob):
-	var changes_made = false
-	# If any references were updated, save the changes to the data file
-	if changes_made:
-		print_debug("mob reference updates saved successfully.")
-		Gamedata.save_data_to_file(Gamedata.data.mobgroups)
 
 
 # Some mob has been changed
