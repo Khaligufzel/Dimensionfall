@@ -187,6 +187,10 @@ func data_changed(oldmap: DMap):
 			for entity_id in new_entities[entity_type]:
 				var dtile: DTile = Gamedata.tiles.by_id(entity_id)
 				dtile.add_reference("core","maps",id)
+		elif entity_type == "mobs":
+			for entity_id in new_entities[entity_type]:
+				var dmob: DMob = Gamedata.mobs.by_id(entity_id)
+				dmob.add_reference("core","maps",id)
 		else:
 			for entity_id in new_entities[entity_type]:
 				Gamedata.add_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
@@ -283,7 +287,7 @@ func add_entities_to_set(level: Array, entity_set: Dictionary):
 				for itemgroup in entity["furniture"]["itemgroups"]:
 					if not entity_set["itemgroups"].has(itemgroup):
 						entity_set["itemgroups"].append(itemgroup)
-		if entity.has("id") and not entity_set["tiles"].has(entity["id"]):
+		if entity.has("id") and not entity_set["tiles"].has(entity["id"]) and not entity["id"] == "":
 			entity_set["tiles"].append(entity["id"])
 		# Add unique itemgroups directly from the entity
 		if entity.has("itemgroups"):

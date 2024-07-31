@@ -4915,6 +4915,10 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"rotation": 180
+				},
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
@@ -10244,24 +10248,19 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -10312,68 +10311,52 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -10424,68 +10407,52 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -10536,68 +10503,52 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -10648,68 +10599,52 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -10760,68 +10695,52 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -10872,48 +10791,37 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -14094,24 +14002,19 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -14162,68 +14065,52 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -14274,68 +14161,52 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -14386,68 +14257,52 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -14498,68 +14353,52 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -14610,68 +14449,52 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -14722,48 +14545,37 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -17958,20 +17770,16 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -18028,60 +17836,46 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -18138,60 +17932,46 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -18248,60 +18028,46 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -18358,60 +18124,46 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -18468,60 +18220,46 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -18578,44 +18316,34 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -21441,20 +21169,16 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -21520,48 +21244,37 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -21627,48 +21340,37 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -21734,48 +21436,37 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -21841,48 +21532,37 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -21948,48 +21628,37 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -22055,32 +21724,25 @@
 
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
-				"id": "",
-				"rotation": 0
+
 			},
 			{
 
@@ -23435,8202 +23097,8 @@
 
 			}
 		],
-		[
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			}
-		],
-		[
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 180
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			},
-			{
-				"id": "",
-				"rotation": 0
-			}
-		],
+		[],
+		[],
 		[
 			{
 				"id": "",
