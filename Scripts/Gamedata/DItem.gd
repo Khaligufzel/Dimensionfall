@@ -418,16 +418,6 @@ func get_sprite_path() -> String:
 	return Gamedata.items.spritePath + spriteid
 
 
-# Handles item changes and updates references if necessary
-func on_data_changed(_oldditem: DItem):
-	var changes_made = false
-
-	# If any references were updated, save the changes to the data file
-	if changes_made:
-		print_debug("Item reference updates saved successfully.")
-		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
-
-
 # Some item has been changed
 # We need to update the relation between the item and other items based on crafting recipes
 func changed(olddata: DItem):
@@ -528,12 +518,8 @@ func delete():
 	
 	# This callable will remove this item from itemgroups that reference this item.
 	var myfunc: Callable = func (itemgroup_id):
-		var itemlist: Array = Gamedata.get_property_by_path(Gamedata.data.itemgroups, "items", itemgroup_id)
-		for i in range(itemlist.size()):
-			if itemlist[i].has("id") and itemlist[i]["id"] == id:
-				itemlist.remove_at(i)
-				changes_made["value"] = true
-				break  # Exit loop after removal to avoid index issues
+		var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(itemgroup_id)
+		ditemgroup.remove_item_by_id(id)
 
 	execute_callable_on_references_of_type("core", "itemgroups", myfunc)
 	
@@ -586,7 +572,6 @@ func delete():
 
 	# Save changes to the data file if any changes were made
 	if changes_made["value"]:
-		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
 		Gamedata.save_data_to_file(Gamedata.data.skills)
 		Gamedata.save_data_to_file(Gamedata.data.quests)
 		Gamedata.items.save_items_to_disk()

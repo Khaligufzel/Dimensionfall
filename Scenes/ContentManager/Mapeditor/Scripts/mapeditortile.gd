@@ -30,7 +30,7 @@ var tileData: Dictionary = defaultTileData.duplicate():
 				$ObjectSprite.show()
 			elif tileData.has("itemgroups"):
 				var random_itemgroup: String = tileData.itemgroups.pick_random()
-				$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, random_itemgroup)
+				$ObjectSprite.texture = Gamedata.itemgroups.sprite_by_id(random_itemgroup)
 				$ObjectSprite.show()
 			if tileData.has("areas"):
 				$AreaSprite.show()
@@ -159,7 +159,7 @@ func set_tile_itemgroups(itemgroups: Array) -> void:
 		else:
 			# Apply the itemgroup to the tile and update ObjectSprite with a random sprite
 			var random_itemgroup: String = itemgroups.pick_random()
-			$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, random_itemgroup)
+			$ObjectSprite.texture = Gamedata.itemgroups.sprite_by_id(random_itemgroup)
 			$ObjectSprite.show()
 			$ObjectSprite.rotation_degrees = 0
 			tileData["itemgroups"] = itemgroups

@@ -54,11 +54,11 @@ func create_loot():
 	# A flag to track whether items were added
 	var item_added: bool = false
 	# Attempt to retrieve the itemgroup data from Gamedata
-	var itemgroup_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, itemgroup)
+	var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(itemgroup)
 	
 	# Check if the itemgroup data exists and has items
-	if itemgroup_data and "items" in itemgroup_data:
-		item_added = _add_items_to_inventory(itemgroup_data["items"])
+	if ditemgroup:
+		item_added = _add_items_to_inventory(ditemgroup.items)
 
 	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
 	if item_added and sprite_3d.texture == load("res://Textures/container_32.png"):
@@ -74,17 +74,17 @@ func create_loot():
 
 
 # Takes a list of items and adds them to the inventory of the chance allows it.
-func _add_items_to_inventory(items: Array) -> bool:
+func _add_items_to_inventory(items: Array[DItemgroup.Item]) -> bool:
 	var item_added: bool = false
 	# Loop over each item object in the itemgroup's 'items' property
-	for item_object in items:
+	for item_object: DItemgroup.Item in items:
 		# Each item_object is expected to be a dictionary with id, probability, min, max
-		var item_id = item_object["id"]
-		var item_probability = item_object["probability"]
+		var item_id = item_object.id
+		var item_probability = item_object.probability
 		if randi_range(0, 100) <= item_probability:
 			item_added = true # An item is about to be added
 			# Determine quantity to add based on min and max
-			var quantity = randi_range(item_object["min"], item_object["max"])
+			var quantity = randi_range(item_object.min, item_object.max)
 			_add_item_to_inventory(item_id, quantity)
 	return item_added
 

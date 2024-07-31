@@ -107,3 +107,21 @@ func add_reference(itemgroupid: String, module: String, type: String, refid: Str
 	var myitemgroup: DItemgroup = itemgroupdict[itemgroupid]
 	myitemgroup.add_reference(module, type, refid)
 
+
+# Helper function to update references if they have changed.
+# old: an entity id that is present in the old data
+# new: an entity id that is present in the new data
+# refid: The entity that's referenced in old and/or new
+# type: The type of entity that will be referenced
+# Example usage: update_reference(old_itemgroup, new_itemgroup, "furniture", furniture_id)
+# This example will remove furniture_id from the old_itemgroup's references and
+# add the furniture_id to the new_itemgroup's refrences
+func update_reference(old: String, new: String, type: String, refid: String) -> void:
+	if old == new:
+		return  # No change detected, exit early
+
+	# Remove from old group if necessary
+	if old != "":
+		remove_reference(old, "core", type, refid)
+	if new != "":
+		add_reference(new, "core", type, refid)

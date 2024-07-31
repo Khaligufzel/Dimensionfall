@@ -105,8 +105,7 @@ func _can_drop_data(_newpos, data) -> bool:
 		return false
 	
 	# Fetch itemgroup data by ID from the Gamedata to ensure it exists and is valid
-	var item_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, data["id"])
-	if item_data.is_empty():
+	if not Gamedata.itemgroups.has_id(data["id"]):
 		return false
 
 	# If all checks pass, return true
@@ -123,8 +122,7 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 	# Assuming dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var item_id = dropped_data["id"]
-		var item_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, item_id)
-		if item_data.is_empty():
+		if not Gamedata.itemgroups.has_id(item_id):
 			print_debug("No item data found for ID: " + item_id)
 			return
 		ItemGroupTextEdit.text = item_id

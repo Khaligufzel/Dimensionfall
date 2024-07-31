@@ -301,8 +301,7 @@ func itemgroup_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) ->
 	# Assuming dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var itemgroup_id = dropped_data["id"]
-		var itemgroup_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, itemgroup_id)
-		if itemgroup_data.is_empty():
+		if not Gamedata.itemgroups.has_id(itemgroup_id):
 			print_debug("No item data found for ID: " + itemgroup_id)
 			return
 		texteditcontrol.set_text(itemgroup_id)
@@ -323,8 +322,7 @@ func can_itemgroup_drop(dropped_data: Dictionary):
 		return false
 	
 	# Fetch itemgroup data by ID from the Gamedata to ensure it exists and is valid
-	var itemgroup_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, dropped_data["id"])
-	if itemgroup_data.is_empty():
+	if not Gamedata.itemgroups.has_id(dropped_data["id"]):
 		return false
 
 	# If all checks pass, return true

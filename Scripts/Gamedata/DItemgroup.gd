@@ -79,7 +79,7 @@ var description: String
 var mode: String
 var spriteid: String
 var sprite: Texture
-var items: Array = []
+var items: Array[Item] = []
 var references: Dictionary = {}
 
 # Constructor to initialize itemgroup properties from a dictionary
@@ -176,3 +176,16 @@ func execute_callable_on_references_of_type(module: String, type: String, callab
 		# If the type exists, execute the callable on each ID found under this type
 		for ref_id in references[module][type]:
 			callable.call(ref_id)
+
+
+# Removes an item by its ID from the items list
+func remove_item_by_id(item_id: String) -> void:
+	var item_to_remove: Item = null
+	for item: Item in items:
+		if item.id == item_id:
+			item_to_remove = item
+			break
+
+	if item_to_remove:
+		items.erase(item_to_remove)
+		Gamedata.itemgroups.save_itemgroups_to_disk()
