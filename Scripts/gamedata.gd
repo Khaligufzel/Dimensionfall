@@ -9,10 +9,10 @@ var maps: DMaps
 var furnitures: DFurnitures
 var items: DItems
 var tiles: DTiles
+var mobs: DMobs
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
-	"mobs": {"dataPath": "./Mods/Core/Mobs/Mobs.json", "spritePath": "./Mods/Core/Mobs/"},
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
 	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"},
@@ -36,6 +36,7 @@ func _ready():
 	furnitures = DFurnitures.new()
 	items = DItems.new()
 	tiles = DTiles.new()
+	mobs = DMobs.new()
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES
 func initialize_data_structures():
@@ -209,7 +210,7 @@ func save_data_to_file(contentData: Dictionary):
 
 
 # Takes contentdata and an id and returns the json that belongs to an id
-# For example, contentData can be Gamedata.data.mobs
+# For example, contentData can be Gamedata.data.skills
 # and id can be "plain_grass" and it will return the json data for plain_grass
 func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 	var idnr: int = get_array_index_by_id(contentData, id)
@@ -219,7 +220,7 @@ func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 
 
 # Takes contentData and an id and returns the sprite associated with the id
-# For example, contentData can be Gamedata.data.mobs
+# For example, contentData can be Gamedata.data.skills
 # and id can be "plain_grass" and it will return the sprite for plain_grass
 func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 	if contentData.sprites.is_empty() or contentData.data.is_empty():
@@ -243,8 +244,6 @@ func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 func on_data_changed(contentData: Dictionary, newEntityData: Dictionary, oldEntityData: Dictionary):
 	if contentData == data.itemgroups:
 		itemgroup_references.on_itemgroup_changed(newEntityData, oldEntityData)
-	if contentData == data.mobs:
-		on_mob_changed(newEntityData, oldEntityData)
 	if contentData == data.quests:
 		on_quest_changed(newEntityData, oldEntityData)
 	save_data_to_file(contentData)
@@ -350,8 +349,6 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		itemgroup_references.on_itemgroup_deleted(id)
 	if contentData == data.tacticalmaps:
 		on_tacticalmap_deleted(id)
-	if contentData == data.mobs:
-		on_mob_deleted(id)
 	if contentData == data.skills:
 		on_skill_deleted(id)
 	if contentData == data.wearableslots:
@@ -410,29 +407,6 @@ func get_property_by_path(mydata: Dictionary, property_path: String, entity_id: 
 	return Helper.json_helper.get_nested_data(entity_data, property_path)
 
 
-# A mob has been changed.
-func on_mob_changed(newdata: Dictionary, olddata: Dictionary):
-	var old_loot_group: String = olddata.get("loot_group", "")
-	var new_loot_group: String = newdata.get("loot_group", "")
-	var mob_id: String = newdata.get("id")
-	# Exit if old_group and new_group are the same
-	if old_loot_group == new_loot_group:
-		print_debug("No change in itemgroup. Exiting function.")
-		return
-	var changes_made = false
-	# This mob will be removed from the old itemgroup's references
-	# The 'or' makes sure changes_made does not change back to false
-	changes_made = remove_reference(data.itemgroups, "core", "mobs", old_loot_group, mob_id) or changes_made
-	# This mob will be added to the new itemgroup's references
-	# The 'or' makes sure changes_made does not change back to false
-	changes_made = add_reference(data.itemgroups, "core", "mobs", new_loot_group, mob_id) or changes_made
-	# Save changes if any modifications were made
-	if changes_made:
-		if old_loot_group != "":
-			save_data_to_file(data.itemgroups)
-		if new_loot_group != "" and new_loot_group != old_loot_group:
-			save_data_to_file(data.itemgroups)
-
 
 # Helper function to update references if they have changed.
 # old: an entity id that is present in the old data
@@ -454,41 +428,6 @@ func update_reference(old: String, new: String, entity_id: String, type: String)
 	if new != "":
 		changes_made = add_reference(data.itemgroups, "core", type, new, entity_id) or changes_made
 	return changes_made
-
-
-# Some mob is being deleted from the data
-# We have to remove it from everything that references it
-func on_mob_deleted(mob_id: String):
-	var changes_made = { "value": false }
-	var mob_data = get_data_by_id(data.mobs, mob_id)
-	if mob_data.is_empty():
-		print_debug("Item with ID", mob_data, "not found.")
-		return
-		
-	# Remove the reference to this mob from the loot_group
-	var loot_group: String = mob_data.get("loot_group", "")
-	changes_made["value"] = remove_reference(data.itemgroups, "core", "mobs", loot_group, mob_id) or changes_made["value"]
-	
-	# Check if the mob has references to maps and remove it from those maps
-	var mapsdata = Helper.json_helper.get_nested_data(mob_data,"references.core.maps")
-	if mapsdata:
-		maps.remove_entity_from_selected_maps("mob", mob_id, mapsdata)
-	
-	# This callable will handle the removal of this mob from all steps in quests
-	var remove_from_quest: Callable = func(quest_id: String):
-		var quest_data = get_data_by_id(data.quests, quest_id)
-		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, "steps.mob", mob_id) or changes_made["value"]
-		
-	# Pass the callable to every quest in the mob's references
-	# It will call remove_from_quest on every mob in mob_data.references.core.quests
-	execute_callable_on_references_of_type(mob_data, "core", "quests", remove_from_quest)
-
-	# Save changes to the data file if any changes were made
-	if changes_made["value"]:
-		save_data_to_file(data.itemgroups)
-		save_data_to_file(data.quests)
-	else:
-		print_debug("No changes needed for item", mob_id)
 
 
 # A tacticalmap is being deleted. Remove all references to this tacticalmap
@@ -585,7 +524,6 @@ func on_skill_deleted(skill_id: String):
 
 # Handles quest deletion
 func on_quest_deleted(quest_id: String):
-	var changes_made = { "value": false }  # Using a Dictionary to hold the change status
 	var quest_data = get_data_by_id(data.quests, quest_id)
 
 	if quest_data.is_empty():
@@ -593,19 +531,14 @@ func on_quest_deleted(quest_id: String):
 		return
 	var stepitems: Array = Helper.json_helper.get_unique_values(quest_data, "steps.item")
 	for item_id in stepitems:
-		items.remove_reference_from_item(item_id, "core", "quests", quest_id)
+		items.remove_reference(item_id, "core", "quests", quest_id)
 	var stepmobs: Array = Helper.json_helper.get_unique_values(quest_data, "steps.mob")
 	for mob_id in stepmobs:
-		changes_made["value"] = remove_reference(data.mobs, "core", "quests", mob_id, quest_id) or changes_made["value"]
+		mobs.remove_reference(mob_id, "core", "quests", quest_id)
 	var steprewards: Array = Helper.json_helper.get_unique_values(quest_data, "rewards.item_id")
 	for item_id in steprewards: # Remove the reference to this quest from the reward item
-		items.remove_reference_from_item(item_id, "core", "quests", quest_id)
+		items.remove_reference(item_id, "core", "quests", quest_id)
 
-	# Save changes to the data file if any changes were made
-	if changes_made["value"]:
-		save_data_to_file(data.mobs)
-	else:
-		print_debug("No changes needed for quest", quest_id)
 
 # Handles quest changes
 func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
@@ -621,7 +554,6 @@ func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
 	var old_items_merged = Helper.json_helper.merge_unique(old_quest_items, old_quest_rewards)
 	var new_items_merged = Helper.json_helper.merge_unique(new_quest_items, new_quest_rewards)
 	var quest_id: String = newdata.get("id", "")
-	var changes_made = false
 
 	# Remove references for old items and rewards
 	for old_item in old_items_merged:
@@ -635,15 +567,11 @@ func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
 	# Remove references for old mobs
 	for old_mob in old_quest_mobs:
 		if old_mob not in new_quest_mobs:
-			changes_made = remove_reference(data.mobs, "core", "quests", old_mob, quest_id) or changes_made
+			mobs.remove_reference(old_mob, "core", "quests", quest_id)
 
 	# Add references for new mobs
 	for new_mob in new_quest_mobs:
-		changes_made = add_reference(data.mobs, "core", "quests", new_mob, quest_id) or changes_made
-
-	# Save changes if any references were updated
-	if changes_made:
-		save_data_to_file(data.mobs)
+		mobs.add_reference(new_mob, "core", "quests", quest_id)
 
 
 # Removes the provided reference from references

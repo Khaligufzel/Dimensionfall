@@ -14,12 +14,12 @@ func on_itemgroup_changed(newdata: Dictionary, olddata: Dictionary):
 	# Remove itemgroup from items in the old list that are not in the new list
 	for item_id in oldlist:
 		if item_id not in newlist:
-			Gamedata.items.remove_reference_from_item(item_id, "core", "itemgroups", itemgroup)
+			Gamedata.items.remove_reference(item_id, "core", "itemgroups", itemgroup)
 
 	# Add itemgroup to items in the new list that were not in the old list
 	for item_id in newlist:
 		if item_id not in oldlist:
-			Gamedata.items.add_reference_to_item(item_id, "core", "itemgroups", itemgroup)
+			Gamedata.items.add_reference(item_id, "core", "itemgroups", itemgroup)
 
 
 # An itemgroup is being deleted from the data
@@ -45,7 +45,7 @@ func on_itemgroup_deleted(itemgroup_id: String):
 
 	# Remove references to this itemgroup from items listed in the itemgroup data.
 	for item in itemgroup_data.get("items", []):
-		Gamedata.items.remove_reference_from_item(item["id"], "core", "itemgroups", itemgroup_id)
+		Gamedata.items.remove_reference(item["id"], "core", "itemgroups", itemgroup_id)
 
 	# Remove references to this itemgroup from maps.
 	for mod in itemgroup_data.get("references", []):

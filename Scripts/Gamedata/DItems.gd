@@ -93,7 +93,7 @@ func sprite_by_file(spritefile: String) -> Texture:
 
 
 # Removes the reference from the selected item
-func remove_reference_from_item(itemid: String, module: String, type: String, refid: String):
+func remove_reference(itemid: String, module: String, type: String, refid: String):
 	var myitem: DItem = itemdict[itemid]
 	myitem.remove_reference(module, type, refid)
 
@@ -104,7 +104,7 @@ func remove_reference_from_item(itemid: String, module: String, type: String, re
 # module: the mod that the entity belongs to, for example "Core"
 # type: The type of entity, for example "maps"
 # refid: The id of the entity to reference, for example "grass_field"
-func add_reference_to_item(itemid: String, module: String, type: String, refid: String):
+func add_reference(itemid: String, module: String, type: String, refid: String):
 	var myitem: DItem = itemdict[itemid]
 	myitem.add_reference(module, type, refid)
 

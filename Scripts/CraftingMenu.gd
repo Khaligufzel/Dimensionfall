@@ -1,7 +1,6 @@
 extends Panel
 
 @export var item_button_container : VBoxContainer
-@export var item_craft_button : PackedScene
 
 @export var description : Label
 @export var required_items : VBoxContainer

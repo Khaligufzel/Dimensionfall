@@ -21,7 +21,7 @@ var tileData: Dictionary = defaultTileData.duplicate():
 			if tileData.has("mob"):
 				if tileData.mob.has("rotation"):
 					$ObjectSprite.rotation_degrees = tileData.mob.rotation
-				$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs, tileData.mob.id)
+				$ObjectSprite.texture = Gamedata.mobs.sprite_by_id(tileData.mob.id)
 				$ObjectSprite.show()
 			elif tileData.has("furniture"):
 				if tileData.furniture.has("rotation"):
@@ -97,7 +97,7 @@ func set_mob_id(id: String) -> void:
 			tileData.mob.id = id
 		else:
 			tileData.mob = {"id": id}
-		$ObjectSprite.texture = Gamedata.get_sprite_by_id(Gamedata.data.mobs, id)
+		$ObjectSprite.texture = Gamedata.mobs.sprite_by_id(id)
 		$ObjectSprite.show()
 	set_tooltip()
 

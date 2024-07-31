@@ -50,14 +50,19 @@ func load_data():
 		load_furnitures_list()
 		load_collapse_state()
 		return
-	# HACK Hacky exception for furniture, need to find a better solution
+	# HACK Hacky exception for items, need to find a better solution
 	if contentData == {"items": true}:
 		load_items_list()
 		load_collapse_state()
 		return
-	# HACK Hacky exception for furniture, need to find a better solution
+	# HACK Hacky exception for tiles, need to find a better solution
 	if contentData == {"tiles": true}:
 		load_tiles_list()
+		load_collapse_state()
+		return
+	# HACK Hacky exception for mobs, need to find a better solution
+	if contentData == {"mobs": true}:
+		load_mobs_list()
 		load_collapse_state()
 		return
 	if not contentData.has("data"):
@@ -204,6 +209,10 @@ func _on_delete_button_button_up():
 	if contentData == {"tiles": true}:
 		delete_tile(selected_id)
 		return
+	# HACK Exception for mobs, need to find a better solution
+	if contentData == {"mobs": true}:
+		delete_mob(selected_id)
+		return
 	contentItems.remove_item(contentItems.get_selected_items()[0])
 	Gamedata.remove_item_from_data(contentData, selected_id)
 	load_data()
@@ -271,6 +280,8 @@ func _create_drag_preview(item_id: String) -> Control:
 		preview.texture = Gamedata.maps.by_id(item_id).sprite
 	if contentData == {"tiles": true}:
 		preview.texture = Gamedata.tiles.by_id(item_id).sprite
+	if contentData == {"mobs": true}:
+		preview.texture = Gamedata.mobs.by_id(item_id).sprite
 	if contentData == {"items": true}:
 		preview.texture = Gamedata.items.by_id(item_id).sprite
 	else:
@@ -397,6 +408,18 @@ func load_tiles_list():
 		if mySprite:
 			contentItems.set_item_icon(tile_index, mySprite)
 
+# Load the tiles list
+func load_mobs_list():
+	var moblist: Dictionary = Gamedata.mobs.get_mobs()
+	for mob: DMob in moblist.values():
+		# Add all the filenames to the Contentmobs list as child nodes
+		var mob_index: int = contentItems.add_item(mob.id)
+		# Add the ID as metadata which can be used to load the mob data
+		contentItems.set_item_metadata(mob_index, mob.id)
+		var mySprite: Texture = mob.sprite
+		if mySprite:
+			contentItems.set_item_icon(mob_index, mySprite)
+
 
 func add_map_popup_ok():
 	var myText = popup_textedit.text
@@ -442,4 +465,8 @@ func delete_item(selected_id) -> void:
 
 func delete_tile(selected_id) -> void:
 	Gamedata.tiles.delete_tile(selected_id)
+	load_data()
+
+func delete_mob(selected_id) -> void:
+	Gamedata.mobs.delete_mob(selected_id)
 	load_data()

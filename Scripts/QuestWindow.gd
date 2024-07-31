@@ -263,12 +263,10 @@ func _handle_collect_step(step: Dictionary) -> String:
 func _handle_kill_step(step: Dictionary) -> String:
 	var step_details_text = ""
 	# Retrieve mob data using the item name (ID) from the step
-	var mobdata = Gamedata.get_data_by_id(Gamedata.data.mobs, step.item_name)
-	# Extract the mob name from the mob data, defaulting to "missing mob name" if not found
-	var mob_name = mobdata.get("name", "missing mob name")
+	var dmob: DMob = Gamedata.mobs.by_id(step.item_name)
 	# Construct the step details text with the required and killed mob counts
 	step_details_text += "Kill " + str(step.required) + " "
-	step_details_text += mob_name + " (Killed: " 
+	step_details_text += dmob.name + " (Killed: " 
 	step_details_text += str(step.collected) + ")"
 	return step_details_text
 

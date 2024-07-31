@@ -24,7 +24,7 @@ func _ready():
 	load_content_list({"maps": true}, "Maps")
 	load_content_list({"items": true}, "Items")
 	load_content_list({"tiles": true}, "Terrain Tiles")
-	load_content_list(Gamedata.data.mobs, "Mobs")
+	load_content_list({"mobs": true}, "Mobs")
 	# Hacky exception for furnitures, need to find a better solution
 	load_content_list({"furnitures": true}, "Furniture")
 	load_content_list(Gamedata.data.itemgroups, "Item Groups")
@@ -70,7 +70,8 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 	if data == {"items": true}:
 		# HACK Hacky exception for items, need to find a better solution
 		instantiate_editor(data, itemID, itemEditor)
-	if data == Gamedata.data.mobs:
+	if data == {"mobs": true}:
+		# HACK Hacky exception for mobs, need to find a better solution
 		instantiate_editor(data, itemID, mobEditor)
 	if data == {"maps": true}:
 		# HACK Hacky exception for maps, need to find a better solution
@@ -115,11 +116,14 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 	if data == {"furnitures": true}:# HACK Hacky exception for furniture, need to find a better solution
 		newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
 		return
-	if data == {"items": true}:# HACK Hacky exception for furniture, need to find a better solution
+	if data == {"items": true}:# HACK Hacky exception for items, need to find a better solution
 		newContentEditor.ditem = Gamedata.items.by_id(itemID)
 		return
-	if data == {"tiles": true}:# HACK Hacky exception for furniture, need to find a better solution
+	if data == {"tiles": true}:# HACK Hacky exception for tiles, need to find a better solution
 		newContentEditor.dtile = Gamedata.tiles.by_id(itemID)
+		return
+	if data == {"mobs": true}:# HACK Hacky exception for mobs, need to find a better solution
+		newContentEditor.dmob = Gamedata.mobs.by_id(itemID)
 		return
 	if data.dataPath.ends_with(".json"):
 		var itemdata: Dictionary = data.data[Gamedata.get_array_index_by_id(data, itemID)]
