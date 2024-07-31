@@ -289,15 +289,15 @@ func _create_drag_preview(item_id: String) -> Control:
 	# HACK Hacky exception for furniture, need to find a better solution
 	if contentData == {"furnitures": true}:
 		preview.texture = Gamedata.furnitures.sprite_by_id(item_id)
-	if contentData == {"itemgroups": true}:
+	elif contentData == {"itemgroups": true}:
 		preview.texture = Gamedata.itemgroups.sprite_by_id(item_id)
-	if contentData == {"maps": true}:
+	elif contentData == {"maps": true}:
 		preview.texture = Gamedata.maps.by_id(item_id).sprite
-	if contentData == {"tiles": true}:
+	elif contentData == {"tiles": true}:
 		preview.texture = Gamedata.tiles.by_id(item_id).sprite
-	if contentData == {"mobs": true}:
+	elif contentData == {"mobs": true}:
 		preview.texture = Gamedata.mobs.by_id(item_id).sprite
-	if contentData == {"items": true}:
+	elif contentData == {"items": true}:
 		preview.texture = Gamedata.items.by_id(item_id).sprite
 	else:
 		preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
@@ -402,7 +402,7 @@ func load_furnitures_list():
 # Load the itemgroups list
 func load_itemgroups_list():
 	var itemgrouplist: Dictionary = Gamedata.itemgroups.get_itemgroups()
-	for itemgroup: DFurniture in itemgrouplist.values():
+	for itemgroup: DItemgroup in itemgrouplist.values():
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(itemgroup.id)
 		# Add the ID as metadata which can be used to load the item data

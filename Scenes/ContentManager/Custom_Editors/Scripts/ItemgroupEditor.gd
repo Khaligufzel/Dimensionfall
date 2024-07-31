@@ -76,14 +76,14 @@ func add_item_entry(item: DItemgroup.Item):
 	var min_spinbox = SpinBox.new()
 	min_spinbox.min_value = 0
 	min_spinbox.max_value = 100
-	min_spinbox.value = item.min
+	min_spinbox.value = item.minc
 	min_spinbox.step = 1
 	min_spinbox.tooltip_text = "Minimum amount that can spawn"
 
 	var max_spinbox = SpinBox.new()
 	max_spinbox.min_value = 1
 	max_spinbox.max_value = 100
-	max_spinbox.value = item.max
+	max_spinbox.value = item.maxc
 	max_spinbox.step = 1
 	max_spinbox.tooltip_text = "Maximum amount that can spawn"
 

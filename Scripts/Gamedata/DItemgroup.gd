@@ -146,6 +146,8 @@ func changed(olddata: DItemgroup):
 		if item_id not in oldlist:
 			Gamedata.items.add_reference(item_id, "core", "itemgroups", itemgroup)
 
+	Gamedata.itemgroups.save_itemgroups_to_disk()
+
 
 # A itemgroup is being deleted from the data
 # We have to remove it from everything that references it

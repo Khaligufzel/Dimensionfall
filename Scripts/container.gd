@@ -51,6 +51,8 @@ func _initialize_container(item: Dictionary):
 # Will add item to the inventory based on the assigned itemgroup
 # Only new furniture will have an itemgroup assigned, not previously saved furniture.
 func create_loot():
+	if not itemgroup or itemgroup == "":
+		return
 	# A flag to track whether items were added
 	var item_added: bool = false
 	# Attempt to retrieve the itemgroup data from Gamedata
@@ -84,7 +86,7 @@ func _add_items_to_inventory(items: Array[DItemgroup.Item]) -> bool:
 		if randi_range(0, 100) <= item_probability:
 			item_added = true # An item is about to be added
 			# Determine quantity to add based on min and max
-			var quantity = randi_range(item_object.min, item_object.max)
+			var quantity = randi_range(item_object.minc, item_object.maxc)
 			_add_item_to_inventory(item_id, quantity)
 	return item_added
 
