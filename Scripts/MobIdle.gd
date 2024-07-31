@@ -29,6 +29,8 @@ func Exit():
 
 
 func Physics_Update(_delta: float):
+	if mob.terminated:
+		Transistioned.emit(self, "mobterminate") 
 	if is_looking_to_move:
 		var dir = mob.to_local(nav_agent.get_next_path_position()).normalized()
 		mob.velocity = dir * mob.current_idle_move_speed

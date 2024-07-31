@@ -25,6 +25,8 @@ func Exit():
 	pathfinding_timer.stop()
 
 func Physics_Update(_delta: float):
+	if mob.terminated:
+		Transistioned.emit(self, "mobterminate") 
 	var next_pos: Vector3 = nav_agent.get_next_path_position()
 	var dir = mob.to_local(next_pos).normalized()
 	mob.velocity = dir * mob.current_move_speed

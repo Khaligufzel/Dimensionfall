@@ -61,5 +61,6 @@ func _resume_game():
 func _return_to_main_menu():
 	if is_inside_tree():
 		get_tree().paused = false
+		Helper.signal_broker.game_terminated.emit()
 		loadingscreen.on_exit_game()
 		Helper.save_and_exit_game()

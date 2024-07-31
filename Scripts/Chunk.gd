@@ -359,6 +359,7 @@ func free_furniture_instances():
 func free_mob_instances(mapMobs):
 	for mob in mapMobs:
 		if _is_object_in_range(mob.last_position):
+			mob.terminate()
 			mob.queue_free.call_deferred()
 
 # Function to free the item instances

@@ -5,4 +5,5 @@ extends Control
 
 # When the player presses the 'return to main menu' button
 func _on_return_button_button_up():
+	Helper.signal_broker.game_terminated.emit()
 	Helper.exit_game()
