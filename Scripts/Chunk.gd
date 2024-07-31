@@ -247,11 +247,10 @@ func add_itemgroups_to_new_block():
 	for i in range(total_itemgroups):
 		var itemgroup = itemgroup_data[i]
 		var itemgroup_map_json: Dictionary = {"itemgroups":itemgroup.json}
-		var itemgroup_pos: Vector3 = itemgroup.pos
 
-		itemgroup_map_json["global_position_x"] = mypos.x + itemgroup_pos.x
-		itemgroup_map_json["global_position_y"] = mypos.y + itemgroup_pos.y + 1.01
-		itemgroup_map_json["global_position_z"] = mypos.z + itemgroup_pos.z
+		itemgroup_map_json["global_position_x"] = mypos.x + itemgroup.pos.x
+		itemgroup_map_json["global_position_y"] = mypos.y + itemgroup.pos.y + 1.01
+		itemgroup_map_json["global_position_z"] = mypos.z + itemgroup.pos.z
 		var newItem: ContainerItem = ContainerItem.new(itemgroup_map_json)
 		newItem.add_to_group("mapitems")
 		get_tree().get_root().add_child.call_deferred(newItem)

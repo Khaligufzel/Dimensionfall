@@ -1,40 +1,55 @@
-class_name DMob
+class_name DItemgroup
 extends RefCounted
 
 
-# There's a D in front of the class name to indicate this class only handles mob data, nothing more
+# There's a D in front of the class name to indicate this class only handles itemgroup data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the data for one mob. You can access it through Gamedata.mobs
+# This script handles the data for one itemgroup. You can access it through Gamedata.itemgroups
 
 
-# This class represents a mob with its properties
-# Example mob data:
-# {
-# 	"description": "A small robot",
-# 	"health": 80,
-# 	"hearing_range": 1000,
-# 	"id": "scrapwalker",
-# 	"idle_move_speed": 0.5,
-# 	"loot_group": "mob_loot",
-# 	"melee_damage": 20,
-# 	"melee_range": 1.5,
-# 	"move_speed": 2.1,
-# 	"name": "Scrap walker",
-# 	"references": {
-# 		"core": {
-# 			"maps": [
-# 				"Generichouse",
-# 				"store_electronic_clothing"
-# 			],
-# 			"quests": [
-# 				"starter_tutorial_00"
-# 			]
-# 		}
-# 	},
-# 	"sense_range": 50,
-# 	"sight_range": 200,
-# 	"spriteid": "scrapwalker64.png"
-# }
+# This class represents a itemgroup with its properties
+# Example itemgroup data:
+#	{
+#		"description": "Loot that's dropped by a mob",
+#		"id": "mob_loot",
+#		"items": [
+#			{
+#				"id": "bullet_9mm",
+#				"max": 20,
+#				"min": 10,
+#				"probability": 20
+#			},
+#			{
+#				"id": "pistol_magazine",
+#				"max": 1,
+#				"min": 1,
+#				"probability": 20
+#			},
+#			{
+#				"id": "steel_scrap",
+#				"max": 1,
+#				"min": 1,
+#				"probability": 20
+#			},
+#			{
+#				"id": "plank_2x4",
+#				"max": 1,
+#				"min": 1,
+#				"probability": 20
+#			}
+#		],
+#		"mode": "Collection",
+#		"name": "Mob loot",
+#		"references": {
+#			"core": {
+#				"mobs": [
+#					"rust_sentinel"
+#				]
+#			}
+#		},
+#		"sprite": "machete_32.png"
+#	}
+
 
 # Properties defined in the JSON
 var id: String
@@ -53,7 +68,7 @@ var spriteid: String
 var sprite: Texture
 var references: Dictionary = {}
 
-# Constructor to initialize mob properties from a dictionary
+# Constructor to initialize itemgroup properties from a dictionary
 func _init(data: Dictionary):
 	id = data.get("id", "")
 	name = data.get("name", "")
@@ -95,63 +110,63 @@ func get_data() -> Dictionary:
 func remove_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
 	if changes_made:
-		Gamedata.mobs.save_mobs_to_disk()
+		Gamedata.itemgroups.save_itemgroups_to_disk()
 
 # Adds a reference to the references list
 func add_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
 	if changes_made:
-		Gamedata.mobs.save_mobs_to_disk()
+		Gamedata.itemgroups.save_itemgroups_to_disk()
 
 
-# Handles mob changes and updates references if necessary
-func on_data_changed(_oldmob: DMob):
+# Handles itemgroup changes and updates references if necessary
+func on_data_changed(_olditemgroup: DItemgroup):
 	var changes_made = false
 	# If any references were updated, save the changes to the data file
 	if changes_made:
-		print_debug("mob reference updates saved successfully.")
-		Gamedata.save_data_to_file(Gamedata.data.mobgroups)
+		print_debug("itemgroup reference updates saved successfully.")
+		Gamedata.itemgroups.save_itemgroups_to_disk()
 
 
-# Some mob has been changed
-# INFO if the mob reference other entities, update them here
-func changed(olddata: DMob):
+# Some itemgroup has been changed
+# INFO if the itemgroup reference other entities, update them here
+func changed(olddata: DItemgroup):
 	var old_loot_group: String = olddata.loot_group
 
 	# Exit if old_group and new_group are the same
 	if old_loot_group == loot_group:
-		print_debug("No change in mob. Exiting function.")
+		print_debug("No change in itemgroup. Exiting function.")
 		return
 	var changes_made = false
-	# This mob will be removed from the old itemgroup's references
+	# This itemgroup will be removed from the old itemgroup's references
 	# The 'or' makes sure changes_made does not change back to false
-	changes_made = Gamedata.remove_reference(Gamedata.data.itemgroups, "core", "mobs", old_loot_group, id) or changes_made
-	# This mob will be added to the new itemgroup's references
+	changes_made = Gamedata.remove_reference(Gamedata.data.itemgroups, "core", "itemgroups", old_loot_group, id) or changes_made
+	# This itemgroup will be added to the new itemgroup's references
 	# The 'or' makes sure changes_made does not change back to false
-	changes_made = Gamedata.add_reference(Gamedata.data.itemgroups, "core", "mobs", loot_group, id) or changes_made
+	changes_made = Gamedata.add_reference(Gamedata.data.itemgroups, "core", "itemgroups", loot_group, id) or changes_made
 	# Save changes if any modifications were made
 	if changes_made:
 			Gamedata.save_data_to_file(Gamedata.data.itemgroups)
 
 
-# A mob is being deleted from the data
+# A itemgroup is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
 	var changes_made = { "value": false }
-	changes_made["value"] = Gamedata.remove_reference(Gamedata.data.itemgroups, "core", "mobs", loot_group, id) or changes_made["value"]
+	changes_made["value"] = Gamedata.remove_reference(Gamedata.data.itemgroups, "core", "itemgroups", loot_group, id) or changes_made["value"]
 	
-	# Check if the mob has references to maps and remove it from those maps
+	# Check if the itemgroup has references to maps and remove it from those maps
 	var mapsdata = Helper.json_helper.get_nested_data(references,"core.maps")
 	if mapsdata:
-		Gamedata.maps.remove_entity_from_selected_maps("mob", id, mapsdata)
+		Gamedata.maps.remove_entity_from_selected_maps("itemgroup", id, mapsdata)
 	
-	# This callable will handle the removal of this mob from all steps in quests
+	# This callable will handle the removal of this itemgroup from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
 		var quest_data = Gamedata.get_data_by_id(Gamedata.data.quests, quest_id)
-		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, "steps.mob", id) or changes_made["value"]
+		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, "steps.itemgroup", id) or changes_made["value"]
 		
-	# Pass the callable to every quest in the mob's references
-	# It will call remove_from_quest on every mob in mob_data.references.core.quests
+	# Pass the callable to every quest in the itemgroup's references
+	# It will call remove_from_quest on every itemgroup in itemgroup_data.references.core.quests
 	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
 
 	# Save changes to the data file if any changes were made
@@ -159,7 +174,7 @@ func delete():
 		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
 		Gamedata.save_data_to_file(Gamedata.data.quests)
 	else:
-		print_debug("No changes needed for mob", id)
+		print_debug("No changes needed for itemgroup", id)
 
 
 # Executes a callable function on each reference of the given type

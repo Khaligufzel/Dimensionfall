@@ -10,12 +10,12 @@ var furnitures: DFurnitures
 var items: DItems
 var tiles: DTiles
 var mobs: DMobs
+var itemgroups: DItemgroups
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
-	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"},
 	"wearableslots": {"dataPath": "./Mods/Core/Wearableslots/Wearableslots.json", "spritePath": "./Mods/Core/Wearableslots/"},
 	"stats": {"dataPath": "./Mods/Core/Stats/Stats.json", "spritePath": "./Mods/Core/Stats/"},
 	"skills": {"dataPath": "./Mods/Core/Skills/Skills.json", "spritePath": "./Mods/Core/Skills/"},
@@ -37,6 +37,8 @@ func _ready():
 	items = DItems.new()
 	tiles = DTiles.new()
 	mobs = DMobs.new()
+	itemgroups = DItemgroups.new()
+
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES
 func initialize_data_structures():
