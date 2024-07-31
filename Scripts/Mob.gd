@@ -191,6 +191,8 @@ func update_navigation_agent_map(chunk_position: Vector2):
 	var navigation_map_id = Helper.chunk_navigation_maps.get(chunk_position)
 	if navigation_map_id:
 		nav_agent.set_navigation_map(navigation_map_id)
+	else:
+		print_debug("Tried to set navigation_map_id at "+str(chunk_position)+", but it was null")
 
 # When the mob gets hit by an attack
 # attack: a dictionary with the "damage" and "hit_chance" properties
@@ -296,8 +298,15 @@ func apply_stats_from_dmob(dmob: DMob) -> void:
 
 # Returns which chunk the mob is in right now. for example 0,0 or 0,32 or 96,32
 func get_chunk_from_position(chunkposition: Vector3) -> Vector2:
-	var chunk_x = floor(chunkposition.x / 32) * 32
-	var chunk_z = floor(chunkposition.z / 32) * 32
+	var x_position = chunkposition.x
+	var z_position = chunkposition.z
+	
+	var chunk_x_index = floor(x_position / 32.0)
+	var chunk_z_index = floor(z_position / 32.0)
+	
+	var chunk_x = chunk_x_index * 32
+	var chunk_z = chunk_z_index * 32
+	
 	return Vector2(chunk_x, chunk_z)
 
 # The mob will blink once to indicate that it's hit
