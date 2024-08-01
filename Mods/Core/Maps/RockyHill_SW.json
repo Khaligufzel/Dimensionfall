@@ -186,6 +186,17 @@
 				"id": "rock_floor_03"
 			},
 			{
+				"furniture": {
+					"id": "table_round_wood",
+					"rotation": 90
+				},
+				"id": "rock_floor_03"
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"rotation": 270
+				},
 				"id": "rock_floor_03"
 			},
 			{
@@ -195,9 +206,13 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
-			},
-			{
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"itemgroups": [
+						"M4A1_gun_ammo"
+					],
+					"rotation": 90
+				},
 				"id": "rock_floor_03"
 			},
 			{
@@ -282,6 +297,9 @@
 				"id": "rock_floor_03"
 			},
 			{
+				"furniture": {
+					"id": "chair_wood"
+				},
 				"id": "rock_floor_03"
 			},
 			{
@@ -477,15 +495,27 @@
 				"id": "rock_floor_03"
 			},
 			{
+				"furniture": {
+					"id": "lamp_standing",
+					"rotation": 180
+				},
 				"id": "rock_floor_03"
 			},
 			{
 				"id": "rock_floor_03"
 			},
 			{
+				"furniture": {
+					"id": "table_metal",
+					"rotation": 180
+				},
 				"id": "rock_floor_03"
 			},
 			{
+				"furniture": {
+					"id": "bed_wood_single_00",
+					"rotation": 180
+				},
 				"id": "rock_floor_03"
 			},
 			{
@@ -3333,33 +3363,19 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"furniture": {
-					"id": "table_round_wood"
-				},
-				"id": "rock_floor_03"
+
 			},
 			{
-				"furniture": {
-					"id": "chair_wood",
-					"rotation": 270
-				},
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"furniture": {
-					"id": "cabinet_wood_00",
-					"itemgroups": [
-						"M4A1_gun_ammo"
-					],
-					"rotation": 90
-				},
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -3443,22 +3459,19 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"furniture": {
-					"id": "chair_wood"
-				},
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -3542,22 +3555,23 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+				"id": "rock_slope_00",
+				"rotation": 90
 			},
 			{
 				"id": "rock_floor_03"
@@ -3638,31 +3652,19 @@
 				"id": "rock_floor_00"
 			},
 			{
-				"furniture": {
-					"id": "lamp_standing",
-					"rotation": 180
-				},
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"furniture": {
-					"id": "bed_wood_single_00",
-					"rotation": 180
-				},
-				"id": "rock_floor_03"
+
 			},
 			{
-				"furniture": {
-					"id": "table_metal",
-					"rotation": 180
-				},
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -6438,19 +6440,23 @@
 				"id": "rock_floor_03"
 			},
 			{
-
+				"id": "rock_floor_05"
 			},
 			{
-
+				"id": "rock_floor_03",
+				"rotation": 270
 			},
 			{
-
+				"id": "rock_floor_06",
+				"rotation": 270
 			},
 			{
-
+				"id": "rock_floor_06",
+				"rotation": 270
 			},
 			{
-
+				"id": "rock_floor_04",
+				"rotation": 180
 			},
 			{
 				"id": "rock_floor_05",
@@ -6536,19 +6542,24 @@
 				"id": "rock_floor_03"
 			},
 			{
-
+				"id": "rock_floor_06",
+				"rotation": 270
 			},
 			{
-
+				"id": "rock_floor_03",
+				"rotation": 180
 			},
 			{
-
+				"id": "rock_floor_04",
+				"rotation": 90
 			},
 			{
-
+				"id": "rock_floor_03",
+				"rotation": 90
 			},
 			{
-
+				"id": "rock_floor_04",
+				"rotation": 270
 			},
 			{
 				"id": "rock_floor_03",
@@ -6634,34 +6645,35 @@
 				"id": "rock_floor_03"
 			},
 			{
-
+				"id": "rock_floor_04",
+				"rotation": 270
+			},
+			{
+				"id": "rock_floor_03",
+				"rotation": 180
+			},
+			{
+				"id": "rock_floor_04",
+				"rotation": 270
+			},
+			{
+				"id": "rock_floor_06",
+				"rotation": 180
 			},
 			{
 
 			},
 			{
 
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "rock_slope_00",
-				"rotation": 90
 			},
 			{
 				"furniture": {
 					"id": "security_gate",
 					"rotation": 90
-				},
-				"id": "rock_floor_00"
+				}
 			},
 			{
-				"id": "rock_floor_00",
-				"rotation": 90
+
 			},
 			{
 
@@ -6736,19 +6748,23 @@
 				"id": "rock_floor_03"
 			},
 			{
-
+				"id": "rock_floor_04",
+				"rotation": 270
 			},
 			{
-
+				"id": "rock_floor_04",
+				"rotation": 180
 			},
 			{
-
+				"id": "rock_floor_06"
 			},
 			{
-
+				"id": "rock_floor_03",
+				"rotation": 270
 			},
 			{
-
+				"id": "rock_floor_04",
+				"rotation": 270
 			},
 			{
 				"id": "rock_floor_03",

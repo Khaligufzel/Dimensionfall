@@ -730,7 +730,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"RockyHill_SE"
+					"RockyHill_SE",
+					"RockyHill_SW"
 				]
 			}
 		},
