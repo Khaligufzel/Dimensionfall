@@ -1015,6 +1015,13 @@
 		],
 		"mode": "Collection",
 		"name": "M4A1 Gun and ammo",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_SW"
+				]
+			}
+		},
 		"sprite": "rifle_64_32.png"
 	}
 ]

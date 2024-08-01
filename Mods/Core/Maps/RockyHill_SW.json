@@ -3354,6 +3354,9 @@
 			{
 				"furniture": {
 					"id": "cabinet_wood_00",
+					"itemgroups": [
+						"M4A1_gun_ammo"
+					],
 					"rotation": 90
 				},
 				"id": "rock_floor_03"
