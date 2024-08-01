@@ -4,6 +4,7 @@
 		"Mountain"
 	],
 	"description": "A rocky hill located in the southeast, featuring steep slopes and rugged paths.",
+	"id": "RockyHill_SE",
 	"levels": [
 		[],
 		[],
@@ -6486,16 +6487,16 @@
 
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_04"
@@ -6586,13 +6587,13 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_05"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -6682,13 +6683,13 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_05"
+
 			},
 			{
-				"id": "rock_floor_05"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -6778,13 +6779,13 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_05"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -6874,13 +6875,13 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_05"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_05"
@@ -6970,13 +6971,13 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_05"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_05"
@@ -7069,7 +7070,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -7165,7 +7166,8 @@
 				"id": "rock_floor_05"
 			},
 			{
-				"id": "rock_floor_03"
+				"id": "rock_slope_00",
+				"rotation": 180
 			},
 			{
 				"id": "rock_floor_03"
@@ -7262,7 +7264,7 @@
 				"id": "rock_floor_05"
 			},
 			{
-				"id": "rock_floor_03"
+				"id": "rock_floor_01"
 			},
 			{
 				"id": "rock_floor_03"
@@ -7358,7 +7360,7 @@
 				"id": "rock_floor_05"
 			},
 			{
-				"id": "rock_floor_03"
+				"id": "rock_floor_01"
 			},
 			{
 				"id": "rock_floor_03"
@@ -7454,7 +7456,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
+				"id": "rock_floor_01"
 			},
 			{
 				"id": "rock_floor_03"
@@ -7551,7 +7553,7 @@
 				"id": "rock_floor_05"
 			},
 			{
-				"id": "rock_floor_03"
+				"id": "rock_floor_01"
 			},
 			{
 				"id": "rock_floor_03"
@@ -7647,7 +7649,7 @@
 				"id": "rock_floor_05"
 			},
 			{
-				"id": "rock_floor_03"
+				"id": "rock_floor_01"
 			},
 			{
 				"id": "rock_floor_03"
@@ -7743,7 +7745,7 @@
 				"id": "rock_floor_05"
 			},
 			{
-				"id": "rock_floor_05"
+				"id": "rock_floor_01"
 			},
 			{
 				"id": "rock_floor_03"
@@ -7839,7 +7841,7 @@
 				"id": "rock_floor_05"
 			},
 			{
-				"id": "rock_floor_05"
+				"id": "rock_floor_01"
 			},
 			{
 				"id": "rock_floor_03"
@@ -7935,7 +7937,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_05"
+				"id": "rock_floor_01"
 			},
 			{
 				"id": "rock_floor_03"
@@ -8031,7 +8033,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
+				"id": "rock_floor_01"
 			},
 			{
 				"id": "rock_floor_03"
@@ -8127,7 +8129,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
+				"id": "rock_floor_01"
 			},
 			{
 				"id": "rock_floor_03"
@@ -8223,7 +8225,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
+				"id": "rock_floor_01"
 			},
 			{
 				"id": "rock_floor_03"
@@ -10146,7 +10148,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_05"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -10242,7 +10244,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -10338,7 +10340,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_05"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -10390,196 +10392,6 @@
 			},
 			{
 				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_02"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_slope_00",
-				"rotation": 270
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_02"
-			},
-			{
-				"id": "rock_floor_02"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_02"
 			},
 			{
 				"id": "rock_floor_02"
@@ -10619,7 +10431,28 @@
 
 			},
 			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
 
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_05"
 			},
 			{
 				"id": "rock_floor_05"
@@ -10629,6 +10462,175 @@
 			},
 			{
 				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_02"
+			},
+			{
+				"id": "rock_floor_02"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_02"
+			},
+			{
+				"id": "rock_floor_02"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_slope_00",
+				"rotation": 270
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+
 			},
 			{
 				"id": "rock_floor_05"
@@ -10724,7 +10726,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -10820,93 +10822,6 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_02"
-			},
-			{
-				"id": "rock_floor_02"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
 
 			},
 			{
@@ -10922,10 +10837,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_05"
-			},
-			{
-				"id": "rock_floor_05"
+				"id": "rock_floor_03"
 			},
 			{
 				"id": "rock_floor_03"
@@ -10949,6 +10861,96 @@
 				"id": "rock_floor_02"
 			},
 			{
+				"id": "rock_floor_02"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_03"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_05"
+			},
+			{
+				"id": "rock_floor_02"
+			},
+			{
 				"id": "rock_floor_00"
 			},
 			{
@@ -11012,7 +11014,7 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
+
 			},
 			{
 				"id": "rock_floor_03"
@@ -11108,93 +11110,6 @@
 				"id": "rock_floor_03"
 			},
 			{
-				"id": "rock_floor_03"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_02"
-			},
-			{
-				"id": "rock_floor_02"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-				"id": "rock_floor_00"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
 
 			},
 			{
@@ -11213,16 +11128,10 @@
 				"id": "rock_floor_00"
 			},
 			{
-				"id": "rock_floor_02"
-			},
-			{
 				"id": "rock_floor_00"
 			},
 			{
-				"id": "rock_floor_02"
-			},
-			{
-				"id": "rock_floor_02"
+				"id": "rock_floor_00"
 			},
 			{
 				"id": "rock_floor_02"
@@ -11291,6 +11200,12 @@
 
 			},
 			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
 
 			},
 			{
@@ -11300,7 +11215,94 @@
 				"id": "rock_floor_00"
 			},
 			{
+				"id": "rock_floor_02"
+			},
+			{
 				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_02"
+			},
+			{
+				"id": "rock_floor_02"
+			},
+			{
+				"id": "rock_floor_02"
+			},
+			{
+				"id": "rock_floor_02"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+				"id": "rock_floor_00"
+			},
+			{
+
 			},
 			{
 				"id": "rock_floor_00"
@@ -11396,7 +11398,7 @@
 				"id": "rock_floor_00"
 			},
 			{
-				"id": "rock_floor_00"
+
 			},
 			{
 				"id": "rock_floor_00"

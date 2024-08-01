@@ -825,7 +825,9 @@
 			"core": {
 				"maps": [
 					"field_grass_basic_00",
-					"field_grass_flowers_00"
+					"field_grass_flowers_00",
+					"RockyHill_SE",
+					"RockyHill_SW"
 				]
 			}
 		},

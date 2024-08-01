@@ -144,7 +144,9 @@
 					"generichouse_t",
 					"store_electronic_clothing",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"RockyHill_SE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -617,6 +619,14 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_00",
 		"name": "Rock floor",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_SE",
+					"RockyHill_SW"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "rockyfloor1.png"
 	},
@@ -627,6 +637,14 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_01",
 		"name": "Rock floor",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_SE",
+					"RockyHill_SW"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "rockyfloor2.png"
 	},
@@ -637,6 +655,14 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_02",
 		"name": "Rock floor",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_SE",
+					"RockyHill_SW"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "rockyfloor3.png"
 	},
@@ -647,6 +673,14 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_03",
 		"name": "Rock floor",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_SE",
+					"RockyHill_SW"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "rockfloor.png"
 	},
@@ -657,6 +691,14 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_04",
 		"name": "Rock floor",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_SE",
+					"RockyHill_SW"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "rockyfloor4.png"
 	},
@@ -667,6 +709,14 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_05",
 		"name": "Rock floor",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_SE",
+					"RockyHill_SW"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "rockyfloor5.png"
 	},
@@ -677,6 +727,13 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_06",
 		"name": "Rock floor",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_SE"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "rockyfloor6.png"
 	},
@@ -687,6 +744,14 @@
 		"description": "A rocky surface allowing you to move up or down",
 		"id": "rock_slope_00",
 		"name": "Rock slope",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_SE",
+					"RockyHill_SW"
+				]
+			}
+		},
 		"shape": "slope",
 		"sprite": "rockyfloorrampnorth.png"
 	},
@@ -700,7 +765,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse_00"
+					"Generichouse_00",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1091,7 +1157,8 @@
 					"generichouse_corner",
 					"generichouse_t",
 					"store_electronic_clothing",
-					"forest_basic_00"
+					"forest_basic_00",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1116,7 +1183,9 @@
 					"generichouse_corner",
 					"generichouse_t",
 					"forest_basic_00",
-					"Generichouse_00"
+					"Generichouse_00",
+					"RockyHill_SE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1167,7 +1236,9 @@
 					"generichouse_t",
 					"store_electronic_clothing",
 					"forest_basic_00",
-					"Generichouse_00"
+					"Generichouse_00",
+					"RockyHill_SE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1194,7 +1265,8 @@
 					"generichouse_t",
 					"store_electronic_clothing",
 					"forest_basic_00",
-					"Generichouse_00"
+					"Generichouse_00",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1219,7 +1291,8 @@
 					"generichouse_corner",
 					"store_electronic_clothing",
 					"forest_basic_00",
-					"Generichouse"
+					"Generichouse",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1233,6 +1306,13 @@
 		"description": "One side of the terrain is just dirt and no grass",
 		"id": "grass_dirt_north_00",
 		"name": "Grass with a patch of dirt",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_SW"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "grassnorthdirt.png"
 	},
@@ -1268,7 +1348,9 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"field_grass_basic_00"
+					"field_grass_basic_00",
+					"RockyHill_SE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1293,7 +1375,9 @@
 					"generichouse_corner",
 					"generichouse_t",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"RockyHill_SE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1316,7 +1400,8 @@
 					"urbanroad_t",
 					"urbanroad_corner",
 					"generichouse_corner",
-					"generichouse_t"
+					"generichouse_t",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1341,7 +1426,9 @@
 					"generichouse_corner",
 					"generichouse_t",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"RockyHill_SE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1426,7 +1513,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"forest_basic_00"
+					"forest_basic_00",
+					"RockyHill_SW"
 				]
 			}
 		},
