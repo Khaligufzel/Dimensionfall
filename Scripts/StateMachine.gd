@@ -29,7 +29,7 @@ func _physics_process(delta):
 		current_state.Physics_Update(delta)
 
 
-# WHen the mob changes from one state to another, often caused by the Detection node
+# When the mob changes from one state to another, often caused by the Detection node
 func on_child_transition(state, new_state_name):
 	if state != current_state:
 		return

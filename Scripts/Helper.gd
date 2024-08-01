@@ -140,7 +140,11 @@ func on_chunk_loaded(data: Dictionary):
 # Dictionary. The chunk is responsible for unloading the navigationmap itself
 func on_chunk_unloaded(data: Dictionary):
 	var chunk_position = Vector2(data["mypos"].x, data["mypos"].z)
-	chunk_navigation_maps.erase(chunk_position)
+	if chunk_navigation_maps.has(chunk_position):
+		var navigation_map_id = chunk_navigation_maps[chunk_position]
+		NavigationServer3D.free_rid(navigation_map_id)
+		chunk_navigation_maps.erase(chunk_position)
+
 
 # When the user exits the game and returns to the main menu
 func _on_game_ended():

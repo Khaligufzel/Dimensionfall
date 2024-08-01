@@ -24,6 +24,8 @@ func Exit():
 
 
 func Physics_Update(_delta: float):
+	if mob.terminated:
+		Transistioned.emit(self, "mobterminate") 
 	# Rotation towards target using look_at
 	if targeted_player:
 		var target_position = targeted_player.global_position

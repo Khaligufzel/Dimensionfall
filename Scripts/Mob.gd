@@ -32,6 +32,8 @@ var state_machine: StateMachine
 var mob_idle: MobIdle
 var mob_follow: MobFollow
 var mob_attack: MobAttack
+var mob_terminate: MobTerminate
+var terminated: bool = false
 
 
 # Previously the Mob node was configured in the node editor
@@ -46,10 +48,12 @@ func _init(mobpos: Vector3, newMobJSON: Dictionary):
 	create_mob_idle()
 	create_mob_follow()
 	create_mob_attack()
+	create_mob_terminate()
 	create_detection()
 	create_collision_shape()
 	create_mesh_instance()
 	apply_stats_from_dmob(Gamedata.mobs.by_id(mobJSON.id))
+	Helper.signal_broker.game_terminated.connect(terminate)
 
 # Set basic properties of the mob
 func setup_mob_properties():
@@ -129,10 +133,17 @@ func create_mob_attack():
 	mob_attack.add_child.call_deferred(attack_cooldown)
 
 
+# Create and configure MobTerminate
+func create_mob_terminate():
+	mob_terminate = MobTerminate.new()
+	mob_terminate.name = "MobTerminate"
+	state_machine.add_child.call_deferred(mob_terminate)
+
+
 # Create and configure Detection
 func create_detection():
 	var detection = Detection.new()
-	detection.state_nodes = [mob_attack, mob_idle, mob_follow]
+	detection.state_nodes = [mob_attack, mob_idle, mob_follow, mob_terminate]
 	detection.mob = self
 	add_child.call_deferred(detection)
 
@@ -186,11 +197,14 @@ func _physics_process(_delta):
 	if current_rotation != last_rotation:
 		last_rotation = current_rotation
 
+
 func update_navigation_agent_map(chunk_position: Vector2):
 	# Assume 'chunk_navigation_maps' is a global dictionary mapping chunk positions to navigation map IDs
 	var navigation_map_id = Helper.chunk_navigation_maps.get(chunk_position)
 	if navigation_map_id:
 		nav_agent.set_navigation_map(navigation_map_id)
+	else:
+		print_debug("Tried to set navigation_map_id at "+str(chunk_position)+", but it was null")
 
 # When the mob gets hit by an attack
 # attack: a dictionary with the "damage" and "hit_chance" properties
@@ -296,8 +310,15 @@ func apply_stats_from_dmob(dmob: DMob) -> void:
 
 # Returns which chunk the mob is in right now. for example 0,0 or 0,32 or 96,32
 func get_chunk_from_position(chunkposition: Vector3) -> Vector2:
-	var chunk_x = floor(chunkposition.x / 32) * 32
-	var chunk_z = floor(chunkposition.z / 32) * 32
+	var x_position = chunkposition.x
+	var z_position = chunkposition.z
+	
+	var chunk_x_index = floor(x_position / 32.0)
+	var chunk_z_index = floor(z_position / 32.0)
+	
+	var chunk_x = chunk_x_index * 32
+	var chunk_z = chunk_z_index * 32
+	
 	return Vector2(chunk_x, chunk_z)
 
 # The mob will blink once to indicate that it's hit
@@ -344,3 +365,9 @@ func get_data() -> Dictionary:
 		"hearing_range": hearing_range
 	}
 	return newMobData
+
+
+# Terminate the mob, disabling any movement and navigation
+# This allows the mob to transition to the MobTerminate state
+func terminate():
+	terminated = true

@@ -33,6 +33,8 @@ func _process(_delta):
 
 
 func _physics_process(_delta):
+	if mob.terminated:
+		return
 	var space_state = get_world_3d().direct_space_state
 	# TO-DO Change playerCol to group of players
 	var playerInstance: CharacterBody3D = get_tree().get_first_node_in_group("Players")
