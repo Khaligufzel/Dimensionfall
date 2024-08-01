@@ -182,9 +182,10 @@ func data_changed(oldmap: DMap):
 			for entity_id in new_entities[entity_type]:
 				var dmob: DMob = Gamedata.mobs.by_id(entity_id)
 				dmob.add_reference("core","maps",id)
-		else:
+		elif entity_type == "itemgroups":
 			for entity_id in new_entities[entity_type]:
-				Gamedata.add_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
+				var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(entity_id)
+				ditemgroup.add_reference("core","maps",id)
 
 	# Remove references for entities not present in new data
 	for entity_type in old_entities.keys():

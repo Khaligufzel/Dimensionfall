@@ -20,6 +20,11 @@ const DATA_CATEGORIES = {
 	"quests": {"dataPath": "./Mods/Core/Quests/Quests.json", "spritePath": "./Mods/Core/Items/"}
 }
 
+# Dictionary to store loaded textures
+var textures: Dictionary = {
+	"container": load("res://Textures/container_32.png"),
+	"container_filled": load("res://Textures/container_filled_32.png")
+}
 
 # We write down the associated paths for the files to load
 # Next, sprites are loaded from spritesPath into the .sprites property
