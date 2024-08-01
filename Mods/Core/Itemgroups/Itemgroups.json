@@ -989,5 +989,32 @@
 		"mode": "Collection",
 		"name": "Test items",
 		"sprite": "screw_32.png"
+	},
+	{
+		"description": "The player finds this rare pile of a M4A1 gun and ammo",
+		"id": "M4A1_gun_ammo",
+		"items": [
+			{
+				"id": "rifle_m4a1",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "pistol_magazine",
+				"max": 5,
+				"min": 3,
+				"probability": 100
+			},
+			{
+				"id": "bullet_9mm",
+				"max": 100,
+				"min": 25,
+				"probability": 100
+			}
+		],
+		"mode": "Collection",
+		"name": "M4A1 Gun and ammo",
+		"sprite": "rifle_64_32.png"
 	}
 ]

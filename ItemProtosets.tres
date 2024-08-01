@@ -71,7 +71,8 @@ json_data = "[
 				\"itemgroups\": [
 					\"cabinet_general\",
 					\"mob_loot\",
-					\"test_items\"
+					\"test_items\",
+					\"M4A1_gun_ammo\"
 				],
 				\"items\": [
 					\"pistol_magazine\"
@@ -127,7 +128,8 @@ json_data = "[
 				\"itemgroups\": [
 					\"cabinet_general\",
 					\"mob_loot\",
-					\"test_items\"
+					\"test_items\",
+					\"M4A1_gun_ammo\"
 				]
 			}
 		},
@@ -191,6 +193,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/rifle_64_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"M4a1 rifle\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"M4A1_gun_ammo\"
+				]
+			}
+		},
 		\"sprite\": \"rifle_64_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": true,
