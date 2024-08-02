@@ -841,100 +841,100 @@
 				"id": "herbs_wild",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "long_stick",
 				"max": 1,
 				"min": 1,
-				"probability": 50
+				"probability": 100
 			},
 			{
 				"id": "stick",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "small_rock",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "pebble",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "acorn",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "pinecone",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "bird_egg",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "mushrooms_forest",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "berries_wild",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "small_stick",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "plant_remnants",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "pine_branch",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "leaf",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "branch",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			},
 			{
 				"id": "log",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 5
 			}
 		],
-		"mode": "Collection",
+		"mode": "Distribution",
 		"name": "Generic forest finds",
 		"references": {
 			"core": {

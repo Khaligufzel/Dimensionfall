@@ -60,7 +60,11 @@ func create_loot():
 	
 	# Check if the itemgroup data exists and has items
 	if ditemgroup:
-		item_added = _add_items_to_inventory(ditemgroup.items)
+		var groupmode: String = ditemgroup.mode # can be "Collection" or "Distribution".
+		if groupmode == "Collection":
+			item_added = _add_items_to_inventory_collection_mode(ditemgroup.items)
+		elif groupmode == "Distribution":
+			item_added = _add_items_to_inventory_distribution_mode(ditemgroup.items)
 
 	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
 	if item_added and sprite_3d.texture == Gamedata.textures.container:
@@ -75,8 +79,8 @@ func create_loot():
 		_on_item_removed(null)
 
 
-# Takes a list of items and adds them to the inventory of the chance allows it.
-func _add_items_to_inventory(items: Array[DItemgroup.Item]) -> bool:
+# Takes a list of items and adds them to the inventory in Collection mode.
+func _add_items_to_inventory_collection_mode(items: Array[DItemgroup.Item]) -> bool:
 	var item_added: bool = false
 	# Loop over each item object in the itemgroup's 'items' property
 	for item_object: DItemgroup.Item in items:
@@ -89,6 +93,30 @@ func _add_items_to_inventory(items: Array[DItemgroup.Item]) -> bool:
 			var quantity = randi_range(item_object.minc, item_object.maxc)
 			_add_item_to_inventory(item_id, quantity)
 	return item_added
+
+
+# Takes a list of items and adds one to the inventory based on probabilities in Distribution mode.
+func _add_items_to_inventory_distribution_mode(items: Array[DItemgroup.Item]) -> bool:
+	var total_probability = 0
+	# Calculate the total probability
+	for item_object in items:
+		total_probability += item_object.probability
+
+	# Generate a random value between 0 and total_probability - 1
+	var random_value = randi_range(0, total_probability - 1)
+	var cumulative_probability = 0
+
+	# Iterate through items to select one based on the random value
+	for item_object: DItemgroup.Item in items:
+		cumulative_probability += item_object.probability
+		# Check if the random value falls within the current item's range
+		if random_value < cumulative_probability:
+			var item_id = item_object.id
+			var quantity = randi_range(item_object.minc, item_object.maxc)
+			_add_item_to_inventory(item_id, quantity)
+			return true  # One item is added, return immediately
+
+	return false  # In case no item is added, though this is highly unlikely
 
 
 # Takes an item_id and quantity and adds it to the inventory

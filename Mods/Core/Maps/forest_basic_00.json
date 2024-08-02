@@ -97,7 +97,7 @@
 			"spawn_chance": 100,
 			"tiles": [
 				{
-					"count": 200,
+					"count": 100,
 					"id": "null"
 				}
 			]
