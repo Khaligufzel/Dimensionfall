@@ -28,11 +28,11 @@ func Physics_Update(_delta: float):
 	if mob.terminated:
 		Transistioned.emit(self, "mobterminate") 
 	
-	if nav_agent.get_navigation_map() == null:
-		var current_chunk = mob.get_chunk_from_position(mob.global_transform.origin)
+	var next_pos: Vector3 = nav_agent.get_next_path_position()
+	if nav_agent.get_navigation_map() == null or next_pos == mob.global_transform.origin:
+		var current_chunk = mob.get_chunk_from_position(target_location)
 		mob.update_navigation_agent_map(current_chunk)
 		return
-	var next_pos: Vector3 = nav_agent.get_next_path_position()
 	var dir = mob.to_local(next_pos).normalized()
 	mob.velocity = dir * mob.current_move_speed
 	mob.move_and_slide()
