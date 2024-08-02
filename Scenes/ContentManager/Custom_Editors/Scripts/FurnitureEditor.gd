@@ -107,7 +107,8 @@ func load_furniture_data():
 	if not dfurniture.destruction.get_data().is_empty():
 		canDestroyCheckbox.button_pressed = true
 		destructionTextEdit.set_text(dfurniture.destruction.group)
-		destructionImageDisplay.texture = Gamedata.furnitures.sprite_by_file(dfurniture.destruction.sprite)
+		if not dfurniture.destruction.sprite == "":
+			destructionImageDisplay.texture = Gamedata.furnitures.sprite_by_file(dfurniture.destruction.sprite)
 		destructionSpriteNameLabel.text = dfurniture.destruction.sprite
 		set_visibility_for_children(destructionTextEdit, true)
 	else:

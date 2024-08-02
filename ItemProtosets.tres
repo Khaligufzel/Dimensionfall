@@ -197,6 +197,9 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"M4A1_gun_ammo\"
+				],
+				\"quests\": [
+					\"starter_tutorial_00\"
 				]
 			}
 		},

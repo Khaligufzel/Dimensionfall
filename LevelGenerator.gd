@@ -21,6 +21,7 @@ var load_queue = []
 var unload_queue = []
 # Enforces loading or unloading one chunk at a time
 var is_processing_chunk = false
+const TIME_DELAY: float = 0.5
 
 signal all_chunks_unloaded
 signal all_chunks_loaded  # Signal to indicate all initial chunks are loaded for the first time
@@ -40,7 +41,7 @@ func _ready():
 # Function to create and start a timer that will generate chunks every 1 second if applicable
 func start_timer():
 	var my_timer = Timer.new() # Create a new Timer instance
-	my_timer.wait_time = 0.5 # Timer will tick every 0.5 second
+	my_timer.wait_time = TIME_DELAY # Timer will tick every TIME_DELAY second
 	my_timer.one_shot = false # False means the timer will repeat
 	add_child(my_timer) # Add the Timer to the scene as a child of this node
 	my_timer.timeout.connect(_on_Timer_timeout) # Connect the timeout signal
@@ -293,7 +294,7 @@ func handle_chunk_unload():
 		# Get all chunks in the group "chunks"
 		var chunks = get_tree().get_nodes_in_group("chunks")
 		for chunk in chunks:
-			await get_tree().create_timer(0.5).timeout # Wait for a bit before checking again
+			await get_tree().create_timer(TIME_DELAY).timeout # Wait for a bit before checking again
 			if is_instance_valid(chunk): # some might be queue_freed at this point
 				match chunk.load_state:
 					chunk.LoadStates.NEITHER:
@@ -307,5 +308,5 @@ func handle_chunk_unload():
 			is_processing_chunk = false
 			all_chunks_unloaded.emit()
 		else:
-			await get_tree().create_timer(0.5).timeout # Wait for a bit before checking again
+			await get_tree().create_timer(TIME_DELAY).timeout # Wait for a bit before checking again
 			handle_chunk_unload()
