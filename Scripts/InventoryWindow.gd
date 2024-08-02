@@ -175,7 +175,7 @@ func _on_container_clicked(containerListItemInstance: Control):
 			proximity_inventory_control.set_inventory(container_inventory)
 
 
-# Function to remove a container from the containerList
+# Function to remove a container from the containerLista
 func remove_container_from_list(container: Node3D):
 	var was_selected = false
 	var first_container = null
@@ -184,25 +184,32 @@ func remove_container_from_list(container: Node3D):
 	if proximity_inventory_control.get_inventory() == container.get_inventory():
 		was_selected = true
 
-	# Remove the container from the list and count remaining containers
-	var remaining_containers = 0
+	# Remove the container from the list
 	for child in containerList.get_children():
 		if child.containerInstance == container:
 			child.queue_free()
-		elif not child.is_queued_for_deletion():  # Only count children not queued for deletion
-			remaining_containers += 1
-			if first_container == null:
-				first_container = child.containerInstance
+			break
 
-	# If the removed container was selected, update the inventory to the first remaining container's inventory
-	if was_selected and remaining_containers > 0:
-		var first_container_inventory = first_container.get_inventory()
-		if first_container_inventory:
-			proximity_inventory_control.set_inventory(first_container_inventory)
-	elif was_selected or remaining_containers == 0:
-		# Reset the inventory to proximity_inventory and hide the control
-		proximity_inventory_control.set_inventory(proximity_inventory)
-		proximity_inventory_control.visible = false
+	# Find the first non-queued container if it exists
+	for child in containerList.get_children():
+		if not child.is_queued_for_deletion():
+			first_container = child.containerInstance
+			break
+
+	# Update the proximity inventory control based on the remaining containers
+	if was_selected:
+		if first_container:
+			var first_container_inventory = first_container.get_inventory()
+			if first_container_inventory:
+				proximity_inventory_control.set_inventory(first_container_inventory)
+		else:
+			# Reset the inventory to proximity_inventory and hide the control
+			proximity_inventory_control.set_inventory(proximity_inventory)
+			proximity_inventory_control.visible = false
+
+	# Ensure visibility of the proximity inventory control based on whether there are remaining containers
+	proximity_inventory_control.visible = first_container != null
+
 
 
 # Called when the user has pressed a button that will equip the selected item
