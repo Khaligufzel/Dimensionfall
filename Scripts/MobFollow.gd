@@ -27,6 +27,11 @@ func Exit():
 func Physics_Update(_delta: float):
 	if mob.terminated:
 		Transistioned.emit(self, "mobterminate") 
+	
+	if nav_agent.get_navigation_map() == null:
+		var current_chunk = mob.get_chunk_from_position(mob.global_transform.origin)
+		mob.update_navigation_agent_map(current_chunk)
+		return
 	var next_pos: Vector3 = nav_agent.get_next_path_position()
 	var dir = mob.to_local(next_pos).normalized()
 	mob.velocity = dir * mob.current_move_speed
@@ -41,7 +46,7 @@ func Physics_Update(_delta: float):
 	if !targeted_player:
 		return
 	var space_state = get_world_3d().direct_space_state
-	# TO-DO Change playerCol to group of players
+	# TODO Change playerCol to group of players
 	var query = PhysicsRayQueryParameters3D.create(mobCol.global_position, targeted_player.global_position, int(pow(2, 1-1) + pow(2, 3-1)),[self])
 	var result = space_state.intersect_ray(query)
 	

@@ -8,7 +8,7 @@ var mob: CharacterBody3D # The mob we provide idle behavour for
 var move_distance: float = 50.0
 var moving_timer: Timer
 
-@onready var target_location
+@onready var target_location: Vector3
 
 var is_looking_to_move = false
 
@@ -30,14 +30,28 @@ func Exit():
 
 func Physics_Update(_delta: float):
 	if mob.terminated:
-		Transistioned.emit(self, "mobterminate") 
+		Transistioned.emit(self, "mobterminate")
+	
 	if is_looking_to_move:
-		var dir = mob.to_local(nav_agent.get_next_path_position()).normalized()
-		mob.velocity = dir * mob.current_idle_move_speed
-		mob.move_and_slide()
+		handle_mob_movement()
 
-		if Vector3(mob.global_position).distance_to(target_location) <= 0.5:
-			is_looking_to_move = false
+func handle_mob_movement():
+	var chunk_position = mob.get_chunk_from_position(target_location)
+	
+	# Check if the target location has a navigation map
+	if Helper.chunk_navigation_maps.has(chunk_position):
+		move_mob_to_target() # Continue moving
+	else:
+		# If there's no navigation map for the target location, stop moving
+		is_looking_to_move = false
+
+func move_mob_to_target():
+	var dir = mob.to_local(nav_agent.get_next_path_position()).normalized()
+	mob.velocity = dir * mob.current_idle_move_speed
+	mob.move_and_slide()
+	
+	if Vector3(mob.global_position).distance_to(target_location) <= 0.5:
+		is_looking_to_move = false
 
 
 func _on_detection_player_spotted(_player):

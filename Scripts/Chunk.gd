@@ -58,6 +58,7 @@ var load_state: LoadStates = LoadStates.NEITHER
 signal chunk_unloaded(chunkdata: Dictionary) # The chunk is fully unloaded
 # Signals that the chunk is partly loaded and the next chunk can start loading
 signal chunk_ready()
+signal chunk_generated() # When the chunk is completely done generating
 
 
 func _ready():
@@ -93,9 +94,11 @@ func initialize_chunk_data():
 	if is_new_chunk(): # This chunk is created for the first time
 		#This contains the data of one map, loaded from maps.data, for example generichouse.json
 		var mapsegmentData: Dictionary = Gamedata.maps.by_id(chunk_data.id).get_data().duplicate(true)
-		Helper.task_manager.create_task(generate_new_chunk.bind(mapsegmentData))
+		await Helper.task_manager.create_task(generate_new_chunk.bind(mapsegmentData))
+		chunk_generated.emit()
 	else: # This chunk is created from previously saved data
-		Helper.task_manager.create_task(generate_saved_chunk)
+		await Helper.task_manager.create_task(generate_saved_chunk)
+		chunk_generated.emit()
 
 
 func generate_new_chunk(mapsegmentData: Dictionary):
@@ -358,8 +361,13 @@ func free_furniture_instances():
 func free_mob_instances(mapMobs):
 	for mob in mapMobs:
 		if _is_object_in_range(mob.last_position):
-			mob.terminate()
 			mob.queue_free.call_deferred()
+
+# Function to terminate the mob instances
+func terminate_mob_instances(mapMobs):
+	for mob in mapMobs:
+		if _is_object_in_range(mob.last_position):
+			mob.terminate()
 
 # Function to free the item instances
 func free_item_instances(mapitems):
@@ -428,6 +436,7 @@ func unload_chunk():
 # You might want to call this by:
 # await Helper.task_manager.create_task(chunk.save_and_unload_chunk).completed
 func save_and_unload_chunk():
+	terminate_mob_instances(get_tree().get_nodes_in_group("mobs"))
 	start_unloading()
 	save_chunk()  # Save the chunk data
 	free_chunk_resources()

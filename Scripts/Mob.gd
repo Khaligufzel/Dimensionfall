@@ -189,9 +189,9 @@ func _physics_process(_delta):
 		# Check if the mob has crossed into a new chunk
 		current_chunk = get_chunk_from_position(global_transform.origin)
 		if current_chunk != last_chunk:
-			last_chunk = current_chunk
 			# We have crossed over to another chunk so we use that navigationmap now.
 			update_navigation_agent_map(current_chunk)
+			last_chunk = current_chunk
 
 	var current_rotation = int(rotation_degrees.y)
 	if current_rotation != last_rotation:
@@ -204,7 +204,9 @@ func update_navigation_agent_map(chunk_position: Vector2):
 	if navigation_map_id:
 		nav_agent.set_navigation_map(navigation_map_id)
 	else:
-		print_debug("Tried to set navigation_map_id at "+str(chunk_position)+", but it was null")
+		print_debug("Tried to set navigation_map_id at "+str(chunk_position)+", but it was null. last_position = " + str(last_position) + ", last_chunk = " + str(last_chunk))
+		# Set the last chunk to one that doesn't exist so it will try to get a new map
+		last_chunk = Vector2(0.1,0.1)
 
 # When the mob gets hit by an attack
 # attack: a dictionary with the "damage" and "hit_chance" properties
