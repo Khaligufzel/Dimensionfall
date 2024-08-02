@@ -16,26 +16,20 @@ extends Control
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
 
-
-# This signal will be emitted when the user presses the save button
-# This signal should alert Gamedata that the mob data array should be saved to disk
-signal data_changed(game_data: Dictionary, new_data: Dictionary, old_data: Dictionary)
-
-var olddata: Dictionary # Remember what the value of the data was before editing
+var olddata: DItemgroup # Remember what the value of the data was before editing
 # The data that represents this itemgroup
-# The data is selected from the Gamedata.data.itemgroup.data array
+# The data is selected from the Gamedata.itemgroups dictionary
 # based on the ID that the user has selected in the content editor
-var contentData: Dictionary = {}:
+var ditemgroup: DItemgroup = null:
 	set(value):
-		contentData = value
+		ditemgroup = value
 		load_itemgroup_data()
-		itemgroupSelector.sprites_collection = Gamedata.data.itemgroups.sprites
-		olddata = contentData.duplicate(true)
+		itemgroupSelector.sprites_collection = Gamedata.itemgroups.sprites
+		olddata = DItemgroup.new(ditemgroup.get_data().duplicate(true))
 
 
 func _ready():
 	control_elements = [itemgroupImageDisplay,NameTextEdit,DescriptionTextEdit]
-	data_changed.connect(Gamedata.on_data_changed)
 	modeOptionButton.add_item("Collection")
 	modeOptionButton.add_item("Distribution")
 	modeOptionButton.selected = 0  # Default to Collection
@@ -50,12 +44,12 @@ func update_item_list_with_probabilities():
 		child.queue_free()
 	add_header_row()
 	# Populate the container with new data
-	for item in contentData.get("items", []):
+	for item: DItemgroup.Item in ditemgroup.items:
 		add_item_entry(item)
 
 
 # Adds a new item and controls to the itemlist
-func add_item_entry(item):
+func add_item_entry(item: DItemgroup.Item):
 	var item_icon = TextureRect.new()
 	var item_sprite = Gamedata.items.sprite_by_id(item.get("id"))
 	item_icon.texture = item_sprite
@@ -67,7 +61,7 @@ func add_item_entry(item):
 	var probability_spinbox = SpinBox.new()
 	probability_spinbox.min_value = 0.0
 	probability_spinbox.max_value = 100.0
-	probability_spinbox.value = item.get("probability", 20)
+	probability_spinbox.value = item.probability
 	probability_spinbox.step = 1
 	probability_spinbox.tooltip_text = "Set the item's spawn probability. Range: 0% (never)" +\
 									" to 100% (always).\nCollection Mode: Each item is" + \
@@ -82,14 +76,14 @@ func add_item_entry(item):
 	var min_spinbox = SpinBox.new()
 	min_spinbox.min_value = 0
 	min_spinbox.max_value = 100
-	min_spinbox.value = item.get("min", 1)
+	min_spinbox.value = item.minc
 	min_spinbox.step = 1
 	min_spinbox.tooltip_text = "Minimum amount that can spawn"
 
 	var max_spinbox = SpinBox.new()
 	max_spinbox.min_value = 1
 	max_spinbox.max_value = 100
-	max_spinbox.value = item.get("max", 1)
+	max_spinbox.value = item.maxc
 	max_spinbox.step = 1
 	max_spinbox.tooltip_text = "Maximum amount that can spawn"
 
@@ -131,19 +125,17 @@ func _on_delete_item_button_pressed(item_id):
 
 # Loads the data into the editor. contentData describes exactly one itemgroup
 func load_itemgroup_data():
-	if itemgroupImageDisplay and contentData.has("sprite") and not contentData["sprite"].is_empty():
-		itemgroupImageDisplay.texture = Gamedata.data.itemgroups.sprites[contentData["sprite"]]
-		imageNameStringLabel.text = contentData["sprite"]
+	if itemgroupImageDisplay and ditemgroup.spriteid and not ditemgroup.spriteid.is_empty():
+		itemgroupImageDisplay.texture = ditemgroup.sprite
+		imageNameStringLabel.text = ditemgroup.spriteid
 	if IDTextLabel:
-		IDTextLabel.text = str(contentData["id"])
-	if NameTextEdit and contentData.has("name"):
-		NameTextEdit.text = contentData["name"]
-	if DescriptionTextEdit and contentData.has("description"):
-		DescriptionTextEdit.text = contentData["description"]
-	# Set the mode from contentData
-	if contentData.has("mode"):
-		select_option_by_string(modeOptionButton, contentData["mode"])
-
+		IDTextLabel.text = ditemgroup.id
+	if NameTextEdit:
+		NameTextEdit.text = ditemgroup.name
+	if DescriptionTextEdit:
+		DescriptionTextEdit.text = ditemgroup.description
+	# Set the mode from itemgroup
+	select_option_by_string(modeOptionButton, ditemgroup.mode)
 	update_item_list_with_probabilities()
 
 
@@ -164,16 +156,16 @@ func _on_close_button_button_up():
 
 
 # This function takes all data from the form elements stores them in the contentData
-# Since contentData is a reference to an item in Gamedata.data.itemgroup.data
+# Since contentData is a reference to an item in Gamedata.itemgroup
 # the central array for itemgroupdata is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up():
-	contentData["sprite"] = imageNameStringLabel.text
-	contentData["name"] = NameTextEdit.text
-	contentData["description"] = DescriptionTextEdit.text
-	contentData["mode"] = modeOptionButton.get_item_text(modeOptionButton.selected)
+	ditemgroup.spriteid = imageNameStringLabel.text
+	ditemgroup.name = NameTextEdit.text
+	ditemgroup.description = DescriptionTextEdit.text
+	ditemgroup.mode = modeOptionButton.get_item_text(modeOptionButton.selected)
 	
-	var new_items = []
+	var new_items: Array[DItemgroup.Item] = []
 	var num_children = itemListContainer.get_child_count()
 	var num_columns = itemListContainer.columns
 
@@ -184,16 +176,16 @@ func _on_save_button_button_up():
 		var min_amount = itemListContainer.get_child(i + 3).get_value()  # Fourth child is the SpinBox for minimum count
 		var max_amount = itemListContainer.get_child(i + 4).get_value()  # Fifth child is the SpinBox for maximum count
 
-		new_items.append({
+		new_items.append(DItemgroup.Item.new({
 			"id": item_id, 
 			"probability": probability, 
 			"min": min_amount, 
 			"max": max_amount
-		})
+		}))
 	
-	contentData["items"] = new_items
-	data_changed.emit(Gamedata.data.itemgroups, contentData, olddata)
-	olddata = contentData.duplicate(true)
+	ditemgroup.items = new_items
+	ditemgroup.changed(olddata)
+	olddata = DItemgroup.new(ditemgroup.get_data().duplicate(true))
 
 
 
@@ -268,8 +260,8 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 					print_debug("Item already exists in the list: " + item_id)
 					return
 
-		# If item is not already in the list, add it
-		add_item_entry({"id": item_id, "probability": 20})  # Default probability if not specified
+		# If item is not already in the list, add it, use default probability if not specified
+		add_item_entry(DItemgroup.Item.new({"id": item_id, "probability": 20}))
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 

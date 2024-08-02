@@ -3,19 +3,17 @@ extends Node
 # Autoload singleton that loads all game data required to run the game
 # Accessible via Gamedata.property
 var data: Dictionary = {}
-const itemgroup_references_Class = preload("res://Scripts/Gamedata/itemgroup_references.gd")
-var itemgroup_references: Node = null
 var maps: DMaps
 var furnitures: DFurnitures
 var items: DItems
 var tiles: DTiles
 var mobs: DMobs
+var itemgroups: DItemgroups
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
-	"itemgroups": {"dataPath": "./Mods/Core/Itemgroups/Itemgroups.json", "spritePath": "./Mods/Core/Items/"},
 	"wearableslots": {"dataPath": "./Mods/Core/Wearableslots/Wearableslots.json", "spritePath": "./Mods/Core/Wearableslots/"},
 	"stats": {"dataPath": "./Mods/Core/Stats/Stats.json", "spritePath": "./Mods/Core/Stats/"},
 	"skills": {"dataPath": "./Mods/Core/Skills/Skills.json", "spritePath": "./Mods/Core/Skills/"},
@@ -31,12 +29,13 @@ func _ready():
 	load_sprites()
 	load_data()
 	data.tacticalmaps.data = Helper.json_helper.file_names_in_dir(data.tacticalmaps.dataPath, ["json"])
-	itemgroup_references = itemgroup_references_Class.new()
 	maps = DMaps.new()
 	furnitures = DFurnitures.new()
 	items = DItems.new()
 	tiles = DTiles.new()
 	mobs = DMobs.new()
+	itemgroups = DItemgroups.new()
+
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES
 func initialize_data_structures():
@@ -242,21 +241,19 @@ func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 # connects the changed_data signal to this function
 # and binds the appropriate data array so it can be saved in this function
 func on_data_changed(contentData: Dictionary, newEntityData: Dictionary, oldEntityData: Dictionary):
-	if contentData == data.itemgroups:
-		itemgroup_references.on_itemgroup_changed(newEntityData, oldEntityData)
 	if contentData == data.quests:
 		on_quest_changed(newEntityData, oldEntityData)
 	save_data_to_file(contentData)
 
 
 # Adds a reference to an entity
-# data = any data group, like Gamedata.data.itemgroups
+# data = any data group, like Gamedata.data.quests
 # type = the type of reference, for example "item"
 # onid = where to add the reference to
 # refid = The reference to add on the fromid
-# Example usage: var changes_made = add_reference(Gamedata.data.itemgroups, "core", 
-# "item", itemgroup_id, item_id)
-# This example will add the specified item from the itemgroup's references
+# Example usage: var changes_made = add_reference(Gamedata.data.quests, "core", 
+# "item", quest_id, item_id)
+# This example will add the specified item from the quest's references
 func add_reference(mydata: Dictionary, module: String, type: String, onid: String, refid: String) -> bool:
 	var changes_made: bool = false
 
@@ -295,13 +292,13 @@ func add_reference(mydata: Dictionary, module: String, type: String, onid: Strin
 
 
 # Removes a reference from an entity. 
-# data = any data group, like Gamedata.data.itemgroups
+# data = any data group, like Gamedata.data.quests
 # type = the type of reference, for example item
 # fromid = where to remove the reference from
 # refid = The reference to remove from the fromid
-# Example usage: var changes_made = remove_reference(Gamedata.data.itemgroups, "core", 
-# "item", itemgroup_id, item_id)
-# This example will remove the specified item from the itemgroup's references
+# Example usage: var changes_made = remove_reference(Gamedata.data.quests, "core", 
+# "item", quest_id, item_id)
+# This example will remove the specified item from the quest's references
 func remove_reference(mydata: Dictionary, module: String, type: String, fromid: String, refid: String) -> bool:
 	var changes_made: bool = false
 	
@@ -345,8 +342,6 @@ func remove_reference(mydata: Dictionary, module: String, type: String, fromid: 
 
 # Removes all references of a deleted entity ID
 func remove_references_of_deleted_id(contentData: Dictionary, id: String):
-	if contentData == data.itemgroups:
-		itemgroup_references.on_itemgroup_deleted(id)
 	if contentData == data.tacticalmaps:
 		on_tacticalmap_deleted(id)
 	if contentData == data.skills:
@@ -407,29 +402,6 @@ func get_property_by_path(mydata: Dictionary, property_path: String, entity_id: 
 	return Helper.json_helper.get_nested_data(entity_data, property_path)
 
 
-
-# Helper function to update references if they have changed.
-# old: an entity id that is present in the old data
-# new: an entity id that is present in the new data
-# entity_id: The entity that's referenced in old and/or new
-# type: The type of entity that will be referenced
-# Example usage: update_reference(old_itemgroup, new_itemgroup, item_id, "item")
-# This example will remove item_id from the old_itemgroup's references and
-# add the item_id to the new_itemgroup's refrences
-func update_reference(old: String, new: String, entity_id: String, type: String) -> bool:
-	if old == new:
-		return false  # No change detected, exit early
-
-	var changes_made = false
-
-	# Remove from old group if necessary
-	if old != "":
-		changes_made = remove_reference(data.itemgroups, "core", type, old, entity_id) or changes_made
-	if new != "":
-		changes_made = add_reference(data.itemgroups, "core", type, new, entity_id) or changes_made
-	return changes_made
-
-
 # A tacticalmap is being deleted. Remove all references to this tacticalmap
 func on_tacticalmap_deleted(tacticalmap_id: String):
 	var file = data.tacticalmaps.dataPath + tacticalmap_id + ".json"
@@ -481,7 +453,7 @@ func on_wearableslot_deleted(wearableslot_id: String):
 		print_debug("Item with ID", wearableslot_data, "not found.")
 		return
 	
-	# This callable will remove this item from itemgroups that reference this item.
+	# This callable will remove this slot from items that reference this slot.
 	var myfunc: Callable = func (item_id):
 		var item_data: DItem = items.by_id(item_id)
 		item_data.wearable = null
@@ -619,9 +591,9 @@ func dadd_reference(references: Dictionary, module: String, type: String, refid:
 # new: an entity id that is present in the new data
 # entity_id: The entity that's referenced in old and/or new
 # type: The type of entity that will be referenced
-# Example usage: update_reference(old_itemgroup, new_itemgroup, item_id, "item")
-# This example will remove item_id from the old_itemgroup's references and
-# add the item_id to the new_itemgroup's refrences
+# Example usage: update_reference(old_quest, new_quest, item_id, "item")
+# This example will remove item_id from the old_quest's references and
+# add the item_id to the new_quest's refrences
 # TODO: Have this function replace update_reference when all entities have been transformed into
 # their own class. Until then, a d is added to the front to indicate it's used in data classes
 func dupdate_reference(ref: Dictionary, old: String, new: String, type: String) -> bool:

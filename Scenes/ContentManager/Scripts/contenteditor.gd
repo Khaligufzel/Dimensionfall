@@ -27,7 +27,7 @@ func _ready():
 	load_content_list({"mobs": true}, "Mobs")
 	# Hacky exception for furnitures, need to find a better solution
 	load_content_list({"furnitures": true}, "Furniture")
-	load_content_list(Gamedata.data.itemgroups, "Item Groups")
+	load_content_list({"itemgroups": true}, "Item Groups")
 	load_content_list(Gamedata.data.wearableslots, "Wearable Slots")
 	load_content_list(Gamedata.data.stats, "Stats")
 	load_content_list(Gamedata.data.skills, "Skills")
@@ -67,6 +67,9 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 	if data == {"furnitures": true}:
 		# HACK Hacky exception for furniture, need to find a better solution
 		instantiate_editor(data, itemID, furnitureEditor)
+	if data == {"itemgroups": true}:
+		# HACK Hacky exception for itemgroups, need to find a better solution
+		instantiate_editor(data, itemID, itemgroupEditor)
 	if data == {"items": true}:
 		# HACK Hacky exception for items, need to find a better solution
 		instantiate_editor(data, itemID, itemEditor)
@@ -78,8 +81,6 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 		instantiate_editor(data, itemID, mapEditor)
 	if data == Gamedata.data.tacticalmaps:
 		instantiate_editor(data, itemID, tacticalmapEditor)
-	if data == Gamedata.data.itemgroups:
-		instantiate_editor(data, itemID, itemgroupEditor)
 	if data == Gamedata.data.wearableslots:
 		instantiate_editor(data, itemID, wearableslotEditor)
 	if data == Gamedata.data.stats:
@@ -115,6 +116,9 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 		return
 	if data == {"furnitures": true}:# HACK Hacky exception for furniture, need to find a better solution
 		newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
+		return
+	if data == {"itemgroups": true}:# HACK Hacky exception for itemgroups, need to find a better solution
+		newContentEditor.ditemgroup = Gamedata.itemgroups.by_id(itemID)
 		return
 	if data == {"items": true}:# HACK Hacky exception for items, need to find a better solution
 		newContentEditor.ditem = Gamedata.items.by_id(itemID)

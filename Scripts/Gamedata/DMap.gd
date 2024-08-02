@@ -140,8 +140,6 @@ func delete():
 
 
 func remove_my_reference_from_all_entities() -> void:
-	var changes_made = false
-	
 	# Collect unique entities from mapdata
 	var entities = collect_unique_entities(DMap.new(id, dataPath))
 	var unique_entities = entities["new_entities"]
@@ -156,18 +154,11 @@ func remove_my_reference_from_all_entities() -> void:
 				var dtile: DTile = Gamedata.tiles.by_id(entity_id)
 				dtile.remove_reference("core","maps",id)
 			elif entity_type == "mobs":
-				var dtile: DMob = Gamedata.mobs.by_id(entity_id)
-				dtile.remove_reference("core","maps",id)
-			else:
-				changes_made = Gamedata.remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id) or changes_made
-
-	if changes_made:
-		# References have been added to tiles, furniture and/or mobs
-		# We could track changes individually so we only save what has actually changed.
-		Gamedata.tiles.save_tiles_to_disk()
-		Gamedata.furnitures.save_furnitures_to_disk()
-		Gamedata.save_data_to_file(Gamedata.data.mobs)
-		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
+				var dmob: DMob = Gamedata.mobs.by_id(entity_id)
+				dmob.remove_reference("core","maps",id)
+			elif entity_type == "itemgroups":
+				var ditemgroup: DItemgroup = Gamedata.Itemgroups.by_id(entity_id)
+				ditemgroup.remove_reference("core","maps",id)
 
 
 # Function to update map entity references when a map's data changes
@@ -215,7 +206,7 @@ func data_changed(oldmap: DMap):
 	if new_entities["tiles"].size() > 0 or old_entities["tiles"].size() > 0:
 		Gamedata.tiles.save_tiles_to_disk()
 	if new_entities["itemgroups"].size() > 0 or old_entities["itemgroups"].size() > 0:
-		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
+		Gamedata.itemgroups.save_itemgroups_to_disk()
 
 
 # Function to collect unique entities from each level in newdata and olddata

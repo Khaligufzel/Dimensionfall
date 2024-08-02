@@ -1,9 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://6d7nhwfk088o"]
+[gd_scene load_steps=3 format=3 uid="uid://6d7nhwfk088o"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/modmaintenance.gd" id="1_qyerb"]
-[ext_resource type="PackedScene" uid="uid://cycrhylvmdoo1" path="res://Scenes/ContentManager/ModMaintenance/removepropertyscript.tscn" id="2_flc2r"]
-[ext_resource type="PackedScene" uid="uid://bnf41ptw7dxpn" path="res://Scenes/ContentManager/ModMaintenance/changepropertytypescript.tscn" id="3_2oqe6"]
-[ext_resource type="PackedScene" uid="uid://dbgwn24ut2fx1" path="res://Scenes/ContentManager/ModMaintenance/exportdatascript.tscn" id="4_j0520"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_avegi"]
 font_size = 42
@@ -17,9 +14,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qyerb")
 scriptOptionButton = NodePath("VBoxContainer/ScriptHBoxContainer/ScriptOptionButton")
-removePropertyScript = NodePath("VBoxContainer/removeproperty")
-changepropertytype = NodePath("VBoxContainer/changepropertytype")
-exportdata = NodePath("VBoxContainer/exportdata")
+removePropertyScript = NodePath("")
+changepropertytype = NodePath("")
+exportdata = NodePath("")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -59,25 +56,7 @@ text = "Selected script:"
 
 [node name="ScriptOptionButton" type="OptionButton" parent="VBoxContainer/ScriptHBoxContainer"]
 layout_mode = 2
-item_count = 3
 selected = 0
-popup/item_0/text = "Remove property"
-popup/item_0/id = 0
-popup/item_1/text = "Change property type"
-popup/item_1/id = 1
-popup/item_2/text = "Export data"
-popup/item_2/id = 2
-
-[node name="removeproperty" parent="VBoxContainer" instance=ExtResource("2_flc2r")]
-layout_mode = 2
-
-[node name="changepropertytype" parent="VBoxContainer" instance=ExtResource("3_2oqe6")]
-visible = false
-layout_mode = 2
-
-[node name="exportdata" parent="VBoxContainer" instance=ExtResource("4_j0520")]
-visible = false
-layout_mode = 2
 
 [connection signal="button_up" from="VBoxContainer/HeaderHBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
 [connection signal="item_selected" from="VBoxContainer/ScriptHBoxContainer/ScriptOptionButton" to="." method="_on_script_option_button_item_selected"]

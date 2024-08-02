@@ -50,6 +50,11 @@ func load_data():
 		load_furnitures_list()
 		load_collapse_state()
 		return
+	# HACK Hacky exception for furniture, need to find a better solution
+	if contentData == {"itemgroups": true}:
+		load_itemgroups_list()
+		load_collapse_state()
+		return
 	# HACK Hacky exception for items, need to find a better solution
 	if contentData == {"items": true}:
 		load_items_list()
@@ -161,7 +166,11 @@ func _on_ok_button_up():
 	if contentData == {"maps": true}:
 		add_map_popup_ok()
 		return
-	# HACK Hacky exception for maps, need to find a better solution
+	# HACK Hacky exception for itemgroups, need to find a better solution
+	if contentData == {"itemgroups": true}:
+		add_itemgroup_popup_ok()
+		return
+	# HACK Hacky exception for furniture, need to find a better solution
 	if contentData == {"furnitures": true}:
 		add_furniture_popup_ok()
 		return
@@ -200,6 +209,10 @@ func _on_delete_button_button_up():
 	# HACK Exception for furnitures, need to find a better solution
 	if contentData == {"furnitures": true}:
 		delete_furniture(selected_id)
+		return
+	# HACK Exception for furnitures, need to find a better solution
+	if contentData == {"itemgroups": true}:
+		delete_itemgroup(selected_id)
 		return
 	# HACK Exception for items, need to find a better solution
 	if contentData == {"items": true}:
@@ -276,13 +289,15 @@ func _create_drag_preview(item_id: String) -> Control:
 	# HACK Hacky exception for furniture, need to find a better solution
 	if contentData == {"furnitures": true}:
 		preview.texture = Gamedata.furnitures.sprite_by_id(item_id)
-	if contentData == {"maps": true}:
+	elif contentData == {"itemgroups": true}:
+		preview.texture = Gamedata.itemgroups.sprite_by_id(item_id)
+	elif contentData == {"maps": true}:
 		preview.texture = Gamedata.maps.by_id(item_id).sprite
-	if contentData == {"tiles": true}:
+	elif contentData == {"tiles": true}:
 		preview.texture = Gamedata.tiles.by_id(item_id).sprite
-	if contentData == {"mobs": true}:
+	elif contentData == {"mobs": true}:
 		preview.texture = Gamedata.mobs.by_id(item_id).sprite
-	if contentData == {"items": true}:
+	elif contentData == {"items": true}:
 		preview.texture = Gamedata.items.by_id(item_id).sprite
 	else:
 		preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
@@ -384,6 +399,18 @@ func load_furnitures_list():
 		if mySprite:
 			contentItems.set_item_icon(item_index, mySprite)
 
+# Load the itemgroups list
+func load_itemgroups_list():
+	var itemgrouplist: Dictionary = Gamedata.itemgroups.get_itemgroups()
+	for itemgroup: DItemgroup in itemgrouplist.values():
+		# Add all the filenames to the ContentItems list as child nodes
+		var item_index: int = contentItems.add_item(itemgroup.id)
+		# Add the ID as metadata which can be used to load the item data
+		contentItems.set_item_metadata(item_index, itemgroup.id)
+		var mySprite: Texture = itemgroup.sprite
+		if mySprite:
+			contentItems.set_item_icon(item_index, mySprite)
+
 # Load the items list
 func load_items_list():
 	var itemlist: Dictionary = Gamedata.items.get_items()
@@ -451,12 +478,31 @@ func add_furniture_popup_ok():
 	load_data()
 
 
+func add_itemgroup_popup_ok():
+	var myText = popup_textedit.text
+	if myText == "":
+		return
+	if popupAction == "Add":
+		Gamedata.itemgroups.add_new_itemgroup(myText)
+	if popupAction == "Duplicate":
+		Gamedata.itemgroups.duplicate_itemgroup_to_disk(get_selected_item_text(), myText)
+	popupAction = ""
+	# Check if the list is collapsed and expand it if true
+	if is_collapsed:
+		is_collapsed = false
+	load_data()
+
+
 func delete_map(selected_id) -> void:
 	Gamedata.maps.delete_map(selected_id)
 	load_data()
 
 func delete_furniture(selected_id) -> void:
 	Gamedata.furnitures.delete_furniture(selected_id)
+	load_data()
+
+func delete_itemgroup(selected_id) -> void:
+	Gamedata.itemgroups.delete_itemgroup(selected_id)
 	load_data()
 
 func delete_item(selected_id) -> void:

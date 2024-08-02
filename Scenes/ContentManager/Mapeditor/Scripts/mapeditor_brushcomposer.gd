@@ -223,8 +223,7 @@ func custom_can_drop_data(_mypos, dropped_data: Dictionary) -> bool:
 		return false
 	
 	# Fetch itemgroup data by ID from the Gamedata to ensure it exists and is valid
-	var itemgroup_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, dropped_data["id"])
-	if itemgroup_data.is_empty():
+	if not Gamedata.itemgroups.has_id(dropped_data["id"]):
 		return false
 
 	# If all checks pass, return true
@@ -237,13 +236,12 @@ func custom_drop_data(_mypos, dropped_data):
 	# Dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var itemgroup_id = dropped_data["id"]
-		var itemgroup_data = Gamedata.get_data_by_id(Gamedata.data.itemgroups, itemgroup_id)
-		if itemgroup_data.is_empty():
+		if not Gamedata.itemgroups.has_id(itemgroup_id):
 			print_debug("No item data found for ID: " + itemgroup_id)
 			return
 		
 		var properties: Dictionary = {
-			"texture": Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, itemgroup_id),
+			"texture": Gamedata.itemgroups.sprite_by_id(itemgroup_id),
 			"entityID": itemgroup_id,
 			"entityType": "itemgroup"
 		}
@@ -393,7 +391,7 @@ func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 			"furniture":
 				properties["texture"] = Gamedata.furnitures.sprite_by_id(entity["id"])
 			"itemgroup":
-				properties["texture"] = Gamedata.get_sprite_by_id(Gamedata.data.itemgroups, entity["id"])
+				properties["texture"] = Gamedata.itemgroups.sprite_by_id(entity["id"])
 
 		add_tilebrush_to_container_with_properties(properties)
 

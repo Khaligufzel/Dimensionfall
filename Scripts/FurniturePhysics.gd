@@ -333,7 +333,9 @@ func add_container(pos: Vector3):
 		containerdata["global_position_z"] = pos.z
 		var isnew: bool = is_new_furniture()
 		if isnew:
-			containerdata["itemgroups"] = [populate_container_from_itemgroup()]
+			var newgroup: String = populate_container_from_itemgroup()
+			if newgroup and not newgroup == "":
+				containerdata["itemgroups"] = [populate_container_from_itemgroup()]
 		container = ContainerItem.new(containerdata)
 		if not isnew:
 			deserialize_container_data()
@@ -356,7 +358,7 @@ func populate_container_from_itemgroup() -> String:
 
 	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
 	var itemgroup = dfurniture.function.container_group
-	if itemgroup:
+	if itemgroup and not itemgroup == "":
 		return itemgroup
 	return ""
 

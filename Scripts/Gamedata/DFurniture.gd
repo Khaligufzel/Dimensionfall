@@ -208,38 +208,27 @@ func on_data_changed(olddfurniture: DFurniture):
 	var new_container_group = function.container_group
 	var old_destruction_group = olddfurniture.destruction.group
 	var old_disassembly_group = olddfurniture.disassembly.group
-	var changes_made = false
 
 	# Handle container itemgroup changes
-	changes_made = Gamedata.update_reference(old_container_group, new_container_group, id, "furniture") or changes_made
+	Gamedata.itemgroups.update_reference(old_container_group, new_container_group, "furniture", id)
 
 	# Handle destruction group changes
-	changes_made = Gamedata.update_reference(old_destruction_group, destruction.group, id, "furniture") or changes_made
+	Gamedata.itemgroups.update_reference(old_destruction_group, destruction.group, "furniture", id)
 
 	# Handle disassembly group changes
-	changes_made = Gamedata.update_reference(old_disassembly_group, disassembly.group, id, "furniture") or changes_made
-
-	# If any references were updated, save the changes to the data file
-	if changes_made:
-		print_debug("Furniture reference updates saved successfully.")
-		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
+	Gamedata.itemgroups.update_reference(old_disassembly_group, disassembly.group, "furniture", id)
 
 
 # Some furniture is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	var changes_made = false
 	var itemgroup = function.container.get("itemgroup", "")
-	changes_made = Gamedata.dremove_reference(references, "core", "furniture", itemgroup) or changes_made
-	changes_made = Gamedata.dremove_reference(references, "core", "furniture", destruction.group) or changes_made
-	changes_made = Gamedata.dremove_reference(references, "core", "furniture", disassembly.group) or changes_made
+	Gamedata.itemgroups.remove_reference(itemgroup, "core", "furniture", id)
+	Gamedata.itemgroups.remove_reference(destruction.group, "core", "furniture", id)
+	Gamedata.itemgroups.remove_reference(disassembly.group, "core", "furniture", id)
 	
 	var mapsdata = Helper.json_helper.get_nested_data(references, "core.maps")
 	Gamedata.maps.remove_entity_from_selected_maps("furniture", id, mapsdata)
-	if changes_made:
-		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
-	else:
-		print_debug("No changes needed for item", id)
 
 
 # Removes any instance of an itemgroup from the furniture

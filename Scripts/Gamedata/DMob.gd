@@ -97,23 +97,12 @@ func remove_reference(module: String, type: String, refid: String):
 	if changes_made:
 		Gamedata.mobs.save_mobs_to_disk()
 
+
 # Adds a reference to the references list
 func add_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
 	if changes_made:
 		Gamedata.mobs.save_mobs_to_disk()
-
-# Returns the path of the spriteid
-func get_spriteid_path() -> String:
-	return Gamedata.mobs.spriteidPath + spriteid
-
-# Handles mob changes and updates references if necessary
-func on_data_changed(_oldmob: DMob):
-	var changes_made = false
-	# If any references were updated, save the changes to the data file
-	if changes_made:
-		print_debug("mob reference updates saved successfully.")
-		Gamedata.save_data_to_file(Gamedata.data.mobgroups)
 
 
 # Some mob has been changed
@@ -125,23 +114,21 @@ func changed(olddata: DMob):
 	if old_loot_group == loot_group:
 		print_debug("No change in mob. Exiting function.")
 		return
-	var changes_made = false
+
 	# This mob will be removed from the old itemgroup's references
 	# The 'or' makes sure changes_made does not change back to false
-	changes_made = Gamedata.remove_reference(Gamedata.data.itemgroups, "core", "mobs", old_loot_group, id) or changes_made
+	Gamedata.itemgroups.remove_reference(old_loot_group, "core", "mobs", id)
+	
 	# This mob will be added to the new itemgroup's references
 	# The 'or' makes sure changes_made does not change back to false
-	changes_made = Gamedata.add_reference(Gamedata.data.itemgroups, "core", "mobs", loot_group, id) or changes_made
-	# Save changes if any modifications were made
-	if changes_made:
-			Gamedata.save_data_to_file(Gamedata.data.itemgroups)
+	Gamedata.itemgroups.add_reference(loot_group, "core", "mobs", id)
 
 
 # A mob is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
 	var changes_made = { "value": false }
-	changes_made["value"] = Gamedata.remove_reference(Gamedata.data.itemgroups, "core", "mobs", loot_group, id) or changes_made["value"]
+	Gamedata.itemgroups.remove_reference(loot_group, "core", "mobs", id)
 	
 	# Check if the mob has references to maps and remove it from those maps
 	var mapsdata = Helper.json_helper.get_nested_data(references,"core.maps")
@@ -159,7 +146,6 @@ func delete():
 
 	# Save changes to the data file if any changes were made
 	if changes_made["value"]:
-		Gamedata.save_data_to_file(Gamedata.data.itemgroups)
 		Gamedata.save_data_to_file(Gamedata.data.quests)
 	else:
 		print_debug("No changes needed for mob", id)
