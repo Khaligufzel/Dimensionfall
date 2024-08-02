@@ -102,7 +102,8 @@ func _on_game_ended():
 func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
 	var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(mypos)
 	var json_file_path: String = map_cell.map_id
-	return {"id":json_file_path, "rotation":0}
+	var myrotation: int = map_cell.rotation
+	return {"id":json_file_path, "rotation":myrotation}
 
 
 # We store the level map width and height
