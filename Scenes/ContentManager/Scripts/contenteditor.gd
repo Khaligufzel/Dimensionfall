@@ -61,33 +61,30 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 		print_debug("Tried to load the selected content item, but either \
 		data (Array) or itemID ("+itemID+") is empty")
 		return
-	if data == {"tiles": true}:
-		# HACK Hacky exception for tiles, need to find a better solution
-		instantiate_editor(data, itemID, terrainTileEditor)
-	if data == {"furnitures": true}:
-		# HACK Hacky exception for furniture, need to find a better solution
-		instantiate_editor(data, itemID, furnitureEditor)
-	if data == {"itemgroups": true}:
-		# HACK Hacky exception for itemgroups, need to find a better solution
-		instantiate_editor(data, itemID, itemgroupEditor)
-	if data == {"items": true}:
-		# HACK Hacky exception for items, need to find a better solution
-		instantiate_editor(data, itemID, itemEditor)
-	if data == {"mobs": true}:
-		# HACK Hacky exception for mobs, need to find a better solution
-		instantiate_editor(data, itemID, mobEditor)
-	if data == {"maps": true}:
-		# HACK Hacky exception for maps, need to find a better solution
-		instantiate_editor(data, itemID, mapEditor)
+	# HACK Hacky implementation, need to find a better solution
+	var editors = {
+		"tiles": terrainTileEditor,
+		"furnitures": furnitureEditor,
+		"itemgroups": itemgroupEditor,
+		"items": itemEditor,
+		"mobs": mobEditor,
+		"maps": mapEditor
+	}
+
+	for key in editors.keys():
+		if data == {key: true}:
+			instantiate_editor(data, itemID, editors[key])
+			return
+	
 	if data == Gamedata.data.tacticalmaps:
 		instantiate_editor(data, itemID, tacticalmapEditor)
-	if data == Gamedata.data.wearableslots:
+	elif data == Gamedata.data.wearableslots:
 		instantiate_editor(data, itemID, wearableslotEditor)
-	if data == Gamedata.data.stats:
+	elif data == Gamedata.data.stats:
 		instantiate_editor(data, itemID, statsEditor)
-	if data == Gamedata.data.skills:
+	elif data == Gamedata.data.skills:
 		instantiate_editor(data, itemID, skillsEditor)
-	if data == Gamedata.data.quests:  # Added quests
+	elif data == Gamedata.data.quests:  # Added quests
 		instantiate_editor(data, itemID, questsEditor)
 
 
@@ -129,6 +126,8 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 	if data == {"mobs": true}:# HACK Hacky exception for mobs, need to find a better solution
 		newContentEditor.dmob = Gamedata.mobs.by_id(itemID)
 		return
+		
+		
 	if data.dataPath.ends_with(".json"):
 		var itemdata: Dictionary = data.data[Gamedata.get_array_index_by_id(data, itemID)]
 		# We only pass the data for the specific id to the editor
