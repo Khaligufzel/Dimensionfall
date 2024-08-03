@@ -108,7 +108,6 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 	
 	if data == {"maps": true}:# HACK Hacky exception for maps, need to find a better solution
 		newContentEditor.currentMap = Gamedata.maps.by_id(itemID)
-		newContentEditor.data_changed.connect(list.load_data)
 		return
 	if data == {"furnitures": true}:# HACK Hacky exception for furniture, need to find a better solution
 		newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
