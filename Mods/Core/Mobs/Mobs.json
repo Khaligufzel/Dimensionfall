@@ -18,7 +18,9 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"RockyHill_SE",
+					"RockyHill_SW"
 				],
 				"quests": [
 					"starter_tutorial_00"

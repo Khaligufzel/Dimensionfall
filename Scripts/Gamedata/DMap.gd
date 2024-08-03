@@ -194,6 +194,16 @@ func data_changed(oldmap: DMap):
 				if not new_entities[entity_type].has(entity_id):
 					var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
 					furniture.remove_reference("core","maps",id)
+		elif entity_type == "itemgroups":
+			for entity_id in old_entities[entity_type]:
+				if not new_entities[entity_type].has(entity_id):
+					var itemgroup: DItemgroup = Gamedata.itemgroups.by_id(entity_id)
+					itemgroup.remove_reference("core","maps",id)
+		elif entity_type == "mobs":
+			for entity_id in old_entities[entity_type]:
+				if not new_entities[entity_type].has(entity_id):
+					var mob: DMob = Gamedata.mobs.by_id(entity_id)
+					mob.remove_reference("core","maps",id)
 		else:
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):

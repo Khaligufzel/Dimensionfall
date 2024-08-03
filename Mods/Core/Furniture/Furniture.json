@@ -20,7 +20,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -48,7 +49,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -123,7 +125,9 @@
 					"forest_basic_00",
 					"Generichouse",
 					"Generichouse_00",
-					"field_grass_basic_00"
+					"field_grass_basic_00",
+					"RockyHill_SE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -158,7 +162,9 @@
 					"generichouse_corner",
 					"store_electronic_clothing",
 					"forest_basic_00",
-					"field_grass_basic_00"
+					"field_grass_basic_00",
+					"RockyHill_SE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -195,7 +201,9 @@
 					"forest_basic_00",
 					"Generichouse",
 					"Generichouse_00",
-					"field_grass_basic_00"
+					"field_grass_basic_00",
+					"RockyHill_SE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -294,7 +302,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -334,7 +343,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -649,7 +659,8 @@
 				"maps": [
 					"Generichouse",
 					"Generichouse_00",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -683,7 +694,8 @@
 				"maps": [
 					"Generichouse",
 					"Generichouse_00",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1061,7 +1073,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"RockyHill_SW"
 				]
 			}
 		},

@@ -97,11 +97,15 @@ func _add_item_to_inventory(item_id: String, quantity: int):
 	var ditem: DItem = Gamedata.items.by_id(item_id)
 	# Check if the item data is valid before adding
 	if ditem and quantity > 0:
-		# Create and add the item to the inventory and keep a reference
-		var item = inventory.create_and_add_item(item_id)
-		# Set the item stack size, limited by max_stack_size
-		var stack_size = min(quantity, ditem.max_stack_size)
-		InventoryStacked.set_item_stack_size(item, stack_size)
+		while quantity > 0:
+			# Calculate the stack size for this iteration, limited by max_stack_size
+			var stack_size = min(quantity, ditem.max_stack_size)
+			# Create and add the item to the inventory
+			var item = inventory.create_and_add_item(item_id)
+			# Set the item stack size
+			InventoryStacked.set_item_stack_size(item, stack_size)
+			# Decrease the remaining quantity
+			quantity -= stack_size
 
 
 # Function to deserialize inventory and apply the correct sprite

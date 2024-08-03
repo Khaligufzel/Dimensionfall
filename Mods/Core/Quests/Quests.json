@@ -33,6 +33,12 @@
 				"mob": "scrapwalker",
 				"tip": "You can find them in town",
 				"type": "kill"
+			},
+			{
+				"amount": 1,
+				"item": "rifle_m4a1",
+				"tip": "Go to the mountain and enter the cave from the south",
+				"type": "collect"
 			}
 		]
 	}
