@@ -40,39 +40,23 @@ func load_data():
 	if contentData.is_empty():
 		return
 	contentItems.clear()
-	# HACK Hacky exception for maps, need to find a better solution
-	if contentData == {"maps": true}:
-		load_map_list()
-		load_collapse_state()
-		return
-	# HACK Hacky exception for furniture, need to find a better solution
-	if contentData == {"furnitures": true}:
-		load_furnitures_list()
-		load_collapse_state()
-		return
-	# HACK Hacky exception for furniture, need to find a better solution
-	if contentData == {"itemgroups": true}:
-		load_itemgroups_list()
-		load_collapse_state()
-		return
-	# HACK Hacky exception for items, need to find a better solution
-	if contentData == {"items": true}:
-		load_items_list()
-		load_collapse_state()
-		return
-	# HACK Hacky exception for tiles, need to find a better solution
-	if contentData == {"tiles": true}:
-		load_tiles_list()
-		load_collapse_state()
-		return
-	# HACK Hacky exception for mobs, need to find a better solution
-	if contentData == {"mobs": true}:
-		load_mobs_list()
-		load_collapse_state()
-		return
-	if not contentData.has("data"):
-		return
-	if contentData.data.is_empty():
+	# HACK Hacky implementation, need to find a better solution
+	var loaders = {
+		"maps": load_map_list,
+		"furnitures": load_furnitures_list,
+		"itemgroups": load_itemgroups_list,
+		"items": load_items_list,
+		"tiles": load_tiles_list,
+		"mobs": load_mobs_list
+	}
+
+	for key in loaders.keys():
+		if contentData == {key: true}:
+			loaders[key].call()
+			load_collapse_state()
+			return
+
+	if not contentData.has("data") or contentData.data.is_empty():
 		return
 	
 	# If the datapath ends with json, it's a list of items
