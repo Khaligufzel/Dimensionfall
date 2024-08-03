@@ -15,6 +15,8 @@ extends Control
 @export var cubeShapeCheckbox: Button = null
 @export var slopeShapeCheckbox: Button = null
 
+signal data_changed()
+
 var olddata: DTile # Remember what the value of the data was before editing
 var control_elements: Array = []
 # The data that represents this tile
@@ -84,6 +86,7 @@ func _on_close_button_button_up():
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up():
 	dtile.spriteid = imageNameStringLabel.text
+	dtile.sprite = tileImageDisplay.texture
 	dtile.name = NameTextEdit.text
 	dtile.description = DescriptionTextEdit.text
 	dtile.categories = CategoriesList.get_items()
@@ -91,6 +94,7 @@ func _on_save_button_button_up():
 	if slopeShapeCheckbox.button_pressed:
 		dtile.shape = "slope"
 	dtile.changed(olddata)
+	data_changed.emit()
 	olddata = DTile.new(dtile.get_data().duplicate(true))
 
 # When the tileImageDisplay is clicked, the user will be prompted to select an image from

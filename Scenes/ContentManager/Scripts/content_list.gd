@@ -10,7 +10,7 @@ extends Control
 @export var collapseButton: Button = null
 @export var pupup_ID: Popup = null
 @export var popup_textedit: TextEdit = null
-signal item_activated(data: Array, itemID: String)
+signal item_activated(data: Array, itemID: String, list: Control)
 var popupAction: String = ""
 var contentData: Dictionary = {}:
 	set(newData):
@@ -113,7 +113,7 @@ func _on_content_items_item_activated(index: int):
 	# Get the id of the item from the metadata
 	var strItemID: String = contentItems.get_item_metadata(index)
 	if strItemID:
-		item_activated.emit(contentData, strItemID)
+		item_activated.emit(contentData, strItemID, self)
 	else:
 		print_debug("Tried to signal that item with ID (" + str(index) + ") was activated,\
 		 but the item has no metadata")

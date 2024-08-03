@@ -122,6 +122,7 @@ func changed(olddata: DMob):
 	# This mob will be added to the new itemgroup's references
 	# The 'or' makes sure changes_made does not change back to false
 	Gamedata.itemgroups.add_reference(loot_group, "core", "mobs", id)
+	Gamedata.mobs.save_mobs_to_disk() # Save changes regardless of whether or not a reference was updated
 
 
 # A mob is being deleted from the data
