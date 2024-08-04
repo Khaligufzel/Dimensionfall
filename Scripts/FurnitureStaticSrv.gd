@@ -55,17 +55,8 @@ func set_collision_layers_and_masks():
 	PhysicsServer3D.body_set_collision_mask(collider, collision_mask)
 
 # Function to create a visual instance with a mesh to represent the box shape
-func create_visual_instance(size: Vector3):
-	var color = Color.html(dfurniture.support_shape.color) 
-	var box_mesh = BoxMesh.new()
-	var material = StandardMaterial3D.new()
-	material.albedo_color = color
-	box_mesh.material = material
-
-	var materialrid: RID = RenderingServer.mesh_surface_get_material( RenderingServer.get_test_cube(), 0 )
-	var meshSurface: Dictionary = RenderingServer.mesh_get_surface(RenderingServer.get_test_cube(),0)
-	var newmesh: RID = RenderingServer.mesh_create_from_surfaces([meshSurface])
-	RenderingServer.mesh_surface_set_material (box_mesh.get_rid(), 0, materialrid )
+func create_visual_instance(_size: Vector3):
+	var color = Color.html(dfurniture.support_shape.color)
 	
 	var mymeshdict: Dictionary = {} 
 	mymeshdict["primitive"] = 3
@@ -78,31 +69,22 @@ func create_visual_instance(size: Vector3):
 	mymeshdict["index_count"] = 36
 	
 	# Define the position (min corner) and size of the AABB
-	var min_corner = Vector3(-1, -1, -1)
-	var mysize = Vector3(2.00001, 2.00001, 2.00001)
-
-	# Create a new AABB using the position and size
-	var aabb = AABB(min_corner, mysize)
-	mymeshdict["aabb"] = aabb
+	mymeshdict["aabb"] = AABB(Vector3(-1, -1, -1), Vector3(2.00001, 2.00001, 2.00001))
 	mymeshdict["uv_scale"] =  Vector4(0.0, 0.0, 0.0, 0.0)
 
-	# Assign the material to the mesh
-	#box_mesh.surface_set_material(0, material)
+	var newmesh: RID = RenderingServer.mesh_create_from_surfaces([mymeshdict])
+	var newmaterial: RID = RenderingServer.material_create()
+	
+	# Set the color of newmaterial to be the same as material.albedo_color
+	RenderingServer.material_set_param(newmaterial, "albedo_color", color)
+	RenderingServer.mesh_surface_set_material(newmesh, 0, newmaterial)
 
 	# Create the mesh instance using the RenderingServer
-	#mesh_instance = RenderingServer.instance_create2(box_mesh.get_rid(),myworld3d.get_scenario
-	#mesh_instance = RenderingServer.instance_create2(RenderingServer.get_test_cube(),myworld3d.get_scenario
-#())
-	mesh_instance = RenderingServer.instance_create()
-	#RenderingServer.instance_set_base(mesh_instance, RenderingServer.get_test_cube())
-	RenderingServer.instance_set_base(mesh_instance, newmesh)
-	RenderingServer.instance_set_scenario( mesh_instance, myworld3d.scenario)
+	mesh_instance = RenderingServer.instance_create2(newmesh,myworld3d.get_scenario())
 
 	# Set the transform for the mesh instance to match the furniture position
 	RenderingServer.instance_set_transform(mesh_instance, Transform3D(Basis(), furniture_position))
 
-	# Attach the mesh instance to the scene
-	#RenderingServer.instance_set_visible(mesh_instance, true)
 
 # Helper function to determine if the furniture is new
 func is_new_furniture() -> bool:
