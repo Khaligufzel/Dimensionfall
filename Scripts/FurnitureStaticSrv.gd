@@ -1,5 +1,5 @@
 class_name FurnitureStaticSrv
-extends RefCounted
+extends Node3D # Has to be Node3D. Changing it to RefCounted doesn't work
 
 # Variables to store furniture data
 var furniture_position: Vector3
@@ -10,6 +10,11 @@ var shape: RID
 var mesh_instance: RID  # Variable to store the mesh instance RID
 var myworld3d: World3D
 
+# We have to keep a reference or it will be auto deleted
+# TODO: We still have to manually delete the RID's
+var box_mesh: BoxMesh
+var boxrid: RID
+
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
 	furniture_position = furniturepos
@@ -18,10 +23,10 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	myworld3d = world3d
 	
 	if is_new_furniture():
-		furniture_position.y += 1.025 # Move the furniture to slightly above the block
+		furniture_position.y += 0.525 # Move the furniture to slightly above the block
 
-	create_box_shape(Vector3(1, 1, 1))  # Example size
-	create_visual_instance(Vector3(1, 1, 1))  # Example size
+	create_box_shape(Vector3(0.5, 0.5, 0.5))  # Example size
+	create_visual_instance(Vector3(0.5, 0.5, 0.5))  # Example size
 
 # Function to create a BoxShape3D collider based on the given size
 func create_box_shape(size: Vector3):
@@ -55,42 +60,25 @@ func set_collision_layers_and_masks():
 	PhysicsServer3D.body_set_collision_mask(collider, collision_mask)
 
 # Function to create a visual instance with a mesh to represent the box shape
-func create_visual_instance(_size: Vector3):
+func create_visual_instance(size: Vector3):
 	var color = Color.html(dfurniture.support_shape.color)
 	
-	var mymeshdict: Dictionary = {} 
-	mymeshdict["primitive"] = RenderingServer.PRIMITIVE_TRIANGLES
-	mymeshdict["format"] = 34359742487
-	mymeshdict["vertex_data"] = [0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 255, 255, 127, 255, 255, 255, 255, 0, 0, 255, 127, 255, 127, 255, 191, 255, 255, 255, 127, 255, 255, 255, 255, 0, 0, 255, 127, 255, 127, 255, 191, 255, 255, 255, 127, 255, 255, 255, 255, 0, 0, 255, 127, 255, 127, 255, 191, 255, 255, 255, 127, 255, 255, 255, 255, 0, 0, 255, 127, 255, 127, 255, 191, 255, 127, 255, 255, 0, 0, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 255, 255, 0, 0, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 255, 255, 0, 0, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 255, 255, 0, 0, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191]
+	box_mesh = BoxMesh.new()
+	boxrid = box_mesh.get_rid()
+	box_mesh.size = size
+	var material: StandardMaterial3D = StandardMaterial3D.new()
+	material.albedo_color = color
+	box_mesh.material = material
+	var meshSurface: Dictionary = RenderingServer.mesh_get_surface(boxrid,0)
+	meshSurface["material"] =  material.get_rid()
 	
-	mymeshdict["attribute_data"] = [0, 0, 0, 0, 0, 0, 0, 0, 171, 170, 42, 63, 0, 0, 0, 0, 171, 170, 170, 62, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 0, 171, 170, 170, 62, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 128, 63, 171, 170, 170, 62, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63]
-	mymeshdict["vertex_count"] = 24
-	mymeshdict["index_data"] = [0, 0, 2, 0, 4, 0, 2, 0, 6, 0, 4, 0, 1, 0, 3, 0, 5, 0, 3, 0, 7, 0, 5, 0, 8, 0, 10, 0, 12, 0, 10, 0, 14, 0, 12, 0, 9, 0, 11, 0, 13, 0, 11, 0, 15, 0, 13, 0, 16, 0, 18, 0, 20, 0, 18, 0, 22, 0, 20, 0, 17, 0, 19, 0, 21, 0, 19, 0, 23, 0, 21, 0]
-	mymeshdict["index_count"] = 36
+	var newmesh: RID = RenderingServer.mesh_create_from_surfaces([meshSurface])
 	
-	# Define the position (min corner) and size of the AABB
-	mymeshdict["aabb"] = AABB(Vector3(-0.5, -0.5, -0.5), Vector3(1.0, 1.0, 1.0))
-	mymeshdict["uv_scale"] =  Vector4(0.0, 0.0, 0.0, 0.0)
-	var newmaterial: RID = RenderingServer.material_create()
-	
-	RenderingServer.material_set_param(newmaterial, "albedo", Color(1, 0, 1, 1));
-	RenderingServer.material_set_param(newmaterial, "specular", 0.5);
-	RenderingServer.material_set_param(newmaterial, "metallic", 0.0);
-	RenderingServer.material_set_param(newmaterial, "roughness", 1.0);
-	RenderingServer.material_set_param(newmaterial, "uv1_offset", Vector3(0, 0, 0));
-	RenderingServer.material_set_param(newmaterial, "uv1_scale", Vector3(1, 1, 1));
-	RenderingServer.material_set_param(newmaterial, "uv2_offset", Vector3(0, 0, 0));
-	RenderingServer.material_set_param(newmaterial, "uv2_scale", Vector3(1, 1, 1));
-	mymeshdict["material"] =  newmaterial
-	
-	var newmesh: RID = RenderingServer.mesh_create_from_surfaces([mymeshdict])
-	#RenderingServer.mesh_surface_set_material(newmesh, 0, newmaterial)
 	# Create the mesh instance using the RenderingServer
 	mesh_instance = RenderingServer.instance_create2(newmesh,myworld3d.get_scenario())
 
 	# Set the transform for the mesh instance to match the furniture position
 	RenderingServer.instance_set_transform(mesh_instance, Transform3D(Basis(), furniture_position))
-
 
 
 # Helper function to determine if the furniture is new
