@@ -3,8 +3,9 @@ extends Node3D # Has to be Node3D. Changing it to RefCounted doesn't work
 
 # Variables to store furniture data
 var furniture_position: Vector3
-var furnitureJSON: Dictionary
-var dfurniture: DFurniture
+var furniture_rotation: int
+var furnitureJSON: Dictionary # The json that defines this furniture on the map
+var dfurniture: DFurniture # The json that defines this furniture's basics in general
 var collider: RID
 var shape: RID
 var mesh_instance: RID  # Variable to store the mesh instance RID
@@ -13,8 +14,8 @@ var myworld3d: World3D
 # We have to keep a reference or it will be auto deleted
 # TODO: We still have to manually delete the RID's
 var box_mesh: BoxMesh
-var boxrid: RID
 var sprite_texture: Texture2D  # Variable to store the sprite texture
+var quad_mesh: PlaneMesh
 
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
@@ -30,6 +31,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	var sprite_size = calculate_sprite_size()
 	create_box_shape(sprite_size)
 	create_visual_instance(sprite_size)
+	create_sprite_instance(sprite_size)
 
 
 # Function to calculate the size of the sprite
@@ -39,6 +41,7 @@ func calculate_sprite_size() -> Vector3:
 		var sprite_height = sprite_texture.get_height() / 100.0 # Convert pixels to meters
 		return Vector3(sprite_width, 0.5, sprite_height)  # Default height of 0.5 meters
 	return Vector3(0.5, 0.5, 0.5)  # Default size if texture is not set
+
 
 # Function to create a BoxShape3D collider based on the given size
 func create_box_shape(size: Vector3):
@@ -78,7 +81,6 @@ func create_visual_instance(size: Vector3):
 	var color = Color.html(dfurniture.support_shape.color)
 	
 	box_mesh = BoxMesh.new()
-	boxrid = box_mesh.get_rid()
 	box_mesh.size = size
 	var material: StandardMaterial3D = StandardMaterial3D.new()
 	material.albedo_color = color
@@ -91,6 +93,25 @@ func create_visual_instance(size: Vector3):
 
 	# Set the transform for the mesh instance to match the furniture position
 	RenderingServer.instance_set_transform(mesh_instance, Transform3D(Basis(), furniture_position))
+
+
+# Function to create a QuadMesh to display the sprite texture on top of the furniture
+func create_sprite_instance(size: Vector3):
+	quad_mesh = PlaneMesh.new()
+	quad_mesh.size = Vector2(size.x, size.z)
+	var material = StandardMaterial3D.new()
+	material.albedo_texture = sprite_texture
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	#material.flags_unshaded = true  # Optional: make the sprite unshaded
+	quad_mesh.material = material
+	
+	var quad_instance = RenderingServer.instance_create()
+	RenderingServer.instance_set_base(quad_instance, quad_mesh)
+	RenderingServer.instance_set_scenario(quad_instance, myworld3d.scenario)
+	
+	# Set the transform for the quad instance to be slightly above the box mesh
+	var mytransform = Transform3D(Basis(), furniture_position + Vector3(0, 0.51, 0))  # Adjust the Y position as needed
+	RenderingServer.instance_set_transform(quad_instance, mytransform)
 
 
 # Helper function to determine if the furniture is new
