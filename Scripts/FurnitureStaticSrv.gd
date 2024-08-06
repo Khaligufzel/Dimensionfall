@@ -14,6 +14,7 @@ var myworld3d: World3D
 # TODO: We still have to manually delete the RID's
 var box_mesh: BoxMesh
 var boxrid: RID
+var sprite_texture: Texture2D  # Variable to store the sprite texture
 
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
@@ -25,8 +26,19 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	if is_new_furniture():
 		furniture_position.y += 0.525 # Move the furniture to slightly above the block
 
-	create_box_shape(Vector3(0.5, 0.5, 0.5))  # Example size
-	create_visual_instance(Vector3(0.5, 0.5, 0.5))  # Example size
+	sprite_texture = dfurniture.sprite
+	var sprite_size = calculate_sprite_size()
+	create_box_shape(sprite_size)
+	create_visual_instance(sprite_size)
+
+
+# Function to calculate the size of the sprite
+func calculate_sprite_size() -> Vector3:
+	if sprite_texture:
+		var sprite_width = sprite_texture.get_width() / 100.0 # Convert pixels to meters
+		var sprite_height = sprite_texture.get_height() / 100.0 # Convert pixels to meters
+		return Vector3(sprite_width, 0.5, sprite_height)  # Default height of 0.5 meters
+	return Vector3(0.5, 0.5, 0.5)  # Default size if texture is not set
 
 # Function to create a BoxShape3D collider based on the given size
 func create_box_shape(size: Vector3):
@@ -40,6 +52,7 @@ func create_box_shape(size: Vector3):
 	PhysicsServer3D.body_add_shape(collider, shape)
 	PhysicsServer3D.body_set_state(collider, PhysicsServer3D.BODY_STATE_TRANSFORM, Transform3D(Basis(), furniture_position))
 	set_collision_layers_and_masks()
+
 
 # Function to set collision layers and masks
 func set_collision_layers_and_masks():
@@ -58,6 +71,7 @@ func set_collision_layers_and_masks():
 	
 	PhysicsServer3D.body_set_collision_layer(collider, collision_layer)
 	PhysicsServer3D.body_set_collision_mask(collider, collision_mask)
+
 
 # Function to create a visual instance with a mesh to represent the box shape
 func create_visual_instance(size: Vector3):
