@@ -69,13 +69,11 @@ func create_visual_instance(size: Vector3):
 	var material: StandardMaterial3D = StandardMaterial3D.new()
 	material.albedo_color = color
 	box_mesh.material = material
-	var meshSurface: Dictionary = RenderingServer.mesh_get_surface(boxrid,0)
-	meshSurface["material"] =  material.get_rid()
-	
-	var newmesh: RID = RenderingServer.mesh_create_from_surfaces([meshSurface])
 	
 	# Create the mesh instance using the RenderingServer
-	mesh_instance = RenderingServer.instance_create2(newmesh,myworld3d.get_scenario())
+	mesh_instance = RenderingServer.instance_create()
+	RenderingServer.instance_set_base(mesh_instance, box_mesh)
+	RenderingServer.instance_set_scenario(mesh_instance, myworld3d.scenario)
 
 	# Set the transform for the mesh instance to match the furniture position
 	RenderingServer.instance_set_transform(mesh_instance, Transform3D(Basis(), furniture_position))
