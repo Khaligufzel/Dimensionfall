@@ -13,7 +13,7 @@ var myworld3d: World3D
 
 # We have to keep a reference or it will be auto deleted
 # TODO: We still have to manually delete the RID's
-var box_mesh: BoxMesh
+var support_mesh: PrimitiveMesh
 var sprite_texture: Texture2D  # Variable to store the sprite texture
 var quad_mesh: PlaneMesh
 
@@ -29,8 +29,14 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 	sprite_texture = dfurniture.sprite
 	var sprite_size = calculate_sprite_size()
-	create_box_shape(sprite_size)
-	create_visual_instance(sprite_size)
+	
+	if dfurniture.support_shape.shape == "Box":
+		create_box_shape(sprite_size)
+		create_visual_instance(sprite_size, "Box")
+	elif dfurniture.support_shape.shape == "Cylinder":
+		create_cylinder_shape(Vector2(sprite_size.x, sprite_size.z))
+		create_visual_instance(Vector3(sprite_size.x, dfurniture.support_shape.height, sprite_size.z), "Cylinder")
+	
 	create_sprite_instance(sprite_size)
 
 
@@ -47,6 +53,19 @@ func calculate_sprite_size() -> Vector3:
 func create_box_shape(size: Vector3):
 	shape = PhysicsServer3D.box_shape_create()
 	PhysicsServer3D.shape_set_data(shape, Vector3(size.x / 2.0, size.y / 2.0, size.z / 2.0))
+	
+	collider = PhysicsServer3D.body_create()
+	PhysicsServer3D.body_set_mode(collider, PhysicsServer3D.BODY_MODE_STATIC)
+	# Set space, so it collides in the same space as current scene.
+	PhysicsServer3D.body_set_space(collider, myworld3d.space)
+	PhysicsServer3D.body_add_shape(collider, shape)
+	PhysicsServer3D.body_set_state(collider, PhysicsServer3D.BODY_STATE_TRANSFORM, Transform3D(Basis(), furniture_position))
+	set_collision_layers_and_masks()
+
+# Function to create a CylinderShape3D collider based on the given size
+func create_cylinder_shape(size: Vector2):
+	shape = PhysicsServer3D.cylinder_shape_create()
+	PhysicsServer3D.shape_set_data(shape, {"radius": size.x / 4.0, "height": dfurniture.support_shape.height})
 	
 	collider = PhysicsServer3D.body_create()
 	PhysicsServer3D.body_set_mode(collider, PhysicsServer3D.BODY_MODE_STATIC)
@@ -76,22 +95,30 @@ func set_collision_layers_and_masks():
 	PhysicsServer3D.body_set_collision_mask(collider, collision_mask)
 
 
-# Function to create a visual instance with a mesh to represent the box shape
-func create_visual_instance(size: Vector3):
+# Function to create a visual instance with a mesh to represent the shape
+func create_visual_instance(size: Vector3, shape_type: String):
 	var color = Color.html(dfurniture.support_shape.color)
-	
-	box_mesh = BoxMesh.new()
-	box_mesh.size = size
 	var material: StandardMaterial3D = StandardMaterial3D.new()
 	material.albedo_color = color
-	box_mesh.material = material
+	if dfurniture.support_shape.transparent:
+		material.flags_transparent = true
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	
-	# Create the mesh instance using the RenderingServer
-	mesh_instance = RenderingServer.instance_create()
-	RenderingServer.instance_set_base(mesh_instance, box_mesh)
-	RenderingServer.instance_set_scenario(mesh_instance, myworld3d.scenario)
+	if shape_type == "Box":
+		support_mesh = BoxMesh.new()
+		(support_mesh as BoxMesh).size = size
+	elif shape_type == "Cylinder":
+		support_mesh = CylinderMesh.new()
+		(support_mesh as CylinderMesh).height = size.y
+		(support_mesh as CylinderMesh).top_radius = size.x / 4.0
+		(support_mesh as CylinderMesh).bottom_radius = size.z / 4.0
 
-	# Set the transform for the mesh instance to match the furniture position
+	support_mesh.material = material
+
+	mesh_instance = RenderingServer.instance_create()
+	RenderingServer.instance_set_base(mesh_instance, support_mesh)
+	
+	RenderingServer.instance_set_scenario(mesh_instance, myworld3d.scenario)
 	RenderingServer.instance_set_transform(mesh_instance, Transform3D(Basis(), furniture_position))
 
 
