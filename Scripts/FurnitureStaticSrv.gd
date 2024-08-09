@@ -10,6 +10,7 @@ var dfurniture: DFurniture # The json that defines this furniture's basics in ge
 var collider: RID
 var shape: RID
 var mesh_instance: RID  # Variable to store the mesh instance RID
+var quad_instance: RID # RID to the quadmesh that displays the sprite
 var myworld3d: World3D
 
 # We have to keep a reference or it will be auto deleted
@@ -176,7 +177,7 @@ func create_sprite_instance():
 	#material.flags_unshaded = true  # Optional: make the sprite unshaded
 	quad_mesh.material = material
 	
-	var quad_instance = RenderingServer.instance_create()
+	quad_instance = RenderingServer.instance_create()
 	RenderingServer.instance_set_base(quad_instance, quad_mesh)
 	RenderingServer.instance_set_scenario(quad_instance, myworld3d.scenario)
 	
@@ -291,3 +292,17 @@ func get_my_rotation() -> int:
 # Helper function to determine if the furniture is new
 func is_new_furniture() -> bool:
 	return not furnitureJSON.has("global_position_x")
+
+
+# Function to free all resources like the RIDs
+func free_resources():
+	# Free the mesh instance RID if it exists
+	RenderingServer.free_rid(mesh_instance)
+	RenderingServer.free_rid(quad_instance)
+
+	# Free the collider shape and body RIDs if they exist
+	PhysicsServer3D.free_rid(shape)
+	PhysicsServer3D.free_rid(collider)
+
+	# Clear the reference to the DFurniture data if necessary
+	dfurniture = null
