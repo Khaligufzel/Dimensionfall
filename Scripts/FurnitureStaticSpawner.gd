@@ -22,17 +22,13 @@ func _ready():
 	world3d = get_world_3d()
 
 # Function to spawn a FurnitureStaticSrv at a given position with given furniture data
-func spawn_furniture(furniture_data: Dictionary) -> FurnitureStaticSrv:
-	var myposition: Vector3 = furniture_data.pos
+func spawn_furniture(furniture_data: Dictionary) -> void:
+	var myposition: Vector3 = chunk.mypos + furniture_data.pos
 	var new_furniture = FurnitureStaticSrv.new(myposition, furniture_data.json, world3d)
 	
 	# Add the collider to the dictionary
 	collider_to_furniture[new_furniture.collider] = new_furniture
-	
-	# Add the furniture to the scene tree
-	add_child(new_furniture)
-	
-	return new_furniture
+
 
 # Function to remove a furniture instance and clean up the tracking data
 func remove_furniture(furniture: FurnitureStaticSrv):

@@ -228,7 +228,7 @@ func add_furnitures_to_new_block():
 			add_furniture_to_chunk(newFurniture)
 			new_furnitures.append(newFurniture)
 		else:
-			static_furnitures.append(furnituremapjson)
+			static_furnitures.append(furniture)
 			# The -0.1 counteracts the one from process_level_data
 			#var newFurnituresrv = FurnitureStaticSrv.new(mypos + furniturepos + Vector3(0,-0.1,0), furnituremapjson, world3d)
 			#newFurniture = FurnitureStatic.new(mypos + furniturepos, furnituremapjson)
