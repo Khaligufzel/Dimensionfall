@@ -21,7 +21,7 @@ var load_queue = []
 var unload_queue = []
 # Enforces loading or unloading one chunk at a time
 var is_processing_chunk = false
-const TIME_DELAY: float = 0.5
+const TIME_DELAY: float = 0.4
 
 signal all_chunks_unloaded
 signal all_chunks_loaded  # Signal to indicate all initial chunks are loaded for the first time
@@ -142,7 +142,7 @@ func load_chunk(chunk_pos: Vector2):
 	new_chunk.mypos = Vector3(chunk_pos.x * level_width, 0, chunk_pos.y * level_height)
 	new_chunk.level_manager = level_manager
 	new_chunk.level_generator = self
-	new_chunk.chunk_ready.connect(_on_chunk_un_loaded)
+	new_chunk.chunk_generated.connect(_on_chunk_un_loaded)
 	new_chunk.chunk_unloaded.connect(_on_chunk_un_loaded)
 	if Helper.overmap_manager.loaded_chunk_data.chunks.has(chunk_pos):
 		# If the chunk has been loaded before, we use that data
