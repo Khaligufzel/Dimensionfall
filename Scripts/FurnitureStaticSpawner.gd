@@ -6,10 +6,19 @@ var spawned_furniture: Array = []
 
 # Dictionary to map the collider RID to the corresponding FurnitureStaticSrv
 var collider_to_furniture: Dictionary = {}
+
+# Reference to the World3D and Chunk
 var world3d: World3D
-var chunk: Chunk # The chunk we are spawning for
+var chunk: Chunk
+
+# Array that contains the JSON data for furniture to be spawned
+var furniture_json_list: Array = []:
+	set(value):
+		furniture_json_list = value
+		_spawn_all_furniture()
 
 
+# Initialize with reference to the chunk
 func _init(mychunk: Chunk) -> void:
 	chunk = mychunk
 
@@ -17,8 +26,9 @@ func _ready():
 	world3d = get_world_3d()
 
 # Function to spawn a FurnitureStaticSrv at a given position with given furniture data
-func spawn_furniture(myposition: Vector3, furniture_data: Dictionary) -> FurnitureStaticSrv:
-	var new_furniture = FurnitureStaticSrv.new(myposition, furniture_data, world3d)
+func spawn_furniture(furniture_data: Dictionary) -> FurnitureStaticSrv:
+	var myposition: Vector3 = furniture_data.pos
+	var new_furniture = FurnitureStaticSrv.new(myposition, furniture_data.json, world3d)
 	
 	# Add the new furniture to the tracking array
 	spawned_furniture.append(new_furniture)
@@ -62,10 +72,9 @@ func get_furniture_data() -> Array:
 
 # Function to load and spawn furniture from saved data
 func load_furniture_from_data(furniture_data_array: Array):
-	for furniture_data in furniture_data_array:
-		var furniture_pos = Vector3(
-			furniture_data.global_position_x, 
-			furniture_data.global_position_y, 
-			furniture_data.global_position_z
-		)
-		spawn_furniture(furniture_pos, furniture_data)
+	furniture_json_list = furniture_data_array  # This will automatically trigger spawning
+
+# Internal function to spawn all furniture in the list
+func _spawn_all_furniture():
+	for furniture_data in furniture_json_list:
+		spawn_furniture(furniture_data)
