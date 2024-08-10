@@ -20,6 +20,7 @@ func _init(mychunk: Chunk) -> void:
 
 func _ready():
 	world3d = get_world_3d()
+	Helper.signal_broker.player_interacted.connect(_on_player_interacted)
 
 # Function to spawn a FurnitureStaticSrv at a given position with given furniture data
 func spawn_furniture(furniture_data: Dictionary) -> void:
@@ -58,11 +59,23 @@ func get_furniture_data() -> Array:
 			furniture_data.append(furniture.get_data().duplicate())
 	return furniture_data
 
+
 # Function to load and spawn furniture from saved data
 func load_furniture_from_data(furniture_data_array: Array):
 	furniture_json_list = furniture_data_array  # This will automatically trigger spawning
+
 
 # Internal function to spawn all furniture in the list
 func _spawn_all_furniture():
 	for furniture_data in furniture_json_list:
 		spawn_furniture(furniture_data)
+
+
+# The player has interacted with some furniture. 
+# Handle the interaction if the collider is in the dictionary
+# Optionally: check if pos is in the boundary of chunk.mypos + 32
+func _on_player_interacted(_pos: Vector3, collider: RID) -> void:
+	var furniturenode = collider_to_furniture[collider]
+	if furniturenode.has_method("interact"):
+		print("interacting with furniturenode")
+		furniturenode.interact()

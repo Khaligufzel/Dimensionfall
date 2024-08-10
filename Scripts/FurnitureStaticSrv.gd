@@ -87,7 +87,6 @@ class FurnitureTransform:
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
 	furniture_position = furniturepos
-	print_debug("furniture_position = ", furniture_position)
 	furnitureJSON = newFurnitureJSON
 	furniture_rotation = furnitureJSON.get("rotation", 0)
 	dfurniture = Gamedata.furnitures.by_id(furnitureJSON.id)

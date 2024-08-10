@@ -223,12 +223,13 @@ func _input(event):
 
 		print("Interact button pressed")
 		if result:
-			print("Found object")
+			print("Found object with collider")
+			Helper.signal_broker.player_interacted.emit(result.position, result.rid)
 			#var myOwner = result.collider.get_owner()
 			#if myOwner:
-			if result.collider.has_method("interact"):
-				print("collider has method")
-				result.collider.interact()
+			#if result.collider.has_method("interact"):
+				#print("collider has method")
+				#result.collider.interact()
 				
 
 func _get_hit(damage: float):

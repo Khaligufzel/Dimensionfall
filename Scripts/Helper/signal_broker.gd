@@ -73,6 +73,10 @@ signal data_sprites_changed(contentData: Dictionary, spriteid: String)
 
 # When a mob was killed
 signal mob_killed(mobinstance: Mob)
+# The player has interacted with some furniture. We pass the position of the 
+# interaction (which is where the interact ray-cast hit the object) and the 
+# collider RID of the object that was interacted with.
+signal player_interacted(pos: Vector3, collider: RID)
 
 signal initial_chunks_generated() # When the chunks around the player's spawn position are generated
 
