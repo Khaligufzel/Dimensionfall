@@ -1,9 +1,6 @@
 class_name FurnitureStaticSpawner
 extends Node3D
 
-# Array to keep track of all spawned furniture instances
-var spawned_furniture: Array = []
-
 # Dictionary to map the collider RID to the corresponding FurnitureStaticSrv
 var collider_to_furniture: Dictionary = {}
 
@@ -17,7 +14,6 @@ var furniture_json_list: Array = []:
 		furniture_json_list = value
 		_spawn_all_furniture()
 
-
 # Initialize with reference to the chunk
 func _init(mychunk: Chunk) -> void:
 	chunk = mychunk
@@ -30,9 +26,6 @@ func spawn_furniture(furniture_data: Dictionary) -> FurnitureStaticSrv:
 	var myposition: Vector3 = furniture_data.pos
 	var new_furniture = FurnitureStaticSrv.new(myposition, furniture_data.json, world3d)
 	
-	# Add the new furniture to the tracking array
-	spawned_furniture.append(new_furniture)
-	
 	# Add the collider to the dictionary
 	collider_to_furniture[new_furniture.collider] = new_furniture
 	
@@ -44,8 +37,7 @@ func spawn_furniture(furniture_data: Dictionary) -> FurnitureStaticSrv:
 # Function to remove a furniture instance and clean up the tracking data
 func remove_furniture(furniture: FurnitureStaticSrv):
 	if is_instance_valid(furniture):
-		# Remove from the tracking array and dictionary
-		spawned_furniture.erase(furniture)
+		# Remove the furniture from the dictionary
 		collider_to_furniture.erase(furniture.collider)
 		
 		# Queue the furniture for deletion
@@ -53,7 +45,7 @@ func remove_furniture(furniture: FurnitureStaticSrv):
 
 # Function to remove all furniture instances
 func remove_all_furniture():
-	for furniture in spawned_furniture:
+	for furniture in collider_to_furniture.values():
 		remove_furniture(furniture)
 
 # Function to get a FurnitureStaticSrv instance by its collider RID
@@ -65,7 +57,7 @@ func get_furniture_by_collider(collider: RID) -> FurnitureStaticSrv:
 # Function to save the data of all spawned furniture
 func get_furniture_data() -> Array:
 	var furniture_data: Array = []
-	for furniture in spawned_furniture:
+	for furniture in collider_to_furniture.values():
 		if is_instance_valid(furniture):
 			furniture_data.append(furniture.get_data().duplicate())
 	return furniture_data
