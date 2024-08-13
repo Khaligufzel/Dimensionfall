@@ -323,8 +323,9 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 	var newFurniture: Node3D
 	
 	var total_furniture = furnitureDataArray.size()
-	 # Ensure we at least get 1 to avoid division by zero
+	# Ensure we at least get 1 to avoid division by zero
 	var delay_every_n_furniture = max(1, int(float(total_furniture) / 15.0))
+	var static_furnitures: Array = []  # Array to collect static furniture data
 
 	for i in range(total_furniture):
 		var furnitureData = furnitureDataArray[i]
@@ -334,22 +335,24 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 
 		# We can't set it's position until after it's in the scene tree 
 		# so we only save the position to a variable and pass it to the furniture
-		var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
+		var furniturepos: Vector3 = Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
 		
 		if dfurniture.moveable:
-			newFurniture = FurniturePhysics.new(furniturepos,furnitureData)
+			newFurniture = FurniturePhysics.new(furniturepos, furnitureData)
 			newFurniture.current_chunk = self
 		else:
-			newFurniture = FurnitureStatic.new(furniturepos,furnitureData)
+			static_furnitures.append(furnitureData)  # Collect static furniture data for spawning
+			# No need to spawn here, will be done by the spawner
 
-		add_furniture_to_chunk(newFurniture)
-		level_manager.add_child.call_deferred(newFurniture)
-		
-		# Insert delay after every n furniture, evenly spreading the delay
-		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
-			OS.delay_msec(100) # Adjust delay time as needed
+	# Set the furniture_json_list to start spawning the static furniture
+	furniture_spawner.furniture_json_list = static_furnitures
 
-	# Optional: One final delay after the last furniture if the total_furniture is not perfectly divisible by delay_every_n_furniture
+	mutex.lock()
+	for furniture in static_furnitures:
+		level_manager.add_child.call_deferred(furniture)
+	mutex.unlock()
+
+	# Insert delay after every n furniture, evenly spreading the delay
 	if total_furniture % delay_every_n_furniture != 0:
 		OS.delay_msec(10)
 

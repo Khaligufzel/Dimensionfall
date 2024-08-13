@@ -305,3 +305,16 @@ func free_resources():
 
 	# Clear the reference to the DFurniture data if necessary
 	dfurniture = null
+
+
+# Returns this furniture's data for saving
+func get_data() -> Dictionary:
+	var newfurniturejson = {
+		"id": furnitureJSON.id,
+		"moveable": false,
+		"global_position_x": furniture_position.x,
+		"global_position_y": furniture_position.y,
+		"global_position_z": furniture_position.z,
+		"rotation": get_my_rotation(),
+	}
+	return newfurniturejson
