@@ -14,11 +14,16 @@ var quad_instance: RID # RID to the quadmesh that displays the sprite
 var myworld3d: World3D
 
 # We have to keep a reference or it will be auto deleted
-# TODO: We still have to manually delete the RID's
 var support_mesh: PrimitiveMesh
 var sprite_texture: Texture2D  # Variable to store the sprite texture
 var quad_mesh: PlaneMesh
 
+# Variables to manage door functionality
+var is_door: bool = false
+var door_state: String = "Closed"  # Default state
+
+
+# Inner class to keep track of position, rotation and size and keep it central
 class FurnitureTransform:
 	var posx: float
 	var posy: float
@@ -29,13 +34,13 @@ class FurnitureTransform:
 	var height: float
 
 	func _init(myposition: Vector3, myrotation: int, size: Vector3):
+		width = size.x
+		depth = size.z
+		height = size.y
 		posx = myposition.x
 		posy = myposition.y
 		posz = myposition.z
 		rot = myrotation
-		width = size.x
-		depth = size.z
-		height = size.y
 
 	func get_position() -> Vector3:
 		return Vector3(posx, posy, posz)
@@ -69,7 +74,7 @@ class FurnitureTransform:
 	
 	# New method to create a Transform3D
 	func get_sprite_transform() -> Transform3D:
-		var adjusted_position = get_position() + Vector3(0, 0.5+(1*height)+0.01, 0)
+		var adjusted_position = get_position() + Vector3(0, 0.5*height+0.01, 0)
 		return Transform3D(Basis(Vector3(0, 1, 0), deg_to_rad(rot)), adjusted_position)
 	
 	func get_cylinder_shape_data() -> Dictionary:
@@ -77,11 +82,16 @@ class FurnitureTransform:
 	
 	# New method to create a Transform3D for visual instances
 	func get_visual_transform() -> Transform3D:
-		var adjusted_position = get_position() + Vector3(0, 0.5+(0.5*height), 0)
-		return Transform3D(Basis(Vector3(0, 1, 0), deg_to_rad(rot)), adjusted_position)
+		return Transform3D(Basis(Vector3(0, 1, 0), deg_to_rad(rot)), get_position())
 	
 	func get_box_shape_size() -> Vector3:
 		return Vector3(width / 2.0, height / 2.0, depth / 2.0)
+		
+	func correct_new_position():
+		# We have to compensate for the fact that the physicsserver and
+		# renderingserver place the furniture lower then the intended height
+		posy += 0.5+(0.5*height)
+		
 
 
 # Function to initialize the furniture object
@@ -94,12 +104,14 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 	sprite_texture = dfurniture.sprite
 	var furniture_size: Vector3 = calculate_furniture_size()
-	
+
 	furniture_transform = FurnitureTransform.new(furniturepos, furniture_rotation, furniture_size)
 
 	if is_new_furniture():
-		#furniture_position.y += 0.1 # Move the furniture to slightly above the block
+		furniture_transform.correct_new_position()
 		apply_edge_snapping_if_needed()
+
+	check_door_functionality()  # Check if this furniture is a door
 
 	set_new_rotation(furniture_rotation) # Apply rotation after setting up the shape and visual instance
 	if dfurniture.support_shape.shape == "Box":
@@ -110,6 +122,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 		create_visual_instance("Cylinder")
 
 	create_sprite_instance()
+	update_door_visuals()  # Set initial door visuals based on its state
 
 
 # Function to calculate the size of the furniture
@@ -307,7 +320,54 @@ func free_resources():
 	dfurniture = null
 
 
-# Returns this furniture's data for saving
+# Function to check if this furniture acts as a door
+func check_door_functionality():
+	is_door = not dfurniture.function.door == "None"
+	door_state = dfurniture.function.door
+
+# Function to interact with the furniture (e.g., toggling door state)
+func interact():
+	if is_door:
+		toggle_door()
+
+# Function to toggle the door state
+func toggle_door():
+	door_state = "Open" if door_state == "Closed" else "Closed"
+	furnitureJSON["Function"] = {"door": door_state}
+	update_door_visuals()
+
+# Update the visuals and physics of the door
+func update_door_visuals():
+	if not is_door:
+		return
+
+	# Adjust rotation based on door state
+	var base_rotation = furniture_transform.get_rotation()
+	var rotation_angle: int
+	var position_offset: Vector3
+
+	# Adjust rotation direction and position offset based on base_rotation
+	if base_rotation == 0:
+		rotation_angle = base_rotation + (-90 if door_state == "Open" else 0)
+		position_offset = Vector3(0.5, 0, 0.5) if door_state == "Open" else Vector3.ZERO  # Move to the right
+	elif base_rotation == 90:
+		rotation_angle = base_rotation + (-90 if door_state == "Open" else 0)
+		position_offset = Vector3(0.5, 0, 0.5) if door_state == "Open" else Vector3.ZERO  # Move backward
+	else:
+		rotation_angle = base_rotation + (90 if door_state == "Open" else 0)
+		position_offset = Vector3(-0.5, 0, -0.5) if door_state == "Open" else Vector3.ZERO  # Standard offset
+
+	apply_transform_to_instance(rotation_angle, position_offset)
+
+# Function to apply the door's transformation
+func apply_transform_to_instance(rotation_angle: int, position_offset: Vector3):
+	var door_transform = Transform3D(Basis(Vector3(0, 1, 0), deg_to_rad(rotation_angle)), furniture_transform.get_position() + position_offset)
+	RenderingServer.instance_set_transform(mesh_instance, door_transform)
+	RenderingServer.instance_set_transform(quad_instance, door_transform)
+	PhysicsServer3D.body_set_state(collider, PhysicsServer3D.BODY_STATE_TRANSFORM, door_transform)
+
+
+# Returns this furniture's data for saving, including door state if applicable
 func get_data() -> Dictionary:
 	var newfurniturejson = {
 		"id": furnitureJSON.id,
@@ -317,4 +377,8 @@ func get_data() -> Dictionary:
 		"global_position_z": furniture_position.z,
 		"rotation": get_my_rotation(),
 	}
+
+	if is_door:
+		newfurniturejson["Function"] = {"door": door_state}
+
 	return newfurniturejson

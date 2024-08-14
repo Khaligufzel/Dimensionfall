@@ -51,12 +51,13 @@ func get_furniture_by_collider(collider: RID) -> FurnitureStaticSrv:
 		return collider_to_furniture[collider]
 	return null
 
+
 # Function to save the data of all spawned furniture
 func get_furniture_data() -> Array:
 	var furniture_data: Array = []
 	for furniture in collider_to_furniture.values():
 		if is_instance_valid(furniture):
-			furniture_data.append(furniture.get_data().duplicate())
+			furniture_data.append(furniture.get_data())
 	return furniture_data
 
 
@@ -75,7 +76,8 @@ func _spawn_all_furniture():
 # Handle the interaction if the collider is in the dictionary
 # Optionally: check if pos is in the boundary of chunk.mypos + 32
 func _on_player_interacted(_pos: Vector3, collider: RID) -> void:
-	var furniturenode = collider_to_furniture[collider]
-	if furniturenode.has_method("interact"):
-		print("interacting with furniturenode")
-		furniturenode.interact()
+	if collider_to_furniture.has(collider):
+		var furniturenode = collider_to_furniture[collider]
+		if furniturenode.has_method("interact"):
+			print("interacting with furniturenode")
+			furniturenode.interact()
