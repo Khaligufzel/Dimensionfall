@@ -76,7 +76,7 @@ class Item:
 var id: String
 var name: String
 var description: String
-var mode: String
+var mode: String # can be "Collection" or "Distribution". See the itemgroup editor for info
 var spriteid: String
 var sprite: Texture
 var items: Array[Item] = []
