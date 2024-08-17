@@ -11,16 +11,23 @@ var collider: RID
 var shape: RID
 var mesh_instance: RID  # Variable to store the mesh instance RID
 var quad_instance: RID # RID to the quadmesh that displays the sprite
+var container_sprite_instance: RID # RID to the quadmesh that displays the containersprite
 var myworld3d: World3D
 
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh
 var sprite_texture: Texture2D  # Variable to store the sprite texture
+var container_material: StandardMaterial3D
 var quad_mesh: PlaneMesh
+var container_sprite_mesh: PlaneMesh
 
 # Variables to manage door functionality
 var is_door: bool = false
 var door_state: String = "Closed"  # Default state
+
+# Variables to manage the container if this furniture is a container
+var inventory: InventoryStacked
+var itemgroup: String # The ID of an itemgroup that it creates loot from
 
 
 # Inner class to keep track of position, rotation and size and keep it central
@@ -123,7 +130,50 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 	create_sprite_instance()
 	update_door_visuals()  # Set initial door visuals based on its state
+	Helper.signal_broker.player_y_level_updated.connect(_on_player_y_level_updated)
+	add_container()  # Adds container if the furniture is a container
 
+
+# If this furniture is a container, it will add a container node to the furniture.
+func add_container():
+	if is_container():
+		_create_inventory()
+		container_material = StandardMaterial3D.new()
+		if is_new_furniture():
+			create_loot()
+		else:
+			deserialize_container_data()
+		create_container_sprite_instance()
+
+func is_container() -> bool:
+	return dfurniture.function.is_container
+
+# Creates a new InventoryStacked to hold items in it
+func _create_inventory():
+	inventory = InventoryStacked.new()
+	inventory.capacity = 1000
+	inventory.item_protoset = ItemManager.item_protosets
+	inventory.item_removed.connect(_on_item_removed)
+	inventory.item_added.connect(_on_item_added)
+
+
+# If there is an itemgroup assigned to the furniture, it will be added to the container.
+# It will check both furnitureJSON and dfurniture for itemgroup information.
+# The function will return the id of the itemgroup so that the container may use it
+func populate_container_from_itemgroup() -> String:
+	# Check if furnitureJSON contains an itemgroups array
+	if furnitureJSON.has("itemgroups"):
+		var itemgroups_array = furnitureJSON["itemgroups"]
+		if itemgroups_array.size() > 0:
+			return itemgroups_array.pick_random()
+		else:
+			print_debug("itemgroups array is empty in furnitureJSON")
+	
+	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
+	var myitemgroup = dfurniture.function.container_group
+	if myitemgroup:
+		return myitemgroup
+	return ""
 
 # Function to calculate the size of the furniture
 func calculate_furniture_size() -> Vector3:
@@ -197,6 +247,29 @@ func create_sprite_instance():
 	RenderingServer.instance_set_transform(quad_instance, furniture_transform.get_sprite_transform())
 
 
+# Function to create an additional sprite to represent the container
+func create_container_sprite_instance():
+	# Calculate the size for the container sprite
+	var furniture_size_v2 = furniture_transform.get_sizeV2()
+	var smallest_dimension = min(furniture_size_v2.x, furniture_size_v2.y)
+	var container_sprite_size = Vector2(smallest_dimension, smallest_dimension) * 0.8
+
+	container_sprite_mesh = PlaneMesh.new()
+	container_sprite_mesh.size = container_sprite_size
+
+	container_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	container_sprite_mesh.material = container_material
+
+	container_sprite_instance = RenderingServer.instance_create()
+	RenderingServer.instance_set_base(container_sprite_instance, container_sprite_mesh)
+	RenderingServer.instance_set_scenario(container_sprite_instance, myworld3d.scenario)
+
+	# Position the container sprite slightly above the main sprite
+	var container_sprite_transform = furniture_transform.get_sprite_transform()
+	container_sprite_transform.origin.y += 0.2  # Adjust height as needed
+	RenderingServer.instance_set_transform(container_sprite_instance, container_sprite_transform)
+
+
 # Now, update methods that involve position, rotation, and size
 func apply_edge_snapping_if_needed():
 	if not dfurniture.edgesnapping == "None":
@@ -223,8 +296,8 @@ func create_cylinder_shape():
 
 # Function to set collision layers and masks
 func set_collision_layers_and_masks():
-	# Set collision layer to layer 3 (static obstacles layer)
-	var collision_layer = 1 << 2  # Layer 3 is 1 << 2
+	# Set collision layer to layers 3 (static obstacles layer) and 7 (containers layer)
+	var collision_layer = (1 << 2) | (1 << 6)  # Layer 3 is 1 << 2, Layer 7 is 1 << 6
 
 	# Set collision mask to include layers 1, 2, 3, 4, 5, and 6
 	var collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5)
@@ -311,6 +384,7 @@ func free_resources():
 	# Free the mesh instance RID if it exists
 	RenderingServer.free_rid(mesh_instance)
 	RenderingServer.free_rid(quad_instance)
+	RenderingServer.free_rid(container_sprite_instance)
 
 	# Free the collider shape and body RIDs if they exist
 	PhysicsServer3D.free_rid(shape)
@@ -380,5 +454,230 @@ func get_data() -> Dictionary:
 
 	if is_door:
 		newfurniturejson["Function"] = {"door": door_state}
+	
+	# Check if this furniture has a container attached and if it has items
+	if inventory:
+		# Initialize the 'Function' sub-dictionary if not already present
+		if "Function" not in newfurniturejson:
+			newfurniturejson["Function"] = {}
+		var containerdata = inventory.serialize()
+		# If there are no items in the inventory, keep an empty object. Else,
+		# keep an object with the items key and the serialized items
+		var containerobject = {} if containerdata.is_empty() else {"items": containerdata}
+		newfurniturejson["Function"]["container"] = containerobject
 
 	return newfurniturejson
+
+
+# It will deserialize the container data if the furniture is not new.
+func deserialize_container_data():
+	if "items" in furnitureJSON["Function"]["container"]:
+		deserialize_and_apply_items(furnitureJSON["Function"]["container"]["items"])
+
+
+# Function to deserialize inventory and apply the correct sprite
+func deserialize_and_apply_items(items_data: Dictionary):
+	inventory.deserialize(items_data)
+	
+	#var default_texture: Texture = Gamedata.textures.container
+	
+	#if inventory.get_items().size() > 0:
+		#if sprite_3d.texture == default_texture:
+			#sprite_3d.texture = Gamedata.textures.container_filled
+		## Else, some other texture has been set so we keep that
+	#else:
+		#sprite_3d.texture = default_texture
+		#_on_item_removed(null)
+
+
+# Function to hide visual elements
+func hide_visual_elements():
+	# Check if instances exist before hiding
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, false)
+	if quad_instance:
+		RenderingServer.instance_set_visible(quad_instance, false)
+	# Optionally, disable the collider to prevent interactions
+	#if collider:
+		#PhysicsServer3D.body_set_enable_continuous_collision_detection(collider, false)
+
+# Function to show visual elements
+func show_visual_elements():
+	# Check if instances exist before showing
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, true)
+	if quad_instance:
+		RenderingServer.instance_set_visible(quad_instance, true)
+	# Optionally, enable the collider to allow interactions
+	#if collider:
+		#PhysicsServer3D.body_set_enable_continuous_collision_detection(collider, true)
+
+# Function to handle the player's Y level change
+func _on_player_y_level_updated(new_y: float):
+	# Check if the furniture is above the player's new Y level
+	if furniture_position.y+1 > new_y:
+		# Hide the furniture if it is above the player's level
+		hide_visual_elements()
+	else:
+		# Show the furniture if it is at or below the player's level
+		show_visual_elements()
+
+
+# When the furniture is destroyed, it leaves a wreck behind
+func add_corpse(pos: Vector3):
+	if can_be_destroyed():
+		var newitemjson: Dictionary = {
+			"global_position_x": pos.x,
+			"global_position_y": pos.y,
+			"global_position_z": pos.z
+		}
+		
+		var myitemgroup = dfurniture.destruction.group
+		if myitemgroup:
+			newitemjson["itemgroups"] = [myitemgroup]
+		
+		var newItem: ContainerItem = ContainerItem.new(newitemjson)
+		newItem.add_to_group("mapitems")
+		
+		var fursprite = dfurniture.destruction.sprite
+		if fursprite:
+			newItem.set_texture(fursprite)
+		
+		# Finally add the new item with possibly set loot group to the tree
+		get_tree().get_root().add_child.call_deferred(newItem)
+		
+		# Check if inventory has items and insert them into the new item
+		if inventory:
+			for item in inventory.get_items():
+				newItem.insert_item(item)
+
+
+# Check if the furniture can be destroyed
+func can_be_destroyed() -> bool:
+	return not dfurniture.destruction.get_data().is_empty()
+
+
+# Check if the furniture can be disassembled
+func can_be_disassembled() -> bool:
+	return not dfurniture.disassembly.get_data().is_empty()
+
+
+# Will add item to the inventory based on the assigned itemgroup
+# Only new furniture will have an itemgroup assigned, not previously saved furniture.
+func create_loot():
+	itemgroup = populate_container_from_itemgroup()
+	if not itemgroup or itemgroup == "":
+		return
+	# A flag to track whether items were added
+	var item_added: bool = false
+	# Attempt to retrieve the itemgroup data from Gamedata
+	var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(itemgroup)
+	
+	# Check if the itemgroup data exists and has items
+	if ditemgroup:
+		var groupmode: String = ditemgroup.mode # can be "Collection" or "Distribution".
+		if groupmode == "Collection":
+			item_added = _add_items_to_inventory_collection_mode(ditemgroup.items)
+		elif groupmode == "Distribution":
+			item_added = _add_items_to_inventory_distribution_mode(ditemgroup.items)
+
+	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
+	if item_added:
+		container_material.albedo_texture = Gamedata.textures.container_filled
+	elif not item_added:
+		 # If no item was added we delete the container if it's not a child of some furniture
+		_on_item_removed(null)
+
+
+# Takes a list of items and adds them to the inventory in Collection mode.
+func _add_items_to_inventory_collection_mode(items: Array[DItemgroup.Item]) -> bool:
+	var item_added: bool = false
+	# Loop over each item object in the itemgroup's 'items' property
+	for item_object: DItemgroup.Item in items:
+		# Each item_object is expected to be a dictionary with id, probability, min, max
+		var item_id = item_object.id
+		var item_probability = item_object.probability
+		if randi_range(0, 100) <= item_probability:
+			item_added = true # An item is about to be added
+			# Determine quantity to add based on min and max
+			var quantity = randi_range(item_object.minc, item_object.maxc)
+			_add_item_to_inventory(item_id, quantity)
+	return item_added
+
+
+# Takes a list of items and adds one to the inventory based on probabilities in Distribution mode.
+func _add_items_to_inventory_distribution_mode(items: Array[DItemgroup.Item]) -> bool:
+	var total_probability = 0
+	# Calculate the total probability
+	for item_object in items:
+		total_probability += item_object.probability
+
+	# Generate a random value between 0 and total_probability - 1
+	var random_value = randi_range(0, total_probability - 1)
+	var cumulative_probability = 0
+
+	# Iterate through items to select one based on the random value
+	for item_object: DItemgroup.Item in items:
+		cumulative_probability += item_object.probability
+		# Check if the random value falls within the current item's range
+		if random_value < cumulative_probability:
+			var item_id = item_object.id
+			var quantity = randi_range(item_object.minc, item_object.maxc)
+			_add_item_to_inventory(item_id, quantity)
+			return true  # One item is added, return immediately
+
+	return false  # In case no item is added, though this is highly unlikely
+
+
+# Takes an item_id and quantity and adds it to the inventory
+func _add_item_to_inventory(item_id: String, quantity: int):
+	# Fetch the individual item data for verification
+	var ditem: DItem = Gamedata.items.by_id(item_id)
+	# Check if the item data is valid before adding
+	if ditem and quantity > 0:
+		while quantity > 0:
+			# Calculate the stack size for this iteration, limited by max_stack_size
+			var stack_size = min(quantity, ditem.max_stack_size)
+			# Create and add the item to the inventory
+			var item = inventory.create_and_add_item(item_id)
+			# Set the item stack size
+			InventoryStacked.set_item_stack_size(item, stack_size)
+			# Decrease the remaining quantity
+			quantity -= stack_size
+
+
+# Signal handler for item removed
+# We don't want empty containers on the map, but we do want them as children of furniture
+# So we delete empty containers if they are a child of the tree root.
+func _on_item_removed(_item: InventoryItem):
+	# Check if there are any items left in the inventory
+	if inventory.get_items().size() == 0:
+		container_material.albedo_texture = Gamedata.textures.container
+	else: # There are still items in the container
+		set_random_inventory_item_texture() # Update to a new sprite
+
+
+func _on_item_added(_item: InventoryItem):
+	set_random_inventory_item_texture() # Update to a new sprite
+
+# Returns the inventorystacked that this container holds
+func get_inventory() -> InventoryStacked:
+	return inventory
+
+
+func get_sprite() -> Texture:
+	return dfurniture.sprite
+
+
+# Sets the sprite_3d texture to a texture of a random item in the container's inventory
+func set_random_inventory_item_texture():
+	var items: Array[InventoryItem] = inventory.get_items()
+	if items.size() == 0:
+		return
+	
+	# Pick a random item from the inventory
+	var random_item: InventoryItem = items.pick_random()
+	var item_id = random_item.prototype_id
+	
+	# Set the sprite_3d texture to the item's sprite
+	container_material.albedo_texture = Gamedata.items.sprite_by_id(item_id)

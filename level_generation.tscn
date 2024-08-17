@@ -42,7 +42,6 @@ playback_mode = 1
 random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("13_fjasp")
-stream_0/weight = 1.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n8kat"]
 playback_mode = 1
@@ -257,4 +256,6 @@ transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 
 [connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Right_attack_cooldown" to="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" method="_on_right_attack_cooldown_timeout"]
 [connection signal="area_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_entered"]
 [connection signal="area_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_exited"]
+[connection signal="body_shape_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_body_shape_exited"]
 [connection signal="construction_chosen" from="HUD" to="TacticalMap/BuildManager" method="_on_hud_construction_chosen"]

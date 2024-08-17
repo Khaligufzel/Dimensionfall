@@ -49,6 +49,8 @@ var skills = {}
 
 var time_since_ready = 0.0
 var delay_before_movement = 2.0  # 2 second delay
+# Variable to store the last recorded y level
+var last_y_level: int = 0
 
 @export var sprite : Sprite3D
 @export var collisionDetector : Area3D # Used for detecting collision with furniture
@@ -70,6 +72,7 @@ var furniture_body: RigidBody3D = null
 
 #var is_progress_bar_well_progressing_i_guess = false
 
+
 func _ready():
 	initialize_health()
 	initialize_condition()
@@ -81,6 +84,7 @@ func _ready():
 	collisionDetector.body_entered.connect(_on_body_entered)
 	collisionDetector.body_exited.connect(_on_body_exited)
 	Helper.signal_broker.player_spawned.emit(self)
+	initialize_y_level_check()
 
 
 func initialize_health():
@@ -446,3 +450,18 @@ func add_skill_xp(skill_id: String, xp: float) -> void:
 func _on_craft_successful(_item: DItem, recipe: DItem.CraftRecipe):
 	if recipe.skill_progression:
 		add_skill_xp(recipe.skill_progression.id, recipe.skill_progression.xp)
+
+
+# Function to initialize the timer for checking Y level changes
+func initialize_y_level_check():
+	var y_check_timer = Timer.new()
+	y_check_timer.wait_time = 0.1
+	y_check_timer.autostart = true
+	y_check_timer.one_shot = false
+	y_check_timer.timeout.connect(_emit_y_level)
+	add_child(y_check_timer)
+
+# Function to emit the current Y level
+func _emit_y_level():
+	var current_y_level = global_position.y
+	Helper.signal_broker.player_y_level_updated.emit(current_y_level)

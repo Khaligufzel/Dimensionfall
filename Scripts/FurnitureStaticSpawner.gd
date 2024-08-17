@@ -14,6 +14,9 @@ var furniture_json_list: Array = []:
 		furniture_json_list = value
 		_spawn_all_furniture()
 
+
+
+
 # Initialize with reference to the chunk
 func _init(mychunk: Chunk) -> void:
 	chunk = mychunk
@@ -21,6 +24,9 @@ func _init(mychunk: Chunk) -> void:
 func _ready():
 	world3d = get_world_3d()
 	Helper.signal_broker.player_interacted.connect(_on_player_interacted)
+	Helper.signal_broker.body_entered_item_detector.connect(_on_body_entered_item_detector)
+	Helper.signal_broker.body_exited_item_detector.connect(_on_body_exited_item_detector)
+
 
 # Function to spawn a FurnitureStaticSrv at a given position with given furniture data
 func spawn_furniture(furniture_data: Dictionary) -> void:
@@ -39,6 +45,7 @@ func remove_furniture(furniture: FurnitureStaticSrv):
 		
 		# Queue the furniture for deletion
 		furniture.queue_free()
+
 
 # Function to remove all furniture instances
 func remove_all_furniture():
@@ -81,3 +88,23 @@ func _on_player_interacted(_pos: Vector3, collider: RID) -> void:
 		if furniturenode.has_method("interact"):
 			print("interacting with furniturenode")
 			furniturenode.interact()
+
+
+# Function to handle the event when a body enters the item detector
+func _on_body_entered_item_detector(body_rid: RID) -> void:
+	if collider_to_furniture.has(body_rid):
+		# furniturenode is a FurnitureStaticSrv but we need to cast it as a Node3D here
+		# because that's what the signal will send
+		var furniturenode: Node3D = collider_to_furniture[body_rid]
+		if furniturenode.is_container():
+			Helper.signal_broker.container_entered_proximity.emit(furniturenode)
+
+
+# Function to handle the event when a body exits the item detector
+func _on_body_exited_item_detector(body_rid: RID) -> void:
+	if collider_to_furniture.has(body_rid):
+		# furniturenode is a FurnitureStaticSrv but we need to cast it as a Node3D here
+		# because that's what the signal will send
+		var furniturenode: Node3D = collider_to_furniture[body_rid]
+		if furniturenode.is_container():
+			Helper.signal_broker.container_exited_proximity.emit(furniturenode)
