@@ -41,7 +41,7 @@ func _on_Projectile_body_entered(body: Node):
 	queue_free()  # Destroy the projectile upon collision
 
 
-func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int):
+func _on_body_shape_entered(_body_rid: RID, _body: Node, _body_shape_index: int, _local_shape_index: int):
 	queue_free()  # Destroy the projectile upon collision
 
 
@@ -49,7 +49,7 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 # with a collider that's not inside the tree, like with FurnitureStaticSrv. That's why an Area3d
 # was added so it can still use the functionality it's supposed to. The Area3d listens to 
 # Layer 7 which is the static obstacles layer.
-func _on_area_3d_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_area_3d_body_shape_entered(body_rid: RID, _body: Node3D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body_rid:
 		print_debug("a bullet hit ", body_rid)
 		var attack: Dictionary = {"damage":damage, "hit_chance":100}

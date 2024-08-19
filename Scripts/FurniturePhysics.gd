@@ -324,8 +324,7 @@ func add_wreck(pos: Vector3) -> void:
 		get_tree().get_root().add_child.call_deferred(newItem)
 
 func can_be_destroyed() -> bool:
-	var can_be_destroyed: bool = not dfurniture.destruction.get_data().is_empty()
-	return can_be_destroyed
+	return not dfurniture.destruction.get_data().is_empty()
 
 func can_be_disassembled() -> bool:
 	return dfurniture.disassembly.get_data().is_empty()

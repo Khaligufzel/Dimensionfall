@@ -67,7 +67,6 @@ var is_right_button_held: bool = false
 var entities_in_melee_range = [] # Used to keep track of entities in melee range
 
 signal ammo_changed(current_ammo: int, max_ammo: int, lefthand: bool)
-signal fired_weapon(equippedWeapon)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -186,7 +185,6 @@ func perform_ranged_attack():
 	shoot_audio_player.stream = shoot_audio_randomizer
 	shoot_audio_player.play()
 	
-	var accuracy = calculate_accuracy()
 	var bullet_instance = bullet_scene.instantiate()
 	# Decrease the y position to ensure proper collision with mobs and furniture
 	var spawn_position = global_transform.origin + Vector3(0.0, -0.1, 0.0)
@@ -355,14 +353,14 @@ func _on_exited_melee_range(body):
 	if body in entities_in_melee_range:
 		entities_in_melee_range.erase(body)
 
-func _on_body_shape_entered_melee_range(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int):
+func _on_body_shape_entered_melee_range(body_rid: RID, body: Node, _body_shape_index: int, _local_shape_index: int):
 	# Body will have a value if the body shape is in the scene tree. This function should
 	# only handle shapes that are outside the scene tree, like StaticFurnitureSrv
 	if body:
 		return
 	entities_in_melee_range.append(body_rid)
 	
-func _on_body_shape_exited_melee_range(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int):
+func _on_body_shape_exited_melee_range(body_rid: RID, _body: Node, _body_shape_index: int, _local_shape_index: int):
 	if entities_in_melee_range.has(body_rid):
 		entities_in_melee_range.erase(body_rid)
 
