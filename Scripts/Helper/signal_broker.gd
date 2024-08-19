@@ -106,11 +106,24 @@ signal data_sprites_changed(contentData: Dictionary, spriteid: String)
 # When a mob was killed
 @warning_ignore("unused_signal")
 signal mob_killed(mobinstance: Mob)
+
 # The player has interacted with some furniture. We pass the position of the 
 # interaction (which is where the interact ray-cast hit the object) and the 
 # collider RID of the object that was interacted with.
 @warning_ignore("unused_signal")
 signal player_interacted(pos: Vector3, collider: RID)
+
+# A bullet has hit some collider
+# body_rid: the RID of the other PhysicsBody3D used by the PhysicsServer3D.
+# attack: may be something like: {"damage":damage, "hit_chance":100}
+@warning_ignore("unused_signal")
+signal bullet_hit(body_rid: RID, attack: Dictionary)
+
+# A collider was melee attacked
+# body_rid: the RID of the PhysicsBody3D used by the PhysicsServer3D.
+# attack: may be something like: {"damage":damage, "hit_chance":100}
+@warning_ignore("unused_signal")
+signal melee_attacked_rid(body_rid: RID, attack: Dictionary)
 
 @warning_ignore("unused_signal")
 signal initial_chunks_generated() # When the chunks around the player's spawn position are generated

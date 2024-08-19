@@ -13,9 +13,10 @@ var last_rotation: int
 var current_chunk: Chunk
 var in_starting_chunk: bool = false
 var container: ContainerItem = null # Reference to the container, if this furniture acts as one
+# Declare a variable to keep track of elapsed time
+var elapsed_time: float = 0.0
 
 var is_animating_hit: bool = false # flag to prevent multiple blink actions
-var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
 var current_health: float = 10.0
 
 
@@ -66,41 +67,46 @@ func setup_physics_properties(weight: float) -> void:
 	# - 1 << 5: Layer 6 (enemy projectiles layer)
 
 
-func is_in_starting_chunk():
-	if global_transform.origin.x < current_chunk.mypos.x:
+func is_in_starting_chunk(myposition: Vector3):
+	if myposition.x < current_chunk.mypos.x:
 		in_starting_chunk = false
 		return
-	if global_transform.origin.x > current_chunk.mypos.x+32:
+	if myposition.x > current_chunk.mypos.x+32:
 		in_starting_chunk = false
 		return
-	if global_transform.origin.z < current_chunk.mypos.z:
+	if myposition.z < current_chunk.mypos.z:
 		in_starting_chunk = false
 		return
-	if global_transform.origin.z > current_chunk.mypos.z+32:
+	if myposition.z > current_chunk.mypos.z+32:
 		in_starting_chunk = false
 		return
 	in_starting_chunk = true
 	freeze = false # Now that it's positioned, unfreeze it
 
 
-# Keep track of the furniture's position and rotation. It starts at 0,0,0 and the moves to it's
-# assigned position after a timer. Until that has happened, we don't need to keep track of it's position
-func _physics_process(_delta) -> void:
+# Keep track of the furniture's position and rotation. It starts at 0,0,0 and then moves to its
+# assigned position after a timer. Until that has happened, we don't need to keep track of its position
+func _physics_process(delta: float) -> void:
+	elapsed_time += delta
+	if elapsed_time < 0.5:
+		return
+	
+	elapsed_time = 0.0 # Reset the timer
+
+	var currentposition = global_transform.origin
 	if freeze or not in_starting_chunk: # Don't care about the position changing when it's frozen
-		is_in_starting_chunk()
+		is_in_starting_chunk(currentposition)
 		return
 	# We only care about x and z. A changed y only means it's moving up or down.
-	var x_changed = not global_transform.origin.x == furnitureposition.x 
-	var z_changed = not global_transform.origin.z == furnitureposition.z
-	# HACK Sometimes when it calls set_position in _ready() it will say it moved when it didn't,
-	# or set_position is too late and it's differs from furnitureposition because it's still 0,0
-	# So we add in extra checks to handle those edge cases. There's probably a better way
-	var is_zero = global_transform.origin.x == 0 and global_transform.origin.z == 0
-	if (x_changed or z_changed) and not is_zero:
-		_moved(global_transform.origin)
+	var x_changed = not currentposition.x == furnitureposition.x
+	var z_changed = not currentposition.z == furnitureposition.z
+	if x_changed or z_changed:
+		_moved(currentposition)
+	
 	var current_rotation = int(rotation_degrees.y)
 	if current_rotation != last_rotation:
 		last_rotation = current_rotation
+
 
 
 # Set the new rotation for the furniture
@@ -318,7 +324,8 @@ func add_wreck(pos: Vector3) -> void:
 		get_tree().get_root().add_child.call_deferred(newItem)
 
 func can_be_destroyed() -> bool:
-	return dfurniture.destruction.get_data().is_empty()
+	var can_be_destroyed: bool = not dfurniture.destruction.get_data().is_empty()
+	return can_be_destroyed
 
 func can_be_disassembled() -> bool:
 	return dfurniture.disassembly.get_data().is_empty()

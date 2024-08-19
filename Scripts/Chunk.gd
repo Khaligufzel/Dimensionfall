@@ -326,6 +326,7 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 	# Ensure we at least get 1 to avoid division by zero
 	var delay_every_n_furniture = max(1, int(float(total_furniture) / 15.0))
 	var static_furnitures: Array = []  # Array to collect static furniture data
+	var physics_furnitures: Array = []  # Array to collect physic furniture
 
 	for i in range(total_furniture):
 		var furnitureData = furnitureDataArray[i]
@@ -340,6 +341,7 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 		if dfurniture.moveable:
 			newFurniture = FurniturePhysics.new(furniturepos, furnitureData)
 			newFurniture.current_chunk = self
+			physics_furnitures.append(newFurniture)
 		else:
 			static_furnitures.append(furnitureData)  # Collect static furniture data for spawning
 			# No need to spawn here, will be done by the spawner
@@ -348,7 +350,7 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 	furniture_spawner.furniture_json_list = static_furnitures
 
 	mutex.lock()
-	for furniture in static_furnitures:
+	for furniture in physics_furnitures:
 		level_manager.add_child.call_deferred(furniture)
 	mutex.unlock()
 
@@ -371,6 +373,7 @@ func free_furniture_instances():
 	for furniture in furniture_instances:
 		if is_instance_valid(furniture):
 			furniture.queue_free.call_deferred()
+	furniture_spawner.remove_all_furniture()
 
 # Function to free the mob instances
 func free_mob_instances(mapMobs):
@@ -395,9 +398,12 @@ func free_item_instances(mapitems):
 # will be included in the chunk data. So basically if the furniture is 'in' or 'on' the chunk.
 func get_furniture_data() -> Array:
 	var furnitureData: Array = []
+	var furnitureStaticData: Array = furniture_spawner.get_furniture_data()
 	for furniture in furniture_instances:
 		if is_instance_valid(furniture):
-			furnitureData.append(furniture.get_data().duplicate())
+			furnitureData.append(furniture.get_data())
+	# Append all static furniture data to furnitureData
+	furnitureData.append_array(furnitureStaticData)
 	return furnitureData
 
 

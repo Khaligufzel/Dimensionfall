@@ -66,7 +66,7 @@ func is_clear_path_to_area(area) -> bool:
 	if result.size() != 0:  # Check if the result dictionary is not empty
 		# Check if the hit object is an ancestor of the area
 		var collider = result.collider
-		if not collider is RID and collider.is_ancestor_of(area):
+		if collider and not collider is RID and collider.is_ancestor_of(area):
 			return true
 		return false
 	else:

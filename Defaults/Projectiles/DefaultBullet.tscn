@@ -11,8 +11,8 @@ collision_layer = 32
 collision_mask = 30
 mass = 0.01
 gravity_scale = 0.001
-max_contacts_reported = 1
 contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_tleh8")
 
 [node name="BulletSprite" type="Sprite3D" parent="."]
@@ -23,5 +23,14 @@ texture = ExtResource("2_a3c22")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, 0, 0)
 shape = SubResource("SphereShape3D_8jjgy")
 
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="BulletCollisionShape2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, 0, 0)
+shape = SubResource("SphereShape3D_8jjgy")
+
 [connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="body_shape_entered" from="Area3D" to="." method="_on_area_3d_body_shape_entered"]

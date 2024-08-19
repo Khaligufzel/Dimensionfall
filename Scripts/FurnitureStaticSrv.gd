@@ -13,10 +13,12 @@ var mesh_instance: RID  # Variable to store the mesh instance RID
 var quad_instance: RID # RID to the quadmesh that displays the sprite
 var container_sprite_instance: RID # RID to the quadmesh that displays the containersprite
 var myworld3d: World3D
+var i_am_visible: bool = true # keep track of general visibility
 
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh
 var sprite_texture: Texture2D  # Variable to store the sprite texture
+var sprite_material: StandardMaterial3D
 var container_material: StandardMaterial3D
 var quad_mesh: PlaneMesh
 var container_sprite_mesh: PlaneMesh
@@ -28,6 +30,13 @@ var door_state: String = "Closed"  # Default state
 # Variables to manage the container if this furniture is a container
 var inventory: InventoryStacked
 var itemgroup: String # The ID of an itemgroup that it creates loot from
+
+# Variables to manage health and damage
+var current_health: float = 100.0  # Default health
+var is_animating_hit: bool = false  # Flag to prevent multiple hit animations
+var original_material_color: Color = Color(1, 1, 1)  # Store the original material color
+
+signal about_to_be_destroyed(me: FurnitureStaticSrv)
 
 
 # Inner class to keep track of position, rotation and size and keep it central
@@ -233,11 +242,11 @@ func create_visual_instance(shape_type: String):
 func create_sprite_instance():
 	quad_mesh = PlaneMesh.new()
 	quad_mesh.size = furniture_transform.get_sizeV2()
-	var material = StandardMaterial3D.new()
-	material.albedo_texture = sprite_texture
-	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	sprite_material = StandardMaterial3D.new()
+	sprite_material.albedo_texture = sprite_texture
+	sprite_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	#material.flags_unshaded = true  # Optional: make the sprite unshaded
-	quad_mesh.material = material
+	quad_mesh.material = sprite_material
 	
 	quad_instance = RenderingServer.instance_create()
 	RenderingServer.instance_set_base(quad_instance, quad_mesh)
@@ -381,6 +390,7 @@ func is_new_furniture() -> bool:
 
 # Function to free all resources like the RIDs
 func free_resources():
+	about_to_be_destroyed.emit(self)
 	# Free the mesh instance RID if it exists
 	RenderingServer.free_rid(mesh_instance)
 	RenderingServer.free_rid(quad_instance)
@@ -446,9 +456,9 @@ func get_data() -> Dictionary:
 	var newfurniturejson = {
 		"id": furnitureJSON.id,
 		"moveable": false,
-		"global_position_x": furniture_position.x,
-		"global_position_y": furniture_position.y,
-		"global_position_z": furniture_position.z,
+		"global_position_x": furniture_transform.posx,
+		"global_position_y": furniture_transform.posy,
+		"global_position_z": furniture_transform.posz,
 		"rotation": get_my_rotation(),
 	}
 
@@ -492,30 +502,36 @@ func deserialize_and_apply_items(items_data: Dictionary):
 
 # Function to hide visual elements
 func hide_visual_elements():
+	if not i_am_visible:
+		return # I am already inivisble
 	# Check if instances exist before hiding
 	if mesh_instance:
 		RenderingServer.instance_set_visible(mesh_instance, false)
 	if quad_instance:
 		RenderingServer.instance_set_visible(quad_instance, false)
-	# Optionally, disable the collider to prevent interactions
-	#if collider:
-		#PhysicsServer3D.body_set_enable_continuous_collision_detection(collider, false)
+	if container_sprite_instance:
+		RenderingServer.instance_set_visible(container_sprite_instance, false)
+	i_am_visible = false
+
 
 # Function to show visual elements
 func show_visual_elements():
+	if i_am_visible:
+		return # I am already visible
 	# Check if instances exist before showing
 	if mesh_instance:
 		RenderingServer.instance_set_visible(mesh_instance, true)
 	if quad_instance:
 		RenderingServer.instance_set_visible(quad_instance, true)
-	# Optionally, enable the collider to allow interactions
-	#if collider:
-		#PhysicsServer3D.body_set_enable_continuous_collision_detection(collider, true)
+	if container_sprite_instance:
+		RenderingServer.instance_set_visible(container_sprite_instance, true)
+	i_am_visible = true
+
 
 # Function to handle the player's Y level change
 func _on_player_y_level_updated(new_y: float):
 	# Check if the furniture is above the player's new Y level
-	if furniture_position.y+1 > new_y:
+	if furniture_transform.posy > new_y:
 		# Hide the furniture if it is above the player's level
 		hide_visual_elements()
 	else:
@@ -544,7 +560,7 @@ func add_corpse(pos: Vector3):
 			newItem.set_texture(fursprite)
 		
 		# Finally add the new item with possibly set loot group to the tree
-		get_tree().get_root().add_child.call_deferred(newItem)
+		Helper.map_manager.level_generator.get_tree().get_root().add_child.call_deferred(newItem)
 		
 		# Check if inventory has items and insert them into the new item
 		if inventory:
@@ -681,3 +697,77 @@ func set_random_inventory_item_texture():
 	
 	# Set the sprite_3d texture to the item's sprite
 	container_material.albedo_texture = Gamedata.items.sprite_by_id(item_id)
+
+
+# Function to handle damage when the furniture gets hit
+# attack: a dictionary with the "damage" and "hit_chance" properties
+func get_hit(attack: Dictionary):
+	var damage = attack.damage
+	var hit_chance = attack.hit_chance
+
+	# Calculate actual hit chance considering static furniture bonus
+	var actual_hit_chance = hit_chance + 0.25  # Boost hit chance by 25%
+
+	# Determine if the attack hits
+	if randf() <= actual_hit_chance:
+		# Attack hits
+		if can_be_destroyed():
+			current_health -= damage
+			if current_health <= 0:
+				_die()  # Destroy the furniture if health is depleted
+			else:
+				if not is_animating_hit:
+					animate_hit()
+	else:
+		# Attack misses, create a visual indicator
+		show_miss_indicator()
+
+
+# Function to animate the hit effect
+func animate_hit():
+	is_animating_hit = true
+	original_material_color = sprite_material.albedo_color
+
+	# Tween can only function inside the scene tree so we need a node inside the 
+	# scene tree to instantiate the tween
+	var tween = Helper.map_manager.level_generator.create_tween()
+	
+	tween.tween_property(sprite_material, "albedo_color", Color(1, 1, 1, 0.5), 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(sprite_material, "albedo_color", original_material_color, 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT).set_delay(0.1)
+
+	tween.finished.connect(_on_tween_finished)
+
+
+# Function to reset animation state after hit animation
+func _on_tween_finished():
+	is_animating_hit = false
+
+
+# Function to handle furniture destruction
+func _die():
+	add_corpse(furniture_transform.get_position())  # Add wreck or corpse
+	if is_container():
+		Helper.signal_broker.container_exited_proximity.emit(self)
+	free_resources()  # Free resources
+	queue_free()  # Remove the node from the scene tree
+
+
+# Function to show a miss indicator
+func show_miss_indicator():
+	var miss_label = Label3D.new()
+	miss_label.text = "Miss!"
+	miss_label.modulate = Color(1, 0, 0)  # Red color
+	miss_label.font_size = 64
+	Helper.map_manager.level_generator.get_tree().get_root().add_child(miss_label)
+	miss_label.position = furniture_transform.get_position() + Vector3(0, 2, 0)  # Slightly above the furniture
+	miss_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+
+	# Animate the miss indicator to disappear quickly
+	# Tween can only function inside the scene tree so we need a node inside the 
+	# scene tree to instantiate the tween
+	var tween = Helper.map_manager.level_generator.create_tween()
+
+	tween.tween_property(miss_label, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.finished.connect(func():
+		miss_label.queue_free()  # Properly free the miss_label node
+	)

@@ -195,8 +195,6 @@ func _physics_process(delta):
 		move_and_slide()
 
 
-
-
 func _on_body_entered(body):
 	if body is RigidBody3D:
 		pushing_furniture = true

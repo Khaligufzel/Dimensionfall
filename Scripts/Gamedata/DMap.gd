@@ -194,6 +194,11 @@ func data_changed(oldmap: DMap):
 				if not new_entities[entity_type].has(entity_id):
 					var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
 					furniture.remove_reference("core","maps",id)
+		elif entity_type == "tiles":
+			for entity_id in old_entities[entity_type]:
+				if not new_entities[entity_type].has(entity_id):
+					var dtile: DTile = Gamedata.tiles.by_id(entity_id)
+					dtile.remove_reference("core","maps",id)
 		elif entity_type == "itemgroups":
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):
@@ -204,10 +209,7 @@ func data_changed(oldmap: DMap):
 				if not new_entities[entity_type].has(entity_id):
 					var mob: DMob = Gamedata.mobs.by_id(entity_id)
 					mob.remove_reference("core","maps",id)
-		else:
-			for entity_id in old_entities[entity_type]:
-				if not new_entities[entity_type].has(entity_id):
-					Gamedata.remove_reference(Gamedata.data[entity_type], "core", "maps", entity_id, id)
+
 
 	# Save changes to the data files if there were any updates
 	if new_entities["mobs"].size() > 0 or old_entities["mobs"].size() > 0:

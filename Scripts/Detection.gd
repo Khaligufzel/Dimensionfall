@@ -44,7 +44,7 @@ func _physics_process(_delta):
 
 	var result = space_state.intersect_ray(query)
 	
-	if result:
+	if result and result.collider:
 		
 		if result.collider.is_in_group("Players") && Vector3(global_position).distance_to(get_tree().get_first_node_in_group("Players").global_position) <= sightRange:
 			spotted_player = result.collider
