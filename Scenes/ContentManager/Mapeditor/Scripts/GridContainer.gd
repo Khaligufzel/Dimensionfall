@@ -164,18 +164,36 @@ func _input(event) -> void:
 
 # Function to update the position of the brush preview based on the mouse event
 func _update_brush_preview_position() -> void:
+	# Scale the brush preview based on the map editor's zoom level
 	var scale_factor = mapEditor.zoom_level * 0.01
 	brushPreviewTexture.scale = Vector2(scale_factor, scale_factor)
+
+	# Calculate the pivot offset for centering the preview
 	brushPreviewTexture.pivot_offset = calculate_scaled_center_distance()
+
+	# Get the current mouse position in the viewport
 	var mouse_position = get_viewport().get_mouse_position()
+	
+	# Define a constant offset to slightly offset the preview from the cursor
 	var constant_offset = Vector2(10, 10)
+	
+	# Calculate the difference due to scaling
 	var scalediff = brushPreviewTexture.size - brushPreviewTexture.size * brushPreviewTexture.scale.x
+	
+	# Calculate the new position for the brush preview
 	var new_position = mouse_position + constant_offset - scalediff / 2
+	
+	# Get the global position and size of the scroll window
 	var scroll_global_pos = mapScrollWindow.get_global_position()
 	var mapScrollWindowRect = mapScrollWindow.get_rect()
+	
+	# Clamp the new position to keep it within the bounds of the scroll window
 	new_position.x = clamp(new_position.x, scroll_global_pos.x, scroll_global_pos.x + mapScrollWindowRect.size.x - brushPreviewTexture.get_rect().size.x)
 	new_position.y = clamp(new_position.y, scroll_global_pos.y, scroll_global_pos.y + mapScrollWindowRect.size.y - brushPreviewTexture.get_rect().size.y)
+	
+	# Apply the calculated position to the brush preview texture
 	brushPreviewTexture.global_position = new_position
+
 
 func _on_zoom_level_changed(zoom_level: int):
 	_update_brush_preview_position()
