@@ -139,15 +139,21 @@ func setup_physics_properties() -> void:
 	PhysicsServer3D.body_set_force_integration_callback(collider, _moved)
 
 
-# Handle movement logic when the furniture changes position
+# Handle movement logic when the furniture changes position and rotation
 func _moved(state: PhysicsDirectBodyState3D) -> void:
-	# Get the new position from the physics state
+	# Get the new position and rotation from the physics state
 	var new_position = state.transform.origin
+	var new_rotation = state.transform.basis.get_euler().y
 
-	# Update the internal furniture position
+	# Safely convert rotation to degrees and round to the nearest integer
+	var myrotation_degrees = rad_to_deg(new_rotation)
+	var rounded_rotation = int(round(myrotation_degrees))
+
+	# Update the internal furniture position and rotation
 	furniture_transform.set_position(new_position)
+	furniture_transform.set_rotation(rounded_rotation)
 
-	# Update the visual instance position to match the collider's position
+	# Update the visual instance's position and rotation to match the collider's state
 	RenderingServer.instance_set_transform(mesh_instance, furniture_transform.get_visual_transform())
 
 
@@ -177,6 +183,7 @@ func calculate_sprite_size() -> Vector2:
 		var sprite_height = dfurniture.sprite.get_height() / 100.0  # Convert pixels to meters
 		return Vector2(sprite_width, sprite_height)  # Return size as Vector2
 	return Vector2(0.5, 0.5)  # Default size if texture is not set
+
 
 # Create the visual instance using RenderingServer
 func create_visual_instance() -> void:
