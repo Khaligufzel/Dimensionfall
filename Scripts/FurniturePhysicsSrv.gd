@@ -49,10 +49,45 @@ func setup_physics_properties(weight: float) -> void:
 
 	set_collision_layers_and_masks()
 
+	# Set the force integration callback to update the visual position
+	PhysicsServer3D.body_set_force_integration_callback(collider, Callable(self, "_moved"), furniture_position)
+
+
+# Handle movement logic when the furniture changes position
+func _moved(state: PhysicsDirectBodyState3D) -> void:
+	# Get the new position from the physics state
+	var new_position = state.transform.origin
+
+	# Update the internal furniture position
+	furniture_position = new_position
+
+	# Update the visual instance position to match the collider's position
+	RenderingServer.instance_set_transform(mesh_instance, Transform3D(Basis(), new_position))
+
+	# Handle chunk updates (if necessary)
+	var new_chunk = Helper.map_manager.get_chunk_from_position(new_position)
+	if not current_chunk == new_chunk:
+		if current_chunk:
+			current_chunk.remove_furniture_from_chunk(self)
+		new_chunk.add_furniture_to_chunk(self)
+		current_chunk = new_chunk
+
+
 # Set collision layers and masks
 func set_collision_layers_and_masks():
-	var collision_layer = (1 << 2) | (1 << 6)
+	
+	# Set collision layer to layer 4 (moveable obstacles layer) and 7 (containers layer)
+	var collision_layer = 1 << 3 | (1 << 6)  # Layer 4 is 1 << 3, Layer 7 is 1 << 6
+
+	# Set collision mask to include layers 1, 2, 3, 4, 5, and 6
 	var collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5)
+	# Explanation:
+	# - 1 << 0: Layer 1 (player layer)
+	# - 1 << 1: Layer 2 (enemy layer)
+	# - 1 << 2: Layer 3 (movable obstacles layer)
+	# - 1 << 3: Layer 4 (static obstacles layer)
+	# - 1 << 4: Layer 5 (friendly projectiles layer)
+	# - 1 << 5: Layer 6 (enemy projectiles layer)
 	
 	PhysicsServer3D.body_set_collision_layer(collider, collision_layer)
 	PhysicsServer3D.body_set_collision_mask(collider, collision_mask)
@@ -71,6 +106,8 @@ func create_visual_instance(new_sprite: Texture) -> void:
 	#RenderingServer.instance_set_material(mesh_instance, material)
 	RenderingServer.instance_set_scenario(mesh_instance, myworld3d.scenario)
 	RenderingServer.instance_set_transform(mesh_instance, Transform3D(Basis(), furniture_position))
+	
+	
 
 # Set the new rotation for the furniture
 func set_new_rotation(amount: int) -> void:
@@ -86,16 +123,6 @@ func set_new_rotation(amount: int) -> void:
 	
 	RenderingServer.instance_set_transform(mesh_instance, transform)
 
-
-# Handle movement logic when the furniture changes position
-func _moved(newpos: Vector3) -> void:
-	furniture_position = newpos
-	var new_chunk = Helper.map_manager.get_chunk_from_position(furniture_position)
-	if not current_chunk == new_chunk:
-		if current_chunk:
-			current_chunk.remove_furniture_from_chunk(self)
-		new_chunk.add_furniture_to_chunk(self)
-		current_chunk = new_chunk
 
 
 # Clean up and free resources
