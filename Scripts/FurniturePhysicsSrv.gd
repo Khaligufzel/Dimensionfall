@@ -17,6 +17,9 @@ var elapsed_time: float = 0.0
 var is_animating_hit: bool = false
 var current_health: float = 10.0
 var original_material_color: Color = Color(1, 1, 1)  # Store the original material color
+# Variables to manage the container if this furniture is a container
+var inventory: InventoryStacked  # Holds the inventory for the container
+var itemgroup: String  # The ID of an itemgroup that it creates loot from
 
 
 signal about_to_be_destroyed(me: FurniturePhysicsSrv)
@@ -286,6 +289,7 @@ func _die() -> void:
 
 
 # When the furniture is destroyed, it leaves a wreck behind
+# When the furniture is destroyed, it leaves a wreck behind
 func add_corpse(pos: Vector3) -> void:
 	if dfurniture.destruction.get_data().is_empty():
 		return # No destruction data, so no corpse
@@ -295,20 +299,125 @@ func add_corpse(pos: Vector3) -> void:
 	itemdata["global_position_y"] = pos.y
 	itemdata["global_position_z"] = pos.z
 	
-	var itemgroup = dfurniture.destruction.group
-	if itemgroup:
-		itemdata["itemgroups"] = [itemgroup]
-	
 	var fursprite = dfurniture.destruction.sprite
 	if fursprite:
 		itemdata["texture_id"] = fursprite
-	
+
+	var myitemgroup = dfurniture.destruction.group
+	if myitemgroup:
+		itemdata["itemgroups"] = [myitemgroup]
+
 	var newItem: ContainerItem = ContainerItem.new(itemdata)
 	newItem.add_to_group("mapitems")
 	Helper.map_manager.level_generator.get_tree().get_root().add_child(newItem)
-	
-	# If the furniture had a container with items, transfer them to the corpse
+
+	# Transfer items from this container to the corpse
 	if container:
-		var items = container.get_items()
-		for item in items:
+		for item in container.get_items():
 			newItem.insert_item(item)
+
+
+# Add a container to the furniture if it is defined as a container
+func add_container() -> void:
+	if is_container():
+		_create_inventory()  # Initialize the inventory
+		if is_new_furniture():
+			create_loot()  # Populate the container if it's a new furniture
+		else:
+			deserialize_container_data()  # Load existing data for a saved furniture
+
+# Create and initialize the inventory
+func _create_inventory() -> void:
+	inventory = InventoryStacked.new()
+	inventory.capacity = 1000
+	inventory.item_protoset = ItemManager.item_protosets
+	inventory.item_removed.connect(_on_item_removed)
+	inventory.item_added.connect(_on_item_added)
+
+# Populate the container with items from an itemgroup
+func create_loot() -> void:
+	itemgroup = populate_container_from_itemgroup()
+	if not itemgroup or itemgroup == "":
+		return  # No itemgroup to populate from
+	
+	var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(itemgroup)
+	if ditemgroup:
+		if ditemgroup.mode == "Collection":
+			_add_items_to_inventory_collection_mode(ditemgroup.items)
+		elif ditemgroup.mode == "Distribution":
+			_add_items_to_inventory_distribution_mode(ditemgroup.items)
+
+# Populate the container with items based on the itemgroup's collection mode
+func _add_items_to_inventory_collection_mode(items: Array[DItemgroup.Item]) -> void:
+	for item_object in items:
+		if randi_range(0, 100) <= item_object.probability:
+			var quantity = randi_range(item_object.minc, item_object.maxc)
+			_add_item_to_inventory(item_object.id, quantity)
+
+# Populate the container with a randomly selected item based on distribution mode
+func _add_items_to_inventory_distribution_mode(items: Array[DItemgroup.Item]) -> void:
+	var total_probability = 0
+	for item_object in items:
+		total_probability += item_object.probability
+
+	var random_value = randi_range(0, total_probability - 1)
+	var cumulative_probability = 0
+
+	for item_object in items:
+		cumulative_probability += item_object.probability
+		if random_value < cumulative_probability:
+			var quantity = randi_range(item_object.minc, item_object.maxc)
+			_add_item_to_inventory(item_object.id, quantity)
+			return  # Item added, stop processing
+
+# Add an item to the inventory with the specified quantity
+func _add_item_to_inventory(item_id: String, quantity: int) -> void:
+	var ditem: DItem = Gamedata.items.by_id(item_id)
+	if ditem and quantity > 0:
+		while quantity > 0:
+			var stack_size = min(quantity, ditem.max_stack_size)
+			var item = inventory.create_and_add_item(item_id)
+			InventoryStacked.set_item_stack_size(item, stack_size)
+			quantity -= stack_size
+
+# Deserialize and apply saved container data
+func deserialize_container_data() -> void:
+	if "items" in furnitureJSON["Function"]["container"]:
+		deserialize_and_apply_items(furnitureJSON["Function"]["container"]["items"])
+
+# Deserialize the container's items and apply them to the inventory
+func deserialize_and_apply_items(items_data: Dictionary) -> void:
+	inventory.deserialize(items_data)
+
+# Handle the event when an item is removed from the inventory
+func _on_item_removed(_item: InventoryItem) -> void:
+	if inventory.get_items().size() == 0:
+		_on_item_removed(null)
+
+# Handle the event when an item is added to the inventory
+func _on_item_added(_item: InventoryItem) -> void:
+	# Update the container's state based on the new item
+	pass
+
+# Check if this furniture acts as a container
+func is_container() -> bool:
+	return dfurniture.function.is_container
+
+
+# If there is an itemgroup assigned to the furniture, it will be added to the container.
+# It will check both furnitureJSON and dfurniture for itemgroup information.
+# The function will return the id of the itemgroup so that the container may use it
+func populate_container_from_itemgroup() -> String:
+	# Check if furnitureJSON contains an itemgroups array
+	if furnitureJSON.has("itemgroups"):
+		var itemgroups_array = furnitureJSON["itemgroups"]
+		if itemgroups_array.size() > 0:
+			return itemgroups_array.pick_random()
+		else:
+			print_debug("itemgroups array is empty in furnitureJSON")
+	
+	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
+	var myitemgroup = dfurniture.function.container_group
+	if myitemgroup:
+		return myitemgroup
+	return ""
