@@ -26,6 +26,7 @@ var itemgroup: String  # The ID of an itemgroup that it creates loot from
 signal about_to_be_destroyed(me: FurniturePhysicsSrv)
 
 # Inner class to manage position, rotation, and size
+# Inner class to manage position, rotation, and size
 class FurnitureTransform:
 	var posx: float
 	var posy: float
@@ -34,6 +35,9 @@ class FurnitureTransform:
 	var width: float
 	var depth: float
 	var height: float
+	var chunk_pos: Vector2 = Vector2(0,0)  # New variable to track the current chunk position
+
+	signal chunk_changed(new_chunk_pos: Vector2)  # Signal to emit when chunk position updates
 
 	func _init(myposition: Vector3, myrotation: int, size: Vector3):
 		width = size.x
@@ -43,6 +47,7 @@ class FurnitureTransform:
 		posy = myposition.y
 		posz = myposition.z
 		rot = myrotation
+		chunk_pos = Helper.overmap_manager.get_cell_pos_from_global_pos(posx, posz)  # Initialize chunk_pos
 
 	func get_position() -> Vector3:
 		return Vector3(posx, posy, posz)
@@ -51,6 +56,14 @@ class FurnitureTransform:
 		posx = new_position.x
 		posy = new_position.y
 		posz = new_position.z
+		
+		# Calculate the new chunk position based on the updated position
+		var new_chunk_pos: Vector2 = Helper.overmap_manager.get_cell_pos_from_global_pos(posx, posz)
+		
+		# Check if the chunk position has changed
+		if new_chunk_pos != chunk_pos:
+			chunk_pos = new_chunk_pos
+			chunk_changed.emit(chunk_pos)  # Emit the signal if chunk position changes
 
 	func get_rotation() -> int:
 		return rot
@@ -83,6 +96,7 @@ class FurnitureTransform:
 
 	func correct_new_position():
 		posy += 1
+
 
 
 # Initialize the furniture object
