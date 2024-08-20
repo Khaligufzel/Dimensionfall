@@ -81,7 +81,7 @@ class FurnitureTransform:
 		return Transform3D(Basis(Vector3(0, 1, 0), deg_to_rad(rot)), get_position())
 
 	func correct_new_position():
-		posy += 0.5 + (0.5 * height)
+		posy += 1
 
 
 # Initialize the furniture object
@@ -99,8 +99,8 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	if is_new_furniture():
 		furniture_transform.correct_new_position()
 
-	setup_physics_properties(dfurniture.weight)
-	create_visual_instance(dfurniture.sprite)
+	setup_physics_properties()
+	create_visual_instance()
 	set_new_rotation(furnitureJSON.get("rotation", 0))
 	add_container()  # Adds container if the furniture is a container
 
@@ -110,7 +110,7 @@ func _ready() -> void:
 	# If needed, add additional initialization logic here
 
 # Setup the physics properties of the furniture
-func setup_physics_properties(weight: float) -> void:
+func setup_physics_properties() -> void:
 	# Create a spherical collision shape
 	shape = PhysicsServer3D.sphere_shape_create()
 	
@@ -128,7 +128,7 @@ func setup_physics_properties(weight: float) -> void:
 	PhysicsServer3D.body_set_state(collider, PhysicsServer3D.BODY_STATE_TRANSFORM, mytransform)
 
 	# Set the physics parameters such as mass, linear damp, and angular damp
-	PhysicsServer3D.body_set_param(collider, PhysicsServer3D.BODY_PARAM_MASS, weight)
+	PhysicsServer3D.body_set_param(collider, PhysicsServer3D.BODY_PARAM_MASS, dfurniture.weight)
 	PhysicsServer3D.body_set_param(collider, PhysicsServer3D.BODY_PARAM_LINEAR_DAMP, 59)
 	PhysicsServer3D.body_set_param(collider, PhysicsServer3D.BODY_PARAM_ANGULAR_DAMP, 59)
 
@@ -172,13 +172,13 @@ func set_collision_layers_and_masks():
 
 
 # Create the visual instance using RenderingServer
-func create_visual_instance(new_sprite: Texture) -> void:
-	var material = StandardMaterial3D.new()
-	material.albedo_texture = new_sprite
+func create_visual_instance() -> void:
+	sprite_material = StandardMaterial3D.new()
+	sprite_material.albedo_texture = dfurniture.sprite
 
 	var mesh = PlaneMesh.new()
 	mesh.size = furniture_transform.get_sizeV2()
-	mesh.material = material
+	mesh.material = sprite_material
 
 	mesh_instance = RenderingServer.instance_create()
 	RenderingServer.instance_set_base(mesh_instance, mesh)
@@ -200,7 +200,7 @@ func set_new_rotation(amount: int) -> void:
 	mytransform.basis = Basis(Vector3(0, 1, 0), deg_to_rad(rotation_amount))
 	PhysicsServer3D.body_set_state(collider, PhysicsServer3D.BODY_STATE_TRANSFORM, mytransform)
 	
-	RenderingServer.instance_set_transform(mesh_instance, transform)
+	RenderingServer.instance_set_transform(mesh_instance, mytransform)
 
 
 
