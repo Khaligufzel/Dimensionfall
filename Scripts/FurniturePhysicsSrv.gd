@@ -8,7 +8,7 @@ var dfurniture: DFurniture
 var collider: RID
 var shape: RID
 var mesh_instance: RID
-var sprite_instance: RID
+var sprite_material: StandardMaterial3D
 var myworld3d: World3D
 var current_chunk: Chunk
 var in_starting_chunk: bool = false
@@ -16,6 +16,10 @@ var container: ContainerItem = null
 var elapsed_time: float = 0.0
 var is_animating_hit: bool = false
 var current_health: float = 10.0
+var original_material_color: Color = Color(1, 1, 1)  # Store the original material color
+
+
+signal about_to_be_destroyed(me: FurniturePhysicsSrv)
 
 # Inner class to manage position, rotation, and size
 class FurnitureTransform:
@@ -198,12 +202,113 @@ func set_new_rotation(amount: int) -> void:
 
 # Clean up and free resources
 func free_resources() -> void:
+	about_to_be_destroyed.emit(self)
 	PhysicsServer3D.free_rid(collider)
 	PhysicsServer3D.free_rid(shape)
 	RenderingServer.free_rid(mesh_instance)
+
+	# Clear the reference to the DFurniture data if necessary
+	dfurniture = null
 
 # Only previously saved furniture will have the global_position_x key.
 # Returns true if this is a new furniture
 # Returns false if this is a previously saved furniture
 func is_new_furniture() -> bool:
 	return not furnitureJSON.has("global_position_x")
+
+# When the furniture gets hit by an attack
+# attack: a dictionary with the "damage" and "hit_chance" properties
+func get_hit(attack: Dictionary):
+	# Extract damage and hit_chance from the dictionary
+	var damage = attack.damage
+	var hit_chance = attack.hit_chance
+
+	# Calculate actual hit chance considering moveable furniture bonus
+	var actual_hit_chance = hit_chance + 0.20 # Boost hit chance by 20%
+
+	# Determine if the attack hits
+	if randf() <= actual_hit_chance:
+		# Attack hits
+		current_health -= damage
+		if current_health <= 0:
+			_die()
+		else:
+			if not is_animating_hit:
+				animate_hit()
+	else:
+		# Attack misses, create a visual indicator
+		show_miss_indicator()
+
+# The furniture will move slightly in a random direction to indicate that it's hit
+# Then it will return to its original position
+func animate_hit() -> void:
+	is_animating_hit = true
+	original_material_color = sprite_material.albedo_color
+
+	# Tween can only function inside the scene tree so we need a node inside the 
+	# scene tree to instantiate the tween
+	var tween = Helper.map_manager.level_generator.create_tween()
+	
+	tween.tween_property(sprite_material, "albedo_color", Color(1, 1, 1, 0.5), 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(sprite_material, "albedo_color", original_material_color, 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT).set_delay(0.1)
+
+	tween.finished.connect(_on_tween_finished)
+
+
+# The furniture is done animating the hit
+func _on_tween_finished() -> void:
+	is_animating_hit = false
+
+
+# Function to show a miss indicator
+func show_miss_indicator():
+	var miss_label = Label3D.new()
+	miss_label.text = "Miss!"
+	miss_label.modulate = Color(1, 0, 0)
+	miss_label.font_size = 64
+	Helper.map_manager.level_generator.get_tree().get_root().add_child(miss_label)
+	miss_label.position = furniture_transform.get_position()
+	miss_label.position.y += 2
+	miss_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		
+	# Animate the miss indicator to disappear quickly
+	var tween = Helper.map_manager.level_generator.create_tween()
+	tween.tween_property(miss_label, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.finished.connect(func():
+		miss_label.queue_free()  # Properly free the miss_label node
+	)
+
+# Handle furniture death
+func _die() -> void:
+	current_chunk.remove_furniture_from_chunk(self)
+	add_corpse(furniture_transform.get_position())
+	queue_free()  # Remove the furniture from the scene
+
+
+# When the furniture is destroyed, it leaves a wreck behind
+func add_corpse(pos: Vector3) -> void:
+	if dfurniture.destruction.get_data().is_empty():
+		return # No destruction data, so no corpse
+
+	var itemdata: Dictionary = {}
+	itemdata["global_position_x"] = pos.x
+	itemdata["global_position_y"] = pos.y
+	itemdata["global_position_z"] = pos.z
+	
+	var itemgroup = dfurniture.destruction.group
+	if itemgroup:
+		itemdata["itemgroups"] = [itemgroup]
+	
+	var fursprite = dfurniture.destruction.sprite
+	if fursprite:
+		itemdata["texture_id"] = fursprite
+	
+	var newItem: ContainerItem = ContainerItem.new(itemdata)
+	newItem.add_to_group("mapitems")
+	Helper.map_manager.level_generator.get_tree().get_root().add_child(newItem)
+	
+	# If the furniture had a container with items, transfer them to the corpse
+	if container:
+		var items = container.get_items()
+		for item in items:
+			newItem.insert_item(item)
