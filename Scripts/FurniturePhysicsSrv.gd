@@ -103,9 +103,14 @@ func _ready() -> void:
 
 # Setup the physics properties of the furniture
 func setup_physics_properties(weight: float) -> void:
-	shape = PhysicsServer3D.box_shape_create()
-	PhysicsServer3D.shape_set_data(shape, furniture_transform.get_box_shape_size())
+	# Create a spherical collision shape
+	shape = PhysicsServer3D.sphere_shape_create()
+	
+	# Set the radius of the sphere to match the furniture's size
+	var radius = furniture_transform.width
+	PhysicsServer3D.shape_set_data(shape, radius)
 
+	# Create and configure the physics body
 	collider = PhysicsServer3D.body_create()
 	PhysicsServer3D.body_set_mode(collider, PhysicsServer3D.BODY_MODE_RIGID)
 	PhysicsServer3D.body_set_space(collider, myworld3d.space)
@@ -114,14 +119,17 @@ func setup_physics_properties(weight: float) -> void:
 	var mytransform = furniture_transform.get_visual_transform()
 	PhysicsServer3D.body_set_state(collider, PhysicsServer3D.BODY_STATE_TRANSFORM, mytransform)
 
+	# Set the physics parameters such as mass, linear damp, and angular damp
 	PhysicsServer3D.body_set_param(collider, PhysicsServer3D.BODY_PARAM_MASS, weight)
 	PhysicsServer3D.body_set_param(collider, PhysicsServer3D.BODY_PARAM_LINEAR_DAMP, 59)
 	PhysicsServer3D.body_set_param(collider, PhysicsServer3D.BODY_PARAM_ANGULAR_DAMP, 59)
 
+	# Set collision layers and masks
 	set_collision_layers_and_masks()
 
 	# Set the force integration callback to update the visual position
 	PhysicsServer3D.body_set_force_integration_callback(collider, Callable(self, "_moved"), furniture_transform.get_position())
+
 
 
 # Handle movement logic when the furniture changes position
