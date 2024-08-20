@@ -102,6 +102,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	setup_physics_properties(dfurniture.weight)
 	create_visual_instance(dfurniture.sprite)
 	set_new_rotation(furnitureJSON.get("rotation", 0))
+	add_container()  # Adds container if the furniture is a container
 
 
 func _ready() -> void:
@@ -421,3 +422,12 @@ func populate_container_from_itemgroup() -> String:
 	if myitemgroup:
 		return myitemgroup
 	return ""
+
+
+# Returns the inventorystacked that this furniture holds
+func get_inventory() -> InventoryStacked:
+	return inventory
+
+
+func get_sprite() -> Texture:
+	return dfurniture.sprite
