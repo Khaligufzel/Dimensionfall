@@ -9,6 +9,7 @@ var collider: RID
 var shape: RID
 var mesh_instance: RID
 var sprite_material: StandardMaterial3D
+var sprite_mesh: PlaneMesh
 var myworld3d: World3D
 var current_chunk: Chunk
 var in_starting_chunk: bool = false
@@ -74,7 +75,7 @@ class FurnitureTransform:
 		set_size(new_size)
 
 	func get_sprite_transform() -> Transform3D:
-		var adjusted_position = get_position() + Vector3(0, 0.5 * height + 0.01, 0)
+		var adjusted_position = get_position() + Vector3(0, 0.01, 0)
 		return Transform3D(Basis(Vector3(0, 1, 0), deg_to_rad(rot)), adjusted_position)
 
 	func get_visual_transform() -> Transform3D:
@@ -104,10 +105,9 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	set_new_rotation(furnitureJSON.get("rotation", 0))
 	add_container()  # Adds container if the furniture is a container
 
+	# Final debug statement to confirm the final position after all setups
+	print("Final furniture position after setup: ", furniture_transform.get_position())
 
-func _ready() -> void:
-	pass
-	# If needed, add additional initialization logic here
 
 # Setup the physics properties of the furniture
 func setup_physics_properties() -> void:
@@ -173,19 +173,51 @@ func set_collision_layers_and_masks():
 
 # Create the visual instance using RenderingServer
 func create_visual_instance() -> void:
+	# Create a new PlaneMesh and set its size
+	sprite_mesh = PlaneMesh.new()
+	sprite_mesh.size = Vector2(1,1)
+	#mesh.size = furniture_transform.get_sizeV2()
+
+	# Initialize the sprite material with the sprite texture
 	sprite_material = StandardMaterial3D.new()
 	sprite_material.albedo_texture = dfurniture.sprite
+	# Ensure transparency is correctly set (debugging transparency issues)
+	sprite_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	print("Sprite material transparency mode: ", sprite_material.transparency)
 
-	var mesh = PlaneMesh.new()
-	mesh.size = furniture_transform.get_sizeV2()
-	mesh.material = sprite_material
 
+	# Debug statement to print the sprite texture being used
+	print("Sprite texture set to: ", dfurniture.sprite)
+
+	# Debug statement to print the size of the mesh
+	print("Sprite mesh size set to: ", sprite_mesh.size)
+
+	sprite_mesh.material = sprite_material
+
+	# Create a new instance in the RenderingServer
 	mesh_instance = RenderingServer.instance_create()
-	RenderingServer.instance_set_base(mesh_instance, mesh)
+	RenderingServer.instance_set_base(mesh_instance, sprite_mesh)
 	RenderingServer.instance_set_scenario(mesh_instance, myworld3d.scenario)
 
+	# Get the transform for the sprite
 	var mytransform = furniture_transform.get_sprite_transform()
+
+	# Debug: Ensure there is no Z-fighting by slightly adjusting the Z position if needed
+	mytransform.origin.y += 0.01  # Small offset to avoid Z-fighting
+	print("Adjusted sprite position for Z-fighting: ", mytransform.origin)
+
+	# Debug statement to print the transform of the sprite
+	print("Sprite transform set to: ", mytransform)
+
+	# Set the transform for the mesh instance in the RenderingServer
 	RenderingServer.instance_set_transform(mesh_instance, mytransform)
+
+	# Debug statement to print the final position of the sprite
+	print("Final sprite position: ", mytransform.origin)
+
+	# Ensure the sprite is visible and not being culled
+	RenderingServer.instance_set_visible(mesh_instance, true)
+	print("Sprite visibility explicitly set to true.")
 
 
 # Set the new rotation for the furniture
@@ -203,16 +235,17 @@ func set_new_rotation(amount: int) -> void:
 	RenderingServer.instance_set_transform(mesh_instance, mytransform)
 
 
-
 # Clean up and free resources
 func free_resources() -> void:
 	about_to_be_destroyed.emit(self)
 	PhysicsServer3D.free_rid(collider)
 	PhysicsServer3D.free_rid(shape)
 	RenderingServer.free_rid(mesh_instance)
+	sprite_mesh.queue_free()
 
 	# Clear the reference to the DFurniture data if necessary
 	dfurniture = null
+
 
 # Only previously saved furniture will have the global_position_x key.
 # Returns true if this is a new furniture
