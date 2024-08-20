@@ -170,27 +170,28 @@ func set_collision_layers_and_masks():
 	PhysicsServer3D.body_set_collision_layer(collider, collision_layer)
 	PhysicsServer3D.body_set_collision_mask(collider, collision_mask)
 
+# Function to calculate the size of the sprite (2D)
+func calculate_sprite_size() -> Vector2:
+	if dfurniture.sprite:
+		var sprite_width = dfurniture.sprite.get_width() / 100.0  # Convert pixels to meters
+		var sprite_height = dfurniture.sprite.get_height() / 100.0  # Convert pixels to meters
+		return Vector2(sprite_width, sprite_height)  # Return size as Vector2
+	return Vector2(0.5, 0.5)  # Default size if texture is not set
 
 # Create the visual instance using RenderingServer
 func create_visual_instance() -> void:
-	# Create a new PlaneMesh and set its size
+	# Calculate the sprite size based on the texture dimensions
+	var sprite_size = calculate_sprite_size()
+
+	# Create a new PlaneMesh and set its size based on the sprite dimensions
 	sprite_mesh = PlaneMesh.new()
-	sprite_mesh.size = Vector2(1,1)
-	#mesh.size = furniture_transform.get_sizeV2()
+	sprite_mesh.size = sprite_size
 
 	# Initialize the sprite material with the sprite texture
 	sprite_material = StandardMaterial3D.new()
 	sprite_material.albedo_texture = dfurniture.sprite
 	# Ensure transparency is correctly set (debugging transparency issues)
 	sprite_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	print("Sprite material transparency mode: ", sprite_material.transparency)
-
-
-	# Debug statement to print the sprite texture being used
-	print("Sprite texture set to: ", dfurniture.sprite)
-
-	# Debug statement to print the size of the mesh
-	print("Sprite mesh size set to: ", sprite_mesh.size)
 
 	sprite_mesh.material = sprite_material
 
@@ -202,22 +203,12 @@ func create_visual_instance() -> void:
 	# Get the transform for the sprite
 	var mytransform = furniture_transform.get_sprite_transform()
 
-	# Debug: Ensure there is no Z-fighting by slightly adjusting the Z position if needed
-	mytransform.origin.y += 0.01  # Small offset to avoid Z-fighting
-	print("Adjusted sprite position for Z-fighting: ", mytransform.origin)
-
-	# Debug statement to print the transform of the sprite
-	print("Sprite transform set to: ", mytransform)
-
 	# Set the transform for the mesh instance in the RenderingServer
 	RenderingServer.instance_set_transform(mesh_instance, mytransform)
 
-	# Debug statement to print the final position of the sprite
-	print("Final sprite position: ", mytransform.origin)
-
 	# Ensure the sprite is visible and not being culled
 	RenderingServer.instance_set_visible(mesh_instance, true)
-	print("Sprite visibility explicitly set to true.")
+
 
 
 # Set the new rotation for the furniture
