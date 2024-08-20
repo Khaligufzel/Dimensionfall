@@ -128,8 +128,7 @@ func setup_physics_properties(weight: float) -> void:
 	set_collision_layers_and_masks()
 
 	# Set the force integration callback to update the visual position
-	PhysicsServer3D.body_set_force_integration_callback(collider, Callable(self, "_moved"), furniture_transform.get_position())
-
+	PhysicsServer3D.body_set_force_integration_callback(collider, _moved)
 
 
 # Handle movement logic when the furniture changes position
@@ -142,14 +141,6 @@ func _moved(state: PhysicsDirectBodyState3D) -> void:
 
 	# Update the visual instance position to match the collider's position
 	RenderingServer.instance_set_transform(mesh_instance, furniture_transform.get_visual_transform())
-
-	# Handle chunk updates (if necessary)
-	var new_chunk = Helper.map_manager.get_chunk_from_position(new_position)
-	if not current_chunk == new_chunk:
-		if current_chunk:
-			current_chunk.remove_furniture_from_chunk(self)
-		new_chunk.add_furniture_to_chunk(self)
-		current_chunk = new_chunk
 
 
 # Set collision layers and masks
