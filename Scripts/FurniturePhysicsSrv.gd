@@ -21,6 +21,7 @@ var original_material_color: Color = Color(1, 1, 1)  # Store the original materi
 # Variables to manage the container if this furniture is a container
 var inventory: InventoryStacked  # Holds the inventory for the container
 var itemgroup: String  # The ID of an itemgroup that it creates loot from
+var i_am_visible: bool = true # keep track of general visibility
 
 
 signal about_to_be_destroyed(me: FurniturePhysicsSrv)
@@ -124,6 +125,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	create_visual_instance()
 	set_new_rotation(furnitureJSON.get("rotation", 0))
 	add_container()  # Adds container if the furniture is a container
+	Helper.signal_broker.player_y_level_updated.connect(_on_player_y_level_updated)
 
 
 # Signal to emit when chunk position updates
@@ -508,3 +510,34 @@ func get_data() -> Dictionary:
 		newfurniturejson["Function"]["container"] = containerobject
 
 	return newfurniturejson
+
+
+# Function to hide visual elements
+func hide_visual_elements():
+	if not i_am_visible:
+		return # I am already inivisble
+	# Check if instances exist before hiding
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, false)
+	i_am_visible = false
+
+
+# Function to show visual elements
+func show_visual_elements():
+	if i_am_visible:
+		return # I am already visible
+	# Check if instances exist before showing
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, true)
+	i_am_visible = true
+
+
+# Function to handle the player's Y level change
+func _on_player_y_level_updated(new_y: float):
+	# Check if the furniture is above the player's new Y level
+	if furniture_transform.posy > new_y:
+		# Hide the furniture if it is above the player's level
+		hide_visual_elements()
+	else:
+		# Show the furniture if it is at or below the player's level
+		show_visual_elements()
