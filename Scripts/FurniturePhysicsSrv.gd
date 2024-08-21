@@ -53,17 +53,23 @@ class FurnitureTransform:
 		return Vector3(posx, posy, posz)
 
 	func set_position(new_position: Vector3):
-		posx = new_position.x
+		# Check if x or z position has changed
+		if not posx == new_position.x or not posz == new_position.z:
+			# Update x and z positions
+			posx = new_position.x
+			posz = new_position.z
+
+			# Calculate the new chunk position based on the updated x and z positions
+			var new_chunk_pos: Vector2 = Helper.overmap_manager.get_cell_pos_from_global_pos(posx, posz)
+			
+			# Check if the chunk position has changed
+			if new_chunk_pos != chunk_pos:
+				chunk_pos = new_chunk_pos
+				chunk_changed.emit(chunk_pos)  # Emit the signal if chunk position changes
+
+		# Update the y position independently
 		posy = new_position.y
-		posz = new_position.z
-		
-		# Calculate the new chunk position based on the updated position
-		var new_chunk_pos: Vector2 = Helper.overmap_manager.get_cell_pos_from_global_pos(posx, posz)
-		
-		# Check if the chunk position has changed
-		if new_chunk_pos != chunk_pos:
-			chunk_pos = new_chunk_pos
-			chunk_changed.emit(chunk_pos)  # Emit the signal if chunk position changes
+
 
 	func get_rotation() -> int:
 		return rot
