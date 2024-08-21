@@ -1,6 +1,13 @@
 class_name FurnitureStaticSrv
 extends Node3D # Has to be Node3D. Changing it to RefCounted doesn't work
 
+
+# This is a standalone script that is not attached to any node. 
+# This is the static version of furniture. There is also FurniturePhysicsSrv.gd.
+# This class is instanced by FurnitureStaticSpawner.gd when a map needs static 
+# furniture, like a bed or fridge.
+
+
 # Variables to store furniture data
 var furniture_transform: FurnitureTransform
 var furniture_position: Vector3

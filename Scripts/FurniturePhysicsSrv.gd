@@ -1,6 +1,11 @@
 class_name FurniturePhysicsSrv
 extends Node3D
 
+# This is a standalone script that is not attached to any node. 
+# This is the physics (moveable) version of furniture. There is also FurnitureStaticSrv.gd.
+# This class is instanced by FurniturePhysicsSpawner.gd when a map needs moveable 
+# furniture, like a table or chair.
+
 # Variables to store furniture data
 var furniture_transform: FurnitureTransform
 var furnitureJSON: Dictionary
