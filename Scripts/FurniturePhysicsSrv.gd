@@ -47,7 +47,7 @@ class FurnitureTransform:
 		posy = myposition.y
 		posz = myposition.z
 		rot = myrotation
-		chunk_pos = Helper.overmap_manager.get_cell_pos_from_global_pos(posx, posz)  # Initialize chunk_pos
+		chunk_pos = Helper.overmap_manager.get_cell_pos_from_global_pos(Vector2(posx, posz))  # Initialize chunk_pos
 
 	func get_position() -> Vector3:
 		return Vector3(posx, posy, posz)
@@ -60,7 +60,7 @@ class FurnitureTransform:
 			posz = new_position.z
 
 			# Calculate the new chunk position based on the updated x and z positions
-			var new_chunk_pos: Vector2 = Helper.overmap_manager.get_cell_pos_from_global_pos(posx, posz)
+			var new_chunk_pos: Vector2 = Helper.overmap_manager.get_cell_pos_from_global_pos(Vector2(posx, posz))
 			
 			# Check if the chunk position has changed
 			if new_chunk_pos != chunk_pos:
@@ -104,7 +104,6 @@ class FurnitureTransform:
 		posy += 1
 
 
-
 # Initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
 	furnitureJSON = newFurnitureJSON
@@ -116,6 +115,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 	# Initialize the furniture transform
 	furniture_transform = FurnitureTransform.new(furniturepos, furnitureJSON.get("rotation", 0), furniture_size)
+	furniture_transform.chunk_changed.connect(_on_chunk_changed)
 
 	if is_new_furniture():
 		furniture_transform.correct_new_position()
@@ -125,9 +125,11 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	set_new_rotation(furnitureJSON.get("rotation", 0))
 	add_container()  # Adds container if the furniture is a container
 
-	# Final debug statement to confirm the final position after all setups
-	print("Final furniture position after setup: ", furniture_transform.get_position())
 
+# Signal to emit when chunk position updates
+func _on_chunk_changed(new_chunk_pos: Vector2):
+	Helper.signal_broker.furniture_changed_chunk.emit(self, new_chunk_pos)
+	
 
 # Setup the physics properties of the furniture
 func setup_physics_properties() -> void:
@@ -482,3 +484,28 @@ func get_inventory() -> InventoryStacked:
 
 func get_sprite() -> Texture:
 	return dfurniture.sprite
+
+
+# Returns this furniture's data for saving, including door state if applicable
+func get_data() -> Dictionary:
+	var newfurniturejson = {
+		"id": furnitureJSON.id,
+		"moveable": true,
+		"global_position_x": furniture_transform.posx,
+		"global_position_y": furniture_transform.posy,
+		"global_position_z": furniture_transform.posz,
+		"rotation": furniture_transform.get_rotation(),
+	}
+	
+	# Check if this furniture has a container attached and if it has items
+	if inventory:
+		# Initialize the 'Function' sub-dictionary if not already present
+		if "Function" not in newfurniturejson:
+			newfurniturejson["Function"] = {}
+		var containerdata = inventory.serialize()
+		# If there are no items in the inventory, keep an empty object. Else,
+		# keep an object with the items key and the serialized items
+		var containerobject = {} if containerdata.is_empty() else {"items": containerdata}
+		newfurniturejson["Function"]["container"] = containerobject
+
+	return newfurniturejson

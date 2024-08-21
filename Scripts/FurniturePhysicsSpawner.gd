@@ -26,6 +26,7 @@ func _ready():
 	Helper.signal_broker.body_exited_item_detector.connect(_on_body_exited_item_detector)
 	Helper.signal_broker.bullet_hit.connect(_on_bullet_hit)
 	Helper.signal_broker.melee_attacked_rid.connect(_on_melee_attacked_rid)
+	Helper.signal_broker.furniture_changed_chunk.connect(_on_chunk_changed)
 
 
 # Function to spawn a FurniturePhysicsSrv at a given position with given furniture data
@@ -158,3 +159,45 @@ func _on_melee_attacked_rid(body_rid: RID, attack: Dictionary) -> void:
 		var furniturenode: FurniturePhysicsSrv = collider_to_furniture[body_rid]
 		if furniturenode.has_method("get_hit"):
 			furniturenode.get_hit(attack)
+
+
+# Function to handle chunk changes in furniture. The furniture might be spawned
+# by this furniturespawner or another one. We have to handle each case.
+# furniture: The FurniturePhysicsSrv that crossed the chunk boundary
+# new_chunk_pos: a vector2 with global chunk positions, like (-1,-1),(0,0) or (1,3)
+func _on_chunk_changed(furniture: FurniturePhysicsSrv, new_chunk_pos: Vector2) -> void:
+	# Separate the Vector2 into x and z coordinates
+	var chunk_x = new_chunk_pos.x
+	var chunk_z = new_chunk_pos.y
+	
+	# Multiply x and z coordinates by 32 to get the correct chunk position
+	var x_pos = chunk_x * 32
+	var z_pos = chunk_z * 32
+	
+	# Create a Vector3 with the x and z coordinates, y should be 0
+	var calculated_chunk_pos = Vector3(x_pos, 0, z_pos)
+	
+	# Get the collider RID from the furniture
+	var collider = furniture.collider
+	
+	# Case 1: The calculated_chunk_pos equals chunk.mypos and the collider is present in collider_to_furniture
+	if calculated_chunk_pos == chunk.mypos and collider_to_furniture.has(collider):
+		# Do nothing, everything is as expected
+		print("Chunk position matches and furniture is already in the dictionary. No action needed.")
+	
+	# Case 2: The calculated_chunk_pos equals chunk.mypos and the collider is not present in collider_to_furniture
+	elif calculated_chunk_pos == chunk.mypos and not collider_to_furniture.has(collider):
+		# Add the furniture to collider_to_furniture
+		collider_to_furniture[collider] = furniture
+		print("Furniture added to collider_to_furniture as it moved into the current chunk.")
+
+	# Case 3: The calculated_chunk_pos does not equal chunk.mypos and the collider is present in collider_to_furniture
+	elif calculated_chunk_pos != chunk.mypos and collider_to_furniture.has(collider):
+		# Remove the furniture from collider_to_furniture but do not destroy it
+		collider_to_furniture.erase(collider)
+		print("Furniture removed from collider_to_furniture as it moved out of the current chunk.")
+
+	# Case 4: The calculated_chunk_pos does not equal chunk.mypos and the collider is not present in collider_to_furniture
+	elif calculated_chunk_pos != chunk.mypos and not collider_to_furniture.has(collider):
+		# Do nothing, everything is as expected
+		print("Furniture is not in the current chunk and not in the dictionary. No action needed.")

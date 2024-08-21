@@ -52,6 +52,13 @@ signal container_entered_proximity(container: Node3D)
 @warning_ignore("unused_signal")
 signal container_exited_proximity(container: Node3D)
 
+
+# Signal to emit when a FurniturePhysicsSrv crosses chunk boundary
+# me: the FurniturePhysicsSrv that crossed the chunk boundary
+# new_chunk_pos: a vector2 with global chunk positions, like (-1,-1),(0,0),(1,3)
+signal furniture_changed_chunk(me: FurniturePhysicsSrv, new_chunk_pos: Vector2)
+
+
 # When a body entered the player's item detector area3d. This is used to see
 # if a container is in proximity of the player. The body_rid is the collider
 # of a StaticFurnitureSrv. The item detector only checks layer 7 for objects
