@@ -44,6 +44,8 @@ func setPanWindowSize():
 var mouse_button_pressed: bool = false
 
 func _input(event):
+	if not visible:
+		return
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_MIDDLE: 

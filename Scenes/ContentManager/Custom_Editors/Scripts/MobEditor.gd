@@ -21,6 +21,7 @@ extends Control
 @export var hearingRange_numedit: SpinBox
 @export var ItemGroupTextEdit: TextEdit = null
 
+signal data_changed()
 var olddata: DMob # Remember what the value of the data was before editing
 # The data that represents this mob
 # The data is selected from Gamedata.mobs
@@ -85,6 +86,7 @@ func _on_save_button_button_up() -> void:
 	dmob.loot_group = ItemGroupTextEdit.text if ItemGroupTextEdit.text else ""
 
 	dmob.changed(olddata)
+	data_changed.emit()
 	olddata = DMob.new(dmob.get_data().duplicate(true))
 
 # When the mobImageDisplay is clicked, the user will be prompted to select an image from 

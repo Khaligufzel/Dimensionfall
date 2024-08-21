@@ -15,6 +15,9 @@ extends Control
 @export var itemListContainer: GridContainer
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
+# This signal will be emitted when the user presses the save button
+# This signal should alert the contenteditor to refresh the content list
+signal data_changed()
 
 var olddata: DItemgroup # Remember what the value of the data was before editing
 # The data that represents this itemgroup
@@ -160,6 +163,7 @@ func _on_close_button_button_up():
 # the central array for itemgroupdata is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up():
+	ditemgroup.sprite = itemgroupImageDisplay.texture
 	ditemgroup.spriteid = imageNameStringLabel.text
 	ditemgroup.name = NameTextEdit.text
 	ditemgroup.description = DescriptionTextEdit.text
@@ -185,6 +189,7 @@ func _on_save_button_button_up():
 	
 	ditemgroup.items = new_items
 	ditemgroup.changed(olddata)
+	data_changed.emit()
 	olddata = DItemgroup.new(ditemgroup.get_data().duplicate(true))
 
 

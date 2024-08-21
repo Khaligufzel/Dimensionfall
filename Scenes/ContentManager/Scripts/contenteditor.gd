@@ -41,7 +41,7 @@ func load_content_list(data: Dictionary, strHeader: String):
 	# Set the source property
 	contentListInstance.header = strHeader
 	contentListInstance.contentData = data
-	contentListInstance.connect("item_activated", _on_content_item_activated)
+	contentListInstance.item_activated.connect(_on_content_item_activated)
 
 	# Add it as a child to the content VBoxContainer
 	content.add_child(contentListInstance)
@@ -53,42 +53,37 @@ func _on_back_button_button_up():
 
 # The user has double-clicked or pressed enter on one of the items in the content lists
 # Depending on whether the source is a JSON file, we are going to load the relevant content
-# If strSource is a JSON file, we load an item from this file with the ID of itemText
-# If the strSource is not a JSON file, we will assume it's a directory. 
-# If it's a directory, we will load the entire JSON file with the name of the item ID
-func _on_content_item_activated(data: Dictionary, itemID: String):
+func _on_content_item_activated(data: Dictionary, itemID: String, list: Control):
 	if data.is_empty() or itemID == "":
 		print_debug("Tried to load the selected content item, but either \
 		data (Array) or itemID ("+itemID+") is empty")
 		return
-	if data == {"tiles": true}:
-		# HACK Hacky exception for tiles, need to find a better solution
-		instantiate_editor(data, itemID, terrainTileEditor)
-	if data == {"furnitures": true}:
-		# HACK Hacky exception for furniture, need to find a better solution
-		instantiate_editor(data, itemID, furnitureEditor)
-	if data == {"itemgroups": true}:
-		# HACK Hacky exception for itemgroups, need to find a better solution
-		instantiate_editor(data, itemID, itemgroupEditor)
-	if data == {"items": true}:
-		# HACK Hacky exception for items, need to find a better solution
-		instantiate_editor(data, itemID, itemEditor)
-	if data == {"mobs": true}:
-		# HACK Hacky exception for mobs, need to find a better solution
-		instantiate_editor(data, itemID, mobEditor)
-	if data == {"maps": true}:
-		# HACK Hacky exception for maps, need to find a better solution
-		instantiate_editor(data, itemID, mapEditor)
+
+	# HACK Hacky implementation, need to find a better solution
+	var editors = {
+		"tiles": terrainTileEditor,
+		"furnitures": furnitureEditor,
+		"itemgroups": itemgroupEditor,
+		"items": itemEditor,
+		"mobs": mobEditor,
+		"maps": mapEditor
+	}
+
+	for key in editors.keys():
+		if data == {key: true}:
+			instantiate_editor(data, itemID, editors[key], list)
+			return
+	
 	if data == Gamedata.data.tacticalmaps:
-		instantiate_editor(data, itemID, tacticalmapEditor)
-	if data == Gamedata.data.wearableslots:
-		instantiate_editor(data, itemID, wearableslotEditor)
-	if data == Gamedata.data.stats:
-		instantiate_editor(data, itemID, statsEditor)
-	if data == Gamedata.data.skills:
-		instantiate_editor(data, itemID, skillsEditor)
-	if data == Gamedata.data.quests:  # Added quests
-		instantiate_editor(data, itemID, questsEditor)
+		instantiate_editor(data, itemID, tacticalmapEditor, list)
+	elif data == Gamedata.data.wearableslots:
+		instantiate_editor(data, itemID, wearableslotEditor, list)
+	elif data == Gamedata.data.stats:
+		instantiate_editor(data, itemID, statsEditor, list)
+	elif data == Gamedata.data.skills:
+		instantiate_editor(data, itemID, skillsEditor, list)
+	elif data == Gamedata.data.quests:
+		instantiate_editor(data, itemID, questsEditor, list)
 
 
 # This will add an editor to the content editor tab view. 
@@ -96,7 +91,7 @@ func _on_content_item_activated(data: Dictionary, itemID: String):
 # It is important that the editor has the property contentSource or contentData so it can be set
 # If a tab for the given itemID already exists, switch to that tab.
 # Otherwise, instantiate a new editor.
-func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene):
+func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene, list: Control):
 	# Check if a tab for the itemID already exists
 	for i in range(tabContainer.get_child_count()):
 		var child = tabContainer.get_child(i)
@@ -116,19 +111,26 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 		return
 	if data == {"furnitures": true}:# HACK Hacky exception for furniture, need to find a better solution
 		newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
+		newContentEditor.data_changed.connect(list.load_data)
 		return
 	if data == {"itemgroups": true}:# HACK Hacky exception for itemgroups, need to find a better solution
 		newContentEditor.ditemgroup = Gamedata.itemgroups.by_id(itemID)
+		newContentEditor.data_changed.connect(list.load_data)
 		return
 	if data == {"items": true}:# HACK Hacky exception for items, need to find a better solution
 		newContentEditor.ditem = Gamedata.items.by_id(itemID)
+		newContentEditor.data_changed.connect(list.load_data)
 		return
 	if data == {"tiles": true}:# HACK Hacky exception for tiles, need to find a better solution
 		newContentEditor.dtile = Gamedata.tiles.by_id(itemID)
+		newContentEditor.data_changed.connect(list.load_data)
 		return
 	if data == {"mobs": true}:# HACK Hacky exception for mobs, need to find a better solution
 		newContentEditor.dmob = Gamedata.mobs.by_id(itemID)
+		newContentEditor.data_changed.connect(list.load_data)
 		return
+		
+		
 	if data.dataPath.ends_with(".json"):
 		var itemdata: Dictionary = data.data[Gamedata.get_array_index_by_id(data, itemID)]
 		# We only pass the data for the specific id to the editor

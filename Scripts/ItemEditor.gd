@@ -37,7 +37,7 @@ extends Control
 
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the mob data array should be saved to disk
-signal data_changed(game_data: Dictionary, new_data: Dictionary, old_data: Dictionary)
+signal data_changed()
 
 var olddata: DItem # Remember what the value of the data was before editing
 # The data that represents this item
@@ -51,7 +51,6 @@ var ditem: DItem = null:
 		
 func _ready():
 	refresh_tab_visibility()
-	data_changed.connect(Gamedata.on_data_changed)
 
 
 #This function update the form based on the contentData that has been loaded
@@ -100,6 +99,7 @@ func _on_close_button_button_up() -> void:
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
 	ditem.spriteid = PathTextLabel.text
+	ditem.sprite = itemImageDisplay.texture
 	# We add this image property only for the itemprotosets of gloot
 	ditem.image = Gamedata.items.spritePath + PathTextLabel.text
 	ditem.name = NameTextEdit.text
@@ -126,6 +126,7 @@ func _on_save_button_button_up() -> void:
 				if not ditem.get(child.text.to_lower()) == null:
 					ditem.set(child.text.to_lower(),null)
 	ditem.changed(olddata)
+	data_changed.emit()
 	olddata = DItem.new(ditem.get_data().duplicate(true))
 
 

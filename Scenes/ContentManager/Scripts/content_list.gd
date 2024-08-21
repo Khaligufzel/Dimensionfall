@@ -10,7 +10,7 @@ extends Control
 @export var collapseButton: Button = null
 @export var pupup_ID: Popup = null
 @export var popup_textedit: TextEdit = null
-signal item_activated(data: Array, itemID: String)
+signal item_activated(data: Array, itemID: String, list: Control)
 var popupAction: String = ""
 var contentData: Dictionary = {}:
 	set(newData):
@@ -40,39 +40,23 @@ func load_data():
 	if contentData.is_empty():
 		return
 	contentItems.clear()
-	# HACK Hacky exception for maps, need to find a better solution
-	if contentData == {"maps": true}:
-		load_map_list()
-		load_collapse_state()
-		return
-	# HACK Hacky exception for furniture, need to find a better solution
-	if contentData == {"furnitures": true}:
-		load_furnitures_list()
-		load_collapse_state()
-		return
-	# HACK Hacky exception for furniture, need to find a better solution
-	if contentData == {"itemgroups": true}:
-		load_itemgroups_list()
-		load_collapse_state()
-		return
-	# HACK Hacky exception for items, need to find a better solution
-	if contentData == {"items": true}:
-		load_items_list()
-		load_collapse_state()
-		return
-	# HACK Hacky exception for tiles, need to find a better solution
-	if contentData == {"tiles": true}:
-		load_tiles_list()
-		load_collapse_state()
-		return
-	# HACK Hacky exception for mobs, need to find a better solution
-	if contentData == {"mobs": true}:
-		load_mobs_list()
-		load_collapse_state()
-		return
-	if not contentData.has("data"):
-		return
-	if contentData.data.is_empty():
+	# HACK Hacky implementation, need to find a better solution
+	var loaders = {
+		"maps": load_map_list,
+		"furnitures": load_furnitures_list,
+		"itemgroups": load_itemgroups_list,
+		"items": load_items_list,
+		"tiles": load_tiles_list,
+		"mobs": load_mobs_list
+	}
+
+	for key in loaders.keys():
+		if contentData == {key: true}:
+			loaders[key].call()
+			load_collapse_state()
+			return
+
+	if not contentData.has("data") or contentData.data.is_empty():
 		return
 	
 	# If the datapath ends with json, it's a list of items
@@ -129,7 +113,7 @@ func _on_content_items_item_activated(index: int):
 	# Get the id of the item from the metadata
 	var strItemID: String = contentItems.get_item_metadata(index)
 	if strItemID:
-		item_activated.emit(contentData, strItemID)
+		item_activated.emit(contentData, strItemID, self)
 	else:
 		print_debug("Tried to signal that item with ID (" + str(index) + ") was activated,\
 		 but the item has no metadata")

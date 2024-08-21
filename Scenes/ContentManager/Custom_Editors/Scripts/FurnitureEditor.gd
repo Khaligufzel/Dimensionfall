@@ -210,6 +210,7 @@ func update_sprite_texture_rect(texture: Texture):
 # This function takes all data from the form elements and stores them in the dfurniture.
 func _on_save_button_button_up():
 	dfurniture.spriteid = imageNameStringLabel.text
+	dfurniture.sprite = furnitureImageDisplay.texture
 	dfurniture.name = NameTextEdit.text
 	dfurniture.description = DescriptionTextEdit.text
 	dfurniture.categories = CategoriesList.get_items()
