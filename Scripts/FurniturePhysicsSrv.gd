@@ -11,10 +11,7 @@ var mesh_instance: RID
 var sprite_material: StandardMaterial3D
 var sprite_mesh: PlaneMesh
 var myworld3d: World3D
-var current_chunk: Chunk
-var in_starting_chunk: bool = false
 var container: ContainerItem = null
-var elapsed_time: float = 0.0
 var is_animating_hit: bool = false
 var current_health: float = 10.0
 var original_material_color: Color = Color(1, 1, 1)  # Store the original material color
@@ -342,8 +339,8 @@ func show_miss_indicator():
 
 # Handle furniture death
 func _die() -> void:
-	current_chunk.remove_furniture_from_chunk(self)
 	add_corpse(furniture_transform.get_position())
+	free_resources()
 	queue_free()  # Remove the furniture from the scene
 
 
