@@ -99,10 +99,17 @@ func initialize_chunk_data():
 	if is_new_chunk(): # This chunk is created for the first time
 		#This contains the data of one map, loaded from maps.data, for example generichouse.json
 		var mapsegmentData: Dictionary = Gamedata.maps.by_id(chunk_data.id).get_data().duplicate(true)
-		await Helper.task_manager.create_task(generate_new_chunk.bind(mapsegmentData))
+		await Helper.task_manager.create_task(generate_new_chunk.bind(mapsegmentData)).completed
+		# Run the main spawn function on the main thread and let the furniturespawner
+		# handle offloading the work onto a thread.
+		add_furnitures_to_new_block()
+		#generate_new_chunk(mapsegmentData)
 		chunk_generated.emit()
 	else: # This chunk is created from previously saved data
 		await Helper.task_manager.create_task(generate_saved_chunk)
+		# Run the main spawn function on the main thread and let the furniturespawner
+		# handle offloading the work onto a thread.
+		add_furnitures_to_map(chunk_data.furniture)
 		chunk_generated.emit()
 
 
@@ -116,7 +123,6 @@ func generate_new_chunk(mapsegmentData: Dictionary):
 	generate_chunk_mesh()
 	update_all_navigation_data()
 	processed_level_data = process_level_data()
-	add_furnitures_to_new_block()
 	add_block_mobs()
 	add_itemgroups_to_new_block()
 	reset_state()
@@ -189,9 +195,6 @@ func generate_saved_chunk() -> void:
 	for item: Dictionary in chunk_data.items:
 		add_item_to_map(item)
 	
-	# We duplicate the furnituredata for thread safety
-	var furnituredata: Array = chunk_data.furniture.duplicate()
-	add_furnitures_to_map(furnituredata)
 	add_mobs_to_map()
 	reset_state()
 
@@ -210,9 +213,7 @@ func add_block_mobs():
 
 # When a map is loaded for the first time we spawn the furniture on the block
 func add_furnitures_to_new_block():
-	mutex.lock()
-	var furnituredata = processed_level_data.furniture.duplicate(true)
-	mutex.unlock()
+	var furnituredata = processed_level_data.furniture
 	var total_furniture = furnituredata.size()
 	var static_furnitures: Array = []
 	var physics_furnitures: Array = []
@@ -223,6 +224,7 @@ func add_furnitures_to_new_block():
 			physics_furnitures.append(furniture)
 		else:
 			static_furnitures.append(furniture)
+			
 
 	# Set the furniture_json_list to start spawning the static furniture
 	furniture_static_spawner.furniture_json_list = static_furnitures
@@ -294,10 +296,7 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 
 	for i in range(furnitureDataArray.size()):
 		var furnitureData = furnitureDataArray[i]
-		mutex.lock()
 		var dfurniture: DFurniture = Gamedata.furnitures.by_id(furnitureData.id)
-		mutex.unlock()
-
 		if dfurniture.moveable:
 			physics_furnitures.append(furnitureData)
 		else:

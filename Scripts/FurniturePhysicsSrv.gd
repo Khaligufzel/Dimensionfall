@@ -109,23 +109,27 @@ class FurnitureTransform:
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
 	furnitureJSON = newFurnitureJSON
 	dfurniture = Gamedata.furnitures.by_id(furnitureJSON.id)
+	var myrotation: int = furnitureJSON.get("rotation", 0)
 	myworld3d = world3d
 
 	# Size of the collider will be a uniform sphere
 	var furniture_size: Vector3 = Vector3(0.3,0.3,0.3)
 
 	# Initialize the furniture transform
-	furniture_transform = FurnitureTransform.new(furniturepos, furnitureJSON.get("rotation", 0), furniture_size)
-	furniture_transform.chunk_changed.connect(_on_chunk_changed)
+	furniture_transform = FurnitureTransform.new(furniturepos, myrotation, furniture_size)
 
 	if is_new_furniture():
 		furniture_transform.correct_new_position()
 
 	setup_physics_properties()
 	create_visual_instance()
-	set_new_rotation(furnitureJSON.get("rotation", 0))
+	set_new_rotation(myrotation)
 	add_container()  # Adds container if the furniture is a container
+
+
+func connect_signals():
 	Helper.signal_broker.player_y_level_updated.connect(_on_player_y_level_updated)
+	furniture_transform.chunk_changed.connect(_on_chunk_changed)
 
 
 # Signal to emit when chunk position updates

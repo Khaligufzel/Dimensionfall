@@ -107,7 +107,6 @@ class FurnitureTransform:
 		# We have to compensate for the fact that the physicsserver and
 		# renderingserver place the furniture lower then the intended height
 		posy += 0.5+(0.5*height)
-		
 
 
 # Function to initialize the furniture object
@@ -139,8 +138,11 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 	create_sprite_instance()
 	update_door_visuals()  # Set initial door visuals based on its state
-	Helper.signal_broker.player_y_level_updated.connect(_on_player_y_level_updated)
 	add_container()  # Adds container if the furniture is a container
+
+
+func connect_signals():
+	Helper.signal_broker.player_y_level_updated.connect(_on_player_y_level_updated)
 
 
 # If this furniture is a container, it will add a container node to the furniture.

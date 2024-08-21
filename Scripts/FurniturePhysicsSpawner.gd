@@ -12,7 +12,12 @@ var chunk: Chunk
 var furniture_json_list: Array = []:
 	set(value):
 		furniture_json_list = value
-		_spawn_all_furniture()
+		await Helper.task_manager.create_task(_spawn_all_furniture).completed
+		# INFO Important to connect the signals outside the task_manager.create_task
+		# since the furniture will start engaging with the game world when they are connected
+		# If they are connected inside task_manager.create_task, there will be a conflict in threads
+		for furniture in collider_to_furniture.values():
+			furniture.connect_signals()
 
 
 # Initialize with reference to the chunk
