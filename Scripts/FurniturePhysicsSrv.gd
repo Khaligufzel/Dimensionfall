@@ -261,7 +261,6 @@ func free_resources() -> void:
 	PhysicsServer3D.free_rid(collider)
 	PhysicsServer3D.free_rid(shape)
 	RenderingServer.free_rid(mesh_instance)
-	sprite_mesh.queue_free()
 
 	# Clear the reference to the DFurniture data if necessary
 	dfurniture = null
