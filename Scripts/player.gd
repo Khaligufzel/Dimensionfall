@@ -322,7 +322,7 @@ func die():
 		print("Player died")
 		is_alive = false
 		$"../../../HUD".get_node("GameOver").show()
-	
+
 func transfer_damage_to_torso(damage: float):
 	current_torso_health -= damage
 	check_if_alive()

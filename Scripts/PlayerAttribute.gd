@@ -34,6 +34,7 @@ func _init(data: DPlayerAttribute, player_reference: Node):
 	min_amount = attribute_data.min_amount
 	max_amount = attribute_data.max_amount
 	current_amount = attribute_data.current_amount
+	start_depletion(3600)
 
 # Function to get the current state of the attribute as a dictionary
 func get_data() -> Dictionary:
@@ -69,10 +70,10 @@ func reset_to_max():
 
 # Function to handle when the attribute changes (e.g., health drops to 0)
 func _on_attribute_changed():
-	# Example: if health drops to 0, trigger player death
-	if id == "health" and current_amount <= min_amount:
-		player.die()  # Assuming the player node has a die() method
-	# Additional logic can be added here for other attributes
+	Helper.signal_broker.player_attribute_changed.emit(player)
+	# If amount drops to 0, trigger player death
+	if is_at_min():
+		player.die()
 
 # Function to reduce the attribute by a specified amount
 func reduce_amount(amount: float):
@@ -89,3 +90,29 @@ func is_at_min() -> bool:
 # Checks if the attribute is at its maximum value
 func is_at_max() -> bool:
 	return current_amount >= max_amount
+
+# Function to start the depletion of the attribute over a specified duration
+# @param duration: The total time in seconds over which the attribute should completely deplete.
+#        For example, if you want the food attribute to deplete over 1 hour, pass 3600 seconds.
+func start_depletion(duration: float):
+	# Calculate the rate of depletion based on the given duration
+	var depletion_rate = max_amount / duration
+
+	# Create a timer to decrease the attribute over time
+	var timer = Timer.new()
+	timer.wait_time = 1.0  # Deplete every second
+	timer.one_shot = false  # Repeat the timer
+	timer.timeout.connect(_on_deplete_tick.bind(depletion_rate))
+	player.add_child(timer)  # Add the timer to the player's node to start it
+	timer.start()
+
+# Function that gets called every tick to decrease the attribute
+func _on_deplete_tick(depletion_rate: float):
+	reduce_amount(depletion_rate)
+
+	# Optional: Stop the timer if the attribute reaches the minimum amount
+	if is_at_min():
+		var timer = player.get_node_or_null("Timer")
+		if timer:
+			timer.stop()
+			timer.queue_free()

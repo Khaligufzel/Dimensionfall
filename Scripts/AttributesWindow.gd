@@ -37,7 +37,7 @@ func create_attribute_entry(attribute: PlayerAttribute) -> HBoxContainer:
 	hbox.add_child(icon)
 
 	var label = Label.new()
-	label.text = attribute.name + ": " + str(attribute.current_amount)
+	label.text = attribute.name + ": " + String("%0.2f" % attribute.current_amount)
 	label.tooltip_text = attribute.description
 	hbox.add_child(label)
 
