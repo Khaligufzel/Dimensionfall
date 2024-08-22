@@ -106,4 +106,3 @@ func remove_reference_from_tile(tileid: String, module: String, type: String, re
 func add_reference_to_tile(tileid: String, module: String, type: String, refid: String):
 	var mytile: DTile = tiledict[tileid]
 	mytile.add_reference(module, type, refid)
-

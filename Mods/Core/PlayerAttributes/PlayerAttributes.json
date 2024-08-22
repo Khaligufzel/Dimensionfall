@@ -1,0 +1,11 @@
+[
+	{
+		"current_amount": 100,
+		"description": "You starve when this is empty. You are full when this is full.",
+		"id": "food",
+		"max_amount": 100,
+		"min_amount": 0,
+		"name": "Food",
+		"sprite": "apple_32.png"
+	}
+]

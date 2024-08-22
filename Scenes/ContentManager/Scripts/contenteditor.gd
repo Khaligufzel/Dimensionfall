@@ -12,6 +12,7 @@ extends Control
 @export var statsEditor: PackedScene = null
 @export var skillsEditor: PackedScene = null
 @export var questsEditor: PackedScene = null
+@export var playerattributesEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
 var selectedMod: String = "Core"
@@ -28,6 +29,7 @@ func _ready():
 	# Hacky exception for furnitures, need to find a better solution
 	load_content_list({"furnitures": true}, "Furniture")
 	load_content_list({"itemgroups": true}, "Item Groups")
+	load_content_list({"playerattributes": true}, "Player Attributes")
 	load_content_list(Gamedata.data.wearableslots, "Wearable Slots")
 	load_content_list(Gamedata.data.stats, "Stats")
 	load_content_list(Gamedata.data.skills, "Skills")
@@ -66,7 +68,8 @@ func _on_content_item_activated(data: Dictionary, itemID: String, list: Control)
 		"itemgroups": itemgroupEditor,
 		"items": itemEditor,
 		"mobs": mobEditor,
-		"maps": mapEditor
+		"maps": mapEditor,
+		"playerattributes": playerattributesEditor
 	}
 
 	for key in editors.keys():
@@ -127,6 +130,10 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 		return
 	if data == {"mobs": true}:# HACK Hacky exception for mobs, need to find a better solution
 		newContentEditor.dmob = Gamedata.mobs.by_id(itemID)
+		newContentEditor.data_changed.connect(list.load_data)
+		return
+	if data == {"playerattributes": true}:# HACK Hacky exception for playerattributes, need to find a better solution
+		newContentEditor.dplayerattribute = Gamedata.playerattributes.by_id(itemID)
 		newContentEditor.data_changed.connect(list.load_data)
 		return
 		
