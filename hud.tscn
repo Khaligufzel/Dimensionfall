@@ -82,9 +82,6 @@ grow_vertical = 2
 script = ExtResource("2_kpbhl")
 
 [node name="AttributesWindow" parent="." instance=ExtResource("6_6e87o")]
-anchors_preset = -1
-anchor_right = 0.225
-anchor_bottom = 0.225
 
 [node name="BloodLevel" type="Label" parent="."]
 anchors_preset = 2

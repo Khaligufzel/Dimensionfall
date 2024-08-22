@@ -33,12 +33,12 @@ func _on_player_attribute_changed(player_node: CharacterBody3D):
 func create_attribute_entry(attribute: PlayerAttribute) -> HBoxContainer:
 	var hbox = HBoxContainer.new()
 	var icon = TextureRect.new()
-	icon.texture = attribute.attribute_data.sprite
+	icon.texture = attribute.sprite
 	hbox.add_child(icon)
 
 	var label = Label.new()
-	label.text = attribute.attribute_data.name + ": " + str(attribute.current_amount)
-	label.tooltip_text = attribute.attribute_data.description
+	label.text = attribute.name + ": " + str(attribute.current_amount)
+	label.tooltip_text = attribute.description
 	hbox.add_child(label)
 
 	return hbox
