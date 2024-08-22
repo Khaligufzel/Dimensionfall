@@ -24,7 +24,7 @@ signal items_were_used(usedItems: Array[InventoryItem])
 # Signalled when an items were used
 # It can be one or more items. It's up to the receiver to figure it out
 @warning_ignore("unused_signal")
-signal health_item_used(usedItem: InventoryItem)
+signal food_item_used(usedItem: InventoryItem)
 
 # Signalled when an item was equiped in an equipmentslot
 # The item will know what slot it was

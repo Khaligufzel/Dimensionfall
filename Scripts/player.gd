@@ -80,7 +80,7 @@ func _ready():
 	initialize_attributes()
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
-	Helper.signal_broker.health_item_used.connect(_on_health_item_used)
+	Helper.signal_broker.food_item_used.connect(_on_food_item_used)
 	ItemManager.craft_successful.connect(_on_craft_successful)
 	# Connect signals for collisionDetector to detect furniture
 	collisionDetector.body_shape_entered.connect(_on_body_entered)
@@ -335,12 +335,20 @@ func play_footstep_audio():
 
 # The player has selected one or more items in the inventory and selected
 # 'use' from the context menu.
-func _on_health_item_used(usedItem: InventoryItem) -> void:
-	var health: int = int(ItemManager.get_nested_property(usedItem, "Food.health"))
-	if health:
-		var spent_health = heal_player(health)
-		if not spent_health == health:
-			ItemManager.remove_inventory_item(usedItem)
+func _on_food_item_used(usedItem: InventoryItem) -> void:
+	var food = DItem.Food.new(usedItem.get_property("Food"))
+	var was_used: bool = false
+	if food.health:
+		var spent_health = heal_player(food.health)
+		if not spent_health == food.health:
+			was_used = true
+
+	for attribute in food.attributes:
+		attributes[attribute.id].modify_current_amount(attribute.amount)
+		was_used = true
+
+	if was_used:
+		ItemManager.remove_inventory_item(usedItem)
 
 
 # Heal the player by the specified amount. We prioritize the head and torso for healing
