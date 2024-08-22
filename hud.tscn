@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=23 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dcgwgmsmi7mjn" path="res://Textures/bar_border.png" id="3_y43f5"]
 [ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://Textures/leftarm.png" id="4_wt5t7"]
 [ext_resource type="Texture2D" uid="uid://8pdm2gvd1v3n" path="res://Textures/leftleg.png" id="5_si2ot"]
+[ext_resource type="PackedScene" uid="uid://b6ooia1084wfx" path="res://Scenes/UI/AttributesWindow.tscn" id="6_6e87o"]
 [ext_resource type="Texture2D" uid="uid://jluhejkwo85q" path="res://Textures/rightleg.png" id="6_mh6l0"]
 [ext_resource type="Texture2D" uid="uid://1alnt17qsyd7" path="res://Textures/rightarm.png" id="7_td8gu"]
 [ext_resource type="Texture2D" uid="uid://t7ny2gtgqll8" path="res://Textures/head.png" id="8_vb8fm"]
@@ -79,6 +80,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_kpbhl")
+
+[node name="AttributesWindow" parent="." instance=ExtResource("6_6e87o")]
+anchors_preset = -1
+anchor_right = 0.225
+anchor_bottom = 0.225
 
 [node name="BloodLevel" type="Label" parent="."]
 anchors_preset = 2

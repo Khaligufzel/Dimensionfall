@@ -85,11 +85,13 @@ signal playerInventory_item_removed(item: InventoryItem, inventory: InventorySta
 @warning_ignore("unused_signal")
 signal playerInventory_item_modified(item: InventoryItem, inventory: InventoryStacked)
 
-# When the player's stats and skill changes
+# When the player's stats and skill and attributes changes
 @warning_ignore("unused_signal")
 signal player_stat_changed(player: CharacterBody3D)
 @warning_ignore("unused_signal")
 signal player_skill_changed(player: CharacterBody3D)
+@warning_ignore("unused_signal")
+signal player_attribute_changed(player: CharacterBody3D)
 
 # Save load start end events
 @warning_ignore("unused_signal")

@@ -46,6 +46,7 @@ var current_pain = 0
 
 var stats = {}
 var skills = {}
+var attributes = {}
 
 var time_since_ready = 0.0
 var delay_before_movement = 2.0  # 2 second delay
@@ -76,6 +77,7 @@ var furniture_body: RID
 func _ready():
 	initialize_health()
 	initialize_condition()
+	initialize_attributes()
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
 	Helper.signal_broker.health_item_used.connect(_on_health_item_used)
@@ -102,6 +104,15 @@ func initialize_condition():
 	current_thirst = thirst
 	current_nutrition = nutrition
 	current_pain = pain
+
+
+# Initializes the playerattributes based on the DPlayerAttribute
+# The PlayerAttribute manages the actual control of the attribute while
+# DPlayerAttribute only provides the data
+func initialize_attributes():
+	var playerattributes: Dictionary = Gamedata.playerattributes.get_playerattributes()
+	for attribute: DPlayerAttribute in playerattributes.values():
+		attributes[attribute.id] = PlayerAttribute.new(attribute, self)
 
 
 # Initialize skills with level and XP

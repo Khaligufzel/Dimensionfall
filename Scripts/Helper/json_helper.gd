@@ -218,7 +218,7 @@ func get_unique_values(mydata: Dictionary, path: String) -> Array:
 
 # Merges two arrays and returns a new array with unique values.
 func merge_unique(array1: Array, array2: Array) -> Array:
-	var merged_array = array1.duplicate()
+	var merged_array = array1.duplicate(true)
 	for item in array2:
 		if not merged_array.has(item):
 			merged_array.append(item)
