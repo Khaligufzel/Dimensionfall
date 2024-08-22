@@ -54,4 +54,3 @@ func try_load_game(selected_id: int) -> bool:
 	#Helper.save_helper.load_overmap_state()
 	Helper.save_helper.load_player_equipment()
 	return true
-

@@ -33,12 +33,26 @@ func set_lifetime(time: float):
 	await get_tree().create_timer(time).timeout
 	queue_free()  # Destroy the projectile after the timer
 
-func _on_Projectile_body_entered(body):
+# The bullet has hit something
+func _on_Projectile_body_entered(body: Node):
 	if body.has_method("get_hit"):
 		var attack: Dictionary = {"damage":damage, "hit_chance":100}
 		body.get_hit(attack)
 	queue_free()  # Destroy the projectile upon collision
 
 
-func _on_body_shape_entered(_body_rid, _body, _body_shape_index, _local_shape_index):
+func _on_body_shape_entered(_body_rid: RID, _body: Node, _body_shape_index: int, _local_shape_index: int):
+	queue_free()  # Destroy the projectile upon collision
+
+
+# For some reason, the _on_body_shape_entered function does not trigger when the bullet collides
+# with a collider that's not inside the tree, like with FurnitureStaticSrv. That's why an Area3d
+# was added so it can still use the functionality it's supposed to. The Area3d listens to 
+# Layer 7 which is the static obstacles layer.
+func _on_area_3d_body_shape_entered(body_rid: RID, _body: Node3D, _body_shape_index: int, _local_shape_index: int) -> void:
+	if body_rid:
+		print_debug("a bullet hit ", body_rid)
+		var attack: Dictionary = {"damage":damage, "hit_chance":100}
+		# Used for bodies that exist outside the scene tree, like StaticFurnitureSrv
+		Helper.signal_broker.bullet_hit.emit(body_rid, attack)
 	queue_free()  # Destroy the projectile upon collision

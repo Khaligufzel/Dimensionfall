@@ -235,4 +235,3 @@ func load_all_overmap_grids_from_file() -> Array:
 		var file_path = load_path + "/" + overmap
 		loaded_overmap_grids.append(Helper.json_helper.load_json_dictionary_file(file_path))
 	return loaded_overmap_grids
-

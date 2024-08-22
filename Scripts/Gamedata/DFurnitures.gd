@@ -101,3 +101,7 @@ func remove_reference_from_furniture(furnitureid: String, module: String, type: 
 func add_reference_to_furniture(furnitureid: String, module: String, type: String, refid: String):
 	var myfurniture: DFurniture = furnituredict[furnitureid]
 	myfurniture.add_reference(module, type, refid)
+
+
+func is_moveable(id: String) -> bool:
+	return by_id(id).moveable

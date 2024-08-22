@@ -67,14 +67,14 @@ var is_right_button_held: bool = false
 var entities_in_melee_range = [] # Used to keep track of entities in melee range
 
 signal ammo_changed(current_ammo: int, max_ammo: int, lefthand: bool)
-signal fired_weapon(equippedWeapon)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	clear_held_item()
 	melee_attack_area.body_entered.connect(_on_entered_melee_range)
 	melee_attack_area.body_exited.connect(_on_exited_melee_range)
-	
+	melee_attack_area.body_shape_entered.connect(_on_body_shape_entered_melee_range)
+	melee_attack_area.body_shape_exited.connect(_on_body_shape_exited_melee_range)
 	# We connect to the inventory visibility change to interrupt shooting
 	Helper.signal_broker.inventory_window_visibility_changed.connect(_on_inventory_visibility_change)
 	Helper.signal_broker.item_was_equipped.connect(_on_hud_item_was_equipped)
@@ -185,7 +185,6 @@ func perform_ranged_attack():
 	shoot_audio_player.stream = shoot_audio_randomizer
 	shoot_audio_player.play()
 	
-	var accuracy = calculate_accuracy()
 	var bullet_instance = bullet_scene.instantiate()
 	# Decrease the y position to ensure proper collision with mobs and furniture
 	var spawn_position = global_transform.origin + Vector3(0.0, -0.1, 0.0)
@@ -354,6 +353,18 @@ func _on_exited_melee_range(body):
 	if body in entities_in_melee_range:
 		entities_in_melee_range.erase(body)
 
+func _on_body_shape_entered_melee_range(body_rid: RID, body: Node, _body_shape_index: int, _local_shape_index: int):
+	# Body will have a value if the body shape is in the scene tree. This function should
+	# only handle shapes that are outside the scene tree, like StaticFurnitureSrv
+	if body:
+		return
+	entities_in_melee_range.append(body_rid)
+	
+func _on_body_shape_exited_melee_range(body_rid: RID, _body: Node, _body_shape_index: int, _local_shape_index: int):
+	if entities_in_melee_range.has(body_rid):
+		entities_in_melee_range.erase(body_rid)
+
+
 # Animates a melee attack by moving the weapon sprite forward and then back
 func animate_attack():
 	var tween = get_tree().create_tween().set_loops(1)  # Create tween and set loops
@@ -405,7 +416,10 @@ func perform_melee_attack():
 	# TODO: Hit only one entity each swing unless the weapon has some kind of flag
 	# TODO: Check if the entity is behind an obstacle
 	for entity in entities_in_melee_range:
-		entity.get_hit(attack)
+		if entity is RID:
+			Helper.signal_broker.melee_attacked_rid.emit(entity, attack)
+		else:
+			entity.get_hit(attack)
 
 	animate_attack()
 	add_weapon_xp_on_use()

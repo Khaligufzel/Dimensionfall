@@ -18,7 +18,6 @@ var is_door: bool = false
 var door_state: String = "Closed"  # Default state
 var container: ContainerItem = null # Reference to the container, if this furniture acts as one
 
-var corpse_scene: PackedScene = preload("res://Defaults/Mobs/mob_corpse.tscn")
 var current_health: float = 100.0
 
 var is_animating_hit: bool = false # flag to prevent multiple blink actions

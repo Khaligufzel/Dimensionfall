@@ -18,6 +18,7 @@ extends Node3D
 # should be parented to this (like moveable furniture and mobs)
 var level_manager : Node3D
 var level_generator : Node3D
+var furniture_spawner: FurnitureStaticSpawner
 
 # Constants
 const MAX_LEVELS = 21
@@ -72,6 +73,8 @@ func _ready():
 	chunk_unloaded.connect(Helper.on_chunk_unloaded.bind({"mypos": mypos}))
 	transform.origin = Vector3(mypos)
 	add_to_group("chunks")
+	furniture_spawner = FurnitureStaticSpawner.new(self)
+	add_child(furniture_spawner)
 	# Even though the chunk is not completely generated, we emit the signal now to prevent further
 	# delays in generating or unloading the next chunk. Might remove this or move it to another place.
 	chunk_ready.emit()
@@ -140,7 +143,7 @@ func process_level_data() -> Dictionary:
 								# We spawn it slightly above the block. Might want to 
 								# fiddle with the Y coordinate for optimization
 								var furniture_json = tileJSON.furniture
-								processed_leveldata.furniture.append({"json": furniture_json, "pos": Vector3(w, y + 0.5, h)})
+								processed_leveldata.furniture.append({"json": furniture_json, "pos": Vector3(w, y, h)})
 							if tileJSON.has("itemgroups"):
 								var itemgroups_json = tileJSON.itemgroups
 								processed_leveldata.itemgroups.append({"json": itemgroups_json, "pos": Vector3(w, y, h)})
@@ -203,35 +206,44 @@ func add_block_mobs():
 		var newMob: CharacterBody3D = Mob.new(mypos+mobdata.pos, mobdata.json)
 		level_manager.add_child.call_deferred(newMob)
 
-
 # When a map is loaded for the first time we spawn the furniture on the block
 func add_furnitures_to_new_block():
 	mutex.lock()
-	var furnituredata = processed_level_data.furniture.duplicate()
+	var furnituredata = processed_level_data.furniture.duplicate(true)
 	mutex.unlock()
 	var total_furniture = furnituredata.size()
-	 # Ensure we at least get 1 to avoid division by zero
 	var delay_every_n_furniture = max(1, total_furniture / 15)
+	var new_furnitures: Array = []
+	var static_furnitures: Array = []  # Array to collect static furniture data
 
 	for i in range(total_furniture):
 		var furniture = furnituredata[i]
 		var furnituremapjson: Dictionary = furniture.json
 		var furniturepos: Vector3 = furniture.pos
-		var newFurniture: Node3D
-		var dfurniture: DFurniture = Gamedata.furnitures.by_id(furnituremapjson.id)
-		if dfurniture.moveable:
-			newFurniture = FurniturePhysics.new(mypos+furniturepos, furnituremapjson)
+		if Gamedata.furnitures.is_moveable(furnituremapjson.id):
+			var newFurniture: Node3D
+			newFurniture = FurniturePhysics.new(mypos + furniturepos, furnituremapjson)
 			newFurniture.current_chunk = self
-			furniturepos.y += 0.2 # Make sure it's not in a block and let it fall
+			furniturepos.y += 0.3 # Make sure it's not in a block and let it fall
+			add_furniture_to_chunk(newFurniture)
+			new_furnitures.append(newFurniture)
 		else:
-			newFurniture = FurnitureStatic.new(mypos+furniturepos, furnituremapjson)
-		
-		add_furniture_to_chunk(newFurniture)
-		level_manager.add_child.call_deferred(newFurniture)
-		
+			static_furnitures.append(furniture)
+			# The -0.1 counteracts the one from process_level_data
+			#var newFurnituresrv = FurnitureStaticSrv.new(mypos + furniturepos + Vector3(0,-0.1,0), furnituremapjson, world3d)
+			#newFurniture = FurnitureStatic.new(mypos + furniturepos, furnituremapjson)
+
+	# Set the furniture_json_list to start spawning the static furniture
+	furniture_spawner.furniture_json_list = static_furnitures
+
+	mutex.lock()
+	for i in range(new_furnitures.size()):
+		level_manager.add_child.call_deferred(new_furnitures[i])
+	mutex.unlock()
+
 		# Insert delay after every n blocks, evenly spreading the delay
-		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
-			OS.delay_msec(100) # Adjust delay time as needed
+		#if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
+			#OS.delay_msec(100) # Adjust delay time as needed
 
 	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
 	if total_furniture % delay_every_n_furniture != 0:
@@ -311,8 +323,10 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 	var newFurniture: Node3D
 	
 	var total_furniture = furnitureDataArray.size()
-	 # Ensure we at least get 1 to avoid division by zero
+	# Ensure we at least get 1 to avoid division by zero
 	var delay_every_n_furniture = max(1, int(float(total_furniture) / 15.0))
+	var static_furnitures: Array = []  # Array to collect static furniture data
+	var physics_furnitures: Array = []  # Array to collect physic furniture
 
 	for i in range(total_furniture):
 		var furnitureData = furnitureDataArray[i]
@@ -322,22 +336,25 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 
 		# We can't set it's position until after it's in the scene tree 
 		# so we only save the position to a variable and pass it to the furniture
-		var furniturepos: Vector3 =  Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
+		var furniturepos: Vector3 = Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
 		
 		if dfurniture.moveable:
-			newFurniture = FurniturePhysics.new(furniturepos,furnitureData)
+			newFurniture = FurniturePhysics.new(furniturepos, furnitureData)
 			newFurniture.current_chunk = self
+			physics_furnitures.append(newFurniture)
 		else:
-			newFurniture = FurnitureStatic.new(furniturepos,furnitureData)
+			static_furnitures.append(furnitureData)  # Collect static furniture data for spawning
+			# No need to spawn here, will be done by the spawner
 
-		add_furniture_to_chunk(newFurniture)
-		level_manager.add_child.call_deferred(newFurniture)
-		
-		# Insert delay after every n furniture, evenly spreading the delay
-		if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
-			OS.delay_msec(100) # Adjust delay time as needed
+	# Set the furniture_json_list to start spawning the static furniture
+	furniture_spawner.furniture_json_list = static_furnitures
 
-	# Optional: One final delay after the last furniture if the total_furniture is not perfectly divisible by delay_every_n_furniture
+	mutex.lock()
+	for furniture in physics_furnitures:
+		level_manager.add_child.call_deferred(furniture)
+	mutex.unlock()
+
+	# Insert delay after every n furniture, evenly spreading the delay
 	if total_furniture % delay_every_n_furniture != 0:
 		OS.delay_msec(10)
 
@@ -356,6 +373,7 @@ func free_furniture_instances():
 	for furniture in furniture_instances:
 		if is_instance_valid(furniture):
 			furniture.queue_free.call_deferred()
+	furniture_spawner.remove_all_furniture()
 
 # Function to free the mob instances
 func free_mob_instances(mapMobs):
@@ -380,9 +398,12 @@ func free_item_instances(mapitems):
 # will be included in the chunk data. So basically if the furniture is 'in' or 'on' the chunk.
 func get_furniture_data() -> Array:
 	var furnitureData: Array = []
+	var furnitureStaticData: Array = furniture_spawner.get_furniture_data()
 	for furniture in furniture_instances:
 		if is_instance_valid(furniture):
-			furnitureData.append(furniture.get_data().duplicate())
+			furnitureData.append(furniture.get_data())
+	# Append all static furniture data to furnitureData
+	furnitureData.append_array(furnitureStaticData)
 	return furnitureData
 
 

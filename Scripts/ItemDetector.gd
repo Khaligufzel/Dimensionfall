@@ -66,9 +66,19 @@ func is_clear_path_to_area(area) -> bool:
 	if result.size() != 0:  # Check if the result dictionary is not empty
 		# Check if the hit object is an ancestor of the area
 		var collider = result.collider
-		if collider.is_ancestor_of(area):
+		if collider and not collider is RID and collider.is_ancestor_of(area):
 			return true
 		return false
 	else:
 		# No hit means there is a clear path
 		return true
+
+
+# When a collisionshape enters this area. Most likely a collider of a StaticFurnitureSrv
+func _on_body_shape_entered(body_rid: RID, _body: Node3D, _body_shape_index: int, _local_shape_index: int) -> void:
+	Helper.signal_broker.body_entered_item_detector.emit(body_rid)
+
+
+# When a collisionshape exits this area. Most likely a collider of a StaticFurnitureSrv
+func _on_body_shape_exited(body_rid: RID, _body: Node3D, _body_shape_index: int, _local_shape_index: int) -> void:
+	Helper.signal_broker.body_exited_item_detector.emit(body_rid)

@@ -198,7 +198,7 @@ func remove_container_from_list(container: Node3D):
 
 	# Update the proximity inventory control based on the remaining containers
 	if was_selected:
-		if first_container:
+		if first_container and is_instance_valid(first_container):
 			var first_container_inventory = first_container.get_inventory()
 			if first_container_inventory:
 				proximity_inventory_control.set_inventory(first_container_inventory)
