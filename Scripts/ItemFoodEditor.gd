@@ -21,6 +21,9 @@ func _ready() -> void:
 
 # Save the properties from the UI back to the ditem
 func save_properties() -> void:
+	if not ditem.food:
+		ditem.food = DItem.Food.new({"health": 0})
+
 	# Save health value
 	ditem.food.health = int(HealthNumberBox.value)
 	

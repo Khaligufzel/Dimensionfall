@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://bxubu34gjes1y"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -1716,6 +1716,15 @@ json_data = "[
 		\"weight\": 0.2
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A fresh apple, a healthy snack.\",
 		\"id\": \"apple\",
 		\"image\": \"./Mods/Core/Items/apple_32.png\",

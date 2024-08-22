@@ -34,7 +34,20 @@ layout_mode = 0
 size_flags_vertical = 3
 columns = 2
 
-[node name="HealthLabel" type="Label" parent="Food"]
+[node name="TitleLabel" type="Label" parent="Food"]
+layout_mode = 2
+text = "Tip:"
+
+[node name="DescriptionLabel" type="Label" parent="Food"]
+layout_mode = 2
+text = "Enter the food settings for this item. To configure what the food
+does, drag a player attribute from the left onto the Affected
+Attributes field and set the desired value. For example,
+dragging the \"food\" attribute lets you specify how much \"food\"
+the player gains when consuming the item. Any attribute can
+be modified, and the value can be negative."
+
+[node name="HealthLabel2" type="Label" parent="Food"]
 layout_mode = 2
 text = "Health"
 
