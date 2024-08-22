@@ -9,37 +9,43 @@ extends Control
 @export var UsedSkillTextEdit: HBoxContainer = null
 @export var skill_xp_spin_box: SpinBox = null
 
+var ditem: DItem = null:
+	set(value):
+		if not value:
+			return
+		ditem = value
+		load_properties()
 
 func _ready():
 	set_drop_functions()
 
+# Load the properties from the ditem.melee and update the UI elements
+func load_properties() -> void:
+	if not ditem.melee:
+		print_debug("ditem.melee is null, skipping property loading.")
+		return
+	if ditem.melee.damage:
+		DamageSpinBox.value = ditem.melee.damage
+	if ditem.melee.reach:
+		ReachSpinBox.value = ditem.melee.reach
 
-func get_properties() -> Dictionary:
-	var properties = {
-		"damage": DamageSpinBox.value,
-		"reach": ReachSpinBox.value
-	}
-	
-	# Only include used_skill if UsedSkillTextEdit has a value
+	if ditem.melee.used_skill.has("skill_id"):
+		UsedSkillTextEdit.set_text(ditem.melee.used_skill["skill_id"])
+	if ditem.melee.used_skill.has("xp"):
+		skill_xp_spin_box.value = ditem.melee.used_skill["xp"]
+
+# Save the properties from the UI elements back to ditem.melee
+func save_properties() -> void:
+	ditem.melee.damage = int(DamageSpinBox.value)
+	ditem.melee.reach = int(ReachSpinBox.value)
+
 	if UsedSkillTextEdit.get_text() != "":
-		properties["used_skill"] = {
+		ditem.melee.used_skill = {
 			"skill_id": UsedSkillTextEdit.get_text(),
 			"xp": skill_xp_spin_box.value
 		}
-	return properties
-
-
-func set_properties(properties: Dictionary) -> void:
-	if properties.has("damage"):
-		DamageSpinBox.value = properties["damage"]
-	if properties.has("reach"):
-		ReachSpinBox.value = properties["reach"]
-	if properties.has("used_skill"):
-		var used_skill = properties["used_skill"]
-		if used_skill.has("skill_id"):
-			UsedSkillTextEdit.set_text(used_skill["skill_id"])
-		if used_skill.has("xp"):
-			skill_xp_spin_box.value = used_skill["xp"]
+	else:
+		ditem.melee.used_skill.clear()
 
 
 # Called when the user has successfully dropped data onto the skillTextEdit

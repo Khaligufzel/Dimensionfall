@@ -17,6 +17,8 @@ extends Control
 
 var ditem: DItem = null:
 	set(value):
+		if not value:
+			return
 		ditem = value
 		load_properties()
 
@@ -64,6 +66,9 @@ func save_properties() -> void:
 
 
 func load_properties() -> void:
+	if not ditem.ranged:
+		print_debug("ditem.ranged is null, skipping property loading.")
+		return
 	if ditem.ranged.used_ammo != "":
 		UsedAmmoTextEdit.text = ditem.ranged.used_ammo
 	if ditem.ranged.used_magazine != "":

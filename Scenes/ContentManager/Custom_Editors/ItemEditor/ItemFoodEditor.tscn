@@ -18,7 +18,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="ItemFoodEditor" type="Control" node_paths=PackedStringArray("HealthNumberBox")]
+[node name="ItemFoodEditor" type="Control" node_paths=PackedStringArray("HealthNumberBox", "attributesGridContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +27,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ylt2h")
 HealthNumberBox = NodePath("Food/HealthNumber")
+attributesGridContainer = NodePath("Food/PanelContainer/AttributesGridContainer")
 
 [node name="Food" type="GridContainer" parent="."]
 layout_mode = 0

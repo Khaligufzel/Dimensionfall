@@ -57,11 +57,13 @@ text = "Save"
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+current_tab = 0
 
 [node name="Basic" type="GridContainer" parent="VBoxContainer/TabContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
+metadata/_tab_index = 0
 
 [node name="ImageLabel" type="Label" parent="VBoxContainer/TabContainer/Basic"]
 layout_mode = 2
@@ -234,34 +236,42 @@ text = "Food"
 [node name="Ranged" parent="VBoxContainer/TabContainer" instance=ExtResource("3_qqmud")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="Magazine" parent="VBoxContainer/TabContainer" instance=ExtResource("4_x8xa3")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="Ammo" parent="VBoxContainer/TabContainer" instance=ExtResource("5_mr1dn")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 3
 
 [node name="Food" parent="VBoxContainer/TabContainer" instance=ExtResource("6_htafc")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 4
 
 [node name="Craft" parent="VBoxContainer/TabContainer" instance=ExtResource("7_itht2")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 5
 
 [node name="Wearable" parent="VBoxContainer/TabContainer" instance=ExtResource("8_4bxny")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 6
 
 [node name="Melee" parent="VBoxContainer/TabContainer" instance=ExtResource("9_ucd7w")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 7
 
 [node name="References" parent="VBoxContainer/TabContainer" instance=ExtResource("10_m8qfw")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 8
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_qb68r")]
 visible = false

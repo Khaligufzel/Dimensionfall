@@ -9,6 +9,8 @@ extends Control
 
 var ditem: DItem = null:
 	set(value):
+		if not value:
+			return
 		ditem = value
 		load_properties()
 
@@ -25,13 +27,20 @@ func save_properties() -> void:
 	# Save attributes
 	ditem.food.attributes = _get_attributes_from_ui()
 
+
 # Load the properties from the ditem into the UI
 func load_properties() -> void:
+	# Check if ditem.food is not null
+	if ditem.food == null:
+		print_debug("ditem.food is null, skipping property loading.")
+		return
+	
 	# Load health value
 	HealthNumberBox.value = ditem.food.health
 	
 	# Load attributes into the UI
 	_load_attributes_into_ui(ditem.food.attributes)
+
 
 # Load attributes into the attributesGridContainer
 func _load_attributes_into_ui(attributes: Array) -> void:

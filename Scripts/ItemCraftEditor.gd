@@ -114,7 +114,7 @@ func _get_resources_from_ui() -> Array:
 
 # Sets properties for all recipes and initializes the recipe editor
 func load_properties():
-	if not ditem:
+	if not ditem or not ditem.craft:
 		return
 	craft_recipes.clear()
 	for drecipe: DItem.CraftRecipe in ditem.craft.recipes:
