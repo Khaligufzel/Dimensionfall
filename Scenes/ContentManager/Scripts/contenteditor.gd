@@ -30,7 +30,7 @@ func _ready():
 	load_content_list({"furnitures": true}, "Furniture")
 	load_content_list({"itemgroups": true}, "Item Groups")
 	load_content_list({"playerattributes": true}, "Player Attributes")
-	load_content_list(Gamedata.data.wearableslots, "Wearable Slots")
+	load_content_list({"wearableslots": true}, "Wearable Slots")
 	load_content_list(Gamedata.data.stats, "Stats")
 	load_content_list(Gamedata.data.skills, "Skills")
 	load_content_list(Gamedata.data.quests, "Quests")  # Added quests
@@ -69,7 +69,8 @@ func _on_content_item_activated(data: Dictionary, itemID: String, list: Control)
 		"items": itemEditor,
 		"mobs": mobEditor,
 		"maps": mapEditor,
-		"playerattributes": playerattributesEditor
+		"playerattributes": playerattributesEditor,
+		"wearableslots": wearableslotEditor
 	}
 
 	for key in editors.keys():
@@ -79,8 +80,6 @@ func _on_content_item_activated(data: Dictionary, itemID: String, list: Control)
 	
 	if data == Gamedata.data.tacticalmaps:
 		instantiate_editor(data, itemID, tacticalmapEditor, list)
-	elif data == Gamedata.data.wearableslots:
-		instantiate_editor(data, itemID, wearableslotEditor, list)
 	elif data == Gamedata.data.stats:
 		instantiate_editor(data, itemID, statsEditor, list)
 	elif data == Gamedata.data.skills:
@@ -134,6 +133,10 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 		return
 	if data == {"playerattributes": true}:# HACK Hacky exception for playerattributes, need to find a better solution
 		newContentEditor.dplayerattribute = Gamedata.playerattributes.by_id(itemID)
+		newContentEditor.data_changed.connect(list.load_data)
+		return
+	if data == {"wearableslots": true}:# HACK Hacky exception for wearableslots, need to find a better solution
+		newContentEditor.dwearableslot = Gamedata.wearableslots.by_id(itemID)
 		newContentEditor.data_changed.connect(list.load_data)
 		return
 		

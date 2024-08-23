@@ -1,7 +1,7 @@
 extends Control
 
 # This script is intended to be used with the WearableSlot scene
-# This script is expected to work with Gamedata.data.wearableslots
+# This script is expected to work with Gamedata.wearableslots
 # The wearable will hold one piece of wearable
 # The wearable will be represented by en InventoryItem
 # The wearable will be visualized by a texture provided by the InventoryItem
@@ -103,5 +103,3 @@ func _drop_data(newpos, data):
 		if data is Array and data.size() > 0 and data[0] is InventoryItem:
 			var first_item = data[0]
 			equip(first_item)
-
-

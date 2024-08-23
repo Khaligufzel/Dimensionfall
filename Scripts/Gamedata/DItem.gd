@@ -293,16 +293,14 @@ class Wearable:
 		}
 
 	# Function to add a reference for the wearable slot
-	func add_reference(item_id: String) -> bool:
+	func add_reference(item_id: String):
 		if slot != "":
-			return Gamedata.add_reference(Gamedata.data.wearableslots, "core", "items", slot, item_id)
-		return false
+			Gamedata.wearableslots.add_reference(slot, "core", "items", item_id)
 
 	# Function to remove a reference for the wearable slot
-	func remove_reference(item_id: String) -> bool:
+	func remove_reference(item_id: String):
 		if slot != "":
-			return Gamedata.remove_reference(Gamedata.data.wearableslots, "core", "items", slot, item_id)
-		return false
+			Gamedata.wearableslots.remove_reference(slot, "core", "items", item_id)
 
 
 # Constructor to initialize item properties from a dictionary
@@ -428,8 +426,6 @@ func get_sprite_path() -> String:
 # Some item has been changed
 # We need to update the relation between the item and other items based on crafting recipes
 func changed(olddata: DItem):
-	var changes_made = false
-	
 	# Handle wearable slot reference. 
 	if wearable:
 		# If the slot data changed between old and new, we update the reference
@@ -439,12 +435,12 @@ func changed(olddata: DItem):
 
 		if old_slot != wearable.slot:
 			if old_slot:
-				changes_made = olddata.wearable.remove_reference(id) or changes_made
+				olddata.wearable.remove_reference(id)
 			if wearable.slot:
-				changes_made = wearable.add_reference(id) or changes_made
+				wearable.add_reference(id)
 	elif olddata.wearable and olddata.wearable.slot:
 		# The wearable is present in the old data but not in the new, so we remove the reference
-		changes_made = olddata.wearable.remove_reference(id) or changes_made
+		olddata.wearable.remove_reference(id)
 	
 	
 	# Dictionaries to track unique resource IDs across all recipes
@@ -466,20 +462,14 @@ func changed(olddata: DItem):
 	# Resources that are no longer in the recipe will no longer reference this item
 	for res_id in old_resource_ids:
 		if not new_resource_ids.has(res_id):
-			changes_made = remove_reference("core", "items", res_id) or changes_made
+			remove_reference("core", "items", res_id)
 	
 	# Add references for new resources, nothing happens if they are already present
 	for res_id in new_resource_ids:
-		changes_made = add_reference("core", "items", res_id) or changes_made
+		add_reference("core", "items", res_id)
 	update_item_skill_references(olddata)
 	
 	Gamedata.items.save_items_to_disk()
-	# Save changes if any modifications were made
-	if changes_made:
-		Gamedata.save_data_to_file(Gamedata.data.wearableslots)
-		print_debug("Item changes saved successfully.")
-	else:
-		print_debug("No changes were made to item.")
 
 
 # Collects all skills defined in an item and updates the references to that skill
