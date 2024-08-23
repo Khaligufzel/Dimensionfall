@@ -28,8 +28,6 @@ var dstat: DStat = null:
 		statSelector.sprites_collection = Gamedata.stats.sprites
 		olddata = DStat.new(dstat.get_data().duplicate(true))
 
-func _ready():
-	data_changed.connect(Gamedata.on_data_changed)
 
 # This function updates the form based on the DStat that has been loaded
 func load_stat_data() -> void:
