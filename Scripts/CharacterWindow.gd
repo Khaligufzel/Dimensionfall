@@ -26,9 +26,9 @@ func _on_player_stat_changed(player_node: CharacterBody3D):
 	clear_container(statsContainer)  # Clear existing content
 	var playerstats = player_node.stats
 	for stat_id in playerstats:
-		var stat_data = Gamedata.get_data_by_id(Gamedata.data.stats, stat_id)
+		var stat_data: DStat = Gamedata.stats.by_id(stat_id)
 		if stat_data:
-			var stat_entry = create_stat_or_skill_entry(stat_data, playerstats[stat_id], "stats")
+			var stat_entry = create_stat_entry(stat_data, playerstats[stat_id])
 			statsContainer.add_child(stat_entry)
 
 
@@ -41,26 +41,38 @@ func _on_player_skill_changed(player_node: CharacterBody3D):
 		var skill_data = Gamedata.get_data_by_id(Gamedata.data.skills, skill_id)
 		if skill_data:
 			var skill_value = player_node.skills[skill_id]
-			var skill_entry = create_stat_or_skill_entry(skill_data, skill_value, "skills")
+			var skill_entry = create_skill_entry(skill_data, skill_value)
 			skillsContainer.add_child(skill_entry)
 
 
 # Utility function to create an HBoxContainer for a stat or skill entry
-func create_stat_or_skill_entry(data: Dictionary, value: Variant, type: String) -> HBoxContainer:
+func create_skill_entry(data: Dictionary, value: Variant) -> HBoxContainer:
 	var hbox = HBoxContainer.new()
 	var icon = TextureRect.new()
-	icon.texture = Gamedata.get_sprite_by_id(Gamedata.data[type], data["id"])  # Fetch sprite using the ID
+	icon.texture = Gamedata.get_sprite_by_id(Gamedata.data.skills, data["id"])  # Fetch sprite using the ID
 	hbox.add_child(icon)
 
 	var label = Label.new()
-	if type == "skills":
-		# For skills, display level and XP with a maximum of 2 decimal places
-		var xp_value = str(round(value["xp"] * 100) / 100.0)  # Round XP to 2 decimal places
-		label.text = data["name"] + ": Level " + str(value["level"]) + ", XP: " + xp_value
-	else:
-		# For stats, display the value directly
-		label.text = data["name"] + ": " + str(value)
+	# For skills, display level and XP with a maximum of 2 decimal places
+	var xp_value = str(round(value["xp"] * 100) / 100.0)  # Round XP to 2 decimal places
+	label.text = data["name"] + ": Level " + str(value["level"]) + ", XP: " + xp_value
 	label.tooltip_text = data["description"]
+	hbox.add_child(label)
+
+	return hbox
+
+
+# Utility function to create an HBoxContainer for a stat or skill entry
+func create_stat_entry(dstat: DStat, value: Variant) -> HBoxContainer:
+	var hbox = HBoxContainer.new()
+	var icon = TextureRect.new()
+	icon.texture = dstat.sprite
+	hbox.add_child(icon)
+
+	var label = Label.new()
+	# For stats, display the value directly
+	label.text = dstat.name + ": " + str(value)
+	label.tooltip_text = dstat.description
 	hbox.add_child(label)
 
 	return hbox
