@@ -56,20 +56,20 @@ func save_to_disk():
 func remove_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
 	if changes_made:
-		Gamedata.itemgroups.save_itemgroups_to_disk()
+		Gamedata.wearableslots.save_wearableslots_to_disk()
 
 
 # Adds a reference to the references list
 func add_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
 	if changes_made:
-		Gamedata.itemgroups.save_itemgroups_to_disk()
+		Gamedata.wearableslots.save_wearableslots_to_disk()
 
 
-# Some itemgroup has been changed
-# INFO if the itemgroup reference other entities, update them here
+# Some wearableslot has been changed
+# INFO if the wearableslot reference other entities, update them here
 func changed(olddata: DItemgroup):
-	Gamedata.wearableslots.save_itemgroups_to_disk()
+	Gamedata.wearableslots.save_wearableslots_to_disk()
 
 
 # A wearableslot is being deleted from the data
