@@ -67,7 +67,7 @@ var last_y_level: int = 0
 
 # Variables for furniture pushing
 var pushing_furniture = false
-var furniture_body: RigidBody3D = null
+var furniture_body: RID
 #var progress_bar_timer_max_time : float
 
 #var is_progress_bar_well_progressing_i_guess = false
@@ -81,8 +81,8 @@ func _ready():
 	Helper.signal_broker.health_item_used.connect(_on_health_item_used)
 	ItemManager.craft_successful.connect(_on_craft_successful)
 	# Connect signals for collisionDetector to detect furniture
-	collisionDetector.body_entered.connect(_on_body_entered)
-	collisionDetector.body_exited.connect(_on_body_exited)
+	collisionDetector.body_shape_entered.connect(_on_body_entered)
+	collisionDetector.body_shape_exited.connect(_on_body_exited)
 	Helper.signal_broker.player_spawned.emit(self)
 	initialize_y_level_check()
 
@@ -171,8 +171,9 @@ func _physics_process(delta):
 
 		# Check if the player is pushing furniture
 		if pushing_furniture and furniture_body:
-			# Apply resistance based on the mass of the RigidBody3D
-			var resistance = 1.0 / furniture_body.mass
+			# Apply resistance based on the mass of the furniture collider
+			var mass = PhysicsServer3D.body_get_param(furniture_body, PhysicsServer3D.BODY_PARAM_MASS)
+			var resistance = 1.0 / mass
 			velocity = direction * speed * resistance
 		else:
 			if not is_running or current_stamina <= 0:
@@ -195,16 +196,19 @@ func _physics_process(delta):
 		move_and_slide()
 
 
-func _on_body_entered(body):
-	if body is RigidBody3D:
+# When a body enters the CollisionDetector area
+# This will be a FurniturePhysicsSrv since it's only detecting layer 4
+# Layer 4 is the moveable furniture layer
+# Since FurniturePhysicsSrv is not in the scene tree, we will have an RID but no body
+func _on_body_entered(body_rid: RID, body: Node3D, _body_shape_index: int, _local_shape_index: int):
+	if body_rid and not body:
 		pushing_furniture = true
-		furniture_body = body
+		furniture_body = body_rid
 
 
-func _on_body_exited(body):
-	if body is RigidBody3D:
+func _on_body_exited(body_rid: RID, body: Node3D, _body_shape_index: int, _local_shape_index: int):
+	if body_rid and not body:
 		pushing_furniture = false
-		furniture_body = null
 
 
 func _input(event):
@@ -453,7 +457,7 @@ func _on_craft_successful(_item: DItem, recipe: DItem.CraftRecipe):
 # Function to initialize the timer for checking Y level changes
 func initialize_y_level_check():
 	var y_check_timer = Timer.new()
-	y_check_timer.wait_time = 0.1
+	y_check_timer.wait_time = 0.5
 	y_check_timer.autostart = true
 	y_check_timer.one_shot = false
 	y_check_timer.timeout.connect(_emit_y_level)

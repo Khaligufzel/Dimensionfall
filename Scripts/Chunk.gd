@@ -11,14 +11,15 @@ extends Node3D
 # When the player exits the map, the chunk will get saved so it can be loaded later
 # During the game chunks will be loaded and unloaded to improve performance
 # A chunk is defined by 21 levels and each level can potentially hold 32x32 blocks
-# On top of the blocks we spawn mobs and furniture
+# On top of the blocks we spawn mobs, furniture and items
 # Loading and unloading of chunks is managed by levelGenerator.gd
 
 # Reference to the level manager. Some nodes that could be moved to other chunks 
 # should be parented to this (like moveable furniture and mobs)
 var level_manager : Node3D
 var level_generator : Node3D
-var furniture_spawner: FurnitureStaticSpawner
+var furniture_static_spawner: FurnitureStaticSpawner
+var furniture_physics_spawner: FurniturePhysicsSpawner
 
 # Constants
 const MAX_LEVELS = 21
@@ -46,7 +47,6 @@ var source_geometry_data: NavigationMeshSourceGeometryData3D
 var chunk_mesh_body: StaticBody3D # The staticbody that will visualize the chunk mesh
 var atlas_output: Dictionary # An atlas texture that combines all textures of this chunk's blocks
 var level_nodes: Dictionary = {} # Keeps track of level nodes by their y_level# Existing properties
-var furniture_instances = [] # Keep track of what furniture is on this chunk
 
 enum LoadStates {
 	NEITHER,
@@ -73,8 +73,10 @@ func _ready():
 	chunk_unloaded.connect(Helper.on_chunk_unloaded.bind({"mypos": mypos}))
 	transform.origin = Vector3(mypos)
 	add_to_group("chunks")
-	furniture_spawner = FurnitureStaticSpawner.new(self)
-	add_child(furniture_spawner)
+	furniture_static_spawner = FurnitureStaticSpawner.new(self)
+	furniture_physics_spawner = FurniturePhysicsSpawner.new(self)
+	add_child(furniture_static_spawner)
+	add_child(furniture_physics_spawner)
 	# Even though the chunk is not completely generated, we emit the signal now to prevent further
 	# delays in generating or unloading the next chunk. Might remove this or move it to another place.
 	chunk_ready.emit()
@@ -97,10 +99,17 @@ func initialize_chunk_data():
 	if is_new_chunk(): # This chunk is created for the first time
 		#This contains the data of one map, loaded from maps.data, for example generichouse.json
 		var mapsegmentData: Dictionary = Gamedata.maps.by_id(chunk_data.id).get_data().duplicate(true)
-		await Helper.task_manager.create_task(generate_new_chunk.bind(mapsegmentData))
+		await Helper.task_manager.create_task(generate_new_chunk.bind(mapsegmentData)).completed
+		# Run the main spawn function on the main thread and let the furniturespawner
+		# handle offloading the work onto a thread.
+		add_furnitures_to_new_block()
+		#generate_new_chunk(mapsegmentData)
 		chunk_generated.emit()
 	else: # This chunk is created from previously saved data
 		await Helper.task_manager.create_task(generate_saved_chunk)
+		# Run the main spawn function on the main thread and let the furniturespawner
+		# handle offloading the work onto a thread.
+		add_furnitures_to_map(chunk_data.furniture)
 		chunk_generated.emit()
 
 
@@ -114,7 +123,6 @@ func generate_new_chunk(mapsegmentData: Dictionary):
 	generate_chunk_mesh()
 	update_all_navigation_data()
 	processed_level_data = process_level_data()
-	add_furnitures_to_new_block()
 	add_block_mobs()
 	add_itemgroups_to_new_block()
 	reset_state()
@@ -187,9 +195,6 @@ func generate_saved_chunk() -> void:
 	for item: Dictionary in chunk_data.items:
 		add_item_to_map(item)
 	
-	# We duplicate the furnituredata for thread safety
-	var furnituredata: Array = chunk_data.furniture.duplicate()
-	add_furnitures_to_map(furnituredata)
 	add_mobs_to_map()
 	reset_state()
 
@@ -208,46 +213,24 @@ func add_block_mobs():
 
 # When a map is loaded for the first time we spawn the furniture on the block
 func add_furnitures_to_new_block():
-	mutex.lock()
-	var furnituredata = processed_level_data.furniture.duplicate(true)
-	mutex.unlock()
+	var furnituredata = processed_level_data.furniture
 	var total_furniture = furnituredata.size()
-	var delay_every_n_furniture = max(1, total_furniture / 15)
-	var new_furnitures: Array = []
-	var static_furnitures: Array = []  # Array to collect static furniture data
+	var static_furnitures: Array = []
+	var physics_furnitures: Array = []
 
 	for i in range(total_furniture):
 		var furniture = furnituredata[i]
-		var furnituremapjson: Dictionary = furniture.json
-		var furniturepos: Vector3 = furniture.pos
-		if Gamedata.furnitures.is_moveable(furnituremapjson.id):
-			var newFurniture: Node3D
-			newFurniture = FurniturePhysics.new(mypos + furniturepos, furnituremapjson)
-			newFurniture.current_chunk = self
-			furniturepos.y += 0.3 # Make sure it's not in a block and let it fall
-			add_furniture_to_chunk(newFurniture)
-			new_furnitures.append(newFurniture)
+		if Gamedata.furnitures.is_moveable(furniture.json.id):
+			physics_furnitures.append(furniture)
 		else:
 			static_furnitures.append(furniture)
-			# The -0.1 counteracts the one from process_level_data
-			#var newFurnituresrv = FurnitureStaticSrv.new(mypos + furniturepos + Vector3(0,-0.1,0), furnituremapjson, world3d)
-			#newFurniture = FurnitureStatic.new(mypos + furniturepos, furnituremapjson)
+			
 
 	# Set the furniture_json_list to start spawning the static furniture
-	furniture_spawner.furniture_json_list = static_furnitures
+	furniture_static_spawner.furniture_json_list = static_furnitures
 
-	mutex.lock()
-	for i in range(new_furnitures.size()):
-		level_manager.add_child.call_deferred(new_furnitures[i])
-	mutex.unlock()
-
-		# Insert delay after every n blocks, evenly spreading the delay
-		#if i % delay_every_n_furniture == 0 and i != 0: # Avoid delay at the very start
-			#OS.delay_msec(100) # Adjust delay time as needed
-
-	# Optional: One final delay after the last block if the total_blocks is not perfectly divisible by delay_every_n_blocks
-	if total_furniture % delay_every_n_furniture != 0:
-		OS.delay_msec(10)
+	# Set the furniture_json_list to start spawning the physics furniture
+	furniture_physics_spawner.furniture_json_list = physics_furnitures
 
 
 # When a map is loaded for the first time we spawn the itemgroups on the block
@@ -279,18 +262,6 @@ func add_itemgroups_to_new_block():
 		OS.delay_msec(10)
 
 
-# Function to add a furniture instance to the chunk's tracking list if not already present
-func add_furniture_to_chunk(furniture_instance: Node3D):
-	if furniture_instance not in furniture_instances:
-		furniture_instances.append(furniture_instance)
-
-
-# Update the list when furniture is removed or moves to another chunk
-func remove_furniture_from_chunk(furniture_instance: Node3D):
-	if furniture_instance in furniture_instances:
-		furniture_instances.erase(furniture_instance)
-
-
 # We check if the furniture or mob or item's position is inside this chunk on the x and z axis
 func _is_object_in_range(objectposition: Vector3) -> bool:
 		return objectposition.x >= mypos.x and \
@@ -320,43 +291,22 @@ func add_item_to_map(item: Dictionary):
 
 # Adds furniture that has been loaded from previously saved data
 func add_furnitures_to_map(furnitureDataArray: Array):
-	var newFurniture: Node3D
-	
-	var total_furniture = furnitureDataArray.size()
-	# Ensure we at least get 1 to avoid division by zero
-	var delay_every_n_furniture = max(1, int(float(total_furniture) / 15.0))
-	var static_furnitures: Array = []  # Array to collect static furniture data
-	var physics_furnitures: Array = []  # Array to collect physic furniture
+	var static_furnitures: Array = []
+	var physics_furnitures: Array = []
 
-	for i in range(total_furniture):
+	for i in range(furnitureDataArray.size()):
 		var furnitureData = furnitureDataArray[i]
-		mutex.lock()
 		var dfurniture: DFurniture = Gamedata.furnitures.by_id(furnitureData.id)
-		mutex.unlock()
-
-		# We can't set it's position until after it's in the scene tree 
-		# so we only save the position to a variable and pass it to the furniture
-		var furniturepos: Vector3 = Vector3(furnitureData.global_position_x,furnitureData.global_position_y,furnitureData.global_position_z)
-		
 		if dfurniture.moveable:
-			newFurniture = FurniturePhysics.new(furniturepos, furnitureData)
-			newFurniture.current_chunk = self
-			physics_furnitures.append(newFurniture)
+			physics_furnitures.append(furnitureData)
 		else:
-			static_furnitures.append(furnitureData)  # Collect static furniture data for spawning
-			# No need to spawn here, will be done by the spawner
+			static_furnitures.append(furnitureData)
 
 	# Set the furniture_json_list to start spawning the static furniture
-	furniture_spawner.furniture_json_list = static_furnitures
+	furniture_static_spawner.furniture_json_list = static_furnitures
 
-	mutex.lock()
-	for furniture in physics_furnitures:
-		level_manager.add_child.call_deferred(furniture)
-	mutex.unlock()
-
-	# Insert delay after every n furniture, evenly spreading the delay
-	if total_furniture % delay_every_n_furniture != 0:
-		OS.delay_msec(10)
+	# Set the furniture_json_list to start spawning the physics furniture
+	furniture_physics_spawner.furniture_json_list = physics_furnitures
 
 
 # Function to free all chunk-related instances
@@ -370,10 +320,9 @@ func free_chunk_resources():
 
 # Function to free the furniture instances
 func free_furniture_instances():
-	for furniture in furniture_instances:
-		if is_instance_valid(furniture):
-			furniture.queue_free.call_deferred()
-	furniture_spawner.remove_all_furniture()
+	furniture_static_spawner.remove_all_furniture()
+	furniture_physics_spawner.remove_all_furniture()
+
 
 # Function to free the mob instances
 func free_mob_instances(mapMobs):
@@ -398,12 +347,11 @@ func free_item_instances(mapitems):
 # will be included in the chunk data. So basically if the furniture is 'in' or 'on' the chunk.
 func get_furniture_data() -> Array:
 	var furnitureData: Array = []
-	var furnitureStaticData: Array = furniture_spawner.get_furniture_data()
-	for furniture in furniture_instances:
-		if is_instance_valid(furniture):
-			furnitureData.append(furniture.get_data())
+	var furnitureStaticData: Array = furniture_static_spawner.get_furniture_data()
+	var furniturePhysicsData: Array = furniture_physics_spawner.get_furniture_data()
 	# Append all static furniture data to furnitureData
 	furnitureData.append_array(furnitureStaticData)
+	furnitureData.append_array(furniturePhysicsData)
 	return furnitureData
 
 

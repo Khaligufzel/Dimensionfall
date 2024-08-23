@@ -1,6 +1,13 @@
 class_name FurnitureStaticSrv
 extends Node3D # Has to be Node3D. Changing it to RefCounted doesn't work
 
+
+# This is a standalone script that is not attached to any node. 
+# This is the static version of furniture. There is also FurniturePhysicsSrv.gd.
+# This class is instanced by FurnitureStaticSpawner.gd when a map needs static 
+# furniture, like a bed or fridge.
+
+
 # Variables to store furniture data
 var furniture_transform: FurnitureTransform
 var furniture_position: Vector3
@@ -107,7 +114,6 @@ class FurnitureTransform:
 		# We have to compensate for the fact that the physicsserver and
 		# renderingserver place the furniture lower then the intended height
 		posy += 0.5+(0.5*height)
-		
 
 
 # Function to initialize the furniture object
@@ -139,8 +145,11 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 	create_sprite_instance()
 	update_door_visuals()  # Set initial door visuals based on its state
-	Helper.signal_broker.player_y_level_updated.connect(_on_player_y_level_updated)
 	add_container()  # Adds container if the furniture is a container
+
+
+func connect_signals():
+	Helper.signal_broker.player_y_level_updated.connect(_on_player_y_level_updated)
 
 
 # If this furniture is a container, it will add a container node to the furniture.
