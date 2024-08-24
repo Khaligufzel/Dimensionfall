@@ -110,13 +110,13 @@ func _on_quest_reset(_quest_name: String):
 # Initialize quests by wiping player data and loading quest data
 func initialize_quests():
 	QuestManager.wipe_player_data()
-	for quest in Gamedata.data.quests.data:
+	for quest: DQuest in Gamedata.quests.get_quests().values():
 		create_quest_from_data(quest)
 
 
 # Takes a quest as defined by json (created in the contenteditor)
 # Create an instance of a ScriptQuest and add it to the QuestManager
-func create_quest_from_data(quest_data: Dictionary):
+func create_quest_from_data(quest_data: DQuest):
 	if quest_data.steps.size() < 1:
 		return # The quest has no steps
 	var quest = ScriptQuest.new(quest_data.id, quest_data.description)
@@ -125,8 +125,7 @@ func create_quest_from_data(quest_data: Dictionary):
 		steps_added = add_quest_step(quest, step) or steps_added
 
 	if steps_added:
-		quest.set_quest_meta_data(quest_data) # The json data that defines the quest
-		quest.set_rewards({"rewards": quest_data.get("rewards", [])})
+		quest.set_rewards({"rewards": quest_data.rewards})
 		# Finalize
 		quest.finalize_quest()
 		# Add quest to player quests
@@ -236,4 +235,3 @@ func _on_craft_successful(item: DItem, _recipe: DItem.CraftRecipe):
 					QuestManager.progress_quest(quest.quest_name)
 				
 			
-
