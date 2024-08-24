@@ -96,8 +96,7 @@ func skill_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> voi
 	# dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var skill_id = dropped_data["id"]
-		var skill_data = Gamedata.get_data_by_id(Gamedata.data.skills, skill_id)
-		if skill_data.is_empty():
+		if not Gamedata.skills.has_id(skill_id):
 			print_debug("No item data found for ID: " + skill_id)
 			return
 		texteditcontrol.set_text(skill_id)
@@ -111,8 +110,7 @@ func can_skill_drop(dropped_data: Dictionary):
 		return false
 	
 	# Fetch skill data by ID from the Gamedata to ensure it exists and is valid
-	var skill_data = Gamedata.get_data_by_id(Gamedata.data.skills, dropped_data["id"])
-	if skill_data.is_empty():
+	if not Gamedata.skills.has_id(dropped_data["id"]):
 		return false
 
 	# If all checks pass, return true
