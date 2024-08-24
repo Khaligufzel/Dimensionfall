@@ -10,12 +10,12 @@ var tiles: DTiles
 var mobs: DMobs
 var itemgroups: DItemgroups
 var playerattributes: DPlayerAttributes
+var wearableslots: DWearableSlots
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
-	"wearableslots": {"dataPath": "./Mods/Core/Wearableslots/Wearableslots.json", "spritePath": "./Mods/Core/Wearableslots/"},
 	"stats": {"dataPath": "./Mods/Core/Stats/Stats.json", "spritePath": "./Mods/Core/Stats/"},
 	"skills": {"dataPath": "./Mods/Core/Skills/Skills.json", "spritePath": "./Mods/Core/Skills/"},
 	"quests": {"dataPath": "./Mods/Core/Quests/Quests.json", "spritePath": "./Mods/Core/Items/"}
@@ -42,6 +42,7 @@ func _ready():
 	mobs = DMobs.new()
 	itemgroups = DItemgroups.new()
 	playerattributes = DPlayerAttributes.new()
+	wearableslots = DWearableSlots.new()
 
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES
@@ -353,8 +354,6 @@ func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 		on_tacticalmap_deleted(id)
 	if contentData == data.skills:
 		on_skill_deleted(id)
-	if contentData == data.wearableslots:
-		on_wearableslot_deleted(id)
 	if contentData == data.quests:
 		on_quest_deleted(id)
 
@@ -449,31 +448,6 @@ func on_tacticalmapdata_changed(tacticalmap_id: String, newdata: Dictionary, old
 	for id in unique_old_ids:
 		if id not in unique_new_ids:
 			maps.remove_reference_from_map(id, "core", "tacticalmaps", tacticalmap_id)
-
-
-# A wearableslot is being deleted from the data
-# We have to remove it from everything that references it
-func on_wearableslot_deleted(wearableslot_id: String):
-	var changes_made = false
-	var wearableslot_data = get_data_by_id(data.wearableslots, wearableslot_id)
-	if wearableslot_data.is_empty():
-		print_debug("Item with ID", wearableslot_data, "not found.")
-		return
-	
-	# This callable will remove this slot from items that reference this slot.
-	var myfunc: Callable = func (item_id):
-		var item_data: DItem = items.by_id(item_id)
-		item_data.wearable = null
-		changes_made = true
-	# Pass the callable to every item in the wearableslot's references
-	# It will call myfunc on every item in wearableslot_data.references.core.items
-	execute_callable_on_references_of_type(wearableslot_data, "core", "items", myfunc)
-	
-	# Save changes to the data file if any changes were made
-	if changes_made:
-		items.save_items_to_disk()
-	else:
-		print_debug("No changes needed for item", wearableslot_id)
 
 
 # A skill is being deleted from the data

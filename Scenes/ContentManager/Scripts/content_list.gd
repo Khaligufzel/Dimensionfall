@@ -48,7 +48,8 @@ func load_data():
 		"items": load_items_list,
 		"tiles": load_tiles_list,
 		"mobs": load_mobs_list,
-		"playerattributes": load_playerattributes_list
+		"playerattributes": load_playerattributes_list,
+		"wearableslots": load_wearableslots_list
 	}
 
 	for key in loaders.keys():
@@ -159,9 +160,13 @@ func _on_ok_button_up():
 	if contentData == {"furnitures": true}:
 		add_furniture_popup_ok()
 		return
-	# HACK Hacky exception for furniture, need to find a better solution
+	# HACK Hacky exception for player attributes, need to find a better solution
 	if contentData == {"playerattributes": true}:
 		add_playerattribute_popup_ok()
+		return
+	# HACK Hacky exception for wearableslots, need to find a better solution
+	if contentData == {"wearableslots": true}:
+		add_wearableslot_popup_ok()
 		return
 	var myText = popup_textedit.text
 	if myText == "":
@@ -218,6 +223,10 @@ func _on_delete_button_button_up():
 	# HACK Exception for playerattributes, need to find a better solution
 	if contentData == {"playerattributes": true}:
 		delete_playerattribute(selected_id)
+		return
+	# HACK Exception for wearableslots, need to find a better solution
+	if contentData == {"wearableslots": true}:
+		delete_wearableslot(selected_id)
 		return
 	contentItems.remove_item(contentItems.get_selected_items()[0])
 	Gamedata.remove_item_from_data(contentData, selected_id)
@@ -294,6 +303,8 @@ func _create_drag_preview(item_id: String) -> Control:
 		preview.texture = Gamedata.items.by_id(item_id).sprite
 	elif contentData == {"playerattributes": true}:
 		preview.texture = Gamedata.playerattributes.by_id(item_id).sprite
+	elif contentData == {"wearableslots": true}:
+		preview.texture = Gamedata.wearableslots.by_id(item_id).sprite
 	else:
 		preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
@@ -456,6 +467,19 @@ func load_playerattributes_list():
 			contentItems.set_item_icon(attribute_index, mySprite)
 
 
+# Load the wearableslot list
+func load_wearableslots_list():
+	var wearableslotlist: Dictionary = Gamedata.wearableslots.get_wearableslots()
+	for wearableslot: DWearableSlot in wearableslotlist.values():
+		# Add all the filenames to the Contentmobs list as child nodes
+		var attribute_index: int = contentItems.add_item(wearableslot.id)
+		# Add the ID as metadata which can be used to load the mob data
+		contentItems.set_item_metadata(attribute_index, wearableslot.id)
+		var mySprite: Texture = wearableslot.sprite
+		if mySprite:
+			contentItems.set_item_icon(attribute_index, mySprite)
+
+
 func add_map_popup_ok():
 	var myText = popup_textedit.text
 	if myText == "":
@@ -479,6 +503,21 @@ func add_playerattribute_popup_ok():
 		Gamedata.playerattributes.add_new_playerattribute(myText)
 	if popupAction == "Duplicate":
 		Gamedata.playerattributes.duplicate_playerattribute_to_disk(get_selected_item_text(), myText)
+	popupAction = ""
+	# Check if the list is collapsed and expand it if true
+	if is_collapsed:
+		is_collapsed = false
+	load_data()
+
+
+func add_wearableslot_popup_ok():
+	var myText = popup_textedit.text
+	if myText == "":
+		return
+	if popupAction == "Add":
+		Gamedata.wearableslots.add_new_wearableslot(myText)
+	if popupAction == "Duplicate":
+		Gamedata.wearableslots.duplicate_wearableslots_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -542,4 +581,8 @@ func delete_mob(selected_id) -> void:
 
 func delete_playerattribute(selected_id) -> void:
 	Gamedata.playerattributes.delete_playerattribute(selected_id)
+	load_data()
+
+func delete_wearableslot(selected_id) -> void:
+	Gamedata.wearableslots.delete_playerattribute(selected_id)
 	load_data()
