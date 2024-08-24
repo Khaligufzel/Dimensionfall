@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://480xqusluqrk"]
+[gd_scene load_steps=15 format=3 uid="uid://480xqusluqrk"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/contenteditor.gd" id="1_65sl4"]
 [ext_resource type="PackedScene" uid="uid://bhh0v7x4fjsgi" path="res://Scenes/ContentManager/content_list.tscn" id="2_4f21i"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bcdt60dcs3sn1" path="res://Scenes/ContentManager/Custom_Editors/StatsEditor.tscn" id="11_lg6mj"]
 [ext_resource type="PackedScene" uid="uid://qn17yxy8fy0d" path="res://Scenes/ContentManager/Custom_Editors/SkillsEditor.tscn" id="12_orpls"]
 [ext_resource type="PackedScene" uid="uid://b7k2j4d6wx4yy" path="res://Scenes/ContentManager/Custom_Editors/QuestEditor.tscn" id="13_gv2y0"]
+[ext_resource type="PackedScene" uid="uid://b07i30w3ey3aa" path="res://Scenes/ContentManager/Custom_Editors/PlayerAttributeEditor.tscn" id="14_uu117"]
 
 [node name="contenteditor" type="Control" node_paths=PackedStringArray("content", "tabContainer")]
 layout_mode = 3
@@ -34,6 +35,7 @@ wearableslotEditor = ExtResource("10_nfqj6")
 statsEditor = ExtResource("11_lg6mj")
 skillsEditor = ExtResource("12_orpls")
 questsEditor = ExtResource("13_gv2y0")
+playerattributesEditor = ExtResource("14_uu117")
 content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content")
 tabContainer = NodePath("HSplitContainer/TabContainer")
 
@@ -56,10 +58,9 @@ text = "Back to menu"
 [node name="SelectMods" type="OptionButton" parent="HSplitContainer/ContentLists"]
 layout_mode = 2
 tooltip_text = "Select the mod you want edit"
-item_count = 3
 selected = 0
+item_count = 3
 popup/item_0/text = "Core"
-popup/item_0/id = 0
 popup/item_1/text = "MyArcheryMod"
 popup/item_1/id = 1
 popup/item_2/text = "MyFarmMod"
@@ -68,10 +69,12 @@ popup/item_2/id = 2
 [node name="TabContainer2" type="TabContainer" parent="HSplitContainer/ContentLists"]
 layout_mode = 2
 size_flags_vertical = 3
+current_tab = 0
 
 [node name="Content" type="VBoxContainer" parent="HSplitContainer/ContentLists/TabContainer2"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="Recent" type="ItemList" parent="HSplitContainer/ContentLists/TabContainer2"]
 visible = false
@@ -91,9 +94,11 @@ item_6/text = "core"
 item_7/text = "snail"
 item_8/text = "core"
 item_9/text = "pistol_9mm"
+metadata/_tab_index = 1
 
 [node name="TabContainer" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
+current_tab = 0
 
 [node name="Editor_Home" type="RichTextLabel" parent="HSplitContainer/TabContainer"]
 layout_mode = 2
@@ -110,5 +115,6 @@ Click the + sign: Allows you to add new content to the mod. Enter the name and a
 
 [font_size=22][b]Content editing[/b][/font_size]
 On the right a content editor will be displayed that allows you to edit the selected item. Multiple editors can be opened in tabs. Use the controls to edit the content and press save to save your edits"
+metadata/_tab_index = 0
 
 [connection signal="button_up" from="HSplitContainer/ContentLists/BackButton" to="." method="_on_back_button_button_up"]

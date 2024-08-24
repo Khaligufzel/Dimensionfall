@@ -1,9 +1,9 @@
 extends Control
 
 #This scene is intended to be used inside the content editor
-#It is supposed to edit exactly one item (friend and foe)
-#It expects to save the data to a JSON file that contains all data from a mod
-#To load data, provide the name of the item data file and an ID
+#It is supposed to edit exactly one item
+#It expects to save the data to a DItem instance that contains all data from an item
+#To load data, provide the DItem instance
 
 
 @export var tabContainer: TabContainer = null
@@ -44,6 +44,8 @@ var olddata: DItem # Remember what the value of the data was before editing
 # based on the ID that the user has selected in the content editor
 var ditem: DItem = null:
 	set(value):
+		if not value:
+			return
 		ditem = value
 		load_item_data()
 		itemSelector.sprites_collection = Gamedata.items.sprites
@@ -160,6 +162,8 @@ func refresh_tab_visibility() -> void:
 			var tabIndex = get_tab_by_title(child.text)
 			if tabIndex != -1:  # Check if a valid tab index is returned
 				tabContainer.set_tab_hidden(tabIndex, !child.button_pressed)
+				var tab = tabContainer.get_child(tabIndex)
+				tab.ditem = ditem if child.button_pressed else null
 
 
 # Returns the tab control with the given name

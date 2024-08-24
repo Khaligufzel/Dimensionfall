@@ -1716,6 +1716,15 @@ json_data = "[
 		\"weight\": 0.2
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A fresh apple, a healthy snack.\",
 		\"id\": \"apple\",
 		\"image\": \"./Mods/Core/Items/apple_32.png\",

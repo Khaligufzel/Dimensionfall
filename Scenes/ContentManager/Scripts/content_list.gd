@@ -47,7 +47,8 @@ func load_data():
 		"itemgroups": load_itemgroups_list,
 		"items": load_items_list,
 		"tiles": load_tiles_list,
-		"mobs": load_mobs_list
+		"mobs": load_mobs_list,
+		"playerattributes": load_playerattributes_list
 	}
 
 	for key in loaders.keys():
@@ -158,6 +159,10 @@ func _on_ok_button_up():
 	if contentData == {"furnitures": true}:
 		add_furniture_popup_ok()
 		return
+	# HACK Hacky exception for furniture, need to find a better solution
+	if contentData == {"playerattributes": true}:
+		add_playerattribute_popup_ok()
+		return
 	var myText = popup_textedit.text
 	if myText == "":
 		return
@@ -209,6 +214,10 @@ func _on_delete_button_button_up():
 	# HACK Exception for mobs, need to find a better solution
 	if contentData == {"mobs": true}:
 		delete_mob(selected_id)
+		return
+	# HACK Exception for playerattributes, need to find a better solution
+	if contentData == {"playerattributes": true}:
+		delete_playerattribute(selected_id)
 		return
 	contentItems.remove_item(contentItems.get_selected_items()[0])
 	Gamedata.remove_item_from_data(contentData, selected_id)
@@ -283,6 +292,8 @@ func _create_drag_preview(item_id: String) -> Control:
 		preview.texture = Gamedata.mobs.by_id(item_id).sprite
 	elif contentData == {"items": true}:
 		preview.texture = Gamedata.items.by_id(item_id).sprite
+	elif contentData == {"playerattributes": true}:
+		preview.texture = Gamedata.playerattributes.by_id(item_id).sprite
 	else:
 		preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
@@ -419,7 +430,7 @@ func load_tiles_list():
 		if mySprite:
 			contentItems.set_item_icon(tile_index, mySprite)
 
-# Load the tiles list
+# Load the mobs list
 func load_mobs_list():
 	var moblist: Dictionary = Gamedata.mobs.get_mobs()
 	for mob: DMob in moblist.values():
@@ -432,6 +443,19 @@ func load_mobs_list():
 			contentItems.set_item_icon(mob_index, mySprite)
 
 
+# Load the playerattribute list
+func load_playerattributes_list():
+	var playerattributelist: Dictionary = Gamedata.playerattributes.get_playerattributes()
+	for playerattribute: DPlayerAttribute in playerattributelist.values():
+		# Add all the filenames to the Contentmobs list as child nodes
+		var attribute_index: int = contentItems.add_item(playerattribute.id)
+		# Add the ID as metadata which can be used to load the mob data
+		contentItems.set_item_metadata(attribute_index, playerattribute.id)
+		var mySprite: Texture = playerattribute.sprite
+		if mySprite:
+			contentItems.set_item_icon(attribute_index, mySprite)
+
+
 func add_map_popup_ok():
 	var myText = popup_textedit.text
 	if myText == "":
@@ -440,6 +464,21 @@ func add_map_popup_ok():
 		Gamedata.maps.add_new_map(myText)
 	if popupAction == "Duplicate":
 		Gamedata.maps.duplicate_map_to_disk(get_selected_item_text(), myText)
+	popupAction = ""
+	# Check if the list is collapsed and expand it if true
+	if is_collapsed:
+		is_collapsed = false
+	load_data()
+
+
+func add_playerattribute_popup_ok():
+	var myText = popup_textedit.text
+	if myText == "":
+		return
+	if popupAction == "Add":
+		Gamedata.playerattributes.add_new_playerattribute(myText)
+	if popupAction == "Duplicate":
+		Gamedata.playerattributes.duplicate_playerattribute_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -499,4 +538,8 @@ func delete_tile(selected_id) -> void:
 
 func delete_mob(selected_id) -> void:
 	Gamedata.mobs.delete_mob(selected_id)
+	load_data()
+
+func delete_playerattribute(selected_id) -> void:
+	Gamedata.playerattributes.delete_playerattribute(selected_id)
 	load_data()

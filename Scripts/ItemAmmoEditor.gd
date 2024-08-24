@@ -10,6 +10,8 @@ extends Control
 
 var ditem: DItem = null:
 	set(value):
+		if not value:
+			return
 		ditem = value
 		load_properties()
 
@@ -17,4 +19,7 @@ func save_properties() -> void:
 	ditem.ammo.damage = int(DamageNumberBox.value)
 
 func load_properties() -> void:
+	if not ditem.ammo:
+		print_debug("ditem.ammo is null, skipping property loading.")
+		return
 	DamageNumberBox.value = ditem.ammo.damage

@@ -46,6 +46,7 @@ var current_pain = 0
 
 var stats = {}
 var skills = {}
+var attributes = {}
 
 var time_since_ready = 0.0
 var delay_before_movement = 2.0  # 2 second delay
@@ -76,9 +77,10 @@ var furniture_body: RID
 func _ready():
 	initialize_health()
 	initialize_condition()
+	initialize_attributes()
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
-	Helper.signal_broker.health_item_used.connect(_on_health_item_used)
+	Helper.signal_broker.food_item_used.connect(_on_food_item_used)
 	ItemManager.craft_successful.connect(_on_craft_successful)
 	# Connect signals for collisionDetector to detect furniture
 	collisionDetector.body_shape_entered.connect(_on_body_entered)
@@ -102,6 +104,15 @@ func initialize_condition():
 	current_thirst = thirst
 	current_nutrition = nutrition
 	current_pain = pain
+
+
+# Initializes the playerattributes based on the DPlayerAttribute
+# The PlayerAttribute manages the actual control of the attribute while
+# DPlayerAttribute only provides the data
+func initialize_attributes():
+	var playerattributes: Dictionary = Gamedata.playerattributes.get_playerattributes()
+	for attribute: DPlayerAttribute in playerattributes.values():
+		attributes[attribute.id] = PlayerAttribute.new(attribute, self)
 
 
 # Initialize skills with level and XP
@@ -311,7 +322,7 @@ func die():
 		print("Player died")
 		is_alive = false
 		$"../../../HUD".get_node("GameOver").show()
-	
+
 func transfer_damage_to_torso(damage: float):
 	current_torso_health -= damage
 	check_if_alive()
@@ -324,12 +335,20 @@ func play_footstep_audio():
 
 # The player has selected one or more items in the inventory and selected
 # 'use' from the context menu.
-func _on_health_item_used(usedItem: InventoryItem) -> void:
-	var health: int = int(ItemManager.get_nested_property(usedItem, "Food.health"))
-	if health:
-		var spent_health = heal_player(health)
-		if not spent_health == health:
-			ItemManager.remove_inventory_item(usedItem)
+func _on_food_item_used(usedItem: InventoryItem) -> void:
+	var food = DItem.Food.new(usedItem.get_property("Food"))
+	var was_used: bool = false
+	if food.health:
+		var spent_health = heal_player(food.health)
+		if not spent_health == food.health:
+			was_used = true
+
+	for attribute in food.attributes:
+		attributes[attribute.id].modify_current_amount(attribute.amount)
+		was_used = true
+
+	if was_used:
+		ItemManager.remove_inventory_item(usedItem)
 
 
 # Heal the player by the specified amount. We prioritize the head and torso for healing

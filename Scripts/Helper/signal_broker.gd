@@ -24,7 +24,7 @@ signal items_were_used(usedItems: Array[InventoryItem])
 # Signalled when an items were used
 # It can be one or more items. It's up to the receiver to figure it out
 @warning_ignore("unused_signal")
-signal health_item_used(usedItem: InventoryItem)
+signal food_item_used(usedItem: InventoryItem)
 
 # Signalled when an item was equiped in an equipmentslot
 # The item will know what slot it was
@@ -85,11 +85,13 @@ signal playerInventory_item_removed(item: InventoryItem, inventory: InventorySta
 @warning_ignore("unused_signal")
 signal playerInventory_item_modified(item: InventoryItem, inventory: InventoryStacked)
 
-# When the player's stats and skill changes
+# When the player's stats and skill and attributes changes
 @warning_ignore("unused_signal")
 signal player_stat_changed(player: CharacterBody3D)
 @warning_ignore("unused_signal")
 signal player_skill_changed(player: CharacterBody3D)
+@warning_ignore("unused_signal")
+signal player_attribute_changed(player: CharacterBody3D)
 
 # Save load start end events
 @warning_ignore("unused_signal")

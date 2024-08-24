@@ -299,4 +299,3 @@ func add_header_row():
 		header.add_theme_stylebox_override("normal",header_style)
 		header.set("custom_styles/panel", header_style.duplicate())  # Use duplicate to ensure each header can customize further if needed
 		itemListContainer.add_child(header)
-

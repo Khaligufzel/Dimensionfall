@@ -1,8 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://cq4t64qb15y27"]
+[gd_scene load_steps=3 format=3 uid="uid://cq4t64qb15y27"]
 
 [ext_resource type="Script" path="res://Scripts/ItemFoodEditor.gd" id="1_ylt2h"]
 
-[node name="ItemFoodEditor" type="Control" node_paths=PackedStringArray("HealthNumberBox")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04nfc"]
+content_margin_left = 11.0
+content_margin_top = 11.0
+content_margin_right = 11.0
+content_margin_bottom = 11.0
+bg_color = Color(0.358505, 0.289355, 0.48639, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ItemFoodEditor" type="Control" node_paths=PackedStringArray("HealthNumberBox", "attributesGridContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,13 +27,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ylt2h")
 HealthNumberBox = NodePath("Food/HealthNumber")
+attributesGridContainer = NodePath("Food/PanelContainer/AttributesGridContainer")
 
 [node name="Food" type="GridContainer" parent="."]
 layout_mode = 0
 size_flags_vertical = 3
 columns = 2
 
-[node name="HealthLabel" type="Label" parent="Food"]
+[node name="TitleLabel" type="Label" parent="Food"]
+layout_mode = 2
+text = "Tip:"
+
+[node name="DescriptionLabel" type="Label" parent="Food"]
+layout_mode = 2
+text = "Enter the food settings for this item. To configure what the food
+does, drag a player attribute from the left onto the Affected
+Attributes field and set the desired value. For example,
+dragging the \"food\" attribute lets you specify how much \"food\"
+the player gains when consuming the item. Any attribute can
+be modified, and the value can be negative."
+
+[node name="HealthLabel2" type="Label" parent="Food"]
 layout_mode = 2
 text = "Health"
 
@@ -25,3 +55,17 @@ text = "Health"
 layout_mode = 2
 tooltip_text = "Increase the health of the player by this amount when it is used. A negative number will also decrease the player's health"
 value = 5.0
+
+[node name="AffectedAttributesLabel" type="Label" parent="Food"]
+layout_mode = 2
+text = "Affected attributes"
+
+[node name="PanelContainer" type="PanelContainer" parent="Food"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_04nfc")
+
+[node name="AttributesGridContainer" type="GridContainer" parent="Food/PanelContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+columns = 3

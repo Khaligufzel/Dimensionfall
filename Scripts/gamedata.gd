@@ -9,6 +9,7 @@ var items: DItems
 var tiles: DTiles
 var mobs: DMobs
 var itemgroups: DItemgroups
+var playerattributes: DPlayerAttributes
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
@@ -40,6 +41,7 @@ func _ready():
 	tiles = DTiles.new()
 	mobs = DMobs.new()
 	itemgroups = DItemgroups.new()
+	playerattributes = DPlayerAttributes.new()
 
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES

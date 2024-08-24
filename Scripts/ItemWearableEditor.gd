@@ -6,10 +6,26 @@ extends Control
 # Form elements
 @export var SlotOptionButton: OptionButton = null
 
+var ditem: DItem = null:
+	set(value):
+		if not value:
+			return
+		ditem = value
+		load_properties()
 
 func _ready():
 	refresh_wearableslots_optionbutton()
 
+# Load properties from ditem.wearable and update the UI elements
+func load_properties() -> void:
+	if not ditem.wearable:
+		return
+	if ditem.wearable.slot != "":
+		update_slot_option(ditem.wearable.slot)
+
+# Save the selected slot from the SlotOptionButton back to ditem.wearable
+func save_properties() -> void:
+	ditem.wearable.slot = SlotOptionButton.get_item_text(SlotOptionButton.selected)
 
 # Refreshes the SlotOptionButton by loading slot IDs from the wearable slots data
 func refresh_wearableslots_optionbutton():
@@ -21,18 +37,6 @@ func refresh_wearableslots_optionbutton():
 	for slot in wearableslots:
 		if slot.has("id"):
 			SlotOptionButton.add_item(slot["id"])
-
-
-func get_properties() -> Dictionary:
-	return {
-		"slot": SlotOptionButton.get_item_text(SlotOptionButton.selected)
-	}
-
-
-func set_properties(properties: Dictionary) -> void:
-	if properties.has("slot"):
-		update_slot_option(properties["slot"])
-
 
 # Update the selected option in the SlotOptionButton to match the specified slot name
 func update_slot_option(slotname):

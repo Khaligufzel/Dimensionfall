@@ -12,6 +12,8 @@ extends Control
 
 var ditem: DItem = null:
 	set(value):
+		if not value:
+			return
 		ditem = value
 		load_properties()
 
@@ -21,6 +23,9 @@ func save_properties() -> void:
 	ditem.magazine.current_ammo = int(CurrentAmmoNumberBox.value)
 
 func load_properties() -> void:
+	if not ditem.magazine:
+		print_debug("ditem.magazine is null, skipping property loading.")
+		return
 	UsedAmmoTextEdit.text = ditem.magazine.used_ammo
 	MaxAmmoNumberBox.value = ditem.magazine.max_ammo
 	CurrentAmmoNumberBox.value = ditem.magazine.current_ammo

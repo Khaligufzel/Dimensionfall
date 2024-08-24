@@ -244,16 +244,23 @@ class Melee:
 # Inner class to handle the Food property
 class Food:
 	var health: int
+	var attributes: Array = []  # example: [{"id":"food","amount":10}]
 
 	# Constructor to initialize food properties from a dictionary
 	func _init(data: Dictionary):
 		health = int(data.get("health", 0))
+		attributes = []
+		if data.has("attributes"):
+			attributes = data["attributes"]
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		return {
-			"health": health
+		var food_data: Dictionary = {
+			"health": health			
 		}
+		if not attributes.is_empty():
+			food_data["attributes"] = attributes
+		return food_data
 
 
 # Inner class to handle the Ammo property

@@ -147,4 +147,3 @@ func _on_item_detector_add_to_proximity_inventory(container):
 # The parameter container the inventory that has left proximity
 func _on_item_detector_remove_from_proximity_inventory(container):
 	inventoryWindow._on_item_detector_remove_from_proximity_inventory(container)
-
