@@ -49,7 +49,8 @@ func load_data():
 		"tiles": load_tiles_list,
 		"mobs": load_mobs_list,
 		"playerattributes": load_playerattributes_list,
-		"wearableslots": load_wearableslots_list
+		"wearableslots": load_wearableslots_list,
+		"stats": load_stats_list
 	}
 
 	for key in loaders.keys():
@@ -168,6 +169,11 @@ func _on_ok_button_up():
 	if contentData == {"wearableslots": true}:
 		add_wearableslot_popup_ok()
 		return
+	# HACK Hacky exception for stats, need to find a better solution
+	if contentData == {"stats": true}:
+		add_stat_popup_ok()
+		return
+
 	var myText = popup_textedit.text
 	if myText == "":
 		return
@@ -228,6 +234,11 @@ func _on_delete_button_button_up():
 	if contentData == {"wearableslots": true}:
 		delete_wearableslot(selected_id)
 		return
+	# HACK Exception for stats, need to find a better solution
+	if contentData == {"stats": true}:
+		delete_stat(selected_id)
+		return
+
 	contentItems.remove_item(contentItems.get_selected_items()[0])
 	Gamedata.remove_item_from_data(contentData, selected_id)
 	load_data()
@@ -480,6 +491,19 @@ func load_wearableslots_list():
 			contentItems.set_item_icon(attribute_index, mySprite)
 
 
+# Load the stats list
+func load_stats_list():
+	var statslist: Dictionary = Gamedata.stats.get_stats()
+	for stat: DStat in statslist.values():
+		# Add all the filenames to the ContentItems list as child nodes
+		var item_index: int = contentItems.add_item(stat.id)
+		# Add the ID as metadata which can be used to load the stat data
+		contentItems.set_item_metadata(item_index, stat.id)
+		var mySprite: Texture = stat.sprite
+		if mySprite:
+			contentItems.set_item_icon(item_index, mySprite)
+
+
 func add_map_popup_ok():
 	var myText = popup_textedit.text
 	if myText == "":
@@ -555,6 +579,21 @@ func add_itemgroup_popup_ok():
 	load_data()
 
 
+func add_stat_popup_ok():
+	var myText = popup_textedit.text
+	if myText == "":
+		return
+	if popupAction == "Add":
+		Gamedata.stats.add_new_stat(myText)
+	if popupAction == "Duplicate":
+		Gamedata.stats.duplicate_stat_to_disk(get_selected_item_text(), myText)
+	popupAction = ""
+	# Check if the list is collapsed and expand it if true
+	if is_collapsed:
+		is_collapsed = false
+	load_data()
+
+
 func delete_map(selected_id) -> void:
 	Gamedata.maps.delete_map(selected_id)
 	load_data()
@@ -585,4 +624,8 @@ func delete_playerattribute(selected_id) -> void:
 
 func delete_wearableslot(selected_id) -> void:
 	Gamedata.wearableslots.delete_playerattribute(selected_id)
+	load_data()
+
+func delete_stat(selected_id) -> void:
+	Gamedata.stats.delete_stat(selected_id)
 	load_data()
