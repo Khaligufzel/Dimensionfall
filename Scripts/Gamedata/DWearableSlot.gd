@@ -68,7 +68,7 @@ func add_reference(module: String, type: String, refid: String):
 
 # Some wearableslot has been changed
 # INFO if the wearableslot reference other entities, update them here
-func changed(olddata: DItemgroup):
+func changed(_olddata: DItemgroup):
 	Gamedata.wearableslots.save_wearableslots_to_disk()
 
 

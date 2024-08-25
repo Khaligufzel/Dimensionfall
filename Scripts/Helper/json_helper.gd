@@ -1,4 +1,4 @@
-extends Node
+extends RefCounted
 
 # This script is a generic helper script to load and manipulate JSON files.
 # In Helper.gd, this script is loaded on game start.
