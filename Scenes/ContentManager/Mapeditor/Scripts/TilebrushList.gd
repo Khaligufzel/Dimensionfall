@@ -45,7 +45,7 @@ func loadMobs():
 
 
 func loadFurniture():
-	var furnitureList: Dictionary = Gamedata.furnitures.get_furnitures()
+	var furnitureList: Dictionary = Gamedata.furnitures.get_all()
 	var newFurnitureList: Control = scrolling_Flow_Container.instantiate()
 	newFurnitureList.header = "Furniture"
 	newFurnitureList.collapse_button_pressed.connect(_on_collapse_button_pressed)

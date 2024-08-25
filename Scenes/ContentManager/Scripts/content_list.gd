@@ -379,7 +379,7 @@ func load_tacticalmap_list():
 
 # Load the furniture list
 func load_furnitures_list():
-	var furniturelist: Dictionary = Gamedata.furnitures.get_furnitures()
+	var furniturelist: Dictionary = Gamedata.furnitures.get_all()
 	for furniture: DFurniture in furniturelist.values():
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(furniture.id)
@@ -568,9 +568,9 @@ func add_furniture_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.furnitures.add_new_furniture(myText)
+		Gamedata.furnitures.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.furnitures.duplicate_furniture_to_disk(get_selected_item_text(), myText)
+		Gamedata.furnitures.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -692,7 +692,7 @@ func delete_tacticalmap(selected_id) -> void:
 	load_data()
 
 func delete_furniture(selected_id) -> void:
-	Gamedata.furnitures.delete_furniture(selected_id)
+	Gamedata.furnitures.delete_by_id(selected_id)
 	load_data()
 
 func delete_itemgroup(selected_id) -> void:
