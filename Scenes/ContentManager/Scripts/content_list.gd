@@ -93,47 +93,19 @@ func _on_duplicate_button_button_up():
 # Called after the user enters an ID into the popup textbox and presses OK
 func _on_ok_button_up():
 	pupup_ID.hide()
-	
-	match contentType:
-		Gamedata.ContentType.MAPS:
-			add_map_popup_ok()
-		
-		Gamedata.ContentType.TACTICALMAPS:
-			add_tacticalmap_popup_ok()
-		
-		Gamedata.ContentType.ITEMGROUPS:
-			add_itemgroup_popup_ok()
-		
-		Gamedata.ContentType.FURNITURES:
-			add_furniture_popup_ok()
-		
-		Gamedata.ContentType.PLAYERATTRIBUTES:
-			add_playerattribute_popup_ok()
-		
-		Gamedata.ContentType.WEARABLESLOTS:
-			add_wearableslot_popup_ok()
-		
-		Gamedata.ContentType.STATS:
-			add_stat_popup_ok()
-		
-		Gamedata.ContentType.SKILLS:
-			add_skill_popup_ok()
-		
-		Gamedata.ContentType.QUESTS:
-			add_quest_popup_ok()
-		
-		Gamedata.ContentType.ITEMS:
-			add_item_popup_ok()
-		
-		Gamedata.ContentType.TILES:
-			add_tile_popup_ok()
-		
-		Gamedata.ContentType.MOBS:
-			add_mob_popup_ok()
-		
-		_:
-			# Handle unexpected content types or provide a default action
-			print("Unknown content type:", contentType)
+	var myText = popup_textedit.text
+	var datainstance: RefCounted = Gamedata.get_data_of_type(contentType)
+	if myText == "":
+		return
+	if popupAction == "Add":
+		datainstance.add_new(myText)
+	if popupAction == "Duplicate":
+		datainstance.duplicate_to_disk(get_selected_item_text(), myText)
+	popupAction = ""
+	# Check if the list is collapsed and expand it if true
+	if is_collapsed:
+		is_collapsed = false
+	load_data()
 
 
 # Called after the users presses cancel on the popup asking for an ID
@@ -461,186 +433,6 @@ func load_quests_list():
 		var mySprite: Texture = quest.sprite
 		if mySprite:
 			contentItems.set_item_icon(item_index, mySprite)
-
-
-func add_map_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.maps.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.maps.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
-
-
-func add_tacticalmap_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.tacticalmaps.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.tacticalmaps.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
-
-
-func add_playerattribute_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.playerattributes.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.playerattributes.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
-
-
-func add_wearableslot_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.wearableslots.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.wearableslots.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
-
-
-func add_furniture_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.furnitures.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.furnitures.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
-
-
-func add_itemgroup_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.itemgroups.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.itemgroups.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
-
-
-func add_stat_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.stats.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.stats.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
-
-
-func add_skill_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.skills.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.skills.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
-
-
-func add_quest_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.quests.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.quests.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
-
-
-func add_item_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.items.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.items.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
-
-
-func add_tile_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.tiles.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.tiles.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
-
-
-func add_mob_popup_ok():
-	var myText = popup_textedit.text
-	if myText == "":
-		return
-	if popupAction == "Add":
-		Gamedata.mobs.add_new(myText)
-	if popupAction == "Duplicate":
-		Gamedata.mobs.duplicate_to_disk(get_selected_item_text(), myText)
-	popupAction = ""
-	# Check if the list is collapsed and expand it if true
-	if is_collapsed:
-		is_collapsed = false
-	load_data()
 
 func delete(selected_id) -> void:
 	Gamedata.get_data_of_type(contentType).delete_by_id(selected_id)

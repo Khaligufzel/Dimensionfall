@@ -36,6 +36,7 @@ func duplicate_to_disk(mapid: String, newmapid: String) -> void:
 func add_new(newid: String) -> void:
 	var newmap: DMap = DMap.new(newid, dataPath)
 	newmap.save_data_to_disk()
+	mapdict[newid] = newmap
 	
 
 func delete_by_id(mapid: String) -> void:
