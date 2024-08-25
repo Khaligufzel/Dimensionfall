@@ -524,13 +524,7 @@ func delete():
 	
 	# This callable will handle the removal of this item from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
-		var quest_data = Gamedata.get_data_by_id(Gamedata.data.quests, quest_id)
-		# Removes all steps where the item is equal to item_id
-		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, \
-		"steps.item", id) or changes_made["value"]
-		# Removes all rewards where the reward's item_id is equal to item_id
-		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, \
-		"rewards.item_id", id) or changes_made["value"]
+		Gamedata.quests.remove_item_from_quest(quest_id,id)
 
 	# Pass the callable to every quest in the item's references
 	# It will call remove_from_quest on every item in item_data.references.core.quests
@@ -559,7 +553,6 @@ func delete():
 
 	# Save changes to the data file if any changes were made
 	if changes_made["value"]:
-		Gamedata.save_data_to_file(Gamedata.data.quests)
 		Gamedata.items.save_items_to_disk()
 	else:
 		print_debug("No changes needed for item", id)

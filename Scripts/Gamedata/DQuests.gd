@@ -1,0 +1,95 @@
+class_name DQuests
+extends RefCounted
+
+# There's a D in front of the class name to indicate this class only handles quests data, nothing more
+# This script is intended to be used inside the GameData autoload singleton
+# This script handles the list of quests. You can access it through Gamedata.quests
+
+# Paths for quests data and sprites
+var dataPath: String = "./Mods/Core/Quests/Quests.json"
+var spritePath: String = "./Mods/Core/Items/"
+var questdict: Dictionary = {}
+var sprites: Dictionary = {}
+
+# Constructor
+func _init():
+	load_sprites()
+	load_quests_from_disk()
+
+# Load all quests data from disk into memory
+func load_quests_from_disk() -> void:
+	var questslist: Array = Helper.json_helper.load_json_array_file(dataPath)
+	for myquest in questslist:
+		var quest: DQuest = DQuest.new(myquest)
+		quest.sprite = sprites[quest.spriteid]
+		questdict[quest.id] = quest
+
+# Loads sprites and assigns them to the proper dictionary
+func load_sprites() -> void:
+	var png_files: Array = Helper.json_helper.file_names_in_dir(spritePath, ["png"])
+	for png_file in png_files:
+		# Load the .png file as a texture
+		var texture := load(spritePath + png_file)
+		# Add the texture to the dictionary
+		sprites[png_file] = texture
+
+# Called when data changes and needs to be saved
+func on_data_changed():
+	save_quests_to_disk()
+
+# Saves all quests to disk
+func save_quests_to_disk() -> void:
+	var save_data: Array = []
+	for quest in questdict.values():
+		save_data.append(quest.get_data())
+	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+
+# Returns the dictionary containing all quests
+func get_quests() -> Dictionary:
+	return questdict
+
+# Duplicates a quest and saves it to disk with a new ID
+func duplicate_quest_to_disk(questid: String, newquestid: String) -> void:
+	var questdata: Dictionary = questdict[questid].get_data().duplicate(true)
+	questdata["id"] = newquestid
+	var newquest: DQuest = DQuest.new(questdata)
+	questdict[newquestid] = newquest
+	save_quests_to_disk()
+
+# Adds a new quest with a given ID
+func add_new_quest(newid: String) -> void:
+	var newquest: DQuest = DQuest.new({"id": newid})
+	questdict[newquest.id] = newquest
+	save_quests_to_disk()
+
+# Deletes a quest by its ID and saves changes to disk
+func delete_quest(questid: String) -> void:
+	questdict[questid].delete()
+	questdict.erase(questid)
+	save_quests_to_disk()
+
+# Returns a quest by its ID
+func by_id(questid: String) -> DQuest:
+	return questdict[questid]
+
+# Checks if a quest exists by its ID
+func has_id(questid: String) -> bool:
+	return questdict.has(questid)
+
+# Returns the sprite of the quest
+func sprite_by_id(questid: String) -> Texture:
+	return questdict[questid].sprite
+
+# Returns the sprite by its file name
+func sprite_by_file(spritefile: String) -> Texture:
+	return sprites[spritefile]
+
+
+# Removes all steps where the mob property matches the given mob_id
+func remove_mob_from_quest(quest_id: String, mob_id: String) -> void:
+	by_id(quest_id).remove_steps_by_mob(mob_id)
+
+# Removes all steps and rewards where the item property matches the given item_id
+func remove_item_from_quest(quest_id: String, item_id: String) -> void:
+	by_id(quest_id).remove_steps_by_item(item_id)
+	by_id(quest_id).remove_rewards_by_item(item_id)

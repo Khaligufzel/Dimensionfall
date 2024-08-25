@@ -13,12 +13,12 @@ var playerattributes: DPlayerAttributes
 var wearableslots: DWearableSlots
 var stats: DStats
 var skills: DSkills
+var quests: DQuests
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
-	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
-	"quests": {"dataPath": "./Mods/Core/Quests/Quests.json", "spritePath": "./Mods/Core/Items/"}
+	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"}
 }
 
 # Dictionary to store loaded textures
@@ -45,6 +45,7 @@ func _ready():
 	wearableslots = DWearableSlots.new()
 	stats = DStats.new()
 	skills = DSkills.new()
+	quests = DQuests.new()
 
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES
@@ -92,38 +93,6 @@ func add_sprite_to_dictionary(contentData: Dictionary, file_name: String, textur
 		print("Sprite added:", file_name)
 	else:
 		print("Failed to add sprite:", file_name)
-
-
-#This function will take two strings called ID and newID
-#It will find an item with this ID in a json file specified by the source variable
-#It will then duplicate that item into the json file and change the ID to newID
-func duplicate_item_in_data(contentData: Dictionary, id: String, newID: String):
-	if contentData.data.is_empty():
-		return
-
-	if contentData.dataPath.ends_with((".json")):
-		# Check if an item with the given ID exists in the file.
-		var item_index: int = get_array_index_by_id(contentData,id)
-		if item_index == -1:
-			return
-		
-		# Duplicate the found item recursively
-		var item_to_duplicate = contentData.data[item_index].duplicate(true)
-		
-		# If there is no item to duplicate, return without doing anything.
-		if item_to_duplicate == null:
-			return
-		# This new item cannot have anything reference it, because it was just created
-		# So we remove all refrences that might have been duplicated from the original
-		item_to_duplicate.erase("references")
-		# Change the ID of the duplicated item.
-		item_to_duplicate["id"] = newID
-		# Add the duplicated item to the JSON data.
-		contentData.data.append(item_to_duplicate)
-		Helper.json_helper.write_json_file(contentData.dataPath, JSON.stringify(contentData.data, "\t"))
-		on_data_changed(contentData, item_to_duplicate, {})
-	else:
-		print_debug("There should be code here for when a file gets duplicated")
 
 
 # This function will duplicate a file with the provided original ID
@@ -219,7 +188,7 @@ func save_data_to_file(contentData: Dictionary):
 
 
 # Takes contentdata and an id and returns the json that belongs to an id
-# For example, contentData can be Gamedata.data.quests
+# For example, contentData can be Gamedata.data.overmaps
 # and id can be "plain_grass" and it will return the json data for plain_grass
 func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 	var idnr: int = get_array_index_by_id(contentData, id)
@@ -229,7 +198,7 @@ func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 
 
 # Takes contentData and an id and returns the sprite associated with the id
-# For example, contentData can be Gamedata.data.quests
+# For example, contentData can be Gamedata.data.overmaps
 # and id can be "plain_grass" and it will return the sprite for plain_grass
 func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 	if contentData.sprites.is_empty() or contentData.data.is_empty():
@@ -246,116 +215,11 @@ func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 		# Treat as a file in a folder
 		return contentData.sprites.get(id + ".png", null)
 
-# This function is called when an editor has changed data
-# The contenteditor (that initializes the individual editors)
-# connects the changed_data signal to this function
-# and binds the appropriate data array so it can be saved in this function
-func on_data_changed(contentData: Dictionary, newEntityData: Dictionary, oldEntityData: Dictionary):
-	if contentData == data.quests:
-		on_quest_changed(newEntityData, oldEntityData)
-	save_data_to_file(contentData)
-
-
-# Adds a reference to an entity
-# data = any data group, like Gamedata.data.quests
-# type = the type of reference, for example "item"
-# onid = where to add the reference to
-# refid = The reference to add on the fromid
-# Example usage: var changes_made = add_reference(Gamedata.data.quests, "core", 
-# "item", quest_id, item_id)
-# This example will add the specified item from the quest's references
-func add_reference(mydata: Dictionary, module: String, type: String, onid: String, refid: String) -> bool:
-	var changes_made: bool = false
-
-	# If onid ends with ".json", handle it as a file reference case
-	if onid.ends_with(".json"):
-		var filepath = mydata.dataPath + onid
-		var file_data = Helper.json_helper.load_json_dictionary_file(filepath)
-		if not file_data.has("references"):
-			file_data["references"] = {}
-		if not file_data["references"].has(module):
-			file_data["references"][module] = {}
-		if not file_data["references"][module].has(type):
-			file_data["references"][module][type] = []
-		if refid not in file_data["references"][module][type]:
-			file_data["references"][module][type].append(refid)
-			changes_made = true
-
-		# Save the updated data back to the file
-		var data_json = JSON.stringify(file_data.duplicate(), "\t")
-		Helper.json_helper.write_json_file(filepath, data_json)
-
-	# Default behavior for other cases
-	else:
-		if onid != "":
-			var entitydata = get_data_by_id(mydata, onid)
-			if not entitydata.has("references"):
-				entitydata["references"] = {}
-			if not entitydata["references"].has(module):
-				entitydata["references"][module] = {}
-			if not entitydata["references"][module].has(type):
-				entitydata["references"][module][type] = []
-			if refid not in entitydata["references"][module][type]:
-				entitydata["references"][module][type].append(refid)
-				changes_made = true
-	return changes_made
-
-
-# Removes a reference from an entity. 
-# data = any data group, like Gamedata.data.quests
-# type = the type of reference, for example item
-# fromid = where to remove the reference from
-# refid = The reference to remove from the fromid
-# Example usage: var changes_made = remove_reference(Gamedata.data.quests, "core", 
-# "item", quest_id, item_id)
-# This example will remove the specified item from the quest's references
-func remove_reference(mydata: Dictionary, module: String, type: String, fromid: String, refid: String) -> bool:
-	var changes_made: bool = false
-	
-	# If fromid ends with ".json", handle it as a file reference case
-	if fromid.ends_with(".json"):
-		var filepath = mydata.dataPath + fromid
-		var file_data = Helper.json_helper.load_json_dictionary_file(filepath)
-		if file_data.has("references") and file_data["references"].has(module) and file_data["references"][module].has(type):
-			var refs = file_data["references"][module][type]
-			if refid in refs:
-				refs.erase(refid)
-				changes_made = true
-				# Clean up if necessary
-				if refs.size() == 0:
-					file_data["references"][module].erase(type)
-				if file_data["references"][module].is_empty():
-					file_data["references"].erase(module)
-				if file_data["references"].is_empty():
-					file_data.erase("references")
-
-				# Save the updated data back to the file
-				var data_json = JSON.stringify(file_data.duplicate(), "\t")
-				Helper.json_helper.write_json_file(filepath, data_json)
-
-	# Default behavior for other cases
-	else:
-		if fromid != "":
-			var entitydata = get_data_by_id(mydata, fromid)
-			if entitydata.has("references") and entitydata["references"].has(module) and entitydata["references"][module].has(type):
-				var refs = entitydata["references"][module][type]
-				if refid in refs:
-					refs.erase(refid)
-					changes_made = true
-					if refs.size() == 0:
-						entitydata["references"][module].erase(type)
-					if entitydata["references"][module].is_empty():
-						entitydata["references"].erase(module)
-					if entitydata["references"].is_empty():
-						entitydata.erase("references")
-	return changes_made
 
 # Removes all references of a deleted entity ID
 func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 	if contentData == data.tacticalmaps:
 		on_tacticalmap_deleted(id)
-	if contentData == data.quests:
-		on_quest_deleted(id)
 
 
 # Erases a nested property from a dictionary based on a dot-separated path
@@ -450,56 +314,6 @@ func on_tacticalmapdata_changed(tacticalmap_id: String, newdata: Dictionary, old
 			maps.remove_reference_from_map(id, "core", "tacticalmaps", tacticalmap_id)
 
 
-# Handles quest deletion
-func on_quest_deleted(quest_id: String):
-	var quest_data = get_data_by_id(data.quests, quest_id)
-
-	if quest_data.is_empty():
-		print_debug("quest with ID", quest_id, "not found.")
-		return
-	var stepitems: Array = Helper.json_helper.get_unique_values(quest_data, "steps.item")
-	for item_id in stepitems:
-		items.remove_reference(item_id, "core", "quests", quest_id)
-	var stepmobs: Array = Helper.json_helper.get_unique_values(quest_data, "steps.mob")
-	for mob_id in stepmobs:
-		mobs.remove_reference(mob_id, "core", "quests", quest_id)
-	var steprewards: Array = Helper.json_helper.get_unique_values(quest_data, "rewards.item_id")
-	for item_id in steprewards: # Remove the reference to this quest from the reward item
-		items.remove_reference(item_id, "core", "quests", quest_id)
-
-
-# Handles quest changes
-func on_quest_changed(newdata: Dictionary, olddata: Dictionary):
-	# Get unique values from old and new data for items and rewards
-	var old_quest_items: Array = Helper.json_helper.get_unique_values(olddata, "steps.item")
-	var new_quest_items: Array = Helper.json_helper.get_unique_values(newdata, "steps.item")
-	var old_quest_rewards: Array = Helper.json_helper.get_unique_values(olddata, "rewards.item_id")
-	var new_quest_rewards: Array = Helper.json_helper.get_unique_values(newdata, "rewards.item_id")
-	var old_quest_mobs: Array = Helper.json_helper.get_unique_values(olddata, "steps.mob")
-	var new_quest_mobs: Array = Helper.json_helper.get_unique_values(newdata, "steps.mob")
-	
-	# Merge items and rewards, removing duplicates
-	var old_items_merged = Helper.json_helper.merge_unique(old_quest_items, old_quest_rewards)
-	var new_items_merged = Helper.json_helper.merge_unique(new_quest_items, new_quest_rewards)
-	var quest_id: String = newdata.get("id", "")
-
-	# Remove references for old items and rewards
-	for old_item in old_items_merged:
-		if old_item not in new_items_merged:
-			items.remove_reference(old_item, "core", "quests", quest_id)
-
-	# Add references for new items and rewards
-	for new_item in new_items_merged:
-		items.add_reference(new_item, "core", "quests", quest_id)
-
-	# Remove references for old mobs
-	for old_mob in old_quest_mobs:
-		if old_mob not in new_quest_mobs:
-			mobs.remove_reference(old_mob, "core", "quests", quest_id)
-
-	# Add references for new mobs
-	for new_mob in new_quest_mobs:
-		mobs.add_reference(new_mob, "core", "quests", quest_id)
 
 
 # Removes the provided reference from references

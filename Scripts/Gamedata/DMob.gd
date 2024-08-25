@@ -128,7 +128,6 @@ func changed(olddata: DMob):
 # A mob is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	var changes_made = { "value": false }
 	Gamedata.itemgroups.remove_reference(loot_group, "core", "mobs", id)
 	
 	# Check if the mob has references to maps and remove it from those maps
@@ -138,18 +137,11 @@ func delete():
 	
 	# This callable will handle the removal of this mob from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
-		var quest_data = Gamedata.get_data_by_id(Gamedata.data.quests, quest_id)
-		changes_made["value"] = Helper.json_helper.remove_object_by_id(quest_data, "steps.mob", id) or changes_made["value"]
+		Gamedata.quests.remove_mob_from_quest(quest_id,id)
 		
 	# Pass the callable to every quest in the mob's references
 	# It will call remove_from_quest on every mob in mob_data.references.core.quests
 	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
-
-	# Save changes to the data file if any changes were made
-	if changes_made["value"]:
-		Gamedata.save_data_to_file(Gamedata.data.quests)
-	else:
-		print_debug("No changes needed for mob", id)
 
 
 # Executes a callable function on each reference of the given type

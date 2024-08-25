@@ -33,7 +33,7 @@ func _ready():
 	load_content_list({"wearableslots": true}, "Wearable Slots")
 	load_content_list({"stats": true}, "Stats")
 	load_content_list({"skills": true}, "Skills")
-	load_content_list(Gamedata.data.quests, "Quests")
+	load_content_list({"quests": true}, "Quests")
 
 
 func load_content_list(data: Dictionary, strHeader: String):
@@ -72,7 +72,8 @@ func _on_content_item_activated(data: Dictionary, itemID: String, list: Control)
 		"playerattributes": playerattributesEditor,
 		"wearableslots": wearableslotEditor,
 		"stats": statsEditor,
-		"skills": skillsEditor
+		"skills": skillsEditor,
+		"quests": questsEditor
 	}
 
 	for key in editors.keys():
@@ -82,8 +83,6 @@ func _on_content_item_activated(data: Dictionary, itemID: String, list: Control)
 	
 	if data == Gamedata.data.tacticalmaps:
 		instantiate_editor(data, itemID, tacticalmapEditor, list)
-	elif data == Gamedata.data.quests:
-		instantiate_editor(data, itemID, questsEditor, list)
 
 
 # This will add an editor to the content editor tab view. 
@@ -143,6 +142,10 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 		return
 	if data == {"skills": true}:  # HACK Hacky exception for skills, need to find a better solution
 		newContentEditor.dskill = Gamedata.skills.by_id(itemID)
+		newContentEditor.data_changed.connect(list.load_data)
+		return
+	if data == {"quests": true}:  # HACK Hacky exception for quests, need to find a better solution
+		newContentEditor.dquest = Gamedata.quests.by_id(itemID)
 		newContentEditor.data_changed.connect(list.load_data)
 		return
 		
