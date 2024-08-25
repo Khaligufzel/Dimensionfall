@@ -148,47 +148,7 @@ func _on_delete_button_button_up():
 	var selected_id: String = get_selected_item_text()
 	if selected_id == "":
 		return
-	
-	match contentType:
-		Gamedata.ContentType.MAPS:
-			delete_map(selected_id)
-		
-		Gamedata.ContentType.TACTICALMAPS:
-			delete_tacticalmap(selected_id)
-		
-		Gamedata.ContentType.FURNITURES:
-			delete_furniture(selected_id)
-		
-		Gamedata.ContentType.ITEMGROUPS:
-			delete_itemgroup(selected_id)
-		
-		Gamedata.ContentType.ITEMS:
-			delete_item(selected_id)
-		
-		Gamedata.ContentType.TILES:
-			delete_tile(selected_id)
-		
-		Gamedata.ContentType.MOBS:
-			delete_mob(selected_id)
-		
-		Gamedata.ContentType.PLAYERATTRIBUTES:
-			delete_playerattribute(selected_id)
-		
-		Gamedata.ContentType.WEARABLESLOTS:
-			delete_wearableslot(selected_id)
-		
-		Gamedata.ContentType.STATS:
-			delete_stat(selected_id)
-		
-		Gamedata.ContentType.SKILLS:
-			delete_skill(selected_id)
-		
-		Gamedata.ContentType.QUESTS:
-			delete_quest(selected_id)
-		
-		_:
-			# Handle unexpected content types or provide a default action
-			print("Unknown content type:", contentType)
+	delete(selected_id)
 
 
 func get_selected_item_text() -> String:
@@ -682,51 +642,6 @@ func add_mob_popup_ok():
 		is_collapsed = false
 	load_data()
 
-
-func delete_map(selected_id) -> void:
-	Gamedata.maps.delete_by_id(selected_id)
-	load_data()
-
-func delete_tacticalmap(selected_id) -> void:
-	Gamedata.tacticalmaps.delete_by_id(selected_id)
-	load_data()
-
-func delete_furniture(selected_id) -> void:
-	Gamedata.furnitures.delete_by_id(selected_id)
-	load_data()
-
-func delete_itemgroup(selected_id) -> void:
-	Gamedata.itemgroups.delete_by_id(selected_id)
-	load_data()
-
-func delete_item(selected_id) -> void:
-	Gamedata.items.delete_by_id(selected_id)
-	load_data()
-
-func delete_tile(selected_id) -> void:
-	Gamedata.tiles.delete_by_id(selected_id)
-	load_data()
-
-func delete_mob(selected_id) -> void:
-	Gamedata.mobs.delete_by_id(selected_id)
-	load_data()
-
-func delete_playerattribute(selected_id) -> void:
-	Gamedata.playerattributes.delete_by_id(selected_id)
-	load_data()
-
-func delete_wearableslot(selected_id) -> void:
-	Gamedata.wearableslots.delete_by_id(selected_id)
-	load_data()
-
-func delete_stat(selected_id) -> void:
-	Gamedata.stats.delete_by_id(selected_id)
-	load_data()
-
-func delete_skill(selected_id) -> void:
-	Gamedata.skills.delete_by_id(selected_id)
-	load_data()
-
-func delete_quest(selected_id) -> void:
-	Gamedata.quests.delete_by_id(selected_id)
+func delete(selected_id) -> void:
+	Gamedata.get_data_of_type(contentType).delete_by_id(selected_id)
 	load_data()
