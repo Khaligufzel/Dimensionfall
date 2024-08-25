@@ -38,21 +38,7 @@ var is_collapsed: bool = false:
 # If the path is a json file, it will list all the items in the json file
 func load_data():
 	contentItems.clear()
-	var loaders = {
-		Gamedata.ContentType.MAPS: load_map_list,
-		Gamedata.ContentType.TACTICALMAPS: load_tacticalmap_list,
-		Gamedata.ContentType.FURNITURES: load_furnitures_list,
-		Gamedata.ContentType.ITEMGROUPS: load_itemgroups_list,
-		Gamedata.ContentType.ITEMS: load_items_list,
-		Gamedata.ContentType.TILES: load_tiles_list,
-		Gamedata.ContentType.MOBS: load_mobs_list,
-		Gamedata.ContentType.PLAYERATTRIBUTES: load_playerattributes_list,
-		Gamedata.ContentType.WEARABLESLOTS: load_wearableslots_list,
-		Gamedata.ContentType.STATS: load_stats_list,
-		Gamedata.ContentType.SKILLS: load_skills_list,
-		Gamedata.ContentType.QUESTS: load_quests_list
-	}
-	loaders[contentType].call()
+	load_list()
 	load_collapse_state()
 
 # Executed when an item in ContentItems is double-clicked or 
@@ -252,152 +238,15 @@ func load_collapse_state():
 		print("Failed to load settings for:", header, "with error:", err)
 
 
-
-func load_map_list():
-	var maplist: Dictionary = Gamedata.maps.get_all()
-	for map: String in maplist.keys():
-		# Add all the filenames to the ContentItems list as child nodes
-		var item_index: int = contentItems.add_item(map)
-		# Add the ID as metadata which can be used to load the item data
-		contentItems.set_item_metadata(item_index, map)
-		var mySprite: Texture = maplist[map].sprite
-		if mySprite:
-			contentItems.set_item_icon(item_index, mySprite)
-
-
-func load_tacticalmap_list():
-	var maplist: Dictionary = Gamedata.tacticalmaps.get_all()
-	for map: String in maplist.keys():
-		# Add all the filenames to the ContentItems list as child nodes
-		var item_index: int = contentItems.add_item(map)
-		# Add the ID as metadata which can be used to load the item data
-		contentItems.set_item_metadata(item_index, map)
-
-
-# Load the furniture list
-func load_furnitures_list():
-	var furniturelist: Dictionary = Gamedata.furnitures.get_all()
-	for furniture: DFurniture in furniturelist.values():
-		# Add all the filenames to the ContentItems list as child nodes
-		var item_index: int = contentItems.add_item(furniture.id)
-		# Add the ID as metadata which can be used to load the item data
-		contentItems.set_item_metadata(item_index, furniture.id)
-		var mySprite: Texture = furniture.sprite
-		if mySprite:
-			contentItems.set_item_icon(item_index, mySprite)
-
-# Load the itemgroups list
-func load_itemgroups_list():
-	var itemgrouplist: Dictionary = Gamedata.itemgroups.get_all()
-	for itemgroup: DItemgroup in itemgrouplist.values():
-		# Add all the filenames to the ContentItems list as child nodes
-		var item_index: int = contentItems.add_item(itemgroup.id)
-		# Add the ID as metadata which can be used to load the item data
-		contentItems.set_item_metadata(item_index, itemgroup.id)
-		var mySprite: Texture = itemgroup.sprite
-		if mySprite:
-			contentItems.set_item_icon(item_index, mySprite)
-
-# Load the items list
-func load_items_list():
-	var itemlist: Dictionary = Gamedata.items.get_all()
-	for item: DItem in itemlist.values():
-		# Add all the filenames to the ContentItems list as child nodes
-		var item_index: int = contentItems.add_item(item.id)
-		# Add the ID as metadata which can be used to load the item data
-		contentItems.set_item_metadata(item_index, item.id)
-		var mySprite: Texture = item.sprite
-		if mySprite:
-			contentItems.set_item_icon(item_index, mySprite)
-
-# Load the tiles list
-func load_tiles_list():
-	var tilelist: Dictionary = Gamedata.tiles.get_all()
-	for tile: DTile in tilelist.values():
-		# Add all the filenames to the Contenttiles list as child nodes
-		var tile_index: int = contentItems.add_item(tile.id)
-		# Add the ID as metadata which can be used to load the tile data
-		contentItems.set_item_metadata(tile_index, tile.id)
-		var mySprite: Texture = tile.sprite
-		if mySprite:
-			contentItems.set_item_icon(tile_index, mySprite)
-
-# Load the mobs list
-func load_mobs_list():
-	var moblist: Dictionary = Gamedata.mobs.get_all()
-	for mob: DMob in moblist.values():
-		# Add all the filenames to the Contentmobs list as child nodes
-		var mob_index: int = contentItems.add_item(mob.id)
-		# Add the ID as metadata which can be used to load the mob data
-		contentItems.set_item_metadata(mob_index, mob.id)
-		var mySprite: Texture = mob.sprite
-		if mySprite:
-			contentItems.set_item_icon(mob_index, mySprite)
-
-
-# Load the playerattribute list
-func load_playerattributes_list():
-	var playerattributelist: Dictionary = Gamedata.playerattributes.get_all()
-	for playerattribute: DPlayerAttribute in playerattributelist.values():
-		# Add all the filenames to the Contentmobs list as child nodes
-		var attribute_index: int = contentItems.add_item(playerattribute.id)
-		# Add the ID as metadata which can be used to load the mob data
-		contentItems.set_item_metadata(attribute_index, playerattribute.id)
-		var mySprite: Texture = playerattribute.sprite
-		if mySprite:
-			contentItems.set_item_icon(attribute_index, mySprite)
-
-
-# Load the wearableslot list
-func load_wearableslots_list():
-	var wearableslotlist: Dictionary = Gamedata.wearableslots.get_all()
-	for wearableslot: DWearableSlot in wearableslotlist.values():
-		# Add all the filenames to the Contentmobs list as child nodes
-		var attribute_index: int = contentItems.add_item(wearableslot.id)
-		# Add the ID as metadata which can be used to load the mob data
-		contentItems.set_item_metadata(attribute_index, wearableslot.id)
-		var mySprite: Texture = wearableslot.sprite
-		if mySprite:
-			contentItems.set_item_icon(attribute_index, mySprite)
-
-
-# Load the stats list
-func load_stats_list():
-	var statslist: Dictionary = Gamedata.stats.get_all()
-	for stat: DStat in statslist.values():
-		# Add all the filenames to the ContentItems list as child nodes
-		var item_index: int = contentItems.add_item(stat.id)
-		# Add the ID as metadata which can be used to load the stat data
-		contentItems.set_item_metadata(item_index, stat.id)
-		var mySprite: Texture = stat.sprite
-		if mySprite:
-			contentItems.set_item_icon(item_index, mySprite)
-
-
-# Load the skills list
-func load_skills_list():
-	var skillslist: Dictionary = Gamedata.skills.get_all()
-	for skill: DSkill in skillslist.values():
-		# Add all the filenames to the ContentItems list as child nodes
-		var item_index: int = contentItems.add_item(skill.id)
-		# Add the ID as metadata which can be used to load the skill data
-		contentItems.set_item_metadata(item_index, skill.id)
-		var mySprite: Texture = skill.sprite
-		if mySprite:
-			contentItems.set_item_icon(item_index, mySprite)
-
-
 # Load the quests list
-func load_quests_list():
-	var questslist: Dictionary = Gamedata.quests.get_all()
-	for quest: DQuest in questslist.values():
+func load_list():
+	for entry: RefCounted in datainstance.get_all().values():
 		# Add all the filenames to the ContentItems list as child nodes
-		var item_index: int = contentItems.add_item(quest.id)
+		var item_index: int = contentItems.add_item(entry.id)
 		# Add the ID as metadata which can be used to load the quest data
-		contentItems.set_item_metadata(item_index, quest.id)
-		var mySprite: Texture = quest.sprite
-		if mySprite:
-			contentItems.set_item_icon(item_index, mySprite)
+		contentItems.set_item_metadata(item_index, entry.id)
+		if "sprite" in entry:
+			contentItems.set_item_icon(item_index, entry.sprite)
 
 func delete(selected_id) -> void:
 	Gamedata.get_data_of_type(contentType).delete_by_id(selected_id)
