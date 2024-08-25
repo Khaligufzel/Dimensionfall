@@ -22,23 +22,23 @@ func load_maps_from_disk() -> void:
 		mapdict[mapid] = map
 
 
-func get_maps() -> Dictionary:
+func get_all() -> Dictionary:
 	return mapdict
 
 
-func duplicate_map_to_disk(mapid: String, newmapid: String) -> void:
+func duplicate_to_disk(mapid: String, newmapid: String) -> void:
 	var newmap: DMap = DMap.new(newmapid, dataPath)
 	newmap.set_data(mapdict[mapid].get_data().duplicate(true))
 	newmap.save_data_to_disk()
 	mapdict[newmapid] = newmap
 
 
-func add_new_map(newid: String) -> void:
+func add_new(newid: String) -> void:
 	var newmap: DMap = DMap.new(newid, dataPath)
 	newmap.save_data_to_disk()
 	
 
-func delete_map(mapid: String) -> void:
+func delete_by_id(mapid: String) -> void:
 	mapdict[mapid].delete()
 	mapdict.erase(mapid)
 

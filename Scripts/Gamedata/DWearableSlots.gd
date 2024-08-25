@@ -47,11 +47,11 @@ func save_wearableslots_to_disk() -> void:
 	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
 
 
-func get_wearableslots() -> Dictionary:
+func get_all() -> Dictionary:
 	return wearableslotdict
 
 
-func duplicate_wearableslot_to_disk(wearableslotid: String, newwearableslotid: String) -> void:
+func duplicate_to_disk(wearableslotid: String, newwearableslotid: String) -> void:
 	var wearableslotdata: Dictionary = wearableslotdict[wearableslotid].get_data().duplicate(true)
 	wearableslotdata.id = newwearableslotid
 	var newwearableslot: DWearableSlot = DWearableSlot.new(wearableslotdata)
@@ -59,13 +59,13 @@ func duplicate_wearableslot_to_disk(wearableslotid: String, newwearableslotid: S
 	save_wearableslots_to_disk()
 
 
-func add_new_wearableslot(newid: String) -> void:
+func add_new(newid: String) -> void:
 	var newwearableslot: DWearableSlot = DWearableSlot.new({"id":newid})
 	wearableslotdict[newwearableslot.id] = newwearableslot
 	save_wearableslots_to_disk()
 
 
-func delete_wearableslot(wearableslotid: String) -> void:
+func delete_by_id(wearableslotid: String) -> void:
 	wearableslotdict[wearableslotid].delete()
 	wearableslotdict.erase(wearableslotid)
 	save_wearableslots_to_disk()

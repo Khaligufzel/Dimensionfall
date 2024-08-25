@@ -48,11 +48,11 @@ func save_tiles_to_disk() -> void:
 	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
 
 
-func get_tiles() -> Dictionary:
+func get_all() -> Dictionary:
 	return tiledict
 
 
-func duplicate_tile_to_disk(tileid: String, newtileid: String) -> void:
+func duplicate_to_disk(tileid: String, newtileid: String) -> void:
 	var tiledata: Dictionary = tiledict[tileid].get_data().duplicate(true)
 	tiledata.id = newtileid
 	var newtile: DTile = DTile.new(tiledata)
@@ -60,13 +60,13 @@ func duplicate_tile_to_disk(tileid: String, newtileid: String) -> void:
 	save_tiles_to_disk()
 
 
-func add_new_tile(newid: String) -> void:
+func add_new(newid: String) -> void:
 	var newtile: DTile = DTile.new({"id":newid})
 	tiledict[newtile.id] = newtile
 	save_tiles_to_disk()
 
 
-func delete_tile(tileid: String) -> void:
+func delete_by_id(tileid: String) -> void:
 	tiledict[tileid].delete()
 	tiledict.erase(tileid)
 	save_tiles_to_disk()

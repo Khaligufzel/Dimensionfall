@@ -110,7 +110,7 @@ func _on_quest_reset(_quest_name: String):
 # Initialize quests by wiping player data and loading quest data
 func initialize_quests():
 	QuestManager.wipe_player_data()
-	for quest: DQuest in Gamedata.quests.get_quests().values():
+	for quest: DQuest in Gamedata.quests.get_all().values():
 		create_quest_from_data(quest)
 
 

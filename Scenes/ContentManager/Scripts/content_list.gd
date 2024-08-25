@@ -357,7 +357,7 @@ func load_collapse_state():
 
 
 func load_map_list():
-	var maplist: Dictionary = Gamedata.maps.get_maps()
+	var maplist: Dictionary = Gamedata.maps.get_all()
 	for map: String in maplist.keys():
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(map)
@@ -369,7 +369,7 @@ func load_map_list():
 
 
 func load_tacticalmap_list():
-	var maplist: Dictionary = Gamedata.tacticalmaps.get_maps()
+	var maplist: Dictionary = Gamedata.tacticalmaps.get_all()
 	for map: String in maplist.keys():
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(map)
@@ -391,7 +391,7 @@ func load_furnitures_list():
 
 # Load the itemgroups list
 func load_itemgroups_list():
-	var itemgrouplist: Dictionary = Gamedata.itemgroups.get_itemgroups()
+	var itemgrouplist: Dictionary = Gamedata.itemgroups.get_all()
 	for itemgroup: DItemgroup in itemgrouplist.values():
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(itemgroup.id)
@@ -403,7 +403,7 @@ func load_itemgroups_list():
 
 # Load the items list
 func load_items_list():
-	var itemlist: Dictionary = Gamedata.items.get_items()
+	var itemlist: Dictionary = Gamedata.items.get_all()
 	for item: DItem in itemlist.values():
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(item.id)
@@ -415,7 +415,7 @@ func load_items_list():
 
 # Load the tiles list
 func load_tiles_list():
-	var tilelist: Dictionary = Gamedata.tiles.get_tiles()
+	var tilelist: Dictionary = Gamedata.tiles.get_all()
 	for tile: DTile in tilelist.values():
 		# Add all the filenames to the Contenttiles list as child nodes
 		var tile_index: int = contentItems.add_item(tile.id)
@@ -427,7 +427,7 @@ func load_tiles_list():
 
 # Load the mobs list
 func load_mobs_list():
-	var moblist: Dictionary = Gamedata.mobs.get_mobs()
+	var moblist: Dictionary = Gamedata.mobs.get_all()
 	for mob: DMob in moblist.values():
 		# Add all the filenames to the Contentmobs list as child nodes
 		var mob_index: int = contentItems.add_item(mob.id)
@@ -440,7 +440,7 @@ func load_mobs_list():
 
 # Load the playerattribute list
 func load_playerattributes_list():
-	var playerattributelist: Dictionary = Gamedata.playerattributes.get_playerattributes()
+	var playerattributelist: Dictionary = Gamedata.playerattributes.get_all()
 	for playerattribute: DPlayerAttribute in playerattributelist.values():
 		# Add all the filenames to the Contentmobs list as child nodes
 		var attribute_index: int = contentItems.add_item(playerattribute.id)
@@ -453,7 +453,7 @@ func load_playerattributes_list():
 
 # Load the wearableslot list
 func load_wearableslots_list():
-	var wearableslotlist: Dictionary = Gamedata.wearableslots.get_wearableslots()
+	var wearableslotlist: Dictionary = Gamedata.wearableslots.get_all()
 	for wearableslot: DWearableSlot in wearableslotlist.values():
 		# Add all the filenames to the Contentmobs list as child nodes
 		var attribute_index: int = contentItems.add_item(wearableslot.id)
@@ -466,7 +466,7 @@ func load_wearableslots_list():
 
 # Load the stats list
 func load_stats_list():
-	var statslist: Dictionary = Gamedata.stats.get_stats()
+	var statslist: Dictionary = Gamedata.stats.get_all()
 	for stat: DStat in statslist.values():
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(stat.id)
@@ -479,7 +479,7 @@ func load_stats_list():
 
 # Load the skills list
 func load_skills_list():
-	var skillslist: Dictionary = Gamedata.skills.get_skills()
+	var skillslist: Dictionary = Gamedata.skills.get_all()
 	for skill: DSkill in skillslist.values():
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(skill.id)
@@ -492,7 +492,7 @@ func load_skills_list():
 
 # Load the quests list
 func load_quests_list():
-	var questslist: Dictionary = Gamedata.quests.get_quests()
+	var questslist: Dictionary = Gamedata.quests.get_all()
 	for quest: DQuest in questslist.values():
 		# Add all the filenames to the ContentItems list as child nodes
 		var item_index: int = contentItems.add_item(quest.id)
@@ -508,9 +508,9 @@ func add_map_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.maps.add_new_map(myText)
+		Gamedata.maps.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.maps.duplicate_map_to_disk(get_selected_item_text(), myText)
+		Gamedata.maps.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -523,9 +523,9 @@ func add_tacticalmap_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.tacticalmaps.add_new_tacticalmap(myText)
+		Gamedata.tacticalmaps.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.tacticalmaps.duplicate_tacticalmap_to_disk(get_selected_item_text(), myText)
+		Gamedata.tacticalmaps.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -538,9 +538,9 @@ func add_playerattribute_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.playerattributes.add_new_playerattribute(myText)
+		Gamedata.playerattributes.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.playerattributes.duplicate_playerattribute_to_disk(get_selected_item_text(), myText)
+		Gamedata.playerattributes.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -553,9 +553,9 @@ func add_wearableslot_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.wearableslots.add_new_wearableslot(myText)
+		Gamedata.wearableslots.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.wearableslots.duplicate_wearableslots_to_disk(get_selected_item_text(), myText)
+		Gamedata.wearableslots.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -583,9 +583,9 @@ func add_itemgroup_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.itemgroups.add_new_itemgroup(myText)
+		Gamedata.itemgroups.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.itemgroups.duplicate_itemgroup_to_disk(get_selected_item_text(), myText)
+		Gamedata.itemgroups.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -598,9 +598,9 @@ func add_stat_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.stats.add_new_stat(myText)
+		Gamedata.stats.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.stats.duplicate_stat_to_disk(get_selected_item_text(), myText)
+		Gamedata.stats.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -613,9 +613,9 @@ func add_skill_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.skills.add_new_skill(myText)
+		Gamedata.skills.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.skills.duplicate_skill_to_disk(get_selected_item_text(), myText)
+		Gamedata.skills.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -628,9 +628,9 @@ func add_quest_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.quests.add_new_quest(myText)
+		Gamedata.quests.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.quests.duplicate_quest_to_disk(get_selected_item_text(), myText)
+		Gamedata.quests.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -643,9 +643,9 @@ func add_item_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.items.add_new_item(myText)
+		Gamedata.items.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.items.duplicate_item_to_disk(get_selected_item_text(), myText)
+		Gamedata.items.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -658,9 +658,9 @@ func add_tile_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.tiles.add_new_tile(myText)
+		Gamedata.tiles.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.tiles.duplicate_tile_to_disk(get_selected_item_text(), myText)
+		Gamedata.tiles.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -673,9 +673,9 @@ func add_mob_popup_ok():
 	if myText == "":
 		return
 	if popupAction == "Add":
-		Gamedata.mobs.add_new_mob(myText)
+		Gamedata.mobs.add_new(myText)
 	if popupAction == "Duplicate":
-		Gamedata.mobs.duplicate_mob_to_disk(get_selected_item_text(), myText)
+		Gamedata.mobs.duplicate_to_disk(get_selected_item_text(), myText)
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
@@ -684,11 +684,11 @@ func add_mob_popup_ok():
 
 
 func delete_map(selected_id) -> void:
-	Gamedata.maps.delete_map(selected_id)
+	Gamedata.maps.delete_by_id(selected_id)
 	load_data()
 
 func delete_tacticalmap(selected_id) -> void:
-	Gamedata.tacticalmaps.delete_map(selected_id)
+	Gamedata.tacticalmaps.delete_by_id(selected_id)
 	load_data()
 
 func delete_furniture(selected_id) -> void:
@@ -696,37 +696,37 @@ func delete_furniture(selected_id) -> void:
 	load_data()
 
 func delete_itemgroup(selected_id) -> void:
-	Gamedata.itemgroups.delete_itemgroup(selected_id)
+	Gamedata.itemgroups.delete_by_id(selected_id)
 	load_data()
 
 func delete_item(selected_id) -> void:
-	Gamedata.items.delete_item(selected_id)
+	Gamedata.items.delete_by_id(selected_id)
 	load_data()
 
 func delete_tile(selected_id) -> void:
-	Gamedata.tiles.delete_tile(selected_id)
+	Gamedata.tiles.delete_by_id(selected_id)
 	load_data()
 
 func delete_mob(selected_id) -> void:
-	Gamedata.mobs.delete_mob(selected_id)
+	Gamedata.mobs.delete_by_id(selected_id)
 	load_data()
 
 func delete_playerattribute(selected_id) -> void:
-	Gamedata.playerattributes.delete_playerattribute(selected_id)
+	Gamedata.playerattributes.delete_by_id(selected_id)
 	load_data()
 
 func delete_wearableslot(selected_id) -> void:
-	Gamedata.wearableslots.delete_playerattribute(selected_id)
+	Gamedata.wearableslots.delete_by_id(selected_id)
 	load_data()
 
 func delete_stat(selected_id) -> void:
-	Gamedata.stats.delete_stat(selected_id)
+	Gamedata.stats.delete_by_id(selected_id)
 	load_data()
 
 func delete_skill(selected_id) -> void:
-	Gamedata.skills.delete_skill(selected_id)
+	Gamedata.skills.delete_by_id(selected_id)
 	load_data()
 
 func delete_quest(selected_id) -> void:
-	Gamedata.quests.delete_quest(selected_id)
+	Gamedata.quests.delete_by_id(selected_id)
 	load_data()

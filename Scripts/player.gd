@@ -110,7 +110,7 @@ func initialize_condition():
 # The PlayerAttribute manages the actual control of the attribute while
 # DPlayerAttribute only provides the data
 func initialize_attributes():
-	var playerattributes: Dictionary = Gamedata.playerattributes.get_playerattributes()
+	var playerattributes: Dictionary = Gamedata.playerattributes.get_all()
 	for attribute: DPlayerAttribute in playerattributes.values():
 		attributes[attribute.id] = PlayerAttribute.new(attribute, self)
 
@@ -118,12 +118,12 @@ func initialize_attributes():
 # Initialize skills with level and XP
 func initialize_stats_and_skills():
 	# Initialize all stats with a value of 5
-	for stat in Gamedata.stats.get_stats().values():
+	for stat in Gamedata.stats.get_all().values():
 		stats[stat.id] = 5
 	Helper.signal_broker.player_stat_changed.emit(self)
 	
 	# Initialize all skills with a value of level 1 and 0 XP
-	for skill in Gamedata.skills.get_skills().values():
+	for skill in Gamedata.skills.get_all().values():
 		skills[skill.id] = {"level": 1, "xp": 0}
 	Helper.signal_broker.player_skill_changed.emit(self)
 

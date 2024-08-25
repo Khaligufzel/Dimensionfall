@@ -45,11 +45,11 @@ func save_skills_to_disk() -> void:
 	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
 
 # Returns the dictionary containing all skills
-func get_skills() -> Dictionary:
+func get_all() -> Dictionary:
 	return skilldict
 
 # Duplicates a skill and saves it to disk with a new ID
-func duplicate_skill_to_disk(skillid: String, newskillid: String) -> void:
+func duplicate_to_disk(skillid: String, newskillid: String) -> void:
 	var skilldata: Dictionary = skilldict[skillid].get_data().duplicate(true)
 	skilldata["id"] = newskillid
 	var newskill: DSkill = DSkill.new(skilldata)
@@ -57,13 +57,13 @@ func duplicate_skill_to_disk(skillid: String, newskillid: String) -> void:
 	save_skills_to_disk()
 
 # Adds a new skill with a given ID
-func add_new_skill(newid: String) -> void:
+func add_new(newid: String) -> void:
 	var newskill: DSkill = DSkill.new({"id": newid})
 	skilldict[newskill.id] = newskill
 	save_skills_to_disk()
 
 # Deletes a skill by its ID and saves changes to disk
-func delete_skill(skillid: String) -> void:
+func delete_by_id(skillid: String) -> void:
 	skilldict[skillid].delete()
 	skilldict.erase(skillid)
 	save_skills_to_disk()

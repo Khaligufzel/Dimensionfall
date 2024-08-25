@@ -45,11 +45,11 @@ func save_stats_to_disk() -> void:
 	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
 
 # Returns the dictionary containing all stats
-func get_stats() -> Dictionary:
+func get_all() -> Dictionary:
 	return statdict
 
 # Duplicates a stat and saves it to disk with a new ID
-func duplicate_stat_to_disk(statid: String, newstatid: String) -> void:
+func duplicate_to_disk(statid: String, newstatid: String) -> void:
 	var statdata: Dictionary = statdict[statid].get_data().duplicate(true)
 	statdata.id = newstatid
 	var newstat: DStat = DStat.new(statdata)
@@ -57,13 +57,13 @@ func duplicate_stat_to_disk(statid: String, newstatid: String) -> void:
 	save_stats_to_disk()
 
 # Adds a new stat with a given ID
-func add_new_stat(newid: String) -> void:
+func add_new(newid: String) -> void:
 	var newstat: DStat = DStat.new({"id": newid})
 	statdict[newstat.id] = newstat
 	save_stats_to_disk()
 
 # Deletes a stat by its ID and saves changes to disk
-func delete_stat(statid: String) -> void:
+func delete_by_id(statid: String) -> void:
 	statdict[statid].delete()
 	statdict.erase(statid)
 	save_stats_to_disk()

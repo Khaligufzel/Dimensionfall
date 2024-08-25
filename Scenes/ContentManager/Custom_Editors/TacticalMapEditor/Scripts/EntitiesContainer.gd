@@ -17,7 +17,7 @@ func _ready():
 
 # loop over Gamedata.maps and creates tilebrushes for each map sprite in the list. 
 func loadMaps():
-	var mapsList: Dictionary = Gamedata.maps.get_maps()
+	var mapsList: Dictionary = Gamedata.maps.get_all()
 	var newTilesList: Control = scrolling_Flow_Container.instantiate()
 	newTilesList.header = "maps"
 	add_child(newTilesList)

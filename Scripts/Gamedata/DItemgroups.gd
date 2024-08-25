@@ -48,11 +48,11 @@ func save_itemgroups_to_disk() -> void:
 	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
 
 
-func get_itemgroups() -> Dictionary:
+func get_all() -> Dictionary:
 	return itemgroupdict
 
 
-func duplicate_itemgroup_to_disk(itemgroupid: String, newitemgroupid: String) -> void:
+func duplicate_to_disk(itemgroupid: String, newitemgroupid: String) -> void:
 	var itemgroupdata: Dictionary = itemgroupdict[itemgroupid].get_data().duplicate(true)
 	itemgroupdata.id = newitemgroupid
 	var newitemgroup: DItemgroup = DItemgroup.new(itemgroupdata)
@@ -60,13 +60,13 @@ func duplicate_itemgroup_to_disk(itemgroupid: String, newitemgroupid: String) ->
 	save_itemgroups_to_disk()
 
 
-func add_new_itemgroup(newid: String) -> void:
+func add_new(newid: String) -> void:
 	var newitemgroup: DItemgroup = DItemgroup.new({"id":newid})
 	itemgroupdict[newitemgroup.id] = newitemgroup
 	save_itemgroups_to_disk()
 
 
-func delete_itemgroup(itemgroupid: String) -> void:
+func delete_by_id(itemgroupid: String) -> void:
 	itemgroupdict[itemgroupid].delete()
 	itemgroupdict.erase(itemgroupid)
 	save_itemgroups_to_disk()

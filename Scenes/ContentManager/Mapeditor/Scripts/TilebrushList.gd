@@ -21,7 +21,7 @@ func _ready():
 	
 # this function will read all files in Gamedata.data.mobs.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
 func loadMobs():
-	var mobList: Dictionary = Gamedata.mobs.get_mobs()
+	var mobList: Dictionary = Gamedata.mobs.get_all()
 	var newMobsList: Control = scrolling_Flow_Container.instantiate()
 	newMobsList.header = "Mobs"
 	newMobsList.collapse_button_pressed.connect(_on_collapse_button_pressed)
@@ -65,7 +65,7 @@ func loadFurniture():
 
 # this function will read all files in Gamedata.tiles and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
 func loadTiles():
-	var tileList: Dictionary = Gamedata.tiles.get_tiles()
+	var tileList: Dictionary = Gamedata.tiles.get_all()
 
 	for tile: DTile in tileList.values():
 		if tile.spriteid:
