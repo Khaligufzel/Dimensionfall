@@ -12,9 +12,11 @@ extends Control
 @export var popup_textedit: TextEdit = null
 signal item_activated(type: Gamedata.ContentType, itemID: String, list: Control)
 var popupAction: String = ""
+var datainstance: RefCounted # One of the data classes like DMap, DTile, DMob and so on
 var contentType: Gamedata.ContentType:
 	set(newData):
 		contentType = newData
+		datainstance = Gamedata.get_data_of_type(contentType)
 		load_data()
 
 var header: String = "Items":
@@ -94,7 +96,6 @@ func _on_duplicate_button_button_up():
 func _on_ok_button_up():
 	pupup_ID.hide()
 	var myText = popup_textedit.text
-	var datainstance: RefCounted = Gamedata.get_data_of_type(contentType)
 	if myText == "":
 		return
 	if popupAction == "Add":
@@ -179,44 +180,8 @@ func _drop_data(newpos, data) -> void:
 # Helper function to create a preview Control for dragging
 func _create_drag_preview(item_id: String) -> Control:
 	var preview = TextureRect.new()
-	
-	match contentType:
-		Gamedata.ContentType.FURNITURES:
-			preview.texture = Gamedata.furnitures.sprite_by_id(item_id)
-		
-		Gamedata.ContentType.ITEMGROUPS:
-			preview.texture = Gamedata.itemgroups.sprite_by_id(item_id)
-		
-		Gamedata.ContentType.MAPS:
-			preview.texture = Gamedata.maps.by_id(item_id).sprite
-		
-		Gamedata.ContentType.TILES:
-			preview.texture = Gamedata.tiles.by_id(item_id).sprite
-		
-		Gamedata.ContentType.MOBS:
-			preview.texture = Gamedata.mobs.by_id(item_id).sprite
-		
-		Gamedata.ContentType.ITEMS:
-			preview.texture = Gamedata.items.by_id(item_id).sprite
-		
-		Gamedata.ContentType.PLAYERATTRIBUTES:
-			preview.texture = Gamedata.playerattributes.by_id(item_id).sprite
-		
-		Gamedata.ContentType.WEARABLESLOTS:
-			preview.texture = Gamedata.wearableslots.by_id(item_id).sprite
-		
-		Gamedata.ContentType.STATS:
-			preview.texture = Gamedata.stats.by_id(item_id).sprite
-		
-		Gamedata.ContentType.SKILLS:
-			preview.texture = Gamedata.skills.by_id(item_id).sprite
-		
-		Gamedata.ContentType.QUESTS:
-			preview.texture = Gamedata.quests.by_id(item_id).sprite
-		
-		_:
-			# Handle unexpected content types or provide a default action
-			print("Unknown content type:", contentType)
+	if not contentType == Gamedata.ContentType.TACTICALMAPS:
+		preview.texture = datainstance.sprite_by_id(item_id)
 
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
 	return preview

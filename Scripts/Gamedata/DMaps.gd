@@ -47,6 +47,11 @@ func delete_by_id(mapid: String) -> void:
 func by_id(mapid: String) -> DMap:
 	return mapdict[mapid.replace(".json","")]
 
+# Returns the sprite of the map
+func sprite_by_id(mapid: String) -> Texture:
+	return by_id(mapid).sprite
+
+
 # Loop over all maps and delete the entity from it. It will be removed from all levels and areas
 # entity_type: "tile", "furniture", "mob", "itemgroup"
 # entity_id: the id of the entity
