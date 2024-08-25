@@ -12,12 +12,12 @@ var itemgroups: DItemgroups
 var playerattributes: DPlayerAttributes
 var wearableslots: DWearableSlots
 var stats: DStats
+var skills: DSkills
 
 # Dictionary keys for game data categories
 const DATA_CATEGORIES = {
 	"overmaptiles": {"spritePath": "./Mods/Core/OvermapTiles/"},
 	"tacticalmaps": {"dataPath": "./Mods/Core/TacticalMaps/"},
-	"skills": {"dataPath": "./Mods/Core/Skills/Skills.json", "spritePath": "./Mods/Core/Skills/"},
 	"quests": {"dataPath": "./Mods/Core/Quests/Quests.json", "spritePath": "./Mods/Core/Items/"}
 }
 
@@ -44,6 +44,7 @@ func _ready():
 	playerattributes = DPlayerAttributes.new()
 	wearableslots = DWearableSlots.new()
 	stats = DStats.new()
+	skills = DSkills.new()
 
 
 # Initializes the data structures for each category defined in DATA_CATEGORIES
@@ -218,7 +219,7 @@ func save_data_to_file(contentData: Dictionary):
 
 
 # Takes contentdata and an id and returns the json that belongs to an id
-# For example, contentData can be Gamedata.data.skills
+# For example, contentData can be Gamedata.data.quests
 # and id can be "plain_grass" and it will return the json data for plain_grass
 func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 	var idnr: int = get_array_index_by_id(contentData, id)
@@ -228,7 +229,7 @@ func get_data_by_id(contentData: Dictionary, id: String) -> Dictionary:
 
 
 # Takes contentData and an id and returns the sprite associated with the id
-# For example, contentData can be Gamedata.data.skills
+# For example, contentData can be Gamedata.data.quests
 # and id can be "plain_grass" and it will return the sprite for plain_grass
 func get_sprite_by_id(contentData: Dictionary, id: String) -> Resource:
 	if contentData.sprites.is_empty() or contentData.data.is_empty():
@@ -353,8 +354,6 @@ func remove_reference(mydata: Dictionary, module: String, type: String, fromid: 
 func remove_references_of_deleted_id(contentData: Dictionary, id: String):
 	if contentData == data.tacticalmaps:
 		on_tacticalmap_deleted(id)
-	if contentData == data.skills:
-		on_skill_deleted(id)
 	if contentData == data.quests:
 		on_quest_deleted(id)
 
@@ -450,31 +449,6 @@ func on_tacticalmapdata_changed(tacticalmap_id: String, newdata: Dictionary, old
 		if id not in unique_new_ids:
 			maps.remove_reference_from_map(id, "core", "tacticalmaps", tacticalmap_id)
 
-
-# A skill is being deleted from the data
-# We have to remove it from everything that references it
-func on_skill_deleted(skill_id: String):
-	var changes_made = { "value": false }  # Using a Dictionary to hold the change status
-	var skill_data = get_data_by_id(data.skills, skill_id)
-
-	if skill_data.is_empty():
-		print_debug("Skill with ID", skill_id, "not found.")
-		return
-
-	# This callable will remove the skill references from items that reference this skill.
-	var remove_skill_from_item: Callable = func (item_id):
-		var ditem: DItem = items.by_id(item_id)
-		changes_made["value"] = ditem.remove_skill(skill_id)
-
-	# Pass the callable to every item in the skill's references
-	# It will call myfunc on every item in skill_data.references.core.items
-	execute_callable_on_references_of_type(skill_data, "core", "items", remove_skill_from_item)
-
-	# Save changes to the data file if any changes were made
-	if changes_made["value"]:
-		items.save_items_to_disk()
-	else:
-		print_debug("No changes needed for skill", skill_id)
 
 # Handles quest deletion
 func on_quest_deleted(quest_id: String):

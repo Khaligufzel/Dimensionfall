@@ -50,7 +50,8 @@ func load_data():
 		"mobs": load_mobs_list,
 		"playerattributes": load_playerattributes_list,
 		"wearableslots": load_wearableslots_list,
-		"stats": load_stats_list
+		"stats": load_stats_list,
+		"skills": load_skills_list
 	}
 
 	for key in loaders.keys():
@@ -173,6 +174,10 @@ func _on_ok_button_up():
 	if contentData == {"stats": true}:
 		add_stat_popup_ok()
 		return
+	# HACK Hacky exception for skills, need to find a better solution
+	if contentData == {"skills": true}:
+		add_skill_popup_ok()
+		return
 
 	var myText = popup_textedit.text
 	if myText == "":
@@ -237,6 +242,10 @@ func _on_delete_button_button_up():
 	# HACK Exception for stats, need to find a better solution
 	if contentData == {"stats": true}:
 		delete_stat(selected_id)
+		return
+	# HACK Exception for skills, need to find a better solution
+	if contentData == {"skills": true}:
+		delete_skill(selected_id)
 		return
 
 	contentItems.remove_item(contentItems.get_selected_items()[0])
@@ -316,6 +325,10 @@ func _create_drag_preview(item_id: String) -> Control:
 		preview.texture = Gamedata.playerattributes.by_id(item_id).sprite
 	elif contentData == {"wearableslots": true}:
 		preview.texture = Gamedata.wearableslots.by_id(item_id).sprite
+	elif contentData == {"stats": true}:
+		preview.texture = Gamedata.stats.by_id(item_id).sprite
+	elif contentData == {"skills": true}:
+		preview.texture = Gamedata.skills.by_id(item_id).sprite
 	else:
 		preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
@@ -504,6 +517,19 @@ func load_stats_list():
 			contentItems.set_item_icon(item_index, mySprite)
 
 
+# Load the skills list
+func load_skills_list():
+	var skillslist: Dictionary = Gamedata.skills.get_skills()
+	for skill: DSkill in skillslist.values():
+		# Add all the filenames to the ContentItems list as child nodes
+		var item_index: int = contentItems.add_item(skill.id)
+		# Add the ID as metadata which can be used to load the skill data
+		contentItems.set_item_metadata(item_index, skill.id)
+		var mySprite: Texture = skill.sprite
+		if mySprite:
+			contentItems.set_item_icon(item_index, mySprite)
+
+
 func add_map_popup_ok():
 	var myText = popup_textedit.text
 	if myText == "":
@@ -594,6 +620,21 @@ func add_stat_popup_ok():
 	load_data()
 
 
+func add_skill_popup_ok():
+	var myText = popup_textedit.text
+	if myText == "":
+		return
+	if popupAction == "Add":
+		Gamedata.skills.add_new_skill(myText)
+	if popupAction == "Duplicate":
+		Gamedata.skills.duplicate_skill_to_disk(get_selected_item_text(), myText)
+	popupAction = ""
+	# Check if the list is collapsed and expand it if true
+	if is_collapsed:
+		is_collapsed = false
+	load_data()
+
+
 func delete_map(selected_id) -> void:
 	Gamedata.maps.delete_map(selected_id)
 	load_data()
@@ -628,4 +669,8 @@ func delete_wearableslot(selected_id) -> void:
 
 func delete_stat(selected_id) -> void:
 	Gamedata.stats.delete_stat(selected_id)
+	load_data()
+
+func delete_skill(selected_id) -> void:
+	Gamedata.skills.delete_skill(selected_id)
 	load_data()

@@ -474,8 +474,6 @@ func changed(olddata: DItem):
 
 # Collects all skills defined in an item and updates the references to that skill
 func update_item_skill_references(olddata: DItem):
-	var changes_made = false
-
 	# Function to collect skill IDs from a list of used skills
 	var collect_skill_ids: Callable = func (item: DItem):
 		var skill_ids = []
@@ -494,18 +492,11 @@ func update_item_skill_references(olddata: DItem):
 	# Remove old skill references that are not in the new list
 	for old_skill_id in old_skill_ids:
 		if not new_skill_ids.has(old_skill_id):
-			changes_made = Gamedata.remove_reference(Gamedata.data.skills, "core", "items", old_skill_id, id) or changes_made
+			Gamedata.skills.remove_reference(old_skill_id, "core", "items", id)
 	
 	# Add new skill references
 	for new_skill_id in new_skill_ids:
-		changes_made = Gamedata.add_reference(Gamedata.data.skills, "core", "items", new_skill_id, id) or changes_made
-		
-	# Save changes if any modifications were made
-	if changes_made:
-		Gamedata.save_data_to_file(Gamedata.data.skills)
-		print_debug("Item skill changes saved successfully.")
-	else:
-		print_debug("No skill changes were made to item.")
+		Gamedata.skills.add_reference(new_skill_id, "core", "items", id)
 
 
 # An item is being deleted from the data
@@ -564,12 +555,10 @@ func delete():
 
 	# Remove the reference of this item from each skill
 	for skill_id in skill_ids.keys():
-		changes_made["value"] = Gamedata.remove_reference(Gamedata.data.skills, "core", \
-		"items", skill_id, id) or changes_made["value"]
+		Gamedata.skills.remove_reference(skill_id, "core", "items", id)
 
 	# Save changes to the data file if any changes were made
 	if changes_made["value"]:
-		Gamedata.save_data_to_file(Gamedata.data.skills)
 		Gamedata.save_data_to_file(Gamedata.data.quests)
 		Gamedata.items.save_items_to_disk()
 	else:
