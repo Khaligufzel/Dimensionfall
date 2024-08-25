@@ -5,11 +5,10 @@ extends GridContainer
 # larger map made up of smaller maps.
 
 signal map_dimensions_changed(new_map_width, new_map_height)
-signal map_data_changed(map_path: String, new_data: Dictionary, old_data: Dictionary)  # Declare the signal
 
 @export var tileScene: PackedScene
 #Contains the data of every tile in the current level, the ground level or level 0 by default
-var currentLevelData: Array = []
+var currentLevelData: Array[DTacticalmap.TChunk] = []
 @export var mapEditor: Control
 @export var buttonRotateRight: Button
 var selected_brush: Control
@@ -20,22 +19,13 @@ var snapAmount: float
 # Initialize new mapdata with a 3x3 empty map grid
 var defaultMapData: Dictionary = {"mapwidth": 3, "mapheight": 3, "chunks": [{},{},{},{},{},{},{},{},{}]}
 var rotationAmount: int = 0
-#Contains map metadata like size as well as the data on all levels
-var mapData: Dictionary = defaultMapData.duplicate():
-	set(data):
-		if data.is_empty():
-			mapData = defaultMapData.duplicate()
-		else:
-			mapData = data.duplicate()
-		loadLevel()
 
-var olddata: Dictionary  # Used to remember the mapdata before it was changed
-var suppress_reset: bool = false  # Flag to control resetting the grid
 
 
 func _ready():
+	# Connect the signal from TileGrid to this script
+	map_dimensions_changed.connect(mapEditor._on_map_dimensions_changed)
 	createTiles()
-	map_data_changed.connect(Gamedata.on_tacticalmapdata_changed)
 
 
 # This function will fill fill this GridContainer with a grid of 3x3 instances of "res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/TacticalMapEditorTile.tscn"
@@ -49,21 +39,14 @@ func createTiles():
 
 
 func resetGrid():
-	if suppress_reset:
-		return
 	# Clear the existing children
 	for child in get_children():
 		child.queue_free()
 
-	# Update mapData with new dimensions
-	mapData.mapwidth = mapEditor.mapWidth
-	mapData.mapheight = mapEditor.mapHeight
 	var newMapsArray = []
 	for x in range(mapEditor.mapWidth):
 		for y in range(mapEditor.mapHeight):
 			newMapsArray.append({})  # Add an empty dictionary for each tile
-
-	mapData.chunks = newMapsArray
 
 	# Recreate tiles
 	createTiles()
@@ -94,10 +77,10 @@ func paint_single_tile(clicked_tile):
 func save_map_json_file():
 	# Convert the TileGrid.mapData to a JSON string
 	storeLevelData()
-	map_data_changed.emit(mapEditor.contentSource, mapData, olddata)  # Emit the signal before saving
-	var map_data_json = JSON.stringify(mapData.duplicate(), "\t")
-	Helper.json_helper.write_json_file(mapEditor.contentSource, map_data_json)
-	olddata = mapData.duplicate(true)
+	mapEditor.currentMap.save_data_to_disk()
+	mapEditor.currentMap.changed(mapEditor.oldmap)
+	mapEditor.oldmap = DTacticalmap.new(mapEditor.currentMap.id,"")
+	mapEditor.oldmap.set_data(mapEditor.currentMap.get_data().duplicate(true))
 
 
 # When this function is called, loop over all the TileGrid's children and get the tileData property. Store this data in the currentLevelData array
@@ -105,36 +88,22 @@ func storeLevelData():
 	currentLevelData.clear()
 	for child in get_children():
 		currentLevelData.append(child.tileData)
-	mapData.chunks = currentLevelData.duplicate()
-
-
-func load_tacticalmap_json_file():
-	suppress_reset = true
-	var fileToLoad: String = mapEditor.contentSource
-	mapData = Helper.json_helper.load_json_dictionary_file(fileToLoad)
-	olddata = mapData.duplicate(true)
-	# Notify about the change in map dimensions
-	map_dimensions_changed.emit(mapData.mapwidth, mapData.mapheight)
-	suppress_reset = false
+	mapEditor.currentMap.chunks = currentLevelData.duplicate()
 
 
 func loadLevel():
-	if mapData.is_empty():
-		print_debug("Tried to load data from an empty mapData dictionary")
-		return
-
 	# Clear existing children
 	for child in get_children():
 		child.queue_free()
 
 	# Set the number of columns based on mapWidth
-	columns = mapData.mapwidth
+	columns = mapEditor.currentMap.mapwidth
 
 	# Recreate the grid based on mapData dimensions
-	var newLevelData: Array = mapData.chunks
+	var newLevelData: Array = mapEditor.currentMap.chunks
 	var index: int = 0
-	for x in range(mapData.mapwidth):
-		for y in range(mapData.mapheight):
+	for x in range(mapEditor.currentMap.mapwidth):
+		for y in range(mapEditor.currentMap.mapheight):
 			var tileInstance: Control = tileScene.instantiate()
 			add_child(tileInstance)
 			tileInstance.tile_clicked.connect(grid_tile_clicked)

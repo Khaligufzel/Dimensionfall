@@ -44,7 +44,7 @@ func delete_map(mapid: String) -> void:
 
 
 func by_id(mapid: String) -> DMap:
-	return mapdict[mapid]
+	return mapdict[mapid.replace(".json","")]
 
 # Loop over all maps and delete the entity from it. It will be removed from all levels and areas
 # entity_type: "tile", "furniture", "mob", "itemgroup"
@@ -75,7 +75,7 @@ func remove_reference_from_map(mapid: String, module: String, type: String, refi
 # type: The type of entity, for example "tacticlmaps"
 # refid: The id of the entity to reference, for example "town_00"
 func add_reference_to_map(mapid: String, module: String, type: String, refid: String):
-	var mymap: DMap = mapdict[mapid]
+	var mymap: DMap = by_id(mapid)
 	mymap.add_reference(module, type, refid)
 
 

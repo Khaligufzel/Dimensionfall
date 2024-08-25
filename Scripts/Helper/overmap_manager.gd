@@ -559,13 +559,6 @@ func load_all_grids():
 		process_loaded_grid_data(loadedgrid)
 
 
-# Function to randomly load and return a tactical map
-func load_random_tactical_map() -> Dictionary:
-	var tacticalmaps = Helper.json_helper.file_names_in_dir(Gamedata.data.tacticalmaps.dataPath)
-	var random_tactical_map = tacticalmaps[randi() % tacticalmaps.size()]
-	return Helper.json_helper.load_json_dictionary_file(Gamedata.data.tacticalmaps.dataPath + random_tactical_map)
-
-
 # Function to find a valid position for placing a tactical map
 func find_valid_position(placed_positions: Array, map_width: int, map_height: int) -> Vector2:
 	var attempts = 0
@@ -596,11 +589,11 @@ func find_valid_position(placed_positions: Array, map_width: int, map_height: in
 func place_tactical_maps_on_grid(grid: map_grid):
 	var placed_positions = []
 	for n in range(10):
-		var tactical_map_data = load_random_tactical_map()
+		var dmap: DTacticalmap = Gamedata.tacticalmaps.get_random_map()
 
-		var map_width = tactical_map_data.get("mapwidth", 0)
-		var map_height = tactical_map_data.get("mapheight", 0)
-		var chunks = tactical_map_data.get("chunks", [])
+		var map_width = dmap.mapwidth
+		var map_height = dmap.mapheight
+		var chunks = dmap.chunks
 
 		var position = find_valid_position(placed_positions, map_width, map_height)
 		if position == Vector2(-1, -1):
@@ -617,8 +610,8 @@ func place_tactical_maps_on_grid(grid: map_grid):
 				if local_x < grid_width and local_y < grid_height:
 					var cell_key = Vector2(local_x, local_y)
 					var chunk_index = j * map_width + i
-					var chunk_data = chunks[chunk_index]
-					update_cell_map_id(grid, cell_key, chunk_data["id"], chunk_data.get("rotation", 0))
+					var dchunk: DTacticalmap.TChunk = chunks[chunk_index]
+					update_cell_map_id(grid, cell_key, dchunk.id, dchunk.rotation)
 					placed_positions.append(cell_key)
 
 

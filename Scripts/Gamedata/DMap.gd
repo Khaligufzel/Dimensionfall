@@ -102,17 +102,7 @@ func get_sprite_path() -> String:
 
 
 func remove_self_from_tacticalmap(tacticalmap_id: String) -> void:
-	var tfile = Gamedata.data.tacticalmaps.dataPath + tacticalmap_id
-	var tmapdata: Dictionary = Helper.json_helper.load_json_dictionary_file(tfile)
-
-	# Check if the "chunks" key exists and is an array
-	if tmapdata.has("chunks") and tmapdata["chunks"] is Array:
-		# Filter out chunks that match the map_id, leaving only valid ones in the tacticalmap
-		tmapdata["chunks"] = tmapdata["chunks"].filter(func(chunk):
-			return not (chunk.has("id") and chunk["id"] == id)
-		)
-		var map_data_json = JSON.stringify(tmapdata.duplicate(), "\t")
-		Helper.json_helper.write_json_file(tfile, map_data_json)
+	Gamedata.tacticalmaps.by_id(tacticalmap_id).remove_chunk_by_mapid(id)
 
 
 # A map is being deleted. Remove all references to this map
