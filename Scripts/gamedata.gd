@@ -23,6 +23,39 @@ var textures: Dictionary = {
 	"container_filled": load("res://Textures/container_filled_32.png")
 }
 
+# Enums to define the different content types
+enum ContentType {
+	TACTICALMAPS,
+	MAPS,
+	FURNITURES,
+	ITEMGROUPS,
+	ITEMS,
+	TILES,
+	MOBS,
+	PLAYERATTRIBUTES,
+	WEARABLESLOTS,
+	STATS,
+	SKILLS,
+	QUESTS
+}
+
+# Dictionary to map content types to Gamedata variables
+var gamedata_map: Dictionary = {
+	ContentType.TACTICALMAPS: tacticalmaps,
+	ContentType.MAPS: maps,
+	ContentType.FURNITURES: furnitures,
+	ContentType.ITEMGROUPS: itemgroups,
+	ContentType.ITEMS: items,
+	ContentType.TILES: tiles,
+	ContentType.MOBS: mobs,
+	ContentType.PLAYERATTRIBUTES: playerattributes,
+	ContentType.WEARABLESLOTS: wearableslots,
+	ContentType.STATS: stats,
+	ContentType.SKILLS: skills,
+	ContentType.QUESTS: quests
+}
+
+
 # We write down the associated paths for the files to load
 # Next, sprites are loaded from spritesPath into the .sprites property
 # Finally, the data is loaded from dataPath into the .data property

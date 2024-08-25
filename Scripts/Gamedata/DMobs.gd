@@ -86,7 +86,7 @@ func sprite_by_id(mobid: String) -> Texture:
 	return mobdict[mobid].sprite
 
 # Returns the sprite of the mob
-# mobid: The id of the mob to return the sprite of
+# spritefile: The file of the sprite to return the sprite of
 func sprite_by_file(spritefile: String) -> Texture:
 	return sprites[spritefile]
 
@@ -106,4 +106,3 @@ func remove_reference(mobid: String, module: String, type: String, refid: String
 func add_reference(mobid: String, module: String, type: String, refid: String):
 	var mymob: DMob = mobdict[mobid]
 	mymob.add_reference(module, type, refid)
-
