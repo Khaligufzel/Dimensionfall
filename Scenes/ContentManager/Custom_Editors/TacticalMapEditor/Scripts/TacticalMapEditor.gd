@@ -14,24 +14,28 @@ var mapHeight: int = 3:
 		mapHeight = newHeight
 		if not mapheightTextEdit.value == newHeight:
 			mapheightTextEdit.value = newHeight
+
 var mapWidth: int = 3:
 	set(newWidth):
 		mapWidth = newWidth
 		if not mapwidthTextEdit.value == newWidth:
 			mapwidthTextEdit.value = newWidth
-var contentSource: String = "":
-	set(newSource):
-		contentSource = newSource
-		tileGrid.load_tacticalmap_json_file()
+
+var oldmap: DTacticalmap #Used to remember the mapdata before it was changed
+var currentMap: DTacticalmap:
+	set(newMap):
+		currentMap = newMap
+		oldmap = newMap
+		mapWidth = currentMap.mapwidth
+		mapHeight = currentMap.mapheight
 		setPanWindowSize()  # To adjust the size after loading
+		tileGrid.loadLevel()
 
 
 # In tacticalmapeditor.gd
 func _ready() -> void:
 	# For properly using the tab key to switch elements
 	control_elements = [mapwidthTextEdit,mapheightTextEdit]
-	# Connect the signal from TileGrid to this script
-	tileGrid.map_dimensions_changed.connect(_on_map_dimensions_changed)
 	setPanWindowSize()
 
 

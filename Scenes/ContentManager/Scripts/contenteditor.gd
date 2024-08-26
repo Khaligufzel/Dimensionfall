@@ -20,9 +20,9 @@ var selectedMod: String = "Core"
 
 # This function will load the contents of the data into the contentListInstance
 func _ready():
-	load_content_list(Gamedata.data.tacticalmaps, "Tactical Maps")
 	# Hacky exception for maps, need to find a better solution
 	load_content_list({"maps": true}, "Maps")
+	load_content_list({"tacticalmaps": true}, "Tactical Maps")
 	load_content_list({"items": true}, "Items")
 	load_content_list({"tiles": true}, "Terrain Tiles")
 	load_content_list({"mobs": true}, "Mobs")
@@ -69,6 +69,7 @@ func _on_content_item_activated(data: Dictionary, itemID: String, list: Control)
 		"items": itemEditor,
 		"mobs": mobEditor,
 		"maps": mapEditor,
+		"tacticalmaps": tacticalmapEditor,
 		"playerattributes": playerattributesEditor,
 		"wearableslots": wearableslotEditor,
 		"stats": statsEditor,
@@ -80,9 +81,6 @@ func _on_content_item_activated(data: Dictionary, itemID: String, list: Control)
 		if data == {key: true}:
 			instantiate_editor(data, itemID, editors[key], list)
 			return
-	
-	if data == Gamedata.data.tacticalmaps:
-		instantiate_editor(data, itemID, tacticalmapEditor, list)
 
 
 # This will add an editor to the content editor tab view. 
@@ -107,6 +105,9 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 	
 	if data == {"maps": true}:# HACK Hacky exception for maps, need to find a better solution
 		newContentEditor.currentMap = Gamedata.maps.by_id(itemID)
+		return
+	if data == {"tacticalmaps": true}:# HACK Hacky exception for maps, need to find a better solution
+		newContentEditor.currentMap = Gamedata.tacticalmaps.by_id(itemID)
 		return
 	if data == {"furnitures": true}:# HACK Hacky exception for furniture, need to find a better solution
 		newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
@@ -148,17 +149,6 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 		newContentEditor.dquest = Gamedata.quests.by_id(itemID)
 		newContentEditor.data_changed.connect(list.load_data)
 		return
-		
-		
-	if data.dataPath.ends_with(".json"):
-		var itemdata: Dictionary = data.data[Gamedata.get_array_index_by_id(data, itemID)]
-		# We only pass the data for the specific id to the editor
-		newContentEditor.contentData = itemdata
-		newContentEditor.data_changed.connect(_on_editor_data_changed)
-	else:
-		# If the data source does not end with json, it's a directory
-		# So now we pass in the file we want the editor to edit
-		newContentEditor.contentSource = data.dataPath + itemID + ".json"
 
 
 # The content_list that had its data changed refreshes

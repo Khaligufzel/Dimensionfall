@@ -79,15 +79,6 @@ func add_reference(module: String, type: String, refid: String):
 func get_sprite_path() -> String:
 	return Gamedata.tiles.spritePath + spriteid
 
-# Handles tile changes and updates references if necessary
-func on_data_changed(_oldtile: DTile):
-	var changes_made = false
-
-	# If any references were updated, save the changes to the data file
-	if changes_made:
-		print_debug("Tile reference updates saved successfully.")
-		Gamedata.save_data_to_file(Gamedata.data.tilegroups)
-
 
 # Some tile has been changed
 # INFO if the tiles reference other entities, update them here

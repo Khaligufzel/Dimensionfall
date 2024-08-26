@@ -43,6 +43,7 @@ func load_data():
 	# HACK Hacky implementation, need to find a better solution
 	var loaders = {
 		"maps": load_map_list,
+		"tacticalmaps": load_tacticalmap_list,
 		"furnitures": load_furnitures_list,
 		"itemgroups": load_itemgroups_list,
 		"items": load_items_list,
@@ -340,8 +341,7 @@ func _create_drag_preview(item_id: String) -> Control:
 		preview.texture = Gamedata.skills.by_id(item_id).sprite
 	elif contentData == {"quests": true}:
 		preview.texture = Gamedata.quests.by_id(item_id).sprite
-	else:
-		preview.texture = Gamedata.get_sprite_by_id(contentData, item_id)
+
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
 	return preview
 
@@ -426,6 +426,15 @@ func load_map_list():
 		var mySprite: Texture = maplist[map].sprite
 		if mySprite:
 			contentItems.set_item_icon(item_index, mySprite)
+
+
+func load_tacticalmap_list():
+	var maplist: Dictionary = Gamedata.tacticalmaps.get_maps()
+	for map: String in maplist.keys():
+		# Add all the filenames to the ContentItems list as child nodes
+		var item_index: int = contentItems.add_item(map)
+		# Add the ID as metadata which can be used to load the item data
+		contentItems.set_item_metadata(item_index, map)
 
 
 # Load the furniture list
