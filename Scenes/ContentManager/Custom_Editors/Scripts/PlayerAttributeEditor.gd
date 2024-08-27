@@ -14,6 +14,7 @@ extends Control
 @export var min_amount_numedit: SpinBox
 @export var max_amount_numedit: SpinBox
 @export var current_amount_numedit: SpinBox
+@export var depletion_rate_numedit: SpinBox
 
 signal data_changed()
 var olddata: DPlayerAttribute # Remember what the value of the data was before editing
@@ -45,6 +46,8 @@ func load_playerattribute_data() -> void:
 		max_amount_numedit.value = dplayerattribute.max_amount
 	if current_amount_numedit != null:
 		current_amount_numedit.value = dplayerattribute.current_amount
+	if depletion_rate_numedit != null:
+		depletion_rate_numedit.value = dplayerattribute.depletion_rate
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -60,6 +63,7 @@ func _on_save_button_button_up() -> void:
 	dplayerattribute.min_amount = int(min_amount_numedit.value)
 	dplayerattribute.max_amount = max_amount_numedit.value
 	dplayerattribute.current_amount = int(current_amount_numedit.value)
+	dplayerattribute.depletion_rate = depletion_rate_numedit.value
 
 	dplayerattribute.changed(olddata)
 	data_changed.emit()

@@ -1,6 +1,7 @@
 [
 	{
 		"current_amount": 100,
+		"depletion_rate": 0.02,
 		"description": "You starve when this is empty. You are full when this is full.",
 		"id": "food",
 		"max_amount": 100,

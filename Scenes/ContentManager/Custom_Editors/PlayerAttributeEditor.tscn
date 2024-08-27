@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_72bbp"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_pwtky"]
 
-[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("playerattributeImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "playerattributeSelector", "min_amount_numedit", "max_amount_numedit", "current_amount_numedit")]
+[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("playerattributeImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "playerattributeSelector", "min_amount_numedit", "max_amount_numedit", "current_amount_numedit", "depletion_rate_numedit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +21,7 @@ playerattributeSelector = NodePath("Sprite_selector")
 min_amount_numedit = NodePath("VBoxContainer/FormGrid/MinAmountSpinBox")
 max_amount_numedit = NodePath("VBoxContainer/FormGrid/MaxAmountSpinBox")
 current_amount_numedit = NodePath("VBoxContainer/FormGrid/CurrentAmountSpinBox")
+depletion_rate_numedit = NodePath("VBoxContainer/FormGrid/DepletionRateSpinBox")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -87,6 +88,7 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
+tooltip_text = "Player friendly name to display thi sattribute"
 focus_next = NodePath("../DescriptionTextEdit")
 focus_previous = NodePath("../AttributeImageDisplay")
 placeholder_text = "Health"
@@ -100,6 +102,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
+tooltip_text = "Use this field to describe what this player attribute is and what effect it might have if depleted or full."
 focus_previous = NodePath("../NameTextEdit")
 placeholder_text = "Describe what this attribute is about"
 wrap_mode = 1
@@ -110,6 +113,7 @@ text = "Min amount"
 
 [node name="MinAmountSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
+tooltip_text = "The minimum amount this attribute can be. Once the current amount reaches this value, it is considered depleted."
 
 [node name="MaxAmountLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -117,15 +121,27 @@ text = "Max amount"
 
 [node name="MaxAmountSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
+tooltip_text = "The maximum amount this attribute can be. When the current amount reaches this value, it is considered full."
 value = 100.0
 
 [node name="CurrentAmountLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-text = "Current amount"
+text = "Starting amount"
 
 [node name="CurrentAmountSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
+tooltip_text = "The amount the player starts with."
 value = 99.0
+
+[node name="DepletionRateLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Depletion rate"
+
+[node name="DepletionRateSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+tooltip_text = "The amount to subtract each second. With a \"max amount\" of 100 and a depletion rate of 0.02, it will take over an hour real time to deplete."
+step = 0.01
+value = 0.02
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_pwtky")]
 visible = false

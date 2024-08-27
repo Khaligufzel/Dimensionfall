@@ -19,6 +19,7 @@ var sprite: Texture
 var min_amount: float
 var max_amount: float
 var current_amount: float
+var depletion_rate: float = 0.02 # Takes over an hour irl to deplete an amoun of 100
 
 # Constructor to initialize the controller with a DPlayerAttribute and a player reference
 func _init(data: DPlayerAttribute, player_reference: Node):
@@ -34,7 +35,8 @@ func _init(data: DPlayerAttribute, player_reference: Node):
 	min_amount = attribute_data.min_amount
 	max_amount = attribute_data.max_amount
 	current_amount = attribute_data.current_amount
-	start_depletion(3600)
+	depletion_rate = attribute_data.depletion_rate
+	start_depletion()
 
 # Function to get the current state of the attribute as a dictionary
 func get_data() -> Dictionary:
@@ -91,23 +93,20 @@ func is_at_min() -> bool:
 func is_at_max() -> bool:
 	return current_amount >= max_amount
 
-# Function to start the depletion of the attribute over a specified duration
-# @param duration: The total time in seconds over which the attribute should completely deplete.
-#        For example, if you want the food attribute to deplete over 1 hour, pass 3600 seconds.
-func start_depletion(duration: float):
-	# Calculate the rate of depletion based on the given duration
-	var depletion_rate = max_amount / duration
 
+# Function to start the depletion of the attribute
+func start_depletion():
 	# Create a timer to decrease the attribute over time
 	var timer = Timer.new()
 	timer.wait_time = 1.0  # Deplete every second
 	timer.one_shot = false  # Repeat the timer
-	timer.timeout.connect(_on_deplete_tick.bind(depletion_rate))
+	timer.timeout.connect(_on_deplete_tick)
 	player.add_child(timer)  # Add the timer to the player's node to start it
 	timer.start()
 
+
 # Function that gets called every tick to decrease the attribute
-func _on_deplete_tick(depletion_rate: float):
+func _on_deplete_tick():
 	reduce_amount(depletion_rate)
 
 	# Optional: Stop the timer if the attribute reaches the minimum amount
