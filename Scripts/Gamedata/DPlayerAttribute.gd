@@ -46,7 +46,7 @@ func _init(data: Dictionary):
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
-	return {
+	var data: Dictionary = {
 		"id": id,
 		"name": name,
 		"description": description,
@@ -56,6 +56,9 @@ func get_data() -> Dictionary:
 		"current_amount": current_amount,
 		"depletion_rate": depletion_rate
 	}
+	if not references.is_empty():
+		data["references"] = references
+	return data
 
 
 # Removes the provided reference from references
