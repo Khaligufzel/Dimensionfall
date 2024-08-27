@@ -8,5 +8,15 @@
 		"min_amount": 0,
 		"name": "Food",
 		"sprite": "apple_32.png"
+	},
+	{
+		"current_amount": 100,
+		"depletion_rate": 0.02,
+		"description": "The amount of water the player has in their body. Running out will mean death.",
+		"id": "water",
+		"max_amount": 100,
+		"min_amount": 0,
+		"name": "Water",
+		"sprite": "waterbottle_32.png"
 	}
 ]

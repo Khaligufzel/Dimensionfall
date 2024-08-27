@@ -270,6 +270,12 @@
 	},
 	{
 		"Food": {
+			"attributes": [
+				{
+					"amount": 20,
+					"id": "water"
+				}
+			],
 			"health": 5
 		},
 		"description": "This plastic bottle is filled with water",
@@ -1378,6 +1384,15 @@
 		"weight": 0.5
 	},
 	{
+		"Food": {
+			"attributes": [
+				{
+					"amount": 10,
+					"id": "food"
+				}
+			],
+			"health": 0
+		},
 		"description": "A block of tofu, a good source of protein.",
 		"id": "tofu",
 		"image": "./Mods/Core/Items/tofu_32.png",
@@ -1397,6 +1412,19 @@
 		"weight": 0.5
 	},
 	{
+		"Food": {
+			"attributes": [
+				{
+					"amount": 15,
+					"id": "food"
+				},
+				{
+					"amount": 1,
+					"id": "water"
+				}
+			],
+			"health": 0
+		},
 		"description": "A bottle of yogurt, useful for nutrition and digestion.",
 		"id": "bottle_yogurt",
 		"image": "./Mods/Core/Items/bottle_yogurt_32.png",

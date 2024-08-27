@@ -58,6 +58,7 @@ func _on_close_button_button_up() -> void:
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
 	dplayerattribute.spriteid = PathTextLabel.text
+	dplayerattribute.sprite = playerattributeImageDisplay.texture
 	dplayerattribute.name = NameTextEdit.text
 	dplayerattribute.description = DescriptionTextEdit.text
 	dplayerattribute.min_amount = int(min_amount_numedit.value)

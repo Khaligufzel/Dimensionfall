@@ -54,7 +54,6 @@ text = "Health"
 [node name="HealthNumber" type="SpinBox" parent="Food"]
 layout_mode = 2
 tooltip_text = "Increase the health of the player by this amount when it is used. A negative number will also decrease the player's health"
-value = 5.0
 
 [node name="AffectedAttributesLabel" type="Label" parent="Food"]
 layout_mode = 2
