@@ -108,10 +108,6 @@ signal player_spawned(player: CharacterBody3D) # When the player has spawned in-
 @warning_ignore("unused_signal")
 signal player_y_level_updated(new_y:float) 
 
-# When sprites have been added or removed from gamedata
-@warning_ignore("unused_signal")
-signal data_sprites_changed(contentData: Dictionary, spriteid: String)
-
 # When a mob was killed
 @warning_ignore("unused_signal")
 signal mob_killed(mobinstance: Mob)

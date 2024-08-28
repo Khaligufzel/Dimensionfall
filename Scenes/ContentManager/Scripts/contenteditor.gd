@@ -17,32 +17,29 @@ extends Control
 @export var tabContainer: TabContainer = null
 var selectedMod: String = "Core"
 
-
 # This function will load the contents of the data into the contentListInstance
 func _ready():
-	# Hacky exception for maps, need to find a better solution
-	load_content_list({"maps": true}, "Maps")
-	load_content_list({"tacticalmaps": true}, "Tactical Maps")
-	load_content_list({"items": true}, "Items")
-	load_content_list({"tiles": true}, "Terrain Tiles")
-	load_content_list({"mobs": true}, "Mobs")
-	# Hacky exception for furnitures, need to find a better solution
-	load_content_list({"furnitures": true}, "Furniture")
-	load_content_list({"itemgroups": true}, "Item Groups")
-	load_content_list({"playerattributes": true}, "Player Attributes")
-	load_content_list({"wearableslots": true}, "Wearable Slots")
-	load_content_list({"stats": true}, "Stats")
-	load_content_list({"skills": true}, "Skills")
-	load_content_list({"quests": true}, "Quests")
+	load_content_list(Gamedata.ContentType.MAPS, "Maps")
+	load_content_list(Gamedata.ContentType.TACTICALMAPS, "Tactical Maps")
+	load_content_list(Gamedata.ContentType.ITEMS, "Items")
+	load_content_list(Gamedata.ContentType.TILES, "Terrain Tiles")
+	load_content_list(Gamedata.ContentType.MOBS, "Mobs")
+	load_content_list(Gamedata.ContentType.FURNITURES, "Furniture")
+	load_content_list(Gamedata.ContentType.ITEMGROUPS, "Item Groups")
+	load_content_list(Gamedata.ContentType.PLAYERATTRIBUTES, "Player Attributes")
+	load_content_list(Gamedata.ContentType.WEARABLESLOTS, "Wearable Slots")
+	load_content_list(Gamedata.ContentType.STATS, "Stats")
+	load_content_list(Gamedata.ContentType.SKILLS, "Skills")
+	load_content_list(Gamedata.ContentType.QUESTS, "Quests")
 
 
-func load_content_list(data: Dictionary, strHeader: String):
+func load_content_list(type: Gamedata.ContentType, strHeader: String):
 	# Instantiate a contentlist
 	var contentListInstance: Control = contentList.instantiate()
 
 	# Set the source property
 	contentListInstance.header = strHeader
-	contentListInstance.contentData = data
+	contentListInstance.contentType = type
 	contentListInstance.item_activated.connect(_on_content_item_activated)
 
 	# Add it as a child to the content VBoxContainer
@@ -55,32 +52,29 @@ func _on_back_button_button_up():
 
 # The user has double-clicked or pressed enter on one of the items in the content lists
 # Depending on whether the source is a JSON file, we are going to load the relevant content
-func _on_content_item_activated(data: Dictionary, itemID: String, list: Control):
-	if data.is_empty() or itemID == "":
+func _on_content_item_activated(type: Gamedata.ContentType, itemID: String, list: Control):
+	if itemID == "":
 		print_debug("Tried to load the selected content item, but either \
 		data (Array) or itemID ("+itemID+") is empty")
 		return
 
 	# HACK Hacky implementation, need to find a better solution
 	var editors = {
-		"tiles": terrainTileEditor,
-		"furnitures": furnitureEditor,
-		"itemgroups": itemgroupEditor,
-		"items": itemEditor,
-		"mobs": mobEditor,
-		"maps": mapEditor,
-		"tacticalmaps": tacticalmapEditor,
-		"playerattributes": playerattributesEditor,
-		"wearableslots": wearableslotEditor,
-		"stats": statsEditor,
-		"skills": skillsEditor,
-		"quests": questsEditor
+		Gamedata.ContentType.TILES: terrainTileEditor,
+		Gamedata.ContentType.FURNITURES: furnitureEditor,
+		Gamedata.ContentType.ITEMGROUPS: itemgroupEditor,
+		Gamedata.ContentType.ITEMS: itemEditor,
+		Gamedata.ContentType.MOBS: mobEditor,
+		Gamedata.ContentType.MAPS: mapEditor,
+		Gamedata.ContentType.TACTICALMAPS: tacticalmapEditor,
+		Gamedata.ContentType.PLAYERATTRIBUTES: playerattributesEditor,
+		Gamedata.ContentType.WEARABLESLOTS: wearableslotEditor,
+		Gamedata.ContentType.STATS: statsEditor,
+		Gamedata.ContentType.SKILLS: skillsEditor,
+		Gamedata.ContentType.QUESTS: questsEditor
 	}
 
-	for key in editors.keys():
-		if data == {key: true}:
-			instantiate_editor(data, itemID, editors[key], list)
-			return
+	instantiate_editor(type, itemID, editors[type], list)
 
 
 # This will add an editor to the content editor tab view. 
@@ -88,7 +82,7 @@ func _on_content_item_activated(data: Dictionary, itemID: String, list: Control)
 # It is important that the editor has the property contentSource or contentData so it can be set
 # If a tab for the given itemID already exists, switch to that tab.
 # Otherwise, instantiate a new editor.
-func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene, list: Control):
+func instantiate_editor(type: Gamedata.ContentType, itemID: String, newEditor: PackedScene, list: Control):
 	# Check if a tab for the itemID already exists
 	for i in range(tabContainer.get_child_count()):
 		var child = tabContainer.get_child(i)
@@ -103,58 +97,52 @@ func instantiate_editor(data: Dictionary, itemID: String, newEditor: PackedScene
 	tabContainer.add_child(newContentEditor)
 	tabContainer.current_tab = tabContainer.get_child_count() - 1
 	
-	if data == {"maps": true}:# HACK Hacky exception for maps, need to find a better solution
-		newContentEditor.currentMap = Gamedata.maps.by_id(itemID)
-		return
-	if data == {"tacticalmaps": true}:# HACK Hacky exception for maps, need to find a better solution
-		newContentEditor.currentMap = Gamedata.tacticalmaps.by_id(itemID)
-		return
-	if data == {"furnitures": true}:# HACK Hacky exception for furniture, need to find a better solution
-		newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
-		newContentEditor.data_changed.connect(list.load_data)
-		return
-	if data == {"itemgroups": true}:# HACK Hacky exception for itemgroups, need to find a better solution
-		newContentEditor.ditemgroup = Gamedata.itemgroups.by_id(itemID)
-		newContentEditor.data_changed.connect(list.load_data)
-		return
-	if data == {"items": true}:# HACK Hacky exception for items, need to find a better solution
-		newContentEditor.ditem = Gamedata.items.by_id(itemID)
-		newContentEditor.data_changed.connect(list.load_data)
-		return
-	if data == {"tiles": true}:# HACK Hacky exception for tiles, need to find a better solution
-		newContentEditor.dtile = Gamedata.tiles.by_id(itemID)
-		newContentEditor.data_changed.connect(list.load_data)
-		return
-	if data == {"mobs": true}:# HACK Hacky exception for mobs, need to find a better solution
-		newContentEditor.dmob = Gamedata.mobs.by_id(itemID)
-		newContentEditor.data_changed.connect(list.load_data)
-		return
-	if data == {"playerattributes": true}:# HACK Hacky exception for playerattributes, need to find a better solution
-		newContentEditor.dplayerattribute = Gamedata.playerattributes.by_id(itemID)
-		newContentEditor.data_changed.connect(list.load_data)
-		return
-	if data == {"wearableslots": true}:# HACK Hacky exception for wearableslots, need to find a better solution
-		newContentEditor.dwearableslot = Gamedata.wearableslots.by_id(itemID)
-		newContentEditor.data_changed.connect(list.load_data)
-		return
-	if data == {"stats": true}:# HACK Hacky exception for stats, need to find a better solution
-		newContentEditor.dstat = Gamedata.stats.by_id(itemID)
-		newContentEditor.data_changed.connect(list.load_data)
-		return
-	if data == {"skills": true}:  # HACK Hacky exception for skills, need to find a better solution
-		newContentEditor.dskill = Gamedata.skills.by_id(itemID)
-		newContentEditor.data_changed.connect(list.load_data)
-		return
-	if data == {"quests": true}:  # HACK Hacky exception for quests, need to find a better solution
-		newContentEditor.dquest = Gamedata.quests.by_id(itemID)
-		newContentEditor.data_changed.connect(list.load_data)
-		return
-
-
-# The content_list that had its data changed refreshes
-func _on_editor_data_changed(data: Dictionary, _newdata: Dictionary, _olddata: Dictionary):
-	# Loop over each of the content lists. Only the list that matches
-	# the data will refresh
-	for element in content.get_children():
-		if element.contentData == data:
-			element.load_data()
+	match type:
+		Gamedata.ContentType.MAPS:
+			newContentEditor.currentMap = Gamedata.maps.by_id(itemID)
+		
+		Gamedata.ContentType.TACTICALMAPS:
+			newContentEditor.currentMap = Gamedata.tacticalmaps.by_id(itemID)
+		
+		Gamedata.ContentType.FURNITURES:
+			newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
+		Gamedata.ContentType.ITEMGROUPS:
+			newContentEditor.ditemgroup = Gamedata.itemgroups.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
+		Gamedata.ContentType.ITEMS:
+			newContentEditor.ditem = Gamedata.items.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
+		Gamedata.ContentType.TILES:
+			newContentEditor.dtile = Gamedata.tiles.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
+		Gamedata.ContentType.MOBS:
+			newContentEditor.dmob = Gamedata.mobs.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
+		Gamedata.ContentType.PLAYERATTRIBUTES:
+			newContentEditor.dplayerattribute = Gamedata.playerattributes.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
+		Gamedata.ContentType.WEARABLESLOTS:
+			newContentEditor.dwearableslot = Gamedata.wearableslots.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
+		Gamedata.ContentType.STATS:
+			newContentEditor.dstat = Gamedata.stats.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
+		Gamedata.ContentType.SKILLS:
+			newContentEditor.dskill = Gamedata.skills.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
+		Gamedata.ContentType.QUESTS:
+			newContentEditor.dquest = Gamedata.quests.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
+		_:
+			print("Unknown content type:", type)

@@ -48,11 +48,11 @@ func save_mobs_to_disk() -> void:
 	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
 
 
-func get_mobs() -> Dictionary:
+func get_all() -> Dictionary:
 	return mobdict
 
 
-func duplicate_mob_to_disk(mobid: String, newmobid: String) -> void:
+func duplicate_to_disk(mobid: String, newmobid: String) -> void:
 	var mobdata: Dictionary = mobdict[mobid].get_data().duplicate(true)
 	mobdata.id = newmobid
 	var newmob: DMob = DMob.new(mobdata)
@@ -60,13 +60,13 @@ func duplicate_mob_to_disk(mobid: String, newmobid: String) -> void:
 	save_mobs_to_disk()
 
 
-func add_new_mob(newid: String) -> void:
+func add_new(newid: String) -> void:
 	var newmob: DMob = DMob.new({"id":newid})
 	mobdict[newmob.id] = newmob
 	save_mobs_to_disk()
 
 
-func delete_mob(mobid: String) -> void:
+func delete_by_id(mobid: String) -> void:
 	mobdict[mobid].delete()
 	mobdict.erase(mobid)
 	save_mobs_to_disk()
@@ -86,7 +86,7 @@ func sprite_by_id(mobid: String) -> Texture:
 	return mobdict[mobid].sprite
 
 # Returns the sprite of the mob
-# mobid: The id of the mob to return the sprite of
+# spritefile: The file of the sprite to return the sprite of
 func sprite_by_file(spritefile: String) -> Texture:
 	return sprites[spritefile]
 
@@ -106,4 +106,3 @@ func remove_reference(mobid: String, module: String, type: String, refid: String
 func add_reference(mobid: String, module: String, type: String, refid: String):
 	var mymob: DMob = mobdict[mobid]
 	mymob.add_reference(module, type, refid)
-

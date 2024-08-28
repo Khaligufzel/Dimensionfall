@@ -47,11 +47,11 @@ func save_furnitures_to_disk() -> void:
 	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
 
 
-func get_furnitures() -> Dictionary:
+func get_all() -> Dictionary:
 	return furnituredict
 
 
-func duplicate_furniture_to_disk(furnitureid: String, newfurnitureid: String) -> void:
+func duplicate_to_disk(furnitureid: String, newfurnitureid: String) -> void:
 	var furnituredata: Dictionary = furnituredict[furnitureid].get_data().duplicate(true)
 	furnituredata.id = newfurnitureid
 	var newfurniture: DFurniture = DFurniture.new(furnituredata)
@@ -59,13 +59,13 @@ func duplicate_furniture_to_disk(furnitureid: String, newfurnitureid: String) ->
 	save_furnitures_to_disk()
 
 
-func add_new_furniture(newid: String) -> void:
+func add_new(newid: String) -> void:
 	var newfurniture: DFurniture = DFurniture.new({"id":newid})
 	furnituredict[newfurniture.id] = newfurniture
 	save_furnitures_to_disk()
 
 
-func delete_furniture(furnitureid: String) -> void:
+func delete_by_id(furnitureid: String) -> void:
 	furnituredict[furnitureid].delete()
 	furnituredict.erase(furnitureid)
 	save_furnitures_to_disk()

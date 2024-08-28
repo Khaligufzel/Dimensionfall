@@ -73,6 +73,7 @@ func _on_close_button_button_up() -> void:
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
 	dmob.spriteid = PathTextLabel.text
+	dmob.sprite = mobImageDisplay.texture
 	dmob.name = NameTextEdit.text
 	dmob.description = DescriptionTextEdit.text
 	dmob.melee_damage = int(melee_damage_numedit.value)

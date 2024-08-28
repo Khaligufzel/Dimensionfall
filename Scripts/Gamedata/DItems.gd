@@ -49,11 +49,11 @@ func save_items_to_disk() -> void:
 	update_item_protoset_json_data("res://ItemProtosets.tres", JSON.stringify(save_data, "\t"))
 
 
-func get_items() -> Dictionary:
+func get_all() -> Dictionary:
 	return itemdict
 
 
-func duplicate_item_to_disk(itemid: String, newitemid: String) -> void:
+func duplicate_to_disk(itemid: String, newitemid: String) -> void:
 	var itemdata: Dictionary = itemdict[itemid].get_data().duplicate(true)
 	itemdata.id = newitemid
 	var newitem: DItem = DItem.new(itemdata)
@@ -61,13 +61,13 @@ func duplicate_item_to_disk(itemid: String, newitemid: String) -> void:
 	save_items_to_disk()
 
 
-func add_new_item(newid: String) -> void:
+func add_new(newid: String) -> void:
 	var newitem: DItem = DItem.new({"id":newid})
 	itemdict[newitem.id] = newitem
 	save_items_to_disk()
 
 
-func delete_item(itemid: String) -> void:
+func delete_by_id(itemid: String) -> void:
 	itemdict[itemid].delete()
 	itemdict.erase(itemid)
 	save_items_to_disk()

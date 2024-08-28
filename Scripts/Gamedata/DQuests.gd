@@ -45,11 +45,11 @@ func save_quests_to_disk() -> void:
 	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
 
 # Returns the dictionary containing all quests
-func get_quests() -> Dictionary:
+func get_all() -> Dictionary:
 	return questdict
 
 # Duplicates a quest and saves it to disk with a new ID
-func duplicate_quest_to_disk(questid: String, newquestid: String) -> void:
+func duplicate_to_disk(questid: String, newquestid: String) -> void:
 	var questdata: Dictionary = questdict[questid].get_data().duplicate(true)
 	questdata["id"] = newquestid
 	var newquest: DQuest = DQuest.new(questdata)
@@ -57,13 +57,13 @@ func duplicate_quest_to_disk(questid: String, newquestid: String) -> void:
 	save_quests_to_disk()
 
 # Adds a new quest with a given ID
-func add_new_quest(newid: String) -> void:
+func add_new(newid: String) -> void:
 	var newquest: DQuest = DQuest.new({"id": newid})
 	questdict[newquest.id] = newquest
 	save_quests_to_disk()
 
 # Deletes a quest by its ID and saves changes to disk
-func delete_quest(questid: String) -> void:
+func delete_by_id(questid: String) -> void:
 	questdict[questid].delete()
 	questdict.erase(questid)
 	save_quests_to_disk()

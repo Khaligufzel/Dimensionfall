@@ -29,7 +29,7 @@ func save_properties() -> void:
 
 # Refreshes the SlotOptionButton by loading slot IDs from the wearable slots data
 func refresh_wearableslots_optionbutton():
-	var wearableslots = Gamedata.wearableslots.get_wearableslots().keys()
+	var wearableslots = Gamedata.wearableslots.get_all().keys()
 	# Clear current items in the OptionButton to avoid duplicates
 	SlotOptionButton.clear()
 

@@ -524,20 +524,22 @@ func delete():
 	
 	# This callable will handle the removal of this item from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
-		Gamedata.quests.remove_item_from_quest(quest_id,id)
+		Gamedata.quests.remove_item_from_quest(quest_id, id)
 
 	# Pass the callable to every quest in the item's references
 	# It will call remove_from_quest on every item in item_data.references.core.quests
 	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
 	
-	# For each recipe and for each item in each recipe, remove the reference to this item
-	for resource in craft.get_all_used_items():
-		changes_made["value"] = remove_reference("core", "items", resource) or changes_made["value"]
-
-	# Collect unique skill IDs from the item's recipes
 	var skill_ids: Dictionary = {}
-	for skillid in craft.get_used_skill_ids():
-		skill_ids[skillid] = true
+	# Check if 'craft' is not null before proceeding
+	if craft:
+		# For each recipe and for each item in each recipe, remove the reference to this item
+		for resource in craft.get_all_used_items():
+			changes_made["value"] = remove_reference("core", "items", resource) or changes_made["value"]
+
+		# Collect unique skill IDs from the item's recipes
+		for skillid in craft.get_used_skill_ids():
+			skill_ids[skillid] = true
 
 	# Add the ranged skill to the skill list
 	if ranged and ranged.used_skill:
@@ -556,6 +558,7 @@ func delete():
 		Gamedata.items.save_items_to_disk()
 	else:
 		print_debug("No changes needed for item", id)
+
 
 
 # Executes a callable function on each reference of the given type

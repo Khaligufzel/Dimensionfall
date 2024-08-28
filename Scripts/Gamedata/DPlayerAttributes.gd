@@ -49,11 +49,11 @@ func save_playerattributes_to_disk() -> void:
 	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
 
 
-func get_playerattributes() -> Dictionary:
+func get_all() -> Dictionary:
 	return playerattributedict
 
 
-func duplicate_playerattribute_to_disk(playerattributeid: String, newplayerattributeid: String) -> void:
+func duplicate_to_disk(playerattributeid: String, newplayerattributeid: String) -> void:
 	var playerattributedata: Dictionary = playerattributedict[playerattributeid].get_data().duplicate(true)
 	playerattributedata.id = newplayerattributeid
 	var newplayerattribute: DPlayerAttribute = DPlayerAttribute.new(playerattributedata)
@@ -61,13 +61,13 @@ func duplicate_playerattribute_to_disk(playerattributeid: String, newplayerattri
 	save_playerattributes_to_disk()
 
 
-func add_new_playerattribute(newid: String) -> void:
+func add_new(newid: String) -> void:
 	var newplayerattribute: DPlayerAttribute = DPlayerAttribute.new({"id":newid})
 	playerattributedict[newplayerattribute.id] = newplayerattribute
 	save_playerattributes_to_disk()
 
 
-func delete_playerattribute(playerattributeid: String) -> void:
+func delete_by_id(playerattributeid: String) -> void:
 	playerattributedict[playerattributeid].delete()
 	playerattributedict.erase(playerattributeid)
 	save_playerattributes_to_disk()

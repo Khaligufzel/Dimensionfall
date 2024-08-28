@@ -23,11 +23,29 @@ var textures: Dictionary = {
 	"container_filled": load("res://Textures/container_filled_32.png")
 }
 
-# We write down the associated paths for the files to load
-# Next, sprites are loaded from spritesPath into the .sprites property
-# Finally, the data is loaded from dataPath into the .data property
+# Enums to define the different content types
+enum ContentType {
+	TACTICALMAPS,       #0
+	MAPS,               #1
+	FURNITURES,         #2
+	ITEMGROUPS,         #3
+	ITEMS,              #4
+	TILES,              #5
+	MOBS,               #6
+	PLAYERATTRIBUTES,   #7
+	WEARABLESLOTS,      #8
+	STATS,              #9
+	SKILLS,             #10
+	QUESTS              #11
+}
+
+
+# Dictionary to map content types to Gamedata variables
+var gamedata_map: Dictionary = {}
+
+# This function is called when the node is added to the scene.
 func _ready():
-	load_sprites()
+	# Instantiate the content type instances
 	maps = DMaps.new()
 	tacticalmaps = DTacticalmaps.new()
 	furnitures = DFurnitures.new()
@@ -40,6 +58,26 @@ func _ready():
 	stats = DStats.new()
 	skills = DSkills.new()
 	quests = DQuests.new()
+
+	# Now populate the gamedata_map with the instantiated objects
+	gamedata_map = {
+		ContentType.TACTICALMAPS: tacticalmaps,	
+		ContentType.MAPS: maps,	
+		ContentType.FURNITURES: furnitures,
+		ContentType.ITEMGROUPS: itemgroups,
+		ContentType.ITEMS: items,
+		ContentType.TILES: tiles,
+		ContentType.MOBS: mobs,
+		ContentType.PLAYERATTRIBUTES: playerattributes,
+		ContentType.WEARABLESLOTS: wearableslots,
+		ContentType.STATS: stats,
+		ContentType.SKILLS: skills,
+		ContentType.QUESTS: quests
+	}
+
+	load_sprites()
+
+
 
 
 # Loads sprites and assigns them to the proper dictionary
@@ -78,6 +116,11 @@ func save_data_to_file(contentData: Dictionary):
 	var datapath: String = contentData.dataPath
 	if datapath.ends_with(".json"):
 		Helper.json_helper.write_json_file(datapath, JSON.stringify(contentData.data, "\t"))
+
+
+# Returns one of the D- data types. We return it as refcounted since every class differs
+func get_data_of_type(type: ContentType) -> RefCounted:
+	return gamedata_map[type]
 
 
 # Removes the provided reference from references
