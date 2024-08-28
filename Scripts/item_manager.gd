@@ -411,7 +411,6 @@ func remove_inventory_item(item: InventoryItem) -> bool:
 func _on_items_used(usedItems: Array[InventoryItem]) -> void:
 	for item in usedItems:
 		if item.get_property("Food"):  # Check if the item dictionary has the key "food"
-			var foodProperties: Dictionary = item.get_property("Food")
 			Helper.signal_broker.food_item_used.emit(item)
 
 

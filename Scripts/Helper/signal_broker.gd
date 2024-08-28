@@ -56,6 +56,7 @@ signal container_exited_proximity(container: Node3D)
 # Signal to emit when a FurniturePhysicsSrv crosses chunk boundary
 # me: the FurniturePhysicsSrv that crossed the chunk boundary
 # new_chunk_pos: a vector2 with global chunk positions, like (-1,-1),(0,0),(1,3)
+@warning_ignore("unused_signal")
 signal furniture_changed_chunk(me: FurniturePhysicsSrv, new_chunk_pos: Vector2)
 
 

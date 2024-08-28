@@ -20,7 +20,7 @@ const map_manager_Class = preload("res://Scripts/Helper/map_manager.gd")
 const overmap_manager_Class = preload("res://Scripts/Helper/overmap_manager.gd")
 const quest_helper_Class = preload("res://Scripts/Helper/quest_helper.gd")
 
-var json_helper: Node = null
+var json_helper: RefCounted = null
 var save_helper: Node = null
 var signal_broker: Node = null
 var task_manager: Node = null

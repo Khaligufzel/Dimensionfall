@@ -22,7 +22,6 @@ var selected_color: Color = Color(0.5, 0.5, 0.8, 1) # Selected color
 var is_selected: bool = false
 
 signal item_clicked(item: Control)
-signal item_right_clicked(item: Control)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -68,4 +67,3 @@ func set_icon(texture: Texture):
 # Function to get the icon's texture.
 func get_icon() -> Texture:
 	return myIcon.texture
-
