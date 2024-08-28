@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_72bbp"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_pwtky"]
 
-[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("playerattributeImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "playerattributeSelector", "min_amount_numedit", "max_amount_numedit", "current_amount_numedit", "depletion_rate_numedit")]
+[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("playerattributeImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "playerattributeSelector", "min_amount_numedit", "max_amount_numedit", "current_amount_numedit", "depletion_rate_numedit", "ui_color_picker")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +22,7 @@ min_amount_numedit = NodePath("VBoxContainer/FormGrid/MinAmountSpinBox")
 max_amount_numedit = NodePath("VBoxContainer/FormGrid/MaxAmountSpinBox")
 current_amount_numedit = NodePath("VBoxContainer/FormGrid/CurrentAmountSpinBox")
 depletion_rate_numedit = NodePath("VBoxContainer/FormGrid/DepletionRateSpinBox")
+ui_color_picker = NodePath("VBoxContainer/FormGrid/UIColorPicker")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -142,6 +143,20 @@ layout_mode = 2
 tooltip_text = "The amount to subtract each second. With a \"max amount\" of 100 and a depletion rate of 0.02, it will take over an hour real time to deplete."
 step = 0.01
 value = 0.02
+
+[node name="UIColorLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "UI color"
+
+[node name="UIColorPicker" type="ColorPicker" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+tooltip_text = "The color this attribute will have if it's displayed in the UI. In case this attribute is displayed by a progressbar, the progressbar will assume this color."
+color = Color(0.933994, 0.202531, 0.220332, 1)
+picker_shape = 4
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_pwtky")]
 visible = false
