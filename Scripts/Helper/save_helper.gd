@@ -162,24 +162,7 @@ func save_player_state(player: CharacterBody3D) -> void:
 	if !player:
 		return
 	var save_path = current_save_folder + "/player_state.json"
-	var player_state: Dictionary = {
-		"is_alive": player.is_alive,
-		"left_arm_health": player.current_left_arm_health,
-		"right_arm_health": player.current_right_arm_health,
-		"head_health": player.current_head_health,
-		"torso_health": player.current_torso_health,
-		"left_leg_health": player.current_left_leg_health,
-		"right_leg_health": player.current_right_leg_health,
-		"stamina": player.current_stamina,
-		"hunger": player.current_hunger,
-		"thirst": player.current_thirst,
-		"nutrition": player.current_nutrition,
-		"pain": player.current_pain,
-		"skills": player.skills,  # Add skills dictionary
-		"global_position_x": player.global_transform.origin.x,
-		"global_position_y": player.global_transform.origin.y,
-		"global_position_z": player.global_transform.origin.z
-	}
+	var player_state: Dictionary = player.get_state()
 	Helper.json_helper.write_json_file(save_path, JSON.stringify(player_state))
 
 
@@ -189,28 +172,10 @@ func load_player_state(player: CharacterBody3D) -> void:
 	var player_state = Helper.json_helper.load_json_dictionary_file(load_path)
 
 	if player_state:
-		player.is_alive = player_state["is_alive"]
-		player.current_left_arm_health = player_state["left_arm_health"]
-		player.current_right_arm_health = player_state["right_arm_health"]
-		player.current_head_health = player_state["head_health"]
-		player.current_torso_health = player_state["torso_health"]
-		player.current_left_leg_health = player_state["left_leg_health"]
-		player.current_right_leg_health = player_state["right_leg_health"]
-		player.current_stamina = player_state["stamina"]
-		player.current_hunger = player_state["hunger"]
-		player.current_thirst = player_state["thirst"]
-		player.current_nutrition = player_state["nutrition"]
-		player.current_pain = player_state["pain"]
-		player.skills = player_state["skills"]  # Load skills dictionary
-		player.global_transform.origin.x = player_state["global_position_x"]
-		player.global_transform.origin.y = player_state["global_position_y"]
-		player.global_transform.origin.z = player_state["global_position_z"]
-
-		# Emit signals to update the HUD
-		player.update_doll.emit(player.current_head_health, player.current_right_arm_health, player.current_left_arm_health, player.current_torso_health, player.current_right_leg_health, player.current_left_leg_health)
-		player.update_stamina_HUD.emit(player.current_stamina)
+		player.set_state(player_state)
 	else:
 		print_debug("Failed to load player state from: ", load_path)
+
 
 
 

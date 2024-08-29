@@ -32,12 +32,6 @@ var current_stamina
 var stamina_lost_while_running_persec = 15
 var stamina_regen_while_standing_still = 3
 
-var hunger = 0
-var current_hunger
-
-var thirst = 0
-var current_thirst
-
 var nutrition = 100
 var current_nutrition
 
@@ -46,6 +40,7 @@ var current_pain = 0
 
 var stats = {}
 var skills = {}
+# Dictionary that holds instances of PlayerAttribute. For example food, water, mood
 var attributes = {}
 
 var time_since_ready = 0.0
@@ -100,8 +95,6 @@ func initialize_health():
 
 func initialize_condition():
 	current_stamina = stamina
-	current_hunger = hunger
-	current_thirst = thirst
 	current_nutrition = nutrition
 	current_pain = pain
 
@@ -487,3 +480,59 @@ func initialize_y_level_check():
 func _emit_y_level():
 	var current_y_level = global_position.y
 	Helper.signal_broker.player_y_level_updated.emit(current_y_level)
+
+
+# Method to retrieve the current state of the player as a dictionary
+func get_state() -> Dictionary:
+	var attribute_data = {}
+	for attribute_id in attributes.keys():
+		attribute_data[attribute_id] = attributes[attribute_id].get_data()
+
+	return {
+		"is_alive": is_alive,
+		"left_arm_health": current_left_arm_health,
+		"right_arm_health": current_right_arm_health,
+		"head_health": current_head_health,
+		"torso_health": current_torso_health,
+		"left_leg_health": current_left_leg_health,
+		"right_leg_health": current_right_leg_health,
+		"stamina": current_stamina,
+		"nutrition": current_nutrition,
+		"pain": current_pain,
+		"skills": skills,
+		"attributes": attribute_data,  # Include the attributes data
+		"global_position_x": global_transform.origin.x,
+		"global_position_y": global_transform.origin.y,
+		"global_position_z": global_transform.origin.z
+	}
+
+
+
+# Method to set the player's state from a dictionary
+func set_state(state: Dictionary) -> void:
+	is_alive = state.get("is_alive", is_alive)
+	current_left_arm_health = state.get("left_arm_health", current_left_arm_health)
+	current_right_arm_health = state.get("right_arm_health", current_right_arm_health)
+	current_head_health = state.get("head_health", current_head_health)
+	current_torso_health = state.get("torso_health", current_torso_health)
+	current_left_leg_health = state.get("left_leg_health", current_left_leg_health)
+	current_right_leg_health = state.get("right_leg_health", current_right_leg_health)
+	current_stamina = state.get("stamina", current_stamina)
+	current_nutrition = state.get("nutrition", current_nutrition)
+	current_pain = state.get("pain", current_pain)
+	skills = state.get("skills", skills)
+
+	# Set the attributes data. Assumes the attributes 
+	# have already been initialized in initialize_attributes
+	var attribute_data = state.get("attributes", {})
+	for attribute_id in attribute_data.keys():
+		if attributes.has(attribute_id):
+			attributes[attribute_id].set_data(attribute_data[attribute_id])
+
+	global_transform.origin.x = state.get("global_position_x", global_transform.origin.x)
+	global_transform.origin.y = state.get("global_position_y", global_transform.origin.y)
+	global_transform.origin.z = state.get("global_position_z", global_transform.origin.z)
+	
+	# Emit signals to update the HUD
+	update_doll.emit(current_head_health, current_right_arm_health, current_left_arm_health, current_torso_health, current_right_leg_health, current_left_leg_health)
+	update_stamina_HUD.emit(current_stamina)
