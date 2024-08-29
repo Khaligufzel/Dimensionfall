@@ -46,20 +46,16 @@ var mouse_press_position: Vector2 = Vector2()
 var selection_state_changed: bool = false
 var ui_updates_enabled = true
 
-# Tooltip variables
-@export var tooltipPanel: Panel  # The panel that displays the tooltip contents
-@export var tooltipNameLabel: Label  # Child of tooltipPanel for the item's name
-@export var tooltipDescriptionLabel: Label  # Child for the item's description
-@export var tooltipHealthLabel: Label  # Child for the item's description
-@export var tooltipHealthValue: Label  # Child for the item's description
-var tooltip_timer: Timer = Timer.new()  # Timer to control tooltip delay
-
 
 # Signals for context menu actions
 signal equip_left(items: Array[InventoryItem])
 signal equip_right(items: Array[InventoryItem])
 signal reload_item(items: Array[InventoryItem])
 signal unload_item(items: Array[InventoryItem])
+
+# UI signals emitted when the cursor hovers over a row in the list
+signal mouse_entered_item(item: InventoryItem)
+signal mouse_exited_item
 
 
 func initialize_list():
@@ -73,10 +69,6 @@ func initialize_list():
 
 # Initialize these in _ready function or similar initialization function
 func _ready():
-	add_child(tooltip_timer)
-	tooltip_timer.wait_time = 0.7  # 0.7 seconds delay
-	tooltip_timer.one_shot = true  # Only trigger once per hover
-	tooltip_timer.timeout.connect(_on_tooltip_timer_timeout)
 	Helper.signal_broker.inventory_operation_started.connect(_on_inventory_operation_started)
 	Helper.signal_broker.inventory_operation_finished.connect(_on_inventory_operation_finished)
 
@@ -380,17 +372,17 @@ func _on_row_mouse_entered(row_name: String):
 		if item:
 			# Now that you have the item, you can use it as needed.
 			# For example, start a timer for showing a tooltip.
-			tooltip_timer.set_meta("item", item)  # Store the item in the timer's metadata
-			tooltip_timer.start()
+			#tooltip_timer.set_meta("item", item)  # Store the item in the timer's metadata
+			#tooltip_timer.start()
+			mouse_entered_item.emit(item)
 
 
 # Unhighlight all controls in the row when the mouse exits any control
 func _on_row_mouse_exited(row_name: String):
 	if inventory_rows.has(row_name):
+		mouse_exited_item.emit()  # Emit the signal with no parameters
 		for control in inventory_rows[row_name]["controls"]:
 			control.unhighlight()
-			tooltip_timer.stop()
-			tooltipPanel.visible = false
 
 
 # Populate the inventory list
@@ -718,27 +710,6 @@ func _on_context_menu_unload(items: Array[InventoryItem]) -> void:
 		if item.get_property("Ranged") != null:
 			ItemManager.unload_magazine_from_item(item)
 			break  # Exit after unloading the first ranged item
-
-
-# Function called when the timer times out
-func _on_tooltip_timer_timeout():
-	var item = tooltip_timer.get_meta("item") as InventoryItem
-	if item:
-		tooltipNameLabel.text = item.get_property("name", "[No Name]")
-		tooltipDescriptionLabel.text = item.get_property("description", "[No Description]")
-		var health = ItemManager.get_nested_property(item, "Food.health")
-		if health:
-			tooltipHealthValue.text = "+" + str(health)
-			tooltipHealthLabel.visible = true
-			tooltipHealthValue.visible = true
-		else:
-			tooltipHealthLabel.visible = false
-			tooltipHealthValue.visible = false
-		
-		# Show context menu at the global position of the clicked item
-		#show_context_menu(clickedItem.global_position)
-		tooltipPanel.position = get_local_mouse_position() + Vector2(10, 10)  # Offset the tooltip a bit
-		tooltipPanel.visible = true
 
 
 func _on_inventory_operation_started():
