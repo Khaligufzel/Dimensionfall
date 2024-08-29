@@ -14,6 +14,9 @@ extends Control
 @export var min_amount_numedit: SpinBox
 @export var max_amount_numedit: SpinBox
 @export var current_amount_numedit: SpinBox
+@export var depletion_rate_numedit: SpinBox
+@export var ui_color_picker: ColorPicker
+
 
 signal data_changed()
 var olddata: DPlayerAttribute # Remember what the value of the data was before editing
@@ -45,21 +48,32 @@ func load_playerattribute_data() -> void:
 		max_amount_numedit.value = dplayerattribute.max_amount
 	if current_amount_numedit != null:
 		current_amount_numedit.value = dplayerattribute.current_amount
+	if depletion_rate_numedit != null:
+		depletion_rate_numedit.value = dplayerattribute.depletion_rate
+	# Load the UI color into the color picker
+	if ui_color_picker != null:
+		ui_color_picker.color = Color.html(dplayerattribute.ui_color)
+
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
 	queue_free()
 
+
 # This function takes all data from the form elements and stores them in the DMob instance
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
 	dplayerattribute.spriteid = PathTextLabel.text
+	dplayerattribute.sprite = playerattributeImageDisplay.texture
 	dplayerattribute.name = NameTextEdit.text
 	dplayerattribute.description = DescriptionTextEdit.text
 	dplayerattribute.min_amount = int(min_amount_numedit.value)
 	dplayerattribute.max_amount = max_amount_numedit.value
 	dplayerattribute.current_amount = int(current_amount_numedit.value)
+	dplayerattribute.depletion_rate = depletion_rate_numedit.value
+	# Save the selected color from the color picker back to dplayerattribute
+	dplayerattribute.ui_color = ui_color_picker.color.to_html()
 
 	dplayerattribute.changed(olddata)
 	data_changed.emit()

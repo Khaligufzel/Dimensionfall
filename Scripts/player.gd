@@ -348,7 +348,8 @@ func _on_food_item_used(usedItem: InventoryItem) -> void:
 		was_used = true
 
 	if was_used:
-		ItemManager.remove_inventory_item(usedItem)
+		var stack_size: int = InventoryStacked.get_item_stack_size(usedItem)
+		InventoryStacked.set_item_stack_size(usedItem,stack_size-1)
 
 
 # Heal the player by the specified amount. We prioritize the head and torso for healing

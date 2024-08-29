@@ -262,6 +262,13 @@ class Food:
 			food_data["attributes"] = attributes
 		return food_data
 
+	# Function to return an array of all "id" values in the attributes array
+	func get_attr_ids() -> Array:
+		var ids: Array = []
+		for attribute in attributes:
+			if attribute.has("id"):
+				ids.append(attribute["id"])
+		return ids
 
 # Inner class to handle the Ammo property
 class Ammo:
@@ -468,6 +475,7 @@ func changed(olddata: DItem):
 	for res_id in new_resource_ids:
 		add_reference("core", "items", res_id)
 	update_item_skill_references(olddata)
+	update_item_attribute_references(olddata)
 	
 	Gamedata.items.save_items_to_disk()
 
@@ -497,6 +505,22 @@ func update_item_skill_references(olddata: DItem):
 	# Add new skill references
 	for new_skill_id in new_skill_ids:
 		Gamedata.skills.add_reference(new_skill_id, "core", "items", id)
+
+
+# Collects all attributes defined in an item and updates the references to that attribute
+func update_item_attribute_references(olddata: DItem):
+	# Collect skill IDs from old and new data
+	var old_attr_ids = olddata.food.get_attr_ids() if olddata.food else []
+	var new_attr_ids = food.get_attr_ids() if food else []
+
+	# Remove old skill references that are not in the new list
+	for old_attr_id in old_attr_ids:
+		if not new_attr_ids.has(old_attr_id):
+			Gamedata.playerattributes.remove_reference(old_attr_id, "core", "items", id)
+	
+	# Add new attribute references
+	for new_attr_id in new_attr_ids:
+		Gamedata.playerattributes.add_reference(new_attr_id, "core", "items", id)
 
 
 # An item is being deleted from the data

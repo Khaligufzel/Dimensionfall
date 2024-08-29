@@ -276,6 +276,12 @@ json_data = "[
 	},
 	{
 		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 20,
+					\"id\": \"water\"
+				}
+			],
 			\"health\": 5
 		},
 		\"description\": \"This plastic bottle is filled with water\",
@@ -300,6 +306,15 @@ json_data = "[
 		\"weight\": 0.25
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 25,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"The contents will satisfy your hunger\",
 		\"id\": \"canned_food\",
 		\"image\": \"./Mods/Core/Items/canned_food_32.png\",
@@ -1384,6 +1399,15 @@ json_data = "[
 		\"weight\": 0.5
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A block of tofu, a good source of protein.\",
 		\"id\": \"tofu\",
 		\"image\": \"./Mods/Core/Items/tofu_32.png\",
@@ -1403,6 +1427,19 @@ json_data = "[
 		\"weight\": 0.5
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 15,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 1,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A bottle of yogurt, useful for nutrition and digestion.\",
 		\"id\": \"bottle_yogurt\",
 		\"image\": \"./Mods/Core/Items/bottle_yogurt_32.png\",
@@ -1422,6 +1459,19 @@ json_data = "[
 		\"weight\": 0.3
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 3,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A jar of pickles, a tasty preserved food.\",
 		\"id\": \"jar_pickles\",
 		\"image\": \"./Mods/Core/Items/jar_pickles_32.png\",
@@ -1434,6 +1484,19 @@ json_data = "[
 		\"weight\": 1
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 15,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 5,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A can of condensed milk, a rich source of nutrition.\",
 		\"id\": \"condensed_milk\",
 		\"image\": \"./Mods/Core/Items/condensed_milk_32.png\",
@@ -1470,6 +1533,15 @@ json_data = "[
 		\"weight\": 0.1
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A bag of bacon, rich in fats and proteins.\",
 		\"id\": \"bag_bacon\",
 		\"image\": \"./Mods/Core/Items/bag_bacon_32.png\",
@@ -1489,6 +1561,15 @@ json_data = "[
 		\"weight\": 0.5
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A bottle of wine, useful for bartering or a morale boost.\",
 		\"id\": \"wine_bottle\",
 		\"image\": \"./Mods/Core/Items/wine_bottle_32.png\",
@@ -1501,6 +1582,15 @@ json_data = "[
 		\"weight\": 1.5
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A loaf of bread, a staple food item.\",
 		\"id\": \"bread\",
 		\"image\": \"./Mods/Core/Items/bread_32.png\",
@@ -1525,6 +1615,15 @@ json_data = "[
 		\"weight\": 0.05
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A slice of pizza, not very fresh but still edible.\",
 		\"id\": \"slice_of_pizza\",
 		\"image\": \"./Mods/Core/Items/slice_of_pizza_32.png\",
@@ -1544,6 +1643,15 @@ json_data = "[
 		\"weight\": 0.3
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A package of vacuum-sealed fish, preserved for longer storage.\",
 		\"id\": \"vacuum_sealed_fish\",
 		\"image\": \"./Mods/Core/Items/vacuum_sealed_fish_32.png\",
@@ -1563,6 +1671,19 @@ json_data = "[
 		\"weight\": 0.8
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 3,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 3,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A ripe tomato, still fresh and edible.\",
 		\"id\": \"tomato\",
 		\"image\": \"./Mods/Core/Items/tomato_32.png\",
@@ -1582,6 +1703,19 @@ json_data = "[
 		\"weight\": 0.2
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 3,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 6,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A head of lettuce, slightly wilted but still usable.\",
 		\"id\": \"lettuce\",
 		\"image\": \"./Mods/Core/Items/lettuce_32.png\",
@@ -1613,6 +1747,15 @@ json_data = "[
 		\"weight\": 1
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A bar of chocolate, a morale booster and energy source.\",
 		\"id\": \"chocolate\",
 		\"image\": \"./Mods/Core/Items/chocolate_32.png\",
@@ -1632,6 +1775,15 @@ json_data = "[
 		\"weight\": 0.2
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A jar of olives, preserved and ready to eat.\",
 		\"id\": \"jar_olives\",
 		\"image\": \"./Mods/Core/Items/jar_olives_32.png\",
@@ -1656,6 +1808,15 @@ json_data = "[
 		\"weight\": 0.5
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 5,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A jar of mustard, adds flavor to meals.\",
 		\"id\": \"jar_mustard\",
 		\"image\": \"./Mods/Core/Items/jar_mustard_32.png\",
@@ -1668,6 +1829,15 @@ json_data = "[
 		\"weight\": 0.3
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 5,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A bottle of ketchup, a common condiment.\",
 		\"id\": \"bottle_ketchup\",
 		\"image\": \"./Mods/Core/Items/bottle_ketchup_32.png\",
@@ -1680,6 +1850,15 @@ json_data = "[
 		\"weight\": 0.3
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 5,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A loaf of bread that has gone stale, but still edible in a pinch.\",
 		\"id\": \"stale_bread\",
 		\"image\": \"./Mods/Core/Items/stale_bread_32.png\",
@@ -1704,6 +1883,19 @@ json_data = "[
 		\"weight\": 0.1
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 2,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 6,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A fresh orange, a good source of vitamin C.\",
 		\"id\": \"orange\",
 		\"image\": \"./Mods/Core/Items/orange_32.png\",
@@ -1721,6 +1913,10 @@ json_data = "[
 				{
 					\"amount\": 10,
 					\"id\": \"food\"
+				},
+				{
+					\"amount\": 3,
+					\"id\": \"water\"
 				}
 			],
 			\"health\": 0
@@ -1744,6 +1940,15 @@ json_data = "[
 		\"weight\": 0.2
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A raw potato, versatile in many recipes.\",
 		\"id\": \"potato\",
 		\"image\": \"./Mods/Core/Items/potato_32.png\",
@@ -1756,6 +1961,15 @@ json_data = "[
 		\"weight\": 0.3
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 9,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A fresh carrot, good for nutrition.\",
 		\"id\": \"carrot\",
 		\"image\": \"./Mods/Core/Items/carrot_32.png\",
@@ -1775,6 +1989,19 @@ json_data = "[
 		\"weight\": 0.2
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 12,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 6,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A carton of eggs, a versatile food item.\",
 		\"id\": \"eggs\",
 		\"image\": \"./Mods/Core/Items/eggs_32.png\",
@@ -1794,6 +2021,15 @@ json_data = "[
 		\"weight\": 0.6
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 20,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A stick of butter, useful for cooking and baking.\",
 		\"id\": \"butter\",
 		\"image\": \"./Mods/Core/Items/butter_32.png\",
@@ -1813,6 +2049,15 @@ json_data = "[
 		\"weight\": 0.4
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 12,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A can of energy drink, boosts stamina temporarily.\",
 		\"id\": \"can_energydrink\",
 		\"image\": \"./Mods/Core/Items/can_energydrink_32.png\",
@@ -1833,6 +2078,15 @@ json_data = "[
 		\"weight\": 0.3
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 15,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A can of soda, a refreshing beverage.\",
 		\"id\": \"can_soda\",
 		\"image\": \"./Mods/Core/Items/can_soda_32.png\",
@@ -1853,6 +2107,15 @@ json_data = "[
 		\"weight\": 0.3
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 10,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A block of cheese, a versatile food item.\",
 		\"id\": \"cheese\",
 		\"image\": \"./Mods/Core/Items/cheese_32.png\",
@@ -2267,6 +2530,19 @@ json_data = "[
 		\"weight\": 0.1
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 6,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 2,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A handful of wild berries, good for a quick snack or foraging.\",
 		\"id\": \"berries_wild\",
 		\"image\": \"./Mods/Core/Items/berries_wild_32.png\",
@@ -2289,6 +2565,15 @@ json_data = "[
 		\"weight\": 0.05
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 4,
+					\"id\": \"food\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"Edible mushrooms found in the forest, can be cooked or used in potions.\",
 		\"id\": \"mushrooms_forest\",
 		\"image\": \"./Mods/Core/Items/mushroom_forest_32.png\",
@@ -2327,6 +2612,19 @@ json_data = "[
 		\"weight\": 0.05
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 5,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 2,
+					\"id\": \"water\"
+				}
+			],
+			\"health\": 0
+		},
 		\"description\": \"A fresh bird egg, can be cooked for a nutritious meal.\",
 		\"id\": \"bird_egg\",
 		\"image\": \"./Mods/Core/Items/egg_bird_32.png\",

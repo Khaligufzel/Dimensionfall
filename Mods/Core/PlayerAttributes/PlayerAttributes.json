@@ -1,11 +1,74 @@
 [
 	{
+		"color": "d53037ff",
 		"current_amount": 100,
+		"depletion_rate": 0.02,
 		"description": "You starve when this is empty. You are full when this is full.",
 		"id": "food",
 		"max_amount": 100,
 		"min_amount": 0,
 		"name": "Food",
+		"references": {
+			"core": {
+				"items": [
+					"canned_food",
+					"tofu",
+					"bottle_yogurt",
+					"condensed_milk",
+					"bag_bacon",
+					"bread",
+					"slice_of_pizza",
+					"vacuum_sealed_fish",
+					"tomato",
+					"lettuce",
+					"chocolate",
+					"jar_olives",
+					"jar_mustard",
+					"bottle_ketchup",
+					"stale_bread",
+					"orange",
+					"apple",
+					"potato",
+					"carrot",
+					"eggs",
+					"butter",
+					"cheese",
+					"berries_wild",
+					"bird_egg",
+					"mushrooms_forest"
+				]
+			}
+		},
 		"sprite": "apple_32.png"
+	},
+	{
+		"color": "2e3195ff",
+		"current_amount": 100,
+		"depletion_rate": 0.02,
+		"description": "The amount of water the player has in their body. Running out will mean death.",
+		"id": "water",
+		"max_amount": 100,
+		"min_amount": 0,
+		"name": "Water",
+		"references": {
+			"core": {
+				"items": [
+					"bottle_plastic_water",
+					"bottle_yogurt",
+					"condensed_milk",
+					"wine_bottle",
+					"tomato",
+					"lettuce",
+					"orange",
+					"apple",
+					"eggs",
+					"can_energydrink",
+					"can_soda",
+					"berries_wild",
+					"bird_egg"
+				]
+			}
+		},
+		"sprite": "waterbottle_32.png"
 	}
 ]

@@ -93,7 +93,7 @@ func sprite_by_file(spritefile: String) -> Texture:
 
 
 # Removes the reference from the selected playerattribute
-func remove_reference_from_playerattribute(playerattributeid: String, module: String, type: String, refid: String):
+func remove_reference(playerattributeid: String, module: String, type: String, refid: String):
 	var myplayerattribute: DPlayerAttribute = playerattributedict[playerattributeid]
 	myplayerattribute.remove_reference(module, type, refid)
 
@@ -104,6 +104,6 @@ func remove_reference_from_playerattribute(playerattributeid: String, module: St
 # module: the mod that the entity belongs to, for example "Core"
 # type: The type of entity, for example "maps"
 # refid: The id of the entity to reference, for example "grass_field"
-func add_reference_to_playerattribute(playerattributeid: String, module: String, type: String, refid: String):
+func add_reference(playerattributeid: String, module: String, type: String, refid: String):
 	var myplayerattribute: DPlayerAttribute = playerattributedict[playerattributeid]
 	myplayerattribute.add_reference(module, type, refid)

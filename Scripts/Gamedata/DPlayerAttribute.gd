@@ -26,6 +26,12 @@ var max_amount: float
 # Current value of the attribute (e.g., current health level)
 var current_amount: float
 
+# The rate at which the amount depletes every second
+var depletion_rate: float
+
+# Variable to store the UI color as a string (e.g., "ffffffff" for white)
+var ui_color: String
+
 # References to other entities
 var references: Dictionary = {}
 
@@ -38,19 +44,26 @@ func _init(data: Dictionary):
 	min_amount = data.get("min_amount", 0.0)
 	max_amount = data.get("max_amount", 100.0)
 	current_amount = data.get("current_amount", max_amount)  # Default to max amount if not provided
+	depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02 if not provided
+	ui_color = data.get("color", "ffffffff")  # Default to white if not provided
 	references = data.get("references", {})
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
-	return {
+	var data: Dictionary = {
 		"id": id,
 		"name": name,
 		"description": description,
 		"sprite": spriteid,
 		"min_amount": min_amount,
 		"max_amount": max_amount,
-		"current_amount": current_amount
+		"current_amount": current_amount,
+		"depletion_rate": depletion_rate,
+		"color": ui_color
 	}
+	if not references.is_empty():
+		data["references"] = references
+	return data
 
 
 # Removes the provided reference from references
