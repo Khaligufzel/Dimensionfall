@@ -50,8 +50,7 @@ A general helper autoload that provides generic functions used in many other scr
 
 
 ## Gamedata
-Central management of game data. Data is loaded from the `/mods` folder. This includes all entity data and sprites. All data can be accessed trough this autoload. Ties heavily into the Content Editor. When data is changed using the content editor, the Gamedata autoload will update related entities if needed and save the data. Gamedata can be accessed trough the functions in `gamedata.gd`. Some of the data is stored in Gamedata.data.type, where type can be something like mobs, tiles, tacticalmaps, skills, stats. Some of the data is stored in it's own class, accessible trough Gamedata.items or Gamedata.furnitures or Gamedata.maps.
-
+Central management of game data. Data is loaded from the `/mods` folder. This includes all entity data and sprites. All data can be accessed trough this autoload. Ties heavily into the Content Editor. When data is changed using the content editor, the Gamedata autoload will update related entities if needed and save the data. The data is stored in it's own class, accessible trough Gamedata.items or Gamedata.furnitures or Gamedata.maps, and so on.
 
 ## Gloot
 An autoload that is provided by the [Gloot addon](https://github.com/peter-kish/gloot). We do not access this directly, just trough the addon's classes. It provides functionality for the inventory.
