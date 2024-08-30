@@ -19,7 +19,9 @@ var sprite: Texture
 var min_amount: float
 var max_amount: float
 var current_amount: float
+var depletion_effect: String # the effect that will happen when depleted
 var depletion_rate: float = 0.02 # Takes over an hour irl to deplete an amoun of 100
+var depletion_timer: Timer
 
 # Constructor to initialize the controller with a DPlayerAttribute and a player reference
 func _init(data: DPlayerAttribute, player_reference: Node):
@@ -36,6 +38,7 @@ func _init(data: DPlayerAttribute, player_reference: Node):
 	max_amount = attribute_data.max_amount
 	current_amount = attribute_data.current_amount
 	depletion_rate = attribute_data.depletion_rate
+	depletion_effect = attribute_data.depletion_effect
 	start_depletion()
 
 # Function to get the current state of the attribute as a dictionary
@@ -74,7 +77,7 @@ func reset_to_max():
 func _on_attribute_changed():
 	Helper.signal_broker.player_attribute_changed.emit(player)
 	# If amount drops to 0, trigger player death
-	if is_at_min():
+	if is_at_min() and depletion_effect == "death":
 		player.die()
 
 # Function to reduce the attribute by a specified amount
@@ -97,12 +100,12 @@ func is_at_max() -> bool:
 # Function to start the depletion of the attribute
 func start_depletion():
 	# Create a timer to decrease the attribute over time
-	var timer = Timer.new()
-	timer.wait_time = 1.0  # Deplete every second
-	timer.one_shot = false  # Repeat the timer
-	timer.timeout.connect(_on_deplete_tick)
-	player.add_child(timer)  # Add the timer to the player's node to start it
-	timer.start()
+	depletion_timer = Timer.new()
+	depletion_timer.wait_time = 1.0  # Deplete every second
+	depletion_timer.one_shot = false  # Repeat the timer
+	depletion_timer.timeout.connect(_on_deplete_tick)
+	player.add_child(depletion_timer)  # Add the timer to the player's node to start it
+	depletion_timer.start()
 
 
 # Function that gets called every tick to decrease the attribute
@@ -111,7 +114,5 @@ func _on_deplete_tick():
 
 	# Optional: Stop the timer if the attribute reaches the minimum amount
 	if is_at_min():
-		var timer = player.get_node_or_null("Timer")
-		if timer:
-			timer.stop()
-			timer.queue_free()
+		depletion_timer.stop()
+		depletion_timer.queue_free()

@@ -144,6 +144,18 @@ tooltip_text = "The amount to subtract each second. With a \"max amount\" of 100
 step = 0.01
 value = 0.02
 
+[node name="DepletionEffectLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Depletion effect"
+
+[node name="DepletionEffectOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "none"
+popup/item_1/text = "death"
+popup/item_1/id = 1
+
 [node name="UIColorLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
 text = "UI color"

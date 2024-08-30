@@ -15,6 +15,7 @@ extends Control
 @export var max_amount_numedit: SpinBox
 @export var current_amount_numedit: SpinBox
 @export var depletion_rate_numedit: SpinBox
+@export var depletion_effect: OptionButton
 @export var ui_color_picker: ColorPicker
 
 
@@ -50,6 +51,8 @@ func load_playerattribute_data() -> void:
 		current_amount_numedit.value = dplayerattribute.current_amount
 	if depletion_rate_numedit != null:
 		depletion_rate_numedit.value = dplayerattribute.depletion_rate
+	if depletion_effect != null:
+		update_depleted_effect_option(dplayerattribute.depletion_effect)
 	# Load the UI color into the color picker
 	if ui_color_picker != null:
 		ui_color_picker.color = Color.html(dplayerattribute.ui_color)
@@ -59,6 +62,16 @@ func load_playerattribute_data() -> void:
 # TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
 	queue_free()
+
+
+
+# Update the selected option in the SlotOptionButton to match the specified slot name
+func update_depleted_effect_option(effectname: String):
+	var items = depletion_effect.get_item_count()
+	for i in range(items):
+		if depletion_effect.get_item_text(i) == effectname:
+			depletion_effect.selected = i
+			return
 
 
 # This function takes all data from the form elements and stores them in the DMob instance
@@ -72,6 +85,7 @@ func _on_save_button_button_up() -> void:
 	dplayerattribute.max_amount = max_amount_numedit.value
 	dplayerattribute.current_amount = int(current_amount_numedit.value)
 	dplayerattribute.depletion_rate = depletion_rate_numedit.value
+	dplayerattribute.depletion_effect = depletion_effect.get_item_text(depletion_effect.selected)
 	# Save the selected color from the color picker back to dplayerattribute
 	dplayerattribute.ui_color = ui_color_picker.color.to_html()
 

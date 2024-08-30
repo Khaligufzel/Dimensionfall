@@ -231,18 +231,17 @@ func _input(event):
 		var world_mouse_position = raycast.position
 		var result = Helper.raycast(global_position, global_position + (Vector3(world_mouse_position.x - global_position.x, 0, world_mouse_position.z - global_position.z)).normalized() * interact_range, layer, [self])
 
-		print("Interact button pressed")
+		print_debug("Interact button pressed")
 		if result:
-			print("Found object with collider")
+			print_debug("Found object with collider")
 			Helper.signal_broker.player_interacted.emit(result.position, result.rid)
-			#var myOwner = result.collider.get_owner()
-			#if myOwner:
-			#if result.collider.has_method("interact"):
-				#print("collider has method")
-				#result.collider.interact()
 				
 
-func _get_hit(damage: float):
+# The player gets hit by an attack
+# attributeid: The PlayerAttribute that is targeted by this attack
+# damage: The amount to subtract from the target attribute
+func _get_hit(attributeid: String, damage: float):
+	attributes[attributeid].reduce_amount(damage)
 	var limb_number = rng.randi_range(0,5)
 	
 	match limb_number:
@@ -331,10 +330,6 @@ func play_footstep_audio():
 func _on_food_item_used(usedItem: InventoryItem) -> void:
 	var food = DItem.Food.new(usedItem.get_property("Food"))
 	var was_used: bool = false
-	if food.health:
-		var spent_health = heal_player(food.health)
-		if not spent_health == food.health:
-			was_used = true
 
 	for attribute in food.attributes:
 		attributes[attribute.id].modify_current_amount(attribute.amount)

@@ -5,6 +5,7 @@ var original_scale
 var mobPosition: Vector3 # The position it will move to when it is created
 var mobRotation: int # The rotation it will rotate to when it is created
 var mobJSON: Dictionary # The json that defines this mob
+var dmob: DMob # The data that defines this mob in general
 var meshInstance: MeshInstance3D # This mob's mesh instance
 var nav_agent: NavigationAgent3D # Used for pathfinding
 var last_position: Vector3 = Vector3()
@@ -40,6 +41,8 @@ var terminated: bool = false
 # This function tries to re-create that node structure and properties
 func _init(mobpos: Vector3, newMobJSON: Dictionary):
 	mobJSON = newMobJSON
+	# Retrieve mob data from Gamedata
+	dmob = Gamedata.mobs.by_id(mobJSON.id)
 	mobPosition = mobpos
 	setup_mob_properties()
 	setup_collision_layers_and_masks()
@@ -52,7 +55,7 @@ func _init(mobpos: Vector3, newMobJSON: Dictionary):
 	create_detection()
 	create_collision_shape()
 	create_mesh_instance()
-	apply_stats_from_dmob(Gamedata.mobs.by_id(mobJSON.id))
+	apply_stats_from_dmob()
 	Helper.signal_broker.game_terminated.connect(terminate)
 
 # Set basic properties of the mob
@@ -262,9 +265,6 @@ func add_corpse(pos: Vector3):
 	itemdata["global_position_y"] = pos.y
 	itemdata["global_position_z"] = pos.z
 
-	# Retrieve mob data from Gamedata
-	var dmob = Gamedata.mobs.by_id(mobJSON.id)
-
 	# Check if the mob data has a 'loot_group' property
 	if dmob.loot_group and not dmob.loot_group == "":
 		# Set the itemgroup property of the new ContainerItem
@@ -296,7 +296,7 @@ func set_sprite(newSprite: Resource):
 # Applies its own data from the DMob instance it received
 # If it is created as a new mob, it will spawn with the default stats
 # If it is created from a saved game, it might have lower health for example
-func apply_stats_from_dmob(dmob: DMob) -> void:
+func apply_stats_from_dmob() -> void:
 	set_sprite(dmob.sprite)
 	melee_damage = dmob.melee_damage
 	melee_range = dmob.melee_range
