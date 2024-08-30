@@ -2,6 +2,7 @@
 	{
 		"color": "258d1bff",
 		"current_amount": 100,
+		"depletion_effect": "death",
 		"depletion_rate": 0.02,
 		"description": "You starve when this is empty. You are full when this is full.",
 		"id": "food",
@@ -44,6 +45,7 @@
 	{
 		"color": "2e3195ff",
 		"current_amount": 100,
+		"depletion_effect": "death",
 		"depletion_rate": 0.02,
 		"description": "The amount of water the player has in their body. Running out will mean death.",
 		"id": "water",
@@ -74,6 +76,7 @@
 	{
 		"color": "ff0000ff",
 		"current_amount": 100,
+		"depletion_effect": "death",
 		"depletion_rate": 0,
 		"description": "The health of the player's head. Critical for survival.",
 		"id": "head_health",
@@ -93,6 +96,7 @@
 	{
 		"color": "ff9900ff",
 		"current_amount": 100,
+		"depletion_effect": "death",
 		"depletion_rate": 0,
 		"description": "The health of the player's torso. Vital for survival.",
 		"id": "torso_health",
@@ -112,6 +116,7 @@
 	{
 		"color": "33cc33ff",
 		"current_amount": 100,
+		"depletion_effect": "none",
 		"depletion_rate": 0,
 		"description": "The health of the player's left arm.",
 		"id": "left_arm_health",
@@ -131,6 +136,7 @@
 	{
 		"color": "33cc33ff",
 		"current_amount": 100,
+		"depletion_effect": "none",
 		"depletion_rate": 0,
 		"description": "The health of the player's right arm.",
 		"id": "right_arm_health",
@@ -150,6 +156,7 @@
 	{
 		"color": "0099ffff",
 		"current_amount": 100,
+		"depletion_effect": "none",
 		"depletion_rate": 0,
 		"description": "The health of the player's left leg.",
 		"id": "left_leg_health",
@@ -169,6 +176,7 @@
 	{
 		"color": "0099ffff",
 		"current_amount": 100,
+		"depletion_effect": "none",
 		"depletion_rate": 0,
 		"description": "The health of the player's right leg.",
 		"id": "right_leg_health",
