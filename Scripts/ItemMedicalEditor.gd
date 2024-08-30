@@ -4,6 +4,8 @@ extends Control
 # It is supposed to edit exactly one medical type item
 
 # Form elements
+@export var amount_spin_box: SpinBox # See it's tooltip for explanation
+@export var order_option_button: OptionButton
 @export var attributesGridContainer: GridContainer = null
 
 var ditem: DItem = null:
@@ -53,31 +55,69 @@ func _load_attributes_into_ui(attributes: Array) -> void:
 func _get_attributes_from_ui() -> Array:
 	var attributes = []
 	var children = attributesGridContainer.get_children()
-	for i in range(0, children.size(), 3):  # Step by 3 to handle label-spinbox-deleteButton triples
-		var label = children[i] as Label
-		var spinBox = children[i + 1] as SpinBox
-		attributes.append({"id": label.text, "amount": spinBox.value})
+	for hbox in children:
+		if hbox is HBoxContainer:
+			var label = hbox.get_child(1) as Label  # The Label is the second child
+			var spinBox = hbox.get_child(2) as SpinBox  # The SpinBox is the third child
+			attributes.append({"id": label.text, "amount": spinBox.value})
 	return attributes
+
 
 # Add a new attribute entry to the attributesGridContainer
 func _add_attribute_entry(attribute: Dictionary) -> void:
+	var dattribute: DPlayerAttribute = Gamedata.playerattributes.by_id(attribute.id)
+	var sprite: Texture = dattribute.sprite
 	var attribute_name = attribute.id
 	var amount = attribute.amount
+
+	# Create an HBoxContainer to hold the elements
+	var hbox = HBoxContainer.new()
+
+	# Create a TextureRect for the sprite
+	var texture_rect = TextureRect.new()
+	texture_rect.texture = sprite
+	texture_rect.rect_min_size = Vector2(32, 32)  # Ensure the texture is 32x32
+	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED  # Keep the aspect ratio centered
+	hbox.add_child(texture_rect)
+
 	# Create a Label for the attribute name
 	var label = Label.new()
 	label.text = attribute_name
-	attributesGridContainer.add_child(label)
-	
+	hbox.add_child(label)
+
 	# Create a SpinBox for the attribute value
 	var amountSpinBox = SpinBox.new()
 	amountSpinBox.value = amount
-	attributesGridContainer.add_child(amountSpinBox)
+	amountSpinBox.min_value = -100  # Set the minimum value
+	amountSpinBox.max_value = 100   # Set the maximum value
+	amountSpinBox.tooltip_text = "This amount will be used to modify the value of \n" + \
+								"the assigned attribute by the given amount. It  \n" + \
+								"can be positive or negative. This is an extra amount  \n" + \
+								"on top of the general amount given by the item. If  \n" + \
+								"no specific amount should be added to the attribute, enter 0."
+	hbox.add_child(amountSpinBox)
 	
 	# Create a Button to delete the attribute entry
 	var deleteButton = Button.new()
 	deleteButton.text = "X"
-	deleteButton.pressed.connect(_delete_attribute_entry.bind([label, amountSpinBox, deleteButton]))
-	attributesGridContainer.add_child(deleteButton)
+	deleteButton.pressed.connect(_delete_attribute_entry.bind([hbox]))
+	hbox.add_child(deleteButton)
+
+	# Create an Up Button to move the entry up
+	var upButton = Button.new()
+	upButton.text = "▲"
+	upButton.pressed.connect(_move_entry_up.bind(hbox))
+	hbox.add_child(upButton)
+
+	# Create a Down Button to move the entry down
+	var downButton = Button.new()
+	downButton.text = "▼"
+	downButton.pressed.connect(_move_entry_down.bind(hbox))
+	hbox.add_child(downButton)
+
+	# Add the HBoxContainer to the attributesGridContainer
+	attributesGridContainer.add_child(hbox)
+
 
 # Delete an attribute entry from the attributesGridContainer
 func _delete_attribute_entry(elements_to_remove: Array) -> void:
@@ -98,14 +138,17 @@ func _can_drop_attribute_data(_newpos, data) -> bool:
 
 	# Check if the attribute ID already exists in the attributes grid
 	var children = attributesGridContainer.get_children()
-	for i in range(0, children.size(), 3):  # Step by 3 to handle label-spinbox-deleteButton triples
-		var label = children[i] as Label
-		if label.text == data["id"]:
-			# Return false if this attribute ID already exists in the attributes grid
-			return false
+	for hbox in children:
+		if hbox is HBoxContainer:
+			var label = hbox.get_child(1) as Label  # The Label is the second child
+			if label.text == data["id"]:
+				# Return false if this attribute ID already exists in the attributes grid
+				return false
 
 	# If all checks pass, return true
 	return true
+
+
 
 # Function to handle the data being dropped in the attributesGridContainer
 func _drop_attribute_data(newpos, data) -> void:
@@ -128,3 +171,16 @@ func _handle_attribute_drop(dropped_data, _newpos) -> void:
 		# Here you would update your data structure if needed, similar to how you did for resources
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
+
+# Move the entry up by one position in the attributesGridContainer
+func _move_entry_up(hbox: HBoxContainer) -> void:
+	var index = attributesGridContainer.get_child_index(hbox)
+	if index > 0:  # Ensure it's not the first element
+		attributesGridContainer.move_child(hbox, index - 1)
+
+
+# Move the entry down by one position in the attributesGridContainer
+func _move_entry_down(hbox: HBoxContainer) -> void:
+	var index = attributesGridContainer.get_child_index(hbox)
+	if index < attributesGridContainer.get_child_count() - 1:  # Ensure it's not the last element
+		attributesGridContainer.move_child(hbox, index + 1)

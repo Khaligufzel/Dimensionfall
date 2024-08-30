@@ -21,10 +21,13 @@ signal build_window_visibility_changed(buildWindow: Control)
 @warning_ignore("unused_signal")
 signal items_were_used(usedItems: Array[InventoryItem])
 
-# Signalled when an items were used
-# It can be one or more items. It's up to the receiver to figure it out
+# Signalled when an item were used
 @warning_ignore("unused_signal")
 signal food_item_used(usedItem: InventoryItem)
+
+# Signalled when an item were used
+@warning_ignore("unused_signal")
+signal medical_item_used(usedItem: InventoryItem)
 
 # Signalled when an item was equiped in an equipmentslot
 # The item will know what slot it was

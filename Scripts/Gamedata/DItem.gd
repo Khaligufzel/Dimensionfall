@@ -271,19 +271,27 @@ class Food:
 # Inner class to handle the Medical property
 class Medical:
 	var attributes: Array = []  # example: [{"id":"torso","amount":10}]
+	var amount: float  # The general amount to be added to attributes
+	# The order by which to apply the amount. Can be "Ascending", "Descending"
+	# "Lowest first", "Highest first" and "Random"
+	var order: String
 
-	# Constructor to initialize food properties from a dictionary
+	# Constructor to initialize Medical properties from a dictionary
 	func _init(data: Dictionary):
 		attributes = []
 		if data.has("attributes"):
 			attributes = data["attributes"]
+		amount = data.get("amount", 0.0)
+		order = data.get("order", "Random")  # Default to "Random" if not provided
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		var food_data: Dictionary = {}
+		var medical_data: Dictionary = {}
 		if not attributes.is_empty():
-			food_data["attributes"] = attributes
-		return food_data
+			medical_data["attributes"] = attributes
+		medical_data["amount"] = amount
+		medical_data["order"] = order
+		return medical_data
 
 	# Function to return an array of all "id" values in the attributes array
 	func get_attr_ids() -> Array:

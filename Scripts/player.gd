@@ -76,6 +76,7 @@ func _ready():
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
 	Helper.signal_broker.food_item_used.connect(_on_food_item_used)
+	Helper.signal_broker.medical_item_used.connect(_on_medical_item_used)
 	ItemManager.craft_successful.connect(_on_craft_successful)
 	# Connect signals for collisionDetector to detect furniture
 	collisionDetector.body_shape_entered.connect(_on_body_entered)
@@ -332,6 +333,21 @@ func _on_food_item_used(usedItem: InventoryItem) -> void:
 	var was_used: bool = false
 
 	for attribute in food.attributes:
+		attributes[attribute.id].modify_current_amount(attribute.amount)
+		was_used = true
+
+	if was_used:
+		var stack_size: int = InventoryStacked.get_item_stack_size(usedItem)
+		InventoryStacked.set_item_stack_size(usedItem,stack_size-1)
+
+
+# The player has selected one or more items in the inventory and selected
+# 'use' from the context menu.
+func _on_medical_item_used(usedItem: InventoryItem) -> void:
+	var medical = DItem.Food.new(usedItem.get_property("Medical"))
+	var was_used: bool = false
+
+	for attribute in medical.attributes:
 		attributes[attribute.id].modify_current_amount(attribute.amount)
 		was_used = true
 
