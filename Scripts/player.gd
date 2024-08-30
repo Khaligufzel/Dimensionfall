@@ -340,59 +340,113 @@ func _on_food_item_used(usedItem: InventoryItem) -> void:
 		var stack_size: int = InventoryStacked.get_item_stack_size(usedItem)
 		InventoryStacked.set_item_stack_size(usedItem,stack_size-1)
 
+
 # The player has selected one or more items in the inventory and selected
 # 'use' from the context menu.
 func _on_medical_item_used(usedItem: InventoryItem) -> void:
+	
 	var medical = DItem.Medical.new(usedItem.get_property("Medical"))
 	var was_used: bool = false
 
-	# Sort the attributes based on the order specified in the medical item
-	var sorted_attributes = _sort_attributes_by_order(medical.attributes, medical.order)
+	# Step 1: Apply specific amounts to each attribute
+	# example of medical.attributes: [{"id":"torso","amount":10}]
+	was_used = _apply_specific_attribute_amounts(medical.attributes) or was_used
 
-	# Apply the general amount and specific amounts to the attributes
-	for attribute in sorted_attributes:
-		var total_amount = medical.amount + attribute.amount
-		attributes[attribute.id].modify_current_amount(total_amount)
-		was_used = true
+	# Step 2: Apply the general medical amount from the pool
+	was_used = _apply_general_medical_amount(medical) or was_used
 
+	# If any attribute was modified, reduce the item stack size by 1
 	if was_used:
 		var stack_size: int = InventoryStacked.get_item_stack_size(usedItem)
 		InventoryStacked.set_item_stack_size(usedItem, stack_size - 1)
 
+# Function to apply specific amounts to each attribute
+# medattributes: Attributes assigned to the medical item
+# For example: [{"id":"torso","amount":10}] would add 10 to the "torso" attribute
+func _apply_specific_attribute_amounts(medattributes: Array) -> bool:
+	var was_used: bool = false
+
+	for medattribute in medattributes:
+		# Get the values from the current player's attribute
+		var playerattribute: PlayerAttribute = attributes[medattribute.id]
+		var current_amount = playerattribute.current_amount
+		var max_amount = playerattribute.max_amount
+		var min_amount = playerattribute.min_amount
+
+		# Make sure we don't add or subtract more then the min and max amount
+		var new_amount = clamp(current_amount + medattribute.amount, min_amount, max_amount)
+
+		# If the new amount is different from the current amount, apply the change
+		if new_amount != current_amount:
+			playerattribute.modify_current_amount(new_amount - current_amount)
+			was_used = true
+	
+	return was_used
+
+# Function to apply the general medical amount from the pool
+# See the DItem class and it's Medical subclass for the properties of DItem.Medical
+func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
+	var was_used: bool = false
+	var pool = medical.amount
+	var sorted_attributes = _sort_attributes_by_order(medical.attributes, medical.order)
+
+	for medattribute in sorted_attributes:
+		# Get the values from the current player's attribute
+		var playerattribute: PlayerAttribute = attributes[medattribute.id]
+		var current_amount = playerattribute.current_amount
+		var max_amount = playerattribute.max_amount
+		var min_amount = playerattribute.min_amount
+
+		# Calculate how much can actually be added from the pool
+		var additional_amount = min(pool, max_amount - current_amount)
+
+		# Make sure that amount is not more or less then the min and max amount for the attribute
+		var new_amount = clamp(current_amount + additional_amount, min_amount, max_amount)
+
+		# Update the pool after applying the additional amount
+		pool -= (new_amount - current_amount)
+
+		# If the new amount is different from the current amount, apply the change
+		if not new_amount == current_amount:
+			playerattribute.modify_current_amount(new_amount - current_amount)
+			was_used = true
+
+		# If the pool is exhausted, break out of the loop
+		if pool <= 0:
+			break
+
+	return was_used
+
 # Sort attributes based on the specified order
-func _sort_attributes_by_order(myattributes: Array, order: String) -> Array:
+func _sort_attributes_by_order(attributes: Array, order: String) -> Array:
 	match order:
 		"Ascending":
-			myattributes.sort_custom(_compare_by_amount_ascending)
+			attributes.sort_custom(_compare_by_current_amount_ascending)
 		"Descending":
-			myattributes.sort_custom(_compare_by_amount_descending)
+			attributes.sort_custom(_compare_by_current_amount_descending)
 		"Lowest first":
-			myattributes.sort_custom(_compare_by_current_amount_ascending)
+			attributes.sort_custom(_compare_by_current_amount_ascending)
 		"Highest first":
-			myattributes.sort_custom(_compare_by_current_amount_descending)
+			attributes.sort_custom(_compare_by_current_amount_descending)
 		"Random":
-			myattributes.shuffle()
+			attributes.shuffle()
 		_:
 			# Default to no sorting if an invalid order is provided
 			pass
-	return myattributes
+	return attributes
 
 # Custom sorting functions
-func _compare_by_amount_ascending(a: Dictionary, b: Dictionary) -> bool:
-	return a.amount < b.amount
-
-func _compare_by_amount_descending(a: Dictionary, b: Dictionary) -> bool:
-	return a.amount > b.amount
-
 func _compare_by_current_amount_ascending(a: Dictionary, b: Dictionary) -> bool:
-	var a_current = attributes[a.id].get_current_amount()
-	var b_current = attributes[b.id].get_current_amount()
+	var a_current = attributes[a.id].current_amount
+	var b_current = attributes[b.id].current_amount
 	return a_current < b_current
 
 func _compare_by_current_amount_descending(a: Dictionary, b: Dictionary) -> bool:
-	var a_current = attributes[a.id].get_current_amount()
-	var b_current = attributes[b.id].get_current_amount()
+	var a_current = attributes[a.id].current_amount
+	var b_current = attributes[b.id].current_amount
 	return a_current > b_current
+
+
 
 
 # Heal the player by the specified amount. We prioritize the head and torso for healing
