@@ -1,7 +1,7 @@
 extends Control
 
 # This scene is intended to be used inside the item editor
-# It is supposed to edit exactly one type of food
+# It is supposed to edit exactly one medical type item
 
 # Form elements
 @export var attributesGridContainer: GridContainer = null
@@ -20,22 +20,22 @@ func _ready() -> void:
 
 # Save the properties from the UI back to the ditem
 func save_properties() -> void:
-	if not ditem.food:
-		ditem.food = DItem.Food.new({})
+	if not ditem.medical:
+		ditem.medical = DItem.Medical.new({})
 	
 	# Save attributes
-	ditem.food.attributes = _get_attributes_from_ui()
+	ditem.medical.attributes = _get_attributes_from_ui()
 
 
 # Load the properties from the ditem into the UI
 func load_properties() -> void:
-	# Check if ditem.food is not null
-	if ditem.food == null:
-		print_debug("ditem.food is null, skipping property loading.")
+	# Check if ditem.medical is not null
+	if ditem.medical == null:
+		print_debug("ditem.medical is null, skipping property loading.")
 		return
 	
 	# Load attributes into the UI
-	_load_attributes_into_ui(ditem.food.attributes)
+	_load_attributes_into_ui(ditem.medical.attributes)
 
 
 # Load attributes into the attributesGridContainer

@@ -25,6 +25,7 @@ var magazine: Magazine
 var ranged: Ranged
 var melee: Melee
 var food: Food
+var medical: Medical
 var ammo: Ammo
 var wearable: Wearable
 
@@ -243,21 +244,17 @@ class Melee:
 
 # Inner class to handle the Food property
 class Food:
-	var health: int
 	var attributes: Array = []  # example: [{"id":"food","amount":10}]
 
 	# Constructor to initialize food properties from a dictionary
 	func _init(data: Dictionary):
-		health = int(data.get("health", 0))
 		attributes = []
 		if data.has("attributes"):
 			attributes = data["attributes"]
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		var food_data: Dictionary = {
-			"health": health			
-		}
+		var food_data: Dictionary = {}
 		if not attributes.is_empty():
 			food_data["attributes"] = attributes
 		return food_data
@@ -269,6 +266,33 @@ class Food:
 			if attribute.has("id"):
 				ids.append(attribute["id"])
 		return ids
+
+
+# Inner class to handle the Medical property
+class Medical:
+	var attributes: Array = []  # example: [{"id":"torso","amount":10}]
+
+	# Constructor to initialize food properties from a dictionary
+	func _init(data: Dictionary):
+		attributes = []
+		if data.has("attributes"):
+			attributes = data["attributes"]
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		var food_data: Dictionary = {}
+		if not attributes.is_empty():
+			food_data["attributes"] = attributes
+		return food_data
+
+	# Function to return an array of all "id" values in the attributes array
+	func get_attr_ids() -> Array:
+		var ids: Array = []
+		for attribute in attributes:
+			if attribute.has("id"):
+				ids.append(attribute["id"])
+		return ids
+
 
 # Inner class to handle the Ammo property
 class Ammo:

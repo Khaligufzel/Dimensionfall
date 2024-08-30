@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cq4t64qb15y27"]
+[gd_scene load_steps=3 format=3 uid="uid://dio1cpt7em6r2"]
 
-[ext_resource type="Script" path="res://Scripts/ItemFoodEditor.gd" id="1_ylt2h"]
+[ext_resource type="Script" path="res://Scripts/ItemMedicalEditor.gd" id="1_q4o68"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04nfc"]
 content_margin_left = 11.0
@@ -18,44 +18,43 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="ItemFoodEditor" type="Control" node_paths=PackedStringArray("attributesGridContainer")]
+[node name="ItemMedicalEditor" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ylt2h")
-attributesGridContainer = NodePath("Food/PanelContainer/AttributesGridContainer")
+script = ExtResource("1_q4o68")
 
-[node name="Food" type="GridContainer" parent="."]
+[node name="Medical" type="GridContainer" parent="."]
 layout_mode = 0
 size_flags_vertical = 3
 columns = 2
 
-[node name="TitleLabel" type="Label" parent="Food"]
+[node name="TitleLabel" type="Label" parent="Medical"]
 layout_mode = 2
 text = "Tip:"
 
-[node name="DescriptionLabel" type="Label" parent="Food"]
+[node name="DescriptionLabel" type="Label" parent="Medical"]
 layout_mode = 2
-text = "Enter the food settings for this item. To configure what the food
+text = "Enter the food settings for this item. To configure what the item
 does, drag a player attribute from the left onto the Affected
 Attributes field and set the desired value. For example,
-dragging the \"food\" attribute lets you specify how much \"food\"
-the player gains when consuming the item. Any attribute can
+dragging the \"torso\" attribute lets you specify how much \"torso\" 
+health the player gains when consuming the item. Any attribute can
 be modified, and the value can be negative."
 
-[node name="AffectedAttributesLabel" type="Label" parent="Food"]
+[node name="AffectedAttributesLabel" type="Label" parent="Medical"]
 layout_mode = 2
 text = "Affected attributes"
 
-[node name="PanelContainer" type="PanelContainer" parent="Food"]
+[node name="PanelContainer" type="PanelContainer" parent="Medical"]
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_04nfc")
 
-[node name="AttributesGridContainer" type="GridContainer" parent="Food/PanelContainer"]
+[node name="AttributesGridContainer" type="GridContainer" parent="Medical/PanelContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 columns = 3

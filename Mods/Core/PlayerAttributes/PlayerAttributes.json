@@ -70,5 +70,71 @@
 			}
 		},
 		"sprite": "waterbottle_32.png"
+	},
+	{
+		"color": "ff0000ff",
+		"current_amount": 100,
+		"depletion_rate": 0,
+		"description": "The health of the player's head. Critical for survival.",
+		"id": "head_health",
+		"max_amount": 100,
+		"min_amount": 0,
+		"name": "Head Health",
+		"sprite": "head_32.png"
+	},
+	{
+		"color": "ff9900ff",
+		"current_amount": 100,
+		"depletion_rate": 0,
+		"description": "The health of the player's torso. Vital for survival.",
+		"id": "torso_health",
+		"max_amount": 100,
+		"min_amount": 0,
+		"name": "Torso Health",
+		"sprite": "torso_32.png"
+	},
+	{
+		"color": "33cc33ff",
+		"current_amount": 100,
+		"depletion_rate": 0,
+		"description": "The health of the player's left arm.",
+		"id": "left_arm_health",
+		"max_amount": 100,
+		"min_amount": 0,
+		"name": "Left Arm Health",
+		"sprite": "left_arm_32.png"
+	},
+	{
+		"color": "33cc33ff",
+		"current_amount": 100,
+		"depletion_rate": 0,
+		"description": "The health of the player's right arm.",
+		"id": "right_arm_health",
+		"max_amount": 100,
+		"min_amount": 0,
+		"name": "Right Arm Health",
+		"sprite": "right_arm_32.png"
+	},
+	{
+		"color": "0099ffff",
+		"current_amount": 100,
+		"depletion_rate": 0,
+		"description": "The health of the player's left leg.",
+		"id": "left_leg_health",
+		"max_amount": 100,
+		"min_amount": 0,
+		"name": "Left Leg Health",
+		"sprite": "left_leg_32.png"
+	},
+	{
+		"color": "0099ffff",
+		"current_amount": 100,
+		"depletion_rate": 0,
+		"description": "The health of the player's right leg.",
+		"id": "right_leg_health",
+		"max_amount": 100,
+		"min_amount": 0,
+		"name": "Right Leg Health",
+		"sprite": "right_leg_32.png"
 	}
 ]
