@@ -384,68 +384,85 @@ func _apply_specific_attribute_amounts(medattributes: Array) -> bool:
 	return was_used
 
 # Function to apply the general medical amount from the pool
-# See the DItem class and it's Medical subclass for the properties of DItem.Medical
+# See the DItem class and its Medical subclass for the properties of DItem.Medical
 func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
 	var was_used: bool = false
 	var pool = medical.amount
-	var sorted_attributes = _sort_attributes_by_order(medical.attributes, medical.order)
-
-	for medattribute in sorted_attributes:
-		# Get the values from the current player's attribute
-		var playerattribute: PlayerAttribute = attributes[medattribute.id]
+	
+	# Get the matching PlayerAttributes based on medical attributes
+	var matching_player_attributes = get_matching_player_attributes(medical.attributes)
+	
+	# Sort the player attributes based on the specified order
+	var sorted_attributes = _sort_player_attributes_by_order(matching_player_attributes, medical.order)
+	
+	for playerattribute in sorted_attributes:
 		var current_amount = playerattribute.current_amount
 		var max_amount = playerattribute.max_amount
 		var min_amount = playerattribute.min_amount
-
+		
 		# Calculate how much can actually be added from the pool
 		var additional_amount = min(pool, max_amount - current_amount)
-
-		# Make sure that amount is not more or less then the min and max amount for the attribute
+		
+		# Make sure that amount is not more or less than the min and max amount for the attribute
 		var new_amount = clamp(current_amount + additional_amount, min_amount, max_amount)
-
+		
 		# Update the pool after applying the additional amount
 		pool -= (new_amount - current_amount)
-
+		
 		# If the new amount is different from the current amount, apply the change
 		if not new_amount == current_amount:
 			playerattribute.modify_current_amount(new_amount - current_amount)
 			was_used = true
-
+		
 		# If the pool is exhausted, break out of the loop
 		if pool <= 0:
 			break
-
+	
 	return was_used
 
-# Sort attributes based on the specified order
-func _sort_attributes_by_order(attributes: Array, order: String) -> Array:
+# Sort PlayerAttributes based on the specified order
+func _sort_player_attributes_by_order(myattributes: Array[PlayerAttribute], order: String) -> Array[PlayerAttribute]:
 	match order:
 		"Ascending":
-			attributes.sort_custom(_compare_by_current_amount_ascending)
+			# Reverse the array and return it
+			myattributes.reverse()
+			return myattributes
 		"Descending":
-			attributes.sort_custom(_compare_by_current_amount_descending)
+			# Use the original order of medical.attributes
+			return myattributes
 		"Lowest first":
-			attributes.sort_custom(_compare_by_current_amount_ascending)
+			myattributes.sort_custom(_compare_player_attributes_by_current_amount_ascending)
 		"Highest first":
-			attributes.sort_custom(_compare_by_current_amount_descending)
+			myattributes.sort_custom(_compare_player_attributes_by_current_amount_descending)
 		"Random":
-			attributes.shuffle()
+			myattributes.shuffle()
 		_:
 			# Default to no sorting if an invalid order is provided
 			pass
-	return attributes
+	return myattributes
 
-# Custom sorting functions
-func _compare_by_current_amount_ascending(a: Dictionary, b: Dictionary) -> bool:
-	var a_current = attributes[a.id].current_amount
-	var b_current = attributes[b.id].current_amount
-	return a_current < b_current
+# Custom sorting functions for PlayerAttributes
+func _compare_player_attributes_by_current_amount_ascending(a: PlayerAttribute, b: PlayerAttribute) -> bool:
+	return a.current_amount < b.current_amount
 
-func _compare_by_current_amount_descending(a: Dictionary, b: Dictionary) -> bool:
-	var a_current = attributes[a.id].current_amount
-	var b_current = attributes[b.id].current_amount
-	return a_current > b_current
+func _compare_player_attributes_by_current_amount_descending(a: PlayerAttribute, b: PlayerAttribute) -> bool:
+	return a.current_amount > b.current_amount
 
+
+# Function to retrieve PlayerAttributes that match the IDs in medical.attributes
+func get_matching_player_attributes(med_attributes: Array) -> Array[PlayerAttribute]:
+	var matching_attributes: Array[PlayerAttribute] = []
+
+	# Loop over each attribute in the medical item's attributes
+	for med_attr in med_attributes:
+		var attr_id = med_attr.get("id", "")
+		
+		# Check if the player has an attribute with the same ID
+		if attributes.has(attr_id):
+			# Add the corresponding PlayerAttribute to the array
+			matching_attributes.append(attributes[attr_id])
+	
+	return matching_attributes
 
 
 
