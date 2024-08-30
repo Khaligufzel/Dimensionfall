@@ -51,6 +51,7 @@ var sense_range: int
 var sight_range: int
 var spriteid: String
 var sprite: Texture
+var targetattributes: Array
 var references: Dictionary = {}
 
 # Constructor to initialize mob properties from a dictionary
@@ -68,6 +69,10 @@ func _init(data: Dictionary):
 	sense_range = data.get("sense_range", 50)
 	sight_range = data.get("sight_range", 200)
 	spriteid = data.get("sprite", "")
+	
+	targetattributes = []
+	if data.has("targetattributes"):
+		targetattributes = data["targetattributes"]
 	references = data.get("references", {})
 
 # Get data function to return a dictionary with all properties
@@ -87,9 +92,21 @@ func get_data() -> Dictionary:
 		"sight_range": sight_range,
 		"sprite": spriteid
 	}
+	if not targetattributes.is_empty():
+		data["targetattributes"] = targetattributes
 	if not references.is_empty():
 		data["references"] = references
 	return data
+
+
+
+# Function to return an array of all "id" values in the attributes array
+func get_attr_ids() -> Array:
+	var ids: Array = []
+	for attribute in targetattributes:
+		if attribute.has("id"):
+			ids.append(attribute["id"])
+	return ids
 
 # Removes the provided reference from references
 func remove_reference(module: String, type: String, refid: String):
@@ -111,17 +128,13 @@ func changed(olddata: DMob):
 	var old_loot_group: String = olddata.loot_group
 
 	# Exit if old_group and new_group are the same
-	if old_loot_group == loot_group:
-		print_debug("No change in mob. Exiting function.")
-		return
-
-	# This mob will be removed from the old itemgroup's references
-	# The 'or' makes sure changes_made does not change back to false
-	Gamedata.itemgroups.remove_reference(old_loot_group, "core", "mobs", id)
-	
-	# This mob will be added to the new itemgroup's references
-	# The 'or' makes sure changes_made does not change back to false
-	Gamedata.itemgroups.add_reference(loot_group, "core", "mobs", id)
+	if not old_loot_group == loot_group:
+		# This mob will be removed from the old itemgroup's references
+		Gamedata.itemgroups.remove_reference(old_loot_group, "core", "mobs", id)
+		
+		# This mob will be added to the new itemgroup's references
+		Gamedata.itemgroups.add_reference(loot_group, "core", "mobs", id)
+	update_mob_attribute_references(olddata)
 	Gamedata.mobs.save_mobs_to_disk() # Save changes regardless of whether or not a reference was updated
 
 
@@ -151,3 +164,20 @@ func execute_callable_on_references_of_type(module: String, type: String, callab
 		# If the type exists, execute the callable on each ID found under this type
 		for ref_id in references[module][type]:
 			callable.call(ref_id)
+
+
+
+# Collects all attributes defined in an item and updates the references to that attribute
+func update_mob_attribute_references(olddata: DMob):
+	# Collect skill IDs from old and new data
+	var old_attr_ids = olddata.get_attr_ids()
+	var new_attr_ids = get_attr_ids()
+
+	# Remove old skill references that are not in the new list
+	for old_attr_id in old_attr_ids:
+		if not new_attr_ids.has(old_attr_id):
+			Gamedata.playerattributes.remove_reference(old_attr_id, "core", "mobs", id)
+	
+	# Add new attribute references
+	for new_attr_id in new_attr_ids:
+		Gamedata.playerattributes.add_reference(new_attr_id, "core", "mobs", id)

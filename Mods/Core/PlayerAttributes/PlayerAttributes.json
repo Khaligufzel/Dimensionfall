@@ -1,6 +1,6 @@
 [
 	{
-		"color": "d53037ff",
+		"color": "258d1bff",
 		"current_amount": 100,
 		"depletion_rate": 0.02,
 		"description": "You starve when this is empty. You are full when this is full.",
@@ -80,6 +80,14 @@
 		"max_amount": 100,
 		"min_amount": 0,
 		"name": "Head Health",
+		"references": {
+			"core": {
+				"mobs": [
+					"scrapwalker",
+					"rust_sentinel"
+				]
+			}
+		},
 		"sprite": "head_32.png"
 	},
 	{
@@ -91,6 +99,14 @@
 		"max_amount": 100,
 		"min_amount": 0,
 		"name": "Torso Health",
+		"references": {
+			"core": {
+				"mobs": [
+					"scrapwalker",
+					"rust_sentinel"
+				]
+			}
+		},
 		"sprite": "torso_32.png"
 	},
 	{
@@ -102,6 +118,14 @@
 		"max_amount": 100,
 		"min_amount": 0,
 		"name": "Left Arm Health",
+		"references": {
+			"core": {
+				"mobs": [
+					"scrapwalker",
+					"rust_sentinel"
+				]
+			}
+		},
 		"sprite": "left_arm_32.png"
 	},
 	{
@@ -113,6 +137,14 @@
 		"max_amount": 100,
 		"min_amount": 0,
 		"name": "Right Arm Health",
+		"references": {
+			"core": {
+				"mobs": [
+					"scrapwalker",
+					"rust_sentinel"
+				]
+			}
+		},
 		"sprite": "right_arm_32.png"
 	},
 	{
@@ -124,6 +156,14 @@
 		"max_amount": 100,
 		"min_amount": 0,
 		"name": "Left Leg Health",
+		"references": {
+			"core": {
+				"mobs": [
+					"scrapwalker",
+					"rust_sentinel"
+				]
+			}
+		},
 		"sprite": "left_leg_32.png"
 	},
 	{
@@ -135,6 +175,14 @@
 		"max_amount": 100,
 		"min_amount": 0,
 		"name": "Right Leg Health",
+		"references": {
+			"core": {
+				"mobs": [
+					"scrapwalker",
+					"rust_sentinel"
+				]
+			}
+		},
 		"sprite": "right_leg_32.png"
 	}
 ]
