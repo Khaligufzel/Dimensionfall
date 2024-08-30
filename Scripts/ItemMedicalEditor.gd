@@ -4,9 +4,9 @@ extends Control
 # It is supposed to edit exactly one medical type item
 
 # Form elements
-@export var amount_spin_box: SpinBox # See it's tooltip for explanation
-@export var order_option_button: OptionButton
-@export var attributesGridContainer: GridContainer = null
+@export var amount_spin_box: SpinBox  # SpinBox for the general amount
+@export var order_option_button: OptionButton  # OptionButton for the order of applying amounts
+@export var attributesGridContainer: GridContainer = null  # Container for attribute entries
 
 var ditem: DItem = null:
 	set(value):
@@ -19,12 +19,26 @@ var ditem: DItem = null:
 # Forward drag-and-drop functionality to the attributesGridContainer
 func _ready() -> void:
 	attributesGridContainer.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_attribute_data)
+	_initialize_order_option_button()
+
+# Initialize the order option button with the possible values
+func _initialize_order_option_button() -> void:
+	order_option_button.clear()
+	order_option_button.add_item("Ascending")
+	order_option_button.add_item("Descending")
+	order_option_button.add_item("Lowest first")
+	order_option_button.add_item("Highest first")
+	order_option_button.add_item("Random")
 
 # Save the properties from the UI back to the ditem
 func save_properties() -> void:
 	if not ditem.medical:
 		ditem.medical = DItem.Medical.new({})
 	
+	# Save general amount and order
+	ditem.medical.amount = amount_spin_box.value
+	ditem.medical.order = order_option_button.get_item_text(order_option_button.selected)
+
 	# Save attributes
 	ditem.medical.attributes = _get_attributes_from_ui()
 
@@ -36,8 +50,20 @@ func load_properties() -> void:
 		print_debug("ditem.medical is null, skipping property loading.")
 		return
 	
+	# Load general amount and order
+	amount_spin_box.value = ditem.medical.amount
+	order_option_button.select(_get_order_option_index(ditem.medical.order))
+
 	# Load attributes into the UI
 	_load_attributes_into_ui(ditem.medical.attributes)
+
+
+# Get the index of the order option based on the text
+func _get_order_option_index(order_text: String) -> int:
+	for i in range(order_option_button.get_item_count()):
+		if order_option_button.get_item_text(i) == order_text:
+			return i
+	return 0  # Default to the first option if not found
 
 
 # Load attributes into the attributesGridContainer
@@ -149,7 +175,6 @@ func _can_drop_attribute_data(_newpos, data) -> bool:
 	return true
 
 
-
 # Function to handle the data being dropped in the attributesGridContainer
 func _drop_attribute_data(newpos, data) -> void:
 	if _can_drop_attribute_data(newpos, data):
@@ -171,6 +196,7 @@ func _handle_attribute_drop(dropped_data, _newpos) -> void:
 		# Here you would update your data structure if needed, similar to how you did for resources
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
+
 
 # Move the entry up by one position in the attributesGridContainer
 func _move_entry_up(hbox: HBoxContainer) -> void:

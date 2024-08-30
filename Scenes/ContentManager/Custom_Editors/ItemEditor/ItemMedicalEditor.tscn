@@ -18,7 +18,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="ItemMedicalEditor" type="Control" node_paths=PackedStringArray("attributesGridContainer")]
+[node name="ItemMedicalEditor" type="Control" node_paths=PackedStringArray("amount_spin_box", "order_option_button", "attributesGridContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,6 +26,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_q4o68")
+amount_spin_box = NodePath("Medical/AmountSpinBox")
+order_option_button = NodePath("Medical/OrderOptionButton")
 attributesGridContainer = NodePath("Medical/PanelContainer/AttributesGridContainer")
 
 [node name="Medical" type="GridContainer" parent="."]
@@ -71,17 +73,6 @@ Lowest first: Apply the amount to the attribute with the lowest current value. A
 Highest first: Apply the amount to the attribute with the highest current value. Any remainder will go 
 to the next highest. Only attributes with a current value lower then max will be targeted
 Random: The amount will be distributed at random across the attributes. All of the amount will be used if possible."
-selected = 4
-item_count = 5
-popup/item_0/text = "Ascending"
-popup/item_1/text = "Descending"
-popup/item_1/id = 1
-popup/item_2/text = "Lowest first"
-popup/item_2/id = 2
-popup/item_3/text = "Highest first"
-popup/item_3/id = 3
-popup/item_4/text = "Random"
-popup/item_4/id = 4
 
 [node name="AffectedAttributesLabel2" type="Label" parent="Medical"]
 layout_mode = 2
