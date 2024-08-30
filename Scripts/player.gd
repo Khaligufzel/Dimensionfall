@@ -340,20 +340,59 @@ func _on_food_item_used(usedItem: InventoryItem) -> void:
 		var stack_size: int = InventoryStacked.get_item_stack_size(usedItem)
 		InventoryStacked.set_item_stack_size(usedItem,stack_size-1)
 
-
 # The player has selected one or more items in the inventory and selected
 # 'use' from the context menu.
 func _on_medical_item_used(usedItem: InventoryItem) -> void:
-	var medical = DItem.Food.new(usedItem.get_property("Medical"))
+	var medical = DItem.Medical.new(usedItem.get_property("Medical"))
 	var was_used: bool = false
 
-	for attribute in medical.attributes:
-		attributes[attribute.id].modify_current_amount(attribute.amount)
+	# Sort the attributes based on the order specified in the medical item
+	var sorted_attributes = _sort_attributes_by_order(medical.attributes, medical.order)
+
+	# Apply the general amount and specific amounts to the attributes
+	for attribute in sorted_attributes:
+		var total_amount = medical.amount + attribute.amount
+		attributes[attribute.id].modify_current_amount(total_amount)
 		was_used = true
 
 	if was_used:
 		var stack_size: int = InventoryStacked.get_item_stack_size(usedItem)
-		InventoryStacked.set_item_stack_size(usedItem,stack_size-1)
+		InventoryStacked.set_item_stack_size(usedItem, stack_size - 1)
+
+# Sort attributes based on the specified order
+func _sort_attributes_by_order(myattributes: Array, order: String) -> Array:
+	match order:
+		"Ascending":
+			myattributes.sort_custom(_compare_by_amount_ascending)
+		"Descending":
+			myattributes.sort_custom(_compare_by_amount_descending)
+		"Lowest first":
+			myattributes.sort_custom(_compare_by_current_amount_ascending)
+		"Highest first":
+			myattributes.sort_custom(_compare_by_current_amount_descending)
+		"Random":
+			myattributes.shuffle()
+		_:
+			# Default to no sorting if an invalid order is provided
+			pass
+	return myattributes
+
+# Custom sorting functions
+func _compare_by_amount_ascending(a: Dictionary, b: Dictionary) -> bool:
+	return a.amount < b.amount
+
+func _compare_by_amount_descending(a: Dictionary, b: Dictionary) -> bool:
+	return a.amount > b.amount
+
+func _compare_by_current_amount_ascending(a: Dictionary, b: Dictionary) -> bool:
+	var a_current = attributes[a.id].get_current_amount()
+	var b_current = attributes[b.id].get_current_amount()
+	return a_current < b_current
+
+func _compare_by_current_amount_descending(a: Dictionary, b: Dictionary) -> bool:
+	var a_current = attributes[a.id].get_current_amount()
+	var b_current = attributes[b.id].get_current_amount()
+	return a_current > b_current
 
 
 # Heal the player by the specified amount. We prioritize the head and torso for healing
