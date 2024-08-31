@@ -392,10 +392,29 @@ func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
 	# Get the matching PlayerAttributes based on medical attributes
 	var matching_player_attributes = get_matching_player_attributes(medical.attributes)
 	
-	# Sort the player attributes based on the specified order
-	var sorted_attributes = _sort_player_attributes_by_order(matching_player_attributes, medical.order)
+	# Separate attributes based on depletion_effect == "death"
+	var death_effect_attributes: Array[PlayerAttribute] = []
+	var other_attributes: Array[PlayerAttribute] = []
+
+	for playerattribute in matching_player_attributes:
+		if playerattribute.depletion_effect == "death":
+			death_effect_attributes.append(playerattribute)
+		else:
+			other_attributes.append(playerattribute)
 	
-	for playerattribute in sorted_attributes:
+	# First, apply the pool to attributes with the death effect
+	var sorted_death_attributes = _sort_player_attributes_by_order(death_effect_attributes, medical.order)
+	pool = _apply_pool_to_attributes(sorted_death_attributes, pool, was_used)
+	
+	# Then, apply the remaining pool to the other attributes
+	var sorted_other_attributes = _sort_player_attributes_by_order(other_attributes, medical.order)
+	pool = _apply_pool_to_attributes(sorted_other_attributes, pool, was_used)
+	
+	return was_used
+
+# Helper function to apply the pool to a given array of PlayerAttributes
+func _apply_pool_to_attributes(attributes: Array[PlayerAttribute], pool: float, was_used: bool) -> float:
+	for playerattribute in attributes:
 		var current_amount = playerattribute.current_amount
 		var max_amount = playerattribute.max_amount
 		var min_amount = playerattribute.min_amount
@@ -417,8 +436,9 @@ func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
 		# If the pool is exhausted, break out of the loop
 		if pool <= 0:
 			break
-	
-	return was_used
+
+	return pool
+
 
 # Sort PlayerAttributes based on the specified order
 func _sort_player_attributes_by_order(myattributes: Array[PlayerAttribute], order: String) -> Array[PlayerAttribute]:
