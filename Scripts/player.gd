@@ -360,6 +360,7 @@ func _on_medical_item_used(usedItem: InventoryItem) -> void:
 		var stack_size: int = InventoryStacked.get_item_stack_size(usedItem)
 		InventoryStacked.set_item_stack_size(usedItem, stack_size - 1)
 
+
 # Function to apply specific amounts to each attribute
 # medattributes: Attributes assigned to the medical item
 # For example: [{"id":"torso","amount":10}] would add 10 to the "torso" attribute
@@ -386,7 +387,7 @@ func _apply_specific_attribute_amounts(medattributes: Array) -> bool:
 # Function to apply the general medical amount from the pool
 # See the DItem class and its Medical subclass for the properties of DItem.Medical
 func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
-	var was_used: bool = false
+	var was: Dictionary = {"used": false} # Keep track of whether the item was used
 	var pool = medical.amount
 	
 	# Get the matching PlayerAttributes based on medical attributes
@@ -404,17 +405,17 @@ func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
 	
 	# First, apply the pool to attributes with the death effect
 	var sorted_death_attributes = _sort_player_attributes_by_order(death_effect_attributes, medical.order)
-	pool = _apply_pool_to_attributes(sorted_death_attributes, pool, was_used)
+	pool = _apply_pool_to_attributes(sorted_death_attributes, pool, was)
 	
 	# Then, apply the remaining pool to the other attributes
 	var sorted_other_attributes = _sort_player_attributes_by_order(other_attributes, medical.order)
-	pool = _apply_pool_to_attributes(sorted_other_attributes, pool, was_used)
+	pool = _apply_pool_to_attributes(sorted_other_attributes, pool, was)
 	
-	return was_used
+	return was.used
 
 # Helper function to apply the pool to a given array of PlayerAttributes
-func _apply_pool_to_attributes(attributes: Array[PlayerAttribute], pool: float, was_used: bool) -> float:
-	for playerattribute in attributes:
+func _apply_pool_to_attributes(myattributes: Array[PlayerAttribute], pool: float, was: Dictionary) -> float:
+	for playerattribute in myattributes:
 		var current_amount = playerattribute.current_amount
 		var max_amount = playerattribute.max_amount
 		var min_amount = playerattribute.min_amount
@@ -431,7 +432,7 @@ func _apply_pool_to_attributes(attributes: Array[PlayerAttribute], pool: float, 
 		# If the new amount is different from the current amount, apply the change
 		if not new_amount == current_amount:
 			playerattribute.modify_current_amount(new_amount - current_amount)
-			was_used = true
+			was.used = true
 		
 		# If the pool is exhausted, break out of the loop
 		if pool <= 0:
