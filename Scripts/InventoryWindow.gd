@@ -108,14 +108,28 @@ func _on_inventory_item_mouse_entered(item: InventoryItem):
 	var description = item.get_property("description", "")
 
 	# Check if the item has a Food property with attributes
-	var food_data = item.get_property("Food")
-	if food_data and food_data.has("attributes"):
-		description += "\n\nEffects:\n"  # Add a section for attributes
-		for attribute in food_data["attributes"]:
+	var dfood = DItem.Food.new(item.get_property("Food", {}))
+	if dfood.attributes:
+		description += "\n\nEffects (Food):\n"  # Add a section for food attributes
+		for attribute in dfood.attributes:
 			# For each attribute, append the id and amount to the description
 			var attr_id = attribute.get("id", "Unknown")
 			var attr_amount = attribute.get("amount", 0)
 			description += "- " + str(attr_id) + ": " + str(attr_amount) + "\n"
+
+	# Check if the item has a Medical property with attributes and an amount
+	var dmedical = DItem.Medical.new(item.get_property("Medical",{}))
+	if dmedical.attributes or dmedical.amount > 0:
+		description += "\n\nEffects (Medical):\n"  # Add a section for medical attributes
+		if dmedical.attributes:
+			for attribute in dmedical.attributes:
+				# For each attribute, append the id and amount to the description
+				var attr_id = attribute.get("id", "Unknown")
+				var attr_amount = attribute.get("amount", 0)
+				description += "- " + str(attr_id) + ": " + str(attr_amount) + "\n"
+		# If the medical amount is greater than 0, explain the distribution
+		if dmedical.amount > 0:
+			description += "\nThis item will distribute " + str(dmedical.amount) + " among the above attributes.\n"
 
 	tooltip_item_description.text = description
 
