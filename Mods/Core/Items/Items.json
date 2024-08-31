@@ -275,8 +275,7 @@
 					"amount": 20,
 					"id": "water"
 				}
-			],
-			"health": 5
+			]
 		},
 		"description": "This plastic bottle is filled with water",
 		"id": "bottle_plastic_water",
@@ -306,8 +305,7 @@
 					"amount": 25,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "The contents will satisfy your hunger",
 		"id": "canned_food",
@@ -420,6 +418,36 @@
 		"weight": 0.5
 	},
 	{
+		"Medical": {
+			"amount": 10,
+			"attributes": [
+				{
+					"amount": 0,
+					"id": "head_health"
+				},
+				{
+					"amount": 0,
+					"id": "torso_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_leg_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_leg_health"
+				}
+			],
+			"order": "Lowest first"
+		},
 		"description": "A basic bandage that will help to heal a wound",
 		"id": "bandage_basic",
 		"image": "./Mods/Core/Items/bandage_32.png",
@@ -440,6 +468,36 @@
 		"weight": 0.1
 	},
 	{
+		"Medical": {
+			"amount": 10,
+			"attributes": [
+				{
+					"amount": 0,
+					"id": "head_health"
+				},
+				{
+					"amount": 0,
+					"id": "torso_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_leg_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_leg_health"
+				}
+			],
+			"order": "Lowest first"
+		},
 		"description": "A small bottle that contains antibiotics. It helps to recover from disease.",
 		"id": "bottle_antibiotics",
 		"image": "./Mods/Core/Items/antibiotics_32.png",
@@ -755,6 +813,36 @@
 		"weight": 0.4
 	},
 	{
+		"Medical": {
+			"amount": 10,
+			"attributes": [
+				{
+					"amount": 0,
+					"id": "head_health"
+				},
+				{
+					"amount": 0,
+					"id": "torso_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_leg_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_leg_health"
+				}
+			],
+			"order": "Lowest first"
+		},
 		"description": "A small bottle that contains disinfectant. It helps to disinfect wounds",
 		"id": "bottle_disinfectant",
 		"image": "./Mods/Core/Items/bottle_disinfectant_32.png",
@@ -1399,8 +1487,7 @@
 					"amount": 10,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A block of tofu, a good source of protein.",
 		"id": "tofu",
@@ -1431,8 +1518,7 @@
 					"amount": 1,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A bottle of yogurt, useful for nutrition and digestion.",
 		"id": "bottle_yogurt",
@@ -1463,8 +1549,7 @@
 					"amount": 3,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A jar of pickles, a tasty preserved food.",
 		"id": "jar_pickles",
@@ -1488,8 +1573,7 @@
 					"amount": 5,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A can of condensed milk, a rich source of nutrition.",
 		"id": "condensed_milk",
@@ -1503,6 +1587,36 @@
 		"weight": 0.8
 	},
 	{
+		"Medical": {
+			"amount": 10,
+			"attributes": [
+				{
+					"amount": 0,
+					"id": "head_health"
+				},
+				{
+					"amount": 0,
+					"id": "torso_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_leg_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_leg_health"
+				}
+			],
+			"order": "Lowest first"
+		},
 		"description": "A vial of insulin, necessary for diabetics.",
 		"id": "insulin",
 		"image": "./Mods/Core/Items/insulin_32.png",
@@ -1515,6 +1629,36 @@
 		"weight": 0.1
 	},
 	{
+		"Medical": {
+			"amount": 10,
+			"attributes": [
+				{
+					"amount": 0,
+					"id": "head_health"
+				},
+				{
+					"amount": 0,
+					"id": "torso_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_leg_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_leg_health"
+				}
+			],
+			"order": "Lowest first"
+		},
 		"description": "An epinephrine auto-injector, useful for treating severe allergic reactions.",
 		"id": "epipen",
 		"image": "./Mods/Core/Items/epipen_32.png",
@@ -1533,8 +1677,7 @@
 					"amount": 10,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A bag of bacon, rich in fats and proteins.",
 		"id": "bag_bacon",
@@ -1561,8 +1704,7 @@
 					"amount": 10,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A bottle of wine, useful for bartering or a morale boost.",
 		"id": "wine_bottle",
@@ -1582,8 +1724,7 @@
 					"amount": 10,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A loaf of bread, a staple food item.",
 		"id": "bread",
@@ -1615,8 +1756,7 @@
 					"amount": 10,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A slice of pizza, not very fresh but still edible.",
 		"id": "slice_of_pizza",
@@ -1643,8 +1783,7 @@
 					"amount": 10,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A package of vacuum-sealed fish, preserved for longer storage.",
 		"id": "vacuum_sealed_fish",
@@ -1675,8 +1814,7 @@
 					"amount": 3,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A ripe tomato, still fresh and edible.",
 		"id": "tomato",
@@ -1707,8 +1845,7 @@
 					"amount": 6,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A head of lettuce, slightly wilted but still usable.",
 		"id": "lettuce",
@@ -1747,8 +1884,7 @@
 					"amount": 10,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A bar of chocolate, a morale booster and energy source.",
 		"id": "chocolate",
@@ -1775,8 +1911,7 @@
 					"amount": 10,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A jar of olives, preserved and ready to eat.",
 		"id": "jar_olives",
@@ -1808,8 +1943,7 @@
 					"amount": 5,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A jar of mustard, adds flavor to meals.",
 		"id": "jar_mustard",
@@ -1829,8 +1963,7 @@
 					"amount": 5,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A bottle of ketchup, a common condiment.",
 		"id": "bottle_ketchup",
@@ -1850,8 +1983,7 @@
 					"amount": 5,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A loaf of bread that has gone stale, but still edible in a pinch.",
 		"id": "stale_bread",
@@ -1865,6 +1997,36 @@
 		"weight": 0.5
 	},
 	{
+		"Medical": {
+			"amount": 10,
+			"attributes": [
+				{
+					"amount": 0,
+					"id": "head_health"
+				},
+				{
+					"amount": 0,
+					"id": "torso_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_arm_health"
+				},
+				{
+					"amount": 0,
+					"id": "left_leg_health"
+				},
+				{
+					"amount": 0,
+					"id": "right_leg_health"
+				}
+			],
+			"order": "Lowest first"
+		},
 		"description": "Pain relief medication, useful for treating injuries.",
 		"id": "painkiller",
 		"image": "./Mods/Core/Items/painkiller_32.png",
@@ -1887,8 +2049,7 @@
 					"amount": 6,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A fresh orange, a good source of vitamin C.",
 		"id": "orange",
@@ -1912,8 +2073,7 @@
 					"amount": 3,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A fresh apple, a healthy snack.",
 		"id": "apple",
@@ -1940,8 +2100,7 @@
 					"amount": 10,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A raw potato, versatile in many recipes.",
 		"id": "potato",
@@ -1961,8 +2120,7 @@
 					"amount": 9,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A fresh carrot, good for nutrition.",
 		"id": "carrot",
@@ -1993,8 +2151,7 @@
 					"amount": 6,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A carton of eggs, a versatile food item.",
 		"id": "eggs",
@@ -2021,8 +2178,7 @@
 					"amount": 20,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A stick of butter, useful for cooking and baking.",
 		"id": "butter",
@@ -2049,8 +2205,7 @@
 					"amount": 12,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A can of energy drink, boosts stamina temporarily.",
 		"id": "can_energydrink",
@@ -2078,8 +2233,7 @@
 					"amount": 15,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A can of soda, a refreshing beverage.",
 		"id": "can_soda",
@@ -2107,8 +2261,7 @@
 					"amount": 10,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A block of cheese, a versatile food item.",
 		"id": "cheese",
@@ -2534,8 +2687,7 @@
 					"amount": 2,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A handful of wild berries, good for a quick snack or foraging.",
 		"id": "berries_wild",
@@ -2565,8 +2717,7 @@
 					"amount": 4,
 					"id": "food"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "Edible mushrooms found in the forest, can be cooked or used in potions.",
 		"id": "mushrooms_forest",
@@ -2616,8 +2767,7 @@
 					"amount": 2,
 					"id": "water"
 				}
-			],
-			"health": 0
+			]
 		},
 		"description": "A fresh bird egg, can be cooked for a nutritious meal.",
 		"id": "bird_egg",

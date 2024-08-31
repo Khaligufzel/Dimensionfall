@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://bxubu34gjes1y"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -281,8 +281,7 @@ json_data = "[
 					\"amount\": 20,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 5
+			]
 		},
 		\"description\": \"This plastic bottle is filled with water\",
 		\"id\": \"bottle_plastic_water\",
@@ -312,8 +311,7 @@ json_data = "[
 					\"amount\": 25,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"The contents will satisfy your hunger\",
 		\"id\": \"canned_food\",
@@ -426,6 +424,36 @@ json_data = "[
 		\"weight\": 0.5
 	},
 	{
+		\"Medical\": {
+			\"amount\": 10,
+			\"attributes\": [
+				{
+					\"amount\": 0,
+					\"id\": \"head_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"torso_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_leg_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_leg_health\"
+				}
+			],
+			\"order\": \"Lowest first\"
+		},
 		\"description\": \"A basic bandage that will help to heal a wound\",
 		\"id\": \"bandage_basic\",
 		\"image\": \"./Mods/Core/Items/bandage_32.png\",
@@ -446,6 +474,36 @@ json_data = "[
 		\"weight\": 0.1
 	},
 	{
+		\"Medical\": {
+			\"amount\": 10,
+			\"attributes\": [
+				{
+					\"amount\": 0,
+					\"id\": \"head_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"torso_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_leg_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_leg_health\"
+				}
+			],
+			\"order\": \"Lowest first\"
+		},
 		\"description\": \"A small bottle that contains antibiotics. It helps to recover from disease.\",
 		\"id\": \"bottle_antibiotics\",
 		\"image\": \"./Mods/Core/Items/antibiotics_32.png\",
@@ -761,6 +819,36 @@ json_data = "[
 		\"weight\": 0.4
 	},
 	{
+		\"Medical\": {
+			\"amount\": 10,
+			\"attributes\": [
+				{
+					\"amount\": 0,
+					\"id\": \"head_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"torso_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_leg_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_leg_health\"
+				}
+			],
+			\"order\": \"Lowest first\"
+		},
 		\"description\": \"A small bottle that contains disinfectant. It helps to disinfect wounds\",
 		\"id\": \"bottle_disinfectant\",
 		\"image\": \"./Mods/Core/Items/bottle_disinfectant_32.png\",
@@ -1405,8 +1493,7 @@ json_data = "[
 					\"amount\": 10,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A block of tofu, a good source of protein.\",
 		\"id\": \"tofu\",
@@ -1437,8 +1524,7 @@ json_data = "[
 					\"amount\": 1,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A bottle of yogurt, useful for nutrition and digestion.\",
 		\"id\": \"bottle_yogurt\",
@@ -1469,8 +1555,7 @@ json_data = "[
 					\"amount\": 3,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A jar of pickles, a tasty preserved food.\",
 		\"id\": \"jar_pickles\",
@@ -1494,8 +1579,7 @@ json_data = "[
 					\"amount\": 5,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A can of condensed milk, a rich source of nutrition.\",
 		\"id\": \"condensed_milk\",
@@ -1509,6 +1593,36 @@ json_data = "[
 		\"weight\": 0.8
 	},
 	{
+		\"Medical\": {
+			\"amount\": 10,
+			\"attributes\": [
+				{
+					\"amount\": 0,
+					\"id\": \"head_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"torso_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_leg_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_leg_health\"
+				}
+			],
+			\"order\": \"Lowest first\"
+		},
 		\"description\": \"A vial of insulin, necessary for diabetics.\",
 		\"id\": \"insulin\",
 		\"image\": \"./Mods/Core/Items/insulin_32.png\",
@@ -1521,6 +1635,36 @@ json_data = "[
 		\"weight\": 0.1
 	},
 	{
+		\"Medical\": {
+			\"amount\": 10,
+			\"attributes\": [
+				{
+					\"amount\": 0,
+					\"id\": \"head_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"torso_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_leg_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_leg_health\"
+				}
+			],
+			\"order\": \"Lowest first\"
+		},
 		\"description\": \"An epinephrine auto-injector, useful for treating severe allergic reactions.\",
 		\"id\": \"epipen\",
 		\"image\": \"./Mods/Core/Items/epipen_32.png\",
@@ -1539,8 +1683,7 @@ json_data = "[
 					\"amount\": 10,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A bag of bacon, rich in fats and proteins.\",
 		\"id\": \"bag_bacon\",
@@ -1567,8 +1710,7 @@ json_data = "[
 					\"amount\": 10,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A bottle of wine, useful for bartering or a morale boost.\",
 		\"id\": \"wine_bottle\",
@@ -1588,8 +1730,7 @@ json_data = "[
 					\"amount\": 10,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A loaf of bread, a staple food item.\",
 		\"id\": \"bread\",
@@ -1621,8 +1762,7 @@ json_data = "[
 					\"amount\": 10,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A slice of pizza, not very fresh but still edible.\",
 		\"id\": \"slice_of_pizza\",
@@ -1649,8 +1789,7 @@ json_data = "[
 					\"amount\": 10,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A package of vacuum-sealed fish, preserved for longer storage.\",
 		\"id\": \"vacuum_sealed_fish\",
@@ -1681,8 +1820,7 @@ json_data = "[
 					\"amount\": 3,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A ripe tomato, still fresh and edible.\",
 		\"id\": \"tomato\",
@@ -1713,8 +1851,7 @@ json_data = "[
 					\"amount\": 6,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A head of lettuce, slightly wilted but still usable.\",
 		\"id\": \"lettuce\",
@@ -1753,8 +1890,7 @@ json_data = "[
 					\"amount\": 10,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A bar of chocolate, a morale booster and energy source.\",
 		\"id\": \"chocolate\",
@@ -1781,8 +1917,7 @@ json_data = "[
 					\"amount\": 10,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A jar of olives, preserved and ready to eat.\",
 		\"id\": \"jar_olives\",
@@ -1814,8 +1949,7 @@ json_data = "[
 					\"amount\": 5,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A jar of mustard, adds flavor to meals.\",
 		\"id\": \"jar_mustard\",
@@ -1835,8 +1969,7 @@ json_data = "[
 					\"amount\": 5,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A bottle of ketchup, a common condiment.\",
 		\"id\": \"bottle_ketchup\",
@@ -1856,8 +1989,7 @@ json_data = "[
 					\"amount\": 5,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A loaf of bread that has gone stale, but still edible in a pinch.\",
 		\"id\": \"stale_bread\",
@@ -1871,6 +2003,36 @@ json_data = "[
 		\"weight\": 0.5
 	},
 	{
+		\"Medical\": {
+			\"amount\": 10,
+			\"attributes\": [
+				{
+					\"amount\": 0,
+					\"id\": \"head_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"torso_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_arm_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"left_leg_health\"
+				},
+				{
+					\"amount\": 0,
+					\"id\": \"right_leg_health\"
+				}
+			],
+			\"order\": \"Lowest first\"
+		},
 		\"description\": \"Pain relief medication, useful for treating injuries.\",
 		\"id\": \"painkiller\",
 		\"image\": \"./Mods/Core/Items/painkiller_32.png\",
@@ -1893,8 +2055,7 @@ json_data = "[
 					\"amount\": 6,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A fresh orange, a good source of vitamin C.\",
 		\"id\": \"orange\",
@@ -1918,8 +2079,7 @@ json_data = "[
 					\"amount\": 3,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A fresh apple, a healthy snack.\",
 		\"id\": \"apple\",
@@ -1946,8 +2106,7 @@ json_data = "[
 					\"amount\": 10,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A raw potato, versatile in many recipes.\",
 		\"id\": \"potato\",
@@ -1967,8 +2126,7 @@ json_data = "[
 					\"amount\": 9,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A fresh carrot, good for nutrition.\",
 		\"id\": \"carrot\",
@@ -1999,8 +2157,7 @@ json_data = "[
 					\"amount\": 6,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A carton of eggs, a versatile food item.\",
 		\"id\": \"eggs\",
@@ -2027,8 +2184,7 @@ json_data = "[
 					\"amount\": 20,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A stick of butter, useful for cooking and baking.\",
 		\"id\": \"butter\",
@@ -2055,8 +2211,7 @@ json_data = "[
 					\"amount\": 12,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A can of energy drink, boosts stamina temporarily.\",
 		\"id\": \"can_energydrink\",
@@ -2084,8 +2239,7 @@ json_data = "[
 					\"amount\": 15,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A can of soda, a refreshing beverage.\",
 		\"id\": \"can_soda\",
@@ -2113,8 +2267,7 @@ json_data = "[
 					\"amount\": 10,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A block of cheese, a versatile food item.\",
 		\"id\": \"cheese\",
@@ -2540,8 +2693,7 @@ json_data = "[
 					\"amount\": 2,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A handful of wild berries, good for a quick snack or foraging.\",
 		\"id\": \"berries_wild\",
@@ -2571,8 +2723,7 @@ json_data = "[
 					\"amount\": 4,
 					\"id\": \"food\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"Edible mushrooms found in the forest, can be cooked or used in potions.\",
 		\"id\": \"mushrooms_forest\",
@@ -2622,8 +2773,7 @@ json_data = "[
 					\"amount\": 2,
 					\"id\": \"water\"
 				}
-			],
-			\"health\": 0
+			]
 		},
 		\"description\": \"A fresh bird egg, can be cooked for a nutritious meal.\",
 		\"id\": \"bird_egg\",

@@ -6,7 +6,7 @@ extends Control
 # Form elements
 @export var amount_spin_box: SpinBox  # SpinBox for the general amount
 @export var order_option_button: OptionButton  # OptionButton for the order of applying amounts
-@export var attributesGridContainer: GridContainer = null  # Container for attribute entries
+@export var attributesContainer: VBoxContainer = null  # Container for attribute entries
 
 var ditem: DItem = null:
 	set(value):
@@ -16,9 +16,9 @@ var ditem: DItem = null:
 		load_properties()
 
 
-# Forward drag-and-drop functionality to the attributesGridContainer
+# Forward drag-and-drop functionality to the attributesContainer
 func _ready() -> void:
-	attributesGridContainer.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_attribute_data)
+	attributesContainer.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_attribute_data)
 	_initialize_order_option_button()
 
 # Initialize the order option button with the possible values
@@ -66,10 +66,10 @@ func _get_order_option_index(order_text: String) -> int:
 	return 0  # Default to the first option if not found
 
 
-# Load attributes into the attributesGridContainer
+# Load attributes into the attributesContainer
 func _load_attributes_into_ui(attributes: Array) -> void:
 	# Clear previous entries
-	for child in attributesGridContainer.get_children():
+	for child in attributesContainer.get_children():
 		child.queue_free()
 	
 	# Populate the container with attributes
@@ -80,7 +80,7 @@ func _load_attributes_into_ui(attributes: Array) -> void:
 # Get the current attributes from the UI
 func _get_attributes_from_ui() -> Array:
 	var attributes = []
-	var children = attributesGridContainer.get_children()
+	var children = attributesContainer.get_children()
 	for hbox in children:
 		if hbox is HBoxContainer:
 			var label = hbox.get_child(1) as Label  # The Label is the second child
@@ -89,7 +89,7 @@ func _get_attributes_from_ui() -> Array:
 	return attributes
 
 
-# Add a new attribute entry to the attributesGridContainer
+# Add a new attribute entry to the attributesContainer
 func _add_attribute_entry(attribute: Dictionary) -> void:
 	var dattribute: DPlayerAttribute = Gamedata.playerattributes.by_id(attribute.id)
 	var sprite: Texture = dattribute.sprite
@@ -102,7 +102,7 @@ func _add_attribute_entry(attribute: Dictionary) -> void:
 	# Create a TextureRect for the sprite
 	var texture_rect = TextureRect.new()
 	texture_rect.texture = sprite
-	texture_rect.rect_min_size = Vector2(32, 32)  # Ensure the texture is 32x32
+	texture_rect.custom_minimum_size = Vector2(32, 32)  # Ensure the texture is 32x32
 	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED  # Keep the aspect ratio centered
 	hbox.add_child(texture_rect)
 
@@ -141,18 +141,18 @@ func _add_attribute_entry(attribute: Dictionary) -> void:
 	downButton.pressed.connect(_move_entry_down.bind(hbox))
 	hbox.add_child(downButton)
 
-	# Add the HBoxContainer to the attributesGridContainer
-	attributesGridContainer.add_child(hbox)
+	# Add the HBoxContainer to the attributesContainer
+	attributesContainer.add_child(hbox)
 
 
-# Delete an attribute entry from the attributesGridContainer
+# Delete an attribute entry from the attributesContainer
 func _delete_attribute_entry(elements_to_remove: Array) -> void:
 	for element in elements_to_remove:
-		attributesGridContainer.remove_child(element)
+		attributesContainer.remove_child(element)
 		element.queue_free()  # Properly free the node to avoid memory leaks
 
 
-# Function to determine if the dragged data can be dropped in the attributesGridContainer
+# Function to determine if the dragged data can be dropped in the attributesContainer
 func _can_drop_attribute_data(_newpos, data) -> bool:
 	# Check if the data dictionary has the 'id' property
 	if not data or not data.has("id"):
@@ -163,7 +163,7 @@ func _can_drop_attribute_data(_newpos, data) -> bool:
 		return false
 
 	# Check if the attribute ID already exists in the attributes grid
-	var children = attributesGridContainer.get_children()
+	var children = attributesContainer.get_children()
 	for hbox in children:
 		if hbox is HBoxContainer:
 			var label = hbox.get_child(1) as Label  # The Label is the second child
@@ -175,13 +175,13 @@ func _can_drop_attribute_data(_newpos, data) -> bool:
 	return true
 
 
-# Function to handle the data being dropped in the attributesGridContainer
+# Function to handle the data being dropped in the attributesContainer
 func _drop_attribute_data(newpos, data) -> void:
 	if _can_drop_attribute_data(newpos, data):
 		_handle_attribute_drop(data, newpos)
 
 
-# Called when the user has successfully dropped data onto the attributesGridContainer
+# Called when the user has successfully dropped data onto the attributesContainer
 # We have to check the dropped_data for the id property
 func _handle_attribute_drop(dropped_data, _newpos) -> void:
 	# dropped_data is a Dictionary that includes an 'id'
@@ -192,21 +192,21 @@ func _handle_attribute_drop(dropped_data, _newpos) -> void:
 			return
 		
 		# Add the attribute entry using the new function
-		_add_attribute_entry({"id":attribute_id, "amount":1})
+		_add_attribute_entry({"id":attribute_id, "amount":0})
 		# Here you would update your data structure if needed, similar to how you did for resources
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
 
-# Move the entry up by one position in the attributesGridContainer
+# Move the entry up by one position in the attributesContainer
 func _move_entry_up(hbox: HBoxContainer) -> void:
-	var index = attributesGridContainer.get_child_index(hbox)
+	var index = attributesContainer.get_child_index(hbox)
 	if index > 0:  # Ensure it's not the first element
-		attributesGridContainer.move_child(hbox, index - 1)
+		attributesContainer.move_child(hbox, index - 1)
 
 
-# Move the entry down by one position in the attributesGridContainer
+# Move the entry down by one position in the attributesContainer
 func _move_entry_down(hbox: HBoxContainer) -> void:
-	var index = attributesGridContainer.get_child_index(hbox)
-	if index < attributesGridContainer.get_child_count() - 1:  # Ensure it's not the last element
-		attributesGridContainer.move_child(hbox, index + 1)
+	var index = attributesContainer.get_child_index(hbox)
+	if index < attributesContainer.get_child_count() - 1:  # Ensure it's not the last element
+		attributesContainer.move_child(hbox, index + 1)

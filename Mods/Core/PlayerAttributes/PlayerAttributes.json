@@ -85,6 +85,14 @@
 		"name": "Head Health",
 		"references": {
 			"core": {
+				"items": [
+					"bandage_basic",
+					"bottle_antibiotics",
+					"bottle_disinfectant",
+					"insulin",
+					"epipen",
+					"painkiller"
+				],
 				"mobs": [
 					"scrapwalker",
 					"rust_sentinel"
@@ -105,6 +113,14 @@
 		"name": "Torso Health",
 		"references": {
 			"core": {
+				"items": [
+					"bandage_basic",
+					"bottle_antibiotics",
+					"bottle_disinfectant",
+					"insulin",
+					"epipen",
+					"painkiller"
+				],
 				"mobs": [
 					"scrapwalker",
 					"rust_sentinel"
@@ -125,6 +141,14 @@
 		"name": "Left Arm Health",
 		"references": {
 			"core": {
+				"items": [
+					"bandage_basic",
+					"bottle_antibiotics",
+					"bottle_disinfectant",
+					"insulin",
+					"epipen",
+					"painkiller"
+				],
 				"mobs": [
 					"scrapwalker",
 					"rust_sentinel"
@@ -145,6 +169,14 @@
 		"name": "Right Arm Health",
 		"references": {
 			"core": {
+				"items": [
+					"bandage_basic",
+					"bottle_antibiotics",
+					"bottle_disinfectant",
+					"insulin",
+					"epipen",
+					"painkiller"
+				],
 				"mobs": [
 					"scrapwalker",
 					"rust_sentinel"
@@ -165,6 +197,14 @@
 		"name": "Left Leg Health",
 		"references": {
 			"core": {
+				"items": [
+					"bandage_basic",
+					"bottle_antibiotics",
+					"bottle_disinfectant",
+					"insulin",
+					"epipen",
+					"painkiller"
+				],
 				"mobs": [
 					"scrapwalker",
 					"rust_sentinel"
@@ -185,6 +225,14 @@
 		"name": "Right Leg Health",
 		"references": {
 			"core": {
+				"items": [
+					"bandage_basic",
+					"bottle_antibiotics",
+					"bottle_disinfectant",
+					"insulin",
+					"epipen",
+					"painkiller"
+				],
 				"mobs": [
 					"scrapwalker",
 					"rust_sentinel"

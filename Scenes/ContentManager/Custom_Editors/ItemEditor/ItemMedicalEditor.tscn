@@ -18,7 +18,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="ItemMedicalEditor" type="Control" node_paths=PackedStringArray("amount_spin_box", "order_option_button", "attributesGridContainer")]
+[node name="ItemMedicalEditor" type="Control" node_paths=PackedStringArray("amount_spin_box", "order_option_button", "attributesContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +28,7 @@ grow_vertical = 2
 script = ExtResource("1_q4o68")
 amount_spin_box = NodePath("Medical/AmountSpinBox")
 order_option_button = NodePath("Medical/OrderOptionButton")
-attributesGridContainer = NodePath("Medical/PanelContainer/AttributesGridContainer")
+attributesContainer = NodePath("Medical/PanelContainer/AttributesContainer")
 
 [node name="Medical" type="GridContainer" parent="."]
 layout_mode = 0
@@ -85,7 +85,6 @@ These attributes will be adjusted based on the amount entered."
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_04nfc")
 
-[node name="AttributesGridContainer" type="GridContainer" parent="Medical/PanelContainer"]
+[node name="AttributesContainer" type="VBoxContainer" parent="Medical/PanelContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
-columns = 3
