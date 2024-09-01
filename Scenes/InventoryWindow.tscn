@@ -66,6 +66,8 @@ text = "Nearby container:"
 visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+max_weight = 1000
+max_volume = 1000
 
 [node name="TransferUI" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -98,6 +100,7 @@ text = "inventory:"
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 max_weight = 100
+max_volume = 1000
 
 [node name="EquipmentSlotList" type="VBoxContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(64, 0)

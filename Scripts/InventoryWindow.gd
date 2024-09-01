@@ -31,9 +31,13 @@ func _ready():
 	inventory = ItemManager.playerInventory
 	inventory_control.myInventory = inventory
 	inventory_control.initialize_list()
+	inventory_control.mouse_entered_item.connect(_on_inventory_item_mouse_entered)
+	inventory_control.mouse_exited_item.connect(_on_inventory_item_mouse_exited)
 	proximity_inventory = ItemManager.proximityInventory
 	proximity_inventory_control.myInventory = proximity_inventory
 	proximity_inventory_control.initialize_list()
+	proximity_inventory_control.mouse_entered_item.connect(_on_inventory_item_mouse_entered)
+	proximity_inventory_control.mouse_exited_item.connect(_on_inventory_item_mouse_exited)
 	
 	LeftHandEquipmentSlot.myInventory = inventory
 	RightHandEquipmentSlot.myInventory = inventory
@@ -95,13 +99,28 @@ func _process(_delta):
 		tooltip.visible = false
 
 
-func _on_inventory_item_mouse_entered(item):
+# When the mouse enters an inventory item UI display, construct the tooltip and display it
+func _on_inventory_item_mouse_entered(item: InventoryItem):
 	is_showing_tooltip = true
 	tooltip_item_name.text = str(item.get_property("name", ""))
-	tooltip_item_description.text = item.get_property("description", "")
+
+	# Get the base description
+	var description = item.get_property("description", "")
+
+	# Check if the item has a Food property with attributes
+	var food_data = item.get_property("Food")
+	if food_data and food_data.has("attributes"):
+		description += "\n\nEffects:\n"  # Add a section for attributes
+		for attribute in food_data["attributes"]:
+			# For each attribute, append the id and amount to the description
+			var attr_id = attribute.get("id", "Unknown")
+			var attr_amount = attribute.get("amount", 0)
+			description += "- " + str(attr_id) + ": " + str(attr_amount) + "\n"
+
+	tooltip_item_description.text = description
 
 
-func _on_inventory_item_mouse_exited(_item):
+func _on_inventory_item_mouse_exited():
 	is_showing_tooltip = false
 
 
