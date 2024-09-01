@@ -134,16 +134,21 @@ func _append_medical_attributes(item: InventoryItem, description: String) -> Str
 	var dmedical = DItem.Medical.new(item.get_property("Medical", {}))
 	if dmedical.attributes or dmedical.amount > 0:
 		description += "\n\nEffects (Medical):\n"  # Add a section for medical attributes
+		var attribute_names: Array = []
 		if dmedical.attributes:
 			for attribute in dmedical.attributes:
 				var attr_id = attribute.get("id", "Unknown")
 				var attr_amount = attribute.get("amount", 0)
+				var attr_name: String = Gamedata.playerattributes.by_id(attr_id).name
+				attribute_names.append("[" + attr_name + "]")
 				if attr_amount > 0:  # Only append attributes with an amount greater than 0
-					var attr_name: String = Gamedata.playerattributes.by_id(attr_id).name
 					description += "- " + attr_name + ": " + str(attr_amount) + "\n"
 		if dmedical.amount > 0:
-			description += "\nThis item will distribute " + str(dmedical.amount) + " among the above attributes.\n"
+			description += "\nThis item will distribute " + str(dmedical.amount) + " among the following attributes: "
+			description += " ".join(attribute_names) + ".\n"
 	return description
+
+
 
 
 
