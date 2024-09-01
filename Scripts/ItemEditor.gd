@@ -6,7 +6,7 @@ extends Control
 #To load data, provide the DItem instance
 
 
-@export var tabContainer: TabContainer = null
+@export var tab_container: TabContainer = null
 
 # Used to open the sprite selector popup
 @export var itemImageDisplay: TextureRect = null
@@ -28,7 +28,7 @@ extends Control
 @export var StackSizeNumberBox: SpinBox = null
 @export var MaxStackSizeNumberBox: SpinBox = null
 
-@export var typesContainer: HFlowContainer = null
+@export var types_container: HFlowContainer = null
 @export var TwoHandedCheckBox: CheckBox = null
 
 @export var references_editor: Control = null
@@ -44,12 +44,11 @@ var olddata: DItem # Remember what the value of the data was before editing
 # based on the ID that the user has selected in the content editor
 var ditem: DItem = null:
 	set(value):
-		if not value:
-			return
-		ditem = value
-		load_item_data()
-		itemSelector.sprites_collection = Gamedata.items.sprites
-		olddata = DItem.new(ditem.get_data().duplicate(true))
+		if value:
+			ditem = value
+			load_item_data()
+			itemSelector.sprites_collection = Gamedata.items.sprites
+			olddata = DItem.new(ditem.get_data().duplicate(true))
 		
 func _ready():
 	refresh_tab_visibility()
@@ -77,12 +76,12 @@ func load_item_data() -> void:
 	if TwoHandedCheckBox != null:
 		TwoHandedCheckBox.button_pressed = ditem.two_handed
 
-	# Loop through typesContainer children to load additional properties and set button_pressed
-	for i in range(typesContainer.get_child_count()):
-		var child = typesContainer.get_child(i)
+	# Loop through types_container children to load additional properties and set button_pressed
+	for i in range(types_container.get_child_count()):
+		var child = types_container.get_child(i)
 		if child is CheckBox:
 			var tabIndex = get_tab_by_title(child.text)
-			var tab = tabContainer.get_child(tabIndex)
+			var tab = tab_container.get_child(tabIndex)
 			if not ditem.get(child.text.to_lower()) == null:
 				tab.ditem = ditem
 				 # Set button_pressed to true if contentData has the property
@@ -112,15 +111,15 @@ func _on_save_button_button_up() -> void:
 	ditem.max_stack_size = int(MaxStackSizeNumberBox.value)
 	ditem.two_handed = TwoHandedCheckBox.button_pressed
 	
-	# Loop through typesContainer children to save additional properties
-	for i in range(typesContainer.get_child_count()):
-		var child = typesContainer.get_child(i)
+	# Loop through types_container children to save additional properties
+	for i in range(types_container.get_child_count()):
+		var child = types_container.get_child(i)
 		# Check if the child is a CheckBox and its button_pressed is true
 		if child is CheckBox:
 			if child.button_pressed:
 				# Save additional properties if checkbox is checked
 				var tabIndex = get_tab_by_title(child.text)
-				var tab = tabContainer.get_child(tabIndex)
+				var tab = tab_container.get_child(tabIndex)
 				if tab:
 					tab.save_properties()
 			else:
@@ -152,24 +151,24 @@ func _on_type_check_button_up():
 # It will show corresponding tabs in the tab container if the box is checked.
 # It will hide the corresponding tabs in the tab container if the box is unchecked.
 func refresh_tab_visibility() -> void:
-	# Loop over all children of the typesContainer
-	for i in range(typesContainer.get_child_count()):
+	# Loop over all children of the types_container
+	for i in range(types_container.get_child_count()):
 		# Get the child node at index 'i'
-		var child = typesContainer.get_child(i)
+		var child = types_container.get_child(i)
 		# Check if the child is a CheckBox
 		if child is CheckBox:
 			# Find the tab index in the TabContainer with the same name as the checkbox text
 			var tabIndex = get_tab_by_title(child.text)
 			if tabIndex != -1:  # Check if a valid tab index is returned
-				tabContainer.set_tab_hidden(tabIndex, !child.button_pressed)
-				var tab = tabContainer.get_child(tabIndex)
+				tab_container.set_tab_hidden(tabIndex, !child.button_pressed)
+				var tab = tab_container.get_child(tabIndex)
 				tab.ditem = ditem if child.button_pressed else null
 
 
 # Returns the tab control with the given name
 func get_tab_by_title(tabName: String) -> int:
-	# Loop over all children of the typesContainer
-	for i in range(tabContainer.get_tab_count()):
-		if tabContainer.get_tab_title(i) == tabName:
+	# Loop over all children of the types_container
+	for i in range(tab_container.get_tab_count()):
+		if tab_container.get_tab_title(i) == tabName:
 			return i
 	return -1

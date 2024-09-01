@@ -1,10 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://drby7yfu8t38e"]
+[gd_scene load_steps=5 format=3 uid="uid://drby7yfu8t38e"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/MobEditor.gd" id="1_ubw0i"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_woy6i"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_847a0"]
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_damage_numedit", "melee_range_numedit", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apoql"]
+content_margin_left = 11.0
+content_margin_top = 11.0
+content_margin_right = 11.0
+content_margin_bottom = 11.0
+bg_color = Color(0.358505, 0.289355, 0.48639, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_damage_numedit", "melee_range_numedit", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "attributesGridContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +43,7 @@ sightRange_numedit = NodePath("VBoxContainer/FormGrid/SightRangeSpinBox")
 senseRange_numedit = NodePath("VBoxContainer/FormGrid/SenseRangeSpinbox")
 hearingRange_numedit = NodePath("VBoxContainer/FormGrid/HearingRangeSpinbox")
 ItemGroupTextEdit = NodePath("VBoxContainer/FormGrid/HBoxContainer/LootItemGroupTextEdit")
+attributesGridContainer = NodePath("VBoxContainer/FormGrid/PanelContainer/AttributesGridContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -210,6 +227,23 @@ editable = false
 layout_mode = 2
 tooltip_text = "Clears the id of the itemgroup"
 text = "Clear itemgroup"
+
+[node name="AffectedAttributesLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Target attributes"
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_apoql")
+
+[node name="AttributesGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/PanelContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+tooltip_text = "Enter the target player attributes that this mob will attack. You 
+can drag body parts to this field to have the mob target them.
+Selecting multiple will have the mob attack each at random."
+columns = 3
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_847a0")]
 visible = false

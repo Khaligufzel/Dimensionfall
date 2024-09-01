@@ -412,6 +412,8 @@ func _on_items_used(usedItems: Array[InventoryItem]) -> void:
 	for item in usedItems:
 		if item.get_property("Food"):  # Check if the item dictionary has the key "food"
 			Helper.signal_broker.food_item_used.emit(item)
+		if item.get_property("Medical"):
+			Helper.signal_broker.medical_item_used.emit(item)
 
 
 # The user has pressed a button to start crafting

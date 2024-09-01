@@ -20,6 +20,7 @@ extends Control
 @export var senseRange_numedit: SpinBox
 @export var hearingRange_numedit: SpinBox
 @export var ItemGroupTextEdit: TextEdit = null
+@export var attributesGridContainer: GridContainer = null
 
 signal data_changed()
 var olddata: DMob # Remember what the value of the data was before editing
@@ -33,6 +34,11 @@ var dmob: DMob:
 		mobSelector.sprites_collection = Gamedata.mobs.sprites
 		olddata = DMob.new(dmob.get_data().duplicate(true))
 
+
+
+# Forward drag-and-drop functionality to the attributesGridContainer
+func _ready() -> void:
+	attributesGridContainer.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_attribute_data)
 
 # This function update the form based on the DMob data that has been loaded
 func load_mob_data() -> void:
@@ -63,6 +69,9 @@ func load_mob_data() -> void:
 		hearingRange_numedit.value = dmob.hearing_range
 	if ItemGroupTextEdit != null:
 		ItemGroupTextEdit.text = dmob.loot_group
+	
+	# Load attributes into the UI
+	_load_attributes_into_ui(dmob.targetattributes)
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -85,6 +94,9 @@ func _on_save_button_button_up() -> void:
 	dmob.sense_range = int(senseRange_numedit.value)
 	dmob.hearing_range = int(hearingRange_numedit.value)
 	dmob.loot_group = ItemGroupTextEdit.text if ItemGroupTextEdit.text else ""
+	
+	# Save attributes
+	dmob.targetattributes = _get_attributes_from_ui()
 
 	dmob.changed(olddata)
 	data_changed.emit()
@@ -134,3 +146,97 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 
 func _on_item_group_clear_button_button_up():
 	ItemGroupTextEdit.clear()
+
+
+# Load attributes into the attributesGridContainer
+func _load_attributes_into_ui(attributes: Array) -> void:
+	# Clear previous entries
+	for child in attributesGridContainer.get_children():
+		child.queue_free()
+	
+	# Populate the container with attributes
+	for attribute in attributes:
+		_add_attribute_entry(attribute)
+
+
+# Get the current attributes from the UI
+func _get_attributes_from_ui() -> Array:
+	var attributes = []
+	var children = attributesGridContainer.get_children()
+	for i in range(1, children.size(), 3):  # Step by 3 to handle sprite-label-deleteButton triples
+		var label = children[i] as Label
+		attributes.append({"id": label.text})
+	return attributes
+
+# Add a new attribute entry to the attributesGridContainer
+func _add_attribute_entry(attribute: Dictionary) -> void:
+	var myattribute: DPlayerAttribute = Gamedata.playerattributes.by_id(attribute.id)
+
+	# Create a TextureRect for the sprite
+	var texture_rect = TextureRect.new()
+	texture_rect.texture = myattribute.sprite
+	texture_rect.custom_minimum_size = Vector2(32, 32)  # Ensure the texture is 32x32
+	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED  # Keep the aspect ratio centered
+	attributesGridContainer.add_child(texture_rect)
+
+	# Create a Label for the attribute name
+	var label = Label.new()
+	label.text = myattribute.id
+	attributesGridContainer.add_child(label)
+
+	# Create a Button to delete the attribute entry
+	var deleteButton = Button.new()
+	deleteButton.text = "X"
+	deleteButton.pressed.connect(_delete_attribute_entry.bind([texture_rect, label, deleteButton]))
+	attributesGridContainer.add_child(deleteButton)
+
+
+# Delete an attribute entry from the attributesGridContainer
+func _delete_attribute_entry(elements_to_remove: Array) -> void:
+	for element in elements_to_remove:
+		attributesGridContainer.remove_child(element)
+		element.queue_free()  # Properly free the node to avoid memory leaks
+
+
+# Function to determine if the dragged data can be dropped in the attributesGridContainer
+func _can_drop_attribute_data(_newpos, data) -> bool:
+	# Check if the data dictionary has the 'id' property
+	if not data or not data.has("id"):
+		return false
+
+	# Fetch attribute by ID from the Gamedata to ensure it exists and is valid
+	if not Gamedata.playerattributes.has_id(data["id"]):
+		return false
+
+	# Check if the attribute ID already exists in the attributes grid
+	var children = attributesGridContainer.get_children()
+	for i in range(1, children.size(), 3):  # Step by 3 to handle sprite-label-deleteButton triples
+		var label = children[i] as Label
+		if label and label.text == data["id"]:
+			# Return false if this attribute ID already exists in the attributes grid
+			return false
+
+	# If all checks pass, return true
+	return true
+
+# Function to handle the data being dropped in the attributesGridContainer
+func _drop_attribute_data(newpos, data) -> void:
+	if _can_drop_attribute_data(newpos, data):
+		_handle_attribute_drop(data, newpos)
+
+
+# Called when the user has successfully dropped data onto the attributesGridContainer
+# We have to check the dropped_data for the id property
+func _handle_attribute_drop(dropped_data, _newpos) -> void:
+	# dropped_data is a Dictionary that includes an 'id'
+	if dropped_data and "id" in dropped_data:
+		var attribute_id = dropped_data["id"]
+		if not Gamedata.playerattributes.has_id(attribute_id):
+			print_debug("No attribute data found for ID: " + attribute_id)
+			return
+		
+		# Add the attribute entry using the new function
+		_add_attribute_entry({"id":attribute_id})
+		# Here you would update your data structure if needed, similar to how you did for resources
+	else:
+		print_debug("Dropped data does not contain an 'id' key.")

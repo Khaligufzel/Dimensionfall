@@ -9,7 +9,6 @@ var is_alive = true
 var rng = RandomNumberGenerator.new()
 
 var speed = 2  # speed in meters/sec
-var current_speed
 
 var run_multiplier = 1.1
 var is_running = false
@@ -29,7 +28,7 @@ var current_right_leg_health
 
 var stamina = 100
 var current_stamina
-var stamina_lost_while_running_persec = 15
+var stamina_lost_while_running_per_sec  = 15
 var stamina_regen_while_standing_still = 3
 
 var nutrition = 100
@@ -49,7 +48,7 @@ var delay_before_movement = 2.0  # 2 second delay
 var last_y_level: int = 0
 
 @export var sprite : Sprite3D
-@export var collisionDetector : Area3D # Used for detecting collision with furniture
+@export var collision_detector : Area3D # Used for detecting collision with furniture
 
 @export var interact_range : float = 10
 
@@ -75,14 +74,18 @@ func _ready():
 	initialize_attributes()
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
-	Helper.signal_broker.food_item_used.connect(_on_food_item_used)
-	ItemManager.craft_successful.connect(_on_craft_successful)
-	# Connect signals for collisionDetector to detect furniture
-	collisionDetector.body_shape_entered.connect(_on_body_entered)
-	collisionDetector.body_shape_exited.connect(_on_body_exited)
+	_connect_signals()
 	Helper.signal_broker.player_spawned.emit(self)
 	initialize_y_level_check()
 
+
+# Connect necessary signals for interaction and updates
+func _connect_signals():
+	Helper.signal_broker.food_item_used.connect(_on_food_item_used)
+	Helper.signal_broker.medical_item_used.connect(_on_medical_item_used)
+	ItemManager.craft_successful.connect(_on_craft_successful)
+	collision_detector.body_shape_entered.connect(_on_body_entered)
+	collision_detector.body_shape_exited.connect(_on_body_exited)
 
 func initialize_health():
 	current_left_arm_health = left_arm_health
@@ -168,7 +171,7 @@ func _physics_process(delta):
 		run_multiplier = 1.1 + (athletics_level / 100.0) * (2.0 - 1.1)
 
 		# Calculate stamina lost while running based on athletics skill level
-		stamina_lost_while_running_persec = 15 - (athletics_level / 100.0) * (15 - 5)
+		stamina_lost_while_running_per_sec  = 15 - (athletics_level / 100.0) * (15 - 5)
 
 		# Calculate stamina regeneration while standing still based on athletics skill level
 		stamina_regen_while_standing_still = 3 + (athletics_level / 100.0) * (8 - 3)
@@ -186,7 +189,7 @@ func _physics_process(delta):
 				velocity = direction * speed * run_multiplier
 
 				if velocity.length() > 0:
-					current_stamina -= delta * stamina_lost_while_running_persec
+					current_stamina -= delta * stamina_lost_while_running_per_sec 
 					# Add XP for running
 					add_skill_xp("athletics", 0.01)
 
@@ -218,31 +221,34 @@ func _on_body_exited(body_rid: RID, body: Node3D, _body_shape_index: int, _local
 func _input(event):
 	if event.is_action_pressed("run"):
 		is_running = true
-	if event.is_action_released("run"):
+	elif event.is_action_released("run"):
 		is_running = false
 		
 	#checking if we can interact with the object
 	if event.is_action_pressed("interact"):
-		var layer = pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1)
-		var mouse_pos : Vector2 = get_viewport().get_mouse_position()
-		var raycast: Dictionary = Helper.raycast_from_mouse(mouse_pos, layer)
-		if not raycast.has("position"):
-			return
-		var world_mouse_position = raycast.position
-		var result = Helper.raycast(global_position, global_position + (Vector3(world_mouse_position.x - global_position.x, 0, world_mouse_position.z - global_position.z)).normalized() * interact_range, layer, [self])
+		_check_for_interaction()
 
-		print("Interact button pressed")
-		if result:
-			print("Found object with collider")
-			Helper.signal_broker.player_interacted.emit(result.position, result.rid)
-			#var myOwner = result.collider.get_owner()
-			#if myOwner:
-			#if result.collider.has_method("interact"):
-				#print("collider has method")
-				#result.collider.interact()
-				
 
-func _get_hit(damage: float):
+# Check if player can interact with an object
+func _check_for_interaction() -> void:
+	var layer = pow(2, 1 - 1) + pow(2, 2 - 1) + pow(2, 3 - 1)
+	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var raycast: Dictionary = Helper.raycast_from_mouse(mouse_pos, layer)
+	if not raycast.has("position"):
+		return
+
+	var world_mouse_position = raycast.position
+	var result = Helper.raycast(global_position, global_position + (Vector3(world_mouse_position.x - global_position.x, 0, world_mouse_position.z - global_position.z)).normalized() * interact_range, layer, [self])
+
+	if result:
+		Helper.signal_broker.player_interacted.emit(result.position, result.rid)
+
+
+# The player gets hit by an attack
+# attributeid: The PlayerAttribute that is targeted by this attack
+# damage: The amount to subtract from the target attribute
+func _get_hit(attributeid: String, damage: float):
+	attributes[attributeid].reduce_amount(damage)
 	var limb_number = rng.randi_range(0,5)
 	
 	match limb_number:
@@ -331,10 +337,6 @@ func play_footstep_audio():
 func _on_food_item_used(usedItem: InventoryItem) -> void:
 	var food = DItem.Food.new(usedItem.get_property("Food"))
 	var was_used: bool = false
-	if food.health:
-		var spent_health = heal_player(food.health)
-		if not spent_health == food.health:
-			was_used = true
 
 	for attribute in food.attributes:
 		attributes[attribute.id].modify_current_amount(attribute.amount)
@@ -343,6 +345,152 @@ func _on_food_item_used(usedItem: InventoryItem) -> void:
 	if was_used:
 		var stack_size: int = InventoryStacked.get_item_stack_size(usedItem)
 		InventoryStacked.set_item_stack_size(usedItem,stack_size-1)
+
+
+# The player has selected one or more items in the inventory and selected
+# 'use' from the context menu.
+func _on_medical_item_used(usedItem: InventoryItem) -> void:
+	
+	var medical = DItem.Medical.new(usedItem.get_property("Medical"))
+	var was_used: bool = false
+
+	# Step 1: Apply specific amounts to each attribute
+	# example of medical.attributes: [{"id":"torso","amount":10}]
+	was_used = _apply_specific_attribute_amounts(medical.attributes) or was_used
+
+	# Step 2: Apply the general medical amount from the pool
+	was_used = _apply_general_medical_amount(medical) or was_used
+
+	# If any attribute was modified, reduce the item stack size by 1
+	if was_used:
+		var stack_size: int = InventoryStacked.get_item_stack_size(usedItem)
+		InventoryStacked.set_item_stack_size(usedItem, stack_size - 1)
+
+
+# Function to apply specific amounts to each attribute
+# medattributes: Attributes assigned to the medical item
+# For example: [{"id":"torso","amount":10}] would add 10 to the "torso" attribute
+func _apply_specific_attribute_amounts(medattributes: Array) -> bool:
+	var was_used: bool = false
+
+	for medattribute in medattributes:
+		# Get the values from the current player's attribute
+		var playerattribute: PlayerAttribute = attributes[medattribute.id]
+		var current_amount = playerattribute.current_amount
+		var max_amount = playerattribute.max_amount
+		var min_amount = playerattribute.min_amount
+
+		# Make sure we don't add or subtract more then the min and max amount
+		var new_amount = clamp(current_amount + medattribute.amount, min_amount, max_amount)
+
+		# If the new amount is different from the current amount, apply the change
+		if new_amount != current_amount:
+			playerattribute.modify_current_amount(new_amount - current_amount)
+			was_used = true
+	
+	return was_used
+
+# Function to apply the general medical amount from the pool
+# See the DItem class and its Medical subclass for the properties of DItem.Medical
+func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
+	var was: Dictionary = {"used": false} # Keep track of whether the item was used
+	var pool = medical.amount
+	
+	# Get the matching PlayerAttributes based on medical attributes
+	var matching_player_attributes = get_matching_player_attributes(medical.attributes)
+	
+	# Separate attributes based on depletion_effect == "death"
+	var death_effect_attributes: Array[PlayerAttribute] = []
+	var other_attributes: Array[PlayerAttribute] = []
+
+	for playerattribute in matching_player_attributes:
+		if playerattribute.depletion_effect == "death":
+			death_effect_attributes.append(playerattribute)
+		else:
+			other_attributes.append(playerattribute)
+	
+	# First, apply the pool to attributes with the death effect
+	var sorted_death_attributes = _sort_player_attributes_by_order(death_effect_attributes, medical.order)
+	pool = _apply_pool_to_attributes(sorted_death_attributes, pool, was)
+	
+	# Then, apply the remaining pool to the other attributes
+	var sorted_other_attributes = _sort_player_attributes_by_order(other_attributes, medical.order)
+	pool = _apply_pool_to_attributes(sorted_other_attributes, pool, was)
+	
+	return was.used
+
+# Helper function to apply the pool to a given array of PlayerAttributes
+func _apply_pool_to_attributes(myattributes: Array[PlayerAttribute], pool: float, was: Dictionary) -> float:
+	for playerattribute in myattributes:
+		var current_amount = playerattribute.current_amount
+		var max_amount = playerattribute.max_amount
+		var min_amount = playerattribute.min_amount
+		
+		# Calculate how much can actually be added from the pool
+		var additional_amount = min(pool, max_amount - current_amount)
+		
+		# Make sure that amount is not more or less than the min and max amount for the attribute
+		var new_amount = clamp(current_amount + additional_amount, min_amount, max_amount)
+		
+		# Update the pool after applying the additional amount
+		pool -= (new_amount - current_amount)
+		
+		# If the new amount is different from the current amount, apply the change
+		if not new_amount == current_amount:
+			playerattribute.modify_current_amount(new_amount - current_amount)
+			was.used = true
+		
+		# If the pool is exhausted, break out of the loop
+		if pool <= 0:
+			break
+
+	return pool
+
+
+# Sort PlayerAttributes based on the specified order
+func _sort_player_attributes_by_order(myattributes: Array[PlayerAttribute], order: String) -> Array[PlayerAttribute]:
+	match order:
+		"Ascending":
+			# Reverse the array and return it
+			myattributes.reverse()
+			return myattributes
+		"Descending":
+			# Use the original order of medical.attributes
+			return myattributes
+		"Lowest first":
+			myattributes.sort_custom(_compare_player_attributes_by_current_amount_ascending)
+		"Highest first":
+			myattributes.sort_custom(_compare_player_attributes_by_current_amount_descending)
+		"Random":
+			myattributes.shuffle()
+		_:
+			# Default to no sorting if an invalid order is provided
+			pass
+	return myattributes
+
+# Custom sorting functions for PlayerAttributes
+func _compare_player_attributes_by_current_amount_ascending(a: PlayerAttribute, b: PlayerAttribute) -> bool:
+	return a.current_amount < b.current_amount
+
+func _compare_player_attributes_by_current_amount_descending(a: PlayerAttribute, b: PlayerAttribute) -> bool:
+	return a.current_amount > b.current_amount
+
+
+# Function to retrieve PlayerAttributes that match the IDs in medical.attributes
+func get_matching_player_attributes(med_attributes: Array) -> Array[PlayerAttribute]:
+	var matching_attributes: Array[PlayerAttribute] = []
+
+	# Loop over each attribute in the medical item's attributes
+	for med_attr in med_attributes:
+		var attr_id = med_attr.get("id", "")
+		
+		# Check if the player has an attribute with the same ID
+		if attributes.has(attr_id):
+			# Add the corresponding PlayerAttribute to the array
+			matching_attributes.append(attributes[attr_id])
+	
+	return matching_attributes
+
 
 
 # Heal the player by the specified amount. We prioritize the head and torso for healing

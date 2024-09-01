@@ -4,7 +4,6 @@ extends Control
 # It is supposed to edit exactly one type of food
 
 # Form elements
-@export var HealthNumberBox: SpinBox = null
 @export var attributesGridContainer: GridContainer = null
 
 var ditem: DItem = null:
@@ -22,10 +21,7 @@ func _ready() -> void:
 # Save the properties from the UI back to the ditem
 func save_properties() -> void:
 	if not ditem.food:
-		ditem.food = DItem.Food.new({"health": 0})
-
-	# Save health value
-	ditem.food.health = int(HealthNumberBox.value)
+		ditem.food = DItem.Food.new({})
 	
 	# Save attributes
 	ditem.food.attributes = _get_attributes_from_ui()
@@ -37,9 +33,6 @@ func load_properties() -> void:
 	if ditem.food == null:
 		print_debug("ditem.food is null, skipping property loading.")
 		return
-	
-	# Load health value
-	HealthNumberBox.value = ditem.food.health
 	
 	# Load attributes into the UI
 	_load_attributes_into_ui(ditem.food.attributes)

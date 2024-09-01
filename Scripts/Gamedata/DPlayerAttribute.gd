@@ -29,6 +29,9 @@ var current_amount: float
 # The rate at which the amount depletes every second
 var depletion_rate: float
 
+# The effect that will happen when depleted
+var depletion_effect: String
+
 # Variable to store the UI color as a string (e.g., "ffffffff" for white)
 var ui_color: String
 
@@ -46,6 +49,7 @@ func _init(data: Dictionary):
 	current_amount = data.get("current_amount", max_amount)  # Default to max amount if not provided
 	depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02 if not provided
 	ui_color = data.get("color", "ffffffff")  # Default to white if not provided
+	depletion_effect = data.get("depletion_effect", "none")
 	references = data.get("references", {})
 
 # Get data function to return a dictionary with all properties
@@ -59,6 +63,7 @@ func get_data() -> Dictionary:
 		"max_amount": max_amount,
 		"current_amount": current_amount,
 		"depletion_rate": depletion_rate,
+		"depletion_effect": depletion_effect,
 		"color": ui_color
 	}
 	if not references.is_empty():

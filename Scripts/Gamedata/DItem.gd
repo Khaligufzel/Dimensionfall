@@ -25,6 +25,7 @@ var magazine: Magazine
 var ranged: Ranged
 var melee: Melee
 var food: Food
+var medical: Medical
 var ammo: Ammo
 var wearable: Wearable
 
@@ -243,21 +244,17 @@ class Melee:
 
 # Inner class to handle the Food property
 class Food:
-	var health: int
 	var attributes: Array = []  # example: [{"id":"food","amount":10}]
 
 	# Constructor to initialize food properties from a dictionary
 	func _init(data: Dictionary):
-		health = int(data.get("health", 0))
 		attributes = []
 		if data.has("attributes"):
 			attributes = data["attributes"]
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		var food_data: Dictionary = {
-			"health": health			
-		}
+		var food_data: Dictionary = {}
 		if not attributes.is_empty():
 			food_data["attributes"] = attributes
 		return food_data
@@ -269,6 +266,41 @@ class Food:
 			if attribute.has("id"):
 				ids.append(attribute["id"])
 		return ids
+
+
+# Inner class to handle the Medical property
+class Medical:
+	var attributes: Array = []  # example: [{"id":"torso","amount":10}]
+	var amount: float  # The general amount to be added to attributes
+	# The order by which to apply the amount. Can be "Ascending", "Descending"
+	# "Lowest first", "Highest first" and "Random"
+	var order: String
+
+	# Constructor to initialize Medical properties from a dictionary
+	func _init(data: Dictionary):
+		attributes = []
+		if data.has("attributes"):
+			attributes = data["attributes"]
+		amount = data.get("amount", 0.0)
+		order = data.get("order", "Random")  # Default to "Random" if not provided
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		var medical_data: Dictionary = {}
+		if not attributes.is_empty():
+			medical_data["attributes"] = attributes
+		medical_data["amount"] = amount
+		medical_data["order"] = order
+		return medical_data
+
+	# Function to return an array of all "id" values in the attributes array
+	func get_attr_ids() -> Array:
+		var ids: Array = []
+		for attribute in attributes:
+			if attribute.has("id"):
+				ids.append(attribute["id"])
+		return ids
+
 
 # Inner class to handle the Ammo property
 class Ammo:
@@ -350,6 +382,11 @@ func _init(data: Dictionary):
 	else:
 		food = null
 
+	if data.has("Medical"):
+		medical = Medical.new(data["Medical"])
+	else:
+		medical = null
+
 	if data.has("Ammo"):
 		ammo = Ammo.new(data["Ammo"])
 	else:
@@ -393,6 +430,9 @@ func get_data() -> Dictionary:
 
 	if food:
 		data["Food"] = food.get_data()
+
+	if medical:
+		data["Medical"] = medical.get_data()
 
 	if ammo:
 		data["Ammo"] = ammo.get_data()
@@ -509,11 +549,21 @@ func update_item_skill_references(olddata: DItem):
 
 # Collects all attributes defined in an item and updates the references to that attribute
 func update_item_attribute_references(olddata: DItem):
-	# Collect skill IDs from old and new data
-	var old_attr_ids = olddata.food.get_attr_ids() if olddata.food else []
-	var new_attr_ids = food.get_attr_ids() if food else []
+	# Collect all attribute IDs from old and new data (food and medical)
+	var old_attr_ids = []
+	var new_attr_ids = []
 
-	# Remove old skill references that are not in the new list
+	if olddata.food:
+		old_attr_ids.append_array(olddata.food.get_attr_ids())
+	if olddata.medical:
+		old_attr_ids.append_array(olddata.medical.get_attr_ids())
+
+	if food:
+		new_attr_ids.append_array(food.get_attr_ids())
+	if medical:
+		new_attr_ids.append_array(medical.get_attr_ids())
+
+	# Remove old attribute references that are not in the new list
 	for old_attr_id in old_attr_ids:
 		if not new_attr_ids.has(old_attr_id):
 			Gamedata.playerattributes.remove_reference(old_attr_id, "core", "items", id)
@@ -521,6 +571,7 @@ func update_item_attribute_references(olddata: DItem):
 	# Add new attribute references
 	for new_attr_id in new_attr_ids:
 		Gamedata.playerattributes.add_reference(new_attr_id, "core", "items", id)
+
 
 
 # An item is being deleted from the data

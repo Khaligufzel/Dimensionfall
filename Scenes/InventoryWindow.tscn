@@ -11,7 +11,7 @@
 default_font = ExtResource("6_xpf2l")
 default_font_size = 13
 
-[node name="InventoryWindow" type="Control" node_paths=PackedStringArray("proximity_inventory_control", "inventory_control", "containerList", "EquipmentSlotList", "LeftHandEquipmentSlot", "RightHandEquipmentSlot", "tooltip", "tooltip_item_name", "tooltip_item_description")]
+[node name="InventoryWindow" type="Control" node_paths=PackedStringArray("proximity_inventory_control", "inventory_control", "containerList", "EquipmentSlotList", "LeftHandEquipmentSlot", "RightHandEquipmentSlot", "tooltip", "tooltip_item_name", "tooltip_item_description", "tool_tip_description_panel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +31,8 @@ LeftHandEquipmentSlot = NodePath("HBoxContainer/EquipmentSlotList/LeftHandEquipm
 RightHandEquipmentSlot = NodePath("HBoxContainer/EquipmentSlotList/RightHandEquipment/RightHandEquipmentSlot")
 tooltip = NodePath("Tooltip")
 tooltip_item_name = NodePath("Tooltip/Panel/ItemName")
-tooltip_item_description = NodePath("Tooltip/Panel2/Description")
+tooltip_item_description = NodePath("Tooltip/ToolTipDescriptionPanel/Description")
+tool_tip_description_panel = NodePath("Tooltip/ToolTipDescriptionPanel")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -66,8 +67,6 @@ text = "Nearby container:"
 visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-max_weight = 1000
-max_volume = 1000
 
 [node name="TransferUI" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -100,7 +99,6 @@ text = "inventory:"
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 max_weight = 100
-max_volume = 1000
 
 [node name="EquipmentSlotList" type="VBoxContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(64, 0)
@@ -165,7 +163,7 @@ text = "Item name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel2" type="Panel" parent="Tooltip"]
+[node name="ToolTipDescriptionPanel" type="Panel" parent="Tooltip"]
 layout_mode = 2
 offset_left = 1.0
 offset_top = 35.0
@@ -173,7 +171,7 @@ offset_right = 241.0
 offset_bottom = 115.0
 size_flags_vertical = 3
 
-[node name="Description" type="Label" parent="Tooltip/Panel2"]
+[node name="Description" type="Label" parent="Tooltip/ToolTipDescriptionPanel"]
 layout_mode = 0
 offset_right = 240.0
 offset_bottom = 32.0

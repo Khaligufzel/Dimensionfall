@@ -70,8 +70,10 @@ func attack():
 #	tween.tween_property(get_node(mob_sprite), "position", targeted_player.position - get_node(mob).global_position, 0.1 )
 #	tween.tween_property(get_node(mob_sprite), "position", Vector2(0,0), 0.1 )
 	
+	var targetattribute: Dictionary = mob.dmob.targetattributes.pick_random()
+	var attributeid: String = targetattribute.id
 	if targeted_player and targeted_player.has_method("_get_hit"):
-		targeted_player._get_hit(mob.melee_damage)
+		targeted_player._get_hit(attributeid, mob.melee_damage)
 	
 	
 func stop_attacking():

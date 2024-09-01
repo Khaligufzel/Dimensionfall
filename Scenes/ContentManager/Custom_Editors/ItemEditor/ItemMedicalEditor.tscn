@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://dio1cpt7em6r2"]
+
+[ext_resource type="Script" path="res://Scripts/ItemMedicalEditor.gd" id="1_q4o68"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04nfc"]
+content_margin_left = 11.0
+content_margin_top = 11.0
+content_margin_right = 11.0
+content_margin_bottom = 11.0
+bg_color = Color(0.358505, 0.289355, 0.48639, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ItemMedicalEditor" type="Control" node_paths=PackedStringArray("amount_spin_box", "order_option_button", "attributes_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q4o68")
+amount_spin_box = NodePath("Medical/AmountSpinBox")
+order_option_button = NodePath("Medical/OrderOptionButton")
+attributes_container = NodePath("Medical/PanelContainer/AttributesContainer")
+
+[node name="Medical" type="GridContainer" parent="."]
+layout_mode = 0
+size_flags_vertical = 3
+columns = 2
+
+[node name="TitleLabel" type="Label" parent="Medical"]
+layout_mode = 2
+text = "Tip:"
+
+[node name="DescriptionLabel" type="Label" parent="Medical"]
+layout_mode = 2
+text = "Enter the food settings for this item. To configure what the item
+does, drag a player attribute from the left onto the Affected
+Attributes field and set the desired value. For example,
+dragging the \"torso\" attribute lets you specify how much \"torso\" 
+health the player gains when consuming the item. Any attribute can
+be modified, and the value can be negative."
+
+[node name="Amount" type="Label" parent="Medical"]
+layout_mode = 2
+text = "Amount"
+
+[node name="AmountSpinBox" type="SpinBox" parent="Medical"]
+layout_mode = 2
+tooltip_text = "The general amount this item will apply to the attributes. If it applies to more then one 
+attribute, set the order by which to apply it. If this item should target certain attributes by
+ a fixed amount, set this to 0 and only set the amount when entering the attributes below."
+min_value = -100.0
+value = 10.0
+
+[node name="OrderLabel" type="Label" parent="Medical"]
+layout_mode = 2
+text = "Order"
+
+[node name="OrderOptionButton" type="OptionButton" parent="Medical"]
+layout_mode = 2
+tooltip_text = "The order by which the amount is applied to the attributes. 
+Ascending: Apply the amount from the first attribute to the last until the amount is depleted
+Descending: Apply the amount from the last attribute to the first until the amount is depleted
+Lowest first: Apply the amount to the attribute with the lowest current value. Any remainder will go to the next lowest
+Highest first: Apply the amount to the attribute with the highest current value. Any remainder will go 
+to the next highest. Only attributes with a current value lower then max will be targeted
+Random: The amount will be distributed at random across the attributes. All of the amount will be used if possible."
+
+[node name="AffectedAttributesLabel2" type="Label" parent="Medical"]
+layout_mode = 2
+text = "Affected attributes"
+
+[node name="PanelContainer" type="PanelContainer" parent="Medical"]
+layout_mode = 2
+tooltip_text = "Drag player attributes from the list to the left onto this field to add them. 
+These attributes will be adjusted based on the amount entered."
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_04nfc")
+
+[node name="AttributesContainer" type="VBoxContainer" parent="Medical/PanelContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2

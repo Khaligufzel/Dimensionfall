@@ -24,20 +24,13 @@ extends Control
 var is_showing_tooltip = false
 @export var tooltip_item_name : Label
 @export var tooltip_item_description : Label
+@export var tool_tip_description_panel: Panel
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	inventory = ItemManager.playerInventory
-	inventory_control.myInventory = inventory
-	inventory_control.initialize_list()
-	inventory_control.mouse_entered_item.connect(_on_inventory_item_mouse_entered)
-	inventory_control.mouse_exited_item.connect(_on_inventory_item_mouse_exited)
-	proximity_inventory = ItemManager.proximityInventory
-	proximity_inventory_control.myInventory = proximity_inventory
-	proximity_inventory_control.initialize_list()
-	proximity_inventory_control.mouse_entered_item.connect(_on_inventory_item_mouse_entered)
-	proximity_inventory_control.mouse_exited_item.connect(_on_inventory_item_mouse_exited)
+	setup_inventory_controls()
 	
 	LeftHandEquipmentSlot.myInventory = inventory
 	RightHandEquipmentSlot.myInventory = inventory
@@ -48,6 +41,20 @@ func _ready():
 	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
 
+
+# Setup player and proximity inventories
+func setup_inventory_controls():
+	inventory = ItemManager.playerInventory
+	proximity_inventory = ItemManager.proximityInventory
+	
+	initialize_inventory_control(inventory_control, inventory)
+	initialize_inventory_control(proximity_inventory_control, proximity_inventory)
+
+func initialize_inventory_control(control: Control, inv: InventoryStacked):
+	control.myInventory = inv
+	control.initialize_list()
+	control.mouse_entered_item.connect(_on_inventory_item_mouse_entered)
+	control.mouse_exited_item.connect(_on_inventory_item_mouse_exited)
 
 # If any items are present in the player equipment, load them
 func equip_loaded_items():
@@ -94,49 +101,69 @@ func instantiate_wearable_slots():
 func _process(_delta):
 	if is_showing_tooltip:
 		tooltip.visible = true
-		tooltip.global_position = tooltip.get_global_mouse_position() + Vector2(0, -5 - tooltip.size.y)
+		tooltip.global_position = tooltip.get_global_mouse_position() + Vector2(10, -5 - tooltip.size.y)
 	else:
 		tooltip.visible = false
 
 
-# When the mouse enters an inventory item UI display, construct the tooltip and display it
 func _on_inventory_item_mouse_entered(item: InventoryItem):
 	is_showing_tooltip = true
 	tooltip_item_name.text = str(item.get_property("name", ""))
-
-	# Get the base description
+	
 	var description = item.get_property("description", "")
 
-	# Check if the item has a Food property with attributes
-	var food_data = item.get_property("Food")
-	if food_data and food_data.has("attributes"):
-		description += "\n\nEffects:\n"  # Add a section for attributes
-		for attribute in food_data["attributes"]:
-			# For each attribute, append the id and amount to the description
+	description = _append_food_attributes(item, description)
+	description = _append_medical_attributes(item, description)
+
+	tooltip_item_description.text = description
+	_set_tooltip_size(description)
+
+# Helper function to set the tooltip size based on the description length
+func _set_tooltip_size(description: String):
+	var line_count = description.split("\n").size()
+	var vertical_size = max(80, line_count * 21)  # Ensure a minimum height of 80
+	tool_tip_description_panel.custom_minimum_size = Vector2(240, vertical_size)
+
+# Adds text to the tooltip to display the effects the item has on the attributes
+func _append_food_attributes(item: InventoryItem, description: String) -> String:
+	var dfood = DItem.Food.new(item.get_property("Food", {}))
+	if dfood.attributes:
+		description += "\n\nEffects (Food):\n"  # Add a section for food attributes
+		for attribute in dfood.attributes:
 			var attr_id = attribute.get("id", "Unknown")
 			var attr_amount = attribute.get("amount", 0)
 			description += "- " + str(attr_id) + ": " + str(attr_amount) + "\n"
+	return description
 
-	tooltip_item_description.text = description
+
+# Adds text to the tooltip to display the effects the item has on the attributes
+func _append_medical_attributes(item: InventoryItem, description: String) -> String:
+	var dmedical = DItem.Medical.new(item.get_property("Medical", {}))
+	if dmedical.attributes or dmedical.amount > 0:
+		description += "\n\nEffects (Medical):\n"  # Add a section for medical attributes
+		if dmedical.attributes:
+			for attribute in dmedical.attributes:
+				var attr_id = attribute.get("id", "Unknown")
+				var attr_amount = attribute.get("amount", 0)
+				var attr_name: String = Gamedata.playerattributes.by_id(attr_id).name
+				
+				# Build the line only if there's something to display
+				var line = " ►" + attr_name + ":"
+				var values = []
+				
+				if dmedical.amount != 0:
+					values.append("(" + str(dmedical.amount) + ")")
+				if attr_amount != 0:
+					values.append("+" + str(attr_amount))
+				
+				if values.size() > 0:
+					line += " " + "".join(values)
+					description += line + "\n"
+	return description
 
 
 func _on_inventory_item_mouse_exited():
 	is_showing_tooltip = false
-
-
-func check_if_resources_are_available(item_id, amount_to_spend: int):
-	var inventory_node = inventory
-	print("checking if we have the item id in inv")
-	if inventory_node.get_item_by_id(item_id):
-		print("we have the item id")
-		var item_total_amount : int = 0
-		var current_amount_to_spend = amount_to_spend
-		var items = inventory_node.get_items_by_id(item_id)
-		for item in items:
-			item_total_amount += InventoryStacked.get_item_stack_size(item)
-		if item_total_amount >= current_amount_to_spend:
-			return true
-	return false
 
 
 # When an item is added to the player inventory
@@ -306,14 +333,12 @@ func _on_transfer_right_button_button_up():
 # dest = a CtrlInventoryStackedCustom control to which to move the items
 func transfer_autosplitmerge_list(items: Array, src: Control, dest: Control) -> bool:
 	Helper.signal_broker.inventory_operation_started.emit()
-	var success: bool = true
-	# Get the items that fit inside the remaining volume
-	var items_to_transfer = dest.get_items_that_fit_by_volume(items)
-	for item in items_to_transfer:
-		if src.transfer_autosplitmerge(item, dest.get_inventory()):
-			print_debug("Transferred item: " + str(item))
-		else:
+	var success = true
+
+	for item in dest.get_items_that_fit_by_volume(items):
+		if not src.transfer_autosplitmerge(item, dest.get_inventory()):
 			print_debug("Failed to transfer item: " + str(item))
 			success = false
+
 	Helper.signal_broker.inventory_operation_finished.emit()
 	return success
