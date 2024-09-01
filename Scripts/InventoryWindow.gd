@@ -137,10 +137,12 @@ func _append_medical_attributes(item: InventoryItem, description: String) -> Str
 			for attribute in dmedical.attributes:
 				var attr_id = attribute.get("id", "Unknown")
 				var attr_amount = attribute.get("amount", 0)
-				description += "- " + str(attr_id) + ": " + str(attr_amount) + "\n"
+				if attr_amount > 0:  # Only append attributes with an amount greater than 0
+					description += "- " + str(attr_id) + ": " + str(attr_amount) + "\n"
 		if dmedical.amount > 0:
 			description += "\nThis item will distribute " + str(dmedical.amount) + " among the above attributes.\n"
 	return description
+
 
 
 
