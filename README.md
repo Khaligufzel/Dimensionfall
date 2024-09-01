@@ -118,6 +118,13 @@ Specify itemgroups, used to spawn items in various locations including container
 
 
 
+# Player attribute editor
+In line with complete moddability, you can set the player's attributes using the editor. This allows for more immersion and customization. Once the attribute is created, you can then drag them from the menu onto items and have them alter the attribute. For example, you can have an "apple" item increase the "food" attribute when used.
+
+![Catax_furniture_editor](Media/Catax_playerattribute_editor.png)
+
+
+
 # Wearable slots editor
 Ever wanted to create that unique piece of armor, but didn't have that slot to fit it in? Now you can add your own slots. These show up in the player's inventory and enables the player to equip armor into it.
 
