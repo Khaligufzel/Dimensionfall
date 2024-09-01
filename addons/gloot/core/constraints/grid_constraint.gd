@@ -242,7 +242,8 @@ func add_item_at(item: InventoryItem, position: Vector2i) -> bool:
     if rect_free(rect):
         if not inventory.add_item(item):
             return false
-        assert(move_item_to(item, position), "Can't move the item to the given place!")
+        var move_success = move_item_to(item, position)
+        assert(move_success, "Can't move the item to the given place!")
         return true
 
     return false
@@ -332,7 +333,7 @@ func _merge_to(item: InventoryItem, destination: GridConstraint, position: Vecto
     if item_dst == null:
         return false
 
-    return inventory._constraint_manager.get_stacks_constraint().join_stacks(item_dst, item)
+    return destination.inventory._constraint_manager.get_stacks_constraint().join_stacks(item_dst, item)
 
 
 func _get_mergable_item_at(item: InventoryItem, position: Vector2i) -> InventoryItem:
