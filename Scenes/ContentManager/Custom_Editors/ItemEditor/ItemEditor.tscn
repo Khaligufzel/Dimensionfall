@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cba63mf23i3ky" path="res://Scenes/ContentManager/Custom_Editors/ReferencesEditor.tscn" id="10_m8qfw"]
 [ext_resource type="PackedScene" uid="uid://dio1cpt7em6r2" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemMedicalEditor.tscn" id="11_il5yl"]
 
-[node name="ItemEditor" type="Control" node_paths=PackedStringArray("tabContainer", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "VolumeNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "typesContainer", "TwoHandedCheckBox", "references_editor")]
+[node name="ItemEditor" type="Control" node_paths=PackedStringArray("tab_container", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "VolumeNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "types_container", "TwoHandedCheckBox", "references_editor")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +21,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ef3j7")
-tabContainer = NodePath("VBoxContainer/TabContainer")
+tab_container = NodePath("VBoxContainer/TabContainer")
 itemImageDisplay = NodePath("VBoxContainer/TabContainer/Basic/ItemImageDisplay")
 IDTextLabel = NodePath("VBoxContainer/TabContainer/Basic/IDTextLabel")
 PathTextLabel = NodePath("VBoxContainer/TabContainer/Basic/PathTextLabel")
@@ -32,7 +32,7 @@ VolumeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/VolumeNumber")
 WeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/WeightNumber")
 StackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/StackSizeNumber")
 MaxStackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/MaxStackSizeNumber")
-typesContainer = NodePath("VBoxContainer/TabContainer/Basic/TypesContainer")
+types_container = NodePath("VBoxContainer/TabContainer/Basic/TypesContainer")
 TwoHandedCheckBox = NodePath("VBoxContainer/TabContainer/Basic/TwoHandedCheckBox")
 references_editor = NodePath("VBoxContainer/TabContainer/References")
 

@@ -18,7 +18,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="ItemMedicalEditor" type="Control" node_paths=PackedStringArray("amount_spin_box", "order_option_button", "attributesContainer")]
+[node name="ItemMedicalEditor" type="Control" node_paths=PackedStringArray("amount_spin_box", "order_option_button", "attributes_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +28,7 @@ grow_vertical = 2
 script = ExtResource("1_q4o68")
 amount_spin_box = NodePath("Medical/AmountSpinBox")
 order_option_button = NodePath("Medical/OrderOptionButton")
-attributesContainer = NodePath("Medical/PanelContainer/AttributesContainer")
+attributes_container = NodePath("Medical/PanelContainer/AttributesContainer")
 
 [node name="Medical" type="GridContainer" parent="."]
 layout_mode = 0

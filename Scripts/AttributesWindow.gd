@@ -5,9 +5,9 @@ extends Control
 
 # These are references to the containers in the UI where stats and skills are displayed
 @export var attributeContainer: VBoxContainer
-var playerInstance: CharacterBody3D
+var player_instance: CharacterBody3D
 
-# Dictionary to store the inner class instances by attribute ID
+# Dictionary to store the AttributeDisplay instances by attribute ID
 var attribute_displays: Dictionary = {}
 
 # Inner class to represent a UI display for a single attribute
@@ -51,26 +51,26 @@ class AttributeDisplay:
 
 		hbox.add_child(progress_bar)
 
-	# Function to update the ProgressBar value
+	# Update the ProgressBar value
 	func update(attribute: PlayerAttribute) -> void:
 		progress_bar.value = attribute.current_amount
 
-	# Function to update the minimum value of the ProgressBar
+	# Update the minimum value of the ProgressBar
 	func update_min_amount(min_amount: float) -> void:
 		progress_bar.min_value = min_amount
 
-	# Function to update the maximum value of the ProgressBar
+	# Update the maximum value of the ProgressBar
 	func update_max_amount(max_amount: float) -> void:
 		progress_bar.max_value = max_amount
 
-# Called when the node enters the scene tree for the first time.
+# Initialize the attribute window when the node enters the scene tree
 func _ready():
 	Helper.signal_broker.player_attribute_changed.connect(_on_player_attribute_changed)
-	playerInstance = get_tree().get_first_node_in_group("Players")
-	_on_player_attribute_changed(playerInstance)
+	player_instance = get_tree().get_first_node_in_group("Players")
+	_on_player_attribute_changed(player_instance)
 	visibility_changed.connect(_on_visibility_changed)
 
-# Handles the update of the stats display when player stats change
+# Handles the update of the attribute display when the player attribute changes
 func _on_player_attribute_changed(player_node: CharacterBody3D, attr: PlayerAttribute = null):
 	if attr:  # If a specific attribute has changed
 		if attribute_displays.has(attr.id):
@@ -90,12 +90,13 @@ func _on_player_attribute_changed(player_node: CharacterBody3D, attr: PlayerAttr
 			attribute_displays[attribute.id] = display
 			attributeContainer.add_child(display.hbox)
 
+
 # Utility function to clear all children in a container
-func clear_container(container: Control):
+func clear_container(container: Control) -> void:
 	for child in container.get_children():
 		child.queue_free()
 
 # New function to refresh stats and skills when the window becomes visible
-func _on_visibility_changed():
+func _on_visibility_changed() -> void:
 	if visible:
-		_on_player_attribute_changed(playerInstance)
+		_on_player_attribute_changed(player_instance)

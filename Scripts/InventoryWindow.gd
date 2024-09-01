@@ -30,16 +30,7 @@ var is_showing_tooltip = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	inventory = ItemManager.playerInventory
-	inventory_control.myInventory = inventory
-	inventory_control.initialize_list()
-	inventory_control.mouse_entered_item.connect(_on_inventory_item_mouse_entered)
-	inventory_control.mouse_exited_item.connect(_on_inventory_item_mouse_exited)
-	proximity_inventory = ItemManager.proximityInventory
-	proximity_inventory_control.myInventory = proximity_inventory
-	proximity_inventory_control.initialize_list()
-	proximity_inventory_control.mouse_entered_item.connect(_on_inventory_item_mouse_entered)
-	proximity_inventory_control.mouse_exited_item.connect(_on_inventory_item_mouse_exited)
+	setup_inventory_controls()
 	
 	LeftHandEquipmentSlot.myInventory = inventory
 	RightHandEquipmentSlot.myInventory = inventory
@@ -50,6 +41,20 @@ func _ready():
 	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
 
+
+# Setup player and proximity inventories
+func setup_inventory_controls():
+	inventory = ItemManager.playerInventory
+	proximity_inventory = ItemManager.proximityInventory
+	
+	initialize_inventory_control(inventory_control, inventory)
+	initialize_inventory_control(proximity_inventory_control, proximity_inventory)
+
+func initialize_inventory_control(control: Control, inv: InventoryStacked):
+	control.myInventory = inv
+	control.initialize_list()
+	control.mouse_entered_item.connect(_on_inventory_item_mouse_entered)
+	control.mouse_exited_item.connect(_on_inventory_item_mouse_exited)
 
 # If any items are present in the player equipment, load them
 func equip_loaded_items():
@@ -159,21 +164,6 @@ func _append_medical_attributes(item: InventoryItem, description: String) -> Str
 
 func _on_inventory_item_mouse_exited():
 	is_showing_tooltip = false
-
-
-func check_if_resources_are_available(item_id, amount_to_spend: int):
-	var inventory_node = inventory
-	print("checking if we have the item id in inv")
-	if inventory_node.get_item_by_id(item_id):
-		print("we have the item id")
-		var item_total_amount : int = 0
-		var current_amount_to_spend = amount_to_spend
-		var items = inventory_node.get_items_by_id(item_id)
-		for item in items:
-			item_total_amount += InventoryStacked.get_item_stack_size(item)
-		if item_total_amount >= current_amount_to_spend:
-			return true
-	return false
 
 
 # When an item is added to the player inventory
@@ -343,14 +333,12 @@ func _on_transfer_right_button_button_up():
 # dest = a CtrlInventoryStackedCustom control to which to move the items
 func transfer_autosplitmerge_list(items: Array, src: Control, dest: Control) -> bool:
 	Helper.signal_broker.inventory_operation_started.emit()
-	var success: bool = true
-	# Get the items that fit inside the remaining volume
-	var items_to_transfer = dest.get_items_that_fit_by_volume(items)
-	for item in items_to_transfer:
-		if src.transfer_autosplitmerge(item, dest.get_inventory()):
-			print_debug("Transferred item: " + str(item))
-		else:
+	var success = true
+
+	for item in dest.get_items_that_fit_by_volume(items):
+		if not src.transfer_autosplitmerge(item, dest.get_inventory()):
 			print_debug("Failed to transfer item: " + str(item))
 			success = false
+
 	Helper.signal_broker.inventory_operation_finished.emit()
 	return success

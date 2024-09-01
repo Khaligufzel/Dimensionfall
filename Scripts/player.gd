@@ -9,7 +9,6 @@ var is_alive = true
 var rng = RandomNumberGenerator.new()
 
 var speed = 2  # speed in meters/sec
-var current_speed
 
 var run_multiplier = 1.1
 var is_running = false
@@ -29,7 +28,7 @@ var current_right_leg_health
 
 var stamina = 100
 var current_stamina
-var stamina_lost_while_running_persec = 15
+var stamina_lost_while_running_per_sec  = 15
 var stamina_regen_while_standing_still = 3
 
 var nutrition = 100
@@ -49,7 +48,7 @@ var delay_before_movement = 2.0  # 2 second delay
 var last_y_level: int = 0
 
 @export var sprite : Sprite3D
-@export var collisionDetector : Area3D # Used for detecting collision with furniture
+@export var collision_detector : Area3D # Used for detecting collision with furniture
 
 @export var interact_range : float = 10
 
@@ -75,15 +74,18 @@ func _ready():
 	initialize_attributes()
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
-	Helper.signal_broker.food_item_used.connect(_on_food_item_used)
-	Helper.signal_broker.medical_item_used.connect(_on_medical_item_used)
-	ItemManager.craft_successful.connect(_on_craft_successful)
-	# Connect signals for collisionDetector to detect furniture
-	collisionDetector.body_shape_entered.connect(_on_body_entered)
-	collisionDetector.body_shape_exited.connect(_on_body_exited)
+	_connect_signals()
 	Helper.signal_broker.player_spawned.emit(self)
 	initialize_y_level_check()
 
+
+# Connect necessary signals for interaction and updates
+func _connect_signals():
+	Helper.signal_broker.food_item_used.connect(_on_food_item_used)
+	Helper.signal_broker.medical_item_used.connect(_on_medical_item_used)
+	ItemManager.craft_successful.connect(_on_craft_successful)
+	collision_detector.body_shape_entered.connect(_on_body_entered)
+	collision_detector.body_shape_exited.connect(_on_body_exited)
 
 func initialize_health():
 	current_left_arm_health = left_arm_health
@@ -169,7 +171,7 @@ func _physics_process(delta):
 		run_multiplier = 1.1 + (athletics_level / 100.0) * (2.0 - 1.1)
 
 		# Calculate stamina lost while running based on athletics skill level
-		stamina_lost_while_running_persec = 15 - (athletics_level / 100.0) * (15 - 5)
+		stamina_lost_while_running_per_sec  = 15 - (athletics_level / 100.0) * (15 - 5)
 
 		# Calculate stamina regeneration while standing still based on athletics skill level
 		stamina_regen_while_standing_still = 3 + (athletics_level / 100.0) * (8 - 3)
@@ -187,7 +189,7 @@ func _physics_process(delta):
 				velocity = direction * speed * run_multiplier
 
 				if velocity.length() > 0:
-					current_stamina -= delta * stamina_lost_while_running_persec
+					current_stamina -= delta * stamina_lost_while_running_per_sec 
 					# Add XP for running
 					add_skill_xp("athletics", 0.01)
 
@@ -219,24 +221,28 @@ func _on_body_exited(body_rid: RID, body: Node3D, _body_shape_index: int, _local
 func _input(event):
 	if event.is_action_pressed("run"):
 		is_running = true
-	if event.is_action_released("run"):
+	elif event.is_action_released("run"):
 		is_running = false
 		
 	#checking if we can interact with the object
 	if event.is_action_pressed("interact"):
-		var layer = pow(2, 1-1) + pow(2, 2-1) + pow(2, 3-1)
-		var mouse_pos : Vector2 = get_viewport().get_mouse_position()
-		var raycast: Dictionary = Helper.raycast_from_mouse(mouse_pos, layer)
-		if not raycast.has("position"):
-			return
-		var world_mouse_position = raycast.position
-		var result = Helper.raycast(global_position, global_position + (Vector3(world_mouse_position.x - global_position.x, 0, world_mouse_position.z - global_position.z)).normalized() * interact_range, layer, [self])
+		_check_for_interaction()
 
-		print_debug("Interact button pressed")
-		if result:
-			print_debug("Found object with collider")
-			Helper.signal_broker.player_interacted.emit(result.position, result.rid)
-				
+
+# Check if player can interact with an object
+func _check_for_interaction() -> void:
+	var layer = pow(2, 1 - 1) + pow(2, 2 - 1) + pow(2, 3 - 1)
+	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var raycast: Dictionary = Helper.raycast_from_mouse(mouse_pos, layer)
+	if not raycast.has("position"):
+		return
+
+	var world_mouse_position = raycast.position
+	var result = Helper.raycast(global_position, global_position + (Vector3(world_mouse_position.x - global_position.x, 0, world_mouse_position.z - global_position.z)).normalized() * interact_range, layer, [self])
+
+	if result:
+		Helper.signal_broker.player_interacted.emit(result.position, result.rid)
+
 
 # The player gets hit by an attack
 # attributeid: The PlayerAttribute that is targeted by this attack

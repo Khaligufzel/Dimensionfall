@@ -148,7 +148,6 @@ func _on_item_group_clear_button_button_up():
 	ItemGroupTextEdit.clear()
 
 
-
 # Load attributes into the attributesGridContainer
 func _load_attributes_into_ui(attributes: Array) -> void:
 	# Clear previous entries
