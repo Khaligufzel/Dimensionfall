@@ -119,6 +119,7 @@ func _set_tooltip_size(description: String):
 	var vertical_size = max(80, line_count * 21)  # Ensure a minimum height of 80
 	tool_tip_description_panel.custom_minimum_size = Vector2(240, vertical_size)
 
+# Adds text to the tooltip to display the effects the item has on the attributes
 func _append_food_attributes(item: InventoryItem, description: String) -> String:
 	var dfood = DItem.Food.new(item.get_property("Food", {}))
 	if dfood.attributes:
@@ -130,28 +131,30 @@ func _append_food_attributes(item: InventoryItem, description: String) -> String
 	return description
 
 
+# Adds text to the tooltip to display the effects the item has on the attributes
 func _append_medical_attributes(item: InventoryItem, description: String) -> String:
 	var dmedical = DItem.Medical.new(item.get_property("Medical", {}))
 	if dmedical.attributes or dmedical.amount > 0:
 		description += "\n\nEffects (Medical):\n"  # Add a section for medical attributes
-		var attribute_names: Array = []
 		if dmedical.attributes:
 			for attribute in dmedical.attributes:
 				var attr_id = attribute.get("id", "Unknown")
 				var attr_amount = attribute.get("amount", 0)
 				var attr_name: String = Gamedata.playerattributes.by_id(attr_id).name
-				attribute_names.append("[" + attr_name + "]")
-				if attr_amount > 0:  # Only append attributes with an amount greater than 0
-					description += "- " + attr_name + ": " + str(attr_amount) + "\n"
-		if dmedical.amount > 0:
-			description += "\nThis item will distribute " + str(dmedical.amount) + " among the following attributes: "
-			description += " ".join(attribute_names) + ".\n"
+				
+				# Build the line only if there's something to display
+				var line = " ►" + attr_name + ":"
+				var values = []
+				
+				if dmedical.amount != 0:
+					values.append("(" + str(dmedical.amount) + ")")
+				if attr_amount != 0:
+					values.append("+" + str(attr_amount))
+				
+				if values.size() > 0:
+					line += " " + "".join(values)
+					description += line + "\n"
 	return description
-
-
-
-
-
 
 
 func _on_inventory_item_mouse_exited():
