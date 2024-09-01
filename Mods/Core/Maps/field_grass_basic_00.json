@@ -90,10 +90,10 @@
 			],
 			"id": "generic_field_finds",
 			"rotate_random": false,
-			"spawn_chance": 30,
+			"spawn_chance": 50,
 			"tiles": [
 				{
-					"count": 900,
+					"count": 500,
 					"id": "null"
 				}
 			]

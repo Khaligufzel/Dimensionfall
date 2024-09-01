@@ -819,7 +819,7 @@
 				"probability": 20
 			}
 		],
-		"mode": "Collection",
+		"mode": "Distribution",
 		"name": "Generic field items",
 		"references": {
 			"core": {
