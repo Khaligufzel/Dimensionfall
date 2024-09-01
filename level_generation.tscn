@@ -248,7 +248,6 @@ bus = &"Music"
 [node name="TestCamera" type="Camera3D" parent="."]
 transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, -20.8475, 0.21176, -31.9964)
 
-[connection signal="update_doll" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_doll"]
 [connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
 [connection signal="ammo_changed" from="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" to="HUD" method="_on_shooting_ammo_changed"]
 [connection signal="ammo_changed" from="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" to="HUD" method="_on_shooting_ammo_changed"]
