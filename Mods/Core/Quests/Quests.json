@@ -1,6 +1,6 @@
 [
 	{
-		"description": "This will teach you the basics of survival. You will complete some goals that will prepare you to survive on your own.\n\nYou will perform this task step by step. The current step will tell you what to do next.",
+		"description": "This will teach you the basics of survival. The basic controls are: w,s,a,d: Movement. tab: inventory. m: overmap. r: reload. Left mouse button: Fire left weapon. Right mouse button: fire right weapon\nb: Build menu. c: Craft menu. v: Character menu. j: Quest menu\n\nTo pick up items: Move close to an item/container on the ground and press tab. The item will appear on the left side of the inventory window. Drag it to the right to add it to your own inventory.\nYou will complete some goals that will prepare you to survive on your own.\n\nYou will perform this task step by step. The current step will tell you what to do next.",
 		"id": "starter_tutorial_00",
 		"name": "Beginnings",
 		"rewards": [
