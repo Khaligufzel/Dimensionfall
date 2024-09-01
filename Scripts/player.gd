@@ -58,6 +58,7 @@ func _ready():
 	initialize_attributes()
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
+	Helper.save_helper.load_quest_state()
 	_connect_signals()
 	Helper.signal_broker.player_spawned.emit(self)
 	initialize_y_level_check()
