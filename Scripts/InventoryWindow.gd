@@ -24,6 +24,8 @@ extends Control
 var is_showing_tooltip = false
 @export var tooltip_item_name : Label
 @export var tooltip_item_description : Label
+@export var tool_tip_description_panel: Panel
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -94,11 +96,12 @@ func instantiate_wearable_slots():
 func _process(_delta):
 	if is_showing_tooltip:
 		tooltip.visible = true
-		tooltip.global_position = tooltip.get_global_mouse_position() + Vector2(0, -5 - tooltip.size.y)
+		tooltip.global_position = tooltip.get_global_mouse_position() + Vector2(10, -5 - tooltip.size.y)
 	else:
 		tooltip.visible = false
 
 
+# When the mouse enters an inventory item UI display, construct the tooltip and display it
 # When the mouse enters an inventory item UI display, construct the tooltip and display it
 func _on_inventory_item_mouse_entered(item: InventoryItem):
 	is_showing_tooltip = true
@@ -131,7 +134,16 @@ func _on_inventory_item_mouse_entered(item: InventoryItem):
 		if dmedical.amount > 0:
 			description += "\nThis item will distribute " + str(dmedical.amount) + " among the above attributes.\n"
 
+	# Set the tooltip description text
 	tooltip_item_description.text = description
+
+	# Calculate the number of lines in the description
+	var line_count = description.split("\n").size()
+
+	# Set the custom minimum size of the panel based on the number of lines
+	var vertical_size = max(80, line_count * 21)  # Ensure a minimum height of 80
+	tool_tip_description_panel.custom_minimum_size = Vector2(240, vertical_size)
+
 
 
 func _on_inventory_item_mouse_exited():

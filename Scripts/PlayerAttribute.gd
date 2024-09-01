@@ -75,7 +75,7 @@ func reset_to_max():
 
 # Function to handle when the attribute changes (e.g., health drops to 0)
 func _on_attribute_changed():
-	Helper.signal_broker.player_attribute_changed.emit(player)
+	Helper.signal_broker.player_attribute_changed.emit(player, self)
 	# If amount drops to 0, trigger player death
 	if is_at_min() and depletion_effect == "death":
 		player.die()

@@ -95,7 +95,7 @@ signal player_stat_changed(player: CharacterBody3D)
 @warning_ignore("unused_signal")
 signal player_skill_changed(player: CharacterBody3D)
 @warning_ignore("unused_signal")
-signal player_attribute_changed(player: CharacterBody3D)
+signal player_attribute_changed(player: CharacterBody3D, attribute: PlayerAttribute)
 
 # Save load start end events
 @warning_ignore("unused_signal")
