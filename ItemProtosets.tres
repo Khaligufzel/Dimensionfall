@@ -425,7 +425,7 @@ json_data = "[
 	},
 	{
 		\"Medical\": {
-			\"amount\": 10,
+			\"amount\": 25,
 			\"attributes\": [
 				{
 					\"amount\": 0,

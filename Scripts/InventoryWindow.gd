@@ -101,48 +101,46 @@ func _process(_delta):
 		tooltip.visible = false
 
 
-# When the mouse enters an inventory item UI display, construct the tooltip and display it
-# When the mouse enters an inventory item UI display, construct the tooltip and display it
 func _on_inventory_item_mouse_entered(item: InventoryItem):
 	is_showing_tooltip = true
 	tooltip_item_name.text = str(item.get_property("name", ""))
-
-	# Get the base description
+	
 	var description = item.get_property("description", "")
 
-	# Check if the item has a Food property with attributes
+	description = _append_food_attributes(item, description)
+	description = _append_medical_attributes(item, description)
+
+	tooltip_item_description.text = description
+	_set_tooltip_size(description)
+
+# Helper function to set the tooltip size based on the description length
+func _set_tooltip_size(description: String):
+	var line_count = description.split("\n").size()
+	var vertical_size = max(80, line_count * 21)  # Ensure a minimum height of 80
+	tool_tip_description_panel.custom_minimum_size = Vector2(240, vertical_size)
+
+func _append_food_attributes(item: InventoryItem, description: String) -> String:
 	var dfood = DItem.Food.new(item.get_property("Food", {}))
 	if dfood.attributes:
 		description += "\n\nEffects (Food):\n"  # Add a section for food attributes
 		for attribute in dfood.attributes:
-			# For each attribute, append the id and amount to the description
 			var attr_id = attribute.get("id", "Unknown")
 			var attr_amount = attribute.get("amount", 0)
 			description += "- " + str(attr_id) + ": " + str(attr_amount) + "\n"
+	return description
 
-	# Check if the item has a Medical property with attributes and an amount
-	var dmedical = DItem.Medical.new(item.get_property("Medical",{}))
+func _append_medical_attributes(item: InventoryItem, description: String) -> String:
+	var dmedical = DItem.Medical.new(item.get_property("Medical", {}))
 	if dmedical.attributes or dmedical.amount > 0:
 		description += "\n\nEffects (Medical):\n"  # Add a section for medical attributes
 		if dmedical.attributes:
 			for attribute in dmedical.attributes:
-				# For each attribute, append the id and amount to the description
 				var attr_id = attribute.get("id", "Unknown")
 				var attr_amount = attribute.get("amount", 0)
 				description += "- " + str(attr_id) + ": " + str(attr_amount) + "\n"
-		# If the medical amount is greater than 0, explain the distribution
 		if dmedical.amount > 0:
 			description += "\nThis item will distribute " + str(dmedical.amount) + " among the above attributes.\n"
-
-	# Set the tooltip description text
-	tooltip_item_description.text = description
-
-	# Calculate the number of lines in the description
-	var line_count = description.split("\n").size()
-
-	# Set the custom minimum size of the panel based on the number of lines
-	var vertical_size = max(80, line_count * 21)  # Ensure a minimum height of 80
-	tool_tip_description_panel.custom_minimum_size = Vector2(240, vertical_size)
+	return description
 
 
 
