@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=17 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
@@ -6,13 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://7hppy1l45loq" path="res://Textures/bar_progress.png" id="3_83uwt"]
 [ext_resource type="Resource" uid="uid://bxubu34gjes1y" path="res://ItemProtosets.tres" id="3_jmlkb"]
 [ext_resource type="Texture2D" uid="uid://dcgwgmsmi7mjn" path="res://Textures/bar_border.png" id="3_y43f5"]
-[ext_resource type="Texture2D" uid="uid://tdebfxkpwiva" path="res://Textures/leftarm.png" id="4_wt5t7"]
-[ext_resource type="Texture2D" uid="uid://8pdm2gvd1v3n" path="res://Textures/leftleg.png" id="5_si2ot"]
 [ext_resource type="PackedScene" uid="uid://b6ooia1084wfx" path="res://Scenes/UI/AttributesWindow.tscn" id="6_6e87o"]
-[ext_resource type="Texture2D" uid="uid://jluhejkwo85q" path="res://Textures/rightleg.png" id="6_mh6l0"]
-[ext_resource type="Texture2D" uid="uid://1alnt17qsyd7" path="res://Textures/rightarm.png" id="7_td8gu"]
-[ext_resource type="Texture2D" uid="uid://t7ny2gtgqll8" path="res://Textures/head.png" id="8_vb8fm"]
-[ext_resource type="Texture2D" uid="uid://c1begynwustlp" path="res://Textures/torso.png" id="9_4u4ej"]
 [ext_resource type="PackedScene" uid="uid://bxyvtsslfr7kt" path="res://Scenes/UI/CraftingMenu.tscn" id="13_wjtvq"]
 [ext_resource type="PackedScene" uid="uid://cgxw4cu430nst" path="res://Scenes/UI/CharacterWindow.tscn" id="17_2f357"]
 [ext_resource type="PackedScene" uid="uid://dpxuma5a7e4p6" path="res://Scenes/UI/EscapeMenu.tscn" id="17_ewtgs"]
@@ -28,12 +22,6 @@ default_font_size = 0
 
 [node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("inventoryWindow", "characterWindow", "questWindow", "overmap")]
 script = ExtResource("1_s3xoj")
-head_health = NodePath("Doll/Head")
-right_arm_health = NodePath("Doll/Rightarm")
-left_arm_health = NodePath("Doll/Leftarm")
-torso_health = NodePath("Doll/Torso")
-right_leg_health = NodePath("Doll/Rightleg")
-left_leg_health = NodePath("Doll/Leftleg")
 stamina_HUD = NodePath("StaminaLevel")
 ammo_HUD_left = NodePath("AmmoVisuals/LeftAmmo")
 ammo_HUD_right = NodePath("AmmoVisuals/RightAmmo")
@@ -87,9 +75,9 @@ script = ExtResource("2_kpbhl")
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 128.0
+offset_left = 10.695
 offset_top = -64.0
-offset_right = 253.0
+offset_right = 135.695
 offset_bottom = -3.0
 grow_vertical = 0
 theme = SubResource("Theme_xn5t2")
@@ -105,9 +93,9 @@ vertical_alignment = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 256.0
+offset_left = 143.755
 offset_top = -64.0
-offset_right = 381.0
+offset_right = 268.755
 offset_bottom = -3.0
 grow_vertical = 0
 theme = SubResource("Theme_xn5t2")
@@ -168,51 +156,6 @@ theme_override_fonts/font = ExtResource("1_pxloi")
 theme_override_font_sizes/font_size = 49
 text = "11:20"
 vertical_alignment = 1
-
-[node name="Doll" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-grow_vertical = 0
-scale = Vector2(0.8, 0.8)
-
-[node name="Leftarm" type="Sprite2D" parent="Doll"]
-modulate = Color(0, 0.635294, 0, 1)
-position = Vector2(35.25, -110.375)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("4_wt5t7")
-
-[node name="Leftleg" type="Sprite2D" parent="Doll"]
-modulate = Color(0, 0.635294, 0, 1)
-position = Vector2(68.25, -51.375)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("5_si2ot")
-
-[node name="Rightleg" type="Sprite2D" parent="Doll"]
-modulate = Color(0, 0.635294, 0, 1)
-position = Vector2(112.25, -52.375)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("6_mh6l0")
-
-[node name="Rightarm" type="Sprite2D" parent="Doll"]
-modulate = Color(0, 0.635294, 0, 1)
-position = Vector2(131.25, -115.375)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("7_td8gu")
-
-[node name="Head" type="Sprite2D" parent="Doll"]
-modulate = Color(0, 0.635294, 0, 1)
-position = Vector2(72.25, -164.375)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("8_vb8fm")
-
-[node name="Torso" type="Sprite2D" parent="Doll"]
-modulate = Color(0, 0.635294, 0, 1)
-z_index = -1
-position = Vector2(85.25, -113.375)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("9_4u4ej")
 
 [node name="BuildingMenu" type="GridContainer" parent="."]
 visible = false

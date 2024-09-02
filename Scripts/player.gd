@@ -1,7 +1,5 @@
 extends CharacterBody3D
 
-signal update_doll
-
 signal update_stamina_HUD
 
 var is_alive = true
@@ -12,19 +10,6 @@ var speed = 2  # speed in meters/sec
 
 var run_multiplier = 1.1
 var is_running = false
-
-var left_arm_health = 100
-var current_left_arm_health
-var right_arm_health = 100
-var current_right_arm_health
-var head_health = 100
-var current_head_health
-var torso_health = 100
-var current_torso_health
-var left_leg_health = 100
-var current_left_leg_health
-var right_leg_health = 100
-var current_right_leg_health
 
 var stamina = 100
 var current_stamina
@@ -69,7 +54,6 @@ var furniture_body: RID
 
 
 func _ready():
-	initialize_health()
 	initialize_condition()
 	initialize_attributes()
 	initialize_stats_and_skills()
@@ -86,15 +70,6 @@ func _connect_signals():
 	ItemManager.craft_successful.connect(_on_craft_successful)
 	collision_detector.body_shape_entered.connect(_on_body_entered)
 	collision_detector.body_shape_exited.connect(_on_body_exited)
-
-func initialize_health():
-	current_left_arm_health = left_arm_health
-	current_right_arm_health = right_arm_health
-	current_left_leg_health = left_leg_health
-	current_right_leg_health = right_leg_health
-	current_head_health = head_health
-	current_torso_health = torso_health
-
 
 func initialize_condition():
 	current_stamina = stamina
@@ -249,82 +224,12 @@ func _check_for_interaction() -> void:
 # damage: The amount to subtract from the target attribute
 func _get_hit(attributeid: String, damage: float):
 	attributes[attributeid].reduce_amount(damage)
-	var limb_number = rng.randi_range(0,5)
-	
-	match limb_number:
-		0:
-			current_head_health -= damage
-			if current_head_health <= 0:
-				current_head_health = 0
-				check_if_alive()
-		1:
-			if current_right_arm_health <= 0:
-				transfer_damage_to_torso(damage)
-			else: 
-				current_right_arm_health -= damage
-				if current_right_arm_health < 0:
-					current_right_arm_health = 0
-		2:
-			if current_left_arm_health <= 0:
-				transfer_damage_to_torso(damage)
-			else: 
-				current_left_arm_health -= damage
-				if current_left_arm_health < 0:
-					current_left_arm_health = 0
-		3:
-			current_torso_health -= damage
-			if current_torso_health <= 0:
-				current_torso_health = 0
-				check_if_alive()
-		4:
-			if current_right_leg_health <= 0:
-				transfer_damage_to_torso(damage)
-			else: 
-				current_right_leg_health -= damage
-				if current_right_leg_health < 0:
-					current_right_leg_health = 0
-		5:
-			if current_left_leg_health <= 0:
-				transfer_damage_to_torso(damage)
-			else: 
-				current_left_leg_health -= damage
-				if current_left_leg_health < 0:
-					current_left_leg_health = 0
-			
-	update_doll.emit(current_head_health, current_right_arm_health, current_left_arm_health, current_torso_health, current_right_leg_health, current_left_leg_health)
-
-func check_if_alive():
-	if current_torso_health <= 0:
-		current_torso_health = 0
-		die()
-	elif current_head_health <= 0:
-		current_head_health = 0
-		die()
-
-#
-#func check_if_visible(target_position: Vector3):
-	#
-	#var space_state = get_world_3d().direct_space_state
-	## TO-DO Change playerCol to group of players
-	#var query = PhysicsRayQueryParameters3D.create(global_position, target_position, pow(2, 1-1) + pow(2, 3-1) + pow(2, 2-1),[self])
-	#var result = space_state.intersect_ray(query)
-	#
-	#if result:
-		#print("I see something!")
-		#return false
-	#else:
-		#print("I see nothing!")
-		#return true
 
 func die():
 	if is_alive:
 		print("Player died")
 		is_alive = false
 		$"../../../HUD".get_node("GameOver").show()
-
-func transfer_damage_to_torso(damage: float):
-	current_torso_health -= damage
-	check_if_alive()
 
 
 func play_footstep_audio():
@@ -492,57 +397,6 @@ func get_matching_player_attributes(med_attributes: Array) -> Array[PlayerAttrib
 	return matching_attributes
 
 
-
-# Heal the player by the specified amount. We prioritize the head and torso for healing
-# After that, we prioritize the most damaged part
-# It returns the remaining amount that wasn't spent on healing
-# You can use this to see if the healing item is depleted or used at all
-func heal_player(amount: int) -> int:
-	# Create a dictionary with part names and their current/max health
-	var body_parts = {
-		"head": {"current": current_head_health, "max": head_health},
-		"torso": {"current": current_torso_health, "max": torso_health},
-		"left_arm": {"current": current_left_arm_health, "max": left_arm_health},
-		"right_arm": {"current": current_right_arm_health, "max": right_arm_health},
-		"left_leg": {"current": current_left_leg_health, "max": left_leg_health},
-		"right_leg": {"current": current_right_leg_health, "max": right_leg_health}
-	}
-
-	# Gather keys, filter, and sort. We prioritize the head and torso
-	var other_parts = body_parts.keys().filter(
-		func(k): return k != "head" and k != "torso"
-	)
-	other_parts.sort_custom(
-		func(a, b): return body_parts[a]["current"] > body_parts[b]["current"]
-	)
-
-	# Create a priority list with head and torso first, then the sorted other parts
-	var priority_parts = ["head", "torso"] + other_parts
-
-	# Distribute healing points
-	for part in priority_parts:
-		if amount <= 0:
-			break
-		var heal = min(amount, body_parts[part]["max"] - body_parts[part]["current"])
-		body_parts[part]["current"] += heal
-		amount -= heal
-
-	# Update health variables
-	current_head_health = body_parts["head"]["current"]
-	current_torso_health = body_parts["torso"]["current"]
-	current_left_arm_health = body_parts["left_arm"]["current"]
-	current_right_arm_health = body_parts["right_arm"]["current"]
-	current_left_leg_health = body_parts["left_leg"]["current"]
-	current_right_leg_health = body_parts["right_leg"]["current"]
-
-	# Emit signals to update the UI or other systems
-	update_doll.emit(
-		current_head_health, current_right_arm_health, current_left_arm_health,
-		current_torso_health, current_right_leg_health, current_left_leg_health
-	)
-	return amount
-
-
 # Method to get the current level of a skill
 func get_skill_level(skill_id: String) -> int:
 	if skills.has(skill_id):
@@ -638,12 +492,6 @@ func get_state() -> Dictionary:
 
 	return {
 		"is_alive": is_alive,
-		"left_arm_health": current_left_arm_health,
-		"right_arm_health": current_right_arm_health,
-		"head_health": current_head_health,
-		"torso_health": current_torso_health,
-		"left_leg_health": current_left_leg_health,
-		"right_leg_health": current_right_leg_health,
 		"stamina": current_stamina,
 		"nutrition": current_nutrition,
 		"pain": current_pain,
@@ -659,12 +507,6 @@ func get_state() -> Dictionary:
 # Method to set the player's state from a dictionary
 func set_state(state: Dictionary) -> void:
 	is_alive = state.get("is_alive", is_alive)
-	current_left_arm_health = state.get("left_arm_health", current_left_arm_health)
-	current_right_arm_health = state.get("right_arm_health", current_right_arm_health)
-	current_head_health = state.get("head_health", current_head_health)
-	current_torso_health = state.get("torso_health", current_torso_health)
-	current_left_leg_health = state.get("left_leg_health", current_left_leg_health)
-	current_right_leg_health = state.get("right_leg_health", current_right_leg_health)
 	current_stamina = state.get("stamina", current_stamina)
 	current_nutrition = state.get("nutrition", current_nutrition)
 	current_pain = state.get("pain", current_pain)
@@ -682,5 +524,4 @@ func set_state(state: Dictionary) -> void:
 	global_transform.origin.z = state.get("global_position_z", global_transform.origin.z)
 	
 	# Emit signals to update the HUD
-	update_doll.emit(current_head_health, current_right_arm_health, current_left_arm_health, current_torso_health, current_right_leg_health, current_left_leg_health)
 	update_stamina_HUD.emit(current_stamina)
