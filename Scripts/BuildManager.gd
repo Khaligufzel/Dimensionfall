@@ -52,8 +52,14 @@ func _on_hud_construction_chosen(_construction: String):
 func on_construction_clicked(construction_data: Dictionary):
 	var chunk: Chunk = LevelGenerator.get_chunk_from_position(construction_data.pos)
 	if chunk:
-		chunk.add_block(construction_data.id,construction_data.pos)
-		print_debug("Block placed at: ", construction_data.pos, " with type ", construction_data.id)
+		# Calculate local position within the chunk
+		var local_x = int(construction_data.pos.x - chunk.position.x) % 32
+		var local_z = int(construction_data.pos.z - chunk.position.z) % 32
+		var local_position = Vector3(local_x, construction_data.pos.y, local_z)
+		
+		# Pass the local position to the add_block function
+		chunk.add_block(construction_data.id, local_position)
+		print_debug("Block placed at local position: ", local_position, " in chunk at ", chunk.position, " with type ", construction_data.id)
 
 
 # Respond to visibility changes of this node
@@ -63,3 +69,5 @@ func _on_build_menu_visibility_change(buildmenu):
 	# Set the visibility of the construction_ghost to match the building menu's visibility
 	construction_ghost.visible = buildmenu.is_visible()
 	is_building = buildmenu.is_visible()
+	if not buildmenu.is_visible():
+		General.is_allowed_to_shoot = true 
