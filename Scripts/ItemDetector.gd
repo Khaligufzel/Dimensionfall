@@ -2,6 +2,7 @@ extends Area3D
 
 @export var playernode: CharacterBody3D
 var areas_in_proximity = {}  # Dictionary to track areas and their proximity status
+var bodies_in_proximity = {}  # Dictionary to track bodies and their proximity status
 
 # Called when the node is added to the scene.
 # Enables the processing of the _process function.
@@ -21,6 +22,17 @@ func _process(_delta):
 				# Path is clear, emit enter proximity signal
 				Helper.signal_broker.container_entered_proximity.emit(area.get_owner())
 				areas_in_proximity[area] = true
+
+	# Check bodies in proximity
+	for body_rid in bodies_in_proximity.keys():
+		if bodies_in_proximity[body_rid]:
+			if not is_clear_path_to_body(body_rid):
+				Helper.signal_broker.body_exited_item_detector.emit(body_rid)
+				bodies_in_proximity[body_rid] = false
+		else:
+			if is_clear_path_to_body(body_rid):
+				Helper.signal_broker.body_entered_item_detector.emit(body_rid)
+				bodies_in_proximity[body_rid] = true
 
 # Called when an area enters the Area3D.
 # Adds the area to the dictionary and checks initial proximity status.
@@ -66,10 +78,12 @@ func is_clear_path_to_area(area) -> bool:
 		# No hit means there is a clear path
 		return true
 
-# New function: Checks if there is an obstacle in the way of the body that entered
+# Checks if there is an obstacle in the way of the body that entered
 func is_clear_path_to_body(body_rid: RID) -> bool:
 	# Get the transform of the body using the body_rid
 	var body_transform = PhysicsServer3D.body_get_state(body_rid, PhysicsServer3D.BODY_STATE_TRANSFORM)
+	if not body_transform:
+		return false
 	var body_position = body_transform.origin
 	
 	var player_position = playernode.global_transform.origin
@@ -88,13 +102,16 @@ func is_clear_path_to_body(body_rid: RID) -> bool:
 
 # When a collisionshape enters this area. Most likely a collider of a FurnitureStaticSrv
 func _on_body_shape_entered(body_rid: RID, _body: Node3D, _body_shape_index: int, _local_shape_index: int) -> void:
-	if is_clear_path_to_body(body_rid):
+	bodies_in_proximity[body_rid] = is_clear_path_to_body(body_rid)
+	if bodies_in_proximity[body_rid]:
 		Helper.signal_broker.body_entered_item_detector.emit(body_rid)
 
 
-# When a collisionshape exits this area. Most likely a collider of a StaticFurnitureSrv
+# When a collisionshape exits this area. Most likely a collider of a FurnitureStaticSrv
 func _on_body_shape_exited(body_rid: RID, _body: Node3D, _body_shape_index: int, _local_shape_index: int) -> void:
-	Helper.signal_broker.body_exited_item_detector.emit(body_rid)
+	if bodies_in_proximity.has(body_rid) and bodies_in_proximity[body_rid]:
+		Helper.signal_broker.body_exited_item_detector.emit(body_rid)
+	bodies_in_proximity.erase(body_rid)
 
 
 # Cast a ray between two points and return the result
