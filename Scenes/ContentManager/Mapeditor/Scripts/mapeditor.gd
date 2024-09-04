@@ -76,6 +76,10 @@ func _on_tile_grid_zoom_level_changed(value):
 #The editor is closed, destroy the instance
 #TODO: Check for unsaved changes
 func _on_close_button_button_up():
+	# If the user has pressed the save button before closing the editor, the tileGrid.oldmap should
+	# contain the same data as currentMap, so it shouldn't make a difference
+	# If the user did not press the save button, we reset the map to what it was before the last save
+	currentMap.set_data(tileGrid.oldmap.get_data().duplicate(true))
 	queue_free()
 
 
