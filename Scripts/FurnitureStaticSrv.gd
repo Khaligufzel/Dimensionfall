@@ -132,10 +132,10 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	if is_new_furniture():
 		furniture_transform.correct_new_position()
 		apply_edge_snapping_if_needed()
+		set_new_rotation(furniture_rotation) # Apply rotation after setting up the shape and visual instance
 
 	check_door_functionality()  # Check if this furniture is a door
 
-	set_new_rotation(furniture_rotation) # Apply rotation after setting up the shape and visual instance
 	if dfurniture.support_shape.shape == "Box":
 		create_box_shape()
 		create_visual_instance("Box")
