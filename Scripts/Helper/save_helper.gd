@@ -101,6 +101,7 @@ func save_game():
 	Helper.overmap_manager.save_all_segments()
 	save_player_inventory()
 	save_player_equipment()
+	save_quest_state()
 	save_player_state(get_tree().get_first_node_in_group("Players"))
 
 
@@ -176,7 +177,21 @@ func load_player_state(player: CharacterBody3D) -> void:
 	else:
 		print_debug("Failed to load player state from: ", load_path)
 
+# This function saves the player's quest state to a JSON file.
+func save_quest_state() -> void:
+	var save_path = current_save_folder + "/quest_state.json"
+	var quest_state: Dictionary = Helper.quest_helper.get_state()
+	Helper.json_helper.write_json_file(save_path, JSON.stringify(quest_state))
 
+# This function loads the player's quest state from a JSON file.
+func load_quest_state() -> void:
+	var load_path = current_save_folder + "/quest_state.json"
+	var quest_state = Helper.json_helper.load_json_dictionary_file(load_path)
+
+	if quest_state:
+		Helper.quest_helper.set_state(quest_state)
+	else:
+		print_debug("Failed to load quest state from: ", load_path)
 
 
 # Function to save the current state of the grid

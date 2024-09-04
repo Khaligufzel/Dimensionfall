@@ -51,7 +51,11 @@ func initialize_quests():
 	var currentquests: Array = QuestManager.get_all_player_quests_names()
 	for quest in currentquests:
 		_on_new_quest_added(quest)
-
+	
+	# Select the first quest in the current quests list if any quests exist
+	if current_quests_list.get_item_count() > 0:
+		current_quests_list.select(0)
+		_on_quest_selected(0, current_quests_list) # Automatically trigger selection
 
 # Function to handle quest completion
 func _on_quest_complete(quest: Dictionary):

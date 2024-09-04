@@ -235,3 +235,14 @@ func _on_craft_successful(item: DItem, _recipe: DItem.CraftRecipe):
 					QuestManager.progress_quest(quest.quest_name)
 				
 			
+# Get the current state of all quests to save.
+func get_state() -> Dictionary:
+	var state: Dictionary = {}
+	state.player_quests = QuestManager.get_save_quest_data()
+	return state
+
+# Set the quest state from a loaded dictionary.
+func set_state(state: Dictionary) -> void:
+	QuestManager.wipe_player_data()
+	var player_quests = state.get("player_quests", {})
+	QuestManager.load_saved_quest_data(player_quests)
