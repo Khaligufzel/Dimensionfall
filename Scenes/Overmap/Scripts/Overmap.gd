@@ -245,17 +245,21 @@ func _on_home_button_button_up():
 
 # Function to update the visibility of overmap tile text
 func update_overmap_tile_visibility(new_pos: Vector2):
+	# Hide the previous visible tile's marker, if any
 	if previous_visible_tile:
 		previous_visible_tile.set_text_visible(false)
+		previous_visible_tile = null  # Reset previous tile to avoid conflicts
 
-	# Update the dictionary to reflect the new position with visible text
+	# Clear the dictionary that tracks visible text
 	text_visible_by_coord.clear()
 	text_visible_by_coord[new_pos] = true
 
+	# Find the current tile at the new position
 	var current_tile = get_overmap_tile_at_position(new_pos)
 	if current_tile:
 		current_tile.set_text_visible(true)
-		previous_visible_tile = current_tile
+		previous_visible_tile = current_tile  # Store the new visible tile
+
 
 
 # Function to find the overmap tile at the given position
@@ -286,10 +290,18 @@ func calculate_screen_center_offset() -> Vector2:
 	return screen_center_offset * 0.5  # Reduce by 50%
 
 
-# New function to handle overmap visibility toggling
+# Function to handle overmap visibility toggling
 func on_overmap_visibility_toggled():
 	if visible:
+		# Hide the previous tile marker when the overmap is opened
+		if previous_visible_tile:
+			previous_visible_tile.set_text_visible(false)
+			previous_visible_tile = null
+
 		# Force update of the player position and chunks
 		# This will cause the player_coord_changed signal to be emitted,
 		# triggering on_position_coord_changed and centering the map on the player's position
 		Helper.overmap_manager.update_player_position_and_manage_segments(true)
+
+		# Update the player marker visibility based on the current position
+		update_overmap_tile_visibility(Helper.overmap_manager.player_last_cell)
