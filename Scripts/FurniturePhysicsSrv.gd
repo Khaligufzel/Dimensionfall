@@ -125,7 +125,8 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 	setup_physics_properties()
 	create_visual_instance()
-	set_new_rotation(myrotation)
+	if is_new_furniture():
+		set_new_rotation(myrotation)
 	add_container()  # Adds container if the furniture is a container
 
 
@@ -251,10 +252,10 @@ func create_visual_instance() -> void:
 # Set the new rotation for the furniture
 func set_new_rotation(amount: int) -> void:
 	var rotation_amount = amount
-	if amount == 180:
-		rotation_amount -= 180
-	elif amount == 0:
-		rotation_amount += 180
+	if amount == 270:
+		rotation_amount = amount - 180
+	elif amount == 90:
+		rotation_amount = amount + 180
 	
 	var mytransform = PhysicsServer3D.body_get_state(collider, PhysicsServer3D.BODY_STATE_TRANSFORM)
 	mytransform.basis = Basis(Vector3(0, 1, 0), deg_to_rad(rotation_amount))
