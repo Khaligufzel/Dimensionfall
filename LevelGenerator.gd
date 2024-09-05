@@ -21,7 +21,7 @@ var load_queue = []
 var unload_queue = []
 # Enforces loading or unloading one chunk at a time
 var is_processing_chunk = false
-const TIME_DELAY: float = 0.5
+const TIME_DELAY: float = 0.4
 
 signal all_chunks_unloaded
 signal all_chunks_loaded  # Signal to indicate all initial chunks are loaded for the first time
