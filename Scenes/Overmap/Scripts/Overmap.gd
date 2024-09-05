@@ -6,20 +6,14 @@ extends Control
 @export var overmapTileLabel: Label = null
 var noise = FastNoiseLite.new()
 var grid_chunks: Dictionary = {} # Stores references to grid containers (visual tile grids)
-var chunk_width: int = 8  # Updated from 32 to 8
-var chunk_size: int = 8  # Updated from 32 to 8
+var chunk_width: int = 8  # Smaller chunk sizes improve performance
+var chunk_size: int = 8
 var tile_size: int = 32
 var grid_pixel_size: int = chunk_size * tile_size
 var selected_overmap_tile: Control = null
-
-# Variable to keep track of the previously visible overmap tile
-var previous_visible_tile: Control = null
-
-# Object pool for reusing tiles
-var tile_pool: Array = []
-
-# Dictionary to keep track of text visibility by coordinate
-var text_visible_by_coord: Dictionary = {}
+var previous_visible_tile: Control = null  # Stores the previously visible tile
+var tile_pool: Array = []  # Object pool for reusing tiles
+var text_visible_by_coord: Dictionary = {}  # Tracks text visibility
 
 # We will emit this signal when the position_coords change
 # Which happens when the user has panned the overmap
@@ -28,16 +22,23 @@ signal position_coord_changed(delta: Vector2)
 
 func _ready():
 	# Centers the view when opening the ovemap.
-	Helper.position_coord = Vector2(-0, -0)
+	Helper.position_coord = Vector2(0, 0)
 	update_chunks()
+	connect_signals()
+	center_map_on_player() # Center the map
+
+# Connect necessary signals
+func connect_signals():
 	position_coord_changed.connect(on_position_coord_changed)
 	Helper.overmap_manager.player_coord_changed.connect(on_player_coord_changed)
-	# Center the map
-	move_overmap(Helper.overmap_manager.player_last_cell - calculate_screen_center_offset()) 
-	update_overmap_tile_visibility(Helper.overmap_manager.player_last_cell)
 	# Connect the visibility toggling signal
 	visibility_changed.connect(on_overmap_visibility_toggled)
 
+# Center the map on the player's last known position
+func center_map_on_player():
+	var center_offset = calculate_screen_center_offset()
+	move_overmap(Helper.overmap_manager.player_last_cell - center_offset)
+	update_overmap_tile_visibility(Helper.overmap_manager.player_last_cell)
 
 # This function updates the chunks.
 # It loops through a 4x4 grid centered on the current position
@@ -65,16 +66,23 @@ func update_chunks():
 			var chunk_grid_position: Vector2 = grid_position + Vector2(x, y) * chunk_size
 
 			if not grid_chunks.has(chunk_grid_position):
-				# Directly create and fill the GridContainer with chunk data.
-				var localized_x: float = chunk_grid_position.x * tile_size - Helper.position_coord.x * tile_size
-				var localized_y: float = chunk_grid_position.y * tile_size - Helper.position_coord.y * tile_size
-				var new_grid_container = create_and_fill_grid_container(chunk_grid_position, Vector2(localized_x, localized_y))
-				tilesContainer.add_child(new_grid_container)
-				# Store the GridContainer using the grid position as the key.
-				grid_chunks[chunk_grid_position] = new_grid_container
+				add_chunk_to_grid(chunk_grid_position)
 
 	# After generating new chunks, you may want to unload any that are off-screen.
 	unload_chunks()
+
+
+# Helper function to add a new chunk to the grid
+func add_chunk_to_grid(chunk_grid_position: Vector2):
+	var localized_position = get_localized_position(chunk_grid_position)
+	var new_grid_container = create_and_fill_grid_container(chunk_grid_position, localized_position)
+	tilesContainer.add_child(new_grid_container)
+	grid_chunks[chunk_grid_position] = new_grid_container
+
+
+# Calculate the localized position of the chunk
+func get_localized_position(chunk_grid_position: Vector2) -> Vector2:
+	return chunk_grid_position * tile_size - Helper.position_coord * tile_size
 
 
 # Get a tile from the pool or create a new one if the pool is empty
