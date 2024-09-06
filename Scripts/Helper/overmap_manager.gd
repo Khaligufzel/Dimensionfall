@@ -661,19 +661,3 @@ func collect_segment_data(segment_pos: Vector2) -> Dictionary:
 				print("Chunk data at ", chunk_pos, " does not exist.")
 	
 	return non_empty_chunk_data
-
-
-# New method to reveal cells around the player
-func reveal_cells_around_player():
-	var player_cell_pos = get_player_cell_position()
-	var reveal_radius = 8  # Example radius of 8 cells around the player
-
-	for x in range(player_cell_pos.x - reveal_radius, player_cell_pos.x + reveal_radius + 1):
-		for y in range(player_cell_pos.y - reveal_radius, player_cell_pos.y + reveal_radius + 1):
-			var distance_to_cell = Vector2(x - player_cell_pos.x, y - player_cell_pos.y).length()
-			if distance_to_cell <= reveal_radius:
-				var cell_pos = Vector2(x, y)
-				var map_cell = get_map_cell_by_local_coordinate(cell_pos)
-				if map_cell and not map_cell.revealed:
-					map_cell.reveal()  # Mark the cell as revealed
-					emit_signal("cell_revealed", cell_pos)  # Signal that a new cell has been revealed
