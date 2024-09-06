@@ -183,6 +183,7 @@ func create_and_fill_grid_container(grid_position: Vector2, chunk_position: Vect
 			var global_pos = grid_position + Vector2(x, y)
 
 			# Set the tile's metadata and texture based on global position
+			# map_cell is an instance of the map_cell inner class returned by overmap_manager
 			var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
 			var texture: Texture = map_cell.get_sprite() if map_cell else null
 			tile.set_texture(texture)
