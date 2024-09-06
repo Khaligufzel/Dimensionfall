@@ -317,12 +317,21 @@ func update_tile_with_map_cell(tile: Control, global_pos: Vector2):
 
 # Function to find the overmap tile at the given position
 func get_overmap_tile_at_position(myposition: Vector2) -> Control:
-	for chunk_position in grid_chunks.keys():
-		var chunk = grid_chunks[chunk_position]
+	# Calculate the chunk position based on tile size and chunk size
+	var chunk_pos = (myposition / chunk_size).floor() * chunk_size
+	
+	# Check if the chunk exists
+	if grid_chunks.has(chunk_pos):
+		var chunk = grid_chunks[chunk_pos]
+		
+		# Loop through the tiles in the specific chunk
 		for tile in chunk.get_children():
 			if tile.get_meta("global_pos") == myposition:
 				return tile
+	
+	# Return null if the tile is not found in the corresponding chunk
 	return null
+
 
 
 # When the player moves a coordinate on the map, i.e. when crossing the chunk border.
