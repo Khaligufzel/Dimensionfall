@@ -77,9 +77,13 @@ class map_cell:
 	var region = Region.PLAINS
 	var coordinate_x: int = 0
 	var coordinate_y: int = 0
-	var map_id: String = "field_grass_basic_00.json"
+	var sprite: Texture = null
+	var map_id: String = "field_grass_basic_00.json":
+		set(value):
+			map_id = value
+			sprite = Gamedata.maps.by_id(map_id).sprite
 	var tacticalmapname: String = "town_00.json"
-	var revealed: bool = false
+	var revealed: bool = false # This cell will be obfuscated on the overmap if false (unexplored)
 	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
 
 	func get_data() -> Dictionary:
@@ -90,7 +94,7 @@ class map_cell:
 			"map_id": map_id,
 			"tacticalmapname": tacticalmapname,
 			"revealed": revealed,
-			"rotation": rotation  # Include rotation in data
+			"rotation": rotation
 		}
 
 	func set_data(newdata: Dictionary):
@@ -102,10 +106,10 @@ class map_cell:
 		map_id = newdata.get("map_id", "field_grass_basic_00.json")
 		tacticalmapname = newdata.get("tacticalmapname", "town_00.json")
 		revealed = newdata.get("revealed", false)
-		rotation = newdata.get("rotation", 0)  # Set rotation from data
+		rotation = newdata.get("rotation", 0)
 
 	func get_sprite() -> Texture:
-		return Gamedata.maps.by_id(map_id).sprite
+		return sprite
 
 	func reveal():
 		revealed = true

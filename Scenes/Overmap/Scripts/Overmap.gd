@@ -168,7 +168,7 @@ func on_position_coord_changed(delta: Vector2):
 # It then generates terrain for each tile based on a noise algorithm and assigns metadata to each tile.
 # Tiles are added as children to the GridContainer, which is positioned based on chunk_position.
 # The function returns the populated GridContainer.
-func create_and_fill_grid_container(grid_position: Vector2, chunk_position: Vector2):
+func create_and_fill_grid_container(grid_position: Vector2, chunk_position: Vector2) -> GridContainer:
 	var grid_container = GridContainer.new()
 	grid_container.columns = chunk_width  # Set the number of columns to chunk_width.
 	# Make sure there is no space between the tiles
@@ -182,16 +182,13 @@ func create_and_fill_grid_container(grid_position: Vector2, chunk_position: Vect
 			var local_pos = Vector2(x * tile_size, y * tile_size)
 			var global_pos = grid_position + Vector2(x, y)
 
-			# Set the tile's metadata and texture based on global position
-			var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
-			var texture: Texture = map_cell.get_sprite() if map_cell else null
-			tile.set_texture(texture)
-			# Set the rotation of the tile based on the map_cell's rotation property
-			tile.set_texture_rotation(map_cell.rotation if map_cell else 0)
+			# Use the new function to update the tile based on map cell data
+			update_tile_with_map_cell(tile, global_pos)
+
 			tile.set_meta("global_pos", global_pos)
 			tile.set_meta("local_pos", local_pos)
-
-			# Check if this global position has text visibility set
+			
+			# Handle visibility of text if needed
 			if text_visible_by_coord.has(global_pos) and text_visible_by_coord[global_pos]:
 				tile.set_text_visible(true)
 			else:
@@ -268,16 +265,73 @@ func update_overmap_tile_visibility(new_pos: Vector2):
 		current_tile.set_text_visible(true)
 		previous_visible_tile = current_tile  # Store the new visible tile
 
+	# Define the radius around the player
+	var radius = 8
+	var cell_pos: Vector2 = new_pos
+
+	# Iterate over the fixed range around the player position
+	for x in range(int(cell_pos.x - radius), int(cell_pos.x + radius) + 1):
+		for y in range(int(cell_pos.y - radius), int(cell_pos.y + radius) + 1):
+			var distance_to_cell = Vector2(x - cell_pos.x, y - cell_pos.y).length()
+			
+			if distance_to_cell <= radius:
+				var cell_key = Vector2(x, y)
+
+				# Use get_overmap_tile_at_position to get the tile at this cell position
+				var tile = get_overmap_tile_at_position(cell_key)
+				
+				if tile:
+					# Update the tile with its map cell information
+					update_tile_with_map_cell(tile, cell_key)
+					# Handle visibility of text based on the player's new position
+					if cell_key == new_pos:
+						tile.set_text_visible(true)
+						previous_visible_tile = tile  # Store the new visible tile
+					else:
+						tile.set_text_visible(false)
+
+
+
+func update_tile_with_map_cell(tile: Control, global_pos: Vector2):
+	# Get map_cell from overmap_manager
+	var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
+	
+	if map_cell:
+		# If the map cell is within a radius of 8 around the player's position
+		if global_pos.distance_to(Helper.overmap_manager.player_last_cell) <= 8:
+			map_cell.reveal()
+		
+		# Set texture based on the revealed status
+		if map_cell.revealed:
+			var texture: Texture = map_cell.get_sprite()
+			tile.set_texture(texture)
+		else:
+			tile.set_texture(null)  # Reset texture to null if not revealed
+		
+		# Set the tile's rotation based on the map_cell's rotation property
+		tile.set_texture_rotation(map_cell.rotation)
+	else:
+		# No map cell found, reset texture
+		tile.set_texture(null)
 
 
 # Function to find the overmap tile at the given position
 func get_overmap_tile_at_position(myposition: Vector2) -> Control:
-	for chunk_position in grid_chunks.keys():
-		var chunk = grid_chunks[chunk_position]
+	# Calculate the chunk position based on tile size and chunk size
+	var chunk_pos = (myposition / chunk_size).floor() * chunk_size
+	
+	# Check if the chunk exists
+	if grid_chunks.has(chunk_pos):
+		var chunk = grid_chunks[chunk_pos]
+		
+		# Loop through the tiles in the specific chunk
 		for tile in chunk.get_children():
 			if tile.get_meta("global_pos") == myposition:
 				return tile
+	
+	# Return null if the tile is not found in the corresponding chunk
 	return null
+
 
 
 # When the player moves a coordinate on the map, i.e. when crossing the chunk border.
