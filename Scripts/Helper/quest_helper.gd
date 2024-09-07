@@ -18,9 +18,11 @@ func connect_signals() -> void:
 	# Connect to the Helper.signal_broker.game_loaded signal
 	Helper.signal_broker.game_loaded.connect(_on_game_loaded)
 	
-	# Connect to the mob killed signal
+	# Connect to misc game event signals
 	Helper.signal_broker.mob_killed.connect(_on_mob_killed)
+	Helper.overmap_manager.player_coord_changed.connect(_on_map_entered)
 	ItemManager.craft_successful.connect(_on_craft_successful)
+	
 	
 	# Connect to the QuestManager signals
 	QuestManager.quest_completed.connect(_on_quest_complete)
@@ -147,6 +149,11 @@ func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 			# Add an incremental step
 			quest.add_action_step("Craft a " + Gamedata.items.by_id(step.item).name, {"stepjson": step})
 			return true
+		"enter":
+			# Add an action step to inform the player to travel to the specified map
+			var map_name: String = Gamedata.maps.by_id(step.map_id).name
+			quest.add_action_step("Travel to " + map_name, {"stepjson": step})
+			return true
 	return false
 
 
@@ -233,8 +240,25 @@ func _on_craft_successful(item: DItem, _recipe: DItem.CraftRecipe):
 				if stepmeta.item == item.id:
 					# The item that was crafted has the same id as the item in this step
 					QuestManager.progress_quest(quest.quest_name)
-				
-			
+
+
+# Function to handle player entering a map
+# map_id: The ID of the map that the player has entered
+func _on_map_entered(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
+	# Retrieve the map_cell based on the new player's position
+	var map_cell = Helper.overmap_manager.get_map_cell_by_global_coordinate(new_pos)
+	# Get the current quests in progress
+	var quests_in_progress = QuestManager.get_quests_in_progress()
+	# Update each of the current quests with the entered map information
+	for quest in quests_in_progress.values():
+		var step = QuestManager.get_current_step(quest.quest_name)
+		if step.step_type == "enter":
+			var stepmeta: Dictionary = step.meta_data.get("stepjson", {})
+			if stepmeta.map_id == map_cell.map_id:
+				# The player has entered the correct map for the quest step
+				QuestManager.progress_quest(quest.quest_name)
+
+
 # Get the current state of all quests to save.
 func get_state() -> Dictionary:
 	var state: Dictionary = {}
