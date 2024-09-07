@@ -26,6 +26,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.129412, 0.14902, 0.180392, 1)
 
+[node name="ArrowLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0.92549, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+text = "↑"
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15

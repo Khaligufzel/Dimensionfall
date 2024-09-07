@@ -333,7 +333,6 @@ func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 	return null
 
 
-
 # When the player moves a coordinate on the map, i.e. when crossing the chunk border.
 # Movement could be between (0,0) and (0,1) for example
 func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
@@ -367,3 +366,65 @@ func on_overmap_visibility_toggled():
 
 		# Update the player marker visibility based on the current position
 		update_overmap_tile_visibility(Helper.overmap_manager.player_last_cell)
+
+
+# Function to assist the player in finding a location based on the map_id
+func find_location_on_overmap(map_id: String):
+	# Find the closest map cell with the given map_id
+	var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(map_id)
+
+	if not closest_cell:
+		return
+
+	# Get the current visible area of the overmap (position and size of the TilesContainer)
+	var visible_rect = Rect2(tilesContainer.position, tilesContainer.rect_size)
+
+	# Check if the closest cell is within the visible area
+	var cell_position = Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y)
+	var is_cell_visible = visible_rect.has_point(cell_position)
+
+	if is_cell_visible:
+		# Case 1: The cell is visible, mark the tile
+		mark_overmap_tile(cell_position)
+	else:
+		# Case 2: The cell is not visible, show an arrow pointing to its direction
+		show_directional_arrow_to_cell(cell_position)
+
+
+# Marks the overmap tile with a symbol at the given position
+func mark_overmap_tile(cell_position: Vector2):
+	# Find the tile at the given position
+	var tile = get_overmap_tile_at_position(cell_position)
+	if tile:
+		# You can set a symbol or change the color/text of the tile to mark it
+		tile.set_text_visible(true)
+		tile.set_text("X")  # Mark with an "X" for example
+
+
+# Displays an arrow at the edge of the overmap window pointing towards the direction of the cell
+func show_directional_arrow_to_cell(cell_position: Vector2):
+	# Calculate the direction from the center of the visible area to the cell
+	var overmap_center = tilesContainer.rect_size * 0.5
+	var direction_to_cell = (cell_position - overmap_center).normalized()
+
+	# Create or update the arrow Control (arrow must already be part of your scene)
+	var arrow = $ArrowLabel  # Node named ArrowLabel for showing direction
+	arrow.rotation = direction_to_cell.angle()
+
+	# Position the arrow on the edge of the TilesContainer, clamped within its dimensions
+	var arrow_position = clamp_arrow_to_container_bounds(arrow, direction_to_cell)
+	arrow.position = arrow_position
+	arrow.visible = true
+
+
+# Helper function to clamp the arrow to the edge of the TilesContainer
+func clamp_arrow_to_container_bounds(arrow: Control, direction: Vector2) -> Vector2:
+	# Calculate the edge position based on the direction and container size
+	var container_size = tilesContainer.rect_size
+	var arrow_position = direction * (container_size / 2)
+
+	# Clamp the position to the edges of the container
+	arrow_position.x = clamp(arrow_position.x, 0, container_size.x - arrow.rect_size.x)
+	arrow_position.y = clamp(arrow_position.y, 0, container_size.y - arrow.rect_size.y)
+
+	return arrow_position

@@ -124,6 +124,8 @@ class map_grid:
 	# Should be 100 apart in any direction since it holds 100 cells. Starts at 0,0
 	var pos: Vector2 = Vector2.ZERO
 	var cells: Dictionary = {}
+	# Dictionary to store map_id and their corresponding coordinates
+	var map_id_to_coordinates: Dictionary = {}
 
 	func get_data() -> Dictionary:
 		var mydata: Dictionary = {"pos": pos, "cells": {}}
@@ -247,7 +249,14 @@ func generate_cells_for_grid(grid: map_grid):
 			else:
 				cell.map_id = "field_grass_basic_00.json"  # Fallback if no maps are found
 
+			# Add the cell to the grid's cells dictionary
 			grid.cells[cell_key] = cell
+
+			# Update the map_id_to_coordinates dictionary
+			if not grid.map_id_to_coordinates.has(cell.map_id):
+				grid.map_id_to_coordinates[cell.map_id] = []
+			
+			grid.map_id_to_coordinates[cell.map_id].append(cell_key)
 
 	place_tactical_maps_on_grid(grid)
 
@@ -661,3 +670,28 @@ func collect_segment_data(segment_pos: Vector2) -> Dictionary:
 				print("Chunk data at ", chunk_pos, " does not exist.")
 	
 	return non_empty_chunk_data
+
+# Function to find the closest map cell to the player that has the specified map_id
+func find_closest_map_cell_with_id(map_id: String) -> map_cell:
+	var player_position = get_player_cell_position()
+	var closest_cell: map_cell = null
+	var shortest_distance = INF  # Use a very large number to initialize the shortest distance
+
+	# Iterate through all loaded grids
+	for grid in loaded_grids.values():
+		# Check if the grid contains the specified map_id in its map_id_to_coordinates dictionary
+		if grid.map_id_to_coordinates.has(map_id):
+			# Iterate through the coordinates that have this map_id
+			for cell_key in grid.map_id_to_coordinates[map_id]:
+				var cell = grid.cells[cell_key]
+				
+				# Calculate the distance to the player's position
+				var distance = player_position.distance_to(Vector2(cell.coordinate_x, cell.coordinate_y))
+
+				# If this is the closest cell so far, update the closest cell and shortest distance
+				if distance < shortest_distance:
+					shortest_distance = distance
+					closest_cell = cell
+
+	# Return the closest map cell with the specified map_id (or null if none found)
+	return closest_cell
