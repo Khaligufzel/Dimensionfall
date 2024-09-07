@@ -95,6 +95,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
 editable = false
+wrap_mode = 1
 
 [node name="RewardsLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2

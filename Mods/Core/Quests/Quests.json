@@ -14,7 +14,7 @@
 			{
 				"amount": 1,
 				"item": "long_stick",
-				"tip": "You can find one in the forest",
+				"tip": "You can find one in the forest (move close to an item on the ground and press tab to open the inventory and pick it up)",
 				"type": "collect"
 			},
 			{
