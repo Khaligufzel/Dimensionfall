@@ -84,7 +84,7 @@ func create_navigation_agent():
 	nav_agent.target_desired_distance = 0.5
 	nav_agent.path_max_distance = 0.5
 	nav_agent.avoidance_enabled = true
-	nav_agent.debug_enabled = true
+	nav_agent.debug_enabled = false
 	add_child.call_deferred(nav_agent)
 
 # Create and configure StateMachine
