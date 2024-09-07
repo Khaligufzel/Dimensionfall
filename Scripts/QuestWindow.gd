@@ -152,8 +152,6 @@ func _update_quest_details():
 	if not selected_quest:
 		return
 	
-	var quest_complete: bool = QuestManager.is_quest_complete(selected_quest)
-	var current_step: Dictionary = QuestManager.get_current_step(selected_quest)
 	var quest: Dictionary = QuestManager.get_player_quest(selected_quest)
 	var dquest: DQuest = Gamedata.quests.by_id(quest.quest_name)
 	
@@ -164,46 +162,48 @@ func _update_quest_details():
 	# Update rewards details
 	update_rewards_details(quest)
 	
-	if quest_complete:
+	if QuestManager.is_quest_complete(selected_quest):
 		step_details_text_edit.text = "Quest completed!"
-		return
-	
-	# Update step details
-	update_step_details(current_step)
+	else:
+		update_step_details(QuestManager.get_current_step(selected_quest))
 
 
-
-# Updates the step details for the selected quest
 func update_step_details(current_step: Dictionary):
 	if not current_step or current_step.is_empty():
 		step_details_text_edit.text = ""
 		return
-	
-	# Update current step details in the quest window UI
-	var step_details_text = "Next objective: \n"
-	
-	match current_step.step_type:
-		QuestManager.ACTION_STEP:
-			step_details_text += "Action: " + current_step.details
-		QuestManager.INCREMENTAL_STEP:
-			step_details_text += create_incremental_step_UI_text(current_step)
-		QuestManager.ITEMS_STEP:
-			step_details_text += "Items to collect/complete: \n"
-			for item in current_step.item_list:
-				step_details_text += "- " + item.name
-				step_details_text += " (Complete)" if item.complete else " (Incomplete)"
-				step_details_text += "\n"
-		QuestManager.TIMER_STEP:
-			step_details_text += "Timer: " + str(current_step.time) + " seconds remaining"
-		QuestManager.BRANCH_STEP:
-			step_details_text += "Branch: " + current_step.details
-	
+
+	var step_details_text = "Next objective: \n" + get_step_details(current_step)
 	var stepmeta: Dictionary = current_step.get("meta_data", {}).get("stepjson", {})
 	if stepmeta.has("tip"):
 		step_details_text += "\nTip: " + stepmeta.tip
-		
-	# Set step details in the QuestDescription node or another UI element if preferred
 	step_details_text_edit.text = step_details_text
+
+
+func get_step_details(current_step: Dictionary) -> String:
+	match current_step.step_type:
+		QuestManager.ACTION_STEP:
+			return "Action: " + current_step.details
+		QuestManager.INCREMENTAL_STEP:
+			return create_incremental_step_UI_text(current_step)
+		QuestManager.ITEMS_STEP:
+			return create_items_step_UI_text(current_step)
+		QuestManager.TIMER_STEP:
+			return "Timer: " + str(current_step.time) + " seconds remaining"
+		QuestManager.BRANCH_STEP:
+			return "Branch: " + current_step.details
+		_:
+			return "Unknown step type."
+
+
+# Modular handling of item step details
+func create_items_step_UI_text(step: Dictionary) -> String:
+	var text = "Items to collect/complete: \n"
+	for item in step.item_list:
+		text += "- " + item.name
+		text += " (Complete)" if item.complete else " (Incomplete)"
+		text += "\n"
+	return text
 
 
 # Updates the rewards details for the selected quest
