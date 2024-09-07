@@ -241,6 +241,7 @@ func get_state() -> Dictionary:
 	state.player_quests = QuestManager.get_save_quest_data()
 	return state
 
+
 # Set the quest state from a loaded dictionary.
 func set_state(state: Dictionary) -> void:
 	QuestManager.wipe_player_data()

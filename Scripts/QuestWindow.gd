@@ -50,12 +50,21 @@ func connect_quest_signals():
 func initialize_quests():
 	var currentquests: Array = QuestManager.get_all_player_quests_names()
 	for quest in currentquests:
-		_on_new_quest_added(quest)
+		var quest_data = QuestManager.get_player_quest(quest)
+		
+		# Check if the quest is completed or failed and add to respective lists
+		if quest_data.completed:
+			_on_quest_complete(quest_data)
+		elif quest_data.failed:
+			_on_quest_failed(quest_data)
+		else:
+			_on_new_quest_added(quest)
 	
 	# Select the first quest in the current quests list if any quests exist
 	if current_quests_list.get_item_count() > 0:
 		current_quests_list.select(0)
 		_on_quest_selected(0, current_quests_list) # Automatically trigger selection
+
 
 # Function to handle quest completion
 func _on_quest_complete(quest: Dictionary):
@@ -118,6 +127,7 @@ func add_quest_to_list(quest_id: String, quest_list: ItemList):
 	if questname != "":
 		var item_index: int = quest_list.add_item(questname, quest_icon)
 		quest_list.set_item_metadata(item_index, quest_id) # Add the quest id as metadata
+
 
 
 # Function to handle quest reset
