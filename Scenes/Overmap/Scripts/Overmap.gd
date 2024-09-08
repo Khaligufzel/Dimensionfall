@@ -28,6 +28,7 @@ class Target:
 
 	# Constructor to initialize the map_id and coordinate
 	func _init(mymap_id: String, mycoordinate: Vector2):
+		print_debug("initialized target with " + map_id)
 		self.map_id = mymap_id
 		self.coordinate = mycoordinate
 
@@ -401,27 +402,36 @@ func on_overmap_visibility_toggled():
 
 
 # Function to assist the player in finding a location based on the map_id
+# Function to assist the player in finding a location based on the map_id
 func find_location_on_overmap(mytarget: Target):
-	# Find the closest map cell with the given map_id
-	var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(mytarget.map_id)
-
-	if not closest_cell:
-		$ArrowLabel.visible = false  # Hide arrow if no target is found
-		return
+	# Check if mytarget's coordinate is set
+	if mytarget.coordinate == Vector2():
+		# If not set, find the closest map cell and set the coordinates
+		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(mytarget.map_id)
+		if closest_cell:
+			mytarget.set_coordinate(Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
+			print_debug("Target coordinates set to closest cell: ", mytarget.coordinate)
+		else:
+			$ArrowLabel.visible = false  # Hide arrow if no target is found
+			return
+	else:
+		print_debug("Using existing target coordinates: ", mytarget.coordinate)
 
 	# Get the current visible area of the overmap (position and size of the TilesContainer)
+	var visible_rect = Rect2(tilesContainer.position, tilesContainer.size)
 
-	# Calculate the pixel position of the closest cell by multiplying its coordinates by tile_size
-	var cell_position = Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y) * tile_size
-	var is_cell_visible = visible_rect.has_point(cell_position)
+	# Calculate the pixel position based on the target's coordinate
+	var target_position = mytarget.coordinate * tile_size
+	var is_cell_visible = visible_rect.has_point(target_position)
 
 	if is_cell_visible:
-		# Case 1: The cell is visible, mark the tile and hide the arrow
-		mark_overmap_tile(cell_position)
+		# Case 1: The target is visible, mark the tile and hide the arrow
+		mark_overmap_tile(target_position)
 		$ArrowLabel.visible = false  # Hide arrow
 	else:
-		# Case 2: The cell is not visible, show an arrow pointing to its direction
-		show_directional_arrow_to_cell(cell_position)
+		# Case 2: The target is not visible, show an arrow pointing to its direction
+		show_directional_arrow_to_cell(target_position)
+
 
 
 # Marks the overmap tile with a symbol at the given position
@@ -436,35 +446,51 @@ func mark_overmap_tile(cell_position: Vector2):
 
 # Displays an arrow at the edge of the overmap window pointing towards the direction of the cell
 func show_directional_arrow_to_cell(cell_position: Vector2):
-	# Calculate the direction from the center of the visible area to the cell
-	var overmap_center = tilesContainer.size * 0.5
+	# Use Helper.position_coord as the center of the overmap
+	var overmap_center = Helper.position_coord  # Convert to pixel coordinates
 	var direction_to_cell = (cell_position - overmap_center).normalized()
 
-	# Create or update the arrow Control (arrow must already be part of your scene)
+	# Combined debug print for relevant values
+	print_debug("Cell Position: ", cell_position, ", Overmap Center (Helper.position_coord): ", overmap_center, ", Direction to Cell: ", direction_to_cell)
+
+	# Create or update the arrow Control
 	var arrow = $ArrowLabel  # Node named ArrowLabel for showing direction
 	arrow.rotation = direction_to_cell.angle()
+
+	# Debug print for the arrow's rotation
+	print_debug("Arrow Rotation (radians): ", arrow.rotation)
 
 	# Position the arrow on the edge of the TilesContainer, clamped within its dimensions
 	var arrow_position = clamp_arrow_to_container_bounds(arrow, direction_to_cell)
 	arrow.position = arrow_position
-	arrow.visible = true
+	arrow.visible = true  # Show arrow only when target is off-screen
 
+	# Debug print for the arrow's final position
+	print_debug("Arrow Position: ", arrow.position)
 
 # Helper function to clamp the arrow to the edge of the TilesContainer
 func clamp_arrow_to_container_bounds(arrow: Control, direction: Vector2) -> Vector2:
 	# Calculate the edge position based on the direction and container size
-	var container_size = tilesContainer.rect_size
+	var container_size = tilesContainer.size
 	var arrow_position = direction * (container_size / 2)
 
+	# Combined debug print for container size and arrow position
+	print_debug("Container Size: ", container_size, ", Initial Arrow Position (before clamping): ", arrow_position)
+
 	# Clamp the position to the edges of the container
-	arrow_position.x = clamp(arrow_position.x, 0, container_size.x - arrow.rect_size.x)
-	arrow_position.y = clamp(arrow_position.y, 0, container_size.y - arrow.rect_size.y)
+	arrow_position.x = clamp(arrow_position.x, 0, container_size.x - arrow.size.x)
+	arrow_position.y = clamp(arrow_position.y, 0, container_size.y - arrow.size.y)
+
+	# Debug print for clamped arrow position
+	print_debug("Clamped Arrow Position: ", arrow_position)
 
 	return arrow_position
 
 
+
 # Respond to the target_map_changed signal
 func on_target_map_changed(map_id: String):
+	print_debug("target map changed to " + map_id)
 	if map_id == null or map_id == "":
 		target = null  # Clear the target if no valid map_id is provided
 		$ArrowLabel.visible = false  # Hide arrow when no target
