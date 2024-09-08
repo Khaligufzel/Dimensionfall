@@ -379,8 +379,8 @@ func find_location_on_overmap(map_id: String):
 	# Get the current visible area of the overmap (position and size of the TilesContainer)
 	var visible_rect = Rect2(tilesContainer.position, tilesContainer.rect_size)
 
-	# Check if the closest cell is within the visible area
-	var cell_position = Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y)
+	# Calculate the pixel position of the closest cell by multiplying its coordinates by tile_size
+	var cell_position = Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y) * tile_size
 	var is_cell_visible = visible_rect.has_point(cell_position)
 
 	if is_cell_visible:
