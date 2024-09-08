@@ -402,7 +402,6 @@ func on_overmap_visibility_toggled():
 
 
 # Function to assist the player in finding a location based on the map_id
-# Function to assist the player in finding a location based on the map_id
 func find_location_on_overmap(mytarget: Target):
 	# Check if mytarget's coordinate is set
 	if mytarget.coordinate == Vector2():
@@ -420,9 +419,10 @@ func find_location_on_overmap(mytarget: Target):
 	# Get the current visible area of the overmap (position and size of the TilesContainer)
 	var visible_rect = Rect2(tilesContainer.position, tilesContainer.size)
 
-	# Calculate the pixel position based on the target's coordinate
-	var target_position = mytarget.coordinate * tile_size
-	var is_cell_visible = visible_rect.has_point(target_position)
+	# Calculate the pixel position of the target's coordinate relative to Helper.position_coord (the map center)
+	# Convert the target's coordinates from the world grid to the view, adjusting for map panning
+	var target_position = (mytarget.coordinate - Helper.position_coord) * tile_size
+	var is_cell_visible = visible_rect.has_point(target_position + tilesContainer.position)
 
 	if is_cell_visible:
 		# Case 1: The target is visible, mark the tile and hide the arrow
@@ -431,6 +431,7 @@ func find_location_on_overmap(mytarget: Target):
 	else:
 		# Case 2: The target is not visible, show an arrow pointing to its direction
 		show_directional_arrow_to_cell(target_position)
+
 
 
 
