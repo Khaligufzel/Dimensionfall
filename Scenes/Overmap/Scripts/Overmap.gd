@@ -14,10 +14,27 @@ var selected_overmap_tile: Control = null
 var previous_visible_tile: Control = null  # Stores the previously visible tile
 var tile_pool: Array = []  # Object pool for reusing tiles
 var text_visible_by_coord: Dictionary = {}  # Tracks text visibility
+var target: Target = null  # Holds the target location as an instance of the Target class
+
 
 # We will emit this signal when the position_coords change
 # Which happens when the user has panned the overmap
 signal position_coord_changed(delta: Vector2)
+
+# Target location for quests
+class Target:
+	var map_id: String
+	var coordinate: Vector2
+	
+	# Constructor to initialize the map_id and coordinate
+	func _init(mymap_id: String, mycoordinate: Vector2):
+		self.map_id = mymap_id
+		self.coordinate = mycoordinate
+
+	# Prevent modifying the coordinate after it has been set
+	func set_coordinate(new_coordinate: Vector2):
+		if self.coordinate == Vector2():  # Only set if the coordinate hasn't been initialized
+			self.coordinate = new_coordinate
 
 
 func _ready():
@@ -161,6 +178,10 @@ func on_position_coord_changed(delta: Vector2):
 	update_chunks()
 	if positionLabel:
 		positionLabel.text = "Position: " + str(Helper.position_coord)
+
+	# Check and update the marker or arrow if the target is set
+	if target != null:
+		find_location_on_overmap(target)
 
 
 # This function creates and populates a GridContainer with tiles based on chunk size and position.
@@ -344,6 +365,12 @@ func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_po
 	move_overmap(delta)
 
 
+# Set the target
+func set_target(map_id: String, coordinate: Vector2):
+	if target == null:
+		target = Target.new(map_id, coordinate)  # Create a new target
+
+
 # Calculates the center of the window. We subtract 50% because the
 # overmap doesn't cover the whole screen, only about 50%
 func calculate_screen_center_offset() -> Vector2:
@@ -369,9 +396,9 @@ func on_overmap_visibility_toggled():
 
 
 # Function to assist the player in finding a location based on the map_id
-func find_location_on_overmap(map_id: String):
+func find_location_on_overmap(mytarget: Target):
 	# Find the closest map cell with the given map_id
-	var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(map_id)
+	var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(mytarget.map_id)
 
 	if not closest_cell:
 		return
