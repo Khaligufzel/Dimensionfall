@@ -4,6 +4,10 @@ extends Node
 # It can be accessed through Helper.quest_helper
 # This is a helper script that manages quests in so far that the QuestManager can't
 
+# When a quest updates and there either is or isn't a target location on the overmap
+signal target_map_changed(map_id: String)
+
+
 func _ready():
 	# Connect signals for game start, load, end, mob killed, and quest events
 	connect_signals()
@@ -61,6 +65,7 @@ func _on_game_ended():
 
 # Function to handle quest completion
 func _on_quest_complete(quest: Dictionary):
+	target_map_changed.emit(null)  # No more target when quest is complete
 	var rewards: Array = quest.get("quest_rewards").get("rewards", [])
 	for reward in rewards:
 		var item_id: String = reward.get("item_id")
@@ -70,20 +75,18 @@ func _on_quest_complete(quest: Dictionary):
 
 # Function to handle quest failure
 func _on_quest_failed(_quest: Dictionary):
-	# To be developed later
-	pass
-
+	target_map_changed.emit(null)  # No more target when quest is complete
 
 # When a step is complete.
 # step: the step dictionary
-func _on_step_complete(_step: Dictionary):
-	# To be developed later
-	pass
+func _on_step_complete(step: Dictionary):
+	check_and_emit_target_map(step)
 
 
 # Called after the previous step was completed
 # step: the new step in the quest
 func _on_next_step(step: Dictionary):
+	check_and_emit_target_map(step)
 	# The player might already have the item for the next step so check it
 	match step.get("step_type", ""):	
 		QuestManager.INCREMENTAL_STEP:
@@ -93,9 +96,9 @@ func _on_next_step(step: Dictionary):
 
 
 # Function to handle step update
-func _on_step_updated(_step: Dictionary):
-	# To be developed later
-	pass
+func _on_step_updated(step: Dictionary):
+	check_and_emit_target_map(step)
+
 
 # Function to handle new quest addition
 func _on_new_quest_added(_quest_name: String):
@@ -271,3 +274,14 @@ func set_state(state: Dictionary) -> void:
 	QuestManager.wipe_player_data()
 	var player_quests = state.get("player_quests", {})
 	QuestManager.load_saved_quest_data(player_quests)
+
+
+# Helper function to check if the step has the "enter" type and emit the target_map_changed signal
+func check_and_emit_target_map(step: Dictionary):
+	var step_type = step.get("step_type", "")
+	if step_type == "enter":
+		var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
+		var map_id: String = stepmeta.get("map_id", "")
+		target_map_changed.emit(map_id)  # Emit the map_id for "enter" type steps
+	else:
+		target_map_changed.emit(null)  # Emit null if no target is present

@@ -25,7 +25,7 @@ signal position_coord_changed(delta: Vector2)
 class Target:
 	var map_id: String
 	var coordinate: Vector2
-	
+
 	# Constructor to initialize the map_id and coordinate
 	func _init(mymap_id: String, mycoordinate: Vector2):
 		self.map_id = mymap_id
@@ -50,6 +50,9 @@ func connect_signals():
 	Helper.overmap_manager.player_coord_changed.connect(on_player_coord_changed)
 	# Connect the visibility toggling signal
 	visibility_changed.connect(on_overmap_visibility_toggled)
+	# Connect to the target_map_changed signal from the quest helper
+	Helper.quest_helper.target_map_changed.connect(on_target_map_changed)
+
 
 # Center the map on the player's last known position
 func center_map_on_player():
@@ -455,3 +458,17 @@ func clamp_arrow_to_container_bounds(arrow: Control, direction: Vector2) -> Vect
 	arrow_position.y = clamp(arrow_position.y, 0, container_size.y - arrow.rect_size.y)
 
 	return arrow_position
+
+
+# Respond to the target_map_changed signal
+func on_target_map_changed(map_id: String):
+	if map_id == null or map_id == "":
+		target = null  # Clear the target if no valid map_id is provided
+	else:
+		# Find the closest cell for the provided map_id
+		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(map_id)
+		if closest_cell and target == null:
+			# Set the new target if it hasn't been set
+			target = Target.new(map_id, Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
+			# Ensure that the coordinates do not change once set
+			find_location_on_overmap(target)
