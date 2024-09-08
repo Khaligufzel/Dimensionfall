@@ -27,6 +27,7 @@ grow_vertical = 2
 color = Color(0.129412, 0.14902, 0.180392, 1)
 
 [node name="ArrowLabel" type="Label" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 46.0

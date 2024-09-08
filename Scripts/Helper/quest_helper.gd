@@ -65,7 +65,7 @@ func _on_game_ended():
 
 # Function to handle quest completion
 func _on_quest_complete(quest: Dictionary):
-	target_map_changed.emit(null)  # No more target when quest is complete
+	target_map_changed.emit("")  # No more target when quest is complete
 	var rewards: Array = quest.get("quest_rewards").get("rewards", [])
 	for reward in rewards:
 		var item_id: String = reward.get("item_id")
@@ -75,7 +75,7 @@ func _on_quest_complete(quest: Dictionary):
 
 # Function to handle quest failure
 func _on_quest_failed(_quest: Dictionary):
-	target_map_changed.emit(null)  # No more target when quest is complete
+	target_map_changed.emit("")  # No more target when quest is complete
 
 # When a step is complete.
 # step: the step dictionary
@@ -276,12 +276,18 @@ func set_state(state: Dictionary) -> void:
 	QuestManager.load_saved_quest_data(player_quests)
 
 
-# Helper function to check if the step has the "enter" type and emit the target_map_changed signal
+# Helper function to check if the step has the "enter" type within "action_step" and emit the target_map_changed signal
 func check_and_emit_target_map(step: Dictionary):
 	var step_type = step.get("step_type", "")
-	if step_type == "enter":
+
+	# Check for the step_type for this step according to the QuestManager
+	if step_type == "action_step":
 		var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
-		var map_id: String = stepmeta.get("map_id", "")
-		target_map_changed.emit(map_id)  # Emit the map_id for "enter" type steps
+		# Check the type of the stepjson, which is set in the quest editor
+		if stepmeta.get("type", "") == "enter":
+			var map_id: String = stepmeta.get("map_id", "")
+			target_map_changed.emit(map_id)  # Emit the map_id if the stepmeta.type is "enter"
+		else:
+			target_map_changed.emit("")  # No target if the type is not "enter"
 	else:
-		target_map_changed.emit(null)  # Emit null if no target is present
+		target_map_changed.emit("")  # No target if step_type is not "action_step"

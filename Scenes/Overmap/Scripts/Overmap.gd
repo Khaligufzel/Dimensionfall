@@ -185,6 +185,8 @@ func on_position_coord_changed(delta: Vector2):
 	# Check and update the marker or arrow if the target is set
 	if target != null:
 		find_location_on_overmap(target)
+	else:
+		$ArrowLabel.visible = false  # Hide arrow if there's no target
 
 
 # This function creates and populates a GridContainer with tiles based on chunk size and position.
@@ -404,18 +406,19 @@ func find_location_on_overmap(mytarget: Target):
 	var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(mytarget.map_id)
 
 	if not closest_cell:
+		$ArrowLabel.visible = false  # Hide arrow if no target is found
 		return
 
 	# Get the current visible area of the overmap (position and size of the TilesContainer)
-	var visible_rect = Rect2(tilesContainer.position, tilesContainer.rect_size)
 
 	# Calculate the pixel position of the closest cell by multiplying its coordinates by tile_size
 	var cell_position = Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y) * tile_size
 	var is_cell_visible = visible_rect.has_point(cell_position)
 
 	if is_cell_visible:
-		# Case 1: The cell is visible, mark the tile
+		# Case 1: The cell is visible, mark the tile and hide the arrow
 		mark_overmap_tile(cell_position)
+		$ArrowLabel.visible = false  # Hide arrow
 	else:
 		# Case 2: The cell is not visible, show an arrow pointing to its direction
 		show_directional_arrow_to_cell(cell_position)
@@ -434,7 +437,7 @@ func mark_overmap_tile(cell_position: Vector2):
 # Displays an arrow at the edge of the overmap window pointing towards the direction of the cell
 func show_directional_arrow_to_cell(cell_position: Vector2):
 	# Calculate the direction from the center of the visible area to the cell
-	var overmap_center = tilesContainer.rect_size * 0.5
+	var overmap_center = tilesContainer.size * 0.5
 	var direction_to_cell = (cell_position - overmap_center).normalized()
 
 	# Create or update the arrow Control (arrow must already be part of your scene)
@@ -464,6 +467,7 @@ func clamp_arrow_to_container_bounds(arrow: Control, direction: Vector2) -> Vect
 func on_target_map_changed(map_id: String):
 	if map_id == null or map_id == "":
 		target = null  # Clear the target if no valid map_id is provided
+		$ArrowLabel.visible = false  # Hide arrow when no target
 	else:
 		# Find the closest cell for the provided map_id
 		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(map_id)
