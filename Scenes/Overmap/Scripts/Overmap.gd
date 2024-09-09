@@ -81,15 +81,6 @@ class GridChunk:
 				grid_container.add_child(tile)
 				tile_dictionary[Vector2(x, y)] = tile  # Store tile by its x, y coordinates
 
-				# Prepare tooltip information about the chunk and tile
-				var tooltip_text = "Chunk Position: " + str(chunk_position) + "\n" + \
-								   "grid_position: " + str(grid_position) + "\n" + \
-								   "Tile Position in Chunk: " + str(Vector2(x, y)) + "\n" + \
-								   "Global Position: " + str(calculate_global_pos(x, y))
-
-				# Set the tooltip for the tile
-				tile.tooltip_text = tooltip_text
-
 	# Reset chunk to a new position and redraw its tiles
 	func reset_chunk(new_grid_position: Vector2, new_chunk_position: Vector2):
 		self.grid_position = new_grid_position
@@ -127,9 +118,6 @@ class GridChunk:
 		# Calculate the local position within the chunk
 		return (global_pos - chunk_position) / tile_size
 		
-	func calculate_global_pos(x: int, y: int) -> Vector2:
-		return chunk_position + Vector2(x, y) * tile_size
-		
 	func _on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
 		# Step 1: Check if the chunk is within the player's range
 		if is_within_player_range():
@@ -138,13 +126,8 @@ class GridChunk:
 				for x in range(chunk_size):
 					var global_pos = grid_position + Vector2(x, y)
 					var tile = tile_dictionary[Vector2(x, y)]
-
-					# Get the map cell for the current tile
-					var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
-
-					if map_cell:
-						# Call the combined function to update the tile and reveal the map cell
-						update_tile_texture_and_reveal(tile, global_pos, new_pos)
+					# Call the combined function to update the tile and reveal the map cell
+					update_tile_texture_and_reveal(tile, global_pos, new_pos)
 
 	# This function handles both revealing the map cell and updating the tile's texture
 	# It is used by both the player position update and regular map tile updates
@@ -188,7 +171,6 @@ class GridChunk:
 		if player_last_cell.x >= chunk_start.x - 8 and player_last_cell.x <= chunk_end.x + 8 and \
 		   player_last_cell.y >= chunk_start.y - 8 and player_last_cell.y <= chunk_end.y + 8:
 			return true
-
 		return false
 
 
