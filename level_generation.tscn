@@ -128,12 +128,14 @@ shape = SubResource("ConvexPolygonShape3D_drnhn")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17078, 0)
+visible = false
 shadow_enabled = true
 omni_range = 18.071
 omni_attenuation = 0.0371628
 
 [node name="SpotLight3D" type="SpotLight3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.89, 0)
+visible = false
 light_energy = 7.846
 shadow_enabled = true
 spot_range = 5.779
@@ -202,6 +204,16 @@ collision_mask = 8
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player/Sprite3D2/CollisionDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.179206, 0)
 shape = SubResource("ConvexPolygonShape3D_drnhn")
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="TacticalMap/Entities/Player/Sprite3D2"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.790442, 0, -0.513416)
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+spot_range = 38.022
+spot_attenuation = -0.14
+spot_angle = 47.93
+spot_angle_attenuation = 0.019915
 
 [node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("left_hand_item", "right_hand_item")]
 script = ExtResource("11_6i2sa")
