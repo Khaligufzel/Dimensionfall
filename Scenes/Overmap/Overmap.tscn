@@ -12,10 +12,10 @@ anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fmft1")
-positionLabel = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Label")
+positionLabel = NodePath("MarginContainer/HBoxContainer/ControlsVBoxContainer/Label")
 tilesContainer = NodePath("MarginContainer/HBoxContainer/TilesContainer")
 overmapTile = ExtResource("3_uq0vr")
-overmapTileLabel = NodePath("MarginContainer/HBoxContainer/VBoxContainer/OvermapTileLabel")
+overmapTileLabel = NodePath("MarginContainer/HBoxContainer/ControlsVBoxContainer/OvermapTileLabel")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -48,28 +48,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="ControlsVBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.2
 
-[node name="OvermapTileLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="OvermapTileLabel" type="Label" parent="MarginContainer/HBoxContainer/ControlsVBoxContainer"]
 layout_mode = 2
 text = "Name: Urbanroad
 Environment: Forest
 Challenge: Easy"
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ControlsVBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.898039, 0.356863, 1)
 text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HomeButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HomeButton" type="Button" parent="MarginContainer/HBoxContainer/ControlsVBoxContainer"]
 layout_mode = 2
 text = "Home"
 
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/ControlsVBoxContainer"]
 layout_mode = 2
 text = "         up
           🠕
@@ -87,4 +87,4 @@ theme_override_colors/font_outline_color = Color(0.894388, 0.571002, 0.642366, 1
 theme_override_font_sizes/font_size = 40
 text = "↑"
 
-[connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/HomeButton" to="." method="_on_home_button_button_up"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/ControlsVBoxContainer/HomeButton" to="." method="_on_home_button_button_up"]

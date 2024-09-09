@@ -4,6 +4,10 @@ extends Control
 @export var tilesContainer: Control = null
 @export var overmapTile: PackedScene = null
 @export var overmapTileLabel: Label = null
+@export var controls_container: VBoxContainer = null
+@export var margin_container: MarginContainer = null
+
+
 var noise = FastNoiseLite.new()
 var grid_chunks: Dictionary = {} # Stores references to grid containers (visual tile grids)
 var chunk_width: int = 8  # Smaller chunk sizes improve performance
@@ -384,12 +388,6 @@ func set_target(map_id: String, coordinate: Vector2):
 		target = Target.new(map_id, coordinate)  # Create a new target
 
 
-# Calculates the screen center offset based on the tilesContainer size
-func calculate_screen_center_offset() -> Vector2:
-	var container_center_offset = tilesContainer.size / tile_size * 0.5
-	return container_center_offset.round()
-
-
 
 # Function to handle overmap visibility toggling
 func on_overmap_visibility_toggled():
@@ -514,3 +512,25 @@ func on_target_map_changed(map_id: String):
 			target = Target.new(map_id, Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
 			# Ensure that the coordinates do not change once set
 			find_location_on_overmap(target)
+
+
+
+# Calculates the screen center offset based on the margin_container and controls_container sizes
+func calculate_screen_center_offset() -> Vector2:
+	if margin_container and controls_container:
+		# Use the height of the controls_container directly for the available height
+		var available_height = margin_container.size.y
+
+		# Subtract the width of the controls_container from the margin_container for the available width
+		var available_width = margin_container.size.x - controls_container.size.x
+
+		# Create a Vector2 for the available size
+		var available_size = Vector2(available_width, available_height)
+
+		# Calculate the center offset using the available size
+		var new_offset = (available_size) * 0.5
+
+		return new_offset
+	else:
+		print("Error: Either margin_container or controls_container is not set or has no size.")
+		return Vector2.ZERO
