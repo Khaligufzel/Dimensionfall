@@ -112,7 +112,6 @@ class GridChunk:
 		return tile_dictionary.has(global_pos)
 
 
-
 # Modify add_chunk_to_grid to use the new GridChunk class
 func add_chunk_to_grid(chunk_grid_position: Vector2):
 	var localized_position = get_localized_position(chunk_grid_position)
@@ -121,13 +120,6 @@ func add_chunk_to_grid(chunk_grid_position: Vector2):
 	tilesContainer.add_child(new_chunk.grid_container)  # Add to tilesContainer
 	grid_chunks[chunk_grid_position] = new_chunk  # Store the chunk
 
-# Modify redraw_existing_chunks to use the new GridChunk class
-func redraw_existing_chunks():
-	for chunk_position in grid_chunks.keys():
-		var chunk = grid_chunks[chunk_position]
-		var localized_position = get_localized_position(chunk_position)
-		chunk.set_position(localized_position)  # Update chunk position
-		print("Updated Chunk Position: ", chunk.grid_container.position)
 
 # Update other functions accordingly
 func get_localized_position(chunk_grid_position: Vector2) -> Vector2:
@@ -366,7 +358,6 @@ func update_overmap_tile_visibility(new_pos: Vector2):
 						tile.set_text_visible(false)
 
 
-
 func update_tile_with_map_cell(tile: Control, global_pos: Vector2):
 	# Get map_cell from overmap_manager
 	var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
@@ -403,8 +394,6 @@ func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 	
 	# Return null if the tile is not found in the corresponding chunk
 	return null
-
-
 
 
 # When the player moves a coordinate on the map, i.e. when crossing the chunk border.
