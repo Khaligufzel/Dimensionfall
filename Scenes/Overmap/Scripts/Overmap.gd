@@ -54,12 +54,19 @@ func connect_signals():
 	# Connect to the target_map_changed signal from the quest helper
 	Helper.quest_helper.target_map_changed.connect(on_target_map_changed)
 
-
-# Center the map on the player's last known position
+# Center the map on the player's last known position visually, but keep the logical position at (0,0)
 func center_map_on_player():
-	var center_offset = calculate_screen_center_offset()
-	move_overmap(Helper.overmap_manager.player_last_cell - center_offset)
+	var visual_offset = calculate_screen_center_offset()
+
+	# Instead of changing Helper.position_coord, we adjust the visual position
+	move_overmap_visual(Helper.overmap_manager.player_last_cell, visual_offset)
 	update_overmap_tile_visibility(Helper.overmap_manager.player_last_cell)
+
+# This moves the overmap visually without affecting the logical position_coord
+func move_overmap_visual(target_position: Vector2, visual_offset: Vector2):
+	var delta = target_position - visual_offset
+	update_tiles_position(delta)
+
 
 # This function updates the chunks.
 # It loops through a 4x4 grid centered on the current position
@@ -377,11 +384,11 @@ func set_target(map_id: String, coordinate: Vector2):
 		target = Target.new(map_id, coordinate)  # Create a new target
 
 
-# Calculates the center of the window. We subtract 50% because the
-# overmap doesn't cover the whole screen, only about 50%
+# Calculates the screen center offset based on the tilesContainer size
 func calculate_screen_center_offset() -> Vector2:
-	var screen_center_offset = get_viewport_rect().size * 0.5 / tile_size
-	return screen_center_offset * 0.5  # Reduce by 50%
+	var container_center_offset = tilesContainer.size / tile_size * 0.5
+	return container_center_offset.round()
+
 
 
 # Function to handle overmap visibility toggling
