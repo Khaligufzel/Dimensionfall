@@ -42,6 +42,81 @@ class Target:
 			self.coordinate = new_coordinate
 
 
+# Define the inner class that handles grid container properties and logic
+class GridChunk:
+	var grid_container: GridContainer
+	var chunk_position: Vector2
+	var grid_position: Vector2
+	var tile_size: int
+	var get_pooled_tile_func: Callable
+	var update_tile_func: Callable
+	var return_pooled_tile_func: Callable
+	var chunk_width: int = 8  # Smaller chunk sizes improve performance
+	var chunk_size: int = 8
+	
+	# Constructor to initialize the chunk with its grid position, chunk position, and necessary references
+	func _init(mygrid_position: Vector2, mychunk_position: Vector2, mytile_size: int, get_pooled_tile: Callable, update_tile: Callable, return_pooled_tile: Callable):
+		self.grid_position = mygrid_position
+		self.chunk_position = mychunk_position
+		self.tile_size = mytile_size
+		self.get_pooled_tile_func = get_pooled_tile
+		self.update_tile_func = update_tile
+		self.return_pooled_tile_func = return_pooled_tile
+		self.grid_container = GridContainer.new()
+		self.grid_container.columns = chunk_width
+		self.grid_container.set("theme_override_constants/h_separation", 0)
+		self.grid_container.set("theme_override_constants/v_separation", 0)
+		self.grid_container.position = chunk_position
+
+	# Fill the grid container with tiles
+	func fill_grid():
+		for y in range(chunk_size):
+			for x in range(chunk_size):
+				var tile = get_pooled_tile_func.call()
+				var local_pos = Vector2(x * tile_size, y * tile_size)
+				var global_pos = grid_position + Vector2(x, y)
+
+				# Update tile based on map cell data
+				update_tile_func.call(tile, global_pos)
+
+				tile.set_meta("global_pos", global_pos)
+				tile.set_meta("local_pos", local_pos)
+
+				# Add the tile to the grid container
+				grid_container.add_child(tile)
+
+	# Set the position of the grid container (useful for redrawing)
+	func set_position(new_position: Vector2):
+		self.grid_container.position = new_position
+	
+	# Remove all children (tiles) and free the grid container
+	func clear():
+		for tile in grid_container.get_children():
+			return_pooled_tile_func.call(tile)
+		grid_container.queue_free()
+
+
+# Modify add_chunk_to_grid to use the new GridChunk class
+func add_chunk_to_grid(chunk_grid_position: Vector2):
+	var localized_position = get_localized_position(chunk_grid_position)
+	var new_chunk = GridChunk.new(chunk_grid_position, localized_position, tile_size, get_pooled_tile, update_tile_with_map_cell, return_pooled_tile)
+	new_chunk.fill_grid()  # Fill the grid container with tiles
+	tilesContainer.add_child(new_chunk.grid_container)  # Add to tilesContainer
+	grid_chunks[chunk_grid_position] = new_chunk  # Store the chunk
+
+# Modify redraw_existing_chunks to use the new GridChunk class
+func redraw_existing_chunks():
+	for chunk_position in grid_chunks.keys():
+		var chunk = grid_chunks[chunk_position]
+		var localized_position = get_localized_position(chunk_position)
+		chunk.set_position(localized_position)  # Update chunk position
+		print("Updated Chunk Position: ", chunk.grid_container.position)
+
+# Update other functions accordingly
+func get_localized_position(chunk_grid_position: Vector2) -> Vector2:
+	return chunk_grid_position * tile_size - Helper.position_coord * tile_size
+
+
 func _ready():
 	# Centers the view when opening the ovemap.
 	Helper.position_coord = Vector2(0, 0)
@@ -104,18 +179,6 @@ func update_chunks():
 	unload_chunks()
 
 
-# Helper function to add a new chunk to the grid
-func add_chunk_to_grid(chunk_grid_position: Vector2):
-	var localized_position = get_localized_position(chunk_grid_position)
-	var new_grid_container = create_and_fill_grid_container(chunk_grid_position, localized_position)
-	tilesContainer.add_child(new_grid_container)
-	grid_chunks[chunk_grid_position] = new_grid_container
-
-
-# Calculate the localized position of the chunk
-func get_localized_position(chunk_grid_position: Vector2) -> Vector2:
-	return chunk_grid_position * tile_size - Helper.position_coord * tile_size
-
 
 # Get a tile from the pool or create a new one if the pool is empty
 func get_pooled_tile() -> Control:
@@ -143,10 +206,10 @@ func unload_chunks():
 	var range_limit = 6 * chunk_size
 	for chunk_position in grid_chunks.keys():
 		if chunk_position.distance_to(Helper.position_coord + Vector2(24,24)) > range_limit:
-			var grid_container = grid_chunks[chunk_position]
-			for tile in grid_container.get_children():
+			var gridchunk: GridChunk = grid_chunks[chunk_position]
+			for tile in gridchunk.grid_container.get_children():
 				return_pooled_tile(tile)
-			grid_container.queue_free()
+			gridchunk.grid_container.queue_free()
 			grid_chunks.erase(chunk_position)
 
 
@@ -358,17 +421,18 @@ func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 	# Calculate the chunk position based on tile size and chunk size
 	var chunk_pos = (myposition / chunk_size).floor() * chunk_size
 	
-	# Check if the chunk exists
+	# Check if the chunk exists in grid_chunks
 	if grid_chunks.has(chunk_pos):
-		var chunk = grid_chunks[chunk_pos]
+		var chunk: GridChunk = grid_chunks[chunk_pos]
 		
-		# Loop through the tiles in the specific chunk
-		for tile in chunk.get_children():
+		# Loop through the tiles in the GridContainer of the chunk
+		for tile in chunk.grid_container.get_children():
 			if tile.get_meta("global_pos") == myposition:
 				return tile
 	
 	# Return null if the tile is not found in the corresponding chunk
 	return null
+
 
 
 # When the player moves a coordinate on the map, i.e. when crossing the chunk border.
