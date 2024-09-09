@@ -263,49 +263,6 @@ func on_position_coord_changed(delta: Vector2):
 	else:
 		$ArrowLabel.visible = false  # Hide arrow if there's no target
 
-
-# This function creates and populates a GridContainer with tiles based on chunk size and position.
-# The function generates a new GridContainer, sets its columns to chunk_width, and ensures no space between tiles.
-# It then generates terrain for each tile based on a noise algorithm and assigns metadata to each tile.
-# Tiles are added as children to the GridContainer, which is positioned based on chunk_position.
-# The function returns the populated GridContainer.
-func create_and_fill_grid_container(grid_position: Vector2, chunk_position: Vector2) -> GridContainer:
-	var grid_container = GridContainer.new()
-	grid_container.columns = chunk_width  # Set the number of columns to chunk_width.
-	# Make sure there is no space between the tiles
-	grid_container.set("theme_override_constants/h_separation", 0)
-	grid_container.set("theme_override_constants/v_separation", 0)
-
-	# Iterate over the chunk size to create and add TextureRects for each tile.
-	for y in range(chunk_size):
-		for x in range(chunk_size):
-			var tile = get_pooled_tile()
-			var local_pos = Vector2(x * tile_size, y * tile_size)
-			var global_pos = grid_position + Vector2(x, y)
-
-			# Use the new function to update the tile based on map cell data
-			update_tile_with_map_cell(tile, global_pos)
-
-			tile.set_meta("global_pos", global_pos)
-			tile.set_meta("local_pos", local_pos)
-			
-			# Handle visibility of text if needed
-			if text_visible_by_coord.has(global_pos) and text_visible_by_coord[global_pos]:
-				tile.set_text_visible(true)
-			else:
-				tile.set_text_visible(false)
-
-			if global_pos == Vector2.ZERO:
-				tile.set_color(Color(0.3, 0.3, 1))  # blue color
-			else:
-				tile.set_color(Color(1,1,1))
-
-			grid_container.add_child(tile)
-
-	grid_container.position = chunk_position
-	return grid_container
-
-
 # This function will be connected to the signal of the tiles
 func _on_tile_clicked(clicked_tile):
 	if clicked_tile.has_meta("map_file"):
