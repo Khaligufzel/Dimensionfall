@@ -134,13 +134,22 @@ omni_range = 18.071
 omni_attenuation = 0.0371628
 
 [node name="SpotLight3D" type="SpotLight3D" parent="TacticalMap/Entities/Player"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.89, 0)
-visible = false
-light_energy = 7.846
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.89565, 0)
+light_energy = 1.732
 shadow_enabled = true
-spot_range = 5.779
-spot_angle = 83.32
-spot_angle_attenuation = 3.60501
+shadow_reverse_cull_face = true
+spot_range = 2.242
+spot_angle = 64.3
+spot_angle_attenuation = 0.0490366
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="TacticalMap/Entities/Player"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.89565, 0)
+light_energy = 5.374
+shadow_enabled = true
+shadow_reverse_cull_face = true
+spot_range = 2.938
+spot_angle = 17.47
+spot_angle_attenuation = 2.63902
 
 [node name="Sprite3D2" type="Sprite3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
@@ -205,13 +214,13 @@ collision_mask = 8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.179206, 0)
 shape = SubResource("ConvexPolygonShape3D_drnhn")
 
-[node name="SpotLight3D2" type="SpotLight3D" parent="TacticalMap/Entities/Player/Sprite3D2"]
-transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.790442, 0, -0.513416)
+[node name="FrontLight" type="SpotLight3D" parent="TacticalMap/Entities/Player/Sprite3D2"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.533792, 0, -0.309088)
 shadow_enabled = true
 shadow_bias = 0.0
-shadow_reverse_cull_face = true
-spot_range = 38.022
-spot_attenuation = -0.14
+shadow_blur = 0.0
+spot_range = 69.881
+spot_attenuation = -0.63
 spot_angle = 47.93
 spot_angle_attenuation = 0.019915
 
