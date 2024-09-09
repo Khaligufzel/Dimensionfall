@@ -416,21 +416,21 @@ func find_location_on_overmap(mytarget: Target):
 	else:
 		print_debug("Using existing target coordinates: ", mytarget.coordinate)
 
+	# Calculate the pixel position of the target's coordinate relative to the overmap center in pixel coordinates
+	var target_position = (mytarget.coordinate * tile_size) - (Helper.position_coord * tile_size)
+
 	# Get the current visible area of the overmap (position and size of the TilesContainer)
 	var visible_rect = Rect2(tilesContainer.position, tilesContainer.size)
-
-	# Calculate the pixel position of the target's coordinate relative to Helper.position_coord (the map center)
-	# Convert the target's coordinates from the world grid to the view, adjusting for map panning
-	var target_position = (mytarget.coordinate - Helper.position_coord) * tile_size
 	var is_cell_visible = visible_rect.has_point(target_position + tilesContainer.position)
 
 	if is_cell_visible:
 		# Case 1: The target is visible, mark the tile and hide the arrow
-		mark_overmap_tile(target_position)
+		mark_overmap_tile(mytarget.coordinate)
 		$ArrowLabel.visible = false  # Hide arrow
 	else:
 		# Case 2: The target is not visible, show an arrow pointing to its direction
 		show_directional_arrow_to_cell(mytarget.coordinate)
+
 
 
 # Marks the overmap tile with a symbol at the given position
@@ -445,11 +445,16 @@ func mark_overmap_tile(cell_position: Vector2):
 
 # Displays an arrow at the edge of the overmap window pointing towards the direction of the cell
 func show_directional_arrow_to_cell(cell_position: Vector2):
-	# Use Helper.position_coord as the center of the overmap
-	var overmap_center = Helper.position_coord
-	var direction_to_cell = (cell_position - overmap_center).normalized()
+	# Calculate overmap center in pixels using Helper.position_coord, which now refers to the center tile
+	var overmap_center_in_pixels = (Helper.position_coord * tile_size)
 
-	print_debug("Cell Position: ", cell_position, ", Overmap Center (Helper.position_coord): ", overmap_center, ", Direction to Cell: ", direction_to_cell)
+	# Calculate the target position in pixels
+	var target_position_in_pixels = cell_position * tile_size
+
+	# Calculate the direction from the center of the overmap to the target
+	var direction_to_cell = (target_position_in_pixels - overmap_center_in_pixels).normalized()
+
+	print_debug("Cell Position (pixels): ", target_position_in_pixels, ", Overmap Center (pixels): ", overmap_center_in_pixels, ", Direction to Cell: ", direction_to_cell)
 
 	# Get the arrow Control
 	var arrow = $ArrowLabel
@@ -457,10 +462,10 @@ func show_directional_arrow_to_cell(cell_position: Vector2):
 
 	print_debug("Arrow Rotation (radians): ", arrow.rotation)
 
-	# Start positioning the arrow at the center of tilesContainer
+	# Position the arrow at the center of tilesContainer
 	var center_of_container = tilesContainer.size / 2
 
-	# Apply directional offset to position the arrow
+	# Apply directional offset to position the arrow based on the direction and container size
 	var arrow_position = center_of_container + direction_to_cell * (tilesContainer.size / 2)
 
 	# Clamp the position to the container's bounds
@@ -471,6 +476,8 @@ func show_directional_arrow_to_cell(cell_position: Vector2):
 	arrow.visible = true
 
 	print_debug("Arrow Position: ", arrow.position)
+
+
 
 
 # Helper function to clamp the arrow to the edges of the TilesContainer
