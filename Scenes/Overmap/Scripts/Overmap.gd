@@ -430,9 +430,7 @@ func find_location_on_overmap(mytarget: Target):
 		$ArrowLabel.visible = false  # Hide arrow
 	else:
 		# Case 2: The target is not visible, show an arrow pointing to its direction
-		show_directional_arrow_to_cell(target_position)
-
-
+		show_directional_arrow_to_cell(mytarget.coordinate)
 
 
 # Marks the overmap tile with a symbol at the given position
@@ -448,43 +446,42 @@ func mark_overmap_tile(cell_position: Vector2):
 # Displays an arrow at the edge of the overmap window pointing towards the direction of the cell
 func show_directional_arrow_to_cell(cell_position: Vector2):
 	# Use Helper.position_coord as the center of the overmap
-	var overmap_center = Helper.position_coord  # Convert to pixel coordinates
+	var overmap_center = Helper.position_coord
 	var direction_to_cell = (cell_position - overmap_center).normalized()
 
-	# Combined debug print for relevant values
 	print_debug("Cell Position: ", cell_position, ", Overmap Center (Helper.position_coord): ", overmap_center, ", Direction to Cell: ", direction_to_cell)
 
-	# Create or update the arrow Control
-	var arrow = $ArrowLabel  # Node named ArrowLabel for showing direction
+	# Get the arrow Control
+	var arrow = $ArrowLabel
 	arrow.rotation = direction_to_cell.angle()
 
-	# Debug print for the arrow's rotation
 	print_debug("Arrow Rotation (radians): ", arrow.rotation)
 
-	# Position the arrow on the edge of the TilesContainer, clamped within its dimensions
-	var arrow_position = clamp_arrow_to_container_bounds(arrow, direction_to_cell)
-	arrow.position = arrow_position
-	arrow.visible = true  # Show arrow only when target is off-screen
+	# Start positioning the arrow at the center of tilesContainer
+	var center_of_container = tilesContainer.size / 2
 
-	# Debug print for the arrow's final position
+	# Apply directional offset to position the arrow
+	var arrow_position = center_of_container + direction_to_cell * (tilesContainer.size / 2)
+
+	# Clamp the position to the container's bounds
+	arrow_position = clamp_arrow_to_container_bounds(arrow_position)
+
+	# Set arrow position and make it visible
+	arrow.position = arrow_position
+	arrow.visible = true
+
 	print_debug("Arrow Position: ", arrow.position)
 
-# Helper function to clamp the arrow to the edge of the TilesContainer
-func clamp_arrow_to_container_bounds(arrow: Control, direction: Vector2) -> Vector2:
-	# Calculate the edge position based on the direction and container size
+
+# Helper function to clamp the arrow to the edges of the TilesContainer
+func clamp_arrow_to_container_bounds(arrow_position: Vector2) -> Vector2:
 	var container_size = tilesContainer.size
-	var arrow_position = direction * (container_size / 2)
 
-	# Combined debug print for container size and arrow position
-	print_debug("Container Size: ", container_size, ", Initial Arrow Position (before clamping): ", arrow_position)
+	# Clamp the arrow position within the bounds of the tilesContainer
+	arrow_position.x = clamp(arrow_position.x, 0, container_size.x)
+	arrow_position.y = clamp(arrow_position.y, 0, container_size.y)
 
-	# Clamp the position to the edges of the container
-	arrow_position.x = clamp(arrow_position.x, 0, container_size.x - arrow.size.x)
-	arrow_position.y = clamp(arrow_position.y, 0, container_size.y - arrow.size.y)
-
-	# Debug print for clamped arrow position
 	print_debug("Clamped Arrow Position: ", arrow_position)
-
 	return arrow_position
 
 
