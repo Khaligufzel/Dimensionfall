@@ -53,6 +53,8 @@ class GridChunk:
 	var chunk_size: int = 8
 	var tile_dictionary: Dictionary  # Dictionary to store tiles by their global_pos
 	var overmapTile: PackedScene = null
+	var visible_tile: Control = null  # Stores the currently visible tile with text
+
 
 	# Constructor to initialize the chunk with its grid position, chunk position, and necessary references
 	func _init(mygrid_position: Vector2, mychunk_position: Vector2, mytile_size: int, myovermapTile: PackedScene):
@@ -100,6 +102,10 @@ class GridChunk:
 	# Set the position of the grid container (useful for redrawing)
 	func set_position(new_position: Vector2):
 		self.grid_container.position = new_position
+	
+	# Function inside GridChunk to update its grid_container position by a delta
+	func update_grid_position(delta: Vector2):
+		grid_container.position -= delta * tile_size
 
 	# Function to find a tile within this chunk based on a global position
 	func get_tile_at_position(global_pos: Vector2) -> Control:
@@ -117,8 +123,33 @@ class GridChunk:
 	func calculate_local_pos(global_pos: Vector2) -> Vector2:
 		# Calculate the local position within the chunk
 		return (global_pos - chunk_position) / tile_size
-		
+
+	# Function to check if a global position is within this chunk
+	func is_position_in_chunk(global_pos: Vector2) -> bool:
+		var chunk_end = grid_position + Vector2(chunk_size, chunk_size)
+		return global_pos.x >= grid_position.x and global_pos.x < chunk_end.x and \
+			   global_pos.y >= grid_position.y and global_pos.y < chunk_end.y
+
+	# Function to update the tile's text visibility based on player's position
+	func update_tile_text_visibility(player_position: Vector2):
+		# Hide the text on the previously visible tile, if any
+		if visible_tile:
+			visible_tile.set_text_visible(false)
+			visible_tile = null
+
+		# Check if the player position is within this chunk's bounds
+		if is_position_in_chunk(player_position):
+			# Directly calculate the local position within the chunk by subtracting the chunk's grid position
+			var local_pos = player_position - grid_position  # No division by tile_size
+			if tile_dictionary.has(local_pos):
+				var tile = tile_dictionary[local_pos]
+				tile.set_text_visible(true)
+				visible_tile = tile  # Store the reference to the new visible tile
+
+
 	func _on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
+		# Update tile text visibility based on the player's new position
+		update_tile_text_visibility(new_pos)
 		# Step 1: Check if the chunk is within the player's range
 		if is_within_player_range():
 			# Step 2: Iterate through each tile in the chunk
@@ -204,7 +235,6 @@ func center_map_on_player():
 
 	# Instead of changing Helper.position_coord, we adjust the visual position
 	move_overmap_visual(Helper.overmap_manager.player_last_cell, visual_offset)
-	update_overmap_tile_visibility(Helper.overmap_manager.player_last_cell)
 
 # This moves the overmap visually without affecting the logical position_coord
 func move_overmap_visual(target_position: Vector2, visual_offset: Vector2):
@@ -304,12 +334,10 @@ func move_overmap(delta: Vector2):
 		position_coord_changed.emit(delta)
 
 
-# This function will move all the tile grids on screen when the position_coords change
-# This will make it look like the user pans across the map
+# Update tiles position by calling the GridChunk's method
 func update_tiles_position(delta: Vector2):
-	for grid_container in tilesContainer.get_children():
-		# Update the grid container's position by subtracting the delta
-		grid_container.position -= delta * tile_size
+	for chunk in grid_chunks.values():
+		chunk.update_grid_position(delta)  # Call the new method in each GridChunk
 
 
 # We will call this function when the position_coords change
@@ -368,47 +396,6 @@ func _on_home_button_button_up():
 		positionLabel.text = "Position: " + str(Helper.position_coord)
 
 
-# Function to update the visibility of overmap tile text
-func update_overmap_tile_visibility(new_pos: Vector2):
-	# Hide the previous visible tile's marker, if any
-	if previous_visible_tile:
-		previous_visible_tile.set_text_visible(false)
-		previous_visible_tile = null  # Reset previous tile to avoid conflicts
-
-	# Clear the dictionary that tracks visible text
-	text_visible_by_coord.clear()
-	text_visible_by_coord[new_pos] = true
-
-	# Find the current tile at the new position
-	var current_tile = get_overmap_tile_at_position(new_pos)
-	if current_tile:
-		current_tile.set_text_visible(true)
-		previous_visible_tile = current_tile  # Store the new visible tile
-
-	# Define the radius around the player
-	var radius = 8
-	var cell_pos: Vector2 = new_pos
-
-	# Iterate over the fixed range around the player position
-	for x in range(int(cell_pos.x - radius), int(cell_pos.x + radius) + 1):
-		for y in range(int(cell_pos.y - radius), int(cell_pos.y + radius) + 1):
-			var distance_to_cell = Vector2(x - cell_pos.x, y - cell_pos.y).length()
-			
-			if distance_to_cell <= radius:
-				var cell_key = Vector2(x, y)
-
-				# Use get_overmap_tile_at_position to get the tile at this cell position
-				var tile = get_overmap_tile_at_position(cell_key)
-				
-				if tile:
-					# Handle visibility of text based on the player's new position
-					if cell_key == new_pos:
-						tile.set_text_visible(true)
-						previous_visible_tile = tile  # Store the new visible tile
-					else:
-						tile.set_text_visible(false)
-
-
 # Function to find the overmap tile at the given position
 func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 	# Calculate the chunk position based on tile size and chunk size
@@ -430,7 +417,6 @@ func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_po
 	if not visible:
 		return
 
-	update_overmap_tile_visibility(new_pos)
 	var delta = new_pos - Helper.position_coord# - calculate_screen_center_offset()
 	move_overmap(delta)
 
@@ -454,9 +440,6 @@ func on_overmap_visibility_toggled():
 		# This will cause the player_coord_changed signal to be emitted,
 		# triggering on_position_coord_changed and centering the map on the player's position
 		Helper.overmap_manager.update_player_position_and_manage_segments(true)
-
-		# Update the player marker visibility based on the current position
-		update_overmap_tile_visibility(Helper.overmap_manager.player_last_cell)
 
 
 # Function to assist the player in finding a location based on the map_id
