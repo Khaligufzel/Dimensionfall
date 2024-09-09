@@ -49,18 +49,16 @@ class GridChunk:
 	var chunk_position: Vector2
 	var grid_position: Vector2
 	var tile_size: int
-	var update_tile_func: Callable
 	var chunk_width: int = 8  # Smaller chunk sizes improve performance
 	var chunk_size: int = 8
 	var tile_dictionary: Dictionary  # Dictionary to store tiles by their global_pos
 	var overmapTile: PackedScene = null
 
 	# Constructor to initialize the chunk with its grid position, chunk position, and necessary references
-	func _init(mygrid_position: Vector2, mychunk_position: Vector2, mytile_size: int, update_tile: Callable, myovermapTile: PackedScene):
+	func _init(mygrid_position: Vector2, mychunk_position: Vector2, mytile_size: int, myovermapTile: PackedScene):
 		self.grid_position = mygrid_position # Local grid position. Ex. (0,0),(0,1),(1,1)
 		self.chunk_position = mychunk_position # Global grid position ex. (0,0),(0,256),(256,256)
 		self.tile_size = mytile_size
-		self.update_tile_func = update_tile
 		self.grid_container = GridContainer.new()
 		self.grid_container.columns = chunk_width
 		self.overmapTile = myovermapTile
@@ -105,8 +103,8 @@ class GridChunk:
 			for x in range(chunk_size):
 				var global_pos = grid_position + Vector2(x, y)
 				var tile = tile_dictionary[Vector2(x, y)]
-				# Update the tile based on map cell data
-				update_tile_func.call(tile, global_pos)
+				# Use the same function to update tile based on its position and player location
+				update_tile_texture_and_reveal(tile, global_pos, Helper.overmap_manager.player_last_cell)
 
 	# Set the position of the grid container (useful for redrawing)
 	func set_position(new_position: Vector2):
@@ -145,30 +143,37 @@ class GridChunk:
 					var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
 
 					if map_cell:
-						# Call the new function to handle revealing the map cell and updating the tile
-						update_tile_reveal_state(tile, map_cell, global_pos, new_pos)
+						# Call the combined function to update the tile and reveal the map cell
+						update_tile_texture_and_reveal(tile, global_pos, new_pos)
 
-	# This function handles revealing the map cell and setting the tile's texture
-	func update_tile_reveal_state(tile: Control, map_cell, global_pos: Vector2, player_position: Vector2):
+	# This function handles both revealing the map cell and updating the tile's texture
+	# It is used by both the player position update and regular map tile updates
+	func update_tile_texture_and_reveal(tile: Control, global_pos: Vector2, player_position: Vector2):
+		# Get the map cell from overmap_manager
+		var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
+		
+		if not map_cell:
+			# If no map cell found, reset the texture
+			tile.set_texture(null)
+			return
+
+		# Calculate distance to player
 		var distance_to_player = global_pos.distance_to(player_position)
-
+		
 		if distance_to_player <= 8:
-			# Reveal the map cell if it's within the player's range
+			# Reveal the map cell if within the player's range
 			map_cell.reveal()
 
-			# Set texture based on revealed status
-			if map_cell.revealed:
-				var texture: Texture = map_cell.get_sprite()
-				tile.set_texture(texture)
-			else:
-				tile.set_texture(null)  # Clear texture if not revealed
-
-			# Set tile rotation based on map cell's rotation property
+		# Set texture based on whether the map cell is revealed
+		if map_cell.revealed:
+			var texture: Texture = map_cell.get_sprite()
+			tile.set_texture(texture)
+			# Set the tile's rotation based on the map cell's rotation property
 			tile.set_texture_rotation(map_cell.rotation)
 		else:
-			# If the map cell is outside radius and not revealed, reset its texture
-			if not map_cell.revealed:
-				tile.set_texture(null)  # Reset texture if not revealed
+			# If outside the range and not revealed, reset the texture
+			tile.set_texture(null)
+
 
 	# Function to check if the player's last position falls within the range of this chunk's grid area
 	func is_within_player_range() -> bool:
@@ -259,7 +264,7 @@ func update_chunks():
 					new_chunk.reset_chunk(chunk_grid_position, get_localized_position(chunk_grid_position))
 				else:
 					# Create a new chunk if the pool is empty
-					new_chunk = GridChunk.new(chunk_grid_position, get_localized_position(chunk_grid_position), tile_size, update_tile_with_map_cell, overmapTile)
+					new_chunk = GridChunk.new(chunk_grid_position, get_localized_position(chunk_grid_position), tile_size, overmapTile)
 
 				# Check if the grid_container is already a child before adding it
 				if new_chunk.grid_container.get_parent() == null:
@@ -414,38 +419,12 @@ func update_overmap_tile_visibility(new_pos: Vector2):
 				var tile = get_overmap_tile_at_position(cell_key)
 				
 				if tile:
-					# Update the tile with its map cell information
-					update_tile_with_map_cell(tile, cell_key)
 					# Handle visibility of text based on the player's new position
 					if cell_key == new_pos:
 						tile.set_text_visible(true)
 						previous_visible_tile = tile  # Store the new visible tile
 					else:
 						tile.set_text_visible(false)
-
-
-func update_tile_with_map_cell(tile: Control, global_pos: Vector2):
-	# Get map_cell from overmap_manager
-	var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
-	
-	if map_cell:
-		# If the map cell is within a radius of 8 around the player's position
-		var lastcell = Helper.overmap_manager.player_last_cell
-		if global_pos.distance_to(lastcell) <= 8:
-			map_cell.reveal()
-		
-		# Set texture based on the revealed status
-		if map_cell.revealed:
-			var texture: Texture = map_cell.get_sprite()
-			tile.set_texture(texture)
-		else:
-			tile.set_texture(null)  # Reset texture to null if not revealed
-		
-		# Set the tile's rotation based on the map_cell's rotation property
-		tile.set_texture_rotation(map_cell.rotation)
-	else:
-		# No map cell found, reset texture
-		tile.set_texture(null)
 
 
 # Function to find the overmap tile at the given position
