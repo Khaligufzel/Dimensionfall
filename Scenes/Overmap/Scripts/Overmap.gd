@@ -53,7 +53,8 @@ class GridChunk:
 	var return_pooled_tile_func: Callable
 	var chunk_width: int = 8  # Smaller chunk sizes improve performance
 	var chunk_size: int = 8
-	
+	var tile_dictionary: Dictionary  # Dictionary to store tiles by their global_pos
+
 	# Constructor to initialize the chunk with its grid position, chunk position, and necessary references
 	func _init(mygrid_position: Vector2, mychunk_position: Vector2, mytile_size: int, get_pooled_tile: Callable, update_tile: Callable, return_pooled_tile: Callable):
 		self.grid_position = mygrid_position
@@ -67,6 +68,7 @@ class GridChunk:
 		self.grid_container.set("theme_override_constants/h_separation", 0)
 		self.grid_container.set("theme_override_constants/v_separation", 0)
 		self.grid_container.position = chunk_position
+		self.tile_dictionary = {}  # Initialize the dictionary
 
 	# Fill the grid container with tiles
 	func fill_grid():
@@ -85,6 +87,9 @@ class GridChunk:
 				# Add the tile to the grid container
 				grid_container.add_child(tile)
 
+				# Add the tile to the tile_dictionary
+				tile_dictionary[global_pos] = tile  # Store tile in the dictionary by its global_pos
+
 	# Set the position of the grid container (useful for redrawing)
 	func set_position(new_position: Vector2):
 		self.grid_container.position = new_position
@@ -94,6 +99,18 @@ class GridChunk:
 		for tile in grid_container.get_children():
 			return_pooled_tile_func.call(tile)
 		grid_container.queue_free()
+
+	# Function to find a tile within this chunk based on a given position using the dictionary
+	func get_tile_at_position(global_pos: Vector2) -> Control:
+		# Use the dictionary for quick lookup
+		if tile_dictionary.has(global_pos):
+			return tile_dictionary[global_pos]
+		return null
+
+	# New function to check if the chunk has a tile at a specific global position
+	func has_tile_at_position(global_pos: Vector2) -> bool:
+		return tile_dictionary.has(global_pos)
+
 
 
 # Modify add_chunk_to_grid to use the new GridChunk class
@@ -381,14 +398,12 @@ func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 	# Check if the chunk exists in grid_chunks
 	if grid_chunks.has(chunk_pos):
 		var chunk: GridChunk = grid_chunks[chunk_pos]
-		
-		# Loop through the tiles in the GridContainer of the chunk
-		for tile in chunk.grid_container.get_children():
-			if tile.get_meta("global_pos") == myposition:
-				return tile
+		# Delegate the tile lookup to the GridChunk's dictionary lookup
+		return chunk.get_tile_at_position(myposition)
 	
 	# Return null if the tile is not found in the corresponding chunk
 	return null
+
 
 
 
