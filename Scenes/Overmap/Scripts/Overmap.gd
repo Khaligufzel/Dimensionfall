@@ -22,7 +22,7 @@ var current_offset: Vector2 = Vector2.ZERO  # Holds the current screen offset
 
 # We will emit this signal when the position_coords change
 # Which happens when the user has panned the overmap
-signal position_coord_changed(delta: Vector2)
+signal position_coord_changed()
 
 # Target location for quests
 class Target:
@@ -112,66 +112,26 @@ class GridChunk:
 	func update_absolute_position():
 		# Calculate the chunk's absolute position in pixels
 		var chunk_pixel_position: Vector2 = (grid_position - Helper.position_coord) * tile_size
-
 		# Update the chunk's position based on the player's position and offset
 		set_position(chunk_pixel_position)
 
-		# Debug: Print the updated absolute position
-		if grid_position == Vector2.ZERO:
-			print("GridChunk -> update_absolute_position: Chunk at (0,0) absolute position:", chunk_pixel_position)
-
 	# This method sets the position of the grid container and applies the offset
 	func set_position(new_position: Vector2):
-		# Only print debug if grid_position is (0,0)
-		if grid_position == Vector2.ZERO:
-			# Debug: Print the incoming new position and the current offset
-			print("GridChunk -> set_position (0,0): New position:", new_position, "Offset:", offset)
-		
 		# Apply the offset when setting the position
 		self.grid_container.position = new_position + offset
-		
-		# Only print debug if grid_position is (0,0)
-		if grid_position == Vector2.ZERO:
-			# Debug: Print the final resulting position of the grid container
-			print("GridChunk -> set_position (0,0): Resulting position:", self.grid_container.position)
 
 	# Function to update the chunk's offset
 	func update_offset(new_offset: Vector2):
-		# Only print debug if grid_position is (0,0)
-		if grid_position == Vector2.ZERO:
-			# Debug: Print the current offset and the new offset being applied
-			print("GridChunk -> update_offset (0,0): Current offset:", offset, "New offset:", new_offset)
-		
-		# Update the offset
 		offset = new_offset
 		update_absolute_position()
-		# Recalculate the chunk position based on the new offset
-		#set_position(chunk_position)
-		
-		# Only print debug if grid_position is (0,0)
-		if grid_position == Vector2.ZERO:
-			# Debug: Print the final position after the offset update
-			print("GridChunk -> update_offset (0,0): Final grid container position after applying offset:", self.grid_container.position)
 
 	# Function inside GridChunk to update its grid_container position by a delta
 	func update_grid_position(delta: Vector2):
-		# Only print debug if grid_position is (0,0)
-		if grid_position == Vector2.ZERO:
-			# Debug: Print the current position and the delta being applied
-			print("GridChunk -> update_grid_position (0,0): Current position:", grid_container.position, "Delta:", delta)
-		
 		# Update the grid container position by subtracting the delta scaled by tile_size
 		grid_container.position -= delta * tile_size
 		
 		# Update the chunk position based on the new grid container position
 		chunk_position = grid_container.position
-		
-		# Only print debug if grid_position is (0,0)
-		if grid_position == Vector2.ZERO:
-			# Debug: Print the updated position and chunk position after applying the delta
-			print("GridChunk -> update_grid_position (0,0): Updated grid container position:", grid_container.position, "Updated chunk position:", chunk_position)
-
-
 
 	# Function to find a tile within this chunk based on a global position
 	func get_tile_at_position(global_pos: Vector2) -> Control:
@@ -283,7 +243,6 @@ func _ready():
 	Helper.position_coord = Vector2(0, 0)
 	update_chunks()
 	connect_signals()
-	#center_map_on_player() # Center the map
 
 
 # Connect necessary signals
@@ -294,19 +253,6 @@ func connect_signals():
 	visibility_changed.connect(on_overmap_visibility_toggled)
 	# Connect to the target_map_changed signal from the quest helper
 	Helper.quest_helper.target_map_changed.connect(on_target_map_changed)
-
-# Center the map on the player's last known position visually, but keep the logical position at (0,0)
-func center_map_on_player():
-	# Position the arrow at the center of tilesContainer
-	var center_of_container = tilesContainer.size / 2
-
-	# Instead of changing Helper.position_coord, we adjust the visual position
-	move_overmap_visual(Helper.overmap_manager.player_last_cell, center_of_container)
-
-# This moves the overmap visually without affecting the logical position_coord
-func move_overmap_visual(target_position: Vector2, visual_offset: Vector2):
-	var delta = target_position - visual_offset
-	update_tiles_position(delta)
 
 
 # This function updates the chunks.
@@ -344,12 +290,16 @@ func update_chunks():
 				else:
 					# Create a new chunk if the pool is empty
 					new_chunk = GridChunk.new(chunk_grid_position, get_localized_position(chunk_grid_position), tile_size, overmapTile)
+					# Connect the position_coord_changed signal to the GridChunk's update_absolute_position function
+					position_coord_changed.connect(new_chunk.update_absolute_position)
 
 				# Check if the grid_container is already a child before adding it
 				if new_chunk.grid_container.get_parent() == null:
 					tilesContainer.add_child(new_chunk.grid_container)
 				# Set the chunk's offset to the current global offset
 				new_chunk.update_offset(current_offset)
+
+
 				grid_chunks[chunk_grid_position] = new_chunk
 
 	# Unload chunks that are out of view
@@ -399,18 +349,11 @@ func move_overmap(delta: Vector2):
 	delta = new_position_coord - Helper.position_coord
 	if delta != Vector2.ZERO:
 		Helper.position_coord = new_position_coord
-		position_coord_changed.emit(delta)
-
-
-# Update tiles position by calling the GridChunk's method
-func update_tiles_position(delta: Vector2):
-	for chunk in grid_chunks.values():
-		chunk.update_grid_position(delta)  # Call the new method in each GridChunk
+		position_coord_changed.emit()
 
 
 # We will call this function when the position_coords change
-func on_position_coord_changed(delta: Vector2):
-	update_tiles_position(delta)
+func on_position_coord_changed():
 	update_chunks()
 	if positionLabel:
 		positionLabel.text = "Position: " + str(Helper.position_coord)
@@ -440,28 +383,10 @@ func _on_tile_clicked(clicked_tile):
 
 
 func _on_home_button_button_up():
-	# Calculate the screen center offset
-	var screen_center_offset = get_viewport_rect().size * 0.5
-
-	# Convert screen center offset to world coordinates based on the tile size
-	var halfTileSize = tile_size/12.0
-	var world_center_offset = screen_center_offset / halfTileSize
-
-	# Calculate the new position as the negative of the world center offset
-	var new_position_coord = -world_center_offset / tile_size
-
-	# Calculate the delta for moving the tiles
-	var delta = Vector2(0,0) - Helper.position_coord
-
 	# Update position_coord to the new position
 	Helper.position_coord = Vector2(0,0)#new_position_coord
-
 	# Emit the signal to update the overmap's position and tiles
-	position_coord_changed.emit(delta)
-	
-	# Optionally, update the position label if it exists
-	if positionLabel:
-		positionLabel.text = "Position: " + str(Helper.position_coord)
+	position_coord_changed.emit()
 
 
 # Function to find the overmap tile at the given position
