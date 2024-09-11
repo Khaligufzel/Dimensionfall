@@ -108,6 +108,9 @@ class GridChunk:
 				# Use the same function to update tile based on its position and player location
 				update_tile_texture_and_reveal(tile, global_pos, Helper.overmap_manager.player_last_cell)
 
+	func on_position_coord_changed():
+		update_absolute_position()
+
 	# Function inside GridChunk to calculate and set its absolute position in pixels based on the player's position
 	func update_absolute_position():
 		# Calculate the chunk's absolute position in pixels
@@ -124,14 +127,6 @@ class GridChunk:
 	func update_offset(new_offset: Vector2):
 		offset = new_offset
 		update_absolute_position()
-
-	# Function inside GridChunk to update its grid_container position by a delta
-	func update_grid_position(delta: Vector2):
-		# Update the grid container position by subtracting the delta scaled by tile_size
-		grid_container.position -= delta * tile_size
-		
-		# Update the chunk position based on the new grid container position
-		chunk_position = grid_container.position
 
 	# Function to find a tile within this chunk based on a global position
 	func get_tile_at_position(global_pos: Vector2) -> Control:
@@ -171,7 +166,6 @@ class GridChunk:
 				var tile = tile_dictionary[local_pos]
 				tile.set_text_visible(true)
 				visible_tile = tile  # Store the reference to the new visible tile
-
 
 	func _on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
 		# Update tile text visibility based on the player's new position
@@ -291,7 +285,7 @@ func update_chunks():
 					# Create a new chunk if the pool is empty
 					new_chunk = GridChunk.new(chunk_grid_position, get_localized_position(chunk_grid_position), tile_size, overmapTile)
 					# Connect the position_coord_changed signal to the GridChunk's update_absolute_position function
-					position_coord_changed.connect(new_chunk.update_absolute_position)
+					position_coord_changed.connect(new_chunk.on_position_coord_changed)
 
 				# Check if the grid_container is already a child before adding it
 				if new_chunk.grid_container.get_parent() == null:
@@ -418,7 +412,6 @@ func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_po
 func set_target(map_id: String, coordinate: Vector2):
 	if target == null:
 		target = Target.new(map_id, coordinate)  # Create a new target
-
 
 
 # Function to handle overmap visibility toggling
