@@ -440,7 +440,8 @@ func find_location_on_overmap(mytarget: Target):
 		print_debug("Using existing target coordinates: ", mytarget.coordinate)
 
 	# Calculate the pixel position of the target's coordinate relative to the overmap center in pixel coordinates
-	var target_position = (mytarget.coordinate * tile_size) - (Helper.position_coord * tile_size)
+	# We subtract the `current_offset` to account for the overmap's visual shift
+	var target_position = (mytarget.coordinate * tile_size) - (Helper.position_coord * tile_size) - current_offset
 
 	# Get the current visible area of the overmap (position and size of the TilesContainer)
 	var visible_rect = Rect2(tilesContainer.position, tilesContainer.size)
@@ -453,6 +454,7 @@ func find_location_on_overmap(mytarget: Target):
 	else:
 		# Case 2: The target is not visible, show an arrow pointing to its direction
 		show_directional_arrow_to_cell(mytarget.coordinate)
+
 
 
 
@@ -511,7 +513,6 @@ func clamp_arrow_to_container_bounds(arrow_position: Vector2) -> Vector2:
 
 	print_debug("Clamped Arrow Position: ", arrow_position)
 	return arrow_position
-
 
 
 # Respond to the target_map_changed signal
