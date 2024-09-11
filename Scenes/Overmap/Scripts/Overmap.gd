@@ -331,7 +331,7 @@ func update_chunks():
 	var grid_position: Vector2 = (Helper.position_coord / chunk_size).floor() * chunk_size
 
 	for x in range(-3, 4):
-		for y in range(-3, 2):
+		for y in range(-2, 3):
 			var chunk_grid_position: Vector2 = grid_position + Vector2(x, y) * chunk_size
 
 			# If the chunk doesn't exist, reuse from pool or create a new one
@@ -357,12 +357,12 @@ func update_chunks():
 
 
 func unload_chunks():
-	var range_limit = 9 * chunk_size
+	var range_limit = 7 * chunk_size
 	var chunks_to_remove: Array = []
 
 	# Find chunks that are too far away
 	for chunk_position in grid_chunks.keys():
-		if chunk_position.distance_to(Helper.position_coord + Vector2(24, 24)) > range_limit:
+		if chunk_position.distance_to(Helper.position_coord) > range_limit:
 			var gridchunk: GridChunk = grid_chunks[chunk_position]
 			# Reset the chunk and move it to the pool
 			chunk_pool.append(gridchunk)  # Add to the pool for reuse
