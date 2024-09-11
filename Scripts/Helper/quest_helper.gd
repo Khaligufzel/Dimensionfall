@@ -248,18 +248,23 @@ func _on_craft_successful(item: DItem, _recipe: DItem.CraftRecipe):
 # Function to handle player entering a map
 # map_id: The ID of the map that the player has entered
 func _on_map_entered(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
-	# Retrieve the map_cell based on the new player's position
-	var map_cell = Helper.overmap_manager.get_map_cell_by_global_coordinate(new_pos)
 	# Get the current quests in progress
 	var quests_in_progress = QuestManager.get_quests_in_progress()
 	# Update each of the current quests with the entered map information
 	for quest in quests_in_progress.values():
 		var step = QuestManager.get_current_step(quest.quest_name)
-		if step.step_type == "enter":
-			var stepmeta: Dictionary = step.meta_data.get("stepjson", {})
-			if stepmeta.map_id == map_cell.map_id:
-				# The player has entered the correct map for the quest step
-				QuestManager.progress_quest(quest.quest_name)
+		
+		# Check for the step_type for this step according to the QuestManager
+		if step.step_type == "action_step":
+			var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
+			# Check the type of the stepjson, which is set in the quest editor
+			if stepmeta.get("type", "") == "enter":
+				# Retrieve the map_cell based on the new player's position
+				var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(new_pos)
+				var map_id: String = stepmeta.get("map_id", "")
+				if map_id == map_cell.map_id:
+					# The player has entered the correct map for the quest step
+					QuestManager.progress_quest(quest.quest_name)
 
 
 # Get the current state of all quests to save.
