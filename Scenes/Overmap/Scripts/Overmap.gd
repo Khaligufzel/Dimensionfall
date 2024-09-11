@@ -41,7 +41,6 @@ class Target:
 			self.coordinate = new_coordinate
 
 
-
 # Define the inner class that handles grid container properties and logic
 class GridChunk:
 	var grid_container: GridContainer
@@ -71,9 +70,9 @@ class GridChunk:
 		self.tile_dictionary = {}  # Initialize the dictionary
 		# Connect to the player_coord_changed signal from Helper.overmap_manager
 		Helper.overmap_manager.player_coord_changed.connect(_on_player_coord_changed)
-		update_absolute_position()
 		self.create_tiles()  # Create tiles when the chunk is initialized
 		self.redraw_tiles()
+		on_position_coord_changed()
 
 	# Function to create tiles for the chunk
 	func create_tiles():
@@ -106,10 +105,12 @@ class GridChunk:
 					tile.set_color(Color(1, 1, 1))  # White color for other tiles
 
 				# Use the same function to update tile based on its position and player location
-				update_tile_texture_and_reveal(tile, global_pos, Helper.overmap_manager.player_last_cell)
+				update_tile_texture_and_reveal(tile, global_pos, Helper.overmap_manager.player_current_cell)
 
 	func on_position_coord_changed():
 		update_absolute_position()
+		# Update tile text visibility based on the player's new position
+		update_tile_text_visibility()
 
 	# Function inside GridChunk to calculate and set its absolute position in pixels based on the player's position
 	func update_absolute_position():
@@ -151,25 +152,23 @@ class GridChunk:
 		return global_pos.x >= grid_position.x and global_pos.x < chunk_end.x and \
 			   global_pos.y >= grid_position.y and global_pos.y < chunk_end.y
 
-	# Function to update the tile's text visibility based on player's position
-	func update_tile_text_visibility(player_position: Vector2):
+	# Function to update the tile's text visibility based on the player's last known position
+	func update_tile_text_visibility():
 		# Hide the text on the previously visible tile, if any
 		if visible_tile:
 			visible_tile.set_text_visible(false)
 			visible_tile = null
 
-		# Check if the player position is within this chunk's bounds
-		if is_position_in_chunk(player_position):
-			# Directly calculate the local position within the chunk by subtracting the chunk's grid position
-			var local_pos = player_position - grid_position  # No division by tile_size
+		# Check if the player's last known position is within this chunk's bounds
+		if is_position_in_chunk(Helper.overmap_manager.player_current_cell):
+			# Calculate the local position of the player within the chunk
+			var local_pos = Helper.overmap_manager.player_current_cell - grid_position
 			if tile_dictionary.has(local_pos):
 				var tile = tile_dictionary[local_pos]
 				tile.set_text_visible(true)
 				visible_tile = tile  # Store the reference to the new visible tile
 
 	func _on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
-		# Update tile text visibility based on the player's new position
-		update_tile_text_visibility(new_pos)
 		# Step 1: Check if the chunk is within the player's range
 		if is_within_player_range():
 			# Step 2: Iterate through each tile in the chunk
@@ -208,22 +207,20 @@ class GridChunk:
 			# If outside the range and not revealed, reset the texture
 			tile.set_texture(null)
 
-
 	# Function to check if the player's last position falls within the range of this chunk's grid area
 	func is_within_player_range() -> bool:
 		# Get the player's last known position from the overmap manager
-		var player_last_cell = Helper.overmap_manager.player_last_cell
+		var player_current_cell = Helper.overmap_manager.player_current_cell
 
 		# Define the chunk bounds: from grid_position to grid_position + chunk_size
 		var chunk_start = grid_position
 		var chunk_end = grid_position + Vector2(chunk_size, chunk_size)
 
 		# Check if the player's position falls within the chunk's bounds with a radius of 8
-		if player_last_cell.x >= chunk_start.x - 8 and player_last_cell.x <= chunk_end.x + 8 and \
-		   player_last_cell.y >= chunk_start.y - 8 and player_last_cell.y <= chunk_end.y + 8:
+		if player_current_cell.x >= chunk_start.x - 8 and player_current_cell.x <= chunk_end.x + 8 and \
+		   player_current_cell.y >= chunk_start.y - 8 and player_current_cell.y <= chunk_end.y + 8:
 			return true
 		return false
-
 
 
 func get_localized_position(chunk_grid_position: Vector2) -> Vector2:
@@ -403,8 +400,7 @@ func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
 	if not visible:
 		return
-
-	var delta = new_pos - Helper.position_coord# - calculate_screen_center_offset()
+	var delta = new_pos - Helper.position_coord
 	move_overmap(delta)
 
 

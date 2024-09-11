@@ -53,7 +53,7 @@ var loaded_segments: Dictionary = {}
 var loaded_chunk_data: Dictionary = {"chunks": {}}
 
 var player
-var player_last_cell = Vector2.ZERO # Player's position per cell, updated regularly
+var player_current_cell = Vector2.ZERO # Player's position per cell, updated regularly
 var loaded_chunks = {}
 enum Region {
 	CITY,
@@ -189,7 +189,8 @@ func _on_player_spawned(playernode):
 	var player_position = player.position
 	load_cells_around(player_position)
 	var cellpos: Vector2 = get_cell_pos_from_global_pos(Vector2(player_position.x, player_position.z))
-	player_coord_changed.emit(player, player_last_cell, cellpos)
+	player_coord_changed.emit(player, player_current_cell, cellpos)
+	player_current_cell = cellpos
 
 
 # Function for handling game loaded signal
@@ -470,9 +471,10 @@ func get_segment_pos(chunk_pos: Vector2) -> Vector2:
 # If the player's position has changed, it updates the player position and calls functions to load and unload segments.
 func update_player_position_and_manage_segments(force_update: bool = false):
 	var new_position = get_player_cell_position()
-	if new_position != player_last_cell or force_update:
-		player_coord_changed.emit(player, player_last_cell, new_position)
-		player_last_cell = new_position
+	if new_position != player_current_cell or force_update:
+		var last_cell: Vector2 = player_current_cell
+		player_current_cell = new_position
+		player_coord_changed.emit(player, last_cell, player_current_cell)
 		
 		# Load segments around the player
 		var segments_to_load = load_segments_around_player()
