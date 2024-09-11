@@ -84,8 +84,8 @@ offset_right = 40.0
 offset_bottom = 46.0
 theme_override_colors/font_color = Color(0.92549, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.894388, 0.571002, 0.642366, 1)
-theme_override_font_sizes/font_size = 40
-text = "↑"
+theme_override_font_sizes/font_size = 90
+text = "→"
 
 [connection signal="resized" from="MarginContainer/HBoxContainer/TilesContainer" to="." method="_on_tiles_container_resized"]
 [connection signal="button_up" from="MarginContainer/HBoxContainer/ControlsVBoxContainer/HomeButton" to="." method="_on_home_button_button_up"]

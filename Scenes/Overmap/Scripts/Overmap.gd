@@ -136,6 +136,15 @@ class GridChunk:
 			return tile_dictionary[local_pos]
 		return null
 
+	# Function to find a tile within this chunk based on a global coordinate
+	# Coordinates are managed by Helper.overmap_manager. When the player moves from (0,0)
+	# to (0,1), he will have traversed 32 units in-game
+	func get_tile_at_coordinate(coord: Vector2) -> Control:
+		var local_pos = coord - grid_position
+		if tile_dictionary.has(local_pos):
+			return tile_dictionary[local_pos]
+		return null
+
 	# Function to check if the chunk has a tile at a specific global position
 	func has_tile_at_position(global_pos: Vector2) -> bool:
 		var local_pos = calculate_local_pos(global_pos)  # Use the new function
@@ -381,6 +390,9 @@ func _on_home_button_button_up():
 
 
 # Function to find the overmap tile at the given position
+# myposition: The global cell coordinate. The cell coordinates are managed by overmap_manager.
+# For example, the player starts at (0,0) and the chunk he's in will have chunk_size cells
+# If the player moves 32 units to the east, he will be in (0,1).
 func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 	# Calculate the chunk position based on tile size and chunk size
 	var chunk_pos = (myposition / chunk_size).floor() * chunk_size
@@ -389,7 +401,7 @@ func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 	if grid_chunks.has(chunk_pos):
 		var chunk: GridChunk = grid_chunks[chunk_pos]
 		# Delegate the tile lookup to the GridChunk's dictionary lookup
-		return chunk.get_tile_at_position(myposition)
+		return chunk.get_tile_at_coordinate(myposition)
 	
 	# Return null if the tile is not found in the corresponding chunk
 	return null
@@ -439,20 +451,24 @@ func find_location_on_overmap(mytarget: Target):
 	else:
 		print_debug("Using existing target coordinates: ", mytarget.coordinate)
 
-	# Calculate the pixel position of the target's coordinate relative to the overmap center in pixel coordinates
-	# We subtract the `current_offset` to account for the overmap's visual shift
-	var target_position = (mytarget.coordinate * tile_size) - (Helper.position_coord * tile_size) - current_offset
+	# Attempt to find the tile at the target's coordinate
+	var target_tile = get_overmap_tile_at_position(mytarget.coordinate)
 
-	# Get the current visible area of the overmap (position and size of the TilesContainer)
-	var visible_rect = Rect2(tilesContainer.position, tilesContainer.size)
-	var is_cell_visible = visible_rect.has_point(target_position + tilesContainer.position)
+	if target_tile:
+		# If a tile is found, calculate its position and check if it's within the visible area
+		var tile_pos = target_tile.get_global_position()
+		var visible_rect = Rect2(tilesContainer.get_global_position(), tilesContainer.size)
+		var is_tile_visible = visible_rect.has_point(tile_pos)
 
-	if is_cell_visible:
-		# Case 1: The target is visible, mark the tile and hide the arrow
-		mark_overmap_tile(mytarget.coordinate)
-		$ArrowLabel.visible = false  # Hide arrow
+		if is_tile_visible:
+			# Mark the tile and hide the arrow
+			mark_overmap_tile(mytarget.coordinate)
+			$ArrowLabel.visible = false
+		else:
+			# Show the arrow pointing to the direction of the target
+			show_directional_arrow_to_cell(mytarget.coordinate)
 	else:
-		# Case 2: The target is not visible, show an arrow pointing to its direction
+		# If no tile found, treat it as invisible and show the arrow
 		show_directional_arrow_to_cell(mytarget.coordinate)
 
 
@@ -503,16 +519,18 @@ func show_directional_arrow_to_cell(cell_position: Vector2):
 	print_debug("Arrow Position: ", arrow.position)
 
 
-# Helper function to clamp the arrow to the edges of the TilesContainer
+# Helper function to clamp the arrow to the edges of the TilesContainer with a margin
 func clamp_arrow_to_container_bounds(arrow_position: Vector2) -> Vector2:
 	var container_size = tilesContainer.size
+	var arrow_size = $ArrowLabel.size  # Get the size of the arrow label to use as the margin
 
-	# Clamp the arrow position within the bounds of the tilesContainer
-	arrow_position.x = clamp(arrow_position.x, 0, container_size.x)
-	arrow_position.y = clamp(arrow_position.y, 0, container_size.y)
+	# Clamp the arrow position within the bounds of the tilesContainer, adding the arrow size as a margin
+	arrow_position.x = clamp(arrow_position.x, arrow_size.x / 2, container_size.x - arrow_size.x / 2)
+	arrow_position.y = clamp(arrow_position.y, arrow_size.y / 2, container_size.y - arrow_size.y / 2)
 
-	print_debug("Clamped Arrow Position: ", arrow_position)
+	print_debug("Clamped Arrow Position with Margin: ", arrow_position)
 	return arrow_position
+
 
 
 # Respond to the target_map_changed signal
