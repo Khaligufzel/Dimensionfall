@@ -79,6 +79,7 @@ left🠔   ➔Right
          "
 
 [node name="ArrowLabel" type="Label" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 46.0

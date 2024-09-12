@@ -190,6 +190,10 @@ class GridChunk:
 
 	# This function handles both revealing the map cell and updating the tile's texture
 	# It is used by both the player position update and regular map tile updates
+	# NOTE: I've seen this function be called 576 times in a frame in the profiler, leading to 
+	# 576 set_texture calls for the affected overmap tiles. In total, this can cause up to 90ms for 
+	# the frame. This is because each tile is processed in _on_player_coord_changed. Maybe we 
+	# can find a way to reduce the amount of calls for set_texture
 	func update_tile_texture_and_reveal(tile: Control, global_pos: Vector2, player_position: Vector2):
 		# Get the map cell from overmap_manager
 		var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
@@ -462,7 +466,7 @@ func find_location_on_overmap(mytarget: Target):
 
 		if is_tile_visible:
 			# Mark the tile and hide the arrow
-			mark_overmap_tile(mytarget.coordinate)
+			set_tile_text(target_tile, "X")
 			$ArrowLabel.visible = false
 		else:
 			# Show the arrow pointing to the direction of the target
@@ -470,18 +474,6 @@ func find_location_on_overmap(mytarget: Target):
 	else:
 		# If no tile found, treat it as invisible and show the arrow
 		show_directional_arrow_to_cell(mytarget.coordinate)
-
-
-
-
-# Marks the overmap tile with a symbol at the given position
-func mark_overmap_tile(cell_position: Vector2):
-	# Find the tile at the given position
-	var tile = get_overmap_tile_at_position(cell_position)
-	if tile:
-		# You can set a symbol or change the color/text of the tile to mark it
-		tile.set_text_visible(true)
-		tile.set_text("X")  # Mark with an "X" for example
 
 
 # Displays an arrow at the edge of the overmap window pointing towards the direction of the cell
@@ -532,23 +524,6 @@ func clamp_arrow_to_container_bounds(arrow_position: Vector2) -> Vector2:
 	return arrow_position
 
 
-
-# Respond to the target_map_changed signal
-func on_target_map_changed(map_id: String):
-	print_debug("target map changed to " + map_id)
-	if map_id == null or map_id == "":
-		target = null  # Clear the target if no valid map_id is provided
-		$ArrowLabel.visible = false  # Hide arrow when no target
-	else:
-		# Find the closest cell for the provided map_id
-		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(map_id)
-		if closest_cell and target == null:
-			# Set the new target if it hasn't been set
-			target = Target.new(map_id, Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
-			# Ensure that the coordinates do not change once set
-			find_location_on_overmap(target)
-
-
 func _on_tiles_container_resized() -> void:
 	# Position the arrow at the center of tilesContainer
 	var center_of_container = tilesContainer.size / 2
@@ -561,3 +536,48 @@ func update_offset_for_all_chunks(new_offset: Vector2):
 	current_offset = new_offset
 	for chunk in grid_chunks.values():
 		chunk.update_offset(current_offset)
+
+
+# Respond to the target_map_changed signal
+func on_target_map_changed(map_id: String):
+	print_debug("target map changed to " + map_id)
+	if map_id == null or map_id == "":
+		if target:
+			if Helper.overmap_manager.player_current_cell == target.coordinate:
+				# The player is in this location. Update the string to the player marker
+				set_coordinate_text(target.coordinate, "✠")
+			else:
+				set_coordinate_text(target.coordinate, "")
+		target = null  # Clear the target if no valid map_id is provided
+		$ArrowLabel.visible = false  # Hide arrow when no target
+	else:
+		# Find the closest cell for the provided map_id
+		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(map_id)
+		if closest_cell and target == null:
+			# Set the new target if it hasn't been set
+			target = Target.new(map_id, Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
+			# Ensure that the coordinates do not change once set
+			find_location_on_overmap(target)
+
+
+# Function to set a tile's text to a provided string and make it visible
+func set_tile_text(tile: Control, text: String) -> void:
+	if text == "":
+		# Clear the marker by hiding the text
+		tile.set_text_visible(false)
+		tile.set_text("")  # Clear any marker text
+		return
+	# Set the tile's text visible
+	tile.set_text_visible(true)
+	# Set the provided text on the tile
+	tile.set_text(text)
+	print_debug("Set tile text to:", text)
+
+
+# Updates a tile based on the coordinate and text
+# mycoordinate: A Vector2 using the global grid coordinate. Coordinates are managed by overmap_manager
+# mytext: The text to set on the tile at the coordinate
+func set_coordinate_text(mycoordinate: Vector2, mytext: String):
+	var tile = get_overmap_tile_at_position(mycoordinate)
+	if tile:
+		set_tile_text(tile, mytext)
