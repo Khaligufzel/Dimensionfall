@@ -455,25 +455,8 @@ func find_location_on_overmap(mytarget: Target):
 	else:
 		print_debug("Using existing target coordinates: ", mytarget.coordinate)
 
-	# Attempt to find the tile at the target's coordinate
-	var target_tile = get_overmap_tile_at_position(mytarget.coordinate)
-
-	if target_tile:
-		# If a tile is found, calculate its position and check if it's within the visible area
-		var tile_pos = target_tile.get_global_position()
-		var visible_rect = Rect2(tilesContainer.get_global_position(), tilesContainer.size)
-		var is_tile_visible = visible_rect.has_point(tile_pos)
-
-		if is_tile_visible:
-			# Mark the tile and hide the arrow
-			set_tile_text(target_tile, "X")
-			$ArrowLabel.visible = false
-		else:
-			# Show the arrow pointing to the direction of the target
-			show_directional_arrow_to_cell(mytarget.coordinate)
-	else:
-		# If no tile found, treat it as invisible and show the arrow
-		show_directional_arrow_to_cell(mytarget.coordinate)
+	# Use the new function to check visibility after setting the target
+	check_target_tile_visibility()
 
 
 # Displays an arrow at the edge of the overmap window pointing towards the direction of the cell
@@ -529,6 +512,30 @@ func _on_tiles_container_resized() -> void:
 	var center_of_container = tilesContainer.size / 2
 	# Update the offset for all chunks
 	update_offset_for_all_chunks(center_of_container)
+	# Check if the target tile has become visible after the resize
+	check_target_tile_visibility()
+
+
+# If there is a target, check if we have to show an arrow or tile text
+func check_target_tile_visibility() -> void:
+	if target:
+		var target_tile = get_overmap_tile_at_position(target.coordinate)
+		if target_tile:
+			# Calculate the tile's position and the visible area
+			var tile_pos = target_tile.get_global_position()
+			var visible_rect = Rect2(tilesContainer.get_global_position(), tilesContainer.size)
+
+			# Check if the target tile is now visible
+			if visible_rect.has_point(tile_pos):
+				# If the tile is visible, hide the arrow and show the tile text
+				set_tile_text(target_tile, "X")
+				$ArrowLabel.visible = false
+			else:
+				# If the tile is still not visible, ensure the arrow is displayed
+				show_directional_arrow_to_cell(target.coordinate)
+		else:
+			# If no tile found, treat it as invisible and show the arrow
+			show_directional_arrow_to_cell(target.coordinate)
 
 
 # Updates the current offset globally, called when the window is resized
