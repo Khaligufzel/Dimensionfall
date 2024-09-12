@@ -438,6 +438,7 @@ func on_overmap_visibility_toggled():
 		# This will cause the player_coord_changed signal to be emitted,
 		# triggering on_position_coord_changed and centering the map on the player's position
 		Helper.overmap_manager.update_player_position_and_manage_segments(true)
+		_on_tiles_container_resized.call_deferred()
 
 
 # Function to assist the player in finding a location based on the map_id
@@ -491,8 +492,6 @@ func show_directional_arrow_to_cell(cell_position: Vector2):
 	arrow.position = arrow_position
 	arrow.visible = true
 
-	print_debug("Arrow Position: ", arrow.position)
-
 
 # Helper function to clamp the arrow to the edges of the TilesContainer with a margin
 func clamp_arrow_to_container_bounds(arrow_position: Vector2) -> Vector2:
@@ -502,8 +501,6 @@ func clamp_arrow_to_container_bounds(arrow_position: Vector2) -> Vector2:
 	# Clamp the arrow position within the bounds of the tilesContainer, adding the arrow size as a margin
 	arrow_position.x = clamp(arrow_position.x, arrow_size.x / 2, container_size.x - arrow_size.x / 2)
 	arrow_position.y = clamp(arrow_position.y, arrow_size.y / 2, container_size.y - arrow_size.y / 2)
-
-	print_debug("Clamped Arrow Position with Margin: ", arrow_position)
 	return arrow_position
 
 
@@ -513,18 +510,19 @@ func _on_tiles_container_resized() -> void:
 	# Update the offset for all chunks
 	update_offset_for_all_chunks(center_of_container)
 	# Check if the target tile has become visible after the resize
-	check_target_tile_visibility()
+	check_target_tile_visibility.call_deferred()
 
 
-# If there is a target, check if we have to show an arrow or tile text
 func check_target_tile_visibility() -> void:
 	if target:
+		# Try to get the tile at the target's coordinate
 		var target_tile = get_overmap_tile_at_position(target.coordinate)
+		
 		if target_tile:
 			# Calculate the tile's position and the visible area
-			var tile_pos = target_tile.get_global_position()
-			var visible_rect = Rect2(tilesContainer.get_global_position(), tilesContainer.size)
-
+			var tile_pos = target_tile.get_global_position() - tilesContainer.get_global_position()
+			var visible_rect = Rect2(Vector2.ZERO, tilesContainer.size)
+			
 			# Check if the target tile is now visible
 			if visible_rect.has_point(tile_pos):
 				# If the tile is visible, hide the arrow and show the tile text
@@ -536,6 +534,7 @@ func check_target_tile_visibility() -> void:
 		else:
 			# If no tile found, treat it as invisible and show the arrow
 			show_directional_arrow_to_cell(target.coordinate)
+
 
 
 # Updates the current offset globally, called when the window is resized
