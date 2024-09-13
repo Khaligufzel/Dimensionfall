@@ -98,6 +98,7 @@ func _on_recipe_button_pressed(recipe: DItem.CraftRecipe):
 	# Enable or disable the start crafting button based on whether the player can craft
 	start_crafting_button.disabled = not CraftingRecipesManager.can_craft_recipe(recipe)
 
+
 # New function to update required items display
 func update_required_items_display(recipe: DItem.CraftRecipe):
 	# Clear previous required items display
@@ -181,6 +182,11 @@ func _on_allAccessibleItems_changed(items_added: Array, items_removed: Array):
 	# Update buttons for items that were removed
 	for item in items_removed:
 		_update_button_from_inventory_item(item)
+
+	# Check if the crafting menu is open and a recipe is selected
+	if self.visible and active_recipe != null:
+		# Refresh the display as though the recipe button was pressed
+		_on_recipe_button_pressed(active_recipe)
 
 
 # Function to determine if any of the item's recipes can be crafted based on player's skills
