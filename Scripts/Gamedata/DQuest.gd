@@ -89,12 +89,14 @@ func changed(olddata: DQuest):
 	# Get items and mobs from the old steps
 	var old_quest_items: Array = olddata.steps.filter(func(step): return step.has("item"))
 	var old_quest_mobs: Array = olddata.steps.filter(func(step): return step.has("mob"))
+	var old_quest_maps: Array = olddata.steps.filter(func(step): return step.has("map_id"))
 	# Get rewards from the old data
 	var old_quest_rewards: Array = olddata.rewards.filter(func(reward): return reward.has("item_id"))
 
 	# Get items and mobs from the new steps
 	var new_quest_items: Array = steps.filter(func(step): return step.has("item"))
 	var new_quest_mobs: Array = steps.filter(func(step): return step.has("mob"))
+	var new_quest_maps: Array = steps.filter(func(step): return step.has("map_id"))
 	# Get rewards from the new data
 	var new_quest_rewards: Array = rewards.filter(func(reward): return reward.has("item_id"))
 
@@ -107,6 +109,10 @@ func changed(olddata: DQuest):
 		if old_reward not in new_quest_rewards:
 			Gamedata.items.remove_reference(old_reward.item_id, "core", "quests", quest_id)
 
+	for old_map in old_quest_maps:
+		if old_map not in new_quest_maps:
+			Gamedata.maps.remove_reference_from_map(old_map.map_id, "core", "quests", quest_id)
+
 	# Remove references for old mobs that are not in the new data
 	for old_mob in old_quest_mobs:
 		if old_mob not in new_quest_mobs:
@@ -118,6 +124,9 @@ func changed(olddata: DQuest):
 
 	for new_reward in new_quest_rewards:
 		Gamedata.items.add_reference(new_reward.item_id, "core", "quests", quest_id)
+
+	for new_map in new_quest_maps:
+		Gamedata.maps.add_reference_to_map(new_map.map_id, "core", "quests", quest_id)
 
 	# Add references for new mobs
 	for new_mob in new_quest_mobs:

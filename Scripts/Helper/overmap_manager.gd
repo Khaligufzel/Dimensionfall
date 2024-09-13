@@ -53,7 +53,7 @@ var loaded_segments: Dictionary = {}
 var loaded_chunk_data: Dictionary = {"chunks": {}}
 
 var player
-var player_last_cell = Vector2.ZERO # Player's position per cell, updated regularly
+var player_current_cell = Vector2.ZERO # Player's position per cell, updated regularly
 var loaded_chunks = {}
 enum Region {
 	CITY,
@@ -124,6 +124,8 @@ class map_grid:
 	# Should be 100 apart in any direction since it holds 100 cells. Starts at 0,0
 	var pos: Vector2 = Vector2.ZERO
 	var cells: Dictionary = {}
+	# Dictionary to store map_id and their corresponding coordinates
+	var map_id_to_coordinates: Dictionary = {}
 
 	func get_data() -> Dictionary:
 		var mydata: Dictionary = {"pos": pos, "cells": {}}
@@ -187,7 +189,8 @@ func _on_player_spawned(playernode):
 	var player_position = player.position
 	load_cells_around(player_position)
 	var cellpos: Vector2 = get_cell_pos_from_global_pos(Vector2(player_position.x, player_position.z))
-	player_coord_changed.emit(player, player_last_cell, cellpos)
+	player_coord_changed.emit(player, player_current_cell, cellpos)
+	player_current_cell = cellpos
 
 
 # Function for handling game loaded signal
@@ -247,9 +250,31 @@ func generate_cells_for_grid(grid: map_grid):
 			else:
 				cell.map_id = "field_grass_basic_00.json"  # Fallback if no maps are found
 
+			# Add the cell to the grid's cells dictionary
 			grid.cells[cell_key] = cell
 
+	# Place tactical maps on the grid, which may overwrite some cells
 	place_tactical_maps_on_grid(grid)
+
+	# After all modifications, rebuild the map_id_to_coordinates dictionary
+	build_map_id_to_coordinates(grid)
+
+
+func build_map_id_to_coordinates(grid: map_grid):
+	# Clear the existing dictionary to avoid stale data
+	grid.map_id_to_coordinates.clear()
+
+	# Iterate over all cells in the grid
+	for cell_key in grid.cells.keys():
+		var cell = grid.cells[cell_key]
+		var map_id = cell.map_id
+
+		# Initialize the list for this map_id if not already done
+		if not grid.map_id_to_coordinates.has(map_id):
+			grid.map_id_to_coordinates[map_id] = []
+
+		# Append the cell's key (coordinate) to the list
+		grid.map_id_to_coordinates[map_id].append(cell_key)
 
 
 # Helper function to convert Region enum to string
@@ -461,9 +486,10 @@ func get_segment_pos(chunk_pos: Vector2) -> Vector2:
 # If the player's position has changed, it updates the player position and calls functions to load and unload segments.
 func update_player_position_and_manage_segments(force_update: bool = false):
 	var new_position = get_player_cell_position()
-	if new_position != player_last_cell or force_update:
-		player_coord_changed.emit(player, player_last_cell, new_position)
-		player_last_cell = new_position
+	if new_position != player_current_cell or force_update:
+		var last_cell: Vector2 = player_current_cell
+		player_current_cell = new_position
+		player_coord_changed.emit(player, last_cell, player_current_cell)
 		
 		# Load segments around the player
 		var segments_to_load = load_segments_around_player()
@@ -661,3 +687,28 @@ func collect_segment_data(segment_pos: Vector2) -> Dictionary:
 				print("Chunk data at ", chunk_pos, " does not exist.")
 	
 	return non_empty_chunk_data
+
+# Function to find the closest map cell to the player that has the specified map_id
+func find_closest_map_cell_with_id(map_id: String) -> map_cell:
+	var player_position = get_player_cell_position()
+	var closest_cell: map_cell = null
+	var shortest_distance = INF  # Use a very large number to initialize the shortest distance
+
+	# Iterate through all loaded grids
+	for grid in loaded_grids.values():
+		# Check if the grid contains the specified map_id in its map_id_to_coordinates dictionary
+		if grid.map_id_to_coordinates.has(map_id):
+			# Iterate through the coordinates that have this map_id
+			for cell_key in grid.map_id_to_coordinates[map_id]:
+				var cell = grid.cells[cell_key]
+				
+				# Calculate the distance to the player's position
+				var distance = player_position.distance_to(Vector2(cell.coordinate_x, cell.coordinate_y))
+
+				# If this is the closest cell so far, update the closest cell and shortest distance
+				if distance < shortest_distance:
+					shortest_distance = distance
+					closest_cell = cell
+
+	# Return the closest map cell with the specified map_id (or null if none found)
+	return closest_cell

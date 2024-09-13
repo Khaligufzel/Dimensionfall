@@ -4,6 +4,10 @@ extends Node
 # It can be accessed through Helper.quest_helper
 # This is a helper script that manages quests in so far that the QuestManager can't
 
+# When a quest updates and there either is or isn't a target location on the overmap
+signal target_map_changed(map_id: String)
+
+
 func _ready():
 	# Connect signals for game start, load, end, mob killed, and quest events
 	connect_signals()
@@ -18,9 +22,11 @@ func connect_signals() -> void:
 	# Connect to the Helper.signal_broker.game_loaded signal
 	Helper.signal_broker.game_loaded.connect(_on_game_loaded)
 	
-	# Connect to the mob killed signal
+	# Connect to misc game event signals
 	Helper.signal_broker.mob_killed.connect(_on_mob_killed)
+	Helper.overmap_manager.player_coord_changed.connect(_on_map_entered)
 	ItemManager.craft_successful.connect(_on_craft_successful)
+	
 	
 	# Connect to the QuestManager signals
 	QuestManager.quest_completed.connect(_on_quest_complete)
@@ -59,6 +65,7 @@ func _on_game_ended():
 
 # Function to handle quest completion
 func _on_quest_complete(quest: Dictionary):
+	target_map_changed.emit("")  # No more target when quest is complete
 	var rewards: Array = quest.get("quest_rewards").get("rewards", [])
 	for reward in rewards:
 		var item_id: String = reward.get("item_id")
@@ -68,20 +75,18 @@ func _on_quest_complete(quest: Dictionary):
 
 # Function to handle quest failure
 func _on_quest_failed(_quest: Dictionary):
-	# To be developed later
-	pass
-
+	target_map_changed.emit("")  # No more target when quest is complete
 
 # When a step is complete.
 # step: the step dictionary
-func _on_step_complete(_step: Dictionary):
-	# To be developed later
-	pass
+func _on_step_complete(step: Dictionary):
+	check_and_emit_target_map(step)
 
 
 # Called after the previous step was completed
 # step: the new step in the quest
 func _on_next_step(step: Dictionary):
+	check_and_emit_target_map(step)
 	# The player might already have the item for the next step so check it
 	match step.get("step_type", ""):	
 		QuestManager.INCREMENTAL_STEP:
@@ -91,9 +96,9 @@ func _on_next_step(step: Dictionary):
 
 
 # Function to handle step update
-func _on_step_updated(_step: Dictionary):
-	# To be developed later
-	pass
+func _on_step_updated(step: Dictionary):
+	check_and_emit_target_map(step)
+
 
 # Function to handle new quest addition
 func _on_new_quest_added(_quest_name: String):
@@ -146,6 +151,11 @@ func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 		"craft":
 			# Add an incremental step
 			quest.add_action_step("Craft a " + Gamedata.items.by_id(step.item).name, {"stepjson": step})
+			return true
+		"enter":
+			# Add an action step to inform the player to travel to the specified map
+			var map_name: String = Gamedata.maps.by_id(step.map_id).name
+			quest.add_action_step("Travel to " + map_name, {"stepjson": step})
 			return true
 	return false
 
@@ -233,8 +243,30 @@ func _on_craft_successful(item: DItem, _recipe: DItem.CraftRecipe):
 				if stepmeta.item == item.id:
 					# The item that was crafted has the same id as the item in this step
 					QuestManager.progress_quest(quest.quest_name)
-				
-			
+
+
+# Function to handle player entering a map
+# map_id: The ID of the map that the player has entered
+func _on_map_entered(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
+	# Get the current quests in progress
+	var quests_in_progress = QuestManager.get_quests_in_progress()
+	# Update each of the current quests with the entered map information
+	for quest in quests_in_progress.values():
+		var step = QuestManager.get_current_step(quest.quest_name)
+		
+		# Check for the step_type for this step according to the QuestManager
+		if step.step_type == "action_step":
+			var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
+			# Check the type of the stepjson, which is set in the quest editor
+			if stepmeta.get("type", "") == "enter":
+				# Retrieve the map_cell based on the new player's position
+				var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(new_pos)
+				var map_id: String = stepmeta.get("map_id", "")
+				if map_id == map_cell.map_id:
+					# The player has entered the correct map for the quest step
+					QuestManager.progress_quest(quest.quest_name)
+
+
 # Get the current state of all quests to save.
 func get_state() -> Dictionary:
 	var state: Dictionary = {}
@@ -247,3 +279,20 @@ func set_state(state: Dictionary) -> void:
 	QuestManager.wipe_player_data()
 	var player_quests = state.get("player_quests", {})
 	QuestManager.load_saved_quest_data(player_quests)
+
+
+# Helper function to check if the step has the "enter" type within "action_step" and emit the target_map_changed signal
+func check_and_emit_target_map(step: Dictionary):
+	var step_type = step.get("step_type", "")
+
+	# Check for the step_type for this step according to the QuestManager
+	if step_type == "action_step":
+		var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
+		# Check the type of the stepjson, which is set in the quest editor
+		if stepmeta.get("type", "") == "enter":
+			var map_id: String = stepmeta.get("map_id", "")
+			target_map_changed.emit(map_id)  # Emit the map_id if the stepmeta.type is "enter"
+		else:
+			target_map_changed.emit("")  # No target if the type is not "enter"
+	else:
+		target_map_changed.emit("")  # No target if step_type is not "action_step"

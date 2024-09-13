@@ -47,6 +47,11 @@ func delete_by_id(mapid: String) -> void:
 func by_id(mapid: String) -> DMap:
 	return mapdict[mapid.replace(".json","")]
 
+
+func has_id(mapid: String) -> bool:
+	return mapdict.has(mapid.replace(".json",""))
+
+
 # Returns the sprite of the map
 func sprite_by_id(mapid: String) -> Texture:
 	return by_id(mapid).sprite
