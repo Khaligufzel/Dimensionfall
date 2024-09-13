@@ -1082,7 +1082,7 @@
 		"support_shape": {
 			"color": "8b8b8bff",
 			"depth_scale": 80,
-			"height": 0.6,
+			"height": 0.7,
 			"shape": "Box",
 			"transparent": true,
 			"width_scale": 80
