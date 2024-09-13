@@ -165,7 +165,7 @@ columns = 4
 
 [node name="Concrete" type="Button" parent="BuildingMenu"]
 layout_mode = 2
-text = "Concrete"
+text = "Concrete (2x plank)"
 
 [node name="CraftingMenu" parent="." instance=ExtResource("13_wjtvq")]
 visible = false
