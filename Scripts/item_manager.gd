@@ -11,7 +11,7 @@ var playerInventory: InventoryStacked = null
 var proximityInventory: InventoryStacked = null
 
 var proximityInventories = {}  # Dictionary to hold inventories and their items
-var allAccessibleItems = []  # List to hold all accessible InventoryItems
+var allAccessibleItems: Array[InventoryItem] = []  # List to hold all accessible InventoryItems
 var player_max_inventory_volume: int = 1000
 var item_protosets: Resource = preload("res://ItemProtosets.tres")
  # Keeps track of player equipment, used for saving
@@ -104,12 +104,12 @@ func _ready():
 # This emits a signal with two lists bounded to it
 # items_added = All items that were added, or had their count increased
 # items_removed = all items that were removed, or had their count decreased
-func update_accessible_items_list():
+func update_accessible_items_list() -> void:
 	var old_items = allAccessibleItems.duplicate(true)  # Make a deep copy of the current list
-	var new_items = []
+	var new_items: Array[InventoryItem] = []
 
 	new_items += playerInventory.get_items()
-	for inventory in proximityInventories.values():
+	for inventory: InventoryStacked in proximityInventories.values():
 		if is_instance_valid(inventory):
 			new_items += inventory.get_items()
 
@@ -121,14 +121,14 @@ func update_accessible_items_list():
 	var items_removed = []
 
 	# Determine what's been added
-	for item in new_items:
+	for item: InventoryItem in new_items:
 		var item_id = item.prototype_id  # uniquely identify items
 		if old_count.get(item_id, 0) < new_count[item_id]:
 			items_added.append(item)
 			old_count[item_id] = old_count.get(item_id, 0) + 1
 
 	# Determine what's been removed
-	for item in old_items:
+	for item: InventoryItem in old_items:
 		var item_id = item.prototype_id  # uniquely identify items
 		if new_count.get(item_id, 0) < old_count[item_id]:
 			items_removed.append(item)
@@ -604,10 +604,31 @@ func _on_game_ended():
 func count_player_inventory_items_by_id() -> Dictionary:
 	var item_counts = {}
 
-	for inv_item in playerInventory.get_items():
+	for inv_item: InventoryItem in playerInventory.get_items():
 		var item_id = inv_item.prototype_id
 		var stack_size = InventoryStacked.get_item_stack_size(inv_item)
 
 		item_counts[item_id] = item_counts.get(item_id, 0) + stack_size
 
 	return item_counts
+
+
+# Gets the total item amount of the provided id
+func get_item_amount(item_id: String) -> int:
+	var total_amount = 0
+	for inv_item: InventoryItem in playerInventory.get_items():
+		if inv_item.prototype_id == item_id:
+			var stack_size = InventoryStacked.get_item_stack_size(inv_item)
+			total_amount += stack_size
+
+	return total_amount
+
+# Gets the total item amount of the provided id using allAccessibleItems
+func get_accessibleitem_amount(item_id: String) -> int:
+	var total_amount = 0
+	for inv_item: InventoryItem in allAccessibleItems:
+		if inv_item.prototype_id == item_id:
+			var stack_size = InventoryStacked.get_item_stack_size(inv_item)
+			total_amount += stack_size
+
+	return total_amount
