@@ -31,7 +31,6 @@ class Target:
 
 	# Constructor to initialize the map_id and coordinate
 	func _init(mymap_id: String, mycoordinate: Vector2):
-		print_debug("initialized target with " + map_id)
 		self.map_id = mymap_id
 		self.coordinate = mycoordinate
 
@@ -53,6 +52,7 @@ class GridChunk:
 	var overmapTile: PackedScene = null
 	var visible_tile: Control = null  # Stores the currently visible tile with text
 	var offset: Vector2 = Vector2.ZERO  # Default offset is zero
+	var overmap_node  # Reference to the overmap node
 
 
 	# Constructor to initialize the chunk with its grid position, chunk position, and necessary references
@@ -178,6 +178,8 @@ class GridChunk:
 				visible_tile = tile  # Store the reference to the new visible tile
 
 	func _on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
+		if overmap_node and not overmap_node.is_visible():
+			return
 		# Step 1: Check if the chunk is within the player's range
 		if is_within_player_range():
 			# Step 2: Iterate through each tile in the chunk
@@ -294,6 +296,7 @@ func update_chunks():
 				else:
 					# Create a new chunk if the pool is empty
 					new_chunk = GridChunk.new(chunk_grid_position, get_localized_position(chunk_grid_position), tile_size, overmapTile)
+					new_chunk.overmap_node = self
 					# Connect the position_coord_changed signal to the GridChunk's update_absolute_position function
 					position_coord_changed.connect(new_chunk.on_position_coord_changed)
 
@@ -449,12 +452,9 @@ func find_location_on_overmap(mytarget: Target):
 		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(mytarget.map_id)
 		if closest_cell:
 			mytarget.set_coordinate(Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
-			print_debug("Target coordinates set to closest cell: ", mytarget.coordinate)
 		else:
 			$ArrowLabel.visible = false  # Hide arrow if no target is found
 			return
-	else:
-		print_debug("Using existing target coordinates: ", mytarget.coordinate)
 
 	# Use the new function to check visibility after setting the target
 	check_target_tile_visibility()
@@ -471,13 +471,9 @@ func show_directional_arrow_to_cell(cell_position: Vector2):
 	# Calculate the direction from the center of the overmap to the target
 	var direction_to_cell = (target_position_in_pixels - overmap_center_in_pixels).normalized()
 
-	print_debug("Cell Position (pixels): ", target_position_in_pixels, ", Overmap Center (pixels): ", overmap_center_in_pixels, ", Direction to Cell: ", direction_to_cell)
-
 	# Get the arrow Control
 	var arrow = $ArrowLabel
 	arrow.rotation = direction_to_cell.angle()
-
-	print_debug("Arrow Rotation (radians): ", arrow.rotation)
 
 	# Position the arrow at the center of tilesContainer
 	var center_of_container = tilesContainer.size / 2
@@ -546,7 +542,6 @@ func update_offset_for_all_chunks(new_offset: Vector2):
 
 # Respond to the target_map_changed signal
 func on_target_map_changed(map_id: String):
-	print_debug("target map changed to " + map_id)
 	if map_id == null or map_id == "":
 		if target:
 			if Helper.overmap_manager.player_current_cell == target.coordinate:
@@ -577,7 +572,6 @@ func set_tile_text(tile: Control, text: String) -> void:
 	tile.set_text_visible(true)
 	# Set the provided text on the tile
 	tile.set_text(text)
-	print_debug("Set tile text to:", text)
 
 
 # Updates a tile based on the coordinate and text

@@ -253,13 +253,28 @@ func generate_cells_for_grid(grid: map_grid):
 			# Add the cell to the grid's cells dictionary
 			grid.cells[cell_key] = cell
 
-			# Update the map_id_to_coordinates dictionary
-			if not grid.map_id_to_coordinates.has(cell.map_id):
-				grid.map_id_to_coordinates[cell.map_id] = []
-			
-			grid.map_id_to_coordinates[cell.map_id].append(cell_key)
-
+	# Place tactical maps on the grid, which may overwrite some cells
 	place_tactical_maps_on_grid(grid)
+
+	# After all modifications, rebuild the map_id_to_coordinates dictionary
+	build_map_id_to_coordinates(grid)
+
+
+func build_map_id_to_coordinates(grid: map_grid):
+	# Clear the existing dictionary to avoid stale data
+	grid.map_id_to_coordinates.clear()
+
+	# Iterate over all cells in the grid
+	for cell_key in grid.cells.keys():
+		var cell = grid.cells[cell_key]
+		var map_id = cell.map_id
+
+		# Initialize the list for this map_id if not already done
+		if not grid.map_id_to_coordinates.has(map_id):
+			grid.map_id_to_coordinates[map_id] = []
+
+		# Append the cell's key (coordinate) to the list
+		grid.map_id_to_coordinates[map_id].append(cell_key)
 
 
 # Helper function to convert Region enum to string
