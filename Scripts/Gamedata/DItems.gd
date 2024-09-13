@@ -10,6 +10,7 @@ var dataPath: String = "./Mods/Core/Items/Items.json"
 var spritePath: String = "./Mods/Core/Items/"
 var itemdict: Dictionary = {}
 var sprites: Dictionary = {}
+var shader_materials: Dictionary = {}  # Cache for shader materials by item ID
 
 
 func _init():
@@ -138,3 +139,39 @@ func get_items_by_type(item_type: String) -> Array[DItem]:
 		if not item.get(item_type) == null:
 			filtered_items.append(item)
 	return filtered_items
+
+
+# New function to get or create a ShaderMaterial for a item ID
+func get_shader_material_by_id(item_id: String) -> ShaderMaterial:
+	# Check if the material already exists
+	if shader_materials.has(item_id):
+		return shader_materials[item_id]
+	else:
+		# Create a new ShaderMaterial
+		var albedo_texture: Texture = sprite_by_id(item_id)
+		var shader_material: ShaderMaterial = create_item_shader_material(albedo_texture)
+		# Store it in the dictionary
+		shader_materials[item_id] = shader_material
+		return shader_material
+
+
+# Helper function to create a ShaderMaterial for the item
+func create_item_shader_material(albedo_texture: Texture) -> ShaderMaterial:
+	# Create a new ShaderMaterial
+	var shader_material = ShaderMaterial.new()
+	shader_material.shader = Gamedata.shared_item_shader  # Use the shared shader
+
+	# Assign the texture to the material
+	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
+
+	return shader_material
+
+
+# Handle the game ended signal. We need to clear the shader materials because they
+# need to be re-created on game start since some of them may have changed in between.
+func _on_game_ended():
+	# Loop through all shader materials and free them
+	for material in shader_materials.values():
+		material.free()
+	# Clear the dictionary
+	shader_materials.clear()

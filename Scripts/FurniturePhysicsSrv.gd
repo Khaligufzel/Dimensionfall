@@ -222,8 +222,8 @@ func create_visual_instance() -> void:
 	sprite_mesh = PlaneMesh.new()
 	sprite_mesh.size = sprite_size
 
-	# Use the helper function to create the ShaderMaterial
-	sprite_material = create_furniture_shader_material(dfurniture.sprite)
+	# Get the ShaderMaterial from Gamedata.furnitures
+	sprite_material = Gamedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
 
 	sprite_mesh.material = sprite_material
 
