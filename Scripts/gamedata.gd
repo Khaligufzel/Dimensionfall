@@ -16,6 +16,8 @@ var stats: DStats
 var skills: DSkills
 var quests: DQuests
 
+# Load the shader resource
+static var shared_furniture_shader := preload("res://Shaders/HideAbovePlayer.gdshader")
 
 # Dictionary to store loaded textures
 var textures: Dictionary = {
