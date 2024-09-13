@@ -482,6 +482,7 @@ func initialize_y_level_check():
 # Function to emit the current Y level
 func _emit_y_level():
 	var current_y_level = global_position.y
+	RenderingServer.global_shader_parameter_set("player_y_level", current_y_level)
 	Helper.signal_broker.player_y_level_updated.emit(current_y_level)
 
 
