@@ -25,7 +25,7 @@ var i_am_visible: bool = true # keep track of general visibility
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh
 var sprite_texture: Texture2D  # Variable to store the sprite texture
-var sprite_material: StandardMaterial3D
+var sprite_material: Material
 var container_material: StandardMaterial3D
 var quad_mesh: PlaneMesh
 var container_sprite_mesh: PlaneMesh
@@ -249,20 +249,60 @@ func create_visual_instance(shape_type: String):
 
 # Function to create a QuadMesh to display the sprite texture on top of the furniture
 func create_sprite_instance():
+	# Create a PlaneMesh to hold the sprite
 	quad_mesh = PlaneMesh.new()
 	quad_mesh.size = furniture_transform.get_sizeV2()
-	sprite_material = StandardMaterial3D.new()
-	sprite_material.albedo_texture = sprite_texture
-	sprite_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	#material.flags_unshaded = true  # Optional: make the sprite unshaded
+
+	# Create the shader material for the sprite
+	sprite_material = create_furniture_shader_material(sprite_texture)
+
 	quad_mesh.material = sprite_material
-	
+
+	# Create the quad instance
 	quad_instance = RenderingServer.instance_create()
 	RenderingServer.instance_set_base(quad_instance, quad_mesh)
 	RenderingServer.instance_set_scenario(quad_instance, myworld3d.scenario)
-	
-	# Set the transform for the quad instance to be slightly above the box mesh
+
+	# Set the transform for the quad instance slightly above the box mesh
 	RenderingServer.instance_set_transform(quad_instance, furniture_transform.get_sprite_transform())
+
+
+# Helper function to create a ShaderMaterial for the furniture sprite
+func create_furniture_shader_material(albedo_texture: Texture) -> ShaderMaterial:
+	# Create a new ShaderMaterial
+	var shader_material = ShaderMaterial.new()
+
+	# Shader code to handle visibility based on player's Y level
+	var shader_code = """
+		shader_type spatial;
+
+		uniform sampler2D texture_albedo;
+		global uniform float player_y_level;
+
+		void fragment() {
+			// Compute the world position using the built-in INV_VIEW_MATRIX
+			vec4 world_pos = INV_VIEW_MATRIX * vec4(VERTEX, 1.0);
+
+			// Discard the fragment if it's above the player y-level
+			if (world_pos.y - 0.5 > player_y_level) {
+				discard;
+			} else {
+				ALBEDO = texture(texture_albedo, UV).rgb;
+				ALPHA = texture(texture_albedo, UV).a;
+			}
+		}
+	"""
+	
+	# Assign the shader code to the ShaderMaterial
+	var shader = Shader.new()
+	shader.code = shader_code
+	shader_material.shader = shader
+
+	# Assign the texture to the shader material
+	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
+
+	return shader_material
+
 
 
 # Function to create an additional sprite to represent the container
@@ -516,8 +556,6 @@ func hide_visual_elements():
 	# Check if instances exist before hiding
 	if mesh_instance:
 		RenderingServer.instance_set_visible(mesh_instance, false)
-	if quad_instance:
-		RenderingServer.instance_set_visible(quad_instance, false)
 	if container_sprite_instance:
 		RenderingServer.instance_set_visible(container_sprite_instance, false)
 	i_am_visible = false
@@ -530,8 +568,6 @@ func show_visual_elements():
 	# Check if instances exist before showing
 	if mesh_instance:
 		RenderingServer.instance_set_visible(mesh_instance, true)
-	if quad_instance:
-		RenderingServer.instance_set_visible(quad_instance, true)
 	if container_sprite_instance:
 		RenderingServer.instance_set_visible(container_sprite_instance, true)
 	i_am_visible = true
