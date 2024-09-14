@@ -25,8 +25,8 @@ var i_am_visible: bool = true # keep track of general visibility
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh
 var sprite_texture: Texture2D  # Variable to store the sprite texture
-var sprite_material: Material
-var container_material: StandardMaterial3D
+var sprite_material: ShaderMaterial
+var container_material: ShaderMaterial
 var quad_mesh: PlaneMesh
 var container_sprite_mesh: PlaneMesh
 
@@ -156,7 +156,7 @@ func connect_signals():
 func add_container():
 	if is_container():
 		_create_inventory()
-		container_material = StandardMaterial3D.new()
+		container_material = Gamedata.materials.container_filled
 		if is_new_furniture():
 			create_loot()
 		else:
@@ -271,7 +271,7 @@ func create_sprite_instance():
 func create_furniture_shader_material(albedo_texture: Texture) -> ShaderMaterial:
 	# Create a new ShaderMaterial
 	var shader_material = ShaderMaterial.new()
-	shader_material.shader = Gamedata.shared_furniture_shader
+	shader_material.shader = Gamedata.hide_above_player_shader
 
 	# Assign the texture to the shader material
 	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
@@ -512,16 +512,6 @@ func deserialize_container_data():
 # Function to deserialize inventory and apply the correct sprite
 func deserialize_and_apply_items(items_data: Dictionary):
 	inventory.deserialize(items_data)
-	
-	#var default_texture: Texture = Gamedata.textures.container
-	
-	#if inventory.get_items().size() > 0:
-		#if sprite_3d.texture == default_texture:
-			#sprite_3d.texture = Gamedata.textures.container_filled
-		## Else, some other texture has been set so we keep that
-	#else:
-		#sprite_3d.texture = default_texture
-		#_on_item_removed(null)
 
 
 # Function to hide visual elements

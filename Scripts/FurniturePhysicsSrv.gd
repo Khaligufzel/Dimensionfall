@@ -246,7 +246,7 @@ func create_visual_instance() -> void:
 func create_furniture_shader_material(albedo_texture: Texture) -> ShaderMaterial:
 	# Create a new ShaderMaterial
 	var shader_material = ShaderMaterial.new()
-	shader_material.shader = Gamedata.shared_furniture_shader
+	shader_material.shader = Gamedata.hide_above_player_shader
 
 	# Assign the texture to the material
 	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
