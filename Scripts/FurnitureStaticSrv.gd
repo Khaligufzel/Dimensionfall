@@ -156,12 +156,12 @@ func connect_signals():
 func add_container():
 	if is_container():
 		_create_inventory()
-		container_material = Gamedata.materials.container_filled
+		create_container_sprite_instance()
 		if is_new_furniture():
 			create_loot()
 		else:
 			deserialize_container_data()
-		create_container_sprite_instance()
+
 
 func is_container() -> bool:
 	return dfurniture.function.is_container
@@ -253,8 +253,8 @@ func create_sprite_instance():
 	quad_mesh = PlaneMesh.new()
 	quad_mesh.size = furniture_transform.get_sizeV2()
 
-	# Create the shader material for the sprite
-	sprite_material = create_furniture_shader_material(sprite_texture)
+	# Get the shader material from Gamedata.furnitures
+	sprite_material = Gamedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
 
 	quad_mesh.material = sprite_material
 
@@ -267,19 +267,6 @@ func create_sprite_instance():
 	RenderingServer.instance_set_transform(quad_instance, furniture_transform.get_sprite_transform())
 
 
-# Helper function to create a ShaderMaterial for the furniture sprite
-func create_furniture_shader_material(albedo_texture: Texture) -> ShaderMaterial:
-	# Create a new ShaderMaterial
-	var shader_material = ShaderMaterial.new()
-	shader_material.shader = Gamedata.hide_above_player_shader
-
-	# Assign the texture to the shader material
-	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
-
-	return shader_material
-
-
-
 # Function to create an additional sprite to represent the container
 func create_container_sprite_instance():
 	# Calculate the size for the container sprite
@@ -290,7 +277,6 @@ func create_container_sprite_instance():
 	container_sprite_mesh = PlaneMesh.new()
 	container_sprite_mesh.size = container_sprite_size
 
-	container_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	container_sprite_mesh.material = container_material
 
 	container_sprite_instance = RenderingServer.instance_create()
@@ -601,17 +587,18 @@ func create_loot():
 	
 	# Check if the itemgroup data exists and has items
 	if ditemgroup:
-		var groupmode: String = ditemgroup.mode # can be "Collection" or "Distribution".
+		var groupmode: String = ditemgroup.mode  # can be "Collection" or "Distribution".
 		if groupmode == "Collection":
 			item_added = _add_items_to_inventory_collection_mode(ditemgroup.items)
 		elif groupmode == "Distribution":
 			item_added = _add_items_to_inventory_distribution_mode(ditemgroup.items)
 
-	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
+	# Set the material if items were added
 	if item_added:
-		container_material.albedo_texture = Gamedata.textures.container_filled
-	elif not item_added:
-		 # If no item was added we delete the container if it's not a child of some furniture
+		container_material = Gamedata.materials.container_filled  # Use filled container material
+		container_sprite_mesh.material = container_material  # Update the mesh material
+	else:
+		# If no item was added we delete the container if it's not a child of some furniture
 		_on_item_removed(null)
 
 
@@ -678,9 +665,10 @@ func _add_item_to_inventory(item_id: String, quantity: int):
 func _on_item_removed(_item: InventoryItem):
 	# Check if there are any items left in the inventory
 	if inventory.get_items().size() == 0:
-		container_material.albedo_texture = Gamedata.textures.container
-	else: # There are still items in the container
-		set_random_inventory_item_texture() # Update to a new sprite
+		container_material = Gamedata.materials.container  # Use shared empty container material
+		container_sprite_mesh.material = container_material  # Update the mesh material
+	else:  # There are still items in the container
+		set_random_inventory_item_texture()  # Update to a new sprite
 
 
 func _on_item_added(_item: InventoryItem):
@@ -705,8 +693,9 @@ func set_random_inventory_item_texture():
 	var random_item: InventoryItem = items.pick_random()
 	var item_id = random_item.prototype_id
 	
-	# Set the sprite_3d texture to the item's sprite
-	container_material.albedo_texture = Gamedata.items.sprite_by_id(item_id)
+	# Get the ShaderMaterial for the item
+	container_material = Gamedata.items.get_shader_material_by_id(item_id)
+	container_sprite_mesh.material = container_material  # Update the mesh material
 
 
 # Function to handle damage when the furniture gets hit

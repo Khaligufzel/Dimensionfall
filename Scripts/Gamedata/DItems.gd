@@ -159,7 +159,7 @@ func get_shader_material_by_id(item_id: String) -> ShaderMaterial:
 func create_item_shader_material(albedo_texture: Texture) -> ShaderMaterial:
 	# Create a new ShaderMaterial
 	var shader_material = ShaderMaterial.new()
-	shader_material.shader = Gamedata.shared_item_shader  # Use the shared shader
+	shader_material.shader = Gamedata.hide_above_player_shader  # Use the shared shader
 
 	# Assign the texture to the material
 	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
