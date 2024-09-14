@@ -35,6 +35,11 @@
 				"type": "kill"
 			},
 			{
+				"map_id": "RockyHill_SW",
+				"tip": "Press m to open the overmap. A red arrow and/or red X will mark the target location.",
+				"type": "enter"
+			},
+			{
 				"amount": 1,
 				"item": "rifle_m4a1",
 				"tip": "Go to the mountain and enter the cave from the south",
