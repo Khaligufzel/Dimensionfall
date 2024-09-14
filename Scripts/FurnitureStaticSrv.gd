@@ -221,9 +221,12 @@ func create_visual_instance(shape_type: String):
 	var material: ShaderMaterial = ShaderMaterial.new()
 	material.shader = Gamedata.hide_above_player_shader  # Assign the shader to the material
 
-	#if dfurniture.support_shape.transparent:
-		#material.flags_transparent = true
-		#material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	# Set the color and transparency in the shader material
+	material.set_shader_parameter("object_color", color)
+	if dfurniture.support_shape.transparent:
+		material.set_shader_parameter("alpha", 0.5)
+	else:
+		material.set_shader_parameter("alpha", 1.0)
 
 	if shape_type == "Box":
 		support_mesh = BoxMesh.new()

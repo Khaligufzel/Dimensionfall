@@ -114,21 +114,27 @@ func get_shader_material_by_id(furniture_id: String) -> ShaderMaterial:
 		return shader_materials[furniture_id]
 	else:
 		# Create a new ShaderMaterial
-		var albedo_texture: Texture = sprite_by_id(furniture_id)
-		var shader_material: ShaderMaterial = create_furniture_shader_material(albedo_texture)
+		var shader_material: ShaderMaterial = create_furniture_shader_material(furniture_id)
 		# Store it in the dictionary
 		shader_materials[furniture_id] = shader_material
 		return shader_material
 
 
 # Helper function to create a ShaderMaterial for the furniture
-func create_furniture_shader_material(albedo_texture: Texture) -> ShaderMaterial:
+func create_furniture_shader_material(furniture_id: String) -> ShaderMaterial:
 	# Create a new ShaderMaterial
+	var dfurniture: DFurniture = by_id(furniture_id)
+	var albedo_texture: Texture = dfurniture.sprite
 	var shader_material = ShaderMaterial.new()
 	shader_material.shader = Gamedata.hide_above_player_shader  # Use the shared shader
 
 	# Assign the texture to the material
 	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
+	if not dfurniture.moveable:
+		shader_material.set_shader_parameter("y_offset", 0.5)
+		#shader_material.set_shader_parameter("y_offset", dfurniture.support_shape.height + 0.01)
+	else:
+		shader_material.set_shader_parameter("y_offset", 0.0)
 
 	return shader_material
 
