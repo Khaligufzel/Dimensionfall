@@ -473,7 +473,7 @@ func _on_craft_successful(_item: DItem, recipe: DItem.CraftRecipe):
 # Function to initialize the timer for checking Y level changes
 func initialize_y_level_check():
 	var y_check_timer = Timer.new()
-	y_check_timer.wait_time = 0.5
+	y_check_timer.wait_time = 0.2
 	y_check_timer.autostart = true
 	y_check_timer.one_shot = false
 	y_check_timer.timeout.connect(_emit_y_level)

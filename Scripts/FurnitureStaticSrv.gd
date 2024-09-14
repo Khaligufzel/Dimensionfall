@@ -20,7 +20,6 @@ var mesh_instance: RID  # Variable to store the mesh instance RID
 var quad_instance: RID # RID to the quadmesh that displays the sprite
 var container_sprite_instance: RID # RID to the quadmesh that displays the containersprite
 var myworld3d: World3D
-var i_am_visible: bool = true # keep track of general visibility
 
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh
@@ -148,10 +147,6 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	add_container()  # Adds container if the furniture is a container
 
 
-func connect_signals():
-	Helper.signal_broker.player_y_level_updated.connect(_on_player_y_level_updated)
-
-
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
 	if is_container():
@@ -220,14 +215,16 @@ func create_box_shape():
 
 
 # Function to create a visual instance with a mesh to represent the shape
+# Apply the hide_above_player_shader to the MeshInstance
 func create_visual_instance(shape_type: String):
 	var color = Color.html(dfurniture.support_shape.color)
-	var material: StandardMaterial3D = StandardMaterial3D.new()
-	material.albedo_color = color
-	if dfurniture.support_shape.transparent:
-		material.flags_transparent = true
-		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	
+	var material: ShaderMaterial = ShaderMaterial.new()
+	material.shader = Gamedata.hide_above_player_shader  # Assign the shader to the material
+
+	#if dfurniture.support_shape.transparent:
+		#material.flags_transparent = true
+		#material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+
 	if shape_type == "Box":
 		support_mesh = BoxMesh.new()
 		(support_mesh as BoxMesh).size = furniture_transform.get_sizeV3()
@@ -237,14 +234,14 @@ func create_visual_instance(shape_type: String):
 		(support_mesh as CylinderMesh).top_radius = furniture_transform.width / 4.0
 		(support_mesh as CylinderMesh).bottom_radius = furniture_transform.width / 4.0
 
-	support_mesh.material = material
+	support_mesh.material = material  # Set the shader material
 
 	mesh_instance = RenderingServer.instance_create()
 	RenderingServer.instance_set_base(mesh_instance, support_mesh)
-	
 	RenderingServer.instance_set_scenario(mesh_instance, myworld3d.scenario)
 	var mytransform = furniture_transform.get_visual_transform()
 	RenderingServer.instance_set_transform(mesh_instance, mytransform)
+
 
 
 # Function to create a QuadMesh to display the sprite texture on top of the furniture
@@ -498,41 +495,6 @@ func deserialize_container_data():
 # Function to deserialize inventory and apply the correct sprite
 func deserialize_and_apply_items(items_data: Dictionary):
 	inventory.deserialize(items_data)
-
-
-# Function to hide visual elements
-func hide_visual_elements():
-	if not i_am_visible:
-		return # I am already inivisble
-	# Check if instances exist before hiding
-	if mesh_instance:
-		RenderingServer.instance_set_visible(mesh_instance, false)
-	if container_sprite_instance:
-		RenderingServer.instance_set_visible(container_sprite_instance, false)
-	i_am_visible = false
-
-
-# Function to show visual elements
-func show_visual_elements():
-	if i_am_visible:
-		return # I am already visible
-	# Check if instances exist before showing
-	if mesh_instance:
-		RenderingServer.instance_set_visible(mesh_instance, true)
-	if container_sprite_instance:
-		RenderingServer.instance_set_visible(container_sprite_instance, true)
-	i_am_visible = true
-
-
-# Function to handle the player's Y level change
-func _on_player_y_level_updated(new_y: float):
-	# Check if the furniture is above the player's new Y level
-	if furniture_transform.posy > new_y:
-		# Hide the furniture if it is above the player's level
-		hide_visual_elements()
-	else:
-		# Show the furniture if it is at or below the player's level
-		show_visual_elements()
 
 
 # When the furniture is destroyed, it leaves a wreck behind
