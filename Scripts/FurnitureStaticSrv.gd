@@ -416,8 +416,14 @@ func free_resources():
 
 # Function to check if this furniture acts as a door
 func check_door_functionality():
-	is_door = not dfurniture.function.door == "None"
-	door_state = dfurniture.function.door
+	is_door = dfurniture.function.door != "None"
+	
+	# Ensure the door_state is properly set
+	if furnitureJSON.has("Function") and furnitureJSON["Function"].has("door"):
+		door_state = furnitureJSON["Function"]["door"]
+	else:
+		door_state = "Closed"  # Default if not found in saved data
+
 
 # Function to interact with the furniture (e.g., toggling door state)
 func interact():
