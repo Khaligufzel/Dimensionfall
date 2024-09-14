@@ -1,14 +1,14 @@
 extends Node
 
 # Items that have the "craft" property and can be crafted
-var craftable_items
+var craftable_items: Array[DItem]
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_crafting_recipes_from_json()
 
-func get_crafting_recipes_from_json():
+func get_crafting_recipes_from_json() -> void:
 	craftable_items = Gamedata.items.get_items_by_type("craft")
 
 

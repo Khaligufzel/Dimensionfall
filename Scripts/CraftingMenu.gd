@@ -82,15 +82,35 @@ func _on_item_button_clicked(item: DItem):
 # When a recipe button is pressed, update the required items label
 func _on_recipe_button_pressed(recipe: DItem.CraftRecipe):
 	active_recipe = recipe
+	update_required_items_display(recipe)
+	
+	# Display skill progression information if it exists
+	if recipe.skill_progression:
+		var skill_id = recipe.skill_progression.id
+		var skill_xp = recipe.skill_progression.xp
+		if skill_id and skill_xp:
+			skill_progression_label.text = "Get XP: %s: %s" % [skill_id, skill_xp]
+		else:
+			skill_progression_label.text = ""
+	else:
+		skill_progression_label.text = ""
+	
+	# Enable or disable the start crafting button based on whether the player can craft
+	start_crafting_button.disabled = not CraftingRecipesManager.can_craft_recipe(recipe)
+
+
+# New function to update required items display
+func update_required_items_display(recipe: DItem.CraftRecipe):
+	# Clear previous required items display
 	for element in required_items.get_children():
-		required_items.remove_child(element)
 		element.queue_free()  # Properly free the node to avoid memory leaks
 
 	for resource in recipe.required_resources:
 		var item_id = resource["id"]
-		var amount = resource["amount"]
+		var required_amount = resource["amount"]
+		var current_amount = ItemManager.get_accessibleitem_amount(item_id)
+
 		var resource_container = HBoxContainer.new()
-		var item_name: String = Gamedata.items.by_id(item_id).name
 		required_items.add_child(resource_container)
 
 		var item_icon_texture = Gamedata.items.sprite_by_id(item_id)
@@ -100,20 +120,23 @@ func _on_recipe_button_pressed(recipe: DItem.CraftRecipe):
 			icon.custom_minimum_size = Vector2(32, 32)  # Set a fixed size for icons
 			resource_container.add_child(icon)
 
+		var item_name: String = Gamedata.items.by_id(item_id).name
+
 		var label = Label.new()
-		label.text = " %s: %d" % [item_name, amount]
+
+		# Check if the player has enough of the resource
+		if current_amount < required_amount:
+			var missing_amount = required_amount - current_amount
+			label.text = " %s: %d/%d (Missing %d)" % [item_name, current_amount, required_amount, missing_amount]
+			label.modulate = Color.RED  # Set the text color
+		else:
+			label.text = " %s: %d/%d" % [item_name, current_amount, required_amount]
+			label.modulate = Color.GREEN  # Set the text color
+
 		resource_container.add_child(label)
 
-	# Display skill progression information if it exists
-	if recipe.skill_progression:
-		var skill_id = recipe.skill_progression.id
-		var skill_xp = recipe.skill_progression.xp
-		if skill_id and skill_xp:
-			skill_progression_label.text = "Get XP: %s: %s" % [skill_id, skill_xp]
-		else:
-			skill_progression_label.text = ""
 
-
+# The user has pressed the start crafting button
 func _on_start_crafting_button_pressed():
 	start_craft.emit(active_item, active_recipe)
 
@@ -159,6 +182,11 @@ func _on_allAccessibleItems_changed(items_added: Array, items_removed: Array):
 	# Update buttons for items that were removed
 	for item in items_removed:
 		_update_button_from_inventory_item(item)
+
+	# Check if the crafting menu is open and a recipe is selected
+	if self.visible and active_recipe != null:
+		# Refresh the display as though the recipe button was pressed
+		_on_recipe_button_pressed(active_recipe)
 
 
 # Function to determine if any of the item's recipes can be crafted based on player's skills
