@@ -130,11 +130,6 @@ func create_furniture_shader_material(furniture_id: String) -> ShaderMaterial:
 
 	# Assign the texture to the material
 	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
-	if not dfurniture.moveable:
-		shader_material.set_shader_parameter("y_offset", 0.5)
-		#shader_material.set_shader_parameter("y_offset", dfurniture.support_shape.height + 0.01)
-	else:
-		shader_material.set_shader_parameter("y_offset", 0.0)
 
 	return shader_material
 
@@ -142,8 +137,5 @@ func create_furniture_shader_material(furniture_id: String) -> ShaderMaterial:
 # Handle the game ended signal. We need to clear the shader materials because they
 # need to be re-created on game start since some of them may have changed in between.
 func _on_game_ended():
-	# Loop through all shader materials and free them
-	for material in shader_materials.values():
-		material.free()
 	# Clear the dictionary
 	shader_materials.clear()
