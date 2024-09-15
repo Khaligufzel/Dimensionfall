@@ -389,9 +389,10 @@ func _on_tile_clicked(clicked_tile):
 		overmapTileLabel.text = "Select a valid target"
 
 
+# The player presses the home button, sending the overmap view to (0,0)
 func _on_home_button_button_up():
 	# Update position_coord to the new position
-	Helper.position_coord = Vector2(0,0)#new_position_coord
+	Helper.position_coord = Vector2(0,0)
 	# Emit the signal to update the overmap's position and tiles
 	position_coord_changed.emit()
 
@@ -423,7 +424,7 @@ func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_po
 	move_overmap(delta)
 
 
-# Set the target
+# Set the target. The target comes from the player reaching a "travel" step in a quest
 func set_target(map_id: String, coordinate: Vector2):
 	if target == null:
 		target = Target.new(map_id, coordinate)  # Create a new target
@@ -489,14 +490,19 @@ func show_directional_arrow_to_cell(cell_position: Vector2):
 	arrow.visible = true
 
 
-# Helper function to clamp the arrow to the edges of the TilesContainer with a margin
+# Helper function to clamp the arrow to the edges of the TilesContainer with 
+# extra margin on the left side
 func clamp_arrow_to_container_bounds(arrow_position: Vector2) -> Vector2:
 	var container_size = tilesContainer.size
 	var arrow_size = $ArrowLabel.size  # Get the size of the arrow label to use as the margin
 
-	# Clamp the arrow position within the bounds of the tilesContainer, adding the arrow size as a margin
-	arrow_position.x = clamp(arrow_position.x, arrow_size.x / 2, container_size.x - arrow_size.x / 2)
+	# Apply extra margin on the left side
+	var left_margin = arrow_size.x  # Extra margin is the size of the arrow label
+
+	# Clamp the arrow position within the bounds of the tilesContainer, adding extra margin on the left
+	arrow_position.x = clamp(arrow_position.x, left_margin, container_size.x - arrow_size.x / 2)
 	arrow_position.y = clamp(arrow_position.y, arrow_size.y / 2, container_size.y - arrow_size.y / 2)
+	
 	return arrow_position
 
 
@@ -509,6 +515,8 @@ func _on_tiles_container_resized() -> void:
 	check_target_tile_visibility.call_deferred()
 
 
+# Updates the target display to be an arrow or an X depending on wheter or not
+# the target is in visible area of the overmap
 func check_target_tile_visibility() -> void:
 	if target:
 		# Try to get the tile at the target's coordinate
@@ -530,7 +538,6 @@ func check_target_tile_visibility() -> void:
 		else:
 			# If no tile found, treat it as invisible and show the arrow
 			show_directional_arrow_to_cell(target.coordinate)
-
 
 
 # Updates the current offset globally, called when the window is resized
