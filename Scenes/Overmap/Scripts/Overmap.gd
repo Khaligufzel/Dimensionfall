@@ -13,7 +13,6 @@ var chunk_size: int = 8
 var tile_size: int = 32
 var grid_pixel_size: int = chunk_size * tile_size
 var selected_overmap_tile: Control = null
-var previous_visible_tile: Control = null  # Stores the previously visible tile
 var chunk_pool: Array = []  # Pool to store unloaded GridChunks
 var text_visible_by_coord: Dictionary = {}  # Tracks text visibility
 var target: Target = null  # Holds the target location as an instance of the Target class
@@ -438,11 +437,6 @@ func set_target(map_id: String, coordinate: Vector2):
 # Function to handle overmap visibility toggling
 func on_overmap_visibility_toggled():
 	if visible:
-		# Hide the previous tile marker when the overmap is opened
-		if previous_visible_tile:
-			previous_visible_tile.set_text("")
-			previous_visible_tile = null
-
 		# Force update of the player position and chunks
 		# This will cause the player_coord_changed signal to be emitted,
 		# triggering on_position_coord_changed and centering the map on the player's position
@@ -556,11 +550,7 @@ func update_offset_for_all_chunks(new_offset: Vector2):
 func on_target_map_changed(map_id: String):
 	if map_id == null or map_id == "":
 		if target:
-			if Helper.overmap_manager.player_current_cell == target.coordinate:
-				# The player is in this location. Update the string to the player marker
-				set_coordinate_text(target.coordinate, "✠")
-			else:
-				set_coordinate_text(target.coordinate, "")
+			set_coordinate_text(target.coordinate, "")
 		target = null  # Clear the target if no valid map_id is provided
 		$ArrowLabel.visible = false  # Hide arrow when no target
 	else:

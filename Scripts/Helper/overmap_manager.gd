@@ -604,6 +604,7 @@ func process_loaded_grid_data(grid_data: Dictionary):
 		var grid = map_grid.new()
 		grid.set_data(grid_data)
 		loaded_grids[grid.pos] = grid
+		build_map_id_to_coordinates(grid)
 		print_debug("Grid loaded from file at " + str(grid.pos))
 	else:
 		print_debug("Failed to parse grid file")
