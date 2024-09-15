@@ -108,9 +108,6 @@ signal game_ended() # When the game is completely exited and everything is unloa
 signal game_terminated() # When the user presses 'main menu' button on the escape menu
 @warning_ignore("unused_signal")
 signal player_spawned(player: CharacterBody3D) # When the player has spawned in-game
-# When the playerhas moved up or down a level
-@warning_ignore("unused_signal")
-signal player_y_level_updated(new_y:float) 
 
 # When a mob was killed
 @warning_ignore("unused_signal")

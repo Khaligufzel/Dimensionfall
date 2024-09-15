@@ -61,7 +61,6 @@ func _ready():
 	Helper.save_helper.load_quest_state()
 	_connect_signals()
 	Helper.signal_broker.player_spawned.emit(self)
-	initialize_y_level_check()
 
 
 # Connect necessary signals for interaction and updates
@@ -118,6 +117,8 @@ func _process(_delta):
 	sprite.rotation.y = -angle  # Inverts the angle for rotation
 	$CollisionShape3D.rotation.y = -angle  # Inverts the angle for rotation
 
+	var current_y_level = global_position.y
+	RenderingServer.global_shader_parameter_set("player_y_level", current_y_level)
 
 #	if is_progress_bar_well_progressing_i_guess:
 #		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
@@ -470,19 +471,6 @@ func _on_craft_successful(_item: DItem, recipe: DItem.CraftRecipe):
 		add_skill_xp(recipe.skill_progression.id, recipe.skill_progression.xp)
 
 
-# Function to initialize the timer for checking Y level changes
-func initialize_y_level_check():
-	var y_check_timer = Timer.new()
-	y_check_timer.wait_time = 0.5
-	y_check_timer.autostart = true
-	y_check_timer.one_shot = false
-	y_check_timer.timeout.connect(_emit_y_level)
-	add_child(y_check_timer)
-
-# Function to emit the current Y level
-func _emit_y_level():
-	var current_y_level = global_position.y
-	Helper.signal_broker.player_y_level_updated.emit(current_y_level)
 
 
 # Method to retrieve the current state of the player as a dictionary

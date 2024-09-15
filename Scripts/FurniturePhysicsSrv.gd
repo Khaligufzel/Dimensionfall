@@ -13,7 +13,7 @@ var dfurniture: DFurniture
 var collider: RID
 var shape: RID
 var mesh_instance: RID
-var sprite_material: StandardMaterial3D
+var sprite_material: Material
 var sprite_mesh: PlaneMesh
 var myworld3d: World3D
 var container: ContainerItem = null
@@ -23,7 +23,6 @@ var original_material_color: Color = Color(1, 1, 1)  # Store the original materi
 # Variables to manage the container if this furniture is a container
 var inventory: InventoryStacked  # Holds the inventory for the container
 var itemgroup: String  # The ID of an itemgroup that it creates loot from
-var i_am_visible: bool = true # keep track of general visibility
 
 
 signal about_to_be_destroyed(me: FurniturePhysicsSrv)
@@ -131,7 +130,6 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 
 func connect_signals():
-	Helper.signal_broker.player_y_level_updated.connect(_on_player_y_level_updated)
 	furniture_transform.chunk_changed.connect(_on_chunk_changed)
 
 
@@ -216,7 +214,6 @@ func calculate_sprite_size() -> Vector2:
 	return Vector2(0.5, 0.5)  # Default size if texture is not set
 
 
-# Create the visual instance using RenderingServer
 func create_visual_instance() -> void:
 	# Calculate the sprite size based on the texture dimensions
 	var sprite_size = calculate_sprite_size()
@@ -225,11 +222,8 @@ func create_visual_instance() -> void:
 	sprite_mesh = PlaneMesh.new()
 	sprite_mesh.size = sprite_size
 
-	# Initialize the sprite material with the sprite texture
-	sprite_material = StandardMaterial3D.new()
-	sprite_material.albedo_texture = dfurniture.sprite
-	# Ensure transparency is correctly set (debugging transparency issues)
-	sprite_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	# Get the ShaderMaterial from Gamedata.furnitures
+	sprite_material = Gamedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
 
 	sprite_mesh.material = sprite_material
 
@@ -244,9 +238,20 @@ func create_visual_instance() -> void:
 	# Set the transform for the mesh instance in the RenderingServer
 	RenderingServer.instance_set_transform(mesh_instance, mytransform)
 
-	# Ensure the sprite is visible and not being culled
+	# Ensure the sprite is visible
 	RenderingServer.instance_set_visible(mesh_instance, true)
 
+
+# Helper function to create a ShaderMaterial for the furniture
+func create_furniture_shader_material(albedo_texture: Texture) -> ShaderMaterial:
+	# Create a new ShaderMaterial
+	var shader_material = ShaderMaterial.new()
+	shader_material.shader = Gamedata.hide_above_player_shader
+
+	# Assign the texture to the material
+	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
+
+	return shader_material
 
 
 # Set the new rotation for the furniture
@@ -517,34 +522,3 @@ func get_data() -> Dictionary:
 		newfurniturejson["Function"]["container"] = containerobject
 
 	return newfurniturejson
-
-
-# Function to hide visual elements
-func hide_visual_elements():
-	if not i_am_visible:
-		return # I am already inivisble
-	# Check if instances exist before hiding
-	if mesh_instance:
-		RenderingServer.instance_set_visible(mesh_instance, false)
-	i_am_visible = false
-
-
-# Function to show visual elements
-func show_visual_elements():
-	if i_am_visible:
-		return # I am already visible
-	# Check if instances exist before showing
-	if mesh_instance:
-		RenderingServer.instance_set_visible(mesh_instance, true)
-	i_am_visible = true
-
-
-# Function to handle the player's Y level change
-func _on_player_y_level_updated(new_y: float):
-	# Check if the furniture is above the player's new Y level
-	if furniture_transform.posy > new_y:
-		# Hide the furniture if it is above the player's level
-		hide_visual_elements()
-	else:
-		# Show the furniture if it is at or below the player's level
-		show_visual_elements()

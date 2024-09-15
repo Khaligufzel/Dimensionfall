@@ -20,13 +20,12 @@ var mesh_instance: RID  # Variable to store the mesh instance RID
 var quad_instance: RID # RID to the quadmesh that displays the sprite
 var container_sprite_instance: RID # RID to the quadmesh that displays the containersprite
 var myworld3d: World3D
-var i_am_visible: bool = true # keep track of general visibility
 
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh
 var sprite_texture: Texture2D  # Variable to store the sprite texture
-var sprite_material: StandardMaterial3D
-var container_material: StandardMaterial3D
+var sprite_material: ShaderMaterial
+var container_material: ShaderMaterial
 var quad_mesh: PlaneMesh
 var container_sprite_mesh: PlaneMesh
 
@@ -148,20 +147,16 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	add_container()  # Adds container if the furniture is a container
 
 
-func connect_signals():
-	Helper.signal_broker.player_y_level_updated.connect(_on_player_y_level_updated)
-
-
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
 	if is_container():
 		_create_inventory()
-		container_material = StandardMaterial3D.new()
+		create_container_sprite_instance()
 		if is_new_furniture():
 			create_loot()
 		else:
 			deserialize_container_data()
-		create_container_sprite_instance()
+
 
 func is_container() -> bool:
 	return dfurniture.function.is_container
@@ -220,14 +215,19 @@ func create_box_shape():
 
 
 # Function to create a visual instance with a mesh to represent the shape
+# Apply the hide_above_player_shader to the MeshInstance
 func create_visual_instance(shape_type: String):
 	var color = Color.html(dfurniture.support_shape.color)
-	var material: StandardMaterial3D = StandardMaterial3D.new()
-	material.albedo_color = color
+	var material: ShaderMaterial = ShaderMaterial.new()
+	material.shader = Gamedata.hide_above_player_shader  # Assign the shader to the material
+
+	# Set the color and transparency in the shader material
+	material.set_shader_parameter("object_color", color)
 	if dfurniture.support_shape.transparent:
-		material.flags_transparent = true
-		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	
+		material.set_shader_parameter("alpha", 0.5)
+	else:
+		material.set_shader_parameter("alpha", 1.0)
+
 	if shape_type == "Box":
 		support_mesh = BoxMesh.new()
 		(support_mesh as BoxMesh).size = furniture_transform.get_sizeV3()
@@ -237,31 +237,33 @@ func create_visual_instance(shape_type: String):
 		(support_mesh as CylinderMesh).top_radius = furniture_transform.width / 4.0
 		(support_mesh as CylinderMesh).bottom_radius = furniture_transform.width / 4.0
 
-	support_mesh.material = material
+	support_mesh.material = material  # Set the shader material
 
 	mesh_instance = RenderingServer.instance_create()
 	RenderingServer.instance_set_base(mesh_instance, support_mesh)
-	
 	RenderingServer.instance_set_scenario(mesh_instance, myworld3d.scenario)
 	var mytransform = furniture_transform.get_visual_transform()
 	RenderingServer.instance_set_transform(mesh_instance, mytransform)
 
 
+
 # Function to create a QuadMesh to display the sprite texture on top of the furniture
 func create_sprite_instance():
+	# Create a PlaneMesh to hold the sprite
 	quad_mesh = PlaneMesh.new()
 	quad_mesh.size = furniture_transform.get_sizeV2()
-	sprite_material = StandardMaterial3D.new()
-	sprite_material.albedo_texture = sprite_texture
-	sprite_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	#material.flags_unshaded = true  # Optional: make the sprite unshaded
+
+	# Get the shader material from Gamedata.furnitures
+	sprite_material = Gamedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
+
 	quad_mesh.material = sprite_material
-	
+
+	# Create the quad instance
 	quad_instance = RenderingServer.instance_create()
 	RenderingServer.instance_set_base(quad_instance, quad_mesh)
 	RenderingServer.instance_set_scenario(quad_instance, myworld3d.scenario)
-	
-	# Set the transform for the quad instance to be slightly above the box mesh
+
+	# Set the transform for the quad instance slightly above the box mesh
 	RenderingServer.instance_set_transform(quad_instance, furniture_transform.get_sprite_transform())
 
 
@@ -275,7 +277,6 @@ func create_container_sprite_instance():
 	container_sprite_mesh = PlaneMesh.new()
 	container_sprite_mesh.size = container_sprite_size
 
-	container_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	container_sprite_mesh.material = container_material
 
 	container_sprite_instance = RenderingServer.instance_create()
@@ -497,55 +498,6 @@ func deserialize_container_data():
 # Function to deserialize inventory and apply the correct sprite
 func deserialize_and_apply_items(items_data: Dictionary):
 	inventory.deserialize(items_data)
-	
-	#var default_texture: Texture = Gamedata.textures.container
-	
-	#if inventory.get_items().size() > 0:
-		#if sprite_3d.texture == default_texture:
-			#sprite_3d.texture = Gamedata.textures.container_filled
-		## Else, some other texture has been set so we keep that
-	#else:
-		#sprite_3d.texture = default_texture
-		#_on_item_removed(null)
-
-
-# Function to hide visual elements
-func hide_visual_elements():
-	if not i_am_visible:
-		return # I am already inivisble
-	# Check if instances exist before hiding
-	if mesh_instance:
-		RenderingServer.instance_set_visible(mesh_instance, false)
-	if quad_instance:
-		RenderingServer.instance_set_visible(quad_instance, false)
-	if container_sprite_instance:
-		RenderingServer.instance_set_visible(container_sprite_instance, false)
-	i_am_visible = false
-
-
-# Function to show visual elements
-func show_visual_elements():
-	if i_am_visible:
-		return # I am already visible
-	# Check if instances exist before showing
-	if mesh_instance:
-		RenderingServer.instance_set_visible(mesh_instance, true)
-	if quad_instance:
-		RenderingServer.instance_set_visible(quad_instance, true)
-	if container_sprite_instance:
-		RenderingServer.instance_set_visible(container_sprite_instance, true)
-	i_am_visible = true
-
-
-# Function to handle the player's Y level change
-func _on_player_y_level_updated(new_y: float):
-	# Check if the furniture is above the player's new Y level
-	if furniture_transform.posy > new_y:
-		# Hide the furniture if it is above the player's level
-		hide_visual_elements()
-	else:
-		# Show the furniture if it is at or below the player's level
-		show_visual_elements()
 
 
 # When the furniture is destroyed, it leaves a wreck behind
@@ -600,17 +552,18 @@ func create_loot():
 	
 	# Check if the itemgroup data exists and has items
 	if ditemgroup:
-		var groupmode: String = ditemgroup.mode # can be "Collection" or "Distribution".
+		var groupmode: String = ditemgroup.mode  # can be "Collection" or "Distribution".
 		if groupmode == "Collection":
 			item_added = _add_items_to_inventory_collection_mode(ditemgroup.items)
 		elif groupmode == "Distribution":
 			item_added = _add_items_to_inventory_distribution_mode(ditemgroup.items)
 
-	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
+	# Set the material if items were added
 	if item_added:
-		container_material.albedo_texture = Gamedata.textures.container_filled
-	elif not item_added:
-		 # If no item was added we delete the container if it's not a child of some furniture
+		container_material = Gamedata.materials.container_filled  # Use filled container material
+		container_sprite_mesh.material = container_material  # Update the mesh material
+	else:
+		# If no item was added we delete the container if it's not a child of some furniture
 		_on_item_removed(null)
 
 
@@ -677,9 +630,10 @@ func _add_item_to_inventory(item_id: String, quantity: int):
 func _on_item_removed(_item: InventoryItem):
 	# Check if there are any items left in the inventory
 	if inventory.get_items().size() == 0:
-		container_material.albedo_texture = Gamedata.textures.container
-	else: # There are still items in the container
-		set_random_inventory_item_texture() # Update to a new sprite
+		container_material = Gamedata.materials.container  # Use shared empty container material
+		container_sprite_mesh.material = container_material  # Update the mesh material
+	else:  # There are still items in the container
+		set_random_inventory_item_texture()  # Update to a new sprite
 
 
 func _on_item_added(_item: InventoryItem):
@@ -704,8 +658,9 @@ func set_random_inventory_item_texture():
 	var random_item: InventoryItem = items.pick_random()
 	var item_id = random_item.prototype_id
 	
-	# Set the sprite_3d texture to the item's sprite
-	container_material.albedo_texture = Gamedata.items.sprite_by_id(item_id)
+	# Get the ShaderMaterial for the item
+	container_material = Gamedata.items.get_shader_material_by_id(item_id)
+	container_sprite_mesh.material = container_material  # Update the mesh material
 
 
 # Function to handle damage when the furniture gets hit

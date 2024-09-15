@@ -16,12 +16,15 @@ var stats: DStats
 var skills: DSkills
 var quests: DQuests
 
+# Load the shader resource
+static var hide_above_player_shader := preload("res://Shaders/HideAbovePlayer.gdshader")
 
 # Dictionary to store loaded textures
 var textures: Dictionary = {
 	"container": load("res://Textures/container_32.png"),
 	"container_filled": load("res://Textures/container_filled_32.png")
 }
+var materials: Dictionary = {}
 
 # Enums to define the different content types
 enum ContentType {
@@ -76,8 +79,20 @@ func _ready():
 	}
 
 	load_sprites()
+	materials["container"] = create_item_shader_material(textures.container)
+	materials["container_filled"] = create_item_shader_material(textures.container_filled)
 
 
+# Helper function to create a ShaderMaterial for the item
+func create_item_shader_material(albedo_texture: Texture) -> ShaderMaterial:
+	# Create a new ShaderMaterial
+	var shader_material = ShaderMaterial.new()
+	shader_material.shader = hide_above_player_shader  # Use the shared shader
+
+	# Assign the texture to the material
+	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
+
+	return shader_material
 
 
 # Loads sprites and assigns them to the proper dictionary

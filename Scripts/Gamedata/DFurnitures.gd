@@ -10,14 +10,14 @@ var dataPath: String = "./Mods/Core/Furniture/Furniture.json"
 var spritePath: String = "./Mods/Core/Furniture/"
 var furnituredict: Dictionary = {}
 var sprites: Dictionary = {}
-
+var shader_materials: Dictionary = {}  # Cache for shader materials by furniture ID
 
 func _init():
 	load_sprites()
 	load_furnitures_from_disk()
+	Helper.signal_broker.game_ended.connect(_on_game_ended)
 
 
-# Load all furnituredata from disk into memory
 func load_furnitures_from_disk() -> void:
 	var furniturelist: Array = Helper.json_helper.load_json_array_file(dataPath)
 	for furnitureitem in furniturelist:
@@ -105,3 +105,37 @@ func add_reference_to_furniture(furnitureid: String, module: String, type: Strin
 
 func is_moveable(id: String) -> bool:
 	return by_id(id).moveable
+
+
+# New function to get or create a ShaderMaterial for a furniture ID
+func get_shader_material_by_id(furniture_id: String) -> ShaderMaterial:
+	# Check if the material already exists
+	if shader_materials.has(furniture_id):
+		return shader_materials[furniture_id]
+	else:
+		# Create a new ShaderMaterial
+		var shader_material: ShaderMaterial = create_furniture_shader_material(furniture_id)
+		# Store it in the dictionary
+		shader_materials[furniture_id] = shader_material
+		return shader_material
+
+
+# Helper function to create a ShaderMaterial for the furniture
+func create_furniture_shader_material(furniture_id: String) -> ShaderMaterial:
+	# Create a new ShaderMaterial
+	var dfurniture: DFurniture = by_id(furniture_id)
+	var albedo_texture: Texture = dfurniture.sprite
+	var shader_material = ShaderMaterial.new()
+	shader_material.shader = Gamedata.hide_above_player_shader  # Use the shared shader
+
+	# Assign the texture to the material
+	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
+
+	return shader_material
+
+
+# Handle the game ended signal. We need to clear the shader materials because they
+# need to be re-created on game start since some of them may have changed in between.
+func _on_game_ended():
+	# Clear the dictionary
+	shader_materials.clear()

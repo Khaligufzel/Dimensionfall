@@ -1183,7 +1183,7 @@
 		"support_shape": {
 			"color": "869bcdff",
 			"depth_scale": 100,
-			"height": 1,
+			"height": 0.98,
 			"shape": "Box",
 			"transparent": true,
 			"width_scale": 100
