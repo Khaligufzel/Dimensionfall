@@ -50,13 +50,17 @@ size_flags_stretch_ratio = 0.8
 
 [node name="ControlsVBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
 size_flags_stretch_ratio = 0.2
 
 [node name="OvermapTileLabel" type="Label" parent="MarginContainer/HBoxContainer/ControlsVBoxContainer"]
+custom_minimum_size = Vector2(120, 160)
 layout_mode = 2
+theme_override_font_sizes/font_size = 13
 text = "Name: Urbanroad
 Environment: Forest
 Challenge: Easy"
+autowrap_mode = 3
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ControlsVBoxContainer"]
 layout_mode = 2

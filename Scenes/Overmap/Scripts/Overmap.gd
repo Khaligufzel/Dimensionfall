@@ -212,8 +212,8 @@ class GridChunk:
 		var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
 		
 		if not map_cell:
-			# If no map cell found, reset the texture
-			tile.set_texture(null)
+			# If no map cell is found, reset the map_cell on the tile and clear the texture
+			tile.map_cell = null  # Reset map_cell to an empty dictionary
 			return
 
 		# Calculate distance to player
@@ -223,15 +223,9 @@ class GridChunk:
 			# Reveal the map cell if within the player's range
 			map_cell.reveal()
 
-		# Set texture based on whether the map cell is revealed
-		if map_cell.revealed:
-			var texture: Texture = map_cell.get_sprite()
-			tile.set_texture(texture)
-			# Set the tile's rotation based on the map cell's rotation property
-			tile.set_texture_rotation(map_cell.rotation)
-		else:
-			# If outside the range and not revealed, reset the texture
-			tile.set_texture(null)
+		# Assign the map_cell to the tile and let the tile handle texture and rotation
+		tile.map_cell = map_cell
+
 
 	# Function to check if the player's last position falls within the range of this chunk's grid area
 	func is_within_player_range() -> bool:
@@ -392,17 +386,8 @@ func on_position_coord_changed():
 
 # This function will be connected to the signal of the tiles
 func _on_tile_clicked(clicked_tile):
-	if clicked_tile.has_meta("map_file"):
-		selected_overmap_tile = clicked_tile
-		var mapFile = clicked_tile.get_meta("map_file")
-		var tilePos = clicked_tile.get_meta("global_pos")
-		var posString: String = "Pos: (" + str(tilePos.x)+","+str(tilePos.y)+")"
-		var nameString: String = "\nName: " + mapFile
-		var envString: String = clicked_tile.tileData.texture
-		envString = envString.replace("res://Mods/Core/OvermapTiles/","")
-		envString = "\nEnvironment: " + envString
-		var challengeString: String = "\nChallenge: Easy"
-		overmapTileLabel.text = posString + nameString + envString + challengeString
+	if clicked_tile.map_cell:
+		overmapTileLabel.text = clicked_tile.map_cell.get_info_string()
 	else: 
 		selected_overmap_tile = null
 		overmapTileLabel.text = "Select a valid target"
