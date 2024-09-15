@@ -31,6 +31,13 @@ func start_building():
 	General.is_allowed_to_shoot = false
 
 func on_construction_clicked(construction_data: Dictionary):
+	var numberofplanks: int = ItemManager.get_accessibleitem_amount("plank_2x4")
+	if numberofplanks < 2:
+		print_debug("tried to construct, but not enough planks")
+		return
+		
+	if not ItemManager.remove_resource("plank_2x4",2):
+		return
 	var chunk: Chunk = LevelGenerator.get_chunk_from_position(construction_data.pos)
 	if chunk:
 		var local_position = calculate_local_position(construction_data.pos, chunk.position)
