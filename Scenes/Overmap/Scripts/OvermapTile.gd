@@ -57,6 +57,10 @@ func set_text_visible(isvisible: bool):
 # Set the text on the tile
 func set_text(newtext: String):
 	$TextLabel.text = newtext
+	if newtext == "":
+		$TextLabel.visible = false
+		return
+	$TextLabel.text = newtext
 	$TextLabel.visible = true
 
 # Set the rotation of the TextureRect based on the given rotation angle

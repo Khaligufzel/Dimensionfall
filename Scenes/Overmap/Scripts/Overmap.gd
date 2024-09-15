@@ -114,7 +114,7 @@ class GridChunk:
 					tile.set_color(Color(0.3, 0.3, 1))  # Blue color for tile at (0,0)
 				else:
 					tile.set_color(Color(1, 1, 1))  # White color for other tiles
-
+				tile.set_text("")
 				# Use the same function to update tile based on its position and player location
 				update_tile_texture_and_reveal(tile, global_pos, Helper.overmap_manager.player_current_cell)
 
@@ -176,7 +176,7 @@ class GridChunk:
 	func update_tile_text_visibility():
 		# Hide the text on the previously visible tile, if any
 		if visible_tile:
-			visible_tile.set_text_visible(false)
+			visible_tile.set_text("")
 			visible_tile = null
 
 		# Check if the player's last known position is within this chunk's bounds
@@ -184,8 +184,9 @@ class GridChunk:
 			# Calculate the local position of the player within the chunk
 			var local_pos = Helper.overmap_manager.player_current_cell - grid_position
 			if tile_dictionary.has(local_pos):
+				# The player is on this tile, so we put the player marker as text
 				var tile = tile_dictionary[local_pos]
-				tile.set_text_visible(true)
+				tile.set_text("✠")
 				visible_tile = tile  # Store the reference to the new visible tile
 
 	func _on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
@@ -439,7 +440,7 @@ func on_overmap_visibility_toggled():
 	if visible:
 		# Hide the previous tile marker when the overmap is opened
 		if previous_visible_tile:
-			previous_visible_tile.set_text_visible(false)
+			previous_visible_tile.set_text("")
 			previous_visible_tile = null
 
 		# Force update of the player position and chunks
@@ -534,7 +535,7 @@ func check_target_tile_visibility() -> void:
 			# Check if the target tile is now visible
 			if visible_rect.has_point(tile_pos):
 				# If the tile is visible, hide the arrow and show the tile text
-				set_tile_text(target_tile, "X")
+				target_tile.set_text("X")
 				$ArrowLabel.visible = false
 			else:
 				# If the tile is still not visible, ensure the arrow is displayed
@@ -572,23 +573,10 @@ func on_target_map_changed(map_id: String):
 			find_location_on_overmap(target)
 
 
-# Function to set a tile's text to a provided string and make it visible
-func set_tile_text(tile: Control, text: String) -> void:
-	if text == "":
-		# Clear the marker by hiding the text
-		tile.set_text_visible(false)
-		tile.set_text("")  # Clear any marker text
-		return
-	# Set the tile's text visible
-	tile.set_text_visible(true)
-	# Set the provided text on the tile
-	tile.set_text(text)
-
-
 # Updates a tile based on the coordinate and text
 # mycoordinate: A Vector2 using the global grid coordinate. Coordinates are managed by overmap_manager
 # mytext: The text to set on the tile at the coordinate
 func set_coordinate_text(mycoordinate: Vector2, mytext: String):
 	var tile = get_overmap_tile_at_position(mycoordinate)
 	if tile:
-		set_tile_text(tile, mytext)
+		tile.set_text(mytext)
