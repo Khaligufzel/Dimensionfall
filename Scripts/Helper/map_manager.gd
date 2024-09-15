@@ -36,8 +36,23 @@ func _get_random_rotation(area_data: Dictionary) -> int:
 # Function to process and assign tile ID
 func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: Dictionary) -> void:
 	var tiles_data = area_data.get("tiles", [])
+
+	# Check if pick_one is set to true and a tile has already been picked
+	if area_data.has("pick_one") and area_data["pick_one"]:
+		if area_data.has("picked_tile"):
+			# Apply the previously picked tile to the current tile
+			result["id"] = area_data["picked_tile"]["id"]
+			result["rotation"] = _get_random_rotation(area_data)
+			return  # Exit the function since the tile has been set
+
+	# If no tile has been picked or pick_one is false, pick a new tile
 	if not tiles_data.is_empty():
 		var picked_tile = pick_item_based_on_count(tiles_data)
+		
+		# If pick_one is true, store the picked tile in area_data
+		if area_data.has("pick_one") and area_data["pick_one"]:
+			area_data["picked_tile"] = picked_tile
+		
 		# Check if the picked tile is "null"
 		if picked_tile["id"] == "null":
 			result["id"] = original_tile_id  # Keep the original tile ID
@@ -45,6 +60,7 @@ func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: D
 			result["id"] = picked_tile["id"]
 			# Apply the rotation to the result
 			result["rotation"] = _get_random_rotation(area_data)
+
 
 
 # Function to process entities data and add them to result
