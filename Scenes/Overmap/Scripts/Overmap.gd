@@ -56,13 +56,22 @@ class GridChunk:
 
 
 	# Constructor to initialize the chunk with its grid position, chunk position, and necessary references
-	func _init(mygrid_position: Vector2, mychunk_position: Vector2, mytile_size: int, myovermapTile: PackedScene):
-		self.grid_position = mygrid_position # Local grid position. Ex. (0,0),(0,1),(1,1)
-		self.chunk_position = mychunk_position # Global grid position ex. (0,0),(0,256),(256,256)
-		self.tile_size = mytile_size
+	# Expects this dictionary:
+	# {
+	# 	"mygrid_position": mygrid_position: Vector2,
+	# 	"mychunk_position": mychunk_position: Vector2,
+	# 	"mytile_size": mytile_size: int,
+	# 	"myovermapTile": myovermapTile: PackedScene,
+	# 	"overmap_node": overmap_node: Control
+	# }
+	func _init(properties: Dictionary):
+		self.grid_position = properties.mygrid_position # Local grid position. Ex. (0,0),(0,1),(1,1)
+		self.chunk_position = properties.mychunk_position # Global grid position ex. (0,0),(0,256),(256,256)
+		self.tile_size = properties.mytile_size
 		self.grid_container = GridContainer.new()
 		self.grid_container.columns = chunk_width
-		self.overmapTile = myovermapTile
+		self.overmapTile = properties.myovermapTile
+		self.overmap_node = properties.overmap_node
 		self.grid_container.set("theme_override_constants/h_separation", 0)
 		self.grid_container.set("theme_override_constants/v_separation", 0)
 		# Use set_position to apply the fixed offset to the initial position
@@ -80,6 +89,8 @@ class GridChunk:
 			for x in range(chunk_size):
 				var tile = overmapTile.instantiate()  # Create a new tile instance
 
+				# Connect the tile's clicked signal to the _on_tile_clicked function
+				tile.tile_clicked.connect(overmap_node._on_tile_clicked)
 				# Add the tile to the grid container and dictionary
 				grid_container.add_child(tile)
 				tile_dictionary[Vector2(x, y)] = tile  # Store tile by its x, y coordinates
@@ -294,8 +305,16 @@ func update_chunks():
 					new_chunk = chunk_pool.pop_back()
 					new_chunk.reset_chunk(chunk_grid_position, get_localized_position(chunk_grid_position))
 				else:
+					
+					var chunkproperties: Dictionary = {
+						"mygrid_position": chunk_grid_position,
+						"mychunk_position": get_localized_position(chunk_grid_position),
+						"mytile_size": tile_size,
+						"myovermapTile": overmapTile,
+						"overmap_node": self
+					}
 					# Create a new chunk if the pool is empty
-					new_chunk = GridChunk.new(chunk_grid_position, get_localized_position(chunk_grid_position), tile_size, overmapTile)
+					new_chunk = GridChunk.new(chunkproperties)
 					new_chunk.overmap_node = self
 					# Connect the position_coord_changed signal to the GridChunk's update_absolute_position function
 					position_coord_changed.connect(new_chunk.on_position_coord_changed)
