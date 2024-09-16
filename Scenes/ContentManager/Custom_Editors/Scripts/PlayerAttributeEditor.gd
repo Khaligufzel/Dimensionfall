@@ -18,6 +18,14 @@ extends Control
 @export var depletion_rate_spinbox: SpinBox = null
 @export var depletion_effect: OptionButton = null
 @export var ui_color_picker: ColorPicker = null
+# An attribute can have either default mode or fixed mode. The tab that is visible will get 
+# saved into the dplayerattribute's data.
+@export var mode_tab_container: TabContainer = null
+# Shows controls for fixed_mode properties and is the second child of mode_tab_container
+@export var fixed_grid: GridContainer = null
+@export var fixed_amount_spin_box: SpinBox = null
+# Shows controls for default properties and is the first child of mode_tab_container
+@export var default_grid: GridContainer = null
 
 
 signal data_changed()
@@ -33,7 +41,7 @@ var dplayerattribute: DPlayerAttribute:
 		olddata = DPlayerAttribute.new(dplayerattribute.get_data().duplicate(true))
 
 
-# This function update the form based on the DMob data that has been loaded
+# This function updates the form based on the DPlayerAttribute data that has been loaded
 func load_playerattribute_data() -> void:
 	if not icon_rect == null and dplayerattribute.sprite:
 		icon_rect.texture = dplayerattribute.sprite
@@ -44,19 +52,49 @@ func load_playerattribute_data() -> void:
 		name_text_edit.text = dplayerattribute.name
 	if description_text_edit != null:
 		description_text_edit.text = dplayerattribute.description
-	if min_amount_spinbox != null:
-		min_amount_spinbox.value = dplayerattribute.min_amount
-	if max_amount_spinbox != null:
-		max_amount_spinbox.value = dplayerattribute.max_amount
-	if current_amount_spinbox != null:
-		current_amount_spinbox.value = dplayerattribute.current_amount
-	if depletion_rate_spinbox != null:
-		depletion_rate_spinbox.value = dplayerattribute.depletion_rate
-	if depletion_effect != null:
-		update_depleted_effect_option(dplayerattribute.depletion_effect)
-	# Load the UI color into the color picker
-	if ui_color_picker != null:
-		ui_color_picker.color = Color.html(dplayerattribute.ui_color)
+	
+	# Process and show the correct mode
+	process_default_mode()
+	process_fixed_mode()
+
+	# Fallback: If neither mode exists, show default_mode tab
+	if not dplayerattribute.default_mode and not dplayerattribute.fixed_mode:
+		mode_tab_container.set_current_tab(0)  # Show default_mode tab by default
+
+
+# Function to handle loading and showing default mode
+func process_default_mode() -> void:
+	if dplayerattribute.default_mode:
+		mode_tab_container.set_current_tab(0)  # Make default_mode tab visible
+		if min_amount_spinbox != null:
+			min_amount_spinbox.value = dplayerattribute.default_mode.min_amount
+		if max_amount_spinbox != null:
+			max_amount_spinbox.value = dplayerattribute.default_mode.max_amount
+		if current_amount_spinbox != null:
+			current_amount_spinbox.value = dplayerattribute.default_mode.current_amount
+		if depletion_rate_spinbox != null:
+			depletion_rate_spinbox.value = dplayerattribute.default_mode.depletion_rate
+		if depletion_effect != null:
+			update_depleted_effect_option(dplayerattribute.default_mode.depletion_effect)
+		# Load the UI color into the color picker
+		if ui_color_picker != null:
+			ui_color_picker.color = Color.html(dplayerattribute.default_mode.ui_color)
+	else:
+		mode_tab_container.set_current_tab(0)  # Hide default_mode tab if it doesn't exist
+
+
+# Function to handle loading and showing fixed mode
+func process_fixed_mode() -> void:
+	if dplayerattribute.fixed_mode:
+		mode_tab_container.set_current_tab(1)  # Make fixed_mode tab visible
+		if fixed_amount_spin_box != null:
+			fixed_amount_spin_box.value = dplayerattribute.fixed_mode.amount
+	else:
+		mode_tab_container.set_current_tab(1)  # Hide fixed_mode tab if it doesn't exist
+
+
+
+
 
 
 # The editor is closed, destroy the instance
@@ -75,24 +113,51 @@ func update_depleted_effect_option(effectname: String):
 			return
 
 
-# This function takes all data from the form elements and stores them in the DMob instance
-# The function will signal to Gamedata that the data has changed and needs to be saved
+
+# This function handles saving the data from the UI into the DPlayerAttribute instance
 func _on_save_button_button_up() -> void:
 	dplayerattribute.spriteid = path_text_label.text
 	dplayerattribute.sprite = icon_rect.texture
 	dplayerattribute.name = name_text_edit.text
 	dplayerattribute.description = description_text_edit.text
-	dplayerattribute.min_amount = int(min_amount_spinbox.value)
-	dplayerattribute.max_amount = max_amount_spinbox.value
-	dplayerattribute.current_amount = int(current_amount_spinbox.value)
-	dplayerattribute.depletion_rate = depletion_rate_spinbox.value
-	dplayerattribute.depletion_effect = depletion_effect.get_item_text(depletion_effect.selected)
-	# Save the selected color from the color picker back to dplayerattribute
-	dplayerattribute.ui_color = ui_color_picker.color.to_html()
+
+	# Process saving based on which tab is visible
+	if mode_tab_container.get_current_tab() == 0:  # DefaultMode tab is visible
+		save_default_mode()
+	elif mode_tab_container.get_current_tab() == 1:  # FixedMode tab is visible
+		save_fixed_mode()
 
 	dplayerattribute.changed(olddata)
 	data_changed.emit()
 	olddata = DPlayerAttribute.new(dplayerattribute.get_data().duplicate(true))
+
+
+# Function to save data into default mode
+func save_default_mode() -> void:
+	if not dplayerattribute.default_mode:
+		dplayerattribute.default_mode = DPlayerAttribute.DefaultMode.new({})  # Initialize default_mode if not present
+	dplayerattribute.default_mode.min_amount = min_amount_spinbox.value
+	dplayerattribute.default_mode.max_amount = max_amount_spinbox.value
+	dplayerattribute.default_mode.current_amount = current_amount_spinbox.value
+	dplayerattribute.default_mode.depletion_rate = depletion_rate_spinbox.value
+	dplayerattribute.default_mode.depletion_effect = depletion_effect.get_item_text(depletion_effect.selected)
+	dplayerattribute.default_mode.ui_color = ui_color_picker.color.to_html()
+
+	# Delete fixed_mode if it exists
+	if dplayerattribute.fixed_mode:
+		dplayerattribute.fixed_mode = null
+
+
+# Function to save data into fixed mode
+func save_fixed_mode() -> void:
+	if not dplayerattribute.fixed_mode:
+		dplayerattribute.fixed_mode = DPlayerAttribute.FixedMode.new({})  # Initialize fixed_mode if not present
+	dplayerattribute.fixed_mode.amount = fixed_amount_spin_box.value
+
+	# Delete default_mode if it exists
+	if dplayerattribute.default_mode:
+		dplayerattribute.default_mode = null
+
 
 # When the icon_rect is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/PlayerAttributes/". The texture of the icon_rect will change to the selected image
