@@ -12,6 +12,9 @@ var proximityInventory: InventoryStacked = null
 
 var proximityInventories = {}  # Dictionary to hold inventories and their items
 var allAccessibleItems: Array[InventoryItem] = []  # List to hold all accessible InventoryItems
+# The max volume that the inventory can hold. This is extra functionality on top of the "capacity"
+# property of the InventoryStacked. An item's "volume" property counts towards this max inventory
+# volume, while an item's "weight" property counts towards the inventory's "capacity" property
 var player_max_inventory_volume: int = 1000
 var item_protosets: Resource = preload("res://ItemProtosets.tres")
  # Keeps track of player equipment, used for saving
@@ -21,6 +24,8 @@ var player_equipment: PlayerEquipment = null
 signal allAccessibleItems_changed(items_added: Array, items_removed: Array)
 signal craft_successful(item: Dictionary, recipe: Dictionary)
 signal craft_failed(item: Dictionary, recipe: Dictionary, reason: String)
+# Signal to emit when player_max_inventory_volume changes
+signal player_max_inventory_volume_changed(new_volume: int)
 
 
 class PlayerEquipment:
@@ -632,3 +637,19 @@ func get_accessibleitem_amount(item_id: String) -> int:
 			total_amount += stack_size
 
 	return total_amount
+
+
+# Function to add to the player's maximum inventory volume
+func add_to_max_inventory_volume(amount: int) -> void:
+	player_max_inventory_volume += amount
+	player_max_inventory_volume_changed.emit()
+
+# Function to subtract from the player's maximum inventory volume
+func subtract_from_max_inventory_volume(amount: int) -> void:
+	player_max_inventory_volume = max(0, player_max_inventory_volume - amount)  # Ensure it doesn't go below 0
+	player_max_inventory_volume_changed.emit()
+
+# Function to directly set the player's maximum inventory volume
+func set_max_inventory_volume(new_volume: int) -> void:
+	player_max_inventory_volume = max(0, new_volume)  # Ensure it doesn't go below 0
+	player_max_inventory_volume_changed.emit()

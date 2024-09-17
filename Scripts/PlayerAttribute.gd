@@ -16,16 +16,99 @@ var name: String
 var description: String
 var spriteid: String
 var sprite: Texture
-var min_amount: float
-var max_amount: float
-var current_amount: float
-var depletion_effect: String # the effect that will happen when depleted
-var depletion_rate: float = 0.02 # Takes over an hour irl to deplete an amoun of 100
-var depletion_timer: Timer
+
+# Inner class for DefaultMode
+class DefaultMode:
+	var min_amount: float
+	var max_amount: float
+	var current_amount: float
+	var depletion_effect: String
+	var depletion_rate: float = 0.02
+	var depletion_timer: Timer
+	# Reference to the player instance
+	var player: Node
+	
+	# Constructor to initialize DefaultMode properties
+	func _init(data: Dictionary, playernode: CharacterBody3D):
+		min_amount = data.get("min_amount", 0.0)
+		max_amount = data.get("max_amount", 100.0)
+		current_amount = data.get("current_amount", max_amount)
+		depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02
+		depletion_effect = data.get("depletion_effect", "none")
+		player = playernode
+		start_depletion()
+	
+	# Get data function to return the properties in a dictionary
+	func get_data() -> Dictionary:
+		return {
+			"min_amount": min_amount,
+			"max_amount": max_amount,
+			"current_amount": current_amount,
+			"depletion_rate": depletion_rate,
+			"depletion_effect": depletion_effect
+		}
+	
+	# Start depletion for DefaultMode
+	func start_depletion():
+		depletion_timer = Timer.new()
+		depletion_timer.wait_time = 1.0  # Deplete every second
+		depletion_timer.one_shot = false  # Repeat the timer
+		depletion_timer.timeout.connect(_on_deplete_tick)
+		player.add_child(depletion_timer)
+		depletion_timer.start()
+
+	# Stop depletion when min value is reached
+	func stop_depletion():
+		if depletion_timer:
+			depletion_timer.stop()
+			depletion_timer.queue_free()
+
+	# Function to handle when the attribute changes (e.g., health drops to 0)
+	func _on_attribute_changed():
+		Helper.signal_broker.player_attribute_changed.emit(player, self)
+		# Trigger the depletion effect if amount drops to min and the effect is "death"
+		if is_at_min() and depletion_effect == "death":
+			player.die()
+	
+	# Function to check if the attribute is at minimum value (for DefaultMode)
+	func is_at_min() -> bool:
+		return current_amount <= min_amount
+	
+	# Function to modify the current amount safely (for DefaultMode)
+	func modify_current_amount(amount: float):
+		current_amount = clamp(current_amount + amount, min_amount, max_amount)
+		_on_attribute_changed()
+
+	# Function that gets called every tick to decrease the attribute
+	func _on_deplete_tick():
+		modify_current_amount(-depletion_rate)
+
+		# Stop depletion if at min
+		if is_at_min():
+			stop_depletion()
+
+
+# Inner class for FixedMode
+class FixedMode:
+	var amount: float
+
+	# Constructor to initialize FixedMode properties
+	func _init(data: Dictionary):
+		amount = data.get("amount", 100.0)
+
+	# Get data function to return the properties in a dictionary
+	func get_data() -> Dictionary:
+		return {
+			"amount": amount
+		}
+
+# Properties for default and fixed modes
+var default_mode: DefaultMode
+var fixed_mode: FixedMode
 
 # Constructor to initialize the controller with a DPlayerAttribute and a player reference
 func _init(data: DPlayerAttribute, player_reference: Node):
-	attribute_data = data # Be sure to not modify the attribute_data or the change will be permanent
+	attribute_data = data  # Store attribute data
 	player = player_reference
 
 	# Initialize local variables from attribute_data
@@ -34,24 +117,29 @@ func _init(data: DPlayerAttribute, player_reference: Node):
 	description = attribute_data.description
 	spriteid = attribute_data.spriteid
 	sprite = attribute_data.sprite
-	min_amount = attribute_data.min_amount
-	max_amount = attribute_data.max_amount
-	current_amount = attribute_data.current_amount
-	depletion_rate = attribute_data.depletion_rate
-	depletion_effect = attribute_data.depletion_effect
-	start_depletion()
+
+	# Check if DefaultMode or FixedMode exists and initialize them
+	if attribute_data.default_mode:
+		default_mode = DefaultMode.new(attribute_data.default_mode.get_data(), player)
+	elif attribute_data.fixed_mode:
+		fixed_mode = FixedMode.new(attribute_data.fixed_mode.get_data())
 
 # Function to get the current state of the attribute as a dictionary
 func get_data() -> Dictionary:
-	return {
+	var data: Dictionary = {
 		"id": id,
 		"name": name,
 		"description": description,
-		"sprite": spriteid,
-		"min_amount": min_amount,
-		"max_amount": max_amount,
-		"current_amount": current_amount
+		"sprite": spriteid
 	}
+
+	# Add the mode data
+	if default_mode:
+		data["default_mode"] = default_mode.get_data()
+	if fixed_mode:
+		data["fixed_mode"] = fixed_mode.get_data()
+
+	return data
 
 # Function to set the state of the attribute using a dictionary (e.g., for loading saved data)
 func set_data(data: Dictionary):
@@ -59,60 +147,20 @@ func set_data(data: Dictionary):
 	name = data.get("name", "")
 	description = data.get("description", "")
 	spriteid = data.get("sprite", "")
-	min_amount = data.get("min_amount", 0.0)
-	max_amount = data.get("max_amount", 100.0)
-	current_amount = data.get("current_amount", max_amount)
+	
+	# Set the data for DefaultMode or FixedMode
+	if data.has("default_mode"):
+		default_mode = DefaultMode.new(data["default_mode"], player)
+	elif data.has("fixed_mode"):
+		fixed_mode = FixedMode.new(data["fixed_mode"])
 
-# Function to modify the current amount of the attribute safely
-func modify_current_amount(amount: float):
-	current_amount = clamp(current_amount + amount, min_amount, max_amount)
-	_on_attribute_changed()
 
-# Function to reset the attribute to its maximum value (e.g., refilling health)
-func reset_to_max():
-	current_amount = max_amount
-	_on_attribute_changed()
-
-# Function to handle when the attribute changes (e.g., health drops to 0)
-func _on_attribute_changed():
-	Helper.signal_broker.player_attribute_changed.emit(player, self)
-	# If amount drops to 0, trigger player death
-	if is_at_min() and depletion_effect == "death":
-		player.die()
-
-# Function to reduce the attribute by a specified amount
+# Reduces the amount of the default_mode
 func reduce_amount(amount: float):
-	modify_current_amount(-amount)
+	if default_mode:
+		modify_current_amount(-amount)
 
-# Function to increase the attribute by a specified amount
-func increase_amount(amount: float):
-	modify_current_amount(amount)
-
-# Checks if the attribute is at its minimum value
-func is_at_min() -> bool:
-	return current_amount <= min_amount
-
-# Checks if the attribute is at its maximum value
-func is_at_max() -> bool:
-	return current_amount >= max_amount
-
-
-# Function to start the depletion of the attribute
-func start_depletion():
-	# Create a timer to decrease the attribute over time
-	depletion_timer = Timer.new()
-	depletion_timer.wait_time = 1.0  # Deplete every second
-	depletion_timer.one_shot = false  # Repeat the timer
-	depletion_timer.timeout.connect(_on_deplete_tick)
-	player.add_child(depletion_timer)  # Add the timer to the player's node to start it
-	depletion_timer.start()
-
-
-# Function that gets called every tick to decrease the attribute
-func _on_deplete_tick():
-	reduce_amount(depletion_rate)
-
-	# Optional: Stop the timer if the attribute reaches the minimum amount
-	if is_at_min():
-		depletion_timer.stop()
-		depletion_timer.queue_free()
+# Modifies the amount of the default_mode by the given amount
+func modify_current_amount(amount: float):
+	if default_mode:
+		default_mode.modify_current_amount(amount)

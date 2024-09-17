@@ -10,6 +10,7 @@ var dataPath: String = "./Mods/Core/PlayerAttributes/PlayerAttributes.json"
 var spritePath: String = "./Mods/Core/PlayerAttributes/"
 var playerattributedict: Dictionary = {}
 var sprites: Dictionary = {}
+var hardcoded: Array = ["player_inventory"]
 
 
 func _init():

@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://65bjwo1b3je2"]
+[gd_scene load_steps=3 format=3 uid="uid://65bjwo1b3je2"]
 
 [ext_resource type="Script" path="res://Scripts/ItemWearableEditor.gd" id="1_o5i08"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3shf"]
+bg_color = Color(0.72927, 0.567349, 0.365251, 1)
 
 [node name="ItemWearableEditor" type="Control" node_paths=PackedStringArray("SlotOptionButton")]
 layout_mode = 3
@@ -23,3 +26,16 @@ text = "Wearable slot"
 
 [node name="SlotOptionButton" type="OptionButton" parent="Wearable"]
 layout_mode = 2
+
+[node name="PlayerAttributeLabel" type="Label" parent="Wearable"]
+layout_mode = 2
+text = "Affects attribute"
+
+[node name="AttributesPanelContainer" type="PanelContainer" parent="Wearable"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o3shf")
+
+[node name="AttributtesGridContainer" type="GridContainer" parent="Wearable/AttributesPanelContainer"]
+layout_mode = 2
+tooltip_text = "Drag playerattributes to this panel to have this item modify it's max value while worn."

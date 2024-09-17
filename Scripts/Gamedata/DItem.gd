@@ -316,19 +316,23 @@ class Ammo:
 			"damage": damage
 		}
 
-
 # Inner class to handle the Wearable property
 class Wearable:
 	var slot: String
+	# Hold key-value pairs for player attributes. New format: {"id": "inventory_space", "value": 200}
+	var player_attributes: Array  
 
 	# Constructor to initialize wearable properties from a dictionary
 	func _init(data: Dictionary):
 		slot = data.get("slot", "")
+		# Initialize player_attributes with the new format
+		player_attributes = data.get("player_attributes", [])
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
 		return {
-			"slot": slot
+			"slot": slot,
+			"player_attributes": player_attributes
 		}
 
 	# Function to add a reference for the wearable slot
@@ -340,6 +344,13 @@ class Wearable:
 	func remove_reference(item_id: String):
 		if slot != "":
 			Gamedata.wearableslots.remove_reference(slot, "core", "items", item_id)
+
+	# Function to get the value of a specific player attribute by ID
+	func get_attribute_value(attribute_id: String) -> Variant:
+		for attribute in player_attributes:
+			if attribute["id"] == attribute_id:
+				return attribute["value"]
+		return null  # Return null if the attribute is not found
 
 
 # Constructor to initialize item properties from a dictionary
