@@ -29,14 +29,14 @@ class AttributeDisplay:
 
 		# Create the ProgressBar to represent the current amount
 		progress_bar = ProgressBar.new()
-		progress_bar.min_value = attribute.min_amount
-		progress_bar.max_value = attribute.max_amount
-		progress_bar.value = attribute.current_amount
+		progress_bar.min_value = attribute.default_mode.min_amount
+		progress_bar.max_value = attribute.default_mode.max_amount
+		progress_bar.value = attribute.default_mode.current_amount
 		progress_bar.custom_minimum_size = Vector2(100, 16)
 		progress_bar.tooltip_text = attribute.description
 
 		# Set custom colors
-		var ui_color = Color.html(attribute.attribute_data.ui_color)
+		var ui_color = Color.html(attribute.attribute_data.default_mode.ui_color)
 		var darker_color = ui_color.darkened(0.4)
 		
 		# Create and set the background stylebox
@@ -53,7 +53,7 @@ class AttributeDisplay:
 
 	# Update the ProgressBar value
 	func update(attribute: PlayerAttribute) -> void:
-		progress_bar.value = attribute.current_amount
+		progress_bar.value = attribute.default_mode.current_amount
 
 	# Update the minimum value of the ProgressBar
 	func update_min_amount(min_amount: float) -> void:
@@ -72,7 +72,7 @@ func _ready():
 
 # Handles the update of the attribute display when the player attribute changes
 func _on_player_attribute_changed(player_node: CharacterBody3D, attr: PlayerAttribute = null):
-	if attr:  # If a specific attribute has changed
+	if attr and attr.default_mode:  # If a specific attribute has changed
 		if attribute_displays.has(attr.id):
 			# Update only the specific attribute display
 			attribute_displays[attr.id].update(attr)
@@ -86,9 +86,10 @@ func _on_player_attribute_changed(player_node: CharacterBody3D, attr: PlayerAttr
 		attribute_displays.clear()  # Clear existing displays
 		var playerattributes = player_node.attributes
 		for attribute: PlayerAttribute in playerattributes.values():
-			var display = AttributeDisplay.new(attribute)
-			attribute_displays[attribute.id] = display
-			attributeContainer.add_child(display.hbox)
+			if attribute.default_mode:
+				var display = AttributeDisplay.new(attribute)
+				attribute_displays[attribute.id] = display
+				attributeContainer.add_child(display.hbox)
 
 
 # Utility function to clear all children in a container

@@ -5,7 +5,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3shf"]
 bg_color = Color(0.72927, 0.567349, 0.365251, 1)
 
-[node name="ItemWearableEditor" type="Control" node_paths=PackedStringArray("SlotOptionButton")]
+[node name="ItemWearableEditor" type="Control" node_paths=PackedStringArray("SlotOptionButton", "attributtes_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o5i08")
 SlotOptionButton = NodePath("Wearable/SlotOptionButton")
+attributtes_grid_container = NodePath("Wearable/AttributesPanelContainer/AttributtesGridContainer")
 
 [node name="Wearable" type="GridContainer" parent="."]
 layout_mode = 0
@@ -39,3 +40,4 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_o3shf")
 [node name="AttributtesGridContainer" type="GridContainer" parent="Wearable/AttributesPanelContainer"]
 layout_mode = 2
 tooltip_text = "Drag playerattributes to this panel to have this item modify it's max value while worn."
+columns = 3

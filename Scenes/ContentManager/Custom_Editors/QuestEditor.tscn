@@ -143,10 +143,9 @@ Call function: Select a function and add parameters. When the quest reaches this
 Enter map: Select the id of a map. This step completes when the player has entered a chunk that is generated from the map with this id
 
 Kill x mobs of type: This step completes when the player has killed x amount of the mob you selected"
-item_count = 5
 selected = 0
+item_count = 5
 popup/item_0/text = "Craft item"
-popup/item_0/id = 0
 popup/item_1/text = "Collect x amount of item"
 popup/item_1/id = 1
 popup/item_2/text = "Call function"

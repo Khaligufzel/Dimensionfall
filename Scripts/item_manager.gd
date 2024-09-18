@@ -103,6 +103,7 @@ func _ready():
 	Helper.signal_broker.game_started.connect(_on_game_started_loaded.bind(true))
 	Helper.signal_broker.game_loaded.connect(_on_game_started_loaded.bind(false))
 	Helper.signal_broker.game_ended.connect(_on_game_ended)
+	Helper.signal_broker.player_attribute_changed.connect(_on_player_attribute_changed)
 	player_equipment = PlayerEquipment.new()
 
 
@@ -592,6 +593,7 @@ func _on_game_ended():
 	# Clear and discard the inventories
 	playerInventory.queue_free()
 	proximityInventory.queue_free()
+	player_max_inventory_volume = 1000
 	# Disconnect signals related to inventory management
 	Helper.signal_broker.items_were_used.disconnect(_on_items_used)
 	Helper.signal_broker.container_entered_proximity.disconnect(_on_container_entered_proximity)
@@ -602,6 +604,14 @@ func _on_game_ended():
 	proximityInventory = null
 	allAccessibleItems.clear()
 	proximityInventories.clear()
+
+
+# Handles the update of the attribute when the player attribute changes
+func _on_player_attribute_changed(player_node: CharacterBody3D, attr: PlayerAttribute = null):
+	if attr and attr.fixed_mode:  # If a specific attribute has changed
+		if attr.id == "inventory_space":
+			set_max_inventory_volume(attr.fixed_mode.amount)
+			print_debug("player's inventory spcac changed")
 
 
 # Loop over all items in the player's inventory

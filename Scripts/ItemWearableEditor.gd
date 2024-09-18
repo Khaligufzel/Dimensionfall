@@ -86,7 +86,7 @@ func _delete_attribute(elements_to_remove: Array) -> void:
 		element.queue_free()  # Properly free the node to avoid memory leaks
 
 # This function will check if an attribute can be dropped
-func can_drop_attribute(dropped_data: Dictionary) -> bool:
+func can_drop_attribute(at_position: Vector2, dropped_data: Dictionary) -> bool:
 	if not dropped_data or not dropped_data.has("id"):
 		return false
 	
@@ -103,8 +103,8 @@ func can_drop_attribute(dropped_data: Dictionary) -> bool:
 	return true
 
 # Function to handle dropping an attribute into the attributtes_grid_container
-func attribute_drop(dropped_data: Dictionary) -> void:
-	if dropped_data and dropped_data.has("id") and can_drop_attribute(dropped_data):
+func attribute_drop(at_position: Vector2, dropped_data: Dictionary) -> void:
+	if dropped_data and dropped_data.has("id") and can_drop_attribute(at_position, dropped_data):
 		add_attribute_entry(dropped_data["id"], 0, false)
 	else:
 		print_debug("Failed to drop attribute: Invalid or duplicate entry.")

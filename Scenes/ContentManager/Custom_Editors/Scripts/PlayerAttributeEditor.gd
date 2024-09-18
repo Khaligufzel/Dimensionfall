@@ -93,15 +93,10 @@ func process_fixed_mode() -> void:
 		mode_tab_container.set_current_tab(1)  # Hide fixed_mode tab if it doesn't exist
 
 
-
-
-
-
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
 	queue_free()
-
 
 
 # Update the selected option in the SlotOptionButton to match the specified slot name
@@ -113,7 +108,6 @@ func update_depleted_effect_option(effectname: String):
 			return
 
 
-
 # This function handles saving the data from the UI into the DPlayerAttribute instance
 func _on_save_button_button_up() -> void:
 	dplayerattribute.spriteid = path_text_label.text
@@ -121,10 +115,11 @@ func _on_save_button_button_up() -> void:
 	dplayerattribute.name = name_text_edit.text
 	dplayerattribute.description = description_text_edit.text
 
+	var current_tab = mode_tab_container.get_current_tab_control()
 	# Process saving based on which tab is visible
-	if mode_tab_container.get_current_tab() == 0:  # DefaultMode tab is visible
+	if current_tab == default_grid:  # DefaultMode tab is visible
 		save_default_mode()
-	elif mode_tab_container.get_current_tab() == 1:  # FixedMode tab is visible
+	elif current_tab == fixed_grid:  # FixedMode tab is visible
 		save_fixed_mode()
 
 	dplayerattribute.changed(olddata)

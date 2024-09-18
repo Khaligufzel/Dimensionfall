@@ -119,9 +119,9 @@ text = "Tip"
 
 [node name="TipLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-text = "Pick either Default mode or Fixed mode
-Default mode: For things like food and health. Will be visible in the player's UI and has to be actively managed by the player
-Fixed mode: Will not be shown in the UI but can be used for background mechanics, such as inventory space."
+text = "Pick either Default mode or Fixed mode. Default mode: For things like food and health. Will 
+be visible in the player's UI and has to be actively managed by the player. Fixed mode: Will 
+not be shown in the UI but can be used for background mechanics, such as inventory space."
 
 [node name="ModeLabel2" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -223,6 +223,8 @@ text = "Fixed amount"
 
 [node name="FixedAmountSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/ModeTabContainer/Fixed"]
 layout_mode = 2
+min_value = -1000.0
+max_value = 10000.0
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_pwtky")]
 visible = false

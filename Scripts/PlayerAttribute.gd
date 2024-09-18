@@ -27,15 +27,17 @@ class DefaultMode:
 	var depletion_timer: Timer
 	# Reference to the player instance
 	var player: Node
+	var playerattr: PlayerAttribute
 	
 	# Constructor to initialize DefaultMode properties
-	func _init(data: Dictionary, playernode: CharacterBody3D):
+	func _init(data: Dictionary, playernode: CharacterBody3D, myplayerattr: PlayerAttribute):
 		min_amount = data.get("min_amount", 0.0)
 		max_amount = data.get("max_amount", 100.0)
 		current_amount = data.get("current_amount", max_amount)
 		depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02
 		depletion_effect = data.get("depletion_effect", "none")
 		player = playernode
+		playerattr = myplayerattr
 		start_depletion()
 	
 	# Get data function to return the properties in a dictionary
@@ -65,7 +67,7 @@ class DefaultMode:
 
 	# Function to handle when the attribute changes (e.g., health drops to 0)
 	func _on_attribute_changed():
-		Helper.signal_broker.player_attribute_changed.emit(player, self)
+		Helper.signal_broker.player_attribute_changed.emit(player, playerattr)
 		# Trigger the depletion effect if amount drops to min and the effect is "death"
 		if is_at_min() and depletion_effect == "death":
 			player.die()
@@ -90,11 +92,18 @@ class DefaultMode:
 
 # Inner class for FixedMode
 class FixedMode:
-	var amount: float
+	var player: Node
+	var playerattr: PlayerAttribute
+	var amount: float:
+		set(value):
+			amount = value
+			Helper.signal_broker.player_attribute_changed.emit(player, playerattr)
 
 	# Constructor to initialize FixedMode properties
-	func _init(data: Dictionary):
-		amount = data.get("amount", 100.0)
+	func _init(data: Dictionary, playernode: CharacterBody3D, myplayerattr: PlayerAttribute):
+		amount = data.get("amount", 0.0)
+		player = playernode
+		playerattr = myplayerattr
 
 	# Get data function to return the properties in a dictionary
 	func get_data() -> Dictionary:
@@ -120,9 +129,9 @@ func _init(data: DPlayerAttribute, player_reference: Node):
 
 	# Check if DefaultMode or FixedMode exists and initialize them
 	if attribute_data.default_mode:
-		default_mode = DefaultMode.new(attribute_data.default_mode.get_data(), player)
+		default_mode = DefaultMode.new(attribute_data.default_mode.get_data(), player, self)
 	elif attribute_data.fixed_mode:
-		fixed_mode = FixedMode.new(attribute_data.fixed_mode.get_data())
+		fixed_mode = FixedMode.new(attribute_data.fixed_mode.get_data(), player, self)
 
 # Function to get the current state of the attribute as a dictionary
 func get_data() -> Dictionary:
@@ -150,9 +159,9 @@ func set_data(data: Dictionary):
 	
 	# Set the data for DefaultMode or FixedMode
 	if data.has("default_mode"):
-		default_mode = DefaultMode.new(data["default_mode"], player)
+		default_mode = DefaultMode.new(data["default_mode"], player, self)
 	elif data.has("fixed_mode"):
-		fixed_mode = FixedMode.new(data["fixed_mode"])
+		fixed_mode = FixedMode.new(data["fixed_mode"], player, self)
 
 
 # Reduces the amount of the default_mode
@@ -164,3 +173,8 @@ func reduce_amount(amount: float):
 func modify_current_amount(amount: float):
 	if default_mode:
 		default_mode.modify_current_amount(amount)
+
+# Modifies the amount of the fixed_mode by the given amount
+func modify_fixed_amount(amount: float):
+	if fixed_mode:
+		fixed_mode.amount = amount

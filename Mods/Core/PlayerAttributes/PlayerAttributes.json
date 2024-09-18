@@ -260,7 +260,7 @@
 	{
 		"description": "The amount of space available in the inventory",
 		"fixed_mode": {
-			"amount": 100
+			"amount": 500
 		},
 		"id": "inventory_space",
 		"name": "Inventory space",

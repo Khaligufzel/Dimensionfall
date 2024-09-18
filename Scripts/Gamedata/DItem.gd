@@ -330,10 +330,12 @@ class Wearable:
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		return {
-			"slot": slot,
-			"player_attributes": player_attributes
+		var mydata: Dictionary = {
+			"slot": slot
 		}
+		if not player_attributes.is_empty():
+			mydata["player_attributes"] = player_attributes
+		return mydata
 
 	# Function to add a reference for the wearable slot
 	func add_reference(item_id: String):
