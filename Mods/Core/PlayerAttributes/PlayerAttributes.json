@@ -264,6 +264,16 @@
 		},
 		"id": "inventory_space",
 		"name": "Inventory space",
+		"references": {
+			"Core": {
+				"item": [
+					"waistbag",
+					"mailbag",
+					"backpack",
+					"jeans"
+				]
+			}
+		},
 		"sprite": "playerattribuge_inventory_space_32.png"
 	}
 ]

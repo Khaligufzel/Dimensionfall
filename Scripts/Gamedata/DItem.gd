@@ -498,6 +498,9 @@ func changed(olddata: DItem):
 				olddata.wearable.remove_reference(id)
 			if wearable.slot:
 				wearable.add_reference(id)
+		
+		process_wearable_player_attributes(olddata)
+		
 	elif olddata.wearable and olddata.wearable.slot:
 		# The wearable is present in the old data but not in the new, so we remove the reference
 		olddata.wearable.remove_reference(id)
@@ -531,6 +534,48 @@ func changed(olddata: DItem):
 	update_item_attribute_references(olddata)
 	
 	Gamedata.items.save_items_to_disk()
+
+
+# Function to process player attributes in the wearable and update references accordingly
+func process_wearable_player_attributes(olddata: DItem):
+	if not wearable:
+		# If there's no wearable in the new data but the olddata wearable has attributes, remove their references
+		if olddata.wearable and not olddata.wearable.player_attributes.is_empty():
+			# Loop over old player attributes and remove references
+			for old_attr in olddata.wearable.player_attributes:
+				var old_attr_id = old_attr["id"]
+				Gamedata.playerattributes.remove_reference(old_attr_id, "Core", "item", olddata.id)
+		return  # Exit since there's no wearable in the new data
+	
+	if wearable.player_attributes.is_empty():
+		# If the new wearable has no player attributes, remove all references from olddata if they exist
+		if olddata.wearable and not olddata.wearable.player_attributes.is_empty():
+			for old_attr in olddata.wearable.player_attributes:
+				var old_attr_id = old_attr["id"]
+				Gamedata.playerattributes.remove_reference(old_attr_id, "Core", "item", olddata.id)
+		return  # Exit since there are no player attributes to add
+
+	# Collect new and old player attributes
+	var new_player_attributes = wearable.player_attributes
+	var old_player_attributes = olddata.wearable.player_attributes if olddata.wearable else []
+
+	# Dictionary to track old attribute ids for easy lookup
+	var old_attr_dict: Dictionary = {}
+	for old_attr in old_player_attributes:
+		old_attr_dict[old_attr["id"]] = old_attr
+
+	# Loop over new attributes and add references
+	for new_attr in new_player_attributes:
+		var attribute_id = new_attr["id"]
+		# Add reference for the new attribute
+		Gamedata.playerattributes.add_reference(attribute_id, "Core", "item", id)
+
+		# Remove the old attribute from the dictionary, as it still exists
+		old_attr_dict.erase(attribute_id)
+
+	# Any remaining attributes in old_attr_dict were removed, so remove their references
+	for old_attr_id in old_attr_dict.keys():
+		Gamedata.playerattributes.remove_reference(old_attr_id, "Core", "item", olddata.id)
 
 
 # Collects all skills defined in an item and updates the references to that skill
