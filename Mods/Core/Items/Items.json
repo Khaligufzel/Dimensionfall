@@ -3051,5 +3051,68 @@
 		"two_handed": true,
 		"volume": 200,
 		"weight": 4
+	},
+	{
+		"Wearable": {
+			"player_attributes": [
+				{
+					"id": "inventory_space",
+					"value": 200
+				}
+			],
+			"slot": "back"
+		},
+		"description": "A compact waist bag, ideal for carrying small essential items.",
+		"id": "waistbag",
+		"image": "./Mods/Core/Items/waistbag_32.png",
+		"max_stack_size": 1,
+		"name": "Waist Bag",
+		"sprite": "waistbag_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 30,
+		"weight": 0.3
+	},
+	{
+		"Wearable": {
+			"player_attributes": [
+				{
+					"id": "inventory_space",
+					"value": 400
+				}
+			],
+			"slot": "torso"
+		},
+		"description": "A large mailbag designed for carrying letters and small packages, with ample space.",
+		"id": "mailbag",
+		"image": "./Mods/Core/Items/mailbag_32.png",
+		"max_stack_size": 1,
+		"name": "Mail Bag",
+		"sprite": "mailbag_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 80,
+		"weight": 0.7
+	},
+	{
+		"Wearable": {
+			"player_attributes": [
+				{
+					"id": "inventory_space",
+					"value": 1000
+				}
+			],
+			"slot": "back"
+		},
+		"description": "A durable backpack with plenty of room for various supplies.",
+		"id": "backpack",
+		"image": "./Mods/Core/Items/backpack_32.png",
+		"max_stack_size": 1,
+		"name": "Backpack",
+		"sprite": "backpack_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 120,
+		"weight": 1.2
 	}
 ]
