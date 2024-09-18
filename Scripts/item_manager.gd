@@ -163,6 +163,15 @@ func initialize_inventory() -> InventoryStacked:
 	return newInventory
 
 func create_starting_items():
+	# Create starting equipment. The items are not added to the playerInventory, 
+	# only to the equipment slots.
+	player_equipment.EquipmentItemList["feet"] = playerInventory.create_item("boots")
+	player_equipment.EquipmentItemList["hands"] = playerInventory.create_item("gloves_leather")
+	player_equipment.EquipmentItemList["head"] = playerInventory.create_item("hat_baseball")
+	player_equipment.EquipmentItemList["legs"] = playerInventory.create_item("jeans")
+	player_equipment.EquipmentItemList["torso"] = playerInventory.create_item("jacket")
+	player_equipment.EquipmentItemList["back"] = playerInventory.create_item("mailbag")
+
 	if playerInventory.get_children() == []:
 		playerInventory.create_and_add_item("bottle_plastic_water")
 		playerInventory.create_and_add_item("bread")
@@ -170,67 +179,6 @@ func create_starting_items():
 		playerInventory.create_and_add_item("can_soda")
 		playerInventory.create_and_add_item("bandage_basic")
 		playerInventory.create_and_add_item("bottle_antibiotics")
-
-	var wearables: Dictionary = {
-		"wearables": {
-			"feet": {
-				"node_name": "@Node@9036",
-				"properties": {
-					"stack_size": {
-						"type": 2,
-						"value": "1"
-					}
-				},
-				"protoset": "res://ItemProtosets.tres",
-				"prototype_id": "boots"
-			},
-			"hands": {
-				"node_name": "@Node@9342",
-				"properties": {
-					"stack_size": {
-						"type": 2,
-						"value": "1"
-					}
-				},
-				"protoset": "res://ItemProtosets.tres",
-				"prototype_id": "gloves_leather"
-			},
-			"head": {
-				"node_name": "@Node@9055",
-				"properties": {
-					"stack_size": {
-						"type": 2,
-						"value": "1"
-					}
-				},
-				"protoset": "res://ItemProtosets.tres",
-				"prototype_id": "hat_baseball"
-			},
-			"legs": {
-				"node_name": "@Node@9395",
-				"properties": {
-					"stack_size": {
-						"type": 2,
-						"value": "1"
-					}
-				},
-				"protoset": "res://ItemProtosets.tres",
-				"prototype_id": "jeans"
-			},
-			"torso": {
-				"node_name": "@Node@9394",
-				"properties": {
-					"stack_size": {
-						"type": 2,
-						"value": "1"
-					}
-				},
-				"protoset": "res://ItemProtosets.tres",
-				"prototype_id": "jacket"
-			}
-		}
-	}
-	ItemManager.player_equipment.deserialize(wearables)
 
 
 

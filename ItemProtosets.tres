@@ -3073,6 +3073,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/waistbag_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Waist Bag\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"clothing_general\"
+				]
+			}
+		},
 		\"sprite\": \"waistbag_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -3087,13 +3094,20 @@ json_data = "[
 					\"value\": 400
 				}
 			],
-			\"slot\": \"torso\"
+			\"slot\": \"back\"
 		},
 		\"description\": \"A large mailbag designed for carrying letters and small packages, with ample space.\",
 		\"id\": \"mailbag\",
 		\"image\": \"./Mods/Core/Items/mailbag_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Mail Bag\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"clothing_general\"
+				]
+			}
+		},
 		\"sprite\": \"mailbag_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -3115,6 +3129,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/backpack_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Backpack\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"clothing_general\"
+				]
+			}
+		},
 		\"sprite\": \"backpack_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
