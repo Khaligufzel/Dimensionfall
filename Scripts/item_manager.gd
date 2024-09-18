@@ -555,11 +555,11 @@ func _on_game_ended():
 
 
 # Handles the update of the attribute when the player attribute changes
-func _on_player_attribute_changed(player_node: CharacterBody3D, attr: PlayerAttribute = null):
+func _on_player_attribute_changed(_player_node: CharacterBody3D, attr: PlayerAttribute = null):
 	if attr and attr.fixed_mode:  # If a specific attribute has changed
 		if attr.id == "inventory_space":
-			set_max_inventory_volume(attr.fixed_mode.amount)
-			print_debug("player's inventory spcac changed")
+			var newamount: int = int(attr.fixed_mode.get_total_amount())
+			set_max_inventory_volume(newamount)
 
 
 # Loop over all items in the player's inventory

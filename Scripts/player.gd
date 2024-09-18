@@ -540,16 +540,11 @@ func _modify_player_attribute(wearableItem: InventoryItem, is_equipping: bool):
 		# Check if the global attributes dictionary has the attribute id
 		if attribute_id in attributes:
 			var player_attribute: PlayerAttribute = attributes[attribute_id]
-
-			# Check if the player attribute has fixed_mode
-			if player_attribute.fixed_mode:
-				# If equipping, add the amount; if unequipping, subtract the amount
-				if is_equipping:
-					player_attribute.fixed_mode.amount += amount
-				else:
-					player_attribute.fixed_mode.amount -= amount
-
-				print_debug("Updated attribute '%s': %f" % [attribute_id, player_attribute.fixed_mode.amount])
+			# If equipping, add the amount; if unequipping, subtract the amount
+			if is_equipping:
+				player_attribute.modify_temp_amount(amount)
+			else:
+				player_attribute.modify_temp_amount(-amount)
 
 # Function for handling when a wearable is equipped
 func _on_wearable_was_equipped(wearableItem: InventoryItem, _wearableSlot: Control):

@@ -90,26 +90,59 @@ class DefaultMode:
 			stop_depletion()
 
 
-# Inner class for FixedMode
+# Inner class for FixedMode. This is used in the background to control some game mechanics
+# but can be influenced by items and game events. For example,
+# inventory_space may be altered by equipping items
 class FixedMode:
 	var player: Node
 	var playerattr: PlayerAttribute
-	var amount: float:
-		set(value):
-			amount = value
-			Helper.signal_broker.player_attribute_changed.emit(player, playerattr)
+
+	# Define the three amounts
+	var base_amount: float   # Set only during initialization
+	var temp_amount: float   # Temporary, modified during gameplay but not saved
+	var perm_amount: float   # Permanent, saved during gameplay
 
 	# Constructor to initialize FixedMode properties
 	func _init(data: Dictionary, playernode: CharacterBody3D, myplayerattr: PlayerAttribute):
-		amount = data.get("amount", 0.0)
+		# Initialize amounts from data, using 0.0 as default if not provided
+		base_amount = data.get("amount", 0.0)
+		temp_amount = 0.0  # Always starts at 0 during initialization
+		perm_amount = data.get("perm_amount", 0.0)
 		player = playernode
 		playerattr = myplayerattr
 
-	# Get data function to return the properties in a dictionary
+	# Function to get data, but only return base_amount and perm_amount (not temp_amount)
 	func get_data() -> Dictionary:
 		return {
-			"amount": amount
+			"amount": base_amount,
+			"perm_amount": perm_amount
 		}
+
+	# Function to get the total effective amount (base + perm + temp)
+	func get_total_amount() -> float:
+		return base_amount + perm_amount + temp_amount
+
+	# Set the temp_amount during gameplay (temporary effect)
+	func set_temp_amount(value: float):
+		temp_amount = value
+		print_debug("Updated attribute temp_amount '%s': %f" % [playerattr.id, temp_amount])
+		Helper.signal_broker.player_attribute_changed.emit(player, playerattr)
+
+	# Modify the temp_amount by adding or subtracting from it
+	func modify_temp_amount(value: float):
+		temp_amount += value
+		Helper.signal_broker.player_attribute_changed.emit(player, playerattr)
+
+	# Set the perm_amount during gameplay (this will be saved)
+	func set_perm_amount(value: float):
+		perm_amount = value
+		Helper.signal_broker.player_attribute_changed.emit(player, playerattr)
+
+	# Modify the perm_amount by adding or subtracting from it
+	func modify_perm_amount(value: float):
+		perm_amount += value
+		Helper.signal_broker.player_attribute_changed.emit(player, playerattr)
+
 
 # Properties for default and fixed modes
 var default_mode: DefaultMode
@@ -178,3 +211,8 @@ func modify_current_amount(amount: float):
 func modify_fixed_amount(amount: float):
 	if fixed_mode:
 		fixed_mode.amount = amount
+
+# Modifies the amount of the fixed_mode by the given amount
+func modify_temp_amount(amount: float):
+	if fixed_mode:
+		fixed_mode.modify_temp_amount(amount)
