@@ -27841,6 +27841,9 @@
 	"name": "Rocky Hill (Southwest)",
 	"references": {
 		"core": {
+			"quests": [
+				"starter_tutorial_00"
+			],
 			"tacticalmaps": [
 				"RockyHill_00.json"
 			]
