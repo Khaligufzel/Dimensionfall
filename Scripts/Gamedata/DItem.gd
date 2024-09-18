@@ -267,6 +267,13 @@ class Food:
 				ids.append(attribute["id"])
 		return ids
 
+	# Function to remove a player attribute by its ID
+	func remove_player_attribute(attribute_id: String) -> void:
+		for i in range(attributes.size()):
+			if attributes[i]["id"] == attribute_id:
+				attributes.remove_at(i)  # Remove the attribute if the ID matches
+				break  # Exit the loop after removing the attribute
+
 
 # Inner class to handle the Medical property
 class Medical:
@@ -300,6 +307,13 @@ class Medical:
 			if attribute.has("id"):
 				ids.append(attribute["id"])
 		return ids
+
+	# Function to remove a player attribute by its ID
+	func remove_player_attribute(attribute_id: String) -> void:
+		for i in range(attributes.size()):
+			if attributes[i]["id"] == attribute_id:
+				attributes.remove_at(i)  # Remove the attribute if the ID matches
+				break  # Exit the loop after removing the attribute
 
 
 # Inner class to handle the Ammo property
@@ -353,6 +367,13 @@ class Wearable:
 			if attribute["id"] == attribute_id:
 				return attribute["value"]
 		return null  # Return null if the attribute is not found
+
+	# Function to remove a player attribute by its ID
+	func remove_player_attribute(attribute_id: String) -> void:
+		for i in range(player_attributes.size()):
+			if player_attributes[i]["id"] == attribute_id:
+				player_attributes.remove_at(i)  # Remove the attribute if the ID matches
+				break  # Exit the loop after removing the attribute
 
 
 # Constructor to initialize item properties from a dictionary
@@ -663,6 +684,18 @@ func delete():
 	# It will call remove_from_quest on every item in item_data.references.core.quests
 	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
 	
+	if food and not food.attributes.is_empty():
+		for food_attribute in food.attributes:
+			Gamedata.playerattributes.remove_reference(food_attribute["id"],"Core","item",id)
+	
+	if medical and not medical.attributes.is_empty():
+		for medical_attribute in medical.attributes:
+			Gamedata.playerattributes.remove_reference(medical_attribute["id"],"Core","item",id)
+	
+	if wearable and not wearable.player_attributes.is_empty():
+		for wearableattr in wearable.player_attributes:
+			Gamedata.playerattributes.remove_reference(wearableattr["id"],"Core","item",id)
+	
 	var skill_ids: Dictionary = {}
 	# Check if 'craft' is not null before proceeding
 	if craft:
@@ -691,7 +724,6 @@ func delete():
 		Gamedata.items.save_items_to_disk()
 	else:
 		print_debug("No changes needed for item", id)
-
 
 
 # Executes a callable function on each reference of the given type

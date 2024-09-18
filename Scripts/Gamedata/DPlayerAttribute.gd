@@ -141,10 +141,19 @@ func changed(_olddata: DPlayerAttribute):
 # A playerattribute is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	# Check if the playerattribute has references to maps and remove it from those maps
-	var mapsdata = Helper.json_helper.get_nested_data(references, "core.maps")
-	if mapsdata:
-		Gamedata.maps.remove_entity_from_selected_maps("playerattribute", id, mapsdata)
+	# Check if the playerattribute has references to items and remove it from those items
+	var itemsdata = Helper.json_helper.get_nested_data(references, "core.items")
+	if itemsdata:
+		for item_id in itemsdata:
+			var ditem = Gamedata.items.by_id(item_id)
+			if ditem.wearable and not ditem.wearable.player_attributes.is_empty():
+				ditem.wearable.remove_player_attribute(id)
+			if ditem.food and not ditem.food.attributes.is_empty():
+				ditem.food.remove_player_attribute(id)
+			if ditem.medical and not ditem.medical.attributes.is_empty():
+				ditem.medical.remove_player_attribute(id)
+		Gamedata.items.save_items_to_disk()
+
 
 # Executes a callable function on each reference of the given type
 func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
