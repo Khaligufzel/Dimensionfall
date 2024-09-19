@@ -9,7 +9,8 @@
 				}
 			],
 			"id": "mob_spawn",
-			"rotate_random": false,
+			"pick_one": true,
+			"rotate_random": true,
 			"spawn_chance": 100,
 			"tiles": [
 				{
@@ -204,7 +205,7 @@
 			"entities": [],
 			"id": "floor_ne_0_bathroom",
 			"pick_one": true,
-			"rotate_random": false,
+			"rotate_random": true,
 			"spawn_chance": 100,
 			"tiles": [
 				{
@@ -274,6 +275,51 @@
 				{
 					"count": 1,
 					"id": "bathroom_tiles_blue_00"
+				}
+			]
+		},
+		{
+			"entities": [],
+			"id": "floor_ne_0_backhall",
+			"pick_one": true,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1,
+					"id": "floor_wood_boards_00"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_01"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_02"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_03"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_04"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_05"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_06"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_07"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_08"
 				}
 			]
 		}
@@ -521,6 +567,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_ne_0_backhall",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "window_glass"
 				},
@@ -655,22 +707,52 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_ne_0_backhall",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_ne_0_backhall",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_ne_0_backhall",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_ne_0_backhall",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_ne_0_backhall",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"rotation": 270
