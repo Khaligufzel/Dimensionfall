@@ -828,7 +828,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse"
 				]
 			}
 		},
@@ -847,7 +848,8 @@
 			"core": {
 				"maps": [
 					"generichouse_cross",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse"
 				]
 			}
 		},
@@ -866,7 +868,8 @@
 			"core": {
 				"maps": [
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse"
 				]
 			}
 		},
@@ -948,7 +951,8 @@
 			"core": {
 				"maps": [
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse"
 				]
 			}
 		},
@@ -966,7 +970,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_t"
+					"generichouse_t",
+					"Generichouse"
 				]
 			}
 		},
@@ -987,7 +992,8 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"Generichouse_00"
+					"Generichouse_00",
+					"Generichouse"
 				]
 			}
 		},
@@ -1002,6 +1008,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted green",
 		"id": "kitchen_tiles_green_02",
 		"name": "Kitchen tiles (green)",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilesgreen2.png"
 	},
@@ -1017,7 +1030,8 @@
 			"core": {
 				"maps": [
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse"
 				]
 			}
 		},
@@ -1035,7 +1049,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner"
+					"generichouse_corner",
+					"Generichouse"
 				]
 			}
 		},
@@ -1055,7 +1070,8 @@
 				"maps": [
 					"generichouse_corner",
 					"store_electronic_clothing",
-					"Generichouse_00"
+					"Generichouse_00",
+					"Generichouse"
 				]
 			}
 		},
@@ -1077,7 +1093,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"store_electronic_clothing",
-					"Generichouse_00"
+					"Generichouse_00",
+					"Generichouse"
 				]
 			}
 		},
@@ -1092,6 +1109,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted purple",
 		"id": "kitchen_tiles_purple_01",
 		"name": "Kitchen tiles (purple)",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilespurple4.png"
 	},
@@ -1103,6 +1127,13 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted purple",
 		"id": "kitchen_tiles_purple_02",
 		"name": "Kitchen tiles (purple)",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "kitchentilespurple5.png"
 	},
@@ -2034,7 +2065,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse_00"
+					"Generichouse_00",
+					"Generichouse"
 				]
 			}
 		},
