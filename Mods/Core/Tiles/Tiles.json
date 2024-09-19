@@ -297,7 +297,8 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"Generichouse_00"
+					"Generichouse_00",
+					"Generichouse"
 				]
 			}
 		},
@@ -317,7 +318,8 @@
 				"maps": [
 					"generichouse_cross",
 					"generichouse_t",
-					"Generichouse_00"
+					"Generichouse_00",
+					"Generichouse"
 				]
 			}
 		},
@@ -2047,6 +2049,13 @@
 		"description": "A linoleum floor you would find in a store. It's are painted brown",
 		"id": "linoleum_brown_00",
 		"name": "Linoleum tiles (brown)",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "linoleum_brown.png"
 	},
@@ -2058,6 +2067,13 @@
 		"description": "A linoleum floor you would find in a store. It's are painted brown",
 		"id": "linoleum_brown_01",
 		"name": "Linoleum tiles (brown)",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "linoleum_brown1.png"
 	},
@@ -2069,6 +2085,13 @@
 		"description": "A linoleum floor you would find in a store. It's are painted green",
 		"id": "linoleum_green_01",
 		"name": "Linoleum tiles (green)",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "linoleum_green.png"
 	},
@@ -2080,6 +2103,13 @@
 		"description": "A linoleum floor you would find in a store. It's are painted green",
 		"id": "linoleum_green_00",
 		"name": "Linoleum tiles (green)",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "linoleum_green1.png"
 	},
@@ -2094,7 +2124,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse_00"
+					"Generichouse_00",
+					"Generichouse"
 				]
 			}
 		},
@@ -2112,7 +2143,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse_00"
+					"Generichouse_00",
+					"Generichouse"
 				]
 			}
 		},
@@ -2130,7 +2162,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse_00"
+					"Generichouse_00",
+					"Generichouse"
 				]
 			}
 		},
@@ -2145,6 +2178,13 @@
 		"description": "A linoleum floor you would find in a store. It's are painted lightblue",
 		"id": "linoleum_lightblue_01",
 		"name": "Linoleum tiles (lightblue)",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "linoleum_lightblue1.png"
 	},
@@ -2156,6 +2196,13 @@
 		"description": "A linoleum floor you would find in a store. It's are painted lightblue",
 		"id": "linoleum_lightblue_02",
 		"name": "Linoleum tiles (lightblue)",
+		"references": {
+			"core": {
+				"maps": [
+					"Generichouse"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "linoleum_lightblue2.png"
 	},
