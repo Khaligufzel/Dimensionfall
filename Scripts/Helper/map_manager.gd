@@ -56,7 +56,6 @@ func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: D
 			result["rotation"] = _get_random_rotation(area_data)
 
 
-
 # Function to process entities data and add them to result
 func _process_entities_data(area_data: Dictionary, result: Dictionary) -> void:
 	# Calculate the total count of tiles

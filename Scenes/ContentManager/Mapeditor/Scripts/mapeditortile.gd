@@ -8,10 +8,10 @@ const aboveTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/tileA
 const areaTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/areatile.png"
 var tileData: Dictionary = defaultTileData.duplicate():
 	set(data):
-		if tileData.has("id") and tileData.id == "null":
+		if (tileData.has("id") and tileData.id == "null") or (tileData.has("id") and tileData.id == null):
 			return
 		tileData = data
-		if tileData.has("id") and not tileData.id == "":
+		if tileData.has("id") and not tileData.id == "" and not tileData.id == "null":
 			$TileSprite.texture = Gamedata.tiles.sprite_by_id(tileData.id)
 			set_rotation_amount(tileData.get("rotation", 0))
 			$ObjectSprite.hide()

@@ -2249,7 +2249,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse"
 				]
 			}
 		},
@@ -2267,7 +2268,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse"
 				]
 			}
 		},
@@ -2285,7 +2287,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"Generichouse"
 				]
 			}
 		},
