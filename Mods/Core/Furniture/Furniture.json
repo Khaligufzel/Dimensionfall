@@ -1088,7 +1088,8 @@
 			"core": {
 				"maps": [
 					"store_electronic_clothing",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"store_groceries"
 				]
 			}
 		},

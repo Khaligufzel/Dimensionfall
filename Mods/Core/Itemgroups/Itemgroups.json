@@ -199,6 +199,9 @@
 				"furniture": [
 					"cabinet_wood_00",
 					"wall_shelf"
+				],
+				"maps": [
+					"store_groceries"
 				]
 			}
 		},
@@ -747,6 +750,13 @@
 		],
 		"mode": "Collection",
 		"name": "Vending machine (snacks)",
+		"references": {
+			"core": {
+				"maps": [
+					"store_groceries"
+				]
+			}
+		},
 		"sprite": "chocolate_32.png"
 	},
 	{

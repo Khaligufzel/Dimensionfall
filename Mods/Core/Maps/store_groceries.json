@@ -644,72 +644,13 @@
 					}
 				],
 				"furniture": {
-					"id": "wall_shelf"
-				},
-				"id": "linoleum_white_00",
-				"rotation": 180
-			},
-			{
-				"areas": [
-					{
-						"id": "floor_back_area",
-						"rotation": 90
-					}
-				],
-				"furniture": {
-					"id": "wall_shelf"
-				},
-				"id": "linoleum_white_00",
-				"rotation": 180
-			},
-			{
-				"areas": [
-					{
-						"id": "floor_back_area",
-						"rotation": 90
-					}
-				],
-				"furniture": {
-					"id": "wall_shelf"
-				},
-				"id": "linoleum_white_00",
-				"rotation": 180
-			},
-			{
-				"areas": [
-					{
-						"id": "floor_back_area",
-						"rotation": 90
-					}
-				],
-				"furniture": {
-					"id": "wall_shelf"
-				},
-				"id": "linoleum_white_00",
-				"rotation": 180
-			},
-			{
-				"areas": [
-					{
-						"id": "floor_back_area",
-						"rotation": 90
-					}
-				],
-				"furniture": {
-					"id": "wall_shelf"
-				},
-				"id": "linoleum_white_00",
-				"rotation": 180
-			},
-			{
-				"areas": [
-					{
-						"id": "floor_back_area",
-						"rotation": 90
-					}
-				],
-				"furniture": {
-					"id": "wall_shelf"
+					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					]
 				},
 				"id": "linoleum_white_00",
 				"rotation": 180
@@ -723,6 +664,107 @@
 				],
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					]
+				},
+				"id": "linoleum_white_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "floor_back_area",
+						"rotation": 90
+					}
+				],
+				"furniture": {
+					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					]
+				},
+				"id": "linoleum_white_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "floor_back_area",
+						"rotation": 90
+					}
+				],
+				"furniture": {
+					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					]
+				},
+				"id": "linoleum_white_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "floor_back_area",
+						"rotation": 90
+					}
+				],
+				"furniture": {
+					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					]
+				},
+				"id": "linoleum_white_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "floor_back_area",
+						"rotation": 90
+					}
+				],
+				"furniture": {
+					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					]
+				},
+				"id": "linoleum_white_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "floor_back_area",
+						"rotation": 90
+					}
+				],
+				"furniture": {
+					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 90
 				},
 				"id": "linoleum_white_00",
@@ -1016,6 +1058,12 @@
 				],
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 90
 				},
 				"id": "linoleum_white_00",
@@ -1392,6 +1440,12 @@
 				],
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 90
 				},
 				"id": "linoleum_white_00",
@@ -1516,12 +1570,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					]
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1532,12 +1580,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					]
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1548,12 +1590,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					]
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1564,12 +1600,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					]
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1580,12 +1610,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					]
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1596,12 +1620,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					]
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1612,12 +1630,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					]
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1628,12 +1640,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					]
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1691,6 +1697,12 @@
 				],
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 180
 				},
 				"id": "linoleum_white_00",
@@ -1705,6 +1717,12 @@
 				],
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 180
 				},
 				"id": "linoleum_white_00",
@@ -1719,6 +1737,12 @@
 				],
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 180
 				},
 				"id": "linoleum_white_00",
@@ -1733,6 +1757,12 @@
 				],
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 180
 				},
 				"id": "linoleum_white_00",
@@ -1747,6 +1777,12 @@
 				],
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 180
 				},
 				"id": "linoleum_white_00",
@@ -1771,6 +1807,12 @@
 				],
 				"furniture": {
 					"id": "wall_shelf",
+					"itemgroups": [
+						"cabinet_general",
+						"kitchen_cupboard",
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 90
 				},
 				"id": "linoleum_white_00",
@@ -1895,13 +1937,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					],
-					"rotation": 180
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1912,13 +1947,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					],
-					"rotation": 180
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1929,13 +1957,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					],
-					"rotation": 180
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1946,13 +1967,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					],
-					"rotation": 180
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1963,13 +1977,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					],
-					"rotation": 180
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1980,13 +1987,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					],
-					"rotation": 180
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -1997,13 +1997,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					],
-					"rotation": 180
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -2014,13 +2007,6 @@
 						"rotation": 270
 					}
 				],
-				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard"
-					],
-					"rotation": 180
-				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -2092,6 +2078,10 @@
 						"rotation": 270
 					}
 				],
+				"furniture": {
+					"id": "security_gate",
+					"rotation": 180
+				},
 				"id": "linoleum_white_00",
 				"rotation": 180
 			},
@@ -8399,8 +8389,7 @@
 
 			},
 			{
-				"id": "brick_wall_01",
-				"rotation": 270
+
 			},
 			{
 
@@ -13396,7 +13385,7 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
-	"name": "Urban Road Corner",
+	"name": "Grocery store",
 	"references": {
 		"core": {
 			"tacticalmaps": [
@@ -13404,5 +13393,5 @@
 			]
 		}
 	},
-	"weight": 1000
+	"weight": 400
 }
