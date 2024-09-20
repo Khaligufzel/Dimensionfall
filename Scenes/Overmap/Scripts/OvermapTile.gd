@@ -1,16 +1,23 @@
 extends Control
 
-const defaultTileData: Dictionary = {"texture": ""}
+# Define the default texture to show when no map_cell is revealed
 const defaultTexture: String = "./Scenes/ContentManager/Mapeditor/Images/emptyTile.png"
-var tileData: Dictionary = defaultTileData.duplicate():
-	set(data):
-		tileData = data
-		if tileData.texture != "":
-			$TextureRect.texture = load("./Mods/Core/OvermapTiles/" + tileData.texture)
+
+# Declare the map_cell variable, replacing tileData
+# the map_cell is of the map_cell class defined in Helper.overmap_manager
+var map_cell:
+	set(cell):
+		map_cell = cell
+		if map_cell and map_cell.revealed:
+			set_texture(map_cell.get_sprite())  # Set the texture if revealed
+			set_texture_rotation(map_cell.rotation)  # Apply the rotation
 		else:
-			$TextureRect.texture = load(defaultTexture)
+			set_texture(null)  # Clear the texture if not revealed
+
+
 signal tile_clicked(clicked_tile: Control)
 
+# Handle mouse input to emit the tile_clicked signal
 func _on_texture_rect_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		match event.button_index:
@@ -18,47 +25,47 @@ func _on_texture_rect_gui_input(event: InputEvent) -> void:
 				if event.pressed:
 					tile_clicked.emit(self)
 
+# Set the texture for the TextureRect
 func set_texture(res: Resource) -> void:
 	if res:
 		$TextureRect.texture = res
 	else:
-		$TextureRect.texture = load(defaultTexture)
-		
+		$TextureRect.texture = load(defaultTexture)  # Set to default texture if none provided
 
-func set_default() -> void:
-	tileData = defaultTileData.duplicate()
-
+# Highlight the tile
 func highlight() -> void:
 	$TextureRect.modulate = Color(0.227, 0.635, 0.757)
-	
+
+# Unhighlight the tile
 func unhighlight() -> void:
-	$TextureRect.modulate = Color(1,1,1)
-	
+	$TextureRect.modulate = Color(1, 1, 1)
+
+# Set the color of the TextureRect
 func set_color(myColor: Color) -> void:
 	$TextureRect.modulate = myColor
-	
+
+# Set the tile to be clickable or not
 func set_clickable(clickable: bool):
-	if !clickable:
+	if not clickable:
 		mouse_filter = MOUSE_FILTER_IGNORE
 		$TextureRect.mouse_filter = MOUSE_FILTER_IGNORE
 
-
-# Useful for alerting the player about this location by using a symbol
-func set_text(newtext: String):
-	$TextLabel.text = newtext
-	$TextLabel.visible = true
-	
-
-# Hide or show the textlabel
+# Show or hide the text on the tile
 func set_text_visible(isvisible: bool):
 	$TextLabel.visible = isvisible
 
+# Set the text on the tile
+func set_text(newtext: String):
+	$TextLabel.text = newtext
+	if newtext == "":
+		$TextLabel.visible = false
+		return
+	$TextLabel.text = newtext
+	$TextLabel.visible = true
 
 # Set the rotation of the TextureRect based on the given rotation angle
 func set_texture_rotation(myrotation: int) -> void:
-	# Set the rotation pivot to the center of the TextureRect
-	$TextureRect.pivot_offset = size / 2
-	# Set the rotation of the TextureRect based on the given rotation angle
+	$TextureRect.pivot_offset = size / 2  # Set the pivot to the center of the TextureRect
 	match myrotation:
 		0:
 			$TextureRect.rotation_degrees = 0

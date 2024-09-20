@@ -77,11 +77,11 @@ class map_cell:
 	var region = Region.PLAINS
 	var coordinate_x: int = 0
 	var coordinate_y: int = 0
-	var sprite: Texture = null
+	var dmap: DMap = null
 	var map_id: String = "field_grass_basic_00.json":
 		set(value):
 			map_id = value
-			sprite = Gamedata.maps.by_id(map_id).sprite
+			dmap = Gamedata.maps.by_id(map_id)
 	var tacticalmapname: String = "town_00.json"
 	var revealed: bool = false # This cell will be obfuscated on the overmap if false (unexplored)
 	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
@@ -109,10 +109,42 @@ class map_cell:
 		rotation = newdata.get("rotation", 0)
 
 	func get_sprite() -> Texture:
-		return sprite
+		return dmap.sprite
 
 	func reveal():
 		revealed = true
+	
+	# Function to return formatted information about the map cell
+	func get_info_string() -> String:
+		# If the cell is not revealed, notify the player
+		if not revealed:
+			return "This area has not \nbeen explored yet."
+		
+		# If revealed, display the detailed information
+		var pos_string: String = "Pos: (" + str(coordinate_x) + ", " + str(coordinate_y) + ")"
+		
+		# Use dmap's name and description instead of map_id
+		var map_name_string: String = "\nName: " + dmap.name
+		#var map_description_string: String = "\nDescription: " + dmap.description
+		
+		var region_string: String = "\nRegion: " + region_type_to_string(region)
+		var challenge_string: String = "\nChallenge: Easy"  # Placeholder for now
+		
+		# Combine all the information into one formatted string
+		return pos_string + map_name_string + region_string + challenge_string
+		#return pos_string + map_name_string + map_description_string + region_string + challenge_string
+
+
+	# Helper function to convert Region enum to string
+	func region_type_to_string(region_type: int) -> String:
+		match region_type:
+			Region.PLAINS:
+				return "Plains"
+			Region.CITY:
+				return "City"
+			Region.FOREST:
+				return "Forest"
+		return "Unknown"
 
 
 # A grid that holds grid_width by grid_height of cells
@@ -572,6 +604,7 @@ func process_loaded_grid_data(grid_data: Dictionary):
 		var grid = map_grid.new()
 		grid.set_data(grid_data)
 		loaded_grids[grid.pos] = grid
+		build_map_id_to_coordinates(grid)
 		print_debug("Grid loaded from file at " + str(grid.pos))
 	else:
 		print_debug("Failed to parse grid file")

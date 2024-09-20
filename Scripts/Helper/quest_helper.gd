@@ -55,7 +55,7 @@ func _on_game_started():
 
 # Function for handling game loaded signal
 func _on_game_loaded():
-	# To be developed later
+	connect_inventory_signals()
 	pass
 
 # Function for handling game ended signal
@@ -286,7 +286,7 @@ func check_and_emit_target_map(step: Dictionary):
 	var step_type = step.get("step_type", "")
 
 	# Check for the step_type for this step according to the QuestManager
-	if step_type == "action_step":
+	if step_type == "action_step" and not step.complete:
 		var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
 		# Check the type of the stepjson, which is set in the quest editor
 		if stepmeta.get("type", "") == "enter":

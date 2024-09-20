@@ -13,7 +13,6 @@ var chunk_size: int = 8
 var tile_size: int = 32
 var grid_pixel_size: int = chunk_size * tile_size
 var selected_overmap_tile: Control = null
-var previous_visible_tile: Control = null  # Stores the previously visible tile
 var chunk_pool: Array = []  # Pool to store unloaded GridChunks
 var text_visible_by_coord: Dictionary = {}  # Tracks text visibility
 var target: Target = null  # Holds the target location as an instance of the Target class
@@ -56,13 +55,22 @@ class GridChunk:
 
 
 	# Constructor to initialize the chunk with its grid position, chunk position, and necessary references
-	func _init(mygrid_position: Vector2, mychunk_position: Vector2, mytile_size: int, myovermapTile: PackedScene):
-		self.grid_position = mygrid_position # Local grid position. Ex. (0,0),(0,1),(1,1)
-		self.chunk_position = mychunk_position # Global grid position ex. (0,0),(0,256),(256,256)
-		self.tile_size = mytile_size
+	# Expects this dictionary:
+	# {
+	# 	"mygrid_position": mygrid_position: Vector2,
+	# 	"mychunk_position": mychunk_position: Vector2,
+	# 	"mytile_size": mytile_size: int,
+	# 	"myovermapTile": myovermapTile: PackedScene,
+	# 	"overmap_node": overmap_node: Control
+	# }
+	func _init(properties: Dictionary):
+		self.grid_position = properties.mygrid_position # Local grid position. Ex. (0,0),(0,1),(1,1)
+		self.chunk_position = properties.mychunk_position # Global grid position ex. (0,0),(0,256),(256,256)
+		self.tile_size = properties.mytile_size
 		self.grid_container = GridContainer.new()
 		self.grid_container.columns = chunk_width
-		self.overmapTile = myovermapTile
+		self.overmapTile = properties.myovermapTile
+		self.overmap_node = properties.overmap_node
 		self.grid_container.set("theme_override_constants/h_separation", 0)
 		self.grid_container.set("theme_override_constants/v_separation", 0)
 		# Use set_position to apply the fixed offset to the initial position
@@ -80,6 +88,8 @@ class GridChunk:
 			for x in range(chunk_size):
 				var tile = overmapTile.instantiate()  # Create a new tile instance
 
+				# Connect the tile's clicked signal to the _on_tile_clicked function
+				tile.tile_clicked.connect(overmap_node._on_tile_clicked)
 				# Add the tile to the grid container and dictionary
 				grid_container.add_child(tile)
 				tile_dictionary[Vector2(x, y)] = tile  # Store tile by its x, y coordinates
@@ -103,7 +113,7 @@ class GridChunk:
 					tile.set_color(Color(0.3, 0.3, 1))  # Blue color for tile at (0,0)
 				else:
 					tile.set_color(Color(1, 1, 1))  # White color for other tiles
-
+				tile.set_text("")
 				# Use the same function to update tile based on its position and player location
 				update_tile_texture_and_reveal(tile, global_pos, Helper.overmap_manager.player_current_cell)
 
@@ -165,7 +175,7 @@ class GridChunk:
 	func update_tile_text_visibility():
 		# Hide the text on the previously visible tile, if any
 		if visible_tile:
-			visible_tile.set_text_visible(false)
+			visible_tile.set_text("")
 			visible_tile = null
 
 		# Check if the player's last known position is within this chunk's bounds
@@ -173,8 +183,9 @@ class GridChunk:
 			# Calculate the local position of the player within the chunk
 			var local_pos = Helper.overmap_manager.player_current_cell - grid_position
 			if tile_dictionary.has(local_pos):
+				# The player is on this tile, so we put the player marker as text
 				var tile = tile_dictionary[local_pos]
-				tile.set_text_visible(true)
+				tile.set_text("✠")
 				visible_tile = tile  # Store the reference to the new visible tile
 
 	func _on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
@@ -201,8 +212,8 @@ class GridChunk:
 		var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(global_pos)
 		
 		if not map_cell:
-			# If no map cell found, reset the texture
-			tile.set_texture(null)
+			# If no map cell is found, reset the map_cell on the tile and clear the texture
+			tile.map_cell = null  # Reset map_cell to an empty dictionary
 			return
 
 		# Calculate distance to player
@@ -212,15 +223,9 @@ class GridChunk:
 			# Reveal the map cell if within the player's range
 			map_cell.reveal()
 
-		# Set texture based on whether the map cell is revealed
-		if map_cell.revealed:
-			var texture: Texture = map_cell.get_sprite()
-			tile.set_texture(texture)
-			# Set the tile's rotation based on the map cell's rotation property
-			tile.set_texture_rotation(map_cell.rotation)
-		else:
-			# If outside the range and not revealed, reset the texture
-			tile.set_texture(null)
+		# Assign the map_cell to the tile and let the tile handle texture and rotation
+		tile.map_cell = map_cell
+
 
 	# Function to check if the player's last position falls within the range of this chunk's grid area
 	func is_within_player_range() -> bool:
@@ -294,8 +299,16 @@ func update_chunks():
 					new_chunk = chunk_pool.pop_back()
 					new_chunk.reset_chunk(chunk_grid_position, get_localized_position(chunk_grid_position))
 				else:
+					
+					var chunkproperties: Dictionary = {
+						"mygrid_position": chunk_grid_position,
+						"mychunk_position": get_localized_position(chunk_grid_position),
+						"mytile_size": tile_size,
+						"myovermapTile": overmapTile,
+						"overmap_node": self
+					}
 					# Create a new chunk if the pool is empty
-					new_chunk = GridChunk.new(chunk_grid_position, get_localized_position(chunk_grid_position), tile_size, overmapTile)
+					new_chunk = GridChunk.new(chunkproperties)
 					new_chunk.overmap_node = self
 					# Connect the position_coord_changed signal to the GridChunk's update_absolute_position function
 					position_coord_changed.connect(new_chunk.on_position_coord_changed)
@@ -373,25 +386,17 @@ func on_position_coord_changed():
 
 # This function will be connected to the signal of the tiles
 func _on_tile_clicked(clicked_tile):
-	if clicked_tile.has_meta("map_file"):
-		selected_overmap_tile = clicked_tile
-		var mapFile = clicked_tile.get_meta("map_file")
-		var tilePos = clicked_tile.get_meta("global_pos")
-		var posString: String = "Pos: (" + str(tilePos.x)+","+str(tilePos.y)+")"
-		var nameString: String = "\nName: " + mapFile
-		var envString: String = clicked_tile.tileData.texture
-		envString = envString.replace("res://Mods/Core/OvermapTiles/","")
-		envString = "\nEnvironment: " + envString
-		var challengeString: String = "\nChallenge: Easy"
-		overmapTileLabel.text = posString + nameString + envString + challengeString
+	if clicked_tile.map_cell:
+		overmapTileLabel.text = clicked_tile.map_cell.get_info_string()
 	else: 
 		selected_overmap_tile = null
 		overmapTileLabel.text = "Select a valid target"
 
 
+# The player presses the home button, sending the overmap view to (0,0)
 func _on_home_button_button_up():
 	# Update position_coord to the new position
-	Helper.position_coord = Vector2(0,0)#new_position_coord
+	Helper.position_coord = Vector2(0,0)
 	# Emit the signal to update the overmap's position and tiles
 	position_coord_changed.emit()
 
@@ -423,7 +428,7 @@ func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_po
 	move_overmap(delta)
 
 
-# Set the target
+# Set the target. The target comes from the player reaching a "travel" step in a quest
 func set_target(map_id: String, coordinate: Vector2):
 	if target == null:
 		target = Target.new(map_id, coordinate)  # Create a new target
@@ -432,11 +437,6 @@ func set_target(map_id: String, coordinate: Vector2):
 # Function to handle overmap visibility toggling
 func on_overmap_visibility_toggled():
 	if visible:
-		# Hide the previous tile marker when the overmap is opened
-		if previous_visible_tile:
-			previous_visible_tile.set_text_visible(false)
-			previous_visible_tile = null
-
 		# Force update of the player position and chunks
 		# This will cause the player_coord_changed signal to be emitted,
 		# triggering on_position_coord_changed and centering the map on the player's position
@@ -489,14 +489,19 @@ func show_directional_arrow_to_cell(cell_position: Vector2):
 	arrow.visible = true
 
 
-# Helper function to clamp the arrow to the edges of the TilesContainer with a margin
+# Helper function to clamp the arrow to the edges of the TilesContainer with 
+# extra margin on the left side
 func clamp_arrow_to_container_bounds(arrow_position: Vector2) -> Vector2:
 	var container_size = tilesContainer.size
 	var arrow_size = $ArrowLabel.size  # Get the size of the arrow label to use as the margin
 
-	# Clamp the arrow position within the bounds of the tilesContainer, adding the arrow size as a margin
-	arrow_position.x = clamp(arrow_position.x, arrow_size.x / 2, container_size.x - arrow_size.x / 2)
+	# Apply extra margin on the left side
+	var left_margin = arrow_size.x  # Extra margin is the size of the arrow label
+
+	# Clamp the arrow position within the bounds of the tilesContainer, adding extra margin on the left
+	arrow_position.x = clamp(arrow_position.x, left_margin, container_size.x - arrow_size.x / 2)
 	arrow_position.y = clamp(arrow_position.y, arrow_size.y / 2, container_size.y - arrow_size.y / 2)
+	
 	return arrow_position
 
 
@@ -509,6 +514,8 @@ func _on_tiles_container_resized() -> void:
 	check_target_tile_visibility.call_deferred()
 
 
+# Updates the target display to be an arrow or an X depending on wheter or not
+# the target is in visible area of the overmap
 func check_target_tile_visibility() -> void:
 	if target:
 		# Try to get the tile at the target's coordinate
@@ -522,7 +529,7 @@ func check_target_tile_visibility() -> void:
 			# Check if the target tile is now visible
 			if visible_rect.has_point(tile_pos):
 				# If the tile is visible, hide the arrow and show the tile text
-				set_tile_text(target_tile, "X")
+				target_tile.set_text("X")
 				$ArrowLabel.visible = false
 			else:
 				# If the tile is still not visible, ensure the arrow is displayed
@@ -530,7 +537,6 @@ func check_target_tile_visibility() -> void:
 		else:
 			# If no tile found, treat it as invisible and show the arrow
 			show_directional_arrow_to_cell(target.coordinate)
-
 
 
 # Updates the current offset globally, called when the window is resized
@@ -544,11 +550,7 @@ func update_offset_for_all_chunks(new_offset: Vector2):
 func on_target_map_changed(map_id: String):
 	if map_id == null or map_id == "":
 		if target:
-			if Helper.overmap_manager.player_current_cell == target.coordinate:
-				# The player is in this location. Update the string to the player marker
-				set_coordinate_text(target.coordinate, "✠")
-			else:
-				set_coordinate_text(target.coordinate, "")
+			set_coordinate_text(target.coordinate, "")
 		target = null  # Clear the target if no valid map_id is provided
 		$ArrowLabel.visible = false  # Hide arrow when no target
 	else:
@@ -561,23 +563,10 @@ func on_target_map_changed(map_id: String):
 			find_location_on_overmap(target)
 
 
-# Function to set a tile's text to a provided string and make it visible
-func set_tile_text(tile: Control, text: String) -> void:
-	if text == "":
-		# Clear the marker by hiding the text
-		tile.set_text_visible(false)
-		tile.set_text("")  # Clear any marker text
-		return
-	# Set the tile's text visible
-	tile.set_text_visible(true)
-	# Set the provided text on the tile
-	tile.set_text(text)
-
-
 # Updates a tile based on the coordinate and text
 # mycoordinate: A Vector2 using the global grid coordinate. Coordinates are managed by overmap_manager
 # mytext: The text to set on the tile at the coordinate
 func set_coordinate_text(mycoordinate: Vector2, mytext: String):
 	var tile = get_overmap_tile_at_position(mycoordinate)
 	if tile:
-		set_tile_text(tile, mytext)
+		tile.set_text(mytext)
