@@ -42,12 +42,14 @@ func _on_ok_button_up():
 	_save_current_area_data()
 	area_selected_ok.emit(areas_clone.duplicate())
 	areas_clone = []
+	current_selected_area_id = ""
 	hide()
 
 
 # Called after the users presses cancel on the popup
 func _on_cancel_button_up():
 	areas_clone = []
+	current_selected_area_id = ""
 	hide()
 
 
@@ -245,6 +247,7 @@ func _on_area_list_item_selected(index):
 	controls_h_box.visible = true  # Ensure controls are visible when an item is selected
 
 
+
 # Function to save the current area's data to areas_clone
 func _save_current_area_data():
 	# Find the current selected area in areas_clone
@@ -255,11 +258,22 @@ func _save_current_area_data():
 			area["pick_one"] = pick_one_check_box.button_pressed
 			area["spawn_chance"] = spawn_chance_spin_box.value
 			var newid: String = id_text_edit.text
-			if area["id"] != newid:
-				area["previd"] = area["id"]  # Save the previous id
-			area["id"] = newid  # Save the id from id_text_edit
 
-			# Clear the existing data
+			if area["id"] != newid:
+				# Only set previd if it hasn't been set already
+				if not area.has("previd"):
+					area["previd"] = area["id"]  # Save the previous ID
+
+				# Find the item in area_list with the old area ID and update it
+				for i in range(area_list.get_item_count()):
+					if area_list.get_item_text(i) == area["id"]:
+						area_list.set_item_text(i, newid)
+						break
+			
+			# Save the new ID
+			area["id"] = newid
+
+			# Clear and update other area properties (tiles, entities, etc.)
 			area["tiles"].clear()
 			area["entities"].clear()
 
