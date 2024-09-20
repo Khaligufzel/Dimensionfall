@@ -143,15 +143,6 @@ func apply_area_to_tile(tile: Dictionary, selected_areas: Array, mapData: Dictio
 	tile.erase("areas")
 
 
-# Function to loop over every tile in every level and apply the area to relevant tiles
-func apply_areas_to_tiles(selected_areas: Array, generated_mapdata: Dictionary) -> void:
-	if generated_mapdata.has("levels"):
-		for level in generated_mapdata["levels"]:
-			for tile in level:
-				if tile.has("areas"):
-					apply_area_to_tile(tile, selected_areas, generated_mapdata)
-
-
 # Function to get area data by ID
 func get_area_data_by_id(area_id: String, mapData: Dictionary) -> Dictionary:
 	if mapData.has("areas"):
@@ -231,3 +222,142 @@ func process_areas_in_map(mapdata: Dictionary):
 	# Check and get area data in mapData based on spawn chance
 	var selected_areas = get_area_data_based_on_spawn_chance(mapdata)
 	apply_areas_to_tiles(selected_areas, mapdata)
+
+
+
+# Helper function to check if a position is within bounds
+func is_within_bounds(x: int, y: int, width: int, height: int) -> bool:
+	return x >= 0 and y >= 0 and x < width and y < height
+
+# Function to get adjacent tile positions (up, down, left, right)
+func get_adjacent_positions(pos: Vector2) -> Array:
+	return [
+		Vector2(pos.x - 1, pos.y),  # Left
+		Vector2(pos.x + 1, pos.y),  # Right
+		Vector2(pos.x, pos.y - 1),  # Up
+		Vector2(pos.x, pos.y + 1)   # Down
+	]
+
+# Flood-fill function to find a cluster of tiles
+func flood_fill(level: Array, area_id: String, start_pos: Vector2, visited: Dictionary, width: int, height: int) -> Array:
+	var cluster = []
+	var to_visit = [start_pos]
+
+	while to_visit.size() > 0:
+		var current_pos = to_visit.pop_front()
+		var x = current_pos.x
+		var y = current_pos.y
+
+		if not is_within_bounds(x, y, width, height):
+			continue
+
+		# Skip if this position has already been visited
+		if visited.has(current_pos):
+			continue
+
+		var index = int(y * width + x)
+		var tile = level[index]
+
+		# Check if the tile has the correct area_id
+		if not tile.has("areas"):
+			continue
+		var has_area = false
+		for area in tile["areas"]:
+			if area["id"] == area_id:
+				has_area = true
+				break
+
+		if not has_area:
+			continue
+
+		# Mark the tile as visited and add it to the current cluster
+		visited[current_pos] = true
+		cluster.append(tile)
+
+		# Add adjacent tiles to the list of tiles to visit
+		for adj_pos in get_adjacent_positions(current_pos):
+			if not visited.has(adj_pos):
+				to_visit.append(adj_pos)
+
+	return cluster
+
+# Function to find clusters of adjacent tiles with the same area_id
+func find_area_clusters(level: Array, area_id: String, width: int, height: int) -> Array:
+	if level.size() < 1:
+		return []
+	var clusters = []
+	var visited = {}
+
+	# Loop over every tile in the level
+	for y in range(height):
+		for x in range(width):
+			var pos = Vector2(x, y)
+			var index = int(y * width + x)
+			var tile = level[index]
+
+			# Check if this tile has already been visited
+			if visited.has(pos):
+				continue
+
+			# Check if this tile has the correct area_id
+			if not tile.has("areas"):
+				continue
+
+			var has_area = false
+			for area in tile["areas"]:
+				if area["id"] == area_id:
+					has_area = true
+					break
+
+			if has_area:
+				# Use flood fill to find a cluster starting from this tile
+				var cluster = flood_fill(level, area_id, pos, visited, width, height)
+				if cluster.size() > 0:
+					clusters.append(cluster)
+
+	return clusters
+
+
+# Function to apply clusters of areas to tiles in a level
+func apply_area_clusters_to_tiles(level: Array, area_id: String, mapData: Dictionary, width: int, height: int) -> void:
+	# Find all clusters of tiles with the specified area_id
+	var clusters = find_area_clusters(level, area_id, width, height)
+
+	# Process each cluster and apply the area data to each tile in the cluster
+	for cluster in clusters:
+		# Fetch the area data for the current area_id from mapData
+		var area_data = get_area_data_by_id(area_id, mapData)
+
+		# Loop through each tile in the cluster
+		for tile in cluster:
+			var original_tile_id = tile.get("id", "")
+			var processed_data = process_area_data(area_data, original_tile_id)
+
+			# Remove existing entities if new entities are present in processed data
+			var entities_to_check = ["mob", "furniture", "itemgroups"]
+			var new_has_entities = entities_to_check.any(func(entity): return processed_data.has(entity))
+
+			if new_has_entities:
+				# The processed data has an entity. Erase existing entities from the tile
+				for key in entities_to_check:
+					tile.erase(key)
+
+			# Apply the processed data to the tile
+			for key in processed_data.keys():
+				tile[key] = processed_data[key]
+
+
+
+
+# Modify the existing function to integrate clusters when applying areas to tiles
+func apply_areas_to_tiles(selected_areas: Array, generated_mapdata: Dictionary) -> void:
+	if generated_mapdata.has("levels"):
+		# Iterate through each level in the map
+		for level in generated_mapdata["levels"]:
+			var width = 32  # Assuming 32x32 grid
+			var height = 32
+
+			# For each selected area, find and apply clusters
+			for area in selected_areas:
+				if area.has("id"):
+					apply_area_clusters_to_tiles(level, area["id"], generated_mapdata, width, height)
