@@ -15,11 +15,11 @@ func get_chunk_from_position(position_in_3d_space: Vector3) -> Chunk:
 
 
 # Function to process area data and assign to tile
-func process_area_data(area_data: Dictionary, original_tile_id: String) -> Dictionary:
+func process_area_data(area_data: Dictionary, original_tile_id: String, picked_tile: Dictionary = {}) -> Dictionary:
 	var result = {}
 
-	# Process and assign tile ID
-	_process_tile_id(area_data, original_tile_id, result)
+	# Process and assign tile ID, allowing for an external picked_tile to be passed in
+	_process_tile_id(area_data, original_tile_id, result, picked_tile)
 
 	# Process entities data and add them to result
 	_process_entities_data(area_data, result)
@@ -34,30 +34,24 @@ func _get_random_rotation(area_data: Dictionary) -> int:
 
 
 # Function to process and assign tile ID
-func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: Dictionary) -> void:
+func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: Dictionary, picked_tile: Dictionary = {}) -> void:
 	var tiles_data = area_data.get("tiles", [])
 
-	# Check if pick_one is set to true and a tile has already been picked
-	if area_data.has("pick_one") and area_data["pick_one"]:
-		if area_data.has("picked_tile"):
-			# Apply the previously picked tile to the current tile
-			result["id"] = area_data["picked_tile"]["id"]
-			result["rotation"] = _get_random_rotation(area_data)
-			return  # Exit the function since the tile has been set
+	# Check if pick_one is set to true and a tile has already been picked for this cluster
+	if picked_tile and not picked_tile.is_empty():
+		result["id"] = picked_tile["id"]
+		result["rotation"] = _get_random_rotation(area_data)
+		return  # Exit the function since the tile has been set
 
 	# If no tile has been picked or pick_one is false, pick a new tile
 	if not tiles_data.is_empty():
-		var picked_tile = pick_item_based_on_count(tiles_data)
-		
-		# If pick_one is true, store the picked tile in area_data
-		if area_data.has("pick_one") and area_data["pick_one"]:
-			area_data["picked_tile"] = picked_tile
+		var new_picked_tile = pick_item_based_on_count(tiles_data)
 		
 		# Check if the picked tile is "null"
-		if picked_tile["id"] == "null":
+		if new_picked_tile["id"] == "null":
 			result["id"] = original_tile_id  # Keep the original tile ID
 		else:
-			result["id"] = picked_tile["id"]
+			result["id"] = new_picked_tile["id"]
 			# Apply the rotation to the result
 			result["rotation"] = _get_random_rotation(area_data)
 
@@ -328,10 +322,16 @@ func apply_area_clusters_to_tiles(level: Array, area_id: String, mapData: Dictio
 		# Fetch the area data for the current area_id from mapData
 		var area_data = get_area_data_by_id(area_id, mapData)
 
+		# Pick a new tile for this cluster
+		var picked_tile = {}
+		if area_data.has("pick_one") and area_data["pick_one"]:
+			# Reset tile selection for each cluster
+			picked_tile = pick_item_based_on_count(area_data["tiles"])
+
 		# Loop through each tile in the cluster
 		for tile in cluster:
 			var original_tile_id = tile.get("id", "")
-			var processed_data = process_area_data(area_data, original_tile_id)
+			var processed_data = process_area_data(area_data, original_tile_id, picked_tile)
 
 			# Remove existing entities if new entities are present in processed data
 			var entities_to_check = ["mob", "furniture", "itemgroups"]
