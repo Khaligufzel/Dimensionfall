@@ -22,6 +22,79 @@
 					"id": "null"
 				}
 			]
+		},
+		{
+			"entities": [],
+			"id": "floor_nw_0_hallway",
+			"pick_one": true,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1,
+					"id": "floor_wood_boards_00"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_01"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_02"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_03"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_04"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_05"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_06"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_07"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_08"
+				},
+				{
+					"count": 1,
+					"id": "orange_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "red_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "blue_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_greyblue_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_green_02"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_blue_00"
+				}
+			]
 		}
 	],
 	"categories": [
@@ -3432,6 +3505,16 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"rotation": 0
@@ -3601,6 +3684,16 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 270
@@ -3609,10 +3702,30 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 90
@@ -3775,6 +3888,16 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 270
 			},
@@ -3935,6 +4058,16 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00"
 			},
 			{
@@ -4092,6 +4225,16 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 270
 			},
@@ -4234,6 +4377,16 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 90
 			},
@@ -4379,13 +4532,43 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 270
 			},
@@ -4528,14 +4711,44 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 180
 			},
@@ -4674,13 +4887,43 @@
 				"id": "floor_wood_boards_04"
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "area126427",
+						"rotation": 0
+					},
+					{
+						"id": "floor_nw_0_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"rotation": 90

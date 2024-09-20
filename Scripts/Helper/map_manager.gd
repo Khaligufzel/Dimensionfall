@@ -30,18 +30,29 @@ func process_area_data(area_data: Dictionary, original_tile_id: String) -> Dicti
 # Function to get a random rotation
 func _get_random_rotation(area_data: Dictionary) -> int:
 	var rotate_random: bool = area_data.get("rotate_random", false)
-	var rotations: Array = [0, 90, 180, 270]
-	
-	if rotate_random:
-		return rotations[randi() % rotations.size()]
-	return 0  # Default rotation
+	return [0, 90, 180, 270].pick_random() if rotate_random else 0
 
 
 # Function to process and assign tile ID
 func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: Dictionary) -> void:
 	var tiles_data = area_data.get("tiles", [])
+
+	# Check if pick_one is set to true and a tile has already been picked
+	if area_data.has("pick_one") and area_data["pick_one"]:
+		if area_data.has("picked_tile"):
+			# Apply the previously picked tile to the current tile
+			result["id"] = area_data["picked_tile"]["id"]
+			result["rotation"] = _get_random_rotation(area_data)
+			return  # Exit the function since the tile has been set
+
+	# If no tile has been picked or pick_one is false, pick a new tile
 	if not tiles_data.is_empty():
 		var picked_tile = pick_item_based_on_count(tiles_data)
+		
+		# If pick_one is true, store the picked tile in area_data
+		if area_data.has("pick_one") and area_data["pick_one"]:
+			area_data["picked_tile"] = picked_tile
+		
 		# Check if the picked tile is "null"
 		if picked_tile["id"] == "null":
 			result["id"] = original_tile_id  # Keep the original tile ID
@@ -49,6 +60,7 @@ func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: D
 			result["id"] = picked_tile["id"]
 			# Apply the rotation to the result
 			result["rotation"] = _get_random_rotation(area_data)
+
 
 
 # Function to process entities data and add them to result
@@ -177,6 +189,42 @@ func get_area_data_based_on_spawn_chance(mapData: Dictionary) -> Array:
 # Processes a map and applies areas in that map to the mapdata
 # The provided dictionary will be modified by this function, so send a duplicate if you don't want changes
 # If no areas exist in the mapdata, no changes are made
+# Example area data:
+#"areas": [
+#     {
+#        "id": "tree_layer",
+#        "rotate_random": true,
+#        "spawn_chance": 100,
+#        "entities": [
+#            {"id": "Tree_00", "type": "furniture", "count": 11},
+#            {"id": "PineTree_00", "type": "furniture", "count": 11},
+#            {"id": "WillowTree_00", "type": "furniture", "count": 11}
+#        ],
+#        "tiles": [{"id": "null", "count": 100}]
+#    },
+#    {
+#        "id": "ground_layer",
+#        "rotate_random": true,
+#        "spawn_chance": 100,
+#        "entities": [],
+#        "tiles": [
+#            {"id": "forest_underbrush_03", "count": 100},
+#            {"id": "forest_underbrush_04", "count": 100},
+#            {"id": "forest_underbrush_05", "count": 100},
+#            {"id": "dirt_light_00", "count": 2},
+#            {"id": "grass_medium_dirt_00", "count": 2}
+#        ]
+#    },
+#    {
+#        "id": "generic_forest_finds",
+#        "rotate_random": false,
+#        "spawn_chance": 100,
+#        "entities": [
+#            {"id": "generic_forest_finds", "type": "itemgroup", "count": 1}
+#        ],
+#        "tiles": [{"id": "null", "count": 100}]
+#    }
+#]
 func process_areas_in_map(mapdata: Dictionary):
 	if not mapdata.has("areas"):
 		return

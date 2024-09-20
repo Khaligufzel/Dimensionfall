@@ -8,6 +8,7 @@ extends Popup
 @export var spawn_chance_spin_box: SpinBox
 @export var entities_grid_container: GridContainer
 @export var random_rotation_check_box: CheckBox
+@export var pick_one_check_box: CheckBox
 @export var controls_h_box: HBoxContainer
 @export var id_text_edit: TextEdit
 @export var areas_option_button: OptionButton
@@ -23,6 +24,7 @@ var areas_clone: Array = []
 #     "tiles": [{"id": entity_id, "count": 1}],
 #     "entities": [{"id": entity_id, "type": entity_type, "count": 1}],
 #     "rotate_random": false,
+#     "pick_one": false,
 #     "spawn_chance": 100
 #     "chance_modifications": [{"id": area_id, "chance": -100}]
 # }
@@ -105,6 +107,7 @@ func _on_delete_button_button_up():
 		# Reset the form controls
 		current_selected_area_id = ""
 		random_rotation_check_box.button_pressed = false
+		pick_one_check_box.button_pressed = false
 		spawn_chance_spin_box.value = 0
 		for child in entities_grid_container.get_children():
 			child.queue_free()
@@ -140,6 +143,8 @@ func _update_area_ui(area_id: String):
 	if selected_area:
 		# Update random_rotation_check_box
 		random_rotation_check_box.button_pressed = selected_area["rotate_random"]
+		if selected_area.has("pick_one"):
+			pick_one_check_box.button_pressed = selected_area["pick_one"]
 
 		# Update spawn_chance_spin_box
 		spawn_chance_spin_box.value = selected_area["spawn_chance"]
@@ -247,6 +252,7 @@ func _save_current_area_data():
 		if area["id"] == current_selected_area_id:
 			# Update the area's data
 			area["rotate_random"] = random_rotation_check_box.button_pressed
+			area["pick_one"] = pick_one_check_box.button_pressed
 			area["spawn_chance"] = spawn_chance_spin_box.value
 			var newid: String = id_text_edit.text
 			if area["id"] != newid:
@@ -361,3 +367,8 @@ func get_chance_modifications() -> Array:
 func _on_visibility_changed():
 	if visible:
 		_update_area_ui(current_selected_area_id)
+
+
+# When the user release the mouse press on the checkbox
+func _on_pick_one_check_box_button_up() -> void:
+	pass # Replace with function body.

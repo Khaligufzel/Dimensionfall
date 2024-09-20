@@ -7,7 +7,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lguox"]
 bg_color = Color(0.59009, 0.586311, 0.707911, 1)
 
-[node name="Area_editor" type="Popup" node_paths=PackedStringArray("area_list", "spawn_chance_spin_box", "entities_grid_container", "random_rotation_check_box", "controls_h_box", "id_text_edit", "areas_option_button", "chance_modification_list")]
+[node name="Area_editor" type="Popup" node_paths=PackedStringArray("area_list", "spawn_chance_spin_box", "entities_grid_container", "random_rotation_check_box", "pick_one_check_box", "controls_h_box", "id_text_edit", "areas_option_button", "chance_modification_list")]
 title = "Area editor"
 initial_position = 2
 size = Vector2i(800, 600)
@@ -20,6 +20,7 @@ area_list = NodePath("HBoxContainer/AreaList")
 spawn_chance_spin_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/SpawnChanceSpinBox")
 entities_grid_container = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/ScrollContainer/EntitiesGridContainer")
 random_rotation_check_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/RandomRotationCheckBox")
+pick_one_check_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/PickOneCheckBox")
 controls_h_box = NodePath("HBoxContainer/VBoxContainer/ControlsHbox")
 id_text_edit = NodePath("HBoxContainer/VBoxContainer/ControlsHbox/IdTextEdit")
 areas_option_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/AreasOptionButton")
@@ -50,7 +51,6 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.7
 
 [node name="ControlsHbox" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
@@ -88,7 +88,15 @@ layout_mode = 2
 tooltip_text = "If this is on, every entity in this area will be spawned with a 
 random rotation. If this is off, the generator will use the rotation 
 that was applied when you painted the area on the map."
-text = "Random rotation"
+text = "R"
+
+[node name="PickOneCheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
+layout_mode = 2
+tooltip_text = "Pick one: If this is on, the entire area will be covered with 
+just one of out of the lsit of tiles. If this is off, each tile in the 
+area will each get a random one from the lsit assigned. 
+Turn this on this for uniform areas, like a house floor."
+text = "O"
 
 [node name="IdTextEdit" type="TextEdit" parent="HBoxContainer/VBoxContainer/ControlsHbox"]
 layout_mode = 2
@@ -152,6 +160,7 @@ text = "Cancel"
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/MoveDownButton" to="." method="_on_move_down_button_button_up"]
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/DeleteButton" to="." method="_on_delete_button_button_up"]
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/RandomRotationCheckBox" to="." method="_on_random_rotation_check_box_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/ControlsHbox/PickOneCheckBox" to="." method="_on_pick_one_check_box_button_up"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/AreasOptionButton" to="." method="_on_areas_option_button_item_selected"]
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
 [connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]
