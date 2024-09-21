@@ -22,11 +22,11 @@ var container_sprite_instance: RID # RID to the quadmesh that displays the conta
 var myworld3d: World3D
 
 # We have to keep a reference or it will be auto deleted
-var support_mesh: PrimitiveMesh
+var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect
 var sprite_texture: Texture2D  # Variable to store the sprite texture
 var sprite_material: ShaderMaterial
 var container_material: ShaderMaterial
-var quad_mesh: PlaneMesh
+var quad_mesh: PlaneMesh # Shows the sprite of the furniture
 var container_sprite_mesh: PlaneMesh
 
 # Variables to manage door functionality
@@ -669,8 +669,7 @@ func set_random_inventory_item_texture():
 	container_sprite_mesh.material = container_material  # Update the mesh material
 
 
-# Function to handle damage when the furniture gets hit
-# attack: a dictionary with the "damage" and "hit_chance" properties
+# Replace animate_hit with show_hit_indicator
 func get_hit(attack: Dictionary):
 	var damage = attack.damage
 	var hit_chance = attack.hit_chance
@@ -687,30 +686,11 @@ func get_hit(attack: Dictionary):
 				_die()  # Destroy the furniture if health is depleted
 			else:
 				if not is_animating_hit:
-					animate_hit()
+					show_hit_indicator()  # Call the new hit indicator function instead of animate_hit
 	else:
 		# Attack misses, create a visual indicator
 		show_miss_indicator()
 
-
-# Function to animate the hit effect
-func animate_hit():
-	is_animating_hit = true
-	original_material_color = sprite_material.albedo_color
-
-	# Tween can only function inside the scene tree so we need a node inside the 
-	# scene tree to instantiate the tween
-	var tween = Helper.map_manager.level_generator.create_tween()
-	
-	tween.tween_property(sprite_material, "albedo_color", Color(1, 1, 1, 0.5), 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(sprite_material, "albedo_color", original_material_color, 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT).set_delay(0.1)
-
-	tween.finished.connect(_on_tween_finished)
-
-
-# Function to reset animation state after hit animation
-func _on_tween_finished():
-	is_animating_hit = false
 
 
 # Function to handle furniture destruction
@@ -722,22 +702,29 @@ func _die():
 	queue_free()  # Remove the node from the scene tree
 
 
-# Function to show a miss indicator
-func show_miss_indicator():
-	var miss_label = Label3D.new()
-	miss_label.text = "Miss!"
-	miss_label.modulate = Color(1, 0, 0)  # Red color
-	miss_label.font_size = 64
-	Helper.map_manager.level_generator.get_tree().get_root().add_child(miss_label)
-	miss_label.position = furniture_transform.get_position() + Vector3(0, 2, 0)  # Slightly above the furniture
-	miss_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+# Generalized function to show an indicator (Hit/Miss)
+func show_indicator(text: String, color: Color):
+	var label = Label3D.new()
+	label.text = text
+	label.modulate = color
+	label.font_size = 64
+	Helper.map_manager.level_generator.get_tree().get_root().add_child(label)
+	label.position = furniture_transform.get_position() + Vector3(0, 2, 0)  # Slightly above the furniture
+	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 
-	# Animate the miss indicator to disappear quickly
-	# Tween can only function inside the scene tree so we need a node inside the 
-	# scene tree to instantiate the tween
+	# Animate the indicator to disappear quickly
 	var tween = Helper.map_manager.level_generator.create_tween()
 
-	tween.tween_property(miss_label, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(label, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
 	tween.finished.connect(func():
-		miss_label.queue_free()  # Properly free the miss_label node
+		label.queue_free()  # Properly free the label node
 	)
+
+# Function to show a hit indicator
+func show_hit_indicator():
+	show_indicator("Hit!", Color(0, 1, 0))  # Green for hit
+
+
+# Function to show a miss indicator
+func show_miss_indicator():
+	show_indicator("Miss!", Color(1, 0, 0))  # Red for miss
