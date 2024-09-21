@@ -152,8 +152,7 @@ func get_data() -> Dictionary:
 		"moveable": moveable,
 		"weight": weight,
 		"edgesnapping": edgesnapping,
-		"sprite": spriteid,
-		"references": references
+		"sprite": spriteid
 	}
 	# Save the weight only if moveable true, otherwise erase it.
 	if moveable:
@@ -172,6 +171,9 @@ func get_data() -> Dictionary:
 	var disassemblydata: Dictionary = disassembly.get_data()
 	if not disassemblydata.is_empty():
 		data["disassembly"] = disassemblydata
+	
+	if not references.is_empty():
+		data["references"] = references
 	return data
 
 

@@ -3141,5 +3141,65 @@ json_data = "[
 		\"two_handed\": false,
 		\"volume\": 120,
 		\"weight\": 1.2
+	},
+	{
+		\"description\": \"A sturdy construction material, often used for building or crafting.\",
+		\"id\": \"brick\",
+		\"image\": \"./Mods/Core/Items/brick_32.png\",
+		\"max_stack_size\": 50,
+		\"name\": \"Brick\",
+		\"sprite\": \"brick_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 60,
+		\"weight\": 2
+	},
+	{
+		\"description\": \"A brick with visible cracks and wear, still usable but not as durable.\",
+		\"id\": \"damaged_brick\",
+		\"image\": \"./Mods/Core/Items/brick_damaged_32.png\",
+		\"max_stack_size\": 50,
+		\"name\": \"Damaged Brick\",
+		\"sprite\": \"brick_damaged_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 60,
+		\"weight\": 1.8
+	},
+	{
+		\"description\": \"A large concrete slab with visible cracks, useful for temporary construction or barricading.\",
+		\"id\": \"damaged_concrete_slab\",
+		\"image\": \"./Mods/Core/Items/concrete_slab_damaged_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Damaged Concrete Slab\",
+		\"sprite\": \"concrete_slab_damaged_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": true,
+		\"volume\": 400,
+		\"weight\": 20
+	},
+	{
+		\"description\": \"Sharp pieces of broken glass, dangerous but potentially useful in crafting.\",
+		\"id\": \"glass_shards\",
+		\"image\": \"./Mods/Core/Items/glass_shards_32.png\",
+		\"max_stack_size\": 100,
+		\"name\": \"Glass Shards\",
+		\"sprite\": \"glass_shards_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 5,
+		\"weight\": 0.05
+	},
+	{
+		\"description\": \"Old metal sheets covered in rust, brittle but can still be used for makeshift repairs or crafting.\",
+		\"id\": \"rusted_metal_sheets\",
+		\"image\": \"./Mods/Core/Items/rusted_metal_sheets_32.png\",
+		\"max_stack_size\": 20,
+		\"name\": \"Rusted Metal Sheets\",
+		\"sprite\": \"rusted_metal_sheets_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 150,
+		\"weight\": 5
 	}
 ]"

@@ -252,7 +252,9 @@
 					"shopping_cart",
 					"display_case",
 					"vending_machine",
-					"toilet_00"
+					"toilet_00",
+					"damaged_shelves",
+					"destroyed_fence"
 				]
 			}
 		},
