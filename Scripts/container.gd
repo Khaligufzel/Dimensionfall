@@ -68,12 +68,7 @@ func create_loot():
 
 	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
 	if item_added and sprite_3d.texture == Gamedata.textures.container:
-		# If this container is attached to the furniture, we set the container filled
-		var parent = get_parent()
-		if parent is FurniturePhysics or parent is FurnitureStatic:
-			sprite_3d.texture = Gamedata.textures.container_filled
-		else: # Set the sprite to one it the item's sprites
-			set_random_inventory_item_texture()
+		set_random_inventory_item_texture()
 	elif not item_added:
 		 # If no item was added we delete the container if it's not a child of some furniture
 		_on_item_removed(null)
@@ -239,12 +234,7 @@ func get_sprite():
 	if is_inside_tree() and get_parent() == get_tree().get_root():
 		return sprite_3d.texture
 	else:
-		# The parent is probably a furniture so return that
-		var parent = get_parent()
-		if parent is FurniturePhysics or parent is FurnitureStatic:
-			return parent.get_sprite()
-		else:
-			return Gamedata.textures.container
+		return Gamedata.textures.container
 
 
 # Returns the inventorystacked that this container holds

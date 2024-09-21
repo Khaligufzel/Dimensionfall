@@ -234,6 +234,7 @@ func add_furnitures_to_new_block():
 
 
 # When a map is loaded for the first time we spawn the itemgroups on the block
+# itemgroups are represented by a ContainerItem node
 func add_itemgroups_to_new_block():
 	mutex.lock()
 	var itemgroup_data = processed_level_data.itemgroups.duplicate()
