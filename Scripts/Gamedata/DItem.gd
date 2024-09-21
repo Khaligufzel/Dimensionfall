@@ -267,6 +267,13 @@ class Food:
 				ids.append(attribute["id"])
 		return ids
 
+	# Function to remove a player attribute by its ID
+	func remove_player_attribute(attribute_id: String) -> void:
+		for i in range(attributes.size()):
+			if attributes[i]["id"] == attribute_id:
+				attributes.remove_at(i)  # Remove the attribute if the ID matches
+				break  # Exit the loop after removing the attribute
+
 
 # Inner class to handle the Medical property
 class Medical:
@@ -301,6 +308,13 @@ class Medical:
 				ids.append(attribute["id"])
 		return ids
 
+	# Function to remove a player attribute by its ID
+	func remove_player_attribute(attribute_id: String) -> void:
+		for i in range(attributes.size()):
+			if attributes[i]["id"] == attribute_id:
+				attributes.remove_at(i)  # Remove the attribute if the ID matches
+				break  # Exit the loop after removing the attribute
+
 
 # Inner class to handle the Ammo property
 class Ammo:
@@ -316,20 +330,26 @@ class Ammo:
 			"damage": damage
 		}
 
-
 # Inner class to handle the Wearable property
 class Wearable:
 	var slot: String
+	# Hold key-value pairs for player attributes. New format: {"id": "inventory_space", "value": 200}
+	var player_attributes: Array  
 
 	# Constructor to initialize wearable properties from a dictionary
 	func _init(data: Dictionary):
 		slot = data.get("slot", "")
+		# Initialize player_attributes with the new format
+		player_attributes = data.get("player_attributes", [])
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		return {
+		var mydata: Dictionary = {
 			"slot": slot
 		}
+		if not player_attributes.is_empty():
+			mydata["player_attributes"] = player_attributes
+		return mydata
 
 	# Function to add a reference for the wearable slot
 	func add_reference(item_id: String):
@@ -340,6 +360,20 @@ class Wearable:
 	func remove_reference(item_id: String):
 		if slot != "":
 			Gamedata.wearableslots.remove_reference(slot, "core", "items", item_id)
+
+	# Function to get the value of a specific player attribute by ID
+	func get_attribute_value(attribute_id: String) -> Variant:
+		for attribute in player_attributes:
+			if attribute["id"] == attribute_id:
+				return attribute["value"]
+		return null  # Return null if the attribute is not found
+
+	# Function to remove a player attribute by its ID
+	func remove_player_attribute(attribute_id: String) -> void:
+		for i in range(player_attributes.size()):
+			if player_attributes[i]["id"] == attribute_id:
+				player_attributes.remove_at(i)  # Remove the attribute if the ID matches
+				break  # Exit the loop after removing the attribute
 
 
 # Constructor to initialize item properties from a dictionary
@@ -485,6 +519,9 @@ func changed(olddata: DItem):
 				olddata.wearable.remove_reference(id)
 			if wearable.slot:
 				wearable.add_reference(id)
+		
+		process_wearable_player_attributes(olddata)
+		
 	elif olddata.wearable and olddata.wearable.slot:
 		# The wearable is present in the old data but not in the new, so we remove the reference
 		olddata.wearable.remove_reference(id)
@@ -518,6 +555,48 @@ func changed(olddata: DItem):
 	update_item_attribute_references(olddata)
 	
 	Gamedata.items.save_items_to_disk()
+
+
+# Function to process player attributes in the wearable and update references accordingly
+func process_wearable_player_attributes(olddata: DItem):
+	if not wearable:
+		# If there's no wearable in the new data but the olddata wearable has attributes, remove their references
+		if olddata.wearable and not olddata.wearable.player_attributes.is_empty():
+			# Loop over old player attributes and remove references
+			for old_attr in olddata.wearable.player_attributes:
+				var old_attr_id = old_attr["id"]
+				Gamedata.playerattributes.remove_reference(old_attr_id, "Core", "item", olddata.id)
+		return  # Exit since there's no wearable in the new data
+	
+	if wearable.player_attributes.is_empty():
+		# If the new wearable has no player attributes, remove all references from olddata if they exist
+		if olddata.wearable and not olddata.wearable.player_attributes.is_empty():
+			for old_attr in olddata.wearable.player_attributes:
+				var old_attr_id = old_attr["id"]
+				Gamedata.playerattributes.remove_reference(old_attr_id, "Core", "item", olddata.id)
+		return  # Exit since there are no player attributes to add
+
+	# Collect new and old player attributes
+	var new_player_attributes = wearable.player_attributes
+	var old_player_attributes = olddata.wearable.player_attributes if olddata.wearable else []
+
+	# Dictionary to track old attribute ids for easy lookup
+	var old_attr_dict: Dictionary = {}
+	for old_attr in old_player_attributes:
+		old_attr_dict[old_attr["id"]] = old_attr
+
+	# Loop over new attributes and add references
+	for new_attr in new_player_attributes:
+		var attribute_id = new_attr["id"]
+		# Add reference for the new attribute
+		Gamedata.playerattributes.add_reference(attribute_id, "Core", "item", id)
+
+		# Remove the old attribute from the dictionary, as it still exists
+		old_attr_dict.erase(attribute_id)
+
+	# Any remaining attributes in old_attr_dict were removed, so remove their references
+	for old_attr_id in old_attr_dict.keys():
+		Gamedata.playerattributes.remove_reference(old_attr_id, "Core", "item", olddata.id)
 
 
 # Collects all skills defined in an item and updates the references to that skill
@@ -605,6 +684,18 @@ func delete():
 	# It will call remove_from_quest on every item in item_data.references.core.quests
 	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
 	
+	if food and not food.attributes.is_empty():
+		for food_attribute in food.attributes:
+			Gamedata.playerattributes.remove_reference(food_attribute["id"],"Core","item",id)
+	
+	if medical and not medical.attributes.is_empty():
+		for medical_attribute in medical.attributes:
+			Gamedata.playerattributes.remove_reference(medical_attribute["id"],"Core","item",id)
+	
+	if wearable and not wearable.player_attributes.is_empty():
+		for wearableattr in wearable.player_attributes:
+			Gamedata.playerattributes.remove_reference(wearableattr["id"],"Core","item",id)
+	
 	var skill_ids: Dictionary = {}
 	# Check if 'craft' is not null before proceeding
 	if craft:
@@ -633,7 +724,6 @@ func delete():
 		Gamedata.items.save_items_to_disk()
 	else:
 		print_debug("No changes needed for item", id)
-
 
 
 # Executes a callable function on each reference of the given type

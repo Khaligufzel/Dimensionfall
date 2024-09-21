@@ -33,7 +33,7 @@ var dquest: DQuest = null:
 		olddata = DQuest.new(dquest.get_data().duplicate(true))
 
 func _ready():
-	# Set custom can_drop_func and drop_func for the brushcontainer, use default drag_func
+	# Set custom can_drop_func and drop_func for the rewardscontainer, use default drag_func
 	rewards_item_list.set_drag_forwarding(Callable(), _can_drop_reward, _drop_reward_data)
 
 # The editor is closed, destroy the instance

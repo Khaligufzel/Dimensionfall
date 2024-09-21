@@ -74,6 +74,13 @@
 		"description": "Holds equipment on your back",
 		"id": "back",
 		"name": "Back",
+		"references": {
+			"core": {
+				"items": [
+					"mailbag"
+				]
+			}
+		},
 		"sprite": "wearableslot_back_32.png"
 	}
 ]

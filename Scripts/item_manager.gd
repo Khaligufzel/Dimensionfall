@@ -12,6 +12,9 @@ var proximityInventory: InventoryStacked = null
 
 var proximityInventories = {}  # Dictionary to hold inventories and their items
 var allAccessibleItems: Array[InventoryItem] = []  # List to hold all accessible InventoryItems
+# The max volume that the inventory can hold. This is extra functionality on top of the "capacity"
+# property of the InventoryStacked. An item's "volume" property counts towards this max inventory
+# volume, while an item's "weight" property counts towards the inventory's "capacity" property
 var player_max_inventory_volume: int = 1000
 var item_protosets: Resource = preload("res://ItemProtosets.tres")
  # Keeps track of player equipment, used for saving
@@ -21,6 +24,8 @@ var player_equipment: PlayerEquipment = null
 signal allAccessibleItems_changed(items_added: Array, items_removed: Array)
 signal craft_successful(item: Dictionary, recipe: Dictionary)
 signal craft_failed(item: Dictionary, recipe: Dictionary, reason: String)
+# Signal to emit when player_max_inventory_volume changes
+signal player_max_inventory_volume_changed(new_volume: int)
 
 
 class PlayerEquipment:
@@ -98,6 +103,7 @@ func _ready():
 	Helper.signal_broker.game_started.connect(_on_game_started_loaded.bind(true))
 	Helper.signal_broker.game_loaded.connect(_on_game_started_loaded.bind(false))
 	Helper.signal_broker.game_ended.connect(_on_game_ended)
+	Helper.signal_broker.player_attribute_changed.connect(_on_player_attribute_changed)
 	player_equipment = PlayerEquipment.new()
 
 
@@ -157,6 +163,15 @@ func initialize_inventory() -> InventoryStacked:
 	return newInventory
 
 func create_starting_items():
+	# Create starting equipment. The items are not added to the playerInventory, 
+	# only to the equipment slots.
+	player_equipment.EquipmentItemList["feet"] = playerInventory.create_item("boots")
+	player_equipment.EquipmentItemList["hands"] = playerInventory.create_item("gloves_leather")
+	player_equipment.EquipmentItemList["head"] = playerInventory.create_item("hat_baseball")
+	player_equipment.EquipmentItemList["legs"] = playerInventory.create_item("jeans")
+	player_equipment.EquipmentItemList["torso"] = playerInventory.create_item("jacket")
+	player_equipment.EquipmentItemList["back"] = playerInventory.create_item("mailbag")
+
 	if playerInventory.get_children() == []:
 		playerInventory.create_and_add_item("bottle_plastic_water")
 		playerInventory.create_and_add_item("bread")
@@ -164,67 +179,6 @@ func create_starting_items():
 		playerInventory.create_and_add_item("can_soda")
 		playerInventory.create_and_add_item("bandage_basic")
 		playerInventory.create_and_add_item("bottle_antibiotics")
-
-	var wearables: Dictionary = {
-		"wearables": {
-			"feet": {
-				"node_name": "@Node@9036",
-				"properties": {
-					"stack_size": {
-						"type": 2,
-						"value": "1"
-					}
-				},
-				"protoset": "res://ItemProtosets.tres",
-				"prototype_id": "boots"
-			},
-			"hands": {
-				"node_name": "@Node@9342",
-				"properties": {
-					"stack_size": {
-						"type": 2,
-						"value": "1"
-					}
-				},
-				"protoset": "res://ItemProtosets.tres",
-				"prototype_id": "gloves_leather"
-			},
-			"head": {
-				"node_name": "@Node@9055",
-				"properties": {
-					"stack_size": {
-						"type": 2,
-						"value": "1"
-					}
-				},
-				"protoset": "res://ItemProtosets.tres",
-				"prototype_id": "hat_baseball"
-			},
-			"legs": {
-				"node_name": "@Node@9395",
-				"properties": {
-					"stack_size": {
-						"type": 2,
-						"value": "1"
-					}
-				},
-				"protoset": "res://ItemProtosets.tres",
-				"prototype_id": "jeans"
-			},
-			"torso": {
-				"node_name": "@Node@9394",
-				"properties": {
-					"stack_size": {
-						"type": 2,
-						"value": "1"
-					}
-				},
-				"protoset": "res://ItemProtosets.tres",
-				"prototype_id": "jacket"
-			}
-		}
-	}
-	ItemManager.player_equipment.deserialize(wearables)
 
 
 
@@ -587,6 +541,7 @@ func _on_game_ended():
 	# Clear and discard the inventories
 	playerInventory.queue_free()
 	proximityInventory.queue_free()
+	player_max_inventory_volume = 1000
 	# Disconnect signals related to inventory management
 	Helper.signal_broker.items_were_used.disconnect(_on_items_used)
 	Helper.signal_broker.container_entered_proximity.disconnect(_on_container_entered_proximity)
@@ -597,6 +552,14 @@ func _on_game_ended():
 	proximityInventory = null
 	allAccessibleItems.clear()
 	proximityInventories.clear()
+
+
+# Handles the update of the attribute when the player attribute changes
+func _on_player_attribute_changed(_player_node: CharacterBody3D, attr: PlayerAttribute = null):
+	if attr and attr.fixed_mode:  # If a specific attribute has changed
+		if attr.id == "inventory_space":
+			var newamount: int = int(attr.fixed_mode.get_total_amount())
+			set_max_inventory_volume(newamount)
 
 
 # Loop over all items in the player's inventory
@@ -632,3 +595,19 @@ func get_accessibleitem_amount(item_id: String) -> int:
 			total_amount += stack_size
 
 	return total_amount
+
+
+# Function to add to the player's maximum inventory volume
+func add_to_max_inventory_volume(amount: int) -> void:
+	player_max_inventory_volume += amount
+	player_max_inventory_volume_changed.emit()
+
+# Function to subtract from the player's maximum inventory volume
+func subtract_from_max_inventory_volume(amount: int) -> void:
+	player_max_inventory_volume = max(0, player_max_inventory_volume - amount)  # Ensure it doesn't go below 0
+	player_max_inventory_volume_changed.emit()
+
+# Function to directly set the player's maximum inventory volume
+func set_max_inventory_volume(new_volume: int) -> void:
+	player_max_inventory_volume = max(0, new_volume)  # Ensure it doesn't go below 0
+	player_max_inventory_volume_changed.emit()

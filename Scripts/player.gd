@@ -70,6 +70,9 @@ func _connect_signals():
 	ItemManager.craft_successful.connect(_on_craft_successful)
 	collision_detector.body_shape_entered.connect(_on_body_entered)
 	collision_detector.body_shape_exited.connect(_on_body_exited)
+	Helper.signal_broker.wearable_was_equipped.connect(_on_wearable_was_equipped)
+	Helper.signal_broker.wearable_was_unequipped.connect(_on_wearable_was_unequipped)
+
 
 func initialize_condition():
 	current_stamina = stamina
@@ -514,3 +517,39 @@ func set_state(state: Dictionary) -> void:
 	
 	# Emit signals to update the HUD
 	update_stamina_HUD.emit(current_stamina)
+
+
+# Function to handle adding or subtracting player attribute amounts when equipping/unequipping
+# When fixed_mode.amount is updated, it will send it's own signal for further processing
+func _modify_player_attribute(wearableItem: InventoryItem, is_equipping: bool):
+	# Check if the wearable item has a Wearable property
+	if not wearableItem or not wearableItem.get_property("Wearable"):
+		return
+
+	# Get the Wearable data from the item
+	var dwearable: DItem.Wearable = DItem.Wearable.new(wearableItem.get_property("Wearable"))
+
+	# Get the list of player attributes from the wearable
+	var myattributes: Array = dwearable.player_attributes
+
+	# Loop over each player attribute in the wearable
+	for attribute in myattributes:
+		var attribute_id: String = attribute.get("id", "")
+		var amount: float = attribute.get("value", 0)
+
+		# Check if the global attributes dictionary has the attribute id
+		if attribute_id in attributes:
+			var player_attribute: PlayerAttribute = attributes[attribute_id]
+			# If equipping, add the amount; if unequipping, subtract the amount
+			if is_equipping:
+				player_attribute.modify_temp_amount(amount)
+			else:
+				player_attribute.modify_temp_amount(-amount)
+
+# Function for handling when a wearable is equipped
+func _on_wearable_was_equipped(wearableItem: InventoryItem, _wearableSlot: Control):
+	_modify_player_attribute(wearableItem, true)  # true for equipping
+
+# Function for handling when a wearable is unequipped
+func _on_wearable_was_unequipped(wearableItem: InventoryItem, _wearableSlot: Control):
+	_modify_player_attribute(wearableItem, false)  # false for unequipping

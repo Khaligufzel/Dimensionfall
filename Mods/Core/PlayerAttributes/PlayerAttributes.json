@@ -1,13 +1,15 @@
 [
 	{
-		"color": "258d1bff",
-		"current_amount": 100,
-		"depletion_effect": "death",
-		"depletion_rate": 0.02,
+		"default_mode": {
+			"color": "258d1bff",
+			"current_amount": 100,
+			"depletion_effect": "death",
+			"depletion_rate": 0.02,
+			"max_amount": 100,
+			"min_amount": 0
+		},
 		"description": "You starve when this is empty. You are full when this is full.",
 		"id": "food",
-		"max_amount": 100,
-		"min_amount": 0,
 		"name": "Food",
 		"references": {
 			"core": {
@@ -43,14 +45,16 @@
 		"sprite": "apple_32.png"
 	},
 	{
-		"color": "2e3195ff",
-		"current_amount": 100,
-		"depletion_effect": "death",
-		"depletion_rate": 0.02,
+		"default_mode": {
+			"color": "2e3195ff",
+			"current_amount": 100,
+			"depletion_effect": "death",
+			"depletion_rate": 0.02,
+			"max_amount": 100,
+			"min_amount": 0
+		},
 		"description": "The amount of water the player has in their body. Running out will mean death.",
 		"id": "water",
-		"max_amount": 100,
-		"min_amount": 0,
 		"name": "Water",
 		"references": {
 			"core": {
@@ -74,14 +78,16 @@
 		"sprite": "waterbottle_32.png"
 	},
 	{
-		"color": "ff0000ff",
-		"current_amount": 100,
-		"depletion_effect": "death",
-		"depletion_rate": 0,
+		"default_mode": {
+			"color": "ff0000ff",
+			"current_amount": 100,
+			"depletion_effect": "death",
+			"depletion_rate": 0,
+			"max_amount": 100,
+			"min_amount": 0
+		},
 		"description": "The health of the player's head. Critical for survival.",
 		"id": "head_health",
-		"max_amount": 100,
-		"min_amount": 0,
 		"name": "Head Health",
 		"references": {
 			"core": {
@@ -102,14 +108,16 @@
 		"sprite": "head_32.png"
 	},
 	{
-		"color": "ff9900ff",
-		"current_amount": 100,
-		"depletion_effect": "death",
-		"depletion_rate": 0,
+		"default_mode": {
+			"color": "ff9900ff",
+			"current_amount": 100,
+			"depletion_effect": "death",
+			"depletion_rate": 0,
+			"max_amount": 100,
+			"min_amount": 0
+		},
 		"description": "The health of the player's torso. Vital for survival.",
 		"id": "torso_health",
-		"max_amount": 100,
-		"min_amount": 0,
 		"name": "Torso Health",
 		"references": {
 			"core": {
@@ -130,14 +138,16 @@
 		"sprite": "torso_32.png"
 	},
 	{
-		"color": "33cc33ff",
-		"current_amount": 100,
-		"depletion_effect": "none",
-		"depletion_rate": 0,
+		"default_mode": {
+			"color": "33cc33ff",
+			"current_amount": 100,
+			"depletion_effect": "none",
+			"depletion_rate": 0,
+			"max_amount": 100,
+			"min_amount": 0
+		},
 		"description": "The health of the player's left arm.",
 		"id": "left_arm_health",
-		"max_amount": 100,
-		"min_amount": 0,
 		"name": "Left Arm Health",
 		"references": {
 			"core": {
@@ -158,14 +168,16 @@
 		"sprite": "left_arm_32.png"
 	},
 	{
-		"color": "33cc33ff",
-		"current_amount": 100,
-		"depletion_effect": "none",
-		"depletion_rate": 0,
+		"default_mode": {
+			"color": "33cc33ff",
+			"current_amount": 100,
+			"depletion_effect": "none",
+			"depletion_rate": 0,
+			"max_amount": 100,
+			"min_amount": 0
+		},
 		"description": "The health of the player's right arm.",
 		"id": "right_arm_health",
-		"max_amount": 100,
-		"min_amount": 0,
 		"name": "Right Arm Health",
 		"references": {
 			"core": {
@@ -186,14 +198,16 @@
 		"sprite": "right_arm_32.png"
 	},
 	{
-		"color": "0099ffff",
-		"current_amount": 100,
-		"depletion_effect": "none",
-		"depletion_rate": 0,
+		"default_mode": {
+			"color": "0099ffff",
+			"current_amount": 100,
+			"depletion_effect": "none",
+			"depletion_rate": 0,
+			"max_amount": 100,
+			"min_amount": 0
+		},
 		"description": "The health of the player's left leg.",
 		"id": "left_leg_health",
-		"max_amount": 100,
-		"min_amount": 0,
 		"name": "Left Leg Health",
 		"references": {
 			"core": {
@@ -214,14 +228,16 @@
 		"sprite": "left_leg_32.png"
 	},
 	{
-		"color": "0099ffff",
-		"current_amount": 100,
-		"depletion_effect": "none",
-		"depletion_rate": 0,
+		"default_mode": {
+			"color": "0099ffff",
+			"current_amount": 100,
+			"depletion_effect": "none",
+			"depletion_rate": 0,
+			"max_amount": 100,
+			"min_amount": 0
+		},
 		"description": "The health of the player's right leg.",
 		"id": "right_leg_health",
-		"max_amount": 100,
-		"min_amount": 0,
 		"name": "Right Leg Health",
 		"references": {
 			"core": {
@@ -240,5 +256,24 @@
 			}
 		},
 		"sprite": "right_leg_32.png"
+	},
+	{
+		"description": "The amount of space available in the inventory",
+		"fixed_mode": {
+			"amount": 500
+		},
+		"id": "inventory_space",
+		"name": "Inventory space",
+		"references": {
+			"Core": {
+				"item": [
+					"waistbag",
+					"mailbag",
+					"backpack",
+					"jeans"
+				]
+			}
+		},
+		"sprite": "playerattribuge_inventory_space_32.png"
 	}
 ]

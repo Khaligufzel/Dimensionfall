@@ -71,6 +71,7 @@ func initialize_list():
 func _ready():
 	Helper.signal_broker.inventory_operation_started.connect(_on_inventory_operation_started)
 	Helper.signal_broker.inventory_operation_finished.connect(_on_inventory_operation_finished)
+	Helper.signal_broker.player_attribute_changed.connect(_on_player_attribute_changed)
 
 
 # Function to show context menu at specified position
@@ -417,6 +418,13 @@ func _update_bars(changedItem: InventoryItem, action: String):
 	VolumeBar.value = total_volume
 
 
+# Handles the update of the attribute when the player attribute changes
+func _on_player_attribute_changed(_player_node: CharacterBody3D, attr: PlayerAttribute = null):
+	if attr and attr.fixed_mode:  # If a specific attribute has changed
+		if attr.id == "inventory_space":
+			_update_bars(null,"")
+
+
 func _sort_items(a, b):
 	var value_a = a["sort_value"]
 	var value_b = b["sort_value"]
@@ -480,7 +488,6 @@ func _get_representative_value_for_row(row_name: String, property_name: String):
 				return property_value
 	# Return a default value based on property type
 	return 0 if property_name in ["weight", "volume", "stack_size"] else ""
-
 
 
 # Will sort the order of the items baased on the selected column (property_name)

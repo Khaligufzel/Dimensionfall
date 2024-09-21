@@ -17,26 +17,57 @@ var description: String
 var spriteid: String
 var sprite: Texture
 
-# Minimum possible value for the attribute (e.g., 0 for health)
-var min_amount: float
-
-# Maximum possible value for the attribute (e.g., 100 for health)
-var max_amount: float
-
-# Current value of the attribute (e.g., current health level)
-var current_amount: float
-
-# The rate at which the amount depletes every second
-var depletion_rate: float
-
-# The effect that will happen when depleted
-var depletion_effect: String
-
-# Variable to store the UI color as a string (e.g., "ffffffff" for white)
-var ui_color: String
-
 # References to other entities
 var references: Dictionary = {}
+
+# Inner class for DefaultMode properties
+class DefaultMode:
+	var min_amount: float # Minimum possible value for the attribute (e.g., 0 for health)
+	var max_amount: float # Maximum possible value for the attribute (e.g., 100 for health)
+	var current_amount: float # Current value of the attribute (e.g., current health level)
+	var depletion_rate: float # The rate at which the amount depletes every second
+	var ui_color: String # Variable to store the UI color as a string (e.g., "ffffffff" for white)
+	var depletion_effect: String # The effect that will happen when depleted
+	
+	# Constructor to initialize the properties from a dictionary
+	func _init(data: Dictionary):
+		min_amount = data.get("min_amount", 0.0)
+		max_amount = data.get("max_amount", 100.0)
+		current_amount = data.get("current_amount", max_amount)  # Default to max amount if not provided
+		depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02 if not provided
+		ui_color = data.get("color", "ffffffff")  # Default to white if not provided
+		depletion_effect = data.get("depletion_effect", "none")
+	
+	# Get data function to return a dictionary of properties
+	func get_data() -> Dictionary:
+		return {
+			"min_amount": min_amount,
+			"max_amount": max_amount,
+			"current_amount": current_amount,
+			"depletion_rate": depletion_rate,
+			"color": ui_color,
+			"depletion_effect": depletion_effect
+		}
+
+
+# Inner class for FixedMode properties
+class FixedMode:
+	var amount: float  # Single float variable for fixed amount
+	
+	# Constructor to initialize the fixed amount from a dictionary
+	func _init(data: Dictionary):
+		amount = data.get("amount", 0.0)  # Default to 0.0 if not provided
+	
+	# Get data function to return a dictionary with the amount
+	func get_data() -> Dictionary:
+		return {
+			"amount": amount
+		}
+
+
+# Attribute properties stored inside DefaultMode and FixedMode classes
+var default_mode: DefaultMode
+var fixed_mode: FixedMode
 
 # Constructor to initialize the attribute properties from a dictionary
 func _init(data: Dictionary):
@@ -44,13 +75,18 @@ func _init(data: Dictionary):
 	name = data.get("name", "")
 	description = data.get("description", "")
 	spriteid = data.get("sprite", "")
-	min_amount = data.get("min_amount", 0.0)
-	max_amount = data.get("max_amount", 100.0)
-	current_amount = data.get("current_amount", max_amount)  # Default to max amount if not provided
-	depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02 if not provided
-	ui_color = data.get("color", "ffffffff")  # Default to white if not provided
-	depletion_effect = data.get("depletion_effect", "none")
 	references = data.get("references", {})
+	
+	# Initialize Craft and Magazine subclasses if they exist in data
+	if data.has("default_mode"):
+		default_mode = DefaultMode.new(data["default_mode"])
+	else:
+		default_mode = null
+	
+	if data.has("fixed_mode"):
+		fixed_mode = FixedMode.new(data["fixed_mode"])
+	else:
+		fixed_mode = null
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -58,14 +94,17 @@ func get_data() -> Dictionary:
 		"id": id,
 		"name": name,
 		"description": description,
-		"sprite": spriteid,
-		"min_amount": min_amount,
-		"max_amount": max_amount,
-		"current_amount": current_amount,
-		"depletion_rate": depletion_rate,
-		"depletion_effect": depletion_effect,
-		"color": ui_color
+		"sprite": spriteid
 	}
+
+	# Add defaultmode data if they exist
+	if default_mode:
+		data["default_mode"] = default_mode.get_data()
+	
+	# Add FixedMode data if it exists
+	if fixed_mode:
+		data["fixed_mode"] = fixed_mode.get_data()
+
 	if not references.is_empty():
 		data["references"] = references
 	return data
@@ -94,20 +133,26 @@ func on_data_changed(_oldplayerattribute: DPlayerAttribute):
 	if changes_made:
 		print_debug("Tile reference updates saved successfully.")
 
-
 # Some playerattribute has been changed
-# INFO if the playerattributes reference other entities, update them here
+# INFO: if the playerattributes reference other entities, update them here
 func changed(_olddata: DPlayerAttribute):
 	Gamedata.playerattributes.save_playerattributes_to_disk()
-
 
 # A playerattribute is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	# Check if the playerattribute has references to maps and remove it from those maps
-	var mapsdata = Helper.json_helper.get_nested_data(references, "core.maps")
-	if mapsdata:
-		Gamedata.maps.remove_entity_from_selected_maps("playerattribute", id, mapsdata)
+	# Check if the playerattribute has references to items and remove it from those items
+	var itemsdata = Helper.json_helper.get_nested_data(references, "core.items")
+	if itemsdata:
+		for item_id in itemsdata:
+			var ditem = Gamedata.items.by_id(item_id)
+			if ditem.wearable and not ditem.wearable.player_attributes.is_empty():
+				ditem.wearable.remove_player_attribute(id)
+			if ditem.food and not ditem.food.attributes.is_empty():
+				ditem.food.remove_player_attribute(id)
+			if ditem.medical and not ditem.medical.attributes.is_empty():
+				ditem.medical.remove_player_attribute(id)
+		Gamedata.items.save_items_to_disk()
 
 
 # Executes a callable function on each reference of the given type
