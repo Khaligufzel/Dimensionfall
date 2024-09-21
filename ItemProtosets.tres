@@ -2937,7 +2937,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"generic_forest_finds\"
+					\"generic_forest_finds\",
+					\"destroyed_furniture_medium\"
 				]
 			}
 		},

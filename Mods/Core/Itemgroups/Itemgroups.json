@@ -67,7 +67,8 @@
 				]
 			}
 		},
-		"sprite": "canned_food_32.png"
+		"sprite": "canned_food_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Loot that's dropped by a mob",
@@ -107,7 +108,8 @@
 				]
 			}
 		},
-		"sprite": "machete_32.png"
+		"sprite": "machete_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "What you would find in a cabinet in a house, for example in the living room",
@@ -205,7 +207,8 @@
 				]
 			}
 		},
-		"sprite": "flashlight_32.png"
+		"sprite": "flashlight_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Items that will spawn when medium sized furniture is destroyed, like countertop, table",
@@ -222,6 +225,12 @@
 				"max": 1,
 				"min": 0,
 				"probability": 50
+			},
+			{
+				"id": "stick",
+				"max": 1,
+				"min": 1,
+				"probability": 20
 			}
 		],
 		"mode": "Collection",
@@ -258,7 +267,8 @@
 				]
 			}
 		},
-		"sprite": "plank.png"
+		"sprite": "wreck_wood_generic_32.png",
+		"use_sprite": true
 	},
 	{
 		"description": "Items that will spawn when medium sized furniture is disassembled, like countertop, table",
@@ -286,7 +296,8 @@
 				]
 			}
 		},
-		"sprite": "plank.png"
+		"sprite": "plank.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Items you can find in a refridgerator in an urban home",
@@ -403,7 +414,8 @@
 				]
 			}
 		},
-		"sprite": "bottle_empty_32.png"
+		"sprite": "bottle_empty_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Items you can find in a wardrobe",
@@ -498,7 +510,8 @@
 				]
 			}
 		},
-		"sprite": "jacket_32.png"
+		"sprite": "jacket_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Medium sized appliances you would find at an electronics store.",
@@ -550,7 +563,8 @@
 				]
 			}
 		},
-		"sprite": "microwave_oven_32.png"
+		"sprite": "microwave_oven_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Small products you would find at an electronics store.",
@@ -602,7 +616,8 @@
 				]
 			}
 		},
-		"sprite": "screwdriver_32.png"
+		"sprite": "screwdriver_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Products of mixed sizes you would find at an electronics store.",
@@ -690,7 +705,8 @@
 				]
 			}
 		},
-		"sprite": "electrical_components_32.png"
+		"sprite": "electrical_components_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Drinks you can find in a vending in an urban shop",
@@ -731,7 +747,8 @@
 				]
 			}
 		},
-		"sprite": "can_beer_32.png"
+		"sprite": "can_beer_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Snacks you can find in a vending in an urban shop",
@@ -759,7 +776,8 @@
 				]
 			}
 		},
-		"sprite": "chocolate_32.png"
+		"sprite": "chocolate_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "The tree was not cut, but destroyed by some source, leaving less resources then when it would be cut.",
@@ -807,7 +825,8 @@
 				]
 			}
 		},
-		"sprite": "log_32.png"
+		"sprite": "log_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Items you can find in any field of grass",
@@ -868,7 +887,8 @@
 				]
 			}
 		},
-		"sprite": "leaves_32.png"
+		"sprite": "leaves_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Stuff you might find in a forest",
@@ -980,7 +1000,8 @@
 				]
 			}
 		},
-		"sprite": "branches_32.png"
+		"sprite": "branches_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "Does not spawn under normal circumstances. Only used for testing. Can be used for any testing purposes, just update the items to suit your needs.",
@@ -1025,7 +1046,8 @@
 		],
 		"mode": "Collection",
 		"name": "Test items",
-		"sprite": "screw_32.png"
+		"sprite": "screw_32.png",
+		"use_sprite": false
 	},
 	{
 		"description": "The player finds this rare pile of a M4A1 gun and ammo",
@@ -1059,6 +1081,7 @@
 				]
 			}
 		},
-		"sprite": "rifle_64_32.png"
+		"sprite": "rifle_64_32.png",
+		"use_sprite": false
 	}
 ]
