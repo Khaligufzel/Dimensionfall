@@ -236,7 +236,8 @@
 				"maps": [
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_t"
+					"generichouse_t",
+					"store_groceries"
 				]
 			}
 		},
@@ -273,7 +274,8 @@
 					"generichouse_t",
 					"store_electronic_clothing",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_groceries"
 				]
 			}
 		},
@@ -458,7 +460,8 @@
 					"generichouse_t",
 					"store_electronic_clothing",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_groceries"
 				]
 			}
 		},
@@ -497,7 +500,8 @@
 					"generichouse_t",
 					"store_electronic_clothing",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"store_groceries"
 				]
 			}
 		},
@@ -633,7 +637,8 @@
 				"maps": [
 					"Generichouse",
 					"Generichouse_00",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
@@ -660,7 +665,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"store_electronic_clothing",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"store_groceries"
 				]
 			}
 		},
@@ -695,7 +701,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"store_electronic_clothing",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"store_groceries"
 				]
 			}
 		},
@@ -721,7 +728,8 @@
 				"maps": [
 					"Generichouse",
 					"Generichouse_00",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
@@ -820,7 +828,8 @@
 				"maps": [
 					"Generichouse",
 					"Generichouse_00",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
@@ -882,7 +891,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
@@ -916,7 +926,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
@@ -943,7 +954,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
@@ -978,7 +990,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
@@ -1039,7 +1052,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
@@ -1074,7 +1088,8 @@
 			"core": {
 				"maps": [
 					"store_electronic_clothing",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"store_groceries"
 				]
 			}
 		},
@@ -1112,7 +1127,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
@@ -1139,7 +1155,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
@@ -1175,7 +1192,8 @@
 					"generichouse_cross",
 					"generichouse_corner",
 					"generichouse_t",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
