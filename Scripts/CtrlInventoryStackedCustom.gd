@@ -368,13 +368,8 @@ func _on_row_mouse_entered(row_name: String):
 	if inventory_rows.has(row_name):
 		for control in inventory_rows[row_name]["controls"]:
 			control.highlight()
-		# Store the item for which the tooltip should be shown
 		var item = inventory_rows[row_name]["item"] as InventoryItem
 		if item:
-			# Now that you have the item, you can use it as needed.
-			# For example, start a timer for showing a tooltip.
-			#tooltip_timer.set_meta("item", item)  # Store the item in the timer's metadata
-			#tooltip_timer.start()
 			mouse_entered_item.emit(item)
 
 
