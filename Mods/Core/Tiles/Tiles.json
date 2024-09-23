@@ -2215,7 +2215,8 @@
 					"Generichouse",
 					"store_groceries",
 					"Generichouse_00",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -2258,7 +2259,8 @@
 					"Generichouse_00",
 					"Generichouse",
 					"store_groceries",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
