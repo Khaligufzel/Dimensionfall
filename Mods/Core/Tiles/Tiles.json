@@ -397,7 +397,8 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"generichouse_t"
 				]
 			}
 		},
@@ -440,7 +441,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -852,7 +854,8 @@
 					"store_groceries",
 					"Generichouse_00",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -875,7 +878,8 @@
 					"Generichouse",
 					"store_groceries",
 					"Generichouse_00",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -969,7 +973,8 @@
 					"store_electronic_clothing",
 					"Generichouse",
 					"Generichouse_00",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -992,7 +997,8 @@
 					"Generichouse",
 					"store_groceries",
 					"Generichouse_00",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1060,7 +1066,8 @@
 					"store_groceries",
 					"Generichouse_00",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1106,7 +1113,8 @@
 					"Generichouse",
 					"store_groceries",
 					"Generichouse_00",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1129,7 +1137,8 @@
 					"Generichouse_00",
 					"Generichouse",
 					"store_groceries",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1174,7 +1183,8 @@
 					"Generichouse",
 					"store_groceries",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -1195,7 +1205,8 @@
 					"Generichouse",
 					"store_groceries",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2150,7 +2161,8 @@
 					"Generichouse",
 					"store_groceries",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2172,7 +2184,8 @@
 					"store_groceries",
 					"Generichouse_00",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2194,7 +2207,8 @@
 					"store_groceries",
 					"Generichouse_00",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2216,7 +2230,8 @@
 					"store_groceries",
 					"Generichouse_00",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2238,7 +2253,8 @@
 					"store_groceries",
 					"Generichouse_00",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2260,7 +2276,8 @@
 					"Generichouse",
 					"store_groceries",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2282,7 +2299,8 @@
 					"Generichouse",
 					"store_groceries",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2304,7 +2322,8 @@
 					"Generichouse",
 					"store_groceries",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2326,7 +2345,8 @@
 					"store_groceries",
 					"Generichouse_00",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2348,7 +2368,8 @@
 					"store_groceries",
 					"Generichouse_00",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2370,7 +2391,8 @@
 					"Generichouse",
 					"store_groceries",
 					"Generichouse_00",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2392,7 +2414,8 @@
 					"Generichouse",
 					"store_groceries",
 					"Generichouse_00",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_t"
 				]
 			}
 		},
@@ -2415,7 +2438,8 @@
 					"store_groceries",
 					"Generichouse_00",
 					"generichouse_corner",
-					"generichouse_cross"
+					"generichouse_cross",
+					"generichouse_t"
 				]
 			}
 		},
