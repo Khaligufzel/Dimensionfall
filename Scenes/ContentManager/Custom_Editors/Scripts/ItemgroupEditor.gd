@@ -11,8 +11,10 @@ extends Control
 @export var DescriptionTextEdit: TextEdit = null
 @export var itemgroupSelector: Popup = null
 @export var imageNameStringLabel: Label = null
-@export var modeOptionButton: OptionButton
-@export var itemListContainer: GridContainer
+@export var modeOptionButton: OptionButton = null
+@export var itemListContainer: GridContainer = null
+@export var use_sprite_check_box: CheckBox = null
+
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
 # This signal will be emitted when the user presses the save button
@@ -137,6 +139,8 @@ func load_itemgroup_data():
 		NameTextEdit.text = ditemgroup.name
 	if DescriptionTextEdit:
 		DescriptionTextEdit.text = ditemgroup.description
+	if use_sprite_check_box:
+		use_sprite_check_box.button_pressed = ditemgroup.use_sprite
 	# Set the mode from itemgroup
 	select_option_by_string(modeOptionButton, ditemgroup.mode)
 	update_item_list_with_probabilities()
@@ -167,6 +171,7 @@ func _on_save_button_button_up():
 	ditemgroup.spriteid = imageNameStringLabel.text
 	ditemgroup.name = NameTextEdit.text
 	ditemgroup.description = DescriptionTextEdit.text
+	ditemgroup.use_sprite = use_sprite_check_box.button_pressed
 	ditemgroup.mode = modeOptionButton.get_item_text(modeOptionButton.selected)
 	
 	var new_items: Array[DItemgroup.Item] = []

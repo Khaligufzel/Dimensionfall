@@ -1207,5 +1207,58 @@
 			"width_scale": 100
 		},
 		"weight": 1
+	},
+	{
+		"Function": {
+			"is_container": true
+		},
+		"categories": [
+			"Urban",
+			"Store"
+		],
+		"description": "A set of shelves with broken planks and missing sections, but still usable for storing a few items.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "damaged_shelves",
+		"moveable": false,
+		"name": "Damaged Shelves",
+		"sprite": "damaged_shelves_90_45.png",
+		"support_shape": {
+			"color": "d76c2eff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		},
+		"weight": 1
+	},
+	{
+		"categories": [
+			"Urban",
+			"Outdoor"
+		],
+		"description": "A fence reduced to broken posts, offering little protection but still marking boundaries.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "destroyed_fence",
+		"moveable": false,
+		"name": "Destroyed Fence",
+		"sprite": "fence_destroyed_90_10.png",
+		"support_shape": {
+			"color": "c75a1cff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": true,
+			"width_scale": 95
+		},
+		"weight": 1
 	}
 ]

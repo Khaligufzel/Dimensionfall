@@ -79,6 +79,9 @@ var description: String
 var mode: String # can be "Collection" or "Distribution". See the itemgroup editor for info
 var spriteid: String
 var sprite: Texture
+# If use_sprite is true, the sprite will be used to visualize 
+# this itemgroup if it is spawned in a ContainerItem on the map
+var use_sprite: bool = false
 var items: Array[Item] = []
 var references: Dictionary = {}
 
@@ -89,6 +92,7 @@ func _init(data: Dictionary):
 	description = data.get("description", "")
 	mode = data.get("mode", "Collection")
 	spriteid = data.get("sprite", "")
+	use_sprite = data.get("use_sprite", false)
 	references = data.get("references", {})
 	
 	var item_data = data.get("items", [])
@@ -107,6 +111,7 @@ func get_data() -> Dictionary:
 		"description": description,
 		"mode": mode,
 		"sprite": spriteid,
+		"use_sprite": use_sprite,
 		"items": item_data
 	}
 	if not references.is_empty():

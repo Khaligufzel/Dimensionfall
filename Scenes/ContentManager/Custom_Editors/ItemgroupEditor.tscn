@@ -10,7 +10,7 @@ content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
 
-[node name="ItemgroupEditor" type="Control" node_paths=PackedStringArray("itemgroupImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemgroupSelector", "imageNameStringLabel", "modeOptionButton", "itemListContainer")]
+[node name="ItemgroupEditor" type="Control" node_paths=PackedStringArray("itemgroupImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemgroupSelector", "imageNameStringLabel", "modeOptionButton", "itemListContainer", "use_sprite_check_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,6 +26,7 @@ itemgroupSelector = NodePath("Sprite_selector")
 imageNameStringLabel = NodePath("VBoxContainer/FormGrid/ImageNameStringLabel")
 modeOptionButton = NodePath("VBoxContainer/FormGrid/GroupTypeOptionButton")
 itemListContainer = NodePath("VBoxContainer/FormGrid/PanelContainer/ItemList")
+use_sprite_check_box = NodePath("VBoxContainer/FormGrid/UseSpriteCheckBox")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -105,6 +106,15 @@ size_flags_stretch_ratio = 0.9
 tooltip_text = "Enter the description of this itemgroup"
 focus_previous = NodePath("../NameTextEdit")
 wrap_mode = 1
+
+[node name="UseSpriteLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Use Sprite"
+
+[node name="UseSpriteCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "If this is on, and the itemgroup spawns without 
+parent, it will initially assume the assigned sprite"
 
 [node name="GroupTypeLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2

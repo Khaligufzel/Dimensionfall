@@ -11,6 +11,7 @@ var containerpos: Vector3
 var sprite_3d: Sprite3D
 var texture_id: String # The ID of the texture set for this container
 var itemgroup: String # The ID of an itemgroup that it creates loot from
+var ditemgroup: DItemgroup # The ID of an itemgroup that it creates loot from
 
 
 # Called when the node enters the scene tree for the first time.
@@ -37,6 +38,7 @@ func _initialize_container(item: Dictionary):
 
 	if item.has("inventory"):
 		deserialize_and_apply_items.call_deferred(item.inventory)
+	# texture_id may be set when a furniture is destroyed and spawns this container
 	if item.has("texture_id"):
 		texture_id = item.texture_id
 	create_sprite()
@@ -46,6 +48,10 @@ func _initialize_container(item: Dictionary):
 		var itemgroups_array: Array = item.itemgroups
 		if itemgroups_array.size() > 0:
 			itemgroup = itemgroups_array.pick_random()
+			# Attempt to retrieve the itemgroup data from Gamedata
+			ditemgroup = Gamedata.itemgroups.by_id(itemgroup)
+			if ditemgroup.use_sprite:
+				texture_id = ditemgroup.spriteid
 
 
 # Will add item to the inventory based on the assigned itemgroup
@@ -55,8 +61,6 @@ func create_loot():
 		return
 	# A flag to track whether items were added
 	var item_added: bool = false
-	# Attempt to retrieve the itemgroup data from Gamedata
-	var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(itemgroup)
 	
 	# Check if the itemgroup data exists and has items
 	if ditemgroup:
@@ -67,13 +71,8 @@ func create_loot():
 			item_added = _add_items_to_inventory_distribution_mode(ditemgroup.items)
 
 	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
-	if item_added and sprite_3d.texture == Gamedata.textures.container:
-		# If this container is attached to the furniture, we set the container filled
-		var parent = get_parent()
-		if parent is FurniturePhysics or parent is FurnitureStatic:
-			sprite_3d.texture = Gamedata.textures.container_filled
-		else: # Set the sprite to one it the item's sprites
-			set_random_inventory_item_texture()
+	if item_added and sprite_3d.texture == Gamedata.textures.container and not ditemgroup.use_sprite:
+		set_random_inventory_item_texture()
 	elif not item_added:
 		 # If no item was added we delete the container if it's not a child of some furniture
 		_on_item_removed(null)
@@ -202,7 +201,12 @@ func set_texture(mytex: String):
 		sprite_3d.texture = newsprite
 		texture_id = mytex  # Save the texture ID
 	else:
-		sprite_3d.texture = Gamedata.textures.container
+		newsprite = Gamedata.items.sprite_by_file(mytex)
+		if newsprite:
+			sprite_3d.texture = newsprite
+			texture_id = mytex  # Save the texture ID
+		else:
+			sprite_3d.texture = Gamedata.textures.container
 
 
 # This area will be used to check if the player can reach into the inventory with ItemDetector
@@ -239,12 +243,7 @@ func get_sprite():
 	if is_inside_tree() and get_parent() == get_tree().get_root():
 		return sprite_3d.texture
 	else:
-		# The parent is probably a furniture so return that
-		var parent = get_parent()
-		if parent is FurniturePhysics or parent is FurnitureStatic:
-			return parent.get_sprite()
-		else:
-			return Gamedata.textures.container
+		return Gamedata.textures.container
 
 
 # Returns the inventorystacked that this container holds
@@ -263,10 +262,6 @@ func _on_item_removed(_item: InventoryItem):
 			if get_parent() == get_tree().get_root():
 				Helper.signal_broker.container_exited_proximity.emit(self)
 				queue_free.call_deferred()
-			else:
-				# It's a child of some node, probably furniture
-				sprite_3d.texture = Gamedata.textures.container
-			
 	else: # There are still items in the container
 		if is_inside_tree():
 			set_random_inventory_item_texture() # Update to a new sprite
