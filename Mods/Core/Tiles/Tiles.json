@@ -848,7 +848,8 @@
 					"Generichouse",
 					"store_groceries",
 					"Generichouse_00",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -894,7 +895,8 @@
 					"Generichouse",
 					"store_groceries",
 					"Generichouse_00",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -917,7 +919,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"store_groceries",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -962,7 +965,8 @@
 					"generichouse_corner",
 					"store_electronic_clothing",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -984,7 +988,8 @@
 					"store_electronic_clothing",
 					"Generichouse",
 					"store_groceries",
-					"Generichouse_00"
+					"Generichouse_00",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1006,7 +1011,8 @@
 					"Generichouse",
 					"store_groceries",
 					"Generichouse_00",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1050,7 +1056,8 @@
 					"Generichouse",
 					"store_groceries",
 					"Generichouse_00",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1073,7 +1080,8 @@
 					"Generichouse",
 					"store_groceries",
 					"Generichouse_00",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1094,7 +1102,8 @@
 					"generichouse_corner",
 					"Generichouse",
 					"store_groceries",
-					"Generichouse_00"
+					"Generichouse_00",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1116,7 +1125,8 @@
 					"store_electronic_clothing",
 					"Generichouse_00",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1160,7 +1170,8 @@
 				"maps": [
 					"Generichouse",
 					"store_groceries",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -1180,7 +1191,8 @@
 				"maps": [
 					"Generichouse",
 					"store_groceries",
-					"generichouse_corner"
+					"generichouse_corner",
+					"generichouse_cross"
 				]
 			}
 		},
