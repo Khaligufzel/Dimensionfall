@@ -254,6 +254,7 @@ func remove_area_from_tile(area_id: String) -> void:
 				$AreaSprite.hide()
 				break
 		if tileData.areas.is_empty():
+			tileData.erase("areas") # leave no empty array
 			$AreaSprite.hide()
 	set_tooltip()
 
