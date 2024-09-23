@@ -455,14 +455,18 @@ func paint_area_in_rectangle():
 	var tiles: Array = get_tiles_in_rectangle(start_point, end_point)
 	var area_data: Dictionary = brushcomposer.generate_area_data()
 	var tilerotation = brushcomposer.get_tilerotation(rotationAmount)
+
 	for tile in tiles:
 		if erase:
 			tile.remove_area_from_tile(area_data["id"])
 		else:
 			tile.add_area_to_tile(area_data, tilerotation)
+	
 	if not erase:
 		add_area_to_map_data(area_data)
+	
 	update_rectangle()
+
 
 
 
@@ -594,6 +598,9 @@ func save_map_json_file():
 	mapEditor.currentMap.data_changed(oldmap)
 	oldmap = DMap.new(mapEditor.currentMap.id,"")
 	oldmap.set_data(mapEditor.currentMap.get_data().duplicate(true))
+	# We wrote to mapEditor.currentMap, which means it's out of sync with each mapeditortile
+	# instance's data. We have to reload it
+	loadLevelData(currentLevel)
 
 
 # Create a 128x128 miniature map image of the current level
@@ -1021,33 +1028,10 @@ func add_area_to_map_data(area: Dictionary) -> void:
 
 
 
+
 # Returns a list of areas in the mapdata
 func get_map_areas() -> Array:
 	return mapEditor.currentMap.areas
-
-
-# Function to find tiles with a specific area ID in a given level
-func find_tiles_with_area(area_id: String, level: int = currentLevel) -> Array:
-	var tiles_with_area: Array = []
-
-	# Check if the level is within valid range
-	if level < 0 or level >= mapEditor.currentMap.levels.size():
-		print_debug("Level index out of range.")
-		return tiles_with_area
-	
-	# Get the level data
-	var level_data: Array = mapEditor.currentMap.levels[level]
-	
-	# Iterate through the tiles in the level
-	for i in range(level_data.size()):
-		var tile_data: Dictionary = level_data[i]
-		if tile_data.has("areas"):
-			for area in tile_data["areas"]:
-				if area["id"] == area_id:
-					tiles_with_area.append(tile_data)
-					break
-
-	return tiles_with_area
 
 
 # Function to update mapData.areas based on areas_clone and remove missing areas from tiles
@@ -1074,17 +1058,19 @@ func update_map_areas(areas_clone: Array) -> void:
 			var previd = area["previd"]
 			var new_id = area["id"]
 			renamed_areas[previd] = new_id
+
 			# Update the area ID in map_areas
 			for map_area in map_areas:
 				if map_area["id"] == previd:
 					map_area["id"] = new_id
 					break
 
-			area.erase("previd") # After renaming we don't need it anymore
+			area.erase("previd")  # After renaming, we don't need it anymore
+
 			# Update all tiles referencing the old ID
 			for level in range(mapEditor.currentMap.levels.size()):
 				rename_area_in_tiles(previd, new_id, level)
-			
+
 			# Update chance_modifications list in all areas
 			update_chance_modifications(previd, new_id)
 
@@ -1120,17 +1106,29 @@ func update_chance_modifications(old_id: String, new_id: String) -> void:
 # Function to rename an area in all tiles across all levels
 func rename_area_in_tiles(previd: String, new_id: String, level: int) -> void:
 	if level < 0 or level >= mapEditor.currentMap.levels.size():
-		print_debug("Level index out of range.")
+		print_debug("Level index out of range: %d" % level)
 		return
 
 	var level_data = mapEditor.currentMap.levels[level]
+	if level_data.size() == 0:
+		return # It's an empty level
+	var tiles_with_previd = []  # Step 1: Create an array to store tiles with the previd
+
+	# Step 2: Loop over all tile_data and collect tiles with the area ID equal to previd
 	for tile_data in level_data:
 		if tile_data.has("areas"):
-			var areas = tile_data["areas"]
-			for area in areas:
+			for area in tile_data["areas"]:
 				if area["id"] == previd:
 					area["id"] = new_id
+					tiles_with_previd.append(tile_data)
 					break
+
+	# We are writing to mapEditor.currentMap.levels, but this data is somehow separate from 
+	# data set in mapeditortile.gd's set_data function. When we loadLevel, the data is set to 
+	# each tile so they are the same again. TODO: Find a way to make sure that if we write to 
+	# mapEditor.currentMap.levels[level], we also write to each mapeditortile instance
+	if tiles_with_previd.size() > 0 and level == currentLevel:
+		loadLevel(currentLevel,self)
 
 
 # Function to remove a area from all tiles on a specific level
@@ -1177,6 +1175,7 @@ func set_area_visibility_for_all_tiles(isvisible: bool, areaname: String) -> voi
 	# Loop over each tile in the current level
 	for tile in get_children():
 		tile.set_area_sprite_visibility(isvisible, areaname)
+
 
 
 # Load the areas from mapdata into the brushcomposer
