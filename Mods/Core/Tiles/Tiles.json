@@ -844,7 +844,8 @@
 				"maps": [
 					"store_electronic_clothing",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -865,7 +866,8 @@
 					"generichouse_cross",
 					"store_electronic_clothing",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -886,7 +888,8 @@
 					"generichouse_t",
 					"store_electronic_clothing",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -931,7 +934,8 @@
 					"generichouse_t",
 					"store_electronic_clothing",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -951,7 +955,8 @@
 				"maps": [
 					"generichouse_corner",
 					"store_electronic_clothing",
-					"Generichouse"
+					"Generichouse",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -972,7 +977,8 @@
 					"generichouse_corner",
 					"store_electronic_clothing",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -992,7 +998,8 @@
 				"maps": [
 					"generichouse_t",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1034,7 +1041,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1055,7 +1063,8 @@
 					"generichouse_t",
 					"store_electronic_clothing",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -1075,7 +1084,8 @@
 				"maps": [
 					"generichouse_corner",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -2311,7 +2321,8 @@
 				"maps": [
 					"store_electronic_clothing",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -2331,7 +2342,8 @@
 				"maps": [
 					"store_electronic_clothing",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
@@ -2351,7 +2363,8 @@
 				"maps": [
 					"store_electronic_clothing",
 					"Generichouse",
-					"store_groceries"
+					"store_groceries",
+					"Generichouse_00"
 				]
 			}
 		},
