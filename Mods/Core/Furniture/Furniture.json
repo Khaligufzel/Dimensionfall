@@ -762,7 +762,8 @@
 			"core": {
 				"maps": [
 					"Generichouse_00",
-					"generichouse_t"
+					"generichouse_t",
+					"generichouse_cross"
 				]
 			}
 		},

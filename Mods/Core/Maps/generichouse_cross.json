@@ -14,6 +14,7 @@
 				}
 			],
 			"id": "mob_spawn",
+			"pick_one": false,
 			"rotate_random": true,
 			"spawn_chance": 100,
 			"tiles": [
@@ -26,8 +27,8 @@
 		{
 			"entities": [],
 			"id": "bathroom_floor",
-			"pick_one": false,
-			"rotate_random": false,
+			"pick_one": true,
+			"rotate_random": true,
 			"spawn_chance": 100,
 			"tiles": [
 				{
@@ -36,96 +37,79 @@
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_yellow_00",
-					"type": "tile"
+					"id": "kitchen_tiles_yellow_00"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_yellow_01",
-					"type": "tile"
+					"id": "kitchen_tiles_yellow_01"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_yellow_02",
-					"type": "tile"
+					"id": "kitchen_tiles_yellow_02"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_mint_00",
-					"type": "tile"
+					"id": "kitchen_tiles_mint_00"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_mint_01",
-					"type": "tile"
+					"id": "kitchen_tiles_mint_01"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_mint_02",
-					"type": "tile"
+					"id": "kitchen_tiles_mint_02"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_mint_03",
-					"type": "tile"
+					"id": "kitchen_tiles_mint_03"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_purple_02",
-					"type": "tile"
+					"id": "kitchen_tiles_purple_02"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_purple_01",
-					"type": "tile"
+					"id": "kitchen_tiles_purple_01"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_purple_00",
-					"type": "tile"
+					"id": "kitchen_tiles_purple_00"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_blue_02",
-					"type": "tile"
+					"id": "kitchen_tiles_blue_02"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_blue_01",
-					"type": "tile"
+					"id": "kitchen_tiles_blue_01"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_blue_00",
-					"type": "tile"
+					"id": "kitchen_tiles_blue_00"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_green_02",
-					"type": "tile"
+					"id": "kitchen_tiles_green_02"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_green_01",
-					"type": "tile"
+					"id": "kitchen_tiles_green_01"
 				},
 				{
 					"count": 1,
-					"id": "bathroom_tiles_blue_00",
-					"type": "tile"
+					"id": "bathroom_tiles_blue_00"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_green_00",
-					"type": "tile"
+					"id": "kitchen_tiles_green_00"
 				}
 			]
 		},
 		{
 			"entities": [],
 			"id": "floor_hallway",
-			"pick_one": false,
-			"rotate_random": false,
+			"pick_one": true,
+			"rotate_random": true,
 			"spawn_chance": 100,
 			"tiles": [
 				{
@@ -134,108 +118,87 @@
 				},
 				{
 					"count": 1,
-					"id": "red_carpet_00",
-					"type": "tile"
+					"id": "red_carpet_00"
 				},
 				{
 					"count": 1,
-					"id": "blue_carpet_00",
-					"type": "tile"
+					"id": "blue_carpet_00"
 				},
 				{
 					"count": 1,
-					"id": "orange_carpet_00",
-					"type": "tile"
+					"id": "orange_carpet_00"
 				},
 				{
 					"count": 1,
-					"id": "kitchen_tiles_yellow_01",
-					"type": "tile"
+					"id": "kitchen_tiles_yellow_01"
 				},
 				{
 					"count": 1,
-					"id": "floor_wood_boards_00",
-					"type": "tile"
+					"id": "floor_wood_boards_00"
 				},
 				{
 					"count": 1,
-					"id": "floor_wood_boards_01",
-					"type": "tile"
+					"id": "floor_wood_boards_01"
 				},
 				{
 					"count": 1,
-					"id": "floor_wood_boards_02",
-					"type": "tile"
+					"id": "floor_wood_boards_02"
 				},
 				{
 					"count": 1,
-					"id": "floor_wood_boards_04",
-					"type": "tile"
+					"id": "floor_wood_boards_04"
 				},
 				{
 					"count": 1,
-					"id": "floor_wood_boards_05",
-					"type": "tile"
+					"id": "floor_wood_boards_05"
 				},
 				{
 					"count": 1,
-					"id": "floor_wood_boards_06",
-					"type": "tile"
+					"id": "floor_wood_boards_06"
 				},
 				{
 					"count": 1,
-					"id": "floor_wood_boards_08",
-					"type": "tile"
+					"id": "floor_wood_boards_08"
 				},
 				{
 					"count": 1,
-					"id": "floor_wood_boards_07",
-					"type": "tile"
+					"id": "floor_wood_boards_07"
 				},
 				{
 					"count": 1,
-					"id": "linoleum_blue_00",
-					"type": "tile"
+					"id": "linoleum_blue_00"
 				},
 				{
 					"count": 1,
-					"id": "linoleum_brown_00",
-					"type": "tile"
+					"id": "linoleum_brown_00"
 				},
 				{
 					"count": 1,
-					"id": "linoleum_brown_01",
-					"type": "tile"
+					"id": "linoleum_brown_01"
 				},
 				{
 					"count": 1,
-					"id": "linoleum_green_00",
-					"type": "tile"
+					"id": "linoleum_green_00"
 				},
 				{
 					"count": 1,
-					"id": "linoleum_greyblue_00",
-					"type": "tile"
+					"id": "linoleum_greyblue_00"
 				},
 				{
 					"count": 1,
-					"id": "linoleum_white_02",
-					"type": "tile"
+					"id": "linoleum_white_02"
 				},
 				{
 					"count": 1,
-					"id": "linoleum_lightblue_01",
-					"type": "tile"
+					"id": "linoleum_lightblue_01"
 				},
 				{
 					"count": 1,
-					"id": "linoleum_lightblue_00",
-					"type": "tile"
+					"id": "linoleum_lightblue_00"
 				},
 				{
 					"count": 1,
-					"id": "linoleum_lightblue_02",
-					"type": "tile"
+					"id": "linoleum_lightblue_02"
 				}
 			]
 		},
@@ -15494,6 +15457,10 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "plant_pot_00",
+					"rotation": 90
+				},
 				"id": "kitchen_tiles_green_01",
 				"rotation": 270
 			},
@@ -15771,7 +15738,7 @@
 					}
 				],
 				"furniture": {
-					"id": "plant_pot_00",
+					"id": "bathtub",
 					"rotation": 90
 				},
 				"id": "kitchen_tiles_green_01",
@@ -16221,6 +16188,12 @@
 
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00"
 				},
