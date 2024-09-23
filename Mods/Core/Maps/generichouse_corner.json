@@ -115,6 +115,87 @@
 					"id": "linoleum_lightblue_00"
 				}
 			]
+		},
+		{
+			"entities": [],
+			"id": "floor_hallway",
+			"pick_one": true,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1,
+					"id": "red_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "blue_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "orange_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_00"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_01"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_02"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_05"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_06"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_08"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_07"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_blue_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_brown_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_brown_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_green_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_green_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_greyblue_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_02"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_01"
+				}
+			]
 		}
 	],
 	"categories": [
@@ -325,6 +406,12 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "window_glass"
 				},
@@ -525,9 +612,21 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
@@ -724,6 +823,12 @@
 				"id": "floor_wood_boards_07"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 270
@@ -731,12 +836,30 @@
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
@@ -894,15 +1017,33 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00"
 				},
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
@@ -1097,18 +1238,42 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00"
 				},
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "window_glass",
 					"rotation": 90
@@ -1311,6 +1476,12 @@
 				"id": "orange_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 270
@@ -1318,12 +1489,30 @@
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
@@ -1425,6 +1614,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood"
 				},
@@ -1518,6 +1713,12 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
@@ -1614,10 +1815,22 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -1724,6 +1937,12 @@
 				"id": "kitchen_tiles_mint_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 270
@@ -1731,9 +1950,21 @@
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "window_glass",
 					"rotation": 90
@@ -1830,10 +2061,22 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -1940,6 +2183,12 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
@@ -2037,18 +2286,42 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 90
@@ -2228,14 +2501,32 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00"
 				},
@@ -2404,6 +2695,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -2662,6 +2959,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 270
@@ -2670,18 +2973,42 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 90
@@ -2951,6 +3278,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 180
@@ -5402,12 +5735,24 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood"
 				},
 				"id": "orange_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "window_glass"
 				},
@@ -5562,6 +5907,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 270
@@ -5569,21 +5920,57 @@
 				"id": "orange_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "orange_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "orange_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "orange_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "orange_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "orange_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 90
@@ -5750,6 +6137,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 180
@@ -5766,9 +6159,21 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "orange_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "orange_carpet_00"
 			},
 			{
@@ -5936,6 +6341,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "orange_carpet_00"
 			},
 			{
@@ -6131,6 +6542,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "orange_carpet_00"
 			},
 			{
@@ -9964,6 +10381,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 270
@@ -9972,6 +10395,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -10119,10 +10548,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -10241,10 +10682,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -10342,6 +10795,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"rotation": 270
@@ -10350,30 +10809,72 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -10419,6 +10920,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood"
 				},
@@ -10428,6 +10935,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood"
 				},
@@ -10472,6 +10985,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 180
@@ -10484,6 +11003,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 180
@@ -10534,6 +11059,12 @@
 
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "window_glass",
 					"rotation": 270
@@ -10542,6 +11073,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"rotation": 90
@@ -10549,24 +11086,66 @@
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"rotation": 90
@@ -10672,10 +11251,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00",
 				"rotation": 180
 			},
@@ -10804,10 +11395,22 @@
 				"id": "wood_stairs"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 90
@@ -10960,6 +11563,12 @@
 
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00",
 				"rotation": 180
 			},
@@ -11088,6 +11697,12 @@
 
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00",
 				"rotation": 180
 			},
@@ -11195,6 +11810,12 @@
 
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
@@ -12679,6 +13300,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood"
 				},
@@ -12782,6 +13409,12 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 270
@@ -12789,30 +13422,84 @@
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"rotation": 90
@@ -12903,9 +13590,21 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"rotation": 90
@@ -12916,12 +13615,24 @@
 
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"rotation": 180
@@ -13016,9 +13727,21 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"rotation": 90
@@ -13148,6 +13871,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bench_wood",
 					"rotation": 180
@@ -13155,6 +13884,12 @@
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_hallway",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"rotation": 90
