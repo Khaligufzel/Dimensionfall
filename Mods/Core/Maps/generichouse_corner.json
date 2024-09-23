@@ -285,6 +285,184 @@
 					"id": "linoleum_lightblue_00"
 				}
 			]
+		},
+		{
+			"entities": [],
+			"id": "floor_kitchen",
+			"pick_one": true,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_03"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_00"
+				},
+				{
+					"count": 1,
+					"id": "bathroom_tiles_blue_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_white_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_white_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_white_02"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_02"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_00"
+				}
+			]
+		},
+		{
+			"entities": [],
+			"id": "floor_bathroom",
+			"pick_one": true,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_03"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_00"
+				},
+				{
+					"count": 1,
+					"id": "bathroom_tiles_blue_00"
+				}
+			]
 		}
 	],
 	"categories": [
@@ -1928,6 +2106,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "refrigerator_00"
 				},
@@ -1935,6 +2119,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood"
 				},
@@ -1942,6 +2132,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood"
 				},
@@ -1949,6 +2145,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "trash_bin"
 				},
@@ -2023,6 +2225,12 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_mint_03"
 			},
 			{
@@ -2174,22 +2382,52 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_purple_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_purple_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_purple_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_purple_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "window_glass",
 					"rotation": 90
@@ -2262,6 +2500,12 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"rotation": 180
@@ -2419,10 +2663,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_purple_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"rotation": 180
@@ -2431,6 +2687,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"rotation": 180
@@ -2439,6 +2701,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_purple_00",
 				"rotation": 270
 			},
@@ -3636,6 +3904,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"rotation": 270
@@ -3644,10 +3918,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_mint_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_mint_01",
 				"rotation": 270
 			},
@@ -3924,6 +4210,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"rotation": 270
@@ -3932,10 +4224,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_mint_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"rotation": 270
@@ -5798,6 +6102,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "window_glass"
 				},
@@ -5809,6 +6119,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "window_glass"
 				},
@@ -5968,6 +6284,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"rotation": 270
@@ -5976,10 +6298,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_green_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"rotation": 180
@@ -5988,10 +6322,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_green_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_green_01",
 				"rotation": 270
 			},
@@ -6182,6 +6528,12 @@
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "window_glass",
 					"rotation": 270
@@ -6190,6 +6542,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"rotation": 270
@@ -6198,10 +6556,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_green_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "table_round_wood",
 					"rotation": 180
@@ -6210,6 +6580,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"rotation": 270
@@ -6218,6 +6594,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_green_01",
 				"rotation": 270
 			},
@@ -6386,6 +6768,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"rotation": 270
@@ -6394,18 +6782,42 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_green_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_green_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_green_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_green_01",
 				"rotation": 270
 			},
@@ -6414,10 +6826,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_purple_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_purple_00",
 				"rotation": 270
 			},
@@ -6564,6 +6988,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"rotation": 270
@@ -6572,6 +7002,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"rotation": 180
@@ -6580,6 +7016,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"rotation": 180
@@ -6588,6 +7030,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "refrigerator_00",
 					"rotation": 180
@@ -6596,6 +7044,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "trash_bin"
 				},
@@ -6607,6 +7061,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"rotation": 180
@@ -6615,6 +7075,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"rotation": 180
@@ -6764,6 +7230,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_kitchen",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "window_glass",
 					"rotation": 180
@@ -10450,6 +10922,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"rotation": 270
@@ -10458,14 +10936,32 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_blue_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_blue_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_blue_01",
 				"rotation": 270
 			},
@@ -10539,12 +11035,24 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "toilet_00"
 				},
 				"id": "kitchen_tiles_blue_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00"
 				},
@@ -10635,6 +11143,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"rotation": 270
@@ -10643,6 +11157,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"rotation": 180
@@ -10651,10 +11171,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_blue_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"rotation": 270
@@ -10728,9 +11260,21 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_blue_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_blue_02"
 			},
 			{
@@ -10892,9 +11436,21 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_blue_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_blue_02"
 			},
 			{
@@ -14501,18 +15057,42 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"rotation": 90
@@ -14685,6 +15265,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"rotation": 90
@@ -14693,14 +15279,32 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "floor_bathroom",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"rotation": 90
