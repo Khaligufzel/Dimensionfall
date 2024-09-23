@@ -641,6 +641,7 @@ func save_miniature_map_image():
 		# Create an ImageTexture from the Image
 		var image_texture = ImageTexture.create_from_image(image)
 		mapEditor.currentMap.sprite = image_texture
+		mapEditor.data_changed.emit()
 	else:
 		print("Failed to save image:", file_path)
 

@@ -15,6 +15,9 @@ extends Control
 
 
 signal zoom_level_changed(value: int)
+
+# This signal should alert the content_list that a refresh is needed
+signal data_changed()
 var tileSize: int = 128
 var mapHeight: int = 32
 var mapWidth: int = 32

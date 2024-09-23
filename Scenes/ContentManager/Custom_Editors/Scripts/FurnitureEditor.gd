@@ -55,7 +55,6 @@ var current_image_display: String = ""
 
 
 # This signal will be emitted when the user presses the save button
-# This signal should alert Gamedata that the mob data array should be saved to disk
 signal data_changed()
 
 
