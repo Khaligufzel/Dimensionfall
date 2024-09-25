@@ -92,7 +92,7 @@ func _on_rotate_map_button_up():
 
 # When the user presses the map preview button
 func _on_preview_map_button_up():
-	map_preview.mapData = tileGrid.mapEditor.currentMap.get_data()
+	map_preview.mapData = currentMap.get_data()
 	map_preview.show()
 
 

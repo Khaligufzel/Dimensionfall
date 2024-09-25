@@ -292,59 +292,31 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 			tile.set_rotation_amount(tilerotation)
 
 
-# Store the data of the current level before changing levels
-func storeLevelData() -> void:
-	currentLevelData.clear()
-	var has_significant_data = false
-
-	# First pass: Check if any tile has significant data
-	for child in get_children():
-		if child.tileData and (child.tileData.has("id") or \
-		child.tileData.has("mob") or child.tileData.has("furniture")\
-		or child.tileData.has("itemgroups") or child.tileData.has("areas")):
-			has_significant_data = true
-			break
-
-	# Second pass: Add all tiles to currentLevelData if any significant data is found
-	if has_significant_data:
-		for child in get_children():
-			currentLevelData.append(child.get_tileData())
-	else:
-		# If no tile has significant data, consider adding a special marker or log
-		print_debug("No significant tile data found for the current level")
-
-	mapEditor.currentMap.levels[currentLevel] = currentLevelData.duplicate(true)
-
-
 # Load the level data from the map data. If no data exists, use the default to create a new map.
 func loadLevelData(newLevel: int) -> void:
+	print_debug("loadLevelData: loading data for level " + str(newLevel))
 	if newLevel > 0:
-		loadLevel(newLevel - 1, levelgrid_below)
+		refresh_grid(newLevel - 1, levelgrid_below)
 	else:
 		levelgrid_below.hide()
 	if newLevel < 20:
-		loadLevel(newLevel + 1, levelgrid_above)
+		refresh_grid(newLevel + 1, levelgrid_above)
 		for tile in levelgrid_above.get_children():
 			tile.set_above()
 	else:
 		levelgrid_above.hide()
-	loadLevel(newLevel, self)
+	refresh_grid(newLevel, self)
 	update_area_visibility()
 
 
 # Loads one of the levels into the grid
-func loadLevel(level: int, grid: GridContainer) -> void:
-	var newLevelData: Array = mapEditor.currentMap.levels[level]
+func refresh_grid(level: int, grid: GridContainer) -> void:
+	var levelData: Array = mapEditor.currentMap.levels[level]
 	var i: int = 0
-	# If any data exists on this level, we load it
-	if newLevelData != []:
-		for tile in grid.get_children():
-			tile.tileData = newLevelData[i]
-			i += 1
-	else:
-		#No data is present on this level. apply the default value for each tile
-		for tile in grid.get_children():
-			tile.set_default()
+	for tile in grid.get_children():
+		i = tile.get_index()
+		var tileData = levelData[i] if i < levelData.size() else {}
+		tile.update_display(tileData)
 
 
 # We change from one level to another. For exmple from ground level (0) to 1
@@ -352,10 +324,8 @@ func loadLevel(level: int, grid: GridContainer) -> void:
 # Then load the data from mapData if it exists for that level
 # If no data exists for that level, create new level data
 func change_level(newlevel: int) -> void:
-	storeLevelData()
 	loadLevelData(newlevel)
 	currentLevel = newlevel
-	storeLevelData()
 
 
 # We need to add 10 since the scrollbar starts at -10
@@ -592,7 +562,6 @@ func _on_show_above_toggled(button_pressed):
 #This function takes the mapData property and saves all of it as a json file.
 func save_map_json_file():
 	# Convert the TileGrid.mapData to a JSON string
-	storeLevelData()
 	mapEditor.update_settings_values()
 	mapEditor.currentMap.save_data_to_disk()
 	mapEditor.currentMap.data_changed(oldmap)
@@ -650,8 +619,6 @@ func _on_create_preview_image_button_button_up():
 
 # Loop over all levels and rotate them if they contain tile data
 func rotate_map() -> void:
-	# Store the data of the current level before rotating the map
-	storeLevelData()
 	for i in range(mapEditor.currentMap.levels.size()):
 		# Load each level's data into currentLevelData
 		currentLevelData = mapEditor.currentMap.levels[i]
@@ -718,10 +685,13 @@ func copy_selected_tiles_to_memory():
 
 	# Copy each tile's data to the copied_tiles_info dictionary
 	for tile in selected_tiles:
-		copied_tiles_info["tiles_data"].append(tile.tileData.duplicate())
-	
+		var index = tile.get_index()
+		if index != -1:
+			var tileData: Dictionary = mapEditor.currentMap.levels[currentLevel][index]
+			copied_tiles_info["tiles_data"].append(tileData.duplicate())
 	# Update a preview texture or other UI element to visualize the copied data
 	update_preview_texture_with_copied_data()
+
 
 # Return the index if the child matches the clicked_tile
 func get_index_of_child(clicked_tile: Node) -> int:
@@ -1129,7 +1099,7 @@ func rename_area_in_tiles(previd: String, new_id: String, level: int) -> void:
 	# each tile so they are the same again. TODO: Find a way to make sure that if we write to 
 	# mapEditor.currentMap.levels[level], we also write to each mapeditortile instance
 	if tiles_with_previd.size() > 0 and level == currentLevel:
-		loadLevel(currentLevel,self)
+		refresh_grid(currentLevel,self)
 
 
 # Function to remove a area from all tiles on a specific level

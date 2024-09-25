@@ -1,45 +1,8 @@
 extends Control
 
-#If a tile has no data, we save an empty object. Tiledata can have:
-# id, rotation, mob, furniture, itemgroup and areas
-const defaultTileData: Dictionary = {}
 const defaultTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png"
 const aboveTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/tileAbove.png"
 const areaTexture: String = "res://Scenes/ContentManager/Mapeditor/Images/areatile.png"
-var tileData: Dictionary = defaultTileData.duplicate():
-	set(data):
-		if (tileData.has("id") and tileData.id == "null") or (tileData.has("id") and tileData.id == null):
-			return
-		tileData = data
-		if tileData.has("id") and not tileData.id == "" and not tileData.id == "null":
-			$TileSprite.texture = Gamedata.tiles.sprite_by_id(tileData.id)
-			set_rotation_amount(tileData.get("rotation", 0))
-			$ObjectSprite.hide()
-			$ObjectSprite.rotation_degrees = 0
-			$AreaSprite.hide()
-			$AreaSprite.rotation_degrees = 0
-			if tileData.has("mob"):
-				if tileData.mob.has("rotation"):
-					$ObjectSprite.rotation_degrees = tileData.mob.rotation
-				$ObjectSprite.texture = Gamedata.mobs.sprite_by_id(tileData.mob.id)
-				$ObjectSprite.show()
-			elif tileData.has("furniture"):
-				if tileData.furniture.has("rotation"):
-					$ObjectSprite.rotation_degrees = tileData.furniture.rotation
-				$ObjectSprite.texture = Gamedata.furnitures.sprite_by_id(tileData.furniture.id)
-				$ObjectSprite.show()
-			elif tileData.has("itemgroups"):
-				var random_itemgroup: String = tileData.itemgroups.pick_random()
-				$ObjectSprite.texture = Gamedata.itemgroups.sprite_by_id(random_itemgroup)
-				$ObjectSprite.show()
-			if tileData.has("areas"):
-				$AreaSprite.show()
-		else:
-			$TileSprite.texture = load(defaultTexture)
-			$ObjectSprite.texture = null
-			$ObjectSprite.hide()
-			$AreaSprite.hide()
-		set_tooltip()
 
 
 signal tile_clicked(clicked_tile: Control)
@@ -260,7 +223,7 @@ func remove_area_from_tile(area_id: String) -> void:
 
 
 # Sets the tooltip for this tile. The user can use this to see what's on this tile.
-func set_tooltip() -> void:
+func set_tooltip(tileData: Dictionary) -> void:
 	var tooltiptext = "Tile Overview:\n"
 	
 	# Display tile ID
@@ -342,3 +305,38 @@ func get_tileData() -> Dictionary:
 	if tileData.has("rotation") and tileData.rotation == 0:
 		tileData.erase("rotation")
 	return tileData
+
+
+# Updates the tile visuals based on the provided data
+# Tiledata can have:
+# id, rotation, mob, furniture, itemgroup and areas
+func update_display(tileData: Dictionary):
+	if tileData.has("id") and tileData["id"] != "" and tileData["id"] != "null":
+		$TileSprite.texture = Gamedata.tiles.sprite_by_id(tileData["id"])
+		$TileSprite.rotation_degrees = tileData.get("rotation", 0)
+		$ObjectSprite.hide()
+		$ObjectSprite.rotation_degrees = 0
+		$AreaSprite.hide()
+		$AreaSprite.rotation_degrees = 0
+		if tileData.has("mob"):
+			if tileData["mob"].has("rotation"):
+				$ObjectSprite.rotation_degrees = tileData["mob"]["rotation"]
+			$ObjectSprite.texture = Gamedata.mobs.sprite_by_id(tileData["mob"]["id"])
+			$ObjectSprite.show()
+		elif tileData.has("furniture"):
+			if tileData["furniture"].has("rotation"):
+				$ObjectSprite.rotation_degrees = tileData["furniture"]["rotation"]
+			$ObjectSprite.texture = Gamedata.furnitures.sprite_by_id(tileData["furniture"]["id"])
+			$ObjectSprite.show()
+		elif tileData.has("itemgroups"):
+			var random_itemgroup: String = tileData["itemgroups"].pick_random()
+			$ObjectSprite.texture = Gamedata.itemgroups.sprite_by_id(random_itemgroup)
+			$ObjectSprite.show()
+		if tileData.has("areas"):
+			$AreaSprite.show()
+	else:
+		$TileSprite.texture = load(defaultTexture)
+		$ObjectSprite.texture = null
+		$ObjectSprite.hide()
+		$AreaSprite.hide()
+	set_tooltip(tileData)
