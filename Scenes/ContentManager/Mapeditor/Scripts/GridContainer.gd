@@ -258,38 +258,51 @@ func paint_single_tile(clicked_tile: Control) -> void:
 	apply_paint_to_tile(clicked_tile, selected_brush, rotationAmount)
 
 
-# Helper function to apply paint or erase logic to a single tile
+# Function to apply paint or erase logic to a single tile
 func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
+	# Since the grid is always completely filled, the index should be reliable. This assumes
+	# that mapEditor.currentMap.levels[currentLevel] assumes the same number of items as the grid.
+	var index = tile.get_index() 
+	if index == -1:
+		return
+	var tileData = mapEditor.currentMap.levels[currentLevel][index]
+	
 	if erase:
 		if brush:
 			if brush.entityType == "mob":
-				tile.set_mob_id("")
+				tileData.erase("mob")
 			elif brush.entityType == "furniture":
-				tile.set_furniture_id("")
+				tileData.erase("furniture")
 			elif brush.entityType == "itemgroup":
-				tile.set_tile_itemgroups([]) # erase by passing an empty array
+				tileData.erase("itemgroups")
 			else:
-				tile.set_tile_id("")
-				tile.set_rotation_amount(0)
+				tileData.erase("id")
+				tileData.erase("rotation")
 		else:
-			tile.set_default()
+			tileData = {}
 	elif brush:
 		selected_brush = brushcomposer.get_random_brush()
 		var tilerotation = brushcomposer.get_tilerotation(tilerotate)
 		if brush.entityType == "mob":
-			tile.set_mob_id(brush.entityID)
-			tile.set_mob_rotation(tilerotation)
+			tileData.erase("furniture")
+			tileData.erase("itemgroups")
+			tileData["mob"] = {"id": brush.entityID, "rotation": tilerotation}
 		elif brush.entityType == "furniture":
-			tile.set_furniture_id(brush.entityID)
-			tile.set_furniture_rotation(tilerotation)
-			tile.set_tile_itemgroups(brushcomposer.get_itemgroup_entity_ids())
+			tileData.erase("mob")
+			tileData.erase("itemgroups")
+			tileData["furniture"] = {"id": brush.entityID, "rotation": tilerotation}
+			tileData["furniture"]["itemgroups"] = brushcomposer.get_itemgroup_entity_ids()
 		elif brush.entityType == "itemgroup":
-			# The brushcomposer only returns a brush of this type if there are only
-			# itemgroup brushes in the brushcomposer. We apply the itemgroups to the tile
-			tile.set_tile_itemgroups(brushcomposer.get_itemgroup_entity_ids())
+			tileData.erase("mob")
+			tileData.erase("furniture")
+			tileData["itemgroups"] = brushcomposer.get_itemgroup_entity_ids()
 		else:
-			tile.set_tile_id(brush.entityID)
-			tile.set_rotation_amount(tilerotation)
+			tileData["id"] = brush.entityID
+			tileData["rotation"] = tilerotation
+	# Update the map data
+	mapEditor.currentMap.levels[currentLevel][index] = tileData
+	# Tell the tile to update its display
+	tile.update_display(tileData)
 
 
 # Load the level data from the map data. If no data exists, use the default to create a new map.
