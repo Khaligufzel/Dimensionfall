@@ -100,6 +100,7 @@ func instantiate_editor(type: Gamedata.ContentType, itemID: String, newEditor: P
 	match type:
 		Gamedata.ContentType.MAPS:
 			newContentEditor.currentMap = Gamedata.maps.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
 		
 		Gamedata.ContentType.TACTICALMAPS:
 			newContentEditor.currentMap = Gamedata.tacticalmaps.by_id(itemID)
