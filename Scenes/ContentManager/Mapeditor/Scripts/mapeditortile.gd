@@ -13,16 +13,6 @@ func _on_texture_rect_gui_input(event: InputEvent) -> void:
 		tile_clicked.emit(self)
 
 
-# Sets the rotation amount for the tile sprite and updates tile data
-func set_rotation_amount(amount: int) -> void:
-	$TileSprite.rotation_degrees = amount
-	if amount == 0:
-		tileData.erase("rotation")
-	else:
-		tileData.rotation = amount
-	set_tooltip()
-
-
 # Gets the rotation amount of the tile sprite
 func get_rotation_amount() -> int:
 	return $TileSprite.rotation_degrees
@@ -34,121 +24,11 @@ func set_scale_amount(scaleAmount: int) -> void:
 	custom_minimum_size.y = scaleAmount
 
 
-func set_tile_id(id: String) -> void:
-	if id == "null":
-		return
-	if id == "":
-		tileData.erase("id")
-		$TileSprite.texture = load(defaultTexture)
-	else:
-		tileData.id = id
-		$TileSprite.texture = Gamedata.tiles.sprite_by_id(id)
-	set_tooltip()
-
-
-# Place a mob on this tile. We erase furniture and itemgroups since they can't exist on the same tile
-func set_mob_id(id: String) -> void:
-	if id == "":
-		tileData.erase("mob")
-		if not tileData.has("furniture") and not tileData.has("itemgroups"):
-			$ObjectSprite.hide()
-	else:
-		# A tile can either have a mob or furniture. If we add a mob, remove furniture and itemgroups
-		tileData.erase("furniture")
-		tileData.erase("itemgroups")
-		if tileData.has("mob"):
-			tileData.mob.id = id
-		else:
-			tileData.mob = {"id": id}
-		$ObjectSprite.texture = Gamedata.mobs.sprite_by_id(id)
-		$ObjectSprite.show()
-	set_tooltip()
-
-
-# Place a furniture on this tile. We erase mob and itemgroups since they can't exist on the same tile
-func set_furniture_id(id: String) -> void:
-	if id == "":
-		tileData.erase("furniture")
-		if not tileData.has("mob") and not tileData.has("itemgroups"):
-			$ObjectSprite.hide()
-	else:
-		# A tile can either have a mob or furniture. If we add furniture, remove the mob and itemgroups
-		tileData.erase("mob")
-		tileData.erase("itemgroups")
-		if tileData.has("furniture"):
-			tileData.furniture.id = id
-		else:
-			tileData.furniture = {"id": id}
-		$ObjectSprite.texture = Gamedata.furnitures.sprite_by_id(id)
-		$ObjectSprite.show()
-	set_tooltip()
-
-
-# Sets the rotation for the mob sprite
-func set_mob_rotation(rotationDegrees: int) -> void:
-	set_entity_rotation("mob", rotationDegrees)
-
-
-# Sets the rotation for the furniture sprite
-func set_furniture_rotation(rotationDegrees: int) -> void:
-	set_entity_rotation("furniture", rotationDegrees)
-
-
-# Helper function to set entity rotation
-func set_entity_rotation(key: String, rotationDegrees: int) -> void:
-	$ObjectSprite.rotation_degrees = rotationDegrees
-	if rotationDegrees == 0:
-		tileData[key].erase("rotation")
-	else:
-		tileData[key].rotation = rotationDegrees
-	set_tooltip()
-
-
-# Sets the itemgroups property for the furniture on this tile
-# If the "container" property exists in the "Function" property of the furniture data, 
-# it sets the tileData.furniture.itemgroups property.
-# If the "container" property or the "Function" property does not exist, it erases the "itemgroups" property.
-# If no furniture is present, it applies the itemgroup to the tile and updates the ObjectSprite with a random sprite.
-# If the tileData has the "mob" property, it returns without making any changes.
-func set_tile_itemgroups(itemgroups: Array) -> void:
-	if tileData.has("mob"):
-		return
-	
-	# If the tile doesn't have furniture
-	if not tileData.has("furniture"):
-		if itemgroups.is_empty(): # Erase the itemgroups property if the itemgroups array is empty
-			tileData.erase("itemgroups")
-			$ObjectSprite.hide()
-		else:
-			# Apply the itemgroup to the tile and update ObjectSprite with a random sprite
-			var random_itemgroup: String = itemgroups.pick_random()
-			$ObjectSprite.texture = Gamedata.itemgroups.sprite_by_id(random_itemgroup)
-			$ObjectSprite.show()
-			$ObjectSprite.rotation_degrees = 0
-			tileData["itemgroups"] = itemgroups
-	else:
-		if itemgroups.is_empty(): # Only erase the itemgroups property from furniture
-			tileData.furniture.erase("itemgroups")
-		else:
-			var furniture: DFurniture = Gamedata.furnitures.by_id(tileData.furniture.id)
-			if not itemgroups.is_empty() and furniture.function.is_container:
-				tileData.furniture.itemgroups = itemgroups
-			else:
-				tileData.furniture.erase("itemgroups")
-	
-	set_tooltip()
-
-
 
 # If the user holds the mouse button while entering this tile, we consider it clicked
 func _on_texture_rect_mouse_entered() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		tile_clicked.emit(self)
-
-
-# Resets the tiledata to the default
-func set_default() -> void:
-	tileData = defaultTileData.duplicate()
 
 
 func highlight() -> void:
@@ -167,18 +47,6 @@ func set_clickable(clickable: bool):
 		$AreaSprite.mouse_filter = MOUSE_FILTER_IGNORE
 
 
-#This function sets the texture to some static resource that helps the user visualize that something is above
-#If this tile has a texture in its data, set it to the above texture instead
-func set_above():
-	$ObjectSprite.texture = null
-	$ObjectSprite.hide()
-	$AreaSprite.hide()
-	if tileData.has("id") and tileData.id != "":
-		$TileSprite.texture = load(aboveTexture)
-	else:
-		$TileSprite.texture = null
-
-
 func _on_texture_rect_resized():
 	$TileSprite.pivot_offset = size / 2
 	$ObjectSprite.pivot_offset = size / 2
@@ -187,39 +55,6 @@ func _on_texture_rect_resized():
 
 func get_tile_texture():
 	return $TileSprite.texture
-
-
-# Adds a area dictionary to the areas list of the tile
-func add_area_to_tile(area: Dictionary, tilerotation: int) -> void:
-	if area.is_empty():
-		return
-	if not tileData.has("areas"):
-		tileData.areas = []
-	# Check if the area id already exists
-	for existing_area in tileData.areas:
-		if existing_area.id == area.id:
-			return
-	# Since the area definition is stored in the main mapdata, 
-	# we only need to remember the id and rotation
-	tileData.areas.append({"id": area.id, "rotation": tilerotation})
-	$AreaSprite.show()
-	set_tooltip()
-
-
-# Removes a area dictionary from the areas list of the tile by its id
-func remove_area_from_tile(area_id: String) -> void:
-	if area_id == "":
-		return
-	if tileData.has("areas"):
-		for area in tileData.areas:
-			if area.id == area_id:
-				tileData.areas.erase(area)
-				$AreaSprite.hide()
-				break
-		if tileData.areas.is_empty():
-			tileData.erase("areas") # leave no empty array
-			$AreaSprite.hide()
-	set_tooltip()
 
 
 # Sets the tooltip for this tile. The user can use this to see what's on this tile.
@@ -280,44 +115,36 @@ func set_tooltip(tileData: Dictionary) -> void:
 
 
 # Sets the visibility of the area sprite based on the provided area name and visibility flag
-func set_area_sprite_visibility(isvisible: bool, area_name: String) -> void:
-	if tileData.has("areas"):
-		for area in tileData["areas"]:
-			if area["id"] == area_name:
-				$AreaSprite.visible = isvisible
-				return
-	$AreaSprite.visible = false
-
-
-# Checks if a area with the specified id is in the areas list of the tile
-func is_area_in_tile(area_id: String) -> bool:
-	if tileData.has("areas"):
-		for area in tileData.areas:
-			if area.id == area_id:
-				return true
-	return false
-
-
-# Gets the tileData with specific checks and returns it
-func get_tileData() -> Dictionary:
-	if tileData.has("id") and tileData.id == "":
-		tileData.erase("id")
-	if tileData.has("rotation") and tileData.rotation == 0:
-		tileData.erase("rotation")
-	return tileData
+func set_area_sprite_visibility(isvisible: bool) -> void:
+	$AreaSprite.visible = isvisible
 
 
 # Updates the tile visuals based on the provided data
-# Tiledata can have:
-# id, rotation, mob, furniture, itemgroup and areas
-func update_display(tileData: Dictionary):
+# Tiledata can have: id, rotation, mob, furniture, itemgroup, and areas
+func update_display(tileData: Dictionary = {}, selected_area_name: String = "None"):
+	var parent_name = get_parent().get_name()
+	
+	# Will be made visible again if the conditions are right
+	$ObjectSprite.hide()
+	$AreaSprite.hide()
+
+	# If the parent node is "levelgrid_above", run the "set_above" logic
+	if parent_name == "Level_Above":
+		$ObjectSprite.texture = null
+		if tileData.has("id") and tileData.id != "":
+			$TileSprite.texture = load(aboveTexture)
+		else:
+			$TileSprite.texture = null
+		return  # Exit early since we don't need to do further processing for the above layer
+
+	# Regular update logic for other grids
 	if tileData.has("id") and tileData["id"] != "" and tileData["id"] != "null":
-		$TileSprite.texture = Gamedata.tiles.sprite_by_id(tileData["id"])
+		set_tile_id(tileData["id"])
 		$TileSprite.rotation_degrees = tileData.get("rotation", 0)
-		$ObjectSprite.hide()
 		$ObjectSprite.rotation_degrees = 0
-		$AreaSprite.hide()
 		$AreaSprite.rotation_degrees = 0
+
+		# Check for mob and furniture, and update accordingly
 		if tileData.has("mob"):
 			if tileData["mob"].has("rotation"):
 				$ObjectSprite.rotation_degrees = tileData["mob"]["rotation"]
@@ -329,14 +156,46 @@ func update_display(tileData: Dictionary):
 			$ObjectSprite.texture = Gamedata.furnitures.sprite_by_id(tileData["furniture"]["id"])
 			$ObjectSprite.show()
 		elif tileData.has("itemgroups"):
-			var random_itemgroup: String = tileData["itemgroups"].pick_random()
-			$ObjectSprite.texture = Gamedata.itemgroups.sprite_by_id(random_itemgroup)
-			$ObjectSprite.show()
-		if tileData.has("areas"):
-			$AreaSprite.show()
+			set_tile_itemgroups(tileData)
+
+		# Show the area sprite if conditions are met
+		if tileData.has("areas") and selected_area_name != "None":
+			for area in tileData["areas"]:
+				if area["id"] == selected_area_name:
+					$AreaSprite.show()
+					break  # Exit the loop once the area is found
 	else:
 		$TileSprite.texture = load(defaultTexture)
 		$ObjectSprite.texture = null
-		$ObjectSprite.hide()
-		$AreaSprite.hide()
+
 	set_tooltip(tileData)
+
+
+
+# Update the sprite by id
+func set_tile_id(id: String) -> void:
+	if id == "null":
+		return
+	if id == "":
+		$TileSprite.texture = load(defaultTexture)
+	else:
+		$TileSprite.texture = Gamedata.tiles.sprite_by_id(id)
+
+
+# Manages the itemgroups property for the tile. 
+# If the tile has no mob or furniture, it applies itemgroups to the tile and assigns a random sprite to the ObjectSprite.
+# If the itemgroups array is empty, it hides the ObjectSprite and removes the itemgroups property from the tile.
+# If the tileData contains a mob or furniture, the function returns early without making any changes.
+func set_tile_itemgroups(tileData: Dictionary) -> void:
+	if tileData.has("mob") or tileData.has("furniture"):
+		return
+	
+	var itemgroups: Array = tileData.get("itemgroups", [])
+	if itemgroups.is_empty(): # Erase the itemgroups property if the itemgroups array is empty
+		$ObjectSprite.hide()
+	else:
+		# Apply the itemgroup to the tile and update ObjectSprite with a random sprite
+		var random_itemgroup: String = itemgroups.pick_random()
+		$ObjectSprite.texture = Gamedata.itemgroups.sprite_by_id(random_itemgroup)
+		$ObjectSprite.show()
+		$ObjectSprite.rotation_degrees = 0

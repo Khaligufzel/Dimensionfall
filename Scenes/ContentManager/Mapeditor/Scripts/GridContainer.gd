@@ -286,40 +286,39 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 		if brush.entityType == "mob":
 			tileData.erase("furniture")
 			tileData.erase("itemgroups")
-			tileData["mob"] = {"id": brush.entityID, "rotation": tilerotation}
+			tileData["mob"] = {"id": brush.entityID}
+			set_entity_rotation(tileData,"mob",tilerotation)
 		elif brush.entityType == "furniture":
 			tileData.erase("mob")
 			tileData.erase("itemgroups")
-			tileData["furniture"] = {"id": brush.entityID, "rotation": tilerotation}
+			tileData["furniture"] = {"id": brush.entityID}
+			set_entity_rotation(tileData,"furniture",tilerotation)
 			tileData["furniture"]["itemgroups"] = brushcomposer.get_itemgroup_entity_ids()
 		elif brush.entityType == "itemgroup":
 			tileData.erase("mob")
 			tileData.erase("furniture")
 			tileData["itemgroups"] = brushcomposer.get_itemgroup_entity_ids()
 		else:
-			tileData["id"] = brush.entityID
-			tileData["rotation"] = tilerotation
+			set_tile_id(tileData,brush.entityID)
+			set_rotation_amount(tileData, tilerotation)
 	# Update the map data
 	mapEditor.currentMap.levels[currentLevel][index] = tileData
 	# Tell the tile to update its display
-	tile.update_display(tileData)
+	tile.update_display(tileData, brushcomposer.get_selected_area_name())
 
 
 # Load the level data from the map data. If no data exists, use the default to create a new map.
 func loadLevelData(newLevel: int) -> void:
 	print_debug("loadLevelData: loading data for level " + str(newLevel))
-	if newLevel > 0:
+	if newLevel > 0: # Refresh below
 		refresh_grid(newLevel - 1, levelgrid_below)
 	else:
 		levelgrid_below.hide()
-	if newLevel < 20:
+	if newLevel < 20: # Refresh above
 		refresh_grid(newLevel + 1, levelgrid_above)
-		for tile in levelgrid_above.get_children():
-			tile.set_above()
 	else:
 		levelgrid_above.hide()
 	refresh_grid(newLevel, self)
-	update_area_visibility()
 
 
 # Loads one of the levels into the grid
@@ -329,7 +328,7 @@ func refresh_grid(level: int, grid: GridContainer) -> void:
 	for tile in grid.get_children():
 		i = tile.get_index()
 		var tileData = levelData[i] if i < levelData.size() else {}
-		tile.update_display(tileData)
+		tile.update_display(tileData, brushcomposer.get_selected_area_name())
 
 
 # We change from one level to another. For exmple from ground level (0) to 1
@@ -441,9 +440,9 @@ func paint_area_in_rectangle():
 
 	for tile in tiles:
 		if erase:
-			tile.remove_area_from_tile(area_data["id"])
+			remove_area_from_tile(tile, area_data["id"])
 		else:
-			tile.add_area_to_tile(area_data, tilerotation)
+			add_area_to_tile(tile, area_data, tilerotation)
 	
 	if not erase:
 		add_area_to_map_data(area_data)
@@ -451,6 +450,36 @@ func paint_area_in_rectangle():
 	update_rectangle()
 
 
+# Removes a area dictionary from the areas list of the tile by its id
+func remove_area_from_tile(tile: Control, area_id: String) -> void:
+	if area_id == "":
+		return
+	var tileData: Dictionary = get_tile_data(tile,currentLevel)
+	if tileData.has("areas"):
+		for area in tileData.areas:
+			if area.id == area_id:
+				tileData.areas.erase(area)
+				break
+		if tileData.areas.is_empty():
+			tileData.erase("areas") # leave no empty array
+	tile.update_display(tileData, brushcomposer.get_selected_area_name())
+
+# Adds a area dictionary to the areas list of the tile
+func add_area_to_tile(tile: Control, area: Dictionary, tilerotation: int) -> void:
+	if area.is_empty():
+		return
+	
+	var tileData: Dictionary = get_tile_data(tile,currentLevel)
+	if not tileData.has("areas"):
+		tileData.areas = []
+	# Check if the area id already exists
+	for existing_area in tileData.areas:
+		if existing_area.id == area.id:
+			return
+	# Since the area definition is stored in the main mapdata, 
+	# we only need to remember the id and rotation
+	tileData.areas.append({"id": area.id, "rotation": tilerotation})
+	tile.update_display(tileData, brushcomposer.get_selected_area_name())
 
 
 #The user has pressed the erase toggle button in the editor
@@ -525,16 +554,13 @@ func _on_draw_area_toggled(toggled_on) -> void:
 		currentMode = EditorMode.DRAW_AREA
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
-		
-		# Tiles will show the area sprite if the selected area is in the data
-		set_area_visibility_for_all_tiles(true,brushcomposer.get_selected_area_name())
 	else:
 		currentMode = EditorMode.NONE
-		set_area_visibility_for_all_tiles(false,"")
 		if selected_brush:
 			set_brush_preview_texture(selected_brush.get_texture())
 		else:
 			set_brush_preview_texture(null)
+	update_area_visibility()
 
 
 # When the user has selected one of the tile brushes to paint with
@@ -1066,8 +1092,7 @@ func update_map_areas(areas_clone: Array) -> void:
 	var selected_area_name = brushcomposer.get_selected_area_name()
 	if selected_area_name in missing_area_ids or selected_area_name in renamed_areas or selected_area_name == "None":
 		for tile in get_children():
-			tile.set_area_sprite_visibility(false, "")
-			tile.set_tooltip()
+			tile.set_area_sprite_visibility(false)
 
 	# Remove missing area IDs from the chance_modifications lists in all areas
 	for missing_area_id in missing_area_ids:
@@ -1109,8 +1134,7 @@ func rename_area_in_tiles(previd: String, new_id: String, level: int) -> void:
 
 	# We are writing to mapEditor.currentMap.levels, but this data is somehow separate from 
 	# data set in mapeditortile.gd's set_data function. When we loadLevel, the data is set to 
-	# each tile so they are the same again. TODO: Find a way to make sure that if we write to 
-	# mapEditor.currentMap.levels[level], we also write to each mapeditortile instance
+	# each tile so they are the same again.
 	if tiles_with_previd.size() > 0 and level == currentLevel:
 		refresh_grid(currentLevel,self)
 
@@ -1136,33 +1160,105 @@ func remove_area_from_tiles(area_id: String, level: int) -> void:
 
 
 # When the user selects an option in the areas optionbutton in the brushcomposer
-func on_areas_option_button_item_selected(optionbutton: Control, index: int):
-	# Get the selected area name
-	var selected_area_name = optionbutton.get_item_text(index)
-	if selected_area_name == "None":
-		set_area_visibility_for_all_tiles(false, selected_area_name)
-	else:
-		set_area_visibility_for_all_tiles(true, selected_area_name)
+func on_areas_option_button_item_selected(_optionbutton: Control, _index: int):
+	update_area_visibility()
 
 
 # Function to update the visibility of area sprites based on the selected area name
 func update_area_visibility() -> void:
 	var selected_area_name = brushcomposer.get_selected_area_name()
-	if selected_area_name != "None":
-		set_area_visibility_for_all_tiles(true, selected_area_name)
+	if selected_area_name == "None":
+		for tile in get_children():
+			tile.set_area_sprite_visibility(false)
 	else:
-		set_area_visibility_for_all_tiles(false, "")
-
-
-# Function to set the visibility of area sprites for all tiles in the current level
-func set_area_visibility_for_all_tiles(isvisible: bool, areaname: String) -> void:
-	# Loop over each tile in the current level
-	for tile in get_children():
-		tile.set_area_sprite_visibility(isvisible, areaname)
-
+		for tile in get_children():
+			if is_area_in_tile(tile,currentLevel,selected_area_name):
+				tile.set_area_sprite_visibility(true)
+			else:
+				tile.set_area_sprite_visibility(false)
 
 
 # Load the areas from mapdata into the brushcomposer
 func load_area_data():
 	brushcomposer.set_area_data(get_map_areas())
-	set_area_visibility_for_all_tiles(false, brushcomposer.get_selected_area_name())
+	update_area_visibility()
+
+
+# Function to get the tile data from mapEditor.currentMap.levels based on tile's index and level
+func get_tile_data(tile: Control, level: int) -> Dictionary:
+	# Get the tile index using tile.get_index()
+	var index = tile.get_index()
+	
+	# Ensure the index is valid and within the bounds of the level data
+	if index >= 0 and index < mapEditor.currentMap.levels[level].size():
+		# Return the tile data from the specified level and index
+		return mapEditor.currentMap.levels[level][index]
+	
+	# Return an empty dictionary if the index is invalid
+	return {}
+
+# Checks if a area with the specified id is in the areas list of the tile
+func is_area_in_tile(tile: Control, level: int, area_id: String) -> bool:
+	var tileData: Dictionary = get_tile_data(tile, level)
+	if tileData.has("areas"):
+		for area in tileData.areas:
+			if area.id == area_id:
+				return true
+	return false
+
+
+# Sets the rotation amount for the tile sprite and updates tile data
+func set_rotation_amount(tileData: Dictionary, amount: int) -> void:
+	if amount == 0:
+		tileData.erase("rotation")
+	else:
+		tileData.rotation = amount
+
+
+# Sets the id of the provided tiledata
+func set_tile_id(tileData: Dictionary, id: String) -> void:
+	if id == "null":
+		return
+	if id == "":
+		tileData.erase("id")
+	else:
+		tileData["id"] = id
+
+
+# Helper function to set entity rotation
+func set_entity_rotation(tileData: Dictionary, key: String, rotationDegrees: int) -> void:
+	if rotationDegrees == 0:
+		tileData[key].erase("rotation")
+	else:
+		tileData[key].rotation = rotationDegrees
+
+
+# Sets the itemgroups property for the furniture on this tile
+# If the "container" property exists in the "Function" property of the furniture data, 
+# it sets the tileData.furniture.itemgroups property.
+# If the "container" property or the "Function" property does not exist, it erases the "itemgroups" property.
+# If no furniture is present, it applies the itemgroup to the tile and updates the ObjectSprite with a random sprite.
+# If the tileData has the "mob" property, it returns without making any changes.
+func set_tile_itemgroups(tileData: Dictionary, itemgroups: Array) -> void:
+	if tileData.has("mob"):
+		return
+	
+	# If the tile doesn't have furniture
+	if not tileData.has("furniture"):
+		if itemgroups.is_empty(): # Erase the itemgroups property if the itemgroups array is empty
+			tileData.erase("itemgroups")
+		else: # One of the itemgroups will spawn at random on this tile
+			tileData["itemgroups"] = itemgroups
+		return
+
+	if itemgroups.is_empty():
+		# Only erase the itemgroups property from furniture
+		tileData.furniture.erase("itemgroups")
+		return
+
+	var furniture: DFurniture = Gamedata.furnitures.by_id(tileData.furniture.id)
+	if furniture.function.is_container: 
+		# The furniture is a container and will get one of the itemgroups assigned at runtime
+		tileData.furniture.itemgroups = itemgroups
+	else: # The furniture is not a container so we erase the itemgroups
+		tileData.furniture.erase("itemgroups")

@@ -54,12 +54,12 @@ func load_level_data(level: int) -> void:
 	# If any data exists on this level, we load it
 	if newLevelData != []:
 		for tile in map_preview_grid.get_children():
-			tile.tileData = newLevelData[i]  # Assuming set_tile_data method exists in tileScene
+			tile.update_display(newLevelData[i])  # Assuming set_tile_data method exists in tileScene
 			i += 1
 	else:
 		# No data is present on this level. apply the default value for each tile
 		for tile in map_preview_grid.get_children():
-			tile.set_default()  # Assuming set_default method exists in tileScene
+			tile.update_display()  # Calling this without parameters resets the tile to default
 
 
 # Function to generate the map preview
