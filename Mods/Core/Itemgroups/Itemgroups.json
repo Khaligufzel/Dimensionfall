@@ -1124,6 +1124,13 @@
 		],
 		"mode": "Collection",
 		"name": "Rock debris",
+		"references": {
+			"core": {
+				"maps": [
+					"abandoned_building"
+				]
+			}
+		},
 		"sprite": "rock_large_32.png",
 		"use_sprite": false
 	},
@@ -1206,6 +1213,13 @@
 		],
 		"mode": "Collection",
 		"name": "Urban debris",
+		"references": {
+			"core": {
+				"maps": [
+					"abandoned_building"
+				]
+			}
+		},
 		"sprite": "rusted_metal_sheets_32.png",
 		"use_sprite": false
 	}

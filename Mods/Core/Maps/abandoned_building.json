@@ -1,6 +1,8 @@
 {
 	"categories": [
-		"Buildings"
+		"Buildings",
+		"Urban",
+		"City"
 	],
 	"description": "The abandoned building stands as a haunting relic of a once-bustling community. Its structure looms with an unsettling presence, casting elongated shadows that stretch across the cracked pavement, where nature has begun to reclaim the area.",
 	"id": "abandoned_building",
@@ -469,6 +471,9 @@
 			},
 			{
 				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock"
+				],
 				"rotation": 270
 			},
 			{
@@ -483,6 +488,9 @@
 			},
 			{
 				"id": "concrete_00",
+				"itemgroups": [
+					"debris_urban"
+				],
 				"rotation": 180
 			},
 			{
@@ -528,6 +536,9 @@
 			},
 			{
 				"id": "concrete_00",
+				"itemgroups": [
+					"debris_urban"
+				],
 				"rotation": 270
 			},
 			{
@@ -832,6 +843,9 @@
 			},
 			{
 				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock"
+				],
 				"rotation": 270
 			},
 			{
@@ -857,7 +871,10 @@
 				"rotation": 270
 			},
 			{
-				"id": "concrete_00"
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_urban"
+				]
 			},
 			{
 				"id": "concrete_00"
@@ -1036,6 +1053,9 @@
 			},
 			{
 				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock"
+				],
 				"rotation": 270
 			},
 			{
@@ -1126,6 +1146,9 @@
 			},
 			{
 				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock"
+				],
 				"rotation": 180
 			},
 			{
@@ -1299,7 +1322,10 @@
 				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01"
+				"id": "dirt_light_01",
+				"itemgroups": [
+					"debris_urban"
+				]
 			},
 			{
 				"id": "concrete_00",
@@ -1357,6 +1383,9 @@
 			},
 			{
 				"id": "concrete_00",
+				"itemgroups": [
+					"debris_urban"
+				],
 				"rotation": 180
 			},
 			{
@@ -1438,20 +1467,13 @@
 				"rotation": 180
 			},
 			{
-				"furniture": {
-					"id": "destroyed_fence",
-					"itemgroups": [],
-					"rotation": 180
-				},
 				"id": "concrete_00",
+				"itemgroups": [
+					"debris_urban"
+				],
 				"rotation": 180
 			},
 			{
-				"furniture": {
-					"id": "destroyed_fence",
-					"itemgroups": [],
-					"rotation": 180
-				},
 				"id": "concrete_00",
 				"rotation": 180
 			},
