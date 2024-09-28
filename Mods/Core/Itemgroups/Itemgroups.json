@@ -264,6 +264,9 @@
 					"toilet_00",
 					"damaged_shelves",
 					"destroyed_fence"
+				],
+				"maps": [
+					"abandoned_building"
 				]
 			}
 		},
@@ -1082,6 +1085,128 @@
 			}
 		},
 		"sprite": "rifle_64_32.png",
+		"use_sprite": false
+	},
+	{
+		"description": "A cluttered pile of rocks",
+		"id": "debris_rock",
+		"items": [
+			{
+				"id": "small_rock",
+				"max": 10,
+				"min": 3,
+				"probability": 70
+			},
+			{
+				"id": "medium_rock",
+				"max": 2,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "gravel",
+				"max": 4,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "pebble",
+				"max": 12,
+				"min": 5,
+				"probability": 80
+			},
+			{
+				"id": "large_rock",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			}
+		],
+		"mode": "Collection",
+		"name": "Rock debris",
+		"sprite": "rock_large_32.png",
+		"use_sprite": false
+	},
+	{
+		"description": "Any debris in an urban environment, for example from a destroyed house",
+		"id": "debris_urban",
+		"items": [
+			{
+				"id": "steel_scrap",
+				"max": 1,
+				"min": 1,
+				"probability": 50
+			},
+			{
+				"id": "plank_2x4",
+				"max": 1,
+				"min": 1,
+				"probability": 50
+			},
+			{
+				"id": "rusted_metal_sheets",
+				"max": 1,
+				"min": 1,
+				"probability": 50
+			},
+			{
+				"id": "glass_shards",
+				"max": 1,
+				"min": 1,
+				"probability": 50
+			},
+			{
+				"id": "damaged_concrete_slab",
+				"max": 1,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "medium_rock",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "gravel",
+				"max": 1,
+				"min": 1,
+				"probability": 5
+			},
+			{
+				"id": "metal_parts",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "ceramic_fragments",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "plastic_parts",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "screw",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "nails",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			}
+		],
+		"mode": "Collection",
+		"name": "Urban debris",
+		"sprite": "rusted_metal_sheets_32.png",
 		"use_sprite": false
 	}
 ]

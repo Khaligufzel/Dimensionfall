@@ -1253,6 +1253,13 @@
 		"id": "destroyed_fence",
 		"moveable": false,
 		"name": "Destroyed Fence",
+		"references": {
+			"core": {
+				"maps": [
+					"abandoned_building"
+				]
+			}
+		},
 		"sprite": "fence_destroyed_90_10.png",
 		"support_shape": {
 			"color": "c75a1cff",

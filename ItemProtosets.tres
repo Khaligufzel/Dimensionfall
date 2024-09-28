@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://bxubu34gjes1y"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -16,7 +16,8 @@ json_data = "[
 				\"itemgroups\": [
 					\"mob_loot\",
 					\"destroyed_furniture_medium\",
-					\"disassembled_furniture_medium\"
+					\"disassembled_furniture_medium\",
+					\"debris_urban\"
 				],
 				\"items\": [
 					\"cutting_board\",
@@ -43,7 +44,8 @@ json_data = "[
 					\"mob_loot\",
 					\"destroyed_furniture_medium\",
 					\"disassembled_furniture_medium\",
-					\"test_items\"
+					\"test_items\",
+					\"debris_urban\"
 				],
 				\"items\": [
 					\"pistol_magazine\",
@@ -1263,6 +1265,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/nails_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Nails\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"debris_urban\"
+				]
+			}
+		},
 		\"sprite\": \"nails_32.png\",
 		\"stack_size\": 10,
 		\"two_handed\": false,
@@ -1295,6 +1304,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/screw_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Screw\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"debris_urban\"
+				]
+			}
+		},
 		\"sprite\": \"screw_32.png\",
 		\"stack_size\": 10,
 		\"two_handed\": false,
@@ -1444,6 +1460,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/plastic_parts_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Plastic Parts\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"debris_urban\"
+				]
+			}
+		},
 		\"sprite\": \"plastic_parts_32.png\",
 		\"stack_size\": 10,
 		\"two_handed\": false,
@@ -1456,6 +1479,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/ceramic_fragments_32.png\",
 		\"max_stack_size\": 30,
 		\"name\": \"Ceramic Fragments\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"debris_urban\"
+				]
+			}
+		},
 		\"sprite\": \"ceramic_fragments_32.png\",
 		\"stack_size\": 5,
 		\"two_handed\": false,
@@ -1468,6 +1498,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/metal_parts_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Metal Parts\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"debris_urban\"
+				]
+			}
+		},
 		\"sprite\": \"metal_parts_32.png\",
 		\"stack_size\": 10,
 		\"two_handed\": false,
@@ -2663,6 +2700,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/rock_large_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Large Rock\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"debris_rock\"
+				]
+			}
+		},
 		\"sprite\": \"rock_large_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -2847,7 +2891,8 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"generic_field_finds\",
-					\"generic_forest_finds\"
+					\"generic_forest_finds\",
+					\"debris_rock\"
 				]
 			}
 		},
@@ -2875,6 +2920,14 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/gravel_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Gravel\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"debris_rock\",
+					\"debris_urban\"
+				]
+			}
+		},
 		\"sprite\": \"gravel_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -2890,7 +2943,9 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"generic_field_finds\"
+					\"generic_field_finds\",
+					\"debris_rock\",
+					\"debris_urban\"
 				]
 			}
 		},
@@ -2910,7 +2965,8 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"generic_field_finds\",
-					\"generic_forest_finds\"
+					\"generic_forest_finds\",
+					\"debris_rock\"
 				]
 			}
 		},
@@ -3173,6 +3229,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/concrete_slab_damaged_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Damaged Concrete Slab\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"debris_urban\"
+				]
+			}
+		},
 		\"sprite\": \"concrete_slab_damaged_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": true,
@@ -3185,6 +3248,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/glass_shards_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Glass Shards\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"debris_urban\"
+				]
+			}
+		},
 		\"sprite\": \"glass_shards_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -3197,6 +3267,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/rusted_metal_sheets_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Rusted Metal Sheets\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"debris_urban\"
+				]
+			}
+		},
 		\"sprite\": \"rusted_metal_sheets_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,

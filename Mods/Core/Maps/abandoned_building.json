@@ -1,0 +1,7045 @@
+{
+	"categories": [
+		"Buildings"
+	],
+	"description": "The abandoned building stands as a haunting relic of a once-bustling community. Its structure looms with an unsettling presence, casting elongated shadows that stretch across the cracked pavement, where nature has begun to reclaim the area.",
+	"id": "abandoned_building",
+	"levels": [
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "dirt_light_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				],
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				],
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				],
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 90
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "sidewalk_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 270
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "grass_medium_dirt_01"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_01",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 180
+			},
+			{
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 90
+			},
+			{
+				"id": "dirt_light_00",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			}
+		],
+		[
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			}
+		],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[]
+	],
+	"mapheight": 32,
+	"mapwidth": 32,
+	"name": "Abandoned building",
+	"references": {
+		"core": {
+			"tacticalmaps": [
+				"town_00.json"
+			]
+		}
+	},
+	"weight": 1000
+}
