@@ -21,7 +21,8 @@
 					"generichouse_t",
 					"Generichouse",
 					"Generichouse_00",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"abandoned_building"
 				]
 			}
 		},
@@ -50,7 +51,8 @@
 					"generichouse_t",
 					"Generichouse",
 					"Generichouse_00",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"abandoned_building"
 				]
 			}
 		},
@@ -1228,6 +1230,13 @@
 		"id": "damaged_shelves",
 		"moveable": false,
 		"name": "Damaged Shelves",
+		"references": {
+			"core": {
+				"maps": [
+					"abandoned_building"
+				]
+			}
+		},
 		"sprite": "damaged_shelves_90_45.png",
 		"support_shape": {
 			"color": "d76c2eff",

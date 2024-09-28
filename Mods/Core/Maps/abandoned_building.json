@@ -2533,109 +2533,88 @@
 				"rotation": 90
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01"
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_02"
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01",
@@ -2654,18 +2633,103 @@
 				"rotation": 90
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_01",
+				"rotation": 270
+			},
+			{
 				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
 				"rotation": 270
 			},
 			{
@@ -2673,102 +2737,85 @@
 				"rotation": 270
 			},
 			{
-				"id": "dirt_light_01"
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
 			},
 			{
-				"id": "dirt_light_00"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_02"
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_02"
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_02"
@@ -2777,222 +2824,147 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "dirt_light_02",
+				"rotation": 180
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
 				"id": "dirt_light_01",
 				"rotation": 90
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02"
-			},
-			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "dirt_light_01",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_02"
-			},
-			{
-				"id": "dirt_light_01"
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01"
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "table_round_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00"
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_01"
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_00"
-			},
-			{
-				"id": "dirt_light_01"
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_02"
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00"
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01",
@@ -3009,112 +2981,97 @@
 				"rotation": 270
 			},
 			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
 				"id": "dirt_light_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "dirt_light_02"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01"
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_02",
@@ -3131,111 +3088,104 @@
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_02"
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "dirt_light_01",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01",
@@ -3253,109 +3203,106 @@
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_02"
-			},
-			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_00"
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_01"
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "dirt_light_02"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
+			},
+			{
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_02",
@@ -3375,108 +3322,93 @@
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_02"
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 90
-			},
-			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01",
@@ -3494,110 +3426,112 @@
 				"rotation": 180
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock",
+					"debris_urban"
+				]
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02"
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "dirt_light_01"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 180
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_02",
@@ -3615,111 +3549,88 @@
 				"rotation": 90
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_02",
-				"rotation": 270
-			},
-			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "dirt_light_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01"
@@ -5897,28 +5808,28 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -5927,28 +5838,28 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -5957,28 +5868,28 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -5993,7 +5904,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6074,7 +5985,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6089,7 +6000,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6170,7 +6081,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6185,7 +6096,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6266,7 +6177,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6299,7 +6210,8 @@
 
 			},
 			{
-
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
 
@@ -6314,7 +6226,8 @@
 
 			},
 			{
-
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
 
@@ -6335,7 +6248,8 @@
 
 			},
 			{
-
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
 
@@ -6350,7 +6264,8 @@
 
 			},
 			{
-
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
 
@@ -6362,7 +6277,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6458,7 +6373,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6473,7 +6388,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6554,7 +6469,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6569,7 +6484,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6647,10 +6562,11 @@
 
 			},
 			{
-
+				"id": "concrete_00",
+				"rotation": 90
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6665,7 +6581,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6740,13 +6656,14 @@
 
 			},
 			{
-
+				"id": "wood_stairs",
+				"rotation": 90
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6761,7 +6678,7 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6770,52 +6687,52 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -6824,25 +6741,25 @@
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00"
 			},
 			{
 
@@ -7043,8 +6960,6327 @@
 
 			}
 		],
-		[],
-		[],
+		[
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "table_round_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "table_round_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "table_round_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"furniture": {
+					"id": "table_round_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock"
+				]
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "table_round_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock"
+				]
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "wood_stairs"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"itemgroups": [
+					"debris_rock"
+				]
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			}
+		],
+		[
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			}
+		],
 		[],
 		[],
 		[],
