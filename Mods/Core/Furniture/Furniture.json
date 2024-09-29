@@ -1258,7 +1258,7 @@
 			"group": "destroyed_furniture_medium",
 			"sprite": "wreck_wood_generic_32.png"
 		},
-		"edgesnapping": "South",
+		"edgesnapping": "North",
 		"id": "destroyed_fence",
 		"moveable": false,
 		"name": "Destroyed Fence",

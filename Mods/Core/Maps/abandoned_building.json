@@ -272,6 +272,9 @@
 			},
 			{
 				"id": "dirt_light_02",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				],
 				"rotation": 270
 			},
 			{
@@ -337,7 +340,10 @@
 				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01"
+				"id": "dirt_light_01",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
 			},
 			{
 				"furniture": {
@@ -400,7 +406,10 @@
 				"id": "dirt_light_02"
 			},
 			{
-				"id": "concrete_00"
+				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				]
 			},
 			{
 				"id": "concrete_00"
@@ -547,6 +556,9 @@
 			},
 			{
 				"id": "dirt_light_02",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				],
 				"rotation": 90
 			},
 			{
@@ -1070,6 +1082,9 @@
 			},
 			{
 				"id": "dirt_light_01",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				],
 				"rotation": 90
 			},
 			{
@@ -1394,6 +1409,9 @@
 			},
 			{
 				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				],
 				"rotation": 180
 			},
 			{
@@ -1433,6 +1451,9 @@
 			},
 			{
 				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				],
 				"rotation": 180
 			},
 			{
@@ -1510,6 +1531,9 @@
 			},
 			{
 				"id": "concrete_00",
+				"itemgroups": [
+					"destroyed_furniture_medium"
+				],
 				"rotation": 180
 			},
 			{
