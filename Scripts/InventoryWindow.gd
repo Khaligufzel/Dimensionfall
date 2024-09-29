@@ -114,6 +114,8 @@ func _on_inventory_item_mouse_entered(item: InventoryItem):
 
 	description = _append_food_attributes(item, description)
 	description = _append_medical_attributes(item, description)
+	description = _append_melee_attributes(item, description)
+	description = _append_ranged_attributes(item, description)
 
 	tooltip_item_description.text = description
 	_set_tooltip_size(description)
@@ -160,6 +162,46 @@ func _append_medical_attributes(item: InventoryItem, description: String) -> Str
 					line += " " + "".join(values)
 					description += line + "\n"
 	return description
+
+# Add text to the tooltip to display the Melee attributes
+func _append_melee_attributes(item: InventoryItem, description: String) -> String:
+	var dmelee = DItem.Melee.new(item.get_property("Melee", {}))
+	if dmelee.damage > 0 or dmelee.reach > 0 or dmelee.used_skill:
+		description += "\n\nAttributes (Melee):\n"  # Add a section for melee attributes
+		if dmelee.damage > 0:
+			description += "- Damage: " + str(dmelee.damage) + "\n"
+		if dmelee.reach > 0:
+			description += "- Reach: " + str(dmelee.reach) + "\n"
+		if dmelee.used_skill:
+			description += "- Skill: " + str(dmelee.used_skill.get("skill_id", "Unknown")) + " (XP: " + str(dmelee.used_skill.get("xp", 0)) + ")\n"
+	return description
+
+# Add text to the tooltip to display the Ranged attributes
+func _append_ranged_attributes(item: InventoryItem, description: String) -> String:
+	var dranged = DItem.Ranged.new(item.get_property("Ranged", {}))
+	if dranged.firing_speed > 0 or dranged.firing_range > 0 or dranged.recoil > 0 or dranged.reload_speed > 0 or dranged.used_ammo != "" or dranged.used_skill:
+		description += "\n\nAttributes (Ranged):\n"  # Add a section for ranged attributes
+		if dranged.firing_speed > 0:
+			description += "- Firing Speed: " + str(dranged.firing_speed) + "\n"
+		if dranged.firing_range > 0:
+			description += "- Firing Range: " + str(dranged.firing_range) + "\n"
+		if dranged.recoil > 0:
+			description += "- Recoil: " + str(dranged.recoil) + "\n"
+		if dranged.reload_speed > 0:
+			description += "- Reload Speed: " + str(dranged.reload_speed) + "\n"
+		if dranged.spread > 0:
+			description += "- Spread: " + str(dranged.spread) + "\n"
+		if dranged.sway > 0:
+			description += "- Sway: " + str(dranged.sway) + "\n"
+		if dranged.used_ammo != "":
+			description += "- Ammo Type: " + dranged.used_ammo + "\n"
+		if dranged.used_magazine != "":
+			description += "- Magazine Type: " + dranged.used_magazine + "\n"
+		if dranged.used_skill:
+			description += "- Skill: " + str(dranged.used_skill.get("skill_id", "Unknown")) + " (XP: " + str(dranged.used_skill.get("xp", 0)) + ")\n"
+	return description
+
+
 
 
 func _on_inventory_item_mouse_exited():
