@@ -345,12 +345,24 @@ func _on_simulation_button_button_up() -> void:
 		elif selected_mode == "Distribution":
 			_simulate_distribution_mode(items_data, simulation_results)
 
-	# Step 5: Print the simulation results to simulation_text_edit
+	# Step 5: Sort the results by the amount generated (in descending order)
+	var sorted_results: Array = simulation_results.keys().map(
+		func(item_id):
+			return {"id": item_id, "amount": simulation_results[item_id]}
+	)
+	
+	# Sort the array based on the "amount" value in descending order
+	sorted_results.sort_custom(func(a, b):
+		return b["amount"] < a["amount"]
+	)
+
+	# Step 6: Print the sorted simulation results to simulation_text_edit
 	var result_text: String = ""
-	for item_id in simulation_results.keys():
-		result_text += str(item_id) + ": " + str(simulation_results[item_id]) + "\n"
+	for result in sorted_results:
+		result_text += str(result["id"]) + ": " + str(result["amount"]) + "\n"
 
 	simulation_text_edit.text = result_text  # Display the results in the text edit
+
 
 
 func _simulate_collection_mode(items: Array, results: Dictionary) -> void:
