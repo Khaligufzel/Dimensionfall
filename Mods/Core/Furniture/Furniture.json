@@ -761,7 +761,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse_00"
+					"Generichouse_00",
+					"generichouse_t",
+					"generichouse_cross"
 				]
 			}
 		},
@@ -829,7 +831,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"store_electronic_clothing",
-					"store_groceries"
+					"store_groceries",
+					"generichouse_t"
 				]
 			}
 		},
