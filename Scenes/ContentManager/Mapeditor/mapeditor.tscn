@@ -82,10 +82,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+current_tab = 0
 
 [node name="Edit Map" type="HSplitContainer" parent="TabContainer"]
 layout_mode = 2
 theme_override_icons/grabber = SubResource("GradientTexture2D_1xgu1")
+metadata/_tab_index = 0
 
 [node name="MapeditorContainer" type="VBoxContainer" parent="TabContainer/Edit Map"]
 layout_mode = 2
@@ -358,6 +360,7 @@ tileBrush = ExtResource("8_o4x7s")
 visible = false
 layout_mode = 2
 columns = 2
+metadata/_tab_index = 1
 
 [node name="NameLabel" type="Label" parent="TabContainer/Settings"]
 layout_mode = 2
