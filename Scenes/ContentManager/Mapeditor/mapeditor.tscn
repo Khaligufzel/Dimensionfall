@@ -82,9 +82,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 1
 
 [node name="Edit Map" type="HSplitContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_icons/grabber = SubResource("GradientTexture2D_1xgu1")
 metadata/_tab_index = 0
@@ -357,7 +358,6 @@ scrolling_Flow_Container = ExtResource("6_onaby")
 tileBrush = ExtResource("8_o4x7s")
 
 [node name="Settings" type="GridContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 columns = 2
 metadata/_tab_index = 1
@@ -399,6 +399,7 @@ header = "Categories"
 
 [node name="WeightLabel" type="Label" parent="TabContainer/Settings"]
 layout_mode = 2
+text = "Weight"
 
 [node name="WeightSpinBox" type="SpinBox" parent="TabContainer/Settings"]
 layout_mode = 2
@@ -407,6 +408,29 @@ you have one map with a weight of 1000 and another map with a weight
 of 500, the map with weight of 1000 will be twice as likely to be picked."
 max_value = 1e+06
 value = 1000.0
+
+[node name="RoadConnectionLabel" type="Label" parent="TabContainer/Settings"]
+layout_mode = 2
+text = "Road connection"
+
+[node name="RoadConnectionHBoxContainer" type="HBoxContainer" parent="TabContainer/Settings"]
+layout_mode = 2
+
+[node name="NorthCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
+layout_mode = 2
+text = "North"
+
+[node name="EastCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
+layout_mode = 2
+text = "East"
+
+[node name="SouthCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
+layout_mode = 2
+text = "South"
+
+[node name="WestCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
+layout_mode = 2
+text = "West"
 
 [node name="BrushPreviewTexture" type="TextureRect" parent="."]
 visible = false

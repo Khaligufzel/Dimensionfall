@@ -11,12 +11,18 @@ extends Control
 @export var description_text_edit: TextEdit
 @export var categories_list: Control
 @export var weight_spin_box: SpinBox
+@export var north_check_box: CheckBox = null # Checked if this map has a road connection north
+@export var east_check_box: CheckBox = null # Checked if this map has a road connection east
+@export var south_check_box: CheckBox = null # Checked if this map has a road connection south
+@export var west_check_box: CheckBox = null # Checked if this map has a road connection west
+
 
 
 
 signal zoom_level_changed(value: int)
 
 # This signal should alert the content_list that a refresh is needed
+@warning_ignore("unused_signal")
 signal data_changed()
 var tileSize: int = 128
 var mapHeight: int = 32
@@ -96,18 +102,31 @@ func _on_preview_map_button_up():
 	map_preview.show()
 
 
-# Function to get the values of the controls
-func update_settings_values():
-	currentMap.name = name_text_edit.text
-	currentMap.description = description_text_edit.text
-	currentMap.categories = categories_list.get_items()
-	currentMap.weight = int(weight_spin_box.value)
-
-
 # Function to set the values of the controls
 func set_settings_values() -> void:
+	# Set basic properties
 	name_text_edit.text = currentMap.name
 	description_text_edit.text = currentMap.description
 	if not currentMap.categories.is_empty():
 		categories_list.set_items(currentMap.categories)
 	weight_spin_box.value = currentMap.weight
+
+	# Set road connections using currentMap.get_connection()
+	north_check_box.button_pressed = currentMap.get_connection("road", "north")
+	east_check_box.button_pressed = currentMap.get_connection("road", "east")
+	south_check_box.button_pressed = currentMap.get_connection("road", "south")
+	west_check_box.button_pressed = currentMap.get_connection("road", "west")
+
+# Function to get the values of the controls
+func update_settings_values():
+	# Update basic properties
+	currentMap.name = name_text_edit.text
+	currentMap.description = description_text_edit.text
+	currentMap.categories = categories_list.get_items()
+	currentMap.weight = int(weight_spin_box.value)
+
+	# Update road connections using currentMap.set_connection()
+	currentMap.set_connection("road", "north", north_check_box.button_pressed)
+	currentMap.set_connection("road", "east", east_check_box.button_pressed)
+	currentMap.set_connection("road", "south", south_check_box.button_pressed)
+	currentMap.set_connection("road", "west", west_check_box.button_pressed)

@@ -19,6 +19,7 @@ var levels: Array = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
 var references: Dictionary = {}
 var areas: Array = []
 var sprite: Texture = null
+var connections: Dictionary = {} # Variable to store road connections
 
 var dataPath: String
 
@@ -61,6 +62,7 @@ func set_data(newdata: Dictionary) -> void:
 	levels = newdata.get("levels", [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]])
 	references = newdata.get("references", {})
 	areas = newdata.get("areas", [])
+	connections = newdata.get("connections", {})  # Set connections from data if present
 
 
 func get_data() -> Dictionary:
@@ -78,6 +80,8 @@ func get_data() -> Dictionary:
 		mydata["references"] = references
 	if not areas.is_empty():
 		mydata["areas"] = areas
+	if not connections.is_empty():  # Omit connections if empty
+		mydata["connections"] = connections
 	return mydata
 
 
@@ -387,3 +391,27 @@ func remove_area(area_id: String) -> void:
 		if areas[i]["id"] == area_id:
 			areas.erase(areas[i])
 			break
+
+
+# Function to set a connection type and direction
+func set_connection(connection_type: String, direction: String, value: bool) -> void:
+	# If the connection type (e.g., "road") doesn't exist, initialize it
+	if not connections.has(connection_type):
+		connections[connection_type] = {}
+	# Set the value for the given direction (e.g., "north", "south") in the connection type
+	connections[connection_type][direction] = value
+
+
+# Function to get a connection type and direction, returning false if any key is missing
+func get_connection(connection_type: String, direction: String) -> bool:
+	# Return false if connections dictionary is empty
+	if connections.is_empty():
+		return false
+	# Return false if the connection type doesn't exist
+	if not connections.has(connection_type):
+		return false
+	# Return false if the direction for the connection type is not present
+	if not connections[connection_type].has(direction):
+		return false
+	# Otherwise, return the value for the given direction in the connection type
+	return connections[connection_type][direction]
