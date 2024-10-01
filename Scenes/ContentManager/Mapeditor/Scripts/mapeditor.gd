@@ -159,30 +159,8 @@ func _on_add_neighbor_button_button_up() -> void:
 	var selected_category = category_option_button.get_item_text(category_option_button.selected)
 
 	if neighbor_south_check_box.button_pressed:
-		# Create the HBoxContainer
-		var hbox = HBoxContainer.new()
-
-		# Add a Label to display the selected category
-		var category_label = Label.new()
-		category_label.text = selected_category
-		hbox.add_child(category_label)
-
-		# Add a SpinBox to specify the weight of the neighbor
-		var weight_spinbox = SpinBox.new()
-		weight_spinbox.min_value = 0
-		weight_spinbox.max_value = 100
-		weight_spinbox.value = 50  # Default weight value
-		hbox.add_child(weight_spinbox)
-
-		# Add a delete button to allow removing the neighbor
-		var delete_button = Button.new()
-		delete_button.text = "X"
-		delete_button.pressed.connect(_on_delete_neighbor.bind(hbox))
-		hbox.add_child(delete_button)
-
-		# Add the HBoxContainer to the south_h_flow_container
-		south_h_flow_container.add_child(hbox)
-	# Repeat for other directions (north, east, west) if needed
+		create_neighbor_hbox(selected_category, 50, south_h_flow_container)
+	# Repeat for other directions if needed
 
 
 
@@ -209,36 +187,49 @@ func get_neighbors_from_container(container: HFlowContainer) -> Array[Dictionary
 	return neighbors
 
 
+# Takes a list of neighbors and creates controls in the corresponding HFlowContainer to manage 
+# the neighbors. Each direction has a separate HFlowContainer
 func populate_neighbors_container(container: HFlowContainer, neighbors: Array) -> void:
 	container.clear()  # Remove previous neighbors
 	for neighbor in neighbors:
-		var hbox = HBoxContainer.new()
-
-		# Add a Label for the category
-		var category_label = Label.new()
-		category_label.text = neighbor["category"]
-		hbox.add_child(category_label)
-
-		# Add a SpinBox for the weight
-		var weight_spinbox = SpinBox.new()
-		weight_spinbox.min_value = 0
-		weight_spinbox.max_value = 100
-		weight_spinbox.value = neighbor["weight"]
-		hbox.add_child(weight_spinbox)
-
-		# Add a delete button
-		var delete_button = Button.new()
-		delete_button.text = "X"
-		delete_button.pressed.connect(_on_delete_neighbor.bind(hbox))
-		hbox.add_child(delete_button)
-
-		# Add the HBoxContainer to the container
-		container.add_child(hbox)
+		create_neighbor_hbox(neighbor["category"], neighbor["weight"], container)
 
 
+# The user has clicked on the delete button on a neighbor in the list. We remove the Hbox for the neighbor
 func _on_delete_neighbor(hbox_to_remove: HBoxContainer) -> void:
 	# Remove the HBoxContainer from its parent (the HFlowContainer)
 	var parent_container = hbox_to_remove.get_parent()
 	if parent_container:
 		parent_container.remove_child(hbox_to_remove)
 		hbox_to_remove.queue_free()  # Properly free the HBoxContainer from memory
+
+
+# Create a new Hbox for the provided category and direction
+# cateory: for example: "urban", "suburban", "plains"
+# weight: for example: 100. A higher number will increase the chance to be picked during runtime
+# container: for example: south_h_flow_container. Adds the category controls Hbox as a child
+func create_neighbor_hbox(category: String, weight: int, container: HFlowContainer) -> HBoxContainer:
+	var hbox = HBoxContainer.new()
+
+	# Add a Label for the category
+	var category_label = Label.new()
+	category_label.text = category
+	hbox.add_child(category_label)
+
+	# Add a SpinBox for the weight
+	var weight_spinbox = SpinBox.new()
+	weight_spinbox.min_value = 0
+	weight_spinbox.max_value = 100
+	weight_spinbox.value = weight
+	hbox.add_child(weight_spinbox)
+
+	# Add a delete button
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.pressed.connect(_on_delete_neighbor.bind(hbox))
+	hbox.add_child(delete_button)
+
+	# Add the HBoxContainer to the appropriate HFlowContainer
+	container.add_child(hbox)
+
+	return hbox
