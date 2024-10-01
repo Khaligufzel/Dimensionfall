@@ -418,19 +418,121 @@ layout_mode = 2
 
 [node name="NorthCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
 layout_mode = 2
+tooltip_text = "Toggle this on if the map has a road connection to the north. 
+Toggle this off if the map does not have a road connection to the north."
 text = "North"
 
 [node name="EastCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
 layout_mode = 2
+tooltip_text = "Toggle this on if the map has a road connection to the east. 
+Toggle this off if the map does not have a road connection to the east."
 text = "East"
 
 [node name="SouthCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
 layout_mode = 2
+tooltip_text = "Toggle this on if the map has a road connection to the south. 
+Toggle this off if the map does not have a road connection to the south."
 text = "South"
 
 [node name="WestCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
 layout_mode = 2
+tooltip_text = "Toggle this on if the map has a road connection to the west. 
+Toggle this off if the map does not have a road connection to the west."
 text = "West"
+
+[node name="NeighborsLabel" type="Label" parent="TabContainer/Settings"]
+layout_mode = 2
+text = "Neighbors"
+
+[node name="NeighborsVBoxContainer" type="VBoxContainer" parent="TabContainer/Settings"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Settings/NeighborsVBoxContainer"]
+layout_mode = 2
+
+[node name="HelpButton" type="Button" parent="TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Set neighbors: Select a category from the dropdown menu below, select one or 
+more directions for the category and press add. The category will then be 
+added to the list in the specified direction. At runtime, one map from the 
+category will be selected and fitted onto one of the road connections above.
+If the map in the selected category does not have a road connection, it will 
+be fitted onto a side without road connection."
+theme_override_colors/font_disabled_color = Color(1, 0.374252, 0.322802, 1)
+theme_override_constants/outline_size = 4
+disabled = true
+text = " ? "
+
+[node name="CategorieOptionButton" type="OptionButton" parent="TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Select a map category to be added to the neighbor list. During runtime, one of the maps in this 
+category will be picked as the neighbor of this map. If the randomly selected map has road 
+connections, they will be fit onto existing road connections. If the randomly selected map does 
+not have road connections, it will be fitted onto a side that does not have  a road connection."
+selected = 0
+item_count = 1
+popup/item_0/text = "none"
+
+[node name="NeighborNorthCheckBox" type="CheckBox" parent="TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Toggle this on before pressing the \"add\" button. The selected category will be added to the 
+selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
+text = "North"
+
+[node name="NeighborEastCheckBox" type="CheckBox" parent="TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Toggle this on before pressing the \"add\" button. The selected category will be added to the 
+selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
+text = "East"
+
+[node name="NeighborSouthCheckBox" type="CheckBox" parent="TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Toggle this on before pressing the \"add\" button. The selected category will be added to the 
+selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
+text = "South"
+
+[node name="NeighborEastCheckBox2" type="CheckBox" parent="TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Toggle this on before pressing the \"add\" button. The selected category will be added to the 
+selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
+text = "East"
+
+[node name="AddButton" type="Button" parent="TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Add"
+
+[node name="NeighborsGridContainer" type="GridContainer" parent="TabContainer/Settings/NeighborsVBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="NorthLabel" type="Label" parent="TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer"]
+layout_mode = 2
+text = "North"
+
+[node name="NorthHFlowContainer" type="HFlowContainer" parent="TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer"]
+layout_mode = 2
+
+[node name="EastLabel" type="Label" parent="TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer"]
+layout_mode = 2
+text = "East"
+
+[node name="EastHFlowContainer" type="HFlowContainer" parent="TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer"]
+layout_mode = 2
+
+[node name="SouthLabel" type="Label" parent="TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer"]
+layout_mode = 2
+text = "South"
+
+[node name="SouthHFlowContainer" type="HFlowContainer" parent="TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer"]
+layout_mode = 2
+
+[node name="WestLabel" type="Label" parent="TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer"]
+layout_mode = 2
+text = "West"
+
+[node name="WestHFlowContainer" type="HFlowContainer" parent="TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer"]
+layout_mode = 2
 
 [node name="BrushPreviewTexture" type="TextureRect" parent="."]
 visible = false

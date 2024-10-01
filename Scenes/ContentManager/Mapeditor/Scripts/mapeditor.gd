@@ -16,6 +16,21 @@ extends Control
 @export var south_check_box: CheckBox = null # Checked if this map has a road connection south
 @export var west_check_box: CheckBox = null # Checked if this map has a road connection west
 
+# Controls to add categories to the list of neighbors
+@export var category_option_button: OptionButton = null
+@export var neighbor_north_check_box: CheckBox = null
+@export var neighbor_east_check_box: CheckBox = null
+@export var neighbor_south_check_box: CheckBox = null
+@export var neighbor_east_check_box_2: CheckBox = null
+
+# Controls to display existing neighbors connections
+@export var neighbors_grid_container: GridContainer = null
+@export var north_h_flow_container: HFlowContainer = null
+@export var east_h_flow_container: HFlowContainer = null
+@export var south_h_flow_container: HFlowContainer = null
+@export var west_h_flow_container: HFlowContainer = null
+
+
 
 
 
@@ -130,3 +145,7 @@ func update_settings_values():
 	currentMap.set_connection("road", "east", east_check_box.button_pressed)
 	currentMap.set_connection("road", "south", south_check_box.button_pressed)
 	currentMap.set_connection("road", "west", west_check_box.button_pressed)
+
+
+func _on_add_neighbor_button_button_up() -> void:
+	pass # Replace with function body.
