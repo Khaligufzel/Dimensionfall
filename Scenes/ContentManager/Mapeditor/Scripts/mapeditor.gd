@@ -137,6 +137,16 @@ func set_settings_values() -> void:
 	var south_neighbors = currentMap.get_neighbors("south")
 	populate_neighbors_container(south_h_flow_container, south_neighbors)
 
+	var north_neighbors = currentMap.get_neighbors("north")
+	populate_neighbors_container(north_h_flow_container, north_neighbors)
+
+	var east_neighbors = currentMap.get_neighbors("east")
+	populate_neighbors_container(east_h_flow_container, east_neighbors)
+
+	var west_neighbors = currentMap.get_neighbors("west")
+	populate_neighbors_container(west_h_flow_container, west_neighbors)
+
+
 # Function to get the values of the controls
 func update_settings_values():
 	# Update basic properties
@@ -150,18 +160,41 @@ func update_settings_values():
 	currentMap.set_connection("road", "east", east_check_box.button_pressed)
 	currentMap.set_connection("road", "south", south_check_box.button_pressed)
 	currentMap.set_connection("road", "west", west_check_box.button_pressed)
-	# Update neighbors
+
+	# Update neighbors for all directions
+	var north_neighbors = get_neighbors_from_container(north_h_flow_container)
+	currentMap.set_neighbors("north", north_neighbors)
+
+	var east_neighbors = get_neighbors_from_container(east_h_flow_container)
+	currentMap.set_neighbors("east", east_neighbors)
+
 	var south_neighbors = get_neighbors_from_container(south_h_flow_container)
-	currentMap.set_neighbor("south", south_neighbors)
+	currentMap.set_neighbors("south", south_neighbors)
+
+	var west_neighbors = get_neighbors_from_container(west_h_flow_container)
+	currentMap.set_neighbors("west", west_neighbors)
 
 
+# The user presses the "add" button in the neighbors controls
+# We create a new HBox for each direction that was checked on.
 func _on_add_neighbor_button_button_up() -> void:
 	var selected_category = category_option_button.get_item_text(category_option_button.selected)
 
+	# If the south neighbor checkbox is checked, add the neighbor to the south container
 	if neighbor_south_check_box.button_pressed:
 		create_neighbor_hbox(selected_category, 50, south_h_flow_container)
-	# Repeat for other directions if needed
 
+	# If the north neighbor checkbox is checked, add the neighbor to the north container
+	if neighbor_north_check_box.button_pressed:
+		create_neighbor_hbox(selected_category, 50, north_h_flow_container)
+
+	# If the east neighbor checkbox is checked, add the neighbor to the east container
+	if neighbor_east_check_box.button_pressed:
+		create_neighbor_hbox(selected_category, 50, east_h_flow_container)
+
+	# If the west neighbor checkbox is checked, add the neighbor to the west container
+	if west_check_box.button_pressed:
+		create_neighbor_hbox(selected_category, 50, west_h_flow_container)
 
 
 func populate_category_options() -> void:

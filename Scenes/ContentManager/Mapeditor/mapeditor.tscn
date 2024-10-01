@@ -57,7 +57,7 @@ unicode = 101
 [sub_resource type="Shortcut" id="Shortcut_jlgdg"]
 events = [SubResource("InputEventKey_rjlhc")]
 
-[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box")]
+[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "north_check_box", "east_check_box", "south_check_box", "west_check_box", "category_option_button", "neighbor_north_check_box", "neighbor_east_check_box", "neighbor_south_check_box", "neighbor_east_check_box_2", "neighbors_grid_container", "north_h_flow_container", "east_h_flow_container", "south_h_flow_container", "west_h_flow_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,6 +74,20 @@ name_text_edit = NodePath("TabContainer/Settings/NameTextEdit")
 description_text_edit = NodePath("TabContainer/Settings/DescriptionTextEdit")
 categories_list = NodePath("TabContainer/Settings/CategoriesList")
 weight_spin_box = NodePath("TabContainer/Settings/WeightSpinBox")
+north_check_box = NodePath("TabContainer/Settings/RoadConnectionHBoxContainer/NorthCheckBox")
+east_check_box = NodePath("TabContainer/Settings/RoadConnectionHBoxContainer/EastCheckBox")
+south_check_box = NodePath("TabContainer/Settings/RoadConnectionHBoxContainer/SouthCheckBox")
+west_check_box = NodePath("TabContainer/Settings/RoadConnectionHBoxContainer/WestCheckBox")
+category_option_button = NodePath("TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer/CategoryOptionButton")
+neighbor_north_check_box = NodePath("TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer/NeighborNorthCheckBox")
+neighbor_east_check_box = NodePath("TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer/NeighborEastCheckBox")
+neighbor_south_check_box = NodePath("TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer/NeighborSouthCheckBox")
+neighbor_east_check_box_2 = NodePath("TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer/NeighborEastCheckBox2")
+neighbors_grid_container = NodePath("TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer")
+north_h_flow_container = NodePath("TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer/NorthHFlowContainer")
+east_h_flow_container = NodePath("TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer/EastHFlowContainer")
+south_h_flow_container = NodePath("TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer/SouthHFlowContainer")
+west_h_flow_container = NodePath("TabContainer/Settings/NeighborsVBoxContainer/NeighborsGridContainer/WestHFlowContainer")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
