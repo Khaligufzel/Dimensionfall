@@ -55,7 +55,10 @@ func get_all() -> Dictionary:
 
 
 func duplicate_to_disk(playerattributeid: String, newplayerattributeid: String) -> void:
-	var playerattributedata: Dictionary = playerattributedict[playerattributeid].get_data().duplicate(true)
+	var playerattributedata: Dictionary = by_id(playerattributeid).get_data().duplicate(true)
+	# A duplicated playerattribute is brand new and can't already be referenced by something
+	# So we delete the references from the duplicated data if it is present
+	playerattributedata.erase("references")
 	playerattributedata.id = newplayerattributeid
 	var newplayerattribute: DPlayerAttribute = DPlayerAttribute.new(playerattributedata)
 	playerattributedict[newplayerattributeid] = newplayerattribute

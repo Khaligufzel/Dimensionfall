@@ -179,8 +179,6 @@ func populate_container_from_itemgroup() -> String:
 		var itemgroups_array = furnitureJSON["itemgroups"]
 		if itemgroups_array.size() > 0:
 			return itemgroups_array.pick_random()
-		else:
-			print_debug("itemgroups array is empty in furnitureJSON")
 	
 	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
 	var myitemgroup = dfurniture.function.container_group

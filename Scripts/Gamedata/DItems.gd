@@ -55,7 +55,10 @@ func get_all() -> Dictionary:
 
 
 func duplicate_to_disk(itemid: String, newitemid: String) -> void:
-	var itemdata: Dictionary = itemdict[itemid].get_data().duplicate(true)
+	var itemdata: Dictionary = by_id(itemid).get_data().duplicate(true)
+	# A duplicated item is brand new and can't already be referenced by something
+	# So we delete the references from the duplicated data if it is present
+	itemdata.erase("references")
 	itemdata.id = newitemid
 	var newitem: DItem = DItem.new(itemdata)
 	itemdict[newitemid] = newitem

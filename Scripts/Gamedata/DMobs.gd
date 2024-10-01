@@ -53,7 +53,10 @@ func get_all() -> Dictionary:
 
 
 func duplicate_to_disk(mobid: String, newmobid: String) -> void:
-	var mobdata: Dictionary = mobdict[mobid].get_data().duplicate(true)
+	var mobdata: Dictionary = by_id(mobid).get_data().duplicate(true)
+	# A duplicated mob is brand new and can't already be referenced by something
+	# So we delete the references from the duplicated data if it is present
+	mobdata.erase("references")
 	mobdata.id = newmobid
 	var newmob: DMob = DMob.new(mobdata)
 	mobdict[newmobid] = newmob
