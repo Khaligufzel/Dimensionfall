@@ -463,7 +463,7 @@ theme_override_constants/outline_size = 4
 disabled = true
 text = " ? "
 
-[node name="CategorieOptionButton" type="OptionButton" parent="TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer"]
+[node name="CategoryOptionButton" type="OptionButton" parent="TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Select a map category to be added to the neighbor list. During runtime, one of the maps in this 
@@ -566,3 +566,4 @@ visible = false
 [connection signal="value_changed" from="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_level_scrollbar_value_changed"]
 [connection signal="value_changed" from="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller" method="_on_level_scrollbar_value_changed"]
 [connection signal="tile_brush_selection_change" from="TabContainer/Edit Map/EntitiesVBoxContainer/EntitiesContainer" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_tilebrush_list_tile_brush_selection_change"]
+[connection signal="button_up" from="TabContainer/Settings/NeighborsVBoxContainer/HBoxContainer/AddButton" to="." method="_on_add_neighbor_button_button_up"]

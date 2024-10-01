@@ -57,6 +57,7 @@ var zoom_level: int = 20:
 
 func _ready():
 	setPanWindowSize()
+	populate_category_options()
 	zoom_level = 20
 	
 func setPanWindowSize():
@@ -132,6 +133,10 @@ func set_settings_values() -> void:
 	south_check_box.button_pressed = currentMap.get_connection("road", "south")
 	west_check_box.button_pressed = currentMap.get_connection("road", "west")
 
+	# Update neighbors
+	var south_neighbors = currentMap.get_neighbors("south")
+	populate_neighbors_container(south_h_flow_container, south_neighbors)
+
 # Function to get the values of the controls
 func update_settings_values():
 	# Update basic properties
@@ -145,7 +150,95 @@ func update_settings_values():
 	currentMap.set_connection("road", "east", east_check_box.button_pressed)
 	currentMap.set_connection("road", "south", south_check_box.button_pressed)
 	currentMap.set_connection("road", "west", west_check_box.button_pressed)
+	# Update neighbors
+	var south_neighbors = get_neighbors_from_container(south_h_flow_container)
+	currentMap.set_neighbor("south", south_neighbors)
 
 
 func _on_add_neighbor_button_button_up() -> void:
-	pass # Replace with function body.
+	var selected_category = category_option_button.get_item_text(category_option_button.selected)
+
+	if neighbor_south_check_box.button_pressed:
+		# Create the HBoxContainer
+		var hbox = HBoxContainer.new()
+
+		# Add a Label to display the selected category
+		var category_label = Label.new()
+		category_label.text = selected_category
+		hbox.add_child(category_label)
+
+		# Add a SpinBox to specify the weight of the neighbor
+		var weight_spinbox = SpinBox.new()
+		weight_spinbox.min_value = 0
+		weight_spinbox.max_value = 100
+		weight_spinbox.value = 50  # Default weight value
+		hbox.add_child(weight_spinbox)
+
+		# Add a delete button to allow removing the neighbor
+		var delete_button = Button.new()
+		delete_button.text = "X"
+		delete_button.pressed.connect(_on_delete_neighbor.bind(hbox))
+		hbox.add_child(delete_button)
+
+		# Add the HBoxContainer to the south_h_flow_container
+		south_h_flow_container.add_child(hbox)
+	# Repeat for other directions (north, east, west) if needed
+
+
+
+func populate_category_options() -> void:
+	var unique_categories = Gamedata.maps.get_unique_categories()
+	category_option_button.clear()  # Clear previous options
+	for category in unique_categories:
+		category_option_button.add_item(category)
+
+
+func get_neighbors_from_container(container: HFlowContainer) -> Array[Dictionary]:
+	var neighbors = []
+	for child in container.get_children():
+		if child is HBoxContainer:
+			var category = ""
+			var weight = 0
+			# Loop through the children of HBoxContainer
+			for hbox_child in child.get_children():
+				if hbox_child is Label:
+					category = hbox_child.text
+				elif hbox_child is SpinBox:
+					weight = hbox_child.value
+			neighbors.append({"category": category, "weight": weight})
+	return neighbors
+
+
+func populate_neighbors_container(container: HFlowContainer, neighbors: Array) -> void:
+	container.clear()  # Remove previous neighbors
+	for neighbor in neighbors:
+		var hbox = HBoxContainer.new()
+
+		# Add a Label for the category
+		var category_label = Label.new()
+		category_label.text = neighbor["category"]
+		hbox.add_child(category_label)
+
+		# Add a SpinBox for the weight
+		var weight_spinbox = SpinBox.new()
+		weight_spinbox.min_value = 0
+		weight_spinbox.max_value = 100
+		weight_spinbox.value = neighbor["weight"]
+		hbox.add_child(weight_spinbox)
+
+		# Add a delete button
+		var delete_button = Button.new()
+		delete_button.text = "X"
+		delete_button.pressed.connect(_on_delete_neighbor.bind(hbox))
+		hbox.add_child(delete_button)
+
+		# Add the HBoxContainer to the container
+		container.add_child(hbox)
+
+
+func _on_delete_neighbor(hbox_to_remove: HBoxContainer) -> void:
+	# Remove the HBoxContainer from its parent (the HFlowContainer)
+	var parent_container = hbox_to_remove.get_parent()
+	if parent_container:
+		parent_container.remove_child(hbox_to_remove)
+		hbox_to_remove.queue_free()  # Properly free the HBoxContainer from memory
