@@ -2467,11 +2467,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
 					"abandoned_building"
 				]
 			}
@@ -2489,11 +2484,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
 					"abandoned_building"
 				]
 			}
@@ -2511,11 +2501,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
 					"abandoned_building"
 				]
 			}
@@ -2533,11 +2518,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
 					"abandoned_building"
 				]
 			}
@@ -2555,11 +2535,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
 					"abandoned_building"
 				]
 			}
@@ -2577,11 +2552,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
 					"abandoned_building"
 				]
 			}
