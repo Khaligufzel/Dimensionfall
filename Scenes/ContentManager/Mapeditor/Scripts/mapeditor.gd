@@ -128,10 +128,10 @@ func set_settings_values() -> void:
 	weight_spin_box.value = currentMap.weight
 
 	# Set road connections using currentMap.get_connection()
-	north_check_box.button_pressed = currentMap.get_connection("road", "north")
-	east_check_box.button_pressed = currentMap.get_connection("road", "east")
-	south_check_box.button_pressed = currentMap.get_connection("road", "south")
-	west_check_box.button_pressed = currentMap.get_connection("road", "west")
+	north_check_box.button_pressed = currentMap.get_connection("north") == "road"
+	east_check_box.button_pressed = currentMap.get_connection("east") == "road"
+	south_check_box.button_pressed = currentMap.get_connection("south") == "road"
+	west_check_box.button_pressed = currentMap.get_connection("west") == "road"
 
 	# Update neighbors
 	var south_neighbors = currentMap.get_neighbors("south")
@@ -156,10 +156,23 @@ func update_settings_values():
 	currentMap.weight = int(weight_spin_box.value)
 
 	# Update road connections using currentMap.set_connection()
-	currentMap.set_connection("road", "north", north_check_box.button_pressed)
-	currentMap.set_connection("road", "east", east_check_box.button_pressed)
-	currentMap.set_connection("road", "south", south_check_box.button_pressed)
-	currentMap.set_connection("road", "west", west_check_box.button_pressed)
+	if north_check_box.button_pressed:
+		currentMap.set_connection("north","road")
+	else:
+		currentMap.set_connection("north","ground")
+	if east_check_box.button_pressed:
+		currentMap.set_connection("east","road")
+	else:
+		currentMap.set_connection("east","ground")
+	if south_check_box.button_pressed:
+		currentMap.set_connection("south","road")
+	else:
+		currentMap.set_connection("south","ground")
+	if west_check_box.button_pressed:
+		currentMap.set_connection("west","road")
+	else:
+		currentMap.set_connection("west","ground")
+
 
 	# Update neighbors for all directions
 	var north_neighbors = get_neighbors_from_container(north_h_flow_container)

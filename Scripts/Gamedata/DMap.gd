@@ -19,7 +19,8 @@ var levels: Array = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
 var references: Dictionary = {}
 var areas: Array = []
 var sprite: Texture = null
-var connections: Dictionary = {} # Variable to store road connections
+ # Variable to store connections. For example: {"south": "road","west": "ground"} default to ground
+var connections: Dictionary = {"north": "ground","east": "ground","south": "ground","west": "ground"}
 
 var dataPath: String
 
@@ -393,25 +394,21 @@ func remove_area(area_id: String) -> void:
 			break
 
 
-# Function to set a connection type and direction
-func set_connection(connection_type: String, direction: String, value: bool) -> void:
-	# If the connection type (e.g., "road") doesn't exist, initialize it
-	if not connections.has(connection_type):
-		connections[connection_type] = {}
-	# Set the value for the given direction (e.g., "north", "south") in the connection type
-	connections[connection_type][direction] = value
+# Function to set a connection type for a specific direction
+func set_connection(direction: String, value: String) -> void:
+	# Ensure the connections dictionary has an entry for the specified direction (e.g., "north", "south").
+	if not connections.has(direction):
+		connections[direction] = "ground"  # Default to "ground" if not already set.
+	
+	# Assign the provided connection type (e.g., "road", "ground") to the specified direction.
+	connections[direction] = value
 
 
-# Function to get a connection type and direction, returning false if any key is missing
-func get_connection(connection_type: String, direction: String) -> bool:
-	# Return false if connections dictionary is empty
-	if connections.is_empty():
-		return false
-	# Return false if the connection type doesn't exist
-	if not connections.has(connection_type):
-		return false
-	# Return false if the direction for the connection type is not present
-	if not connections[connection_type].has(direction):
-		return false
-	# Otherwise, return the value for the given direction in the connection type
-	return connections[connection_type][direction]
+# Function to get a connection type for a specific direction, returning "ground" if any key is missing
+func get_connection(direction: String) -> String:
+	# Return "ground" if connections dictionary is empty or the direction is not found.
+	if connections.is_empty() or not connections.has(direction):
+		return "ground"
+	
+	# Return the connection type for the specified direction (e.g., "road" or "ground").
+	return connections[direction]
