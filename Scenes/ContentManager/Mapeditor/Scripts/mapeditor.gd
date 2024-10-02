@@ -11,6 +11,17 @@ extends Control
 @export var description_text_edit: TextEdit
 @export var categories_list: Control
 @export var weight_spin_box: SpinBox
+
+
+# Neighbor key controls
+@export var neighbor_key_option_button: OptionButton = null
+@export var neighbor_key_text_edit: TextEdit = null
+@export var neighbor_key_grid_container: GridContainer = null
+
+
+
+
+# Connection controls
 @export var north_check_box: CheckBox = null # Checked if this map has a road connection north
 @export var east_check_box: CheckBox = null # Checked if this map has a road connection east
 @export var south_check_box: CheckBox = null # Checked if this map has a road connection south
@@ -279,3 +290,7 @@ func create_neighbor_hbox(category: String, weight: int, container: HFlowContain
 	container.add_child(hbox)
 
 	return hbox
+
+
+func _on_add_neighbor_key_button_button_up() -> void:
+	pass # Replace with function body.

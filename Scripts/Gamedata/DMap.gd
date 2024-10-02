@@ -21,6 +21,11 @@ var areas: Array = []
 var sprite: Texture = null
  # Variable to store connections. For example: {"south": "road","west": "ground"} default to ground
 var connections: Dictionary = {"north": "ground","east": "ground","south": "ground","west": "ground"}
+# what type of zone this map can spawn in. Other maps will be able to pick one of these neighbor_keys
+# and assign it to a direction. During runtime, this map or another map with the same neighbor_key
+# will be selected based on the weight. Example: {"urban": 100, "suburban": 10} The weights are 
+# evaluated against other maps in the same neighbor key, not against eachother.
+var neighbor_keys: Dictionary = {}
 
 var dataPath: String
 
