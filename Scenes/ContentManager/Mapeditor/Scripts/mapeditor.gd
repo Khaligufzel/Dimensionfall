@@ -221,19 +221,19 @@ func _on_add_neighbor_button_button_up() -> void:
 
 	# If the south neighbor checkbox is checked, add the neighbor to the south container
 	if neighbor_south_check_box.button_pressed:
-		create_neighbor_hbox(selected_category, 50, south_h_flow_container)
+		create_neighbor_hbox(selected_category, 100, south_h_flow_container)
 
 	# If the north neighbor checkbox is checked, add the neighbor to the north container
 	if neighbor_north_check_box.button_pressed:
-		create_neighbor_hbox(selected_category, 50, north_h_flow_container)
+		create_neighbor_hbox(selected_category, 100, north_h_flow_container)
 
 	# If the east neighbor checkbox is checked, add the neighbor to the east container
 	if neighbor_east_check_box.button_pressed:
-		create_neighbor_hbox(selected_category, 50, east_h_flow_container)
+		create_neighbor_hbox(selected_category, 100, east_h_flow_container)
 
 	# If the west neighbor checkbox is checked, add the neighbor to the west container
 	if neighbor_west_check_box.button_pressed:
-		create_neighbor_hbox(selected_category, 50, west_h_flow_container)
+		create_neighbor_hbox(selected_category, 100, west_h_flow_container)
 
 
 func populate_gridkey_options() -> void:
@@ -247,15 +247,15 @@ func get_neighbors_from_container(container: HFlowContainer) -> Array:
 	var neighbors = []
 	for child in container.get_children():
 		if child is HBoxContainer:
-			var category = ""
+			var neighbor_key = ""
 			var weight = 0
 			# Loop through the children of HBoxContainer
 			for hbox_child in child.get_children():
 				if hbox_child is Label:
-					category = hbox_child.text
+					neighbor_key = hbox_child.text
 				elif hbox_child is SpinBox:
 					weight = hbox_child.value
-			neighbors.append({"category": category, "weight": weight})
+			neighbors.append({"neighbor_key": neighbor_key, "weight": weight})
 	return neighbors
 
 
@@ -336,7 +336,7 @@ func _on_add_neighbor_key_button_button_up() -> void:
 		gridkey_option_button.add_item(new_key)
 
 	# Step 5: Add controls to neighbor_key_grid_container
-	_add_neighbor_key_controls(new_key, 50)  # Default weight is 50
+	_add_neighbor_key_controls(new_key, 100)  # Default weight is 100
 
 
 # Helper function to add a key with a label, spinbox, and delete button directly to the grid container

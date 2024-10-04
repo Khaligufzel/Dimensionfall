@@ -63,7 +63,7 @@ expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
-[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "neighbor_key_option_button", "neighbor_key_text_edit", "neighbor_key_grid_container", "north_check_box", "east_check_box", "south_check_box", "west_check_box", "gridkey_option_button", "neighbor_north_check_box", "neighbor_east_check_box", "neighbor_south_check_box", "neighbors_grid_container", "north_h_flow_container", "east_h_flow_container", "south_h_flow_container", "west_h_flow_container")]
+[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "neighbor_key_option_button", "neighbor_key_text_edit", "neighbor_key_grid_container", "north_check_box", "east_check_box", "south_check_box", "west_check_box", "gridkey_option_button", "neighbor_north_check_box", "neighbor_east_check_box", "neighbor_south_check_box", "neighbor_west_check_box", "neighbors_grid_container", "north_h_flow_container", "east_h_flow_container", "south_h_flow_container", "west_h_flow_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,6 +91,7 @@ gridkey_option_button = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/
 neighbor_north_check_box = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborNorthCheckBox")
 neighbor_east_check_box = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborEastCheckBox")
 neighbor_south_check_box = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborSouthCheckBox")
+neighbor_west_check_box = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborWestCheckBox")
 neighbors_grid_container = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer")
 north_h_flow_container = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer/NorthHFlowContainer")
 east_h_flow_container = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer/EastHFlowContainer")
@@ -514,11 +515,11 @@ layout_mode = 2
 
 [node name="HelpButton" type="Button" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
 layout_mode = 2
-tooltip_text = "Set neighbors: Select a category from the dropdown menu below, select one or 
-more directions for the category and press add. The category will then be 
-added to the list in the specified direction. At runtime, one map from the 
-category will be selected and fitted onto one of the road connections above.
-If the map in the selected category does not have a road connection, it will 
+tooltip_text = "Set neighbors: Select a key from the dropdown menu below, select one or 
+more directions for the key and press add. The key will then be 
+added to the list in the specified direction. At runtime, one of the maps that have the 
+key will be selected and fitted onto one of the road connections above.
+If the map in the selected key does not have a road connection, it will 
 be fitted onto a side without road connection."
 theme_override_colors/font_disabled_color = Color(1, 0.374252, 0.322802, 1)
 theme_override_constants/outline_size = 4
@@ -528,8 +529,8 @@ text = " ? "
 [node name="GridkeyOptionButton" type="OptionButton" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Select a map category to be added to the neighbor list. During runtime, one of the maps in this 
-category will be picked as the neighbor of this map. If the randomly selected map has road 
+tooltip_text = "Select a map key to be added to the neighbor list. During runtime, one of the maps that have this 
+key will be picked as the neighbor of this map. If the randomly selected map has road 
 connections, they will be fit onto existing road connections. If the randomly selected map does 
 not have road connections, it will be fitted onto a side that does not have  a road connection."
 selected = 0
@@ -538,30 +539,31 @@ popup/item_0/text = "none"
 
 [node name="NeighborNorthCheckBox" type="CheckBox" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
 layout_mode = 2
-tooltip_text = "Toggle this on before pressing the \"add\" button. The selected category will be added to the 
+tooltip_text = "Toggle this on before pressing the \"add\" button. The selected key will be added to the 
 selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
 text = "North"
 
 [node name="NeighborEastCheckBox" type="CheckBox" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
 layout_mode = 2
-tooltip_text = "Toggle this on before pressing the \"add\" button. The selected category will be added to the 
+tooltip_text = "Toggle this on before pressing the \"add\" button. The selected key will be added to the 
 selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
 text = "East"
 
 [node name="NeighborSouthCheckBox" type="CheckBox" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
 layout_mode = 2
-tooltip_text = "Toggle this on before pressing the \"add\" button. The selected category will be added to the 
+tooltip_text = "Toggle this on before pressing the \"add\" button. The selected key will be added to the 
 selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
 text = "South"
 
 [node name="NeighborWestCheckBox" type="CheckBox" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
 layout_mode = 2
-tooltip_text = "Toggle this on before pressing the \"add\" button. The selected category will be added to the 
+tooltip_text = "Toggle this on before pressing the \"add\" button. The selected key will be added to the 
 selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
 text = "West"
 
 [node name="AddButton" type="Button" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
 layout_mode = 2
+tooltip_text = "Adds the selected key to the selected directions in the grid."
 text = "Add"
 
 [node name="NeighborsGridContainer" type="GridContainer" parent="TabContainer/Neighbors/NeighborsVBoxContainer"]
