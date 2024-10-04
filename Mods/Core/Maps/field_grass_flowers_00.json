@@ -3272,30 +3272,18 @@
 		"field": 100
 	},
 	"neighbors": {
-		"east": [
-			{
-				"neighbor_key": "field",
-				"weight": 100
-			}
-		],
-		"north": [
-			{
-				"neighbor_key": "field",
-				"weight": 100
-			}
-		],
-		"south": [
-			{
-				"neighbor_key": "field",
-				"weight": 100
-			}
-		],
-		"west": [
-			{
-				"neighbor_key": "field",
-				"weight": 100
-			}
-		]
+		"east": {
+			"field": 100
+		},
+		"north": {
+			"field": 100
+		},
+		"south": {
+			"field": 100
+		},
+		"west": {
+			"field": 100
+		}
 	},
 	"weight": 10
 }

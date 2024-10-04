@@ -27,10 +27,10 @@ var connections: Dictionary = {"north": "ground","east": "ground","south": "grou
 # evaluated against other maps in the same neighbor key, not against eachother.
 var neighbor_keys: Dictionary = {}
 # This variable holds the neighbor keys that are allowed to spawn nest to this map
-# For example the "north" array may be [{"urban": 100, "suburban": 10}]
+# For example the "north" array may be {"urban": 100, "suburban": 10}
 # This will cause the maps that have the "urban" key to spawn next to this map with a chance
 # 10 times greater then a map from the "suburban" key
-var neighbors: Dictionary = {"north": [],"east": [],"south": [],"west": []}
+var neighbors: Dictionary = {"north": {},"east": {},"south": {},"west": {}}
 
 var dataPath: String
 
@@ -440,10 +440,10 @@ func get_neighbors(direction: String) -> Array:
 	return neighbors[direction]
 
 # Function to set neighbors for a specified direction
-func set_neighbors(direction: String, neighbor_list: Array) -> void:
+func set_neighbors(direction: String, neighbor_list: Dictionary) -> void:
 	# Ensure the neighbors dictionary has an entry for the specified direction
 	if not neighbors.has(direction):
-		neighbors[direction] = []
+		neighbors[direction] = {}
 	
 	# Assign the provided list of neighbors to the specified direction
 	neighbors[direction] = neighbor_list

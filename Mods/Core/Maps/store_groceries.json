@@ -13396,46 +13396,22 @@
 		"urban": 100
 	},
 	"neighbors": {
-		"east": [
-			{
-				"neighbor_key": "urban",
-				"weight": 100
-			},
-			{
-				"neighbor_key": "suburban",
-				"weight": 50
-			}
-		],
-		"north": [
-			{
-				"neighbor_key": "urban",
-				"weight": 100
-			},
-			{
-				"neighbor_key": "suburban",
-				"weight": 50
-			}
-		],
-		"south": [
-			{
-				"neighbor_key": "urban",
-				"weight": 100
-			},
-			{
-				"neighbor_key": "suburban",
-				"weight": 50
-			}
-		],
-		"west": [
-			{
-				"neighbor_key": "urban",
-				"weight": 100
-			},
-			{
-				"neighbor_key": "suburban",
-				"weight": 50
-			}
-		]
+		"east": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"north": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"south": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"west": {
+			"suburban": 50,
+			"urban": 100
+		}
 	},
 	"references": {
 		"core": {

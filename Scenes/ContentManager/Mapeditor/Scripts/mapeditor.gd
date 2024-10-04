@@ -243,8 +243,8 @@ func populate_gridkey_options() -> void:
 		gridkey_option_button.add_item(neighborkey)
 
 
-func get_neighbors_from_container(container: HFlowContainer) -> Array:
-	var neighbors = []
+func get_neighbors_from_container(container: HFlowContainer) -> Dictionary:
+	var neighbors: Dictionary = {}
 	for child in container.get_children():
 		if child is HBoxContainer:
 			var neighbor_key = ""
@@ -255,7 +255,7 @@ func get_neighbors_from_container(container: HFlowContainer) -> Array:
 					neighbor_key = hbox_child.text
 				elif hbox_child is SpinBox:
 					weight = hbox_child.value
-			neighbors.append({"neighbor_key": neighbor_key, "weight": weight})
+			neighbors[neighbor_key] = weight
 	return neighbors
 
 

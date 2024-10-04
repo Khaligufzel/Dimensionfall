@@ -24423,30 +24423,18 @@
 		"urban": 100
 	},
 	"neighbors": {
-		"east": [
-			{
-				"neighbor_key": "suburban",
-				"weight": 100
-			}
-		],
-		"north": [
-			{
-				"neighbor_key": "suburban",
-				"weight": 100
-			}
-		],
-		"south": [
-			{
-				"neighbor_key": "suburban",
-				"weight": 100
-			}
-		],
-		"west": [
-			{
-				"neighbor_key": "suburban",
-				"weight": 100
-			}
-		]
+		"east": {
+			"suburban": 100
+		},
+		"north": {
+			"suburban": 100
+		},
+		"south": {
+			"suburban": 100
+		},
+		"west": {
+			"suburban": 100
+		}
 	},
 	"references": {
 		"core": {

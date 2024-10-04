@@ -22124,38 +22124,20 @@
 		"urban": 10
 	},
 	"neighbors": {
-		"east": [
-			{
-				"neighbor_key": "suburban",
-				"weight": 100
-			}
-		],
-		"north": [
-			{
-				"neighbor_key": "suburban",
-				"weight": 100
-			}
-		],
-		"south": [
-			{
-				"neighbor_key": "suburban",
-				"weight": 100
-			},
-			{
-				"neighbor_key": "field",
-				"weight": 50
-			}
-		],
-		"west": [
-			{
-				"neighbor_key": "suburban",
-				"weight": 100
-			},
-			{
-				"neighbor_key": "field",
-				"weight": 50
-			}
-		]
+		"east": {
+			"suburban": 100
+		},
+		"north": {
+			"suburban": 100
+		},
+		"south": {
+			"field": 50,
+			"suburban": 100
+		},
+		"west": {
+			"field": 50,
+			"suburban": 100
+		}
 	},
 	"references": {
 		"core": {
