@@ -471,6 +471,12 @@
 		"Urban",
 		"City"
 	],
+	"connections": {
+		"east": "road",
+		"north": "road",
+		"south": "road",
+		"west": "road"
+	},
 	"description": "A house located at a crossroads, with multiple access points.",
 	"id": "generichouse_cross",
 	"levels": [
@@ -24412,6 +24418,36 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Crossroad House",
+	"neighbor_keys": {
+		"suburban": 100,
+		"urban": 100
+	},
+	"neighbors": {
+		"east": [
+			{
+				"neighbor_key": "suburban",
+				"weight": 100
+			}
+		],
+		"north": [
+			{
+				"neighbor_key": "suburban",
+				"weight": 100
+			}
+		],
+		"south": [
+			{
+				"neighbor_key": "suburban",
+				"weight": 100
+			}
+		],
+		"west": [
+			{
+				"neighbor_key": "suburban",
+				"weight": 100
+			}
+		]
+	},
 	"references": {
 		"core": {
 			"tacticalmaps": [

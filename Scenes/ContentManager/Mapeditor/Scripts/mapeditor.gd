@@ -264,7 +264,7 @@ func get_neighbors_from_container(container: HFlowContainer) -> Array:
 func populate_neighbors_container(container: HFlowContainer, neighbors: Array) -> void:
 	Helper.free_all_children(container)  # Remove previous neighbors
 	for neighbor in neighbors:
-		create_neighbor_hbox(neighbor["category"], neighbor["weight"], container)
+		create_neighbor_hbox(neighbor["neighbor_key"], neighbor["weight"], container)
 
 
 # The user has clicked on the delete button on a neighbor in the list. We remove the Hbox for the neighbor
