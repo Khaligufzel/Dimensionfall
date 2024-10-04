@@ -26,7 +26,7 @@ extends Control
 @export var west_check_box: CheckBox = null # Checked if this map has a road connection west
 
 # Controls to add categories to the list of neighbors
-@export var category_option_button: OptionButton = null
+@export var neighborkey_option_button: OptionButton = null
 @export var neighbor_north_check_box: CheckBox = null
 @export var neighbor_east_check_box: CheckBox = null
 @export var neighbor_south_check_box: CheckBox = null
@@ -63,7 +63,7 @@ var zoom_level: int = 20:
 
 func _ready():
 	setPanWindowSize()
-	populate_category_options()
+	populate_neighborkey_options()
 	zoom_level = 20
 	
 func setPanWindowSize():
@@ -216,7 +216,7 @@ func update_settings_values():
 # The user presses the "add" button in the neighbors controls
 # We create a new HBox for each direction that was checked on.
 func _on_add_neighbor_button_button_up() -> void:
-	var selected_category = category_option_button.get_item_text(category_option_button.selected)
+	var selected_category = neighborkey_option_button.get_item_text(neighborkey_option_button.selected)
 
 	# If the south neighbor checkbox is checked, add the neighbor to the south container
 	if neighbor_south_check_box.button_pressed:
@@ -235,11 +235,11 @@ func _on_add_neighbor_button_button_up() -> void:
 		create_neighbor_hbox(selected_category, 50, west_h_flow_container)
 
 
-func populate_category_options() -> void:
-	var unique_categories = Gamedata.maps.get_unique_categories()
-	category_option_button.clear()  # Clear previous options
-	for category in unique_categories:
-		category_option_button.add_item(category)
+func populate_neighborkey_options() -> void:
+	var unique_neighborkeys = Gamedata.maps.get_unique_neighbor_keys()
+	neighborkey_option_button.clear()  # Clear previous options
+	for neighborkey in unique_neighborkeys:
+		neighborkey_option_button.add_item(neighborkey)
 
 
 func get_neighbors_from_container(container: HFlowContainer) -> Array:
@@ -305,6 +305,7 @@ func create_neighbor_hbox(category: String, weight: int, container: HFlowContain
 
 	return hbox
 
+
 # Called when the user presses the add_neighbor_key_button
 func _on_add_neighbor_key_button_button_up() -> void:
 	var new_key: String = ""
@@ -321,12 +322,19 @@ func _on_add_neighbor_key_button_button_up() -> void:
 	
 	# Step 3: Check if the key already exists in neighbor_key_grid_container
 	for child in neighbor_key_grid_container.get_children():
-		if child is HBoxContainer:
-			var label = child.get_child(0) as Label
-			if label.text == new_key:
-				return  # If the key already exists, exit the function
+		if child is Label and child.text == new_key:
+			return  # If the key already exists, exit the function
 	
-	# Step 4: Add controls to neighbor_key_grid_container
+	# Step 4: Add the new key to neighbor_key_option_button if it's not already in the list
+	var key_exists = false
+	for i in range(neighbor_key_option_button.item_count):
+		if neighbor_key_option_button.get_item_text(i) == new_key:
+			key_exists = true
+			break
+	if not key_exists:
+		neighbor_key_option_button.add_item(new_key)
+
+	# Step 5: Add controls to neighbor_key_grid_container
 	_add_neighbor_key_controls(new_key, 50)  # Default weight is 50
 
 
