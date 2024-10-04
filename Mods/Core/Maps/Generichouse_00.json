@@ -31731,12 +31731,20 @@
 			{
 				"neighbor_key": "suburban",
 				"weight": 100
+			},
+			{
+				"neighbor_key": "field",
+				"weight": 50
 			}
 		],
 		"south": [
 			{
 				"neighbor_key": "suburban",
 				"weight": 100
+			},
+			{
+				"neighbor_key": "field",
+				"weight": 50
 			}
 		],
 		"west": [

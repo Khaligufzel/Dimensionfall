@@ -886,7 +886,10 @@
 					"field_grass_basic_00",
 					"field_grass_flowers_00",
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"field_grass_hill_00",
+					"field_grass_hole_00",
+					"RockyHill_NE"
 				]
 			}
 		},

@@ -22140,12 +22140,20 @@
 			{
 				"neighbor_key": "suburban",
 				"weight": 100
+			},
+			{
+				"neighbor_key": "field",
+				"weight": 50
 			}
 		],
 		"west": [
 			{
 				"neighbor_key": "suburban",
 				"weight": 100
+			},
+			{
+				"neighbor_key": "field",
+				"weight": 50
 			}
 		]
 	},

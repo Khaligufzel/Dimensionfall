@@ -3,7 +3,14 @@
 		"Field",
 		"Plains"
 	],
+	"connections": {
+		"east": "ground",
+		"north": "ground",
+		"south": "ground",
+		"west": "ground"
+	},
 	"description": "A gentle hill covered in lush green grass, ideal for elevated viewpoints.",
+	"id": "field_grass_hill_00",
 	"levels": [
 		[],
 		[],
@@ -6351,6 +6358,35 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Grassy Hill",
+	"neighbor_keys": {
+		"field": 100
+	},
+	"neighbors": {
+		"east": [
+			{
+				"neighbor_key": "field",
+				"weight": 100
+			}
+		],
+		"north": [
+			{
+				"neighbor_key": "field",
+				"weight": 100
+			}
+		],
+		"south": [
+			{
+				"neighbor_key": "field",
+				"weight": 100
+			}
+		],
+		"west": [
+			{
+				"neighbor_key": "field",
+				"weight": 100
+			}
+		]
+	},
 	"references": {
 		"core": {
 			"tacticalmaps": [

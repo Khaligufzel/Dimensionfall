@@ -156,7 +156,9 @@
 					"Generichouse_00",
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"store_groceries"
+					"store_groceries",
+					"field_grass_hole_00",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -649,7 +651,8 @@
 			"core": {
 				"maps": [
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -667,7 +670,8 @@
 			"core": {
 				"maps": [
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -703,7 +707,8 @@
 			"core": {
 				"maps": [
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -739,7 +744,8 @@
 			"core": {
 				"maps": [
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -757,7 +763,8 @@
 			"core": {
 				"maps": [
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -775,7 +782,8 @@
 			"core": {
 				"maps": [
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1272,7 +1280,9 @@
 					"store_electronic_clothing",
 					"forest_basic_00",
 					"RockyHill_SW",
-					"store_groceries"
+					"store_groceries",
+					"field_grass_hole_00",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1300,7 +1310,8 @@
 					"Generichouse_00",
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"store_groceries"
+					"store_groceries",
+					"field_grass_hole_00"
 				]
 			}
 		},
@@ -1326,7 +1337,9 @@
 					"generichouse_t",
 					"store_electronic_clothing",
 					"forest_basic_00",
-					"store_groceries"
+					"store_groceries",
+					"field_grass_hole_00",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1356,7 +1369,9 @@
 					"RockyHill_SE",
 					"RockyHill_SW",
 					"store_groceries",
-					"abandoned_building"
+					"abandoned_building",
+					"field_grass_hole_00",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1386,7 +1401,9 @@
 					"Generichouse_00",
 					"RockyHill_SW",
 					"store_groceries",
-					"abandoned_building"
+					"abandoned_building",
+					"field_grass_hole_00",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1414,7 +1431,9 @@
 					"Generichouse",
 					"RockyHill_SW",
 					"store_groceries",
-					"abandoned_building"
+					"abandoned_building",
+					"field_grass_hole_00",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1448,7 +1467,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1472,7 +1492,8 @@
 					"generichouse_corner",
 					"field_grass_basic_00",
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1500,7 +1521,9 @@
 					"Generichouse_00",
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"store_groceries"
+					"store_groceries",
+					"field_grass_hole_00",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1525,7 +1548,8 @@
 					"generichouse_corner",
 					"generichouse_t",
 					"RockyHill_SW",
-					"store_groceries"
+					"store_groceries",
+					"field_grass_hole_00"
 				]
 			}
 		},
@@ -1553,7 +1577,9 @@
 					"Generichouse_00",
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"store_groceries"
+					"store_groceries",
+					"field_grass_hole_00",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1570,7 +1596,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"field_grass_hole_00"
 				]
 			}
 		},
@@ -1729,7 +1756,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"store_groceries",
-					"abandoned_building"
+					"abandoned_building",
+					"field_grass_hole_00"
 				]
 			}
 		},
@@ -1786,7 +1814,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"field_grass_hill_00"
+					"field_grass_hill_00",
+					"field_grass_hole_00"
 				]
 			}
 		},

@@ -103,6 +103,12 @@
 		"Field",
 		"Plains"
 	],
+	"connections": {
+		"east": "ground",
+		"north": "ground",
+		"south": "ground",
+		"west": "ground"
+	},
 	"description": "A simple and vast field covered with green grass, perfect for beginners.",
 	"id": "field_grass_basic_00",
 	"levels": [
@@ -18266,6 +18272,35 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Basic Grass Field",
+	"neighbor_keys": {
+		"field": 100
+	},
+	"neighbors": {
+		"east": [
+			{
+				"neighbor_key": "field",
+				"weight": 100
+			}
+		],
+		"north": [
+			{
+				"neighbor_key": "field",
+				"weight": 100
+			}
+		],
+		"south": [
+			{
+				"neighbor_key": "field",
+				"weight": 100
+			}
+		],
+		"west": [
+			{
+				"neighbor_key": "field",
+				"weight": 100
+			}
+		]
+	},
 	"references": {
 		"core": {
 			"tacticalmaps": [
