@@ -38355,7 +38355,8 @@
 	"mapwidth": 32,
 	"name": "Generic House",
 	"neighbor_keys": {
-		"urban": 50
+		"suburban": 100,
+		"urban": 10
 	},
 	"neighbors": {
 		"east": [],

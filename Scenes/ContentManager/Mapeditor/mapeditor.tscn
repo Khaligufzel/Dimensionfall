@@ -63,7 +63,7 @@ expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
-[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "neighbor_key_option_button", "neighbor_key_text_edit", "neighbor_key_grid_container", "north_check_box", "east_check_box", "south_check_box", "west_check_box", "neighborkey_option_button", "neighbor_north_check_box", "neighbor_east_check_box", "neighbor_south_check_box", "neighbor_east_check_box_2", "neighbors_grid_container", "north_h_flow_container", "east_h_flow_container", "south_h_flow_container", "west_h_flow_container")]
+[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "neighbor_key_option_button", "neighbor_key_text_edit", "neighbor_key_grid_container", "north_check_box", "east_check_box", "south_check_box", "west_check_box", "gridkey_option_button", "neighbor_north_check_box", "neighbor_east_check_box", "neighbor_south_check_box", "neighbors_grid_container", "north_h_flow_container", "east_h_flow_container", "south_h_flow_container", "west_h_flow_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -87,11 +87,10 @@ north_check_box = NodePath("TabContainer/Neighbors/RoadConnectionHBoxContainer/N
 east_check_box = NodePath("TabContainer/Neighbors/RoadConnectionHBoxContainer/EastCheckBox")
 south_check_box = NodePath("TabContainer/Neighbors/RoadConnectionHBoxContainer/SouthCheckBox")
 west_check_box = NodePath("TabContainer/Neighbors/RoadConnectionHBoxContainer/WestCheckBox")
-neighborkey_option_button = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborkeyOptionButton")
+gridkey_option_button = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/GridkeyOptionButton")
 neighbor_north_check_box = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborNorthCheckBox")
 neighbor_east_check_box = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborEastCheckBox")
 neighbor_south_check_box = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborSouthCheckBox")
-neighbor_east_check_box_2 = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborEastCheckBox2")
 neighbors_grid_container = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer")
 north_h_flow_container = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer/NorthHFlowContainer")
 east_h_flow_container = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer/EastHFlowContainer")
@@ -526,7 +525,7 @@ theme_override_constants/outline_size = 4
 disabled = true
 text = " ? "
 
-[node name="NeighborkeyOptionButton" type="OptionButton" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
+[node name="GridkeyOptionButton" type="OptionButton" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Select a map category to be added to the neighbor list. During runtime, one of the maps in this 
@@ -555,11 +554,11 @@ tooltip_text = "Toggle this on before pressing the \"add\" button. The selected 
 selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
 text = "South"
 
-[node name="NeighborEastCheckBox2" type="CheckBox" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
+[node name="NeighborWestCheckBox" type="CheckBox" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Toggle this on before pressing the \"add\" button. The selected category will be added to the 
 selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
-text = "East"
+text = "West"
 
 [node name="AddButton" type="Button" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
 layout_mode = 2

@@ -13,7 +13,7 @@ extends Control
 @export var weight_spin_box: SpinBox
 
 
-# Neighbor key controls
+# Neighbor key controls to manage the keys assigned to this map
 @export var neighbor_key_option_button: OptionButton = null
 @export var neighbor_key_text_edit: TextEdit = null
 @export var neighbor_key_grid_container: GridContainer = null
@@ -26,11 +26,11 @@ extends Control
 @export var west_check_box: CheckBox = null # Checked if this map has a road connection west
 
 # Controls to add categories to the list of neighbors
-@export var neighborkey_option_button: OptionButton = null
+@export var gridkey_option_button: OptionButton = null
 @export var neighbor_north_check_box: CheckBox = null
 @export var neighbor_east_check_box: CheckBox = null
 @export var neighbor_south_check_box: CheckBox = null
-@export var neighbor_east_check_box_2: CheckBox = null
+@export var neighbor_west_check_box: CheckBox = null
 
 # Controls to display existing neighbors connections
 @export var neighbors_grid_container: GridContainer = null
@@ -63,7 +63,8 @@ var zoom_level: int = 20:
 
 func _ready():
 	setPanWindowSize()
-	populate_neighborkey_options()
+	populate_gridkey_options() # For the neighbors grid
+	populate_neighbor_key_options() # For the keys assigned to this map
 	zoom_level = 20
 	
 func setPanWindowSize():
@@ -216,7 +217,7 @@ func update_settings_values():
 # The user presses the "add" button in the neighbors controls
 # We create a new HBox for each direction that was checked on.
 func _on_add_neighbor_button_button_up() -> void:
-	var selected_category = neighborkey_option_button.get_item_text(neighborkey_option_button.selected)
+	var selected_category = gridkey_option_button.get_item_text(gridkey_option_button.selected)
 
 	# If the south neighbor checkbox is checked, add the neighbor to the south container
 	if neighbor_south_check_box.button_pressed:
@@ -231,15 +232,15 @@ func _on_add_neighbor_button_button_up() -> void:
 		create_neighbor_hbox(selected_category, 50, east_h_flow_container)
 
 	# If the west neighbor checkbox is checked, add the neighbor to the west container
-	if west_check_box.button_pressed:
+	if neighbor_west_check_box.button_pressed:
 		create_neighbor_hbox(selected_category, 50, west_h_flow_container)
 
 
-func populate_neighborkey_options() -> void:
+func populate_gridkey_options() -> void:
 	var unique_neighborkeys = Gamedata.maps.get_unique_neighbor_keys()
-	neighborkey_option_button.clear()  # Clear previous options
+	gridkey_option_button.clear()  # Clear previous options
 	for neighborkey in unique_neighborkeys:
-		neighborkey_option_button.add_item(neighborkey)
+		gridkey_option_button.add_item(neighborkey)
 
 
 func get_neighbors_from_container(container: HFlowContainer) -> Array:
@@ -325,14 +326,14 @@ func _on_add_neighbor_key_button_button_up() -> void:
 		if child is Label and child.text == new_key:
 			return  # If the key already exists, exit the function
 	
-	# Step 4: Add the new key to neighbor_key_option_button if it's not already in the list
+	# Step 4: Add the new key to gridkey_option_button if it's not already in the list
 	var key_exists = false
-	for i in range(neighbor_key_option_button.item_count):
-		if neighbor_key_option_button.get_item_text(i) == new_key:
+	for i in range(gridkey_option_button.item_count):
+		if gridkey_option_button.get_item_text(i) == new_key:
 			key_exists = true
 			break
 	if not key_exists:
-		neighbor_key_option_button.add_item(new_key)
+		gridkey_option_button.add_item(new_key)
 
 	# Step 5: Add controls to neighbor_key_grid_container
 	_add_neighbor_key_controls(new_key, 50)  # Default weight is 50
