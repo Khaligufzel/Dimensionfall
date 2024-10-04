@@ -503,6 +503,12 @@
 		"Urban",
 		"City"
 	],
+	"connections": {
+		"east": "ground",
+		"north": "ground",
+		"south": "ground",
+		"west": "ground"
+	},
 	"description": "A standard house layout suitable for various scenarios.",
 	"id": "Generichouse",
 	"levels": [
@@ -38348,6 +38354,15 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Generic House",
+	"neighbor_keys": {
+		"urban": 50
+	},
+	"neighbors": {
+		"east": [],
+		"north": [],
+		"south": [],
+		"west": []
+	},
 	"references": {
 		"core": {
 			"tacticalmaps": [

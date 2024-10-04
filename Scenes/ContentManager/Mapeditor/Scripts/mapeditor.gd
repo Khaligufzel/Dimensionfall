@@ -40,9 +40,6 @@ extends Control
 @export var west_h_flow_container: HFlowContainer = null
 
 
-
-
-
 signal zoom_level_changed(value: int)
 
 # This signal should alert the content_list that a refresh is needed
@@ -143,20 +140,20 @@ func set_settings_values() -> void:
 	west_check_box.button_pressed = currentMap.get_connection("west") == "road"
 
 	# Update neighbors
-	var south_neighbors = currentMap.get_neighbors("south")
+	var south_neighbors: Array = currentMap.get_neighbors("south")
 	populate_neighbors_container(south_h_flow_container, south_neighbors)
 
-	var north_neighbors = currentMap.get_neighbors("north")
+	var north_neighbors: Array = currentMap.get_neighbors("north")
 	populate_neighbors_container(north_h_flow_container, north_neighbors)
 
-	var east_neighbors = currentMap.get_neighbors("east")
+	var east_neighbors: Array = currentMap.get_neighbors("east")
 	populate_neighbors_container(east_h_flow_container, east_neighbors)
 
-	var west_neighbors = currentMap.get_neighbors("west")
+	var west_neighbors: Array = currentMap.get_neighbors("west")
 	populate_neighbors_container(west_h_flow_container, west_neighbors)
 	
 	# Clear existing neighbor keys
-	neighbor_key_grid_container.clear()
+	Helper.free_all_children(neighbor_key_grid_container)
 	
 	# Populate neighbor keys from currentMap
 	for key in currentMap.neighbor_keys.keys():
@@ -191,7 +188,6 @@ func update_settings_values():
 	else:
 		currentMap.set_connection("west","ground")
 
-
 	# Update neighbors for all directions
 	var north_neighbors = get_neighbors_from_container(north_h_flow_container)
 	currentMap.set_neighbors("north", north_neighbors)
@@ -204,16 +200,17 @@ func update_settings_values():
 
 	var west_neighbors = get_neighbors_from_container(west_h_flow_container)
 	currentMap.set_neighbors("west", west_neighbors)
-	
+
 	# Clear current neighbor keys in the map
 	currentMap.neighbor_keys.clear()
-	
-	# Read values from neighbor_key_grid_container and store them in currentMap.neighbor_keys
-	for child in neighbor_key_grid_container.get_children():
-		if child is HBoxContainer:
-			var key_label = child.get_child(0) as Label
-			var weight_spinbox = child.get_child(1) as SpinBox
-			currentMap.neighbor_keys[key_label.text] = weight_spinbox.value
+
+	# Read values from neighbor_key_grid_container
+	var children = neighbor_key_grid_container.get_children()
+	for i in range(0, children.size(), 3):  # Iterate in sets of 3 (Label, SpinBox, Button)
+		var key_label = children[i] as Label
+		var weight_spinbox = children[i + 1] as SpinBox
+		# Add the key-value pair to currentMap.neighbor_keys
+		currentMap.neighbor_keys[key_label.text] = weight_spinbox.value
 
 
 # The user presses the "add" button in the neighbors controls
@@ -245,7 +242,7 @@ func populate_category_options() -> void:
 		category_option_button.add_item(category)
 
 
-func get_neighbors_from_container(container: HFlowContainer) -> Array[Dictionary]:
+func get_neighbors_from_container(container: HFlowContainer) -> Array:
 	var neighbors = []
 	for child in container.get_children():
 		if child is HBoxContainer:
@@ -264,7 +261,7 @@ func get_neighbors_from_container(container: HFlowContainer) -> Array[Dictionary
 # Takes a list of neighbors and creates controls in the corresponding HFlowContainer to manage 
 # the neighbors. Each direction has a separate HFlowContainer
 func populate_neighbors_container(container: HFlowContainer, neighbors: Array) -> void:
-	container.clear()  # Remove previous neighbors
+	Helper.free_all_children(container)  # Remove previous neighbors
 	for neighbor in neighbors:
 		create_neighbor_hbox(neighbor["category"], neighbor["weight"], container)
 

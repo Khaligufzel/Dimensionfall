@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=36 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
@@ -57,7 +57,13 @@ unicode = 101
 [sub_resource type="Shortcut" id="Shortcut_jlgdg"]
 events = [SubResource("InputEventKey_rjlhc")]
 
-[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "north_check_box", "east_check_box", "south_check_box", "west_check_box", "category_option_button", "neighbor_north_check_box", "neighbor_east_check_box", "neighbor_south_check_box", "neighbor_east_check_box_2", "neighbors_grid_container", "north_h_flow_container", "east_h_flow_container", "south_h_flow_container", "west_h_flow_container")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o52fw"]
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "neighbor_key_option_button", "neighbor_key_text_edit", "neighbor_key_grid_container", "north_check_box", "east_check_box", "south_check_box", "west_check_box", "category_option_button", "neighbor_north_check_box", "neighbor_east_check_box", "neighbor_south_check_box", "neighbor_east_check_box_2", "neighbors_grid_container", "north_h_flow_container", "east_h_flow_container", "south_h_flow_container", "west_h_flow_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,6 +80,9 @@ name_text_edit = NodePath("TabContainer/Settings/NameTextEdit")
 description_text_edit = NodePath("TabContainer/Settings/DescriptionTextEdit")
 categories_list = NodePath("TabContainer/Settings/CategoriesList")
 weight_spin_box = NodePath("TabContainer/Settings/WeightSpinBox")
+neighbor_key_option_button = NodePath("TabContainer/Neighbors/VBoxContainer/HBoxContainer/NeighborKeyOptionButton")
+neighbor_key_text_edit = NodePath("TabContainer/Neighbors/VBoxContainer/HBoxContainer/NeighborKeyTextEdit")
+neighbor_key_grid_container = NodePath("TabContainer/Neighbors/VBoxContainer/PanelContainer/NeighborKeyGridContainer")
 north_check_box = NodePath("TabContainer/Neighbors/RoadConnectionHBoxContainer/NorthCheckBox")
 east_check_box = NodePath("TabContainer/Neighbors/RoadConnectionHBoxContainer/EastCheckBox")
 south_check_box = NodePath("TabContainer/Neighbors/RoadConnectionHBoxContainer/SouthCheckBox")
@@ -454,7 +463,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Add"
 
-[node name="NeighborKeyGridContainer" type="GridContainer" parent="TabContainer/Neighbors/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Neighbors/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o52fw")
+
+[node name="NeighborKeyGridContainer" type="GridContainer" parent="TabContainer/Neighbors/VBoxContainer/PanelContainer"]
 layout_mode = 2
 columns = 3
 
