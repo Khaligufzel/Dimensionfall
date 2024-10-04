@@ -19,8 +19,6 @@ extends Control
 @export var neighbor_key_grid_container: GridContainer = null
 
 
-
-
 # Connection controls
 @export var north_check_box: CheckBox = null # Checked if this map has a road connection north
 @export var east_check_box: CheckBox = null # Checked if this map has a road connection east
@@ -156,6 +154,15 @@ func set_settings_values() -> void:
 
 	var west_neighbors = currentMap.get_neighbors("west")
 	populate_neighbors_container(west_h_flow_container, west_neighbors)
+	
+	# Clear existing neighbor keys
+	neighbor_key_grid_container.clear()
+	
+	# Populate neighbor keys from currentMap
+	for key in currentMap.neighbor_keys.keys():
+		var weight = currentMap.neighbor_keys[key]
+		_add_neighbor_key_controls(key, weight)
+		
 
 
 # Function to get the values of the controls
@@ -197,6 +204,16 @@ func update_settings_values():
 
 	var west_neighbors = get_neighbors_from_container(west_h_flow_container)
 	currentMap.set_neighbors("west", west_neighbors)
+	
+	# Clear current neighbor keys in the map
+	currentMap.neighbor_keys.clear()
+	
+	# Read values from neighbor_key_grid_container and store them in currentMap.neighbor_keys
+	for child in neighbor_key_grid_container.get_children():
+		if child is HBoxContainer:
+			var key_label = child.get_child(0) as Label
+			var weight_spinbox = child.get_child(1) as SpinBox
+			currentMap.neighbor_keys[key_label.text] = weight_spinbox.value
 
 
 # The user presses the "add" button in the neighbors controls
@@ -291,6 +308,68 @@ func create_neighbor_hbox(category: String, weight: int, container: HFlowContain
 
 	return hbox
 
-
+# Called when the user presses the add_neighbor_key_button
 func _on_add_neighbor_key_button_button_up() -> void:
-	pass # Replace with function body.
+	var new_key: String = ""
+	
+	# Step 1: Check if neighbor_key_text_edit contains a value
+	if neighbor_key_text_edit.text.strip_edges() != "":
+		new_key = neighbor_key_text_edit.text.strip_edges()
+	else:
+		# Step 2: If neighbor_key_text_edit is empty, read the option from neighbor_key_option_button
+		new_key = neighbor_key_option_button.get_item_text(neighbor_key_option_button.selected)
+	
+	# Clear the text field after reading the key
+	neighbor_key_text_edit.clear()
+	
+	# Step 3: Check if the key already exists in neighbor_key_grid_container
+	for child in neighbor_key_grid_container.get_children():
+		if child is HBoxContainer:
+			var label = child.get_child(0) as Label
+			if label.text == new_key:
+				return  # If the key already exists, exit the function
+	
+	# Step 4: Add controls to neighbor_key_grid_container
+	_add_neighbor_key_controls(new_key, 50)  # Default weight is 50
+
+
+# Helper function to add a key with a label, spinbox, and delete button directly to the grid container
+func _add_neighbor_key_controls(key: String, weight: int) -> void:
+	# Add a Label for the key
+	var key_label = Label.new()
+	key_label.text = key
+	neighbor_key_grid_container.add_child(key_label)  # Add the label directly to the grid container
+
+	# Add a SpinBox for the weight
+	var weight_spinbox = SpinBox.new()
+	weight_spinbox.min_value = 0
+	weight_spinbox.max_value = 100
+	weight_spinbox.value = weight
+	neighbor_key_grid_container.add_child(weight_spinbox)  # Add the spinbox directly to the grid container
+
+	# Add a delete button to remove the key
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.pressed.connect(_on_delete_neighbor_key.bind(delete_button, key_label, weight_spinbox))
+	neighbor_key_grid_container.add_child(delete_button)  # Add the button directly to the grid container
+
+
+# Deletes a neighbor key from the grid container
+func _on_delete_neighbor_key(delete_button: Button, key_label: Label, weight_spinbox: SpinBox) -> void:
+	# Remove the key label, weight spinbox, and delete button from the grid container
+	neighbor_key_grid_container.remove_child(key_label)
+	neighbor_key_grid_container.remove_child(weight_spinbox)
+	neighbor_key_grid_container.remove_child(delete_button)
+
+	# Properly free the nodes
+	key_label.queue_free()
+	weight_spinbox.queue_free()
+	delete_button.queue_free()
+
+
+# Populates the neighbor_key_option_button with unique neighbor keys from Gamedata.maps
+func populate_neighbor_key_options() -> void:
+	var unique_neighbor_keys = Gamedata.maps.get_unique_neighbor_keys()
+	neighbor_key_option_button.clear()  # Clear previous options
+	for key in unique_neighbor_keys:
+		neighbor_key_option_button.add_item(key)

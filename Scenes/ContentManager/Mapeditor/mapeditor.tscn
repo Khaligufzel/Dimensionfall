@@ -456,7 +456,7 @@ text = "Add"
 
 [node name="NeighborKeyGridContainer" type="GridContainer" parent="TabContainer/Neighbors/VBoxContainer"]
 layout_mode = 2
-columns = 2
+columns = 3
 
 [node name="RoadConnectionLabel" type="Label" parent="TabContainer/Neighbors"]
 layout_mode = 2
