@@ -16,7 +16,7 @@ func create_collapsed_grid() -> GaeaGrid:
 	return mygrid
 
 
-# An algorithm that loops over all Gamedata.maps and creates a OMWaveFunction2DEntry for: 1. each rotation of the map. 2. each neighbor key. So one map can have a maximum of 4 TileInfo variants, multiplied by the amount of neighbor keys. Next, in order to give every rotated variant their appropriate neighbors, we have to loop over all eligible maps and each of their rotations. Actually we might skip this process for maps that have 0 or 4 connections since they fit either everywhere or nowhere. Let's say we use urban and suburban neighbor keys, where urban will be the inner city core and suburban will be the outer area. In this case, the maps in the urban category will have connections with the urban and suburban category and the suburban category will have connections with the suburban and wilderness/plains category. This creates a one-way expansion outwards.
+# An algorithm that loops over all Gamedata.maps and creates a OMWaveFunction2DEntry for: 1. each rotation of the map. 2. each neighbor key. So one map can have a maximum of 4 TileInfo variants, multiplied by the amount of neighbor keys.
 func create_tile_entries() -> void:
 	tileentrylist.clear()
 	var maps: Dictionary = Gamedata.maps.get_all()
@@ -34,12 +34,28 @@ func create_tile_entries() -> void:
 				tileentrylist.append(myomentry)
 
 
+# In order to give every rotated variant their appropriate neighbors, we have to loop over all eligible maps and each of their rotations. Actually we might skip this process for maps that have 0 or 4 connections since they fit either everywhere or nowhere. Let's say we use urban and suburban neighbor keys, where urban will be the inner city core and suburban will be the outer area. In this case, the maps in the urban category will have connections with the urban and suburban category and the suburban category will have connections with the suburban and wilderness/plains category. This creates a one-way expansion outwards.
 func apply_neighbors():
 	for tile: OMWaveFunction2DEntry in tileentrylist:
+		# Step 1: Get all tile entries that are even able to become neighbors in any direction
+		var considered_neighbors: Array = get_neighbors_for_tile(tile)
 		var mytileinfo: OvermapTileInfo = tile.tile_info
 
+		# Step 2: Apply the neighbors for each direction, using exclude_invalid_rotations
+		# North neighbors
+		tile.neighbors_up = exclude_invalid_rotations(considered_neighbors, mytileinfo, "north")
 
-func get_neighbors_for_tile(tileentry: OMWaveFunction2DEntry):
+		# East neighbors
+		tile.neighbors_right = exclude_invalid_rotations(considered_neighbors, mytileinfo, "east")
+
+		# South neighbors
+		tile.neighbors_down = exclude_invalid_rotations(considered_neighbors, mytileinfo, "south")
+
+		# West neighbors
+		tile.neighbors_left = exclude_invalid_rotations(considered_neighbors, mytileinfo, "west")
+
+
+func get_neighbors_for_tile(tileentry: OMWaveFunction2DEntry) -> Array:
 	tileentry.clear_neighbors()
 	var mytileinfo: OvermapTileInfo = tileentry.tile_info
 	# Step 1: only consider tile entries that match the neighbor key
@@ -49,11 +65,6 @@ func get_neighbors_for_tile(tileentry: OMWaveFunction2DEntry):
 	# This does not exclue tiles that have both road and ground connections 
 	# unless mytileinfo is water or something
 	considered_tiles = exclude_connections_basic(considered_tiles, mytileinfo)
-	# Step 3: Of the remaining maps, consider each rotation. Exclude all rotations that do not have a 
-	# matching connection type on this direction. If the map itself is rotated, for example by 90 degrees,
-	# we will now have to exclude all maps that have a connection to that direction
-	# (since the north is now facing the west due to rotation)
-	considered_tiles = exclude_invalid_rotations(considered_tiles, mytileinfo)
 
 	# You can now return or process the remaining considered tiles
 	return considered_tiles
@@ -97,9 +108,8 @@ func exclude_connections_basic(considered_tiles: Array, mytileinfo: OvermapTileI
 
 	return newconsiderations
 
-
-# Exclude tiles based on their rotation and mismatched connection types
-func exclude_invalid_rotations(considered_tiles: Array, mytileinfo: OvermapTileInfo) -> Array:
+# Exclude tiles based on their rotation and mismatched connection types for a specific direction
+func exclude_invalid_rotations(considered_tiles: Array, mytileinfo: OvermapTileInfo, direction: String) -> Array:
 	var myconnections = mytileinfo.dmap.connections
 
 	# Define rotation mappings for how the directions shift depending on rotation
@@ -112,8 +122,10 @@ func exclude_invalid_rotations(considered_tiles: Array, mytileinfo: OvermapTileI
 
 	var final_considered_tiles: Array = []
 
-	# Get the adjusted directions for the current tile (mytileinfo)
+	# Get the adjusted direction for the current tile (mytileinfo)
 	var my_rotated_connections = rotation_map[mytileinfo.rotation]
+	var my_adjusted_direction = my_rotated_connections[direction]  # Adjust only for the current direction
+	var my_connection_type = myconnections[my_adjusted_direction]
 
 	for tile: OMWaveFunction2DEntry in considered_tiles:
 		var tileinfo: OvermapTileInfo = tile.tile_info
@@ -124,22 +136,19 @@ func exclude_invalid_rotations(considered_tiles: Array, mytileinfo: OvermapTileI
 
 		var exclude_tile = false
 
-		# Loop over each direction and check the connections based on both rotations
-		for direction in ["north", "east", "south", "west"]:
-			# Adjust direction for mytileinfo based on its rotation
-			var my_adjusted_direction = my_rotated_connections[direction]
-			var my_connection_type = myconnections[my_adjusted_direction]
-
-			# Adjust direction for the candidate tile (tileinfo) based on its rotation
-			var tile_adjusted_direction = tile_rotated_connections[direction]
+		# Loop over each direction of the candidate tile to check if it can connect in the current direction
+		for candidate_direction in ["north", "east", "south", "west"]:
+			var tile_adjusted_direction = tile_rotated_connections[candidate_direction]
 			var tile_connection_type = tileconnections[tile_adjusted_direction]
 
-			# Exclude the candidate tile if the connection types don't match
-			if my_connection_type != tile_connection_type:
-				exclude_tile = true
-				break  # Exclude if any connection doesn't match
+			# If the candidate's connection in any direction matches my connection in the current direction, it's valid
+			if my_connection_type == tile_connection_type:
+				exclude_tile = false
+				break  # Valid candidate if we find any match
+			else:
+				exclude_tile = true  # Mark tile as excluded if no match
 
-		# Only include the tile if all connections are valid
+		# Only include the tile if a valid connection is found
 		if not exclude_tile:
 			final_considered_tiles.append(tile)
 
