@@ -431,10 +431,10 @@ func get_connection(direction: String) -> String:
 
 
 # Function to get neighbors for a specified direction
-func get_neighbors(direction: String) -> Array:
+func get_neighbors(direction: String) -> Dictionary:
 	# Return an empty array if the direction does not exist in the neighbors dictionary
 	if not neighbors.has(direction):
-		return []
+		return {}
 	
 	# Return the array of neighbors for the specified direction
 	return neighbors[direction]

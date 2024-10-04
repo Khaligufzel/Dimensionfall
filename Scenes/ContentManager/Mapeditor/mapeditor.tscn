@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=40 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
@@ -62,6 +62,18 @@ expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owrls"]
+bg_color = Color(0.740592, 0.554922, 0.432471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hhjo"]
+bg_color = Color(0.527657, 0.625112, 0.602793, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kxr0o"]
+bg_color = Color(0.718449, 0.526477, 0.699646, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t37im"]
+bg_color = Color(0.451403, 0.622005, 0.759976, 1)
 
 [node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "neighbor_key_option_button", "neighbor_key_text_edit", "neighbor_key_grid_container", "north_check_box", "east_check_box", "south_check_box", "west_check_box", "gridkey_option_button", "neighbor_north_check_box", "neighbor_east_check_box", "neighbor_south_check_box", "neighbor_west_check_box", "neighbors_grid_container", "north_h_flow_container", "east_h_flow_container", "south_h_flow_container", "west_h_flow_container")]
 layout_mode = 3
@@ -572,31 +584,39 @@ columns = 2
 
 [node name="NorthLabel" type="Label" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_owrls")
 text = "North"
 
 [node name="NorthHFlowContainer" type="HFlowContainer" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="EastLabel" type="Label" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_6hhjo")
 text = "East"
 
 [node name="EastHFlowContainer" type="HFlowContainer" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="SouthLabel" type="Label" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_kxr0o")
 text = "South"
 
 [node name="SouthHFlowContainer" type="HFlowContainer" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="WestLabel" type="Label" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_t37im")
 text = "West"
 
 [node name="WestHFlowContainer" type="HFlowContainer" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="BrushPreviewTexture" type="TextureRect" parent="."]
 visible = false

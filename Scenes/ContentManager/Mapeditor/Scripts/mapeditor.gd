@@ -140,17 +140,17 @@ func set_settings_values() -> void:
 	south_check_box.button_pressed = currentMap.get_connection("south") == "road"
 	west_check_box.button_pressed = currentMap.get_connection("west") == "road"
 
-	# Update neighbors
-	var south_neighbors: Array = currentMap.get_neighbors("south")
+	# Update neighbors using dictionaries
+	var south_neighbors: Dictionary = currentMap.get_neighbors("south")
 	populate_neighbors_container(south_h_flow_container, south_neighbors)
 
-	var north_neighbors: Array = currentMap.get_neighbors("north")
+	var north_neighbors: Dictionary = currentMap.get_neighbors("north")
 	populate_neighbors_container(north_h_flow_container, north_neighbors)
 
-	var east_neighbors: Array = currentMap.get_neighbors("east")
+	var east_neighbors: Dictionary = currentMap.get_neighbors("east")
 	populate_neighbors_container(east_h_flow_container, east_neighbors)
 
-	var west_neighbors: Array = currentMap.get_neighbors("west")
+	var west_neighbors: Dictionary = currentMap.get_neighbors("west")
 	populate_neighbors_container(west_h_flow_container, west_neighbors)
 	
 	# Clear existing neighbor keys
@@ -160,6 +160,7 @@ func set_settings_values() -> void:
 	for key in currentMap.neighbor_keys.keys():
 		var weight = currentMap.neighbor_keys[key]
 		_add_neighbor_key_controls(key, weight)
+
 		
 
 
@@ -258,14 +259,14 @@ func get_neighbors_from_container(container: HFlowContainer) -> Dictionary:
 			neighbors[neighbor_key] = weight
 	return neighbors
 
-
-# Takes a list of neighbors and creates controls in the corresponding HFlowContainer to manage 
+# Takes a dictionary of neighbors and creates controls in the corresponding HFlowContainer to manage 
 # the neighbors. Each direction has a separate HFlowContainer
-func populate_neighbors_container(container: HFlowContainer, neighbors: Array) -> void:
+func populate_neighbors_container(container: HFlowContainer, neighbors: Dictionary) -> void:
 	Helper.free_all_children(container)  # Remove previous neighbors
-	for neighbor in neighbors:
-		create_neighbor_hbox(neighbor["neighbor_key"], neighbor["weight"], container)
-
+	# Iterate over the dictionary, creating controls for each neighbor_key and its weight
+	for neighbor_key in neighbors.keys():
+		var weight = neighbors[neighbor_key]
+		create_neighbor_hbox(neighbor_key, weight, container)
 
 # The user has clicked on the delete button on a neighbor in the list. We remove the Hbox for the neighbor
 func _on_delete_neighbor(hbox_to_remove: HBoxContainer) -> void:
