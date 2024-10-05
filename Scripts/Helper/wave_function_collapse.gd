@@ -14,7 +14,7 @@ func create_collapsed_grid() -> GaeaGrid:
 	var mygrid: GaeaGrid
 	create_tile_entries()
 	apply_neighbors()
-	apply_weights() # we are going to implement this function next
+	apply_weights()
 	return mygrid
 
 

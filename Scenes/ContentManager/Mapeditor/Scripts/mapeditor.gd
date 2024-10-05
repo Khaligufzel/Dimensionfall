@@ -294,6 +294,12 @@ func create_neighbor_hbox(category: String, weight: int, container: HFlowContain
 	weight_spinbox.min_value = 0
 	weight_spinbox.max_value = 100
 	weight_spinbox.value = weight
+	weight_spinbox.tooltip_text = "The amount of weight applied to this neighbor key relative \n" + \
+									" to other neighbor keys in this direction. A higher \n" + \
+									" weight means this neighbor key is more likely to be \n" + \
+									" picked as neighbor. A lower weight means this neighbor \n" + \
+									" key is less likely to be picked as a neighbor. If there \n" + \
+									" is only one neighbor key, the weight does not matter."
 	hbox.add_child(weight_spinbox)
 
 	# Add a delete button
@@ -352,6 +358,15 @@ func _add_neighbor_key_controls(key: String, weight: int) -> void:
 	weight_spinbox.min_value = 0
 	weight_spinbox.max_value = 100
 	weight_spinbox.value = weight
+	weight_spinbox.tooltip_text = "The amount of weight applied to this neighbor key relative \n" + \
+									" to other maps that have the same neighbor key. A higher \n" + \
+									"weight means this map is more likely to be picked as for \n" + \
+									"this neighbor key. A lower weight means this map key is \n" + \
+									"less likely to be picked for this neighbor key. For \n" + \
+									"example, if two maps both have the urban key and one has \n" + \
+									"a weight of 10 and the other has a weight of 100, the \n" + \
+									"second one is 10 times more likely to be picked when \n" + \
+									"this neighbor key is selected"
 	neighbor_key_grid_container.add_child(weight_spinbox)  # Add the spinbox directly to the grid container
 
 	# Add a delete button to remove the key
