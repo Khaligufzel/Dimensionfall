@@ -170,6 +170,7 @@ func apply_weights():
 		tile.neighbors_down = adjust_weights_for_neighbors(tile.neighbors_down, mytileinfo)
 		tile.neighbors_left = adjust_weights_for_neighbors(tile.neighbors_left, mytileinfo)
 
+
 # Adjust weights for a given set of neighbors based on the current tile's neighbor keys
 func adjust_weights_for_neighbors(neighbors: Array, mytileinfo: OvermapTileInfo) -> Array:
 	var adjusted_neighbors: Array = []
@@ -200,8 +201,9 @@ func adjust_weights_for_neighbors(neighbors: Array, mytileinfo: OvermapTileInfo)
 			var adjusted_weight = normalized_weight * neighbor_key_weights.get(key, 0)  # Apply key weight
 
 			# Duplicate the neighbor entry and assign the new weight
-			var new_neighbor = neighbor.duplicate(true)  # Create a new entry for this neighbor
+			var new_neighbor: OMWaveFunction2DEntry = OMWaveFunction2DEntry.new()
 			new_neighbor.weight = adjusted_weight
+			new_neighbor.tile_info = neighbor.tile_info
 			adjusted_neighbors.append(new_neighbor)
 
 	return adjusted_neighbors
