@@ -13,6 +13,8 @@ var tileentrylist: Array = []
 func create_collapsed_grid() -> GaeaGrid:
 	var mygrid: GaeaGrid
 	create_tile_entries()
+	apply_neighbors()
+	apply_weights() # we are going to implement this function next
 	return mygrid
 
 
@@ -55,6 +57,8 @@ func apply_neighbors():
 		tile.neighbors_left = exclude_invalid_rotations(considered_neighbors, mytileinfo, "west")
 
 
+# Returns maps that are able to become neighbors by excluding the other maps
+# based on the neighbor key and connections
 func get_neighbors_for_tile(tileentry: OMWaveFunction2DEntry) -> Array:
 	tileentry.clear_neighbors()
 	var mytileinfo: OvermapTileInfo = tileentry.tile_info
@@ -153,3 +157,51 @@ func exclude_invalid_rotations(considered_tiles: Array, mytileinfo: OvermapTileI
 			final_considered_tiles.append(tile)
 
 	return final_considered_tiles
+
+
+# Apply weights to the neighbors by normalizing and adjusting based on current tile's neighbor keys
+func apply_weights():
+	for tile: OMWaveFunction2DEntry in tileentrylist:
+		var mytileinfo: OvermapTileInfo = tile.tile_info
+
+		# Loop through each direction's neighbors (up, right, down, left)
+		tile.neighbors_up = adjust_weights_for_neighbors(tile.neighbors_up, mytileinfo)
+		tile.neighbors_right = adjust_weights_for_neighbors(tile.neighbors_right, mytileinfo)
+		tile.neighbors_down = adjust_weights_for_neighbors(tile.neighbors_down, mytileinfo)
+		tile.neighbors_left = adjust_weights_for_neighbors(tile.neighbors_left, mytileinfo)
+
+# Adjust weights for a given set of neighbors based on the current tile's neighbor keys
+func adjust_weights_for_neighbors(neighbors: Array, mytileinfo: OvermapTileInfo) -> Array:
+	var adjusted_neighbors: Array = []
+	var neighbor_key_weights = mytileinfo.dmap.neighbor_keys  # Get current tile's neighbor key weights
+
+	# Create a dictionary to store neighbors grouped by their neighbor key
+	var neighbor_groups: Dictionary = {}
+
+	# Group neighbors by their key (urban, suburban, etc.)
+	for neighbor: OMWaveFunction2DEntry in neighbors:
+		var key = neighbor.tile_info.key
+		if not neighbor_groups.has(key):
+			neighbor_groups[key] = []
+		neighbor_groups[key].append(neighbor)
+
+	# Adjust weights for each group
+	for key in neighbor_groups.keys():
+		var group = neighbor_groups[key]
+		var total_weight = 0
+
+		# Normalize the weights within the group
+		for neighbor in group:
+			total_weight += neighbor.tile_info.dmap.weight  # Sum all the original weights
+
+		# Apply the normalized weights
+		for neighbor in group:
+			var normalized_weight = float(neighbor.tile_info.dmap.weight) / total_weight  # Normalize
+			var adjusted_weight = normalized_weight * neighbor_key_weights.get(key, 0)  # Apply key weight
+
+			# Duplicate the neighbor entry and assign the new weight
+			var new_neighbor = neighbor.duplicate(true)  # Create a new entry for this neighbor
+			new_neighbor.weight = adjusted_weight
+			adjusted_neighbors.append(new_neighbor)
+
+	return adjusted_neighbors
