@@ -9,12 +9,19 @@ extends RefCounted
 
 # Created once, holds all possible tile entries and their neighbors
 var tileentrylist: Array = []
+# The final list of entries for the grid
+var entries: Array = []
 
 func create_collapsed_grid() -> GaeaGrid:
 	var mygrid: GaeaGrid
 	create_tile_entries()
 	apply_neighbors()
 	apply_weights()
+	var mysetting: WaveFunctionGenerator2DSettings = WaveFunctionGenerator2DSettings.new()
+	mysetting.entries = entries
+	var mygenerator: WaveFunctionGenerator2D = WaveFunctionGenerator2D.new()
+	mygenerator.settings = mysetting
+	mygenerator.generate(mygrid)
 	return mygrid
 
 
@@ -34,6 +41,7 @@ func create_tile_entries() -> void:
 				var myomentry: OMWaveFunction2DEntry = OMWaveFunction2DEntry.new()
 				myomentry.tile_info = mytileinfo
 				tileentrylist.append(myomentry)
+				entries.append(myomentry)
 
 
 # In order to give every rotated variant their appropriate neighbors, we have to loop over all eligible maps and each of their rotations. Actually we might skip this process for maps that have 0 or 4 connections since they fit either everywhere or nowhere. Let's say we use urban and suburban neighbor keys, where urban will be the inner city core and suburban will be the outer area. In this case, the maps in the urban category will have connections with the urban and suburban category and the suburban category will have connections with the suburban and wilderness/plains category. This creates a one-way expansion outwards.
@@ -44,17 +52,16 @@ func apply_neighbors():
 		var mytileinfo: OvermapTileInfo = tile.tile_info
 
 		# Step 2: Apply the neighbors for each direction, using exclude_invalid_rotations
-		# North neighbors
-		tile.neighbors_up = exclude_invalid_rotations(considered_neighbors, mytileinfo, "north")
+		tile.neighbors_north = exclude_invalid_rotations(considered_neighbors, mytileinfo, "north")
 
 		# East neighbors
-		tile.neighbors_right = exclude_invalid_rotations(considered_neighbors, mytileinfo, "east")
+		tile.neighbors_east = exclude_invalid_rotations(considered_neighbors, mytileinfo, "east")
 
 		# South neighbors
-		tile.neighbors_down = exclude_invalid_rotations(considered_neighbors, mytileinfo, "south")
+		tile.neighbors_south = exclude_invalid_rotations(considered_neighbors, mytileinfo, "south")
 
 		# West neighbors
-		tile.neighbors_left = exclude_invalid_rotations(considered_neighbors, mytileinfo, "west")
+		tile.neighbors_west = exclude_invalid_rotations(considered_neighbors, mytileinfo, "west")
 
 
 # Returns maps that are able to become neighbors by excluding the other maps
@@ -112,6 +119,7 @@ func exclude_connections_basic(considered_tiles: Array, mytileinfo: OvermapTileI
 
 	return newconsiderations
 
+
 # Exclude tiles based on their rotation and mismatched connection types for a specific direction
 func exclude_invalid_rotations(considered_tiles: Array, mytileinfo: OvermapTileInfo, direction: String) -> Array:
 	var myconnections = mytileinfo.dmap.connections
@@ -165,10 +173,10 @@ func apply_weights():
 		var mytileinfo: OvermapTileInfo = tile.tile_info
 
 		# Loop through each direction's neighbors (up, right, down, left)
-		tile.neighbors_up = adjust_weights_for_neighbors(tile.neighbors_up, mytileinfo)
-		tile.neighbors_right = adjust_weights_for_neighbors(tile.neighbors_right, mytileinfo)
-		tile.neighbors_down = adjust_weights_for_neighbors(tile.neighbors_down, mytileinfo)
-		tile.neighbors_left = adjust_weights_for_neighbors(tile.neighbors_left, mytileinfo)
+		tile.neighbors_up = adjust_weights_for_neighbors(tile.neighbors_north, mytileinfo)
+		tile.neighbors_right = adjust_weights_for_neighbors(tile.neighbors_east, mytileinfo)
+		tile.neighbors_down = adjust_weights_for_neighbors(tile.neighbors_south, mytileinfo)
+		tile.neighbors_left = adjust_weights_for_neighbors(tile.neighbors_West, mytileinfo)
 
 
 # Adjust weights for a given set of neighbors based on the current tile's neighbor keys
@@ -204,6 +212,15 @@ func adjust_weights_for_neighbors(neighbors: Array, mytileinfo: OvermapTileInfo)
 			var new_neighbor: OMWaveFunction2DEntry = OMWaveFunction2DEntry.new()
 			new_neighbor.weight = adjusted_weight
 			new_neighbor.tile_info = neighbor.tile_info
-			adjusted_neighbors.append(new_neighbor)
+			for mytile in neighbor.neighbors_north:
+				new_neighbor.neighbors_up.append(mytile.tile_info.id)
+			for mytile in neighbor.neighbors_east:
+				new_neighbor.neighbors_right.append(mytile.tile_info.id)
+			for mytile in neighbor.neighbors_south:
+				new_neighbor.neighbors_down.append(mytile.tile_info.id)
+			for mytile in neighbor.neighbors_west:
+				new_neighbor.neighbors_left.append(mytile.tile_info.id)
+			adjusted_neighbors.append(neighbor.tile_info.id)
+			entries.append(new_neighbor)
 
 	return adjusted_neighbors

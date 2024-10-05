@@ -6,6 +6,10 @@ extends WaveFunction2DEntry
 # Specifically the wave function collapse
 # See https://github.com/Khaligufzel/Dimensionfall/issues/411 for the initial implementation idea
 
+var neighbors_north: Array
+var neighbors_east: Array
+var neighbors_south: Array
+var neighbors_west: Array
 
 func clear_neighbors():
 	neighbors_down.clear()
