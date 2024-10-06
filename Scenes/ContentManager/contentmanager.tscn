@@ -35,6 +35,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Content editor"
 
+[node name="OtherToolsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Other tools"
+
 [node name="BackButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
@@ -42,4 +47,5 @@ text = "Back"
 
 [connection signal="button_up" from="VBoxContainer/ModManagerButton" to="." method="_on_mod_manager_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/ContentEditorButton" to="." method="_on_content_editor_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/OtherToolsButton" to="." method="_on_other_tools_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
