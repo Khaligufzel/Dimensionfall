@@ -18,7 +18,7 @@ class Tile:
 	var id: String
 	var neighbor_keys: Dictionary = {}  # e.g., {"urban": 100, "suburban": 50}
 	var connections: Dictionary = {}  # e.g., {"north": "road", "south": "ground", ...}
-	var rotations: Array[int] = [0, 90, 180, 270]
+	var rotation: int
 	var weight: float  # Base weight for selection
 	var dmap: DMap  # Base weight for selection
 
@@ -42,11 +42,12 @@ func generate_grid() -> Dictionary:
 func create_tile_entries() -> void:
 	tile_catalog.clear()
 	var maps: Dictionary = Gamedata.maps.get_all()
+	var rotations: Array = [0,90,180,270]
 	for map: DMap in maps.values():
 		for key in map.neighbor_keys.keys():
-			var rotations: Array = [0,90,180,270]
 			for myrotation in rotations:
 				var mytile: Tile = Tile.new()
 				mytile.dmap = map
+				mytile.rotation = myrotation
 				mytile.id = map.id + "_" + str(key) + "_" + str(myrotation)
 				tile_catalog.append(mytile)

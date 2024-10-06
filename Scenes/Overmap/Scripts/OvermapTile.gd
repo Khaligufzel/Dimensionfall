@@ -64,8 +64,11 @@ func set_text(newtext: String):
 	$TextLabel.visible = true
 
 # Set the rotation of the TextureRect based on the given rotation angle
-func set_texture_rotation(myrotation: int) -> void:
-	$TextureRect.pivot_offset = size / 2  # Set the pivot to the center of the TextureRect
+func set_texture_rotation(myrotation: int, pivotoffset: Vector2 = Vector2.ZERO) -> void:
+	var newpivot: Vector2 = size / 2
+	if not pivotoffset == Vector2.ZERO: # HACK: Manual pivot offset since the size / 2 fails for some reason
+		newpivot = pivotoffset
+	$TextureRect.pivot_offset = newpivot  # Set the pivot to the center of the TextureRect
 	match myrotation:
 		0:
 			$TextureRect.rotation_degrees = 0
