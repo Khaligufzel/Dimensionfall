@@ -12,6 +12,7 @@ var grid_width: int = 20
 var grid_height: int = 20
 var area_grid: Dictionary = {}  # The resulting grid
 var tile_catalog = []  # List of all tile instances with rotations
+var tried_tiles = {}  # Key: (x, y), Value: Set of tried tile IDs
 
 
 class Tile:
@@ -83,6 +84,17 @@ func generate_grid() -> Dictionary:
 	return area_grid
 
 
+func generate_city():
+	var cell_order = get_cell_processing_order()
+	for cell in cell_order:
+		var success = place_tile_at(cell.x, cell.y)
+		if not success:
+			# Implement backtracking if placement fails
+			if not backtrack(cell.x, cell.y):
+				print("Failed to generate city. No valid tile placements available.")
+				return
+
+
 # An algorithm that loops over all Gamedata.maps and creates a Tile for: 1. each rotation of the map. 2. each neighbor key. So one map can have a maximum of 4 TileInfo variants, multiplied by the amount of neighbor keys.
 func create_tile_entries() -> void:
 	tile_catalog.clear()
@@ -97,3 +109,127 @@ func create_tile_entries() -> void:
 				mytile.key = key # May be "urban", "suburban" or something else
 				mytile.id = map.id + "_" + str(key) + "_" + str(myrotation)
 				tile_catalog.append(mytile)
+
+
+# Used to place a tile at this coordinate
+# Gets a list of tiles that fit here, picks one based on the weight,
+# And assigns it to the grid
+func place_tile_at(x: int, y: int) -> bool:
+	var possible_tiles = get_possible_tiles(x, y)
+	if possible_tiles.empty():
+		return false  # Cannot place any tile here
+
+	# Apply weights to select a tile probabilistically
+	var total_weight = 0.0
+	for tile in possible_tiles:
+		total_weight += tile.weight
+
+	var rand_value = randf() * total_weight
+	for tile in possible_tiles:
+		rand_value -= tile.weight
+		if rand_value <= 0:
+			area_grid[Vector2(x,y)] = tile
+			return true
+
+	return false  # Should not reach here if weights are correctly calculated
+
+
+func get_possible_tiles(x: int, y: int) -> Array:
+	var possible_tiles = []
+
+	var key = Vector2(x, y)
+	var excluded_tiles = tried_tiles[key]
+
+	for tile in tile_catalog:
+		if tile.id in excluded_tiles:
+			continue  # Skip tiles that have already been tried
+		if can_tile_fit(x, y, tile):
+			possible_tiles.append(tile)
+
+	return possible_tiles
+
+
+func can_tile_fit(x: int, y: int, tile: Tile) -> bool:
+	# Define a dictionary to map directions to their coordinate offsets
+	var direction_offsets = {
+		"north": Vector2(0, -1),
+		"south": Vector2(0, 1),
+		"east": Vector2(1, 0),
+		"west": Vector2(-1, 0)
+	}
+
+	# Loop over north, east, south and west
+	for direction in direction_offsets.keys():
+		var offset = direction_offsets[direction] # Get the offset for this direction
+		var neighbor_pos = Vector2(x, y) + offset # The coordinate in the direction provided
+
+		# Ensure the neighbor position is within bounds
+		if neighbor_pos.x < 0 or neighbor_pos.x >= grid_width or neighbor_pos.y < 0 or neighbor_pos.y >= grid_height:
+			continue  # Skip out-of-bounds neighbors
+
+		# Check if there's a tile in the neighbor position
+		if area_grid.has(neighbor_pos):
+			var neighbor_tile = area_grid[neighbor_pos]
+
+			# Check neighbor key compatibility. This is useful to prevent a "field" from spawning
+			# next to a "urban" tile.
+			if not tile.are_neighbor_keys_compatible(neighbor_tile):
+				return false
+
+			# Check connection compatibility
+			if not tile.are_connections_compatible(neighbor_tile, direction):
+				return false
+
+	return true  # Tile can fit here
+
+
+func backtrack(x: int, y: int) -> bool:
+	## Remove the tile from the current cell
+	#city_grid.set(x, y, null)
+	## Get previous cell coordinates
+	#var prev_cell = get_previous_cell(x, y)
+	#if prev_cell == null:
+		#return false  # Cannot backtrack further
+	## Remove the tile from the previous cell
+	#var prev_tile = city_grid.get(prev_cell.x, prev_cell.y)
+	#if prev_tile == null:
+		#return false  # No tile to backtrack
+#
+	## Exclude the previously tried tile and attempt to place a different tile
+	#exclude_tile_from_cell(prev_cell.x, prev_cell.y, prev_tile)
+	#return place_tile_at(prev_cell.x, prev_cell.y)
+	return false
+
+
+func exclude_tile_from_cell(x: int, y: int, tile: Tile):
+	var key = Vector2(x, y)
+	if not tried_tiles.has(key):
+		tried_tiles[key] = tile
+
+
+func get_cell_processing_order() -> Array:
+	var order = []
+	# Implement a heuristic to determine the order
+	# For example, use a priority queue based on the number of neighboring tiles
+	return order
+
+
+func normalize_tile_weights(tiles: Array) -> void:
+	var total_weight = 0.0
+	for tile in tiles:
+		total_weight += tile.weight
+
+	for tile in tiles:
+		tile.normalized_weight = tile.weight / total_weight
+
+
+func adjust_tile_weights_based_on_neighbors(possible_tiles: Array, x: int, y: int) -> void:
+	# Example: Increase weight if the tile shares neighbor keys with adjacent tiles
+	#var adjacent_tiles = get_adjacent_tiles(x, y)
+	#for tile in possible_tiles:
+		#for neighbor in adjacent_tiles:
+			#if neighbor == null:
+				#continue
+			#if are_neighbor_keys_compatible(tile, neighbor):
+				#tile.weight *= 1.2  # Increase weight by 20%
+	pass
