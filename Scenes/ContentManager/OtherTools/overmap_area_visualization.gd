@@ -11,7 +11,6 @@ func _on_back_button_button_up() -> void:
 func _on_generate_button_button_up() -> void:
 	Helper.free_all_children(visual_grid)
 	generate_grid()
-	#generate_grid.call_deferred()
 
 
 func generate_grid():
@@ -29,6 +28,3 @@ func generate_grid():
 		# HACK: Second argument is the pivot offset. The automatic calculations for this are
 		# failing for some reason, so we put in half the minumum size of 32 in manually
 		tile_instance.set_texture_rotation(myrotation, Vector2(16,16))
-
-func _on_clear_button_button_up() -> void:
-	Helper.free_all_children(visual_grid)

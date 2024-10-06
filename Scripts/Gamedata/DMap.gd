@@ -26,7 +26,7 @@ var connections: Dictionary = {"north": "ground","east": "ground","south": "grou
 # will be selected based on the weight. Example: {"urban": 100, "suburban": 10} The weights are 
 # evaluated against other maps in the same neighbor key, not against eachother.
 var neighbor_keys: Dictionary = {}
-# This variable holds the neighbor keys that are allowed to spawn nest to this map
+# This variable holds the neighbor keys that are allowed to spawn next to this map
 # For example the "north" array may be {"urban": 100, "suburban": 10}
 # This will cause the maps that have the "urban" key to spawn next to this map with a chance
 # 10 times greater then a map from the "suburban" key
