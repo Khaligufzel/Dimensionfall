@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://neuhnehifngf"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/OtherTools/overmap_area_visualization.gd" id="1_8wpup"]
+[ext_resource type="PackedScene" uid="uid://budsoodfdkaea" path="res://Scenes/Overmap/OvermapTile.tscn" id="2_3b74b"]
+
+[node name="OvermapAreaVisualization" type="Control" node_paths=PackedStringArray("visual_grid")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8wpup")
+visual_grid = NodePath("VBoxContainer/VisualGrid")
+tileScene = ExtResource("2_3b74b")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="GenerateButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Generate"
+
+[node name="VisualGrid" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+columns = 20
+
+[connection signal="button_up" from="VBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/GenerateButton" to="." method="_on_generate_button_button_up"]
