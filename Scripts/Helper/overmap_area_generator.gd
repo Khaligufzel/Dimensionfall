@@ -14,6 +14,41 @@ var area_grid: Dictionary = {}  # The resulting grid
 var tile_catalog = []  # List of all tile instances with rotations
 var tried_tiles = {}  # Key: (x, y), Value: Set of tried tile IDs
 
+# Tiles sorted by key. This can be used to select the right neighbors for the tiles
+# We will pick one direction to select the correct neighbor. Let's say "north".
+# Each Tile will select a neighbor_key like "urban" or "suburban"
+# Then, if the "north" direction of the current tile has a "road" connection, we select those
+# Then, we want the neighbor tiles that have a road connection in the south, so we pick "south"
+# For example:
+#	{
+#		"urban": {
+#			"road": {
+#				"north": {
+#					"house_01_urban_0": tile1 <- house_01 has a north road connection at rotation 0
+#				}
+#				"south": {
+#					"house_01_urban_180": tile2 <- house_01 has a south road connection at rotation 180
+#				}
+#			},
+#			"ground": {
+#				"south": {
+#					"house_01_urban_90": tile3 <- house_01 has a south ground connection at rotation 90
+#				}
+#			}
+#		}
+#		"suburban": {
+#			"road": {
+#				"north": {
+#					"house_01_urban_0": tile1
+#				}
+#				"south": {
+#					"house_01_urban_180": tile2
+#				}
+#			}
+#		}
+#	}
+var tile_dictionary: Dictionary = {}
+
 
 class Tile:
 	var id: String
@@ -72,6 +107,35 @@ class Tile:
 			if dmap.neighbors[direction].has(neighbor.key):
 				return true
 		return false
+	
+	# Adjusts weights for neighboring tiles based on neighbor keys
+	func adjust_weights_based_on_neighbors(neighbors: Array, x: int, y: int) -> void:
+		# Dictionary to group neighbors by their keys (e.g., urban, suburban, etc.)
+		var neighbor_groups: Dictionary = {}
+		var neighbor_key_weights = dmap.neighbor_keys  # Get current tile's neighbor key weights
+		
+		# Step 1: Group neighbors by their key
+		for neighbor in neighbors:
+			var key = neighbor.key
+			if not neighbor_groups.has(key):
+				neighbor_groups[key] = []
+			neighbor_groups[key].append(neighbor)
+		
+		# Step 2: Adjust weights for each group
+		for key in neighbor_groups.keys():
+			var group = neighbor_groups[key]
+			var total_weight: float = 0.0
+			
+			# Step 3: Normalize the weights within each group
+			for neighbor in group:
+				total_weight += neighbor.weight  # Sum all original weights
+				
+			# Apply normalized weights
+			for neighbor in group:
+				var normalized_weight = float(neighbor.weight) / total_weight  # Normalize
+				var adjusted_weight = normalized_weight * neighbor_key_weights.get(key, 0)  # Apply key weight
+				
+				# Update the neighbor's weight
 
 
 func generate_grid() -> Dictionary:
