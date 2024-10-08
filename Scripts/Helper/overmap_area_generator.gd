@@ -80,24 +80,55 @@ class Tile:
 			# Keep the same connection type but adjust direction, so a road to north is now a road to west
 			rotated_connections[new_direction] = dmap.connections[direction]  
 		return rotated_connections
-	
-	# Helper function to pick a neighbor key probabilistically based on weights
-	func pick_neighbor_key() -> String:
-		var total_weight: float = 0.0
-		for weight in dmap.neighbor_keys.values():
-			total_weight += weight
 		
+	# Function to pick a tile from the list based on the weights
+	# tiles: A list of tiles that are limited by neighbor_key, connection and direction
+	# For example, it may only contain tiles from "urban", connection "road" and "north" direction
+	func pick_tile_from_list(tiles: Array) -> Tile:
+		var total_weight: float = 0.0
+		var weighted_tiles: Dictionary = {}  # Stores tiles and their corresponding weights
+
+		# Step 1: Register the weight of each tile and count total weight
+		for tile in tiles:
+			var weight: float = tile.weight
+			total_weight += weight
+			weighted_tiles[tile] = weight
+
+		# Step 2: Randomly select a tile based on the accumulated weights
 		var rand_value: float = randf() * total_weight
-		for key in dmap.neighbor_keys.keys():
-			rand_value -= dmap.neighbor_keys[key]
+		for tile in weighted_tiles.keys():
+			rand_value -= weighted_tiles[tile]
 			if rand_value <= 0:
-				return key
-		return ""  # Return an empty string if no key is picked, should not happen if weights are correct
+				return tile  # Return the selected tile based on the weighted probability
+
+		return null  # Return null if no tile is selected, which should not happen if weights are correct
+
+	# Helper function to pick a neighbor key probabilistically based on weights from dmap.neighbors for the given direction
+	func pick_neighbor_key(direction: String) -> String:
+		# Ensure the direction exists in dmap.neighbors
+		if not dmap.neighbors.has(direction):
+			return ""  # Return an empty string if no valid direction is found
+
+		var total_weight: float = 0.0
+		var neighbor_weights = dmap.neighbors[direction]  # Get neighbor weights for the specified direction
+
+		# Calculate the total weight for the neighbor keys in this direction
+		for weight in neighbor_weights.values():
+			total_weight += weight
+
+		# Pick a key based on the weights
+		var rand_value: float = randf() * total_weight
+		for key in neighbor_weights.keys():
+			rand_value -= neighbor_weights[key]
+			if rand_value <= 0:
+				return key  # Return the selected key based on weighted probability
+
+		return ""  # Return an empty string if no key is picked, which shouldn't happen if weights are correct
 
 	# Retrieves a list of neighbor tiles based on the direction, connection type, and rotation
 	func get_neighbor_tiles(direction: String) -> Array:
-		# Step 1: Pick a neighbor key using the weighted selection
-		var neighbor_key: String = pick_neighbor_key()
+		# Step 1: Pick a neighbor key using the weighted selection for the specified direction
+		var neighbor_key: String = pick_neighbor_key(direction)
 		if neighbor_key == "":
 			return []  # Return an empty list if no valid neighbor key is found
 
@@ -110,6 +141,16 @@ class Tile:
 			return tile_dictionary[neighbor_key][connection_type][direction].values()  # Return the list of tiles
 		else:
 			return []  # Return an empty list if no matching tiles are found
+
+	# Retrieves a tile from the neighbor tiles list based on weighted probability
+	func get_neighbor_tile(direction: String) -> Tile:
+		# Step 1: Get the list of neighbor tiles based on the direction, connection type, and rotation
+		var neighbor_tiles: Array = get_neighbor_tiles(direction)
+		if neighbor_tiles.is_empty():
+			return null  # Return null if no neighbor tiles are found
+
+		# Step 2: Pick a tile from the neighbor tiles list based on the weight of the picked neighbor key
+		return pick_tile_from_list(neighbor_tiles)
 
 	# Checks if this tile and a neighbor tile have compatible connections
 	func are_connections_compatible(neighbor: Tile, direction: String) -> bool:
@@ -190,6 +231,89 @@ func generate_city():
 				return
 
 
+# Generates the area from the center to the edge of the grid
+# Start out by placing a tile in the center of the grid. In a 20x20 grid, this will be (10,10)
+# The starting tile should be picked from the tile_dictionary using these parameters:
+# neighbor_key: "urban"
+# connection: "road"
+# direction: "north"
+# This will get a new dictionary from tile_dictionary. We will pick one tile at random from that dictionary's values.
+# Now that we have a starting tile, we will loop over the directions "north","west","south","east"
+# For each of the directions, we will call the starting tile's get_neighbor_tile(direction) function
+# Place the picked tiles next to the starting tile in each direction. We will now have 5 tiles on the grid
+# Repeat these steps for the new tiles, starting from the tile in the north, then west, south and east
+# We have to make sure that a tile in the north-east will be able to fit to both the north and the east
+# tile. We can use tile.are_connections_compatible(tile, direction) for this. If the picked tile is not
+# compatible with both tiles at the same time, we will put that tile in an exclusion list and
+# pick another tile from tile.get_neighbor_tile(direction). Repeat this process until a tile is placed.
+# If no tile can be placed here, place the starting tile here.
+
+# Generates the area from the center to the edge of the grid
+# This function will initiate the area generation by placing the starting tile and then expanding
+# to its immediate neighbors in a plus pattern (north, west, south, east).
+func generate_area():
+	# Step 1: Place the starting tile in the center of the grid
+	var center = Vector2(grid_width / 2, grid_height / 2)
+	var starting_tile = place_starting_tile(center)
+
+	if starting_tile:
+		place_neighbor_tiles(center)
+
+# Function to place the neighboring tiles of the specified position on the area_grid
+# It checks if there is a tile at the given position and then places neighbor tiles based on the tile's logic
+func place_neighbor_tiles(position: Vector2) -> void:
+	# Check if there is a tile at the initial position
+	var has_tile_at_position = area_grid.has(position)
+	print("Position: ", position, ", Tile present: ", has_tile_at_position)
+
+	# Get the tile at the specified position, if present
+	var current_tile = null
+	if has_tile_at_position:
+		current_tile = area_grid[position]
+		print("Tile at position: ", position, ", Tile ID: ", current_tile.id)
+	else:
+		print("No tile present at the specified position.")
+		return  # If there's no tile at the starting position, exit the function
+
+	# Define the direction offsets for neighboring positions
+	var direction_offsets = {
+		"north": Vector2(0, -1),
+		"south": Vector2(0, 1),
+		"east": Vector2(1, 0),
+		"west": Vector2(-1, 0)
+	}
+
+	# Loop over each direction, get the neighboring tile using the tile's get_neighbor_tile function, and place it on the area_grid
+	if current_tile != null:
+		for direction in direction_offsets.keys():
+			var neighbor_pos = position + direction_offsets[direction]
+
+			# Check if the neighbor position is within bounds
+			if neighbor_pos.x >= 0 and neighbor_pos.x < grid_width and neighbor_pos.y >= 0 and neighbor_pos.y < grid_height:
+				var neighbor_tile = current_tile.get_neighbor_tile(direction)
+				if neighbor_tile != null:
+					area_grid[neighbor_pos] = neighbor_tile
+					print("Placed neighbor tile at: ", neighbor_pos, ", Tile ID: ", neighbor_tile.id)
+				else:
+					print("No suitable neighbor tile found for direction: ", direction)
+
+
+
+# Function to place the starting tile in the center of the grid
+# The starting tile is selected from the tile_dictionary using specified parameters
+func place_starting_tile(center: Vector2) -> Tile:
+	# Parameters for the starting tile: neighbor_key "urban", connection "road", direction "north"
+	var starting_tiles = tile_dictionary.get("urban", {}).get("road", {}).get("north", {}).values()
+	var starting_tile = starting_tiles.pick_random() if starting_tiles.size() > 0 else null
+
+	if starting_tile:
+		area_grid[center] = starting_tile
+		print("Placed starting tile at the center:", center)
+	else:
+		print("Failed to find a suitable starting tile")
+
+	return starting_tile
+
 # An algorithm that loops over all Gamedata.maps and creates a Tile for: 
 # 1. each rotation of the map, and 2. each neighbor key.
 # Then it organizes the tiles into tile_dictionary based on their key, connection, and rotation.
@@ -208,6 +332,9 @@ func create_tile_entries() -> void:
 				mytile.tile_dictionary = tile_dictionary
 				mytile.rotation = myrotation
 				mytile.key = key  # May be "urban", "suburban", etc.
+				# A tile's mapdata may have multiple neighbor_keys, but this tile instance can only
+				# exist in one neighbor_key. Therefore we set the weight to the neighbor_key's weight
+				mytile.weight = map.neighbor_keys.get(key, 0)
 				mytile.id = map.id + "_" + str(key) + "_" + str(myrotation)
 				tile_catalog.append(mytile)  # Add tile to the catalog
 
@@ -326,29 +453,42 @@ func exclude_tile_from_cell(x: int, y: int, tile: Tile):
 		tried_tiles[key] = tile
 
 
+# Function to determine the order of cell processing, using a plus pattern from the center outward
 func get_cell_processing_order() -> Array:
 	var order = []
-	# Implement a heuristic to determine the order
-	# For example, use a priority queue based on the number of neighboring tiles
+	var visited = {}  # Dictionary to keep track of visited coordinates
+
+	# Start at the center of the grid
+	var center = Vector2(grid_width / 2, grid_height / 2)
+	order.append(center)
+	visited[center] = true
+
+	# Define the directions in a plus pattern: North, South, West, East
+	var directions = [Vector2(0, -1), Vector2(0, 1), Vector2(-1, 0), Vector2(1, 0)]
+
+	# Add the first set of tiles in the plus pattern around the center
+	var queue = []
+
+	for direction in directions:
+		var neighbor = center + direction
+		if neighbor.x >= 0 and neighbor.x < grid_width and neighbor.y >= 0 and neighbor.y < grid_height:
+			order.append(neighbor)
+			queue.append(neighbor)
+			visited[neighbor] = true
+
+	# Continue expanding outward in a plus pattern
+	while not queue.empty():
+		var current = queue.pop_front()
+
+		# Expand from the current position in the four primary directions
+		for direction in directions:
+			var neighbor = current + direction
+
+			# Check if the neighbor is within bounds and has not been visited yet
+			if neighbor.x >= 0 and neighbor.x < grid_width and neighbor.y >= 0 and neighbor.y < grid_height:
+				if not visited.has(neighbor):
+					order.append(neighbor)
+					queue.append(neighbor)
+					visited[neighbor] = true  # Mark as visited
+
 	return order
-
-
-func normalize_tile_weights(tiles: Array) -> void:
-	var total_weight = 0.0
-	for tile in tiles:
-		total_weight += tile.weight
-
-	for tile in tiles:
-		tile.normalized_weight = tile.weight / total_weight
-
-
-func adjust_tile_weights_based_on_neighbors(possible_tiles: Array, x: int, y: int) -> void:
-	# Example: Increase weight if the tile shares neighbor keys with adjacent tiles
-	#var adjacent_tiles = get_adjacent_tiles(x, y)
-	#for tile in possible_tiles:
-		#for neighbor in adjacent_tiles:
-			#if neighbor == null:
-				#continue
-			#if are_neighbor_keys_compatible(tile, neighbor):
-				#tile.weight *= 1.2  # Increase weight by 20%
-	pass
