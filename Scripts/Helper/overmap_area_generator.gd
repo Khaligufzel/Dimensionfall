@@ -251,17 +251,20 @@ func generate_city():
 # Generates the area from the center to the edge of the grid
 # This function will initiate the area generation by placing the starting tile and then expanding
 # to its immediate neighbors in a plus pattern (north, west, south, east).
-func generate_area():
+func generate_area(dimensions: Vector2 = Vector2(20,20)) -> Dictionary:
+	create_tile_entries()
 	# Step 1: Place the starting tile in the center of the grid
-	var center = Vector2(grid_width / 2, grid_height / 2)
+	var center = Vector2(dimensions.x / 2, dimensions.y / 2)
 	var starting_tile = place_starting_tile(center)
 
 	if starting_tile:
-		place_neighbor_tiles(center)
+		place_neighbor_tiles(center, dimensions)
+	return area_grid
+
 
 # Function to place the neighboring tiles of the specified position on the area_grid
 # It checks if there is a tile at the given position and then places neighbor tiles based on the tile's logic
-func place_neighbor_tiles(position: Vector2) -> void:
+func place_neighbor_tiles(position: Vector2, dimensions: Vector2) -> void:
 	# Check if there is a tile at the initial position
 	var has_tile_at_position = area_grid.has(position)
 	print("Position: ", position, ", Tile present: ", has_tile_at_position)
@@ -289,7 +292,7 @@ func place_neighbor_tiles(position: Vector2) -> void:
 			var neighbor_pos = position + direction_offsets[direction]
 
 			# Check if the neighbor position is within bounds
-			if neighbor_pos.x >= 0 and neighbor_pos.x < grid_width and neighbor_pos.y >= 0 and neighbor_pos.y < grid_height:
+			if neighbor_pos.x >= 0 and neighbor_pos.x < dimensions.x and neighbor_pos.y >= 0 and neighbor_pos.y < dimensions.y:
 				var neighbor_tile = current_tile.get_neighbor_tile(direction)
 				if neighbor_tile != null:
 					area_grid[neighbor_pos] = neighbor_tile
