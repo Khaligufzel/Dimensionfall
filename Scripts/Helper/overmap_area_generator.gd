@@ -61,6 +61,7 @@ class Tile:
 	# This variable holds the neighbor keys that are allowed to spawn next to this map
 	# dmap.neighbors e.g., {"north": {"urban": 100, "suburban": 50}, "south": ...}
 	var dmap: DMap  # Map data
+	var tile_dictionary: Dictionary # Reference to the tile_dictionary variable in the main script
 	
 	# Define rotation mappings for how the directions shift depending on rotation
 	var rotation_map = {
@@ -80,6 +81,36 @@ class Tile:
 			rotated_connections[new_direction] = dmap.connections[direction]  
 		return rotated_connections
 	
+	# Helper function to pick a neighbor key probabilistically based on weights
+	func pick_neighbor_key() -> String:
+		var total_weight: float = 0.0
+		for weight in dmap.neighbor_keys.values():
+			total_weight += weight
+		
+		var rand_value: float = randf() * total_weight
+		for key in dmap.neighbor_keys.keys():
+			rand_value -= dmap.neighbor_keys[key]
+			if rand_value <= 0:
+				return key
+		return ""  # Return an empty string if no key is picked, should not happen if weights are correct
+
+	# Retrieves a list of neighbor tiles based on the direction, connection type, and rotation
+	func get_neighbor_tiles(direction: String) -> Array:
+		# Step 1: Pick a neighbor key using the weighted selection
+		var neighbor_key: String = pick_neighbor_key()
+		if neighbor_key == "":
+			return []  # Return an empty list if no valid neighbor key is found
+
+		# Step 2: Determine the connection type for the provided direction based on tile rotation
+		var rotated_connections: Dictionary = rotated_connections(rotation)
+		var connection_type: String = rotated_connections.get(direction, "")
+
+		# Step 3: Retrieve the list of tiles from tile_dictionary based on the neighbor key, connection type, and direction
+		if tile_dictionary.has(neighbor_key) and tile_dictionary[neighbor_key].has(connection_type) and tile_dictionary[neighbor_key][connection_type].has(direction):
+			return tile_dictionary[neighbor_key][connection_type][direction].values()  # Return the list of tiles
+		else:
+			return []  # Return an empty list if no matching tiles are found
+
 	# Checks if this tile and a neighbor tile have compatible connections
 	func are_connections_compatible(neighbor: Tile, direction: String) -> bool:
 		# Get the adjusted connections for both tiles based on their rotations
@@ -159,20 +190,44 @@ func generate_city():
 				return
 
 
-# An algorithm that loops over all Gamedata.maps and creates a Tile for: 1. each rotation of the map. 2. each neighbor key. So one map can have a maximum of 4 TileInfo variants, multiplied by the amount of neighbor keys.
+# An algorithm that loops over all Gamedata.maps and creates a Tile for: 
+# 1. each rotation of the map, and 2. each neighbor key.
+# Then it organizes the tiles into tile_dictionary based on their key, connection, and rotation.
+# So one map can have a maximum of 4 TileInfo variants, multiplied by the amount of neighbor keys.
 func create_tile_entries() -> void:
 	tile_catalog.clear()
+	tile_dictionary.clear()
 	var maps: Dictionary = Gamedata.maps.get_all()
-	var rotations: Array = [0,90,180,270]
+	var rotations: Array = [0, 90, 180, 270]
+
 	for map: DMap in maps.values():
 		for key in map.neighbor_keys.keys():
 			for myrotation in rotations:
 				var mytile: Tile = Tile.new()
 				mytile.dmap = map
+				mytile.tile_dictionary = tile_dictionary
 				mytile.rotation = myrotation
-				mytile.key = key # May be "urban", "suburban" or something else
+				mytile.key = key  # May be "urban", "suburban", etc.
 				mytile.id = map.id + "_" + str(key) + "_" + str(myrotation)
-				tile_catalog.append(mytile)
+				tile_catalog.append(mytile)  # Add tile to the catalog
+
+				# Get the rotated connections for this tile
+				var rotated_connections = mytile.rotated_connections(myrotation)
+
+				# Organize the tile into the tile_dictionary
+				for connection_direction in rotated_connections.keys():
+					var connection_type = rotated_connections[connection_direction]
+
+					# Ensure the dictionary structure exists
+					if not tile_dictionary.has(key):
+						tile_dictionary[key] = {}
+					if not tile_dictionary[key].has(connection_type):
+						tile_dictionary[key][connection_type] = {}
+					if not tile_dictionary[key][connection_type].has(connection_direction):
+						tile_dictionary[key][connection_type][connection_direction] = {}
+
+					# Store the tile in the dictionary under its key, connection type, and direction
+					tile_dictionary[key][connection_type][connection_direction][mytile.id] = mytile
 
 
 # Used to place a tile at this coordinate
