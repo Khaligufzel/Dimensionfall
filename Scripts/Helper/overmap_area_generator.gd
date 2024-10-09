@@ -11,8 +11,9 @@ extends RefCounted
 var grid_width: int = 20
 var grid_height: int = 20
 var area_grid: Dictionary = {}  # The resulting grid
-var tile_catalog = []  # List of all tile instances with rotations
-var tried_tiles = {}  # Key: (x, y), Value: Set of tried tile IDs
+var tile_catalog: Array = []  # List of all tile instances with rotations
+var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
+var processed_tiles: Dictionary = {}  # Dictionary to track processed tiles
 
 # Tiles sorted by key. This can be used to select the right neighbors for the tiles
 # We will pick one direction to select the correct neighbor. Let's say "north".
@@ -145,7 +146,7 @@ class Tile:
 		if tile_dictionary[neighbor_key].has(connection_type) and tile_dictionary[neighbor_key][connection_type].has(reverse_direction):
 			return tile_dictionary[neighbor_key][connection_type][reverse_direction].values()  # Return the list of tiles
 		else:
-			print_debug("get_neighbor_tiles: No matching tiles found for Neighbor Key:", neighbor_key, "and Connection Type:", connection_type)  # Debug when no tiles are found
+			print_debug("get_neighbor_tiles: No matching tiles found for Neighbor Key:", neighbor_key, " and Connection Type:", connection_type)  # Debug when no tiles are found
 			return []  # Return an empty list if no matching tiles are found
 
 
@@ -258,6 +259,7 @@ func generate_city():
 # This function will initiate the area generation by placing the starting tile and then expanding
 # to its immediate neighbors in a plus pattern (north, west, south, east).
 func generate_area(dimensions: Vector2 = Vector2(20, 20), max_iterations: int = 100000) -> Dictionary:
+	processed_tiles.clear()
 	create_tile_entries()
 
 	# Step 1: Place the starting tile in the center of the grid
@@ -266,7 +268,7 @@ func generate_area(dimensions: Vector2 = Vector2(20, 20), max_iterations: int = 
 
 	# Step 2: Initialize a queue to manage tiles to be processed
 	var queue = []  # List of tile positions to process
-	var processed_tiles = {}  # Dictionary to track processed tiles
+	processed_tiles = {}  # Dictionary to track processed tiles
 	var iteration_count = 0  # Counter to track the number of iterations
 
 	if starting_tile:
@@ -294,6 +296,7 @@ func generate_area(dimensions: Vector2 = Vector2(20, 20), max_iterations: int = 
 			# Check if the neighbor is within bounds and hasn't been processed yet
 			if is_within_grid_bounds(neighbor_position, dimensions):
 				if not processed_tiles.has(neighbor_position) and area_grid.has(neighbor_position):
+					print_debug("appending position ("+str(neighbor_position)+") direction ("+str(direction)+") current_position ("+str(current_position)+")")
 					queue.append(neighbor_position)
 					processed_tiles[neighbor_position] = true  # Mark as processed
 
@@ -338,7 +341,7 @@ func place_neighbor_tiles(position: Vector2, dimensions: Vector2) -> void:
 			var neighbor_pos: Vector2 = position + direction_offsets[direction]
 
 			# Check if the neighbor position is within bounds
-			if is_within_grid_bounds(neighbor_pos, dimensions):
+			if is_within_grid_bounds(neighbor_pos, dimensions) and not area_grid.has(neighbor_pos):
 				var neighbor_tile: Tile = current_tile.get_neighbor_tile(direction)
 				if neighbor_tile != null:
 					area_grid[neighbor_pos] = neighbor_tile
