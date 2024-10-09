@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://2kp6gjwaextr"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/overmap_area_region.gd" id="1_ees1v"]
+
+[node name="OvermapAreaRegion" type="VBoxContainer" node_paths=PackedStringArray("region_name_label", "min_range_h_slider", "max_range_h_slider", "maps_grid_container")]
+script = ExtResource("1_ees1v")
+region_name_label = NodePath("HBoxContainer/RegionNameLabel")
+min_range_h_slider = NodePath("HBoxContainer/MinRangeHSlider")
+max_range_h_slider = NodePath("HBoxContainer/MaxRangeHSlider")
+maps_grid_container = NodePath("MapsGridContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RegionNameLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Urban"
+
+[node name="MinRangeLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Min distance from center"
+
+[node name="MinRangeHSlider" type="HSlider" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+
+[node name="MaxRangeLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Max distance from center"
+
+[node name="MaxRangeHSlider" type="HSlider" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+value = 100.0
+
+[node name="MapsLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Maps:"
+
+[node name="MapsGridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
