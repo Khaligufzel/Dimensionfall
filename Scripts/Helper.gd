@@ -19,7 +19,6 @@ const task_manager_Class = preload("res://Scripts/Helper/task_manager.gd")
 const map_manager_Class = preload("res://Scripts/Helper/map_manager.gd")
 const overmap_manager_Class = preload("res://Scripts/Helper/overmap_manager.gd")
 const quest_helper_Class = preload("res://Scripts/Helper/quest_helper.gd")
-const wave_function_collapse_Class = preload("res://Scripts/Helper/wave_function_collapse.gd")
 
 var json_helper: RefCounted = null
 var save_helper: Node = null
@@ -28,7 +27,6 @@ var task_manager: Node = null
 var map_manager: Node = null
 var overmap_manager: Node = null
 var quest_helper: Node = null
-var wave_function_collapse: RefCounted = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,7 +45,6 @@ func initialize_helpers():
 	map_manager = map_manager_Class.new()
 	overmap_manager = overmap_manager_Class.new()
 	quest_helper = quest_helper_Class.new()
-	wave_function_collapse = wave_function_collapse_Class.new()
 
 
 func _process(_delta: float) -> void:
