@@ -254,18 +254,54 @@ func generate_city():
 # compatible with both tiles at the same time, we will put that tile in an exclusion list and
 # pick another tile from tile.get_neighbor_tile(direction). Repeat this process until a tile is placed.
 # If no tile can be placed here, place the starting tile here.
-
 # Generates the area from the center to the edge of the grid
 # This function will initiate the area generation by placing the starting tile and then expanding
 # to its immediate neighbors in a plus pattern (north, west, south, east).
-func generate_area(dimensions: Vector2 = Vector2(20,20)) -> Dictionary:
+func generate_area(dimensions: Vector2 = Vector2(20, 20), max_iterations: int = 100000) -> Dictionary:
 	create_tile_entries()
+
 	# Step 1: Place the starting tile in the center of the grid
 	var center = Vector2(dimensions.x / 2, dimensions.y / 2)
 	var starting_tile = place_starting_tile(center)
 
+	# Step 2: Initialize a queue to manage tiles to be processed
+	var queue = []  # List of tile positions to process
+	var processed_tiles = {}  # Dictionary to track processed tiles
+	var iteration_count = 0  # Counter to track the number of iterations
+
 	if starting_tile:
-		place_neighbor_tiles(center, dimensions)
+		queue.append(center)
+		processed_tiles[center] = true
+
+	# Step 3: Process the queue until all tiles have been placed or limit is reached
+	while not queue.is_empty() and iteration_count < max_iterations:
+		var current_position = queue.pop_front()
+
+		# Place neighbors for the current tile position
+		place_neighbor_tiles(current_position, dimensions)
+
+		# Check each neighbor position to add unprocessed tiles to the queue
+		var direction_offsets = {
+			"north": Vector2(0, -1),
+			"east": Vector2(1, 0),
+			"south": Vector2(0, 1),
+			"west": Vector2(-1, 0)
+		}
+
+		for direction in direction_offsets.keys():
+			var neighbor_position = current_position + direction_offsets[direction]
+
+			# Check if the neighbor is within bounds and hasn't been processed yet
+			if neighbor_position.x >= 0 and neighbor_position.x < dimensions.x and neighbor_position.y >= 0 and neighbor_position.y < dimensions.y:
+				if not processed_tiles.has(neighbor_position) and area_grid.has(neighbor_position):
+					queue.append(neighbor_position)
+					processed_tiles[neighbor_position] = true  # Mark as processed
+
+		iteration_count += 1  # Increment the iteration counter
+
+	if iteration_count >= max_iterations:
+		print_debug("Warning: Maximum iteration limit reached in generate_area. Possible infinite loop detected.")
+
 	return area_grid
 
 
@@ -279,7 +315,6 @@ func place_neighbor_tiles(position: Vector2, dimensions: Vector2) -> void:
 	var current_tile = null
 	if has_tile_at_position:
 		current_tile = area_grid[position]
-		print_debug("Tile at position: ", position, ", Tile ID: ", current_tile.id)
 	else:
 		print_debug("No tile present at the specified position.")
 		return  # If there's no tile at the starting position, exit the function
@@ -302,7 +337,6 @@ func place_neighbor_tiles(position: Vector2, dimensions: Vector2) -> void:
 				var neighbor_tile = current_tile.get_neighbor_tile(direction)
 				if neighbor_tile != null:
 					area_grid[neighbor_pos] = neighbor_tile
-					print_debug("place_neighbor_tiles: Placed neighbor tile at: ", neighbor_pos, ", Tile ID: ", neighbor_tile.id, " for direction: ", direction)
 				else:
 					print_debug("No suitable neighbor tile found for direction: ", direction)
 
