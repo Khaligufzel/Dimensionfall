@@ -10,11 +10,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
-func _on_wave_collapse_button_button_up() -> void:
-	get_tree().change_scene_to_file("res://Scenes/ContentManager/OtherTools/wave_collapse_generator.tscn")
-
-
 func _on_back_button_button_up() -> void:
 	get_tree().change_scene_to_file("res://Scenes/ContentManager/contentmanager.tscn")
 
