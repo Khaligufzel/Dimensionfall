@@ -4,7 +4,7 @@ extends RefCounted
 # This class represents a overmaparea with its properties
 # Example overmaparea data:
 # {
-#   "overmap_area": {
+#     "id": "city_00",  // id for the overmap area
 #     "name": "Example City",  // Name for the overmap area
 #     "description": "A densely populated urban area surrounded by suburban regions and open fields.",  // Description of the overmap area
 #     "min_width": 5,  // Minimum width of the overmap area
@@ -79,15 +79,22 @@ extends RefCounted
 #         ]
 #       }
 #     }
-#   }
 # }
 
 # Properties defined in the overmaparea
 var id: String
 var name: String
 var description: String
-var spriteid: String
-var sprite: Texture
+
+# Dimensions of the overmap area
+var min_width: int
+var min_height: int
+var max_width: int
+var max_height: int
+
+# Regions data, which includes spawn probability and maps for each region type
+var regions: Dictionary = {}  # Example structure: { "urban": { "spawn_probability": { "range": { "start_range": 0, "end_range": 30 } }, "maps": [...] }, ... }
+
 var references: Dictionary = {}
 
 # Constructor to initialize overmaparea properties from a dictionary
@@ -95,8 +102,28 @@ func _init(data: Dictionary):
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
-	spriteid = data.get("sprite", "")
+
+	# Initialize dimensions of the overmap area
+	min_width = data.get("min_width", 0)
+	min_height = data.get("min_height", 0)
+	max_width = data.get("max_width", 0)
+	max_height = data.get("max_height", 0)
+
+	# Initialize regions structure
+	regions = {}  # Dictionary to store regions and their data
+	if data.has("regions"):
+		for region_name in data["regions"].keys():
+			var region_data = data["regions"][region_name]
+			var spawn_probability = {
+				"range": {
+					"start_range": region_data.get("spawn_probability", {}).get("range", {}).get("start_range", 0),
+					"end_range": region_data.get("spawn_probability", {}).get("range", {}).get("end_range", 0)
+				}
+			}
+			var maps = region_data.get("maps", [])
+			regions[region_name] = {"spawn_probability": spawn_probability, "maps": maps}
 	references = data.get("references", {})
+
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -104,7 +131,11 @@ func get_data() -> Dictionary:
 		"id": id,
 		"name": name,
 		"description": description,
-		"sprite": spriteid
+		"min_width": min_width,
+		"min_height": min_height,
+		"max_width": max_width,
+		"max_height": max_height,
+		"regions": regions
 	}
 	if not references.is_empty():
 		data["references"] = references
