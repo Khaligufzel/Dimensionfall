@@ -471,10 +471,10 @@
 		"City"
 	],
 	"connections": {
-		"east": "road",
+		"east": "ground",
 		"north": "road",
 		"south": "ground",
-		"west": "ground"
+		"west": "road"
 	},
 	"description": "A house designed for corner plots, providing unique architectural features.",
 	"id": "generichouse_corner",

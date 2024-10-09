@@ -66,20 +66,24 @@ class Tile:
 	# Define rotation mappings for how the directions shift depending on rotation
 	var rotation_map = {
 		0: {"north": "north", "east": "east", "south": "south", "west": "west"},
-		90: {"north": "west", "east": "north", "south": "east", "west": "south"},
+		90: {"north": "east", "east": "south", "south": "west", "west": "north"},
 		180: {"north": "south", "east": "west", "south": "north", "west": "east"},
-		270: {"north": "east", "east": "south", "south": "west", "west": "north"}
+		270: {"north": "west", "east": "north", "south": "east", "west": "south"}
 	}
+
 
 	# Adjusts the connections based on the rotation
 	func rotated_connections(rotation: int) -> Dictionary:
 		var rotated_connections = {}
 		for direction in dmap.connections.keys():
-			# If the direction is "north" and the rotation is 90, new_direction will be "west"
-			var new_direction = rotation_map[rotation][direction]  # Adjust the direction based on the rotation
-			# Keep the same connection type but adjust direction, so a road to north is now a road to west
-			rotated_connections[new_direction] = dmap.connections[direction]  
+			# Adjust the direction based on the rotation using the rotation_map
+			var new_direction = rotation_map[rotation][direction]
+
+			# Keep the same connection type but adjust direction, so a road to north is now a road to west, for example
+			rotated_connections[new_direction] = dmap.connections[direction]
+
 		return rotated_connections
+
 		
 	# Function to pick a tile from the list based on the weights
 	# tiles: A list of tiles that are limited by neighbor_key, connection and direction
@@ -129,22 +133,19 @@ class Tile:
 	func get_neighbor_tiles(direction: String) -> Array:
 		# Step 1: Pick a neighbor key using the weighted selection for the specified direction
 		var neighbor_key: String = pick_neighbor_key(direction)
-		print("get_neighbor_tiles: Direction: ", direction, ", Selected Neighbor Key:", neighbor_key)  # Debug print for the neighbor key
 		if neighbor_key == "" or not tile_dictionary.has(neighbor_key):
 			return []  # Return an empty list if no valid neighbor key is found
 
 		# Step 2: Determine the connection type for the provided direction based on tile rotation
 		var rotated_connections: Dictionary = rotated_connections(rotation)
 		var connection_type: String = rotated_connections.get(direction, "")
-		print("get_neighbor_tiles: Rotation: ", rotation, ", Direction: ", direction, ", Connection Type:", connection_type)  # Debug print for the connection type
 
 		# Step 3: Retrieve the list of tiles from tile_dictionary based on the neighbor key, connection type, and direction
 		var reverse_direction = rotation_map[180][direction]  # Get the reverse direction
 		if tile_dictionary[neighbor_key].has(connection_type) and tile_dictionary[neighbor_key][connection_type].has(reverse_direction):
-			print("get_neighbor_tiles: Direction: ", direction, ", Neighbor Key:", neighbor_key, ", Reverse Direction:", reverse_direction)  # Debug print for direction details
 			return tile_dictionary[neighbor_key][connection_type][reverse_direction].values()  # Return the list of tiles
 		else:
-			print("get_neighbor_tiles: No matching tiles found for Neighbor Key:", neighbor_key, "and Connection Type:", connection_type)  # Debug when no tiles are found
+			print_debug("get_neighbor_tiles: No matching tiles found for Neighbor Key:", neighbor_key, "and Connection Type:", connection_type)  # Debug when no tiles are found
 			return []  # Return an empty list if no matching tiles are found
 
 
@@ -233,7 +234,7 @@ func generate_city():
 		if not success:
 			# Implement backtracking if placement fails
 			if not backtrack(cell.x, cell.y):
-				print("Failed to generate city. No valid tile placements available.")
+				print_debug("Failed to generate city. No valid tile placements available.")
 				return
 
 
@@ -273,15 +274,14 @@ func generate_area(dimensions: Vector2 = Vector2(20,20)) -> Dictionary:
 func place_neighbor_tiles(position: Vector2, dimensions: Vector2) -> void:
 	# Check if there is a tile at the initial position
 	var has_tile_at_position = area_grid.has(position)
-	print("Position: ", position, ", Tile present: ", has_tile_at_position)
 
 	# Get the tile at the specified position, if present
 	var current_tile = null
 	if has_tile_at_position:
 		current_tile = area_grid[position]
-		print("Tile at position: ", position, ", Tile ID: ", current_tile.id)
+		print_debug("Tile at position: ", position, ", Tile ID: ", current_tile.id)
 	else:
-		print("No tile present at the specified position.")
+		print_debug("No tile present at the specified position.")
 		return  # If there's no tile at the starting position, exit the function
 
 	# Define the direction offsets for neighboring positions
@@ -302,9 +302,9 @@ func place_neighbor_tiles(position: Vector2, dimensions: Vector2) -> void:
 				var neighbor_tile = current_tile.get_neighbor_tile(direction)
 				if neighbor_tile != null:
 					area_grid[neighbor_pos] = neighbor_tile
-					print("place_neighbor_tiles: Placed neighbor tile at: ", neighbor_pos, ", Tile ID: ", neighbor_tile.id, " for direction: ", direction)
+					print_debug("place_neighbor_tiles: Placed neighbor tile at: ", neighbor_pos, ", Tile ID: ", neighbor_tile.id, " for direction: ", direction)
 				else:
-					print("No suitable neighbor tile found for direction: ", direction)
+					print_debug("No suitable neighbor tile found for direction: ", direction)
 
 
 # Function to place the starting tile in the center of the grid
@@ -316,9 +316,9 @@ func place_starting_tile(center: Vector2) -> Tile:
 
 	if starting_tile:
 		area_grid[center] = starting_tile
-		print("Placed starting tile at the center:", center)
+		print_debug("Placed starting tile at the center:", center)
 	else:
-		print("Failed to find a suitable starting tile")
+		print_debug("Failed to find a suitable starting tile")
 
 	return starting_tile
 
@@ -341,7 +341,7 @@ func create_tile_entries() -> void:
 				mytile.tile_dictionary = tile_dictionary
 				mytile.rotation = myrotation
 				mytile.key = key  # May be "urban", "suburban", etc.
-				# A tile's mapdata may have multiple neighbor_keys, but this tile instance can only
+				# A tile's map data may have multiple neighbor_keys, but this tile instance can only
 				# exist in one neighbor_key. Therefore we set the weight to the neighbor_key's weight
 				mytile.weight = map.neighbor_keys.get(key, 0)
 				mytile.id = map.id + "_" + str(key) + "_" + str(myrotation)
@@ -364,6 +364,7 @@ func create_tile_entries() -> void:
 
 					# Store the tile in the dictionary under its key, connection type, and direction
 					tile_dictionary[key][connection_type][connection_direction][mytile.id] = mytile
+
 
 
 # Used to place a tile at this coordinate
