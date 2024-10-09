@@ -119,6 +119,17 @@ func load_overmaparea_data() -> void:
 	if DescriptionTextEdit != null:
 		DescriptionTextEdit.text = dovermaparea.description
 
+	# Update the minimum and maximum width and height spin boxes
+	if min_width_spin_box != null:
+		min_width_spin_box.value = dovermaparea.min_width
+	if min_height_spin_box != null:
+		min_height_spin_box.value = dovermaparea.min_height
+	if max_width_spin_box != null:
+		max_width_spin_box.value = dovermaparea.max_width
+	if max_height_spin_box != null:
+		max_height_spin_box.value = dovermaparea.max_height
+
+
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
@@ -129,8 +140,23 @@ func _on_close_button_button_up() -> void:
 # the central array for overmaparea data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
+	# Update the name and description fields
 	dovermaparea.name = NameTextEdit.text
 	dovermaparea.description = DescriptionTextEdit.text
+
+	# Update the minimum and maximum width and height fields from the spin boxes
+	if min_width_spin_box != null:
+		dovermaparea.min_width = int(min_width_spin_box.value)
+	if min_height_spin_box != null:
+		dovermaparea.min_height = int(min_height_spin_box.value)
+	if max_width_spin_box != null:
+		dovermaparea.max_width = int(max_width_spin_box.value)
+	if max_height_spin_box != null:
+		dovermaparea.max_height = int(max_height_spin_box.value)
+
+	# Save the updated data to disk and emit the data_changed signal
 	dovermaparea.save_to_disk()
 	data_changed.emit()
+
+	# Store the current data as the old data for future comparisons
 	olddata = DOvermaparea.new(dovermaparea.get_data().duplicate(true))
