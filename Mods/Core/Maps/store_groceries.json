@@ -255,10 +255,10 @@
 		"City"
 	],
 	"connections": {
-		"east": "road",
+		"east": "ground",
 		"north": "ground",
 		"south": "ground",
-		"west": "ground"
+		"west": "road"
 	},
 	"description": "The supermarket serves as a critical hub for scavenging, filled with both resources and a sense of danger.",
 	"id": "store_groceries",

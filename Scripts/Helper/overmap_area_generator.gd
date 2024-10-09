@@ -292,7 +292,7 @@ func generate_area(dimensions: Vector2 = Vector2(20, 20), max_iterations: int = 
 			var neighbor_position = current_position + direction_offsets[direction]
 
 			# Check if the neighbor is within bounds and hasn't been processed yet
-			if neighbor_position.x >= 0 and neighbor_position.x < dimensions.x and neighbor_position.y >= 0 and neighbor_position.y < dimensions.y:
+			if is_within_grid_bounds(neighbor_position, dimensions):
 				if not processed_tiles.has(neighbor_position) and area_grid.has(neighbor_position):
 					queue.append(neighbor_position)
 					processed_tiles[neighbor_position] = true  # Mark as processed
@@ -303,6 +303,11 @@ func generate_area(dimensions: Vector2 = Vector2(20, 20), max_iterations: int = 
 		print_debug("Warning: Maximum iteration limit reached in generate_area. Possible infinite loop detected.")
 
 	return area_grid
+
+
+# Function to check if a given position is within the grid bounds
+func is_within_grid_bounds(position: Vector2, dimensions: Vector2) -> bool:
+	return position.x >= 0 and position.x < dimensions.x and position.y >= 0 and position.y < dimensions.y
 
 
 # Function to place the neighboring tiles of the specified position on the area_grid
@@ -320,7 +325,7 @@ func place_neighbor_tiles(position: Vector2, dimensions: Vector2) -> void:
 		return  # If there's no tile at the starting position, exit the function
 
 	# Define the direction offsets for neighboring positions
-	var direction_offsets = {
+	var direction_offsets: Dictionary = {
 		"north": Vector2(0, -1),
 		"east": Vector2(1, 0),
 		"south": Vector2(0, 1),
@@ -329,14 +334,15 @@ func place_neighbor_tiles(position: Vector2, dimensions: Vector2) -> void:
 
 	# Loop over each direction, get the neighboring tile using the tile's get_neighbor_tile function, and place it on the area_grid
 	if current_tile != null:
-		for direction in direction_offsets.keys():
-			var neighbor_pos = position + direction_offsets[direction]
+		for direction: String in direction_offsets.keys():
+			var neighbor_pos: Vector2 = position + direction_offsets[direction]
 
 			# Check if the neighbor position is within bounds
-			if neighbor_pos.x >= 0 and neighbor_pos.x < dimensions.x and neighbor_pos.y >= 0 and neighbor_pos.y < dimensions.y:
-				var neighbor_tile = current_tile.get_neighbor_tile(direction)
+			if is_within_grid_bounds(neighbor_pos, dimensions):
+				var neighbor_tile: Tile = current_tile.get_neighbor_tile(direction)
 				if neighbor_tile != null:
 					area_grid[neighbor_pos] = neighbor_tile
+					print_debug("Placing tile at position ("+str(neighbor_pos)+") direction ("+str(direction)+") tile ("+str(neighbor_tile.id)+")")
 				else:
 					print_debug("No suitable neighbor tile found for direction: ", direction)
 
