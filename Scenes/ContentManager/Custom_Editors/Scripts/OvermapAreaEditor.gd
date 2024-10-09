@@ -3,10 +3,9 @@ extends Control
 # This scene is intended to be used inside the content editor
 # It is supposed to edit exactly one DOvermapArea
 # It expects to save the data to a JSON file
-
-# Example data:
+# Example overmaparea data:
 # {
-#   "overmap_area": {
+#     "id": "city_00",  // id for the overmap area
 #     "name": "Example City",  // Name for the overmap area
 #     "description": "A densely populated urban area surrounded by suburban regions and open fields.",  // Description of the overmap area
 #     "min_width": 5,  // Minimum width of the overmap area
@@ -81,7 +80,6 @@ extends Control
 #         ]
 #       }
 #     }
-#   }
 # }
 
 
@@ -96,45 +94,43 @@ extends Control
 @export var region_v_box_container: VBoxContainer = null # Contains region editing controls
 
 
-
-
 # This signal will be emitted when the user presses the save button
-# This signal should alert Gamedata that the stat data array should be saved to disk
+# This signal should alert Gamedata that the overmaparea data array should be saved to disk
 signal data_changed()
 
-var olddata: DStat # Remember what the value of the data was before editing
+var olddata: DOvermaparea # Remember what the value of the data was before editing
 
-# The data that represents this stat
-# The data is selected from the Gamedata.stats
+# The data that represents this overmaparea
+# The data is selected from the Gamedata.overmapareas
 # based on the ID that the user has selected in the content editor
-var dstat: DStat = null:
+var dovermaparea: DOvermaparea = null:
 	set(value):
-		dstat = value
-		load_stat_data()
-		olddata = DStat.new(dstat.get_data().duplicate(true))
+		dovermaparea = value
+		load_overmaparea_data()
+		olddata = DOvermaparea.new(dovermaparea.get_data().duplicate(true))
 
 
-# This function updates the form based on the DStat that has been loaded
-func load_stat_data() -> void:
+# This function updates the form based on the DOvermaparea that has been loaded
+func load_overmaparea_data() -> void:
 	if IDTextLabel != null:
-		IDTextLabel.text = str(dstat.id)
+		IDTextLabel.text = str(dovermaparea.id)
 	if NameTextEdit != null:
-		NameTextEdit.text = dstat.name
+		NameTextEdit.text = dovermaparea.name
 	if DescriptionTextEdit != null:
-		DescriptionTextEdit.text = dstat.description
+		DescriptionTextEdit.text = dovermaparea.description
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
 	queue_free()
 
-# This function takes all data from the form elements and stores them in the DStat instance
-# Since dstat is a reference to an item in Gamedata.stats
-# the central array for stat data is updated with the changes as well
+# This function takes all data from the form elements and stores them in the DOvermaparea instance
+# Since dovermaparea is a reference to an item in Gamedata.overmapareas
+# the central array for overmaparea data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
-	dstat.name = NameTextEdit.text
-	dstat.description = DescriptionTextEdit.text
-	dstat.save_to_disk()
+	dovermaparea.name = NameTextEdit.text
+	dovermaparea.description = DescriptionTextEdit.text
+	dovermaparea.save_to_disk()
 	data_changed.emit()
-	olddata = DStat.new(dstat.get_data().duplicate(true))
+	olddata = DOvermaparea.new(dovermaparea.get_data().duplicate(true))

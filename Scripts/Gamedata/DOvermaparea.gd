@@ -97,6 +97,23 @@ var regions: Dictionary = {}  # Example structure: { "urban": { "spawn_probabili
 
 var references: Dictionary = {}
 
+# Inner class to represent a region within the overmap area
+class Region:
+	var spawn_probability: Dictionary  # Example structure: { "range": { "start_range": 0, "end_range": 30 } }
+	var maps: Array  # Example structure: [ { "id": "house_01", "weight": 10 }, ...]
+
+	# Constructor to initialize a region with spawn probability and maps data
+	func _init(spawn_probability: Dictionary = {}, maps: Array = []):
+		self.spawn_probability = spawn_probability
+		self.maps = maps
+
+	# Method to return the region data as a dictionary
+	func get_data() -> Dictionary:
+		return {
+			"spawn_probability": spawn_probability,
+			"maps": maps
+		}
+
 # Constructor to initialize overmaparea properties from a dictionary
 func _init(data: Dictionary):
 	id = data.get("id", "")
@@ -109,19 +126,12 @@ func _init(data: Dictionary):
 	max_width = data.get("max_width", 0)
 	max_height = data.get("max_height", 0)
 
-	# Initialize regions structure
-	regions = {}  # Dictionary to store regions and their data
-	if data.has("regions"):
-		for region_name in data["regions"].keys():
-			var region_data = data["regions"][region_name]
-			var spawn_probability = {
-				"range": {
-					"start_range": region_data.get("spawn_probability", {}).get("range", {}).get("start_range", 0),
-					"end_range": region_data.get("spawn_probability", {}).get("range", {}).get("end_range", 0)
-				}
-			}
-			var maps = region_data.get("maps", [])
-			regions[region_name] = {"spawn_probability": spawn_probability, "maps": maps}
+	# Initialize regions from data
+	for region_key in data.get("regions", {}).keys():
+		var region_data = data["regions"][region_key]
+		var spawn_probability = region_data.get("spawn_probability", {})
+		var maps = region_data.get("maps", [])
+		regions[region_key] = Region.new(spawn_probability, maps)
 	references = data.get("references", {})
 
 
@@ -135,8 +145,12 @@ func get_data() -> Dictionary:
 		"min_height": min_height,
 		"max_width": max_width,
 		"max_height": max_height,
-		"regions": regions
+		"regions": {}
 	}
+	# Add regions data to the dictionary
+	for region_key in regions.keys():
+		data["regions"][region_key] = regions[region_key].get_data()
+
 	if not references.is_empty():
 		data["references"] = references
 	return data
