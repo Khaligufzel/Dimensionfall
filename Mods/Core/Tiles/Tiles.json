@@ -82,7 +82,8 @@
 					"store_electronic_clothing",
 					"Generichouse",
 					"Generichouse_00",
-					"store_groceries"
+					"store_groceries",
+					"abandoned_building"
 				]
 			}
 		},
@@ -176,7 +177,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"Generichouse",
-					"Generichouse_00"
+					"Generichouse_00",
+					"abandoned_building"
 				]
 			}
 		},
@@ -1353,7 +1355,8 @@
 					"Generichouse_00",
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"store_groceries"
+					"store_groceries",
+					"abandoned_building"
 				]
 			}
 		},
@@ -1382,7 +1385,8 @@
 					"forest_basic_00",
 					"Generichouse_00",
 					"RockyHill_SW",
-					"store_groceries"
+					"store_groceries",
+					"abandoned_building"
 				]
 			}
 		},
@@ -1409,7 +1413,8 @@
 					"forest_basic_00",
 					"Generichouse",
 					"RockyHill_SW",
-					"store_groceries"
+					"store_groceries",
+					"abandoned_building"
 				]
 			}
 		},
@@ -1723,7 +1728,8 @@
 					"forest_basic_00",
 					"Generichouse",
 					"Generichouse_00",
-					"store_groceries"
+					"store_groceries",
+					"abandoned_building"
 				]
 			}
 		},
@@ -1743,7 +1749,8 @@
 					"field_grass_hill_00",
 					"generichouse_corner",
 					"forest_basic_00",
-					"Generichouse"
+					"Generichouse",
+					"abandoned_building"
 				]
 			}
 		},
@@ -1761,7 +1768,8 @@
 			"core": {
 				"maps": [
 					"field_grass_hill_00",
-					"forest_basic_00"
+					"forest_basic_00",
+					"abandoned_building"
 				]
 			}
 		},
@@ -2059,7 +2067,8 @@
 					"store_electronic_clothing",
 					"Generichouse",
 					"Generichouse_00",
-					"store_groceries"
+					"store_groceries",
+					"abandoned_building"
 				]
 			}
 		},
@@ -2080,7 +2089,8 @@
 					"generichouse_t",
 					"Generichouse",
 					"Generichouse_00",
-					"store_groceries"
+					"store_groceries",
+					"abandoned_building"
 				]
 			}
 		},
@@ -2139,7 +2149,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"store_electronic_clothing",
-					"store_groceries"
+					"store_groceries",
+					"abandoned_building"
 				]
 			}
 		},

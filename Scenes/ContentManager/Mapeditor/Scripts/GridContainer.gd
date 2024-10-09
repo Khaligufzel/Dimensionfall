@@ -260,12 +260,7 @@ func paint_single_tile(clicked_tile: Control) -> void:
 
 # Function to apply paint or erase logic to a single tile
 func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
-	# Since the grid is always completely filled, the index should be reliable. This assumes
-	# that mapEditor.currentMap.levels[currentLevel] assumes the same number of items as the grid.
-	var index = tile.get_index() 
-	if index == -1:
-		return
-	var tileData = mapEditor.currentMap.levels[currentLevel][index]
+	var tileData = get_tile_data(tile,currentLevel)
 	
 	if erase:
 		if brush:
@@ -302,7 +297,7 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 			set_tile_id(tileData,brush.entityID)
 			set_rotation_amount(tileData, tilerotation)
 	# Update the map data
-	mapEditor.currentMap.levels[currentLevel][index] = tileData
+	mapEditor.currentMap.levels[currentLevel][tile.get_index()] = tileData
 	# Tell the tile to update its display
 	tile.update_display(tileData, brushcomposer.get_selected_area_name())
 
@@ -600,6 +595,7 @@ func _on_show_above_toggled(button_pressed):
 
 #This function takes the mapData property and saves all of it as a json file.
 func save_map_json_file():
+	remove_empty_levels()
 	# Convert the TileGrid.mapData to a JSON string
 	mapEditor.update_settings_values()
 	mapEditor.currentMap.save_data_to_disk()
@@ -609,6 +605,22 @@ func save_map_json_file():
 	# We wrote to mapEditor.currentMap, which means it's out of sync with each mapeditortile
 	# instance's data. We have to reload it
 	loadLevelData(currentLevel)
+
+
+# Resets a level that only contains {} back to an empty array []
+# We need an empty array for each level to maintain a set number of levels
+func remove_empty_levels() -> void:
+	# Remove levels that only contain empty tile data
+	for level in range(mapEditor.currentMap.levels.size()):
+		var is_empty_level = true
+		for tile_data in mapEditor.currentMap.levels[level]:
+			if tile_data.size() > 0:
+				is_empty_level = false
+				break
+		
+		if is_empty_level:
+			# If the level only contains empty objects, clear the level data
+			mapEditor.currentMap.levels[level].clear()
 
 
 # Create a 128x128 miniature map image of the current level
@@ -1186,9 +1198,21 @@ func load_area_data():
 
 # Function to get the tile data from mapEditor.currentMap.levels based on tile's index and level
 func get_tile_data(tile: Control, level: int) -> Dictionary:
+	# Ensure the level index is valid
+	if level < 0 or level >= mapEditor.currentMap.levels.size():
+		return {}
+
+	# Check if the level has any data
+	if mapEditor.currentMap.levels[level].size() == 0:
+		# Fill the level with empty objects if it's empty
+		var total_tiles = DEFAULT_MAP_WIDTH * DEFAULT_MAP_HEIGHT
+		mapEditor.currentMap.levels[level].resize(total_tiles)
+		for i in range(total_tiles):
+			mapEditor.currentMap.levels[level][i] = {}
+
 	# Get the tile index using tile.get_index()
 	var index = tile.get_index()
-	
+
 	# Ensure the index is valid and within the bounds of the level data
 	if index >= 0 and index < mapEditor.currentMap.levels[level].size():
 		# Return the tile data from the specified level and index
@@ -1196,6 +1220,7 @@ func get_tile_data(tile: Control, level: int) -> Dictionary:
 	
 	# Return an empty dictionary if the index is invalid
 	return {}
+
 
 # Checks if a area with the specified id is in the areas list of the tile
 func is_area_in_tile(tile: Control, level: int, area_id: String) -> bool:
