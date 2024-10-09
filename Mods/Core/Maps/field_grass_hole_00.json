@@ -6372,7 +6372,7 @@
 	"mapwidth": 32,
 	"name": "Grassy Field with Hole",
 	"neighbor_keys": {
-		"field": 100
+		"field": 1
 	},
 	"neighbors": {
 		"east": {

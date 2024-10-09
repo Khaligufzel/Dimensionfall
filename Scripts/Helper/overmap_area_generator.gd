@@ -335,6 +335,13 @@ func place_neighbor_tiles(position: Vector2) -> void:
 			# Check if the neighbor position is within bounds and has not been processed yet
 			if is_within_grid_bounds(neighbor_pos) and not area_grid.has(neighbor_pos):
 				var neighbor_tile: Tile = current_tile.get_neighbor_tile(direction)
+
+				# Retry mechanism to ensure the tile fits with all adjacent neighbors
+				if not neighbor_tile == null and not can_tile_fit(neighbor_pos, neighbor_tile):
+					# Exclude the incompatible tile and try a different one
+					exclude_tile_from_cell(neighbor_pos.x, neighbor_pos.y, neighbor_tile)
+					neighbor_tile = current_tile.get_neighbor_tile(direction)
+
 				if neighbor_tile != null:
 					area_grid[neighbor_pos] = neighbor_tile
 					print_debug("Placing tile at position ("+str(neighbor_pos)+") direction ("+str(direction)+") tile ("+str(neighbor_tile.id)+")")
@@ -435,18 +442,18 @@ func get_possible_tiles(x: int, y: int) -> Array:
 	for tile in tile_catalog:
 		if tile.id in excluded_tiles:
 			continue  # Skip tiles that have already been tried
-		if can_tile_fit(x, y, tile):
+		if can_tile_fit(Vector2(x, y), tile):
 			possible_tiles.append(tile)
 
 	return possible_tiles
 
 
 # Function to check if a tile fits at the specified position considering all neighbors
-func can_tile_fit(x: int, y: int, tile: Tile) -> bool:
+func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 	# Loop over north, east, south, and west to check all adjacent neighbors
 	for direction in direction_offsets.keys():
 		var offset = direction_offsets[direction]
-		var neighbor_pos = Vector2(x, y) + offset  # The coordinate in the specified direction
+		var neighbor_pos = pos + offset  # The coordinate in the specified direction
 
 		# Ensure the neighbor position is within bounds
 		if not is_within_grid_bounds(neighbor_pos):
@@ -467,7 +474,6 @@ func can_tile_fit(x: int, y: int, tile: Tile) -> bool:
 				return false
 
 	return true  # The tile fits with all adjacent neighbors
-
 
 
 func backtrack(x: int, y: int) -> bool:

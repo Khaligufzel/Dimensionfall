@@ -3269,7 +3269,7 @@
 	"mapwidth": 32,
 	"name": "Flowered Grass Field",
 	"neighbor_keys": {
-		"field": 100
+		"field": 10
 	},
 	"neighbors": {
 		"east": {

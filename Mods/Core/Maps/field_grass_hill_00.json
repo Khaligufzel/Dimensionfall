@@ -6359,7 +6359,7 @@
 	"mapwidth": 32,
 	"name": "Grassy Hill",
 	"neighbor_keys": {
-		"field": 100
+		"field": 1
 	},
 	"neighbors": {
 		"east": {

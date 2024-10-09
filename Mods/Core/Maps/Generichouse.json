@@ -38356,7 +38356,7 @@
 	"name": "Generic House",
 	"neighbor_keys": {
 		"suburban": 100,
-		"urban": 10
+		"urban": 1
 	},
 	"neighbors": {
 		"east": {

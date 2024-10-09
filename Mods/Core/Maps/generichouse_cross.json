@@ -24420,7 +24420,7 @@
 	"name": "Crossroad House",
 	"neighbor_keys": {
 		"suburban": 100,
-		"urban": 100
+		"urban": 10
 	},
 	"neighbors": {
 		"east": {
