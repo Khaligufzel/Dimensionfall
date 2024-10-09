@@ -11,9 +11,17 @@ extends RefCounted
 var grid_width: int = 20
 var grid_height: int = 20
 var area_grid: Dictionary = {}  # The resulting grid
+var dimensions: Vector2 = Vector2.ZERO # The dimensions of the grid
 var tile_catalog: Array = []  # List of all tile instances with rotations
 var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
 var processed_tiles: Dictionary = {}  # Dictionary to track processed tiles
+# Define rotation mappings for how the directions shift depending on rotation
+var rotation_map = {
+	0: {"north": "north", "east": "east", "south": "south", "west": "west"},
+	90: {"north": "east", "east": "south", "south": "west", "west": "north"},
+	180: {"north": "south", "east": "west", "south": "north", "west": "east"},
+	270: {"north": "west", "east": "north", "south": "east", "west": "south"}
+}
 
 # Tiles sorted by key. This can be used to select the right neighbors for the tiles
 # We will pick one direction to select the correct neighbor. Let's say "north".
@@ -65,12 +73,7 @@ class Tile:
 	var tile_dictionary: Dictionary # Reference to the tile_dictionary variable in the main script
 	
 	# Define rotation mappings for how the directions shift depending on rotation
-	var rotation_map = {
-		0: {"north": "north", "east": "east", "south": "south", "west": "west"},
-		90: {"north": "east", "east": "south", "south": "west", "west": "north"},
-		180: {"north": "south", "east": "west", "south": "north", "west": "east"},
-		270: {"north": "west", "east": "north", "south": "east", "west": "south"}
-	}
+	var rotation_map: Dictionary
 
 
 	# Adjusts the connections based on the rotation
@@ -258,8 +261,9 @@ func generate_city():
 # Generates the area from the center to the edge of the grid
 # This function will initiate the area generation by placing the starting tile and then expanding
 # to its immediate neighbors in a plus pattern (north, west, south, east).
-func generate_area(dimensions: Vector2 = Vector2(20, 20), max_iterations: int = 100000) -> Dictionary:
+func generate_area(mydimensions: Vector2 = Vector2(20, 20), max_iterations: int = 100000) -> Dictionary:
 	processed_tiles.clear()
+	dimensions = mydimensions
 	create_tile_entries()
 
 	# Step 1: Place the starting tile in the center of the grid
@@ -280,7 +284,7 @@ func generate_area(dimensions: Vector2 = Vector2(20, 20), max_iterations: int = 
 		var current_position = queue.pop_front()
 
 		# Place neighbors for the current tile position
-		place_neighbor_tiles(current_position, dimensions)
+		place_neighbor_tiles(current_position)
 
 		# Check each neighbor position to add unprocessed tiles to the queue
 		var direction_offsets = {
@@ -294,7 +298,7 @@ func generate_area(dimensions: Vector2 = Vector2(20, 20), max_iterations: int = 
 			var neighbor_position = current_position + direction_offsets[direction]
 
 			# Check if the neighbor is within bounds and hasn't been processed yet
-			if is_within_grid_bounds(neighbor_position, dimensions):
+			if is_within_grid_bounds(neighbor_position):
 				if not processed_tiles.has(neighbor_position) and area_grid.has(neighbor_position):
 					print_debug("appending position ("+str(neighbor_position)+") direction ("+str(direction)+") current_position ("+str(current_position)+")")
 					queue.append(neighbor_position)
@@ -309,13 +313,13 @@ func generate_area(dimensions: Vector2 = Vector2(20, 20), max_iterations: int = 
 
 
 # Function to check if a given position is within the grid bounds
-func is_within_grid_bounds(position: Vector2, dimensions: Vector2) -> bool:
+func is_within_grid_bounds(position: Vector2) -> bool:
 	return position.x >= 0 and position.x < dimensions.x and position.y >= 0 and position.y < dimensions.y
 
 
 # Function to place the neighboring tiles of the specified position on the area_grid
 # It checks if there is a tile at the given position and then places neighbor tiles based on the tile's logic
-func place_neighbor_tiles(position: Vector2, dimensions: Vector2) -> void:
+func place_neighbor_tiles(position: Vector2) -> void:
 	# Check if there is a tile at the initial position
 	var has_tile_at_position = area_grid.has(position)
 
@@ -340,8 +344,8 @@ func place_neighbor_tiles(position: Vector2, dimensions: Vector2) -> void:
 		for direction: String in direction_offsets.keys():
 			var neighbor_pos: Vector2 = position + direction_offsets[direction]
 
-			# Check if the neighbor position is within bounds
-			if is_within_grid_bounds(neighbor_pos, dimensions) and not area_grid.has(neighbor_pos):
+			# Check if the neighbor position is within bounds and has not been processed yet
+			if is_within_grid_bounds(neighbor_pos) and not area_grid.has(neighbor_pos):
 				var neighbor_tile: Tile = current_tile.get_neighbor_tile(direction)
 				if neighbor_tile != null:
 					area_grid[neighbor_pos] = neighbor_tile
@@ -382,6 +386,7 @@ func create_tile_entries() -> void:
 				var mytile: Tile = Tile.new()
 				mytile.dmap = map
 				mytile.tile_dictionary = tile_dictionary
+				mytile.rotation_map = rotation_map
 				mytile.rotation = myrotation
 				mytile.key = key  # May be "urban", "suburban", etc.
 				# A tile's map data may have multiple neighbor_keys, but this tile instance can only
@@ -448,6 +453,7 @@ func get_possible_tiles(x: int, y: int) -> Array:
 	return possible_tiles
 
 
+# Function to check if a tile fits at the specified position considering all neighbors
 func can_tile_fit(x: int, y: int, tile: Tile) -> bool:
 	# Define a dictionary to map directions to their coordinate offsets
 	var direction_offsets = {
