@@ -22,6 +22,13 @@ var rotation_map = {
 	180: {"north": "south", "east": "west", "south": "north", "west": "east"},
 	270: {"north": "west", "east": "north", "south": "east", "west": "south"}
 }
+# Define the direction offsets for neighboring positions
+var direction_offsets: Dictionary = {
+	"north": Vector2(0, -1),
+	"east": Vector2(1, 0),
+	"south": Vector2(0, 1),
+	"west": Vector2(-1, 0)
+}
 
 # Tiles sorted by key. This can be used to select the right neighbors for the tiles
 # We will pick one direction to select the correct neighbor. Let's say "north".
@@ -286,14 +293,6 @@ func generate_area(mydimensions: Vector2 = Vector2(20, 20), max_iterations: int 
 		# Place neighbors for the current tile position
 		place_neighbor_tiles(current_position)
 
-		# Check each neighbor position to add unprocessed tiles to the queue
-		var direction_offsets = {
-			"north": Vector2(0, -1),
-			"east": Vector2(1, 0),
-			"south": Vector2(0, 1),
-			"west": Vector2(-1, 0)
-		}
-
 		for direction in direction_offsets.keys():
 			var neighbor_position = current_position + direction_offsets[direction]
 
@@ -320,24 +319,13 @@ func is_within_grid_bounds(position: Vector2) -> bool:
 # Function to place the neighboring tiles of the specified position on the area_grid
 # It checks if there is a tile at the given position and then places neighbor tiles based on the tile's logic
 func place_neighbor_tiles(position: Vector2) -> void:
-	# Check if there is a tile at the initial position
-	var has_tile_at_position = area_grid.has(position)
-
 	# Get the tile at the specified position, if present
 	var current_tile = null
-	if has_tile_at_position:
+	if area_grid.has(position):
 		current_tile = area_grid[position]
 	else:
 		print_debug("No tile present at the specified position.")
 		return  # If there's no tile at the starting position, exit the function
-
-	# Define the direction offsets for neighboring positions
-	var direction_offsets: Dictionary = {
-		"north": Vector2(0, -1),
-		"east": Vector2(1, 0),
-		"south": Vector2(0, 1),
-		"west": Vector2(-1, 0)
-	}
 
 	# Loop over each direction, get the neighboring tile using the tile's get_neighbor_tile function, and place it on the area_grid
 	if current_tile != null:
@@ -455,37 +443,31 @@ func get_possible_tiles(x: int, y: int) -> Array:
 
 # Function to check if a tile fits at the specified position considering all neighbors
 func can_tile_fit(x: int, y: int, tile: Tile) -> bool:
-	# Define a dictionary to map directions to their coordinate offsets
-	var direction_offsets = {
-		"north": Vector2(0, -1),
-		"south": Vector2(0, 1),
-		"east": Vector2(1, 0),
-		"west": Vector2(-1, 0)
-	}
-
-	# Loop over north, east, south and west
+	# Loop over north, east, south, and west to check all adjacent neighbors
 	for direction in direction_offsets.keys():
-		var offset = direction_offsets[direction] # Get the offset for this direction
-		var neighbor_pos = Vector2(x, y) + offset # The coordinate in the direction provided
+		var offset = direction_offsets[direction]
+		var neighbor_pos = Vector2(x, y) + offset  # The coordinate in the specified direction
 
 		# Ensure the neighbor position is within bounds
-		if neighbor_pos.x < 0 or neighbor_pos.x >= grid_width or neighbor_pos.y < 0 or neighbor_pos.y >= grid_height:
+		if not is_within_grid_bounds(neighbor_pos):
 			continue  # Skip out-of-bounds neighbors
 
 		# Check if there's a tile in the neighbor position
 		if area_grid.has(neighbor_pos):
 			var neighbor_tile = area_grid[neighbor_pos]
 
-			# Check neighbor key compatibility. This is useful to prevent a "field" from spawning
-			# next to a "urban" tile.
+			# Check neighbor key compatibility. This prevents incompatible zone types from being adjacent.
 			if not tile.are_neighbor_keys_compatible(neighbor_tile):
 				return false
 
-			# Check connection compatibility
+			# Check connection compatibility for both tiles (i.e., bidirectional fit)
 			if not tile.are_connections_compatible(neighbor_tile, direction):
 				return false
+			if not neighbor_tile.are_connections_compatible(tile, rotation_map[180][direction]):
+				return false
 
-	return true  # Tile can fit here
+	return true  # The tile fits with all adjacent neighbors
+
 
 
 func backtrack(x: int, y: int) -> bool:
