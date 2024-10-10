@@ -5,6 +5,18 @@ extends Control
 @export var width_spin_box: SpinBox = null
 @export var height_spin_box: SpinBox = null
 @export var max_iterations_spin_box: SpinBox = null
+@export var area_option_button: OptionButton = null
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	# Refresh the area_option_button by clearing any existing items
+	area_option_button.clear()
+
+	# Add all overmap area keys to the area_option_button as options
+	var area_keys = Gamedata.overmapareas.get_all().keys()
+	for area_key in area_keys:
+		area_option_button.add_item(area_key)
 
 
 func _on_back_button_button_up() -> void:

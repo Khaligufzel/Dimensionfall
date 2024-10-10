@@ -32,6 +32,12 @@ text = "Back"
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
+[node name="AreaOptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "city"
+
 [node name="WidthLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Width:"
