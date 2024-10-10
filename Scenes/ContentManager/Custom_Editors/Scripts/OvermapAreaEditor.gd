@@ -92,6 +92,7 @@ extends Control
 @export var max_height_spin_box: SpinBox = null # The maximum height of the area in tiles
 @export var region_name_text_edit: TextEdit = null # Allows the user to enter a new region name
 @export var region_v_box_container: VBoxContainer = null # Contains region editing controls
+@export var overmap_area_region_editor: PackedScene = null
 
 
 # This signal will be emitted when the user presses the save button
@@ -129,6 +130,19 @@ func load_overmaparea_data() -> void:
 	if max_height_spin_box != null:
 		max_height_spin_box.value = dovermaparea.max_height
 
+	# Load region data into the region_v_box_container
+	if dovermaparea.regions:
+		for region_key in dovermaparea.regions.keys():
+			var region_data = dovermaparea.regions[region_key]
+
+			# Instantiate the region editor and set its data
+			var region_editor = overmap_area_region_editor.instantiate()
+			region_v_box_container.add_child(region_editor)
+
+			# Set the region name and values for the region editor
+			region_editor.set_region_name(region_key)
+			region_editor.set_values(region_data)
+
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -153,6 +167,16 @@ func _on_save_button_button_up() -> void:
 		dovermaparea.max_width = int(max_width_spin_box.value)
 	if max_height_spin_box != null:
 		dovermaparea.max_height = int(max_height_spin_box.value)
+
+	# Construct the regions object from the UI data
+	var regions_data = {}
+	for region_editor in region_v_box_container.get_children():
+		var region_key = region_editor.get_region_name()
+		var region_values = region_editor.get_values()
+		regions_data[region_key] = region_values
+
+	# Update the regions property in the DOvermaparea instance
+	dovermaparea.regions = regions_data
 
 	# Save the updated data to disk and emit the data_changed signal
 	dovermaparea.save_to_disk()

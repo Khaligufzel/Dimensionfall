@@ -7,7 +7,6 @@ extends Control
 @export var max_iterations_spin_box: SpinBox = null
 
 
-
 func _on_back_button_button_up() -> void:
 	get_tree().change_scene_to_file("res://Scenes/ContentManager/othertools.tscn")
 

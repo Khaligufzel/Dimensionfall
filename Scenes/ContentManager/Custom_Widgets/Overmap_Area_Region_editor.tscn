@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://2kp6gjwaextr"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/overmap_area_region.gd" id="1_ees1v"]
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/overmap_area_region_editor.gd" id="1_5ajug"]
 
-[node name="OvermapAreaRegion" type="VBoxContainer" node_paths=PackedStringArray("region_name_label", "min_range_h_slider", "max_range_h_slider", "maps_grid_container")]
-script = ExtResource("1_ees1v")
+[node name="OvermapAreaRegionEditor" type="VBoxContainer" node_paths=PackedStringArray("region_name_label", "min_range_h_slider", "max_range_h_slider", "maps_grid_container")]
+script = ExtResource("1_5ajug")
 region_name_label = NodePath("HBoxContainer/RegionNameLabel")
 min_range_h_slider = NodePath("HBoxContainer/MinRangeHSlider")
 max_range_h_slider = NodePath("HBoxContainer/MaxRangeHSlider")

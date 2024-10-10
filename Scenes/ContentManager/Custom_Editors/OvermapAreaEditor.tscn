@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3ggaal1e2obk"]
+[gd_scene load_steps=3 format=3 uid="uid://b3ggaal1e2obk"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/OvermapAreaEditor.gd" id="1_g1n4r"]
+[ext_resource type="PackedScene" uid="uid://2kp6gjwaextr" path="res://Scenes/ContentManager/Custom_Widgets/Overmap_Area_Region_editor.tscn" id="2_jtxai"]
 
-[node name="OvermapAreaEditor" type="Control"]
+[node name="OvermapAreaEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "min_width_spin_box", "min_height_spin_box", "max_width_spin_box", "max_height_spin_box", "region_name_text_edit", "region_v_box_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +11,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g1n4r")
+IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
+NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
+DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
+min_width_spin_box = NodePath("VBoxContainer/FormGrid/DimensionsHBoxContainer/MinWidthSpinBox")
+min_height_spin_box = NodePath("VBoxContainer/FormGrid/DimensionsHBoxContainer/MinHeightSpinBox")
+max_width_spin_box = NodePath("VBoxContainer/FormGrid/DimensionsHBoxContainer/MaxWidthSpinBox")
+max_height_spin_box = NodePath("VBoxContainer/FormGrid/DimensionsHBoxContainer/MaxHeightSpinBox")
+region_name_text_edit = NodePath("VBoxContainer/FormGrid/RegionsVBoxContainer/RegionAddControlsHBoxContainer/RegionNameTextEdit")
+region_v_box_container = NodePath("VBoxContainer/FormGrid/RegionsVBoxContainer")
+overmap_area_region_editor = ExtResource("2_jtxai")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
