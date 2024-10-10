@@ -19,7 +19,7 @@ min_height_spin_box = NodePath("VBoxContainer/FormGrid/DimensionsHBoxContainer/M
 max_width_spin_box = NodePath("VBoxContainer/FormGrid/DimensionsHBoxContainer/MaxWidthSpinBox")
 max_height_spin_box = NodePath("VBoxContainer/FormGrid/DimensionsHBoxContainer/MaxHeightSpinBox")
 region_name_text_edit = NodePath("VBoxContainer/FormGrid/RegionsVBoxContainer/RegionAddControlsHBoxContainer/RegionNameTextEdit")
-region_v_box_container = NodePath("VBoxContainer/FormGrid/RegionsVBoxContainer")
+region_v_box_container = NodePath("VBoxContainer/FormGrid/RegionsVBoxContainer/RegionVBoxContainer")
 overmap_area_region_editor = ExtResource("2_jtxai")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -66,7 +66,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 focus_next = NodePath("../DescriptionTextEdit")
-placeholder_text = "Perception"
+placeholder_text = "City"
 
 [node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -78,7 +78,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
 focus_previous = NodePath("../NameTextEdit")
-placeholder_text = "Your ability to observe the environment"
+placeholder_text = "Creates a bunch of shops and houses representing a city"
 wrap_mode = 1
 
 [node name="DimensionsLabel" type="Label" parent="VBoxContainer/FormGrid"]
@@ -94,6 +94,8 @@ text = "Min width:"
 
 [node name="MinWidthSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
 layout_mode = 2
+step = 4.0
+value = 4.0
 
 [node name="MinHeightLabel" type="Label" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
 layout_mode = 2
@@ -101,6 +103,8 @@ text = "Min height:"
 
 [node name="MinHeightSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
 layout_mode = 2
+step = 4.0
+value = 4.0
 
 [node name="MaxWidthLabel" type="Label" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
 layout_mode = 2
@@ -108,6 +112,8 @@ text = "Max width"
 
 [node name="MaxWidthSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
 layout_mode = 2
+step = 4.0
+value = 16.0
 
 [node name="MaxHeightLabel" type="Label" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
 layout_mode = 2
@@ -115,6 +121,8 @@ text = "Max height:"
 
 [node name="MaxHeightSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
 layout_mode = 2
+step = 4.0
+value = 16.0
 
 [node name="RegionsLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -122,6 +130,8 @@ text = "Regions:"
 
 [node name="RegionsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="RegionAddControlsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid/RegionsVBoxContainer"]
 layout_mode = 2

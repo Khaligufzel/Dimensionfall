@@ -133,7 +133,7 @@ func load_overmaparea_data() -> void:
 	# Load region data into the region_v_box_container
 	if dovermaparea.regions:
 		for region_key in dovermaparea.regions.keys():
-			var region_data = dovermaparea.regions[region_key]
+			var region_instance: DOvermaparea.Region = dovermaparea.regions[region_key]  # Expecting Region instance
 
 			# Instantiate the region editor and set its data
 			var region_editor = overmap_area_region_editor.instantiate()
@@ -141,7 +141,7 @@ func load_overmaparea_data() -> void:
 
 			# Set the region name and values for the region editor
 			region_editor.set_region_name(region_key)
-			region_editor.set_values(region_data)
+			region_editor.set_values(region_instance.get_data())  # Using get_data() to get the region's dictionary representation
 
 
 # The editor is closed, destroy the instance
@@ -169,13 +169,18 @@ func _on_save_button_button_up() -> void:
 		dovermaparea.max_height = int(max_height_spin_box.value)
 
 	# Construct the regions object from the UI data
-	var regions_data = {}
+	var regions_data: Dictionary = {}
 	for region_editor in region_v_box_container.get_children():
 		var region_key = region_editor.get_region_name()
 		var region_values = region_editor.get_values()
-		regions_data[region_key] = region_values
 
-	# Update the regions property in the DOvermaparea instance
+		# Create a new Region instance using the extracted data
+		var new_region = DOvermaparea.Region.new()
+		new_region.spawn_probability = region_values.get("spawn_probability", {})
+		new_region.maps = region_values.get("maps", [])
+		regions_data[region_key] = new_region  # Store the Region instance instead of a dictionary
+
+	# Update the regions property in the DOvermaparea instance with Region instances
 	dovermaparea.regions = regions_data
 
 	# Save the updated data to disk and emit the data_changed signal

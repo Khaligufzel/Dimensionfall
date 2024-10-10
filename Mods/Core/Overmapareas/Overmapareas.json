@@ -1,0 +1,14 @@
+[
+	{
+		"description": "Creates a bunch of shops and houses representing a city",
+		"id": "city",
+		"max_height": 16,
+		"max_width": 16,
+		"min_height": 4,
+		"min_width": 4,
+		"name": "City",
+		"regions": {
+
+		}
+	}
+]

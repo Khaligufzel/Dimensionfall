@@ -7,13 +7,10 @@ extends RefCounted
 
 # Paths for overmapareas data and sprites
 var dataPath: String = "./Mods/Core/Overmapareas/Overmapareas.json"
-var spritePath: String = "./Mods/Core/Overmapareas/"
 var overmapareadict: Dictionary = {}
-var sprites: Dictionary = {}
 
 # Constructor
 func _init():
-	load_sprites()
 	load_overmapareas_from_disk()
 
 # Load all overmapareas data from disk into memory
@@ -21,17 +18,7 @@ func load_overmapareas_from_disk() -> void:
 	var overmapareaslist: Array = Helper.json_helper.load_json_array_file(dataPath)
 	for myovermaparea in overmapareaslist:
 		var overmaparea: DOvermaparea = DOvermaparea.new(myovermaparea)
-		overmaparea.sprite = sprites[overmaparea.spriteid]
 		overmapareadict[overmaparea.id] = overmaparea
-
-# Loads sprites and assigns them to the proper dictionary
-func load_sprites() -> void:
-	var png_files: Array = Helper.json_helper.file_names_in_dir(spritePath, ["png"])
-	for png_file in png_files:
-		# Load the .png file as a texture
-		var texture := load(spritePath + png_file)
-		# Add the material to the dictionary
-		sprites[png_file] = texture
 
 # Called when data changes and needs to be saved
 func on_data_changed():
@@ -82,10 +69,6 @@ func has_id(overmapareaid: String) -> bool:
 # Returns the sprite of the overmaparea
 func sprite_by_id(overmapareaid: String) -> Texture:
 	return overmapareadict[overmapareaid].sprite
-
-# Returns the sprite by its file name
-func sprite_by_file(spritefile: String) -> Texture:
-	return sprites[spritefile]
 
 # Removes a reference from the selected overmaparea
 func remove_reference(overmapareaid: String, module: String, type: String, refid: String):
