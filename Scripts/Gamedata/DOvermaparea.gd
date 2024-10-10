@@ -206,23 +206,9 @@ func changed(olddata: DOvermaparea):
 # A overmaparea is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	var changes: Dictionary = {"made":false}
-	
-	# This callable will remove this overmaparea from items that reference this overmaparea.
-	var myfunc: Callable = func (item_id):
-		var item_data: DItem = Gamedata.items.by_id(item_id)
-		item_data.remove_overmaparea(id)
-		changes.made = true
-	
-	# Pass the callable to every item in the overmaparea's references
-	# It will call myfunc on every item in overmaparea_data.references.core.items
-	execute_callable_on_references_of_type("core", "items", myfunc)
-	
-	# Save changes to the data file if any changes were made
-	if changes.made:
-		Gamedata.items.save_items_to_disk()
-	else:
-		print_debug("No changes needed for item", id)
+	var new_map_ids = get_all_map_ids()
+	for map: String in new_map_ids:
+		Gamedata.maps.remove_reference_from_map(map,"core", "overmapareas",id)
 
 
 # Executes a callable function on each reference of the given type

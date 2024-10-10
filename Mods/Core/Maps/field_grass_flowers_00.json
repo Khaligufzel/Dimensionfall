@@ -3285,5 +3285,12 @@
 			"field": 100
 		}
 	},
+	"references": {
+		"core": {
+			"overmapareas": [
+				"city"
+			]
+		}
+	},
 	"weight": 10
 }

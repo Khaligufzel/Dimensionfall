@@ -6377,6 +6377,9 @@
 	},
 	"references": {
 		"core": {
+			"overmapareas": [
+				"city"
+			],
 			"tacticalmaps": [
 				"town_00.json"
 			]

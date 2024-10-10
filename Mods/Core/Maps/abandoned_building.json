@@ -13775,5 +13775,12 @@
 			"urban": 100
 		}
 	},
+	"references": {
+		"core": {
+			"overmapareas": [
+				"city"
+			]
+		}
+	},
 	"weight": 500
 }

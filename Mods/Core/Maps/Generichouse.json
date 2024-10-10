@@ -38376,6 +38376,9 @@
 	},
 	"references": {
 		"core": {
+			"overmapareas": [
+				"city"
+			],
 			"tacticalmaps": [
 				"DefaultTacticalMap.json"
 			]

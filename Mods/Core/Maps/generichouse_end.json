@@ -21567,5 +21567,12 @@
 			"suburban": 100
 		}
 	},
+	"references": {
+		"core": {
+			"overmapareas": [
+				"city"
+			]
+		}
+	},
 	"weight": 1000
 }
