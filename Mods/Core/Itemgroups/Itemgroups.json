@@ -203,7 +203,8 @@
 					"wall_shelf"
 				],
 				"maps": [
-					"store_groceries"
+					"store_groceries",
+					"generichouse_end"
 				]
 			}
 		},

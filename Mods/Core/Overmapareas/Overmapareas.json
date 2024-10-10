@@ -8,6 +8,66 @@
 		"min_width": 4,
 		"name": "City",
 		"regions": {
+			"field": {
+				"maps": [
+					{
+						"id": "field_grass_basic_00",
+						"weight": 100
+					},
+					{
+						"id": "field_grass_flowers_00",
+						"weight": 5
+					},
+					{
+						"id": "field_grass_hill_00",
+						"weight": 1
+					},
+					{
+						"id": "field_grass_hole_00",
+						"weight": 1
+					}
+				],
+				"spawn_probability": {
+					"range": {
+						"end_range": 100,
+						"start_range": 62
+					}
+				}
+			},
+			"suburban": {
+				"maps": [
+					{
+						"id": "Generichouse",
+						"weight": 60
+					},
+					{
+						"id": "Generichouse_00",
+						"weight": 60
+					},
+					{
+						"id": "generichouse_corner",
+						"weight": 60
+					},
+					{
+						"id": "generichouse_cross",
+						"weight": 100
+					},
+					{
+						"id": "generichouse_t",
+						"weight": 100
+					},
+					{
+						"id": "generichouse_end",
+						"weight": 10
+					}
+				],
+				"spawn_probability": {
+					"range": {
+						"end_range": 70,
+						"start_range": 20
+					}
+				}
+			},
 			"urban": {
 				"maps": [
 					{

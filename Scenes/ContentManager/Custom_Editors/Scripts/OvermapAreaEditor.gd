@@ -184,7 +184,7 @@ func _on_save_button_button_up() -> void:
 	dovermaparea.regions = regions_data
 
 	# Save the updated data to disk and emit the data_changed signal
-	dovermaparea.save_to_disk()
+	dovermaparea.changed(olddata)
 	data_changed.emit()
 
 	# Store the current data as the old data for future comparisons

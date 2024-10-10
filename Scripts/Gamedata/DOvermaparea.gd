@@ -114,6 +114,14 @@ class Region:
 			"maps": maps
 		}
 
+	# Method to retrieve all unique map IDs in this region
+	func get_map_ids() -> Array:
+		var map_ids = []
+		for map_entry in maps:
+			if map_entry.has("id") and map_entry["id"] not in map_ids:
+				map_ids.append(map_entry["id"])
+		return map_ids
+
 # Constructor to initialize overmaparea properties from a dictionary
 func _init(data: Dictionary):
 	id = data.get("id", "")
@@ -177,7 +185,21 @@ func add_reference(module: String, type: String, refid: String):
 
 # Some overmaparea has been changed
 # INFO if the overmaparea references other entities, update them here
-func changed(_olddata: DOvermaparea):
+func changed(olddata: DOvermaparea):
+	# Retrieve the list of map IDs from the old data and the new data
+	var old_map_ids = olddata.get_all_map_ids()
+	var new_map_ids = get_all_map_ids()
+
+	# Remove references to map IDs that are in the old data but not in the new data
+	for map_id in old_map_ids:
+		if map_id not in new_map_ids:
+			Gamedata.maps.remove_reference_from_map(map_id, "core", "overmapareas", id)
+
+	# Add references to map IDs that are in the new data, even if they were already in the old data
+	for map_id in new_map_ids:
+		Gamedata.maps.add_reference_to_map(map_id, "core", "overmapareas", id)
+
+	# Save the updated overmap area data to disk
 	Gamedata.overmapareas.save_overmapareas_to_disk()
 
 
@@ -210,3 +232,14 @@ func execute_callable_on_references_of_type(module: String, type: String, callab
 		# If the type exists, execute the callable on each ID found under this type
 		for ref_id in references[module][type]:
 			callable.call(ref_id)
+
+
+# Function to retrieve a list of all unique map IDs across all regions in the overmap area
+func get_all_map_ids() -> Array:
+	var unique_map_ids = []
+	for region in regions.values():
+		var region_map_ids = region.get_map_ids()
+		for map_id in region_map_ids:
+			if map_id not in unique_map_ids:
+				unique_map_ids.append(map_id)
+	return unique_map_ids
