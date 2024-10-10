@@ -36,11 +36,14 @@ func generate_grid():
 	var mymaxiterations: int = max_iterations_spin_box.value
 	# Define the dimensions of the grid as 20x20 units
 	var mydimensions = Vector2(mywidth, myheight)
+	var myareaname: String = area_option_button.get_item_text(area_option_button.selected)
 	visual_grid.columns = mywidth
 
 	# Create a new instance of OvermapAreaGenerator and generate the area grid
 	var mygenerator: OvermapAreaGenerator = OvermapAreaGenerator.new()
-	var mygrid: Dictionary = mygenerator.generate_area(mydimensions, mymaxiterations)
+	mygenerator.dimensions = mydimensions
+	mygenerator.dovermaparea = Gamedata.overmapareas.by_id(myareaname)
+	var mygrid: Dictionary = mygenerator.generate_area(mymaxiterations)
 
 	# Loop over each x and y coordinate within the grid dimensions
 	for y in range(int(mydimensions.y)):

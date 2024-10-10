@@ -8,10 +8,91 @@ extends RefCounted
 # All map data comes from Gamedata.maps. The maps contain the weights and connections that are used
 
 
+# Example overmaparea data:
+# {
+#     "id": "city_00",  // id for the overmap area
+#     "name": "Example City",  // Name for the overmap area
+#     "description": "A densely populated urban area surrounded by suburban regions and open fields.",  // Description of the overmap area
+#     "min_width": 5,  // Minimum width of the overmap area
+#     "min_height": 5,  // Minimum height of the overmap area
+#     "max_width": 15,  // Maximum width of the overmap area
+#     "max_height": 15,  // Maximum height of the overmap area
+#     "regions": {
+#       "urban": {
+#         "spawn_probability": {
+#           "range": {
+#             "start_range": 0,  // Will start spawning at 0% distance from the center
+#             "end_range": 30     // Will stop spawning at 30% distance from the center
+#           }
+#         },
+#         "maps": [
+#           {
+#             "id": "house_01",
+#             "weight": 10  // Higher weight means this map has a higher chance to spawn in this region
+#           },
+#           {
+#             "id": "shop_01",
+#             "weight": 5
+#           },
+#           {
+#             "id": "park_01",
+#             "weight": 2
+#           }
+#         ]
+#       },
+#       "suburban": {
+#         "spawn_probability": {
+#           "range": {
+#             "start_range": 20,  // Will start spawning at 20% distance from the center
+#             "end_range": 80     // Will stop spawning at 80% distance from the center
+#           }
+#         },
+#         "maps": [
+#           {
+#             "id": "house_02",
+#             "weight": 8
+#           },
+#           {
+#             "id": "garden_01",
+#             "weight": 4
+#           },
+#           {
+#             "id": "school_01",
+#             "weight": 3
+#           }
+#         ]
+#       },
+#       "field": {
+#         "spawn_probability": {
+#           "range": {
+#             "start_range": 70,  // Will start spawning at 70% distance from the center
+#             "end_range": 100     // Will stop spawning at 100% distance from the center
+#           }
+#         },
+#         "maps": [
+#           {
+#             "id": "field_01",
+#             "weight": 12
+#           },
+#           {
+#             "id": "barn_01",
+#             "weight": 6
+#           },
+#           {
+#             "id": "tree_01",
+#             "weight": 8
+#           }
+#         ]
+#       }
+#     }
+# }
+
+
 var grid_width: int = 20
 var grid_height: int = 20
 var area_grid: Dictionary = {}  # The resulting grid
-var dimensions: Vector2 = Vector2.ZERO # The dimensions of the grid
+var dimensions: Vector2 = Vector2(20,20) # The dimensions of the grid
+var dovermaparea: DOvermaparea = null
 var tile_catalog: Array = []  # List of all tile instances with rotations
 var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
 var processed_tiles: Dictionary = {}  # Dictionary to track processed tiles
@@ -230,7 +311,7 @@ class Tile:
 
 func generate_grid() -> Dictionary:
 	area_grid.clear()
-	create_tile_entries()
+	#create_tile_entries()
 	for i in range(grid_width):
 		for j in range(grid_height):
 			var cell_key = Vector2(i, j)
@@ -268,13 +349,12 @@ func generate_city():
 # Generates the area from the center to the edge of the grid
 # This function will initiate the area generation by placing the starting tile and then expanding
 # to its immediate neighbors in a plus pattern (north, west, south, east).
-func generate_area(mydimensions: Vector2 = Vector2(20, 20), max_iterations: int = 100000) -> Dictionary:
+func generate_area(max_iterations: int = 100000) -> Dictionary:
 	processed_tiles.clear()
-	dimensions = mydimensions
 	create_tile_entries()
 
 	# Step 1: Place the starting tile in the center of the grid
-	var center = Vector2(dimensions.x / 2, dimensions.y / 2)
+	var center = get_map_center()
 	var starting_tile = place_starting_tile(center)
 
 	# Step 2: Initialize a queue to manage tiles to be processed
@@ -364,49 +444,75 @@ func place_starting_tile(center: Vector2) -> Tile:
 
 	return starting_tile
 
-
-# An algorithm that loops over all Gamedata.maps and creates a Tile for: 
-# 1. each rotation of the map, and 2. each neighbor key.
-# Then it organizes the tiles into tile_dictionary based on their key, connection, and rotation.
-# So one map can have a maximum of 4 TileInfo variants, multiplied by the amount of neighbor keys.
+# An algorithm that takes an area id and gets the required maps and instances them into tiles
+# 1. Get the DOvermaparea from Gamedata.overmapareas.by_id(area_id)
+# 2. Get the regions from dovermaparea.regions. This will be a dictionary where the region name 
+# is the key and the region data is the value. The value will be of the DOvermaparea.Region class
+# 3. For each region:
+# 3.1 Create a new key in tile_dictionary for the region name
+# 3.2 Get the region.maps array. Each item in the array will be something like: {"id": "house_02","weight": 8}
+# 3.3. For each map, get the DMap from Gamedata.maps.by_id(map_id)
+# 4. Leave the rest of the function unaltered.
 func create_tile_entries() -> void:
 	tile_catalog.clear()
 	tile_dictionary.clear()
-	var maps: Dictionary = Gamedata.maps.get_all()
+
+	if dovermaparea == null:
+		print_debug("create_tile_entries: Overmap area not found")
+		return
+
+	# Step 2: Get the regions from the overmap area
+	var regions: Dictionary = dovermaparea.regions
 	var rotations: Array = [0, 90, 180, 270]
 
-	for map: DMap in maps.values():
-		for key in map.neighbor_keys.keys():
-			for myrotation in rotations:
-				var mytile: Tile = Tile.new()
-				mytile.dmap = map
-				mytile.tile_dictionary = tile_dictionary
-				mytile.rotation_map = rotation_map
-				mytile.rotation = myrotation
-				mytile.key = key  # May be "urban", "suburban", etc.
-				# A tile's map data may have multiple neighbor_keys, but this tile instance can only
-				# exist in one neighbor_key. Therefore we set the weight to the neighbor_key's weight
-				mytile.weight = map.neighbor_keys.get(key, 0)
-				mytile.id = map.id + "_" + str(key) + "_" + str(myrotation)
-				tile_catalog.append(mytile)  # Add tile to the catalog
+	# Step 3: Loop through each region to create tile entries
+	for region_name in regions.keys():
+		var region_data: DOvermaparea.Region = regions[region_name]
+
+		# Step 3.1: Create a new key in the tile_dictionary for the region name
+		if not tile_dictionary.has(region_name):
+			tile_dictionary[region_name] = {}
+
+		# Step 3.2: Get the maps from the region data
+		var maps = region_data.maps
+		for map_data in maps:
+			var map_id = map_data.get("id", "")
+			var map_weight = map_data.get("weight", 1)
+
+			# Step 3.3: Retrieve the DMap from Gamedata using the map_id
+			var map: DMap = Gamedata.maps.by_id(map_id)
+			if map == null:
+				print_debug("create_tile_entries: Map not found for id: ", map_id)
+				continue
+
+			# Loop through each rotation to create Tile instances
+			for rotation in rotations:
+				var tile: Tile = Tile.new()
+				tile.dmap = map
+				tile.tile_dictionary = tile_dictionary
+				tile.rotation_map = rotation_map
+				tile.rotation = rotation
+				tile.key = region_name  # The region name serves as the key (e.g., "urban", "suburban")
+				tile.weight = map_weight  # Set the tile's weight from the map data
+				tile.id = map_id + "_" + region_name + "_" + str(rotation)
+				tile_catalog.append(tile)  # Add the tile to the catalog
 
 				# Get the rotated connections for this tile
-				var rotated_connections = mytile.rotated_connections(myrotation)
+				var rotated_connections = tile.rotated_connections(rotation)
 
-				# Organize the tile into the tile_dictionary
+				# Organize the tile into the tile_dictionary based on its key, connection type, and direction
 				for connection_direction in rotated_connections.keys():
 					var connection_type = rotated_connections[connection_direction]
 
-					# Ensure the dictionary structure exists
-					if not tile_dictionary.has(key):
-						tile_dictionary[key] = {}
-					if not tile_dictionary[key].has(connection_type):
-						tile_dictionary[key][connection_type] = {}
-					if not tile_dictionary[key][connection_type].has(connection_direction):
-						tile_dictionary[key][connection_type][connection_direction] = {}
+					# Ensure the nested dictionary structure exists
+					if not tile_dictionary[region_name].has(connection_type):
+						tile_dictionary[region_name][connection_type] = {}
+					if not tile_dictionary[region_name][connection_type].has(connection_direction):
+						tile_dictionary[region_name][connection_type][connection_direction] = {}
 
 					# Store the tile in the dictionary under its key, connection type, and direction
-					tile_dictionary[key][connection_type][connection_direction][mytile.id] = mytile
+					tile_dictionary[region_name][connection_type][connection_direction][tile.id] = tile
+
 
 
 
@@ -539,3 +645,125 @@ func get_cell_processing_order() -> Array:
 					visited[neighbor] = true  # Mark as visited
 
 	return order
+
+
+# Function to calculate and return the center of the map as whole numbers
+func get_map_center() -> Vector2:
+	# Calculate the center coordinates and round them to whole numbers
+	var center_x = int(round(dimensions.x / 2))
+	var center_y = int(round(dimensions.y / 2))
+	return Vector2(center_x, center_y)
+
+
+# Function to calculate the distance of a given position from the center of the map as a percentage
+# This function uses the radius to perform the calculations
+func get_distance_from_center_as_percentage(position: Vector2) -> float:
+	# Get the center of the map
+	var center = get_map_center()
+
+	# Calculate the maximum possible distance (radius) from the center to the edge of the map
+	var max_radius = max(center.distance_to(Vector2(0, 0)),
+						 center.distance_to(Vector2(dimensions.x - 1, 0)),
+						 center.distance_to(Vector2(0, dimensions.y - 1)),
+						 center.distance_to(Vector2(dimensions.x - 1, dimensions.y - 1)))
+
+	# Calculate the distance from the given position to the center
+	var distance_to_center = center.distance_to(position)
+
+	# Calculate the percentage distance relative to the maximum distance (radius)
+	var percentage_distance = (distance_to_center / max_radius) * 100.0
+	return percentage_distance
+
+
+# Function to calculate the Euclidean distance from a given position to the center of the map
+func distance_to_center(position: Vector2) -> float:
+	# Calculate the center of the map
+	var center = get_map_center()
+	
+	# Calculate the Euclidean distance from the position to the center
+	var distance = position.distance_to(center)
+	
+	return distance
+
+
+# Function to calculate the angle from a given position to the center of the map
+func angle_to_center(position: Vector2) -> float:
+	# Calculate the center of the map
+	var center = get_map_center()
+	
+	# Calculate the angle from the position to the center
+	var angle = (center - position).angle()
+	
+	return angle
+
+
+# Function to get the furthest position from the center along a given angle within the map dimensions
+func furthest_position_in_angle(angle: float) -> Vector2:
+	var center = get_map_center()
+
+	# Calculate the direction vector using the angle
+	var direction = Vector2(cos(angle), sin(angle))
+
+	# Initialize the furthest position as the center
+	var furthest_position = center
+
+	# Loop to find the furthest position along the angle until it hits the map boundary
+	while is_within_grid_bounds(furthest_position + direction):
+		furthest_position += direction
+
+	# Return the last valid position within the map bounds
+	return furthest_position.round()
+
+
+# Function to calculate the percentage distance of a position from the center relative to the furthest position in that direction
+func calculate_percentage_distance_from_center(position: Vector2) -> float:
+	var center = get_map_center()
+
+	# Step 1: Calculate the angle from the position to the center
+	var angle_to_center = angle_to_center(position)
+
+	# Step 2: Find the furthest position from the center in that angle within the map bounds
+	var furthest_position = furthest_position_in_angle(angle_to_center)
+
+	# Step 3: Calculate the distance from the center to the given position and to the furthest position
+	var distance_to_center = distance_to_center(position)
+	var max_distance_to_center = distance_to_center(furthest_position)
+
+	# Step 4: Treat the center as 0% and the furthest position as 100%, calculate the percentage distance
+	var percentage_distance = (distance_to_center / max_distance_to_center) * 100.0
+
+	return percentage_distance
+
+
+# Function to find regions that overlap with a given percentage
+func get_regions_for_percentage(percentage: float) -> Array:
+	var overlapping_regions: Array = []
+
+	# Ensure the overmap area data is available
+	if dovermaparea == null or not dovermaparea.regions:
+		print_debug("get_regions_for_percentage: Overmap area data not found or has no regions.")
+		return overlapping_regions
+
+	# Loop through each region in the overmap area
+	for region_name in dovermaparea.regions.keys():
+		var region_data = dovermaparea.regions[region_name]
+		var start_range = region_data.spawn_probability.range.start_range
+		var end_range = region_data.spawn_probability.range.end_range
+
+		# Check if the percentage is within the range of the current region
+		if percentage >= start_range and percentage <= end_range:
+			overlapping_regions.append(region_name)
+
+	return overlapping_regions
+
+
+# Function to get the list of region IDs for a given position
+# It calculates the percentage distance from the center to the position and finds regions that overlap with this percentage
+func get_regions_for_position(position: Vector2) -> Array:
+	# Step 1: Calculate the percentage distance from the center for the given position
+	var percentage_distance = calculate_percentage_distance_from_center(position)
+
+	# Step 2: Use the calculated percentage to get the list of overlapping region IDs
+	var overlapping_regions = get_regions_for_percentage(percentage_distance)
+
+	return overlapping_regions
