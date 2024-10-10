@@ -4,6 +4,9 @@ extends VBoxContainer
 @export var min_range_h_slider: HSlider = null
 @export var max_range_h_slider: HSlider = null
 @export var maps_grid_container: GridContainer = null
+@export var min_range_value_label: Label = null
+@export var max_range_value_label: Label = null
+
 
 
 # Example data:
@@ -139,7 +142,7 @@ func _handle_map_drop(dropped_data, _newpos) -> void:
 			return
 		
 		# Add the map entry using the new function
-		_add_map_entry({"id": map_id, "weight": 1})  # Default weight set to 1
+		_add_map_entry({"id": map_id, "weight": 100})  # Default weight set to 100
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
@@ -152,7 +155,8 @@ func _add_map_entry(map_data: Dictionary) -> void:
 	var texture_rect = TextureRect.new()
 	texture_rect.texture = mymap.sprite
 	texture_rect.custom_minimum_size = Vector2(32, 32)  # Ensure the texture is 32x32
-	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED  # Keep the aspect ratio centered
+	texture_rect.stretch_mode = TextureRect.STRETCH_SCALE  # Keep the aspect ratio centered
+	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	maps_grid_container.add_child(texture_rect)
 
 	# Create a Label for the map ID
@@ -166,3 +170,16 @@ func _add_map_entry(map_data: Dictionary) -> void:
 	weight_spinbox.max_value = 100
 	weight_spinbox.value = map_data.weight
 	maps_grid_container.add_child(weight_spinbox)
+
+
+# Function to handle changes in the min_range_h_slider value
+func _on_min_range_h_slider_value_changed(value: float) -> void:
+	# Update the label with the percentage value
+	if min_range_value_label != null:
+		min_range_value_label.text = str(int(value)) + "%"
+
+# Function to handle changes in the max_range_h_slider value
+func _on_max_range_h_slider_value_changed(value: float) -> void:
+	# Update the label with the percentage value
+	if max_range_value_label != null:
+		max_range_value_label.text = str(int(value)) + "%"

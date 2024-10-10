@@ -8,7 +8,28 @@
 		"min_width": 4,
 		"name": "City",
 		"regions": {
-
+			"urban": {
+				"maps": [
+					{
+						"id": "abandoned_building",
+						"weight": 100
+					},
+					{
+						"id": "store_electronic_clothing",
+						"weight": 100
+					},
+					{
+						"id": "store_groceries",
+						"weight": 100
+					}
+				],
+				"spawn_probability": {
+					"range": {
+						"end_range": 23,
+						"start_range": 0
+					}
+				}
+			}
 		}
 	}
 ]

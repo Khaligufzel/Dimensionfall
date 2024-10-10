@@ -189,3 +189,39 @@ func _on_save_button_button_up() -> void:
 
 	# Store the current data as the old data for future comparisons
 	olddata = DOvermaparea.new(dovermaparea.get_data().duplicate(true))
+
+
+# Function called when the "Add Region" button is pressed
+func _on_region_add_button_button_up() -> void:
+	# Get the name of the region from the region_name_text_edit
+	var region_name = region_name_text_edit.text.strip_edges()
+	region_name_text_edit.clear()
+
+	# Check if a region with the same name already exists in the region_v_box_container
+	for child in region_v_box_container.get_children():
+		if child.get_region_name() == region_name:
+			return # If a region with the same name already exists, do not add a new region
+
+	# If the region does not exist, create a new instance of the overmap_area_region_editor scene
+	var region_editor = overmap_area_region_editor.instantiate()
+
+	# Add the region editor instance to the region_v_box_container
+	region_v_box_container.add_child(region_editor)
+
+	# Set the region name using the text from the region_name_text_edit
+	region_editor.set_region_name(region_name)
+
+	# Set default values for the new region
+	var default_values = {
+		"spawn_probability": {
+			"range": {
+				"start_range": 0,
+				"end_range": 0
+			}
+		},
+		"maps": []
+	}
+	region_editor.set_values(default_values)
+
+	# Clear the text field after successfully adding the region
+	region_name_text_edit.clear()
