@@ -81,7 +81,7 @@ class map_cell:
 			map_id = value
 			dmap = Gamedata.maps.by_id(map_id)
 	var tacticalmapname: String = "town_00.json"
-	var revealed: bool = true # This cell will be obfuscated on the overmap if false (unexplored)
+	var revealed: bool = false # This cell will be obfuscated on the overmap if false (unexplored)
 	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
 
 	func get_data() -> Dictionary:
@@ -682,8 +682,6 @@ func place_overmap_area_on_grid(grid: map_grid):
 	for n in range(10):
 		# Initialize OvermapAreaGenerator
 		var mygenerator: OvermapAreaGenerator = OvermapAreaGenerator.new()
-		var area_dimensions = Vector2(10, 10)  # Set the dimensions for the area generation
-		mygenerator.dimensions = area_dimensions
 		mygenerator.dovermaparea = Gamedata.overmapareas.by_id(Gamedata.overmapareas.get_random_area().id)
 
 		# Generate the area grid with a specified maximum number of iterations
@@ -692,7 +690,7 @@ func place_overmap_area_on_grid(grid: map_grid):
 		# Check if the grid has generated values
 		if mygrid.size() > 0:
 			# Find a valid position for the area on the grid
-			var valid_position = find_valid_position(placed_positions, area_dimensions.x, area_dimensions.y)
+			var valid_position = find_valid_position(placed_positions, mygenerator.dimensions.x, mygenerator.dimensions.y)
 
 			if valid_position != Vector2(-1, -1):  # Ensure that a valid position was found
 				# Offset the grid positions based on the found valid position
