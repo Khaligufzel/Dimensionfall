@@ -66,10 +66,6 @@ func by_id(overmapareaid: String) -> DOvermaparea:
 func has_id(overmapareaid: String) -> bool:
 	return overmapareadict.has(overmapareaid)
 
-# Returns the sprite of the overmaparea
-func sprite_by_id(overmapareaid: String) -> Texture:
-	return overmapareadict[overmapareaid].sprite
-
 # Removes a reference from the selected overmaparea
 func remove_reference(overmapareaid: String, module: String, type: String, refid: String):
 	var myovermaparea: DOvermaparea = overmapareadict[overmapareaid]
@@ -90,3 +86,11 @@ func update_reference(old: String, new: String, type: String, refid: String) -> 
 		remove_reference(old, "core", type, refid)
 	if new != "":
 		add_reference(new, "core", type, refid)
+
+# Returns a random DOvermaparea
+func get_random_area() -> DOvermaparea:
+	var area_ids = overmapareadict.keys()
+	if area_ids.is_empty():
+		return null
+	var random_id = area_ids.pick_random()
+	return overmapareadict[area_ids.pick_random()]

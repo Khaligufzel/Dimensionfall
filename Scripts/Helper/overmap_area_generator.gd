@@ -93,7 +93,7 @@ var grid_height: int = 20
 var area_grid: Dictionary = {}  # The resulting grid
 # Dictionary to store the percentage distance from the center for each grid position
 var distance_from_center_map: Dictionary = {}  # Key: Vector2 (position), Value: float (percentage distance)
-var dimensions: Vector2 = Vector2(20,20) # The dimensions of the grid
+var dimensions: Vector2 = Vector2.ZERO # The dimensions of the grid
 var dovermaparea: DOvermaparea = null
 var tile_catalog: Array = []  # List of all tile instances with rotations
 var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
@@ -333,6 +333,8 @@ class Tile:
 func generate_area(max_iterations: int = 100000) -> Dictionary:
 	processed_tiles.clear()
 	create_tile_entries()
+	# Set the area dimensions before generating the area grid
+	set_area_dimensions()
 
 	# Step 1: Populate the distance_from_center_map before generating the area
 	populate_distance_from_center_map()
@@ -646,3 +648,22 @@ func setup_noise(seed: int = 1234, frequency: float = 0.05) -> void:
 	noise.fractal_gain = 0.5  # Influence of each octave
 	noise.fractal_lacunarity = 2.0  # Detail level between octaves
 	noise.frequency = frequency  # Frequency of the noise for overall pattern
+
+
+# Function to set the dimensions for the area generator based on the dovermaparea data
+func set_area_dimensions():
+	# Check if the dimensions are already set to a non-default value
+	if dimensions != Vector2.ZERO:
+		return  # Terminate if dimensions are already set
+
+	# Ensure that dovermaparea data is available
+	if dovermaparea == null:
+		print_debug("set_area_dimensions: dovermaparea data not available")
+		return
+
+	# Randomly set dimensions using the min and max width/height from the dovermaparea data
+	var random_width = randi() % (dovermaparea.max_width - dovermaparea.min_width + 1) + dovermaparea.min_width
+	var random_height = randi() % (dovermaparea.max_height - dovermaparea.min_height + 1) + dovermaparea.min_height
+	dimensions = Vector2(random_width, random_height)
+
+	print_debug("set_area_dimensions: Dimensions set to ", dimensions)

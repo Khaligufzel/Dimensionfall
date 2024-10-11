@@ -45,7 +45,6 @@ text = "Width:"
 
 [node name="WidthSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-value = 20.0
 
 [node name="HeightLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -53,7 +52,6 @@ text = "Height:"
 
 [node name="HeightSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-value = 20.0
 
 [node name="MaxIterationsLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
