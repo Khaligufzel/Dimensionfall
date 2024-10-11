@@ -112,13 +112,3 @@ func get_unique_categories() -> Array:
 			if not unique_categories.has(category):  # Check if category is already added
 				unique_categories.append(category)  # Add only if it's unique
 	return unique_categories  # Return the array of unique categories
-
-
-# Function to return unique neighbor keys across all maps
-func get_unique_neighbor_keys() -> Array:
-	var unique_keys: Array = []  # Use an Array to store unique neighbor keys
-	for map in mapdict.values():
-		for key in map.neighbor_keys.keys():
-			if not unique_keys.has(key):  # Check if the key is already added
-				unique_keys.append(key)  # Add only if it's unique
-	return unique_keys  # Return the array of unique neighbor keys

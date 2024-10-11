@@ -269,18 +269,6 @@ class Tile:
 		# Check if the connections are compatible (for example, both should be "road" or "ground")
 		return my_connection_type == neighbor_connection_type
 	
-	# Check if neighbor can be a neighbor of this tile based on the neighbor keys
-	# neighbor: The neighbor of this tile that you want to test for compatibility
-	func are_neighbor_keys_compatible(neighbor: Tile) -> bool:
-		# Loop over directions north, east, south, west
-		for direction: String in dmap.neighbors.keys():
-			# Test if neighbor.key can be a neighbor in this direction
-			# for example, this check will exclude all "field" tiles for the "north" direction
-			# if the "north" direcation only wants to neighbor to "urban" or "suburban"
-			if dmap.neighbors[direction].has(neighbor.key):
-				return true
-		return false
-	
 	# Adjusts weights for neighboring tiles based on neighbor keys
 	func adjust_weights_based_on_neighbors(neighbors: Array, x: int, y: int) -> void:
 		# Dictionary to group neighbors by their keys (e.g., urban, suburban, etc.)
@@ -544,10 +532,6 @@ func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 		# Check if there's a tile in the neighbor position
 		if area_grid.has(neighbor_pos):
 			var neighbor_tile = area_grid[neighbor_pos]
-
-			# Check neighbor key compatibility. This prevents incompatible zone types from being adjacent.
-			if not tile.are_neighbor_keys_compatible(neighbor_tile):
-				return false
 
 			# Check connection compatibility for both tiles (i.e., bidirectional fit)
 			if not tile.are_connections_compatible(neighbor_tile, direction):
