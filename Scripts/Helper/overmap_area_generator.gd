@@ -222,9 +222,7 @@ class Tile:
 		return ""  # Return an empty string if no key is picked, which shouldn't happen if weights are correct
 
 	# Retrieves a list of neighbor tiles based on the direction, connection type, and rotation
-	func get_neighbor_tiles(direction: String) -> Array:
-		# Step 1: Pick a neighbor key using the weighted selection for the specified direction
-		var neighbor_key: String = pick_neighbor_key(direction)
+	func get_neighbor_tiles(direction: String, neighbor_key: String) -> Array:
 		if neighbor_key == "" or not tile_dictionary.has(neighbor_key):
 			return []  # Return an empty list if no valid neighbor key is found
 
@@ -242,9 +240,9 @@ class Tile:
 
 
 	# Retrieves a tile from the neighbor tiles list based on weighted probability
-	func get_neighbor_tile(direction: String) -> Tile:
+	func get_neighbor_tile(direction: String, neighbor_key: String) -> Tile:
 		# Step 1: Get the list of neighbor tiles based on the direction, connection type, and rotation
-		var neighbor_tiles: Array = get_neighbor_tiles(direction)
+		var neighbor_tiles: Array = get_neighbor_tiles(direction, neighbor_key)
 		if neighbor_tiles.is_empty():
 			return null  # Return null if no neighbor tiles are found
 
@@ -379,7 +377,6 @@ func generate_area(max_iterations: int = 100000) -> Dictionary:
 			# Check if the neighbor is within bounds and hasn't been processed yet
 			if is_within_grid_bounds(neighbor_position):
 				if not processed_tiles.has(neighbor_position) and area_grid.has(neighbor_position):
-					print_debug("appending position ("+str(neighbor_position)+") direction ("+str(direction)+") current_position ("+str(current_position)+")")
 					queue.append(neighbor_position)
 					processed_tiles[neighbor_position] = true  # Mark as processed
 
@@ -411,20 +408,21 @@ func place_neighbor_tiles(position: Vector2) -> void:
 	if current_tile != null:
 		for direction: String in direction_offsets.keys():
 			var neighbor_pos: Vector2 = position + direction_offsets[direction]
+			var neighbor_regions: Array = get_regions_for_position(neighbor_pos)
 
 			# Check if the neighbor position is within bounds and has not been processed yet
-			if is_within_grid_bounds(neighbor_pos) and not area_grid.has(neighbor_pos):
-				var neighbor_tile: Tile = current_tile.get_neighbor_tile(direction)
+			if is_within_grid_bounds(neighbor_pos) and not area_grid.has(neighbor_pos) and neighbor_regions.size() > 0:
+				var neighbor_key: String = neighbor_regions.pick_random()
+				var neighbor_tile: Tile = current_tile.get_neighbor_tile(direction, neighbor_key)
 
 				# Retry mechanism to ensure the tile fits with all adjacent neighbors
 				if not neighbor_tile == null and not can_tile_fit(neighbor_pos, neighbor_tile):
 					# Exclude the incompatible tile and try a different one
 					exclude_tile_from_cell(neighbor_pos.x, neighbor_pos.y, neighbor_tile)
-					neighbor_tile = current_tile.get_neighbor_tile(direction)
+					neighbor_tile = current_tile.get_neighbor_tile(direction, neighbor_key)
 
 				if neighbor_tile != null:
 					area_grid[neighbor_pos] = neighbor_tile
-					print_debug("Placing tile at position ("+str(neighbor_pos)+") direction ("+str(direction)+") tile ("+str(neighbor_tile.id)+")")
 				else:
 					print_debug("No suitable neighbor tile found for direction: ", direction)
 
@@ -761,7 +759,8 @@ func get_regions_for_percentage(percentage: float) -> Array:
 # It calculates the percentage distance from the center to the position and finds regions that overlap with this percentage
 func get_regions_for_position(position: Vector2) -> Array:
 	# Step 1: Calculate the percentage distance from the center for the given position
-	var percentage_distance = calculate_percentage_distance_from_center(position)
+	var percentage_distance = get_distance_from_center_as_percentage(position)
+	#var percentage_distance = calculate_percentage_distance_from_center(position)
 
 	# Step 2: Use the calculated percentage to get the list of overlapping region IDs
 	var overlapping_regions = get_regions_for_percentage(percentage_distance)

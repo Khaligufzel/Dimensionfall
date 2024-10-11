@@ -63,7 +63,7 @@
 				],
 				"spawn_probability": {
 					"range": {
-						"end_range": 70,
+						"end_range": 63,
 						"start_range": 20
 					}
 				}
@@ -72,14 +72,18 @@
 				"maps": [
 					{
 						"id": "abandoned_building",
-						"weight": 100
+						"weight": 50
 					},
 					{
 						"id": "store_electronic_clothing",
-						"weight": 100
+						"weight": 50
 					},
 					{
 						"id": "store_groceries",
+						"weight": 50
+					},
+					{
+						"id": "generichouse_cross",
 						"weight": 100
 					}
 				],
