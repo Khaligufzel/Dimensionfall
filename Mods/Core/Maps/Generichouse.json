@@ -38354,26 +38354,6 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Generic House",
-	"neighbor_keys": {
-		"suburban": 100,
-		"urban": 1
-	},
-	"neighbors": {
-		"east": {
-			"suburban": 100
-		},
-		"north": {
-			"field": 50,
-			"suburban": 100
-		},
-		"south": {
-			"field": 50,
-			"suburban": 100
-		},
-		"west": {
-			"suburban": 100
-		}
-	},
 	"references": {
 		"core": {
 			"overmapareas": [

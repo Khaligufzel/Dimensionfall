@@ -23950,25 +23950,6 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "T-Junction House",
-	"neighbor_keys": {
-		"suburban": 100,
-		"urban": 1
-	},
-	"neighbors": {
-		"east": {
-			"suburban": 100
-		},
-		"north": {
-			"suburban": 100
-		},
-		"south": {
-			"suburban": 100
-		},
-		"west": {
-			"field": 100,
-			"suburban": 100
-		}
-	},
 	"references": {
 		"core": {
 			"overmapareas": [

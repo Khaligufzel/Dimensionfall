@@ -135,7 +135,10 @@
 					"RockyHill_SE",
 					"RockyHill_SW",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"RockyHill_NW",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -173,7 +176,10 @@
 					"field_grass_basic_00",
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"generichouse_end"
+					"generichouse_end",
+					"RockyHill_NW",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -214,7 +220,10 @@
 					"RockyHill_SE",
 					"RockyHill_SW",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"RockyHill_NW",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},

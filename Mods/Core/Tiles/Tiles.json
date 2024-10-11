@@ -6,6 +6,13 @@
 		"description": "Field of grass",
 		"id": "grass_plain",
 		"name": "Plain grass",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_NW"
+				]
+			}
+		},
 		"shape": "cube",
 		"sprite": "1.png"
 	},
@@ -84,7 +91,9 @@
 					"Generichouse_00",
 					"store_groceries",
 					"abandoned_building",
-					"generichouse_end"
+					"generichouse_end",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -160,7 +169,10 @@
 					"store_groceries",
 					"field_grass_hole_00",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"RockyHill_NW",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -668,7 +680,8 @@
 				"maps": [
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"RockyHill_NE"
+					"RockyHill_NE",
+					"RockyHill_NW"
 				]
 			}
 		},
@@ -687,7 +700,8 @@
 				"maps": [
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"RockyHill_NE"
+					"RockyHill_NE",
+					"RockyHill_NW"
 				]
 			}
 		},
@@ -705,7 +719,8 @@
 			"core": {
 				"maps": [
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"RockyHill_NW"
 				]
 			}
 		},
@@ -724,7 +739,8 @@
 				"maps": [
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"RockyHill_NE"
+					"RockyHill_NE",
+					"RockyHill_NW"
 				]
 			}
 		},
@@ -742,7 +758,8 @@
 			"core": {
 				"maps": [
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"RockyHill_NW"
 				]
 			}
 		},
@@ -761,7 +778,8 @@
 				"maps": [
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"RockyHill_NE"
+					"RockyHill_NE",
+					"RockyHill_NW"
 				]
 			}
 		},
@@ -780,7 +798,8 @@
 				"maps": [
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"RockyHill_NE"
+					"RockyHill_NE",
+					"RockyHill_NW"
 				]
 			}
 		},
@@ -799,7 +818,8 @@
 				"maps": [
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"RockyHill_NE"
+					"RockyHill_NE",
+					"RockyHill_NW"
 				]
 			}
 		},
@@ -1315,7 +1335,10 @@
 					"store_groceries",
 					"field_grass_hole_00",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"RockyHill_NW",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -1345,7 +1368,10 @@
 					"RockyHill_SW",
 					"store_groceries",
 					"field_grass_hole_00",
-					"generichouse_end"
+					"generichouse_end",
+					"RockyHill_NW",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -1374,7 +1400,9 @@
 					"store_groceries",
 					"field_grass_hole_00",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -1407,7 +1435,10 @@
 					"abandoned_building",
 					"field_grass_hole_00",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"RockyHill_NW",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -1440,7 +1471,9 @@
 					"abandoned_building",
 					"field_grass_hole_00",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -1471,7 +1504,10 @@
 					"abandoned_building",
 					"field_grass_hole_00",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"RockyHill_NW",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -1532,7 +1568,10 @@
 					"RockyHill_SE",
 					"RockyHill_SW",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"RockyHill_NW",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -1563,7 +1602,9 @@
 					"store_groceries",
 					"field_grass_hole_00",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -1590,7 +1631,10 @@
 					"RockyHill_SW",
 					"store_groceries",
 					"field_grass_hole_00",
-					"generichouse_end"
+					"generichouse_end",
+					"RockyHill_NW",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -1621,7 +1665,9 @@
 					"store_groceries",
 					"field_grass_hole_00",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},
@@ -2232,7 +2278,9 @@
 					"store_electronic_clothing",
 					"store_groceries",
 					"abandoned_building",
-					"generichouse_end"
+					"generichouse_end",
+					"urbanroad",
+					"urbanroad_cross"
 				]
 			}
 		},

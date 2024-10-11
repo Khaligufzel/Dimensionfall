@@ -3268,23 +3268,6 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Flowered Grass Field",
-	"neighbor_keys": {
-		"field": 10
-	},
-	"neighbors": {
-		"east": {
-			"field": 100
-		},
-		"north": {
-			"field": 100
-		},
-		"south": {
-			"field": 100
-		},
-		"west": {
-			"field": 100
-		}
-	},
 	"references": {
 		"core": {
 			"overmapareas": [

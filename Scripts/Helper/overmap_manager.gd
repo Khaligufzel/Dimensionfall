@@ -708,7 +708,6 @@ func place_overmap_area_on_grid(grid: map_grid):
 				print("Failed to find a valid position for the overmap area.")
 
 
-
 # Helper function to update a cell's map ID if it exists
 func update_cell_map_id(grid: map_grid, cell_key: Vector2, map_id: String, rotation: int):
 	var adjusted_cell_key = cell_key + grid.pos * grid_width
