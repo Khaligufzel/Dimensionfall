@@ -14,6 +14,9 @@ extends Control
 @export var modeOptionButton: OptionButton = null
 @export var itemListContainer: GridContainer = null
 @export var use_sprite_check_box: CheckBox = null
+@export var amount_spin_box: SpinBox = null
+@export var simulation_text_edit: TextEdit = null
+
 
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
@@ -304,3 +307,95 @@ func add_header_row():
 		header.add_theme_stylebox_override("normal",header_style)
 		header.set("custom_styles/panel", header_style.duplicate())  # Use duplicate to ensure each header can customize further if needed
 		itemListContainer.add_child(header)
+
+
+func _on_simulation_button_button_up() -> void:
+	# Step 1: Read items from itemListContainer, including min and max amounts
+	var items_data: Array = []
+	var num_children = itemListContainer.get_child_count()
+	var num_columns = itemListContainer.columns
+
+	# Start from index 6 to skip header, which occupies the first 6 indices
+	for i in range(6, num_children, num_columns):
+		var item_id = itemListContainer.get_child(i + 1).text  # Second child in each row is the item ID label
+		var probability = itemListContainer.get_child(i + 2).get_value()  # Third child is the probability SpinBox
+		var min_amount = itemListContainer.get_child(i + 3).get_value()  # Fourth child is the minimum SpinBox
+		var max_amount = itemListContainer.get_child(i + 4).get_value()  # Fifth child is the maximum SpinBox
+
+		items_data.append({
+			"id": item_id,
+			"probability": probability,
+			"min": int(min_amount),
+			"max": int(max_amount)
+		})
+
+	# Step 2: Read the selected mode from modeOptionButton (Collection or Distribution)
+	var selected_mode: String = modeOptionButton.get_item_text(modeOptionButton.selected)
+
+	# Step 3: Read the number from amount_spin_box (number of simulations)
+	var num_simulations: int = int(amount_spin_box.value)
+
+	# Prepare the results array
+	var simulation_results: Dictionary = {}
+
+	# Step 4: Simulate the generation for the specified number of times
+	for i in range(num_simulations):
+		if selected_mode == "Collection":
+			_simulate_collection_mode(items_data, simulation_results)
+		elif selected_mode == "Distribution":
+			_simulate_distribution_mode(items_data, simulation_results)
+
+	# Step 5: Sort the results by the amount generated (in descending order)
+	var sorted_results: Array = simulation_results.keys().map(
+		func(item_id):
+			return {"id": item_id, "amount": simulation_results[item_id]}
+	)
+	
+	# Sort the array based on the "amount" value in descending order
+	sorted_results.sort_custom(func(a, b):
+		return b["amount"] < a["amount"]
+	)
+
+	# Step 6: Print the sorted simulation results to simulation_text_edit
+	var result_text: String = ""
+	for result in sorted_results:
+		result_text += str(result["id"]) + ": " + str(result["amount"]) + "\n"
+
+	simulation_text_edit.text = result_text  # Display the results in the text edit
+
+
+
+func _simulate_collection_mode(items: Array, results: Dictionary) -> void:
+	# Loop through each item and simulate its generation
+	for item in items:
+		var item_id = item["id"]
+		var probability = item["probability"]
+		var minc = item["min"]
+		var maxc = item["max"]
+
+		if randi_range(0, 100) <= probability:  # Check if the item should be added based on probability
+			var quantity = randi_range(minc, maxc)
+			if not results.has(item_id):
+				results[item_id] = 0
+			results[item_id] += quantity
+
+func _simulate_distribution_mode(items: Array, results: Dictionary) -> void:
+	var total_probability = 0
+	# Calculate the total probability
+	for item in items:
+		total_probability += item["probability"]
+
+	# Generate a random value between 0 and total_probability - 1
+	var random_value = randi_range(0, total_probability - 1)
+	var cumulative_probability = 0
+
+	# Iterate through items to select one based on the random value
+	for item in items:
+		cumulative_probability += item["probability"]
+		if random_value < cumulative_probability:
+			var item_id = item["id"]
+			var quantity = randi_range(item["min"], item["max"])
+			if not results.has(item_id):
+				results[item_id] = 0
+			results[item_id] += quantity
+			return  # Only one item is selected in Distribution mode

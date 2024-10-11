@@ -10,7 +10,7 @@ content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
 
-[node name="ItemgroupEditor" type="Control" node_paths=PackedStringArray("itemgroupImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemgroupSelector", "imageNameStringLabel", "modeOptionButton", "itemListContainer", "use_sprite_check_box")]
+[node name="ItemgroupEditor" type="Control" node_paths=PackedStringArray("itemgroupImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemgroupSelector", "imageNameStringLabel", "modeOptionButton", "itemListContainer", "use_sprite_check_box", "amount_spin_box", "simulation_text_edit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,8 +25,10 @@ DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 itemgroupSelector = NodePath("Sprite_selector")
 imageNameStringLabel = NodePath("VBoxContainer/FormGrid/ImageNameStringLabel")
 modeOptionButton = NodePath("VBoxContainer/FormGrid/GroupTypeOptionButton")
-itemListContainer = NodePath("VBoxContainer/FormGrid/PanelContainer/ItemList")
+itemListContainer = NodePath("VBoxContainer/FormGrid/PanelContainer/ScrollContainer/ItemList")
 use_sprite_check_box = NodePath("VBoxContainer/FormGrid/UseSpriteCheckBox")
+amount_spin_box = NodePath("VBoxContainer/FormGrid/SimulationVBoxContainer/SimulationHBoxContainer/AmountSpinBox")
+simulation_text_edit = NodePath("VBoxContainer/FormGrid/SimulationVBoxContainer/SimulationTextEdit")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -138,13 +140,62 @@ layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_i82vb")
 
-[node name="ItemList" type="GridContainer" parent="VBoxContainer/FormGrid/PanelContainer"]
-custom_minimum_size = Vector2(200, 200)
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/FormGrid/PanelContainer"]
+custom_minimum_size = Vector2(600, 200)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ItemList" type="GridContainer" parent="VBoxContainer/FormGrid/PanelContainer/ScrollContainer"]
+custom_minimum_size = Vector2(600, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tooltip_text = "Drag items to this list from the left menu of the content editor. Once the list has been made, you can assign it to a container, for example in the furniture editor."
 columns = 6
+
+[node name="SimulationLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Simulate"
+
+[node name="SimulationVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SimulationHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid/SimulationVBoxContainer"]
+layout_mode = 2
+
+[node name="SimulationButton" type="Button" parent="VBoxContainer/FormGrid/SimulationVBoxContainer/SimulationHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Simulates the generation of this itemgroup 
+and writes the output to the text field below."
+text = "Simulate itemgroup generation"
+
+[node name="TimesLabel" type="Label" parent="VBoxContainer/FormGrid/SimulationVBoxContainer/SimulationHBoxContainer"]
+layout_mode = 2
+text = "Times:"
+
+[node name="AmountSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/SimulationVBoxContainer/SimulationHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The amount of times the itemgroup 
+generation will be simulated"
+min_value = 1.0
+max_value = 10000.0
+value = 100.0
+
+[node name="SimulationTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid/SimulationVBoxContainer"]
+custom_minimum_size = Vector2(50, 100)
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "Shows the output of the itemgroup generation. The numbers will be based on the \"items\" list and 
+the selected \"group type\". These numbers can give insights into to balance of the itemgroup. You 
+can then adjust the spawn rate and amount and generate again to see the effect."
+placeholder_text = "Press the simulation button!"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+wrap_mode = 1
 
 [node name="Sprite_selector" parent="." instance=ExtResource("4_tvfec")]
 visible = false
@@ -152,4 +203,5 @@ visible = false
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="gui_input" from="VBoxContainer/FormGrid/ItemgroupImageDisplay" to="." method="_on_itemgroup_image_display_gui_input"]
+[connection signal="button_up" from="VBoxContainer/FormGrid/SimulationVBoxContainer/SimulationHBoxContainer/SimulationButton" to="." method="_on_simulation_button_button_up"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

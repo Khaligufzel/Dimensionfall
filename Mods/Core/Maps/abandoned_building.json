@@ -13316,12 +13316,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Abandoned building",
-	"references": {
-		"core": {
-			"tacticalmaps": [
-				"town_00.json"
-			]
-		}
-	},
 	"weight": 500
 }

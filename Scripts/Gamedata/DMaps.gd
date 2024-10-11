@@ -28,7 +28,11 @@ func get_all() -> Dictionary:
 
 func duplicate_to_disk(mapid: String, newmapid: String) -> void:
 	var newmap: DMap = DMap.new(newmapid, dataPath)
-	newmap.set_data(mapdict[mapid].get_data().duplicate(true))
+	var newdata: Dictionary = by_id(mapid).get_data().duplicate(true)
+	# A duplicated map is brand new and can't already be referenced by something
+	# So we delete the references from the duplicated data if it is present
+	newdata.erase("references")
+	newmap.set_data(newdata)
 	newmap.save_data_to_disk()
 	mapdict[newmapid] = newmap
 
