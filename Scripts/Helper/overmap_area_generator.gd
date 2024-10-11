@@ -91,6 +91,8 @@ extends RefCounted
 var grid_width: int = 20
 var grid_height: int = 20
 var area_grid: Dictionary = {}  # The resulting grid
+# Dictionary to store the percentage distance from the center for each grid position
+var distance_from_center_map: Dictionary = {}  # Key: Vector2 (position), Value: float (percentage distance)
 var dimensions: Vector2 = Vector2(20,20) # The dimensions of the grid
 var dovermaparea: DOvermaparea = null
 var tile_catalog: Array = []  # List of all tile instances with rotations
@@ -351,11 +353,14 @@ func generate_area(max_iterations: int = 100000) -> Dictionary:
 	processed_tiles.clear()
 	create_tile_entries()
 
-	# Step 1: Place the starting tile in the center of the grid
+	# Step 1: Populate the distance_from_center_map before generating the area
+	populate_distance_from_center_map()
+	
+	# Step 2: Place the starting tile in the center of the grid
 	var center = get_map_center()
 	var starting_tile = place_starting_tile(center)
 
-	# Step 2: Initialize a queue to manage tiles to be processed
+	# Step 3: Initialize a queue to manage tiles to be processed
 	var queue = []  # List of tile positions to process
 	processed_tiles = {}  # Dictionary to track processed tiles
 	var iteration_count = 0  # Counter to track the number of iterations
@@ -364,7 +369,7 @@ func generate_area(max_iterations: int = 100000) -> Dictionary:
 		queue.append(center)
 		processed_tiles[center] = true
 
-	# Step 3: Process the queue until all tiles have been placed or limit is reached
+	# Step 4: Process the queue until all tiles have been placed or limit is reached
 	while not queue.is_empty() and iteration_count < max_iterations:
 		var current_position = queue.pop_front()
 
@@ -387,6 +392,19 @@ func generate_area(max_iterations: int = 100000) -> Dictionary:
 
 	return area_grid
 
+# Function to populate the distance_from_center_map with percentage distances from the center
+func populate_distance_from_center_map() -> void:
+	# Clear the distance_from_center_map for fresh generation
+	distance_from_center_map.clear()
+
+	# Loop through all possible positions in the grid
+	for x in range(grid_width):
+		for y in range(grid_height):
+			var position = Vector2(x, y)
+			# Calculate the distance from the center as a percentage for this position
+			var percentage_distance = get_distance_from_center_as_percentage(position)
+			# Store the percentage in the distance_from_center_map dictionary
+			distance_from_center_map[position] = percentage_distance
 
 # Function to check if a given position is within the grid bounds
 func is_within_grid_bounds(position: Vector2) -> bool:
@@ -758,8 +776,11 @@ func get_regions_for_percentage(percentage: float) -> Array:
 # Function to get the list of region IDs for a given position
 # It calculates the percentage distance from the center to the position and finds regions that overlap with this percentage
 func get_regions_for_position(position: Vector2) -> Array:
+	if not is_within_grid_bounds(position):
+		return []
 	# Step 1: Calculate the percentage distance from the center for the given position
-	var percentage_distance = get_distance_from_center_as_percentage(position)
+	var percentage_distance = distance_from_center_map[position]
+	#var percentage_distance = get_distance_from_center_as_percentage(position)
 	#var percentage_distance = calculate_percentage_distance_from_center(position)
 
 	# Step 2: Use the calculated percentage to get the list of overlapping region IDs
