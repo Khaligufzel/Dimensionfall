@@ -311,27 +311,6 @@ class Tile:
 				# Update the neighbor's weight
 
 
-func generate_grid() -> Dictionary:
-	area_grid.clear()
-	#create_tile_entries()
-	for i in range(grid_width):
-		for j in range(grid_height):
-			var cell_key = Vector2(i, j)
-			area_grid[cell_key] = tile_catalog.pick_random()
-	return area_grid
-
-
-func generate_city():
-	var cell_order = get_cell_processing_order()
-	for cell in cell_order:
-		var success = place_tile_at(cell.x, cell.y)
-		if not success:
-			# Implement backtracking if placement fails
-			if not backtrack(cell.x, cell.y):
-				print_debug("Failed to generate city. No valid tile placements available.")
-				return
-
-
 # Generates the area from the center to the edge of the grid
 # Start out by placing a tile in the center of the grid. In a 20x20 grid, this will be (10,10)
 # The starting tile should be picked from the tile_dictionary using these parameters:
@@ -549,46 +528,6 @@ func create_tile_entries() -> void:
 					tile_dictionary[region_name][connection_type][connection_direction][tile.id] = tile
 
 
-
-
-# Used to place a tile at this coordinate
-# Gets a list of tiles that fit here, picks one based on the weight,
-# And assigns it to the grid
-func place_tile_at(x: int, y: int) -> bool:
-	var possible_tiles = get_possible_tiles(x, y)
-	if possible_tiles.empty():
-		return false  # Cannot place any tile here
-
-	# Apply weights to select a tile probabilistically
-	var total_weight = 0.0
-	for tile in possible_tiles:
-		total_weight += tile.weight
-
-	var rand_value = randf() * total_weight
-	for tile in possible_tiles:
-		rand_value -= tile.weight
-		if rand_value <= 0:
-			area_grid[Vector2(x,y)] = tile
-			return true
-
-	return false  # Should not reach here if weights are correctly calculated
-
-
-func get_possible_tiles(x: int, y: int) -> Array:
-	var possible_tiles = []
-
-	var key = Vector2(x, y)
-	var excluded_tiles = tried_tiles[key]
-
-	for tile in tile_catalog:
-		if tile.id in excluded_tiles:
-			continue  # Skip tiles that have already been tried
-		if can_tile_fit(Vector2(x, y), tile):
-			possible_tiles.append(tile)
-
-	return possible_tiles
-
-
 # Function to check if a tile fits at the specified position considering all neighbors
 func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 	# Loop over north, east, south, and west to check all adjacent neighbors
@@ -617,69 +556,10 @@ func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 	return true  # The tile fits with all adjacent neighbors
 
 
-func backtrack(x: int, y: int) -> bool:
-	## Remove the tile from the current cell
-	#city_grid.set(x, y, null)
-	## Get previous cell coordinates
-	#var prev_cell = get_previous_cell(x, y)
-	#if prev_cell == null:
-		#return false  # Cannot backtrack further
-	## Remove the tile from the previous cell
-	#var prev_tile = city_grid.get(prev_cell.x, prev_cell.y)
-	#if prev_tile == null:
-		#return false  # No tile to backtrack
-#
-	## Exclude the previously tried tile and attempt to place a different tile
-	#exclude_tile_from_cell(prev_cell.x, prev_cell.y, prev_tile)
-	#return place_tile_at(prev_cell.x, prev_cell.y)
-	return false
-
-
 func exclude_tile_from_cell(x: int, y: int, tile: Tile):
 	var key = Vector2(x, y)
 	if not tried_tiles.has(key):
 		tried_tiles[key] = tile
-
-
-# Function to determine the order of cell processing, using a plus pattern from the center outward
-func get_cell_processing_order() -> Array:
-	var order = []
-	var visited = {}  # Dictionary to keep track of visited coordinates
-
-	# Start at the center of the grid
-	var center = Vector2(grid_width / 2, grid_height / 2)
-	order.append(center)
-	visited[center] = true
-
-	# Define the directions in a plus pattern: North, South, West, East
-	var directions = [Vector2(0, -1), Vector2(0, 1), Vector2(-1, 0), Vector2(1, 0)]
-
-	# Add the first set of tiles in the plus pattern around the center
-	var queue = []
-
-	for direction in directions:
-		var neighbor = center + direction
-		if neighbor.x >= 0 and neighbor.x < grid_width and neighbor.y >= 0 and neighbor.y < grid_height:
-			order.append(neighbor)
-			queue.append(neighbor)
-			visited[neighbor] = true
-
-	# Continue expanding outward in a plus pattern
-	while not queue.empty():
-		var current = queue.pop_front()
-
-		# Expand from the current position in the four primary directions
-		for direction in directions:
-			var neighbor = current + direction
-
-			# Check if the neighbor is within bounds and has not been visited yet
-			if neighbor.x >= 0 and neighbor.x < grid_width and neighbor.y >= 0 and neighbor.y < grid_height:
-				if not visited.has(neighbor):
-					order.append(neighbor)
-					queue.append(neighbor)
-					visited[neighbor] = true  # Mark as visited
-
-	return order
 
 
 # Function to calculate and return the center of the map as whole numbers
@@ -721,55 +601,6 @@ func distance_to_center(position: Vector2) -> float:
 	return distance
 
 
-# Function to calculate the angle from a given position to the center of the map
-func angle_to_center(position: Vector2) -> float:
-	# Calculate the center of the map
-	var center = get_map_center()
-	
-	# Calculate the angle from the position to the center
-	var angle = (center - position).angle()
-	
-	return angle
-
-
-# Function to get the furthest position from the center along a given angle within the map dimensions
-func furthest_position_in_angle(angle: float) -> Vector2:
-	var center = get_map_center()
-
-	# Calculate the direction vector using the angle
-	var direction = Vector2(cos(angle), sin(angle))
-
-	# Initialize the furthest position as the center
-	var furthest_position = center
-
-	# Loop to find the furthest position along the angle until it hits the map boundary
-	while is_within_grid_bounds(furthest_position + direction):
-		furthest_position += direction
-
-	# Return the last valid position within the map bounds
-	return furthest_position.round()
-
-
-# Function to calculate the percentage distance of a position from the center relative to the furthest position in that direction
-func calculate_percentage_distance_from_center(position: Vector2) -> float:
-	var center = get_map_center()
-
-	# Step 1: Calculate the angle from the position to the center
-	var angle_to_center = angle_to_center(position)
-
-	# Step 2: Find the furthest position from the center in that angle within the map bounds
-	var furthest_position = furthest_position_in_angle(angle_to_center)
-
-	# Step 3: Calculate the distance from the center to the given position and to the furthest position
-	var distance_to_center = distance_to_center(position)
-	var max_distance_to_center = distance_to_center(furthest_position)
-
-	# Step 4: Treat the center as 0% and the furthest position as 100%, calculate the percentage distance
-	var percentage_distance = (distance_to_center / max_distance_to_center) * 100.0
-
-	return percentage_distance
-
-
 # Function to find regions that overlap with a given percentage
 func get_regions_for_percentage(percentage: float) -> Array:
 	var overlapping_regions: Array = []
@@ -799,8 +630,6 @@ func get_regions_for_position(position: Vector2) -> Array:
 		return []
 	# Step 1: Calculate the percentage distance from the center for the given position
 	var percentage_distance = distance_from_center_map[position]
-	#var percentage_distance = get_distance_from_center_as_percentage(position)
-	#var percentage_distance = calculate_percentage_distance_from_center(position)
 
 	# Step 2: Use the calculated percentage to get the list of overlapping region IDs
 	var overlapping_regions = get_regions_for_percentage(percentage_distance)
