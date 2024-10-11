@@ -56,12 +56,10 @@ var player
 var player_current_cell = Vector2.ZERO # Player's position per cell, updated regularly
 var loaded_chunks = {}
 enum Region {
-	CITY,
 	FOREST,
 	PLAINS
 }
 
-const NOISE_VALUE_CITY = -0.2
 const NOISE_VALUE_PLAINS = 0.3
 
 var noise: FastNoiseLite
@@ -83,7 +81,7 @@ class map_cell:
 			map_id = value
 			dmap = Gamedata.maps.by_id(map_id)
 	var tacticalmapname: String = "town_00.json"
-	var revealed: bool = false # This cell will be obfuscated on the overmap if false (unexplored)
+	var revealed: bool = true # This cell will be obfuscated on the overmap if false (unexplored)
 	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
 
 	func get_data() -> Dictionary:
@@ -140,8 +138,6 @@ class map_cell:
 		match region_type:
 			Region.PLAINS:
 				return "Plains"
-			Region.CITY:
-				return "City"
 			Region.FOREST:
 				return "Forest"
 		return "Unknown"
@@ -315,17 +311,14 @@ func region_type_to_string(region_type: int) -> String:
 	match region_type:
 		Region.PLAINS:
 			return "Plains"
-		Region.CITY:
-			return "City"
 		Region.FOREST:
 			return "Forest"
-	return ""
+	return "Unknown"
+
 
 func get_region_type(x: int, y: int) -> int:
 	var noise_value = noise.get_noise_2d(float(x), float(y))
-	if noise_value < NOISE_VALUE_CITY:
-		return Region.CITY
-	elif noise_value < NOISE_VALUE_PLAINS:
+	if noise_value < NOISE_VALUE_PLAINS:
 		return Region.PLAINS
 	else:
 		return Region.FOREST
@@ -683,33 +676,37 @@ func place_tactical_maps_on_grid(grid: map_grid):
 
 # Function to place an overmap area on a specific grid using OvermapAreaGenerator
 func place_overmap_area_on_grid(grid: map_grid):
-	# Initialize OvermapAreaGenerator
-	var mygenerator: OvermapAreaGenerator = OvermapAreaGenerator.new()
-	var area_dimensions = Vector2(10, 10)  # Set the dimensions for the area generation
-	mygenerator.dimensions = area_dimensions
-	mygenerator.dovermaparea = Gamedata.overmapareas.by_id(Gamedata.overmapareas.get_random_area().id)
-	
-	# Generate the area grid with a specified maximum number of iterations
-	var mygrid: Dictionary = mygenerator.generate_area(10000)
+	var placed_positions = []  # Track positions that have already been placed
 
-	# Check if the grid has generated values
-	if mygrid.size() > 0:
-		var placed_positions = []  # Track positions that have already been placed
-		# Find a valid position for the area on the grid
-		var valid_position = find_valid_position(placed_positions, area_dimensions.x, area_dimensions.y)
-		
-		if valid_position != Vector2(-1, -1):  # Ensure that a valid position was found
-			# Offset the grid positions based on the found valid position
-			for local_position in mygrid.keys():
-				var adjusted_position = valid_position + local_position
-				if mygrid.has(local_position):
-					var tile = mygrid[local_position]  # Get the tile instance at the grid position
-					if tile != null:
-						# Use tile.dmap.id and tile.rotation to update the cell map ID
-						update_cell_map_id(grid, adjusted_position, tile.dmap.id, tile.rotation)
-						placed_positions.append(adjusted_position)  # Mark the cell as placed
-		else:
-			print("Failed to find a valid position for the overmap area.")
+	# Loop to place up to 10 overmap areas on the grid
+	for n in range(10):
+		# Initialize OvermapAreaGenerator
+		var mygenerator: OvermapAreaGenerator = OvermapAreaGenerator.new()
+		var area_dimensions = Vector2(10, 10)  # Set the dimensions for the area generation
+		mygenerator.dimensions = area_dimensions
+		mygenerator.dovermaparea = Gamedata.overmapareas.by_id(Gamedata.overmapareas.get_random_area().id)
+
+		# Generate the area grid with a specified maximum number of iterations
+		var mygrid: Dictionary = mygenerator.generate_area(10000)
+
+		# Check if the grid has generated values
+		if mygrid.size() > 0:
+			# Find a valid position for the area on the grid
+			var valid_position = find_valid_position(placed_positions, area_dimensions.x, area_dimensions.y)
+
+			if valid_position != Vector2(-1, -1):  # Ensure that a valid position was found
+				# Offset the grid positions based on the found valid position
+				for local_position in mygrid.keys():
+					var adjusted_position = valid_position + local_position
+					if mygrid.has(local_position):
+						var tile = mygrid[local_position]  # Get the tile instance at the grid position
+						if tile != null:
+							# Use tile.dmap.id and tile.rotation to update the cell map ID
+							update_cell_map_id(grid, adjusted_position, tile.dmap.id, tile.rotation)
+							placed_positions.append(adjusted_position)  # Mark the cell as placed
+			else:
+				print("Failed to find a valid position for the overmap area.")
+
 
 
 # Helper function to update a cell's map ID if it exists
