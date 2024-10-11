@@ -98,6 +98,8 @@ var dovermaparea: DOvermaparea = null
 var tile_catalog: Array = []  # List of all tile instances with rotations
 var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
 var processed_tiles: Dictionary = {}  # Dictionary to track processed tiles
+# Import the noise module for Perlin noise generation
+var noise = FastNoiseLite.new()
 # Define rotation mappings for how the directions shift depending on rotation
 var rotation_map = {
 	0: {"north": "north", "east": "east", "south": "south", "west": "west"},
@@ -392,19 +394,36 @@ func generate_area(max_iterations: int = 100000) -> Dictionary:
 
 	return area_grid
 
-# Function to populate the distance_from_center_map with percentage distances from the center
+
+# Function to populate the distance_from_center_map with modified percentage distances from the center
 func populate_distance_from_center_map() -> void:
 	# Clear the distance_from_center_map for fresh generation
 	distance_from_center_map.clear()
+	
+	# Set up FastNoiseLite with a specific seed and frequency
+	setup_noise(randi(), 0.3)
 
 	# Loop through all possible positions in the grid
 	for x in range(grid_width):
 		for y in range(grid_height):
 			var position = Vector2(x, y)
-			# Calculate the distance from the center as a percentage for this position
-			var percentage_distance = get_distance_from_center_as_percentage(position)
-			# Store the percentage in the distance_from_center_map dictionary
-			distance_from_center_map[position] = percentage_distance
+			
+			# Calculate the linear percentage distance from the center
+			var base_percentage = get_distance_from_center_as_percentage(position)
+
+			# Calculate a noise-based modifier to introduce organic variation
+			var noise_value = noise.get_noise_2d(float(x), float(y))
+			var noise_modifier = noise_value * 25.0  # Adjust the scale of the noise effect as needed
+
+			# Combine the base percentage with the noise modifier
+			var modified_percentage = base_percentage + noise_modifier
+
+			# Clamp the modified percentage to ensure it stays within [0, 100] range
+			modified_percentage = clamp(modified_percentage, 0.0, 100.0)
+
+			# Store the modified percentage in the distance_from_center_map dictionary
+			distance_from_center_map[position] = modified_percentage
+
 
 # Function to check if a given position is within the grid bounds
 func is_within_grid_bounds(position: Vector2) -> bool:
@@ -787,3 +806,14 @@ func get_regions_for_position(position: Vector2) -> Array:
 	var overlapping_regions = get_regions_for_percentage(percentage_distance)
 
 	return overlapping_regions
+
+
+# Function to set up the FastNoiseLite properties
+func setup_noise(seed: int = 1234, frequency: float = 0.05) -> void:
+	noise.seed = seed
+	noise.noise_type = FastNoiseLite.TYPE_PERLIN  # Using Perlin noise for natural variation
+	noise.fractal_type = FastNoiseLite.FRACTAL_FBM  # Fractal Brownian Motion for layered noise
+	noise.fractal_octaves = 5  # Number of noise layers
+	noise.fractal_gain = 0.5  # Influence of each octave
+	noise.fractal_lacunarity = 2.0  # Detail level between octaves
+	noise.frequency = frequency  # Frequency of the noise for overall pattern
