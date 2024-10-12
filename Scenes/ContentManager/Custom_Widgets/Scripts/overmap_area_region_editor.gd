@@ -57,8 +57,8 @@ func get_values() -> Dictionary:
 	var slider_data: Dictionary = {
 		"spawn_probability": {
 			"range": {
-				"start_range": min_range_h_slider.value if min_range_h_slider != null else 0,
-				"end_range": max_range_h_slider.value if max_range_h_slider != null else 0
+				"start_range": int(min_range_h_slider.value) if min_range_h_slider != null else 0,
+				"end_range": int(max_range_h_slider.value) if max_range_h_slider != null else 0
 			}
 		},
 		"maps": _get_maps_from_ui()  # Retrieve the current maps data from the UI
@@ -94,9 +94,9 @@ func _get_maps_from_ui() -> Array:
 
 
 # Function to set the region name label
-func set_region_name(name: String) -> void:
+func set_region_name(newname: String) -> void:
 	if region_name_label != null:
-		region_name_label.text = name
+		region_name_label.text = newname
 
 # Function to get the region name from the label
 func get_region_name() -> String:
@@ -169,6 +169,10 @@ func _add_map_entry(map_data: Dictionary) -> void:
 	weight_spinbox.min_value = 1
 	weight_spinbox.max_value = 100
 	weight_spinbox.value = map_data.weight
+	weight_spinbox.tooltip_text = "Enter the weight for this map. This will be the weight \n" + \
+								"relative to the other maps in this region. A higher weight \n" + \
+								"will make it more likely that this map is picked. A lower \n" + \
+								"weight makes it less likeley for this map to spawn."
 	maps_grid_container.add_child(weight_spinbox)
 
 
