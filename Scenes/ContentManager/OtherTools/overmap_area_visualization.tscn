@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/ContentManager/OtherTools/overmap_area_visualization.gd" id="1_8wpup"]
 [ext_resource type="PackedScene" uid="uid://budsoodfdkaea" path="res://Scenes/Overmap/OvermapTile.tscn" id="2_3b74b"]
 
-[node name="OvermapAreaVisualization" type="Control" node_paths=PackedStringArray("visual_grid", "width_spin_box", "height_spin_box", "max_iterations_spin_box")]
+[node name="OvermapAreaVisualization" type="Control" node_paths=PackedStringArray("visual_grid", "width_spin_box", "height_spin_box", "max_iterations_spin_box", "area_option_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +16,7 @@ tileScene = ExtResource("2_3b74b")
 width_spin_box = NodePath("VBoxContainer/HBoxContainer/WidthSpinBox")
 height_spin_box = NodePath("VBoxContainer/HBoxContainer/HeightSpinBox")
 max_iterations_spin_box = NodePath("VBoxContainer/HBoxContainer/MaxIterationsSpinBox")
+area_option_button = NodePath("VBoxContainer/HBoxContainer/AreaOptionButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -32,13 +33,18 @@ text = "Back"
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
+[node name="AreaOptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "city"
+
 [node name="WidthLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Width:"
 
 [node name="WidthSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-value = 20.0
 
 [node name="HeightLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -46,7 +52,6 @@ text = "Height:"
 
 [node name="HeightSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-value = 20.0
 
 [node name="MaxIterationsLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2

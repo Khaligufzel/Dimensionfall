@@ -8,13 +8,98 @@ extends RefCounted
 # All map data comes from Gamedata.maps. The maps contain the weights and connections that are used
 
 
+# Example overmaparea data:
+# {
+#     "id": "city_00",  // id for the overmap area
+#     "name": "Example City",  // Name for the overmap area
+#     "description": "A densely populated urban area surrounded by suburban regions and open fields.",  // Description of the overmap area
+#     "min_width": 5,  // Minimum width of the overmap area
+#     "min_height": 5,  // Minimum height of the overmap area
+#     "max_width": 15,  // Maximum width of the overmap area
+#     "max_height": 15,  // Maximum height of the overmap area
+#     "regions": {
+#       "urban": {
+#         "spawn_probability": {
+#           "range": {
+#             "start_range": 0,  // Will start spawning at 0% distance from the center
+#             "end_range": 30     // Will stop spawning at 30% distance from the center
+#           }
+#         },
+#         "maps": [
+#           {
+#             "id": "house_01",
+#             "weight": 10  // Higher weight means this map has a higher chance to spawn in this region
+#           },
+#           {
+#             "id": "shop_01",
+#             "weight": 5
+#           },
+#           {
+#             "id": "park_01",
+#             "weight": 2
+#           }
+#         ]
+#       },
+#       "suburban": {
+#         "spawn_probability": {
+#           "range": {
+#             "start_range": 20,  // Will start spawning at 20% distance from the center
+#             "end_range": 80     // Will stop spawning at 80% distance from the center
+#           }
+#         },
+#         "maps": [
+#           {
+#             "id": "house_02",
+#             "weight": 8
+#           },
+#           {
+#             "id": "garden_01",
+#             "weight": 4
+#           },
+#           {
+#             "id": "school_01",
+#             "weight": 3
+#           }
+#         ]
+#       },
+#       "field": {
+#         "spawn_probability": {
+#           "range": {
+#             "start_range": 70,  // Will start spawning at 70% distance from the center
+#             "end_range": 100     // Will stop spawning at 100% distance from the center
+#           }
+#         },
+#         "maps": [
+#           {
+#             "id": "field_01",
+#             "weight": 12
+#           },
+#           {
+#             "id": "barn_01",
+#             "weight": 6
+#           },
+#           {
+#             "id": "tree_01",
+#             "weight": 8
+#           }
+#         ]
+#       }
+#     }
+# }
+
+
 var grid_width: int = 20
 var grid_height: int = 20
 var area_grid: Dictionary = {}  # The resulting grid
+# Dictionary to store the percentage distance from the center for each grid position
+var distance_from_center_map: Dictionary = {}  # Key: Vector2 (position), Value: float (percentage distance)
 var dimensions: Vector2 = Vector2.ZERO # The dimensions of the grid
+var dovermaparea: DOvermaparea = null
 var tile_catalog: Array = []  # List of all tile instances with rotations
 var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
 var processed_tiles: Dictionary = {}  # Dictionary to track processed tiles
+# Import the noise module for Perlin noise generation
+var noise = FastNoiseLite.new()
 # Define rotation mappings for how the directions shift depending on rotation
 var rotation_map = {
 	0: {"north": "north", "east": "east", "south": "south", "west": "west"},
@@ -141,9 +226,7 @@ class Tile:
 		return ""  # Return an empty string if no key is picked, which shouldn't happen if weights are correct
 
 	# Retrieves a list of neighbor tiles based on the direction, connection type, and rotation
-	func get_neighbor_tiles(direction: String) -> Array:
-		# Step 1: Pick a neighbor key using the weighted selection for the specified direction
-		var neighbor_key: String = pick_neighbor_key(direction)
+	func get_neighbor_tiles(direction: String, neighbor_key: String) -> Array:
 		if neighbor_key == "" or not tile_dictionary.has(neighbor_key):
 			return []  # Return an empty list if no valid neighbor key is found
 
@@ -161,9 +244,9 @@ class Tile:
 
 
 	# Retrieves a tile from the neighbor tiles list based on weighted probability
-	func get_neighbor_tile(direction: String) -> Tile:
+	func get_neighbor_tile(direction: String, neighbor_key: String) -> Tile:
 		# Step 1: Get the list of neighbor tiles based on the direction, connection type, and rotation
-		var neighbor_tiles: Array = get_neighbor_tiles(direction)
+		var neighbor_tiles: Array = get_neighbor_tiles(direction, neighbor_key)
 		if neighbor_tiles.is_empty():
 			return null  # Return null if no neighbor tiles are found
 
@@ -185,18 +268,6 @@ class Tile:
 
 		# Check if the connections are compatible (for example, both should be "road" or "ground")
 		return my_connection_type == neighbor_connection_type
-	
-	# Check if neighbor can be a neighbor of this tile based on the neighbor keys
-	# neighbor: The neighbor of this tile that you want to test for compatibility
-	func are_neighbor_keys_compatible(neighbor: Tile) -> bool:
-		# Loop over directions north, east, south, west
-		for direction: String in dmap.neighbors.keys():
-			# Test if neighbor.key can be a neighbor in this direction
-			# for example, this check will exclude all "field" tiles for the "north" direction
-			# if the "north" direcation only wants to neighbor to "urban" or "suburban"
-			if dmap.neighbors[direction].has(neighbor.key):
-				return true
-		return false
 	
 	# Adjusts weights for neighboring tiles based on neighbor keys
 	func adjust_weights_based_on_neighbors(neighbors: Array, x: int, y: int) -> void:
@@ -228,27 +299,6 @@ class Tile:
 				# Update the neighbor's weight
 
 
-func generate_grid() -> Dictionary:
-	area_grid.clear()
-	create_tile_entries()
-	for i in range(grid_width):
-		for j in range(grid_height):
-			var cell_key = Vector2(i, j)
-			area_grid[cell_key] = tile_catalog.pick_random()
-	return area_grid
-
-
-func generate_city():
-	var cell_order = get_cell_processing_order()
-	for cell in cell_order:
-		var success = place_tile_at(cell.x, cell.y)
-		if not success:
-			# Implement backtracking if placement fails
-			if not backtrack(cell.x, cell.y):
-				print_debug("Failed to generate city. No valid tile placements available.")
-				return
-
-
 # Generates the area from the center to the edge of the grid
 # Start out by placing a tile in the center of the grid. In a 20x20 grid, this will be (10,10)
 # The starting tile should be picked from the tile_dictionary using these parameters:
@@ -268,16 +318,20 @@ func generate_city():
 # Generates the area from the center to the edge of the grid
 # This function will initiate the area generation by placing the starting tile and then expanding
 # to its immediate neighbors in a plus pattern (north, west, south, east).
-func generate_area(mydimensions: Vector2 = Vector2(20, 20), max_iterations: int = 100000) -> Dictionary:
+func generate_area(max_iterations: int = 100000) -> Dictionary:
 	processed_tiles.clear()
-	dimensions = mydimensions
 	create_tile_entries()
+	# Set the area dimensions before generating the area grid
+	set_area_dimensions()
 
-	# Step 1: Place the starting tile in the center of the grid
-	var center = Vector2(dimensions.x / 2, dimensions.y / 2)
+	# Step 1: Populate the distance_from_center_map before generating the area
+	populate_distance_from_center_map()
+	
+	# Step 2: Place the starting tile in the center of the grid
+	var center = get_map_center()
 	var starting_tile = place_starting_tile(center)
 
-	# Step 2: Initialize a queue to manage tiles to be processed
+	# Step 3: Initialize a queue to manage tiles to be processed
 	var queue = []  # List of tile positions to process
 	processed_tiles = {}  # Dictionary to track processed tiles
 	var iteration_count = 0  # Counter to track the number of iterations
@@ -286,7 +340,7 @@ func generate_area(mydimensions: Vector2 = Vector2(20, 20), max_iterations: int 
 		queue.append(center)
 		processed_tiles[center] = true
 
-	# Step 3: Process the queue until all tiles have been placed or limit is reached
+	# Step 4: Process the queue until all tiles have been placed or limit is reached
 	while not queue.is_empty() and iteration_count < max_iterations:
 		var current_position = queue.pop_front()
 
@@ -299,7 +353,6 @@ func generate_area(mydimensions: Vector2 = Vector2(20, 20), max_iterations: int 
 			# Check if the neighbor is within bounds and hasn't been processed yet
 			if is_within_grid_bounds(neighbor_position):
 				if not processed_tiles.has(neighbor_position) and area_grid.has(neighbor_position):
-					print_debug("appending position ("+str(neighbor_position)+") direction ("+str(direction)+") current_position ("+str(current_position)+")")
 					queue.append(neighbor_position)
 					processed_tiles[neighbor_position] = true  # Mark as processed
 
@@ -309,6 +362,36 @@ func generate_area(mydimensions: Vector2 = Vector2(20, 20), max_iterations: int 
 		print_debug("Warning: Maximum iteration limit reached in generate_area. Possible infinite loop detected.")
 
 	return area_grid
+
+
+# Function to populate the distance_from_center_map with modified percentage distances from the center
+func populate_distance_from_center_map() -> void:
+	# Clear the distance_from_center_map for fresh generation
+	distance_from_center_map.clear()
+	
+	# Set up FastNoiseLite with a specific seed and frequency
+	setup_noise(randi(), 0.3)
+
+	# Loop through all possible positions in the grid
+	for x in range(grid_width):
+		for y in range(grid_height):
+			var position = Vector2(x, y)
+			
+			# Calculate the linear percentage distance from the center
+			var base_percentage = get_distance_from_center_as_percentage(position)
+
+			# Calculate a noise-based modifier to introduce organic variation
+			var noise_value = noise.get_noise_2d(float(x), float(y))
+			var noise_modifier = noise_value * 25.0  # Adjust the scale of the noise effect as needed
+
+			# Combine the base percentage with the noise modifier
+			var modified_percentage = base_percentage + noise_modifier
+
+			# Clamp the modified percentage to ensure it stays within [0, 100] range
+			modified_percentage = clamp(modified_percentage, 0.0, 100.0)
+
+			# Store the modified percentage in the distance_from_center_map dictionary
+			distance_from_center_map[position] = modified_percentage
 
 
 # Function to check if a given position is within the grid bounds
@@ -331,20 +414,21 @@ func place_neighbor_tiles(position: Vector2) -> void:
 	if current_tile != null:
 		for direction: String in direction_offsets.keys():
 			var neighbor_pos: Vector2 = position + direction_offsets[direction]
+			var neighbor_regions: Array = get_regions_for_position(neighbor_pos)
 
 			# Check if the neighbor position is within bounds and has not been processed yet
-			if is_within_grid_bounds(neighbor_pos) and not area_grid.has(neighbor_pos):
-				var neighbor_tile: Tile = current_tile.get_neighbor_tile(direction)
+			if is_within_grid_bounds(neighbor_pos) and not area_grid.has(neighbor_pos) and neighbor_regions.size() > 0:
+				var neighbor_key: String = neighbor_regions.pick_random()
+				var neighbor_tile: Tile = current_tile.get_neighbor_tile(direction, neighbor_key)
 
 				# Retry mechanism to ensure the tile fits with all adjacent neighbors
 				if not neighbor_tile == null and not can_tile_fit(neighbor_pos, neighbor_tile):
 					# Exclude the incompatible tile and try a different one
 					exclude_tile_from_cell(neighbor_pos.x, neighbor_pos.y, neighbor_tile)
-					neighbor_tile = current_tile.get_neighbor_tile(direction)
+					neighbor_tile = current_tile.get_neighbor_tile(direction, neighbor_key)
 
 				if neighbor_tile != null:
 					area_grid[neighbor_pos] = neighbor_tile
-					print_debug("Placing tile at position ("+str(neighbor_pos)+") direction ("+str(direction)+") tile ("+str(neighbor_tile.id)+")")
 				else:
 					print_debug("No suitable neighbor tile found for direction: ", direction)
 
@@ -364,88 +448,74 @@ func place_starting_tile(center: Vector2) -> Tile:
 
 	return starting_tile
 
-
-# An algorithm that loops over all Gamedata.maps and creates a Tile for: 
-# 1. each rotation of the map, and 2. each neighbor key.
-# Then it organizes the tiles into tile_dictionary based on their key, connection, and rotation.
-# So one map can have a maximum of 4 TileInfo variants, multiplied by the amount of neighbor keys.
+# An algorithm that takes an area id and gets the required maps and instances them into tiles
+# 1. Get the DOvermaparea from Gamedata.overmapareas.by_id(area_id)
+# 2. Get the regions from dovermaparea.regions. This will be a dictionary where the region name 
+# is the key and the region data is the value. The value will be of the DOvermaparea.Region class
+# 3. For each region:
+# 3.1 Create a new key in tile_dictionary for the region name
+# 3.2 Get the region.maps array. Each item in the array will be something like: {"id": "house_02","weight": 8}
+# 3.3. For each map, get the DMap from Gamedata.maps.by_id(map_id)
+# 4. Leave the rest of the function unaltered.
 func create_tile_entries() -> void:
 	tile_catalog.clear()
 	tile_dictionary.clear()
-	var maps: Dictionary = Gamedata.maps.get_all()
+
+	if dovermaparea == null:
+		print_debug("create_tile_entries: Overmap area not found")
+		return
+
+	# Step 2: Get the regions from the overmap area
+	var regions: Dictionary = dovermaparea.regions
 	var rotations: Array = [0, 90, 180, 270]
 
-	for map: DMap in maps.values():
-		for key in map.neighbor_keys.keys():
-			for myrotation in rotations:
-				var mytile: Tile = Tile.new()
-				mytile.dmap = map
-				mytile.tile_dictionary = tile_dictionary
-				mytile.rotation_map = rotation_map
-				mytile.rotation = myrotation
-				mytile.key = key  # May be "urban", "suburban", etc.
-				# A tile's map data may have multiple neighbor_keys, but this tile instance can only
-				# exist in one neighbor_key. Therefore we set the weight to the neighbor_key's weight
-				mytile.weight = map.neighbor_keys.get(key, 0)
-				mytile.id = map.id + "_" + str(key) + "_" + str(myrotation)
-				tile_catalog.append(mytile)  # Add tile to the catalog
+	# Step 3: Loop through each region to create tile entries
+	for region_name in regions.keys():
+		var region_data: DOvermaparea.Region = regions[region_name]
+
+		# Step 3.1: Create a new key in the tile_dictionary for the region name
+		if not tile_dictionary.has(region_name):
+			tile_dictionary[region_name] = {}
+
+		# Step 3.2: Get the maps from the region data
+		var maps = region_data.maps
+		for map_data in maps:
+			var map_id = map_data.get("id", "")
+			var map_weight = map_data.get("weight", 1)
+
+			# Step 3.3: Retrieve the DMap from Gamedata using the map_id
+			var map: DMap = Gamedata.maps.by_id(map_id)
+			if map == null:
+				print_debug("create_tile_entries: Map not found for id: ", map_id)
+				continue
+
+			# Loop through each rotation to create Tile instances
+			for rotation in rotations:
+				var tile: Tile = Tile.new()
+				tile.dmap = map
+				tile.tile_dictionary = tile_dictionary
+				tile.rotation_map = rotation_map
+				tile.rotation = rotation
+				tile.key = region_name  # The region name serves as the key (e.g., "urban", "suburban")
+				tile.weight = map_weight  # Set the tile's weight from the map data
+				tile.id = map_id + "_" + region_name + "_" + str(rotation)
+				tile_catalog.append(tile)  # Add the tile to the catalog
 
 				# Get the rotated connections for this tile
-				var rotated_connections = mytile.rotated_connections(myrotation)
+				var rotated_connections = tile.rotated_connections(rotation)
 
-				# Organize the tile into the tile_dictionary
+				# Organize the tile into the tile_dictionary based on its key, connection type, and direction
 				for connection_direction in rotated_connections.keys():
 					var connection_type = rotated_connections[connection_direction]
 
-					# Ensure the dictionary structure exists
-					if not tile_dictionary.has(key):
-						tile_dictionary[key] = {}
-					if not tile_dictionary[key].has(connection_type):
-						tile_dictionary[key][connection_type] = {}
-					if not tile_dictionary[key][connection_type].has(connection_direction):
-						tile_dictionary[key][connection_type][connection_direction] = {}
+					# Ensure the nested dictionary structure exists
+					if not tile_dictionary[region_name].has(connection_type):
+						tile_dictionary[region_name][connection_type] = {}
+					if not tile_dictionary[region_name][connection_type].has(connection_direction):
+						tile_dictionary[region_name][connection_type][connection_direction] = {}
 
 					# Store the tile in the dictionary under its key, connection type, and direction
-					tile_dictionary[key][connection_type][connection_direction][mytile.id] = mytile
-
-
-
-# Used to place a tile at this coordinate
-# Gets a list of tiles that fit here, picks one based on the weight,
-# And assigns it to the grid
-func place_tile_at(x: int, y: int) -> bool:
-	var possible_tiles = get_possible_tiles(x, y)
-	if possible_tiles.empty():
-		return false  # Cannot place any tile here
-
-	# Apply weights to select a tile probabilistically
-	var total_weight = 0.0
-	for tile in possible_tiles:
-		total_weight += tile.weight
-
-	var rand_value = randf() * total_weight
-	for tile in possible_tiles:
-		rand_value -= tile.weight
-		if rand_value <= 0:
-			area_grid[Vector2(x,y)] = tile
-			return true
-
-	return false  # Should not reach here if weights are correctly calculated
-
-
-func get_possible_tiles(x: int, y: int) -> Array:
-	var possible_tiles = []
-
-	var key = Vector2(x, y)
-	var excluded_tiles = tried_tiles[key]
-
-	for tile in tile_catalog:
-		if tile.id in excluded_tiles:
-			continue  # Skip tiles that have already been tried
-		if can_tile_fit(Vector2(x, y), tile):
-			possible_tiles.append(tile)
-
-	return possible_tiles
+					tile_dictionary[region_name][connection_type][connection_direction][tile.id] = tile
 
 
 # Function to check if a tile fits at the specified position considering all neighbors
@@ -463,10 +533,6 @@ func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 		if area_grid.has(neighbor_pos):
 			var neighbor_tile = area_grid[neighbor_pos]
 
-			# Check neighbor key compatibility. This prevents incompatible zone types from being adjacent.
-			if not tile.are_neighbor_keys_compatible(neighbor_tile):
-				return false
-
 			# Check connection compatibility for both tiles (i.e., bidirectional fit)
 			if not tile.are_connections_compatible(neighbor_tile, direction):
 				return false
@@ -476,66 +542,112 @@ func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 	return true  # The tile fits with all adjacent neighbors
 
 
-func backtrack(x: int, y: int) -> bool:
-	## Remove the tile from the current cell
-	#city_grid.set(x, y, null)
-	## Get previous cell coordinates
-	#var prev_cell = get_previous_cell(x, y)
-	#if prev_cell == null:
-		#return false  # Cannot backtrack further
-	## Remove the tile from the previous cell
-	#var prev_tile = city_grid.get(prev_cell.x, prev_cell.y)
-	#if prev_tile == null:
-		#return false  # No tile to backtrack
-#
-	## Exclude the previously tried tile and attempt to place a different tile
-	#exclude_tile_from_cell(prev_cell.x, prev_cell.y, prev_tile)
-	#return place_tile_at(prev_cell.x, prev_cell.y)
-	return false
-
-
 func exclude_tile_from_cell(x: int, y: int, tile: Tile):
 	var key = Vector2(x, y)
 	if not tried_tiles.has(key):
 		tried_tiles[key] = tile
 
 
-# Function to determine the order of cell processing, using a plus pattern from the center outward
-func get_cell_processing_order() -> Array:
-	var order = []
-	var visited = {}  # Dictionary to keep track of visited coordinates
+# Function to calculate and return the center of the map as whole numbers
+func get_map_center() -> Vector2:
+	# Calculate the center coordinates and round them to whole numbers
+	var center_x = int(round(dimensions.x / 2))
+	var center_y = int(round(dimensions.y / 2))
+	return Vector2(center_x, center_y)
 
-	# Start at the center of the grid
-	var center = Vector2(grid_width / 2, grid_height / 2)
-	order.append(center)
-	visited[center] = true
 
-	# Define the directions in a plus pattern: North, South, West, East
-	var directions = [Vector2(0, -1), Vector2(0, 1), Vector2(-1, 0), Vector2(1, 0)]
+# Function to calculate the distance of a given position from the center of the map as a percentage
+# This function uses the radius to perform the calculations
+func get_distance_from_center_as_percentage(position: Vector2) -> float:
+	# Get the center of the map
+	var center = get_map_center()
 
-	# Add the first set of tiles in the plus pattern around the center
-	var queue = []
+	# Calculate the maximum possible distance (radius) from the center to the edge of the map
+	var max_radius = max(center.distance_to(Vector2(0, 0)),
+						 center.distance_to(Vector2(dimensions.x - 1, 0)),
+						 center.distance_to(Vector2(0, dimensions.y - 1)),
+						 center.distance_to(Vector2(dimensions.x - 1, dimensions.y - 1)))
 
-	for direction in directions:
-		var neighbor = center + direction
-		if neighbor.x >= 0 and neighbor.x < grid_width and neighbor.y >= 0 and neighbor.y < grid_height:
-			order.append(neighbor)
-			queue.append(neighbor)
-			visited[neighbor] = true
+	# Calculate the distance from the given position to the center
+	var distance_to_center = center.distance_to(position)
 
-	# Continue expanding outward in a plus pattern
-	while not queue.empty():
-		var current = queue.pop_front()
+	# Calculate the percentage distance relative to the maximum distance (radius)
+	var percentage_distance = (distance_to_center / max_radius) * 100.0
+	return percentage_distance
 
-		# Expand from the current position in the four primary directions
-		for direction in directions:
-			var neighbor = current + direction
 
-			# Check if the neighbor is within bounds and has not been visited yet
-			if neighbor.x >= 0 and neighbor.x < grid_width and neighbor.y >= 0 and neighbor.y < grid_height:
-				if not visited.has(neighbor):
-					order.append(neighbor)
-					queue.append(neighbor)
-					visited[neighbor] = true  # Mark as visited
+# Function to calculate the Euclidean distance from a given position to the center of the map
+func distance_to_center(position: Vector2) -> float:
+	# Calculate the center of the map
+	var center = get_map_center()
+	
+	# Calculate the Euclidean distance from the position to the center
+	var distance = position.distance_to(center)
+	
+	return distance
 
-	return order
+
+# Function to find regions that overlap with a given percentage
+func get_regions_for_percentage(percentage: float) -> Array:
+	var overlapping_regions: Array = []
+
+	# Ensure the overmap area data is available
+	if dovermaparea == null or not dovermaparea.regions:
+		print_debug("get_regions_for_percentage: Overmap area data not found or has no regions.")
+		return overlapping_regions
+
+	# Loop through each region in the overmap area
+	for region_name in dovermaparea.regions.keys():
+		var region_data = dovermaparea.regions[region_name]
+		var start_range = region_data.spawn_probability.range.start_range
+		var end_range = region_data.spawn_probability.range.end_range
+
+		# Check if the percentage is within the range of the current region
+		if percentage >= start_range and percentage <= end_range:
+			overlapping_regions.append(region_name)
+
+	return overlapping_regions
+
+
+# Function to get the list of region IDs for a given position
+# It calculates the percentage distance from the center to the position and finds regions that overlap with this percentage
+func get_regions_for_position(position: Vector2) -> Array:
+	if not is_within_grid_bounds(position):
+		return []
+	# Step 1: Calculate the percentage distance from the center for the given position
+	var percentage_distance = distance_from_center_map[position]
+
+	# Step 2: Use the calculated percentage to get the list of overlapping region IDs
+	var overlapping_regions = get_regions_for_percentage(percentage_distance)
+
+	return overlapping_regions
+
+
+# Function to set up the FastNoiseLite properties
+func setup_noise(seed: int = 1234, frequency: float = 0.05) -> void:
+	noise.seed = seed
+	noise.noise_type = FastNoiseLite.TYPE_PERLIN  # Using Perlin noise for natural variation
+	noise.fractal_type = FastNoiseLite.FRACTAL_FBM  # Fractal Brownian Motion for layered noise
+	noise.fractal_octaves = 5  # Number of noise layers
+	noise.fractal_gain = 0.5  # Influence of each octave
+	noise.fractal_lacunarity = 2.0  # Detail level between octaves
+	noise.frequency = frequency  # Frequency of the noise for overall pattern
+
+
+# Function to set the dimensions for the area generator based on the dovermaparea data
+func set_area_dimensions():
+	# Check if the dimensions are already set to a non-default value
+	if dimensions != Vector2.ZERO:
+		return  # Terminate if dimensions are already set
+
+	# Ensure that dovermaparea data is available
+	if dovermaparea == null:
+		print_debug("set_area_dimensions: dovermaparea data not available")
+		return
+
+	# Randomly set dimensions using the min and max width/height from the dovermaparea data
+	var random_width = randi() % (dovermaparea.max_width - dovermaparea.min_width + 1) + dovermaparea.min_width
+	var random_height = randi() % (dovermaparea.max_height - dovermaparea.min_height + 1) + dovermaparea.min_height
+	dimensions = Vector2(random_width, random_height)
+
+	print_debug("set_area_dimensions: Dimensions set to ", dimensions)

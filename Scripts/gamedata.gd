@@ -15,6 +15,7 @@ var wearableslots: DWearableSlots
 var stats: DStats
 var skills: DSkills
 var quests: DQuests
+var overmapareas: DOvermapareas
 
 # Load the shader resource
 static var hide_above_player_shader := preload("res://Shaders/HideAbovePlayer.gdshader")
@@ -39,7 +40,8 @@ enum ContentType {
 	WEARABLESLOTS,      #8
 	STATS,              #9
 	SKILLS,             #10
-	QUESTS              #11
+	QUESTS,              #11
+	OVERMAPAREAS        #12
 }
 
 
@@ -61,6 +63,7 @@ func _ready():
 	stats = DStats.new()
 	skills = DSkills.new()
 	quests = DQuests.new()
+	overmapareas = DOvermapareas.new()
 
 	# Now populate the gamedata_map with the instantiated objects
 	gamedata_map = {
@@ -75,7 +78,8 @@ func _ready():
 		ContentType.WEARABLESLOTS: wearableslots,
 		ContentType.STATS: stats,
 		ContentType.SKILLS: skills,
-		ContentType.QUESTS: quests
+		ContentType.QUESTS: quests,
+		ContentType.OVERMAPAREAS: overmapareas
 	}
 
 	load_sprites()

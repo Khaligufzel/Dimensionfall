@@ -1,0 +1,156 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3ggaal1e2obk"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/OvermapAreaEditor.gd" id="1_g1n4r"]
+[ext_resource type="PackedScene" uid="uid://2kp6gjwaextr" path="res://Scenes/ContentManager/Custom_Widgets/Overmap_Area_Region_editor.tscn" id="2_jtxai"]
+
+[node name="OvermapAreaEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "min_width_spin_box", "min_height_spin_box", "max_width_spin_box", "max_height_spin_box", "region_name_text_edit", "region_v_box_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g1n4r")
+IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
+NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
+DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
+min_width_spin_box = NodePath("VBoxContainer/FormGrid/DimensionsHBoxContainer/MinWidthSpinBox")
+min_height_spin_box = NodePath("VBoxContainer/FormGrid/DimensionsHBoxContainer/MinHeightSpinBox")
+max_width_spin_box = NodePath("VBoxContainer/FormGrid/DimensionsHBoxContainer/MaxWidthSpinBox")
+max_height_spin_box = NodePath("VBoxContainer/FormGrid/DimensionsHBoxContainer/MaxHeightSpinBox")
+region_name_text_edit = NodePath("VBoxContainer/FormGrid/RegionsVBoxContainer/RegionAddControlsHBoxContainer/RegionNameTextEdit")
+region_v_box_container = NodePath("VBoxContainer/FormGrid/RegionsVBoxContainer/RegionVBoxContainer")
+overmap_area_region_editor = ExtResource("2_jtxai")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="FormGrid" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="IDLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "ID:"
+
+[node name="IDTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Name"
+
+[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+focus_next = NodePath("../DescriptionTextEdit")
+placeholder_text = "City"
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Description"
+
+[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.9
+focus_previous = NodePath("../NameTextEdit")
+placeholder_text = "Creates a bunch of shops and houses representing a city"
+wrap_mode = 1
+
+[node name="DimensionsLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Dimensions"
+
+[node name="DimensionsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="MinWidthLabel" type="Label" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
+layout_mode = 2
+text = "Min width:"
+
+[node name="MinWidthSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
+layout_mode = 2
+step = 4.0
+value = 4.0
+
+[node name="MinHeightLabel" type="Label" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
+layout_mode = 2
+text = "Min height:"
+
+[node name="MinHeightSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
+layout_mode = 2
+step = 4.0
+value = 4.0
+
+[node name="MaxWidthLabel" type="Label" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
+layout_mode = 2
+text = "Max width"
+
+[node name="MaxWidthSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
+layout_mode = 2
+step = 4.0
+value = 16.0
+
+[node name="MaxHeightLabel" type="Label" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
+layout_mode = 2
+text = "Max height:"
+
+[node name="MaxHeightSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/DimensionsHBoxContainer"]
+layout_mode = 2
+step = 4.0
+value = 16.0
+
+[node name="RegionsLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Regions:"
+
+[node name="RegionsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RegionAddControlsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid/RegionsVBoxContainer"]
+layout_mode = 2
+
+[node name="RegionNameLabel" type="Label" parent="VBoxContainer/FormGrid/RegionsVBoxContainer/RegionAddControlsHBoxContainer"]
+layout_mode = 2
+text = "Region name:"
+
+[node name="RegionNameTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid/RegionsVBoxContainer/RegionAddControlsHBoxContainer"]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+
+[node name="RegionAddButton" type="Button" parent="VBoxContainer/FormGrid/RegionsVBoxContainer/RegionAddControlsHBoxContainer"]
+layout_mode = 2
+text = "Add"
+
+[node name="RegionVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/RegionsVBoxContainer"]
+layout_mode = 2
+
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/FormGrid/RegionsVBoxContainer/RegionAddControlsHBoxContainer/RegionAddButton" to="." method="_on_region_add_button_button_up"]

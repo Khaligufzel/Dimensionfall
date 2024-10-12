@@ -13392,29 +13392,11 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Grocery store",
-	"neighbor_keys": {
-		"urban": 100
-	},
-	"neighbors": {
-		"east": {
-			"suburban": 50,
-			"urban": 100
-		},
-		"north": {
-			"suburban": 50,
-			"urban": 100
-		},
-		"south": {
-			"suburban": 50,
-			"urban": 100
-		},
-		"west": {
-			"suburban": 50,
-			"urban": 100
-		}
-	},
 	"references": {
 		"core": {
+			"overmapareas": [
+				"city"
+			],
 			"tacticalmaps": [
 				"town_00.json"
 			]

@@ -6358,25 +6358,11 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Grassy Hill",
-	"neighbor_keys": {
-		"field": 1
-	},
-	"neighbors": {
-		"east": {
-			"field": 100
-		},
-		"north": {
-			"field": 100
-		},
-		"south": {
-			"field": 100
-		},
-		"west": {
-			"field": 100
-		}
-	},
 	"references": {
 		"core": {
+			"overmapareas": [
+				"city"
+			],
 			"tacticalmaps": [
 				"town_00.json"
 			]

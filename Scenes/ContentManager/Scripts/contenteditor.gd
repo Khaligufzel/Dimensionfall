@@ -13,6 +13,7 @@ extends Control
 @export var skillsEditor: PackedScene = null
 @export var questsEditor: PackedScene = null
 @export var playerattributesEditor: PackedScene = null
+@export var overmapareaEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
 var selectedMod: String = "Core"
@@ -31,6 +32,7 @@ func _ready():
 	load_content_list(Gamedata.ContentType.STATS, "Stats")
 	load_content_list(Gamedata.ContentType.SKILLS, "Skills")
 	load_content_list(Gamedata.ContentType.QUESTS, "Quests")
+	load_content_list(Gamedata.ContentType.OVERMAPAREAS, "Overmap areas")
 
 
 func load_content_list(type: Gamedata.ContentType, strHeader: String):
@@ -71,7 +73,8 @@ func _on_content_item_activated(type: Gamedata.ContentType, itemID: String, list
 		Gamedata.ContentType.WEARABLESLOTS: wearableslotEditor,
 		Gamedata.ContentType.STATS: statsEditor,
 		Gamedata.ContentType.SKILLS: skillsEditor,
-		Gamedata.ContentType.QUESTS: questsEditor
+		Gamedata.ContentType.QUESTS: questsEditor,
+		Gamedata.ContentType.OVERMAPAREAS: overmapareaEditor
 	}
 
 	instantiate_editor(type, itemID, editors[type], list)
@@ -143,6 +146,10 @@ func instantiate_editor(type: Gamedata.ContentType, itemID: String, newEditor: P
 		
 		Gamedata.ContentType.QUESTS:
 			newContentEditor.dquest = Gamedata.quests.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
+		Gamedata.ContentType.OVERMAPAREAS:
+			newContentEditor.dovermaparea = Gamedata.overmapareas.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		_:

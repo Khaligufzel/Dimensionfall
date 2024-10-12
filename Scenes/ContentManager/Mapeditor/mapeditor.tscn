@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=35 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
@@ -57,25 +57,7 @@ unicode = 101
 [sub_resource type="Shortcut" id="Shortcut_jlgdg"]
 events = [SubResource("InputEventKey_rjlhc")]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o52fw"]
-expand_margin_left = 5.0
-expand_margin_top = 5.0
-expand_margin_right = 5.0
-expand_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owrls"]
-bg_color = Color(0.740592, 0.554922, 0.432471, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hhjo"]
-bg_color = Color(0.527657, 0.625112, 0.602793, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kxr0o"]
-bg_color = Color(0.718449, 0.526477, 0.699646, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t37im"]
-bg_color = Color(0.451403, 0.622005, 0.759976, 1)
-
-[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "neighbor_key_option_button", "neighbor_key_text_edit", "neighbor_key_grid_container", "north_check_box", "east_check_box", "south_check_box", "west_check_box", "gridkey_option_button", "neighbor_north_check_box", "neighbor_east_check_box", "neighbor_south_check_box", "neighbor_west_check_box", "neighbors_grid_container", "north_h_flow_container", "east_h_flow_container", "south_h_flow_container", "west_h_flow_container")]
+[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "north_check_box", "east_check_box", "south_check_box", "west_check_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,23 +74,10 @@ name_text_edit = NodePath("TabContainer/Settings/NameTextEdit")
 description_text_edit = NodePath("TabContainer/Settings/DescriptionTextEdit")
 categories_list = NodePath("TabContainer/Settings/CategoriesList")
 weight_spin_box = NodePath("TabContainer/Settings/WeightSpinBox")
-neighbor_key_option_button = NodePath("TabContainer/Neighbors/VBoxContainer/HBoxContainer/NeighborKeyOptionButton")
-neighbor_key_text_edit = NodePath("TabContainer/Neighbors/VBoxContainer/HBoxContainer/NeighborKeyTextEdit")
-neighbor_key_grid_container = NodePath("TabContainer/Neighbors/VBoxContainer/PanelContainer/NeighborKeyGridContainer")
-north_check_box = NodePath("TabContainer/Neighbors/RoadConnectionHBoxContainer/NorthCheckBox")
-east_check_box = NodePath("TabContainer/Neighbors/RoadConnectionHBoxContainer/EastCheckBox")
-south_check_box = NodePath("TabContainer/Neighbors/RoadConnectionHBoxContainer/SouthCheckBox")
-west_check_box = NodePath("TabContainer/Neighbors/RoadConnectionHBoxContainer/WestCheckBox")
-gridkey_option_button = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/GridkeyOptionButton")
-neighbor_north_check_box = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborNorthCheckBox")
-neighbor_east_check_box = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborEastCheckBox")
-neighbor_south_check_box = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborSouthCheckBox")
-neighbor_west_check_box = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/NeighborWestCheckBox")
-neighbors_grid_container = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer")
-north_h_flow_container = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer/NorthHFlowContainer")
-east_h_flow_container = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer/EastHFlowContainer")
-south_h_flow_container = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer/SouthHFlowContainer")
-west_h_flow_container = NodePath("TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer/WestHFlowContainer")
+north_check_box = NodePath("TabContainer/Settings/RoadConnectionHBoxContainer/NorthCheckBox")
+east_check_box = NodePath("TabContainer/Settings/RoadConnectionHBoxContainer/EastCheckBox")
+south_check_box = NodePath("TabContainer/Settings/RoadConnectionHBoxContainer/SouthCheckBox")
+west_check_box = NodePath("TabContainer/Settings/RoadConnectionHBoxContainer/WestCheckBox")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
@@ -444,179 +413,36 @@ of 500, the map with weight of 1000 will be twice as likely to be picked."
 max_value = 1e+06
 value = 1000.0
 
-[node name="Neighbors" type="GridContainer" parent="TabContainer"]
-visible = false
-layout_mode = 2
-columns = 2
-metadata/_tab_index = 2
-
-[node name="NeighborkeysLabel" type="Label" parent="TabContainer/Neighbors"]
-layout_mode = 2
-text = "Neighbor keys"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Neighbors"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Neighbors/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="NeighborKeyOptionButton" type="OptionButton" parent="TabContainer/Neighbors/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="NeighborKeyTextEdit" type="TextEdit" parent="TabContainer/Neighbors/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Type a new neighbor key"
-
-[node name="AddNeighborKeyButton" type="Button" parent="TabContainer/Neighbors/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Add"
-
-[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Neighbors/VBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_o52fw")
-
-[node name="NeighborKeyGridContainer" type="GridContainer" parent="TabContainer/Neighbors/VBoxContainer/PanelContainer"]
-layout_mode = 2
-columns = 3
-
-[node name="RoadConnectionLabel" type="Label" parent="TabContainer/Neighbors"]
+[node name="RoadConnectionLabel" type="Label" parent="TabContainer/Settings"]
 layout_mode = 2
 text = "Road connection"
 
-[node name="RoadConnectionHBoxContainer" type="HBoxContainer" parent="TabContainer/Neighbors"]
+[node name="RoadConnectionHBoxContainer" type="HBoxContainer" parent="TabContainer/Settings"]
 layout_mode = 2
 
-[node name="NorthCheckBox" type="CheckBox" parent="TabContainer/Neighbors/RoadConnectionHBoxContainer"]
+[node name="NorthCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Toggle this on if the map has a road connection to the north. 
 Toggle this off if the map does not have a road connection to the north."
 text = "North"
 
-[node name="EastCheckBox" type="CheckBox" parent="TabContainer/Neighbors/RoadConnectionHBoxContainer"]
+[node name="EastCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Toggle this on if the map has a road connection to the east. 
 Toggle this off if the map does not have a road connection to the east."
 text = "East"
 
-[node name="SouthCheckBox" type="CheckBox" parent="TabContainer/Neighbors/RoadConnectionHBoxContainer"]
+[node name="SouthCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Toggle this on if the map has a road connection to the south. 
 Toggle this off if the map does not have a road connection to the south."
 text = "South"
 
-[node name="WestCheckBox" type="CheckBox" parent="TabContainer/Neighbors/RoadConnectionHBoxContainer"]
+[node name="WestCheckBox" type="CheckBox" parent="TabContainer/Settings/RoadConnectionHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Toggle this on if the map has a road connection to the west. 
 Toggle this off if the map does not have a road connection to the west."
 text = "West"
-
-[node name="NeighborsLabel" type="Label" parent="TabContainer/Neighbors"]
-layout_mode = 2
-text = "Neighbors"
-
-[node name="NeighborsVBoxContainer" type="VBoxContainer" parent="TabContainer/Neighbors"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Neighbors/NeighborsVBoxContainer"]
-layout_mode = 2
-
-[node name="HelpButton" type="Button" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Set neighbors: Select a key from the dropdown menu below, select one or 
-more directions for the key and press add. The key will then be 
-added to the list in the specified direction. At runtime, one of the maps that have the 
-key will be selected and fitted onto one of the road connections above.
-If the map in the selected key does not have a road connection, it will 
-be fitted onto a side without road connection."
-theme_override_colors/font_disabled_color = Color(1, 0.374252, 0.322802, 1)
-theme_override_constants/outline_size = 4
-disabled = true
-text = " ? "
-
-[node name="GridkeyOptionButton" type="OptionButton" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Select a map key to be added to the neighbor list. During runtime, one of the maps that have this 
-key will be picked as the neighbor of this map. If the randomly selected map has road 
-connections, they will be fit onto existing road connections. If the randomly selected map does 
-not have road connections, it will be fitted onto a side that does not have  a road connection."
-selected = 0
-item_count = 1
-popup/item_0/text = "none"
-
-[node name="NeighborNorthCheckBox" type="CheckBox" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Toggle this on before pressing the \"add\" button. The selected key will be added to the 
-selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
-text = "North"
-
-[node name="NeighborEastCheckBox" type="CheckBox" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Toggle this on before pressing the \"add\" button. The selected key will be added to the 
-selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
-text = "East"
-
-[node name="NeighborSouthCheckBox" type="CheckBox" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Toggle this on before pressing the \"add\" button. The selected key will be added to the 
-selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
-text = "South"
-
-[node name="NeighborWestCheckBox" type="CheckBox" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Toggle this on before pressing the \"add\" button. The selected key will be added to the 
-selected direction(s). This will create a whitelist of maps that are allowed to spawn in this direction."
-text = "West"
-
-[node name="AddButton" type="Button" parent="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Adds the selected key to the selected directions in the grid."
-text = "Add"
-
-[node name="NeighborsGridContainer" type="GridContainer" parent="TabContainer/Neighbors/NeighborsVBoxContainer"]
-layout_mode = 2
-columns = 2
-
-[node name="NorthLabel" type="Label" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_owrls")
-text = "North"
-
-[node name="NorthHFlowContainer" type="HFlowContainer" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="EastLabel" type="Label" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_6hhjo")
-text = "East"
-
-[node name="EastHFlowContainer" type="HFlowContainer" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="SouthLabel" type="Label" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_kxr0o")
-text = "South"
-
-[node name="SouthHFlowContainer" type="HFlowContainer" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="WestLabel" type="Label" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_t37im")
-text = "West"
-
-[node name="WestHFlowContainer" type="HFlowContainer" parent="TabContainer/Neighbors/NeighborsVBoxContainer/NeighborsGridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="BrushPreviewTexture" type="TextureRect" parent="."]
 visible = false
@@ -650,5 +476,3 @@ visible = false
 [connection signal="value_changed" from="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_level_scrollbar_value_changed"]
 [connection signal="value_changed" from="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller" method="_on_level_scrollbar_value_changed"]
 [connection signal="tile_brush_selection_change" from="TabContainer/Edit Map/EntitiesVBoxContainer/EntitiesContainer" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_tilebrush_list_tile_brush_selection_change"]
-[connection signal="button_up" from="TabContainer/Neighbors/VBoxContainer/HBoxContainer/AddNeighborKeyButton" to="." method="_on_add_neighbor_key_button_button_up"]
-[connection signal="button_up" from="TabContainer/Neighbors/NeighborsVBoxContainer/HBoxContainer/AddButton" to="." method="_on_add_neighbor_button_button_up"]
