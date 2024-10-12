@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://480xqusluqrk"]
+[gd_scene load_steps=16 format=3 uid="uid://480xqusluqrk"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/contenteditor.gd" id="1_65sl4"]
 [ext_resource type="PackedScene" uid="uid://bhh0v7x4fjsgi" path="res://Scenes/ContentManager/content_list.tscn" id="2_4f21i"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://qn17yxy8fy0d" path="res://Scenes/ContentManager/Custom_Editors/SkillsEditor.tscn" id="12_orpls"]
 [ext_resource type="PackedScene" uid="uid://b7k2j4d6wx4yy" path="res://Scenes/ContentManager/Custom_Editors/QuestEditor.tscn" id="13_gv2y0"]
 [ext_resource type="PackedScene" uid="uid://b07i30w3ey3aa" path="res://Scenes/ContentManager/Custom_Editors/PlayerAttributeEditor.tscn" id="14_uu117"]
+[ext_resource type="PackedScene" uid="uid://b3ggaal1e2obk" path="res://Scenes/ContentManager/Custom_Editors/OvermapAreaEditor.tscn" id="15_qbq5b"]
 
 [node name="contenteditor" type="Control" node_paths=PackedStringArray("content", "tabContainer")]
 layout_mode = 3
@@ -36,6 +37,7 @@ statsEditor = ExtResource("11_lg6mj")
 skillsEditor = ExtResource("12_orpls")
 questsEditor = ExtResource("13_gv2y0")
 playerattributesEditor = ExtResource("14_uu117")
+overmapareaEditor = ExtResource("15_qbq5b")
 content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content")
 tabContainer = NodePath("HSplitContainer/TabContainer")
 

@@ -4,6 +4,7 @@
 		"Road"
 	],
 	"description": "A standard urban road, suitable for city environments.",
+	"id": "urbanroad",
 	"levels": [
 		[],
 		[],
@@ -3216,11 +3217,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Urban Road",
-	"references": {
-		"core": {
-			"tacticalmaps": [
-				"town_00.json"
-			]
-		}
-	}
+	"weight": 1000
 }
