@@ -92,11 +92,11 @@ extends Control
 @export var max_height_spin_box: SpinBox = null # The maximum height of the area in tiles
 @export var region_name_text_edit: TextEdit = null # Allows the user to enter a new region name
 @export var region_v_box_container: VBoxContainer = null # Contains region editing controls
-@export var overmap_area_region_editor: PackedScene = null
+@export var overmap_area_region_editor: PackedScene = null # Sub-scene for editing a region
+@export var overmap_area_visualization: Control = null # Sub-scene for area visualization
 
 
 # This signal will be emitted when the user presses the save button
-# This signal should alert Gamedata that the overmaparea data array should be saved to disk
 signal data_changed()
 
 var olddata: DOvermaparea # Remember what the value of the data was before editing
@@ -142,6 +142,8 @@ func load_overmaparea_data() -> void:
 			# Set the region name and values for the region editor
 			region_editor.set_region_name(region_key)
 			region_editor.set_values(region_instance.get_data())  # Using get_data() to get the region's dictionary representation
+	
+	overmap_area_visualization.set_area_name(dovermaparea.id)
 
 
 # The editor is closed, destroy the instance
