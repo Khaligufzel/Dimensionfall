@@ -1,0 +1,115 @@
+[gd_scene load_steps=5 format=3 uid="uid://2kp6gjwaextr"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/overmap_area_region_editor.gd" id="1_5ajug"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_foquf"]
+bg_color = Color(0.484662, 0.657242, 0.419408, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.437772, 0.142415, 0.175314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vx8y"]
+bg_color = Color(0.790064, 0.209184, 0.225512, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nlv0"]
+
+[node name="OvermapAreaRegionEditor" type="VBoxContainer" node_paths=PackedStringArray("region_name_label", "min_range_h_slider", "max_range_h_slider", "maps_grid_container", "min_range_value_label", "max_range_value_label")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_5ajug")
+region_name_label = NodePath("HBoxContainer2/RegionNameLabel")
+min_range_h_slider = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/MinRangeHSlider")
+max_range_h_slider = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/MaxRangeHSlider")
+maps_grid_container = NodePath("PanelContainer/MapsGridContainer")
+min_range_value_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/MinRangeValueLabel")
+max_range_value_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/MaxRangeValueLabel")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RegionNameLabel" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_foquf")
+text = "Urban"
+horizontal_alignment = 1
+
+[node name="DeleteButton" type="Button" parent="HBoxContainer2"]
+layout_mode = 2
+tooltip_text = "Delete this region from the area"
+theme_override_colors/icon_normal_color = Color(0.805532, 0.758668, 0.898871, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_5vx8y")
+text = "  x  "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MinRangeLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Min distance from center"
+
+[node name="MinRangeHSlider" type="HSlider" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+tooltip_text = "The minmum distance from the center of the area that this region 
+can spawn. For example, if you want to restrict the \"field\" region of a 
+city to it's edges, you would put a high % here"
+
+[node name="MinRangeValueLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "0%"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MaxRangeLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Max distance from center"
+
+[node name="MaxRangeHSlider" type="HSlider" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+tooltip_text = "The maximum distance from the center of the area that this region 
+can spawn. For example, if you want to restrict the \"urban\" region of a 
+city to it's center, you would put a low % here"
+value = 100.0
+
+[node name="MaxRangeValueLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "100%"
+
+[node name="MapsLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Maps:"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_8nlv0")
+
+[node name="MapsGridContainer" type="GridContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+tooltip_text = "Drag maps from the left menu to here to add them. You can 
+then specify a weight for each of the maps. A higher weight 
+compared to the other maps in this region makes it more 
+likely to spawn. A low weight makes it less likely to spawn."
+columns = 4
+
+[connection signal="button_up" from="HBoxContainer2/DeleteButton" to="." method="_on_delete_button_button_up"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/HBoxContainer/MinRangeHSlider" to="." method="_on_min_range_h_slider_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/HBoxContainer2/MaxRangeHSlider" to="." method="_on_max_range_h_slider_value_changed"]

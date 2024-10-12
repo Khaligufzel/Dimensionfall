@@ -79,7 +79,7 @@ func get_file_path() -> String:
 	return dataPath + get_filename()
 
 # A tacticalmap is being deleted. Remove all references to this tacticalmap
-func delete(_tacticalmap_id: String):
+func delete():
 	for chunk: TChunk in chunks:
 		Gamedata.maps.remove_reference_from_map(chunk.id,"core", "tacticalmaps",get_filename())
 	Helper.json_helper.delete_json_file(get_file_path())

@@ -25,10 +25,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BackButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Back"
-
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
@@ -38,7 +34,6 @@ text = "Width:"
 
 [node name="WidthSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-value = 20.0
 
 [node name="HeightLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -46,7 +41,6 @@ text = "Height:"
 
 [node name="HeightSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-value = 20.0
 
 [node name="MaxIterationsLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -67,5 +61,4 @@ layout_mode = 2
 size_flags_horizontal = 0
 columns = 20
 
-[connection signal="button_up" from="VBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/GenerateButton" to="." method="_on_generate_button_button_up"]
