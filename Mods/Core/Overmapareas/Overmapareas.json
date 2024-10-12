@@ -2,10 +2,10 @@
 	{
 		"description": "Creates a bunch of shops and houses representing a city",
 		"id": "city",
-		"max_height": 16,
-		"max_width": 16,
-		"min_height": 4,
-		"min_width": 4,
+		"max_height": 24,
+		"max_width": 24,
+		"min_height": 8,
+		"min_width": 8,
 		"name": "City",
 		"regions": {
 			"field": {
@@ -30,7 +30,7 @@
 				"spawn_probability": {
 					"range": {
 						"end_range": 100,
-						"start_range": 62
+						"start_range": 100
 					}
 				}
 			},
@@ -63,8 +63,8 @@
 				],
 				"spawn_probability": {
 					"range": {
-						"end_range": 63,
-						"start_range": 20
+						"end_range": 38,
+						"start_range": 14
 					}
 				}
 			},
@@ -89,7 +89,7 @@
 				],
 				"spawn_probability": {
 					"range": {
-						"end_range": 23,
+						"end_range": 14,
 						"start_range": 0
 					}
 				}

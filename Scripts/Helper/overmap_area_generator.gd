@@ -391,15 +391,33 @@ func place_neighbor_tile(current_tile: Tile, direction: String, neighbor_pos: Ve
 
 # Function to find a suitable neighbor tile that fits the specified position
 func find_suitable_neighbor_tile(current_tile: Tile, direction: String, neighbor_key: String, neighbor_pos: Vector2) -> Tile:
-	# Try to get a valid neighbor tile
-	var neighbor_tile = current_tile.get_neighbor_tile(direction, neighbor_key)
+	# Get the list of all potential neighbor tiles
+	var potential_tiles: Array = current_tile.get_neighbor_tiles(direction, neighbor_key)
 
-	# Retry with a different tile if the first one doesn't fit
-	if neighbor_tile != null and not can_tile_fit(neighbor_pos, neighbor_tile):
-		exclude_tile_from_cell(int(neighbor_pos.x), int(neighbor_pos.y), neighbor_tile)
-		neighbor_tile = current_tile.get_neighbor_tile(direction, neighbor_key)
+	# Filter out any tiles that have already been tried for this position
+	var tried_tiles_for_position = tried_tiles.get(Vector2(int(neighbor_pos.x), int(neighbor_pos.y)), [])
+	var filtered_tiles: Array = []
+	for tile in potential_tiles:
+		if tile not in tried_tiles_for_position:
+			filtered_tiles.append(tile)
 
-	return neighbor_tile
+	# Continue selecting tiles based on weight until a suitable one is found
+	while not filtered_tiles.is_empty():
+		# Select a tile based on weight using pick_tile_from_list
+		var selected_tile: Tile = current_tile.pick_tile_from_list(filtered_tiles)
+
+		# If the selected tile fits, return it
+		if can_tile_fit(neighbor_pos, selected_tile):
+			return selected_tile
+
+		# If the tile doesn't fit, exclude it and remove it from the list
+		exclude_tile_from_cell(int(neighbor_pos.x), int(neighbor_pos.y), selected_tile)
+		filtered_tiles.erase(selected_tile)  # Remove the tile from the selection pool
+
+	# If no valid tile was found, return null
+	print_debug("No suitable neighbor tile found after trying all weighted possibilities for direction: ", direction)
+	return null
+
 
 # Function to place the starting tile in the center of the grid
 # The starting tile is selected from the tile_dictionary using specified parameters
@@ -484,7 +502,6 @@ func create_tile_entries() -> void:
 
 					# Store the tile in the dictionary under its key, connection type, and direction
 					tile_dictionary[region_name][connection_type][connection_direction][tile.id] = tile
-
 
 
 # Check if a tile can fit at the specified position by verifying connections with neighbors
@@ -578,7 +595,7 @@ func get_regions_for_percentage(percentage: float) -> Array:
 # Function to get the list of region IDs for a given position
 # It calculates the percentage distance from the center to the position and finds regions that overlap with this percentage
 func get_regions_for_position(position: Vector2) -> Array:
-	if not is_within_grid_bounds(position):
+	if not is_within_grid_bounds(position) or not distance_from_center_map.has(position):
 		return []
 	# Step 1: Calculate the percentage distance from the center for the given position
 	var percentage_distance = distance_from_center_map[position]
