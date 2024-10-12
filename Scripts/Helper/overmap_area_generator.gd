@@ -350,36 +350,56 @@ func is_within_grid_bounds(position: Vector2) -> bool:
 # Function to place the neighboring tiles of the specified position on the area_grid
 # It checks if there is a tile at the given position and then places neighbor tiles based on the tile's logic
 func place_neighbor_tiles(position: Vector2) -> void:
-	# Get the tile at the specified position, if present
-	var current_tile = null
-	if area_grid.has(position):
-		current_tile = area_grid[position]
-	else:
+	# Get the current tile at the given position
+	var current_tile = get_tile_at_position(position)
+	if current_tile == null:
 		print_debug("No tile present at the specified position.")
-		return  # If there's no tile at the starting position, exit the function
+		return
 
-	# Loop over each direction, get the neighboring tile using the tile's get_neighbor_tile function, and place it on the area_grid
-	if current_tile != null:
-		for direction: String in DIRECTION_OFFSETS.keys():
-			var neighbor_pos: Vector2 = position + DIRECTION_OFFSETS[direction]
-			var neighbor_regions: Array = get_regions_for_position(neighbor_pos)
+	# Loop through each direction (north, east, south, west) and place neighboring tiles
+	for direction in DIRECTION_OFFSETS.keys():
+		var neighbor_pos: Vector2 = position + DIRECTION_OFFSETS[direction]
+		place_neighbor_tile(current_tile, direction, neighbor_pos)
 
-			# Check if the neighbor position is within bounds and has not been processed yet
-			if is_within_grid_bounds(neighbor_pos) and not area_grid.has(neighbor_pos) and neighbor_regions.size() > 0:
-				var neighbor_key: String = neighbor_regions.pick_random()
-				var neighbor_tile: Tile = current_tile.get_neighbor_tile(direction, neighbor_key)
 
-				# Retry mechanism to ensure the tile fits with all adjacent neighbors
-				if not neighbor_tile == null and not can_tile_fit(neighbor_pos, neighbor_tile):
-					# Exclude the incompatible tile and try a different one
-					exclude_tile_from_cell(int(neighbor_pos.x), int(neighbor_pos.y), neighbor_tile)
-					neighbor_tile = current_tile.get_neighbor_tile(direction, neighbor_key)
+# Helper function to get the tile at the specified position
+func get_tile_at_position(position: Vector2) -> Tile:
+	if area_grid.has(position):
+		return area_grid[position]
+	return null
 
-				if neighbor_tile != null:
-					area_grid[neighbor_pos] = neighbor_tile
-				else:
-					print_debug("No suitable neighbor tile found for direction: ", direction)
 
+# Function to place a tile in a neighboring position based on the current tile and direction
+func place_neighbor_tile(current_tile: Tile, direction: String, neighbor_pos: Vector2) -> void:
+	if not is_within_grid_bounds(neighbor_pos) or area_grid.has(neighbor_pos):
+		return  # Skip if out of bounds or already occupied
+
+	# Get potential regions for the neighbor position
+	var neighbor_regions: Array = get_regions_for_position(neighbor_pos)
+	if neighbor_regions.is_empty():
+		return  # No valid regions found for this neighbor position
+
+	# Select and place a suitable neighbor tile
+	var neighbor_key = neighbor_regions.pick_random()
+	var neighbor_tile = find_suitable_neighbor_tile(current_tile, direction, neighbor_key, neighbor_pos)
+
+	if neighbor_tile != null:
+		area_grid[neighbor_pos] = neighbor_tile
+	else:
+		print_debug("No suitable neighbor tile found for direction: ", direction)
+
+
+# Function to find a suitable neighbor tile that fits the specified position
+func find_suitable_neighbor_tile(current_tile: Tile, direction: String, neighbor_key: String, neighbor_pos: Vector2) -> Tile:
+	# Try to get a valid neighbor tile
+	var neighbor_tile = current_tile.get_neighbor_tile(direction, neighbor_key)
+
+	# Retry with a different tile if the first one doesn't fit
+	if neighbor_tile != null and not can_tile_fit(neighbor_pos, neighbor_tile):
+		exclude_tile_from_cell(int(neighbor_pos.x), int(neighbor_pos.y), neighbor_tile)
+		neighbor_tile = current_tile.get_neighbor_tile(direction, neighbor_key)
+
+	return neighbor_tile
 
 # Function to place the starting tile in the center of the grid
 # The starting tile is selected from the tile_dictionary using specified parameters
@@ -466,34 +486,32 @@ func create_tile_entries() -> void:
 					tile_dictionary[region_name][connection_type][connection_direction][tile.id] = tile
 
 
-# Function to check if a tile fits at the specified position considering all neighbors
+
+# Check if a tile can fit at the specified position by verifying connections with neighbors
 func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 	# Loop over north, east, south, and west to check all adjacent neighbors
 	for direction in DIRECTION_OFFSETS.keys():
-		var offset = DIRECTION_OFFSETS[direction]
-		var neighbor_pos = pos + offset  # The coordinate in the specified direction
+		var neighbor_pos = pos + DIRECTION_OFFSETS[direction]
 
-		# Ensure the neighbor position is within bounds
-		if not is_within_grid_bounds(neighbor_pos):
-			continue  # Skip out-of-bounds neighbors
+		# Skip out-of-bounds or empty neighbors
+		if not is_within_grid_bounds(neighbor_pos) or not area_grid.has(neighbor_pos):
+			continue
 
-		# Check if there's a tile in the neighbor position
-		if area_grid.has(neighbor_pos):
-			var neighbor_tile = area_grid[neighbor_pos]
+		var neighbor_tile = area_grid[neighbor_pos]
+		if not tile.are_connections_compatible(neighbor_tile, direction):
+			return false
+		if not neighbor_tile.are_connections_compatible(tile, ROTATION_MAP[180][direction]):
+			return false
 
-			# Check connection compatibility for both tiles (i.e., bidirectional fit)
-			if not tile.are_connections_compatible(neighbor_tile, direction):
-				return false
-			if not neighbor_tile.are_connections_compatible(tile, ROTATION_MAP[180][direction]):
-				return false
-
-	return true  # The tile fits with all adjacent neighbors
+	return true
 
 
-func exclude_tile_from_cell(x: int, y: int, tile: Tile):
+# Exclude a tile from being selected again for the specified position
+func exclude_tile_from_cell(x: int, y: int, tile: Tile) -> void:
 	var key = Vector2(x, y)
 	if not tried_tiles.has(key):
-		tried_tiles[key] = tile
+		tried_tiles[key] = []
+	tried_tiles[key].append(tile)
 
 
 # Function to calculate and return the center of the map as whole numbers
