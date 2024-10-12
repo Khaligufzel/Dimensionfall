@@ -52,7 +52,10 @@ func get_all() -> Dictionary:
 
 
 func duplicate_to_disk(wearableslotid: String, newwearableslotid: String) -> void:
-	var wearableslotdata: Dictionary = wearableslotdict[wearableslotid].get_data().duplicate(true)
+	var wearableslotdata: Dictionary = by_id(wearableslotid).get_data().duplicate(true)
+	# A duplicated wearableslot is brand new and can't already be referenced by something
+	# So we delete the references from the duplicated data if it is present
+	wearableslotdata.erase("references")
 	wearableslotdata.id = newwearableslotid
 	var newwearableslot: DWearableSlot = DWearableSlot.new(wearableslotdata)
 	wearableslotdict[newwearableslotid] = newwearableslot

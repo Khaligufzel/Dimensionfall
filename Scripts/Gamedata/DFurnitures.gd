@@ -52,7 +52,10 @@ func get_all() -> Dictionary:
 
 
 func duplicate_to_disk(furnitureid: String, newfurnitureid: String) -> void:
-	var furnituredata: Dictionary = furnituredict[furnitureid].get_data().duplicate(true)
+	var furnituredata: Dictionary = by_id(furnitureid).get_data().duplicate(true)
+	# A duplicated furniture is brand new and can't already be referenced by something
+	# So we delete the references from the duplicated data if it is present
+	furnituredata.erase("references")
 	furnituredata.id = newfurnitureid
 	var newfurniture: DFurniture = DFurniture.new(furnituredata)
 	furnituredict[newfurnitureid] = newfurniture

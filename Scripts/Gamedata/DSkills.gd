@@ -50,7 +50,10 @@ func get_all() -> Dictionary:
 
 # Duplicates a skill and saves it to disk with a new ID
 func duplicate_to_disk(skillid: String, newskillid: String) -> void:
-	var skilldata: Dictionary = skilldict[skillid].get_data().duplicate(true)
+	var skilldata: Dictionary = by_id(skillid).get_data().duplicate(true)
+	# A duplicated quest is brand new and can't already be referenced by something
+	# So we delete the references from the duplicated data if it is present
+	skilldata.erase("references")
 	skilldata["id"] = newskillid
 	var newskill: DSkill = DSkill.new(skilldata)
 	skilldict[newskillid] = newskill

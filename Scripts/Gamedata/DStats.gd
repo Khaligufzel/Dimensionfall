@@ -50,7 +50,10 @@ func get_all() -> Dictionary:
 
 # Duplicates a stat and saves it to disk with a new ID
 func duplicate_to_disk(statid: String, newstatid: String) -> void:
-	var statdata: Dictionary = statdict[statid].get_data().duplicate(true)
+	var statdata: Dictionary = by_id(statid).get_data().duplicate(true)
+	# A duplicated stat is brand new and can't already be referenced by something
+	# So we delete the references from the duplicated data if it is present
+	statdata.erase("references")
 	statdata.id = newstatid
 	var newstat: DStat = DStat.new(statdata)
 	statdict[newstatid] = newstat

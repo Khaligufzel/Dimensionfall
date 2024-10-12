@@ -53,7 +53,10 @@ func get_all() -> Dictionary:
 
 
 func duplicate_to_disk(tileid: String, newtileid: String) -> void:
-	var tiledata: Dictionary = tiledict[tileid].get_data().duplicate(true)
+	var tiledata: Dictionary = by_id(tileid).get_data().duplicate(true)
+	# A duplicated tile is brand new and can't already be referenced by something
+	# So we delete the references from the duplicated data if it is present
+	tiledata.erase("references")
 	tiledata.id = newtileid
 	var newtile: DTile = DTile.new(tiledata)
 	tiledict[newtileid] = newtile

@@ -2456,5 +2456,107 @@
 		},
 		"shape": "cube",
 		"sprite": "linoleum_white2.png"
+	},
+	{
+		"categories": [
+			"Urban"
+		],
+		"description": "Damaged concrete surfaced with cracks running along it",
+		"id": "concrete__cracked_00",
+		"name": "Cracked concrete",
+		"references": {
+			"core": {
+				"maps": [
+					"abandoned_building"
+				]
+			}
+		},
+		"shape": "cube",
+		"sprite": "concrete_cracked_00.png"
+	},
+	{
+		"categories": [
+			"Urban"
+		],
+		"description": "Damaged concrete surfaced with cracks running along it",
+		"id": "concrete__cracked_01",
+		"name": "Cracked concrete",
+		"references": {
+			"core": {
+				"maps": [
+					"abandoned_building"
+				]
+			}
+		},
+		"shape": "cube",
+		"sprite": "concrete_cracked_01.png"
+	},
+	{
+		"categories": [
+			"Urban"
+		],
+		"description": "Damaged concrete surfaced with cracks running along it",
+		"id": "concrete__cracked_02",
+		"name": "Cracked concrete",
+		"references": {
+			"core": {
+				"maps": [
+					"abandoned_building"
+				]
+			}
+		},
+		"shape": "cube",
+		"sprite": "concrete_cracked_02.png"
+	},
+	{
+		"categories": [
+			"Urban"
+		],
+		"description": "Damaged concrete surfaced with cracks running along it. It is littered with bits of broken concrete.",
+		"id": "concrete__cracked_debris_00",
+		"name": "Cracked concrete with debris",
+		"references": {
+			"core": {
+				"maps": [
+					"abandoned_building"
+				]
+			}
+		},
+		"shape": "cube",
+		"sprite": "concrete_cracked_debris_00.png"
+	},
+	{
+		"categories": [
+			"Urban"
+		],
+		"description": "Damaged concrete surfaced with cracks running along it. It is littered with bits of broken concrete.",
+		"id": "concrete__cracked_debris_01",
+		"name": "Cracked concrete with debris",
+		"references": {
+			"core": {
+				"maps": [
+					"abandoned_building"
+				]
+			}
+		},
+		"shape": "cube",
+		"sprite": "concrete_cracked_debris_01.png"
+	},
+	{
+		"categories": [
+			"Urban"
+		],
+		"description": "Damaged concrete surfaced with cracks running along it. It is littered with bits of broken concrete.",
+		"id": "concrete__cracked_debris_02",
+		"name": "Cracked concrete with debris",
+		"references": {
+			"core": {
+				"maps": [
+					"abandoned_building"
+				]
+			}
+		},
+		"shape": "cube",
+		"sprite": "concrete_cracked_debris_02.png"
 	}
 ]

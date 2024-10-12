@@ -53,7 +53,10 @@ func get_all() -> Dictionary:
 
 
 func duplicate_to_disk(itemgroupid: String, newitemgroupid: String) -> void:
-	var itemgroupdata: Dictionary = itemgroupdict[itemgroupid].get_data().duplicate(true)
+	var itemgroupdata: Dictionary = by_id(itemgroupid).get_data().duplicate(true)
+	# A duplicated itemgroup is brand new and can't already be referenced by something
+	# So we delete the references from the duplicated data if it is present
+	itemgroupdata.erase("references")
 	itemgroupdata.id = newitemgroupid
 	var newitemgroup: DItemgroup = DItemgroup.new(itemgroupdata)
 	itemgroupdict[newitemgroupid] = newitemgroup

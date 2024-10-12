@@ -50,7 +50,10 @@ func get_all() -> Dictionary:
 
 # Duplicates a quest and saves it to disk with a new ID
 func duplicate_to_disk(questid: String, newquestid: String) -> void:
-	var questdata: Dictionary = questdict[questid].get_data().duplicate(true)
+	var questdata: Dictionary = by_id(questid).get_data().duplicate(true)
+	# A duplicated quest is brand new and can't already be referenced by something
+	# So we delete the references from the duplicated data if it is present
+	questdata.erase("references")
 	questdata["id"] = newquestid
 	var newquest: DQuest = DQuest.new(questdata)
 	questdict[newquestid] = newquest
