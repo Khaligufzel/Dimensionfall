@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://neuhnehifngf"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/OtherTools/overmap_area_visualization.gd" id="1_8wpup"]
+[ext_resource type="PackedScene" uid="uid://budsoodfdkaea" path="res://Scenes/Overmap/OvermapTile.tscn" id="2_3b74b"]
+
+[node name="OvermapAreaVisualization" type="Control" node_paths=PackedStringArray("visual_grid", "width_spin_box", "height_spin_box", "max_iterations_spin_box")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8wpup")
+visual_grid = NodePath("VBoxContainer/VisualGrid")
+tileScene = ExtResource("2_3b74b")
+width_spin_box = NodePath("VBoxContainer/HBoxContainer/WidthSpinBox")
+height_spin_box = NodePath("VBoxContainer/HBoxContainer/HeightSpinBox")
+max_iterations_spin_box = NodePath("VBoxContainer/HBoxContainer/MaxIterationsSpinBox")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="WidthLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Width:"
+
+[node name="WidthSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+value = 20.0
+
+[node name="HeightLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Height:"
+
+[node name="HeightSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+value = 20.0
+
+[node name="MaxIterationsLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Max iterations:"
+
+[node name="MaxIterationsSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+max_value = 10000.0
+value = 10000.0
+
+[node name="GenerateButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Generate"
+
+[node name="VisualGrid" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+columns = 20
+
+[connection signal="button_up" from="VBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/GenerateButton" to="." method="_on_generate_button_button_up"]

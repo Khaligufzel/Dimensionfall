@@ -4,6 +4,12 @@
 		"Urban",
 		"City"
 	],
+	"connections": {
+		"east": "road",
+		"north": "ground",
+		"south": "ground",
+		"west": "road"
+	},
 	"description": "The abandoned building stands as a haunting relic of a once-bustling community. Its structure looms with an unsettling presence, casting elongated shadows that stretch across the cracked pavement, where nature has begun to reclaim the area.",
 	"id": "abandoned_building",
 	"levels": [
@@ -13748,5 +13754,26 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Abandoned building",
+	"neighbor_keys": {
+		"urban": 100
+	},
+	"neighbors": {
+		"east": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"north": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"south": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"west": {
+			"suburban": 50,
+			"urban": 100
+		}
+	},
 	"weight": 500
 }

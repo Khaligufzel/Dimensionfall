@@ -502,6 +502,12 @@
 		"Urban",
 		"City"
 	],
+	"connections": {
+		"east": "ground",
+		"north": "road",
+		"south": "road",
+		"west": "road"
+	},
 	"description": "A house situated at a T-junction, offering strategic entry and exit points.",
 	"id": "generichouse_t",
 	"levels": [
@@ -23944,6 +23950,25 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "T-Junction House",
+	"neighbor_keys": {
+		"suburban": 100,
+		"urban": 1
+	},
+	"neighbors": {
+		"east": {
+			"suburban": 100
+		},
+		"north": {
+			"suburban": 100
+		},
+		"south": {
+			"suburban": 100
+		},
+		"west": {
+			"field": 100,
+			"suburban": 100
+		}
+	},
 	"references": {
 		"core": {
 			"tacticalmaps": [

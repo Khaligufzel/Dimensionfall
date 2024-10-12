@@ -19,6 +19,18 @@ var levels: Array = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
 var references: Dictionary = {}
 var areas: Array = []
 var sprite: Texture = null
+ # Variable to store connections. For example: {"south": "road","west": "ground"} default to ground
+var connections: Dictionary = {"north": "ground","east": "ground","south": "ground","west": "ground"}
+# what type of zone this map can spawn in. Other maps will be able to pick one of these neighbor_keys
+# and assign it to a direction. During runtime, this map or another map with the same neighbor_key
+# will be selected based on the weight. Example: {"urban": 100, "suburban": 10} The weights are 
+# evaluated against other maps in the same neighbor key, not against eachother.
+var neighbor_keys: Dictionary = {}
+# This variable holds the neighbor keys that are allowed to spawn next to this map
+# For example the "north" array may be {"urban": 100, "suburban": 10}
+# This will cause the maps that have the "urban" key to spawn next to this map with a chance
+# 10 times greater then a map from the "suburban" key
+var neighbors: Dictionary = {"north": {},"east": {},"south": {},"west": {}}
 
 var dataPath: String
 
@@ -61,6 +73,9 @@ func set_data(newdata: Dictionary) -> void:
 	levels = newdata.get("levels", [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]])
 	references = newdata.get("references", {})
 	areas = newdata.get("areas", [])
+	connections = newdata.get("connections", {})  # Set connections from data if present
+	neighbor_keys = newdata.get("neighbor_keys", {})  # Set neighbor_keys from data if present
+	neighbors = newdata.get("neighbors", {})  # Set neighbors from data if present
 
 
 func get_data() -> Dictionary:
@@ -78,6 +93,12 @@ func get_data() -> Dictionary:
 		mydata["references"] = references
 	if not areas.is_empty():
 		mydata["areas"] = areas
+	if not connections.is_empty():  # Omit connections if empty
+		mydata["connections"] = connections
+	if not neighbor_keys.is_empty():  # Omit neighbor_keys if empty
+		mydata["neighbor_keys"] = neighbor_keys
+	if not neighbors.is_empty():  # Omit neighbor_keys if empty
+		mydata["neighbors"] = neighbors
 	return mydata
 
 
@@ -387,3 +408,42 @@ func remove_area(area_id: String) -> void:
 		if areas[i]["id"] == area_id:
 			areas.erase(areas[i])
 			break
+
+
+# Function to set a connection type for a specific direction
+func set_connection(direction: String, value: String) -> void:
+	# Ensure the connections dictionary has an entry for the specified direction (e.g., "north", "south").
+	if not connections.has(direction):
+		connections[direction] = "ground"  # Default to "ground" if not already set.
+	
+	# Assign the provided connection type (e.g., "road", "ground") to the specified direction.
+	connections[direction] = value
+
+
+# Function to get a connection type for a specific direction, returning "ground" if any key is missing
+func get_connection(direction: String) -> String:
+	# Return "ground" if connections dictionary is empty or the direction is not found.
+	if connections.is_empty() or not connections.has(direction):
+		return "ground"
+	
+	# Return the connection type for the specified direction (e.g., "road" or "ground").
+	return connections[direction]
+
+
+# Function to get neighbors for a specified direction
+func get_neighbors(direction: String) -> Dictionary:
+	# Return an empty array if the direction does not exist in the neighbors dictionary
+	if not neighbors.has(direction):
+		return {}
+	
+	# Return the array of neighbors for the specified direction
+	return neighbors[direction]
+
+# Function to set neighbors for a specified direction
+func set_neighbors(direction: String, neighbor_list: Dictionary) -> void:
+	# Ensure the neighbors dictionary has an entry for the specified direction
+	if not neighbors.has(direction):
+		neighbors[direction] = {}
+	
+	# Assign the provided list of neighbors to the specified direction
+	neighbors[direction] = neighbor_list

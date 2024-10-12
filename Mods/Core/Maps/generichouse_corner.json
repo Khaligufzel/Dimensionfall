@@ -470,6 +470,12 @@
 		"Urban",
 		"City"
 	],
+	"connections": {
+		"east": "ground",
+		"north": "road",
+		"south": "ground",
+		"west": "road"
+	},
 	"description": "A house designed for corner plots, providing unique architectural features.",
 	"id": "generichouse_corner",
 	"levels": [
@@ -22113,6 +22119,26 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Corner House",
+	"neighbor_keys": {
+		"suburban": 100,
+		"urban": 1
+	},
+	"neighbors": {
+		"east": {
+			"suburban": 100
+		},
+		"north": {
+			"suburban": 100
+		},
+		"south": {
+			"field": 50,
+			"suburban": 100
+		},
+		"west": {
+			"field": 50,
+			"suburban": 100
+		}
+	},
 	"references": {
 		"core": {
 			"tacticalmaps": [

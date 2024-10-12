@@ -3,6 +3,12 @@
 		"Field",
 		"Plains"
 	],
+	"connections": {
+		"east": "ground",
+		"north": "ground",
+		"south": "ground",
+		"west": "ground"
+	},
 	"description": "A picturesque field dotted with colorful wildflowers, offering a scenic view.",
 	"id": "field_grass_flowers_00",
 	"levels": [
@@ -3262,5 +3268,22 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Flowered Grass Field",
+	"neighbor_keys": {
+		"field": 10
+	},
+	"neighbors": {
+		"east": {
+			"field": 100
+		},
+		"north": {
+			"field": 100
+		},
+		"south": {
+			"field": 100
+		},
+		"west": {
+			"field": 100
+		}
+	},
 	"weight": 10
 }

@@ -30,6 +30,12 @@
 		"Urban",
 		"City"
 	],
+	"connections": {
+		"east": "road",
+		"north": "ground",
+		"south": "ground",
+		"west": "road"
+	},
 	"description": "A commercial store offering a variety of electronics and clothing items.",
 	"id": "store_electronic_clothing",
 	"levels": [
@@ -12339,6 +12345,27 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Electronics and Clothing Store",
+	"neighbor_keys": {
+		"urban": 100
+	},
+	"neighbors": {
+		"east": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"north": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"south": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"west": {
+			"suburban": 50,
+			"urban": 100
+		}
+	},
 	"references": {
 		"core": {
 			"tacticalmaps": [

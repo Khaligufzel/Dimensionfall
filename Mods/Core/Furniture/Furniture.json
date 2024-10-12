@@ -52,7 +52,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"RockyHill_SW",
-					"abandoned_building"
+					"abandoned_building",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -129,7 +130,8 @@
 					"Generichouse_00",
 					"field_grass_basic_00",
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -205,7 +207,8 @@
 					"Generichouse_00",
 					"field_grass_basic_00",
 					"RockyHill_SE",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"RockyHill_NE"
 				]
 			}
 		},

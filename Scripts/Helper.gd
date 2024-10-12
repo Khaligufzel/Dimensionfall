@@ -149,3 +149,9 @@ func on_chunk_unloaded(data: Dictionary):
 # When the user exits the game and returns to the main menu
 func _on_game_ended():
 	reset() # Resets the game, as though you re-started it
+
+
+# Utility function to clear all children in a node
+func free_all_children(node: Node) -> void:
+	for child in node.get_children():
+		child.queue_free()

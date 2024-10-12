@@ -254,6 +254,12 @@
 		"Urban",
 		"City"
 	],
+	"connections": {
+		"east": "ground",
+		"north": "ground",
+		"south": "ground",
+		"west": "road"
+	},
 	"description": "The supermarket serves as a critical hub for scavenging, filled with both resources and a sense of danger.",
 	"id": "store_groceries",
 	"levels": [
@@ -13386,6 +13392,27 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Grocery store",
+	"neighbor_keys": {
+		"urban": 100
+	},
+	"neighbors": {
+		"east": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"north": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"south": {
+			"suburban": 50,
+			"urban": 100
+		},
+		"west": {
+			"suburban": 50,
+			"urban": 100
+		}
+	},
 	"references": {
 		"core": {
 			"tacticalmaps": [
