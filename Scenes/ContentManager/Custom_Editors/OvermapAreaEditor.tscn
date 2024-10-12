@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://2kp6gjwaextr" path="res://Scenes/ContentManager/Custom_Widgets/Overmap_Area_Region_editor.tscn" id="2_jtxai"]
 [ext_resource type="PackedScene" uid="uid://neuhnehifngf" path="res://Scenes/ContentManager/OtherTools/overmap_area_visualization.tscn" id="3_y3jo3"]
 
-[node name="OvermapAreaEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "min_width_spin_box", "min_height_spin_box", "max_width_spin_box", "max_height_spin_box", "region_name_text_edit", "region_v_box_container", "overmap_area_visualization")]
+[node name="OvermapAreaEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "min_width_spin_box", "min_height_spin_box", "max_width_spin_box", "max_height_spin_box", "region_name_text_edit", "region_h_box_container", "overmap_area_visualization")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +20,7 @@ min_height_spin_box = NodePath("TabContainer/General/FormGrid/DimensionsHBoxCont
 max_width_spin_box = NodePath("TabContainer/General/FormGrid/DimensionsHBoxContainer/MaxWidthSpinBox")
 max_height_spin_box = NodePath("TabContainer/General/FormGrid/DimensionsHBoxContainer/MaxHeightSpinBox")
 region_name_text_edit = NodePath("TabContainer/General/FormGrid/RegionsVBoxContainer/RegionAddControlsHBoxContainer/RegionNameTextEdit")
-region_v_box_container = NodePath("TabContainer/General/FormGrid/RegionsVBoxContainer/RegionVBoxContainer")
+region_h_box_container = NodePath("TabContainer/General/FormGrid/RegionsVBoxContainer/RegionHBoxContainer")
 overmap_area_region_editor = ExtResource("2_jtxai")
 overmap_area_visualization = NodePath("TabContainer/Generate")
 
@@ -31,10 +31,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
+current_tab = 0
 
 [node name="General" type="VBoxContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -156,10 +155,11 @@ layout_mode = 2
 layout_mode = 2
 text = "Add"
 
-[node name="RegionVBoxContainer" type="VBoxContainer" parent="TabContainer/General/FormGrid/RegionsVBoxContainer"]
+[node name="RegionHBoxContainer" type="HBoxContainer" parent="TabContainer/General/FormGrid/RegionsVBoxContainer"]
 layout_mode = 2
 
 [node name="Generate" parent="TabContainer" instance=ExtResource("3_y3jo3")]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
