@@ -7,8 +7,8 @@ extends Control
 @export var max_iterations_spin_box: SpinBox = null
 
 
-# Variable to store the area name
-var area_name: String = ""
+# Variable to store the area
+var myovermaparea: DOvermaparea
 
 
 func _on_generate_button_button_up() -> void:
@@ -20,8 +20,6 @@ func generate_grid():
 	visual_grid.set("theme_override_constants/h_separation", 0)
 	visual_grid.set("theme_override_constants/v_separation", 0)
 	var mymaxiterations: int = int(max_iterations_spin_box.value)
-	# Define the dimensions of the grid as 20x20 units
-	var myovermaparea: DOvermaparea = Gamedata.overmapareas.by_id(area_name)
 	var mydimensions = set_area_dimensions(myovermaparea)
 
 	# Create a new instance of OvermapAreaGenerator and generate the area grid
@@ -76,5 +74,5 @@ func set_area_dimensions(dovermaparea: DOvermaparea) -> Vector2:
 
 
 # Setter method to update the selected area
-func set_area_name(newarea_name: String) -> void:
-	area_name = newarea_name
+func set_area(newarea: DOvermaparea) -> void:
+	myovermaparea = newarea

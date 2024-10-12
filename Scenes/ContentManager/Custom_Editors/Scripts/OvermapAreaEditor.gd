@@ -143,13 +143,14 @@ func load_overmaparea_data() -> void:
 			region_editor.set_region_name(region_key)
 			region_editor.set_values(region_instance.get_data())  # Using get_data() to get the region's dictionary representation
 	
-	overmap_area_visualization.set_area_name(dovermaparea.id)
+	overmap_area_visualization.set_area(dovermaparea)
 
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
 	queue_free()
+
 
 # This function takes all data from the form elements and stores them in the DOvermaparea instance
 # Since dovermaparea is a reference to an item in Gamedata.overmapareas
