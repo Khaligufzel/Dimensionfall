@@ -194,9 +194,10 @@ func _process(_delta):
 
 # Function for handling game started signal
 func _on_game_started():
-	make_noise_and_load_cells()
+	make_noise()
+	load_cells()
 	
-func make_noise_and_load_cells():
+func make_noise():
 	noise = FastNoiseLite.new()
 	noise.seed = Helper.mapseed
 
@@ -208,6 +209,7 @@ func make_noise_and_load_cells():
 	noise.cellular_jitter = 0.04
 	noise.frequency = 0.1 # Adjust frequency as needed
 	
+func load_cells():
 	loaded_grids.clear()
 	load_cells_around(Vector3(0, 0, 0))
 
@@ -223,7 +225,8 @@ func _on_player_spawned(playernode):
 
 # Function for handling game loaded signal
 func _on_game_loaded():
-	make_noise_and_load_cells()
+	make_noise()
+	load_cells()
 	load_all_grids()
 
 
@@ -690,7 +693,7 @@ func place_overmap_area_on_grid(grid: map_grid):
 		# Check if the grid has generated values
 		if mygrid.size() > 0:
 			# Find a valid position for the area on the grid
-			var valid_position = find_valid_position(placed_positions, mygenerator.dimensions.x, mygenerator.dimensions.y)
+			var valid_position = find_valid_position(placed_positions, int(mygenerator.dimensions.x), int(mygenerator.dimensions.y))
 
 			if valid_position != Vector2(-1, -1):  # Ensure that a valid position was found
 				# Offset the grid positions based on the found valid position
@@ -773,3 +776,21 @@ func find_closest_map_cell_with_id(map_id: String) -> map_cell:
 
 	# Return the closest map cell with the specified map_id (or null if none found)
 	return closest_cell
+
+# Function to instantiate and return a new grid with generated cells
+func create_new_grid_with_default_values() -> map_grid:
+	# Step 1: Create a new map_grid instance
+	var new_grid = map_grid.new()
+
+	# Step 2: Set default position for the grid (this can be customized or passed as an argument)
+	new_grid.pos = Vector2(0, 0)
+
+	# Step 3: Initialize the noise generator for terrain generation
+	var rng = RandomNumberGenerator.new()
+	Helper.mapseed = rng.randi()
+	make_noise()
+	
+	generate_cells_for_grid(new_grid) # Step 4: Generate the grid
+
+	# Step 4: Return the fully generated grid
+	return new_grid
