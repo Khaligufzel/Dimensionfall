@@ -34,6 +34,8 @@ var level_generator: Node = null
 @export var load_radius : int = 8 # Number of chunks to load around the player. Basically sight radius on world map.
 
 var loaded_grids: Dictionary = {}
+# Dictionary to store lists of area positions sorted by dovermaparea.id
+var area_positions: Dictionary = {}
 var max_grids: int = 9
 var grid_load_distance: int = 25 * cell_size  # Load when 25 cells away from the border
 var grid_unload_distance: int = 50 * cell_size  # Unload when 50 cells away from the border
@@ -287,6 +289,10 @@ func generate_cells_for_grid(grid: map_grid):
 	# Place tactical maps on the grid, which may overwrite some cells
 	place_overmap_area_on_grid(grid)
 	place_tactical_maps_on_grid(grid)
+	
+	# Select positions for the city area and connect them with roads
+	if area_positions.has("city"):
+		connect_cities_by_road(grid, area_positions["city"])
 
 	# After all modifications, rebuild the map_id_to_coordinates dictionary
 	build_map_id_to_coordinates(grid)
@@ -677,36 +683,47 @@ func place_tactical_maps_on_grid(grid: map_grid):
 					placed_positions.append(cell_key)  # Track the positions that have been occupied
 
 
-# Function to place an overmap area on a specific grid using OvermapAreaGenerator
+# Function to place an area on the grid and return the valid position where it was placed
+func place_area_on_grid(grid: map_grid, area_grid: Dictionary, placed_positions: Array) -> Vector2:
+	var valid_position = find_valid_position(placed_positions, 10, 10)  # Use actual dimensions of area
+
+	# Only if a valid position is found, place the area
+	if valid_position != Vector2(-1, -1):
+		for local_position in area_grid.keys():
+			var adjusted_position = valid_position + local_position
+			if area_grid.has(local_position):
+				var tile = area_grid[local_position]
+				if tile != null:
+					update_cell_map_id(grid, adjusted_position, tile.dmap.id, tile.rotation)
+					placed_positions.append(adjusted_position)  # Prevent overlaps
+
+	# Return the valid position (the top-left corner of the placed area)
+	return valid_position
+
+
+# Main function to place overmap areas on the grid and track multiple positions per area by its area ID
 func place_overmap_area_on_grid(grid: map_grid):
 	var placed_positions = []  # Track positions that have already been placed
 
 	# Loop to place up to 10 overmap areas on the grid
 	for n in range(10):
-		# Initialize OvermapAreaGenerator
-		var mygenerator: OvermapAreaGenerator = OvermapAreaGenerator.new()
-		mygenerator.dovermaparea = Gamedata.overmapareas.by_id(Gamedata.overmapareas.get_random_area().id)
+		var mygenerator = OvermapAreaGenerator.new()
+		var dovermaparea = Gamedata.overmapareas.by_id(Gamedata.overmapareas.get_random_area().id)
+		mygenerator.dovermaparea = dovermaparea
 
-		# Generate the area grid with a specified maximum number of iterations
-		var mygrid: Dictionary = mygenerator.generate_area(10000)
-
-		# Check if the grid has generated values
-		if mygrid.size() > 0:
-			# Find a valid position for the area on the grid
-			var valid_position = find_valid_position(placed_positions, int(mygenerator.dimensions.x), int(mygenerator.dimensions.y))
-
-			if valid_position != Vector2(-1, -1):  # Ensure that a valid position was found
-				# Offset the grid positions based on the found valid position
-				for local_position in mygrid.keys():
-					var adjusted_position = valid_position + local_position
-					if mygrid.has(local_position):
-						var tile = mygrid[local_position]  # Get the tile instance at the grid position
-						if tile != null:
-							# Use tile.dmap.id and tile.rotation to update the cell map ID
-							update_cell_map_id(grid, adjusted_position, tile.dmap.id, tile.rotation)
-							placed_positions.append(adjusted_position)  # Mark the cell as placed
-			else:
-				print("Failed to find a valid position for the overmap area.")
+		# Generate the area
+		var area_grid: Dictionary = mygenerator.generate_area(10000)
+		if area_grid.size() > 0:
+			# Place the area and get the valid position
+			var valid_position = place_area_on_grid(grid, area_grid, placed_positions)
+			if valid_position != Vector2(-1, -1):
+				# Ensure the area_positions dictionary has an array for this dovermaparea.id
+				if not area_positions.has(dovermaparea.id):
+					area_positions[dovermaparea.id] = []
+				# Append the valid position to the list for this area's id
+				area_positions[dovermaparea.id].append(valid_position)
+		else:
+			print("Failed to find a valid position for the overmap area.")
 
 
 # Helper function to update a cell's map ID if it exists
@@ -796,9 +813,8 @@ func create_new_grid_with_default_values() -> map_grid:
 	return new_grid
 
 
-
 # New function to connect cities by road
-func connect_cities_by_road(grid: map_grid, city_positions: Array[Vector2]) -> void:
+func connect_cities_by_road(grid: map_grid, city_positions: Array) -> void:
 	# Iterate over each pair of cities
 	for i in range(city_positions.size() - 1):
 		var start_pos = city_positions[i]
@@ -810,10 +826,12 @@ func connect_cities_by_road(grid: map_grid, city_positions: Array[Vector2]) -> v
 		# Update each cell along the path to contain a road
 		for position in path:
 			if grid.cells.has(position):
-				grid.cells[position].map_id = "road"  # Set the cell to a road map
+				# Use update_cell_map_id to set the map ID to "road"
+				update_cell_map_id(grid, position, "urbanroad", 0)  # Rotation set to 0 for now
+
 
 # Helper function to get a straight path between two points
-func get_straight_path(start: Vector2, end: Vector2) -> Array[Vector2]:
+func get_straight_path(start: Vector2, end: Vector2) -> Array:
 	var path = []
 	
 	# Get the difference in x and y
