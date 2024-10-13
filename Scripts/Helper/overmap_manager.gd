@@ -794,3 +794,49 @@ func create_new_grid_with_default_values() -> map_grid:
 
 	# Step 4: Return the fully generated grid
 	return new_grid
+
+
+
+# New function to connect cities by road
+func connect_cities_by_road(grid: map_grid, city_positions: Array[Vector2]) -> void:
+	# Iterate over each pair of cities
+	for i in range(city_positions.size() - 1):
+		var start_pos = city_positions[i]
+		var end_pos = city_positions[i + 1]
+		
+		# Get the path between two cities using a simple straight line approach
+		var path = get_straight_path(start_pos, end_pos)
+		
+		# Update each cell along the path to contain a road
+		for position in path:
+			if grid.cells.has(position):
+				grid.cells[position].map_id = "road"  # Set the cell to a road map
+
+# Helper function to get a straight path between two points
+func get_straight_path(start: Vector2, end: Vector2) -> Array[Vector2]:
+	var path = []
+	
+	# Get the difference in x and y
+	var dx = abs(end.x - start.x)
+	var dy = abs(end.y - start.y)
+	
+	# Get the direction of movement in x and y
+	var sx = -1 if start.x > end.x else 1
+	var sy = -1 if start.y > end.y else 1
+	
+	var err = dx - dy
+	
+	# Use Bresenham's line algorithm to get the straight path
+	var current = start
+	while current != end:
+		path.append(current)
+		var e2 = 2 * err
+		if e2 > -dy:
+			err -= dy
+			current.x += sx
+		if e2 < dx:
+			err += dx
+			current.y += sy
+	
+	path.append(end)
+	return path
