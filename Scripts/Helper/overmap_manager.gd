@@ -822,24 +822,18 @@ func create_new_grid_with_default_values() -> map_grid:
 	return new_grid
 
 
-# Updated function to connect cities by road, ensuring not to overwrite urban tiles
+# Updated function to connect cities by a straight path
+# Also uses the new update_path_on_grid function
 func connect_cities_by_road(grid: map_grid, city_positions: Array) -> void:
-	# Iterate over each pair of cities
 	for i in range(city_positions.size() - 1):
 		var start_pos = city_positions[i]
 		var end_pos = city_positions[i + 1]
 		
-		# Get the path between two cities using a simple straight line approach
+		# Get a straight path between two cities
 		var path = get_straight_path(start_pos, end_pos)
 		
-		# Update each cell along the path to contain a road
-		for position in path:
-			if grid.cells.has(position):
-				var cell = grid.cells[position]
-				# Check if the current cell's map_id is in the "urban" category
-				if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-					# Use update_cell_map_id to set the map ID to "urbanroad"
-					update_cell_map_id(grid, position, "urbanroad", 0)  # Rotation set to 0 for now
+		# Use the new path update function to mark the road along the path
+		update_path_on_grid(grid, path)
 
 
 # Helper function to get a straight path between two points
@@ -872,23 +866,18 @@ func get_straight_path(start: Vector2, end: Vector2) -> Array:
 	return path
 
 
-# Function to connect cities by a river-like path, which introduces slight randomness for a more natural road network
+# Updated function to connect cities by a river-like path
+# This uses the new function to update the path on the grid
 func connect_cities_by_riverlike_path(grid: map_grid, city_positions: Array) -> void:
 	for i in range(city_positions.size() - 1):
 		var start_pos = city_positions[i]
 		var end_pos = city_positions[i + 1]
 		
-		# Generate an organic path between two cities
+		# Generate an organic, winding path between two cities
 		var path = generate_winding_path(start_pos, end_pos)
 		
-		# Update the map to mark these cells as roads, avoiding urban cells
-		for position in path:
-			if grid.cells.has(position):
-				var cell = grid.cells[position]
-				# Ensure we're not overwriting existing urban areas
-				if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-					# Update cell to road, add slight rotation or other road-specific characteristics
-					update_cell_map_id(grid, position, "urbanroad", randi() % 4 * 90)  # Random rotation for road
+		# Use the new path update function to mark the road along the path
+		update_path_on_grid(grid, path)
 
 
 # Function to generate a winding path between two points, with slight randomness
@@ -921,3 +910,14 @@ func generate_winding_path(start: Vector2, end: Vector2) -> Array:
 	
 	path.append(end)
 	return path
+
+# Function to process and update a path on the map grid
+# This will take a path (array of positions) and update each tile along the path to "urbanroad"
+func update_path_on_grid(grid: map_grid, path: Array[Vector2]) -> void:
+	for position in path:
+		if grid.cells.has(position):
+			var cell = grid.cells[position]
+			# Ensure we're not overwriting existing urban areas
+			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
+				# Update cell to "urbanroad", with a random rotation for variety
+				update_cell_map_id(grid, position, "urbanroad", randi() % 4 * 90)  # Random rotation for road
