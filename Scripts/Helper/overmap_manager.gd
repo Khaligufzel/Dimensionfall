@@ -292,7 +292,7 @@ func generate_cells_for_grid(grid: map_grid):
 	
 	# Select positions for the city area and connect them with roads
 	if area_positions.has("city"):
-		connect_cities_by_road(grid, area_positions["city"])
+		connect_cities_by_riverlike_path(grid, area_positions["city"])
 
 	# After all modifications, rebuild the map_id_to_coordinates dictionary
 	build_map_id_to_coordinates(grid)
@@ -867,6 +867,57 @@ func get_straight_path(start: Vector2, end: Vector2) -> Array:
 		if e2 < dx:
 			err += dx
 			current.y += sy
+	
+	path.append(end)
+	return path
+
+
+# Function to connect cities by a river-like path, which introduces slight randomness for a more natural road network
+func connect_cities_by_riverlike_path(grid: map_grid, city_positions: Array) -> void:
+	for i in range(city_positions.size() - 1):
+		var start_pos = city_positions[i]
+		var end_pos = city_positions[i + 1]
+		
+		# Generate an organic path between two cities
+		var path = generate_winding_path(start_pos, end_pos)
+		
+		# Update the map to mark these cells as roads, avoiding urban cells
+		for position in path:
+			if grid.cells.has(position):
+				var cell = grid.cells[position]
+				# Ensure we're not overwriting existing urban areas
+				if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
+					# Update cell to road, add slight rotation or other road-specific characteristics
+					update_cell_map_id(grid, position, "urbanroad", randi() % 4 * 90)  # Random rotation for road
+
+
+# Function to generate a winding path between two points, with slight randomness
+func generate_winding_path(start: Vector2, end: Vector2) -> Array:
+	var path = []
+	var current = start
+	var max_deviation = 2  # Maximum allowed deviation from the direct path
+	
+	while current.distance_to(end) > 1:
+		path.append(current)
+		
+		# Calculate the general direction toward the goal
+		var direction = (end - current).normalized()
+		var randomness = 1.0
+		
+		# Add some randomness to the direction to make it more organic
+		direction.x += randf_range(-randomness, randomness)
+		direction.y += randf_range(-randomness, randomness)
+		
+		# Keep movement roughly toward the end point, but with variation
+		var next_position = current + direction.normalized()
+		
+		# Ensure the path doesn't stray too far from the line connecting start and end
+		if next_position.distance_to(start) > max_deviation or next_position.distance_to(end) > max_deviation:
+			next_position = current + (end - current).normalized()  # Move directly towards the goal if too far off-course
+		
+		current = next_position.round()  # Round to nearest grid position
+		if not path.has(current):  # Avoid looping over the same position
+			path.append(current)
 	
 	path.append(end)
 	return path
