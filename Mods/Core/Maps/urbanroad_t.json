@@ -3,7 +3,14 @@
 		"Infrastructure",
 		"Road"
 	],
+	"connections": {
+		"east": "ground",
+		"north": "road",
+		"south": "road",
+		"west": "road"
+	},
 	"description": "A T-junction urban road, offering a three-way traffic intersection.",
+	"id": "urbanroad_t",
 	"levels": [
 		[],
 		[],
@@ -3598,5 +3605,6 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
-	"name": "Urban Road T-Junction"
+	"name": "Urban Road T-Junction",
+	"weight": 1000
 }

@@ -3,6 +3,12 @@
 		"Infrastructure",
 		"Road"
 	],
+	"connections": {
+		"east": "ground",
+		"north": "road",
+		"south": "ground",
+		"west": "road"
+	},
 	"description": "An urban road corner, providing directional changes in cityscapes.",
 	"id": "urbanroad_corner",
 	"levels": [

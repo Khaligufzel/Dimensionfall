@@ -911,13 +911,24 @@ func generate_winding_path(start: Vector2, end: Vector2) -> Array:
 	path.append(end)
 	return path
 
+
 # Function to process and update a path on the map grid
-# This will take a path (array of positions) and update each tile along the path to "urbanroad"
-func update_path_on_grid(grid: map_grid, path: Array[Vector2]) -> void:
+# This will take a path (array of positions) and update each tile along the path to a random road from the "Road" category
+func update_path_on_grid(grid: map_grid, path: Array) -> void:
+	# Step 1: Get a list of road maps from the "Road" category
+	var road_maps = Gamedata.maps.get_maps_by_category("Road")
+
+	# Step 2: Check if there are available road maps
+	if road_maps.size() == 0:
+		print("No road maps found in the 'Road' category!")
+		return
+	
 	for position in path:
 		if grid.cells.has(position):
 			var cell = grid.cells[position]
 			# Ensure we're not overwriting existing urban areas
 			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-				# Update cell to "urbanroad", with a random rotation for variety
-				update_cell_map_id(grid, position, "urbanroad", randi() % 4 * 90)  # Random rotation for road
+				# Step 3: Pick a random road from the list
+				var dmap = road_maps.pick_random()
+				# Step 4: Update the cell with the randomly selected road's map_id
+				update_cell_map_id(grid, position, dmap.id, randi() % 4 * 90)  # Random rotation for variety
