@@ -684,8 +684,10 @@ func place_tactical_maps_on_grid(grid: map_grid):
 
 
 # Function to place an area on the grid and return the valid position where it was placed
-func place_area_on_grid(grid: map_grid, area_grid: Dictionary, placed_positions: Array) -> Vector2:
-	var valid_position = find_valid_position(placed_positions, 10, 10)  # Use actual dimensions of area
+func place_area_on_grid(grid: map_grid, area_grid: Dictionary, placed_positions: Array, mapsize: Vector2) -> Vector2:
+	var valid_position = find_valid_position(placed_positions, int(mapsize.x), int(mapsize.y))
+	# Calculate the center offset
+	var center_offset = Vector2(int(mapsize.x / 2), int(mapsize.y / 2))
 
 	# Only if a valid position is found, place the area
 	if valid_position != Vector2(-1, -1):
@@ -695,7 +697,9 @@ func place_area_on_grid(grid: map_grid, area_grid: Dictionary, placed_positions:
 				var tile = area_grid[local_position]
 				if tile != null:
 					update_cell_map_id(grid, adjusted_position, tile.dmap.id, tile.rotation)
-					placed_positions.append(adjusted_position)  # Prevent overlaps
+					placed_positions.append(adjusted_position)
+		# Return the valid position (adusted to the center of the placed area)
+		return valid_position + center_offset
 
 	# Return the valid position (the top-left corner of the placed area)
 	return valid_position
@@ -704,6 +708,7 @@ func place_area_on_grid(grid: map_grid, area_grid: Dictionary, placed_positions:
 # Main function to place overmap areas on the grid and track multiple positions per area by its area ID
 func place_overmap_area_on_grid(grid: map_grid):
 	var placed_positions = []  # Track positions that have already been placed
+	area_positions.clear()
 
 	# Loop to place up to 10 overmap areas on the grid
 	for n in range(10):
@@ -714,8 +719,11 @@ func place_overmap_area_on_grid(grid: map_grid):
 		# Generate the area
 		var area_grid: Dictionary = mygenerator.generate_area(10000)
 		if area_grid.size() > 0:
+			# Use the dimensions from mygenerator after generating the area
+			var map_dimensions = mygenerator.dimensions
+
 			# Place the area and get the valid position
-			var valid_position = place_area_on_grid(grid, area_grid, placed_positions)
+			var valid_position = place_area_on_grid(grid, area_grid, placed_positions, map_dimensions)
 			if valid_position != Vector2(-1, -1):
 				# Ensure the area_positions dictionary has an array for this dovermaparea.id
 				if not area_positions.has(dovermaparea.id):
@@ -795,6 +803,7 @@ func find_closest_map_cell_with_id(map_id: String) -> map_cell:
 	return closest_cell
 
 # Function to instantiate and return a new grid with generated cells
+# This is used for visualization outside the game
 func create_new_grid_with_default_values() -> map_grid:
 	# Step 1: Create a new map_grid instance
 	var new_grid = map_grid.new()
