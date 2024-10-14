@@ -913,22 +913,56 @@ func generate_winding_path(start: Vector2, end: Vector2) -> Array:
 
 
 # Function to process and update a path on the map grid
-# This will take a path (array of positions) and update each tile along the path to a random road from the "Road" category
+# This ensures diagonal paths have appropriate north/west or south/east neighbors
 func update_path_on_grid(grid: map_grid, path: Array) -> void:
-	# Step 1: Get a list of road maps from the "Road" category
 	var road_maps = Gamedata.maps.get_maps_by_category("Road")
 
-	# Step 2: Check if there are available road maps
 	if road_maps.size() == 0:
 		print("No road maps found in the 'Road' category!")
 		return
-	
-	for position in path:
+
+	for i in range(path.size()):
+		var position = path[i]
 		if grid.cells.has(position):
 			var cell = grid.cells[position]
+
 			# Ensure we're not overwriting existing urban areas
 			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-				# Step 3: Pick a random road from the list
 				var dmap = road_maps.pick_random()
-				# Step 4: Update the cell with the randomly selected road's map_id
-				update_cell_map_id(grid, position, dmap.id, randi() % 4 * 90)  # Random rotation for variety
+				update_cell_map_id(grid, position, dmap.id, randi() % 4 * 90)
+
+		# Handle diagonal connections by filling in missing neighbors
+		if i < path.size() - 1:
+			var direction = path[i + 1] - position
+			if abs(direction.x) == 1 and abs(direction.y) == 1:
+				fill_missing_diagonal_neighbors(grid, position, direction)
+
+# Helper function to fill missing neighbors when moving diagonally
+# Randomly selects either the north/south or east/west neighbor to ensure smooth diagonal transitions
+func fill_missing_diagonal_neighbors(grid: map_grid, position: Vector2, direction: Vector2) -> void:
+	var neighbor_options = []
+
+	# Determine the necessary neighbors based on diagonal direction
+	if direction.x > 0 and direction.y > 0:  # Moving south-east
+		neighbor_options.append(position + Vector2(0, 1))  # South neighbor
+		neighbor_options.append(position + Vector2(1, 0))  # East neighbor
+	elif direction.x < 0 and direction.y < 0:  # Moving north-west
+		neighbor_options.append(position + Vector2(0, -1))  # North neighbor
+		neighbor_options.append(position + Vector2(-1, 0))  # West neighbor
+	elif direction.x > 0 and direction.y < 0:  # Moving north-east
+		neighbor_options.append(position + Vector2(0, -1))  # North neighbor
+		neighbor_options.append(position + Vector2(1, 0))  # East neighbor
+	elif direction.x < 0 and direction.y > 0:  # Moving south-west
+		neighbor_options.append(position + Vector2(0, 1))  # South neighbor
+		neighbor_options.append(position + Vector2(-1, 0))  # West neighbor
+
+	# Randomly select one of the neighbor options to place the road
+	var selected_neighbor = neighbor_options[randi() % neighbor_options.size()]
+
+	# Ensure the selected neighbor exists and is not already an urban area
+	if grid.cells.has(selected_neighbor):
+		var cell = grid.cells[selected_neighbor]
+		if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
+			var road_maps = Gamedata.maps.get_maps_by_category("Road")
+			var dmap = road_maps.pick_random()
+			update_cell_map_id(grid, selected_neighbor, dmap.id, randi() % 4 * 90)
