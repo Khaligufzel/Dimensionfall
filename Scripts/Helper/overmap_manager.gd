@@ -822,7 +822,7 @@ func create_new_grid_with_default_values() -> map_grid:
 	return new_grid
 
 
-# New function to connect cities by road
+# Updated function to connect cities by road, ensuring not to overwrite urban tiles
 func connect_cities_by_road(grid: map_grid, city_positions: Array) -> void:
 	# Iterate over each pair of cities
 	for i in range(city_positions.size() - 1):
@@ -835,8 +835,11 @@ func connect_cities_by_road(grid: map_grid, city_positions: Array) -> void:
 		# Update each cell along the path to contain a road
 		for position in path:
 			if grid.cells.has(position):
-				# Use update_cell_map_id to set the map ID to "road"
-				update_cell_map_id(grid, position, "urbanroad", 0)  # Rotation set to 0 for now
+				var cell = grid.cells[position]
+				# Check if the current cell's map_id is in the "urban" category
+				if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
+					# Use update_cell_map_id to set the map ID to "urbanroad"
+					update_cell_map_id(grid, position, "urbanroad", 0)  # Rotation set to 0 for now
 
 
 # Helper function to get a straight path between two points

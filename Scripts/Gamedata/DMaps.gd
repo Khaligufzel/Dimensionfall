@@ -103,6 +103,8 @@ func get_maps_by_category(category: String) -> Array[DMap]:
 			maplist.append(mapdict[key])
 	return maplist
 
+func is_map_in_category(mapid: String, category: String):
+	return category in by_id(mapid).categories
 
 # Function to return unique categories across all maps
 func get_unique_categories() -> Array:
