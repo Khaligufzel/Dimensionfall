@@ -343,8 +343,8 @@ func place_neighbor_tiles(position: Vector2) -> void:
 		return
 
 	# Loop through each direction (north, east, south, west) and place neighboring tiles
-	for direction in DIRECTION_OFFSETS.keys():
-		var neighbor_pos: Vector2 = position + DIRECTION_OFFSETS[direction]
+	for direction in Gamedata.DIRECTION_OFFSETS.keys():
+		var neighbor_pos: Vector2 = position + Gamedata.DIRECTION_OFFSETS[direction]
 		place_neighbor_tile(current_tile, direction, neighbor_pos)
 
 
@@ -493,8 +493,8 @@ func create_tile_entries() -> void:
 # Check if a tile can fit at the specified position by verifying connections with neighbors
 func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 	# Loop over north, east, south, and west to check all adjacent neighbors
-	for direction in DIRECTION_OFFSETS.keys():
-		var neighbor_pos = pos + DIRECTION_OFFSETS[direction]
+	for direction in Gamedata.DIRECTION_OFFSETS.keys():
+		var neighbor_pos = pos + Gamedata.DIRECTION_OFFSETS[direction]
 
 		# Skip out-of-bounds or empty neighbors
 		if not is_within_grid_bounds(neighbor_pos) or not area_grid.has(neighbor_pos):
