@@ -44,6 +44,13 @@ enum ContentType {
 	OVERMAPAREAS        #12
 }
 
+# Rotation mappings for how directions change based on tile rotation
+const ROTATION_MAP: Dictionary = {
+	0: {"north": "north", "east": "east", "south": "south", "west": "west"},
+	90: {"north": "east", "east": "south", "south": "west", "west": "north"},
+	180: {"north": "south", "east": "west", "south": "north", "west": "east"},
+	270: {"north": "west", "east": "north", "south": "east", "west": "south"}
+}
 
 # Dictionary to map content types to Gamedata variables
 var gamedata_map: Dictionary = {}

@@ -99,13 +99,6 @@ var tile_catalog: Array = []  # List of all tile instances with rotations
 var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
 var processed_tiles: Dictionary = {}  # Dictionary to track processed tiles
 var noise = FastNoiseLite.new() # Used to create noise to modify distance_from_center_map
-# Rotation mappings for how directions change based on tile rotation
-const ROTATION_MAP: Dictionary = {
-	0: {"north": "north", "east": "east", "south": "south", "west": "west"},
-	90: {"north": "east", "east": "south", "south": "west", "west": "north"},
-	180: {"north": "south", "east": "west", "south": "north", "west": "east"},
-	270: {"north": "west", "east": "north", "south": "east", "west": "south"}
-}
 # Define direction offsets for easy neighbor lookups
 const DIRECTION_OFFSETS: Dictionary = {
 	"north": Vector2(0, -1),
@@ -480,7 +473,7 @@ func create_tile_entries() -> void:
 				var tile: Tile = Tile.new()
 				tile.dmap = map
 				tile.tile_dictionary = tile_dictionary
-				tile.rotation_map = ROTATION_MAP
+				tile.rotation_map = Gamedata.ROTATION_MAP
 				tile.rotation = rotation
 				tile.key = region_name  # The region name serves as the key (e.g., "urban", "suburban")
 				tile.weight = map_weight  # Set the tile's weight from the map data
@@ -517,7 +510,7 @@ func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 		var neighbor_tile = area_grid[neighbor_pos]
 		if not tile.are_connections_compatible(neighbor_tile, direction):
 			return false
-		if not neighbor_tile.are_connections_compatible(tile, ROTATION_MAP[180][direction]):
+		if not neighbor_tile.are_connections_compatible(tile, Gamedata.ROTATION_MAP[180][direction]):
 			return false
 
 	return true

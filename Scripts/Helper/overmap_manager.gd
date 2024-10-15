@@ -866,21 +866,21 @@ func get_straight_path(start: Vector2, end: Vector2) -> Array:
 	return path
 
 
-# Updated function to connect cities by a river-like path
-# This uses the new function to update the path on the grid
+# Updated function to connect cities by a river-like path including neighbors
 func connect_cities_by_riverlike_path(grid: map_grid, city_positions: Array) -> void:
 	for i in range(city_positions.size() - 1):
 		var start_pos = city_positions[i]
 		var end_pos = city_positions[i + 1]
 		
-		# Generate an organic, winding path between two cities
+		# Generate an organic, winding path between two cities, including diagonal neighbors
 		var path = generate_winding_path(start_pos, end_pos)
 		
 		# Use the new path update function to mark the road along the path
 		update_path_on_grid(grid, path)
 
 
-# Function to generate a winding path between two points, with slight randomness
+
+
 func generate_winding_path(start: Vector2, end: Vector2) -> Array:
 	var path = []
 	var current = start
@@ -889,31 +889,41 @@ func generate_winding_path(start: Vector2, end: Vector2) -> Array:
 	while current.distance_to(end) > 1:
 		path.append(current)
 		
-		# Calculate the general direction toward the goal
-		var direction = (end - current).normalized()
-		var randomness = 1.0
-		
-		# Add some randomness to the direction to make it more organic
-		direction.x += randf_range(-randomness, randomness)
-		direction.y += randf_range(-randomness, randomness)
-		
-		# Keep movement roughly toward the end point, but with variation
-		var next_position = current + direction.normalized()
-		
-		# Ensure the path doesn't stray too far from the line connecting start and end
+		# Determine the next position based on direction toward the goal
+		var next_position = (end - current).normalized() + current
+
+		# Round to nearest grid position to ensure alignment with the grid
+		next_position = next_position.round()
+
+		# Calculate direction between the current and next positions
+		var direction = next_position - current
+
+		# If diagonal (both x and y are changing), add a neighbor
+		if abs(direction.x) == 1 and abs(direction.y) == 1:
+			# Randomly pick between a vertical or horizontal neighbor
+			if randi() % 2 == 0:
+				# Add vertical neighbor
+				var vertical_neighbor = current + Vector2(0, direction.y)
+				path.append(vertical_neighbor)
+			else:
+				# Add horizontal neighbor
+				var horizontal_neighbor = current + Vector2(direction.x, 0)
+				path.append(horizontal_neighbor)
+
+		# Prevent path from deviating too much from the straight line
 		if next_position.distance_to(start) > max_deviation or next_position.distance_to(end) > max_deviation:
-			next_position = current + (end - current).normalized()  # Move directly towards the goal if too far off-course
-		
-		current = next_position.round()  # Round to nearest grid position
-		if not path.has(current):  # Avoid looping over the same position
+			next_position = current + (end - current).normalized().round()
+
+		# Move to the next position
+		current = next_position
+		if not path.has(current):  # Avoid adding duplicates
 			path.append(current)
-	
-	path.append(end)
+
+	path.append(end)  # Add the final point
 	return path
 
 
 # Function to process and update a path on the map grid
-# This ensures diagonal paths have appropriate north/west or south/east neighbors
 func update_path_on_grid(grid: map_grid, path: Array) -> void:
 	var road_maps = Gamedata.maps.get_maps_by_category("Road")
 
@@ -921,8 +931,7 @@ func update_path_on_grid(grid: map_grid, path: Array) -> void:
 		print("No road maps found in the 'Road' category!")
 		return
 
-	for i in range(path.size()):
-		var position = path[i]
+	for position in path:
 		if grid.cells.has(position):
 			var cell = grid.cells[position]
 
@@ -930,39 +939,3 @@ func update_path_on_grid(grid: map_grid, path: Array) -> void:
 			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
 				var dmap = road_maps.pick_random()
 				update_cell_map_id(grid, position, dmap.id, randi() % 4 * 90)
-
-		# Handle diagonal connections by filling in missing neighbors
-		if i < path.size() - 1:
-			var direction = path[i + 1] - position
-			if abs(direction.x) == 1 and abs(direction.y) == 1:
-				fill_missing_diagonal_neighbors(grid, position, direction)
-
-# Helper function to fill missing neighbors when moving diagonally
-# Randomly selects either the north/south or east/west neighbor to ensure smooth diagonal transitions
-func fill_missing_diagonal_neighbors(grid: map_grid, position: Vector2, direction: Vector2) -> void:
-	var neighbor_options = []
-
-	# Determine the necessary neighbors based on diagonal direction
-	if direction.x > 0 and direction.y > 0:  # Moving south-east
-		neighbor_options.append(position + Vector2(0, 1))  # South neighbor
-		neighbor_options.append(position + Vector2(1, 0))  # East neighbor
-	elif direction.x < 0 and direction.y < 0:  # Moving north-west
-		neighbor_options.append(position + Vector2(0, -1))  # North neighbor
-		neighbor_options.append(position + Vector2(-1, 0))  # West neighbor
-	elif direction.x > 0 and direction.y < 0:  # Moving north-east
-		neighbor_options.append(position + Vector2(0, -1))  # North neighbor
-		neighbor_options.append(position + Vector2(1, 0))  # East neighbor
-	elif direction.x < 0 and direction.y > 0:  # Moving south-west
-		neighbor_options.append(position + Vector2(0, 1))  # South neighbor
-		neighbor_options.append(position + Vector2(-1, 0))  # West neighbor
-
-	# Randomly select one of the neighbor options to place the road
-	var selected_neighbor = neighbor_options[randi() % neighbor_options.size()]
-
-	# Ensure the selected neighbor exists and is not already an urban area
-	if grid.cells.has(selected_neighbor):
-		var cell = grid.cells[selected_neighbor]
-		if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-			var road_maps = Gamedata.maps.get_maps_by_category("Road")
-			var dmap = road_maps.pick_random()
-			update_cell_map_id(grid, selected_neighbor, dmap.id, randi() % 4 * 90)
