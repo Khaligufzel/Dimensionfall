@@ -879,36 +879,33 @@ func connect_cities_by_riverlike_path(grid: map_grid, city_positions: Array) -> 
 		update_path_on_grid(grid, path)
 
 
-
-
 func generate_winding_path(start: Vector2, end: Vector2) -> Array:
 	var path = []
 	var current = start
 	var max_deviation = 2  # Maximum allowed deviation from the direct path
-	
+
 	while current.distance_to(end) > 1:
-		path.append(current)
-		
+		# Add the current position to the path only if it's not already included
+		if not path.has(current):
+			path.append(current)
+
 		# Determine the next position based on direction toward the goal
 		var next_position = (end - current).normalized() + current
 
 		# Round to nearest grid position to ensure alignment with the grid
 		next_position = next_position.round()
 
-		# Calculate direction between the current and next positions
-		var direction = next_position - current
-
-		# If diagonal (both x and y are changing), add a neighbor
-		if abs(direction.x) == 1 and abs(direction.y) == 1:
-			# Randomly pick between a vertical or horizontal neighbor
+		# Check if the next step is diagonal
+		if is_diagonal(current, next_position):
+			# Randomly pick between a vertical or horizontal neighbor for diagonal movement
 			if randi() % 2 == 0:
-				# Add vertical neighbor
-				var vertical_neighbor = current + Vector2(0, direction.y)
-				path.append(vertical_neighbor)
+				var vertical_neighbor = current + Vector2(0, next_position.y - current.y)
+				if not path.has(vertical_neighbor):
+					path.append(vertical_neighbor)
 			else:
-				# Add horizontal neighbor
-				var horizontal_neighbor = current + Vector2(direction.x, 0)
-				path.append(horizontal_neighbor)
+				var horizontal_neighbor = current + Vector2(next_position.x - current.x, 0)
+				if not path.has(horizontal_neighbor):
+					path.append(horizontal_neighbor)
 
 		# Prevent path from deviating too much from the straight line
 		if next_position.distance_to(start) > max_deviation or next_position.distance_to(end) > max_deviation:
@@ -923,19 +920,104 @@ func generate_winding_path(start: Vector2, end: Vector2) -> Array:
 	return path
 
 
-# Function to process and update a path on the map grid
+
 func update_path_on_grid(grid: map_grid, path: Array) -> void:
 	var road_maps = Gamedata.maps.get_maps_by_category("Road")
-
+	
 	if road_maps.size() == 0:
 		print("No road maps found in the 'Road' category!")
 		return
 
-	for position in path:
+	# Remove duplicate positions from the path manually
+	path = remove_duplicates_from_path(path)
+
+	for i in range(path.size() - 1):  # Loop through the path except the last point
+		var position = path[i]
+		var next_position = path[i + 1]  # Next position in the path
+
 		if grid.cells.has(position):
 			var cell = grid.cells[position]
 
 			# Ensure we're not overwriting existing urban areas
 			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
 				var dmap = road_maps.pick_random()
-				update_cell_map_id(grid, position, dmap.id, randi() % 4 * 90)
+
+				# Get the correct rotation for the dmap based on its connections
+				var correct_rotation = get_correct_rotation(dmap, position, next_position)
+
+				# Update the cell with the correctly rotated dmap
+				update_cell_map_id(grid, position, dmap.id, correct_rotation)
+
+
+# Helper function to remove duplicates from the path
+func remove_duplicates_from_path(path: Array) -> Array:
+	var unique_path = []
+	var visited_positions = {}
+	
+	for position in path:
+		if not visited_positions.has(position):
+			unique_path.append(position)
+			visited_positions[position] = true
+	
+	return unique_path
+
+
+# Function to check if the direction between two positions is diagonal
+func is_diagonal(pos1: Vector2, pos2: Vector2) -> bool:
+	var direction = pos2 - pos1
+	return abs(direction.x) == 1 and abs(direction.y) == 1
+
+
+# Updated get_correct_rotation function to use get_rotations_with_connection
+# This function calculates the correct rotation for a dmap to match the intended direction.
+# pos1 is the current position, and pos2 is the next position in the path.
+func get_correct_rotation(dmap: DMap, pos1: Vector2, pos2: Vector2) -> int:
+	# Determine the intended direction (e.g., "north", "east", "south", "west")
+	var intended_direction: String = get_intended_direction(pos1, pos2)
+	
+	# Use the get_rotations_with_connection function to find valid rotations where "road" aligns with the intended direction
+	var valid_rotations = get_rotations_with_connection(dmap, intended_direction)
+	
+	# If there are valid rotations, pick a random one
+	if valid_rotations.size() > 0:
+		return valid_rotations.pick_random()
+	
+	# Default to no rotation (0) if no valid rotation is found
+	return 0
+
+
+
+# Function to determine the intended direction based on the difference between two positions
+func get_intended_direction(pos1: Vector2, pos2: Vector2) -> String:
+	var direction = pos2 - pos1
+	
+	if direction == Vector2(0, -1):
+		return "north"
+	elif direction == Vector2(0, 1):
+		return "south"
+	elif direction == Vector2(-1, 0):
+		return "west"
+	elif direction == Vector2(1, 0):
+		return "east"
+	
+	return ""
+
+
+# Function to check which rotations allow the dmap to have a connection to the specified direction.
+# The function returns an array of valid rotations (0, 90, 180, 270).
+# dmap.connections example: {"north": "road", "south": "ground", ...}
+# rotation_map specifies how the directions change with rotation.
+func get_rotations_with_connection(dmap: DMap, target_direction: String) -> Array:
+	var valid_rotations = []
+	
+	# Iterate over possible rotations (0, 90, 180, 270 degrees)
+	for rotation in Gamedata.ROTATION_MAP.keys():
+		# Get the connections after applying the current rotation
+		var rotated_connections = Gamedata.ROTATION_MAP[rotation]
+
+		# Check if the connection in the rotated direction matches the target direction
+		if dmap.connections[rotated_connections[target_direction]] == "road":
+			# Add this rotation to the valid rotations list if the connection matches
+			valid_rotations.append(rotation)
+
+	return valid_rotations
