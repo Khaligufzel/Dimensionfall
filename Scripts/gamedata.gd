@@ -52,6 +52,14 @@ const ROTATION_MAP: Dictionary = {
 	270: {"north": "west", "east": "north", "south": "east", "west": "south"}
 }
 
+# Define direction offsets for easy neighbor lookups
+const DIRECTION_OFFSETS: Dictionary = {
+	"north": Vector2(0, -1),
+	"east": Vector2(1, 0),
+	"south": Vector2(0, 1),
+	"west": Vector2(-1, 0)
+}
+
 # Dictionary to map content types to Gamedata variables
 var gamedata_map: Dictionary = {}
 

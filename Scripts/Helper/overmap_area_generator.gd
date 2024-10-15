@@ -99,13 +99,6 @@ var tile_catalog: Array = []  # List of all tile instances with rotations
 var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
 var processed_tiles: Dictionary = {}  # Dictionary to track processed tiles
 var noise = FastNoiseLite.new() # Used to create noise to modify distance_from_center_map
-# Define direction offsets for easy neighbor lookups
-const DIRECTION_OFFSETS: Dictionary = {
-	"north": Vector2(0, -1),
-	"east": Vector2(1, 0),
-	"south": Vector2(0, 1),
-	"west": Vector2(-1, 0)
-}
 
 # Tiles sorted by key. This can be used to select the right neighbors for the tiles
 # We will pick one direction to select the correct neighbor. Let's say "north".
@@ -288,8 +281,8 @@ func generate_area(max_iterations: int = 100000) -> Dictionary:
 		# Place neighbors for the current tile position
 		place_neighbor_tiles(current_position)
 
-		for direction in DIRECTION_OFFSETS.keys():
-			var neighbor_position = current_position + DIRECTION_OFFSETS[direction]
+		for direction in Gamedata.DIRECTION_OFFSETS.keys():
+			var neighbor_position = current_position + Gamedata.DIRECTION_OFFSETS[direction]
 
 			# Check if the neighbor is within bounds and hasn't been processed yet
 			if is_within_grid_bounds(neighbor_position):

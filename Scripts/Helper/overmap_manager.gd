@@ -920,7 +920,6 @@ func generate_winding_path(start: Vector2, end: Vector2) -> Array:
 	return path
 
 
-
 func update_path_on_grid(grid: map_grid, path: Array) -> void:
 	var road_maps = Gamedata.maps.get_maps_by_category("Road")
 	
@@ -986,7 +985,6 @@ func get_correct_rotation(dmap: DMap, pos1: Vector2, pos2: Vector2) -> int:
 	return 0
 
 
-
 # Function to determine the intended direction based on the difference between two positions
 func get_intended_direction(pos1: Vector2, pos2: Vector2) -> String:
 	var direction = pos2 - pos1
@@ -1021,3 +1019,87 @@ func get_rotations_with_connection(dmap: DMap, target_direction: String) -> Arra
 			valid_rotations.append(rotation)
 
 	return valid_rotations
+
+
+# Function to determine the required connections for a road tile
+# based on neighboring cells in all four cardinal directions.
+# Returns an array of directions that need road or ground connections.
+func get_needed_connections(grid: map_grid, position: Vector2) -> Array:
+	var directions = ["north", "east", "south", "west"]
+	var connections = []
+
+	# Iterate over each direction (north, east, south, west)
+	for direction in directions:
+		var neighbor_pos = position + Gamedata.DIRECTION_OFFSETS[direction]
+
+		# Check if the neighbor exists in the grid
+		if grid.cells.has(neighbor_pos):
+			var neighbor_cell = grid.cells[neighbor_pos]
+
+			# If the neighbor is a road tile, we need a road connection
+			if Gamedata.maps.is_map_in_category(neighbor_cell.map_id, "Road"):
+				connections.append(direction)
+
+			# If the neighbor is an urban tile, we need a road connection
+			elif Gamedata.maps.is_map_in_category(neighbor_cell.map_id, "Urban"):
+				connections.append(direction)
+
+			# If the neighbor is anything else, we need a ground connection
+			else:
+				# Add a ground connection if needed (optional handling, could be separate)
+				# connections.append(direction)
+				pass
+		else:
+			# If no neighbor exists, treat it as needing ground (optional)
+			# connections.append(direction)
+			pass
+
+	return connections
+
+
+# Function to get all road maps that can match the given connection directions (north, east, south, west)
+# Takes into account rotations for each road map and returns a list of maps that match the provided connections.
+func get_road_maps_with_connections(road_maps: Array[DMap], required_directions: Array[String]) -> Array[DMap]:
+	var matching_maps = []
+
+	# Iterate through each road map
+	for road_map in road_maps:
+		# Check all possible rotations (0, 90, 180, 270)
+		for rotation in [0, 90, 180, 270]:
+			var rotated_connections = get_rotated_connections(road_map.connections, rotation)
+
+			# Check if the rotated connections match the required directions
+			if are_connections_matching(rotated_connections, required_directions):
+				matching_maps.append(road_map)
+				break  # Stop checking other rotations for this road_map once a match is found
+
+	return matching_maps
+
+# Function to check if the rotated connections match the required directions
+# rotated_connections is a dictionary mapping directions (north, east, etc.) to connection types (road, ground, etc.)
+# required_directions is a list of directions that need to have "road" as the connection type.
+func are_connections_matching(rotated_connections: Dictionary[String, String], required_directions: Array[String]) -> bool:
+	for direction in required_directions:
+		if rotated_connections.get(direction, "none") != "road":
+			return false  # If any required direction doesn't have a road connection, return false
+	return true
+
+# Function to return a dictionary of connections after applying the rotation
+# rotation can be 0, 90, 180, or 270 degrees, and connections map directions to connection types.
+func get_rotated_connections(connections: Dictionary[String, String], rotation: int) -> Dictionary[String, String]:
+	var rotated_connections = {}
+	
+	# Direction mappings based on the rotation
+	var rotation_map = {
+		0: {"north": "north", "east": "east", "south": "south", "west": "west"},
+		90: {"north": "east", "east": "south", "south": "west", "west": "north"},
+		180: {"north": "south", "east": "west", "south": "north", "west": "east"},
+		270: {"north": "west", "east": "north", "south": "east", "west": "south"}
+	}
+
+	# Apply the rotation map to the connections
+	for direction in connections.keys():
+		var rotated_direction = rotation_map[rotation][direction]
+		rotated_connections[rotated_direction] = connections[direction]
+
+	return rotated_connections
