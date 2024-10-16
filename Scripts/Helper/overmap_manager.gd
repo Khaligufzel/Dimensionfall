@@ -1,6 +1,6 @@
 extends Node
 
-# This script manages the overmap, the terrain that makes up the world.
+# This script manages the overmap, which defines the terrain making up the game world.
 # It is part of the Helper singleton and can be accessed by Helper.overmap_manager
 # It keeps track of the player's coordinate and which chunks are in the area
 # It has algorithms to add and remove chunks from the area
@@ -24,7 +24,6 @@ extends Node
 # The level generator will register itself to this variable when it's ready
 var level_generator: Node = null
 
-@export_group("Settings")
 @export var region_seed : String
 @export var grid_width : int = 100
 @export var grid_height : int = 100
@@ -33,7 +32,7 @@ var level_generator: Node = null
 @export var chunk_size : int = 1 # Number of tiles per chunk. More makes it less... circular- I would keep it as is.
 @export var load_radius : int = 8 # Number of chunks to load around the player. Basically sight radius on world map.
 
-var loaded_grids: Dictionary = {}
+var loaded_grids: Dictionary = {} # Stores grids loaded in memory
 # Dictionary to store lists of area positions sorted by dovermaparea.id
 var area_positions: Dictionary = {}
 var max_grids: int = 9
@@ -55,7 +54,7 @@ var loaded_segments: Dictionary = {}
 var loaded_chunk_data: Dictionary = {"chunks": {}}
 
 var player
-var player_current_cell = Vector2.ZERO # Player's position per cell, updated regularly
+var player_current_cell: Vector2 = Vector2.ZERO # Player's position per cell, updated regularly
 var loaded_chunks = {}
 enum Region {
 	FOREST,
@@ -822,50 +821,6 @@ func create_new_grid_with_default_values() -> map_grid:
 	return new_grid
 
 
-# Updated function to connect cities by a straight path
-# Also uses the new update_path_on_grid function
-func connect_cities_by_road(grid: map_grid, city_positions: Array) -> void:
-	for i in range(city_positions.size() - 1):
-		var start_pos = city_positions[i]
-		var end_pos = city_positions[i + 1]
-		
-		# Get a straight path between two cities
-		var path = get_straight_path(start_pos, end_pos)
-		
-		# Use the new path update function to mark the road along the path
-		update_path_on_grid(grid, path)
-
-
-# Helper function to get a straight path between two points
-func get_straight_path(start: Vector2, end: Vector2) -> Array:
-	var path = []
-	
-	# Get the difference in x and y
-	var dx = abs(end.x - start.x)
-	var dy = abs(end.y - start.y)
-	
-	# Get the direction of movement in x and y
-	var sx = -1 if start.x > end.x else 1
-	var sy = -1 if start.y > end.y else 1
-	
-	var err = dx - dy
-	
-	# Use Bresenham's line algorithm to get the straight path
-	var current = start
-	while current != end:
-		path.append(current)
-		var e2 = 2 * err
-		if e2 > -dy:
-			err -= dy
-			current.x += sx
-		if e2 < dx:
-			err += dx
-			current.y += sy
-	
-	path.append(end)
-	return path
-
-
 # Updated function to connect cities by a river-like path including neighbors
 func connect_cities_by_riverlike_path(grid: map_grid, city_positions: Array) -> void:
 	for i in range(city_positions.size() - 1):
@@ -922,9 +877,9 @@ func generate_winding_path(start: Vector2, end: Vector2) -> Array:
 
 # Updated function to mark path cells as roads and then update their connections
 func update_path_on_grid(grid: map_grid, path: Array) -> void:
-	var road_maps = Gamedata.maps.get_maps_by_category("Road")
+	var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
 	
-	if road_maps.size() == 0:
+	if road_maps.is_empty():
 		print("No road maps found in the 'Road' category!")
 		return
 
@@ -1035,8 +990,8 @@ func get_rotations_with_connection(dmap: DMap, target_direction: String) -> Arra
 # based on neighboring cells in all four cardinal directions.
 # Returns an array of directions that need road or ground connections.
 func get_needed_connections(grid: map_grid, position: Vector2) -> Array:
-	var directions = ["north", "east", "south", "west"]
-	var connections = []
+	var directions: Array[String] = ["north", "east", "south", "west"]
+	var connections: Array[String] = []
 
 	# Iterate over each direction (north, east, south, west)
 	for direction in directions:
@@ -1095,7 +1050,7 @@ func get_road_maps_with_connections(road_maps: Array, required_directions: Array
 # rotated_connections is a dictionary mapping directions (north, east, etc.) to connection types (road, ground, etc.)
 # required_directions is a list of directions that need to have "road" as the connection type.
 func are_connections_matching(rotated_connections: Dictionary, required_directions: Array) -> bool:
-	var directions = ["north", "east", "south", "west"]
+	var directions: Array[String] = ["north", "east", "south", "west"]
 
 	# Check if all required directions have a road connection
 	for direction in required_directions:
