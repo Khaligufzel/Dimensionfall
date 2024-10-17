@@ -156,6 +156,16 @@ class map_grid:
 	var cells: Dictionary = {}
 	# Dictionary to store map_id and their corresponding coordinates
 	var map_id_to_coordinates: Dictionary = {}
+	var grid_width : int = 100 # TODO: Pass the global grid_width to this class
+	var grid_height : int = 100
+
+	# Translates local grid coordinates to global coordinates
+	func local_to_global(local_coord: Vector2) -> Vector2:
+		return local_coord + pos * grid_width
+
+	# Translates global coordinates to local grid coordinates
+	func global_to_local(global_coord: Vector2) -> Vector2:
+		return global_coord - pos * grid_width
 
 	func get_data() -> Dictionary:
 		var mydata: Dictionary = {"pos": pos, "cells": {}}
@@ -171,6 +181,37 @@ class map_grid:
 			var cell = map_cell.new()
 			cell.set_data(mydata["cells"][cell_key])
 			cells[Vector2(cell_key.split(",")[0].to_int(), cell_key.split(",")[1].to_int())] = cell
+
+	# Updates a cell's map ID and rotation using local coordinates
+	func update_cell(local_coord: Vector2, map_id: String, rotation: int):
+		if cells.has(local_coord):
+			cells[local_coord].map_id = map_id.replace(".json", "")
+			cells[local_coord].rotation = rotation
+
+	# Retrieves a map cell by global coordinate
+	func get_cell_by_global(global_coord: Vector2) -> map_cell:
+		var local_coord = global_to_local(global_coord)
+		if cells.has(local_coord):
+			return cells[local_coord]
+		return null
+
+	# Retrieves a map cell by local coordinate
+	func get_cell_by_local(local_coord: Vector2) -> map_cell:
+		if cells.has(local_coord):
+			return cells[local_coord]
+		return null
+
+	# Helper function to build the map_id_to_coordinates dictionary
+	func build_map_id_to_coordinates():
+		map_id_to_coordinates.clear()
+		for cell_key in cells.keys():
+			var cell = cells[cell_key]
+			var map_id = cell.map_id
+
+			if not map_id_to_coordinates.has(map_id):
+				map_id_to_coordinates[map_id] = []
+			
+			map_id_to_coordinates[map_id].append(cell_key)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -295,26 +336,7 @@ func generate_cells_for_grid(grid: map_grid):
 		connect_cities_by_riverlike_path(grid, area_positions["city"])
 
 	# After all modifications, rebuild the map_id_to_coordinates dictionary
-	build_map_id_to_coordinates(grid)
-
-
-# Creates a dictionary of all coordinates by map id
-# For example: {"house_01": [(-4,8),(-87,12),(52,77)]}
-func build_map_id_to_coordinates(grid: map_grid):
-	# Clear the existing dictionary to avoid stale data
-	grid.map_id_to_coordinates.clear()
-
-	# Iterate over all cells in the grid
-	for cell_key in grid.cells.keys():
-		var cell = grid.cells[cell_key]
-		var map_id = cell.map_id
-
-		# Initialize the list for this map_id if not already done
-		if not grid.map_id_to_coordinates.has(map_id):
-			grid.map_id_to_coordinates[map_id] = []
-
-		# Append the cell's key (coordinate) to the list
-		grid.map_id_to_coordinates[map_id].append(cell_key)
+	grid.build_map_id_to_coordinates()
 
 
 # Helper function to convert Region enum to string
@@ -424,9 +446,7 @@ func load_grid(grid_pos: Vector2):
 	if not loaded_grids.has(grid_pos):
 		var grid = map_grid.new()
 		grid.pos = grid_pos
-		#grid.pos = Vector2(grid_pos.split(",")[0].to_int(), grid_pos.split(",")[1].to_int())
 		# Assume load_grid_data is a function that loads grid data from storage
-		# grid.set_data(load_grid_data(grid_pos))
 		loaded_grids[grid_pos] = grid
 		load_grid_from_file(grid_pos)
 
@@ -612,7 +632,7 @@ func process_loaded_grid_data(grid_data: Dictionary):
 		var grid = map_grid.new()
 		grid.set_data(grid_data)
 		loaded_grids[grid.pos] = grid
-		build_map_id_to_coordinates(grid)
+		grid.build_map_id_to_coordinates()
 		print_debug("Grid loaded from file at " + str(grid.pos))
 	else:
 		print_debug("Failed to parse grid file")
@@ -834,26 +854,32 @@ func connect_cities_by_riverlike_path(grid: map_grid, city_positions: Array) -> 
 	for i in range(city_positions.size() - 1):
 		var start_pos = city_positions[i]
 		var end_pos = city_positions[i + 1]
-		
-		# Generate an organic, winding path between two cities, including diagonal neighbors
-		var path = generate_winding_path(start_pos, end_pos)
-		
+
+		# Use local_to_global for global position adjustments
+		var global_start = grid.local_to_global(start_pos)
+		var global_end = grid.local_to_global(end_pos)
+
+		# Generate an organic, winding path between the adjusted global positions
+		var path = generate_winding_path(global_start, global_end)
+
 		# Use the new path update function to mark the road along the path
 		update_path_on_grid(grid, path)
 
 
-func generate_winding_path(start: Vector2, end: Vector2) -> Array:
+
+
+func generate_winding_path(global_start: Vector2, global_end: Vector2) -> Array:
 	var path = []
-	var current = start
+	var current = global_start
 	var max_deviation = 2  # Maximum allowed deviation from the direct path
 
-	while current.distance_to(end) > 1:
+	while current.distance_to(global_end) > 1:
 		# Add the current position to the path only if it's not already included
 		if not path.has(current):
 			path.append(current)
 
 		# Determine the next position based on direction toward the goal
-		var next_position = (end - current).normalized() + current
+		var next_position = (global_end - current).normalized() + current
 
 		# Round to nearest grid position to ensure alignment with the grid
 		next_position = next_position.round()
@@ -871,15 +897,15 @@ func generate_winding_path(start: Vector2, end: Vector2) -> Array:
 					path.append(horizontal_neighbor)
 
 		# Prevent path from deviating too much from the straight line
-		if next_position.distance_to(start) > max_deviation or next_position.distance_to(end) > max_deviation:
-			next_position = current + (end - current).normalized().round()
+		if next_position.distance_to(global_start) > max_deviation or next_position.distance_to(global_end) > max_deviation:
+			next_position = current + (global_end - current).normalized().round()
 
 		# Move to the next position
 		current = next_position
 		if not path.has(current):  # Avoid adding duplicates
 			path.append(current)
 
-	path.append(end)  # Add the final point
+	path.append(global_end)  # Add the final point
 	return path
 
 
@@ -891,34 +917,32 @@ func update_path_on_grid(grid: map_grid, path: Array) -> void:
 		print("No road maps found in the 'Road' category!")
 		return
 
-	# Step 1: Mark all cells in the path as roads (without connections yet)
-	for position in path:
-		if grid.cells.has(position):
-			var cell = grid.cells[position]
+	# Step 1: Mark all cells in the path as roads
+	for global_position in path:
+		if grid.cells.has(global_position):
+			var cell = grid.cells[global_position]
 
 			# Ensure we're not overwriting existing urban areas
 			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-				# Temporarily set a default road map without considering connections
 				var default_road_map = road_maps.pick_random()
-				update_cell_map_id(grid, position, default_road_map.id, 0)  # Apply a random rotation for now
+				grid.update_cell(global_position, default_road_map.id, 0)
 
-	# Step 2: Now, process the path again and update the connections
-	for position in path:
-		if grid.cells.has(position):
-			var cell = grid.cells[position]
+	# Step 2: Process the path again and update the connections
+	for global_position in path:
+		if grid.cells.has(global_position):
+			var cell = grid.cells[global_position]
 
 			# Ensure we're not overwriting existing urban areas
 			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
 				# Get the needed connections for this position
-				var needed_connections = get_needed_connections(grid, position)
-
 				# Find the correct road maps that fit the needed connections
+				var needed_connections = get_needed_connections(grid, global_position)
 				var matching_road_maps: Array[Dictionary] = get_road_maps_with_connections(road_maps, needed_connections)
 
 				# If there are matching road maps, pick one randomly and update
 				if matching_road_maps.size() > 0:
 					var selected_road_map = matching_road_maps.pick_random()
-					update_cell_map_id(grid, position, selected_road_map.id, selected_road_map.rotation)
+					grid.update_cell(global_position, selected_road_map.id, selected_road_map.rotation)
 
 
 # Helper function to remove duplicates from the path
