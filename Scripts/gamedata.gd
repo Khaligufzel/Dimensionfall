@@ -44,6 +44,21 @@ enum ContentType {
 	OVERMAPAREAS        #12
 }
 
+# Rotation mappings for how directions change based on tile rotation
+const ROTATION_MAP: Dictionary = {
+	0: {"north": "north", "east": "east", "south": "south", "west": "west"},
+	90: {"north": "east", "east": "south", "south": "west", "west": "north"},
+	180: {"north": "south", "east": "west", "south": "north", "west": "east"},
+	270: {"north": "west", "east": "north", "south": "east", "west": "south"}
+}
+
+# Define direction offsets for easy neighbor lookups
+const DIRECTION_OFFSETS: Dictionary = {
+	"north": Vector2(0, -1),
+	"east": Vector2(1, 0),
+	"south": Vector2(0, 1),
+	"west": Vector2(-1, 0)
+}
 
 # Dictionary to map content types to Gamedata variables
 var gamedata_map: Dictionary = {}
@@ -151,6 +166,10 @@ func get_data_of_type(type: ContentType) -> RefCounted:
 # their own class. Until then, a d is added to the front to indicate it's used in data classes
 func dremove_reference(references: Dictionary, module: String, type: String, refid: String) -> bool:
 	var changes_made = false
+	if not references.has(module):
+		return false
+	if not references[module].has(type):
+		return false
 	var refs = references[module][type]
 	if refid in refs:
 		refs.erase(refid)

@@ -3,7 +3,14 @@
 		"Infrastructure",
 		"Road"
 	],
+	"connections": {
+		"east": "road",
+		"north": "road",
+		"south": "road",
+		"west": "road"
+	},
 	"description": "An intersection of urban roads, facilitating traffic flow in multiple directions.",
+	"id": "urbanroad_cross",
 	"levels": [
 		[],
 		[],
@@ -3345,5 +3352,6 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
-	"name": "Urban Road Cross"
+	"name": "Urban Road Cross",
+	"weight": 1000
 }

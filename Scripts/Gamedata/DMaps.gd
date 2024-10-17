@@ -79,7 +79,7 @@ func remove_entity_from_selected_maps(entity_type: String, entity_id: String, ma
 
 # Removes the reference from the selected map
 func remove_reference_from_map(mapid: String, module: String, type: String, refid: String):
-	var mymap: DMap = mapdict[mapid]
+	var mymap: DMap = by_id(mapid)
 	mymap.remove_reference(module, type, refid)
 
 
@@ -103,6 +103,8 @@ func get_maps_by_category(category: String) -> Array[DMap]:
 			maplist.append(mapdict[key])
 	return maplist
 
+func is_map_in_category(mapid: String, category: String):
+	return category in by_id(mapid).categories
 
 # Function to return unique categories across all maps
 func get_unique_categories() -> Array:

@@ -40,6 +40,9 @@ The game will create an infinite map to explore. The world is devided by regions
 
 ![Catax_overmap](Media/Catax_overmap.png)
 
+Cities and roads are generated. Explore a whole network of roads and get to know the area
+
+![Catax_overmap](Media/Catax_overmap_large.png)
 
 ### Quest journal
 Follow quests to guide your way trough this dangerous world. A quest may have multiple objectives, which will be displayed step-by-step

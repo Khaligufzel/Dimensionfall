@@ -91,12 +91,12 @@ extends Control
 @export var max_width_spin_box: SpinBox = null # The maximum width of the area in tiles
 @export var max_height_spin_box: SpinBox = null # The maximum height of the area in tiles
 @export var region_name_text_edit: TextEdit = null # Allows the user to enter a new region name
-@export var region_v_box_container: VBoxContainer = null # Contains region editing controls
-@export var overmap_area_region_editor: PackedScene = null
+@export var region_h_box_container: HBoxContainer = null # Contains region editing controls
+@export var overmap_area_region_editor: PackedScene = null # Sub-scene for editing a region
+@export var overmap_area_visualization: Control = null # Sub-scene for area visualization
 
 
 # This signal will be emitted when the user presses the save button
-# This signal should alert Gamedata that the overmaparea data array should be saved to disk
 signal data_changed()
 
 var olddata: DOvermaparea # Remember what the value of the data was before editing
@@ -130,24 +130,28 @@ func load_overmaparea_data() -> void:
 	if max_height_spin_box != null:
 		max_height_spin_box.value = dovermaparea.max_height
 
-	# Load region data into the region_v_box_container
+	# Load region data into the region_h_box_container
 	if dovermaparea.regions:
 		for region_key in dovermaparea.regions.keys():
 			var region_instance: DOvermaparea.Region = dovermaparea.regions[region_key]  # Expecting Region instance
 
 			# Instantiate the region editor and set its data
 			var region_editor = overmap_area_region_editor.instantiate()
-			region_v_box_container.add_child(region_editor)
+			region_h_box_container.add_child(region_editor)
+			region_editor.delete_button_pressed.connect(_on_region_deleted.bind(region_editor))
 
 			# Set the region name and values for the region editor
 			region_editor.set_region_name(region_key)
 			region_editor.set_values(region_instance.get_data())  # Using get_data() to get the region's dictionary representation
+	
+	overmap_area_visualization.set_area(dovermaparea)
 
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
 	queue_free()
+
 
 # This function takes all data from the form elements and stores them in the DOvermaparea instance
 # Since dovermaparea is a reference to an item in Gamedata.overmapareas
@@ -170,7 +174,7 @@ func _on_save_button_button_up() -> void:
 
 	# Construct the regions object from the UI data
 	var regions_data: Dictionary = {}
-	for region_editor in region_v_box_container.get_children():
+	for region_editor in region_h_box_container.get_children():
 		var region_key = region_editor.get_region_name()
 		var region_values = region_editor.get_values()
 
@@ -197,16 +201,17 @@ func _on_region_add_button_button_up() -> void:
 	var region_name = region_name_text_edit.text.strip_edges()
 	region_name_text_edit.clear()
 
-	# Check if a region with the same name already exists in the region_v_box_container
-	for child in region_v_box_container.get_children():
+	# Check if a region with the same name already exists in the region_h_box_container
+	for child in region_h_box_container.get_children():
 		if child.get_region_name() == region_name:
 			return # If a region with the same name already exists, do not add a new region
 
 	# If the region does not exist, create a new instance of the overmap_area_region_editor scene
 	var region_editor = overmap_area_region_editor.instantiate()
 
-	# Add the region editor instance to the region_v_box_container
-	region_v_box_container.add_child(region_editor)
+	# Add the region editor instance to the region_h_box_container
+	region_h_box_container.add_child(region_editor)
+	region_editor.delete_button_pressed.connect(_on_region_deleted.bind(region_editor))
 
 	# Set the region name using the text from the region_name_text_edit
 	region_editor.set_region_name(region_name)
@@ -225,3 +230,14 @@ func _on_region_add_button_button_up() -> void:
 
 	# Clear the text field after successfully adding the region
 	region_name_text_edit.clear()
+
+
+# Function to handle region deletion when the delete button is pressed
+func _on_region_deleted(region_editor: Node) -> void:
+	# Ensure the region editor instance is valid before attempting to remove it
+	if region_editor in region_h_box_container.get_children():
+		region_h_box_container.remove_child(region_editor)  # Remove the region editor from the container
+		region_editor.queue_free()  # Queue the node for deletion
+
+		# Optionally, you could emit a signal or log that the region was deleted
+		print_debug("Region deleted: ", region_editor.get_region_name())
