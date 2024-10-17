@@ -156,16 +156,12 @@ class map_grid:
 	var cells: Dictionary = {}
 	# Dictionary to store map_id and their corresponding coordinates
 	var map_id_to_coordinates: Dictionary = {}
-	var grid_width : int = 100 # TODO: Pass the global grid_width to this class
-	var grid_height : int = 100
+	var grid_width: int = 100 # TODO: Pass the global grid_width to this class
+	var grid_height: int = 100
 
 	# Translates local grid coordinates to global coordinates
 	func local_to_global(local_coord: Vector2) -> Vector2:
 		return local_coord + pos * grid_width
-
-	# Translates global coordinates to local grid coordinates
-	func global_to_local(global_coord: Vector2) -> Vector2:
-		return global_coord - pos * grid_width
 
 	func get_data() -> Dictionary:
 		var mydata: Dictionary = {"pos": pos, "cells": {}}
@@ -188,19 +184,6 @@ class map_grid:
 			cells[local_coord].map_id = map_id.replace(".json", "")
 			cells[local_coord].rotation = rotation
 
-	# Retrieves a map cell by global coordinate
-	func get_cell_by_global(global_coord: Vector2) -> map_cell:
-		var local_coord = global_to_local(global_coord)
-		if cells.has(local_coord):
-			return cells[local_coord]
-		return null
-
-	# Retrieves a map cell by local coordinate
-	func get_cell_by_local(local_coord: Vector2) -> map_cell:
-		if cells.has(local_coord):
-			return cells[local_coord]
-		return null
-
 	# Helper function to build the map_id_to_coordinates dictionary
 	func build_map_id_to_coordinates():
 		map_id_to_coordinates.clear()
@@ -212,6 +195,173 @@ class map_grid:
 				map_id_to_coordinates[map_id] = []
 			
 			map_id_to_coordinates[map_id].append(cell_key)
+
+	# Function to connect cities by creating a river-like path
+	func connect_cities_by_riverlike_path(city_positions: Array) -> void:
+		for i in range(city_positions.size() - 1):
+			var start_pos = city_positions[i]
+			var end_pos = city_positions[i + 1]
+
+			# Use local_to_global for global position adjustments
+			var global_start = local_to_global(start_pos)
+			var global_end = local_to_global(end_pos)
+
+			# Generate an organic, winding path between the adjusted global positions
+			var path = generate_winding_path(global_start, global_end)
+
+			# Mark the road along the path
+			update_path_on_grid(path)
+
+	# Function to generate a winding path between two global positions
+	func generate_winding_path(global_start: Vector2, global_end: Vector2) -> Array:
+		var path = []
+		var current = global_start
+		var max_deviation = 2  # Maximum allowed deviation from the direct path
+
+		while current.distance_to(global_end) > 1:
+			# Add the current position to the path only if it's not already included
+			if not path.has(current):
+				path.append(current)
+
+			# Determine the next position based on direction toward the goal
+			var next_position = (global_end - current).normalized() + current
+
+			# Round to nearest grid position to ensure alignment with the grid
+			next_position = next_position.round()
+
+			# Check if the next step is diagonal
+			if self.is_diagonal(current, next_position):
+				# Randomly pick between a vertical or horizontal neighbor for diagonal movement
+				if randi() % 2 == 0:
+					var vertical_neighbor = current + Vector2(0, next_position.y - current.y)
+					if not path.has(vertical_neighbor):
+						path.append(vertical_neighbor)
+				else:
+					var horizontal_neighbor = current + Vector2(next_position.x - current.x, 0)
+					if not path.has(horizontal_neighbor):
+						path.append(horizontal_neighbor)
+
+			# Prevent path from deviating too much from the straight line
+			if next_position.distance_to(global_start) > max_deviation or next_position.distance_to(global_end) > max_deviation:
+				next_position = current + (global_end - current).normalized().round()
+
+			# Move to the next position
+			current = next_position
+			if not path.has(current):  # Avoid adding duplicates
+				path.append(current)
+
+		path.append(global_end)  # Add the final point
+		return path
+
+	# Function to mark the path cells as roads and update their connections
+	func update_path_on_grid(path: Array) -> void:
+		var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
+		
+		if road_maps.is_empty():
+			print("No road maps found in the 'Road' category!")
+			return
+
+		# Step 1: Mark all cells in the path as roads
+		for global_position in path:
+			if cells.has(global_position):
+				var cell = cells[global_position]
+
+				# Ensure we're not overwriting existing urban areas
+				if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
+					var default_road_map = road_maps.pick_random()
+					update_cell(global_position, default_road_map.id, 0)
+
+		# Step 2: Process the path again and update the connections
+		for global_position in path:
+			if cells.has(global_position):
+				var cell = cells[global_position]
+
+				# Ensure we're not overwriting existing urban areas
+				if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
+					# Get the needed connections for this position
+					var needed_connections = get_needed_connections(global_position)
+					var matching_road_maps: Array[Dictionary] = get_road_maps_with_connections(road_maps, needed_connections)
+
+					# If there are matching road maps, pick one randomly and update
+					if matching_road_maps.size() > 0:
+						var selected_road_map = matching_road_maps.pick_random()
+						update_cell(global_position, selected_road_map.id, selected_road_map.rotation)
+
+	# Function to determine if movement from pos1 to pos2 is diagonal
+	func is_diagonal(pos1: Vector2, pos2: Vector2) -> bool:
+		var direction = pos2 - pos1
+		return abs(direction.x) == 1 and abs(direction.y) == 1
+
+	# Function to determine the required connections for a road tile
+	func get_needed_connections(position: Vector2) -> Array:
+		var directions: Array[String] = ["north", "east", "south", "west"]
+		var connections: Array[String] = []
+
+		# Iterate over each direction (north, east, south, west)
+		for direction in directions:
+			var neighbor_pos: Vector2 = position + Gamedata.DIRECTION_OFFSETS[direction]
+
+			# Check if the neighbor exists in the grid
+			if self.cells.has(neighbor_pos):
+				var neighbor_cell = self.cells[neighbor_pos]
+
+				# If the neighbor is a road tile or urban area, we need a road connection
+				if Gamedata.maps.is_map_in_category(neighbor_cell.map_id, "Road") or Gamedata.maps.is_map_in_category(neighbor_cell.map_id, "Urban"):
+					connections.append(direction)
+			else:
+				# If no neighbor exists, optionally handle ground connections
+				pass
+
+		return connections
+
+	# Function to get road maps that match the required connections
+	func get_road_maps_with_connections(road_maps: Array, required_directions: Array) -> Array[Dictionary]:
+		var matching_maps: Array[Dictionary] = []
+
+		# Iterate through each road map
+		for road_map in road_maps:
+			# Check all possible rotations (0, 90, 180, 270)
+			for rotation in [0, 90, 180, 270]:
+				var rotated_connections = self.get_rotated_connections(road_map.connections, rotation)
+
+				# Check if the rotated connections match the required directions
+				if self.are_connections_matching(rotated_connections, required_directions):
+					# If it matches, add a dictionary with map id and rotation
+					matching_maps.append({
+						"id": road_map.id,
+						"rotation": rotation
+					})
+					break  # Stop checking other rotations for this road_map once a match is found
+
+		return matching_maps
+
+	# Function to check if rotated connections match the required directions
+	func are_connections_matching(rotated_connections: Dictionary, required_directions: Array) -> bool:
+		var directions: Array[String] = ["north", "east", "south", "west"]
+
+		# Check if all required directions have a road connection
+		for direction in required_directions:
+			if rotated_connections.get(direction, "none") != "road":
+				return false  # Any required direction that doesn't have a road connection fails
+
+		# Ensure all remaining directions are ground connections
+		for direction in directions:
+			if direction not in required_directions:
+				if rotated_connections.get(direction, "none") != "ground":
+					return false  # Any other direction that isn't ground fails
+
+		return true
+
+	# Function to get rotated connections based on rotation
+	func get_rotated_connections(connections: Dictionary, rotation: int) -> Dictionary:
+		var rotated_connections = {}
+		
+		# Apply the rotation map to the connections
+		for direction in connections.keys():
+			var rotated_direction = Gamedata.ROTATION_MAP[rotation][direction]
+			rotated_connections[rotated_direction] = connections[direction]
+
+		return rotated_connections
 
 
 # Called when the node enters the scene tree for the first time.
@@ -333,7 +483,7 @@ func generate_cells_for_grid(grid: map_grid):
 	
 	# Select positions for the city area and connect them with roads
 	if area_positions.has("city"):
-		connect_cities_by_riverlike_path(grid, area_positions["city"])
+		grid.connect_cities_by_riverlike_path(area_positions["city"])
 
 	# After all modifications, rebuild the map_id_to_coordinates dictionary
 	grid.build_map_id_to_coordinates()
@@ -847,266 +997,3 @@ func create_new_grid_with_default_values() -> map_grid:
 
 	# Step 4: Return the fully generated grid
 	return new_grid
-
-
-# Updated function to connect cities by a river-like path including neighbors
-func connect_cities_by_riverlike_path(grid: map_grid, city_positions: Array) -> void:
-	for i in range(city_positions.size() - 1):
-		var start_pos = city_positions[i]
-		var end_pos = city_positions[i + 1]
-
-		# Use local_to_global for global position adjustments
-		var global_start = grid.local_to_global(start_pos)
-		var global_end = grid.local_to_global(end_pos)
-
-		# Generate an organic, winding path between the adjusted global positions
-		var path = generate_winding_path(global_start, global_end)
-
-		# Use the new path update function to mark the road along the path
-		update_path_on_grid(grid, path)
-
-
-
-
-func generate_winding_path(global_start: Vector2, global_end: Vector2) -> Array:
-	var path = []
-	var current = global_start
-	var max_deviation = 2  # Maximum allowed deviation from the direct path
-
-	while current.distance_to(global_end) > 1:
-		# Add the current position to the path only if it's not already included
-		if not path.has(current):
-			path.append(current)
-
-		# Determine the next position based on direction toward the goal
-		var next_position = (global_end - current).normalized() + current
-
-		# Round to nearest grid position to ensure alignment with the grid
-		next_position = next_position.round()
-
-		# Check if the next step is diagonal
-		if is_diagonal(current, next_position):
-			# Randomly pick between a vertical or horizontal neighbor for diagonal movement
-			if randi() % 2 == 0:
-				var vertical_neighbor = current + Vector2(0, next_position.y - current.y)
-				if not path.has(vertical_neighbor):
-					path.append(vertical_neighbor)
-			else:
-				var horizontal_neighbor = current + Vector2(next_position.x - current.x, 0)
-				if not path.has(horizontal_neighbor):
-					path.append(horizontal_neighbor)
-
-		# Prevent path from deviating too much from the straight line
-		if next_position.distance_to(global_start) > max_deviation or next_position.distance_to(global_end) > max_deviation:
-			next_position = current + (global_end - current).normalized().round()
-
-		# Move to the next position
-		current = next_position
-		if not path.has(current):  # Avoid adding duplicates
-			path.append(current)
-
-	path.append(global_end)  # Add the final point
-	return path
-
-
-# Updated function to mark path cells as roads and then update their connections
-func update_path_on_grid(grid: map_grid, path: Array) -> void:
-	var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
-	
-	if road_maps.is_empty():
-		print("No road maps found in the 'Road' category!")
-		return
-
-	# Step 1: Mark all cells in the path as roads
-	for global_position in path:
-		if grid.cells.has(global_position):
-			var cell = grid.cells[global_position]
-
-			# Ensure we're not overwriting existing urban areas
-			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-				var default_road_map = road_maps.pick_random()
-				grid.update_cell(global_position, default_road_map.id, 0)
-
-	# Step 2: Process the path again and update the connections
-	for global_position in path:
-		if grid.cells.has(global_position):
-			var cell = grid.cells[global_position]
-
-			# Ensure we're not overwriting existing urban areas
-			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-				# Get the needed connections for this position
-				# Find the correct road maps that fit the needed connections
-				var needed_connections = get_needed_connections(grid, global_position)
-				var matching_road_maps: Array[Dictionary] = get_road_maps_with_connections(road_maps, needed_connections)
-
-				# If there are matching road maps, pick one randomly and update
-				if matching_road_maps.size() > 0:
-					var selected_road_map = matching_road_maps.pick_random()
-					grid.update_cell(global_position, selected_road_map.id, selected_road_map.rotation)
-
-
-# Helper function to remove duplicates from the path
-func remove_duplicates_from_path(path: Array) -> Array:
-	var unique_path = []
-	var visited_positions = {}
-	
-	for position in path:
-		if not visited_positions.has(position):
-			unique_path.append(position)
-			visited_positions[position] = true
-	
-	return unique_path
-
-
-# Function to check if the direction between two positions is diagonal
-func is_diagonal(pos1: Vector2, pos2: Vector2) -> bool:
-	var direction = pos2 - pos1
-	return abs(direction.x) == 1 and abs(direction.y) == 1
-
-
-# Updated get_correct_rotation function to use get_rotations_with_connection
-# This function calculates the correct rotation for a dmap to match the intended direction.
-# pos1 is the current position, and pos2 is the next position in the path.
-func get_correct_rotation(dmap: DMap, pos1: Vector2, pos2: Vector2) -> int:
-	# Determine the intended direction (e.g., "north", "east", "south", "west")
-	var intended_direction: String = get_intended_direction(pos1, pos2)
-	
-	# Use the get_rotations_with_connection function to find valid rotations where "road" aligns with the intended direction
-	var valid_rotations = get_rotations_with_connection(dmap, intended_direction)
-	
-	# If there are valid rotations, pick a random one
-	if valid_rotations.size() > 0:
-		return valid_rotations.pick_random()
-	
-	# Default to no rotation (0) if no valid rotation is found
-	return 0
-
-
-# Function to determine the intended direction based on the difference between two positions
-func get_intended_direction(pos1: Vector2, pos2: Vector2) -> String:
-	var direction = pos2 - pos1
-	
-	if direction == Vector2(0, -1):
-		return "north"
-	elif direction == Vector2(0, 1):
-		return "south"
-	elif direction == Vector2(-1, 0):
-		return "west"
-	elif direction == Vector2(1, 0):
-		return "east"
-	
-	return ""
-
-
-# Function to check which rotations allow the dmap to have a connection to the specified direction.
-# The function returns an array of valid rotations (0, 90, 180, 270).
-# dmap.connections example: {"north": "road", "south": "ground", ...}
-# rotation_map specifies how the directions change with rotation.
-func get_rotations_with_connection(dmap: DMap, target_direction: String) -> Array:
-	var valid_rotations = []
-	
-	# Iterate over possible rotations (0, 90, 180, 270 degrees)
-	for rotation in Gamedata.ROTATION_MAP.keys():
-		# Get the connections after applying the current rotation
-		var rotated_connections = Gamedata.ROTATION_MAP[rotation]
-
-		# Check if the connection in the rotated direction matches the target direction
-		if dmap.connections[rotated_connections[target_direction]] == "road":
-			# Add this rotation to the valid rotations list if the connection matches
-			valid_rotations.append(rotation)
-
-	return valid_rotations
-
-
-# Function to determine the required connections for a road tile
-# based on neighboring cells in all four cardinal directions.
-# Returns an array of directions that need road or ground connections.
-func get_needed_connections(grid: map_grid, position: Vector2) -> Array:
-	var directions: Array[String] = ["north", "east", "south", "west"]
-	var connections: Array[String] = []
-
-	# Iterate over each direction (north, east, south, west)
-	for direction in directions:
-		var neighbor_pos: Vector2 = position + Gamedata.DIRECTION_OFFSETS[direction]
-
-		# Check if the neighbor exists in the grid
-		if grid.cells.has(neighbor_pos):
-			var neighbor_cell = grid.cells[neighbor_pos]
-
-			# If the neighbor is a road tile, we need a road connection
-			if Gamedata.maps.is_map_in_category(neighbor_cell.map_id, "Road"):
-				connections.append(direction)
-
-			# If the neighbor is an urban tile, we need a road connection
-			elif Gamedata.maps.is_map_in_category(neighbor_cell.map_id, "Urban"):
-				connections.append(direction)
-
-			# If the neighbor is anything else, we need a ground connection
-			else:
-				# Add a ground connection if needed (optional handling, could be separate)
-				# connections.append(direction)
-				pass
-		else:
-			# If no neighbor exists, treat it as needing ground (optional)
-			# connections.append(direction)
-			pass
-
-	return connections
-
-
-# Function to get all road maps that match the given connection directions (north, east, south, west)
-# Returns an array of dictionaries with "id" and "rotation" for each matching road map.
-func get_road_maps_with_connections(road_maps: Array, required_directions: Array) -> Array[Dictionary]:
-	var matching_maps: Array[Dictionary] = []
-
-	# Iterate through each road map
-	for road_map in road_maps:
-		# Check all possible rotations (0, 90, 180, 270)
-		for rotation in [0, 90, 180, 270]:
-			var rotated_connections = get_rotated_connections(road_map.connections, rotation)
-
-			# Check if the rotated connections match the required directions
-			if are_connections_matching(rotated_connections, required_directions):
-				# If it matches, add a dictionary with map id and rotation
-				matching_maps.append({
-					"id": road_map.id,
-					"rotation": rotation
-				})
-				break  # Stop checking other rotations for this road_map once a match is found
-
-	return matching_maps
-
-
-# Function to check if the rotated connections match the required directions for roads
-# and ensure the remaining directions are ground connections.
-# rotated_connections is a dictionary mapping directions (north, east, etc.) to connection types (road, ground, etc.)
-# required_directions is a list of directions that need to have "road" as the connection type.
-func are_connections_matching(rotated_connections: Dictionary, required_directions: Array) -> bool:
-	var directions: Array[String] = ["north", "east", "south", "west"]
-
-	# Check if all required directions have a road connection
-	for direction in required_directions:
-		if rotated_connections.get(direction, "none") != "road":
-			return false  # Any required direction that doesn't have a road connection fails
-
-	# Ensure all remaining directions (not in required_directions) are ground connections
-	for direction in directions:
-		if direction not in required_directions:
-			if rotated_connections.get(direction, "none") != "ground":
-				return false  # Any other direction that isn't ground fails
-
-	return true
-
-
-
-# Function to return a dictionary of connections after applying the rotation
-# rotation can be 0, 90, 180, or 270 degrees, and connections map directions to connection types.
-func get_rotated_connections(connections: Dictionary, rotation: int) -> Dictionary:
-	var rotated_connections = {}
-	
-	# Apply the rotation map to the connections
-	for direction in connections.keys():
-		var rotated_direction = Gamedata.ROTATION_MAP[rotation][direction]
-		rotated_connections[rotated_direction] = connections[direction]
-
-	return rotated_connections
