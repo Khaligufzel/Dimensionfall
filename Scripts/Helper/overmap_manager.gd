@@ -13,11 +13,12 @@ extends Node
 # Therefore, if we know the player's location, we can calculate which chunk he is in.
 
 # There are multiple coordinate systems that interact with the overmap_manager
-# 1. The overmap uses coordinates like (-1,-1), (-1,0), (0,0), (1,0), (0,1), (1,1)
+# 1. The overmap uses coordinates like (-1,-1), (-1,0), (0,0), (1,0), (0,1), (1,1) for map_cell coordinates
+# 	These coordinates are absolute and mark their global position on the overmap
 # 2. The overmap gui also uses this coordinate system, but saves them in chunks of 16
 #   Which is why we need translation from the overmap gui to the overmap data
 # 3. The LevelGenerator.gd also uses this system for loading and unloading chunks
-# 4. Then there's the overmap meta positioning. The overmap has large chunks of grid_width
+# 4. Then there's the overmap meta positioning. This is used for map_grids The overmap has large chunks of grid_width
 #   by grid_height, which holds 10000 cells. This set is what's saved and loaded to disk
 
 # We keep a reference to the level_generator, which holds the chunks
@@ -297,6 +298,8 @@ func generate_cells_for_grid(grid: map_grid):
 	build_map_id_to_coordinates(grid)
 
 
+# Creates a dictionary of all coordinates by map id
+# For example: {"house_01": [(-4,8),(-87,12),(52,77)]}
 func build_map_id_to_coordinates(grid: map_grid):
 	# Clear the existing dictionary to avoid stale data
 	grid.map_id_to_coordinates.clear()
@@ -411,6 +414,9 @@ func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:
 
 
 # Load a grid based on the grid position
+# grid_pos: absolute vector2 relative to the other grids. Even though each grid contains 100x100 map_cells,
+# they are only one space apart in their "meta" coordinate system. So the grid containing cells 
+# (-100,100) to (-1,-1) is positioned at (-1,-1). The other grids may be (-1,0), (0,0), (1,0), (1,1)
 func load_grid(grid_pos: Vector2):
 	if loaded_grids.size() >= max_grids:
 		unload_furthest_grid()
@@ -683,6 +689,8 @@ func place_tactical_maps_on_grid(grid: map_grid):
 
 
 # Function to place an area on the grid and return the valid position where it was placed
+# grid: The map_grid to put the area on
+# area_grid: The grid returned from mygenerator.generate_area
 func place_area_on_grid(grid: map_grid, area_grid: Dictionary, placed_positions: Array, mapsize: Vector2) -> Vector2:
 	var valid_position = find_valid_position(placed_positions, int(mapsize.x), int(mapsize.y))
 	# Calculate the center offset
