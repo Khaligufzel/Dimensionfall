@@ -363,6 +363,80 @@ class map_grid:
 
 		return rotated_connections
 
+	# Function to place an area on the grid and return the valid position where it was placed
+	func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize: Vector2) -> Vector2:
+		var valid_position = find_valid_position(placed_positions, int(mapsize.x), int(mapsize.y))
+		# Calculate the center offset
+		var center_offset = Vector2(int(mapsize.x / 2), int(mapsize.y / 2))
+
+		# Only if a valid position is found, place the area
+		if valid_position != Vector2(-1, -1):
+			for local_position in area_grid.keys():
+				var adjusted_position = valid_position + local_position
+				if area_grid.has(local_position):
+					var tile = area_grid[local_position]
+					if tile != null:
+						update_cell(local_to_global(adjusted_position), tile.dmap.id, tile.rotation)
+						placed_positions.append(adjusted_position)
+			# Return the valid position (adjusted to the center of the placed area)
+			return valid_position + center_offset
+
+		# Return the valid position (the top-left corner of the placed area)
+		return valid_position
+
+	# Function to place overmap areas on this grid
+	func place_overmap_area() -> void:
+		var placed_positions = []  # Track positions that have already been placed
+		Helper.overmap_manager.area_positions.clear()
+
+		# Loop to place up to 10 overmap areas on the grid
+		for n in range(10):
+			var mygenerator = OvermapAreaGenerator.new()
+			var dovermaparea = Gamedata.overmapareas.by_id(Gamedata.overmapareas.get_random_area().id)
+			mygenerator.dovermaparea = dovermaparea
+
+			# Generate the area
+			var area_grid: Dictionary = mygenerator.generate_area(10000)
+			if area_grid.size() > 0:
+				# Use the dimensions from mygenerator after generating the area
+				var map_dimensions = mygenerator.dimensions
+
+				# Place the area and get the valid position
+				var valid_position = place_area_on_grid(area_grid, placed_positions, map_dimensions)
+				if valid_position != Vector2(-1, -1):
+					# Ensure the area_positions dictionary has an array for this dovermaparea.id
+					if not Helper.overmap_manager.area_positions.has(dovermaparea.id):
+						Helper.overmap_manager.area_positions[dovermaparea.id] = []
+					# Append the valid position to the list for this area's id
+					Helper.overmap_manager.area_positions[dovermaparea.id].append(valid_position)
+			else:
+				print("Failed to find a valid position for the overmap area.")
+
+	# Function to find a valid position for placing a tactical map
+	func find_valid_position(placed_positions: Array, map_width: int, map_height: int) -> Vector2:
+		var attempts = 0
+		while attempts < 100:
+			var random_x = randi() % (grid_width - map_width + 1)
+			var random_y = randi() % (grid_height - map_height + 1)
+			var valid_position_found = true
+
+			for i in range(map_width):
+				for j in range(map_height):
+					var local_x = random_x + i
+					var local_y = random_y + j
+					var cell_key = Vector2(local_x, local_y)
+					if cell_key in placed_positions:
+						valid_position_found = false
+						break
+				if not valid_position_found:
+					break
+
+			if valid_position_found:
+				return Vector2(random_x, random_y)
+			
+			attempts += 1
+		return Vector2(-1, -1)  # Indicate that a valid position was not found
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -478,7 +552,7 @@ func generate_cells_for_grid(grid: map_grid):
 			grid.cells[cell_key] = cell
 
 	# Place tactical maps on the grid, which may overwrite some cells
-	place_overmap_area_on_grid(grid)
+	grid.place_overmap_area()
 	place_tactical_maps_on_grid(grid)
 	
 	# Select positions for the city area and connect them with roads
@@ -856,59 +930,6 @@ func place_tactical_maps_on_grid(grid: map_grid):
 					var dchunk: DTacticalmap.TChunk = chunks[chunk_index]
 					grid.update_cell(grid.local_to_global(cell_key), dchunk.id, dchunk.rotation)
 					placed_positions.append(cell_key)  # Track the positions that have been occupied
-
-
-# Function to place an area on the grid and return the valid position where it was placed
-# grid: The map_grid to put the area on
-# area_grid: The grid returned from mygenerator.generate_area
-func place_area_on_grid(grid: map_grid, area_grid: Dictionary, placed_positions: Array, mapsize: Vector2) -> Vector2:
-	var valid_position = find_valid_position(placed_positions, int(mapsize.x), int(mapsize.y))
-	# Calculate the center offset
-	var center_offset = Vector2(int(mapsize.x / 2), int(mapsize.y / 2))
-
-	# Only if a valid position is found, place the area
-	if valid_position != Vector2(-1, -1):
-		for local_position in area_grid.keys():
-			var adjusted_position = valid_position + local_position
-			if area_grid.has(local_position):
-				var tile = area_grid[local_position]
-				if tile != null:
-					grid.update_cell(grid.local_to_global(adjusted_position), tile.dmap.id, tile.rotation)
-					placed_positions.append(adjusted_position)
-		# Return the valid position (adusted to the center of the placed area)
-		return valid_position + center_offset
-
-	# Return the valid position (the top-left corner of the placed area)
-	return valid_position
-
-
-# Main function to place overmap areas on the grid and track multiple positions per area by its area ID
-func place_overmap_area_on_grid(grid: map_grid):
-	var placed_positions = []  # Track positions that have already been placed
-	area_positions.clear()
-
-	# Loop to place up to 10 overmap areas on the grid
-	for n in range(10):
-		var mygenerator = OvermapAreaGenerator.new()
-		var dovermaparea = Gamedata.overmapareas.by_id(Gamedata.overmapareas.get_random_area().id)
-		mygenerator.dovermaparea = dovermaparea
-
-		# Generate the area
-		var area_grid: Dictionary = mygenerator.generate_area(10000)
-		if area_grid.size() > 0:
-			# Use the dimensions from mygenerator after generating the area
-			var map_dimensions = mygenerator.dimensions
-
-			# Place the area and get the valid position
-			var valid_position = place_area_on_grid(grid, area_grid, placed_positions, map_dimensions)
-			if valid_position != Vector2(-1, -1):
-				# Ensure the area_positions dictionary has an array for this dovermaparea.id
-				if not area_positions.has(dovermaparea.id):
-					area_positions[dovermaparea.id] = []
-				# Append the valid position to the list for this area's id
-				area_positions[dovermaparea.id].append(valid_position)
-		else:
-			print("Failed to find a valid position for the overmap area.")
 
 
 # Function to save all remaining segments without unloading
