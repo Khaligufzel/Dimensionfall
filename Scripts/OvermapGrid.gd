@@ -222,7 +222,7 @@ func get_rotated_connections(connections: Dictionary, rotation: int) -> Dictiona
 
 # Function to place an area on the grid and return the valid position where it was placed
 func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize: Vector2) -> Vector2:
-	var valid_position = find_valid_position(placed_positions, int(mapsize.x), int(mapsize.y))
+	var valid_position = find_weighted_random_position(placed_positions, int(mapsize.x), int(mapsize.y))
 	# Calculate the center offset
 	var center_offset = Vector2(int(mapsize.x / 2), int(mapsize.y / 2))
 
@@ -269,35 +269,11 @@ func place_overmap_area() -> void:
 		else:
 			print("Failed to find a valid position for the overmap area.")
 
-# Function to find a valid position for placing a tactical map
-func find_valid_position(placed_positions: Array, map_width: int, map_height: int) -> Vector2:
-	var attempts = 0
-	while attempts < 100:
-		var random_x = randi() % (grid_width - map_width + 1)
-		var random_y = randi() % (grid_height - map_height + 1)
-		var valid_position_found = true
-
-		for i in range(map_width):
-			for j in range(map_height):
-				var local_x = random_x + i
-				var local_y = random_y + j
-				var cell_key = Vector2(local_x, local_y)
-				if cell_key in placed_positions:
-					valid_position_found = false
-					break
-			if not valid_position_found:
-				break
-
-		if valid_position_found:
-			return Vector2(random_x, random_y)
-		
-		attempts += 1
-	return Vector2(-1, -1)  # Indicate that a valid position was not found
 
 # Function to place tactical maps on this grid
 func place_tactical_maps() -> void:
 	var placed_positions = []
-	for n in range(10):  # Loop to place up to 10 tactical maps on the grid
+	for n in range(5):  # Loop to place up to 10 tactical maps on the grid
 		var dmap: DTacticalmap = Gamedata.tacticalmaps.get_random_map()
 
 		var map_width = dmap.mapwidth
@@ -305,7 +281,7 @@ func place_tactical_maps() -> void:
 		var chunks = dmap.chunks
 
 		# Find a valid position on the grid to place the tactical map
-		var position = find_valid_position(placed_positions, map_width, map_height)
+		var position = find_weighted_random_position(placed_positions, map_width, map_height)
 		if position == Vector2(-1, -1):  # If no valid position is found, skip this map placement
 			print("Failed to find a valid position for tactical map")
 			continue
@@ -369,3 +345,34 @@ func region_type_to_string(region_type: int) -> String:
 		Helper.overmap_manager.Region.FOREST:
 			return "Forest"
 	return "Unknown"
+
+
+# Function to find a weighted random position, favoring distant positions
+func find_weighted_random_position(placed_positions: Array, map_width: int, map_height: int) -> Vector2:
+	var max_attempts = 100  # Number of random attempts to generate a good position
+	var best_position = Vector2(-1, -1)  # To store the best candidate
+	var best_distance = 0  # To store the largest minimum distance found
+
+	# Loop for a number of random candidate positions
+	for attempt in range(max_attempts):
+		# Generate a random position on the grid
+		var random_x = randi() % (grid_width - map_width + 1)
+		var random_y = randi() % (grid_height - map_height + 1)
+		var position = Vector2(random_x, random_y)
+
+		# Calculate the minimum distance from this position to any already placed area
+		var min_distance = INF  # Start with a very high number
+		for placed_pos in placed_positions:
+			# Calculate distance to the already placed position
+			var dist = position.distance_to(placed_pos)
+			# Keep track of the shortest distance to any other area
+			if dist < min_distance:
+				min_distance = dist
+
+		# If this position has a larger minimum distance than previous ones, it's a better candidate
+		if min_distance > best_distance:
+			best_position = position
+			best_distance = min_distance
+
+	# Return the position with the largest minimum distance (i.e., most "spacious" position)
+	return best_position
