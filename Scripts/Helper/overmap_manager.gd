@@ -854,7 +854,7 @@ func place_tactical_maps_on_grid(grid: map_grid):
 					var cell_key = Vector2(local_x, local_y)
 					var chunk_index = j * map_width + i
 					var dchunk: DTacticalmap.TChunk = chunks[chunk_index]
-					update_cell_map_id(grid, cell_key, dchunk.id, dchunk.rotation)
+					grid.update_cell(grid.local_to_global(cell_key), dchunk.id, dchunk.rotation)
 					placed_positions.append(cell_key)  # Track the positions that have been occupied
 
 
@@ -873,7 +873,7 @@ func place_area_on_grid(grid: map_grid, area_grid: Dictionary, placed_positions:
 			if area_grid.has(local_position):
 				var tile = area_grid[local_position]
 				if tile != null:
-					update_cell_map_id(grid, adjusted_position, tile.dmap.id, tile.rotation)
+					grid.update_cell(grid.local_to_global(adjusted_position), tile.dmap.id, tile.rotation)
 					placed_positions.append(adjusted_position)
 		# Return the valid position (adusted to the center of the placed area)
 		return valid_position + center_offset
@@ -909,14 +909,6 @@ func place_overmap_area_on_grid(grid: map_grid):
 				area_positions[dovermaparea.id].append(valid_position)
 		else:
 			print("Failed to find a valid position for the overmap area.")
-
-
-# Helper function to update a cell's map ID if it exists
-func update_cell_map_id(grid: map_grid, cell_key: Vector2, map_id: String, rotation: int):
-	var adjusted_cell_key = cell_key + grid.pos * grid_width
-	if grid.cells.has(adjusted_cell_key):
-		grid.cells[adjusted_cell_key].map_id = map_id.replace(".json", "")
-		grid.cells[adjusted_cell_key].rotation = rotation  # Update rotation
 
 
 # Function to save all remaining segments without unloading
