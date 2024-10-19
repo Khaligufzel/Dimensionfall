@@ -437,6 +437,82 @@ class map_grid:
 			attempts += 1
 		return Vector2(-1, -1)  # Indicate that a valid position was not found
 
+	# Function to place tactical maps on this grid
+	func place_tactical_maps() -> void:
+		var placed_positions = []
+		for n in range(10):  # Loop to place up to 10 tactical maps on the grid
+			var dmap: DTacticalmap = Gamedata.tacticalmaps.get_random_map()
+
+			var map_width = dmap.mapwidth
+			var map_height = dmap.mapheight
+			var chunks = dmap.chunks
+
+			# Find a valid position on the grid to place the tactical map
+			var position = find_valid_position(placed_positions, map_width, map_height)
+			if position == Vector2(-1, -1):  # If no valid position is found, skip this map placement
+				print("Failed to find a valid position for tactical map")
+				continue
+
+			var random_x = position.x
+			var random_y = position.y
+
+			# Place the tactical map chunks on the grid, overwriting cells as needed
+			for i in range(map_width):
+				for j in range(map_height):
+					var local_x = random_x + i
+					var local_y = random_y + j
+					if local_x < grid_width and local_y < grid_height:
+						var cell_key = Vector2(local_x, local_y)
+						var chunk_index = j * map_width + i
+						var dchunk: DTacticalmap.TChunk = chunks[chunk_index]
+						update_cell(local_to_global(cell_key), dchunk.id, dchunk.rotation)
+						placed_positions.append(cell_key)  # Track the positions that have been occupied
+
+	# Function to generate cells for the grid
+	func generate_cells() -> void:
+		for x in range(grid_width):
+			for y in range(grid_height):
+				# Calculate global coordinates based on grid position
+				var global_x = pos.x * grid_width + x
+				var global_y = pos.y * grid_height + y
+				var cell_key = Vector2(global_x, global_y)
+
+				# Determine region type based on noise values
+				var region_type = Helper.overmap_manager.get_region_type(global_x, global_y)
+				var cell = map_cell.new()
+				cell.coordinate_x = global_x
+				cell.coordinate_y = global_y
+				cell.region = region_type
+
+				# Pick a map from the category based on the region type
+				var maps_by_category = Gamedata.maps.get_maps_by_category(region_type_to_string(region_type))
+				if maps_by_category.size() > 0:
+					cell.map_id = Helper.overmap_manager.pick_random_map_by_weight(maps_by_category)
+				else:
+					cell.map_id = "field_grass_basic_00.json"  # Fallback if no maps found
+
+				# Add the cell to the grid's cells dictionary
+				cells[cell_key] = cell
+
+		# Place tactical maps and overmap areas on the grid, and connect cities
+		place_overmap_area()
+		place_tactical_maps()
+
+		if Helper.overmap_manager.area_positions.has("city"):
+			connect_cities_by_riverlike_path(Helper.overmap_manager.area_positions["city"])
+
+		# After modifications, rebuild the map_id_to_coordinates dictionary
+		build_map_id_to_coordinates()
+
+	# Helper function to convert Region enum to string
+	func region_type_to_string(region_type: int) -> String:
+		match region_type:
+			Region.PLAINS:
+				return "Plains"
+			Region.FOREST:
+				return "Forest"
+		return "Unknown"
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -520,47 +596,11 @@ func load_cells_around(position: Vector3):
 				if loaded_grids.has(grid_key):
 					var grid = loaded_grids[grid_key]
 					if not grid.cells.has(cell_key):
-						generate_cells_for_grid(grid)
+						grid.generate_cells()
 				else:
 					load_grid(grid_key)
 					var grid = loaded_grids[grid_key]
-					generate_cells_for_grid(grid)
-
-
-
-# This function generates chunks for each cell in the grid, ensuring the grid is filled with cells.
-func generate_cells_for_grid(grid: map_grid):
-	for x in range(grid_width):
-		for y in range(grid_height):
-			var global_x = grid.pos.x * grid_width + x
-			var global_y = grid.pos.y * grid_height + y
-			var cell_key = Vector2(global_x, global_y)
-
-			var region_type = get_region_type(global_x, global_y)
-			var cell = map_cell.new()
-			cell.coordinate_x = global_x
-			cell.coordinate_y = global_y
-			cell.region = region_type
-
-			var maps_by_category = Gamedata.maps.get_maps_by_category(region_type_to_string(region_type))
-			if maps_by_category.size() > 0:
-				cell.map_id = pick_random_map_by_weight(maps_by_category)
-			else:
-				cell.map_id = "field_grass_basic_00.json"  # Fallback if no maps are found
-
-			# Add the cell to the grid's cells dictionary
-			grid.cells[cell_key] = cell
-
-	# Place tactical maps on the grid, which may overwrite some cells
-	grid.place_overmap_area()
-	place_tactical_maps_on_grid(grid)
-	
-	# Select positions for the city area and connect them with roads
-	if area_positions.has("city"):
-		grid.connect_cities_by_riverlike_path(area_positions["city"])
-
-	# After all modifications, rebuild the map_id_to_coordinates dictionary
-	grid.build_map_id_to_coordinates()
+					grid.generate_cells()
 
 
 # Helper function to convert Region enum to string
@@ -874,64 +914,6 @@ func load_all_grids():
 		process_loaded_grid_data(loadedgrid)
 
 
-# Function to find a valid position for placing a tactical map
-func find_valid_position(placed_positions: Array, map_width: int, map_height: int) -> Vector2:
-	var attempts = 0
-	while attempts < 100:
-		var random_x = randi() % (grid_width - map_width + 1)
-		var random_y = randi() % (grid_height - map_height + 1)
-		var valid_position_found = true
-
-		for i in range(map_width):
-			for j in range(map_height):
-				var local_x = random_x + i
-				var local_y = random_y + j
-				var cell_key = Vector2(local_x, local_y)
-				if cell_key in placed_positions:
-					valid_position_found = false
-					break
-			if not valid_position_found:
-				break
-
-		if valid_position_found:
-			return Vector2(random_x, random_y)
-		
-		attempts += 1
-	return Vector2(-1, -1)  # Indicate that a valid position was not found
-
-
-# Function to place tactical maps on a specific grid
-func place_tactical_maps_on_grid(grid: map_grid):
-	var placed_positions = []
-	for n in range(10):  # Loop to place up to 10 tactical maps on the grid
-		var dmap: DTacticalmap = Gamedata.tacticalmaps.get_random_map()
-
-		var map_width = dmap.mapwidth
-		var map_height = dmap.mapheight
-		var chunks = dmap.chunks
-
-		# Find a valid position on the grid to place the tactical map
-		var position = find_valid_position(placed_positions, map_width, map_height)
-		if position == Vector2(-1, -1):  # If no valid position is found, skip this map placement
-			print("Failed to find a valid position for tactical map")
-			continue
-
-		var random_x = position.x
-		var random_y = position.y
-
-		# Place the tactical map chunks on the grid, overwriting cells as needed
-		for i in range(map_width):
-			for j in range(map_height):
-				var local_x = random_x + i
-				var local_y = random_y + j
-				if local_x < grid_width and local_y < grid_height:
-					var cell_key = Vector2(local_x, local_y)
-					var chunk_index = j * map_width + i
-					var dchunk: DTacticalmap.TChunk = chunks[chunk_index]
-					grid.update_cell(grid.local_to_global(cell_key), dchunk.id, dchunk.rotation)
-					placed_positions.append(cell_key)  # Track the positions that have been occupied
-
-
 # Function to save all remaining segments without unloading
 func save_all_segments():
 	var all_segments_to_save = []
@@ -1006,7 +988,7 @@ func create_new_grid_with_default_values() -> map_grid:
 	Helper.mapseed = rng.randi()
 	make_noise()
 	
-	generate_cells_for_grid(new_grid) # Step 4: Generate the grid
+	new_grid.generate_cells()
 
 	# Step 4: Return the fully generated grid
 	return new_grid
