@@ -138,7 +138,11 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross"
 				]
 			}
 		},
@@ -179,7 +183,11 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross"
 				]
 			}
 		},
@@ -223,7 +231,11 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross"
 				]
 			}
 		},

@@ -186,7 +186,7 @@ func make_noise():
 	noise.cellular_return_type = FastNoiseLite.RETURN_DISTANCE
 	noise.cellular_distance_function = FastNoiseLite.DISTANCE_HYBRID # Sensitivity of the pattern
 	noise.cellular_jitter = 0 # Changes the pattern by warping the cells
-	noise.frequency = 0.05 # Increasing this will make smaller cells. Decreasing will create big cells
+	
 	# Only applies if domain_warp_enabled equals true
 	noise.domain_warp_enabled = true # Changing this to false disables the settings below:
 	noise.domain_warp_type = FastNoiseLite.DOMAIN_WARP_SIMPLEX # Changing this creates different patterns
