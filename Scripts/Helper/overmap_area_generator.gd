@@ -90,7 +90,7 @@ extends RefCounted
 
 var grid_width: int = 20
 var grid_height: int = 20
-var area_grid: Dictionary = {}  # The resulting grid
+var area_grid: Dictionary = {}  # Grid containing the generated area
 # Dictionary to store the percentage distance from the center for each grid position
 var distance_from_center_map: Dictionary = {}  # Key: Vector2 (position), Value: float (percentage distance)
 var dimensions: Vector2 = Vector2.ZERO # The dimensions of the grid
@@ -98,17 +98,16 @@ var dovermaparea: DOvermaparea = null
 var tile_catalog: Array = []  # List of all tile instances with rotations
 var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
 var processed_tiles: Dictionary = {}  # Dictionary to track processed tiles
-# Import the noise module for Perlin noise generation
-var noise = FastNoiseLite.new()
-# Define rotation mappings for how the directions shift depending on rotation
-var rotation_map = {
+var noise = FastNoiseLite.new() # Used to create noise to modify distance_from_center_map
+# Rotation mappings for how directions change based on tile rotation
+const ROTATION_MAP: Dictionary = {
 	0: {"north": "north", "east": "east", "south": "south", "west": "west"},
 	90: {"north": "east", "east": "south", "south": "west", "west": "north"},
 	180: {"north": "south", "east": "west", "south": "north", "west": "east"},
 	270: {"north": "west", "east": "north", "south": "east", "west": "south"}
 }
-# Define the direction offsets for neighboring positions
-var direction_offsets: Dictionary = {
+# Define direction offsets for easy neighbor lookups
+const DIRECTION_OFFSETS: Dictionary = {
 	"north": Vector2(0, -1),
 	"east": Vector2(1, 0),
 	"south": Vector2(0, 1),
@@ -169,16 +168,16 @@ class Tile:
 
 
 	# Adjusts the connections based on the rotation
-	func rotated_connections(rotation: int) -> Dictionary:
-		var rotated_connections = {}
+	func rotated_connections(myrotation: int) -> Dictionary:
+		var myrotated_connections = {}
 		for direction in dmap.connections.keys():
-			# Adjust the direction based on the rotation using the rotation_map
-			var new_direction = rotation_map[rotation][direction]
+			# Adjust the direction based on the myrotation using the rotation_map
+			var new_direction = rotation_map[myrotation][direction]
 
 			# Keep the same connection type but adjust direction, so a road to north is now a road to west, for example
-			rotated_connections[new_direction] = dmap.connections[direction]
+			myrotated_connections[new_direction] = dmap.connections[direction]
 
-		return rotated_connections
+		return myrotated_connections
 
 		
 	# Function to pick a tile from the list based on the weights
@@ -190,9 +189,8 @@ class Tile:
 
 		# Step 1: Register the weight of each tile and count total weight
 		for tile in tiles:
-			var weight: float = tile.weight
-			total_weight += weight
-			weighted_tiles[tile] = weight
+			total_weight += tile.weight
+			weighted_tiles[tile] = tile.weight
 
 		# Step 2: Randomly select a tile based on the accumulated weights
 		var rand_value: float = randf() * total_weight
@@ -203,27 +201,6 @@ class Tile:
 
 		return null  # Return null if no tile is selected, which should not happen if weights are correct
 
-	# Helper function to pick a neighbor key probabilistically based on weights from dmap.neighbors for the given direction
-	func pick_neighbor_key(direction: String) -> String:
-		# Ensure the direction exists in dmap.neighbors
-		if not dmap.neighbors.has(direction):
-			return ""  # Return an empty string if no valid direction is found
-
-		var total_weight: float = 0.0
-		var neighbor_weights = dmap.neighbors[direction]  # Get neighbor weights for the specified direction
-
-		# Calculate the total weight for the neighbor keys in this direction
-		for weight in neighbor_weights.values():
-			total_weight += weight
-
-		# Pick a key based on the weights
-		var rand_value: float = randf() * total_weight
-		for key in neighbor_weights.keys():
-			rand_value -= neighbor_weights[key]
-			if rand_value <= 0:
-				return key  # Return the selected key based on weighted probability
-
-		return ""  # Return an empty string if no key is picked, which shouldn't happen if weights are correct
 
 	# Retrieves a list of neighbor tiles based on the direction, connection type, and rotation
 	func get_neighbor_tiles(direction: String, neighbor_key: String) -> Array:
@@ -231,8 +208,8 @@ class Tile:
 			return []  # Return an empty list if no valid neighbor key is found
 
 		# Step 2: Determine the connection type for the provided direction based on tile rotation
-		var rotated_connections: Dictionary = rotated_connections(rotation)
-		var connection_type: String = rotated_connections.get(direction, "")
+		var myrotated_connections: Dictionary = rotated_connections(rotation)
+		var connection_type: String = myrotated_connections.get(direction, "")
 
 		# Step 3: Retrieve the list of tiles from tile_dictionary based on the neighbor key, connection type, and direction
 		var reverse_direction = rotation_map[180][direction]  # Get the reverse direction
@@ -268,35 +245,6 @@ class Tile:
 
 		# Check if the connections are compatible (for example, both should be "road" or "ground")
 		return my_connection_type == neighbor_connection_type
-	
-	# Adjusts weights for neighboring tiles based on neighbor keys
-	func adjust_weights_based_on_neighbors(neighbors: Array, x: int, y: int) -> void:
-		# Dictionary to group neighbors by their keys (e.g., urban, suburban, etc.)
-		var neighbor_groups: Dictionary = {}
-		var neighbor_key_weights = dmap.neighbor_keys  # Get current tile's neighbor key weights
-		
-		# Step 1: Group neighbors by their key
-		for neighbor in neighbors:
-			var key = neighbor.key
-			if not neighbor_groups.has(key):
-				neighbor_groups[key] = []
-			neighbor_groups[key].append(neighbor)
-		
-		# Step 2: Adjust weights for each group
-		for key in neighbor_groups.keys():
-			var group = neighbor_groups[key]
-			var total_weight: float = 0.0
-			
-			# Step 3: Normalize the weights within each group
-			for neighbor in group:
-				total_weight += neighbor.weight  # Sum all original weights
-				
-			# Apply normalized weights
-			for neighbor in group:
-				var normalized_weight = float(neighbor.weight) / total_weight  # Normalize
-				var adjusted_weight = normalized_weight * neighbor_key_weights.get(key, 0)  # Apply key weight
-				
-				# Update the neighbor's weight
 
 
 # Generates the area from the center to the edge of the grid
@@ -347,8 +295,8 @@ func generate_area(max_iterations: int = 100000) -> Dictionary:
 		# Place neighbors for the current tile position
 		place_neighbor_tiles(current_position)
 
-		for direction in direction_offsets.keys():
-			var neighbor_position = current_position + direction_offsets[direction]
+		for direction in DIRECTION_OFFSETS.keys():
+			var neighbor_position = current_position + DIRECTION_OFFSETS[direction]
 
 			# Check if the neighbor is within bounds and hasn't been processed yet
 			if is_within_grid_bounds(neighbor_position):
@@ -402,35 +350,73 @@ func is_within_grid_bounds(position: Vector2) -> bool:
 # Function to place the neighboring tiles of the specified position on the area_grid
 # It checks if there is a tile at the given position and then places neighbor tiles based on the tile's logic
 func place_neighbor_tiles(position: Vector2) -> void:
-	# Get the tile at the specified position, if present
-	var current_tile = null
-	if area_grid.has(position):
-		current_tile = area_grid[position]
-	else:
+	# Get the current tile at the given position
+	var current_tile = get_tile_at_position(position)
+	if current_tile == null:
 		print_debug("No tile present at the specified position.")
-		return  # If there's no tile at the starting position, exit the function
+		return
 
-	# Loop over each direction, get the neighboring tile using the tile's get_neighbor_tile function, and place it on the area_grid
-	if current_tile != null:
-		for direction: String in direction_offsets.keys():
-			var neighbor_pos: Vector2 = position + direction_offsets[direction]
-			var neighbor_regions: Array = get_regions_for_position(neighbor_pos)
+	# Loop through each direction (north, east, south, west) and place neighboring tiles
+	for direction in DIRECTION_OFFSETS.keys():
+		var neighbor_pos: Vector2 = position + DIRECTION_OFFSETS[direction]
+		place_neighbor_tile(current_tile, direction, neighbor_pos)
 
-			# Check if the neighbor position is within bounds and has not been processed yet
-			if is_within_grid_bounds(neighbor_pos) and not area_grid.has(neighbor_pos) and neighbor_regions.size() > 0:
-				var neighbor_key: String = neighbor_regions.pick_random()
-				var neighbor_tile: Tile = current_tile.get_neighbor_tile(direction, neighbor_key)
 
-				# Retry mechanism to ensure the tile fits with all adjacent neighbors
-				if not neighbor_tile == null and not can_tile_fit(neighbor_pos, neighbor_tile):
-					# Exclude the incompatible tile and try a different one
-					exclude_tile_from_cell(neighbor_pos.x, neighbor_pos.y, neighbor_tile)
-					neighbor_tile = current_tile.get_neighbor_tile(direction, neighbor_key)
+# Helper function to get the tile at the specified position
+func get_tile_at_position(position: Vector2) -> Tile:
+	if area_grid.has(position):
+		return area_grid[position]
+	return null
 
-				if neighbor_tile != null:
-					area_grid[neighbor_pos] = neighbor_tile
-				else:
-					print_debug("No suitable neighbor tile found for direction: ", direction)
+
+# Function to place a tile in a neighboring position based on the current tile and direction
+func place_neighbor_tile(current_tile: Tile, direction: String, neighbor_pos: Vector2) -> void:
+	if not is_within_grid_bounds(neighbor_pos) or area_grid.has(neighbor_pos):
+		return  # Skip if out of bounds or already occupied
+
+	# Get potential regions for the neighbor position
+	var neighbor_regions: Array = get_regions_for_position(neighbor_pos)
+	if neighbor_regions.is_empty():
+		return  # No valid regions found for this neighbor position
+
+	# Select and place a suitable neighbor tile
+	var neighbor_key = neighbor_regions.pick_random()
+	var neighbor_tile = find_suitable_neighbor_tile(current_tile, direction, neighbor_key, neighbor_pos)
+
+	if neighbor_tile != null:
+		area_grid[neighbor_pos] = neighbor_tile
+	else:
+		print_debug("No suitable neighbor tile found for direction: ", direction)
+
+
+# Function to find a suitable neighbor tile that fits the specified position
+func find_suitable_neighbor_tile(current_tile: Tile, direction: String, neighbor_key: String, neighbor_pos: Vector2) -> Tile:
+	# Get the list of all potential neighbor tiles
+	var potential_tiles: Array = current_tile.get_neighbor_tiles(direction, neighbor_key)
+
+	# Filter out any tiles that have already been tried for this position
+	var tried_tiles_for_position = tried_tiles.get(Vector2(int(neighbor_pos.x), int(neighbor_pos.y)), [])
+	var filtered_tiles: Array = []
+	for tile in potential_tiles:
+		if tile not in tried_tiles_for_position:
+			filtered_tiles.append(tile)
+
+	# Continue selecting tiles based on weight until a suitable one is found
+	while not filtered_tiles.is_empty():
+		# Select a tile based on weight using pick_tile_from_list
+		var selected_tile: Tile = current_tile.pick_tile_from_list(filtered_tiles)
+
+		# If the selected tile fits, return it
+		if can_tile_fit(neighbor_pos, selected_tile):
+			return selected_tile
+
+		# If the tile doesn't fit, exclude it and remove it from the list
+		exclude_tile_from_cell(int(neighbor_pos.x), int(neighbor_pos.y), selected_tile)
+		filtered_tiles.erase(selected_tile)  # Remove the tile from the selection pool
+
+	# If no valid tile was found, return null
+	print_debug("No suitable neighbor tile found after trying all weighted possibilities for direction: ", direction)
+	return null
 
 
 # Function to place the starting tile in the center of the grid
@@ -494,7 +480,7 @@ func create_tile_entries() -> void:
 				var tile: Tile = Tile.new()
 				tile.dmap = map
 				tile.tile_dictionary = tile_dictionary
-				tile.rotation_map = rotation_map
+				tile.rotation_map = ROTATION_MAP
 				tile.rotation = rotation
 				tile.key = region_name  # The region name serves as the key (e.g., "urban", "suburban")
 				tile.weight = map_weight  # Set the tile's weight from the map data
@@ -518,34 +504,31 @@ func create_tile_entries() -> void:
 					tile_dictionary[region_name][connection_type][connection_direction][tile.id] = tile
 
 
-# Function to check if a tile fits at the specified position considering all neighbors
+# Check if a tile can fit at the specified position by verifying connections with neighbors
 func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 	# Loop over north, east, south, and west to check all adjacent neighbors
-	for direction in direction_offsets.keys():
-		var offset = direction_offsets[direction]
-		var neighbor_pos = pos + offset  # The coordinate in the specified direction
+	for direction in DIRECTION_OFFSETS.keys():
+		var neighbor_pos = pos + DIRECTION_OFFSETS[direction]
 
-		# Ensure the neighbor position is within bounds
-		if not is_within_grid_bounds(neighbor_pos):
-			continue  # Skip out-of-bounds neighbors
+		# Skip out-of-bounds or empty neighbors
+		if not is_within_grid_bounds(neighbor_pos) or not area_grid.has(neighbor_pos):
+			continue
 
-		# Check if there's a tile in the neighbor position
-		if area_grid.has(neighbor_pos):
-			var neighbor_tile = area_grid[neighbor_pos]
+		var neighbor_tile = area_grid[neighbor_pos]
+		if not tile.are_connections_compatible(neighbor_tile, direction):
+			return false
+		if not neighbor_tile.are_connections_compatible(tile, ROTATION_MAP[180][direction]):
+			return false
 
-			# Check connection compatibility for both tiles (i.e., bidirectional fit)
-			if not tile.are_connections_compatible(neighbor_tile, direction):
-				return false
-			if not neighbor_tile.are_connections_compatible(tile, rotation_map[180][direction]):
-				return false
-
-	return true  # The tile fits with all adjacent neighbors
+	return true
 
 
-func exclude_tile_from_cell(x: int, y: int, tile: Tile):
+# Exclude a tile from being selected again for the specified position
+func exclude_tile_from_cell(x: int, y: int, tile: Tile) -> void:
 	var key = Vector2(x, y)
 	if not tried_tiles.has(key):
-		tried_tiles[key] = tile
+		tried_tiles[key] = []
+	tried_tiles[key].append(tile)
 
 
 # Function to calculate and return the center of the map as whole numbers
@@ -569,10 +552,10 @@ func get_distance_from_center_as_percentage(position: Vector2) -> float:
 						 center.distance_to(Vector2(dimensions.x - 1, dimensions.y - 1)))
 
 	# Calculate the distance from the given position to the center
-	var distance_to_center = center.distance_to(position)
+	var mydistance_to_center = center.distance_to(position)
 
 	# Calculate the percentage distance relative to the maximum distance (radius)
-	var percentage_distance = (distance_to_center / max_radius) * 100.0
+	var percentage_distance = (mydistance_to_center / max_radius) * 100.0
 	return percentage_distance
 
 
@@ -612,7 +595,7 @@ func get_regions_for_percentage(percentage: float) -> Array:
 # Function to get the list of region IDs for a given position
 # It calculates the percentage distance from the center to the position and finds regions that overlap with this percentage
 func get_regions_for_position(position: Vector2) -> Array:
-	if not is_within_grid_bounds(position):
+	if not is_within_grid_bounds(position) or not distance_from_center_map.has(position):
 		return []
 	# Step 1: Calculate the percentage distance from the center for the given position
 	var percentage_distance = distance_from_center_map[position]
@@ -624,8 +607,8 @@ func get_regions_for_position(position: Vector2) -> Array:
 
 
 # Function to set up the FastNoiseLite properties
-func setup_noise(seed: int = 1234, frequency: float = 0.05) -> void:
-	noise.seed = seed
+func setup_noise(myseed: int = 1234, frequency: float = 0.05) -> void:
+	noise.seed = myseed
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN  # Using Perlin noise for natural variation
 	noise.fractal_type = FastNoiseLite.FRACTAL_FBM  # Fractal Brownian Motion for layered noise
 	noise.fractal_octaves = 5  # Number of noise layers
@@ -635,19 +618,14 @@ func setup_noise(seed: int = 1234, frequency: float = 0.05) -> void:
 
 
 # Function to set the dimensions for the area generator based on the dovermaparea data
-func set_area_dimensions():
-	# Check if the dimensions are already set to a non-default value
-	if dimensions != Vector2.ZERO:
-		return  # Terminate if dimensions are already set
-
-	# Ensure that dovermaparea data is available
-	if dovermaparea == null:
-		print_debug("set_area_dimensions: dovermaparea data not available")
+func set_area_dimensions() -> void:
+	if dimensions != Vector2.ZERO or dovermaparea == null:
+		print_debug("set_area_dimensions: Dimensions already set or no overmap area data.")
 		return
-
 	# Randomly set dimensions using the min and max width/height from the dovermaparea data
-	var random_width = randi() % (dovermaparea.max_width - dovermaparea.min_width + 1) + dovermaparea.min_width
-	var random_height = randi() % (dovermaparea.max_height - dovermaparea.min_height + 1) + dovermaparea.min_height
-	dimensions = Vector2(random_width, random_height)
+	dimensions = Vector2(
+		randi() % (dovermaparea.max_width - dovermaparea.min_width + 1) + dovermaparea.min_width,
+		randi() % (dovermaparea.max_height - dovermaparea.min_height + 1) + dovermaparea.min_height
+	)
 
 	print_debug("set_area_dimensions: Dimensions set to ", dimensions)

@@ -31,6 +31,7 @@ extends VBoxContainer
 #           }
 
 
+signal delete_button_pressed
 
 # Initialize drag-and-drop forwarding for the maps_grid_container
 func _ready() -> void:
@@ -83,7 +84,7 @@ func _get_maps_from_ui() -> Array:
 	var children = maps_grid_container.get_children()
 
 	# Loop through the children and extract map information
-	for i in range(0, children.size(), 3):  # Step by 3 to handle sprite-label-spinbox triples
+	for i in range(0, children.size(), 4):  # Step by 4 to handle sprite-label-spinbox-delete quatuplets
 		var label = children[i + 1] as Label  # The label containing the map ID
 		var spinbox = children[i + 2] as SpinBox  # The spinbox containing the map weight
 
@@ -172,8 +173,19 @@ func _add_map_entry(map_data: Dictionary) -> void:
 	weight_spinbox.tooltip_text = "Enter the weight for this map. This will be the weight \n" + \
 								"relative to the other maps in this region. A higher weight \n" + \
 								"will make it more likely that this map is picked. A lower \n" + \
-								"weight makes it less likeley for this map to spawn."
+								"weight makes it less likely for this map to spawn."
 	maps_grid_container.add_child(weight_spinbox)
+
+	# Create a Button to delete the map entry
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.tooltip_text = "Delete this map entry."
+	maps_grid_container.add_child(delete_button)
+
+	# Connect the delete button's button_up signal to remove the map entry
+	delete_button.button_up.connect(func():
+		_remove_map_entry(texture_rect, label, weight_spinbox, delete_button)
+	)
 
 
 # Function to handle changes in the min_range_h_slider value
@@ -187,3 +199,22 @@ func _on_max_range_h_slider_value_changed(value: float) -> void:
 	# Update the label with the percentage value
 	if max_range_value_label != null:
 		max_range_value_label.text = str(int(value)) + "%"
+
+
+func _on_delete_button_button_up() -> void:
+	delete_button_pressed.emit()
+
+
+# Function to remove a map entry (called when the delete button is pressed)
+func _remove_map_entry(texture_rect: TextureRect, label: Label, weight_spinbox: SpinBox, delete_button: Button) -> void:
+	maps_grid_container.remove_child(texture_rect)
+	texture_rect.queue_free()
+
+	maps_grid_container.remove_child(label)
+	label.queue_free()
+
+	maps_grid_container.remove_child(weight_spinbox)
+	weight_spinbox.queue_free()
+
+	maps_grid_container.remove_child(delete_button)
+	delete_button.queue_free()

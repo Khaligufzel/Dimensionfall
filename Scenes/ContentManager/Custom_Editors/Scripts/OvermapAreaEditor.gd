@@ -138,6 +138,7 @@ func load_overmaparea_data() -> void:
 			# Instantiate the region editor and set its data
 			var region_editor = overmap_area_region_editor.instantiate()
 			region_h_box_container.add_child(region_editor)
+			region_editor.delete_button_pressed.connect(_on_region_deleted.bind(region_editor))
 
 			# Set the region name and values for the region editor
 			region_editor.set_region_name(region_key)
@@ -210,6 +211,7 @@ func _on_region_add_button_button_up() -> void:
 
 	# Add the region editor instance to the region_h_box_container
 	region_h_box_container.add_child(region_editor)
+	region_editor.delete_button_pressed.connect(_on_region_deleted.bind(region_editor))
 
 	# Set the region name using the text from the region_name_text_edit
 	region_editor.set_region_name(region_name)
@@ -228,3 +230,14 @@ func _on_region_add_button_button_up() -> void:
 
 	# Clear the text field after successfully adding the region
 	region_name_text_edit.clear()
+
+
+# Function to handle region deletion when the delete button is pressed
+func _on_region_deleted(region_editor: Node) -> void:
+	# Ensure the region editor instance is valid before attempting to remove it
+	if region_editor in region_h_box_container.get_children():
+		region_h_box_container.remove_child(region_editor)  # Remove the region editor from the container
+		region_editor.queue_free()  # Queue the node for deletion
+
+		# Optionally, you could emit a signal or log that the region was deleted
+		print_debug("Region deleted: ", region_editor.get_region_name())

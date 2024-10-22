@@ -81,10 +81,10 @@ layout_mode = 2
 text = "Description"
 
 [node name="DescriptionTextEdit" type="TextEdit" parent="TabContainer/General/FormGrid"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.9
+size_flags_stretch_ratio = 0.3
 tooltip_text = "Describe what this area is and how it is expected to spawn on the overmap"
 focus_previous = NodePath("../NameTextEdit")
 placeholder_text = "Creates a bunch of shops and houses representing a city"
@@ -157,6 +157,7 @@ text = "Regions:"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.55
 
 [node name="RegionAddControlsHBoxContainer" type="HBoxContainer" parent="TabContainer/General/FormGrid/RegionsVBoxContainer"]
 layout_mode = 2
