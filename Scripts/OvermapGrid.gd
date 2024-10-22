@@ -203,8 +203,6 @@ func get_needed_connections(position: Vector2) -> Array:
 			# Check if any of the categories are present in the neighbor cell's categories
 			for category in categories_to_check:
 				if category in neighbor_cell.dmap.categories:
-					if "Forest Road" in neighbor_cell.dmap.categories:
-						print_debug("found forest road")
 					connections.append(direction)
 					break  # Exit loop early since we found a match
 		else:
