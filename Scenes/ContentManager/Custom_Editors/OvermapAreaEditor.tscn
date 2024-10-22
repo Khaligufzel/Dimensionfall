@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://2kp6gjwaextr" path="res://Scenes/ContentManager/Custom_Widgets/Overmap_Area_Region_editor.tscn" id="2_jtxai"]
 [ext_resource type="PackedScene" uid="uid://neuhnehifngf" path="res://Scenes/ContentManager/OtherTools/overmap_area_visualization.tscn" id="3_y3jo3"]
 
-[node name="OvermapAreaEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "min_width_spin_box", "min_height_spin_box", "max_width_spin_box", "max_height_spin_box", "region_name_text_edit", "region_v_box_container", "overmap_area_visualization")]
+[node name="OvermapAreaEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "min_width_spin_box", "min_height_spin_box", "max_width_spin_box", "max_height_spin_box", "region_name_text_edit", "region_h_box_container", "overmap_area_visualization")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +20,7 @@ min_height_spin_box = NodePath("TabContainer/General/FormGrid/DimensionsHBoxCont
 max_width_spin_box = NodePath("TabContainer/General/FormGrid/DimensionsHBoxContainer/MaxWidthSpinBox")
 max_height_spin_box = NodePath("TabContainer/General/FormGrid/DimensionsHBoxContainer/MaxHeightSpinBox")
 region_name_text_edit = NodePath("TabContainer/General/FormGrid/RegionsVBoxContainer/RegionAddControlsHBoxContainer/RegionNameTextEdit")
-region_v_box_container = NodePath("TabContainer/General/FormGrid/RegionsVBoxContainer/RegionVBoxContainer")
+region_h_box_container = NodePath("TabContainer/General/FormGrid/RegionsVBoxContainer/RegionHBoxContainer")
 overmap_area_region_editor = ExtResource("2_jtxai")
 overmap_area_visualization = NodePath("TabContainer/Generate")
 
@@ -31,10 +31,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
+current_tab = 0
 
 [node name="General" type="VBoxContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -73,6 +72,7 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
+tooltip_text = "Name for this overmap area"
 focus_next = NodePath("../DescriptionTextEdit")
 placeholder_text = "City"
 
@@ -85,6 +85,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
+tooltip_text = "Describe what this area is and how it is expected to spawn on the overmap"
 focus_previous = NodePath("../NameTextEdit")
 placeholder_text = "Creates a bunch of shops and houses representing a city"
 wrap_mode = 1
@@ -102,6 +103,10 @@ text = "Min width:"
 
 [node name="MinWidthSpinBox" type="SpinBox" parent="TabContainer/General/FormGrid/DimensionsHBoxContainer"]
 layout_mode = 2
+tooltip_text = "The minimum width in overmap cells for this area. The final wdith will be 
+determined by picking a random number between minimum width and 
+maximum width. Increasing this number will increase it's smallest possible 
+width. Decreasing this number will decrease this area's smallest possible width."
 step = 4.0
 value = 4.0
 
@@ -111,6 +116,10 @@ text = "Min height:"
 
 [node name="MinHeightSpinBox" type="SpinBox" parent="TabContainer/General/FormGrid/DimensionsHBoxContainer"]
 layout_mode = 2
+tooltip_text = "The minimum height in overmap cells for this area. The final height will be 
+determined by picking a random number between minimum height and 
+maximum height. Increasing this number will increase it's smallest possible 
+height. Decreasing this number will decrease this area's smallest possible height."
 step = 4.0
 value = 4.0
 
@@ -120,6 +129,10 @@ text = "Max width"
 
 [node name="MaxWidthSpinBox" type="SpinBox" parent="TabContainer/General/FormGrid/DimensionsHBoxContainer"]
 layout_mode = 2
+tooltip_text = "The maximum width in overmap cells for this area. The final wdith will be 
+determined by picking a random number between minimum width and 
+maximum width. Increasing this number will increase it's largest possible 
+width. Decreasing this number will decrease this area's largest possible width."
 step = 4.0
 value = 16.0
 
@@ -129,6 +142,10 @@ text = "Max height:"
 
 [node name="MaxHeightSpinBox" type="SpinBox" parent="TabContainer/General/FormGrid/DimensionsHBoxContainer"]
 layout_mode = 2
+tooltip_text = "The maximum height in overmap cells for this area. The final height will be 
+determined by picking a random number between minimum height and 
+maximum height. Increasing this number will increase it's largest possible 
+height. Decreasing this number will decrease this area's largest possible height."
 step = 4.0
 value = 16.0
 
@@ -151,15 +168,20 @@ text = "Region name:"
 [node name="RegionNameTextEdit" type="TextEdit" parent="TabContainer/General/FormGrid/RegionsVBoxContainer/RegionAddControlsHBoxContainer"]
 custom_minimum_size = Vector2(160, 30)
 layout_mode = 2
+tooltip_text = "Enter a region name and press the \"add\" button to add a region. For example, enter \"urban\" to 
+enter an urban region. An area may have unlimited regions as long as their names are unique."
 
 [node name="RegionAddButton" type="Button" parent="TabContainer/General/FormGrid/RegionsVBoxContainer/RegionAddControlsHBoxContainer"]
 layout_mode = 2
+tooltip_text = "Enter a name for a region in the textbox to the left and press this \"Add\" button. It will 
+add a new region to this area where you can enter the desired maps for that region. "
 text = "Add"
 
-[node name="RegionVBoxContainer" type="VBoxContainer" parent="TabContainer/General/FormGrid/RegionsVBoxContainer"]
+[node name="RegionHBoxContainer" type="HBoxContainer" parent="TabContainer/General/FormGrid/RegionsVBoxContainer"]
 layout_mode = 2
 
 [node name="Generate" parent="TabContainer" instance=ExtResource("3_y3jo3")]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 

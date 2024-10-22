@@ -4,6 +4,7 @@
 		"Road"
 	],
 	"description": "An urban road corner, providing directional changes in cityscapes.",
+	"id": "urbanroad_corner",
 	"levels": [
 		[],
 		[],
@@ -3419,11 +3420,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Urban Road Corner",
-	"references": {
-		"core": {
-			"tacticalmaps": [
-				"town_00.json"
-			]
-		}
-	}
+	"weight": 1000
 }
