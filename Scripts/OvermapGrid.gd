@@ -15,6 +15,7 @@ var cells: Dictionary = {}
 var map_id_to_coordinates: Dictionary = {}
 var grid_width: int = 100 # TODO: Pass the global grid_width to this class
 var grid_height: int = 100
+const NOISE_VALUE_PLAINS = -0.0
 
 # Translates local grid coordinates to global coordinates
 func local_to_global(local_coord: Vector2) -> Vector2:
@@ -311,7 +312,7 @@ func generate_cells() -> void:
 			var cell_key = Vector2(global_x, global_y)
 
 			# Determine region type based on noise values
-			var region_type = Helper.overmap_manager.get_region_type(global_x, global_y)
+			var region_type = get_region_type(global_x, global_y)
 			var cell = Helper.overmap_manager.map_cell.new()
 			cell.coordinate_x = global_x
 			cell.coordinate_y = global_y
@@ -376,3 +377,16 @@ func find_weighted_random_position(placed_positions: Array, map_width: int, map_
 
 	# Return the position with the largest minimum distance (i.e., most "spacious" position)
 	return best_position
+
+# Function to get region type based on noise value, rounded to the nearest 0.2
+func get_region_type(x: int, y: int) -> int:
+	var noise_value = Helper.overmap_manager.noise.get_noise_2d(float(x), float(y))
+	var round_value = 0.5
+	# Round the noise value to the nearest round_value
+	noise_value = round(noise_value / round_value) * round_value
+
+	# Compare the rounded noise value to determine the region type
+	if noise_value < NOISE_VALUE_PLAINS:
+		return Helper.overmap_manager.Region.PLAINS
+	else:
+		return Helper.overmap_manager.Region.FOREST
