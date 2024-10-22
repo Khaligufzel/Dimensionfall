@@ -174,20 +174,24 @@ func make_noise():
 	noise = FastNoiseLite.new()
 	noise.seed = Helper.mapseed
 
-	# Generate regions
+	# Generate noise for the regions. These settings are delicate and a small adjustement
+	# can have a big impact. To easily visualize the pattern:
+	# 1. Open any scene and temporarily add a TextureRect and select it
+	# 2. In the inspector, add a new 'noisetexture' as the texture property
+	# 3. Under 'noise', add a new 'fastnoiselite'. Click on the fastnoiselite and adjust the properties
 	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
 	noise.cellular_return_type = FastNoiseLite.RETURN_DISTANCE
-	noise.cellular_distance_function = FastNoiseLite.DISTANCE_HYBRID
-	noise.cellular_jitter = 0
-	noise.frequency = 0.04 # Adjust frequency as needed
-	noise.domain_warp_enabled = true
-	noise.domain_warp_type = FastNoiseLite.DOMAIN_WARP_SIMPLEX
-	noise.domain_warp_amplitude = 30
-	noise.domain_warp_frequency = -0.015
-	noise.domain_warp_fractal_type = FastNoiseLite.DOMAIN_WARP_FRACTAL_PROGRESSIVE
-	noise.domain_warp_fractal_octaves = 1
-	noise.domain_warp_fractal_lacunarity = 16
-	noise.domain_warp_fractal_gain = 5
+	noise.cellular_distance_function = FastNoiseLite.DISTANCE_HYBRID # Sensitivity of the pattern
+	noise.cellular_jitter = 0 # Changes the pattern by warping the cells
+	noise.frequency = 0.05 # Increasing this will make smaller cells. Decreasing will create big cells
+	noise.domain_warp_enabled = true # Changing this to false disables the settings below:
+	noise.domain_warp_type = FastNoiseLite.DOMAIN_WARP_SIMPLEX # Changing this creates different patterns
+	noise.domain_warp_amplitude = 60 # Reducing this number will make the pattern trend towards squares
+	noise.domain_warp_frequency = -0.015 # Useful values are between 0.01 and 0.02. Changes the pattern
+	noise.domain_warp_fractal_type = FastNoiseLite.DOMAIN_WARP_FRACTAL_PROGRESSIVE # Makes no difference
+	noise.domain_warp_fractal_octaves = 1 # Increasing this will destroy the pattern and turn it into noise
+	noise.domain_warp_fractal_lacunarity = 16 # Makes no difference
+	noise.domain_warp_fractal_gain = 5 # Makes no difference
 	
 	
 func load_cells():
