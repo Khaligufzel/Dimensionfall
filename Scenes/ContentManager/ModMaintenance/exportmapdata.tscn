@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba7nwjvy7m2t5"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/ModMaintenance/Scripts/exportmapdata.gd" id="1_jmctw"]
+
+[node name="Exportmapdata" type="Control" node_paths=PackedStringArray("output_text_edit")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jmctw")
+output_text_edit = NodePath("VBoxContainer/OutputTextEdit")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExportButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Export map data"
+
+[node name="OutputTextEdit" type="TextEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="button_up" from="VBoxContainer/ExportButton" to="." method="_on_export_button_button_up"]
