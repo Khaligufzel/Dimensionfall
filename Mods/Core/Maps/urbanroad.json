@@ -3,6 +3,12 @@
 		"Infrastructure",
 		"Road"
 	],
+	"connections": {
+		"east": "road",
+		"north": "ground",
+		"south": "ground",
+		"west": "road"
+	},
 	"description": "A standard urban road, suitable for city environments.",
 	"id": "urbanroad",
 	"levels": [

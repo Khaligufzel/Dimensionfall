@@ -1,6 +1,6 @@
 extends Node
 
-# This script manages the overmap, the terrain that makes up the world.
+# This script manages the overmap, which defines the terrain making up the game world.
 # It is part of the Helper singleton and can be accessed by Helper.overmap_manager
 # It keeps track of the player's coordinate and which chunks are in the area
 # It has algorithms to add and remove chunks from the area
@@ -13,18 +13,18 @@ extends Node
 # Therefore, if we know the player's location, we can calculate which chunk he is in.
 
 # There are multiple coordinate systems that interact with the overmap_manager
-# 1. The overmap uses coordinates like (-1,-1), (-1,0), (0,0), (1,0), (0,1), (1,1)
+# 1. The overmap uses coordinates like (-1,-1), (-1,0), (0,0), (1,0), (0,1), (1,1) for map_cell coordinates
+# 	These coordinates are absolute and mark their global position on the overmap
 # 2. The overmap gui also uses this coordinate system, but saves them in chunks of 16
 #   Which is why we need translation from the overmap gui to the overmap data
 # 3. The LevelGenerator.gd also uses this system for loading and unloading chunks
-# 4. Then there's the overmap meta positioning. The overmap has large chunks of grid_width
+# 4. Then there's the overmap meta positioning. This is used for map_grids The overmap has large chunks of grid_width
 #   by grid_height, which holds 10000 cells. This set is what's saved and loaded to disk
 
 # We keep a reference to the level_generator, which holds the chunks
 # The level generator will register itself to this variable when it's ready
 var level_generator: Node = null
 
-@export_group("Settings")
 @export var region_seed : String
 @export var grid_width : int = 100
 @export var grid_height : int = 100
@@ -33,7 +33,9 @@ var level_generator: Node = null
 @export var chunk_size : int = 1 # Number of tiles per chunk. More makes it less... circular- I would keep it as is.
 @export var load_radius : int = 8 # Number of chunks to load around the player. Basically sight radius on world map.
 
-var loaded_grids: Dictionary = {}
+var loaded_grids: Dictionary = {} # Stores grids loaded in memory
+# Dictionary to store lists of area positions sorted by dovermaparea.id
+var area_positions: Dictionary = {}
 var max_grids: int = 9
 var grid_load_distance: int = 25 * cell_size  # Load when 25 cells away from the border
 var grid_unload_distance: int = 50 * cell_size  # Unload when 50 cells away from the border
@@ -53,7 +55,7 @@ var loaded_segments: Dictionary = {}
 var loaded_chunk_data: Dictionary = {"chunks": {}}
 
 var player
-var player_current_cell = Vector2.ZERO # Player's position per cell, updated regularly
+var player_current_cell: Vector2 = Vector2.ZERO # Player's position per cell, updated regularly
 var loaded_chunks = {}
 enum Region {
 	FOREST,
@@ -154,6 +156,12 @@ class map_grid:
 	var cells: Dictionary = {}
 	# Dictionary to store map_id and their corresponding coordinates
 	var map_id_to_coordinates: Dictionary = {}
+	var grid_width: int = 100 # TODO: Pass the global grid_width to this class
+	var grid_height: int = 100
+
+	# Translates local grid coordinates to global coordinates
+	func local_to_global(local_coord: Vector2) -> Vector2:
+		return local_coord + pos * grid_width
 
 	func get_data() -> Dictionary:
 		var mydata: Dictionary = {"pos": pos, "cells": {}}
@@ -169,6 +177,191 @@ class map_grid:
 			var cell = map_cell.new()
 			cell.set_data(mydata["cells"][cell_key])
 			cells[Vector2(cell_key.split(",")[0].to_int(), cell_key.split(",")[1].to_int())] = cell
+
+	# Updates a cell's map ID and rotation using local coordinates
+	func update_cell(local_coord: Vector2, map_id: String, rotation: int):
+		if cells.has(local_coord):
+			cells[local_coord].map_id = map_id.replace(".json", "")
+			cells[local_coord].rotation = rotation
+
+	# Helper function to build the map_id_to_coordinates dictionary
+	func build_map_id_to_coordinates():
+		map_id_to_coordinates.clear()
+		for cell_key in cells.keys():
+			var cell = cells[cell_key]
+			var map_id = cell.map_id
+
+			if not map_id_to_coordinates.has(map_id):
+				map_id_to_coordinates[map_id] = []
+			
+			map_id_to_coordinates[map_id].append(cell_key)
+
+	# Function to connect cities by creating a river-like path
+	func connect_cities_by_riverlike_path(city_positions: Array) -> void:
+		for i in range(city_positions.size() - 1):
+			var start_pos = city_positions[i]
+			var end_pos = city_positions[i + 1]
+
+			# Use local_to_global for global position adjustments
+			var global_start = local_to_global(start_pos)
+			var global_end = local_to_global(end_pos)
+
+			# Generate an organic, winding path between the adjusted global positions
+			var path = generate_winding_path(global_start, global_end)
+
+			# Mark the road along the path
+			update_path_on_grid(path)
+
+	# Function to generate a winding path between two global positions
+	func generate_winding_path(global_start: Vector2, global_end: Vector2) -> Array:
+		var path = []
+		var current = global_start
+		var max_deviation = 2  # Maximum allowed deviation from the direct path
+
+		while current.distance_to(global_end) > 1:
+			# Add the current position to the path only if it's not already included
+			if not path.has(current):
+				path.append(current)
+
+			# Determine the next position based on direction toward the goal
+			var next_position = (global_end - current).normalized() + current
+
+			# Round to nearest grid position to ensure alignment with the grid
+			next_position = next_position.round()
+
+			# Check if the next step is diagonal
+			if self.is_diagonal(current, next_position):
+				# Randomly pick between a vertical or horizontal neighbor for diagonal movement
+				if randi() % 2 == 0:
+					var vertical_neighbor = current + Vector2(0, next_position.y - current.y)
+					if not path.has(vertical_neighbor):
+						path.append(vertical_neighbor)
+				else:
+					var horizontal_neighbor = current + Vector2(next_position.x - current.x, 0)
+					if not path.has(horizontal_neighbor):
+						path.append(horizontal_neighbor)
+
+			# Prevent path from deviating too much from the straight line
+			if next_position.distance_to(global_start) > max_deviation or next_position.distance_to(global_end) > max_deviation:
+				next_position = current + (global_end - current).normalized().round()
+
+			# Move to the next position
+			current = next_position
+			if not path.has(current):  # Avoid adding duplicates
+				path.append(current)
+
+		path.append(global_end)  # Add the final point
+		return path
+
+	# Function to mark the path cells as roads and update their connections
+	func update_path_on_grid(path: Array) -> void:
+		var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
+		
+		if road_maps.is_empty():
+			print("No road maps found in the 'Road' category!")
+			return
+
+		# Step 1: Mark all cells in the path as roads
+		for global_position in path:
+			if cells.has(global_position):
+				var cell = cells[global_position]
+
+				# Ensure we're not overwriting existing urban areas
+				if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
+					var default_road_map = road_maps.pick_random()
+					update_cell(global_position, default_road_map.id, 0)
+
+		# Step 2: Process the path again and update the connections
+		for global_position in path:
+			if cells.has(global_position):
+				var cell = cells[global_position]
+
+				# Ensure we're not overwriting existing urban areas
+				if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
+					# Get the needed connections for this position
+					var needed_connections = get_needed_connections(global_position)
+					var matching_road_maps: Array[Dictionary] = get_road_maps_with_connections(road_maps, needed_connections)
+
+					# If there are matching road maps, pick one randomly and update
+					if matching_road_maps.size() > 0:
+						var selected_road_map = matching_road_maps.pick_random()
+						update_cell(global_position, selected_road_map.id, selected_road_map.rotation)
+
+	# Function to determine if movement from pos1 to pos2 is diagonal
+	func is_diagonal(pos1: Vector2, pos2: Vector2) -> bool:
+		var direction = pos2 - pos1
+		return abs(direction.x) == 1 and abs(direction.y) == 1
+
+	# Function to determine the required connections for a road tile
+	func get_needed_connections(position: Vector2) -> Array:
+		var directions: Array[String] = ["north", "east", "south", "west"]
+		var connections: Array[String] = []
+
+		# Iterate over each direction (north, east, south, west)
+		for direction in directions:
+			var neighbor_pos: Vector2 = position + Gamedata.DIRECTION_OFFSETS[direction]
+
+			# Check if the neighbor exists in the grid
+			if self.cells.has(neighbor_pos):
+				var neighbor_cell = self.cells[neighbor_pos]
+
+				# If the neighbor is a road tile or urban area, we need a road connection
+				if Gamedata.maps.is_map_in_category(neighbor_cell.map_id, "Road") or Gamedata.maps.is_map_in_category(neighbor_cell.map_id, "Urban"):
+					connections.append(direction)
+			else:
+				# If no neighbor exists, optionally handle ground connections
+				pass
+
+		return connections
+
+	# Function to get road maps that match the required connections
+	func get_road_maps_with_connections(road_maps: Array, required_directions: Array) -> Array[Dictionary]:
+		var matching_maps: Array[Dictionary] = []
+
+		# Iterate through each road map
+		for road_map in road_maps:
+			# Check all possible rotations (0, 90, 180, 270)
+			for rotation in [0, 90, 180, 270]:
+				var rotated_connections = self.get_rotated_connections(road_map.connections, rotation)
+
+				# Check if the rotated connections match the required directions
+				if self.are_connections_matching(rotated_connections, required_directions):
+					# If it matches, add a dictionary with map id and rotation
+					matching_maps.append({
+						"id": road_map.id,
+						"rotation": rotation
+					})
+					break  # Stop checking other rotations for this road_map once a match is found
+
+		return matching_maps
+
+	# Function to check if rotated connections match the required directions
+	func are_connections_matching(rotated_connections: Dictionary, required_directions: Array) -> bool:
+		var directions: Array[String] = ["north", "east", "south", "west"]
+
+		# Check if all required directions have a road connection
+		for direction in required_directions:
+			if rotated_connections.get(direction, "none") != "road":
+				return false  # Any required direction that doesn't have a road connection fails
+
+		# Ensure all remaining directions are ground connections
+		for direction in directions:
+			if direction not in required_directions:
+				if rotated_connections.get(direction, "none") != "ground":
+					return false  # Any other direction that isn't ground fails
+
+		return true
+
+	# Function to get rotated connections based on rotation
+	func get_rotated_connections(connections: Dictionary, rotation: int) -> Dictionary:
+		var rotated_connections = {}
+		
+		# Apply the rotation map to the connections
+		for direction in connections.keys():
+			var rotated_direction = Gamedata.ROTATION_MAP[rotation][direction]
+			rotated_connections[rotated_direction] = connections[direction]
+
+		return rotated_connections
 
 
 # Called when the node enters the scene tree for the first time.
@@ -194,9 +387,10 @@ func _process(_delta):
 
 # Function for handling game started signal
 func _on_game_started():
-	make_noise_and_load_cells()
+	make_noise()
+	load_cells()
 	
-func make_noise_and_load_cells():
+func make_noise():
 	noise = FastNoiseLite.new()
 	noise.seed = Helper.mapseed
 
@@ -208,6 +402,7 @@ func make_noise_and_load_cells():
 	noise.cellular_jitter = 0.04
 	noise.frequency = 0.1 # Adjust frequency as needed
 	
+func load_cells():
 	loaded_grids.clear()
 	load_cells_around(Vector3(0, 0, 0))
 
@@ -223,7 +418,8 @@ func _on_player_spawned(playernode):
 
 # Function for handling game loaded signal
 func _on_game_loaded():
-	make_noise_and_load_cells()
+	make_noise()
+	load_cells()
 	load_all_grids()
 
 
@@ -284,26 +480,13 @@ func generate_cells_for_grid(grid: map_grid):
 	# Place tactical maps on the grid, which may overwrite some cells
 	place_overmap_area_on_grid(grid)
 	place_tactical_maps_on_grid(grid)
+	
+	# Select positions for the city area and connect them with roads
+	if area_positions.has("city"):
+		grid.connect_cities_by_riverlike_path(area_positions["city"])
 
 	# After all modifications, rebuild the map_id_to_coordinates dictionary
-	build_map_id_to_coordinates(grid)
-
-
-func build_map_id_to_coordinates(grid: map_grid):
-	# Clear the existing dictionary to avoid stale data
-	grid.map_id_to_coordinates.clear()
-
-	# Iterate over all cells in the grid
-	for cell_key in grid.cells.keys():
-		var cell = grid.cells[cell_key]
-		var map_id = cell.map_id
-
-		# Initialize the list for this map_id if not already done
-		if not grid.map_id_to_coordinates.has(map_id):
-			grid.map_id_to_coordinates[map_id] = []
-
-		# Append the cell's key (coordinate) to the list
-		grid.map_id_to_coordinates[map_id].append(cell_key)
+	grid.build_map_id_to_coordinates()
 
 
 # Helper function to convert Region enum to string
@@ -403,6 +586,9 @@ func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:
 
 
 # Load a grid based on the grid position
+# grid_pos: absolute vector2 relative to the other grids. Even though each grid contains 100x100 map_cells,
+# they are only one space apart in their "meta" coordinate system. So the grid containing cells 
+# (-100,100) to (-1,-1) is positioned at (-1,-1). The other grids may be (-1,0), (0,0), (1,0), (1,1)
 func load_grid(grid_pos: Vector2):
 	if loaded_grids.size() >= max_grids:
 		unload_furthest_grid()
@@ -410,9 +596,7 @@ func load_grid(grid_pos: Vector2):
 	if not loaded_grids.has(grid_pos):
 		var grid = map_grid.new()
 		grid.pos = grid_pos
-		#grid.pos = Vector2(grid_pos.split(",")[0].to_int(), grid_pos.split(",")[1].to_int())
 		# Assume load_grid_data is a function that loads grid data from storage
-		# grid.set_data(load_grid_data(grid_pos))
 		loaded_grids[grid_pos] = grid
 		load_grid_from_file(grid_pos)
 
@@ -598,7 +782,7 @@ func process_loaded_grid_data(grid_data: Dictionary):
 		var grid = map_grid.new()
 		grid.set_data(grid_data)
 		loaded_grids[grid.pos] = grid
-		build_map_id_to_coordinates(grid)
+		grid.build_map_id_to_coordinates()
 		print_debug("Grid loaded from file at " + str(grid.pos))
 	else:
 		print_debug("Failed to parse grid file")
@@ -670,48 +854,61 @@ func place_tactical_maps_on_grid(grid: map_grid):
 					var cell_key = Vector2(local_x, local_y)
 					var chunk_index = j * map_width + i
 					var dchunk: DTacticalmap.TChunk = chunks[chunk_index]
-					update_cell_map_id(grid, cell_key, dchunk.id, dchunk.rotation)
+					grid.update_cell(grid.local_to_global(cell_key), dchunk.id, dchunk.rotation)
 					placed_positions.append(cell_key)  # Track the positions that have been occupied
 
 
-# Function to place an overmap area on a specific grid using OvermapAreaGenerator
+# Function to place an area on the grid and return the valid position where it was placed
+# grid: The map_grid to put the area on
+# area_grid: The grid returned from mygenerator.generate_area
+func place_area_on_grid(grid: map_grid, area_grid: Dictionary, placed_positions: Array, mapsize: Vector2) -> Vector2:
+	var valid_position = find_valid_position(placed_positions, int(mapsize.x), int(mapsize.y))
+	# Calculate the center offset
+	var center_offset = Vector2(int(mapsize.x / 2), int(mapsize.y / 2))
+
+	# Only if a valid position is found, place the area
+	if valid_position != Vector2(-1, -1):
+		for local_position in area_grid.keys():
+			var adjusted_position = valid_position + local_position
+			if area_grid.has(local_position):
+				var tile = area_grid[local_position]
+				if tile != null:
+					grid.update_cell(grid.local_to_global(adjusted_position), tile.dmap.id, tile.rotation)
+					placed_positions.append(adjusted_position)
+		# Return the valid position (adusted to the center of the placed area)
+		return valid_position + center_offset
+
+	# Return the valid position (the top-left corner of the placed area)
+	return valid_position
+
+
+# Main function to place overmap areas on the grid and track multiple positions per area by its area ID
 func place_overmap_area_on_grid(grid: map_grid):
 	var placed_positions = []  # Track positions that have already been placed
+	area_positions.clear()
 
 	# Loop to place up to 10 overmap areas on the grid
 	for n in range(10):
-		# Initialize OvermapAreaGenerator
-		var mygenerator: OvermapAreaGenerator = OvermapAreaGenerator.new()
-		mygenerator.dovermaparea = Gamedata.overmapareas.by_id(Gamedata.overmapareas.get_random_area().id)
+		var mygenerator = OvermapAreaGenerator.new()
+		var dovermaparea = Gamedata.overmapareas.by_id(Gamedata.overmapareas.get_random_area().id)
+		mygenerator.dovermaparea = dovermaparea
 
-		# Generate the area grid with a specified maximum number of iterations
-		var mygrid: Dictionary = mygenerator.generate_area(10000)
+		# Generate the area
+		var area_grid: Dictionary = mygenerator.generate_area(10000)
+		if area_grid.size() > 0:
+			# Use the dimensions from mygenerator after generating the area
+			var map_dimensions = mygenerator.dimensions
 
-		# Check if the grid has generated values
-		if mygrid.size() > 0:
-			# Find a valid position for the area on the grid
-			var valid_position = find_valid_position(placed_positions, mygenerator.dimensions.x, mygenerator.dimensions.y)
-
-			if valid_position != Vector2(-1, -1):  # Ensure that a valid position was found
-				# Offset the grid positions based on the found valid position
-				for local_position in mygrid.keys():
-					var adjusted_position = valid_position + local_position
-					if mygrid.has(local_position):
-						var tile = mygrid[local_position]  # Get the tile instance at the grid position
-						if tile != null:
-							# Use tile.dmap.id and tile.rotation to update the cell map ID
-							update_cell_map_id(grid, adjusted_position, tile.dmap.id, tile.rotation)
-							placed_positions.append(adjusted_position)  # Mark the cell as placed
-			else:
-				print("Failed to find a valid position for the overmap area.")
-
-
-# Helper function to update a cell's map ID if it exists
-func update_cell_map_id(grid: map_grid, cell_key: Vector2, map_id: String, rotation: int):
-	var adjusted_cell_key = cell_key + grid.pos * grid_width
-	if grid.cells.has(adjusted_cell_key):
-		grid.cells[adjusted_cell_key].map_id = map_id.replace(".json", "")
-		grid.cells[adjusted_cell_key].rotation = rotation  # Update rotation
+			# Place the area and get the valid position
+			var valid_position = place_area_on_grid(grid, area_grid, placed_positions, map_dimensions)
+			if valid_position != Vector2(-1, -1):
+				# Ensure the area_positions dictionary has an array for this dovermaparea.id
+				if not area_positions.has(dovermaparea.id):
+					area_positions[dovermaparea.id] = []
+				# Append the valid position to the list for this area's id
+				area_positions[dovermaparea.id].append(valid_position)
+		else:
+			print("Failed to find a valid position for the overmap area.")
 
 
 # Function to save all remaining segments without unloading
@@ -773,3 +970,22 @@ func find_closest_map_cell_with_id(map_id: String) -> map_cell:
 
 	# Return the closest map cell with the specified map_id (or null if none found)
 	return closest_cell
+
+# Function to instantiate and return a new grid with generated cells
+# This is used for visualization outside the game
+func create_new_grid_with_default_values() -> map_grid:
+	# Step 1: Create a new map_grid instance
+	var new_grid = map_grid.new()
+
+	# Step 2: Set default position for the grid (this can be customized or passed as an argument)
+	new_grid.pos = Vector2(0, 0)
+
+	# Step 3: Initialize the noise generator for terrain generation
+	var rng = RandomNumberGenerator.new()
+	Helper.mapseed = rng.randi()
+	make_noise()
+	
+	generate_cells_for_grid(new_grid) # Step 4: Generate the grid
+
+	# Step 4: Return the fully generated grid
+	return new_grid

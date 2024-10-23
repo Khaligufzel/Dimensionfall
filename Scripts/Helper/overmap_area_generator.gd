@@ -99,20 +99,6 @@ var tile_catalog: Array = []  # List of all tile instances with rotations
 var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
 var processed_tiles: Dictionary = {}  # Dictionary to track processed tiles
 var noise = FastNoiseLite.new() # Used to create noise to modify distance_from_center_map
-# Rotation mappings for how directions change based on tile rotation
-const ROTATION_MAP: Dictionary = {
-	0: {"north": "north", "east": "east", "south": "south", "west": "west"},
-	90: {"north": "east", "east": "south", "south": "west", "west": "north"},
-	180: {"north": "south", "east": "west", "south": "north", "west": "east"},
-	270: {"north": "west", "east": "north", "south": "east", "west": "south"}
-}
-# Define direction offsets for easy neighbor lookups
-const DIRECTION_OFFSETS: Dictionary = {
-	"north": Vector2(0, -1),
-	"east": Vector2(1, 0),
-	"south": Vector2(0, 1),
-	"west": Vector2(-1, 0)
-}
 
 # Tiles sorted by key. This can be used to select the right neighbors for the tiles
 # We will pick one direction to select the correct neighbor. Let's say "north".
@@ -295,8 +281,8 @@ func generate_area(max_iterations: int = 100000) -> Dictionary:
 		# Place neighbors for the current tile position
 		place_neighbor_tiles(current_position)
 
-		for direction in DIRECTION_OFFSETS.keys():
-			var neighbor_position = current_position + DIRECTION_OFFSETS[direction]
+		for direction in Gamedata.DIRECTION_OFFSETS.keys():
+			var neighbor_position = current_position + Gamedata.DIRECTION_OFFSETS[direction]
 
 			# Check if the neighbor is within bounds and hasn't been processed yet
 			if is_within_grid_bounds(neighbor_position):
@@ -357,8 +343,8 @@ func place_neighbor_tiles(position: Vector2) -> void:
 		return
 
 	# Loop through each direction (north, east, south, west) and place neighboring tiles
-	for direction in DIRECTION_OFFSETS.keys():
-		var neighbor_pos: Vector2 = position + DIRECTION_OFFSETS[direction]
+	for direction in Gamedata.DIRECTION_OFFSETS.keys():
+		var neighbor_pos: Vector2 = position + Gamedata.DIRECTION_OFFSETS[direction]
 		place_neighbor_tile(current_tile, direction, neighbor_pos)
 
 
@@ -480,7 +466,7 @@ func create_tile_entries() -> void:
 				var tile: Tile = Tile.new()
 				tile.dmap = map
 				tile.tile_dictionary = tile_dictionary
-				tile.rotation_map = ROTATION_MAP
+				tile.rotation_map = Gamedata.ROTATION_MAP
 				tile.rotation = rotation
 				tile.key = region_name  # The region name serves as the key (e.g., "urban", "suburban")
 				tile.weight = map_weight  # Set the tile's weight from the map data
@@ -507,8 +493,8 @@ func create_tile_entries() -> void:
 # Check if a tile can fit at the specified position by verifying connections with neighbors
 func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 	# Loop over north, east, south, and west to check all adjacent neighbors
-	for direction in DIRECTION_OFFSETS.keys():
-		var neighbor_pos = pos + DIRECTION_OFFSETS[direction]
+	for direction in Gamedata.DIRECTION_OFFSETS.keys():
+		var neighbor_pos = pos + Gamedata.DIRECTION_OFFSETS[direction]
 
 		# Skip out-of-bounds or empty neighbors
 		if not is_within_grid_bounds(neighbor_pos) or not area_grid.has(neighbor_pos):
@@ -517,7 +503,7 @@ func can_tile_fit(pos: Vector2, tile: Tile) -> bool:
 		var neighbor_tile = area_grid[neighbor_pos]
 		if not tile.are_connections_compatible(neighbor_tile, direction):
 			return false
-		if not neighbor_tile.are_connections_compatible(tile, ROTATION_MAP[180][direction]):
+		if not neighbor_tile.are_connections_compatible(tile, Gamedata.ROTATION_MAP[180][direction]):
 			return false
 
 	return true
