@@ -70,46 +70,36 @@ func connect_cities_by_riverlike_path(city_positions: Array) -> void:
 		# Mark the road along the path
 		update_path_on_grid(path)
 
-# Function to generate a winding path between two global positions
+
+# Generate a winding path between two global positions
 func generate_winding_path(global_start: Vector2, global_end: Vector2) -> Array:
 	var path = []
 	var current = global_start
-	var max_deviation = 2  # Maximum allowed deviation from the direct path
-
 	while current.distance_to(global_end) > 1:
-		# Add the current position to the path only if it's not already included
 		if not path.has(current):
 			path.append(current)
-
-		# Determine the next position based on direction toward the goal
-		var next_position = (global_end - current).normalized() + current
-
-		# Round to nearest grid position to ensure alignment with the grid
-		next_position = next_position.round()
-
-		# Check if the next step is diagonal
-		if self.is_diagonal(current, next_position):
-			# Randomly pick between a vertical or horizontal neighbor for diagonal movement
-			if randi() % 2 == 0:
-				var vertical_neighbor = current + Vector2(0, next_position.y - current.y)
-				if not path.has(vertical_neighbor):
-					path.append(vertical_neighbor)
-			else:
-				var horizontal_neighbor = current + Vector2(next_position.x - current.x, 0)
-				if not path.has(horizontal_neighbor):
-					path.append(horizontal_neighbor)
-
-		# Prevent path from deviating too much from the straight line
-		if next_position.distance_to(global_start) > max_deviation or next_position.distance_to(global_end) > max_deviation:
-			next_position = current + (global_end - current).normalized().round()
-
-		# Move to the next position
-		current = next_position
-		if not path.has(current):  # Avoid adding duplicates
-			path.append(current)
-
-	path.append(global_end)  # Add the final point
+		var next_position = (global_end - current).normalized().round() + current
+		# Ensure small deviations and avoid straight paths
+		current = adjust_for_diagonal(next_position, current, path)
+	append_unique(path, global_end)
 	return path
+
+
+# Helper function: Avoid straight paths and prefer neighbors
+func adjust_for_diagonal(next_position: Vector2, current: Vector2, path: Array) -> Vector2:
+	if is_diagonal(current, next_position):
+		if randi() % 2 == 0:
+			append_unique(path, current + Vector2(0, next_position.y - current.y))
+		else:
+			append_unique(path, current + Vector2(next_position.x - current.x, 0))
+	return next_position
+
+
+# Helper function: Append only if the position is not already in the array
+func append_unique(path: Array, position: Vector2):
+	if not path.has(position):
+		path.append(position)
+
 
 # Function to mark the path cells as roads and update their connections
 func update_path_on_grid(path: Array) -> void:

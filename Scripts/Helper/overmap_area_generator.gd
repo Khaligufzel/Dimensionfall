@@ -414,7 +414,6 @@ func place_starting_tile(center: Vector2) -> Tile:
 
 	if starting_tile:
 		area_grid[center] = starting_tile
-		print_debug("Placed starting tile at the center:", center)
 	else:
 		print_debug("Failed to find a suitable starting tile")
 
@@ -613,5 +612,3 @@ func set_area_dimensions() -> void:
 		randi() % (dovermaparea.max_width - dovermaparea.min_width + 1) + dovermaparea.min_width,
 		randi() % (dovermaparea.max_height - dovermaparea.min_height + 1) + dovermaparea.min_height
 	)
-
-	print_debug("set_area_dimensions: Dimensions set to ", dimensions)
