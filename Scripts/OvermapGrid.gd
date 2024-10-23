@@ -54,8 +54,12 @@ func build_map_id_to_coordinates():
 		
 		map_id_to_coordinates[map_id].append(cell_key)
 
-# Function to connect cities by creating a river-like path
+
+# Function to connect cities by creating a river-like path and update all road connections at the end
 func connect_cities_by_riverlike_path(city_positions: Array) -> void:
+	var all_road_positions: Array = []  # To collect all road positions
+
+	# Step 1: Generate paths between each city and assign road maps
 	for i in range(city_positions.size() - 1):
 		var start_pos = city_positions[i]
 		var end_pos = city_positions[i + 1]
@@ -67,8 +71,14 @@ func connect_cities_by_riverlike_path(city_positions: Array) -> void:
 		# Generate an organic, winding path between the adjusted global positions
 		var path = generate_winding_path(global_start, global_end)
 
-		# Mark the road along the path
+		# Assign road maps to the generated path without updating connections
 		update_path_on_grid(path)
+
+		# Collect all positions in the path for later connection updates
+		all_road_positions.append_array(path)
+
+	# Step 2: Once all paths are generated, update road connections for all roads
+	update_all_road_connections(all_road_positions)
 
 
 # Generate a winding path between two global positions
@@ -101,9 +111,8 @@ func append_unique(path: Array, position: Vector2):
 		path.append(position)
 
 
-# Function to mark the path cells as roads and update their connections
+# Assign road maps without updating connections
 func update_path_on_grid(path: Array) -> void:
-	# Fetch road and forest road maps
 	var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
 	var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
 
@@ -111,15 +120,21 @@ func update_path_on_grid(path: Array) -> void:
 		print("Missing road or forest road maps!")
 		return
 
-	# Step 1: Assign road/forest road maps to path cells
+	# Step 1: Assign road maps to path cells without updating connections
 	for global_position in path:
 		if cells.has(global_position):
 			var cell = cells[global_position] # Will be a Helper.overmap_manager.map_cell instance
 			if not "Urban" in cell.dmap.categories: # Skip urban areas
 				assign_road_map_to_cell(global_position, cell, road_maps, forest_road_maps)
 
-	# Step 2: Process the path again and update the connections
-	for global_position in path:
+
+# New function to update all road connections after all paths are placed
+func update_all_road_connections(road_positions: Array) -> void:
+	var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
+	var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
+
+	# Iterate over all known road positions and update connections
+	for global_position in road_positions:
 		if cells.has(global_position):
 			var cell = cells[global_position] # Will be a Helper.overmap_manager.map_cell instance
 			if not "Urban" in cell.dmap.categories: # Skip urban areas
