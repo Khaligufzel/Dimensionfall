@@ -355,11 +355,11 @@ func generate_cells() -> void:
 
 	# Place tactical maps and overmap areas on the grid, and connect cities
 	place_overmap_area()
-	place_tactical_maps()
 
 	if Helper.overmap_manager.area_positions.has("city"):
 		connect_cities_by_riverlike_path(Helper.overmap_manager.area_positions["city"])
 
+	place_tactical_maps()
 	# After modifications, rebuild the map_id_to_coordinates dictionary
 	build_map_id_to_coordinates()
 
@@ -373,11 +373,13 @@ func region_type_to_string(region_type: int) -> String:
 	return "Unknown"
 
 
-# Function to find a weighted random position, favoring distant positions
+# Function to find a weighted random position, favoring distant positions, and avoiding specific categories
 func find_weighted_random_position(placed_positions: Array, map_width: int, map_height: int) -> Vector2:
 	var max_attempts = 100  # Number of random attempts to generate a good position
 	var best_position = Vector2(-1, -1)  # To store the best candidate
 	var best_distance = 0  # To store the largest minimum distance found
+
+	var categories_to_check: Array[String] = ["Road", "Urban", "Forest Road"]  # Categories to avoid
 
 	# Loop for a number of random candidate positions
 	for attempt in range(max_attempts):
@@ -385,6 +387,22 @@ func find_weighted_random_position(placed_positions: Array, map_width: int, map_
 		var random_x = randi() % (grid_width - map_width + 1)
 		var random_y = randi() % (grid_height - map_height + 1)
 		var position = Vector2(random_x, random_y)
+
+		# Retrieve the cell at this position from the grid
+		var cell_key = local_to_global(position)
+		if cells.has(cell_key):
+			var cell = cells[cell_key]
+
+			# Check if the cell belongs to any of the forbidden categories
+			var unsuitable = false
+			for category in categories_to_check:
+				if category in cell.dmap.categories:
+					unsuitable = true
+					break  # If any category matches, mark the position as unsuitable
+
+			# If the position is unsuitable, continue to the next attempt
+			if unsuitable:
+				continue
 
 		# Calculate the minimum distance from this position to any already placed area
 		var min_distance = INF  # Start with a very high number
@@ -402,6 +420,7 @@ func find_weighted_random_position(placed_positions: Array, map_width: int, map_
 
 	# Return the position with the largest minimum distance (i.e., most "spacious" position)
 	return best_position
+
 
 # Function to get region type based on noise value, rounded to the nearest 0.2
 func get_region_type(x: int, y: int) -> int:
