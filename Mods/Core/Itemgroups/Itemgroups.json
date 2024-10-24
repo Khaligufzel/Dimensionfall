@@ -1008,7 +1008,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"forest_basic_00"
+					"forest_basic_00",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross"
 				]
 			}
 		},

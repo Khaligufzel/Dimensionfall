@@ -62,8 +62,6 @@ enum Region {
 	PLAINS
 }
 
-const NOISE_VALUE_PLAINS = 0.3
-
 var noise: FastNoiseLite
 
 # When the player coordinate changed. player: The player node. 
@@ -176,13 +174,29 @@ func make_noise():
 	noise = FastNoiseLite.new()
 	noise.seed = Helper.mapseed
 
-	# Generate regions
-	noise.noise_type = FastNoiseLite.TYPE_PERLIN
-	#noise.noise_type = FastNoiseLite.TYPE_CELLULAR
-	noise.cellular_return_type = FastNoiseLite.RETURN_CELL_VALUE
-	noise.cellular_distance_function = FastNoiseLite.DISTANCE_EUCLIDEAN
-	noise.cellular_jitter = 0.04
-	noise.frequency = 0.1 # Adjust frequency as needed
+	# Generate noise for the regions. These settings are delicate and a small adjustement
+	# can have a big impact. To easily visualize the pattern:
+	# 1. Open any scene and temporarily add a TextureRect and select it
+	# 2. In the inspector, add a new 'noisetexture' as the texture property
+	# 3. Under 'noise', add a new 'fastnoiselite'. Click on the fastnoiselite and adjust the properties
+	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
+	noise.frequency = 0.05 # Increasing this will make smaller cells. Decreasing will create big cells
+	
+	# Only applies if noise_type equals TYPE_CELLULAR:
+	noise.cellular_return_type = FastNoiseLite.RETURN_DISTANCE
+	noise.cellular_distance_function = FastNoiseLite.DISTANCE_HYBRID # Sensitivity of the pattern
+	noise.cellular_jitter = 0 # Changes the pattern by warping the cells
+	
+	# Only applies if domain_warp_enabled equals true
+	noise.domain_warp_enabled = true # Changing this to false disables the settings below:
+	noise.domain_warp_type = FastNoiseLite.DOMAIN_WARP_SIMPLEX # Changing this creates different patterns
+	noise.domain_warp_amplitude = 60 # Reducing this number will make the pattern trend towards squares
+	noise.domain_warp_frequency = -0.015 # Useful values are between 0.01 and 0.02. Changes the pattern
+	noise.domain_warp_fractal_type = FastNoiseLite.DOMAIN_WARP_FRACTAL_PROGRESSIVE # Makes no difference
+	noise.domain_warp_fractal_octaves = 1 # Increasing this will destroy the pattern and turn it into noise
+	noise.domain_warp_fractal_lacunarity = 16 # Makes no difference
+	noise.domain_warp_fractal_gain = 5 # Makes no difference
+	
 	
 func load_cells():
 	loaded_grids.clear()
@@ -245,14 +259,6 @@ func region_type_to_string(region_type: int) -> String:
 	return "Unknown"
 
 
-func get_region_type(x: int, y: int) -> int:
-	var noise_value = noise.get_noise_2d(float(x), float(y))
-	if noise_value < NOISE_VALUE_PLAINS:
-		return Region.PLAINS
-	else:
-		return Region.FOREST
-
-
 # Function to pick a random map based on weight
 func pick_random_map_by_weight(maps_by_category: Array[DMap]) -> String:
 	var total_weight = 0
@@ -274,16 +280,13 @@ func pick_random_map_by_weight(maps_by_category: Array[DMap]) -> String:
 # Function to get a map_cell by global coordinate
 # Put in a global coordinate, for example the player position (minus the y coordinate)
 # Get the map cell back. Anything between (0,0) and (32,32) returns the cell at (0,0)
-func get_map_cell_by_global_coordinate(coord: Vector2) -> map_cell:
-	var grid_key = get_grid_pos_from_global_pos(coord)
-	var cell_key = get_cell_pos_from_global_pos(coord)
+func get_map_cell_by_global_coordinate(coord: Vector2i) -> map_cell:
+	var grid_key: Vector2i = get_grid_pos_from_global_pos(coord)
+	var cell_key: Vector2i = get_cell_pos_from_global_pos(coord)
 
-	if loaded_grids.has(grid_key):
-		return get_map_cell_by_local_coordinate(cell_key)
-	else:
-		# If the grid is not loaded, load it
+	if not loaded_grids.has(grid_key): # If the grid is not loaded, load it
 		load_grid(grid_key)
-		return get_map_cell_by_local_coordinate(cell_key)
+	return get_map_cell_by_local_coordinate(cell_key)
 
 
 # Put in a global coordinate, for example the player position (minus the y coordinate)

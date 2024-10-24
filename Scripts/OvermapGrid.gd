@@ -15,6 +15,7 @@ var cells: Dictionary = {}
 var map_id_to_coordinates: Dictionary = {}
 var grid_width: int = 100 # TODO: Pass the global grid_width to this class
 var grid_height: int = 100
+const NOISE_VALUE_PLAINS = -0.2
 
 # Translates local grid coordinates to global coordinates
 func local_to_global(local_coord: Vector2) -> Vector2:
@@ -112,10 +113,16 @@ func generate_winding_path(global_start: Vector2, global_end: Vector2) -> Array:
 
 # Function to mark the path cells as roads and update their connections
 func update_path_on_grid(path: Array) -> void:
+	# Fetch road and forest road maps
 	var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
-	
+	var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
+
 	if road_maps.is_empty():
 		print("No road maps found in the 'Road' category!")
+		return
+
+	if forest_road_maps.is_empty():
+		print("No forest road maps found in the 'Forest Road' category!")
 		return
 
 	# Step 1: Mark all cells in the path as roads
@@ -123,26 +130,54 @@ func update_path_on_grid(path: Array) -> void:
 		if cells.has(global_position):
 			var cell = cells[global_position]
 
-			# Ensure we're not overwriting existing urban areas
+			# Skip urban areas
 			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-				var default_road_map = road_maps.pick_random()
-				update_cell(global_position, default_road_map.id, 0)
+				# Assign a road map based on the cell's region type (forest or non-forest)
+				assign_road_map_to_cell(global_position, cell, road_maps, forest_road_maps)
 
 	# Step 2: Process the path again and update the connections
 	for global_position in path:
 		if cells.has(global_position):
 			var cell = cells[global_position]
 
-			# Ensure we're not overwriting existing urban areas
+			# Skip urban areas
 			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-				# Get the needed connections for this position
-				var needed_connections = get_needed_connections(global_position)
-				var matching_road_maps: Array[Dictionary] = get_road_maps_with_connections(road_maps, needed_connections)
+				# Update road connections based on the cell's region type (forest or non-forest)
+				update_road_connections(global_position, cell, road_maps, forest_road_maps)
 
-				# If there are matching road maps, pick one randomly and update
-				if matching_road_maps.size() > 0:
-					var selected_road_map = matching_road_maps.pick_random()
-					update_cell(global_position, selected_road_map.id, selected_road_map.rotation)
+
+# Assign the appropriate road map (forest or regular) to a cell
+# cell: A Helper.overmap_manager.map_cell instance
+func assign_road_map_to_cell(global_position: Vector2, cell, road_maps: Array, forest_road_maps: Array) -> void:
+	# If it's a forest cell, assign a forest road, otherwise a normal road
+	if Gamedata.maps.is_map_in_category(cell.map_id, "Forest"):
+		var default_forest_road_map = forest_road_maps.pick_random()
+		update_cell(global_position, default_forest_road_map.id, 0)
+	else:
+		var default_road_map = road_maps.pick_random()
+		update_cell(global_position, default_road_map.id, 0)
+
+# Update the road connections for a cell based on its type (forest or non-forest)
+# cell: A Helper.overmap_manager.map_cell instance
+func update_road_connections(global_position: Vector2, cell, road_maps: Array, forest_road_maps: Array) -> void:
+	# Get the required connections for this cell
+	var needed_connections = get_needed_connections(global_position)
+
+	# If it's a forest cell, find a matching forest road map, otherwise a regular road map
+	if "Forest Road" in cell.dmap.categories:
+		var matching_forest_road_maps = get_road_maps_with_connections(forest_road_maps, needed_connections)
+
+		if matching_forest_road_maps.size() > 0:
+			var selected_forest_road_map = matching_forest_road_maps.pick_random()
+			update_cell(global_position, selected_forest_road_map.id, selected_forest_road_map.rotation)
+	else:
+		var matching_road_maps = get_road_maps_with_connections(road_maps, needed_connections)
+
+		if matching_road_maps.size() > 0:
+			var selected_road_map = matching_road_maps.pick_random()
+			update_cell(global_position, selected_road_map.id, selected_road_map.rotation)
+
+
 
 # Function to determine if movement from pos1 to pos2 is diagonal
 func is_diagonal(pos1: Vector2, pos2: Vector2) -> bool:
@@ -162,9 +197,14 @@ func get_needed_connections(position: Vector2) -> Array:
 		if self.cells.has(neighbor_pos):
 			var neighbor_cell = self.cells[neighbor_pos]
 
-			# If the neighbor is a road tile or urban area, we need a road connection
-			if Gamedata.maps.is_map_in_category(neighbor_cell.map_id, "Road") or Gamedata.maps.is_map_in_category(neighbor_cell.map_id, "Urban"):
-				connections.append(direction)
+			# Define the categories to check
+			var categories_to_check: Array[String] = ["Road", "Urban", "Forest Road"]
+
+			# Check if any of the categories are present in the neighbor cell's categories
+			for category in categories_to_check:
+				if category in neighbor_cell.dmap.categories:
+					connections.append(direction)
+					break  # Exit loop early since we found a match
 		else:
 			# If no neighbor exists, optionally handle ground connections
 			pass
@@ -311,7 +351,7 @@ func generate_cells() -> void:
 			var cell_key = Vector2(global_x, global_y)
 
 			# Determine region type based on noise values
-			var region_type = Helper.overmap_manager.get_region_type(global_x, global_y)
+			var region_type = get_region_type(global_x, global_y)
 			var cell = Helper.overmap_manager.map_cell.new()
 			cell.coordinate_x = global_x
 			cell.coordinate_y = global_y
@@ -376,3 +416,13 @@ func find_weighted_random_position(placed_positions: Array, map_width: int, map_
 
 	# Return the position with the largest minimum distance (i.e., most "spacious" position)
 	return best_position
+
+# Function to get region type based on noise value, rounded to the nearest 0.2
+func get_region_type(x: int, y: int) -> int:
+	var noise_value = Helper.overmap_manager.noise.get_noise_2d(float(x), float(y))
+
+	# Compare the rounded noise value to determine the region type
+	if noise_value < NOISE_VALUE_PLAINS:
+		return Helper.overmap_manager.Region.PLAINS
+	else:
+		return Helper.overmap_manager.Region.FOREST
