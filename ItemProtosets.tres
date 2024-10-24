@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://bxubu34gjes1y"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -263,7 +263,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"kitchen_cupboard\"
+					\"kitchen_cupboard\",
+					\"urban_litter\"
 				],
 				\"items\": [
 					\"screwdriver\"
@@ -671,7 +672,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"vending_machine_snacks\"
+					\"vending_machine_snacks\",
+					\"urban_litter\"
 				]
 			}
 		},
@@ -795,6 +797,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/survival_guide_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Basic survival guide\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"urban_litter\"
+				]
+			}
+		},
 		\"sprite\": \"survival_guide_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -1463,7 +1472,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"debris_urban\"
+					\"debris_urban\",
+					\"urban_litter\"
 				]
 			}
 		},
@@ -1501,7 +1511,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"debris_urban\"
+					\"debris_urban\",
+					\"urban_litter\"
 				]
 			}
 		},
@@ -2033,6 +2044,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/stale_bread_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Stale Bread\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"urban_litter\"
+				]
+			}
+		},
 		\"sprite\": \"stale_bread_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -2892,7 +2910,8 @@ json_data = "[
 				\"itemgroups\": [
 					\"generic_field_finds\",
 					\"generic_forest_finds\",
-					\"debris_rock\"
+					\"debris_rock\",
+					\"urban_litter\"
 				]
 			}
 		},
@@ -3251,7 +3270,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"debris_urban\"
+					\"debris_urban\",
+					\"urban_litter\"
 				]
 			}
 		},

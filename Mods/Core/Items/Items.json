@@ -257,7 +257,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"kitchen_cupboard"
+					"kitchen_cupboard",
+					"urban_litter"
 				],
 				"items": [
 					"screwdriver"
@@ -665,7 +666,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"vending_machine_snacks"
+					"vending_machine_snacks",
+					"urban_litter"
 				]
 			}
 		},
@@ -789,6 +791,13 @@
 		"image": "./Mods/Core/Items/survival_guide_32.png",
 		"max_stack_size": 5,
 		"name": "Basic survival guide",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"urban_litter"
+				]
+			}
+		},
 		"sprite": "survival_guide_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1457,7 +1466,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"debris_urban"
+					"debris_urban",
+					"urban_litter"
 				]
 			}
 		},
@@ -1495,7 +1505,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"debris_urban"
+					"debris_urban",
+					"urban_litter"
 				]
 			}
 		},
@@ -2027,6 +2038,13 @@
 		"image": "./Mods/Core/Items/stale_bread_32.png",
 		"max_stack_size": 5,
 		"name": "Stale Bread",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"urban_litter"
+				]
+			}
+		},
 		"sprite": "stale_bread_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2886,7 +2904,8 @@
 				"itemgroups": [
 					"generic_field_finds",
 					"generic_forest_finds",
-					"debris_rock"
+					"debris_rock",
+					"urban_litter"
 				]
 			}
 		},
@@ -3245,7 +3264,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"debris_urban"
+					"debris_urban",
+					"urban_litter"
 				]
 			}
 		},

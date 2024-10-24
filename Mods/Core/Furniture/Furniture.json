@@ -142,7 +142,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -187,7 +188,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -235,7 +237,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -574,7 +577,8 @@
 			"core": {
 				"maps": [
 					"Generichouse",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"subway_station"
 				]
 			}
 		},
@@ -1035,7 +1039,8 @@
 			"core": {
 				"maps": [
 					"store_electronic_clothing",
-					"store_groceries"
+					"store_groceries",
+					"subway_station"
 				]
 			}
 		},
@@ -1173,7 +1178,8 @@
 					"generichouse_corner",
 					"store_electronic_clothing",
 					"store_groceries",
-					"generichouse_end"
+					"generichouse_end",
+					"subway_station"
 				]
 			}
 		},
@@ -1319,6 +1325,72 @@
 			"shape": "Box",
 			"transparent": true,
 			"width_scale": 95
+		},
+		"weight": 1
+	},
+	{
+		"categories": [
+			"Urban",
+			"Rail",
+			"Infrastructure"
+		],
+		"description": "Supporting beams to put in between rail sections",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "railroad_midsection",
+		"moveable": false,
+		"name": "Railroad midsection",
+		"references": {
+			"core": {
+				"maps": [
+					"subway_station"
+				]
+			}
+		},
+		"sprite": "railroad_midsection.png",
+		"support_shape": {
+			"color": "a65a2eff",
+			"depth_scale": 100,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 100
+		},
+		"weight": 1
+	},
+	{
+		"categories": [
+			"Urban",
+			"Rail",
+			"Infrastructure"
+		],
+		"description": "Supporting beams and a rail for a train to run on",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "railroad_railsection",
+		"moveable": false,
+		"name": "Railroad rail section",
+		"references": {
+			"core": {
+				"maps": [
+					"subway_station"
+				]
+			}
+		},
+		"sprite": "railroad_railsection.png",
+		"support_shape": {
+			"color": "a65a2eff",
+			"depth_scale": 100,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 100
 		},
 		"weight": 1
 	}

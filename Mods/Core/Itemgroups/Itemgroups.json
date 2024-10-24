@@ -264,10 +264,12 @@
 					"vending_machine",
 					"toilet_00",
 					"damaged_shelves",
-					"destroyed_fence"
+					"destroyed_fence",
+					"railroad_midsection"
 				],
 				"maps": [
-					"abandoned_building"
+					"abandoned_building",
+					"subway_station"
 				]
 			}
 		},
@@ -1140,7 +1142,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"abandoned_building"
+					"abandoned_building",
+					"subway_station"
 				]
 			}
 		},
@@ -1229,11 +1232,77 @@
 		"references": {
 			"core": {
 				"maps": [
-					"abandoned_building"
+					"abandoned_building",
+					"subway_station"
 				]
 			}
 		},
 		"sprite": "rusted_metal_sheets_32.png",
+		"use_sprite": false
+	},
+	{
+		"description": "Junk that's been left behind or dropped on purpose, littering the ground in an urban environment",
+		"id": "urban_litter",
+		"items": [
+			{
+				"id": "bottle_plastic_empty",
+				"max": 1,
+				"min": 1,
+				"probability": 60
+			},
+			{
+				"id": "pack_sigarrettes",
+				"max": 1,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "guide_survival_basic",
+				"max": 1,
+				"min": 1,
+				"probability": 2
+			},
+			{
+				"id": "plastic_parts",
+				"max": 1,
+				"min": 1,
+				"probability": 5
+			},
+			{
+				"id": "metal_parts",
+				"max": 1,
+				"min": 1,
+				"probability": 5
+			},
+			{
+				"id": "stale_bread",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "pebble",
+				"max": 1,
+				"min": 1,
+				"probability": 2
+			},
+			{
+				"id": "glass_shards",
+				"max": 1,
+				"min": 1,
+				"probability": 5
+			}
+		],
+		"mode": "Collection",
+		"name": "Urban litter",
+		"references": {
+			"core": {
+				"maps": [
+					"subway_station"
+				]
+			}
+		},
+		"sprite": "bottle_empty_32.png",
 		"use_sprite": false
 	}
 ]
