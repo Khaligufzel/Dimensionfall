@@ -85,6 +85,18 @@
 					{
 						"id": "generichouse_cross",
 						"weight": 100
+					},
+					{
+						"id": "subway_station",
+						"weight": 10
+					},
+					{
+						"id": "parking_garage",
+						"weight": 10
+					},
+					{
+						"id": "city_square",
+						"weight": 5
 					}
 				],
 				"spawn_probability": {
