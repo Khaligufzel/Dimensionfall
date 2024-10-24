@@ -54,8 +54,12 @@ func build_map_id_to_coordinates():
 		
 		map_id_to_coordinates[map_id].append(cell_key)
 
-# Function to connect cities by creating a river-like path
+
+# Function to connect cities by creating a river-like path and update all road connections at the end
 func connect_cities_by_riverlike_path(city_positions: Array) -> void:
+	var all_road_positions: Array = []  # To collect all road positions
+
+	# Step 1: Generate paths between each city and assign road maps
 	for i in range(city_positions.size() - 1):
 		var start_pos = city_positions[i]
 		var end_pos = city_positions[i + 1]
@@ -67,82 +71,73 @@ func connect_cities_by_riverlike_path(city_positions: Array) -> void:
 		# Generate an organic, winding path between the adjusted global positions
 		var path = generate_winding_path(global_start, global_end)
 
-		# Mark the road along the path
+		# Assign road maps to the generated path without updating connections
 		update_path_on_grid(path)
 
-# Function to generate a winding path between two global positions
+		# Collect all positions in the path for later connection updates
+		all_road_positions.append_array(path)
+
+	# Step 2: Once all paths are generated, update road connections for all roads
+	update_all_road_connections(all_road_positions)
+
+
+# Generate a winding path between two global positions
 func generate_winding_path(global_start: Vector2, global_end: Vector2) -> Array:
 	var path = []
 	var current = global_start
-	var max_deviation = 2  # Maximum allowed deviation from the direct path
-
 	while current.distance_to(global_end) > 1:
-		# Add the current position to the path only if it's not already included
 		if not path.has(current):
 			path.append(current)
-
-		# Determine the next position based on direction toward the goal
-		var next_position = (global_end - current).normalized() + current
-
-		# Round to nearest grid position to ensure alignment with the grid
-		next_position = next_position.round()
-
-		# Check if the next step is diagonal
-		if self.is_diagonal(current, next_position):
-			# Randomly pick between a vertical or horizontal neighbor for diagonal movement
-			if randi() % 2 == 0:
-				var vertical_neighbor = current + Vector2(0, next_position.y - current.y)
-				if not path.has(vertical_neighbor):
-					path.append(vertical_neighbor)
-			else:
-				var horizontal_neighbor = current + Vector2(next_position.x - current.x, 0)
-				if not path.has(horizontal_neighbor):
-					path.append(horizontal_neighbor)
-
-		# Prevent path from deviating too much from the straight line
-		if next_position.distance_to(global_start) > max_deviation or next_position.distance_to(global_end) > max_deviation:
-			next_position = current + (global_end - current).normalized().round()
-
-		# Move to the next position
-		current = next_position
-		if not path.has(current):  # Avoid adding duplicates
-			path.append(current)
-
-	path.append(global_end)  # Add the final point
+		var next_position = (global_end - current).normalized().round() + current
+		# Ensure small deviations and avoid straight paths
+		current = adjust_for_diagonal(next_position, current, path)
+	append_unique(path, global_end)
 	return path
 
-# Function to mark the path cells as roads and update their connections
+
+# Helper function: Avoid straight paths and prefer neighbors
+func adjust_for_diagonal(next_position: Vector2, current: Vector2, path: Array) -> Vector2:
+	if is_diagonal(current, next_position):
+		if randi() % 2 == 0:
+			append_unique(path, current + Vector2(0, next_position.y - current.y))
+		else:
+			append_unique(path, current + Vector2(next_position.x - current.x, 0))
+	return next_position
+
+
+# Helper function: Append only if the position is not already in the array
+func append_unique(path: Array, position: Vector2):
+	if not path.has(position):
+		path.append(position)
+
+
+# Assign road maps without updating connections
 func update_path_on_grid(path: Array) -> void:
-	# Fetch road and forest road maps
 	var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
 	var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
 
-	if road_maps.is_empty():
-		print("No road maps found in the 'Road' category!")
+	if road_maps.is_empty() or forest_road_maps.is_empty():
+		print("Missing road or forest road maps!")
 		return
 
-	if forest_road_maps.is_empty():
-		print("No forest road maps found in the 'Forest Road' category!")
-		return
-
-	# Step 1: Mark all cells in the path as roads
+	# Step 1: Assign road maps to path cells without updating connections
 	for global_position in path:
 		if cells.has(global_position):
-			var cell = cells[global_position]
-
-			# Skip urban areas
-			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-				# Assign a road map based on the cell's region type (forest or non-forest)
+			var cell = cells[global_position] # Will be a Helper.overmap_manager.map_cell instance
+			if not "Urban" in cell.dmap.categories: # Skip urban areas
 				assign_road_map_to_cell(global_position, cell, road_maps, forest_road_maps)
 
-	# Step 2: Process the path again and update the connections
-	for global_position in path:
-		if cells.has(global_position):
-			var cell = cells[global_position]
 
-			# Skip urban areas
-			if not Gamedata.maps.is_map_in_category(cell.map_id, "Urban"):
-				# Update road connections based on the cell's region type (forest or non-forest)
+# New function to update all road connections after all paths are placed
+func update_all_road_connections(road_positions: Array) -> void:
+	var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
+	var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
+
+	# Iterate over all known road positions and update connections
+	for global_position in road_positions:
+		if cells.has(global_position):
+			var cell = cells[global_position] # Will be a Helper.overmap_manager.map_cell instance
+			if not "Urban" in cell.dmap.categories: # Skip urban areas
 				update_road_connections(global_position, cell, road_maps, forest_road_maps)
 
 
@@ -150,33 +145,24 @@ func update_path_on_grid(path: Array) -> void:
 # cell: A Helper.overmap_manager.map_cell instance
 func assign_road_map_to_cell(global_position: Vector2, cell, road_maps: Array, forest_road_maps: Array) -> void:
 	# If it's a forest cell, assign a forest road, otherwise a normal road
-	if Gamedata.maps.is_map_in_category(cell.map_id, "Forest"):
-		var default_forest_road_map = forest_road_maps.pick_random()
-		update_cell(global_position, default_forest_road_map.id, 0)
-	else:
-		var default_road_map = road_maps.pick_random()
-		update_cell(global_position, default_road_map.id, 0)
+	var map_to_use = road_maps
+	if "Forest" in cell.dmap.categories:
+		map_to_use = forest_road_maps
+	var selected_map = map_to_use.pick_random()
+	update_cell(global_position, selected_map.id, 0)
+
 
 # Update the road connections for a cell based on its type (forest or non-forest)
 # cell: A Helper.overmap_manager.map_cell instance
 func update_road_connections(global_position: Vector2, cell, road_maps: Array, forest_road_maps: Array) -> void:
 	# Get the required connections for this cell
 	var needed_connections = get_needed_connections(global_position)
-
 	# If it's a forest cell, find a matching forest road map, otherwise a regular road map
-	if "Forest Road" in cell.dmap.categories:
-		var matching_forest_road_maps = get_road_maps_with_connections(forest_road_maps, needed_connections)
-
-		if matching_forest_road_maps.size() > 0:
-			var selected_forest_road_map = matching_forest_road_maps.pick_random()
-			update_cell(global_position, selected_forest_road_map.id, selected_forest_road_map.rotation)
-	else:
-		var matching_road_maps = get_road_maps_with_connections(road_maps, needed_connections)
-
-		if matching_road_maps.size() > 0:
-			var selected_road_map = matching_road_maps.pick_random()
-			update_cell(global_position, selected_road_map.id, selected_road_map.rotation)
-
+	var map_to_use = forest_road_maps if "Forest Road" in cell.dmap.categories else road_maps
+	var matching_maps = get_road_maps_with_connections(map_to_use, needed_connections)
+	if matching_maps.size() > 0:
+		var selected_map = matching_maps.pick_random()
+		update_cell(global_position, selected_map.id, selected_map.rotation)
 
 
 # Function to determine if movement from pos1 to pos2 is diagonal
@@ -369,11 +355,11 @@ func generate_cells() -> void:
 
 	# Place tactical maps and overmap areas on the grid, and connect cities
 	place_overmap_area()
-	place_tactical_maps()
 
 	if Helper.overmap_manager.area_positions.has("city"):
 		connect_cities_by_riverlike_path(Helper.overmap_manager.area_positions["city"])
 
+	place_tactical_maps()
 	# After modifications, rebuild the map_id_to_coordinates dictionary
 	build_map_id_to_coordinates()
 
@@ -387,11 +373,13 @@ func region_type_to_string(region_type: int) -> String:
 	return "Unknown"
 
 
-# Function to find a weighted random position, favoring distant positions
+# Function to find a weighted random position, favoring distant positions, and avoiding specific categories
 func find_weighted_random_position(placed_positions: Array, map_width: int, map_height: int) -> Vector2:
 	var max_attempts = 100  # Number of random attempts to generate a good position
 	var best_position = Vector2(-1, -1)  # To store the best candidate
 	var best_distance = 0  # To store the largest minimum distance found
+
+	var categories_to_check: Array[String] = ["Road", "Urban", "Forest Road"]  # Categories to avoid
 
 	# Loop for a number of random candidate positions
 	for attempt in range(max_attempts):
@@ -399,6 +387,22 @@ func find_weighted_random_position(placed_positions: Array, map_width: int, map_
 		var random_x = randi() % (grid_width - map_width + 1)
 		var random_y = randi() % (grid_height - map_height + 1)
 		var position = Vector2(random_x, random_y)
+
+		# Retrieve the cell at this position from the grid
+		var cell_key = local_to_global(position)
+		if cells.has(cell_key):
+			var cell = cells[cell_key]
+
+			# Check if the cell belongs to any of the forbidden categories
+			var unsuitable = false
+			for category in categories_to_check:
+				if category in cell.dmap.categories:
+					unsuitable = true
+					break  # If any category matches, mark the position as unsuitable
+
+			# If the position is unsuitable, continue to the next attempt
+			if unsuitable:
+				continue
 
 		# Calculate the minimum distance from this position to any already placed area
 		var min_distance = INF  # Start with a very high number
@@ -416,6 +420,7 @@ func find_weighted_random_position(placed_positions: Array, map_width: int, map_
 
 	# Return the position with the largest minimum distance (i.e., most "spacious" position)
 	return best_position
+
 
 # Function to get region type based on noise value, rounded to the nearest 0.2
 func get_region_type(x: int, y: int) -> int:
