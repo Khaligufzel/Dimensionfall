@@ -26,6 +26,7 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="GenerateButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Generate"

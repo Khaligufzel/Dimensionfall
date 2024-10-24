@@ -93,7 +93,12 @@
 					"abandoned_building",
 					"generichouse_end",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -172,7 +177,8 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -195,7 +201,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"abandoned_building",
-					"generichouse_end"
+					"generichouse_end",
+					"subway_station"
 				]
 			}
 		},
@@ -1338,7 +1345,12 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1371,7 +1383,12 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1402,7 +1419,12 @@
 					"RockyHill_NE",
 					"generichouse_end",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1438,7 +1460,12 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1473,7 +1500,12 @@
 					"RockyHill_NE",
 					"generichouse_end",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1507,7 +1539,12 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1571,7 +1608,8 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1604,7 +1642,8 @@
 					"RockyHill_NE",
 					"generichouse_end",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1634,7 +1673,8 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1667,7 +1707,8 @@
 					"RockyHill_NE",
 					"generichouse_end",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1702,7 +1743,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"forest_basic_00"
+					"forest_basic_00",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross"
 				]
 			}
 		},
@@ -1719,7 +1764,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"forest_basic_00"
+					"forest_basic_00",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross"
 				]
 			}
 		},
@@ -1736,7 +1785,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"forest_basic_00"
+					"forest_basic_00",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross"
 				]
 			}
 		},
@@ -1754,7 +1807,11 @@
 			"core": {
 				"maps": [
 					"forest_basic_00",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross"
 				]
 			}
 		},
@@ -1771,7 +1828,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"forest_basic_00"
+					"forest_basic_00",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross"
 				]
 			}
 		},
@@ -1788,7 +1849,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"forest_basic_00"
+					"forest_basic_00",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross"
 				]
 			}
 		},
@@ -1846,7 +1911,12 @@
 					"store_groceries",
 					"abandoned_building",
 					"field_grass_hole_00",
-					"generichouse_end"
+					"generichouse_end",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1868,7 +1938,12 @@
 					"forest_basic_00",
 					"Generichouse",
 					"abandoned_building",
-					"generichouse_end"
+					"generichouse_end",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1887,7 +1962,12 @@
 				"maps": [
 					"field_grass_hill_00",
 					"forest_basic_00",
-					"abandoned_building"
+					"abandoned_building",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -2194,7 +2274,8 @@
 					"Generichouse_00",
 					"store_groceries",
 					"abandoned_building",
-					"generichouse_end"
+					"generichouse_end",
+					"subway_station"
 				]
 			}
 		},
@@ -2217,7 +2298,8 @@
 					"Generichouse_00",
 					"store_groceries",
 					"abandoned_building",
-					"generichouse_end"
+					"generichouse_end",
+					"subway_station"
 				]
 			}
 		},
@@ -2280,7 +2362,12 @@
 					"abandoned_building",
 					"generichouse_end",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"forest_road_straight",
+					"forest_road_corner",
+					"forest_road_t",
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},

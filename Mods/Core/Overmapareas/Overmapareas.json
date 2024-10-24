@@ -85,6 +85,10 @@
 					{
 						"id": "generichouse_cross",
 						"weight": 100
+					},
+					{
+						"id": "subway_station",
+						"weight": 10
 					}
 				],
 				"spawn_probability": {

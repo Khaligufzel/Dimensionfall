@@ -94,7 +94,6 @@ func add_reference_to_map(mapid: String, module: String, type: String, refid: St
 	mymap.add_reference(module, type, refid)
 
 
-
 # Function to get maps by category
 func get_maps_by_category(category: String) -> Array[DMap]:
 	var maplist: Array[DMap] = []
@@ -103,8 +102,22 @@ func get_maps_by_category(category: String) -> Array[DMap]:
 			maplist.append(mapdict[key])
 	return maplist
 
+
 func is_map_in_category(mapid: String, category: String):
 	return category in by_id(mapid).categories
+
+
+# Function to check if a map is in any of the given categories
+func is_map_in_any_category(mapid: String, categories: Array[String]) -> bool:
+	var map_categories = by_id(mapid).categories
+	
+	# Check if any of the provided categories are in the map's categories
+	for category in categories:
+		if category in map_categories:
+			return true
+
+	return false  # Return false if none of the categories match
+
 
 # Function to return unique categories across all maps
 func get_unique_categories() -> Array:
