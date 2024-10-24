@@ -1,4 +1,55 @@
 {
+	"areas": [
+		{
+			"entities": [],
+			"id": "grass",
+			"pick_one": false,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1000,
+					"id": "grass_plain_01"
+				},
+				{
+					"count": 15,
+					"id": "grass_dirt_00"
+				},
+				{
+					"count": 15,
+					"id": "grass_dirt_01"
+				},
+				{
+					"count": 15,
+					"id": "grass_dirt_02"
+				},
+				{
+					"count": 5,
+					"id": "grass_medium_dirt_00"
+				},
+				{
+					"count": 5,
+					"id": "grass_medium_dirt_01"
+				},
+				{
+					"count": 5,
+					"id": "grass_medium_dirt_02"
+				},
+				{
+					"count": 1,
+					"id": "grass_flowers_00"
+				},
+				{
+					"count": 1,
+					"id": "grass_flowers_01"
+				},
+				{
+					"count": 1,
+					"id": "grass_flowers_02"
+				}
+			]
+		}
+	],
 	"categories": [
 		"Infrastructure",
 		"Urban",
@@ -25,114 +76,330 @@
 		[],
 		[
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_medium_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_medium_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
@@ -272,19 +539,49 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
@@ -396,20 +693,50 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_medium_dirt_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
@@ -521,18 +848,48 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
@@ -628,20 +985,50 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_medium_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_medium_dirt_02"
 			},
 			{
@@ -753,19 +1140,49 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_medium_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
@@ -887,19 +1304,49 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
@@ -918,112 +1365,280 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_dirt_02"
 			},
 			{
@@ -1042,112 +1657,280 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_flowers_00"
 			},
 			{
@@ -1166,102 +1949,252 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_medium_dirt_00",
 				"rotation": 90
 			},
@@ -1274,6 +2207,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
@@ -1292,6 +2231,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -1303,18 +2248,42 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -1327,22 +2296,52 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -1354,22 +2353,52 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -1382,10 +2411,22 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 270
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
@@ -1397,6 +2438,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01"
 			},
 			{
@@ -1415,6 +2462,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -1426,18 +2479,42 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 90
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -1450,21 +2527,51 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
 				"id": "grass_dirt_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -1477,22 +2584,52 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -1504,6 +2641,12 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 180
+					}
+				],
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -13927,28 +15070,28 @@
 				"rotation": 90
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
 			},
 			{
 				"id": "road_asphalt_basic",
@@ -14039,32 +15182,26 @@
 				"rotation": 90
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 270
 			},
 			{
 				"id": "road_asphalt_basic",
@@ -14182,12 +15319,12 @@
 				"rotation": 90
 			},
 			{
-				"id": "road_asphalt_basic",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 270
 			},
 			{
 				"id": "road_asphalt_basic",
@@ -14308,12 +15445,12 @@
 				"rotation": 90
 			},
 			{
-				"id": "road_asphalt_basic",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 270
 			},
 			{
 				"id": "road_asphalt_basic",
@@ -14434,12 +15571,12 @@
 				"rotation": 90
 			},
 			{
-				"id": "road_asphalt_basic",
+				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 270
 			},
 			{
 				"id": "road_asphalt_basic",
