@@ -269,7 +269,8 @@
 				],
 				"maps": [
 					"abandoned_building",
-					"subway_station"
+					"subway_station",
+					"city_square"
 				]
 			}
 		},
@@ -412,7 +413,6 @@
 			"core": {
 				"furniture": [
 					"refrigerator_00",
-					"vending_machine",
 					"display_case"
 				],
 				"maps": [
@@ -747,9 +747,14 @@
 		"name": "Vending machine (drinks)",
 		"references": {
 			"core": {
+				"furniture": [
+					"vending_machine"
+				],
 				"maps": [
 					"store_electronic_clothing",
-					"store_groceries"
+					"store_groceries",
+					"subway_station",
+					"city_square"
 				]
 			}
 		},
@@ -778,7 +783,9 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_groceries"
+					"store_groceries",
+					"subway_station",
+					"city_square"
 				]
 			}
 		},
@@ -1299,7 +1306,8 @@
 			"core": {
 				"maps": [
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},

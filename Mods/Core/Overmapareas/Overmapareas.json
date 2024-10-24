@@ -93,6 +93,10 @@
 					{
 						"id": "parking_garage",
 						"weight": 10
+					},
+					{
+						"id": "city_square",
+						"weight": 5
 					}
 				],
 				"spawn_probability": {
