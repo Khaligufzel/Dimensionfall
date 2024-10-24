@@ -89,6 +89,10 @@
 					{
 						"id": "subway_station",
 						"weight": 10
+					},
+					{
+						"id": "parking_garage",
+						"weight": 10
 					}
 				],
 				"spawn_probability": {

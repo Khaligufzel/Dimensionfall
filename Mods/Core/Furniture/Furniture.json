@@ -1313,7 +1313,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"abandoned_building"
+					"abandoned_building",
+					"parking_garage"
 				]
 			}
 		},

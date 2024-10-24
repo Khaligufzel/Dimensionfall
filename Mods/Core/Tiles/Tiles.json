@@ -98,7 +98,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -132,7 +133,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_groceries"
+					"store_groceries",
+					"parking_garage"
 				]
 			}
 		},
@@ -178,7 +180,8 @@
 					"RockyHill_NW",
 					"urbanroad",
 					"urbanroad_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -826,7 +829,8 @@
 					"RockyHill_SE",
 					"RockyHill_SW",
 					"RockyHill_NE",
-					"RockyHill_NW"
+					"RockyHill_NW",
+					"parking_garage"
 				]
 			}
 		},
@@ -1350,7 +1354,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1388,7 +1393,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1424,7 +1430,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1465,7 +1472,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1505,7 +1513,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1544,7 +1553,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1609,7 +1619,8 @@
 					"RockyHill_NW",
 					"urbanroad",
 					"urbanroad_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1643,7 +1654,8 @@
 					"generichouse_end",
 					"urbanroad",
 					"urbanroad_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1674,7 +1686,8 @@
 					"RockyHill_NW",
 					"urbanroad",
 					"urbanroad_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1708,7 +1721,8 @@
 					"generichouse_end",
 					"urbanroad",
 					"urbanroad_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1916,7 +1930,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1943,7 +1958,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -1967,7 +1983,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -2275,7 +2292,8 @@
 					"store_groceries",
 					"abandoned_building",
 					"generichouse_end",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -2299,7 +2317,8 @@
 					"store_groceries",
 					"abandoned_building",
 					"generichouse_end",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
@@ -2367,7 +2386,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"parking_garage"
 				]
 			}
 		},
