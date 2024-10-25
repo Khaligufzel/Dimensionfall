@@ -168,6 +168,7 @@ func is_diagonal(pos1: Vector2, pos2: Vector2) -> bool:
 	var direction = pos2 - pos1
 	return abs(direction.x) == 1 and abs(direction.y) == 1
 
+
 # Function to determine the required connections for a road tile
 func get_needed_connections(position: Vector2) -> Array:
 	var directions: Array[String] = ["north", "east", "south", "west"]
@@ -195,6 +196,7 @@ func get_needed_connections(position: Vector2) -> Array:
 
 	return connections
 
+
 # Function to get road maps that match the required connections
 func get_road_maps_with_connections(myroad_maps: Array, required_directions: Array) -> Array[Dictionary]:
 	var matching_maps: Array[Dictionary] = []
@@ -216,6 +218,7 @@ func get_road_maps_with_connections(myroad_maps: Array, required_directions: Arr
 
 	return matching_maps
 
+
 # Function to check if rotated connections match the required directions
 func are_connections_matching(rotated_connections: Dictionary, required_directions: Array) -> bool:
 	var directions: Array[String] = ["north", "east", "south", "west"]
@@ -233,6 +236,7 @@ func are_connections_matching(rotated_connections: Dictionary, required_directio
 
 	return true
 
+
 # Function to get rotated connections based on rotation
 func get_rotated_connections(connections: Dictionary, rotation: int) -> Dictionary:
 	var rotated_connections = {}
@@ -243,6 +247,7 @@ func get_rotated_connections(connections: Dictionary, rotation: int) -> Dictiona
 		rotated_connections[rotated_direction] = connections[direction]
 
 	return rotated_connections
+
 
 # Function to place an area on the grid and return the valid position where it was placed
 func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize: Vector2) -> Vector2:
@@ -255,7 +260,7 @@ func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize:
 		# Calculate remaining attempts to stay within the max_attempts limit
 		var remaining_attempts = max_attempts - attempts
 		# Find a candidate position with limited attempts
-		valid_position = find_weighted_random_position(placed_positions, int(mapsize.x), int(mapsize.y), remaining_attempts)
+		valid_position = find_weighted_random_position(placed_positions, mapsize, remaining_attempts)
 		attempts += remaining_attempts
 
 		# Check if this position is at least 15 units away from each placed position
@@ -284,8 +289,6 @@ func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize:
 
 	# Return the invalid position if no valid placement is found
 	return Vector2(-1, -1)
-
-
 
 
 # Function to place overmap areas on this grid
@@ -328,7 +331,7 @@ func place_tactical_maps() -> void:
 		var chunks = dmap.chunks
 
 		# Find a valid position on the grid to place the tactical map
-		var position = find_weighted_random_position(placed_positions, map_width, map_height, 100)
+		var position = find_weighted_random_position(placed_positions, Vector2(map_width, map_height), 100)
 		if position == Vector2(-1, -1):  # If no valid position is found, skip this map placement
 			print("Failed to find a valid position for tactical map")
 			continue
@@ -347,6 +350,7 @@ func place_tactical_maps() -> void:
 					var dchunk: DTacticalmap.TChunk = chunks[chunk_index]
 					update_cell(local_to_global(cell_key), dchunk.id, dchunk.rotation)
 					placed_positions.append(cell_key)  # Track the positions that have been occupied
+
 
 # Function to generate cells for the grid
 func generate_cells() -> void:
@@ -388,6 +392,7 @@ func generate_cells() -> void:
 	# After modifications, rebuild the map_id_to_coordinates dictionary
 	build_map_id_to_coordinates()
 
+
 # Helper function to convert Region enum to string
 func region_type_to_string(region_type: int) -> String:
 	match region_type:
@@ -399,14 +404,14 @@ func region_type_to_string(region_type: int) -> String:
 
 
 # Function to find a weighted random position within a maximum number of attempts
-func find_weighted_random_position(placed_positions: Array, map_width: int, map_height: int, max_attempts: int) -> Vector2:
+func find_weighted_random_position(placed_positions: Array, mapsize: Vector2, max_attempts: int) -> Vector2:
 	var best_position = Vector2(-1, -1)
 	var best_distance = 0
 
 	# Loop within the specified maximum attempts
 	for attempt in range(max_attempts):
-		var random_x = randi() % (grid_width - map_width + 1)
-		var random_y = randi() % (grid_height - map_height + 1)
+		var random_x = randi() % (grid_width - int(mapsize.x) + 1)
+		var random_y = randi() % (grid_height - int(mapsize.y) + 1)
 		var position = Vector2(random_x, random_y)
 
 		# Check if this position is suitable
@@ -452,13 +457,10 @@ func connect_cities_by_hub_path(city_positions: Array) -> void:
 	var city_pairs: Array = get_city_pairs(city_positions)
 	var all_road_positions: Array = []
 
-	# Step 1: Connect close city pairs directly
-	#connect_close_city_pairs(city_pairs, all_road_positions)
-
-	# Step 2: Handle hub connections for distant city pairs
+	# Step 1: Handle hub connections for distant city pairs
 	connect_distant_city_pairs_with_hubs(city_pairs, city_positions, all_road_positions)
 
-	# Step 3: Finalize all road connections
+	# Step 2: Finalize all road connections
 	update_all_road_connections(all_road_positions)
 
 
