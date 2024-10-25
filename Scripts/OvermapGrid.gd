@@ -246,12 +246,30 @@ func get_rotated_connections(connections: Dictionary, rotation: int) -> Dictiona
 
 # Function to place an area on the grid and return the valid position where it was placed
 func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize: Vector2) -> Vector2:
-	var valid_position = find_weighted_random_position(placed_positions, int(mapsize.x), int(mapsize.y))
-	# Calculate the center offset
-	var center_offset = Vector2(int(mapsize.x / 2), int(mapsize.y / 2))
+	var max_attempts = 100  # Combined attempt limit
+	var attempts = 0
+	var valid_position: Vector2 = Vector2(-1, -1)
+	var is_far_enough = true
 
-	# Only if a valid position is found, place the area
-	if valid_position != Vector2(-1, -1):
+	while attempts < max_attempts:
+		# Calculate remaining attempts to stay within the max_attempts limit
+		var remaining_attempts = max_attempts - attempts
+		# Find a candidate position with limited attempts
+		valid_position = find_weighted_random_position(placed_positions, int(mapsize.x), int(mapsize.y), remaining_attempts)
+		attempts += remaining_attempts
+
+		# Check if this position is at least 15 units away from each placed position
+		for placed_pos in placed_positions:
+			if valid_position.distance_to(placed_pos) < 15:
+				is_far_enough = false
+				break
+
+		# If the position is valid, break from the loop
+		if is_far_enough:
+			break
+
+	# If a valid position is found, place the area
+	if valid_position != Vector2(-1, -1) and is_far_enough:
 		for local_position in area_grid.keys():
 			var adjusted_position = valid_position + local_position
 			if area_grid.has(local_position):
@@ -259,14 +277,19 @@ func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize:
 				if tile != null:
 					update_cell(local_to_global(adjusted_position), tile.dmap.id, tile.rotation)
 					placed_positions.append(adjusted_position)
-		# Return the valid position (adjusted to the center of the placed area)
+
+		# Return the adjusted center of the placed area
+		var center_offset = Vector2(int(mapsize.x / 2), int(mapsize.y / 2))
 		return valid_position + center_offset
 
-	# Return the valid position (the top-left corner of the placed area)
-	return valid_position
+	# Return the invalid position if no valid placement is found
+	return Vector2(-1, -1)
+
+
+
 
 # Function to place overmap areas on this grid
-func place_overmap_area() -> void:
+func place_overmap_areas() -> void:
 	var placed_positions = []  # Track positions that have already been placed
 	area_positions.clear()
 
@@ -305,7 +328,7 @@ func place_tactical_maps() -> void:
 		var chunks = dmap.chunks
 
 		# Find a valid position on the grid to place the tactical map
-		var position = find_weighted_random_position(placed_positions, map_width, map_height)
+		var position = find_weighted_random_position(placed_positions, map_width, map_height, 100)
 		if position == Vector2(-1, -1):  # If no valid position is found, skip this map placement
 			print("Failed to find a valid position for tactical map")
 			continue
@@ -356,7 +379,7 @@ func generate_cells() -> void:
 			cells[cell_key] = cell
 
 	# Place tactical maps and overmap areas on the grid, and connect cities
-	place_overmap_area()
+	place_overmap_areas()
 
 	if area_positions.has("city"):
 		connect_cities_by_hub_path(area_positions["city"])
@@ -375,53 +398,42 @@ func region_type_to_string(region_type: int) -> String:
 	return "Unknown"
 
 
-# Function to find a weighted random position, favoring distant positions, and avoiding specific categories
-func find_weighted_random_position(placed_positions: Array, map_width: int, map_height: int) -> Vector2:
-	var max_attempts = 100  # Number of random attempts to generate a good position
-	var best_position = Vector2(-1, -1)  # To store the best candidate
-	var best_distance = 0  # To store the largest minimum distance found
+# Function to find a weighted random position within a maximum number of attempts
+func find_weighted_random_position(placed_positions: Array, map_width: int, map_height: int, max_attempts: int) -> Vector2:
+	var best_position = Vector2(-1, -1)
+	var best_distance = 0
 
-	var categories_to_check: Array[String] = ["Road", "Urban", "Forest Road"]  # Categories to avoid
-
-	# Loop for a number of random candidate positions
+	# Loop within the specified maximum attempts
 	for attempt in range(max_attempts):
-		# Generate a random position on the grid
 		var random_x = randi() % (grid_width - map_width + 1)
 		var random_y = randi() % (grid_height - map_height + 1)
 		var position = Vector2(random_x, random_y)
 
-		# Retrieve the cell at this position from the grid
-		var cell_key = local_to_global(position)
-		if cells.has(cell_key):
-			var cell = cells[cell_key]
-
-			# Check if the cell belongs to any of the forbidden categories
-			var unsuitable = false
-			for category in categories_to_check:
-				if category in cell.dmap.categories:
-					unsuitable = true
-					break  # If any category matches, mark the position as unsuitable
-
-			# If the position is unsuitable, continue to the next attempt
-			if unsuitable:
-				continue
-
-		# Calculate the minimum distance from this position to any already placed area
-		var min_distance = INF  # Start with a very high number
+		# Check if this position is suitable
+		var is_unsuitable = false
 		for placed_pos in placed_positions:
-			# Calculate distance to the already placed position
+			if position.distance_to(placed_pos) < 15:
+				is_unsuitable = true
+				break
+
+		# Skip unsuitable positions
+		if is_unsuitable:
+			continue
+
+		# Calculate the distance to nearest placed position
+		var min_distance = INF
+		for placed_pos in placed_positions:
 			var dist = position.distance_to(placed_pos)
-			# Keep track of the shortest distance to any other area
 			if dist < min_distance:
 				min_distance = dist
 
-		# If this position has a larger minimum distance than previous ones, it's a better candidate
+		# Update best position if this position is farther from others
 		if min_distance > best_distance:
 			best_position = position
 			best_distance = min_distance
 
-	# Return the position with the largest minimum distance (i.e., most "spacious" position)
 	return best_position
+
 
 
 # Function to get region type based on noise value, rounded to the nearest 0.2
