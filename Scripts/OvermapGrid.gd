@@ -15,6 +15,8 @@ var cells: Dictionary = {}
 var map_id_to_coordinates: Dictionary = {}
 var grid_width: int = 100 # TODO: Pass the global grid_width to this class
 var grid_height: int = 100
+# Dictionary to store lists of area positions sorted by dovermaparea.id
+var area_positions: Dictionary = {}
 const NOISE_VALUE_PLAINS = -0.2
 
 # Translates local grid coordinates to global coordinates
@@ -270,7 +272,7 @@ func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize:
 # Function to place overmap areas on this grid
 func place_overmap_area() -> void:
 	var placed_positions = []  # Track positions that have already been placed
-	Helper.overmap_manager.area_positions.clear()
+	area_positions.clear()
 
 	# Loop to place up to 10 overmap areas on the grid
 	for n in range(10):
@@ -288,10 +290,10 @@ func place_overmap_area() -> void:
 			var valid_position = place_area_on_grid(area_grid, placed_positions, map_dimensions)
 			if valid_position != Vector2(-1, -1):
 				# Ensure the area_positions dictionary has an array for this dovermaparea.id
-				if not Helper.overmap_manager.area_positions.has(dovermaparea.id):
-					Helper.overmap_manager.area_positions[dovermaparea.id] = []
+				if not area_positions.has(dovermaparea.id):
+					area_positions[dovermaparea.id] = []
 				# Append the valid position to the list for this area's id
-				Helper.overmap_manager.area_positions[dovermaparea.id].append(valid_position)
+				area_positions[dovermaparea.id].append(valid_position)
 		else:
 			print("Failed to find a valid position for the overmap area.")
 
@@ -360,8 +362,8 @@ func generate_cells() -> void:
 	# Place tactical maps and overmap areas on the grid, and connect cities
 	place_overmap_area()
 
-	if Helper.overmap_manager.area_positions.has("city"):
-		connect_cities_by_riverlike_path(Helper.overmap_manager.area_positions["city"])
+	if area_positions.has("city"):
+		connect_cities_by_hub_path(area_positions["city"])
 
 	place_tactical_maps()
 	# After modifications, rebuild the map_id_to_coordinates dictionary
@@ -435,3 +437,118 @@ func get_region_type(x: int, y: int) -> int:
 		return Helper.overmap_manager.Region.PLAINS
 	else:
 		return Helper.overmap_manager.Region.FOREST
+
+
+# Updated connect_cities_by_hub_path function to prevent double paths
+func connect_cities_by_hub_path(city_positions: Array) -> void:
+	# Get sorted city pairs and initialize the list to track all road positions
+	var city_pairs: Array = get_city_pairs(city_positions)
+	var all_road_positions: Array = []
+	var connected_pairs: Dictionary = {}  # Track already connected city pairs
+
+	# Separate close and distant city pairs
+	var hubs: Array = get_city_hubs(city_positions, city_pairs)
+	for pair in city_pairs:
+		var city_a = pair["cities"][0]
+		var city_b = pair["cities"][1]
+		var distance = pair["distance"]
+
+		# Ensure no double paths by checking both (city_a, city_b) and (city_b, city_a)
+		var pair_key = [city_a, city_b]
+		pair_key.sort()  # Sorting makes (A, B) same as (B, A)
+		if connected_pairs.has(pair_key):
+			continue  # Skip if this pair has already been connected
+		connected_pairs[pair_key] = true  # Mark the pair as connected
+
+		# Connect directly if the cities are close enough
+		if distance < 40:
+			var direct_path = generate_winding_path(local_to_global(city_a), local_to_global(city_b))
+			update_path_on_grid(direct_path)
+			all_road_positions.append_array(direct_path)
+		else:
+			# Otherwise, connect each city to the nearest hub
+			var nearest_hub_a = get_nearest_hub(city_a, hubs)
+			var path_to_hub_a = generate_winding_path(local_to_global(city_a), local_to_global(nearest_hub_a))
+			update_path_on_grid(path_to_hub_a)
+			all_road_positions.append_array(path_to_hub_a)
+
+			var nearest_hub_b = get_nearest_hub(city_b, hubs)
+			var path_to_hub_b = generate_winding_path(local_to_global(city_b), local_to_global(nearest_hub_b))
+			update_path_on_grid(path_to_hub_b)
+			all_road_positions.append_array(path_to_hub_b)
+
+			# Connect the hubs if they are different
+			if nearest_hub_a != nearest_hub_b:
+				var hub_path = generate_winding_path(local_to_global(nearest_hub_a), local_to_global(nearest_hub_b))
+				update_path_on_grid(hub_path)
+				all_road_positions.append_array(hub_path)
+
+	# Update all road connections after establishing the network
+	update_all_road_connections(all_road_positions)
+
+
+# Custom sorting function to compare by distance (descending order)
+func compare_distances_desc(a: Dictionary, b: Dictionary) -> bool:
+	return a["distance"] < b["distance"]
+
+
+# New function to create and sort city pairs by distance
+func get_city_pairs(city_positions: Array) -> Array:
+	var city_pairs = []
+	for i in range(city_positions.size()):
+		for j in range(i + 1, city_positions.size()):
+			var dist = city_positions[i].distance_to(city_positions[j])
+			city_pairs.append({"cities": [city_positions[i], city_positions[j]], "distance": dist})
+
+	# Sort pairs by distance in descending order using custom comparison function
+	city_pairs.sort_custom(compare_distances_desc)
+	return city_pairs
+
+
+# Modified function to identify intermediate hubs based on city distances
+func get_city_hubs(city_positions: Array, city_pairs: Array) -> Array:
+	var hubs = []
+	var max_hubs = min(city_positions.size() / 2, 5)  # Set a limit on the number of hubs
+
+	# Generate hubs at midpoints of the farthest city pairs
+	for pair in city_pairs:
+		if hubs.size() >= max_hubs:
+			break  # Stop if we've reached the maximum number of hubs
+		var city_a = pair["cities"][0]
+		var city_b = pair["cities"][1]
+		var distance = pair["distance"]
+
+		# Only create a hub if the distance is greater than 40
+		if distance <= 40:
+			continue
+
+		# Calculate a midpoint with slight random adjustment to make it feel more organic
+		var midpoint = (city_a + city_b) / 2
+		midpoint += Vector2(randf_range(-2, 2), randf_range(-2, 2))  # Random offset
+		
+		# Only add midpoint if it's not too close to existing hubs or cities
+		var is_far_from_others = true
+		for existing_hub in hubs:
+			if midpoint.distance_to(existing_hub) < 10:  # Adjust minimum distance as needed
+				is_far_from_others = false
+				break
+		
+		# Add midpoint to hubs if it's suitably distant
+		if is_far_from_others:
+			hubs.append(midpoint)
+	
+	return hubs
+
+
+
+
+# Find the nearest hub for a given city
+func get_nearest_hub(city_pos: Vector2, hubs: Array) -> Vector2:
+	var min_distance = INF
+	var nearest_hub: Vector2
+	for hub in hubs:
+		var distance = city_pos.distance_to(hub)
+		if distance < min_distance:
+			min_distance = distance
+			nearest_hub = hub
+	return nearest_hub
