@@ -530,7 +530,7 @@ func connect_zero_connection_cities(city_positions: Array, connection_counts: Di
 				if other_city == city_pos:# or connection_counts[other_city] > 0:
 					continue
 				var distance = city_pos.distance_to(other_city)
-				if distance <= 50:
+				if distance <= 40:
 					# Generate and store the path between the two cities
 					var path_between_cities = generate_winding_path(local_to_global(city_pos), local_to_global(other_city))
 					update_path_on_grid(path_between_cities)
@@ -587,7 +587,7 @@ func get_city_hubs(city_positions: Array, city_pairs: Array) -> Array:
 		# Ensure the midpoint is at least 10 units away from each city
 		var is_far_enough = true
 		for city in city_positions:
-			if midpoint_int.distance_to(city) < 10:
+			if midpoint_int.distance_to(city) < 20:
 				is_far_enough = false
 				break
 
