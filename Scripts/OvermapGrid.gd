@@ -441,7 +441,7 @@ func connect_cities_by_hub_path(city_positions: Array) -> void:
 	var all_road_positions: Array = []
 
 	# Step 1: Connect close city pairs directly
-	connect_close_city_pairs(city_pairs, all_road_positions)
+	#connect_close_city_pairs(city_pairs, all_road_positions)
 
 	# Step 2: Handle hub connections for distant city pairs
 	connect_distant_city_pairs_with_hubs(city_pairs, city_positions, all_road_positions)
@@ -473,39 +473,41 @@ func connect_close_city_pairs(city_pairs: Array, all_road_positions: Array) -> v
 			all_road_positions.append_array(direct_path)
 
 
-# Updated function to connect distant city pairs using hubs
+# Updated function to connect hubs to cities within 40 units
 func connect_distant_city_pairs_with_hubs(city_pairs: Array, city_positions: Array, all_road_positions: Array) -> void:
 	var city_hub_connections: Dictionary = {}
 	var connected_hubs: Dictionary = {}
 
-	# Generate hubs for distant city pairs
+	# Generate hubs based on city distances
 	var hubs: Array = get_city_hubs(city_positions, city_pairs)
-	for pair in city_pairs:
-		var city_a = pair["cities"][0]
-		var city_b = pair["cities"][1]
-		var distance = pair["distance"]
 
-		# Skip directly connected city pairs
-		if distance < 40:
-			continue
+	# Loop through each hub to connect it to nearby cities
+	for hub in hubs:
+		for city_pos in city_positions:
+			var distance = hub.distance_to(city_pos)
+			
+			# Only connect cities within 40 units
+			if distance <= 40:
+				# Generate a unique key to prevent duplicate connections
+				var hub_city_key = [hub, city_pos]
+				hub_city_key.sort()
+				if connected_hubs.has(hub_city_key):
+					continue  # Skip if this hub-city pair is already connected
 
-		# Ensure single connection to the nearest hub per city
-		var nearest_hub_a = get_or_connect_to_nearest_hub(city_a, hubs, city_hub_connections, all_road_positions)
-		var nearest_hub_b = get_or_connect_to_nearest_hub(city_b, hubs, city_hub_connections, all_road_positions)
+				# Mark the hub-city pair as connected to prevent duplicates
+				connected_hubs[hub_city_key] = true
 
-		# Skip path creation if hubs are already connected or exceed max distance
-		var hub_pair_key = [nearest_hub_a, nearest_hub_b]
-		hub_pair_key.sort()
-		var hub_distance = nearest_hub_a.distance_to(nearest_hub_b)
-		if connected_hubs.has(hub_pair_key) or hub_distance > 40:
-			continue
-		connected_hubs[hub_pair_key] = true
+				# Generate and store the path from hub to city
+				var path_to_city = generate_winding_path(local_to_global(hub), local_to_global(city_pos))
+				update_path_on_grid(path_to_city)
+				all_road_positions.append_array(path_to_city)
 
-		# Connect the hubs if distinct and within range
-		if nearest_hub_a != nearest_hub_b:
-			var hub_path = generate_winding_path(local_to_global(nearest_hub_a), local_to_global(nearest_hub_b))
-			update_path_on_grid(hub_path)
-			all_road_positions.append_array(hub_path)
+				# Register the hub connection for this city
+				city_hub_connections[city_pos] = hub
+
+	# Finalize connections between all road positions
+	update_all_road_connections(all_road_positions)
+
 
 
 # Updated helper function to ensure each city connects only once to its nearest hub
@@ -580,11 +582,14 @@ func get_city_hubs(city_positions: Array, city_pairs: Array) -> Array:
 		# Calculate a midpoint with slight random adjustment to make it feel more organic
 		var midpoint = (city_a + city_b) / 2
 		midpoint += Vector2(randf_range(-2, 2), randf_range(-2, 2))  # Random offset
-		
+
+		# Round midpoint to convert it to a Vector2i
+		var midpoint_int = Vector2i(int(midpoint.x), int(midpoint.y))
+
 		# Ensure the midpoint is at least 10 units away from each city
 		var is_far_enough = true
 		for city in city_positions:
-			if midpoint.distance_to(city) < 10:
+			if midpoint_int.distance_to(city) < 10:
 				is_far_enough = false
 				break
 
@@ -593,14 +598,15 @@ func get_city_hubs(city_positions: Array, city_pairs: Array) -> Array:
 			# Check that the midpoint is also not too close to other hubs
 			var is_far_from_others = true
 			for existing_hub in hubs:
-				if midpoint.distance_to(existing_hub) < 20:
+				if midpoint_int.distance_to(existing_hub) < 20:
 					is_far_from_others = false
 					break
 			
 			if is_far_from_others:
-				hubs.append(midpoint)
+				hubs.append(midpoint_int)
 
 	return hubs
+
 
 
 
