@@ -17,6 +17,8 @@ var grid_width: int = 100 # TODO: Pass the global grid_width to this class
 var grid_height: int = 100
 # Dictionary to store lists of area positions sorted by dovermaparea.id
 var area_positions: Dictionary = {}
+var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
+var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
 const NOISE_VALUE_PLAINS = -0.2
 
 # Translates local grid coordinates to global coordinates
@@ -115,9 +117,6 @@ func append_unique(path: Array, position: Vector2):
 
 # Assign road maps without updating connections
 func update_path_on_grid(path: Array) -> void:
-	var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
-	var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
-
 	if road_maps.is_empty() or forest_road_maps.is_empty():
 		print("Missing road or forest road maps!")
 		return
@@ -127,25 +126,22 @@ func update_path_on_grid(path: Array) -> void:
 		if cells.has(global_position):
 			var cell = cells[global_position] # Will be a Helper.overmap_manager.map_cell instance
 			if not "Urban" in cell.dmap.categories: # Skip urban areas
-				assign_road_map_to_cell(global_position, cell, road_maps, forest_road_maps)
+				assign_road_map_to_cell(global_position, cell)
 
 
 # New function to update all road connections after all paths are placed
 func update_all_road_connections(road_positions: Array) -> void:
-	var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
-	var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
-
 	# Iterate over all known road positions and update connections
 	for global_position in road_positions:
 		if cells.has(global_position):
 			var cell = cells[global_position] # Will be a Helper.overmap_manager.map_cell instance
 			if not "Urban" in cell.dmap.categories: # Skip urban areas
-				update_road_connections(global_position, cell, road_maps, forest_road_maps)
+				update_road_connections(global_position, cell)
 
 
 # Assign the appropriate road map (forest or regular) to a cell
 # cell: A Helper.overmap_manager.map_cell instance
-func assign_road_map_to_cell(global_position: Vector2, cell, road_maps: Array, forest_road_maps: Array) -> void:
+func assign_road_map_to_cell(global_position: Vector2, cell) -> void:
 	# If it's a forest cell, assign a forest road, otherwise a normal road
 	var map_to_use = road_maps
 	if "Forest" in cell.dmap.categories:
@@ -156,7 +152,7 @@ func assign_road_map_to_cell(global_position: Vector2, cell, road_maps: Array, f
 
 # Update the road connections for a cell based on its type (forest or non-forest)
 # cell: A Helper.overmap_manager.map_cell instance
-func update_road_connections(global_position: Vector2, cell, road_maps: Array, forest_road_maps: Array) -> void:
+func update_road_connections(global_position: Vector2, cell) -> void:
 	# Get the required connections for this cell
 	var needed_connections = get_needed_connections(global_position)
 	# If it's a forest cell, find a matching forest road map, otherwise a regular road map
@@ -200,11 +196,11 @@ func get_needed_connections(position: Vector2) -> Array:
 	return connections
 
 # Function to get road maps that match the required connections
-func get_road_maps_with_connections(road_maps: Array, required_directions: Array) -> Array[Dictionary]:
+func get_road_maps_with_connections(myroad_maps: Array, required_directions: Array) -> Array[Dictionary]:
 	var matching_maps: Array[Dictionary] = []
 
 	# Iterate through each road map
-	for road_map in road_maps:
+	for road_map in myroad_maps:
 		# Check all possible rotations (0, 90, 180, 270)
 		for rotation in [0, 90, 180, 270]:
 			var rotated_connections = self.get_rotated_connections(road_map.connections, rotation)
@@ -439,52 +435,89 @@ func get_region_type(x: int, y: int) -> int:
 		return Helper.overmap_manager.Region.FOREST
 
 
-# Updated connect_cities_by_hub_path function to prevent double paths
+# Updated function to connect cities using hubs, with a maximum distance of 40 for hub connections
 func connect_cities_by_hub_path(city_positions: Array) -> void:
-	# Get sorted city pairs and initialize the list to track all road positions
 	var city_pairs: Array = get_city_pairs(city_positions)
 	var all_road_positions: Array = []
 	var connected_pairs: Dictionary = {}  # Track already connected city pairs
+	var city_hub_connections: Dictionary = {}  # Track which hubs each city connects to
+	var connected_hubs: Dictionary = {}  # Track hub-to-hub connections to prevent duplicates
 
-	# Separate close and distant city pairs
+	# Generate hubs for distant city pairs
 	var hubs: Array = get_city_hubs(city_positions, city_pairs)
 	for pair in city_pairs:
 		var city_a = pair["cities"][0]
 		var city_b = pair["cities"][1]
 		var distance = pair["distance"]
 
-		# Ensure no double paths by checking both (city_a, city_b) and (city_b, city_a)
+		# Avoid duplicate paths by using sorted key pairs
 		var pair_key = [city_a, city_b]
-		pair_key.sort()  # Sorting makes (A, B) same as (B, A)
+		pair_key.sort()
 		if connected_pairs.has(pair_key):
-			continue  # Skip if this pair has already been connected
-		connected_pairs[pair_key] = true  # Mark the pair as connected
+			continue  # Skip if already connected
+		connected_pairs[pair_key] = true  # Mark as connected
 
-		# Connect directly if the cities are close enough
+		# Direct connection for close city pairs
 		if distance < 40:
 			var direct_path = generate_winding_path(local_to_global(city_a), local_to_global(city_b))
 			update_path_on_grid(direct_path)
 			all_road_positions.append_array(direct_path)
 		else:
-			# Otherwise, connect each city to the nearest hub
-			var nearest_hub_a = get_nearest_hub(city_a, hubs)
-			var path_to_hub_a = generate_winding_path(local_to_global(city_a), local_to_global(nearest_hub_a))
-			update_path_on_grid(path_to_hub_a)
-			all_road_positions.append_array(path_to_hub_a)
+			# Ensure single connection to the nearest hub per city
+			var nearest_hub_a = get_or_connect_to_nearest_hub(city_a, hubs, city_hub_connections, all_road_positions)
+			var nearest_hub_b = get_or_connect_to_nearest_hub(city_b, hubs, city_hub_connections, all_road_positions)
 
-			var nearest_hub_b = get_nearest_hub(city_b, hubs)
-			var path_to_hub_b = generate_winding_path(local_to_global(city_b), local_to_global(nearest_hub_b))
-			update_path_on_grid(path_to_hub_b)
-			all_road_positions.append_array(path_to_hub_b)
+			# Skip path creation if hubs are already connected or exceed max distance
+			var hub_pair_key = [nearest_hub_a, nearest_hub_b]
+			hub_pair_key.sort()
+			var hub_distance = nearest_hub_a.distance_to(nearest_hub_b)
+			if connected_hubs.has(hub_pair_key) or hub_distance > 40:
+				continue  # Skip connection if hubs are already connected or too far
+			connected_hubs[hub_pair_key] = true  # Mark hubs as connected
 
-			# Connect the hubs if they are different
+			# Connect the hubs if distinct and within range
 			if nearest_hub_a != nearest_hub_b:
 				var hub_path = generate_winding_path(local_to_global(nearest_hub_a), local_to_global(nearest_hub_b))
 				update_path_on_grid(hub_path)
 				all_road_positions.append_array(hub_path)
 
-	# Update all road connections after establishing the network
+	# Finalize connections between all road positions
 	update_all_road_connections(all_road_positions)
+
+
+
+# Updated helper function to ensure each city connects only once to its nearest hub
+# Adds the path and hub position to all_road_positions for final road connection updates
+func get_or_connect_to_nearest_hub(city_pos: Vector2, hubs: Array, city_hub_connections: Dictionary, all_road_positions: Array) -> Vector2:
+	# Check if the city already has a hub connection
+	if city_hub_connections.has(city_pos):
+		return city_hub_connections[city_pos]  # Return existing hub connection
+
+	# Find the nearest hub
+	var nearest_hub = get_nearest_hub(city_pos, hubs)
+	
+	# Debug print to track the start (city) and end (hub) positions
+	print("Connecting city at ", local_to_global(city_pos), " to hub at ", local_to_global(nearest_hub))
+	
+	# Generate the path to the hub and update the grid
+	var path_to_hub = generate_winding_path(local_to_global(city_pos), local_to_global(nearest_hub))
+	update_path_on_grid(path_to_hub)
+	
+	# Add the path to all_road_positions for later connection updates
+	all_road_positions.append_array(path_to_hub)
+	
+	# Ensure the hub position itself is marked as a road
+	if cells.has(local_to_global(nearest_hub)):
+		update_cell(local_to_global(nearest_hub), road_maps.pick_random().id, 0)
+	
+	# Add the hub position to all_road_positions to ensure it gets updated
+	all_road_positions.append(local_to_global(nearest_hub))
+	
+	# Register the hub connection for this city
+	city_hub_connections[city_pos] = nearest_hub
+	return nearest_hub
+
+
 
 
 # Custom sorting function to compare by distance (descending order)
@@ -505,7 +538,7 @@ func get_city_pairs(city_positions: Array) -> Array:
 	return city_pairs
 
 
-# Modified function to identify intermediate hubs based on city distances
+# Modified function to identify intermediate hubs based on city distances and ensure minimum distance from cities
 func get_city_hubs(city_positions: Array, city_pairs: Array) -> Array:
 	var hubs = []
 	var max_hubs = min(city_positions.size() / 2, 5)  # Set a limit on the number of hubs
@@ -526,24 +559,31 @@ func get_city_hubs(city_positions: Array, city_pairs: Array) -> Array:
 		var midpoint = (city_a + city_b) / 2
 		midpoint += Vector2(randf_range(-2, 2), randf_range(-2, 2))  # Random offset
 		
-		# Only add midpoint if it's not too close to existing hubs or cities
-		var is_far_from_others = true
-		for existing_hub in hubs:
-			if midpoint.distance_to(existing_hub) < 10:  # Adjust minimum distance as needed
-				is_far_from_others = false
+		# Ensure the midpoint is at least 10 units away from each city
+		var is_far_enough = true
+		for city in city_positions:
+			if midpoint.distance_to(city) < 10:
+				is_far_enough = false
 				break
-		
-		# Add midpoint to hubs if it's suitably distant
-		if is_far_from_others:
-			hubs.append(midpoint)
-	
+
+		# Only add the midpoint if it’s far enough from all cities and other hubs
+		if is_far_enough:
+			# Check that the midpoint is also not too close to other hubs
+			var is_far_from_others = true
+			for existing_hub in hubs:
+				if midpoint.distance_to(existing_hub) < 20:
+					is_far_from_others = false
+					break
+			
+			if is_far_from_others:
+				hubs.append(midpoint)
+
 	return hubs
 
 
 
-
 # Find the nearest hub for a given city
-func get_nearest_hub(city_pos: Vector2, hubs: Array) -> Vector2:
+func get_nearest_hub(city_pos: Vector2, hubs: Array) -> Vector2i:
 	var min_distance = INF
 	var nearest_hub: Vector2
 	for hub in hubs:
