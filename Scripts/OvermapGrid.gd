@@ -435,13 +435,48 @@ func get_region_type(x: int, y: int) -> int:
 		return Helper.overmap_manager.Region.FOREST
 
 
-# Updated function to connect cities using hubs, with a maximum distance of 40 for hub connections
+# Main function to connect cities by hub paths, calling separate functions for close city pairs and hub connections
 func connect_cities_by_hub_path(city_positions: Array) -> void:
 	var city_pairs: Array = get_city_pairs(city_positions)
 	var all_road_positions: Array = []
-	var connected_pairs: Dictionary = {}  # Track already connected city pairs
-	var city_hub_connections: Dictionary = {}  # Track which hubs each city connects to
-	var connected_hubs: Dictionary = {}  # Track hub-to-hub connections to prevent duplicates
+
+	# Step 1: Connect close city pairs directly
+	connect_close_city_pairs(city_pairs, all_road_positions)
+
+	# Step 2: Handle hub connections for distant city pairs
+	connect_distant_city_pairs_with_hubs(city_pairs, city_positions, all_road_positions)
+
+	# Step 3: Finalize all road connections
+	update_all_road_connections(all_road_positions)
+
+
+# New function to connect city pairs directly if their distance is less than 40
+func connect_close_city_pairs(city_pairs: Array, all_road_positions: Array) -> void:
+	var connected_pairs: Dictionary = {}
+	for pair in city_pairs:
+		var city_a = pair["cities"][0]
+		var city_b = pair["cities"][1]
+		var distance = pair["distance"]
+
+
+		# Avoid duplicate paths by using sorted key pairs
+		var pair_key = [city_a, city_b]
+		pair_key.sort()
+		if connected_pairs.has(pair_key):
+			continue
+		connected_pairs[pair_key] = true
+		
+		# Connect directly if cities are close
+		if distance < 40:
+			var direct_path = generate_winding_path(local_to_global(city_a), local_to_global(city_b))
+			update_path_on_grid(direct_path)
+			all_road_positions.append_array(direct_path)
+
+
+# Updated function to connect distant city pairs using hubs
+func connect_distant_city_pairs_with_hubs(city_pairs: Array, city_positions: Array, all_road_positions: Array) -> void:
+	var city_hub_connections: Dictionary = {}
+	var connected_hubs: Dictionary = {}
 
 	# Generate hubs for distant city pairs
 	var hubs: Array = get_city_hubs(city_positions, city_pairs)
@@ -450,40 +485,27 @@ func connect_cities_by_hub_path(city_positions: Array) -> void:
 		var city_b = pair["cities"][1]
 		var distance = pair["distance"]
 
-		# Avoid duplicate paths by using sorted key pairs
-		var pair_key = [city_a, city_b]
-		pair_key.sort()
-		if connected_pairs.has(pair_key):
-			continue  # Skip if already connected
-		connected_pairs[pair_key] = true  # Mark as connected
-
-		# Direct connection for close city pairs
+		# Skip directly connected city pairs
 		if distance < 40:
-			var direct_path = generate_winding_path(local_to_global(city_a), local_to_global(city_b))
-			update_path_on_grid(direct_path)
-			all_road_positions.append_array(direct_path)
-		else:
-			# Ensure single connection to the nearest hub per city
-			var nearest_hub_a = get_or_connect_to_nearest_hub(city_a, hubs, city_hub_connections, all_road_positions)
-			var nearest_hub_b = get_or_connect_to_nearest_hub(city_b, hubs, city_hub_connections, all_road_positions)
+			continue
 
-			# Skip path creation if hubs are already connected or exceed max distance
-			var hub_pair_key = [nearest_hub_a, nearest_hub_b]
-			hub_pair_key.sort()
-			var hub_distance = nearest_hub_a.distance_to(nearest_hub_b)
-			if connected_hubs.has(hub_pair_key) or hub_distance > 40:
-				continue  # Skip connection if hubs are already connected or too far
-			connected_hubs[hub_pair_key] = true  # Mark hubs as connected
+		# Ensure single connection to the nearest hub per city
+		var nearest_hub_a = get_or_connect_to_nearest_hub(city_a, hubs, city_hub_connections, all_road_positions)
+		var nearest_hub_b = get_or_connect_to_nearest_hub(city_b, hubs, city_hub_connections, all_road_positions)
 
-			# Connect the hubs if distinct and within range
-			if nearest_hub_a != nearest_hub_b:
-				var hub_path = generate_winding_path(local_to_global(nearest_hub_a), local_to_global(nearest_hub_b))
-				update_path_on_grid(hub_path)
-				all_road_positions.append_array(hub_path)
+		# Skip path creation if hubs are already connected or exceed max distance
+		var hub_pair_key = [nearest_hub_a, nearest_hub_b]
+		hub_pair_key.sort()
+		var hub_distance = nearest_hub_a.distance_to(nearest_hub_b)
+		if connected_hubs.has(hub_pair_key) or hub_distance > 40:
+			continue
+		connected_hubs[hub_pair_key] = true
 
-	# Finalize connections between all road positions
-	update_all_road_connections(all_road_positions)
-
+		# Connect the hubs if distinct and within range
+		if nearest_hub_a != nearest_hub_b:
+			var hub_path = generate_winding_path(local_to_global(nearest_hub_a), local_to_global(nearest_hub_b))
+			update_path_on_grid(hub_path)
+			all_road_positions.append_array(hub_path)
 
 
 # Updated helper function to ensure each city connects only once to its nearest hub
