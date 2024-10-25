@@ -473,10 +473,15 @@ func connect_close_city_pairs(city_pairs: Array, all_road_positions: Array) -> v
 			all_road_positions.append_array(direct_path)
 
 
-# Updated function to connect hubs to cities within 40 units
+# Updated function to connect hubs to cities within 40 units and track connection counts for all cities
 func connect_distant_city_pairs_with_hubs(city_pairs: Array, city_positions: Array, all_road_positions: Array) -> void:
 	var city_hub_connections: Dictionary = {}
 	var connected_hubs: Dictionary = {}
+	var connection_counts: Dictionary = {}  # Dictionary to track connection counts per city
+
+	# Initialize connection count for each city to 0
+	for city_pos in city_positions:
+		connection_counts[city_pos] = 0
 
 	# Generate hubs based on city distances
 	var hubs: Array = get_city_hubs(city_positions, city_pairs)
@@ -505,43 +510,15 @@ func connect_distant_city_pairs_with_hubs(city_pairs: Array, city_positions: Arr
 				# Register the hub connection for this city
 				city_hub_connections[city_pos] = hub
 
+				# Increment the connection count for this city
+				connection_counts[city_pos] += 1
+
 	# Finalize connections between all road positions
 	update_all_road_connections(all_road_positions)
 
-
-
-# Updated helper function to ensure each city connects only once to its nearest hub
-# Adds the path and hub position to all_road_positions for final road connection updates
-func get_or_connect_to_nearest_hub(city_pos: Vector2, hubs: Array, city_hub_connections: Dictionary, all_road_positions: Array) -> Vector2:
-	# Check if the city already has a hub connection
-	if city_hub_connections.has(city_pos):
-		return city_hub_connections[city_pos]  # Return existing hub connection
-
-	# Find the nearest hub
-	var nearest_hub = get_nearest_hub(city_pos, hubs)
-	
-	# Debug print to track the start (city) and end (hub) positions
-	print("Connecting city at ", local_to_global(city_pos), " to hub at ", local_to_global(nearest_hub))
-	
-	# Generate the path to the hub and update the grid
-	var path_to_hub = generate_winding_path(local_to_global(city_pos), local_to_global(nearest_hub))
-	update_path_on_grid(path_to_hub)
-	
-	# Add the path to all_road_positions for later connection updates
-	all_road_positions.append_array(path_to_hub)
-	
-	# Ensure the hub position itself is marked as a road
-	if cells.has(local_to_global(nearest_hub)):
-		update_cell(local_to_global(nearest_hub), road_maps.pick_random().id, 0)
-	
-	# Add the hub position to all_road_positions to ensure it gets updated
-	all_road_positions.append(local_to_global(nearest_hub))
-	
-	# Register the hub connection for this city
-	city_hub_connections[city_pos] = nearest_hub
-	return nearest_hub
-
-
+	# Print the connection count for each city
+	for city in connection_counts.keys():
+		print("City at position ", city, " has ", connection_counts[city], " connections.")
 
 
 # Custom sorting function to compare by distance (descending order)
