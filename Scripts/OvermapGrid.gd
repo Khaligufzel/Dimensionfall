@@ -513,12 +513,33 @@ func connect_distant_city_pairs_with_hubs(city_pairs: Array, city_positions: Arr
 				# Increment the connection count for this city
 				connection_counts[city_pos] += 1
 
-	# Finalize connections between all road positions
-	update_all_road_connections(all_road_positions)
+	# Connect cities with zero connections
+	connect_zero_connection_cities(city_positions, connection_counts, all_road_positions)
 
 	# Print the connection count for each city
 	for city in connection_counts.keys():
 		print("City at position ", city, " has ", connection_counts[city], " connections.")
+
+
+# New function to connect cities with zero connections to nearby cities within 40 units
+func connect_zero_connection_cities(city_positions: Array, connection_counts: Dictionary, all_road_positions: Array) -> void:
+	for city_pos in city_positions:
+		if connection_counts[city_pos] == 0:
+			for other_city in city_positions:
+				# Skip if checking the same city or if already connected
+				if other_city == city_pos:# or connection_counts[other_city] > 0:
+					continue
+				var distance = city_pos.distance_to(other_city)
+				if distance <= 50:
+					# Generate and store the path between the two cities
+					var path_between_cities = generate_winding_path(local_to_global(city_pos), local_to_global(other_city))
+					update_path_on_grid(path_between_cities)
+					all_road_positions.append_array(path_between_cities)
+
+					# Update connection counts for both cities
+					connection_counts[city_pos] += 1
+					connection_counts[other_city] += 1
+
 
 
 # Custom sorting function to compare by distance (descending order)
