@@ -97,7 +97,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -176,7 +177,8 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -199,7 +201,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"abandoned_building",
-					"generichouse_end"
+					"generichouse_end",
+					"subway_station"
 				]
 			}
 		},
@@ -1346,7 +1349,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1383,7 +1387,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1418,7 +1423,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1458,7 +1464,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1497,7 +1504,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1535,7 +1543,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1599,7 +1608,8 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1632,7 +1642,8 @@
 					"RockyHill_NE",
 					"generichouse_end",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1662,7 +1673,8 @@
 					"generichouse_end",
 					"RockyHill_NW",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1695,7 +1707,8 @@
 					"RockyHill_NE",
 					"generichouse_end",
 					"urbanroad",
-					"urbanroad_cross"
+					"urbanroad_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1902,7 +1915,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1928,7 +1942,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -1951,7 +1966,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
@@ -2258,7 +2274,8 @@
 					"Generichouse_00",
 					"store_groceries",
 					"abandoned_building",
-					"generichouse_end"
+					"generichouse_end",
+					"subway_station"
 				]
 			}
 		},
@@ -2281,7 +2298,8 @@
 					"Generichouse_00",
 					"store_groceries",
 					"abandoned_building",
-					"generichouse_end"
+					"generichouse_end",
+					"subway_station"
 				]
 			}
 		},
@@ -2348,7 +2366,8 @@
 					"forest_road_straight",
 					"forest_road_corner",
 					"forest_road_t",
-					"forest_road_cross"
+					"forest_road_cross",
+					"subway_station"
 				]
 			}
 		},
