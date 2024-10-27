@@ -10,7 +10,7 @@ var map_cell:
 		map_cell = cell
 		if map_cell and map_cell.revealed:
 			set_texture(map_cell.get_sprite())  # Set the texture if revealed
-			set_texture_rotation(map_cell.rotation)  # Apply the rotation
+			set_texture_rotation(map_cell.rotation, Vector2(16, 16))  # Apply the rotation
 		else:
 			set_texture(null)  # Clear the texture if not revealed
 
