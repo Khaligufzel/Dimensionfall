@@ -7346,7 +7346,10 @@
 			{
 				"furniture": {
 					"id": "vending_machine",
-					"itemgroups": [],
+					"itemgroups": [
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 270
 				},
 				"id": "sidewalk_00"
@@ -8802,7 +8805,10 @@
 			{
 				"furniture": {
 					"id": "vending_machine",
-					"itemgroups": [],
+					"itemgroups": [
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 90
 				},
 				"id": "sidewalk_00",
@@ -22232,7 +22238,10 @@
 			{
 				"furniture": {
 					"id": "vending_machine",
-					"itemgroups": [],
+					"itemgroups": [
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 180
 				},
 				"id": "sidewalk_00"
@@ -23092,7 +23101,10 @@
 			{
 				"furniture": {
 					"id": "vending_machine",
-					"itemgroups": []
+					"itemgroups": [
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					]
 				},
 				"id": "sidewalk_00"
 			},
@@ -26152,7 +26164,10 @@
 			{
 				"furniture": {
 					"id": "vending_machine",
-					"itemgroups": [],
+					"itemgroups": [
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
 					"rotation": 180
 				},
 				"id": "sidewalk_00",
@@ -27122,8 +27137,10 @@
 			{
 				"furniture": {
 					"id": "vending_machine",
-					"itemgroups": [],
-					"rotation": 0
+					"itemgroups": [
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					]
 				},
 				"id": "sidewalk_00",
 				"rotation": 180

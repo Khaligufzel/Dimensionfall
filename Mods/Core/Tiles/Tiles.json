@@ -99,7 +99,8 @@
 					"forest_road_t",
 					"forest_road_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -181,7 +182,8 @@
 					"urbanroad",
 					"urbanroad_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -1355,7 +1357,8 @@
 					"forest_road_t",
 					"forest_road_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -1394,7 +1397,8 @@
 					"forest_road_t",
 					"forest_road_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -1431,7 +1435,8 @@
 					"forest_road_t",
 					"forest_road_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -1473,7 +1478,8 @@
 					"forest_road_t",
 					"forest_road_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -1514,7 +1520,8 @@
 					"forest_road_t",
 					"forest_road_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -1554,7 +1561,8 @@
 					"forest_road_t",
 					"forest_road_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -1620,7 +1628,8 @@
 					"urbanroad",
 					"urbanroad_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -1655,7 +1664,8 @@
 					"urbanroad",
 					"urbanroad_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -1687,7 +1697,8 @@
 					"urbanroad",
 					"urbanroad_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -1721,7 +1732,8 @@
 					"generichouse_end",
 					"urbanroad",
 					"urbanroad_cross",
-					"subway_station"
+					"subway_station",
+					"city_square"
 				]
 			}
 		},
@@ -2292,7 +2304,8 @@
 					"abandoned_building",
 					"generichouse_end",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
@@ -2386,7 +2399,8 @@
 					"forest_road_t",
 					"forest_road_cross",
 					"subway_station",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},

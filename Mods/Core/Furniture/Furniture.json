@@ -23,7 +23,8 @@
 					"Generichouse_00",
 					"RockyHill_SW",
 					"abandoned_building",
-					"generichouse_end"
+					"generichouse_end",
+					"city_square"
 				]
 			}
 		},
@@ -55,7 +56,8 @@
 					"RockyHill_SW",
 					"abandoned_building",
 					"RockyHill_NE",
-					"generichouse_end"
+					"generichouse_end",
+					"city_square"
 				]
 			}
 		},
@@ -143,7 +145,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"city_square"
 				]
 			}
 		},
@@ -189,7 +192,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"city_square"
 				]
 			}
 		},
@@ -238,7 +242,8 @@
 					"forest_road_corner",
 					"forest_road_t",
 					"forest_road_cross",
-					"subway_station"
+					"subway_station",
+					"city_square"
 				]
 			}
 		},
@@ -312,7 +317,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"store_groceries",
-					"generichouse_end"
+					"generichouse_end",
+					"city_square"
 				]
 			}
 		},
@@ -578,7 +584,8 @@
 				"maps": [
 					"Generichouse",
 					"store_electronic_clothing",
-					"subway_station"
+					"subway_station",
+					"city_square"
 				]
 			}
 		},
@@ -1020,7 +1027,7 @@
 	},
 	{
 		"Function": {
-			"container_group": "refridgerator",
+			"container_group": "vending_machine_drinks",
 			"is_container": true
 		},
 		"categories": [
@@ -1040,7 +1047,8 @@
 				"maps": [
 					"store_electronic_clothing",
 					"store_groceries",
-					"subway_station"
+					"subway_station",
+					"city_square"
 				]
 			}
 		},
@@ -1179,7 +1187,8 @@
 					"store_electronic_clothing",
 					"store_groceries",
 					"generichouse_end",
-					"subway_station"
+					"subway_station",
+					"city_square"
 				]
 			}
 		},
@@ -1314,7 +1323,8 @@
 			"core": {
 				"maps": [
 					"abandoned_building",
-					"parking_garage"
+					"parking_garage",
+					"city_square"
 				]
 			}
 		},
