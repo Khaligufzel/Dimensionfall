@@ -471,23 +471,14 @@ func update_player_position_and_manage_segments(force_update: bool = false):
 # If the chunk data is not empty, it is erased from loaded_chunk_data.chunks and added to a dictionary.
 # The function returns the dictionary of non-empty chunk data.
 func process_and_clear_segment(segment_pos: Vector2) -> Dictionary:
-	var non_empty_chunk_data = {}  # Dictionary to store non-empty chunk data with chunk_pos as keys
-	
+	var non_empty_data: Dictionary = {} # Dictionary to store non-empty chunk data with chunk_pos as keys
 	for x_offset in range(4):
 		for y_offset in range(4):
-			var chunk_pos = segment_pos + Vector2(x_offset, y_offset)
-			if loaded_chunk_data.chunks.has(chunk_pos):
-				var chunk_data = loaded_chunk_data.chunks[chunk_pos]
-				if not chunk_data.is_empty():
-					non_empty_chunk_data[chunk_pos] = chunk_data
-					loaded_chunk_data.chunks.erase(chunk_pos)
-					print("Chunk data at ", chunk_pos, " was not empty and has been erased.")
-				else:
-					print("Chunk data at ", chunk_pos, " is empty.")
-			else:
-				print("Chunk data at ", chunk_pos, " does not exist.")
-	
-	return non_empty_chunk_data
+			var chunk_key: Vector2i = segment_pos + Vector2(x_offset, y_offset)
+			if loaded_chunk_data.chunks.has(chunk_key) and not loaded_chunk_data.chunks[chunk_key].is_empty():
+				non_empty_data[chunk_key] = loaded_chunk_data.chunks[chunk_key]
+				loaded_chunk_data.chunks.erase(chunk_key)
+	return non_empty_data
 
 
 # Function to unload all remaining segments from loaded_chunk_data.chunks without saving
