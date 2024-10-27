@@ -228,23 +228,18 @@ func _on_game_ended():
 # If the position is (12,3), cellpos will be (0,0), since anything between (0,0) and (32,32) results in (0,0)
 # If cellpos is 0,0, it will loop over the cells surrounding it, for example (-8,-8), (-8,-7) up to (8,8)
 func load_cells_around(position: Vector3):
-	var cellpos: Vector2 = get_cell_pos_from_global_pos(Vector2(position.x, position.z))
+	var center_cell: Vector2i = get_cell_pos_from_global_pos(Vector2(position.x, position.z))
 
-	for x in range(cellpos.x - load_radius, cellpos.x + load_radius + 1):
-		for y in range(cellpos.y - load_radius, cellpos.y + load_radius + 1):
-			var distance_to_cell = Vector2(x - cellpos.x, y - cellpos.y).length()
-			if distance_to_cell <= load_radius:
+	for x in range(center_cell.x - load_radius, center_cell.x + load_radius + 1):
+		for y in range(center_cell.y - load_radius, center_cell.y + load_radius + 1):
+			var distance = Vector2(x - center_cell.x, y - center_cell.y).length()
+			if distance <= load_radius:
 				var cell_key = Vector2(x, y)
 				var grid_key = get_grid_pos_from_local_pos(cell_key)
 
-				if loaded_grids.has(grid_key):
-					var grid = loaded_grids[grid_key]
-					if not grid.cells.has(cell_key):
-						grid.generate_cells()
-				else:
-					load_grid(grid_key)
-					var grid = loaded_grids[grid_key]
-					grid.generate_cells()
+				load_grid(grid_key) # Will load a grid if it does not exist
+				if loaded_grids[grid_key] and not loaded_grids[grid_key].cells.has(cell_key):
+					loaded_grids[grid_key].generate_cells()
 
 
 # Helper function to convert Region enum to string
@@ -343,9 +338,8 @@ func load_grid(grid_pos: Vector2):
 	if not loaded_grids.has(grid_pos):
 		var grid = OvermapGrid.new()
 		grid.pos = grid_pos
-		# Assume load_grid_data is a function that loads grid data from storage
 		loaded_grids[grid_pos] = grid
-		load_grid_from_file(grid_pos)
+		load_grid_from_file(grid_pos) # Loads grid data from storage if available
 
 
 # Unload the furthest grid from the player

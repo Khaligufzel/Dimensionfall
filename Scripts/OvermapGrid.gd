@@ -530,10 +530,6 @@ func connect_distant_city_pairs_with_hubs(city_pairs: Array, city_positions: Arr
 	# Connect cities with zero connections
 	connect_zero_connection_cities(city_positions, connection_counts, all_road_positions)
 
-	# Print the connection count for each city
-	for city in connection_counts.keys():
-		print("City at position ", city, " has ", connection_counts[city], " connections.")
-
 
 # New function to connect cities with zero connections to nearby cities within 40 units
 func connect_zero_connection_cities(city_positions: Array, connection_counts: Dictionary, all_road_positions: Array) -> void:
