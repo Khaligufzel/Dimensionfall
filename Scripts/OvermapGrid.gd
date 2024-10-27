@@ -86,6 +86,10 @@ func connect_cities_by_riverlike_path(city_positions: Array) -> void:
 
 
 # Generate a winding path between two global positions
+# Global meaning they are independent of this grid's pos and are
+# either contained within the range of this grid or not
+# For example, the (-53,12) position is contained in the grid at (-1,0), 
+# which holds positions (-100,0) to (-1,99)
 func generate_winding_path(global_start: Vector2, global_end: Vector2) -> Array:
 	var path = []
 	var current = global_start
@@ -129,14 +133,60 @@ func update_path_on_grid(path: Array) -> void:
 				assign_road_map_to_cell(global_position, cell)
 
 
-# New function to update all road connections after all paths are placed
+# Function to update all road connections, including edge cells across neighboring grids
 func update_all_road_connections(road_positions: Array) -> void:
-	# Iterate over all known road positions and update connections
+	var edge_data = get_edge_positions(road_positions)
+	var edge_positions: Dictionary = edge_data["edge_positions"]
+	var edgeglobals: Array = edge_data["edgeglobals"]
+
+	# Step 2: Update connections for non-edge positions within this grid
 	for global_position in road_positions:
-		if cells.has(global_position):
-			var cell = cells[global_position] # Will be a Helper.overmap_manager.map_cell instance
-			if not "Urban" in cell.dmap.categories: # Skip urban areas
+		if cells.has(global_position) and not global_position in edgeglobals:
+			var cell = cells[global_position]
+			if not "Urban" in cell.dmap.categories:
 				update_road_connections(global_position, cell)
+
+	# Step 3: Handle connections for edge positions with neighboring grids
+	for direction in edge_positions.keys():
+		for edge_position in edge_positions[direction]: # All positions on the south border for example
+			# Update within this grid first
+			if cells.has(edge_position): # Should be true for all edge positions
+				update_road_connections(edge_position, cells[edge_position])
+			
+			# Update in the neighboring grid
+			var neighbor_pos: Vector2 = edge_position + Gamedata.DIRECTION_OFFSETS[direction]
+			if neighbor_pos:
+				var neighbor_grid: OvermapGrid = Helper.overmap_manager.get_grid_from_local_pos(neighbor_pos)
+				var neighbor_cell = neighbor_grid.get_cell_from_global_pos(neighbor_pos) # A map_cell instance
+				neighbor_grid.update_road_connections(neighbor_pos, neighbor_cell)
+
+
+# Function to categorize road positions by grid edge
+# Positions in road_positions are discarded if they are not on the edge of the grid
+# Remaining positions will be on the edge of the current grid
+# Example for the a grid with (-1,-1) as pos: 
+# { "north": [], "east": [], "south": [(-17, -1), (-83, -1), (-82, -1), (-70, -1)], "west": [] }
+# This example shows multiple positions on the south border of the grid.
+# All positions on the south order have -1 as the y coordinate.
+func get_edge_positions(road_positions: Array) -> Dictionary:
+	var edge_positions: Dictionary = {"north": [], "east": [], "south": [], "west": []}
+	var edgeglobals: Array = []
+
+	for global_position in road_positions:
+		if global_position.x == pos.x * grid_width:
+			edge_positions["west"].append(global_position)
+			edgeglobals.append(global_position)
+		elif global_position.x == (pos.x + 1) * grid_width - 1:
+			edge_positions["east"].append(global_position)
+			edgeglobals.append(global_position)
+		elif global_position.y == pos.y * grid_height:
+			edge_positions["north"].append(global_position)
+			edgeglobals.append(global_position)
+		elif global_position.y == (pos.y + 1) * grid_height - 1:
+			edge_positions["south"].append(global_position)
+			edgeglobals.append(global_position)
+
+	return {"edge_positions": edge_positions, "edgeglobals": edgeglobals}
 
 
 # Assign the appropriate road map (forest or regular) to a cell
@@ -153,6 +203,8 @@ func assign_road_map_to_cell(global_position: Vector2, cell) -> void:
 # Update the road connections for a cell based on its type (forest or non-forest)
 # cell: A Helper.overmap_manager.map_cell instance
 func update_road_connections(global_position: Vector2, cell) -> void:
+	if not "Road" in cell.dmap.categories and not "Forest Road" in cell.dmap.categories:
+		return # Only update road cells
 	# Get the required connections for this cell
 	var needed_connections = get_needed_connections(global_position)
 	# If it's a forest cell, find a matching forest road map, otherwise a regular road map
@@ -169,21 +221,20 @@ func is_diagonal(pos1: Vector2, pos2: Vector2) -> bool:
 	return abs(direction.x) == 1 and abs(direction.y) == 1
 
 
-# Function to determine the required connections for a road tile
+# Function to determine the required connections for a road tile, including edge cases
 func get_needed_connections(position: Vector2) -> Array:
 	var directions: Array[String] = ["north", "east", "south", "west"]
 	var connections: Array[String] = []
+	# Define the categories to check
+	var categories_to_check: Array[String] = ["Road", "Urban", "Forest Road"]
 
 	# Iterate over each direction (north, east, south, west)
 	for direction in directions:
 		var neighbor_pos: Vector2 = position + Gamedata.DIRECTION_OFFSETS[direction]
-
-		# Check if the neighbor exists in the grid
-		if self.cells.has(neighbor_pos):
-			var neighbor_cell = self.cells[neighbor_pos]
-
-			# Define the categories to check
-			var categories_to_check: Array[String] = ["Road", "Urban", "Forest Road"]
+		
+		# Check if the neighbor exists in this grid
+		if cells.has(neighbor_pos):
+			var neighbor_cell = cells[neighbor_pos]
 
 			# Check if any of the categories are present in the neighbor cell's categories
 			for category in categories_to_check:
@@ -191,10 +242,17 @@ func get_needed_connections(position: Vector2) -> Array:
 					connections.append(direction)
 					break  # Exit loop early since we found a match
 		else:
-			# If no neighbor exists, optionally handle ground connections
-			pass
-
+			# Check the neighboring grid for cells at boundaries
+			var neighbor_cell = Helper.overmap_manager.get_grid_cell_from_local_pos(neighbor_pos)
+			if neighbor_cell:
+				# Same category check for the neighboring grid cell
+				for category in categories_to_check:
+					if category in neighbor_cell.dmap.categories:
+						connections.append(direction)
+						break  # Exit if match is found
+	
 	return connections
+
 
 
 # Function to get road maps that match the required connections
@@ -389,6 +447,10 @@ func generate_cells() -> void:
 		connect_cities_by_hub_path(area_positions["city"])
 
 	place_tactical_maps()
+	
+	# Connect cities on the borders with neighboring grids
+	check_and_connect_neighboring_grids()
+	
 	# After modifications, rebuild the map_id_to_coordinates dictionary
 	build_map_id_to_coordinates()
 
@@ -615,9 +677,6 @@ func get_city_hubs(city_positions: Array, city_pairs: Array) -> Array:
 
 	return hubs
 
-
-
-
 # Find the nearest hub for a given city
 func get_nearest_hub(city_pos: Vector2, hubs: Array) -> Vector2i:
 	var min_distance = INF
@@ -628,3 +687,51 @@ func get_nearest_hub(city_pos: Vector2, hubs: Array) -> Vector2i:
 			min_distance = distance
 			nearest_hub = hub
 	return nearest_hub
+
+
+# Function to connect cities on the border of this grid with the cities on the border of the neighboring grid
+func connect_border_cities(neighbor_grid: OvermapGrid) -> void:
+	var neighboring_cities = neighbor_grid.area_positions.get("city", [])
+	var current_cities = area_positions.get("city", [])
+	var all_road_positions: Array = []  # Master list to collect all positions from paths
+
+	# Convert local positions to global coordinates for accurate distance calculation
+	for city_a in current_cities:
+		var city_a_global = local_to_global(city_a)
+		
+		for city_b in neighboring_cities:
+			var city_b_global = neighbor_grid.local_to_global(city_b)
+			var distance = city_a_global.distance_to(city_b_global)
+
+			# If cities are within a certain threshold, connect them with a road path
+			if distance < 40:
+				var path: Array = generate_winding_path(city_a_global, city_b_global)
+				
+				# Collect all positions in the generated path
+				all_road_positions.append_array(path)
+				
+				# Update path on each grid to assign road maps
+				update_path_on_grid(path)
+				neighbor_grid.update_path_on_grid(path)
+
+	# Once all paths are processed, update road connections with collected positions
+	update_all_road_connections(all_road_positions)
+	neighbor_grid.update_all_road_connections(all_road_positions)
+
+
+# Function to check neighboring grids and connect border cities if needed
+func check_and_connect_neighboring_grids() -> void:
+	for offset: Vector2 in Gamedata.DIRECTION_OFFSETS.values():
+		var neighbor_grid: OvermapGrid = Helper.overmap_manager.get_grid_from_meta_pos(pos + offset)
+		if neighbor_grid:
+			connect_border_cities(neighbor_grid)
+
+
+# Returns the map_cell from the provided position. The position can be any Vector2 with two ints in it
+# Coordinates between 0,0 and 99,99 will only return the cell if this grid's pos is at 0,0.
+# Coordinates between 100,0 and 199,99 will only return the cell if this grid's pos is at 1,0.
+# Coordinates between -100,-100 and -1,-1 will only return the cell if this grid's pos is at -1,-1.
+func get_cell_from_global_pos(global_pos: Vector2):
+	if cells.has(global_pos):
+		return cells[global_pos]
+	return null

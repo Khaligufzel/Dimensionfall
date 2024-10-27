@@ -269,7 +269,6 @@ func pick_random_map_by_weight(maps_by_category: Array[DMap]) -> String:
 	return "field_grass_basic_00.json"  # Fallback in case of an error
 
 
-
 # Function to get a map_cell by global coordinate
 # Put in a global coordinate, for example the player position (minus the y coordinate)
 # Get the map cell back. Anything between (0,0) and (32,32) returns the cell at (0,0)
@@ -292,7 +291,7 @@ func get_grid_pos_from_global_pos(coord: Vector2) -> Vector2:
 
 # Function to get a grid key from local coordinates
 # Coordinates between 0,0 and 99,99 return 0,0.
-# Coordinates between 100,0 and 99,99 return 1,0.
+# Coordinates between 100,0 and 199,99 return 1,0.
 # Coordinates between -100,-100 and -1,-1 return -1,-1.
 func get_grid_pos_from_local_pos(local_coord: Vector2) -> Vector2:
 	var grid_x = floor(local_coord.x / grid_width)
@@ -610,3 +609,34 @@ func create_new_grid_with_default_values() -> OvermapGrid:
 
 	# Step 4: Return the fully generated grid
 	return new_grid
+
+
+
+# Function to get a grid from it's meta position
+# Coordinates 0,0 returns the OvermapGrid at 0,0.
+# Coordinates 1,0 returns the OvermapGrid at 1,0.
+# Coordinates -1,-1 returns the OvermapGrid at -1,-1.
+func get_grid_from_meta_pos(meta_coord: Vector2) -> OvermapGrid:
+	if loaded_grids.has(meta_coord):
+		return loaded_grids[meta_coord]
+	return null
+
+
+# Function to get a grid from local coordinates
+# Coordinates between 0,0 and 99,99 return the OvermapGrid at 0,0.
+# Coordinates between 100,0 and 199,99 return the OvermapGrid at 1,0.
+# Coordinates between -100,-100 and -1,-1 return the OvermapGrid at -1,-1.
+func get_grid_from_local_pos(local_coord: Vector2) -> OvermapGrid:
+	var grid_pos: Vector2 = get_grid_pos_from_local_pos(local_coord)
+	if loaded_grids.has(grid_pos):
+		return loaded_grids[grid_pos]
+	return null
+
+
+# Function to get a map_cell from local coordinates
+# Coordinates between 0,0 and 99,99 return the cell at that position from the OvermapGrid at 0,0.
+# Coordinates between 100,0 and 199,99 return the cell at that position from the OvermapGrid at 1,0.
+# Coordinates between -100,-100 and -1,-1 return the cell at that position from the OvermapGrid at -1,-1.
+func get_grid_cell_from_local_pos(local_coord: Vector2) -> map_cell:
+	var grid: OvermapGrid = get_grid_from_local_pos(local_coord)
+	return grid.get_cell_from_global_pos(local_coord)
