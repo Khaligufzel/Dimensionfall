@@ -311,6 +311,9 @@ func loadLevelData(newLevel: int) -> void:
 		levelgrid_below.hide()
 	if newLevel < 20: # Refresh above
 		refresh_grid(newLevel + 1, levelgrid_above)
+		# Show levelgrid_above if coming down from level 20 and showAbove is true
+		if showAbove:
+			levelgrid_above.show()
 	else:
 		levelgrid_above.hide()
 	refresh_grid(newLevel, self)
