@@ -15,6 +15,10 @@ var cells: Dictionary = {}
 var map_id_to_coordinates: Dictionary = {}
 var grid_width: int = 100 # TODO: Pass the global grid_width to this class
 var grid_height: int = 100
+# Dictionary to store lists of area positions sorted by dovermaparea.id
+var area_positions: Dictionary = {}
+var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
+var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
 const NOISE_VALUE_PLAINS = -0.2
 
 # Translates local grid coordinates to global coordinates
@@ -113,9 +117,6 @@ func append_unique(path: Array, position: Vector2):
 
 # Assign road maps without updating connections
 func update_path_on_grid(path: Array) -> void:
-	var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
-	var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
-
 	if road_maps.is_empty() or forest_road_maps.is_empty():
 		print("Missing road or forest road maps!")
 		return
@@ -125,25 +126,22 @@ func update_path_on_grid(path: Array) -> void:
 		if cells.has(global_position):
 			var cell = cells[global_position] # Will be a Helper.overmap_manager.map_cell instance
 			if not "Urban" in cell.dmap.categories: # Skip urban areas
-				assign_road_map_to_cell(global_position, cell, road_maps, forest_road_maps)
+				assign_road_map_to_cell(global_position, cell)
 
 
 # New function to update all road connections after all paths are placed
 func update_all_road_connections(road_positions: Array) -> void:
-	var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
-	var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
-
 	# Iterate over all known road positions and update connections
 	for global_position in road_positions:
 		if cells.has(global_position):
 			var cell = cells[global_position] # Will be a Helper.overmap_manager.map_cell instance
 			if not "Urban" in cell.dmap.categories: # Skip urban areas
-				update_road_connections(global_position, cell, road_maps, forest_road_maps)
+				update_road_connections(global_position, cell)
 
 
 # Assign the appropriate road map (forest or regular) to a cell
 # cell: A Helper.overmap_manager.map_cell instance
-func assign_road_map_to_cell(global_position: Vector2, cell, road_maps: Array, forest_road_maps: Array) -> void:
+func assign_road_map_to_cell(global_position: Vector2, cell) -> void:
 	# If it's a forest cell, assign a forest road, otherwise a normal road
 	var map_to_use = road_maps
 	if "Forest" in cell.dmap.categories:
@@ -154,7 +152,7 @@ func assign_road_map_to_cell(global_position: Vector2, cell, road_maps: Array, f
 
 # Update the road connections for a cell based on its type (forest or non-forest)
 # cell: A Helper.overmap_manager.map_cell instance
-func update_road_connections(global_position: Vector2, cell, road_maps: Array, forest_road_maps: Array) -> void:
+func update_road_connections(global_position: Vector2, cell) -> void:
 	# Get the required connections for this cell
 	var needed_connections = get_needed_connections(global_position)
 	# If it's a forest cell, find a matching forest road map, otherwise a regular road map
@@ -169,6 +167,7 @@ func update_road_connections(global_position: Vector2, cell, road_maps: Array, f
 func is_diagonal(pos1: Vector2, pos2: Vector2) -> bool:
 	var direction = pos2 - pos1
 	return abs(direction.x) == 1 and abs(direction.y) == 1
+
 
 # Function to determine the required connections for a road tile
 func get_needed_connections(position: Vector2) -> Array:
@@ -197,12 +196,13 @@ func get_needed_connections(position: Vector2) -> Array:
 
 	return connections
 
+
 # Function to get road maps that match the required connections
-func get_road_maps_with_connections(road_maps: Array, required_directions: Array) -> Array[Dictionary]:
+func get_road_maps_with_connections(myroad_maps: Array, required_directions: Array) -> Array[Dictionary]:
 	var matching_maps: Array[Dictionary] = []
 
 	# Iterate through each road map
-	for road_map in road_maps:
+	for road_map in myroad_maps:
 		# Check all possible rotations (0, 90, 180, 270)
 		for rotation in [0, 90, 180, 270]:
 			var rotated_connections = self.get_rotated_connections(road_map.connections, rotation)
@@ -217,6 +217,7 @@ func get_road_maps_with_connections(road_maps: Array, required_directions: Array
 				break  # Stop checking other rotations for this road_map once a match is found
 
 	return matching_maps
+
 
 # Function to check if rotated connections match the required directions
 func are_connections_matching(rotated_connections: Dictionary, required_directions: Array) -> bool:
@@ -235,6 +236,7 @@ func are_connections_matching(rotated_connections: Dictionary, required_directio
 
 	return true
 
+
 # Function to get rotated connections based on rotation
 func get_rotated_connections(connections: Dictionary, rotation: int) -> Dictionary:
 	var rotated_connections = {}
@@ -246,14 +248,33 @@ func get_rotated_connections(connections: Dictionary, rotation: int) -> Dictiona
 
 	return rotated_connections
 
+
 # Function to place an area on the grid and return the valid position where it was placed
 func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize: Vector2) -> Vector2:
-	var valid_position = find_weighted_random_position(placed_positions, int(mapsize.x), int(mapsize.y))
-	# Calculate the center offset
-	var center_offset = Vector2(int(mapsize.x / 2), int(mapsize.y / 2))
+	var max_attempts = 100  # Combined attempt limit
+	var attempts = 0
+	var valid_position: Vector2 = Vector2(-1, -1)
+	var is_far_enough = true
 
-	# Only if a valid position is found, place the area
-	if valid_position != Vector2(-1, -1):
+	while attempts < max_attempts:
+		# Calculate remaining attempts to stay within the max_attempts limit
+		var remaining_attempts = max_attempts - attempts
+		# Find a candidate position with limited attempts
+		valid_position = find_weighted_random_position(placed_positions, mapsize, remaining_attempts)
+		attempts += remaining_attempts
+
+		# Check if this position is at least 15 units away from each placed position
+		for placed_pos in placed_positions:
+			if valid_position.distance_to(placed_pos) < 15:
+				is_far_enough = false
+				break
+
+		# If the position is valid, break from the loop
+		if is_far_enough:
+			break
+
+	# If a valid position is found, place the area
+	if valid_position != Vector2(-1, -1) and is_far_enough:
 		for local_position in area_grid.keys():
 			var adjusted_position = valid_position + local_position
 			if area_grid.has(local_position):
@@ -261,16 +282,19 @@ func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize:
 				if tile != null:
 					update_cell(local_to_global(adjusted_position), tile.dmap.id, tile.rotation)
 					placed_positions.append(adjusted_position)
-		# Return the valid position (adjusted to the center of the placed area)
+
+		# Return the adjusted center of the placed area
+		var center_offset = Vector2(int(mapsize.x / 2), int(mapsize.y / 2))
 		return valid_position + center_offset
 
-	# Return the valid position (the top-left corner of the placed area)
-	return valid_position
+	# Return the invalid position if no valid placement is found
+	return Vector2(-1, -1)
+
 
 # Function to place overmap areas on this grid
-func place_overmap_area() -> void:
+func place_overmap_areas() -> void:
 	var placed_positions = []  # Track positions that have already been placed
-	Helper.overmap_manager.area_positions.clear()
+	area_positions.clear()
 
 	# Loop to place up to 10 overmap areas on the grid
 	for n in range(10):
@@ -288,10 +312,10 @@ func place_overmap_area() -> void:
 			var valid_position = place_area_on_grid(area_grid, placed_positions, map_dimensions)
 			if valid_position != Vector2(-1, -1):
 				# Ensure the area_positions dictionary has an array for this dovermaparea.id
-				if not Helper.overmap_manager.area_positions.has(dovermaparea.id):
-					Helper.overmap_manager.area_positions[dovermaparea.id] = []
+				if not area_positions.has(dovermaparea.id):
+					area_positions[dovermaparea.id] = []
 				# Append the valid position to the list for this area's id
-				Helper.overmap_manager.area_positions[dovermaparea.id].append(valid_position)
+				area_positions[dovermaparea.id].append(valid_position)
 		else:
 			print("Failed to find a valid position for the overmap area.")
 
@@ -307,7 +331,7 @@ func place_tactical_maps() -> void:
 		var chunks = dmap.chunks
 
 		# Find a valid position on the grid to place the tactical map
-		var position = find_weighted_random_position(placed_positions, map_width, map_height)
+		var position = find_weighted_random_position(placed_positions, Vector2(map_width, map_height), 100)
 		if position == Vector2(-1, -1):  # If no valid position is found, skip this map placement
 			print("Failed to find a valid position for tactical map")
 			continue
@@ -326,6 +350,7 @@ func place_tactical_maps() -> void:
 					var dchunk: DTacticalmap.TChunk = chunks[chunk_index]
 					update_cell(local_to_global(cell_key), dchunk.id, dchunk.rotation)
 					placed_positions.append(cell_key)  # Track the positions that have been occupied
+
 
 # Function to generate cells for the grid
 func generate_cells() -> void:
@@ -358,14 +383,15 @@ func generate_cells() -> void:
 			cells[cell_key] = cell
 
 	# Place tactical maps and overmap areas on the grid, and connect cities
-	place_overmap_area()
+	place_overmap_areas()
 
-	if Helper.overmap_manager.area_positions.has("city"):
-		connect_cities_by_riverlike_path(Helper.overmap_manager.area_positions["city"])
+	if area_positions.has("city"):
+		connect_cities_by_hub_path(area_positions["city"])
 
 	place_tactical_maps()
 	# After modifications, rebuild the map_id_to_coordinates dictionary
 	build_map_id_to_coordinates()
+
 
 # Helper function to convert Region enum to string
 func region_type_to_string(region_type: int) -> String:
@@ -377,53 +403,42 @@ func region_type_to_string(region_type: int) -> String:
 	return "Unknown"
 
 
-# Function to find a weighted random position, favoring distant positions, and avoiding specific categories
-func find_weighted_random_position(placed_positions: Array, map_width: int, map_height: int) -> Vector2:
-	var max_attempts = 100  # Number of random attempts to generate a good position
-	var best_position = Vector2(-1, -1)  # To store the best candidate
-	var best_distance = 0  # To store the largest minimum distance found
+# Function to find a weighted random position within a maximum number of attempts
+func find_weighted_random_position(placed_positions: Array, mapsize: Vector2, max_attempts: int) -> Vector2:
+	var best_position = Vector2(-1, -1)
+	var best_distance = 0
 
-	var categories_to_check: Array[String] = ["Road", "Urban", "Forest Road"]  # Categories to avoid
-
-	# Loop for a number of random candidate positions
+	# Loop within the specified maximum attempts
 	for attempt in range(max_attempts):
-		# Generate a random position on the grid
-		var random_x = randi() % (grid_width - map_width + 1)
-		var random_y = randi() % (grid_height - map_height + 1)
+		var random_x = randi() % (grid_width - int(mapsize.x) + 1)
+		var random_y = randi() % (grid_height - int(mapsize.y) + 1)
 		var position = Vector2(random_x, random_y)
 
-		# Retrieve the cell at this position from the grid
-		var cell_key = local_to_global(position)
-		if cells.has(cell_key):
-			var cell = cells[cell_key]
-
-			# Check if the cell belongs to any of the forbidden categories
-			var unsuitable = false
-			for category in categories_to_check:
-				if category in cell.dmap.categories:
-					unsuitable = true
-					break  # If any category matches, mark the position as unsuitable
-
-			# If the position is unsuitable, continue to the next attempt
-			if unsuitable:
-				continue
-
-		# Calculate the minimum distance from this position to any already placed area
-		var min_distance = INF  # Start with a very high number
+		# Check if this position is suitable
+		var is_unsuitable = false
 		for placed_pos in placed_positions:
-			# Calculate distance to the already placed position
+			if position.distance_to(placed_pos) < 15:
+				is_unsuitable = true
+				break
+
+		# Skip unsuitable positions
+		if is_unsuitable:
+			continue
+
+		# Calculate the distance to nearest placed position
+		var min_distance = INF
+		for placed_pos in placed_positions:
 			var dist = position.distance_to(placed_pos)
-			# Keep track of the shortest distance to any other area
 			if dist < min_distance:
 				min_distance = dist
 
-		# If this position has a larger minimum distance than previous ones, it's a better candidate
+		# Update best position if this position is farther from others
 		if min_distance > best_distance:
 			best_position = position
 			best_distance = min_distance
 
-	# Return the position with the largest minimum distance (i.e., most "spacious" position)
 	return best_position
+
 
 
 # Function to get region type based on noise value, rounded to the nearest 0.2
@@ -435,3 +450,185 @@ func get_region_type(x: int, y: int) -> int:
 		return Helper.overmap_manager.Region.PLAINS
 	else:
 		return Helper.overmap_manager.Region.FOREST
+
+
+# Main function to connect cities by hub paths, calling separate functions for close city pairs and hub connections
+func connect_cities_by_hub_path(city_positions: Array) -> void:
+	var city_pairs: Array = get_city_pairs(city_positions)
+	var all_road_positions: Array = []
+
+	# Step 1: Handle hub connections for distant city pairs
+	connect_distant_city_pairs_with_hubs(city_pairs, city_positions, all_road_positions)
+
+	# Step 2: Finalize all road connections
+	update_all_road_connections(all_road_positions)
+
+
+# New function to connect city pairs directly if their distance is less than 40
+func connect_close_city_pairs(city_pairs: Array, all_road_positions: Array) -> void:
+	var connected_pairs: Dictionary = {}
+	for pair in city_pairs:
+		var city_a = pair["cities"][0]
+		var city_b = pair["cities"][1]
+		var distance = pair["distance"]
+
+
+		# Avoid duplicate paths by using sorted key pairs
+		var pair_key = [city_a, city_b]
+		pair_key.sort()
+		if connected_pairs.has(pair_key):
+			continue
+		connected_pairs[pair_key] = true
+		
+		# Connect directly if cities are close
+		if distance < 40:
+			var direct_path = generate_winding_path(local_to_global(city_a), local_to_global(city_b))
+			update_path_on_grid(direct_path)
+			all_road_positions.append_array(direct_path)
+
+
+# Updated function to connect hubs to cities within 40 units and track connection counts for all cities
+func connect_distant_city_pairs_with_hubs(city_pairs: Array, city_positions: Array, all_road_positions: Array) -> void:
+	var city_hub_connections: Dictionary = {}
+	var connected_hubs: Dictionary = {}
+	var connection_counts: Dictionary = {}  # Dictionary to track connection counts per city
+
+	# Initialize connection count for each city to 0
+	for city_pos in city_positions:
+		connection_counts[city_pos] = 0
+
+	# Generate hubs based on city distances
+	var hubs: Array = get_city_hubs(city_positions, city_pairs)
+
+	# Loop through each hub to connect it to nearby cities
+	for hub in hubs:
+		for city_pos in city_positions:
+			var distance = hub.distance_to(city_pos)
+			
+			# Only connect cities within 40 units
+			if distance <= 40:
+				# Generate a unique key to prevent duplicate connections
+				var hub_city_key = [hub, city_pos]
+				hub_city_key.sort()
+				if connected_hubs.has(hub_city_key):
+					continue  # Skip if this hub-city pair is already connected
+
+				# Mark the hub-city pair as connected to prevent duplicates
+				connected_hubs[hub_city_key] = true
+
+				# Generate and store the path from hub to city
+				var path_to_city = generate_winding_path(local_to_global(hub), local_to_global(city_pos))
+				update_path_on_grid(path_to_city)
+				all_road_positions.append_array(path_to_city)
+
+				# Register the hub connection for this city
+				city_hub_connections[city_pos] = hub
+
+				# Increment the connection count for this city
+				connection_counts[city_pos] += 1
+
+	# Connect cities with zero connections
+	connect_zero_connection_cities(city_positions, connection_counts, all_road_positions)
+
+	# Print the connection count for each city
+	for city in connection_counts.keys():
+		print("City at position ", city, " has ", connection_counts[city], " connections.")
+
+
+# New function to connect cities with zero connections to nearby cities within 40 units
+func connect_zero_connection_cities(city_positions: Array, connection_counts: Dictionary, all_road_positions: Array) -> void:
+	for city_pos in city_positions:
+		if connection_counts[city_pos] == 0:
+			for other_city in city_positions:
+				# Skip if checking the same city or if already connected
+				if other_city == city_pos:# or connection_counts[other_city] > 0:
+					continue
+				var distance = city_pos.distance_to(other_city)
+				if distance <= 40:
+					# Generate and store the path between the two cities
+					var path_between_cities = generate_winding_path(local_to_global(city_pos), local_to_global(other_city))
+					update_path_on_grid(path_between_cities)
+					all_road_positions.append_array(path_between_cities)
+
+					# Update connection counts for both cities
+					connection_counts[city_pos] += 1
+					connection_counts[other_city] += 1
+
+
+
+# Custom sorting function to compare by distance (descending order)
+func compare_distances_desc(a: Dictionary, b: Dictionary) -> bool:
+	return a["distance"] < b["distance"]
+
+
+# New function to create and sort city pairs by distance
+func get_city_pairs(city_positions: Array) -> Array:
+	var city_pairs = []
+	for i in range(city_positions.size()):
+		for j in range(i + 1, city_positions.size()):
+			var dist = city_positions[i].distance_to(city_positions[j])
+			city_pairs.append({"cities": [city_positions[i], city_positions[j]], "distance": dist})
+
+	# Sort pairs by distance in descending order using custom comparison function
+	city_pairs.sort_custom(compare_distances_desc)
+	return city_pairs
+
+
+# Modified function to identify intermediate hubs based on city distances and ensure minimum distance from cities
+func get_city_hubs(city_positions: Array, city_pairs: Array) -> Array:
+	var hubs = []
+	var max_hubs = min(city_positions.size() / 2, 5)  # Set a limit on the number of hubs
+
+	# Generate hubs at midpoints of the farthest city pairs
+	for pair in city_pairs:
+		if hubs.size() >= max_hubs:
+			break  # Stop if we've reached the maximum number of hubs
+		var city_a = pair["cities"][0]
+		var city_b = pair["cities"][1]
+		var distance = pair["distance"]
+
+		# Only create a hub if the distance is greater than 40
+		if distance <= 40:
+			continue
+
+		# Calculate a midpoint with slight random adjustment to make it feel more organic
+		var midpoint = (city_a + city_b) / 2
+		midpoint += Vector2(randf_range(-2, 2), randf_range(-2, 2))  # Random offset
+
+		# Round midpoint to convert it to a Vector2i
+		var midpoint_int = Vector2i(int(midpoint.x), int(midpoint.y))
+
+		# Ensure the midpoint is at least 10 units away from each city
+		var is_far_enough = true
+		for city in city_positions:
+			if midpoint_int.distance_to(city) < 20:
+				is_far_enough = false
+				break
+
+		# Only add the midpoint if it’s far enough from all cities and other hubs
+		if is_far_enough:
+			# Check that the midpoint is also not too close to other hubs
+			var is_far_from_others = true
+			for existing_hub in hubs:
+				if midpoint_int.distance_to(existing_hub) < 20:
+					is_far_from_others = false
+					break
+			
+			if is_far_from_others:
+				hubs.append(midpoint_int)
+
+	return hubs
+
+
+
+
+# Find the nearest hub for a given city
+func get_nearest_hub(city_pos: Vector2, hubs: Array) -> Vector2i:
+	var min_distance = INF
+	var nearest_hub: Vector2
+	for hub in hubs:
+		var distance = city_pos.distance_to(hub)
+		if distance < min_distance:
+			min_distance = distance
+			nearest_hub = hub
+	return nearest_hub

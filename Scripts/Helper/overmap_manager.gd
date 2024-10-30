@@ -34,8 +34,6 @@ var level_generator: Node = null
 @export var load_radius : int = 8 # Number of chunks to load around the player. Basically sight radius on world map.
 
 var loaded_grids: Dictionary = {} # Stores grids loaded in memory
-# Dictionary to store lists of area positions sorted by dovermaparea.id
-var area_positions: Dictionary = {}
 var max_grids: int = 9
 var grid_load_distance: int = 25 * cell_size  # Load when 25 cells away from the border
 var grid_unload_distance: int = 50 * cell_size  # Unload when 50 cells away from the border
