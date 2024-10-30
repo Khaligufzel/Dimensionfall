@@ -462,7 +462,7 @@
 			"spawn_chance": 100,
 			"tiles": [
 				{
-					"count": 50,
+					"count": 45,
 					"id": "null"
 				}
 			]
@@ -16814,7 +16814,7 @@
 				"rotation": 90
 			},
 			{
-				"id": "dirt_light_01"
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -16866,7 +16866,7 @@
 				"rotation": 270
 			},
 			{
-				"id": "dirt_light_01"
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -17047,7 +17047,7 @@
 				"id": "blue_carpet_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -17099,8 +17099,7 @@
 				"id": "road_asphalt_basic"
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -17159,7 +17158,7 @@
 				"rotation": 90
 			},
 			{
-				"id": "dirt_light_00"
+				"id": "concrete_00"
 			},
 			{
 				"id": "rock_slope_00"
@@ -17177,7 +17176,7 @@
 				"id": "rock_slope_00"
 			},
 			{
-				"id": "dirt_light_01"
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -17350,7 +17349,7 @@
 				"id": "blue_carpet_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"id": "concrete_00"
 			},
 			{
 				"id": "rock_slope_00"
@@ -17368,8 +17367,7 @@
 				"id": "rock_slope_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -17428,8 +17426,7 @@
 				"rotation": 90
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
 
@@ -17451,7 +17448,7 @@
 					"id": "window_glass",
 					"itemgroups": []
 				},
-				"id": "dirt_light_00"
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -17548,7 +17545,7 @@
 					"id": "window_glass",
 					"itemgroups": []
 				},
-				"id": "dirt_light_00"
+				"id": "concrete_00"
 			},
 			{
 
@@ -17566,8 +17563,7 @@
 
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -17626,7 +17622,7 @@
 				"rotation": 90
 			},
 			{
-				"id": "dirt_light_01"
+				"id": "concrete_00"
 			},
 			{
 
@@ -17644,7 +17640,7 @@
 
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
 				"id": "wood_stairs"
@@ -17783,7 +17779,7 @@
 				"id": "wood_stairs"
 			},
 			{
-				"id": "dirt_light_00"
+				"id": "concrete_00"
 			},
 			{
 
@@ -17801,8 +17797,7 @@
 
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -17861,7 +17856,7 @@
 				"rotation": 90
 			},
 			{
-				"id": "dirt_light_00"
+				"id": "concrete_00"
 			},
 			{
 
@@ -17879,7 +17874,7 @@
 
 			},
 			{
-				"id": "dirt_light_01"
+				"id": "concrete_00"
 			},
 			{
 
@@ -17988,7 +17983,7 @@
 
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
 
@@ -18006,8 +18001,7 @@
 
 			},
 			{
-				"id": "dirt_light_01",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -18066,30 +18060,25 @@
 				"rotation": 90
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 180
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"id": "concrete_00"
 			},
 			{
 
@@ -18218,28 +18207,25 @@
 
 			},
 			{
-				"id": "dirt_light_02"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_02",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 270
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00"
+				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_01"
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -81039,5 +81025,12 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Skyscraper",
+	"references": {
+		"core": {
+			"overmapareas": [
+				"city"
+			]
+		}
+	},
 	"weight": 1000
 }
