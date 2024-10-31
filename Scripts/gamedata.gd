@@ -80,7 +80,7 @@ func _ready():
 	quests = DQuests.new()
 	overmapareas = DOvermapareas.new()
 
-	# Now populate the gamedata_map with the instantiated objects
+	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
 		ContentType.TACTICALMAPS: tacticalmaps,	
 		ContentType.MAPS: maps,	

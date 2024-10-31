@@ -128,7 +128,7 @@ func changed(olddata: DMob):
 	var old_loot_group: String = olddata.loot_group
 
 	# Exit if old_group and new_group are the same
-	if not old_loot_group == loot_group:
+	if old_loot_group and not old_loot_group == loot_group:
 		# This mob will be removed from the old itemgroup's references
 		Gamedata.itemgroups.remove_reference(old_loot_group, "core", "mobs", id)
 		

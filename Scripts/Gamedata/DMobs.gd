@@ -22,7 +22,8 @@ func load_mobs_from_disk() -> void:
 	var moblist: Array = Helper.json_helper.load_json_array_file(dataPath)
 	for mymob in moblist:
 		var mob: DMob = DMob.new(mymob)
-		mob.sprite = sprites[mob.spriteid]
+		if mob.spriteid:
+			mob.sprite = sprites[mob.spriteid]
 		mobdict[mob.id] = mob
 
 
