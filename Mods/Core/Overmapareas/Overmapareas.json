@@ -72,7 +72,7 @@
 				"maps": [
 					{
 						"id": "abandoned_building",
-						"weight": 50
+						"weight": 30
 					},
 					{
 						"id": "store_electronic_clothing",
@@ -97,6 +97,10 @@
 					{
 						"id": "city_square",
 						"weight": 5
+					},
+					{
+						"id": "office_building_00",
+						"weight": 50
 					}
 				],
 				"spawn_probability": {

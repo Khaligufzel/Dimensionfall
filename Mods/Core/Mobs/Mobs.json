@@ -22,7 +22,8 @@
 					"RockyHill_SE",
 					"RockyHill_SW",
 					"generichouse_end",
-					"subway_station"
+					"subway_station",
+					"office_building_00"
 				],
 				"quests": [
 					"starter_tutorial_00"
@@ -73,7 +74,8 @@
 					"generichouse_t",
 					"store_electronic_clothing",
 					"generichouse_end",
-					"subway_station"
+					"subway_station",
+					"office_building_00"
 				]
 			}
 		},

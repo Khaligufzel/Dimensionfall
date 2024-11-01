@@ -60,7 +60,8 @@
 					"countertop_wood"
 				],
 				"maps": [
-					"store_groceries"
+					"store_groceries",
+					"office_building_00"
 				],
 				"mobs": [
 					"scrapwalker"
@@ -204,7 +205,8 @@
 				],
 				"maps": [
 					"store_groceries",
-					"generichouse_end"
+					"generichouse_end",
+					"office_building_00"
 				]
 			}
 		},
@@ -785,7 +787,8 @@
 				"maps": [
 					"store_groceries",
 					"subway_station",
-					"city_square"
+					"city_square",
+					"office_building_00"
 				]
 			}
 		},
@@ -1307,7 +1310,8 @@
 				"maps": [
 					"subway_station",
 					"parking_garage",
-					"city_square"
+					"city_square",
+					"office_building_00"
 				]
 			}
 		},
