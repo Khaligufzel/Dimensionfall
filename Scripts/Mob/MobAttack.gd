@@ -11,6 +11,11 @@ var targeted_player
 var is_in_attack_mode = false
 
 func _ready():
+	name = "MobAttack"
+	# Create and configure AttackCooldown Timer
+	var attack_cooldown = Timer.new()
+	attack_timer = attack_cooldown
+	add_child.call_deferred(attack_cooldown)
 	attack_timer.timeout.connect(_on_attack_cooldown_timeout)
 
 
@@ -36,7 +41,6 @@ func Physics_Update(_delta: float):
 	# TO-DO Change playerCol to group of players
 	var query = PhysicsRayQueryParameters3D.create(mob.global_position, targeted_player.global_position, int(pow(2, 1-1) + pow(2, 3-1)), [self])
 	var result = space_state.intersect_ray(query)
-	
 
 	if result:
 
@@ -59,17 +63,6 @@ func try_to_attack():
 
 func attack():
 	print("Attacking!")
-#	print(Vector2(targeted_player.position))
-#	print(Vector2(targeted_player.global_position))
-#	print(Vector2(to_local(targeted_player.position)))
-#	print(Vector2(to_local(targeted_player.global_position)))
-#	print(Vector2(targeted_player.position - get_node(mob).global_position))
-
-	#3d
-#	tween = create_tween()
-#	tween.tween_property(get_node(mob_sprite), "position", targeted_player.position - get_node(mob).global_position, 0.1 )
-#	tween.tween_property(get_node(mob_sprite), "position", Vector2(0,0), 0.1 )
-	
 	var targetattribute: Dictionary = mob.dmob.targetattributes.pick_random()
 	var attributeid: String = targetattribute.id
 	if targeted_player and targeted_player.has_method("_get_hit"):

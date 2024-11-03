@@ -8,6 +8,7 @@ var mobJSON: Dictionary # The json that defines this mob
 var dmob: DMob # The data that defines this mob in general
 var meshInstance: MeshInstance3D # This mob's mesh instance
 var nav_agent: NavigationAgent3D # Used for pathfinding
+var collision_shape_3d = CollisionShape3D
 var last_position: Vector3 = Vector3()
 var last_rotation: int
 var last_chunk: Vector2
@@ -30,10 +31,6 @@ var original_material: StandardMaterial3D # To return to normal after blinking
 
 # State machine variables:
 var state_machine: StateMachine
-var mob_idle: MobIdle
-var mob_follow: MobFollow
-var mob_attack: MobAttack
-var mob_terminate: MobTerminate
 var terminated: bool = false
 
 
@@ -48,10 +45,6 @@ func _init(mobpos: Vector3, newMobJSON: Dictionary):
 	setup_collision_layers_and_masks()
 	create_navigation_agent()
 	create_state_machine()
-	create_mob_idle()
-	create_mob_follow()
-	create_mob_attack()
-	create_mob_terminate()
 	create_detection()
 	create_collision_shape()
 	create_mesh_instance()
@@ -90,63 +83,14 @@ func create_navigation_agent():
 # Create and configure StateMachine
 func create_state_machine():
 	state_machine = StateMachine.new()
+	state_machine.mob = self
 	add_child.call_deferred(state_machine)
-
-# Create and configure MobIdle
-func create_mob_idle():
-	mob_idle = MobIdle.new()
-	mob_idle.name = "MobIdle"
-	mob_idle.nav_agent = nav_agent
-	mob_idle.mob = self
-	state_machine.initial_state = mob_idle
-	state_machine.add_child.call_deferred(mob_idle)
-
-	# Create and configure MovingCooldown Timer
-	var moving_cooldown = Timer.new()
-	moving_cooldown.wait_time = 4
-	mob_idle.moving_timer = moving_cooldown
-	mob_idle.add_child.call_deferred(moving_cooldown)
-
-# Create and configure MobFollow
-func create_mob_follow():
-	mob_follow = MobFollow.new()
-	mob_follow.name = "MobFollow"
-	mob_follow.nav_agent = nav_agent
-	mob_follow.mob = self
-	state_machine.add_child.call_deferred(mob_follow)
-
-	# Create and configure Follow Timer
-	var follow_timer = Timer.new()
-	follow_timer.wait_time = 0.2
-	follow_timer.autostart = true
-	mob_follow.pathfinding_timer = follow_timer
-	mob_follow.add_child.call_deferred(follow_timer)
-
-
-# Create and configure MobAttack
-func create_mob_attack():
-	mob_attack = MobAttack.new()
-	mob_attack.name = "MobAttack"
-	state_machine.add_child.call_deferred(mob_attack)
-	
-	# Create and configure AttackCooldown Timer
-	var attack_cooldown = Timer.new()
-	mob_attack.attack_timer = attack_cooldown
-	mob_attack.mob = self
-	mob_attack.add_child.call_deferred(attack_cooldown)
-
-
-# Create and configure MobTerminate
-func create_mob_terminate():
-	mob_terminate = MobTerminate.new()
-	mob_terminate.name = "MobTerminate"
-	state_machine.add_child.call_deferred(mob_terminate)
 
 
 # Create and configure Detection
 func create_detection():
 	var detection = Detection.new()
-	detection.state_nodes = [mob_attack, mob_idle, mob_follow, mob_terminate]
+	detection.state_machine = state_machine
 	detection.mob = self
 	add_child.call_deferred(detection)
 
@@ -155,10 +99,10 @@ func create_detection():
 func create_collision_shape():
 	var new_shape = BoxShape3D.new()
 	new_shape.size = Vector3(0.35, 0.35, 0.35)
-	var collision_shape_3d = CollisionShape3D.new()
+	collision_shape_3d = CollisionShape3D.new()
 	collision_shape_3d.shape = new_shape
-	mob_follow.mobCol = collision_shape_3d
 	add_child.call_deferred(collision_shape_3d)
+
 
 # Create and configure MeshInstance3D
 func create_mesh_instance():

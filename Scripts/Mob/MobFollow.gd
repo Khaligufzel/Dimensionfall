@@ -13,7 +13,15 @@ var targeted_player
 @onready var target_location = mob.position
 
 func _ready():
-	#nav_agent.set_navigation_map(Helper.navigationmap)
+	name = "MobFollow"
+	mobCol = mob.collision_shape_3d
+	nav_agent = mob.nav_agent
+	# Create and configure Follow Timer
+	var follow_timer = Timer.new()
+	follow_timer.wait_time = 0.2
+	follow_timer.autostart = true
+	pathfinding_timer = follow_timer
+	add_child.call_deferred(follow_timer)
 	pathfinding_timer.timeout.connect(_on_timer_timeout)
 
 func Enter():

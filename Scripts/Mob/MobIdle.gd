@@ -15,13 +15,20 @@ var is_looking_to_move = false
 var rng = RandomNumberGenerator.new()
 
 func _ready():
+	name = "MobIdle"
+	nav_agent = mob.nav_agent
+	# Create and configure MovingCooldown Timer
+	var moving_cooldown = Timer.new()
+	moving_cooldown.wait_time = 4
+	moving_timer = moving_cooldown
+	add_child(moving_cooldown)
 	moving_timer.timeout.connect(_on_moving_cooldown_timeout)
+	moving_timer.start()
 
 
 func Enter():
 	print("Mob idle")
 	idle_speed = mob.idle_move_speed
-	moving_timer.start()
 
 
 func Exit():
