@@ -5,9 +5,7 @@ var attack_timer: Timer
 var mob: CharacterBody3D # The mob that we execute the attack for
 
 var tween: Tween
-
 var targeted_player
-
 var is_in_attack_mode = false
 
 func _ready():
@@ -67,8 +65,8 @@ func attack():
 	var attributeid: String = targetattribute.id
 	if targeted_player and targeted_player.has_method("_get_hit"):
 		targeted_player._get_hit(attributeid, mob.melee_damage)
-	
-	
+
+
 func stop_attacking():
 	print("I stopped attacking")
 	attack_timer.stop()

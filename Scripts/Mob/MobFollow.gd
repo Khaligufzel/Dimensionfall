@@ -12,6 +12,8 @@ var targeted_player
 
 @onready var target_location = mob.position
 
+# Initializes the MobFollow state by setting up references to mob components
+# (collision shape, navigation agent) and configuring the pathfinding timer.
 func _ready():
 	name = "MobFollow"
 	mobCol = mob.collision_shape_3d
@@ -24,14 +26,25 @@ func _ready():
 	add_child.call_deferred(follow_timer)
 	pathfinding_timer.timeout.connect(_on_timer_timeout)
 
+
+# Called when the mob enters the follow state. Starts the pathfinding timer 
+# and initiates path creation towards the target location.
 func Enter():
 	print("Following the player")
 	pathfinding_timer.start()
 	makepath()
 
+
+# Called when the mob exits the follow state, stopping the pathfinding timer.
 func Exit():
 	pathfinding_timer.stop()
 
+
+
+# Updates physics calculations each frame, moving the mob along the navigation path
+# and adjusting its orientation to face the targeted player if one is detected.
+# Performs raycasting to check for direct line-of-sight and proximity to the player,
+# transitioning to an attack state if within melee range.
 func Physics_Update(_delta: float):
 	if mob.terminated:
 		Transistioned.emit(self, "mobterminate") 
@@ -67,14 +80,18 @@ func Physics_Update(_delta: float):
 	if Vector3(mob.global_position).distance_to(target_location) <= 0.5:
 		Transistioned.emit(self, "mobidle") 
 
-	
+
+# Sets the target position for the navigation agent based on target location.
 func makepath() -> void:
 	nav_agent.target_position = target_location
-#	print("From follow: ", target_location)
-	
+
+
+# Triggered by the pathfinding timer to regularly update the navigation path.
 func _on_timer_timeout():
 	makepath()
 
+
+# Called when the mob detects a player; updates the target location and targeted player.
 func _on_detection_player_spotted(player):
 	target_location = player.position
 	targeted_player = player
