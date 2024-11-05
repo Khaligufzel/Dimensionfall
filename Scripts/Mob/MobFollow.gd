@@ -7,8 +7,11 @@ var nav_agent: NavigationAgent3D # Used for pathfinding
 var mob: CharacterBody3D # The mob that we are enabling the follow behaviour for
 var mobCol: CollisionShape3D # The collision shape of the mob
 var pathfinding_timer: Timer
-
 var targeted_player
+# Variables for dash state and timer
+var dash_timer: Timer = Timer.new()           # Timer for cooldown after a dash
+var is_dashing: bool = false                  # Flag to check if currently dashing
+
 
 @onready var target_location = mob.position
 
@@ -25,6 +28,11 @@ func _ready():
 	pathfinding_timer = follow_timer
 	add_child.call_deferred(follow_timer)
 	pathfinding_timer.timeout.connect(_on_timer_timeout)
+	
+	# Set up the dash cooldown timer
+	dash_timer.one_shot = true
+	add_child.call_deferred(dash_timer)
+	dash_timer.timeout.connect(_on_dash_cooldown_timeout)
 
 
 # Called when the mob enters the follow state. Starts the pathfinding timer 
@@ -65,7 +73,10 @@ func move_toward_target():
 		return
 	
 	var dir = mob.to_local(next_pos).normalized()
-	mob.velocity = dir * mob.current_move_speed
+	
+	# Apply dash speed if dash is active
+	var move_speed = mob.current_move_speed * mob.dash["speed_multiplier"] if is_dashing else mob.current_move_speed
+	mob.velocity = dir * move_speed
 	mob.move_and_slide()
 
 
@@ -117,3 +128,22 @@ func _on_timer_timeout():
 func _on_detection_player_spotted(player):
 	target_location = player.position
 	targeted_player = player
+
+
+# Activates the dash move if the dash condition is met and starts the cooldown timer
+func attempt_dash():
+	# mob.dash may be something like: {"speed_multiplier":2,"cooldown":5,"duration":0.5}.
+	if not mob.dash.is_empty and !dash_timer.is_stopped():  # Check if dash is defined and not on cooldown
+		print("Dash move activated!")
+		is_dashing = true
+		# Start a timer to end the dash after mob.dash["duration"]
+		await get_tree().create_timer(mob.dash["duration"]).timeout
+		is_dashing = false
+		# Start cooldown timer for dash move with mob.dash["cooldown"]
+		dash_timer.wait_time = mob.dash["cooldown"]
+		dash_timer.start()
+
+
+# Called when the dash cooldown timer completes, allowing another dash to be triggered
+func _on_dash_cooldown_timeout():
+	print("Dash cooldown complete, ready to dash again.")

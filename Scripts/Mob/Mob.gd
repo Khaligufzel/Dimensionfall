@@ -25,6 +25,7 @@ var current_idle_move_speed: float
 var sight_range: float = 200.0
 var sense_range: float = 50.0
 var hearing_range: float = 1000.0
+var dash: Dictionary = {} # to enable dash move. something like {"speed_multiplier":2,"cooldown":5,"duration":0.5}
 
 var is_blinking: bool = false # flag to prevent multiple blink actions
 var original_material: StandardMaterial3D # To return to normal after blinking
@@ -253,6 +254,8 @@ func apply_stats_from_dmob() -> void:
 	sight_range = dmob.sight_range
 	sense_range = dmob.sense_range
 	hearing_range = dmob.hearing_range
+	dash = dmob.special_moves.get("dash",{})
+
 
 # Returns which chunk the mob is in right now. for example 0,0 or 0,32 or 96,32
 func get_chunk_from_position(chunkposition: Vector3) -> Vector2:

@@ -33,6 +33,9 @@ extends RefCounted
 # 	},
 # 	"sense_range": 50,
 # 	"sight_range": 200,
+# 	"special_moves": {
+# 		"dash": {"speed_multiplier":2,"cooldown":5,"duration":0.5}
+# 	},
 # 	"spriteid": "scrapwalker64.png"
 # }
 
@@ -49,6 +52,7 @@ var melee_range: float
 var move_speed: float
 var sense_range: int
 var sight_range: int
+var special_moves: Dictionary = {} # Holds special moves like {"dash":{"speed_multiplier":2,"cooldown":5,"duration":0.5}}
 var spriteid: String
 var sprite: Texture
 var targetattributes: Array
@@ -68,6 +72,8 @@ func _init(data: Dictionary):
 	move_speed = data.get("move_speed", 1.0)
 	sense_range = data.get("sense_range", 50)
 	sight_range = data.get("sight_range", 200)
+	# Initialize special moves from data, retrieving dash from special_moves
+	special_moves = data.get("special_moves", {})
 	spriteid = data.get("sprite", "")
 	
 	targetattributes = []
@@ -90,7 +96,8 @@ func get_data() -> Dictionary:
 		"move_speed": move_speed,
 		"sense_range": sense_range,
 		"sight_range": sight_range,
-		"sprite": spriteid
+		"sprite": spriteid,
+		"special_moves": special_moves  # Include the special_moves dictionary
 	}
 	if not targetattributes.is_empty():
 		data["targetattributes"] = targetattributes
