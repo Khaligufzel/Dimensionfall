@@ -116,6 +116,13 @@
 		"name": "Scavenger Skitter",
 		"sense_range": 70,
 		"sight_range": 250,
+		"special_moves": {
+			"dash": {
+				"cooldown": 5,
+				"duration": 0.5,
+				"speed_multiplier": 2
+			}
+		},
 		"sprite": "scavenger_skitter_48.png",
 		"targetattributes": [
 			{

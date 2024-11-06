@@ -96,9 +96,10 @@ func get_data() -> Dictionary:
 		"move_speed": move_speed,
 		"sense_range": sense_range,
 		"sight_range": sight_range,
-		"sprite": spriteid,
-		"special_moves": special_moves  # Include the special_moves dictionary
+		"sprite": spriteid
 	}
+	if not special_moves.is_empty():
+		data["special_moves"] = special_moves
 	if not targetattributes.is_empty():
 		data["targetattributes"] = targetattributes
 	if not references.is_empty():

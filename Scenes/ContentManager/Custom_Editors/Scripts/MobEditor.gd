@@ -76,12 +76,12 @@ func load_mob_data() -> void:
 
 	# Load dash data if available in special_moves
 	var dash_data = dmob.special_moves.get("dash", {})
-	dash_check_box.botton_pressed = not dash_data.empty()
+	dash_check_box.set_pressed(not dash_data.is_empty())
 	dash_speed_multiplier_spin_box.value = dash_data.get("speed_multiplier", 2)
 	dash_duration_spin_box.value = dash_data.get("duration", 0.5)
 	dash_cooldown_spin_box.value = dash_data.get("cooldown", 5)
 	# Enable or disable dash controls based on checkbox state
-	_on_dash_check_box_toggled(dash_check_box.botton_pressed)
+	_on_dash_check_box_toggled(dash_check_box.is_pressed())
 	
 	# Load attributes into the UI
 	_load_attributes_into_ui(dmob.targetattributes)
