@@ -20,7 +20,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_damage_numedit", "melee_range_numedit", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "attributesGridContainer")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_damage_numedit", "melee_range_numedit", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "attributesGridContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,15 +34,19 @@ PathTextLabel = NodePath("VBoxContainer/FormGrid/PathTextLabel")
 NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 mobSelector = NodePath("Sprite_selector")
-melee_damage_numedit = NodePath("VBoxContainer/FormGrid/MeleeDamageSpinBox")
-melee_range_numedit = NodePath("VBoxContainer/FormGrid/MeleeRangeSpinbox")
+melee_damage_numedit = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeDamageSpinBox")
+melee_range_numedit = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeRangeSpinbox")
 health_numedit = NodePath("VBoxContainer/FormGrid/HealthSpinBox")
-moveSpeed_numedit = NodePath("VBoxContainer/FormGrid/MoveSpeedSpinBox")
-idle_move_speed_numedit = NodePath("VBoxContainer/FormGrid/IdleMoveSpeedSpinBox")
-sightRange_numedit = NodePath("VBoxContainer/FormGrid/SightRangeSpinBox")
-senseRange_numedit = NodePath("VBoxContainer/FormGrid/SenseRangeSpinbox")
-hearingRange_numedit = NodePath("VBoxContainer/FormGrid/HearingRangeSpinbox")
-ItemGroupTextEdit = NodePath("VBoxContainer/FormGrid/HBoxContainer/LootItemGroupTextEdit")
+moveSpeed_numedit = NodePath("VBoxContainer/FormGrid/SpeedHBoxContainer/MoveSpeedSpinBox")
+idle_move_speed_numedit = NodePath("VBoxContainer/FormGrid/SpeedHBoxContainer/IdleMoveSpeedSpinBox")
+sightRange_numedit = NodePath("VBoxContainer/FormGrid/HBoxContainer2/SightRangeSpinBox")
+senseRange_numedit = NodePath("VBoxContainer/FormGrid/HBoxContainer2/SenseRangeSpinbox")
+hearingRange_numedit = NodePath("VBoxContainer/FormGrid/HBoxContainer2/HearingRangeSpinbox")
+ItemGroupTextEdit = NodePath("VBoxContainer/FormGrid/LootItemgroupHBoxContainer/LootItemGroupTextEdit")
+dash_check_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/DashCheckBox")
+dash_speed_multiplier_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/SpeedMultiplierSpinBox")
+dash_duration_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/DurationSpinBox")
+dash_cooldown_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/CooldownSpinBox")
 attributesGridContainer = NodePath("VBoxContainer/FormGrid/PanelContainer/AttributesGridContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -137,68 +141,89 @@ layout_mode = 2
 max_value = 1000.0
 value = 100.0
 
-[node name="MeleeDamageLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="MeleeLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-text = "Melee damage"
+text = "Melee"
 
-[node name="MeleeDamageSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
+[node name="MeleeHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="MeleeDamageLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
+layout_mode = 2
+text = "Damage"
+
+[node name="MeleeDamageSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
 layout_mode = 2
 value = 20.0
 
-[node name="MeleeRangeLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="MeleeRangeLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
 layout_mode = 2
-text = "Melee range"
+text = "Range"
 
-[node name="MeleeRangeSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid"]
+[node name="MeleeRangeSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
 layout_mode = 2
 tooltip_text = "The maximum distance it can reach when attacking in melee"
 step = 0.5
 value = 1.5
 
-[node name="MoveSpeedLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="SpeedLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Speed"
+
+[node name="SpeedHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="MoveSpeedLabel" type="Label" parent="VBoxContainer/FormGrid/SpeedHBoxContainer"]
 layout_mode = 2
 text = "Move speed"
 
-[node name="MoveSpeedSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
+[node name="MoveSpeedSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/SpeedHBoxContainer"]
 layout_mode = 2
 tooltip_text = "The speed at which it moves"
 step = 0.1
 value = 1.0
 
-[node name="IdleMoveSpeedLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="IdleMoveSpeedLabel" type="Label" parent="VBoxContainer/FormGrid/SpeedHBoxContainer"]
 layout_mode = 2
 text = "Idle move speed"
 
-[node name="IdleMoveSpeedSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
+[node name="IdleMoveSpeedSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/SpeedHBoxContainer"]
 layout_mode = 2
 tooltip_text = "The speed at which it moves when idle"
 step = 0.1
 value = 0.5
 
-[node name="SightRangeLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="RangeLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-text = "Sight range"
+text = "Range"
 
-[node name="SightRangeSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="SightRangeLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer2"]
+layout_mode = 2
+text = "Sight"
+
+[node name="SightRangeSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/HBoxContainer2"]
 layout_mode = 2
 tooltip_text = "The maximum distance it can visually detect other entities"
 max_value = 500.0
 value = 200.0
 
-[node name="SenseRangeLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="SenseRangeLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer2"]
 layout_mode = 2
-text = "Sense range"
+text = "Sense"
 
-[node name="SenseRangeSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid"]
+[node name="SenseRangeSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/HBoxContainer2"]
 layout_mode = 2
 tooltip_text = "The maximum distance at which it can detect entities with senses other then sight and hearing"
 value = 50.0
 
-[node name="HearingRangeLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="HearingRangeLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer2"]
 layout_mode = 2
-text = "Hearing range"
+text = "Hearing"
 
-[node name="HearingRangeSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid"]
+[node name="HearingRangeSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/HBoxContainer2"]
 layout_mode = 2
 tooltip_text = "The maximum distance at which it can detect entities trough hearing"
 max_value = 5000.0
@@ -208,10 +233,10 @@ value = 1000.0
 layout_mode = 2
 text = "Loot itemgroup"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+[node name="LootItemgroupHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
 
-[node name="LootItemGroupTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid/HBoxContainer"]
+[node name="LootItemGroupTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid/LootItemgroupHBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -223,10 +248,50 @@ mouse_filter = 1
 placeholder_text = "Drop an itemgroup here"
 editable = false
 
-[node name="ItemGroupClearButton" type="Button" parent="VBoxContainer/FormGrid/HBoxContainer"]
+[node name="ItemGroupClearButton" type="Button" parent="VBoxContainer/FormGrid/LootItemgroupHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Clears the id of the itemgroup"
 text = "Clear itemgroup"
+
+[node name="SpecialMovesLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Special moves"
+
+[node name="SpecialMovesHBoxContainer3" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="DashCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+layout_mode = 2
+tooltip_text = "Allow this mob to perform the dash move."
+text = "Dash"
+
+[node name="SpeedMultiplierLabel" type="Label" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+layout_mode = 2
+text = "Speed multiplier"
+
+[node name="SpeedMultiplierSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+layout_mode = 2
+tooltip_text = "The speed multiplier for the dash move. This will multiply the move speed for the specified duration."
+value = 2.0
+
+[node name="DurationLabel" type="Label" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+layout_mode = 2
+text = "Duration"
+
+[node name="DurationSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+layout_mode = 2
+tooltip_text = "The duration of the dash move in seconds"
+step = 0.1
+value = 0.5
+
+[node name="CooldownLabel" type="Label" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+layout_mode = 2
+text = "Cooldown"
+
+[node name="CooldownSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+layout_mode = 2
+tooltip_text = "The cooldown for the dash move in seconds."
+value = 5.0
 
 [node name="AffectedAttributesLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -251,5 +316,6 @@ visible = false
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="gui_input" from="VBoxContainer/FormGrid/MobImageDisplay" to="." method="_on_mob_image_display_gui_input"]
-[connection signal="button_up" from="VBoxContainer/FormGrid/HBoxContainer/ItemGroupClearButton" to="." method="_on_item_group_clear_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/FormGrid/LootItemgroupHBoxContainer/ItemGroupClearButton" to="." method="_on_item_group_clear_button_button_up"]
+[connection signal="toggled" from="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/DashCheckBox" to="." method="_on_dash_check_box_toggled"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]
