@@ -133,8 +133,7 @@ func _on_detection_player_spotted(player):
 # Activates the dash move if the dash condition is met and starts the cooldown timer
 func attempt_dash():
 	# mob.dash may be something like: {"speed_multiplier":2,"cooldown":5,"duration":0.5}.
-	if not mob.dash.is_empty and !dash_timer.is_stopped():  # Check if dash is defined and not on cooldown
-		print("Dash move activated!")
+	if not mob.dash.is_empty() and dash_timer.is_stopped():  # Check if dash is defined and not on cooldown
 		is_dashing = true
 		# Start a timer to end the dash after mob.dash["duration"]
 		await get_tree().create_timer(mob.dash["duration"]).timeout
@@ -146,4 +145,4 @@ func attempt_dash():
 
 # Called when the dash cooldown timer completes, allowing another dash to be triggered
 func _on_dash_cooldown_timeout():
-	print("Dash cooldown complete, ready to dash again.")
+	attempt_dash()
