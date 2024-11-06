@@ -101,7 +101,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -137,7 +138,8 @@
 				"maps": [
 					"store_groceries",
 					"parking_garage",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -186,7 +188,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -211,7 +214,8 @@
 					"abandoned_building",
 					"generichouse_end",
 					"subway_station",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -255,7 +259,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -279,7 +284,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -303,7 +309,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -352,7 +359,8 @@
 					"Generichouse",
 					"store_groceries",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -377,7 +385,8 @@
 					"store_groceries",
 					"generichouse_corner",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -402,7 +411,8 @@
 					"store_groceries",
 					"generichouse_cross",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -426,7 +436,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -450,7 +461,8 @@
 					"Generichouse_00",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -524,7 +536,8 @@
 					"Generichouse_00",
 					"store_groceries",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -549,7 +562,8 @@
 					"store_groceries",
 					"generichouse_cross",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -848,7 +862,8 @@
 					"RockyHill_SW",
 					"RockyHill_NE",
 					"RockyHill_NW",
-					"parking_garage"
+					"parking_garage",
+					"skyscraper"
 				]
 			}
 		},
@@ -931,7 +946,8 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_t",
-					"generichouse_end"
+					"generichouse_end",
+					"skyscraper"
 				]
 			}
 		},
@@ -956,7 +972,8 @@
 					"Generichouse_00",
 					"generichouse_corner",
 					"generichouse_t",
-					"generichouse_end"
+					"generichouse_end",
+					"skyscraper"
 				]
 			}
 		},
@@ -981,7 +998,8 @@
 					"Generichouse_00",
 					"generichouse_corner",
 					"generichouse_cross",
-					"generichouse_end"
+					"generichouse_end",
+					"skyscraper"
 				]
 			}
 		},
@@ -1007,7 +1025,8 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1033,7 +1052,8 @@
 					"store_groceries",
 					"Generichouse_00",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1058,7 +1078,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1084,7 +1105,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1109,7 +1131,8 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1134,7 +1157,8 @@
 					"Generichouse",
 					"store_groceries",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1159,7 +1183,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1185,7 +1210,8 @@
 					"generichouse_corner",
 					"generichouse_cross",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1210,7 +1236,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1236,7 +1263,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1262,7 +1290,8 @@
 					"Generichouse",
 					"store_groceries",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1286,7 +1315,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1310,7 +1340,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1388,7 +1419,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1429,7 +1461,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1468,7 +1501,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1512,7 +1546,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1555,7 +1590,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1597,7 +1633,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1665,7 +1702,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1702,7 +1740,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1736,7 +1775,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1772,7 +1812,8 @@
 					"urbanroad_cross",
 					"subway_station",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1982,7 +2023,8 @@
 					"forest_road_cross",
 					"subway_station",
 					"parking_garage",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2011,7 +2053,8 @@
 					"forest_road_cross",
 					"subway_station",
 					"parking_garage",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2037,7 +2080,8 @@
 					"forest_road_cross",
 					"subway_station",
 					"parking_garage",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2297,7 +2341,8 @@
 					"Generichouse_00",
 					"store_groceries",
 					"generichouse_corner",
-					"generichouse_end"
+					"generichouse_end",
+					"skyscraper"
 				]
 			}
 		},
@@ -2349,7 +2394,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2375,7 +2421,8 @@
 					"generichouse_end",
 					"subway_station",
 					"parking_garage",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2446,7 +2493,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2471,7 +2519,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2496,7 +2545,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2521,7 +2571,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2546,7 +2597,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2571,7 +2623,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2596,7 +2649,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2621,7 +2675,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2646,7 +2701,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2671,7 +2727,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2696,7 +2753,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2721,7 +2779,8 @@
 					"generichouse_corner",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2746,7 +2805,8 @@
 					"generichouse_corner",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -2772,7 +2832,8 @@
 					"generichouse_cross",
 					"generichouse_t",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},

@@ -272,7 +272,8 @@
 				"maps": [
 					"abandoned_building",
 					"subway_station",
-					"city_square"
+					"city_square",
+					"skyscraper"
 				]
 			}
 		},
@@ -1311,7 +1312,8 @@
 					"subway_station",
 					"parking_garage",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},

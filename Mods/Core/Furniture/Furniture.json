@@ -25,7 +25,8 @@
 					"abandoned_building",
 					"generichouse_end",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -59,7 +60,8 @@
 					"RockyHill_NE",
 					"generichouse_end",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -98,7 +100,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -150,7 +153,8 @@
 					"forest_road_cross",
 					"subway_station",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -198,7 +202,8 @@
 					"forest_road_cross",
 					"subway_station",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -249,7 +254,8 @@
 					"forest_road_cross",
 					"subway_station",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -285,7 +291,8 @@
 					"generichouse_t",
 					"store_groceries",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -326,7 +333,8 @@
 					"store_groceries",
 					"generichouse_end",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -437,7 +445,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -480,7 +489,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -520,7 +530,8 @@
 					"Generichouse_00",
 					"store_groceries",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -562,7 +573,8 @@
 					"Generichouse_00",
 					"store_groceries",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -635,7 +647,8 @@
 				"maps": [
 					"Generichouse",
 					"Generichouse_00",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -703,7 +716,8 @@
 					"Generichouse_00",
 					"store_electronic_clothing",
 					"store_groceries",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -733,7 +747,8 @@
 					"RockyHill_SW",
 					"store_groceries",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -770,7 +785,8 @@
 					"store_electronic_clothing",
 					"RockyHill_SW",
 					"store_groceries",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -798,7 +814,8 @@
 					"Generichouse_00",
 					"store_electronic_clothing",
 					"store_groceries",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -866,7 +883,8 @@
 				"maps": [
 					"Generichouse",
 					"Generichouse_00",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -903,7 +921,8 @@
 					"store_electronic_clothing",
 					"store_groceries",
 					"generichouse_t",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -935,7 +954,8 @@
 			"core": {
 				"maps": [
 					"Generichouse_00",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -968,7 +988,8 @@
 				"maps": [
 					"store_electronic_clothing",
 					"store_groceries",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1031,7 +1052,8 @@
 			"core": {
 				"maps": [
 					"store_electronic_clothing",
-					"store_groceries"
+					"store_groceries",
+					"skyscraper"
 				]
 			}
 		},
@@ -1070,7 +1092,8 @@
 					"store_groceries",
 					"subway_station",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1133,7 +1156,8 @@
 				"maps": [
 					"store_electronic_clothing",
 					"store_groceries",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1170,7 +1194,8 @@
 					"store_electronic_clothing",
 					"RockyHill_SW",
 					"store_groceries",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1213,7 +1238,8 @@
 					"generichouse_end",
 					"subway_station",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1243,7 +1269,8 @@
 					"store_electronic_clothing",
 					"store_groceries",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},
@@ -1282,7 +1309,8 @@
 					"store_electronic_clothing",
 					"store_groceries",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"skyscraper"
 				]
 			}
 		},

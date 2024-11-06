@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=37 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
@@ -48,6 +48,14 @@ unicode = 99
 
 [sub_resource type="Shortcut" id="Shortcut_o4ln1"]
 events = [SubResource("InputEventKey_40cts")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_oh08t"]
+device = -1
+keycode = 87
+unicode = 119
+
+[sub_resource type="Shortcut" id="Shortcut_l87wn"]
+events = [SubResource("InputEventKey_oh08t")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_rjlhc"]
 device = -1
@@ -182,6 +190,7 @@ layout_mode = 2
 tooltip_text = "Paint in a rectangle"
 theme_override_icons/checked = ExtResource("3_eu7pp")
 theme_override_icons/unchecked = ExtResource("3_70koh")
+shortcut = SubResource("Shortcut_l87wn")
 
 [node name="Erase" type="CheckBox" parent="TabContainer/Edit Map/MapeditorContainer/Toolbar"]
 layout_mode = 2
