@@ -159,11 +159,15 @@ func instantiate_editor(type: Gamedata.ContentType, itemID: String, newEditor: P
 			print("Unknown content type:", type)
 
 
-# Function to populate the type_selector_menu_button with content list headers
+# Function to populate the type_selector_menu_button with content list headers and load their state
 func populate_type_selector_menu_button():
 	var popup_menu = type_selector_menu_button.get_popup()
 	popup_menu.clear()  # Clear any existing items
 	
+	var config = ConfigFile.new()
+	var path = "user://settings.cfg"
+	config.load(path)  # Load existing settings if available
+
 	# Define a list of headers to add to the menu button
 	var headers = [
 		"Maps", "Tactical Maps", "Items", "Terrain Tiles", "Mobs", 
@@ -174,13 +178,22 @@ func populate_type_selector_menu_button():
 	for i in headers.size():
 		var item_text = headers[i]
 		popup_menu.add_check_item(item_text, i)  # Add a checkable item
-		popup_menu.set_item_checked(i, true)     # Check each item by default
 
-	# Optional: Connect item selection signal if needed
+		# Load saved state or default to checked if not found
+		var is_checked = config.get_value("type_selector", item_text, true)
+		popup_menu.set_item_checked(i, is_checked)
+
+		# Show or hide the content list based on the state
+		if is_checked:
+			show_content_list(item_text)
+		else:
+			hide_content_list(item_text)
+
+	# Connect item selection signal to save state when changed
 	popup_menu.id_pressed.connect(_on_type_selected)
 
 
-# Function to handle item selection from the popup menu
+# Function to handle item selection from the popup menu and save the state
 func _on_type_selected(id):
 	var popup_menu = type_selector_menu_button.get_popup()
 	var item_text = popup_menu.get_item_text(id)
@@ -195,6 +208,9 @@ func _on_type_selected(id):
 	else:
 		hide_content_list(item_text)
 
+	# Save the new state to the configuration file
+	save_item_state(item_text, not is_checked)
+
 # Function to show a content list with the given header text
 func show_content_list(header_text: String):
 	for child in content.get_children():
@@ -208,3 +224,17 @@ func hide_content_list(header_text: String):
 		if child is Control and child.header == header_text:
 			child.visible = false
 			break
+
+# Function to save the state of an item to the configuration file
+func save_item_state(item_text: String, is_checked: bool):
+	var config = ConfigFile.new()
+	var path = "user://settings.cfg"
+	
+	# Load existing settings to not overwrite them
+	var err = config.load(path)
+	if err != OK and err != ERR_FILE_NOT_FOUND:
+		print("Failed to load settings:", err)
+		return
+
+	config.set_value("type_selector", item_text, is_checked)
+	config.save(path)
