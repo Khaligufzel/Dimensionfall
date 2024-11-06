@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b07i30w3ey3aa" path="res://Scenes/ContentManager/Custom_Editors/PlayerAttributeEditor.tscn" id="14_uu117"]
 [ext_resource type="PackedScene" uid="uid://b3ggaal1e2obk" path="res://Scenes/ContentManager/Custom_Editors/OvermapAreaEditor.tscn" id="15_qbq5b"]
 
-[node name="contenteditor" type="Control" node_paths=PackedStringArray("content", "tabContainer")]
+[node name="contenteditor" type="Control" node_paths=PackedStringArray("content", "tabContainer", "type_selector_menu_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,8 +38,9 @@ skillsEditor = ExtResource("12_orpls")
 questsEditor = ExtResource("13_gv2y0")
 playerattributesEditor = ExtResource("14_uu117")
 overmapareaEditor = ExtResource("15_qbq5b")
-content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content")
+content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content/ContentList")
 tabContainer = NodePath("HSplitContainer/TabContainer")
+type_selector_menu_button = NodePath("HSplitContainer/ContentLists/TabContainer2/Content/Toolbar/TypeSelectorMenuButton")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 1
@@ -74,9 +75,19 @@ size_flags_vertical = 3
 current_tab = 0
 
 [node name="Content" type="VBoxContainer" parent="HSplitContainer/ContentLists/TabContainer2"]
-custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 metadata/_tab_index = 0
+
+[node name="Toolbar" type="HBoxContainer" parent="HSplitContainer/ContentLists/TabContainer2/Content"]
+layout_mode = 2
+
+[node name="TypeSelectorMenuButton" type="MenuButton" parent="HSplitContainer/ContentLists/TabContainer2/Content/Toolbar"]
+layout_mode = 2
+text = "☰"
+
+[node name="ContentList" type="VBoxContainer" parent="HSplitContainer/ContentLists/TabContainer2/Content"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
 
 [node name="Recent" type="ItemList" parent="HSplitContainer/ContentLists/TabContainer2"]
 visible = false
