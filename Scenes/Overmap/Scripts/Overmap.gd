@@ -73,8 +73,6 @@ class GridChunk:
 		self.overmap_node = properties.overmap_node
 		self.grid_container.set("theme_override_constants/h_separation", 0)
 		self.grid_container.set("theme_override_constants/v_separation", 0)
-		# Use set_position to apply the fixed offset to the initial position
-		#set_position(chunk_position)
 		self.tile_dictionary = {}  # Initialize the dictionary
 		# Connect to the player_coord_changed signal from Helper.overmap_manager
 		Helper.overmap_manager.player_coord_changed.connect(_on_player_coord_changed)
@@ -383,6 +381,7 @@ func on_position_coord_changed():
 		find_location_on_overmap(target)
 	else:
 		$ArrowLabel.visible = false  # Hide arrow if there's no target
+
 
 # This function will be connected to the signal of the tiles
 func _on_tile_clicked(clicked_tile):

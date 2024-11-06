@@ -228,23 +228,18 @@ func _on_game_ended():
 # If the position is (12,3), cellpos will be (0,0), since anything between (0,0) and (32,32) results in (0,0)
 # If cellpos is 0,0, it will loop over the cells surrounding it, for example (-8,-8), (-8,-7) up to (8,8)
 func load_cells_around(position: Vector3):
-	var cellpos: Vector2 = get_cell_pos_from_global_pos(Vector2(position.x, position.z))
+	var center_cell: Vector2i = get_cell_pos_from_global_pos(Vector2(position.x, position.z))
 
-	for x in range(cellpos.x - load_radius, cellpos.x + load_radius + 1):
-		for y in range(cellpos.y - load_radius, cellpos.y + load_radius + 1):
-			var distance_to_cell = Vector2(x - cellpos.x, y - cellpos.y).length()
-			if distance_to_cell <= load_radius:
+	for x in range(center_cell.x - load_radius, center_cell.x + load_radius + 1):
+		for y in range(center_cell.y - load_radius, center_cell.y + load_radius + 1):
+			var distance = Vector2(x - center_cell.x, y - center_cell.y).length()
+			if distance <= load_radius:
 				var cell_key = Vector2(x, y)
 				var grid_key = get_grid_pos_from_local_pos(cell_key)
 
-				if loaded_grids.has(grid_key):
-					var grid = loaded_grids[grid_key]
-					if not grid.cells.has(cell_key):
-						grid.generate_cells()
-				else:
-					load_grid(grid_key)
-					var grid = loaded_grids[grid_key]
-					grid.generate_cells()
+				load_grid(grid_key) # Will load a grid if it does not exist
+				if loaded_grids[grid_key] and not loaded_grids[grid_key].cells.has(cell_key):
+					loaded_grids[grid_key].generate_cells()
 
 
 # Helper function to convert Region enum to string
@@ -274,7 +269,6 @@ func pick_random_map_by_weight(maps_by_category: Array[DMap]) -> String:
 	return "field_grass_basic_00.json"  # Fallback in case of an error
 
 
-
 # Function to get a map_cell by global coordinate
 # Put in a global coordinate, for example the player position (minus the y coordinate)
 # Get the map cell back. Anything between (0,0) and (32,32) returns the cell at (0,0)
@@ -297,7 +291,7 @@ func get_grid_pos_from_global_pos(coord: Vector2) -> Vector2:
 
 # Function to get a grid key from local coordinates
 # Coordinates between 0,0 and 99,99 return 0,0.
-# Coordinates between 100,0 and 99,99 return 1,0.
+# Coordinates between 100,0 and 199,99 return 1,0.
 # Coordinates between -100,-100 and -1,-1 return -1,-1.
 func get_grid_pos_from_local_pos(local_coord: Vector2) -> Vector2:
 	var grid_x = floor(local_coord.x / grid_width)
@@ -343,9 +337,8 @@ func load_grid(grid_pos: Vector2):
 	if not loaded_grids.has(grid_pos):
 		var grid = OvermapGrid.new()
 		grid.pos = grid_pos
-		# Assume load_grid_data is a function that loads grid data from storage
 		loaded_grids[grid_pos] = grid
-		load_grid_from_file(grid_pos)
+		load_grid_from_file(grid_pos) # Loads grid data from storage if available
 
 
 # Unload the furthest grid from the player
@@ -477,23 +470,14 @@ func update_player_position_and_manage_segments(force_update: bool = false):
 # If the chunk data is not empty, it is erased from loaded_chunk_data.chunks and added to a dictionary.
 # The function returns the dictionary of non-empty chunk data.
 func process_and_clear_segment(segment_pos: Vector2) -> Dictionary:
-	var non_empty_chunk_data = {}  # Dictionary to store non-empty chunk data with chunk_pos as keys
-	
+	var non_empty_data: Dictionary = {} # Dictionary to store non-empty chunk data with chunk_pos as keys
 	for x_offset in range(4):
 		for y_offset in range(4):
-			var chunk_pos = segment_pos + Vector2(x_offset, y_offset)
-			if loaded_chunk_data.chunks.has(chunk_pos):
-				var chunk_data = loaded_chunk_data.chunks[chunk_pos]
-				if not chunk_data.is_empty():
-					non_empty_chunk_data[chunk_pos] = chunk_data
-					loaded_chunk_data.chunks.erase(chunk_pos)
-					print("Chunk data at ", chunk_pos, " was not empty and has been erased.")
-				else:
-					print("Chunk data at ", chunk_pos, " is empty.")
-			else:
-				print("Chunk data at ", chunk_pos, " does not exist.")
-	
-	return non_empty_chunk_data
+			var chunk_key: Vector2i = segment_pos + Vector2(x_offset, y_offset)
+			if loaded_chunk_data.chunks.has(chunk_key) and not loaded_chunk_data.chunks[chunk_key].is_empty():
+				non_empty_data[chunk_key] = loaded_chunk_data.chunks[chunk_key]
+				loaded_chunk_data.chunks.erase(chunk_key)
+	return non_empty_data
 
 
 # Function to unload all remaining segments from loaded_chunk_data.chunks without saving
@@ -625,3 +609,34 @@ func create_new_grid_with_default_values() -> OvermapGrid:
 
 	# Step 4: Return the fully generated grid
 	return new_grid
+
+
+
+# Function to get a grid from it's meta position
+# Coordinates 0,0 returns the OvermapGrid at 0,0.
+# Coordinates 1,0 returns the OvermapGrid at 1,0.
+# Coordinates -1,-1 returns the OvermapGrid at -1,-1.
+func get_grid_from_meta_pos(meta_coord: Vector2) -> OvermapGrid:
+	if loaded_grids.has(meta_coord):
+		return loaded_grids[meta_coord]
+	return null
+
+
+# Function to get a grid from local coordinates
+# Coordinates between 0,0 and 99,99 return the OvermapGrid at 0,0.
+# Coordinates between 100,0 and 199,99 return the OvermapGrid at 1,0.
+# Coordinates between -100,-100 and -1,-1 return the OvermapGrid at -1,-1.
+func get_grid_from_local_pos(local_coord: Vector2) -> OvermapGrid:
+	var grid_pos: Vector2 = get_grid_pos_from_local_pos(local_coord)
+	if loaded_grids.has(grid_pos):
+		return loaded_grids[grid_pos]
+	return null
+
+
+# Function to get a map_cell from local coordinates
+# Coordinates between 0,0 and 99,99 return the cell at that position from the OvermapGrid at 0,0.
+# Coordinates between 100,0 and 199,99 return the cell at that position from the OvermapGrid at 1,0.
+# Coordinates between -100,-100 and -1,-1 return the cell at that position from the OvermapGrid at -1,-1.
+func get_grid_cell_from_local_pos(local_coord: Vector2) -> map_cell:
+	var grid: OvermapGrid = get_grid_from_local_pos(local_coord)
+	return grid.get_cell_from_global_pos(local_coord)
