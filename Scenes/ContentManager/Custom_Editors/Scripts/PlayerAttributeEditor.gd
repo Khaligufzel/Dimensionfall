@@ -26,6 +26,9 @@ extends Control
 @export var fixed_amount_spin_box: SpinBox = null
 # Shows controls for default properties and is the first child of mode_tab_container
 @export var default_grid: GridContainer = null
+@export var hide_when_empty_check_box: CheckBox = null
+@export var depleting_effect_option_button: OptionButton = null
+@export var drain_attribute_grid_container: GridContainer = null
 
 
 signal data_changed()
@@ -79,8 +82,13 @@ func process_default_mode() -> void:
 		# Load the UI color into the color picker
 		if ui_color_picker != null:
 			ui_color_picker.color = Color.html(dplayerattribute.default_mode.ui_color)
+
+		# Load drain attributes into the grid container
+		if dplayerattribute.drain_attributes:
+			_load_drain_attributes_into_ui(dplayerattribute.drain_attributes)
 	else:
 		mode_tab_container.set_current_tab(0)  # Hide default_mode tab if it doesn't exist
+
 
 
 # Function to handle loading and showing fixed mode
@@ -138,6 +146,9 @@ func save_default_mode() -> void:
 	dplayerattribute.default_mode.depletion_effect = depletion_effect.get_item_text(depletion_effect.selected)
 	dplayerattribute.default_mode.ui_color = ui_color_picker.color.to_html()
 
+	# Save drain attributes from the UI into dplayerattribute
+	dplayerattribute.drain_attributes = _get_drain_attributes_from_ui()
+
 	# Delete fixed_mode if it exists
 	if dplayerattribute.fixed_mode:
 		dplayerattribute.fixed_mode = null
@@ -166,3 +177,97 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var playerattributeTexture: Resource = clicked_sprite.get_texture()
 	icon_rect.texture = playerattributeTexture
 	path_text_label.text = playerattributeTexture.resource_path.get_file()
+
+# Load drain attributes into the drain_attribute_grid_container
+func _load_drain_attributes_into_ui(drain_attributes: Dictionary) -> void:
+	# Clear existing entries
+	for child in drain_attribute_grid_container.get_children():
+		child.queue_free()
+
+	# Populate the container with attributes from the provided dictionary
+	for attribute_id in drain_attributes.keys():
+		_add_drain_attribute_entry(attribute_id, drain_attributes[attribute_id])
+
+
+# Get the current drain attributes from the UI
+func _get_drain_attributes_from_ui() -> Dictionary:
+	var drain_attributes = {}
+	var children = drain_attribute_grid_container.get_children()
+	for i in range(0, children.size(), 4):  # Step by 4 to handle sprite-label-spinbox-deleteButton
+		var label = children[i + 1] as Label
+		var spinbox = children[i + 2] as SpinBox
+		if label and spinbox:
+			drain_attributes[label.text] = spinbox.value
+	return drain_attributes
+
+
+# Add a new drain attribute entry to the drain_attribute_grid_container
+func _add_drain_attribute_entry(attribute_id: String, amount: float) -> void:
+	var attribute_data = Gamedata.playerattributes.by_id(attribute_id)
+
+	# Create a TextureRect for the sprite
+	var texture_rect = TextureRect.new()
+	texture_rect.texture = attribute_data.sprite
+	texture_rect.custom_minimum_size = Vector2(32, 32)
+	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	drain_attribute_grid_container.add_child(texture_rect)
+
+	# Create a Label for the attribute ID
+	var label = Label.new()
+	label.text = attribute_id
+	drain_attribute_grid_container.add_child(label)
+
+	# Create a SpinBox for the amount to be drained
+	var spinbox = SpinBox.new()
+	spinbox.min_value = 0
+	spinbox.max_value = 100  # Adjust max value as needed
+	spinbox.step = 0.1
+	spinbox.value = amount
+	drain_attribute_grid_container.add_child(spinbox)
+
+	# Create a Button to delete the attribute entry
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.pressed.connect(_delete_drain_attribute_entry.bind([texture_rect, label, spinbox, delete_button]))
+	drain_attribute_grid_container.add_child(delete_button)
+
+
+# Delete an attribute entry from the drain_attribute_grid_container
+func _delete_drain_attribute_entry(elements_to_remove: Array) -> void:
+	for element in elements_to_remove:
+		drain_attribute_grid_container.remove_child(element)
+		element.queue_free()
+
+
+# Function to determine if the dragged data can be dropped in the drain_attribute_grid_container
+func _can_drop_attribute_data(_newpos, data) -> bool:
+	if not data or not data.has("id"):
+		return false
+	if not Gamedata.playerattributes.has_id(data["id"]):
+		return false
+
+	# Ensure the attribute ID isn't already in the grid
+	for i in range(1, drain_attribute_grid_container.get_children().size(), 4):
+		var label = drain_attribute_grid_container.get_children()[i] as Label
+		if label and label.text == data["id"]:
+			return false
+
+	return true
+
+
+# Handle data being dropped in the drain_attribute_grid_container
+func _drop_attribute_data(newpos, data) -> void:
+	if _can_drop_attribute_data(newpos, data):
+		_handle_drain_attribute_drop(data)
+
+
+# Add a dropped attribute to the drain_attribute_grid_container
+func _handle_drain_attribute_drop(dropped_data) -> void:
+	if dropped_data and "id" in dropped_data:
+		var attribute_id = dropped_data["id"]
+		if Gamedata.playerattributes.has_id(attribute_id):
+			_add_drain_attribute_entry(attribute_id, 1.0)  # Default value for new attributes
+		else:
+			print_debug("Invalid attribute ID: " + attribute_id)
+	else:
+		print_debug("Dropped data does not contain a valid 'id' key.")

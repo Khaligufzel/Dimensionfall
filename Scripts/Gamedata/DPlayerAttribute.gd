@@ -4,6 +4,37 @@ extends RefCounted
 # This class represents data of a player attribute with its properties like health, stamina, etc.
 # This does not have any functionality for controlling the attribute itself, it only holds data
 
+# Example data:
+#	{
+#		"default_mode": {
+#			"color": "258d1bff",
+#			"current_amount": 100,
+#			"depletion_effect": "death",
+#			"depleting_effect": "drain",
+#			"depletion_rate": 0.02,
+#			"max_amount": 100,
+#			"min_amount": 0,
+#			"hide_when_empty": false,
+#			"drain_attributes": {
+#				"torso_health": 1.0,
+#				"head_health": 1.0,
+#			}
+#		},
+#		"description": "You starve when this is empty. You are full when this is full.",
+#		"id": "food",
+#		"name": "Food",
+#		"references": {
+#			"core": {
+#				"items": [
+#					"canned_food",
+#					"tofu"
+#				]
+#			}
+#		},
+#		"sprite": "apple_32.png"
+#	}
+
+
 # Attribute ID (unique identifier)
 var id: String
 
