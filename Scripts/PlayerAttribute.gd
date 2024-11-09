@@ -27,7 +27,8 @@ class DefaultMode:
 	var depletion_rate: float = 0.02
 	var depletion_timer: Timer
 	var hide_when_empty: bool  # Property to determine if the attribute should hide when empty
-	var drain_attributes: Dictionary  # Property for drain attributes
+	# Property for drain attributes. Example: "drain_attributes": {"torso_health": 1.0,"head_health": 1.0}
+	var drain_attributes: Dictionary  
 	# Reference to the player instance
 	var player: Node
 	var playerattr: PlayerAttribute
@@ -96,9 +97,24 @@ class DefaultMode:
 	func _on_deplete_tick():
 		modify_current_amount(-depletion_rate)
 
+		# Check if depleting_effect is set to "drain other attributes"
+		if depleting_effect == "drain other attributes" and not drain_attributes.is_empty():
+			# Collect the attribute IDs from the drain_attributes dictionary
+			var attribute_ids = drain_attributes.keys()
+			
+			# Get the matching player attributes
+			var attributes_to_drain = player.get_matching_player_attributes(attribute_ids)
+			
+			# Drain the specified amount from each attribute
+			for attr in attributes_to_drain:
+				if attr:
+					var drain_amount = drain_attributes.get(attr.id, 0.0)
+					attr.modify_current_amount(-drain_amount)
+
 		# Stop depletion if at min
 		if is_at_min():
 			stop_depletion()
+
 
 
 # Inner class for FixedMode. This is used in the background to control some game mechanics

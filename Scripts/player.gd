@@ -337,7 +337,6 @@ func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
 	return was.used
 
 
-
 # Helper function to apply the pool to a given array of PlayerAttributes
 func _apply_pool_to_attributes(myattributes: Array[PlayerAttribute], pool: float, was: Dictionary) -> float:
 	for playerattribute in myattributes:
