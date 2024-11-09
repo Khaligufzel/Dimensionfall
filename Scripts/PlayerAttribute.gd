@@ -23,8 +23,11 @@ class DefaultMode:
 	var max_amount: float
 	var current_amount: float
 	var depletion_effect: String
+	var depleting_effect: String
 	var depletion_rate: float = 0.02
 	var depletion_timer: Timer
+	var hide_when_empty: bool  # Property to determine if the attribute should hide when empty
+	var drain_attributes: Dictionary  # Property for drain attributes
 	# Reference to the player instance
 	var player: Node
 	var playerattr: PlayerAttribute
@@ -36,19 +39,27 @@ class DefaultMode:
 		current_amount = data.get("current_amount", max_amount)
 		depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02
 		depletion_effect = data.get("depletion_effect", "none")
+		depleting_effect = data.get("depleting_effect", "none")
+		hide_when_empty = data.get("hide_when_empty", false)  # Initialize from data
+		drain_attributes = data.get("drain_attributes", {})  # Initialize from data
 		player = playernode
 		playerattr = myplayerattr
 		start_depletion()
 	
 	# Get data function to return the properties in a dictionary
 	func get_data() -> Dictionary:
-		return {
+		var new_data: Dictionary = {
 			"min_amount": min_amount,
 			"max_amount": max_amount,
 			"current_amount": current_amount,
 			"depletion_rate": depletion_rate,
-			"depletion_effect": depletion_effect
+			"depletion_effect": depletion_effect,
+			"depleting_effect": depleting_effect,  # Include in output
+			"hide_when_empty": hide_when_empty
 		}
+		if not drain_attributes.is_empty():
+			new_data["drain_attributes"] = drain_attributes
+		return new_data
 	
 	# Start depletion for DefaultMode
 	func start_depletion():

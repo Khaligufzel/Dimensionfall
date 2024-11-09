@@ -51,9 +51,18 @@ class AttributeDisplay:
 
 		hbox.add_child(progress_bar)
 
-	# Update the ProgressBar value
+	# Update the ProgressBar value and visibility
 	func update(attribute: PlayerAttribute) -> void:
+		if attribute.default_mode.hide_when_empty and attribute.default_mode.current_amount < 1:
+			set_visibility(false)
+		else:
+			set_visibility(true)
 		progress_bar.value = attribute.default_mode.current_amount
+
+	func set_visibility(is_visible: bool) -> void:
+		progress_bar.visible = is_visible
+		hbox.visible = is_visible
+
 
 	# Update the minimum value of the ProgressBar
 	func update_min_amount(min_amount: float) -> void:

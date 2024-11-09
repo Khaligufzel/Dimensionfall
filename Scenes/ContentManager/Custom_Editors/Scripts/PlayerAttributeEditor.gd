@@ -237,6 +237,7 @@ func _add_drain_attribute_entry(attribute_id: String, amount: float) -> void:
 	spinbox.min_value = 0
 	spinbox.max_value = 100  # Adjust max value as needed
 	spinbox.step = 0.1
+	spinbox.tooltip_text = "The amount to drain each second."
 	spinbox.value = amount
 	drain_attribute_grid_container.add_child(spinbox)
 
