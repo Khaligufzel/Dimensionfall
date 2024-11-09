@@ -6,7 +6,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jqmb"]
 
-[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("icon_rect", "id_text_label", "path_text_label", "name_text_edit", "description_text_edit", "sprite_selector", "min_amount_spinbox", "max_amount_spinbox", "current_amount_spinbox", "depletion_rate_spinbox", "depletion_effect", "ui_color_picker", "mode_tab_container", "fixed_grid", "fixed_amount_spin_box", "default_grid", "hide_when_empty_check_box", "depleting_effect_option_button", "drain_attribute_grid_container", "drain_attribute_panel_container")]
+[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("icon_rect", "id_text_label", "path_text_label", "name_text_edit", "description_text_edit", "sprite_selector", "min_amount_spinbox", "max_amount_spinbox", "current_amount_spinbox", "depletion_rate_spinbox", "depletion_effect", "ui_color_picker", "mode_tab_container", "fixed_grid", "fixed_amount_spin_box", "hide_when_empty_check_box", "depleting_effect_option_button", "drain_attribute_grid_container", "drain_attribute_panel_container", "default_grid")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,11 +29,11 @@ ui_color_picker = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/Defa
 mode_tab_container = NodePath("VBoxContainer/FormGrid/ModeTabContainer")
 fixed_grid = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Fixed")
 fixed_amount_spin_box = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Fixed/FixedAmountSpinBox")
-default_grid = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid")
 hide_when_empty_check_box = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/HideWhenEmptyCheckBox")
 depleting_effect_option_button = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/DepletingEffectOptionButton")
 drain_attribute_grid_container = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DrainAttributePanelContainer/DrainAttributesVBoxContainer/DrainAttributeGridContainer")
 drain_attribute_panel_container = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DrainAttributePanelContainer")
+default_grid = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -192,7 +192,9 @@ text = "Depletion effect"
 
 [node name="DepletionEffectOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
-tooltip_text = "The effect that occurs when this attribute is completely depleted."
+tooltip_text = "The effect that occurs when this attribute is completely depleted.
+none: No effect will occur when this attribute is depleted
+death: the player dies when the attribute is depleted."
 selected = 0
 item_count = 2
 popup/item_0/text = "none"
@@ -205,9 +207,10 @@ text = "Depleting effect"
 
 [node name="DepletingEffectOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
-tooltip_text = "The effect that this attribute produces while it is depleting. 
-The effect starts when this attribute has a value greater 
-then 0. The effect ends when this attribute has a value of 0."
+tooltip_text = "The effect that this attribute produces while it is depleting. The effect starts when this 
+attribute has a value greater then 0. The effect ends when this attribute has a value of 0.
+none: There is no effect while depleting
+drain other attributes: The specified attributes get drained every second until this attribute is depleted."
 selected = 0
 item_count = 2
 popup/item_0/text = "none"
@@ -239,9 +242,13 @@ empty. When this is off, the attribute will always be shown on the UI."
 text = "When empty"
 
 [node name="DrainAttributePanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Drop other attributes onto this area to add them. "
+tooltip_text = "Drop other attributes onto this area to add them. Each attribute will be drained every 
+second by the amount specified. This requires the \"depleting effect\" to be set to \"drain\". If 
+the drain amount is high and the depletion rate of the attribute is low, a lot will be drained! 
+If the drain amount is low and the depletion rate is high, not much will be drained."
 theme_override_styles/panel = SubResource("StyleBoxFlat_5jqmb")
 
 [node name="DrainAttributesVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DrainAttributePanelContainer"]
@@ -254,6 +261,7 @@ text = "Drain these attributes:"
 [node name="DrainAttributeGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DrainAttributePanelContainer/DrainAttributesVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+columns = 4
 
 [node name="Fixed" type="GridContainer" parent="VBoxContainer/FormGrid/ModeTabContainer"]
 visible = false

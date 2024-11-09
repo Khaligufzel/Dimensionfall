@@ -24,12 +24,11 @@ extends Control
 # Shows controls for fixed_mode properties and is the second child of mode_tab_container
 @export var fixed_grid: GridContainer = null
 @export var fixed_amount_spin_box: SpinBox = null
-# Shows controls for default properties and is the first child of mode_tab_container
-@export var default_grid: GridContainer = null
 @export var hide_when_empty_check_box: CheckBox = null
 @export var depleting_effect_option_button: OptionButton = null
 @export var drain_attribute_grid_container: GridContainer = null
 @export var drain_attribute_panel_container: PanelContainer = null
+@export var default_grid: HBoxContainer = null
 
 
 signal data_changed()
@@ -87,7 +86,10 @@ func process_default_mode() -> void:
 		if depletion_rate_spinbox != null:
 			depletion_rate_spinbox.value = dplayerattribute.default_mode.depletion_rate
 		if depletion_effect != null:
-			update_depleted_effect_option(dplayerattribute.default_mode.depletion_effect)
+			select_optionbutton_item_by_text(dplayerattribute.default_mode.depletion_effect, depletion_effect)
+		if depleting_effect_option_button != null:
+			select_optionbutton_item_by_text(dplayerattribute.default_mode.depleting_effect, depleting_effect_option_button)
+			_on_depleting_effect_option_changed(depleting_effect_option_button.selected)
 		# Load the UI color into the color picker
 		if ui_color_picker != null:
 			ui_color_picker.color = Color.html(dplayerattribute.default_mode.ui_color)
@@ -118,11 +120,11 @@ func _on_close_button_button_up() -> void:
 
 
 # Update the selected option in the SlotOptionButton to match the specified slot name
-func update_depleted_effect_option(effectname: String):
-	var items = depletion_effect.get_item_count()
+func select_optionbutton_item_by_text(mytext: String, optionbutton: OptionButton):
+	var items = optionbutton.get_item_count()
 	for i in range(items):
-		if depletion_effect.get_item_text(i) == effectname:
-			depletion_effect.selected = i
+		if optionbutton.get_item_text(i) == mytext:
+			optionbutton.selected = i
 			return
 
 
@@ -154,12 +156,13 @@ func save_default_mode() -> void:
 	dplayerattribute.default_mode.current_amount = current_amount_spinbox.value
 	dplayerattribute.default_mode.depletion_rate = depletion_rate_spinbox.value
 	dplayerattribute.default_mode.depletion_effect = depletion_effect.get_item_text(depletion_effect.selected)
+	dplayerattribute.default_mode.depleting_effect = depleting_effect_option_button.get_item_text(depleting_effect_option_button.selected)
 	dplayerattribute.default_mode.ui_color = ui_color_picker.color.to_html()
 
 	# Save drain attributes from the UI into dplayerattribute
 	dplayerattribute.default_mode.drain_attributes = _get_drain_attributes_from_ui()
 	# Save the value of hide_when_empty_check_box
-	dplayerattribute.default_mode.hide_when_empty = hide_when_empty_check_box.pressed
+	dplayerattribute.default_mode.hide_when_empty = hide_when_empty_check_box.button_pressed
 
 	# Delete fixed_mode if it exists
 	if dplayerattribute.fixed_mode:
@@ -288,7 +291,7 @@ func _handle_drain_attribute_drop(dropped_data) -> void:
 # Called when the depleting effect option is changed
 func _on_depleting_effect_option_changed(index: int) -> void:
 	var selected_text = depleting_effect_option_button.get_item_text(index)
-	if selected_text == "drain other attribute":
+	if selected_text == "drain other attributes":
 		drain_attribute_panel_container.visible = true
 	else:
 		drain_attribute_panel_container.visible = false

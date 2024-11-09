@@ -1,15 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://ba7nwjvy7m2t5"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/ModMaintenance/Scripts/exportmapdata.gd" id="1_jmctw"]
+[ext_resource type="Script" path="res://Scenes/ContentManager/ModMaintenance/Scripts/exportdata.gd" id="1_rq3k5"]
 
-[node name="Exportmapdata" type="Control" node_paths=PackedStringArray("output_text_edit", "type_option_button")]
+[node name="Exportdata" type="Control" node_paths=PackedStringArray("output_text_edit", "type_option_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_jmctw")
+script = ExtResource("1_rq3k5")
 output_text_edit = NodePath("VBoxContainer/OutputTextEdit")
 type_option_button = NodePath("VBoxContainer/HBoxContainer/TypeOptionButton")
 
@@ -31,12 +31,14 @@ text = "Type:"
 [node name="TypeOptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-item_count = 3
+item_count = 4
 popup/item_0/text = "maps"
 popup/item_1/text = "items"
 popup/item_1/id = 1
 popup/item_2/text = "mobs"
 popup/item_2/id = 2
+popup/item_3/text = "playerattributes"
+popup/item_3/id = 3
 
 [node name="ExportButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
