@@ -9,6 +9,7 @@ extends RefCounted
 #		"default_mode": {
 #			"color": "258d1bff",
 #			"current_amount": 100,
+#			"maxed_effect": "death",
 #			"depletion_effect": "death",
 #			"depleting_effect": "drain",
 #			"depletion_rate": 0.02,
@@ -58,6 +59,7 @@ class DefaultMode:
 	var current_amount: float # Current value of the attribute (e.g., current health level)
 	var depletion_rate: float # The rate at which the amount depletes every second
 	var ui_color: String # Variable to store the UI color as a string (e.g., "ffffffff" for white)
+	var maxed_effect: String
 	var depletion_effect: String # The effect that will happen when depleted
 	var depleting_effect: String  # New property for handling the effect when depleting
 	var hide_when_empty: bool  # New property to determine if the attribute should hide when empty
@@ -70,6 +72,7 @@ class DefaultMode:
 		current_amount = data.get("current_amount", max_amount)  # Default to max amount if not provided
 		depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02 if not provided
 		ui_color = data.get("color", "ffffffff")  # Default to white if not provided
+		maxed_effect = data.get("maxed_effect", "none")
 		depletion_effect = data.get("depletion_effect", "none")
 		depleting_effect = data.get("depleting_effect", "none")  # Initialize from data
 		hide_when_empty = data.get("hide_when_empty", false)  # Initialize from data
@@ -83,8 +86,9 @@ class DefaultMode:
 			"current_amount": current_amount,
 			"depletion_rate": depletion_rate,
 			"color": ui_color,
+			"maxed_effect": maxed_effect,
 			"depletion_effect": depletion_effect,
-			"depleting_effect": depleting_effect,  # Include in output
+			"depleting_effect": depleting_effect,
 			"hide_when_empty": hide_when_empty
 		}
 		if not drain_attributes.is_empty():

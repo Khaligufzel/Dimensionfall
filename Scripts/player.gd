@@ -395,7 +395,7 @@ func _compare_player_attributes_by_current_amount_descending(a: PlayerAttribute,
 
 
 # Function to retrieve PlayerAttributes that match the provided IDs in the array
-func get_matching_player_attributes(attribute_ids: Array[String]) -> Array[PlayerAttribute]:
+func get_matching_player_attributes(attribute_ids: Array) -> Array[PlayerAttribute]:
 	var matching_attributes: Array[PlayerAttribute] = []
 
 	# Loop over each attribute ID provided

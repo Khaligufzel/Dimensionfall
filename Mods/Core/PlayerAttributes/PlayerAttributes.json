@@ -8,6 +8,7 @@
 			"depletion_rate": 0.02,
 			"hide_when_empty": false,
 			"max_amount": 100,
+			"maxed_effect": "none",
 			"min_amount": 0
 		},
 		"description": "You starve when this is empty. You are full when this is full.",
@@ -55,6 +56,7 @@
 			"depletion_rate": 0.02,
 			"hide_when_empty": false,
 			"max_amount": 100,
+			"maxed_effect": "none",
 			"min_amount": 0
 		},
 		"description": "The amount of water the player has in their body. Running out will mean death.",
@@ -90,6 +92,7 @@
 			"depletion_rate": 0,
 			"hide_when_empty": false,
 			"max_amount": 100,
+			"maxed_effect": "none",
 			"min_amount": 0
 		},
 		"description": "The health of the player's head. Critical for survival.",
@@ -126,6 +129,7 @@
 			"depletion_rate": 0,
 			"hide_when_empty": false,
 			"max_amount": 100,
+			"maxed_effect": "none",
 			"min_amount": 0
 		},
 		"description": "The health of the player's torso. Vital for survival.",
@@ -162,6 +166,7 @@
 			"depletion_rate": 0,
 			"hide_when_empty": false,
 			"max_amount": 100,
+			"maxed_effect": "none",
 			"min_amount": 0
 		},
 		"description": "The health of the player's left arm.",
@@ -198,6 +203,7 @@
 			"depletion_rate": 0,
 			"hide_when_empty": false,
 			"max_amount": 100,
+			"maxed_effect": "none",
 			"min_amount": 0
 		},
 		"description": "The health of the player's right arm.",
@@ -234,6 +240,7 @@
 			"depletion_rate": 0,
 			"hide_when_empty": false,
 			"max_amount": 100,
+			"maxed_effect": "none",
 			"min_amount": 0
 		},
 		"description": "The health of the player's left leg.",
@@ -270,6 +277,7 @@
 			"depletion_rate": 0,
 			"hide_when_empty": false,
 			"max_amount": 100,
+			"maxed_effect": "none",
 			"min_amount": 0
 		},
 		"description": "The health of the player's right leg.",
@@ -333,9 +341,10 @@
 			},
 			"hide_when_empty": true,
 			"max_amount": 100,
+			"maxed_effect": "death",
 			"min_amount": 0
 		},
-		"description": "You are poisoned! Your health will be drained until the poison is cured or wears out.",
+		"description": "You are poisoned! Your health will be drained until the poison is cured or wears out. If your body is full of poison, you die!",
 		"id": "poison",
 		"name": "Poison",
 		"references": {

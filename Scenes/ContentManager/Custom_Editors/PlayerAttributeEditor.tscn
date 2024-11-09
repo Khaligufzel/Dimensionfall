@@ -6,7 +6,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jqmb"]
 
-[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("icon_rect", "id_text_label", "path_text_label", "name_text_edit", "description_text_edit", "sprite_selector", "min_amount_spinbox", "max_amount_spinbox", "current_amount_spinbox", "depletion_rate_spinbox", "depletion_effect", "ui_color_picker", "mode_tab_container", "fixed_grid", "fixed_amount_spin_box", "hide_when_empty_check_box", "depleting_effect_option_button", "drain_attribute_grid_container", "drain_attribute_panel_container", "default_grid")]
+[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("icon_rect", "id_text_label", "path_text_label", "name_text_edit", "description_text_edit", "sprite_selector", "min_amount_spinbox", "max_amount_spinbox", "current_amount_spinbox", "depletion_rate_spinbox", "depletion_effect", "maxed_effect_option_button", "ui_color_picker", "mode_tab_container", "fixed_grid", "fixed_amount_spin_box", "hide_when_empty_check_box", "depleting_effect_option_button", "drain_attribute_grid_container", "drain_attribute_panel_container", "default_grid")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,6 +25,7 @@ max_amount_spinbox = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/D
 current_amount_spinbox = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/CurrentAmountSpinBox")
 depletion_rate_spinbox = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/DepletionRateSpinBox")
 depletion_effect = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/DepletionEffectOptionButton")
+maxed_effect_option_button = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/MaxedEffectOptionButton")
 ui_color_picker = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/UIColorPicker")
 mode_tab_container = NodePath("VBoxContainer/FormGrid/ModeTabContainer")
 fixed_grid = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Fixed")
@@ -185,6 +186,21 @@ layout_mode = 2
 tooltip_text = "The amount to subtract each second. With a \"max amount\" of 100 and a depletion rate of 0.02, it will take over an hour real time to deplete."
 step = 0.01
 value = 0.02
+
+[node name="MaxedEffectLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
+layout_mode = 2
+text = "Maxed effect"
+
+[node name="MaxedEffectOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
+layout_mode = 2
+tooltip_text = "The effect that occurs when this attribute has reached the maximum value.
+none: No effect will occur when this attribute is maxed
+death: the player dies when the attribute is maxed."
+selected = 0
+item_count = 2
+popup/item_0/text = "none"
+popup/item_1/text = "death"
+popup/item_1/id = 1
 
 [node name="DepletionEffectLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2

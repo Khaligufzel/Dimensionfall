@@ -17,6 +17,7 @@ extends Control
 @export var current_amount_spinbox: SpinBox = null
 @export var depletion_rate_spinbox: SpinBox = null
 @export var depletion_effect: OptionButton = null
+@export var maxed_effect_option_button: OptionButton = null
 @export var ui_color_picker: ColorPicker = null
 # An attribute can have either default mode or fixed mode. The tab that is visible will get 
 # saved into the dplayerattribute's data.
@@ -85,6 +86,8 @@ func process_default_mode() -> void:
 			current_amount_spinbox.value = dplayerattribute.default_mode.current_amount
 		if depletion_rate_spinbox != null:
 			depletion_rate_spinbox.value = dplayerattribute.default_mode.depletion_rate
+		if maxed_effect_option_button != null:
+			select_optionbutton_item_by_text(dplayerattribute.default_mode.maxed_effect, maxed_effect_option_button)
 		if depletion_effect != null:
 			select_optionbutton_item_by_text(dplayerattribute.default_mode.depletion_effect, depletion_effect)
 		if depleting_effect_option_button != null:
@@ -155,6 +158,7 @@ func save_default_mode() -> void:
 	dplayerattribute.default_mode.max_amount = max_amount_spinbox.value
 	dplayerattribute.default_mode.current_amount = current_amount_spinbox.value
 	dplayerattribute.default_mode.depletion_rate = depletion_rate_spinbox.value
+	dplayerattribute.default_mode.maxed_effect = maxed_effect_option_button.get_item_text(maxed_effect_option_button.selected)
 	dplayerattribute.default_mode.depletion_effect = depletion_effect.get_item_text(depletion_effect.selected)
 	dplayerattribute.default_mode.depleting_effect = depleting_effect_option_button.get_item_text(depleting_effect_option_button.selected)
 	dplayerattribute.default_mode.ui_color = ui_color_picker.color.to_html()

@@ -22,6 +22,7 @@ class DefaultMode:
 	var min_amount: float
 	var max_amount: float
 	var current_amount: float
+	var maxed_effect: String
 	var depletion_effect: String
 	var depleting_effect: String
 	var depletion_rate: float = 0.02
@@ -39,6 +40,7 @@ class DefaultMode:
 		max_amount = data.get("max_amount", 100.0)
 		current_amount = data.get("current_amount", max_amount)
 		depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02
+		maxed_effect = data.get("maxed_effect", "none")
 		depletion_effect = data.get("depletion_effect", "none")
 		depleting_effect = data.get("depleting_effect", "none")
 		hide_when_empty = data.get("hide_when_empty", false)  # Initialize from data
@@ -54,6 +56,7 @@ class DefaultMode:
 			"max_amount": max_amount,
 			"current_amount": current_amount,
 			"depletion_rate": depletion_rate,
+			"maxed_effect": maxed_effect,
 			"depletion_effect": depletion_effect,
 			"depleting_effect": depleting_effect,  # Include in output
 			"hide_when_empty": hide_when_empty
@@ -88,10 +91,15 @@ class DefaultMode:
 	func is_at_min() -> bool:
 		return current_amount <= min_amount
 	
-	# Function to modify the current amount safely (for DefaultMode)
+	# Modify the `modify_current_amount` function to restart depletion when needed
 	func modify_current_amount(amount: float):
+		var was_at_min = is_at_min()  # Check if the attribute was at min before modifying
 		current_amount = clamp(current_amount + amount, min_amount, max_amount)
 		_on_attribute_changed()
+
+		# If the attribute was previously at min but now is above min, restart depletion
+		if was_at_min and current_amount > min_amount:
+			start_depletion()
 
 	# Function that gets called every tick to decrease the attribute
 	func _on_deplete_tick():
@@ -100,7 +108,7 @@ class DefaultMode:
 		# Check if depleting_effect is set to "drain other attributes"
 		if depleting_effect == "drain other attributes" and not drain_attributes.is_empty():
 			# Collect the attribute IDs from the drain_attributes dictionary
-			var attribute_ids = drain_attributes.keys()
+			var attribute_ids: Array = drain_attributes.keys()
 			
 			# Get the matching player attributes
 			var attributes_to_drain = player.get_matching_player_attributes(attribute_ids)
