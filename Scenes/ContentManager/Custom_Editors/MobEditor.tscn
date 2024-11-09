@@ -154,6 +154,7 @@ text = "Damage"
 
 [node name="MeleeDamageSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
 layout_mode = 2
+min_value = -100.0
 value = 20.0
 
 [node name="MeleeRangeLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]

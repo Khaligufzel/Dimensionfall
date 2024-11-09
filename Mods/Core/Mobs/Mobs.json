@@ -238,7 +238,7 @@
 		"id": "venom_crawler",
 		"idle_move_speed": 0.6,
 		"loot_group": "mob_loot",
-		"melee_damage": 10,
+		"melee_damage": -10,
 		"melee_range": 1,
 		"move_speed": 2.8,
 		"name": "Venom Crawler",
@@ -247,22 +247,7 @@
 		"sprite": "venom_crawler_48.png",
 		"targetattributes": [
 			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_arm_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
+				"id": "poison"
 			}
 		]
 	},

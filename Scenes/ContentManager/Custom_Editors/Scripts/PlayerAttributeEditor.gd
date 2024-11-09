@@ -97,7 +97,7 @@ func process_default_mode() -> void:
 			hide_when_empty_check_box.button_pressed = dplayerattribute.default_mode.hide_when_empty
 
 		# Load drain attributes into the grid container
-		if dplayerattribute.drain_attributes:
+		if dplayerattribute.default_mode.drain_attributes:
 			_load_drain_attributes_into_ui(dplayerattribute.default_mode.drain_attributes)
 	else:
 		mode_tab_container.set_current_tab(0)  # Hide default_mode tab if it doesn't exist
@@ -110,7 +110,7 @@ func process_fixed_mode() -> void:
 		if fixed_amount_spin_box != null:
 			fixed_amount_spin_box.value = dplayerattribute.fixed_mode.amount
 	else:
-		mode_tab_container.set_current_tab(1)  # Hide fixed_mode tab if it doesn't exist
+		mode_tab_container.set_current_tab(0)  # Hide fixed_mode tab if it doesn't exist
 
 
 # The editor is closed, destroy the instance

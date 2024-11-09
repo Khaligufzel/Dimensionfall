@@ -111,7 +111,6 @@
 					"scavenger_skitter",
 					"iron_stalker",
 					"disruptor_drone",
-					"venom_crawler",
 					"outpost_guardian"
 				]
 			}
@@ -148,8 +147,7 @@
 					"scavenger_skitter",
 					"iron_stalker",
 					"disruptor_drone",
-					"outpost_guardian",
-					"venom_crawler"
+					"outpost_guardian"
 				]
 			}
 		},
@@ -185,8 +183,7 @@
 					"scavenger_skitter",
 					"iron_stalker",
 					"outpost_guardian",
-					"disruptor_drone",
-					"venom_crawler"
+					"disruptor_drone"
 				]
 			}
 		},
@@ -222,8 +219,7 @@
 					"scavenger_skitter",
 					"iron_stalker",
 					"outpost_guardian",
-					"disruptor_drone",
-					"venom_crawler"
+					"disruptor_drone"
 				]
 			}
 		},
@@ -259,7 +255,6 @@
 					"scavenger_skitter",
 					"iron_stalker",
 					"disruptor_drone",
-					"venom_crawler",
 					"outpost_guardian"
 				]
 			}
@@ -296,7 +291,6 @@
 					"scavenger_skitter",
 					"iron_stalker",
 					"disruptor_drone",
-					"venom_crawler",
 					"outpost_guardian"
 				]
 			}
@@ -328,14 +322,14 @@
 			"current_amount": 0,
 			"depleting_effect": "drain other attributes",
 			"depletion_effect": "none",
-			"depletion_rate": 0.1,
+			"depletion_rate": 1,
 			"drain_attributes": {
-				"head_health": 1,
-				"left_arm_health": 1,
-				"left_leg_health": 1,
-				"right_arm_health": 1,
-				"right_leg_health": 1,
-				"torso_health": 1
+				"head_health": 0.1,
+				"left_arm_health": 0.1,
+				"left_leg_health": 0.1,
+				"right_arm_health": 0.1,
+				"right_leg_health": 0.1,
+				"torso_health": 0.1
 			},
 			"hide_when_empty": true,
 			"max_amount": 100,
@@ -344,6 +338,13 @@
 		"description": "You are poisoned! Your health will be drained until the poison is cured or wears out.",
 		"id": "poison",
 		"name": "Poison",
+		"references": {
+			"core": {
+				"mobs": [
+					"venom_crawler"
+				]
+			}
+		},
 		"sprite": "skull_poison_32.png"
 	}
 ]

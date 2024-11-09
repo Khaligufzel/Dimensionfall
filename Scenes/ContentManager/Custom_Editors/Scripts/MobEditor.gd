@@ -109,14 +109,14 @@ func _on_save_button_button_up() -> void:
 	dmob.loot_group = ItemGroupTextEdit.text if ItemGroupTextEdit.text else ""
 	
 	# Set dash special move data based on checkbox
-	if dash_check_box.pressed:
+	if dash_check_box.button_pressed:
 		dmob.special_moves["dash"] = {
 			"speed_multiplier": dash_speed_multiplier_spin_box.value,
 			"cooldown": dash_cooldown_spin_box.value,
 			"duration": dash_duration_spin_box.value
 		}
 	else:
-		dmob.special_moves["dash"] = {}  # Clear dash if checkbox is unchecked
+		dmob.special_moves = {}  # Clear dash if checkbox is unchecked
 
 	# Save attributes
 	dmob.targetattributes = _get_attributes_from_ui()
