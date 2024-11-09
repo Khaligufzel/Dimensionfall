@@ -6,7 +6,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jqmb"]
 
-[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("icon_rect", "id_text_label", "path_text_label", "name_text_edit", "description_text_edit", "sprite_selector", "min_amount_spinbox", "max_amount_spinbox", "current_amount_spinbox", "depletion_rate_spinbox", "depletion_effect", "ui_color_picker", "mode_tab_container", "fixed_grid", "fixed_amount_spin_box", "default_grid", "hide_when_empty_check_box", "depleting_effect_option_button", "drain_attribute_grid_container")]
+[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("icon_rect", "id_text_label", "path_text_label", "name_text_edit", "description_text_edit", "sprite_selector", "min_amount_spinbox", "max_amount_spinbox", "current_amount_spinbox", "depletion_rate_spinbox", "depletion_effect", "ui_color_picker", "mode_tab_container", "fixed_grid", "fixed_amount_spin_box", "default_grid", "hide_when_empty_check_box", "depleting_effect_option_button", "drain_attribute_grid_container", "drain_attribute_panel_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,6 +33,7 @@ default_grid = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/Default
 hide_when_empty_check_box = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/HideWhenEmptyCheckBox")
 depleting_effect_option_button = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/DepletingEffectOptionButton")
 drain_attribute_grid_container = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DrainAttributePanelContainer/DrainAttributesVBoxContainer/DrainAttributeGridContainer")
+drain_attribute_panel_container = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DrainAttributePanelContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

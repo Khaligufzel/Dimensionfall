@@ -59,6 +59,9 @@ class DefaultMode:
 	var depletion_rate: float # The rate at which the amount depletes every second
 	var ui_color: String # Variable to store the UI color as a string (e.g., "ffffffff" for white)
 	var depletion_effect: String # The effect that will happen when depleted
+	var depleting_effect: String  # New property for handling the effect when depleting
+	var hide_when_empty: bool  # New property to determine if the attribute should hide when empty
+	var drain_attributes: Dictionary  # New property for drain attributes
 	
 	# Constructor to initialize the properties from a dictionary
 	func _init(data: Dictionary):
@@ -68,17 +71,25 @@ class DefaultMode:
 		depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02 if not provided
 		ui_color = data.get("color", "ffffffff")  # Default to white if not provided
 		depletion_effect = data.get("depletion_effect", "none")
+		depleting_effect = data.get("depleting_effect", "none")  # Initialize from data
+		hide_when_empty = data.get("hide_when_empty", false)  # Initialize from data
+		drain_attributes = data.get("drain_attributes", {})  # Initialize from data
 	
 	# Get data function to return a dictionary of properties
 	func get_data() -> Dictionary:
-		return {
+		var new_data: Dictionary = {
 			"min_amount": min_amount,
 			"max_amount": max_amount,
 			"current_amount": current_amount,
 			"depletion_rate": depletion_rate,
 			"color": ui_color,
-			"depletion_effect": depletion_effect
+			"depletion_effect": depletion_effect,
+			"depleting_effect": depleting_effect,  # Include in output
+			"hide_when_empty": hide_when_empty
 		}
+		if not drain_attributes.is_empty():
+			new_data["drain_attributes"] = drain_attributes
+		return new_data
 
 
 # Inner class for FixedMode properties

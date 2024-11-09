@@ -29,6 +29,7 @@ extends Control
 @export var hide_when_empty_check_box: CheckBox = null
 @export var depleting_effect_option_button: OptionButton = null
 @export var drain_attribute_grid_container: GridContainer = null
+@export var drain_attribute_panel_container: PanelContainer = null
 
 
 signal data_changed()
@@ -42,6 +43,14 @@ var dplayerattribute: DPlayerAttribute:
 		load_playerattribute_data()
 		sprite_selector.sprites_collection = Gamedata.playerattributes.sprites
 		olddata = DPlayerAttribute.new(dplayerattribute.get_data().duplicate(true))
+
+
+func _ready() -> void:
+	# Set drag forwarding for the drain_attribute_grid_container
+	drain_attribute_grid_container.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_attribute_data)
+	
+	# Connect the signal for when the depleting effect option changes
+	depleting_effect_option_button.item_selected.connect(_on_depleting_effect_option_changed)
 
 
 # This function updates the form based on the DPlayerAttribute data that has been loaded
@@ -82,13 +91,14 @@ func process_default_mode() -> void:
 		# Load the UI color into the color picker
 		if ui_color_picker != null:
 			ui_color_picker.color = Color.html(dplayerattribute.default_mode.ui_color)
+		if hide_when_empty_check_box != null:
+			hide_when_empty_check_box.button_pressed = dplayerattribute.default_mode.hide_when_empty
 
 		# Load drain attributes into the grid container
 		if dplayerattribute.drain_attributes:
-			_load_drain_attributes_into_ui(dplayerattribute.drain_attributes)
+			_load_drain_attributes_into_ui(dplayerattribute.default_mode.drain_attributes)
 	else:
 		mode_tab_container.set_current_tab(0)  # Hide default_mode tab if it doesn't exist
-
 
 
 # Function to handle loading and showing fixed mode
@@ -147,7 +157,9 @@ func save_default_mode() -> void:
 	dplayerattribute.default_mode.ui_color = ui_color_picker.color.to_html()
 
 	# Save drain attributes from the UI into dplayerattribute
-	dplayerattribute.drain_attributes = _get_drain_attributes_from_ui()
+	dplayerattribute.default_mode.drain_attributes = _get_drain_attributes_from_ui()
+	# Save the value of hide_when_empty_check_box
+	dplayerattribute.default_mode.hide_when_empty = hide_when_empty_check_box.pressed
 
 	# Delete fixed_mode if it exists
 	if dplayerattribute.fixed_mode:
@@ -271,3 +283,12 @@ func _handle_drain_attribute_drop(dropped_data) -> void:
 			print_debug("Invalid attribute ID: " + attribute_id)
 	else:
 		print_debug("Dropped data does not contain a valid 'id' key.")
+
+
+# Called when the depleting effect option is changed
+func _on_depleting_effect_option_changed(index: int) -> void:
+	var selected_text = depleting_effect_option_button.get_item_text(index)
+	if selected_text == "drain other attribute":
+		drain_attribute_panel_container.visible = true
+	else:
+		drain_attribute_panel_container.visible = false
