@@ -80,12 +80,21 @@ class DefaultMode:
 			depletion_timer.stop()
 			depletion_timer.queue_free()
 
-	# Function to handle when the attribute changes (e.g., health drops to 0)
+	# Function to handle when the attribute changes (e.g., health drops to 0 or reaches max)
 	func _on_attribute_changed():
 		Helper.signal_broker.player_attribute_changed.emit(player, playerattr)
+		
 		# Trigger the depletion effect if amount drops to min and the effect is "death"
 		if is_at_min() and depletion_effect == "death":
 			player.die()
+		
+		# Trigger the maxed effect if the amount reaches max and the effect is "death"
+		if is_at_max() and maxed_effect == "death":
+			player.die()
+
+	# Function to check if the attribute is at maximum value (for DefaultMode)
+	func is_at_max() -> bool:
+		return current_amount >= max_amount
 	
 	# Function to check if the attribute is at minimum value (for DefaultMode)
 	func is_at_min() -> bool:
