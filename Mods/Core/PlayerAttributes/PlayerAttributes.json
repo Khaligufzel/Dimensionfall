@@ -101,7 +101,12 @@
 				],
 				"mobs": [
 					"scrapwalker",
-					"rust_sentinel"
+					"rust_sentinel",
+					"scavenger_skitter",
+					"iron_stalker",
+					"disruptor_drone",
+					"venom_crawler",
+					"outpost_guardian"
 				]
 			}
 		},
@@ -131,7 +136,12 @@
 				],
 				"mobs": [
 					"scrapwalker",
-					"rust_sentinel"
+					"rust_sentinel",
+					"scavenger_skitter",
+					"iron_stalker",
+					"disruptor_drone",
+					"outpost_guardian",
+					"venom_crawler"
 				]
 			}
 		},
@@ -161,7 +171,12 @@
 				],
 				"mobs": [
 					"scrapwalker",
-					"rust_sentinel"
+					"rust_sentinel",
+					"scavenger_skitter",
+					"iron_stalker",
+					"outpost_guardian",
+					"disruptor_drone",
+					"venom_crawler"
 				]
 			}
 		},
@@ -191,7 +206,12 @@
 				],
 				"mobs": [
 					"scrapwalker",
-					"rust_sentinel"
+					"rust_sentinel",
+					"scavenger_skitter",
+					"iron_stalker",
+					"outpost_guardian",
+					"disruptor_drone",
+					"venom_crawler"
 				]
 			}
 		},
@@ -221,7 +241,12 @@
 				],
 				"mobs": [
 					"scrapwalker",
-					"rust_sentinel"
+					"rust_sentinel",
+					"scavenger_skitter",
+					"iron_stalker",
+					"disruptor_drone",
+					"venom_crawler",
+					"outpost_guardian"
 				]
 			}
 		},
@@ -251,7 +276,12 @@
 				],
 				"mobs": [
 					"scrapwalker",
-					"rust_sentinel"
+					"rust_sentinel",
+					"scavenger_skitter",
+					"iron_stalker",
+					"disruptor_drone",
+					"venom_crawler",
+					"outpost_guardian"
 				]
 			}
 		},

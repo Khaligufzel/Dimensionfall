@@ -102,5 +102,180 @@
 				"id": "right_leg_health"
 			}
 		]
+	},
+	{
+		"description": "A swift, dog-sized robot equipped with sharp claws and sensors. The Scavenger Skitter patrols ruins, darting quickly to attack when it detects motion. Its lightweight build allows it to move at high speeds but makes it vulnerable to powerful attacks.",
+		"health": 50,
+		"hearing_range": 800,
+		"id": "scavenger_skitter",
+		"idle_move_speed": 1,
+		"loot_group": "mob_loot",
+		"melee_damage": 15,
+		"melee_range": 1,
+		"move_speed": 3.5,
+		"name": "Scavenger Skitter",
+		"sense_range": 70,
+		"sight_range": 250,
+		"sprite": "scavenger_skitter_48.png",
+		"targetattributes": [
+			{
+				"id": "head_health"
+			},
+			{
+				"id": "torso_health"
+			},
+			{
+				"id": "left_leg_health"
+			},
+			{
+				"id": "right_leg_health"
+			},
+			{
+				"id": "right_arm_health"
+			},
+			{
+				"id": "left_arm_health"
+			}
+		]
+	},
+	{
+		"description": "A heavily armored robot that advances slowly but relentlessly. The Iron Stalker is outfitted with reinforced plating, making it resistant to bullets and physical attacks. It uses a powerful hydraulic punch that can stagger players if hit.",
+		"health": 200,
+		"hearing_range": 900,
+		"id": "iron_stalker",
+		"idle_move_speed": 0.3,
+		"loot_group": "mob_loot",
+		"melee_damage": 40,
+		"melee_range": 2,
+		"move_speed": 1,
+		"name": "Iron Stalker",
+		"sense_range": 60,
+		"sight_range": 150,
+		"sprite": "iron_stalker_64.png",
+		"targetattributes": [
+			{
+				"id": "head_health"
+			},
+			{
+				"id": "torso_health"
+			},
+			{
+				"id": "left_arm_health"
+			},
+			{
+				"id": "right_arm_health"
+			},
+			{
+				"id": "left_leg_health"
+			},
+			{
+				"id": "right_leg_health"
+			}
+		]
+	},
+	{
+		"description": "A mid-sized drone that hovers silently above the ground. The Disruptor Drone can emit a pulse to disable nearby electronic equipment temporarily, making it dangerous for players who rely on tech.",
+		"health": 70,
+		"hearing_range": 1200,
+		"id": "disruptor_drone",
+		"idle_move_speed": 0.8,
+		"loot_group": "mob_loot",
+		"melee_damage": 0,
+		"melee_range": 1.5,
+		"move_speed": 2.5,
+		"name": "Disruptor Drone",
+		"sense_range": 80,
+		"sight_range": 300,
+		"sprite": "disruptor_drone_48.png",
+		"targetattributes": [
+			{
+				"id": "head_health"
+			},
+			{
+				"id": "torso_health"
+			},
+			{
+				"id": "left_arm_health"
+			},
+			{
+				"id": "right_arm_health"
+			},
+			{
+				"id": "left_leg_health"
+			},
+			{
+				"id": "right_leg_health"
+			}
+		]
+	},
+	{
+		"description": "A compact, spider-like bot specialized in ambush tactics. The Venom Crawler injects a corrosive fluid into its target, damaging armor and slowly weakening the player over time.",
+		"health": 60,
+		"hearing_range": 700,
+		"id": "venom_crawler",
+		"idle_move_speed": 0.6,
+		"loot_group": "mob_loot",
+		"melee_damage": 10,
+		"melee_range": 1,
+		"move_speed": 2.8,
+		"name": "Venom Crawler",
+		"sense_range": 80,
+		"sight_range": 200,
+		"sprite": "venom_crawler_48.png",
+		"targetattributes": [
+			{
+				"id": "head_health"
+			},
+			{
+				"id": "torso_health"
+			},
+			{
+				"id": "left_arm_health"
+			},
+			{
+				"id": "right_arm_health"
+			},
+			{
+				"id": "left_leg_health"
+			},
+			{
+				"id": "right_leg_health"
+			}
+		]
+	},
+	{
+		"description": "A towering, sentinel-like robot with a focus on ranged combat. The Outpost Guardian uses built-in projectile launchers to strike players from afar, aiming at any perceived threat.",
+		"health": 150,
+		"hearing_range": 1000,
+		"id": "outpost_guardian",
+		"idle_move_speed": 0.4,
+		"loot_group": "mob_loot",
+		"melee_damage": 30,
+		"melee_range": 1.5,
+		"move_speed": 1.3,
+		"name": "Outpost Guardian",
+		"sense_range": 100,
+		"sight_range": 400,
+		"sprite": "outpost_guardian_72.png",
+		"targetattributes": [
+			{
+				"id": "head_health"
+			},
+			{
+				"id": "torso_health"
+			},
+			{
+				"id": "left_arm_health"
+			},
+			{
+				"id": "right_arm_health"
+			},
+			{
+				"id": "left_leg_health"
+			},
+			{
+				"id": "right_leg_health"
+			}
+		]
 	}
 ]
