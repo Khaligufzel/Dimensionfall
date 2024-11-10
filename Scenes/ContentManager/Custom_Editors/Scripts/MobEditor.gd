@@ -45,7 +45,8 @@ var dmob: DMob:
 
 # Forward drag-and-drop functionality to the attributesGridContainer
 func _ready() -> void:
-	any_of_attributes_grid_container.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_attribute_data)
+	any_of_attributes_grid_container.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_any_of_attribute_data)
+	all_of_attributes_grid_container.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_all_of_attribute_data)
 
 # This function update the form based on the DMob data that has been loaded
 func load_mob_data() -> void:
@@ -241,8 +242,7 @@ func _delete_attribute_entry(elements_to_remove: Array) -> void:
 			element.queue_free()  # Properly free the node to avoid memory leaks
 
 
-
-# Function to determine if the dragged data can be dropped in the attributesGridContainer
+# Function to determine if the dragged data can be dropped in the attribute grid container
 func _can_drop_attribute_data(_newpos, data) -> bool:
 	# Check if the data dictionary has the 'id' property
 	if not data or not data.has("id"):
@@ -252,36 +252,42 @@ func _can_drop_attribute_data(_newpos, data) -> bool:
 	if not Gamedata.playerattributes.has_id(data["id"]):
 		return false
 
-	# Check if the attribute ID already exists in the attributes grid
-	var children = attributesGridContainer.get_children()
-	for i in range(1, children.size(), 3):  # Step by 3 to handle sprite-label-deleteButton triples
-		var label = children[i] as Label
-		if label and label.text == data["id"]:
-			# Return false if this attribute ID already exists in the attributes grid
-			return false
+	# Check if the attribute ID already exists in either of the attribute grids
+	for grid in [any_of_attributes_grid_container, all_of_attributes_grid_container]:
+		var children = grid.get_children()
+		for i in range(1, children.size(), 3):  # Step by 3 to handle sprite-label-deleteButton triples
+			var label = children[i] as Label
+			if label and label.text == data["id"]:
+				# Return false if this attribute ID already exists in any of the grids
+				return false
 
 	# If all checks pass, return true
 	return true
 
-# Function to handle the data being dropped in the attributesGridContainer
-func _drop_attribute_data(newpos, data) -> void:
+
+# Function to handle the data being dropped in the any_of_attributes_grid_container
+func _drop_any_of_attribute_data(newpos, data) -> void:
 	if _can_drop_attribute_data(newpos, data):
-		_handle_attribute_drop(data, newpos)
+		_handle_attribute_drop(data, any_of_attributes_grid_container)
 
 
-# Called when the user has successfully dropped data onto the attributesGridContainer
-# We have to check the dropped_data for the id property
-func _handle_attribute_drop(dropped_data, _newpos) -> void:
-	# dropped_data is a Dictionary that includes an 'id'
+# Function to handle the data being dropped in the all_of_attributes_grid_container
+func _drop_all_of_attribute_data(newpos, data) -> void:
+	if _can_drop_attribute_data(newpos, data):
+		_handle_attribute_drop(data, all_of_attributes_grid_container)
+
+
+# Called when the user has successfully dropped data onto an attribute grid container
+# We have to check the dropped_data for the id property and add it to the appropriate container
+func _handle_attribute_drop(dropped_data, container: GridContainer) -> void:
 	if dropped_data and "id" in dropped_data:
 		var attribute_id = dropped_data["id"]
 		if not Gamedata.playerattributes.has_id(attribute_id):
 			print_debug("No attribute data found for ID: " + attribute_id)
 			return
-		
-		# Add the attribute entry using the new function
-		_add_attribute_entry({"id":attribute_id})
-		# Here you would update your data structure if needed, similar to how you did for resources
+
+		# Add the attribute entry to the specified container
+		_add_attribute_entry_to_grid(container, {"id": attribute_id})
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
