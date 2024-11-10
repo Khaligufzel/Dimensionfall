@@ -287,9 +287,9 @@ func _apply_specific_attribute_amounts(medattributes: Array) -> bool:
 	for medattribute in medattributes:
 		# Get the values from the current player's attribute
 		var playerattribute: PlayerAttribute = attributes[medattribute.id]
-		var current_amount = playerattribute.current_amount
-		var max_amount = playerattribute.max_amount
-		var min_amount = playerattribute.min_amount
+		var current_amount = playerattribute.default_mode.current_amount
+		var max_amount = playerattribute.default_mode.max_amount
+		var min_amount = playerattribute.default_mode.min_amount
 
 		# Make sure we don't add or subtract more then the min and max amount
 		var new_amount = clamp(current_amount + medattribute.amount, min_amount, max_amount)
@@ -321,7 +321,7 @@ func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
 	var other_attributes: Array[PlayerAttribute] = []
 
 	for playerattribute in matching_player_attributes:
-		if playerattribute.depletion_effect == "death":
+		if playerattribute.default_mode.depletion_effect == "death":
 			death_effect_attributes.append(playerattribute)
 		else:
 			other_attributes.append(playerattribute)
@@ -340,9 +340,9 @@ func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
 # Helper function to apply the pool to a given array of PlayerAttributes
 func _apply_pool_to_attributes(myattributes: Array[PlayerAttribute], pool: float, was: Dictionary) -> float:
 	for playerattribute in myattributes:
-		var current_amount = playerattribute.current_amount
-		var max_amount = playerattribute.max_amount
-		var min_amount = playerattribute.min_amount
+		var current_amount = playerattribute.default_mode.current_amount
+		var max_amount = playerattribute.default_mode.max_amount
+		var min_amount = playerattribute.default_mode.min_amount
 		
 		# Calculate how much can actually be added from the pool
 		var additional_amount = min(pool, max_amount - current_amount)

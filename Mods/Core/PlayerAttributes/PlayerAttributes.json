@@ -349,6 +349,9 @@
 		"name": "Poison",
 		"references": {
 			"core": {
+				"items": [
+					"bottle_antidote"
+				],
 				"mobs": [
 					"venom_crawler"
 				]
