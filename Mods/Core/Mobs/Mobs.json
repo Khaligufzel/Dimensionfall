@@ -34,26 +34,28 @@
 		"sense_range": 50,
 		"sight_range": 200,
 		"sprite": "scrapwalker64.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_arm_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			}
-		]
+		"targetattributes": {
+			"any_of": [
+				{
+					"id": "head_health"
+				},
+				{
+					"id": "torso_health"
+				},
+				{
+					"id": "left_arm_health"
+				},
+				{
+					"id": "right_arm_health"
+				},
+				{
+					"id": "left_leg_health"
+				},
+				{
+					"id": "right_leg_health"
+				}
+			]
+		}
 	},
 	{
 		"description": "A slightly more advanced robot but still considered a weaker enemy in the robot faction. The Rust Sentinel stands tall and imposing, with a sturdy build. Its design incorporates rusted and recycled metal parts, giving it a rugged, battle-worn appearance.\n\nThe Rust Sentinel features a broad, slightly dome-shaped head with glowing red eyes that serve as visual sensors. Its torso is bulkier, reinforced with scrap metal plates, and it has two powerful arms ending in claws. The legs are designed for stability and power rather than speed. Its color scheme is a mix of rusted orange, steel gray, and hints of worn-out blue paint, suggesting it was once part of a larger machinery or vehicle.\n\nThe Rust Sentinel moves with deliberate, heavy steps, making it slower but more resilient. It's equipped with basic tools and weaponry, which it uses to scavenges and patrol.",
@@ -84,26 +86,28 @@
 		"sense_range": 50,
 		"sight_range": 200,
 		"sprite": "rust_sentinel_72.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_arm_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			}
-		]
+		"targetattributes": {
+			"any_of": [
+				{
+					"id": "head_health"
+				},
+				{
+					"id": "torso_health"
+				},
+				{
+					"id": "left_arm_health"
+				},
+				{
+					"id": "right_arm_health"
+				},
+				{
+					"id": "left_leg_health"
+				},
+				{
+					"id": "right_leg_health"
+				}
+			]
+		}
 	},
 	{
 		"description": "A swift, dog-sized robot equipped with sharp claws and sensors. The Scavenger Skitter patrols ruins, darting quickly to attack when it detects motion. Its lightweight build allows it to move at high speeds but makes it vulnerable to powerful attacks.",
@@ -133,26 +137,28 @@
 			}
 		},
 		"sprite": "scavenger_skitter_48.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_arm_health"
-			}
-		]
+		"targetattributes": {
+			"any_of": [
+				{
+					"id": "head_health"
+				},
+				{
+					"id": "torso_health"
+				},
+				{
+					"id": "left_leg_health"
+				},
+				{
+					"id": "right_leg_health"
+				},
+				{
+					"id": "right_arm_health"
+				},
+				{
+					"id": "left_arm_health"
+				}
+			]
+		}
 	},
 	{
 		"description": "A heavily armored robot that advances slowly but relentlessly. The Iron Stalker is outfitted with reinforced plating, making it resistant to bullets and physical attacks. It uses a powerful hydraulic punch that can stagger players if hit.",
@@ -168,26 +174,28 @@
 		"sense_range": 60,
 		"sight_range": 150,
 		"sprite": "iron_stalker_64.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_arm_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			}
-		]
+		"targetattributes": {
+			"any_of": [
+				{
+					"id": "head_health"
+				},
+				{
+					"id": "torso_health"
+				},
+				{
+					"id": "left_arm_health"
+				},
+				{
+					"id": "right_arm_health"
+				},
+				{
+					"id": "left_leg_health"
+				},
+				{
+					"id": "right_leg_health"
+				}
+			]
+		}
 	},
 	{
 		"description": "A mid-sized drone that hovers silently above the ground. The Disruptor Drone can emit a pulse to disable nearby electronic equipment temporarily, making it dangerous for players who rely on tech.",
@@ -210,26 +218,28 @@
 		"sense_range": 80,
 		"sight_range": 300,
 		"sprite": "disruptor_drone_48.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_arm_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			}
-		]
+		"targetattributes": {
+			"any_of": [
+				{
+					"id": "head_health"
+				},
+				{
+					"id": "torso_health"
+				},
+				{
+					"id": "left_arm_health"
+				},
+				{
+					"id": "right_arm_health"
+				},
+				{
+					"id": "left_leg_health"
+				},
+				{
+					"id": "right_leg_health"
+				}
+			]
+		}
 	},
 	{
 		"description": "A compact, spider-like bot specialized in ambush tactics. The Venom Crawler injects a corrosive fluid into its target, damaging armor and slowly weakening the player over time.",
@@ -245,11 +255,13 @@
 		"sense_range": 80,
 		"sight_range": 200,
 		"sprite": "venom_crawler_48.png",
-		"targetattributes": [
-			{
-				"id": "poison"
-			}
-		]
+		"targetattributes": {
+			"any_of": [
+				{
+					"id": "poison"
+				}
+			]
+		}
 	},
 	{
 		"description": "A towering, sentinel-like robot with a focus on ranged combat. The Outpost Guardian uses built-in projectile launchers to strike players from afar, aiming at any perceived threat.",
@@ -265,25 +277,27 @@
 		"sense_range": 100,
 		"sight_range": 400,
 		"sprite": "outpost_guardian_72.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_arm_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			}
-		]
+		"targetattributes": {
+			"any_of": [
+				{
+					"id": "head_health"
+				},
+				{
+					"id": "torso_health"
+				},
+				{
+					"id": "left_arm_health"
+				},
+				{
+					"id": "right_arm_health"
+				},
+				{
+					"id": "left_leg_health"
+				},
+				{
+					"id": "right_leg_health"
+				}
+			]
+		}
 	}
 ]

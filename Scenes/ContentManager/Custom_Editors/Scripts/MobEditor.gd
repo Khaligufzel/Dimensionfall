@@ -24,7 +24,10 @@ extends Control
 @export var dash_speed_multiplier_spin_box: SpinBox = null
 @export var dash_duration_spin_box: SpinBox = null
 @export var dash_cooldown_spin_box: SpinBox = null
-@export var attributesGridContainer: GridContainer = null
+@export var any_of_attributes_grid_container: GridContainer = null
+@export var all_of_attributes_grid_container: GridContainer = null
+
+
 
 signal data_changed()
 var olddata: DMob # Remember what the value of the data was before editing
@@ -42,7 +45,7 @@ var dmob: DMob:
 
 # Forward drag-and-drop functionality to the attributesGridContainer
 func _ready() -> void:
-	attributesGridContainer.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_attribute_data)
+	any_of_attributes_grid_container.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_attribute_data)
 
 # This function update the form based on the DMob data that has been loaded
 func load_mob_data() -> void:
@@ -83,8 +86,12 @@ func load_mob_data() -> void:
 	# Enable or disable dash controls based on checkbox state
 	_on_dash_check_box_toggled(dash_check_box.is_pressed())
 	
-	# Load attributes into the UI
-	_load_attributes_into_ui(dmob.targetattributes)
+	# Load 'any_of' and 'all_of' attributes into their respective grids
+	if dmob.targetattributes.has("any_of"):
+		_load_attributes_into_grid(any_of_attributes_grid_container, dmob.targetattributes["any_of"])
+	if dmob.targetattributes.has("all_of"):
+		_load_attributes_into_grid(all_of_attributes_grid_container, dmob.targetattributes["all_of"])
+
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -171,28 +178,39 @@ func _on_item_group_clear_button_button_up():
 	ItemGroupTextEdit.clear()
 
 
-# Load attributes into the attributesGridContainer
-func _load_attributes_into_ui(attributes: Array) -> void:
+# Helper function to load attributes into a specified grid container
+func _load_attributes_into_grid(container: GridContainer, attributes: Array) -> void:
 	# Clear previous entries
-	for child in attributesGridContainer.get_children():
+	for child in container.get_children():
 		child.queue_free()
-	
+
 	# Populate the container with attributes
 	for attribute in attributes:
-		_add_attribute_entry(attribute)
+		_add_attribute_entry_to_grid(container, attribute)
 
 
-# Get the current attributes from the UI
-func _get_attributes_from_ui() -> Array:
-	var attributes = []
-	var children = attributesGridContainer.get_children()
-	for i in range(1, children.size(), 3):  # Step by 3 to handle sprite-label-deleteButton triples
-		var label = children[i] as Label
-		attributes.append({"id": label.text})
-	return attributes
+# Modified function to gather attributes from the UI and structure them as a dictionary
+func _get_attributes_from_ui() -> Dictionary:
+	var target_attributes: Dictionary = {"any_of": [], "all_of": []}
 
-# Add a new attribute entry to the attributesGridContainer
-func _add_attribute_entry(attribute: Dictionary) -> void:
+	# Collect attributes from 'any_of' grid container
+	var any_of_children = any_of_attributes_grid_container.get_children()
+	for i in range(1, any_of_children.size(), 3):  # Step by 3 to handle sprite-label-deleteButton triples
+		var label = any_of_children[i] as Label
+		target_attributes["any_of"].append({"id": label.text})
+
+	# Collect attributes from 'all_of' grid container
+	var all_of_children = all_of_attributes_grid_container.get_children()
+	for i in range(1, all_of_children.size(), 3):  # Step by 3 to handle sprite-label-deleteButton triples
+		var label = all_of_children[i] as Label
+		# Assuming damage value is handled elsewhere; modify this as needed.
+		target_attributes["all_of"].append({"id": label.text, "damage": 10})
+
+	return target_attributes
+
+
+# Modified function to add a new attribute entry to a specified grid container
+func _add_attribute_entry_to_grid(container: GridContainer, attribute: Dictionary) -> void:
 	var myattribute: DPlayerAttribute = Gamedata.playerattributes.by_id(attribute.id)
 
 	# Create a TextureRect for the sprite
@@ -200,25 +218,28 @@ func _add_attribute_entry(attribute: Dictionary) -> void:
 	texture_rect.texture = myattribute.sprite
 	texture_rect.custom_minimum_size = Vector2(32, 32)  # Ensure the texture is 32x32
 	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED  # Keep the aspect ratio centered
-	attributesGridContainer.add_child(texture_rect)
+	container.add_child(texture_rect)
 
 	# Create a Label for the attribute name
 	var label = Label.new()
 	label.text = myattribute.id
-	attributesGridContainer.add_child(label)
+	container.add_child(label)
 
 	# Create a Button to delete the attribute entry
 	var deleteButton = Button.new()
 	deleteButton.text = "X"
 	deleteButton.pressed.connect(_delete_attribute_entry.bind([texture_rect, label, deleteButton]))
-	attributesGridContainer.add_child(deleteButton)
+	container.add_child(deleteButton)
 
 
-# Delete an attribute entry from the attributesGridContainer
+# Delete an attribute entry from a specified grid container
 func _delete_attribute_entry(elements_to_remove: Array) -> void:
-	for element in elements_to_remove:
-		attributesGridContainer.remove_child(element)
-		element.queue_free()  # Properly free the node to avoid memory leaks
+	var parent_container = elements_to_remove[0].get_parent()  # Get the parent container dynamically
+	if parent_container in [any_of_attributes_grid_container, all_of_attributes_grid_container]:
+		for element in elements_to_remove:
+			parent_container.remove_child(element)
+			element.queue_free()  # Properly free the node to avoid memory leaks
+
 
 
 # Function to determine if the dragged data can be dropped in the attributesGridContainer

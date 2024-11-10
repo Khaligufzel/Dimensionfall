@@ -36,6 +36,26 @@ extends RefCounted
 # 	"special_moves": {
 # 		"dash": {"speed_multiplier":2,"cooldown":5,"duration":0.5}
 # 	},
+#	"targetattributes": {
+#		"any_of": [
+#			{
+#				"id": "head_health"
+#			},
+#			{
+#				"id": "torso_health"
+#			}
+#		],
+#		"all_of": [
+#			{
+#				"id": "poison",
+#				"damage": 10
+#			},
+#			{
+#				"id": "stun",
+#				"damage": 10
+#			}
+#		]
+#	}
 # 	"spriteid": "scrapwalker64.png"
 # }
 
@@ -55,7 +75,8 @@ var sight_range: int
 var special_moves: Dictionary = {} # Holds special moves like {"dash":{"speed_multiplier":2,"cooldown":5,"duration":0.5}}
 var spriteid: String
 var sprite: Texture
-var targetattributes: Array
+# Updated targetattributes variable to use the new data structure
+var targetattributes: Dictionary = {}
 var references: Dictionary = {}
 
 # Constructor to initialize mob properties from a dictionary
@@ -76,7 +97,7 @@ func _init(data: Dictionary):
 	special_moves = data.get("special_moves", {})
 	spriteid = data.get("sprite", "")
 	
-	targetattributes = []
+	# Initialize targetattributes based on the new format
 	if data.has("targetattributes"):
 		targetattributes = data["targetattributes"]
 	references = data.get("references", {})
@@ -107,11 +128,13 @@ func get_data() -> Dictionary:
 	return data
 
 
-
-# Function to return an array of all "id" values in the attributes array
+# Function to return an array of all "id" values in the targetattributes
 func get_attr_ids() -> Array:
 	var ids: Array = []
-	for attribute in targetattributes:
+	for attribute in targetattributes.get("any_of", []):
+		if attribute.has("id"):
+			ids.append(attribute["id"])
+	for attribute in targetattributes.get("all_of", []):
 		if attribute.has("id"):
 			ids.append(attribute["id"])
 	return ids
@@ -172,7 +195,6 @@ func execute_callable_on_references_of_type(module: String, type: String, callab
 		# If the type exists, execute the callable on each ID found under this type
 		for ref_id in references[module][type]:
 			callable.call(ref_id)
-
 
 
 # Collects all attributes defined in an item and updates the references to that attribute
