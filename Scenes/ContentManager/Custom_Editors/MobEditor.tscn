@@ -342,7 +342,7 @@ layout_mode = 2
 tooltip_text = "Enter the target player attributes that this mob will attack. You 
 can drag body parts to this field to have the mob target them.
 Selecting multiple will have the mob attack one part at a time at random."
-columns = 3
+columns = 4
 
 [node name="AllOfPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer"]
 layout_mode = 2
@@ -363,7 +363,7 @@ layout_mode = 2
 tooltip_text = "Enter the target player attributes that this mob will attack. You 
 can drag body parts to this field to have the mob target them.
 All attributes listed here will be attacked every time."
-columns = 3
+columns = 4
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_847a0")]
 visible = false

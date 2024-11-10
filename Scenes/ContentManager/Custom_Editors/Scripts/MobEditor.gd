@@ -190,26 +190,6 @@ func _load_attributes_into_grid(container: GridContainer, attributes: Array) -> 
 		_add_attribute_entry_to_grid(container, attribute)
 
 
-# Modified function to gather attributes from the UI and structure them as a dictionary
-func _get_attributes_from_ui() -> Dictionary:
-	var target_attributes: Dictionary = {"any_of": [], "all_of": []}
-
-	# Collect attributes from 'any_of' grid container
-	var any_of_children = any_of_attributes_grid_container.get_children()
-	for i in range(1, any_of_children.size(), 3):  # Step by 3 to handle sprite-label-deleteButton triples
-		var label = any_of_children[i] as Label
-		target_attributes["any_of"].append({"id": label.text})
-
-	# Collect attributes from 'all_of' grid container
-	var all_of_children = all_of_attributes_grid_container.get_children()
-	for i in range(1, all_of_children.size(), 3):  # Step by 3 to handle sprite-label-deleteButton triples
-		var label = all_of_children[i] as Label
-		# Assuming damage value is handled elsewhere; modify this as needed.
-		target_attributes["all_of"].append({"id": label.text, "damage": 10})
-
-	return target_attributes
-
-
 # Modified function to add a new attribute entry to a specified grid container
 func _add_attribute_entry_to_grid(container: GridContainer, attribute: Dictionary) -> void:
 	var myattribute: DPlayerAttribute = Gamedata.playerattributes.by_id(attribute.id)
@@ -226,11 +206,43 @@ func _add_attribute_entry_to_grid(container: GridContainer, attribute: Dictionar
 	label.text = myattribute.id
 	container.add_child(label)
 
+	# Create a SpinBox for the damage amount
+	var spinbox = SpinBox.new()
+	spinbox.min_value = -100
+	spinbox.max_value = 100
+	spinbox.value = attribute.get("damage", 0)  # Default to 0 if not provided
+	spinbox.tooltip_text = "The amount of damage this attribute will receive"
+	container.add_child(spinbox)
+
 	# Create a Button to delete the attribute entry
 	var deleteButton = Button.new()
 	deleteButton.text = "X"
-	deleteButton.pressed.connect(_delete_attribute_entry.bind([texture_rect, label, deleteButton]))
+	deleteButton.pressed.connect(_delete_attribute_entry.bind([texture_rect, label, spinbox, deleteButton]))
 	container.add_child(deleteButton)
+
+
+# Modified function to gather attributes from the UI and structure them as a dictionary
+func _get_attributes_from_ui() -> Dictionary:
+	var target_attributes: Dictionary = {"any_of": [], "all_of": []}
+
+	# Collect attributes from 'any_of' grid container
+	var any_of_children = any_of_attributes_grid_container.get_children()
+	for i in range(1, any_of_children.size(), 4):  # Step by 4 to handle sprite-label-spinbox-deleteButton
+		var label = any_of_children[i] as Label
+		var spinbox = any_of_children[i + 1] as SpinBox
+		if label and spinbox:
+			target_attributes["any_of"].append({"id": label.text, "damage": spinbox.value})
+
+	# Collect attributes from 'all_of' grid container
+	var all_of_children = all_of_attributes_grid_container.get_children()
+	for i in range(1, all_of_children.size(), 4):  # Step by 4 to handle sprite-label-spinbox-deleteButton
+		var label = all_of_children[i] as Label
+		var spinbox = all_of_children[i + 1] as SpinBox
+		if label and spinbox:
+			target_attributes["all_of"].append({"id": label.text, "damage": spinbox.value})
+
+	return target_attributes
+
 
 
 # Delete an attribute entry from a specified grid container

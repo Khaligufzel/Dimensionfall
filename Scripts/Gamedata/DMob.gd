@@ -39,10 +39,12 @@ extends RefCounted
 #	"targetattributes": {
 #		"any_of": [
 #			{
-#				"id": "head_health"
+#				"id": "head_health",
+#				"damage": 10
 #			},
 #			{
-#				"id": "torso_health"
+#				"id": "torso_health",
+#				"damage": 10
 #			}
 #		],
 #		"all_of": [

@@ -175,23 +175,30 @@
 		"sight_range": 150,
 		"sprite": "iron_stalker_64.png",
 		"targetattributes": {
+			"all_of": [],
 			"any_of": [
 				{
+					"damage": 40,
 					"id": "head_health"
 				},
 				{
+					"damage": 40,
 					"id": "torso_health"
 				},
 				{
+					"damage": 40,
 					"id": "left_arm_health"
 				},
 				{
+					"damage": 40,
 					"id": "right_arm_health"
 				},
 				{
+					"damage": 40,
 					"id": "left_leg_health"
 				},
 				{
+					"damage": 40,
 					"id": "right_leg_health"
 				}
 			]
