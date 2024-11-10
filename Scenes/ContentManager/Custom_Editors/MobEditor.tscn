@@ -47,7 +47,7 @@ dash_check_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/Das
 dash_speed_multiplier_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/SpeedMultiplierSpinBox")
 dash_duration_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/DurationSpinBox")
 dash_cooldown_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/CooldownSpinBox")
-attributesGridContainer = NodePath("VBoxContainer/FormGrid/PanelContainer/AttributesGridContainer")
+attributesGridContainer = NodePath("VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/AnyOfAttributesGridContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -166,6 +166,25 @@ layout_mode = 2
 tooltip_text = "The maximum distance it can reach when attacking in melee"
 step = 0.5
 value = 1.5
+
+[node name="MeleeCooldownLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
+layout_mode = 2
+text = "Cooldown"
+
+[node name="MeleeCooldownSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The cooldown in seconds. During the cooldown, the mob cannot perform another melee attack."
+step = 0.5
+value = 1.5
+
+[node name="MeleeKnockbackLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
+layout_mode = 2
+text = "Knockback"
+
+[node name="MeleeKnockbackSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The number of tiles that the  player will be knocked back. If the value is 0, no knockback will be applied."
+step = 0.5
 
 [node name="SpeedLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -298,17 +317,51 @@ value = 5.0
 layout_mode = 2
 text = "Target attributes"
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid"]
+[node name="AttributesHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AnyOfPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_apoql")
 
-[node name="AttributesGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/PanelContainer"]
+[node name="AnyOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer"]
+layout_mode = 2
+
+[node name="AnyOfLabel" type="Label" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
+layout_mode = 2
+text = "Any of:"
+
+[node name="AnyOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 tooltip_text = "Enter the target player attributes that this mob will attack. You 
 can drag body parts to this field to have the mob target them.
-Selecting multiple will have the mob attack each at random."
+Selecting multiple will have the mob attack one part at a time at random."
+columns = 3
+
+[node name="AllOfPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_apoql")
+
+[node name="AllOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer"]
+layout_mode = 2
+
+[node name="AllOfLabel" type="Label" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
+layout_mode = 2
+text = "All of:"
+
+[node name="AllOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+tooltip_text = "Enter the target player attributes that this mob will attack. You 
+can drag body parts to this field to have the mob target them.
+All attributes listed here will be attacked every time."
 columns = 3
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_847a0")]

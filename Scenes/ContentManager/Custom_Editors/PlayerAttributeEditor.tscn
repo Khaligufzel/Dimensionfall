@@ -228,10 +228,12 @@ attribute has a value greater then 0. The effect ends when this attribute has a 
 none: There is no effect while depleting
 drain other attributes: The specified attributes get drained every second until this attribute is depleted."
 selected = 0
-item_count = 2
+item_count = 3
 popup/item_0/text = "none"
 popup/item_1/text = "drain other attributes"
 popup/item_1/id = 1
+popup/item_2/text = "stun"
+popup/item_2/id = 2
 
 [node name="UIColorLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
