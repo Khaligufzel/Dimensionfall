@@ -6,7 +6,8 @@
 		"id": "scrapwalker",
 		"idle_move_speed": 0.5,
 		"loot_group": "mob_loot",
-		"melee_damage": 20,
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
 		"melee_range": 1.5,
 		"move_speed": 2.1,
 		"name": "Scrap walker",
@@ -35,23 +36,30 @@
 		"sight_range": 200,
 		"sprite": "scrapwalker64.png",
 		"targetattributes": {
+			"all_of": [],
 			"any_of": [
 				{
+					"damage": 20,
 					"id": "head_health"
 				},
 				{
+					"damage": 20,
 					"id": "torso_health"
 				},
 				{
+					"damage": 20,
 					"id": "left_arm_health"
 				},
 				{
+					"damage": 20,
 					"id": "right_arm_health"
 				},
 				{
+					"damage": 20,
 					"id": "left_leg_health"
 				},
 				{
+					"damage": 20,
 					"id": "right_leg_health"
 				}
 			]
@@ -64,7 +72,8 @@
 		"id": "rust_sentinel",
 		"idle_move_speed": 0.4,
 		"loot_group": "mob_loot",
-		"melee_damage": 20,
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
 		"melee_range": 1.5,
 		"move_speed": 1.8,
 		"name": "Rust sentinel",
@@ -87,23 +96,30 @@
 		"sight_range": 200,
 		"sprite": "rust_sentinel_72.png",
 		"targetattributes": {
+			"all_of": [],
 			"any_of": [
 				{
+					"damage": 20,
 					"id": "head_health"
 				},
 				{
+					"damage": 20,
 					"id": "torso_health"
 				},
 				{
+					"damage": 20,
 					"id": "left_arm_health"
 				},
 				{
+					"damage": 20,
 					"id": "right_arm_health"
 				},
 				{
+					"damage": 20,
 					"id": "left_leg_health"
 				},
 				{
+					"damage": 20,
 					"id": "right_leg_health"
 				}
 			]
@@ -116,7 +132,8 @@
 		"id": "scavenger_skitter",
 		"idle_move_speed": 1,
 		"loot_group": "mob_loot",
-		"melee_damage": 15,
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
 		"melee_range": 1,
 		"move_speed": 3.5,
 		"name": "Scavenger Skitter",
@@ -138,23 +155,30 @@
 		},
 		"sprite": "scavenger_skitter_48.png",
 		"targetattributes": {
+			"all_of": [],
 			"any_of": [
 				{
+					"damage": 15,
 					"id": "head_health"
 				},
 				{
+					"damage": 15,
 					"id": "torso_health"
 				},
 				{
+					"damage": 15,
 					"id": "left_leg_health"
 				},
 				{
+					"damage": 15,
 					"id": "right_leg_health"
 				},
 				{
+					"damage": 15,
 					"id": "right_arm_health"
 				},
 				{
+					"damage": 15,
 					"id": "left_arm_health"
 				}
 			]
@@ -167,7 +191,8 @@
 		"id": "iron_stalker",
 		"idle_move_speed": 0.3,
 		"loot_group": "mob_loot",
-		"melee_damage": 40,
+		"melee_cooldown": 2,
+		"melee_knockback": 2,
 		"melee_range": 2,
 		"move_speed": 1,
 		"name": "Iron Stalker",
@@ -216,7 +241,8 @@
 		"id": "disruptor_drone",
 		"idle_move_speed": 0.8,
 		"loot_group": "mob_loot",
-		"melee_damage": 0,
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
 		"melee_range": 1.5,
 		"move_speed": 2.5,
 		"name": "Disruptor Drone",
@@ -231,23 +257,30 @@
 		"sight_range": 300,
 		"sprite": "disruptor_drone_48.png",
 		"targetattributes": {
+			"all_of": [],
 			"any_of": [
 				{
+					"damage": 0,
 					"id": "head_health"
 				},
 				{
+					"damage": 0,
 					"id": "torso_health"
 				},
 				{
+					"damage": 0,
 					"id": "left_arm_health"
 				},
 				{
+					"damage": 0,
 					"id": "right_arm_health"
 				},
 				{
+					"damage": 0,
 					"id": "left_leg_health"
 				},
 				{
+					"damage": 0,
 					"id": "right_leg_health"
 				}
 			]
@@ -260,7 +293,8 @@
 		"id": "venom_crawler",
 		"idle_move_speed": 0.6,
 		"loot_group": "mob_loot",
-		"melee_damage": -10,
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
 		"melee_range": 1,
 		"move_speed": 2.8,
 		"name": "Venom Crawler",
@@ -268,8 +302,10 @@
 		"sight_range": 200,
 		"sprite": "venom_crawler_48.png",
 		"targetattributes": {
+			"all_of": [],
 			"any_of": [
 				{
+					"damage": -10,
 					"id": "poison"
 				}
 			]
@@ -282,7 +318,8 @@
 		"id": "outpost_guardian",
 		"idle_move_speed": 0.4,
 		"loot_group": "mob_loot",
-		"melee_damage": 30,
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
 		"melee_range": 1.5,
 		"move_speed": 1.3,
 		"name": "Outpost Guardian",
@@ -290,23 +327,30 @@
 		"sight_range": 400,
 		"sprite": "outpost_guardian_72.png",
 		"targetattributes": {
+			"all_of": [],
 			"any_of": [
 				{
+					"damage": 30,
 					"id": "head_health"
 				},
 				{
+					"damage": 30,
 					"id": "torso_health"
 				},
 				{
+					"damage": 30,
 					"id": "left_arm_health"
 				},
 				{
+					"damage": 30,
 					"id": "right_arm_health"
 				},
 				{
+					"damage": 30,
 					"id": "left_leg_health"
 				},
 				{
+					"damage": 30,
 					"id": "right_leg_health"
 				}
 			]

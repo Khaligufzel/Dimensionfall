@@ -20,7 +20,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_range_numedit", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_range_numedit", "melee_cooldown_spinbox", "melee_knockback_spinbox", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,6 +35,8 @@ NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 mobSelector = NodePath("Sprite_selector")
 melee_range_numedit = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeRangeSpinbox")
+melee_cooldown_spinbox = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeCooldownSpinbox")
+melee_knockback_spinbox = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeKnockbackSpinbox")
 health_numedit = NodePath("VBoxContainer/FormGrid/HealthSpinBox")
 moveSpeed_numedit = NodePath("VBoxContainer/FormGrid/SpeedHBoxContainer/MoveSpeedSpinBox")
 idle_move_speed_numedit = NodePath("VBoxContainer/FormGrid/SpeedHBoxContainer/IdleMoveSpeedSpinBox")

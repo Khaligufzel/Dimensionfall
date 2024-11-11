@@ -12,6 +12,8 @@ extends Control
 @export var DescriptionTextEdit: TextEdit = null
 @export var mobSelector: Popup = null
 @export var melee_range_numedit: SpinBox
+@export var melee_cooldown_spinbox: SpinBox = null
+@export var melee_knockback_spinbox: SpinBox = null
 @export var health_numedit: SpinBox
 @export var moveSpeed_numedit: SpinBox
 @export var idle_move_speed_numedit: SpinBox
@@ -60,6 +62,10 @@ func load_mob_data() -> void:
 		DescriptionTextEdit.text = dmob.description
 	if melee_range_numedit != null:
 		melee_range_numedit.value = dmob.melee_range
+	if melee_cooldown_spinbox != null:
+		melee_cooldown_spinbox.value = dmob.melee_cooldown
+	if melee_knockback_spinbox != null:
+		melee_knockback_spinbox.value = dmob.melee_knockback
 	if health_numedit != null:
 		health_numedit.value = dmob.health
 	if moveSpeed_numedit != null:
@@ -104,6 +110,8 @@ func _on_save_button_button_up() -> void:
 	dmob.name = NameTextEdit.text
 	dmob.description = DescriptionTextEdit.text
 	dmob.melee_range = melee_range_numedit.value
+	dmob.melee_cooldown = melee_cooldown_spinbox.value
+	dmob.melee_knockback = melee_knockback_spinbox.value
 	dmob.health = int(health_numedit.value)
 	dmob.move_speed = moveSpeed_numedit.value
 	dmob.idle_move_speed = idle_move_speed_numedit.value

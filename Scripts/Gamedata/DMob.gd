@@ -16,8 +16,10 @@ extends RefCounted
 # 	"id": "scrapwalker",
 # 	"idle_move_speed": 0.5,
 # 	"loot_group": "mob_loot",
-# 	"melee_range": 1.5,
 # 	"move_speed": 2.1,
+# 	"melee_range": 1.5,
+# 	"melee_knockback": 2.0,
+# 	"melee_cooldown": 2.0,
 # 	"name": "Scrap walker",
 # 	"references": {
 # 		"core": {
@@ -69,6 +71,8 @@ var hearing_range: int
 var idle_move_speed: float
 var loot_group: String
 var melee_range: float
+var melee_knockback: float  # New property for melee knockback
+var melee_cooldown: float   # New property for melee cooldown
 var move_speed: float
 var sense_range: int
 var sight_range: int
@@ -89,6 +93,8 @@ func _init(data: Dictionary):
 	idle_move_speed = data.get("idle_move_speed", 0.5)
 	loot_group = data.get("loot_group", "")
 	melee_range = data.get("melee_range", 1.5)
+	melee_knockback = data.get("melee_knockback", 2.0)  # Initialize with default value
+	melee_cooldown = data.get("melee_cooldown", 2.0)    # Initialize with default value
 	move_speed = data.get("move_speed", 1.0)
 	sense_range = data.get("sense_range", 50)
 	sight_range = data.get("sight_range", 200)
@@ -112,6 +118,8 @@ func get_data() -> Dictionary:
 		"idle_move_speed": idle_move_speed,
 		"loot_group": loot_group,
 		"melee_range": melee_range,
+		"melee_knockback": melee_knockback,  # Add to data output
+		"melee_cooldown": melee_cooldown,    # Add to data output
 		"move_speed": move_speed,
 		"sense_range": sense_range,
 		"sight_range": sight_range,
