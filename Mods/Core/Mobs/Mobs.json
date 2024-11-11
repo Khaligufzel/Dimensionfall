@@ -23,7 +23,8 @@
 					"RockyHill_SW",
 					"generichouse_end",
 					"subway_station",
-					"office_building_00"
+					"office_building_00",
+					"city_square"
 				],
 				"quests": [
 					"starter_tutorial_00"
@@ -75,7 +76,8 @@
 					"store_electronic_clothing",
 					"generichouse_end",
 					"subway_station",
-					"office_building_00"
+					"office_building_00",
+					"city_square"
 				]
 			}
 		},
@@ -114,8 +116,22 @@
 		"melee_range": 1,
 		"move_speed": 3.5,
 		"name": "Scavenger Skitter",
+		"references": {
+			"core": {
+				"maps": [
+					"city_square"
+				]
+			}
+		},
 		"sense_range": 70,
 		"sight_range": 250,
+		"special_moves": {
+			"dash": {
+				"cooldown": 5,
+				"duration": 0.5,
+				"speed_multiplier": 2
+			}
+		},
 		"sprite": "scavenger_skitter_48.png",
 		"targetattributes": [
 			{
@@ -184,6 +200,13 @@
 		"melee_range": 1.5,
 		"move_speed": 2.5,
 		"name": "Disruptor Drone",
+		"references": {
+			"core": {
+				"maps": [
+					"city_square"
+				]
+			}
+		},
 		"sense_range": 80,
 		"sight_range": 300,
 		"sprite": "disruptor_drone_48.png",

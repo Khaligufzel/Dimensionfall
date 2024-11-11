@@ -20,6 +20,10 @@ extends Control
 @export var senseRange_numedit: SpinBox
 @export var hearingRange_numedit: SpinBox
 @export var ItemGroupTextEdit: TextEdit = null
+@export var dash_check_box: CheckBox = null
+@export var dash_speed_multiplier_spin_box: SpinBox = null
+@export var dash_duration_spin_box: SpinBox = null
+@export var dash_cooldown_spin_box: SpinBox = null
 @export var attributesGridContainer: GridContainer = null
 
 signal data_changed()
@@ -69,6 +73,15 @@ func load_mob_data() -> void:
 		hearingRange_numedit.value = dmob.hearing_range
 	if ItemGroupTextEdit != null:
 		ItemGroupTextEdit.text = dmob.loot_group
+
+	# Load dash data if available in special_moves
+	var dash_data = dmob.special_moves.get("dash", {})
+	dash_check_box.set_pressed(not dash_data.is_empty())
+	dash_speed_multiplier_spin_box.value = dash_data.get("speed_multiplier", 2)
+	dash_duration_spin_box.value = dash_data.get("duration", 0.5)
+	dash_cooldown_spin_box.value = dash_data.get("cooldown", 5)
+	# Enable or disable dash controls based on checkbox state
+	_on_dash_check_box_toggled(dash_check_box.is_pressed())
 	
 	# Load attributes into the UI
 	_load_attributes_into_ui(dmob.targetattributes)
@@ -95,6 +108,16 @@ func _on_save_button_button_up() -> void:
 	dmob.hearing_range = int(hearingRange_numedit.value)
 	dmob.loot_group = ItemGroupTextEdit.text if ItemGroupTextEdit.text else ""
 	
+	# Set dash special move data based on checkbox
+	if dash_check_box.pressed:
+		dmob.special_moves["dash"] = {
+			"speed_multiplier": dash_speed_multiplier_spin_box.value,
+			"cooldown": dash_cooldown_spin_box.value,
+			"duration": dash_duration_spin_box.value
+		}
+	else:
+		dmob.special_moves["dash"] = {}  # Clear dash if checkbox is unchecked
+
 	# Save attributes
 	dmob.targetattributes = _get_attributes_from_ui()
 
@@ -240,3 +263,10 @@ func _handle_attribute_drop(dropped_data, _newpos) -> void:
 		# Here you would update your data structure if needed, similar to how you did for resources
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
+
+
+# Toggle the state of dash controls based on dash checkbox status
+func _on_dash_check_box_toggled(pressed: bool) -> void:
+	dash_speed_multiplier_spin_box.editable = pressed
+	dash_duration_spin_box.editable = pressed
+	dash_cooldown_spin_box.editable = pressed

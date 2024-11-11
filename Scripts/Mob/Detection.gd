@@ -4,7 +4,7 @@ extends Node3D
 var playerCol: Node3D
 var mob: CharacterBody3D # The mob that we want to enable detection for
 var spotted_player: CharacterBody3D
-var state_nodes: Array # The state nodes i.e. MobAttack, MobFollow, MobIdle
+var state_machine: StateMachine
 
 signal player_spotted
 
@@ -13,25 +13,25 @@ var senseRange
 var hearingRange
 var melee_range
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	sightRange = mob.sight_range
 	senseRange = mob.sense_range
 	hearingRange = mob.hearing_range
 	# Connect the detection signal to the state nodes in the statemachine
-	for node in state_nodes:
+	for node in state_machine.states.values():
 		player_spotted.connect(node._on_detection_player_spotted)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
-	
-	#3d
-#	queue_redraw()
 
 
+# Monitors the physics space each frame to detect nearby players using raycasting.
+# - Sets up a raycast from the mob's current position toward the player's position.
+# - If the raycast detects a player and the player is within `sightRange`, 
+#   the player is assigned to `spotted_player`, and the `player_spotted` signal is emitted.
 func _physics_process(_delta):
 	if mob.terminated:
 		return
