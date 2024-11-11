@@ -29,8 +29,11 @@ var attributes = {}
 
 var time_since_ready = 0.0
 var delay_before_movement = 2.0  # 2 second delay
-# Variable to store the last recorded y level
-var last_y_level: int = 0
+
+# Variables to handle knockback
+var knockback_active = false
+var knockback_velocity: Vector3 = Vector3.ZERO
+var knockback_distance_remaining: float = 0.0
 
 @export var sprite : Sprite3D
 @export var collision_detector : Area3D # Used for detecting collision with furniture
@@ -123,10 +126,6 @@ func _process(_delta):
 	var current_y_level = global_position.y
 	RenderingServer.global_shader_parameter_set("player_y_level", current_y_level)
 
-#	if is_progress_bar_well_progressing_i_guess:
-#		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
-
-
 
 func _physics_process(delta):
 	time_since_ready += delta
@@ -141,44 +140,61 @@ func _physics_process(delta):
 	move_and_slide()
 
 	if is_alive:
-		var input_dir = Input.get_vector("left", "right", "up", "down")
-		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		# Handle knockback movement if active
+		if knockback_active:
+			# Set the knockback velocity for this frame
+			velocity = knockback_velocity
+			move_and_slide()  # Call without arguments
 
-		# Athletics skill level
-		var athletics_level = get_skill_level("athletics")
+			# Update the remaining knockback distance
+			knockback_distance_remaining -= knockback_velocity.length() * delta
 
-		# Calculate run multiplier based on athletics skill level
-		run_multiplier = 1.1 + (athletics_level / 100.0) * (2.0 - 1.1)
+			# Check if knockback is complete
+			if knockback_distance_remaining <= 0.0:
+				knockback_active = false
+				velocity = Vector3.ZERO  # Reset velocity
 
-		# Calculate stamina lost while running based on athletics skill level
-		stamina_lost_while_running_per_sec  = 15 - (athletics_level / 100.0) * (15 - 5)
+		# Check if the player is stunned; if so, prevent control-based movement
+		if is_stunned():
+			move_and_slide()  # Keep moving with existing velocity but no input-based movement
+			return  # Prevent further processing for player control
 
-		# Calculate stamina regeneration while standing still based on athletics skill level
-		stamina_regen_while_standing_still = 3 + (athletics_level / 100.0) * (8 - 3)
+		# Player control movement
+		if not knockback_active:
+			var input_dir = Input.get_vector("left", "right", "up", "down")
+			var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-		# Check if the player is pushing furniture
-		if pushing_furniture and furniture_body:
-			# Apply resistance based on the mass of the furniture collider
-			var mass = PhysicsServer3D.body_get_param(furniture_body, PhysicsServer3D.BODY_PARAM_MASS)
-			var resistance = 1.0 / mass
-			velocity = direction * speed * resistance
-		else:
-			if not is_running or current_stamina <= 0:
-				velocity = direction * speed
-			elif is_running and current_stamina > 0:
-				velocity = direction * speed * run_multiplier
+			# Athletics skill level
+			var athletics_level = get_skill_level("athletics")
 
-				if velocity.length() > 0:
-					current_stamina -= delta * stamina_lost_while_running_per_sec 
-					# Add XP for running
-					add_skill_xp("athletics", 0.01)
+			# Calculate run multiplier and stamina modifications
+			run_multiplier = 1.1 + (athletics_level / 100.0) * (2.0 - 1.1)
+			stamina_lost_while_running_per_sec = 15 - (athletics_level / 100.0) * (15 - 5)
+			stamina_regen_while_standing_still = 3 + (athletics_level / 100.0) * (8 - 3)
 
-		if velocity.length() < 0.1:
-			current_stamina += delta * stamina_regen_while_standing_still
-			if current_stamina > stamina:
-				current_stamina = stamina
+			# Check if the player is pushing furniture
+			if pushing_furniture and furniture_body:
+				# Apply resistance based on the mass of the furniture collider
+				var mass = PhysicsServer3D.body_get_param(furniture_body, PhysicsServer3D.BODY_PARAM_MASS)
+				var resistance = 1.0 / mass
+				velocity = direction * speed * resistance
+			else:
+				# Movement logic
+				if not is_running or current_stamina <= 0:
+					velocity = direction * speed
+				elif is_running and current_stamina > 0:
+					velocity = direction * speed * run_multiplier
+					if velocity.length() > 0:
+						current_stamina -= delta * stamina_lost_while_running_per_sec
+						add_skill_xp("athletics", 0.01)
 
-		update_stamina_HUD.emit(current_stamina)
+			# Stamina regeneration when standing still
+			if velocity.length() < 0.1:
+				current_stamina += delta * stamina_regen_while_standing_still
+				if current_stamina > stamina:
+					current_stamina = stamina
+
+			update_stamina_HUD.emit(current_stamina)
 
 		move_and_slide()
 
@@ -571,13 +587,19 @@ func _on_wearable_was_unequipped(wearableItem: InventoryItem, _wearableSlot: Con
 	_modify_player_attribute_on_equip(wearableItem, false)  # false for unequipping
 
 
-# Function to handle knockback
+# Function to handle knockback, initializing the velocity and distance
 # knockback_distance: The number of tiles (units) to push the player back
 # mob_position: The global position of the mob that initiated the knockback
 func _perform_knockback(knockback_distance: float, mob_position: Vector3):
+	knockback_active = true
 	var direction_vector = (global_position - mob_position).normalized()
-	var knockback_vector = direction_vector * knockback_distance
+	knockback_velocity = direction_vector * speed * 3.0  # Adjust this factor as needed
+	knockback_distance_remaining = knockback_distance
 
-	# Move the player by the knockback vector at 3 times the player's current speed
-	velocity += knockback_vector * speed * 3.0
-	move_and_slide()
+
+# Function to check if the "stun" attribute's current amount is greater than 0
+func is_stunned() -> bool:
+	if attributes.has("stun"):
+		var stun_attribute: PlayerAttribute = attributes["stun"]
+		return stun_attribute.default_mode.current_amount > 0
+	return false
