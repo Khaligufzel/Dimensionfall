@@ -439,8 +439,8 @@
 	],
 	"categories": [
 		"House",
-		"Urban",
-		"City"
+		"City",
+		"Suburban"
 	],
 	"connections": {
 		"east": "road",
