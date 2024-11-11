@@ -225,10 +225,19 @@ func _check_for_interaction() -> void:
 
 
 # The player gets hit by an attack
-# attributeid: The PlayerAttribute that is targeted by this attack
-# damage: The amount to subtract from the target attribute
-func _get_hit(attributeid: String, damage: float):
-	attributes[attributeid].reduce_amount(damage)
+# attack: a dictionary like this:
+# {
+# 	"attributeid": "torso_health", # The PlayerAttribute that is targeted by this attack
+# 	"damage": 20, # The amount to subtract from the target attribute
+# 	"knockback": 2, # The number of tiles to push the player away
+# 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
+# }
+func _get_hit(attack: Dictionary):
+	if attack.has("attributeid") and attributes.has(attack["attributeid"]):
+		attributes[attack["attributeid"]].reduce_amount(attack["damage"])
+	
+	if attack.has("knockback") and attack["knockback"] > 0 and attack.has("mobposition"):
+		_perform_knockback(attack["knockback"], attack["mobposition"])
 
 
 func die():
@@ -386,9 +395,11 @@ func _sort_player_attributes_by_order(myattributes: Array[PlayerAttribute], orde
 			pass
 	return myattributes
 
+
 # Custom sorting functions for PlayerAttributes
 func _compare_player_attributes_by_current_amount_ascending(a: PlayerAttribute, b: PlayerAttribute) -> bool:
 	return a.current_amount < b.current_amount
+
 
 func _compare_player_attributes_by_current_amount_descending(a: PlayerAttribute, b: PlayerAttribute) -> bool:
 	return a.current_amount > b.current_amount
@@ -558,3 +569,15 @@ func _on_wearable_was_equipped(wearableItem: InventoryItem, _wearableSlot: Contr
 # Function for handling when a wearable is unequipped
 func _on_wearable_was_unequipped(wearableItem: InventoryItem, _wearableSlot: Control):
 	_modify_player_attribute_on_equip(wearableItem, false)  # false for unequipping
+
+
+# Function to handle knockback
+# knockback_distance: The number of tiles (units) to push the player back
+# mob_position: The global position of the mob that initiated the knockback
+func _perform_knockback(knockback_distance: float, mob_position: Vector3):
+	var direction_vector = (global_position - mob_position).normalized()
+	var knockback_vector = direction_vector * knockback_distance
+
+	# Move the player by the knockback vector at 3 times the player's current speed
+	velocity += knockback_vector * speed * 3.0
+	move_and_slide()

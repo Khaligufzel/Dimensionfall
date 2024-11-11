@@ -61,28 +61,39 @@ func try_to_attack():
 
 
 # The mob is going to attack.
+# attack: a dictionary like this:
+# {
+# 	"attributeid": "torso_health", # The PlayerAttribute that is targeted by this attack
+# 	"damage": 20, # The amount to subtract from the target attribute
+# 	"knockback": 2, # The number of tiles to push the player away
+# 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
+# }
 func attack():
 	print("Attacking!")
+
 	# Apply damage to a randomly selected attribute from 'any_of'
 	if mob.dmob.targetattributes.has("any_of") and not mob.dmob.targetattributes["any_of"].is_empty():
 		var any_of_attributes: Array = mob.dmob.targetattributes["any_of"]
 		var selected_attribute: Dictionary = any_of_attributes.pick_random()
-		var attribute_id: String = selected_attribute["id"]
-		var damage: float = selected_attribute["damage"]
-
-		if targeted_player and targeted_player.has_method("_get_hit"):
-			targeted_player._get_hit(attribute_id, damage)
+		_apply_attack_to_player(selected_attribute)
 
 	# Apply damage to each attribute in 'all_of'
 	if mob.dmob.targetattributes.has("all_of"):
 		var all_of_attributes: Array = mob.dmob.targetattributes["all_of"]
 		for attribute in all_of_attributes:
-			var attribute_id: String = attribute["id"]
-			var damage: float = attribute["damage"]
+			_apply_attack_to_player(attribute)
 
-			if targeted_player and targeted_player.has_method("_get_hit"):
-				targeted_player._get_hit(attribute_id, damage)
 
+# Helper function to send attack data to the player's _get_hit method
+func _apply_attack_to_player(attribute: Dictionary) -> void:
+	if targeted_player and targeted_player.has_method("_get_hit"):
+		var attack_data: Dictionary = {
+			"attributeid": attribute["id"],
+			"damage": attribute["damage"],
+			"knockback": mob.dmob.melee_knockback,
+			"mobposition": mob.global_position
+		}
+		targeted_player._get_hit(attack_data)
 
 
 func stop_attacking():
