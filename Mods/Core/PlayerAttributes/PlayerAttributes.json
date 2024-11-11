@@ -113,7 +113,6 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"disruptor_drone",
 					"outpost_guardian"
 				]
 			}
@@ -150,7 +149,6 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"disruptor_drone",
 					"outpost_guardian"
 				]
 			}
@@ -187,8 +185,7 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"outpost_guardian",
-					"disruptor_drone"
+					"outpost_guardian"
 				]
 			}
 		},
@@ -224,8 +221,7 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"outpost_guardian",
-					"disruptor_drone"
+					"outpost_guardian"
 				]
 			}
 		},
@@ -261,7 +257,6 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"disruptor_drone",
 					"outpost_guardian"
 				]
 			}
@@ -298,7 +293,6 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"disruptor_drone",
 					"outpost_guardian"
 				]
 			}
@@ -377,7 +371,8 @@
 		"references": {
 			"core": {
 				"mobs": [
-					"iron_stalker"
+					"iron_stalker",
+					"disruptor_drone"
 				]
 			}
 		},

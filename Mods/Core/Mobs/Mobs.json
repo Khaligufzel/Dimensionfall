@@ -252,7 +252,7 @@
 		"id": "disruptor_drone",
 		"idle_move_speed": 0.8,
 		"loot_group": "mob_loot",
-		"melee_cooldown": 1,
+		"melee_cooldown": 2,
 		"melee_knockback": 0,
 		"melee_range": 1.5,
 		"move_speed": 2.5,
@@ -271,28 +271,8 @@
 			"all_of": [],
 			"any_of": [
 				{
-					"damage": 0,
-					"id": "head_health"
-				},
-				{
-					"damage": 0,
-					"id": "torso_health"
-				},
-				{
-					"damage": 0,
-					"id": "left_arm_health"
-				},
-				{
-					"damage": 0,
-					"id": "right_arm_health"
-				},
-				{
-					"damage": 0,
-					"id": "left_leg_health"
-				},
-				{
-					"damage": 0,
-					"id": "right_leg_health"
+					"damage": -10,
+					"id": "stun"
 				}
 			]
 		}
