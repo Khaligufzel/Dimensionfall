@@ -16,7 +16,6 @@ extends RefCounted
 # 	"id": "scrapwalker",
 # 	"idle_move_speed": 0.5,
 # 	"loot_group": "mob_loot",
-# 	"melee_damage": 20,
 # 	"melee_range": 1.5,
 # 	"move_speed": 2.1,
 # 	"name": "Scrap walker",
@@ -69,7 +68,6 @@ var health: int
 var hearing_range: int
 var idle_move_speed: float
 var loot_group: String
-var melee_damage: int
 var melee_range: float
 var move_speed: float
 var sense_range: int
@@ -90,7 +88,6 @@ func _init(data: Dictionary):
 	hearing_range = data.get("hearing_range", 1000)
 	idle_move_speed = data.get("idle_move_speed", 0.5)
 	loot_group = data.get("loot_group", "")
-	melee_damage = data.get("melee_damage", 20)
 	melee_range = data.get("melee_range", 1.5)
 	move_speed = data.get("move_speed", 1.0)
 	sense_range = data.get("sense_range", 50)
@@ -114,7 +111,6 @@ func get_data() -> Dictionary:
 		"hearing_range": hearing_range,
 		"idle_move_speed": idle_move_speed,
 		"loot_group": loot_group,
-		"melee_damage": melee_damage,
 		"melee_range": melee_range,
 		"move_speed": move_speed,
 		"sense_range": sense_range,

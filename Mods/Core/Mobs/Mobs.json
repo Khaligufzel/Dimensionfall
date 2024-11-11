@@ -175,7 +175,12 @@
 		"sight_range": 150,
 		"sprite": "iron_stalker_64.png",
 		"targetattributes": {
-			"all_of": [],
+			"all_of": [
+				{
+					"damage": 10,
+					"id": "stun"
+				}
+			],
 			"any_of": [
 				{
 					"damage": 40,

@@ -20,7 +20,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_damage_numedit", "melee_range_numedit", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_range_numedit", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +34,6 @@ PathTextLabel = NodePath("VBoxContainer/FormGrid/PathTextLabel")
 NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 mobSelector = NodePath("Sprite_selector")
-melee_damage_numedit = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeDamageSpinBox")
 melee_range_numedit = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeRangeSpinbox")
 health_numedit = NodePath("VBoxContainer/FormGrid/HealthSpinBox")
 moveSpeed_numedit = NodePath("VBoxContainer/FormGrid/SpeedHBoxContainer/MoveSpeedSpinBox")
@@ -148,15 +147,6 @@ text = "Melee"
 
 [node name="MeleeHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-
-[node name="MeleeDamageLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
-layout_mode = 2
-text = "Damage"
-
-[node name="MeleeDamageSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
-layout_mode = 2
-min_value = -100.0
-value = 20.0
 
 [node name="MeleeRangeLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
 layout_mode = 2

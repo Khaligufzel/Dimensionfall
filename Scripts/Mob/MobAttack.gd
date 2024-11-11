@@ -53,18 +53,36 @@ func Physics_Update(_delta: float):
 	else:
 		is_in_attack_mode = false
 		stop_attacking()
-		
+
+
 func try_to_attack():
 	print("Trying to attack...")
 	attack_timer.start()
 
 
+# The mob is going to attack.
 func attack():
 	print("Attacking!")
-	var targetattribute: Dictionary = mob.dmob.targetattributes.pick_random()
-	var attributeid: String = targetattribute.id
-	if targeted_player and targeted_player.has_method("_get_hit"):
-		targeted_player._get_hit(attributeid, mob.melee_damage)
+	# Apply damage to a randomly selected attribute from 'any_of'
+	if mob.dmob.targetattributes.has("any_of") and not mob.dmob.targetattributes["any_of"].is_empty():
+		var any_of_attributes: Array = mob.dmob.targetattributes["any_of"]
+		var selected_attribute: Dictionary = any_of_attributes.pick_random()
+		var attribute_id: String = selected_attribute["id"]
+		var damage: float = selected_attribute["damage"]
+
+		if targeted_player and targeted_player.has_method("_get_hit"):
+			targeted_player._get_hit(attribute_id, damage)
+
+	# Apply damage to each attribute in 'all_of'
+	if mob.dmob.targetattributes.has("all_of"):
+		var all_of_attributes: Array = mob.dmob.targetattributes["all_of"]
+		for attribute in all_of_attributes:
+			var attribute_id: String = attribute["id"]
+			var damage: float = attribute["damage"]
+
+			if targeted_player and targeted_player.has_method("_get_hit"):
+				targeted_player._get_hit(attribute_id, damage)
+
 
 
 func stop_attacking():

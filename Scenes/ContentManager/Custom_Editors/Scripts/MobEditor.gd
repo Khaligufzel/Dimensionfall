@@ -11,7 +11,6 @@ extends Control
 @export var NameTextEdit: TextEdit = null
 @export var DescriptionTextEdit: TextEdit = null
 @export var mobSelector: Popup = null
-@export var melee_damage_numedit: SpinBox
 @export var melee_range_numedit: SpinBox
 @export var health_numedit: SpinBox
 @export var moveSpeed_numedit: SpinBox
@@ -59,8 +58,6 @@ func load_mob_data() -> void:
 		NameTextEdit.text = dmob.name
 	if DescriptionTextEdit != null:
 		DescriptionTextEdit.text = dmob.description
-	if melee_damage_numedit != null:
-		melee_damage_numedit.value = dmob.melee_damage
 	if melee_range_numedit != null:
 		melee_range_numedit.value = dmob.melee_range
 	if health_numedit != null:
@@ -106,7 +103,6 @@ func _on_save_button_button_up() -> void:
 	dmob.sprite = mobImageDisplay.texture
 	dmob.name = NameTextEdit.text
 	dmob.description = DescriptionTextEdit.text
-	dmob.melee_damage = int(melee_damage_numedit.value)
 	dmob.melee_range = melee_range_numedit.value
 	dmob.health = int(health_numedit.value)
 	dmob.move_speed = moveSpeed_numedit.value
@@ -267,7 +263,7 @@ func _can_drop_attribute_data(_newpos, data) -> bool:
 	# Check if the attribute ID already exists in either of the attribute grids
 	for grid in [any_of_attributes_grid_container, all_of_attributes_grid_container]:
 		var children = grid.get_children()
-		for i in range(1, children.size(), 3):  # Step by 3 to handle sprite-label-deleteButton triples
+		for i in range(1, children.size(), 4):  # Step by 3 to handle sprite-label-deleteButton triples
 			var label = children[i] as Label
 			if label and label.text == data["id"]:
 				# Return false if this attribute ID already exists in any of the grids

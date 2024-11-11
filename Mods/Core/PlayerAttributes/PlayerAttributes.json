@@ -374,6 +374,13 @@
 		"description": "You are stunned and can't move!",
 		"id": "stun",
 		"name": "Stun",
+		"references": {
+			"core": {
+				"mobs": [
+					"iron_stalker"
+				]
+			}
+		},
 		"sprite": "trapping_32.png"
 	}
 ]
