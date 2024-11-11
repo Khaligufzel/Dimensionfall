@@ -13,6 +13,7 @@ func _ready():
 	# Create and configure AttackCooldown Timer
 	var attack_cooldown = Timer.new()
 	attack_timer = attack_cooldown
+	attack_timer.wait_time = mob.dmob.melee_cooldown  # Set the wait time based on mob's melee_cooldown
 	add_child.call_deferred(attack_cooldown)
 	attack_timer.timeout.connect(_on_attack_cooldown_timeout)
 

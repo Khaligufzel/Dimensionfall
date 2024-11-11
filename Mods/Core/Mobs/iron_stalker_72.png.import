@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxs3y5a4cpiiw"
-path="res://.godot/imported/iron_stalker_64.png-10d738756de49dcfb1f8e658ca28a50e.ctex"
+uid="uid://d25g71o6486na"
+path="res://.godot/imported/iron_stalker_72.png-8e94f0dc286d11f8d010f61629de17e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Mobs/iron_stalker_64.png"
-dest_files=["res://.godot/imported/iron_stalker_64.png-10d738756de49dcfb1f8e658ca28a50e.ctex"]
+source_file="res://Mods/Core/Mobs/iron_stalker_72.png"
+dest_files=["res://.godot/imported/iron_stalker_72.png-8e94f0dc286d11f8d010f61629de17e6.ctex"]
 
 [params]
 

@@ -25,7 +25,8 @@
 					"generichouse_end",
 					"subway_station",
 					"office_building_00",
-					"city_square"
+					"city_square",
+					"parking_garage"
 				],
 				"quests": [
 					"starter_tutorial_00"
@@ -88,7 +89,8 @@
 					"generichouse_end",
 					"subway_station",
 					"office_building_00",
-					"city_square"
+					"city_square",
+					"parking_garage"
 				]
 			}
 		},
@@ -140,7 +142,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"city_square"
+					"city_square",
+					"parking_garage"
 				]
 			}
 		},
@@ -193,16 +196,24 @@
 		"loot_group": "mob_loot",
 		"melee_cooldown": 2,
 		"melee_knockback": 2,
-		"melee_range": 2,
+		"melee_range": 1,
 		"move_speed": 1,
 		"name": "Iron Stalker",
+		"references": {
+			"core": {
+				"maps": [
+					"parking_garage",
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sense_range": 60,
 		"sight_range": 150,
-		"sprite": "iron_stalker_64.png",
+		"sprite": "iron_stalker_72.png",
 		"targetattributes": {
 			"all_of": [
 				{
-					"damage": 10,
+					"damage": -10,
 					"id": "stun"
 				}
 			],

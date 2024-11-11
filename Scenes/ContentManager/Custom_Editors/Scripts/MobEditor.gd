@@ -215,7 +215,9 @@ func _add_attribute_entry_to_grid(container: GridContainer, attribute: Dictionar
 	spinbox.min_value = -100
 	spinbox.max_value = 100
 	spinbox.value = attribute.get("damage", 0)  # Default to 0 if not provided
-	spinbox.tooltip_text = "The amount of damage this attribute will receive"
+	spinbox.tooltip_text = "The amount of damage this attribute will receive. Use positive \n" + \
+							"number to drain the attribute (i.e. damage), use a negative \n" + \
+							"number to add to the attribute (ex. poison)"
 	container.add_child(spinbox)
 
 	# Create a Button to delete the attribute entry
