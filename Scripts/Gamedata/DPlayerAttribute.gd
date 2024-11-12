@@ -4,6 +4,38 @@ extends RefCounted
 # This class represents data of a player attribute with its properties like health, stamina, etc.
 # This does not have any functionality for controlling the attribute itself, it only holds data
 
+# Example data:
+#	{
+#		"default_mode": {
+#			"color": "258d1bff",
+#			"current_amount": 100,
+#			"maxed_effect": "death",
+#			"depletion_effect": "death",
+#			"depleting_effect": "drain",
+#			"depletion_rate": 0.02,
+#			"max_amount": 100,
+#			"min_amount": 0,
+#			"hide_when_empty": false,
+#			"drain_attributes": {
+#				"torso_health": 1.0,
+#				"head_health": 1.0,
+#			}
+#		},
+#		"description": "You starve when this is empty. You are full when this is full.",
+#		"id": "food",
+#		"name": "Food",
+#		"references": {
+#			"core": {
+#				"items": [
+#					"canned_food",
+#					"tofu"
+#				]
+#			}
+#		},
+#		"sprite": "apple_32.png"
+#	}
+
+
 # Attribute ID (unique identifier)
 var id: String
 
@@ -27,7 +59,11 @@ class DefaultMode:
 	var current_amount: float # Current value of the attribute (e.g., current health level)
 	var depletion_rate: float # The rate at which the amount depletes every second
 	var ui_color: String # Variable to store the UI color as a string (e.g., "ffffffff" for white)
+	var maxed_effect: String
 	var depletion_effect: String # The effect that will happen when depleted
+	var depleting_effect: String  # New property for handling the effect when depleting
+	var hide_when_empty: bool  # New property to determine if the attribute should hide when empty
+	var drain_attributes: Dictionary  # New property for drain attributes
 	
 	# Constructor to initialize the properties from a dictionary
 	func _init(data: Dictionary):
@@ -36,18 +72,28 @@ class DefaultMode:
 		current_amount = data.get("current_amount", max_amount)  # Default to max amount if not provided
 		depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02 if not provided
 		ui_color = data.get("color", "ffffffff")  # Default to white if not provided
+		maxed_effect = data.get("maxed_effect", "none")
 		depletion_effect = data.get("depletion_effect", "none")
+		depleting_effect = data.get("depleting_effect", "none")  # Initialize from data
+		hide_when_empty = data.get("hide_when_empty", false)  # Initialize from data
+		drain_attributes = data.get("drain_attributes", {})  # Initialize from data
 	
 	# Get data function to return a dictionary of properties
 	func get_data() -> Dictionary:
-		return {
+		var new_data: Dictionary = {
 			"min_amount": min_amount,
 			"max_amount": max_amount,
 			"current_amount": current_amount,
 			"depletion_rate": depletion_rate,
 			"color": ui_color,
-			"depletion_effect": depletion_effect
+			"maxed_effect": maxed_effect,
+			"depletion_effect": depletion_effect,
+			"depleting_effect": depleting_effect,
+			"hide_when_empty": hide_when_empty
 		}
+		if not drain_attributes.is_empty():
+			new_data["drain_attributes"] = drain_attributes
+		return new_data
 
 
 # Inner class for FixedMode properties

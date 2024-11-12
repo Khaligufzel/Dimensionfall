@@ -230,6 +230,7 @@ func _check_for_interaction() -> void:
 func _get_hit(attributeid: String, damage: float):
 	attributes[attributeid].reduce_amount(damage)
 
+
 func die():
 	if is_alive:
 		print("Player died")
@@ -286,9 +287,9 @@ func _apply_specific_attribute_amounts(medattributes: Array) -> bool:
 	for medattribute in medattributes:
 		# Get the values from the current player's attribute
 		var playerattribute: PlayerAttribute = attributes[medattribute.id]
-		var current_amount = playerattribute.current_amount
-		var max_amount = playerattribute.max_amount
-		var min_amount = playerattribute.min_amount
+		var current_amount = playerattribute.default_mode.current_amount
+		var max_amount = playerattribute.default_mode.max_amount
+		var min_amount = playerattribute.default_mode.min_amount
 
 		# Make sure we don't add or subtract more then the min and max amount
 		var new_amount = clamp(current_amount + medattribute.amount, min_amount, max_amount)
@@ -300,41 +301,48 @@ func _apply_specific_attribute_amounts(medattributes: Array) -> bool:
 	
 	return was_used
 
+
 # Function to apply the general medical amount from the pool
 # See the DItem class and its Medical subclass for the properties of DItem.Medical
 func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
-	var was: Dictionary = {"used": false} # Keep track of whether the item was used
+	var was: Dictionary = {"used": false}  # Keep track of whether the item was used
 	var pool = medical.amount
-	
-	# Get the matching PlayerAttributes based on medical attributes
-	var matching_player_attributes = get_matching_player_attributes(medical.attributes)
-	
+
+	# Collect the IDs from medical attributes into an array
+	var med_attribute_ids = []
+	for med_attr in medical.attributes:
+		med_attribute_ids.append(med_attr.get("id", ""))
+
+	# Get the matching PlayerAttributes based on the collected attribute IDs
+	var matching_player_attributes = get_matching_player_attributes(med_attribute_ids)
+
 	# Separate attributes based on depletion_effect == "death"
 	var death_effect_attributes: Array[PlayerAttribute] = []
 	var other_attributes: Array[PlayerAttribute] = []
 
 	for playerattribute in matching_player_attributes:
-		if playerattribute.depletion_effect == "death":
+		if playerattribute.default_mode.depletion_effect == "death":
 			death_effect_attributes.append(playerattribute)
 		else:
 			other_attributes.append(playerattribute)
-	
+
 	# First, apply the pool to attributes with the death effect
 	var sorted_death_attributes = _sort_player_attributes_by_order(death_effect_attributes, medical.order)
 	pool = _apply_pool_to_attributes(sorted_death_attributes, pool, was)
-	
+
 	# Then, apply the remaining pool to the other attributes
 	var sorted_other_attributes = _sort_player_attributes_by_order(other_attributes, medical.order)
 	pool = _apply_pool_to_attributes(sorted_other_attributes, pool, was)
-	
+
 	return was.used
+
 
 # Helper function to apply the pool to a given array of PlayerAttributes
 func _apply_pool_to_attributes(myattributes: Array[PlayerAttribute], pool: float, was: Dictionary) -> float:
 	for playerattribute in myattributes:
-		var current_amount = playerattribute.current_amount
-		var max_amount = playerattribute.max_amount
-		var min_amount = playerattribute.min_amount
+		var current_amount = playerattribute.default_mode.current_amount
+		var max_amount = playerattribute.default_mode.max_amount
+		var min_amount = playerattribute.default_mode.min_amount
 		
 		# Calculate how much can actually be added from the pool
 		var additional_amount = min(pool, max_amount - current_amount)
@@ -386,19 +394,17 @@ func _compare_player_attributes_by_current_amount_descending(a: PlayerAttribute,
 	return a.current_amount > b.current_amount
 
 
-# Function to retrieve PlayerAttributes that match the IDs in medical.attributes
-func get_matching_player_attributes(med_attributes: Array) -> Array[PlayerAttribute]:
+# Function to retrieve PlayerAttributes that match the provided IDs in the array
+func get_matching_player_attributes(attribute_ids: Array) -> Array[PlayerAttribute]:
 	var matching_attributes: Array[PlayerAttribute] = []
 
-	# Loop over each attribute in the medical item's attributes
-	for med_attr in med_attributes:
-		var attr_id = med_attr.get("id", "")
-		
+	# Loop over each attribute ID provided
+	for attr_id in attribute_ids:
 		# Check if the player has an attribute with the same ID
 		if attributes.has(attr_id):
 			# Add the corresponding PlayerAttribute to the array
 			matching_attributes.append(attributes[attr_id])
-	
+
 	return matching_attributes
 
 
@@ -474,8 +480,6 @@ func _on_craft_successful(_item: DItem, recipe: DItem.CraftRecipe):
 		add_skill_xp(recipe.skill_progression.id, recipe.skill_progression.xp)
 
 
-
-
 # Method to retrieve the current state of the player as a dictionary
 func get_state() -> Dictionary:
 	var attribute_data = {}
@@ -493,7 +497,6 @@ func get_state() -> Dictionary:
 		"global_position_y": global_transform.origin.y,
 		"global_position_z": global_transform.origin.z
 	}
-
 
 
 # Method to set the player's state from a dictionary
@@ -521,7 +524,7 @@ func set_state(state: Dictionary) -> void:
 
 # Function to handle adding or subtracting player attribute amounts when equipping/unequipping
 # When fixed_mode.amount is updated, it will send it's own signal for further processing
-func _modify_player_attribute(wearableItem: InventoryItem, is_equipping: bool):
+func _modify_player_attribute_on_equip(wearableItem: InventoryItem, is_equipping: bool):
 	# Check if the wearable item has a Wearable property
 	if not wearableItem or not wearableItem.get_property("Wearable"):
 		return
@@ -546,10 +549,12 @@ func _modify_player_attribute(wearableItem: InventoryItem, is_equipping: bool):
 			else:
 				player_attribute.modify_temp_amount(-amount)
 
+
 # Function for handling when a wearable is equipped
 func _on_wearable_was_equipped(wearableItem: InventoryItem, _wearableSlot: Control):
-	_modify_player_attribute(wearableItem, true)  # true for equipping
+	_modify_player_attribute_on_equip(wearableItem, true)  # true for equipping
+
 
 # Function for handling when a wearable is unequipped
 func _on_wearable_was_unequipped(wearableItem: InventoryItem, _wearableSlot: Control):
-	_modify_player_attribute(wearableItem, false)  # false for unequipping
+	_modify_player_attribute_on_equip(wearableItem, false)  # false for unequipping

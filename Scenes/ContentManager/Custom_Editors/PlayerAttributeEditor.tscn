@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://b07i30w3ey3aa"]
+[gd_scene load_steps=5 format=3 uid="uid://b07i30w3ey3aa"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/PlayerAttributeEditor.gd" id="1_720us"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_72bbp"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_pwtky"]
 
-[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("icon_rect", "id_text_label", "path_text_label", "name_text_edit", "description_text_edit", "sprite_selector", "min_amount_spinbox", "max_amount_spinbox", "current_amount_spinbox", "depletion_rate_spinbox", "depletion_effect", "ui_color_picker", "mode_tab_container", "fixed_grid", "fixed_amount_spin_box", "default_grid")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jqmb"]
+
+[node name="PlayerAttributeEditor" type="Control" node_paths=PackedStringArray("icon_rect", "id_text_label", "path_text_label", "name_text_edit", "description_text_edit", "sprite_selector", "min_amount_spinbox", "max_amount_spinbox", "current_amount_spinbox", "depletion_rate_spinbox", "depletion_effect", "maxed_effect_option_button", "ui_color_picker", "mode_tab_container", "fixed_grid", "fixed_amount_spin_box", "hide_when_empty_check_box", "depleting_effect_option_button", "drain_attribute_grid_container", "drain_attribute_panel_container", "default_grid")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,15 +20,20 @@ path_text_label = NodePath("VBoxContainer/FormGrid/PathTextLabel")
 name_text_edit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 description_text_edit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 sprite_selector = NodePath("Sprite_selector")
-min_amount_spinbox = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/MinAmountSpinBox")
-max_amount_spinbox = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/MaxAmountSpinBox")
-current_amount_spinbox = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/CurrentAmountSpinBox")
-depletion_rate_spinbox = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DepletionRateSpinBox")
-depletion_effect = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DepletionEffectOptionButton")
-ui_color_picker = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/UIColorPicker")
+min_amount_spinbox = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/MinAmountSpinBox")
+max_amount_spinbox = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/MaxAmountSpinBox")
+current_amount_spinbox = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/CurrentAmountSpinBox")
+depletion_rate_spinbox = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/DepletionRateSpinBox")
+depletion_effect = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/DepletionEffectOptionButton")
+maxed_effect_option_button = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/MaxedEffectOptionButton")
+ui_color_picker = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/UIColorPicker")
 mode_tab_container = NodePath("VBoxContainer/FormGrid/ModeTabContainer")
 fixed_grid = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Fixed")
 fixed_amount_spin_box = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Fixed/FixedAmountSpinBox")
+hide_when_empty_check_box = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/HideWhenEmptyCheckBox")
+depleting_effect_option_button = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid/DepletingEffectOptionButton")
+drain_attribute_grid_container = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DrainAttributePanelContainer/DrainAttributesVBoxContainer/DrainAttributeGridContainer")
+drain_attribute_panel_container = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default/DrainAttributePanelContainer")
 default_grid = NodePath("VBoxContainer/FormGrid/ModeTabContainer/Default")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -129,70 +136,108 @@ text = "Mode"
 
 [node name="ModeTabContainer" type="TabContainer" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-current_tab = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+current_tab = 0
 
-[node name="Default" type="GridContainer" parent="VBoxContainer/FormGrid/ModeTabContainer"]
-visible = false
+[node name="Default" type="HBoxContainer" parent="VBoxContainer/FormGrid/ModeTabContainer"]
 layout_mode = 2
-columns = 2
 metadata/_tab_index = 0
 
-[node name="MinAmountLabel2" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="DefaultGrid" type="GridContainer" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+layout_mode = 2
+columns = 2
+
+[node name="MinAmountLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
 text = "Min amount"
 
-[node name="MinAmountSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="MinAmountSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
 tooltip_text = "The minimum amount this attribute can be. Once the current amount reaches this value, it is considered depleted."
 max_value = 1000.0
 
-[node name="MaxAmountLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="MaxAmountLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
 text = "Max amount"
 
-[node name="MaxAmountSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="MaxAmountSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
 tooltip_text = "The maximum amount this attribute can be. When the current amount reaches this value, it is considered full."
 max_value = 1000.0
 value = 100.0
 
-[node name="CurrentAmountLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="CurrentAmountLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
 text = "Starting amount"
 
-[node name="CurrentAmountSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="CurrentAmountSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
 tooltip_text = "The amount the player starts with."
 max_value = 1000.0
 value = 99.0
 
-[node name="DepletionRateLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="DepletionRateLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
 text = "Depletion rate"
 
-[node name="DepletionRateSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="DepletionRateSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
 tooltip_text = "The amount to subtract each second. With a \"max amount\" of 100 and a depletion rate of 0.02, it will take over an hour real time to deplete."
 step = 0.01
 value = 0.02
 
-[node name="DepletionEffectLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="MaxedEffectLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
-text = "Depletion effect"
+text = "Maxed effect"
 
-[node name="DepletionEffectOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="MaxedEffectOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
+tooltip_text = "The effect that occurs when this attribute has reached the maximum value.
+none: No effect will occur when this attribute is maxed
+death: the player dies when the attribute is maxed."
 selected = 0
 item_count = 2
 popup/item_0/text = "none"
 popup/item_1/text = "death"
 popup/item_1/id = 1
 
-[node name="UIColorLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="DepletionEffectLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
+layout_mode = 2
+text = "Depletion effect"
+
+[node name="DepletionEffectOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
+layout_mode = 2
+tooltip_text = "The effect that occurs when this attribute is completely depleted.
+none: No effect will occur when this attribute is depleted
+death: the player dies when the attribute is depleted."
+selected = 0
+item_count = 2
+popup/item_0/text = "none"
+popup/item_1/text = "death"
+popup/item_1/id = 1
+
+[node name="DepletingEffectLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
+layout_mode = 2
+text = "Depleting effect"
+
+[node name="DepletingEffectOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
+layout_mode = 2
+tooltip_text = "The effect that this attribute produces while it is depleting. The effect starts when this 
+attribute has a value greater then 0. The effect ends when this attribute has a value of 0.
+none: There is no effect while depleting
+drain other attributes: The specified attributes get drained every second until this attribute is depleted."
+selected = 0
+item_count = 2
+popup/item_0/text = "none"
+popup/item_1/text = "drain other attributes"
+popup/item_1/id = 1
+
+[node name="UIColorLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
 text = "UI color"
 
-[node name="UIColorPicker" type="ColorPicker" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+[node name="UIColorPicker" type="ColorPicker" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
 layout_mode = 2
 tooltip_text = "The color this attribute will have if it's displayed in the UI. In case this attribute is displayed by a progressbar, the progressbar will assume this color."
 color = Color(0.933994, 0.202531, 0.220332, 1)
@@ -202,7 +247,40 @@ sliders_visible = false
 hex_visible = false
 presets_visible = false
 
+[node name="HideWhenEmptyLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
+layout_mode = 2
+text = "Hide"
+
+[node name="HideWhenEmptyCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DefaultGrid"]
+layout_mode = 2
+tooltip_text = "When this is on, the attribute will be hidden from the UI when it is 
+empty. When this is off, the attribute will always be shown on the UI."
+text = "When empty"
+
+[node name="DrainAttributePanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/ModeTabContainer/Default"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Drop other attributes onto this area to add them. Each attribute will be drained every 
+second by the amount specified. This requires the \"depleting effect\" to be set to \"drain\". If 
+the drain amount is high and the depletion rate of the attribute is low, a lot will be drained! 
+If the drain amount is low and the depletion rate is high, not much will be drained."
+theme_override_styles/panel = SubResource("StyleBoxFlat_5jqmb")
+
+[node name="DrainAttributesVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DrainAttributePanelContainer"]
+layout_mode = 2
+
+[node name="DrainAttributesLabel" type="Label" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DrainAttributePanelContainer/DrainAttributesVBoxContainer"]
+layout_mode = 2
+text = "Drain these attributes:"
+
+[node name="DrainAttributeGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/ModeTabContainer/Default/DrainAttributePanelContainer/DrainAttributesVBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 4
+
 [node name="Fixed" type="GridContainer" parent="VBoxContainer/FormGrid/ModeTabContainer"]
+visible = false
 layout_mode = 2
 columns = 2
 metadata/_tab_index = 1

@@ -22,9 +22,14 @@ class DefaultMode:
 	var min_amount: float
 	var max_amount: float
 	var current_amount: float
+	var maxed_effect: String
 	var depletion_effect: String
+	var depleting_effect: String
 	var depletion_rate: float = 0.02
 	var depletion_timer: Timer
+	var hide_when_empty: bool  # Property to determine if the attribute should hide when empty
+	# Property for drain attributes. Example: "drain_attributes": {"torso_health": 1.0,"head_health": 1.0}
+	var drain_attributes: Dictionary  
 	# Reference to the player instance
 	var player: Node
 	var playerattr: PlayerAttribute
@@ -35,20 +40,30 @@ class DefaultMode:
 		max_amount = data.get("max_amount", 100.0)
 		current_amount = data.get("current_amount", max_amount)
 		depletion_rate = data.get("depletion_rate", 0.02)  # Default to 0.02
+		maxed_effect = data.get("maxed_effect", "none")
 		depletion_effect = data.get("depletion_effect", "none")
+		depleting_effect = data.get("depleting_effect", "none")
+		hide_when_empty = data.get("hide_when_empty", false)  # Initialize from data
+		drain_attributes = data.get("drain_attributes", {})  # Initialize from data
 		player = playernode
 		playerattr = myplayerattr
 		start_depletion()
 	
 	# Get data function to return the properties in a dictionary
 	func get_data() -> Dictionary:
-		return {
+		var new_data: Dictionary = {
 			"min_amount": min_amount,
 			"max_amount": max_amount,
 			"current_amount": current_amount,
 			"depletion_rate": depletion_rate,
-			"depletion_effect": depletion_effect
+			"maxed_effect": maxed_effect,
+			"depletion_effect": depletion_effect,
+			"depleting_effect": depleting_effect,  # Include in output
+			"hide_when_empty": hide_when_empty
 		}
+		if not drain_attributes.is_empty():
+			new_data["drain_attributes"] = drain_attributes
+		return new_data
 	
 	# Start depletion for DefaultMode
 	func start_depletion():
@@ -65,29 +80,58 @@ class DefaultMode:
 			depletion_timer.stop()
 			depletion_timer.queue_free()
 
-	# Function to handle when the attribute changes (e.g., health drops to 0)
+	# Function to handle when the attribute changes (e.g., health drops to 0 or reaches max)
 	func _on_attribute_changed():
 		Helper.signal_broker.player_attribute_changed.emit(player, playerattr)
+		
 		# Trigger the depletion effect if amount drops to min and the effect is "death"
 		if is_at_min() and depletion_effect == "death":
 			player.die()
+		
+		# Trigger the maxed effect if the amount reaches max and the effect is "death"
+		if is_at_max() and maxed_effect == "death":
+			player.die()
+
+	# Function to check if the attribute is at maximum value (for DefaultMode)
+	func is_at_max() -> bool:
+		return current_amount >= max_amount
 	
 	# Function to check if the attribute is at minimum value (for DefaultMode)
 	func is_at_min() -> bool:
 		return current_amount <= min_amount
 	
-	# Function to modify the current amount safely (for DefaultMode)
+	# Modify the `modify_current_amount` function to restart depletion when needed
 	func modify_current_amount(amount: float):
+		var was_at_min = is_at_min()  # Check if the attribute was at min before modifying
 		current_amount = clamp(current_amount + amount, min_amount, max_amount)
 		_on_attribute_changed()
+
+		# If the attribute was previously at min but now is above min, restart depletion
+		if was_at_min and current_amount > min_amount:
+			start_depletion()
 
 	# Function that gets called every tick to decrease the attribute
 	func _on_deplete_tick():
 		modify_current_amount(-depletion_rate)
 
+		# Check if depleting_effect is set to "drain other attributes"
+		if depleting_effect == "drain other attributes" and not drain_attributes.is_empty():
+			# Collect the attribute IDs from the drain_attributes dictionary
+			var attribute_ids: Array = drain_attributes.keys()
+			
+			# Get the matching player attributes
+			var attributes_to_drain = player.get_matching_player_attributes(attribute_ids)
+			
+			# Drain the specified amount from each attribute
+			for attr in attributes_to_drain:
+				if attr:
+					var drain_amount = drain_attributes.get(attr.id, 0.0)
+					attr.modify_current_amount(-drain_amount)
+
 		# Stop depletion if at min
 		if is_at_min():
 			stop_depletion()
+
 
 
 # Inner class for FixedMode. This is used in the background to control some game mechanics

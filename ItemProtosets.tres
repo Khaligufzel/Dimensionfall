@@ -44,7 +44,6 @@ json_data = "[
 					\"mob_loot\",
 					\"destroyed_furniture_medium\",
 					\"disassembled_furniture_medium\",
-					\"test_items\",
 					\"debris_urban\"
 				],
 				\"items\": [
@@ -3041,8 +3040,7 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"tree_destroyed\",
-					\"generic_forest_finds\",
-					\"test_items\"
+					\"generic_forest_finds\"
 				],
 				\"items\": [
 					\"stone_spear\"
@@ -3067,8 +3065,7 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"generic_field_finds\",
-					\"test_items\"
+					\"generic_field_finds\"
 				],
 				\"items\": [
 					\"stone_spear\"
@@ -3299,5 +3296,35 @@ json_data = "[
 		\"two_handed\": false,
 		\"volume\": 150,
 		\"weight\": 5
+	},
+	{
+		\"Medical\": {
+			\"amount\": -50,
+			\"attributes\": [
+				{
+					\"amount\": 0,
+					\"id\": \"poison\"
+				}
+			],
+			\"order\": \"Lowest first\"
+		},
+		\"description\": \"A small bottle that contains antidote. It helps to recover from poison.\",
+		\"id\": \"bottle_antidote\",
+		\"image\": \"./Mods/Core/Items/antidote_32.png\",
+		\"max_stack_size\": 5,
+		\"name\": \"Bottle of antidote\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"test_items\",
+					\"kitchen_cupboard\"
+				]
+			}
+		},
+		\"sprite\": \"antidote_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 5,
+		\"weight\": 0.1
 	}
 ]"

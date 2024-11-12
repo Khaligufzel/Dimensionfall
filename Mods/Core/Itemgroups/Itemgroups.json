@@ -50,6 +50,12 @@
 				"max": 1,
 				"min": 1,
 				"probability": 20
+			},
+			{
+				"id": "bottle_antidote",
+				"max": 1,
+				"min": 1,
+				"probability": 20
 			}
 		],
 		"mode": "Collection",
@@ -1055,21 +1061,9 @@
 				"probability": 100
 			},
 			{
-				"id": "long_stick",
+				"id": "bottle_antidote",
 				"max": 1,
 				"min": 1,
-				"probability": 100
-			},
-			{
-				"id": "sharp_stone",
-				"max": 1,
-				"min": 1,
-				"probability": 100
-			},
-			{
-				"id": "steel_scrap",
-				"max": 22,
-				"min": 22,
 				"probability": 100
 			}
 		],

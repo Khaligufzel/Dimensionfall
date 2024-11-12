@@ -88,6 +88,7 @@ text = "☰"
 [node name="ContentList" type="VBoxContainer" parent="HSplitContainer/ContentLists/TabContainer2/Content"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Recent" type="ItemList" parent="HSplitContainer/ContentLists/TabContainer2"]
 visible = false
