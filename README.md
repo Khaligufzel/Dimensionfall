@@ -153,6 +153,18 @@ Create a story for the player using the quest editor. These will show up in the 
 ![Catax_furniture_editor](Media/Catax_quest_editor.png)
 
 
+# Overmap area editor
+This editor allows you to define an area that will be generated on the overmap. An area can be created from an unlimted number of regions. In this image, a city is defined by the urban, suburban and field regions:
+
+![Catax_furniture_editor](Media/Dimensionfall_overmaparea_editor.png)
+
+Each region in the area will cover a differen circle around the center, depending on the radius. Using the generator, you can quickly see the result of your settings:
+
+![Catax_furniture_editor](Media/Dimensionfall_overmaparea_generator.png)
+
+
+Using this tool you can add new maps to cities, or create a whole new area with maps you made! This allows for the creation of biomes, for example.
+
 ## Roadmap
 
 ### Stage 1 (first release):
@@ -175,7 +187,7 @@ Additional features before our first release:
 - noise
 - some fancy shaders?
 - equipment
-- proper player inventory, bags, pockets etc.
+- ~~proper player inventory, bags~~
 
 ### Stage 2:
 
