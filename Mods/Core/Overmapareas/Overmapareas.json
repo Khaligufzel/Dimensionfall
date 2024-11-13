@@ -63,6 +63,10 @@
 					{
 						"id": "neighborhood_school",
 						"weight": 10
+					},
+					{
+						"id": "two_story_house",
+						"weight": 100
 					}
 				],
 				"spawn_probability": {
