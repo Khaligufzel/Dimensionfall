@@ -1,4 +1,423 @@
 {
+	"areas": [
+		{
+			"entities": [
+				{
+					"count": 3,
+					"id": "scrapwalker",
+					"type": "mob"
+				},
+				{
+					"count": 1,
+					"id": "rust_sentinel",
+					"type": "mob"
+				}
+			],
+			"id": "mob_spawn",
+			"pick_one": false,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1000,
+					"id": "null"
+				}
+			]
+		},
+		{
+			"entities": [],
+			"id": "hallway_floor",
+			"pick_one": true,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1,
+					"id": "red_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "blue_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "orange_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_00"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_04"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_03"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_02"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_01"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_07"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_08"
+				}
+			]
+		},
+		{
+			"entities": [],
+			"id": "bedroom_floor",
+			"pick_one": true,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1,
+					"id": "red_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "blue_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "orange_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_00"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_06"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_05"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_04"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_03"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_02"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_01"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_07"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_08"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_02"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_green_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_brown_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_brown_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_greyblue_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_green_02"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_green_00"
+				}
+			]
+		},
+		{
+			"entities": [],
+			"id": "bathroom_floor",
+			"pick_one": true,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_03"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_00"
+				}
+			]
+		},
+		{
+			"entities": [],
+			"id": "kitchen_floor",
+			"pick_one": true,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1,
+					"id": "bathroom_tiles_blue_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_blue_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_purple_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_green_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_03"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_01"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_00"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_yellow_02"
+				},
+				{
+					"count": 1,
+					"id": "kitchen_tiles_mint_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_white_02"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_white_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_white_00"
+				}
+			]
+		},
+		{
+			"entities": [],
+			"id": "livingroom_floor",
+			"pick_one": true,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1,
+					"id": "red_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "blue_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "orange_carpet_00"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_00"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_04"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_03"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_02"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_07"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_08"
+				},
+				{
+					"count": 1,
+					"id": "floor_wood_boards_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_brown_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_brown_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_green_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_02"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_01"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_lightblue_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_greyblue_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_green_02"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_green_00"
+				},
+				{
+					"count": 1,
+					"id": "linoleum_blue_00"
+				}
+			]
+		}
+	],
 	"categories": [
 		"Infrastructure",
 		"House",
@@ -285,6 +704,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": []
@@ -292,6 +717,12 @@
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": []
@@ -299,6 +730,12 @@
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -311,6 +748,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -320,10 +763,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -333,6 +788,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -346,6 +807,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "trash_bin",
 					"itemgroups": [],
@@ -355,6 +822,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "refrigerator_00",
 					"itemgroups": []
@@ -363,6 +836,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "stove",
 					"itemgroups": []
@@ -374,6 +853,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"itemgroups": [],
@@ -383,6 +868,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -392,6 +883,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -459,6 +956,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": [],
@@ -467,9 +970,21 @@
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00"
 			},
 			{
@@ -477,10 +992,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -490,6 +1017,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
@@ -499,6 +1032,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -512,6 +1051,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"itemgroups": [],
@@ -521,9 +1066,21 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_mint_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 180
 			},
@@ -540,6 +1097,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -593,9 +1156,21 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -604,6 +1179,12 @@
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -616,14 +1197,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": []
@@ -632,6 +1231,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
@@ -640,6 +1245,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"itemgroups": [],
@@ -649,17 +1260,41 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_mint_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -669,9 +1304,21 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "blue_carpet_00"
 			},
 			{
@@ -725,6 +1372,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -745,6 +1398,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -754,14 +1413,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
@@ -770,6 +1447,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -779,14 +1462,32 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -800,9 +1501,21 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "blue_carpet_00"
 			},
 			{
@@ -853,13 +1566,30 @@
 				"id": "concrete_00"
 			},
 			{
-				"id": "dirt_light_00",
-				"rotation": 90
+				"furniture": {
+					"id": "door_wood",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "floor_wood_boards_02",
+				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": []
@@ -867,9 +1597,21 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -878,18 +1620,42 @@
 				"id": "floor_wood_boards_07"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_blue_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_blue_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_blue_02",
 				"rotation": 180
 			},
@@ -897,18 +1663,42 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "trash_bin",
 					"itemgroups": [],
@@ -920,6 +1710,12 @@
 				"id": "dirt_light_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 90
 			},
@@ -976,6 +1772,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -984,9 +1786,21 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
@@ -998,6 +1812,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"itemgroups": [],
@@ -1007,6 +1827,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "stove",
 					"itemgroups": [],
@@ -1016,6 +1842,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "refrigerator_00",
 					"itemgroups": [],
@@ -1029,18 +1861,42 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -1054,6 +1910,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
@@ -1111,6 +1973,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -1119,9 +1987,21 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -1154,9 +2034,21 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_07"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -1166,9 +2058,21 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_07"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -1181,10 +2085,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
@@ -1239,6 +2155,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -1247,9 +2169,21 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
@@ -1261,6 +2195,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": []
@@ -1269,6 +2209,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": []
@@ -1277,6 +2223,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "standing_mirror",
 					"itemgroups": [],
@@ -1289,6 +2241,12 @@
 				"id": "dirt_light_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -1297,6 +2255,12 @@
 				"id": "floor_wood_boards_07"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
@@ -1306,6 +2270,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -1314,6 +2284,12 @@
 				"id": "floor_wood_boards_07"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -1326,10 +2302,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -1384,6 +2372,12 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -1392,15 +2386,39 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -1410,14 +2428,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_purple_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_purple_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"itemgroups": [],
@@ -1430,6 +2466,12 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -1439,6 +2481,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": []
@@ -1447,10 +2495,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_07",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -1464,10 +2524,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 90
 			},
@@ -1539,7 +2611,13 @@
 				"id": "dirt_light_02"
 			},
 			{
-				"id": "dirt_light_02"
+				"furniture": {
+					"id": "door_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "floor_wood_boards_02",
+				"rotation": 270
 			},
 			{
 				"id": "dirt_light_02"
@@ -1622,803 +2700,2339 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "mob_spawn",
+						"rotation": 0
+					}
+				],
 				"id": "sidewalk_00"
 			},
 			{
@@ -2447,6 +5061,12 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": []
@@ -2499,6 +5119,12 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": []
@@ -2566,24 +5192,60 @@
 				"id": "concrete_00"
 			},
 			{
+				"furniture": {
+					"id": "door_wood",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "floor_wood_boards_07",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
+				"id": "floor_wood_boards_07"
+			},
+			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
+				"id": "floor_wood_boards_07"
+			},
+			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
+				"id": "floor_wood_boards_07"
+			},
+			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
+				"id": "floor_wood_boards_07"
+			},
+			{
 				"id": "dirt_light_02"
 			},
 			{
-				"id": "floor_wood_boards_07"
-			},
-			{
-				"id": "floor_wood_boards_07"
-			},
-			{
-				"id": "floor_wood_boards_07"
-			},
-			{
-				"id": "floor_wood_boards_07"
-			},
-			{
-				"id": "dirt_light_02"
-			},
-			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "refrigerator_00",
 					"itemgroups": []
@@ -2591,6 +5253,12 @@
 				"id": "kitchen_tiles_blue_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "stove",
 					"itemgroups": []
@@ -2598,6 +5266,12 @@
 				"id": "kitchen_tiles_blue_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"itemgroups": []
@@ -2608,6 +5282,12 @@
 				"id": "dirt_light_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "standing_mirror",
 					"itemgroups": [],
@@ -2617,10 +5297,22 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_mint_03",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -2630,6 +5322,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
@@ -2701,6 +5399,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": []
@@ -2714,18 +5418,42 @@
 				"id": "dirt_light_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07"
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_blue_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_blue_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_blue_01"
 			},
 			{
@@ -2733,6 +5461,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"itemgroups": [],
@@ -2742,6 +5476,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_mint_03",
 				"rotation": 90
 			},
@@ -2750,22 +5490,52 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -2820,21 +5590,45 @@
 				"id": "dirt_light_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_mint_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_mint_01"
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07"
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -2843,9 +5637,21 @@
 				"id": "kitchen_tiles_blue_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"id": "kitchen_tiles_blue_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"itemgroups": [],
@@ -2870,6 +5676,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": []
@@ -2939,6 +5751,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"itemgroups": [],
@@ -2947,6 +5765,12 @@
 				"id": "kitchen_tiles_mint_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "standing_mirror",
 					"itemgroups": [],
@@ -2958,9 +5782,21 @@
 				"id": "dirt_light_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -2969,12 +5805,30 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": []
@@ -2985,6 +5839,12 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -2994,10 +5854,22 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_08",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -3007,12 +5879,30 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -3021,6 +5911,12 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": []
@@ -3086,15 +5982,33 @@
 				"id": "dirt_light_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07"
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -3103,6 +6017,12 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
@@ -3110,6 +6030,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -3119,6 +6045,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_08",
 				"rotation": 90
 			},
@@ -3127,9 +6059,21 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -3138,6 +6082,12 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
@@ -3146,6 +6096,12 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -3213,12 +6169,24 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07"
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -3227,6 +6195,12 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": []
@@ -3234,6 +6208,12 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -3247,6 +6227,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -3256,6 +6242,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_08",
 				"rotation": 90
 			},
@@ -3264,6 +6256,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -3272,9 +6270,21 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": []
@@ -3282,6 +6292,12 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
@@ -3344,15 +6360,33 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07"
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": []
@@ -3360,6 +6394,12 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03",
 				"rotation": 90
 			},
@@ -3368,6 +6408,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -3377,6 +6423,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_08",
 				"rotation": 90
 			},
@@ -3385,6 +6437,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -3393,12 +6451,30 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -3458,6 +6534,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": []
@@ -3465,9 +6547,21 @@
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -3476,12 +6570,24 @@
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_07"
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": []
@@ -3489,9 +6595,21 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03",
 				"rotation": 270
 			},
@@ -3499,10 +6617,22 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_08",
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_08",
 				"rotation": 90
 			},
@@ -3511,18 +6641,42 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_mint_02",
 				"rotation": 180
 			},
@@ -3562,12 +6716,27 @@
 				"id": "concrete_00"
 			},
 			{
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "concrete_00"
 			},
 			{
+				"furniture": {
+					"id": "table_metal",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "concrete_00"
 			},
 			{
+				"furniture": {
+					"id": "wall_shelf",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "concrete_00"
 			},
 			{
@@ -3577,6 +6746,12 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": [],
@@ -3585,6 +6760,12 @@
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -3596,6 +6777,12 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -3607,6 +6794,12 @@
 				"id": "dirt_light_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "damaged_shelves",
 					"itemgroups": [],
@@ -3615,9 +6808,21 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "livingroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -3630,6 +6835,12 @@
 				"id": "dirt_light_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -3639,6 +6850,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -3652,6 +6869,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"itemgroups": [],
@@ -3661,6 +6884,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "refrigerator_00",
 					"itemgroups": [],
@@ -3670,6 +6899,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "stove",
 					"itemgroups": [],
@@ -3679,6 +6914,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "kitchen_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "countertop_wood",
 					"itemgroups": [],
@@ -4562,7 +7803,7 @@
 
 			},
 			{
-				"id": "brick_wall_01"
+
 			},
 			{
 
@@ -4670,7 +7911,7 @@
 
 			},
 			{
-
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "brick_wall_01",
@@ -5060,31 +8301,16 @@
 
 			},
 			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
 
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
-
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
 			},
 			{
 				"id": "brick_wall_01"
@@ -5099,793 +8325,13 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "brick_wall_01"
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
 
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
+				"id": "brick_wall_01"
 			},
 			{
 
@@ -5918,46 +8364,772 @@
 
 			},
 			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
-			},
-			{
-				"id": "brick_wall_01"
+
 			},
 			{
 
 			},
 			{
-				"id": "brick_wall_01"
+
 			},
 			{
-				"id": "brick_wall_01"
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 
@@ -5996,6 +9168,48 @@
 
 			},
 			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
 
 			},
 			{
@@ -6009,6 +9223,33 @@
 			},
 			{
 				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "brick_wall_01"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
 			},
 			{
 
@@ -6910,7 +10151,7 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "brick_wall_01"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -6925,13 +10166,13 @@
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "brick_wall_01"
+
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
-				"id": "brick_wall_01"
+
 			},
 			{
 				"id": "brick_wall_01"
@@ -7306,6 +10547,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -7314,6 +10561,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": []
@@ -7321,6 +10574,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": []
@@ -7328,6 +10587,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -7336,6 +10601,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": []
@@ -7346,6 +10617,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"itemgroups": []
@@ -7353,6 +10630,12 @@
 				"id": "kitchen_tiles_yellow_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bathtub",
 					"itemgroups": []
@@ -7363,6 +10646,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -7371,9 +10660,21 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": []
@@ -7381,6 +10682,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": []
@@ -7388,12 +10695,24 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -7402,6 +10721,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": []
@@ -7409,6 +10734,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": []
@@ -7416,6 +10747,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": []
@@ -7426,6 +10763,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "bathtub",
 					"itemgroups": [],
@@ -7434,6 +10777,12 @@
 				"id": "kitchen_tiles_yellow_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "standing_mirror",
 					"itemgroups": []
@@ -7441,6 +10790,12 @@
 				"id": "kitchen_tiles_yellow_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"itemgroups": []
@@ -7451,6 +10806,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": []
@@ -7458,6 +10819,12 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": []
@@ -7465,6 +10832,12 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -7473,6 +10846,12 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -7493,6 +10872,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -7501,15 +10886,39 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": [],
@@ -7521,15 +10930,33 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_yellow_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_yellow_02"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -7538,21 +10965,51 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -7561,12 +11018,30 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": [],
@@ -7578,6 +11053,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -7586,18 +11067,42 @@
 				"id": "kitchen_tiles_yellow_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_yellow_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "kitchen_tiles_yellow_00"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": [],
@@ -7606,9 +11111,21 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -7634,24 +11151,60 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -7660,12 +11213,24 @@
 				"id": "kitchen_tiles_yellow_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_yellow_02"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -7674,12 +11239,30 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": []
@@ -7687,21 +11270,51 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
@@ -7714,6 +11327,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -7725,15 +11344,39 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": [],
@@ -7759,6 +11402,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "trash_bin",
 					"itemgroups": [],
@@ -7767,6 +11416,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bench_wood",
 					"itemgroups": [],
@@ -7775,18 +11430,42 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "standing_mirror",
 					"itemgroups": [],
@@ -7795,21 +11474,51 @@
 				"id": "kitchen_tiles_yellow_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_yellow_02"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": [],
@@ -7818,12 +11527,24 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -7832,6 +11553,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -7840,6 +11567,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -7848,9 +11581,21 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -7859,15 +11604,39 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -7876,9 +11645,21 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": []
@@ -7886,6 +11667,12 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "damaged_shelves",
 					"itemgroups": [],
@@ -7894,6 +11681,12 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -7926,6 +11719,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -7940,6 +11739,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -7951,6 +11756,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -7989,12 +11800,24 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
 				"id": "wood_stairs"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
@@ -8025,6 +11848,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -8033,12 +11862,30 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -8047,24 +11894,66 @@
 				"id": "floor_wood_boards_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -8074,9 +11963,21 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": [],
@@ -8085,6 +11986,12 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": [],
@@ -8096,6 +12003,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -8105,6 +12018,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "damaged_shelves",
 					"itemgroups": [],
@@ -8114,6 +12033,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -8123,10 +12048,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -8135,15 +12072,33 @@
 				"id": "floor_wood_boards_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
 
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -8152,9 +12107,21 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -8163,6 +12130,12 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -8171,6 +12144,12 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -8196,6 +12175,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -8204,27 +12189,69 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
@@ -8234,6 +12261,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -8242,15 +12275,33 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": [],
@@ -8260,14 +12311,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
@@ -8275,27 +12344,63 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
 
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
@@ -8316,6 +12421,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": [],
@@ -8324,9 +12435,21 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": []
@@ -8337,6 +12460,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -8345,9 +12474,21 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
@@ -8356,9 +12497,21 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -8373,12 +12526,30 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": [],
@@ -8390,6 +12561,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -8399,10 +12576,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": [],
@@ -8412,6 +12601,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_05",
 				"rotation": 180
 			},
@@ -8419,9 +12614,21 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -8430,12 +12637,24 @@
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "red_carpet_00"
 			},
 			{
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": [],
@@ -8444,12 +12663,30 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -8470,6 +12707,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -8478,6 +12721,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -8486,6 +12735,12 @@
 				"id": "floor_wood_boards_03"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": [],
@@ -8497,6 +12752,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -8505,9 +12766,21 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -8516,9 +12789,21 @@
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_05"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -8533,6 +12818,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -8541,6 +12832,12 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -8549,6 +12846,12 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -8560,6 +12863,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -8569,6 +12878,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -8578,6 +12893,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": [],
@@ -8587,6 +12908,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": [],
@@ -8599,6 +12926,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -8607,6 +12940,12 @@
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -8615,6 +12954,12 @@
 				"id": "red_carpet_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -8626,6 +12971,12 @@
 				"id": "brick_wall_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": [],
@@ -8634,6 +12985,12 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": [],
@@ -8642,6 +12999,12 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": [],
@@ -8650,6 +13013,12 @@
 				"id": "floor_wood_boards_08"
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -9762,6 +14131,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": []
@@ -9770,6 +14145,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": []
@@ -9778,6 +14159,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": []
@@ -9790,6 +14177,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": []
@@ -9798,6 +14191,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": []
@@ -9806,6 +14205,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": []
@@ -9814,6 +14219,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": []
@@ -9826,6 +14237,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "standing_mirror",
 					"itemgroups": []
@@ -9834,6 +14251,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"itemgroups": []
@@ -9856,6 +14279,12 @@
 				"rotation": 90
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 90
 			},
@@ -9864,6 +14293,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": []
@@ -9872,6 +14307,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": []
@@ -9880,6 +14321,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -9889,6 +14336,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -9898,6 +14351,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
@@ -9944,6 +14403,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": [],
@@ -9953,10 +14418,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -9970,6 +14447,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": [],
@@ -9979,14 +14462,32 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -10000,6 +14501,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": []
@@ -10008,10 +14515,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "kitchen_tiles_green_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -10021,10 +14540,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -10034,6 +14565,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -10043,6 +14580,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
@@ -10051,22 +14594,52 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": []
@@ -10116,10 +14689,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -10129,6 +14714,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -10142,18 +14733,42 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"id": "floor_wood_boards_03",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -10167,6 +14782,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bathtub",
 					"itemgroups": [],
@@ -10176,6 +14797,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -10189,18 +14816,42 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
@@ -10209,14 +14860,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": []
@@ -10225,10 +14894,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -10274,6 +14955,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -10295,6 +14982,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -10308,6 +15001,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -10317,6 +15016,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -10350,6 +15055,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -10359,10 +15070,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -10372,10 +15095,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "trash_bin",
 					"itemgroups": [],
@@ -10385,6 +15120,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": [],
@@ -10394,6 +15135,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -10403,6 +15150,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -10458,22 +15211,52 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -10494,6 +15277,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": [],
@@ -10503,18 +15292,42 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -10524,10 +15337,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
@@ -10593,6 +15418,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 180
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
@@ -10607,10 +15438,22 @@
 
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 0
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -10620,10 +15463,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_08",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -10637,6 +15492,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -10646,14 +15507,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
@@ -10662,14 +15541,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": [],
@@ -10679,14 +15576,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": []
@@ -10695,6 +15610,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "trash_bin",
 					"itemgroups": [],
@@ -10704,6 +15625,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "cabinet_wood_00",
 					"itemgroups": [],
@@ -10749,6 +15676,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "door_wood",
 					"itemgroups": []
@@ -10777,10 +15710,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_08",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -10794,6 +15739,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -10803,14 +15754,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
@@ -10819,10 +15788,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"id": "blue_carpet_00",
 				"rotation": 180
 			},
@@ -10831,14 +15812,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": [],
@@ -10848,10 +15847,22 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -10896,18 +15907,42 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "kitchen_tiles_yellow_02",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "bathtub",
 					"itemgroups": [],
@@ -10921,6 +15956,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "chair_office",
 					"itemgroups": []
@@ -10929,10 +15970,22 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"id": "floor_wood_boards_08",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -10946,6 +15999,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -10955,14 +16014,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -10976,6 +16053,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -10985,6 +16068,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "sofa",
 					"itemgroups": [],
@@ -10998,22 +16087,52 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
@@ -11059,6 +16178,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "toilet_00",
 					"itemgroups": [],
@@ -11068,6 +16193,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -11077,6 +16208,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -11086,6 +16223,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bathroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "standing_mirror",
 					"itemgroups": [],
@@ -11099,6 +16242,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "desk",
 					"itemgroups": [],
@@ -11108,6 +16257,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": [],
@@ -11117,6 +16272,12 @@
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -11130,6 +16291,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "wardrobe",
 					"itemgroups": [],
@@ -11139,6 +16306,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "trash_bin",
 					"itemgroups": [],
@@ -11148,6 +16321,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
@@ -11157,6 +16336,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 0
+					}
+				],
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
@@ -11170,6 +16355,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 90
+					}
+				],
 				"furniture": {
 					"id": "plant_pot_00",
 					"itemgroups": [],
@@ -11179,6 +16370,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "hallway_floor",
+						"rotation": 270
+					}
+				],
 				"furniture": {
 					"id": "bookcase_wood_00",
 					"itemgroups": [],
@@ -11192,6 +16389,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "damaged_shelves",
 					"itemgroups": [],
@@ -11201,14 +16404,32 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"id": "floor_wood_boards_04",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "lamp_standing",
 					"itemgroups": [],
@@ -11218,6 +16439,12 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "bedroom_floor",
+						"rotation": 180
+					}
+				],
 				"furniture": {
 					"id": "bed_wood_single_00",
 					"itemgroups": [],
