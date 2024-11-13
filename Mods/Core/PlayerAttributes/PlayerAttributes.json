@@ -113,7 +113,6 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"disruptor_drone",
 					"outpost_guardian"
 				]
 			}
@@ -150,7 +149,6 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"disruptor_drone",
 					"outpost_guardian"
 				]
 			}
@@ -187,8 +185,7 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"outpost_guardian",
-					"disruptor_drone"
+					"outpost_guardian"
 				]
 			}
 		},
@@ -224,8 +221,7 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"outpost_guardian",
-					"disruptor_drone"
+					"outpost_guardian"
 				]
 			}
 		},
@@ -261,7 +257,6 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"disruptor_drone",
 					"outpost_guardian"
 				]
 			}
@@ -298,7 +293,6 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"disruptor_drone",
 					"outpost_guardian"
 				]
 			}
@@ -358,5 +352,30 @@
 			}
 		},
 		"sprite": "skull_poison_32.png"
+	},
+	{
+		"default_mode": {
+			"color": "a6a6a6ff",
+			"current_amount": 0,
+			"depleting_effect": "stun",
+			"depletion_effect": "none",
+			"depletion_rate": 10,
+			"hide_when_empty": true,
+			"max_amount": 10,
+			"maxed_effect": "none",
+			"min_amount": 0
+		},
+		"description": "You are stunned and can't move!",
+		"id": "stun",
+		"name": "Stun",
+		"references": {
+			"core": {
+				"mobs": [
+					"iron_stalker",
+					"disruptor_drone"
+				]
+			}
+		},
+		"sprite": "trapping_32.png"
 	}
 ]

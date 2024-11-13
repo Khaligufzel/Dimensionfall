@@ -3,22 +3,28 @@
 		{
 			"entities": [
 				{
-					"count": 2,
+					"count": 10,
 					"id": "scrapwalker",
 					"type": "mob"
 				},
 				{
-					"count": 1,
+					"count": 5,
 					"id": "rust_sentinel",
+					"type": "mob"
+				},
+				{
+					"count": 2,
+					"id": "iron_stalker",
 					"type": "mob"
 				}
 			],
 			"id": "mob_spawn",
+			"pick_one": false,
 			"rotate_random": true,
 			"spawn_chance": 100,
 			"tiles": [
 				{
-					"count": 2000,
+					"count": 6000,
 					"id": "null"
 				}
 			]

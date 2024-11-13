@@ -210,6 +210,11 @@ func add_block_mobs():
 		# Pass the position and the mob json to the newmob and have it construct itself
 		var newMob: CharacterBody3D = Mob.new(mypos+mobdata.pos, mobdata.json)
 		level_manager.add_child.call_deferred(newMob)
+	# If you want to test a mob, you can use this to spawn it at 0,2,0
+	# Comment it out again when you're done testing
+	#if mypos == Vector3(0,0,0):
+		#var tempmob: CharacterBody3D = Mob.new(Vector3(0,1,0), {"id":"iron_stalker"})
+		#level_manager.add_child.call_deferred(tempmob)
 
 # When a map is loaded for the first time we spawn the furniture on the block
 func add_furnitures_to_new_block():

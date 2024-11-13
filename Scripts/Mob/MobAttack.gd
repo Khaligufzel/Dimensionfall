@@ -13,6 +13,7 @@ func _ready():
 	# Create and configure AttackCooldown Timer
 	var attack_cooldown = Timer.new()
 	attack_timer = attack_cooldown
+	attack_timer.wait_time = mob.dmob.melee_cooldown  # Set the wait time based on mob's melee_cooldown
 	add_child.call_deferred(attack_cooldown)
 	attack_timer.timeout.connect(_on_attack_cooldown_timeout)
 
@@ -53,18 +54,47 @@ func Physics_Update(_delta: float):
 	else:
 		is_in_attack_mode = false
 		stop_attacking()
-		
+
+
 func try_to_attack():
 	print("Trying to attack...")
 	attack_timer.start()
 
 
+# The mob is going to attack.
+# attack: a dictionary like this:
+# {
+# 	"attributeid": "torso_health", # The PlayerAttribute that is targeted by this attack
+# 	"damage": 20, # The amount to subtract from the target attribute
+# 	"knockback": 2, # The number of tiles to push the player away
+# 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
+# }
 func attack():
 	print("Attacking!")
-	var targetattribute: Dictionary = mob.dmob.targetattributes.pick_random()
-	var attributeid: String = targetattribute.id
+
+	# Apply damage to a randomly selected attribute from 'any_of'
+	if mob.dmob.targetattributes.has("any_of") and not mob.dmob.targetattributes["any_of"].is_empty():
+		var any_of_attributes: Array = mob.dmob.targetattributes["any_of"]
+		var selected_attribute: Dictionary = any_of_attributes.pick_random()
+		_apply_attack_to_player(selected_attribute)
+
+	# Apply damage to each attribute in 'all_of'
+	if mob.dmob.targetattributes.has("all_of"):
+		var all_of_attributes: Array = mob.dmob.targetattributes["all_of"]
+		for attribute in all_of_attributes:
+			_apply_attack_to_player(attribute)
+
+
+# Helper function to send attack data to the player's _get_hit method
+func _apply_attack_to_player(attribute: Dictionary) -> void:
 	if targeted_player and targeted_player.has_method("_get_hit"):
-		targeted_player._get_hit(attributeid, mob.melee_damage)
+		var attack_data: Dictionary = {
+			"attributeid": attribute["id"],
+			"damage": attribute["damage"],
+			"knockback": mob.dmob.melee_knockback,
+			"mobposition": mob.global_position
+		}
+		targeted_player._get_hit(attack_data)
 
 
 func stop_attacking():

@@ -20,7 +20,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_damage_numedit", "melee_range_numedit", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "attributesGridContainer")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_range_numedit", "melee_cooldown_spinbox", "melee_knockback_spinbox", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,8 +34,9 @@ PathTextLabel = NodePath("VBoxContainer/FormGrid/PathTextLabel")
 NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 mobSelector = NodePath("Sprite_selector")
-melee_damage_numedit = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeDamageSpinBox")
 melee_range_numedit = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeRangeSpinbox")
+melee_cooldown_spinbox = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeCooldownSpinbox")
+melee_knockback_spinbox = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeKnockbackSpinbox")
 health_numedit = NodePath("VBoxContainer/FormGrid/HealthSpinBox")
 moveSpeed_numedit = NodePath("VBoxContainer/FormGrid/SpeedHBoxContainer/MoveSpeedSpinBox")
 idle_move_speed_numedit = NodePath("VBoxContainer/FormGrid/SpeedHBoxContainer/IdleMoveSpeedSpinBox")
@@ -47,7 +48,8 @@ dash_check_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/Das
 dash_speed_multiplier_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/SpeedMultiplierSpinBox")
 dash_duration_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/DurationSpinBox")
 dash_cooldown_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/CooldownSpinBox")
-attributesGridContainer = NodePath("VBoxContainer/FormGrid/PanelContainer/AttributesGridContainer")
+any_of_attributes_grid_container = NodePath("VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/AnyOfAttributesGridContainer")
+all_of_attributes_grid_container = NodePath("VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer/AllOfAttributesGridContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -148,15 +150,6 @@ text = "Melee"
 [node name="MeleeHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
 
-[node name="MeleeDamageLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
-layout_mode = 2
-text = "Damage"
-
-[node name="MeleeDamageSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
-layout_mode = 2
-min_value = -100.0
-value = 20.0
-
 [node name="MeleeRangeLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
 layout_mode = 2
 text = "Range"
@@ -166,6 +159,25 @@ layout_mode = 2
 tooltip_text = "The maximum distance it can reach when attacking in melee"
 step = 0.5
 value = 1.5
+
+[node name="MeleeCooldownLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
+layout_mode = 2
+text = "Cooldown"
+
+[node name="MeleeCooldownSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The cooldown in seconds. During the cooldown, the mob cannot perform another melee attack."
+step = 0.5
+value = 1.5
+
+[node name="MeleeKnockbackLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
+layout_mode = 2
+text = "Knockback"
+
+[node name="MeleeKnockbackSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The number of tiles that the  player will be knocked back. If the value is 0, no knockback will be applied."
+step = 0.5
 
 [node name="SpeedLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -298,18 +310,52 @@ value = 5.0
 layout_mode = 2
 text = "Target attributes"
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid"]
+[node name="AttributesHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AnyOfPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_apoql")
 
-[node name="AttributesGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/PanelContainer"]
+[node name="AnyOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer"]
+layout_mode = 2
+
+[node name="AnyOfLabel" type="Label" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
+layout_mode = 2
+text = "Any of:"
+
+[node name="AnyOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 tooltip_text = "Enter the target player attributes that this mob will attack. You 
 can drag body parts to this field to have the mob target them.
-Selecting multiple will have the mob attack each at random."
-columns = 3
+Selecting multiple will have the mob attack one part at a time at random."
+columns = 4
+
+[node name="AllOfPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_apoql")
+
+[node name="AllOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer"]
+layout_mode = 2
+
+[node name="AllOfLabel" type="Label" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
+layout_mode = 2
+text = "All of:"
+
+[node name="AllOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+tooltip_text = "Enter the target player attributes that this mob will attack. You 
+can drag body parts to this field to have the mob target them.
+All attributes listed here will be attacked every time."
+columns = 4
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_847a0")]
 visible = false

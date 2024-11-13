@@ -6,7 +6,8 @@
 		"id": "scrapwalker",
 		"idle_move_speed": 0.5,
 		"loot_group": "mob_loot",
-		"melee_damage": 20,
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
 		"melee_range": 1.5,
 		"move_speed": 2.1,
 		"name": "Scrap walker",
@@ -24,7 +25,8 @@
 					"generichouse_end",
 					"subway_station",
 					"office_building_00",
-					"city_square"
+					"city_square",
+					"parking_garage"
 				],
 				"quests": [
 					"starter_tutorial_00"
@@ -34,26 +36,35 @@
 		"sense_range": 50,
 		"sight_range": 200,
 		"sprite": "scrapwalker64.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_arm_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			}
-		]
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 20,
+					"id": "head_health"
+				},
+				{
+					"damage": 20,
+					"id": "torso_health"
+				},
+				{
+					"damage": 20,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 20,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 20,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 20,
+					"id": "right_leg_health"
+				}
+			]
+		}
 	},
 	{
 		"description": "A slightly more advanced robot but still considered a weaker enemy in the robot faction. The Rust Sentinel stands tall and imposing, with a sturdy build. Its design incorporates rusted and recycled metal parts, giving it a rugged, battle-worn appearance.\n\nThe Rust Sentinel features a broad, slightly dome-shaped head with glowing red eyes that serve as visual sensors. Its torso is bulkier, reinforced with scrap metal plates, and it has two powerful arms ending in claws. The legs are designed for stability and power rather than speed. Its color scheme is a mix of rusted orange, steel gray, and hints of worn-out blue paint, suggesting it was once part of a larger machinery or vehicle.\n\nThe Rust Sentinel moves with deliberate, heavy steps, making it slower but more resilient. It's equipped with basic tools and weaponry, which it uses to scavenges and patrol.",
@@ -62,7 +73,8 @@
 		"id": "rust_sentinel",
 		"idle_move_speed": 0.4,
 		"loot_group": "mob_loot",
-		"melee_damage": 20,
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
 		"melee_range": 1.5,
 		"move_speed": 1.8,
 		"name": "Rust sentinel",
@@ -77,33 +89,43 @@
 					"generichouse_end",
 					"subway_station",
 					"office_building_00",
-					"city_square"
+					"city_square",
+					"parking_garage"
 				]
 			}
 		},
 		"sense_range": 50,
 		"sight_range": 200,
 		"sprite": "rust_sentinel_72.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_arm_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			}
-		]
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 20,
+					"id": "head_health"
+				},
+				{
+					"damage": 20,
+					"id": "torso_health"
+				},
+				{
+					"damage": 20,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 20,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 20,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 20,
+					"id": "right_leg_health"
+				}
+			]
+		}
 	},
 	{
 		"description": "A swift, dog-sized robot equipped with sharp claws and sensors. The Scavenger Skitter patrols ruins, darting quickly to attack when it detects motion. Its lightweight build allows it to move at high speeds but makes it vulnerable to powerful attacks.",
@@ -112,14 +134,16 @@
 		"id": "scavenger_skitter",
 		"idle_move_speed": 1,
 		"loot_group": "mob_loot",
-		"melee_damage": 15,
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
 		"melee_range": 1,
 		"move_speed": 3.5,
 		"name": "Scavenger Skitter",
 		"references": {
 			"core": {
 				"maps": [
-					"city_square"
+					"city_square",
+					"parking_garage"
 				]
 			}
 		},
@@ -133,26 +157,35 @@
 			}
 		},
 		"sprite": "scavenger_skitter_48.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_arm_health"
-			}
-		]
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 15,
+					"id": "head_health"
+				},
+				{
+					"damage": 15,
+					"id": "torso_health"
+				},
+				{
+					"damage": 15,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 15,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 15,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 15,
+					"id": "left_arm_health"
+				}
+			]
+		}
 	},
 	{
 		"description": "A heavily armored robot that advances slowly but relentlessly. The Iron Stalker is outfitted with reinforced plating, making it resistant to bullets and physical attacks. It uses a powerful hydraulic punch that can stagger players if hit.",
@@ -161,33 +194,56 @@
 		"id": "iron_stalker",
 		"idle_move_speed": 0.3,
 		"loot_group": "mob_loot",
-		"melee_damage": 40,
-		"melee_range": 2,
+		"melee_cooldown": 2,
+		"melee_knockback": 2,
+		"melee_range": 1,
 		"move_speed": 1,
 		"name": "Iron Stalker",
+		"references": {
+			"core": {
+				"maps": [
+					"parking_garage",
+					"store_electronic_clothing"
+				]
+			}
+		},
 		"sense_range": 60,
 		"sight_range": 150,
-		"sprite": "iron_stalker_64.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_arm_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			}
-		]
+		"sprite": "iron_stalker_72.png",
+		"targetattributes": {
+			"all_of": [
+				{
+					"damage": -10,
+					"id": "stun"
+				}
+			],
+			"any_of": [
+				{
+					"damage": 40,
+					"id": "head_health"
+				},
+				{
+					"damage": 40,
+					"id": "torso_health"
+				},
+				{
+					"damage": 40,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 40,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 40,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 40,
+					"id": "right_leg_health"
+				}
+			]
+		}
 	},
 	{
 		"description": "A mid-sized drone that hovers silently above the ground. The Disruptor Drone can emit a pulse to disable nearby electronic equipment temporarily, making it dangerous for players who rely on tech.",
@@ -196,7 +252,8 @@
 		"id": "disruptor_drone",
 		"idle_move_speed": 0.8,
 		"loot_group": "mob_loot",
-		"melee_damage": 0,
+		"melee_cooldown": 2,
+		"melee_knockback": 0,
 		"melee_range": 1.5,
 		"move_speed": 2.5,
 		"name": "Disruptor Drone",
@@ -210,26 +267,15 @@
 		"sense_range": 80,
 		"sight_range": 300,
 		"sprite": "disruptor_drone_48.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_arm_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			}
-		]
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": -10,
+					"id": "stun"
+				}
+			]
+		}
 	},
 	{
 		"description": "A compact, spider-like bot specialized in ambush tactics. The Venom Crawler injects a corrosive fluid into its target, damaging armor and slowly weakening the player over time.",
@@ -238,18 +284,23 @@
 		"id": "venom_crawler",
 		"idle_move_speed": 0.6,
 		"loot_group": "mob_loot",
-		"melee_damage": -10,
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
 		"melee_range": 1,
 		"move_speed": 2.8,
 		"name": "Venom Crawler",
 		"sense_range": 80,
 		"sight_range": 200,
 		"sprite": "venom_crawler_48.png",
-		"targetattributes": [
-			{
-				"id": "poison"
-			}
-		]
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": -10,
+					"id": "poison"
+				}
+			]
+		}
 	},
 	{
 		"description": "A towering, sentinel-like robot with a focus on ranged combat. The Outpost Guardian uses built-in projectile launchers to strike players from afar, aiming at any perceived threat.",
@@ -258,32 +309,42 @@
 		"id": "outpost_guardian",
 		"idle_move_speed": 0.4,
 		"loot_group": "mob_loot",
-		"melee_damage": 30,
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
 		"melee_range": 1.5,
 		"move_speed": 1.3,
 		"name": "Outpost Guardian",
 		"sense_range": 100,
 		"sight_range": 400,
 		"sprite": "outpost_guardian_72.png",
-		"targetattributes": [
-			{
-				"id": "head_health"
-			},
-			{
-				"id": "torso_health"
-			},
-			{
-				"id": "left_arm_health"
-			},
-			{
-				"id": "right_arm_health"
-			},
-			{
-				"id": "left_leg_health"
-			},
-			{
-				"id": "right_leg_health"
-			}
-		]
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 30,
+					"id": "head_health"
+				},
+				{
+					"damage": 30,
+					"id": "torso_health"
+				},
+				{
+					"damage": 30,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 30,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 30,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 30,
+					"id": "right_leg_health"
+				}
+			]
+		}
 	}
 ]

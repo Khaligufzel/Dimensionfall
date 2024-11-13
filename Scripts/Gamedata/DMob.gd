@@ -16,9 +16,10 @@ extends RefCounted
 # 	"id": "scrapwalker",
 # 	"idle_move_speed": 0.5,
 # 	"loot_group": "mob_loot",
-# 	"melee_damage": 20,
-# 	"melee_range": 1.5,
 # 	"move_speed": 2.1,
+# 	"melee_range": 1.5,
+# 	"melee_knockback": 2.0,
+# 	"melee_cooldown": 2.0,
 # 	"name": "Scrap walker",
 # 	"references": {
 # 		"core": {
@@ -36,6 +37,28 @@ extends RefCounted
 # 	"special_moves": {
 # 		"dash": {"speed_multiplier":2,"cooldown":5,"duration":0.5}
 # 	},
+#	"targetattributes": {
+#		"any_of": [
+#			{
+#				"id": "head_health",
+#				"damage": 10
+#			},
+#			{
+#				"id": "torso_health",
+#				"damage": 10
+#			}
+#		],
+#		"all_of": [
+#			{
+#				"id": "poison",
+#				"damage": 10
+#			},
+#			{
+#				"id": "stun",
+#				"damage": 10
+#			}
+#		]
+#	}
 # 	"spriteid": "scrapwalker64.png"
 # }
 
@@ -47,15 +70,17 @@ var health: int
 var hearing_range: int
 var idle_move_speed: float
 var loot_group: String
-var melee_damage: int
 var melee_range: float
+var melee_knockback: float  # New property for melee knockback
+var melee_cooldown: float   # New property for melee cooldown
 var move_speed: float
 var sense_range: int
 var sight_range: int
 var special_moves: Dictionary = {} # Holds special moves like {"dash":{"speed_multiplier":2,"cooldown":5,"duration":0.5}}
 var spriteid: String
 var sprite: Texture
-var targetattributes: Array
+# Updated targetattributes variable to use the new data structure
+var targetattributes: Dictionary = {}
 var references: Dictionary = {}
 
 # Constructor to initialize mob properties from a dictionary
@@ -67,8 +92,9 @@ func _init(data: Dictionary):
 	hearing_range = data.get("hearing_range", 1000)
 	idle_move_speed = data.get("idle_move_speed", 0.5)
 	loot_group = data.get("loot_group", "")
-	melee_damage = data.get("melee_damage", 20)
 	melee_range = data.get("melee_range", 1.5)
+	melee_knockback = data.get("melee_knockback", 2.0)  # Initialize with default value
+	melee_cooldown = data.get("melee_cooldown", 2.0)    # Initialize with default value
 	move_speed = data.get("move_speed", 1.0)
 	sense_range = data.get("sense_range", 50)
 	sight_range = data.get("sight_range", 200)
@@ -76,7 +102,7 @@ func _init(data: Dictionary):
 	special_moves = data.get("special_moves", {})
 	spriteid = data.get("sprite", "")
 	
-	targetattributes = []
+	# Initialize targetattributes based on the new format
 	if data.has("targetattributes"):
 		targetattributes = data["targetattributes"]
 	references = data.get("references", {})
@@ -91,8 +117,9 @@ func get_data() -> Dictionary:
 		"hearing_range": hearing_range,
 		"idle_move_speed": idle_move_speed,
 		"loot_group": loot_group,
-		"melee_damage": melee_damage,
 		"melee_range": melee_range,
+		"melee_knockback": melee_knockback,  # Add to data output
+		"melee_cooldown": melee_cooldown,    # Add to data output
 		"move_speed": move_speed,
 		"sense_range": sense_range,
 		"sight_range": sight_range,
@@ -107,11 +134,13 @@ func get_data() -> Dictionary:
 	return data
 
 
-
-# Function to return an array of all "id" values in the attributes array
+# Function to return an array of all "id" values in the targetattributes
 func get_attr_ids() -> Array:
 	var ids: Array = []
-	for attribute in targetattributes:
+	for attribute in targetattributes.get("any_of", []):
+		if attribute.has("id"):
+			ids.append(attribute["id"])
+	for attribute in targetattributes.get("all_of", []):
 		if attribute.has("id"):
 			ids.append(attribute["id"])
 	return ids
@@ -172,7 +201,6 @@ func execute_callable_on_references_of_type(module: String, type: String, callab
 		# If the type exists, execute the callable on each ID found under this type
 		for ref_id in references[module][type]:
 			callable.call(ref_id)
-
 
 
 # Collects all attributes defined in an item and updates the references to that attribute

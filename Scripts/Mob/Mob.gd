@@ -14,7 +14,6 @@ var last_rotation: int
 var last_chunk: Vector2
 var current_chunk: Vector2
 
-var melee_damage: float = 20.0
 var melee_range: float = 1.5
 var health: float = 100.0
 var current_health: float
@@ -243,7 +242,6 @@ func set_sprite(newSprite: Resource):
 # If it is created from a saved game, it might have lower health for example
 func apply_stats_from_dmob() -> void:
 	set_sprite(dmob.sprite)
-	melee_damage = dmob.melee_damage
 	melee_range = dmob.melee_range
 	health = dmob.health
 	current_health = dmob.health
@@ -301,7 +299,6 @@ func get_data() -> Dictionary:
 		"global_position_y": last_position.y,
 		"global_position_z": last_position.z,
 		"rotation": last_rotation,
-		"melee_damage": melee_damage,
 		"melee_range": melee_range,
 		"health": health,
 		"current_health": current_health,
