@@ -41,7 +41,7 @@ func Physics_Update(_delta: float):
 	var query = PhysicsRayQueryParameters3D.create(mob.global_position, targeted_player.global_position, int(pow(2, 1-1) + pow(2, 3-1)), [self])
 	var result = space_state.intersect_ray(query)
 
-	if result:
+	if result and result.collider:
 
 		if result.collider.is_in_group("Players") && Vector3(mob.global_position).distance_to(targeted_player.global_position) <= mob.melee_range:
 

@@ -217,13 +217,14 @@ func create_box_shape():
 func create_visual_instance(shape_type: String):
 	var color = Color.html(dfurniture.support_shape.color)
 	var material: ShaderMaterial = ShaderMaterial.new()
-	material.shader = Gamedata.hide_above_player_shader  # Assign the shader to the material
 
-	# Set the color and transparency in the shader material
-	material.set_shader_parameter("object_color", color)
 	if dfurniture.support_shape.transparent:
+		material.shader = Gamedata.hide_above_player_shader  # Assign the shader to the material
+		material.set_shader_parameter("object_color", color)
 		material.set_shader_parameter("alpha", 0.5)
-	else:
+	else: # Use a shader with shadow
+		material.shader = Gamedata.hide_above_player_shadow  # Assign the shader to the material
+		material.set_shader_parameter("object_color", color)
 		material.set_shader_parameter("alpha", 1.0)
 
 	if shape_type == "Box":

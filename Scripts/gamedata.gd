@@ -17,8 +17,10 @@ var skills: DSkills
 var quests: DQuests
 var overmapareas: DOvermapareas
 
-# Load the shader resource
+# Only hides the visual instance when it's above the player. Casts no shadow
 static var hide_above_player_shader := preload("res://Shaders/HideAbovePlayer.gdshader")
+# Hides the visual instance when it's above the player and casts a shadow
+static var hide_above_player_shadow := preload("res://Shaders/HideAbovePlayerShadow.gdshader")
 
 # Dictionary to store loaded textures
 var textures: Dictionary = {
