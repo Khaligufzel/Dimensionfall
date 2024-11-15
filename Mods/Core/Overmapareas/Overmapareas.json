@@ -59,6 +59,10 @@
 					{
 						"id": "generichouse_end",
 						"weight": 10
+					},
+					{
+						"id": "neighborhood_school",
+						"weight": 10
 					}
 				],
 				"spawn_probability": {

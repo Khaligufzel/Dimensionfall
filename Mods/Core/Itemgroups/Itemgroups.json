@@ -279,7 +279,8 @@
 					"abandoned_building",
 					"subway_station",
 					"city_square",
-					"skyscraper"
+					"skyscraper",
+					"neighborhood_school"
 				]
 			}
 		},
@@ -763,7 +764,8 @@
 					"store_electronic_clothing",
 					"store_groceries",
 					"subway_station",
-					"city_square"
+					"city_square",
+					"neighborhood_school"
 				]
 			}
 		},
@@ -795,7 +797,8 @@
 					"store_groceries",
 					"subway_station",
 					"city_square",
-					"office_building_00"
+					"office_building_00",
+					"neighborhood_school"
 				]
 			}
 		},
