@@ -604,7 +604,7 @@
 		"support_shape": {
 			"color": "c7632eff",
 			"depth_scale": 95,
-			"height": 0.7,
+			"height": 0.9,
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
