@@ -726,7 +726,8 @@
 				"itemgroups": [
 					"cabinet_general",
 					"electronics_store_small",
-					"electronics_store_mixed"
+					"electronics_store_mixed",
+					"loot_electronic"
 				]
 			}
 		},
@@ -1446,7 +1447,9 @@
 			"core": {
 				"itemgroups": [
 					"electronics_store_small",
-					"electronics_store_mixed"
+					"electronics_store_mixed",
+					"electronics_damaged",
+					"loot_electronic"
 				]
 			}
 		},
@@ -1466,7 +1469,9 @@
 			"core": {
 				"itemgroups": [
 					"debris_urban",
-					"urban_litter"
+					"urban_litter",
+					"electronics_damaged",
+					"loot_electronic"
 				]
 			}
 		},
@@ -1505,7 +1510,9 @@
 			"core": {
 				"itemgroups": [
 					"debris_urban",
-					"urban_litter"
+					"urban_litter",
+					"electronics_damaged",
+					"loot_electronic"
 				]
 			}
 		},
@@ -3329,6 +3336,9 @@
 		"name": "Damaged transmitter",
 		"references": {
 			"core": {
+				"itemgroups": [
+					"electronics_damaged"
+				],
 				"quests": [
 					"quest_radio_signal_01"
 				]
@@ -3348,6 +3358,10 @@
 		"name": "Circuit Board",
 		"references": {
 			"core": {
+				"itemgroups": [
+					"loot_electronic",
+					"electronics_store_small"
+				],
 				"quests": [
 					"quest_radio_signal_01"
 				]
@@ -3360,6 +3374,41 @@
 		"weight": 0.5
 	},
 	{
+		"Craft": [
+			{
+				"craft_amount": 1,
+				"craft_time": 10,
+				"flags": {
+					"requires_light": false
+				},
+				"required_resources": [
+					{
+						"amount": 1,
+						"id": "damaged_transmitter"
+					},
+					{
+						"amount": 2,
+						"id": "electrical_components"
+					},
+					{
+						"amount": 2,
+						"id": "plastic_parts"
+					},
+					{
+						"amount": 1,
+						"id": "circuit_board"
+					}
+				],
+				"skill_progression": {
+					"id": "electronics",
+					"xp": 25
+				},
+				"skill_requirement": {
+					"id": "electronics",
+					"level": 1
+				}
+			}
+		],
 		"description": "A fully functional transmitter, capable of boosting a weak signal when paired with the right equipment.",
 		"id": "transmitter",
 		"image": "./Mods/Core/Items/transmitter_32.png",
@@ -3367,6 +3416,12 @@
 		"name": "Transmitter",
 		"references": {
 			"core": {
+				"items": [
+					"damaged_transmitter",
+					"electrical_components",
+					"plastic_parts",
+					"circuit_board"
+				],
 				"quests": [
 					"quest_radio_signal_01"
 				]

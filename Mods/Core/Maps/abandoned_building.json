@@ -9293,6 +9293,12 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "wall_shelf",
+					"itemgroups": [
+						"electronics_damaged"
+					]
+				},
 				"id": "concrete__cracked_00"
 			},
 			{

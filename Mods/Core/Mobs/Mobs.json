@@ -28,7 +28,8 @@
 					"city_square",
 					"parking_garage",
 					"neighborhood_school",
-					"two_story_house"
+					"two_story_house",
+					"radio_tower"
 				],
 				"quests": [
 					"starter_tutorial_00"
@@ -94,7 +95,8 @@
 					"city_square",
 					"parking_garage",
 					"neighborhood_school",
-					"two_story_house"
+					"two_story_house",
+					"radio_tower"
 				]
 			}
 		},
@@ -137,7 +139,7 @@
 		"hearing_range": 800,
 		"id": "scavenger_skitter",
 		"idle_move_speed": 1,
-		"loot_group": "mob_loot",
+		"loot_group": "loot_electronic",
 		"melee_cooldown": 1,
 		"melee_knockback": 0,
 		"melee_range": 1,
@@ -147,7 +149,8 @@
 			"core": {
 				"maps": [
 					"city_square",
-					"parking_garage"
+					"parking_garage",
+					"radio_tower"
 				]
 			}
 		},
@@ -207,7 +210,8 @@
 			"core": {
 				"maps": [
 					"parking_garage",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"radio_tower"
 				]
 			}
 		},
@@ -255,7 +259,7 @@
 		"hearing_range": 1200,
 		"id": "disruptor_drone",
 		"idle_move_speed": 0.8,
-		"loot_group": "mob_loot",
+		"loot_group": "loot_electronic",
 		"melee_cooldown": 2,
 		"melee_knockback": 0,
 		"melee_range": 1.5,
@@ -264,7 +268,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"city_square"
+					"city_square",
+					"radio_tower"
 				],
 				"quests": [
 					"quest_radio_signal_01"
@@ -290,7 +295,7 @@
 		"hearing_range": 700,
 		"id": "venom_crawler",
 		"idle_move_speed": 0.6,
-		"loot_group": "mob_loot",
+		"loot_group": "loot_electronic",
 		"melee_cooldown": 1,
 		"melee_knockback": 0,
 		"melee_range": 1,

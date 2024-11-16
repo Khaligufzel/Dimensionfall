@@ -79,6 +79,13 @@
 		"description": "Expertise in handling and repairing electronic devices and components, from simple circuits to complex systems.",
 		"id": "electronics",
 		"name": "Electronics",
+		"references": {
+			"core": {
+				"items": [
+					"transmitter"
+				]
+			}
+		},
 		"sprite": "electronics_32.png"
 	},
 	{

@@ -52,7 +52,7 @@
 		"id": "quest_radio_signal_01",
 		"name": "The Signal",
 		"rewards": [],
-		"sprite": "electrical_components_32.png",
+		"sprite": "transmitter_32.png",
 		"steps": [
 			{
 				"map_id": "abandoned_building",
@@ -66,9 +66,14 @@
 				"type": "collect"
 			},
 			{
+				"map_id": "city_square",
+				"tip": "Circuit boards can often be scavenged from scrap piles or robotic enemies. Defeat a Disruptor Drone to find one.",
+				"type": "enter"
+			},
+			{
 				"amount": 1,
 				"item": "circuit_board",
-				"tip": "Circuit boards can often be scavenged from scrap piles or robotic enemies. Defeat a Disruptor Drone to find one.",
+				"tip": "Collect a cirquit board from a defeated enemy or search for it inside containers.",
 				"type": "collect"
 			},
 			{

@@ -618,9 +618,15 @@
 			},
 			{
 				"id": "electrical_components",
-				"max": 7,
+				"max": 5,
 				"min": 1,
 				"probability": 60
+			},
+			{
+				"id": "circuit_board",
+				"max": 1,
+				"min": 1,
+				"probability": 20
 			}
 		],
 		"mode": "Collection",
@@ -1315,6 +1321,102 @@
 			}
 		},
 		"sprite": "bottle_empty_32.png",
+		"use_sprite": false
+	},
+	{
+		"description": "A pile of damaged electronics found in some delapitated place.",
+		"id": "electronics_damaged",
+		"items": [
+			{
+				"id": "damaged_transmitter",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "metal_parts",
+				"max": 3,
+				"min": 1,
+				"probability": 30
+			},
+			{
+				"id": "plastic_parts",
+				"max": 3,
+				"min": 1,
+				"probability": 30
+			},
+			{
+				"id": "electrical_components",
+				"max": 3,
+				"min": 1,
+				"probability": 30
+			}
+		],
+		"mode": "Collection",
+		"name": "Damaged electronics",
+		"references": {
+			"core": {
+				"maps": [
+					"abandoned_building"
+				]
+			}
+		},
+		"sprite": "transmitter_broken_32.png",
+		"use_sprite": false
+	},
+	{
+		"description": "Electronic loot that's dropped by a mob",
+		"id": "loot_electronic",
+		"items": [
+			{
+				"id": "steel_scrap",
+				"max": 1,
+				"min": 1,
+				"probability": 30
+			},
+			{
+				"id": "battery_small",
+				"max": 1,
+				"min": 1,
+				"probability": 15
+			},
+			{
+				"id": "electrical_components",
+				"max": 1,
+				"min": 1,
+				"probability": 30
+			},
+			{
+				"id": "plastic_parts",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "metal_parts",
+				"max": 1,
+				"min": 1,
+				"probability": 21
+			},
+			{
+				"id": "circuit_board",
+				"max": 1,
+				"min": 1,
+				"probability": 15
+			}
+		],
+		"mode": "Collection",
+		"name": "Electronic Mob loot",
+		"references": {
+			"core": {
+				"mobs": [
+					"disruptor_drone",
+					"scavenger_skitter",
+					"venom_crawler"
+				]
+			}
+		},
+		"sprite": "electrical_components_32.png",
 		"use_sprite": false
 	}
 ]
