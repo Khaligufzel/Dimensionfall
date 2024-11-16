@@ -749,6 +749,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/solar_panel_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Solar panel\",
+		\"references\": {
+			\"core\": {
+				\"quests\": [
+					\"quest_radio_signal_01\"
+				]
+			}
+		},
 		\"sprite\": \"solar_panel_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -3445,13 +3452,6 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/metallic_key_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Radio tower key\",
-		\"references\": {
-			\"core\": {
-				\"quests\": [
-					\"quest_radio_signal_01\"
-				]
-			}
-		},
 		\"sprite\": \"metallic_key_32.png\",
 		\"stack_size\": 2,
 		\"two_handed\": false,

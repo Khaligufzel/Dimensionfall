@@ -40300,5 +40300,12 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Radio tower",
+	"references": {
+		"core": {
+			"quests": [
+				"quest_radio_signal_01"
+			]
+		}
+	},
 	"weight": 1000
 }
