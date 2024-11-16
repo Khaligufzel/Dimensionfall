@@ -265,6 +265,9 @@
 			"core": {
 				"maps": [
 					"city_square"
+				],
+				"quests": [
+					"quest_radio_signal_01"
 				]
 			}
 		},

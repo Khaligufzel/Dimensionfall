@@ -13758,6 +13758,9 @@
 		"core": {
 			"overmapareas": [
 				"city"
+			],
+			"quests": [
+				"quest_radio_signal_01"
 			]
 		}
 	},

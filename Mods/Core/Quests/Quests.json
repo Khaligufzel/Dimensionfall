@@ -46,5 +46,58 @@
 				"type": "collect"
 			}
 		]
+	},
+	{
+		"description": "You receive a faint radio signal, repeating a cryptic message about a safe zone. To follow the signal, you'll need to locate and repair an old radio tower, fend off hostile enemies, and gather key components.",
+		"id": "quest_radio_signal_01",
+		"name": "The Signal",
+		"rewards": [],
+		"sprite": "electrical_components_32.png",
+		"steps": [
+			{
+				"map_id": "abandoned_building",
+				"tip": "Start by locating the source of the faint signal in an abandoned building. Search for clues or items to help you understand the signal's origin.",
+				"type": "enter"
+			},
+			{
+				"amount": 1,
+				"item": "damaged_transmitter",
+				"tip": "Search inside the abandoned building for a damaged transmitter. Look for lootable containers or interactable objects.",
+				"type": "collect"
+			},
+			{
+				"amount": 1,
+				"item": "circuit_board",
+				"tip": "Circuit boards can often be scavenged from scrap piles or robotic enemies. Defeat a Disruptor Drone to find one.",
+				"type": "collect"
+			},
+			{
+				"item": "transmitter",
+				"tip": "Use the crafting menu (press C) to combine the damaged transmitter with a circuit board to repair it.",
+				"type": "craft"
+			},
+			{
+				"map_id": "urbanroad_corner",
+				"tip": "Head to the urban road corner where the radio tower is located. Be prepared for enemy encounters along the way.",
+				"type": "enter"
+			},
+			{
+				"amount": 3,
+				"mob": "disruptor_drone",
+				"tip": "Clear the area around the radio tower by eliminating the Disruptor Drones guarding it.",
+				"type": "kill"
+			},
+			{
+				"amount": 1,
+				"item": "radio_tower_key",
+				"tip": "One of the Disruptor Drones is carrying a key to access the tower. Collect it once you've defeated them.",
+				"type": "collect"
+			},
+			{
+				"map_id": "urbanroad",
+				"tip": "Use the key to enter the radio tower and activate the transmitter. This will mark the safe zone location on your overmap.",
+				"type": "enter"
+			}
+		]
 	}
 ]

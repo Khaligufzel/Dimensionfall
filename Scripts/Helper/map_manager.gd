@@ -38,7 +38,7 @@ func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: D
 	var tiles_data = area_data.get("tiles", [])
 
 	# Check if pick_one is set to true and a tile has already been picked for this cluster
-	if picked_tile and not picked_tile.is_empty():
+	if picked_tile and not picked_tile.is_empty() and not picked_tile["id"] == "null":
 		result["id"] = picked_tile["id"]
 		result["rotation"] = _get_random_rotation(area_data)
 		return  # Exit the function since the tile has been set
