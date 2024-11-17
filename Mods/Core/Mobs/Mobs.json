@@ -27,7 +27,8 @@
 					"office_building_00",
 					"city_square",
 					"parking_garage",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				],
 				"quests": [
 					"starter_tutorial_00"
@@ -92,7 +93,8 @@
 					"office_building_00",
 					"city_square",
 					"parking_garage",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},

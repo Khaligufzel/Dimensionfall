@@ -27,7 +27,8 @@
 					"city_square",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -63,7 +64,8 @@
 					"city_square",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -103,7 +105,8 @@
 					"Generichouse_00",
 					"generichouse_end",
 					"office_building_00",
-					"skyscraper"
+					"skyscraper",
+					"two_story_house"
 				]
 			}
 		},
@@ -298,7 +301,8 @@
 					"generichouse_end",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -341,7 +345,8 @@
 					"city_square",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -372,7 +377,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"RockyHill_SW",
-					"generichouse_end"
+					"generichouse_end",
+					"two_story_house"
 				]
 			}
 		},
@@ -414,7 +420,8 @@
 					"Generichouse",
 					"Generichouse_00",
 					"RockyHill_SW",
-					"generichouse_end"
+					"generichouse_end",
+					"two_story_house"
 				]
 			}
 		},
@@ -454,7 +461,8 @@
 					"generichouse_end",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -499,7 +507,8 @@
 					"generichouse_end",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -541,7 +550,8 @@
 					"generichouse_end",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -585,7 +595,8 @@
 					"generichouse_end",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -661,7 +672,8 @@
 					"Generichouse_00",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -731,7 +743,8 @@
 					"store_groceries",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -762,7 +775,8 @@
 					"store_groceries",
 					"generichouse_end",
 					"office_building_00",
-					"skyscraper"
+					"skyscraper",
+					"two_story_house"
 				]
 			}
 		},
@@ -800,7 +814,8 @@
 					"RockyHill_SW",
 					"store_groceries",
 					"office_building_00",
-					"skyscraper"
+					"skyscraper",
+					"two_story_house"
 				]
 			}
 		},
@@ -830,7 +845,8 @@
 					"store_groceries",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -864,7 +880,8 @@
 				"maps": [
 					"Generichouse_00",
 					"generichouse_t",
-					"generichouse_cross"
+					"generichouse_cross",
+					"two_story_house"
 				]
 			}
 		},
@@ -900,7 +917,8 @@
 					"Generichouse_00",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -938,7 +956,8 @@
 					"store_groceries",
 					"generichouse_t",
 					"office_building_00",
-					"skyscraper"
+					"skyscraper",
+					"two_story_house"
 				]
 			}
 		},
@@ -971,7 +990,8 @@
 				"maps": [
 					"Generichouse_00",
 					"office_building_00",
-					"skyscraper"
+					"skyscraper",
+					"two_story_house"
 				]
 			}
 		},
@@ -1258,7 +1278,8 @@
 					"city_square",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -1290,7 +1311,8 @@
 					"generichouse_end",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -1331,7 +1353,8 @@
 					"generichouse_end",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"two_story_house"
 				]
 			}
 		},
@@ -1366,7 +1389,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"abandoned_building"
+					"abandoned_building",
+					"two_story_house"
 				]
 			}
 		},
