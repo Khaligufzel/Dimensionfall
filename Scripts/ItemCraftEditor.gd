@@ -16,6 +16,8 @@ extends Control
 
 var current_recipe_index = 0
 var craft_recipes: Array[DItem.CraftRecipe] = []
+var controls_disabled: bool = false
+
 
 var ditem: DItem = null:
 	set(value):
@@ -24,6 +26,10 @@ var ditem: DItem = null:
 
 
 func _ready():
+	if recipesContainer.get_item_count() == 0:
+		disable_all_controls()
+	else:
+		enable_all_controls()
 	set_drop_functions()
 	recipesContainer.item_selected.connect(_on_recipe_selected)
 
@@ -33,6 +39,7 @@ func _on_recipe_selected(index: int):
 		_update_current_recipe()  # Save any changes made to the current recipe
 	current_recipe_index = index
 	load_recipe_into_ui(craft_recipes[current_recipe_index])
+	enable_all_controls()  # Ensure controls are enabled when a recipe is selected
 
 
 # Loads a recipe into the UI elements
@@ -115,7 +122,9 @@ func _get_resources_from_ui() -> Array:
 # Sets properties for all recipes and initializes the recipe editor
 func load_properties():
 	if not ditem or not ditem.craft:
+		disable_all_controls()
 		return
+	
 	craft_recipes.clear()
 	for drecipe: DItem.CraftRecipe in ditem.craft.recipes:
 		craft_recipes.append(DItem.CraftRecipe.new(drecipe.get_data().duplicate(true)))
@@ -124,10 +133,12 @@ func load_properties():
 	if craft_recipes.is_empty():
 		add_new_recipe()  # Automatically add a new recipe if the list is empty
 		load_recipe_into_ui(craft_recipes[0])
+		enable_all_controls()  # Enable controls since a recipe was added
 	else:
 		for idx in range(len(craft_recipes)):
 			recipesContainer.add_item("Recipe " + str(idx + 1))
 		load_recipe_into_ui(craft_recipes[0])
+		enable_all_controls()  # Enable controls since recipes exist
 
 
 # Helper function to add a new recipe
@@ -147,6 +158,10 @@ func add_new_recipe():
 
 # This function should return true if the dragged data can be dropped here
 func _can_drop_data(_newpos, data) -> bool:
+	# If controls are disabled, disallow dropping
+	if controls_disabled:
+		return false
+	
 	# Check if the data dictionary has the 'id' property
 	if not data or not data.has("id"):
 		return false
@@ -222,19 +237,19 @@ func _on_visibility_changed():
 
 
 func _on_add_recipe_button_button_up():
-	# Save the changes to the currently selected recipe before adding a new one
-	_update_current_recipe()
+	_update_current_recipe()  # Save the changes to the currently selected recipe before adding a new one
 
-	# Add a new recipe
-	add_new_recipe()
+	add_new_recipe()  # Add a new recipe
 
 	# Update the dropdown and select the new recipe
 	update_recipe_dropdown()
 	current_recipe_index = craft_recipes.size() - 1  # Update the current index to the new recipe
 	recipesContainer.select(current_recipe_index)  # Select the newly added recipe
 
-	# Load the newly added recipe into the UI
-	load_recipe_into_ui(craft_recipes[current_recipe_index])
+	load_recipe_into_ui(craft_recipes[current_recipe_index])  # Load the newly added recipe into the UI
+
+	enable_all_controls()  # Enable controls since a recipe was added
+
 
 
 func _on_remove_recipe_button_button_up():
@@ -289,3 +304,27 @@ func set_drop_functions():
 	required_skill_text_edit.can_drop_function = can_skill_drop
 	skill_progression_text_edit.drop_function = skill_drop.bind(skill_progression_text_edit)
 	skill_progression_text_edit.can_drop_function = can_skill_drop
+
+
+func disable_all_controls() -> void:
+	controls_disabled = true  # Set the state to disabled
+	# Disable specific controls
+	required_skill_text_edit.disable()
+	skill_progression_text_edit.disable()
+	craftAmountNumber.editable = false
+	craftTimeNumber.editable = false
+	requiresLightCheckbox.disabled = true
+	skill_level_requirement_spin_box.editable = false
+	skill_progression_spin_box.editable = false
+
+
+func enable_all_controls() -> void:
+	controls_disabled = false  # Set the state to enabled
+	# Enable specific controls
+	required_skill_text_edit.enable()
+	skill_progression_text_edit.enable()
+	craftAmountNumber.editable = true
+	craftTimeNumber.editable = true
+	requiresLightCheckbox.disabled = false
+	skill_level_requirement_spin_box.editable = true
+	skill_progression_spin_box.editable = true

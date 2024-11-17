@@ -47,6 +47,16 @@ grow_vertical = 2
 size_flags_vertical = 3
 columns = 2
 
+[node name="TipLabel" type="Label" parent="Craft"]
+layout_mode = 2
+text = "Tip"
+
+[node name="TipLabel2" type="Label" parent="Craft"]
+layout_mode = 2
+text = "First, press the + button next to the selected recipe list to add a recipe. Next, drop 
+items from the list on the left to add them as requirements. Craft time and flags are 
+not implemented yet. You can also configure the skill requirement and skill reward."
+
 [node name="RecipeSelectLabel" type="Label" parent="Craft"]
 layout_mode = 2
 text = "Selected recipe:"
@@ -57,13 +67,18 @@ layout_mode = 2
 [node name="RecipeContainerOptionButton" type="OptionButton" parent="Craft/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Select the recipe you want to edit. Press the + button 
+to add a new recipe. Creating multiple recipes allows 
+the player to create the same item in different ways."
 
 [node name="AddRecipeButton" type="Button" parent="Craft/HBoxContainer"]
 layout_mode = 2
+tooltip_text = "Adds a new recipe to the recipe list."
 text = "+"
 
 [node name="RemoveRecipeButton" type="Button" parent="Craft/HBoxContainer"]
 layout_mode = 2
+tooltip_text = "Removes the recipe from the recipe list."
 text = "-"
 
 [node name="CraftAmountLabel2" type="Label" parent="Craft"]
@@ -76,6 +91,7 @@ tooltip_text = "The width of this item in the inventory. A larger number means i
 min_value = 1.0
 max_value = 1000.0
 value = 1.0
+editable = false
 
 [node name="RequiredResourceLabel" type="Label" parent="Craft"]
 layout_mode = 2
@@ -100,6 +116,7 @@ layout_mode = 2
 tooltip_text = "The time it takes to craft"
 min_value = 1.0
 value = 10.0
+editable = false
 
 [node name="FlagsLabel" type="Label" parent="Craft"]
 layout_mode = 2
@@ -108,6 +125,7 @@ text = "Flags"
 [node name="RequiresLightCheckBox" type="CheckBox" parent="Craft"]
 layout_mode = 2
 tooltip_text = "Enable this if the item weapon occupies both hands when held. Disable this if the item occupies one hand when held"
+disabled = true
 text = "Requires light"
 
 [node name="SkillRequirementLabel" type="Label" parent="Craft"]
@@ -131,6 +149,7 @@ tooltip_text = "The minimum skill level required for the player to
 unlock this recipe. Only applies if a skill name is set."
 min_value = 1.0
 value = 1.0
+editable = false
 
 [node name="SkillProgressionLabel" type="Label" parent="Craft"]
 layout_mode = 2
@@ -152,6 +171,7 @@ skill is set, the player does not receive XP for crafting this item.
 The amount can be a minimum of 1 and a maximum of 100."
 min_value = 1.0
 value = 1.0
+editable = false
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="button_up" from="Craft/HBoxContainer/AddRecipeButton" to="." method="_on_add_recipe_button_button_up"]
