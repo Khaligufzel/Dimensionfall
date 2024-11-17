@@ -2,10 +2,12 @@ extends VBoxContainer
 
 @onready var quest_name_label: Label = $QuestNameLabel
 @onready var quest_target_label: Label = $QuestTargetLabel
+# Variable to track the currently selected quest ID
+var tracked_quest_id: String = ""
 
 
 func _ready() -> void:
-	Helper.signal_broker.track_quest_clicked.connect(_on_quest_window_track_quest_clicked)
+	connect_quest_signals()
 
 # Function to update quest UI based on the current quest and step
 # quest_name: it's actually the id of the quest as known by Gamedata.quests
@@ -27,8 +29,8 @@ func update_quest_ui(quest_name: String):
 	match step_type:
 		QuestManager.INCREMENTAL_STEP:
 			var item = current_step.get("item_name", "Unknown")
-			var target_amount = current_step.get("target_amount", 0)
-			var current_amount = current_step.get("current_amount", 0)
+			var target_amount = current_step.get("required", 0)
+			var current_amount = current_step.get("collected", 0)
 			step_requirement = "Collect " + str(current_amount) + "/" + str(target_amount) + " " + item
 		QuestManager.ITEMS_STEP:
 			var items_required = current_step.get("required_items", {})
@@ -48,7 +50,8 @@ func set_active_quest(quest_name: String):
 
 
 func _on_quest_window_track_quest_clicked(quest: String) -> void:
-	if quest:  # Ensure a valid quest ID is provided
+	if quest:
+		tracked_quest_id = quest  # Update the tracked quest ID
 		update_quest_ui(quest)  # Update the UI with the quest details
 	else:
 		print("No quest selected to track.")  # Debug message if no quest ID is provided
@@ -61,40 +64,42 @@ func connect_quest_signals():
 	QuestManager.step_complete.connect(_on_step_complete)
 	QuestManager.next_step.connect(_on_next_step)
 	QuestManager.step_updated.connect(_on_step_updated)
+	Helper.signal_broker.track_quest_clicked.connect(_on_quest_window_track_quest_clicked)
+
 
 # Function to handle quest completion
-func _on_quest_complete(quest: Dictionary):
-	var quest_id = quest.quest_name
-	if quest_id == quest_name_label.text:  # Check if it matches the tracked quest
-		hide_ui_elements()  # Hide the UI if the quest is completed
-	else:
-		print("Quest completed but not currently tracked:", quest_id)
-
-# Function to handle quest failure
-func _on_quest_failed(quest: Dictionary):
-	var quest_id = quest.quest_name
-	if quest_id == quest_name_label.text:  # Check if it matches the tracked quest
+func _on_quest_complete(_quest: Dictionary):
+	if tracked_quest_id != "" and Gamedata.quests.by_id(tracked_quest_id).name == quest_name_label.text:  # Check if it matches the tracked quest
 		hide_ui_elements()  # Hide the UI if the quest has failed
 	else:
-		print("Quest failed but not currently tracked:", quest_id)
+		print("Quest failed but not currently tracked:", tracked_quest_id)
+
+
+# Function to handle quest failure
+func _on_quest_failed(_quest: Dictionary):
+	if tracked_quest_id != "" and Gamedata.quests.by_id(tracked_quest_id).name == quest_name_label.text:  # Check if it matches the tracked quest
+		hide_ui_elements()  # Hide the UI if the quest has failed
+	else:
+		print("Quest failed but not currently tracked:", tracked_quest_id)
+
 
 # Function to handle step completion
-func _on_step_complete(step: Dictionary):
-	var quest_id = step.get("quest_name", "")
-	if quest_id == quest_name_label.text:  # Check if it matches the tracked quest
-		update_quest_ui(quest_id)  # Update the UI for the tracked quest
+func _on_step_complete(_step: Dictionary):
+	if tracked_quest_id != "" and Gamedata.quests.by_id(tracked_quest_id).name == quest_name_label.text:  # Check if it matches the tracked quest
+		update_quest_ui(tracked_quest_id)  # Update the UI for the tracked quest
+
 
 # Function to handle moving to the next step
-func _on_next_step(step: Dictionary):
-	var quest_id = step.get("quest_name", "")
-	if quest_id == quest_name_label.text:  # Check if it matches the tracked quest
-		update_quest_ui(quest_id)  # Update the UI for the tracked quest
+func _on_next_step(_step: Dictionary):
+	if tracked_quest_id != "" and Gamedata.quests.by_id(tracked_quest_id).name == quest_name_label.text:  # Check if it matches the tracked quest
+		update_quest_ui(tracked_quest_id)  # Update the UI for the tracked quest
+
 
 # Function to handle step update
-func _on_step_updated(step: Dictionary):
-	var quest_id = step.get("quest_name", "")
-	if quest_id == quest_name_label.text:  # Check if it matches the tracked quest
-		update_quest_ui(quest_id)  # Update the UI for the tracked quest
+func _on_step_updated(_step: Dictionary):
+	if tracked_quest_id != "" and Gamedata.quests.by_id(tracked_quest_id).name == quest_name_label.text:  # Check if it matches the tracked quest
+		update_quest_ui(tracked_quest_id)  # Update the UI for the tracked quest
+
 
 # Helper function to hide the UI elements
 func hide_ui_elements():

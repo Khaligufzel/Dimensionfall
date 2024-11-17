@@ -67,6 +67,10 @@
 					{
 						"id": "two_story_house",
 						"weight": 100
+					},
+					{
+						"id": "radio_tower",
+						"weight": 20
 					}
 				],
 				"spawn_probability": {
