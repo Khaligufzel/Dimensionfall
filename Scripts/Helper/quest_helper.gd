@@ -36,6 +36,9 @@ func connect_signals() -> void:
 	QuestManager.step_updated.connect(_on_step_updated)
 	QuestManager.new_quest_added.connect(_on_new_quest_added)
 	QuestManager.quest_reset.connect(_on_quest_reset)
+	
+	# When the user has pressed the "track" button in the quest window
+	Helper.signal_broker.track_quest_clicked.connect(_on_quest_window_track_quest_clicked)
 
 
 func connect_inventory_signals() -> void:
@@ -296,3 +299,23 @@ func check_and_emit_target_map(step: Dictionary):
 			target_map_changed.emit("")  # No target if the type is not "enter"
 	else:
 		target_map_changed.emit("")  # No target if step_type is not "action_step"
+
+# Function to handle tracking a quest when the "track quest" button is clicked
+func _on_quest_window_track_quest_clicked(quest_name: String) -> void:
+	if quest_name == "":
+		print("No quest selected to track.")
+		return
+
+	# Get the quest's current step
+	var current_step = QuestManager.get_current_step(quest_name)
+	if current_step == null:
+		print("Quest has no active steps or is null.")
+		return
+
+	# Check if the current step is completed
+	if current_step.get("complete", false):
+		print("The current step of the quest is already complete.")
+		return
+
+	# Call check_and_emit_target_map to manage the map targeting for the quest
+	check_and_emit_target_map(current_step)

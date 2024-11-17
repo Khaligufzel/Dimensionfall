@@ -134,6 +134,9 @@ signal melee_attacked_rid(body_rid: RID, attack: Dictionary)
 @warning_ignore("unused_signal")
 signal initial_chunks_generated() # When the chunks around the player's spawn position are generated
 
+# When the user has opened the quest menu and pressed the "track" button
+@warning_ignore("unused_signal")
+signal track_quest_clicked(quest: String)
 
 # We signal to the hud to start a progressbar
 func on_start_timer_progressbar(time_left: float):
