@@ -215,17 +215,7 @@ func create_box_shape():
 # Function to create a visual instance with a mesh to represent the shape
 # Apply the hide_above_player_shader to the MeshInstance
 func create_visual_instance(shape_type: String):
-	var color = Color.html(dfurniture.support_shape.color)
-	var material: ShaderMaterial = ShaderMaterial.new()
-
-	if dfurniture.support_shape.transparent:
-		material.shader = Gamedata.hide_above_player_shader  # Assign the shader to the material
-		material.set_shader_parameter("object_color", color)
-		material.set_shader_parameter("alpha", 0.5)
-	else: # Use a shader with shadow
-		material.shader = Gamedata.hide_above_player_shadow  # Assign the shader to the material
-		material.set_shader_parameter("object_color", color)
-		material.set_shader_parameter("alpha", 1.0)
+	var material: ShaderMaterial = Gamedata.furnitures.get_shape_material_by_id(dfurniture.id)
 
 	if shape_type == "Box":
 		support_mesh = BoxMesh.new()
