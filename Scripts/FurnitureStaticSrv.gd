@@ -217,13 +217,14 @@ func create_box_shape():
 func create_visual_instance(shape_type: String):
 	var color = Color.html(dfurniture.support_shape.color)
 	var material: ShaderMaterial = ShaderMaterial.new()
-	material.shader = Gamedata.hide_above_player_shader  # Assign the shader to the material
 
-	# Set the color and transparency in the shader material
-	material.set_shader_parameter("object_color", color)
 	if dfurniture.support_shape.transparent:
+		material.shader = Gamedata.hide_above_player_shader  # Assign the shader to the material
+		material.set_shader_parameter("object_color", color)
 		material.set_shader_parameter("alpha", 0.5)
-	else:
+	else: # Use a shader with shadow
+		material.shader = Gamedata.hide_above_player_shadow  # Assign the shader to the material
+		material.set_shader_parameter("object_color", color)
 		material.set_shader_parameter("alpha", 1.0)
 
 	if shape_type == "Box":
@@ -242,7 +243,6 @@ func create_visual_instance(shape_type: String):
 	RenderingServer.instance_set_scenario(mesh_instance, myworld3d.scenario)
 	var mytransform = furniture_transform.get_visual_transform()
 	RenderingServer.instance_set_transform(mesh_instance, mytransform)
-
 
 
 # Function to create a QuadMesh to display the sprite texture on top of the furniture
@@ -439,7 +439,7 @@ func update_door_visuals():
 	if not is_door:
 		return
 
-	# Adjust rotation based on door state
+	# Adjust rotation and position based on door state
 	var base_rotation = furniture_transform.get_rotation()
 	var rotation_angle: int
 	var position_offset: Vector3
@@ -459,10 +459,23 @@ func update_door_visuals():
 
 # Function to apply the door's transformation
 func apply_transform_to_instance(rotation_angle: int, position_offset: Vector3):
-	var door_transform = Transform3D(Basis(Vector3(0, 1, 0), deg_to_rad(rotation_angle)), furniture_transform.get_position() + position_offset)
-	RenderingServer.instance_set_transform(mesh_instance, door_transform)
-	RenderingServer.instance_set_transform(quad_instance, door_transform)
-	PhysicsServer3D.body_set_state(collider, PhysicsServer3D.BODY_STATE_TRANSFORM, door_transform)
+	# Apply transformation for mesh_instance (main visual mesh)
+	var mesh_transform = Transform3D(
+		Basis(Vector3(0, 1, 0), deg_to_rad(rotation_angle)),  # Apply rotation
+		furniture_transform.get_position() + position_offset  # Apply position offset
+	)
+	RenderingServer.instance_set_transform(mesh_instance, mesh_transform)
+	
+	# Apply transformation for quad_instance (sprite) with rotation and sprite-specific offset
+	var sprite_transform = Transform3D(
+		Basis(Vector3(0, 1, 0), deg_to_rad(rotation_angle)),  # Apply rotation
+		furniture_transform.get_sprite_transform().origin + position_offset  # Apply position and sprite offset
+	)
+	RenderingServer.instance_set_transform(quad_instance, sprite_transform)
+
+	# Apply the same transform for collider if needed (only using mesh_transform logic here)
+	PhysicsServer3D.body_set_state(collider, PhysicsServer3D.BODY_STATE_TRANSFORM, mesh_transform)
+
 
 
 # Returns this furniture's data for saving, including door state if applicable
