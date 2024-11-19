@@ -353,6 +353,11 @@ func update_player_position_and_manage_segments(force_update: bool = false):
 		player_current_cell = new_position
 		player_coord_changed.emit(player, last_cell, player_current_cell)
 		
+		# Call visit() on the map cell corresponding to the new position
+		var new_cell = get_map_cell_by_global_coordinate(player_current_cell)
+		if new_cell:
+			new_cell.visit()
+		
 		# Load segments around the player
 		var segments_to_load = load_segments_around_player()
 		
