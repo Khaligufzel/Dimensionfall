@@ -21,12 +21,24 @@ var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
 var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
 const NOISE_VALUE_PLAINS = -0.2
 
+enum Region {
+	FOREST,
+	PLAINS
+}
 
 
 # A cell in the grid. This will tell you it's coordinate and if it's part
 # of something bigger like the tacticalmap
 class map_cell:
-	var region = Helper.overmap_manager.Region.PLAINS
+	# Enum for revealed states
+	enum RevealedState {
+		HIDDEN,  # Default state. The cell has been instanced onto a grid, nothimg more
+		REVEALED, # the map has been revealed on the overmap when the player got close enough
+		EXPLORED, # the map has been loaded as a chunk in the player's proximity at least once
+		VISITED # the player has entered the boundary of the map's coordinates
+	}
+
+	var region = Region.PLAINS
 	var coordinate_x: int = 0
 	var coordinate_y: int = 0
 	var dmap: DMap = null
@@ -35,7 +47,7 @@ class map_cell:
 			map_id = value
 			dmap = Gamedata.maps.by_id(map_id)
 	var tacticalmapname: String = "town_00.json"
-	var revealed: bool = false # This cell will be obfuscated on the overmap if false (unexplored)
+	var revealed: int = RevealedState.HIDDEN  # Default state is HIDDEN
 	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
 
 	func get_data() -> Dictionary:
@@ -52,7 +64,7 @@ class map_cell:
 	func set_data(newdata: Dictionary):
 		if newdata.is_empty():
 			return
-		region = newdata.get("region", Helper.overmap_manager.Region.PLAINS)
+		region = newdata.get("region", Region.PLAINS)
 		coordinate_x = newdata.get("coordinate_x", 0)
 		coordinate_y = newdata.get("coordinate_y", 0)
 		map_id = newdata.get("map_id", "field_grass_basic_00.json")
@@ -62,14 +74,11 @@ class map_cell:
 
 	func get_sprite() -> Texture:
 		return dmap.sprite
-
-	func reveal():
-		revealed = true
 	
 	# Function to return formatted information about the map cell
 	func get_info_string() -> String:
 		# If the cell is not revealed, notify the player
-		if not revealed:
+		if revealed == RevealedState.HIDDEN:
 			return "This area has not \nbeen explored yet."
 		
 		# If revealed, display the detailed information
@@ -90,12 +99,32 @@ class map_cell:
 	# Helper function to convert Region enum to string
 	func region_type_to_string(region_type: int) -> String:
 		match region_type:
-			Helper.overmap_manager.Region.PLAINS:
+			Region.PLAINS:
 				return "Plains"
-			Helper.overmap_manager.Region.FOREST:
+			Region.FOREST:
 				return "Forest"
 		return "Unknown"
 
+	func set_revealed_state(new_state: int) -> void:
+		# Ensure the new state is valid
+		if new_state in RevealedState.values():
+			revealed = new_state
+		else:
+			push_error("Invalid state for map_cell revealed: " + str(new_state))
+
+	func reveal():
+		# Automatically upgrade the revealed state
+		if revealed < RevealedState.REVEALED:
+			revealed = RevealedState.REVEALED
+
+	func explore():
+		# Automatically upgrade the state to explored
+		if revealed < RevealedState.EXPLORED:
+			revealed = RevealedState.EXPLORED
+
+	func visit():
+		# Automatically upgrade the state to visited
+		revealed = RevealedState.VISITED
 
 # Translates local grid coordinates to global coordinates
 func local_to_global(local_coord: Vector2) -> Vector2:
@@ -534,9 +563,9 @@ func generate_cells() -> void:
 # Helper function to convert Region enum to string
 func region_type_to_string(region_type: int) -> String:
 	match region_type:
-		Helper.overmap_manager.Region.PLAINS:
+		Region.PLAINS:
 			return "Plains"
-		Helper.overmap_manager.Region.FOREST:
+		Region.FOREST:
 			return "Forest"
 	return "Unknown"
 
@@ -585,9 +614,9 @@ func get_region_type(x: int, y: int) -> int:
 
 	# Compare the rounded noise value to determine the region type
 	if noise_value < NOISE_VALUE_PLAINS:
-		return Helper.overmap_manager.Region.PLAINS
+		return Region.PLAINS
 	else:
-		return Helper.overmap_manager.Region.FOREST
+		return Region.FOREST
 
 
 # Main function to connect cities by hub paths, calling separate functions for close city pairs and hub connections

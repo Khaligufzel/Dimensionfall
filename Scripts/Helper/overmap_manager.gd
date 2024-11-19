@@ -55,10 +55,6 @@ var loaded_chunk_data: Dictionary = {"chunks": {}}
 var player
 var player_current_cell: Vector2 = Vector2.ZERO # Player's position per cell, updated regularly
 var loaded_chunks = {}
-enum Region {
-	FOREST,
-	PLAINS
-}
 
 var noise: FastNoiseLite
 
@@ -166,16 +162,6 @@ func load_cells_around(position: Vector3):
 				load_grid(grid_key) # Will load a grid if it does not exist
 				if loaded_grids[grid_key] and not loaded_grids[grid_key].cells.has(cell_key):
 					loaded_grids[grid_key].generate_cells()
-
-
-# Helper function to convert Region enum to string
-func region_type_to_string(region_type: int) -> String:
-	match region_type:
-		Region.PLAINS:
-			return "Plains"
-		Region.FOREST:
-			return "Forest"
-	return "Unknown"
 
 
 # Function to pick a random map based on weight
