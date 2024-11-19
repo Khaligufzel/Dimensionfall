@@ -21,6 +21,82 @@ var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
 var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
 const NOISE_VALUE_PLAINS = -0.2
 
+
+
+# A cell in the grid. This will tell you it's coordinate and if it's part
+# of something bigger like the tacticalmap
+class map_cell:
+	var region = Helper.overmap_manager.Region.PLAINS
+	var coordinate_x: int = 0
+	var coordinate_y: int = 0
+	var dmap: DMap = null
+	var map_id: String = "field_grass_basic_00.json":
+		set(value):
+			map_id = value
+			dmap = Gamedata.maps.by_id(map_id)
+	var tacticalmapname: String = "town_00.json"
+	var revealed: bool = false # This cell will be obfuscated on the overmap if false (unexplored)
+	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
+
+	func get_data() -> Dictionary:
+		return {
+			"region": region,
+			"coordinate_x": coordinate_x,
+			"coordinate_y": coordinate_y,
+			"map_id": map_id,
+			"tacticalmapname": tacticalmapname,
+			"revealed": revealed,
+			"rotation": rotation
+		}
+
+	func set_data(newdata: Dictionary):
+		if newdata.is_empty():
+			return
+		region = newdata.get("region", Helper.overmap_manager.Region.PLAINS)
+		coordinate_x = newdata.get("coordinate_x", 0)
+		coordinate_y = newdata.get("coordinate_y", 0)
+		map_id = newdata.get("map_id", "field_grass_basic_00.json")
+		tacticalmapname = newdata.get("tacticalmapname", "town_00.json")
+		revealed = newdata.get("revealed", false)
+		rotation = newdata.get("rotation", 0)
+
+	func get_sprite() -> Texture:
+		return dmap.sprite
+
+	func reveal():
+		revealed = true
+	
+	# Function to return formatted information about the map cell
+	func get_info_string() -> String:
+		# If the cell is not revealed, notify the player
+		if not revealed:
+			return "This area has not \nbeen explored yet."
+		
+		# If revealed, display the detailed information
+		var pos_string: String = "Pos: (" + str(coordinate_x) + ", " + str(coordinate_y) + ")"
+		
+		# Use dmap's name and description instead of map_id
+		var map_name_string: String = "\nName: " + dmap.name
+		#var map_description_string: String = "\nDescription: " + dmap.description
+		
+		var region_string: String = "\nRegion: " + region_type_to_string(region)
+		var challenge_string: String = "\nChallenge: Easy"  # Placeholder for now
+		
+		# Combine all the information into one formatted string
+		return pos_string + map_name_string + region_string + challenge_string
+		#return pos_string + map_name_string + map_description_string + region_string + challenge_string
+
+
+	# Helper function to convert Region enum to string
+	func region_type_to_string(region_type: int) -> String:
+		match region_type:
+			Helper.overmap_manager.Region.PLAINS:
+				return "Plains"
+			Helper.overmap_manager.Region.FOREST:
+				return "Forest"
+		return "Unknown"
+
+
 # Translates local grid coordinates to global coordinates
 func local_to_global(local_coord: Vector2) -> Vector2:
 	return local_coord + pos * grid_width
@@ -36,7 +112,7 @@ func set_data(mydata: Dictionary) -> void:
 	pos = Vector2(newpos.split(",")[0].to_int(), newpos.split(",")[1].to_int())
 	cells.clear()
 	for cell_key in mydata["cells"].keys():
-		var cell = Helper.overmap_manager.map_cell.new()
+		var cell = map_cell.new()
 		cell.set_data(mydata["cells"][cell_key])
 		cells[Vector2(cell_key.split(",")[0].to_int(), cell_key.split(",")[1].to_int())] = cell
 
@@ -128,7 +204,7 @@ func update_path_on_grid(path: Array) -> void:
 	# Step 1: Assign road maps to path cells without updating connections
 	for global_position in path:
 		if cells.has(global_position):
-			var cell = cells[global_position] # Will be a Helper.overmap_manager.map_cell instance
+			var cell = cells[global_position] # Will be a map_cell instance
 			if not "Urban" in cell.dmap.categories: # Skip urban areas
 				assign_road_map_to_cell(global_position, cell)
 
@@ -190,7 +266,7 @@ func get_edge_positions(road_positions: Array) -> Dictionary:
 
 
 # Assign the appropriate road map (forest or regular) to a cell
-# cell: A Helper.overmap_manager.map_cell instance
+# cell: A map_cell instance
 func assign_road_map_to_cell(global_position: Vector2, cell) -> void:
 	# If it's a forest cell, assign a forest road, otherwise a normal road
 	var map_to_use = road_maps
@@ -201,7 +277,7 @@ func assign_road_map_to_cell(global_position: Vector2, cell) -> void:
 
 
 # Update the road connections for a cell based on its type (forest or non-forest)
-# cell: A Helper.overmap_manager.map_cell instance
+# cell: A map_cell instance
 func update_road_connections(global_position: Vector2, cell) -> void:
 	if not "Road" in cell.dmap.categories and not "Forest Road" in cell.dmap.categories:
 		return # Only update road cells
@@ -421,7 +497,7 @@ func generate_cells() -> void:
 
 			# Determine region type based on noise values
 			var region_type = get_region_type(global_x, global_y)
-			var cell = Helper.overmap_manager.map_cell.new()
+			var cell = map_cell.new()
 			cell.coordinate_x = global_x
 			cell.coordinate_y = global_y
 			cell.region = region_type
