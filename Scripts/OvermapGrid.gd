@@ -112,6 +112,10 @@ class map_cell:
 		else:
 			push_error("Invalid state for map_cell revealed: " + str(new_state))
 
+	func is_revealed() -> bool:
+		# Returns true if the revealed state is REVEALED, EXPLORED, or VISITED
+		return revealed in [RevealedState.REVEALED, RevealedState.EXPLORED, RevealedState.VISITED]
+
 	func reveal():
 		# Automatically upgrade the revealed state
 		if revealed < RevealedState.REVEALED:
