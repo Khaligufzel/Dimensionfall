@@ -97,9 +97,15 @@ theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
 editable = false
 wrap_mode = 1
 
+[node name="TrackQuestButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
+layout_mode = 2
+text = "Track quest"
+
 [node name="RewardsLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
 text = "Rewards:"
 
 [node name="QuestRewards" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
+
+[connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/TrackQuestButton" to="." method="_on_track_quest_button_button_up"]

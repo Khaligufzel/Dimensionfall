@@ -732,7 +732,8 @@ json_data = "[
 				\"itemgroups\": [
 					\"cabinet_general\",
 					\"electronics_store_small\",
-					\"electronics_store_mixed\"
+					\"electronics_store_mixed\",
+					\"loot_electronic\"
 				]
 			}
 		},
@@ -748,6 +749,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/solar_panel_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Solar panel\",
+		\"references\": {
+			\"core\": {
+				\"quests\": [
+					\"quest_radio_signal_01\"
+				]
+			}
+		},
 		\"sprite\": \"solar_panel_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -1452,7 +1460,9 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"electronics_store_small\",
-					\"electronics_store_mixed\"
+					\"electronics_store_mixed\",
+					\"electronics_damaged\",
+					\"loot_electronic\"
 				]
 			}
 		},
@@ -1472,7 +1482,9 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"debris_urban\",
-					\"urban_litter\"
+					\"urban_litter\",
+					\"electronics_damaged\",
+					\"loot_electronic\"
 				]
 			}
 		},
@@ -1511,7 +1523,9 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"debris_urban\",
-					\"urban_litter\"
+					\"urban_litter\",
+					\"electronics_damaged\",
+					\"loot_electronic\"
 				]
 			}
 		},
@@ -3326,5 +3340,122 @@ json_data = "[
 		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.1
+	},
+	{
+		\"description\": \"An old, damaged transmitter that seems to emit faint radio signals. It needs repairs before it can be used\",
+		\"id\": \"damaged_transmitter\",
+		\"image\": \"./Mods/Core/Items/transmitter_broken_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Damaged transmitter\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"electronics_damaged\"
+				],
+				\"quests\": [
+					\"quest_radio_signal_01\"
+				]
+			}
+		},
+		\"sprite\": \"transmitter_broken_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 80,
+		\"weight\": 1
+	},
+	{
+		\"description\": \"A functional circuit board, scavenged from a robotic enemy or scrap pile. Essential for repairing electronics.\",
+		\"id\": \"circuit_board\",
+		\"image\": \"./Mods/Core/Items/cirquit_board_32.png\",
+		\"max_stack_size\": 5,
+		\"name\": \"Circuit Board\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"loot_electronic\",
+					\"electronics_store_small\"
+				],
+				\"quests\": [
+					\"quest_radio_signal_01\"
+				]
+			}
+		},
+		\"sprite\": \"cirquit_board_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 20,
+		\"weight\": 0.5
+	},
+	{
+		\"Craft\": [
+			{
+				\"craft_amount\": 1,
+				\"craft_time\": 10,
+				\"flags\": {
+					\"requires_light\": false
+				},
+				\"required_resources\": [
+					{
+						\"amount\": 1,
+						\"id\": \"damaged_transmitter\"
+					},
+					{
+						\"amount\": 2,
+						\"id\": \"electrical_components\"
+					},
+					{
+						\"amount\": 2,
+						\"id\": \"plastic_parts\"
+					},
+					{
+						\"amount\": 1,
+						\"id\": \"circuit_board\"
+					}
+				],
+				\"skill_progression\": {
+					\"id\": \"electronics\",
+					\"xp\": 25
+				},
+				\"skill_requirement\": {
+					\"id\": \"electronics\",
+					\"level\": 1
+				}
+			}
+		],
+		\"description\": \"A fully functional transmitter, capable of boosting a weak signal when paired with the right equipment.\",
+		\"id\": \"transmitter\",
+		\"image\": \"./Mods/Core/Items/transmitter_32.png\",
+		\"max_stack_size\": 1,
+		\"name\": \"Transmitter\",
+		\"references\": {
+			\"core\": {
+				\"items\": [
+					\"damaged_transmitter\",
+					\"electrical_components\",
+					\"plastic_parts\",
+					\"circuit_board\"
+				],
+				\"quests\": [
+					\"quest_radio_signal_01\"
+				]
+			}
+		},
+		\"sprite\": \"transmitter_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 80,
+		\"weight\": 1
+	},
+	{
+		\"description\": \"A metallic key that grants access to the control panel of the radio tower.\",
+		\"id\": \"radio_tower_key\",
+		\"image\": \"./Mods/Core/Items/metallic_key_32.png\",
+		\"max_stack_size\": 100,
+		\"name\": \"Radio tower key\",
+		\"sprite\": \"metallic_key_32.png\",
+		\"stack_size\": 2,
+		\"two_handed\": false,
+		\"volume\": 15,
+		\"weight\": 0.25
 	}
 ]"

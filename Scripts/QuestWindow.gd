@@ -293,3 +293,10 @@ func _handle_unsupported_step(step_type: String) -> String:
 # The player abandons the quest, so we move it to the failed list
 func _on_abandon_quest_button_button_up():
 	_on_quest_failed(QuestManager.get_player_quest(selected_quest))
+
+
+func _on_track_quest_button_button_up() -> void:
+	if selected_quest:  # Ensure a quest is selected
+		Helper.signal_broker.track_quest_clicked.emit(selected_quest)  # Emit the signal with the selected quest ID
+	else:
+		print("No quest selected to track.")  # Debug message if no quest is selected
