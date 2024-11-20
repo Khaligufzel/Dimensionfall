@@ -129,6 +129,20 @@ class map_cell:
 	func visit():
 		# Automatically upgrade the state to visited
 		revealed = RevealedState.VISITED
+		
+	func matches_reveal_condition(reveal_condition: String) -> bool:
+		# Check if the current revealed state matches the provided reveal_condition
+		match reveal_condition:
+			"HIDDEN":
+				return revealed == RevealedState.HIDDEN
+			"REVEALED":
+				return is_revealed()
+			"EXPLORED":
+				return revealed in [RevealedState.EXPLORED, RevealedState.VISITED]
+			"VISITED":
+				return revealed == RevealedState.VISITED
+		return false  # Return false for unknown conditions
+
 
 # Translates local grid coordinates to global coordinates
 func local_to_global(local_coord: Vector2) -> Vector2:

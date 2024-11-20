@@ -484,29 +484,66 @@ func collect_segment_data(segment_pos: Vector2) -> Dictionary:
 	return non_empty_chunk_data
 
 # Function to find the closest map cell to the player that has the specified map_id
-func find_closest_map_cell_with_id(map_id: String) -> OvermapGrid.map_cell:
+# map_id: The id of the map we are targeting
+# reveal_condition: One of "HIDDEN", "REVEALED", "EXPLORED", "VISITED"
+# It will look for cells starting from the "VISITED" state and if it can't find one,
+# it will move onto "EXPLORED" and so on. If "EXPLORED" is the value of reveal_condition,
+# it will start looking from there instead. If a cell is "VISITED", it will also be "REVEALED"
+# and "EXPLORED", but no longer "HIDDEN"
+func find_closest_map_cell_with_id(map_id: String, reveal_condition: String) -> OvermapGrid.map_cell:
 	var player_position = get_player_cell_position()
 	var closest_cell: OvermapGrid.map_cell = null
 	var shortest_distance = INF  # Use a very large number to initialize the shortest distance
 
-	# Iterate through all loaded grids
-	for grid in loaded_grids.values():
-		# Check if the grid contains the specified map_id in its map_id_to_coordinates dictionary
-		if grid.map_id_to_coordinates.has(map_id):
-			# Iterate through the coordinates that have this map_id
-			for cell_key in grid.map_id_to_coordinates[map_id]:
-				var cell = grid.cells[cell_key]
-				
-				# Calculate the distance to the player's position
-				var distance = player_position.distance_to(Vector2(cell.coordinate_x, cell.coordinate_y))
+	# Define the priority order of reveal conditions
+	var reveal_priority = get_revealed_priority(reveal_condition)
 
-				# If this is the closest cell so far, update the closest cell and shortest distance
-				if distance < shortest_distance:
-					shortest_distance = distance
-					closest_cell = cell
+	# Iterate through reveal conditions in priority order
+	for condition in reveal_priority:
+		# Iterate through all loaded grids
+		for grid in loaded_grids.values():
+			# Check if the grid contains the specified map_id in its map_id_to_coordinates dictionary
+			if grid.map_id_to_coordinates.has(map_id):
+				# Iterate through the coordinates that have this map_id
+				for cell_key in grid.map_id_to_coordinates[map_id]:
+					var cell: OvermapGrid.map_cell = grid.cells[cell_key]
 
-	# Return the closest map cell with the specified map_id (or null if none found)
+					# Check if the cell matches the current reveal condition
+					if not cell.matches_reveal_condition(condition):
+						continue
+
+					# Calculate the distance to the player's position
+					var distance = player_position.distance_to(Vector2(cell.coordinate_x, cell.coordinate_y))
+
+					# If this is the closest cell so far, update the closest cell and shortest distance
+					if distance < shortest_distance:
+						shortest_distance = distance
+						closest_cell = cell
+
+		# If we found a closest cell for this condition, return it
+		if closest_cell:
+			return closest_cell
+
+	# Return the closest map cell (if any), or null if no cells exist for the map_id
 	return closest_cell
+
+
+func get_revealed_priority(reveal_condition: String) -> Array:
+	# Define the priority order of reveal conditions
+	var reveal_priority: Array = ["HIDDEN"]
+	match reveal_condition:
+		"VISITED":
+			reveal_priority = ["VISITED", "EXPLORED", "REVEALED", "HIDDEN"]
+		"EXPLORED":
+			reveal_priority = ["EXPLORED", "REVEALED", "HIDDEN"]
+		"REVEALED":
+			reveal_priority = ["REVEALED", "HIDDEN"]
+		"HIDDEN":
+			reveal_priority = ["HIDDEN"]
+		_:
+			reveal_priority = ["HIDDEN"]  # Default fallback in case of unknown reveal_condition
+	return reveal_priority
+
 
 # Function to instantiate and return a new grid with generated cells
 # This is used for visualization outside the game
