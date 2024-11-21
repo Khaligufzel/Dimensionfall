@@ -297,9 +297,9 @@ func check_and_emit_target_map(step: Dictionary):
 			var reveal_condition: String = stepmeta.get("reveal_condition", "")
 			target_map_changed.emit(map_id, reveal_condition)  # Emit the map_id if the stepmeta.type is "enter"
 		else:
-			target_map_changed.emit("")  # No target if the type is not "enter"
+			target_map_changed.emit("","")  # No target if the type is not "enter"
 	else:
-		target_map_changed.emit("")  # No target if step_type is not "action_step"
+		target_map_changed.emit("","")  # No target if step_type is not "action_step"
 
 
 # Function to handle tracking a quest when the "track quest" button is clicked

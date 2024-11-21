@@ -351,6 +351,8 @@ func show_miss_indicator():
 # Handle furniture death
 func _die() -> void:
 	add_corpse(furniture_transform.get_position())
+	if is_container():
+		Helper.signal_broker.container_exited_proximity.emit(self)
 	free_resources()
 	queue_free()  # Remove the furniture from the scene
 
@@ -375,13 +377,15 @@ func add_corpse(pos: Vector3) -> void:
 		itemdata["itemgroups"] = [myitemgroup]
 
 	var newItem: ContainerItem = ContainerItem.new(itemdata)
+
+	# Check if inventory has items and insert them into the new item
+	if inventory:
+		var items_copy = inventory.get_items().duplicate(true)  # Create a copy of the items array
+		for item in items_copy:
+			newItem.insert_item(item)
+
 	newItem.add_to_group("mapitems")
 	Helper.map_manager.level_generator.get_tree().get_root().add_child(newItem)
-
-	# Transfer items from this container to the corpse
-	if container:
-		for item in container.get_items():
-			newItem.insert_item(item)
 
 
 # Add a container to the furniture if it is defined as a container
@@ -398,7 +402,6 @@ func _create_inventory() -> void:
 	inventory = InventoryStacked.new()
 	inventory.capacity = 1000
 	inventory.item_protoset = ItemManager.item_protosets
-	inventory.item_removed.connect(_on_item_removed)
 	inventory.item_added.connect(_on_item_added)
 
 # Populate the container with items from an itemgroup
@@ -455,11 +458,6 @@ func deserialize_container_data() -> void:
 # Deserialize the container's items and apply them to the inventory
 func deserialize_and_apply_items(items_data: Dictionary) -> void:
 	inventory.deserialize(items_data)
-
-# Handle the event when an item is removed from the inventory
-func _on_item_removed(_item: InventoryItem) -> void:
-	if inventory.get_items().size() == 0:
-		_on_item_removed(null)
 
 # Handle the event when an item is added to the inventory
 func _on_item_added(_item: InventoryItem) -> void:
