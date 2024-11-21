@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/DropEnabledTextEdit.gd" id="1_abx0d"]
 
-[node name="DropEnabledTextEdit" type="HBoxContainer" node_paths=PackedStringArray("mytextedit")]
+[node name="DropEnabledTextEdit" type="HBoxContainer" node_paths=PackedStringArray("mytextedit", "button")]
 custom_minimum_size = Vector2(0, 30)
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_abx0d")
 mytextedit = NodePath("TextEdit")
+button = NodePath("Button")
 
 [node name="TextEdit" type="TextEdit" parent="."]
 layout_mode = 2

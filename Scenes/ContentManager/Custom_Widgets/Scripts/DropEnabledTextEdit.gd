@@ -39,9 +39,13 @@ extends HBoxContainer
 
 var can_drop_function: Callable
 var drop_function: Callable
+var is_disabled: bool = false  # Tracks whether the widget is disabled
+
 
 @export var mytextedit: TextEdit
 @export var myplaceholdertext: String = "drop your data here"
+@export var button: Button = null
+
 
 func _ready():
 	mytextedit.placeholder_text = myplaceholdertext
@@ -49,6 +53,8 @@ func _ready():
 
 # This function should return true if the dragged data can be dropped here
 func _can_drop_data(_newpos, data) -> bool:
+	if is_disabled:  # Check if the widget is disabled
+		return false
 	if can_drop_function and can_drop_function.is_valid():
 		return can_drop_function.call(data)
 	return false  # Default to false if no valid callable is set
@@ -76,3 +82,17 @@ func set_text(newtext: String):
 
 func get_text():
 	return mytextedit.text
+
+
+# Disables all controls in the widget and sets is_disabled to true
+func disable() -> void:
+	is_disabled = true  # Set the disabled flag
+	if button:  # Ensure button is valid before disabling
+		button.disabled = true
+
+
+# Enables all controls in the widget and sets is_disabled to false
+func enable() -> void:
+	is_disabled = false  # Reset the disabled flag
+	if button:  # Ensure button is valid before enabling
+		button.disabled = false
