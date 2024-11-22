@@ -2106,6 +2106,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/painkiller_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Painkiller\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"first_aid\"
+				]
+			}
+		},
 		\"sprite\": \"painkiller_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,

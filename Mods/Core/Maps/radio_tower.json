@@ -11797,8 +11797,10 @@
 					}
 				],
 				"furniture": {
-					"id": "cabinet_wood_00",
-					"itemgroups": [],
+					"id": "first_aid_rack",
+					"itemgroups": [
+						"first_aid"
+					],
 					"rotation": 270
 				},
 				"id": "linoleum_green_01"
@@ -11954,8 +11956,12 @@
 					}
 				],
 				"furniture": {
-					"id": "cabinet_wood_00",
-					"itemgroups": [],
+					"id": "equipment_rack",
+					"itemgroups": [
+						"electronics_store_small",
+						"loot_electronic",
+						"electronics_damaged"
+					],
 					"rotation": 270
 				},
 				"id": "linoleum_green_01"
@@ -11977,7 +11983,7 @@
 					}
 				],
 				"furniture": {
-					"id": "store_shelf",
+					"id": "transformer_box",
 					"itemgroups": [],
 					"rotation": 90
 				},
@@ -11991,7 +11997,7 @@
 					}
 				],
 				"furniture": {
-					"id": "store_shelf",
+					"id": "transformer_box",
 					"itemgroups": [],
 					"rotation": 270
 				},
@@ -12170,8 +12176,12 @@
 					}
 				],
 				"furniture": {
-					"id": "cabinet_wood_00",
-					"itemgroups": [],
+					"id": "equipment_rack",
+					"itemgroups": [
+						"electronics_store_small",
+						"loot_electronic",
+						"electronics_damaged"
+					],
 					"rotation": 270
 				},
 				"id": "linoleum_green_01"
@@ -12193,7 +12203,7 @@
 					}
 				],
 				"furniture": {
-					"id": "store_shelf",
+					"id": "transformer_box",
 					"itemgroups": [],
 					"rotation": 90
 				},
@@ -12207,7 +12217,7 @@
 					}
 				],
 				"furniture": {
-					"id": "store_shelf",
+					"id": "transformer_box",
 					"itemgroups": [],
 					"rotation": 270
 				},
@@ -12393,7 +12403,7 @@
 					}
 				],
 				"furniture": {
-					"id": "store_shelf",
+					"id": "transformer_box",
 					"itemgroups": [],
 					"rotation": 90
 				},
@@ -12407,7 +12417,7 @@
 					}
 				],
 				"furniture": {
-					"id": "store_shelf",
+					"id": "transformer_box",
 					"itemgroups": [],
 					"rotation": 270
 				},
@@ -12524,8 +12534,12 @@
 					}
 				],
 				"furniture": {
-					"id": "cabinet_wood_00",
-					"itemgroups": [],
+					"id": "equipment_rack",
+					"itemgroups": [
+						"electronics_store_small",
+						"loot_electronic",
+						"electronics_damaged"
+					],
 					"rotation": 270
 				},
 				"id": "linoleum_green_01"
@@ -12730,8 +12744,12 @@
 					}
 				],
 				"furniture": {
-					"id": "cabinet_wood_00",
-					"itemgroups": [],
+					"id": "equipment_rack",
+					"itemgroups": [
+						"electronics_store_small",
+						"loot_electronic",
+						"electronics_damaged"
+					],
 					"rotation": 270
 				},
 				"id": "linoleum_green_01"
@@ -13109,8 +13127,12 @@
 					}
 				],
 				"furniture": {
-					"id": "cabinet_wood_00",
-					"itemgroups": [],
+					"id": "equipment_rack",
+					"itemgroups": [
+						"electronics_store_small",
+						"loot_electronic",
+						"electronics_damaged"
+					],
 					"rotation": 270
 				},
 				"id": "linoleum_green_01"

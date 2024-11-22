@@ -1541,15 +1541,22 @@
 		"destruction": {
 			"group": "destroyed_furniture_large"
 		},
-		"edgesnapping": "None",
+		"edgesnapping": "North",
 		"id": "equipment_rack",
 		"moveable": false,
 		"name": "Equipment Rack",
+		"references": {
+			"core": {
+				"maps": [
+					"radio_tower"
+				]
+			}
+		},
 		"sprite": "equipmentrack_100_46.png",
 		"support_shape": {
-			"color": "4f4f4fff",
+			"color": "386c2fff",
 			"depth_scale": 100,
-			"height": 1,
+			"height": 0.7,
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 80
@@ -1569,15 +1576,22 @@
 		"destruction": {
 			"group": "destroyed_furniture_small"
 		},
-		"edgesnapping": "None",
+		"edgesnapping": "North",
 		"id": "first_aid_rack",
 		"moveable": false,
 		"name": "First-Aid Rack",
+		"references": {
+			"core": {
+				"maps": [
+					"radio_tower"
+				]
+			}
+		},
 		"sprite": "first_aid_rack_72_46.png",
 		"support_shape": {
 			"color": "b3b3b3ff",
 			"depth_scale": 50,
-			"height": 0.8,
+			"height": 0.6,
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 60
@@ -1593,15 +1607,22 @@
 		"destruction": {
 			"group": "destroyed_furniture_large"
 		},
-		"edgesnapping": "None",
+		"edgesnapping": "North",
 		"id": "transformer_box",
 		"moveable": false,
 		"name": "Transformer Box",
+		"references": {
+			"core": {
+				"maps": [
+					"radio_tower"
+				]
+			}
+		},
 		"sprite": "transformer_box_72_46.png",
 		"support_shape": {
 			"color": "8a8a8aff",
 			"depth_scale": 100,
-			"height": 1,
+			"height": 0.9,
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 100
