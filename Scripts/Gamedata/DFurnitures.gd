@@ -11,6 +11,7 @@ var spritePath: String = "./Mods/Core/Furniture/"
 var furnituredict: Dictionary = {}
 var sprites: Dictionary = {}
 var shader_materials: Dictionary = {}  # Cache for shader materials by furniture ID
+var shape_materials: Dictionary = {}  # Cache for shape materials by furniture ID
 
 func _init():
 	load_sprites()
@@ -135,6 +136,40 @@ func create_furniture_shader_material(furniture_id: String) -> ShaderMaterial:
 	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
 
 	return shader_material
+
+
+# New function to get or create a visual instance material for a furniture ID
+func get_shape_material_by_id(furniture_id: String) -> ShaderMaterial:
+	# Check if the material already exists
+	if shape_materials.has(furniture_id):
+		return shape_materials[furniture_id]
+	else:
+		# Create a new ShaderMaterial
+		var material: ShaderMaterial = create_shape_material(furniture_id)
+		# Store it in the dictionary
+		shape_materials[furniture_id] = material
+		return material
+
+
+# Helper function to create a ShaderMaterial for the support shape
+func create_shape_material(furniture_id: String) -> ShaderMaterial:
+	var dfurniture: DFurniture = by_id(furniture_id)
+	if dfurniture.moveable: # Only static furniture has a support shape
+		return null
+	var color = Color.html(dfurniture.support_shape.color)
+	var material: ShaderMaterial = ShaderMaterial.new()
+
+	# Determine the shader and parameters based on transparency
+	if dfurniture.support_shape.transparent:
+		material.shader = Gamedata.hide_above_player_shader  # Assign the shader
+		material.set_shader_parameter("object_color", color)
+		material.set_shader_parameter("alpha", 0.5)
+	else:
+		material.shader = Gamedata.hide_above_player_shadow  # Assign the shadow shader
+		material.set_shader_parameter("object_color", color)
+		material.set_shader_parameter("alpha", 1.0)
+
+	return material
 
 
 # Handle the game ended signal. We need to clear the shader materials because they
