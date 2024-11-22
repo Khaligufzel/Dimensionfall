@@ -101,9 +101,10 @@ func _on_game_ended():
 
 # Updated function to get chunk data at a given position
 func get_chunk_data_at_position(mypos: Vector2) -> Dictionary:
-	var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(mypos)
+	var map_cell: OvermapGrid.map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(mypos)
 	var json_file_path: String = map_cell.map_id
 	var myrotation: int = map_cell.rotation
+	map_cell.explore() # Upgrade the map_cell's reveal status to explore since the player is in proximity
 	return {"id":json_file_path, "rotation":myrotation}
 
 

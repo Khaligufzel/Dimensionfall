@@ -1,14 +1,15 @@
 extends Control
 
 # Define the default texture to show when no map_cell is revealed
-const defaultTexture: String = "./Scenes/ContentManager/Mapeditor/Images/emptyTile.png"
+# Preload the default texture to avoid loading it repeatedly
+var defaultTexture = preload("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
 
 # Declare the map_cell variable, replacing tileData
 # the map_cell is of the map_cell class defined in Helper.overmap_manager
 var map_cell:
 	set(cell):
 		map_cell = cell
-		if map_cell and map_cell.revealed:
+		if map_cell and map_cell.is_revealed():
 			set_texture(map_cell.get_sprite())  # Set the texture if revealed
 			set_texture_rotation(map_cell.rotation, Vector2(16, 16))  # Apply the rotation
 		else:
@@ -30,7 +31,7 @@ func set_texture(res: Resource) -> void:
 	if res:
 		$TextureRect.texture = res
 	else:
-		$TextureRect.texture = load(defaultTexture)  # Set to default texture if none provided
+		$TextureRect.texture = defaultTexture  # Set to default texture if none provided
 
 # Highlight the tile
 func highlight() -> void:

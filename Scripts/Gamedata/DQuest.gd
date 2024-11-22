@@ -31,7 +31,13 @@ extends RefCounted
 #				"mob": "scrapwalker",
 #				"tip": "You can find them in town",
 #				"type": "kill"
-#			}
+#			},
+#			{
+#				"map_id": "city_square",
+#				"tip": "Circuit boards can often be scavenged from scrap piles or robotic enemies.",
+#				"type": "enter",
+#				"reveal_condition": "visited"
+#			},
 #   ]
 # }
 

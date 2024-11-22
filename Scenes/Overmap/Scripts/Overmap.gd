@@ -448,7 +448,7 @@ func find_location_on_overmap(mytarget: Target):
 	# Check if mytarget's coordinate is set
 	if mytarget.coordinate == Vector2():
 		# If not set, find the closest map cell and set the coordinates
-		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(mytarget.map_id)
+		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(mytarget.map_id, "VISITED")
 		if closest_cell:
 			mytarget.set_coordinate(Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
 		else:
@@ -546,7 +546,12 @@ func update_offset_for_all_chunks(new_offset: Vector2):
 
 
 # Respond to the target_map_changed signal
-func on_target_map_changed(map_id: String):
+# map_id: The id of the map we are targeting
+# reveal_condition: One of "HIDDEN", "REVEALED", "EXPLORED", "VISITED"
+# It will look for cells starting from the "VISITED" state and if it can't find one,
+# it will move onto "EXPLORED" and so on. If "EXPLORED" is the value of reveal_condition,
+# it will start looking from there instead.
+func on_target_map_changed(map_id: String, reveal_condition: String):
 	if map_id == null or map_id == "":
 		if target:
 			set_coordinate_text(target.coordinate, "")
@@ -554,7 +559,7 @@ func on_target_map_changed(map_id: String):
 		$ArrowLabel.visible = false  # Hide arrow when no target
 	else:
 		# Find the closest cell for the provided map_id
-		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(map_id)
+		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(map_id, reveal_condition)
 		if closest_cell and target == null:
 			# Set the new target if it hasn't been set
 			target = Target.new(map_id, Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))

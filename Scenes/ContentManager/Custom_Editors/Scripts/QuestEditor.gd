@@ -94,8 +94,10 @@ func _on_save_button_button_up() -> void:
 			step["tip"] = (hbox.get_child(2) as TextEdit).text
 		elif step_type_label.text == "Enter map:":
 			step["type"] = "enter"
-			step["map_id"] = (hbox.get_child(1)).get_text()
-			step["tip"] = (hbox.get_child(2) as TextEdit).text
+			step["map_id"] = (hbox.get_child(1)).get_text()  # Map ID from the text field
+			var myoptionbutton: OptionButton = hbox.get_child(2)
+			step["reveal_condition"] = myoptionbutton.get_item_text(myoptionbutton.selected)  # Read selected state
+			step["tip"] = (hbox.get_child(3) as TextEdit).text  # Custom tip from the TextEdit
 		elif step_type_label.text == "Kill:":
 			step["type"] = "kill"
 			step["mob"] = (hbox.get_child(1)).get_text()
@@ -202,19 +204,62 @@ func add_call_step(step: Dictionary) -> HBoxContainer:
 	hbox.add_child(textedit)
 	return hbox
 
-# This function adds an enter step
+# This function adds an enter step with a dropdown to select the state
 func add_enter_step(step: Dictionary) -> HBoxContainer:
 	var hbox = HBoxContainer.new()
+	
+	# Add the label
 	var labelinstance: Label = Label.new()
 	labelinstance.text = "Enter map:"
 	hbox.add_child(labelinstance)
+	
+	# Add the dropable text edit for the map ID
 	var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
 	dropabletextedit_instance.set_text(step["map_id"])
 	dropabletextedit_instance.set_meta("step_type", "enter")
 	dropabletextedit_instance.myplaceholdertext = "Drop a map from the left menu"
 	set_drop_functions(dropabletextedit_instance)
 	hbox.add_child(dropabletextedit_instance)
+	
+	# Add the dropdown for selecting the state
+	var dropdown = OptionButton.new()
+	dropdown.add_item("HIDDEN")   # Default state
+	dropdown.add_item("REVEALED") # The map is revealed
+	dropdown.add_item("EXPLORED") # The map is explored
+	dropdown.add_item("VISITED")  # The map is visited
+
+	# Set the tooltip text to explain the options
+	dropdown.tooltip_text = "Select the state of the target map on the overmap:\n" + \
+		"HIDDEN: Will only target an instance of this map that isn't revealed yet.\n" + \
+		"REVEALED: Will target an instance of this map that is visible on the overmap. \n" + \
+		"If no instance of this map is visible on the overmap, it will target a hidden instance instead\n" + \
+		"EXPLORED: Targets an instance of this map that has been loaded as a terrain \n" + \
+		"chunk in proximity (meaning the player has been close to this, but hasn't \n" + \
+		"visited it yet). If no instance of this map can be found in the explored state, \n" + \
+		"it will target one that's in the revealed state instead.\n" + \
+		"VISITED: Targets an instance of this map that has been previously visited by \n" + \
+		"the player (meaning the player has entered the map's boundary). If no instance \n" + \
+		"of this map can be found in the visited state, it will target one in the explored state instead.\n\n" + \
+		"This can be used to encourage the player to explore, or keep him in familiar terrain."
+
+	# Optionally, set the initial selection based on step data
+	if step.has("reveal_condition"):
+		var state = step["reveal_condition"]
+		if state == "HIDDEN":
+			dropdown.select(0)
+		elif state == "REVEALED":
+			dropdown.select(1)
+		elif state == "EXPLORED":
+			dropdown.select(2)
+		elif state == "VISITED":
+			dropdown.select(3)
+	else:
+		dropdown.select(0)  # Default to "HIDDEN"
+
+	hbox.add_child(dropdown)
+	
 	return hbox
+
 
 # This function adds a kill step
 func add_kill_step(step: Dictionary) -> HBoxContainer:

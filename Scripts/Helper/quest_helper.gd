@@ -5,7 +5,7 @@ extends Node
 # This is a helper script that manages quests in so far that the QuestManager can't
 
 # When a quest updates and there either is or isn't a target location on the overmap
-signal target_map_changed(map_id: String)
+signal target_map_changed(map_id: String, reveal_condition: String)
 
 
 func _ready():
@@ -294,11 +294,13 @@ func check_and_emit_target_map(step: Dictionary):
 		# Check the type of the stepjson, which is set in the quest editor
 		if stepmeta.get("type", "") == "enter":
 			var map_id: String = stepmeta.get("map_id", "")
-			target_map_changed.emit(map_id)  # Emit the map_id if the stepmeta.type is "enter"
+			var reveal_condition: String = stepmeta.get("reveal_condition", "")
+			target_map_changed.emit(map_id, reveal_condition)  # Emit the map_id if the stepmeta.type is "enter"
 		else:
 			target_map_changed.emit("")  # No target if the type is not "enter"
 	else:
 		target_map_changed.emit("")  # No target if step_type is not "action_step"
+
 
 # Function to handle tracking a quest when the "track quest" button is clicked
 func _on_quest_window_track_quest_clicked(quest_name: String) -> void:

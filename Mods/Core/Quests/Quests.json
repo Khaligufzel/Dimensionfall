@@ -36,6 +36,7 @@
 			},
 			{
 				"map_id": "RockyHill_SW",
+				"reveal_condition": "EXPLORED",
 				"tip": "Press m to open the overmap. A red arrow and/or red X will mark the target location.",
 				"type": "enter"
 			},
@@ -61,6 +62,7 @@
 		"steps": [
 			{
 				"map_id": "abandoned_building",
+				"reveal_condition": "EXPLORED",
 				"tip": "Start by locating the source of the faint signal in an abandoned building. Search for clues or items to help you understand the signal's origin.",
 				"type": "enter"
 			},
@@ -72,6 +74,7 @@
 			},
 			{
 				"map_id": "city_square",
+				"reveal_condition": "EXPLORED",
 				"tip": "Circuit boards can often be scavenged from scrap piles or robotic enemies. Defeat a Disruptor Drone to find one.",
 				"type": "enter"
 			},
@@ -88,6 +91,7 @@
 			},
 			{
 				"map_id": "radio_tower",
+				"reveal_condition": "EXPLORED",
 				"tip": "Head to where the radio tower is located. Be prepared for enemy encounters along the way.",
 				"type": "enter"
 			},

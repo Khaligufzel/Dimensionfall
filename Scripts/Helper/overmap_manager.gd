@@ -55,90 +55,12 @@ var loaded_chunk_data: Dictionary = {"chunks": {}}
 var player
 var player_current_cell: Vector2 = Vector2.ZERO # Player's position per cell, updated regularly
 var loaded_chunks = {}
-enum Region {
-	FOREST,
-	PLAINS
-}
 
 var noise: FastNoiseLite
 
 # When the player coordinate changed. player: The player node. 
 # old_pos: The old coordinate in the grid. new_pos: The new coordinate in the grid
 signal player_coord_changed(player: CharacterBody3D, old_pos: Vector2, new_pos: Vector2)
-
-
-# A cell in the grid. This will tell you it's coordinate and if it's part
-# of something bigger like the tacticalmap
-class map_cell:
-	var region = Region.PLAINS
-	var coordinate_x: int = 0
-	var coordinate_y: int = 0
-	var dmap: DMap = null
-	var map_id: String = "field_grass_basic_00.json":
-		set(value):
-			map_id = value
-			dmap = Gamedata.maps.by_id(map_id)
-	var tacticalmapname: String = "town_00.json"
-	var revealed: bool = false # This cell will be obfuscated on the overmap if false (unexplored)
-	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
-
-	func get_data() -> Dictionary:
-		return {
-			"region": region,
-			"coordinate_x": coordinate_x,
-			"coordinate_y": coordinate_y,
-			"map_id": map_id,
-			"tacticalmapname": tacticalmapname,
-			"revealed": revealed,
-			"rotation": rotation
-		}
-
-	func set_data(newdata: Dictionary):
-		if newdata.is_empty():
-			return
-		region = newdata.get("region", Region.PLAINS)
-		coordinate_x = newdata.get("coordinate_x", 0)
-		coordinate_y = newdata.get("coordinate_y", 0)
-		map_id = newdata.get("map_id", "field_grass_basic_00.json")
-		tacticalmapname = newdata.get("tacticalmapname", "town_00.json")
-		revealed = newdata.get("revealed", false)
-		rotation = newdata.get("rotation", 0)
-
-	func get_sprite() -> Texture:
-		return dmap.sprite
-
-	func reveal():
-		revealed = true
-	
-	# Function to return formatted information about the map cell
-	func get_info_string() -> String:
-		# If the cell is not revealed, notify the player
-		if not revealed:
-			return "This area has not \nbeen explored yet."
-		
-		# If revealed, display the detailed information
-		var pos_string: String = "Pos: (" + str(coordinate_x) + ", " + str(coordinate_y) + ")"
-		
-		# Use dmap's name and description instead of map_id
-		var map_name_string: String = "\nName: " + dmap.name
-		#var map_description_string: String = "\nDescription: " + dmap.description
-		
-		var region_string: String = "\nRegion: " + region_type_to_string(region)
-		var challenge_string: String = "\nChallenge: Easy"  # Placeholder for now
-		
-		# Combine all the information into one formatted string
-		return pos_string + map_name_string + region_string + challenge_string
-		#return pos_string + map_name_string + map_description_string + region_string + challenge_string
-
-
-	# Helper function to convert Region enum to string
-	func region_type_to_string(region_type: int) -> String:
-		match region_type:
-			Region.PLAINS:
-				return "Plains"
-			Region.FOREST:
-				return "Forest"
-		return "Unknown"
 
 
 
@@ -242,16 +164,6 @@ func load_cells_around(position: Vector3):
 					loaded_grids[grid_key].generate_cells()
 
 
-# Helper function to convert Region enum to string
-func region_type_to_string(region_type: int) -> String:
-	match region_type:
-		Region.PLAINS:
-			return "Plains"
-		Region.FOREST:
-			return "Forest"
-	return "Unknown"
-
-
 # Function to pick a random map based on weight
 func pick_random_map_by_weight(maps_by_category: Array[DMap]) -> String:
 	var total_weight = 0
@@ -272,7 +184,7 @@ func pick_random_map_by_weight(maps_by_category: Array[DMap]) -> String:
 # Function to get a map_cell by global coordinate
 # Put in a global coordinate, for example the player position (minus the y coordinate)
 # Get the map cell back. Anything between (0,0) and (32,32) returns the cell at (0,0)
-func get_map_cell_by_global_coordinate(coord: Vector2i) -> map_cell:
+func get_map_cell_by_global_coordinate(coord: Vector2i) -> OvermapGrid.map_cell:
 	var grid_key: Vector2i = get_grid_pos_from_global_pos(coord)
 	var cell_key: Vector2i = get_cell_pos_from_global_pos(coord)
 
@@ -314,7 +226,7 @@ func get_cell_pos_from_global_pos(coord: Vector2) -> Vector2:
 # The grid can contain grid_width x grid_height amount of cells
 # If the grid's position is in the negative range, for example (-1,-1) it will
 # contain cells from (-100,100) up to (-1,-1)
-func get_map_cell_by_local_coordinate(local_coord: Vector2) -> map_cell:
+func get_map_cell_by_local_coordinate(local_coord: Vector2) -> OvermapGrid.map_cell:
 	var grid_key = get_grid_pos_from_local_pos(local_coord)
 	var cell_key = Vector2(local_coord.x, local_coord.y)
 
@@ -440,6 +352,11 @@ func update_player_position_and_manage_segments(force_update: bool = false):
 		var last_cell: Vector2 = player_current_cell
 		player_current_cell = new_position
 		player_coord_changed.emit(player, last_cell, player_current_cell)
+		
+		# Call visit() on the map cell corresponding to the new position
+		var new_cell = get_map_cell_by_global_coordinate(player_current_cell)
+		if new_cell:
+			new_cell.visit()
 		
 		# Load segments around the player
 		var segments_to_load = load_segments_around_player()
@@ -567,29 +484,66 @@ func collect_segment_data(segment_pos: Vector2) -> Dictionary:
 	return non_empty_chunk_data
 
 # Function to find the closest map cell to the player that has the specified map_id
-func find_closest_map_cell_with_id(map_id: String) -> map_cell:
+# map_id: The id of the map we are targeting
+# reveal_condition: One of "HIDDEN", "REVEALED", "EXPLORED", "VISITED"
+# It will look for cells starting from the "VISITED" state and if it can't find one,
+# it will move onto "EXPLORED" and so on. If "EXPLORED" is the value of reveal_condition,
+# it will start looking from there instead. If a cell is "VISITED", it will also be "REVEALED"
+# and "EXPLORED", but no longer "HIDDEN"
+func find_closest_map_cell_with_id(map_id: String, reveal_condition: String) -> OvermapGrid.map_cell:
 	var player_position = get_player_cell_position()
-	var closest_cell: map_cell = null
+	var closest_cell: OvermapGrid.map_cell = null
 	var shortest_distance = INF  # Use a very large number to initialize the shortest distance
 
-	# Iterate through all loaded grids
-	for grid in loaded_grids.values():
-		# Check if the grid contains the specified map_id in its map_id_to_coordinates dictionary
-		if grid.map_id_to_coordinates.has(map_id):
-			# Iterate through the coordinates that have this map_id
-			for cell_key in grid.map_id_to_coordinates[map_id]:
-				var cell = grid.cells[cell_key]
-				
-				# Calculate the distance to the player's position
-				var distance = player_position.distance_to(Vector2(cell.coordinate_x, cell.coordinate_y))
+	# Define the priority order of reveal conditions
+	var reveal_priority = get_revealed_priority(reveal_condition)
 
-				# If this is the closest cell so far, update the closest cell and shortest distance
-				if distance < shortest_distance:
-					shortest_distance = distance
-					closest_cell = cell
+	# Iterate through reveal conditions in priority order
+	for condition in reveal_priority:
+		# Iterate through all loaded grids
+		for grid in loaded_grids.values():
+			# Check if the grid contains the specified map_id in its map_id_to_coordinates dictionary
+			if grid.map_id_to_coordinates.has(map_id):
+				# Iterate through the coordinates that have this map_id
+				for cell_key in grid.map_id_to_coordinates[map_id]:
+					var cell: OvermapGrid.map_cell = grid.cells[cell_key]
 
-	# Return the closest map cell with the specified map_id (or null if none found)
+					# Check if the cell matches the current reveal condition
+					if not cell.matches_reveal_condition(condition):
+						continue
+
+					# Calculate the distance to the player's position
+					var distance = player_position.distance_to(Vector2(cell.coordinate_x, cell.coordinate_y))
+
+					# If this is the closest cell so far, update the closest cell and shortest distance
+					if distance < shortest_distance:
+						shortest_distance = distance
+						closest_cell = cell
+
+		# If we found a closest cell for this condition, return it
+		if closest_cell:
+			return closest_cell
+
+	# Return the closest map cell (if any), or null if no cells exist for the map_id
 	return closest_cell
+
+
+func get_revealed_priority(reveal_condition: String) -> Array:
+	# Define the priority order of reveal conditions
+	var reveal_priority: Array = ["HIDDEN"]
+	match reveal_condition:
+		"VISITED":
+			reveal_priority = ["VISITED", "EXPLORED", "REVEALED", "HIDDEN"]
+		"EXPLORED":
+			reveal_priority = ["EXPLORED", "REVEALED", "HIDDEN"]
+		"REVEALED":
+			reveal_priority = ["REVEALED", "HIDDEN"]
+		"HIDDEN":
+			reveal_priority = ["HIDDEN"]
+		_:
+			reveal_priority = ["HIDDEN"]  # Default fallback in case of unknown reveal_condition
+	return reveal_priority
+
 
 # Function to instantiate and return a new grid with generated cells
 # This is used for visualization outside the game
@@ -637,6 +591,6 @@ func get_grid_from_local_pos(local_coord: Vector2) -> OvermapGrid:
 # Coordinates between 0,0 and 99,99 return the cell at that position from the OvermapGrid at 0,0.
 # Coordinates between 100,0 and 199,99 return the cell at that position from the OvermapGrid at 1,0.
 # Coordinates between -100,-100 and -1,-1 return the cell at that position from the OvermapGrid at -1,-1.
-func get_grid_cell_from_local_pos(local_coord: Vector2) -> map_cell:
+func get_grid_cell_from_local_pos(local_coord: Vector2) -> OvermapGrid.map_cell:
 	var grid: OvermapGrid = get_grid_from_local_pos(local_coord)
 	return grid.get_cell_from_global_pos(local_coord)
