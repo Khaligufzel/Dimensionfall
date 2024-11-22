@@ -224,13 +224,13 @@ func on_data_changed(olddfurniture: DFurniture):
 # Some furniture is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	var itemgroup = function.container.get("itemgroup", "")
-	Gamedata.itemgroups.remove_reference(itemgroup, "core", "furniture", id)
+	Gamedata.itemgroups.remove_reference(function.container_group, "core", "furniture", id)
 	Gamedata.itemgroups.remove_reference(destruction.group, "core", "furniture", id)
 	Gamedata.itemgroups.remove_reference(disassembly.group, "core", "furniture", id)
 	
 	var mapsdata = Helper.json_helper.get_nested_data(references, "core.maps")
-	Gamedata.maps.remove_entity_from_selected_maps("furniture", id, mapsdata)
+	if mapsdata:
+		Gamedata.maps.remove_entity_from_selected_maps("furniture", id, mapsdata)
 
 
 # Removes any instance of an itemgroup from the furniture

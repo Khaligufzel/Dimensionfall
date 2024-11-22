@@ -96,6 +96,8 @@ func sprite_by_file(spritefile: String) -> Texture:
 
 # Removes the reference from the selected itemgroup
 func remove_reference(itemgroupid: String, module: String, type: String, refid: String):
+	if itemgroupid == "" or not itemgroupdict.has(itemgroupid):
+		return
 	var myitemgroup: DItemgroup = itemgroupdict[itemgroupid]
 	myitemgroup.remove_reference(module, type, refid)
 

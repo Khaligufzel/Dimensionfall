@@ -1527,5 +1527,109 @@
 			"width_scale": 100
 		},
 		"weight": 1
+	},
+	{
+		"Function": {
+			"is_container": true
+		},
+		"categories": [
+			"Urban",
+			"Store",
+			"Tech"
+		],
+		"description": "A set of equipment racks housing transmitters, receivers, power distribution units, and networking devices. Wires and cables hang loosely, some frayed from years of neglect.",
+		"destruction": {
+			"group": "destroyed_furniture_large"
+		},
+		"edgesnapping": "None",
+		"id": "equipment_rack",
+		"moveable": false,
+		"name": "Equipment Rack",
+		"sprite": "equipmentrack_100_46.png",
+		"support_shape": {
+			"color": "4f4f4fff",
+			"depth_scale": 100,
+			"height": 1,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		},
+		"weight": 5
+	},
+	{
+		"Function": {
+			"is_container": true
+		},
+		"categories": [
+			"Urban",
+			"Store",
+			"Medical"
+		],
+		"description": "Wall-mounted racks holding emergency tools and first-aid kits. The kits are old but still contain useful supplies for survival and quick repairs.",
+		"destruction": {
+			"group": "destroyed_furniture_small"
+		},
+		"edgesnapping": "None",
+		"id": "first_aid_rack",
+		"moveable": false,
+		"name": "First-Aid Rack",
+		"sprite": "first_aid_rack_72_46.png",
+		"support_shape": {
+			"color": "b3b3b3ff",
+			"depth_scale": 50,
+			"height": 0.8,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 60
+		},
+		"weight": 2
+	},
+	{
+		"categories": [
+			"Urban",
+			"Infrastructure"
+		],
+		"description": "A transformer box, reinforced and weatherproof, located near a tower base. It hums quietly, providing power to nearby structures, though it's clear it has been used heavily over the years.",
+		"destruction": {
+			"group": "destroyed_furniture_large"
+		},
+		"edgesnapping": "None",
+		"id": "transformer_box",
+		"moveable": false,
+		"name": "Transformer Box",
+		"sprite": "transformer_box_72_46.png",
+		"support_shape": {
+			"color": "8a8a8aff",
+			"depth_scale": 100,
+			"height": 1,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 100
+		},
+		"weight": 8
+	},
+	{
+		"categories": [
+			"Urban",
+			"Tech"
+		],
+		"description": "An uninterruptible power supply (UPS), used to keep vital equipment running during power loss. This device is compact but heavy, with a display that shows its battery status.",
+		"destruction": {
+			"group": "destroyed_furniture_small"
+		},
+		"edgesnapping": "None",
+		"id": "ups",
+		"moveable": false,
+		"name": "UPS",
+		"sprite": "ups_20_45.png",
+		"support_shape": {
+			"color": "b2b2b2ff",
+			"depth_scale": 100,
+			"height": 0.7,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 50
+		},
+		"weight": 3
 	}
 ]

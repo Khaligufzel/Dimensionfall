@@ -23,7 +23,8 @@ func load_furnitures_from_disk() -> void:
 	var furniturelist: Array = Helper.json_helper.load_json_array_file(dataPath)
 	for furnitureitem in furniturelist:
 		var furniture: DFurniture = DFurniture.new(furnitureitem)
-		furniture.sprite = sprites[furniture.spriteid]
+		if furniture.spriteid:
+			furniture.sprite = sprites[furniture.spriteid]
 		furnituredict[furniture.id] = furniture
 
 
