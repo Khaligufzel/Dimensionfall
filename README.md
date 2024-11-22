@@ -10,7 +10,8 @@ The world is infinite in every direction. Explore and survive as long as you can
 
 
 ## How to play:
-Until releases are shared on GitHub, you can play the game in the following way:
+You can find some demo releases [here](https://github.com/Khaligufzel/Dimensionfall/releases).
+Alternatively, you can play the game in the following way:
 - Download [Godot](https://godotengine.org/download/) from their website or from [steam](https://store.steampowered.com/app/404790/Godot_Engine/)
 - Download this project by going to the top-right of this page and clicking the green 'code' button and then click 'download zip'
 - Extract the zip file to a location of your choosing

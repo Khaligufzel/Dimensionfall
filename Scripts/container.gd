@@ -278,7 +278,10 @@ func add_item(item_id: String):
 
 
 func insert_item(item: InventoryItem) -> bool:
-	if not item.get_inventory().transfer_autosplitmerge(item, inventory):
+	var iteminv: InventoryStacked = item.get_inventory()
+	if iteminv == inventory:
+		return false # Can't insert into itself
+	if not iteminv.transfer_autosplitmerge(item, inventory):
 		print_debug("Failed to transfer item: " + str(item))
 	return true
 
