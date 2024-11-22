@@ -204,7 +204,13 @@ Additional features before our first release:
 
 ## Contribute
 
-If you like Godot and want to contribute, feel free to submit a pull request or issue on your ideas, or join us on discord. To make edits, start by reading the [getting started guide](https://github.com/Khaligufzel/Dimensionfall/blob/main/Documentation/Game_development/Getting_started.md). This is and always will be a hobby project and will not be for sale. 
+If you like Godot and want to contribute, feel free to submit a pull request or issue on your ideas, or join us on discord. To make edits, start by reading the [getting started guide](https://github.com/Khaligufzel/Dimensionfall/blob/main/Documentation/Game_development/Getting_started.md). 
+
+This is and always will be a hobby project and will not be for sale. However, if you want to, you can to donate to the developers:
+
+Khaligufzel: https://ko-fi.com/khaligufzel
+
+snipercup: https://ko-fi.com/snipercup
 
 
 ## Community
