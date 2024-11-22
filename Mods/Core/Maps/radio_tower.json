@@ -12561,9 +12561,9 @@
 					}
 				],
 				"furniture": {
-					"id": "store_shelf",
+					"id": "ups",
 					"itemgroups": [],
-					"rotation": 90
+					"rotation": 180
 				},
 				"id": "linoleum_green_01"
 			},
@@ -12575,9 +12575,9 @@
 					}
 				],
 				"furniture": {
-					"id": "store_shelf",
+					"id": "ups",
 					"itemgroups": [],
-					"rotation": 270
+					"rotation": 180
 				},
 				"id": "linoleum_green_01"
 			},
