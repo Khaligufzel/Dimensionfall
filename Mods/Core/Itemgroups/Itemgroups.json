@@ -634,7 +634,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"radio_tower"
 				]
 			}
 		},
@@ -1357,7 +1358,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"abandoned_building"
+					"abandoned_building",
+					"radio_tower"
 				]
 			}
 		},
@@ -1409,6 +1411,9 @@
 		"name": "Electronic Mob loot",
 		"references": {
 			"core": {
+				"maps": [
+					"radio_tower"
+				],
 				"mobs": [
 					"disruptor_drone",
 					"scavenger_skitter",
@@ -1417,6 +1422,53 @@
 			}
 		},
 		"sprite": "electrical_components_32.png",
+		"use_sprite": false
+	},
+	{
+		"description": "Anything you can find in a first aid kit",
+		"id": "first_aid",
+		"items": [
+			{
+				"id": "bandage_basic",
+				"max": 3,
+				"min": 1,
+				"probability": 50
+			},
+			{
+				"id": "bottle_antibiotics",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bottle_disinfectant",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "bottle_antidote",
+				"max": 1,
+				"min": 1,
+				"probability": 5
+			},
+			{
+				"id": "painkiller",
+				"max": 2,
+				"min": 1,
+				"probability": 40
+			}
+		],
+		"mode": "Collection",
+		"name": "First aid",
+		"references": {
+			"core": {
+				"maps": [
+					"radio_tower"
+				]
+			}
+		},
+		"sprite": "bandage_32.png",
 		"use_sprite": false
 	}
 ]
