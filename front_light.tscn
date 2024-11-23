@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c6txt3py4smbb"]
+
+[node name="FrontLight" type="SpotLight3D"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.533792, 0, -0.309088)
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_blur = 0.0
+spot_range = 69.881
+spot_attenuation = -0.63
+spot_angle = 47.93
+spot_angle_attenuation = 0.019915

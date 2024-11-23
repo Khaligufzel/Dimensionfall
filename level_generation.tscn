@@ -1,11 +1,13 @@
-[gd_scene load_steps=28 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=31 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
 [ext_resource type="Script" path="res://Scripts/ConstructionGhost.gd" id="5_iwiv4"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
 [ext_resource type="Texture2D" uid="uid://d33h00t0fl7x" path="res://Defaults/Player/VestDude01.png" id="7_jr4x1"]
+[ext_resource type="PackedScene" uid="uid://bwlxjl00td75p" path="res://spot_light_3d.tscn" id="7_o6rhm"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
+[ext_resource type="PackedScene" uid="uid://r0oar0ocyo6v" path="res://spot_light_3d_2.tscn" id="8_rp3ia"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
 [ext_resource type="Texture2D" uid="uid://piolgplta87y" path="res://Defaults/Player/weapon_left.png" id="10_3jjqt"]
 [ext_resource type="Texture2D" uid="uid://delyq5g2t13cx" path="res://Defaults/Player/weapon_right.png" id="11_4n80n"]
@@ -14,6 +16,7 @@
 [ext_resource type="Script" path="res://Scripts/EquippedItem.gd" id="12_xwnuw"]
 [ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="13_fjasp"]
 [ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="14_x756n"]
+[ext_resource type="PackedScene" uid="uid://c6txt3py4smbb" path="res://front_light.tscn" id="15_coxfn"]
 [ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="15_r1xed"]
 [ext_resource type="Script" path="res://Scripts/Components/ComponentInteract.gd" id="16_v28fk"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="17_qnmns"]
@@ -128,17 +131,14 @@ shape = SubResource("ConvexPolygonShape3D_drnhn")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17078, 0)
+visible = false
 shadow_enabled = true
 omni_range = 18.071
 omni_attenuation = 0.0371628
 
-[node name="SpotLight3D" type="SpotLight3D" parent="TacticalMap/Entities/Player"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.89, 0)
-light_energy = 7.846
-shadow_enabled = true
-spot_range = 5.779
-spot_angle = 83.32
-spot_angle_attenuation = 3.60501
+[node name="SpotLight3D" parent="TacticalMap/Entities/Player" instance=ExtResource("7_o6rhm")]
+
+[node name="SpotLight3D2" parent="TacticalMap/Entities/Player" instance=ExtResource("8_rp3ia")]
 
 [node name="Sprite3D2" type="Sprite3D" parent="TacticalMap/Entities/Player"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
@@ -202,6 +202,8 @@ collision_mask = 8
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player/Sprite3D2/CollisionDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.179206, 0)
 shape = SubResource("ConvexPolygonShape3D_drnhn")
+
+[node name="FrontLight" parent="TacticalMap/Entities/Player/Sprite3D2" instance=ExtResource("15_coxfn")]
 
 [node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("left_hand_item", "right_hand_item")]
 script = ExtResource("11_6i2sa")
