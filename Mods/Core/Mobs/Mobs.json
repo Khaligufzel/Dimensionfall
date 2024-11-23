@@ -369,8 +369,18 @@
 		"melee_cooldown": 2,
 		"melee_knockback": 0,
 		"melee_range": 1,
-		"move_speed": 0.4,
+		"move_speed": 0.8,
 		"name": "Zombie",
+		"references": {
+			"core": {
+				"maps": [
+					"urbanroad",
+					"urbanroad_cross",
+					"urbanroad_corner",
+					"urbanroad_t"
+				]
+			}
+		},
 		"sense_range": 30,
 		"sight_range": 50,
 		"sprite": "zombie_64_64.png",
@@ -414,8 +424,18 @@
 		"melee_cooldown": 2,
 		"melee_knockback": 0,
 		"melee_range": 1,
-		"move_speed": 0.4,
+		"move_speed": 0.8,
 		"name": "Zombie",
+		"references": {
+			"core": {
+				"maps": [
+					"urbanroad",
+					"urbanroad_cross",
+					"urbanroad_corner",
+					"urbanroad_t"
+				]
+			}
+		},
 		"sense_range": 30,
 		"sight_range": 50,
 		"sprite": "zombie1_64_64.png",
