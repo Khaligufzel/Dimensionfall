@@ -358,5 +358,95 @@
 				}
 			]
 		}
+	},
+	{
+		"description": "A slow-moving, decaying zombie with tattered clothes. It's barely able to walk, but it will still attempt to grab and bite anything in its way.",
+		"health": 40,
+		"hearing_range": 500,
+		"id": "basic_zombie_1",
+		"idle_move_speed": 0.5,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 2,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.4,
+		"name": "Zombie",
+		"sense_range": 30,
+		"sight_range": 50,
+		"sprite": "zombie_64_64.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				}
+			]
+		}
+	},
+	{
+		"description": "A slow-moving, decaying zombie with ragged clothing and a missing arm. Its movements are jerky, but it still tries to grab players within range to infect them.",
+		"health": 40,
+		"hearing_range": 500,
+		"id": "basic_zombie_2",
+		"idle_move_speed": 0.5,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 2,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.4,
+		"name": "Zombie",
+		"sense_range": 30,
+		"sight_range": 50,
+		"sprite": "zombie1_64_64.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				}
+			]
+		}
 	}
 ]

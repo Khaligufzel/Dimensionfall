@@ -113,7 +113,9 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"outpost_guardian"
+					"outpost_guardian",
+					"basic_zombie_1",
+					"basic_zombie_2"
 				]
 			}
 		},
@@ -149,7 +151,9 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"outpost_guardian"
+					"outpost_guardian",
+					"basic_zombie_1",
+					"basic_zombie_2"
 				]
 			}
 		},
@@ -185,7 +189,9 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"outpost_guardian"
+					"outpost_guardian",
+					"basic_zombie_1",
+					"basic_zombie_2"
 				]
 			}
 		},
@@ -221,7 +227,9 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"outpost_guardian"
+					"outpost_guardian",
+					"basic_zombie_1",
+					"basic_zombie_2"
 				]
 			}
 		},
@@ -257,7 +265,9 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"outpost_guardian"
+					"outpost_guardian",
+					"basic_zombie_1",
+					"basic_zombie_2"
 				]
 			}
 		},
@@ -293,7 +303,9 @@
 					"rust_sentinel",
 					"scavenger_skitter",
 					"iron_stalker",
-					"outpost_guardian"
+					"outpost_guardian",
+					"basic_zombie_1",
+					"basic_zombie_2"
 				]
 			}
 		},
