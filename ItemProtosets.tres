@@ -759,7 +759,7 @@ json_data = "[
 		\"sprite\": \"solar_panel_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
-		\"volume\": 1000,
+		\"volume\": 500,
 		\"weight\": 10
 	},
 	{
@@ -3061,7 +3061,8 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"tree_destroyed\",
-					\"generic_forest_finds\"
+					\"generic_forest_finds\",
+					\"test_items\"
 				],
 				\"items\": [
 					\"stone_spear\"
@@ -3086,7 +3087,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"generic_field_finds\"
+					\"generic_field_finds\",
+					\"test_items\"
 				],
 				\"items\": [
 					\"stone_spear\"

@@ -5,7 +5,14 @@ extends Node
 # This is a helper script that manages quests in so far that the QuestManager can't
 
 # When a quest updates and there either is or isn't a target location on the overmap
-signal target_map_changed(map_id: String, reveal_condition: String)
+# map_ids: An array of map IDs that are potential targets.
+# target_properties: A dictionary containing:
+#   - reveal_condition (String): One of "HIDDEN", "REVEALED", "EXPLORED", "VISITED".
+#     Determines how the target is selected based on its reveal state.
+#   - exact_match (bool, default: false): If true, only exact matches for the reveal_condition are valid.
+#   - dynamic (bool, default: false): If true, and the player is currently on the target cell,
+#     a new target will be selected.
+signal target_map_changed(map_id: String, target_properties)
 
 
 func _ready():
@@ -68,7 +75,7 @@ func _on_game_ended():
 
 # Function to handle quest completion
 func _on_quest_complete(quest: Dictionary):
-	target_map_changed.emit("")  # No more target when quest is complete
+	target_map_changed.emit([])  # No more target when quest is complete
 	var rewards: Array = quest.get("quest_rewards").get("rewards", [])
 	for reward in rewards:
 		var item_id: String = reward.get("item_id")
@@ -78,7 +85,7 @@ func _on_quest_complete(quest: Dictionary):
 
 # Function to handle quest failure
 func _on_quest_failed(_quest: Dictionary):
-	target_map_changed.emit("")  # No more target when quest is complete
+	target_map_changed.emit([])  # No more target when quest is failed
 
 # When a step is complete.
 # step: the step dictionary
@@ -253,21 +260,23 @@ func _on_craft_successful(item: DItem, _recipe: DItem.CraftRecipe):
 func _on_map_entered(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
 	# Get the current quests in progress
 	var quests_in_progress = QuestManager.get_quests_in_progress()
+
 	# Update each of the current quests with the entered map information
 	for quest in quests_in_progress.values():
 		var step = QuestManager.get_current_step(quest.quest_name)
-		
-		# Check for the step_type for this step according to the QuestManager
-		if step.step_type == "action_step":
-			var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
-			# Check the type of the stepjson, which is set in the quest editor
-			if stepmeta.get("type", "") == "enter":
-				# Retrieve the map_cell based on the new player's position
-				var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(new_pos)
-				var map_id: String = stepmeta.get("map_id", "")
-				if map_id == map_cell.map_id:
-					# The player has entered the correct map for the quest step
-					QuestManager.progress_quest(quest.quest_name)
+		var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
+
+		# Handle action_step type "enter"
+		if step.step_type == "action_step" and stepmeta.get("type", "") == "enter":
+			var map_cell = Helper.overmap_manager.get_map_cell_by_local_coordinate(new_pos)
+			var map_id: String = stepmeta.get("map_id", "")
+			if map_id == map_cell.map_id:
+				# The player has entered the correct map for the quest step
+				QuestManager.progress_quest(quest.quest_name)
+
+		# Handle incremental_step type "kill"
+		elif step.step_type == QuestManager.INCREMENTAL_STEP and stepmeta.get("type", "") == "kill":
+			check_and_emit_target_map(step)
 
 
 # Get the current state of all quests to save.
@@ -288,18 +297,22 @@ func set_state(state: Dictionary) -> void:
 func check_and_emit_target_map(step: Dictionary):
 	var step_type = step.get("step_type", "")
 
-	# Check for the step_type for this step according to the QuestManager
-	if step_type == "action_step" and not step.complete:
+	if step_type == QuestManager.INCREMENTAL_STEP and not step.get("complete", false):  # Handle "kill" step
+	#if step_type == "kill":  # Handle "kill" steps with map guidance
 		var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
-		# Check the type of the stepjson, which is set in the quest editor
+		if stepmeta.get("type", "") == "kill":
+			if stepmeta.has("map_guide") and stepmeta["map_guide"] != "none":
+				_emit_target_map_for_kill_step(stepmeta)
+
+	elif step_type == "action_step" and not step.complete:  # Handle "enter" steps
+		var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
 		if stepmeta.get("type", "") == "enter":
 			var map_id: String = stepmeta.get("map_id", "")
-			var reveal_condition: String = stepmeta.get("reveal_condition", "")
-			target_map_changed.emit(map_id, reveal_condition)  # Emit the map_id if the stepmeta.type is "enter"
+			target_map_changed.emit([map_id], stepmeta)  # Emit for "enter" steps
 		else:
-			target_map_changed.emit("","")  # No target if the type is not "enter"
+			target_map_changed.emit([])  # No target if type is not "enter"
 	else:
-		target_map_changed.emit("","")  # No target if step_type is not "action_step"
+		target_map_changed.emit([])  # No target for unsupported step types
 
 
 # Function to handle tracking a quest when the "track quest" button is clicked
@@ -321,3 +334,36 @@ func _on_quest_window_track_quest_clicked(quest_name: String) -> void:
 
 	# Call check_and_emit_target_map to manage the map targeting for the quest
 	check_and_emit_target_map(current_step)
+
+
+# Emits the target map signal for "kill" steps
+func _emit_target_map_for_kill_step(stepmeta: Dictionary):
+	# Emit the target_map_changed signal with map_guide and maps_list
+	var map_guide: String = stepmeta.get("map_guide", "none")
+	if map_guide == "none":
+		return
+	
+	# Get the mob ID from the step metadata
+	var mob_id: String = stepmeta.get("mob", "")
+	if mob_id == "":
+		print_debug("Kill step metadata does not have a valid mob ID.")
+		return
+
+	# Retrieve the mob data (DMob instance)
+	var dmob = Gamedata.mobs.by_id(mob_id)
+	if dmob == null:
+		print_debug("No DMob data found for mob ID: " + mob_id)
+		return
+
+	# Get the list of maps associated with the mob
+	var maps_list: Array = dmob.get_maps()
+	if maps_list.is_empty():
+		print_debug("No maps associated with mob ID: " + mob_id)
+		return
+
+	var target_properties: Dictionary = {
+		"reveal_condition": map_guide,
+		"exact_match": true,
+		"dynamic": true
+	}
+	target_map_changed.emit(maps_list, target_properties)

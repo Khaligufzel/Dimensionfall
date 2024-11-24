@@ -19,9 +19,6 @@
 					"radio_tower",
 					"RockyHill_NW",
 					"RockyHill_NE"
-				],
-				"quests": [
-					"starter_tutorial_00"
 				]
 			}
 		},
@@ -390,6 +387,9 @@
 					"generichouse_t",
 					"generichouse_corner",
 					"store_electronic_clothing"
+				],
+				"quests": [
+					"starter_tutorial_00"
 				]
 			}
 		},

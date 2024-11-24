@@ -130,18 +130,35 @@ class map_cell:
 		# Automatically upgrade the state to visited
 		revealed = RevealedState.VISITED
 		
-	func matches_reveal_condition(reveal_condition: String) -> bool:
-		# Check if the current revealed state matches the provided reveal_condition
-		match reveal_condition:
-			"HIDDEN":
-				return revealed == RevealedState.HIDDEN
-			"REVEALED":
-				return is_revealed()
-			"EXPLORED":
-				return revealed in [RevealedState.EXPLORED, RevealedState.VISITED]
-			"VISITED":
-				return revealed == RevealedState.VISITED
-		return false  # Return false for unknown conditions
+	func matches_reveal_condition(reveal_condition: String, exact_match: bool = false) -> bool:
+		# Convert reveal_condition to uppercase for case-insensitive matching
+		reveal_condition = reveal_condition.to_upper()
+
+		if exact_match:
+			# Match only the exact reveal condition
+			match reveal_condition:
+				"HIDDEN":
+					return revealed == RevealedState.HIDDEN
+				"REVEALED":
+					return revealed == RevealedState.REVEALED
+				"EXPLORED":
+					return revealed == RevealedState.EXPLORED
+				"VISITED":
+					return revealed == RevealedState.VISITED
+			return false  # Return false for unknown conditions
+		else:
+			# Match broader reveal conditions
+			match reveal_condition:
+				"HIDDEN":
+					return revealed == RevealedState.HIDDEN
+				"REVEALED":
+					return is_revealed()
+				"EXPLORED":
+					return revealed in [RevealedState.EXPLORED, RevealedState.VISITED]
+				"VISITED":
+					return revealed == RevealedState.VISITED
+			return false  # Return false for unknown conditions
+
 
 
 # Translates local grid coordinates to global coordinates

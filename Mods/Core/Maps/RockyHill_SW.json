@@ -35908,8 +35908,7 @@
 	"references": {
 		"core": {
 			"quests": [
-				"starter_tutorial_00",
-				"quest_radio_signal_01"
+				"starter_tutorial_00"
 			],
 			"tacticalmaps": [
 				"RockyHill_00.json"

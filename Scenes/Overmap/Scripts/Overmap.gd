@@ -546,23 +546,34 @@ func update_offset_for_all_chunks(new_offset: Vector2):
 
 
 # Respond to the target_map_changed signal
-# map_id: The id of the map we are targeting
-# reveal_condition: One of "HIDDEN", "REVEALED", "EXPLORED", "VISITED"
-# It will look for cells starting from the "VISITED" state and if it can't find one,
-# it will move onto "EXPLORED" and so on. If "EXPLORED" is the value of reveal_condition,
-# it will start looking from there instead.
-func on_target_map_changed(map_id: String, reveal_condition: String):
-	if map_id == null or map_id == "":
+# map_ids: An array of map IDs that are potential targets.
+# target_properties: A dictionary containing:
+#   - reveal_condition (String): One of "HIDDEN", "REVEALED", "EXPLORED", "VISITED".
+#     Determines how the target is selected based on its reveal state.
+#   - exact_match (bool, default: false): If true, only exact matches for the reveal_condition are valid.
+#   - dynamic (bool, default: false): If true, and the player is currently on the target cell,
+#     a new target will be selected.
+func on_target_map_changed(map_ids: Array, target_properties: Dictionary = {}):
+	if map_ids.is_empty():
 		if target:
 			set_coordinate_text(target.coordinate, "")
-		target = null  # Clear the target if no valid map_id is provided
+		target = null  # Clear the target if no valid map_ids are provided
 		$ArrowLabel.visible = false  # Hide arrow when no target
 	else:
-		# Find the closest cell for the provided map_id
-		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id([map_id], reveal_condition)
+		# Extract properties from target_properties with defaults
+		var dynamic: bool = target_properties.get("dynamic", false)
+
+		# Find the closest cell for the provided map_ids
+		if target:
+			var at_target: bool = Helper.overmap_manager.is_player_at_position(Vector2(target.coordinate.x, target.coordinate.y))
+			# Handle dynamic targeting: If the player is on the target, find a new target
+			if dynamic and at_target:
+				target = null # reset the target
+		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_ids(map_ids, target_properties)
+
 		if closest_cell and target == null:
-			# Set the new target if it hasn't been set
-			target = Target.new(map_id, Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
+			# Set the new target
+			target = Target.new(closest_cell.map_id, Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
 			# Ensure that the coordinates do not change once set
 			find_location_on_overmap(target)
 
