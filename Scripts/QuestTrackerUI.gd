@@ -28,20 +28,32 @@ func update_quest_ui(quest_name: String):
 	
 	match step_type:
 		QuestManager.INCREMENTAL_STEP:
-			var item = current_step.get("item_name", "Unknown")
+			var stepmeta: Dictionary = current_step.get("meta_data", {}).get("stepjson", {})
 			var target_amount = current_step.get("required", 0)
 			var current_amount = current_step.get("collected", 0)
-			step_requirement = "Collect " + str(current_amount) + "/" + str(target_amount) + " " + item
+
+			if stepmeta.get("type", "") == "collect":
+				var item_id = stepmeta.get("item", "")
+				var item_name = Gamedata.items.by_id(item_id).name if item_id != "" else "Unknown Item"
+				step_requirement = "Collect " + str(current_amount) + "/" + str(target_amount) + " " + item_name
+			elif stepmeta.get("type", "") == "kill":
+				var mob_id = stepmeta.get("mob", "")
+				var mob_name = Gamedata.mobs.by_id(mob_id).name if mob_id != "" else "Unknown Mob"
+				step_requirement = "Kill " + str(current_amount) + "/" + str(target_amount) + " " + mob_name
+			else:
+				step_requirement = "Progress: " + str(current_amount) + "/" + str(target_amount)
+				
 		QuestManager.ITEMS_STEP:
 			var items_required = current_step.get("required_items", {})
 			step_requirement = "Items needed: " + str(items_required)
 		QuestManager.ACTION_STEP:
-			step_requirement = " " + current_step.details
+			step_requirement = current_step.details
 		_:
 			step_requirement = "Objective unknown."
 	
 	# Update the quest step label
 	quest_target_label.text = step_requirement
+
 
 # Example call to update the UI with a specific quest
 # This can be triggered by a signal or manual call when the active quest changes
