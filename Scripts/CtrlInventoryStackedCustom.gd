@@ -56,6 +56,7 @@ signal unload_item(items: Array[InventoryItem])
 # UI signals emitted when the cursor hovers over a row in the list
 signal mouse_entered_item(item: InventoryItem)
 signal mouse_exited_item
+signal grid_cell_doubleclicked(item: InventoryItem)
 
 
 func initialize_list():
@@ -614,6 +615,10 @@ func _on_grid_cell_gui_input(event, gridCell: Control):
 			mouse_press_position = event.position  # Store the position of mouse press
 			match event.button_index:
 				MOUSE_BUTTON_LEFT:
+					# Detect double-click
+					if event.double_click:
+						_on_grid_cell_double_clicked(gridCell)
+						return
 					# Do not handle click here if items are selected, wait for release
 					if get_selected_inventory_items().size() == 0:
 						# One item selected, handle the click immediately
@@ -766,3 +771,15 @@ func get_items() -> Array:
 # Transfers an item from this inventory to the destination inventory
 func transfer_autosplitmerge(item: InventoryItem, destination: InventoryStacked) -> bool:
 	return myInventory.transfer_autosplitmerge(item, destination)
+
+
+# Function to handle item transfer on double-click
+func _on_grid_cell_double_clicked(gridCell: Control) -> void:
+	# Get the row name of the double-clicked grid cell
+	var row_name = _get_row_name(gridCell)
+	
+	# Ensure the row corresponds to an inventory item
+	if inventory_rows.has(row_name):
+		var item = inventory_rows[row_name]["item"] as InventoryItem
+		if item:
+			grid_cell_doubleclicked.emit(item)
