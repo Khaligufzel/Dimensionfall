@@ -181,7 +181,7 @@ func delete():
 	Gamedata.itemgroups.remove_reference(loot_group, "core", "mobs", id)
 	
 	# Check if the mob has references to maps and remove it from those maps
-	var mapsdata = Helper.json_helper.get_nested_data(references,"core.maps")
+	var mapsdata: Array = Helper.json_helper.get_nested_data(references,"core.maps")
 	if mapsdata:
 		Gamedata.maps.remove_entity_from_selected_maps("mob", id, mapsdata)
 	
@@ -217,3 +217,11 @@ func update_mob_attribute_references(olddata: DMob):
 	# Add new attribute references
 	for new_attr_id in new_attr_ids:
 		Gamedata.playerattributes.add_reference(new_attr_id, "core", "mobs", id)
+
+
+# Function to retrieve an array of maps from the references
+func get_maps() -> Array:
+	# Retrieve nested map data from the references
+	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
+	# Return the map data, or an empty array if no data is found
+	return mapsdata if mapsdata else []

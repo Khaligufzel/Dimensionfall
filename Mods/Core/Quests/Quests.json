@@ -30,8 +30,9 @@
 			},
 			{
 				"amount": 2,
+				"map_guide": "revealed",
 				"mob": "scrapwalker",
-				"tip": "You can find them in town",
+				"tip": "You can find them in the radio tower or on rocky hill",
 				"type": "kill"
 			},
 			{

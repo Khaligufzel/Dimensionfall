@@ -448,7 +448,7 @@ func find_location_on_overmap(mytarget: Target):
 	# Check if mytarget's coordinate is set
 	if mytarget.coordinate == Vector2():
 		# If not set, find the closest map cell and set the coordinates
-		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(mytarget.map_id, "VISITED")
+		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_ids([mytarget.map_id], "VISITED")
 		if closest_cell:
 			mytarget.set_coordinate(Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
 		else:
@@ -559,7 +559,7 @@ func on_target_map_changed(map_id: String, reveal_condition: String):
 		$ArrowLabel.visible = false  # Hide arrow when no target
 	else:
 		# Find the closest cell for the provided map_id
-		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id(map_id, reveal_condition)
+		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_id([map_id], reveal_condition)
 		if closest_cell and target == null:
 			# Set the new target if it hasn't been set
 			target = Target.new(map_id, Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))

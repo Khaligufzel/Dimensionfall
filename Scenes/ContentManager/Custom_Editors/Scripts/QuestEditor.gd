@@ -74,10 +74,12 @@ func _on_save_button_button_up() -> void:
 	dquest.name = NameTextEdit.text
 	dquest.description = DescriptionTextEdit.text
 	dquest.steps = []
-	
+
 	for hbox in steps_container.get_children():
 		var step = {}
 		var step_type_label = hbox.get_child(0) as Label
+
+		# Handle each step type
 		if step_type_label.text == "Craft item:":
 			step["type"] = "craft"
 			step["item"] = (hbox.get_child(1)).get_text()
@@ -94,15 +96,19 @@ func _on_save_button_button_up() -> void:
 			step["tip"] = (hbox.get_child(2) as TextEdit).text
 		elif step_type_label.text == "Enter map:":
 			step["type"] = "enter"
-			step["map_id"] = (hbox.get_child(1)).get_text()  # Map ID from the text field
+			step["map_id"] = (hbox.get_child(1)).get_text()
 			var myoptionbutton: OptionButton = hbox.get_child(2)
-			step["reveal_condition"] = myoptionbutton.get_item_text(myoptionbutton.selected)  # Read selected state
-			step["tip"] = (hbox.get_child(3) as TextEdit).text  # Custom tip from the TextEdit
+			step["reveal_condition"] = myoptionbutton.get_item_text(myoptionbutton.selected)
+			step["tip"] = (hbox.get_child(3) as TextEdit).text
 		elif step_type_label.text == "Kill:":
 			step["type"] = "kill"
 			step["mob"] = (hbox.get_child(1)).get_text()
 			step["amount"] = (hbox.get_child(2) as SpinBox).value
-			step["tip"] = (hbox.get_child(3) as TextEdit).text
+			var reveal_option_button: OptionButton = hbox.get_child(3)
+			step["map_guide"] = reveal_option_button.get_item_text(reveal_option_button.selected)
+			step["tip"] = (hbox.get_child(4) as TextEdit).text
+		
+		# Remove "tip" key if it is empty
 		if step["tip"] == "":
 			step.erase("tip")
 		dquest.steps.append(step)
@@ -127,6 +133,7 @@ func _on_save_button_button_up() -> void:
 	dquest.changed(olddata)
 	data_changed.emit()
 	olddata = DQuest.new(dquest.get_data().duplicate(true))
+
 
 # When the questImageDisplay is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/Quests/". The texture of the questImageDisplay will change to the selected image
@@ -261,23 +268,45 @@ func add_enter_step(step: Dictionary) -> HBoxContainer:
 	return hbox
 
 
-# This function adds a kill step
+# This function adds a kill step with a reveal condition option
 func add_kill_step(step: Dictionary) -> HBoxContainer:
 	var hbox = HBoxContainer.new()
-	var labelinstance: Label = Label.new()
-	labelinstance.text = "Kill:"
-	hbox.add_child(labelinstance)
-	var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
-	dropabletextedit_instance.set_text(step["mob"])
-	dropabletextedit_instance.set_meta("step_type", "kill")
-	dropabletextedit_instance.myplaceholdertext = "Drop a mob from the left menu"
-	set_drop_functions(dropabletextedit_instance)
-	hbox.add_child(dropabletextedit_instance)
+
+	# Add the label
+	var label_instance: Label = Label.new()
+	label_instance.text = "Kill:"
+	hbox.add_child(label_instance)
+
+	# Add the dropable text edit for the mob ID
+	var dropable_textedit_instance: HBoxContainer = dropabletextedit.instantiate()
+	dropable_textedit_instance.set_text(step["mob"])
+	dropable_textedit_instance.set_meta("step_type", "kill")
+	dropable_textedit_instance.myplaceholdertext = "Drop a mob from the left menu"
+	set_drop_functions(dropable_textedit_instance)
+	hbox.add_child(dropable_textedit_instance)
+
+	# Add the SpinBox for the kill amount
 	var spinbox = SpinBox.new()
 	spinbox.min_value = 1
 	spinbox.value = step["amount"]
+	spinbox.tooltip_text = "The amount to kill"
 	hbox.add_child(spinbox)
+
+	# Add the reveal condition OptionButton
+	var map_guide_button = create_map_guide_option_button()
+	# Set the initial selection based on step data, if available
+	if step.has("map_guide"):
+		match step["map_guide"]:
+			"none": map_guide_button.select(0)
+			"hidden": map_guide_button.select(1)
+			"revealed": map_guide_button.select(2)
+			"explored": map_guide_button.select(3)
+	else:
+		map_guide_button.select(0)  # Default to "none"
+	hbox.add_child(map_guide_button)
+
 	return hbox
+
 
 # This function adds the move up, move down, and delete controls to a step
 func add_step_controls(hbox: HBoxContainer, step: Dictionary):
@@ -459,8 +488,33 @@ func add_reward_entry(item_id: String, amount: int = 1, use_loaded_amount: bool 
 	deleteButton.pressed.connect(_delete_reward.bind([label, amountSpinBox, deleteButton]))
 	rewards_item_list.add_child(deleteButton)
 
+
 # Deleting a reward UI element
 func _delete_reward(elements_to_remove: Array) -> void:
 	for element in elements_to_remove:
 		rewards_item_list.remove_child(element)
 		element.queue_free()  # Properly free the node to avoid memory leaks
+
+
+# Function to create an OptionButton for selecting map guide
+func create_map_guide_option_button() -> OptionButton:
+	var option_button = OptionButton.new()
+	
+	# Add items to the OptionButton
+	option_button.add_item("none")      # No guide
+	option_button.add_item("hidden")   # Target appears on unrevealed locations
+	option_button.add_item("revealed") # Target appears on revealed locations
+	option_button.add_item("explored") # Target appears on explored locations
+
+	# Set a user-friendly tooltip text
+	option_button.tooltip_text = "Select how the player will be guided to the right location in this step:\n\n" + \
+		"1. **none**: No guide will be provided.\n" + \
+		"2. **hidden**: The target will only appear on locations that have not been revealed on the overmap.\n" + \
+		"3. **revealed**: The target will appear on a location that has been revealed, but not explored.\n" + \
+		"4. **explored**: The target will appear on a location that has been explored (the player has been close by or on it).\n\n" + \
+		"If no location meets the selected criteria, fallback options will be used in this order:\n" + \
+		"- Explored → Revealed → Hidden\n\n" + \
+		"The closest map that allows the player to complete this step will be selected. If the player enters the \n" + \
+		"target map and has not completed this step, a new target will be selected."
+
+	return option_button
