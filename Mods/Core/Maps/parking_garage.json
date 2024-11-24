@@ -71,23 +71,13 @@
 		{
 			"entities": [
 				{
-					"count": 10,
-					"id": "scrapwalker",
+					"count": 1,
+					"id": "basic_zombie_1",
 					"type": "mob"
 				},
 				{
-					"count": 5,
-					"id": "rust_sentinel",
-					"type": "mob"
-				},
-				{
-					"count": 2,
-					"id": "scavenger_skitter",
-					"type": "mob"
-				},
-				{
-					"count": 2,
-					"id": "iron_stalker",
+					"count": 1,
+					"id": "basic_zombie_2",
 					"type": "mob"
 				}
 			],
@@ -97,7 +87,7 @@
 			"spawn_chance": 100,
 			"tiles": [
 				{
-					"count": 10000,
+					"count": 600,
 					"id": "null"
 				}
 			]

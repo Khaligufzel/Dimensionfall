@@ -14,22 +14,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
 					"RockyHill_SE",
 					"RockyHill_SW",
-					"generichouse_end",
-					"subway_station",
-					"office_building_00",
-					"city_square",
-					"parking_garage",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_NW",
+					"RockyHill_NE"
 				],
 				"quests": [
 					"starter_tutorial_00"
@@ -84,19 +73,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"generichouse_end",
-					"subway_station",
-					"office_building_00",
-					"city_square",
-					"parking_garage",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_SE",
+					"RockyHill_NW",
+					"RockyHill_NE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -148,9 +129,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"city_square",
-					"parking_garage",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_SE",
+					"RockyHill_NW",
+					"RockyHill_NE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -209,9 +192,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"parking_garage",
-					"store_electronic_clothing",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_SE",
+					"RockyHill_NW",
+					"RockyHill_NE",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -268,8 +253,11 @@
 		"references": {
 			"core": {
 				"maps": [
-					"city_square",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_SE",
+					"RockyHill_NW",
+					"RockyHill_NE",
+					"RockyHill_SW"
 				],
 				"quests": [
 					"quest_radio_signal_01"
@@ -301,6 +289,16 @@
 		"melee_range": 1,
 		"move_speed": 2.8,
 		"name": "Venom Crawler",
+		"references": {
+			"core": {
+				"maps": [
+					"RockyHill_SE",
+					"RockyHill_NW",
+					"RockyHill_NE",
+					"RockyHill_SW"
+				]
+			}
+		},
 		"sense_range": 80,
 		"sight_range": 200,
 		"sprite": "venom_crawler_48.png",
@@ -377,7 +375,21 @@
 					"urbanroad",
 					"urbanroad_cross",
 					"urbanroad_corner",
-					"urbanroad_t"
+					"urbanroad_t",
+					"office_building_00",
+					"Generichouse",
+					"subway_station",
+					"neighborhood_school",
+					"Generichouse_00",
+					"skyscraper",
+					"generichouse_cross",
+					"city_square",
+					"two_story_house",
+					"parking_garage",
+					"generichouse_end",
+					"generichouse_t",
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},
@@ -432,7 +444,21 @@
 					"urbanroad",
 					"urbanroad_cross",
 					"urbanroad_corner",
-					"urbanroad_t"
+					"urbanroad_t",
+					"office_building_00",
+					"Generichouse",
+					"subway_station",
+					"neighborhood_school",
+					"Generichouse_00",
+					"skyscraper",
+					"generichouse_cross",
+					"city_square",
+					"two_story_house",
+					"parking_garage",
+					"generichouse_end",
+					"generichouse_t",
+					"generichouse_corner",
+					"store_electronic_clothing"
 				]
 			}
 		},

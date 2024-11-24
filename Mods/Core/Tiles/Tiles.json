@@ -1514,7 +1514,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_SE"
 				]
 			}
 		},
@@ -1558,7 +1559,8 @@
 					"office_building_00",
 					"skyscraper",
 					"neighborhood_school",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1600,7 +1602,10 @@
 					"office_building_00",
 					"skyscraper",
 					"neighborhood_school",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_SE",
+					"RockyHill_NW",
+					"RockyHill_SW"
 				]
 			}
 		},
@@ -1694,7 +1699,9 @@
 					"office_building_00",
 					"skyscraper",
 					"neighborhood_school",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_SE",
+					"RockyHill_NW"
 				]
 			}
 		},
@@ -1740,7 +1747,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_SE"
 				]
 			}
 		},
@@ -1759,7 +1767,8 @@
 				"maps": [
 					"RockyHill_SW",
 					"neighborhood_school",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_NW"
 				]
 			}
 		},
@@ -1855,7 +1864,8 @@
 					"office_building_00",
 					"skyscraper",
 					"neighborhood_school",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_NW"
 				]
 			}
 		},
@@ -1892,7 +1902,9 @@
 					"office_building_00",
 					"skyscraper",
 					"neighborhood_school",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_SE",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -1931,7 +1943,8 @@
 					"office_building_00",
 					"skyscraper",
 					"neighborhood_school",
-					"radio_tower"
+					"radio_tower",
+					"RockyHill_NW"
 				]
 			}
 		},

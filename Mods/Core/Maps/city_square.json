@@ -123,33 +123,23 @@
 		{
 			"entities": [
 				{
-					"count": 2,
-					"id": "scavenger_skitter",
-					"type": "mob"
-				},
-				{
-					"count": 10,
-					"id": "scrapwalker",
-					"type": "mob"
-				},
-				{
-					"count": 5,
-					"id": "rust_sentinel",
+					"count": 1,
+					"id": "basic_zombie_1",
 					"type": "mob"
 				},
 				{
 					"count": 1,
-					"id": "disruptor_drone",
+					"id": "basic_zombie_2",
 					"type": "mob"
 				}
 			],
 			"id": "Mobs",
 			"pick_one": false,
-			"rotate_random": false,
+			"rotate_random": true,
 			"spawn_chance": 100,
 			"tiles": [
 				{
-					"count": 8000,
+					"count": 1000,
 					"id": "null"
 				}
 			]
