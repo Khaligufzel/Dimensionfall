@@ -73,7 +73,7 @@
 				"type": "collect"
 			},
 			{
-				"map_id": "city_square",
+				"map_id": "RockyHill_SW",
 				"reveal_condition": "EXPLORED",
 				"tip": "Circuit boards can often be scavenged from scrap piles or robotic enemies. Defeat a Disruptor Drone to find one.",
 				"type": "enter"
