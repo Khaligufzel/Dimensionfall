@@ -4,7 +4,12 @@
 			"entities": [
 				{
 					"count": 1,
-					"id": "scrapwalker",
+					"id": "basic_zombie_1",
+					"type": "mob"
+				},
+				{
+					"count": 1,
+					"id": "basic_zombie_2",
 					"type": "mob"
 				}
 			],
@@ -14,7 +19,7 @@
 			"spawn_chance": 100,
 			"tiles": [
 				{
-					"count": 1000,
+					"count": 200,
 					"id": "null"
 				}
 			]

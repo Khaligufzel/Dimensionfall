@@ -3,22 +3,23 @@
 		{
 			"entities": [
 				{
-					"count": 2,
-					"id": "scrapwalker",
+					"count": 1,
+					"id": "basic_zombie_2",
 					"type": "mob"
 				},
 				{
 					"count": 1,
-					"id": "rust_sentinel",
+					"id": "basic_zombie_1",
 					"type": "mob"
 				}
 			],
 			"id": "mob_spawn",
-			"rotate_random": false,
+			"pick_one": false,
+			"rotate_random": true,
 			"spawn_chance": 100,
 			"tiles": [
 				{
-					"count": 1500,
+					"count": 200,
 					"id": "null"
 				}
 			]

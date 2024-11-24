@@ -60,7 +60,6 @@
 					"Generichouse_00",
 					"RockyHill_SW",
 					"abandoned_building",
-					"RockyHill_NE",
 					"generichouse_end",
 					"city_square",
 					"office_building_00",
@@ -152,7 +151,6 @@
 					"RockyHill_NE",
 					"generichouse_end",
 					"RockyHill_NW",
-					"urbanroad",
 					"urbanroad_cross",
 					"forest_road_straight",
 					"forest_road_corner",
@@ -163,7 +161,8 @@
 					"office_building_00",
 					"skyscraper",
 					"neighborhood_school",
-					"radio_tower"
+					"radio_tower",
+					"urbanroad"
 				]
 			}
 		},
@@ -203,7 +202,6 @@
 					"RockyHill_SW",
 					"generichouse_end",
 					"RockyHill_NW",
-					"urbanroad",
 					"urbanroad_cross",
 					"forest_road_straight",
 					"forest_road_corner",
@@ -214,7 +212,9 @@
 					"office_building_00",
 					"skyscraper",
 					"neighborhood_school",
-					"radio_tower"
+					"radio_tower",
+					"urbanroad",
+					"RockyHill_NE"
 				]
 			}
 		},
@@ -253,11 +253,9 @@
 					"Generichouse_00",
 					"field_grass_basic_00",
 					"RockyHill_SE",
-					"RockyHill_SW",
 					"RockyHill_NE",
 					"generichouse_end",
 					"RockyHill_NW",
-					"urbanroad",
 					"urbanroad_cross",
 					"forest_road_straight",
 					"forest_road_corner",
@@ -268,7 +266,9 @@
 					"office_building_00",
 					"skyscraper",
 					"neighborhood_school",
-					"radio_tower"
+					"radio_tower",
+					"urbanroad",
+					"RockyHill_SW"
 				]
 			}
 		},
