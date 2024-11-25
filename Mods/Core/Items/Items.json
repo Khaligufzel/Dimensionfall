@@ -291,6 +291,9 @@
 					"cabinet_general",
 					"refridgerator",
 					"vending_machine_drinks"
+				],
+				"quests": [
+					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -318,6 +321,9 @@
 			"core": {
 				"itemgroups": [
 					"kitchen_cupboard"
+				],
+				"quests": [
+					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -460,6 +466,9 @@
 				"itemgroups": [
 					"cabinet_general",
 					"kitchen_cupboard"
+				],
+				"quests": [
+					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -509,6 +518,9 @@
 			"core": {
 				"itemgroups": [
 					"kitchen_cupboard"
+				],
+				"quests": [
+					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -626,6 +638,9 @@
 					"cabinet_general",
 					"electronics_store_small",
 					"electronics_store_mixed"
+				],
+				"quests": [
+					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -709,6 +724,13 @@
 		"image": "./Mods/Core/Items/compass_32.png",
 		"max_stack_size": 1,
 		"name": "Compass",
+		"references": {
+			"core": {
+				"quests": [
+					"quest_holy_crusade_01"
+				]
+			}
+		},
 		"sprite": "compass_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2104,6 +2126,9 @@
 			"core": {
 				"itemgroups": [
 					"first_aid"
+				],
+				"quests": [
+					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -3335,6 +3360,9 @@
 				"itemgroups": [
 					"test_items",
 					"kitchen_cupboard"
+				],
+				"quests": [
+					"quest_holy_crusade_01"
 				]
 			}
 		},

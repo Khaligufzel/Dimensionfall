@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://bxubu34gjes1y"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -297,6 +297,9 @@ json_data = "[
 					\"cabinet_general\",
 					\"refridgerator\",
 					\"vending_machine_drinks\"
+				],
+				\"quests\": [
+					\"quest_holy_crusade_01\"
 				]
 			}
 		},
@@ -324,6 +327,9 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"kitchen_cupboard\"
+				],
+				\"quests\": [
+					\"quest_holy_crusade_01\"
 				]
 			}
 		},
@@ -466,6 +472,9 @@ json_data = "[
 				\"itemgroups\": [
 					\"cabinet_general\",
 					\"kitchen_cupboard\"
+				],
+				\"quests\": [
+					\"quest_holy_crusade_01\"
 				]
 			}
 		},
@@ -515,6 +524,9 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"kitchen_cupboard\"
+				],
+				\"quests\": [
+					\"quest_holy_crusade_01\"
 				]
 			}
 		},
@@ -632,6 +644,9 @@ json_data = "[
 					\"cabinet_general\",
 					\"electronics_store_small\",
 					\"electronics_store_mixed\"
+				],
+				\"quests\": [
+					\"quest_holy_crusade_01\"
 				]
 			}
 		},
@@ -715,6 +730,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/compass_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Compass\",
+		\"references\": {
+			\"core\": {
+				\"quests\": [
+					\"quest_holy_crusade_01\"
+				]
+			}
+		},
 		\"sprite\": \"compass_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -2110,6 +2132,9 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"first_aid\"
+				],
+				\"quests\": [
+					\"quest_holy_crusade_01\"
 				]
 			}
 		},
@@ -3341,6 +3366,9 @@ json_data = "[
 				\"itemgroups\": [
 					\"test_items\",
 					\"kitchen_cupboard\"
+				],
+				\"quests\": [
+					\"quest_holy_crusade_01\"
 				]
 			}
 		},
