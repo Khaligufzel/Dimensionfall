@@ -115,7 +115,13 @@
 					"iron_stalker",
 					"outpost_guardian",
 					"basic_zombie_1",
-					"basic_zombie_2"
+					"basic_zombie_2",
+					"bloated_zombie",
+					"rushing_zombie",
+					"charred_zombie",
+					"heavy_zombie",
+					"skeleton_zombie",
+					"limping_zombie"
 				]
 			}
 		},
@@ -153,7 +159,13 @@
 					"iron_stalker",
 					"outpost_guardian",
 					"basic_zombie_1",
-					"basic_zombie_2"
+					"basic_zombie_2",
+					"bloated_zombie",
+					"rushing_zombie",
+					"charred_zombie",
+					"heavy_zombie",
+					"skeleton_zombie",
+					"limping_zombie"
 				]
 			}
 		},
@@ -191,7 +203,13 @@
 					"iron_stalker",
 					"outpost_guardian",
 					"basic_zombie_1",
-					"basic_zombie_2"
+					"basic_zombie_2",
+					"bloated_zombie",
+					"rushing_zombie",
+					"charred_zombie",
+					"heavy_zombie",
+					"skeleton_zombie",
+					"limping_zombie"
 				]
 			}
 		},
@@ -229,7 +247,13 @@
 					"iron_stalker",
 					"outpost_guardian",
 					"basic_zombie_1",
-					"basic_zombie_2"
+					"basic_zombie_2",
+					"bloated_zombie",
+					"rushing_zombie",
+					"charred_zombie",
+					"heavy_zombie",
+					"skeleton_zombie",
+					"limping_zombie"
 				]
 			}
 		},
@@ -267,7 +291,13 @@
 					"iron_stalker",
 					"outpost_guardian",
 					"basic_zombie_1",
-					"basic_zombie_2"
+					"basic_zombie_2",
+					"bloated_zombie",
+					"rushing_zombie",
+					"charred_zombie",
+					"heavy_zombie",
+					"skeleton_zombie",
+					"limping_zombie"
 				]
 			}
 		},
@@ -305,7 +335,13 @@
 					"iron_stalker",
 					"outpost_guardian",
 					"basic_zombie_1",
-					"basic_zombie_2"
+					"basic_zombie_2",
+					"bloated_zombie",
+					"rushing_zombie",
+					"charred_zombie",
+					"heavy_zombie",
+					"skeleton_zombie",
+					"limping_zombie"
 				]
 			}
 		},
