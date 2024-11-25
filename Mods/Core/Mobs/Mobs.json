@@ -388,6 +388,9 @@
 					"generichouse_corner",
 					"store_electronic_clothing"
 				],
+				"mobgroups": [
+					"basic_zombies"
+				],
 				"quests": [
 					"starter_tutorial_00",
 					"store_electronic_clothing",

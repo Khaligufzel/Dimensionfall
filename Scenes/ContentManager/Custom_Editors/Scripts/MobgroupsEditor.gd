@@ -65,7 +65,7 @@ func _on_save_button_button_up() -> void:
 	dmobgroup.name = NameTextEdit.text
 	dmobgroup.description = DescriptionTextEdit.text
 	dmobgroup.sprite = mobgroupImageDisplay.texture
-	dmobgroup.save_to_disk()
+	dmobgroup.changed(olddata)
 	data_changed.emit()
 	olddata = DMobgroup.new(dmobgroup.get_data().duplicate(true))
 
@@ -185,3 +185,8 @@ func save_mob_list_to_dmobgroup():
 		new_mobs[mob_id] = weight
 	
 	dmobgroup.mobs = new_mobs
+
+
+func _on_mob_group_image_display_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		mobgroupSelector.show()

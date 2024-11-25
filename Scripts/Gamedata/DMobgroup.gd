@@ -50,16 +50,25 @@ func _init(data: Dictionary):
 	references = data.get("references", {})
 	mobs = data.get("mobs", {})
 
+
 # Returns all properties of the mob group as a dictionary
 func get_data() -> Dictionary:
-	return {
+	var data: Dictionary = {
 		"id": id,
 		"name": name,
 		"description": description,
 		"spriteid": spriteid,
-		"references": references,
 		"mobs": mobs
 	}
+	if not references.is_empty():
+		data["references"] = references
+	return data
+
+
+# Method to save any changes to the stat back to disk
+func save_to_disk():
+	Gamedata.stats.save_stats_to_disk()
+
 
 # Removes the specified reference from the mob group's references
 func remove_reference(module: String, type: String, refid: String):

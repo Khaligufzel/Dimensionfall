@@ -1,0 +1,11 @@
+[
+	{
+		"description": "A group of basic zombies, representing a minor threat to the player",
+		"id": "basic_zombies",
+		"mobs": {
+			"basic_zombie_1": 100
+		},
+		"name": "Basic zombies",
+		"spriteid": "zombie_64_64.png"
+	}
+]

@@ -93,7 +93,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 focus_next = NodePath("../DescriptionTextEdit")
 focus_previous = NodePath("../MobGroupImageDisplay")
-placeholder_text = "Perception"
+placeholder_text = "Basic zombies"
 
 [node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -105,7 +105,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
 focus_previous = NodePath("../NameTextEdit")
-placeholder_text = "Your ability to observe the environment"
+placeholder_text = "A group of basic zombies, representing a minor threat to the player"
 wrap_mode = 1
 
 [node name="ItemsLabel" type="Label" parent="VBoxContainer/FormGrid"]
@@ -114,6 +114,8 @@ text = "Mobs"
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_3w4h5")
 
@@ -127,13 +129,14 @@ custom_minimum_size = Vector2(600, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-tooltip_text = "Drag items to this list from the left menu of the content editor. Once the list has been made, you can assign it to a container, for example in the furniture editor."
-columns = 6
+tooltip_text = "Drag mobs to this list from the left menu of the content editor. Once the list
+has been made, you can assign this group to a quest, in the quest editor."
+columns = 4
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_hpi3t")]
 visible = false
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
-[connection signal="gui_input" from="VBoxContainer/FormGrid/MobGroupImageDisplay" to="." method="_on_stat_image_display_gui_input"]
+[connection signal="gui_input" from="VBoxContainer/FormGrid/MobGroupImageDisplay" to="." method="_on_mob_group_image_display_gui_input"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]
