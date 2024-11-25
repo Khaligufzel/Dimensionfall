@@ -55,6 +55,7 @@ func initialize_inventory_control(control: Control, inv: InventoryStacked):
 	control.initialize_list()
 	control.mouse_entered_item.connect(_on_inventory_item_mouse_entered)
 	control.mouse_exited_item.connect(_on_inventory_item_mouse_exited)
+	control.grid_cell_doubleclicked.connect(_on_grid_cell_double_clicked) 
 
 # If any items are present in the player equipment, load them
 func equip_loaded_items():
@@ -384,3 +385,24 @@ func transfer_autosplitmerge_list(items: Array, src: Control, dest: Control) -> 
 
 	Helper.signal_broker.inventory_operation_finished.emit()
 	return success
+
+
+# Function to handle double-clicking a grid cell in the inventory grid
+func _on_grid_cell_double_clicked(item: InventoryItem):
+	var source_inventory = item.get_inventory()
+	var destination_inventory: InventoryStacked
+
+	# Determine the destination inventory based on the source inventory
+	if source_inventory == inventory:
+		# Check if the current proximity inventory is the default set in the ItemManager
+		var proximityinventory: InventoryStacked = proximity_inventory_control.get_inventory()
+		if proximityinventory == ItemManager.proximityInventory:
+			print_debug("Attempt to transfer to default proximity inventory aborted.")
+			return  # Exit the function early if the condition is met
+		destination_inventory = proximityinventory
+	else:
+		destination_inventory = inventory
+
+	# Attempt to transfer the item
+	if not destination_inventory or not source_inventory.transfer_autosplitmerge(item, destination_inventory):
+		print("Failed to transfer item!")
