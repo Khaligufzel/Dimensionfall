@@ -16,7 +16,7 @@ extends Node3D
 
 # Reference to the level manager. Some nodes that could be moved to other chunks 
 # should be parented to this (like moveable furniture and mobs)
-var level_manager : Node3D
+@export var level_manager : Node3D
 var level_generator : Node3D
 var furniture_static_spawner: FurnitureStaticSpawner
 var furniture_physics_spawner: FurniturePhysicsSpawner
@@ -96,6 +96,8 @@ func reset_state():
 
 
 func initialize_chunk_data():
+	if Helper.test_map_name: # If we have a map explicitly set for test purposes, override it
+		chunk_data["id"] = Helper.test_map_name
 	if is_new_chunk(): # This chunk is created for the first time
 		#This contains the data of one map, loaded from maps.data, for example generichouse.json
 		var mapsegmentData: Dictionary = Gamedata.maps.by_id(chunk_data.id).get_data().duplicate(true)

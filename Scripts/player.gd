@@ -37,7 +37,7 @@ var knockback_distance_remaining: float = 0.0
 
 @export var sprite : Sprite3D
 @export var collision_detector : Area3D # Used for detecting collision with furniture
-
+@export var testing: bool = false # Used to test in the test_environment
 @export var interact_range : float = 10
 
 #@export var progress_bar : NodePath
@@ -63,7 +63,8 @@ func _ready():
 	Helper.save_helper.load_player_state(self)
 	Helper.save_helper.load_quest_state()
 	_connect_signals()
-	Helper.signal_broker.player_spawned.emit(self)
+	if not testing:
+		Helper.signal_broker.player_spawned.emit(self)
 
 
 # Connect necessary signals for interaction and updates
