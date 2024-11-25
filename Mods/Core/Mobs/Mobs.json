@@ -389,7 +389,7 @@
 					"store_electronic_clothing"
 				],
 				"quests": [
-					"starter_tutorial_00"
+					"starter_tutorial_00",
 					"store_electronic_clothing",
 					"store_groceries"
 				]
