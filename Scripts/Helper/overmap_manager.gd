@@ -483,33 +483,38 @@ func collect_segment_data(segment_pos: Vector2) -> Dictionary:
 	
 	return non_empty_chunk_data
 
-# Function to find the closest map cell to the player that has the specified map_id
-# map_id: The id of the map we are targeting
-# reveal_condition: One of "HIDDEN", "REVEALED", "EXPLORED", "VISITED"
-# It will look for cells starting from the "VISITED" state and if it can't find one,
-# it will move onto "EXPLORED" and so on. If "EXPLORED" is the value of reveal_condition,
-# it will start looking from there instead. If a cell is "VISITED", it will also be "REVEALED"
-# and "EXPLORED", but no longer "HIDDEN"
-func find_closest_map_cell_with_id(map_id: String, reveal_condition: String) -> OvermapGrid.map_cell:
+
+# Function to find the closest map cell to the player for a list of map IDs
+# map_ids: Array of map IDs to search for.
+# target_properties: A dictionary containing:
+#   - reveal_condition (String): One of "HIDDEN", "REVEALED", "EXPLORED", "VISITED".
+#     Determines how the target is selected based on its reveal state.
+#   - exact_match (bool, default: false): If true, only exact matches for the reveal_condition are valid.
+# Returns the closest map cell, or null if no suitable cell is found.
+func find_closest_map_cell_with_ids(map_ids: Array, target_properties: Dictionary = {}) -> OvermapGrid.map_cell:
 	var player_position = get_player_cell_position()
 	var closest_cell: OvermapGrid.map_cell = null
 	var shortest_distance = INF  # Use a very large number to initialize the shortest distance
+	var exact_match: bool = target_properties.get("exact_match", false)
 
 	# Define the priority order of reveal conditions
-	var reveal_priority = get_revealed_priority(reveal_condition)
+	var reveal_priority = get_revealed_priority(target_properties.get("reveal_condition", "HIDDEN"))
 
 	# Iterate through reveal conditions in priority order
 	for condition in reveal_priority:
 		# Iterate through all loaded grids
 		for grid in loaded_grids.values():
-			# Check if the grid contains the specified map_id in its map_id_to_coordinates dictionary
-			if grid.map_id_to_coordinates.has(map_id):
-				# Iterate through the coordinates that have this map_id
+			# Check if the grid contains any of the specified map IDs
+			for map_id in map_ids:
+				if not grid.map_id_to_coordinates.has(map_id):
+					continue
+
+				# Iterate through the coordinates that have this map ID
 				for cell_key in grid.map_id_to_coordinates[map_id]:
 					var cell: OvermapGrid.map_cell = grid.cells[cell_key]
 
 					# Check if the cell matches the current reveal condition
-					if not cell.matches_reveal_condition(condition):
+					if not cell.matches_reveal_condition(condition, exact_match):
 						continue
 
 					# Calculate the distance to the player's position
@@ -524,14 +529,18 @@ func find_closest_map_cell_with_id(map_id: String, reveal_condition: String) -> 
 		if closest_cell:
 			return closest_cell
 
-	# Return the closest map cell (if any), or null if no cells exist for the map_id
+	# Return the closest map cell (if any), or null if no cells exist for the map IDs
 	return closest_cell
 
 
+
 func get_revealed_priority(reveal_condition: String) -> Array:
+	# Convert reveal_condition to uppercase for case-insensitive matching
+	var condition_upper = reveal_condition.to_upper()
+
 	# Define the priority order of reveal conditions
 	var reveal_priority: Array = ["HIDDEN"]
-	match reveal_condition:
+	match condition_upper:
 		"VISITED":
 			reveal_priority = ["VISITED", "EXPLORED", "REVEALED", "HIDDEN"]
 		"EXPLORED":
@@ -594,3 +603,10 @@ func get_grid_from_local_pos(local_coord: Vector2) -> OvermapGrid:
 func get_grid_cell_from_local_pos(local_coord: Vector2) -> OvermapGrid.map_cell:
 	var grid: OvermapGrid = get_grid_from_local_pos(local_coord)
 	return grid.get_cell_from_global_pos(local_coord)
+
+
+# Function to check if the player is at a specific position
+# position: A Vector2 representing the target position in cell coordinates.
+# Returns true if the player's current cell position matches the given position, otherwise false.
+func is_player_at_position(position: Vector2) -> bool:
+	return player_current_cell == position

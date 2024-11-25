@@ -30,8 +30,9 @@
 			},
 			{
 				"amount": 2,
-				"mob": "scrapwalker",
-				"tip": "You can find them in town",
+				"map_guide": "revealed",
+				"mob": "basic_zombie_1",
+				"tip": "The map will show you where to find them and update the target if there's no zombie there.",
 				"type": "kill"
 			},
 			{
@@ -73,10 +74,11 @@
 				"type": "collect"
 			},
 			{
-				"map_id": "RockyHill_SW",
-				"reveal_condition": "EXPLORED",
+				"amount": 1,
+				"map_guide": "explored",
+				"mob": "disruptor_drone",
 				"tip": "Circuit boards can often be scavenged from scrap piles or robotic enemies. Defeat a Disruptor Drone to find one.",
-				"type": "enter"
+				"type": "kill"
 			},
 			{
 				"amount": 1,
@@ -94,12 +96,6 @@
 				"reveal_condition": "EXPLORED",
 				"tip": "Head to where the radio tower is located. Be prepared for enemy encounters along the way.",
 				"type": "enter"
-			},
-			{
-				"amount": 1,
-				"mob": "disruptor_drone",
-				"tip": "Clear the area around the radio tower by eliminating the Disruptor Drones guarding it.",
-				"type": "kill"
 			}
 		]
 	}
