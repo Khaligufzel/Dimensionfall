@@ -13,6 +13,13 @@
 			"skeleton_zombie": 10
 		},
 		"name": "Basic zombies",
+		"references": {
+			"core": {
+				"quests": [
+					"starter_tutorial_00"
+				]
+			}
+		},
 		"spriteid": "zombie_64_64.png"
 	}
 ]
