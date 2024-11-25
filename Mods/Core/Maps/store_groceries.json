@@ -246,6 +246,60 @@
 					"id": "linoleum_lightblue_00"
 				}
 			]
+		},
+		{
+			"entities": [
+				{
+					"count": 4,
+					"id": "basic_zombie_1",
+					"type": "mob"
+				},
+				{
+					"count": 4,
+					"id": "basic_zombie_2",
+					"type": "mob"
+				},
+				{
+					"count": 3,
+					"id": "bloated_zombie",
+					"type": "mob"
+				},
+				{
+					"count": 3,
+					"id": "rushing_zombie",
+					"type": "mob"
+				},
+				{
+					"count": 1,
+					"id": "charred_zombie",
+					"type": "mob"
+				},
+				{
+					"count": 2,
+					"id": "heavy_zombie",
+					"type": "mob"
+				},
+				{
+					"count": 1,
+					"id": "skeleton_zombie",
+					"type": "mob"
+				},
+				{
+					"count": 3,
+					"id": "limping_zombie",
+					"type": "mob"
+				}
+			],
+			"id": "zombies",
+			"pick_one": false,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 2000,
+					"id": "null"
+				}
+			]
 		}
 	],
 	"categories": [
@@ -1030,6 +1084,10 @@
 					{
 						"id": "floor_back_area",
 						"rotation": 90
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -1040,6 +1098,10 @@
 					{
 						"id": "floor_back_area",
 						"rotation": 90
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -1084,6 +1146,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -1142,6 +1208,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -1412,6 +1482,10 @@
 					{
 						"id": "floor_back_area",
 						"rotation": 90
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -1422,6 +1496,10 @@
 					{
 						"id": "floor_back_area",
 						"rotation": 90
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -1466,6 +1544,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -1520,6 +1602,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -1833,6 +1919,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -1887,6 +1977,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2104,6 +2198,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2158,6 +2256,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2466,6 +2568,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2520,6 +2626,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2574,6 +2684,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2584,6 +2698,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2594,6 +2712,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2604,6 +2726,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2614,6 +2740,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2624,6 +2754,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2634,6 +2768,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2644,6 +2782,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2784,6 +2926,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2824,6 +2970,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2834,6 +2984,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2844,6 +2998,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2854,6 +3012,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2864,6 +3026,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2874,6 +3040,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2884,6 +3054,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -2894,6 +3068,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3068,6 +3246,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3158,6 +3340,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3168,6 +3354,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3178,6 +3368,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3453,6 +3647,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3463,6 +3661,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3473,6 +3675,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3727,6 +3933,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3737,6 +3947,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3747,6 +3961,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3791,36 +4009,102 @@
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -3958,6 +4242,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3968,6 +4256,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -3978,6 +4270,10 @@
 					{
 						"id": "store_floor",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "linoleum_white_00",
@@ -4021,36 +4317,102 @@
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -4250,42 +4612,108 @@
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -4407,36 +4835,102 @@
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -4558,43 +5052,113 @@
 				"id": "road_asphalt_basic"
 			},
 			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
 				"areas": [
 					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4605,6 +5169,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4615,6 +5183,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4625,6 +5197,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4635,6 +5211,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4645,6 +5225,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4655,6 +5239,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4665,6 +5253,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4675,6 +5267,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4685,6 +5281,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4695,6 +5295,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4705,6 +5309,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4715,6 +5323,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4725,6 +5337,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4735,6 +5351,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4745,6 +5365,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4755,6 +5379,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4765,6 +5393,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4781,43 +5413,113 @@
 				"id": "road_asphalt_basic"
 			},
 			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
 				"areas": [
 					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4828,6 +5530,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4838,6 +5544,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4848,6 +5558,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4858,6 +5572,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4868,6 +5586,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4878,6 +5600,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4888,6 +5614,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4898,6 +5628,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4908,6 +5642,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4918,6 +5656,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4928,6 +5670,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4938,6 +5684,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4948,6 +5698,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4958,6 +5712,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4968,6 +5726,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4978,6 +5740,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -4988,6 +5754,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "sidewalk_00",
@@ -5004,44 +5774,101 @@
 				"id": "grass_medium_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
 				"areas": [
 					{
-						"id": "shoppingcart_spawn",
-						"rotation": 270
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5051,6 +5878,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5060,6 +5891,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5069,6 +5904,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5078,6 +5917,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5087,6 +5930,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5096,6 +5943,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5105,6 +5956,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5114,6 +5969,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5123,6 +5982,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5132,6 +5995,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5141,6 +6008,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5150,6 +6021,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5159,6 +6034,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5168,6 +6047,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5177,6 +6060,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5186,6 +6073,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5195,6 +6086,23 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "shoppingcart_spawn",
+						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5209,44 +6117,101 @@
 				"id": "grass_dirt_00"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
 				"areas": [
 					{
-						"id": "shoppingcart_spawn",
-						"rotation": 270
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5256,6 +6221,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5265,6 +6234,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5274,6 +6247,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5283,6 +6260,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5292,6 +6273,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5301,6 +6286,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5310,6 +6299,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5319,6 +6312,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5328,6 +6325,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5337,6 +6338,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5346,6 +6351,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5355,6 +6364,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5364,6 +6377,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5373,6 +6390,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5382,6 +6403,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5391,6 +6416,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5400,6 +6429,23 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "shoppingcart_spawn",
+						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5414,44 +6460,101 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
 				"areas": [
 					{
-						"id": "shoppingcart_spawn",
-						"rotation": 270
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5461,6 +6564,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5470,6 +6577,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5479,6 +6590,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5488,6 +6603,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5497,6 +6616,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5506,6 +6629,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5515,6 +6642,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5524,6 +6655,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5533,6 +6668,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5542,6 +6681,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5551,6 +6694,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5560,6 +6707,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5569,6 +6720,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5578,6 +6733,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5587,6 +6746,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5596,6 +6759,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5605,6 +6772,23 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "shoppingcart_spawn",
+						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5619,44 +6803,101 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
-				"id": "road_asphalt_basic"
-			},
-			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
 				"areas": [
 					{
-						"id": "shoppingcart_spawn",
-						"rotation": 270
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5666,6 +6907,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5675,6 +6920,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5684,6 +6933,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5693,6 +6946,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5702,6 +6959,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5711,6 +6972,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5720,6 +6985,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5729,6 +6998,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5738,6 +7011,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5747,6 +7024,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5756,6 +7037,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5765,6 +7050,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5774,6 +7063,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5783,6 +7076,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5792,6 +7089,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5801,6 +7102,10 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5810,6 +7115,23 @@
 					{
 						"id": "shoppingcart_spawn",
 						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "shoppingcart_spawn",
+						"rotation": 270
+					},
+					{
+						"id": "zombies",
+						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -5824,91 +7146,265 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -5921,99 +7417,273 @@
 				"id": "grass_medium_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -6026,99 +7696,273 @@
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -6131,99 +7975,273 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -6236,99 +8254,273 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -6341,99 +8533,273 @@
 				"id": "grass_dirt_01"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -6446,117 +8812,291 @@
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
@@ -6570,118 +9110,292 @@
 				"id": "grass_dirt_02"
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
 			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 0
+					}
+				],
 				"id": "road_asphalt_basic"
 			},
 			{

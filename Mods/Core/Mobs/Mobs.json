@@ -390,6 +390,8 @@
 				],
 				"quests": [
 					"starter_tutorial_00"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
@@ -458,13 +460,441 @@
 					"generichouse_end",
 					"generichouse_t",
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"store_groceries"
 				]
 			}
 		},
 		"sense_range": 30,
 		"sight_range": 50,
 		"sprite": "zombie1_64_64.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"description": "A zombie with a swollen abdomen, its flesh hanging loosely. It moves slowly but is tougher, with more resilience to damage than the basic zombie.",
+		"health": 60,
+		"hearing_range": 600,
+		"id": "bloated_zombie",
+		"idle_move_speed": 0.4,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 2,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.6,
+		"name": "Bloated Zombie",
+		"references": {
+			"core": {
+				"maps": [
+					"urbanroad",
+					"urbanroad_cross",
+					"store_groceries",
+					"office_building_00",
+					"Generichouse",
+					"subway_station",
+					"neighborhood_school",
+					"Generichouse_00",
+					"skyscraper",
+					"generichouse_cross",
+					"city_square",
+					"urbanroad_corner",
+					"parking_garage",
+					"two_story_house",
+					"urbanroad_t",
+					"generichouse_end",
+					"generichouse_t",
+					"generichouse_corner",
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sense_range": 40,
+		"sight_range": 60,
+		"sprite": "zombie_bloated_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"description": "A zombie with a misshapen face and a gaping mouth. It moves quickly and unpredictably, though still relatively weak. It can charge at players in a burst of speed.",
+		"health": 50,
+		"hearing_range": 700,
+		"id": "rushing_zombie",
+		"idle_move_speed": 0.5,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.8,
+		"name": "Rushing Zombie",
+		"references": {
+			"core": {
+				"maps": [
+					"urbanroad",
+					"urbanroad_cross",
+					"store_groceries",
+					"office_building_00",
+					"Generichouse",
+					"subway_station",
+					"neighborhood_school",
+					"Generichouse_00",
+					"skyscraper",
+					"generichouse_cross",
+					"city_square",
+					"urbanroad_corner",
+					"parking_garage",
+					"two_story_house",
+					"urbanroad_t",
+					"generichouse_end",
+					"generichouse_t",
+					"generichouse_corner",
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sense_range": 30,
+		"sight_range": 80,
+		"special_moves": {
+			"dash": {
+				"cooldown": 4,
+				"duration": 0.5,
+				"speed_multiplier": 2
+			}
+		},
+		"sprite": "zombie_rushing_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"description": "A zombie with burnt, charred skin, likely from a fire. It lumbers forward with erratic movements, but its resilience is higher than most zombies.",
+		"health": 70,
+		"hearing_range": 500,
+		"id": "charred_zombie",
+		"idle_move_speed": 0.4,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 1.5,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.8,
+		"name": "Charred Zombie",
+		"references": {
+			"core": {
+				"maps": [
+					"urbanroad",
+					"urbanroad_cross",
+					"store_groceries",
+					"office_building_00",
+					"Generichouse",
+					"subway_station",
+					"neighborhood_school",
+					"Generichouse_00",
+					"skyscraper",
+					"generichouse_cross",
+					"city_square",
+					"urbanroad_corner",
+					"parking_garage",
+					"two_story_house",
+					"urbanroad_t",
+					"generichouse_end",
+					"generichouse_t",
+					"generichouse_corner",
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sense_range": 40,
+		"sight_range": 60,
+		"sprite": "zombie_charred_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"description": "A zombie with its head deformed and swollen, like a bloated corpse. Its movements are slow but it hits hard and has a significant resistance to damage.",
+		"health": 80,
+		"hearing_range": 800,
+		"id": "heavy_zombie",
+		"idle_move_speed": 0.3,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 3,
+		"melee_knockback": 1,
+		"melee_range": 1.5,
+		"move_speed": 0.5,
+		"name": "Heavy Zombie",
+		"references": {
+			"core": {
+				"maps": [
+					"urbanroad",
+					"urbanroad_cross",
+					"store_groceries",
+					"office_building_00",
+					"Generichouse",
+					"subway_station",
+					"neighborhood_school",
+					"Generichouse_00",
+					"skyscraper",
+					"generichouse_cross",
+					"city_square",
+					"urbanroad_corner",
+					"parking_garage",
+					"two_story_house",
+					"urbanroad_t",
+					"generichouse_end",
+					"generichouse_t",
+					"generichouse_corner",
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sense_range": 50,
+		"sight_range": 50,
+		"sprite": "zombie_heavy_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 15,
+					"id": "head_health"
+				},
+				{
+					"damage": 15,
+					"id": "torso_health"
+				},
+				{
+					"damage": 15,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 15,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 15,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 15,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"description": "A fast-moving zombie with long, bony limbs. Its skin is pale and thin, making it look almost skeletal. It has moderate strength but is more difficult to hit due to its speed.",
+		"health": 50,
+		"hearing_range": 600,
+		"id": "skeleton_zombie",
+		"idle_move_speed": 0.8,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 1.5,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.9,
+		"name": "Skeleton Zombie",
+		"references": {
+			"core": {
+				"maps": [
+					"urbanroad",
+					"urbanroad_cross",
+					"store_groceries",
+					"office_building_00",
+					"Generichouse",
+					"subway_station",
+					"neighborhood_school",
+					"Generichouse_00",
+					"skyscraper",
+					"generichouse_cross",
+					"city_square",
+					"urbanroad_corner",
+					"parking_garage",
+					"two_story_house",
+					"urbanroad_t",
+					"generichouse_end",
+					"generichouse_t",
+					"generichouse_corner",
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sense_range": 40,
+		"sight_range": 70,
+		"sprite": "zombie_skeleton_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 12,
+					"id": "head_health"
+				},
+				{
+					"damage": 12,
+					"id": "torso_health"
+				},
+				{
+					"damage": 12,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 12,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 12,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 12,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"description": "A zombie with a partially broken leg, dragging itself across the ground with an unsettling limp. While it is slow, it can still latch onto players with a strong grip, making it hard to shake off.",
+		"health": 55,
+		"hearing_range": 600,
+		"id": "limping_zombie",
+		"idle_move_speed": 0.3,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 2,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.3,
+		"name": "Limping Zombie",
+		"references": {
+			"core": {
+				"maps": [
+					"urbanroad",
+					"urbanroad_cross",
+					"store_groceries",
+					"office_building_00",
+					"Generichouse",
+					"subway_station",
+					"neighborhood_school",
+					"Generichouse_00",
+					"skyscraper",
+					"generichouse_cross",
+					"city_square",
+					"urbanroad_corner",
+					"parking_garage",
+					"two_story_house",
+					"urbanroad_t",
+					"generichouse_end",
+					"generichouse_t",
+					"generichouse_corner",
+					"store_electronic_clothing"
+				]
+			}
+		},
+		"sense_range": 30,
+		"sight_range": 60,
+		"sprite": "zombie_limping_64_42.png",
 		"targetattributes": {
 			"all_of": [],
 			"any_of": [

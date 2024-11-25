@@ -85,13 +85,43 @@
 		{
 			"entities": [
 				{
-					"count": 1,
+					"count": 4,
 					"id": "basic_zombie_1",
 					"type": "mob"
 				},
 				{
-					"count": 1,
+					"count": 4,
 					"id": "basic_zombie_2",
+					"type": "mob"
+				},
+				{
+					"count": 3,
+					"id": "bloated_zombie",
+					"type": "mob"
+				},
+				{
+					"count": 2,
+					"id": "rushing_zombie",
+					"type": "mob"
+				},
+				{
+					"count": 1,
+					"id": "charred_zombie",
+					"type": "mob"
+				},
+				{
+					"count": 2,
+					"id": "heavy_zombie",
+					"type": "mob"
+				},
+				{
+					"count": 2,
+					"id": "skeleton_zombie",
+					"type": "mob"
+				},
+				{
+					"count": 3,
+					"id": "limping_zombie",
 					"type": "mob"
 				}
 			],
@@ -101,7 +131,7 @@
 			"spawn_chance": 100,
 			"tiles": [
 				{
-					"count": 500,
+					"count": 3000,
 					"id": "null"
 				}
 			]
