@@ -38,3 +38,7 @@ func generate_grid():
 			else:
 				# If no tile exists at the current position, set texture to null
 				tile_instance.set_texture(null)
+
+
+func _on_back_button_button_up() -> void:
+	get_tree().change_scene_to_file("res://Scenes/ContentManager/othertools.tscn")
