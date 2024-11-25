@@ -14,6 +14,7 @@ extends Control
 @export var questsEditor: PackedScene = null
 @export var playerattributesEditor: PackedScene = null
 @export var overmapareaEditor: PackedScene = null
+@export var mobgroupsEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
 @export var type_selector_menu_button: MenuButton = null
@@ -34,6 +35,7 @@ func _ready():
 	load_content_list(Gamedata.ContentType.SKILLS, "Skills")
 	load_content_list(Gamedata.ContentType.QUESTS, "Quests")
 	load_content_list(Gamedata.ContentType.OVERMAPAREAS, "Overmap areas")
+	load_content_list(Gamedata.ContentType.MOBGROUPS, "Mob groups")
 	# Populate the type_selector_menu_button with items
 	populate_type_selector_menu_button()
 
@@ -77,7 +79,8 @@ func _on_content_item_activated(type: Gamedata.ContentType, itemID: String, list
 		Gamedata.ContentType.STATS: statsEditor,
 		Gamedata.ContentType.SKILLS: skillsEditor,
 		Gamedata.ContentType.QUESTS: questsEditor,
-		Gamedata.ContentType.OVERMAPAREAS: overmapareaEditor
+		Gamedata.ContentType.OVERMAPAREAS: overmapareaEditor,
+		Gamedata.ContentType.MOBGROUPS: mobgroupsEditor
 	}
 
 	instantiate_editor(type, itemID, editors[type], list)
@@ -155,6 +158,10 @@ func instantiate_editor(type: Gamedata.ContentType, itemID: String, newEditor: P
 			newContentEditor.dovermaparea = Gamedata.overmapareas.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
+		Gamedata.ContentType.MOBGROUPS:
+			newContentEditor.dmobgroup = Gamedata.mobgroups.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
+		
 		_:
 			print("Unknown content type:", type)
 
@@ -172,7 +179,7 @@ func populate_type_selector_menu_button():
 	var headers = [
 		"Maps", "Tactical Maps", "Items", "Terrain Tiles", "Mobs", 
 		"Furniture", "Item Groups", "Player Attributes", "Wearable Slots", 
-		"Stats", "Skills", "Quests", "Overmap areas"
+		"Stats", "Skills", "Quests", "Overmap areas", "Mob groups"
 	]
 	
 	for i in headers.size():
