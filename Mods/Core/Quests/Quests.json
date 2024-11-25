@@ -98,5 +98,77 @@
 				"type": "enter"
 			}
 		]
+	},
+	{
+		"description": "In the last remaining days of this godforsaken world, it is up to survivors like us to avenge the living by pacifying the forces of evil.",
+		"id": "quest_holy_crusade_01",
+		"name": "The Last Holy Crusade",
+		"rewards": [
+			{
+				"amount": 10,
+				"item_id": "painkiller"
+			},
+			{
+				"amount": 1,
+				"item_id": "compass"
+			},
+			{
+				"amount": 1,
+				"item_id": "flashlight_basic"
+			},
+			{
+				"amount": 3,
+				"item_id": "canned_food"
+			},
+			{
+				"amount": 10,
+				"item_id": "bandage_basic"
+			},
+			{
+				"amount": 1,
+				"item_id": "bottle_antibiotics"
+			},
+			{
+				"amount": 1,
+				"item_id": "bottle_plastic_water"
+			},
+			{
+				"amount": 1,
+				"item_id": "bottle_antidote"
+			}
+		],
+		"sprite": "rifle_64_32.png",
+		"steps": [
+			{
+				"amount": 30,
+				"map_guide": "none",
+				"mob": "basic_zombie_1",
+				"type": "kill"
+			},
+			{
+				"amount": 15,
+				"map_guide": "none",
+				"mob": "rushing_zombie",
+				"type": "kill"
+			},
+			{
+				"amount": 7,
+				"map_guide": "none",
+				"mob": "bloated_zombie",
+				"type": "kill"
+			},
+			{
+				"amount": 5,
+				"map_guide": "none",
+				"mob": "heavy_zombie",
+				"type": "kill"
+			},
+			{
+				"amount": 3,
+				"map_guide": "none",
+				"mob": "skeleton_zombie",
+				"type": "kill"
+			}
+		]
 	}
 ]

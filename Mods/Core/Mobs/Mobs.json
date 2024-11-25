@@ -391,7 +391,8 @@
 				"quests": [
 					"starter_tutorial_00",
 					"store_electronic_clothing",
-					"store_groceries"
+					"store_groceries",
+					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -532,6 +533,9 @@
 					"generichouse_t",
 					"generichouse_corner",
 					"store_electronic_clothing"
+				],
+				"quests": [
+					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -602,6 +606,9 @@
 					"generichouse_t",
 					"generichouse_corner",
 					"store_electronic_clothing"
+				],
+				"quests": [
+					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -749,6 +756,9 @@
 					"generichouse_t",
 					"generichouse_corner",
 					"store_electronic_clothing"
+				],
+				"quests": [
+					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -819,6 +829,9 @@
 					"generichouse_t",
 					"generichouse_corner",
 					"store_electronic_clothing"
+				],
+				"quests": [
+					"quest_holy_crusade_01"
 				]
 			}
 		},
