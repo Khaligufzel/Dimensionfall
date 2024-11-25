@@ -71,6 +71,7 @@ func load_quest_data() -> void:
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
 	dquest.spriteid = PathTextLabel.text
+	dquest.sprite = questImageDisplay.texture
 	dquest.name = NameTextEdit.text
 	dquest.description = DescriptionTextEdit.text
 	dquest.steps = []
