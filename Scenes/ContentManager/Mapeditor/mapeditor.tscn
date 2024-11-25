@@ -130,7 +130,8 @@ text = "Save"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.15
-tooltip_text = "Saves your changes to the map to disk."
+tooltip_text = "Saves your changes to the map to disk and loads your map
+into the test environment. You will leave the content editor!"
 text = "Save & test"
 
 [node name="CreatePreviewImageButton" type="CheckBox" parent="TabContainer/Edit Map/MapeditorContainer/Toolbar"]
