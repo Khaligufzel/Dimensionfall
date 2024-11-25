@@ -15,17 +15,17 @@ func update_quest_ui(quest_name: String):
 	# Update the quest name label
 	var dquest: DQuest = Gamedata.quests.by_id(quest_name)
 	quest_name_label.text = dquest.name
-	
+
 	# Get the current step
 	var current_step = QuestManager.get_current_step(quest_name)
 	if current_step == null or current_step.is_empty():
 		hide_ui_elements()
 		return
-	
+
 	# Retrieve step requirement details
 	var step_type = current_step.get("step_type", "Unknown")
 	var step_requirement = ""
-	
+
 	match step_type:
 		QuestManager.INCREMENTAL_STEP:
 			var stepmeta: Dictionary = current_step.get("meta_data", {}).get("stepjson", {})
@@ -37,12 +37,19 @@ func update_quest_ui(quest_name: String):
 				var item_name = Gamedata.items.by_id(item_id).name if item_id != "" else "Unknown Item"
 				step_requirement = "Collect " + str(current_amount) + "/" + str(target_amount) + " " + item_name
 			elif stepmeta.get("type", "") == "kill":
-				var mob_id = stepmeta.get("mob", "")
-				var mob_name = Gamedata.mobs.by_id(mob_id).name if mob_id != "" else "Unknown Mob"
-				step_requirement = "Kill " + str(current_amount) + "/" + str(target_amount) + " " + mob_name
+				if stepmeta.has("mob"):
+					var mob_id = stepmeta["mob"]
+					var mob_name = Gamedata.mobs.by_id(mob_id).name if mob_id != "" else "Unknown Mob"
+					step_requirement = "Kill " + str(current_amount) + "/" + str(target_amount) + " " + mob_name
+				elif stepmeta.has("mobgroup"):
+					var mobgroup_id = stepmeta["mobgroup"]
+					var mobgroup_name = Gamedata.mobgroups.by_id(mobgroup_id).name if mobgroup_id != "" else "Unknown Mob Group"
+					step_requirement = "Kill " + str(current_amount) + "/" + str(target_amount) + " from " + mobgroup_name
+				else:
+					step_requirement = "Kill target not specified."
 			else:
 				step_requirement = "Progress: " + str(current_amount) + "/" + str(target_amount)
-				
+
 		QuestManager.ITEMS_STEP:
 			var items_required = current_step.get("required_items", {})
 			step_requirement = "Items needed: " + str(items_required)
@@ -50,9 +57,10 @@ func update_quest_ui(quest_name: String):
 			step_requirement = current_step.details
 		_:
 			step_requirement = "Objective unknown."
-	
+
 	# Update the quest step label
 	quest_target_label.text = step_requirement
+
 
 
 # Example call to update the UI with a specific quest

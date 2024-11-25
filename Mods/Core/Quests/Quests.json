@@ -142,7 +142,7 @@
 			{
 				"amount": 30,
 				"map_guide": "none",
-				"mob": "basic_zombie_1",
+				"mobgroup": "basic_zombies",
 				"type": "kill"
 			},
 			{

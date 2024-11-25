@@ -112,10 +112,17 @@ func delete():
 	for mob in mobs.keys():
 		Gamedata.mobs.remove_reference(mob, "core", "mobgroups", id)
 
-# Retrieves the list of maps referenced by the mob group
+# Retrieves all maps associated with the mob group, including maps from its mobs.
 func get_maps() -> Array:
-	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
-	return mapsdata if mapsdata else []
+	var unique_maps: Array = Helper.json_helper.get_nested_data(references, "core.maps") or []
+
+	# Collect maps from each mob in the group
+	for mob_id in mobs.keys():
+		var mob = Gamedata.mobs.by_id(mob_id)
+		if mob:
+			unique_maps = Helper.json_helper.merge_unique(unique_maps, mob.get_maps())
+	return unique_maps
+
 
 # Function to return an array of all mob IDs in the "mobs" property
 func get_mob_ids() -> Array[String]:
@@ -123,6 +130,7 @@ func get_mob_ids() -> Array[String]:
 	for mob_id in mobs.keys():
 		mob_ids.append(mob_id)
 	return mob_ids
+
 
 # Function to check if a specific mob ID exists in the "mobs" property
 func has_mob(mob_id: String) -> bool:

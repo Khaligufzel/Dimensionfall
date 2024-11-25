@@ -276,11 +276,23 @@ func _handle_collect_step(step: Dictionary) -> String:
 # Function to handle the "kill" step type
 func _handle_kill_step(step: Dictionary) -> String:
 	var step_details_text = ""
-	# Retrieve mob data using the item name (ID) from the step
-	var dmob: DMob = Gamedata.mobs.by_id(step.item_name)
-	# Construct the step details text with the required and killed mob counts
-	step_details_text += "Kill " + str(step.required) + " "
-	step_details_text += dmob.name + " (Killed: " 
+	var step_meta = step.meta_data.get("stepjson", {})
+	
+	if step_meta.has("mob"):
+		# Handle single mob case
+		var dmob: DMob = Gamedata.mobs.by_id(step_meta["mob"])
+		step_details_text += "Kill " + str(step.required) + " "
+		step_details_text += dmob.name + " (Killed: "
+	elif step_meta.has("mobgroup"):
+		# Handle mob group case
+		var dmobgroup: DMobgroup = Gamedata.mobgroups.by_id(step_meta["mobgroup"])
+		step_details_text += "Kill " + str(step.required) + " "
+		step_details_text += dmobgroup.name + " (Killed: "
+	else:
+		# Handle missing data
+		step_details_text += "Kill target not specified (Killed: "
+
+	# Append the collected count and close the text
 	step_details_text += str(step.collected) + ")"
 	return step_details_text
 

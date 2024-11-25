@@ -151,23 +151,32 @@ func create_quest_from_data(quest_data: DQuest):
 func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 	match step.type:
 		"collect":
-			# Add an incremental step
+			# Add an incremental step for collecting items
 			quest.add_incremental_step("Gather items", step.item, step.amount, {"stepjson": step})
 			return true
 		"kill":
-			# Add an incremental step
-			quest.add_incremental_step("Kill mob", step.mob, step.amount, {"stepjson": step})
+			# Determine whether the step references a mob or a mobgroup
+			if step.has("mob"):
+				# Add an incremental step for killing a specific mob
+				quest.add_incremental_step("Kill mob", step.mob, step.amount, {"stepjson": step})
+			elif step.has("mobgroup"):
+				# Add an incremental step for killing mobs in a specific mobgroup
+				quest.add_incremental_step("Kill mob group", step.mobgroup, step.amount, {"stepjson": step})
+			else:
+				print_debug("Kill step is missing 'mob' or 'mobgroup'.")
+				return false
 			return true
 		"craft":
-			# Add an incremental step
+			# Add an action step for crafting an item
 			quest.add_action_step("Craft a " + Gamedata.items.by_id(step.item).name, {"stepjson": step})
 			return true
 		"enter":
-			# Add an action step to inform the player to travel to the specified map
+			# Add an action step for entering a specific map
 			var map_name: String = Gamedata.maps.by_id(step.map_id).name
 			quest.add_action_step("Travel to " + map_name, {"stepjson": step})
 			return true
 	return false
+
 
 
 # An item is added to the player inventory. Now we need to update the quests
@@ -232,11 +241,20 @@ func update_quest_step(myquestname: String, item_id: String, item_count: int, ad
 # A mob has been killed. TODO: Add who or what killed it so we know if it was the player
 func _on_mob_killed(mobinstance: Mob):
 	var mob_id: String = mobinstance.mobJSON.id
-	# Get the current quests in progress
 	var quests_in_progress = QuestManager.get_quests_in_progress()
+
 	# Update each of the current quests with the collected item information
+	# Check quests for direct mob or mobgroup associations
 	for quest in quests_in_progress.values():
-		update_quest_step(quest.quest_name, mob_id, 1, true)
+		var step = QuestManager.get_current_step(quest.quest_name)
+		var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
+		if stepmeta.get("type", "") == "kill":
+			if stepmeta.has("mob") and stepmeta["mob"] == mob_id:
+				update_quest_step(quest.quest_name, mob_id, 1, true)
+			elif stepmeta.has("mobgroup"):
+				var group_id = stepmeta["mobgroup"]
+				if Gamedata.mobgroups.by_id(group_id).has_mob(mob_id):
+					update_quest_step(quest.quest_name, group_id, 1, true)
 
 
 # The player has succesfully crafted an item.
@@ -338,32 +356,39 @@ func _on_quest_window_track_quest_clicked(quest_name: String) -> void:
 
 # Emits the target map signal for "kill" steps
 func _emit_target_map_for_kill_step(stepmeta: Dictionary):
-	# Emit the target_map_changed signal with map_guide and maps_list
+	# Get the map guide type
 	var map_guide: String = stepmeta.get("map_guide", "none")
 	if map_guide == "none":
 		return
-	
-	# Get the mob ID from the step metadata
-	var mob_id: String = stepmeta.get("mob", "")
-	if mob_id == "":
-		print_debug("Kill step metadata does not have a valid mob ID.")
-		return
 
-	# Retrieve the mob data (DMob instance)
-	var dmob = Gamedata.mobs.by_id(mob_id)
-	if dmob == null:
-		print_debug("No DMob data found for mob ID: " + mob_id)
-		return
+	# Determine if we're working with a mob or mobgroup
+	var maps_list: Array = []
+	if stepmeta.has("mob"):
+		maps_list = get_maps_from_entity(Gamedata.mobs, stepmeta["mob"])
+	elif stepmeta.has("mobgroup"):
+		maps_list = get_maps_from_entity(Gamedata.mobgroups, stepmeta["mobgroup"])
 
-	# Get the list of maps associated with the mob
-	var maps_list: Array = dmob.get_maps()
+	# Ensure the maps list is not empty
 	if maps_list.is_empty():
-		print_debug("No maps associated with mob ID: " + mob_id)
+		print_debug("No maps associated with the specified mob or mobgroup.")
 		return
 
+	# Emit the target map signal with the gathered maps and properties
 	var target_properties: Dictionary = {
 		"reveal_condition": map_guide,
 		"exact_match": true,
 		"dynamic": true
 	}
 	target_map_changed.emit(maps_list, target_properties)
+
+func get_maps_from_entity(data_source: RefCounted, entity_id: String) -> Array:
+	if entity_id == "":
+		print_debug("Invalid entity ID.")
+		return []
+
+	var entity = data_source.by_id(entity_id)
+	if entity == null:
+		print_debug("No data found for entity ID: " + entity_id)
+		return []
+
+	return entity.get_maps()
