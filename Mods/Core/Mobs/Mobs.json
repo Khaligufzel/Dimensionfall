@@ -394,7 +394,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"urbanroad",
 					"urbanroad_cross",
 					"urbanroad_corner",
 					"urbanroad_t",
@@ -467,7 +466,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"urbanroad",
 					"urbanroad_cross",
 					"urbanroad_corner",
 					"urbanroad_t",
@@ -541,7 +539,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"urbanroad",
 					"urbanroad_cross",
 					"store_groceries",
 					"office_building_00",
@@ -615,7 +612,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"urbanroad",
 					"urbanroad_cross",
 					"store_groceries",
 					"office_building_00",
@@ -696,7 +692,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"urbanroad",
 					"urbanroad_cross",
 					"store_groceries",
 					"office_building_00",
@@ -770,7 +765,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"urbanroad",
 					"urbanroad_cross",
 					"store_groceries",
 					"office_building_00",
@@ -844,7 +838,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"urbanroad",
 					"urbanroad_cross",
 					"store_groceries",
 					"office_building_00",
@@ -918,7 +911,6 @@
 		"references": {
 			"core": {
 				"maps": [
-					"urbanroad",
 					"urbanroad_cross",
 					"store_groceries",
 					"office_building_00",

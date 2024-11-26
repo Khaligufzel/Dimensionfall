@@ -15,6 +15,9 @@
 		"name": "Basic zombies",
 		"references": {
 			"core": {
+				"maps": [
+					"urbanroad"
+				],
 				"quests": [
 					"starter_tutorial_00",
 					"quest_holy_crusade_01"
