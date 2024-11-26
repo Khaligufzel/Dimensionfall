@@ -137,36 +137,13 @@
 				"item_id": "bottle_antidote"
 			}
 		],
-		"sprite": "rifle_64_32.png",
+		"sprite": "machete_32.png",
 		"steps": [
 			{
-				"amount": 30,
+				"amount": 100,
 				"map_guide": "none",
-				"mob": "basic_zombie_1",
-				"type": "kill"
-			},
-			{
-				"amount": 15,
-				"map_guide": "none",
-				"mob": "rushing_zombie",
-				"type": "kill"
-			},
-			{
-				"amount": 7,
-				"map_guide": "none",
-				"mob": "bloated_zombie",
-				"type": "kill"
-			},
-			{
-				"amount": 5,
-				"map_guide": "none",
-				"mob": "heavy_zombie",
-				"type": "kill"
-			},
-			{
-				"amount": 3,
-				"map_guide": "none",
-				"mob": "skeleton_zombie",
+				"mobgroup": "basic_zombies",
+				"tip": "Kill any undead enemy you find.",
 				"type": "kill"
 			}
 		]
