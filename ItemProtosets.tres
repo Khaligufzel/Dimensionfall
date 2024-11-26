@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://j4mvcyastyf"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -263,7 +263,8 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"kitchen_cupboard\",
-					\"urban_litter\"
+					\"urban_litter\",
+					\"zombie_loot\"
 				],
 				\"items\": [
 					\"screwdriver\"
@@ -296,7 +297,8 @@ json_data = "[
 					\"kitchen_cupboard\",
 					\"cabinet_general\",
 					\"refridgerator\",
-					\"vending_machine_drinks\"
+					\"vending_machine_drinks\",
+					\"zombie_loot\"
 				],
 				\"quests\": [
 					\"quest_holy_crusade_01\"
@@ -548,7 +550,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"clothing_general\"
+					\"clothing_general\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -571,7 +574,8 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"cabinet_general\",
-					\"clothing_general\"
+					\"clothing_general\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -667,7 +671,8 @@ json_data = "[
 				\"itemgroups\": [
 					\"kitchen_cupboard\",
 					\"refridgerator\",
-					\"vending_machine_drinks\"
+					\"vending_machine_drinks\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -687,7 +692,8 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"vending_machine_snacks\",
-					\"urban_litter\"
+					\"urban_litter\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -1711,6 +1717,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/insulin_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Insulin\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"zombie_loot\"
+				]
+			}
+		},
 		\"sprite\": \"insulin_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -1753,6 +1766,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/epipen_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"EpiPen\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"zombie_loot\"
+				]
+			}
+		},
 		\"sprite\": \"epipen_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -1832,6 +1852,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/syringe_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Syringe\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"zombie_loot\"
+				]
+			}
+		},
 		\"sprite\": \"syringe_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -1983,7 +2010,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"vending_machine_snacks\"
+					\"vending_machine_snacks\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -2131,7 +2159,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"first_aid\"
+					\"first_aid\",
+					\"zombie_loot\"
 				],
 				\"quests\": [
 					\"quest_holy_crusade_01\"
@@ -2322,7 +2351,8 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"refridgerator\",
-					\"vending_machine_drinks\"
+					\"vending_machine_drinks\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -2350,7 +2380,8 @@ json_data = "[
 			\"core\": {
 				\"itemgroups\": [
 					\"refridgerator\",
-					\"vending_machine_drinks\"
+					\"vending_machine_drinks\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -2399,7 +2430,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"clothing_general\"
+					\"clothing_general\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -2427,7 +2459,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"clothing_general\"
+					\"clothing_general\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -2521,7 +2554,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"clothing_general\"
+					\"clothing_general\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -2543,7 +2577,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"clothing_general\"
+					\"clothing_general\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -2565,7 +2600,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"clothing_general\"
+					\"clothing_general\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -2587,7 +2623,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"clothing_general\"
+					\"clothing_general\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -2606,6 +2643,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/shorts_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Shorts\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"zombie_loot\"
+				]
+			}
+		},
 		\"sprite\": \"shorts_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -2636,6 +2680,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/socks_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Socks\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"zombie_loot\"
+				]
+			}
+		},
 		\"sprite\": \"socks_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -3197,7 +3248,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"clothing_general\"
+					\"clothing_general\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -3225,7 +3277,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"clothing_general\"
+					\"clothing_general\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -3253,7 +3306,8 @@ json_data = "[
 		\"references\": {
 			\"core\": {
 				\"itemgroups\": [
-					\"clothing_general\"
+					\"clothing_general\",
+					\"zombie_loot\"
 				]
 			}
 		},
@@ -3501,6 +3555,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/wallet_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Wallet\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"zombie_loot\"
+				]
+			}
+		},
 		\"sprite\": \"wallet_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -3516,6 +3577,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/watch_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Wallet\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"zombie_loot\"
+				]
+			}
+		},
 		\"sprite\": \"watch_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -3544,6 +3612,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/rotten_flesh_chunk_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Chunk of Rotten Flesh\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"zombie_loot\"
+				]
+			}
+		},
 		\"sprite\": \"rotten_flesh_chunk_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -3556,6 +3631,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/zombie_bone_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Zombie Bone\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"zombie_loot\"
+				]
+			}
+		},
 		\"sprite\": \"zombie_bone_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -3584,6 +3666,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/zombie_eye_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Zombie Eye\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"zombie_loot\"
+				]
+			}
+		},
 		\"sprite\": \"zombie_eye_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
@@ -3612,6 +3701,13 @@ json_data = "[
 		\"image\": \"./Mods/Core/Items/zombie_organ_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Decayed Organ\",
+		\"references\": {
+			\"core\": {
+				\"itemgroups\": [
+					\"zombie_loot\"
+				]
+			}
+		},
 		\"sprite\": \"zombie_organ_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
