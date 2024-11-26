@@ -1,6 +1,7 @@
 extends Node3D
 
 @export var canvas_layer: CanvasLayer = null
+@export var chunk: Chunk = null
 
 
 
@@ -17,6 +18,7 @@ func _process(_delta):
 
 # The user pressed the return button, we go to the contenteditor
 func _on_return_button_button_up() -> void:
+	chunk.unload_chunk()
 	Helper.test_map_name = "" # Reset this before returning otherwise the main game will be in trouble
 	get_tree().change_scene_to_file("res://Scenes/ContentManager/contenteditor.tscn")
 
