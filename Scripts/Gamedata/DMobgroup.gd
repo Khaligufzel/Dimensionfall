@@ -154,3 +154,26 @@ func execute_callable_on_references_of_type(module: String, type: String, callab
 		# If the type exists, execute the callable on each ID found under this type
 		for ref_id in references[module][type]:
 			callable.call(ref_id)
+
+
+# Function to return a randomly selected mob ID based on the weights in the "mobs" property
+func get_random_mob_id() -> String:
+	# If no mobs are present, return an empty string
+	if mobs.is_empty():
+		return ""
+
+	# Calculate the total weight
+	var total_weight: int = 0
+	for weight in mobs.values():
+		total_weight += weight
+
+	# Generate a random number within the total weight
+	var random_pick: int = randi() % total_weight
+
+	# Iterate through the mobs and select the mob based on the random pick
+	for mob_id in mobs.keys():
+		random_pick -= mobs[mob_id]
+		if random_pick < 0:
+			return mob_id  # Return the selected mob ID
+
+	return ""  # Fallback in case of an error, should not be reached

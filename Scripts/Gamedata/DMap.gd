@@ -270,6 +270,9 @@ func add_entities_in_area_to_set(myarea: Dictionary, entity_set: Dictionary):
 				"mob":
 					if not entity_set["mobs"].has(entity["id"]):
 						entity_set["mobs"].append(entity["id"])
+				"mobgroup":
+					if not entity_set["mobgroups"].has(entity["id"]):
+						entity_set["mobgroups"].append(entity["id"])
 				"furniture":
 					if not entity_set["furniture"].has(entity["id"]):
 						entity_set["furniture"].append(entity["id"])
@@ -289,8 +292,8 @@ func add_entities_to_set(level: Array, entity_set: Dictionary):
 	for entity in level:
 		if entity.has("mob") and not entity_set["mobs"].has(entity["mob"]["id"]):
 			entity_set["mobs"].append(entity["mob"]["id"])
-		if entity.has("mobgroup") and not entity_set["mobgroups"].has(entity["mobgroup"]):  # Add mobgroup
-			entity_set["mobgroups"].append(entity["mobgroup"])
+		if entity.has("mobgroup") and not entity_set["mobgroups"].has(entity["mobgroup"]["id"]):  # Add mobgroup
+			entity_set["mobgroups"].append(entity["mobgroup"]["id"])
 		if entity.has("furniture"):
 			if not entity_set["furniture"].has(entity["furniture"]["id"]):
 				entity_set["furniture"].append(entity["furniture"]["id"])
@@ -345,7 +348,7 @@ func remove_entity_from_levels(entity_type: String, entity_id: String) -> void:
 						entity.erase("mob")  # Removing the mob object from the entity
 				"mobgroup":
 					# Check if the entity has 'mobgroup' and matches the given ID
-					if entity.has("mobgroup") and entity["mobgroup"] == entity_id:
+					if entity.has("mobgroup") and entity["mobgroup"].get("id", "") == entity_id:
 						entity.erase("mobgroup")  # Remove mobgroup from the entity
 				"itemgroup":
 					# Check if the entity has 'furniture' and 'itemgroups', then remove the itemgroup
