@@ -16,7 +16,8 @@
 		"references": {
 			"core": {
 				"quests": [
-					"starter_tutorial_00"
+					"starter_tutorial_00",
+					"quest_holy_crusade_01"
 				]
 			}
 		},
