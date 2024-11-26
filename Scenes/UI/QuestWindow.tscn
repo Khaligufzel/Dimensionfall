@@ -17,7 +17,7 @@ current_quests_list = NodePath("PanelContainer/VBoxContainer/HBoxContainer/Quest
 completed_quests_list = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Completed/CompletedQuestList")
 failed_quests_list = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Failed/FailedQuestList")
 quest_details_section = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection")
-quest_rewards = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/QuestRewards")
+quest_rewards = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/ScrollContainer/QuestRewards")
 step_details_text_edit = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/StepDetailsTextEdit")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -105,7 +105,14 @@ text = "Track quest"
 layout_mode = 2
 text = "Rewards:"
 
-[node name="QuestRewards" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+vertical_scroll_mode = 2
+
+[node name="QuestRewards" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/ScrollContainer"]
+clip_contents = true
 layout_mode = 2
 
 [connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/TrackQuestButton" to="." method="_on_track_quest_button_button_up"]
