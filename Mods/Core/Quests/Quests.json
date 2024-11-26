@@ -31,7 +31,7 @@
 			{
 				"amount": 2,
 				"map_guide": "revealed",
-				"mob": "basic_zombie_1",
+				"mobgroup": "basic_zombies",
 				"tip": "The map will show you where to find them and update the target if there's no zombie there.",
 				"type": "kill"
 			},

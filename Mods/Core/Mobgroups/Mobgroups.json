@@ -1,0 +1,25 @@
+[
+	{
+		"description": "A group of basic zombies, representing a minor threat to the player",
+		"id": "basic_zombies",
+		"mobs": {
+			"basic_zombie_1": 100,
+			"basic_zombie_2": 100,
+			"bloated_zombie": 50,
+			"charred_zombie": 10,
+			"heavy_zombie": 50,
+			"limping_zombie": 25,
+			"rushing_zombie": 25,
+			"skeleton_zombie": 10
+		},
+		"name": "Basic zombies",
+		"references": {
+			"core": {
+				"quests": [
+					"starter_tutorial_00"
+				]
+			}
+		},
+		"spriteid": "zombie_64_64.png"
+	}
+]

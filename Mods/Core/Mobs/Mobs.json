@@ -388,10 +388,10 @@
 					"generichouse_corner",
 					"store_electronic_clothing"
 				],
+				"mobgroups": [
+					"basic_zombies"
+				],
 				"quests": [
-					"starter_tutorial_00",
-					"store_electronic_clothing",
-					"store_groceries",
 					"quest_holy_crusade_01"
 				]
 			}
@@ -463,6 +463,9 @@
 					"generichouse_corner",
 					"store_electronic_clothing",
 					"store_groceries"
+				],
+				"mobgroups": [
+					"basic_zombies"
 				]
 			}
 		},
@@ -533,6 +536,9 @@
 					"generichouse_t",
 					"generichouse_corner",
 					"store_electronic_clothing"
+				],
+				"mobgroups": [
+					"basic_zombies"
 				],
 				"quests": [
 					"quest_holy_crusade_01"
@@ -606,6 +612,9 @@
 					"generichouse_t",
 					"generichouse_corner",
 					"store_electronic_clothing"
+				],
+				"mobgroups": [
+					"basic_zombies"
 				],
 				"quests": [
 					"quest_holy_crusade_01"
@@ -686,6 +695,9 @@
 					"generichouse_t",
 					"generichouse_corner",
 					"store_electronic_clothing"
+				],
+				"mobgroups": [
+					"basic_zombies"
 				]
 			}
 		},
@@ -756,6 +768,9 @@
 					"generichouse_t",
 					"generichouse_corner",
 					"store_electronic_clothing"
+				],
+				"mobgroups": [
+					"basic_zombies"
 				],
 				"quests": [
 					"quest_holy_crusade_01"
@@ -830,6 +845,9 @@
 					"generichouse_corner",
 					"store_electronic_clothing"
 				],
+				"mobgroups": [
+					"basic_zombies"
+				],
 				"quests": [
 					"quest_holy_crusade_01"
 				]
@@ -902,6 +920,9 @@
 					"generichouse_t",
 					"generichouse_corner",
 					"store_electronic_clothing"
+				],
+				"mobgroups": [
+					"basic_zombies"
 				]
 			}
 		},

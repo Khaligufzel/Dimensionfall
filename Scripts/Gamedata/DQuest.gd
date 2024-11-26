@@ -92,18 +92,18 @@ func delete():
 func changed(olddata: DQuest):
 	var quest_id: String = id
 
-	# Get items and mobs from the old steps
+	# Get items, mobs, mobgroups, and maps from the old steps
 	var old_quest_items: Array = olddata.steps.filter(func(step): return step.has("item"))
 	var old_quest_mobs: Array = olddata.steps.filter(func(step): return step.has("mob"))
+	var old_quest_mobgroups: Array = olddata.steps.filter(func(step): return step.has("mobgroup"))
 	var old_quest_maps: Array = olddata.steps.filter(func(step): return step.has("map_id"))
-	# Get rewards from the old data
 	var old_quest_rewards: Array = olddata.rewards.filter(func(reward): return reward.has("item_id"))
 
-	# Get items and mobs from the new steps
+	# Get items, mobs, mobgroups, and maps from the new steps
 	var new_quest_items: Array = steps.filter(func(step): return step.has("item"))
 	var new_quest_mobs: Array = steps.filter(func(step): return step.has("mob"))
+	var new_quest_mobgroups: Array = steps.filter(func(step): return step.has("mobgroup"))
 	var new_quest_maps: Array = steps.filter(func(step): return step.has("map_id"))
-	# Get rewards from the new data
 	var new_quest_rewards: Array = rewards.filter(func(reward): return reward.has("item_id"))
 
 	# Remove references for old items and rewards that are not in the new data
@@ -124,6 +124,11 @@ func changed(olddata: DQuest):
 		if old_mob not in new_quest_mobs:
 			Gamedata.mobs.remove_reference(old_mob.mob, "core", "quests", quest_id)
 
+	# Remove references for old mobgroups that are not in the new data
+	for old_mobgroup in old_quest_mobgroups:
+		if old_mobgroup not in new_quest_mobgroups:
+			Gamedata.mobgroups.remove_reference(old_mobgroup.mobgroup, "core", "quests", quest_id)
+
 	# Add references for new items and rewards
 	for new_item in new_quest_items:
 		Gamedata.items.add_reference(new_item.item, "core", "quests", quest_id)
@@ -138,7 +143,12 @@ func changed(olddata: DQuest):
 	for new_mob in new_quest_mobs:
 		Gamedata.mobs.add_reference(new_mob.mob, "core", "quests", quest_id)
 
+	# Add references for new mobgroups
+	for new_mobgroup in new_quest_mobgroups:
+		Gamedata.mobgroups.add_reference(new_mobgroup.mobgroup, "core", "quests", quest_id)
+
 	save_to_disk()
+
 
 # Removes all steps where the mob property matches the given mob_id
 func remove_steps_by_mob(mob_id: String) -> void:

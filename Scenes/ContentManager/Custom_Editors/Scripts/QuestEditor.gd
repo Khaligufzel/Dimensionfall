@@ -103,10 +103,21 @@ func _on_save_button_button_up() -> void:
 			step["tip"] = (hbox.get_child(3) as TextEdit).text
 		elif step_type_label.text == "Kill:":
 			step["type"] = "kill"
-			step["mob"] = (hbox.get_child(1)).get_text()
+			var dropable_control = hbox.get_child(1) as HBoxContainer
+			var mob_or_group = dropable_control.get_text()
+			var entity_type = dropable_control.get_meta("entity_type")
+
+			# Save as mob or mobgroup based on metadata
+			if entity_type == "mob":
+				step["mob"] = mob_or_group
+			elif entity_type == "mobgroup":
+				step["mobgroup"] = mob_or_group
+			else:
+				print_debug("Invalid entity type metadata: " + str(entity_type))
+
 			step["amount"] = (hbox.get_child(2) as SpinBox).value
-			var reveal_option_button: OptionButton = hbox.get_child(3)
-			step["map_guide"] = reveal_option_button.get_item_text(reveal_option_button.selected)
+			var map_guide_option_button: OptionButton = hbox.get_child(3)
+			step["map_guide"] = map_guide_option_button.get_item_text(map_guide_option_button.selected)
 			step["tip"] = (hbox.get_child(4) as TextEdit).text
 		
 		# Remove "tip" key if it is empty
@@ -278,11 +289,11 @@ func add_kill_step(step: Dictionary) -> HBoxContainer:
 	label_instance.text = "Kill:"
 	hbox.add_child(label_instance)
 
-	# Add the dropable text edit for the mob ID
+	# Add the dropable text edit for the mob or mobgroup ID
 	var dropable_textedit_instance: HBoxContainer = dropabletextedit.instantiate()
-	dropable_textedit_instance.set_text(step["mob"])
+	dropable_textedit_instance.set_text(step.get("mob", step.get("mobgroup", "")))
 	dropable_textedit_instance.set_meta("step_type", "kill")
-	dropable_textedit_instance.myplaceholdertext = "Drop a mob from the left menu"
+	dropable_textedit_instance.myplaceholdertext = "Drop a mob or mobgroup from the left menu"
 	set_drop_functions(dropable_textedit_instance)
 	hbox.add_child(dropable_textedit_instance)
 
@@ -381,17 +392,27 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 	if dropped_data and "id" in dropped_data:
 		var step_type = texteditcontrol.get_meta("step_type")
 		var valid_data = false
+		var entity_type = ""  # To store whether it is mob or mobgroup
 		
 		match step_type:
 			"craft", "collect":
 				valid_data = Gamedata.items.has_id(dropped_data["id"])
 			"kill":
-				valid_data = Gamedata.mobs.has_id(dropped_data["id"])
+				if Gamedata.mobs.has_id(dropped_data["id"]):
+					valid_data = true
+					entity_type = "mob"
+				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
+					valid_data = true
+					entity_type = "mobgroup"
 			"enter":
 				valid_data = Gamedata.maps.has_id(dropped_data["id"])
 		
 		if valid_data:
 			texteditcontrol.set_text(dropped_data["id"])
+			if step_type == "kill":
+				# Set metadata to specify if this is a mob or mobgroup
+				texteditcontrol.set_meta("entity_type", entity_type)
+
 
 # Determines if the dropped data can be accepted
 func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> bool:
@@ -405,7 +426,7 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 		"craft", "collect":
 			valid_data = Gamedata.items.has_id(dropped_data["id"])
 		"kill":
-			valid_data = Gamedata.mobs.has_id(dropped_data["id"])
+			valid_data = Gamedata.mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
 		"enter":
 			valid_data = Gamedata.maps.has_id(dropped_data["id"])
 	
