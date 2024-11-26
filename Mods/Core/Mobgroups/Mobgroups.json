@@ -21,5 +21,21 @@
 			}
 		},
 		"spriteid": "zombie_64_64.png"
+	},
+	{
+		"description": "Being relics from the old world, they were designed to quell riots and protect VIPs. Now they guard strategically important locations from both alive and undead intruders.",
+		"id": "security_robots",
+		"mobs": {
+			
+			"scavenger_skitter": 100,
+			"disruptor_drone": 100,
+			"venom_crawler": 75,
+			"scrapwalker": 60,
+			"rust_sentinel": 40,
+			"outpost_guardian": 30,
+			"iron_stalker": 10
+		},
+		"name": "Security robots",
+		"spriteid": "iron_stalker_72.png"
 	}
 ]
