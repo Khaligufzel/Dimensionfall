@@ -392,6 +392,10 @@ func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 				properties["texture"] = Gamedata.furnitures.sprite_by_id(entity["id"])
 			"itemgroup":
 				properties["texture"] = Gamedata.itemgroups.sprite_by_id(entity["id"])
+			"mobgroup":  # Add support for mobgroup
+				properties["texture"] = Gamedata.mobgroups.sprite_by_id(entity["id"])  # Ensure mobgroup textures exist
+			_:
+				continue  # Skip unsupported entity types
 
 		add_tilebrush_to_container_with_properties(properties)
 

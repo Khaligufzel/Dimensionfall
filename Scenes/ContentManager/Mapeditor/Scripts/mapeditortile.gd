@@ -82,6 +82,16 @@ func set_tooltip(tileData: Dictionary) -> void:
 			tooltiptext += "Mob Rotation: 0 degrees\n"
 	else:
 		tooltiptext += "Mob: None\n"
+		
+	# Display mobgroup information
+	if tileData.has("mobgroup"):
+		tooltiptext += "Mob Group ID: " + str(tileData.mobgroup.id) + "\n"
+		if tileData.mobgroup.has("rotation"):
+			tooltiptext += "Mob Group Rotation: " + str(tileData.mobgroup.rotation) + " degrees\n"
+		else:
+			tooltiptext += "Mob Group Rotation: 0 degrees\n"
+	else:
+		tooltiptext += "Mob Group: None\n"
 	
 	# Display furniture information
 	if tileData.has("furniture"):
@@ -145,6 +155,11 @@ func update_display(tileData: Dictionary = {}, selected_area_name: String = "Non
 		$AreaSprite.rotation_degrees = 0
 
 		# Check for mob and furniture, and update accordingly
+		if tileData.has("mobgroup"):
+			if tileData["mobgroup"].has("rotation"):
+				$ObjectSprite.rotation_degrees = tileData["mobgroup"]["rotation"]
+			$ObjectSprite.texture = Gamedata.mobgroups.sprite_by_id(tileData["mobgroup"]["id"])
+			$ObjectSprite.show()
 		if tileData.has("mob"):
 			if tileData["mob"].has("rotation"):
 				$ObjectSprite.rotation_degrees = tileData["mob"]["rotation"]
@@ -187,7 +202,7 @@ func set_tile_id(id: String) -> void:
 # If the itemgroups array is empty, it hides the ObjectSprite and removes the itemgroups property from the tile.
 # If the tileData contains a mob or furniture, the function returns early without making any changes.
 func set_tile_itemgroups(tileData: Dictionary) -> void:
-	if tileData.has("mob") or tileData.has("furniture"):
+	if tileData.has("mob") or tileData.has("furniture") or tileData.has("mobgroup"):
 		return
 	
 	var itemgroups: Array = tileData.get("itemgroups", [])
