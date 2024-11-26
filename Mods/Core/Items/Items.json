@@ -125,6 +125,9 @@
 					"mob_loot",
 					"test_items",
 					"M4A1_gun_ammo"
+				],
+				"quests": [
+					"starter_tutorial_00"
 				]
 			}
 		},
@@ -158,7 +161,8 @@
 			"core": {
 				"itemgroups": [
 					"cabinet_general",
-					"test_items"
+					"test_items",
+					"police_station_locker"
 				]
 			}
 		},
@@ -224,6 +228,13 @@
 		"image": "./Mods/Core/Items/chugunov_mpap_32_28.png",
 		"max_stack_size": 1,
 		"name": "Chugunov MPAP",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"police_station_locker"
+				]
+			}
+		},
 		"sprite": "chugunov_mpap_32_28.png",
 		"stack_size": 1,
 		"two_handed": true,
@@ -241,6 +252,13 @@
 		"image": "./Mods/Core/Items/chugunov_mpap_magazine_16_32.png",
 		"max_stack_size": 1,
 		"name": "Chuganov MPAP magazine",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"police_station_locker"
+				]
+			}
+		},
 		"sprite": "chugunov_mpap_magazine_16_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -465,7 +483,8 @@
 			"core": {
 				"itemgroups": [
 					"cabinet_general",
-					"kitchen_cupboard"
+					"kitchen_cupboard",
+					"police_station_locker"
 				],
 				"quests": [
 					"quest_holy_crusade_01"
@@ -565,7 +584,8 @@
 			"core": {
 				"itemgroups": [
 					"cabinet_general",
-					"clothing_general"
+					"clothing_general",
+					"police_station_locker"
 				]
 			}
 		},
@@ -637,7 +657,8 @@
 				"itemgroups": [
 					"cabinet_general",
 					"electronics_store_small",
-					"electronics_store_mixed"
+					"electronics_store_mixed",
+					"police_station_locker"
 				],
 				"quests": [
 					"quest_holy_crusade_01"
@@ -700,6 +721,13 @@
 		"image": "./Mods/Core/Items/gasmask_32.png",
 		"max_stack_size": 1,
 		"name": "Gas mask",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"police_station_locker"
+				]
+			}
+		},
 		"sprite": "gasmask_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -712,6 +740,13 @@
 		"image": "./Mods/Core/Items/vest_ballistic_32.png",
 		"max_stack_size": 1,
 		"name": "Ballistic vest",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"police_station_locker"
+				]
+			}
+		},
 		"sprite": "vest_ballistic_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -911,7 +946,8 @@
 			"core": {
 				"itemgroups": [
 					"electronics_store_small",
-					"electronics_store_mixed"
+					"electronics_store_mixed",
+					"police_station_locker"
 				]
 			}
 		},
@@ -2581,7 +2617,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"clothing_general"
+					"clothing_general",
+					"police_station_locker"
 				]
 			}
 		},
