@@ -524,7 +524,8 @@
 	"categories": [
 		"House",
 		"City",
-		"Suburban"
+		"Suburban",
+		"Urban"
 	],
 	"connections": {
 		"east": "ground",

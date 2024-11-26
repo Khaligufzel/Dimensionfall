@@ -451,7 +451,8 @@
 	"categories": [
 		"Infrastructure",
 		"House",
-		"Suburban"
+		"Suburban",
+		"Urban"
 	],
 	"connections": {
 		"east": "road",

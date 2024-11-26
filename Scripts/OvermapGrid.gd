@@ -458,7 +458,7 @@ func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize:
 		# Calculate remaining attempts to stay within the max_attempts limit
 		var remaining_attempts = max_attempts - attempts
 		# Find a candidate position with limited attempts
-		valid_position = find_weighted_random_position(placed_positions, mapsize, remaining_attempts)
+		valid_position = find_weighted_random_position(placed_positions, mapsize, remaining_attempts, false)
 		attempts += remaining_attempts
 
 		# Check if this position is at least 15 units away from each placed position
@@ -529,7 +529,7 @@ func place_tactical_maps() -> void:
 		var chunks = dmap.chunks
 
 		# Find a valid position on the grid to place the tactical map
-		var position = find_weighted_random_position(placed_positions, Vector2(map_width, map_height), 100)
+		var position = find_weighted_random_position(placed_positions, Vector2(map_width, map_height), 100, true)
 		if position == Vector2(-1, -1):  # If no valid position is found, skip this map placement
 			print("Failed to find a valid position for tactical map")
 			continue
@@ -606,17 +606,32 @@ func region_type_to_string(region_type: int) -> String:
 
 
 # Function to find a weighted random position within a maximum number of attempts
-func find_weighted_random_position(placed_positions: Array, mapsize: Vector2, max_attempts: int) -> Vector2:
+# Prevents placement within a radius of 15 from (0,0) for tactical maps if enforce_restricted_radius is true.
+func find_weighted_random_position(placed_positions: Array, mapsize: Vector2, max_attempts: int, enforce_restricted_radius: bool) -> Vector2:
 	var best_position = Vector2(-1, -1)
 	var best_distance = 0
+	var restricted_radius = 15  # Define the restricted radius
+	var restricted_center = Vector2(0, 0)  # Center of the restricted area
 
+	# Calculate the grid's global offset
+	var grid_offset = pos * Vector2(grid_width, grid_height)
+	
 	# Loop within the specified maximum attempts
 	for attempt in range(max_attempts):
 		var random_x = randi() % (grid_width - int(mapsize.x) + 1)
 		var random_y = randi() % (grid_height - int(mapsize.y) + 1)
 		var position = Vector2(random_x, random_y)
 
-		# Check if this position is suitable
+		# Adjust position to account for grid offset
+		var global_position = position + grid_offset
+
+		# If enforcing the restricted radius, check the distance
+		if enforce_restricted_radius:
+			var distance_to_center = global_position.distance_to(restricted_center)
+			if distance_to_center < restricted_radius:
+				continue  # Skip this position if it's within the restricted radius
+
+		# Check if this position is too close to already placed positions
 		var is_unsuitable = false
 		for placed_pos in placed_positions:
 			if position.distance_to(placed_pos) < 15:
@@ -627,7 +642,7 @@ func find_weighted_random_position(placed_positions: Array, mapsize: Vector2, ma
 		if is_unsuitable:
 			continue
 
-		# Calculate the distance to nearest placed position
+		# Calculate the distance to the nearest placed position
 		var min_distance = INF
 		for placed_pos in placed_positions:
 			var dist = position.distance_to(placed_pos)
@@ -640,7 +655,6 @@ func find_weighted_random_position(placed_positions: Array, mapsize: Vector2, ma
 			best_distance = min_distance
 
 	return best_position
-
 
 
 # Function to get region type based on noise value, rounded to the nearest 0.2
