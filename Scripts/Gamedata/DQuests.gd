@@ -92,6 +92,11 @@ func sprite_by_file(spritefile: String) -> Texture:
 func remove_mob_from_quest(quest_id: String, mob_id: String) -> void:
 	by_id(quest_id).remove_steps_by_mob(mob_id)
 
+
+# Removes all steps where the mobgroup property matches the given mob_id
+func remove_mobgroup_from_quest(quest_id: String, mobgroup_id: String) -> void:
+	by_id(quest_id).remove_steps_by_mobgroup(mobgroup_id)
+
 # Removes all steps and rewards where the item property matches the given item_id
 func remove_item_from_quest(quest_id: String, item_id: String) -> void:
 	by_id(quest_id).remove_steps_by_item(item_id)

@@ -33,6 +33,12 @@ extends RefCounted
 #				"type": "kill"
 #			},
 #			{
+#				"amount": 3,
+#				"mobgroup": "bandits",  # Example mobgroup kill step
+#				"tip": "You can find them in the northern forest",
+#				"type": "kill"
+#			},
+#			{
 #				"map_id": "city_square",
 #				"tip": "Circuit boards can often be scavenged from scrap piles or robotic enemies.",
 #				"type": "enter",
@@ -83,6 +89,9 @@ func delete():
 	var stepmobs: Array =  steps.filter(func(step): return step.has("mob"))
 	for killstep in stepmobs:
 		Gamedata.mobs.remove_reference(killstep.mob, "core", "quests", id)
+	var stepmobgroups: Array = steps.filter(func(step): return step.has("mobgroup"))
+	for killstep in stepmobgroups:
+		Gamedata.mobgroups.remove_reference(killstep.mobgroup, "core", "quests", id)
 	var steprewards: Array = rewards.filter(func(reward): return reward.has("item_id"))
 	for reward in steprewards: # Remove the reference to this quest from the reward item
 		Gamedata.items.remove_reference(reward.item_id, "core", "quests", id)
@@ -156,6 +165,15 @@ func remove_steps_by_mob(mob_id: String) -> void:
 		return not (step.has("mob") and step.mob == mob_id)
 	)
 	save_to_disk()
+
+
+# Removes all steps where the mobgroup property matches the given mobgroup_id
+func remove_steps_by_mobgroup(mobgroup_id: String) -> void:
+	steps = steps.filter(func(step): 
+		return not (step.has("mobgroup") and step.mobgroup == mobgroup_id)
+	)
+	save_to_disk()
+
 
 # Removes all steps where the item property matches the given item_id
 func remove_steps_by_item(item_id: String) -> void:

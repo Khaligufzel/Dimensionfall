@@ -101,6 +101,7 @@ func update_mob_references(olddata: DMobgroup):
 	for new_mob in new_mobs:
 		Gamedata.mobs.add_reference(new_mob, "core", "mobgroups", id)
 
+
 # Deletes the mob group, removing all its references
 func delete():
 	# Remove references to maps
@@ -111,6 +112,15 @@ func delete():
 	# Remove references to mobs
 	for mob in mobs.keys():
 		Gamedata.mobs.remove_reference(mob, "core", "mobgroups", id)
+	
+	# This callable will handle the removal of this mobgroup from all steps in quests
+	var remove_from_quest: Callable = func(quest_id: String):
+		Gamedata.quests.remove_mobgroup_from_quest(quest_id,id)
+		
+	# Pass the callable to every quest in the mobgroup's references
+	# It will call remove_from_quest on every mobgroup in mobgroup_data.references.core.quests
+	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
+
 
 # Retrieves all maps associated with the mob group, including maps from its mobs.
 func get_maps() -> Array:
@@ -135,3 +145,12 @@ func get_mob_ids() -> Array[String]:
 # Function to check if a specific mob ID exists in the "mobs" property
 func has_mob(mob_id: String) -> bool:
 	return mobs.has(mob_id)
+
+
+# Executes a callable function on each reference of the given type
+func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
+	# Check if it contains the specified 'module' and 'type'
+	if references.has(module) and references[module].has(type):
+		# If the type exists, execute the callable on each ID found under this type
+		for ref_id in references[module][type]:
+			callable.call(ref_id)
