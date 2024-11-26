@@ -117,6 +117,10 @@
 					{
 						"id": "skyscraper",
 						"weight": 20
+					},
+					{
+						"id": "police_station",
+						"weight": 30
 					}
 				],
 				"spawn_probability": {

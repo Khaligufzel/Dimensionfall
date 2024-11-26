@@ -29,7 +29,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
@@ -66,7 +67,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
@@ -162,7 +164,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"radio_tower",
-					"urbanroad"
+					"urbanroad",
+					"police_station"
 				]
 			}
 		},
@@ -214,7 +217,8 @@
 					"neighborhood_school",
 					"radio_tower",
 					"urbanroad",
-					"RockyHill_NE"
+					"RockyHill_NE",
+					"police_station"
 				]
 			}
 		},
@@ -268,7 +272,8 @@
 					"neighborhood_school",
 					"radio_tower",
 					"urbanroad",
-					"RockyHill_SW"
+					"RockyHill_SW",
+					"police_station"
 				]
 			}
 		},
@@ -352,7 +357,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
@@ -384,7 +390,8 @@
 					"Generichouse_00",
 					"RockyHill_SW",
 					"generichouse_end",
-					"two_story_house"
+					"two_story_house",
+					"police_station"
 				]
 			}
 		},
@@ -428,7 +435,8 @@
 					"RockyHill_SW",
 					"generichouse_end",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
@@ -470,7 +478,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
@@ -517,7 +526,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
@@ -607,7 +617,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
@@ -757,7 +768,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
@@ -789,7 +801,8 @@
 					"generichouse_end",
 					"office_building_00",
 					"skyscraper",
-					"two_story_house"
+					"two_story_house",
+					"police_station"
 				]
 			}
 		},
@@ -829,7 +842,8 @@
 					"office_building_00",
 					"skyscraper",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
@@ -861,7 +875,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
@@ -1041,7 +1056,8 @@
 					"store_electronic_clothing",
 					"store_groceries",
 					"office_building_00",
-					"skyscraper"
+					"skyscraper",
+					"police_station"
 				]
 			}
 		},
@@ -1146,7 +1162,8 @@
 					"city_square",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"police_station"
 				]
 			}
 		},
@@ -1250,7 +1267,8 @@
 					"store_groceries",
 					"office_building_00",
 					"skyscraper",
-					"neighborhood_school"
+					"neighborhood_school",
+					"police_station"
 				]
 			}
 		},
@@ -1331,7 +1349,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"abandoned_building"
+					"abandoned_building",
+					"police_station"
 				]
 			}
 		},
@@ -1374,7 +1393,8 @@
 					"skyscraper",
 					"neighborhood_school",
 					"two_story_house",
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
@@ -1548,7 +1568,8 @@
 		"references": {
 			"core": {
 				"maps": [
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},

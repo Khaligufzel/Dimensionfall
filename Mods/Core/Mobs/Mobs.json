@@ -386,13 +386,11 @@
 					"generichouse_end",
 					"generichouse_t",
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"police_station"
 				],
 				"mobgroups": [
 					"basic_zombies"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -462,7 +460,8 @@
 					"generichouse_t",
 					"generichouse_corner",
 					"store_electronic_clothing",
-					"store_groceries"
+					"store_groceries",
+					"police_station"
 				],
 				"mobgroups": [
 					"basic_zombies"
@@ -535,13 +534,11 @@
 					"generichouse_end",
 					"generichouse_t",
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"police_station"
 				],
 				"mobgroups": [
 					"basic_zombies"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -611,13 +608,11 @@
 					"generichouse_end",
 					"generichouse_t",
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"police_station"
 				],
 				"mobgroups": [
 					"basic_zombies"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -694,7 +689,8 @@
 					"generichouse_end",
 					"generichouse_t",
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"police_station"
 				],
 				"mobgroups": [
 					"basic_zombies"
@@ -767,13 +763,11 @@
 					"generichouse_end",
 					"generichouse_t",
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"police_station"
 				],
 				"mobgroups": [
 					"basic_zombies"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -843,13 +837,11 @@
 					"generichouse_end",
 					"generichouse_t",
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"police_station"
 				],
 				"mobgroups": [
 					"basic_zombies"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
 				]
 			}
 		},
@@ -919,7 +911,8 @@
 					"generichouse_end",
 					"generichouse_t",
 					"generichouse_corner",
-					"store_electronic_clothing"
+					"store_electronic_clothing",
+					"police_station"
 				],
 				"mobgroups": [
 					"basic_zombies"

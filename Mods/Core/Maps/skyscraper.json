@@ -23628,13 +23628,14 @@
 				"id": "dirt_light_01"
 			},
 			{
-				"furniture": {
-					"id": "window_glass",
-					"itemgroups": []
-				},
 				"id": "dirt_light_02"
 			},
 			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "dirt_light_02"
 			},
 			{
@@ -27384,7 +27385,8 @@
 
 			},
 			{
-
+				"id": "blue_carpet_00",
+				"rotation": 180
 			},
 			{
 				"id": "wood_stairs",
@@ -27486,10 +27488,11 @@
 				"id": "concrete_00"
 			},
 			{
-
+				"id": "concrete_00",
+				"rotation": 180
 			},
 			{
-				"id": "concrete_00"
+
 			},
 			{
 				"id": "concrete_00"
