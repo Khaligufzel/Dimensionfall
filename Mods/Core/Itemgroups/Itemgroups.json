@@ -212,7 +212,8 @@
 				"maps": [
 					"store_groceries",
 					"generichouse_end",
-					"office_building_00"
+					"office_building_00",
+					"police_station"
 				]
 			}
 		},
@@ -772,7 +773,8 @@
 					"store_groceries",
 					"subway_station",
 					"city_square",
-					"neighborhood_school"
+					"neighborhood_school",
+					"police_station"
 				]
 			}
 		},
@@ -805,7 +807,8 @@
 					"subway_station",
 					"city_square",
 					"office_building_00",
-					"neighborhood_school"
+					"neighborhood_school",
+					"police_station"
 				]
 			}
 		},
@@ -924,7 +927,8 @@
 					"urbanroad_corner",
 					"urbanroad_cross",
 					"urbanroad_t",
-					"urbanroad"
+					"urbanroad",
+					"police_station"
 				]
 			}
 		},
@@ -1329,7 +1333,8 @@
 					"parking_garage",
 					"city_square",
 					"office_building_00",
-					"skyscraper"
+					"skyscraper",
+					"police_station"
 				]
 			}
 		},
@@ -1476,11 +1481,107 @@
 		"references": {
 			"core": {
 				"maps": [
-					"radio_tower"
+					"radio_tower",
+					"police_station"
 				]
 			}
 		},
 		"sprite": "bandage_32.png",
+		"use_sprite": false
+	},
+	{
+		"description": "The police station locker contains anything the police might need in their day-to-day duties",
+		"id": "police_station_locker",
+		"items": [
+			{
+				"id": "rifle_m4a1",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "pistol_magazine",
+				"max": 3,
+				"min": 1,
+				"probability": 50
+			},
+			{
+				"id": "bullet_9mm",
+				"max": 25,
+				"min": 10,
+				"probability": 80
+			},
+			{
+				"id": "pistol_9mm",
+				"max": 1,
+				"min": 1,
+				"probability": 50
+			},
+			{
+				"id": "chugunov_mpap",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "chugunov_mpap_magazine",
+				"max": 1,
+				"min": 1,
+				"probability": 25
+			},
+			{
+				"id": "bandage_basic",
+				"max": 1,
+				"min": 1,
+				"probability": 75
+			},
+			{
+				"id": "boots",
+				"max": 1,
+				"min": 1,
+				"probability": 60
+			},
+			{
+				"id": "flashlight_basic",
+				"max": 1,
+				"min": 1,
+				"probability": 60
+			},
+			{
+				"id": "gas_mask",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "vest_ballistic",
+				"max": 1,
+				"min": 1,
+				"probability": 15
+			},
+			{
+				"id": "radio_two_way",
+				"max": 1,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "gloves_leather",
+				"max": 1,
+				"min": 1,
+				"probability": 60
+			}
+		],
+		"mode": "Collection",
+		"name": "Police station locker",
+		"references": {
+			"core": {
+				"maps": [
+					"police_station"
+				]
+			}
+		},
+		"sprite": "pistol_magazine.png",
 		"use_sprite": false
 	}
 ]

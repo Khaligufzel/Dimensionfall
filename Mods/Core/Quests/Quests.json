@@ -36,6 +36,18 @@
 				"type": "kill"
 			},
 			{
+				"map_id": "police_station",
+				"reveal_condition": "EXPLORED",
+				"tip": "Make your way to the police station and find proper gear",
+				"type": "enter"
+			},
+			{
+				"amount": 2,
+				"item": "pistol_magazine",
+				"tip": "Find a way into the police station armory and collect ammunition",
+				"type": "collect"
+			},
+			{
 				"map_id": "RockyHill_SW",
 				"reveal_condition": "EXPLORED",
 				"tip": "Press m to open the overmap. A red arrow and/or red X will mark the target location.",
