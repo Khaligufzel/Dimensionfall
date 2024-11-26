@@ -21,27 +21,36 @@ func _ready():
 	
 # this function will read all files in Gamedata.data.mobs.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
 func loadMobs():
+	# Combine mobs and mobgroups into a single list
 	var mobList: Dictionary = Gamedata.mobs.get_all()
+	var mobgroupList: Dictionary = Gamedata.mobgroups.get_all()
 	var newMobsList: Control = scrolling_Flow_Container.instantiate()
 	newMobsList.header = "Mobs"
 	newMobsList.collapse_button_pressed.connect(_on_collapse_button_pressed)
 	add_child(newMobsList)
 	newMobsList.is_collapsed = load_collapse_state("Mobs")
-	for dmob: DMob in mobList.values():
-		# Get the texture from dmob
-		var texture: Resource = dmob.sprite
-		# Create a TextureRect node
-		var brushInstance = tileBrush.instantiate()
-		# Assign the texture to the TextureRect
-		brushInstance.set_tile_texture(texture)
-		# Since the map editor needs to knw what tile ID is used,
-		# We store the tile id in a variable in the brush
-		brushInstance.entityID = dmob.id
-		brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
-		brushInstance.entityType = "mob"
-		# Add the TextureRect as a child to the TilesList
-		newMobsList.add_content_item(brushInstance)
-		instanced_brushes.append(brushInstance)
+
+	# Add all mobs
+	for dmob: RefCounted in mobList.values():
+		create_brush_instance(dmob, "mob", newMobsList)
+
+	# Add all mobgroups
+	for dmobgroup: RefCounted in mobgroupList.values():
+		create_brush_instance(dmobgroup, "mobgroup", newMobsList)
+
+
+# Function to create a brush instance and configure it
+func create_brush_instance(entity: RefCounted, entity_type: String, newMobsList: Control):
+	var texture: Resource = entity.sprite
+	var brushInstance = tileBrush.instantiate()
+	brushInstance.set_tile_texture(texture)
+	brushInstance.entityID = entity.id
+	brushInstance.entityType = entity_type
+	brushInstance.tilebrush_clicked.connect(tilebrush_clicked)
+	if entity_type == "mobgroup":
+		brushInstance.show_label()  # Specific behavior for mobgroups
+	newMobsList.add_content_item(brushInstance)
+	instanced_brushes.append(brushInstance)
 
 
 func loadFurniture():
