@@ -3508,15 +3508,114 @@ json_data = "[
 		\"weight\": 0.1
 	},
 	{
+		\"Wearable\": {
+			\"slot\": \"hands\"
+		},
 		\"description\": \"A worn leather wallet containing faded photographs and a few crumpled bills\",
 		\"id\": \"wrist_watch\",
-		\"image\": \"./Mods/Core/Items/wallet_32.png\",
+		\"image\": \"./Mods/Core/Items/watch_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Wallet\",
-		\"sprite\": \"wallet_32.png\",
+		\"sprite\": \"watch_32.png\",
 		\"stack_size\": 1,
 		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.1
+	},
+	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 2,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 2,
+					\"id\": \"water\"
+				},
+				{
+					\"amount\": 10,
+					\"id\": \"poison\"
+				}
+			]
+		},
+		\"description\": \"A disgusting chunk of decaying flesh, oozing with a foul stench.\",
+		\"id\": \"rotten_flesh_chunk\",
+		\"image\": \"./Mods/Core/Items/rotten_flesh_chunk_32.png\",
+		\"max_stack_size\": 10,
+		\"name\": \"Chunk of Rotten Flesh\",
+		\"sprite\": \"rotten_flesh_chunk_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 15,
+		\"weight\": 0.25
+	},
+	{
+		\"description\": \"A broken bone fragment, brittle but sharp.\",
+		\"id\": \"zombie_bone\",
+		\"image\": \"./Mods/Core/Items/zombie_bone_32.png\",
+		\"max_stack_size\": 10,
+		\"name\": \"Zombie Bone\",
+		\"sprite\": \"zombie_bone_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 15,
+		\"weight\": 0.1
+	},
+	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 1,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 1,
+					\"id\": \"water\"
+				},
+				{
+					\"amount\": 10,
+					\"id\": \"poison\"
+				}
+			]
+		},
+		\"description\": \"A cloudy, lifeless eye. It's unsettling to look at.\",
+		\"id\": \"zombie_eye\",
+		\"image\": \"./Mods/Core/Items/zombie_eye_32.png\",
+		\"max_stack_size\": 10,
+		\"name\": \"Zombie Eye\",
+		\"sprite\": \"zombie_eye_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 5,
+		\"weight\": 0.05
+	},
+	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 3,
+					\"id\": \"food\"
+				},
+				{
+					\"amount\": 3,
+					\"id\": \"water\"
+				},
+				{
+					\"amount\": 10,
+					\"id\": \"poison\"
+				}
+			]
+		},
+		\"description\": \"A grotesque internal organ, bloated and putrid.\",
+		\"id\": \"zombie_organ\",
+		\"image\": \"./Mods/Core/Items/zombie_organ_32.png\",
+		\"max_stack_size\": 3,
+		\"name\": \"Decayed Organ\",
+		\"sprite\": \"zombie_organ_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 25,
+		\"weight\": 0.25
 	}
 ]"
