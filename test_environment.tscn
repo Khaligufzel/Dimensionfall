@@ -45,9 +45,10 @@ points = PackedVector3Array(0, 0, 0.325, -1, -1, 0.325, -1, 1, 0.325, 0, 0, -0.3
 height = 1.0
 radius = 1.5
 
-[node name="TestEnvironment" type="Node3D" node_paths=PackedStringArray("canvas_layer")]
+[node name="TestEnvironment" type="Node3D" node_paths=PackedStringArray("canvas_layer", "chunk")]
 script = ExtResource("1_vhsh0")
 canvas_layer = NodePath("CanvasLayer")
+chunk = NodePath("Chunk")
 
 [node name="Chunk" type="Node3D" parent="." node_paths=PackedStringArray("level_manager")]
 script = ExtResource("1_hp7uo")
