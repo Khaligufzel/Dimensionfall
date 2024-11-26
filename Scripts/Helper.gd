@@ -3,6 +3,7 @@ extends Node3D
 # Contains the navigationmap for each chunk, used to give mobs the proper navigationmap
 # When crossing chunk boundary
 var chunk_navigation_maps: Dictionary = {}
+var test_map_name: String # Used for testing in the test_environment
 
 # Overmap data
 var position_coord: Vector2 = Vector2(0, 0)

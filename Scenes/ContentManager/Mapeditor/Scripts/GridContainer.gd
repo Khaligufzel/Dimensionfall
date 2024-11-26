@@ -1290,3 +1290,12 @@ func set_tile_itemgroups(tileData: Dictionary, itemgroups: Array) -> void:
 		tileData.furniture.itemgroups = itemgroups
 	else: # The furniture is not a container so we erase the itemgroups
 		tileData.furniture.erase("itemgroups")
+
+
+func _on_save_and_test_button_button_up() -> void:
+	save_map_json_file()
+	# Save the current map ID to the test_map_name
+	Helper.test_map_name = mapEditor.currentMap.id
+	
+	# Switch to the test environment scene
+	get_tree().change_scene_to_file("res://test_environment.tscn")
