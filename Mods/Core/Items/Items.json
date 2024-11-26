@@ -3488,5 +3488,29 @@
 		"two_handed": false,
 		"volume": 15,
 		"weight": 0.25
+	},
+	{
+		"description": "A worn leather wallet containing faded photographs and a few crumpled bills",
+		"id": "wallet",
+		"image": "./Mods/Core/Items/wallet_32.png",
+		"max_stack_size": 3,
+		"name": "Wallet",
+		"sprite": "wallet_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 15,
+		"weight": 0.1
+	},
+	{
+		"description": "A worn leather wallet containing faded photographs and a few crumpled bills",
+		"id": "wrist_watch",
+		"image": "./Mods/Core/Items/wallet_32.png",
+		"max_stack_size": 3,
+		"name": "Wallet",
+		"sprite": "wallet_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 15,
+		"weight": 0.1
 	}
 ]

@@ -35,7 +35,11 @@ func load_properties() -> void:
 # Save the selected slot and player attributes back to ditem.wearable
 func save_properties() -> void:
 	# Save slot from SlotOptionButton
-	ditem.wearable.slot = SlotOptionButton.get_item_text(SlotOptionButton.selected)
+	var slotvalue: String = SlotOptionButton.get_item_text(SlotOptionButton.selected)
+	if not ditem.wearable:
+		ditem.wearable = DItem.Wearable.new({"slot": slotvalue})
+	else:
+		ditem.wearable.slot = slotvalue
 	
 	# Save player attributes from attributtes_grid_container
 	ditem.wearable.player_attributes.clear()

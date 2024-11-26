@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://bxubu34gjes1y"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://j4mvcyastyf"]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
@@ -3494,5 +3494,29 @@ json_data = "[
 		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.25
+	},
+	{
+		\"description\": \"A worn leather wallet containing faded photographs and a few crumpled bills\",
+		\"id\": \"wallet\",
+		\"image\": \"./Mods/Core/Items/wallet_32.png\",
+		\"max_stack_size\": 3,
+		\"name\": \"Wallet\",
+		\"sprite\": \"wallet_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 15,
+		\"weight\": 0.1
+	},
+	{
+		\"description\": \"A worn leather wallet containing faded photographs and a few crumpled bills\",
+		\"id\": \"wrist_watch\",
+		\"image\": \"./Mods/Core/Items/wallet_32.png\",
+		\"max_stack_size\": 3,
+		\"name\": \"Wallet\",
+		\"sprite\": \"wallet_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 15,
+		\"weight\": 0.1
 	}
 ]"
