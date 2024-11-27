@@ -1583,5 +1583,209 @@
 		},
 		"sprite": "pistol_magazine.png",
 		"use_sprite": false
+	},
+	{
+		"description": "Loot that's dropped by a zombie. Contains personal belongings and gross parts.",
+		"id": "zombie_loot",
+		"items": [
+			{
+				"id": "zombie_organ",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "zombie_eye",
+				"max": 2,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "zombie_bone",
+				"max": 4,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "rotten_flesh_chunk",
+				"max": 4,
+				"min": 1,
+				"probability": 50
+			},
+			{
+				"id": "wrist_watch",
+				"max": 1,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "wallet",
+				"max": 1,
+				"min": 1,
+				"probability": 60
+			},
+			{
+				"id": "backpack",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "mailbag",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "waistbag",
+				"max": 1,
+				"min": 1,
+				"probability": 15
+			},
+			{
+				"id": "socks",
+				"max": 1,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "shorts",
+				"max": 1,
+				"min": 1,
+				"probability": 25
+			},
+			{
+				"id": "gloves_leather",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "scarf",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "sweater",
+				"max": 1,
+				"min": 1,
+				"probability": 15
+			},
+			{
+				"id": "hat_baseball",
+				"max": 1,
+				"min": 1,
+				"probability": 25
+			},
+			{
+				"id": "jeans",
+				"max": 1,
+				"min": 1,
+				"probability": 30
+			},
+			{
+				"id": "tshirt",
+				"max": 1,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "can_soda",
+				"max": 1,
+				"min": 1,
+				"probability": 15
+			},
+			{
+				"id": "can_energydrink",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "painkiller",
+				"max": 1,
+				"min": 1,
+				"probability": 5
+			},
+			{
+				"id": "chocolate",
+				"max": 1,
+				"min": 1,
+				"probability": 50
+			},
+			{
+				"id": "syringe",
+				"max": 1,
+				"min": 1,
+				"probability": 3
+			},
+			{
+				"id": "epipen",
+				"max": 1,
+				"min": 1,
+				"probability": 1
+			},
+			{
+				"id": "insulin",
+				"max": 1,
+				"min": 1,
+				"probability": 1
+			},
+			{
+				"id": "pack_sigarrettes",
+				"max": 1,
+				"min": 1,
+				"probability": 40
+			},
+			{
+				"id": "can_beer",
+				"max": 1,
+				"min": 1,
+				"probability": 5
+			},
+			{
+				"id": "boots",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "jacket",
+				"max": 1,
+				"min": 1,
+				"probability": 25
+			},
+			{
+				"id": "bottle_plastic_water",
+				"max": 1,
+				"min": 1,
+				"probability": 25
+			},
+			{
+				"id": "bottle_plastic_empty",
+				"max": 1,
+				"min": 1,
+				"probability": 5
+			}
+		],
+		"mode": "Collection",
+		"name": "Mob loot",
+		"references": {
+			"core": {
+				"mobs": [
+					"basic_zombie_1",
+					"basic_zombie_2",
+					"bloated_zombie",
+					"rushing_zombie",
+					"charred_zombie",
+					"heavy_zombie",
+					"skeleton_zombie",
+					"limping_zombie"
+				]
+			}
+		},
+		"sprite": "zombie_eye_32.png",
+		"use_sprite": false
 	}
 ]

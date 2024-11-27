@@ -41,7 +41,10 @@
 					"cheese",
 					"berries_wild",
 					"bird_egg",
-					"mushrooms_forest"
+					"mushrooms_forest",
+					"rotten_flesh_chunk",
+					"zombie_eye",
+					"zombie_organ"
 				]
 			}
 		},
@@ -77,7 +80,10 @@
 					"can_energydrink",
 					"can_soda",
 					"berries_wild",
-					"bird_egg"
+					"bird_egg",
+					"rotten_flesh_chunk",
+					"zombie_eye",
+					"zombie_organ"
 				]
 			}
 		},
@@ -392,7 +398,10 @@
 		"references": {
 			"core": {
 				"items": [
-					"bottle_antidote"
+					"bottle_antidote",
+					"rotten_flesh_chunk",
+					"zombie_eye",
+					"zombie_organ"
 				],
 				"mobs": [
 					"venom_crawler"

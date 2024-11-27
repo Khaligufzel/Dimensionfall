@@ -275,7 +275,8 @@
 			"core": {
 				"itemgroups": [
 					"kitchen_cupboard",
-					"urban_litter"
+					"urban_litter",
+					"zombie_loot"
 				],
 				"items": [
 					"screwdriver"
@@ -308,7 +309,8 @@
 					"kitchen_cupboard",
 					"cabinet_general",
 					"refridgerator",
-					"vending_machine_drinks"
+					"vending_machine_drinks",
+					"zombie_loot"
 				],
 				"quests": [
 					"quest_holy_crusade_01"
@@ -561,7 +563,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"clothing_general"
+					"clothing_general",
+					"zombie_loot"
 				]
 			}
 		},
@@ -585,6 +588,7 @@
 				"itemgroups": [
 					"cabinet_general",
 					"clothing_general",
+					"zombie_loot",
 					"police_station_locker"
 				]
 			}
@@ -682,7 +686,8 @@
 				"itemgroups": [
 					"kitchen_cupboard",
 					"refridgerator",
-					"vending_machine_drinks"
+					"vending_machine_drinks",
+					"zombie_loot"
 				]
 			}
 		},
@@ -702,7 +707,8 @@
 			"core": {
 				"itemgroups": [
 					"vending_machine_snacks",
-					"urban_litter"
+					"urban_litter",
+					"zombie_loot"
 				]
 			}
 		},
@@ -1741,6 +1747,13 @@
 		"image": "./Mods/Core/Items/insulin_32.png",
 		"max_stack_size": 5,
 		"name": "Insulin",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"zombie_loot"
+				]
+			}
+		},
 		"sprite": "insulin_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1783,6 +1796,13 @@
 		"image": "./Mods/Core/Items/epipen_32.png",
 		"max_stack_size": 5,
 		"name": "EpiPen",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"zombie_loot"
+				]
+			}
+		},
 		"sprite": "epipen_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1862,6 +1882,13 @@
 		"image": "./Mods/Core/Items/syringe_32.png",
 		"max_stack_size": 20,
 		"name": "Syringe",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"zombie_loot"
+				]
+			}
+		},
 		"sprite": "syringe_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2013,7 +2040,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"vending_machine_snacks"
+					"vending_machine_snacks",
+					"zombie_loot"
 				]
 			}
 		},
@@ -2161,7 +2189,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"first_aid"
+					"first_aid",
+					"zombie_loot"
 				],
 				"quests": [
 					"quest_holy_crusade_01"
@@ -2352,7 +2381,8 @@
 			"core": {
 				"itemgroups": [
 					"refridgerator",
-					"vending_machine_drinks"
+					"vending_machine_drinks",
+					"zombie_loot"
 				]
 			}
 		},
@@ -2380,7 +2410,8 @@
 			"core": {
 				"itemgroups": [
 					"refridgerator",
-					"vending_machine_drinks"
+					"vending_machine_drinks",
+					"zombie_loot"
 				]
 			}
 		},
@@ -2429,7 +2460,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"clothing_general"
+					"clothing_general",
+					"zombie_loot"
 				]
 			}
 		},
@@ -2457,7 +2489,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"clothing_general"
+					"clothing_general",
+					"zombie_loot"
 				]
 			}
 		},
@@ -2551,7 +2584,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"clothing_general"
+					"clothing_general",
+					"zombie_loot"
 				]
 			}
 		},
@@ -2573,7 +2607,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"clothing_general"
+					"clothing_general",
+					"zombie_loot"
 				]
 			}
 		},
@@ -2595,7 +2630,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"clothing_general"
+					"clothing_general",
+					"zombie_loot"
 				]
 			}
 		},
@@ -2618,6 +2654,7 @@
 			"core": {
 				"itemgroups": [
 					"clothing_general",
+					"zombie_loot",
 					"police_station_locker"
 				]
 			}
@@ -2637,6 +2674,13 @@
 		"image": "./Mods/Core/Items/shorts_32.png",
 		"max_stack_size": 1,
 		"name": "Shorts",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"zombie_loot"
+				]
+			}
+		},
 		"sprite": "shorts_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2667,6 +2711,13 @@
 		"image": "./Mods/Core/Items/socks_32.png",
 		"max_stack_size": 1,
 		"name": "Socks",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"zombie_loot"
+				]
+			}
+		},
 		"sprite": "socks_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3228,7 +3279,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"clothing_general"
+					"clothing_general",
+					"zombie_loot"
 				]
 			}
 		},
@@ -3256,7 +3308,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"clothing_general"
+					"clothing_general",
+					"zombie_loot"
 				]
 			}
 		},
@@ -3284,7 +3337,8 @@
 		"references": {
 			"core": {
 				"itemgroups": [
-					"clothing_general"
+					"clothing_general",
+					"zombie_loot"
 				]
 			}
 		},
@@ -3524,6 +3578,171 @@
 		"stack_size": 2,
 		"two_handed": false,
 		"volume": 15,
+		"weight": 0.25
+	},
+	{
+		"description": "A worn leather wallet containing faded photographs and a few crumpled bills",
+		"id": "wallet",
+		"image": "./Mods/Core/Items/wallet_32.png",
+		"max_stack_size": 3,
+		"name": "Wallet",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"zombie_loot"
+				]
+			}
+		},
+		"sprite": "wallet_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 15,
+		"weight": 0.1
+	},
+	{
+		"Wearable": {
+			"slot": "hands"
+		},
+		"description": "A worn leather wallet containing faded photographs and a few crumpled bills",
+		"id": "wrist_watch",
+		"image": "./Mods/Core/Items/watch_32.png",
+		"max_stack_size": 3,
+		"name": "Wallet",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"zombie_loot"
+				]
+			}
+		},
+		"sprite": "watch_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 15,
+		"weight": 0.1
+	},
+	{
+		"Food": {
+			"attributes": [
+				{
+					"amount": 2,
+					"id": "food"
+				},
+				{
+					"amount": 2,
+					"id": "water"
+				},
+				{
+					"amount": 10,
+					"id": "poison"
+				}
+			]
+		},
+		"description": "A disgusting chunk of decaying flesh, oozing with a foul stench.",
+		"id": "rotten_flesh_chunk",
+		"image": "./Mods/Core/Items/rotten_flesh_chunk_32.png",
+		"max_stack_size": 10,
+		"name": "Chunk of Rotten Flesh",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"zombie_loot"
+				]
+			}
+		},
+		"sprite": "rotten_flesh_chunk_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 15,
+		"weight": 0.25
+	},
+	{
+		"description": "A broken bone fragment, brittle but sharp.",
+		"id": "zombie_bone",
+		"image": "./Mods/Core/Items/zombie_bone_32.png",
+		"max_stack_size": 10,
+		"name": "Zombie Bone",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"zombie_loot"
+				]
+			}
+		},
+		"sprite": "zombie_bone_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 15,
+		"weight": 0.1
+	},
+	{
+		"Food": {
+			"attributes": [
+				{
+					"amount": 1,
+					"id": "food"
+				},
+				{
+					"amount": 1,
+					"id": "water"
+				},
+				{
+					"amount": 10,
+					"id": "poison"
+				}
+			]
+		},
+		"description": "A cloudy, lifeless eye. It's unsettling to look at.",
+		"id": "zombie_eye",
+		"image": "./Mods/Core/Items/zombie_eye_32.png",
+		"max_stack_size": 10,
+		"name": "Zombie Eye",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"zombie_loot"
+				]
+			}
+		},
+		"sprite": "zombie_eye_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 5,
+		"weight": 0.05
+	},
+	{
+		"Food": {
+			"attributes": [
+				{
+					"amount": 3,
+					"id": "food"
+				},
+				{
+					"amount": 3,
+					"id": "water"
+				},
+				{
+					"amount": 10,
+					"id": "poison"
+				}
+			]
+		},
+		"description": "A grotesque internal organ, bloated and putrid.",
+		"id": "zombie_organ",
+		"image": "./Mods/Core/Items/zombie_organ_32.png",
+		"max_stack_size": 3,
+		"name": "Decayed Organ",
+		"references": {
+			"core": {
+				"itemgroups": [
+					"zombie_loot"
+				]
+			}
+		},
+		"sprite": "zombie_organ_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 25,
 		"weight": 0.25
 	}
 ]
