@@ -44,6 +44,7 @@ class maptile:
 	# Furniture, Mob and Itemgroups are mutually exclusive. Only one can exist at a time
 	var furniture: String = ""
 	var mob: String = ""
+	var mobgroup: String = ""  # Add mobgroup support
 	var itemgroups: Array = []
 
 
@@ -176,6 +177,10 @@ func data_changed(oldmap: DMap):
 			for entity_id in new_entities[entity_type]:
 				var dmob: DMob = Gamedata.mobs.by_id(entity_id)
 				dmob.add_reference("core","maps",id)
+		elif entity_type == "mobgroups":  # Handle mobgroup references
+			for entity_id in new_entities[entity_type]:
+				var mobgroup: DMobgroup = Gamedata.mobgroups.by_id(entity_id)
+				mobgroup.add_reference("core", "maps", id)
 		elif entity_type == "itemgroups":
 			for entity_id in new_entities[entity_type]:
 				var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(entity_id)
@@ -203,6 +208,11 @@ func data_changed(oldmap: DMap):
 				if not new_entities[entity_type].has(entity_id):
 					var mob: DMob = Gamedata.mobs.by_id(entity_id)
 					mob.remove_reference("core","maps",id)
+		elif entity_type == "mobgroups":  # Remove mobgroup references
+			for entity_id in old_entities[entity_type]:
+				if not new_entities[entity_type].has(entity_id):
+					var mobgroup: DMobgroup = Gamedata.mobgroups.by_id(entity_id)
+					mobgroup.remove_reference("core", "maps", id)
 
 
 	# Save changes to the data files if there were any updates
@@ -220,12 +230,14 @@ func data_changed(oldmap: DMap):
 func collect_unique_entities(oldmap: DMap) -> Dictionary:
 	var new_entities = {
 		"mobs": [],
+		"mobgroups": [],  # Add mobgroup
 		"furniture": [],
 		"itemgroups": [],
 		"tiles": []
 	}
 	var old_entities = {
 		"mobs": [],
+		"mobgroups": [],  # Add mobgroup
 		"furniture": [],
 		"itemgroups": [],
 		"tiles": []
@@ -258,6 +270,9 @@ func add_entities_in_area_to_set(myarea: Dictionary, entity_set: Dictionary):
 				"mob":
 					if not entity_set["mobs"].has(entity["id"]):
 						entity_set["mobs"].append(entity["id"])
+				"mobgroup":
+					if not entity_set["mobgroups"].has(entity["id"]):
+						entity_set["mobgroups"].append(entity["id"])
 				"furniture":
 					if not entity_set["furniture"].has(entity["id"]):
 						entity_set["furniture"].append(entity["id"])
@@ -277,6 +292,8 @@ func add_entities_to_set(level: Array, entity_set: Dictionary):
 	for entity in level:
 		if entity.has("mob") and not entity_set["mobs"].has(entity["mob"]["id"]):
 			entity_set["mobs"].append(entity["mob"]["id"])
+		if entity.has("mobgroup") and not entity_set["mobgroups"].has(entity["mobgroup"]["id"]):  # Add mobgroup
+			entity_set["mobgroups"].append(entity["mobgroup"]["id"])
 		if entity.has("furniture"):
 			if not entity_set["furniture"].has(entity["furniture"]["id"]):
 				entity_set["furniture"].append(entity["furniture"]["id"])
@@ -329,6 +346,10 @@ func remove_entity_from_levels(entity_type: String, entity_id: String) -> void:
 					# Check if the entity has 'mob' and the 'id' within it matches
 					if entity.has("mob") and entity["mob"].get("id", "") == entity_id:
 						entity.erase("mob")  # Removing the mob object from the entity
+				"mobgroup":
+					# Check if the entity has 'mobgroup' and matches the given ID
+					if entity.has("mobgroup") and entity["mobgroup"].get("id", "") == entity_id:
+						entity.erase("mobgroup")  # Remove mobgroup from the entity
 				"itemgroup":
 					# Check if the entity has 'furniture' and 'itemgroups', then remove the itemgroup
 					if entity.has("furniture") and entity["furniture"].has("itemgroups"):
@@ -355,7 +376,7 @@ func erase_entity_from_areas(entity_type: String, entity_id: String) -> void:
 					myarea["tiles"] = myarea["tiles"].filter(func(tile):
 						return tile["id"] != entity_id
 					)
-			"furniture", "mob", "itemgroup":
+			"furniture", "mob", "mobgroup", "itemgroup":
 				if myarea.has("entities"):
 					myarea["entities"] = myarea["entities"].filter(func(entity):
 						return not (entity["type"] == entity_type and entity["id"] == entity_id)

@@ -266,6 +266,8 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 		if brush:
 			if brush.entityType == "mob":
 				tileData.erase("mob")
+			elif brush.entityType == "mobgroup":
+				tileData.erase("mobgroup")
 			elif brush.entityType == "furniture":
 				tileData.erase("furniture")
 			elif brush.entityType == "itemgroup":
@@ -280,18 +282,27 @@ func apply_paint_to_tile(tile: Control, brush: Control, tilerotate: int):
 		var tilerotation = brushcomposer.get_tilerotation(tilerotate)
 		if brush.entityType == "mob":
 			tileData.erase("furniture")
+			tileData.erase("mobgroup")
 			tileData.erase("itemgroups")
 			tileData["mob"] = {"id": brush.entityID}
-			set_entity_rotation(tileData,"mob",tilerotation)
+			set_entity_rotation(tileData, "mob", tilerotation)
 		elif brush.entityType == "furniture":
 			tileData.erase("mob")
+			tileData.erase("mobgroup")
 			tileData.erase("itemgroups")
 			tileData["furniture"] = {"id": brush.entityID}
-			set_entity_rotation(tileData,"furniture",tilerotation)
+			set_entity_rotation(tileData, "furniture", tilerotation)
 			tileData["furniture"]["itemgroups"] = brushcomposer.get_itemgroup_entity_ids()
+		elif brush.entityType == "mobgroup":
+			tileData.erase("mob")
+			tileData.erase("furniture")
+			tileData.erase("itemgroups")
+			tileData["mobgroup"] = {"id": brush.entityID}
+			set_entity_rotation(tileData, "mobgroup", tilerotation)
 		elif brush.entityType == "itemgroup":
 			tileData.erase("mob")
 			tileData.erase("furniture")
+			tileData.erase("mobgroup")
 			tileData["itemgroups"] = brushcomposer.get_itemgroup_entity_ids()
 		else:
 			set_tile_id(tileData,brush.entityID)
@@ -716,6 +727,12 @@ func rotate_tile_data(tile_data: Dictionary):
 	if tile_data.has("id"):
 		var tile_rotation = int(tile_data.get("rotation", 0))
 		tile_data["rotation"] = (tile_rotation + 90) % 360
+	if tile_data.has("mob"):
+		var mob_rotation = int(tile_data["mob"].get("rotation", 0))
+		tile_data["mob"]["rotation"] = (mob_rotation + 90) % 360
+	if tile_data.has("mobgroup"):
+		var mobgroup_rotation = int(tile_data["mobgroup"].get("rotation", 0))
+		tile_data["mobgroup"]["rotation"] = (mobgroup_rotation + 90) % 360
 	# Rotate furniture if present, initializing rotation to 0 if not set
 	if tile_data.has("furniture"):
 		var furniture_rotation = int(tile_data["furniture"].get("rotation", 0))
@@ -1268,7 +1285,7 @@ func set_entity_rotation(tileData: Dictionary, key: String, rotationDegrees: int
 # If no furniture is present, it applies the itemgroup to the tile and updates the ObjectSprite with a random sprite.
 # If the tileData has the "mob" property, it returns without making any changes.
 func set_tile_itemgroups(tileData: Dictionary, itemgroups: Array) -> void:
-	if tileData.has("mob"):
+	if tileData.has("mob") or tileData.has("mobgroup"):
 		return
 	
 	# If the tile doesn't have furniture

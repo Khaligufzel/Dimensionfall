@@ -82,6 +82,8 @@ func _process_entities_data(area_data: Dictionary, result: Dictionary) -> void:
 					result["furniture"] = {"id": selected_entity["id"], "rotation": rotation}
 				"mob":
 					result["mob"] = {"id": selected_entity["id"], "rotation": rotation}
+				"mobgroup":
+					result["mobgroup"] = {"id": selected_entity["id"], "rotation": rotation}
 				"itemgroup":
 					result["itemgroups"] = [selected_entity["id"]]
 
@@ -124,7 +126,7 @@ func apply_area_to_tile(tile: Dictionary, selected_areas: Array, mapData: Dictio
 				var area_data = get_area_data_by_id(area["id"], mapData)
 				var processed_data = process_area_data(area_data, original_tile_id)
 				# Check if any of ["mob", "furniture", "itemgroups"] are in tile.keys()
-				var entities_to_check = ["mob", "furniture", "itemgroups"]
+				var entities_to_check = ["mob", "furniture", "mobgroup", "itemgroups"]
 				var new_has_entities = entities_to_check.any(func(entity): return processed_data.has(entity))
 				
 				if new_has_entities:
@@ -175,17 +177,28 @@ func get_area_data_based_on_spawn_chance(mapData: Dictionary) -> Array:
 # If no areas exist in the mapdata, no changes are made
 # Example area data:
 #"areas": [
-#     {
-#        "id": "tree_layer",
-#        "rotate_random": true,
-#        "spawn_chance": 100,
-#        "entities": [
-#            {"id": "Tree_00", "type": "furniture", "count": 11},
-#            {"id": "PineTree_00", "type": "furniture", "count": 11},
-#            {"id": "WillowTree_00", "type": "furniture", "count": 11}
-#        ],
-#        "tiles": [{"id": "null", "count": 100}]
-#    },
+#	{
+#		"id": "tree_layer",
+#		"rotate_random": true,
+#		"spawn_chance": 100,
+#		"entities": [
+#			{"id": "Tree_00", "type": "furniture", "count": 11},
+#			{"id": "PineTree_00", "type": "furniture", "count": 11},
+#			{"id": "WillowTree_00", "type": "furniture", "count": 11}
+#		],
+#		"tiles": [{"id": "null", "count": 100}]
+#	},
+#	{
+#		"id": "forest_mobs",
+#		"rotate_random": true,
+#		"spawn_chance": 50,
+#		"entities": [
+#			{"id": "bandits", "type": "mobgroup", "count": 20},
+#			{"id": "wolves", "type": "mobgroup", "count": 10},
+#			{"id": "deer", "type": "mobgroup", "count": 15}
+#		],
+#		"tiles": [{"id": "forest_grass", "count": 100}]
+#	}
 #    {
 #        "id": "ground_layer",
 #        "rotate_random": true,
@@ -333,7 +346,7 @@ func apply_area_clusters_to_tiles(level: Array, area_id: String, mapData: Dictio
 			var processed_data = process_area_data(area_data, original_tile_id, picked_tile)
 
 			# Remove existing entities if new entities are present in processed data
-			var entities_to_check = ["mob", "furniture", "itemgroups"]
+			var entities_to_check = ["mob", "furniture", "mobgroup", "itemgroups"]
 			var new_has_entities = entities_to_check.any(func(entity): return processed_data.has(entity))
 
 			if new_has_entities:

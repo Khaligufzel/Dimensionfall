@@ -7,9 +7,11 @@ extends Control
 signal tilebrush_clicked(clicked_tile: Control)
 var entityID: String = ""
 var selected: bool = false
-# Can be "tile", "mob", "furniture", "itemgroup"
+# Can be "tile", "mob", "furniture", "itemgroup", "mobgroup"
 var entityType: String = "tile"
 @export var tile_sprite: TextureRect
+@export var label: Label = null
+
 
 const TILEMARGIN: int = 10
 
@@ -39,3 +41,10 @@ func set_selected(is_selected: bool) -> void:
 func set_minimum_size(newsize: Vector2) -> void:
 	custom_minimum_size = Vector2(newsize.x + TILEMARGIN, newsize.y + TILEMARGIN)
 	tile_sprite.custom_minimum_size = newsize
+
+
+func show_label():
+	label.show()
+	
+func hide_label():
+	label.hide()

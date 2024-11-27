@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cccnrdolr1bfo"]
+[gd_scene load_steps=4 format=3 uid="uid://cccnrdolr1bfo"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/tilebrush.gd" id="1_x2ml4"]
 [ext_resource type="Texture2D" uid="uid://d0ec7u2d3yqqp" path="res://Mods/Core/Tiles/asphalt_middle_horizontal.png" id="2_0qm6c"]
 
-[node name="TileBrush" type="Control" node_paths=PackedStringArray("tile_sprite")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_art0c"]
+
+[node name="TileBrush" type="Control" node_paths=PackedStringArray("tile_sprite", "label")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 15
@@ -13,6 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x2ml4")
 tile_sprite = NodePath("TileSprite")
+label = NodePath("Label")
 
 [node name="TileSprite" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(64, 64)
@@ -22,5 +25,21 @@ offset_bottom = 40.0
 texture = ExtResource("2_0qm6c")
 expand_mode = 2
 stretch_mode = 4
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 4.0
+offset_bottom = 24.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.742012, 0.102377, 4.81307e-07, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_art0c")
+text = "G"
+horizontal_alignment = 1
 
 [connection signal="gui_input" from="TileSprite" to="." method="_on_texture_rect_gui_input"]
