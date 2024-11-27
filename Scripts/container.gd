@@ -313,3 +313,25 @@ func set_random_inventory_item_texture():
 	
 	# Set the sprite_3d texture to the item's sprite
 	sprite_3d.texture = Gamedata.items.sprite_by_id(item_id)
+
+
+# Properly destroys the container and its associated resources
+func destroy():
+	Helper.signal_broker.container_exited_proximity.emit(self)
+	# Disconnect signals to avoid issues during cleanup
+	if inventory:
+		inventory.item_removed.disconnect(_on_item_removed)
+		inventory.item_added.disconnect(_on_item_added)
+
+	# Free the inventory resource
+	if inventory:
+		inventory.queue_free()
+		inventory = null
+
+	# Free the sprite resource
+	if sprite_3d:
+		sprite_3d.queue_free()
+		sprite_3d = null
+
+	# Free the node itself
+	queue_free()

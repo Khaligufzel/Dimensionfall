@@ -124,7 +124,7 @@ func delete():
 
 # Retrieves all maps associated with the mob group, including maps from its mobs.
 func get_maps() -> Array:
-	var unique_maps: Array = []
+	var unique_maps: Array = Helper.json_helper.get_nested_data(references, "core.maps")
 
 	# Collect maps from each mob in the group
 	for mob_id in mobs.keys():
