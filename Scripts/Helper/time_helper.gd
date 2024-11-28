@@ -58,8 +58,8 @@ func _on_game_started():
 
 
 # Called when a game is loaded. Resumes time tracking from the saved time.
-func _on_game_loaded(saved_time: float):
-	_elapsed_time = saved_time  # Resume from the saved time
+func _on_game_loaded():
+	#_elapsed_time = saved_time  # Resume from the saved time
 	_start_tracking_time()
 
 # Called when the game ends. Stops time tracking.
