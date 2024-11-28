@@ -219,7 +219,6 @@ loadingscreen = NodePath("../LoadingScreen")
 visible = false
 
 [node name="LoadingScreen" parent="." instance=ExtResource("20_kxcpa")]
-visible = false
 
 [connection signal="timeout" from="ProgressBar/ProgressBarTimer" to="." method="_on_progress_bar_timer_timeout"]
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]

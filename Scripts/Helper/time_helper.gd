@@ -48,8 +48,14 @@ func _process(_delta: float):
 # --- Signal Handlers ---
 # Called when a new game starts. Resets time tracking and begins counting from zero.
 func _on_game_started():
-	_elapsed_time = 0.0  # Reset elapsed time for a new game
+	# Start the game with 8 in-game hours already passed
+	# Calculate the real-life time equivalent to 8 in-game hours
+	var in_game_hours = 8
+	var in_game_minutes = in_game_hours * 60  # 8 hours * 60 minutes
+	_elapsed_time = (in_game_minutes / float(in_game_day_minutes)) * day_duration * 60  # Convert to real-life seconds
+	
 	_start_tracking_time()
+
 
 # Called when a game is loaded. Resumes time tracking from the saved time.
 func _on_game_loaded(saved_time: float):
@@ -96,49 +102,40 @@ func get_days_since_start() -> int:
 	return int(_elapsed_time / (day_duration * 60))  # Convert minutes to seconds
 
 
-# Returns a string representing the current time in-game in 24h format
+# The current time string, representing the time of day
 func get_current_time() -> String:
-	# Reuse the current in-game minutes calculation
-	var current_minutes_of_day: int = get_current_in_game_minutes()
+	# Use get_current_in_game_minutes to get the current in-game minutes
+	var current_minutes_of_day = get_current_in_game_minutes()
 
-	# Convert total in-game minutes into hours and minutes
-	var hours: int = current_minutes_of_day / 60  # Convert to hours
-	var minutes: int = current_minutes_of_day % 60  # Remaining minutes
+	# Calculate hours and minutes
+	var hours: int = current_minutes_of_day / 60
+	var minutes: int = current_minutes_of_day % 60
 
-	# Format as a 24-hour time string (e.g., "14:35")
 	return "%02d:%02d" % [hours, minutes]
 
 
-# Returns the percentage of the in-game day that has progressed
+# Returns a percentage between 0 and 100, indicating how much of the day has progressed.
 func get_day_progress_percentage() -> float:
-	# Reuse the current in-game minutes calculation
-	var current_minutes_of_day: int = get_current_in_game_minutes()
+	# Use get_current_in_game_minutes to get the current in-game minutes
+	var current_minutes_of_day = get_current_in_game_minutes()
 
-	# Calculate the percentage of the day completed
-	# Divide the current minutes of the day by the total in-game minutes per day
+	# Calculate percentage of the day completed
 	return (current_minutes_of_day / float(in_game_day_minutes)) * 100.0
 
 
-# Returns the current in-game minute as an integer value (0 to 1440),
-# representing the number of minutes passed since the start of the in-game day.
+# Returns the current number of in-game minutes in an in-game day, a value between 0 and 1440
 func get_current_in_game_minutes() -> int:
-	# Scale real-life elapsed time to in-game time.
-	# _elapsed_time is the total real-life time in seconds, divided by day_duration to scale to in-game days.
-	# Multiplying by in_game_day_minutes converts the scaled time to in-game minutes.
-	# Example: Real-life elapsed time (_elapsed_time): 1050 seconds (17.5 minutes in real time)
-	# _elapsed_time / day_duration: 1050 / (35 * 60) = 0.5 (Half an in-game day has passed).
-	# scaled_elapsed_time = 0.5 * 1440 = 720 (720 in-game minutes have passed).
-	var scaled_elapsed_time = (_elapsed_time / day_duration) * in_game_day_minutes
+	# Convert day_duration to seconds to match _elapsed_time
+	var day_duration_seconds = day_duration * 60.0
 
-	# Convert the scaled time into a whole number of in-game minutes.
-	# This represents the total number of in-game minutes passed since the game started.
-	# Example: total_in_game_minutes = int(720) = 720.
+	# Scale real-life elapsed time to in-game time
+	var scaled_elapsed_time = (_elapsed_time / day_duration_seconds) * in_game_day_minutes
+
+	# Convert the scaled time into a whole number of in-game minutes
 	var total_in_game_minutes: int = int(scaled_elapsed_time)
 
-	# Use modulo operation to wrap the total minutes into a single in-game day.
-	# This ensures the result is always between 0 and 1439 (1440 total minutes in a day).
-	# Example: current_minutes_of_day = 720 % 1440 = 720.
+	# Wrap the total minutes into a single in-game day
 	var current_minutes_of_day: int = total_in_game_minutes % in_game_day_minutes
 
-	# Return the current in-game minute of the day.
+	# Return the current in-game minute of the day
 	return current_minutes_of_day
