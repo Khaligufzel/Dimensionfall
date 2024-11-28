@@ -15,13 +15,16 @@ var current_save_folder: String = ""
 func create_new_save():
 	var dir = DirAccess.open("user://")
 	var unique_folder_path := "save/" + Time.get_datetime_string_from_system()
-	var sanitized_path = unique_folder_path.replace(":","")
+	var sanitized_path = unique_folder_path.replace(":", "")
 	if dir.make_dir_recursive(sanitized_path) == OK:
 		current_save_folder = "user://" + sanitized_path
-		Helper.json_helper.write_json_file(current_save_folder + "/game.json",\
-		JSON.stringify({"mapseed": Helper.mapseed}))
+		Helper.json_helper.write_json_file(current_save_folder + "/game.json", JSON.stringify({
+			"mapseed": Helper.mapseed,
+			"elapsed_time": Helper.time_helper.get_elapsed_time()  # Save the elapsed time
+		}))
 	else:
 		print_debug("Failed to create a unique folder for the demo.")
+
 
 
 # We can only save the data when all chunks are unloaded.
@@ -103,15 +106,17 @@ func save_game():
 	save_player_equipment()
 	save_quest_state()
 	save_player_state(get_tree().get_first_node_in_group("Players"))
+	save_game_state()  # Save the overarching game state
 
 
 # Function to load game.json from a given saved game folder
 func load_game_from_folder(save_folder_name: String) -> void:
 	current_save_folder = "user://save/" + save_folder_name
-	var gameFileJson: Dictionary = Helper.json_helper.load_json_dictionary_file(\
-	current_save_folder + "/game.json")
+	var gameFileJson: Dictionary = Helper.json_helper.load_json_dictionary_file(current_save_folder + "/game.json")
 	if gameFileJson:
-		Helper.mapseed = gameFileJson.mapseed
+		Helper.mapseed = gameFileJson.get("mapseed", Helper.mapseed)  # Load the mapseed
+		var elapsed_time = gameFileJson.get("elapsed_time", 0.0)  # Default to 0 if not present
+		Helper.time_helper.set_elapsed_time(elapsed_time)  # Load elapsed time into TimeHelper
 
 
 # Function to save the player's inventory to a JSON file.
@@ -215,3 +220,21 @@ func load_all_overmap_grids_from_file() -> Array:
 		var file_path = load_path + "/" + overmap
 		loaded_overmap_grids.append(Helper.json_helper.load_json_dictionary_file(file_path))
 	return loaded_overmap_grids
+
+
+func save_game_state():
+	# Ensure the save folder exists
+	if current_save_folder == "":
+		print_debug("No save folder set. Cannot save game state.")
+		return
+
+	# Save the game state to game.json
+	var game_state = {
+		"mapseed": Helper.mapseed,
+		"elapsed_time": Helper.time_helper.get_elapsed_time()  # Include elapsed time
+	}
+	var save_path = current_save_folder + "/game.json"
+	if Helper.json_helper.write_json_file(save_path, JSON.stringify(game_state)) != OK:
+		print_debug("Failed to save game state to:", save_path)
+	else:
+		print_debug("Game state saved to:", save_path)
