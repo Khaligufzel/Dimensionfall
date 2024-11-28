@@ -20,8 +20,10 @@ const task_manager_Class = preload("res://Scripts/Helper/task_manager.gd")
 const map_manager_Class = preload("res://Scripts/Helper/map_manager.gd")
 const overmap_manager_Class = preload("res://Scripts/Helper/overmap_manager.gd")
 const quest_helper_Class = preload("res://Scripts/Helper/quest_helper.gd")
+const time_helper_Class = preload("res://Scripts/Helper/time_helper.gd")
 
 var json_helper: RefCounted = null
+var time_helper: RefCounted = null
 var save_helper: Node = null
 var signal_broker: Node = null
 var task_manager: Node = null
@@ -46,6 +48,7 @@ func initialize_helpers():
 	map_manager = map_manager_Class.new()
 	overmap_manager = overmap_manager_Class.new()
 	quest_helper = quest_helper_Class.new()
+	time_helper = time_helper_Class.new()
 
 
 func _process(_delta: float) -> void:
