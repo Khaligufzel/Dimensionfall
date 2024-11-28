@@ -356,7 +356,7 @@ func terminate_mob_instances(mapMobs):
 func free_item_instances(mapitems):
 	for item in mapitems:
 		if _is_object_in_range(item.containerpos):
-			item.queue_free.call_deferred()
+			item.destroy.call_deferred()
 
 # Returns an array of furniture data that will be saved for this chunk
 # Furniture that has it's x and z position in the boundary of the chunk's position and size
