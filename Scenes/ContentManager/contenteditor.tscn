@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://480xqusluqrk"]
+[gd_scene load_steps=18 format=3 uid="uid://480xqusluqrk"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/contenteditor.gd" id="1_65sl4"]
 [ext_resource type="PackedScene" uid="uid://bhh0v7x4fjsgi" path="res://Scenes/ContentManager/content_list.tscn" id="2_4f21i"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b07i30w3ey3aa" path="res://Scenes/ContentManager/Custom_Editors/PlayerAttributeEditor.tscn" id="14_uu117"]
 [ext_resource type="PackedScene" uid="uid://b3ggaal1e2obk" path="res://Scenes/ContentManager/Custom_Editors/OvermapAreaEditor.tscn" id="15_qbq5b"]
 [ext_resource type="PackedScene" uid="uid://bw14nfwdnu41d" path="res://Scenes/ContentManager/Custom_Editors/MobgroupsEditor.tscn" id="16_lrbdj"]
+[ext_resource type="PackedScene" uid="uid://c6qjrrt1xgro2" path="res://Scenes/ContentManager/Custom_Editors/MobfactionsEditor.tscn" id="17_mcu7c"]
 
 [node name="contenteditor" type="Control" node_paths=PackedStringArray("content", "tabContainer", "type_selector_menu_button")]
 layout_mode = 3
@@ -40,6 +41,7 @@ questsEditor = ExtResource("13_gv2y0")
 playerattributesEditor = ExtResource("14_uu117")
 overmapareaEditor = ExtResource("15_qbq5b")
 mobgroupsEditor = ExtResource("16_lrbdj")
+mobfactionsEditor = ExtResource("17_mcu7c")
 content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content/ContentList")
 tabContainer = NodePath("HSplitContainer/TabContainer")
 type_selector_menu_button = NodePath("HSplitContainer/ContentLists/TabContainer2/Content/Toolbar/TypeSelectorMenuButton")

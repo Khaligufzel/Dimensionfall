@@ -17,6 +17,7 @@ var skills: DSkills
 var quests: DQuests
 var overmapareas: DOvermapareas
 var mobgroups: DMobgroups
+var mobfactions: DMobfactions
 
 # Only hides the visual instance when it's above the player. Casts no shadow
 static var hide_above_player_shader := preload("res://Shaders/HideAbovePlayer.gdshader")
@@ -45,7 +46,8 @@ enum ContentType {
 	SKILLS,             #10
 	QUESTS,             #11
 	OVERMAPAREAS,       #12
-	MOBGROUPS        	#13
+	MOBGROUPS,       	#13
+	MOBFACTIONS        	#14
 }
 
 # Rotation mappings for how directions change based on tile rotation
@@ -84,6 +86,7 @@ func _ready():
 	quests = DQuests.new()
 	overmapareas = DOvermapareas.new()
 	mobgroups = DMobgroups.new()
+	mobfactions = DMobfactions.new()
 
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
@@ -100,7 +103,8 @@ func _ready():
 		ContentType.SKILLS: skills,
 		ContentType.QUESTS: quests,
 		ContentType.OVERMAPAREAS: overmapareas,
-		ContentType.MOBGROUPS: mobgroups
+		ContentType.MOBGROUPS: mobgroups,
+		ContentType.MOBFACTIONS: mobfactions 
 	}
 
 	load_sprites()
