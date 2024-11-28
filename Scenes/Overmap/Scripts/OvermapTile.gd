@@ -19,12 +19,15 @@ var map_cell:
 signal tile_clicked(clicked_tile: Control)
 
 # Handle mouse input to emit the tile_clicked signal
+func _on_texture_rect_mouse_entered():
+	tile_clicked.emit(self)
+
 func _on_texture_rect_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				if event.pressed:
-					tile_clicked.emit(self)
+					pass
 
 # Set the texture for the TextureRect
 func set_texture(res: Resource) -> void:
