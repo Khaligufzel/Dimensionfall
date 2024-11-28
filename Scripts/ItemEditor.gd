@@ -56,7 +56,7 @@ func _ready():
 
 #This function update the form based on the contentData that has been loaded
 func load_item_data() -> void:
-	if itemImageDisplay != null:
+	if itemImageDisplay != null and ditem.spriteid:
 		itemImageDisplay.texture = Gamedata.items.sprite_by_file(ditem.spriteid)
 		PathTextLabel.text = ditem.spriteid
 	if IDTextLabel != null:

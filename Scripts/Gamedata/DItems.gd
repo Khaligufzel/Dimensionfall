@@ -23,7 +23,8 @@ func load_items_from_disk() -> void:
 	var itemlist: Array = Helper.json_helper.load_json_array_file(dataPath)
 	for myitem in itemlist:
 		var item: DItem = DItem.new(myitem)
-		item.sprite = sprites[item.spriteid]
+		if myitem.has("sprite"):
+			item.sprite = sprites[item.spriteid]
 		itemdict[item.id] = item
 
 
