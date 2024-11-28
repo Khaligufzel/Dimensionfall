@@ -3750,5 +3750,41 @@ json_data = "[
 		\"two_handed\": false,
 		\"volume\": 25,
 		\"weight\": 0.25
+	},
+	{
+		\"description\": \"A bundle of small, dry sticks and plant remnants tied together, perfect for starting a fire.\",
+		\"id\": \"kindling_bundle\",
+		\"image\": \"./Mods/Core/Items/kindling_bundle_32.png\",
+		\"max_stack_size\": 10,
+		\"name\": \"Kindling Bundle\",
+		\"sprite\": \"kindling_bundle_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 30,
+		\"weight\": 0.3
+	},
+	{
+		\"description\": \"A chunk of charcoal, created by burning wood. Useful as fuel or for crafting.\",
+		\"id\": \"charcoal_chunk\",
+		\"image\": \"./Mods/Core/Items/charcoal_chunk_32.png\",
+		\"max_stack_size\": 20,
+		\"name\": \"Charcoal Chunk\",
+		\"sprite\": \"charcoal_chunk_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": false,
+		\"volume\": 10,
+		\"weight\": 0.5
+	},
+	{
+		\"description\": \"A sturdy bundle of wood pieces tied together, used for creating a stable fire base.\",
+		\"id\": \"wood_bundle\",
+		\"image\": \"./Mods/Core/Items/branches_32.png\",
+		\"max_stack_size\": 2,
+		\"name\": \"Wood Bundle\",
+		\"sprite\": \"branches_32.png\",
+		\"stack_size\": 1,
+		\"two_handed\": true,
+		\"volume\": 150,
+		\"weight\": 10
 	}
 ]"
