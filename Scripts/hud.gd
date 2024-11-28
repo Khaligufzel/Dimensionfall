@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 @export var stamina_HUD: NodePath
+@export var clock_label: Label = null
+
 
 @export var ammo_HUD_left: NodePath
 @export var ammo_HUD_right: NodePath
@@ -47,6 +49,8 @@ func _ready():
 	var buildmenu = get_node(building_menu)
 	buildmenu.visibility_changed.connect(\
 	Helper.signal_broker.on_build_menu_visibility_changed.bind(buildmenu))
+	Helper.time_helper.minute_passed.connect(_on_minute_passed)
+
 
 func update_progress_bar():
 	var progressBarNode = get_node(progress_bar_filling)
@@ -131,3 +135,7 @@ func _on_item_detector_add_to_proximity_inventory(container):
 # The parameter container the inventory that has left proximity
 func _on_item_detector_remove_from_proximity_inventory(container):
 	inventoryWindow._on_item_detector_remove_from_proximity_inventory(container)
+
+
+func _on_minute_passed(current_time: String):
+	clock_label.text = current_time  # Update the clock label

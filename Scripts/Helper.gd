@@ -23,7 +23,7 @@ const quest_helper_Class = preload("res://Scripts/Helper/quest_helper.gd")
 const time_helper_Class = preload("res://Scripts/Helper/time_helper.gd")
 
 var json_helper: RefCounted = null
-var time_helper: RefCounted = null
+var time_helper: Node = null
 var save_helper: Node = null
 var signal_broker: Node = null
 var task_manager: Node = null
@@ -36,6 +36,7 @@ func _ready():
 	initialize_helpers()
 	add_child(save_helper)
 	add_child(quest_helper)
+	add_child(time_helper)
 	add_child(overmap_manager)
 	signal_broker.game_ended.connect(_on_game_ended)
 
