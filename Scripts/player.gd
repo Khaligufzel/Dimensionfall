@@ -415,11 +415,11 @@ func _sort_player_attributes_by_order(myattributes: Array[PlayerAttribute], orde
 
 # Custom sorting functions for PlayerAttributes
 func _compare_player_attributes_by_current_amount_ascending(a: PlayerAttribute, b: PlayerAttribute) -> bool:
-	return a.current_amount < b.current_amount
+	return a.default_mode.current_amount < b.default_mode.current_amount
 
 
 func _compare_player_attributes_by_current_amount_descending(a: PlayerAttribute, b: PlayerAttribute) -> bool:
-	return a.current_amount > b.current_amount
+	return a.default_mode.current_amount > b.default_mode.current_amount
 
 
 # Function to retrieve PlayerAttributes that match the provided IDs in the array
