@@ -1,0 +1,202 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu1itxfbrp34d"]
+
+[ext_resource type="Texture2D" uid="uid://cv3orfrnhjnsq" path="res://Textures/LogoTransparent.png" id="1_xvqlu"]
+
+[node name="CharacterCreator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 31.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_xvqlu")
+stretch_mode = 5
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 4
+
+[node name="World Options" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Mods" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Scenario" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Scenario"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="ItemList" type="ItemList" parent="TabContainer/Scenario/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+item_0/text = "Dimensionfall"
+item_1/text = "Test"
+item_2/text = "A Really Bad Bright Night"
+
+[node name="Panel" type="Control" parent="TabContainer/Scenario/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="TabContainer/Scenario/HBoxContainer/Panel"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Scenario desciption:
+
+The abyss of exile conspires to beguile, yet illumination relentlessly seeks its champion. Implements shattered and aspirations brittle teeter on the precipice, but fortitude emerges in the crucible of unified defiance. Endurance is no innate virtue but a forged legacy: the dwindling embers of ephemeral warmth, the glacial grasp of nocturnal desolation, and the whispers of inscrutable interlopers breaching the veil of dimensions.
+
+Chronos slips unyieldingly between twilight and shadow, between the lacerations of remembrance and the murk of uncharted eventualities. Hunger gnashes mercilessly; frigid draughts and sinewy morsels provide scant reprieve. Yet we persist: rekindling defunct mechanisms, nurturing a fragile flame, and charting the unyielding wilderness asserts dominion over entropy.
+
+The disjointed remnants of civilization surrender their enigmatic shards—fragmented cartographies, cryptic manuscripts, and the echoes of eldritch conjectures. ‘A ruptured dimension? A recursive schism?’ Perhaps. Yet here we stand: to endure, to defy, and to transcend."
+autowrap_mode = 3
+
+[node name="Background" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="ItemList" type="ItemList" parent="TabContainer/Background/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+item_0/text = "Survivor"
+item_1/text = "Open Source Game Developer"
+item_2/text = "Dimension Traveler"
+
+[node name="Panel" type="Panel" parent="TabContainer/Background/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="TabContainer/Background/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Background:
+
+The abyss of exile conspires to beguile, yet illumination relentlessly seeks its champion. Implements shattered and aspirations brittle teeter on the precipice, but fortitude emerges in the crucible of unified defiance. Endurance is no innate virtue but a forged legacy: the dwindling embers of ephemeral warmth, the glacial grasp of nocturnal desolation, and the whispers of inscrutable interlopers breaching the veil of dimensions.
+
+Chronos slips unyieldingly between twilight and shadow, between the lacerations of remembrance and the murk of uncharted eventualities. Hunger gnashes mercilessly; frigid draughts and sinewy morsels provide scant reprieve. Yet we persist: rekindling defunct mechanisms, nurturing a fragile flame, and charting the unyielding wilderness asserts dominion over entropy.
+
+The disjointed remnants of civilization surrender their enigmatic shards—fragmented cartographies, cryptic manuscripts, and the echoes of eldritch conjectures. ‘A ruptured dimension? A recursive schism?’ Perhaps. Yet here we stand: to endure, to defy, and to transcend."
+autowrap_mode = 3
+
+[node name="Traits" type="Control" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Traits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="ItemList" type="ItemList" parent="TabContainer/Traits/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0.501961, 0, 1)
+item_count = 3
+item_0/text = "Positive"
+item_1/text = "Traits"
+item_2/text = "Here"
+
+[node name="ItemList2" type="ItemList" parent="TabContainer/Traits/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.501961, 0.501961, 0, 1)
+item_count = 7
+item_0/text = "Stuff"
+item_1/text = "That"
+item_2/text = "Has"
+item_3/text = "Pros"
+item_4/text = "And"
+item_5/text = "Cons"
+item_6/text = "Here"
+
+[node name="ItemList3" type="ItemList" parent="TabContainer/Traits/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.501961, 0, 0, 1)
+item_count = 3
+item_0/text = "Bad"
+item_1/text = "Stuff"
+item_2/text = "Here"
+
+[node name="Panel" type="Panel" parent="TabContainer/Traits/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="TabContainer/Traits/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Trait desciption:
+
+The abyss of exile conspires to beguile, yet illumination relentlessly seeks its champion. Implements shattered and aspirations brittle teeter on the precipice, but fortitude emerges in the crucible of unified defiance. Endurance is no innate virtue but a forged legacy: the dwindling embers of ephemeral warmth, the glacial grasp of nocturnal desolation, and the whispers of inscrutable interlopers breaching the veil of dimensions.
+
+"
+autowrap_mode = 3
+
+[node name="Attributes" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Attributes"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
