@@ -143,7 +143,7 @@ func instantiate_editor(type: Gamedata.ContentType, itemID: String, newEditor: P
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		Gamedata.ContentType.STATS:
-			newContentEditor.dstat = Gamedata.stats.by_id(itemID)
+			newContentEditor.dstat = Gamedata.mods["Core"].stats.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		Gamedata.ContentType.SKILLS:

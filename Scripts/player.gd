@@ -96,7 +96,7 @@ func initialize_attributes():
 # Initialize skills with level and XP
 func initialize_stats_and_skills():
 	# Initialize all stats with a value of 5
-	for stat in Gamedata.stats.get_all().values():
+	for stat in Gamedata.mods["Core"].stats.get_all().values():
 		stats[stat.id] = 5
 	Helper.signal_broker.player_stat_changed.emit(self)
 	

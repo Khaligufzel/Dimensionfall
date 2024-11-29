@@ -3,7 +3,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles stats data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of stats. You can access it through Gamedata.stats
+# This script handles the list of stats. You can access it through Gamedata.mods["Core"].stats
 
 # Paths for stats data and sprites
 var dataPath: String = "./Mods/Core/Stats/Stats.json"
@@ -12,15 +12,22 @@ var statdict: Dictionary = {}
 var sprites: Dictionary = {}
 
 # Constructor
-func _init():
+# Add a mod_id parameter to dynamically initialize paths
+func _init(mod_id: String) -> void:
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Stats/Stats.json"
+	spritePath = "./Mods/" + mod_id + "/Stats/"
+	
+	# Load stats and sprites
 	load_sprites()
 	load_stats_from_disk()
+
 
 # Load all stats data from disk into memory
 func load_stats_from_disk() -> void:
 	var statslist: Array = Helper.json_helper.load_json_array_file(dataPath)
 	for mystat in statslist:
-		var stat: DStat = DStat.new(mystat)
+		var stat: DStat = DStat.new(mystat, self)
 		stat.sprite = sprites[stat.spriteid]
 		statdict[stat.id] = stat
 
@@ -55,13 +62,13 @@ func duplicate_to_disk(statid: String, newstatid: String) -> void:
 	# So we delete the references from the duplicated data if it is present
 	statdata.erase("references")
 	statdata.id = newstatid
-	var newstat: DStat = DStat.new(statdata)
+	var newstat: DStat = DStat.new(statdata, self)
 	statdict[newstatid] = newstat
 	save_stats_to_disk()
 
 # Adds a new stat with a given ID
 func add_new(newid: String) -> void:
-	var newstat: DStat = DStat.new({"id": newid})
+	var newstat: DStat = DStat.new({"id": newid}, self)
 	statdict[newstat.id] = newstat
 	save_stats_to_disk()
 

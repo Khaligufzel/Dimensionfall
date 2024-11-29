@@ -12,7 +12,6 @@ var mobs: DMobs
 var itemgroups: DItemgroups
 var playerattributes: DPlayerAttributes
 var wearableslots: DWearableSlots
-var stats: DStats
 var skills: DSkills
 var quests: DQuests
 var overmapareas: DOvermapareas
@@ -80,7 +79,6 @@ func _ready():
 	itemgroups = DItemgroups.new()
 	playerattributes = DPlayerAttributes.new()
 	wearableslots = DWearableSlots.new()
-	stats = DStats.new()
 	skills = DSkills.new()
 	quests = DQuests.new()
 	overmapareas = DOvermapareas.new()
@@ -97,7 +95,7 @@ func _ready():
 		ContentType.MOBS: mobs,
 		ContentType.PLAYERATTRIBUTES: playerattributes,
 		ContentType.WEARABLESLOTS: wearableslots,
-		ContentType.STATS: stats,
+		ContentType.STATS: mods["Core"].stats,
 		ContentType.SKILLS: skills,
 		ContentType.QUESTS: quests,
 		ContentType.OVERMAPAREAS: overmapareas,
@@ -239,6 +237,9 @@ func load_mods() -> void:
 				# Initialize mod dictionary for this mod_id
 				mods[mod_id] = {}
 				mods[mod_id]["modinfo"] = modinfo  # Store the full modinfo under "modinfo"
+
+				# Create a new DStats instance for this mod and associate it with the mod_id
+				mods[mod_id]["stats"] = DStats.new(mod_id)
 			else:
 				print_debug("Invalid modinfo.json in folder: " + folder_name)
 		else:
