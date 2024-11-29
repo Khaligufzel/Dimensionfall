@@ -173,6 +173,7 @@ func populate_mods_item_list() -> void:
 			print_debug("Invalid modinfo for mod ID: " + mod_id)
 
 
+# When the user presses the save button
 func _on_save_button_button_up() -> void:
 	# Get the selected mod
 	var selected_index = mods_item_list.get_selected_items()
@@ -194,9 +195,17 @@ func _on_save_button_button_up() -> void:
 		"tags": []
 	}
 
-	# Add dependencies
-	for i in range(dependencies_item_list.get_item_count()):
-		modinfo["dependencies"].append(dependencies_item_list.get_item_text(i).strip_edges())
+	# Add dependencies, ensuring no circular dependencies
+	for mydep: String in dependencies_item_list.get_items():
+		if mydep == mod_id:
+			# Mark as invalid dependency
+			print_debug("Removed circular dependency: " + mydep)
+		else:
+			# Add valid dependency to modinfo
+			modinfo["dependencies"].append(mydep)
+
+	# Remove invalid dependencies from dependencies_item_list
+	dependencies_item_list.set_items(modinfo["dependencies"])
 
 	# Add tags
 	if tags_editable_item_list.has_method("get_items"):
@@ -212,7 +221,6 @@ func _on_save_button_button_up() -> void:
 		print_debug("Successfully saved modinfo for mod: " + mod_id)
 	else:
 		print_debug("Failed to save modinfo for mod: " + mod_id)
-
 
 
 # Called when a user clicks on an item in the mods_item_list

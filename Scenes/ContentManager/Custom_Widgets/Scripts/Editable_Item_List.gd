@@ -18,7 +18,6 @@ var is_collapsed: bool = true
 		collapseButton.text = header
 
 
-
 func _ready():
 	contentItems.set_drag_forwarding(Callable(), _can_drop_mydata, _drop_mydata)
 
@@ -110,3 +109,7 @@ func _drop_mydata(myposition: Vector2, data: String) -> void:
 		add_item_to_list(data)
 	else:
 		print_debug("Cannot drop data: " + data)
+
+
+func remove_item_by_index(myindex: int):
+	contentItems.remove_item(myindex)
