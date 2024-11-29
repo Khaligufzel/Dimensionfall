@@ -25,7 +25,7 @@ id_text_edit = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/Form
 name_text_edit = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/NameTextEdit")
 description_text_edit = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/DescriptionTextEdit")
 author_text_edit = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/AuthorTextEdit")
-dependencies_item_list = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/DependenciesItemList")
+dependencies_item_list = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/DependenciesEditable_Item_List")
 homepage_text_edit = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/HomepageTextEdit")
 license_option_button = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/LicenseOptionButton")
 tags_editable_item_list = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/TagsEditable_Item_List")
@@ -92,6 +92,14 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.7
 columns = 2
 
+[node name="ToolsLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "Tools"
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "Save"
+
 [node name="IdLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
 layout_mode = 2
 text = "id"
@@ -137,9 +145,11 @@ placeholder_text = "My name"
 layout_mode = 2
 text = "dependencies"
 
-[node name="DependenciesItemList" type="ItemList" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+[node name="DependenciesEditable_Item_List" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer" instance=ExtResource("2_r6poh")]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
+header = "Dependencies"
 
 [node name="HomepageLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
 layout_mode = 2
@@ -168,6 +178,7 @@ text = "tags"
 [node name="TagsEditable_Item_List" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer" instance=ExtResource("2_r6poh")]
 layout_mode = 2
 size_flags_vertical = 3
+header = "Tags"
 
 [node name="ID_Input" type="Popup" parent="."]
 auto_translate_mode = 1
@@ -215,3 +226,5 @@ text = "Cancel"
 [connection signal="button_up" from="VBoxContainer/HeaderHBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ButtonsHBoxContainer/AddButton" to="." method="_on_add_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ButtonsHBoxContainer/RemoveButton" to="." method="_on_remove_button_button_up"]
+[connection signal="item_selected" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ModsItemList" to="." method="_on_mods_item_list_item_selected"]
+[connection signal="button_up" from="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/SaveButton" to="." method="_on_save_button_button_up"]
