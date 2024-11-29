@@ -19,7 +19,7 @@ func _ready():
 	loadTiles()
 	loadFurniture()
 	
-# this function will read all files in Gamedata.data.mobs.data and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
+# this function will read all files in Gamedata.mobs and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
 func loadMobs():
 	# Combine mobs and mobgroups into a single list
 	var mobList: Dictionary = Gamedata.mobs.get_all()

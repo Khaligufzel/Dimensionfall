@@ -43,9 +43,8 @@ extends Control
 
 
 func _ready():
-	load_mods()
+	populate_mods_item_list()
 	mods_item_list.set_drag_forwarding(_create_drag_data, Callable(), Callable())
-	dependencies_item_list.set_drag_forwarding(Callable(), _can_drop_mod, _drop_mod_data)
 
 # The user pressed the "add" button
 func _on_add_button_button_up() -> void:
@@ -132,22 +131,23 @@ func delete_mod(mod_id: String) -> void:
 		print_debug("The 'Core' mod cannot be deleted.")
 		return
 
-	var mod_path = "./Mods/" + mod_id
+	# Remove the mod from Gamedata.mods
+	if mod_id in Gamedata.mods:
+		Gamedata.mods.erase(mod_id)
 
-	# Delete the modinfo.json file
-	if !Helper.json_helper.delete_json_file(mod_path + "/modinfo.json"):
+	# Delete the mod folder
+	var mod_path = "./Mods/" + mod_id
+	if not Helper.json_helper.delete_json_file(mod_path + "/modinfo.json"):
 		print_debug("Failed to delete modinfo.json for mod: " + mod_id)
 		return
 
-	# Delete the mod folder
-	var dir = DirAccess.open("./Mods")
-	if dir and dir.dir_exists(mod_path.get_base_dir()):
-		if dir.remove(mod_path.get_base_dir()) != OK:
+	var dir = DirAccess.open(mod_path)
+	if dir and dir.dir_exists(mod_path):
+		if dir.remove(mod_path) != OK:
 			print_debug("Failed to delete mod folder: " + mod_path)
 			return
 	else:
 		print_debug("Mod folder does not exist: " + mod_path)
-		return
 
 	# Remove the mod from the mods_item_list
 	for i in range(mods_item_list.get_item_count()):
@@ -158,39 +158,19 @@ func delete_mod(mod_id: String) -> void:
 	print_debug("Removed mod: " + mod_id)
 
 
-# Function to load all mods from the ./Mods directory and populate the mods_item_list
-func load_mods() -> void:
+
+func populate_mods_item_list() -> void:
 	# Clear the mods_item_list
 	mods_item_list.clear()
 
-	# Open the Mods directory
-	var dir = DirAccess.open("./Mods")
-	if dir:
-		dir.list_dir_begin()
-		var folder_name = dir.get_next()
-
-		# Iterate through each folder in the Mods directory
-		while folder_name != "":
-			if dir.current_is_dir() and folder_name != "." and folder_name != "..":
-				var modinfo_path = "./Mods/" + folder_name + "/modinfo.json"
-
-				# Load the modinfo.json file if it exists
-				if FileAccess.file_exists(modinfo_path):
-					var modinfo = Helper.json_helper.load_json_dictionary_file(modinfo_path)
-
-					# Validate modinfo data and add it to the mods_item_list
-					if modinfo.has("id") and modinfo.has("name"):
-						mods_item_list.add_item(modinfo["name"])
-						mods_item_list.set_item_metadata(mods_item_list.get_item_count() - 1, modinfo["id"])
-					else:
-						print_debug("Invalid modinfo.json in folder: " + folder_name)
-				else:
-					print_debug("No modinfo.json found in folder: " + folder_name)
-			folder_name = dir.get_next()
-
-		dir.list_dir_end()
-	else:
-		print_debug("Failed to open Mods directory.")
+	# Iterate through Gamedata.mods to populate the mods_item_list
+	for mod_id in Gamedata.mods.keys():
+		var modinfo = Gamedata.mods[mod_id].get("modinfo", {})
+		if modinfo.has("name"):
+			mods_item_list.add_item(modinfo["name"])
+			mods_item_list.set_item_metadata(mods_item_list.get_item_count() - 1, mod_id)
+		else:
+			print_debug("Invalid modinfo for mod ID: " + mod_id)
 
 
 func _on_save_button_button_up() -> void:
@@ -201,9 +181,6 @@ func _on_save_button_button_up() -> void:
 		return
 	selected_index = selected_index[0]
 	var mod_id = mods_item_list.get_item_metadata(selected_index)
-
-	# Build the path to modinfo.json
-	var modinfo_path = "./Mods/" + mod_id + "/modinfo.json"
 
 	# Create a dictionary with the updated modinfo data
 	var modinfo = {
@@ -225,11 +202,17 @@ func _on_save_button_button_up() -> void:
 	if tags_editable_item_list.has_method("get_items"):
 		modinfo["tags"] = tags_editable_item_list.get_items()
 
+	# Update modinfo in Gamedata.mods
+	if mod_id in Gamedata.mods:
+		Gamedata.mods[mod_id]["modinfo"] = modinfo
+
 	# Save the updated modinfo to the JSON file
+	var modinfo_path = "./Mods/" + mod_id + "/modinfo.json"
 	if Helper.json_helper.write_json_file(modinfo_path, JSON.stringify(modinfo, "\t")) == OK:
 		print_debug("Successfully saved modinfo for mod: " + mod_id)
 	else:
 		print_debug("Failed to save modinfo for mod: " + mod_id)
+
 
 
 # Called when a user clicks on an item in the mods_item_list
@@ -257,7 +240,7 @@ func _on_mods_item_list_item_selected(index: int) -> void:
 				break
 
 		# Populate dependencies_item_list
-		dependencies_item_list.clear()
+		dependencies_item_list.clear_list()
 		for dependency in modinfo.get("dependencies", []):
 			dependencies_item_list.add_item(dependency)
 
@@ -289,26 +272,3 @@ func _create_drag_data(_at_position: Vector2) -> Variant:
 
 	# Return the data associated with the dragged mod
 	return mod_id
-
-
-# This function should return true if the dragged data can be dropped onto the dependencies_item_list
-func _can_drop_mod(_myposition: Vector2, data: String) -> bool:
-	# Check if the data is valid and corresponds to a mod ID
-	if data.is_empty():
-		return false
-
-	# Ensure the mod ID is not already in the dependencies_item_list
-	for i in range(dependencies_item_list.get_item_count()):
-		if dependencies_item_list.get_item_text(i) == data:
-			return false  # Prevent duplicates
-
-	return true
-
-# This function handles the data being dropped onto the dependencies_item_list
-func _drop_mod_data(myposition: Vector2, data: String) -> void:
-	if _can_drop_mod(myposition, data):
-		# Add the mod ID to the dependencies_item_list
-		dependencies_item_list.add_item(data)
-		print_debug("Added mod to dependencies: " + data)
-	else:
-		print_debug("Cannot drop mod: " + data)

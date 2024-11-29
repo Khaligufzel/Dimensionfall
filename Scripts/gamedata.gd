@@ -2,7 +2,7 @@ extends Node
 
 # Autoload singleton that loads all game data required to run the game
 # Accessible via Gamedata.property
-var data: Dictionary = {"overmaptiles": {"sprites": {}, "spritePath":"./Mods/Core/OvermapTiles/"}}
+var mods: Dictionary = {}
 var maps: DMaps
 var tacticalmaps: DTacticalmaps
 var furnitures: DFurnitures
@@ -69,6 +69,7 @@ var gamedata_map: Dictionary = {}
 
 # This function is called when the node is added to the scene.
 func _ready():
+	load_mods()
 	# Instantiate the content type instances
 	maps = DMaps.new()
 	tacticalmaps = DTacticalmaps.new()
@@ -103,7 +104,6 @@ func _ready():
 		ContentType.MOBGROUPS: mobgroups
 	}
 
-	load_sprites()
 	materials["container"] = create_item_shader_material(textures.container)
 	materials["container_filled"] = create_item_shader_material(textures.container_filled)
 
@@ -118,21 +118,6 @@ func create_item_shader_material(albedo_texture: Texture) -> ShaderMaterial:
 	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
 
 	return shader_material
-
-
-# Loads sprites and assigns them to the proper dictionary
-func load_sprites() -> void:
-	for dict in data.keys():
-		if data[dict].has("spritePath"):
-			var loaded_sprites: Dictionary = {}
-			var spritesDir: String = data[dict].spritePath
-			var png_files: Array = Helper.json_helper.file_names_in_dir(spritesDir, ["png"])
-			for png_file in png_files:
-				# Load the .png file as a texture
-				var texture := load(spritesDir + png_file) 
-				# Add the material to the dictionary
-				loaded_sprites[png_file] = texture
-			data[dict].sprites = loaded_sprites
 
 
 # Gets the array index of an item by its ID
@@ -229,3 +214,32 @@ func dupdate_reference(ref: Dictionary, old: String, new: String, type: String) 
 	if new != "":
 		changes_made = dadd_reference(ref, "core", type, new) or changes_made
 	return changes_made
+
+
+# Function to load all mods from the ./Mods directory and populate the mods dictionary
+func load_mods() -> void:
+	# Clear the mods dictionary
+	mods.clear()
+
+	# Get the list of folders in the Mods directory using the helper function
+	var folders = Helper.json_helper.folder_names_in_dir("./Mods")
+	
+	# Iterate through each folder
+	for folder_name in folders:
+		var modinfo_path = "./Mods/" + folder_name + "/modinfo.json"
+
+		# Load the modinfo.json file if it exists
+		if FileAccess.file_exists(modinfo_path):
+			var modinfo = Helper.json_helper.load_json_dictionary_file(modinfo_path)
+
+			# Validate modinfo data and add it to the mods dictionary
+			if modinfo.has("id"):
+				var mod_id = modinfo["id"]
+
+				# Initialize mod dictionary for this mod_id
+				mods[mod_id] = {}
+				mods[mod_id]["modinfo"] = modinfo  # Store the full modinfo under "modinfo"
+			else:
+				print_debug("Invalid modinfo.json in folder: " + folder_name)
+		else:
+			print_debug("No modinfo.json found in folder: " + folder_name)
