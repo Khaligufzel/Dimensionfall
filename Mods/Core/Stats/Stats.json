@@ -22,5 +22,29 @@
 		"id": "intelligence",
 		"name": "Intelligence",
 		"sprite": "intelligence_32.png"
+	},
+	{
+		"description": "",
+		"id": "agility",
+		"name": "Agility",
+		"sprite": "perception_32.png"
+	},
+	{
+		"description": "",
+		"id": "vitality",
+		"name": "Vitality",
+		"sprite": "perception_32.png"
+	},
+	{
+		"description": "",
+		"id": "willpower",
+		"name": "willpower",
+		"sprite": "perception_32.png"
+	},
+	{
+		"description": "",
+		"id": "charisma",
+		"name": "Charisma",
+		"sprite": "perception_32.png"
 	}
 ]

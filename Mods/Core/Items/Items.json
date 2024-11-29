@@ -97,15 +97,7 @@
 						"amount": 10,
 						"id": "bullet_9mm"
 					}
-				],
-				"skill_progression": {
-					"id": "fabrication",
-					"xp": 10
-				},
-				"skill_requirement": {
-					"id": "fabrication",
-					"level": 1
-				}
+				]
 			}
 		],
 		"Magazine": {
@@ -1048,15 +1040,7 @@
 						"amount": 1,
 						"id": "plank_2x4"
 					}
-				],
-				"skill_progression": {
-					"id": "fabrication",
-					"xp": 10
-				},
-				"skill_requirement": {
-					"id": "fabrication",
-					"level": 1
-				}
+				]
 			}
 		],
 		"description": "A sturdy cutting board, ideal for preparing food safely and efficiently.",
@@ -1131,15 +1115,7 @@
 						"amount": 1,
 						"id": "plank_2x4"
 					}
-				],
-				"skill_progression": {
-					"id": "fabrication",
-					"xp": 15
-				},
-				"skill_requirement": {
-					"id": "fabrication",
-					"level": 2
-				}
+				]
 			}
 		],
 		"description": "A wooden rolling pin, essential for flattening dough for baking.",
@@ -3228,11 +3204,7 @@
 						"amount": 1,
 						"id": "sharp_stone"
 					}
-				],
-				"skill_progression": {
-					"id": "fabrication",
-					"xp": 25
-				}
+				]
 			}
 		],
 		"Melee": {

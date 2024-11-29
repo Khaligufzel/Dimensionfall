@@ -14,7 +14,7 @@
 	{
 		"description": "Proficiency in medical treatment, including using items like bandages and medication more effectively to heal injuries or cure diseases.",
 		"id": "firstaid",
-		"name": "Firstaid",
+		"name": "Medicine",
 		"sprite": "firstaid_32.png"
 	},
 	{
@@ -40,22 +40,6 @@
 		"id": "swimming",
 		"name": "Swimming",
 		"sprite": "swimming_32.png"
-	},
-	{
-		"description": "Skill in crafting objects from raw materials, including tools, weapons, and other gear, often essential for survival.",
-		"id": "fabrication",
-		"name": "Fabrication",
-		"references": {
-			"core": {
-				"items": [
-					"pistol_magazine",
-					"cutting_board",
-					"rolling_pin",
-					"stone_spear"
-				]
-			}
-		},
-		"sprite": "crafting_32.png"
 	},
 	{
 		"description": "Knowledge of preparing and cooking food, which helps in maximizing the nutritional benefits and managing resources efficiently.",
@@ -97,19 +81,19 @@
 	{
 		"description": "General proficiency with all types of firearms, influencing accuracy, maintenance, and firearm handling.",
 		"id": "gun",
-		"name": "Gun",
+		"name": "Ranged Combat",
 		"sprite": "handguns_32.png"
 	},
 	{
 		"description": "Skill in operating heavy weaponry like grenade launchers and rocket launchers, crucial for dealing high damage at range.",
 		"id": "launcher",
-		"name": "Launcher",
+		"name": "Heavy Weapons",
 		"sprite": "launcher_32.png"
 	},
 	{
 		"description": "Proficiency in handling and maintaining pistols, enhancing accuracy and reload speed, especially in close combat.",
 		"id": "handguns",
-		"name": "Handguns",
+		"name": "Pistols",
 		"references": {
 			"core": {
 				"items": [
@@ -122,7 +106,7 @@
 	{
 		"description": "Expertise in using rifles, improving long-range accuracy and maintenance of such firearms.",
 		"id": "rifle",
-		"name": "Rifle",
+		"name": "Rifles",
 		"references": {
 			"core": {
 				"items": [
@@ -135,7 +119,7 @@
 	{
 		"description": "Skill in operating shotguns, which are effective at close range and can deliver massive damage with varying shot spreads.",
 		"id": "shotgun",
-		"name": "Shotgun",
+		"name": "Shotguns",
 		"sprite": "shotgun_32.png"
 	},
 	{
@@ -160,13 +144,13 @@
 	{
 		"description": "Proficiency in hand-to-hand combat, enhancing effectiveness when fighting without weapons or with melee weapons.",
 		"id": "melee",
-		"name": "Melee",
+		"name": "Melee Combat",
 		"sprite": "melee_32.png"
 	},
 	{
 		"description": "Skill in using blunt weapons to inflict damage, increasing force and effectiveness in close combat.",
 		"id": "bashing",
-		"name": "Bashing",
+		"name": "Blunt Weapons",
 		"references": {
 			"core": {
 				"items": [
@@ -180,7 +164,7 @@
 	{
 		"description": "Skill in using sharp weapons like knives and swords, enhancing precision and damage during melee combat.",
 		"id": "cutting",
-		"name": "Cutting",
+		"name": "Bladed Weapons",
 		"references": {
 			"core": {
 				"items": [
@@ -214,5 +198,95 @@
 		"id": "athletics",
 		"name": "Athletics",
 		"sprite": "athletics_32.png"
+	},
+	{
+		"description": "",
+		"id": "improvisedweapons",
+		"name": "Improvised Weapons",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "polearms",
+		"name": "Polearms",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "shields",
+		"name": "Shields",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "carpentry",
+		"name": "Carpentry",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "engineering",
+		"name": "Engineering",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "metalworking",
+		"name": "Metalworking",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "masonry",
+		"name": "Masonry",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "improvisedcrafting",
+		"name": "Improvised Crafting",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "sneaking",
+		"name": "Sneaking",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "bartering",
+		"name": "Bartering",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "intimidation",
+		"name": "Intimidation",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "leadership",
+		"name": "Leadership",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "piloting",
+		"name": "Piloting",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "sailing",
+		"name": "Sailing",
+		"sprite": "fabrication_32.png"
+	},
+	{
+		"description": "",
+		"id": "awareness",
+		"name": "Awareness",
+		"sprite": "fabrication_32.png"
 	}
 ]
