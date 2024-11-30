@@ -24,6 +24,15 @@ var selectedMod: String = "Core"
 # This function will load the contents of the data into the contentListInstance
 func _ready():
 	populate_select_mods()  # Populate the select_mods OptionButton
+	refresh_lists()
+
+func refresh_lists() -> void:
+	# Clear existing content in the VBoxContainer
+	for child in content.get_children():
+		content.remove_child(child)
+		child.queue_free()  # Ensure the nodes are properly removed and freed
+
+	# Reload content lists for the currently selected mod
 	load_content_list(DMod.ContentType.MAPS, "Maps")
 	load_content_list(DMod.ContentType.TACTICALMAPS, "Tactical Maps")
 	load_content_list(DMod.ContentType.ITEMS, "Items")
@@ -38,8 +47,10 @@ func _ready():
 	load_content_list(DMod.ContentType.QUESTS, "Quests")
 	load_content_list(DMod.ContentType.OVERMAPAREAS, "Overmap areas")
 	load_content_list(DMod.ContentType.MOBGROUPS, "Mob groups")
-	# Populate the type_selector_menu_button with items
+	
+	# Repopulate the type selector menu
 	populate_type_selector_menu_button()
+
 
 
 # Clears the select_mods OptionButton and populates it with mod IDs from Gamedata.mods
@@ -60,11 +71,12 @@ func populate_select_mods() -> void:
 
 
 func load_content_list(type: DMod.ContentType, strHeader: String):
-	# Instantiate a contentlist
+	# Instantiate a content list
 	var contentListInstance: Control = contentList.instantiate()
 
-	# Set the source property
+	# Set the source properties, dynamically using the selectedMod ID
 	contentListInstance.header = strHeader
+	contentListInstance.mod_id = selectedMod  # Use the current mod ID
 	contentListInstance.contentType = type
 	contentListInstance.item_activated.connect(_on_content_item_activated)
 
@@ -162,7 +174,7 @@ func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: Packe
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.STATS:
-			newContentEditor.dstat = Gamedata.mods.by_id("Core").stats.by_id(itemID)
+			newContentEditor.dstat = Gamedata.mods.by_id(selectedMod).stats.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.SKILLS:
@@ -216,7 +228,8 @@ func populate_type_selector_menu_button():
 			hide_content_list(item_text)
 
 	# Connect item selection signal to save state when changed
-	popup_menu.id_pressed.connect(_on_type_selected)
+	if not popup_menu.id_pressed.is_connected(_on_type_selected):
+		popup_menu.id_pressed.connect(_on_type_selected)
 
 
 # Function to handle item selection from the popup menu and save the state
@@ -267,4 +280,8 @@ func save_item_state(item_text: String, is_checked: bool):
 
 
 func _on_select_mods_item_selected(index: int) -> void:
-	pass # Replace with function body.
+	# Read the mod ID from the select_mods OptionButton
+	selectedMod = select_mods.get_item_text(index)
+	
+	# Refresh the lists with the new mod ID
+	refresh_lists()

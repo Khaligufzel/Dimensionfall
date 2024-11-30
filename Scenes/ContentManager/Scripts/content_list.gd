@@ -13,10 +13,14 @@ extends Control
 signal item_activated(type: DMod.ContentType, itemID: String, list: Control)
 var popupAction: String = ""
 var datainstance: RefCounted # One of the data classes like DMap, DTile, DMob and so on
+var mod_id: String = "Core"
 var contentType: DMod.ContentType:
 	set(newData):
 		contentType = newData
-		datainstance = Gamedata.get_data_of_type(contentType)
+		if newData == DMod.ContentType.STATS:
+			datainstance = Gamedata.mods.by_id(mod_id).get_data_of_type(contentType)
+		else:
+			datainstance = Gamedata.get_data_of_type(contentType)
 		load_data()
 
 var header: String = "Items":
