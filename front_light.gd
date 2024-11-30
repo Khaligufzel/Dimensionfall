@@ -1,10 +1,7 @@
 extends SpotLight3D
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
+# This script is used in the main player light that allows him to see
+# Here we manipulate the brightness to simulate the time of day.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
