@@ -24,20 +24,20 @@ var selectedMod: String = "Core"
 # This function will load the contents of the data into the contentListInstance
 func _ready():
 	populate_select_mods()  # Populate the select_mods OptionButton
-	load_content_list(Gamedata.ContentType.MAPS, "Maps")
-	load_content_list(Gamedata.ContentType.TACTICALMAPS, "Tactical Maps")
-	load_content_list(Gamedata.ContentType.ITEMS, "Items")
-	load_content_list(Gamedata.ContentType.TILES, "Terrain Tiles")
-	load_content_list(Gamedata.ContentType.MOBS, "Mobs")
-	load_content_list(Gamedata.ContentType.FURNITURES, "Furniture")
-	load_content_list(Gamedata.ContentType.ITEMGROUPS, "Item Groups")
-	load_content_list(Gamedata.ContentType.PLAYERATTRIBUTES, "Player Attributes")
-	load_content_list(Gamedata.ContentType.WEARABLESLOTS, "Wearable Slots")
-	load_content_list(Gamedata.ContentType.STATS, "Stats")
-	load_content_list(Gamedata.ContentType.SKILLS, "Skills")
-	load_content_list(Gamedata.ContentType.QUESTS, "Quests")
-	load_content_list(Gamedata.ContentType.OVERMAPAREAS, "Overmap areas")
-	load_content_list(Gamedata.ContentType.MOBGROUPS, "Mob groups")
+	load_content_list(DMod.ContentType.MAPS, "Maps")
+	load_content_list(DMod.ContentType.TACTICALMAPS, "Tactical Maps")
+	load_content_list(DMod.ContentType.ITEMS, "Items")
+	load_content_list(DMod.ContentType.TILES, "Terrain Tiles")
+	load_content_list(DMod.ContentType.MOBS, "Mobs")
+	load_content_list(DMod.ContentType.FURNITURES, "Furniture")
+	load_content_list(DMod.ContentType.ITEMGROUPS, "Item Groups")
+	load_content_list(DMod.ContentType.PLAYERATTRIBUTES, "Player Attributes")
+	load_content_list(DMod.ContentType.WEARABLESLOTS, "Wearable Slots")
+	load_content_list(DMod.ContentType.STATS, "Stats")
+	load_content_list(DMod.ContentType.SKILLS, "Skills")
+	load_content_list(DMod.ContentType.QUESTS, "Quests")
+	load_content_list(DMod.ContentType.OVERMAPAREAS, "Overmap areas")
+	load_content_list(DMod.ContentType.MOBGROUPS, "Mob groups")
 	# Populate the type_selector_menu_button with items
 	populate_type_selector_menu_button()
 
@@ -59,7 +59,7 @@ func populate_select_mods() -> void:
 		selectedMod = ""  # No mods available, clear the selectedMod
 
 
-func load_content_list(type: Gamedata.ContentType, strHeader: String):
+func load_content_list(type: DMod.ContentType, strHeader: String):
 	# Instantiate a contentlist
 	var contentListInstance: Control = contentList.instantiate()
 
@@ -78,7 +78,7 @@ func _on_back_button_button_up():
 
 # The user has double-clicked or pressed enter on one of the items in the content lists
 # Depending on whether the source is a JSON file, we are going to load the relevant content
-func _on_content_item_activated(type: Gamedata.ContentType, itemID: String, list: Control):
+func _on_content_item_activated(type: DMod.ContentType, itemID: String, list: Control):
 	if itemID == "":
 		print_debug("Tried to load the selected content item, but either \
 		data (Array) or itemID ("+itemID+") is empty")
@@ -86,20 +86,20 @@ func _on_content_item_activated(type: Gamedata.ContentType, itemID: String, list
 
 	# HACK Hacky implementation, need to find a better solution
 	var editors = {
-		Gamedata.ContentType.TILES: terrainTileEditor,
-		Gamedata.ContentType.FURNITURES: furnitureEditor,
-		Gamedata.ContentType.ITEMGROUPS: itemgroupEditor,
-		Gamedata.ContentType.ITEMS: itemEditor,
-		Gamedata.ContentType.MOBS: mobEditor,
-		Gamedata.ContentType.MAPS: mapEditor,
-		Gamedata.ContentType.TACTICALMAPS: tacticalmapEditor,
-		Gamedata.ContentType.PLAYERATTRIBUTES: playerattributesEditor,
-		Gamedata.ContentType.WEARABLESLOTS: wearableslotEditor,
-		Gamedata.ContentType.STATS: statsEditor,
-		Gamedata.ContentType.SKILLS: skillsEditor,
-		Gamedata.ContentType.QUESTS: questsEditor,
-		Gamedata.ContentType.OVERMAPAREAS: overmapareaEditor,
-		Gamedata.ContentType.MOBGROUPS: mobgroupsEditor
+		DMod.ContentType.TILES: terrainTileEditor,
+		DMod.ContentType.FURNITURES: furnitureEditor,
+		DMod.ContentType.ITEMGROUPS: itemgroupEditor,
+		DMod.ContentType.ITEMS: itemEditor,
+		DMod.ContentType.MOBS: mobEditor,
+		DMod.ContentType.MAPS: mapEditor,
+		DMod.ContentType.TACTICALMAPS: tacticalmapEditor,
+		DMod.ContentType.PLAYERATTRIBUTES: playerattributesEditor,
+		DMod.ContentType.WEARABLESLOTS: wearableslotEditor,
+		DMod.ContentType.STATS: statsEditor,
+		DMod.ContentType.SKILLS: skillsEditor,
+		DMod.ContentType.QUESTS: questsEditor,
+		DMod.ContentType.OVERMAPAREAS: overmapareaEditor,
+		DMod.ContentType.MOBGROUPS: mobgroupsEditor
 	}
 
 	instantiate_editor(type, itemID, editors[type], list)
@@ -110,7 +110,7 @@ func _on_content_item_activated(type: Gamedata.ContentType, itemID: String, list
 # It is important that the editor has the property contentSource or contentData so it can be set
 # If a tab for the given itemID already exists, switch to that tab.
 # Otherwise, instantiate a new editor.
-func instantiate_editor(type: Gamedata.ContentType, itemID: String, newEditor: PackedScene, list: Control):
+func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: PackedScene, list: Control):
 	# Check if a tab for the itemID already exists
 	for i in range(tabContainer.get_child_count()):
 		var child = tabContainer.get_child(i)
@@ -126,58 +126,58 @@ func instantiate_editor(type: Gamedata.ContentType, itemID: String, newEditor: P
 	tabContainer.current_tab = tabContainer.get_child_count() - 1
 	
 	match type:
-		Gamedata.ContentType.MAPS:
+		DMod.ContentType.MAPS:
 			newContentEditor.currentMap = Gamedata.maps.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.TACTICALMAPS:
+		DMod.ContentType.TACTICALMAPS:
 			newContentEditor.currentMap = Gamedata.tacticalmaps.by_id(itemID)
 		
-		Gamedata.ContentType.FURNITURES:
+		DMod.ContentType.FURNITURES:
 			newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.ITEMGROUPS:
+		DMod.ContentType.ITEMGROUPS:
 			newContentEditor.ditemgroup = Gamedata.itemgroups.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.ITEMS:
+		DMod.ContentType.ITEMS:
 			newContentEditor.ditem = Gamedata.items.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.TILES:
+		DMod.ContentType.TILES:
 			newContentEditor.dtile = Gamedata.tiles.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.MOBS:
+		DMod.ContentType.MOBS:
 			newContentEditor.dmob = Gamedata.mobs.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.PLAYERATTRIBUTES:
+		DMod.ContentType.PLAYERATTRIBUTES:
 			newContentEditor.dplayerattribute = Gamedata.playerattributes.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.WEARABLESLOTS:
+		DMod.ContentType.WEARABLESLOTS:
 			newContentEditor.dwearableslot = Gamedata.wearableslots.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.STATS:
+		DMod.ContentType.STATS:
 			newContentEditor.dstat = Gamedata.mods.by_id("Core").stats.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.SKILLS:
+		DMod.ContentType.SKILLS:
 			newContentEditor.dskill = Gamedata.skills.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.QUESTS:
+		DMod.ContentType.QUESTS:
 			newContentEditor.dquest = Gamedata.quests.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.OVERMAPAREAS:
+		DMod.ContentType.OVERMAPAREAS:
 			newContentEditor.dovermaparea = Gamedata.overmapareas.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
-		Gamedata.ContentType.MOBGROUPS:
+		DMod.ContentType.MOBGROUPS:
 			newContentEditor.dmobgroup = Gamedata.mobgroups.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		

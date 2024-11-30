@@ -10,10 +10,10 @@ extends Control
 @export var collapseButton: Button = null
 @export var pupup_ID: Popup = null
 @export var popup_textedit: TextEdit = null
-signal item_activated(type: Gamedata.ContentType, itemID: String, list: Control)
+signal item_activated(type: DMod.ContentType, itemID: String, list: Control)
 var popupAction: String = ""
 var datainstance: RefCounted # One of the data classes like DMap, DTile, DMob and so on
-var contentType: Gamedata.ContentType:
+var contentType: DMod.ContentType:
 	set(newData):
 		contentType = newData
 		datainstance = Gamedata.get_data_of_type(contentType)
@@ -166,7 +166,7 @@ func _drop_data(newpos, data) -> void:
 # Helper function to create a preview Control for dragging
 func _create_drag_preview(item_id: String) -> Control:
 	var preview = TextureRect.new()
-	if not contentType == Gamedata.ContentType.TACTICALMAPS and not contentType == Gamedata.ContentType.OVERMAPAREAS:
+	if not contentType == DMod.ContentType.TACTICALMAPS and not contentType == DMod.ContentType.OVERMAPAREAS:
 		preview.texture = datainstance.sprite_by_id(item_id)
 
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
