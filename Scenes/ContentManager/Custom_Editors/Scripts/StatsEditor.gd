@@ -19,7 +19,7 @@ signal data_changed()
 var olddata: DStat # Remember what the value of the data was before editing
 
 # The data that represents this stat
-# The data is selected from the Gamedata.mods["Core"].stats
+# The data is selected from the Gamedata.mods.by_id("Core").stats
 # based on the ID that the user has selected in the content editor
 var dstat: DStat = null:
 	set(value):
@@ -47,7 +47,7 @@ func _on_close_button_button_up() -> void:
 	queue_free()
 
 # This function takes all data from the form elements and stores them in the DStat instance
-# Since dstat is a reference to an item in Gamedata.mods["Core"].stats
+# Since dstat is a reference to an item in Gamedata.mods.by_id("Core").stats
 # the central array for stat data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:

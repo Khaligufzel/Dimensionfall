@@ -2,7 +2,7 @@ extends Node
 
 # Autoload singleton that loads all game data required to run the game
 # Accessible via Gamedata.property
-var mods: Dictionary = {}
+var mods: DMods
 var maps: DMaps
 var tacticalmaps: DTacticalmaps
 var furnitures: DFurnitures
@@ -68,8 +68,8 @@ var gamedata_map: Dictionary = {}
 
 # This function is called when the node is added to the scene.
 func _ready():
-	load_mods()
 	# Instantiate the content type instances
+	mods = DMods.new()
 	maps = DMaps.new()
 	tacticalmaps = DTacticalmaps.new()
 	furnitures = DFurnitures.new()
@@ -95,7 +95,7 @@ func _ready():
 		ContentType.MOBS: mobs,
 		ContentType.PLAYERATTRIBUTES: playerattributes,
 		ContentType.WEARABLESLOTS: wearableslots,
-		ContentType.STATS: mods["Core"].stats,
+		ContentType.STATS: mods.by_id("Core").stats,
 		ContentType.SKILLS: skills,
 		ContentType.QUESTS: quests,
 		ContentType.OVERMAPAREAS: overmapareas,
@@ -116,22 +116,6 @@ func create_item_shader_material(albedo_texture: Texture) -> ShaderMaterial:
 	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
 
 	return shader_material
-
-
-# Gets the array index of an item by its ID
-func get_array_index_by_id(contentData: Dictionary, id: String) -> int:
-	# Iterate through the array
-	for i in range(len(contentData.data)):
-		# Check if the current item is a dictionary
-		if typeof(contentData.data[i]) == TYPE_DICTIONARY:
-			# Check if it has the 'id' key and matches the given ID
-			if contentData.data[i].has("id") and contentData.data[i]["id"] == id:
-				return i
-		# Check if the current item is a string and matches the given ID
-		elif typeof(contentData.data[i]) == TYPE_STRING and contentData.data[i] == id:
-			return i
-	# Return -1 if the ID is not found
-	return -1
 
 
 # Saves data to file
@@ -212,35 +196,3 @@ func dupdate_reference(ref: Dictionary, old: String, new: String, type: String) 
 	if new != "":
 		changes_made = dadd_reference(ref, "core", type, new) or changes_made
 	return changes_made
-
-
-# Function to load all mods from the ./Mods directory and populate the mods dictionary
-func load_mods() -> void:
-	# Clear the mods dictionary
-	mods.clear()
-
-	# Get the list of folders in the Mods directory using the helper function
-	var folders = Helper.json_helper.folder_names_in_dir("./Mods")
-	
-	# Iterate through each folder
-	for folder_name in folders:
-		var modinfo_path = "./Mods/" + folder_name + "/modinfo.json"
-
-		# Load the modinfo.json file if it exists
-		if FileAccess.file_exists(modinfo_path):
-			var modinfo = Helper.json_helper.load_json_dictionary_file(modinfo_path)
-
-			# Validate modinfo data and add it to the mods dictionary
-			if modinfo.has("id"):
-				var mod_id = modinfo["id"]
-
-				# Initialize mod dictionary for this mod_id
-				mods[mod_id] = {}
-				mods[mod_id]["modinfo"] = modinfo  # Store the full modinfo under "modinfo"
-
-				# Create a new DStats instance for this mod and associate it with the mod_id
-				mods[mod_id]["stats"] = DStats.new(mod_id)
-			else:
-				print_debug("Invalid modinfo.json in folder: " + folder_name)
-		else:
-			print_debug("No modinfo.json found in folder: " + folder_name)

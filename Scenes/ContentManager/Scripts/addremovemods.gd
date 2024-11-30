@@ -21,7 +21,6 @@ extends Control
   #"description": "This is the core mod of the game. It provides the foundational systems and data required for other mods to function.",
   #"author": "Your Name or Studio Name",
   #"dependencies": [],
-  #"mod_type": "core",
   #"homepage": "https://github.com/Khaligufzel/Dimensionfall",
   #"license": "GPL-3.0 License",
   #"tags": ["core", "base", "foundation"]
@@ -82,21 +81,22 @@ func _on_ok_button_up() -> void:
 		return
 
 	# Check if a mod with this ID already exists
-	var existing_mods = mods_item_list.get_items()
+	
+	var existing_mods = []
+	for item in mods_item_list.item_count:
+		existing_mods.append(mods_item_list.get_item_text(item))
 	if existing_mods.has(mod_id):
 		print_debug("A mod with this ID already exists.")
 		return
 
 	# Create the mod folder and modinfo.json
 	var mod_path = "./Mods/" + mod_id
-	if !Helper.json_helper.create_new_json_file(mod_path + "/modinfo.json", false):
-		print_debug("Failed to create modinfo.json for mod: " + mod_id)
-		return
+	Helper.json_helper.create_new_json_file(mod_path + "/modinfo.json", false)
 
 	# Default modinfo content
 	var modinfo = {
 		"id": mod_id,
-		"name": "New Mod - " + mod_id.capitalize(),
+		"name": mod_id.capitalize(),
 		"version": "1.0.0",
 		"description": "A new mod for the game.",
 		"author": "Default Author",
@@ -104,7 +104,7 @@ func _on_ok_button_up() -> void:
 		"mod_type": "custom",  # Assume all new mods are custom
 		"homepage": "https://example.com",
 		"license": "GPL-3.0 License",
-		"tags": ["custom", "mod", "default"]
+		"tags": [] # example: "custom", "mod", "default"
 	}
 
 	# Save modinfo.json
@@ -116,6 +116,7 @@ func _on_ok_button_up() -> void:
 	mods_item_list.add_item(modinfo["name"])
 	mods_item_list.set_item_metadata(mods_item_list.get_item_count() - 1, mod_id)
 
+	Gamedata.mods.add_new(mod_id, modinfo)
 	print_debug("Added new mod: " + mod_id)
 
 
@@ -132,14 +133,12 @@ func delete_mod(mod_id: String) -> void:
 		return
 
 	# Remove the mod from Gamedata.mods
-	if mod_id in Gamedata.mods:
-		Gamedata.mods.erase(mod_id)
+	if Gamedata.mods.has_id(mod_id):
+		Gamedata.mods.delete_by_id(mod_id)
 
 	# Delete the mod folder
 	var mod_path = "./Mods/" + mod_id
-	if not Helper.json_helper.delete_json_file(mod_path + "/modinfo.json"):
-		print_debug("Failed to delete modinfo.json for mod: " + mod_id)
-		return
+	Helper.json_helper.delete_json_file(mod_path + "/modinfo.json")
 
 	var dir = DirAccess.open(mod_path)
 	if dir and dir.dir_exists(mod_path):
@@ -158,19 +157,14 @@ func delete_mod(mod_id: String) -> void:
 	print_debug("Removed mod: " + mod_id)
 
 
-
 func populate_mods_item_list() -> void:
 	# Clear the mods_item_list
 	mods_item_list.clear()
 
 	# Iterate through Gamedata.mods to populate the mods_item_list
-	for mod_id in Gamedata.mods.keys():
-		var modinfo = Gamedata.mods[mod_id].get("modinfo", {})
-		if modinfo.has("name"):
-			mods_item_list.add_item(modinfo["name"])
-			mods_item_list.set_item_metadata(mods_item_list.get_item_count() - 1, mod_id)
-		else:
-			print_debug("Invalid modinfo for mod ID: " + mod_id)
+	for mod: DMod in Gamedata.mods.get_all_mods():
+		mods_item_list.add_item(mod.name)
+		mods_item_list.set_item_metadata(mods_item_list.get_item_count() - 1, mod.id)
 
 
 # When the user presses the save button

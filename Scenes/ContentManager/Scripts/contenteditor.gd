@@ -1,5 +1,6 @@
 extends Control
 
+@export var select_mods: OptionButton = null
 @export var contentList: PackedScene = null
 @export var mapEditor: PackedScene = null
 @export var tacticalmapEditor: PackedScene = null
@@ -22,6 +23,7 @@ var selectedMod: String = "Core"
 
 # This function will load the contents of the data into the contentListInstance
 func _ready():
+	populate_select_mods()  # Populate the select_mods OptionButton
 	load_content_list(Gamedata.ContentType.MAPS, "Maps")
 	load_content_list(Gamedata.ContentType.TACTICALMAPS, "Tactical Maps")
 	load_content_list(Gamedata.ContentType.ITEMS, "Items")
@@ -38,6 +40,23 @@ func _ready():
 	load_content_list(Gamedata.ContentType.MOBGROUPS, "Mob groups")
 	# Populate the type_selector_menu_button with items
 	populate_type_selector_menu_button()
+
+
+# Clears the select_mods OptionButton and populates it with mod IDs from Gamedata.mods
+func populate_select_mods() -> void:
+	select_mods.clear()  # Remove all existing options from the OptionButton
+	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
+	
+	# Iterate through Gamedata.mods and add each mod ID as an option
+	for mod_id in mod_ids:
+		select_mods.add_item(mod_id)
+
+	# Set the first item as the default selection (if any mods exist)
+	if mod_ids.size() > 0:
+		selectedMod = mod_ids[0]  # Default to the first mod ID
+		select_mods.select(0)
+	else:
+		selectedMod = ""  # No mods available, clear the selectedMod
 
 
 func load_content_list(type: Gamedata.ContentType, strHeader: String):
@@ -143,7 +162,7 @@ func instantiate_editor(type: Gamedata.ContentType, itemID: String, newEditor: P
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		Gamedata.ContentType.STATS:
-			newContentEditor.dstat = Gamedata.mods["Core"].stats.by_id(itemID)
+			newContentEditor.dstat = Gamedata.mods.by_id("Core").stats.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		Gamedata.ContentType.SKILLS:
@@ -245,3 +264,7 @@ func save_item_state(item_text: String, is_checked: bool):
 
 	config.set_value("type_selector", item_text, is_checked)
 	config.save(path)
+
+
+func _on_select_mods_item_selected(index: int) -> void:
+	pass # Replace with function body.

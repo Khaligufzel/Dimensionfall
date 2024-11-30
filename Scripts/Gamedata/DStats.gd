@@ -3,7 +3,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles stats data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of stats. You can access it through Gamedata.mods["Core"].stats
+# This script handles the list of stats. You can access it through Gamedata.mods.by_id("Core").stats
 
 # Paths for stats data and sprites
 var dataPath: String = "./Mods/Core/Stats/Stats.json"

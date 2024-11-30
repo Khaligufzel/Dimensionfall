@@ -12,7 +12,7 @@ border_width_bottom = 5
 border_color = Color(0, 0, 0, 1)
 expand_margin_left = 3.0
 
-[node name="addremovemods" type="Control" node_paths=PackedStringArray("mods_item_list", "id_text_edit", "name_text_edit", "description_text_edit", "author_text_edit", "dependencies_item_list", "homepage_text_edit", "license_option_button", "tags_editable_item_list", "pupup_ID")]
+[node name="addremovemods" type="Control" node_paths=PackedStringArray("mods_item_list", "id_text_edit", "name_text_edit", "description_text_edit", "author_text_edit", "dependencies_item_list", "homepage_text_edit", "license_option_button", "tags_editable_item_list", "pupup_ID", "popup_textedit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +30,7 @@ homepage_text_edit = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContaine
 license_option_button = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/LicenseOptionButton")
 tags_editable_item_list = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/TagsEditable_Item_List")
 pupup_ID = NodePath("ID_Input")
+popup_textedit = NodePath("ID_Input/VBoxContainer/TextEdit")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -228,3 +229,5 @@ text = "Cancel"
 [connection signal="button_up" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ButtonsHBoxContainer/RemoveButton" to="." method="_on_remove_button_button_up"]
 [connection signal="item_selected" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ModsItemList" to="." method="_on_mods_item_list_item_selected"]
 [connection signal="button_up" from="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
+[connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]
