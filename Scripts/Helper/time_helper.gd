@@ -139,3 +139,15 @@ func get_current_in_game_minutes() -> int:
 
 	# Return the current in-game minute of the day
 	return current_minutes_of_day
+	
+
+# Returns a number representing the current hour. For example:
+# Midnight will return 0.0
+# Noon will return 12.0
+# 10:14 will return 10.1
+func get_time_in_hr() -> float:
+	# Get the current in-game minutes
+	var current_minutes_of_day = get_current_in_game_minutes()
+	
+	# Map the current in-game minutes (0 to 1440) to animation frames (0 to 24)
+	return float(current_minutes_of_day) / in_game_day_minutes * 24.0
