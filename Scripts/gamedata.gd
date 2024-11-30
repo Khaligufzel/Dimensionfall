@@ -2,7 +2,7 @@ extends Node
 
 # Autoload singleton that loads all game data required to run the game
 # Accessible via Gamedata.property
-var data: Dictionary = {"overmaptiles": {"sprites": {}, "spritePath":"./Mods/Core/OvermapTiles/"}}
+var mods: DMods
 var maps: DMaps
 var tacticalmaps: DTacticalmaps
 var furnitures: DFurnitures
@@ -12,7 +12,6 @@ var mobs: DMobs
 var itemgroups: DItemgroups
 var playerattributes: DPlayerAttributes
 var wearableslots: DWearableSlots
-var stats: DStats
 var skills: DSkills
 var quests: DQuests
 var overmapareas: DOvermapareas
@@ -70,6 +69,7 @@ var gamedata_map: Dictionary = {}
 # This function is called when the node is added to the scene.
 func _ready():
 	# Instantiate the content type instances
+	mods = DMods.new()
 	maps = DMaps.new()
 	tacticalmaps = DTacticalmaps.new()
 	furnitures = DFurnitures.new()
@@ -79,7 +79,6 @@ func _ready():
 	itemgroups = DItemgroups.new()
 	playerattributes = DPlayerAttributes.new()
 	wearableslots = DWearableSlots.new()
-	stats = DStats.new()
 	skills = DSkills.new()
 	quests = DQuests.new()
 	overmapareas = DOvermapareas.new()
@@ -96,14 +95,13 @@ func _ready():
 		ContentType.MOBS: mobs,
 		ContentType.PLAYERATTRIBUTES: playerattributes,
 		ContentType.WEARABLESLOTS: wearableslots,
-		ContentType.STATS: stats,
+		ContentType.STATS: mods.by_id("Core").stats,
 		ContentType.SKILLS: skills,
 		ContentType.QUESTS: quests,
 		ContentType.OVERMAPAREAS: overmapareas,
 		ContentType.MOBGROUPS: mobgroups
 	}
 
-	load_sprites()
 	materials["container"] = create_item_shader_material(textures.container)
 	materials["container_filled"] = create_item_shader_material(textures.container_filled)
 
@@ -118,37 +116,6 @@ func create_item_shader_material(albedo_texture: Texture) -> ShaderMaterial:
 	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
 
 	return shader_material
-
-
-# Loads sprites and assigns them to the proper dictionary
-func load_sprites() -> void:
-	for dict in data.keys():
-		if data[dict].has("spritePath"):
-			var loaded_sprites: Dictionary = {}
-			var spritesDir: String = data[dict].spritePath
-			var png_files: Array = Helper.json_helper.file_names_in_dir(spritesDir, ["png"])
-			for png_file in png_files:
-				# Load the .png file as a texture
-				var texture := load(spritesDir + png_file) 
-				# Add the material to the dictionary
-				loaded_sprites[png_file] = texture
-			data[dict].sprites = loaded_sprites
-
-
-# Gets the array index of an item by its ID
-func get_array_index_by_id(contentData: Dictionary, id: String) -> int:
-	# Iterate through the array
-	for i in range(len(contentData.data)):
-		# Check if the current item is a dictionary
-		if typeof(contentData.data[i]) == TYPE_DICTIONARY:
-			# Check if it has the 'id' key and matches the given ID
-			if contentData.data[i].has("id") and contentData.data[i]["id"] == id:
-				return i
-		# Check if the current item is a string and matches the given ID
-		elif typeof(contentData.data[i]) == TYPE_STRING and contentData.data[i] == id:
-			return i
-	# Return -1 if the ID is not found
-	return -1
 
 
 # Saves data to file

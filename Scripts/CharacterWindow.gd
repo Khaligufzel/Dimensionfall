@@ -26,7 +26,7 @@ func _on_player_stat_changed(player_node: CharacterBody3D):
 	clear_container(statsContainer)  # Clear existing content
 	var playerstats = player_node.stats
 	for stat_id in playerstats:
-		var stat_data: DStat = Gamedata.stats.by_id(stat_id)
+		var stat_data: DStat = Gamedata.mods.by_id("Core").stats.by_id(stat_id)
 		if stat_data:
 			var stat_entry = create_stat_entry(stat_data, playerstats[stat_id])
 			statsContainer.add_child(stat_entry)

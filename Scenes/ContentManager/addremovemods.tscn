@@ -1,0 +1,233 @@
+[gd_scene load_steps=4 format=3 uid="uid://cis7fd3ko7xfp"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/addremovemods.gd" id="1_87j7f"]
+[ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_r6poh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_30opl"]
+bg_color = Color(0.236107, 0.236881, 0.365087, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 3.0
+
+[node name="addremovemods" type="Control" node_paths=PackedStringArray("mods_item_list", "id_text_edit", "name_text_edit", "description_text_edit", "author_text_edit", "dependencies_item_list", "homepage_text_edit", "license_option_button", "tags_editable_item_list", "pupup_ID", "popup_textedit")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_87j7f")
+mods_item_list = NodePath("VBoxContainer/MainHBoxContainer/ListVBoxContainer/ModsItemList")
+id_text_edit = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/IdTextEdit")
+name_text_edit = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/NameTextEdit")
+description_text_edit = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/DescriptionTextEdit")
+author_text_edit = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/AuthorTextEdit")
+dependencies_item_list = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/DependenciesEditable_Item_List")
+homepage_text_edit = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/HomepageTextEdit")
+license_option_button = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/LicenseOptionButton")
+tags_editable_item_list = NodePath("VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/TagsEditable_Item_List")
+pupup_ID = NodePath("ID_Input")
+popup_textedit = NodePath("ID_Input/VBoxContainer/TextEdit")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeaderHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer/HeaderHBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Back"
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer/HeaderHBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "  Add and remove mods"
+
+[node name="MainHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ListVBoxContainer" type="VBoxContainer" parent="VBoxContainer/MainHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/MainHBoxContainer/ListVBoxContainer"]
+layout_mode = 2
+
+[node name="AddButton" type="Button" parent="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ButtonsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add"
+
+[node name="RemoveButton" type="Button" parent="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ButtonsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Remove"
+
+[node name="ModsItemList" type="ItemList" parent="VBoxContainer/MainHBoxContainer/ListVBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="FormPanelContainer" type="PanelContainer" parent="VBoxContainer/MainHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+theme_override_styles/panel = SubResource("StyleBoxFlat_30opl")
+
+[node name="FormGridContainer" type="GridContainer" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+columns = 2
+
+[node name="ToolsLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "Tools"
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="IdLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "id"
+
+[node name="IdTextEdit" type="TextEdit" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Core"
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "name"
+
+[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "My core mod"
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "description"
+
+[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "My description for this mod"
+
+[node name="AuthorLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "author"
+
+[node name="AuthorTextEdit" type="TextEdit" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "My name"
+
+[node name="DependenciesLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "dependencies"
+
+[node name="DependenciesEditable_Item_List" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer" instance=ExtResource("2_r6poh")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+header = "Dependencies"
+
+[node name="HomepageLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "homepage"
+
+[node name="HomepageTextEdit" type="TextEdit" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "https://github.com/Khaligufzel/Dimensionfall"
+
+[node name="LicenseLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "license"
+
+[node name="LicenseOptionButton" type="OptionButton" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "GPL-3.0 License"
+
+[node name="TagsLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+layout_mode = 2
+text = "tags"
+
+[node name="TagsEditable_Item_List" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer" instance=ExtResource("2_r6poh")]
+layout_mode = 2
+size_flags_vertical = 3
+header = "Tags"
+
+[node name="ID_Input" type="Popup" parent="."]
+auto_translate_mode = 1
+title = "Input ID"
+initial_position = 2
+size = Vector2i(200, 150)
+unresizable = false
+borderless = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ID_Input"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ID_Input/VBoxContainer"]
+layout_mode = 2
+text = "Input an ID"
+
+[node name="TextEdit" type="TextEdit" parent="ID_Input/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "ex: pistol_9mm"
+scroll_fit_content_height = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ID_Input/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="OK" type="Button" parent="ID_Input/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Ok"
+
+[node name="Cancel" type="Button" parent="ID_Input/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Cancel"
+
+[connection signal="button_up" from="VBoxContainer/HeaderHBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ButtonsHBoxContainer/AddButton" to="." method="_on_add_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ButtonsHBoxContainer/RemoveButton" to="." method="_on_remove_button_button_up"]
+[connection signal="item_selected" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ModsItemList" to="." method="_on_mods_item_list_item_selected"]
+[connection signal="button_up" from="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
+[connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]

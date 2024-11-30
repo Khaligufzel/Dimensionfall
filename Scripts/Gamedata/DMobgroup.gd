@@ -67,7 +67,7 @@ func get_data() -> Dictionary:
 
 # Method to save any changes to the stat back to disk
 func save_to_disk():
-	Gamedata.stats.save_stats_to_disk()
+	Gamedata.mobgroups.save_stats_to_disk()
 
 
 # Removes the specified reference from the mob group's references
