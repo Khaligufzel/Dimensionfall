@@ -8,6 +8,9 @@ Dimensionfall is a top-down real-time survival game set in a post-apocalyptic wo
 The world is infinite in every direction. Explore and survive as long as you can!
 ![Catax_basic](Media/Catax_basic_zoomed_out.png)
 
+Check out the gameplay video:
+
+[![Dimensionfall_gameplay_demo](https://img.youtube.com/vi/Dnn8xvyTN74/maxresdefault.jpg)](https://www.youtube.com/watch?v=Dnn8xvyTN74)
 
 ## How to play:
 You can find some demo releases [here](https://github.com/Khaligufzel/Dimensionfall/releases).
@@ -165,6 +168,11 @@ Each region in the area will cover a differen circle around the center, dependin
 
 
 Using this tool you can add new maps to cities, or create a whole new area with maps you made! This allows for the creation of biomes, for example.
+
+# Mob group editor
+With this editor, you can create your own group of mobs by adding a sprite, name, description, monsters (which can be dragged straight from the mob editor section within the content manager). You can even configure the monsters' spawn chance invidually by altering their weight, all within the editor:
+
+![Catax_mobgroup_editor](Media/Dimensionfall_mobgroup_editor.png)
 
 ## Roadmap
 
