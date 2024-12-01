@@ -12,18 +12,22 @@
 				"maps": [
 					{
 						"id": "field_grass_basic_00",
+						"mod_id": "Core",
 						"weight": 100
 					},
 					{
 						"id": "field_grass_flowers_00",
+						"mod_id": "Core",
 						"weight": 5
 					},
 					{
 						"id": "field_grass_hill_00",
+						"mod_id": "Core",
 						"weight": 1
 					},
 					{
 						"id": "field_grass_hole_00",
+						"mod_id": "Core",
 						"weight": 1
 					}
 				],
@@ -38,38 +42,47 @@
 				"maps": [
 					{
 						"id": "Generichouse",
+						"mod_id": "Core",
 						"weight": 60
 					},
 					{
 						"id": "Generichouse_00",
+						"mod_id": "Core",
 						"weight": 60
 					},
 					{
 						"id": "generichouse_corner",
+						"mod_id": "Core",
 						"weight": 60
 					},
 					{
 						"id": "generichouse_cross",
+						"mod_id": "Core",
 						"weight": 100
 					},
 					{
 						"id": "generichouse_t",
+						"mod_id": "Core",
 						"weight": 100
 					},
 					{
 						"id": "generichouse_end",
+						"mod_id": "Core",
 						"weight": 10
 					},
 					{
 						"id": "neighborhood_school",
+						"mod_id": "Core",
 						"weight": 10
 					},
 					{
 						"id": "two_story_house",
+						"mod_id": "Core",
 						"weight": 100
 					},
 					{
 						"id": "radio_tower",
+						"mod_id": "Core",
 						"weight": 20
 					}
 				],
@@ -84,42 +97,52 @@
 				"maps": [
 					{
 						"id": "abandoned_building",
+						"mod_id": "Core",
 						"weight": 30
 					},
 					{
 						"id": "store_electronic_clothing",
+						"mod_id": "Core",
 						"weight": 50
 					},
 					{
 						"id": "store_groceries",
+						"mod_id": "Core",
 						"weight": 50
 					},
 					{
 						"id": "generichouse_cross",
+						"mod_id": "Core",
 						"weight": 100
 					},
 					{
 						"id": "subway_station",
+						"mod_id": "Core",
 						"weight": 10
 					},
 					{
 						"id": "parking_garage",
+						"mod_id": "Core",
 						"weight": 10
 					},
 					{
 						"id": "city_square",
+						"mod_id": "Core",
 						"weight": 5
 					},
 					{
 						"id": "office_building_00",
+						"mod_id": "Core",
 						"weight": 50
 					},
 					{
 						"id": "skyscraper",
+						"mod_id": "Core",
 						"weight": 20
 					},
 					{
 						"id": "police_station",
+						"mod_id": "Core",
 						"weight": 30
 					}
 				],
