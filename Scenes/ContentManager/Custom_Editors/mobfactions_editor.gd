@@ -6,7 +6,7 @@ extends Control
 # To load data, provide the name of the mobfaction data file and an ID
 
 @export var IDTextLabel: Label = null
-@export var PathTextLabel: Label = null
+# @export var PathTextLabel: Label = null
 @export var NameTextEdit: TextEdit = null
 @export var DescriptionTextEdit: TextEdit = null
 @export var mob_list: GridContainer = null
