@@ -28,7 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 4
+current_tab = 5
 
 [node name="World Options" type="Control" parent="TabContainer"]
 visible = false
@@ -126,6 +126,7 @@ The disjointed remnants of civilization surrender their enigmatic shards—fragm
 autowrap_mode = 3
 
 [node name="Traits" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
@@ -189,14 +190,68 @@ The abyss of exile conspires to beguile, yet illumination relentlessly seeks its
 autowrap_mode = 3
 
 [node name="Attributes" type="Control" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
-[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Attributes"]
+[node name="Panel" type="Panel" parent="TabContainer/Attributes"]
+custom_minimum_size = Vector2(1000, 500)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -250.0
+offset_right = 500.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/Panel"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.5
+offset_right = 118.0
+offset_bottom = 33.5
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Available points: 0"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Attributes/Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 43.5
+offset_right = 310.0
+offset_bottom = 83.5
+
+[node name="AttributeGridContainer" type="GridContainer" parent="TabContainer/Attributes/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+columns = 5
+
+[node name="AttributeLabel" type="Label" parent="TabContainer/Attributes/Panel/VBoxContainer/AttributeGridContainer"]
+layout_mode = 2
+text = "Intelligence"
+
+[node name="MinusButton" type="Button" parent="TabContainer/Attributes/Panel/VBoxContainer/AttributeGridContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+icon = ExtResource("1_xvqlu")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="TabContainer/Attributes/Panel/VBoxContainer/AttributeGridContainer"]
+layout_mode = 2
+text = "5"
+
+[node name="PlusButton" type="Button" parent="TabContainer/Attributes/Panel/VBoxContainer/AttributeGridContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+icon = ExtResource("1_xvqlu")
+icon_alignment = 1
+expand_icon = true
+
+[node name="AttributeBonusLabel" type="Label" parent="TabContainer/Attributes/Panel/VBoxContainer/AttributeGridContainer"]
+layout_mode = 2
+text = "+2"

@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqubssp1p458l"]
+
+[ext_resource type="Texture2D" uid="uid://cv3orfrnhjnsq" path="res://Textures/LogoTransparent.png" id="1_g7jn1"]
+
+[node name="AttributeGridContainer" type="GridContainer"]
+custom_minimum_size = Vector2(300, 0)
+columns = 5
+
+[node name="AttributeLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+text = "Intelligence"
+
+[node name="MinusButton" type="Button" parent="."]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+icon = ExtResource("1_g7jn1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "5"
+
+[node name="PlusButton" type="Button" parent="."]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+icon = ExtResource("1_g7jn1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="AttributeModLabel" type="Label" parent="."]
+layout_mode = 2
+text = "+2"
