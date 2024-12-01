@@ -3,12 +3,14 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles tactical map data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of tactical maps. You can access it through Gamedata.tacticalmaps
+# This script handles the list of tactical maps. You can access it through Gamedata.mods.by_id(mod_id).tacticalmaps
 
 var dataPath: String = "./Mods/Core/TacticalMaps/"
 var mapdict: Dictionary = {}
 
-func _init():
+func _init(mod_id: String):
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/TacticalMaps/"
 	load_maps_from_disk()
 
 # Load all tactical map data from disk into memory

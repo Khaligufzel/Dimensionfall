@@ -17,7 +17,7 @@ var mod_id: String = "Core"
 var contentType: DMod.ContentType:
 	set(newData):
 		contentType = newData
-		if newData == DMod.ContentType.STATS:
+		if newData == DMod.ContentType.STATS or  newData == DMod.ContentType.TACTICALMAPS:
 			datainstance = Gamedata.mods.by_id(mod_id).get_data_of_type(contentType)
 		else:
 			datainstance = Gamedata.get_data_of_type(contentType)

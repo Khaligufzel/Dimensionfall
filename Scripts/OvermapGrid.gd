@@ -522,7 +522,7 @@ func place_overmap_areas() -> void:
 func place_tactical_maps() -> void:
 	var placed_positions = []
 	for n in range(5):  # Loop to place up to 10 tactical maps on the grid
-		var dmap: DTacticalmap = Gamedata.tacticalmaps.get_random_map()
+		var dmap: RTacticalmap = Runtimedata.tacticalmaps.get_random_map()
 
 		var map_width = dmap.mapwidth
 		var map_height = dmap.mapheight
@@ -545,7 +545,7 @@ func place_tactical_maps() -> void:
 				if local_x < grid_width and local_y < grid_height:
 					var cell_key = Vector2(local_x, local_y)
 					var chunk_index = j * map_width + i
-					var dchunk: DTacticalmap.TChunk = chunks[chunk_index]
+					var dchunk: RTacticalmap.TChunk = chunks[chunk_index]
 					update_cell(local_to_global(cell_key), dchunk.id, dchunk.rotation)
 					placed_positions.append(cell_key)  # Track the positions that have been occupied
 

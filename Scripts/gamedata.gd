@@ -4,7 +4,6 @@ extends Node
 # Accessible via Gamedata.property
 var mods: DMods
 var maps: DMaps
-var tacticalmaps: DTacticalmaps
 var furnitures: DFurnitures
 var items: DItems
 var tiles: DTiles
@@ -53,7 +52,6 @@ func _ready():
 	# Instantiate the content type instances
 	mods = DMods.new()
 	maps = DMaps.new()
-	tacticalmaps = DTacticalmaps.new()
 	furnitures = DFurnitures.new()
 	items = DItems.new()
 	tiles = DTiles.new()
@@ -68,7 +66,7 @@ func _ready():
 
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
-		DMod.ContentType.TACTICALMAPS: tacticalmaps,	
+		DMod.ContentType.TACTICALMAPS: mods.by_id("Core").tacticalmaps,	
 		DMod.ContentType.MAPS: maps,	
 		DMod.ContentType.FURNITURES: furnitures,
 		DMod.ContentType.ITEMGROUPS: itemgroups,
