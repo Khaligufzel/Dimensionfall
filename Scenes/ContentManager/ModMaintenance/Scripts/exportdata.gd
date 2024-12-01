@@ -35,19 +35,19 @@ func _on_export_button_button_up() -> void:
 func get_content_type(content_name: String) -> int:
 	# Dictionary to map strings to ContentType constants
 	var content_type_map = {
-		"tacticalmaps": Gamedata.ContentType.TACTICALMAPS,
-		"maps": Gamedata.ContentType.MAPS,
-		"furnitures": Gamedata.ContentType.FURNITURES,
-		"itemgroups": Gamedata.ContentType.ITEMGROUPS,
-		"items": Gamedata.ContentType.ITEMS,
-		"tiles": Gamedata.ContentType.TILES,
-		"mobs": Gamedata.ContentType.MOBS,
-		"playerattributes": Gamedata.ContentType.PLAYERATTRIBUTES,
-		"wearableslots": Gamedata.ContentType.WEARABLESLOTS,
-		"stats": Gamedata.ContentType.STATS,
-		"skills": Gamedata.ContentType.SKILLS,
-		"quests": Gamedata.ContentType.QUESTS,
-		"overmapareas": Gamedata.ContentType.OVERMAPAREAS
+		"tacticalmaps": DMod.ContentType.TACTICALMAPS,
+		"maps": DMod.ContentType.MAPS,
+		"furnitures": DMod.ContentType.FURNITURES,
+		"itemgroups": DMod.ContentType.ITEMGROUPS,
+		"items": DMod.ContentType.ITEMS,
+		"tiles": DMod.ContentType.TILES,
+		"mobs": DMod.ContentType.MOBS,
+		"playerattributes": DMod.ContentType.PLAYERATTRIBUTES,
+		"wearableslots": DMod.ContentType.WEARABLESLOTS,
+		"stats": DMod.ContentType.STATS,
+		"skills": DMod.ContentType.SKILLS,
+		"quests": DMod.ContentType.QUESTS,
+		"overmapareas": DMod.ContentType.OVERMAPAREAS
 	}
 	
 	# Use the dictionary to get the ContentType, or return an error if not found

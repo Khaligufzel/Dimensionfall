@@ -28,7 +28,8 @@ func load_stats_from_disk() -> void:
 	var statslist: Array = Helper.json_helper.load_json_array_file(dataPath)
 	for mystat in statslist:
 		var stat: DStat = DStat.new(mystat, self)
-		stat.sprite = sprites[stat.spriteid]
+		if stat.spriteid:
+			stat.sprite = sprites[stat.spriteid]
 		statdict[stat.id] = stat
 
 # Loads sprites and assigns them to the proper dictionary

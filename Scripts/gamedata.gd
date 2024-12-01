@@ -29,24 +29,6 @@ var textures: Dictionary = {
 }
 var materials: Dictionary = {}
 
-# Enums to define the different content types
-enum ContentType {
-	TACTICALMAPS,       #0
-	MAPS,               #1
-	FURNITURES,         #2
-	ITEMGROUPS,         #3
-	ITEMS,              #4
-	TILES,              #5
-	MOBS,               #6
-	PLAYERATTRIBUTES,   #7
-	WEARABLESLOTS,      #8
-	STATS,              #9
-	SKILLS,             #10
-	QUESTS,             #11
-	OVERMAPAREAS,       #12
-	MOBGROUPS        	#13
-}
-
 # Rotation mappings for how directions change based on tile rotation
 const ROTATION_MAP: Dictionary = {
 	0: {"north": "north", "east": "east", "south": "south", "west": "west"},
@@ -86,20 +68,20 @@ func _ready():
 
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
-		ContentType.TACTICALMAPS: tacticalmaps,	
-		ContentType.MAPS: maps,	
-		ContentType.FURNITURES: furnitures,
-		ContentType.ITEMGROUPS: itemgroups,
-		ContentType.ITEMS: items,
-		ContentType.TILES: tiles,
-		ContentType.MOBS: mobs,
-		ContentType.PLAYERATTRIBUTES: playerattributes,
-		ContentType.WEARABLESLOTS: wearableslots,
-		ContentType.STATS: mods.by_id("Core").stats,
-		ContentType.SKILLS: skills,
-		ContentType.QUESTS: quests,
-		ContentType.OVERMAPAREAS: overmapareas,
-		ContentType.MOBGROUPS: mobgroups
+		DMod.ContentType.TACTICALMAPS: tacticalmaps,	
+		DMod.ContentType.MAPS: maps,	
+		DMod.ContentType.FURNITURES: furnitures,
+		DMod.ContentType.ITEMGROUPS: itemgroups,
+		DMod.ContentType.ITEMS: items,
+		DMod.ContentType.TILES: tiles,
+		DMod.ContentType.MOBS: mobs,
+		DMod.ContentType.PLAYERATTRIBUTES: playerattributes,
+		DMod.ContentType.WEARABLESLOTS: wearableslots,
+		DMod.ContentType.STATS: mods.by_id("Core").stats,
+		DMod.ContentType.SKILLS: skills,
+		DMod.ContentType.QUESTS: quests,
+		DMod.ContentType.OVERMAPAREAS: overmapareas,
+		DMod.ContentType.MOBGROUPS: mobgroups
 	}
 
 	materials["container"] = create_item_shader_material(textures.container)
@@ -126,7 +108,7 @@ func save_data_to_file(contentData: Dictionary):
 
 
 # Returns one of the D- data types. We return it as refcounted since every class differs
-func get_data_of_type(type: ContentType) -> RefCounted:
+func get_data_of_type(type: DMod.ContentType) -> RefCounted:
 	return gamedata_map[type]
 
 
