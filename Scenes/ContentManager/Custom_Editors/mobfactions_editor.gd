@@ -10,6 +10,9 @@ extends Control
 @export var NameTextEdit: TextEdit = null
 @export var DescriptionTextEdit: TextEdit = null
 @export var mob_list: GridContainer = null
+@export var relation_type_option_button: OptionButton
+@export var relations_container: VBoxContainer
+@export var dropabletextedit: PackedScene = null
 
 
 # This signal will be emitted when the user presses the save button
@@ -143,7 +146,6 @@ func _drop_mob_data(newpos, data) -> void:
 		dmobfaction.mobs[mob_id] = 1  # Default weight is 1
 		add_mob_entry(mob_id)
 
-
 # Save the mob data from mob_list into dmobfaction
 func save_mob_list_to_dmobfaction():
 	var new_mobs = {}
@@ -155,3 +157,154 @@ func save_mob_list_to_dmobfaction():
 		new_mobs[mob_id]
 	
 	dmobfaction.mobs = new_mobs
+
+func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
+	if dropped_data and "id" in dropped_data:
+		var step_type = texteditcontrol.get_meta("step_type")
+		var valid_data = false
+		var entity_type = ""  # To store whether it is mob or mobgroup
+		
+		match step_type:
+			"craft", "collect":
+				valid_data = Gamedata.items.has_id(dropped_data["id"])
+			"core":
+				if Gamedata.mobs.has_id(dropped_data["id"]):
+					valid_data = true
+					entity_type = "mob"
+				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
+					valid_data = true
+					entity_type = "mobgroup"
+			"friendly":
+				if Gamedata.mobs.has_id(dropped_data["id"]):
+					valid_data = true
+					entity_type = "mob"
+				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
+					valid_data = true
+					entity_type = "mobgroup"
+			"neutral":
+				if Gamedata.mobs.has_id(dropped_data["id"]):
+					valid_data = true
+					entity_type = "mob"
+				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
+					valid_data = true
+					entity_type = "mobgroup"
+			"hostile":
+				if Gamedata.mobs.has_id(dropped_data["id"]):
+					valid_data = true
+					entity_type = "mob"
+				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
+					valid_data = true
+					entity_type = "mobgroup"
+					
+# Determines if the dropped data can be accepted
+func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> bool:
+	if not dropped_data or not dropped_data.has("id"):
+		return false
+	
+	var relation_type = texteditcontrol.get_meta("relation_type")
+	var valid_data = false
+	
+	match relation_type:
+		"core":
+			valid_data = Gamedata.mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
+		"friendly":
+			valid_data = Gamedata.mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
+		"neutral":
+			valid_data = Gamedata.mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
+		"hostile":
+			valid_data = Gamedata.mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
+	return valid_data
+
+func set_drop_functions(mydropabletextedit):
+	mydropabletextedit.drop_function = entity_drop.bind(mydropabletextedit)
+	mydropabletextedit.can_drop_function = can_entity_drop.bind(mydropabletextedit)
+
+func add_relation_type(step: Dictionary) -> HBoxContainer:
+	var hbox = HBoxContainer.new()
+
+	# Add the label
+	var label_instance: Label = Label.new()
+	label_instance.text = "Relation type:"
+	hbox.add_child(label_instance)
+
+	# Add the dropable text edit for the mob or mobgroup ID
+	var dropable_textedit_instance: HBoxContainer = dropabletextedit.instantiate()
+	dropable_textedit_instance.set_text(step.get("mob", step.get("mobgroup", "")))
+	dropable_textedit_instance.set_meta("step_type", "kill")
+	dropable_textedit_instance.myplaceholdertext = "Drop a mob or mobgroup from the left menu"
+	set_drop_functions(dropable_textedit_instance)
+	hbox.add_child(dropable_textedit_instance)
+	return hbox
+
+# This function adds the move up, move down, and delete controls to a step
+func add_relation_controls(hbox: HBoxContainer, step: Dictionary):
+	var move_up_button = Button.new()
+	move_up_button.text = "^"
+	move_up_button.pressed.connect(_on_move_up_button_pressed.bind(hbox))
+	hbox.add_child(move_up_button)
+
+	var move_down_button = Button.new()
+	move_down_button.text = "v"
+	move_down_button.pressed.connect(_on_move_down_button_pressed.bind(hbox))
+	hbox.add_child(move_down_button)
+
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.pressed.connect(_on_delete_button_pressed.bind(hbox))
+	hbox.add_child(delete_button)
+
+# Function to get the index of a child in the steps_container
+func get_child_index(container: VBoxContainer, child: Control) -> int:
+	var index = 0
+	for element in container.get_children():
+		if element == child:
+			return index
+		index += 1
+	return -1
+
+# Function to handle moving a step up
+func _on_move_up_button_pressed(hbox: HBoxContainer):
+	var index = get_child_index(relations_container, hbox)
+	if index > 0:
+		relations_container.move_child(hbox, index - 1)
+
+# Function to handle moving a step down
+func _on_move_down_button_pressed(hbox: HBoxContainer):
+	var index = get_child_index(relations_container, hbox)
+	if index < relations_container.get_child_count() - 1:
+		relations_container.move_child(hbox, index + 1)
+		
+# Function to handle deleting a step
+func _on_delete_button_pressed(hbox: HBoxContainer):
+	hbox.queue_free()
+
+# This function creates a step from loaded data
+func add_relation_from_data(relation: Dictionary):
+	var hbox: HBoxContainer
+	match relation["type"]:
+		"core":
+			hbox = add_relation_type(relation)
+		"friendly":
+			hbox = add_relation_type(relation)
+		"neutral":
+			hbox = add_relation_type(relation)
+		"hostile":
+			hbox = add_relation_type(relation)
+
+	add_relation_controls(hbox, relation)
+	relations_container.add_child(hbox)
+
+func _on_relation_step_button_button_up():
+	var relation_type = relation_type_option_button.get_selected_id()
+	var empty_relation = {}
+	match relation_type:
+		0: # Core monsters which will be part of the faction
+			empty_relation = {"type": "core", "mob": ""}
+		1: # Core monsters which will be part of the faction
+			empty_relation = {"type": "friendly", "mob": ""}
+		2: # Core monsters which will be part of the faction
+			empty_relation = {"type": "neutral", "mob": ""}
+		3: # Core monsters which will be part of the faction
+			empty_relation = {"type": "hostile", "mob": ""}
+	
+	add_relation_from_data(empty_relation)

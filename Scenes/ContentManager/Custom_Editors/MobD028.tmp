@@ -93,17 +93,11 @@ text = "Relation type"
 
 [node name="StepTypeOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/StepControlsHBoxContainer"]
 layout_mode = 2
-tooltip_text = "Select one of the step types to add to this quest
-
-Craft item: The player needs to craft the selected item in order to complete the step
-
-Collect x amount of item: Select an item and enter a number. The player will complete this step when the number of this item is in his inventory
-
-Call function: Select a function and add parameters. When the quest reaches this step, the function will automatically be executed with the parameters
-
-Enter map: Select the id of a map. This step completes when the player has entered a chunk that is generated from the map with this id
-
-Kill x mobs of type: This step completes when the player has killed x amount of the mob you selected"
+tooltip_text = "Select relation type and choose add. 4 relations are currently available: 
+1. Core (the base monsters will be part of your faction), 
+2. Friendly (core mobs will be friendly towards mobs in friendly group), 
+3. Neutral (core mobs will be neutral towards mobs in neutral group)
+4. Hostile (core mobs will be hostile towards mobs in hostile group). "
 selected = 0
 item_count = 4
 popup/item_0/text = "Core monsters"
@@ -130,8 +124,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_une6i")
 
 [node name="StepsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/StepsPanelContainer"]
 layout_mode = 2
-tooltip_text = "Press the \"+ Add\" button above to add a step. You can 
-re-order and delete steps using the controls of each step."
+tooltip_text = "Press the \"+ Add\" button above to add a relation. You can 
+re-order and delete relations using the controls of each relation."
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
