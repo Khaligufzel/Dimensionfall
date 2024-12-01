@@ -8,7 +8,7 @@ content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
 
-[node name="MobfactionsEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mob_list")]
+[node name="MobfactionsEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "mob_list")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +17,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kooul")
 IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
-PathTextLabel = NodePath("")
 NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 mob_list = NodePath("VBoxContainer/FormGrid/PanelContainer/ScrollContainer/MobList")
@@ -104,7 +103,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 tooltip_text = "Drag mobs to this list from the left menu of the content editor. Once the list
 has been made, you can assign this group to a quest, in the quest editor."
-columns = 4
+columns = 3
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]

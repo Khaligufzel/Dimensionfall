@@ -7,5 +7,14 @@
 		},
 		"name": "sdvs",
 		"spriteid": ""
+	},
+	{
+		"description": "",
+		"id": "robot\n",
+		"mobs": {
+
+		},
+		"name": "",
+		"spriteid": ""
 	}
 ]

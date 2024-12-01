@@ -74,11 +74,11 @@ func update_mob_list():
 	# Populate mob_list with data from dmobfaction.mobs
 	for mob_id in dmobfaction.mobs.keys():
 		var weight = dmobfaction.mobs[mob_id]
-		add_mob_entry(mob_id, weight)
+		add_mob_entry(mob_id)
 
 
 # Adds a new mob and its controls to the mob_list
-func add_mob_entry(mob_id: String, weight: int):
+func add_mob_entry(mob_id: String):
 	var mob_icon = TextureRect.new()
 	var mob_sprite = Gamedata.mobs.sprite_by_id(mob_id)
 	mob_icon.texture = mob_sprite
@@ -87,13 +87,6 @@ func add_mob_entry(mob_id: String, weight: int):
 	var mob_label = Label.new()
 	mob_label.text = mob_id
 
-	var weight_spinbox = SpinBox.new()
-	weight_spinbox.min_value = 1
-	weight_spinbox.max_value = 100
-	weight_spinbox.value = weight
-	weight_spinbox.step = 1
-	weight_spinbox.tooltip_text = "Assign the weight for this mob (1 to 100)."
-
 	var delete_button = Button.new()
 	delete_button.text = "X"
 	delete_button.button_up.connect(_on_delete_mob_button_pressed.bind(mob_id))
@@ -101,7 +94,6 @@ func add_mob_entry(mob_id: String, weight: int):
 	# Add components to GridContainer
 	mob_list.add_child(mob_icon)
 	mob_list.add_child(mob_label)
-	mob_list.add_child(weight_spinbox)
 	mob_list.add_child(delete_button)
 
 
@@ -128,7 +120,7 @@ func _on_delete_mob_button_pressed(mob_id: String):
 
 # Adds a header row to mob_list
 func add_header_row_to_mob_list():
-	var headers = ["Sprite", "Mob ID", "Weight", "Delete"]
+	var headers = ["Sprite", "Mob ID", "Delete"]
 	for header_text in headers:
 		var header_label = Label.new()
 		header_label.text = header_text
@@ -149,7 +141,7 @@ func _drop_mob_data(newpos, data) -> void:
 	if _can_drop_mob_data(newpos, data):
 		var mob_id = data["id"]
 		dmobfaction.mobs[mob_id] = 1  # Default weight is 1
-		add_mob_entry(mob_id, 1)
+		add_mob_entry(mob_id)
 
 
 # Save the mob data from mob_list into dmobfaction
@@ -160,7 +152,6 @@ func save_mob_list_to_dmobfaction():
 	
 	for i in range(4, num_children, num_columns):  # Skip header
 		var mob_id = mob_list.get_child(i + 1).text
-		var weight = mob_list.get_child(i + 2).get_value()
-		new_mobs[mob_id] = weight
+		new_mobs[mob_id]
 	
 	dmobfaction.mobs = new_mobs
