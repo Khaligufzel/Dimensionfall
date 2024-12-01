@@ -100,7 +100,7 @@ func initialize_chunk_data():
 		chunk_data["id"] = Helper.test_map_name
 	if is_new_chunk(): # This chunk is created for the first time
 		#This contains the data of one map, loaded from maps.data, for example generichouse.json
-		var mapsegmentData: Dictionary = Gamedata.maps.by_id(chunk_data.id).get_data().duplicate(true)
+		var mapsegmentData: Dictionary = Runtimedata.maps.by_id(chunk_data.id).get_data().duplicate(true)
 		await Helper.task_manager.create_task(generate_new_chunk.bind(mapsegmentData)).completed
 		# Run the main spawn function on the main thread and let the furniturespawner
 		# handle offloading the work onto a thread.

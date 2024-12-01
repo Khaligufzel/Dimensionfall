@@ -1,9 +1,9 @@
 class_name RTacticalmaps
 extends RefCounted
 
-# There's a R in front of the class name to indicate this class only handles runtime stats data, nothing more
+# There's a R in front of the class name to indicate this class only handles runtime tacticalmaps data, nothing more
 # This script is intended to be used inside the Runtime autoload singleton
-# This script handles the list of stats. You can access it through Runtime.mods.by_id("Core").stats
+# This script handles the list of tacticalmaps. You can access it through Runtime.mods.by_id("Core").tacticalmaps
 
 # Paths for tactical map data and sprites
 var tacticalmap_dict: Dictionary = {}

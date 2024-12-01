@@ -111,7 +111,7 @@ func _can_drop_map_data(_newpos, data) -> bool:
 		return false
 
 	# Fetch map by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.maps.has_id(data["id"]):
+	if not Gamedata.mods.by_id("Core").maps.has_id(data["id"]):
 		return false
 
 	# Check if the map ID already exists in the maps grid
@@ -138,7 +138,7 @@ func _handle_map_drop(dropped_data, _newpos) -> void:
 	# dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var map_id = dropped_data["id"]
-		if not Gamedata.maps.has_id(map_id):
+		if not Gamedata.mods.by_id("Core").maps.has_id(map_id):
 			print_debug("No map data found for ID: " + map_id)
 			return
 		
@@ -150,7 +150,7 @@ func _handle_map_drop(dropped_data, _newpos) -> void:
 
 # Function to add a new map entry to the maps_grid_container
 func _add_map_entry(map_data: Dictionary) -> void:
-	var mymap = Gamedata.maps.by_id(map_data.id)
+	var mymap = Gamedata.mods.by_id("Core").maps.by_id(map_data.id)
 
 	# Create a TextureRect for the map sprite
 	var texture_rect = TextureRect.new()

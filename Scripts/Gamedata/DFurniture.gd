@@ -230,7 +230,7 @@ func delete():
 	
 	var mapsdata = Helper.json_helper.get_nested_data(references, "core.maps")
 	if mapsdata:
-		Gamedata.maps.remove_entity_from_selected_maps("furniture", id, mapsdata)
+		Gamedata.mods.by_id("Core").maps.remove_entity_from_selected_maps("furniture", id, mapsdata)
 
 
 # Removes any instance of an itemgroup from the furniture

@@ -17,8 +17,8 @@ var grid_width: int = 100 # TODO: Pass the global grid_width to this class
 var grid_height: int = 100
 # Dictionary to store lists of area positions sorted by dovermaparea.id
 var area_positions: Dictionary = {}
-var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
-var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
+var road_maps: Array = Gamedata.mods.by_id("Core").maps.get_maps_by_category("Road")
+var forest_road_maps: Array = Gamedata.mods.by_id("Core").maps.get_maps_by_category("Forest Road")
 const NOISE_VALUE_PLAINS = -0.2
 
 enum Region {
@@ -45,7 +45,7 @@ class map_cell:
 	var map_id: String = "field_grass_basic_00.json":
 		set(value):
 			map_id = value
-			dmap = Gamedata.maps.by_id(map_id)
+			dmap = Gamedata.mods.by_id("Core").maps.by_id(map_id)
 	var tacticalmapname: String = "town_00.json"
 	var revealed: int = RevealedState.HIDDEN  # Default state is HIDDEN
 	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
@@ -567,7 +567,7 @@ func generate_cells() -> void:
 			cell.region = region_type
 
 			# Pick a map from the category based on the region type
-			var maps_by_category = Gamedata.maps.get_maps_by_category(region_type_to_string(region_type))
+			var maps_by_category = Gamedata.mods.by_id("Core").maps.get_maps_by_category(region_type_to_string(region_type))
 			if maps_by_category.size() > 0:
 				cell.map_id = Helper.overmap_manager.pick_random_map_by_weight(maps_by_category)
 			else:

@@ -405,7 +405,7 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 					valid_data = true
 					entity_type = "mobgroup"
 			"enter":
-				valid_data = Gamedata.maps.has_id(dropped_data["id"])
+				valid_data = Gamedata.mods.by_id("Core").maps.has_id(dropped_data["id"])
 		
 		if valid_data:
 			texteditcontrol.set_text(dropped_data["id"])
@@ -428,7 +428,7 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 		"kill":
 			valid_data = Gamedata.mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
 		"enter":
-			valid_data = Gamedata.maps.has_id(dropped_data["id"])
+			valid_data = Gamedata.mods.by_id("Core").maps.has_id(dropped_data["id"])
 	
 	return valid_data
 

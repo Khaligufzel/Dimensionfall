@@ -3,13 +3,15 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles map data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of maps. You can access it trough Gamedata.maps
+# This script handles the list of maps. You can access it trough Gamedata.mods.by_id("Core").maps
 
 var dataPath: String = "./Mods/Core/Maps/"
 var mapdict: Dictionary = {}
 
 
-func _init():
+func _init(mod_id):
+	# Update dataPath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Maps/"
 	load_maps_from_disk()
 
 # Load all mapdata from disk into memory

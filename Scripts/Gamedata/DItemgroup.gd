@@ -173,7 +173,7 @@ func delete():
 	# Remove references to this itemgroup from maps.
 	var mapsdata = Helper.json_helper.get_nested_data(references,"core.maps")
 	if mapsdata:
-		Gamedata.maps.remove_entity_from_selected_maps("itemgroup", id, mapsdata)
+		Gamedata.mods.by_id("Core").maps.remove_entity_from_selected_maps("itemgroup", id, mapsdata)
 
 
 # Executes a callable function on each reference of the given type

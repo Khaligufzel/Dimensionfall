@@ -77,7 +77,7 @@ func _init(modinfo: Dictionary, myparent: DMods):
 	license = modinfo.get("license", "")
 	tags = modinfo.get("tags", [])
 
-	maps = DMaps.new()
+	maps = DMaps.new(id)
 	tacticalmaps = DTacticalmaps.new(id)
 	furnitures = DFurnitures.new()
 	items = DItems.new()

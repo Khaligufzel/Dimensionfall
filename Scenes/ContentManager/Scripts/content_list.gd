@@ -17,11 +17,14 @@ var mod_id: String = "Core"
 var contentType: DMod.ContentType:
 	set(newData):
 		contentType = newData
-		if newData == DMod.ContentType.STATS or  newData == DMod.ContentType.TACTICALMAPS:
+		if newData == DMod.ContentType.STATS or newData == DMod.ContentType.TACTICALMAPS or newData == DMod.ContentType.MAPS:
+			# Use mod-specific data for these content types
 			datainstance = Gamedata.mods.by_id(mod_id).get_data_of_type(contentType)
 		else:
+			# Use global data for other content types
 			datainstance = Gamedata.get_data_of_type(contentType)
 		load_data()
+
 
 var header: String = "Items":
 	set(newName):

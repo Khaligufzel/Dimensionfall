@@ -3,8 +3,90 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles map data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles data for one map. You can access it trough Gamedata.maps
+# This script handles data for one map. You can access it trough Gamedata.mods.by_id("Core").maps
 
+
+# Example map data:
+#{
+#	"areas": [
+#	{
+#	    "id": "base_layer",
+#	    "rotate_random": false,
+#	    "spawn_chance": 100,
+#	    "tiles": [
+#	    	{ "id": "grass_plain_01", "count": 100 },
+#	    	{ "id": "grass_dirt_00", "count": 15 }
+#	    ],
+#	    "entities": []
+#	},
+#	{
+#	    "id": "sparse_trees",
+#	    "rotate_random": true,
+#	    "spawn_chance": 30,
+#	    "tiles": [
+#	    	{ "id": "null", "count": 1000 }
+#	    ],
+#	    "entities": [
+#	    	{ "id": "Tree_00", "type": "furniture", "count": 1 },
+#	    	{ "id": "WillowTree_00", "type": "furniture", "count": 1 }
+#	    ]
+#	},
+#	{
+#	    "id": "generic_field_finds",
+#	    "rotate_random": false,
+#	    "spawn_chance": 50,
+#	    "tiles": [
+#	    	{ "id": "null", "count": 500 }
+#	    ],
+#	    "entities": [
+#	    	{ "id": "generic_field_finds", "type": "itemgroup", "count": 1 }
+#	    ]
+#	}
+#	],
+#	"categories": ["Field", "Plains"],
+#	"connections": {
+#	"north": "ground",
+#	"south": "ground",
+#	"east": "ground",
+#	"west": "ground"
+#	},
+#	"description": "A simple and vast field covered with green grass, perfect for beginners.",
+#	"id": "field_grass_basic_00",
+#	"levels": [
+#		[], [], [], [], [], [], [], [], [], [],
+#	[
+#	    {
+#	    "id": "grass_medium_dirt_01",
+#	    "rotation": 180,
+#	    "areas": [
+#	        { "id": "base_layer", "rotation": 0 },
+#	        { "id": "sparse_trees", "rotation": 0 },
+#	        { "id": "generic_field_finds", "rotation": 0 }
+#	    ]
+#	    },
+#	    {
+#	    "id": "grass_plain_01",
+#	    "rotation": 90,
+#	    "areas": [
+#	        { "id": "base_layer", "rotation": 0 },
+#	        { "id": "sparse_trees", "rotation": 0 },
+#	        { "id": "generic_field_finds", "rotation": 0 }
+#	    ]
+#	    }
+#	]
+#	],
+#	"mapheight": 32,
+#	"mapwidth": 32,
+#	"name": "Basic Grass Field",
+#	"references": {
+#		"core": {
+#			"overmapareas": [
+#				"city"
+#			]
+#		}
+#	},
+#	"weight": 1000
+#}
 
 var id: String = "":
 	set(newid):

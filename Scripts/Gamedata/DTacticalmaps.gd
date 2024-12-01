@@ -9,7 +9,7 @@ var dataPath: String = "./Mods/Core/TacticalMaps/"
 var mapdict: Dictionary = {}
 
 func _init(mod_id: String):
-	# Update dataPath and spritePath using the provided mod_id
+	# Update dataPath using the provided mod_id
 	dataPath = "./Mods/" + mod_id + "/TacticalMaps/"
 	load_maps_from_disk()
 

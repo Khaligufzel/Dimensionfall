@@ -136,14 +136,15 @@ func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: Packe
 	newContentEditor.name = itemID
 	tabContainer.add_child(newContentEditor)
 	tabContainer.current_tab = tabContainer.get_child_count() - 1
+	var currentmod: DMod = Gamedata.mods.by_id(selectedMod)
 	
 	match type:
 		DMod.ContentType.MAPS:
-			newContentEditor.currentMap = Gamedata.maps.by_id(itemID)
+			newContentEditor.currentMap = currentmod.maps.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.TACTICALMAPS:
-			newContentEditor.currentMap = Gamedata.mods.by_id(selectedMod).tacticalmaps.by_id(itemID)
+			newContentEditor.currentMap = currentmod.tacticalmaps.by_id(itemID)
 		
 		DMod.ContentType.FURNITURES:
 			newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
@@ -174,7 +175,7 @@ func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: Packe
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.STATS:
-			newContentEditor.dstat = Gamedata.mods.by_id(selectedMod).stats.by_id(itemID)
+			newContentEditor.dstat = currentmod.stats.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.SKILLS:

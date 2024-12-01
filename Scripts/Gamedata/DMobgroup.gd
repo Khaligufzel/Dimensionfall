@@ -107,7 +107,7 @@ func delete():
 	# Remove references to maps
 	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
 	if mapsdata:
-		Gamedata.maps.remove_entity_from_selected_maps("mobgroup", id, mapsdata)
+		Gamedata.mods.by_id("Core").maps.remove_entity_from_selected_maps("mobgroup", id, mapsdata)
 
 	# Remove references to mobs
 	for mob in mobs.keys():

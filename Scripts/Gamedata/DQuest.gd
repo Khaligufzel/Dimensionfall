@@ -126,7 +126,7 @@ func changed(olddata: DQuest):
 
 	for old_map in old_quest_maps:
 		if old_map not in new_quest_maps:
-			Gamedata.maps.remove_reference_from_map(old_map.map_id, "core", "quests", quest_id)
+			Gamedata.mods.by_id("Core").maps.remove_reference_from_map(old_map.map_id, "core", "quests", quest_id)
 
 	# Remove references for old mobs that are not in the new data
 	for old_mob in old_quest_mobs:
@@ -146,7 +146,7 @@ func changed(olddata: DQuest):
 		Gamedata.items.add_reference(new_reward.item_id, "core", "quests", quest_id)
 
 	for new_map in new_quest_maps:
-		Gamedata.maps.add_reference_to_map(new_map.map_id, "core", "quests", quest_id)
+		Gamedata.mods.by_id("Core").maps.add_reference_to_map(new_map.map_id, "core", "quests", quest_id)
 
 	# Add references for new mobs
 	for new_mob in new_quest_mobs:

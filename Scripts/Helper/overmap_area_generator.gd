@@ -5,7 +5,7 @@ extends RefCounted
 # This is a stand-alone script that generates an area that can be placed on the overmap, such as a city
 # It can be accessed trough OvermapAreaGenerator.new()
 # The script has a function that returns the 2d grid on which maps are procedurally placed
-# All map data comes from Gamedata.maps. The maps contain the weights and connections that are used
+# All map data comes from Gamedata.mods.by_id("Core").maps. The maps contain the weights and connections that are used
 
 
 # Example overmaparea data:
@@ -426,7 +426,7 @@ func place_starting_tile(center: Vector2) -> Tile:
 # 3. For each region:
 # 3.1 Create a new key in tile_dictionary for the region name
 # 3.2 Get the region.maps array. Each item in the array will be something like: {"id": "house_02","weight": 8}
-# 3.3. For each map, get the DMap from Gamedata.maps.by_id(map_id)
+# 3.3. For each map, get the DMap from Gamedata.mods.by_id("Core").maps.by_id(map_id)
 # 4. Leave the rest of the function unaltered.
 func create_tile_entries() -> void:
 	tile_catalog.clear()
@@ -455,7 +455,7 @@ func create_tile_entries() -> void:
 			var map_weight = map_data.get("weight", 1)
 
 			# Step 3.3: Retrieve the DMap from Gamedata using the map_id
-			var map: DMap = Gamedata.maps.by_id(map_id)
+			var map: DMap = Gamedata.mods.by_id("Core").maps.by_id(map_id)
 			if map == null:
 				print_debug("create_tile_entries: Map not found for id: ", map_id)
 				continue

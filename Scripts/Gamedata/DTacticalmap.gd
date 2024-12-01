@@ -81,7 +81,7 @@ func get_file_path() -> String:
 # A tacticalmap is being deleted. Remove all references to this tacticalmap
 func delete():
 	for chunk: TChunk in chunks:
-		Gamedata.maps.remove_reference_from_map(chunk.id,"core", "tacticalmaps",get_filename())
+		Gamedata.mods.by_id("Core").maps.remove_reference_from_map(chunk.id,"core", "tacticalmaps",get_filename())
 	Helper.json_helper.delete_json_file(get_file_path())
 
 func changed(olddata: DTacticalmap):
@@ -104,12 +104,12 @@ func changed(olddata: DTacticalmap):
 
 	# Add references for new IDs
 	for newid in unique_new_ids:
-		Gamedata.maps.add_reference_to_map(newid, "core", "tacticalmaps", tacticalmap_id)
+		Gamedata.mods.by_id("Core").maps.add_reference_to_map(newid, "core", "tacticalmaps", tacticalmap_id)
 
 	# Remove references for IDs not present in new data
 	for oldid in unique_old_ids:
 		if oldid not in unique_new_ids:
-			Gamedata.maps.remove_reference_from_map(oldid, "core", "tacticalmaps", tacticalmap_id)
+			Gamedata.mods.by_id("Core").maps.remove_reference_from_map(oldid, "core", "tacticalmaps", tacticalmap_id)
 
 
 # Removes all chunks where the map_id matches the given chunk id

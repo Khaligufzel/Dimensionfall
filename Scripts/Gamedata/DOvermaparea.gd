@@ -193,11 +193,11 @@ func changed(olddata: DOvermaparea):
 	# Remove references to map IDs that are in the old data but not in the new data
 	for map_id in old_map_ids:
 		if map_id not in new_map_ids:
-			Gamedata.maps.remove_reference_from_map(map_id, "core", "overmapareas", id)
+			Gamedata.mods.by_id("Core").maps.remove_reference_from_map(map_id, "core", "overmapareas", id)
 
 	# Add references to map IDs that are in the new data, even if they were already in the old data
 	for map_id in new_map_ids:
-		Gamedata.maps.add_reference_to_map(map_id, "core", "overmapareas", id)
+		Gamedata.mods.by_id("Core").maps.add_reference_to_map(map_id, "core", "overmapareas", id)
 
 	# Save the updated overmap area data to disk
 	Gamedata.overmapareas.save_overmapareas_to_disk()
@@ -208,7 +208,7 @@ func changed(olddata: DOvermaparea):
 func delete():
 	var new_map_ids = get_all_map_ids()
 	for map: String in new_map_ids:
-		Gamedata.maps.remove_reference_from_map(map,"core", "overmapareas",id)
+		Gamedata.mods.by_id("Core").maps.remove_reference_from_map(map,"core", "overmapareas",id)
 
 
 # Executes a callable function on each reference of the given type
