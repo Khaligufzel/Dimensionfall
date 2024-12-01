@@ -86,13 +86,6 @@ func _on_close_button_button_up() -> void:
 	queue_free()
 
 
-# Handler for the signal
-func _on_map_dimensions_changed(new_map_width: int, new_map_height: int) -> void:
-	mapWidth = new_map_width
-	mapHeight = new_map_height
-	setPanWindowSize()  # Adjust the size when dimensions change
-
-
 # Fix for tab key not properly switching control
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):
@@ -110,11 +103,13 @@ func _input(event):
 
 func _on_map_width_value_changed(value):
 	mapWidth = value
+	currentMap.mapwidth = value
 	tileGrid.resetGrid()
 	setPanWindowSize()
 
 
 func _on_map_height_value_changed(value):
 	mapHeight = value
+	currentMap.mapheight = value
 	tileGrid.resetGrid()
 	setPanWindowSize()

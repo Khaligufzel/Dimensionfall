@@ -4,8 +4,6 @@ extends GridContainer
 # This grid represents a map of chunks. This allows the user to make a 
 # larger map made up of smaller maps.
 
-signal map_dimensions_changed(new_map_width, new_map_height)
-
 @export var tileScene: PackedScene
 #Contains the data of every tile in the current level, the ground level or level 0 by default
 var currentLevelData: Array[DTacticalmap.TChunk] = []
@@ -23,8 +21,6 @@ var rotationAmount: int = 0
 
 
 func _ready():
-	# Connect the signal from TileGrid to this script
-	map_dimensions_changed.connect(mapEditor._on_map_dimensions_changed)
 	createTiles()
 
 
