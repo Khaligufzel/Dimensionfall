@@ -9,7 +9,7 @@ content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
 
-[node name="MobfactionsEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "relation_type_option_button", "relations_container")]
+[node name="MobfactionsEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "mob_list", "relation_type_option_button", "relations_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +20,7 @@ script = ExtResource("1_kooul")
 IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
 NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
+mob_list = NodePath("VBoxContainer/FormGrid/RelationsPanelContainer/RelationsVBoxContainer/GridContainer")
 relation_type_option_button = NodePath("VBoxContainer/FormGrid/RelationControlsHBoxContainer/RelationTypeOptionButton")
 relations_container = NodePath("VBoxContainer/FormGrid/RelationsPanelContainer/RelationsVBoxContainer")
 dropabletextedit = ExtResource("2_6k777")
@@ -129,6 +130,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_une6i")
 layout_mode = 2
 tooltip_text = "Press the \"+ Add\" button above to add a relation. You can 
 re-order and delete relations using the controls of each relation."
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/RelationsPanelContainer/RelationsVBoxContainer"]
+layout_mode = 2
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
