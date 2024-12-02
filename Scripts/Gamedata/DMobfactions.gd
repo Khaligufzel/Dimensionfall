@@ -6,11 +6,22 @@ extends RefCounted
 # This script handles the list of mob groups. You can access it through Gamedata.mobgroups
 
 var dataPath: String = "./Mods/Core/Mobfaction/Mobfactions.json"
+var spritePath: String = "./Mods/Core/Items/"
 var mobfactiondict: Dictionary = {}
 var sprites: Dictionary = {}
 
 func _init():
 	load_mobfactions_from_disk()
+	load_sprites()
+	
+# Loads sprites and assigns them to the proper dictionary
+func load_sprites() -> void:
+	var png_files: Array = Helper.json_helper.file_names_in_dir(spritePath, ["png"])
+	for png_file in png_files:
+		# Load the .png file as a texture
+		var texture := load(spritePath + png_file)
+		# Add the texture to the dictionary
+		sprites[png_file] = texture
 
 # Load all mob group data from disk into memory
 func load_mobfactions_from_disk() -> void:

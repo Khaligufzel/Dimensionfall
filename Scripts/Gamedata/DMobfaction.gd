@@ -67,7 +67,7 @@ func get_data() -> Dictionary:
 
 # Method to save any changes to the stat back to disk
 func save_to_disk():
-	Gamedata.stats.save_factions_to_disk()
+	Gamedata.mobfactions.save_mobfactions_to_disk()
 # Handles faction deletion
 func delete():
 	var relationmobs: Array =  relations.filter(func(relation): return relation.has("mob"))

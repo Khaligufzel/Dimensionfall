@@ -89,7 +89,7 @@ func _on_save_button_button_up() -> void:
 	olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true))
 
 # Function to add a relation based on the relation type selected
-func _on_relation_relation_button_button_up():
+func _on_add_relation_button_button_up():
 	var relation_type = relation_type_option_button.get_selected_id()
 	var empty_relation = {}
 	match relation_type:

@@ -136,3 +136,4 @@ layout_mode = 2
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/FormGrid/RelationControlsHBoxContainer/AddRelationButton" to="." method="_on_add_relation_button_button_up"]
