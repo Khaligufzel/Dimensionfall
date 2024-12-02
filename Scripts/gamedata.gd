@@ -14,6 +14,7 @@ var skills: DSkills
 var quests: DQuests
 var overmapareas: DOvermapareas
 var mobgroups: DMobgroups
+var mobfactions: DMobfactions
 
 # Only hides the visual instance when it's above the player. Casts no shadow
 static var hide_above_player_shader := preload("res://Shaders/HideAbovePlayer.gdshader")
@@ -61,6 +62,7 @@ func _ready():
 	quests = DQuests.new()
 	overmapareas = DOvermapareas.new()
 	mobgroups = DMobgroups.new()
+	mobfactions = DMobfactions.new()
 
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
@@ -77,7 +79,8 @@ func _ready():
 		DMod.ContentType.SKILLS: skills,
 		DMod.ContentType.QUESTS: quests,
 		DMod.ContentType.OVERMAPAREAS: overmapareas,
-		DMod.ContentType.MOBGROUPS: mobgroups
+		DMod.ContentType.MOBGROUPS: mobgroups,
+		DMod.ContentType.MOBFACTIONS: mobfactions
 	}
 
 	materials["container"] = create_item_shader_material(textures.container)
