@@ -107,7 +107,7 @@ func get_sprite_path() -> String:
 
 
 func remove_self_from_tacticalmap(tacticalmap_id: String) -> void:
-	Gamedata.tacticalmaps.by_id(tacticalmap_id).remove_chunk_by_mapid(id)
+	Gamedata.mods.by_id("Core").tacticalmaps.by_id(tacticalmap_id).remove_chunk_by_mapid(id)
 
 
 # A map is being deleted. Remove all references to this map
