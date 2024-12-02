@@ -34,14 +34,6 @@ func _init() -> void:
 			# Overwrite the RTile properties with the DTile properties
 			rtile.overwrite_from_dtile(dtile)
 
-	# Load sprites for runtime usage
-	load_sprites()
-
-# Loads sprites and assigns them to the sprites dictionary
-func load_sprites() -> void:
-	for tile in tiledict.values():
-		tile.sprite = sprites.get(tile.spriteid, null)
-
 # Returns the dictionary containing all tiles
 func get_all() -> Dictionary:
 	return tiledict
