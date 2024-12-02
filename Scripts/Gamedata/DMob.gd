@@ -66,6 +66,7 @@ extends RefCounted
 var id: String
 var name: String
 var description: String
+var default_faction: String
 var health: int
 var hearing_range: int
 var idle_move_speed: float
@@ -88,6 +89,7 @@ func _init(data: Dictionary):
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
+	default_faction = data.get("default_faction", "")
 	health = data.get("health", 100)
 	hearing_range = data.get("hearing_range", 1000)
 	idle_move_speed = data.get("idle_move_speed", 0.5)
@@ -113,6 +115,7 @@ func get_data() -> Dictionary:
 		"id": id,
 		"name": name,
 		"description": description,
+		"default_faction": default_faction,
 		"health": health,
 		"hearing_range": hearing_range,
 		"idle_move_speed": idle_move_speed,

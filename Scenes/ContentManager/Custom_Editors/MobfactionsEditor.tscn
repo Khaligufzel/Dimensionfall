@@ -1,0 +1,139 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6qjrrt1xgro2"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/mobfactions_editor.gd" id="1_kooul"]
+[ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="2_6k777"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_une6i"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[node name="MobfactionsEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "mob_list", "relation_type_option_button", "relations_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kooul")
+IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
+NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
+DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
+mob_list = NodePath("VBoxContainer/FormGrid/RelationsPanelContainer/RelationsVBoxContainer/GridContainer")
+relation_type_option_button = NodePath("VBoxContainer/FormGrid/RelationControlsHBoxContainer/RelationTypeOptionButton")
+relations_container = NodePath("VBoxContainer/FormGrid/RelationsPanelContainer/RelationsVBoxContainer")
+dropabletextedit = ExtResource("2_6k777")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="FormGrid" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="IDLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "ID:"
+
+[node name="IDTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Name"
+
+[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+focus_next = NodePath("../DescriptionTextEdit")
+placeholder_text = "Zombie"
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Description"
+
+[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.9
+focus_previous = NodePath("../NameTextEdit")
+placeholder_text = "A faction of zombies, representing a minor to significant threat to the player"
+wrap_mode = 1
+
+[node name="ItemsLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Relation"
+
+[node name="RelationControlsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="RelationTypeLabel" type="Label" parent="VBoxContainer/FormGrid/RelationControlsHBoxContainer"]
+layout_mode = 2
+text = "Relation type"
+
+[node name="RelationTypeOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/RelationControlsHBoxContainer"]
+layout_mode = 2
+tooltip_text = "Select relation type and choose add. 4 relations are currently available: 
+1. Core (the base monsters will be part of your faction), 
+2. Friendly (core mobs will be friendly towards mobs in friendly group), 
+3. Neutral (core mobs will be neutral towards mobs in neutral group)
+4. Hostile (core mobs will be hostile towards mobs in hostile group). "
+selected = 0
+item_count = 4
+popup/item_0/text = "Core mobs"
+popup/item_1/text = "Friendly"
+popup/item_1/id = 1
+popup/item_2/text = "Neutral"
+popup/item_2/id = 2
+popup/item_3/text = "Hostile"
+popup/item_3/id = 3
+
+[node name="AddRelationButton" type="Button" parent="VBoxContainer/FormGrid/RelationControlsHBoxContainer"]
+layout_mode = 2
+text = " + Add"
+
+[node name="RelationsLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Mobs"
+
+[node name="RelationsPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_une6i")
+
+[node name="RelationsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/RelationsPanelContainer"]
+layout_mode = 2
+tooltip_text = "Press the \"+ Add\" button above to add a relation. You can 
+re-order and delete relations using the controls of each relation."
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/RelationsPanelContainer/RelationsVBoxContainer"]
+layout_mode = 2
+
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/FormGrid/RelationControlsHBoxContainer/AddRelationButton" to="." method="_on_add_relation_button_button_up"]

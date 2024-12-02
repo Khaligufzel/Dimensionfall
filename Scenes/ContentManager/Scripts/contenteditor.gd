@@ -16,6 +16,7 @@ extends Control
 @export var playerattributesEditor: PackedScene = null
 @export var overmapareaEditor: PackedScene = null
 @export var mobgroupsEditor: PackedScene = null
+@export var mobfactionsEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
 @export var type_selector_menu_button: MenuButton = null
@@ -192,6 +193,10 @@ func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: Packe
 		DMod.ContentType.MOBGROUPS:
 			newContentEditor.dmobgroup = Gamedata.mobgroups.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
+			
+		Gamedata.ContentType.MOBFACTIONS:
+			newContentEditor.dmobfaction = Gamedata.mobfactions.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
 		
 		_:
 			print("Unknown content type:", type)
@@ -210,7 +215,7 @@ func populate_type_selector_menu_button():
 	var headers = [
 		"Maps", "Tactical Maps", "Items", "Terrain Tiles", "Mobs", 
 		"Furniture", "Item Groups", "Player Attributes", "Wearable Slots", 
-		"Stats", "Skills", "Quests", "Overmap areas", "Mob groups"
+		"Stats", "Skills", "Quests", "Overmap areas", "Mob groups", "Mob factions"
 	]
 	
 	for i in headers.size():

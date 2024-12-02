@@ -20,8 +20,14 @@
 					"RockyHill_NW",
 					"RockyHill_NE"
 				],
+				"mobfactions": [
+					"zombie"
+				],
 				"mobgroups": [
 					"security_robots"
+				],
+				"quests": [
+					"zombie"
 				]
 			}
 		},
@@ -81,6 +87,9 @@
 				],
 				"mobgroups": [
 					"security_robots"
+				],
+				"quests": [
+					"zombie"
 				]
 			}
 		},
