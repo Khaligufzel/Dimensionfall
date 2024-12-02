@@ -106,9 +106,10 @@ func update_mob_references(olddata: DMobgroup):
 func delete():
 	# Remove references to maps
 	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
-	if mapsdata:
-		# TODO: Replace with parent.mod_id when converted to enable modding
-		Gamedata.mods.by_id("Core").maps.remove_entity_from_selected_maps("mobgroup", id, mapsdata)
+	for mymap: String in mapsdata:
+		var mymaps: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, mymap)
+		for dmap: DMaps in mymaps:
+			dmap.remove_entity_from_selected_maps("mobgroup", id, mapsdata)
 
 	# Remove references to mobs
 	for mob in mobs.keys():

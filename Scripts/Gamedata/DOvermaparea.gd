@@ -206,6 +206,12 @@ func changed(olddata: DOvermaparea):
 # A overmaparea is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
+			
+	# Remove references to this itemgroup from maps.
+	var mapsdata = Helper.json_helper.get_nested_data(references,"core.maps")
+	if mapsdata:
+		Gamedata.mods.by_id("Core").maps.remove_entity_from_selected_maps("itemgroup", id, mapsdata)
+		
 	var new_map_ids = get_all_map_ids()
 	for map: String in new_map_ids:
 		Gamedata.mods.by_id("Core").maps.remove_reference_from_map(map,"core", "overmapareas",id)

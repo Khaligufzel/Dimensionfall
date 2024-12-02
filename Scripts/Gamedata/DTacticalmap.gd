@@ -96,7 +96,7 @@ func delete():
 	if all_results.size() > 0:
 		return
 	for chunk: TChunk in chunks:
-		Gamedata.mods.by_id("Core").maps.remove_reference_from_map(chunk.id,"core", "tacticalmaps",get_filename())
+		Gamedata.mods.remove_reference(DMod.ContentType.MAPS, chunk.id, DMod.ContentType.TACTICALMAPS, get_filename().replace(".json", ""))
 	Helper.json_helper.delete_json_file(get_file_path())
 
 

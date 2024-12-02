@@ -228,9 +228,12 @@ func delete():
 	Gamedata.itemgroups.remove_reference(destruction.group, "core", "furniture", id)
 	Gamedata.itemgroups.remove_reference(disassembly.group, "core", "furniture", id)
 	
-	var mapsdata = Helper.json_helper.get_nested_data(references, "core.maps")
-	if mapsdata:
-		Gamedata.mods.by_id("Core").maps.remove_entity_from_selected_maps("furniture", id, mapsdata)
+	# Remove references to maps
+	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
+	for mymap: String in mapsdata:
+		var mymaps: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, mymap)
+		for dmap: DMaps in mymaps:
+			dmap.remove_entity_from_selected_maps("furniture", id, mapsdata)
 
 
 # Removes any instance of an itemgroup from the furniture
