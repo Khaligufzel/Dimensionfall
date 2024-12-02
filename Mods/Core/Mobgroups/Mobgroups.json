@@ -20,7 +20,10 @@
 				],
 				"quests": [
 					"starter_tutorial_00",
-					"quest_holy_crusade_01"
+					"quest_holy_crusade_01",
+					"zombie",
+					"robot",
+					"undead"
 				]
 			}
 		},
@@ -30,16 +33,24 @@
 		"description": "Being relics from the old world, they were designed to quell riots and protect VIPs. Now they guard strategically important locations from both alive and undead intruders.",
 		"id": "security_robots",
 		"mobs": {
-			
-			"scavenger_skitter": 100,
 			"disruptor_drone": 100,
-			"venom_crawler": 75,
-			"scrapwalker": 60,
-			"rust_sentinel": 40,
+			"iron_stalker": 10,
 			"outpost_guardian": 30,
-			"iron_stalker": 10
+			"rust_sentinel": 40,
+			"scavenger_skitter": 100,
+			"scrapwalker": 60,
+			"venom_crawler": 75
 		},
 		"name": "Security robots",
+		"references": {
+			"core": {
+				"quests": [
+					"zombie",
+					"robot",
+					"undead"
+				]
+			}
+		},
 		"spriteid": "iron_stalker_72.png"
 	}
 ]

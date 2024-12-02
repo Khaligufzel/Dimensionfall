@@ -59,7 +59,8 @@ enum ContentType {
 	SKILLS,
 	QUESTS,
 	OVERMAPAREAS,
-	MOBGROUPS
+	MOBGROUPS,
+	MOBFACTIONS
 }
 
 # Constructor to initialize mod properties and associated content types
