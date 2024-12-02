@@ -52,7 +52,7 @@ func load_mobfaction_data() -> void:
 	if relations_container:
 		for child in relations_container.get_children():
 			child.queue_free()
-		for relation in dmobfaction.relation:
+		for relation in dmobfaction.relations:
 			add_relation_from_data(relation)
 
 # This function takes all data from the form elements and stores them in the DMobfaction instance

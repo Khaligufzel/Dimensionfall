@@ -36,17 +36,15 @@ extends RefCounted
 var id: String
 var name: String
 var description: String
-var spriteid: String
-var sprite: Texture
 var references: Dictionary = {}
 var mobs: Dictionary = {}  # Holds the list of mobs and their weights
+var relations: Array = []
 
 # Constructor to initialize mob group properties from a dictionary
 func _init(data: Dictionary):
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
-	spriteid = data.get("spriteid", "")
 	references = data.get("references", {})
 	mobs = data.get("mobs", {})
 
@@ -57,8 +55,8 @@ func get_data() -> Dictionary:
 		"id": id,
 		"name": name,
 		"description": description,
-		"spriteid": spriteid,
-		"mobs": mobs
+		"mobs": mobs,
+		"relations": relations
 	}
 	if not references.is_empty():
 		data["references"] = references

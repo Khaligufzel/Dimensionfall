@@ -19,8 +19,6 @@ func load_mobfactions_from_disk() -> void:
 	var mobfactionlist: Array = Helper.json_helper.load_json_array_file(dataPath)
 	for mymobfaction in mobfactionlist:
 		var mobfaction: DMobfaction = DMobfaction.new(mymobfaction)
-		if mobfaction.spriteid:
-			mobfaction.sprite = sprites[mobfaction.spriteid]
 		mobfactiondict[mobfaction.id] = mobfaction
 
 # Loads sprites and assigns them to the proper dictionary
