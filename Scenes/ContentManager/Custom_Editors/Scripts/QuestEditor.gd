@@ -290,9 +290,12 @@ func add_kill_step(step: Dictionary) -> HBoxContainer:
 	hbox.add_child(label_instance)
 
 	# Add the dropable text edit for the mob or mobgroup ID
+	var entity_type: String = "mob" if step.has("mob") else "mobgroup" if step.has("mobgroup") else ""
 	var dropable_textedit_instance: HBoxContainer = dropabletextedit.instantiate()
 	dropable_textedit_instance.set_text(step.get("mob", step.get("mobgroup", "")))
 	dropable_textedit_instance.set_meta("step_type", "kill")
+	# Set metadata to specify if this is a mob or mobgroup
+	dropable_textedit_instance.set_meta("entity_type", entity_type)
 	dropable_textedit_instance.myplaceholdertext = "Drop a mob or mobgroup from the left menu"
 	set_drop_functions(dropable_textedit_instance)
 	hbox.add_child(dropable_textedit_instance)
