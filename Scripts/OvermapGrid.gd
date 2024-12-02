@@ -567,7 +567,7 @@ func generate_cells() -> void:
 			cell.region = region_type
 
 			# Pick a map from the category based on the region type
-			var maps_by_category = Gamedata.mods.by_id("Core").maps.get_maps_by_category(region_type_to_string(region_type))
+			var maps_by_category = Runtimedata.maps.get_maps_by_category(region_type_to_string(region_type))
 			if maps_by_category.size() > 0:
 				cell.map_id = Helper.overmap_manager.pick_random_map_by_weight(maps_by_category)
 			else:

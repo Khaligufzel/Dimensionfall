@@ -150,7 +150,6 @@ func _handle_map_drop(dropped_data, _newpos) -> void:
 
 # Function to add a new map entry to the maps_grid_container
 func _add_map_entry(map_data: Dictionary) -> void:
-	#map_data.mod_id
 	var mymap = Gamedata.mods.get_content_by_id(DMod.ContentType.MAPS, map_data.id)
 
 	# Create a TextureRect for the map sprite

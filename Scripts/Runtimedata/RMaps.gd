@@ -80,3 +80,12 @@ func get_random_map() -> RMap:
 		return null
 	var random_id = map_ids.pick_random()
 	return map_dict[random_id]
+
+
+# Function to get maps by category
+func get_maps_by_category(category: String) -> Array[RMap]:
+	var maplist: Array[RMap] = []
+	for key in map_dict.keys():
+		if map_dict[key].categories.has(category):
+			maplist.append(map_dict[key])
+	return maplist
