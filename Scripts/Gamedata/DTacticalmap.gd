@@ -115,12 +115,12 @@ func changed(olddata: DTacticalmap):
 
 	# Add references for new IDs
 	for newid in unique_new_ids:
-		Gamedata.mods.by_id("Core").maps.add_reference_to_map(newid, "core", "tacticalmaps", tacticalmap_id)
+		Gamedata.mods.add_reference(DMod.ContentType.MAPS, newid, DMod.ContentType.TACTICALMAPS, tacticalmap_id)
 
 	# Remove references for IDs not present in new data
 	for oldid in unique_old_ids:
 		if oldid not in unique_new_ids:
-			Gamedata.mods.by_id("Core").maps.remove_reference_from_map(oldid, "core", "tacticalmaps", tacticalmap_id)
+			Gamedata.mods.remove_reference(DMod.ContentType.MAPS, oldid, DMod.ContentType.TACTICALMAPS, tacticalmap_id)
 
 
 # Removes all chunks where the map_id matches the given chunk id

@@ -108,9 +108,24 @@ func get_all_content_by_id(contentType: String, id: String) -> Array:
 
 
 # Function to add a reference to all content instances with a specific ID across all mods
-func add_reference(contentType: String, id: String, ref_type: String, ref_id: String) -> void:
+# contentType: The type of entity that we add the reference to
+# id: The id of the entity that we add the reference to
+# ref_type: The type of the entity that we reference
+# ref_id: The id of the entity that we reference
+# Example references data:
+#	"references": {
+#		"field_grass_basic_00": {
+#			"overmapareas": [
+#				"city"
+#			],
+#			"tacticalmaps": [
+#				"rockyhill"
+#			]
+#		}
+#	}
+func add_reference(contentType: DMod.ContentType, id: String, ref_type: DMod.ContentType, ref_id: String) -> void:
 	# Loop over all mods in the moddict
-	for mod in moddict.values():
+	for mod: DMod in moddict.values():
 		# Get the content instance of the specified type for the current mod
 		var content_instance: RefCounted = mod.get_data_of_type(contentType)
 		if content_instance:
@@ -118,3 +133,20 @@ func add_reference(contentType: String, id: String, ref_type: String, ref_id: St
 			if content_instance.has_id(id):
 				# Call add_reference on the content instance
 				content_instance.add_reference(id, ref_type, ref_id)
+
+
+# Function to remove a reference from all content instances with a specific ID across all mods
+# contentType: The type of entity that we remove the reference from
+# id: The id of the entity that we remove the reference from
+# ref_type: The type of the entity that we remove as a reference
+# ref_id: The id of the entity that we remove as a reference
+func remove_reference(contentType: DMod.ContentType, id: String, ref_type: DMod.ContentType, ref_id: String) -> void:
+	# Loop over all mods in the moddict
+	for mod: DMod in moddict.values():
+		# Get the content instance of the specified type for the current mod
+		var content_instance: RefCounted = mod.get_data_of_type(contentType)
+		if content_instance:
+			# Check if the content instance has the requested ID
+			if content_instance.has_id(id):
+				# Call remove_reference on the content instance
+				content_instance.remove_reference(id, ref_type, ref_id)
