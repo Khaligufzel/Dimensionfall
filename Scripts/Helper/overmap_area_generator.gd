@@ -5,7 +5,7 @@ extends RefCounted
 # This is a stand-alone script that generates an area that can be placed on the overmap, such as a city
 # It can be accessed trough OvermapAreaGenerator.new()
 # The script has a function that returns the 2d grid on which maps are procedurally placed
-# All map data comes from Gamedata.mods.by_id("Core").maps. The maps contain the weights and connections that are used
+# All map data comes from Runtimedata.maps. The maps contain the weights and connections that are used
 
 
 # Example overmaparea data:
@@ -141,12 +141,12 @@ class Tile:
 	var key: String
 	var rotation: int
 	var weight: float  # Base weight for selection
-	# dmap includes:
-	# dmap.connections e.g., {"north": "road", "south": "ground", ...}
-	# dmap.neighbor_keys e.g., {"urban": 100, "suburban": 50} what type of zone this map can spawn in.
+	# rmap includes:
+	# rmap.connections e.g., {"north": "road", "south": "ground", ...}
+	# rmap.neighbor_keys e.g., {"urban": 100, "suburban": 50} what type of zone this map can spawn in.
 	# This variable holds the neighbor keys that are allowed to spawn next to this map
-	# dmap.neighbors e.g., {"north": {"urban": 100, "suburban": 50}, "south": ...}
-	var dmap: DMap  # Map data
+	# rmap.neighbors e.g., {"north": {"urban": 100, "suburban": 50}, "south": ...}
+	var rmap: RMap  # Map data
 	var tile_dictionary: Dictionary # Reference to the tile_dictionary variable in the main script
 	
 	# Define rotation mappings for how the directions shift depending on rotation
@@ -156,12 +156,12 @@ class Tile:
 	# Adjusts the connections based on the rotation
 	func rotated_connections(myrotation: int) -> Dictionary:
 		var myrotated_connections = {}
-		for direction in dmap.connections.keys():
+		for direction in rmap.connections.keys():
 			# Adjust the direction based on the myrotation using the rotation_map
 			var new_direction = rotation_map[myrotation][direction]
 
 			# Keep the same connection type but adjust direction, so a road to north is now a road to west, for example
-			myrotated_connections[new_direction] = dmap.connections[direction]
+			myrotated_connections[new_direction] = rmap.connections[direction]
 
 		return myrotated_connections
 
@@ -455,7 +455,7 @@ func create_tile_entries() -> void:
 			var map_weight = map_data.get("weight", 1)
 
 			# Step 3.3: Retrieve the DMap from Gamedata using the map_id
-			var map: DMap = Gamedata.mods.by_id("Core").maps.by_id(map_id)
+			var map: RMap = Runtimedata.maps.by_id(map_id)
 			if map == null:
 				print_debug("create_tile_entries: Map not found for id: ", map_id)
 				continue
@@ -463,7 +463,7 @@ func create_tile_entries() -> void:
 			# Loop through each rotation to create Tile instances
 			for rotation in rotations:
 				var tile: Tile = Tile.new()
-				tile.dmap = map
+				tile.rmap = map
 				tile.tile_dictionary = tile_dictionary
 				tile.rotation_map = Gamedata.ROTATION_MAP
 				tile.rotation = rotation

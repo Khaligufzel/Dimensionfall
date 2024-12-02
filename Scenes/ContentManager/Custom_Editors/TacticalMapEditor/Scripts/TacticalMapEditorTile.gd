@@ -9,7 +9,7 @@ var tileData: DTacticalmap.TChunk = DTacticalmap.TChunk.new({}):
 	set(data):
 		tileData = data
 		if not tileData.id == "":
-			$TileSprite.texture = Gamedata.mods.by_id("Core").maps.by_id(tileData.id).sprite
+			$TileSprite.texture = Gamedata.mods.get_content_by_id(DMod.ContentType.MAPS, tileData.id).sprite
 			set_rotation_amount(tileData.rotation)
 		else:
 			$TileSprite.texture = load(defaultTexture)
@@ -39,7 +39,7 @@ func set_tile_id(id: String) -> void:
 	if id == "":
 		$TileSprite.texture = load(defaultTexture)
 	else:
-		$TileSprite.texture = Gamedata.mods.by_id("Core").maps.by_id(id).sprite
+		$TileSprite.texture = Gamedata.mods.get_content_by_id(DMod.ContentType.MAPS, tileData.id).sprite
 
 
 func _on_texture_rect_mouse_entered() -> void:

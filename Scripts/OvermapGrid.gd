@@ -47,7 +47,7 @@ class map_cell:
 			map_id = value
 			rmap = Runtimedata.maps.by_id(map_id)
 	var tacticalmapname: String = "town_00.json"
-	var revealed: int = RevealedState.REVEALED  # Default state is HIDDEN
+	var revealed: int = RevealedState.HIDDEN  # Default state is HIDDEN
 	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
 
 	func get_data() -> Dictionary:
@@ -476,7 +476,7 @@ func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize:
 			if area_grid.has(local_position):
 				var tile = area_grid[local_position]
 				if tile != null:
-					update_cell(local_to_global(adjusted_position), tile.dmap.id, tile.rotation)
+					update_cell(local_to_global(adjusted_position), tile.rmap.id, tile.rotation)
 					placed_positions.append(adjusted_position)
 
 		# Return the adjusted center of the placed area
