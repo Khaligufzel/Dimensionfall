@@ -71,26 +71,29 @@ func _on_save_button_button_up() -> void:
 	
 	# Handle each relation type
 		if relation_type_label.text == "Relation type:":
-			relation["type"] = "core"
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
+			var relation_type = dropable_control.get_meta("relation_type")
+			relation["type"] = relation_type
 		if relation_type_label.text == "Relation type:":
-			relation["type"] = "friendly"
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
+			var relation_type = dropable_control.get_meta("relation_type")
+			relation["type"] = relation_type
 		if relation_type_label.text == "Relation type:":
-			relation["type"] = "neutral"
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
+			var relation_type = dropable_control.get_meta("relation_type")
+			relation["type"] = relation_type
 		if relation_type_label.text == "Relation type:":
-			relation["type"] = "hostile"
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
-			
+			var relation_type = dropable_control.get_meta("relation_type")
+			relation["type"] = relation_type
 			# Save as mob or mobgroup based on metadata
 			if entity_type == "mob":
 				relation["mob"] = mob_or_group
@@ -98,7 +101,7 @@ func _on_save_button_button_up() -> void:
 				relation["mobgroup"] = mob_or_group
 			else:
 				print_debug("Invalid entity type metadata: " + str(entity_type))
-				dmobfaction.relations.append(relation)
+		dmobfaction.relations.append(relation)
 	dmobfaction.changed(olddata)
 	data_changed.emit()
 	olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true))
@@ -109,13 +112,13 @@ func _on_add_relation_button_button_up():
 	var empty_relation = {}
 	match relation_type:
 		0: # Core monsters which will be part of the faction
-			empty_relation = {"type": "core", "mob": ""}
+			empty_relation = {"relation_type": "core", "mob": ""}
 		1: # Core monsters which will be part of the faction
-			empty_relation = {"type": "friendly", "mob": ""}
+			empty_relation = {"relation_type": "friendly", "mob": ""}
 		2: # Core monsters which will be part of the faction
-			empty_relation = {"type": "neutral", "mob": ""}
+			empty_relation = {"relation_type": "neutral", "mob": ""}
 		3: # Core monsters which will be part of the faction
-			empty_relation = {"type": "hostile", "mob": ""}
+			empty_relation = {"relation_type": "hostile", "mob": ""}
 	
 	add_relation_from_data(empty_relation)
 	
@@ -130,10 +133,7 @@ func add_relation_type(relation: Dictionary) -> HBoxContainer:
 	# Add the dropable text edit for the mob or mobgroup ID
 	var dropable_textedit_instance: HBoxContainer = dropabletextedit.instantiate()
 	dropable_textedit_instance.set_text(relation.get("mob", relation.get("mobgroup", "")))
-	dropable_textedit_instance.set_meta("relation_type", "core")
-	dropable_textedit_instance.set_meta("relation_type", "friendly")
-	dropable_textedit_instance.set_meta("relation_type", "neutral")
-	dropable_textedit_instance.set_meta("relation_type", "hostile")
+	dropable_textedit_instance.set_meta("relation_type", relation.get("relation_type"))
 	dropable_textedit_instance.myplaceholdertext = "Drop a mob or mobgroup from the left menu"
 	set_drop_functions(dropable_textedit_instance)
 	hbox.add_child(dropable_textedit_instance)
@@ -148,7 +148,7 @@ func add_relations_controls(hbox: HBoxContainer, relation: Dictionary):
 # This function creates a relation from loaded data
 func add_relation_from_data(relation: Dictionary):
 	var hbox: HBoxContainer
-	match relation["type"]:
+	match relation["relation_type"]:
 		"core":
 			hbox = add_relation_type(relation)
 		"friendly":

@@ -23,6 +23,11 @@ func load_sprites() -> void:
 		# Add the texture to the dictionary
 		sprites[png_file] = texture
 
+# Returns the sprite of the mobfactionid
+# mobid: The id of the mobfactionid to return the sprite of
+func sprite_by_id(mobfactionid: String) -> Texture:
+	return mobfactiondict[mobfactionid].sprite
+
 # Load all mob group data from disk into memory
 func load_mobfactions_from_disk() -> void:
 	var mobfactionlist: Array = Helper.json_helper.load_json_array_file(dataPath)

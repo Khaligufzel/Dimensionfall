@@ -1,56 +1,44 @@
 [
 	{
-		"description": "weafwaweg",
-		"id": "zombie",
-		"mobs": {
-			"scrapwalker": 1
+		"description": "The unholy remainders of our past sins.",
+		"id": "undead",
+		"mobgroups": {
+
 		},
-		"name": "sdvs",
-		"spriteid": ""
-	},
-	{
-		"description": "",
-		"id": "robot\n",
 		"mobs": {
 
 		},
-		"name": "",
-		"spriteid": ""
+		"name": "The Undead",
+		"relations": [
+			{
+				"mobgroup": "basic_zombies",
+				"type": "core"
+			},
+			{
+				"mobgroup": "security_robots",
+				"type": "hostile"
+			}
+		]
 	},
 	{
-		"description": "",
-		"id": "regwer",
+		"description": "Developed by the rich to opress the poor, ironically they cannot tell apart from one another.",
+		"id": "robot",
+		"mobgroups": {
+
+		},
 		"mobs": {
 
 		},
-		"name": "",
-		"spriteid": ""
-	},
-	{
-		"description": "",
-		"id": "test444",
-		"mobs": {
-
-		},
-		"name": "",
-		"spriteid": ""
-	},
-	{
-		"description": "",
-		"id": "test666",
-		"mobs": {
-
-		},
-		"name": "",
-		"spriteid": ""
-	},
-	{
-		"description": "",
-		"id": "test777",
-		"mobs": {
-
-		},
-		"name": "",
-		"spriteid": ""
+		"name": "The Iron Force",
+		"relations": [
+			{
+				"mobgroup": "security_robots",
+				"type": "core"
+			},
+			{
+				"mobgroup": "basic_zombies",
+				"type": "hostile"
+			}
+		]
 	}
 ]
