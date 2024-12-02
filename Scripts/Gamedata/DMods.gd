@@ -72,9 +72,9 @@ func get_all_mods() -> Array:
 # Function to retrieve content by its type and ID across all mods
 # The returned value may be a DMap, DItem, DMobgroup or anything
 # contentType: A Gamedata.TYPE_* string
-func get_content_by_id(contentType: String, id: String) -> RefCounted:
+func get_content_by_id(contentType: DMod.ContentType, id: String) -> RefCounted:
 	# Loop over all mods in the moddict
-	for mod in moddict.values():
+	for mod: DMod in moddict.values():
 		# Get the content instance of the specified type for the current mod
 		var content_instance: RefCounted = mod.get_data_of_type(contentType)
 		if content_instance:
@@ -90,7 +90,7 @@ func get_content_by_id(contentType: String, id: String) -> RefCounted:
 # The returned value may be an array of DMap, DItem, DMobgroup or anything
 # If more then one is returned, that means that this id is contained within more then one mod
 # We will expect two of them to be duplicates of eachother.
-func get_all_content_by_id(contentType: String, id: String) -> Array:
+func get_all_content_by_id(contentType: DMod.ContentType, id: String) -> Array:
 	var results: Array = []
 	
 	# Loop over all mods in the moddict

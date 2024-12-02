@@ -90,6 +90,11 @@ func get_file_path() -> String:
 # After this, the map is deleted from the current mod that the parent maplist is a part of
 # If no copies of this map remain in any mod, we have to remove all references.
 func delete():
+	# Check to see if any mod has a copy of this map. if one or more remain, we can keep references
+	# Otherwise, the last copy was removed and we need to remove references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.TACTICALMAPS, id)
+	if all_results.size() > 0:
+		return
 	for chunk: TChunk in chunks:
 		Gamedata.mods.by_id("Core").maps.remove_reference_from_map(chunk.id,"core", "tacticalmaps",get_filename())
 	Helper.json_helper.delete_json_file(get_file_path())
@@ -115,12 +120,12 @@ func changed(olddata: DTacticalmap):
 
 	# Add references for new IDs
 	for newid in unique_new_ids:
-		Gamedata.mods.add_reference(DMod.ContentType.MAPS, newid, DMod.ContentType.TACTICALMAPS, tacticalmap_id)
+		Gamedata.mods.add_reference(DMod.ContentType.MAPS, newid.replace(".json", ""), DMod.ContentType.TACTICALMAPS, tacticalmap_id.replace(".json", ""))
 
 	# Remove references for IDs not present in new data
 	for oldid in unique_old_ids:
 		if oldid not in unique_new_ids:
-			Gamedata.mods.remove_reference(DMod.ContentType.MAPS, oldid, DMod.ContentType.TACTICALMAPS, tacticalmap_id)
+			Gamedata.mods.remove_reference(DMod.ContentType.MAPS, oldid.replace(".json", ""), DMod.ContentType.TACTICALMAPS, tacticalmap_id.replace(".json", ""))
 
 
 # Removes all chunks where the map_id matches the given chunk id

@@ -75,7 +75,7 @@ func save_map_json_file():
 	storeLevelData()
 	mapEditor.currentMap.save_data_to_disk()
 	mapEditor.currentMap.changed(mapEditor.oldmap)
-	mapEditor.oldmap = DTacticalmap.new(mapEditor.currentMap.id,"")
+	mapEditor.oldmap = DTacticalmap.new(mapEditor.currentMap.id,"", null)
 	mapEditor.oldmap.set_data(mapEditor.currentMap.get_data().duplicate(true))
 
 

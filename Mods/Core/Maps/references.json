@@ -1,0 +1,22 @@
+{
+	"RockyHill_NE": {
+		"tacticalmaps": [
+			"RockyHill_00"
+		]
+	},
+	"RockyHill_NW": {
+		"tacticalmaps": [
+			"RockyHill_00"
+		]
+	},
+	"RockyHill_SE": {
+		"tacticalmaps": [
+			"RockyHill_00"
+		]
+	},
+	"RockyHill_SW": {
+		"tacticalmaps": [
+			"RockyHill_00"
+		]
+	}
+}
