@@ -48,6 +48,7 @@ func refresh_lists() -> void:
 	load_content_list(DMod.ContentType.QUESTS, "Quests")
 	load_content_list(DMod.ContentType.OVERMAPAREAS, "Overmap areas")
 	load_content_list(DMod.ContentType.MOBGROUPS, "Mob groups")
+	load_content_list(DMod.ContentType.MOBFACTIONS, "Mob factions")
 	
 	# Repopulate the type selector menu
 	populate_type_selector_menu_button()
@@ -112,7 +113,8 @@ func _on_content_item_activated(type: DMod.ContentType, itemID: String, list: Co
 		DMod.ContentType.SKILLS: skillsEditor,
 		DMod.ContentType.QUESTS: questsEditor,
 		DMod.ContentType.OVERMAPAREAS: overmapareaEditor,
-		DMod.ContentType.MOBGROUPS: mobgroupsEditor
+		DMod.ContentType.MOBGROUPS: mobgroupsEditor,
+		DMod.ContentType.MOBFACTIONS: mobfactionsEditor
 	}
 
 	instantiate_editor(type, itemID, editors[type], list)
@@ -194,7 +196,7 @@ func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: Packe
 			newContentEditor.dmobgroup = Gamedata.mobgroups.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 			
-		Gamedata.ContentType.MOBFACTIONS:
+		DMod.ContentType.MOBFACTIONS:
 			newContentEditor.dmobfaction = Gamedata.mobfactions.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		

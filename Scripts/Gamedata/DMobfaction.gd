@@ -49,6 +49,7 @@ func _init(data: Dictionary):
 	references = data.get("references", {})
 	mobs = data.get("mobs", {})
 	mobgroups = data.get("mobgroups", {})
+	relations = data.get("relations", {})
 
 # Returns all properties of the mob group as a dictionary
 func get_data() -> Dictionary:

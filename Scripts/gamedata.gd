@@ -83,7 +83,8 @@ func _ready():
 		DMod.ContentType.SKILLS: skills,
 		DMod.ContentType.QUESTS: quests,
 		DMod.ContentType.OVERMAPAREAS: overmapareas,
-		DMod.ContentType.MOBGROUPS: mobgroups
+		DMod.ContentType.MOBGROUPS: mobgroups,
+		DMod.ContentType.MOBFACTIONS: mobfactions
 	}
 
 	materials["container"] = create_item_shader_material(textures.container)

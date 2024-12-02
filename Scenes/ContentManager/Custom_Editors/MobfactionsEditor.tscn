@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6qjrrt1xgro2"]
+[gd_scene load_steps=4 format=3 uid="uid://d3xxrpq0ijw30"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/mobfactions_editor.gd" id="1_kooul"]
 [ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="2_6k777"]
