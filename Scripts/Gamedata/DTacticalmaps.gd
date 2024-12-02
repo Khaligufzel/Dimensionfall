@@ -18,7 +18,7 @@ func load_maps_from_disk() -> void:
 	var maplist: Array = Helper.json_helper.file_names_in_dir(dataPath, ["json"])
 	for mapitem in maplist:
 		var mapid: String = mapitem.replace(".json", "")
-		var map: DTacticalmap = DTacticalmap.new(mapid, dataPath)
+		var map: DTacticalmap = DTacticalmap.new(mapid, dataPath, self)
 		map.load_data_from_disk()
 		mapdict[mapid] = map
 
@@ -26,13 +26,13 @@ func get_all() -> Dictionary:
 	return mapdict
 
 func duplicate_to_disk(mapid: String, newmapid: String) -> void:
-	var newmap: DTacticalmap = DTacticalmap.new(newmapid, dataPath)
+	var newmap: DTacticalmap = DTacticalmap.new(newmapid, dataPath, self)
 	newmap.set_data(mapdict[mapid].get_data().duplicate(true))
 	newmap.save_data_to_disk()
 	mapdict[newmapid] = newmap
 
 func add_new(newid: String) -> void:
-	var newmap: DTacticalmap = DTacticalmap.new(newid, dataPath)
+	var newmap: DTacticalmap = DTacticalmap.new(newid, dataPath, self)
 	newmap.save_data_to_disk()
 	mapdict[newid] = newmap
 

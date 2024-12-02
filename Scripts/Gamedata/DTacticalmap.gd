@@ -37,11 +37,18 @@ var mapwidth: int = 6
 var mapheight: int = 6
 var chunks: Array[TChunk] = []
 var dataPath: String
+var parent: DTacticalmaps
 
 
-func _init(newid: String, newdataPath: String):
+# Initialize a tacticalmap
+# newid: The id of the tacticalmap
+# newdataPath: the path to the json file containing the tacticalmap
+# For example: "/Mods/Core/Tacticalmaps/mytacticalmap.json
+# myparent: The DTacticalmaps that initialized this tacticalmap
+func _init(newid: String, newdataPath: String, myparent: DTacticalmaps):
 	id = newid
 	dataPath = newdataPath
+	parent = myparent
 
 
 # Constructor to initialize tactical map properties from a dictionary
@@ -52,6 +59,7 @@ func set_data(newdata: Dictionary):
 	var chunk_data = newdata.get("chunks", [])
 	for chunk in chunk_data:
 		chunks.append(TChunk.new(chunk))
+
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -78,11 +86,14 @@ func get_filename() -> String:
 func get_file_path() -> String:
 	return dataPath + get_filename()
 
-# A tacticalmap is being deleted. Remove all references to this tacticalmap
+# We remove ourselves from the filesystem and the parent maplist
+# After this, the map is deleted from the current mod that the parent maplist is a part of
+# If no copies of this map remain in any mod, we have to remove all references.
 func delete():
 	for chunk: TChunk in chunks:
 		Gamedata.mods.by_id("Core").maps.remove_reference_from_map(chunk.id,"core", "tacticalmaps",get_filename())
 	Helper.json_helper.delete_json_file(get_file_path())
+
 
 func changed(olddata: DTacticalmap):
 	# Collect unique IDs from the old data

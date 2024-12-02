@@ -104,6 +104,7 @@ var sprite: Texture = null
  # Variable to store connections. For example: {"south": "road","west": "ground"} default to ground
 var connections: Dictionary = {"north": "ground","east": "ground","south": "ground","west": "ground"}
 var dataPath: String
+var parent: DMaps
 
 
 # The area that may be present on the map
@@ -130,9 +131,10 @@ class maptile:
 	var itemgroups: Array = []
 
 
-func _init(newid: String, newdataPath: String):
+func _init(newid: String, newdataPath: String, myparent: DMaps):
 	id = newid
 	dataPath = newdataPath
+	parent = myparent
 
 
 func set_data(newdata: Dictionary) -> void:
@@ -188,8 +190,14 @@ func get_sprite_path() -> String:
 	return get_file_path().replace(".json", ".png")
 
 
+# This will remove this map from the tacticalmap in every mod that has it.
 func remove_self_from_tacticalmap(tacticalmap_id: String) -> void:
-	Gamedata.mods.by_id("Core").tacticalmaps.by_id(tacticalmap_id).remove_chunk_by_mapid(id)
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(Gamedata.TYPE_TACTICALMAPS, tacticalmap_id)
+	if all_results.size() > 0:
+		for result: DTacticalmap in all_results:
+			result.remove_chunk_by_mapid(id)
+	else:
+		print("No content found.")
 
 
 # A map is being deleted. Remove all references to this map
@@ -204,8 +212,17 @@ func delete_files():
 		dir.remove(id + ".png.import")
 	
 
+# We remove ourselves from the filesystem and the parent maplist
+# After this, the map is deleted from the current mod that the parent maplist is a part of
+# If no copies of this map remain in any mod, we have to remove all references.
 func delete():
 	delete_files()
+	parent.erase_id(id)
+	# Check to see if any mod has a copy of this map. if one or more remain, we can keep references
+	# Otherwise, the last copy was removed and we need to remove references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(Gamedata.TYPE_MAPS, id)
+	if all_results.size() > 0:
+		return
 	
 	# Remove this map from the tacticalmaps in this map's references
 	for ref in references:
@@ -218,7 +235,7 @@ func delete():
 
 func remove_my_reference_from_all_entities() -> void:
 	# Collect unique entities from mapdata
-	var entities = collect_unique_entities(DMap.new(id, dataPath))
+	var entities = collect_unique_entities(DMap.new(id, dataPath, parent))
 	var unique_entities = entities["new_entities"]
 
 	# Remove references for unique entities

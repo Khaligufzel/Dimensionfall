@@ -71,7 +71,8 @@ func get_all_mods() -> Array:
 
 # Function to retrieve content by its type and ID across all mods
 # The returned value may be a DMap, DItem, DMobgroup or anything
-func get_content_by_id(contentType: DMod.ContentType, id: String) -> RefCounted:
+# contentType: A Gamedata.TYPE_* string
+func get_content_by_id(contentType: String, id: String) -> RefCounted:
 	# Loop over all mods in the moddict
 	for mod in moddict.values():
 		# Get the content instance of the specified type for the current mod
@@ -83,3 +84,37 @@ func get_content_by_id(contentType: DMod.ContentType, id: String) -> RefCounted:
 				return content_instance.by_id(id)
 	# If no matching content is found, return null
 	return null
+
+
+# Function to retrieve all content instances with a specific ID across all mods
+# The returned value may be an array of DMap, DItem, DMobgroup or anything
+# If more then one is returned, that means that this id is contained within more then one mod
+# We will expect two of them to be duplicates of eachother.
+func get_all_content_by_id(contentType: String, id: String) -> Array:
+	var results: Array = []
+	
+	# Loop over all mods in the moddict
+	for mod in moddict.values():
+		# Get the content instance of the specified type for the current mod
+		var content_instance: RefCounted = mod.get_data_of_type(contentType)
+		if content_instance:
+			# Check if the content instance has the requested ID
+			if content_instance.has_id(id):
+				# Append the matching content to the results array
+				results.append(content_instance.by_id(id))
+	
+	# Return the array of matching content instances
+	return results
+
+
+# Function to add a reference to all content instances with a specific ID across all mods
+func add_reference(contentType: String, id: String, ref_type: String, ref_id: String) -> void:
+	# Loop over all mods in the moddict
+	for mod in moddict.values():
+		# Get the content instance of the specified type for the current mod
+		var content_instance: RefCounted = mod.get_data_of_type(contentType)
+		if content_instance:
+			# Check if the content instance has the requested ID
+			if content_instance.has_id(id):
+				# Call add_reference on the content instance
+				content_instance.add_reference(id, ref_type, ref_id)

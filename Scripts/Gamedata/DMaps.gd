@@ -5,23 +5,50 @@ extends RefCounted
 # This script is intended to be used inside the GameData autoload singleton
 # This script handles the list of maps. You can access it trough Gamedata.mods.by_id("Core").maps
 
+# Example references data:
+#	"references": {
+#		"field_grass_basic_00": {
+#			"overmapareas": [
+#				"city"
+#			],
+#			"tacticalmaps": [
+#				"rockyhill"
+#			]
+#		}
+#	}
+
 var dataPath: String = "./Mods/Core/Maps/"
 var mapdict: Dictionary = {}
+var references: Dictionary = {}
 
 
-func _init(mod_id):
-	# Update dataPath using the provided mod_id
+# Load references from references.json during initialization
+func _init(mod_id: String):
 	dataPath = "./Mods/" + mod_id + "/Maps/"
+	load_references()
 	load_maps_from_disk()
 
-# Load all mapdata from disk into memory
+
+# Load references from references.json
+func load_references() -> void:
+	var path = dataPath + "references.json"
+	if FileAccess.file_exists(path):
+		references = Helper.json_helper.load_json_dictionary_file(path)
+	else:
+		references = {}  # Initialize an empty references dictionary if the file doesn't exist
+
+
+# Load all map data from disk into memory, excluding references.json
 func load_maps_from_disk() -> void:
 	var maplist: Array = Helper.json_helper.file_names_in_dir(dataPath, ["json"])
 	for mapitem in maplist:
-		var mapid: String = mapitem.replace(".json","")
-		var map: DMap = DMap.new(mapid, dataPath)
+		if mapitem == "references.json":
+			continue  # Skip references.json
+		var mapid: String = mapitem.replace(".json", "")
+		var map: DMap = DMap.new(mapid, dataPath, self)
 		map.load_data_from_disk()
 		mapdict[mapid] = map
+
 
 
 func get_all() -> Dictionary:
@@ -29,7 +56,7 @@ func get_all() -> Dictionary:
 
 
 func duplicate_to_disk(mapid: String, newmapid: String) -> void:
-	var newmap: DMap = DMap.new(newmapid, dataPath)
+	var newmap: DMap = DMap.new(newmapid, dataPath, self)
 	var newdata: Dictionary = by_id(mapid).get_data().duplicate(true)
 	# A duplicated map is brand new and can't already be referenced by something
 	# So we delete the references from the duplicated data if it is present
@@ -40,13 +67,17 @@ func duplicate_to_disk(mapid: String, newmapid: String) -> void:
 
 
 func add_new(newid: String) -> void:
-	var newmap: DMap = DMap.new(newid, dataPath)
+	var newmap: DMap = DMap.new(newid, dataPath, self)
 	newmap.save_data_to_disk()
 	mapdict[newid] = newmap
 	
 
 func delete_by_id(mapid: String) -> void:
 	mapdict[mapid].delete()
+	mapdict.erase(mapid)
+	
+
+func erase_id(mapid: String) -> void:
 	mapdict.erase(mapid)
 
 
@@ -129,3 +160,38 @@ func get_unique_categories() -> Array:
 			if not unique_categories.has(category):  # Check if category is already added
 				unique_categories.append(category)  # Add only if it's unique
 	return unique_categories  # Return the array of unique categories
+
+
+# Add a reference to the references dictionary
+func add_reference(mapid: String, type: DMod.ContentType, refid: String) -> void:
+	if not mapdict.has(mapid):
+		print_debug("Cannot add reference: Map ID '" + mapid + "' does not exist.")
+		return
+	
+	var mytype: String = DMod.get_content_type_string(type)
+	if not references.has(mapid):
+		references[mapid] = {}
+	if not references[mapid].has(mytype):
+		references[mapid][mytype] = []
+	if not refid in references[mapid][mytype]:
+		references[mapid][mytype].append(refid)
+		save_references()
+
+
+# Remove a reference from the references dictionary
+func remove_reference(mapid: String, type: DMod.ContentType, refid: String) -> void:
+	var mytype: String = DMod.get_content_type_string(type)
+	if references.has(mapid) and references[mapid].has(mytype):
+		references[mapid][mytype].erase(refid)
+		# Clean up empty entries
+		if references[mapid][mytype].is_empty():
+			references[mapid].erase(mytype)
+		if references[mapid].is_empty():
+			references.erase(mapid)
+		save_references()
+
+
+# Save references to references.json
+func save_references() -> void:
+	var reference_json = JSON.stringify(references, "\t")
+	Helper.json_helper.write_json_file(dataPath + "references.json", reference_json)
