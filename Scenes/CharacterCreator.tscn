@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bu1itxfbrp34d"]
+[gd_scene load_steps=3 format=3 uid="uid://bu1itxfbrp34d"]
 
 [ext_resource type="Texture2D" uid="uid://cv3orfrnhjnsq" path="res://Textures/LogoTransparent.png" id="1_xvqlu"]
+[ext_resource type="PackedScene" uid="uid://bqubssp1p458l" path="res://Scenes/UI/AttributeModifier.tscn" id="2_3gkx4"]
 
 [node name="CharacterCreator" type="Control"]
 layout_mode = 3
@@ -225,33 +226,5 @@ offset_top = 43.5
 offset_right = 310.0
 offset_bottom = 83.5
 
-[node name="AttributeGridContainer" type="GridContainer" parent="TabContainer/Attributes/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
+[node name="AttributeGridContainer" parent="TabContainer/Attributes/Panel/VBoxContainer" instance=ExtResource("2_3gkx4")]
 layout_mode = 2
-columns = 5
-
-[node name="AttributeLabel" type="Label" parent="TabContainer/Attributes/Panel/VBoxContainer/AttributeGridContainer"]
-layout_mode = 2
-text = "Intelligence"
-
-[node name="MinusButton" type="Button" parent="TabContainer/Attributes/Panel/VBoxContainer/AttributeGridContainer"]
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-icon = ExtResource("1_xvqlu")
-icon_alignment = 1
-expand_icon = true
-
-[node name="Label" type="Label" parent="TabContainer/Attributes/Panel/VBoxContainer/AttributeGridContainer"]
-layout_mode = 2
-text = "5"
-
-[node name="PlusButton" type="Button" parent="TabContainer/Attributes/Panel/VBoxContainer/AttributeGridContainer"]
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-icon = ExtResource("1_xvqlu")
-icon_alignment = 1
-expand_icon = true
-
-[node name="AttributeBonusLabel" type="Label" parent="TabContainer/Attributes/Panel/VBoxContainer/AttributeGridContainer"]
-layout_mode = 2
-text = "+2"

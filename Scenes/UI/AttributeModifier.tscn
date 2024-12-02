@@ -1,10 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqubssp1p458l"]
+[gd_scene load_steps=3 format=3 uid="uid://bqubssp1p458l"]
 
+[ext_resource type="Script" path="res://Scripts/AttributeModificator.gd" id="1_a71th"]
 [ext_resource type="Texture2D" uid="uid://cv3orfrnhjnsq" path="res://Textures/LogoTransparent.png" id="1_g7jn1"]
 
-[node name="AttributeGridContainer" type="GridContainer"]
+[node name="AttributeGridContainer" type="GridContainer" node_paths=PackedStringArray("attribute_name_label", "attribute_value_label", "attribute_modifier_label")]
 custom_minimum_size = Vector2(300, 0)
 columns = 5
+script = ExtResource("1_a71th")
+attribute_name_label = NodePath("AttributeLabel")
+attribute_value_label = NodePath("AttributeValueLabel")
+attribute_modifier_label = NodePath("AttributeModLabel")
 
 [node name="AttributeLabel" type="Label" parent="."]
 custom_minimum_size = Vector2(125, 0)
@@ -18,9 +23,11 @@ icon = ExtResource("1_g7jn1")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Label" type="Label" parent="."]
+[node name="AttributeValueLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 text = "5"
+horizontal_alignment = 1
 
 [node name="PlusButton" type="Button" parent="."]
 custom_minimum_size = Vector2(25, 25)
