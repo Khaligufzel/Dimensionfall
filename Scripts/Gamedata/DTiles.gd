@@ -12,7 +12,11 @@ var tiledict: Dictionary = {}
 var sprites: Dictionary = {}
 
 
-func _init():
+# Add a mod_id parameter to dynamically initialize paths
+func _init(mod_id: String) -> void:
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Tiles/Tiles.json"
+	spritePath = "./Mods/" + mod_id + "/Tiles/"
 	load_sprites()
 	load_tiles_from_disk()
 
@@ -21,7 +25,7 @@ func _init():
 func load_tiles_from_disk() -> void:
 	var tilelist: Array = Helper.json_helper.load_json_array_file(dataPath)
 	for mytile in tilelist:
-		var tile: DTile = DTile.new(mytile)
+		var tile: DTile = DTile.new(mytile, self)
 		tile.sprite = sprites[tile.spriteid]
 		tiledict[tile.id] = tile
 
@@ -58,13 +62,13 @@ func duplicate_to_disk(tileid: String, newtileid: String) -> void:
 	# So we delete the references from the duplicated data if it is present
 	tiledata.erase("references")
 	tiledata.id = newtileid
-	var newtile: DTile = DTile.new(tiledata)
+	var newtile: DTile = DTile.new(tiledata, self)
 	tiledict[newtileid] = newtile
 	save_tiles_to_disk()
 
 
 func add_new(newid: String) -> void:
-	var newtile: DTile = DTile.new({"id":newid})
+	var newtile: DTile = DTile.new({"id":newid}, self)
 	tiledict[newtile.id] = newtile
 	save_tiles_to_disk()
 

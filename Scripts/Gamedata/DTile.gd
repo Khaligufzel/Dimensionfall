@@ -35,9 +35,11 @@ var sprite: Texture
 var spriteid: String
 var categories: Array
 var references: Dictionary = {}
+var parent: DTiles
 
 # Constructor to initialize tile properties from a dictionary
-func _init(data: Dictionary):
+func _init(data: Dictionary, myparent: DTiles):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")

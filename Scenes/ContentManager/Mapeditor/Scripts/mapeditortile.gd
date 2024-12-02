@@ -194,7 +194,7 @@ func set_tile_id(id: String) -> void:
 	if id == "":
 		$TileSprite.texture = load(defaultTexture)
 	else:
-		$TileSprite.texture = Gamedata.tiles.sprite_by_id(id)
+		$TileSprite.texture = Gamedata.mods.by_id("Core").tiles.sprite_by_id(id)
 
 
 # Manages the itemgroups property for the tile. 
