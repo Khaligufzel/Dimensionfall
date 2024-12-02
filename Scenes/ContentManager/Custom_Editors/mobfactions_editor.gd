@@ -70,8 +70,23 @@ func _on_save_button_button_up() -> void:
 		var relation_type_label = hbox.get_child(0) as Label
 	
 	# Handle each relation type
-		if relation_type_label.text == "Relation:":
-			relation["type"] = "kill"
+		if relation_type_label.text == "Relation type:":
+			relation["type"] = "core"
+			var dropable_control = hbox.get_child(1) as HBoxContainer
+			var mob_or_group = dropable_control.get_text()
+			var entity_type = dropable_control.get_meta("entity_type")
+		if relation_type_label.text == "Relation type:":
+			relation["type"] = "friendly"
+			var dropable_control = hbox.get_child(1) as HBoxContainer
+			var mob_or_group = dropable_control.get_text()
+			var entity_type = dropable_control.get_meta("entity_type")
+		if relation_type_label.text == "Relation type:":
+			relation["type"] = "neutral"
+			var dropable_control = hbox.get_child(1) as HBoxContainer
+			var mob_or_group = dropable_control.get_text()
+			var entity_type = dropable_control.get_meta("entity_type")
+		if relation_type_label.text == "Relation type:":
+			relation["type"] = "hostile"
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
@@ -83,7 +98,7 @@ func _on_save_button_button_up() -> void:
 				relation["mobgroup"] = mob_or_group
 			else:
 				print_debug("Invalid entity type metadata: " + str(entity_type))
-	
+				dmobfaction.relations.append(relation)
 	dmobfaction.changed(olddata)
 	data_changed.emit()
 	olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true))
