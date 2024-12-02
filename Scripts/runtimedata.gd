@@ -6,7 +6,7 @@ var maps: RMaps
 var tacticalmaps: RTacticalmaps
 var furnitures: DFurnitures
 var items: DItems
-var tiles: DTiles
+var tiles: RTiles
 var mobs: DMobs
 var itemgroups: DItemgroups
 var playerattributes: DPlayerAttributes
@@ -31,10 +31,12 @@ func reconstruct() -> void:
 	stats = RStats.new()
 	tacticalmaps = RTacticalmaps.new()
 	maps = RMaps.new()
+	tiles = RTiles.new()
 	
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
 		DMod.ContentType.STATS: stats,
 		DMod.ContentType.MAPS: maps,
-		DMod.ContentType.TACTICALMAPS: tacticalmaps
+		DMod.ContentType.TACTICALMAPS: tacticalmaps,
+		DMod.ContentType.TILES: tiles
 	}
