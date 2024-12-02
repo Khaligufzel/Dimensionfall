@@ -68,3 +68,18 @@ func get_all_mod_ids() -> Array:
 # Returns an array of all mod IDs (keys in the moddict dictionary)
 func get_all_mods() -> Array:
 	return moddict.values()
+
+# Function to retrieve content by its type and ID across all mods
+# The returned value may be a DMap, DItem, DMobgroup or anything
+func get_content_by_id(contentType: DMod.ContentType, id: String) -> RefCounted:
+	# Loop over all mods in the moddict
+	for mod in moddict.values():
+		# Get the content instance of the specified type for the current mod
+		var content_instance: RefCounted = mod.get_data_of_type(contentType)
+		if content_instance:
+			# Check if the content instance has the requested ID
+			if content_instance.has_id(id):
+				# Return the matching content
+				return content_instance.by_id(id)
+	# If no matching content is found, return null
+	return null

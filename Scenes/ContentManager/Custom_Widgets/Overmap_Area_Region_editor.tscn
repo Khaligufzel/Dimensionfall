@@ -108,7 +108,7 @@ tooltip_text = "Drag maps from the left menu to here to add them. You can
 then specify a weight for each of the maps. A higher weight 
 compared to the other maps in this region makes it more 
 likely to spawn. A low weight makes it less likely to spawn."
-columns = 5
+columns = 4
 
 [connection signal="button_up" from="HBoxContainer2/DeleteButton" to="." method="_on_delete_button_button_up"]
 [connection signal="value_changed" from="HBoxContainer/VBoxContainer/HBoxContainer/MinRangeHSlider" to="." method="_on_min_range_h_slider_value_changed"]

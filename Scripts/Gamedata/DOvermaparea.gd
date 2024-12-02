@@ -22,17 +22,14 @@ extends RefCounted
 #         "maps": [
 #           {
 #             "id": "house_01",
-#             "mod_id": "Core",
 #             "weight": 10  // Higher weight means this map has a higher chance to spawn in this region
 #           },
 #           {
 #             "id": "shop_01",
-#             "mod_id": "Core",
 #             "weight": 5
 #           },
 #           {
 #             "id": "park_01",
-#             "mod_id": "Core",
 #             "weight": 2
 #           }
 #         ]
@@ -47,17 +44,14 @@ extends RefCounted
 #         "maps": [
 #           {
 #             "id": "house_02",
-#             "mod_id": "Core",
 #             "weight": 8
 #           },
 #           {
 #             "id": "garden_01",
-#             "mod_id": "Core",
 #             "weight": 4
 #           },
 #           {
 #             "id": "school_01",
-#             "mod_id": "Core",
 #             "weight": 3
 #           }
 #         ]
@@ -72,17 +66,14 @@ extends RefCounted
 #         "maps": [
 #           {
 #             "id": "field_01",
-#             "mod_id": "Core",
 #             "weight": 12
 #           },
 #           {
 #             "id": "barn_01",
-#             "mod_id": "Core",
 #             "weight": 6
 #           },
 #           {
 #             "id": "tree_01",
-#             "mod_id": "Core",
 #             "weight": 8
 #           }
 #         ]

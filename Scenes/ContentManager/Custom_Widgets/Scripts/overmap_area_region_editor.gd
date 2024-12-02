@@ -84,20 +84,14 @@ func _get_maps_from_ui() -> Array:
 	var children = maps_grid_container.get_children()
 
 	# Loop through the children and extract map information
-	for i in range(0, children.size(), 5):  # Step by 5 to handle sprite-id-label-modid-label-spinbox-delete entries
-		var mod_id_label = children[i + 1] as Label  # The label containing the mod ID
-		var id_label = children[i + 2] as Label  # The label containing the map ID
-		var spinbox = children[i + 3] as SpinBox  # The spinbox containing the map weight
+	for i in range(0, children.size(), 4):  # Step by 5 to handle sprite-id-label-label-spinbox-delete entries
+		var id_label = children[i + 1] as Label  # The label containing the map ID
+		var spinbox = children[i + 2] as SpinBox  # The spinbox containing the map weight
 
 		# Append map data to the list as a dictionary
-		maps.append({
-			"id": id_label.text,
-			"mod_id": mod_id_label.text.replace("(","").replace(")",""),  # Remove parentheses from mod_id
-			"weight": int(spinbox.value)
-		})
+		maps.append({"id": id_label.text, "weight": int(spinbox.value)})
 
 	return maps
-
 
 
 # Function to set the region name label
@@ -157,7 +151,7 @@ func _handle_map_drop(dropped_data, _newpos) -> void:
 # Function to add a new map entry to the maps_grid_container
 func _add_map_entry(map_data: Dictionary) -> void:
 	#map_data.mod_id
-	var mymap = Gamedata.mods.by_id(map_data["mod_id"]).maps.by_id(map_data.id)
+	var mymap = Gamedata.mods.get_content_by_id(DMod.ContentType.MAPS, map_data.id)
 
 	# Create a TextureRect for the map sprite
 	var texture_rect = TextureRect.new()
@@ -166,11 +160,6 @@ func _add_map_entry(map_data: Dictionary) -> void:
 	texture_rect.stretch_mode = TextureRect.STRETCH_SCALE  # Keep the aspect ratio centered
 	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	maps_grid_container.add_child(texture_rect)
-
-	# Create a Label for the mod ID
-	var mod_id_label = Label.new()
-	mod_id_label.text = "(" + map_data.mod_id + ")"  # Display mod_id in parentheses
-	maps_grid_container.add_child(mod_id_label)
 
 	# Create a Label for the map ID
 	var id_label = Label.new()
@@ -196,7 +185,7 @@ func _add_map_entry(map_data: Dictionary) -> void:
 
 	# Connect the delete button's button_up signal to remove the map entry
 	delete_button.button_up.connect(func():
-		_remove_map_entry(texture_rect, id_label, mod_id_label, weight_spinbox, delete_button)
+		_remove_map_entry(texture_rect, id_label, weight_spinbox, delete_button)
 	)
 
 
@@ -218,15 +207,12 @@ func _on_delete_button_button_up() -> void:
 
 
 # Function to remove a map entry (called when the delete button is pressed)
-func _remove_map_entry(texture_rect: TextureRect, id_label: Label, mod_id_label: Label, weight_spinbox: SpinBox, delete_button: Button) -> void:
+func _remove_map_entry(texture_rect: TextureRect, id_label: Label, weight_spinbox: SpinBox, delete_button: Button) -> void:
 	maps_grid_container.remove_child(texture_rect)
 	texture_rect.queue_free()
 
 	maps_grid_container.remove_child(id_label)
 	id_label.queue_free()
-
-	maps_grid_container.remove_child(mod_id_label)
-	mod_id_label.queue_free()
 
 	maps_grid_container.remove_child(weight_spinbox)
 	weight_spinbox.queue_free()
