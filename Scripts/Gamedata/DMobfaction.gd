@@ -37,8 +37,9 @@ var id: String
 var name: String
 var description: String
 var references: Dictionary = {}
-var mobs: Dictionary = {}  # Holds the list of mobs and their weights
 var relations: Array = []
+var mobs: Dictionary = {}
+var mobgroups: Dictionary = {}
 
 # Constructor to initialize mob group properties from a dictionary
 func _init(data: Dictionary):
@@ -47,7 +48,7 @@ func _init(data: Dictionary):
 	description = data.get("description", "")
 	references = data.get("references", {})
 	mobs = data.get("mobs", {})
-
+	mobgroups = data.get("mobgroups", {})
 
 # Returns all properties of the mob group as a dictionary
 func get_data() -> Dictionary:
@@ -55,8 +56,9 @@ func get_data() -> Dictionary:
 		"id": id,
 		"name": name,
 		"description": description,
+		"relations": relations,
 		"mobs": mobs,
-		"relations": relations
+		"mobgroups": mobgroups
 	}
 	if not references.is_empty():
 		data["references"] = references
@@ -65,113 +67,55 @@ func get_data() -> Dictionary:
 
 # Method to save any changes to the stat back to disk
 func save_to_disk():
-	Gamedata.stats.save_stats_to_disk()
-
-
-# Removes the specified reference from the mob group's references
-func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.mobfactions.save_mobfactions_to_disk()
-
-# Adds a new reference to the mob group's references
-func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.mobfactions.save_mobfactions_to_disk()
-
-# Handles changes to the mob group, such as updating references
-func changed(olddata: DMobfaction):
-	update_mob_references(olddata)
-	Gamedata.mobfactions.save_mobfactions_to_disk()
-
-# Updates references to mobs within the mob group
-func update_mob_references(olddata: DMobfaction):
-	var old_mobs = olddata.mobs.keys()
-	var new_mobs = mobs.keys()
-
-	# Remove old references not present in the new data
-	for old_mob in old_mobs:
-		if not new_mobs.has(old_mob):
-			Gamedata.mobs.remove_reference(old_mob, "core", "mobfactions", id)
-
-	# Add new references
-	for new_mob in new_mobs:
-		Gamedata.mobs.add_reference(new_mob, "core", "mobfactions", id)
-
-
-# Deletes the mob group, removing all its references
+	Gamedata.stats.save_factions_to_disk()
+# Handles faction deletion
 func delete():
-	# Remove references to maps
-	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
-	if mapsdata:
-		Gamedata.maps.remove_entity_from_selected_maps("mobfaction", id, mapsdata)
+	var relationmobs: Array =  relations.filter(func(relation): return relation.has("mob"))
+	for killrelation in relationmobs:
+		Gamedata.mobs.remove_reference(killrelation.mob, "core", "quests", id)
+	var relationmobgroups: Array = relations.filter(func(relation): return relation.has("mobgroup"))
+	for killrelation in relationmobgroups:
+		Gamedata.mobgroups.remove_reference(killrelation.mobgroup, "core", "quests", id)
 
-	# Remove references to mobs
-	for mob in mobs.keys():
-		Gamedata.mobs.remove_reference(mob, "core", "mobfactions", id)
+# Handles quest changes
+func changed(olddata: DMobfaction):
+	var faction_id: String = id
 	
-	# This callable will handle the removal of this mobgroup from all steps in quests
-	var remove_from_quest: Callable = func(quest_id: String):
-		Gamedata.quests.remove_mobfaction_from_quest(quest_id,id)
-		
-	# Pass the callable to every quest in the mobgroup's references
-	# It will call remove_from_quest on every mobgroup in mobgroup_data.references.core.quests
-	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
+	# Get mobs and mobgroups from the old relations
+	var old_quest_mobs: Array = olddata.relations.filter(func(relation): return relation.has("mob"))
+	var old_quest_mobgroups: Array = olddata.relations.filter(func(relation): return relation.has("mobgroup"))
+	# Get mobs and mobgroups from the new relations
+	var new_quest_mobs: Array = relations.filter(func(relation): return relation.has("mob"))
+	var new_quest_mobgroups: Array = relations.filter(func(relation): return relation.has("mobgroup"))
+
+	# Remove references for old mobs that are not in the new data
+	for old_mob in old_quest_mobs:
+		if old_mob not in new_quest_mobs:
+			Gamedata.mobs.remove_reference(old_mob.mob, "core", "quests", faction_id)
+	# Remove references for old mobgroups that are not in the new data
+	for old_mobgroup in old_quest_mobgroups:
+		if old_mobgroup not in new_quest_mobgroups:
+			Gamedata.mobgroups.remove_reference(old_mobgroup.mobgroup, "core", "quests", faction_id)
+	
+	# Add references for new mobs
+	for new_mob in new_quest_mobs:
+		Gamedata.mobs.add_reference(new_mob.mob, "core", "quests", faction_id)
+	# Add references for new mobgroups
+	for new_mobgroup in new_quest_mobgroups:
+		Gamedata.mobgroups.add_reference(new_mobgroup.mobgroup, "core", "quests", faction_id)
+	save_to_disk()
+
+# Removes all relations where the mob property matches the given mob_id
+func remove_relations_by_mob(mob_id: String) -> void:
+	relations = relations.filter(func(relation): 
+		return not (relation.has("mob") and relation.mob == mob_id)
+	)
+	save_to_disk()
 
 
-# Retrieves all maps associated with the mob group, including maps from its mobs.
-func get_maps() -> Array:
-	var unique_maps: Array = Helper.json_helper.get_nested_data(references, "core.maps")
-
-	# Collect maps from each mob in the group
-	for mob_id in mobs.keys():
-		var mob = Gamedata.mobs.by_id(mob_id)
-		if mob:
-			unique_maps = Helper.json_helper.merge_unique(unique_maps, mob.get_maps())
-	return unique_maps
-
-
-# Function to return an array of all mob IDs in the "mobs" property
-func get_mob_ids() -> Array[String]:
-	var mob_ids: Array[String] = []
-	for mob_id in mobs.keys():
-		mob_ids.append(mob_id)
-	return mob_ids
-
-
-# Function to check if a specific mob ID exists in the "mobs" property
-func has_mob(mob_id: String) -> bool:
-	return mobs.has(mob_id)
-
-
-# Executes a callable function on each reference of the given type
-func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
-	# Check if it contains the specified 'module' and 'type'
-	if references.has(module) and references[module].has(type):
-		# If the type exists, execute the callable on each ID found under this type
-		for ref_id in references[module][type]:
-			callable.call(ref_id)
-
-
-# Function to return a randomly selected mob ID based on the weights in the "mobs" property
-func get_random_mob_id() -> String:
-	# If no mobs are present, return an empty string
-	if mobs.is_empty():
-		return ""
-
-	# Calculate the total weight
-	var total_weight: int = 0
-	for weight in mobs.values():
-		total_weight += weight
-
-	# Generate a random number within the total weight
-	var random_pick: int = randi() % total_weight
-
-	# Iterate through the mobs and select the mob based on the random pick
-	for mob_id in mobs.keys():
-		random_pick -= mobs[mob_id]
-		if random_pick < 0:
-			return mob_id  # Return the selected mob ID
-
-	return ""  # Fallback in case of an error, should not be reached
+# Removes all relations where the mobgroup property matches the given mobgroup_id
+func remove_relations_by_mobgroup(mobgroup_id: String) -> void:
+	relations = relations.filter(func(relation): 
+		return not (relation.has("mobgroup") and relation.mobgroup == mobgroup_id)
+	)
+	save_to_disk()
