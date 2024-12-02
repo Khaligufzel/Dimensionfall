@@ -12,11 +12,11 @@
 		"relations": [
 			{
 				"mobgroup": "basic_zombies",
-				"type": "core"
+				"relation_type": "core"
 			},
 			{
 				"mobgroup": "security_robots",
-				"type": "hostile"
+				"relation_type": "hostile"
 			}
 		]
 	},
@@ -33,11 +33,11 @@
 		"relations": [
 			{
 				"mobgroup": "security_robots",
-				"type": "core"
+				"relation_type": "core"
 			},
 			{
 				"mobgroup": "basic_zombies",
-				"type": "hostile"
+				"relation_type": "hostile"
 			}
 		]
 	}
