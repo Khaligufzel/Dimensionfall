@@ -1,0 +1,12 @@
+{
+	"author": "Khaligufzel",
+	"dependencies": [],
+	"description": "This is the core mod of the game. It provides the foundational systems and data required for other mods to function.",
+	"homepage": "https://github.com/Khaligufzel/Dimensionfall",
+	"id": "Core",
+	"license": "GPL-3.0 License",
+	"name": "Core",
+	"tags": [
+		"Core"
+	]
+}

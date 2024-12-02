@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bw14nfwdnu41d" path="res://Scenes/ContentManager/Custom_Editors/MobgroupsEditor.tscn" id="16_lrbdj"]
 [ext_resource type="PackedScene" uid="uid://c6qjrrt1xgro2" path="res://Scenes/ContentManager/Custom_Editors/MobfactionsEditor.tscn" id="17_mcu7c"]
 
-[node name="contenteditor" type="Control" node_paths=PackedStringArray("content", "tabContainer", "type_selector_menu_button")]
+[node name="contenteditor" type="Control" node_paths=PackedStringArray("select_mods", "content", "tabContainer", "type_selector_menu_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,6 +26,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_65sl4")
+select_mods = NodePath("HSplitContainer/ContentLists/SelectMods")
 contentList = ExtResource("2_4f21i")
 mapEditor = ExtResource("3_q062s")
 tacticalmapEditor = ExtResource("4_5du0w")
@@ -136,3 +137,4 @@ On the right a content editor will be displayed that allows you to edit the sele
 metadata/_tab_index = 0
 
 [connection signal="button_up" from="HSplitContainer/ContentLists/BackButton" to="." method="_on_back_button_button_up"]
+[connection signal="item_selected" from="HSplitContainer/ContentLists/SelectMods" to="." method="_on_select_mods_item_selected"]

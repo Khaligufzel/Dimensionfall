@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
 [ext_resource type="Script" path="res://Scripts/NonHUDclick.gd" id="2_kpbhl"]
 [ext_resource type="Texture2D" uid="uid://7hppy1l45loq" path="res://Textures/bar_progress.png" id="3_83uwt"]
-[ext_resource type="Resource" uid="uid://bxubu34gjes1y" path="res://ItemProtosets.tres" id="3_jmlkb"]
+[ext_resource type="Resource" path="res://ItemProtosets.tres" id="3_jmlkb"]
 [ext_resource type="Texture2D" uid="uid://dcgwgmsmi7mjn" path="res://Textures/bar_border.png" id="3_y43f5"]
 [ext_resource type="PackedScene" uid="uid://b6ooia1084wfx" path="res://Scenes/UI/AttributesWindow.tscn" id="6_6e87o"]
 [ext_resource type="PackedScene" uid="uid://drjw0yaxf8x1p" path="res://Scenes/UI/QuestTrackerUI.tscn" id="7_bbed4"]
@@ -21,9 +21,10 @@
 default_font = ExtResource("1_pxloi")
 default_font_size = 0
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("inventoryWindow", "characterWindow", "questWindow", "overmap")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("clock_label", "inventoryWindow", "characterWindow", "questWindow", "overmap")]
 script = ExtResource("1_s3xoj")
 stamina_HUD = NodePath("StaminaLevel")
+clock_label = NodePath("ClockLabel")
 ammo_HUD_left = NodePath("AmmoVisuals/LeftAmmo")
 ammo_HUD_right = NodePath("AmmoVisuals/RightAmmo")
 healthy_color = Color(0, 0.635294, 0, 1)
@@ -74,32 +75,25 @@ script = ExtResource("2_kpbhl")
 
 [node name="QuestTracker" parent="." instance=ExtResource("7_bbed4")]
 
-[node name="BloodLevel" type="Label" parent="."]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.695
-offset_top = -64.0
-offset_right = 135.695
-offset_bottom = -3.0
-grow_vertical = 0
-theme = SubResource("Theme_xn5t2")
-theme_override_colors/font_color = Color(0.639216, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("1_pxloi")
-theme_override_font_sizes/font_size = 49
-text = "100%"
-vertical_alignment = 1
+[node name="ClockLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.5
+offset_right = 20.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "00:00"
 
 [node name="StaminaLevel" type="Label" parent="."]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 143.755
-offset_top = -64.0
-offset_right = 268.755
-offset_bottom = -3.0
+offset_left = 7.0
+offset_top = -58.0
+offset_right = 132.0
+offset_bottom = 3.0
 grow_vertical = 0
 theme = SubResource("Theme_xn5t2")
 theme_override_colors/font_color = Color(0.741176, 0.482353, 0, 1)
@@ -207,6 +201,7 @@ loadingscreen = NodePath("../LoadingScreen")
 visible = false
 
 [node name="LoadingScreen" parent="." instance=ExtResource("20_kxcpa")]
+visible = false
 
 [connection signal="timeout" from="ProgressBar/ProgressBarTimer" to="." method="_on_progress_bar_timer_timeout"]
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]

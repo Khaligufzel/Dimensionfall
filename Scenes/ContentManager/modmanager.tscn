@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cis7fd3ko7xfp"]
+[gd_scene load_steps=2 format=3 uid="uid://70o5qt3qyqdp"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/modmanager.gd" id="1_dmv7g"]
+[ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/modmanager.gd" id="1_gah13"]
 
 [node name="modmanager" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_dmv7g")
+script = ExtResource("1_gah13")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -40,5 +40,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Back"
 
+[connection signal="button_up" from="VBoxContainer/AddRemoveModsButton" to="." method="_on_add_remove_mods_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/ModMaintenanceButton" to="." method="_on_mod_maintenance_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/BackButton" to="." method="_on_back_button_button_up"]

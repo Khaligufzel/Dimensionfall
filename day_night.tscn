@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://bisxe8aexlshr"]
+
+[ext_resource type="Script" path="res://day_night.gd" id="1_iw4nk"]
+
+[sub_resource type="Animation" id="Animation_g822v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_72a8g"]
+resource_name = "daynight"
+length = 24.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 5.76667, 6.5, 7.5, 9, 14, 19, 20, 20.9667, 24),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1.03481e-06, 0, 0.495731, 1), Color(1.82897e-06, 3.85046e-07, 0.635201, 1), Color(1.84774e-06, 3.57628e-07, 0.635201, 1), Color(2.11775e-06, 5.77569e-07, 0.681749, 1), Color(4.23551e-06, 4.23551e-06, 0.941456, 1), Color(0.106641, 0.338589, 0.999996, 1), Color(0.44497, 0.506755, 0.85487, 1), Color(0.843137, 0.47451, 0, 1), Color(0.784314, 0.580392, 0, 1), Color(0.890196, 0.772549, 0, 1), Color(1, 0.745098, 0.329412, 1), Color(0.874738, 0.493752, 1.03962e-05, 1), Color(0.677192, 0.377156, 4.04298e-06, 1), Color(0, 0, 0.941176, 1), Color(0, 0, 0.494118, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m3ech"]
+_data = {
+"RESET": SubResource("Animation_g822v"),
+"daynight": SubResource("Animation_72a8g")
+}
+
+[node name="day_night" type="CanvasModulate"]
+script = ExtResource("1_iw4nk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m3ech")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 50.0
+autostart = true

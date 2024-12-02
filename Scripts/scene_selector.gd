@@ -18,6 +18,7 @@ func _ready():
 
 
 func _on_load_game_button_pressed():
+	Runtimedata.reconstruct() # Load all mod data in the proper way
 	var selected_game_id = load_game_list.get_selected_id()
 	if try_load_game(selected_game_id):
 		Helper.signal_broker.game_loaded.emit()
@@ -32,6 +33,7 @@ func _on_load_game_button_pressed():
 # The name of the folder should be the current date and time so it's unique
 # This unique folder will contain save data for this game and can be loaded later
 func _on_play_demo_pressed():
+	Runtimedata.reconstruct() # Load all mod data in the proper way
 	var rng = RandomNumberGenerator.new()
 	Helper.mapseed = rng.randi()
 	Helper.save_helper.create_new_save()

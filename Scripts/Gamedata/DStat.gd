@@ -17,9 +17,13 @@ var description: String
 var spriteid: String
 var sprite: Texture
 var references: Dictionary = {}
+var parent: DStats
 
 # Constructor to initialize stat properties from a dictionary
-func _init(data: Dictionary):
+# data: the data as loaded from json
+# myparent: The list containing all stats for this mod
+func _init(data: Dictionary, myparent: DStats):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
@@ -40,24 +44,24 @@ func get_data() -> Dictionary:
 
 # Method to save any changes to the stat back to disk
 func save_to_disk():
-	Gamedata.stats.save_stats_to_disk()
+	parent.save_stats_to_disk()
 
 # Removes the provided reference from references
 func remove_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
 	if changes_made:
-		Gamedata.stats.save_stats_to_disk()
+		parent.save_stats_to_disk()
 
 # Adds a reference to the references list
 func add_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
 	if changes_made:
-		Gamedata.stats.save_stats_to_disk()
+		parent.save_stats_to_disk()
 
 # Some stat has been changed
 # INFO if the stat references other entities, update them here
 func changed(_olddata: DStat):
-	Gamedata.stats.save_stats_to_disk()
+	parent.save_stats_to_disk()
 
 # A stat is being deleted from the data
 # We have to remove it from everything that references it

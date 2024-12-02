@@ -2,7 +2,7 @@ extends Node
 
 # Autoload singleton that loads all game data required to run the game
 # Accessible via Gamedata.property
-var data: Dictionary = {"overmaptiles": {"sprites": {}, "spritePath":"./Mods/Core/OvermapTiles/"}}
+var mods: DMods
 var maps: DMaps
 var tacticalmaps: DTacticalmaps
 var furnitures: DFurnitures
@@ -12,7 +12,6 @@ var mobs: DMobs
 var itemgroups: DItemgroups
 var playerattributes: DPlayerAttributes
 var wearableslots: DWearableSlots
-var stats: DStats
 var skills: DSkills
 var quests: DQuests
 var overmapareas: DOvermapareas
@@ -30,25 +29,6 @@ var textures: Dictionary = {
 	"container_filled": load("res://Textures/container_filled_32.png")
 }
 var materials: Dictionary = {}
-
-# Enums to define the different content types
-enum ContentType {
-	TACTICALMAPS,       #0
-	MAPS,               #1
-	FURNITURES,         #2
-	ITEMGROUPS,         #3
-	ITEMS,              #4
-	TILES,              #5
-	MOBS,               #6
-	PLAYERATTRIBUTES,   #7
-	WEARABLESLOTS,      #8
-	STATS,              #9
-	SKILLS,             #10
-	QUESTS,             #11
-	OVERMAPAREAS,       #12
-	MOBGROUPS,       	#13
-	MOBFACTIONS        	#14
-}
 
 # Rotation mappings for how directions change based on tile rotation
 const ROTATION_MAP: Dictionary = {
@@ -72,6 +52,7 @@ var gamedata_map: Dictionary = {}
 # This function is called when the node is added to the scene.
 func _ready():
 	# Instantiate the content type instances
+	mods = DMods.new()
 	maps = DMaps.new()
 	tacticalmaps = DTacticalmaps.new()
 	furnitures = DFurnitures.new()
@@ -81,7 +62,6 @@ func _ready():
 	itemgroups = DItemgroups.new()
 	playerattributes = DPlayerAttributes.new()
 	wearableslots = DWearableSlots.new()
-	stats = DStats.new()
 	skills = DSkills.new()
 	quests = DQuests.new()
 	overmapareas = DOvermapareas.new()
@@ -90,24 +70,22 @@ func _ready():
 
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
-		ContentType.TACTICALMAPS: tacticalmaps,	
-		ContentType.MAPS: maps,	
-		ContentType.FURNITURES: furnitures,
-		ContentType.ITEMGROUPS: itemgroups,
-		ContentType.ITEMS: items,
-		ContentType.TILES: tiles,
-		ContentType.MOBS: mobs,
-		ContentType.PLAYERATTRIBUTES: playerattributes,
-		ContentType.WEARABLESLOTS: wearableslots,
-		ContentType.STATS: stats,
-		ContentType.SKILLS: skills,
-		ContentType.QUESTS: quests,
-		ContentType.OVERMAPAREAS: overmapareas,
-		ContentType.MOBGROUPS: mobgroups,
-		ContentType.MOBFACTIONS: mobfactions 
+		DMod.ContentType.TACTICALMAPS: tacticalmaps,	
+		DMod.ContentType.MAPS: maps,	
+		DMod.ContentType.FURNITURES: furnitures,
+		DMod.ContentType.ITEMGROUPS: itemgroups,
+		DMod.ContentType.ITEMS: items,
+		DMod.ContentType.TILES: tiles,
+		DMod.ContentType.MOBS: mobs,
+		DMod.ContentType.PLAYERATTRIBUTES: playerattributes,
+		DMod.ContentType.WEARABLESLOTS: wearableslots,
+		DMod.ContentType.STATS: mods.by_id("Core").stats,
+		DMod.ContentType.SKILLS: skills,
+		DMod.ContentType.QUESTS: quests,
+		DMod.ContentType.OVERMAPAREAS: overmapareas,
+		DMod.ContentType.MOBGROUPS: mobgroups
 	}
 
-	load_sprites()
 	materials["container"] = create_item_shader_material(textures.container)
 	materials["container_filled"] = create_item_shader_material(textures.container_filled)
 
@@ -124,37 +102,6 @@ func create_item_shader_material(albedo_texture: Texture) -> ShaderMaterial:
 	return shader_material
 
 
-# Loads sprites and assigns them to the proper dictionary
-func load_sprites() -> void:
-	for dict in data.keys():
-		if data[dict].has("spritePath"):
-			var loaded_sprites: Dictionary = {}
-			var spritesDir: String = data[dict].spritePath
-			var png_files: Array = Helper.json_helper.file_names_in_dir(spritesDir, ["png"])
-			for png_file in png_files:
-				# Load the .png file as a texture
-				var texture := load(spritesDir + png_file) 
-				# Add the material to the dictionary
-				loaded_sprites[png_file] = texture
-			data[dict].sprites = loaded_sprites
-
-
-# Gets the array index of an item by its ID
-func get_array_index_by_id(contentData: Dictionary, id: String) -> int:
-	# Iterate through the array
-	for i in range(len(contentData.data)):
-		# Check if the current item is a dictionary
-		if typeof(contentData.data[i]) == TYPE_DICTIONARY:
-			# Check if it has the 'id' key and matches the given ID
-			if contentData.data[i].has("id") and contentData.data[i]["id"] == id:
-				return i
-		# Check if the current item is a string and matches the given ID
-		elif typeof(contentData.data[i]) == TYPE_STRING and contentData.data[i] == id:
-			return i
-	# Return -1 if the ID is not found
-	return -1
-
-
 # Saves data to file
 func save_data_to_file(contentData: Dictionary):
 	var datapath: String = contentData.dataPath
@@ -163,7 +110,7 @@ func save_data_to_file(contentData: Dictionary):
 
 
 # Returns one of the D- data types. We return it as refcounted since every class differs
-func get_data_of_type(type: ContentType) -> RefCounted:
+func get_data_of_type(type: DMod.ContentType) -> RefCounted:
 	return gamedata_map[type]
 
 
