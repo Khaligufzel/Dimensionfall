@@ -186,7 +186,7 @@ func create_block_position_dictionary_new_arraymesh() -> Dictionary:
 						if tileJSON.has("id") and tileJSON.id != "":
 							var block_position_key = str(w) + "," + str(level_index-10) + "," + str(h)
 							# Get the shape of the block and the transparency
-							var dtile: DTile = Gamedata.tiles.by_id(tileJSON.id)
+							var dtile: RTile = Runtimedata.tiles.by_id(tileJSON.id)
 							# We only save the data we need, exluding mob and furniture data
 							new_block_positions[block_position_key] = {
 								"id": tileJSON.id,
@@ -596,7 +596,7 @@ func create_atlas() -> Dictionary:
 		var block_data: Dictionary = block_positions[key]
 		var material_id: String = str(block_data["id"]) # Key for material ID
 		if not material_to_blocks.has(material_id):
-			var sprite = Gamedata.tiles.sprite_by_id(material_id)
+			var sprite = Runtimedata.tiles.sprite_by_id(material_id)
 			if sprite:
 				material_to_blocks[material_id] = sprite
 

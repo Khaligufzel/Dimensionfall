@@ -819,7 +819,7 @@ func update_preview_texture_with_copied_data():
 func get_texture_from_tile_data(tile_data: Dictionary) -> Texture:
 	if tile_data.has("id"):
 		var texture_id = tile_data["id"]
-		return Gamedata.tiles.sprite_by_id(texture_id)
+		return Gamedata.mods.by_id("Core").tiles.sprite_by_id(texture_id)
 	else:
 		return load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
 

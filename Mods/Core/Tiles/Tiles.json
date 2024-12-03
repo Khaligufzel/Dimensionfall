@@ -6,13 +6,6 @@
 		"description": "Field of grass",
 		"id": "grass_plain",
 		"name": "Plain grass",
-		"references": {
-			"core": {
-				"maps": [
-					"RockyHill_NW"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "1.png"
 	},
@@ -23,13 +16,6 @@
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_00",
 		"name": "Low quality wood floor",
-		"references": {
-			"core": {
-				"maps": [
-					"neighborhood_school"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "woodboards.png"
 	},
@@ -85,38 +71,6 @@
 		"description": "A smooth surface for vehicles to drive on",
 		"id": "road_asphalt_basic",
 		"name": "Basic asphalt road",
-		"references": {
-			"core": {
-				"maps": [
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"abandoned_building",
-					"generichouse_end",
-					"urbanroad",
-					"urbanroad_cross",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "asphalt_basic.png"
 	},
 	{
@@ -144,19 +98,6 @@
 		"description": "A smooth surface for vehicles to drive on. It has horizontal markings",
 		"id": "road_asphalt_horizontal",
 		"name": "Asphalt road with horizontal markings",
-		"references": {
-			"core": {
-				"maps": [
-					"store_groceries",
-					"parking_garage",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "asphalt_middle_horizontal.png"
 	},
 	{
@@ -176,41 +117,6 @@
 		"description": "Field of grass",
 		"id": "grass_plain_01",
 		"name": "Plain grass",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_basic_00",
-					"field_grass_flowers_00",
-					"field_grass_hill_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"store_groceries",
-					"field_grass_hole_00",
-					"RockyHill_NE",
-					"generichouse_end",
-					"RockyHill_NW",
-					"urbanroad",
-					"urbanroad_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "basegrass1.png"
 	},
 	{
@@ -221,25 +127,6 @@
 		"description": "Wooden stairs that allow you to move up and down",
 		"id": "wood_stairs",
 		"name": "Wooden stairs",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"abandoned_building",
-					"generichouse_end",
-					"subway_station",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower"
-				]
-			}
-		},
 		"shape": "slope",
 		"sprite": "4.png"
 	},
@@ -251,15 +138,6 @@
 		"description": "A solid wall made out of bricks",
 		"id": "brick_wall_00",
 		"name": "Brick wall",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"Generichouse",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "brickroad2.png"
 	},
@@ -271,24 +149,6 @@
 		"description": "A warm red carpet",
 		"id": "red_carpet_00",
 		"name": "Red carpet",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "redcarpet.png"
 	},
@@ -300,23 +160,6 @@
 		"description": "A warm blue carpet",
 		"id": "blue_carpet_00",
 		"name": "Blue carpet",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "bluecarpet.png"
 	},
@@ -328,23 +171,6 @@
 		"description": "A warm orange carpet",
 		"id": "orange_carpet_00",
 		"name": "Orange carpet",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "browncarpet.png"
 	},
@@ -356,19 +182,6 @@
 		"description": "A road made out of stones shaped like a beehive",
 		"id": "beehive_stones_00",
 		"name": "Beehive stones",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_end"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "beehive1.png"
 	},
@@ -380,24 +193,6 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_00",
 		"name": "Wooden floor boards",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse_00",
-					"Generichouse",
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "woodboards10.png"
 	},
@@ -409,24 +204,6 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_01",
 		"name": "Wooden floor boards",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse_00",
-					"Generichouse",
-					"store_groceries",
-					"generichouse_corner",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "woodboards11.png"
 	},
@@ -438,24 +215,6 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_02",
 		"name": "Wooden floor boards",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"generichouse_cross",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "woodboards12.png"
 	},
@@ -467,23 +226,6 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_03",
 		"name": "Wooden floor boards",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "woodboards13.png"
 	},
@@ -495,23 +237,6 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_04",
 		"name": "Wooden floor boards",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "woodboards14.png"
 	},
@@ -523,21 +248,6 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_05",
 		"name": "Wooden floor boards",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_end",
-					"office_building_00",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "woodboards6.png"
 	},
@@ -549,21 +259,6 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_06",
 		"name": "Wooden floor boards",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "woodboards7.png"
 	},
@@ -575,24 +270,6 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_07",
 		"name": "Wooden floor boards",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "woodboards8.png"
 	},
@@ -604,24 +281,6 @@
 		"description": "Simple wooden floor boards that may be laid in a decorative fasion",
 		"id": "floor_wood_boards_08",
 		"name": "Wooden floor boards",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"generichouse_cross",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "woodboards9.png"
 	},
@@ -762,13 +421,6 @@
 		"description": "The ground is covered in fine sand",
 		"id": "sand_fine_00",
 		"name": "Fine sand",
-		"references": {
-			"core": {
-				"maps": [
-					"neighborhood_school"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "fineand.png"
 	},
@@ -779,16 +431,6 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_00",
 		"name": "Rock floor",
-		"references": {
-			"core": {
-				"maps": [
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"RockyHill_NE",
-					"RockyHill_NW"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "rockyfloor1.png"
 	},
@@ -799,16 +441,6 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_01",
 		"name": "Rock floor",
-		"references": {
-			"core": {
-				"maps": [
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"RockyHill_NE",
-					"RockyHill_NW"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "rockyfloor2.png"
 	},
@@ -819,15 +451,6 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_02",
 		"name": "Rock floor",
-		"references": {
-			"core": {
-				"maps": [
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"RockyHill_NW"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "rockyfloor3.png"
 	},
@@ -838,16 +461,6 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_03",
 		"name": "Rock floor",
-		"references": {
-			"core": {
-				"maps": [
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"RockyHill_NE",
-					"RockyHill_NW"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "rockfloor.png"
 	},
@@ -858,15 +471,6 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_04",
 		"name": "Rock floor",
-		"references": {
-			"core": {
-				"maps": [
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"RockyHill_NW"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "rockyfloor4.png"
 	},
@@ -877,16 +481,6 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_05",
 		"name": "Rock floor",
-		"references": {
-			"core": {
-				"maps": [
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"RockyHill_NE",
-					"RockyHill_NW"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "rockyfloor5.png"
 	},
@@ -897,16 +491,6 @@
 		"description": "A hard suface with a dark color.",
 		"id": "rock_floor_06",
 		"name": "Rock floor",
-		"references": {
-			"core": {
-				"maps": [
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"RockyHill_NE",
-					"RockyHill_NW"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "rockyfloor6.png"
 	},
@@ -917,18 +501,6 @@
 		"description": "A rocky surface allowing you to move up or down",
 		"id": "rock_slope_00",
 		"name": "Rock slope",
-		"references": {
-			"core": {
-				"maps": [
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"RockyHill_NE",
-					"RockyHill_NW",
-					"parking_garage",
-					"skyscraper"
-				]
-			}
-		},
 		"shape": "slope",
 		"sprite": "rockyfloorrampnorth.png"
 	},
@@ -939,14 +511,6 @@
 		"description": "A rocky surface that doesn't leave any footprints",
 		"id": "rocky_earth_00",
 		"name": "Rock floor",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse_00",
-					"RockyHill_SW"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "rockyearth.png"
 	},
@@ -987,13 +551,6 @@
 		"description": "A sturdy metal wall. The surface seems scratched and a bit worn.",
 		"id": "metal_wall_00",
 		"name": "Metal wall",
-		"references": {
-			"core": {
-				"maps": [
-					"radio_tower"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "metalwall1.png"
 	},
@@ -1005,23 +562,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted yellow",
 		"id": "kitchen_tiles_yellow_00",
 		"name": "Kitchen tiles (yellow)",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentiles.png"
 	},
@@ -1033,23 +573,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted yellow",
 		"id": "kitchen_tiles_yellow_01",
 		"name": "Kitchen tiles (yellow)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_cross",
-					"store_electronic_clothing",
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_t",
-					"generichouse_end",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentiles1.png"
 	},
@@ -1061,23 +584,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted yellow",
 		"id": "kitchen_tiles_yellow_02",
 		"name": "Kitchen tiles (yellow)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_end",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "Kitchentiles2.png"
 	},
@@ -1089,24 +595,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
 		"id": "kitchen_tiles_mint_00",
 		"name": "Kitchen tiles (mint)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentilesblue.png"
 	},
@@ -1118,24 +606,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
 		"id": "kitchen_tiles_mint_01",
 		"name": "Kitchen tiles (mint)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentilesblue1.png"
 	},
@@ -1147,23 +617,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
 		"id": "kitchen_tiles_mint_02",
 		"name": "Kitchen tiles (mint)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentilesblue2.png"
 	},
@@ -1175,24 +628,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted mint",
 		"id": "kitchen_tiles_mint_03",
 		"name": "Kitchen tiles (mint)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"store_electronic_clothing",
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentilesblue3.png"
 	},
@@ -1204,25 +639,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted green",
 		"id": "kitchen_tiles_green_00",
 		"name": "Kitchen tiles (green)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_t",
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentilesgreen.png"
 	},
@@ -1234,24 +650,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted green",
 		"id": "kitchen_tiles_green_01",
 		"name": "Kitchen tiles (green)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse_00",
-					"Generichouse",
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentilesgreen1.png"
 	},
@@ -1263,24 +661,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted green",
 		"id": "kitchen_tiles_green_02",
 		"name": "Kitchen tiles (green)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentilesgreen2.png"
 	},
@@ -1292,24 +672,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted blue",
 		"id": "kitchen_tiles_blue_00",
 		"name": "Kitchen tiles (blue)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "KitchentilesPurple.png"
 	},
@@ -1321,24 +683,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted blue",
 		"id": "kitchen_tiles_blue_01",
 		"name": "Kitchen tiles (blue)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentilespurple1.png"
 	},
@@ -1350,24 +694,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted blue",
 		"id": "kitchen_tiles_blue_02",
 		"name": "Kitchen tiles (blue)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"store_electronic_clothing",
-					"Generichouse_00",
-					"Generichouse",
-					"store_groceries",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "Kitchentilespurple2.png"
 	},
@@ -1379,24 +705,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted purple",
 		"id": "kitchen_tiles_purple_00",
 		"name": "Kitchen tiles (purple)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse_00",
-					"Generichouse",
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentilespurple3.png"
 	},
@@ -1408,23 +716,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted purple",
 		"id": "kitchen_tiles_purple_01",
 		"name": "Kitchen tiles (purple)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"store_groceries",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentilespurple4.png"
 	},
@@ -1436,23 +727,6 @@
 		"description": "A tiled floor you would find in a kitchen. The tiles are painted purple",
 		"id": "kitchen_tiles_purple_02",
 		"name": "Kitchen tiles (purple)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"store_groceries",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "kitchentilespurple5.png"
 	},
@@ -1463,13 +737,6 @@
 		"description": "The ground is covered with small pebbles",
 		"id": "gravel_00",
 		"name": "Gravel",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_hill_00"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "gravel.png"
 	},
@@ -1500,43 +767,6 @@
 		"description": "Dirt is barely visible trough the carpet of grass",
 		"id": "grass_dirt_00",
 		"name": "Grass with dirt",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_basic_00",
-					"field_grass_flowers_00",
-					"field_grass_hill_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"forest_basic_00",
-					"RockyHill_SW",
-					"store_groceries",
-					"field_grass_hole_00",
-					"RockyHill_NE",
-					"generichouse_end",
-					"RockyHill_NW",
-					"urbanroad",
-					"urbanroad_cross",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"RockyHill_SE",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grassdirt.png"
 	},
@@ -1547,43 +777,6 @@
 		"description": "Dirt is barely visible trough the carpet of grass",
 		"id": "grass_dirt_01",
 		"name": "Grass with dirt",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_basic_00",
-					"field_grass_flowers_00",
-					"field_grass_hill_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"generichouse_t",
-					"forest_basic_00",
-					"Generichouse_00",
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"store_groceries",
-					"field_grass_hole_00",
-					"generichouse_end",
-					"RockyHill_NW",
-					"urbanroad",
-					"urbanroad_cross",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"radio_tower",
-					"RockyHill_NE",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grassdirt1.png"
 	},
@@ -1594,42 +787,6 @@
 		"description": "Dirt is barely visible trough the carpet of grass",
 		"id": "grass_dirt_02",
 		"name": "Grass with dirt",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_basic_00",
-					"field_grass_flowers_00",
-					"field_grass_hill_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"forest_basic_00",
-					"store_groceries",
-					"field_grass_hole_00",
-					"RockyHill_NE",
-					"generichouse_end",
-					"urbanroad",
-					"urbanroad_cross",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"radio_tower",
-					"RockyHill_SE",
-					"RockyHill_NW",
-					"RockyHill_SW",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grassdirt2.png"
 	},
@@ -1640,45 +797,6 @@
 		"description": "Dirt is visible trough the grass",
 		"id": "grass_medium_dirt_00",
 		"name": "Grass with dirt",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_basic_00",
-					"field_grass_flowers_00",
-					"field_grass_hill_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"forest_basic_00",
-					"Generichouse_00",
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"store_groceries",
-					"abandoned_building",
-					"field_grass_hole_00",
-					"RockyHill_NE",
-					"generichouse_end",
-					"RockyHill_NW",
-					"urbanroad",
-					"urbanroad_cross",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grasssmalldirt.png"
 	},
@@ -1689,45 +807,6 @@
 		"description": "Dirt is visible trough the grass",
 		"id": "grass_medium_dirt_01",
 		"name": "Grass with dirt",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_basic_00",
-					"field_grass_flowers_00",
-					"field_grass_hill_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"forest_basic_00",
-					"Generichouse_00",
-					"RockyHill_SW",
-					"store_groceries",
-					"abandoned_building",
-					"field_grass_hole_00",
-					"RockyHill_NE",
-					"generichouse_end",
-					"urbanroad",
-					"urbanroad_cross",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"radio_tower",
-					"RockyHill_SE",
-					"RockyHill_NW",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grasssmalldirt1.png"
 	},
@@ -1738,44 +817,6 @@
 		"description": "Dirt is visible trough the grass",
 		"id": "grass_medium_dirt_02",
 		"name": "Grass with dirt",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_basic_00",
-					"field_grass_flowers_00",
-					"field_grass_hill_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"store_electronic_clothing",
-					"forest_basic_00",
-					"Generichouse",
-					"RockyHill_SW",
-					"store_groceries",
-					"abandoned_building",
-					"field_grass_hole_00",
-					"RockyHill_NE",
-					"generichouse_end",
-					"RockyHill_NW",
-					"urbanroad",
-					"urbanroad_cross",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"RockyHill_SE",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grasssmalldirt2.png"
 	},
@@ -1786,16 +827,6 @@
 		"description": "One side of the terrain is just dirt and no grass",
 		"id": "grass_dirt_north_00",
 		"name": "Grass with a patch of dirt",
-		"references": {
-			"core": {
-				"maps": [
-					"RockyHill_SW",
-					"neighborhood_school",
-					"radio_tower",
-					"RockyHill_NW"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grassnorthdirt.png"
 	},
@@ -1806,16 +837,6 @@
 		"description": "The center of the terrain is just dirt and no grass",
 		"id": "grass_dirt_center_00",
 		"name": "Grass with a patch of dirt",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_hill_00",
-					"RockyHill_NE",
-					"neighborhood_school",
-					"radio_tower"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grasscenterdirt.png"
 	},
@@ -1826,34 +847,6 @@
 		"description": "Some flowers are sprouting trough the grass",
 		"id": "grass_flowers_00",
 		"name": "Grass with flowers",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_flowers_00",
-					"field_grass_hill_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"field_grass_basic_00",
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"RockyHill_NE",
-					"generichouse_end",
-					"RockyHill_NW",
-					"urbanroad",
-					"urbanroad_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"radio_tower",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grassflowers2.png"
 	},
@@ -1864,39 +857,6 @@
 		"description": "Some flowers are sprouting trough the grass",
 		"id": "grass_flowers_01",
 		"name": "Grass with flowers",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_basic_00",
-					"field_grass_flowers_00",
-					"field_grass_hill_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"store_groceries",
-					"field_grass_hole_00",
-					"RockyHill_NE",
-					"generichouse_end",
-					"urbanroad",
-					"urbanroad_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"radio_tower",
-					"RockyHill_NW",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grassflowers3.png"
 	},
@@ -1907,37 +867,6 @@
 		"description": "Some flowers are sprouting trough the grass",
 		"id": "grass_flowers_02",
 		"name": "Grass with flowers",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_basic_00",
-					"field_grass_flowers_00",
-					"field_grass_hill_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"generichouse_t",
-					"RockyHill_SW",
-					"store_groceries",
-					"field_grass_hole_00",
-					"generichouse_end",
-					"RockyHill_NW",
-					"urbanroad",
-					"urbanroad_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"radio_tower",
-					"RockyHill_SE",
-					"RockyHill_NE",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grassflowers4.png"
 	},
@@ -1948,38 +877,6 @@
 		"description": "Some flowers are sprouting trough the grass",
 		"id": "grass_flowers_03",
 		"name": "Grass with flowers",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_basic_00",
-					"field_grass_flowers_00",
-					"field_grass_hill_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"store_groceries",
-					"field_grass_hole_00",
-					"RockyHill_NE",
-					"generichouse_end",
-					"urbanroad",
-					"urbanroad_cross",
-					"subway_station",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"radio_tower",
-					"RockyHill_NW",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "grasslowers.png"
 	},
@@ -1990,14 +887,6 @@
 		"description": "This ramp is covered with grass. You can go up and down here",
 		"id": "grass_ramp_00",
 		"name": "Grass ramp",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_hill_00",
-					"field_grass_hole_00"
-				]
-			}
-		},
 		"shape": "slope",
 		"sprite": "Grassrampnorth1.png"
 	},
@@ -2008,17 +897,6 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_00",
 		"name": "Forest underbrush",
-		"references": {
-			"core": {
-				"maps": [
-					"forest_basic_00",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale.png"
 	},
@@ -2029,17 +907,6 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_01",
 		"name": "Forest underbrush",
-		"references": {
-			"core": {
-				"maps": [
-					"forest_basic_00",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale1.png"
 	},
@@ -2050,17 +917,6 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_02",
 		"name": "Forest underbrush",
-		"references": {
-			"core": {
-				"maps": [
-					"forest_basic_00",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale2.png"
 	},
@@ -2071,18 +927,6 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_03",
 		"name": "Forest underbrush",
-		"references": {
-			"core": {
-				"maps": [
-					"forest_basic_00",
-					"RockyHill_SW",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale3.png"
 	},
@@ -2093,17 +937,6 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_04",
 		"name": "Forest underbrush",
-		"references": {
-			"core": {
-				"maps": [
-					"forest_basic_00",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale4.png"
 	},
@@ -2114,17 +947,6 @@
 		"description": "The ground is littered with twigs, leaves, sticks and all kinds of plant matter. Very tipical of a forest floor",
 		"id": "forest_underbrush_05",
 		"name": "Forest underbrush",
-		"references": {
-			"core": {
-				"maps": [
-					"forest_basic_00",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "forestunderbrushscale5.png"
 	},
@@ -2165,36 +987,6 @@
 		"description": "There is just dirt here. It's color is light",
 		"id": "dirt_light_00",
 		"name": "Dirt",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_hill_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"forest_basic_00",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"abandoned_building",
-					"field_grass_hole_00",
-					"generichouse_end",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"parking_garage",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "dirt3.png"
 	},
@@ -2205,29 +997,6 @@
 		"description": "There is just dirt here. It's color is light",
 		"id": "dirt_light_01",
 		"name": "Dirt",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_hill_00",
-					"generichouse_corner",
-					"forest_basic_00",
-					"Generichouse",
-					"abandoned_building",
-					"generichouse_end",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"parking_garage",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "dirt4.png"
 	},
@@ -2238,26 +1007,6 @@
 		"description": "There is just dirt here. It's color is light",
 		"id": "dirt_light_02",
 		"name": "Dirt",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_hill_00",
-					"forest_basic_00",
-					"abandoned_building",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"parking_garage",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "dirt5.png"
 	},
@@ -2268,14 +1017,6 @@
 		"description": "There is dirt here. Part of it is covered with grass",
 		"id": "dirt_light_grass_north_00",
 		"name": "Dirt with grass",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_hill_00",
-					"field_grass_hole_00"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "dirtgrass.png"
 	},
@@ -2286,13 +1027,6 @@
 		"description": "There is dirt here. Part of it is covered with grass",
 		"id": "dirt_light_grass_north_01",
 		"name": "Dirt with grass",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_hill_00"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "dirt_grass_north.png"
 	},
@@ -2373,13 +1107,6 @@
 		"description": "A tiled floor with colorful stones",
 		"id": "cobblestone_00",
 		"name": "Cobblestone",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "cobblestone.png"
 	},
@@ -2390,14 +1117,6 @@
 		"description": "A tiled floor with colorful stones",
 		"id": "cobblestone_01",
 		"name": "Cobblestone",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_end"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "cobblestone2.png"
 	},
@@ -2408,16 +1127,6 @@
 		"description": "A tiled floor with colorful stones",
 		"id": "cobblestone_02",
 		"name": "Cobblestone",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"generichouse_end"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "cobblestone3.png"
 	},
@@ -2449,23 +1158,6 @@
 		"description": "A solid wall made out of bricks",
 		"id": "brick_wall_01",
 		"name": "Brick wall",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"neighborhood_school",
-					"two_story_house",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "brickroad.png"
 	},
@@ -2477,15 +1169,6 @@
 		"description": "A solid wall made out of bricks",
 		"id": "brick_wall_02",
 		"name": "Brick wall",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"store_electronic_clothing",
-					"generichouse_end"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "brickroad1.png"
 	},
@@ -2508,22 +1191,6 @@
 		"description": "A tiled floor you would find in a bathroom. The tiles are painted blue",
 		"id": "bathroom_tiles_blue_00",
 		"name": "Bathroom tiles (blue)",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"generichouse_corner",
-					"generichouse_end",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "bathroomtiles.png"
 	},
@@ -2535,17 +1202,6 @@
 		"description": "A stone floor wihere the stones are shaped like an arch. Used in an urban environement.",
 		"id": "arc_stones_floor_00",
 		"name": "Arc stones floor",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_end"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "arcstones1.png"
 	},
@@ -2557,30 +1213,6 @@
 		"description": "Part of the street that indicates this is a zone for pedestrians to walk on",
 		"id": "sidewalk_00",
 		"name": "Sidewalk",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_t",
-					"generichouse_cross",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"abandoned_building",
-					"generichouse_end",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "sidewalk.png"
 	},
@@ -2591,27 +1223,6 @@
 		"description": "Concrete provides a smooth floor for wheels and is hard to break",
 		"id": "concrete_00",
 		"name": "Concrete",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"abandoned_building",
-					"generichouse_end",
-					"subway_station",
-					"parking_garage",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "concrete.png"
 	},
@@ -2622,13 +1233,6 @@
 		"description": "Test",
 		"id": "floor_wood_realistic01",
 		"name": "Old wooden planks",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "woodenplanks01.png"
 	},
@@ -2639,13 +1243,6 @@
 		"description": "Test",
 		"id": "realistic_brick01",
 		"name": "Old brick wall",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "redbricks02.png"
 	},
@@ -2656,38 +1253,6 @@
 		"description": "A smooth surface for vehicles to drive on. It has horizontal markings",
 		"id": "road_asphalt_horizontal_top",
 		"name": "Asphalt road with horizontal markings",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"Generichouse_00",
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"store_groceries",
-					"abandoned_building",
-					"generichouse_end",
-					"urbanroad",
-					"urbanroad_cross",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "asphalt_markings_side_top.png"
 	},
@@ -2699,26 +1264,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted blue",
 		"id": "linoleum_blue_00",
 		"name": "Linoleum tiles (blue)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse_00",
-					"Generichouse",
-					"store_groceries",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_blue.png"
 	},
@@ -2730,26 +1275,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted brown",
 		"id": "linoleum_brown_00",
 		"name": "Linoleum tiles (brown)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_brown.png"
 	},
@@ -2761,26 +1286,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted brown",
 		"id": "linoleum_brown_01",
 		"name": "Linoleum tiles (brown)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_brown1.png"
 	},
@@ -2792,26 +1297,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted green",
 		"id": "linoleum_green_01",
 		"name": "Linoleum tiles (green)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_green.png"
 	},
@@ -2823,26 +1308,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted green",
 		"id": "linoleum_green_00",
 		"name": "Linoleum tiles (green)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_green1.png"
 	},
@@ -2854,26 +1319,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted green",
 		"id": "linoleum_green_02",
 		"name": "Linoleum tiles (green)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse_00",
-					"Generichouse",
-					"store_groceries",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_green2.png"
 	},
@@ -2885,26 +1330,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted grey/blue",
 		"id": "linoleum_greyblue_00",
 		"name": "Linoleum tiles (grey-blue)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse_00",
-					"Generichouse",
-					"store_groceries",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_greyblue.png"
 	},
@@ -2916,26 +1341,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted lightblue",
 		"id": "linoleum_lightblue_00",
 		"name": "Linoleum tiles (lightblue)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse_00",
-					"Generichouse",
-					"store_groceries",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_lightblue.png"
 	},
@@ -2947,26 +1352,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted lightblue",
 		"id": "linoleum_lightblue_01",
 		"name": "Linoleum tiles (lightblue)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_lightblue1.png"
 	},
@@ -2978,26 +1363,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted lightblue",
 		"id": "linoleum_lightblue_02",
 		"name": "Linoleum tiles (lightblue)",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"store_electronic_clothing",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_lightblue2.png"
 	},
@@ -3009,25 +1374,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted white",
 		"id": "linoleum_white_00",
 		"name": "Linoleum tiles (white)",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_white.png"
 	},
@@ -3039,25 +1385,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted white",
 		"id": "linoleum_white_01",
 		"name": "Linoleum tiles (white)",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_white1.png"
 	},
@@ -3069,26 +1396,6 @@
 		"description": "A linoleum floor you would find in a store. It's are painted white",
 		"id": "linoleum_white_02",
 		"name": "Linoleum tiles (white)",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"Generichouse",
-					"store_groceries",
-					"Generichouse_00",
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "linoleum_white2.png"
 	},
@@ -3099,16 +1406,6 @@
 		"description": "Damaged concrete surfaced with cracks running along it",
 		"id": "concrete__cracked_00",
 		"name": "Cracked concrete",
-		"references": {
-			"core": {
-				"maps": [
-					"abandoned_building",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "concrete_cracked_00.png"
 	},
@@ -3119,16 +1416,6 @@
 		"description": "Damaged concrete surfaced with cracks running along it",
 		"id": "concrete__cracked_01",
 		"name": "Cracked concrete",
-		"references": {
-			"core": {
-				"maps": [
-					"abandoned_building",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "concrete_cracked_01.png"
 	},
@@ -3139,16 +1426,6 @@
 		"description": "Damaged concrete surfaced with cracks running along it",
 		"id": "concrete__cracked_02",
 		"name": "Cracked concrete",
-		"references": {
-			"core": {
-				"maps": [
-					"abandoned_building",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "concrete_cracked_02.png"
 	},
@@ -3159,16 +1436,6 @@
 		"description": "Damaged concrete surfaced with cracks running along it. It is littered with bits of broken concrete.",
 		"id": "concrete__cracked_debris_00",
 		"name": "Cracked concrete with debris",
-		"references": {
-			"core": {
-				"maps": [
-					"abandoned_building",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "concrete_cracked_debris_00.png"
 	},
@@ -3179,16 +1446,6 @@
 		"description": "Damaged concrete surfaced with cracks running along it. It is littered with bits of broken concrete.",
 		"id": "concrete__cracked_debris_01",
 		"name": "Cracked concrete with debris",
-		"references": {
-			"core": {
-				"maps": [
-					"abandoned_building",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "concrete_cracked_debris_01.png"
 	},
@@ -3199,16 +1456,6 @@
 		"description": "Damaged concrete surfaced with cracks running along it. It is littered with bits of broken concrete.",
 		"id": "concrete__cracked_debris_02",
 		"name": "Cracked concrete with debris",
-		"references": {
-			"core": {
-				"maps": [
-					"abandoned_building",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"shape": "cube",
 		"sprite": "concrete_cracked_debris_02.png"
 	}

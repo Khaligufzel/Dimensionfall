@@ -20,14 +20,14 @@ signal data_changed()
 var olddata: DTile # Remember what the value of the data was before editing
 var control_elements: Array = []
 # The data that represents this tile
-# The data is selected from the Gamedata.tiles array
+# The data is selected from the Gamedata.mods.by_id("Core").tiles array
 # based on the ID that the user has selected in the content editor
 var dtile: DTile = null:
 	set(value):
 		dtile = value
 		load_tile_data()
-		tileSelector.sprites_collection = Gamedata.tiles.sprites
-		olddata = DTile.new(dtile.get_data().duplicate(true))
+		tileSelector.sprites_collection = Gamedata.mods.by_id("Core").tiles.sprites
+		olddata = DTile.new(dtile.get_data().duplicate(true), null)
 
 
 func _ready():
@@ -56,7 +56,7 @@ func _input(event):
 # This function updates the form based on the dtile that has been loaded
 func load_tile_data():
 	if tileImageDisplay != null and dtile.spriteid:
-		var myTexture: Resource = Gamedata.tiles.sprite_by_file(dtile.spriteid)
+		var myTexture: Resource = Gamedata.mods.by_id("Core").tiles.sprite_by_file(dtile.spriteid)
 		tileImageDisplay.texture = myTexture
 		imageNameStringLabel.text = dtile.spriteid
 	if IDTextLabel != null:
@@ -81,7 +81,7 @@ func _on_close_button_button_up():
 	queue_free()
 
 # This function takes all data from the form elements and stores them in dtile
-# Since dtile is a reference to an item in Gamedata.tiles
+# Since dtile is a reference to an item in Gamedata.mods.by_id("Core").tiles
 # the central array for tile data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up():
@@ -95,7 +95,7 @@ func _on_save_button_button_up():
 		dtile.shape = "slope"
 	dtile.changed(olddata)
 	data_changed.emit()
-	olddata = DTile.new(dtile.get_data().duplicate(true))
+	olddata = DTile.new(dtile.get_data().duplicate(true), null)
 
 # When the tileImageDisplay is clicked, the user will be prompted to select an image from
 # "res://Mods/Core/Tiles/". The texture of the tileImageDisplay will change to the selected image

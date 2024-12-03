@@ -71,7 +71,7 @@ func get_all_mods() -> Array:
 
 # Function to retrieve content by its type and ID across all mods
 # The returned value may be a DMap, DItem, DMobgroup or anything
-# contentType: A Gamedata.TYPE_* string
+# contentType: A DMod.ContentType
 func get_content_by_id(contentType: DMod.ContentType, id: String) -> RefCounted:
 	# Loop over all mods in the moddict
 	for mod: DMod in moddict.values():
@@ -131,8 +131,7 @@ func add_reference(contentType: DMod.ContentType, id: String, ref_type: DMod.Con
 		if content_instance:
 			# Check if the content instance has the requested ID
 			if content_instance.has_id(id):
-				# Call add_reference on the content instance
-				content_instance.add_reference(id, ref_type, ref_id)
+				add_reference_to_content_instance(content_instance, id, ref_type, ref_id)
 
 
 # Function to remove a reference from all content instances with a specific ID across all mods
@@ -148,5 +147,43 @@ func remove_reference(contentType: DMod.ContentType, id: String, ref_type: DMod.
 		if content_instance:
 			# Check if the content instance has the requested ID
 			if content_instance.has_id(id):
-				# Call remove_reference on the content instance
-				content_instance.remove_reference(id, ref_type, ref_id)
+				remove_reference_from_content_instance(content_instance, id, ref_type, ref_id)
+
+
+# Add a reference to the references dictionary
+# content_instance: A RefCounted containing intities, for example DTiles, DMaps, DMobgroups
+func add_reference_to_content_instance(content_instance: RefCounted, id: String, type: DMod.ContentType, refid: String) -> void:
+	if not content_instance.has_id(id):
+		print_debug("Cannot add reference: ID '" + id + "' does not exist.")
+		return
+	
+	var mytype: String = DMod.get_content_type_string(type) # Example: "mobgroups" or "tiles"
+	var myreferences: Dictionary = content_instance.references
+	if not myreferences.has(id):
+		myreferences[id] = {}
+	if not myreferences[id].has(mytype):
+		myreferences[id][mytype] = []
+	if not refid in myreferences[id][mytype]:
+		myreferences[id][mytype].append(refid)
+		save_references(content_instance)
+
+
+# Remove a reference from the references dictionary
+func remove_reference_from_content_instance(content_instance: RefCounted, id: String, type: DMod.ContentType, refid: String) -> void:
+	var mytype: String = DMod.get_content_type_string(type)
+	var myreferences: Dictionary = content_instance.references
+	if myreferences.has(id) and myreferences[id].has(mytype):
+		myreferences[id][mytype].erase(refid)
+		# Clean up empty entries
+		if myreferences[id][mytype].is_empty():
+			myreferences[id].erase(mytype)
+		if myreferences[id].is_empty():
+			myreferences.erase(id)
+		save_references(content_instance)
+
+
+# Save references to references.json
+func save_references(content_instance: RefCounted) -> void:
+	var myreferences: Dictionary = content_instance.references
+	var reference_json = JSON.stringify(myreferences, "\t")
+	Helper.json_helper.write_json_file(content_instance.dataPath + "references.json", reference_json)

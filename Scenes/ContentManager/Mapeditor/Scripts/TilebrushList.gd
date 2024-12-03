@@ -72,9 +72,9 @@ func loadFurniture():
 		instanced_brushes.append(brushInstance)
 
 
-# this function will read all files in Gamedata.tiles and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
+# this function will read all files in Gamedata.mods.by_id("Core").tiles and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
 func loadTiles():
-	var tileList: Dictionary = Gamedata.tiles.get_all()
+	var tileList: Dictionary = Gamedata.mods.by_id("Core").tiles.get_all()
 
 	for tile: DTile in tileList.values():
 		if tile.spriteid:
@@ -93,7 +93,7 @@ func loadTiles():
 				var imagefileName: String = tile.spriteid
 				imagefileName = imagefileName.get_file()
 				# Get the texture from gamedata
-				var texture: Resource = Gamedata.tiles.sprite_by_file(imagefileName)
+				var texture: Resource = Gamedata.mods.by_id("Core").tiles.sprite_by_file(imagefileName)
 				# Create a TileBrush node
 				var brushInstance = tileBrush.instantiate()
 				# Assign the texture to the TileBrush
