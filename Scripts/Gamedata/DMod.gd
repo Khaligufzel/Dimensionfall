@@ -78,7 +78,7 @@ func _init(modinfo: Dictionary, myparent: DMods):
 	license = modinfo.get("license", "")
 	tags = modinfo.get("tags", [])
 
-	maps = DMaps.new()
+	maps = DMaps.new(id)
 	tacticalmaps = DTacticalmaps.new(id)
 	furnitures = DFurnitures.new()
 	items = DItems.new()
@@ -145,3 +145,25 @@ func save_to_disk():
 func delete():
 	parent.remove_mod(id)
 	parent.save_mods_to_disk()
+
+
+# Function to get the lowercase string representation of a ContentType
+static func get_content_type_string(type: ContentType) -> String:
+	match type:
+		ContentType.TACTICALMAPS: return "tacticalmaps"
+		ContentType.MAPS: return "maps"
+		ContentType.FURNITURES: return "furnitures"
+		ContentType.ITEMGROUPS: return "itemgroups"
+		ContentType.ITEMS: return "items"
+		ContentType.TILES: return "tiles"
+		ContentType.MOBS: return "mobs"
+		ContentType.PLAYERATTRIBUTES: return "playerattributes"
+		ContentType.WEARABLESLOTS: return "wearableslots"
+		ContentType.STATS: return "stats"
+		ContentType.SKILLS: return "skills"
+		ContentType.QUESTS: return "quests"
+		ContentType.OVERMAPAREAS: return "overmapareas"
+		ContentType.MOBGROUPS: return "mobgroups"
+		_:
+			print_debug("Unknown ContentType: " + str(type))
+			return ""

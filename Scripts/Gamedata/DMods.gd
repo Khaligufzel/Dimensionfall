@@ -68,3 +68,85 @@ func get_all_mod_ids() -> Array:
 # Returns an array of all mod IDs (keys in the moddict dictionary)
 func get_all_mods() -> Array:
 	return moddict.values()
+
+# Function to retrieve content by its type and ID across all mods
+# The returned value may be a DMap, DItem, DMobgroup or anything
+# contentType: A Gamedata.TYPE_* string
+func get_content_by_id(contentType: DMod.ContentType, id: String) -> RefCounted:
+	# Loop over all mods in the moddict
+	for mod: DMod in moddict.values():
+		# Get the content instance of the specified type for the current mod
+		var content_instance: RefCounted = mod.get_data_of_type(contentType)
+		if content_instance:
+			# Check if the content instance has the requested ID
+			if content_instance.has_id(id):
+				# Return the matching content
+				return content_instance.by_id(id)
+	# If no matching content is found, return null
+	return null
+
+
+# Function to retrieve all content instances with a specific ID across all mods
+# The returned value may be an array of DMap, DItem, DMobgroup or anything
+# If more then one is returned, that means that this id is contained within more then one mod
+# We will expect two of them to be duplicates of eachother.
+func get_all_content_by_id(contentType: DMod.ContentType, id: String) -> Array:
+	var results: Array = []
+	
+	# Loop over all mods in the moddict
+	for mod in moddict.values():
+		# Get the content instance of the specified type for the current mod
+		var content_instance: RefCounted = mod.get_data_of_type(contentType)
+		if content_instance:
+			# Check if the content instance has the requested ID
+			if content_instance.has_id(id):
+				# Append the matching content to the results array
+				results.append(content_instance.by_id(id))
+	
+	# Return the array of matching content instances
+	return results
+
+
+# Function to add a reference to all content instances with a specific ID across all mods
+# contentType: The type of entity that we add the reference to
+# id: The id of the entity that we add the reference to
+# ref_type: The type of the entity that we reference
+# ref_id: The id of the entity that we reference
+# Example references data:
+#	"references": {
+#		"field_grass_basic_00": {
+#			"overmapareas": [
+#				"city"
+#			],
+#			"tacticalmaps": [
+#				"rockyhill"
+#			]
+#		}
+#	}
+func add_reference(contentType: DMod.ContentType, id: String, ref_type: DMod.ContentType, ref_id: String) -> void:
+	# Loop over all mods in the moddict
+	for mod: DMod in moddict.values():
+		# Get the content instance of the specified type for the current mod
+		var content_instance: RefCounted = mod.get_data_of_type(contentType)
+		if content_instance:
+			# Check if the content instance has the requested ID
+			if content_instance.has_id(id):
+				# Call add_reference on the content instance
+				content_instance.add_reference(id, ref_type, ref_id)
+
+
+# Function to remove a reference from all content instances with a specific ID across all mods
+# contentType: The type of entity that we remove the reference from
+# id: The id of the entity that we remove the reference from
+# ref_type: The type of the entity that we remove as a reference
+# ref_id: The id of the entity that we remove as a reference
+func remove_reference(contentType: DMod.ContentType, id: String, ref_type: DMod.ContentType, ref_id: String) -> void:
+	# Loop over all mods in the moddict
+	for mod: DMod in moddict.values():
+		# Get the content instance of the specified type for the current mod
+		var content_instance: RefCounted = mod.get_data_of_type(contentType)
+		if content_instance:
+			# Check if the content instance has the requested ID
+			if content_instance.has_id(id):
+				# Call remove_reference on the content instance
+				content_instance.remove_reference(id, ref_type, ref_id)

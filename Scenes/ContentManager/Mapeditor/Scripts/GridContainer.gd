@@ -67,7 +67,7 @@ func _on_mapeditor_ready() -> void:
 
 
 func on_map_data_changed():
-		oldmap = DMap.new(mapEditor.currentMap.id, "")
+		oldmap = DMap.new(mapEditor.currentMap.id, "", null)
 		oldmap.set_data(mapEditor.currentMap.get_data().duplicate(true))
 		loadLevelData(currentLevel)
 		load_area_data()
@@ -614,7 +614,7 @@ func save_map_json_file():
 	mapEditor.update_settings_values()
 	mapEditor.currentMap.save_data_to_disk()
 	mapEditor.currentMap.data_changed(oldmap)
-	oldmap = DMap.new(mapEditor.currentMap.id,"")
+	oldmap = DMap.new(mapEditor.currentMap.id,"", null)
 	oldmap.set_data(mapEditor.currentMap.get_data().duplicate(true))
 	# We wrote to mapEditor.currentMap, which means it's out of sync with each mapeditortile
 	# instance's data. We have to reload it

@@ -17,8 +17,8 @@ var grid_width: int = 100 # TODO: Pass the global grid_width to this class
 var grid_height: int = 100
 # Dictionary to store lists of area positions sorted by dovermaparea.id
 var area_positions: Dictionary = {}
-var road_maps: Array = Gamedata.maps.get_maps_by_category("Road")
-var forest_road_maps: Array = Gamedata.maps.get_maps_by_category("Forest Road")
+var road_maps: Array = Runtimedata.maps.get_maps_by_category("Road")
+var forest_road_maps: Array = Runtimedata.maps.get_maps_by_category("Forest Road")
 const NOISE_VALUE_PLAINS = -0.2
 
 enum Region {
@@ -41,11 +41,11 @@ class map_cell:
 	var region = Region.PLAINS
 	var coordinate_x: int = 0
 	var coordinate_y: int = 0
-	var dmap: DMap = null
+	var rmap: RMap = null
 	var map_id: String = "field_grass_basic_00.json":
 		set(value):
 			map_id = value
-			dmap = Gamedata.maps.by_id(map_id)
+			rmap = Runtimedata.maps.by_id(map_id)
 	var tacticalmapname: String = "town_00.json"
 	var revealed: int = RevealedState.HIDDEN  # Default state is HIDDEN
 	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
@@ -73,7 +73,7 @@ class map_cell:
 		rotation = newdata.get("rotation", 0)
 
 	func get_sprite() -> Texture:
-		return dmap.sprite
+		return rmap.sprite
 	
 	# Function to return formatted information about the map cell
 	func get_info_string() -> String:
@@ -85,15 +85,13 @@ class map_cell:
 		var pos_string: String = "Pos: (" + str(coordinate_x) + ", " + str(coordinate_y) + ")"
 		
 		# Use dmap's name and description instead of map_id
-		var map_name_string: String = "\nName: " + dmap.name
-		#var map_description_string: String = "\nDescription: " + dmap.description
+		var map_name_string: String = "\nName: " + rmap.name
 		
 		var region_string: String = "\nRegion: " + region_type_to_string(region)
 		var challenge_string: String = "\nChallenge: Easy"  # Placeholder for now
 		
 		# Combine all the information into one formatted string
 		return pos_string + map_name_string + region_string + challenge_string
-		#return pos_string + map_name_string + map_description_string + region_string + challenge_string
 
 
 	# Helper function to convert Region enum to string
@@ -269,7 +267,7 @@ func update_path_on_grid(path: Array) -> void:
 	for global_position in path:
 		if cells.has(global_position):
 			var cell = cells[global_position] # Will be a map_cell instance
-			if not "Urban" in cell.dmap.categories: # Skip urban areas
+			if not "Urban" in cell.rmap.categories: # Skip urban areas
 				assign_road_map_to_cell(global_position, cell)
 
 
@@ -283,7 +281,7 @@ func update_all_road_connections(road_positions: Array) -> void:
 	for global_position in road_positions:
 		if cells.has(global_position) and not global_position in edgeglobals:
 			var cell = cells[global_position]
-			if not "Urban" in cell.dmap.categories:
+			if not "Urban" in cell.rmap.categories:
 				update_road_connections(global_position, cell)
 
 	# Step 3: Handle connections for edge positions with neighboring grids
@@ -334,7 +332,7 @@ func get_edge_positions(road_positions: Array) -> Dictionary:
 func assign_road_map_to_cell(global_position: Vector2, cell) -> void:
 	# If it's a forest cell, assign a forest road, otherwise a normal road
 	var map_to_use = road_maps
-	if "Forest" in cell.dmap.categories:
+	if "Forest" in cell.rmap.categories:
 		map_to_use = forest_road_maps
 	var selected_map = map_to_use.pick_random()
 	update_cell(global_position, selected_map.id, 0)
@@ -343,12 +341,12 @@ func assign_road_map_to_cell(global_position: Vector2, cell) -> void:
 # Update the road connections for a cell based on its type (forest or non-forest)
 # cell: A map_cell instance
 func update_road_connections(global_position: Vector2, cell) -> void:
-	if not "Road" in cell.dmap.categories and not "Forest Road" in cell.dmap.categories:
+	if not "Road" in cell.rmap.categories and not "Forest Road" in cell.rmap.categories:
 		return # Only update road cells
 	# Get the required connections for this cell
 	var needed_connections = get_needed_connections(global_position)
 	# If it's a forest cell, find a matching forest road map, otherwise a regular road map
-	var map_to_use = forest_road_maps if "Forest Road" in cell.dmap.categories else road_maps
+	var map_to_use = forest_road_maps if "Forest Road" in cell.rmap.categories else road_maps
 	var matching_maps = get_road_maps_with_connections(map_to_use, needed_connections)
 	if matching_maps.size() > 0:
 		var selected_map = matching_maps.pick_random()
@@ -378,7 +376,7 @@ func get_needed_connections(position: Vector2) -> Array:
 
 			# Check if any of the categories are present in the neighbor cell's categories
 			for category in categories_to_check:
-				if category in neighbor_cell.dmap.categories:
+				if category in neighbor_cell.rmap.categories:
 					connections.append(direction)
 					break  # Exit loop early since we found a match
 		else:
@@ -387,7 +385,7 @@ func get_needed_connections(position: Vector2) -> Array:
 			if neighbor_cell:
 				# Same category check for the neighboring grid cell
 				for category in categories_to_check:
-					if category in neighbor_cell.dmap.categories:
+					if category in neighbor_cell.rmap.categories:
 						connections.append(direction)
 						break  # Exit if match is found
 	
@@ -478,7 +476,7 @@ func place_area_on_grid(area_grid: Dictionary, placed_positions: Array, mapsize:
 			if area_grid.has(local_position):
 				var tile = area_grid[local_position]
 				if tile != null:
-					update_cell(local_to_global(adjusted_position), tile.dmap.id, tile.rotation)
+					update_cell(local_to_global(adjusted_position), tile.rmap.id, tile.rotation)
 					placed_positions.append(adjusted_position)
 
 		# Return the adjusted center of the placed area
@@ -567,7 +565,7 @@ func generate_cells() -> void:
 			cell.region = region_type
 
 			# Pick a map from the category based on the region type
-			var maps_by_category = Gamedata.maps.get_maps_by_category(region_type_to_string(region_type))
+			var maps_by_category = Runtimedata.maps.get_maps_by_category(region_type_to_string(region_type))
 			if maps_by_category.size() > 0:
 				cell.map_id = Helper.overmap_manager.pick_random_map_by_weight(maps_by_category)
 			else:

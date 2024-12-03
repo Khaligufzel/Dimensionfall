@@ -186,7 +186,7 @@ func delete():
 	# Check if the mob has references to maps and remove it from those maps
 	var mapsdata: Array = Helper.json_helper.get_nested_data(references,"core.maps")
 	if mapsdata:
-		Gamedata.maps.remove_entity_from_selected_maps("mob", id, mapsdata)
+		Gamedata.mods.by_id("Core").maps.remove_entity_from_selected_maps("mob", id, mapsdata)
 	
 	# This callable will handle the removal of this mob from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):

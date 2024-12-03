@@ -1,0 +1,30 @@
+{
+	"RockyHill_NE": {
+		"tacticalmaps": [
+			"RockyHill_00"
+		]
+	},
+	"RockyHill_NW": {
+		"tacticalmaps": [
+			"RockyHill_00"
+		]
+	},
+	"RockyHill_SE": {
+		"tacticalmaps": [
+			"RockyHill_00"
+		]
+	},
+	"RockyHill_SW": {
+		"quests": [
+			"starter_tutorial_00"
+		],
+		"tacticalmaps": [
+			"RockyHill_00"
+		]
+	},
+	"police_station": {
+		"quests": [
+			"starter_tutorial_00"
+		]
+	}
+}

@@ -37,11 +37,18 @@ var mapwidth: int = 6
 var mapheight: int = 6
 var chunks: Array[TChunk] = []
 var dataPath: String
+var parent: DTacticalmaps
 
 
-func _init(newid: String, newdataPath: String):
+# Initialize a tacticalmap
+# newid: The id of the tacticalmap
+# newdataPath: the path to the json file containing the tacticalmap
+# For example: "/Mods/Core/Tacticalmaps/mytacticalmap.json
+# myparent: The DTacticalmaps that initialized this tacticalmap
+func _init(newid: String, newdataPath: String, myparent: DTacticalmaps):
 	id = newid
 	dataPath = newdataPath
+	parent = myparent
 
 
 # Constructor to initialize tactical map properties from a dictionary
@@ -52,6 +59,7 @@ func set_data(newdata: Dictionary):
 	var chunk_data = newdata.get("chunks", [])
 	for chunk in chunk_data:
 		chunks.append(TChunk.new(chunk))
+
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -78,11 +86,19 @@ func get_filename() -> String:
 func get_file_path() -> String:
 	return dataPath + get_filename()
 
-# A tacticalmap is being deleted. Remove all references to this tacticalmap
+# We remove ourselves from the filesystem and the parent maplist
+# After this, the map is deleted from the current mod that the parent maplist is a part of
+# If no copies of this map remain in any mod, we have to remove all references.
 func delete():
+	# Check to see if any mod has a copy of this map. if one or more remain, we can keep references
+	# Otherwise, the last copy was removed and we need to remove references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.TACTICALMAPS, id)
+	if all_results.size() > 0:
+		return
 	for chunk: TChunk in chunks:
-		Gamedata.maps.remove_reference_from_map(chunk.id,"core", "tacticalmaps",get_filename())
+		Gamedata.mods.remove_reference(DMod.ContentType.MAPS, chunk.id, DMod.ContentType.TACTICALMAPS, get_filename().replace(".json", ""))
 	Helper.json_helper.delete_json_file(get_file_path())
+
 
 func changed(olddata: DTacticalmap):
 	# Collect unique IDs from the old data
@@ -104,12 +120,12 @@ func changed(olddata: DTacticalmap):
 
 	# Add references for new IDs
 	for newid in unique_new_ids:
-		Gamedata.maps.add_reference_to_map(newid, "core", "tacticalmaps", tacticalmap_id)
+		Gamedata.mods.add_reference(DMod.ContentType.MAPS, newid.replace(".json", ""), DMod.ContentType.TACTICALMAPS, tacticalmap_id.replace(".json", ""))
 
 	# Remove references for IDs not present in new data
 	for oldid in unique_old_ids:
 		if oldid not in unique_new_ids:
-			Gamedata.maps.remove_reference_from_map(oldid, "core", "tacticalmaps", tacticalmap_id)
+			Gamedata.mods.remove_reference(DMod.ContentType.MAPS, oldid.replace(".json", ""), DMod.ContentType.TACTICALMAPS, tacticalmap_id.replace(".json", ""))
 
 
 # Removes all chunks where the map_id matches the given chunk id

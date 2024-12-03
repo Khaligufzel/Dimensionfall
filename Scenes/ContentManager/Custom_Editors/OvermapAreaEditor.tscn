@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/OvermapAreaEditor.gd" id="1_g1n4r"]
 [ext_resource type="PackedScene" uid="uid://2kp6gjwaextr" path="res://Scenes/ContentManager/Custom_Widgets/Overmap_Area_Region_editor.tscn" id="2_jtxai"]
-[ext_resource type="PackedScene" uid="uid://neuhnehifngf" path="res://Scenes/ContentManager/OtherTools/overmap_area_visualization.tscn" id="3_y3jo3"]
+[ext_resource type="PackedScene" uid="uid://neuhnehifngf" path="res://Scenes/ContentManager/Custom_Widgets/overmap_area_visualization.tscn" id="3_y3jo3"]
 
 [node name="OvermapAreaEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "min_width_spin_box", "min_height_spin_box", "max_width_spin_box", "max_height_spin_box", "region_name_text_edit", "region_h_box_container", "overmap_area_visualization")]
 layout_mode = 3

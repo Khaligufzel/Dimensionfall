@@ -84,12 +84,12 @@ func _get_maps_from_ui() -> Array:
 	var children = maps_grid_container.get_children()
 
 	# Loop through the children and extract map information
-	for i in range(0, children.size(), 4):  # Step by 4 to handle sprite-label-spinbox-delete quatuplets
-		var label = children[i + 1] as Label  # The label containing the map ID
+	for i in range(0, children.size(), 4):  # Step by 5 to handle sprite-id-label-label-spinbox-delete entries
+		var id_label = children[i + 1] as Label  # The label containing the map ID
 		var spinbox = children[i + 2] as SpinBox  # The spinbox containing the map weight
 
 		# Append map data to the list as a dictionary
-		maps.append({"id": label.text, "weight": int(spinbox.value)})
+		maps.append({"id": id_label.text, "weight": int(spinbox.value)})
 
 	return maps
 
@@ -111,7 +111,7 @@ func _can_drop_map_data(_newpos, data) -> bool:
 		return false
 
 	# Fetch map by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.maps.has_id(data["id"]):
+	if not Gamedata.mods.by_id(data["mod_id"]).maps.has_id(data["id"]):
 		return false
 
 	# Check if the map ID already exists in the maps grid
@@ -138,19 +138,19 @@ func _handle_map_drop(dropped_data, _newpos) -> void:
 	# dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var map_id = dropped_data["id"]
-		if not Gamedata.maps.has_id(map_id):
+		if not Gamedata.mods.by_id(dropped_data["mod_id"]).maps.has_id(map_id):
 			print_debug("No map data found for ID: " + map_id)
 			return
 		
 		# Add the map entry using the new function
-		_add_map_entry({"id": map_id, "weight": 100})  # Default weight set to 100
+		_add_map_entry({"id": map_id, "weight": 100, "mod_id": dropped_data["mod_id"]})  # Default weight set to 100
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
 
 # Function to add a new map entry to the maps_grid_container
 func _add_map_entry(map_data: Dictionary) -> void:
-	var mymap = Gamedata.maps.by_id(map_data.id)
+	var mymap = Gamedata.mods.get_content_by_id(DMod.ContentType.MAPS, map_data.id)
 
 	# Create a TextureRect for the map sprite
 	var texture_rect = TextureRect.new()
@@ -161,9 +161,9 @@ func _add_map_entry(map_data: Dictionary) -> void:
 	maps_grid_container.add_child(texture_rect)
 
 	# Create a Label for the map ID
-	var label = Label.new()
-	label.text = mymap.id
-	maps_grid_container.add_child(label)
+	var id_label = Label.new()
+	id_label.text = mymap.id
+	maps_grid_container.add_child(id_label)
 
 	# Create a SpinBox for the map weight
 	var weight_spinbox = SpinBox.new()
@@ -184,7 +184,7 @@ func _add_map_entry(map_data: Dictionary) -> void:
 
 	# Connect the delete button's button_up signal to remove the map entry
 	delete_button.button_up.connect(func():
-		_remove_map_entry(texture_rect, label, weight_spinbox, delete_button)
+		_remove_map_entry(texture_rect, id_label, weight_spinbox, delete_button)
 	)
 
 
@@ -206,12 +206,12 @@ func _on_delete_button_button_up() -> void:
 
 
 # Function to remove a map entry (called when the delete button is pressed)
-func _remove_map_entry(texture_rect: TextureRect, label: Label, weight_spinbox: SpinBox, delete_button: Button) -> void:
+func _remove_map_entry(texture_rect: TextureRect, id_label: Label, weight_spinbox: SpinBox, delete_button: Button) -> void:
 	maps_grid_container.remove_child(texture_rect)
 	texture_rect.queue_free()
 
-	maps_grid_container.remove_child(label)
-	label.queue_free()
+	maps_grid_container.remove_child(id_label)
+	id_label.queue_free()
 
 	maps_grid_container.remove_child(weight_spinbox)
 	weight_spinbox.queue_free()

@@ -165,15 +165,15 @@ func load_cells_around(position: Vector3):
 
 
 # Function to pick a random map based on weight
-func pick_random_map_by_weight(maps_by_category: Array[DMap]) -> String:
+func pick_random_map_by_weight(maps_by_category: Array[RMap]) -> String:
 	var total_weight = 0
-	for map: DMap in maps_by_category:
+	for map: RMap in maps_by_category:
 		total_weight += map.weight
 
 	var random_value = randi() % total_weight
 	var current_weight = 0
 
-	for map: DMap in maps_by_category:
+	for map: RMap in maps_by_category:
 		current_weight += map.weight
 		if random_value < current_weight:
 			return map.id

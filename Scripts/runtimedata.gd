@@ -2,7 +2,7 @@ extends Node
 
 # Autoload singleton that copies all game data required to run the game from Gamedata
 # Accessible via Runtimedata.property
-var maps: DMaps
+var maps: RMaps
 var tacticalmaps: RTacticalmaps
 var furnitures: DFurnitures
 var items: DItems
@@ -30,9 +30,11 @@ func reconstruct() -> void:
 	# Clear the stats by resetting the instance
 	stats = RStats.new()
 	tacticalmaps = RTacticalmaps.new()
+	maps = RMaps.new()
 	
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
 		DMod.ContentType.STATS: stats,
+		DMod.ContentType.MAPS: maps,
 		DMod.ContentType.TACTICALMAPS: tacticalmaps
 	}

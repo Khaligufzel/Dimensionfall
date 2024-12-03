@@ -172,7 +172,7 @@ func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 			return true
 		"enter":
 			# Add an action step for entering a specific map
-			var map_name: String = Gamedata.maps.by_id(step.map_id).name
+			var map_name: String = Runtimedata.maps.by_id(step.map_id).name
 			quest.add_action_step("Travel to " + map_name, {"stepjson": step})
 			return true
 	return false

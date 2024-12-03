@@ -17,11 +17,14 @@ var mod_id: String = "Core"
 var contentType: DMod.ContentType:
 	set(newData):
 		contentType = newData
-		if newData == DMod.ContentType.STATS or  newData == DMod.ContentType.TACTICALMAPS:
+		if newData == DMod.ContentType.STATS or newData == DMod.ContentType.TACTICALMAPS or newData == DMod.ContentType.MAPS:
+			# Use mod-specific data for these content types
 			datainstance = Gamedata.mods.by_id(mod_id).get_data_of_type(contentType)
 		else:
+			# Use global data for other content types
 			datainstance = Gamedata.get_data_of_type(contentType)
 		load_data()
+
 
 var header: String = "Items":
 	set(newName):
@@ -149,11 +152,17 @@ func _get_drag_data(_newpos):
 	var selected_item_id = contentItems.get_item_metadata(selected_index)
 
 	# Create a drag preview
-	# var preview = _create_drag_preview(selected_item_id)
-	# set_drag_preview(preview)
+	var preview = _create_drag_preview(selected_item_id)
+	set_drag_preview(preview)
 
-	# Return an object with the necessary data
-	return {"id": selected_item_id, "text": selected_item_text}
+	# Return an object with the necessary data, including mod_id and contentType
+	return {
+		"id": selected_item_id,
+		"text": selected_item_text,
+		"mod_id": mod_id,
+		"contentType": contentType
+	}
+
 
 
 # This function should return true if the dragged data can be dropped here

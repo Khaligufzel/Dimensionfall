@@ -170,10 +170,12 @@ func delete():
 	for item in items:
 		Gamedata.items.remove_reference(item.id, "core", "itemgroups", id)
 
-	# Remove references to this itemgroup from maps.
-	var mapsdata = Helper.json_helper.get_nested_data(references,"core.maps")
-	if mapsdata:
-		Gamedata.maps.remove_entity_from_selected_maps("itemgroup", id, mapsdata)
+	# Remove references to maps
+	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
+	for mymap: String in mapsdata:
+		var mymaps: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, mymap)
+		for dmap: DMaps in mymaps:
+			dmap.remove_entity_from_selected_maps("itemgroup", id, mapsdata)
 
 
 # Executes a callable function on each reference of the given type
