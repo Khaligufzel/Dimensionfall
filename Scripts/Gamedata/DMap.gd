@@ -77,14 +77,7 @@ extends RefCounted
 #	],
 #	"mapheight": 32,
 #	"mapwidth": 32,
-#	"name": "Basic Grass Field",
-#	"references": {
-#		"core": {
-#			"overmapareas": [
-#				"city"
-#			]
-#		}
-#	},
+#	"name": "Basic Grass Field"
 #	"weight": 1000
 #}
 
@@ -98,7 +91,6 @@ var weight: int = 1000
 var mapwidth: int = 32
 var mapheight: int = 32
 var levels: Array = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
-var references: Dictionary = {}
 var areas: Array = []
 var sprite: Texture = null
  # Variable to store connections. For example: {"south": "road","west": "ground"} default to ground
@@ -145,7 +137,6 @@ func set_data(newdata: Dictionary) -> void:
 	mapwidth = newdata.get("mapwidth", 32)
 	mapheight = newdata.get("mapheight", 32)
 	levels = newdata.get("levels", [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]])
-	references = newdata.get("references", {})
 	areas = newdata.get("areas", [])
 	connections = newdata.get("connections", {})  # Set connections from data if present
 
@@ -161,8 +152,6 @@ func get_data() -> Dictionary:
 	mydata["mapwidth"] = mapwidth
 	mydata["mapheight"] = mapheight
 	mydata["levels"] = levels
-	if not references.is_empty():
-		mydata["references"] = references
 	if not areas.is_empty():
 		mydata["areas"] = areas
 	if not connections.is_empty():  # Omit connections if empty
@@ -228,6 +217,12 @@ func delete():
 	# Remove this map from the tacticalmaps in this map's references
 	for ref in myreferences.get("tacticalmaps", []):
 		remove_self_from_tacticalmap(ref)
+
+	# Remove this map from the overmapareas in this map's references
+	for ref in myreferences.get("overmapareas", []):
+		var myareas: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.OVERMAPAREAS, ref)
+		for area: DOvermaparea in myareas:
+			area.remove_map_from_all_regions(id)
 	
 	remove_my_reference_from_all_entities()
 
@@ -474,28 +469,6 @@ func erase_entity_from_areas(entity_type: String, entity_id: String) -> void:
 					myarea["entities"] = myarea["entities"].filter(func(entity):
 						return not (entity["type"] == entity_type and entity["id"] == entity_id)
 					)
-
-
-# Removes the provided reference from references
-# For example, remove "town_00" from references.Core.tacticalmaps
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "tacticlmaps"
-# refid: The id of the entity, for example "town_00"
-func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
-	if changes_made:
-		save_data_to_disk()
-
-
-# Adds a reference to the references list
-# For example, add "town_00" to references.Core.tacticalmaps
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "tacticlmaps"
-# refid: The id of the entity, for example "town_00"
-func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
-	if changes_made:
-		save_data_to_disk()
 
 
 # Function to remove a area from mapData.areas by its id

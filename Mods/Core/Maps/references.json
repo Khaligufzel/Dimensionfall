@@ -1,4 +1,14 @@
 {
+	"Generichouse": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"Generichouse_00": {
+		"overmapareas": [
+			"city"
+		]
+	},
 	"RockyHill_NE": {
 		"tacticalmaps": [
 			"RockyHill_00"
@@ -22,9 +32,107 @@
 			"RockyHill_00"
 		]
 	},
+	"abandoned_building": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"city_square": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"field_grass_basic_00": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"field_grass_flowers_00": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"field_grass_hill_00": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"field_grass_hole_00": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"generichouse_corner": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"generichouse_cross": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"generichouse_end": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"generichouse_t": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"neighborhood_school": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"office_building_00": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"parking_garage": {
+		"overmapareas": [
+			"city"
+		]
+	},
 	"police_station": {
+		"overmapareas": [
+			"city"
+		],
 		"quests": [
 			"starter_tutorial_00"
+		]
+	},
+	"radio_tower": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"skyscraper": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"store_electronic_clothing": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"store_groceries": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"subway_station": {
+		"overmapareas": [
+			"city"
+		]
+	},
+	"two_story_house": {
+		"overmapareas": [
+			"city"
 		]
 	}
 }
