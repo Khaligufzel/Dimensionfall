@@ -4,7 +4,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles tile data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the data for one tile. You can access it through Gamedata.tiles
+# This script handles the data for one tile. You can access it through Gamedata.mods.by_id("Core").tiles
 
 #Example tile data:
 #	{
@@ -56,13 +56,13 @@ func get_data() -> Dictionary:
 
 # Returns the path of the sprite
 func get_sprite_path() -> String:
-	return Gamedata.tiles.spritePath + spriteid
+	return parent.spritePath + spriteid
 
 
 # Some tile has been changed
 # INFO if the tiles reference other entities, update them here
 func changed(_olddata: DTile):
-	Gamedata.tiles.save_tiles_to_disk()
+	parent.save_tiles_to_disk()
 
 
 # A tile is being deleted from the data
