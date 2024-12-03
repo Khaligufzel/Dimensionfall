@@ -50,7 +50,6 @@ func load_maps_from_disk() -> void:
 		mapdict[mapid] = map
 
 
-
 func get_all() -> Dictionary:
 	return mapdict
 
@@ -108,23 +107,6 @@ func remove_entity_from_all_maps(entity_type: String, entity_id: String):
 func remove_entity_from_selected_maps(entity_type: String, entity_id: String, maps: Array):
 	for map in maps:
 		mapdict[map].remove_entity_from_map(entity_type, entity_id)
-
-
-# Removes the reference from the selected map
-func remove_reference_from_map(mapid: String, module: String, type: String, refid: String):
-	var mymap: DMap = by_id(mapid)
-	mymap.remove_reference(module, type, refid)
-
-
-# Adds a reference to the references list
-# For example, add "town_00" to references.Core.tacticalmaps
-# mapid: The id of the map to add the reference to
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "tacticlmaps"
-# refid: The id of the entity to reference, for example "town_00"
-func add_reference_to_map(mapid: String, module: String, type: String, refid: String):
-	var mymap: DMap = by_id(mapid)
-	mymap.add_reference(module, type, refid)
 
 
 # Function to get maps by category

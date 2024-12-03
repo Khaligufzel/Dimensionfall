@@ -166,14 +166,14 @@ func get_data() -> Dictionary:
 
 # Method to save any changes to the overmaparea back to disk
 func save_to_disk():
-	Gamedata.overmapareas.save_overmapareas_to_disk()
+	Gamedata.mods.by_id("Core").overmapareas.save_overmapareas_to_disk()
 
 
 # Removes the provided reference from references
 func remove_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
 	if changes_made:
-		Gamedata.overmapareas.save_overmapareas_to_disk()
+		save_to_disk()
 
 
 # Adds a reference to the references list
@@ -235,3 +235,15 @@ func get_all_map_ids() -> Array:
 			if map_id not in unique_map_ids:
 				unique_map_ids.append(map_id)
 	return unique_map_ids
+
+
+# Function to remove a specific map ID from all regions in the overmap area
+func remove_map_from_all_regions(map_id: String) -> void:
+	for region_key in regions.keys():
+		var region = regions[region_key]
+		# Filter out the map entries that do not match the given map_id
+		region.maps = region.maps.filter(func(map_entry):
+			return map_entry.get("id", "") != map_id
+		)
+	# Save the updated overmap area data to disk
+	save_to_disk()
