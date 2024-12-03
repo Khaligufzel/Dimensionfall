@@ -192,7 +192,7 @@ func get_sprite_path() -> String:
 
 # This will remove this map from the tacticalmap in every mod that has it.
 func remove_self_from_tacticalmap(tacticalmap_id: String) -> void:
-	var all_results: Array = Gamedata.mods.get_all_content_by_id(Gamedata.TYPE_TACTICALMAPS, tacticalmap_id)
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, tacticalmap_id)
 	if all_results.size() > 0:
 		for result: DTacticalmap in all_results:
 			result.remove_chunk_by_mapid(id)
@@ -220,15 +220,14 @@ func delete():
 	parent.erase_id(id)
 	# Check to see if any mod has a copy of this map. if one or more remain, we can keep references
 	# Otherwise, the last copy was removed and we need to remove references
-	var all_results: Array = Gamedata.mods.get_all_content_by_id(Gamedata.TYPE_MAPS, id)
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, id)
 	if all_results.size() > 0:
 		return
 	
+	var myreferences: Dictionary = parent.references.get(id, {})
 	# Remove this map from the tacticalmaps in this map's references
-	for ref in references:
-		for mod in references.keys():
-			for tmap in references[mod].get("tacticalmaps", []):
-				remove_self_from_tacticalmap(tmap)
+	for ref in myreferences.get("tacticalmaps", []):
+		remove_self_from_tacticalmap(ref)
 	
 	remove_my_reference_from_all_entities()
 
@@ -245,13 +244,12 @@ func remove_my_reference_from_all_entities() -> void:
 				var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
 				furniture.remove_reference("core","maps",id)
 			elif entity_type == "tiles":
-				var dtile: DTile = Gamedata.tiles.by_id(entity_id)
-				dtile.remove_reference("core","maps",id)
+				Gamedata.mods.remove_reference(DMod.ContentType.TILES,entity_id,DMod.ContentType.MAPS,id)
 			elif entity_type == "mobs":
 				var dmob: DMob = Gamedata.mobs.by_id(entity_id)
 				dmob.remove_reference("core","maps",id)
 			elif entity_type == "itemgroups":
-				var ditemgroup: DItemgroup = Gamedata.Itemgroups.by_id(entity_id)
+				var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(entity_id)
 				ditemgroup.remove_reference("core","maps",id)
 
 
@@ -270,8 +268,7 @@ func data_changed(oldmap: DMap):
 				furniture.add_reference("core","maps",id)
 		elif entity_type == "tiles":
 			for entity_id in new_entities[entity_type]:
-				var dtile: DTile = Gamedata.tiles.by_id(entity_id)
-				dtile.add_reference("core","maps",id)
+				Gamedata.mods.add_reference(DMod.ContentType.TILES,entity_id,DMod.ContentType.MAPS,id)
 		elif entity_type == "mobs":
 			for entity_id in new_entities[entity_type]:
 				var dmob: DMob = Gamedata.mobs.by_id(entity_id)
@@ -295,8 +292,7 @@ func data_changed(oldmap: DMap):
 		elif entity_type == "tiles":
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):
-					var dtile: DTile = Gamedata.tiles.by_id(entity_id)
-					dtile.remove_reference("core","maps",id)
+					Gamedata.mods.remove_reference(DMod.ContentType.TILES,entity_id,DMod.ContentType.MAPS,id)
 		elif entity_type == "itemgroups":
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):
@@ -319,8 +315,6 @@ func data_changed(oldmap: DMap):
 		Gamedata.mobs.save_mobs_to_disk()
 	if new_entities["furniture"].size() > 0 or old_entities["furniture"].size() > 0:
 		Gamedata.furnitures.save_furnitures_to_disk()
-	if new_entities["tiles"].size() > 0 or old_entities["tiles"].size() > 0:
-		Gamedata.tiles.save_tiles_to_disk()
 	if new_entities["itemgroups"].size() > 0 or old_entities["itemgroups"].size() > 0:
 		Gamedata.itemgroups.save_itemgroups_to_disk()
 

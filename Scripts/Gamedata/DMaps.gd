@@ -160,38 +160,3 @@ func get_unique_categories() -> Array:
 			if not unique_categories.has(category):  # Check if category is already added
 				unique_categories.append(category)  # Add only if it's unique
 	return unique_categories  # Return the array of unique categories
-
-
-# Add a reference to the references dictionary
-func add_reference(mapid: String, type: DMod.ContentType, refid: String) -> void:
-	if not mapdict.has(mapid):
-		print_debug("Cannot add reference: Map ID '" + mapid + "' does not exist.")
-		return
-	
-	var mytype: String = DMod.get_content_type_string(type)
-	if not references.has(mapid):
-		references[mapid] = {}
-	if not references[mapid].has(mytype):
-		references[mapid][mytype] = []
-	if not refid in references[mapid][mytype]:
-		references[mapid][mytype].append(refid)
-		save_references()
-
-
-# Remove a reference from the references dictionary
-func remove_reference(mapid: String, type: DMod.ContentType, refid: String) -> void:
-	var mytype: String = DMod.get_content_type_string(type)
-	if references.has(mapid) and references[mapid].has(mytype):
-		references[mapid][mytype].erase(refid)
-		# Clean up empty entries
-		if references[mapid][mytype].is_empty():
-			references[mapid].erase(mytype)
-		if references[mapid].is_empty():
-			references.erase(mapid)
-		save_references()
-
-
-# Save references to references.json
-func save_references() -> void:
-	var reference_json = JSON.stringify(references, "\t")
-	Helper.json_helper.write_json_file(dataPath + "references.json", reference_json)

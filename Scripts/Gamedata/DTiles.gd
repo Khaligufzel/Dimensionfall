@@ -6,24 +6,37 @@ extends RefCounted
 # This script handles the list of tiles. You can access it trough Gamedata.tiles
 
 
-var dataPath: String = "./Mods/Core/Tiles/Tiles.json"
+var dataPath: String = "./Mods/Core/Tiles/"
+var filePath: String = "./Mods/Core/Tiles/Tiles.json"
 var spritePath: String = "./Mods/Core/Tiles/"
 var tiledict: Dictionary = {}
 var sprites: Dictionary = {}
+var references: Dictionary = {}
 
 
 # Add a mod_id parameter to dynamically initialize paths
 func _init(mod_id: String) -> void:
 	# Update dataPath and spritePath using the provided mod_id
-	dataPath = "./Mods/" + mod_id + "/Tiles/Tiles.json"
+	dataPath = "./Mods/" + mod_id + "/Tiles/"
+	filePath = "./Mods/" + mod_id + "/Tiles/Tiles.json"
 	spritePath = "./Mods/" + mod_id + "/Tiles/"
 	load_sprites()
 	load_tiles_from_disk()
+	load_references()
+
+
+# Load references from references.json
+func load_references() -> void:
+	var path = dataPath + "references.json"
+	if FileAccess.file_exists(path):
+		references = Helper.json_helper.load_json_dictionary_file(path)
+	else:
+		references = {}  # Initialize an empty references dictionary if the file doesn't exist
 
 
 # Load all tiledata from disk into memory
 func load_tiles_from_disk() -> void:
-	var tilelist: Array = Helper.json_helper.load_json_array_file(dataPath)
+	var tilelist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for mytile in tilelist:
 		var tile: DTile = DTile.new(mytile, self)
 		tile.sprite = sprites[tile.spriteid]
@@ -49,7 +62,7 @@ func save_tiles_to_disk() -> void:
 	var save_data: Array = []
 	for tile in tiledict.values():
 		save_data.append(tile.get_data())
-	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	Helper.json_helper.write_json_file(filePath, JSON.stringify(save_data, "\t"))
 
 
 func get_all() -> Dictionary:
@@ -96,20 +109,3 @@ func sprite_by_id(tileid: String) -> Texture:
 # tileid: The id of the tile to return the sprite of
 func sprite_by_file(spritefile: String) -> Texture:
 	return sprites[spritefile]
-
-
-# Removes the reference from the selected tile
-func remove_reference_from_tile(tileid: String, module: String, type: String, refid: String):
-	var mytile: DTile = tiledict[tileid]
-	mytile.remove_reference(module, type, refid)
-
-
-# Adds a reference to the references list
-# For example, add "grass_field" to references.Core.maps
-# tileid: The id of the tile to add the reference to
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "maps"
-# refid: The id of the entity to reference, for example "grass_field"
-func add_reference_to_tile(tileid: String, module: String, type: String, refid: String):
-	var mytile: DTile = tiledict[tileid]
-	mytile.add_reference(module, type, refid)
