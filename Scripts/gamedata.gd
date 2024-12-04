@@ -11,7 +11,6 @@ var playerattributes: DPlayerAttributes
 var wearableslots: DWearableSlots
 var skills: DSkills
 var quests: DQuests
-var overmapareas: DOvermapareas
 var mobgroups: DMobgroups
 var mobfactions: DMobfactions
 
@@ -58,7 +57,6 @@ func _ready():
 	wearableslots = DWearableSlots.new()
 	skills = DSkills.new()
 	quests = DQuests.new()
-	overmapareas = DOvermapareas.new()
 	mobgroups = DMobgroups.new()
 	mobfactions = DMobfactions.new()
 
@@ -76,7 +74,7 @@ func _ready():
 		DMod.ContentType.STATS: mods.by_id("Core").stats,
 		DMod.ContentType.SKILLS: skills,
 		DMod.ContentType.QUESTS: quests,
-		DMod.ContentType.OVERMAPAREAS: overmapareas,
+		DMod.ContentType.OVERMAPAREAS: mods.by_id("Core").overmapareas,
 		DMod.ContentType.MOBGROUPS: mobgroups,
 		DMod.ContentType.MOBFACTIONS: mobfactions
 	}

@@ -14,7 +14,7 @@ var wearableslots: DWearableSlots
 var skills: DSkills
 var stats: RStats
 var quests: DQuests
-var overmapareas: DOvermapareas
+var overmapareas: ROvermapareas
 var mobgroups: DMobgroups
 
 # Dictionary to map content types to Gamedata variables
@@ -32,11 +32,13 @@ func reconstruct() -> void:
 	tacticalmaps = RTacticalmaps.new()
 	maps = RMaps.new()
 	tiles = RTiles.new()
+	overmapareas = ROvermapareas.new()
 	
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
 		DMod.ContentType.STATS: stats,
 		DMod.ContentType.MAPS: maps,
 		DMod.ContentType.TACTICALMAPS: tacticalmaps,
-		DMod.ContentType.TILES: tiles
+		DMod.ContentType.TILES: tiles,
+		DMod.ContentType.OVERMAPAREAS: overmapareas
 	}

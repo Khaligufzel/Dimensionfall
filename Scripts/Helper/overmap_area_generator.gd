@@ -94,7 +94,7 @@ var area_grid: Dictionary = {}  # Grid containing the generated area
 # Dictionary to store the percentage distance from the center for each grid position
 var distance_from_center_map: Dictionary = {}  # Key: Vector2 (position), Value: float (percentage distance)
 var dimensions: Vector2 = Vector2.ZERO # The dimensions of the grid
-var dovermaparea: DOvermaparea = null
+var dovermaparea: ROvermaparea = null
 var tile_catalog: Array = []  # List of all tile instances with rotations
 var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
 var processed_tiles: Dictionary = {}  # Dictionary to track processed tiles
@@ -420,13 +420,13 @@ func place_starting_tile(center: Vector2) -> Tile:
 	return starting_tile
 
 # An algorithm that takes an area id and gets the required maps and instances them into tiles
-# 1. Get the DOvermaparea from Gamedata.overmapareas.by_id(area_id)
+# 1. Get the DOvermaparea from Runtimedata.overmapareas.by_id(area_id)
 # 2. Get the regions from dovermaparea.regions. This will be a dictionary where the region name 
 # is the key and the region data is the value. The value will be of the DOvermaparea.Region class
 # 3. For each region:
 # 3.1 Create a new key in tile_dictionary for the region name
 # 3.2 Get the region.maps array. Each item in the array will be something like: {"id": "house_02","weight": 8}
-# 3.3. For each map, get the DMap from Gamedata.mods.by_id("Core").maps.by_id(map_id)
+# 3.3. For each map, get the DMap from Runtimedata.maps.by_id(map_id)
 # 4. Leave the rest of the function unaltered.
 func create_tile_entries() -> void:
 	tile_catalog.clear()
@@ -455,7 +455,13 @@ func create_tile_entries() -> void:
 			var map_weight = map_data.get("weight", 1)
 
 			# Step 3.3: Retrieve the DMap from Gamedata using the map_id
-			var map: RMap = Runtimedata.maps.by_id(map_id)
+			var map: RMap
+			if Runtimedata.maps:
+				map = Runtimedata.maps.by_id(map_id)
+			else:
+				var dmap = Gamedata.mods.by_id("Core").maps.by_id(map_id)
+				map = RMap.new(null,map_id,dmap.dataPath)
+				map.overwrite_from_dmap(dmap)
 			if map == null:
 				print_debug("create_tile_entries: Map not found for id: ", map_id)
 				continue

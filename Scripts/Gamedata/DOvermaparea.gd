@@ -85,6 +85,7 @@ extends RefCounted
 var id: String
 var name: String
 var description: String
+var parent: DOvermapareas
 
 # Dimensions of the overmap area
 var min_width: int
@@ -122,7 +123,8 @@ class Region:
 		return map_ids
 
 # Constructor to initialize overmaparea properties from a dictionary
-func _init(data: Dictionary):
+func _init(data: Dictionary, myparent: DOvermapareas):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
@@ -181,7 +183,7 @@ func changed(olddata: DOvermaparea):
 		Gamedata.mods.add_reference(DMod.ContentType.MAPS, map_id, DMod.ContentType.OVERMAPAREAS, id)
 
 	# Save the updated overmap area data to disk
-	Gamedata.overmapareas.save_overmapareas_to_disk()
+	parent.save_overmapareas_to_disk()
 
 
 # A overmaparea is being deleted from the data

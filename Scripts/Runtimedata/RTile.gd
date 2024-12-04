@@ -31,7 +31,6 @@ var shape: String
 var spriteid: String
 var sprite: Texture
 var categories: Array = []
-var references: Dictionary = {}
 var parent: RTiles
 
 # Constructor to initialize tile properties from a dictionary
@@ -51,7 +50,6 @@ func overwrite_from_dtile(dtile: DTile) -> void:
 	spriteid = dtile.spriteid
 	sprite = dtile.sprite
 	categories = dtile.categories.duplicate(true)
-	references = dtile.references.duplicate(true)
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -64,30 +62,4 @@ func get_data() -> Dictionary:
 	}
 	if shape and not shape == "":
 		data["shape"] = shape
-	if not references.is_empty():
-		data["references"] = references
 	return data
-
-# Remove a reference from this tile
-func remove_reference(module: String, type: String, refid: String):
-	if references.has(module) and references[module].has(type):
-		references[module][type].erase(refid)
-		if references[module][type].is_empty():
-			references[module].erase(type)
-		if references[module].is_empty():
-			references.erase(module)
-
-# Add a reference to this tile
-func add_reference(module: String, type: String, refid: String):
-	if not references.has(module):
-		references[module] = {}
-	if not references[module].has(type):
-		references[module][type] = []
-	if refid not in references[module][type]:
-		references[module][type].append(refid)
-
-# Execute a callable function on each reference of the given type
-func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
-	if references.has(module) and references[module].has(type):
-		for refid in references[module][type]:
-			callable.call(refid)

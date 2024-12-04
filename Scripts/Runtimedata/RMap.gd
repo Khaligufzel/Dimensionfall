@@ -99,7 +99,6 @@ var weight: int = 1000
 var mapwidth: int = 32
 var mapheight: int = 32
 var levels: Array = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
-var references: Dictionary = {}
 var areas: Array = []
 var sprite: Texture = null
  # Variable to store connections. For example: {"south": "road","west": "ground"} default to ground
@@ -126,7 +125,6 @@ func overwrite_from_dmap(dmap: DMap) -> void:
 	mapwidth = dmap.mapwidth
 	mapheight = dmap.mapheight
 	levels = dmap.levels.duplicate(true)
-	references = dmap.references.duplicate(true)
 	areas = dmap.areas.duplicate(true)
 	sprite = dmap.sprite
 	connections = dmap.connections.duplicate(true)
@@ -144,8 +142,6 @@ func get_data() -> Dictionary:
 	mydata["mapwidth"] = mapwidth
 	mydata["mapheight"] = mapheight
 	mydata["levels"] = levels
-	if not references.is_empty():
-		mydata["references"] = references
 	if not areas.is_empty():
 		mydata["areas"] = areas
 	if not connections.is_empty():  # Omit connections if empty

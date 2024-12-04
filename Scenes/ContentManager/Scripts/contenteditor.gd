@@ -190,7 +190,7 @@ func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: Packe
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.OVERMAPAREAS:
-			newContentEditor.dovermaparea = Gamedata.overmapareas.by_id(itemID)
+			newContentEditor.dovermaparea = currentmod.overmapareas.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.MOBGROUPS:
