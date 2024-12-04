@@ -141,17 +141,9 @@ func add_relations_controls(hbox: HBoxContainer, relation: Dictionary):
 	hbox.add_child(delete_button)
 
 # This function creates a relation from loaded data
+# This function creates a relation from loaded data
 func add_relation_from_data(relation: Dictionary):
-	var hbox: HBoxContainer
-	match relation["relation_type"]:
-		"core":
-			hbox = add_relation_type(relation)
-		"friendly":
-			hbox = add_relation_type(relation)
-		"neutral":
-			hbox = add_relation_type(relation)
-		"hostile":
-			hbox = add_relation_type(relation)
+	var hbox: HBoxContainer = add_relation_type(relation)
 	add_relations_controls(hbox, relation)
 	relations_container.add_child(hbox)
 
