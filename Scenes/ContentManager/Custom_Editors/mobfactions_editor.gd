@@ -75,25 +75,25 @@ func _on_save_button_button_up() -> void:
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
 			var relation_type = dropable_control.get_meta("relation_type")
-			relation["type"] = relation_type
+			relation["relation_type"] = relation_type
 		if relation_type_label.text == "Relation type:":
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
 			var relation_type = dropable_control.get_meta("relation_type")
-			relation["type"] = relation_type
+			relation["relation_type"] = relation_type
 		if relation_type_label.text == "Relation type:":
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
 			var relation_type = dropable_control.get_meta("relation_type")
-			relation["type"] = relation_type
+			relation["relation_type"] = relation_type
 		if relation_type_label.text == "Relation type:":
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
 			var relation_type = dropable_control.get_meta("relation_type")
-			relation["type"] = relation_type
+			relation["relation_type"] = relation_type
 			# Save as mob or mobgroup based on metadata
 			if entity_type == "mob":
 				relation["mob"] = mob_or_group
