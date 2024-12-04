@@ -4,33 +4,29 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles mob data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the data for one mobgroup. You can access it through Gamedata.mobgroups
+# This script handles the data for one mobfaction. You can access it through Gamedata.mobfactions
 
 
-# Represents a mob group and its properties.
-# This script is used for handling mob group data within the GameData autoload singleton.
-# Example mob group JSON:
+# Represents a mob faction and its properties.
+# This script is used for handling mob faction data within the GameData autoload singleton.
+# Example mob faction JSON:
 # {
-# 	"id": "basic_zombies",
-# 	"name": "Basic zombies",
-# 	"description": "The default, basic zombies posing a low threat to the player",
-# 	"spriteid": "scrapwalker64.png",
-# 	"references": {
-# 		"core": {
-# 			"maps": [
-# 				"Generichouse",
-# 				"store_electronic_clothing"
-# 			]
-# 		}
-# 	},
-# 	"mobs": {
-# 		"basic_zombie_1": 100,
-# 		"basic_zombie_2": 100,
-# 		"limping_zombie": 25,
-# 		"fast_zombie": 10,
-# 		"heavy_zombie": 25
-# 	}
-# }
+# 	"id": "undead",
+# 	"name": "The Undead",
+# 	"description": "The unholy remainders of our past sins.",
+#	"relations": [
+#			{
+#				"relation_type": "core"
+#				"mobgroup": ["basic_zombies", "basic_vampires"],
+#				"mobs": ["small slime", "big slime"]
+#			},
+#			{
+#				"relation_type": "hostile"
+#				"mobgroup": ["security_robots", "national_guard"],
+#				"mobs": ["jabberwock", "cerberus"]
+#			}
+#		]
+#	}
 
 # Properties defined in the JSON structure
 var id: String
@@ -41,7 +37,7 @@ var relations: Array = []
 var mobs: Dictionary = {}
 var mobgroups: Dictionary = {}
 
-# Constructor to initialize mob group properties from a dictionary
+# Constructor to initialize mob faction properties from a dictionary
 func _init(data: Dictionary):
 	id = data.get("id", "")
 	name = data.get("name", "")
@@ -51,7 +47,7 @@ func _init(data: Dictionary):
 	mobgroups = data.get("mobgroups", {})
 	relations = data.get("relations", {})
 
-# Returns all properties of the mob group as a dictionary
+# Returns all properties of the mob faction as a dictionary
 func get_data() -> Dictionary:
 	var data: Dictionary = {
 		"id": id,
