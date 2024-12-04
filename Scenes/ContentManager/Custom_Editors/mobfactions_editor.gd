@@ -124,8 +124,10 @@ func add_relation_type(relation: Dictionary) -> HBoxContainer:
 	hbox.add_child(label_instance)
 
 	# Add the dropable text edit for the mob or mobgroup ID
+	var entity_type: String = "mob" if relation.has("mob") else "mobgroup" if relation.has("mobgroup") else ""
 	var dropable_textedit_instance: HBoxContainer = dropabletextedit.instantiate()
 	dropable_textedit_instance.set_text(relation.get("mob", relation.get("mobgroup", "")))
+	dropable_textedit_instance.set_meta("entity_type", entity_type)
 	dropable_textedit_instance.set_meta("relation_type", relation.get("relation_type"))
 	dropable_textedit_instance.myplaceholdertext = "Drop a mob or mobgroup from the left menu"
 	set_drop_functions(dropable_textedit_instance)
