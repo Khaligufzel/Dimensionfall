@@ -3,21 +3,36 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles overmapareas data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of overmapareas. You can access it through Gamedata.overmapareas
+# This script handles the list of overmapareas. You can access it through Gamedata.mods.by_id("Core").overmapareas
 
 # Paths for overmapareas data and sprites
-var dataPath: String = "./Mods/Core/Overmapareas/Overmapareas.json"
+var dataPath: String = "./Mods/Core/Overmapareas/"
+var filePath: String = "./Mods/Core/Overmapareas/Overmapareas.json"
 var overmapareadict: Dictionary = {}
+var references: Dictionary = {}
 
-# Constructor
-func _init():
+# Add a mod_id parameter to dynamically initialize paths
+func _init(mod_id: String) -> void:
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Overmapareas/"
+	filePath = "./Mods/" + mod_id + "/Overmapareas/Overmapareas.json"
 	load_overmapareas_from_disk()
+	load_references()
+
+
+# Load references from references.json
+func load_references() -> void:
+	var path = dataPath + "references.json"
+	if FileAccess.file_exists(path):
+		references = Helper.json_helper.load_json_dictionary_file(path)
+	else:
+		references = {}  # Initialize an empty references dictionary if the file doesn't exist
 
 # Load all overmapareas data from disk into memory
 func load_overmapareas_from_disk() -> void:
-	var overmapareaslist: Array = Helper.json_helper.load_json_array_file(dataPath)
+	var overmapareaslist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for myovermaparea in overmapareaslist:
-		var overmaparea: DOvermaparea = DOvermaparea.new(myovermaparea)
+		var overmaparea: DOvermaparea = DOvermaparea.new(myovermaparea, self)
 		overmapareadict[overmaparea.id] = overmaparea
 
 # Called when data changes and needs to be saved
@@ -42,13 +57,13 @@ func duplicate_to_disk(overmapareaid: String, newovermapareaid: String) -> void:
 	# So we delete the references from the duplicated data if it is present
 	overmapareadata.erase("references")
 	overmapareadata.id = newovermapareaid
-	var newovermaparea: DOvermaparea = DOvermaparea.new(overmapareadata)
+	var newovermaparea: DOvermaparea = DOvermaparea.new(overmapareadata, self)
 	overmapareadict[newovermapareaid] = newovermaparea
 	save_overmapareas_to_disk()
 
 # Adds a new overmaparea with a given ID
 func add_new(newid: String) -> void:
-	var newovermaparea: DOvermaparea = DOvermaparea.new({"id": newid})
+	var newovermaparea: DOvermaparea = DOvermaparea.new({"id": newid}, self)
 	overmapareadict[newovermaparea.id] = newovermaparea
 	save_overmapareas_to_disk()
 

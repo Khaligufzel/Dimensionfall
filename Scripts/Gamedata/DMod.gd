@@ -41,6 +41,7 @@ var stats: DStats
 var quests: DQuests
 var overmapareas: DOvermapareas
 var mobgroups: DMobgroups
+var mobfactions: DMobfactions
 
 
 var content_instances: Dictionary
@@ -90,8 +91,9 @@ func _init(modinfo: Dictionary, myparent: DMods):
 	skills = DSkills.new()
 	stats = DStats.new(id)  # Pass the mod_id for stats initialization
 	quests = DQuests.new()
-	overmapareas = DOvermapareas.new()
+	overmapareas = DOvermapareas.new(id)
 	mobgroups = DMobgroups.new()
+	mobfactions = DMobfactions.new()
 
 	# Initialize content type instances specific to this mod
 	content_instances = {
@@ -108,7 +110,8 @@ func _init(modinfo: Dictionary, myparent: DMods):
 		ContentType.SKILLS: skills,
 		ContentType.QUESTS: quests,
 		ContentType.OVERMAPAREAS: overmapareas,
-		ContentType.MOBGROUPS: mobgroups
+		ContentType.MOBGROUPS: mobgroups,
+		ContentType.MOBFACTIONS: mobfactions
 	}
 
 
@@ -164,6 +167,7 @@ static func get_content_type_string(type: ContentType) -> String:
 		ContentType.QUESTS: return "quests"
 		ContentType.OVERMAPAREAS: return "overmapareas"
 		ContentType.MOBGROUPS: return "mobgroups"
+		ContentType.MOBFACTIONS: return "mobfactions"
 		_:
 			print_debug("Unknown ContentType: " + str(type))
 			return ""

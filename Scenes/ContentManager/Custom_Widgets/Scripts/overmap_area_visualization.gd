@@ -8,7 +8,7 @@ extends Control
 
 
 # Variable to store the area
-var myovermaparea: DOvermaparea
+var myovermaparea: ROvermaparea
 
 
 func _on_generate_button_button_up() -> void:
@@ -41,7 +41,7 @@ func generate_grid():
 			# Check if there is a tile at the current position in mygrid
 			if mygrid.has(current_position):
 				var tileinfo = mygrid[current_position]
-				var dmap: DMap = tileinfo.dmap
+				var dmap: RMap = tileinfo.rmap
 				var myrotation: int = tileinfo.rotation
 				tile_instance.set_texture(dmap.sprite)
 				# HACK: Second argument is the pivot offset. The automatic calculations for this are
@@ -52,9 +52,8 @@ func generate_grid():
 				tile_instance.set_texture(null)
 
 
-
 # Function to set the dimensions for the area generator based on the dovermaparea data
-func set_area_dimensions(dovermaparea: DOvermaparea) -> Vector2:
+func set_area_dimensions(dovermaparea: ROvermaparea) -> Vector2:
 	var mywidth: int = int(width_spin_box.value)
 	var myheight: int = int(height_spin_box.value)
 	# Check if the dimensions are already set to a non-default value
@@ -75,4 +74,6 @@ func set_area_dimensions(dovermaparea: DOvermaparea) -> Vector2:
 
 # Setter method to update the selected area
 func set_area(newarea: DOvermaparea) -> void:
-	myovermaparea = newarea
+	var rovermaparea: ROvermaparea = ROvermaparea.new(null,newarea.id)
+	rovermaparea.overwrite_from_dovermaparea(newarea)
+	myovermaparea = rovermaparea

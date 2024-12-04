@@ -85,6 +85,7 @@ extends RefCounted
 var id: String
 var name: String
 var description: String
+var parent: DOvermapareas
 
 # Dimensions of the overmap area
 var min_width: int
@@ -95,7 +96,6 @@ var max_height: int
 # Regions data, which includes spawn probability and maps for each region type
 var regions: Dictionary = {}  # Example structure: { "urban": { "spawn_probability": { "range": { "start_range": 0, "end_range": 30 } }, "maps": [...] }, ... }
 
-var references: Dictionary = {}
 
 # Inner class to represent a region within the overmap area
 class Region:
@@ -123,7 +123,8 @@ class Region:
 		return map_ids
 
 # Constructor to initialize overmaparea properties from a dictionary
-func _init(data: Dictionary):
+func _init(data: Dictionary, myparent: DOvermapareas):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
@@ -140,7 +141,6 @@ func _init(data: Dictionary):
 		var spawn_probability = region_data.get("spawn_probability", {})
 		var maps = region_data.get("maps", [])
 		regions[region_key] = Region.new(spawn_probability, maps)
-	references = data.get("references", {})
 
 
 # Get data function to return a dictionary with all properties
@@ -158,29 +158,12 @@ func get_data() -> Dictionary:
 	# Add regions data to the dictionary
 	for region_key in regions.keys():
 		data["regions"][region_key] = regions[region_key].get_data()
-
-	if not references.is_empty():
-		data["references"] = references
 	return data
 
 
 # Method to save any changes to the overmaparea back to disk
 func save_to_disk():
 	Gamedata.mods.by_id("Core").overmapareas.save_overmapareas_to_disk()
-
-
-# Removes the provided reference from references
-func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
-	if changes_made:
-		save_to_disk()
-
-
-# Adds a reference to the references list
-func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.overmapareas.save_overmapareas_to_disk()
 
 
 # Some overmaparea has been changed
@@ -200,30 +183,21 @@ func changed(olddata: DOvermaparea):
 		Gamedata.mods.add_reference(DMod.ContentType.MAPS, map_id, DMod.ContentType.OVERMAPAREAS, id)
 
 	# Save the updated overmap area data to disk
-	Gamedata.overmapareas.save_overmapareas_to_disk()
+	parent.save_overmapareas_to_disk()
 
 
 # A overmaparea is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-			
-	# Remove references to this itemgroup from maps.
-	var mapsdata = Helper.json_helper.get_nested_data(references,"core.maps")
-	if mapsdata:
-		Gamedata.mods.by_id("Core").maps.remove_entity_from_selected_maps("itemgroup", id, mapsdata)
+	# Check to see if any mod has a copy of this overmaparea. if one or more remain, we can keep references
+	# Otherwise, the last copy was removed and we need to remove references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.OVERMAPAREAS, id)
+	if all_results.size() > 0:
+		return
 		
-	var new_map_ids = get_all_map_ids()
-	for map: String in new_map_ids:
-		Gamedata.mods.by_id("Core").maps.remove_reference_from_map(map,"core", "overmapareas",id)
-
-
-# Executes a callable function on each reference of the given type
-func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
-	# Check if it contains the specified 'module' and 'type'
-	if references.has(module) and references[module].has(type):
-		# If the type exists, execute the callable on each ID found under this type
-		for ref_id in references[module][type]:
-			callable.call(ref_id)
+	var map_ids = get_all_map_ids()
+	for map: String in map_ids:
+		Gamedata.mods.remove_reference(DMod.ContentType.MAPS, map, DMod.ContentType.OVERMAPAREAS, id)
 
 
 # Function to retrieve a list of all unique map IDs across all regions in the overmap area

@@ -68,7 +68,7 @@ func changed(_olddata: DTile):
 # A tile is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	# Check to see if any mod has a copy of this map. if one or more remain, we can keep references
+	# Check to see if any mod has a copy of this tile. if one or more remain, we can keep references
 	# Otherwise, the last copy was removed and we need to remove references
 	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.TILES, id)
 	if all_results.size() > 0:

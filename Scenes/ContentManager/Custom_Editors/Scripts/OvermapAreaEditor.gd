@@ -102,13 +102,13 @@ signal data_changed()
 var olddata: DOvermaparea # Remember what the value of the data was before editing
 
 # The data that represents this overmaparea
-# The data is selected from the Gamedata.overmapareas
+# The data is selected from the Gamedata.mods.by_id("Core").overmapareas
 # based on the ID that the user has selected in the content editor
 var dovermaparea: DOvermaparea = null:
 	set(value):
 		dovermaparea = value
 		load_overmaparea_data()
-		olddata = DOvermaparea.new(dovermaparea.get_data().duplicate(true))
+		olddata = DOvermaparea.new(dovermaparea.get_data().duplicate(true), null)
 
 
 # This function updates the form based on the DOvermaparea that has been loaded
@@ -154,7 +154,7 @@ func _on_close_button_button_up() -> void:
 
 
 # This function takes all data from the form elements and stores them in the DOvermaparea instance
-# Since dovermaparea is a reference to an item in Gamedata.overmapareas
+# Since dovermaparea is a reference to an entity in Gamedata.mods.by_id("Core").overmapareas
 # the central array for overmaparea data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
@@ -192,7 +192,7 @@ func _on_save_button_button_up() -> void:
 	data_changed.emit()
 
 	# Store the current data as the old data for future comparisons
-	olddata = DOvermaparea.new(dovermaparea.get_data().duplicate(true))
+	olddata = DOvermaparea.new(dovermaparea.get_data().duplicate(true), null)
 
 
 # Function called when the "Add Region" button is pressed

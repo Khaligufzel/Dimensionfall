@@ -495,7 +495,7 @@ func place_overmap_areas() -> void:
 	# Loop to place up to 10 overmap areas on the grid
 	for n in range(10):
 		var mygenerator = OvermapAreaGenerator.new()
-		var dovermaparea = Gamedata.overmapareas.by_id(Gamedata.overmapareas.get_random_area().id)
+		var dovermaparea = Runtimedata.overmapareas.by_id(Runtimedata.overmapareas.get_random_area().id)
 		mygenerator.dovermaparea = dovermaparea
 
 		# Generate the area
