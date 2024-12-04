@@ -6,7 +6,6 @@ extends Control
 # To load data, provide the name of the mobfaction data file and an ID
 
 @export var IDTextLabel: Label = null
-# @export var PathTextLabel: Label = null
 @export var NameTextEdit: TextEdit = null
 @export var DescriptionTextEdit: TextEdit = null
 @export var mob_list: GridContainer = null
@@ -29,12 +28,6 @@ var dmobfaction: DMobfaction = null:
 		dmobfaction = value
 		load_mobfaction_data()
 		olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true))
-
-
-
-# Forward drag-and-drop functionality to the attributesGridContainer
-#func _ready() -> void:
-	#relation_list.set_drag_forwarding(Callable(), _can_drop_mob_data, _drop_mob_data)
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -75,25 +68,25 @@ func _on_save_button_button_up() -> void:
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
 			var relation_type = dropable_control.get_meta("relation_type")
-			relation["type"] = relation_type
+			relation["relation_type"] = relation_type
 		if relation_type_label.text == "Relation type:":
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
 			var relation_type = dropable_control.get_meta("relation_type")
-			relation["type"] = relation_type
+			relation["relation_type"] = relation_type
 		if relation_type_label.text == "Relation type:":
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
 			var relation_type = dropable_control.get_meta("relation_type")
-			relation["type"] = relation_type
+			relation["relation_type"] = relation_type
 		if relation_type_label.text == "Relation type:":
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
 			var relation_type = dropable_control.get_meta("relation_type")
-			relation["type"] = relation_type
+			relation["relation_type"] = relation_type
 			# Save as mob or mobgroup based on metadata
 			if entity_type == "mob":
 				relation["mob"] = mob_or_group
@@ -131,8 +124,10 @@ func add_relation_type(relation: Dictionary) -> HBoxContainer:
 	hbox.add_child(label_instance)
 
 	# Add the dropable text edit for the mob or mobgroup ID
+	var entity_type: String = "mob" if relation.has("mob") else "mobgroup" if relation.has("mobgroup") else ""
 	var dropable_textedit_instance: HBoxContainer = dropabletextedit.instantiate()
 	dropable_textedit_instance.set_text(relation.get("mob", relation.get("mobgroup", "")))
+	dropable_textedit_instance.set_meta("entity_type", entity_type)
 	dropable_textedit_instance.set_meta("relation_type", relation.get("relation_type"))
 	dropable_textedit_instance.myplaceholdertext = "Drop a mob or mobgroup from the left menu"
 	set_drop_functions(dropable_textedit_instance)
@@ -146,17 +141,9 @@ func add_relations_controls(hbox: HBoxContainer, relation: Dictionary):
 	hbox.add_child(delete_button)
 
 # This function creates a relation from loaded data
+# This function creates a relation from loaded data
 func add_relation_from_data(relation: Dictionary):
-	var hbox: HBoxContainer
-	match relation["relation_type"]:
-		"core":
-			hbox = add_relation_type(relation)
-		"friendly":
-			hbox = add_relation_type(relation)
-		"neutral":
-			hbox = add_relation_type(relation)
-		"hostile":
-			hbox = add_relation_type(relation)
+	var hbox: HBoxContainer = add_relation_type(relation)
 	add_relations_controls(hbox, relation)
 	relations_container.add_child(hbox)
 
@@ -169,46 +156,18 @@ func get_child_index(container: VBoxContainer, child: Control) -> int:
 	return -1
 
 func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
-	if dropped_data and "id" in dropped_data:
-		var relation_type = texteditcontrol.get_meta("relation_type")
-		var valid_data = false
-		var entity_type = ""  # To store whether it is mob or mobgroup
-		
-		match relation_type:
-			"core":
-				if Gamedata.mobs.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mob"
-				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mobgroup"
-			"friendly":
-				if Gamedata.mobs.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mob"
-				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mobgroup"
-			"neutral":
-				if Gamedata.mobs.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mob"
-				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mobgroup"
-			"hostile":
-				if Gamedata.mobs.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mob"
-				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mobgroup"
-					
+	var valid_data = false
+	var entity_type = ""
+	if dropped_data and dropped_data.has("id"):
+		if Gamedata.mobs.has_id(dropped_data["id"]):
+			valid_data = true
+			entity_type = "mob"
+		elif Gamedata.mobgroups.has_id(dropped_data["id"]):
+			valid_data = true
+			entity_type = "mobgroup"
 		if valid_data:
 			texteditcontrol.set_text(dropped_data["id"])
-			if relation_type == "core" or relation_type == "friendly" or relation_type == "neutral" or relation_type == "hostile":
-				# Set metadata to specify if this is a mob or mobgroup
-				texteditcontrol.set_meta("entity_type", entity_type)
+			texteditcontrol.set_meta("entity_type", entity_type)
 # Determines if the dropped data can be accepted
 func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> bool:
 	if not dropped_data or not dropped_data.has("id"):

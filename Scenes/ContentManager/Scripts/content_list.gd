@@ -179,7 +179,7 @@ func _drop_data(newpos, data) -> void:
 # Helper function to create a preview Control for dragging
 func _create_drag_preview(item_id: String) -> Control:
 	var preview = TextureRect.new()
-	if not contentType == DMod.ContentType.TACTICALMAPS and not contentType == DMod.ContentType.OVERMAPAREAS:
+	if not contentType == DMod.ContentType.TACTICALMAPS and not contentType == DMod.ContentType.OVERMAPAREAS and not contentType == DMod.ContentType.MOBFACTIONS:
 		preview.texture = datainstance.sprite_by_id(item_id)
 
 	preview.custom_minimum_size = Vector2(32, 32)  # Set the desired size for your preview
