@@ -1,9 +1,9 @@
 class_name DMobfactions
 extends RefCounted
 
-# There's a D in front of the class name to indicate this class only handles mob group data, nothing more
+# There's a D in front of the class name to indicate this class only handles mob faction data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of mob groups. You can access it through Gamedata.mobgroups
+# This script handles the list of mob factions. You can access it through Gamedata.mobfactions
 
 var dataPath: String = "./Mods/Core/Mobfaction/Mobfactions.json"
 var spritePath: String = "./Mods/Core/Items/"
@@ -28,7 +28,7 @@ func load_sprites() -> void:
 func sprite_by_id(mobfactionid: String) -> Texture:
 	return mobfactiondict[mobfactionid].sprite
 
-# Load all mob group data from disk into memory
+# Load all mob faction data from disk into memory
 func load_mobfactions_from_disk() -> void:
 	var mobfactionlist: Array = Helper.json_helper.load_json_array_file(dataPath)
 	for mymobfaction in mobfactionlist:
@@ -38,7 +38,7 @@ func load_mobfactions_from_disk() -> void:
 func on_data_changed():
 	save_mobfactions_to_disk()
 
-# Saves all mob groups to disk
+# Saves all mob factions to disk
 func save_mobfactions_to_disk() -> void:
 	var save_data: Array = []
 	for mobfaction in mobfactiondict.values():

@@ -6,7 +6,6 @@ extends Control
 # To load data, provide the name of the mobfaction data file and an ID
 
 @export var IDTextLabel: Label = null
-# @export var PathTextLabel: Label = null
 @export var NameTextEdit: TextEdit = null
 @export var DescriptionTextEdit: TextEdit = null
 @export var mob_list: GridContainer = null
@@ -29,12 +28,6 @@ var dmobfaction: DMobfaction = null:
 		dmobfaction = value
 		load_mobfaction_data()
 		olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true))
-
-
-
-# Forward drag-and-drop functionality to the attributesGridContainer
-#func _ready() -> void:
-	#relation_list.set_drag_forwarding(Callable(), _can_drop_mob_data, _drop_mob_data)
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
