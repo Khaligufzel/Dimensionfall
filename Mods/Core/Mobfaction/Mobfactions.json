@@ -12,10 +12,11 @@
 		"relations": [
 			{
 				"relation_type": "core"
+				"mobgroup": "basic_zombies"
 			},
 			{
 				"mobgroup": "security_robots",
-				"relation_type": "hostile"
+				"type": "hostile"
 			}
 		]
 	},

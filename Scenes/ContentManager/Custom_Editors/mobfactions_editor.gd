@@ -6,7 +6,6 @@ extends Control
 # To load data, provide the name of the mobfaction data file and an ID
 
 @export var IDTextLabel: Label = null
-# @export var PathTextLabel: Label = null
 @export var NameTextEdit: TextEdit = null
 @export var DescriptionTextEdit: TextEdit = null
 @export var mob_list: GridContainer = null
@@ -29,12 +28,6 @@ var dmobfaction: DMobfaction = null:
 		dmobfaction = value
 		load_mobfaction_data()
 		olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true))
-
-
-
-# Forward drag-and-drop functionality to the attributesGridContainer
-#func _ready() -> void:
-	#relation_list.set_drag_forwarding(Callable(), _can_drop_mob_data, _drop_mob_data)
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -131,8 +124,10 @@ func add_relation_type(relation: Dictionary) -> HBoxContainer:
 	hbox.add_child(label_instance)
 
 	# Add the dropable text edit for the mob or mobgroup ID
+	var entity_type: String = "mob" if relation.has("mob") else "mobgroup" if relation.has("mobgroup") else ""
 	var dropable_textedit_instance: HBoxContainer = dropabletextedit.instantiate()
 	dropable_textedit_instance.set_text(relation.get("mob", relation.get("mobgroup", "")))
+	dropable_textedit_instance.set_meta("entity_type", entity_type)
 	dropable_textedit_instance.set_meta("relation_type", relation.get("relation_type"))
 	dropable_textedit_instance.myplaceholdertext = "Drop a mob or mobgroup from the left menu"
 	set_drop_functions(dropable_textedit_instance)
