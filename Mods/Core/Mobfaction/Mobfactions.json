@@ -11,8 +11,8 @@
 		"name": "The Undead",
 		"relations": [
 			{
-				"mobgroup": "basic_zombies",
-				"type": "core"
+				"relation_type": "core"
+				"mobgroup": "basic_zombies"
 			},
 			{
 				"mobgroup": "security_robots",
