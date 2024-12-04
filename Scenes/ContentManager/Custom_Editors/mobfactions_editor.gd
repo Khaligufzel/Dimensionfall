@@ -169,46 +169,18 @@ func get_child_index(container: VBoxContainer, child: Control) -> int:
 	return -1
 
 func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
-	if dropped_data and "id" in dropped_data:
-		var relation_type = texteditcontrol.get_meta("relation_type")
-		var valid_data = false
-		var entity_type = ""  # To store whether it is mob or mobgroup
-		
-		match relation_type:
-			"core":
-				if Gamedata.mobs.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mob"
-				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mobgroup"
-			"friendly":
-				if Gamedata.mobs.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mob"
-				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mobgroup"
-			"neutral":
-				if Gamedata.mobs.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mob"
-				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mobgroup"
-			"hostile":
-				if Gamedata.mobs.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mob"
-				elif Gamedata.mobgroups.has_id(dropped_data["id"]):
-					valid_data = true
-					entity_type = "mobgroup"
-					
+	var valid_data = false
+	var entity_type = ""
+	if dropped_data and dropped_data.has("id"):
+		if Gamedata.mobs.has_id(dropped_data["id"]):
+			valid_data = true
+			entity_type = "mob"
+		elif Gamedata.mobgroups.has_id(dropped_data["id"]):
+			valid_data = true
+			entity_type = "mobgroup"
 		if valid_data:
 			texteditcontrol.set_text(dropped_data["id"])
-			if relation_type == "core" or relation_type == "friendly" or relation_type == "neutral" or relation_type == "hostile":
-				# Set metadata to specify if this is a mob or mobgroup
-				texteditcontrol.set_meta("entity_type", entity_type)
+			texteditcontrol.set_meta("entity_type", entity_type)
 # Determines if the dropped data can be accepted
 func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> bool:
 	if not dropped_data or not dropped_data.has("id"):
