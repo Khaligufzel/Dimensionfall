@@ -24,15 +24,16 @@ var name: String
 var description: String
 var spriteid: String
 var sprite: Texture
-var references: Dictionary = {}
+var parent: DSkills
 
 # Constructor to initialize skill properties from a dictionary
-func _init(data: Dictionary):
+# myparent: The list containing all skills for this mod
+func _init(data: Dictionary, myparent: DSkills):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
 	spriteid = data.get("sprite", "")
-	references = data.get("references", {})
 
 
 # Get data function to return a dictionary with all properties
@@ -43,30 +44,16 @@ func get_data() -> Dictionary:
 		"description": description,
 		"sprite": spriteid
 	}
-	if not references.is_empty():
-		data["references"] = references
 	return data
 
 # Method to save any changes to the skill back to disk
 func save_to_disk():
-	Gamedata.skills.save_skills_to_disk()
-
-# Removes the provided reference from references
-func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.skills.save_skills_to_disk()
-
-# Adds a reference to the references list
-func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.skills.save_skills_to_disk()
+	parent.save_skills_to_disk()
 
 # Some skill has been changed
 # INFO if the skill references other entities, update them here
 func changed(_olddata: DSkill):
-	Gamedata.skills.save_skills_to_disk()
+	parent.save_skills_to_disk()
 
 # A skill is being deleted from the data
 # We have to remove it from everything that references it
@@ -81,7 +68,7 @@ func delete():
 	
 	# Pass the callable to every item in the skill's references
 	# It will call myfunc on every item in skill_data.references.core.items
-	execute_callable_on_references_of_type("core", "items", myfunc)
+	execute_callable_on_references_of_type(DMod.ContentType.ITEMS, myfunc)
 	
 	# Save changes to the data file if any changes were made
 	if changes.made:
@@ -91,9 +78,15 @@ func delete():
 
 
 # Executes a callable function on each reference of the given type
-func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
+# type: The type of entity that you want to execute the callable for
+# callable: The function that will be executed for every entity of this type
+func execute_callable_on_references_of_type(type: DMod.ContentType, callable: Callable):
+	# myreferences will ba dictionary that contains entity types that have references to this skill's id
+	# See DMod.add_reference for an example structure of references
+	var myreferences: Dictionary = parent.references.get(id, {})
+	var type_string: String = DMod.get_content_type_string(type)
 	# Check if it contains the specified 'module' and 'type'
-	if references.has(module) and references[module].has(type):
+	if myreferences.has(type_string):
 		# If the type exists, execute the callable on each ID found under this type
-		for ref_id in references[module][type]:
+		for ref_id in myreferences[type_string]:
 			callable.call(ref_id)

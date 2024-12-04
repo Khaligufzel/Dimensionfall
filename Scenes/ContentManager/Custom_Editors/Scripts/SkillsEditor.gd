@@ -19,14 +19,14 @@ signal data_changed()
 var olddata: DSkill # Remember what the value of the data was before editing
 
 # The data that represents this skill
-# The data is selected from the Gamedata.skills
+# The data is selected from the dskill.parent
 # based on the ID that the user has selected in the content editor
 var dskill: DSkill = null:
 	set(value):
 		dskill = value
 		load_skill_data()
-		skillSelector.sprites_collection = Gamedata.skills.sprites
-		olddata = DSkill.new(dskill.get_data().duplicate(true))
+		skillSelector.sprites_collection = dskill.parent.sprites
+		olddata = DSkill.new(dskill.get_data().duplicate(true), null)
 
 # This function updates the form based on the DSkill that has been loaded
 func load_skill_data() -> void:
@@ -46,7 +46,7 @@ func _on_close_button_button_up() -> void:
 	queue_free()
 
 # This function takes all data from the form elements and stores them in the DSkill instance
-# Since dskill is a reference to an item in Gamedata.skills
+# Since dskill is a reference to an item in dskill.parent
 # the central array for skill data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
@@ -56,7 +56,7 @@ func _on_save_button_button_up() -> void:
 	dskill.sprite = skillImageDisplay.texture
 	dskill.save_to_disk()
 	data_changed.emit()
-	olddata = DSkill.new(dskill.get_data().duplicate(true))
+	olddata = DSkill.new(dskill.get_data().duplicate(true), null)
 
 # When the skillImageDisplay is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/Skills/". The texture of the skillImageDisplay will change to the selected image

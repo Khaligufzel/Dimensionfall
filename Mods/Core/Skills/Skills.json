@@ -45,16 +45,6 @@
 		"description": "Skill in crafting objects from raw materials, including tools, weapons, and other gear, often essential for survival.",
 		"id": "fabrication",
 		"name": "Fabrication",
-		"references": {
-			"core": {
-				"items": [
-					"pistol_magazine",
-					"cutting_board",
-					"rolling_pin",
-					"stone_spear"
-				]
-			}
-		},
 		"sprite": "crafting_32.png"
 	},
 	{
@@ -79,13 +69,6 @@
 		"description": "Expertise in handling and repairing electronic devices and components, from simple circuits to complex systems.",
 		"id": "electronics",
 		"name": "Electronics",
-		"references": {
-			"core": {
-				"items": [
-					"transmitter"
-				]
-			}
-		},
 		"sprite": "electronics_32.png"
 	},
 	{
@@ -110,26 +93,12 @@
 		"description": "Proficiency in handling and maintaining pistols, enhancing accuracy and reload speed, especially in close combat.",
 		"id": "handguns",
 		"name": "Handguns",
-		"references": {
-			"core": {
-				"items": [
-					"pistol_9mm"
-				]
-			}
-		},
 		"sprite": "handgun_32.png"
 	},
 	{
 		"description": "Expertise in using rifles, improving long-range accuracy and maintenance of such firearms.",
 		"id": "rifle",
 		"name": "Rifle",
-		"references": {
-			"core": {
-				"items": [
-					"rifle_m4a1"
-				]
-			}
-		},
 		"sprite": "rifle_32.png"
 	},
 	{
@@ -142,13 +111,6 @@
 		"description": "Proficiency with submachine guns, focusing on rapid fire and handling, ideal for close to mid-range combat.",
 		"id": "smg",
 		"name": "Smg",
-		"references": {
-			"core": {
-				"items": [
-					"chugunov_mpap"
-				]
-			}
-		},
 		"sprite": "smg_32.png"
 	},
 	{
@@ -167,28 +129,12 @@
 		"description": "Skill in using blunt weapons to inflict damage, increasing force and effectiveness in close combat.",
 		"id": "bashing",
 		"name": "Bashing",
-		"references": {
-			"core": {
-				"items": [
-					"stick",
-					"long_stick"
-				]
-			}
-		},
 		"sprite": "bashing_32.png"
 	},
 	{
 		"description": "Skill in using sharp weapons like knives and swords, enhancing precision and damage during melee combat.",
 		"id": "cutting",
 		"name": "Cutting",
-		"references": {
-			"core": {
-				"items": [
-					"machete",
-					"stone_spear"
-				]
-			}
-		},
 		"sprite": "stabbing_32.png"
 	},
 	{

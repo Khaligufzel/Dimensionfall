@@ -25,7 +25,6 @@ var name: String
 var description: String
 var spriteid: String
 var sprite: Texture
-var references: Dictionary = {}
 var parent: RSkills  # Reference to the list containing all runtime skills for this mod
 
 # Constructor to initialize skill properties from a dictionary
@@ -43,7 +42,6 @@ func overwrite_from_dskill(dskill: DSkill) -> void:
 	description = dskill.description
 	spriteid = dskill.spriteid
 	sprite = dskill.sprite
-	references = dskill.references.duplicate(true)
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
