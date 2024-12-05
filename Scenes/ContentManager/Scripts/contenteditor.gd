@@ -186,7 +186,7 @@ func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: Packe
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.QUESTS:
-			newContentEditor.dquest = Gamedata.quests.by_id(itemID)
+			newContentEditor.dquest = currentmod.quests.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.OVERMAPAREAS:

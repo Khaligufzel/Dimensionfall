@@ -23,14 +23,14 @@ signal data_changed()
 var olddata: DQuest  # Remember what the value of the data was before editing
 
 # The data that represents this quest
-# The data is selected from Gamedata.quests
+# The data is selected from dquest.parent.quests
 # based on the ID that the user has selected in the content editor
 var dquest: DQuest = null:
 	set(value):
 		dquest = value
 		load_quest_data()
-		questSelector.sprites_collection = Gamedata.quests.sprites
-		olddata = DQuest.new(dquest.get_data().duplicate(true))
+		questSelector.sprites_collection = dquest.parent.sprites
+		olddata = DQuest.new(dquest.get_data().duplicate(true), null)
 
 func _ready():
 	# Set custom can_drop_func and drop_func for the rewardscontainer, use default drag_func
@@ -66,7 +66,7 @@ func load_quest_data() -> void:
 			add_reward_entry(reward["item_id"], reward["amount"], true)
 
 # This function takes all data from the form elements and stores them in the DQuest instance
-# Since dquest is a reference to an item in Gamedata.quests
+# Since dquest is a reference to an item in Gamedata.mods.by_id("Core").quests
 # the central array for quest data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
@@ -144,7 +144,7 @@ func _on_save_button_button_up() -> void:
 
 	dquest.changed(olddata)
 	data_changed.emit()
-	olddata = DQuest.new(dquest.get_data().duplicate(true))
+	olddata = DQuest.new(dquest.get_data().duplicate(true), null)
 
 
 # When the questImageDisplay is clicked, the user will be prompted to select an image from 

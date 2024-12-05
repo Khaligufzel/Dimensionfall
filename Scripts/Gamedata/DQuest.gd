@@ -81,7 +81,7 @@ func get_data() -> Dictionary:
 
 # Method to save any changes to the quest back to disk
 func save_to_disk():
-	Gamedata.quests.save_quests_to_disk()
+	parent.save_quests_to_disk()
 
 
 # Handles quest deletion

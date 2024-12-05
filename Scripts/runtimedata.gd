@@ -13,7 +13,7 @@ var playerattributes: DPlayerAttributes
 var wearableslots: DWearableSlots
 var skills: RSkills
 var stats: RStats
-var quests: DQuests
+var quests: RQuests
 var overmapareas: ROvermapareas
 var mobgroups: DMobgroups
 
@@ -34,6 +34,7 @@ func reconstruct() -> void:
 	maps = RMaps.new()
 	tiles = RTiles.new()
 	overmapareas = ROvermapareas.new()
+	quests = RQuests.new()
 	
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
@@ -42,5 +43,6 @@ func reconstruct() -> void:
 		DMod.ContentType.MAPS: maps,
 		DMod.ContentType.TACTICALMAPS: tacticalmaps,
 		DMod.ContentType.TILES: tiles,
-		DMod.ContentType.OVERMAPAREAS: overmapareas
+		DMod.ContentType.OVERMAPAREAS: overmapareas,
+		DMod.ContentType.QUESTS: quests
 	}

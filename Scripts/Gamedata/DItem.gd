@@ -678,7 +678,7 @@ func delete():
 	
 	# This callable will handle the removal of this item from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
-		Gamedata.quests.remove_item_from_quest(quest_id, id)
+		Gamedata.mods.by_id("Core").quests.remove_item_from_quest(quest_id, id)
 
 	# Pass the callable to every quest in the item's references
 	# It will call remove_from_quest on every item in item_data.references.core.quests
