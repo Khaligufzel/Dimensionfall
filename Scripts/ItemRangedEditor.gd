@@ -89,14 +89,13 @@ func load_properties() -> void:
 		skill_xp_spin_box.value = ditem.ranged.used_skill["xp"]
 
 
-
 # Called when the user has successfully dropped data onto the skillTextEdit
 # We have to check the dropped_data for the id property
 func skill_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
 	# dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var skill_id = dropped_data["id"]
-		if not Gamedata.skills.has_id(skill_id):
+		if not Gamedata.mods.by_id(dropped_data["mod_id"]).skills.has_id(skill_id):
 			print_debug("No item data found for ID: " + skill_id)
 			return
 		texteditcontrol.set_text(skill_id)
@@ -110,7 +109,7 @@ func can_skill_drop(dropped_data: Dictionary):
 		return false
 	
 	# Fetch skill data by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.skills.has_id(dropped_data["id"]):
+	if not Gamedata.mods.by_id(dropped_data["mod_id"]).skills.has_id(dropped_data["id"]):
 		return false
 
 	# If all checks pass, return true

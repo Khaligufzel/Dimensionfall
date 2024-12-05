@@ -101,7 +101,7 @@ func initialize_stats_and_skills():
 	Helper.signal_broker.player_stat_changed.emit(self)
 	
 	# Initialize all skills with a value of level 1 and 0 XP
-	for skill in Gamedata.skills.get_all().values():
+	for skill in Runtimedata.skills.get_all().values():
 		skills[skill.id] = {"level": 1, "xp": 0}
 	Helper.signal_broker.player_skill_changed.emit(self)
 

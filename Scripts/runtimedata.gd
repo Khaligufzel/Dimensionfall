@@ -11,7 +11,7 @@ var mobs: DMobs
 var itemgroups: DItemgroups
 var playerattributes: DPlayerAttributes
 var wearableslots: DWearableSlots
-var skills: DSkills
+var skills: RSkills
 var stats: RStats
 var quests: DQuests
 var overmapareas: ROvermapareas
@@ -29,6 +29,7 @@ func get_data_of_type(type: DMod.ContentType) -> RefCounted:
 func reconstruct() -> void:
 	# Clear the stats by resetting the instance
 	stats = RStats.new()
+	skills = RSkills.new()
 	tacticalmaps = RTacticalmaps.new()
 	maps = RMaps.new()
 	tiles = RTiles.new()
@@ -37,6 +38,7 @@ func reconstruct() -> void:
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
 		DMod.ContentType.STATS: stats,
+		DMod.ContentType.SKILLS: skills,
 		DMod.ContentType.MAPS: maps,
 		DMod.ContentType.TACTICALMAPS: tacticalmaps,
 		DMod.ContentType.TILES: tiles,

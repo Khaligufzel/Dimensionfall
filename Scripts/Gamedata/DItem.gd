@@ -619,11 +619,11 @@ func update_item_skill_references(olddata: DItem):
 	# Remove old skill references that are not in the new list
 	for old_skill_id in old_skill_ids:
 		if not new_skill_ids.has(old_skill_id):
-			Gamedata.skills.remove_reference(old_skill_id, "core", "items", id)
+			Gamedata.mods.remove_reference(DMod.ContentType.SKILLS, old_skill_id, DMod.ContentType.ITEMS, id)
 	
 	# Add new skill references
 	for new_skill_id in new_skill_ids:
-		Gamedata.skills.add_reference(new_skill_id, "core", "items", id)
+		Gamedata.mods.add_reference(DMod.ContentType.SKILLS, new_skill_id, DMod.ContentType.ITEMS, id)
 
 
 # Collects all attributes defined in an item and updates the references to that attribute
@@ -717,7 +717,7 @@ func delete():
 
 	# Remove the reference of this item from each skill
 	for skill_id in skill_ids.keys():
-		Gamedata.skills.remove_reference(skill_id, "core", "items", id)
+		Gamedata.mods.remove_reference(DMod.ContentType.SKILLS, skill_id, DMod.ContentType.ITEMS, id)
 
 	# Save changes to the data file if any changes were made
 	if changes_made["value"]:
