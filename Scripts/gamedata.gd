@@ -9,7 +9,6 @@ var mobs: DMobs
 var itemgroups: DItemgroups
 var playerattributes: DPlayerAttributes
 var wearableslots: DWearableSlots
-var skills: DSkills
 var quests: DQuests
 var mobgroups: DMobgroups
 var mobfactions: DMobfactions
@@ -55,7 +54,6 @@ func _ready():
 	itemgroups = DItemgroups.new()
 	playerattributes = DPlayerAttributes.new()
 	wearableslots = DWearableSlots.new()
-	skills = DSkills.new()
 	quests = DQuests.new()
 	mobgroups = DMobgroups.new()
 	mobfactions = DMobfactions.new()
@@ -72,7 +70,7 @@ func _ready():
 		DMod.ContentType.PLAYERATTRIBUTES: playerattributes,
 		DMod.ContentType.WEARABLESLOTS: wearableslots,
 		DMod.ContentType.STATS: mods.by_id("Core").stats,
-		DMod.ContentType.SKILLS: skills,
+		DMod.ContentType.SKILLS: mods.by_id("Core").skills,
 		DMod.ContentType.QUESTS: quests,
 		DMod.ContentType.OVERMAPAREAS: mods.by_id("Core").overmapareas,
 		DMod.ContentType.MOBGROUPS: mobgroups,

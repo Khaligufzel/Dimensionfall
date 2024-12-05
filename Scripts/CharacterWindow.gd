@@ -38,7 +38,7 @@ func _on_player_skill_changed(player_node: CharacterBody3D):
 		return
 	clear_container(skillsContainer)  # Clear existing content
 	for skill_id in player_node.skills:
-		var skill_data: DSkill = Gamedata.skills.by_id(skill_id)
+		var skill_data: RSkill = Runtimedata.skills.by_id(skill_id)
 		if skill_data:
 			var skill_value = player_node.skills[skill_id]
 			var skill_entry = create_skill_entry(skill_data, skill_value)
@@ -46,17 +46,17 @@ func _on_player_skill_changed(player_node: CharacterBody3D):
 
 
 # Utility function to create an HBoxContainer for a stat or skill entry
-func create_skill_entry(dskill: DSkill, value: Variant) -> HBoxContainer:
+func create_skill_entry(rskill: RSkill, value: Variant) -> HBoxContainer:
 	var hbox = HBoxContainer.new()
 	var icon = TextureRect.new()
-	icon.texture = dskill.sprite
+	icon.texture = rskill.sprite
 	hbox.add_child(icon)
 
 	var label = Label.new()
 	# For skills, display level and XP with a maximum of 2 decimal places
 	var xp_value = str(round(value["xp"] * 100) / 100.0)  # Round XP to 2 decimal places
-	label.text = dskill.name + ": Level " + str(value["level"]) + ", XP: " + xp_value
-	label.tooltip_text = dskill.description
+	label.text = rskill.name + ": Level " + str(value["level"]) + ", XP: " + xp_value
+	label.tooltip_text = rskill.description
 	hbox.add_child(label)
 
 	return hbox

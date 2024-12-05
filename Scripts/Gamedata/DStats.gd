@@ -11,7 +11,6 @@ var spritePath: String = "./Mods/Core/Stats/"
 var statdict: Dictionary = {}
 var sprites: Dictionary = {}
 
-# Constructor
 # Add a mod_id parameter to dynamically initialize paths
 func _init(mod_id: String) -> void:
 	# Update dataPath and spritePath using the provided mod_id

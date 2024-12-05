@@ -3,26 +3,47 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles skills data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of skills. You can access it through Gamedata.skills
+# This script handles the list of skills. You can access it through Gamedata.mods.by_id("Core").skills
 
 # Paths for skills data and sprites
-var dataPath: String = "./Mods/Core/Skills/Skills.json"
+var dataPath: String = "./Mods/Core/Skills/"
+var filePath: String = "./Mods/Core/Skills/Skills.json"
 var spritePath: String = "./Mods/Core/Skills/"
 var skilldict: Dictionary = {}
 var sprites: Dictionary = {}
+var references: Dictionary = {}
 
-# Constructor
-func _init():
+
+# Add a mod_id parameter to dynamically initialize paths
+func _init(mod_id: String) -> void:
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Skills/"
+	filePath = "./Mods/" + mod_id + "/Skills/Skills.json"
+	spritePath = "./Mods/" + mod_id + "/Skills/"
+	
+	# Load stats and sprites
 	load_sprites()
 	load_skills_from_disk()
+	load_references()
+
 
 # Load all skills data from disk into memory
 func load_skills_from_disk() -> void:
-	var skillslist: Array = Helper.json_helper.load_json_array_file(dataPath)
+	var skillslist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for myskill in skillslist:
-		var skill: DSkill = DSkill.new(myskill)
+		var skill: DSkill = DSkill.new(myskill, self)
 		skill.sprite = sprites[skill.spriteid]
 		skilldict[skill.id] = skill
+
+
+# Load references from references.json
+func load_references() -> void:
+	var path = dataPath + "references.json"
+	if FileAccess.file_exists(path):
+		references = Helper.json_helper.load_json_dictionary_file(path)
+	else:
+		references = {}  # Initialize an empty references dictionary if the file doesn't exist
+
 
 # Loads sprites and assigns them to the proper dictionary
 func load_sprites() -> void:
@@ -42,7 +63,7 @@ func save_skills_to_disk() -> void:
 	var save_data: Array = []
 	for skill in skilldict.values():
 		save_data.append(skill.get_data())
-	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	Helper.json_helper.write_json_file(filePath, JSON.stringify(save_data, "\t"))
 
 # Returns the dictionary containing all skills
 func get_all() -> Dictionary:
@@ -55,13 +76,13 @@ func duplicate_to_disk(skillid: String, newskillid: String) -> void:
 	# So we delete the references from the duplicated data if it is present
 	skilldata.erase("references")
 	skilldata["id"] = newskillid
-	var newskill: DSkill = DSkill.new(skilldata)
+	var newskill: DSkill = DSkill.new(skilldata, self)
 	skilldict[newskillid] = newskill
 	save_skills_to_disk()
 
 # Adds a new skill with a given ID
 func add_new(newid: String) -> void:
-	var newskill: DSkill = DSkill.new({"id": newid})
+	var newskill: DSkill = DSkill.new({"id": newid}, self)
 	skilldict[newskill.id] = newskill
 	save_skills_to_disk()
 
