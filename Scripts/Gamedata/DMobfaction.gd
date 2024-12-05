@@ -43,8 +43,6 @@ func _init(data: Dictionary):
 	name = data.get("name", "")
 	description = data.get("description", "")
 	references = data.get("references", {})
-	mobs = data.get("mobs", {})
-	mobgroups = data.get("mobgroups", {})
 	relations = data.get("relations", {})
 
 # Returns all properties of the mob faction as a dictionary
@@ -54,8 +52,6 @@ func get_data() -> Dictionary:
 		"name": name,
 		"description": description,
 		"relations": relations,
-		"mobs": mobs,
-		"mobgroups": mobgroups
 	}
 	if not references.is_empty():
 		data["references"] = references

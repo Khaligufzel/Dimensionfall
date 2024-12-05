@@ -1,0 +1,12 @@
+{
+	"author": "Default Author",
+	"dependencies": [],
+	"description": "A new mod for the game.",
+	"homepage": "https://example.com",
+	"id": "test",
+	"license": "GPL-3.0 License",
+	"mod_type": "custom",
+	"name": "Test",
+	"tags": [],
+	"version": "1.0.0"
+}

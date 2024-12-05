@@ -6,6 +6,7 @@ extends Control
 @export var tileGrid: GridContainer = null
 @export var map_preview: Popup = null
 
+
 # Settings controls:
 @export var name_text_edit: TextEdit
 @export var description_text_edit: TextEdit
@@ -42,12 +43,11 @@ var zoom_level: int = 20:
 func _ready():
 	setPanWindowSize()
 	zoom_level = 20
-	
+
 func setPanWindowSize():
 	var panWindowWidth: float = 0.8*tileSize*mapWidth
 	var panWindowHeight: float = 0.8*tileSize*mapHeight
 	panWindow.custom_minimum_size = Vector2(panWindowWidth, panWindowHeight)
-
 
 var mouse_button_pressed: bool = false
 
