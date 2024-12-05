@@ -33,10 +33,10 @@ func populate_select_mods() -> void:
 func _on_select_mods_item_selected(index):
 	selectedmod = selectmods.get_item_text(selectmods.selected)
 	Helper.free_all_children(self)
+	instanced_brushes.clear()
 	loadMobs()
 	loadTiles()
 	loadFurniture()
-	print(selectedmod)
 	
 # this function will read all files in Gamedata.mobs and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
 func loadMobs():
