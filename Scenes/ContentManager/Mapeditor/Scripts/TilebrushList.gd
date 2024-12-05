@@ -1,13 +1,13 @@
 extends VBoxContainer
 
 # This script belongs to the EntitiesContainer in the mapeditor.tscn
-# It provides a list of brushes to paint with
 
+@export var selectmods: OptionButton
+var selectedmod: String = "Core"
+# It provides a list of brushes to paint with
 @export var scrolling_Flow_Container: PackedScene = null
 @export var tileBrush: PackedScene = null
-
 var instanced_brushes: Array[Node] = []
-var selectedmod = $"../CustomBrushComposer/SelectMods".get_selected_id()
 signal tile_brush_selection_change(tilebrush: Control)
 var selected_brush: Control:
 	set(newBrush):
@@ -15,9 +15,28 @@ var selected_brush: Control:
 		tile_brush_selection_change.emit(selected_brush)
 
 func _ready():
+	populate_select_mods()
 	loadMobs()
 	loadTiles()
 	loadFurniture()
+
+# Adds available mods to the OptionButton
+func populate_select_mods() -> void:
+	selectmods.clear()  # Remove all existing options from the OptionButton
+	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
+	
+	# Iterate through Gamedata.mods and add each mod ID as an option
+	for mod_id in mod_ids:
+		selectmods.add_item(mod_id)
+
+# This function selects a mod id for loadTiles() and other functions to reload.
+func _on_select_mods_item_selected(index):
+	selectedmod = selectmods.get_item_text(selectmods.selected)
+	Helper.free_all_children(self)
+	loadMobs()
+	loadTiles()
+	loadFurniture()
+	print(selectedmod)
 	
 # this function will read all files in Gamedata.mobs and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
 func loadMobs():
@@ -75,7 +94,6 @@ func loadFurniture():
 # this function will read all files in Gamedata.mods.by_id("Core").tiles and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
 func loadTiles():
 	var tileList: Dictionary = Gamedata.mods.by_id(selectedmod).tiles.get_all()
-
 	for tile: DTile in tileList.values():
 		if tile.spriteid:
 			# We need to put the tiles in the right category
@@ -93,7 +111,7 @@ func loadTiles():
 				var imagefileName: String = tile.spriteid
 				imagefileName = imagefileName.get_file()
 				# Get the texture from gamedata
-				var texture: Resource = Gamedata.mods.by_id(selectedmod).tiles.sprite_by_file(imagefileName)
+				var texture: Resource = Gamedata.mods.by_id(str(selectedmod)).tiles.sprite_by_file(imagefileName)
 				# Create a TileBrush node
 				var brushInstance = tileBrush.instantiate()
 				# Assign the texture to the TileBrush

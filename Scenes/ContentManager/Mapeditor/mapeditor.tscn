@@ -383,12 +383,13 @@ popup/item_0/text = "Core"
 [node name="MenuButton" type="MenuButton" parent="TabContainer/Edit Map/EntitiesVBoxContainer/CustomBrushComposer"]
 layout_mode = 2
 
-[node name="EntitiesContainer" type="VBoxContainer" parent="TabContainer/Edit Map/EntitiesVBoxContainer"]
+[node name="EntitiesContainer" type="VBoxContainer" parent="TabContainer/Edit Map/EntitiesVBoxContainer" node_paths=PackedStringArray("selectmods")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.8
 script = ExtResource("5_he816")
+selectmods = NodePath("../CustomBrushComposer/SelectMods")
 scrolling_Flow_Container = ExtResource("6_onaby")
 tileBrush = ExtResource("8_o4x7s")
 
@@ -509,4 +510,5 @@ visible = false
 [connection signal="value_changed" from="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_level_scrollbar_value_changed"]
 [connection signal="value_changed" from="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller" method="_on_level_scrollbar_value_changed"]
 [connection signal="item_selected" from="TabContainer/Edit Map/EntitiesVBoxContainer/CustomBrushComposer/SelectMods" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Edit Map/EntitiesVBoxContainer/CustomBrushComposer/SelectMods" to="TabContainer/Edit Map/EntitiesVBoxContainer/EntitiesContainer" method="_on_select_mods_item_selected"]
 [connection signal="tile_brush_selection_change" from="TabContainer/Edit Map/EntitiesVBoxContainer/EntitiesContainer" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_tilebrush_list_tile_brush_selection_change"]
