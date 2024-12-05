@@ -13,8 +13,8 @@ func _ready() -> void:
 # quest_name: it's actually the id of the quest as known by Runtimedata.quests
 func update_quest_ui(quest_name: String):
 	# Update the quest name label
-	var dquest: DQuest = Runtimedata.quests.by_id(quest_name)
-	quest_name_label.text = dquest.name
+	var rquest: RQuest = Runtimedata.quests.by_id(quest_name)
+	quest_name_label.text = rquest.name
 
 	# Get the current step
 	var current_step = QuestManager.get_current_step(quest_name)
