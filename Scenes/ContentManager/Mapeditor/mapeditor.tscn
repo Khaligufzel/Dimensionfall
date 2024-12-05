@@ -1,7 +1,8 @@
-[gd_scene load_steps=37 format=3 uid="uid://d3001f5xxpup1"]
+[gd_scene load_steps=38 format=3 uid="uid://d3001f5xxpup1"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor.gd" id="1_0c7s4"]
 [ext_resource type="PackedScene" uid="uid://bswccbbg6ijep" path="res://Scenes/ContentManager/Mapeditor/Toolbar/mapeditorzoomscroller.tscn" id="1_0ytmu"]
+[ext_resource type="PackedScene" uid="uid://bhh0v7x4fjsgi" path="res://Scenes/ContentManager/content_list.tscn" id="2_a1a0q"]
 [ext_resource type="Texture2D" uid="uid://dd700uhgg8oly" path="res://Images/Icons/IconCameraUnchecked.png" id="2_bib5l"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/GridContainer.gd" id="2_sf17m"]
 [ext_resource type="Texture2D" uid="uid://b6m2bbbpmsyik" path="res://Images/Icons/IconRotateRightDark.png" id="3_8q2iq"]
@@ -65,7 +66,7 @@ unicode = 101
 [sub_resource type="Shortcut" id="Shortcut_jlgdg"]
 events = [SubResource("InputEventKey_rjlhc")]
 
-[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "north_check_box", "east_check_box", "south_check_box", "west_check_box")]
+[node name="mapeditor" type="Control" node_paths=PackedStringArray("panWindow", "mapScrollWindow", "gridContainer", "tileGrid", "map_preview", "name_text_edit", "description_text_edit", "categories_list", "weight_spin_box", "select_mods", "type_selector_menu_button", "content", "tabContainer", "north_check_box", "east_check_box", "south_check_box", "west_check_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,6 +83,11 @@ name_text_edit = NodePath("TabContainer/Settings/NameTextEdit")
 description_text_edit = NodePath("TabContainer/Settings/DescriptionTextEdit")
 categories_list = NodePath("TabContainer/Settings/CategoriesList")
 weight_spin_box = NodePath("TabContainer/Settings/WeightSpinBox")
+select_mods = NodePath("TabContainer/Edit Map/EntitiesVBoxContainer/CustomBrushComposer/SelectMods")
+type_selector_menu_button = NodePath("TabContainer/Edit Map/EntitiesVBoxContainer/CustomBrushComposer/MenuButton")
+contentList = ExtResource("2_a1a0q")
+content = NodePath("TabContainer/Edit Map/EntitiesVBoxContainer/EntitiesContainer")
+tabContainer = NodePath("TabContainer")
 north_check_box = NodePath("TabContainer/Settings/RoadConnectionHBoxContainer/NorthCheckBox")
 east_check_box = NodePath("TabContainer/Settings/RoadConnectionHBoxContainer/EastCheckBox")
 south_check_box = NodePath("TabContainer/Settings/RoadConnectionHBoxContainer/SouthCheckBox")
@@ -368,6 +374,15 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 gridContainer = NodePath("../../MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid")
 
+[node name="SelectMods" type="OptionButton" parent="TabContainer/Edit Map/EntitiesVBoxContainer/CustomBrushComposer"]
+layout_mode = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "Core"
+
+[node name="MenuButton" type="MenuButton" parent="TabContainer/Edit Map/EntitiesVBoxContainer/CustomBrushComposer"]
+layout_mode = 2
+
 [node name="EntitiesContainer" type="VBoxContainer" parent="TabContainer/Edit Map/EntitiesVBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -493,4 +508,5 @@ visible = false
 [connection signal="zoom_level_changed" from="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" to="." method="_on_tile_grid_zoom_level_changed"]
 [connection signal="value_changed" from="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_level_scrollbar_value_changed"]
 [connection signal="value_changed" from="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller/LevelScrollbar" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/Levelscroller" method="_on_level_scrollbar_value_changed"]
+[connection signal="item_selected" from="TabContainer/Edit Map/EntitiesVBoxContainer/CustomBrushComposer/SelectMods" to="." method="_on_option_button_item_selected"]
 [connection signal="tile_brush_selection_change" from="TabContainer/Edit Map/EntitiesVBoxContainer/EntitiesContainer" to="TabContainer/Edit Map/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/GridContainer/TileGrid" method="_on_tilebrush_list_tile_brush_selection_change"]

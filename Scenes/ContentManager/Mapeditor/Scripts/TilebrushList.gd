@@ -7,7 +7,7 @@ extends VBoxContainer
 @export var tileBrush: PackedScene = null
 
 var instanced_brushes: Array[Node] = []
-
+var selectedmod = $"../CustomBrushComposer/SelectMods".get_selected_id()
 signal tile_brush_selection_change(tilebrush: Control)
 var selected_brush: Control:
 	set(newBrush):
@@ -74,7 +74,7 @@ func loadFurniture():
 
 # this function will read all files in Gamedata.mods.by_id("Core").tiles and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
 func loadTiles():
-	var tileList: Dictionary = Gamedata.mods.by_id("Core").tiles.get_all()
+	var tileList: Dictionary = Gamedata.mods.by_id(selectedmod).tiles.get_all()
 
 	for tile: DTile in tileList.values():
 		if tile.spriteid:
@@ -93,7 +93,7 @@ func loadTiles():
 				var imagefileName: String = tile.spriteid
 				imagefileName = imagefileName.get_file()
 				# Get the texture from gamedata
-				var texture: Resource = Gamedata.mods.by_id("Core").tiles.sprite_by_file(imagefileName)
+				var texture: Resource = Gamedata.mods.by_id(selectedmod).tiles.sprite_by_file(imagefileName)
 				# Create a TileBrush node
 				var brushInstance = tileBrush.instantiate()
 				# Assign the texture to the TileBrush

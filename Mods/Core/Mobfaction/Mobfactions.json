@@ -2,33 +2,21 @@
 	{
 		"description": "The unholy remainders of our past sins.",
 		"id": "undead",
-		"mobgroups": {
-
-		},
-		"mobs": {
-
-		},
 		"name": "The Undead",
 		"relations": [
 			{
+				"mobgroup": "basic_zombies",
 				"relation_type": "core"
-				"mobgroup": "basic_zombies"
 			},
 			{
 				"mobgroup": "security_robots",
-				"type": "hostile"
+				"relation_type": "hostile"
 			}
 		]
 	},
 	{
 		"description": "Developed by the rich to opress the poor, ironically they cannot tell apart from one another.",
 		"id": "robot",
-		"mobgroups": {
-
-		},
-		"mobs": {
-
-		},
 		"name": "The Iron Force",
 		"relations": [
 			{

@@ -405,7 +405,6 @@ func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 func _on_area_editor_area_selected_ok(areas_clone: Array):
 	set_area_data(areas_clone)
 
-
 # Provide an array of area objects and it will be loaded into the brushcomposer
 func set_area_data(areas_clone: Array):
 	# Remember the selected area ID from the areas_option_button.
