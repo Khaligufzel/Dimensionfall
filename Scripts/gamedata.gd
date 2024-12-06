@@ -7,7 +7,6 @@ var furnitures: DFurnitures
 var items: DItems
 var mobs: DMobs
 var itemgroups: DItemgroups
-var playerattributes: DPlayerAttributes
 var wearableslots: DWearableSlots
 var mobgroups: DMobgroups
 var mobfactions: DMobfactions
@@ -51,7 +50,6 @@ func _ready():
 	items = DItems.new()
 	mobs = DMobs.new()
 	itemgroups = DItemgroups.new()
-	playerattributes = DPlayerAttributes.new()
 	wearableslots = DWearableSlots.new()
 	mobgroups = DMobgroups.new()
 	mobfactions = DMobfactions.new()
@@ -65,7 +63,7 @@ func _ready():
 		DMod.ContentType.ITEMS: items,
 		DMod.ContentType.TILES: mods.by_id("Core").tiles,
 		DMod.ContentType.MOBS: mobs,
-		DMod.ContentType.PLAYERATTRIBUTES: playerattributes,
+		DMod.ContentType.PLAYERATTRIBUTES: mods.by_id("Core").playerattributes,
 		DMod.ContentType.WEARABLESLOTS: wearableslots,
 		DMod.ContentType.STATS: mods.by_id("Core").stats,
 		DMod.ContentType.SKILLS: mods.by_id("Core").skills,

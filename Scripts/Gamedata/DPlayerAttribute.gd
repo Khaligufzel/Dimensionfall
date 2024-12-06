@@ -106,9 +106,12 @@ class FixedMode:
 # Attribute properties stored inside DefaultMode and FixedMode classes
 var default_mode: DefaultMode
 var fixed_mode: FixedMode
+var parent: DPlayerAttributes
 
-# Constructor to initialize the attribute properties from a dictionary
-func _init(data: Dictionary):
+# Constructor to initialize playerattribute properties from a dictionary
+# myparent: The list containing all playerattributes for this mod
+func _init(data: Dictionary, myparent: DPlayerAttributes):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
@@ -152,17 +155,17 @@ func get_data() -> Dictionary:
 func remove_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
 	if changes_made:
-		Gamedata.playerattributes.save_playerattributes_to_disk()
+		parent.save_playerattributes_to_disk()
 
 # Adds a reference to the references list
 func add_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
 	if changes_made:
-		Gamedata.playerattributes.save_playerattributes_to_disk()
+		parent.save_playerattributes_to_disk()
 
 # Returns the path of the sprite
 func get_sprite_path() -> String:
-	return Gamedata.playerattributes.spritePath + spriteid
+	return parent.spritePath + spriteid
 
 # Handles playerattribute changes and updates references if necessary
 func on_data_changed(_oldplayerattribute: DPlayerAttribute):
@@ -174,7 +177,7 @@ func on_data_changed(_oldplayerattribute: DPlayerAttribute):
 # Some playerattribute has been changed
 # INFO: if the playerattributes reference other entities, update them here
 func changed(_olddata: DPlayerAttribute):
-	Gamedata.playerattributes.save_playerattributes_to_disk()
+	parent.save_playerattributes_to_disk()
 
 # A playerattribute is being deleted from the data
 # We have to remove it from everything that references it

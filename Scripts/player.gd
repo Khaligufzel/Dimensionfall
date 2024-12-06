@@ -88,7 +88,7 @@ func initialize_condition():
 # The PlayerAttribute manages the actual control of the attribute while
 # DPlayerAttribute only provides the data
 func initialize_attributes():
-	var playerattributes: Dictionary = Gamedata.playerattributes.get_all()
+	var playerattributes: Dictionary = Runtimedata.playerattributes.get_all()
 	for attribute: DPlayerAttribute in playerattributes.values():
 		attributes[attribute.id] = PlayerAttribute.new(attribute, self)
 

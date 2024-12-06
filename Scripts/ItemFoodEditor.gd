@@ -93,7 +93,7 @@ func _can_drop_attribute_data(_newpos, data) -> bool:
 		return false
 
 	# Fetch attribute by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.playerattributes.has_id(data["id"]):
+	if not Gamedata.mods.by_id("Core").playerattributes.has_id(data["id"]):
 		return false
 
 	# Check if the attribute ID already exists in the attributes grid
@@ -119,7 +119,7 @@ func _handle_attribute_drop(dropped_data, _newpos) -> void:
 	# dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var attribute_id = dropped_data["id"]
-		if not Gamedata.playerattributes.has_id(attribute_id):
+		if not Gamedata.mods.by_id("Core").playerattributes.has_id(attribute_id):
 			print_debug("No attribute data found for ID: " + attribute_id)
 			return
 		

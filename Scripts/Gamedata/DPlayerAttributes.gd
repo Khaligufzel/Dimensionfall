@@ -3,26 +3,34 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles player attribute
 # data, nothing more. This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of playerattributes. You can access it trough Gamedata.playerattributes
+# This script handles the list of playerattributes. You can access it trough Gamedata.mods.by_id("Core").playerattributes
 
 
-var dataPath: String = "./Mods/Core/PlayerAttributes/PlayerAttributes.json"
+var dataPath: String = "./Mods/Core/PlayerAttributes/"
+var filePath: String = "./Mods/Core/PlayerAttributes/PlayerAttributes.json"
 var spritePath: String = "./Mods/Core/PlayerAttributes/"
 var playerattributedict: Dictionary = {}
 var sprites: Dictionary = {}
 var hardcoded: Array = ["player_inventory"]
+var references: Dictionary = {}
 
 
-func _init():
+# Add a mod_id parameter to dynamically initialize paths
+func _init(mod_id: String) -> void:
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/PlayerAttributes/"
+	filePath = "./Mods/" + mod_id + "/PlayerAttributes/PlayerAttributes.json"
+	spritePath = "./Mods/" + mod_id + "/PlayerAttributes/"
+	
 	load_sprites()
 	load_playerattributes_from_disk()
 
 
 # Load all playerattributedata from disk into memory
 func load_playerattributes_from_disk() -> void:
-	var playerattributelist: Array = Helper.json_helper.load_json_array_file(dataPath)
+	var playerattributelist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for myattribute in playerattributelist:
-		var playerattribute: DPlayerAttribute = DPlayerAttribute.new(myattribute)
+		var playerattribute: DPlayerAttribute = DPlayerAttribute.new(myattribute, self)
 		if sprites.has(playerattribute.spriteid):
 			playerattribute.sprite = sprites[playerattribute.spriteid]
 		playerattributedict[playerattribute.id] = playerattribute
@@ -47,7 +55,7 @@ func save_playerattributes_to_disk() -> void:
 	var save_data: Array = []
 	for playerattribute in playerattributedict.values():
 		save_data.append(playerattribute.get_data())
-	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	Helper.json_helper.write_json_file(filePath, JSON.stringify(save_data, "\t"))
 
 
 func get_all() -> Dictionary:
@@ -60,13 +68,13 @@ func duplicate_to_disk(playerattributeid: String, newplayerattributeid: String) 
 	# So we delete the references from the duplicated data if it is present
 	playerattributedata.erase("references")
 	playerattributedata.id = newplayerattributeid
-	var newplayerattribute: DPlayerAttribute = DPlayerAttribute.new(playerattributedata)
+	var newplayerattribute: DPlayerAttribute = DPlayerAttribute.new(playerattributedata, self)
 	playerattributedict[newplayerattributeid] = newplayerattribute
 	save_playerattributes_to_disk()
 
 
 func add_new(newid: String) -> void:
-	var newplayerattribute: DPlayerAttribute = DPlayerAttribute.new({"id":newid})
+	var newplayerattribute: DPlayerAttribute = DPlayerAttribute.new({"id":newid}, self)
 	playerattributedict[newplayerattribute.id] = newplayerattribute
 	save_playerattributes_to_disk()
 

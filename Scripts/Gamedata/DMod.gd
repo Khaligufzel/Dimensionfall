@@ -86,7 +86,7 @@ func _init(modinfo: Dictionary, myparent: DMods):
 	tiles = DTiles.new(id)
 	mobs = DMobs.new()
 	itemgroups = DItemgroups.new()
-	playerattributes = DPlayerAttributes.new()
+	playerattributes = DPlayerAttributes.new(id)
 	wearableslots = DWearableSlots.new()
 	skills = DSkills.new(id)
 	stats = DStats.new(id)  # Pass the mod_id for stats initialization

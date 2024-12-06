@@ -148,7 +148,7 @@ func _append_medical_attributes(item: InventoryItem, description: String) -> Str
 			for attribute in dmedical.attributes:
 				var attr_id = attribute.get("id", "Unknown")
 				var attr_amount = attribute.get("amount", 0)
-				var attr_name: String = Gamedata.playerattributes.by_id(attr_id).name
+				var attr_name: String = Runtimedata.playerattributes.by_id(attr_id).name
 				
 				# Build the line only if there's something to display
 				var line = " ►" + attr_name + ":"
