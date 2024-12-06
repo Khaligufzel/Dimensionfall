@@ -5,7 +5,7 @@ extends RefCounted
 # It interacts with the player and handles attribute changes, effects, saving, and loading.
 
 # The DPlayerAttribute data instance
-var attribute_data: DPlayerAttribute
+var attribute_data: RPlayerAttribute
 
 # Reference to the player instance
 var player: Node
@@ -193,7 +193,7 @@ var default_mode: DefaultMode
 var fixed_mode: FixedMode
 
 # Constructor to initialize the controller with a DPlayerAttribute and a player reference
-func _init(data: DPlayerAttribute, player_reference: Node):
+func _init(data: RPlayerAttribute, player_reference: Node):
 	attribute_data = data  # Store attribute data
 	player = player_reference
 

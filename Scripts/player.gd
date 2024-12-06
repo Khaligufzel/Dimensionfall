@@ -89,7 +89,7 @@ func initialize_condition():
 # DPlayerAttribute only provides the data
 func initialize_attributes():
 	var playerattributes: Dictionary = Runtimedata.playerattributes.get_all()
-	for attribute: DPlayerAttribute in playerattributes.values():
+	for attribute: RPlayerAttribute in playerattributes.values():
 		attributes[attribute.id] = PlayerAttribute.new(attribute, self)
 
 
