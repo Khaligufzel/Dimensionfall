@@ -20,9 +20,9 @@ script = ExtResource("1_kooul")
 IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
 NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
-mob_list = NodePath("VBoxContainer/FormGrid/RelationsPanelContainer/RelationsVBoxContainer/GridContainer")
+mob_list = NodePath("VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer/RelationsVBoxContainer/ScrollContainer/GridContainer")
 relation_type_option_button = NodePath("VBoxContainer/FormGrid/RelationControlsHBoxContainer/RelationTypeOptionButton")
-relations_container = NodePath("VBoxContainer/FormGrid/RelationsPanelContainer/RelationsVBoxContainer")
+relations_container = NodePath("VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer/RelationsVBoxContainer")
 dropabletextedit = ExtResource("2_6k777")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -120,19 +120,32 @@ text = " + Add"
 layout_mode = 2
 text = "Mobs"
 
-[node name="RelationsPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="RelationsPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_une6i")
 
-[node name="RelationsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/RelationsPanelContainer"]
+[node name="RelationsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer"]
 layout_mode = 2
 tooltip_text = "Press the \"+ Add\" button above to add a relation. You can 
 re-order and delete relations using the controls of each relation."
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/RelationsPanelContainer/RelationsVBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer/RelationsVBoxContainer"]
 layout_mode = 2
+follow_focus = true
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer/RelationsVBoxContainer/ScrollContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]

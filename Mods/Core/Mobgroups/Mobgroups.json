@@ -21,9 +21,7 @@
 				"quests": [
 					"starter_tutorial_00",
 					"quest_holy_crusade_01",
-					"zombie",
-					"robot",
-					"undead"
+					"zombie"
 				]
 			}
 		},
@@ -45,9 +43,7 @@
 		"references": {
 			"core": {
 				"quests": [
-					"zombie",
-					"robot",
-					"undead"
+					"zombie"
 				]
 			}
 		},
