@@ -24,14 +24,6 @@ extends RefCounted
 #		"description": "You starve when this is empty. You are full when this is full.",
 #		"id": "food",
 #		"name": "Food",
-#		"references": {
-#			"core": {
-#				"items": [
-#					"canned_food",
-#					"tofu"
-#				]
-#			}
-#		},
 #		"sprite": "apple_32.png"
 #	}
 

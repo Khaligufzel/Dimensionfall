@@ -16,6 +16,7 @@ var stats: RStats
 var quests: RQuests
 var overmapareas: ROvermapareas
 var mobgroups: DMobgroups
+var mobfactions: DMobfactions
 
 # Dictionary to map content types to Gamedata variables
 var gamedata_map: Dictionary = {}
