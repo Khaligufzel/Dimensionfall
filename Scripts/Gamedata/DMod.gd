@@ -90,7 +90,7 @@ func _init(modinfo: Dictionary, myparent: DMods):
 	wearableslots = DWearableSlots.new()
 	skills = DSkills.new(id)
 	stats = DStats.new(id)  # Pass the mod_id for stats initialization
-	quests = DQuests.new()
+	quests = DQuests.new(id)
 	overmapareas = DOvermapareas.new(id)
 	mobgroups = DMobgroups.new()
 	mobfactions = DMobfactions.new()

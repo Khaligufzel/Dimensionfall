@@ -125,13 +125,13 @@ func _on_quest_reset(_quest_name: String):
 # Initialize quests by wiping player data and loading quest data
 func initialize_quests():
 	QuestManager.wipe_player_data()
-	for quest: DQuest in Gamedata.quests.get_all().values():
+	for quest: RQuest in Runtimedata.quests.get_all().values():
 		create_quest_from_data(quest)
 
 
 # Takes a quest as defined by json (created in the contenteditor)
 # Create an instance of a ScriptQuest and add it to the QuestManager
-func create_quest_from_data(quest_data: DQuest):
+func create_quest_from_data(quest_data: RQuest):
 	if quest_data.steps.size() < 1:
 		return # The quest has no steps
 	var quest = ScriptQuest.new(quest_data.id, quest_data.description)

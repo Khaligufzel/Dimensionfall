@@ -190,7 +190,7 @@ func delete():
 	
 	# This callable will handle the removal of this mob from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
-		Gamedata.quests.remove_mob_from_quest(quest_id,id)
+		Gamedata.mods.by_id("Core").quests.remove_mob_from_quest(quest_id,id)
 		
 	# Pass the callable to every quest in the mob's references
 	# It will call remove_from_quest on every mob in mob_data.references.core.quests

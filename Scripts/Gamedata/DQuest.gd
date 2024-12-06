@@ -55,9 +55,12 @@ var spriteid: String
 var sprite: Texture
 var rewards: Array = []
 var steps: Array = []
+var parent: DQuests
 
 # Constructor to initialize quest properties from a dictionary
-func _init(data: Dictionary):
+# myparent: The list containing all quests for this mod
+func _init(data: Dictionary, myparent: DQuests):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
@@ -78,7 +81,7 @@ func get_data() -> Dictionary:
 
 # Method to save any changes to the quest back to disk
 func save_to_disk():
-	Gamedata.quests.save_quests_to_disk()
+	parent.save_quests_to_disk()
 
 
 # Handles quest deletion

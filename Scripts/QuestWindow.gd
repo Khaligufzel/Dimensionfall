@@ -121,9 +121,9 @@ func _on_new_quest_added(quest_name: String):
 # quest_id: The id of the quest as defined by json
 # quest_list: An itemlist in the UI to which to add it
 func add_quest_to_list(quest_id: String, quest_list: ItemList):
-	var dquest: DQuest = Gamedata.quests.by_id(quest_id)
-	var quest_icon: Texture = dquest.sprite
-	var questname: String = dquest.name
+	var rquest: RQuest = Runtimedata.quests.by_id(quest_id)
+	var quest_icon: Texture = rquest.sprite
+	var questname: String = rquest.name
 	if questname != "":
 		var item_index: int = quest_list.add_item(questname, quest_icon)
 		quest_list.set_item_metadata(item_index, quest_id) # Add the quest id as metadata
@@ -153,11 +153,11 @@ func _update_quest_details():
 		return
 	
 	var quest: Dictionary = QuestManager.get_player_quest(selected_quest)
-	var dquest: DQuest = Gamedata.quests.by_id(quest.quest_name)
+	var rquest: RQuest = Runtimedata.quests.by_id(quest.quest_name)
 	
 	# Update quest title and description
-	quest_details_section.get_node("QuestTitle").text = dquest.name
-	quest_details_section.get_node("QuestDescription").text = dquest.description
+	quest_details_section.get_node("QuestTitle").text = rquest.name
+	quest_details_section.get_node("QuestDescription").text = rquest.description
 	
 	# Update rewards details
 	update_rewards_details(quest)
