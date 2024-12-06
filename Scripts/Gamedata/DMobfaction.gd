@@ -65,10 +65,10 @@ func save_to_disk():
 func delete():
 	var relationmobs: Array =  relations.filter(func(relation): return relation.has("mob"))
 	for killrelation in relationmobs:
-		Gamedata.mobs.remove_reference(killrelation.mob, "core", "quests", id)
+		Gamedata.mobs.remove_reference(killrelation.mob, "core", "mobfactions", id)
 	var relationmobgroups: Array = relations.filter(func(relation): return relation.has("mobgroup"))
 	for killrelation in relationmobgroups:
-		Gamedata.mobgroups.remove_reference(killrelation.mobgroup, "core", "quests", id)
+		Gamedata.mobgroups.remove_reference(killrelation.mobgroup, "core", "mobfactions", id)
 
 # Handles quest changes
 func changed(olddata: DMobfaction):
@@ -84,18 +84,18 @@ func changed(olddata: DMobfaction):
 	# Remove references for old mobs that are not in the new data
 	for old_mob in old_quest_mobs:
 		if old_mob not in new_quest_mobs:
-			Gamedata.mobs.remove_reference(old_mob.mob, "core", "quests", faction_id)
+			Gamedata.mobs.remove_reference(old_mob.mob, "core", "mobfactions", faction_id)
 	# Remove references for old mobgroups that are not in the new data
 	for old_mobgroup in old_quest_mobgroups:
 		if old_mobgroup not in new_quest_mobgroups:
-			Gamedata.mobgroups.remove_reference(old_mobgroup.mobgroup, "core", "quests", faction_id)
+			Gamedata.mobgroups.remove_reference(old_mobgroup.mobgroup, "core", "mobfactions", faction_id)
 	
 	# Add references for new mobs
 	for new_mob in new_quest_mobs:
-		Gamedata.mobs.add_reference(new_mob.mob, "core", "quests", faction_id)
+		Gamedata.mobs.add_reference(new_mob.mob, "core", "mobfactions", faction_id)
 	# Add references for new mobgroups
 	for new_mobgroup in new_quest_mobgroups:
-		Gamedata.mobgroups.add_reference(new_mobgroup.mobgroup, "core", "quests", faction_id)
+		Gamedata.mobgroups.add_reference(new_mobgroup.mobgroup, "core", "mobfactions", faction_id)
 	save_to_disk()
 
 # Removes all relations where the mob property matches the given mob_id
