@@ -41,9 +41,6 @@ var description: String
 var spriteid: String
 var sprite: Texture
 
-# References to other entities
-var references: Dictionary = {}
-
 # Inner class for DefaultMode properties
 class DefaultMode:
 	var min_amount: float # Minimum possible value for the attribute (e.g., 0 for health)
@@ -116,7 +113,6 @@ func _init(data: Dictionary, myparent: DPlayerAttributes):
 	name = data.get("name", "")
 	description = data.get("description", "")
 	spriteid = data.get("sprite", "")
-	references = data.get("references", {})
 	
 	# Initialize Craft and Magazine subclasses if they exist in data
 	if data.has("default_mode"):
@@ -145,23 +141,7 @@ func get_data() -> Dictionary:
 	# Add FixedMode data if it exists
 	if fixed_mode:
 		data["fixed_mode"] = fixed_mode.get_data()
-
-	if not references.is_empty():
-		data["references"] = references
 	return data
-
-
-# Removes the provided reference from references
-func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
-	if changes_made:
-		parent.save_playerattributes_to_disk()
-
-# Adds a reference to the references list
-func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
-	if changes_made:
-		parent.save_playerattributes_to_disk()
 
 # Returns the path of the sprite
 func get_sprite_path() -> String:
@@ -183,7 +163,7 @@ func changed(_olddata: DPlayerAttribute):
 # We have to remove it from everything that references it
 func delete():
 	# Check if the playerattribute has references to items and remove it from those items
-	var itemsdata = Helper.json_helper.get_nested_data(references, "core.items")
+	var itemsdata: Array = parent.references.get("id", {}).get("items", [])
 	if itemsdata:
 		for item_id in itemsdata:
 			var ditem = Gamedata.items.by_id(item_id)
@@ -194,12 +174,3 @@ func delete():
 			if ditem.medical and not ditem.medical.attributes.is_empty():
 				ditem.medical.remove_player_attribute(id)
 		Gamedata.items.save_items_to_disk()
-
-
-# Executes a callable function on each reference of the given type
-func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
-	# Check if it contains the specified 'module' and 'type'
-	if references.has(module) and references[module].has(type):
-		# If the type exists, execute the callable on each ID found under this type
-		for ref_id in references[module][type]:
-			callable.call(ref_id)

@@ -36,6 +36,15 @@ func load_playerattributes_from_disk() -> void:
 		playerattributedict[playerattribute.id] = playerattribute
 
 
+# Load references from references.json
+func load_references() -> void:
+	var path = dataPath + "references.json"
+	if FileAccess.file_exists(path):
+		references = Helper.json_helper.load_json_dictionary_file(path)
+	else:
+		references = {}  # Initialize an empty references dictionary if the file doesn't exist
+
+
 # Loads sprites and assigns them to the proper dictionary
 func load_sprites() -> void:
 	var png_files: Array = Helper.json_helper.file_names_in_dir(spritePath, ["png"])
