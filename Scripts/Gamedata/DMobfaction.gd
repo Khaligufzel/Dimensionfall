@@ -43,7 +43,7 @@ func _init(data: Dictionary):
 	name = data.get("name", "")
 	description = data.get("description", "")
 	references = data.get("references", {})
-	relations = data.get("relations", {})
+	relations = data.get("relations", [])
 
 # Returns all properties of the mob faction as a dictionary
 func get_data() -> Dictionary:
