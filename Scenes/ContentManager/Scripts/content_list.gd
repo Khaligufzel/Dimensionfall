@@ -40,6 +40,12 @@ var is_collapsed: bool = false:
 		set_collapsed()
 		save_collapse_state()
 
+
+
+func _ready():
+	contentItems.set_drag_forwarding(_create_drag_data, Callable(), Callable())
+
+
 # This function adds items to the content list based on the provided path
 # If the path is a directory, it will list all the files in the directory
 # If the path is a json file, it will list all the items in the json file
@@ -140,7 +146,7 @@ func set_collapsed():
 # Only one item can be selected and dragged at a time.
 # We get the selected item from contentItems
 # This function should return a new object with an id property that holds the item's text
-func _get_drag_data(_newpos):
+func _create_drag_data(_newpos):
 	# Check if an item is selected
 	var selected_index = contentItems.get_selected_items()
 	if selected_index.size() == 0:
@@ -207,13 +213,6 @@ func _on_content_items_gui_input(event):
 						if distance_dragged <= drag_threshold:
 							print_debug("Released the mouse button, but clicked instead of dragged")
 					mouse_button_is_pressed = false
-	# When the users presses and holds the mouse wheel, we scroll the grid
-	if event is InputEventMouseMotion:
-		end_point = event.global_position
-		if mouse_button_is_pressed:
-			if not _get_drag_data(end_point) == null:
-				var drag_data: Dictionary = _get_drag_data(end_point)
-				force_drag(drag_data, _create_drag_preview(drag_data.id))
 
 
 func _on_content_items_mouse_entered():
