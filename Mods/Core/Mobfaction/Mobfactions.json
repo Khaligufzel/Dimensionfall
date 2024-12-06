@@ -1,30 +1,134 @@
 [
 	{
-		"description": "The unholy remainders of our past sins.",
-		"id": "undead",
-		"name": "The Undead",
+		"description": "Unholy remainders of our greatest sins.",
+		"id": "zombie",
+		"name": "The Undead People",
 		"relations": [
 			{
-				"mobgroup": "basic_zombies",
+				"mob": "basic_zombie_1",
 				"relation_type": "core"
 			},
 			{
-				"mobgroup": "security_robots",
+				"mob": "basic_zombie_2",
+				"relation_type": "core"
+			},
+			{
+				"mob": "bloated_zombie",
+				"relation_type": "core"
+			},
+			{
+				"mob": "rushing_zombie",
+				"relation_type": "core"
+			},
+			{
+				"mob": "charred_zombie",
+				"relation_type": "core"
+			},
+			{
+				"mob": "heavy_zombie",
+				"relation_type": "core"
+			},
+			{
+				"mob": "skeleton_zombie",
+				"relation_type": "core"
+			},
+			{
+				"mob": "limping_zombie",
+				"relation_type": "core"
+			},
+			{
+				"mob": "scrapwalker",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "rust_sentinel",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "scavenger_skitter",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "iron_stalker",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "disruptor_drone",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "venom_crawler",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "outpost_guardian",
 				"relation_type": "hostile"
 			}
 		]
 	},
 	{
-		"description": "Developed by the rich to opress the poor, ironically they cannot tell apart from one another.",
-		"id": "robot",
+		"description": "A faction of security robots employed by the law enforcement, mostly deals with violent riots and protesters.",
+		"id": "security_robots",
 		"name": "The Iron Force",
 		"relations": [
 			{
-				"mobgroup": "security_robots",
+				"mob": "scrapwalker",
 				"relation_type": "core"
 			},
 			{
-				"mobgroup": "basic_zombies",
+				"mob": "rust_sentinel",
+				"relation_type": "core"
+			},
+			{
+				"mob": "scavenger_skitter",
+				"relation_type": "core"
+			},
+			{
+				"mob": "iron_stalker",
+				"relation_type": "core"
+			},
+			{
+				"mob": "disruptor_drone",
+				"relation_type": "core"
+			},
+			{
+				"mob": "venom_crawler",
+				"relation_type": "core"
+			},
+			{
+				"mob": "outpost_guardian",
+				"relation_type": "core"
+			},
+			{
+				"mob": "basic_zombie_1",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "basic_zombie_2",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "bloated_zombie",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "rushing_zombie",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "charred_zombie",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "heavy_zombie",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "skeleton_zombie",
+				"relation_type": "hostile"
+			},
+			{
+				"mob": "limping_zombie",
 				"relation_type": "hostile"
 			}
 		]

@@ -61,39 +61,19 @@ func _on_save_button_button_up() -> void:
 	for hbox in relations_container.get_children():
 		var relation = {}
 		var relation_type_label = hbox.get_child(0) as Label
-	
-	# Handle each relation type
-		if relation_type_label.text == "Relation type:":
-			var dropable_control = hbox.get_child(1) as HBoxContainer
-			var mob_or_group = dropable_control.get_text()
-			var entity_type = dropable_control.get_meta("entity_type")
-			var relation_type = dropable_control.get_meta("relation_type")
-			relation["relation_type"] = relation_type
-		if relation_type_label.text == "Relation type:":
-			var dropable_control = hbox.get_child(1) as HBoxContainer
-			var mob_or_group = dropable_control.get_text()
-			var entity_type = dropable_control.get_meta("entity_type")
-			var relation_type = dropable_control.get_meta("relation_type")
-			relation["relation_type"] = relation_type
-		if relation_type_label.text == "Relation type:":
-			var dropable_control = hbox.get_child(1) as HBoxContainer
-			var mob_or_group = dropable_control.get_text()
-			var entity_type = dropable_control.get_meta("entity_type")
-			var relation_type = dropable_control.get_meta("relation_type")
-			relation["relation_type"] = relation_type
-		if relation_type_label.text == "Relation type:":
-			var dropable_control = hbox.get_child(1) as HBoxContainer
-			var mob_or_group = dropable_control.get_text()
-			var entity_type = dropable_control.get_meta("entity_type")
-			var relation_type = dropable_control.get_meta("relation_type")
-			relation["relation_type"] = relation_type
-			# Save as mob or mobgroup based on metadata
-			if entity_type == "mob":
-				relation["mob"] = mob_or_group
-			elif entity_type == "mobgroup":
-				relation["mobgroup"] = mob_or_group
-			else:
-				print_debug("Invalid entity type metadata: " + str(entity_type))
+		# Process each relation type
+		var dropable_control = hbox.get_child(1) as HBoxContainer
+		var mob_or_group = dropable_control.get_text()
+		var entity_type = dropable_control.get_meta("entity_type")
+		var relation_type = dropable_control.get_meta("relation_type")
+		relation["relation_type"] = relation_type
+		# Save as mob or mobgroup based on metadata
+		if entity_type == "mob":
+			relation["mob"] = mob_or_group
+		elif entity_type == "mobgroup":
+			relation["mobgroup"] = mob_or_group
+		else:
+			print_debug("Invalid entity type metadata: " + str(entity_type))
 		dmobfaction.relations.append(relation)
 	dmobfaction.changed(olddata)
 	data_changed.emit()
@@ -120,7 +100,8 @@ func add_relation_type(relation: Dictionary) -> HBoxContainer:
 
 	# Add the label
 	var label_instance: Label = Label.new()
-	label_instance.text = "Relation type:"
+	var selectedrelation = relation.get("relation_type")
+	label_instance.text = selectedrelation
 	hbox.add_child(label_instance)
 
 	# Add the dropable text edit for the mob or mobgroup ID
