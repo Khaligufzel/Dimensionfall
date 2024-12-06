@@ -136,7 +136,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_une6i")
 [node name="RelationsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer"]
 layout_mode = 2
 tooltip_text = "Press the \"+ Add\" button above to add a relation. You can 
-re-order and delete relations using the controls of each relation."
+clear and delete relations using the controls of each relation."
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer/RelationsVBoxContainer"]
 layout_mode = 2

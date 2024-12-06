@@ -174,6 +174,11 @@ With this editor, you can create your own group of mobs by adding a sprite, name
 
 ![Catax_mobgroup_editor](Media/Dimensionfall_mobgroup_editor.png)
 
+# Mob faction editor
+(Work in progress), you can create a new custom faction and assign it to any mobs or mobgroups you want. You can set what this faction is friendly, neutral and hostile towards other mobs, mobgroups and factions.
+
+![Catax_mobfaction_editor](Media/Dimensionfall_mobfaction_editor.png)
+
 ## Roadmap
 
 ### Stage 1 (first release):
