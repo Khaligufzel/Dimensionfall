@@ -23,6 +23,6 @@ editable = false
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
-text = "X"
+text = "C"
 
 [connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
