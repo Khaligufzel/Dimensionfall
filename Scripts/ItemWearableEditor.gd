@@ -54,7 +54,7 @@ func save_properties() -> void:
 
 # Add a new attribute entry to the attributtes_grid_container
 func add_attribute_entry(attribute_id: String, value: int = 0, use_loaded_value: bool = false):
-	if not Gamedata.playerattributes.has_id(attribute_id):
+	if not Gamedata.mods.by_id("Core").playerattributes.has_id(attribute_id):
 		print_debug("Invalid attribute ID: " + attribute_id)
 		return
 
@@ -95,7 +95,7 @@ func can_drop_attribute(at_position: Vector2, dropped_data: Dictionary) -> bool:
 		return false
 	
 	# Check if the attribute ID exists in playerattributes
-	if not Gamedata.playerattributes.has_id(dropped_data["id"]):
+	if not Gamedata.mods.by_id("Core").playerattributes.has_id(dropped_data["id"]):
 		return false
 
 	# Prevent duplicates in the attributtes_grid_container

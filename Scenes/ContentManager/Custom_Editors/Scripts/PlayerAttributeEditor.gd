@@ -35,14 +35,14 @@ extends Control
 signal data_changed()
 var olddata: DPlayerAttribute # Remember what the value of the data was before editing
 # The data that represents this playerattribute
-# The data is selected from Gamedata.playerattributes
+# The data is selected from dplayerattribute.parent
 # based on the ID that the user has selected in the content editor
 var dplayerattribute: DPlayerAttribute:
 	set(value):
 		dplayerattribute = value
 		load_playerattribute_data()
-		sprite_selector.sprites_collection = Gamedata.playerattributes.sprites
-		olddata = DPlayerAttribute.new(dplayerattribute.get_data().duplicate(true))
+		sprite_selector.sprites_collection = dplayerattribute.parent.sprites
+		olddata = DPlayerAttribute.new(dplayerattribute.get_data().duplicate(true), null)
 
 
 func _ready() -> void:
@@ -147,7 +147,7 @@ func _on_save_button_button_up() -> void:
 
 	dplayerattribute.changed(olddata)
 	data_changed.emit()
-	olddata = DPlayerAttribute.new(dplayerattribute.get_data().duplicate(true))
+	olddata = DPlayerAttribute.new(dplayerattribute.get_data().duplicate(true), null)
 
 
 # Function to save data into default mode
@@ -222,7 +222,7 @@ func _get_drain_attributes_from_ui() -> Dictionary:
 
 # Add a new drain attribute entry to the drain_attribute_grid_container
 func _add_drain_attribute_entry(attribute_id: String, amount: float) -> void:
-	var attribute_data = Gamedata.playerattributes.by_id(attribute_id)
+	var attribute_data = dplayerattribute.parent.by_id(attribute_id)
 
 	# Create a TextureRect for the sprite
 	var texture_rect = TextureRect.new()
@@ -263,7 +263,7 @@ func _delete_drain_attribute_entry(elements_to_remove: Array) -> void:
 func _can_drop_attribute_data(_newpos, data) -> bool:
 	if not data or not data.has("id"):
 		return false
-	if not Gamedata.playerattributes.has_id(data["id"]):
+	if not dplayerattribute.parent.has_id(data["id"]):
 		return false
 
 	# Ensure the attribute ID isn't already in the grid
@@ -285,7 +285,7 @@ func _drop_attribute_data(newpos, data) -> void:
 func _handle_drain_attribute_drop(dropped_data) -> void:
 	if dropped_data and "id" in dropped_data:
 		var attribute_id = dropped_data["id"]
-		if Gamedata.playerattributes.has_id(attribute_id):
+		if dplayerattribute.parent.has_id(attribute_id):
 			_add_drain_attribute_entry(attribute_id, 1.0)  # Default value for new attributes
 		else:
 			print_debug("Invalid attribute ID: " + attribute_id)

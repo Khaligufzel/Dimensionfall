@@ -196,7 +196,7 @@ func _load_attributes_into_grid(container: GridContainer, attributes: Array) -> 
 
 # Modified function to add a new attribute entry to a specified grid container
 func _add_attribute_entry_to_grid(container: GridContainer, attribute: Dictionary) -> void:
-	var myattribute: DPlayerAttribute = Gamedata.playerattributes.by_id(attribute.id)
+	var myattribute: DPlayerAttribute = Gamedata.mods.by_id("Core").playerattributes.by_id(attribute.id)
 
 	# Create a TextureRect for the sprite
 	var texture_rect = TextureRect.new()
@@ -267,7 +267,7 @@ func _can_drop_attribute_data(_newpos, data) -> bool:
 		return false
 
 	# Fetch attribute by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.playerattributes.has_id(data["id"]):
+	if not Gamedata.mods.by_id("Core").playerattributes.has_id(data["id"]):
 		return false
 
 	# Check if the attribute ID already exists in either of the attribute grids
@@ -300,7 +300,7 @@ func _drop_all_of_attribute_data(newpos, data) -> void:
 func _handle_attribute_drop(dropped_data, container: GridContainer) -> void:
 	if dropped_data and "id" in dropped_data:
 		var attribute_id = dropped_data["id"]
-		if not Gamedata.playerattributes.has_id(attribute_id):
+		if not Gamedata.mods.by_id("Core").playerattributes.has_id(attribute_id):
 			print_debug("No attribute data found for ID: " + attribute_id)
 			return
 

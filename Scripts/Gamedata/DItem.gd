@@ -564,16 +564,14 @@ func process_wearable_player_attributes(olddata: DItem):
 		if olddata.wearable and not olddata.wearable.player_attributes.is_empty():
 			# Loop over old player attributes and remove references
 			for old_attr in olddata.wearable.player_attributes:
-				var old_attr_id = old_attr["id"]
-				Gamedata.playerattributes.remove_reference(old_attr_id, "Core", "item", olddata.id)
+				Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, old_attr["id"], DMod.ContentType.ITEMS, id)
 		return  # Exit since there's no wearable in the new data
 	
 	if wearable.player_attributes.is_empty():
 		# If the new wearable has no player attributes, remove all references from olddata if they exist
 		if olddata.wearable and not olddata.wearable.player_attributes.is_empty():
 			for old_attr in olddata.wearable.player_attributes:
-				var old_attr_id = old_attr["id"]
-				Gamedata.playerattributes.remove_reference(old_attr_id, "Core", "item", olddata.id)
+				Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, old_attr["id"], DMod.ContentType.ITEMS, id)
 		return  # Exit since there are no player attributes to add
 
 	# Collect new and old player attributes
@@ -589,14 +587,14 @@ func process_wearable_player_attributes(olddata: DItem):
 	for new_attr in new_player_attributes:
 		var attribute_id = new_attr["id"]
 		# Add reference for the new attribute
-		Gamedata.playerattributes.add_reference(attribute_id, "Core", "item", id)
+		Gamedata.mods.add_reference(DMod.ContentType.PLAYERATTRIBUTES, attribute_id, DMod.ContentType.ITEMS, id)
 
 		# Remove the old attribute from the dictionary, as it still exists
 		old_attr_dict.erase(attribute_id)
 
 	# Any remaining attributes in old_attr_dict were removed, so remove their references
 	for old_attr_id in old_attr_dict.keys():
-		Gamedata.playerattributes.remove_reference(old_attr_id, "Core", "item", olddata.id)
+		Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, old_attr_id, DMod.ContentType.ITEMS, id)
 
 
 # Collects all skills defined in an item and updates the references to that skill
@@ -645,12 +643,11 @@ func update_item_attribute_references(olddata: DItem):
 	# Remove old attribute references that are not in the new list
 	for old_attr_id in old_attr_ids:
 		if not new_attr_ids.has(old_attr_id):
-			Gamedata.playerattributes.remove_reference(old_attr_id, "core", "items", id)
+			Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, old_attr_id, DMod.ContentType.ITEMS, id)
 	
 	# Add new attribute references
 	for new_attr_id in new_attr_ids:
-		Gamedata.playerattributes.add_reference(new_attr_id, "core", "items", id)
-
+		Gamedata.mods.add_reference(DMod.ContentType.PLAYERATTRIBUTES, new_attr_id, DMod.ContentType.ITEMS, id)
 
 
 # An item is being deleted from the data
@@ -686,16 +683,16 @@ func delete():
 	
 	if food and not food.attributes.is_empty():
 		for food_attribute in food.attributes:
-			Gamedata.playerattributes.remove_reference(food_attribute["id"],"Core","item",id)
-	
+			Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, food_attribute["id"], DMod.ContentType.ITEMS, id)
+			
 	if medical and not medical.attributes.is_empty():
 		for medical_attribute in medical.attributes:
-			Gamedata.playerattributes.remove_reference(medical_attribute["id"],"Core","item",id)
-	
+			Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, medical_attribute["id"], DMod.ContentType.ITEMS, id)
+			
 	if wearable and not wearable.player_attributes.is_empty():
 		for wearableattr in wearable.player_attributes:
-			Gamedata.playerattributes.remove_reference(wearableattr["id"],"Core","item",id)
-	
+			Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, wearableattr["id"], DMod.ContentType.ITEMS, id)
+			
 	var skill_ids: Dictionary = {}
 	# Check if 'craft' is not null before proceeding
 	if craft:

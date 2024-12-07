@@ -14,40 +14,6 @@
 		"description": "You starve when this is empty. You are full when this is full.",
 		"id": "food",
 		"name": "Food",
-		"references": {
-			"core": {
-				"items": [
-					"canned_food",
-					"tofu",
-					"bottle_yogurt",
-					"condensed_milk",
-					"bag_bacon",
-					"bread",
-					"slice_of_pizza",
-					"vacuum_sealed_fish",
-					"tomato",
-					"lettuce",
-					"chocolate",
-					"jar_olives",
-					"jar_mustard",
-					"bottle_ketchup",
-					"stale_bread",
-					"orange",
-					"apple",
-					"potato",
-					"carrot",
-					"eggs",
-					"butter",
-					"cheese",
-					"berries_wild",
-					"bird_egg",
-					"mushrooms_forest",
-					"rotten_flesh_chunk",
-					"zombie_eye",
-					"zombie_organ"
-				]
-			}
-		},
 		"sprite": "apple_32.png"
 	},
 	{
@@ -65,28 +31,6 @@
 		"description": "The amount of water the player has in their body. Running out will mean death.",
 		"id": "water",
 		"name": "Water",
-		"references": {
-			"core": {
-				"items": [
-					"bottle_plastic_water",
-					"bottle_yogurt",
-					"condensed_milk",
-					"wine_bottle",
-					"tomato",
-					"lettuce",
-					"orange",
-					"apple",
-					"eggs",
-					"can_energydrink",
-					"can_soda",
-					"berries_wild",
-					"bird_egg",
-					"rotten_flesh_chunk",
-					"zombie_eye",
-					"zombie_organ"
-				]
-			}
-		},
 		"sprite": "waterbottle_32.png"
 	},
 	{
@@ -104,33 +48,6 @@
 		"description": "The health of the player's head. Critical for survival.",
 		"id": "head_health",
 		"name": "Head Health",
-		"references": {
-			"core": {
-				"items": [
-					"bandage_basic",
-					"bottle_antibiotics",
-					"bottle_disinfectant",
-					"insulin",
-					"epipen",
-					"painkiller"
-				],
-				"mobs": [
-					"scrapwalker",
-					"rust_sentinel",
-					"scavenger_skitter",
-					"iron_stalker",
-					"outpost_guardian",
-					"basic_zombie_1",
-					"basic_zombie_2",
-					"bloated_zombie",
-					"rushing_zombie",
-					"charred_zombie",
-					"heavy_zombie",
-					"skeleton_zombie",
-					"limping_zombie"
-				]
-			}
-		},
 		"sprite": "head_32.png"
 	},
 	{
@@ -148,33 +65,6 @@
 		"description": "The health of the player's torso. Vital for survival.",
 		"id": "torso_health",
 		"name": "Torso Health",
-		"references": {
-			"core": {
-				"items": [
-					"bandage_basic",
-					"bottle_antibiotics",
-					"bottle_disinfectant",
-					"insulin",
-					"epipen",
-					"painkiller"
-				],
-				"mobs": [
-					"scrapwalker",
-					"rust_sentinel",
-					"scavenger_skitter",
-					"iron_stalker",
-					"outpost_guardian",
-					"basic_zombie_1",
-					"basic_zombie_2",
-					"bloated_zombie",
-					"rushing_zombie",
-					"charred_zombie",
-					"heavy_zombie",
-					"skeleton_zombie",
-					"limping_zombie"
-				]
-			}
-		},
 		"sprite": "torso_32.png"
 	},
 	{
@@ -192,33 +82,6 @@
 		"description": "The health of the player's left arm.",
 		"id": "left_arm_health",
 		"name": "Left Arm Health",
-		"references": {
-			"core": {
-				"items": [
-					"bandage_basic",
-					"bottle_antibiotics",
-					"bottle_disinfectant",
-					"insulin",
-					"epipen",
-					"painkiller"
-				],
-				"mobs": [
-					"scrapwalker",
-					"rust_sentinel",
-					"scavenger_skitter",
-					"iron_stalker",
-					"outpost_guardian",
-					"basic_zombie_1",
-					"basic_zombie_2",
-					"bloated_zombie",
-					"rushing_zombie",
-					"charred_zombie",
-					"heavy_zombie",
-					"skeleton_zombie",
-					"limping_zombie"
-				]
-			}
-		},
 		"sprite": "left_arm_32.png"
 	},
 	{
@@ -236,33 +99,6 @@
 		"description": "The health of the player's right arm.",
 		"id": "right_arm_health",
 		"name": "Right Arm Health",
-		"references": {
-			"core": {
-				"items": [
-					"bandage_basic",
-					"bottle_antibiotics",
-					"bottle_disinfectant",
-					"insulin",
-					"epipen",
-					"painkiller"
-				],
-				"mobs": [
-					"scrapwalker",
-					"rust_sentinel",
-					"scavenger_skitter",
-					"iron_stalker",
-					"outpost_guardian",
-					"basic_zombie_1",
-					"basic_zombie_2",
-					"bloated_zombie",
-					"rushing_zombie",
-					"charred_zombie",
-					"heavy_zombie",
-					"skeleton_zombie",
-					"limping_zombie"
-				]
-			}
-		},
 		"sprite": "right_arm_32.png"
 	},
 	{
@@ -280,33 +116,6 @@
 		"description": "The health of the player's left leg.",
 		"id": "left_leg_health",
 		"name": "Left Leg Health",
-		"references": {
-			"core": {
-				"items": [
-					"bandage_basic",
-					"bottle_antibiotics",
-					"bottle_disinfectant",
-					"insulin",
-					"epipen",
-					"painkiller"
-				],
-				"mobs": [
-					"scrapwalker",
-					"rust_sentinel",
-					"scavenger_skitter",
-					"iron_stalker",
-					"outpost_guardian",
-					"basic_zombie_1",
-					"basic_zombie_2",
-					"bloated_zombie",
-					"rushing_zombie",
-					"charred_zombie",
-					"heavy_zombie",
-					"skeleton_zombie",
-					"limping_zombie"
-				]
-			}
-		},
 		"sprite": "left_leg_32.png"
 	},
 	{
@@ -324,33 +133,6 @@
 		"description": "The health of the player's right leg.",
 		"id": "right_leg_health",
 		"name": "Right Leg Health",
-		"references": {
-			"core": {
-				"items": [
-					"bandage_basic",
-					"bottle_antibiotics",
-					"bottle_disinfectant",
-					"insulin",
-					"epipen",
-					"painkiller"
-				],
-				"mobs": [
-					"scrapwalker",
-					"rust_sentinel",
-					"scavenger_skitter",
-					"iron_stalker",
-					"outpost_guardian",
-					"basic_zombie_1",
-					"basic_zombie_2",
-					"bloated_zombie",
-					"rushing_zombie",
-					"charred_zombie",
-					"heavy_zombie",
-					"skeleton_zombie",
-					"limping_zombie"
-				]
-			}
-		},
 		"sprite": "right_leg_32.png"
 	},
 	{
@@ -360,16 +142,6 @@
 		},
 		"id": "inventory_space",
 		"name": "Inventory space",
-		"references": {
-			"Core": {
-				"item": [
-					"waistbag",
-					"mailbag",
-					"backpack",
-					"jeans"
-				]
-			}
-		},
 		"sprite": "playerattribuge_inventory_space_32.png"
 	},
 	{
@@ -395,19 +167,6 @@
 		"description": "You are poisoned! Your health will be drained until the poison is cured or wears out. If your body is full of poison, you die!",
 		"id": "poison",
 		"name": "Poison",
-		"references": {
-			"core": {
-				"items": [
-					"bottle_antidote",
-					"rotten_flesh_chunk",
-					"zombie_eye",
-					"zombie_organ"
-				],
-				"mobs": [
-					"venom_crawler"
-				]
-			}
-		},
 		"sprite": "skull_poison_32.png"
 	},
 	{
@@ -425,14 +184,6 @@
 		"description": "You are stunned and can't move!",
 		"id": "stun",
 		"name": "Stun",
-		"references": {
-			"core": {
-				"mobs": [
-					"iron_stalker",
-					"disruptor_drone"
-				]
-			}
-		},
 		"sprite": "trapping_32.png"
 	}
 ]

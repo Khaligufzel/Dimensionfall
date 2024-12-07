@@ -1,0 +1,48 @@
+{
+	"food": {
+		"items": [
+			"canned_food"
+		]
+	},
+	"head_health": {
+		"items": [
+			"bandage_basic",
+			"bottle_antibiotics"
+		]
+	},
+	"left_arm_health": {
+		"items": [
+			"bandage_basic",
+			"bottle_antibiotics"
+		]
+	},
+	"left_leg_health": {
+		"items": [
+			"bandage_basic",
+			"bottle_antibiotics"
+		]
+	},
+	"right_arm_health": {
+		"items": [
+			"bandage_basic",
+			"bottle_antibiotics"
+		]
+	},
+	"right_leg_health": {
+		"items": [
+			"bandage_basic",
+			"bottle_antibiotics"
+		]
+	},
+	"torso_health": {
+		"items": [
+			"bandage_basic",
+			"bottle_antibiotics"
+		]
+	},
+	"water": {
+		"items": [
+			"bottle_plastic_water"
+		]
+	}
+}

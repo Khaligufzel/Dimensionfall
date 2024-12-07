@@ -215,11 +215,11 @@ func update_mob_attribute_references(olddata: DMob):
 	# Remove old skill references that are not in the new list
 	for old_attr_id in old_attr_ids:
 		if not new_attr_ids.has(old_attr_id):
-			Gamedata.playerattributes.remove_reference(old_attr_id, "core", "mobs", id)
+			Gamedata.mods.by_id("Core").playerattributes.remove_reference(old_attr_id, "core", "mobs", id)
 	
 	# Add new attribute references
 	for new_attr_id in new_attr_ids:
-		Gamedata.playerattributes.add_reference(new_attr_id, "core", "mobs", id)
+		Gamedata.mods.by_id("Core").playerattributes.add_reference(new_attr_id, "core", "mobs", id)
 
 
 # Function to retrieve an array of maps from the references
