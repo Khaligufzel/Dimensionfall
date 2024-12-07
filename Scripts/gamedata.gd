@@ -50,7 +50,6 @@ func _ready():
 	items = DItems.new()
 	mobs = DMobs.new()
 	itemgroups = DItemgroups.new()
-	wearableslots = DWearableSlots.new()
 	mobgroups = DMobgroups.new()
 	mobfactions = DMobfactions.new()
 
@@ -64,7 +63,7 @@ func _ready():
 		DMod.ContentType.TILES: mods.by_id("Core").tiles,
 		DMod.ContentType.MOBS: mobs,
 		DMod.ContentType.PLAYERATTRIBUTES: mods.by_id("Core").playerattributes,
-		DMod.ContentType.WEARABLESLOTS: wearableslots,
+		DMod.ContentType.WEARABLESLOTS: mods.by_id("Core").wearableslots,
 		DMod.ContentType.STATS: mods.by_id("Core").stats,
 		DMod.ContentType.SKILLS: mods.by_id("Core").skills,
 		DMod.ContentType.QUESTS: mods.by_id("Core").quests,

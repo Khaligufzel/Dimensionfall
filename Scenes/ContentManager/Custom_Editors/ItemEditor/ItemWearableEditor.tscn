@@ -1,11 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://65bjwo1b3je2"]
+[gd_scene load_steps=4 format=3 uid="uid://65bjwo1b3je2"]
 
 [ext_resource type="Script" path="res://Scripts/ItemWearableEditor.gd" id="1_o5i08"]
+[ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="2_aft7y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3shf"]
 bg_color = Color(0.72927, 0.567349, 0.365251, 1)
 
-[node name="ItemWearableEditor" type="Control" node_paths=PackedStringArray("SlotOptionButton", "attributtes_grid_container")]
+[node name="ItemWearableEditor" type="Control" node_paths=PackedStringArray("slot_drop_enabled_text_edit", "attributtes_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o5i08")
-SlotOptionButton = NodePath("Wearable/SlotOptionButton")
+slot_drop_enabled_text_edit = NodePath("Wearable/SlotDropEnabledTextEdit")
 attributtes_grid_container = NodePath("Wearable/AttributesPanelContainer/AttributtesGridContainer")
 
 [node name="Wearable" type="GridContainer" parent="."]
@@ -25,8 +26,12 @@ columns = 2
 layout_mode = 2
 text = "Wearable slot"
 
-[node name="SlotOptionButton" type="OptionButton" parent="Wearable"]
+[node name="SlotDropEnabledTextEdit" parent="Wearable" instance=ExtResource("2_aft7y")]
 layout_mode = 2
+tooltip_text = "The slot that this item will fit on. Drag a wearableslot from the list on the 
+left onto this field to set it. If no slot is set, it will not fit anywhere. In-game, 
+the player will be able to drag the item to this slot in the inventory window."
+myplaceholdertext = "Drop a Wearable Slot from the list on the left"
 
 [node name="PlayerAttributeLabel" type="Label" parent="Wearable"]
 layout_mode = 2

@@ -90,8 +90,8 @@ func get_content_by_id(contentType: DMod.ContentType, id: String) -> RefCounted:
 # The returned value may be an array of DMap, DItem, DMobgroup or anything
 # If more then one is returned, that means that this id is contained within more then one mod
 # We will expect two of them to be duplicates of eachother.
-func get_all_content_by_id(contentType: DMod.ContentType, id: String) -> Array:
-	var results: Array = []
+func get_all_content_by_id(contentType: DMod.ContentType, id: String) -> Array[RefCounted]:
+	var results: Array[RefCounted] = []
 	
 	# Loop over all mods in the moddict
 	for mod in moddict.values():

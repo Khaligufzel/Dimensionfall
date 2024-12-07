@@ -79,7 +79,7 @@ func equip_loaded_items():
 # The first to children of EquipmentSlotList are static slots and we should ignore them
 # It will get the "name" property from the slot data and set it to the instance's "myLabel" property
 func instantiate_wearable_slots():
-	var slots: Dictionary = Gamedata.wearableslots.get_all()
+	var slots: Dictionary = Runtimedata.wearableslots.get_all()
 
 	# Clear any dynamically created slots first to avoid duplicates and skip the first two
 	while EquipmentSlotList.get_child_count() > 2:
