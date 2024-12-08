@@ -68,7 +68,21 @@ func _resume_game():
 # Handle the return to the main menu, unpause the game, save the game, and change the scene.
 func _return_to_main_menu():
 	if is_inside_tree():
+		_disable_all_controls()  # Disable controls before exiting
 		get_tree().paused = false
 		Helper.signal_broker.game_terminated.emit()
 		loadingscreen.on_exit_game()
 		Helper.save_and_exit_game()
+
+
+# Function to disable all the controls in this script
+func _disable_all_controls():
+	# Disable each control by setting their disabled property
+	if resume_button:
+		resume_button.disabled = true
+	if return_button:
+		return_button.disabled = true
+	if save_button:
+		save_button.disabled = true
+	if loadingscreen:
+		loadingscreen.visible = false  # Optionally hide the loading screen control
