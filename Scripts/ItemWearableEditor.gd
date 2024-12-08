@@ -4,7 +4,7 @@ extends Control
 # It is supposed to edit exactly one type of wearable
 
 # Form elements
-@export var SlotOptionButton: OptionButton = null
+@export var slot_drop_enabled_text_edit: HBoxContainer = null
 @export var attributtes_grid_container: GridContainer = null
 
 var ditem: DItem = null:
@@ -15,7 +15,7 @@ var ditem: DItem = null:
 		load_properties()
 
 func _ready():
-	refresh_wearableslots_optionbutton()
+	set_drop_functions()
 	# Set custom can_drop_func and drop_func for the attributtes_grid_container, use default drag_func
 	attributtes_grid_container.set_drag_forwarding(Callable(), can_drop_attribute, attribute_drop)
 
@@ -26,7 +26,7 @@ func load_properties() -> void:
 	
 	# Update the slot option button based on the slot in ditem.wearable
 	if ditem.wearable.slot != "":
-		update_slot_option(ditem.wearable.slot)
+		slot_drop_enabled_text_edit.set_text(ditem.wearable.slot)
 	
 	# Load player attributes into attributtes_grid_container
 	for attribute in ditem.wearable.player_attributes:
@@ -35,7 +35,7 @@ func load_properties() -> void:
 # Save the selected slot and player attributes back to ditem.wearable
 func save_properties() -> void:
 	# Save slot from SlotOptionButton
-	var slotvalue: String = SlotOptionButton.get_item_text(SlotOptionButton.selected)
+	var slotvalue: String = slot_drop_enabled_text_edit.get_text()
 	if not ditem.wearable:
 		ditem.wearable = DItem.Wearable.new({"slot": slotvalue})
 	else:
@@ -113,18 +113,61 @@ func attribute_drop(at_position: Vector2, dropped_data: Dictionary) -> void:
 	else:
 		print_debug("Failed to drop attribute: Invalid or duplicate entry.")
 
-# Refreshes the SlotOptionButton by loading slot IDs from the wearable slots data
-func refresh_wearableslots_optionbutton():
-	var wearableslots = Gamedata.wearableslots.get_all().keys()
-	SlotOptionButton.clear()
 
-	# Loop over each wearable slot and add the id to the OptionButton
-	for slot in wearableslots:
-		SlotOptionButton.add_item(slot)
+# Set the drop functions on the provided control. It should be a dropabletextedit
+# This enables them to receive drop data
+func set_drop_functions():
+	slot_drop_enabled_text_edit.drop_function = entity_drop
+	slot_drop_enabled_text_edit.can_drop_function = can_entity_drop
 
-# Update the selected option in the SlotOptionButton to match the specified slot name
-func update_slot_option(slotname: String):
-	for i in range(SlotOptionButton.get_item_count()):
-		if SlotOptionButton.get_item_text(i) == slotname:
-			SlotOptionButton.selected = i
-			return
+
+# Called when the user has successfully dropped data onto the texteditcontrol
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
+func entity_drop(dropped_data: Dictionary) -> void:
+	if not dropped_data or not dropped_data.has("id"):
+		return
+	
+	var slot_content_type: DMod.ContentType = dropped_data.get("contentType", -1)
+	if not slot_content_type == DMod.ContentType.WEARABLESLOTS:
+		return
+		
+	var slot_id: String = dropped_data.get("id", "")
+	var mymod: DMod = Gamedata.mods.by_id(dropped_data.get("mod_id", ""))
+	var wearableslot: DWearableSlot = mymod.wearableslots.by_id(slot_id)
+	
+	if not wearableslot:
+		return
+		
+	slot_drop_enabled_text_edit.set_text(wearableslot.id)
+	slot_drop_enabled_text_edit.set_meta("dropped_data", dropped_data)
+
+
+# Determines if the dropped data can be accepted
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
+func can_entity_drop(dropped_data: Dictionary) -> bool:
+	if not dropped_data or not dropped_data.has("id"):
+		return false
+	
+	var slot_content_type: DMod.ContentType = dropped_data.get("contentType", -1)
+	if not slot_content_type == DMod.ContentType.WEARABLESLOTS:
+		return false
+	
+	var slot_id: String = dropped_data.get("id", "")
+	var mymod: DMod = Gamedata.mods.by_id(dropped_data.get("mod_id", ""))
+	var wearableslot: DWearableSlot = mymod.wearableslots.by_id(slot_id)
+	
+	if not wearableslot:
+		return false
+	return true

@@ -3,24 +3,41 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles wearableslot data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of wearableslots. You can access it trough Gamedata.wearableslots
+# This script handles the list of wearableslots. You can access it trough Gamedata.mods.by_id("Core").wearableslots
 
 
-var dataPath: String = "./Mods/Core/Wearableslots/Wearableslots.json"
+var dataPath: String = "./Mods/Core/Wearableslots/"
+var filePath: String = "./Mods/Core/Wearableslots/Wearableslots.json"
 var spritePath: String = "./Mods/Core/Wearableslots/"
 var wearableslotdict: Dictionary = {}
 var sprites: Dictionary = {}
+var references: Dictionary = {}
 
-func _init():
+# Add a mod_id parameter to dynamically initialize paths
+func _init(mod_id: String) -> void:
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Wearableslots/"
+	filePath = "./Mods/" + mod_id + "/Wearableslots/Wearableslots.json"
+	spritePath = "./Mods/" + mod_id + "/Wearableslots/"
 	load_sprites()
 	load_wearableslots_from_disk()
+	load_references()
+
+
+# Load references from references.json
+func load_references() -> void:
+	var path = dataPath + "references.json"
+	if FileAccess.file_exists(path):
+		references = Helper.json_helper.load_json_dictionary_file(path)
+	else:
+		references = {}  # Initialize an empty references dictionary if the file doesn't exist
 
 
 # Load all wearableslotdata from disk into memory
 func load_wearableslots_from_disk() -> void:
-	var wearableslotlist: Array = Helper.json_helper.load_json_array_file(dataPath)
+	var wearableslotlist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for mywearableslot in wearableslotlist:
-		var wearableslot: DWearableSlot = DWearableSlot.new(mywearableslot)
+		var wearableslot: DWearableSlot = DWearableSlot.new(mywearableslot, self)
 		wearableslot.sprite = sprites[wearableslot.spriteid]
 		wearableslotdict[wearableslot.id] = wearableslot
 
@@ -44,7 +61,7 @@ func save_wearableslots_to_disk() -> void:
 	var save_data: Array = []
 	for wearableslot in wearableslotdict.values():
 		save_data.append(wearableslot.get_data())
-	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	Helper.json_helper.write_json_file(filePath, JSON.stringify(save_data, "\t"))
 
 
 func get_all() -> Dictionary:
@@ -57,13 +74,13 @@ func duplicate_to_disk(wearableslotid: String, newwearableslotid: String) -> voi
 	# So we delete the references from the duplicated data if it is present
 	wearableslotdata.erase("references")
 	wearableslotdata.id = newwearableslotid
-	var newwearableslot: DWearableSlot = DWearableSlot.new(wearableslotdata)
+	var newwearableslot: DWearableSlot = DWearableSlot.new(wearableslotdata, self)
 	wearableslotdict[newwearableslotid] = newwearableslot
 	save_wearableslots_to_disk()
 
 
 func add_new(newid: String) -> void:
-	var newwearableslot: DWearableSlot = DWearableSlot.new({"id":newid})
+	var newwearableslot: DWearableSlot = DWearableSlot.new({"id":newid}, self)
 	wearableslotdict[newwearableslot.id] = newwearableslot
 	save_wearableslots_to_disk()
 

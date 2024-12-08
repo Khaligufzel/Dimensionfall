@@ -19,14 +19,14 @@ signal data_changed()
 var olddata: DWearableSlot # Remember what the value of the data was before editing
 
 # The data that represents this slot
-# The data is selected from the Gamedata.wearableslots
+# The data is selected from the dwearableslot.parent.wearableslots
 # based on the ID that the user has selected in the content editor
 var dwearableslot: DWearableSlot = null:
 	set(value):
 		dwearableslot = value
 		load_slot_data()
-		slotSelector.sprites_collection = Gamedata.wearableslots.sprites
-		olddata = DWearableSlot.new(dwearableslot.get_data().duplicate(true))
+		slotSelector.sprites_collection = dwearableslot.parent.sprites
+		olddata = DWearableSlot.new(dwearableslot.get_data().duplicate(true), null)
 
 
 # This function updates the form based on the DWearableSlot that has been loaded
@@ -47,7 +47,7 @@ func _on_close_button_button_up() -> void:
 	queue_free()
 
 # This function takes all data from the form elements and stores them in the DWearableSlot instance
-# Since dwearableslot is a reference to an item in Gamedata.wearableslots
+# Since dwearableslot is a reference to an item in dwearableslot.parent.wearableslots
 # the central array for slot data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
@@ -57,7 +57,7 @@ func _on_save_button_button_up() -> void:
 	dwearableslot.sprite = slotImageDisplay.texture
 	dwearableslot.save_to_disk()
 	data_changed.emit()
-	olddata = DWearableSlot.new(dwearableslot.get_data().duplicate(true))
+	olddata = DWearableSlot.new(dwearableslot.get_data().duplicate(true), null)
 
 # When the slotImageDisplay is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/slots/". The texture of the slotImageDisplay will change to the selected image

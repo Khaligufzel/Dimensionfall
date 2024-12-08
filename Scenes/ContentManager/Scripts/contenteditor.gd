@@ -174,7 +174,7 @@ func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: Packe
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.WEARABLESLOTS:
-			newContentEditor.dwearableslot = Gamedata.wearableslots.by_id(itemID)
+			newContentEditor.dwearableslot = currentmod.wearableslots.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.STATS:

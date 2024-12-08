@@ -741,6 +741,9 @@
 		"weight": 1
 	},
 	{
+		"Wearable": {
+			"slot": "torso"
+		},
 		"description": "A piece of clothing that offers protection from ballistic forces",
 		"id": "vest_ballistic",
 		"image": "./Mods/Core/Items/vest_ballistic_32.png",

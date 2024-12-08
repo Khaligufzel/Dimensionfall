@@ -344,9 +344,9 @@ class Wearable:
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		var mydata: Dictionary = {
-			"slot": slot
-		}
+		var mydata: Dictionary = {}
+		if slot:
+			mydata["slot"] = slot
 		if not player_attributes.is_empty():
 			mydata["player_attributes"] = player_attributes
 		return mydata
@@ -354,12 +354,12 @@ class Wearable:
 	# Function to add a reference for the wearable slot
 	func add_reference(item_id: String):
 		if slot != "":
-			Gamedata.wearableslots.add_reference(slot, "core", "items", item_id)
+			Gamedata.mods.add_reference(DMod.ContentType.WEARABLESLOTS, slot, DMod.ContentType.ITEMS, item_id)
 
 	# Function to remove a reference for the wearable slot
 	func remove_reference(item_id: String):
 		if slot != "":
-			Gamedata.wearableslots.remove_reference(slot, "core", "items", item_id)
+			Gamedata.mods.remove_reference(DMod.ContentType.WEARABLESLOTS, slot, DMod.ContentType.ITEMS, item_id)
 
 	# Function to get the value of a specific player attribute by ID
 	func get_attribute_value(attribute_id: String) -> Variant:
@@ -472,7 +472,9 @@ func get_data() -> Dictionary:
 		data["Ammo"] = ammo.get_data()
 
 	if wearable:
-		data["Wearable"] = wearable.get_data()
+		var wearabledata = wearable.get_data()
+		if not wearabledata.is_empty():
+			data["Wearable"] = wearabledata
 
 	return data
 

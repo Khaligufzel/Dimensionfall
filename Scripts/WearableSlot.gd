@@ -1,7 +1,7 @@
 extends Control
 
 # This script is intended to be used with the WearableSlot scene
-# This script is expected to work with Gamedata.wearableslots
+# This script is expected to work with Gamedata.mods.by_id("Core").wearableslots
 # The wearable will hold one piece of wearable
 # The wearable will be represented by en InventoryItem
 # The wearable will be visualized by a texture provided by the InventoryItem
