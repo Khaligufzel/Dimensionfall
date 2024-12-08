@@ -136,11 +136,20 @@ func get_child_index(container: VBoxContainer, child: Control) -> int:
 		index += 1
 	return -1
 
+
+# The user drops some kind of entity on the control. Hopefully it's a mob or mobgroup
+# dropped_data: A dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
 	var valid_data = false
 	var entity_type = ""
 	if dropped_data and dropped_data.has("id"):
-		if Gamedata.mobs.has_id(dropped_data["id"]):
+		if Gamedata.mods.by_id(dropped_data["mod_id"]).mobs.has_id(dropped_data["id"]):
 			valid_data = true
 			entity_type = "mob"
 		elif Gamedata.mobgroups.has_id(dropped_data["id"]):
@@ -159,13 +168,13 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 	
 	match relation_type:
 		"core":
-			valid_data = Gamedata.mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
+			valid_data = Gamedata.mods.by_id("Core").mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
 		"friendly":
-			valid_data = Gamedata.mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
+			valid_data = Gamedata.mods.by_id("Core").mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
 		"neutral":
-			valid_data = Gamedata.mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
+			valid_data = Gamedata.mods.by_id("Core").mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
 		"hostile":
-			valid_data = Gamedata.mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
+			valid_data = Gamedata.mods.by_id("Core").mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
 	return valid_data
 
 func set_drop_functions(mydropabletextedit):

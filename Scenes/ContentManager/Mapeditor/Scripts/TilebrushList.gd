@@ -38,10 +38,10 @@ func _on_select_mods_item_selected(index):
 	loadTiles()
 	loadFurniture()
 	
-# this function will read all files in Gamedata.mobs and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
+# this function will read all files in Gamedata.mods.by_id(selectedmod).mobs and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
 func loadMobs():
 	# Combine mobs and mobgroups into a single list
-	var mobList: Dictionary = Gamedata.mobs.get_all()
+	var mobList: Dictionary = Gamedata.mods.by_id(selectedmod).mobs.get_all()
 	var mobgroupList: Dictionary = Gamedata.mobgroups.get_all()
 	var newMobsList: Control = scrolling_Flow_Container.instantiate()
 	newMobsList.header = "Mobs"

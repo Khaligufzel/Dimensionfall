@@ -241,8 +241,7 @@ func remove_my_reference_from_all_entities() -> void:
 			elif entity_type == "tiles":
 				Gamedata.mods.remove_reference(DMod.ContentType.TILES,entity_id,DMod.ContentType.MAPS,id)
 			elif entity_type == "mobs":
-				var dmob: DMob = Gamedata.mobs.by_id(entity_id)
-				dmob.remove_reference("core","maps",id)
+				Gamedata.mods.remove_reference(DMod.ContentType.MOBS, entity_id, DMod.ContentType.MAPS, id)
 			elif entity_type == "itemgroups":
 				var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(entity_id)
 				ditemgroup.remove_reference("core","maps",id)
@@ -266,8 +265,7 @@ func data_changed(oldmap: DMap):
 				Gamedata.mods.add_reference(DMod.ContentType.TILES,entity_id,DMod.ContentType.MAPS,id)
 		elif entity_type == "mobs":
 			for entity_id in new_entities[entity_type]:
-				var dmob: DMob = Gamedata.mobs.by_id(entity_id)
-				dmob.add_reference("core","maps",id)
+				Gamedata.mods.add_reference(DMod.ContentType.MOBS, entity_id, DMod.ContentType.MAPS, id)
 		elif entity_type == "mobgroups":  # Handle mobgroup references
 			for entity_id in new_entities[entity_type]:
 				var mobgroup: DMobgroup = Gamedata.mobgroups.by_id(entity_id)
@@ -296,8 +294,7 @@ func data_changed(oldmap: DMap):
 		elif entity_type == "mobs":
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):
-					var mob: DMob = Gamedata.mobs.by_id(entity_id)
-					mob.remove_reference("core","maps",id)
+					Gamedata.mods.remove_reference(DMod.ContentType.MOBS, entity_id, DMod.ContentType.MAPS, id)
 		elif entity_type == "mobgroups":  # Remove mobgroup references
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):
@@ -306,8 +303,6 @@ func data_changed(oldmap: DMap):
 
 
 	# Save changes to the data files if there were any updates
-	if new_entities["mobs"].size() > 0 or old_entities["mobs"].size() > 0:
-		Gamedata.mobs.save_mobs_to_disk()
 	if new_entities["furniture"].size() > 0 or old_entities["furniture"].size() > 0:
 		Gamedata.furnitures.save_furnitures_to_disk()
 	if new_entities["itemgroups"].size() > 0 or old_entities["itemgroups"].size() > 0:

@@ -101,7 +101,7 @@ func update_mob_list():
 # Adds a new mob and its controls to the mob_list
 func add_mob_entry(mob_id: String, weight: int):
 	var mob_icon = TextureRect.new()
-	var mob_sprite = Gamedata.mobs.sprite_by_id(mob_id)
+	var mob_sprite = Gamedata.mods.get_content_by_id(DMod.ContentType.MOBS,mob_id).sprite
 	mob_icon.texture = mob_sprite
 	mob_icon.custom_minimum_size = Vector2(16, 16)
 
@@ -158,11 +158,18 @@ func add_header_row_to_mob_list():
 
 
 # Checks if the dropped mob can be added to mob_list
+# data: A dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func _can_drop_mob_data(_newpos, data) -> bool:
 	if not data or not data.has("id"):
 		return false
 	var mob_id = data["id"]
-	return Gamedata.mobs.has_id(mob_id) and not dmobgroup.mobs.has(mob_id)
+	return Gamedata.mods.by_id(data["mod_id"]).mobs.has_id(mob_id) and not dmobgroup.mobs.has(mob_id)
 
 
 # Handles mob data being dropped

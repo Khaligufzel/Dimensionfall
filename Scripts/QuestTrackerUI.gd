@@ -39,7 +39,7 @@ func update_quest_ui(quest_name: String):
 			elif stepmeta.get("type", "") == "kill":
 				if stepmeta.has("mob"):
 					var mob_id = stepmeta["mob"]
-					var mob_name = Gamedata.mobs.by_id(mob_id).name if mob_id != "" else "Unknown Mob"
+					var mob_name = Runtimedata.mobs.by_id(mob_id).name if mob_id != "" else "Unknown Mob"
 					step_requirement = "Kill " + str(current_amount) + "/" + str(target_amount) + " " + mob_name
 				elif stepmeta.has("mobgroup"):
 					var mobgroup_id = stepmeta["mobgroup"]

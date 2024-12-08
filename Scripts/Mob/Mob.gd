@@ -5,7 +5,7 @@ var original_scale
 var mobPosition: Vector3 # The position it will move to when it is created
 var mobRotation: int # The rotation it will rotate to when it is created
 var mobJSON: Dictionary # The json that defines this mob
-var dmob: DMob # The data that defines this mob in general
+var rmob: RMob # The data that defines this mob in general
 var meshInstance: MeshInstance3D # This mob's mesh instance
 var nav_agent: NavigationAgent3D # Used for pathfinding
 var collision_shape_3d = CollisionShape3D
@@ -38,8 +38,8 @@ var terminated: bool = false
 # This function tries to re-create that node structure and properties
 func _init(mobpos: Vector3, newMobJSON: Dictionary):
 	mobJSON = newMobJSON
-	# Retrieve mob data from Gamedata
-	dmob = Gamedata.mobs.by_id(mobJSON.id)
+	# Retrieve mob data from Runtimedata
+	rmob = Runtimedata.mobs.by_id(mobJSON.id)
 	mobPosition = mobpos
 	setup_mob_properties()
 	setup_collision_layers_and_masks()
@@ -210,9 +210,9 @@ func add_corpse(pos: Vector3):
 	itemdata["global_position_z"] = pos.z
 
 	# Check if the mob data has a 'loot_group' property
-	if dmob.loot_group and not dmob.loot_group == "":
+	if rmob.loot_group and not rmob.loot_group == "":
 		# Set the itemgroup property of the new ContainerItem
-		itemdata["itemgroups"] = [dmob.loot_group]
+		itemdata["itemgroups"] = [rmob.loot_group]
 	else:
 		print_debug("No loot_group found for mob ID: " + str(mobJSON.id))
 
@@ -241,18 +241,18 @@ func set_sprite(newSprite: Resource):
 # If it is created as a new mob, it will spawn with the default stats
 # If it is created from a saved game, it might have lower health for example
 func apply_stats_from_dmob() -> void:
-	set_sprite(dmob.sprite)
-	melee_range = dmob.melee_range
-	health = dmob.health
-	current_health = dmob.health
-	move_speed = dmob.move_speed
-	current_move_speed = dmob.move_speed
-	idle_move_speed = dmob.idle_move_speed
-	current_idle_move_speed = dmob.idle_move_speed
-	sight_range = dmob.sight_range
-	sense_range = dmob.sense_range
-	hearing_range = dmob.hearing_range
-	dash = dmob.special_moves.get("dash",{})
+	set_sprite(rmob.sprite)
+	melee_range = rmob.melee_range
+	health = rmob.health
+	current_health = rmob.health
+	move_speed = rmob.move_speed
+	current_move_speed = rmob.move_speed
+	idle_move_speed = rmob.idle_move_speed
+	current_idle_move_speed = rmob.idle_move_speed
+	sight_range = rmob.sight_range
+	sense_range = rmob.sense_range
+	hearing_range = rmob.hearing_range
+	dash = rmob.special_moves.get("dash",{})
 
 
 # Returns which chunk the mob is in right now. for example 0,0 or 0,32 or 96,32

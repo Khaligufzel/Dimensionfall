@@ -4,7 +4,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles mob data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the data for one mob. You can access it through Gamedata.mobs
+# This script handles the data for one mob. You can access it through Gamedata.mods.by_id("Core").mobs
 
 
 # This class represents a mob with its properties
@@ -82,10 +82,12 @@ var spriteid: String
 var sprite: Texture
 # Updated targetattributes variable to use the new data structure
 var targetattributes: Dictionary = {}
-var references: Dictionary = {}
+var parent: DMobs
 
-# Constructor to initialize mob properties from a dictionary
-func _init(data: Dictionary):
+# Constructor to initialize quest properties from a dictionary
+# myparent: The list containing all quests for this mod
+func _init(data: Dictionary, myparent: DMobs):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
@@ -107,7 +109,6 @@ func _init(data: Dictionary):
 	# Initialize targetattributes based on the new format
 	if data.has("targetattributes"):
 		targetattributes = data["targetattributes"]
-	references = data.get("references", {})
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -132,8 +133,6 @@ func get_data() -> Dictionary:
 		data["special_moves"] = special_moves
 	if not targetattributes.is_empty():
 		data["targetattributes"] = targetattributes
-	if not references.is_empty():
-		data["references"] = references
 	return data
 
 
@@ -147,19 +146,6 @@ func get_attr_ids() -> Array:
 		if attribute.has("id"):
 			ids.append(attribute["id"])
 	return ids
-
-# Removes the provided reference from references
-func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.mobs.save_mobs_to_disk()
-
-
-# Adds a reference to the references list
-func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.mobs.save_mobs_to_disk()
 
 
 # Some mob has been changed
@@ -175,18 +161,26 @@ func changed(olddata: DMob):
 		# This mob will be added to the new itemgroup's references
 		Gamedata.itemgroups.add_reference(loot_group, "core", "mobs", id)
 	update_mob_attribute_references(olddata)
-	Gamedata.mobs.save_mobs_to_disk() # Save changes regardless of whether or not a reference was updated
+	parent.save_mobs_to_disk() # Save changes regardless of whether or not a reference was updated
 
 
 # A mob is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
+	# Check to see if any mod has a copy of this tile. if one or more remain, we can keep references
+	# Otherwise, the last copy was removed and we need to remove references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MOBS, id)
+	if all_results.size() > 0:
+		return
+		
 	Gamedata.itemgroups.remove_reference(loot_group, "core", "mobs", id)
 	
-	# Check if the mob has references to maps and remove it from those maps
-	var mapsdata: Array = Helper.json_helper.get_nested_data(references,"core.maps")
-	if mapsdata:
-		Gamedata.mods.by_id("Core").maps.remove_entity_from_selected_maps("mob", id, mapsdata)
+	# Get a list of all maps that reference this mob
+	var myreferences: Dictionary = parent.references.get(id, {})
+	var mymaps: Array = myreferences.get("maps", [])
+	# For each mod, remove this mob from the maps in this mob's references
+	for mod: DMod in Gamedata.mods.get_all_mods():
+		mod.maps.remove_entity_from_selected_maps("mob", id, mymaps)
 	
 	# This callable will handle the removal of this mob from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
@@ -194,15 +188,21 @@ func delete():
 		
 	# Pass the callable to every quest in the mob's references
 	# It will call remove_from_quest on every mob in mob_data.references.core.quests
-	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
+	execute_callable_on_references_of_type(DMod.ContentType.QUESTS, remove_from_quest)
 
 
 # Executes a callable function on each reference of the given type
-func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
+# type: The type of entity that you want to execute the callable for
+# callable: The function that will be executed for every entity of this type
+func execute_callable_on_references_of_type(type: DMod.ContentType, callable: Callable):
+	# myreferences will ba dictionary that contains entity types that have references to this skill's id
+	# See DMod.add_reference for an example structure of references
+	var myreferences: Dictionary = parent.references.get(id, {})
+	var type_string: String = DMod.get_content_type_string(type)
 	# Check if it contains the specified 'module' and 'type'
-	if references.has(module) and references[module].has(type):
+	if myreferences.has(type_string):
 		# If the type exists, execute the callable on each ID found under this type
-		for ref_id in references[module][type]:
+		for ref_id in myreferences[type_string]:
 			callable.call(ref_id)
 
 
@@ -215,16 +215,17 @@ func update_mob_attribute_references(olddata: DMob):
 	# Remove old skill references that are not in the new list
 	for old_attr_id in old_attr_ids:
 		if not new_attr_ids.has(old_attr_id):
-			Gamedata.mods.by_id("Core").playerattributes.remove_reference(old_attr_id, "core", "mobs", id)
+			Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, old_attr_id, DMod.ContentType.MOBS, id)
 	
 	# Add new attribute references
 	for new_attr_id in new_attr_ids:
-		Gamedata.mods.by_id("Core").playerattributes.add_reference(new_attr_id, "core", "mobs", id)
+		Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, new_attr_id, DMod.ContentType.MOBS, id)
 
 
 # Function to retrieve an array of maps from the references
 func get_maps() -> Array:
-	# Retrieve nested map data from the references
-	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
+	# Get a list of all maps that reference this mob
+	var myreferences: Dictionary = parent.references.get(id, {})
+	var mymaps: Array = myreferences.get("maps", [])
 	# Return the map data, or an empty array if no data is found
-	return mapsdata if mapsdata else []
+	return mymaps if mymaps else []

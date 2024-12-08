@@ -387,7 +387,7 @@ func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 			"tile":
 				properties["texture"] = Gamedata.mods.by_id("Core").tiles.sprite_by_id(entity["id"])
 			"mob":
-				properties["texture"] = Gamedata.mobs.sprite_by_id(entity["id"])
+				properties["texture"] = Gamedata.mods.get_content_by_id(DMod.ContentType.MOBS,entity["id"]).sprite
 			"furniture":
 				properties["texture"] = Gamedata.furnitures.sprite_by_id(entity["id"])
 			"itemgroup":

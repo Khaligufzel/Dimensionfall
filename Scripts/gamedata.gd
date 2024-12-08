@@ -5,7 +5,6 @@ extends Node
 var mods: DMods
 var furnitures: DFurnitures
 var items: DItems
-var mobs: DMobs
 var itemgroups: DItemgroups
 var wearableslots: DWearableSlots
 var mobgroups: DMobgroups
@@ -48,7 +47,6 @@ func _ready():
 	mods = DMods.new()
 	furnitures = DFurnitures.new()
 	items = DItems.new()
-	mobs = DMobs.new()
 	itemgroups = DItemgroups.new()
 	mobgroups = DMobgroups.new()
 	mobfactions = DMobfactions.new()
@@ -61,7 +59,7 @@ func _ready():
 		DMod.ContentType.ITEMGROUPS: itemgroups,
 		DMod.ContentType.ITEMS: items,
 		DMod.ContentType.TILES: mods.by_id("Core").tiles,
-		DMod.ContentType.MOBS: mobs,
+		DMod.ContentType.MOBS: mods.by_id("Core").mobs,
 		DMod.ContentType.PLAYERATTRIBUTES: mods.by_id("Core").playerattributes,
 		DMod.ContentType.WEARABLESLOTS: mods.by_id("Core").wearableslots,
 		DMod.ContentType.STATS: mods.by_id("Core").stats,

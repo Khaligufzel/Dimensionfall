@@ -33,14 +33,14 @@ extends Control
 signal data_changed()
 var olddata: DMob # Remember what the value of the data was before editing
 # The data that represents this mob
-# The data is selected from Gamedata.mobs
+# The data is selected from dmob.parent
 # based on the ID that the user has selected in the content editor
 var dmob: DMob:
 	set(value):
 		dmob = value
 		load_mob_data()
-		mobSelector.sprites_collection = Gamedata.mobs.sprites
-		olddata = DMob.new(dmob.get_data().duplicate(true))
+		mobSelector.sprites_collection = dmob.parent.sprites
+		olddata = DMob.new(dmob.get_data().duplicate(true), null)
 
 
 
@@ -135,7 +135,7 @@ func _on_save_button_button_up() -> void:
 
 	dmob.changed(olddata)
 	data_changed.emit()
-	olddata = DMob.new(dmob.get_data().duplicate(true))
+	olddata = DMob.new(dmob.get_data().duplicate(true), null)
 
 # When the mobImageDisplay is clicked, the user will be prompted to select an image from 
 # "res://Mods/Core/mobs/". The texture of the mobImageDisplay will change to the selected image
