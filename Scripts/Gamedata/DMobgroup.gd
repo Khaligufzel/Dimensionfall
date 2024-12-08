@@ -130,7 +130,7 @@ func get_maps() -> Array:
 
 	# Collect maps from each mob in the group
 	for mob_id in mobs.keys():
-		var mob = Gamedata.mobs.by_id(mob_id)
+		var mob = Gamedata.mods.by_id("Core").mobs.by_id(mob_id)
 		if mob:
 			unique_maps = Helper.json_helper.merge_unique(unique_maps, mob.get_maps())
 	return unique_maps

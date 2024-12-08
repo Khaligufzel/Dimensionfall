@@ -280,9 +280,9 @@ func _handle_kill_step(step: Dictionary) -> String:
 	
 	if step_meta.has("mob"):
 		# Handle single mob case
-		var dmob: DMob = Gamedata.mobs.by_id(step_meta["mob"])
+		var rmob: RMob = Runtimedata.mobs.by_id(step_meta["mob"])
 		step_details_text += "Kill " + str(step.required) + " "
-		step_details_text += dmob.name + " (Killed: "
+		step_details_text += rmob.name + " (Killed: "
 	elif step_meta.has("mobgroup"):
 		# Handle mob group case
 		var dmobgroup: DMobgroup = Gamedata.mobgroups.by_id(step_meta["mobgroup"])

@@ -7,21 +7,27 @@ extends RefCounted
 
 
 var dataPath: String = "./Mods/Core/Mobs/Mobs.json"
+var filePath: String = "./Mods/Core/Mobs/Mobs.json"
 var spritePath: String = "./Mods/Core/Mobs/"
 var mobdict: Dictionary = {}
 var sprites: Dictionary = {}
+var references: Dictionary = {}
 
-
-func _init():
+# Add a mod_id parameter to dynamically initialize paths
+func _init(mod_id: String) -> void:
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Mobs/"
+	filePath = "./Mods/" + mod_id + "/Mobs/Mobs.json"
+	spritePath = "./Mods/" + mod_id + "/Mobs/"
 	load_sprites()
 	load_mobs_from_disk()
 
 
 # Load all mobdata from disk into memory
 func load_mobs_from_disk() -> void:
-	var moblist: Array = Helper.json_helper.load_json_array_file(dataPath)
+	var moblist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for mymob in moblist:
-		var mob: DMob = DMob.new(mymob)
+		var mob: DMob = DMob.new(mymob, self)
 		if mob.spriteid:
 			mob.sprite = sprites[mob.spriteid]
 		mobdict[mob.id] = mob
@@ -46,7 +52,7 @@ func save_mobs_to_disk() -> void:
 	var save_data: Array = []
 	for mob in mobdict.values():
 		save_data.append(mob.get_data())
-	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	Helper.json_helper.write_json_file(filePath, JSON.stringify(save_data, "\t"))
 
 
 func get_all() -> Dictionary:
@@ -59,13 +65,13 @@ func duplicate_to_disk(mobid: String, newmobid: String) -> void:
 	# So we delete the references from the duplicated data if it is present
 	mobdata.erase("references")
 	mobdata.id = newmobid
-	var newmob: DMob = DMob.new(mobdata)
+	var newmob: DMob = DMob.new(mobdata, self)
 	mobdict[newmobid] = newmob
 	save_mobs_to_disk()
 
 
 func add_new(newid: String) -> void:
-	var newmob: DMob = DMob.new({"id":newid})
+	var newmob: DMob = DMob.new({"id":newid}, self)
 	mobdict[newmob.id] = newmob
 	save_mobs_to_disk()
 
