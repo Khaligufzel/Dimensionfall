@@ -4,7 +4,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles mob data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the data for one mob. You can access it through Gamedata.mobs
+# This script handles the data for one mob. You can access it through Gamedata.mods.by_id("Core").mobs
 
 
 # This class represents a mob with its properties
@@ -161,7 +161,7 @@ func changed(olddata: DMob):
 		# This mob will be added to the new itemgroup's references
 		Gamedata.itemgroups.add_reference(loot_group, "core", "mobs", id)
 	update_mob_attribute_references(olddata)
-	Gamedata.mobs.save_mobs_to_disk() # Save changes regardless of whether or not a reference was updated
+	parent.save_mobs_to_disk() # Save changes regardless of whether or not a reference was updated
 
 
 # A mob is being deleted from the data
@@ -215,16 +215,17 @@ func update_mob_attribute_references(olddata: DMob):
 	# Remove old skill references that are not in the new list
 	for old_attr_id in old_attr_ids:
 		if not new_attr_ids.has(old_attr_id):
-			Gamedata.mods.by_id("Core").playerattributes.remove_reference(old_attr_id, "core", "mobs", id)
+			Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, old_attr_id, DMod.ContentType.MOBS, id)
 	
 	# Add new attribute references
 	for new_attr_id in new_attr_ids:
-		Gamedata.mods.by_id("Core").playerattributes.add_reference(new_attr_id, "core", "mobs", id)
+		Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, new_attr_id, DMod.ContentType.MOBS, id)
 
 
 # Function to retrieve an array of maps from the references
 func get_maps() -> Array:
-	# Retrieve nested map data from the references
-	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
+	# Get a list of all maps that reference this mob
+	var myreferences: Dictionary = parent.references.get(id, {})
+	var mymaps: Array = myreferences.get("maps", [])
 	# Return the map data, or an empty array if no data is found
-	return mapsdata if mapsdata else []
+	return mymaps if mymaps else []

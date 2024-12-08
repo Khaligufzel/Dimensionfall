@@ -29,12 +29,6 @@ extends RefCounted
 #             {"id": "poison", "damage": 10},
 #             {"id": "stun", "damage": 10}
 #         ]
-#     },
-#     "references": {
-#         "core": {
-#             "maps": ["Generichouse", "store_electronic_clothing"],
-#             "quests": ["starter_tutorial_00"]
-#         }
 #     }
 # }
 
@@ -57,6 +51,7 @@ var special_moves: Dictionary = {}
 var spriteid: String
 var sprite: Texture
 var targetattributes: Dictionary = {}
+var referenced_maps: Array[String]
 var parent: RMobs  # Reference to the list containing all runtime mobs for this mod
 
 # Constructor to initialize mob properties from a dictionary
@@ -87,6 +82,11 @@ func overwrite_from_dmob(dmob: DMob) -> void:
 	spriteid = dmob.spriteid
 	sprite = dmob.sprite
 	targetattributes = dmob.targetattributes.duplicate(true)
+	# Append each value from mobmaps to referenced_maps
+	var mobmaps: Array = dmob.get_maps()
+	for map_id in mobmaps:
+		if map_id not in referenced_maps:
+			referenced_maps.append(map_id)
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -111,4 +111,12 @@ func get_data() -> Dictionary:
 		data["special_moves"] = special_moves
 	if not targetattributes.is_empty():
 		data["targetattributes"] = targetattributes
+	if not referenced_maps.is_empty():
+		data["referenced_maps"] = referenced_maps
 	return data
+
+
+# Function to retrieve referenced_maps
+func get_maps() -> Array:
+	# Return the map data, or an empty array if no data is found
+	return referenced_maps if referenced_maps else []

@@ -95,11 +95,11 @@ func update_mob_references(olddata: DMobgroup):
 	# Remove old references not present in the new data
 	for old_mob in old_mobs:
 		if not new_mobs.has(old_mob):
-			Gamedata.mobs.remove_reference(old_mob, "core", "mobgroups", id)
+			Gamedata.mods.remove_reference(DMod.ContentType.MOBS, old_mob, DMod.ContentType.MOBGROUPS, id)
 
 	# Add new references
 	for new_mob in new_mobs:
-		Gamedata.mobs.add_reference(new_mob, "core", "mobgroups", id)
+		Gamedata.mods.add_reference(DMod.ContentType.MOBS, new_mob, DMod.ContentType.MOBGROUPS, id)
 
 
 # Deletes the mob group, removing all its references
@@ -113,7 +113,7 @@ func delete():
 
 	# Remove references to mobs
 	for mob in mobs.keys():
-		Gamedata.mobs.remove_reference(mob, "core", "mobgroups", id)
+		Gamedata.mods.remove_reference(DMod.ContentType.MOBS, mob, DMod.ContentType.MOBGROUPS, id)
 	
 	# This callable will handle the removal of this mobgroup from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):

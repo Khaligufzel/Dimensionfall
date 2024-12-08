@@ -3,7 +3,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles mob data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of mobs. You can access it trough Gamedata.mobs
+# This script handles the list of mobs. You can access it trough Gamedata.mods.by_id("Core").mobs
 
 
 var dataPath: String = "./Mods/Core/Mobs/Mobs.json"
