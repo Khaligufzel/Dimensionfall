@@ -400,8 +400,10 @@ func _on_grid_cell_double_clicked(item: InventoryItem):
 			print_debug("Attempt to transfer to default proximity inventory aborted.")
 			return  # Exit the function early if the condition is met
 		destination_inventory = proximityinventory
+		is_showing_tooltip = false
 	else:
 		destination_inventory = inventory
+		is_showing_tooltip = false
 
 	# Attempt to transfer the item
 	if not destination_inventory or not source_inventory.transfer_autosplitmerge(item, destination_inventory):
