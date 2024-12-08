@@ -84,5 +84,3 @@ func _disable_all_controls():
 		return_button.disabled = true
 	if save_button:
 		save_button.disabled = true
-	if loadingscreen:
-		loadingscreen.visible = false  # Optionally hide the loading screen control
