@@ -8,6 +8,8 @@ extends Control
 @export var save_button: Button
 @export var loadingscreen: Control
 
+# A boolean variable used in an "if" statement to check if the game is paused or not.
+var game_paused: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,8 +21,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if Input.is_action_just_pressed("escape"):
+	if Input.is_action_just_pressed("escape") and game_paused == false:
 		_toggle_menu()
+	elif Input.is_action_just_pressed("escape") and game_paused == true:
+		_resume_game()
 
 
 # Called when the save button is pressed.
@@ -47,11 +51,15 @@ func _on_visibility_changed():
 
 # Toggle the menu's visibility
 func _toggle_menu():
+	game_paused = true
+	Helper.time_helper._stop_tracking_time()
 	visible = not visible
 
 
 # Resume the game by hiding the menu and unpausing the game.
 func _resume_game():
+	game_paused = false
+	Helper.time_helper._start_tracking_time()
 	hide()
 	if is_inside_tree():
 		get_tree().paused = false
