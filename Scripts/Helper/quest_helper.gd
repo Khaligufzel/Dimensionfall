@@ -364,7 +364,7 @@ func _emit_target_map_for_kill_step(stepmeta: Dictionary):
 	# Determine if we're working with a mob or mobgroup
 	var maps_list: Array = []
 	if stepmeta.has("mob"):
-		maps_list = get_maps_from_entity(Gamedata.mobs, stepmeta["mob"])
+		maps_list = get_maps_from_entity(Runtimedata.mobs, stepmeta["mob"])
 	elif stepmeta.has("mobgroup"):
 		maps_list = get_maps_from_entity(Gamedata.mobgroups, stepmeta["mobgroup"])
 
