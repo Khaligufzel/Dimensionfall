@@ -42,7 +42,7 @@ func _on_select_mods_item_selected(index):
 func loadMobs():
 	# Combine mobs and mobgroups into a single list
 	var mobList: Dictionary = Gamedata.mods.by_id(selectedmod).mobs.get_all()
-	var mobgroupList: Dictionary = Gamedata.mobgroups.get_all()
+	var mobgroupList: Dictionary = Gamedata.mods.by_id(selectedmod).mobgroups.get_all()
 	var newMobsList: Control = scrolling_Flow_Container.instantiate()
 	newMobsList.header = "Mobs"
 	newMobsList.collapse_button_pressed.connect(_on_collapse_button_pressed)

@@ -94,7 +94,7 @@ func delete():
 		Gamedata.mods.remove_reference(DMod.ContentType.MOBS, killstep.mob, DMod.ContentType.QUESTS, id)
 	var stepmobgroups: Array = steps.filter(func(step): return step.has("mobgroup"))
 	for killstep in stepmobgroups:
-		Gamedata.mobgroups.remove_reference(killstep.mobgroup, "core", "quests", id)
+		Gamedata.mods.remove_reference(DMod.ContentType.MOBGROUPS, killstep.mobgroup, DMod.ContentType.QUESTS, id)
 	var steprewards: Array = rewards.filter(func(reward): return reward.has("item_id"))
 	for reward in steprewards: # Remove the reference to this quest from the reward item
 		Gamedata.items.remove_reference(reward.item_id, "core", "quests", id)
@@ -139,7 +139,7 @@ func changed(olddata: DQuest):
 	# Remove references for old mobgroups that are not in the new data
 	for old_mobgroup in old_quest_mobgroups:
 		if old_mobgroup not in new_quest_mobgroups:
-			Gamedata.mobgroups.remove_reference(old_mobgroup.mobgroup, "core", "quests", quest_id)
+			Gamedata.mods.remove_reference(DMod.ContentType.MOBGROUPS, old_mobgroup.mobgroup, DMod.ContentType.QUESTS, quest_id)
 
 	# Add references for new items and rewards
 	for new_item in new_quest_items:
@@ -157,7 +157,7 @@ func changed(olddata: DQuest):
 
 	# Add references for new mobgroups
 	for new_mobgroup in new_quest_mobgroups:
-		Gamedata.mobgroups.add_reference(new_mobgroup.mobgroup, "core", "quests", quest_id)
+		Gamedata.mods.add_reference(DMod.ContentType.MOBGROUPS, new_mobgroup.mobgroup, DMod.ContentType.QUESTS, quest_id)
 
 	save_to_disk()
 

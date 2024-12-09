@@ -172,9 +172,9 @@ func delete():
 	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MOBS, id)
 	if all_results.size() > 0:
 		return
-		
+
 	Gamedata.itemgroups.remove_reference(loot_group, "core", "mobs", id)
-	
+
 	# Get a list of all maps that reference this mob
 	var myreferences: Dictionary = parent.references.get(id, {})
 	var mymaps: Array = myreferences.get("maps", [])
@@ -184,8 +184,11 @@ func delete():
 	
 	# This callable will handle the removal of this mob from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
-		Gamedata.mods.by_id("Core").quests.remove_mob_from_quest(quest_id,id)
-		
+		# Get all copies of the quest with quest_id from all mods
+		var allmodquests: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.QUESTS,quest_id)
+		for quest: DQuest in allmodquests:
+			quest.remove_steps_by_mob(id) # Remove the mob from the quest
+
 	# Pass the callable to every quest in the mob's references
 	# It will call remove_from_quest on every mob in mob_data.references.core.quests
 	execute_callable_on_references_of_type(DMod.ContentType.QUESTS, remove_from_quest)

@@ -429,7 +429,7 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 		"craft", "collect":
 			valid_data = Gamedata.items.has_id(dropped_data["id"])
 		"kill":
-			valid_data = not Gamedata.mods.get_content_by_id(DMod.ContentType.MOBS, dropped_data["id"]) == null or Gamedata.mobgroups.has_id(dropped_data["id"])
+			valid_data = not Gamedata.mods.get_content_by_id(DMod.ContentType.MOBS, dropped_data["id"]) == null or not Gamedata.mods.get_content_by_id(DMod.ContentType.MOBGROUPS, dropped_data["id"]) == null
 		"enter":
 			valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).maps.has_id(dropped_data["id"])
 	

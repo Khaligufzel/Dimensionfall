@@ -4,7 +4,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles mob data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the data for one mobgroup. You can access it through Gamedata.mobgroups
+# This script handles the data for one mobgroup. You can access it through Gamedata.mods.by_id("Core").mobgroups
 
 
 # Represents a mob group and its properties.
@@ -70,25 +70,25 @@ func get_data() -> Dictionary:
 
 # Method to save any changes to the stat back to disk
 func save_to_disk():
-	Gamedata.mobgroups.save_stats_to_disk()
+	parent.save_mobgroups_to_disk()
 
 
 # Removes the specified reference from the mob group's references
 func remove_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
 	if changes_made:
-		Gamedata.mobgroups.save_mobgroups_to_disk()
+		save_to_disk()
 
 # Adds a new reference to the mob group's references
 func add_reference(module: String, type: String, refid: String):
 	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
 	if changes_made:
-		Gamedata.mobgroups.save_mobgroups_to_disk()
+		save_to_disk()
 
 # Handles changes to the mob group, such as updating references
 func changed(olddata: DMobgroup):
 	update_mob_references(olddata)
-	Gamedata.mobgroups.save_mobgroups_to_disk()
+	save_to_disk()
 
 # Updates references to mobs within the mob group
 func update_mob_references(olddata: DMobgroup):
@@ -129,14 +129,23 @@ func delete():
 
 # Retrieves all maps associated with the mob group, including maps from its mobs.
 func get_maps() -> Array:
-	var unique_maps: Array = Helper.json_helper.get_nested_data(references, "core.maps")
-
+	# Get a list of all maps that reference this mob
+	var myreferences: Dictionary = parent.references.get(id, {})
+	var mymaps: Array = myreferences.get("maps", [])
+	
+	var mods: Dictionary = Gamedata.mods.get_all()
+	var modreferences: Dictionary = {}
+	var modreferencedmaps: Array = []
+	# We check the reference for each mob in each mod
 	# Collect maps from each mob in the group
 	for mob_id in mobs.keys():
-		var mob = Gamedata.mods.by_id("Core").mobs.by_id(mob_id)
-		if mob:
-			unique_maps = Helper.json_helper.merge_unique(unique_maps, mob.get_maps())
-	return unique_maps
+		for mod: DMod in mods.values():
+			modreferences = mod.mobs.references.get(id, {}) # Get the references for this mob
+			modreferencedmaps = modreferences.get("maps", []) # Get the maps from the references
+			mymaps = Helper.json_helper.merge_unique(mymaps, modreferencedmaps) # Merge with current list
+	
+	# Return the map data, or an empty array if no data is found
+	return mymaps if mymaps else []
 
 
 # Function to return an array of all mob IDs in the "mobs" property
