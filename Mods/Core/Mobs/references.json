@@ -20,6 +20,9 @@
 		]
 	},
 	"disruptor_drone": {
+		"maps": [
+			"RockyHill_SE"
+		],
 		"mobgroups": [
 			"security_robots"
 		]
@@ -30,6 +33,9 @@
 		]
 	},
 	"iron_stalker": {
+		"maps": [
+			"RockyHill_SE"
+		],
 		"mobgroups": [
 			"security_robots"
 		]
@@ -50,16 +56,25 @@
 		]
 	},
 	"rust_sentinel": {
+		"maps": [
+			"RockyHill_SE"
+		],
 		"mobgroups": [
 			"security_robots"
 		]
 	},
 	"scavenger_skitter": {
+		"maps": [
+			"RockyHill_SE"
+		],
 		"mobgroups": [
 			"security_robots"
 		]
 	},
 	"scrapwalker": {
+		"maps": [
+			"RockyHill_SE"
+		],
 		"mobgroups": [
 			"security_robots"
 		]
@@ -70,6 +85,9 @@
 		]
 	},
 	"venom_crawler": {
+		"maps": [
+			"RockyHill_SE"
+		],
 		"mobgroups": [
 			"security_robots"
 		]

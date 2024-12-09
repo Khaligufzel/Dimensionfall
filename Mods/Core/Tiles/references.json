@@ -1,0 +1,182 @@
+{
+	"dirt_light_00": {
+		"maps": [
+			"forest_road_cross"
+		]
+	},
+	"dirt_light_01": {
+		"maps": [
+			"forest_road_cross"
+		]
+	},
+	"dirt_light_02": {
+		"maps": [
+			"forest_road_cross"
+		]
+	},
+	"forest_underbrush_00": {
+		"maps": [
+			"forest_road_cross"
+		]
+	},
+	"forest_underbrush_01": {
+		"maps": [
+			"forest_road_cross"
+		]
+	},
+	"forest_underbrush_02": {
+		"maps": [
+			"forest_road_cross"
+		]
+	},
+	"forest_underbrush_03": {
+		"maps": [
+			"forest_road_cross"
+		]
+	},
+	"forest_underbrush_04": {
+		"maps": [
+			"forest_road_cross"
+		]
+	},
+	"forest_underbrush_05": {
+		"maps": [
+			"forest_road_cross"
+		]
+	},
+	"grass_dirt_00": {
+		"maps": [
+			"urbanroad",
+			"forest_road_cross",
+			"field_grass_basic_00",
+			"RockyHill_SE"
+		]
+	},
+	"grass_dirt_01": {
+		"maps": [
+			"urbanroad",
+			"forest_road_cross",
+			"field_grass_basic_00",
+			"RockyHill_SE"
+		]
+	},
+	"grass_dirt_02": {
+		"maps": [
+			"urbanroad",
+			"forest_road_cross",
+			"field_grass_basic_00",
+			"RockyHill_SE"
+		]
+	},
+	"grass_flowers_00": {
+		"maps": [
+			"urbanroad",
+			"field_grass_basic_00",
+			"RockyHill_SE"
+		]
+	},
+	"grass_flowers_01": {
+		"maps": [
+			"urbanroad",
+			"field_grass_basic_00",
+			"RockyHill_SE"
+		]
+	},
+	"grass_flowers_02": {
+		"maps": [
+			"urbanroad",
+			"field_grass_basic_00",
+			"RockyHill_SE"
+		]
+	},
+	"grass_flowers_03": {
+		"maps": [
+			"urbanroad",
+			"field_grass_basic_00",
+			"RockyHill_SE"
+		]
+	},
+	"grass_medium_dirt_00": {
+		"maps": [
+			"urbanroad",
+			"forest_road_cross",
+			"field_grass_basic_00",
+			"RockyHill_SE"
+		]
+	},
+	"grass_medium_dirt_01": {
+		"maps": [
+			"urbanroad",
+			"forest_road_cross",
+			"field_grass_basic_00",
+			"RockyHill_SE"
+		]
+	},
+	"grass_medium_dirt_02": {
+		"maps": [
+			"urbanroad",
+			"forest_road_cross",
+			"field_grass_basic_00",
+			"RockyHill_SE"
+		]
+	},
+	"grass_plain_01": {
+		"maps": [
+			"urbanroad",
+			"field_grass_basic_00",
+			"RockyHill_SE"
+		]
+	},
+	"road_asphalt_basic": {
+		"maps": [
+			"urbanroad",
+			"forest_road_cross"
+		]
+	},
+	"road_asphalt_horizontal_top": {
+		"maps": [
+			"urbanroad",
+			"forest_road_cross"
+		]
+	},
+	"rock_floor_00": {
+		"maps": [
+			"RockyHill_SE"
+		]
+	},
+	"rock_floor_01": {
+		"maps": [
+			"RockyHill_SE"
+		]
+	},
+	"rock_floor_02": {
+		"maps": [
+			"RockyHill_SE"
+		]
+	},
+	"rock_floor_03": {
+		"maps": [
+			"RockyHill_SE"
+		]
+	},
+	"rock_floor_04": {
+		"maps": [
+			"RockyHill_SE"
+		]
+	},
+	"rock_floor_05": {
+		"maps": [
+			"RockyHill_SE"
+		]
+	},
+	"rock_floor_06": {
+		"maps": [
+			"RockyHill_SE"
+		]
+	},
+	"rock_slope_00": {
+		"maps": [
+			"RockyHill_SE"
+		]
+	}
+}
