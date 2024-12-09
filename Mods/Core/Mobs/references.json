@@ -1,0 +1,77 @@
+{
+	"basic_zombie_1": {
+		"mobgroups": [
+			"basic_zombies"
+		]
+	},
+	"basic_zombie_2": {
+		"mobgroups": [
+			"basic_zombies"
+		]
+	},
+	"bloated_zombie": {
+		"mobgroups": [
+			"basic_zombies"
+		]
+	},
+	"charred_zombie": {
+		"mobgroups": [
+			"basic_zombies"
+		]
+	},
+	"disruptor_drone": {
+		"mobgroups": [
+			"security_robots"
+		]
+	},
+	"heavy_zombie": {
+		"mobgroups": [
+			"basic_zombies"
+		]
+	},
+	"iron_stalker": {
+		"mobgroups": [
+			"security_robots"
+		]
+	},
+	"limping_zombie": {
+		"mobgroups": [
+			"basic_zombies"
+		]
+	},
+	"outpost_guardian": {
+		"mobgroups": [
+			"security_robots"
+		]
+	},
+	"rushing_zombie": {
+		"mobgroups": [
+			"basic_zombies"
+		]
+	},
+	"rust_sentinel": {
+		"mobgroups": [
+			"security_robots"
+		]
+	},
+	"scavenger_skitter": {
+		"mobgroups": [
+			"security_robots"
+		]
+	},
+	"scrapwalker": {
+		"mobgroups": [
+			"security_robots"
+		]
+	},
+	"skeleton_zombie": {
+		"mobgroups": [
+			"basic_zombies"
+		]
+	},
+	"venom_crawler": {
+		"mobgroups": [
+			"security_robots"
+		]
+	}
+}
