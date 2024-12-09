@@ -40,9 +40,12 @@ var spriteid: String
 var sprite: Texture
 var references: Dictionary = {}
 var mobs: Dictionary = {}  # Holds the list of mobs and their weights
+var parent: DMobgroups
 
-# Constructor to initialize mob group properties from a dictionary
-func _init(data: Dictionary):
+# Constructor to initialize quest properties from a dictionary
+# myparent: The list containing all quests for this mod
+func _init(data: Dictionary, myparent: DMobgroups):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")

@@ -5,20 +5,27 @@ extends RefCounted
 # This script is intended to be used inside the GameData autoload singleton
 # This script handles the list of mob groups. You can access it through Gamedata.mobgroups
 
-var dataPath: String = "./Mods/Core/Mobgroups/Mobgroups.json"
+var dataPath: String = "./Mods/Core/Mobgroups/"
+var filePath: String = "./Mods/Core/Mobgroups/Mobgroups.json"
 var spritePath: String = "./Mods/Core/Mobs/"
 var mobgroupdict: Dictionary = {}
 var sprites: Dictionary = {}
+var references: Dictionary = {}
 
-func _init():
+# Add a mod_id parameter to dynamically initialize paths
+func _init(mod_id: String) -> void:
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Mobgroups/"
+	filePath = "./Mods/" + mod_id + "/Mobgroups/Mobgroups.json"
+	spritePath = "./Mods/" + mod_id + "/Mobgroups/"
 	load_sprites()
 	load_mobgroups_from_disk()
 
 # Load all mob group data from disk into memory
 func load_mobgroups_from_disk() -> void:
-	var mobgrouplist: Array = Helper.json_helper.load_json_array_file(dataPath)
+	var mobgrouplist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for mymobgroup in mobgrouplist:
-		var mobgroup: DMobgroup = DMobgroup.new(mymobgroup)
+		var mobgroup: DMobgroup = DMobgroup.new(mymobgroup, self)
 		if mobgroup.spriteid:
 			mobgroup.sprite = sprites[mobgroup.spriteid]
 		mobgroupdict[mobgroup.id] = mobgroup
@@ -40,7 +47,7 @@ func save_mobgroups_to_disk() -> void:
 	var save_data: Array = []
 	for mobgroup in mobgroupdict.values():
 		save_data.append(mobgroup.get_data())
-	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	Helper.json_helper.write_json_file(filePath, JSON.stringify(save_data, "\t"))
 
 func get_all() -> Dictionary:
 	return mobgroupdict
@@ -51,12 +58,12 @@ func duplicate_to_disk(mobgroupid: String, newmobgroupid: String) -> void:
 	# So we delete the references from the duplicated data if it is present
 	mobgroupdata.erase("references")
 	mobgroupdata.id = newmobgroupid
-	var newmobgroup: DMobgroup = DMobgroup.new(mobgroupdata)
+	var newmobgroup: DMobgroup = DMobgroup.new(mobgroupdata, self)
 	mobgroupdict[newmobgroupid] = newmobgroup
 	save_mobgroups_to_disk()
 
 func add_new(newid: String) -> void:
-	var newmobgroup: DMobgroup = DMobgroup.new({"id": newid})
+	var newmobgroup: DMobgroup = DMobgroup.new({"id": newid}, self)
 	mobgroupdict[newmobgroup.id] = newmobgroup
 	save_mobgroups_to_disk()
 

@@ -28,7 +28,7 @@ var dmobgroup: DMobgroup = null:
 		dmobgroup = value
 		load_mobgroup_data()
 		mobgroupSelector.sprites_collection = Gamedata.mobgroups.sprites
-		olddata = DMobgroup.new(dmobgroup.get_data().duplicate(true))
+		olddata = DMobgroup.new(dmobgroup.get_data().duplicate(true), null)
 
 
 
@@ -67,7 +67,7 @@ func _on_save_button_button_up() -> void:
 	dmobgroup.sprite = mobgroupImageDisplay.texture
 	dmobgroup.changed(olddata)
 	data_changed.emit()
-	olddata = DMobgroup.new(dmobgroup.get_data().duplicate(true))
+	olddata = DMobgroup.new(dmobgroup.get_data().duplicate(true), null)
 
 
 # When the mobgroupImageDisplay is clicked, the user will be prompted to select an image from 
