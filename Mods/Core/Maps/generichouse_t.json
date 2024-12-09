@@ -23981,12 +23981,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "T-Junction House",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 1000
 }

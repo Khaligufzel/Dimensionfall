@@ -6358,12 +6358,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Grassy Hill",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 10
 }

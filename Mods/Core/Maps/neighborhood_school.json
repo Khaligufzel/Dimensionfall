@@ -23112,12 +23112,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Neighborhood School",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 1000
 }

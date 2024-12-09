@@ -3268,12 +3268,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Flowered Grass Field",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 10
 }

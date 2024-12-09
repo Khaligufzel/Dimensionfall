@@ -35407,12 +35407,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Rocky Hill (Northeast)",
-	"references": {
-		"core": {
-			"tacticalmaps": [
-				"RockyHill_00.json"
-			]
-		}
-	},
 	"weight": 1000
 }

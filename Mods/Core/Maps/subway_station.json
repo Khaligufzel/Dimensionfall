@@ -35693,12 +35693,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Subway station",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 1000
 }

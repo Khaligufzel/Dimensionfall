@@ -18227,15 +18227,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Police station",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			],
-			"quests": [
-				"starter_tutorial_00"
-			]
-		}
-	},
 	"weight": 1000
 }
