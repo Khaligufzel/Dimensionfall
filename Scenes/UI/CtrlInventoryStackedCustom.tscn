@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://y2iul2r3nysx"]
+[gd_scene load_steps=5 format=3 uid="uid://y2iul2r3nysx"]
 
 [ext_resource type="Script" path="res://Scripts/CtrlInventoryStackedCustom.gd" id="1_1pahw"]
 [ext_resource type="PackedScene" uid="uid://bgnxsnv6ltej8" path="res://Scenes/UI/CtrlInventoryStackedListItem.tscn" id="2_woew4"]
 [ext_resource type="PackedScene" uid="uid://dxgl4vkc313we" path="res://Scenes/UI/CtrlInventoryStackedlistHeaderItem.tscn" id="3_svicc"]
+[ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="4_rci6u"]
 
-[node name="CtrlInventoryStackedCustom" type="Control" node_paths=PackedStringArray("inventoryGrid", "WeightBar", "VolumeBar", "context_menu")]
+[node name="CtrlInventoryStackedCustom" type="Control" node_paths=PackedStringArray("inventoryGrid", "WeightBar", "VolumeBar", "context_menu", "reload_audio_player")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +21,7 @@ VolumeBar = NodePath("VBoxContainer/HBoxContainer/VolumeBar")
 listItemContainer = ExtResource("2_woew4")
 listHeaderContainer = ExtResource("3_svicc")
 context_menu = NodePath("ContextMenu")
+reload_audio_player = NodePath("ReloadAudio")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -84,5 +86,9 @@ item_3/text = "Unload"
 item_3/id = 3
 item_4/text = "Use"
 item_4/id = 4
+
+[node name="ReloadAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_rci6u")
+bus = &"Sounds"
 
 [connection signal="id_pressed" from="ContextMenu" to="." method="_on_context_menu_item_selected"]

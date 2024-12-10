@@ -53,6 +53,9 @@ signal equip_right(items: Array[InventoryItem])
 signal reload_item(items: Array[InventoryItem])
 signal unload_item(items: Array[InventoryItem])
 
+# Reload sound for pistol
+@export var reload_audio_player : AudioStreamPlayer3D
+
 # UI signals emitted when the cursor hovers over a row in the list
 signal mouse_entered_item(item: InventoryItem)
 signal mouse_exited_item
@@ -703,6 +706,7 @@ func _on_context_menu_reload(items: Array[InventoryItem]) -> void:
 				var reload_speed: float = float(ItemManager.get_nested_property(item, "Ranged.reload_speed"))
 				# Retrieve reload speed from the "Ranged" property dictionary or use the default
 				ItemManager.start_reload(item, reload_speed)
+				reload_audio_player.play()
 				break  # Only reload the first ranged item found
 		if item.get_property("Magazine"):
 			# Retrieve reload speed from the "Ranged" property dictionary or use the default
