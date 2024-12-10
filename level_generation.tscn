@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
-[ext_resource type="PackedScene" path="res://day_night.tscn" id="3_0lu7f"]
+[ext_resource type="PackedScene" uid="uid://bisxe8aexlshr" path="res://day_night.tscn" id="3_0lu7f"]
 [ext_resource type="Script" path="res://Scripts/ConstructionGhost.gd" id="5_iwiv4"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
 [ext_resource type="Texture2D" uid="uid://d33h00t0fl7x" path="res://Defaults/Player/VestDude01.png" id="7_jr4x1"]
@@ -51,6 +51,8 @@ stream_0/stream = ExtResource("13_fjasp")
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n8kat"]
 playback_mode = 1
 random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("13_fjasp")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ra623"]
 points = PackedVector3Array(0, 0, 0.325, -1, -1, 0.325, -1, 1, 0.325, 0, 0, -0.325, -1, -1, -0.325, -1, 1, -0.325)
