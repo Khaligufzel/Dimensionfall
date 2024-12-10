@@ -248,7 +248,6 @@ func _process(delta):
 	# Check if the left-hand weapon is reloading.
 	if is_weapon_reloading() and not reload_audio_player.playing:
 		reload_audio_player.play()  # Play reload sound for left-hand weapon.
-
 	# Check if the left mouse button is held, a weapon is in the left hand, and is ready to fire
 	if is_left_button_held and equipped_left and can_fire_weapon():
 		fire_weapon()
@@ -270,15 +269,13 @@ func on_magazine_removed():
 func on_magazine_inserted():
 	if heldItem:
 		var rangedProperties = heldItem.get_property("Ranged")
-
 		# Update recoil properties
 		max_recoil = float(rangedProperties.get("recoil", default_recoil))
 		recoil_increment = max_recoil / (get_max_ammo() * 0.25)
 		recoil_decrement = 2 * recoil_increment
 
-		heldItem.set_property("is_reloading", false)
 		ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
-
+		
 # Function to clear weapon properties for a specified hand
 func clear_held_item():
 	if heldItem and heldItem.properties_changed.is_connected(_on_helditem_properties_changed):

@@ -9,8 +9,6 @@ extends Node3D
 @export var player: NodePath
 @export var hud: NodePath
 
-
-
 func _input(event):
 	# Return early if no weapons are equipped
 	if not left_hand_item or not right_hand_item:
