@@ -18272,12 +18272,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Basic Grass Field",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 1000
 }

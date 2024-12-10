@@ -152,29 +152,34 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 		if Gamedata.mods.by_id(dropped_data["mod_id"]).mobs.has_id(dropped_data["id"]):
 			valid_data = true
 			entity_type = "mob"
-		elif Gamedata.mobgroups.has_id(dropped_data["id"]):
+		elif Gamedata.mods.by_id(dropped_data["mod_id"]).mobgroups.has_id(dropped_data["id"]):
 			valid_data = true
 			entity_type = "mobgroup"
 		if valid_data:
 			texteditcontrol.set_text(dropped_data["id"])
 			texteditcontrol.set_meta("entity_type", entity_type)
+
+
 # Determines if the dropped data can be accepted
+# dropped_data: A dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> bool:
 	if not dropped_data or not dropped_data.has("id"):
 		return false
 	
-	var relation_type = texteditcontrol.get_meta("relation_type")
+	# We check to see if the mod that contains the dropped dat does indeed have the id included in the dropped data
+	# The contenttype will tell us what kind of entity it is
+	var droppedcontenttype = dropped_data["contentType"]
 	var valid_data = false
-	
-	match relation_type:
-		"core":
-			valid_data = Gamedata.mods.by_id("Core").mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
-		"friendly":
-			valid_data = Gamedata.mods.by_id("Core").mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
-		"neutral":
-			valid_data = Gamedata.mods.by_id("Core").mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
-		"hostile":
-			valid_data = Gamedata.mods.by_id("Core").mobs.has_id(dropped_data["id"]) or Gamedata.mobgroups.has_id(dropped_data["id"])
+	if droppedcontenttype == DMod.ContentType.MOBS:
+		valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).mobs.has_id(dropped_data["id"])
+	elif droppedcontenttype == DMod.ContentType.MOBGROUPS:
+		valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).mobgroups.has_id(dropped_data["id"])
 	return valid_data
 
 func set_drop_functions(mydropabletextedit):

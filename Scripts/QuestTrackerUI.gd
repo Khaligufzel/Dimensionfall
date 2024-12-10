@@ -43,7 +43,7 @@ func update_quest_ui(quest_name: String):
 					step_requirement = "Kill " + str(current_amount) + "/" + str(target_amount) + " " + mob_name
 				elif stepmeta.has("mobgroup"):
 					var mobgroup_id = stepmeta["mobgroup"]
-					var mobgroup_name = Gamedata.mobgroups.by_id(mobgroup_id).name if mobgroup_id != "" else "Unknown Mob Group"
+					var mobgroup_name = Runtimedata.mobgroups.by_id(mobgroup_id).name if mobgroup_id != "" else "Unknown Mob Group"
 					step_requirement = "Kill " + str(current_amount) + "/" + str(target_amount) + " from " + mobgroup_name
 				else:
 					step_requirement = "Kill target not specified."

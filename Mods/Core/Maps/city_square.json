@@ -14786,12 +14786,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "City Square",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 1000
 }

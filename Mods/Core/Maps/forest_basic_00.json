@@ -106,6 +106,12 @@
 	"categories": [
 		"Forest"
 	],
+	"connections": {
+		"east": "ground",
+		"north": "ground",
+		"south": "ground",
+		"west": "ground"
+	},
 	"description": "A basic forest that you can find in many places",
 	"id": "forest_basic_00",
 	"levels": [

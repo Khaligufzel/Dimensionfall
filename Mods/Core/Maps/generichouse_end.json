@@ -21578,12 +21578,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Corner House",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 1000
 }

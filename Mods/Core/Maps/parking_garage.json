@@ -46143,12 +46143,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Parking garage",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 1000
 }

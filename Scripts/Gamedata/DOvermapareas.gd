@@ -44,7 +44,7 @@ func save_overmapareas_to_disk() -> void:
 	var save_data: Array = []
 	for overmaparea in overmapareadict.values():
 		save_data.append(overmaparea.get_data())
-	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	Helper.json_helper.write_json_file(filePath, JSON.stringify(save_data, "\t"))
 
 # Returns the dictionary containing all overmapareas
 func get_all() -> Dictionary:

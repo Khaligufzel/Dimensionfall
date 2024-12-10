@@ -152,7 +152,7 @@ func process_level_data() -> Dictionary:
 							if tileJSON.has("mobgroup"):
 								# Fetch the mobgroup ID and use it to get a random mob ID
 								var mobgroup_id: String = tileJSON.mobgroup.id
-								var random_mob_id: String = Gamedata.mobgroups.by_id(mobgroup_id).get_random_mob_id()
+								var random_mob_id: String = Runtimedata.mobgroups.by_id(mobgroup_id).get_random_mob_id()
 								if random_mob_id != "":
 									tileJSON.mobgroup.id = random_mob_id
 									# Append the mob with its position and rotation from the mobgroup data

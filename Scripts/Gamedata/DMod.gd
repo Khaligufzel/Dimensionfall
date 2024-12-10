@@ -92,7 +92,7 @@ func _init(modinfo: Dictionary, myparent: DMods):
 	stats = DStats.new(id)  # Pass the mod_id for stats initialization
 	quests = DQuests.new(id)
 	overmapareas = DOvermapareas.new(id)
-	mobgroups = DMobgroups.new()
+	mobgroups = DMobgroups.new(id)
 	mobfactions = DMobfactions.new()
 
 	# Initialize content type instances specific to this mod

@@ -253,7 +253,7 @@ func _on_mob_killed(mobinstance: Mob):
 				update_quest_step(quest.quest_name, mob_id, 1, true)
 			elif stepmeta.has("mobgroup"):
 				var group_id = stepmeta["mobgroup"]
-				if Gamedata.mobgroups.by_id(group_id).has_mob(mob_id):
+				if Runtimedata.mobgroups.by_id(group_id).has_mob(mob_id):
 					update_quest_step(quest.quest_name, group_id, 1, true)
 
 
@@ -366,7 +366,7 @@ func _emit_target_map_for_kill_step(stepmeta: Dictionary):
 	if stepmeta.has("mob"):
 		maps_list = get_maps_from_entity(Runtimedata.mobs, stepmeta["mob"])
 	elif stepmeta.has("mobgroup"):
-		maps_list = get_maps_from_entity(Gamedata.mobgroups, stepmeta["mobgroup"])
+		maps_list = get_maps_from_entity(Runtimedata.mobgroups, stepmeta["mobgroup"])
 
 	# Ensure the maps list is not empty
 	if maps_list.is_empty():

@@ -6371,12 +6371,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Grassy Field with Hole",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 10
 }

@@ -31748,12 +31748,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Generic House Variant",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 1000
 }

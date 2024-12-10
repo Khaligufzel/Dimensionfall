@@ -68,7 +68,8 @@ func delete():
 		Gamedata.mods.remove_reference(DMod.ContentType.MOBS, killrelation.mob, DMod.ContentType.MOBFACTIONS, id)
 	var relationmobgroups: Array = relations.filter(func(relation): return relation.has("mobgroup"))
 	for killrelation in relationmobgroups:
-		Gamedata.mobgroups.remove_reference(killrelation.mobgroup, "core", "mobfactions", id)
+		Gamedata.mods.remove_reference(DMod.ContentType.MOBGROUPS, killrelation.mobgroup, DMod.ContentType.MOBFACTIONS, id)
+
 
 # Handles quest changes
 func changed(olddata: DMobfaction):
@@ -86,14 +87,14 @@ func changed(olddata: DMobfaction):
 	# Remove references for old mobgroups that are not in the new data
 	for old_mobgroup in old_quest_mobgroups:
 		if old_mobgroup not in new_quest_mobgroups:
-			Gamedata.mobgroups.remove_reference(old_mobgroup.mobgroup, "core", "mobfactions", id)
-	
+			Gamedata.mods.remove_reference(DMod.ContentType.MOBGROUPS, old_mobgroup.mobgroup, DMod.ContentType.MOBFACTIONS, id)
+
 	# Add references for new mobs
 	for new_mob in new_quest_mobs:
 		Gamedata.mods.add_reference(DMod.ContentType.MOBS, new_mob.mob, DMod.ContentType.MOBFACTIONS, id)
 	# Add references for new mobgroups
 	for new_mobgroup in new_quest_mobgroups:
-		Gamedata.mobgroups.add_reference(new_mobgroup.mobgroup, "core", "mobfactions", id)
+		Gamedata.mods.add_reference(DMod.ContentType.MOBGROUPS, new_mobgroup.mobgroup, DMod.ContentType.MOBFACTIONS, id)
 	save_to_disk()
 
 # Removes all relations where the mob property matches the given mob_id

@@ -16287,12 +16287,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Electronics and Clothing Store",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 600
 }

@@ -13760,15 +13760,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Abandoned building",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			],
-			"quests": [
-				"quest_radio_signal_01"
-			]
-		}
-	},
 	"weight": 500
 }

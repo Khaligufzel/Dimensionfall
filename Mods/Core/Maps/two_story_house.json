@@ -23200,12 +23200,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Two-Story House",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 1000
 }

@@ -16106,15 +16106,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Grocery store",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			],
-			"tacticalmaps": [
-				"town_00.json"
-			]
-		}
-	},
 	"weight": 400
 }

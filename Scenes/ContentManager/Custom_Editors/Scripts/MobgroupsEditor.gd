@@ -21,14 +21,14 @@ signal data_changed()
 var olddata: DMobgroup # Remember what the value of the data was before editing
 
 # The data that represents this mobgroup
-# The data is selected from the Gamedata.mobgroups
+# The data is selected from the dmobgroup.parent
 # based on the ID that the user has selected in the content editor
 var dmobgroup: DMobgroup = null:
 	set(value):
 		dmobgroup = value
 		load_mobgroup_data()
-		mobgroupSelector.sprites_collection = Gamedata.mobgroups.sprites
-		olddata = DMobgroup.new(dmobgroup.get_data().duplicate(true))
+		mobgroupSelector.sprites_collection = dmobgroup.parent.sprites
+		olddata = DMobgroup.new(dmobgroup.get_data().duplicate(true), null)
 
 
 
@@ -56,7 +56,7 @@ func _on_close_button_button_up() -> void:
 	queue_free()
 
 # This function takes all data from the form elements and stores them in the DMobgroup instance
-# Since dmobgroup is a reference to an item in Gamedata.mobgroups
+# Since dmobgroup is a reference to an item in dmobgroup.parent
 # the central array for mobgroup data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
@@ -67,7 +67,7 @@ func _on_save_button_button_up() -> void:
 	dmobgroup.sprite = mobgroupImageDisplay.texture
 	dmobgroup.changed(olddata)
 	data_changed.emit()
-	olddata = DMobgroup.new(dmobgroup.get_data().duplicate(true))
+	olddata = DMobgroup.new(dmobgroup.get_data().duplicate(true), null)
 
 
 # When the mobgroupImageDisplay is clicked, the user will be prompted to select an image from 

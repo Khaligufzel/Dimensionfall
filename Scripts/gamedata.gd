@@ -7,7 +7,6 @@ var furnitures: DFurnitures
 var items: DItems
 var itemgroups: DItemgroups
 var wearableslots: DWearableSlots
-var mobgroups: DMobgroups
 var mobfactions: DMobfactions
 
 # Only hides the visual instance when it's above the player. Casts no shadow
@@ -48,7 +47,6 @@ func _ready():
 	furnitures = DFurnitures.new()
 	items = DItems.new()
 	itemgroups = DItemgroups.new()
-	mobgroups = DMobgroups.new()
 	mobfactions = DMobfactions.new()
 
 	# Populate the gamedata_map with the instantiated objects
@@ -66,7 +64,7 @@ func _ready():
 		DMod.ContentType.SKILLS: mods.by_id("Core").skills,
 		DMod.ContentType.QUESTS: mods.by_id("Core").quests,
 		DMod.ContentType.OVERMAPAREAS: mods.by_id("Core").overmapareas,
-		DMod.ContentType.MOBGROUPS: mobgroups,
+		DMod.ContentType.MOBGROUPS: mods.by_id("Core").mobgroups,
 		DMod.ContentType.MOBFACTIONS: mobfactions
 	}
 

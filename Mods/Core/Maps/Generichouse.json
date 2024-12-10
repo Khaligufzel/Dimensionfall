@@ -38389,12 +38389,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Generic House",
-	"references": {
-		"core": {
-			"overmapareas": [
-				"city"
-			]
-		}
-	},
 	"weight": 1000
 }
