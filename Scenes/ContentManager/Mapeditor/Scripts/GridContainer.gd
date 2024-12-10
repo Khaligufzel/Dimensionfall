@@ -1313,6 +1313,6 @@ func _on_save_and_test_button_button_up() -> void:
 	save_map_json_file()
 	# Save the current map ID to the test_map_name
 	Helper.test_map_name = mapEditor.currentMap.id
-	
+	Runtimedata.reconstruct() # Load all mod data in the proper way
 	# Switch to the test environment scene
 	get_tree().change_scene_to_file("res://test_environment.tscn")
