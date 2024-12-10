@@ -72,19 +72,6 @@ func get_data() -> Dictionary:
 func save_to_disk():
 	parent.save_mobgroups_to_disk()
 
-
-# Removes the specified reference from the mob group's references
-func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
-	if changes_made:
-		save_to_disk()
-
-# Adds a new reference to the mob group's references
-func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
-	if changes_made:
-		save_to_disk()
-
 # Handles changes to the mob group, such as updating references
 func changed(olddata: DMobgroup):
 	update_mob_references(olddata)
@@ -191,3 +178,10 @@ func get_random_mob_id() -> String:
 			return mob_id  # Return the selected mob ID
 
 	return ""  # Fallback in case of an error, should not be reached
+
+# Removes a mob from the mobs dictionary by its ID
+# mob_id: The ID of the mob to remove
+func remove_mob_by_id(mob_id: String) -> void:
+	if mobs.has(mob_id):
+		mobs.erase(mob_id)  # Remove the mob from the dictionary
+		save_to_disk()  # Save changes to disk

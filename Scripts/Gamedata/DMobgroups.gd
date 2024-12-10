@@ -102,3 +102,12 @@ func remove_reference(mobgroupid: String, module: String, type: String, refid: S
 func add_reference(mobgroupid: String, module: String, type: String, refid: String):
 	var mymobgroup: DMobgroup = mobgroupdict[mobgroupid]
 	mymobgroup.add_reference(module, type, refid)
+
+
+# Removes the entity from the mobgroups provided in the mobgroups array
+# mob_id: the id of the entity
+# mobgroups: An array of mobgroup id's (Strings)
+func remove_entity_from_selected_mobgroups(mob_id: String, mobgroups: Array):
+	for mob in mobgroups:
+		if has_id(mob_id):
+			mobgroupdict[mob].remove_mob_by_id(mob_id)

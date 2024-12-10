@@ -170,18 +170,18 @@ func delete():
 	# Check to see if any mod has a copy of this tile. if one or more remain, we can keep references
 	# Otherwise, the last copy was removed and we need to remove references
 	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MOBS, id)
-	if all_results.size() > 0:
+	if all_results.size() > 1:
 		return
-
-	Gamedata.itemgroups.remove_reference(loot_group, "core", "mobs", id)
 
 	# Get a list of all maps that reference this mob
 	var myreferences: Dictionary = parent.references.get(id, {})
 	var mymaps: Array = myreferences.get("maps", [])
+	var mymobgroups: Array = myreferences.get("mobgroups", [])
 	# For each mod, remove this mob from the maps in this mob's references
 	for mod: DMod in Gamedata.mods.get_all_mods():
-		mod.maps.remove_entity_from_selected_maps("mob", id, mymaps)
-	
+		mod.maps.remove_entity_from_all_maps("mob", id)
+		mod.mobgroups.remove_entity_from_selected_mobgroups(id, mymobgroups)
+
 	# This callable will handle the removal of this mob from all steps in quests
 	var remove_from_quest: Callable = func(quest_id: String):
 		# Get all copies of the quest with quest_id from all mods
