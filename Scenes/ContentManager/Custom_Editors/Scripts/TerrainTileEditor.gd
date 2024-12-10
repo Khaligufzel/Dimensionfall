@@ -26,7 +26,7 @@ var dtile: DTile = null:
 	set(value):
 		dtile = value
 		load_tile_data()
-		tileSelector.sprites_collection = Gamedata.mods.by_id("Core").tiles.sprites
+		tileSelector.sprites_collection = dtile.parent.sprites
 		olddata = DTile.new(dtile.get_data().duplicate(true), null)
 
 
