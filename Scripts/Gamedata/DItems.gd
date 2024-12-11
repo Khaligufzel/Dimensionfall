@@ -6,21 +6,26 @@ extends RefCounted
 # This script handles the list of items. You can access it trough Gamedata.items
 
 
-var dataPath: String = "./Mods/Core/Items/Items.json"
+var dataPath: String = "./Mods/Core/Items/"
+var filePath: String = "./Mods/Core/Items/Items.json"
 var spritePath: String = "./Mods/Core/Items/"
 var itemdict: Dictionary = {}
 var sprites: Dictionary = {}
-var shader_materials: Dictionary = {}  # Cache for shader materials by item ID
+var references: Dictionary = {}
 
-
-func _init():
+# Add a mod_id parameter to dynamically initialize paths
+func _init(mod_id: String) -> void:
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Items/"
+	filePath = "./Mods/" + mod_id + "/Items/Items.json"
+	spritePath = "./Mods/" + mod_id + "/Items/"
 	load_sprites()
 	load_items_from_disk()
 
 
 # Load all itemdata from disk into memory
 func load_items_from_disk() -> void:
-	var itemlist: Array = Helper.json_helper.load_json_array_file(dataPath)
+	var itemlist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for myitem in itemlist:
 		var item: DItem = DItem.new(myitem)
 		if myitem.has("sprite"):
@@ -47,7 +52,7 @@ func save_items_to_disk() -> void:
 	var save_data: Array = []
 	for item in itemdict.values():
 		save_data.append(item.get_data())
-	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	Helper.json_helper.write_json_file(filePath, JSON.stringify(save_data, "\t"))
 	update_item_protoset_json_data("res://ItemProtosets.tres", JSON.stringify(save_data, "\t"))
 
 
@@ -143,39 +148,3 @@ func get_items_by_type(item_type: String) -> Array[DItem]:
 		if not item.get(item_type) == null:
 			filtered_items.append(item)
 	return filtered_items
-
-
-# New function to get or create a ShaderMaterial for a item ID
-func get_shader_material_by_id(item_id: String) -> ShaderMaterial:
-	# Check if the material already exists
-	if shader_materials.has(item_id):
-		return shader_materials[item_id]
-	else:
-		# Create a new ShaderMaterial
-		var albedo_texture: Texture = sprite_by_id(item_id)
-		var shader_material: ShaderMaterial = create_item_shader_material(albedo_texture)
-		# Store it in the dictionary
-		shader_materials[item_id] = shader_material
-		return shader_material
-
-
-# Helper function to create a ShaderMaterial for the item
-func create_item_shader_material(albedo_texture: Texture) -> ShaderMaterial:
-	# Create a new ShaderMaterial
-	var shader_material = ShaderMaterial.new()
-	shader_material.shader = Gamedata.hide_above_player_shader  # Use the shared shader
-
-	# Assign the texture to the material
-	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
-
-	return shader_material
-
-
-# Handle the game ended signal. We need to clear the shader materials because they
-# need to be re-created on game start since some of them may have changed in between.
-func _on_game_ended():
-	# Loop through all shader materials and free them
-	for material in shader_materials.values():
-		material.free()
-	# Clear the dictionary
-	shader_materials.clear()

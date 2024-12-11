@@ -18,6 +18,7 @@ var stack_size: int
 var max_stack_size: int
 var two_handed: bool
 var references: Dictionary = {}
+var parent: DItems
 
 # Other properties per type
 var craft: Craft
@@ -377,7 +378,9 @@ class Wearable:
 
 
 # Constructor to initialize item properties from a dictionary
-func _init(data: Dictionary):
+# myparent: The list containing all items for this mod
+func _init(data: Dictionary, myparent: DItems):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
