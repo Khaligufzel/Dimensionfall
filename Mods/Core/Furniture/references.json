@@ -1,0 +1,542 @@
+{
+	"PineTree_00": {
+		"maps": [
+			"forest_road_cross",
+			"field_grass_basic_00",
+			"urbanroad",
+			"RockyHill_SE",
+			"urbanroad_cross",
+			"office_building_00",
+			"RockyHill_NW",
+			"neighborhood_school",
+			"subway_station",
+			"skyscraper",
+			"radio_tower",
+			"forest_road_t",
+			"urbanroad_corner",
+			"city_square",
+			"urbanroad_t",
+			"forest_road_straight",
+			"forest_road_corner",
+			"RockyHill_NE",
+			"police_station",
+			"generichouse_end",
+			"RockyHill_SW",
+			"generichouse_corner",
+			"forest_basic_00",
+			"store_electronic_clothing"
+		]
+	},
+	"Tree_00": {
+		"maps": [
+			"forest_road_cross",
+			"field_grass_basic_00",
+			"urbanroad",
+			"RockyHill_SE",
+			"urbanroad_cross",
+			"office_building_00",
+			"RockyHill_NW",
+			"neighborhood_school",
+			"subway_station",
+			"Generichouse",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"forest_road_t",
+			"urbanroad_corner",
+			"city_square",
+			"urbanroad_t",
+			"forest_road_straight",
+			"forest_road_corner",
+			"RockyHill_NE",
+			"police_station",
+			"generichouse_end",
+			"RockyHill_SW",
+			"generichouse_corner",
+			"forest_basic_00",
+			"store_electronic_clothing"
+		]
+	},
+	"WillowTree_00": {
+		"maps": [
+			"forest_road_cross",
+			"field_grass_basic_00",
+			"urbanroad",
+			"RockyHill_SE",
+			"urbanroad_cross",
+			"office_building_00",
+			"RockyHill_NW",
+			"neighborhood_school",
+			"subway_station",
+			"Generichouse",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"forest_road_t",
+			"urbanroad_corner",
+			"city_square",
+			"urbanroad_t",
+			"forest_road_straight",
+			"forest_road_corner",
+			"RockyHill_NE",
+			"police_station",
+			"generichouse_end",
+			"RockyHill_SW",
+			"generichouse_corner",
+			"forest_basic_00",
+			"store_electronic_clothing"
+		]
+	},
+	"bathtub": {
+		"maps": [
+			"generichouse_cross",
+			"Generichouse_00",
+			"two_story_house",
+			"generichouse_t"
+		]
+	},
+	"bed_wood_single_00": {
+		"maps": [
+			"Generichouse",
+			"generichouse_cross",
+			"Generichouse_00",
+			"two_story_house",
+			"police_station",
+			"generichouse_end",
+			"RockyHill_SW",
+			"generichouse_corner",
+			"generichouse_t"
+		]
+	},
+	"bench_garden": {
+		"maps": [
+			"neighborhood_school",
+			"subway_station",
+			"Generichouse",
+			"city_square",
+			"store_electronic_clothing"
+		]
+	},
+	"bench_wood": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"generichouse_cross",
+			"skyscraper",
+			"two_story_house",
+			"generichouse_end",
+			"generichouse_corner",
+			"generichouse_t"
+		]
+	},
+	"bookcase_wood_00": {
+		"maps": [
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"generichouse_cross",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"two_story_house",
+			"police_station",
+			"generichouse_end",
+			"generichouse_corner",
+			"generichouse_t"
+		]
+	},
+	"cabinet_wood_00": {
+		"maps": [
+			"Generichouse",
+			"generichouse_cross",
+			"Generichouse_00",
+			"radio_tower",
+			"two_story_house",
+			"police_station",
+			"generichouse_end",
+			"RockyHill_SW",
+			"generichouse_corner",
+			"generichouse_t"
+		]
+	},
+	"cash_register": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"skyscraper",
+			"police_station",
+			"store_electronic_clothing"
+		]
+	},
+	"chair_office": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"two_story_house",
+			"police_station",
+			"store_electronic_clothing"
+		]
+	},
+	"chair_wood": {
+		"maps": [
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"generichouse_cross",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"city_square",
+			"two_story_house",
+			"police_station",
+			"generichouse_end",
+			"abandoned_building",
+			"RockyHill_SW",
+			"generichouse_corner",
+			"generichouse_t"
+		]
+	},
+	"clothing_rack": {
+		"maps": [
+			"store_electronic_clothing"
+		]
+	},
+	"countertop_wood": {
+		"maps": [
+			"office_building_00",
+			"Generichouse",
+			"generichouse_cross",
+			"skyscraper",
+			"Generichouse_00",
+			"two_story_house",
+			"generichouse_end",
+			"generichouse_corner",
+			"generichouse_t"
+		]
+	},
+	"damaged_shelves": {
+		"maps": [
+			"radio_tower",
+			"two_story_house",
+			"abandoned_building"
+		]
+	},
+	"desk": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"two_story_house",
+			"police_station",
+			"store_electronic_clothing"
+		]
+	},
+	"destroyed_fence": {
+		"maps": [
+			"neighborhood_school",
+			"radio_tower",
+			"city_square",
+			"parking_garage",
+			"abandoned_building"
+		]
+	},
+	"display_case": {
+		"maps": [
+			"store_groceries",
+			"skyscraper",
+			"store_electronic_clothing"
+		]
+	},
+	"door_wood": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"generichouse_cross",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"two_story_house",
+			"police_station",
+			"generichouse_end",
+			"generichouse_corner",
+			"generichouse_t",
+			"store_electronic_clothing"
+		]
+	},
+	"equipment_rack": {
+		"maps": [
+			"radio_tower",
+			"police_station"
+		]
+	},
+	"first_aid_rack": {
+		"maps": [
+			"radio_tower"
+		]
+	},
+	"lamp_standing": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"Generichouse",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"two_story_house",
+			"police_station",
+			"RockyHill_SW",
+			"store_electronic_clothing"
+		]
+	},
+	"plant_pot_00": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"generichouse_cross",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"city_square",
+			"two_story_house",
+			"police_station",
+			"generichouse_end",
+			"generichouse_corner",
+			"generichouse_t",
+			"store_electronic_clothing"
+		]
+	},
+	"railroad_midsection": {
+		"maps": [
+			"subway_station"
+		]
+	},
+	"railroad_railsection": {
+		"maps": [
+			"subway_station"
+		]
+	},
+	"refrigerator_00": {
+		"maps": [
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"generichouse_cross",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"two_story_house",
+			"police_station",
+			"generichouse_end",
+			"generichouse_corner",
+			"generichouse_t"
+		]
+	},
+	"security_gate": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"skyscraper",
+			"police_station",
+			"RockyHill_SW",
+			"store_electronic_clothing"
+		]
+	},
+	"shopping_cart": {
+		"maps": [
+			"store_groceries",
+			"store_electronic_clothing"
+		]
+	},
+	"sofa": {
+		"maps": [
+			"office_building_00",
+			"skyscraper",
+			"Generichouse_00",
+			"two_story_house"
+		]
+	},
+	"standing_mirror": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"Generichouse",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"two_story_house",
+			"generichouse_t",
+			"store_electronic_clothing"
+		]
+	},
+	"store_shelf": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"skyscraper",
+			"radio_tower",
+			"store_electronic_clothing"
+		]
+	},
+	"stove": {
+		"maps": [
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"skyscraper",
+			"Generichouse_00",
+			"two_story_house"
+		]
+	},
+	"table_metal": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"Generichouse",
+			"skyscraper",
+			"Generichouse_00",
+			"two_story_house",
+			"police_station",
+			"generichouse_end",
+			"RockyHill_SW",
+			"store_electronic_clothing"
+		]
+	},
+	"table_picknic": {
+		"maps": [
+			"Generichouse"
+		]
+	},
+	"table_round_wood": {
+		"maps": [
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"generichouse_cross",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"city_square",
+			"two_story_house",
+			"police_station",
+			"generichouse_end",
+			"abandoned_building",
+			"RockyHill_SW",
+			"generichouse_corner",
+			"generichouse_t"
+		]
+	},
+	"toilet_00": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"generichouse_cross",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"two_story_house",
+			"generichouse_end",
+			"generichouse_corner",
+			"generichouse_t",
+			"store_electronic_clothing"
+		]
+	},
+	"transformer_box": {
+		"maps": [
+			"radio_tower"
+		]
+	},
+	"trash_bin": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"subway_station",
+			"Generichouse",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"city_square",
+			"two_story_house",
+			"generichouse_end",
+			"generichouse_corner",
+			"generichouse_t",
+			"store_electronic_clothing"
+		]
+	},
+	"ups": {
+		"maps": [
+			"radio_tower"
+		]
+	},
+	"vending_machine": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"subway_station",
+			"skyscraper",
+			"city_square",
+			"police_station",
+			"store_electronic_clothing"
+		]
+	},
+	"wall_shelf": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"skyscraper",
+			"two_story_house",
+			"police_station",
+			"generichouse_end",
+			"abandoned_building",
+			"store_electronic_clothing"
+		]
+	},
+	"wardrobe": {
+		"maps": [
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"two_story_house"
+		]
+	},
+	"window_glass": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"Generichouse",
+			"generichouse_cross",
+			"skyscraper",
+			"Generichouse_00",
+			"radio_tower",
+			"two_story_house",
+			"police_station",
+			"generichouse_end",
+			"generichouse_corner",
+			"generichouse_t",
+			"store_electronic_clothing"
+		]
+	}
+}
