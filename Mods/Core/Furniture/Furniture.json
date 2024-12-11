@@ -13,27 +13,6 @@
 		"id": "table_round_wood",
 		"moveable": true,
 		"name": "Round wooden table",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"RockyHill_SW",
-					"abandoned_building",
-					"generichouse_end",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "table_64.png",
 		"weight": 10
 	},
@@ -51,27 +30,6 @@
 		"id": "chair_wood",
 		"moveable": true,
 		"name": "Wooden chair",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"RockyHill_SW",
-					"abandoned_building",
-					"generichouse_end",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "chair_32.png",
 		"weight": 2
 	},
@@ -98,21 +56,6 @@
 		"id": "countertop_wood",
 		"moveable": false,
 		"name": "Wooden countertop",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"two_story_house"
-				]
-			}
-		},
 		"sprite": "countertop_100_52.png",
 		"support_shape": {
 			"color": "8d401bff",
@@ -137,38 +80,6 @@
 		"id": "Tree_00",
 		"moveable": false,
 		"name": "Tree",
-		"references": {
-			"core": {
-				"maps": [
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"store_electronic_clothing",
-					"forest_basic_00",
-					"Generichouse",
-					"Generichouse_00",
-					"field_grass_basic_00",
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"RockyHill_NE",
-					"generichouse_end",
-					"RockyHill_NW",
-					"urbanroad_cross",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"radio_tower",
-					"urbanroad",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "Tree_100.png",
 		"support_shape": {
 			"color": "653102ff",
@@ -192,36 +103,6 @@
 		"id": "PineTree_00",
 		"moveable": false,
 		"name": "Pine tree",
-		"references": {
-			"core": {
-				"maps": [
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"store_electronic_clothing",
-					"forest_basic_00",
-					"field_grass_basic_00",
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"generichouse_end",
-					"RockyHill_NW",
-					"urbanroad_cross",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"radio_tower",
-					"urbanroad",
-					"RockyHill_NE",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "PineTree_100.png",
 		"support_shape": {
 			"color": "9b522fff",
@@ -245,38 +126,6 @@
 		"id": "WillowTree_00",
 		"moveable": false,
 		"name": "Willow tree",
-		"references": {
-			"core": {
-				"maps": [
-					"urbanroad_t",
-					"urbanroad_corner",
-					"generichouse_corner",
-					"store_electronic_clothing",
-					"forest_basic_00",
-					"Generichouse",
-					"Generichouse_00",
-					"field_grass_basic_00",
-					"RockyHill_SE",
-					"RockyHill_NE",
-					"generichouse_end",
-					"RockyHill_NW",
-					"urbanroad_cross",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross",
-					"subway_station",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"radio_tower",
-					"urbanroad",
-					"RockyHill_SW",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "WillowTree_100.png",
 		"support_shape": {
 			"color": "9e5137ff",
@@ -301,21 +150,6 @@
 		"id": "bench_wood",
 		"moveable": false,
 		"name": "Wooden bench",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"sprite": "bench_wood_100_50.png",
 		"support_shape": {
 			"color": "8d4924ff",
@@ -341,27 +175,6 @@
 		"id": "plant_pot_00",
 		"moveable": true,
 		"name": "Potted plant",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"generichouse_end",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "pot_plant_32_32.png",
 		"weight": 1
 	},
@@ -380,21 +193,6 @@
 		"id": "bed_wood_single_00",
 		"moveable": false,
 		"name": "Wooden bed",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"RockyHill_SW",
-					"generichouse_end",
-					"two_story_house",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "bed_wood_100_50.png",
 		"support_shape": {
 			"color": "8d4925ff",
@@ -424,22 +222,6 @@
 		"id": "cabinet_wood_00",
 		"moveable": false,
 		"name": "Wooden cabinet",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"RockyHill_SW",
-					"generichouse_end",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "cabinet_wood_100_50.png",
 		"support_shape": {
 			"color": "864100ff",
@@ -465,24 +247,6 @@
 		"id": "bookcase_wood_00",
 		"moveable": false,
 		"name": "Wooden bookcase",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "bookcase_wood_100_50.png",
 		"support_shape": {
 			"color": "96522eff",
@@ -513,24 +277,6 @@
 		"id": "refrigerator_00",
 		"moveable": false,
 		"name": "Refrigerator",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "refrigerator_50_48.png",
 		"support_shape": {
 			"color": "bfbfbfff",
@@ -556,25 +302,6 @@
 		"id": "toilet_00",
 		"moveable": false,
 		"name": "Toilet",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "toilet_48.png",
 		"support_shape": {
 			"color": "bdbebdff",
@@ -602,26 +329,6 @@
 		"id": "door_wood",
 		"moveable": false,
 		"name": "Wooden door",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_corner",
-					"generichouse_cross",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"Generichouse",
-					"Generichouse_00",
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "door_100_13.png",
 		"support_shape": {
 			"color": "c7632eff",
@@ -647,17 +354,6 @@
 		"id": "bench_garden",
 		"moveable": false,
 		"name": "Garden bench",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"store_electronic_clothing",
-					"subway_station",
-					"city_square",
-					"neighborhood_school"
-				]
-			}
-		},
 		"sprite": "bench_garden_90_40.png",
 		"support_shape": {
 			"color": "96522eff",
@@ -687,19 +383,6 @@
 		"id": "wardrobe",
 		"moveable": false,
 		"name": "Wardrobe",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"Generichouse_00",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "wardrobe_80_40.png",
 		"support_shape": {
 			"color": "b75a2eff",
@@ -725,13 +408,6 @@
 		"id": "table_picknic",
 		"moveable": false,
 		"name": "Picnic table",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse"
-				]
-			}
-		},
 		"sprite": "table_picknic_100_50.png",
 		"support_shape": {
 			"color": "8d492eff",
@@ -757,22 +433,6 @@
 		"id": "chair_office",
 		"moveable": true,
 		"name": "Office chair",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"Generichouse_00",
-					"store_electronic_clothing",
-					"store_groceries",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "chair_office_50.png",
 		"weight": 1
 	},
@@ -790,22 +450,6 @@
 		"id": "table_metal",
 		"moveable": false,
 		"name": "Metal table",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"Generichouse_00",
-					"store_electronic_clothing",
-					"RockyHill_SW",
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"two_story_house",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "table_metal_100_50.png",
 		"support_shape": {
 			"color": "a7a7a7ff",
@@ -831,22 +475,6 @@
 		"id": "lamp_standing",
 		"moveable": true,
 		"name": "Standing lamp",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"Generichouse_00",
-					"store_electronic_clothing",
-					"RockyHill_SW",
-					"store_groceries",
-					"office_building_00",
-					"skyscraper",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "lamp_50.png",
 		"weight": 1
 	},
@@ -864,22 +492,6 @@
 		"id": "desk",
 		"moveable": false,
 		"name": "Desk",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"Generichouse_00",
-					"store_electronic_clothing",
-					"store_groceries",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "desk_100_50.png",
 		"support_shape": {
 			"color": "af5225ff",
@@ -905,16 +517,6 @@
 		"id": "bathtub",
 		"moveable": false,
 		"name": "Bathtub",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse_00",
-					"generichouse_t",
-					"generichouse_cross",
-					"two_story_house"
-				]
-			}
-		},
 		"sprite": "bathtub_100_50.png",
 		"support_shape": {
 			"color": "a7a7a7ff",
@@ -940,18 +542,6 @@
 		"id": "stove",
 		"moveable": false,
 		"name": "Stove",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"Generichouse_00",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house"
-				]
-			}
-		},
 		"sprite": "stove_50_48.png",
 		"support_shape": {
 			"color": "aeaeaeff",
@@ -977,21 +567,6 @@
 		"id": "standing_mirror",
 		"moveable": false,
 		"name": "Standing mirror",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"Generichouse_00",
-					"store_electronic_clothing",
-					"store_groceries",
-					"generichouse_t",
-					"office_building_00",
-					"skyscraper",
-					"two_story_house",
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "standing_mirror_50.png",
 		"support_shape": {
 			"color": "8e8e8eff",
@@ -1016,16 +591,6 @@
 		"id": "sofa",
 		"moveable": false,
 		"name": "Sofa",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse_00",
-					"office_building_00",
-					"skyscraper",
-					"two_story_house"
-				]
-			}
-		},
 		"sprite": "sofa_100_50.png",
 		"support_shape": {
 			"color": "2d369dff",
@@ -1050,17 +615,6 @@
 		"id": "cash_register",
 		"moveable": false,
 		"name": "Cash Register",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"store_groceries",
-					"office_building_00",
-					"skyscraper",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "cash_register_50.png",
 		"support_shape": {
 			"color": "9e9e9eff",
@@ -1088,14 +642,6 @@
 		"id": "shopping_cart",
 		"moveable": true,
 		"name": "Shopping Cart",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"store_groceries"
-				]
-			}
-		},
 		"sprite": "shopping_cart_90_50.png",
 		"weight": 2
 	},
@@ -1116,15 +662,6 @@
 		"id": "display_case",
 		"moveable": false,
 		"name": "Display Case",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"store_groceries",
-					"skyscraper"
-				]
-			}
-		},
 		"sprite": "display_case_100_50.png",
 		"support_shape": {
 			"color": "9f9f9fff",
@@ -1153,20 +690,6 @@
 		"id": "vending_machine",
 		"moveable": false,
 		"name": "Vending Machine",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"store_groceries",
-					"subway_station",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "vending_machine_50.png",
 		"support_shape": {
 			"color": "bf2e2eff",
@@ -1195,13 +718,6 @@
 		"id": "clothing_rack",
 		"moveable": true,
 		"name": "Clothing Rack",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"sprite": "clothing_rack_90_50.png",
 		"weight": 5
 	},
@@ -1221,17 +737,6 @@
 		"id": "store_shelf",
 		"moveable": false,
 		"name": "Store Shelf",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"store_groceries",
-					"office_building_00",
-					"skyscraper",
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "store_shelf_90_50.png",
 		"support_shape": {
 			"color": "a7855bff",
@@ -1259,19 +764,6 @@
 		"id": "security_gate",
 		"moveable": false,
 		"name": "Security Gate",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"RockyHill_SW",
-					"store_groceries",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "security_gate_100_13.png",
 		"support_shape": {
 			"color": "8b8b8bff",
@@ -1299,26 +791,6 @@
 		"id": "trash_bin",
 		"moveable": true,
 		"name": "Trash Bin",
-		"references": {
-			"core": {
-				"maps": [
-					"generichouse_t",
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_corner",
-					"store_electronic_clothing",
-					"store_groceries",
-					"generichouse_end",
-					"subway_station",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "trash_bin_32.png",
 		"weight": 1
 	},
@@ -1339,21 +811,6 @@
 		"id": "wall_shelf",
 		"moveable": false,
 		"name": "Wall Shelf",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"abandoned_building",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "wall_shelf_100_40.png",
 		"support_shape": {
 			"color": "965a25ff",
@@ -1378,26 +835,6 @@
 		"id": "window_glass",
 		"moveable": false,
 		"name": "Glass window",
-		"references": {
-			"core": {
-				"maps": [
-					"Generichouse",
-					"Generichouse_00",
-					"generichouse_cross",
-					"generichouse_corner",
-					"generichouse_t",
-					"store_electronic_clothing",
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"skyscraper",
-					"neighborhood_school",
-					"two_story_house",
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "glass_window.png",
 		"support_shape": {
 			"color": "869bcdff",
@@ -1426,15 +863,6 @@
 		"id": "damaged_shelves",
 		"moveable": false,
 		"name": "Damaged Shelves",
-		"references": {
-			"core": {
-				"maps": [
-					"abandoned_building",
-					"two_story_house",
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "damaged_shelves_90_45.png",
 		"support_shape": {
 			"color": "d76c2eff",
@@ -1460,17 +888,6 @@
 		"id": "destroyed_fence",
 		"moveable": false,
 		"name": "Destroyed Fence",
-		"references": {
-			"core": {
-				"maps": [
-					"abandoned_building",
-					"parking_garage",
-					"city_square",
-					"neighborhood_school",
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "fence_destroyed_90_10.png",
 		"support_shape": {
 			"color": "c75a1cff",
@@ -1497,13 +914,6 @@
 		"id": "railroad_midsection",
 		"moveable": false,
 		"name": "Railroad midsection",
-		"references": {
-			"core": {
-				"maps": [
-					"subway_station"
-				]
-			}
-		},
 		"sprite": "railroad_midsection.png",
 		"support_shape": {
 			"color": "a65a2eff",
@@ -1530,13 +940,6 @@
 		"id": "railroad_railsection",
 		"moveable": false,
 		"name": "Railroad rail section",
-		"references": {
-			"core": {
-				"maps": [
-					"subway_station"
-				]
-			}
-		},
 		"sprite": "railroad_railsection.png",
 		"support_shape": {
 			"color": "a65a2eff",
@@ -1565,14 +968,6 @@
 		"id": "equipment_rack",
 		"moveable": false,
 		"name": "Equipment Rack",
-		"references": {
-			"core": {
-				"maps": [
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "equipmentrack_100_46.png",
 		"support_shape": {
 			"color": "386c2fff",
@@ -1601,13 +996,6 @@
 		"id": "first_aid_rack",
 		"moveable": false,
 		"name": "First-Aid Rack",
-		"references": {
-			"core": {
-				"maps": [
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "first_aid_rack_72_46.png",
 		"support_shape": {
 			"color": "b3b3b3ff",
@@ -1632,13 +1020,6 @@
 		"id": "transformer_box",
 		"moveable": false,
 		"name": "Transformer Box",
-		"references": {
-			"core": {
-				"maps": [
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "transformer_box_72_46.png",
 		"support_shape": {
 			"color": "8a8a8aff",
@@ -1663,13 +1044,6 @@
 		"id": "ups",
 		"moveable": false,
 		"name": "UPS",
-		"references": {
-			"core": {
-				"maps": [
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "ups_20_45.png",
 		"support_shape": {
 			"color": "212121ff",
