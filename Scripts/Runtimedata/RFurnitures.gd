@@ -126,3 +126,7 @@ func create_shape_material(furniture_id: String) -> ShaderMaterial:
 func _on_game_ended():
 	shader_materials.clear()
 	shape_materials.clear()
+
+
+func is_moveable(id: String) -> bool:
+	return by_id(id).moveable

@@ -403,7 +403,7 @@ func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 			"mob":
 				properties["texture"] = Gamedata.mods.get_content_by_id(DMod.ContentType.MOBS,entity["id"]).sprite
 			"furniture":
-				properties["texture"] = Gamedata.furnitures.sprite_by_id(entity["id"])
+				properties["texture"] = Gamedata.mods.get_content_by_id(DMod.ContentType.FURNITURES,entity["id"]).sprite
 			"itemgroup":
 				properties["texture"] = Gamedata.mods.get_content_by_id(DMod.ContentType.ITEMGROUPS,entity["id"]).sprite
 			"mobgroup":  # Add support for mobgroup

@@ -150,7 +150,7 @@ func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: Packe
 			newContentEditor.currentMap = currentmod.tacticalmaps.by_id(itemID)
 		
 		DMod.ContentType.FURNITURES:
-			newContentEditor.dfurniture = Gamedata.furnitures.by_id(itemID)
+			newContentEditor.dfurniture = currentmod.furnitures.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.ITEMGROUPS:

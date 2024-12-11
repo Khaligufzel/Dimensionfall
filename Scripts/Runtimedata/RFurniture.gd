@@ -147,6 +147,7 @@ var function: Function
 var support_shape: SupportShape
 var destruction: Destruction
 var disassembly: Disassembly
+var sprite: Texture
 var parent: RFurnitures  # Reference to the list containing all runtime furnitures for this mod
 
 # Constructor to initialize furniture properties
@@ -167,6 +168,7 @@ func overwrite_from_dfurniture(dfurniture: DFurniture) -> void:
 	weight = dfurniture.weight
 	edgesnapping = dfurniture.edgesnapping
 	spriteid = dfurniture.spriteid
+	sprite = dfurniture.sprite
 	function = Function.new(dfurniture.function.get_data())
 	support_shape = SupportShape.new(dfurniture.support_shape.get_data())
 	destruction = Destruction.new(dfurniture.destruction.get_data())

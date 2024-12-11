@@ -819,7 +819,7 @@ func update_preview_texture_with_copied_data():
 func get_texture_from_tile_data(tile_data: Dictionary) -> Texture:
 	if tile_data.has("id"):
 		var texture_id = tile_data["id"]
-		return Gamedata.mods.by_id("Core").tiles.sprite_by_id(texture_id)
+		return Gamedata.mods.get_content_by_id(DMod.ContentType.TILES,texture_id).sprite
 	else:
 		return load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
 
@@ -1301,7 +1301,7 @@ func set_tile_itemgroups(tileData: Dictionary, itemgroups: Array) -> void:
 		tileData.furniture.erase("itemgroups")
 		return
 
-	var furniture: DFurniture = Gamedata.furnitures.by_id(tileData.furniture.id)
+	var furniture: DFurniture = Gamedata.mods.get_content_by_id(DMod.ContentType.FURNITURES,tileData.furniture.id)
 	if furniture.function.is_container: 
 		# The furniture is a container and will get one of the itemgroups assigned at runtime
 		tileData.furniture.itemgroups = itemgroups

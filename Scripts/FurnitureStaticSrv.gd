@@ -13,7 +13,7 @@ var furniture_transform: FurnitureTransform
 var furniture_position: Vector3
 var furniture_rotation: int
 var furnitureJSON: Dictionary # The json that defines this furniture on the map
-var dfurniture: DFurniture # The json that defines this furniture's basics in general
+var rfurniture: RFurniture # The json that defines this furniture's basics in general
 var collider: RID
 var shape: RID
 var mesh_instance: RID  # Variable to store the mesh instance RID
@@ -120,10 +120,10 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	furniture_position = furniturepos
 	furnitureJSON = newFurnitureJSON
 	furniture_rotation = furnitureJSON.get("rotation", 0)
-	dfurniture = Gamedata.furnitures.by_id(furnitureJSON.id)
+	rfurniture = Runtimedata.furnitures.by_id(furnitureJSON.id)
 	myworld3d = world3d
 
-	sprite_texture = dfurniture.sprite
+	sprite_texture = rfurniture.sprite
 	var furniture_size: Vector3 = calculate_furniture_size()
 
 	furniture_transform = FurnitureTransform.new(furniturepos, furniture_rotation, furniture_size)
@@ -135,10 +135,10 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 	check_door_functionality()  # Check if this furniture is a door
 
-	if dfurniture.support_shape.shape == "Box":
+	if rfurniture.support_shape.shape == "Box":
 		create_box_shape()
 		create_visual_instance("Box")
-	elif dfurniture.support_shape.shape == "Cylinder":
+	elif rfurniture.support_shape.shape == "Cylinder":
 		create_cylinder_shape()
 		create_visual_instance("Cylinder")
 
@@ -159,7 +159,7 @@ func add_container():
 
 
 func is_container() -> bool:
-	return dfurniture.function.is_container
+	return rfurniture.function.is_container
 
 # Creates a new InventoryStacked to hold items in it
 func _create_inventory():
@@ -181,7 +181,7 @@ func populate_container_from_itemgroup() -> String:
 			return itemgroups_array.pick_random()
 	
 	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
-	var myitemgroup = dfurniture.function.container_group
+	var myitemgroup = rfurniture.function.container_group
 	if myitemgroup:
 		return myitemgroup
 	return ""
@@ -191,9 +191,9 @@ func calculate_furniture_size() -> Vector3:
 	if sprite_texture:
 		var sprite_width = sprite_texture.get_width() / 100.0 # Convert pixels to meters
 		var sprite_depth = sprite_texture.get_height() / 100.0 # Convert pixels to meters
-		var height = dfurniture.support_shape.height
+		var height = rfurniture.support_shape.height
 		return Vector3(sprite_width, height, sprite_depth)  # Use height from support shape
-	return Vector3(0.5, dfurniture.support_shape.height, 0.5)  # Default size if texture is not set
+	return Vector3(0.5, rfurniture.support_shape.height, 0.5)  # Default size if texture is not set
 
 
 # Function to create a BoxShape3D collider based on the given size
@@ -215,7 +215,7 @@ func create_box_shape():
 # Function to create a visual instance with a mesh to represent the shape
 # Apply the hide_above_player_shader to the MeshInstance
 func create_visual_instance(shape_type: String):
-	var material: ShaderMaterial = Gamedata.furnitures.get_shape_material_by_id(dfurniture.id)
+	var material: ShaderMaterial = Runtimedata.furnitures.get_shape_material_by_id(rfurniture.id)
 
 	if shape_type == "Box":
 		support_mesh = BoxMesh.new()
@@ -241,8 +241,8 @@ func create_sprite_instance():
 	quad_mesh = PlaneMesh.new()
 	quad_mesh.size = furniture_transform.get_sizeV2()
 
-	# Get the shader material from Gamedata.furnitures
-	sprite_material = Gamedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
+	# Get the shader material from Runtimedata.furnitures
+	sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
 
 	quad_mesh.material = sprite_material
 
@@ -279,9 +279,9 @@ func create_container_sprite_instance():
 
 # Now, update methods that involve position, rotation, and size
 func apply_edge_snapping_if_needed():
-	if not dfurniture.edgesnapping == "None":
+	if not rfurniture.edgesnapping == "None":
 		var new_position = apply_edge_snapping(
-			dfurniture.edgesnapping
+			rfurniture.edgesnapping
 		)
 		furniture_transform.set_position(new_position)
 
@@ -399,12 +399,12 @@ func free_resources():
 	PhysicsServer3D.free_rid(collider)
 
 	# Clear the reference to the DFurniture data if necessary
-	dfurniture = null
+	rfurniture = null
 
 
 # Function to check if this furniture acts as a door
 func check_door_functionality():
-	is_door = dfurniture.function.door != "None"
+	is_door = rfurniture.function.door != "None"
 	
 	# Ensure the door_state is properly set
 	if furnitureJSON.has("Function") and furnitureJSON["Function"].has("door"):
@@ -516,14 +516,14 @@ func add_corpse(pos: Vector3):
 			"global_position_z": pos.z
 		}
 		
-		var myitemgroup = dfurniture.destruction.group
+		var myitemgroup = rfurniture.destruction.group
 		if myitemgroup:
 			newitemjson["itemgroups"] = [myitemgroup]
 		
 		var newItem: ContainerItem = ContainerItem.new(newitemjson)
 		newItem.add_to_group("mapitems")
 		
-		var fursprite = dfurniture.destruction.sprite
+		var fursprite = rfurniture.destruction.sprite
 		if fursprite:
 			newItem.set_texture(fursprite)
 		
@@ -538,12 +538,12 @@ func add_corpse(pos: Vector3):
 
 # Check if the furniture can be destroyed
 func can_be_destroyed() -> bool:
-	return not dfurniture.destruction.get_data().is_empty()
+	return not rfurniture.destruction.get_data().is_empty()
 
 
 # Check if the furniture can be disassembled
 func can_be_disassembled() -> bool:
-	return not dfurniture.disassembly.get_data().is_empty()
+	return not rfurniture.disassembly.get_data().is_empty()
 
 
 # Will add item to the inventory based on the assigned itemgroup
@@ -653,7 +653,7 @@ func get_inventory() -> InventoryStacked:
 
 
 func get_sprite() -> Texture:
-	return dfurniture.sprite
+	return rfurniture.sprite
 
 
 # Sets the sprite_3d texture to a texture of a random item in the container's inventory
