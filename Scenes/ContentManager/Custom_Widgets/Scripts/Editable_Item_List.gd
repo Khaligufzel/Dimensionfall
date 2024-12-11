@@ -90,7 +90,11 @@ func _on_delete_button_button_up():
 
 
 # This function should return true if the dragged data can be dropped onto the lsit
-func _can_drop_mydata(_myposition: Vector2, data: String) -> bool:
+func _can_drop_mydata(_myposition: Vector2, data: Variant) -> bool:
+	# Check if the data is a string; if not, return false
+	if typeof(data) != TYPE_STRING:
+		return false
+
 	# Check if the data is valid and corresponds to a mod ID
 	if data.is_empty():
 		return false
@@ -103,7 +107,11 @@ func _can_drop_mydata(_myposition: Vector2, data: String) -> bool:
 	return true
 
 # This function handles the data being dropped onto the list
-func _drop_mydata(myposition: Vector2, data: String) -> void:
+func _drop_mydata(myposition: Vector2, data: Variant) -> void:
+	# Check if the data is a string; if not, return false
+	if typeof(data) != TYPE_STRING:
+		return
+
 	if _can_drop_mydata(myposition, data):
 		# Add the data to the list
 		add_item_to_list(data)
