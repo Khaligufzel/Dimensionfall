@@ -47,7 +47,8 @@ extends RefCounted
 #				]
 #			}
 #		},
-#		"sprite": "machete_32.png"
+#		"sprite": "machete_32.png",
+#		"use_sprite": true
 #	}
 
 # Subclass to represent individual items in the itemgroup

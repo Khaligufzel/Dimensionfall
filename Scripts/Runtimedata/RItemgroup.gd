@@ -51,6 +51,7 @@ var name: String
 var description: String
 var mode: String # "Collection" or "Distribution"
 var items: Array[Item] = []
+var use_sprite: bool = false
 var parent: RItemgroups  # Reference to the list containing all runtime itemgroups for this mod
 
 # Constructor to initialize itemgroup properties
@@ -67,6 +68,7 @@ func overwrite_from_ditemgroup(ditemgroup: DItemgroup) -> void:
 	name = ditemgroup.name
 	description = ditemgroup.description
 	mode = ditemgroup.mode
+	use_sprite = ditemgroup.use_sprite
 	
 	# Convert DItemgroup items to RItemgroup items
 	items.clear()
