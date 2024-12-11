@@ -43,7 +43,6 @@ var gamedata_map: Dictionary = {}
 func _ready():
 	# Instantiate the content type instances
 	mods = DMods.new()
-	items = DItems.new()
 	mobfactions = DMobfactions.new()
 
 	# Populate the gamedata_map with the instantiated objects
@@ -52,7 +51,7 @@ func _ready():
 		DMod.ContentType.MAPS: mods.by_id("Core").maps,	
 		DMod.ContentType.FURNITURES: mods.by_id("Core").furnitures,
 		DMod.ContentType.ITEMGROUPS: mods.by_id("Core").itemgroups,
-		DMod.ContentType.ITEMS: items,
+		DMod.ContentType.ITEMS: mods.by_id("Core").items,
 		DMod.ContentType.TILES: mods.by_id("Core").tiles,
 		DMod.ContentType.MOBS: mods.by_id("Core").mobs,
 		DMod.ContentType.PLAYERATTRIBUTES: mods.by_id("Core").playerattributes,

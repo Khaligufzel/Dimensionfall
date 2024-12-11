@@ -27,7 +27,7 @@ func _init(mod_id: String) -> void:
 func load_items_from_disk() -> void:
 	var itemlist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for myitem in itemlist:
-		var item: DItem = DItem.new(myitem)
+		var item: DItem = DItem.new(myitem, self)
 		if myitem.has("sprite"):
 			item.sprite = sprites[item.spriteid]
 		itemdict[item.id] = item
@@ -66,13 +66,13 @@ func duplicate_to_disk(itemid: String, newitemid: String) -> void:
 	# So we delete the references from the duplicated data if it is present
 	itemdata.erase("references")
 	itemdata.id = newitemid
-	var newitem: DItem = DItem.new(itemdata)
+	var newitem: DItem = DItem.new(itemdata, self)
 	itemdict[newitemid] = newitem
 	save_items_to_disk()
 
 
 func add_new(newid: String) -> void:
-	var newitem: DItem = DItem.new({"id":newid})
+	var newitem: DItem = DItem.new({"id":newid}, self)
 	itemdict[newitem.id] = newitem
 	save_items_to_disk()
 

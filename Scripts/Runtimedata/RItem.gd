@@ -66,7 +66,105 @@ class Craft:
 			data.append(recipe.get_data())
 		return data
 
-# Properties defined in the item
+class Ranged:
+	var firing_speed: float
+	var firing_range: int
+	var recoil: int
+	var reload_speed: float
+	var spread: int
+	var sway: int
+	var used_ammo: String
+	var used_magazine: String
+	var used_skill: Dictionary
+
+	func _init(data: Dictionary):
+		firing_speed = data.get("firing_speed", 0.0)
+		firing_range = data.get("range", 0)
+		recoil = data.get("recoil", 0)
+		reload_speed = data.get("reload_speed", 0.0)
+		spread = data.get("spread", 0)
+		sway = data.get("sway", 0)
+		used_ammo = data.get("used_ammo", "")
+		used_magazine = data.get("used_magazine", "")
+		used_skill = data.get("used_skill", {})
+
+	func get_data() -> Dictionary:
+		return {
+			"firing_speed": firing_speed,
+			"range": firing_range,
+			"recoil": recoil,
+			"reload_speed": reload_speed,
+			"spread": spread,
+			"sway": sway,
+			"used_ammo": used_ammo,
+			"used_magazine": used_magazine,
+			"used_skill": used_skill
+		}
+
+class Melee:
+	var damage: int
+	var reach: int
+	var used_skill: Dictionary
+
+	func _init(data: Dictionary):
+		damage = data.get("damage", 0)
+		reach = data.get("reach", 0)
+		used_skill = data.get("used_skill", {})
+
+	func get_data() -> Dictionary:
+		return {
+			"damage": damage,
+			"reach": reach,
+			"used_skill": used_skill
+		}
+
+class Food:
+	var attributes: Array
+
+	func _init(data: Dictionary):
+		attributes = data.get("attributes", [])
+
+	func get_data() -> Dictionary:
+		return { "attributes": attributes }
+
+class Medical:
+	var attributes: Array
+	var amount: float
+	var order: String
+
+	func _init(data: Dictionary):
+		attributes = data.get("attributes", [])
+		amount = data.get("amount", 0.0)
+		order = data.get("order", "Random")
+
+	func get_data() -> Dictionary:
+		return {
+			"attributes": attributes,
+			"amount": amount,
+			"order": order
+		}
+
+class Ammo:
+	var damage: int
+
+	func _init(data: Dictionary):
+		damage = data.get("damage", 0)
+
+	func get_data() -> Dictionary:
+		return { "damage": damage }
+
+class Wearable:
+	var slot: String
+	var player_attributes: Array
+
+	func _init(data: Dictionary):
+		slot = data.get("slot", "")
+		player_attributes = data.get("player_attributes", [])
+
+	func get_data() -> Dictionary:
+		return { "slot": slot, "player_attributes": player_attributes }
+
+# Properties of the RItem class
 var id: String
 var name: String
 var description: String
@@ -77,10 +175,16 @@ var max_stack_size: int
 var sprite: Texture
 var spriteid: String
 var craft: Craft
-var parent: RItems  # Reference to the list containing all runtime items for this mod
+var ranged: Ranged
+var melee: Melee
+var food: Food
+var medical: Medical
+var ammo: Ammo
+var wearable: Wearable
+var parent: RItems
 
 # Constructor to initialize item properties
-# myparent: The list containing all runtime items for this mod
+# myparent: The list containing all runtime items
 # newid: The ID of the item being created
 func _init(myparent: RItems, newid: String):
 	parent = myparent
@@ -99,14 +203,16 @@ func overwrite_from_ditem(ditem: DItem) -> void:
 	max_stack_size = ditem.max_stack_size
 	spriteid = ditem.spriteid
 	sprite = ditem.sprite
+	
+	craft = Craft.new(ditem.craft.get_data()) if ditem.craft else null
+	ranged = Ranged.new(ditem.ranged.get_data()) if ditem.ranged else null
+	melee = Melee.new(ditem.melee.get_data()) if ditem.melee else null
+	food = Food.new(ditem.food.get_data()) if ditem.food else null
+	medical = Medical.new(ditem.medical.get_data()) if ditem.medical else null
+	ammo = Ammo.new(ditem.ammo.get_data()) if ditem.ammo else null
+	wearable = Wearable.new(ditem.wearable.get_data()) if ditem.wearable else null
 
-	# Convert DItem's Craft to RItem's Craft
-	if ditem.craft:
-		craft = Craft.new(ditem.craft.get_data())
-	else:
-		craft = null
-
-# Get data function to return a dictionary with all properties
+# Get data function
 func get_data() -> Dictionary:
 	var data: Dictionary = {
 		"id": id,
@@ -120,35 +226,16 @@ func get_data() -> Dictionary:
 	}
 	if craft:
 		data["Craft"] = craft.get_data()
+	if ranged:
+		data["Ranged"] = ranged.get_data()
+	if melee:
+		data["Melee"] = melee.get_data()
+	if food:
+		data["Food"] = food.get_data()
+	if medical:
+		data["Medical"] = medical.get_data()
+	if ammo:
+		data["Ammo"] = ammo.get_data()
+	if wearable:
+		data["Wearable"] = wearable.get_data()
 	return data
-
-# Function to remove a reference from the item
-func remove_reference(module: String, type: String, refid: String):
-	if parent:
-		parent.remove_reference(id, module, type, refid)
-
-# Function to add a reference to the item
-func add_reference(module: String, type: String, refid: String):
-	if parent:
-		parent.add_reference(id, module, type, refid)
-
-# Called when an item is changed to update related references
-func on_data_changed(oldditem: DItem):
-	if craft and oldditem.craft:
-		var old_resources = oldditem.craft.get_all_used_items()
-		var new_resources = craft.get_all_used_items()
-
-		# Remove references for resources no longer in use
-		for res in old_resources:
-			if not new_resources.has(res):
-				remove_reference("core", "items", res)
-
-		# Add references for new resources
-		for res in new_resources:
-			add_reference("core", "items", res)
-
-# An item is being deleted
-# Remove it from all references
-func delete():
-	if parent:
-		parent.delete_by_id(id)
