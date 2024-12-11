@@ -39,7 +39,8 @@ func load_tiles_from_disk() -> void:
 	var tilelist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for mytile in tilelist:
 		var tile: DTile = DTile.new(mytile, self)
-		tile.sprite = sprites[tile.spriteid]
+		if tile.spriteid:
+			tile.sprite = sprites[tile.spriteid]
 		tiledict[tile.id] = tile
 
 
