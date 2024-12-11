@@ -154,7 +154,7 @@ func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: Packe
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.ITEMGROUPS:
-			newContentEditor.ditemgroup = Gamedata.itemgroups.by_id(itemID)
+			newContentEditor.ditemgroup = currentmod.itemgroups.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
 		
 		DMod.ContentType.ITEMS:

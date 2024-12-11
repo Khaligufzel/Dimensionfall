@@ -8,7 +8,7 @@ var furnitures: DFurnitures
 var items: DItems
 var tiles: RTiles
 var mobs: RMobs
-var itemgroups: DItemgroups
+var itemgroups: RItemgroups
 var playerattributes: RPlayerAttributes
 var wearableslots: RWearableSlots
 var skills: RSkills
@@ -40,6 +40,7 @@ func reconstruct() -> void:
 	wearableslots = RWearableSlots.new()
 	mobs = RMobs.new()
 	mobgroups = RMobgroups.new()
+	itemgroups = RItemgroups.new()
 	
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
@@ -53,5 +54,6 @@ func reconstruct() -> void:
 		DMod.ContentType.PLAYERATTRIBUTES: playerattributes,
 		DMod.ContentType.WEARABLESLOTS: wearableslots,
 		DMod.ContentType.MOBS: mobs,
-		DMod.ContentType.MOBGROUPS: mobgroups
+		DMod.ContentType.MOBGROUPS: mobgroups,
+		DMod.ContentType.ITEMGROUPS: itemgroups
 	}

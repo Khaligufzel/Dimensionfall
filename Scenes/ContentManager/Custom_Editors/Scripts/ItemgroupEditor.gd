@@ -33,7 +33,7 @@ var ditemgroup: DItemgroup = null:
 		ditemgroup = value
 		load_itemgroup_data()
 		itemgroupSelector.sprites_collection = Gamedata.itemgroups.sprites
-		olddata = DItemgroup.new(ditemgroup.get_data().duplicate(true))
+		olddata = DItemgroup.new(ditemgroup.get_data().duplicate(true), null)
 
 
 func _ready():
@@ -198,7 +198,7 @@ func _on_save_button_button_up():
 	ditemgroup.items = new_items
 	ditemgroup.changed(olddata)
 	data_changed.emit()
-	olddata = DItemgroup.new(ditemgroup.get_data().duplicate(true))
+	olddata = DItemgroup.new(ditemgroup.get_data().duplicate(true), null)
 
 
 

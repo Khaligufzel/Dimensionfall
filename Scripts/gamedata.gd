@@ -46,7 +46,6 @@ func _ready():
 	mods = DMods.new()
 	furnitures = DFurnitures.new()
 	items = DItems.new()
-	itemgroups = DItemgroups.new()
 	mobfactions = DMobfactions.new()
 
 	# Populate the gamedata_map with the instantiated objects
@@ -54,7 +53,7 @@ func _ready():
 		DMod.ContentType.TACTICALMAPS: mods.by_id("Core").tacticalmaps,	
 		DMod.ContentType.MAPS: mods.by_id("Core").maps,	
 		DMod.ContentType.FURNITURES: furnitures,
-		DMod.ContentType.ITEMGROUPS: itemgroups,
+		DMod.ContentType.ITEMGROUPS: mods.by_id("Core").itemgroups,
 		DMod.ContentType.ITEMS: items,
 		DMod.ContentType.TILES: mods.by_id("Core").tiles,
 		DMod.ContentType.MOBS: mods.by_id("Core").mobs,

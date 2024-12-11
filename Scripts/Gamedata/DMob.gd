@@ -84,8 +84,8 @@ var sprite: Texture
 var targetattributes: Dictionary = {}
 var parent: DMobs
 
-# Constructor to initialize quest properties from a dictionary
-# myparent: The list containing all quests for this mod
+# Constructor to initialize mob properties from a dictionary
+# myparent: The list containing all mobs for this mod
 func _init(data: Dictionary, myparent: DMobs):
 	parent = myparent
 	id = data.get("id", "")

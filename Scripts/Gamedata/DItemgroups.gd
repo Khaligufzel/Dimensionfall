@@ -6,22 +6,38 @@ extends RefCounted
 # This script handles the list of itemgroups. You can access it trough Gamedata.itemgroups
 
 
-var dataPath: String = "./Mods/Core/Itemgroups/Itemgroups.json"
+var dataPath: String = "./Mods/Core/Itemgroups/"
+var filePath: String = "./Mods/Core/Itemgroups/Itemgroups.json"
 var spritePath: String = "./Mods/Core/Items/"
 var itemgroupdict: Dictionary = {}
 var sprites: Dictionary = {}
+var references: Dictionary = {}
 
-
-func _init():
+# Add a mod_id parameter to dynamically initialize paths
+func _init(mod_id: String) -> void:
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Itemgroups/"
+	filePath = "./Mods/" + mod_id + "/Itemgroups/Itemgroups.json"
+	spritePath = "./Mods/" + mod_id + "/Items/"
 	load_sprites()
 	load_itemgroups_from_disk()
+	load_references()
+
+
+# Load references from references.json
+func load_references() -> void:
+	var path = dataPath + "references.json"
+	if FileAccess.file_exists(path):
+		references = Helper.json_helper.load_json_dictionary_file(path)
+	else:
+		references = {}  # Initialize an empty references dictionary if the file doesn't exist
 
 
 # Load all itemgroupdata from disk into memory
 func load_itemgroups_from_disk() -> void:
-	var itemgrouplist: Array = Helper.json_helper.load_json_array_file(dataPath)
+	var itemgrouplist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for myitemgroup in itemgrouplist:
-		var itemgroup: DItemgroup = DItemgroup.new(myitemgroup)
+		var itemgroup: DItemgroup = DItemgroup.new(myitemgroup, self)
 		itemgroup.sprite = sprites[itemgroup.spriteid]
 		itemgroupdict[itemgroup.id] = itemgroup
 
@@ -45,7 +61,7 @@ func save_itemgroups_to_disk() -> void:
 	var save_data: Array = []
 	for itemgroup in itemgroupdict.values():
 		save_data.append(itemgroup.get_data())
-	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	Helper.json_helper.write_json_file(filePath, JSON.stringify(save_data, "\t"))
 
 
 func get_all() -> Dictionary:
@@ -58,13 +74,13 @@ func duplicate_to_disk(itemgroupid: String, newitemgroupid: String) -> void:
 	# So we delete the references from the duplicated data if it is present
 	itemgroupdata.erase("references")
 	itemgroupdata.id = newitemgroupid
-	var newitemgroup: DItemgroup = DItemgroup.new(itemgroupdata)
+	var newitemgroup: DItemgroup = DItemgroup.new(itemgroupdata, self)
 	itemgroupdict[newitemgroupid] = newitemgroup
 	save_itemgroups_to_disk()
 
 
 func add_new(newid: String) -> void:
-	var newitemgroup: DItemgroup = DItemgroup.new({"id":newid})
+	var newitemgroup: DItemgroup = DItemgroup.new({"id":newid}, self)
 	itemgroupdict[newitemgroup.id] = newitemgroup
 	save_itemgroups_to_disk()
 
