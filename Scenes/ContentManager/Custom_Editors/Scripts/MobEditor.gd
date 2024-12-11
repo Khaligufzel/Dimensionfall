@@ -149,13 +149,20 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	PathTextLabel.text = mobTexture.resource_path.get_file()
 
 # This function should return true if the dragged data can be dropped here
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func _can_drop_data(_newpos, data) -> bool:
 	# Check if the data dictionary has the 'id' property
 	if not data or not data.has("id"):
 		return false
 	
 	# Fetch itemgroup data by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.itemgroups.has_id(data["id"]):
+	if not Gamedata.mods.by_id(data["mod_id"]).itemgroups.has_id(data["id"]):
 		return false
 
 	# If all checks pass, return true
@@ -168,11 +175,18 @@ func _drop_data(newpos, data) -> void:
 
 # Called when the user has successfully dropped data onto the ItemGroupTextEdit
 # We have to check the dropped_data for the id property
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func _handle_item_drop(dropped_data, _newpos) -> void:
 	# Assuming dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var item_id = dropped_data["id"]
-		if not Gamedata.itemgroups.has_id(item_id):
+		if not Gamedata.mods.by_id(dropped_data["mod_id"]).itemgroups.has_id(item_id):
 			print_debug("No item data found for ID: " + item_id)
 			return
 		ItemGroupTextEdit.text = item_id
@@ -248,7 +262,6 @@ func _get_attributes_from_ui() -> Dictionary:
 			target_attributes["all_of"].append({"id": label.text, "damage": spinbox.value})
 
 	return target_attributes
-
 
 
 # Delete an attribute entry from a specified grid container

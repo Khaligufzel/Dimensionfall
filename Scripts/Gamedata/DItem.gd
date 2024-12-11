@@ -657,12 +657,9 @@ func update_item_attribute_references(olddata: DItem):
 func delete():
 	var changes_made = { "value": false }
 	
-	# This callable will remove this item from itemgroups that reference this item.
-	var myfunc: Callable = func (itemgroup_id):
-		var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(itemgroup_id)
-		ditemgroup.remove_item_by_id(id)
-
-	execute_callable_on_references_of_type("core", "itemgroups", myfunc)
+	# For each mod, remove this item from the itemgroup in this item's references
+	for mod: DMod in Gamedata.mods.get_all_mods():
+		mod.itemgroups.remove_item_by_id(id)
 	
 	# This callable will handle the removal of this item from all crafting recipes in other items
 	var remove_from_item: Callable = func(other_item_id: String):

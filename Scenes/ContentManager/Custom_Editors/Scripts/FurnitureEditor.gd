@@ -298,11 +298,18 @@ func _on_container_check_box_toggled(toggled_on):
 
 # Called when the user has successfully dropped data onto the ItemGroupTextEdit
 # We have to check the dropped_data for the id property
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func itemgroup_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
 	# Assuming dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var itemgroup_id = dropped_data["id"]
-		if not Gamedata.itemgroups.has_id(itemgroup_id):
+		if not Gamedata.mods.by_id(dropped_data["mod_id"]).itemgroups.has_id(itemgroup_id):
 			print_debug("No item data found for ID: " + itemgroup_id)
 			return
 		texteditcontrol.set_text(itemgroup_id)
@@ -317,13 +324,20 @@ func itemgroup_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) ->
 		print_debug("Dropped data does not contain an 'id' key.")
 
 
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func can_itemgroup_drop(dropped_data: Dictionary):
 	# Check if the data dictionary has the 'id' property
 	if not dropped_data or not dropped_data.has("id"):
 		return false
 	
 	# Fetch itemgroup data by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.itemgroups.has_id(dropped_data["id"]):
+	if not Gamedata.mods.by_id(dropped_data["mod_id"]).itemgroups.has_id(dropped_data["id"]):
 		return false
 
 	# If all checks pass, return true

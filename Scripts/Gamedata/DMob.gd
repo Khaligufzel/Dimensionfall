@@ -156,10 +156,10 @@ func changed(olddata: DMob):
 	# Exit if old_group and new_group are the same
 	if old_loot_group and not old_loot_group == loot_group:
 		# This mob will be removed from the old itemgroup's references
-		Gamedata.itemgroups.remove_reference(old_loot_group, "core", "mobs", id)
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, old_loot_group, DMod.ContentType.MOBS, id)
 		
-		# This mob will be added to the new itemgroup's references
-		Gamedata.itemgroups.add_reference(loot_group, "core", "mobs", id)
+	# This mob will be added to the new itemgroup's references
+	Gamedata.mods.add_reference(DMod.ContentType.ITEMGROUPS, loot_group, DMod.ContentType.MOBS, id)
 	update_mob_attribute_references(olddata)
 	parent.save_mobs_to_disk() # Save changes regardless of whether or not a reference was updated
 
@@ -175,7 +175,6 @@ func delete():
 
 	# Get a list of all maps that reference this mob
 	var myreferences: Dictionary = parent.references.get(id, {})
-	var mymaps: Array = myreferences.get("maps", [])
 	var mymobgroups: Array = myreferences.get("mobgroups", [])
 	# For each mod, remove this mob from the maps in this mob's references
 	for mod: DMod in Gamedata.mods.get_all_mods():
@@ -201,11 +200,11 @@ func execute_callable_on_references_of_type(type: DMod.ContentType, callable: Ca
 	# myreferences will ba dictionary that contains entity types that have references to this skill's id
 	# See DMod.add_reference for an example structure of references
 	var myreferences: Dictionary = parent.references.get(id, {})
-	var type_string: String = DMod.get_content_type_string(type)
+	var typestring: String = DMod.get_content_type_string(type)
 	# Check if it contains the specified 'module' and 'type'
-	if myreferences.has(type_string):
+	if myreferences.has(typestring):
 		# If the type exists, execute the callable on each ID found under this type
-		for ref_id in myreferences[type_string]:
+		for ref_id in myreferences[typestring]:
 			callable.call(ref_id)
 
 
@@ -222,7 +221,7 @@ func update_mob_attribute_references(olddata: DMob):
 	
 	# Add new attribute references
 	for new_attr_id in new_attr_ids:
-		Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, new_attr_id, DMod.ContentType.MOBS, id)
+		Gamedata.mods.add_reference(DMod.ContentType.PLAYERATTRIBUTES, new_attr_id, DMod.ContentType.MOBS, id)
 
 
 # Function to retrieve an array of maps from the references

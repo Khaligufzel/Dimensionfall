@@ -556,15 +556,15 @@ func create_loot():
 	# A flag to track whether items were added
 	var item_added: bool = false
 	# Attempt to retrieve the itemgroup data from Gamedata
-	var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(itemgroup)
+	var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(itemgroup)
 	
 	# Check if the itemgroup data exists and has items
-	if ditemgroup:
-		var groupmode: String = ditemgroup.mode  # can be "Collection" or "Distribution".
+	if ritemgroup:
+		var groupmode: String = ritemgroup.mode  # can be "Collection" or "Distribution".
 		if groupmode == "Collection":
-			item_added = _add_items_to_inventory_collection_mode(ditemgroup.items)
+			item_added = _add_items_to_inventory_collection_mode(ritemgroup.items)
 		elif groupmode == "Distribution":
-			item_added = _add_items_to_inventory_distribution_mode(ditemgroup.items)
+			item_added = _add_items_to_inventory_distribution_mode(ritemgroup.items)
 
 	# Set the material if items were added
 	if item_added:
@@ -576,10 +576,10 @@ func create_loot():
 
 
 # Takes a list of items and adds them to the inventory in Collection mode.
-func _add_items_to_inventory_collection_mode(items: Array[DItemgroup.Item]) -> bool:
+func _add_items_to_inventory_collection_mode(items: Array[RItemgroup.Item]) -> bool:
 	var item_added: bool = false
 	# Loop over each item object in the itemgroup's 'items' property
-	for item_object: DItemgroup.Item in items:
+	for item_object: RItemgroup.Item in items:
 		# Each item_object is expected to be a dictionary with id, probability, min, max
 		var item_id = item_object.id
 		var item_probability = item_object.probability
@@ -592,7 +592,7 @@ func _add_items_to_inventory_collection_mode(items: Array[DItemgroup.Item]) -> b
 
 
 # Takes a list of items and adds one to the inventory based on probabilities in Distribution mode.
-func _add_items_to_inventory_distribution_mode(items: Array[DItemgroup.Item]) -> bool:
+func _add_items_to_inventory_distribution_mode(items: Array[RItemgroup.Item]) -> bool:
 	var total_probability = 0
 	# Calculate the total probability
 	for item_object in items:
@@ -603,7 +603,7 @@ func _add_items_to_inventory_distribution_mode(items: Array[DItemgroup.Item]) ->
 	var cumulative_probability = 0
 
 	# Iterate through items to select one based on the random value
-	for item_object: DItemgroup.Item in items:
+	for item_object: RItemgroup.Item in items:
 		cumulative_probability += item_object.probability
 		# Check if the random value falls within the current item's range
 		if random_value < cumulative_probability:

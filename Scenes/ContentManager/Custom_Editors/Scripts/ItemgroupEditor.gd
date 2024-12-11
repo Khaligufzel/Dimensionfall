@@ -26,13 +26,13 @@ signal data_changed()
 
 var olddata: DItemgroup # Remember what the value of the data was before editing
 # The data that represents this itemgroup
-# The data is selected from the Gamedata.itemgroups dictionary
+# The data is selected from the ditemgroup.parent dictionary
 # based on the ID that the user has selected in the content editor
 var ditemgroup: DItemgroup = null:
 	set(value):
 		ditemgroup = value
 		load_itemgroup_data()
-		itemgroupSelector.sprites_collection = Gamedata.itemgroups.sprites
+		itemgroupSelector.sprites_collection = ditemgroup.parent.sprites
 		olddata = DItemgroup.new(ditemgroup.get_data().duplicate(true), null)
 
 

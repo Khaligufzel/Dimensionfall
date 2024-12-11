@@ -243,8 +243,7 @@ func remove_my_reference_from_all_entities() -> void:
 			elif entity_type == "mobs":
 				Gamedata.mods.remove_reference(DMod.ContentType.MOBS, entity_id, DMod.ContentType.MAPS, id)
 			elif entity_type == "itemgroups":
-				var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(entity_id)
-				ditemgroup.remove_reference("core","maps",id)
+				Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, entity_id, DMod.ContentType.MAPS, id)
 
 
 # Function to update map entity references when a map's data changes
@@ -271,8 +270,7 @@ func data_changed(oldmap: DMap):
 				Gamedata.mods.add_reference(DMod.ContentType.MOBGROUPS, entity_id, DMod.ContentType.MAPS, id)
 		elif entity_type == "itemgroups":
 			for entity_id in new_entities[entity_type]:
-				var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(entity_id)
-				ditemgroup.add_reference("core","maps",id)
+				Gamedata.mods.add_reference(DMod.ContentType.ITEMGROUPS, entity_id, DMod.ContentType.MAPS, id)
 
 	# Remove references for entities not present in new data
 	for entity_type in old_entities.keys():
@@ -288,8 +286,7 @@ func data_changed(oldmap: DMap):
 		elif entity_type == "itemgroups":
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):
-					var itemgroup: DItemgroup = Gamedata.itemgroups.by_id(entity_id)
-					itemgroup.remove_reference("core","maps",id)
+					Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, entity_id,DMod.ContentType.MAPS,id)
 		elif entity_type == "mobs":
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):
@@ -302,8 +299,6 @@ func data_changed(oldmap: DMap):
 	# Save changes to the data files if there were any updates
 	if new_entities["furniture"].size() > 0 or old_entities["furniture"].size() > 0:
 		Gamedata.furnitures.save_furnitures_to_disk()
-	if new_entities["itemgroups"].size() > 0 or old_entities["itemgroups"].size() > 0:
-		Gamedata.itemgroups.save_itemgroups_to_disk()
 
 
 # Function to collect unique entities from each level in newdata and olddata

@@ -217,13 +217,20 @@ func get_tilerotation(original_rotation: int) -> int:
 
 # Custom function to determine if data can be dropped at the current location
 # It will only accept itemgroups
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func custom_can_drop_data(_mypos, dropped_data: Dictionary) -> bool:
 	# Check if the data dictionary has the 'id' property
 	if not dropped_data or not dropped_data.has("id"):
 		return false
 	
 	# Fetch itemgroup data by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.itemgroups.has_id(dropped_data["id"]):
+	if not Gamedata.mods.by_id(dropped_data["mod_id"]).itemgroups.has_id(dropped_data["id"]):
 		return false
 
 	# If all checks pass, return true
@@ -232,16 +239,23 @@ func custom_can_drop_data(_mypos, dropped_data: Dictionary) -> bool:
 
 # Custom function to process the data drop
 # It only accepts itemgroups and creates a brush out of it
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func custom_drop_data(_mypos, dropped_data):
 	# Dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var itemgroup_id = dropped_data["id"]
-		if not Gamedata.itemgroups.has_id(itemgroup_id):
-			print_debug("No item data found for ID: " + itemgroup_id)
+		if not Gamedata.mods.by_id(dropped_data["mod_id"]).itemgroups.has_id(itemgroup_id):
+			print_debug("No data found for ID: " + itemgroup_id)
 			return
 		
 		var properties: Dictionary = {
-			"texture": Gamedata.itemgroups.sprite_by_id(itemgroup_id),
+			"texture": Gamedata.mods.by_id(dropped_data["mod_id"]).itemgroups.sprite_by_id(itemgroup_id),
 			"entityID": itemgroup_id,
 			"entityType": "itemgroup"
 		}
@@ -391,7 +405,7 @@ func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 			"furniture":
 				properties["texture"] = Gamedata.furnitures.sprite_by_id(entity["id"])
 			"itemgroup":
-				properties["texture"] = Gamedata.itemgroups.sprite_by_id(entity["id"])
+				properties["texture"] = Gamedata.mods.get_content_by_id(DMod.ContentType.ITEMGROUPS,entity["id"]).sprite
 			"mobgroup":  # Add support for mobgroup
 				properties["texture"] = Gamedata.mods.get_content_by_id(DMod.ContentType.MOBGROUPS,entity["id"]).sprite
 			_:

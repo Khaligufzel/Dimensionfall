@@ -211,22 +211,34 @@ func on_data_changed(olddfurniture: DFurniture):
 	var old_destruction_group = olddfurniture.destruction.group
 	var old_disassembly_group = olddfurniture.disassembly.group
 
-	# Handle container itemgroup changes
-	Gamedata.itemgroups.update_reference(old_container_group, new_container_group, "furniture", id)
-
-	# Handle destruction group changes
-	Gamedata.itemgroups.update_reference(old_destruction_group, destruction.group, "furniture", id)
-
-	# Handle disassembly group changes
-	Gamedata.itemgroups.update_reference(old_disassembly_group, disassembly.group, "furniture", id)
+	if not old_container_group == new_container_group:
+		# Remove from old group if necessary
+		if old_container_group != "":
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, old_container_group, DMod.ContentType.FURNITURES, id)
+		if new_container_group != "":
+			Gamedata.mods.add_reference(DMod.ContentType.ITEMGROUPS, new_container_group, DMod.ContentType.FURNITURES, id)
+		
+	if not old_destruction_group == destruction.group:
+		# Remove from old group if necessary
+		if old_destruction_group != "":
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, old_destruction_group, DMod.ContentType.FURNITURES, id)
+		if destruction.group != "":
+			Gamedata.mods.add_reference(DMod.ContentType.ITEMGROUPS, destruction.group, DMod.ContentType.FURNITURES, id)
+		
+	if not old_disassembly_group == disassembly.group:
+		# Remove from old group if necessary
+		if old_disassembly_group != "":
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, old_disassembly_group, DMod.ContentType.FURNITURES, id)
+		if disassembly.group != "":
+			Gamedata.mods.add_reference(DMod.ContentType.ITEMGROUPS, disassembly.group, DMod.ContentType.FURNITURES, id)
 
 
 # Some furniture is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	Gamedata.itemgroups.remove_reference(function.container_group, "core", "furniture", id)
-	Gamedata.itemgroups.remove_reference(destruction.group, "core", "furniture", id)
-	Gamedata.itemgroups.remove_reference(disassembly.group, "core", "furniture", id)
+	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, function.container_group, DMod.ContentType.FURNITURES, id)
+	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, destruction.group, DMod.ContentType.FURNITURES, id)
+	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, disassembly.container_group, DMod.ContentType.FURNITURES, id)
 	
 	# Remove references to maps
 	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")

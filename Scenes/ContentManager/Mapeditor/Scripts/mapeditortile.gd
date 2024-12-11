@@ -194,7 +194,7 @@ func set_tile_id(id: String) -> void:
 	if id == "":
 		$TileSprite.texture = load(defaultTexture)
 	else:
-		$TileSprite.texture = Gamedata.mods.by_id("Core").tiles.sprite_by_id(id)
+		$TileSprite.texture = Gamedata.mods.get_content_by_id(DMod.ContentType.TILES,id).sprite
 
 
 # Manages the itemgroups property for the tile. 
@@ -211,6 +211,6 @@ func set_tile_itemgroups(tileData: Dictionary) -> void:
 	else:
 		# Apply the itemgroup to the tile and update ObjectSprite with a random sprite
 		var random_itemgroup: String = itemgroups.pick_random()
-		$ObjectSprite.texture = Gamedata.itemgroups.sprite_by_id(random_itemgroup)
+		$ObjectSprite.texture = Gamedata.mods.get_content_by_id(DMod.ContentType.ITEMGROUPS,random_itemgroup).sprite
 		$ObjectSprite.show()
 		$ObjectSprite.rotation_degrees = 0

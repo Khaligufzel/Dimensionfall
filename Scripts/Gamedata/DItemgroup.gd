@@ -4,7 +4,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles itemgroup data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the data for one itemgroup. You can access it through Gamedata.itemgroups
+# This script handles the data for one itemgroup. You can access it through parent
 
 
 # This class represents a itemgroup with its properties
@@ -136,7 +136,7 @@ func changed(olddata: DItemgroup):
 		if item_id not in oldlist:
 			Gamedata.items.add_reference(item_id, "core", "itemgroups", itemgroup)
 
-	Gamedata.itemgroups.save_itemgroups_to_disk()
+	parent.save_itemgroups_to_disk()
 
 
 # A itemgroup is being deleted from the data
@@ -196,4 +196,4 @@ func remove_item_by_id(item_id: String) -> void:
 
 	if item_to_remove:
 		items.erase(item_to_remove)
-		Gamedata.itemgroups.save_itemgroups_to_disk()
+		parent.save_itemgroups_to_disk()

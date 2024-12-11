@@ -26,7 +26,7 @@ func _ready():
 # Usage example using an inline callable:
 	# This example will call the 'myfunc' callable after the start_action timer runs out
 	# var myfunc: Callable = func (itemgroup_id):
-	#	 var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(itemgroup_id)
+	#	 var ditemgroup: DItemgroup = Gamedata.mods.by_id("Core").itemgroups.by_id(itemgroup_id)
 	#	 ditemgroup.remove_item_by_id(id)
 	# General.start_action(reload_time, myfunc)
 func start_action(duration: float, callback: Callable):
@@ -48,4 +48,3 @@ func _on_action_timer_timeout():
 	# Reset the callback function
 	action_complete_callback = Callable()
 	# Code to handle the completion of the action
-
