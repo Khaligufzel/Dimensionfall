@@ -177,7 +177,7 @@ func extract_relation_from_grid(container: GridContainer, relation_type: String)
 			relation["factions"].append(entity.id)
 
 	# Remove empty keys.
-	for key in relation.keys():
+	for key in ["mobs","mobgroup","factions"]:
 		if relation[key] == []:
 			relation.erase(key)
 
