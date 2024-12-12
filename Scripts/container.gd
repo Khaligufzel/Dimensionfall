@@ -196,7 +196,7 @@ func set_texture(mytex: String):
 	if not mytex:
 		sprite_3d.texture = Gamedata.textures.container
 		return
-	var newsprite: Texture = Gamedata.furnitures.sprite_by_file(mytex)
+	var newsprite: Texture = Runtimedata.furnitures.sprite_by_file(mytex)
 	if newsprite:
 		sprite_3d.texture = newsprite
 		texture_id = mytex  # Save the texture ID

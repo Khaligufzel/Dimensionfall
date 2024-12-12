@@ -236,8 +236,7 @@ func remove_my_reference_from_all_entities() -> void:
 	for entity_type in unique_entities.keys():
 		for entity_id in unique_entities[entity_type]:
 			if entity_type == "furniture":
-				var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
-				furniture.remove_reference("core","maps",id)
+				Gamedata.mods.remove_reference(DMod.ContentType.FURNITURES,entity_id,DMod.ContentType.MAPS,id)
 			elif entity_type == "tiles":
 				Gamedata.mods.remove_reference(DMod.ContentType.TILES,entity_id,DMod.ContentType.MAPS,id)
 			elif entity_type == "mobs":
@@ -257,8 +256,7 @@ func data_changed(oldmap: DMap):
 	for entity_type in new_entities.keys():
 		if entity_type == "furniture":
 			for entity_id in new_entities[entity_type]:
-				var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
-				furniture.add_reference("core","maps",id)
+				Gamedata.mods.add_reference(DMod.ContentType.FURNITURES,entity_id,DMod.ContentType.MAPS,id)
 		elif entity_type == "tiles":
 			for entity_id in new_entities[entity_type]:
 				Gamedata.mods.add_reference(DMod.ContentType.TILES,entity_id,DMod.ContentType.MAPS,id)
@@ -277,8 +275,7 @@ func data_changed(oldmap: DMap):
 		if entity_type == "furniture":
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):
-					var furniture: DFurniture = Gamedata.furnitures.by_id(entity_id)
-					furniture.remove_reference("core","maps",id)
+					Gamedata.mods.remove_reference(DMod.ContentType.FURNITURES,entity_id,DMod.ContentType.MAPS,id)
 		elif entity_type == "tiles":
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):
@@ -295,10 +292,6 @@ func data_changed(oldmap: DMap):
 			for entity_id in old_entities[entity_type]:
 				if not new_entities[entity_type].has(entity_id):
 					Gamedata.mods.remove_reference(DMod.ContentType.MOBGROUPS, entity_id, DMod.ContentType.MAPS, id)
-
-	# Save changes to the data files if there were any updates
-	if new_entities["furniture"].size() > 0 or old_entities["furniture"].size() > 0:
-		Gamedata.furnitures.save_furnitures_to_disk()
 
 
 # Function to collect unique entities from each level in newdata and olddata

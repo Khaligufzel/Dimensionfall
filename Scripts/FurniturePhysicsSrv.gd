@@ -9,7 +9,7 @@ extends Node3D
 # Variables to store furniture data
 var furniture_transform: FurnitureTransform
 var furnitureJSON: Dictionary
-var dfurniture: DFurniture
+var rfurniture: RFurniture
 var collider: RID
 var shape: RID
 var mesh_instance: RID
@@ -109,7 +109,7 @@ class FurnitureTransform:
 # Initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
 	furnitureJSON = newFurnitureJSON
-	dfurniture = Gamedata.furnitures.by_id(furnitureJSON.id)
+	rfurniture = Runtimedata.furnitures.by_id(furnitureJSON.id)
 	var myrotation: int = furnitureJSON.get("rotation", 0)
 	myworld3d = world3d
 
@@ -157,7 +157,7 @@ func setup_physics_properties() -> void:
 	PhysicsServer3D.body_set_state(collider, PhysicsServer3D.BODY_STATE_TRANSFORM, mytransform)
 
 	# Set the physics parameters such as mass, linear damp, and angular damp
-	PhysicsServer3D.body_set_param(collider, PhysicsServer3D.BODY_PARAM_MASS, dfurniture.weight)
+	PhysicsServer3D.body_set_param(collider, PhysicsServer3D.BODY_PARAM_MASS, rfurniture.weight)
 	PhysicsServer3D.body_set_param(collider, PhysicsServer3D.BODY_PARAM_LINEAR_DAMP, 59)
 	PhysicsServer3D.body_set_param(collider, PhysicsServer3D.BODY_PARAM_ANGULAR_DAMP, 59)
 
@@ -207,9 +207,9 @@ func set_collision_layers_and_masks():
 
 # Function to calculate the size of the sprite (2D)
 func calculate_sprite_size() -> Vector2:
-	if dfurniture.sprite:
-		var sprite_width = dfurniture.sprite.get_width() / 100.0  # Convert pixels to meters
-		var sprite_height = dfurniture.sprite.get_height() / 100.0  # Convert pixels to meters
+	if rfurniture.sprite:
+		var sprite_width = rfurniture.sprite.get_width() / 100.0  # Convert pixels to meters
+		var sprite_height = rfurniture.sprite.get_height() / 100.0  # Convert pixels to meters
 		return Vector2(sprite_width, sprite_height)  # Return size as Vector2
 	return Vector2(0.5, 0.5)  # Default size if texture is not set
 
@@ -222,8 +222,8 @@ func create_visual_instance() -> void:
 	sprite_mesh = PlaneMesh.new()
 	sprite_mesh.size = sprite_size
 
-	# Get the ShaderMaterial from Gamedata.furnitures
-	sprite_material = Gamedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
+	# Get the ShaderMaterial from Runtimedata.furnitures
+	sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
 
 	sprite_mesh.material = sprite_material
 
@@ -277,7 +277,7 @@ func free_resources() -> void:
 	RenderingServer.free_rid(mesh_instance)
 
 	# Clear the reference to the DFurniture data if necessary
-	dfurniture = null
+	rfurniture = null
 
 
 # Only previously saved furniture will have the global_position_x key.
@@ -360,7 +360,7 @@ func _die() -> void:
 # When the furniture is destroyed, it leaves a wreck behind
 # When the furniture is destroyed, it leaves a wreck behind
 func add_corpse(pos: Vector3) -> void:
-	if dfurniture.destruction.get_data().is_empty():
+	if rfurniture.destruction.get_data().is_empty():
 		return # No destruction data, so no corpse
 
 	var itemdata: Dictionary = {}
@@ -368,11 +368,11 @@ func add_corpse(pos: Vector3) -> void:
 	itemdata["global_position_y"] = pos.y
 	itemdata["global_position_z"] = pos.z
 	
-	var fursprite = dfurniture.destruction.sprite
+	var fursprite = rfurniture.destruction.sprite
 	if fursprite:
 		itemdata["texture_id"] = fursprite
 
-	var myitemgroup = dfurniture.destruction.group
+	var myitemgroup = rfurniture.destruction.group
 	if myitemgroup:
 		itemdata["itemgroups"] = [myitemgroup]
 
@@ -466,11 +466,11 @@ func _on_item_added(_item: InventoryItem) -> void:
 
 # Check if this furniture acts as a container
 func is_container() -> bool:
-	return dfurniture.function.is_container
+	return rfurniture.function.is_container
 
 
 # If there is an itemgroup assigned to the furniture, it will be added to the container.
-# It will check both furnitureJSON and dfurniture for itemgroup information.
+# It will check both furnitureJSON and rfurniture for itemgroup information.
 # The function will return the id of the itemgroup so that the container may use it
 func populate_container_from_itemgroup() -> String:
 	# Check if furnitureJSON contains an itemgroups array
@@ -480,7 +480,7 @@ func populate_container_from_itemgroup() -> String:
 			return itemgroups_array.pick_random()
 	
 	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
-	var myitemgroup = dfurniture.function.container_group
+	var myitemgroup = rfurniture.function.container_group
 	if myitemgroup:
 		return myitemgroup
 	return ""
@@ -492,7 +492,7 @@ func get_inventory() -> InventoryStacked:
 
 
 func get_sprite() -> Texture:
-	return dfurniture.sprite
+	return rfurniture.sprite
 
 
 # Returns this furniture's data for saving, including door state if applicable

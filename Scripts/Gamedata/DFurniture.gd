@@ -3,7 +3,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles furniture data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the data for one furniture. You can access it through Gamedata.furnitures
+# This script handles the data for one furniture. You can access it through Gamedata.mods.by_id("Core").furnitures
 
 # This class represents a piece of furniture with its properties
 var id: String
@@ -19,7 +19,7 @@ var function: Function
 var support_shape: SupportShape
 var destruction: Destruction
 var disassembly: Disassembly
-var references: Dictionary = {}
+var parent: DFurnitures
 
 
 # Inner class to handle the Function property
@@ -125,8 +125,10 @@ class Disassembly:
 		return disassemblydata # Potentially return an empty dictionary
 
 
-# Constructor to initialize furniture properties from a dictionary
-func _init(data: Dictionary):
+# Constructor to initialize itemgroup properties from a dictionary
+# myparent: The list containing all itemgroups for this mod
+func _init(data: Dictionary, myparent: DFurnitures):
+	parent = myparent
 	id = data.get("id", 0)
 	name = data.get("name", "")
 	description = data.get("description", "")
@@ -139,7 +141,6 @@ func _init(data: Dictionary):
 	support_shape = SupportShape.new(data.get("support_shape", {}))  # Initialize SupportShape inner class
 	destruction = Destruction.new(data.get("destruction", {}))  # Initialize Destruction inner class
 	disassembly = Disassembly.new(data.get("disassembly", {}))  # Initialize Disassembly inner class
-	references = data.get("references", {})
 
 
 # Get data function to return a dictionary with all properties
@@ -171,37 +172,12 @@ func get_data() -> Dictionary:
 	var disassemblydata: Dictionary = disassembly.get_data()
 	if not disassemblydata.is_empty():
 		data["disassembly"] = disassemblydata
-	
-	if not references.is_empty():
-		data["references"] = references
 	return data
-
-
-# Removes the provided reference from references
-# For example, remove "grass_field" to references.Core.maps
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "maps"
-# refid: The id of the entity, for example "grass_field"
-func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.furnitures.save_furnitures_to_disk()
-
-
-# Adds a reference to the references list
-# For example, add "grass_field" to references.Core.maps
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "maps"
-# refid: The id of the entity, for example "grass_field"
-func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.furnitures.save_furnitures_to_disk()
 
 
 # Returns the path of the sprite
 func get_sprite_path() -> String:
-	return Gamedata.furnitures.spritePath + spriteid
+	return parent.spritePath + spriteid
 
 
 # Handles furniture changes and updates references if necessary
@@ -240,12 +216,15 @@ func delete():
 	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, destruction.group, DMod.ContentType.FURNITURES, id)
 	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, disassembly.container_group, DMod.ContentType.FURNITURES, id)
 	
+	# Get a list of all maps that reference this mob
+	var myreferences: Dictionary = parent.references.get(id, {})
+	var mapsdata: Array = myreferences.get("maps", [])
+	
 	# Remove references to maps
-	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
 	for mymap: String in mapsdata:
 		var mymaps: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, mymap)
-		for dmap: DMaps in mymaps:
-			dmap.remove_entity_from_selected_maps("furniture", id, mapsdata)
+		for dmap: DMap in mymaps: # Loop over every DMap instance in every mod that has the same id as mymap
+			dmap.remove_entity_from_map("furniture", id)
 
 
 # Removes any instance of an itemgroup from the furniture
@@ -256,4 +235,4 @@ func remove_itemgroup(itemgroup_id: String) -> void:
 		destruction.group = ""
 	if disassembly.group == itemgroup_id:
 		disassembly.group = ""
-	Gamedata.furnitures.save_furnitures_to_disk()
+	parent.save_furnitures_to_disk()

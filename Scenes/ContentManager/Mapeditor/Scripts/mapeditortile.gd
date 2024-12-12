@@ -168,7 +168,7 @@ func update_display(tileData: Dictionary = {}, selected_area_name: String = "Non
 		elif tileData.has("furniture"):
 			if tileData["furniture"].has("rotation"):
 				$ObjectSprite.rotation_degrees = tileData["furniture"]["rotation"]
-			$ObjectSprite.texture = Gamedata.furnitures.sprite_by_id(tileData["furniture"]["id"])
+			$ObjectSprite.texture = Gamedata.mods.get_content_by_id(DMod.ContentType.FURNITURES,tileData["furniture"]["id"]).sprite
 			$ObjectSprite.show()
 		elif tileData.has("itemgroups"):
 			set_tile_itemgroups(tileData)

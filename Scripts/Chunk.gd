@@ -235,7 +235,7 @@ func add_furnitures_to_new_block():
 
 	for i in range(total_furniture):
 		var furniture = furnituredata[i]
-		if Gamedata.furnitures.is_moveable(furniture.json.id):
+		if Runtimedata.furnitures.is_moveable(furniture.json.id):
 			physics_furnitures.append(furniture)
 		else:
 			static_furnitures.append(furniture)
@@ -312,8 +312,8 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 
 	for i in range(furnitureDataArray.size()):
 		var furnitureData = furnitureDataArray[i]
-		var dfurniture: DFurniture = Gamedata.furnitures.by_id(furnitureData.id)
-		if dfurniture.moveable:
+		var rfurniture: RFurniture = Runtimedata.furnitures.by_id(furnitureData.id)
+		if rfurniture.moveable:
 			physics_furnitures.append(furnitureData)
 		else:
 			static_furnitures.append(furnitureData)

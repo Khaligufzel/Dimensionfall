@@ -4,7 +4,7 @@ extends Node
 # Accessible via Runtimedata.property
 var maps: RMaps
 var tacticalmaps: RTacticalmaps
-var furnitures: DFurnitures
+var furnitures: RFurnitures
 var items: DItems
 var tiles: RTiles
 var mobs: RMobs
@@ -41,6 +41,7 @@ func reconstruct() -> void:
 	mobs = RMobs.new()
 	mobgroups = RMobgroups.new()
 	itemgroups = RItemgroups.new()
+	furnitures = RFurnitures.new()
 	
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
@@ -55,5 +56,6 @@ func reconstruct() -> void:
 		DMod.ContentType.WEARABLESLOTS: wearableslots,
 		DMod.ContentType.MOBS: mobs,
 		DMod.ContentType.MOBGROUPS: mobgroups,
-		DMod.ContentType.ITEMGROUPS: itemgroups
+		DMod.ContentType.ITEMGROUPS: itemgroups,
+		DMod.ContentType.FURNITURES: furnitures
 	}

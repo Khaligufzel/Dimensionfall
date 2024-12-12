@@ -81,7 +81,7 @@ func _init(modinfo: Dictionary, myparent: DMods):
 
 	maps = DMaps.new(id)
 	tacticalmaps = DTacticalmaps.new(id)
-	furnitures = DFurnitures.new()
+	furnitures = DFurnitures.new(id)
 	items = DItems.new()
 	tiles = DTiles.new(id)
 	mobs = DMobs.new(id)

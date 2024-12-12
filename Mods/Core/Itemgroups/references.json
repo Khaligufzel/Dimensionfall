@@ -1,0 +1,141 @@
+{
+	"M4A1_gun_ammo": {
+		"maps": [
+			"RockyHill_SW"
+		]
+	},
+	"cabinet_general": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"police_station",
+			"generichouse_end"
+		]
+	},
+	"debris_rock": {
+		"maps": [
+			"subway_station",
+			"abandoned_building"
+		]
+	},
+	"debris_urban": {
+		"maps": [
+			"subway_station",
+			"abandoned_building"
+		]
+	},
+	"destroyed_furniture_medium": {
+		"maps": [
+			"neighborhood_school",
+			"subway_station",
+			"skyscraper",
+			"city_square",
+			"abandoned_building"
+		]
+	},
+	"electronics_damaged": {
+		"maps": [
+			"radio_tower",
+			"abandoned_building"
+		]
+	},
+	"electronics_store_medium": {
+		"maps": [
+			"store_electronic_clothing"
+		]
+	},
+	"electronics_store_mixed": {
+		"maps": [
+			"store_electronic_clothing"
+		]
+	},
+	"electronics_store_small": {
+		"maps": [
+			"radio_tower",
+			"store_electronic_clothing"
+		]
+	},
+	"first_aid": {
+		"maps": [
+			"radio_tower",
+			"police_station"
+		]
+	},
+	"generic_field_finds": {
+		"maps": [
+			"field_grass_basic_00",
+			"urbanroad",
+			"RockyHill_SE",
+			"urbanroad_cross",
+			"RockyHill_NW",
+			"field_grass_hole_00",
+			"field_grass_flowers_00",
+			"urbanroad_corner",
+			"urbanroad_t",
+			"RockyHill_NE",
+			"police_station",
+			"RockyHill_SW",
+			"field_grass_hill_00"
+		]
+	},
+	"generic_forest_finds": {
+		"maps": [
+			"forest_road_cross",
+			"forest_road_t",
+			"forest_road_straight",
+			"forest_road_corner",
+			"forest_basic_00"
+		]
+	},
+	"kitchen_cupboard": {
+		"maps": [
+			"store_groceries",
+			"office_building_00"
+		]
+	},
+	"loot_electronic": {
+		"maps": [
+			"radio_tower"
+		]
+	},
+	"police_station_locker": {
+		"maps": [
+			"police_station"
+		]
+	},
+	"refridgerator": {
+		"maps": [
+			"store_groceries"
+		]
+	},
+	"urban_litter": {
+		"maps": [
+			"office_building_00",
+			"subway_station",
+			"skyscraper",
+			"city_square",
+			"parking_garage",
+			"police_station"
+		]
+	},
+	"vending_machine_drinks": {
+		"maps": [
+			"store_groceries",
+			"neighborhood_school",
+			"subway_station",
+			"city_square",
+			"police_station",
+			"store_electronic_clothing"
+		]
+	},
+	"vending_machine_snacks": {
+		"maps": [
+			"store_groceries",
+			"office_building_00",
+			"neighborhood_school",
+			"subway_station",
+			"city_square",
+			"police_station"
+		]
+	}
+}

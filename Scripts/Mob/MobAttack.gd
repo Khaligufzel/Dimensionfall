@@ -13,7 +13,7 @@ func _ready():
 	# Create and configure AttackCooldown Timer
 	var attack_cooldown = Timer.new()
 	attack_timer = attack_cooldown
-	attack_timer.wait_time = mob.dmob.melee_cooldown  # Set the wait time based on mob's melee_cooldown
+	attack_timer.wait_time = mob.rmob.melee_cooldown  # Set the wait time based on mob's melee_cooldown
 	add_child.call_deferred(attack_cooldown)
 	attack_timer.timeout.connect(_on_attack_cooldown_timeout)
 
@@ -73,14 +73,14 @@ func attack():
 	print("Attacking!")
 
 	# Apply damage to a randomly selected attribute from 'any_of'
-	if mob.dmob.targetattributes.has("any_of") and not mob.dmob.targetattributes["any_of"].is_empty():
-		var any_of_attributes: Array = mob.dmob.targetattributes["any_of"]
+	if mob.rmob.targetattributes.has("any_of") and not mob.rmob.targetattributes["any_of"].is_empty():
+		var any_of_attributes: Array = mob.rmob.targetattributes["any_of"]
 		var selected_attribute: Dictionary = any_of_attributes.pick_random()
 		_apply_attack_to_player(selected_attribute)
 
 	# Apply damage to each attribute in 'all_of'
-	if mob.dmob.targetattributes.has("all_of"):
-		var all_of_attributes: Array = mob.dmob.targetattributes["all_of"]
+	if mob.rmob.targetattributes.has("all_of"):
+		var all_of_attributes: Array = mob.rmob.targetattributes["all_of"]
 		for attribute in all_of_attributes:
 			_apply_attack_to_player(attribute)
 
@@ -91,7 +91,7 @@ func _apply_attack_to_player(attribute: Dictionary) -> void:
 		var attack_data: Dictionary = {
 			"attributeid": attribute["id"],
 			"damage": attribute["damage"],
-			"knockback": mob.dmob.melee_knockback,
+			"knockback": mob.rmob.melee_knockback,
 			"mobposition": mob.global_position
 		}
 		targeted_player._get_hit(attack_data)

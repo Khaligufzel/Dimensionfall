@@ -3,7 +3,6 @@ extends Node
 # Autoload singleton that loads all game data required to run the game
 # Accessible via Gamedata.property
 var mods: DMods
-var furnitures: DFurnitures
 var items: DItems
 var itemgroups: DItemgroups
 var wearableslots: DWearableSlots
@@ -44,7 +43,6 @@ var gamedata_map: Dictionary = {}
 func _ready():
 	# Instantiate the content type instances
 	mods = DMods.new()
-	furnitures = DFurnitures.new()
 	items = DItems.new()
 	mobfactions = DMobfactions.new()
 
@@ -52,7 +50,7 @@ func _ready():
 	gamedata_map = {
 		DMod.ContentType.TACTICALMAPS: mods.by_id("Core").tacticalmaps,	
 		DMod.ContentType.MAPS: mods.by_id("Core").maps,	
-		DMod.ContentType.FURNITURES: furnitures,
+		DMod.ContentType.FURNITURES: mods.by_id("Core").furnitures,
 		DMod.ContentType.ITEMGROUPS: mods.by_id("Core").itemgroups,
 		DMod.ContentType.ITEMS: items,
 		DMod.ContentType.TILES: mods.by_id("Core").tiles,

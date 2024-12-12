@@ -73,7 +73,7 @@ func create_brush_instance(entity: RefCounted, entity_type: String, newMobsList:
 
 
 func loadFurniture():
-	var furnitureList: Dictionary = Gamedata.furnitures.get_all()
+	var furnitureList: Dictionary = Gamedata.mods.by_id(selectedmod).furnitures.get_all()
 	var newFurnitureList: Control = scrolling_Flow_Container.instantiate()
 	newFurnitureList.header = "Furniture"
 	newFurnitureList.collapse_button_pressed.connect(_on_collapse_button_pressed)

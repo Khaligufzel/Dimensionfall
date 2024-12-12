@@ -64,14 +64,16 @@ var dfurniture: DFurniture:
 	set(value):
 		dfurniture = value
 		load_furniture_data()
-		furnitureSelector.sprites_collection = Gamedata.furnitures.sprites
-		olddata = DFurniture.new(dfurniture.get_data().duplicate(true))
+		furnitureSelector.sprites_collection = dfurniture.parent.sprites
+		if not data_changed.is_connected(dfurniture.parent.on_data_changed):
+			data_changed.connect(dfurniture.parent.on_data_changed)
+		olddata = DFurniture.new(dfurniture.get_data().duplicate(true), null)
 
 
 func _ready():
 	# For properly using the tab key to switch elements
 	control_elements = [furnitureImageDisplay,NameTextEdit,DescriptionTextEdit]
-	data_changed.connect(Gamedata.furnitures.on_data_changed)
+	#data_changed.connect(dfurniture.parent.on_data_changed)
 	set_drop_functions()
 	
 	# Connect the toggle signal to the function
@@ -107,7 +109,7 @@ func load_furniture_data():
 		canDestroyCheckbox.button_pressed = true
 		destructionTextEdit.set_text(dfurniture.destruction.group)
 		if not dfurniture.destruction.sprite == "":
-			destructionImageDisplay.texture = Gamedata.furnitures.sprite_by_file(dfurniture.destruction.sprite)
+			destructionImageDisplay.texture = dfurniture.parent.sprite_by_file(dfurniture.destruction.sprite)
 		destructionSpriteNameLabel.text = dfurniture.destruction.sprite
 		set_visibility_for_children(destructionTextEdit, true)
 	else:
@@ -117,7 +119,7 @@ func load_furniture_data():
 	if not dfurniture.disassembly.get_data().is_empty():
 		canDisassembleCheckbox.button_pressed = true
 		disassemblyTextEdit.set_text(dfurniture.disassembly.group)
-		disassemblyImageDisplay.texture = Gamedata.furnitures.sprite_by_file(dfurniture.disassembly.sprite)
+		disassemblyImageDisplay.texture = dfurniture.parent.sprite_by_file(dfurniture.disassembly.sprite)
 		disassemblySpriteNameLabel.text = dfurniture.disassembly.sprite
 		set_visibility_for_children(disassemblyTextEdit, true)
 	else:
@@ -225,7 +227,7 @@ func _on_save_button_button_up():
 	handle_disassembly_option()
 	dfurniture.on_data_changed(olddata)
 	data_changed.emit()
-	olddata = DFurniture.new(dfurniture.get_data().duplicate(true))
+	olddata = DFurniture.new(dfurniture.get_data().duplicate(true), null)
 
 
 # Function to handle saving or erasing the support shape data
