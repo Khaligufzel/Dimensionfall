@@ -3,16 +3,33 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles mob faction data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of mob factions. You can access it through Gamedata.mobfactions
+# This script handles the list of mob factions. You can access it through Gamedata.mods.by_id("Core").mobfactions
 
-var dataPath: String = "./Mods/Core/Mobfaction/Mobfactions.json"
+var dataPath: String = "./Mods/Core/Mobfaction/"
+var filePath: String = "./Mods/Core/Mobfaction/Mobfactions.json"
 var spritePath: String = "./Mods/Core/Items/"
 var mobfactiondict: Dictionary = {}
 var sprites: Dictionary = {}
+var references: Dictionary = {}
 
-func _init():
+# Add a mod_id parameter to dynamically initialize paths
+func _init(mod_id: String) -> void:
+	# Update dataPath and spritePath using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Mobfaction/"
+	filePath = "./Mods/" + mod_id + "/Mobfaction/Mobfactions.json"
+	spritePath = "./Mods/" + mod_id + "/Items/"
 	load_mobfactions_from_disk()
 	load_sprites()
+	load_references()
+
+
+# Load references from references.json
+func load_references() -> void:
+	var path = dataPath + "references.json"
+	if FileAccess.file_exists(path):
+		references = Helper.json_helper.load_json_dictionary_file(path)
+	else:
+		references = {}  # Initialize an empty references dictionary if the file doesn't exist
 	
 # Loads sprites and assigns them to the proper dictionary
 func load_sprites() -> void:
@@ -30,9 +47,9 @@ func sprite_by_id(mobfactionid: String) -> Texture:
 
 # Load all mob faction data from disk into memory
 func load_mobfactions_from_disk() -> void:
-	var mobfactionlist: Array = Helper.json_helper.load_json_array_file(dataPath)
+	var mobfactionlist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for mymobfaction in mobfactionlist:
-		var mobfaction: DMobfaction = DMobfaction.new(mymobfaction)
+		var mobfaction: DMobfaction = DMobfaction.new(mymobfaction, self)
 		mobfactiondict[mobfaction.id] = mobfaction
 
 func on_data_changed():
@@ -43,7 +60,7 @@ func save_mobfactions_to_disk() -> void:
 	var save_data: Array = []
 	for mobfaction in mobfactiondict.values():
 		save_data.append(mobfaction.get_data())
-	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	Helper.json_helper.write_json_file(filePath, JSON.stringify(save_data, "\t"))
 
 func get_all() -> Dictionary:
 	return mobfactiondict
@@ -54,13 +71,13 @@ func duplicate_to_disk(mobfactionid: String, newmobfactionid: String) -> void:
 	# So we delete the references from the duplicated data if it is present
 	mobfactiondata.erase("references")
 	mobfactiondata["id"] = newmobfactionid
-	var newmobfaction: DMobfaction = DMobfaction.new(mobfactiondata)
+	var newmobfaction: DMobfaction = DMobfaction.new(mobfactiondata, self)
 	mobfactiondict[newmobfactionid] = newmobfaction
 	save_mobfactions_to_disk()
 
 # Adds a new faction with a given ID
 func add_new(newid: String) -> void:
-	var newmobfaction: DMobfaction = DMobfaction.new({"id": newid})
+	var newmobfaction: DMobfaction = DMobfaction.new({"id": newid}, self)
 	mobfactiondict[newmobfaction.id] = newmobfaction
 	save_mobfactions_to_disk()
 

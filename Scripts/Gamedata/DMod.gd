@@ -93,7 +93,7 @@ func _init(modinfo: Dictionary, myparent: DMods):
 	quests = DQuests.new(id)
 	overmapareas = DOvermapareas.new(id)
 	mobgroups = DMobgroups.new(id)
-	mobfactions = DMobfactions.new()
+	mobfactions = DMobfactions.new(id)
 
 	# Initialize content type instances specific to this mod
 	content_instances = {

@@ -4,7 +4,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles mob data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the data for one mobfaction. You can access it through Gamedata.mobfactions
+# This script handles the data for one mobfaction. You can access it through Gamedata.mods.by_id("Core")
 
 
 # Represents a mob faction and its properties.
@@ -32,17 +32,18 @@ extends RefCounted
 var id: String
 var name: String
 var description: String
-var references: Dictionary = {}
 var relations: Array = []
 var mobs: Dictionary = {}
 var mobgroups: Dictionary = {}
+var parent: DMobfactions
 
-# Constructor to initialize mob faction properties from a dictionary
-func _init(data: Dictionary):
+# Constructor to initialize itemgroup properties from a dictionary
+# myparent: The list containing all itemgroups for this mod
+func _init(data: Dictionary, myparent: DMobfactions):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
-	references = data.get("references", {})
 	relations = data.get("relations", [])
 
 # Returns all properties of the mob faction as a dictionary
@@ -53,14 +54,12 @@ func get_data() -> Dictionary:
 		"description": description,
 		"relations": relations,
 	}
-	if not references.is_empty():
-		data["references"] = references
 	return data
 
 
 # Method to save any changes to the stat back to disk
 func save_to_disk():
-	Gamedata.mobfactions.save_mobfactions_to_disk()
+	parent.save_mobfactions_to_disk()
 # Handles faction deletion
 func delete():
 	var relationmobs: Array =  relations.filter(func(relation): return relation.has("mob"))
