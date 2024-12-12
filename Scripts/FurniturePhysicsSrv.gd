@@ -410,22 +410,22 @@ func create_loot() -> void:
 	if not itemgroup or itemgroup == "":
 		return  # No itemgroup to populate from
 	
-	var ditemgroup: DItemgroup = Gamedata.itemgroups.by_id(itemgroup)
-	if ditemgroup:
-		if ditemgroup.mode == "Collection":
-			_add_items_to_inventory_collection_mode(ditemgroup.items)
-		elif ditemgroup.mode == "Distribution":
-			_add_items_to_inventory_distribution_mode(ditemgroup.items)
+	var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(itemgroup)
+	if ritemgroup:
+		if ritemgroup.mode == "Collection":
+			_add_items_to_inventory_collection_mode(ritemgroup.items)
+		elif ritemgroup.mode == "Distribution":
+			_add_items_to_inventory_distribution_mode(ritemgroup.items)
 
 # Populate the container with items based on the itemgroup's collection mode
-func _add_items_to_inventory_collection_mode(items: Array[DItemgroup.Item]) -> void:
+func _add_items_to_inventory_collection_mode(items: Array[RItemgroup.Item]) -> void:
 	for item_object in items:
 		if randi_range(0, 100) <= item_object.probability:
 			var quantity = randi_range(item_object.minc, item_object.maxc)
 			_add_item_to_inventory(item_object.id, quantity)
 
 # Populate the container with a randomly selected item based on distribution mode
-func _add_items_to_inventory_distribution_mode(items: Array[DItemgroup.Item]) -> void:
+func _add_items_to_inventory_distribution_mode(items: Array[RItemgroup.Item]) -> void:
 	var total_probability = 0
 	for item_object in items:
 		total_probability += item_object.probability

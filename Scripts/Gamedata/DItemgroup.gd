@@ -4,7 +4,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles itemgroup data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the data for one itemgroup. You can access it through Gamedata.itemgroups
+# This script handles the data for one itemgroup. You can access it through parent
 
 
 # This class represents a itemgroup with its properties
@@ -47,7 +47,8 @@ extends RefCounted
 #				]
 #			}
 #		},
-#		"sprite": "machete_32.png"
+#		"sprite": "machete_32.png",
+#		"use_sprite": true
 #	}
 
 # Subclass to represent individual items in the itemgroup
@@ -83,17 +84,18 @@ var sprite: Texture
 # this itemgroup if it is spawned in a ContainerItem on the map
 var use_sprite: bool = false
 var items: Array[Item] = []
-var references: Dictionary = {}
+var parent: DItemgroups
 
 # Constructor to initialize itemgroup properties from a dictionary
-func _init(data: Dictionary):
+# myparent: The list containing all itemgroups for this mod
+func _init(data: Dictionary, myparent: DItemgroups):
+	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
 	mode = data.get("mode", "Collection")
 	spriteid = data.get("sprite", "")
 	use_sprite = data.get("use_sprite", false)
-	references = data.get("references", {})
 	
 	var item_data = data.get("items", [])
 	for item in item_data:
@@ -114,23 +116,7 @@ func get_data() -> Dictionary:
 		"use_sprite": use_sprite,
 		"items": item_data
 	}
-	if not references.is_empty():
-		data["references"] = references
 	return data
-
-
-# Removes the provided reference from references
-func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.itemgroups.save_itemgroups_to_disk()
-
-
-# Adds a reference to the references list
-func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.itemgroups.save_itemgroups_to_disk()
 
 
 # Some itemgroup has been changed
@@ -151,39 +137,53 @@ func changed(olddata: DItemgroup):
 		if item_id not in oldlist:
 			Gamedata.items.add_reference(item_id, "core", "itemgroups", itemgroup)
 
-	Gamedata.itemgroups.save_itemgroups_to_disk()
+	parent.save_itemgroups_to_disk()
 
 
 # A itemgroup is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	# Callable to remove the itemgroup from every furniture that references this itemgroup.
-	var myfunc: Callable = func(furn_id):
-		var furniture: DFurniture = Gamedata.furnitures.by_id(furn_id)
-		furniture.remove_itemgroup(id)
-
-	# Pass the callable to every furniture in the itemgroup's references
-	# It will call myfunc on every furniture in itemgroup_data.references.core.furniture
-	execute_callable_on_references_of_type("core", "furniture", myfunc)
+	# Check to see if any mod has a copy of this tile. if one or more remain, we can keep references
+	# Otherwise, the last copy was removed and we need to remove references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MOBS, id)
+	if all_results.size() > 1:
+		return
+	
+	# Get a list of all maps that reference this mob
+	var myreferences: Dictionary = parent.references.get(id, {})
+	var myfurnitures: Array = myreferences.get("furnitures", [])
+	for furniture in myfurnitures:
+		Gamedata.furnitures.by_id(furniture).remove_itemgroup(id)
 
 	# Remove references to this itemgroup from items listed in the itemgroup data.
 	for item in items:
 		Gamedata.items.remove_reference(item.id, "core", "itemgroups", id)
 
-	# Remove references to maps
-	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
-	for mymap: String in mapsdata:
-		var mymaps: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, mymap)
-		for dmap: DMaps in mymaps:
-			dmap.remove_entity_from_selected_maps("itemgroup", id, mapsdata)
+	# This callable will handle the removal of this mob from all steps in maps
+	var mymapslist: Array = myreferences.get("maps", [])
+	var remove_from_map: Callable = func(map_id: String):
+		# Get all copies of the maps with map_id from all mods
+		var mymaps: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, map_id)
+		for dmap: DMap in mymaps:
+			dmap.remove_entity_from_map("itemgroup", id)
+
+	# Pass the callable to every map in the mob's references
+	# It will call remove_from_map on every map in this mob's references
+	execute_callable_on_references_of_type(DMod.ContentType.MAPS, remove_from_map)
 
 
 # Executes a callable function on each reference of the given type
-func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
+# type: The type of entity that you want to execute the callable for
+# callable: The function that will be executed for every entity of this type
+func execute_callable_on_references_of_type(type: DMod.ContentType, callable: Callable):
+	# myreferences will ba dictionary that contains entity types that have references to this skill's id
+	# See DMod.add_reference for an example structure of references
+	var myreferences: Dictionary = parent.references.get(id, {})
+	var type_string: String = DMod.get_content_type_string(type)
 	# Check if it contains the specified 'module' and 'type'
-	if references.has(module) and references[module].has(type):
+	if myreferences.has(type_string):
 		# If the type exists, execute the callable on each ID found under this type
-		for ref_id in references[module][type]:
+		for ref_id in myreferences[type_string]:
 			callable.call(ref_id)
 
 
@@ -197,4 +197,4 @@ func remove_item_by_id(item_id: String) -> void:
 
 	if item_to_remove:
 		items.erase(item_to_remove)
-		Gamedata.itemgroups.save_itemgroups_to_disk()
+		parent.save_itemgroups_to_disk()

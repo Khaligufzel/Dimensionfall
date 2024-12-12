@@ -17,7 +17,7 @@ var mod_id: String = "Core"
 var contentType: DMod.ContentType:
 	set(newData):
 		contentType = newData
-		if newData == DMod.ContentType.STATS or newData == DMod.ContentType.MOBGROUPS or newData == DMod.ContentType.MOBS or newData == DMod.ContentType.WEARABLESLOTS or newData == DMod.ContentType.PLAYERATTRIBUTES or newData == DMod.ContentType.QUESTS or newData == DMod.ContentType.SKILLS or newData == DMod.ContentType.OVERMAPAREAS or newData == DMod.ContentType.TILES or newData == DMod.ContentType.TACTICALMAPS or newData == DMod.ContentType.MAPS:
+		if newData == DMod.ContentType.STATS or newData == DMod.ContentType.ITEMGROUPS or newData == DMod.ContentType.MOBGROUPS or newData == DMod.ContentType.MOBS or newData == DMod.ContentType.WEARABLESLOTS or newData == DMod.ContentType.PLAYERATTRIBUTES or newData == DMod.ContentType.QUESTS or newData == DMod.ContentType.SKILLS or newData == DMod.ContentType.OVERMAPAREAS or newData == DMod.ContentType.TILES or newData == DMod.ContentType.TACTICALMAPS or newData == DMod.ContentType.MAPS:
 			# Use mod-specific data for these content types
 			datainstance = Gamedata.mods.by_id(mod_id).get_data_of_type(contentType)
 		else:
@@ -260,7 +260,7 @@ func load_list():
 			contentItems.set_item_icon(item_index, entry.sprite)
 
 func delete(selected_id) -> void:
-	if contentType == DMod.ContentType.STATS or contentType == DMod.ContentType.MOBGROUPS or contentType == DMod.ContentType.MOBS or contentType == DMod.ContentType.WEARABLESLOTS or contentType == DMod.ContentType.PLAYERATTRIBUTES or contentType == DMod.ContentType.QUESTS or contentType == DMod.ContentType.SKILLS or contentType == DMod.ContentType.OVERMAPAREAS or contentType == DMod.ContentType.TILES or contentType == DMod.ContentType.TACTICALMAPS or contentType == DMod.ContentType.MAPS:
+	if contentType == DMod.ContentType.STATS or contentType == DMod.ContentType.ITEMGROUPS or contentType == DMod.ContentType.MOBGROUPS or contentType == DMod.ContentType.MOBS or contentType == DMod.ContentType.WEARABLESLOTS or contentType == DMod.ContentType.PLAYERATTRIBUTES or contentType == DMod.ContentType.QUESTS or contentType == DMod.ContentType.SKILLS or contentType == DMod.ContentType.OVERMAPAREAS or contentType == DMod.ContentType.TILES or contentType == DMod.ContentType.TACTICALMAPS or contentType == DMod.ContentType.MAPS:
 		# Use mod-specific data for these content types
 		Gamedata.mods.by_id(mod_id).get_data_of_type(contentType).delete_by_id(selected_id)
 	else:

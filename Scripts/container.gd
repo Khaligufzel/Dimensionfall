@@ -11,7 +11,7 @@ var containerpos: Vector3
 var sprite_3d: Sprite3D
 var texture_id: String # The ID of the texture set for this container
 var itemgroup: String # The ID of an itemgroup that it creates loot from
-var ditemgroup: DItemgroup # The ID of an itemgroup that it creates loot from
+var ritemgroup: RItemgroup # The ID of an itemgroup that it creates loot from
 
 
 # Called when the node enters the scene tree for the first time.
@@ -49,9 +49,9 @@ func _initialize_container(item: Dictionary):
 		if itemgroups_array.size() > 0:
 			itemgroup = itemgroups_array.pick_random()
 			# Attempt to retrieve the itemgroup data from Gamedata
-			ditemgroup = Gamedata.itemgroups.by_id(itemgroup)
-			if ditemgroup.use_sprite:
-				texture_id = ditemgroup.spriteid
+			ritemgroup = Runtimedata.itemgroups.by_id(itemgroup)
+			if ritemgroup.use_sprite:
+				texture_id = ritemgroup.spriteid
 
 
 # Will add item to the inventory based on the assigned itemgroup
@@ -63,15 +63,15 @@ func create_loot():
 	var item_added: bool = false
 	
 	# Check if the itemgroup data exists and has items
-	if ditemgroup:
-		var groupmode: String = ditemgroup.mode # can be "Collection" or "Distribution".
+	if ritemgroup:
+		var groupmode: String = ritemgroup.mode # can be "Collection" or "Distribution".
 		if groupmode == "Collection":
-			item_added = _add_items_to_inventory_collection_mode(ditemgroup.items)
+			item_added = _add_items_to_inventory_collection_mode(ritemgroup.items)
 		elif groupmode == "Distribution":
-			item_added = _add_items_to_inventory_distribution_mode(ditemgroup.items)
+			item_added = _add_items_to_inventory_distribution_mode(ritemgroup.items)
 
 	# Set the texture if an item was successfully added and if it hasn't been set by set_texture
-	if item_added and sprite_3d.texture == Gamedata.textures.container and not ditemgroup.use_sprite:
+	if item_added and sprite_3d.texture == Gamedata.textures.container and not ritemgroup.use_sprite:
 		set_random_inventory_item_texture()
 	elif not item_added:
 		 # If no item was added we delete the container if it's not a child of some furniture
@@ -79,10 +79,10 @@ func create_loot():
 
 
 # Takes a list of items and adds them to the inventory in Collection mode.
-func _add_items_to_inventory_collection_mode(items: Array[DItemgroup.Item]) -> bool:
+func _add_items_to_inventory_collection_mode(items: Array[RItemgroup.Item]) -> bool:
 	var item_added: bool = false
 	# Loop over each item object in the itemgroup's 'items' property
-	for item_object: DItemgroup.Item in items:
+	for item_object: RItemgroup.Item in items:
 		# Each item_object is expected to be a dictionary with id, probability, min, max
 		var item_id = item_object.id
 		var item_probability = item_object.probability
@@ -95,7 +95,7 @@ func _add_items_to_inventory_collection_mode(items: Array[DItemgroup.Item]) -> b
 
 
 # Takes a list of items and adds one to the inventory based on probabilities in Distribution mode.
-func _add_items_to_inventory_distribution_mode(items: Array[DItemgroup.Item]) -> bool:
+func _add_items_to_inventory_distribution_mode(items: Array[RItemgroup.Item]) -> bool:
 	var total_probability = 0
 	# Calculate the total probability
 	for item_object in items:
@@ -106,7 +106,7 @@ func _add_items_to_inventory_distribution_mode(items: Array[DItemgroup.Item]) ->
 	var cumulative_probability = 0
 
 	# Iterate through items to select one based on the random value
-	for item_object: DItemgroup.Item in items:
+	for item_object: RItemgroup.Item in items:
 		cumulative_probability += item_object.probability
 		# Check if the random value falls within the current item's range
 		if random_value < cumulative_probability:
