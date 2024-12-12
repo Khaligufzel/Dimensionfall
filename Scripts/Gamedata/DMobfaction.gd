@@ -46,6 +46,10 @@ class Relation:
 
 	# Returns all relation properties as a dictionary
 	func get_data() -> Dictionary:
+		# Only include fields if they are not empty
+		if mobgroups.is_empty() and mobs.is_empty() and factions.is_empty():
+			return {}  # Return an empty dictionary if all lists are empty
+
 		var data: Dictionary = {
 			"relation_type": relation_type
 		}
@@ -56,6 +60,7 @@ class Relation:
 		if not factions.is_empty():
 			data["factions"] = factions
 		return data
+
 
 	# Returns all mob IDs
 	func get_mob_ids() -> Array:
@@ -98,8 +103,11 @@ func get_data() -> Dictionary:
 		"relations": []
 	}
 	for relation in relations:
-		data["relations"].append(relation.get_data())
+		var relation_data = relation.get_data()
+		if not relation_data.is_empty():  # Only include non-empty relations
+			data["relations"].append(relation_data)
 	return data
+
 
 
 # Method to save any changes to the stat back to disk
