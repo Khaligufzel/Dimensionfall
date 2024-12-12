@@ -18,23 +18,50 @@ extends RefCounted
 #			{
 #				"relation_type": "core"
 #				"mobgroup": ["basic_zombies", "basic_vampires"],
-#				"mobs": ["small slime", "big slime"]
+#				"mobs": ["small slime", "big slime"],
+#				"factions": ["human_faction", "animal_faction"]
 #			},
 #			{
 #				"relation_type": "hostile"
 #				"mobgroup": ["security_robots", "national_guard"],
-#				"mobs": ["jabberwock", "cerberus"]
+#				"mobs": ["jabberwock", "cerberus"],
+#				"factions": ["human_faction", "animal_faction"]
 #			}
 #		]
 #	}
+
+# Inner class to handle relations in a mob faction
+class Relation:
+	var relation_type: String  # Can be "hostile", "neutral", or "friendly"
+	var mobgroups: Array = []  # Array of mobgroup IDs
+	var mobs: Array = []       # Array of mob IDs
+	var factions: Array = []   # Array of faction IDs
+
+	# Constructor to initialize the relation with data from a dictionary
+	func _init(relation_data: Dictionary):
+		relation_type = relation_data.get("relation_type", "neutral")  # Default to "neutral" if not specified
+		mobgroups = relation_data.get("mobgroups", [])
+		mobs = relation_data.get("mobs", [])
+		factions = relation_data.get("factions", [])
+
+	# Returns all relation properties as a dictionary
+	func get_data() -> Dictionary:
+		var data: Dictionary = {
+			"relation_type": relation_type
+		}
+		if not mobgroups.is_empty():
+			data["mobgroups"] = mobgroups
+		if not mobs.is_empty():
+			data["mobs"] = mobs
+		if not factions.is_empty():
+			data["factions"] = factions
+		return data
 
 # Properties defined in the JSON structure
 var id: String
 var name: String
 var description: String
 var relations: Array = []
-var mobs: Dictionary = {}
-var mobgroups: Dictionary = {}
 var parent: DMobfactions
 
 # Constructor to initialize itemgroup properties from a dictionary
@@ -44,7 +71,10 @@ func _init(data: Dictionary, myparent: DMobfactions):
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
-	relations = data.get("relations", [])
+	relations = []
+	for relation_data in data.get("relations", []):
+		relations.append(Relation.new(relation_data))
+
 
 # Returns all properties of the mob faction as a dictionary
 func get_data() -> Dictionary:
@@ -52,8 +82,10 @@ func get_data() -> Dictionary:
 		"id": id,
 		"name": name,
 		"description": description,
-		"relations": relations,
+		"relations": []
 	}
+	for relation in relations:
+		data["relations"].append(relation.get_data())
 	return data
 
 
