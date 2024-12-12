@@ -28,7 +28,7 @@ func _ready():
 	# Assume Gamedata.get_items_by_type() is implemented as discussed previously
 	var all_mods: Dictionary = Gamedata.mods.get_all()
 	var magazines: Array = []
-	for mod: DMod in all_mods: # Add up all magazines from all mods
+	for mod: DMod in all_mods.values(): # Add up all magazines from all mods
 		magazines = Helper.json_helper.merge_unique(mod.items.get_items_by_type("magazine"), magazines)
 	initialize_magazine_selection(magazines)
 

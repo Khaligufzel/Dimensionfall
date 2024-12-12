@@ -59,7 +59,7 @@ func update_item_list_with_probabilities():
 # Adds a new item and controls to the itemlist
 func add_item_entry(item: DItemgroup.Item):
 	var item_icon = TextureRect.new()
-	var item_sprite = Gamedata.mods.get_content_by_id(DMod.ContentType.ITEMS, item.get("id"))
+	var item_sprite = Gamedata.mods.get_content_by_id(DMod.ContentType.ITEMS, item.get("id")).sprite
 	item_icon.texture = item_sprite
 	item_icon.custom_minimum_size = Vector2(16, 16)
 

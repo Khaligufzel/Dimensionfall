@@ -14,8 +14,8 @@ extends Panel
 
 signal start_craft(item: Dictionary, recipe: Dictionary)
 
-var active_recipe: DItem.CraftRecipe # The currently selected recipe
-var active_item: DItem # The currently selected item in the itemlist
+var active_recipe: RItem.CraftRecipe # The currently selected recipe
+var active_item: RItem # The currently selected item in the itemlist
 # Dictionary to store buttons with item IDs as keys
 var item_buttons = {}
 
@@ -61,7 +61,7 @@ func update_button_color(button, item: RItem):
 
 # The user has clicked on one of the item buttons in the itemlist
 # Update the list of recipes for this item
-func _on_item_button_clicked(item: DItem):
+func _on_item_button_clicked(item: RItem):
 	active_item = item
 	description.text = item["description"]  # Set the description label
 	var recipes = item.craft.recipes  # Get the recipe array from the item
@@ -80,7 +80,7 @@ func _on_item_button_clicked(item: DItem):
 
 
 # When a recipe button is pressed, update the required items label
-func _on_recipe_button_pressed(recipe: DItem.CraftRecipe):
+func _on_recipe_button_pressed(recipe: RItem.CraftRecipe):
 	active_recipe = recipe
 	update_required_items_display(recipe)
 	
@@ -100,7 +100,7 @@ func _on_recipe_button_pressed(recipe: DItem.CraftRecipe):
 
 
 # New function to update required items display
-func update_required_items_display(recipe: DItem.CraftRecipe):
+func update_required_items_display(recipe: RItem.CraftRecipe):
 	# Clear previous required items display
 	for element in required_items.get_children():
 		element.queue_free()  # Properly free the node to avoid memory leaks
