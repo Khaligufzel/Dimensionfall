@@ -181,6 +181,7 @@ var food: Food
 var medical: Medical
 var ammo: Ammo
 var wearable: Wearable
+var referenced_items: Array[String]
 var parent: RItems
 
 # Constructor to initialize item properties
@@ -195,6 +196,11 @@ func overwrite_from_ditem(ditem: DItem) -> void:
 	if id != ditem.id:
 		print_debug("Cannot overwrite from a different id")
 		return
+	
+	# Get a list of all items that reference this item
+	var myreferences: Dictionary = ditem.parent.references.get(id, {})
+	var referenced_from_items: Array = myreferences.get("items", [])
+	referenced_items = Helper.json_helper.merge_unique(referenced_items,referenced_from_items)
 	name = ditem.name
 	description = ditem.description
 	weight = ditem.weight

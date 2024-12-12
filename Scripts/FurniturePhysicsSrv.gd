@@ -442,10 +442,10 @@ func _add_items_to_inventory_distribution_mode(items: Array[RItemgroup.Item]) ->
 
 # Add an item to the inventory with the specified quantity
 func _add_item_to_inventory(item_id: String, quantity: int) -> void:
-	var ditem: DItem = Gamedata.items.by_id(item_id)
-	if ditem and quantity > 0:
+	var ritem: RItem = Runtimedata.items.by_id(item_id)
+	if ritem and quantity > 0:
 		while quantity > 0:
-			var stack_size = min(quantity, ditem.max_stack_size)
+			var stack_size = min(quantity, ritem.max_stack_size)
 			var item = inventory.create_and_add_item(item_id)
 			InventoryStacked.set_item_stack_size(item, stack_size)
 			quantity -= stack_size

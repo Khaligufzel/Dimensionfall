@@ -121,12 +121,12 @@ func _add_items_to_inventory_distribution_mode(items: Array[RItemgroup.Item]) ->
 # Takes an item_id and quantity and adds it to the inventory
 func _add_item_to_inventory(item_id: String, quantity: int):
 	# Fetch the individual item data for verification
-	var ditem: DItem = Gamedata.items.by_id(item_id)
+	var ritem: RItem = Runtimedata.items.by_id(item_id)
 	# Check if the item data is valid before adding
-	if ditem and quantity > 0:
+	if ritem and quantity > 0:
 		while quantity > 0:
 			# Calculate the stack size for this iteration, limited by max_stack_size
-			var stack_size = min(quantity, ditem.max_stack_size)
+			var stack_size = min(quantity, ritem.max_stack_size)
 			# Create and add the item to the inventory
 			var item = inventory.create_and_add_item(item_id)
 			# Set the item stack size
@@ -201,7 +201,7 @@ func set_texture(mytex: String):
 		sprite_3d.texture = newsprite
 		texture_id = mytex  # Save the texture ID
 	else:
-		newsprite = Gamedata.items.sprite_by_file(mytex)
+		newsprite = Runtimedata.items.sprite_by_file(mytex)
 		if newsprite:
 			sprite_3d.texture = newsprite
 			texture_id = mytex  # Save the texture ID
@@ -312,7 +312,7 @@ func set_random_inventory_item_texture():
 	var item_id = random_item.prototype_id
 	
 	# Set the sprite_3d texture to the item's sprite
-	sprite_3d.texture = Gamedata.items.sprite_by_id(item_id)
+	sprite_3d.texture = Runtimedata.items.sprite_by_id(item_id)
 
 
 # Properly destroys the container and its associated resources

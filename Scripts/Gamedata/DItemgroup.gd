@@ -130,12 +130,11 @@ func changed(olddata: DItemgroup):
 	# Remove itemgroup from items in the old list that are not in the new list
 	for item_id in oldlist:
 		if item_id not in newlist:
-			Gamedata.items.remove_reference(item_id, "core", "itemgroups", itemgroup)
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.ITEMGROUPS, id)
 
 	# Add itemgroup to items in the new list that were not in the old list
 	for item_id in newlist:
-		if item_id not in oldlist:
-			Gamedata.items.add_reference(item_id, "core", "itemgroups", itemgroup)
+		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.ITEMGROUPS, id)
 
 	parent.save_itemgroups_to_disk()
 
@@ -145,9 +144,9 @@ func changed(olddata: DItemgroup):
 func delete():
 	# Check to see if any mod has a copy of this itemgroup. if one or more remain, we can keep references
 	# Otherwise, the last copy was removed and we need to remove references
-	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MOBS, id)
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.ITEMGROUPS, id)
 	if all_results.size() > 1:
-		parent.references.erase(id) # Erase the reference for the id in this mod
+		parent.remove_reference(id) # Erase the reference for the id in this mod
 		return
 	
 	# For each mod, remove this mob from the maps in this itemgroup's references
@@ -157,7 +156,7 @@ func delete():
 
 	# Remove references to this itemgroup from items listed in the itemgroup data.
 	for item in items:
-		Gamedata.items.remove_reference(item.id, "core", "itemgroups", id)
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item.id, DMod.ContentType.ITEMGROUPS, id)
 	
 	parent.references.erase(id)
 

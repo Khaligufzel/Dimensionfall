@@ -47,8 +47,8 @@ var ditem: DItem = null:
 		if value:
 			ditem = value
 			load_item_data()
-			itemSelector.sprites_collection = Gamedata.items.sprites
-			olddata = DItem.new(ditem.get_data().duplicate(true))
+			itemSelector.sprites_collection = ditem.parent.sprites
+			olddata = DItem.new(ditem.get_data().duplicate(true), null)
 		
 func _ready():
 	refresh_tab_visibility()
@@ -57,7 +57,7 @@ func _ready():
 #This function update the form based on the contentData that has been loaded
 func load_item_data() -> void:
 	if itemImageDisplay != null and ditem.spriteid:
-		itemImageDisplay.texture = Gamedata.items.sprite_by_file(ditem.spriteid)
+		itemImageDisplay.texture = ditem.parent.sprite_by_file(ditem.spriteid)
 		PathTextLabel.text = ditem.spriteid
 	if IDTextLabel != null:
 		IDTextLabel.text = str(ditem.id)
@@ -102,7 +102,7 @@ func _on_save_button_button_up() -> void:
 	ditem.spriteid = PathTextLabel.text
 	ditem.sprite = itemImageDisplay.texture
 	# We add this image property only for the itemprotosets of gloot
-	ditem.image = Gamedata.items.spritePath + PathTextLabel.text
+	ditem.image = ditem.parent.spritePath + PathTextLabel.text
 	ditem.name = NameTextEdit.text
 	ditem.description = DescriptionTextEdit.text
 	ditem.volume = VolumeNumberBox.value
@@ -128,7 +128,7 @@ func _on_save_button_button_up() -> void:
 					ditem.set(child.text.to_lower(),null)
 	ditem.changed(olddata)
 	data_changed.emit()
-	olddata = DItem.new(ditem.get_data().duplicate(true))
+	olddata = DItem.new(ditem.get_data().duplicate(true), null)
 
 
 #When the itemImageDisplay is clicked, the user will be prompted to select an image from 

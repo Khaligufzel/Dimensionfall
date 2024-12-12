@@ -157,6 +157,13 @@ func add_new_recipe():
 
 
 # This function should return true if the dragged data can be dropped here
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func _can_drop_data(_newpos, data) -> bool:
 	# If controls are disabled, disallow dropping
 	if controls_disabled:
@@ -167,7 +174,7 @@ func _can_drop_data(_newpos, data) -> bool:
 		return false
 
 	# Fetch item by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.items.has_id(data["id"]):
+	if not Gamedata.mods.by_id(data["mod_id"]).items.has_id(data["id"]):
 		return false
 
 	# Check if the item ID already exists in the resources grid
@@ -190,11 +197,18 @@ func _drop_data(newpos, data) -> void:
 
 # Called when the user has successfully dropped data onto the skillTextEdit
 # We have to check the dropped_data for the id property
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func _handle_item_drop(dropped_data, _newpos) -> void:
 	# Dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var item_id = dropped_data["id"]
-		if not Gamedata.items.has_id(item_id):
+		if not Gamedata.mods.by_id(dropped_data["mod_id"]).items.has_id(item_id):
 			print_debug("No item data found for ID: " + item_id)
 			return
 		

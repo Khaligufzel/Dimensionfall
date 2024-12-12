@@ -162,15 +162,13 @@ func changed(_olddata: DPlayerAttribute):
 # A playerattribute is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	# Check if the playerattribute has references to items and remove it from those items
-	var itemsdata: Array = parent.references.get("id", {}).get("items", [])
-	if itemsdata:
-		for item_id in itemsdata:
-			var ditem = Gamedata.items.by_id(item_id)
-			if ditem.wearable and not ditem.wearable.player_attributes.is_empty():
-				ditem.wearable.remove_player_attribute(id)
-			if ditem.food and not ditem.food.attributes.is_empty():
-				ditem.food.remove_player_attribute(id)
-			if ditem.medical and not ditem.medical.attributes.is_empty():
-				ditem.medical.remove_player_attribute(id)
-		Gamedata.items.save_items_to_disk()
+	# Check to see if any mod has a copy of this playerattribute. if one or more remain, we can keep references
+	# Otherwise, the last copy was removed and we need to remove references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.PLAYERATTRIBUTES, id)
+	if all_results.size() > 1:
+		parent.remove_reference(id) # Erase the reference for the id in this mod
+		return
+		
+	# For each mod, remove this mob from the maps in this itemgroup's references
+	for mod: DMod in Gamedata.mods.get_all_mods():
+		mod.items.remove_playerattribute_from_all_items(id)

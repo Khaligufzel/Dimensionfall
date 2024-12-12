@@ -3,7 +3,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles item data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the list of items. You can access it trough Gamedata.items
+# This script handles the list of items. You can access it trough Gamedata.mods.by_id("Core").items
 
 
 var dataPath: String = "./Mods/Core/Items/"
@@ -102,23 +102,6 @@ func sprite_by_file(spritefile: String) -> Texture:
 	return sprites[spritefile]
 
 
-# Removes the reference from the selected item
-func remove_reference(itemid: String, module: String, type: String, refid: String):
-	var myitem: DItem = itemdict[itemid]
-	myitem.remove_reference(module, type, refid)
-
-
-# Adds a reference to the references list
-# For example, add "grass_field" to references.Core.maps
-# itemid: The id of the item to add the reference to
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "maps"
-# refid: The id of the entity to reference, for example "grass_field"
-func add_reference(itemid: String, module: String, type: String, refid: String):
-	var myitem: DItem = itemdict[itemid]
-	myitem.add_reference(module, type, refid)
-
-
 # This will update the given resource file with the provided json data
 # It is intended to save item data from json to the res://ItemProtosets.tres file
 # So we can use the item json data in-game
@@ -148,3 +131,42 @@ func get_items_by_type(item_type: String) -> Array[DItem]:
 		if not item.get(item_type) == null:
 			filtered_items.append(item)
 	return filtered_items
+
+
+# Removes the reference from the selected itemgroup
+func remove_reference(itemid: String):
+	references.erase(itemid)
+	Gamedata.mods.save_references(self)
+
+
+# Removes a specific item from all crafting recipes across all items.
+# item_id: The ID of the item to be removed from the required resources of all crafting recipes.
+func remove_item_from_all_recipes(item_id: String) -> void:
+	for item in itemdict.values():
+		if item.craft:
+			item.craft.remove_item_from_recipes(item_id)
+	save_items_to_disk()
+
+
+# Removes a specific playerattribute across all items.
+# playerattribute_id: The ID of the playerattribute to be removed
+func remove_playerattribute_from_all_items(playerattribute_id: String) -> void:
+	for item: DItem in itemdict.values():
+		item.remove_playerattribute(playerattribute_id)
+	save_items_to_disk()
+
+
+# Removes a specific wearableslot across all items.
+# wearableslot_id: The ID of the wearableslot to be removed
+func remove_wearableslot_from_all_items(wearableslot_id: String) -> void:
+	for item: DItem in itemdict.values():
+		item.remove_wearableslot(wearableslot_id)
+	save_items_to_disk()
+
+
+# Removes a specific skill across all items.
+# wearableslot_id: The ID of the skill to be removed
+func remove_skill_from_all_items(skill_id: String) -> void:
+	for item: DItem in itemdict.values():
+		item.remove_skill(skill_id)
+	save_items_to_disk()

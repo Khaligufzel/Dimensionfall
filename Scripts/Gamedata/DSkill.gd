@@ -58,23 +58,8 @@ func changed(_olddata: DSkill):
 # A skill is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	var changes: Dictionary = {"made":false}
-	
-	# This callable will remove this skill from items that reference this skill.
-	var myfunc: Callable = func (item_id):
-		var item_data: DItem = Gamedata.items.by_id(item_id)
-		item_data.remove_skill(id)
-		changes.made = true
-	
-	# Pass the callable to every item in the skill's references
-	# It will call myfunc on every item in skill_data.references.core.items
-	execute_callable_on_references_of_type(DMod.ContentType.ITEMS, myfunc)
-	
-	# Save changes to the data file if any changes were made
-	if changes.made:
-		Gamedata.items.save_items_to_disk()
-	else:
-		print_debug("No changes needed for skill", id)
+	for mod: DMod in Gamedata.mods.get_all_mods():
+		mod.items.remove_skill_from_all_items(id)
 
 
 # Executes a callable function on each reference of the given type

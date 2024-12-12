@@ -3,7 +3,7 @@ extends RefCounted
 
 # There's a D in front of the class name to indicate this class only handles map data, nothing more
 # This script is intended to be used inside the GameData autoload singleton
-# This script handles the data for one item. You can access it through Gamedata.items
+# This script handles the data for one item. You can access it through Gamedata.mods.by_id("Core").items
 
 # This class represents a piece of item with its properties
 var id: String
@@ -482,31 +482,9 @@ func get_data() -> Dictionary:
 	return data
 
 
-# Removes the provided reference from references
-# For example, remove "grass_field" to references.Core.maps
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "maps"
-# refid: The id of the entity, for example "grass_field"
-func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.items.save_items_to_disk()
-
-
-# Adds a reference to the references list
-# For example, add "grass_field" to references.Core.maps
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "maps"
-# refid: The id of the entity, for example "grass_field"
-func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
-	if changes_made:
-		Gamedata.items.save_items_to_disk()
-
-
 # Returns the path of the sprite
 func get_sprite_path() -> String:
-	return Gamedata.items.spritePath + spriteid
+	return parent.spritePath + spriteid
 
 
 # Some item has been changed
@@ -551,15 +529,15 @@ func changed(olddata: DItem):
 	# Resources that are no longer in the recipe will no longer reference this item
 	for res_id in old_resource_ids:
 		if not new_resource_ids.has(res_id):
-			remove_reference("core", "items", res_id)
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, res_id, DMod.ContentType.ITEMS, id)
 	
 	# Add references for new resources, nothing happens if they are already present
 	for res_id in new_resource_ids:
-		add_reference("core", "items", res_id)
+		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, res_id, DMod.ContentType.ITEMS, id)
 	update_item_skill_references(olddata)
 	update_item_attribute_references(olddata)
 	
-	Gamedata.items.save_items_to_disk()
+	parent.save_items_to_disk()
 
 
 # Function to process player attributes in the wearable and update references accordingly
@@ -658,30 +636,18 @@ func update_item_attribute_references(olddata: DItem):
 # An item is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	var changes_made = { "value": false }
-	
+	# Check to see if any mod has a copy of this item. if one or more remain, we can keep references
+	# Otherwise, the last copy was removed and we need to remove references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.ITEMS, id)
+	if all_results.size() > 1:
+		parent.remove_reference(id) # Erase the reference for the id in this mod
+		return
+		
 	# For each mod, remove this item from the itemgroup in this item's references
 	for mod: DMod in Gamedata.mods.get_all_mods():
 		mod.itemgroups.remove_item_by_id(id)
-	
-	# This callable will handle the removal of this item from all crafting recipes in other items
-	var remove_from_item: Callable = func(other_item_id: String):
-		var other_item: DItem = Gamedata.items.by_id(other_item_id)
-		if other_item and other_item.craft:
-			if other_item.craft.remove_item_from_recipes(id):
-				changes_made["value"] = true
-
-	# Pass the callable to every item in the item's references
-	# It will call remove_from_item on every item in item_data.references.core.items
-	execute_callable_on_references_of_type("core", "items", remove_from_item)
-	
-	# This callable will handle the removal of this item from all steps in quests
-	var remove_from_quest: Callable = func(quest_id: String):
-		Gamedata.mods.by_id("Core").quests.remove_item_from_quest(quest_id, id)
-
-	# Pass the callable to every quest in the item's references
-	# It will call remove_from_quest on every item in item_data.references.core.quests
-	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
+		mod.items.remove_item_from_all_recipes(id)
+		mod.quests.remove_item_from_all_quests(id)
 	
 	if food and not food.attributes.is_empty():
 		for food_attribute in food.attributes:
@@ -700,7 +666,7 @@ func delete():
 	if craft:
 		# For each recipe and for each item in each recipe, remove the reference to this item
 		for resource in craft.get_all_used_items():
-			changes_made["value"] = remove_reference("core", "items", resource) or changes_made["value"]
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, resource, DMod.ContentType.ITEMS, id)
 
 		# Collect unique skill IDs from the item's recipes
 		for skillid in craft.get_used_skill_ids():
@@ -717,12 +683,6 @@ func delete():
 	# Remove the reference of this item from each skill
 	for skill_id in skill_ids.keys():
 		Gamedata.mods.remove_reference(DMod.ContentType.SKILLS, skill_id, DMod.ContentType.ITEMS, id)
-
-	# Save changes to the data file if any changes were made
-	if changes_made["value"]:
-		Gamedata.items.save_items_to_disk()
-	else:
-		print_debug("No changes needed for item", id)
 
 
 # Executes a callable function on each reference of the given type
@@ -749,3 +709,19 @@ func remove_skill(skill_id: String) -> bool:
 	if melee and melee.remove_skill(skill_id):
 		changes_made = true
 	return changes_made
+
+
+# Function to remove all instances of a playerattribute from the item
+func remove_playerattribute(playerattribute_id: String):
+	if wearable and not wearable.player_attributes.is_empty():
+		wearable.remove_player_attribute(playerattribute_id)
+	if food and not food.attributes.is_empty():
+		food.remove_player_attribute(playerattribute_id)
+	if medical and not medical.attributes.is_empty():
+		medical.remove_player_attribute(playerattribute_id)
+
+
+# Function to remove all instances of a wearableslot_id from the item
+func remove_wearableslot(wearableslot_id: String):
+	if wearable and wearable.slot == wearableslot_id:
+		wearable = null

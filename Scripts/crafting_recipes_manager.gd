@@ -1,7 +1,7 @@
 extends Node
 
 # Items that have the "craft" property and can be crafted
-var craftable_items: Array[DItem]
+var craftable_items: Array[RItem]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -9,11 +9,11 @@ func _ready():
 	get_crafting_recipes_from_json()
 
 func get_crafting_recipes_from_json() -> void:
-	craftable_items = Gamedata.items.get_items_by_type("craft")
+	craftable_items = Runtimedata.items.get_items_by_type("craft")
 
 
 # Function to check if there are enough resources in the inventory to craft a given recipe.
-func can_craft_recipe(recipe: DItem.CraftRecipe) -> bool:
+func can_craft_recipe(recipe: RItem.CraftRecipe) -> bool:
 	# Loop through each resource required by the recipe.
 	for resource in recipe.required_resources:
 		# Check if the inventory has a sufficient amount of each required resource.
@@ -25,7 +25,7 @@ func can_craft_recipe(recipe: DItem.CraftRecipe) -> bool:
 
 
 # Function to check if the player meets the skill requirement for a given dictionary
-func has_required_skill(recipe: DItem.CraftRecipe) -> bool:
+func has_required_skill(recipe: RItem.CraftRecipe) -> bool:
 	# Check if "skill_requirement" exists in the provided dictionary
 	if recipe.skill_requirement:
 		var skill_req = recipe.skill_requirement

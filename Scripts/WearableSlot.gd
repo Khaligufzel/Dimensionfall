@@ -1,7 +1,7 @@
 extends Control
 
 # This script is intended to be used with the WearableSlot scene
-# This script is expected to work with Gamedata.mods.by_id("Core").wearableslots
+# This script is expected to work with Runtimedata.wearableslots
 # The wearable will hold one piece of wearable
 # The wearable will be represented by en InventoryItem
 # The wearable will be visualized by a texture provided by the InventoryItem
@@ -90,10 +90,10 @@ func _can_drop_data(_newpos, data) -> bool:
 
 		if prototype_id:
 			
-			var ditem = Gamedata.items.by_id(prototype_id)
-			if ditem and ditem.wearable:
+			var ritem: RItem = Runtimedata.items.by_id(prototype_id)
+			if ritem and ritem.wearable:
 				# Only allow the user to drop the item if it matches the slot id
-				return ditem.wearable.slot == slot_id
+				return ritem.wearable.slot == slot_id
 	return false
 
 
