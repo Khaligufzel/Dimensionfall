@@ -86,9 +86,16 @@ func save_to_disk():
 
 # Handles quest deletion
 func delete():
+	# Check to see if any mod has a copy of this quest. if one or more remain, we can keep references
+	# Otherwise, the last copy was removed and we need to remove references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.QUESTS, id)
+	if all_results.size() > 1:
+		parent.remove_reference(id) # Erase the reference for the id in this mod
+		return
+		
 	var stepitems: Array = steps.filter(func(step): return step.has("item"))
 	for collectstep in stepitems:
-		Gamedata.items.remove_reference(collectstep.item, "core", "quests", id)
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, collectstep.item, DMod.ContentType.QUESTS, id)
 	var stepmobs: Array =  steps.filter(func(step): return step.has("mob"))
 	for killstep in stepmobs:
 		Gamedata.mods.remove_reference(DMod.ContentType.MOBS, killstep.mob, DMod.ContentType.QUESTS, id)
@@ -97,7 +104,7 @@ func delete():
 		Gamedata.mods.remove_reference(DMod.ContentType.MOBGROUPS, killstep.mobgroup, DMod.ContentType.QUESTS, id)
 	var steprewards: Array = rewards.filter(func(reward): return reward.has("item_id"))
 	for reward in steprewards: # Remove the reference to this quest from the reward item
-		Gamedata.items.remove_reference(reward.item_id, "core", "quests", id)
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, reward.item_id, DMod.ContentType.QUESTS, id)
 
 
 # Handles quest changes
@@ -121,11 +128,11 @@ func changed(olddata: DQuest):
 	# Remove references for old items and rewards that are not in the new data
 	for old_item in old_quest_items:
 		if old_item not in new_quest_items:
-			Gamedata.items.remove_reference(old_item.item, "core", "quests", quest_id)
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, old_item.item, DMod.ContentType.QUESTS, id)
 
 	for old_reward in old_quest_rewards:
 		if old_reward not in new_quest_rewards:
-			Gamedata.items.remove_reference(old_reward.item_id, "core", "quests", quest_id)
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, old_reward.item_id, DMod.ContentType.QUESTS, id)
 
 	for old_map in old_quest_maps:
 		if old_map not in new_quest_maps:
@@ -143,10 +150,10 @@ func changed(olddata: DQuest):
 
 	# Add references for new items and rewards
 	for new_item in new_quest_items:
-		Gamedata.items.add_reference(new_item.item, "core", "quests", quest_id)
+		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, new_item.item, DMod.ContentType.QUESTS, quest_id)
 
 	for new_reward in new_quest_rewards:
-		Gamedata.items.add_reference(new_reward.item_id, "core", "quests", quest_id)
+		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, new_reward.item_id, DMod.ContentType.QUESTS, quest_id)
 
 	for new_map in new_quest_maps:
 		Gamedata.mods.add_reference(DMod.ContentType.MAPS, new_map.map_id, DMod.ContentType.QUESTS, quest_id)

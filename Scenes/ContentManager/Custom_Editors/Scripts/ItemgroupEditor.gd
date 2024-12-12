@@ -59,7 +59,7 @@ func update_item_list_with_probabilities():
 # Adds a new item and controls to the itemlist
 func add_item_entry(item: DItemgroup.Item):
 	var item_icon = TextureRect.new()
-	var item_sprite = Gamedata.items.sprite_by_id(item.get("id"))
+	var item_sprite = Gamedata.mods.get_content_by_id(DMod.ContentType.ITEMS, item.get("id")).sprite
 	item_icon.texture = item_sprite
 	item_icon.custom_minimum_size = Vector2(16, 16)
 
@@ -231,13 +231,20 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 
 
 # This function should return true if the dragged data can be dropped here
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func _can_drop_data(_newpos, data) -> bool:
 	# Check if the data dictionary has the 'id' property
 	if not data or not data.has("id"):
 		return false
 	
 	# Fetch item data by ID from Gamedata to ensure it exists and is valid
-	if not Gamedata.items.has_id(data["id"]):
+	if not Gamedata.mods.by_id(data["mod_id"]).items.has_id(data["id"]):
 		return false
 
 	# Check if the ID of the dragged item already exists in the itemListContainer
@@ -258,11 +265,18 @@ func _drop_data(newpos, data) -> void:
 
 
 # Called when the user has successfully dropped data onto the itemList
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func _handle_item_drop(dropped_data, _newpos) -> void:
 	# Assuming dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var item_id = dropped_data["id"]
-		if not Gamedata.items.has_id(item_id):
+		if not Gamedata.mods.by_id(dropped_data["mod_id"]).items.has_id(item_id):
 			return
 		
 		# Check if the item already exists in the itemListContainer to avoid duplicates

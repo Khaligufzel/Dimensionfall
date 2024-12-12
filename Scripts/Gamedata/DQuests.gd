@@ -113,6 +113,13 @@ func remove_item_from_quest(quest_id: String, item_id: String) -> void:
 	by_id(quest_id).remove_rewards_by_item(item_id)
 
 
+# Removes a specific item from all quests.
+# item_id: The ID of the item to be removed from the objectives or requirements of all quests.
+func remove_item_from_all_quests(item_id: String) -> void:
+	for quest: String in questdict.keys():
+		remove_item_from_quest(quest, item_id)
+
+
 # Load references from references.json
 func load_references() -> void:
 	var path = dataPath + "references.json"
@@ -120,3 +127,9 @@ func load_references() -> void:
 		references = Helper.json_helper.load_json_dictionary_file(path)
 	else:
 		references = {}  # Initialize an empty references dictionary if the file doesn't exist
+
+
+# Removes the reference from the selected itemgroup
+func remove_reference(questid: String):
+	references.erase(questid)
+	Gamedata.mods.save_references(self)

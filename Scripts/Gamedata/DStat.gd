@@ -66,23 +66,7 @@ func changed(_olddata: DStat):
 # A stat is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
-	var changes: Dictionary = {"made":false}
-	
-	# This callable will remove this stat from items that reference this stat.
-	var myfunc: Callable = func (item_id):
-		var item_data: DItem = Gamedata.items.by_id(item_id)
-		item_data.remove_stat(id)
-		changes.made = true
-	
-	# Pass the callable to every item in the stat's references
-	# It will call myfunc on every item in stat_data.references.core.items
-	execute_callable_on_references_of_type("core", "items", myfunc)
-	
-	# Save changes to the data file if any changes were made
-	if changes.made:
-		Gamedata.items.save_items_to_disk()
-	else:
-		print_debug("No changes needed for item", id)
+	print_debug("No changes needed for stat", id)
 
 # Executes a callable function on each reference of the given type
 func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):

@@ -168,7 +168,7 @@ func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 			return true
 		"craft":
 			# Add an action step for crafting an item
-			quest.add_action_step("Craft a " + Gamedata.items.by_id(step.item).name, {"stepjson": step})
+			quest.add_action_step("Craft a " + Runtimedata.items.by_id(step.item).name, {"stepjson": step})
 			return true
 		"enter":
 			# Add an action step for entering a specific map

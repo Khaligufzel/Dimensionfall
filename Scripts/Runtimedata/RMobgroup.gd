@@ -58,3 +58,8 @@ func get_data() -> Dictionary:
 		"mobs": mobs
 	}
 	return data
+
+
+# Function to check if a specific mob ID exists in the "mobs" property
+func has_mob(mob_id: String) -> bool:
+	return mobs.has(mob_id)

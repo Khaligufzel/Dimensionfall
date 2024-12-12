@@ -34,7 +34,7 @@ func update_quest_ui(quest_name: String):
 
 			if stepmeta.get("type", "") == "collect":
 				var item_id = stepmeta.get("item", "")
-				var item_name = Gamedata.items.by_id(item_id).name if item_id != "" else "Unknown Item"
+				var item_name = Runtimedata.items.by_id(item_id).name if item_id != "" else "Unknown Item"
 				step_requirement = "Collect " + str(current_amount) + "/" + str(target_amount) + " " + item_name
 			elif stepmeta.get("type", "") == "kill":
 				if stepmeta.has("mob"):

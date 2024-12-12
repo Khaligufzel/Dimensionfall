@@ -215,7 +215,7 @@ func update_rewards_details(quest: Dictionary):
 	if rewards.size() > 0:
 		for reward in rewards:
 			# Extract the item name from the item data
-			var item_name = Gamedata.items.by_id(reward.item_id).name
+			var item_name = Runtimedata.items.by_id(reward.item_id).name
 			var amount = reward.amount
 
 			# Create a container for the reward item
@@ -223,7 +223,7 @@ func update_rewards_details(quest: Dictionary):
 			quest_rewards.add_child(reward_container)
 
 			# Add item icon to the container
-			var item_icon_texture: Texture = Gamedata.items.sprite_by_id(reward.item_id)
+			var item_icon_texture: Texture = Runtimedata.items.sprite_by_id(reward.item_id)
 			if item_icon_texture:
 				var icon = TextureRect.new()
 				icon.texture = item_icon_texture
@@ -265,7 +265,7 @@ func create_incremental_step_UI_text(step: Dictionary) -> String:
 func _handle_collect_step(step: Dictionary) -> String:
 	var step_details_text = ""
 	# Extract the item name from the item data.
-	var item_name = Gamedata.items.by_id(step.item_name).name
+	var item_name = Runtimedata.items.by_id(step.item_name).name
 	# Construct the step details text with the required and collected item counts
 	step_details_text += "Collect " + str(step.required) + " "
 	step_details_text += item_name + " (Collected: " 

@@ -93,24 +93,3 @@ func sprite_by_id(statid: String) -> Texture:
 # Returns the sprite by its file name
 func sprite_by_file(spritefile: String) -> Texture:
 	return sprites[spritefile]
-
-# Removes a reference from the selected stat
-func remove_reference(statid: String, module: String, type: String, refid: String):
-	var mystat: DStat = statdict[statid]
-	mystat.remove_reference(module, type, refid)
-
-# Adds a reference to the references list in the stat
-func add_reference(statid: String, module: String, type: String, refid: String):
-	var mystat: DStat = statdict[statid]
-	mystat.add_reference(module, type, refid)
-
-# Helper function to update references if they have changed
-func update_reference(old: String, new: String, type: String, refid: String) -> void:
-	if old == new:
-		return  # No change detected, exit early
-
-	# Remove from old group if necessary
-	if old != "":
-		remove_reference(old, "core", type, refid)
-	if new != "":
-		add_reference(new, "core", type, refid)

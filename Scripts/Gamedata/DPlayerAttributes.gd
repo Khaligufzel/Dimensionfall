@@ -25,7 +25,6 @@ func _init(mod_id: String) -> void:
 	load_sprites()
 	load_playerattributes_from_disk()
 
-
 # Load all playerattributedata from disk into memory
 func load_playerattributes_from_disk() -> void:
 	var playerattributelist: Array = Helper.json_helper.load_json_array_file(filePath)
@@ -113,18 +112,7 @@ func sprite_by_file(spritefile: String) -> Texture:
 	return sprites[spritefile]
 
 
-# Removes the reference from the selected playerattribute
-func remove_reference(playerattributeid: String, module: String, type: String, refid: String):
-	var myplayerattribute: DPlayerAttribute = playerattributedict[playerattributeid]
-	myplayerattribute.remove_reference(module, type, refid)
-
-
-# Adds a reference to the references list
-# For example, add "grass_field" to references.Core.maps
-# playerattributeid: The id of the playerattribute to add the reference to
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "maps"
-# refid: The id of the entity to reference, for example "grass_field"
-func add_reference(playerattributeid: String, module: String, type: String, refid: String):
-	var myplayerattribute: DPlayerAttribute = playerattributedict[playerattributeid]
-	myplayerattribute.add_reference(module, type, refid)
+# Removes the reference from the selected itemgroup
+func remove_reference(playerattributeid: String):
+	references.erase(playerattributeid)
+	Gamedata.mods.save_references(self)

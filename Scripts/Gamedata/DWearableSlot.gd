@@ -56,32 +56,9 @@ func save_to_disk():
 func changed(_olddata: DItemgroup):
 	parent.save_wearableslots_to_disk()
 
-#
-## A wearableslot is being deleted from the data
-## We have to remove it from everything that references it
-#func delete():
-	#var changes: Dictionary = {"made":false}
-	#
-	## This callable will remove this slot from items that reference this slot.
-	#var myfunc: Callable = func (item_id):
-		#var item_data: DItem = Gamedata.items.by_id(item_id)
-		#item_data.wearable = null
-		#changes.made = true
-	## Pass the callable to every item in the wearableslot's references
-	## It will call myfunc on every item in wearableslot_data.references.core.items
-	#execute_callable_on_references_of_type("core", "items", myfunc)
-	#
-	## Save changes to the data file if any changes were made
-	#if changes.made:
-		#Gamedata.items.save_items_to_disk()
-	#else:
-		#print_debug("No changes needed for item", id)
-#
-#
-## Executes a callable function on each reference of the given type
-#func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
-	## Check if it contains the specified 'module' and 'type'
-	#if references.has(module) and references[module].has(type):
-		## If the type exists, execute the callable on each ID found under this type
-		#for ref_id in references[module][type]:
-			#callable.call(ref_id)
+
+# A wearableslot is being deleted from the data
+# We have to remove it from everything that references it
+func delete():
+	for mod: DMod in Gamedata.mods.get_all_mods():
+		mod.items.remove_wearableslot_from_all_items(id)

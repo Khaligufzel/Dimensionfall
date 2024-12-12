@@ -14,8 +14,8 @@ extends Panel
 
 signal start_craft(item: Dictionary, recipe: Dictionary)
 
-var active_recipe: DItem.CraftRecipe # The currently selected recipe
-var active_item: DItem # The currently selected item in the itemlist
+var active_recipe: RItem.CraftRecipe # The currently selected recipe
+var active_item: RItem # The currently selected item in the itemlist
 # Dictionary to store buttons with item IDs as keys
 var item_buttons = {}
 
@@ -31,13 +31,13 @@ func _ready():
 
 # Function to create item buttons based on craftable items
 func create_item_buttons():
-	for item: DItem in CraftingRecipesManager.craftable_items:
+	for item: RItem in CraftingRecipesManager.craftable_items:
 		if can_craft_with_skill(item):
 			create_item_button(item)
 
 
 # Updated function to store button references
-func create_item_button(item: DItem):
+func create_item_button(item: RItem):
 	var button = Button.new()
 	button.icon = item.sprite
 	button.text = item.name
@@ -52,7 +52,7 @@ func create_item_button(item: DItem):
 
 
 # Function to update a button's color based on the item's craftability
-func update_button_color(button, item: DItem):
+func update_button_color(button, item: RItem):
 	if can_craft_any_recipe(item):
 		button.modulate = Color(0.4, 1, 0.4)  # Green for craftable
 	else:
@@ -61,7 +61,7 @@ func update_button_color(button, item: DItem):
 
 # The user has clicked on one of the item buttons in the itemlist
 # Update the list of recipes for this item
-func _on_item_button_clicked(item: DItem):
+func _on_item_button_clicked(item: RItem):
 	active_item = item
 	description.text = item["description"]  # Set the description label
 	var recipes = item.craft.recipes  # Get the recipe array from the item
@@ -80,7 +80,7 @@ func _on_item_button_clicked(item: DItem):
 
 
 # When a recipe button is pressed, update the required items label
-func _on_recipe_button_pressed(recipe: DItem.CraftRecipe):
+func _on_recipe_button_pressed(recipe: RItem.CraftRecipe):
 	active_recipe = recipe
 	update_required_items_display(recipe)
 	
@@ -100,7 +100,7 @@ func _on_recipe_button_pressed(recipe: DItem.CraftRecipe):
 
 
 # New function to update required items display
-func update_required_items_display(recipe: DItem.CraftRecipe):
+func update_required_items_display(recipe: RItem.CraftRecipe):
 	# Clear previous required items display
 	for element in required_items.get_children():
 		element.queue_free()  # Properly free the node to avoid memory leaks
@@ -113,14 +113,14 @@ func update_required_items_display(recipe: DItem.CraftRecipe):
 		var resource_container = HBoxContainer.new()
 		required_items.add_child(resource_container)
 
-		var item_icon_texture = Gamedata.items.sprite_by_id(item_id)
+		var item_icon_texture = Runtimedata.items.sprite_by_id(item_id)
 		if item_icon_texture:
 			var icon = TextureRect.new()
 			icon.texture = item_icon_texture
 			icon.custom_minimum_size = Vector2(32, 32)  # Set a fixed size for icons
 			resource_container.add_child(icon)
 
-		var item_name: String = Gamedata.items.by_id(item_id).name
+		var item_name: String = Runtimedata.items.by_id(item_id).name
 
 		var label = Label.new()
 
@@ -142,7 +142,7 @@ func _on_start_crafting_button_pressed():
 
 
 # Function to determine if any of the item's recipes can be crafted
-func can_craft_any_recipe(item: DItem) -> bool:
+func can_craft_any_recipe(item: RItem) -> bool:
 	# Iterate over each recipe in the 'Craft' property
 	for recipe in item.craft.recipes:
 		# Call the CraftingRecipesManager to check if the recipe can be crafted
@@ -153,7 +153,7 @@ func can_craft_any_recipe(item: DItem) -> bool:
 
 
 # Function to update the color of the button associated with a given item data
-func update_item_button_color(item: DItem) -> void:
+func update_item_button_color(item: RItem) -> void:
 	if item.id in item_buttons:
 		var button = item_buttons[item.id]
 		update_button_color(button, item)
@@ -166,12 +166,12 @@ func update_item_button_color(item: DItem) -> void:
 # - We get the item references from the inventory item
 # - For each item reference, update the button that represents the item in the ui
 func _update_button_from_inventory_item(item: InventoryItem) -> void:
-	var ditem: DItem = Gamedata.items.by_id(item.get("prototype_id"))
-	var item_references = Helper.json_helper.get_nested_data(ditem.references, "core.items")
+	var ritem: RItem = Runtimedata.items.by_id(item.get("prototype_id"))
+	var item_references = ritem.referenced_items
 	if item_references:
 		for item_reference: String in item_references:
-			var ditem_reference: DItem = Gamedata.items.by_id(item_reference)
-			update_item_button_color(ditem_reference)
+			var ritem_reference: RItem = Runtimedata.items.by_id(item_reference)
+			update_item_button_color(ritem_reference)
 
 
 func _on_allAccessibleItems_changed(items_added: Array, items_removed: Array):
@@ -190,7 +190,7 @@ func _on_allAccessibleItems_changed(items_added: Array, items_removed: Array):
 
 
 # Function to determine if any of the item's recipes can be crafted based on player's skills
-func can_craft_with_skill(item: DItem) -> bool:
+func can_craft_with_skill(item: RItem) -> bool:
 	# Iterate over each recipe in the 'Craft' property
 	for recipe in item.craft.recipes:
 		# Call the CraftingRecipesManager to check if the recipe can be crafted

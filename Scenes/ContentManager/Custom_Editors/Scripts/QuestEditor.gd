@@ -399,7 +399,7 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 		
 		match step_type:
 			"craft", "collect":
-				valid_data = Gamedata.items.has_id(dropped_data["id"])
+				valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).items.has_id(dropped_data["id"])
 			"kill":
 				if dropped_data["contentType"] == DMod.ContentType.MOBS:
 					valid_data = true
@@ -427,7 +427,7 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 	
 	match step_type:
 		"craft", "collect":
-			valid_data = Gamedata.items.has_id(dropped_data["id"])
+			valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).items.has_id(dropped_data["id"])
 		"kill":
 			valid_data = not Gamedata.mods.get_content_by_id(DMod.ContentType.MOBS, dropped_data["id"]) == null or not Gamedata.mods.get_content_by_id(DMod.ContentType.MOBGROUPS, dropped_data["id"]) == null
 		"enter":
@@ -442,13 +442,20 @@ func set_drop_functions(mydropabletextedit):
 	mydropabletextedit.can_drop_function = can_entity_drop.bind(mydropabletextedit)
 
 # This function should return true if the dragged data can be dropped here
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func _can_drop_reward(_newpos, data: Dictionary) -> bool:
 	# Check if the data dictionary has the 'id' property
 	if not data or not data.has("id"):
 		return false
 
 	# Fetch item data by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.items.has_id(data["id"]):
+	if not Gamedata.mods.by_id(data["mod_id"]).items.has_id(data["id"]):
 		return false
 
 	# Check if the item ID already exists in the resources grid
@@ -469,11 +476,18 @@ func _drop_reward_data(newpos, data: Dictionary) -> void:
 
 # Called when the user has successfully dropped data onto the rewards_item_list
 # We have to check the dropped_data for the id property
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func _handle_reward_drop(dropped_data: Dictionary, _newpos: Vector2) -> void:
 	# Dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var item_id = dropped_data["id"]
-		if not Gamedata.items.has_id(item_id):
+		if not Gamedata.mods.by_id(dropped_data["mod_id"]).items.has_id(item_id):
 			print_debug("No item data found for ID: " + item_id)
 			return
 		
@@ -489,7 +503,7 @@ func _handle_reward_drop(dropped_data: Dictionary, _newpos: Vector2) -> void:
 # - use_loaded_amount: Boolean to determine if the loaded amount should be used (default is false)
 func add_reward_entry(item_id: String, amount: int = 1, use_loaded_amount: bool = false):
 	# Get item data using the item ID
-	var item: DItem = Gamedata.items.by_id(item_id)
+	var item: DItem = Gamedata.mods.get_content_by_id(DMod.ContentType.ITEMS, item_id)
 
 	# Create UI elements for the reward
 	var label = Label.new()
