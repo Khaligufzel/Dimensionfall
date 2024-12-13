@@ -43,8 +43,8 @@ func overwrite_from_dmobfaction(dmobfaction: DMobfaction) -> void:
 		return
 	name = dmobfaction.name
 	description = dmobfaction.description
-	relations = dmobfaction.relations
-	references = dmobfaction.references
+	#relations = dmobfaction.relations
+	#references = dmobfaction.references
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:

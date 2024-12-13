@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="4_fbact"]
 [ext_resource type="Texture2D" uid="uid://lqavxdrjc078" path="res://Mods/Core/Furniture/wardrobe_80_40.png" id="5_61cds"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "weightLabel", "weightSpinBox", "edgeSnappingOptionButton", "doorOptionButton", "containerCheckBox", "containerTextEdit", "destroyHboxContainer", "canDestroyCheckbox", "destructionTextEdit", "destructionImageDisplay", "destructionSpriteNameLabel", "disassemblyHboxContainer", "canDisassembleCheckbox", "disassemblyTextEdit", "disassemblyImageDisplay", "disassemblySpriteNameLabel", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "weightLabel", "weightSpinBox", "edgeSnappingOptionButton", "doorOptionButton", "containerCheckBox", "containerTextEdit", "regeneration_label", "regeneration_spin_box", "destroyHboxContainer", "canDestroyCheckbox", "destructionTextEdit", "destructionImageDisplay", "destructionSpriteNameLabel", "disassemblyHboxContainer", "canDisassembleCheckbox", "disassemblyTextEdit", "disassemblyImageDisplay", "disassemblySpriteNameLabel", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +30,8 @@ edgeSnappingOptionButton = NodePath("VBoxContainer/TabContainer/General/Snapping
 doorOptionButton = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/DoorOptionButton")
 containerCheckBox = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/ContainerCheckBox")
 containerTextEdit = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/ContainerTextEdit")
+regeneration_label = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/RegenerationLabel")
+regeneration_spin_box = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/RegenerationSpinBox")
 destroyHboxContainer = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer")
 canDestroyCheckbox = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/CanDestroyCheckBox")
 destructionTextEdit = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/DestructionTextEdit")
@@ -335,6 +337,21 @@ contents of the itemgroup when it is
 spawned. If container is not checked on, it
 will not act as a container."
 myplaceholdertext = "Drag an itemgroup from the left to here"
+
+[node name="RegenerationLabel" type="Label" parent="VBoxContainer/TabContainer/General/FunctionControlContainer"]
+layout_mode = 2
+text = "Regeneration time (in-game days)"
+
+[node name="RegenerationSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/General/FunctionControlContainer"]
+layout_mode = 2
+tooltip_text = "The amount of in-game days that have to pass before the container regenerates the items from the itemgroup. 
+This is useful for plants that re-grow fruits or nuts. When regenerating, any existing items will disappear. If the 
+value is -1, the container does not regenerate. Only works for furniture that can't move. If you enter 1, the 
+container will reset when the player approaches it, no matter how many days have passed (but at least one)."
+min_value = -1.0
+max_value = 10000.0
+step = 0.1
+value = -1.0
 
 [node name="Shape" type="GridContainer" parent="VBoxContainer/TabContainer"]
 visible = false
