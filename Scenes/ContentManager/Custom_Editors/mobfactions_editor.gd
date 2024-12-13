@@ -21,13 +21,13 @@ signal data_changed()
 var olddata: DMobfaction # Remember what the value of the data was before editing
 
 # The data that represents this mobfaction
-# The data is selected from the Gamedata.mobfactions
+# The data is selected from the dmobfaction.parent
 # based on the ID that the user has selected in the content editor
 var dmobfaction: DMobfaction = null:
 	set(value):
 		dmobfaction = value
 		load_mobfaction_data()
-		olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true))
+		olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true), null)
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -49,7 +49,7 @@ func load_mobfaction_data() -> void:
 			add_relation_from_data(relation)
 
 # This function takes all data from the form elements and stores them in the DMobfaction instance
-# Since dmobfaction is a reference to an item in Gamedata.mobfactions
+# Since dmobfaction is a reference to an item in Gamedata.mods.by_id("Core").mobfactions
 # the central array for mobfaction data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
@@ -77,7 +77,7 @@ func _on_save_button_button_up() -> void:
 		dmobfaction.relations.append(relation)
 	dmobfaction.changed(olddata)
 	data_changed.emit()
-	olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true))
+	olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true), null)
 
 # Function to add a relation based on the relation type selected
 func _on_add_relation_button_button_up():

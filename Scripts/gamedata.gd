@@ -3,10 +3,6 @@ extends Node
 # Autoload singleton that loads all game data required to run the game
 # Accessible via Gamedata.property
 var mods: DMods
-var items: DItems
-var itemgroups: DItemgroups
-var wearableslots: DWearableSlots
-var mobfactions: DMobfactions
 
 # Only hides the visual instance when it's above the player. Casts no shadow
 static var hide_above_player_shader := preload("res://Shaders/HideAbovePlayer.gdshader")
@@ -43,26 +39,6 @@ var gamedata_map: Dictionary = {}
 func _ready():
 	# Instantiate the content type instances
 	mods = DMods.new()
-	mobfactions = DMobfactions.new()
-
-	# Populate the gamedata_map with the instantiated objects
-	gamedata_map = {
-		DMod.ContentType.TACTICALMAPS: mods.by_id("Core").tacticalmaps,	
-		DMod.ContentType.MAPS: mods.by_id("Core").maps,	
-		DMod.ContentType.FURNITURES: mods.by_id("Core").furnitures,
-		DMod.ContentType.ITEMGROUPS: mods.by_id("Core").itemgroups,
-		DMod.ContentType.ITEMS: mods.by_id("Core").items,
-		DMod.ContentType.TILES: mods.by_id("Core").tiles,
-		DMod.ContentType.MOBS: mods.by_id("Core").mobs,
-		DMod.ContentType.PLAYERATTRIBUTES: mods.by_id("Core").playerattributes,
-		DMod.ContentType.WEARABLESLOTS: mods.by_id("Core").wearableslots,
-		DMod.ContentType.STATS: mods.by_id("Core").stats,
-		DMod.ContentType.SKILLS: mods.by_id("Core").skills,
-		DMod.ContentType.QUESTS: mods.by_id("Core").quests,
-		DMod.ContentType.OVERMAPAREAS: mods.by_id("Core").overmapareas,
-		DMod.ContentType.MOBGROUPS: mods.by_id("Core").mobgroups,
-		DMod.ContentType.MOBFACTIONS: mobfactions
-	}
 
 	materials["container"] = create_item_shader_material(textures.container)
 	materials["container_filled"] = create_item_shader_material(textures.container_filled)

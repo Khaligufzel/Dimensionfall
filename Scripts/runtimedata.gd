@@ -16,7 +16,7 @@ var stats: RStats
 var quests: RQuests
 var overmapareas: ROvermapareas
 var mobgroups: RMobgroups
-var mobfactions: DMobfactions
+var mobfactions: RMobfactions
 
 # Dictionary to map content types to Gamedata variables
 var gamedata_map: Dictionary = {}
@@ -43,6 +43,7 @@ func reconstruct() -> void:
 	itemgroups = RItemgroups.new()
 	furnitures = RFurnitures.new()
 	items = RItems.new()
+	mobfactions = RMobfactions.new()
 	
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
@@ -59,5 +60,6 @@ func reconstruct() -> void:
 		DMod.ContentType.MOBGROUPS: mobgroups,
 		DMod.ContentType.ITEMGROUPS: itemgroups,
 		DMod.ContentType.FURNITURES: furnitures,
-		DMod.ContentType.ITEMS: items
+		DMod.ContentType.ITEMS: items,
+		DMod.ContentType.MOBFACTIONS: mobfactions
 	}
