@@ -162,6 +162,7 @@ func add_container():
 			create_loot()
 		else:
 			deserialize_container_data()
+			set_random_inventory_item_texture()
 
 
 func is_container() -> bool:
@@ -426,6 +427,16 @@ func check_regeneration_functionality():
 	if not rfurniture.function.container_regeneration_time:
 		return
 	regeneration_interval = rfurniture.function.container_regeneration_time
+	
+	if not is_new_furniture():
+		# Ensure the door_state is properly set
+		if furnitureJSON.has("Function") and furnitureJSON["Function"].has("container"):
+			if furnitureJSON.Function.container.has("container_last_time_checked"):
+				last_time_checked = furnitureJSON.Function.container.container_last_time_checked
+			if furnitureJSON.Function.container.has("container_itemgroup"):
+				itemgroup = furnitureJSON.Function.container.container_itemgroup
+		else:
+			last_time_checked = 0.0  # Default if not found in saved data
 
 
 # Function to interact with the furniture (e.g., toggling door state)
@@ -483,7 +494,7 @@ func apply_transform_to_instance(rotation_angle: int, position_offset: Vector3):
 
 
 
-# Returns this furniture's data for saving, including door state if applicable
+# Returns this furniture's data for saving, including door state, container state, and last checked time
 func get_data() -> Dictionary:
 	var newfurniturejson = {
 		"id": furnitureJSON.id,
@@ -506,6 +517,10 @@ func get_data() -> Dictionary:
 		# If there are no items in the inventory, keep an empty object. Else,
 		# keep an object with the items key and the serialized items
 		var containerobject = {} if containerdata.is_empty() else {"items": containerdata}
+		
+		# Add the last_time_checked to the container data
+		containerobject["container_last_time_checked"] = last_time_checked
+		containerobject["container_itemgroup"] = itemgroup
 		newfurniturejson["Function"]["container"] = containerobject
 
 	return newfurniturejson
@@ -675,6 +690,7 @@ func get_sprite() -> Texture:
 func set_random_inventory_item_texture():
 	var items: Array[InventoryItem] = inventory.get_items()
 	if items.size() == 0:
+		container_sprite_mesh.material = Gamedata.materials.container # set empty container
 		return
 	
 	# Pick a random item from the inventory
