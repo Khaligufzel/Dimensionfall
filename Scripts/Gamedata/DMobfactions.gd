@@ -103,3 +103,9 @@ func remove_mob_from_faction(faction_id: String, mob_id: String) -> void:
 # Removes all steps where the mobgroup property matches the given mob_id
 func remove_mobgroup_from_faction(faction_id: String, mobgroup_id: String) -> void:
 	by_id(faction_id).remove_factions_by_mobgroup(mobgroup_id)
+
+
+# Removes the reference from the selected mobfaction
+func remove_reference(mobfactionid: String):
+	references.erase(mobfactionid)
+	Gamedata.mods.save_references(self)

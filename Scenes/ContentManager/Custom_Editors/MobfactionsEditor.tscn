@@ -1,15 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3xxrpq0ijw30"]
+[gd_scene load_steps=5 format=3 uid="uid://d3xxrpq0ijw30"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/mobfactions_editor.gd" id="1_kooul"]
-[ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="2_6k777"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_une6i"]
 content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
+bg_color = Color(0.52084, 0.637471, 0.519415, 1)
 
-[node name="MobfactionsEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "mob_list", "relation_type_option_button", "relations_container")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3cnvy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmb4k"]
+bg_color = Color(0.797929, 0.517049, 0.458354, 1)
+
+[node name="MobfactionsEditor" type="Control" node_paths=PackedStringArray("IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "friendly_grid_container", "neutral_grid_container", "hostile_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,13 +22,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kooul")
-IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
-NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
-DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
-mob_list = NodePath("VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer/RelationsVBoxContainer/ScrollContainer/GridContainer")
-relation_type_option_button = NodePath("VBoxContainer/FormGrid/RelationControlsHBoxContainer/RelationTypeOptionButton")
-relations_container = NodePath("VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer/RelationsVBoxContainer")
-dropabletextedit = ExtResource("2_6k777")
+IDTextLabel = NodePath("VBoxContainer/HBoxContainer2/FormGrid/IDTextLabel")
+NameTextEdit = NodePath("VBoxContainer/HBoxContainer2/FormGrid/NameTextEdit")
+DescriptionTextEdit = NodePath("VBoxContainer/HBoxContainer2/FormGrid/DescriptionTextEdit")
+friendly_grid_container = NodePath("VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/FriendlyPanelContainer/VBoxContainer/ScrollContainer/FriendlyGridContainer")
+neutral_grid_container = NodePath("VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/NeutralPanelContainer/VBoxContainer/ScrollContainer/NeutralGridContainer")
+hostile_grid_container = NodePath("VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/HostilePanelContainer/VBoxContainer2/ScrollContainer/HostileGridContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -44,26 +48,31 @@ text = "Close"
 layout_mode = 2
 text = "Save"
 
-[node name="FormGrid" type="GridContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FormGrid" type="GridContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 
-[node name="IDLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="IDLabel" type="Label" parent="VBoxContainer/HBoxContainer2/FormGrid"]
 layout_mode = 2
 text = "ID:"
 
-[node name="IDTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="IDTextLabel" type="Label" parent="VBoxContainer/HBoxContainer2/FormGrid"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 
-[node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer2/FormGrid"]
 layout_mode = 2
 text = "Name"
 
-[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer2/FormGrid"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -71,82 +80,136 @@ size_flags_stretch_ratio = 0.1
 focus_next = NodePath("../DescriptionTextEdit")
 placeholder_text = "Zombie"
 
-[node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/HBoxContainer2/FormGrid"]
 layout_mode = 2
 text = "Description"
 
-[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer2/FormGrid"]
+custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.9
+size_flags_stretch_ratio = 0.2
 focus_previous = NodePath("../NameTextEdit")
 placeholder_text = "A faction of zombies, representing a minor to significant threat to the player"
 wrap_mode = 1
 
-[node name="ItemsLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="TipLabel" type="Label" parent="VBoxContainer/HBoxContainer2/FormGrid"]
 layout_mode = 2
-text = "Relation"
+text = "Hint"
 
-[node name="RelationControlsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+[node name="TipInfoLabel" type="Label" parent="VBoxContainer/HBoxContainer2/FormGrid"]
 layout_mode = 2
+text = "Drag mobs, mobgroups and factions from the left to the list of the relation type"
 
-[node name="RelationTypeLabel" type="Label" parent="VBoxContainer/FormGrid/RelationControlsHBoxContainer"]
-layout_mode = 2
-text = "Relation type"
-
-[node name="RelationTypeOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/RelationControlsHBoxContainer"]
-layout_mode = 2
-tooltip_text = "Select relation type and choose add. 4 relations are currently available: 
-1. Core (the base monsters will be part of your faction), 
-2. Friendly (core mobs will be friendly towards mobs in friendly group), 
-3. Neutral (core mobs will be neutral towards mobs in neutral group)
-4. Hostile (core mobs will be hostile towards mobs in hostile group). "
-selected = 0
-item_count = 4
-popup/item_0/text = "Core mobs"
-popup/item_1/text = "Friendly"
-popup/item_1/id = 1
-popup/item_2/text = "Neutral"
-popup/item_2/id = 2
-popup/item_3/text = "Hostile"
-popup/item_3/id = 3
-
-[node name="AddRelationButton" type="Button" parent="VBoxContainer/FormGrid/RelationControlsHBoxContainer"]
-layout_mode = 2
-text = " + Add"
-
-[node name="RelationsLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="RelationsLabel" type="Label" parent="VBoxContainer/HBoxContainer2/FormGrid"]
 layout_mode = 2
 text = "Mobs"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/FormGrid"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/FormGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-follow_focus = true
 
-[node name="RelationsPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/ScrollContainer"]
+[node name="FriendlyPanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_une6i")
 
-[node name="RelationsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/FriendlyPanelContainer"]
 layout_mode = 2
-tooltip_text = "Press the \"+ Add\" button above to add a relation. You can 
-clear and delete relations using the controls of each relation."
+size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer/RelationsVBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/FriendlyPanelContainer/VBoxContainer"]
 layout_mode = 2
+text = "Friendly"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/FriendlyPanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 follow_focus = true
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/ScrollContainer/RelationsPanelContainer/RelationsVBoxContainer/ScrollContainer"]
+[node name="FriendlyGridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/FriendlyPanelContainer/VBoxContainer/ScrollContainer"]
 clip_contents = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
+columns = 3
+
+[node name="NeutralPanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3cnvy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/NeutralPanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/NeutralPanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Neutral"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/NeutralPanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="NeutralGridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/NeutralPanelContainer/VBoxContainer/ScrollContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[node name="HostilePanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_rmb4k")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/HostilePanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/HostilePanelContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Hostile"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/HostilePanelContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="HostileGridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer2/FormGrid/HBoxContainer/HostilePanelContainer/VBoxContainer2/ScrollContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Faction members:"
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
-[connection signal="button_up" from="VBoxContainer/FormGrid/RelationControlsHBoxContainer/AddRelationButton" to="." method="_on_add_relation_button_button_up"]

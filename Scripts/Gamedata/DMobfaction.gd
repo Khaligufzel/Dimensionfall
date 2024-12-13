@@ -18,23 +18,68 @@ extends RefCounted
 #			{
 #				"relation_type": "core"
 #				"mobgroup": ["basic_zombies", "basic_vampires"],
-#				"mobs": ["small slime", "big slime"]
+#				"mobs": ["small slime", "big slime"],
+#				"factions": ["human_faction", "animal_faction"]
 #			},
 #			{
 #				"relation_type": "hostile"
 #				"mobgroup": ["security_robots", "national_guard"],
-#				"mobs": ["jabberwock", "cerberus"]
+#				"mobs": ["jabberwock", "cerberus"],
+#				"factions": ["human_faction", "animal_faction"]
 #			}
 #		]
 #	}
+
+# Inner class to handle relations in a mob faction
+class Relation:
+	var relation_type: String  # Can be "hostile", "neutral", or "friendly"
+	var mobgroups: Array = []  # Array of mobgroup IDs
+	var mobs: Array = []       # Array of mob IDs
+	var factions: Array = []   # Array of faction IDs
+
+	# Constructor to initialize the relation with data from a dictionary
+	func _init(relation_data: Dictionary):
+		relation_type = relation_data.get("relation_type", "neutral")  # Default to "neutral" if not specified
+		mobgroups = relation_data.get("mobgroups", [])
+		mobs = relation_data.get("mobs", [])
+		factions = relation_data.get("factions", [])
+
+	# Returns all relation properties as a dictionary
+	func get_data() -> Dictionary:
+		# Only include fields if they are not empty
+		if mobgroups.is_empty() and mobs.is_empty() and factions.is_empty():
+			return {}  # Return an empty dictionary if all lists are empty
+
+		var data: Dictionary = {
+			"relation_type": relation_type
+		}
+		if not mobgroups.is_empty():
+			data["mobgroups"] = mobgroups
+		if not mobs.is_empty():
+			data["mobs"] = mobs
+		if not factions.is_empty():
+			data["factions"] = factions
+		return data
+
+
+	# Returns all mob IDs
+	func get_mob_ids() -> Array:
+		return mobs
+
+	# Returns all mobgroup IDs
+	func get_mobgroup_ids() -> Array:
+		return mobgroups
+
+	# Returns all faction IDs
+	func get_faction_ids() -> Array:
+		return factions
+
 
 # Properties defined in the JSON structure
 var id: String
 var name: String
 var description: String
 var relations: Array = []
-var mobs: Dictionary = {}
-var mobgroups: Dictionary = {}
 var parent: DMobfactions
 
 # Constructor to initialize itemgroup properties from a dictionary
@@ -44,7 +89,10 @@ func _init(data: Dictionary, myparent: DMobfactions):
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
-	relations = data.get("relations", [])
+	relations = []
+	for relation_data in data.get("relations", []):
+		relations.append(Relation.new(relation_data))
+
 
 # Returns all properties of the mob faction as a dictionary
 func get_data() -> Dictionary:
@@ -52,49 +100,93 @@ func get_data() -> Dictionary:
 		"id": id,
 		"name": name,
 		"description": description,
-		"relations": relations,
+		"relations": []
 	}
+	for relation in relations:
+		var relation_data = relation.get_data()
+		if not relation_data.is_empty():  # Only include non-empty relations
+			data["relations"].append(relation_data)
 	return data
+
 
 
 # Method to save any changes to the stat back to disk
 func save_to_disk():
 	parent.save_mobfactions_to_disk()
-# Handles faction deletion
+
+# A mobfaction is being deleted from the data
+# We have to remove it from everything that references it
 func delete():
-	var relationmobs: Array =  relations.filter(func(relation): return relation.has("mob"))
-	for killrelation in relationmobs:
-		Gamedata.mods.remove_reference(DMod.ContentType.MOBS, killrelation.mob, DMod.ContentType.MOBFACTIONS, id)
-	var relationmobgroups: Array = relations.filter(func(relation): return relation.has("mobgroup"))
-	for killrelation in relationmobgroups:
-		Gamedata.mods.remove_reference(DMod.ContentType.MOBGROUPS, killrelation.mobgroup, DMod.ContentType.MOBFACTIONS, id)
+	# Check to see if any mod has a copy of this mobfaction. if one or more remain, we can keep references
+	# Otherwise, the last copy was removed and we need to remove references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MOBFACTIONS, id)
+	if all_results.size() > 1:
+		parent.remove_reference(id) # Erase the reference for the id in this mod
+		return
+
+	# Remove all references from current relations
+	for relation in relations:
+		for mob_id in relation.get_mob_ids():
+			Gamedata.mods.remove_reference(DMod.ContentType.MOBS, mob_id, DMod.ContentType.MOBFACTIONS, id)
+
+		for mobgroup_id in relation.get_mobgroup_ids():
+			Gamedata.mods.remove_reference(DMod.ContentType.MOBGROUPS, mobgroup_id, DMod.ContentType.MOBFACTIONS, id)
+
+		for faction_id in relation.get_faction_ids():
+			Gamedata.mods.remove_reference(DMod.ContentType.MOBFACTIONS, faction_id, DMod.ContentType.MOBFACTIONS, id)
+	parent.remove_reference(id) # Erase the reference for the id in this mod
 
 
 # Handles quest changes
 func changed(olddata: DMobfaction):
-	# Get mobs and mobgroups from the old relations
-	var old_quest_mobs: Array = olddata.relations.filter(func(relation): return relation.has("mob"))
-	var old_quest_mobgroups: Array = olddata.relations.filter(func(relation): return relation.has("mobgroup"))
-	# Get mobs and mobgroups from the new relations
-	var new_quest_mobs: Array = relations.filter(func(relation): return relation.has("mob"))
-	var new_quest_mobgroups: Array = relations.filter(func(relation): return relation.has("mobgroup"))
+	var old_mob_ids: Array = []
+	var old_mobgroup_ids: Array = []
+	var old_faction_ids: Array = []
 
-	# Remove references for old mobs that are not in the new data
-	for old_mob in old_quest_mobs:
-		if old_mob not in new_quest_mobs:
-			Gamedata.mods.remove_reference(DMod.ContentType.MOBS, old_mob.mob, DMod.ContentType.MOBFACTIONS, id)
-	# Remove references for old mobgroups that are not in the new data
-	for old_mobgroup in old_quest_mobgroups:
-		if old_mobgroup not in new_quest_mobgroups:
-			Gamedata.mods.remove_reference(DMod.ContentType.MOBGROUPS, old_mobgroup.mobgroup, DMod.ContentType.MOBFACTIONS, id)
+	# Collect IDs from olddata relations
+	for old_relation in olddata.relations:
+		old_mob_ids += old_relation.get_mob_ids()
+		old_mobgroup_ids += old_relation.get_mobgroup_ids()
+		old_faction_ids += old_relation.get_faction_ids()
 
-	# Add references for new mobs
-	for new_mob in new_quest_mobs:
-		Gamedata.mods.add_reference(DMod.ContentType.MOBS, new_mob.mob, DMod.ContentType.MOBFACTIONS, id)
-	# Add references for new mobgroups
-	for new_mobgroup in new_quest_mobgroups:
-		Gamedata.mods.add_reference(DMod.ContentType.MOBGROUPS, new_mobgroup.mobgroup, DMod.ContentType.MOBFACTIONS, id)
+	var new_mob_ids: Array = []
+	var new_mobgroup_ids: Array = []
+	var new_faction_ids: Array = []
+
+	# Collect IDs from current relations
+	for new_relation in relations:
+		new_mob_ids += new_relation.get_mob_ids()
+		new_mobgroup_ids += new_relation.get_mobgroup_ids()
+		new_faction_ids += new_relation.get_faction_ids()
+
+	# Remove outdated references
+	for old_mob_id in old_mob_ids:
+		if old_mob_id not in new_mob_ids:
+			Gamedata.mods.remove_reference(DMod.ContentType.MOBS, old_mob_id, DMod.ContentType.MOBFACTIONS, id)
+
+	for old_mobgroup_id in old_mobgroup_ids:
+		if old_mobgroup_id not in new_mobgroup_ids:
+			Gamedata.mods.remove_reference(DMod.ContentType.MOBGROUPS, old_mobgroup_id, DMod.ContentType.MOBFACTIONS, id)
+
+	for old_faction_id in old_faction_ids:
+		if old_faction_id not in new_faction_ids:
+			Gamedata.mods.remove_reference(DMod.ContentType.MOBFACTIONS, old_faction_id, DMod.ContentType.MOBFACTIONS, id)
+
+	# Add new references
+	for new_mob_id in new_mob_ids:
+		if new_mob_id not in old_mob_ids:
+			Gamedata.mods.add_reference(DMod.ContentType.MOBS, new_mob_id, DMod.ContentType.MOBFACTIONS, id)
+
+	for new_mobgroup_id in new_mobgroup_ids:
+		if new_mobgroup_id not in old_mobgroup_ids:
+			Gamedata.mods.add_reference(DMod.ContentType.MOBGROUPS, new_mobgroup_id, DMod.ContentType.MOBFACTIONS, id)
+
+	for new_faction_id in new_faction_ids:
+		if new_faction_id not in old_faction_ids:
+			Gamedata.mods.add_reference(DMod.ContentType.MOBFACTIONS, new_faction_id, DMod.ContentType.MOBFACTIONS, id)
+
 	save_to_disk()
+
 
 # Removes all relations where the mob property matches the given mob_id
 func remove_relations_by_mob(mob_id: String) -> void:

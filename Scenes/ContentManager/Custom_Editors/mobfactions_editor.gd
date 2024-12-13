@@ -4,14 +4,33 @@ extends Control
 # It is supposed to edit exactly one Mobfaction
 # It expects to save the data to a JSON file
 # To load data, provide the name of the mobfaction data file and an ID
+# Example mob faction JSON:
+# {
+# 	"id": "undead",
+# 	"name": "The Undead",
+# 	"description": "The unholy remainders of our past sins.",
+#	"relations": [
+#			{
+#				"relation_type": "core"
+#				"mobgroup": ["basic_zombies", "basic_vampires"],
+#				"mobs": ["small slime", "big slime"],
+#				"factions": ["human_faction", "animal_faction"]
+#			},
+#			{
+#				"relation_type": "hostile"
+#				"mobgroup": ["security_robots", "national_guard"],
+#				"mobs": ["jabberwock", "cerberus"],
+#				"factions": ["human_faction", "animal_faction"]
+#			}
+#		]
+#	}
 
 @export var IDTextLabel: Label = null
 @export var NameTextEdit: TextEdit = null
 @export var DescriptionTextEdit: TextEdit = null
-@export var mob_list: GridContainer = null
-@export var relation_type_option_button: OptionButton
-@export var relations_container: VBoxContainer
-@export var dropabletextedit: PackedScene = null
+@export var friendly_grid_container: GridContainer = null
+@export var neutral_grid_container: GridContainer = null
+@export var hostile_grid_container: GridContainer = null
 
 
 # This signal will be emitted when the user presses the save button
@@ -29,12 +48,21 @@ var dmobfaction: DMobfaction = null:
 		load_mobfaction_data()
 		olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true), null)
 
+
+func _ready() -> void:
+	if friendly_grid_container:
+		friendly_grid_container.set_drag_forwarding(Callable(), _can_entity_drop.bind("friendly"), _entity_drop.bind("friendly"))
+	if neutral_grid_container:
+		neutral_grid_container.set_drag_forwarding(Callable(), _can_entity_drop.bind("neutral"), _entity_drop.bind("neutral"))
+	if hostile_grid_container:
+		hostile_grid_container.set_drag_forwarding(Callable(), _can_entity_drop.bind("hostile"), _entity_drop.bind("hostile"))
+
+
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
 func _on_close_button_button_up() -> void:
 	queue_free()
 
-# This function updates the form based on the DMobfaction that has been loaded
 func load_mobfaction_data() -> void:
 	if IDTextLabel != null:
 		IDTextLabel.text = str(dmobfaction.id)
@@ -42,99 +70,42 @@ func load_mobfaction_data() -> void:
 		NameTextEdit.text = dmobfaction.name
 	if DescriptionTextEdit != null:
 		DescriptionTextEdit.text = dmobfaction.description
-	if relations_container:
-		for child in relations_container.get_children():
-			child.queue_free()
-		for relation in dmobfaction.relations:
-			add_relation_from_data(relation)
+	
+	# Clear existing children in each GridContainer
+	if friendly_grid_container:
+		Helper.free_all_children(friendly_grid_container)
+	if neutral_grid_container:
+		Helper.free_all_children(neutral_grid_container)
+	if hostile_grid_container:
+		Helper.free_all_children(hostile_grid_container)
+
+	# Add relations to the corresponding container
+	for relation: DMobfaction.Relation in dmobfaction.relations:
+		process_relation_and_add_entities(relation.get_data())
+
 
 # This function takes all data from the form elements and stores them in the DMobfaction instance
 # Since dmobfaction is a reference to an item in Gamedata.mods.by_id("Core").mobfactions
 # the central array for mobfaction data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
+# This function takes all data from the form elements and stores them in the DMobfaction instance.
 func _on_save_button_button_up() -> void:
 	dmobfaction.name = NameTextEdit.text
 	dmobfaction.description = DescriptionTextEdit.text
-	dmobfaction.changed(olddata)
 	dmobfaction.relations = []
-	
-	for hbox in relations_container.get_children():
-		var relation = {}
-		var relation_type_label = hbox.get_child(0) as Label
-		# Process each relation type
-		var dropable_control = hbox.get_child(1) as HBoxContainer
-		var mob_or_group = dropable_control.get_text()
-		var entity_type = dropable_control.get_meta("entity_type")
-		var relation_type = dropable_control.get_meta("relation_type")
-		relation["relation_type"] = relation_type
-		# Save as mob or mobgroup based on metadata
-		if entity_type == "mob":
-			relation["mob"] = mob_or_group
-		elif entity_type == "mobgroup":
-			relation["mobgroup"] = mob_or_group
-		else:
-			print_debug("Invalid entity type metadata: " + str(entity_type))
-		dmobfaction.relations.append(relation)
+
+	# Extract relations from the GridContainers.
+	if friendly_grid_container:
+		dmobfaction.relations.append(DMobfaction.Relation.new(extract_relation_from_grid(friendly_grid_container, "friendly")))
+	if neutral_grid_container:
+		dmobfaction.relations.append(DMobfaction.Relation.new(extract_relation_from_grid(neutral_grid_container, "neutral")))
+	if hostile_grid_container:
+		dmobfaction.relations.append(DMobfaction.Relation.new(extract_relation_from_grid(hostile_grid_container, "hostile")))
+
 	dmobfaction.changed(olddata)
 	data_changed.emit()
 	olddata = DMobfaction.new(dmobfaction.get_data().duplicate(true), null)
 
-# Function to add a relation based on the relation type selected
-func _on_add_relation_button_button_up():
-	var relation_type = relation_type_option_button.get_selected_id()
-	var empty_relation = {}
-	match relation_type:
-		0: # Core monsters which will be part of the faction
-			empty_relation = {"relation_type": "core", "mob": ""}
-		1: # Core monsters which will be part of the faction
-			empty_relation = {"relation_type": "friendly", "mob": ""}
-		2: # Core monsters which will be part of the faction
-			empty_relation = {"relation_type": "neutral", "mob": ""}
-		3: # Core monsters which will be part of the faction
-			empty_relation = {"relation_type": "hostile", "mob": ""}
-	
-	add_relation_from_data(empty_relation)
-	
-func add_relation_type(relation: Dictionary) -> HBoxContainer:
-	var hbox = HBoxContainer.new()
-
-	# Add the label
-	var label_instance: Label = Label.new()
-	var selectedrelation = relation.get("relation_type")
-	label_instance.text = selectedrelation
-	hbox.add_child(label_instance)
-
-	# Add the dropable text edit for the mob or mobgroup ID
-	var entity_type: String = "mob" if relation.has("mob") else "mobgroup" if relation.has("mobgroup") else ""
-	var dropable_textedit_instance: HBoxContainer = dropabletextedit.instantiate()
-	dropable_textedit_instance.set_text(relation.get("mob", relation.get("mobgroup", "")))
-	dropable_textedit_instance.set_meta("entity_type", entity_type)
-	dropable_textedit_instance.set_meta("relation_type", relation.get("relation_type"))
-	dropable_textedit_instance.myplaceholdertext = "Drop a mob or mobgroup from the left menu"
-	set_drop_functions(dropable_textedit_instance)
-	hbox.add_child(dropable_textedit_instance)
-	return hbox
-
-func add_relations_controls(hbox: HBoxContainer, relation: Dictionary):
-	var delete_button = Button.new()
-	delete_button.text = "X"
-	delete_button.pressed.connect(_on_delete_button_pressed.bind(hbox))
-	hbox.add_child(delete_button)
-
-# This function creates a relation from loaded data
-# This function creates a relation from loaded data
-func add_relation_from_data(relation: Dictionary):
-	var hbox: HBoxContainer = add_relation_type(relation)
-	add_relations_controls(hbox, relation)
-	relations_container.add_child(hbox)
-
-func get_child_index(container: VBoxContainer, child: Control) -> int:
-	var index = 0
-	for element in container.get_children():
-		if element == child:
-			return index
-		index += 1
-	return -1
 
 
 # The user drops some kind of entity on the control. Hopefully it's a mob or mobgroup
@@ -145,19 +116,19 @@ func get_child_index(container: VBoxContainer, child: Control) -> int:
 #		"mod_id": mod_id,
 #		"contentType": contentType
 #	}
-func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
-	var valid_data = false
-	var entity_type = ""
+func _entity_drop(_newpos, dropped_data: Dictionary, relation_type: String) -> void:
+	var entity: RefCounted = null
 	if dropped_data and dropped_data.has("id"):
-		if Gamedata.mods.by_id(dropped_data["mod_id"]).mobs.has_id(dropped_data["id"]):
-			valid_data = true
-			entity_type = "mob"
-		elif Gamedata.mods.by_id(dropped_data["mod_id"]).mobgroups.has_id(dropped_data["id"]):
-			valid_data = true
-			entity_type = "mobgroup"
-		if valid_data:
-			texteditcontrol.set_text(dropped_data["id"])
-			texteditcontrol.set_meta("entity_type", entity_type)
+		var droppedcontenttype: DMod.ContentType = dropped_data.get("contentType", -1)
+		if droppedcontenttype == DMod.ContentType.MOBS:
+			entity = Gamedata.mods.by_id(dropped_data["mod_id"]).mobs.by_id(dropped_data["id"])
+		elif droppedcontenttype == DMod.ContentType.MOBGROUPS:
+			entity = Gamedata.mods.by_id(dropped_data["mod_id"]).mobgroups.by_id(dropped_data["id"])
+		elif droppedcontenttype == DMod.ContentType.MOBFACTIONS:
+			entity = Gamedata.mods.by_id(dropped_data["mod_id"]).mobfactions.by_id(dropped_data["id"])
+		if entity:
+			# Call add_entity_entry_to_container with the resolved entity and relation type
+			add_entity_entry_to_container(entity, relation_type)
 
 
 # Determines if the dropped data can be accepted
@@ -168,7 +139,7 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 #		"mod_id": mod_id,
 #		"contentType": contentType
 #	}
-func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> bool:
+func _can_entity_drop(_newpos, dropped_data: Dictionary, _relation_type: String) -> bool:
 	if not dropped_data or not dropped_data.has("id"):
 		return false
 	
@@ -180,12 +151,112 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 		valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).mobs.has_id(dropped_data["id"])
 	elif droppedcontenttype == DMod.ContentType.MOBGROUPS:
 		valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).mobgroups.has_id(dropped_data["id"])
+	elif droppedcontenttype == DMod.ContentType.MOBFACTIONS:
+		valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).mobfactions.has_id(dropped_data["id"])
 	return valid_data
 
-func set_drop_functions(mydropabletextedit):
-	mydropabletextedit.drop_function = entity_drop.bind(mydropabletextedit)
-	mydropabletextedit.can_drop_function = can_entity_drop.bind(mydropabletextedit)
 
-# Function to handle deleting a relation
-func _on_delete_button_pressed(hbox: HBoxContainer):
-	hbox.queue_free()
+# Extracts relation data from a GridContainer.
+# container: The GridContainer holding the relation data.
+# relation_type: The type of relation ("friendly", "neutral", "hostile").
+func extract_relation_from_grid(container: GridContainer, relation_type: String) -> Dictionary:
+	var relation = {"relation_type": relation_type, "mobs": [], "mobgroup": [], "factions": []}
+
+	# Iterate through the children in the container.
+	var num_children = container.get_child_count()
+	for i in range(0, num_children, 3):  # Each entity is represented by 3 children: icon, label, button.
+		var entity_label: Label = container.get_child(i + 1) as Label
+		var entity: RefCounted = entity_label.get_meta("entity")  # Retrieve the entity metadata.
+
+		# Categorize the entity based on its type.
+		if entity is DMob:
+			relation["mobs"].append(entity.id)
+		elif entity is DMobgroup:
+			relation["mobgroup"].append(entity.id)
+		elif entity is DMobfaction:
+			relation["factions"].append(entity.id)
+
+	# Remove empty keys.
+	for key in ["mobs","mobgroup","factions"]:
+		if relation[key] == []:
+			relation.erase(key)
+
+	return relation
+
+
+
+# Add a new entry to one of the containers
+# entity: One of DMob, DMobgroup or DMobfaction
+# Add a new entry to one of the containers.
+# entity: One of DMob, DMobgroup, or DMobfaction.
+func add_entity_entry_to_container(entity: RefCounted, container_type: String):
+	var grid_container: GridContainer = null
+	match container_type:
+		"friendly":
+			grid_container = friendly_grid_container
+		"neutral":
+			grid_container = neutral_grid_container
+		"hostile":
+			grid_container = hostile_grid_container
+	
+	if grid_container:
+		# Create the entity icon.
+		var entity_icon = TextureRect.new()
+		if entity.get("sprite"):
+			entity_icon.texture = entity.sprite
+		entity_icon.custom_minimum_size = Vector2(16, 16)
+
+		# Create the entity label and store the entity in metadata.
+		var entity_label = Label.new()
+		entity_label.text = entity.id if entity.id else "Unknown"  # Fallback to "Unknown" if ID is not present
+		entity_label.set_meta("entity", entity)  # Store the refcounted entity in metadata
+
+		# Create the delete button.
+		var delete_button = Button.new()
+		delete_button.text = "X"
+		# Pass all associated controls to the delete function.
+		delete_button.button_up.connect(_on_delete_entity_button_pressed.bind([entity_icon, entity_label, delete_button]))
+
+		# Add components to the GridContainer.
+		grid_container.add_child(entity_icon)
+		grid_container.add_child(entity_label)
+		grid_container.add_child(delete_button)
+
+
+# Retrieves an entity based on its type and ID.
+# entity_type: One of "mobs", "mobgroup", or "factions".
+# entity_id: The ID of the entity to retrieve.
+func get_entity_by_type_and_id(entity_type: String, entity_id: String) -> RefCounted:
+	var content_type: DMod.ContentType
+	match entity_type:
+		"mobs": content_type = DMod.ContentType.MOBS
+		"mobgroup": content_type = DMod.ContentType.MOBGROUPS
+		"factions": content_type = DMod.ContentType.MOBFACTIONS
+		_:
+			return null  # Invalid entity type
+	
+	# Attempt to retrieve the entity by its ID.
+	return Gamedata.mods.get_content_by_id(content_type, entity_id)
+
+
+# Processes a relation dictionary and adds its entities to the appropriate container.
+# relation: A dictionary containing the relation data.
+func process_relation_and_add_entities(relation: Dictionary) -> void:
+	# Determine which container type to use based on the relation type.
+	var container_type: String = relation.get("relation_type", "neutral")
+	
+	# Process each entity type in the relation.
+	for entity_type in ["mobs", "mobgroup", "factions"]:
+		if relation.has(entity_type):
+			for entity_id in relation[entity_type]:
+				var entity: RefCounted = get_entity_by_type_and_id(entity_type, entity_id)
+				if entity:
+					# Add the entity to the appropriate container.
+					add_entity_entry_to_container(entity, container_type)
+
+
+# Handles the deletion of an entity.
+# controls: An array of UI controls (icon, label, button) to remove.
+func _on_delete_entity_button_pressed(controls: Array) -> void:
+	for control in controls:
+		control.queue_free()

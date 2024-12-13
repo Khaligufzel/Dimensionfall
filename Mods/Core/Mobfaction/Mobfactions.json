@@ -5,63 +5,15 @@
 		"name": "The Undead People",
 		"relations": [
 			{
-				"mob": "basic_zombie_1",
-				"relation_type": "core"
-			},
-			{
-				"mob": "basic_zombie_2",
-				"relation_type": "core"
-			},
-			{
-				"mob": "bloated_zombie",
-				"relation_type": "core"
-			},
-			{
-				"mob": "rushing_zombie",
-				"relation_type": "core"
-			},
-			{
-				"mob": "charred_zombie",
-				"relation_type": "core"
-			},
-			{
-				"mob": "heavy_zombie",
-				"relation_type": "core"
-			},
-			{
-				"mob": "skeleton_zombie",
-				"relation_type": "core"
-			},
-			{
-				"mob": "limping_zombie",
-				"relation_type": "core"
-			},
-			{
-				"mob": "scrapwalker",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "rust_sentinel",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "scavenger_skitter",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "iron_stalker",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "disruptor_drone",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "venom_crawler",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "outpost_guardian",
+				"mobs": [
+					"scrapwalker",
+					"rust_sentinel",
+					"scavenger_skitter",
+					"iron_stalker",
+					"disruptor_drone",
+					"venom_crawler",
+					"outpost_guardian"
+				],
 				"relation_type": "hostile"
 			}
 		]
@@ -72,63 +24,16 @@
 		"name": "The Iron Force",
 		"relations": [
 			{
-				"mob": "scrapwalker",
-				"relation_type": "core"
-			},
-			{
-				"mob": "rust_sentinel",
-				"relation_type": "core"
-			},
-			{
-				"mob": "scavenger_skitter",
-				"relation_type": "core"
-			},
-			{
-				"mob": "iron_stalker",
-				"relation_type": "core"
-			},
-			{
-				"mob": "disruptor_drone",
-				"relation_type": "core"
-			},
-			{
-				"mob": "venom_crawler",
-				"relation_type": "core"
-			},
-			{
-				"mob": "outpost_guardian",
-				"relation_type": "core"
-			},
-			{
-				"mob": "basic_zombie_1",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "basic_zombie_2",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "bloated_zombie",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "rushing_zombie",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "charred_zombie",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "heavy_zombie",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "skeleton_zombie",
-				"relation_type": "hostile"
-			},
-			{
-				"mob": "limping_zombie",
+				"mobs": [
+					"basic_zombie_1",
+					"basic_zombie_2",
+					"bloated_zombie",
+					"rushing_zombie",
+					"charred_zombie",
+					"heavy_zombie",
+					"skeleton_zombie",
+					"limping_zombie"
+				],
 				"relation_type": "hostile"
 			}
 		]
