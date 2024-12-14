@@ -1,0 +1,671 @@
+[
+	{
+		"default_faction": "",
+		"description": "A small robot",
+		"health": 80,
+		"hearing_range": 1000,
+		"id": "scrapwalker",
+		"idle_move_speed": 0.5,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
+		"melee_range": 1.5,
+		"move_speed": 2.1,
+		"name": "Scrap walker",
+		"sense_range": 50,
+		"sight_range": 200,
+		"sprite": "scrapwalker64.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 20,
+					"id": "head_health"
+				},
+				{
+					"damage": 20,
+					"id": "torso_health"
+				},
+				{
+					"damage": 20,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 20,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 20,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 20,
+					"id": "right_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A slightly more advanced robot but still considered a weaker enemy in the robot faction. The Rust Sentinel stands tall and imposing, with a sturdy build. Its design incorporates rusted and recycled metal parts, giving it a rugged, battle-worn appearance.\n\nThe Rust Sentinel features a broad, slightly dome-shaped head with glowing red eyes that serve as visual sensors. Its torso is bulkier, reinforced with scrap metal plates, and it has two powerful arms ending in claws. The legs are designed for stability and power rather than speed. Its color scheme is a mix of rusted orange, steel gray, and hints of worn-out blue paint, suggesting it was once part of a larger machinery or vehicle.\n\nThe Rust Sentinel moves with deliberate, heavy steps, making it slower but more resilient. It's equipped with basic tools and weaponry, which it uses to scavenges and patrol.",
+		"health": 120,
+		"hearing_range": 1000,
+		"id": "rust_sentinel",
+		"idle_move_speed": 0.4,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
+		"melee_range": 1.5,
+		"move_speed": 1.8,
+		"name": "Rust sentinel",
+		"sense_range": 50,
+		"sight_range": 200,
+		"sprite": "rust_sentinel_72.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 20,
+					"id": "head_health"
+				},
+				{
+					"damage": 20,
+					"id": "torso_health"
+				},
+				{
+					"damage": 20,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 20,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 20,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 20,
+					"id": "right_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A swift, dog-sized robot equipped with sharp claws and sensors. The Scavenger Skitter patrols ruins, darting quickly to attack when it detects motion. Its lightweight build allows it to move at high speeds but makes it vulnerable to powerful attacks.",
+		"health": 50,
+		"hearing_range": 800,
+		"id": "scavenger_skitter",
+		"idle_move_speed": 1,
+		"loot_group": "loot_electronic",
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 3.5,
+		"name": "Scavenger Skitter",
+		"sense_range": 70,
+		"sight_range": 250,
+		"special_moves": {
+			"dash": {
+				"cooldown": 5,
+				"duration": 0.5,
+				"speed_multiplier": 2
+			}
+		},
+		"sprite": "scavenger_skitter_48.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 15,
+					"id": "head_health"
+				},
+				{
+					"damage": 15,
+					"id": "torso_health"
+				},
+				{
+					"damage": 15,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 15,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 15,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 15,
+					"id": "left_arm_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A heavily armored robot that advances slowly but relentlessly. The Iron Stalker is outfitted with reinforced plating, making it resistant to bullets and physical attacks. It uses a powerful hydraulic punch that can stagger players if hit.",
+		"health": 200,
+		"hearing_range": 900,
+		"id": "iron_stalker",
+		"idle_move_speed": 0.3,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 2,
+		"melee_knockback": 2,
+		"melee_range": 1,
+		"move_speed": 1,
+		"name": "Iron Stalker",
+		"sense_range": 60,
+		"sight_range": 150,
+		"sprite": "iron_stalker_72.png",
+		"targetattributes": {
+			"all_of": [
+				{
+					"damage": -10,
+					"id": "stun"
+				}
+			],
+			"any_of": [
+				{
+					"damage": 40,
+					"id": "head_health"
+				},
+				{
+					"damage": 40,
+					"id": "torso_health"
+				},
+				{
+					"damage": 40,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 40,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 40,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 40,
+					"id": "right_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A mid-sized drone that hovers silently above the ground. The Disruptor Drone can emit a pulse to disable nearby electronic equipment temporarily, making it dangerous for players who rely on tech.",
+		"health": 70,
+		"hearing_range": 1200,
+		"id": "disruptor_drone",
+		"idle_move_speed": 0.8,
+		"loot_group": "loot_electronic",
+		"melee_cooldown": 2,
+		"melee_knockback": 0,
+		"melee_range": 1.5,
+		"move_speed": 2.5,
+		"name": "Disruptor Drone",
+		"sense_range": 80,
+		"sight_range": 300,
+		"sprite": "disruptor_drone_48.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": -10,
+					"id": "stun"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A compact, spider-like bot specialized in ambush tactics. The Venom Crawler injects a corrosive fluid into its target, damaging armor and slowly weakening the player over time.",
+		"health": 60,
+		"hearing_range": 700,
+		"id": "venom_crawler",
+		"idle_move_speed": 0.6,
+		"loot_group": "loot_electronic",
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 2.8,
+		"name": "Venom Crawler",
+		"sense_range": 80,
+		"sight_range": 200,
+		"sprite": "venom_crawler_48.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": -10,
+					"id": "poison"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A towering, sentinel-like robot with a focus on ranged combat. The Outpost Guardian uses built-in projectile launchers to strike players from afar, aiming at any perceived threat.",
+		"health": 150,
+		"hearing_range": 1000,
+		"id": "outpost_guardian",
+		"idle_move_speed": 0.4,
+		"loot_group": "mob_loot",
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
+		"melee_range": 1.5,
+		"move_speed": 1.3,
+		"name": "Outpost Guardian",
+		"sense_range": 100,
+		"sight_range": 400,
+		"sprite": "outpost_guardian_72.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 30,
+					"id": "head_health"
+				},
+				{
+					"damage": 30,
+					"id": "torso_health"
+				},
+				{
+					"damage": 30,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 30,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 30,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 30,
+					"id": "right_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A slow-moving, decaying zombie with tattered clothes. It's barely able to walk, but it will still attempt to grab and bite anything in its way.",
+		"health": 40,
+		"hearing_range": 500,
+		"id": "basic_zombie_1",
+		"idle_move_speed": 0.5,
+		"loot_group": "zombie_loot",
+		"melee_cooldown": 2,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.8,
+		"name": "Zombie",
+		"sense_range": 30,
+		"sight_range": 50,
+		"sprite": "zombie_64_64.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A slow-moving, decaying zombie with ragged clothing and a missing arm. Its movements are jerky, but it still tries to grab players within range to infect them.",
+		"health": 40,
+		"hearing_range": 500,
+		"id": "basic_zombie_2",
+		"idle_move_speed": 0.5,
+		"loot_group": "zombie_loot",
+		"melee_cooldown": 2,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.8,
+		"name": "Zombie",
+		"sense_range": 30,
+		"sight_range": 50,
+		"sprite": "zombie1_64_64.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A zombie with a swollen abdomen, its flesh hanging loosely. It moves slowly but is tougher, with more resilience to damage than the basic zombie.",
+		"health": 60,
+		"hearing_range": 600,
+		"id": "bloated_zombie",
+		"idle_move_speed": 0.4,
+		"loot_group": "zombie_loot",
+		"melee_cooldown": 2,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.6,
+		"name": "Bloated Zombie",
+		"sense_range": 40,
+		"sight_range": 60,
+		"sprite": "zombie_bloated_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A zombie with a misshapen face and a gaping mouth. It moves quickly and unpredictably, though still relatively weak. It can charge at players in a burst of speed.",
+		"health": 50,
+		"hearing_range": 700,
+		"id": "rushing_zombie",
+		"idle_move_speed": 0.5,
+		"loot_group": "zombie_loot",
+		"melee_cooldown": 1,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.8,
+		"name": "Rushing Zombie",
+		"sense_range": 30,
+		"sight_range": 80,
+		"special_moves": {
+			"dash": {
+				"cooldown": 4,
+				"duration": 0.5,
+				"speed_multiplier": 2
+			}
+		},
+		"sprite": "zombie_rushing_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A zombie with burnt, charred skin, likely from a fire. It lumbers forward with erratic movements, but its resilience is higher than most zombies.",
+		"health": 70,
+		"hearing_range": 500,
+		"id": "charred_zombie",
+		"idle_move_speed": 0.4,
+		"loot_group": "zombie_loot",
+		"melee_cooldown": 1.5,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.8,
+		"name": "Charred Zombie",
+		"sense_range": 40,
+		"sight_range": 60,
+		"sprite": "zombie_charred_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A zombie with its head deformed and swollen, like a bloated corpse. Its movements are slow but it hits hard and has a significant resistance to damage.",
+		"health": 80,
+		"hearing_range": 800,
+		"id": "heavy_zombie",
+		"idle_move_speed": 0.3,
+		"loot_group": "zombie_loot",
+		"melee_cooldown": 3,
+		"melee_knockback": 1,
+		"melee_range": 1.5,
+		"move_speed": 0.5,
+		"name": "Heavy Zombie",
+		"sense_range": 50,
+		"sight_range": 50,
+		"sprite": "zombie_heavy_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 15,
+					"id": "head_health"
+				},
+				{
+					"damage": 15,
+					"id": "torso_health"
+				},
+				{
+					"damage": 15,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 15,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 15,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 15,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A fast-moving zombie with long, bony limbs. Its skin is pale and thin, making it look almost skeletal. It has moderate strength but is more difficult to hit due to its speed.",
+		"health": 50,
+		"hearing_range": 600,
+		"id": "skeleton_zombie",
+		"idle_move_speed": 0.8,
+		"loot_group": "zombie_loot",
+		"melee_cooldown": 1.5,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.9,
+		"name": "Skeleton Zombie",
+		"sense_range": 40,
+		"sight_range": 70,
+		"sprite": "zombie_skeleton_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 12,
+					"id": "head_health"
+				},
+				{
+					"damage": 12,
+					"id": "torso_health"
+				},
+				{
+					"damage": 12,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 12,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 12,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 12,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A zombie with a partially broken leg, dragging itself across the ground with an unsettling limp. While it is slow, it can still latch onto players with a strong grip, making it hard to shake off.",
+		"health": 55,
+		"hearing_range": 600,
+		"id": "limping_zombie",
+		"idle_move_speed": 0.3,
+		"loot_group": "zombie_loot",
+		"melee_cooldown": 2,
+		"melee_knockback": 0,
+		"melee_range": 1,
+		"move_speed": 0.3,
+		"name": "Limping Zombie",
+		"sense_range": 30,
+		"sight_range": 60,
+		"sprite": "zombie_limping_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				}
+			]
+		}
+	}
+]
