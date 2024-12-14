@@ -256,7 +256,7 @@ func on_data_changed(olddfurniture: DFurniture):
 func delete():
 	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, function.container_group, DMod.ContentType.FURNITURES, id)
 	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, destruction.group, DMod.ContentType.FURNITURES, id)
-	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, disassembly.container_group, DMod.ContentType.FURNITURES, id)
+	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, disassembly.group, DMod.ContentType.FURNITURES, id)
 	
 	# Get a list of all maps that reference this mob
 	var myreferences: Dictionary = parent.references.get(id, {})

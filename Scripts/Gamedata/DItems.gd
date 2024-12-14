@@ -12,9 +12,11 @@ var spritePath: String = "./Mods/Core/Items/"
 var itemdict: Dictionary = {}
 var sprites: Dictionary = {}
 var references: Dictionary = {}
+var mod_id: String = "Core"
 
 # Add a mod_id parameter to dynamically initialize paths
-func _init(mod_id: String) -> void:
+func _init(new_mod_id: String) -> void:
+	mod_id = new_mod_id
 	# Update dataPath and spritePath using the provided mod_id
 	dataPath = "./Mods/" + mod_id + "/Items/"
 	filePath = "./Mods/" + mod_id + "/Items/Items.json"
@@ -60,16 +62,28 @@ func get_all() -> Dictionary:
 	return itemdict
 
 
-func duplicate_to_disk(itemid: String, newitemid: String) -> void:
+# Duplicate the item to disk. A new mod id may be provided to save the duplicate to.
+# itemid: The item to duplicate.
+# newitemid: The id of the new duplicate (can be the same as itemid if new_mod_id equals mod_id).
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id.
+func duplicate_to_disk(itemid: String, newitemid: String, new_mod_id: String) -> void:
+	# Duplicate the item data and set the new id
 	var itemdata: Dictionary = by_id(itemid).get_data().duplicate(true)
 	itemdata.id = newitemid
-	var newitem: DItem = DItem.new(itemdata, self)
-	itemdict[newitemid] = newitem
-	save_items_to_disk()
+
+	# Determine the new parent based on the new_mod_id
+	var newparent: DItems = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).items
+
+	# Instantiate and append the new DItem instance
+	var newitem: DItem = DItem.new(itemdata, newparent)
+	newparent.append_new(newitem)
 
 
 func add_new(newid: String) -> void:
-	var newitem: DItem = DItem.new({"id":newid}, self)
+	append_new(DItem.new({"id":newid}, self))
+
+
+func append_new(newitem: DItem) -> void:
 	itemdict[newitem.id] = newitem
 	save_items_to_disk()
 

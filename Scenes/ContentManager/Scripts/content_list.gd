@@ -88,8 +88,8 @@ func add_item_to_data(id: String):
 func _on_add_button_button_up():
 	popupAction = "Add"
 	popup_textedit.text = ""
-	to_mod_h_box_container.show()
-	mod_option_button.hide()
+	to_mod_h_box_container.hide()
+	pupup_ID.show()
 
 # This function requires that an item from the list is selected
 # Once clicked, it will show pupup_ID to ask the user for a new ID
