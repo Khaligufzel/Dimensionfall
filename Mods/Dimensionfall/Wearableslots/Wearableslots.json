@@ -1,0 +1,38 @@
+[
+	{
+		"description": "Holds equipment on your torso",
+		"id": "torso",
+		"name": "Torso",
+		"sprite": "wearableslot_torso_32.png"
+	},
+	{
+		"description": "Holds equipment on your legs",
+		"id": "legs",
+		"name": "Legs",
+		"sprite": "wearableslot_legs_32.png"
+	},
+	{
+		"description": "Holds equipment on your feet",
+		"id": "feet",
+		"name": "Feet",
+		"sprite": "wearableslot_feet_32.png"
+	},
+	{
+		"description": "Holds equipment on your hands",
+		"id": "hands",
+		"name": "Hands",
+		"sprite": "wearableslot_hands_32.png"
+	},
+	{
+		"description": "Holds equipment on your head",
+		"id": "head",
+		"name": "Head",
+		"sprite": "wearableslot_head_32.png"
+	},
+	{
+		"description": "Holds equipment on your back",
+		"id": "back",
+		"name": "Back",
+		"sprite": "wearableslot_back_32.png"
+	}
+]
