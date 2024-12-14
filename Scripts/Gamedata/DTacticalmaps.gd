@@ -61,6 +61,9 @@ func delete_by_id(mapid: String) -> void:
 func by_id(mapid: String) -> DTacticalmap:
 	return mapdict[mapid]
 
+func has_id(mapid: String) -> bool:
+	return mapdict.has(mapid)
+
 # Returns a random map
 func get_random_map() -> DTacticalmap:
 	var map_ids = mapdict.keys()
