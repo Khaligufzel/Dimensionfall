@@ -8,7 +8,7 @@ json_data = "[
 	{
 		\"description\": \"A wooden plank that could be used for all kinds of crafting and construction\",
 		\"id\": \"plank_2x4\",
-		\"image\": \"./Mods/Core/Items/plank.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/plank.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Plank 2x4\",
 		\"references\": {
@@ -34,7 +34,7 @@ json_data = "[
 	{
 		\"description\": \"Some metal bits and pieces. Useful for something, right?\",
 		\"id\": \"steel_scrap\",
-		\"image\": \"./Mods/Core/Items/steel_scrap.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/steel_scrap.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Steel scrap\",
 		\"references\": {
@@ -64,7 +64,7 @@ json_data = "[
 		},
 		\"description\": \"Standard type of ammunition. Very common.\",
 		\"id\": \"bullet_9mm\",
-		\"image\": \"./Mods/Core/Items/9mm.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/9mm.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"bullet 9mm\",
 		\"references\": {
@@ -121,7 +121,7 @@ json_data = "[
 		},
 		\"description\": \"In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets\",
 		\"id\": \"pistol_magazine\",
-		\"image\": \"./Mods/Core/Items/pistol_magazine.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/pistol_magazine.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Pistol magazine\",
 		\"references\": {
@@ -160,7 +160,7 @@ json_data = "[
 		},
 		\"description\": \"A standard issue pistol that uses 9mm ammunition\",
 		\"id\": \"pistol_9mm\",
-		\"image\": \"./Mods/Core/Items/pistol_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/pistol_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Pistol 9mm\",
 		\"references\": {
@@ -195,7 +195,7 @@ json_data = "[
 		},
 		\"description\": \"A standard issue rifle that uses 9mm ammunition\",
 		\"id\": \"rifle_m4a1\",
-		\"image\": \"./Mods/Core/Items/rifle_64_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/rifle_64_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"M4a1 rifle\",
 		\"references\": {
@@ -231,7 +231,7 @@ json_data = "[
 		},
 		\"description\": \"Chugun in Russian is for cast steel, MPAP is \\\"Multi Purpose Automatic Pistol\\\"\",
 		\"id\": \"chugunov_mpap\",
-		\"image\": \"./Mods/Core/Items/chugunov_mpap_32_28.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/chugunov_mpap_32_28.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Chugunov MPAP\",
 		\"references\": {
@@ -255,7 +255,7 @@ json_data = "[
 		},
 		\"description\": \"A magazine to be loaded into a Chuganov MPAP\",
 		\"id\": \"chugunov_mpap_magazine\",
-		\"image\": \"./Mods/Core/Items/chugunov_mpap_magazine_16_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/chugunov_mpap_magazine_16_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Chuganov MPAP magazine\",
 		\"references\": {
@@ -274,7 +274,7 @@ json_data = "[
 	{
 		\"description\": \"This plastic bottle only contains air\",
 		\"id\": \"bottle_plastic_empty\",
-		\"image\": \"./Mods/Core/Items/bottle_empty_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/bottle_empty_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Empty plastic bottle\",
 		\"references\": {
@@ -306,7 +306,7 @@ json_data = "[
 		},
 		\"description\": \"This plastic bottle is filled with water\",
 		\"id\": \"bottle_plastic_water\",
-		\"image\": \"./Mods/Core/Items/bottle_water_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/bottle_water_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Plastic bottle with water\",
 		\"references\": {
@@ -340,7 +340,7 @@ json_data = "[
 		},
 		\"description\": \"The contents will satisfy your hunger\",
 		\"id\": \"canned_food\",
-		\"image\": \"./Mods/Core/Items/canned_food_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/canned_food_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Canned food\\t\",
 		\"references\": {
@@ -370,7 +370,7 @@ json_data = "[
 		},
 		\"description\": \"A sharp blade with a handle for excellent control\",
 		\"id\": \"machete\",
-		\"image\": \"./Mods/Core/Items/machete_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/machete_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Machete\",
 		\"sprite\": \"machete_32.png\",
@@ -382,7 +382,7 @@ json_data = "[
 	{
 		\"description\": \"Anyone is able to craft this simple arrow\",
 		\"id\": \"wood_arrow_basic\",
-		\"image\": \"./Mods/Core/Items/arrow_basic_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/arrow_basic_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Basic wooden arrow\",
 		\"sprite\": \"arrow_basic_32.png\",
@@ -394,7 +394,7 @@ json_data = "[
 	{
 		\"description\": \"A stick with a block of steel on it. It is used to apply force to objects like nails\",
 		\"id\": \"hammer\",
-		\"image\": \"./Mods/Core/Items/hammer_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/hammer_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Hammer\",
 		\"references\": {
@@ -432,7 +432,7 @@ json_data = "[
 		],
 		\"description\": \"A handle with a rod of steel in it. The tip can be flat or shaped like a star. Useful for construction projects\",
 		\"id\": \"screwdriver\",
-		\"image\": \"./Mods/Core/Items/screwdriver_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/screwdriver_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Screwdriver\",
 		\"references\": {
@@ -484,7 +484,7 @@ json_data = "[
 		},
 		\"description\": \"A basic bandage that will help to heal a wound\",
 		\"id\": \"bandage_basic\",
-		\"image\": \"./Mods/Core/Items/bandage_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/bandage_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Bandage\",
 		\"references\": {
@@ -538,7 +538,7 @@ json_data = "[
 		},
 		\"description\": \"A small bottle that contains antibiotics. It helps to recover from disease.\",
 		\"id\": \"bottle_antibiotics\",
-		\"image\": \"./Mods/Core/Items/antibiotics_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/antibiotics_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Bottle of antibiotics\",
 		\"references\": {
@@ -563,7 +563,7 @@ json_data = "[
 		},
 		\"description\": \"A piece of clothing to wear on the torso. It will keep you warm and offers a bit of protection.\",
 		\"id\": \"jacket\",
-		\"image\": \"./Mods/Core/Items/jacket_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/jacket_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Jacket\",
 		\"references\": {
@@ -586,7 +586,7 @@ json_data = "[
 		},
 		\"description\": \"Comfortable footwear to keep your feet safe\",
 		\"id\": \"boots\",
-		\"image\": \"./Mods/Core/Items/boots_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/boots_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Boots\",
 		\"references\": {
@@ -608,7 +608,7 @@ json_data = "[
 	{
 		\"description\": \"A large container that holds gasoline\",
 		\"id\": \"jerrycan_gasoline\",
-		\"image\": \"./Mods/Core/Items/jerrycan_gas_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/jerrycan_gas_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Jerrycan of gasoline\",
 		\"sprite\": \"jerrycan_gas_32.png\",
@@ -620,7 +620,7 @@ json_data = "[
 	{
 		\"description\": \"It's a can that contains oil. It has a spout that allows you to pour it out.\",
 		\"id\": \"can_oil\",
-		\"image\": \"./Mods/Core/Items/can_oil_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/can_oil_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Can of oil\",
 		\"references\": {
@@ -639,7 +639,7 @@ json_data = "[
 	{
 		\"description\": \"A small radio that can be powered by batteries or an electical cord.\",
 		\"id\": \"radio_handheld\",
-		\"image\": \"./Mods/Core/Items/battery_powered_radio_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/battery_powered_radio_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Handheld radio\",
 		\"references\": {
@@ -659,7 +659,7 @@ json_data = "[
 	{
 		\"description\": \"A basic battery powered flashlight. It will shine a beam of light when it is turned on\",
 		\"id\": \"flashlight_basic\",
-		\"image\": \"./Mods/Core/Items/flashlight_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/flashlight_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Flashlight\",
 		\"references\": {
@@ -684,7 +684,7 @@ json_data = "[
 	{
 		\"description\": \"It's a can that contains beer. Don't drink a lot of it or you will get drunk\",
 		\"id\": \"can_beer\",
-		\"image\": \"./Mods/Core/Items/can_beer_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/can_beer_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Can of beer\",
 		\"references\": {
@@ -706,7 +706,7 @@ json_data = "[
 	{
 		\"description\": \"It's a carton pack that contains sigarrettes. You need a fire source to light them and start smoking\",
 		\"id\": \"pack_sigarrettes\",
-		\"image\": \"./Mods/Core/Items/sigarrette_pack_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/sigarrette_pack_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Pack of sigarrettes\",
 		\"references\": {
@@ -730,7 +730,7 @@ json_data = "[
 		},
 		\"description\": \"A piece of clothing that offers protection from environmental hazards\",
 		\"id\": \"gas_mask\",
-		\"image\": \"./Mods/Core/Items/gasmask_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/gasmask_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Gas mask\",
 		\"references\": {
@@ -752,7 +752,7 @@ json_data = "[
 		},
 		\"description\": \"A piece of clothing that offers protection from ballistic forces\",
 		\"id\": \"vest_ballistic\",
-		\"image\": \"./Mods/Core/Items/vest_ballistic_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/vest_ballistic_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Ballistic vest\",
 		\"references\": {
@@ -771,7 +771,7 @@ json_data = "[
 	{
 		\"description\": \"A device that shows your orientation relative to the earth's poles\",
 		\"id\": \"compass\",
-		\"image\": \"./Mods/Core/Items/compass_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/compass_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Compass\",
 		\"references\": {
@@ -790,7 +790,7 @@ json_data = "[
 	{
 		\"description\": \"A very common type of battery that fits most battery-powered devices\",
 		\"id\": \"battery_small\",
-		\"image\": \"./Mods/Core/Items/battery_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/battery_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Small battery\",
 		\"references\": {
@@ -812,7 +812,7 @@ json_data = "[
 	{
 		\"description\": \"A large panel that draws power from the sun\",
 		\"id\": \"solar_panel\",
-		\"image\": \"./Mods/Core/Items/solar_panel_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/solar_panel_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Solar panel\",
 		\"references\": {
@@ -831,7 +831,7 @@ json_data = "[
 	{
 		\"description\": \"A large piece of paper that visualizes the area around you\",
 		\"id\": \"map_paper\",
-		\"image\": \"./Mods/Core/Items/map_paper_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/map_paper_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Paper map\",
 		\"sprite\": \"map_paper_32.png\",
@@ -843,7 +843,7 @@ json_data = "[
 	{
 		\"description\": \"A piece of fabric and some strings. You can deploy it to get some shelter from the weather\",
 		\"id\": \"tarp\",
-		\"image\": \"./Mods/Core/Items/tarp_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/tarp_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Tarp\",
 		\"sprite\": \"tarp_32.png\",
@@ -855,7 +855,7 @@ json_data = "[
 	{
 		\"description\": \"A piece of fabric and some strings. You can deploy it to get some shelter from the weather. It is currently folded to save space.\",
 		\"id\": \"tent\",
-		\"image\": \"./Mods/Core/Items/tent_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/tent_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Tent\",
 		\"sprite\": \"tent_32.png\",
@@ -867,7 +867,7 @@ json_data = "[
 	{
 		\"description\": \"A small book explaining the very basics of survival\",
 		\"id\": \"guide_survival_basic\",
-		\"image\": \"./Mods/Core/Items/survival_guide_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/survival_guide_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Basic survival guide\",
 		\"references\": {
@@ -886,7 +886,7 @@ json_data = "[
 	{
 		\"description\": \"A book containing an entertaining story\",
 		\"id\": \"book_novel\",
-		\"image\": \"./Mods/Core/Items/book_novel_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/book_novel_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Novel\",
 		\"references\": {
@@ -935,7 +935,7 @@ json_data = "[
 		},
 		\"description\": \"A small bottle that contains disinfectant. It helps to disinfect wounds\",
 		\"id\": \"bottle_disinfectant\",
-		\"image\": \"./Mods/Core/Items/bottle_disinfectant_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/bottle_disinfectant_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Bottle of disinfectant\",
 		\"references\": {
@@ -954,7 +954,7 @@ json_data = "[
 	{
 		\"description\": \"A small radio that allows you to communicate with someone over a large distance\",
 		\"id\": \"radio_two_way\",
-		\"image\": \"./Mods/Core/Items/radio_two_way_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/radio_two_way_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Two way radio\",
 		\"references\": {
@@ -975,7 +975,7 @@ json_data = "[
 	{
 		\"description\": \"A small device that provides a spark that can be used to light a fire. No power or fuel required.\",
 		\"id\": \"firestarter_basic\",
-		\"image\": \"./Mods/Core/Items/firestarter_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/firestarter_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Firestarter\",
 		\"sprite\": \"firestarter_32.png\",
@@ -987,7 +987,7 @@ json_data = "[
 	{
 		\"description\": \"\\n    A true survival fishing kit in a very small, lightweight package!\\n    Contains 118 foot line and winder\\n    2 lures, 2 hooks\\n    2 swivels, 2 weghts\\n    Comes in a strong durable heavy duty resealable plastic bag\",
 		\"id\": \"kit_fishing_small\",
-		\"image\": \"./Mods/Core/Items/kit_fishing_small_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/kit_fishing_small_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Small fishing kit\",
 		\"sprite\": \"kit_fishing_small_32.png\",
@@ -999,7 +999,7 @@ json_data = "[
 	{
 		\"description\": \"A versatile kitchen tool, essential for slicing, dicing, and chopping food.\",
 		\"id\": \"kitchen_knife\",
-		\"image\": \"./Mods/Core/Items/kitchen_knife_64_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/kitchen_knife_64_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Kitchen Knife\",
 		\"sprite\": \"kitchen_knife_64_32.png\",
@@ -1011,7 +1011,7 @@ json_data = "[
 	{
 		\"description\": \"A compact and portable stove, perfect for cooking meals during survival situations.\",
 		\"id\": \"portable_stove\",
-		\"image\": \"./Mods/Core/Items/portable_stove_64_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/portable_stove_64_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Portable Stove\",
 		\"sprite\": \"portable_stove_64_32.png\",
@@ -1023,7 +1023,7 @@ json_data = "[
 	{
 		\"description\": \"A durable cooking pot, essential for boiling water and preparing meals.\",
 		\"id\": \"cooking_pot\",
-		\"image\": \"./Mods/Core/Items/cooking_pot_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/cooking_pot_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Cooking Pot\",
 		\"sprite\": \"cooking_pot_32.png\",
@@ -1035,7 +1035,7 @@ json_data = "[
 	{
 		\"description\": \"A small tool crucial for opening canned food, an essential for survival.\",
 		\"id\": \"can_opener\",
-		\"image\": \"./Mods/Core/Items/can_opener_64_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/can_opener_64_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Can opener\",
 		\"sprite\": \"can_opener_64_32.png\",
@@ -1070,7 +1070,7 @@ json_data = "[
 		],
 		\"description\": \"A sturdy cutting board, ideal for preparing food safely and efficiently.\",
 		\"id\": \"cutting_board\",
-		\"image\": \"./Mods/Core/Items/cutting_board_64_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/cutting_board_64_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Cutting Board\",
 		\"sprite\": \"cutting_board_64_32.png\",
@@ -1082,7 +1082,7 @@ json_data = "[
 	{
 		\"description\": \"A large bowl used for mixing ingredients, indispensable for any cooking or baking tasks.\",
 		\"id\": \"mixing_bowl\",
-		\"image\": \"./Mods/Core/Items/mixing_bowl_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/mixing_bowl_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Mixing Bowl\",
 		\"sprite\": \"mixing_bowl_32.png\",
@@ -1094,7 +1094,7 @@ json_data = "[
 	{
 		\"description\": \"A metal kettle perfect for boiling water to make tea or instant meals.\",
 		\"id\": \"tea_kettle\",
-		\"image\": \"./Mods/Core/Items/tea_kettle_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/tea_kettle_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Tea Kettle\",
 		\"sprite\": \"tea_kettle_32.png\",
@@ -1106,7 +1106,7 @@ json_data = "[
 	{
 		\"description\": \"A small rack containing various spices to enhance the flavor of food.\",
 		\"id\": \"spice_rack\",
-		\"image\": \"./Mods/Core/Items/spice_rack_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/spice_rack_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Spice Rack\",
 		\"sprite\": \"spice_rack_32.png\",
@@ -1118,7 +1118,7 @@ json_data = "[
 	{
 		\"description\": \"A measuring cup, essential for precisely measuring ingredients for recipes.\",
 		\"id\": \"measuring_cup\",
-		\"image\": \"./Mods/Core/Items/measuring_cup_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/measuring_cup_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Measuring Cup\",
 		\"sprite\": \"measuring_cup_32.png\",
@@ -1153,7 +1153,7 @@ json_data = "[
 		],
 		\"description\": \"A wooden rolling pin, essential for flattening dough for baking.\",
 		\"id\": \"rolling_pin\",
-		\"image\": \"./Mods/Core/Items/rolling_pin_64_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/rolling_pin_64_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Rolling Pin\",
 		\"sprite\": \"rolling_pin_64_32.png\",
@@ -1165,7 +1165,7 @@ json_data = "[
 	{
 		\"description\": \"A heavy-duty frying pan, perfect for cooking everything from eggs to stir-fry.\",
 		\"id\": \"frying_pan\",
-		\"image\": \"./Mods/Core/Items/frying_pan_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/frying_pan_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Frying Pan\",
 		\"sprite\": \"frying_pan_32.png\",
@@ -1177,7 +1177,7 @@ json_data = "[
 	{
 		\"description\": \"A metal colander, ideal for draining pasta or washing vegetables.\",
 		\"id\": \"steel_colander\",
-		\"image\": \"./Mods/Core/Items/steel_colander_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/steel_colander_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Colander\",
 		\"sprite\": \"steel_colander_32.png\",
@@ -1189,7 +1189,7 @@ json_data = "[
 	{
 		\"description\": \"A handy peeler, perfect for skinning vegetables and fruits with ease.\",
 		\"id\": \"peeler\",
-		\"image\": \"./Mods/Core/Items/peeler_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/peeler_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Peeler\",
 		\"sprite\": \"peeler_32.png\",
@@ -1201,7 +1201,7 @@ json_data = "[
 	{
 		\"description\": \"A metal grater, essential for shredding cheese, vegetables, and more.\",
 		\"id\": \"grater\",
-		\"image\": \"./Mods/Core/Items/grater_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/grater_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Grater\",
 		\"sprite\": \"grater_32.png\",
@@ -1213,7 +1213,7 @@ json_data = "[
 	{
 		\"description\": \"A compact electric toaster, ideal for toasting bread quickly.\",
 		\"id\": \"toaster\",
-		\"image\": \"./Mods/Core/Items/toaster_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/toaster_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Toaster\",
 		\"references\": {
@@ -1233,7 +1233,7 @@ json_data = "[
 	{
 		\"description\": \"An electric blender, perfect for making smoothies, soups, and other blended concoctions.\",
 		\"id\": \"blender\",
-		\"image\": \"./Mods/Core/Items/blender_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/blender_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Blender\",
 		\"references\": {
@@ -1253,7 +1253,7 @@ json_data = "[
 	{
 		\"description\": \"A coffee maker, essential for brewing the perfect cup of coffee to start your day.\",
 		\"id\": \"coffee_maker\",
-		\"image\": \"./Mods/Core/Items/coffeemaker_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/coffeemaker_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Coffee Maker\",
 		\"references\": {
@@ -1273,7 +1273,7 @@ json_data = "[
 	{
 		\"description\": \"A microwave oven, perfect for quickly heating or cooking food.\",
 		\"id\": \"microwave_oven\",
-		\"image\": \"./Mods/Core/Items/microwave_oven_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/microwave_oven_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Microwave Oven\",
 		\"references\": {
@@ -1293,7 +1293,7 @@ json_data = "[
 	{
 		\"description\": \"A dish rack, useful for organizing and drying dishes after washing.\",
 		\"id\": \"dish_rack\",
-		\"image\": \"./Mods/Core/Items/dish_rack_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/dish_rack_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Dish Rack\",
 		\"sprite\": \"dish_rack_32.png\",
@@ -1305,7 +1305,7 @@ json_data = "[
 	{
 		\"description\": \"A pressure cooker, ideal for fast cooking and preserving nutrients in food.\",
 		\"id\": \"pressure_cooker\",
-		\"image\": \"./Mods/Core/Items/pressure_cooker_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/pressure_cooker_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Pressure Cooker\",
 		\"references\": {
@@ -1325,7 +1325,7 @@ json_data = "[
 	{
 		\"description\": \"A bread maker, perfect for effortlessly baking fresh bread at home.\",
 		\"id\": \"bread_maker\",
-		\"image\": \"./Mods/Core/Items/bread_maker_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/bread_maker_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Bread Maker\",
 		\"references\": {
@@ -1345,7 +1345,7 @@ json_data = "[
 	{
 		\"description\": \"Small but crucial for holding together wooden structures and crafting. Often found in the remnants of furniture and buildings.\",
 		\"id\": \"nails\",
-		\"image\": \"./Mods/Core/Items/nails_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/nails_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Nails\",
 		\"references\": {
@@ -1364,7 +1364,7 @@ json_data = "[
 	{
 		\"description\": \"Large pieces of wood obtained from cutting down trees. Useful for building and crafting larger items.\",
 		\"id\": \"log\",
-		\"image\": \"./Mods/Core/Items/log_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/log_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Log\",
 		\"references\": {
@@ -1384,7 +1384,7 @@ json_data = "[
 	{
 		\"description\": \"Versatile fasteners used in both wooden and metal constructions. Can be scavenged from disassembled furniture and machinery.\",
 		\"id\": \"screw\",
-		\"image\": \"./Mods/Core/Items/screw_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/screw_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Screw\",
 		\"references\": {
@@ -1403,7 +1403,7 @@ json_data = "[
 	{
 		\"description\": \"Smaller pieces of wood that can be used for kindling, basic crafting, and creating primitive tools.\",
 		\"id\": \"branch\",
-		\"image\": \"./Mods/Core/Items/branches_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/branches_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Branch\",
 		\"references\": {
@@ -1423,7 +1423,7 @@ json_data = "[
 	{
 		\"description\": \"Can be used for camouflage, crafting bedding, or as a basic source of compost.\",
 		\"id\": \"leaf\",
-		\"image\": \"./Mods/Core/Items/leaves_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/leaves_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Leaf\",
 		\"references\": {
@@ -1444,7 +1444,7 @@ json_data = "[
 	{
 		\"description\": \"Resinous branches that can be used for kindling or basic crafting.\",
 		\"id\": \"pine_branch\",
-		\"image\": \"./Mods/Core/Items/pine_branch_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/pine_branch_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Pine Branch\",
 		\"references\": {
@@ -1463,7 +1463,7 @@ json_data = "[
 	{
 		\"description\": \"Natural material that can be molded when wet and hardens when dried, useful for creating pottery, bricks, and reinforcing structures.\",
 		\"id\": \"clay\",
-		\"image\": \"./Mods/Core/Items/clay_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/clay_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Clay\",
 		\"sprite\": \"clay_32.png\",
@@ -1475,7 +1475,7 @@ json_data = "[
 	{
 		\"description\": \"Basic resource for growing plants and creating makeshift gardens for food production.\",
 		\"id\": \"soil\",
-		\"image\": \"./Mods/Core/Items/soil_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/soil_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Soil\",
 		\"sprite\": \"soil_32.png\",
@@ -1487,7 +1487,7 @@ json_data = "[
 	{
 		\"description\": \"Metal parts that allow doors and cabinets to open and close. Can be used in various mechanical constructions.\",
 		\"id\": \"hinge\",
-		\"image\": \"./Mods/Core/Items/hinge_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/hinge_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Hinge\",
 		\"sprite\": \"hinge_32.png\",
@@ -1499,7 +1499,7 @@ json_data = "[
 	{
 		\"description\": \"Useful for creating compost, crafting, or even as emergency food sources.\",
 		\"id\": \"plant_remnants\",
-		\"image\": \"./Mods/Core/Items/plant_remnants_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/plant_remnants_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Plant Remnants\",
 		\"references\": {
@@ -1520,7 +1520,7 @@ json_data = "[
 	{
 		\"description\": \"Essential for repairing or crafting electronic devices.\",
 		\"id\": \"electrical_components\",
-		\"image\": \"./Mods/Core/Items/electrical_components_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/electrical_components_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Electrical Components\",
 		\"references\": {
@@ -1542,7 +1542,7 @@ json_data = "[
 	{
 		\"description\": \"Versatile material used in various crafting recipes, often scavenged from modern appliances and containers.\",
 		\"id\": \"plastic_parts\",
-		\"image\": \"./Mods/Core/Items/plastic_parts_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/plastic_parts_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Plastic Parts\",
 		\"references\": {
@@ -1564,7 +1564,7 @@ json_data = "[
 	{
 		\"description\": \"Shards of broken ceramic items, useful for crafting new items or reinforcing existing structures.\",
 		\"id\": \"ceramic_fragments\",
-		\"image\": \"./Mods/Core/Items/ceramic_fragments_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/ceramic_fragments_32.png\",
 		\"max_stack_size\": 30,
 		\"name\": \"Ceramic Fragments\",
 		\"references\": {
@@ -1583,7 +1583,7 @@ json_data = "[
 	{
 		\"description\": \"General metal components used in various crafting and construction recipes.\",
 		\"id\": \"metal_parts\",
-		\"image\": \"./Mods/Core/Items/metal_parts_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/metal_parts_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Metal Parts\",
 		\"references\": {
@@ -1605,7 +1605,7 @@ json_data = "[
 	{
 		\"description\": \"A jar of preserved parsley, useful for adding flavor to dishes.\",
 		\"id\": \"jar_parsley\",
-		\"image\": \"./Mods/Core/Items/jar_parsley_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/jar_parsley_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Jar of Parsley\",
 		\"sprite\": \"jar_parsley_32.png\",
@@ -1625,7 +1625,7 @@ json_data = "[
 		},
 		\"description\": \"A block of tofu, a good source of protein.\",
 		\"id\": \"tofu\",
-		\"image\": \"./Mods/Core/Items/tofu_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/tofu_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Tofu\",
 		\"references\": {
@@ -1656,7 +1656,7 @@ json_data = "[
 		},
 		\"description\": \"A bottle of yogurt, useful for nutrition and digestion.\",
 		\"id\": \"bottle_yogurt\",
-		\"image\": \"./Mods/Core/Items/bottle_yogurt_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/bottle_yogurt_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Bottle of Yogurt\",
 		\"references\": {
@@ -1687,7 +1687,7 @@ json_data = "[
 		},
 		\"description\": \"A jar of pickles, a tasty preserved food.\",
 		\"id\": \"jar_pickles\",
-		\"image\": \"./Mods/Core/Items/jar_pickles_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/jar_pickles_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Jar of Pickles\",
 		\"sprite\": \"jar_pickles_32.png\",
@@ -1711,7 +1711,7 @@ json_data = "[
 		},
 		\"description\": \"A can of condensed milk, a rich source of nutrition.\",
 		\"id\": \"condensed_milk\",
-		\"image\": \"./Mods/Core/Items/condensed_milk_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/condensed_milk_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Condensed Milk\",
 		\"sprite\": \"condensed_milk_32.png\",
@@ -1753,7 +1753,7 @@ json_data = "[
 		},
 		\"description\": \"A vial of insulin, necessary for diabetics.\",
 		\"id\": \"insulin\",
-		\"image\": \"./Mods/Core/Items/insulin_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/insulin_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Insulin\",
 		\"references\": {
@@ -1802,7 +1802,7 @@ json_data = "[
 		},
 		\"description\": \"An epinephrine auto-injector, useful for treating severe allergic reactions.\",
 		\"id\": \"epipen\",
-		\"image\": \"./Mods/Core/Items/epipen_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/epipen_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"EpiPen\",
 		\"references\": {
@@ -1829,7 +1829,7 @@ json_data = "[
 		},
 		\"description\": \"A bag of bacon, rich in fats and proteins.\",
 		\"id\": \"bag_bacon\",
-		\"image\": \"./Mods/Core/Items/bag_bacon_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/bag_bacon_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Bag of Bacon\",
 		\"references\": {
@@ -1856,7 +1856,7 @@ json_data = "[
 		},
 		\"description\": \"A bottle of wine, useful for bartering or a morale boost.\",
 		\"id\": \"wine_bottle\",
-		\"image\": \"./Mods/Core/Items/wine_bottle_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/wine_bottle_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Wine Bottle\",
 		\"sprite\": \"wine_bottle_32.png\",
@@ -1876,7 +1876,7 @@ json_data = "[
 		},
 		\"description\": \"A loaf of bread, a staple food item.\",
 		\"id\": \"bread\",
-		\"image\": \"./Mods/Core/Items/bread_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/bread_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Bread\",
 		\"sprite\": \"bread_32.png\",
@@ -1888,7 +1888,7 @@ json_data = "[
 	{
 		\"description\": \"A syringe, useful for administering medical treatments.\",
 		\"id\": \"syringe\",
-		\"image\": \"./Mods/Core/Items/syringe_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/syringe_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Syringe\",
 		\"references\": {
@@ -1915,7 +1915,7 @@ json_data = "[
 		},
 		\"description\": \"A slice of pizza, not very fresh but still edible.\",
 		\"id\": \"slice_of_pizza\",
-		\"image\": \"./Mods/Core/Items/slice_of_pizza_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/slice_of_pizza_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Slice of Pizza\",
 		\"references\": {
@@ -1942,7 +1942,7 @@ json_data = "[
 		},
 		\"description\": \"A package of vacuum-sealed fish, preserved for longer storage.\",
 		\"id\": \"vacuum_sealed_fish\",
-		\"image\": \"./Mods/Core/Items/vacuum_sealed_fish_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/vacuum_sealed_fish_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Vacuum Sealed Fish\",
 		\"references\": {
@@ -1973,7 +1973,7 @@ json_data = "[
 		},
 		\"description\": \"A ripe tomato, still fresh and edible.\",
 		\"id\": \"tomato\",
-		\"image\": \"./Mods/Core/Items/tomato_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/tomato_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Tomato\",
 		\"references\": {
@@ -2004,7 +2004,7 @@ json_data = "[
 		},
 		\"description\": \"A head of lettuce, slightly wilted but still usable.\",
 		\"id\": \"lettuce\",
-		\"image\": \"./Mods/Core/Items/lettuce_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/lettuce_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Lettuce\",
 		\"references\": {
@@ -2023,7 +2023,7 @@ json_data = "[
 	{
 		\"description\": \"A container of protein powder, useful for maintaining nutrition.\",
 		\"id\": \"protein_powder\",
-		\"image\": \"./Mods/Core/Items/protein_powder_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/protein_powder_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Protein Powder\",
 		\"sprite\": \"protein_powder_32.png\",
@@ -2043,7 +2043,7 @@ json_data = "[
 		},
 		\"description\": \"A bar of chocolate, a morale booster and energy source.\",
 		\"id\": \"chocolate\",
-		\"image\": \"./Mods/Core/Items/chocolate_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/chocolate_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Chocolate\",
 		\"references\": {
@@ -2071,7 +2071,7 @@ json_data = "[
 		},
 		\"description\": \"A jar of olives, preserved and ready to eat.\",
 		\"id\": \"jar_olives\",
-		\"image\": \"./Mods/Core/Items/jar_olives_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/jar_olives_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Jar of Olives\",
 		\"sprite\": \"jar_olives_32.png\",
@@ -2083,7 +2083,7 @@ json_data = "[
 	{
 		\"description\": \"A jar of preserved basil, useful for seasoning.\",
 		\"id\": \"jar_basil\",
-		\"image\": \"./Mods/Core/Items/jar_basil_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/jar_basil_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Jar of Basil\",
 		\"sprite\": \"jar_basil_32.png\",
@@ -2103,7 +2103,7 @@ json_data = "[
 		},
 		\"description\": \"A jar of mustard, adds flavor to meals.\",
 		\"id\": \"jar_mustard\",
-		\"image\": \"./Mods/Core/Items/jar_mustard_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/jar_mustard_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Jar of Mustard\",
 		\"sprite\": \"jar_mustard_32.png\",
@@ -2123,7 +2123,7 @@ json_data = "[
 		},
 		\"description\": \"A bottle of ketchup, a common condiment.\",
 		\"id\": \"bottle_ketchup\",
-		\"image\": \"./Mods/Core/Items/bottle_ketchup_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/bottle_ketchup_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Bottle of Ketchup\",
 		\"sprite\": \"bottle_ketchup_32.png\",
@@ -2143,7 +2143,7 @@ json_data = "[
 		},
 		\"description\": \"A loaf of bread that has gone stale, but still edible in a pinch.\",
 		\"id\": \"stale_bread\",
-		\"image\": \"./Mods/Core/Items/stale_bread_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/stale_bread_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Stale Bread\",
 		\"references\": {
@@ -2192,7 +2192,7 @@ json_data = "[
 		},
 		\"description\": \"Pain relief medication, useful for treating injuries.\",
 		\"id\": \"painkiller\",
-		\"image\": \"./Mods/Core/Items/painkiller_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/painkiller_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Painkiller\",
 		\"references\": {
@@ -2227,7 +2227,7 @@ json_data = "[
 		},
 		\"description\": \"A fresh orange, a good source of vitamin C.\",
 		\"id\": \"orange\",
-		\"image\": \"./Mods/Core/Items/orange_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/orange_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Orange\",
 		\"sprite\": \"orange_32.png\",
@@ -2251,7 +2251,7 @@ json_data = "[
 		},
 		\"description\": \"A fresh apple, a healthy snack.\",
 		\"id\": \"apple\",
-		\"image\": \"./Mods/Core/Items/apple_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/apple_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Apple\",
 		\"references\": {
@@ -2278,7 +2278,7 @@ json_data = "[
 		},
 		\"description\": \"A raw potato, versatile in many recipes.\",
 		\"id\": \"potato\",
-		\"image\": \"./Mods/Core/Items/potato_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/potato_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Potato\",
 		\"sprite\": \"potato_32.png\",
@@ -2298,7 +2298,7 @@ json_data = "[
 		},
 		\"description\": \"A fresh carrot, good for nutrition.\",
 		\"id\": \"carrot\",
-		\"image\": \"./Mods/Core/Items/carrot_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/carrot_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Carrot\",
 		\"references\": {
@@ -2329,7 +2329,7 @@ json_data = "[
 		},
 		\"description\": \"A carton of eggs, a versatile food item.\",
 		\"id\": \"eggs\",
-		\"image\": \"./Mods/Core/Items/eggs_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/eggs_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Eggs\",
 		\"references\": {
@@ -2356,7 +2356,7 @@ json_data = "[
 		},
 		\"description\": \"A stick of butter, useful for cooking and baking.\",
 		\"id\": \"butter\",
-		\"image\": \"./Mods/Core/Items/butter_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/butter_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Butter\",
 		\"references\": {
@@ -2383,7 +2383,7 @@ json_data = "[
 		},
 		\"description\": \"A can of energy drink, boosts stamina temporarily.\",
 		\"id\": \"can_energydrink\",
-		\"image\": \"./Mods/Core/Items/can_energydrink_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/can_energydrink_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Energy Drink\",
 		\"references\": {
@@ -2412,7 +2412,7 @@ json_data = "[
 		},
 		\"description\": \"A can of soda, a refreshing beverage.\",
 		\"id\": \"can_soda\",
-		\"image\": \"./Mods/Core/Items/can_soda_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/can_soda_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Soda\",
 		\"references\": {
@@ -2441,7 +2441,7 @@ json_data = "[
 		},
 		\"description\": \"A block of cheese, a versatile food item.\",
 		\"id\": \"cheese\",
-		\"image\": \"./Mods/Core/Items/cheese_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/cheese_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Cheese\",
 		\"references\": {
@@ -2463,7 +2463,7 @@ json_data = "[
 		},
 		\"description\": \"A basic cotton T-shirt, comfortable and versatile.\",
 		\"id\": \"tshirt\",
-		\"image\": \"./Mods/Core/Items/t_shirt_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/t_shirt_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"T-shirt\",
 		\"references\": {
@@ -2492,7 +2492,7 @@ json_data = "[
 		},
 		\"description\": \"A pair of durable denim jeans, perfect for rough conditions.\",
 		\"id\": \"jeans\",
-		\"image\": \"./Mods/Core/Items/jeans_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/jeans_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Jeans\",
 		\"references\": {
@@ -2512,7 +2512,7 @@ json_data = "[
 	{
 		\"description\": \"A basic silver spoon, used for eating or stirring.\",
 		\"id\": \"spoon_silver\",
-		\"image\": \"./Mods/Core/Items/spoon_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/spoon_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Silver Spoon\",
 		\"sprite\": \"spoon_32.png\",
@@ -2524,7 +2524,7 @@ json_data = "[
 	{
 		\"description\": \"A standard silver fork, useful for eating or cooking.\",
 		\"id\": \"fork_silver\",
-		\"image\": \"./Mods/Core/Items/fork_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/fork_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Silver Fork\",
 		\"sprite\": \"fork_32.png\",
@@ -2536,7 +2536,7 @@ json_data = "[
 	{
 		\"description\": \"A dull knife, designed for spreading butter.\",
 		\"id\": \"knife_butter\",
-		\"image\": \"./Mods/Core/Items/butter_knife_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/butter_knife_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Butter Knife\",
 		\"sprite\": \"butter_knife_32.png\",
@@ -2548,7 +2548,7 @@ json_data = "[
 	{
 		\"description\": \"A manual whisk for mixing ingredients.\",
 		\"id\": \"hand_wisk\",
-		\"image\": \"./Mods/Core/Items/hand_wisk_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/hand_wisk_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Hand Whisk\",
 		\"sprite\": \"hand_wisk_32.png\",
@@ -2560,7 +2560,7 @@ json_data = "[
 	{
 		\"description\": \"A large spoon with a deep bowl, used for serving soups.\",
 		\"id\": \"soup_ladle\",
-		\"image\": \"./Mods/Core/Items/soup_ladle_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/soup_ladle_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Soup Ladle\",
 		\"sprite\": \"soup_ladle_32.png\",
@@ -2572,7 +2572,7 @@ json_data = "[
 	{
 		\"description\": \"Tongs used for gripping and lifting food.\",
 		\"id\": \"tongs_kitchen\",
-		\"image\": \"./Mods/Core/Items/kitchen_tongs_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/kitchen_tongs_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Kitchen Tongs\",
 		\"sprite\": \"kitchen_tongs_32.png\",
@@ -2587,7 +2587,7 @@ json_data = "[
 		},
 		\"description\": \"A simple baseball cap to shield your eyes from the sun.\",
 		\"id\": \"hat_baseball\",
-		\"image\": \"./Mods/Core/Items/baseball_cap_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/baseball_cap_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Baseball Cap\",
 		\"references\": {
@@ -2610,7 +2610,7 @@ json_data = "[
 		},
 		\"description\": \"A cozy wool sweater, ideal for cold weather.\",
 		\"id\": \"sweater\",
-		\"image\": \"./Mods/Core/Items/sweater_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/sweater_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Sweater\",
 		\"references\": {
@@ -2633,7 +2633,7 @@ json_data = "[
 		},
 		\"description\": \"A long scarf to keep your neck warm in chilly conditions.\",
 		\"id\": \"scarf\",
-		\"image\": \"./Mods/Core/Items/scarf_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/scarf_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Scarf\",
 		\"references\": {
@@ -2656,7 +2656,7 @@ json_data = "[
 		},
 		\"description\": \"A pair of sturdy leather gloves, providing good protection for your hands.\",
 		\"id\": \"gloves_leather\",
-		\"image\": \"./Mods/Core/Items/leather_gloves_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/leather_gloves_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Leather Gloves\",
 		\"references\": {
@@ -2680,7 +2680,7 @@ json_data = "[
 		},
 		\"description\": \"Comfortable shorts for warm weather and easy movement.\",
 		\"id\": \"shorts\",
-		\"image\": \"./Mods/Core/Items/shorts_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/shorts_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Shorts\",
 		\"references\": {
@@ -2702,7 +2702,7 @@ json_data = "[
 		},
 		\"description\": \"A fine mesh sieve for straining liquids or sifting dry ingredients.\",
 		\"id\": \"strainer_sieve\",
-		\"image\": \"./Mods/Core/Items/strainer_sieve_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/strainer_sieve_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Strainer Sieve\",
 		\"sprite\": \"strainer_sieve_32.png\",
@@ -2717,7 +2717,7 @@ json_data = "[
 		},
 		\"description\": \"A pair of warm wool socks to keep your feet dry and comfortable.\",
 		\"id\": \"socks\",
-		\"image\": \"./Mods/Core/Items/socks_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/socks_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Socks\",
 		\"references\": {
@@ -2736,7 +2736,7 @@ json_data = "[
 	{
 		\"description\": \"Scissors designed for various kitchen tasks, including cutting herbs or packaging.\",
 		\"id\": \"scissors_kitchen\",
-		\"image\": \"./Mods/Core/Items/kitchen_scizzors_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/kitchen_scizzors_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Kitchen Scissors\",
 		\"sprite\": \"kitchen_scizzors_32.png\",
@@ -2748,7 +2748,7 @@ json_data = "[
 	{
 		\"description\": \"A tool used to grate cheese or other ingredients.\",
 		\"id\": \"cheese_grater\",
-		\"image\": \"./Mods/Core/Items/cheese_grater_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/cheese_grater_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Cheese Grater\",
 		\"sprite\": \"cheese_grater_32.png\",
@@ -2760,7 +2760,7 @@ json_data = "[
 	{
 		\"description\": \"A wheel blade used to slice pizza.\",
 		\"id\": \"pizza_cutter\",
-		\"image\": \"./Mods/Core/Items/pizza_cutter_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/pizza_cutter_32.png\",
 		\"max_stack_size\": 2,
 		\"name\": \"Pizza Cutter\",
 		\"sprite\": \"pizza_cutter_32.png\",
@@ -2772,7 +2772,7 @@ json_data = "[
 	{
 		\"description\": \"A brush used for applying sauces or marinades to food.\",
 		\"id\": \"basting_brush\",
-		\"image\": \"./Mods/Core/Items/basting_brush_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/basting_brush_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Basting Brush\",
 		\"sprite\": \"basting_brush_32.png\",
@@ -2784,7 +2784,7 @@ json_data = "[
 	{
 		\"description\": \"A tool for removing the core from apples.\",
 		\"id\": \"apple_corers\",
-		\"image\": \"./Mods/Core/Items/apple_corer_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/apple_corer_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Apple Corer\",
 		\"sprite\": \"apple_corer_32.png\",
@@ -2796,7 +2796,7 @@ json_data = "[
 	{
 		\"description\": \"A device for crushing garlic cloves.\",
 		\"id\": \"garlic_press\",
-		\"image\": \"./Mods/Core/Items/garlic_press_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/garlic_press_32.png\",
 		\"max_stack_size\": 2,
 		\"name\": \"Garlic Press\",
 		\"sprite\": \"garlic_press_32.png\",
@@ -2808,7 +2808,7 @@ json_data = "[
 	{
 		\"description\": \"A standard silver knife, used for cutting food.\",
 		\"id\": \"knife_silver\",
-		\"image\": \"./Mods/Core/Items/silver_knife_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/silver_knife_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Silver Knife\",
 		\"sprite\": \"silver_knife_32.png\",
@@ -2820,7 +2820,7 @@ json_data = "[
 	{
 		\"description\": \"A set of spoons in various sizes for precise measurements.\",
 		\"id\": \"measuring_spoon_set\",
-		\"image\": \"./Mods/Core/Items/measuring_spoon_set_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/measuring_spoon_set_32.png\",
 		\"max_stack_size\": 2,
 		\"name\": \"Measuring Spoon Set\",
 		\"sprite\": \"measuring_spoon_set_32.png\",
@@ -2832,7 +2832,7 @@ json_data = "[
 	{
 		\"description\": \"A small stick, useful for kindling or crafting basic tools.\",
 		\"id\": \"small_stick\",
-		\"image\": \"./Mods/Core/Items/stick_small_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/stick_small_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Small Stick\",
 		\"references\": {
@@ -2851,7 +2851,7 @@ json_data = "[
 	{
 		\"description\": \"A sizable rock that can be used as a primitive weapon or for construction.\",
 		\"id\": \"large_rock\",
-		\"image\": \"./Mods/Core/Items/rock_large_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/rock_large_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Large Rock\",
 		\"references\": {
@@ -2870,7 +2870,7 @@ json_data = "[
 	{
 		\"description\": \"A collection of wild herbs, useful for medicinal purposes or adding flavor to food.\",
 		\"id\": \"herbs_wild\",
-		\"image\": \"./Mods/Core/Items/wild_herbs_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/wild_herbs_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Wild Herbs\",
 		\"references\": {
@@ -2901,7 +2901,7 @@ json_data = "[
 		},
 		\"description\": \"A handful of wild berries, good for a quick snack or foraging.\",
 		\"id\": \"berries_wild\",
-		\"image\": \"./Mods/Core/Items/berries_wild_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/berries_wild_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Wild Berries\",
 		\"references\": {
@@ -2931,7 +2931,7 @@ json_data = "[
 		},
 		\"description\": \"Edible mushrooms found in the forest, can be cooked or used in potions.\",
 		\"id\": \"mushrooms_forest\",
-		\"image\": \"./Mods/Core/Items/mushroom_forest_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/mushroom_forest_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Forest Mushrooms\",
 		\"references\": {
@@ -2950,7 +2950,7 @@ json_data = "[
 	{
 		\"description\": \"A pinecone, can be used for kindling or as a crafting material.\",
 		\"id\": \"pinecone\",
-		\"image\": \"./Mods/Core/Items/pinecone_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/pinecone_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Pinecone\",
 		\"references\": {
@@ -2981,7 +2981,7 @@ json_data = "[
 		},
 		\"description\": \"A fresh bird egg, can be cooked for a nutritious meal.\",
 		\"id\": \"bird_egg\",
-		\"image\": \"./Mods/Core/Items/egg_bird_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/egg_bird_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Bird Egg\",
 		\"references\": {
@@ -3000,7 +3000,7 @@ json_data = "[
 	{
 		\"description\": \"A beautiful wild flower, can be used for decoration or crafting.\",
 		\"id\": \"flower_wild\",
-		\"image\": \"./Mods/Core/Items/flower_wild_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/flower_wild_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Wild Flower\",
 		\"references\": {
@@ -3019,7 +3019,7 @@ json_data = "[
 	{
 		\"description\": \"An acorn, can be used as food or in various crafting recipes.\",
 		\"id\": \"acorn\",
-		\"image\": \"./Mods/Core/Items/acorn_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/acorn_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Acorn\",
 		\"references\": {
@@ -3038,7 +3038,7 @@ json_data = "[
 	{
 		\"description\": \"A small pebble found on the ground, useful for crafting or as a projectile.\",
 		\"id\": \"pebble\",
-		\"image\": \"./Mods/Core/Items/pebble_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/pebble_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Pebble\",
 		\"references\": {
@@ -3060,7 +3060,7 @@ json_data = "[
 	{
 		\"description\": \"A clear quartz crystal, valuable for crafting or trade.\",
 		\"id\": \"quartz_crystal\",
-		\"image\": \"./Mods/Core/Items/quartz_crystal_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/quartz_crystal_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Quartz Crystal\",
 		\"sprite\": \"quartz_crystal_32.png\",
@@ -3072,7 +3072,7 @@ json_data = "[
 	{
 		\"description\": \"A small pile of gravel, useful for construction or as a crafting material.\",
 		\"id\": \"gravel\",
-		\"image\": \"./Mods/Core/Items/gravel_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/gravel_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Gravel\",
 		\"references\": {
@@ -3092,7 +3092,7 @@ json_data = "[
 	{
 		\"description\": \"A medium-sized rock, versatile for various construction or crafting needs.\",
 		\"id\": \"medium_rock\",
-		\"image\": \"./Mods/Core/Items/rock_medium_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/rock_medium_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Medium Rock\",
 		\"references\": {
@@ -3113,7 +3113,7 @@ json_data = "[
 	{
 		\"description\": \"A small rock, handy for crafting or as a basic tool component.\",
 		\"id\": \"small_rock\",
-		\"image\": \"./Mods/Core/Items/rock_small_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/rock_small_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Small Rock\",
 		\"references\": {
@@ -3142,7 +3142,7 @@ json_data = "[
 		},
 		\"description\": \"A simple stick, useful for crafting, kindling, or as a basic weapon.\",
 		\"id\": \"stick\",
-		\"image\": \"./Mods/Core/Items/stick_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/stick_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Stick\",
 		\"references\": {
@@ -3170,7 +3170,7 @@ json_data = "[
 		},
 		\"description\": \"A long stick, versatile for crafting, building structures, or as a makeshift weapon.\",
 		\"id\": \"long_stick\",
-		\"image\": \"./Mods/Core/Items/stick_long_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/stick_long_32.png\",
 		\"max_stack_size\": 2,
 		\"name\": \"Long Stick\",
 		\"references\": {
@@ -3197,7 +3197,7 @@ json_data = "[
 	{
 		\"description\": \"A stone with a sharp edge, useful for cutting or crafting tools.\",
 		\"id\": \"sharp_stone\",
-		\"image\": \"./Mods/Core/Items/rock_sharp_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/rock_sharp_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Sharp Stone\",
 		\"references\": {
@@ -3254,7 +3254,7 @@ json_data = "[
 		},
 		\"description\": \"A long stick with a sharpened stone tip, ideal for hunting or defense.\",
 		\"id\": \"stone_spear\",
-		\"image\": \"./Mods/Core/Items/spear_stone_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/spear_stone_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Stone Spear\",
 		\"references\": {
@@ -3282,7 +3282,7 @@ json_data = "[
 		},
 		\"description\": \"A compact waist bag, ideal for carrying small essential items.\",
 		\"id\": \"waistbag\",
-		\"image\": \"./Mods/Core/Items/waistbag_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/waistbag_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Waist Bag\",
 		\"references\": {
@@ -3311,7 +3311,7 @@ json_data = "[
 		},
 		\"description\": \"A large mailbag designed for carrying letters and small packages, with ample space.\",
 		\"id\": \"mailbag\",
-		\"image\": \"./Mods/Core/Items/mailbag_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/mailbag_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Mail Bag\",
 		\"references\": {
@@ -3340,7 +3340,7 @@ json_data = "[
 		},
 		\"description\": \"A durable backpack with plenty of room for various supplies.\",
 		\"id\": \"backpack\",
-		\"image\": \"./Mods/Core/Items/backpack_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/backpack_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Backpack\",
 		\"references\": {
@@ -3360,7 +3360,7 @@ json_data = "[
 	{
 		\"description\": \"A sturdy construction material, often used for building or crafting.\",
 		\"id\": \"brick\",
-		\"image\": \"./Mods/Core/Items/brick_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/brick_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Brick\",
 		\"sprite\": \"brick_32.png\",
@@ -3372,7 +3372,7 @@ json_data = "[
 	{
 		\"description\": \"A brick with visible cracks and wear, still usable but not as durable.\",
 		\"id\": \"damaged_brick\",
-		\"image\": \"./Mods/Core/Items/brick_damaged_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/brick_damaged_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Damaged Brick\",
 		\"sprite\": \"brick_damaged_32.png\",
@@ -3384,7 +3384,7 @@ json_data = "[
 	{
 		\"description\": \"A large concrete slab with visible cracks, useful for temporary construction or barricading.\",
 		\"id\": \"damaged_concrete_slab\",
-		\"image\": \"./Mods/Core/Items/concrete_slab_damaged_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/concrete_slab_damaged_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Damaged Concrete Slab\",
 		\"references\": {
@@ -3403,7 +3403,7 @@ json_data = "[
 	{
 		\"description\": \"Sharp pieces of broken glass, dangerous but potentially useful in crafting.\",
 		\"id\": \"glass_shards\",
-		\"image\": \"./Mods/Core/Items/glass_shards_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/glass_shards_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Glass Shards\",
 		\"references\": {
@@ -3423,7 +3423,7 @@ json_data = "[
 	{
 		\"description\": \"Old metal sheets covered in rust, brittle but can still be used for makeshift repairs or crafting.\",
 		\"id\": \"rusted_metal_sheets\",
-		\"image\": \"./Mods/Core/Items/rusted_metal_sheets_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/rusted_metal_sheets_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Rusted Metal Sheets\",
 		\"references\": {
@@ -3452,7 +3452,7 @@ json_data = "[
 		},
 		\"description\": \"A small bottle that contains antidote. It helps to recover from poison.\",
 		\"id\": \"bottle_antidote\",
-		\"image\": \"./Mods/Core/Items/antidote_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/antidote_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Bottle of antidote\",
 		\"references\": {
@@ -3475,7 +3475,7 @@ json_data = "[
 	{
 		\"description\": \"An old, damaged transmitter that seems to emit faint radio signals. It needs repairs before it can be used\",
 		\"id\": \"damaged_transmitter\",
-		\"image\": \"./Mods/Core/Items/transmitter_broken_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/transmitter_broken_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Damaged transmitter\",
 		\"references\": {
@@ -3497,7 +3497,7 @@ json_data = "[
 	{
 		\"description\": \"A functional circuit board, scavenged from a robotic enemy or scrap pile. Essential for repairing electronics.\",
 		\"id\": \"circuit_board\",
-		\"image\": \"./Mods/Core/Items/cirquit_board_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/cirquit_board_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Circuit Board\",
 		\"references\": {
@@ -3555,7 +3555,7 @@ json_data = "[
 		],
 		\"description\": \"A fully functional transmitter, capable of boosting a weak signal when paired with the right equipment.\",
 		\"id\": \"transmitter\",
-		\"image\": \"./Mods/Core/Items/transmitter_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/transmitter_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Transmitter\",
 		\"references\": {
@@ -3580,7 +3580,7 @@ json_data = "[
 	{
 		\"description\": \"A metallic key that grants access to the control panel of the radio tower.\",
 		\"id\": \"radio_tower_key\",
-		\"image\": \"./Mods/Core/Items/metallic_key_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/metallic_key_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Radio tower key\",
 		\"sprite\": \"metallic_key_32.png\",
@@ -3592,7 +3592,7 @@ json_data = "[
 	{
 		\"description\": \"A worn leather wallet containing faded photographs and a few crumpled bills\",
 		\"id\": \"wallet\",
-		\"image\": \"./Mods/Core/Items/wallet_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/wallet_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Wallet\",
 		\"references\": {
@@ -3614,7 +3614,7 @@ json_data = "[
 		},
 		\"description\": \"A worn leather wallet containing faded photographs and a few crumpled bills\",
 		\"id\": \"wrist_watch\",
-		\"image\": \"./Mods/Core/Items/watch_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/watch_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Wallet\",
 		\"references\": {
@@ -3649,7 +3649,7 @@ json_data = "[
 		},
 		\"description\": \"A disgusting chunk of decaying flesh, oozing with a foul stench.\",
 		\"id\": \"rotten_flesh_chunk\",
-		\"image\": \"./Mods/Core/Items/rotten_flesh_chunk_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/rotten_flesh_chunk_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Chunk of Rotten Flesh\",
 		\"references\": {
@@ -3668,7 +3668,7 @@ json_data = "[
 	{
 		\"description\": \"A broken bone fragment, brittle but sharp.\",
 		\"id\": \"zombie_bone\",
-		\"image\": \"./Mods/Core/Items/zombie_bone_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/zombie_bone_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Zombie Bone\",
 		\"references\": {
@@ -3703,7 +3703,7 @@ json_data = "[
 		},
 		\"description\": \"A cloudy, lifeless eye. It's unsettling to look at.\",
 		\"id\": \"zombie_eye\",
-		\"image\": \"./Mods/Core/Items/zombie_eye_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/zombie_eye_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Zombie Eye\",
 		\"references\": {
@@ -3738,7 +3738,7 @@ json_data = "[
 		},
 		\"description\": \"A grotesque internal organ, bloated and putrid.\",
 		\"id\": \"zombie_organ\",
-		\"image\": \"./Mods/Core/Items/zombie_organ_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/zombie_organ_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Decayed Organ\",
 		\"references\": {
@@ -3757,7 +3757,7 @@ json_data = "[
 	{
 		\"description\": \"A bundle of small, dry sticks and plant remnants tied together, perfect for starting a fire.\",
 		\"id\": \"kindling_bundle\",
-		\"image\": \"./Mods/Core/Items/kindling_bundle_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/kindling_bundle_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Kindling Bundle\",
 		\"sprite\": \"kindling_bundle_32.png\",
@@ -3769,7 +3769,7 @@ json_data = "[
 	{
 		\"description\": \"A chunk of charcoal, created by burning wood. Useful as fuel or for crafting.\",
 		\"id\": \"charcoal_chunk\",
-		\"image\": \"./Mods/Core/Items/charcoal_chunk_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/charcoal_chunk_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Charcoal Chunk\",
 		\"sprite\": \"charcoal_chunk_32.png\",
@@ -3781,7 +3781,7 @@ json_data = "[
 	{
 		\"description\": \"A sturdy bundle of wood pieces tied together, used for creating a stable fire base.\",
 		\"id\": \"wood_bundle\",
-		\"image\": \"./Mods/Core/Items/branches_32.png\",
+		\"image\": \"./Mods/Dimensionfall/Items/branches_32.png\",
 		\"max_stack_size\": 2,
 		\"name\": \"Wood Bundle\",
 		\"sprite\": \"branches_32.png\",

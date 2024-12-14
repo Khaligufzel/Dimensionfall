@@ -58,7 +58,7 @@
 		},
 		"description": "Standard type of ammunition. Very common.",
 		"id": "bullet_9mm",
-		"image": "./Mods/Core/Items/9mm.png",
+		"image": "./Mods/Dimensionfall/Items/9mm.png",
 		"max_stack_size": 100,
 		"name": "bullet 9mm",
 		"references": {
