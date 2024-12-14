@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cknqdv16cei7j"
-path="res://.godot/imported/cooking_pot_32.png-270ae947de9f4c0ccd5a3505b3896ee7.ctex"
+path="res://.godot/imported/cooking_pot_32.png-6eef84f190edca08e67fa2136162c62b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/cooking_pot_32.png"
-dest_files=["res://.godot/imported/cooking_pot_32.png-270ae947de9f4c0ccd5a3505b3896ee7.ctex"]
+source_file="res://Mods/Dimensionfall/Items/cooking_pot_32.png"
+dest_files=["res://.godot/imported/cooking_pot_32.png-6eef84f190edca08e67fa2136162c62b.ctex"]
 
 [params]
 

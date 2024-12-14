@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cv58ckbn0vr32"
-path="res://.godot/imported/quartz_crystal_32.png-ade5195530a81e7a9fdb14d483dabb3a.ctex"
+path="res://.godot/imported/quartz_crystal_32.png-4c7ac1429d2471ad4f30eda9ad3d2e0f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/quartz_crystal_32.png"
-dest_files=["res://.godot/imported/quartz_crystal_32.png-ade5195530a81e7a9fdb14d483dabb3a.ctex"]
+source_file="res://Mods/Dimensionfall/Items/quartz_crystal_32.png"
+dest_files=["res://.godot/imported/quartz_crystal_32.png-4c7ac1429d2471ad4f30eda9ad3d2e0f.ctex"]
 
 [params]
 

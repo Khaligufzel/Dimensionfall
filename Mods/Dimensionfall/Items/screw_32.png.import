@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1u3kouy5cssd"
-path="res://.godot/imported/screw_32.png-218f300bf3dedc912db478c95cb549f0.ctex"
+path="res://.godot/imported/screw_32.png-8e27eed6b756e7cf44c78faa07e7a3c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/screw_32.png"
-dest_files=["res://.godot/imported/screw_32.png-218f300bf3dedc912db478c95cb549f0.ctex"]
+source_file="res://Mods/Dimensionfall/Items/screw_32.png"
+dest_files=["res://.godot/imported/screw_32.png-8e27eed6b756e7cf44c78faa07e7a3c2.ctex"]
 
 [params]
 

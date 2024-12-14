@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chihogcdbkm3s"
-path="res://.godot/imported/book_novel_32.png-92549c9802e10fedfe67f26335caaef7.ctex"
+path="res://.godot/imported/book_novel_32.png-21fe1196ab4a55a5cea1622c4ee46d77.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/book_novel_32.png"
-dest_files=["res://.godot/imported/book_novel_32.png-92549c9802e10fedfe67f26335caaef7.ctex"]
+source_file="res://Mods/Dimensionfall/Items/book_novel_32.png"
+dest_files=["res://.godot/imported/book_novel_32.png-21fe1196ab4a55a5cea1622c4ee46d77.ctex"]
 
 [params]
 

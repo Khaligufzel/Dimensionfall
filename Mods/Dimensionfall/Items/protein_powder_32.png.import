@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://57itkjb5w24a"
-path="res://.godot/imported/protein_powder_32.png-76089661570ebdf98e138183fa10ecfd.ctex"
+path="res://.godot/imported/protein_powder_32.png-bab953b3d816a6c17c7ceb44228f7b79.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/protein_powder_32.png"
-dest_files=["res://.godot/imported/protein_powder_32.png-76089661570ebdf98e138183fa10ecfd.ctex"]
+source_file="res://Mods/Dimensionfall/Items/protein_powder_32.png"
+dest_files=["res://.godot/imported/protein_powder_32.png-bab953b3d816a6c17c7ceb44228f7b79.ctex"]
 
 [params]
 

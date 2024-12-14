@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dtuy43ixoyuqt"
-path="res://.godot/imported/peeler_32.png-b3233c36c0c852777c3c36aac1dd59b3.ctex"
+path="res://.godot/imported/peeler_32.png-244188c9bf9bf9361e79eccd0bdea561.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/peeler_32.png"
-dest_files=["res://.godot/imported/peeler_32.png-b3233c36c0c852777c3c36aac1dd59b3.ctex"]
+source_file="res://Mods/Dimensionfall/Items/peeler_32.png"
+dest_files=["res://.godot/imported/peeler_32.png-244188c9bf9bf9361e79eccd0bdea561.ctex"]
 
 [params]
 

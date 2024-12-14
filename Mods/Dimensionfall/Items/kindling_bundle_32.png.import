@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dpw0r5fk5ejvr"
-path="res://.godot/imported/kindling_bundle_32.png-0e29d8059f6e1fe30eb6ed8346398dc0.ctex"
+path="res://.godot/imported/kindling_bundle_32.png-8fad584ebb8378283c7a782a29593dd1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/kindling_bundle_32.png"
-dest_files=["res://.godot/imported/kindling_bundle_32.png-0e29d8059f6e1fe30eb6ed8346398dc0.ctex"]
+source_file="res://Mods/Dimensionfall/Items/kindling_bundle_32.png"
+dest_files=["res://.godot/imported/kindling_bundle_32.png-8fad584ebb8378283c7a782a29593dd1.ctex"]
 
 [params]
 

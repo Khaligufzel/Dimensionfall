@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crh3xjm6ej8je"
-path="res://.godot/imported/plant_remnants_32.png-29549b2136b8d6f61682bd00c9d24435.ctex"
+path="res://.godot/imported/plant_remnants_32.png-08787c0f0784d2dd24a83207c2b46c03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/plant_remnants_32.png"
-dest_files=["res://.godot/imported/plant_remnants_32.png-29549b2136b8d6f61682bd00c9d24435.ctex"]
+source_file="res://Mods/Dimensionfall/Items/plant_remnants_32.png"
+dest_files=["res://.godot/imported/plant_remnants_32.png-08787c0f0784d2dd24a83207c2b46c03.ctex"]
 
 [params]
 

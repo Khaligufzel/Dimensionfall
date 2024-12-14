@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxbipq6ywlnth"
-path="res://.godot/imported/spoon_32.png-1c06c18bda3fc15831ab55d793b93c20.ctex"
+path="res://.godot/imported/spoon_32.png-e2f0377ac5227c6316c28c5d5e962ba0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/spoon_32.png"
-dest_files=["res://.godot/imported/spoon_32.png-1c06c18bda3fc15831ab55d793b93c20.ctex"]
+source_file="res://Mods/Dimensionfall/Items/spoon_32.png"
+dest_files=["res://.godot/imported/spoon_32.png-e2f0377ac5227c6316c28c5d5e962ba0.ctex"]
 
 [params]
 

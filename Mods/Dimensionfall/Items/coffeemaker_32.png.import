@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7gqmsm18xy81"
-path="res://.godot/imported/coffeemaker_32.png-5f52ab8806769f3664e085538d733d6d.ctex"
+path="res://.godot/imported/coffeemaker_32.png-816ade6e42f78f1dd2861d9ae617fb63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/coffeemaker_32.png"
-dest_files=["res://.godot/imported/coffeemaker_32.png-5f52ab8806769f3664e085538d733d6d.ctex"]
+source_file="res://Mods/Dimensionfall/Items/coffeemaker_32.png"
+dest_files=["res://.godot/imported/coffeemaker_32.png-816ade6e42f78f1dd2861d9ae617fb63.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1klx8otmeye7"
-path="res://.godot/imported/egg_bird_32.png-e817b757ab0557181e46293d677ac1cd.ctex"
+path="res://.godot/imported/egg_bird_32.png-2c115e55ce67608768de725ea6aaf554.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/egg_bird_32.png"
-dest_files=["res://.godot/imported/egg_bird_32.png-e817b757ab0557181e46293d677ac1cd.ctex"]
+source_file="res://Mods/Dimensionfall/Items/egg_bird_32.png"
+dest_files=["res://.godot/imported/egg_bird_32.png-2c115e55ce67608768de725ea6aaf554.ctex"]
 
 [params]
 

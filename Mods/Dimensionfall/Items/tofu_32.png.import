@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dt8icplurrlvw"
-path="res://.godot/imported/tofu_32.png-a7c1d8a11a4f07bdd29dc6b5f24e173c.ctex"
+path="res://.godot/imported/tofu_32.png-bb3335bbe0bc6b65dd167ab9a0f48ff1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/tofu_32.png"
-dest_files=["res://.godot/imported/tofu_32.png-a7c1d8a11a4f07bdd29dc6b5f24e173c.ctex"]
+source_file="res://Mods/Dimensionfall/Items/tofu_32.png"
+dest_files=["res://.godot/imported/tofu_32.png-bb3335bbe0bc6b65dd167ab9a0f48ff1.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://oc3ifmluh7mn"
-path="res://.godot/imported/rusted_metal_sheets_32.png-a36c2367a7e352e77505450295673163.ctex"
+path="res://.godot/imported/rusted_metal_sheets_32.png-627993452f43a3022f7c2a0fc214d01d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/rusted_metal_sheets_32.png"
-dest_files=["res://.godot/imported/rusted_metal_sheets_32.png-a36c2367a7e352e77505450295673163.ctex"]
+source_file="res://Mods/Dimensionfall/Items/rusted_metal_sheets_32.png"
+dest_files=["res://.godot/imported/rusted_metal_sheets_32.png-627993452f43a3022f7c2a0fc214d01d.ctex"]
 
 [params]
 

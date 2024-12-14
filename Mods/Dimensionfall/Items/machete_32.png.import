@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bvhm6y02mq8y7"
-path="res://.godot/imported/machete_32.png-139c437c68563fe9b6f452dfac8d7172.ctex"
+path="res://.godot/imported/machete_32.png-8075b8b015c653804587bf8da3d4561a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/machete_32.png"
-dest_files=["res://.godot/imported/machete_32.png-139c437c68563fe9b6f452dfac8d7172.ctex"]
+source_file="res://Mods/Dimensionfall/Items/machete_32.png"
+dest_files=["res://.godot/imported/machete_32.png-8075b8b015c653804587bf8da3d4561a.ctex"]
 
 [params]
 

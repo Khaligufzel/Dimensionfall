@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://68io4c6phhi2"
-path="res://.godot/imported/insulin_32.png-a0cddf65be74c79b0eee6a471e48617e.ctex"
+path="res://.godot/imported/insulin_32.png-b9577b7650f8537a4550bfb4e7f5d299.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/insulin_32.png"
-dest_files=["res://.godot/imported/insulin_32.png-a0cddf65be74c79b0eee6a471e48617e.ctex"]
+source_file="res://Mods/Dimensionfall/Items/insulin_32.png"
+dest_files=["res://.godot/imported/insulin_32.png-b9577b7650f8537a4550bfb4e7f5d299.ctex"]
 
 [params]
 

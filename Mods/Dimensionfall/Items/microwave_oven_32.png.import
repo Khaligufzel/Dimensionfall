@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6eqejpc571xa"
-path="res://.godot/imported/microwave_oven_32.png-758b09870367c2f7489e0e180f03547a.ctex"
+path="res://.godot/imported/microwave_oven_32.png-a315c630250b1b54fed3a44a5d46853d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/microwave_oven_32.png"
-dest_files=["res://.godot/imported/microwave_oven_32.png-758b09870367c2f7489e0e180f03547a.ctex"]
+source_file="res://Mods/Dimensionfall/Items/microwave_oven_32.png"
+dest_files=["res://.godot/imported/microwave_oven_32.png-a315c630250b1b54fed3a44a5d46853d.ctex"]
 
 [params]
 

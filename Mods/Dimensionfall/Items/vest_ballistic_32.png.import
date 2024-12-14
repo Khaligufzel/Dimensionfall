@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bwxkfdpq7wquc"
-path="res://.godot/imported/vest_ballistic_32.png-be54dfd6e8aed1536047f0fe2f043507.ctex"
+path="res://.godot/imported/vest_ballistic_32.png-1dff4d7f9e6ef0534a62df18845a770f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/vest_ballistic_32.png"
-dest_files=["res://.godot/imported/vest_ballistic_32.png-be54dfd6e8aed1536047f0fe2f043507.ctex"]
+source_file="res://Mods/Dimensionfall/Items/vest_ballistic_32.png"
+dest_files=["res://.godot/imported/vest_ballistic_32.png-1dff4d7f9e6ef0534a62df18845a770f.ctex"]
 
 [params]
 

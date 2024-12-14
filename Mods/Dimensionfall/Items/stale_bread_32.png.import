@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://06nvjt0hod68"
-path="res://.godot/imported/stale_bread_32.png-ad546b9eb84ac487f20ebd19c1b85fe8.ctex"
+path="res://.godot/imported/stale_bread_32.png-04788dce64351391fdc891de17bad57f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/stale_bread_32.png"
-dest_files=["res://.godot/imported/stale_bread_32.png-ad546b9eb84ac487f20ebd19c1b85fe8.ctex"]
+source_file="res://Mods/Dimensionfall/Items/stale_bread_32.png"
+dest_files=["res://.godot/imported/stale_bread_32.png-04788dce64351391fdc891de17bad57f.ctex"]
 
 [params]
 

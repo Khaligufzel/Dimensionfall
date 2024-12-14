@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bc70tpfrr0ehn"
-path="res://.godot/imported/wine_bottle_32.png-34f30d517819cf7012c91d6081d65545.ctex"
+path="res://.godot/imported/wine_bottle_32.png-44b91072903346a1522deeb9d150409b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/wine_bottle_32.png"
-dest_files=["res://.godot/imported/wine_bottle_32.png-34f30d517819cf7012c91d6081d65545.ctex"]
+source_file="res://Mods/Dimensionfall/Items/wine_bottle_32.png"
+dest_files=["res://.godot/imported/wine_bottle_32.png-44b91072903346a1522deeb9d150409b.ctex"]
 
 [params]
 

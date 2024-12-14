@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccoseij07ftxh"
-path="res://.godot/imported/t_shirt_32.png-120b26990de6c0d58f48587073209912.ctex"
+path="res://.godot/imported/t_shirt_32.png-b0e3f572a7eef9afc987d315b44e298f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/t_shirt_32.png"
-dest_files=["res://.godot/imported/t_shirt_32.png-120b26990de6c0d58f48587073209912.ctex"]
+source_file="res://Mods/Dimensionfall/Items/t_shirt_32.png"
+dest_files=["res://.godot/imported/t_shirt_32.png-b0e3f572a7eef9afc987d315b44e298f.ctex"]
 
 [params]
 

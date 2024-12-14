@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crqxs4qh68aud"
-path="res://.godot/imported/leaves_32.png-e4f87260423d11aa15acd82a9260936e.ctex"
+path="res://.godot/imported/leaves_32.png-fbd84188ef3114c34b01b19b14d42f4b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/leaves_32.png"
-dest_files=["res://.godot/imported/leaves_32.png-e4f87260423d11aa15acd82a9260936e.ctex"]
+source_file="res://Mods/Dimensionfall/Items/leaves_32.png"
+dest_files=["res://.godot/imported/leaves_32.png-fbd84188ef3114c34b01b19b14d42f4b.ctex"]
 
 [params]
 

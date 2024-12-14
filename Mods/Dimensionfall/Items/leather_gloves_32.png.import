@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bw76bfq4lyl50"
-path="res://.godot/imported/leather_gloves_32.png-2170a842ff05db5132af0d5bfc067cf9.ctex"
+path="res://.godot/imported/leather_gloves_32.png-a37deab42fc71d0e07d333e2ed88fafb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/leather_gloves_32.png"
-dest_files=["res://.godot/imported/leather_gloves_32.png-2170a842ff05db5132af0d5bfc067cf9.ctex"]
+source_file="res://Mods/Dimensionfall/Items/leather_gloves_32.png"
+dest_files=["res://.godot/imported/leather_gloves_32.png-a37deab42fc71d0e07d333e2ed88fafb.ctex"]
 
 [params]
 

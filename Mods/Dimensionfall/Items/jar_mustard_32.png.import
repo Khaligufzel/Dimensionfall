@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://by2m62r267c5s"
-path="res://.godot/imported/jar_mustard_32.png-c9158f384f1350ed1133d34c357448b6.ctex"
+path="res://.godot/imported/jar_mustard_32.png-cbeaad67f269a59b4198293e613526b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/jar_mustard_32.png"
-dest_files=["res://.godot/imported/jar_mustard_32.png-c9158f384f1350ed1133d34c357448b6.ctex"]
+source_file="res://Mods/Dimensionfall/Items/jar_mustard_32.png"
+dest_files=["res://.godot/imported/jar_mustard_32.png-cbeaad67f269a59b4198293e613526b5.ctex"]
 
 [params]
 

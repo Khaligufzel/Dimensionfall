@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhej2n18xb6dk"
-path="res://.godot/imported/bottle_ketchup_32.png-db18cfd5a98cc30c473f51a73b8ac154.ctex"
+path="res://.godot/imported/bottle_ketchup_32.png-bf31172d1f9e8d0fd436a6bc67095514.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/bottle_ketchup_32.png"
-dest_files=["res://.godot/imported/bottle_ketchup_32.png-db18cfd5a98cc30c473f51a73b8ac154.ctex"]
+source_file="res://Mods/Dimensionfall/Items/bottle_ketchup_32.png"
+dest_files=["res://.godot/imported/bottle_ketchup_32.png-bf31172d1f9e8d0fd436a6bc67095514.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://lq1krmbxdb70"
-path="res://.godot/imported/rolling_pin_64_32.png-1ae83ee2b006532d5a004e11f966ce20.ctex"
+path="res://.godot/imported/rolling_pin_64_32.png-747f7eeff8195aaebd454ca3ff6b583b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/rolling_pin_64_32.png"
-dest_files=["res://.godot/imported/rolling_pin_64_32.png-1ae83ee2b006532d5a004e11f966ce20.ctex"]
+source_file="res://Mods/Dimensionfall/Items/rolling_pin_64_32.png"
+dest_files=["res://.godot/imported/rolling_pin_64_32.png-747f7eeff8195aaebd454ca3ff6b583b.ctex"]
 
 [params]
 

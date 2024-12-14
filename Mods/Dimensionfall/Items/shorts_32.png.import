@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cm4dymld8xyxn"
-path="res://.godot/imported/shorts_32.png-b24b9062b9753b107527ad05a7eefcb3.ctex"
+path="res://.godot/imported/shorts_32.png-f7b5054411ea891e5f1f7289e3f9c225.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/shorts_32.png"
-dest_files=["res://.godot/imported/shorts_32.png-b24b9062b9753b107527ad05a7eefcb3.ctex"]
+source_file="res://Mods/Dimensionfall/Items/shorts_32.png"
+dest_files=["res://.godot/imported/shorts_32.png-f7b5054411ea891e5f1f7289e3f9c225.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cscwj2r6p2wjy"
-path="res://.godot/imported/hand_wisk_32.png-a97db906bb6a871e0da707debfef10d3.ctex"
+path="res://.godot/imported/hand_wisk_32.png-d5b57eb4448af2764821a0be90628572.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/hand_wisk_32.png"
-dest_files=["res://.godot/imported/hand_wisk_32.png-a97db906bb6a871e0da707debfef10d3.ctex"]
+source_file="res://Mods/Dimensionfall/Items/hand_wisk_32.png"
+dest_files=["res://.godot/imported/hand_wisk_32.png-d5b57eb4448af2764821a0be90628572.ctex"]
 
 [params]
 

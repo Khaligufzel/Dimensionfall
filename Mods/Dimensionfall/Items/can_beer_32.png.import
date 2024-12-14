@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://tk8emggim5rq"
-path="res://.godot/imported/can_beer_32.png-e0f7d34c060851a1a1e40481bbdf9add.ctex"
+path="res://.godot/imported/can_beer_32.png-4defeda5fd83e2283f427f03706d3c1f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/can_beer_32.png"
-dest_files=["res://.godot/imported/can_beer_32.png-e0f7d34c060851a1a1e40481bbdf9add.ctex"]
+source_file="res://Mods/Dimensionfall/Items/can_beer_32.png"
+dest_files=["res://.godot/imported/can_beer_32.png-4defeda5fd83e2283f427f03706d3c1f.ctex"]
 
 [params]
 

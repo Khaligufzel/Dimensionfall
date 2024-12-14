@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmphblc2ukgo5"
-path="res://.godot/imported/electrical_components_32.png-701d664e83cadc5771b55d2cff86aa11.ctex"
+path="res://.godot/imported/electrical_components_32.png-cb3f490f1e32e365cbb0614aca59b532.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/electrical_components_32.png"
-dest_files=["res://.godot/imported/electrical_components_32.png-701d664e83cadc5771b55d2cff86aa11.ctex"]
+source_file="res://Mods/Dimensionfall/Items/electrical_components_32.png"
+dest_files=["res://.godot/imported/electrical_components_32.png-cb3f490f1e32e365cbb0614aca59b532.ctex"]
 
 [params]
 

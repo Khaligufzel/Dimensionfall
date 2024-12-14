@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://oh3ysj3w4lm"
-path="res://.godot/imported/pebble_32.png-bd91b6f408f2fde9efbca5e6a7a93304.ctex"
+path="res://.godot/imported/pebble_32.png-41db035343f37a49e0c99e0942779d29.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/pebble_32.png"
-dest_files=["res://.godot/imported/pebble_32.png-bd91b6f408f2fde9efbca5e6a7a93304.ctex"]
+source_file="res://Mods/Dimensionfall/Items/pebble_32.png"
+dest_files=["res://.godot/imported/pebble_32.png-41db035343f37a49e0c99e0942779d29.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4ex6a7ag7yq4"
-path="res://.godot/imported/radio_two_way_32.png-958b8dca6a92ff44c25e968b2527f648.ctex"
+path="res://.godot/imported/radio_two_way_32.png-835b306d27bebf0613cfac5416536f8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/radio_two_way_32.png"
-dest_files=["res://.godot/imported/radio_two_way_32.png-958b8dca6a92ff44c25e968b2527f648.ctex"]
+source_file="res://Mods/Dimensionfall/Items/radio_two_way_32.png"
+dest_files=["res://.godot/imported/radio_two_way_32.png-835b306d27bebf0613cfac5416536f8f.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dp0rkvpqpfeft"
-path="res://.godot/imported/mixing_bowl_32.png-d87ceb2e8b0799fbb2d0f7bda1233ce5.ctex"
+path="res://.godot/imported/mixing_bowl_32.png-9117ed6984f1d07463faa9a4848b9b32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/mixing_bowl_32.png"
-dest_files=["res://.godot/imported/mixing_bowl_32.png-d87ceb2e8b0799fbb2d0f7bda1233ce5.ctex"]
+source_file="res://Mods/Dimensionfall/Items/mixing_bowl_32.png"
+dest_files=["res://.godot/imported/mixing_bowl_32.png-9117ed6984f1d07463faa9a4848b9b32.ctex"]
 
 [params]
 

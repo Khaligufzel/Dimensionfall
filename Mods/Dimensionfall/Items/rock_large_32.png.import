@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b3nqw7bgb6pdi"
-path="res://.godot/imported/rock_large_32.png-aea510b8d9c4dcadbf0041efb0f26514.ctex"
+path="res://.godot/imported/rock_large_32.png-d7d4bdcec315e287fdd2f2122d62aade.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/rock_large_32.png"
-dest_files=["res://.godot/imported/rock_large_32.png-aea510b8d9c4dcadbf0041efb0f26514.ctex"]
+source_file="res://Mods/Dimensionfall/Items/rock_large_32.png"
+dest_files=["res://.godot/imported/rock_large_32.png-d7d4bdcec315e287fdd2f2122d62aade.ctex"]
 
 [params]
 

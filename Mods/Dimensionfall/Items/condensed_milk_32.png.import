@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwnsephjt0f7g"
-path="res://.godot/imported/condensed_milk_32.png-5a888e43133c7a5178fd4d844da9a93d.ctex"
+path="res://.godot/imported/condensed_milk_32.png-f99f318a92db50a1591b5d537b9a9966.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/condensed_milk_32.png"
-dest_files=["res://.godot/imported/condensed_milk_32.png-5a888e43133c7a5178fd4d844da9a93d.ctex"]
+source_file="res://Mods/Dimensionfall/Items/condensed_milk_32.png"
+dest_files=["res://.godot/imported/condensed_milk_32.png-f99f318a92db50a1591b5d537b9a9966.ctex"]
 
 [params]
 

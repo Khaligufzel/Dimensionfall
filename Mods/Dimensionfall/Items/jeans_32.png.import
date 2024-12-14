@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4gvvf53dmr4m"
-path="res://.godot/imported/jeans_32.png-fe318a17238c4468ee58d0a5bce722c4.ctex"
+path="res://.godot/imported/jeans_32.png-e4087048c63e7e2f90c22eda59cc5ef3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/jeans_32.png"
-dest_files=["res://.godot/imported/jeans_32.png-fe318a17238c4468ee58d0a5bce722c4.ctex"]
+source_file="res://Mods/Dimensionfall/Items/jeans_32.png"
+dest_files=["res://.godot/imported/jeans_32.png-e4087048c63e7e2f90c22eda59cc5ef3.ctex"]
 
 [params]
 

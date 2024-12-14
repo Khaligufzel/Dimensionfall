@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d1d02idu8v66x"
-path="res://.godot/imported/cheese_32.png-c922cddcf84282f7a37346aba970192b.ctex"
+path="res://.godot/imported/cheese_32.png-745f95279edefa6c93c9f431c64eb4b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/cheese_32.png"
-dest_files=["res://.godot/imported/cheese_32.png-c922cddcf84282f7a37346aba970192b.ctex"]
+source_file="res://Mods/Dimensionfall/Items/cheese_32.png"
+dest_files=["res://.godot/imported/cheese_32.png-745f95279edefa6c93c9f431c64eb4b0.ctex"]
 
 [params]
 

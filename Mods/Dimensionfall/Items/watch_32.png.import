@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c0r8rt4j5mrt3"
-path="res://.godot/imported/watch_32.png-24feb698e3f81c695f274ffe89494e34.ctex"
+path="res://.godot/imported/watch_32.png-f68562fbef0a229c65939a4da16f7513.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/watch_32.png"
-dest_files=["res://.godot/imported/watch_32.png-24feb698e3f81c695f274ffe89494e34.ctex"]
+source_file="res://Mods/Dimensionfall/Items/watch_32.png"
+dest_files=["res://.godot/imported/watch_32.png-f68562fbef0a229c65939a4da16f7513.ctex"]
 
 [params]
 

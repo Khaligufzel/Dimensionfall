@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0frqot7licf5"
-path="res://.godot/imported/zombie_bone_32.png-c65d34c1e496c8817e671e5e0cf72396.ctex"
+path="res://.godot/imported/zombie_bone_32.png-da6f22ba8781e16999e23d4b8b24f8fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/zombie_bone_32.png"
-dest_files=["res://.godot/imported/zombie_bone_32.png-c65d34c1e496c8817e671e5e0cf72396.ctex"]
+source_file="res://Mods/Dimensionfall/Items/zombie_bone_32.png"
+dest_files=["res://.godot/imported/zombie_bone_32.png-da6f22ba8781e16999e23d4b8b24f8fd.ctex"]
 
 [params]
 

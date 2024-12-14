@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://m4amd5xqm6he"
-path="res://.godot/imported/survival_guide_32.png-d54c493f3c4db28a916ce404e0e0af9b.ctex"
+path="res://.godot/imported/survival_guide_32.png-c30d82ea5d6d5944c2256d92ebabc859.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/survival_guide_32.png"
-dest_files=["res://.godot/imported/survival_guide_32.png-d54c493f3c4db28a916ce404e0e0af9b.ctex"]
+source_file="res://Mods/Dimensionfall/Items/survival_guide_32.png"
+dest_files=["res://.godot/imported/survival_guide_32.png-c30d82ea5d6d5944c2256d92ebabc859.ctex"]
 
 [params]
 

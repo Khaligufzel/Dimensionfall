@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4j5cuc7p0824"
-path="res://.godot/imported/stick_long_32.png-60351ec3583a8f860312f4c915af03e7.ctex"
+path="res://.godot/imported/stick_long_32.png-af43358400a80a5a5dba60c89abe156f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/stick_long_32.png"
-dest_files=["res://.godot/imported/stick_long_32.png-60351ec3583a8f860312f4c915af03e7.ctex"]
+source_file="res://Mods/Dimensionfall/Items/stick_long_32.png"
+dest_files=["res://.godot/imported/stick_long_32.png-af43358400a80a5a5dba60c89abe156f.ctex"]
 
 [params]
 

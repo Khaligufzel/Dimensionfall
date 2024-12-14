@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dor83xbmaxkrr"
-path="res://.godot/imported/zombie_organ_32.png-6d163a4fa84496dfb2402a2bd5d1a2d6.ctex"
+path="res://.godot/imported/zombie_organ_32.png-720178fde0bce879674aa0a1bf92123c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/zombie_organ_32.png"
-dest_files=["res://.godot/imported/zombie_organ_32.png-6d163a4fa84496dfb2402a2bd5d1a2d6.ctex"]
+source_file="res://Mods/Dimensionfall/Items/zombie_organ_32.png"
+dest_files=["res://.godot/imported/zombie_organ_32.png-720178fde0bce879674aa0a1bf92123c.ctex"]
 
 [params]
 

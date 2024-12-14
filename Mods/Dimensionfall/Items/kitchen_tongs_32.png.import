@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpcuj48uug4kh"
-path="res://.godot/imported/kitchen_tongs_32.png-b1896d32d1c7179bd2b4c5ba54cf2f1d.ctex"
+path="res://.godot/imported/kitchen_tongs_32.png-0c9633015ed70f4e8fa507ac72d5f4b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/kitchen_tongs_32.png"
-dest_files=["res://.godot/imported/kitchen_tongs_32.png-b1896d32d1c7179bd2b4c5ba54cf2f1d.ctex"]
+source_file="res://Mods/Dimensionfall/Items/kitchen_tongs_32.png"
+dest_files=["res://.godot/imported/kitchen_tongs_32.png-0c9633015ed70f4e8fa507ac72d5f4b8.ctex"]
 
 [params]
 

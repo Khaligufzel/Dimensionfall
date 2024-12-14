@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://db26qda33coye"
-path="res://.godot/imported/glass_shards_32.png-6bcb6b421cd54e25af0d7cea0baa3615.ctex"
+path="res://.godot/imported/glass_shards_32.png-2d7f63d07adb65dbf3d6c21e539ead33.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/glass_shards_32.png"
-dest_files=["res://.godot/imported/glass_shards_32.png-6bcb6b421cd54e25af0d7cea0baa3615.ctex"]
+source_file="res://Mods/Dimensionfall/Items/glass_shards_32.png"
+dest_files=["res://.godot/imported/glass_shards_32.png-2d7f63d07adb65dbf3d6c21e539ead33.ctex"]
 
 [params]
 

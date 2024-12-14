@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7ey05lmxhokj"
-path="res://.godot/imported/jar_olives_32.png-ca1e755c2f73483155163b56785c807f.ctex"
+path="res://.godot/imported/jar_olives_32.png-672ae4d5a430a771070289d1a92a95ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/jar_olives_32.png"
-dest_files=["res://.godot/imported/jar_olives_32.png-ca1e755c2f73483155163b56785c807f.ctex"]
+source_file="res://Mods/Dimensionfall/Items/jar_olives_32.png"
+dest_files=["res://.godot/imported/jar_olives_32.png-672ae4d5a430a771070289d1a92a95ba.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cqgsglwyuqujw"
-path="res://.godot/imported/waistbag_32.png-e89f558c7f94598d4d3158c83b3deabc.ctex"
+path="res://.godot/imported/waistbag_32.png-3bd9f57f15d0ab8d21eee4e1d581b64c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/waistbag_32.png"
-dest_files=["res://.godot/imported/waistbag_32.png-e89f558c7f94598d4d3158c83b3deabc.ctex"]
+source_file="res://Mods/Dimensionfall/Items/waistbag_32.png"
+dest_files=["res://.godot/imported/waistbag_32.png-3bd9f57f15d0ab8d21eee4e1d581b64c.ctex"]
 
 [params]
 

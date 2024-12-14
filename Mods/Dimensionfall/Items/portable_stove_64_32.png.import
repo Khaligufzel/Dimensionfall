@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ckff18ysstf5s"
-path="res://.godot/imported/portable_stove_64_32.png-0c4d2f428cf4fdb18c9a949e1240a266.ctex"
+path="res://.godot/imported/portable_stove_64_32.png-0a1fa3b4bb5a57aa7815b47b9ed9a6fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/portable_stove_64_32.png"
-dest_files=["res://.godot/imported/portable_stove_64_32.png-0c4d2f428cf4fdb18c9a949e1240a266.ctex"]
+source_file="res://Mods/Dimensionfall/Items/portable_stove_64_32.png"
+dest_files=["res://.godot/imported/portable_stove_64_32.png-0a1fa3b4bb5a57aa7815b47b9ed9a6fd.ctex"]
 
 [params]
 

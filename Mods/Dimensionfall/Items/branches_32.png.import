@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8d1j7i61gtsc"
-path="res://.godot/imported/branches_32.png-4232b2246c459a34ffaae5ac24c7abcb.ctex"
+path="res://.godot/imported/branches_32.png-aa4ac5875d76dae2007c3d70f39ec26d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/branches_32.png"
-dest_files=["res://.godot/imported/branches_32.png-4232b2246c459a34ffaae5ac24c7abcb.ctex"]
+source_file="res://Mods/Dimensionfall/Items/branches_32.png"
+dest_files=["res://.godot/imported/branches_32.png-aa4ac5875d76dae2007c3d70f39ec26d.ctex"]
 
 [params]
 

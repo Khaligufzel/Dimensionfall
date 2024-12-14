@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cswkol1cnll28"
-path="res://.godot/imported/jar_basil_32.png-015a460da08b5f8b9448a5aebe89c25d.ctex"
+path="res://.godot/imported/jar_basil_32.png-bc57d84a39b589a4b74994c6a1e3d003.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/jar_basil_32.png"
-dest_files=["res://.godot/imported/jar_basil_32.png-015a460da08b5f8b9448a5aebe89c25d.ctex"]
+source_file="res://Mods/Dimensionfall/Items/jar_basil_32.png"
+dest_files=["res://.godot/imported/jar_basil_32.png-bc57d84a39b589a4b74994c6a1e3d003.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2j81xm4unjo1"
-path="res://.godot/imported/brick_32.png-ebf21faa141814c9f0dfbbcdf68ba8b1.ctex"
+path="res://.godot/imported/brick_32.png-46285eee7b8a4d7a435652e41067b948.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/brick_32.png"
-dest_files=["res://.godot/imported/brick_32.png-ebf21faa141814c9f0dfbbcdf68ba8b1.ctex"]
+source_file="res://Mods/Dimensionfall/Items/brick_32.png"
+dest_files=["res://.godot/imported/brick_32.png-46285eee7b8a4d7a435652e41067b948.ctex"]
 
 [params]
 

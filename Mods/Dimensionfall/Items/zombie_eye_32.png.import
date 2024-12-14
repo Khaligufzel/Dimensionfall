@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dobt7byjfws15"
-path="res://.godot/imported/zombie_eye_32.png-48b5f8cc566b75134663cb1a28dac33d.ctex"
+path="res://.godot/imported/zombie_eye_32.png-4d97ad3b0a91ca18d786f67bf3d63549.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/zombie_eye_32.png"
-dest_files=["res://.godot/imported/zombie_eye_32.png-48b5f8cc566b75134663cb1a28dac33d.ctex"]
+source_file="res://Mods/Dimensionfall/Items/zombie_eye_32.png"
+dest_files=["res://.godot/imported/zombie_eye_32.png-4d97ad3b0a91ca18d786f67bf3d63549.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bn0unhe6q4513"
-path="res://.godot/imported/battery_32.png-eaa82520bfc3bfa3d44ebce7dc885ba6.ctex"
+path="res://.godot/imported/battery_32.png-2403aeae13915e2d25b9b6c61f64f9d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/battery_32.png"
-dest_files=["res://.godot/imported/battery_32.png-eaa82520bfc3bfa3d44ebce7dc885ba6.ctex"]
+source_file="res://Mods/Dimensionfall/Items/battery_32.png"
+dest_files=["res://.godot/imported/battery_32.png-2403aeae13915e2d25b9b6c61f64f9d3.ctex"]
 
 [params]
 

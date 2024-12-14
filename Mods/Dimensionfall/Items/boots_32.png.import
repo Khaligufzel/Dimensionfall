@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dht2u28l4o3pv"
-path="res://.godot/imported/boots_32.png-140429a6053ca306a00a2b6ff9b31458.ctex"
+path="res://.godot/imported/boots_32.png-4b9b6afe523d0f0b3df3ff7756067cd5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/boots_32.png"
-dest_files=["res://.godot/imported/boots_32.png-140429a6053ca306a00a2b6ff9b31458.ctex"]
+source_file="res://Mods/Dimensionfall/Items/boots_32.png"
+dest_files=["res://.godot/imported/boots_32.png-4b9b6afe523d0f0b3df3ff7756067cd5.ctex"]
 
 [params]
 

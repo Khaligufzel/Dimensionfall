@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://rckf8e4506y"
-path="res://.godot/imported/berries_wild_32.png-bc7aef9f69b2fec852fdb5aca1817bab.ctex"
+path="res://.godot/imported/berries_wild_32.png-890bf90e2abc420403048c8290e692c7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/berries_wild_32.png"
-dest_files=["res://.godot/imported/berries_wild_32.png-bc7aef9f69b2fec852fdb5aca1817bab.ctex"]
+source_file="res://Mods/Dimensionfall/Items/berries_wild_32.png"
+dest_files=["res://.godot/imported/berries_wild_32.png-890bf90e2abc420403048c8290e692c7.ctex"]
 
 [params]
 

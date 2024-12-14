@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5yh6b5f8lttr"
-path="res://.godot/imported/hammer_32.png-d27c7a80a0d33a5c4006b5d371d6a69d.ctex"
+path="res://.godot/imported/hammer_32.png-59fe3439363d0d3b922f38ba77f3cadd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/hammer_32.png"
-dest_files=["res://.godot/imported/hammer_32.png-d27c7a80a0d33a5c4006b5d371d6a69d.ctex"]
+source_file="res://Mods/Dimensionfall/Items/hammer_32.png"
+dest_files=["res://.godot/imported/hammer_32.png-59fe3439363d0d3b922f38ba77f3cadd.ctex"]
 
 [params]
 

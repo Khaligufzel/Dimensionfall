@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6puh6ubngwb2"
-path="res://.godot/imported/grater_32.png-4bf7409b398074796b4d4a13074007a3.ctex"
+path="res://.godot/imported/grater_32.png-590352230dd8c9f6e247aa1c1a07e1ec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/grater_32.png"
-dest_files=["res://.godot/imported/grater_32.png-4bf7409b398074796b4d4a13074007a3.ctex"]
+source_file="res://Mods/Dimensionfall/Items/grater_32.png"
+dest_files=["res://.godot/imported/grater_32.png-590352230dd8c9f6e247aa1c1a07e1ec.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://suo63vgyapw5"
-path="res://.godot/imported/rotten_flesh_chunk_32.png-c5f1e42bb9766fc7ea30b0ac40b6fb03.ctex"
+path="res://.godot/imported/rotten_flesh_chunk_32.png-22af8036cb207baf1b328ab3ea1ff837.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/rotten_flesh_chunk_32.png"
-dest_files=["res://.godot/imported/rotten_flesh_chunk_32.png-c5f1e42bb9766fc7ea30b0ac40b6fb03.ctex"]
+source_file="res://Mods/Dimensionfall/Items/rotten_flesh_chunk_32.png"
+dest_files=["res://.godot/imported/rotten_flesh_chunk_32.png-22af8036cb207baf1b328ab3ea1ff837.ctex"]
 
 [params]
 

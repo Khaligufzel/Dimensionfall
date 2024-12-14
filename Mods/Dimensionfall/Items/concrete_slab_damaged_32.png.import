@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbp3etv630axf"
-path="res://.godot/imported/concrete_slab_damaged_32.png-4e44ac180acf42881ccef85a95372906.ctex"
+path="res://.godot/imported/concrete_slab_damaged_32.png-ad9259abd8b9e88be13b8b2773926b0c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/concrete_slab_damaged_32.png"
-dest_files=["res://.godot/imported/concrete_slab_damaged_32.png-4e44ac180acf42881ccef85a95372906.ctex"]
+source_file="res://Mods/Dimensionfall/Items/concrete_slab_damaged_32.png"
+dest_files=["res://.godot/imported/concrete_slab_damaged_32.png-ad9259abd8b9e88be13b8b2773926b0c.ctex"]
 
 [params]
 

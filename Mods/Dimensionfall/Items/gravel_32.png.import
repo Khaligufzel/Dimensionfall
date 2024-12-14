@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://fw0h8x21bc17"
-path="res://.godot/imported/gravel_32.png-632c38a9668381caff68ee7f3ab0c8f7.ctex"
+path="res://.godot/imported/gravel_32.png-d9ad47459d40f0a7b8b645d9d8e42a2c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/gravel_32.png"
-dest_files=["res://.godot/imported/gravel_32.png-632c38a9668381caff68ee7f3ab0c8f7.ctex"]
+source_file="res://Mods/Dimensionfall/Items/gravel_32.png"
+dest_files=["res://.godot/imported/gravel_32.png-d9ad47459d40f0a7b8b645d9d8e42a2c.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8v0t48nfj7ru"
-path="res://.godot/imported/bottle_yogurt_32.png-03379b54ef7c495f04244a7df2c512e5.ctex"
+path="res://.godot/imported/bottle_yogurt_32.png-c51332c5548c018b38dc49b3446ccfa6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/bottle_yogurt_32.png"
-dest_files=["res://.godot/imported/bottle_yogurt_32.png-03379b54ef7c495f04244a7df2c512e5.ctex"]
+source_file="res://Mods/Dimensionfall/Items/bottle_yogurt_32.png"
+dest_files=["res://.godot/imported/bottle_yogurt_32.png-c51332c5548c018b38dc49b3446ccfa6.ctex"]
 
 [params]
 

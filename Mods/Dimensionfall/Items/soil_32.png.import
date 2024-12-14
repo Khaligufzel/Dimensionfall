@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bf5sj0w82e2qx"
-path="res://.godot/imported/soil_32.png-5d2cba6a059f3c9759bcd0e314d4c62d.ctex"
+path="res://.godot/imported/soil_32.png-4eb13b1915299cacd207b6e045f092cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/soil_32.png"
-dest_files=["res://.godot/imported/soil_32.png-5d2cba6a059f3c9759bcd0e314d4c62d.ctex"]
+source_file="res://Mods/Dimensionfall/Items/soil_32.png"
+dest_files=["res://.godot/imported/soil_32.png-4eb13b1915299cacd207b6e045f092cd.ctex"]
 
 [params]
 

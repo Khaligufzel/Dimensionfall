@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c126b6ylemn2j"
-path="res://.godot/imported/mailbag_32.png-b6461936a389deea36f344eed59bf216.ctex"
+path="res://.godot/imported/mailbag_32.png-ec1a591a4675dac7ede2e71af5b2e9f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/mailbag_32.png"
-dest_files=["res://.godot/imported/mailbag_32.png-b6461936a389deea36f344eed59bf216.ctex"]
+source_file="res://Mods/Dimensionfall/Items/mailbag_32.png"
+dest_files=["res://.godot/imported/mailbag_32.png-ec1a591a4675dac7ede2e71af5b2e9f0.ctex"]
 
 [params]
 

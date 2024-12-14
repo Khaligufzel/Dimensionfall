@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5k0ox8deh0hn"
-path="res://.godot/imported/kit_fishing_small_32.png-39fa5387e4cd613090930c9107344095.ctex"
+path="res://.godot/imported/kit_fishing_small_32.png-af4a248dcf31927253bc08435cfecf86.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/kit_fishing_small_32.png"
-dest_files=["res://.godot/imported/kit_fishing_small_32.png-39fa5387e4cd613090930c9107344095.ctex"]
+source_file="res://Mods/Dimensionfall/Items/kit_fishing_small_32.png"
+dest_files=["res://.godot/imported/kit_fishing_small_32.png-af4a248dcf31927253bc08435cfecf86.ctex"]
 
 [params]
 

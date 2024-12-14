@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwe5textox5lp"
-path="res://.godot/imported/map_paper_32.png-c682a1c932ea1f58aa5e90b09c63d612.ctex"
+path="res://.godot/imported/map_paper_32.png-4b1a75e30f3bbc7a5ef1a13c35341cbd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/map_paper_32.png"
-dest_files=["res://.godot/imported/map_paper_32.png-c682a1c932ea1f58aa5e90b09c63d612.ctex"]
+source_file="res://Mods/Dimensionfall/Items/map_paper_32.png"
+dest_files=["res://.godot/imported/map_paper_32.png-4b1a75e30f3bbc7a5ef1a13c35341cbd.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8aafoegr2o3y"
-path="res://.godot/imported/spear_stone_32.png-65ce885c3b5d6d9b8872d724c4ed3527.ctex"
+path="res://.godot/imported/spear_stone_32.png-3444230076ef9aaedb2a92a339ee146b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/spear_stone_32.png"
-dest_files=["res://.godot/imported/spear_stone_32.png-65ce885c3b5d6d9b8872d724c4ed3527.ctex"]
+source_file="res://Mods/Dimensionfall/Items/spear_stone_32.png"
+dest_files=["res://.godot/imported/spear_stone_32.png-3444230076ef9aaedb2a92a339ee146b.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5tbuxmrli7e4"
-path="res://.godot/imported/steel_scrap.png-945eecc671a66949a44a03816c3ce558.ctex"
+path="res://.godot/imported/steel_scrap.png-ee6358597afb5b968dc8ffcb4aabff7d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/steel_scrap.png"
-dest_files=["res://.godot/imported/steel_scrap.png-945eecc671a66949a44a03816c3ce558.ctex"]
+source_file="res://Mods/Dimensionfall/Items/steel_scrap.png"
+dest_files=["res://.godot/imported/steel_scrap.png-ee6358597afb5b968dc8ffcb4aabff7d.ctex"]
 
 [params]
 

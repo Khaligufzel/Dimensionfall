@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://wqirap8g55qm"
-path="res://.godot/imported/can_soda_32.png-7b486adb099ad6e0c50dc2d939c0ea2e.ctex"
+path="res://.godot/imported/can_soda_32.png-8bdf161669b4e2e3614eb39dadfdc4e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/can_soda_32.png"
-dest_files=["res://.godot/imported/can_soda_32.png-7b486adb099ad6e0c50dc2d939c0ea2e.ctex"]
+source_file="res://Mods/Dimensionfall/Items/can_soda_32.png"
+dest_files=["res://.godot/imported/can_soda_32.png-8bdf161669b4e2e3614eb39dadfdc4e5.ctex"]
 
 [params]
 

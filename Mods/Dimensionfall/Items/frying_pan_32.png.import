@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6lhc7aodo4fp"
-path="res://.godot/imported/frying_pan_32.png-ed5482c70b0bf7b079dbfb80c59a0879.ctex"
+path="res://.godot/imported/frying_pan_32.png-463928c1f6013ca089d4c542f7ae3700.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/frying_pan_32.png"
-dest_files=["res://.godot/imported/frying_pan_32.png-ed5482c70b0bf7b079dbfb80c59a0879.ctex"]
+source_file="res://Mods/Dimensionfall/Items/frying_pan_32.png"
+dest_files=["res://.godot/imported/frying_pan_32.png-463928c1f6013ca089d4c542f7ae3700.ctex"]
 
 [params]
 

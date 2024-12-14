@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://uc23cm1xhewm"
-path="res://.godot/imported/chocolate_32.png-da57499dfaaf58da307fb77057e719fc.ctex"
+path="res://.godot/imported/chocolate_32.png-51fd7c19c2374ec3085877d71cc69553.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/chocolate_32.png"
-dest_files=["res://.godot/imported/chocolate_32.png-da57499dfaaf58da307fb77057e719fc.ctex"]
+source_file="res://Mods/Dimensionfall/Items/chocolate_32.png"
+dest_files=["res://.godot/imported/chocolate_32.png-51fd7c19c2374ec3085877d71cc69553.ctex"]
 
 [params]
 

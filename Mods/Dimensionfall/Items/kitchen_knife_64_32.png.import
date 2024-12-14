@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d1i8uhcj5mnkf"
-path="res://.godot/imported/kitchen_knife_64_32.png-0abe3f0429f1315542e14e8c04a48103.ctex"
+path="res://.godot/imported/kitchen_knife_64_32.png-28db55c6e4b6eeb7c38b4cf02445929d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/kitchen_knife_64_32.png"
-dest_files=["res://.godot/imported/kitchen_knife_64_32.png-0abe3f0429f1315542e14e8c04a48103.ctex"]
+source_file="res://Mods/Dimensionfall/Items/kitchen_knife_64_32.png"
+dest_files=["res://.godot/imported/kitchen_knife_64_32.png-28db55c6e4b6eeb7c38b4cf02445929d.ctex"]
 
 [params]
 

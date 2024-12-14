@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ck3g3yihowyr"
-path="res://.godot/imported/cutting_board_64_32.png-18ef8adb77f25233dfed6bac8c8f0e81.ctex"
+path="res://.godot/imported/cutting_board_64_32.png-5407d293b6f53aba5301ea6c16a5de6d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/cutting_board_64_32.png"
-dest_files=["res://.godot/imported/cutting_board_64_32.png-18ef8adb77f25233dfed6bac8c8f0e81.ctex"]
+source_file="res://Mods/Dimensionfall/Items/cutting_board_64_32.png"
+dest_files=["res://.godot/imported/cutting_board_64_32.png-5407d293b6f53aba5301ea6c16a5de6d.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjiose2ptn5at"
-path="res://.godot/imported/arrow_basic_32.png-63638d97e63ed91fff02a3e84e461d8b.ctex"
+path="res://.godot/imported/arrow_basic_32.png-452b7048504bc754698095cd143a30e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/arrow_basic_32.png"
-dest_files=["res://.godot/imported/arrow_basic_32.png-63638d97e63ed91fff02a3e84e461d8b.ctex"]
+source_file="res://Mods/Dimensionfall/Items/arrow_basic_32.png"
+dest_files=["res://.godot/imported/arrow_basic_32.png-452b7048504bc754698095cd143a30e0.ctex"]
 
 [params]
 

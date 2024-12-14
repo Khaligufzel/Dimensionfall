@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dswulnf6ihyq"
-path="res://.godot/imported/baseball_cap_32.png-5c3da9cb547c8ef77fb9ba4eee58a730.ctex"
+path="res://.godot/imported/baseball_cap_32.png-c8d293f648fb4f63b119d6d861b333a6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/baseball_cap_32.png"
-dest_files=["res://.godot/imported/baseball_cap_32.png-5c3da9cb547c8ef77fb9ba4eee58a730.ctex"]
+source_file="res://Mods/Dimensionfall/Items/baseball_cap_32.png"
+dest_files=["res://.godot/imported/baseball_cap_32.png-c8d293f648fb4f63b119d6d861b333a6.ctex"]
 
 [params]
 

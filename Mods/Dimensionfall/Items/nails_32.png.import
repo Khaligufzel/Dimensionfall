@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://3vxlokawsb16"
-path="res://.godot/imported/nails_32.png-c493b671ae1fe4ffb5424783987d9a53.ctex"
+path="res://.godot/imported/nails_32.png-868223bc4735751ef917851c5b736c2c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/nails_32.png"
-dest_files=["res://.godot/imported/nails_32.png-c493b671ae1fe4ffb5424783987d9a53.ctex"]
+source_file="res://Mods/Dimensionfall/Items/nails_32.png"
+dest_files=["res://.godot/imported/nails_32.png-868223bc4735751ef917851c5b736c2c.ctex"]
 
 [params]
 

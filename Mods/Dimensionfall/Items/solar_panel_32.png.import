@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8mkfqx5ww0gk"
-path="res://.godot/imported/solar_panel_32.png-0128229b6d005a656da9751d782fa288.ctex"
+path="res://.godot/imported/solar_panel_32.png-f59f76c0c37dfe39e492d0760f9993f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/solar_panel_32.png"
-dest_files=["res://.godot/imported/solar_panel_32.png-0128229b6d005a656da9751d782fa288.ctex"]
+source_file="res://Mods/Dimensionfall/Items/solar_panel_32.png"
+dest_files=["res://.godot/imported/solar_panel_32.png-f59f76c0c37dfe39e492d0760f9993f5.ctex"]
 
 [params]
 

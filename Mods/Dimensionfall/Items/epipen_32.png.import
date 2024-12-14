@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddfdcpdfhkrt6"
-path="res://.godot/imported/epipen_32.png-2610a450238dd3c96a0d475b3f349fbb.ctex"
+path="res://.godot/imported/epipen_32.png-512374ff93699fed51a462d589139ec8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/epipen_32.png"
-dest_files=["res://.godot/imported/epipen_32.png-2610a450238dd3c96a0d475b3f349fbb.ctex"]
+source_file="res://Mods/Dimensionfall/Items/epipen_32.png"
+dest_files=["res://.godot/imported/epipen_32.png-512374ff93699fed51a462d589139ec8.ctex"]
 
 [params]
 

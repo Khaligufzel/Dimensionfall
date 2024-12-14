@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://il30yk2ohf5d"
-path="res://.godot/imported/basting_brush_32.png-8c5ca1736505a8537e6aa2df0496eddb.ctex"
+path="res://.godot/imported/basting_brush_32.png-6cbaa2696a40bf992888ea49e58d6a36.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/basting_brush_32.png"
-dest_files=["res://.godot/imported/basting_brush_32.png-8c5ca1736505a8537e6aa2df0496eddb.ctex"]
+source_file="res://Mods/Dimensionfall/Items/basting_brush_32.png"
+dest_files=["res://.godot/imported/basting_brush_32.png-6cbaa2696a40bf992888ea49e58d6a36.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddprdqdgdte28"
-path="res://.godot/imported/pizza_cutter_32.png-99bc75b65f745d2cac6285ccdc07cdd1.ctex"
+path="res://.godot/imported/pizza_cutter_32.png-4274d009384047169341eb4e809862d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/pizza_cutter_32.png"
-dest_files=["res://.godot/imported/pizza_cutter_32.png-99bc75b65f745d2cac6285ccdc07cdd1.ctex"]
+source_file="res://Mods/Dimensionfall/Items/pizza_cutter_32.png"
+dest_files=["res://.godot/imported/pizza_cutter_32.png-4274d009384047169341eb4e809862d4.ctex"]
 
 [params]
 

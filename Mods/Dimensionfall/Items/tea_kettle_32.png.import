@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://r733r8oe0gg8"
-path="res://.godot/imported/tea_kettle_32.png-763babc6d0f3b3fdb5210ca39f9a0316.ctex"
+path="res://.godot/imported/tea_kettle_32.png-164ee8a51bcfb076dffaebf0e80b0cde.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/tea_kettle_32.png"
-dest_files=["res://.godot/imported/tea_kettle_32.png-763babc6d0f3b3fdb5210ca39f9a0316.ctex"]
+source_file="res://Mods/Dimensionfall/Items/tea_kettle_32.png"
+dest_files=["res://.godot/imported/tea_kettle_32.png-164ee8a51bcfb076dffaebf0e80b0cde.ctex"]
 
 [params]
 

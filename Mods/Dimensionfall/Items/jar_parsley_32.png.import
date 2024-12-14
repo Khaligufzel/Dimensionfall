@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0ted24qbraie"
-path="res://.godot/imported/jar_parsley_32.png-31f6ec4f4d89d5e7e1a82f6c52dec1ac.ctex"
+path="res://.godot/imported/jar_parsley_32.png-fc244beb4a9584daba51dc44e722a327.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/jar_parsley_32.png"
-dest_files=["res://.godot/imported/jar_parsley_32.png-31f6ec4f4d89d5e7e1a82f6c52dec1ac.ctex"]
+source_file="res://Mods/Dimensionfall/Items/jar_parsley_32.png"
+dest_files=["res://.godot/imported/jar_parsley_32.png-fc244beb4a9584daba51dc44e722a327.ctex"]
 
 [params]
 

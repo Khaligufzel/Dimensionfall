@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://depwabn88fw7e"
-path="res://.godot/imported/pistol_magazine.png-783d83ffc3f9f3bb2653966ee1377c98.ctex"
+path="res://.godot/imported/pistol_magazine.png-3dbce03d4034558bdfd4fe730250d741.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/pistol_magazine.png"
-dest_files=["res://.godot/imported/pistol_magazine.png-783d83ffc3f9f3bb2653966ee1377c98.ctex"]
+source_file="res://Mods/Dimensionfall/Items/pistol_magazine.png"
+dest_files=["res://.godot/imported/pistol_magazine.png-3dbce03d4034558bdfd4fe730250d741.ctex"]
 
 [params]
 

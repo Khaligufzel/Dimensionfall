@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b46qikddcnd8q"
-path="res://.godot/imported/measuring_cup_32.png-2a46e4963be56a1a7c7d95b1a554f571.ctex"
+path="res://.godot/imported/measuring_cup_32.png-c83072a6f5d90cf9b3ec7b926879a268.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/measuring_cup_32.png"
-dest_files=["res://.godot/imported/measuring_cup_32.png-2a46e4963be56a1a7c7d95b1a554f571.ctex"]
+source_file="res://Mods/Dimensionfall/Items/measuring_cup_32.png"
+dest_files=["res://.godot/imported/measuring_cup_32.png-c83072a6f5d90cf9b3ec7b926879a268.ctex"]
 
 [params]
 

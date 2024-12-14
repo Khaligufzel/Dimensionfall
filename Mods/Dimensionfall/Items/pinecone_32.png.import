@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://by1efcryiqru"
-path="res://.godot/imported/pinecone_32.png-cd5c6b4cf9f4fbc9dc357d44738a66c2.ctex"
+path="res://.godot/imported/pinecone_32.png-093bca3265c594cfa3b052cb5058bdc4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/pinecone_32.png"
-dest_files=["res://.godot/imported/pinecone_32.png-cd5c6b4cf9f4fbc9dc357d44738a66c2.ctex"]
+source_file="res://Mods/Dimensionfall/Items/pinecone_32.png"
+dest_files=["res://.godot/imported/pinecone_32.png-093bca3265c594cfa3b052cb5058bdc4.ctex"]
 
 [params]
 

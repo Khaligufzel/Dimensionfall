@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cc27x8ifvj7ao"
-path="res://.godot/imported/flashlight_32.png-4200c8d2f3c5009944d562fddb9b9544.ctex"
+path="res://.godot/imported/flashlight_32.png-fb865cc5ee306034f90ff7e79e4fe978.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/flashlight_32.png"
-dest_files=["res://.godot/imported/flashlight_32.png-4200c8d2f3c5009944d562fddb9b9544.ctex"]
+source_file="res://Mods/Dimensionfall/Items/flashlight_32.png"
+dest_files=["res://.godot/imported/flashlight_32.png-fb865cc5ee306034f90ff7e79e4fe978.ctex"]
 
 [params]
 

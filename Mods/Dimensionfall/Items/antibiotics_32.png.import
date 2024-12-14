@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvts34ow36v4j"
-path="res://.godot/imported/antibiotics_32.png-1bd45cb9c74147850eb0cad5184929e1.ctex"
+path="res://.godot/imported/antibiotics_32.png-ecbfdb432f3138602aee8528794253df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/antibiotics_32.png"
-dest_files=["res://.godot/imported/antibiotics_32.png-1bd45cb9c74147850eb0cad5184929e1.ctex"]
+source_file="res://Mods/Dimensionfall/Items/antibiotics_32.png"
+dest_files=["res://.godot/imported/antibiotics_32.png-ecbfdb432f3138602aee8528794253df.ctex"]
 
 [params]
 

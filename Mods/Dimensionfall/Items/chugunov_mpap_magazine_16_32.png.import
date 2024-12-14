@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vx3tt6cdqm51"
-path="res://.godot/imported/chugunov_mpap_magazine_16_32.png-fee40cafcb03ef38029b020f40b36d37.ctex"
+path="res://.godot/imported/chugunov_mpap_magazine_16_32.png-8487dfde1624a4b937008f7d4857ed1c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/chugunov_mpap_magazine_16_32.png"
-dest_files=["res://.godot/imported/chugunov_mpap_magazine_16_32.png-fee40cafcb03ef38029b020f40b36d37.ctex"]
+source_file="res://Mods/Dimensionfall/Items/chugunov_mpap_magazine_16_32.png"
+dest_files=["res://.godot/imported/chugunov_mpap_magazine_16_32.png-8487dfde1624a4b937008f7d4857ed1c.ctex"]
 
 [params]
 

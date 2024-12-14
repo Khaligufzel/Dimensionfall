@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c0j5bi5lwg6ti"
-path="res://.godot/imported/apple_corer_32.png-e2b39381fff11b5818821cefde9badf4.ctex"
+path="res://.godot/imported/apple_corer_32.png-1219a931f88532048508821df5c874f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/apple_corer_32.png"
-dest_files=["res://.godot/imported/apple_corer_32.png-e2b39381fff11b5818821cefde9badf4.ctex"]
+source_file="res://Mods/Dimensionfall/Items/apple_corer_32.png"
+dest_files=["res://.godot/imported/apple_corer_32.png-1219a931f88532048508821df5c874f6.ctex"]
 
 [params]
 

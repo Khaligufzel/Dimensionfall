@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cajt8dj5ux43x"
-path="res://.godot/imported/gasmask_32.png-24f16a66fb2bc7d667a2293743da1f3c.ctex"
+path="res://.godot/imported/gasmask_32.png-6878dd66c4bd783620ab85574b9f2ceb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/gasmask_32.png"
-dest_files=["res://.godot/imported/gasmask_32.png-24f16a66fb2bc7d667a2293743da1f3c.ctex"]
+source_file="res://Mods/Dimensionfall/Items/gasmask_32.png"
+dest_files=["res://.godot/imported/gasmask_32.png-6878dd66c4bd783620ab85574b9f2ceb.ctex"]
 
 [params]
 

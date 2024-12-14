@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bycdlkvos74ml"
-path="res://.godot/imported/canned_food_32.png-505b43c16a82a7b2b5d1f69109d798ad.ctex"
+path="res://.godot/imported/canned_food_32.png-d8ea0b0fb8e72bede8b14ec10fc11774.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/canned_food_32.png"
-dest_files=["res://.godot/imported/canned_food_32.png-505b43c16a82a7b2b5d1f69109d798ad.ctex"]
+source_file="res://Mods/Dimensionfall/Items/canned_food_32.png"
+dest_files=["res://.godot/imported/canned_food_32.png-d8ea0b0fb8e72bede8b14ec10fc11774.ctex"]
 
 [params]
 

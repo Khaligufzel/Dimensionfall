@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdknf3d8dmii3"
-path="res://.godot/imported/tarp_32.png-0fece89616365854d294ca933e803508.ctex"
+path="res://.godot/imported/tarp_32.png-224191ef6fe27cf02eb74f0b5202da25.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/tarp_32.png"
-dest_files=["res://.godot/imported/tarp_32.png-0fece89616365854d294ca933e803508.ctex"]
+source_file="res://Mods/Dimensionfall/Items/tarp_32.png"
+dest_files=["res://.godot/imported/tarp_32.png-224191ef6fe27cf02eb74f0b5202da25.ctex"]
 
 [params]
 

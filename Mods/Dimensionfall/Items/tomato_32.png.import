@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://qagmdx4kgxi6"
-path="res://.godot/imported/tomato_32.png-1fb4e4c2ff1a5ab713ffae0faca93927.ctex"
+path="res://.godot/imported/tomato_32.png-7f928bfdc98a2146d3d467e427cbf481.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/tomato_32.png"
-dest_files=["res://.godot/imported/tomato_32.png-1fb4e4c2ff1a5ab713ffae0faca93927.ctex"]
+source_file="res://Mods/Dimensionfall/Items/tomato_32.png"
+dest_files=["res://.godot/imported/tomato_32.png-7f928bfdc98a2146d3d467e427cbf481.ctex"]
 
 [params]
 

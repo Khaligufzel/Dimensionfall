@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cw0frqwkinal7"
-path="res://.godot/imported/ceramic_fragments_32.png-ca16934eab1f4b40bdbc902ed43b8afd.ctex"
+path="res://.godot/imported/ceramic_fragments_32.png-6fc2a5a2e55e25ea14ed506085b0a3d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/ceramic_fragments_32.png"
-dest_files=["res://.godot/imported/ceramic_fragments_32.png-ca16934eab1f4b40bdbc902ed43b8afd.ctex"]
+source_file="res://Mods/Dimensionfall/Items/ceramic_fragments_32.png"
+dest_files=["res://.godot/imported/ceramic_fragments_32.png-6fc2a5a2e55e25ea14ed506085b0a3d4.ctex"]
 
 [params]
 

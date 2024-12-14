@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d1ghcw54vr7r1"
-path="res://.godot/imported/cheese_grater_32.png-cf8041956d1f4e02b549057096fb7064.ctex"
+path="res://.godot/imported/cheese_grater_32.png-46ccade9d2c290324766b53b16d613b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/cheese_grater_32.png"
-dest_files=["res://.godot/imported/cheese_grater_32.png-cf8041956d1f4e02b549057096fb7064.ctex"]
+source_file="res://Mods/Dimensionfall/Items/cheese_grater_32.png"
+dest_files=["res://.godot/imported/cheese_grater_32.png-46ccade9d2c290324766b53b16d613b9.ctex"]
 
 [params]
 

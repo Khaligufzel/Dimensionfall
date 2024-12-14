@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://g736cu3wdw5o"
-path="res://.godot/imported/can_energydrink_32.png-497703c5a6299d6eb1e5dd3af907d6ac.ctex"
+path="res://.godot/imported/can_energydrink_32.png-f0bd03b2a9bb3bb6f63138205d2f4c04.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/can_energydrink_32.png"
-dest_files=["res://.godot/imported/can_energydrink_32.png-497703c5a6299d6eb1e5dd3af907d6ac.ctex"]
+source_file="res://Mods/Dimensionfall/Items/can_energydrink_32.png"
+dest_files=["res://.godot/imported/can_energydrink_32.png-f0bd03b2a9bb3bb6f63138205d2f4c04.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bvkggbv8kwbvv"
-path="res://.godot/imported/wallet_32.png-5f048e7301a4e7be37e7a9b6edccb08f.ctex"
+path="res://.godot/imported/wallet_32.png-725963f39a28c44bb7d2d1e670f23952.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Items/wallet_32.png"
-dest_files=["res://.godot/imported/wallet_32.png-5f048e7301a4e7be37e7a9b6edccb08f.ctex"]
+source_file="res://Mods/Dimensionfall/Items/wallet_32.png"
+dest_files=["res://.godot/imported/wallet_32.png-725963f39a28c44bb7d2d1e670f23952.ctex"]
 
 [params]
 
