@@ -20,10 +20,11 @@ extends RefCounted
 var dataPath: String = "./Mods/Core/Maps/"
 var mapdict: Dictionary = {}
 var references: Dictionary = {}
-
+var mod_id: String = "Core"
 
 # Load references from references.json during initialization
-func _init(mod_id: String):
+func _init(new_mod_id: String):
+	mod_id = new_mod_id
 	dataPath = "./Mods/" + mod_id + "/Maps/"
 	load_references()
 	load_maps_from_disk()
@@ -54,21 +55,28 @@ func get_all() -> Dictionary:
 	return mapdict
 
 
-func duplicate_to_disk(mapid: String, newmapid: String) -> void:
+func duplicate_to_disk(mapid: String, newmapid: String, new_mod_id: String) -> void:
+	if new_mod_id != mod_id:
+		var other_maps: DMaps = Gamedata.mods.by_id(new_mod_id).maps
+		var newmap: DMap = other_maps.add_new(newmapid)
+		var newdata: Dictionary = by_id(mapid).get_data().duplicate(true)
+		newmap.set_data(newdata)
+		newmap.save_data_to_disk()
+		return  # Exit the function if the mod IDs don't match
+	
+	# Proceed with duplication if mod IDs are equal
 	var newmap: DMap = DMap.new(newmapid, dataPath, self)
 	var newdata: Dictionary = by_id(mapid).get_data().duplicate(true)
-	# A duplicated map is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	newdata.erase("references")
 	newmap.set_data(newdata)
 	newmap.save_data_to_disk()
 	mapdict[newmapid] = newmap
 
 
-func add_new(newid: String) -> void:
+func add_new(newid: String) -> DMap:
 	var newmap: DMap = DMap.new(newid, dataPath, self)
 	newmap.save_data_to_disk()
 	mapdict[newid] = newmap
+	return newmap
 	
 
 func delete_by_id(mapid: String) -> void:

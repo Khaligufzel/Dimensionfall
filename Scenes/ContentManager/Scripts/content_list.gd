@@ -10,6 +10,10 @@ extends Control
 @export var collapseButton: Button = null
 @export var pupup_ID: Popup = null
 @export var popup_textedit: TextEdit = null
+@export var to_mod_h_box_container: HBoxContainer = null
+@export var mod_option_button: OptionButton = null
+
+
 signal item_activated(type: DMod.ContentType, itemID: String, list: Control)
 var popupAction: String = ""
 var datainstance: RefCounted # One of the data classes like DMap, DTile, DMob and so on
@@ -36,8 +40,22 @@ var is_collapsed: bool = false:
 		save_collapse_state()
 
 
-
 func _ready():
+	# Populate mod_option_button with IDs from all mods
+	mod_option_button.clear()  # Clear any existing entries
+	var all_mod_ids: Array = Gamedata.mods.get_all_mod_ids()  # Get all mod IDs
+	for mymod_id in all_mod_ids:
+		mod_option_button.add_item(mymod_id)  # Add each mod ID to the OptionButton
+
+	# Set the selected value to the current `mod_id`
+	var selected_index = all_mod_ids.find(mod_id)  # Find the index of the current mod_id
+	if selected_index != -1:
+		mod_option_button.select(selected_index)  # Select the current mod_id in the OptionButton
+	else:
+		mod_id = all_mod_ids[0] if all_mod_ids.size() > 0 else "Core"  # Default to the first mod or "Core"
+		mod_option_button.select(0)
+
+	# Other existing setup for the contentItems drag forwarding
 	contentItems.set_drag_forwarding(_create_drag_data, Callable(), Callable())
 
 
@@ -70,7 +88,8 @@ func add_item_to_data(id: String):
 func _on_add_button_button_up():
 	popupAction = "Add"
 	popup_textedit.text = ""
-	pupup_ID.show()
+	to_mod_h_box_container.show()
+	mod_option_button.hide()
 
 # This function requires that an item from the list is selected
 # Once clicked, it will show pupup_ID to ask the user for a new ID
@@ -84,6 +103,7 @@ func _on_duplicate_button_button_up():
 		return
 	popupAction = "Duplicate"
 	popup_textedit.text = selected_id
+	to_mod_h_box_container.show()
 	pupup_ID.show()
 
 # Called after the user enters an ID into the popup textbox and presses OK
@@ -92,15 +112,21 @@ func _on_ok_button_up():
 	var myText = popup_textedit.text
 	if myText == "":
 		return
+	
 	if popupAction == "Add":
 		datainstance.add_new(myText)
-	if popupAction == "Duplicate":
-		datainstance.duplicate_to_disk(get_selected_item_text(), myText)
+	elif popupAction == "Duplicate":
+		# Get the selected mod ID from the mod_option_button
+		var selected_mod_id = mod_option_button.get_item_text(mod_option_button.get_selected_id())
+		# Pass the selected mod ID to the duplicate_to_disk function
+		datainstance.duplicate_to_disk(get_selected_item_text(), myText, selected_mod_id)
+	
 	popupAction = ""
 	# Check if the list is collapsed and expand it if true
 	if is_collapsed:
 		is_collapsed = false
 	load_data()
+
 
 
 # Called after the users presses cancel on the popup asking for an ID
