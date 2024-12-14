@@ -63,3 +63,25 @@ func get_data() -> Dictionary:
 # Function to check if a specific mob ID exists in the "mobs" property
 func has_mob(mob_id: String) -> bool:
 	return mobs.has(mob_id)
+
+
+func get_random_mob_id() -> String:
+	# If no mobs are present, return an empty string
+	if mobs.is_empty():
+		return ""
+
+	# Calculate the total weight
+	var total_weight: int = 0
+	for weight in mobs.values():
+		total_weight += weight
+
+	# Generate a random number within the total weight
+	var random_pick: int = randi() % total_weight
+
+	# Iterate through the mobs and select the mob based on the random pick
+	for mob_id in mobs.keys():
+		random_pick -= mobs[mob_id]
+		if random_pick < 0:
+			return mob_id  # Return the selected mob ID
+
+	return ""  # Fallback in case of an error, should not be reached

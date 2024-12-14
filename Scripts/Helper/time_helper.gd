@@ -11,8 +11,8 @@ var _is_tracking_time: bool = false  # Flag to track if we are actively counting
 var _last_tick_time: int = 0  # The last recorded tick time (in milliseconds)
 
 # Time constants
-const daytime: int = 20  # Daytime in minutes
-const nighttime: int = 15  # Nighttime in minutes
+const daytime: int = 20  # Daytime in real-life minutes
+const nighttime: int = 15  # Nighttime in real-life minutes
 const day_duration: int = daytime + nighttime  # Total duration of a day in real-life minutes
 const in_game_day_minutes: int = 24 * 60  # In-game minutes in a full day (1440)
 
@@ -92,14 +92,14 @@ func set_elapsed_time(new_time: float):
 		_last_tick_time = Time.get_ticks_msec()
 
 
-# Returns the time difference between a given past time and the current time.
+# Returns the time difference between a given past time and the current time in seconds.
 func get_time_difference(past_time: float) -> float:
 	return max(0.0, _elapsed_time - past_time)
 
 
 # Returns the number of in-game days since the start
-func get_days_since_start() -> int:
-	return int(_elapsed_time / (day_duration * 60))  # Convert minutes to seconds
+func get_days_since_start() -> float:
+	return float(_elapsed_time / (day_duration * 60))  # Convert minutes to seconds
 
 
 # The current time string, representing the time of day
@@ -108,7 +108,7 @@ func get_current_time() -> String:
 	var current_minutes_of_day = get_current_in_game_minutes()
 
 	# Calculate hours and minutes
-	var hours: int = current_minutes_of_day / 60
+	var hours: int = current_minutes_of_day / 60.0
 	var minutes: int = current_minutes_of_day % 60
 
 	return "%02d:%02d" % [hours, minutes]

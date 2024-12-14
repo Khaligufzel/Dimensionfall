@@ -21,6 +21,8 @@ extends Control
 @export var doorOptionButton: OptionButton = null # Maks the furniture as a door
 @export var containerCheckBox: CheckBox = null # Marks the furniture as a container
 @export var containerTextEdit: HBoxContainer = null # Might contain the id of a loot group
+@export var regeneration_label: Label = null
+@export var regeneration_spin_box: SpinBox = null # The time in days before regeneration
 
 @export var destroyHboxContainer: HBoxContainer = null # contains destroy controls
 @export var canDestroyCheckbox: CheckBox = null # If the furniture can be destroyed or not
@@ -134,9 +136,16 @@ func load_furniture_data():
 			containerTextEdit.set_text(itemgroup)
 		else:
 			containerTextEdit.mytextedit.clear()  # Clear the text edit if no itemgroup is specified
+		
+		# Load regeneration time if applicable
+		if dfurniture.function.container_regeneration_time >= 0.0:
+			regeneration_spin_box.value = dfurniture.function.container_regeneration_time
+		else:
+			regeneration_spin_box.value = -1.0  # Default to -1.0 if no regeneration time is set
 	else:
 		containerCheckBox.button_pressed = false  # Uncheck the container checkbox
 		containerTextEdit.mytextedit.clear()  # Clear the text edit as no container data is present
+		regeneration_spin_box.value = -1.0  # Reset regeneration spin box
 
 	# Call the function to load the support shape data
 	load_support_shape_option()
@@ -256,9 +265,13 @@ func handle_container_option():
 	if containerCheckBox.is_pressed():
 		dfurniture.function.is_container = true
 		dfurniture.function.container_group = containerTextEdit.get_text()
+		# Save the regeneration time
+		dfurniture.function.container_regeneration_time = regeneration_spin_box.value
 	else:
 		dfurniture.function.is_container = false
 		dfurniture.function.container_group = ""
+		# Reset the regeneration time
+		dfurniture.function.container_regeneration_time = -1
 
 
 func handle_destruction_option():
@@ -437,6 +450,12 @@ func _on_unmoveable_check_box_toggled(toggled_on):
 	if toggled_on:
 		# Hide the second tab in the tab container
 		tab_container.set_tab_hidden(1, true)
+		# Hide the regeneration controls
+		regeneration_label.visible = false
+		regeneration_spin_box.visible = false
 	else:
 		# Show the second tab in the tab container
 		tab_container.set_tab_hidden(1, false)
+		# Show the regeneration controls
+		regeneration_label.visible = true
+		regeneration_spin_box.visible = true

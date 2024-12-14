@@ -42,6 +42,11 @@ var current_health: float = 100.0  # Default health
 var is_animating_hit: bool = false  # Flag to prevent multiple hit animations
 var original_material_color: Color = Color(1, 1, 1)  # Store the original material color
 
+# Store the container timer state
+var last_time_checked: float = 0.0  # To track the last time the container was checked
+var regeneration_interval: float = -1.0  # In-game days for regeneration interval
+
+
 signal about_to_be_destroyed(me: FurnitureStaticSrv)
 
 
@@ -134,6 +139,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 		set_new_rotation(furniture_rotation) # Apply rotation after setting up the shape and visual instance
 
 	check_door_functionality()  # Check if this furniture is a door
+	check_regeneration_functionality()  # Check if this furniture regenerates the items
 
 	if rfurniture.support_shape.shape == "Box":
 		create_box_shape()
@@ -156,6 +162,7 @@ func add_container():
 			create_loot()
 		else:
 			deserialize_container_data()
+			set_random_inventory_item_texture()
 
 
 func is_container() -> bool:
@@ -413,6 +420,25 @@ func check_door_functionality():
 		door_state = "Closed"  # Default if not found in saved data
 
 
+# Function to check if this furniture acts as a door
+func check_regeneration_functionality():
+	if not rfurniture.function:
+		return
+	if not rfurniture.function.container_regeneration_time:
+		return
+	regeneration_interval = rfurniture.function.container_regeneration_time
+	
+	if not is_new_furniture():
+		# Ensure the door_state is properly set
+		if furnitureJSON.has("Function") and furnitureJSON["Function"].has("container"):
+			if furnitureJSON.Function.container.has("container_last_time_checked"):
+				last_time_checked = furnitureJSON.Function.container.container_last_time_checked
+			if furnitureJSON.Function.container.has("container_itemgroup"):
+				itemgroup = furnitureJSON.Function.container.container_itemgroup
+		else:
+			last_time_checked = 0.0  # Default if not found in saved data
+
+
 # Function to interact with the furniture (e.g., toggling door state)
 func interact():
 	if is_door:
@@ -468,7 +494,7 @@ func apply_transform_to_instance(rotation_angle: int, position_offset: Vector3):
 
 
 
-# Returns this furniture's data for saving, including door state if applicable
+# Returns this furniture's data for saving, including door state, container state, and last checked time
 func get_data() -> Dictionary:
 	var newfurniturejson = {
 		"id": furnitureJSON.id,
@@ -491,6 +517,10 @@ func get_data() -> Dictionary:
 		# If there are no items in the inventory, keep an empty object. Else,
 		# keep an object with the items key and the serialized items
 		var containerobject = {} if containerdata.is_empty() else {"items": containerdata}
+		
+		# Add the last_time_checked to the container data
+		containerobject["container_last_time_checked"] = last_time_checked
+		containerobject["container_itemgroup"] = itemgroup
 		newfurniturejson["Function"]["container"] = containerobject
 
 	return newfurniturejson
@@ -660,6 +690,7 @@ func get_sprite() -> Texture:
 func set_random_inventory_item_texture():
 	var items: Array[InventoryItem] = inventory.get_items()
 	if items.size() == 0:
+		container_sprite_mesh.material = Gamedata.materials.container # set empty container
 		return
 	
 	# Pick a random item from the inventory
@@ -730,3 +761,44 @@ func show_hit_indicator():
 # Function to show a miss indicator
 func show_miss_indicator():
 	show_indicator("Miss!", Color(1, 0, 0))  # Red for miss
+
+
+# Regenerate the container if the interval is more then -1
+# This function is run by FurnitureStaticSpawner when the player enters proximity
+func regenerate():
+	# Check if the signal refers to this container and if it regenerates
+	if regeneration_interval <= -1:
+		return
+
+	# Get the total days passed and calculate the days since last check
+	var total_days_passed: float = Helper.time_helper.get_days_since_start()
+	var days_passed: float = total_days_passed - last_time_checked
+
+	# Check if enough days have passed to regenerate
+	if days_passed >= regeneration_interval:
+		# Update the last time checked
+		last_time_checked = total_days_passed
+
+		# Regenerate items if the container has an itemgroup
+		_reset_inventory_and_regenerate_items()
+
+
+# Add this function to handle inventory reset and item regeneration
+func _reset_inventory_and_regenerate_items():
+	if not itemgroup or itemgroup == "":
+		return  # Do nothing if no itemgroup is present
+
+	# Clear existing inventory
+	inventory.clear()
+
+	# Populate inventory with items from the itemgroup
+	var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(itemgroup)
+	if ritemgroup:
+		var group_mode: String = ritemgroup.mode  # can be "Collection" or "Distribution"
+		if group_mode == "Collection":
+			_add_items_to_inventory_collection_mode(ritemgroup.items)
+		elif group_mode == "Distribution":
+			_add_items_to_inventory_distribution_mode(ritemgroup.items)
+
+	# Update container visuals
+	set_random_inventory_item_texture()

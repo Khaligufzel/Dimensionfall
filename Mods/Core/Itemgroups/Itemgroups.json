@@ -60,20 +60,6 @@
 		],
 		"mode": "Collection",
 		"name": "Kitchen cupboard",
-		"references": {
-			"core": {
-				"furniture": [
-					"countertop_wood"
-				],
-				"maps": [
-					"store_groceries",
-					"office_building_00"
-				],
-				"mobs": [
-					"scrapwalker"
-				]
-			}
-		},
 		"sprite": "canned_food_32.png",
 		"use_sprite": false
 	},
@@ -108,13 +94,6 @@
 		],
 		"mode": "Collection",
 		"name": "Mob loot",
-		"references": {
-			"core": {
-				"mobs": [
-					"rust_sentinel"
-				]
-			}
-		},
 		"sprite": "machete_32.png",
 		"use_sprite": false
 	},
@@ -203,20 +182,6 @@
 		],
 		"mode": "Collection",
 		"name": "General cabinet contents",
-		"references": {
-			"core": {
-				"furniture": [
-					"cabinet_wood_00",
-					"wall_shelf"
-				],
-				"maps": [
-					"store_groceries",
-					"generichouse_end",
-					"office_building_00",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "flashlight_32.png",
 		"use_sprite": false
 	},
@@ -245,46 +210,6 @@
 		],
 		"mode": "Collection",
 		"name": "Medium destroyed furniture",
-		"references": {
-			"core": {
-				"furniture": [
-					"countertop_wood",
-					"table_round_wood",
-					"chair_wood",
-					"bench_wood",
-					"bed_wood_single_00",
-					"cabinet_wood_00",
-					"bookcase_wood_00",
-					"door_wood",
-					"bench_garden",
-					"wardrobe",
-					"table_picknic",
-					"standing_mirror",
-					"chair_office",
-					"table_metal",
-					"lamp_standing",
-					"desk",
-					"bathtub",
-					"stove",
-					"sofa",
-					"cash_register",
-					"shopping_cart",
-					"display_case",
-					"vending_machine",
-					"toilet_00",
-					"damaged_shelves",
-					"destroyed_fence",
-					"railroad_midsection"
-				],
-				"maps": [
-					"abandoned_building",
-					"subway_station",
-					"city_square",
-					"skyscraper",
-					"neighborhood_school"
-				]
-			}
-		},
 		"sprite": "wreck_wood_generic_32.png",
 		"use_sprite": true
 	},
@@ -307,13 +232,6 @@
 		],
 		"mode": "Collection",
 		"name": "Medium disassembled furniture",
-		"references": {
-			"core": {
-				"furniture": [
-					"countertop_wood"
-				]
-			}
-		},
 		"sprite": "plank.png",
 		"use_sprite": false
 	},
@@ -420,17 +338,6 @@
 		],
 		"mode": "Collection",
 		"name": "Refridgerator",
-		"references": {
-			"core": {
-				"furniture": [
-					"refrigerator_00",
-					"display_case"
-				],
-				"maps": [
-					"store_groceries"
-				]
-			}
-		},
 		"sprite": "bottle_empty_32.png",
 		"use_sprite": false
 	},
@@ -519,14 +426,6 @@
 		],
 		"mode": "Collection",
 		"name": "General clothing",
-		"references": {
-			"core": {
-				"furniture": [
-					"wardrobe",
-					"clothing_rack"
-				]
-			}
-		},
 		"sprite": "jacket_32.png",
 		"use_sprite": false
 	},
@@ -573,13 +472,6 @@
 		],
 		"mode": "Collection",
 		"name": "Electronics store (medium appliances)",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"sprite": "microwave_oven_32.png",
 		"use_sprite": false
 	},
@@ -632,14 +524,6 @@
 		],
 		"mode": "Collection",
 		"name": "Electronics store (small products)",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing",
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "screwdriver_32.png",
 		"use_sprite": false
 	},
@@ -722,13 +606,6 @@
 		],
 		"mode": "Collection",
 		"name": "Electronics store (mixed products)",
-		"references": {
-			"core": {
-				"maps": [
-					"store_electronic_clothing"
-				]
-			}
-		},
 		"sprite": "electrical_components_32.png",
 		"use_sprite": false
 	},
@@ -763,21 +640,6 @@
 		],
 		"mode": "Collection",
 		"name": "Vending machine (drinks)",
-		"references": {
-			"core": {
-				"furniture": [
-					"vending_machine"
-				],
-				"maps": [
-					"store_electronic_clothing",
-					"store_groceries",
-					"subway_station",
-					"city_square",
-					"neighborhood_school",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "can_beer_32.png",
 		"use_sprite": false
 	},
@@ -800,18 +662,6 @@
 		],
 		"mode": "Collection",
 		"name": "Vending machine (snacks)",
-		"references": {
-			"core": {
-				"maps": [
-					"store_groceries",
-					"subway_station",
-					"city_square",
-					"office_building_00",
-					"neighborhood_school",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "chocolate_32.png",
 		"use_sprite": false
 	},
@@ -852,15 +702,6 @@
 		],
 		"mode": "Collection",
 		"name": "Destroyed tree",
-		"references": {
-			"core": {
-				"furniture": [
-					"Tree_00",
-					"PineTree_00",
-					"WillowTree_00"
-				]
-			}
-		},
 		"sprite": "log_32.png",
 		"use_sprite": false
 	},
@@ -913,25 +754,6 @@
 		],
 		"mode": "Distribution",
 		"name": "Generic field items",
-		"references": {
-			"core": {
-				"maps": [
-					"field_grass_basic_00",
-					"field_grass_flowers_00",
-					"RockyHill_SE",
-					"RockyHill_SW",
-					"field_grass_hill_00",
-					"field_grass_hole_00",
-					"RockyHill_NE",
-					"RockyHill_NW",
-					"urbanroad_corner",
-					"urbanroad_cross",
-					"urbanroad_t",
-					"urbanroad",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "leaves_32.png",
 		"use_sprite": false
 	},
@@ -1038,17 +860,6 @@
 		],
 		"mode": "Distribution",
 		"name": "Generic forest finds",
-		"references": {
-			"core": {
-				"maps": [
-					"forest_basic_00",
-					"forest_road_straight",
-					"forest_road_corner",
-					"forest_road_t",
-					"forest_road_cross"
-				]
-			}
-		},
 		"sprite": "branches_32.png",
 		"use_sprite": false
 	},
@@ -1123,13 +934,6 @@
 		],
 		"mode": "Collection",
 		"name": "M4A1 Gun and ammo",
-		"references": {
-			"core": {
-				"maps": [
-					"RockyHill_SW"
-				]
-			}
-		},
 		"sprite": "rifle_64_32.png",
 		"use_sprite": false
 	},
@@ -1170,14 +974,6 @@
 		],
 		"mode": "Collection",
 		"name": "Rock debris",
-		"references": {
-			"core": {
-				"maps": [
-					"abandoned_building",
-					"subway_station"
-				]
-			}
-		},
 		"sprite": "rock_large_32.png",
 		"use_sprite": false
 	},
@@ -1260,14 +1056,6 @@
 		],
 		"mode": "Collection",
 		"name": "Urban debris",
-		"references": {
-			"core": {
-				"maps": [
-					"abandoned_building",
-					"subway_station"
-				]
-			}
-		},
 		"sprite": "rusted_metal_sheets_32.png",
 		"use_sprite": false
 	},
@@ -1326,18 +1114,6 @@
 		],
 		"mode": "Collection",
 		"name": "Urban litter",
-		"references": {
-			"core": {
-				"maps": [
-					"subway_station",
-					"parking_garage",
-					"city_square",
-					"office_building_00",
-					"skyscraper",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "bottle_empty_32.png",
 		"use_sprite": false
 	},
@@ -1372,14 +1148,6 @@
 		],
 		"mode": "Collection",
 		"name": "Damaged electronics",
-		"references": {
-			"core": {
-				"maps": [
-					"abandoned_building",
-					"radio_tower"
-				]
-			}
-		},
 		"sprite": "transmitter_broken_32.png",
 		"use_sprite": false
 	},
@@ -1426,18 +1194,6 @@
 		],
 		"mode": "Collection",
 		"name": "Electronic Mob loot",
-		"references": {
-			"core": {
-				"maps": [
-					"radio_tower"
-				],
-				"mobs": [
-					"disruptor_drone",
-					"scavenger_skitter",
-					"venom_crawler"
-				]
-			}
-		},
 		"sprite": "electrical_components_32.png",
 		"use_sprite": false
 	},
@@ -1478,14 +1234,6 @@
 		],
 		"mode": "Collection",
 		"name": "First aid",
-		"references": {
-			"core": {
-				"maps": [
-					"radio_tower",
-					"police_station"
-				]
-			}
-		},
 		"sprite": "bandage_32.png",
 		"use_sprite": false
 	},
@@ -1574,13 +1322,6 @@
 		],
 		"mode": "Collection",
 		"name": "Police station locker",
-		"references": {
-			"core": {
-				"maps": [
-					"police_station"
-				]
-			}
-		},
 		"sprite": "pistol_magazine.png",
 		"use_sprite": false
 	},
@@ -1771,21 +1512,47 @@
 		],
 		"mode": "Collection",
 		"name": "Mob loot",
-		"references": {
-			"core": {
-				"mobs": [
-					"basic_zombie_1",
-					"basic_zombie_2",
-					"bloated_zombie",
-					"rushing_zombie",
-					"charred_zombie",
-					"heavy_zombie",
-					"skeleton_zombie",
-					"limping_zombie"
-				]
-			}
-		},
 		"sprite": "zombie_eye_32.png",
+		"use_sprite": false
+	},
+	{
+		"description": "The player is looking to the tree and see what can be foraged.",
+		"id": "tree_forage",
+		"items": [
+			{
+				"id": "branch",
+				"max": 5,
+				"min": 2,
+				"probability": 80
+			},
+			{
+				"id": "leaf",
+				"max": 25,
+				"min": 10,
+				"probability": 95
+			},
+			{
+				"id": "long_stick",
+				"max": 3,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "pine_branch",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "stick",
+				"max": 3,
+				"min": 1,
+				"probability": 60
+			}
+		],
+		"mode": "Collection",
+		"name": "Tree foraging",
+		"sprite": "plant_remnants_32.png",
 		"use_sprite": false
 	}
 ]

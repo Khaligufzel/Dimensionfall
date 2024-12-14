@@ -5,6 +5,44 @@ extends RefCounted
 # This script is intended to be used inside the GameData autoload singleton
 # This script handles the data for one furniture. You can access it through Gamedata.mods.by_id("Core").furnitures
 
+# Example json:
+#	{
+#		"id": "countertop_wood",
+#		"name": "Wooden countertop",
+#		"description": "One of the central pieces of fruniture that make up a kitchen",
+#		"sprite": "countertop_100_52.png",
+#		"Function": {
+#			"container_group": "kitchen_cupboard",
+#			"is_container": true,
+#			"container_regeneration_time": -1
+#		},
+#		"categories": [
+#			"Urban",
+#			"Kitchen",
+#			"Indoor"
+#		],
+#		"destruction": {
+#			"group": "destroyed_furniture_medium",
+#			"sprite": "wreck_wood_generic_32.png"
+#		},
+#		"disassembly": {
+#			"group": "disassembled_furniture_medium",
+#			"sprite": "wreck_wood_generic_32.png"
+#		},
+#		"edgesnapping": "North",
+#		"moveable": false,
+#		"support_shape": {
+#			"color": "8d401bff",
+#			"depth_scale": 100,
+#			"height": 0.5,
+#			"shape": "Box",
+#			"transparent": false,
+#			"width_scale": 100
+#		},
+#		"weight": 1
+#	}
+
+
 # This class represents a piece of furniture with its properties
 var id: String
 var name: String
@@ -24,15 +62,17 @@ var parent: DFurnitures
 
 # Inner class to handle the Function property
 class Function:
-	var door: String # Can be "None", "Open" or "Closed"
+	var door: String  # Can be "None", "Open" or "Closed"
 	var is_container: bool
 	var container_group: String
+	var container_regeneration_time: float  # Time in days for container regeneration (-1.0 if it doesn't regenerate)
 
 	# Constructor to initialize function properties from a dictionary
 	func _init(data: Dictionary):
 		door = data.get("door", "None")
 		is_container = data.get("is_container", false)
 		container_group = data.get("container_group", "")
+		container_regeneration_time = data.get("container_regeneration_time", -1.0)  # Default to -1.0
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
@@ -41,9 +81,11 @@ class Function:
 			functiondata["is_container"] = is_container
 			if not container_group == "":
 				functiondata["container_group"] = container_group
+			if container_regeneration_time != -1:  # Only include if not the default
+				functiondata["container_regeneration_time"] = container_regeneration_time
 		if not door == "None":
 			functiondata["door"] = door
-		return functiondata # Potentially return an empty dictionary
+		return functiondata  # Potentially return an empty dictionary
 
 
 # Inner class to handle the Support Shape property

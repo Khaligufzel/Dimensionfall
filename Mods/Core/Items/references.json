@@ -1,0 +1,27 @@
+{
+	"branch": {
+		"itemgroups": [
+			"tree_forage"
+		]
+	},
+	"leaf": {
+		"itemgroups": [
+			"tree_forage"
+		]
+	},
+	"long_stick": {
+		"itemgroups": [
+			"tree_forage"
+		]
+	},
+	"pine_branch": {
+		"itemgroups": [
+			"tree_forage"
+		]
+	},
+	"stick": {
+		"itemgroups": [
+			"tree_forage"
+		]
+	}
+}

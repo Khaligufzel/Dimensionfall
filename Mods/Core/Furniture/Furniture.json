@@ -68,6 +68,11 @@
 		"weight": 1
 	},
 	{
+		"Function": {
+			"container_group": "tree_forage",
+			"container_regeneration_time": 10,
+			"is_container": true
+		},
 		"categories": [
 			"Nature"
 		],
@@ -91,6 +96,11 @@
 		"weight": 1
 	},
 	{
+		"Function": {
+			"container_group": "tree_forage",
+			"container_regeneration_time": 10,
+			"is_container": true
+		},
 		"categories": [
 			"Nature"
 		],
@@ -114,6 +124,11 @@
 		"weight": 1
 	},
 	{
+		"Function": {
+			"container_group": "tree_forage",
+			"container_regeneration_time": 10,
+			"is_container": true
+		},
 		"categories": [
 			"Nature"
 		],

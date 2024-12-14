@@ -125,6 +125,7 @@ func _on_body_entered_item_detector(body_rid: RID) -> void:
 		# because that's what the signal will send
 		var furniturenode: Node3D = collider_to_furniture[body_rid]
 		if furniturenode.is_container():
+			furniturenode.regenerate() # Check if it needs to regenerate
 			Helper.signal_broker.container_entered_proximity.emit(furniturenode)
 
 
