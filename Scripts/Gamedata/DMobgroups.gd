@@ -11,9 +11,11 @@ var spritePath: String = "./Mods/Core/Mobs/"
 var mobgroupdict: Dictionary = {}
 var sprites: Dictionary = {}
 var references: Dictionary = {}
+var mod_id: String = "Core"
 
 # Add a mod_id parameter to dynamically initialize paths
-func _init(mod_id: String) -> void:
+func _init(new_mod_id: String) -> void:
+	mod_id = new_mod_id
 	# Update dataPath and spritePath using the provided mod_id
 	dataPath = "./Mods/" + mod_id + "/Mobgroups/"
 	filePath = "./Mods/" + mod_id + "/Mobgroups/Mobgroups.json"
@@ -52,20 +54,33 @@ func save_mobgroups_to_disk() -> void:
 func get_all() -> Dictionary:
 	return mobgroupdict
 
-func duplicate_to_disk(mobgroupid: String, newmobgroupid: String) -> void:
+# Duplicate the mobgroup to disk. A new mod id may be provided to save the duplicate to.
+# mobgroupid: The mobgroup to duplicate.
+# newmobgroupid: The id of the new duplicate (can be the same as mobgroupid if new_mod_id equals mod_id).
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id.
+func duplicate_to_disk(mobgroupid: String, newmobgroupid: String, new_mod_id: String) -> void:
+	# Duplicate the mobgroup data and set the new id
 	var mobgroupdata: Dictionary = by_id(mobgroupid).get_data().duplicate(true)
-	# A duplicated mob group is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	mobgroupdata.erase("references")
-	mobgroupdata.id = newmobgroupid
-	var newmobgroup: DMobgroup = DMobgroup.new(mobgroupdata, self)
-	mobgroupdict[newmobgroupid] = newmobgroup
-	save_mobgroups_to_disk()
+	mobgroupdata["id"] = newmobgroupid
 
+	# Determine the new parent based on the new_mod_id
+	var newparent: DMobgroups = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).mobgroups
+
+	# Instantiate and append the new DMobgroup instance
+	var newmobgroup: DMobgroup = DMobgroup.new(mobgroupdata, newparent)
+	newparent.append_new(newmobgroup)
+
+
+# Add a new mobgroup with a given ID.
 func add_new(newid: String) -> void:
-	var newmobgroup: DMobgroup = DMobgroup.new({"id": newid}, self)
+	append_new(DMobgroup.new({"id": newid}, self))
+
+
+# Append a new mobgroup to the dictionary and save it to disk.
+func append_new(newmobgroup: DMobgroup) -> void:
 	mobgroupdict[newmobgroup.id] = newmobgroup
 	save_mobgroups_to_disk()
+
 
 func delete_by_id(mobgroupid: String) -> void:
 	mobgroupdict[mobgroupid].delete()

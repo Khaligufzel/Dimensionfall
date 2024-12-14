@@ -7,8 +7,10 @@ extends RefCounted
 
 var dataPath: String = "./Mods/Core/TacticalMaps/"
 var mapdict: Dictionary = {}
+var mod_id: String = "Core"
 
-func _init(mod_id: String):
+func _init(new_mod_id: String):
+	mod_id = new_mod_id
 	# Update dataPath using the provided mod_id
 	dataPath = "./Mods/" + mod_id + "/TacticalMaps/"
 	load_maps_from_disk()
@@ -25,16 +27,32 @@ func load_maps_from_disk() -> void:
 func get_all() -> Dictionary:
 	return mapdict
 
-func duplicate_to_disk(mapid: String, newmapid: String) -> void:
+func duplicate_to_disk(mapid: String, newmapid: String, new_mod_id: String) -> void:
+	if new_mod_id != mod_id:
+		# Access the DTacticalmaps instance for the target mod
+		var other_maps: DTacticalmaps = Gamedata.mods.by_id(new_mod_id).tacticalmaps
+
+		# Add a new tacticalmap to the target mod
+		var newmap: DTacticalmap = other_maps.add_new(newmapid)
+
+		# Duplicate the data from the current map and set it in the new map
+		var newdata: Dictionary = mapdict[mapid].get_data().duplicate(true)
+		newmap.set_data(newdata)
+		newmap.save_data_to_disk()
+		return  # Exit if mod IDs don't match
+
+	# Proceed with duplication if mod IDs are equal
 	var newmap: DTacticalmap = DTacticalmap.new(newmapid, dataPath, self)
 	newmap.set_data(mapdict[mapid].get_data().duplicate(true))
 	newmap.save_data_to_disk()
 	mapdict[newmapid] = newmap
 
-func add_new(newid: String) -> void:
+
+func add_new(newid: String) -> DTacticalmap:
 	var newmap: DTacticalmap = DTacticalmap.new(newid, dataPath, self)
 	newmap.save_data_to_disk()
 	mapdict[newid] = newmap
+	return newmap
 
 func delete_by_id(mapid: String) -> void:
 	mapdict[mapid].delete()

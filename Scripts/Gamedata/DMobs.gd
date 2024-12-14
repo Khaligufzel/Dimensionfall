@@ -12,9 +12,11 @@ var spritePath: String = "./Mods/Core/Mobs/"
 var mobdict: Dictionary = {}
 var sprites: Dictionary = {}
 var references: Dictionary = {}
+var mod_id: String = "Core"
 
 # Add a mod_id parameter to dynamically initialize paths
-func _init(mod_id: String) -> void:
+func _init(new_mod_id: String) -> void:
+	mod_id = new_mod_id
 	# Update dataPath and spritePath using the provided mod_id
 	dataPath = "./Mods/" + mod_id + "/Mobs/"
 	filePath = "./Mods/" + mod_id + "/Mobs/Mobs.json"
@@ -69,21 +71,33 @@ func get_all() -> Dictionary:
 	return mobdict
 
 
-func duplicate_to_disk(mobid: String, newmobid: String) -> void:
+# Duplicate the mob to disk. A new mod id may be provided to save the duplicate to.
+# mobid: The mob to duplicate.
+# newmobid: The id of the new duplicate (can be the same as mobid if new_mod_id equals mod_id).
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id.
+func duplicate_to_disk(mobid: String, newmobid: String, new_mod_id: String) -> void:
+	# Duplicate the mob data and set the new id
 	var mobdata: Dictionary = by_id(mobid).get_data().duplicate(true)
-	# A duplicated mob is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	mobdata.erase("references")
 	mobdata.id = newmobid
-	var newmob: DMob = DMob.new(mobdata, self)
-	mobdict[newmobid] = newmob
-	save_mobs_to_disk()
+
+	# Determine the new parent based on the new_mod_id
+	var newparent: DMobs = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).mobs
+
+	# Instantiate and append the new DMob instance
+	var newmob: DMob = DMob.new(mobdata, newparent)
+	newparent.append_new(newmob)
 
 
+# Add a new mob to the dictionary and save it to disk.
 func add_new(newid: String) -> void:
-	var newmob: DMob = DMob.new({"id":newid}, self)
+	append_new(DMob.new({"id": newid}, self))
+
+
+# Append a new mob to the dictionary and save it to disk.
+func append_new(newmob: DMob) -> void:
 	mobdict[newmob.id] = newmob
 	save_mobs_to_disk()
+
 
 
 func delete_by_id(mobid: String) -> void:

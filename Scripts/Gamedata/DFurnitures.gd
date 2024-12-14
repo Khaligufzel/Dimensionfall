@@ -14,9 +14,11 @@ var sprites: Dictionary = {}
 var shader_materials: Dictionary = {}  # Cache for shader materials by furniture ID
 var shape_materials: Dictionary = {}  # Cache for shape materials by furniture ID
 var references: Dictionary = {}
+var mod_id: String = "Core"
 
 # Add a mod_id parameter to dynamically initialize paths
-func _init(mod_id: String) -> void:
+func _init(new_mod_id: String) -> void:
+	mod_id = new_mod_id
 	# Update dataPath and spritePath using the provided mod_id
 	dataPath = "./Mods/" + mod_id + "/Furniture/"
 	filePath = "./Mods/" + mod_id + "/Furniture/Furniture.json"
@@ -39,7 +41,7 @@ func load_furnitures_from_disk() -> void:
 	var furniturelist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for furnitureitem in furniturelist:
 		var furniture: DFurniture = DFurniture.new(furnitureitem, self)
-		if furniture.spriteid:
+		if furniture.spriteid and sprites.has(furniture.spriteid):
 			furniture.sprite = sprites[furniture.spriteid]
 		furnituredict[furniture.id] = furniture
 
@@ -69,19 +71,26 @@ func get_all() -> Dictionary:
 	return furnituredict
 
 
-func duplicate_to_disk(furnitureid: String, newfurnitureid: String) -> void:
+# Duplicate the furniture to disk. A new mod id may be provided to save the duplicate to
+# furnitureid: The furniture to duplicate
+# newfurnitureid: The id of the new duplicate (can be the same as furnitureid if new_mod_id equals mod_id)
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id
+func duplicate_to_disk(furnitureid: String, newfurnitureid: String, new_mod_id: String) -> void:
+	# Duplicate the furniture data and set the new id
 	var furnituredata: Dictionary = by_id(furnitureid).get_data().duplicate(true)
-	# A duplicated furniture is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	furnituredata.erase("references")
 	furnituredata.id = newfurnitureid
-	var newfurniture: DFurniture = DFurniture.new(furnituredata, self)
-	furnituredict[newfurnitureid] = newfurniture
-	save_furnitures_to_disk()
+	# Determine the new parent based on the new_mod_id
+	var newparent: DFurnitures = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).furnitures
+	# Instantiate and append the new DFurniture instance
+	var newfurniture: DFurniture = DFurniture.new(furnituredata, newparent)
+	newparent.append_new(newfurniture)
 
 
 func add_new(newid: String) -> void:
-	var newfurniture: DFurniture = DFurniture.new({"id":newid}, self)
+	append_new(DFurniture.new({"id":newid}, self))
+
+
+func append_new(newfurniture: DFurniture) -> void:
 	furnituredict[newfurniture.id] = newfurniture
 	save_furnitures_to_disk()
 
@@ -107,7 +116,7 @@ func sprite_by_id(furnitureid: String) -> Texture:
 # Returns the sprite of the furniture
 # furnitureid: The id of the furniture to return the sprite of
 func sprite_by_file(spritefile: String) -> Texture:
-	return sprites[spritefile]
+	return sprites[spritefile] if sprites.has(spritefile) else null
 
 
 func is_moveable(id: String) -> bool:

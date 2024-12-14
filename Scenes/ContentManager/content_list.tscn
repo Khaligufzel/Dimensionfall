@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/content_list.gd" id="1_ly1kh"]
 
-[node name="ContentList" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton", "pupup_ID", "popup_textedit")]
+[node name="ContentList" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton", "pupup_ID", "popup_textedit", "to_mod_h_box_container", "mod_option_button")]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 3
 anchors_preset = 15
@@ -16,7 +16,9 @@ script = ExtResource("1_ly1kh")
 contentItems = NodePath("Content/ContentItems")
 collapseButton = NodePath("Content/HBoxContainer/CollapseButton")
 pupup_ID = NodePath("ID_Input")
-popup_textedit = NodePath("ID_Input/VBoxContainer/TextEdit")
+popup_textedit = NodePath("ID_Input/VBoxContainer/IdTextEdit")
+to_mod_h_box_container = NodePath("ID_Input/VBoxContainer/ToModHBoxContainer")
+mod_option_button = NodePath("ID_Input/VBoxContainer/ToModHBoxContainer/ModOptionButton")
 
 [node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -68,7 +70,7 @@ fixed_icon_size = Vector2i(32, 32)
 [node name="ID_Input" type="Popup" parent="."]
 title = "Input ID"
 initial_position = 2
-size = Vector2i(200, 150)
+size = Vector2i(200, 152)
 unresizable = false
 borderless = false
 
@@ -81,15 +83,25 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="ID_Input/VBoxContainer"]
+[node name="IdLabel" type="Label" parent="ID_Input/VBoxContainer"]
 layout_mode = 2
 text = "Input an ID"
 
-[node name="TextEdit" type="TextEdit" parent="ID_Input/VBoxContainer"]
+[node name="IdTextEdit" type="TextEdit" parent="ID_Input/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "ex: pistol_9mm"
 scroll_fit_content_height = true
+
+[node name="ToModHBoxContainer" type="HBoxContainer" parent="ID_Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="ModLabel" type="Label" parent="ID_Input/VBoxContainer/ToModHBoxContainer"]
+layout_mode = 2
+text = "To mod:"
+
+[node name="ModOptionButton" type="OptionButton" parent="ID_Input/VBoxContainer/ToModHBoxContainer"]
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ID_Input/VBoxContainer"]
 layout_mode = 2

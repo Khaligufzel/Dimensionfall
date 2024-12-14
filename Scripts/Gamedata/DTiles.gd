@@ -12,10 +12,12 @@ var spritePath: String = "./Mods/Core/Tiles/"
 var tiledict: Dictionary = {}
 var sprites: Dictionary = {}
 var references: Dictionary = {}
+var mod_id: String = "Core"
 
 
 # Add a mod_id parameter to dynamically initialize paths
-func _init(mod_id: String) -> void:
+func _init(new_mod_id: String) -> void:
+	mod_id = new_mod_id
 	# Update dataPath and spritePath using the provided mod_id
 	dataPath = "./Mods/" + mod_id + "/Tiles/"
 	filePath = "./Mods/" + mod_id + "/Tiles/Tiles.json"
@@ -70,21 +72,33 @@ func get_all() -> Dictionary:
 	return tiledict
 
 
-func duplicate_to_disk(tileid: String, newtileid: String) -> void:
+# Duplicate the tile to disk. A new mod id may be provided to save the duplicate to.
+# tileid: The tile to duplicate.
+# newtileid: The id of the new duplicate (can be the same as tileid if new_mod_id equals mod_id).
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id.
+func duplicate_to_disk(tileid: String, newtileid: String, new_mod_id: String) -> void:
+	# Duplicate the tile data and set the new id
 	var tiledata: Dictionary = by_id(tileid).get_data().duplicate(true)
-	# A duplicated tile is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	tiledata.erase("references")
 	tiledata.id = newtileid
-	var newtile: DTile = DTile.new(tiledata, self)
-	tiledict[newtileid] = newtile
-	save_tiles_to_disk()
+
+	# Determine the new parent based on the new_mod_id
+	var newparent: DTiles = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).tiles
+
+	# Instantiate and append the new DTile instance
+	var newtile: DTile = DTile.new(tiledata, newparent)
+	newparent.append_new(newtile)
 
 
+# Add a new tile to the dictionary and save it to disk.
 func add_new(newid: String) -> void:
-	var newtile: DTile = DTile.new({"id":newid}, self)
+	append_new(DTile.new({"id": newid}, self))
+
+
+# Append a new tile to the dictionary and save it to disk.
+func append_new(newtile: DTile) -> void:
 	tiledict[newtile.id] = newtile
 	save_tiles_to_disk()
+
 
 
 func delete_by_id(tileid: String) -> void:
