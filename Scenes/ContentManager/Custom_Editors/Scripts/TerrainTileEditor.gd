@@ -56,7 +56,7 @@ func _input(event):
 # This function updates the form based on the dtile that has been loaded
 func load_tile_data():
 	if tileImageDisplay != null and dtile.spriteid:
-		var myTexture: Resource = Gamedata.mods.by_id("Core").tiles.sprite_by_file(dtile.spriteid)
+		var myTexture: Resource = dtile.sprite
 		tileImageDisplay.texture = myTexture
 		imageNameStringLabel.text = dtile.spriteid
 	if IDTextLabel != null:
