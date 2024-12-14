@@ -121,6 +121,14 @@ func remove_mob_from_quest(quest_id: String, mob_id: String) -> void:
 func remove_mobgroup_from_quest(quest_id: String, mobgroup_id: String) -> void:
 	by_id(quest_id).remove_steps_by_mobgroup(mobgroup_id)
 
+
+# Removes a specific mobgroup from all quests.
+# mobgroup_id: The ID of the mobgroup to be removed from the objectives or requirements of all quests.
+func remove_mobgroup_from_all_quests(mobgroup_id: String) -> void:
+	for quest: String in questdict.keys():
+		remove_mobgroup_from_quest(quest, mobgroup_id)
+
+
 # Removes all steps and rewards where the item property matches the given item_id
 func remove_item_from_quest(quest_id: String, item_id: String) -> void:
 	by_id(quest_id).remove_steps_by_item(item_id)

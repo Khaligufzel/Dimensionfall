@@ -103,21 +103,6 @@ func sprite_by_id(mobgroupid: String) -> Texture:
 func sprite_by_file(spritefile: String) -> Texture:
 	return sprites[spritefile]
 
-# Removes the reference from the selected mob group
-func remove_reference(mobgroupid: String, module: String, type: String, refid: String):
-	var mymobgroup: DMobgroup = mobgroupdict[mobgroupid]
-	mymobgroup.remove_reference(module, type, refid)
-
-# Adds a reference to the references list
-# For example, add "grass_field" to references.Core.maps
-# mobgroupid: The id of the mob group to add the reference to
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "maps"
-# refid: The id of the entity to reference, for example "grass_field"
-func add_reference(mobgroupid: String, module: String, type: String, refid: String):
-	var mymobgroup: DMobgroup = mobgroupdict[mobgroupid]
-	mymobgroup.add_reference(module, type, refid)
-
 
 # Removes the entity from the mobgroups provided in the mobgroups array
 # mob_id: the id of the entity
@@ -126,3 +111,9 @@ func remove_entity_from_selected_mobgroups(mob_id: String, mobgroups: Array):
 	for mob in mobgroups:
 		if has_id(mob_id):
 			mobgroupdict[mob].remove_mob_by_id(mob_id)
+
+
+# Removes the reference from the selected mobgroup
+func remove_reference(mobgroupid: String):
+	references.erase(mobgroupid)
+	Gamedata.mods.save_references(self)
