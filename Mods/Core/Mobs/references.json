@@ -20,9 +20,6 @@
 			"generichouse_t",
 			"generichouse_corner",
 			"store_electronic_clothing"
-		],
-		"mobgroups": [
-			"basic_zombies"
 		]
 	},
 	"basic_zombie_2": {
@@ -46,9 +43,6 @@
 			"generichouse_t",
 			"generichouse_corner",
 			"store_electronic_clothing"
-		],
-		"mobgroups": [
-			"basic_zombies"
 		]
 	},
 	"bloated_zombie": {
@@ -72,9 +66,6 @@
 			"generichouse_t",
 			"generichouse_corner",
 			"store_electronic_clothing"
-		],
-		"mobgroups": [
-			"basic_zombies"
 		]
 	},
 	"charred_zombie": {
@@ -98,9 +89,6 @@
 			"generichouse_t",
 			"generichouse_corner",
 			"store_electronic_clothing"
-		],
-		"mobgroups": [
-			"basic_zombies"
 		]
 	},
 	"disruptor_drone": {
@@ -110,9 +98,6 @@
 			"radio_tower",
 			"RockyHill_NE",
 			"RockyHill_SW"
-		],
-		"mobgroups": [
-			"security_robots"
 		]
 	},
 	"heavy_zombie": {
@@ -136,9 +121,6 @@
 			"generichouse_t",
 			"generichouse_corner",
 			"store_electronic_clothing"
-		],
-		"mobgroups": [
-			"basic_zombies"
 		]
 	},
 	"iron_stalker": {
@@ -148,9 +130,6 @@
 			"radio_tower",
 			"RockyHill_NE",
 			"RockyHill_SW"
-		],
-		"mobgroups": [
-			"security_robots"
 		]
 	},
 	"limping_zombie": {
@@ -174,14 +153,6 @@
 			"generichouse_t",
 			"generichouse_corner",
 			"store_electronic_clothing"
-		],
-		"mobgroups": [
-			"basic_zombies"
-		]
-	},
-	"outpost_guardian": {
-		"mobgroups": [
-			"security_robots"
 		]
 	},
 	"rushing_zombie": {
@@ -205,9 +176,6 @@
 			"generichouse_t",
 			"generichouse_corner",
 			"store_electronic_clothing"
-		],
-		"mobgroups": [
-			"basic_zombies"
 		]
 	},
 	"rust_sentinel": {
@@ -217,9 +185,6 @@
 			"radio_tower",
 			"RockyHill_NE",
 			"RockyHill_SW"
-		],
-		"mobgroups": [
-			"security_robots"
 		]
 	},
 	"scavenger_skitter": {
@@ -229,9 +194,6 @@
 			"radio_tower",
 			"RockyHill_NE",
 			"RockyHill_SW"
-		],
-		"mobgroups": [
-			"security_robots"
 		]
 	},
 	"scrapwalker": {
@@ -241,9 +203,6 @@
 			"radio_tower",
 			"RockyHill_NE",
 			"RockyHill_SW"
-		],
-		"mobgroups": [
-			"security_robots"
 		]
 	},
 	"skeleton_zombie": {
@@ -267,9 +226,6 @@
 			"generichouse_t",
 			"generichouse_corner",
 			"store_electronic_clothing"
-		],
-		"mobgroups": [
-			"basic_zombies"
 		]
 	},
 	"venom_crawler": {
@@ -278,9 +234,6 @@
 			"RockyHill_NW",
 			"RockyHill_NE",
 			"RockyHill_SW"
-		],
-		"mobgroups": [
-			"security_robots"
 		]
 	}
 }
