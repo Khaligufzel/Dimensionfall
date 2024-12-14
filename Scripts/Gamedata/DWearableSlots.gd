@@ -70,21 +70,33 @@ func get_all() -> Dictionary:
 	return wearableslotdict
 
 
-func duplicate_to_disk(wearableslotid: String, newwearableslotid: String) -> void:
+# Duplicate the wearable slot to disk. A new mod id may be provided to save the duplicate to.
+# wearableslotid: The wearable slot to duplicate.
+# newwearableslotid: The id of the new duplicate (can be the same as wearableslotid if new_mod_id equals mod_id).
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id.
+func duplicate_to_disk(wearableslotid: String, newwearableslotid: String, new_mod_id: String) -> void:
+	# Duplicate the wearable slot data and set the new id
 	var wearableslotdata: Dictionary = by_id(wearableslotid).get_data().duplicate(true)
-	# A duplicated wearableslot is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	wearableslotdata.erase("references")
 	wearableslotdata.id = newwearableslotid
-	var newwearableslot: DWearableSlot = DWearableSlot.new(wearableslotdata, self)
-	wearableslotdict[newwearableslotid] = newwearableslot
-	save_wearableslots_to_disk()
+
+	# Determine the new parent based on the new_mod_id
+	var newparent: DWearableSlots = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).wearableslots
+
+	# Instantiate and append the new DWearableSlot instance
+	var newwearableslot: DWearableSlot = DWearableSlot.new(wearableslotdata, newparent)
+	newparent.append_new(newwearableslot)
 
 
+# Add a new wearable slot to the dictionary and save it to disk.
 func add_new(newid: String) -> void:
-	var newwearableslot: DWearableSlot = DWearableSlot.new({"id":newid}, self)
+	append_new(DWearableSlot.new({"id": newid}, self))
+
+
+# Append a new wearable slot to the dictionary and save it to disk.
+func append_new(newwearableslot: DWearableSlot) -> void:
 	wearableslotdict[newwearableslot.id] = newwearableslot
 	save_wearableslots_to_disk()
+
 
 
 func delete_by_id(wearableslotid: String) -> void:

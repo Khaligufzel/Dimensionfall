@@ -71,22 +71,33 @@ func save_skills_to_disk() -> void:
 func get_all() -> Dictionary:
 	return skilldict
 
-# Duplicates a skill and saves it to disk with a new ID
-func duplicate_to_disk(skillid: String, newskillid: String) -> void:
+# Duplicate the skill to disk. A new mod id may be provided to save the duplicate to.
+# skillid: The skill to duplicate.
+# newskillid: The id of the new duplicate (can be the same as skillid if new_mod_id equals mod_id).
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id.
+func duplicate_to_disk(skillid: String, newskillid: String, new_mod_id: String) -> void:
+	# Duplicate the skill data and set the new id
 	var skilldata: Dictionary = by_id(skillid).get_data().duplicate(true)
-	# A duplicated quest is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	skilldata.erase("references")
 	skilldata["id"] = newskillid
-	var newskill: DSkill = DSkill.new(skilldata, self)
-	skilldict[newskillid] = newskill
-	save_skills_to_disk()
 
-# Adds a new skill with a given ID
+	# Determine the new parent based on the new_mod_id
+	var newparent: DSkills = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).skills
+
+	# Instantiate and append the new DSkill instance
+	var newskill: DSkill = DSkill.new(skilldata, newparent)
+	newparent.append_new(newskill)
+
+
+# Add a new skill with a given ID.
 func add_new(newid: String) -> void:
-	var newskill: DSkill = DSkill.new({"id": newid}, self)
+	append_new(DSkill.new({"id": newid}, self))
+
+
+# Append a new skill to the dictionary and save it to disk.
+func append_new(newskill: DSkill) -> void:
 	skilldict[newskill.id] = newskill
 	save_skills_to_disk()
+
 
 # Deletes a skill by its ID and saves changes to disk
 func delete_by_id(skillid: String) -> void:

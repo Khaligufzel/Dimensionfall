@@ -61,21 +61,33 @@ func get_all() -> Dictionary:
 	return questdict
 
 # Duplicates a quest and saves it to disk with a new ID
-func duplicate_to_disk(questid: String, newquestid: String) -> void:
+# Duplicate the quest to disk. A new mod id may be provided to save the duplicate to.
+# questid: The quest to duplicate.
+# newquestid: The id of the new duplicate (can be the same as questid if new_mod_id equals mod_id).
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id.
+func duplicate_to_disk(questid: String, newquestid: String, new_mod_id: String) -> void:
+	# Duplicate the quest data and set the new id
 	var questdata: Dictionary = by_id(questid).get_data().duplicate(true)
-	# A duplicated quest is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	questdata.erase("references")
 	questdata["id"] = newquestid
-	var newquest: DQuest = DQuest.new(questdata, self)
-	questdict[newquestid] = newquest
-	save_quests_to_disk()
 
-# Adds a new quest with a given ID
+	# Determine the new parent based on the new_mod_id
+	var newparent: DQuests = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).quests
+
+	# Instantiate and append the new DQuest instance
+	var newquest: DQuest = DQuest.new(questdata, newparent)
+	newparent.append_new(newquest)
+
+
+# Add a new quest with a given ID.
 func add_new(newid: String) -> void:
-	var newquest: DQuest = DQuest.new({"id": newid}, self)
+	append_new(DQuest.new({"id": newid}, self))
+
+
+# Append a new quest to the dictionary and save it to disk.
+func append_new(newquest: DQuest) -> void:
 	questdict[newquest.id] = newquest
 	save_quests_to_disk()
+
 
 # Deletes a quest by its ID and saves changes to disk
 func delete_by_id(questid: String) -> void:

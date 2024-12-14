@@ -70,19 +70,30 @@ func get_all() -> Dictionary:
 	return itemgroupdict
 
 
-func duplicate_to_disk(itemgroupid: String, newitemgroupid: String) -> void:
+# Duplicate the itemgroup to disk. A new mod id may be provided to save the duplicate to.
+# itemgroupid: The itemgroup to duplicate.
+# newitemgroupid: The id of the new duplicate (can be the same as itemgroupid if new_mod_id equals mod_id).
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id.
+func duplicate_to_disk(itemgroupid: String, newitemgroupid: String, new_mod_id: String) -> void:
+	# Duplicate the itemgroup data and set the new id
 	var itemgroupdata: Dictionary = by_id(itemgroupid).get_data().duplicate(true)
-	# A duplicated itemgroup is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	itemgroupdata.erase("references")
 	itemgroupdata.id = newitemgroupid
-	var newitemgroup: DItemgroup = DItemgroup.new(itemgroupdata, self)
-	itemgroupdict[newitemgroupid] = newitemgroup
-	save_itemgroups_to_disk()
+
+	# Determine the new parent based on the new_mod_id
+	var newparent: DItemgroups = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).itemgroups
+
+	# Instantiate and append the new DItemgroup instance
+	var newitemgroup: DItemgroup = DItemgroup.new(itemgroupdata, newparent)
+	newparent.append_new(newitemgroup)
 
 
+# Add a new itemgroup to the dictionary and save it to disk.
 func add_new(newid: String) -> void:
-	var newitemgroup: DItemgroup = DItemgroup.new({"id":newid}, self)
+	append_new(DItemgroup.new({"id": newid}, self))
+
+
+# Append a new itemgroup to the dictionary and save it to disk.
+func append_new(newitemgroup: DItemgroup) -> void:
 	itemgroupdict[newitemgroup.id] = newitemgroup
 	save_itemgroups_to_disk()
 

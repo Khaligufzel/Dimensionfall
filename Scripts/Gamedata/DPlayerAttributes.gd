@@ -72,21 +72,33 @@ func get_all() -> Dictionary:
 	return playerattributedict
 
 
-func duplicate_to_disk(playerattributeid: String, newplayerattributeid: String) -> void:
+# Duplicate the player attribute to disk. A new mod id may be provided to save the duplicate to.
+# playerattributeid: The player attribute to duplicate.
+# newplayerattributeid: The id of the new duplicate (can be the same as playerattributeid if new_mod_id equals mod_id).
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id.
+func duplicate_to_disk(playerattributeid: String, newplayerattributeid: String, new_mod_id: String) -> void:
+	# Duplicate the player attribute data and set the new id
 	var playerattributedata: Dictionary = by_id(playerattributeid).get_data().duplicate(true)
-	# A duplicated playerattribute is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	playerattributedata.erase("references")
 	playerattributedata.id = newplayerattributeid
-	var newplayerattribute: DPlayerAttribute = DPlayerAttribute.new(playerattributedata, self)
-	playerattributedict[newplayerattributeid] = newplayerattribute
-	save_playerattributes_to_disk()
+
+	# Determine the new parent based on the new_mod_id
+	var newparent: DPlayerAttributes = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).playerattributes
+
+	# Instantiate and append the new DPlayerAttribute instance
+	var newplayerattribute: DPlayerAttribute = DPlayerAttribute.new(playerattributedata, newparent)
+	newparent.append_new(newplayerattribute)
 
 
+# Add a new player attribute to the dictionary and save it to disk.
 func add_new(newid: String) -> void:
-	var newplayerattribute: DPlayerAttribute = DPlayerAttribute.new({"id":newid}, self)
+	append_new(DPlayerAttribute.new({"id": newid}, self))
+
+
+# Append a new player attribute to the dictionary and save it to disk.
+func append_new(newplayerattribute: DPlayerAttribute) -> void:
 	playerattributedict[newplayerattribute.id] = newplayerattribute
 	save_playerattributes_to_disk()
+
 
 
 func delete_by_id(playerattributeid: String) -> void:

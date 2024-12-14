@@ -57,22 +57,34 @@ func save_stats_to_disk() -> void:
 func get_all() -> Dictionary:
 	return statdict
 
-# Duplicates a stat and saves it to disk with a new ID
-func duplicate_to_disk(statid: String, newstatid: String) -> void:
-	var statdata: Dictionary = by_id(statid).get_data().duplicate(true)
-	# A duplicated stat is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	statdata.erase("references")
-	statdata.id = newstatid
-	var newstat: DStat = DStat.new(statdata, self)
-	statdict[newstatid] = newstat
-	save_stats_to_disk()
 
-# Adds a new stat with a given ID
+# Duplicate the stat to disk. A new mod id may be provided to save the duplicate to.
+# statid: The stat to duplicate.
+# newstatid: The id of the new duplicate (can be the same as statid if new_mod_id equals mod_id).
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id.
+func duplicate_to_disk(statid: String, newstatid: String, new_mod_id: String) -> void:
+	# Duplicate the stat data and set the new id
+	var statdata: Dictionary = by_id(statid).get_data().duplicate(true)
+	statdata["id"] = newstatid
+
+	# Determine the new parent based on the new_mod_id
+	var newparent: DStats = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).stats
+
+	# Instantiate and append the new DStat instance
+	var newstat: DStat = DStat.new(statdata, newparent)
+	newparent.append_new(newstat)
+
+
+# Add a new stat with a given ID.
 func add_new(newid: String) -> void:
-	var newstat: DStat = DStat.new({"id": newid}, self)
+	append_new(DStat.new({"id": newid}, self))
+
+
+# Append a new stat to the dictionary and save it to disk.
+func append_new(newstat: DStat) -> void:
 	statdict[newstat.id] = newstat
 	save_stats_to_disk()
+
 
 # Deletes a stat by its ID and saves changes to disk
 func delete_by_id(statid: String) -> void:

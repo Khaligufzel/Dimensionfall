@@ -53,21 +53,33 @@ func get_all() -> Dictionary:
 	return overmapareadict
 
 # Duplicates a overmaparea and saves it to disk with a new ID
-func duplicate_to_disk(overmapareaid: String, newovermapareaid: String) -> void:
+# Duplicate the overmaparea to disk. A new mod id may be provided to save the duplicate to.
+# overmapareaid: The overmaparea to duplicate.
+# newovermapareaid: The id of the new duplicate (can be the same as overmapareaid if new_mod_id equals mod_id).
+# new_mod_id: The id of the mod that the duplicate will be entered into. May differ from mod_id.
+func duplicate_to_disk(overmapareaid: String, newovermapareaid: String, new_mod_id: String) -> void:
+	# Duplicate the overmaparea data and set the new id
 	var overmapareadata: Dictionary = by_id(overmapareaid).get_data().duplicate(true)
-	# A duplicated overmaparea is brand new and can't already be referenced by something
-	# So we delete the references from the duplicated data if it is present
-	overmapareadata.erase("references")
-	overmapareadata.id = newovermapareaid
-	var newovermaparea: DOvermaparea = DOvermaparea.new(overmapareadata, self)
-	overmapareadict[newovermapareaid] = newovermaparea
-	save_overmapareas_to_disk()
+	overmapareadata["id"] = newovermapareaid
 
-# Adds a new overmaparea with a given ID
+	# Determine the new parent based on the new_mod_id
+	var newparent: DOvermapareas = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).overmapareas
+
+	# Instantiate and append the new DOvermaparea instance
+	var newovermaparea: DOvermaparea = DOvermaparea.new(overmapareadata, newparent)
+	newparent.append_new(newovermaparea)
+
+
+# Add a new overmaparea with a given ID.
 func add_new(newid: String) -> void:
-	var newovermaparea: DOvermaparea = DOvermaparea.new({"id": newid}, self)
+	append_new(DOvermaparea.new({"id": newid}, self))
+
+
+# Append a new overmaparea to the dictionary and save it to disk.
+func append_new(newovermaparea: DOvermaparea) -> void:
 	overmapareadict[newovermaparea.id] = newovermaparea
 	save_overmapareas_to_disk()
+
 
 # Deletes a overmaparea by its ID and saves changes to disk
 func delete_by_id(overmapareaid: String) -> void:
