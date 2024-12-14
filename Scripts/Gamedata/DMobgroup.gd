@@ -110,13 +110,6 @@ func delete():
 	for mob in mobs.keys():
 		Gamedata.mods.remove_reference(DMod.ContentType.MOBS, mob, DMod.ContentType.MOBGROUPS, id)
 	
-	# This callable will handle the removal of this mobgroup from all steps in quests
-	var remove_from_quest: Callable = func(quest_id: String):
-		Gamedata.mods.by_id("Core").quests.remove_mobgroup_from_quest(quest_id,id)
-		
-	# Pass the callable to every quest in the mobgroup's references
-	# It will call remove_from_quest on every mobgroup in mobgroup_data.references.core.quests
-	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
 	parent.remove_reference(id) # Erase the reference for the id in this mod
 
 
