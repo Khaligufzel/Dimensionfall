@@ -108,6 +108,13 @@
 			"store_groceries"
 		]
 	},
+	"tree_forage": {
+		"furnitures": [
+			"Tree_00",
+			"PineTree_00",
+			"WillowTree_00"
+		]
+	},
 	"urban_litter": {
 		"maps": [
 			"office_building_00",

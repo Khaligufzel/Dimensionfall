@@ -11,8 +11,8 @@ var _is_tracking_time: bool = false  # Flag to track if we are actively counting
 var _last_tick_time: int = 0  # The last recorded tick time (in milliseconds)
 
 # Time constants
-const daytime: int = 20  # Daytime in minutes
-const nighttime: int = 15  # Nighttime in minutes
+const daytime: int = 20  # Daytime in real-life minutes
+const nighttime: int = 15  # Nighttime in real-life minutes
 const day_duration: int = daytime + nighttime  # Total duration of a day in real-life minutes
 const in_game_day_minutes: int = 24 * 60  # In-game minutes in a full day (1440)
 
