@@ -12,9 +12,11 @@ var spritePath: String = "./Mods/Core/Mobs/"
 var mobdict: Dictionary = {}
 var sprites: Dictionary = {}
 var references: Dictionary = {}
+var mod_id: String = "Core"
 
 # Add a mod_id parameter to dynamically initialize paths
-func _init(mod_id: String) -> void:
+func _init(new_mod_id: String) -> void:
+	mod_id = new_mod_id
 	# Update dataPath and spritePath using the provided mod_id
 	dataPath = "./Mods/" + mod_id + "/Mobs/"
 	filePath = "./Mods/" + mod_id + "/Mobs/Mobs.json"
