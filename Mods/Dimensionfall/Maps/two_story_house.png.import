@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0xntvni78hpd"
-path="res://.godot/imported/generichouse_t.png-69a9f23e0ba5f1a5eeeeeed77d1a8639.ctex"
+uid="uid://d4hk1unhifrxp"
+path="res://.godot/imported/two_story_house.png-68315fd638a4d093389a4b8b3dcaf28e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/generichouse_t.png"
-dest_files=["res://.godot/imported/generichouse_t.png-69a9f23e0ba5f1a5eeeeeed77d1a8639.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/two_story_house.png"
+dest_files=["res://.godot/imported/two_story_house.png-68315fd638a4d093389a4b8b3dcaf28e.ctex"]
 
 [params]
 

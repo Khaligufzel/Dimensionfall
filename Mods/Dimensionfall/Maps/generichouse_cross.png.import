@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drged7yps5ydq"
-path="res://.godot/imported/radio_tower.png-b27f1fa2d79f53352308a2da336c09ad.ctex"
+uid="uid://c6suy8s85dlwf"
+path="res://.godot/imported/generichouse_cross.png-003d949e52908773331d800610ae2aeb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/radio_tower.png"
-dest_files=["res://.godot/imported/radio_tower.png-b27f1fa2d79f53352308a2da336c09ad.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/generichouse_cross.png"
+dest_files=["res://.godot/imported/generichouse_cross.png-003d949e52908773331d800610ae2aeb.ctex"]
 
 [params]
 

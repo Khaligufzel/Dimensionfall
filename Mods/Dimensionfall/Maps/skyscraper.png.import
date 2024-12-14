@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj7nv86xm6bfi"
-path="res://.godot/imported/abandoned_building.png-69aec02a364051e78d174be281f3a770.ctex"
+uid="uid://cudo84gav5r1b"
+path="res://.godot/imported/skyscraper.png-c88558bbed74e30eb01869c6b235fe93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/abandoned_building.png"
-dest_files=["res://.godot/imported/abandoned_building.png-69aec02a364051e78d174be281f3a770.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/skyscraper.png"
+dest_files=["res://.godot/imported/skyscraper.png-c88558bbed74e30eb01869c6b235fe93.ctex"]
 
 [params]
 

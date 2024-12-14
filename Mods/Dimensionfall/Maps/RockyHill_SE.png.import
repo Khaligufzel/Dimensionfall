@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gwyhiorf3esh"
-path="res://.godot/imported/office_building_00.png-c421ef87dd100aeb4cd9f5f905f4b5f4.ctex"
+uid="uid://c2fx3e776ellm"
+path="res://.godot/imported/RockyHill_SE.png-ac6ef8fe3a1dda20cd7cb17a07ee47aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/office_building_00.png"
-dest_files=["res://.godot/imported/office_building_00.png-c421ef87dd100aeb4cd9f5f905f4b5f4.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/RockyHill_SE.png"
+dest_files=["res://.godot/imported/RockyHill_SE.png-ac6ef8fe3a1dda20cd7cb17a07ee47aa.ctex"]
 
 [params]
 

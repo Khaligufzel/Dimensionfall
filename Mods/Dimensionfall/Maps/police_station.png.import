@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbykj16k6h3t6"
-path="res://.godot/imported/RockyHill_NE.png-560ac3e59648c230e460173fb1667a28.ctex"
+uid="uid://ckyoonfckkx2i"
+path="res://.godot/imported/police_station.png-6c9980f366328ecd41cd113162e2449a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/RockyHill_NE.png"
-dest_files=["res://.godot/imported/RockyHill_NE.png-560ac3e59648c230e460173fb1667a28.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/police_station.png"
+dest_files=["res://.godot/imported/police_station.png-6c9980f366328ecd41cd113162e2449a.ctex"]
 
 [params]
 

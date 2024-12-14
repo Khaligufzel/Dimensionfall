@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cudo84gav5r1b"
-path="res://.godot/imported/skyscraper.png-862bd086307132c21bbce320797977cf.ctex"
+uid="uid://gwyhiorf3esh"
+path="res://.godot/imported/office_building_00.png-b8e3af5f3cf68ea2c52163bfbb53fa56.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/skyscraper.png"
-dest_files=["res://.godot/imported/skyscraper.png-862bd086307132c21bbce320797977cf.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/office_building_00.png"
+dest_files=["res://.godot/imported/office_building_00.png-b8e3af5f3cf68ea2c52163bfbb53fa56.ctex"]
 
 [params]
 

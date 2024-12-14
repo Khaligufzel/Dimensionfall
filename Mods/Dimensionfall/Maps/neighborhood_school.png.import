@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x0srevp161oy"
-path="res://.godot/imported/store_groceries.png-953a60f21d060ea19f156a17fcf84952.ctex"
+uid="uid://bx6pv1dnc4gbg"
+path="res://.godot/imported/neighborhood_school.png-61f0e069074cee07cdf305af5373fb39.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/store_groceries.png"
-dest_files=["res://.godot/imported/store_groceries.png-953a60f21d060ea19f156a17fcf84952.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/neighborhood_school.png"
+dest_files=["res://.godot/imported/neighborhood_school.png-61f0e069074cee07cdf305af5373fb39.ctex"]
 
 [params]
 

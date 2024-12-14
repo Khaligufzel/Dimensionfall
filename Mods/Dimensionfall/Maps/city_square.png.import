@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2km4t8ruli2r"
-path="res://.godot/imported/store_electronic_clothing.png-ebaad539106ad4c77af6b43c6dc699ee.ctex"
+uid="uid://ba5o07sid610w"
+path="res://.godot/imported/city_square.png-40612bd358a347dd7c352e003008a8f9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/store_electronic_clothing.png"
-dest_files=["res://.godot/imported/store_electronic_clothing.png-ebaad539106ad4c77af6b43c6dc699ee.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/city_square.png"
+dest_files=["res://.godot/imported/city_square.png-40612bd358a347dd7c352e003008a8f9.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bx6pv1dnc4gbg"
-path="res://.godot/imported/neighborhood_school.png-c7a89e716b106d38ad0aa341d6f62b5d.ctex"
+uid="uid://b7624ombl5bap"
+path="res://.godot/imported/RockyHill_SW.png-7b58e335c6d5156a298e44381a18278e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/neighborhood_school.png"
-dest_files=["res://.godot/imported/neighborhood_school.png-c7a89e716b106d38ad0aa341d6f62b5d.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/RockyHill_SW.png"
+dest_files=["res://.godot/imported/RockyHill_SW.png-7b58e335c6d5156a298e44381a18278e.ctex"]
 
 [params]
 

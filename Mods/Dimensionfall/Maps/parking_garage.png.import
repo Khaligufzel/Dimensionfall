@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ba5o07sid610w"
-path="res://.godot/imported/city_square.png-1c5c4387bada11ced8afc5b5527e1104.ctex"
+uid="uid://bsg47id0j3p4b"
+path="res://.godot/imported/parking_garage.png-4dca4771412416cb70998d170559b2a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/city_square.png"
-dest_files=["res://.godot/imported/city_square.png-1c5c4387bada11ced8afc5b5527e1104.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/parking_garage.png"
+dest_files=["res://.godot/imported/parking_garage.png-4dca4771412416cb70998d170559b2a4.ctex"]
 
 [params]
 

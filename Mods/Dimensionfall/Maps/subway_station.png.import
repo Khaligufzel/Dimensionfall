@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7624ombl5bap"
-path="res://.godot/imported/RockyHill_SW.png-4618588c4fc24b401406d5465730a46e.ctex"
+uid="uid://cyshsvu1rv1ll"
+path="res://.godot/imported/subway_station.png-33efe0137e0634fd226ebd0baff4abb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/RockyHill_SW.png"
-dest_files=["res://.godot/imported/RockyHill_SW.png-4618588c4fc24b401406d5465730a46e.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/subway_station.png"
+dest_files=["res://.godot/imported/subway_station.png-33efe0137e0634fd226ebd0baff4abb0.ctex"]
 
 [params]
 
