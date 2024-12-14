@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dp232vxl3rr7q"
-path="res://.godot/imported/field_grass_basic_00.png-16cba61d31d6d254599f79494a3bdcf4.ctex"
+uid="uid://dablqovprxj44"
+path="res://.godot/imported/forest_road_corner.png-b0dcb6c7fc12c8ff46a11c736959b3cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/field_grass_basic_00.png"
-dest_files=["res://.godot/imported/field_grass_basic_00.png-16cba61d31d6d254599f79494a3bdcf4.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/forest_road_corner.png"
+dest_files=["res://.godot/imported/forest_road_corner.png-b0dcb6c7fc12c8ff46a11c736959b3cd.ctex"]
 
 [params]
 

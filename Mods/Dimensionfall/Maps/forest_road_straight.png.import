@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0ubo3uwqj0x7"
-path="res://.godot/imported/forest_road_t.png-370d0c598ccd232ac505c10b75305d8f.ctex"
+uid="uid://dgkcygqqbtxf2"
+path="res://.godot/imported/forest_road_straight.png-3d01b9e2743c8a6b3f4965c02f4e5d9f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/forest_road_t.png"
-dest_files=["res://.godot/imported/forest_road_t.png-370d0c598ccd232ac505c10b75305d8f.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/forest_road_straight.png"
+dest_files=["res://.godot/imported/forest_road_straight.png-3d01b9e2743c8a6b3f4965c02f4e5d9f.ctex"]
 
 [params]
 

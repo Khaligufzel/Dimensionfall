@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xx1jwwitqnyp"
-path="res://.godot/imported/urbanroad.png-a627bc58d6f387047cc2b061013183f3.ctex"
+uid="uid://cdsk677711lm4"
+path="res://.godot/imported/field_grass_hill_00.png-8015ee093aad082ea75f2c46736ac492.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/urbanroad.png"
-dest_files=["res://.godot/imported/urbanroad.png-a627bc58d6f387047cc2b061013183f3.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/field_grass_hill_00.png"
+dest_files=["res://.godot/imported/field_grass_hill_00.png-8015ee093aad082ea75f2c46736ac492.ctex"]
 
 [params]
 

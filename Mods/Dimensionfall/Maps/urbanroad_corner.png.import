@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgmc35rgvgctb"
-path="res://.godot/imported/field_grass_flowers_00.png-c0da9fe1bd8e77587fa4969e0c6e49a9.ctex"
+uid="uid://ctekx1nb7tuf3"
+path="res://.godot/imported/urbanroad_corner.png-988b01d49f583f5811db87e960b1c93b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Maps/field_grass_flowers_00.png"
-dest_files=["res://.godot/imported/field_grass_flowers_00.png-c0da9fe1bd8e77587fa4969e0c6e49a9.ctex"]
+source_file="res://Mods/Dimensionfall/Maps/urbanroad_corner.png"
+dest_files=["res://.godot/imported/urbanroad_corner.png-988b01d49f583f5811db87e960b1c93b.ctex"]
 
 [params]
 
