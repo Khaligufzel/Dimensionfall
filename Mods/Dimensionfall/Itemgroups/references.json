@@ -98,6 +98,11 @@
 			"radio_tower"
 		]
 	},
+	"mob_loot": {
+		"mobs": [
+			"iron_stalker"
+		]
+	},
 	"police_station_locker": {
 		"maps": [
 			"police_station"

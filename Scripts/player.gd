@@ -30,6 +30,10 @@ var attributes = {}
 var time_since_ready = 0.0
 var delay_before_movement = 2.0  # 2 second delay
 
+# Variable to track the stun amount
+var stun_amount: float = 0.0
+var stun_depletion_rate: float = 10.0  # Amount to reduce per second
+
 # Variables to handle knockback
 var knockback_active = false
 var knockback_velocity: Vector3 = Vector3.ZERO
@@ -157,6 +161,7 @@ func _physics_process(delta):
 
 		# Check if the player is stunned; if so, prevent control-based movement
 		if is_stunned():
+			deplete_stun(delta) # Deplete stun amount
 			move_and_slide()  # Keep moving with existing velocity but no input-based movement
 			return  # Prevent further processing for player control
 
@@ -598,9 +603,14 @@ func _perform_knockback(knockback_distance: float, mob_position: Vector3):
 	knockback_distance_remaining = knockback_distance
 
 
-# Function to check if the "stun" attribute's current amount is greater than 0
+# Function to check if the player is currently stunned
 func is_stunned() -> bool:
-	if attributes.has("stun"):
-		var stun_attribute: PlayerAttribute = attributes["stun"]
-		return stun_attribute.default_mode.current_amount > 0
-	return false
+	return stun_amount > 0.0
+
+# Function to deplete the stun amount over time
+func deplete_stun(delta: float) -> void:
+	stun_amount = max(0.0, stun_amount - stun_depletion_rate * delta)
+
+# Function to increase the stun amount
+func add_stun(amount: float) -> void:
+	stun_amount += amount
