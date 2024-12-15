@@ -42,7 +42,7 @@ class map_cell:
 	var coordinate_x: int = 0
 	var coordinate_y: int = 0
 	var rmap: RMap = null
-	var map_id: String = "field_grass_basic_00.json":
+	var map_id: String = "default_map.json":
 		set(value):
 			map_id = value
 			rmap = Runtimedata.maps.by_id(map_id)
@@ -495,7 +495,10 @@ func place_overmap_areas() -> void:
 	# Loop to place up to 10 overmap areas on the grid
 	for n in range(10):
 		var mygenerator = OvermapAreaGenerator.new()
-		var dovermaparea = Runtimedata.overmapareas.by_id(Runtimedata.overmapareas.get_random_area().id)
+		var random_area: ROvermaparea = Runtimedata.overmapareas.get_random_area()
+		if not random_area:
+			return # we were unable to find any overmaparea so we should exit
+		var dovermaparea = Runtimedata.overmapareas.by_id(random_area.id)
 		mygenerator.dovermaparea = dovermaparea
 
 		# Generate the area
@@ -521,7 +524,8 @@ func place_tactical_maps() -> void:
 	var placed_positions = []
 	for n in range(5):  # Loop to place up to 10 tactical maps on the grid
 		var dmap: RTacticalmap = Runtimedata.tacticalmaps.get_random_map()
-
+		if not dmap:
+			return # We were unable to find any random map so we should return
 		var map_width = dmap.mapwidth
 		var map_height = dmap.mapheight
 		var chunks = dmap.chunks
@@ -569,7 +573,7 @@ func generate_cells() -> void:
 			if maps_by_category.size() > 0:
 				cell.map_id = Helper.overmap_manager.pick_random_map_by_weight(maps_by_category)
 			else:
-				cell.map_id = "field_grass_basic_00.json"  # Fallback if no maps found
+				cell.map_id = "default_map"  # Fallback if no maps found
 			# If you need to test a specific map, uncomment these two lines and put in your map name.
 			# It will spawn the map at position (0,0), where the player starts
 			#if global_x == 0 and global_y == 0:
