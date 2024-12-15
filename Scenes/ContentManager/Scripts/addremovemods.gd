@@ -164,12 +164,25 @@ func populate_mods_item_list() -> void:
 	mods_item_list.clear()
 	var mod_states = Gamedata.mods.get_mod_list_states()
 
-	# If a saved state exists, load mods in the saved order
+	# Always add "Core" mod first
+	if Gamedata.mods.has_id("Core"):
+		var core_mod = Gamedata.mods.by_id("Core")
+		mods_item_list.add_item(core_mod.name)
+		mods_item_list.set_item_metadata(0, "Core")
+
+		# Always set "Core" as enabled and visually distinguish it
+		mods_item_list.set_item_custom_bg_color(0, enabled_color)
+		mods_item_list.set_item_disabled(0, true)  # Prevent interaction
+		core_mod.is_enabled = true
+
+	# Add the remaining mods in the saved state order
 	if not mod_states.is_empty():
 		for mod_state in mod_states:
 			var mod_id = mod_state["id"]
-			var mod_enabled = mod_state["enabled"]
+			if mod_id == "Core":  # Skip "Core" since it's already added
+				continue
 
+			var mod_enabled = mod_state["enabled"]
 			if Gamedata.mods.has_id(mod_id):
 				var mod = Gamedata.mods.by_id(mod_id)
 				mods_item_list.add_item(mod.name)
@@ -184,6 +197,9 @@ func populate_mods_item_list() -> void:
 	else:
 		# If no saved state, load mods in default order from Gamedata.mods
 		for mod: DMod in Gamedata.mods.get_all_mods():
+			if mod.id == "Core":  # Skip "Core" since it's already added
+				continue
+
 			mods_item_list.add_item(mod.name)
 			mods_item_list.set_item_metadata(mods_item_list.get_item_count() - 1, mod.id)
 
@@ -192,6 +208,7 @@ func populate_mods_item_list() -> void:
 			mod.is_enabled = true
 
 	print_debug("Populated mods_item_list successfully.")
+
 
 
 # When the user presses the save button
@@ -304,11 +321,15 @@ func _create_drag_data(_at_position: Vector2) -> Variant:
 
 
 # The user has activated a mod in the modlist by double clicking or pressing enter
-# We will toggle the enabled status of the mod
 # the item's custom background color will reflect the activated status
 # Toggles the enabled status of the mod and updates its appearance in the mod list
 func _on_mods_item_list_item_activated(index: int) -> void:
 	var mod_id = mods_item_list.get_item_metadata(index)
+
+	# Prevent toggling the "Core" mod
+	if mod_id == "Core":
+		return
+
 	var mod_enabled = Gamedata.mods.by_id(mod_id).is_enabled
 
 	# Toggle the enabled status
@@ -322,12 +343,13 @@ func _on_mods_item_list_item_activated(index: int) -> void:
 	save_mod_list_state()
 
 
+
 # The user pressed the move down button in the mod editor
 # Moves the selected mod down in the list and preserves its state and color
 func _on_move_down_button_button_up() -> void:
 	var selected_index = mods_item_list.get_selected_items()
-	if selected_index.size() == 0:
-		return  # No item selected
+	if selected_index.size() == 0 or selected_index[0] == 0:
+		return  # No item selected or "Core" is selected
 
 	selected_index = selected_index[0]
 	if selected_index >= mods_item_list.get_item_count() - 1:
@@ -364,8 +386,8 @@ func _on_move_down_button_button_up() -> void:
 # Moves the selected mod up in the list and preserves its state and color
 func _on_move_up_button_button_up() -> void:
 	var selected_index = mods_item_list.get_selected_items()
-	if selected_index.size() == 0:
-		return  # No item selected
+	if selected_index.size() == 0 or selected_index[0] <= 1:
+		return  # No item selected or "Core" is selected
 
 	selected_index = selected_index[0]
 	if selected_index <= 0:

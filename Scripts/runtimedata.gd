@@ -28,7 +28,7 @@ func get_data_of_type(type: DMod.ContentType) -> RefCounted:
 
 # Reconstruct function to reset and initialize stats
 func reconstruct() -> void:
-	var enabled_mods: Array = Gamedata.mods.get_mods_in_state_order(true)
+	var enabled_mods: Array[DMod] = Gamedata.mods.get_mods_in_state_order(true)
 	# Clear the stats by resetting the instance
 	stats = RStats.new(enabled_mods)
 	skills = RSkills.new(enabled_mods)

@@ -236,16 +236,25 @@ func get_enabled_mod_ids() -> Array:
 
 
 # Returns an array of DMod instances in the order specified by mod_states.
-# If `only_enabled` is true, only enabled mods are included in the result.
+# The "Core" mod is always loaded first, even if it is disabled.
+# If `only_enabled` is true, only enabled mods are included (excluding the "Core" mod's enabled status).
 func get_mods_in_state_order(only_enabled: bool) -> Array[DMod]:
 	var ordered_mods: Array[DMod] = []
 	var mod_states = get_mod_list_states()  # Retrieve the saved mod states
 
-	# Add mods in the order specified by mod_states
+	# Add the "Core" mod first if it exists in the moddict
+	if moddict.has("Core"):
+		ordered_mods.append(moddict["Core"])
+
+	# Add the remaining mods in the order specified by mod_states
 	for mod_state in mod_states:
 		var mod_id = mod_state["id"]
-		var is_enabled = mod_state["enabled"]
 
+		# Skip "Core" as it is already added
+		if mod_id == "Core":
+			continue
+
+		var is_enabled = mod_state["enabled"]
 		if moddict.has(mod_id):
 			if not only_enabled or (only_enabled and is_enabled):
 				ordered_mods.append(moddict[mod_id])
