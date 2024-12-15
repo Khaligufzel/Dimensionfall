@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2gc53fb0gv7s"
-path="res://.godot/imported/fabrication_32.png-5a68c7119ac682125df5493dbf5743f2.ctex"
+uid="uid://5ei04pe3lpm2"
+path="res://.godot/imported/handgun_32.png-54c557f18e626573e8ac6be22e6cb102.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/fabrication_32.png"
-dest_files=["res://.godot/imported/fabrication_32.png-5a68c7119ac682125df5493dbf5743f2.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/handgun_32.png"
+dest_files=["res://.godot/imported/handgun_32.png-54c557f18e626573e8ac6be22e6cb102.ctex"]
 
 [params]
 

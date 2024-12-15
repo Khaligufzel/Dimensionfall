@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://llgphbduc331"
-path="res://.godot/imported/weapon_32.png-301a5a45dd5560c8cd1c1a9e59966473.ctex"
+uid="uid://8vo51bdoda58"
+path="res://.godot/imported/mining_32.png-f4bcff208f5f5dd743bdb399902b8385.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/weapon_32.png"
-dest_files=["res://.godot/imported/weapon_32.png-301a5a45dd5560c8cd1c1a9e59966473.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/mining_32.png"
+dest_files=["res://.godot/imported/mining_32.png-f4bcff208f5f5dd743bdb399902b8385.ctex"]
 
 [params]
 

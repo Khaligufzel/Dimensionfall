@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3g1pd1y0ph4m"
-path="res://.godot/imported/smg_32.png-563327bfbd73bb0e2f63b7251923f830.ctex"
+uid="uid://dif1hnsk1oqai"
+path="res://.godot/imported/trapping_32.png-ab136af05aabb50c2a805c22003a1aa2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/smg_32.png"
-dest_files=["res://.godot/imported/smg_32.png-563327bfbd73bb0e2f63b7251923f830.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/trapping_32.png"
+dest_files=["res://.godot/imported/trapping_32.png-ab136af05aabb50c2a805c22003a1aa2.ctex"]
 
 [params]
 

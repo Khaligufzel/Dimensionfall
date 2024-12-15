@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwggjosm83hfo"
-path="res://.godot/imported/archery_32.png-8bf1d7186c6dceab7209429d66f6db7c.ctex"
+uid="uid://llgphbduc331"
+path="res://.godot/imported/weapon_32.png-bb0a56d81adb6fb407377a00dd21c0c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/archery_32.png"
-dest_files=["res://.godot/imported/archery_32.png-8bf1d7186c6dceab7209429d66f6db7c.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/weapon_32.png"
+dest_files=["res://.godot/imported/weapon_32.png-bb0a56d81adb6fb407377a00dd21c0c9.ctex"]
 
 [params]
 

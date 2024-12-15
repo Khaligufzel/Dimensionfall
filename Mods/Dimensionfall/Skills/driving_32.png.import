@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdnq8n47e5r7a"
-path="res://.godot/imported/mechanics_32.png-fd3a3223cb490f811d5e8c688408421b.ctex"
+uid="uid://cpfwhecek0a0f"
+path="res://.godot/imported/driving_32.png-00aa0d3f3f50783db349cba799045ce5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/mechanics_32.png"
-dest_files=["res://.godot/imported/mechanics_32.png-fd3a3223cb490f811d5e8c688408421b.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/driving_32.png"
+dest_files=["res://.godot/imported/driving_32.png-00aa0d3f3f50783db349cba799045ce5.ctex"]
 
 [params]
 

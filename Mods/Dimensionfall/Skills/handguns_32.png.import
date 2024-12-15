@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhaopvkmkikja"
-path="res://.godot/imported/dodge_32.png-f81bf15ab26817553a77a8fb5005e5e6.ctex"
+uid="uid://rxwoeu58oqo8"
+path="res://.godot/imported/handguns_32.png-131c779d84537121cb59e6675ee54a8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/dodge_32.png"
-dest_files=["res://.godot/imported/dodge_32.png-f81bf15ab26817553a77a8fb5005e5e6.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/handguns_32.png"
+dest_files=["res://.godot/imported/handguns_32.png-131c779d84537121cb59e6675ee54a8a.ctex"]
 
 [params]
 

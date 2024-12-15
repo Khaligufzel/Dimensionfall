@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wecs6cro60s"
-path="res://.godot/imported/throw_32.png-3989856b34ce39605d0d9bf3805f2907.ctex"
+uid="uid://c3lxqywt45k7d"
+path="res://.godot/imported/launcher_32.png-8d2f5b19d3ea2be8d51472b18413e1ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/throw_32.png"
-dest_files=["res://.godot/imported/throw_32.png-3989856b34ce39605d0d9bf3805f2907.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/launcher_32.png"
+dest_files=["res://.godot/imported/launcher_32.png-8d2f5b19d3ea2be8d51472b18413e1ae.ctex"]
 
 [params]
 

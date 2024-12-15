@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpfwhecek0a0f"
-path="res://.godot/imported/driving_32.png-47147fb6ed6be91aa7d76829542a84fd.ctex"
+uid="uid://6xcl6j8aywlg"
+path="res://.godot/imported/shotgun_32.png-506170e1bacd8a5b9133c8bbe0cf655c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/driving_32.png"
-dest_files=["res://.godot/imported/driving_32.png-47147fb6ed6be91aa7d76829542a84fd.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/shotgun_32.png"
+dest_files=["res://.godot/imported/shotgun_32.png-506170e1bacd8a5b9133c8bbe0cf655c.ctex"]
 
 [params]
 

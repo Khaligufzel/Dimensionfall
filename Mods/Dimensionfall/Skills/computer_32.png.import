@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo4yjmur3jurv"
-path="res://.godot/imported/chemistry_32.png-a521e9fa2f0ae1b562e291bbcb996a75.ctex"
+uid="uid://bq3m75w78xkj6"
+path="res://.godot/imported/computer_32.png-fb80e474ef29b65dc1da9a1e33b2142c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/chemistry_32.png"
-dest_files=["res://.godot/imported/chemistry_32.png-a521e9fa2f0ae1b562e291bbcb996a75.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/computer_32.png"
+dest_files=["res://.godot/imported/computer_32.png-fb80e474ef29b65dc1da9a1e33b2142c.ctex"]
 
 [params]
 

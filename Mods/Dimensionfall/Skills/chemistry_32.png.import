@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rxwoeu58oqo8"
-path="res://.godot/imported/handguns_32.png-13a126a8011c9b5c71420b2b12020bf0.ctex"
+uid="uid://bo4yjmur3jurv"
+path="res://.godot/imported/chemistry_32.png-fcdee73cd17a63cd05514abe168a5fc3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/handguns_32.png"
-dest_files=["res://.godot/imported/handguns_32.png-13a126a8011c9b5c71420b2b12020bf0.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/chemistry_32.png"
+dest_files=["res://.godot/imported/chemistry_32.png-fcdee73cd17a63cd05514abe168a5fc3.ctex"]
 
 [params]
 

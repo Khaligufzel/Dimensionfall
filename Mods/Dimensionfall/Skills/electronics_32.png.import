@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7ay4cfwsyj8r"
-path="res://.godot/imported/cooking_32.png-d4f1542ce3a2f438a5eed3a2fc4c584e.ctex"
+uid="uid://c0ucq6y47qojb"
+path="res://.godot/imported/electronics_32.png-d285542eef3c86cf3f396a0388a6d4bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/cooking_32.png"
-dest_files=["res://.godot/imported/cooking_32.png-d4f1542ce3a2f438a5eed3a2fc4c584e.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/electronics_32.png"
+dest_files=["res://.godot/imported/electronics_32.png-d285542eef3c86cf3f396a0388a6d4bf.ctex"]
 
 [params]
 

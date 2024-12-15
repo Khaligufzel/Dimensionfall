@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxkfj42u0104v"
-path="res://.godot/imported/melee_32.png-9bc42b2418a359638eb069c317c5b8b5.ctex"
+uid="uid://cye4isxb5xwtc"
+path="res://.godot/imported/tailoring_32.png-32a5ad395866180db9591713ad38d29c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/melee_32.png"
-dest_files=["res://.godot/imported/melee_32.png-9bc42b2418a359638eb069c317c5b8b5.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/tailoring_32.png"
+dest_files=["res://.godot/imported/tailoring_32.png-32a5ad395866180db9591713ad38d29c.ctex"]
 
 [params]
 

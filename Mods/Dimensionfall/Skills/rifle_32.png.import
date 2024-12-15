@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6xcl6j8aywlg"
-path="res://.godot/imported/shotgun_32.png-3404dd3314d3262d9a42b1a393ea49aa.ctex"
+uid="uid://c5arors5rwfuk"
+path="res://.godot/imported/rifle_32.png-0ad7a05fc535c1c562fdcc8bf10d1f31.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/shotgun_32.png"
-dest_files=["res://.godot/imported/shotgun_32.png-3404dd3314d3262d9a42b1a393ea49aa.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/rifle_32.png"
+dest_files=["res://.godot/imported/rifle_32.png-0ad7a05fc535c1c562fdcc8bf10d1f31.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5arors5rwfuk"
-path="res://.godot/imported/rifle_32.png-c4e61af8650b8a18d6e0ccc78441c056.ctex"
+uid="uid://c8bsfv74d4sih"
+path="res://.godot/imported/unarmed_32.png-3e1a33496a6b5b49a18629553c23b34f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/rifle_32.png"
-dest_files=["res://.godot/imported/rifle_32.png-c4e61af8650b8a18d6e0ccc78441c056.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/unarmed_32.png"
+dest_files=["res://.godot/imported/unarmed_32.png-3e1a33496a6b5b49a18629553c23b34f.ctex"]
 
 [params]
 

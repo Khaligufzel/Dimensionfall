@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8vo51bdoda58"
-path="res://.godot/imported/mining_32.png-daa18f5479d40f40c2470620c27f382a.ctex"
+uid="uid://dsqfqyv6yv32k"
+path="res://.godot/imported/crafting_32.png-57bfb9fdd3e3229b7a87ddde395c6587.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/mining_32.png"
-dest_files=["res://.godot/imported/mining_32.png-daa18f5479d40f40c2470620c27f382a.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/crafting_32.png"
+dest_files=["res://.godot/imported/crafting_32.png-57bfb9fdd3e3229b7a87ddde395c6587.ctex"]
 
 [params]
 

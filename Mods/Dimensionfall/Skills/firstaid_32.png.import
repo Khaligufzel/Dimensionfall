@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://q14vsw0evk7b"
-path="res://.godot/imported/firstaid_32.png-b33a6b86d2a48ee653b33c7bdaba37e6.ctex"
+path="res://.godot/imported/firstaid_32.png-fec21191cce7d409b3dcb70e49cac0c6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/firstaid_32.png"
-dest_files=["res://.godot/imported/firstaid_32.png-b33a6b86d2a48ee653b33c7bdaba37e6.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/firstaid_32.png"
+dest_files=["res://.godot/imported/firstaid_32.png-fec21191cce7d409b3dcb70e49cac0c6.ctex"]
 
 [params]
 

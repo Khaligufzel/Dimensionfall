@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsqfqyv6yv32k"
-path="res://.godot/imported/crafting_32.png-37012eec134e7d5336496b46ead94e48.ctex"
+uid="uid://7ay4cfwsyj8r"
+path="res://.godot/imported/cooking_32.png-bd9de1ce4368b359101f8b881a10ac57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/crafting_32.png"
-dest_files=["res://.godot/imported/crafting_32.png-37012eec134e7d5336496b46ead94e48.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/cooking_32.png"
+dest_files=["res://.godot/imported/cooking_32.png-bd9de1ce4368b359101f8b881a10ac57.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bak1do66hdw85"
-path="res://.godot/imported/stabbing_32.png-b13f8aafa219ef96bf89705c0021d37a.ctex"
+uid="uid://cxkfj42u0104v"
+path="res://.godot/imported/melee_32.png-d6eaeae5fd3f895359778238b2ca8ad7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/stabbing_32.png"
-dest_files=["res://.godot/imported/stabbing_32.png-b13f8aafa219ef96bf89705c0021d37a.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/melee_32.png"
+dest_files=["res://.godot/imported/melee_32.png-d6eaeae5fd3f895359778238b2ca8ad7.ctex"]
 
 [params]
 

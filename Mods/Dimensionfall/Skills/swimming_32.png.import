@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8bsfv74d4sih"
-path="res://.godot/imported/unarmed_32.png-6c5617ed195d670a8e0757bd0ceaecc5.ctex"
+uid="uid://biwbjdfsr5r85"
+path="res://.godot/imported/swimming_32.png-12f71191dad5a5cb1c2d2ac647caf0df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/unarmed_32.png"
-dest_files=["res://.godot/imported/unarmed_32.png-6c5617ed195d670a8e0757bd0ceaecc5.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/swimming_32.png"
+dest_files=["res://.godot/imported/swimming_32.png-12f71191dad5a5cb1c2d2ac647caf0df.ctex"]
 
 [params]
 

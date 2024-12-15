@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0ucq6y47qojb"
-path="res://.godot/imported/electronics_32.png-be3beea6fe22251ab56abfd35b0d7e9f.ctex"
+uid="uid://compkfl6bbdsb"
+path="res://.godot/imported/athletics_32.png-50e2635fbbf79266acce8c0598d651d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/electronics_32.png"
-dest_files=["res://.godot/imported/electronics_32.png-be3beea6fe22251ab56abfd35b0d7e9f.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/athletics_32.png"
+dest_files=["res://.godot/imported/athletics_32.png-50e2635fbbf79266acce8c0598d651d6.ctex"]
 
 [params]
 

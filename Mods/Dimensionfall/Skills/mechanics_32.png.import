@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwg4mlbeivmid"
-path="res://.godot/imported/bashing_32.png-94da1b92a56decbed740e8fa16106368.ctex"
+uid="uid://cdnq8n47e5r7a"
+path="res://.godot/imported/mechanics_32.png-8b569fff42870b7819a5be04f01f34bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/bashing_32.png"
-dest_files=["res://.godot/imported/bashing_32.png-94da1b92a56decbed740e8fa16106368.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/mechanics_32.png"
+dest_files=["res://.godot/imported/mechanics_32.png-8b569fff42870b7819a5be04f01f34bd.ctex"]
 
 [params]
 

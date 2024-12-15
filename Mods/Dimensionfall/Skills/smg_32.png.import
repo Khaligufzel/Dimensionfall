@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bq3m75w78xkj6"
-path="res://.godot/imported/computer_32.png-e23c46494218810fa749d0b64f97b166.ctex"
+uid="uid://d3g1pd1y0ph4m"
+path="res://.godot/imported/smg_32.png-3120375687312feb957ffec2ff45c403.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/computer_32.png"
-dest_files=["res://.godot/imported/computer_32.png-e23c46494218810fa749d0b64f97b166.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/smg_32.png"
+dest_files=["res://.godot/imported/smg_32.png-3120375687312feb957ffec2ff45c403.ctex"]
 
 [params]
 

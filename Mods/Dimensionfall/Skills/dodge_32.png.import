@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cye4isxb5xwtc"
-path="res://.godot/imported/tailoring_32.png-e940a5ee7df37a710e1c046dfd4e8aed.ctex"
+uid="uid://bhaopvkmkikja"
+path="res://.godot/imported/dodge_32.png-ebd4b3214a5a8a466d78a2be6f00981c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/Skills/tailoring_32.png"
-dest_files=["res://.godot/imported/tailoring_32.png-e940a5ee7df37a710e1c046dfd4e8aed.ctex"]
+source_file="res://Mods/Dimensionfall/Skills/dodge_32.png"
+dest_files=["res://.godot/imported/dodge_32.png-ebd4b3214a5a8a466d78a2be6f00981c.ctex"]
 
 [params]
 
