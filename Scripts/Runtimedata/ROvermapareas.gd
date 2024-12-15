@@ -10,13 +10,10 @@ var overmapareadict: Dictionary = {}
 var references: Dictionary = {}
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DOvermapareas
-	for mod_id in mod_ids:
-		var dovermapareas: DOvermapareas = Gamedata.mods.by_id(mod_id).overmapareas
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var dovermapareas: DOvermapareas = mod.overmapareas
 
 		# Loop through each DOvermaparea in the mod
 		for dovermaparea_id: String in dovermapareas.get_all().keys():

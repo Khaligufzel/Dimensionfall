@@ -220,7 +220,7 @@ func get_mod_list_states() -> Array:
 	
 	# Retrieve the saved mod states
 	var mod_states = config.get_value("mods", "states", [])
-	if mod_states.empty():
+	if mod_states.is_empty():
 		print_debug("No mod list state found.")
 		return []
 	
@@ -233,3 +233,21 @@ func get_enabled_mod_ids() -> Array:
 		if moddict[mod_id].is_enabled:
 			enabled_mods.append(mod_id)
 	return enabled_mods
+
+
+# Returns an array of DMod instances in the order specified by mod_states.
+# If `only_enabled` is true, only enabled mods are included in the result.
+func get_mods_in_state_order(only_enabled: bool) -> Array[DMod]:
+	var ordered_mods: Array[DMod] = []
+	var mod_states = get_mod_list_states()  # Retrieve the saved mod states
+
+	# Add mods in the order specified by mod_states
+	for mod_state in mod_states:
+		var mod_id = mod_state["id"]
+		var is_enabled = mod_state["enabled"]
+
+		if moddict.has(mod_id):
+			if not only_enabled or (only_enabled and is_enabled):
+				ordered_mods.append(moddict[mod_id])
+
+	return ordered_mods

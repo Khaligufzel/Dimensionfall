@@ -10,13 +10,10 @@ var mobfactiondict: Dictionary = {}  # Holds runtime mob faction instances
 var sprites: Dictionary = {}  # Holds mob faction sprites
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DMobfactions
-	for mod_id in mod_ids:
-		var dmobfactions: DMobfactions = Gamedata.mods.by_id(mod_id).mobfactions
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var dmobfactions: DMobfactions = mod.mobfactions
 
 		# Loop through each DMobfaction in the mod
 		for dmobfaction_id: String in dmobfactions.get_all().keys():

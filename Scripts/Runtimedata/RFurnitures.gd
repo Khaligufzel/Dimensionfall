@@ -12,13 +12,10 @@ var shader_materials: Dictionary = {}  # Cache for shader materials by furniture
 var shape_materials: Dictionary = {}  # Cache for shape materials by furniture ID
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DFurnitures
-	for mod_id in mod_ids:
-		var dfurnitures: DFurnitures = Gamedata.mods.by_id(mod_id).furnitures
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var dfurnitures: DFurnitures = mod.furnitures
 
 		# Loop through each DFurniture in the mod
 		for dfurniture_id: String in dfurnitures.get_all().keys():

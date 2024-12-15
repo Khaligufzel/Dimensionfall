@@ -10,13 +10,10 @@ var skilldict: Dictionary = {}  # Holds runtime skill instances
 var sprites: Dictionary = {}   # Holds skill sprites
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DSkills
-	for mod_id in mod_ids:
-		var dskills: DSkills = Gamedata.mods.by_id(mod_id).skills
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var dskills: DSkills = mod.skills
 
 		# Loop through each DSkill in the mod
 		for dskill_id: String in dskills.get_all().keys():

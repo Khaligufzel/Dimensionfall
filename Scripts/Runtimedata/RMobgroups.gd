@@ -10,13 +10,10 @@ var mobgroupdict: Dictionary = {}  # Holds runtime mob group instances
 var sprites: Dictionary = {}  # Holds mob group sprites
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DMobgroups
-	for mod_id in mod_ids:
-		var dmobgroups: DMobgroups = Gamedata.mods.by_id(mod_id).mobgroups
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var dmobgroups: DMobgroups = mod.mobgroups
 
 		# Loop through each DMobgroup in the mod
 		for dmobgroup_id: String in dmobgroups.get_all().keys():

@@ -10,13 +10,10 @@ var playerattributedict: Dictionary = {}  # Holds runtime player attribute insta
 var sprites: Dictionary = {}  # Holds player attribute sprites
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DPlayerAttributes
-	for mod_id in mod_ids:
-		var dplayerattributes: DPlayerAttributes = Gamedata.mods.by_id(mod_id).playerattributes
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var dplayerattributes: DPlayerAttributes = mod.playerattributes
 
 		# Loop through each DPlayerAttribute in the mod
 		for dplayerattribute_id: String in dplayerattributes.get_all().keys():

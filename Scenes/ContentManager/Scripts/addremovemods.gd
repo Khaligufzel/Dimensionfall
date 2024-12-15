@@ -162,16 +162,7 @@ func delete_mod(mod_id: String) -> void:
 func populate_mods_item_list() -> void:
 	# Clear the mods_item_list
 	mods_item_list.clear()
-
-	# Attempt to load the saved mod list state
-	var config = ConfigFile.new()
-	var path = "user://mods_state.cfg"
-	var mod_states = []
-
-	if config.load(path) == OK:
-		mod_states = config.get_value("mods", "states", [])
-	else:
-		print_debug("No saved mod list state found. Loading mods in default order.")
+	var mod_states = Gamedata.mods.get_mod_list_states()
 
 	# If a saved state exists, load mods in the saved order
 	if not mod_states.is_empty():

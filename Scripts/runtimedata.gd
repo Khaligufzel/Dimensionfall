@@ -28,22 +28,23 @@ func get_data_of_type(type: DMod.ContentType) -> RefCounted:
 
 # Reconstruct function to reset and initialize stats
 func reconstruct() -> void:
+	var enabled_mods: Array = Gamedata.mods.get_mods_in_state_order(true)
 	# Clear the stats by resetting the instance
-	stats = RStats.new()
-	skills = RSkills.new()
-	tacticalmaps = RTacticalmaps.new()
-	maps = RMaps.new()
-	tiles = RTiles.new()
-	overmapareas = ROvermapareas.new()
-	quests = RQuests.new()
-	playerattributes = RPlayerAttributes.new()
-	wearableslots = RWearableSlots.new()
-	mobs = RMobs.new()
-	mobgroups = RMobgroups.new()
-	itemgroups = RItemgroups.new()
-	furnitures = RFurnitures.new()
-	items = RItems.new()
-	mobfactions = RMobfactions.new()
+	stats = RStats.new(enabled_mods)
+	skills = RSkills.new(enabled_mods)
+	tacticalmaps = RTacticalmaps.new(enabled_mods)
+	maps = RMaps.new(enabled_mods)
+	tiles = RTiles.new(enabled_mods)
+	overmapareas = ROvermapareas.new(enabled_mods)
+	quests = RQuests.new(enabled_mods)
+	playerattributes = RPlayerAttributes.new(enabled_mods)
+	wearableslots = RWearableSlots.new(enabled_mods)
+	mobs = RMobs.new(enabled_mods)
+	mobgroups = RMobgroups.new(enabled_mods)
+	itemgroups = RItemgroups.new(enabled_mods)
+	furnitures = RFurnitures.new(enabled_mods)
+	items = RItems.new(enabled_mods)
+	mobfactions = RMobfactions.new(enabled_mods)
 	
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
