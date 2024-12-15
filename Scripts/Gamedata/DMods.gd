@@ -17,6 +17,14 @@ func load_mods_from_disk() -> void:
 	# Clear the moddict dictionary
 	moddict.clear()
 
+	# Get the list of saved mod states
+	var mod_states = get_mod_list_states()
+	var enabled_states: Dictionary = {}
+
+	# Convert the mod_states array into a dictionary for quick lookup
+	for mod_state in mod_states:
+		enabled_states[mod_state["id"]] = mod_state["enabled"]
+
 	# Get the list of folders in the Mods directory using the helper function
 	var folders = Helper.json_helper.folder_names_in_dir("./Mods")
 	
@@ -30,9 +38,13 @@ func load_mods_from_disk() -> void:
 
 			# Validate modinfo data and add it to the moddict dictionary
 			if modinfo.has("id"):
-				# Initialize mod dictionary for this mod_id
-				# Create a new DMods instance for this mod and associate it with the mod_id
-				moddict[modinfo["id"]] = DMod.new(modinfo, self)
+				var mod_id = modinfo["id"]
+				
+				# Initialize the mod instance and set its enabled state
+				var mod = DMod.new(modinfo, self)
+				mod.is_enabled = enabled_states.get(mod_id, true)  # Default to enabled if not in saved states
+
+				moddict[mod_id] = mod
 			else:
 				print_debug("Invalid modinfo.json in folder: " + folder_name)
 		else:
@@ -187,3 +199,37 @@ func save_references(content_instance: RefCounted) -> void:
 	var myreferences: Dictionary = content_instance.references
 	var reference_json = JSON.stringify(myreferences, "\t")
 	Helper.json_helper.write_json_file(content_instance.dataPath + "references.json", reference_json)
+
+
+# Loads mod states from the configuration file and returns them as a list
+# mod_states example: 
+#[
+#    { "id": "core", "enabled": true },
+#    { "id": "mod_1", "enabled": false },
+#    { "id": "mod_2", "enabled": true }
+#]
+func get_mod_list_states() -> Array:
+	var config = ConfigFile.new()
+	var path = "user://mods_state.cfg"
+	
+	# Load the configuration file
+	var err = config.load(path)
+	if err != OK:
+		print_debug("Failed to load mod list state:", err)
+		return []
+	
+	# Retrieve the saved mod states
+	var mod_states = config.get_value("mods", "states", [])
+	if mod_states.empty():
+		print_debug("No mod list state found.")
+		return []
+	
+	return mod_states
+	
+# Returns an array of IDs for all enabled mods
+func get_enabled_mod_ids() -> Array:
+	var enabled_mods: Array = []
+	for mod_id in moddict.keys():
+		if moddict[mod_id].is_enabled:
+			enabled_mods.append(mod_id)
+	return enabled_mods
