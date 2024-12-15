@@ -1,0 +1,135 @@
+[
+	{
+		"description": "Creates a bunch of shops and houses representing a city",
+		"id": "city",
+		"max_height": 24,
+		"max_width": 24,
+		"min_height": 8,
+		"min_width": 8,
+		"name": "City",
+		"regions": {
+			"field": {
+				"maps": [
+					{
+						"id": "field_grass_basic_00",
+						"weight": 100
+					},
+					{
+						"id": "field_grass_flowers_00",
+						"weight": 5
+					},
+					{
+						"id": "field_grass_hill_00",
+						"weight": 1
+					},
+					{
+						"id": "field_grass_hole_00",
+						"weight": 1
+					}
+				],
+				"spawn_probability": {
+					"range": {
+						"end_range": 100,
+						"start_range": 100
+					}
+				}
+			},
+			"suburban": {
+				"maps": [
+					{
+						"id": "Generichouse",
+						"weight": 60
+					},
+					{
+						"id": "Generichouse_00",
+						"weight": 60
+					},
+					{
+						"id": "generichouse_corner",
+						"weight": 60
+					},
+					{
+						"id": "generichouse_cross",
+						"weight": 100
+					},
+					{
+						"id": "generichouse_t",
+						"weight": 100
+					},
+					{
+						"id": "generichouse_end",
+						"weight": 10
+					},
+					{
+						"id": "neighborhood_school",
+						"weight": 10
+					},
+					{
+						"id": "two_story_house",
+						"weight": 100
+					},
+					{
+						"id": "radio_tower",
+						"weight": 20
+					}
+				],
+				"spawn_probability": {
+					"range": {
+						"end_range": 38,
+						"start_range": 14
+					}
+				}
+			},
+			"urban": {
+				"maps": [
+					{
+						"id": "abandoned_building",
+						"weight": 30
+					},
+					{
+						"id": "store_electronic_clothing",
+						"weight": 50
+					},
+					{
+						"id": "store_groceries",
+						"weight": 50
+					},
+					{
+						"id": "generichouse_cross",
+						"weight": 100
+					},
+					{
+						"id": "subway_station",
+						"weight": 10
+					},
+					{
+						"id": "parking_garage",
+						"weight": 10
+					},
+					{
+						"id": "city_square",
+						"weight": 5
+					},
+					{
+						"id": "office_building_00",
+						"weight": 50
+					},
+					{
+						"id": "skyscraper",
+						"weight": 20
+					},
+					{
+						"id": "police_station",
+						"weight": 30
+					}
+				],
+				"spawn_probability": {
+					"range": {
+						"end_range": 14,
+						"start_range": 0
+					}
+				}
+			}
+		}
+	}
+]

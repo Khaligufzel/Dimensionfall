@@ -94,24 +94,23 @@ func update_mob_references(olddata: DMobgroup):
 
 # Deletes the mob group, removing all its references
 func delete():
-	# Remove references to maps
-	var mapsdata: Array = Helper.json_helper.get_nested_data(references, "core.maps")
-	for mymap: String in mapsdata:
-		var mymaps: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, mymap)
-		for dmap: DMaps in mymaps:
-			dmap.remove_entity_from_selected_maps("mobgroup", id, mapsdata)
+	# Check to see if any mod has a copy of this quest. if one or more remain, we can keep references
+	# Otherwise, the last copy was removed and we need to remove references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.QUESTS, id)
+	if all_results.size() > 1:
+		parent.remove_reference(id) # Erase the reference for the id in this mod
+		return
+	
+	# For each mod, remove this mob from the maps in this mob's references
+	for mod: DMod in Gamedata.mods.get_all_mods():
+		mod.maps.remove_entity_from_all_maps("mobgroup", id)
+		mod.quests.remove_mobgroup_from_all_quests(id)
 
 	# Remove references to mobs
 	for mob in mobs.keys():
 		Gamedata.mods.remove_reference(DMod.ContentType.MOBS, mob, DMod.ContentType.MOBGROUPS, id)
 	
-	# This callable will handle the removal of this mobgroup from all steps in quests
-	var remove_from_quest: Callable = func(quest_id: String):
-		Gamedata.mods.by_id("Core").quests.remove_mobgroup_from_quest(quest_id,id)
-		
-	# Pass the callable to every quest in the mobgroup's references
-	# It will call remove_from_quest on every mobgroup in mobgroup_data.references.core.quests
-	execute_callable_on_references_of_type("core", "quests", remove_from_quest)
+	parent.remove_reference(id) # Erase the reference for the id in this mod
 
 
 # Retrieves all maps associated with the mob group, including maps from its mobs.
