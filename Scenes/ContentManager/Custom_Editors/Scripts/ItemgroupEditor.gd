@@ -378,7 +378,6 @@ func _on_simulation_button_button_up() -> void:
 	simulation_text_edit.text = result_text  # Display the results in the text edit
 
 
-
 func _simulate_collection_mode(items: Array, results: Dictionary) -> void:
 	# Loop through each item and simulate its generation
 	for item in items:
@@ -392,6 +391,7 @@ func _simulate_collection_mode(items: Array, results: Dictionary) -> void:
 			if not results.has(item_id):
 				results[item_id] = 0
 			results[item_id] += quantity
+
 
 func _simulate_distribution_mode(items: Array, results: Dictionary) -> void:
 	var total_probability = 0

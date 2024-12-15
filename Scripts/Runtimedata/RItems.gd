@@ -31,6 +31,7 @@ func _init(mod_list: Array[DMod]) -> void:
 
 			# Overwrite the RItem properties with the DItem properties
 			ritem.overwrite_from_ditem(ditem)
+	save_items_protoset()
 
 # Adds a new runtime item with a given ID
 func add_new(newid: String) -> RItem:
@@ -113,3 +114,33 @@ func _on_game_ended():
 		material.free()
 	# Clear the dictionary
 	shader_materials.clear()
+
+
+# This will update the given resource file with the provided json data
+# It is intended to save item data from json to the res://ItemProtosets.tres file
+# So we can use the item json data in-game
+func update_item_protoset_json_data(tres_path: String, new_json_data: String) -> void:
+	# Load the ItemProtoset resource
+	var item_protoset = load(tres_path) as ItemProtoset
+	if not item_protoset:
+		print_debug("Failed to load ItemProtoset resource from:", tres_path)
+		return
+
+	# Update the json_data property
+	item_protoset.json_data = new_json_data
+
+	# Save the resource back to the .tres file
+	var save_result = ResourceSaver.save(item_protoset, tres_path)
+	if save_result != OK:
+		print_debug("Failed to save updated ItemProtoset resource to:", tres_path)
+	else:
+		print_debug("ItemProtoset resource updated and saved successfully to:", tres_path)
+
+
+# Saves the items protoset to disk. We need to do this for the Gloot addon
+# This will remain the case until https://github.com/peter-kish/gloot/issues/194 is solved.
+func save_items_protoset() -> void:
+	var save_data: Array = []
+	for item: RItem in itemdict.values():
+		save_data.append(item.get_data())
+	update_item_protoset_json_data("res://ItemProtosets.tres", JSON.stringify(save_data, "\t"))

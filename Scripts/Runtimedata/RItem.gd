@@ -172,6 +172,7 @@ var weight: float
 var volume: float
 var stack_size: int
 var max_stack_size: int
+var image: String
 var sprite: Texture
 var spriteid: String
 var craft: Craft
@@ -209,6 +210,7 @@ func overwrite_from_ditem(ditem: DItem) -> void:
 	max_stack_size = ditem.max_stack_size
 	spriteid = ditem.spriteid
 	sprite = ditem.sprite
+	image = ditem.image
 	
 	craft = Craft.new(ditem.craft.get_data()) if ditem.craft else null
 	ranged = Ranged.new(ditem.ranged.get_data()) if ditem.ranged else null
@@ -228,7 +230,8 @@ func get_data() -> Dictionary:
 		"volume": volume,
 		"stack_size": stack_size,
 		"max_stack_size": max_stack_size,
-		"sprite": spriteid
+		"sprite": spriteid,
+		"image": image
 	}
 	if craft:
 		data["Craft"] = craft.get_data()

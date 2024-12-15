@@ -44,7 +44,7 @@ func delete_by_id(itemgroupid: String) -> void:
 
 # Returns a runtime item group by its ID
 func by_id(itemgroupid: String) -> RItemgroup:
-	return itemgroupdict[itemgroupid]
+	return itemgroupdict[itemgroupid] if itemgroupdict.has(itemgroupid) else null
 
 # Checks if an item group exists by its ID
 func has_id(itemgroupid: String) -> bool:
