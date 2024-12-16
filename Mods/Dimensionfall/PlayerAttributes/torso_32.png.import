@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c47idmjme38s4"
-path="res://.godot/imported/left_leg_32.png-b5f57bdf65dd0b23951721adfe8b9de1.ctex"
+uid="uid://d2n18y4h26xd7"
+path="res://.godot/imported/torso_32.png-0c4c5a8aa47d5d1bb58f3b99d4b92139.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/PlayerAttributes/left_leg_32.png"
-dest_files=["res://.godot/imported/left_leg_32.png-b5f57bdf65dd0b23951721adfe8b9de1.ctex"]
+source_file="res://Mods/Dimensionfall/PlayerAttributes/torso_32.png"
+dest_files=["res://.godot/imported/torso_32.png-0c4c5a8aa47d5d1bb58f3b99d4b92139.ctex"]
 
 [params]
 

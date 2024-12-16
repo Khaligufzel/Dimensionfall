@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwo3alw5tey18"
-path="res://.godot/imported/head_32.png-55e9282eac3147e87f87b7aa4e66ee02.ctex"
+uid="uid://cunhuukh4cpay"
+path="res://.godot/imported/trapping_32.png-fadd1946b05081493837b82774e4a1c8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/PlayerAttributes/head_32.png"
-dest_files=["res://.godot/imported/head_32.png-55e9282eac3147e87f87b7aa4e66ee02.ctex"]
+source_file="res://Mods/Dimensionfall/PlayerAttributes/trapping_32.png"
+dest_files=["res://.godot/imported/trapping_32.png-fadd1946b05081493837b82774e4a1c8.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2n18y4h26xd7"
-path="res://.godot/imported/torso_32.png-1ff9d22e36f5515a6ad4350aec6291d8.ctex"
+uid="uid://klsm84pec1af"
+path="res://.godot/imported/waterbottle_32.png-c07b0adfc50359e8655eadfc9ec492de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/PlayerAttributes/torso_32.png"
-dest_files=["res://.godot/imported/torso_32.png-1ff9d22e36f5515a6ad4350aec6291d8.ctex"]
+source_file="res://Mods/Dimensionfall/PlayerAttributes/waterbottle_32.png"
+dest_files=["res://.godot/imported/waterbottle_32.png-c07b0adfc50359e8655eadfc9ec492de.ctex"]
 
 [params]
 

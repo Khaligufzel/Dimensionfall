@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbj6ioba5h340"
-path="res://.godot/imported/right_arm_32.png-5da49ca70a75f87a18ebd37153c8e758.ctex"
+path="res://.godot/imported/right_arm_32.png-a6f324d7445e39cfd9c9345068d6c47c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/PlayerAttributes/right_arm_32.png"
-dest_files=["res://.godot/imported/right_arm_32.png-5da49ca70a75f87a18ebd37153c8e758.ctex"]
+source_file="res://Mods/Dimensionfall/PlayerAttributes/right_arm_32.png"
+dest_files=["res://.godot/imported/right_arm_32.png-a6f324d7445e39cfd9c9345068d6c47c.ctex"]
 
 [params]
 

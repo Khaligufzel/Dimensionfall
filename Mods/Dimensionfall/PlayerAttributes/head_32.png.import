@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chj0yshbsryjl"
-path="res://.godot/imported/skull_poison_32.png-c8ea8ad29237124c834f0c01bd628b8e.ctex"
+uid="uid://cwo3alw5tey18"
+path="res://.godot/imported/head_32.png-6ff3c0eda35343c5dd51fc327c0dd417.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/PlayerAttributes/skull_poison_32.png"
-dest_files=["res://.godot/imported/skull_poison_32.png-c8ea8ad29237124c834f0c01bd628b8e.ctex"]
+source_file="res://Mods/Dimensionfall/PlayerAttributes/head_32.png"
+dest_files=["res://.godot/imported/head_32.png-6ff3c0eda35343c5dd51fc327c0dd417.ctex"]
 
 [params]
 
