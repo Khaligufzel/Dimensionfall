@@ -11,13 +11,10 @@ var sprites: Dictionary = {}  # Holds item sprites
 var shader_materials: Dictionary = {}  # Cache for shader materials by item ID
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DItems
-	for mod_id in mod_ids:
-		var ditems: DItems = Gamedata.mods.by_id(mod_id).items
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var ditems: DItems = mod.items
 
 		# Loop through each DItem in the mod
 		for ditem_id: String in ditems.get_all().keys():

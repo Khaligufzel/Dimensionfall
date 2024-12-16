@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cis7fd3ko7xfp"]
+[gd_scene load_steps=4 format=3 uid="uid://dfj0pswk2qi6"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/addremovemods.gd" id="1_87j7f"]
 [ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_r6poh"]
@@ -97,8 +97,22 @@ columns = 2
 layout_mode = 2
 text = "Tools"
 
-[node name="SaveButton" type="Button" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
+[node name="ToolsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
 layout_mode = 2
+
+[node name="MoveUpButton" type="Button" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/ToolsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Move up"
+
+[node name="MoveDownButton" type="Button" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/ToolsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Move down"
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/ToolsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Save"
 
 [node name="IdLabel" type="Label" parent="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer"]
@@ -227,7 +241,10 @@ text = "Cancel"
 [connection signal="button_up" from="VBoxContainer/HeaderHBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ButtonsHBoxContainer/AddButton" to="." method="_on_add_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ButtonsHBoxContainer/RemoveButton" to="." method="_on_remove_button_button_up"]
+[connection signal="item_activated" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ModsItemList" to="." method="_on_mods_item_list_item_activated"]
 [connection signal="item_selected" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ModsItemList" to="." method="_on_mods_item_list_item_selected"]
-[connection signal="button_up" from="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/ToolsHBoxContainer/MoveUpButton" to="." method="_on_move_up_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/ToolsHBoxContainer/MoveDownButton" to="." method="_on_move_down_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/MainHBoxContainer/FormPanelContainer/FormGridContainer/ToolsHBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
 [connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/OK" to="." method="_on_ok_button_up"]
 [connection signal="button_up" from="ID_Input/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]

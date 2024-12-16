@@ -11,13 +11,10 @@ var sprites: Dictionary = {}
 
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DTacticalmaps
-	for mod_id in mod_ids:
-		var dtacticalmaps: DTacticalmaps = Gamedata.mods.by_id(mod_id).tacticalmaps
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var dtacticalmaps: DTacticalmaps = mod.tacticalmaps
 
 		# Loop through each DTacticalmap in the mod
 		for dtacticalmap_id: String in dtacticalmaps.get_all().keys():

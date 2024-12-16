@@ -10,13 +10,10 @@ var itemgroupdict: Dictionary = {}  # Holds runtime item group instances
 var sprites: Dictionary = {}  # Holds item group sprites
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DItemgroups
-	for mod_id in mod_ids:
-		var ditemgroups: DItemgroups = Gamedata.mods.by_id(mod_id).itemgroups
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var ditemgroups: DItemgroups = mod.itemgroups
 
 		# Loop through each DItemgroup in the mod
 		for ditemgroup_id: String in ditemgroups.get_all().keys():

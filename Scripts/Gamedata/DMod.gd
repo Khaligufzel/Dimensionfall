@@ -25,6 +25,7 @@ var dependencies: Array = []
 var homepage: String
 var license: String
 var tags: Array = []
+var is_enabled: bool = true
 var parent: DMods  # Reference to the parent DMods container
 
 var maps: DMaps

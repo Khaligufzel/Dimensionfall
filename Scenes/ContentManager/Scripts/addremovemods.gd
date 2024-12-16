@@ -1,7 +1,5 @@
 extends Control
 
-
-
 # This script belongs to the `addremovemods.tscn` scene. It allows you to add and remove mods
 # Mods are loaded as modinfo.json files and added to mods_item_list
 # Each modinfo.json file is located in the respective mods folder
@@ -39,6 +37,10 @@ extends Control
 
 @export var pupup_ID: Popup = null
 @export var popup_textedit: TextEdit = null
+
+# Constants for background colors
+const enabled_color: Color = Color(0, 0.5, 0, 0.3)  # Darker green for enabled mods
+const disabled_color: Color = Color(1, 0, 0, 0.3)  # Red for disabled mods
 
 
 func _ready():
@@ -160,11 +162,53 @@ func delete_mod(mod_id: String) -> void:
 func populate_mods_item_list() -> void:
 	# Clear the mods_item_list
 	mods_item_list.clear()
+	var mod_states = Gamedata.mods.get_mod_list_states()
 
-	# Iterate through Gamedata.mods to populate the mods_item_list
-	for mod: DMod in Gamedata.mods.get_all_mods():
-		mods_item_list.add_item(mod.name)
-		mods_item_list.set_item_metadata(mods_item_list.get_item_count() - 1, mod.id)
+	# Always add "Core" mod first
+	if Gamedata.mods.has_id("Core"):
+		var core_mod = Gamedata.mods.by_id("Core")
+		mods_item_list.add_item(core_mod.name)
+		mods_item_list.set_item_metadata(0, "Core")
+
+		# Always set "Core" as enabled and visually distinguish it
+		mods_item_list.set_item_custom_bg_color(0, enabled_color)
+		mods_item_list.set_item_disabled(0, true)  # Prevent interaction
+		core_mod.is_enabled = true
+
+	# Add the remaining mods in the saved state order
+	if not mod_states.is_empty():
+		for mod_state in mod_states:
+			var mod_id = mod_state["id"]
+			if mod_id == "Core":  # Skip "Core" since it's already added
+				continue
+
+			var mod_enabled = mod_state["enabled"]
+			if Gamedata.mods.has_id(mod_id):
+				var mod = Gamedata.mods.by_id(mod_id)
+				mods_item_list.add_item(mod.name)
+				mods_item_list.set_item_metadata(mods_item_list.get_item_count() - 1, mod_id)
+
+				# Update the item's background color based on its enabled status
+				var bg_color = enabled_color if mod_enabled else disabled_color
+				mods_item_list.set_item_custom_bg_color(mods_item_list.get_item_count() - 1, bg_color)
+
+				# Set the enabled status in the mod object
+				mod.is_enabled = mod_enabled
+	else:
+		# If no saved state, load mods in default order from Gamedata.mods
+		for mod: DMod in Gamedata.mods.get_all_mods():
+			if mod.id == "Core":  # Skip "Core" since it's already added
+				continue
+
+			mods_item_list.add_item(mod.name)
+			mods_item_list.set_item_metadata(mods_item_list.get_item_count() - 1, mod.id)
+
+			# Default to all mods being enabled if no state is present
+			mods_item_list.set_item_custom_bg_color(mods_item_list.get_item_count() - 1, enabled_color)
+			mod.is_enabled = true
+
+	print_debug("Populated mods_item_list successfully.")
+
 
 
 # When the user presses the save button
@@ -274,3 +318,163 @@ func _create_drag_data(_at_position: Vector2) -> Variant:
 
 	# Return the data associated with the dragged mod
 	return mod_id
+
+
+# The user has activated a mod in the modlist by double clicking or pressing enter
+# the item's custom background color will reflect the activated status
+# Toggles the enabled status of the mod and updates its appearance in the mod list
+func _on_mods_item_list_item_activated(index: int) -> void:
+	var mod_id = mods_item_list.get_item_metadata(index)
+
+	# Prevent toggling the "Core" mod
+	if mod_id == "Core":
+		return
+
+	var mod_enabled = Gamedata.mods.by_id(mod_id).is_enabled
+
+	# Toggle the enabled status
+	Gamedata.mods.by_id(mod_id).is_enabled = not mod_enabled
+
+	# Update the item's background color based on its enabled status
+	var bg_color = enabled_color if Gamedata.mods.by_id(mod_id).is_enabled else disabled_color
+	mods_item_list.set_item_custom_bg_color(index, bg_color)
+
+	# Save the mod list state
+	save_mod_list_state()
+
+
+
+# The user pressed the move down button in the mod editor
+# Moves the selected mod down in the list and preserves its state and color
+func _on_move_down_button_button_up() -> void:
+	var selected_index = mods_item_list.get_selected_items()
+	if selected_index.size() == 0 or selected_index[0] == 0:
+		return  # No item selected or "Core" is selected
+
+	selected_index = selected_index[0]
+	if selected_index >= mods_item_list.get_item_count() - 1:
+		return  # Already at the bottom
+
+	# Get the properties of the current item
+	var mod_text = mods_item_list.get_item_text(selected_index)
+	var mod_metadata = mods_item_list.get_item_metadata(selected_index)
+	var mod_color = mods_item_list.get_item_custom_bg_color(selected_index)
+
+	# Get the properties of the next item
+	var next_text = mods_item_list.get_item_text(selected_index + 1)
+	var next_metadata = mods_item_list.get_item_metadata(selected_index + 1)
+	var next_color = mods_item_list.get_item_custom_bg_color(selected_index + 1)
+
+	# Swap text, metadata, and colors
+	mods_item_list.set_item_text(selected_index, next_text)
+	mods_item_list.set_item_metadata(selected_index, next_metadata)
+	mods_item_list.set_item_custom_bg_color(selected_index, next_color)
+
+	mods_item_list.set_item_text(selected_index + 1, mod_text)
+	mods_item_list.set_item_metadata(selected_index + 1, mod_metadata)
+	mods_item_list.set_item_custom_bg_color(selected_index + 1, mod_color)
+
+	# Select the moved mod
+	mods_item_list.select(selected_index + 1)
+
+	# Save the mod list state
+	save_mod_list_state()
+
+
+
+# The user pressed the move up button in the mod editor
+# Moves the selected mod up in the list and preserves its state and color
+func _on_move_up_button_button_up() -> void:
+	var selected_index = mods_item_list.get_selected_items()
+	if selected_index.size() == 0 or selected_index[0] <= 1:
+		return  # No item selected or "Core" is selected
+
+	selected_index = selected_index[0]
+	if selected_index <= 0:
+		return  # Already at the top
+
+	# Get the properties of the current item
+	var mod_text = mods_item_list.get_item_text(selected_index)
+	var mod_metadata = mods_item_list.get_item_metadata(selected_index)
+	var mod_color = mods_item_list.get_item_custom_bg_color(selected_index)
+
+	# Get the properties of the previous item
+	var prev_text = mods_item_list.get_item_text(selected_index - 1)
+	var prev_metadata = mods_item_list.get_item_metadata(selected_index - 1)
+	var prev_color = mods_item_list.get_item_custom_bg_color(selected_index - 1)
+
+	# Swap text, metadata, and colors
+	mods_item_list.set_item_text(selected_index, prev_text)
+	mods_item_list.set_item_metadata(selected_index, prev_metadata)
+	mods_item_list.set_item_custom_bg_color(selected_index, prev_color)
+
+	mods_item_list.set_item_text(selected_index - 1, mod_text)
+	mods_item_list.set_item_metadata(selected_index - 1, mod_metadata)
+	mods_item_list.set_item_custom_bg_color(selected_index - 1, mod_color)
+
+	# Select the moved mod
+	mods_item_list.select(selected_index - 1)
+
+	# Save the mod list state
+	save_mod_list_state()
+
+
+# The state or order of one or more mods has changed
+# We save the mod list order and the state of each mod
+# the state of the mod can be "enabled" or "disabled" and is visualized by the background color
+# Saves the state and order of mods to a configuration file
+func save_mod_list_state():
+	var config = ConfigFile.new()
+	var path = "user://mods_state.cfg"
+	
+	# Create a dictionary to store mod states and order
+	var mod_states = []
+	for i in range(mods_item_list.get_item_count()):
+		mod_states.append({
+			"id": mods_item_list.get_item_metadata(i),
+			"enabled": Gamedata.mods.by_id(mods_item_list.get_item_metadata(i)).is_enabled
+		})
+
+	# Save the mod states to the configuration file
+	config.set_value("mods", "states", mod_states)
+
+	if config.save(path) != OK:
+		print_debug("Failed to save mod list state.")
+	else:
+		print_debug("Successfully saved mod list state.")
+
+
+# Processes the mod list states and updates the UI accordingly
+# mod_states example: 
+#[
+#    { "id": "core", "enabled": true },
+#    { "id": "mod_1", "enabled": false },
+#    { "id": "mod_2", "enabled": true }
+#]
+func apply_mod_list_states(mod_states: Array) -> void:
+	mods_item_list.clear()
+	
+	for mod_state in mod_states:
+		var mod_id = mod_state["id"]
+		var mod_enabled = mod_state["enabled"]
+		
+		if Gamedata.mods.has_id(mod_id):
+			var mod = Gamedata.mods.by_id(mod_id)
+			mods_item_list.add_item(mod.name)
+			mods_item_list.set_item_metadata(mods_item_list.get_item_count() - 1, mod_id)
+
+			# Update the item's background color based on its enabled status
+			var bg_color = enabled_color if mod_enabled else disabled_color
+			mods_item_list.set_item_custom_bg_color(mods_item_list.get_item_count() - 1, bg_color)
+
+			# Set the enabled status in the mod object
+			mod.is_enabled = mod_enabled
+
+	print_debug("Applied mod list states successfully.")
+
+
+# Wrapper function that integrates the two steps: loading and applying the mod list state
+func load_mod_list_state() -> void:
+	var mod_states = Gamedata.mods.get_mod_list_states()
+	if not mod_states.empty():
+		apply_mod_list_states(mod_states)

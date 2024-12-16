@@ -10,13 +10,10 @@ var statdict: Dictionary = {}
 var sprites: Dictionary = {}
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
+func _init(mod_list: Array[DMod]) -> void:
 	# Loop through each mod to get its DStats
-	for mod_id in mod_ids:
-		var dstats: DStats = Gamedata.mods.by_id(mod_id).stats
+	for mod in mod_list:
+		var dstats: DStats = mod.stats
 
 		# Loop through each DStat in the mod
 		for dstat_id: String in dstats.get_all().keys():

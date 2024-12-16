@@ -10,13 +10,10 @@ var wearableslotdict: Dictionary = {}  # Holds runtime wearable slot instances
 var sprites: Dictionary = {}  # Holds wearable slot sprites
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DWearableSlots
-	for mod_id in mod_ids:
-		var dwearableslots: DWearableSlots = Gamedata.mods.by_id(mod_id).wearableslots
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var dwearableslots: DWearableSlots = mod.wearableslots
 
 		# Loop through each DWearableSlot in the mod
 		for dwearableslot_id: String in dwearableslots.get_all().keys():

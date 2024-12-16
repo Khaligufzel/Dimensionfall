@@ -10,13 +10,10 @@ var tiledict: Dictionary = {}
 var sprites: Dictionary = {}
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DTiles
-	for mod_id in mod_ids:
-		var dtiles: DTiles = Gamedata.mods.by_id(mod_id).tiles
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var dtiles: DTiles = mod.tiles
 
 		# Loop through each DTile in the mod
 		for dtile_id: String in dtiles.get_all().keys():

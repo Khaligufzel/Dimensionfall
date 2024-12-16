@@ -10,13 +10,10 @@ var questdict: Dictionary = {}  # Holds runtime quest instances
 var sprites: Dictionary = {}   # Holds quest sprites
 
 # Constructor
-func _init() -> void:
-	# Get all mods and their IDs
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-
-	# Loop through each mod to get its DQuests
-	for mod_id in mod_ids:
-		var dquests: DQuests = Gamedata.mods.by_id(mod_id).quests
+func _init(mod_list: Array[DMod]) -> void:
+	# Loop through each mod
+	for mod in mod_list:
+		var dquests: DQuests = mod.quests
 
 		# Loop through each DQuest in the mod
 		for dquest_id: String in dquests.get_all().keys():
