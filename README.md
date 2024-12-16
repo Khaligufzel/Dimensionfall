@@ -65,7 +65,7 @@ Follow quests to guide your way trough this dangerous world. A quest may have mu
 ### Content editor
 Content for this game is created in the content editor. On the left you can select content to edit. You can edit tacticalmaps, maps, items, tiles, furniture, mobs, itemgroups and wearable slots, skills and stats. 
 - All content is saved as JSON, which allows you to edit the files manually or using an external editor if you want to.
-- Content is loaded as mods, even the core content. Put all your json and sprites into /mods/yourmod/ and it can be read by the game (only core content is read at the moment, full mod support will be implemented)
+- Content is loaded as mods, even the core content. Put all your json and sprites into /mods/yourmod/ and it can be read by the game.
 ![Catax_content_editor](Media/Catax_content_editor.png)
 
 
