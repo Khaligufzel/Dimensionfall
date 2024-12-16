@@ -3,20 +3,22 @@ extends VBoxContainer
 # This script belongs to the EntitiesContainer in the mapeditor.tscn
 
 @export var selectmods: OptionButton
-var selectedmod: String = "Core"
+var selected_mod: String = "Core"
 # It provides a list of brushes to paint with
 @export var scrolling_Flow_Container: PackedScene = null
 @export var tileBrush: PackedScene = null
 var instanced_brushes: Array[Node] = []
-signal tile_brush_selection_change(tilebrush: Control)
 var selected_brush: Control:
-	set(newBrush):
-		selected_brush = newBrush
+	set(new_brush):
+		selected_brush = new_brush
 		tile_brush_selection_change.emit(selected_brush)
+
+
+signal tile_brush_selection_change(tilebrush: Control)
 
 func _ready():
 	# Load the saved selected mod or default to "Core"
-	selectedmod = load_selected_mod()
+	selected_mod = load_selected_mod()
 
 	# Populate the selectmods OptionButton
 	populate_select_mods()
@@ -30,19 +32,16 @@ func _ready():
 	loadFurniture()
 
 
-# Adds available mods to the OptionButton
+# Populate available mods in the OptionButton
 func populate_select_mods() -> void:
-	selectmods.clear()  # Remove all existing options from the OptionButton
-	var mod_ids: Array = Gamedata.mods.get_all_mod_ids()
-	
-	# Iterate through Gamedata.mods and add each mod ID as an option
-	for mod_id in mod_ids:
+	selectmods.clear()
+	for mod_id in Gamedata.mods.get_all_mod_ids():
 		selectmods.add_item(mod_id)
 
 
 # This function selects a mod id for loadTiles() and other functions to reload.
 func _on_select_mods_item_selected(index):
-	selectedmod = selectmods.get_item_text(index)
+	selected_mod = selectmods.get_item_text(index)
 	save_selected_mod()  # Save the newly selected mod
 
 	# Refresh the UI with the new selection
@@ -53,11 +52,11 @@ func _on_select_mods_item_selected(index):
 	loadFurniture()
 
 
-# this function will read all files in Gamedata.mods.by_id(selectedmod).mobs and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
+# this function will read all files in Gamedata.mods.by_id(selected_mod).mobs and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
 func loadMobs():
 	# Combine mobs and mobgroups into a single list
-	var mobList: Dictionary = Gamedata.mods.by_id(selectedmod).mobs.get_all()
-	var mobgroupList: Dictionary = Gamedata.mods.by_id(selectedmod).mobgroups.get_all()
+	var mobList: Dictionary = Gamedata.mods.by_id(selected_mod).mobs.get_all()
+	var mobgroupList: Dictionary = Gamedata.mods.by_id(selected_mod).mobgroups.get_all()
 	var newMobsList: Control = scrolling_Flow_Container.instantiate()
 	newMobsList.header = "Mobs"
 	newMobsList.collapse_button_pressed.connect(_on_collapse_button_pressed)
@@ -88,7 +87,7 @@ func create_brush_instance(entity: RefCounted, entity_type: String, newMobsList:
 
 
 func loadFurniture():
-	var furnitureList: Dictionary = Gamedata.mods.by_id(selectedmod).furnitures.get_all()
+	var furnitureList: Dictionary = Gamedata.mods.by_id(selected_mod).furnitures.get_all()
 	var newFurnitureList: Control = scrolling_Flow_Container.instantiate()
 	newFurnitureList.header = "Furniture"
 	newFurnitureList.collapse_button_pressed.connect(_on_collapse_button_pressed)
@@ -108,7 +107,7 @@ func loadFurniture():
 
 # this function will read all files in Gamedata.mods.by_id("Core").tiles and creates tilebrushes for each tile in the list. It will make separate lists for each category that the tiles belong to.
 func loadTiles():
-	var tileList: Dictionary = Gamedata.mods.by_id(selectedmod).tiles.get_all()
+	var tileList: Dictionary = Gamedata.mods.by_id(selected_mod).tiles.get_all()
 	for tile: DTile in tileList.values():
 		if tile.spriteid:
 			# We need to put the tiles in the right category
@@ -126,7 +125,7 @@ func loadTiles():
 				var imagefileName: String = tile.spriteid
 				imagefileName = imagefileName.get_file()
 				# Get the texture from gamedata
-				var texture: Resource = Gamedata.mods.by_id(str(selectedmod)).tiles.sprite_by_file(imagefileName)
+				var texture: Resource = Gamedata.mods.by_id(str(selected_mod)).tiles.sprite_by_file(imagefileName)
 				# Create a TileBrush node
 				var brushInstance = tileBrush.instantiate()
 				# Assign the texture to the TileBrush
@@ -170,12 +169,12 @@ func deselect_all_brushes():
 
 
 # Called when the collapse button is pressed, saves the collapse state for the given header
-func _on_collapse_button_pressed(header: String):
+func _on_collapse_button_pressed(header: String) -> void:
 	save_collapse_state(header)
 
 
 # Saves the collapsed state of the list associated with the given header to the configuration file
-func save_collapse_state(header: String):
+func save_collapse_state(header: String) -> void:
 	var config = ConfigFile.new()
 	var path = "user://settings.cfg"
 	
@@ -223,7 +222,7 @@ func save_selected_mod():
 		return
 
 	# Save the selected mod
-	config.set_value("mapeditor", "selected_mod", selectedmod)
+	config.set_value("mapeditor", "selected_mod", selected_mod)
 	if config.save(path) != OK:
 		print("Failed to save selected mod.")
 
@@ -244,7 +243,7 @@ func load_selected_mod() -> String:
 func select_mod_from_saved_or_default():
 	var mod_index = -1
 	for i in range(selectmods.get_item_count()):
-		if selectmods.get_item_text(i) == selectedmod:
+		if selectmods.get_item_text(i) == selected_mod:
 			mod_index = i
 			break
 
@@ -252,5 +251,5 @@ func select_mod_from_saved_or_default():
 	if mod_index >= 0:
 		selectmods.select(mod_index)
 	else:
-		selectedmod = "Core"  # Fallback to "Core"
+		selected_mod = "Core"  # Fallback to "Core"
 		selectmods.select(0)

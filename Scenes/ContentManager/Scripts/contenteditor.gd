@@ -316,28 +316,23 @@ func _on_select_mods_item_selected(index: int) -> void:
 	refresh_lists()
 
 
-# Function to load the selected mod from settings.cfg
-func load_selected_mod() -> String:
-	var config = ConfigFile.new()
-	var path = "user://settings.cfg"
-	var err = config.load(path)
-	if err != OK and err != ERR_FILE_NOT_FOUND:
-		print("Failed to load settings:", err)
-	
-	# Load the selected mod or default to "Core"
-	return config.get_value("mod_settings", "selected_mod", "Core")
+### PERSISTENCE ###
 
-
-# Function to save the selected mod to settings.cfg
+# Saves the currently selected mod to a configuration file.
 func save_selected_mod(mod_id: String) -> void:
 	var config = ConfigFile.new()
 	var path = "user://settings.cfg"
-	var err = config.load(path)
-	if err != OK and err != ERR_FILE_NOT_FOUND:
-		print("Failed to load settings:", err)
-	
-	# Save the selected mod
-	config.set_value("mod_settings", "selected_mod", mod_id)
-	
+	if config.load(path) != OK:
+		print_debug("Failed to load settings for saving selected mod.")
+	config.set_value("mapeditor", "selected_mod", mod_id)
 	if config.save(path) != OK:
-		print("Failed to save settings.")
+		print_debug("Failed to save settings.")
+
+
+# Loads the selected mod from a configuration file or defaults to "Core".
+func load_selected_mod() -> String:
+	var config = ConfigFile.new()
+	var path = "user://settings.cfg"
+	if config.load(path) != OK:
+		print_debug("Failed to load settings, defaulting to 'Core'.")
+	return config.get_value("mapeditor", "selected_mod", "Core")
