@@ -9,12 +9,14 @@ The main scene is scene_selector.tscn. From here, you can navigate to playing th
 
 
 # Game scene
-When you press the 'play demo' button, the game switches to 'level_generation.tscn'. Each entity will run their script on their _ready function:
-1. The LevelGenerator will check if there is any save data for the location and load that. If there isn't it will ask the `overmap_manager` for the terrain round the player's spawn position. The data from the `overmap_manager` will be a grid of maps determined by the mapseed. For each chunk in the grid that is close to the player, the LevelGenerator will call Chunk.gd to create a new chunk based on the mapdata for that position. Chunk.gd will process all the blocks in the map (max 32x32x21 blocks) and instantiate them, as well as the furniture and enemies.
-2. The player will have his stats, health and equipment initialized. If this is a new game, the defaults will be applied. Otherwise the data will be loaded from memory.
-3. If the player holds any weapons, the weapon controllers called EquippedLeft and EquippedRight will initialize the weapon. It will check if it's a melee or ranged weapon and set it's stats accordingly
-4. The HUD will initialize all the menus like the crafting menu, inventory, quest journal and overmap.
-5. The overmap will, when opened, show the area around the player that can be explored. The overmap displays an infinite terrain around the player based on the map seed. The player can use this overmap to determine his next move.
+When you press the 'play demo' button:
+1. All mods from Gamedata.mods get merged into Runtimedata
+2. The game switches to 'level_generation.tscn'. Each entity will run their script on their _ready function:
+3. The LevelGenerator will check if there is any save data for the location and load that. If there isn't it will ask the `overmap_manager` for the terrain round the player's spawn position. The data from the `overmap_manager` will be a grid of maps determined by the mapseed. For each chunk in the grid that is close to the player, the LevelGenerator will call Chunk.gd to create a new chunk based on the mapdata for that position. Chunk.gd will process all the blocks in the map (max 32x32x21 blocks) and instantiate them, as well as the furniture and enemies.
+4. The player will have his stats, health and equipment initialized. If this is a new game, the defaults will be applied. Otherwise the data will be loaded from memory.
+5. If the player holds any weapons, the weapon controllers called EquippedLeft and EquippedRight will initialize the weapon. It will check if it's a melee or ranged weapon and set it's stats accordingly
+6. The HUD will initialize all the menus like the crafting menu, inventory, quest journal and overmap.
+7. The overmap will, when opened, show the area around the player that can be explored. The overmap displays an infinite terrain around the player based on the map seed. The player can use this overmap to determine his next move.
 
 
 # Autoloads
@@ -25,6 +27,7 @@ The game has the following [autoloads](https://docs.godotengine.org/en/stable/tu
 | ItemManager | Runtime item manipulation happens here. It handles things like inventory, reloading, equipment and crafting |
 | Helper | General autoload with generic helper functions. Also contains these sub-helpers: json_helper, save_helper, signal_broker, task_manager, map_manager |
 | Gamedata | Loads data from the /mods folder and allows any script to access it |
+| Runtimedata | Loads mods according to the mod load order and merges them for use in-game |
 | Gloot | An addon that provides functionality for the inventory. We do not access this directly, only trough the classes provided by the addon. |
 | General | A general autoload script for functions that do not fit anywhere else |
 | CraftingRecipesmanager | Manages visibility and availability of crafting recipes and performs checks on requirements |
@@ -51,7 +54,10 @@ A general helper autoload that provides generic functions used in many other scr
 
 
 ## Gamedata
-Central management of game data. Data is loaded from the `/mods` folder. This includes all entity data and sprites. All data can be accessed trough this autoload. Ties heavily into the Content Editor. When data is changed using the content editor, the Gamedata autoload will update related entities if needed and save the data. The data is stored in it's own class, accessible trough Gamedata.items or Gamedata.furnitures or Gamedata.maps, and so on.
+Central management of game data. Data is loaded from the `/mods` folder. This includes all entity data and sprites. All data can be accessed trough this autoload. Ties heavily into the Content Editor. When data is changed using the content editor, the Gamedata autoload will update related entities if needed and save the data. The data is stored in it's own class, accessible trough `Gamedata.mods.by_id("Dimensionfall").items` or `Gamedata.mods.by_id("Dimensionfall").furnitures` or `Gamedata.mods.by_id("Dimensionfall").maps`, and so on. Each mod in Gamedata.mods has it's own list of items, furniture, mobs etc.
+
+## Runtimedata
+All enabled mods get merged according to the mod load order when the game starts. This means that items that were added trough mods get added to Runtimedata.items. Items with the same id will overwrite the previously loaded items. This allows you to accually apply any change you want trough mods! Runtimedata is not supposed to be altered or saved and mods get re-merged each time a game is started. It has no concept of mods since it's all one big mod.
 
 ## Gloot
 An autoload that is provided by the [Gloot addon](https://github.com/peter-kish/gloot). We do not access this directly, just trough the addon's classes. It provides functionality for the inventory.
@@ -95,7 +101,7 @@ Each region contains a list of maps. You can add maps to the regions by dragging
 
 
 # Content editor
-Content for the game is created and modified in the content editor. You could make content in Godot itself, but when the game is exported and the end-user does not have Godot, they can still open the game and add content from there using mods. Right now only the core mod can be loaded and modified but full mod support is planned.
+Content for the game is created and modified in the content editor. You could make content in Godot itself, but when the game is exported and the end-user does not have Godot, they can still open the game and add content from there using mods. Mods can be added trough the menus: `content editor -> mod manager -> add/remove mods`.
 
 Content in the content editor is represented in lists, where each item has it's own ID. The UI allows you to add, duplicate, modify and delete items in the lists. Maps and tacticalmaps are each stored in their own json files. Everything else is stored in one json file per type. So all items are in one json file and furniture is in another etc. The JSON files are loaded by Gamedata and that is what will be manipulated using the content editor. Nothing is saved to disk until the user presses the save button.
 
@@ -106,13 +112,13 @@ Sprites are stored in the same folder as the JSON data for each type. Each item 
 
 
 # Saving and loading
-The Helper.save_helper will save and load data when the scene changes or a game is loaded. The saved data is stored in the user data folder. In Godot, go to the menu buttons in the top and click Project -> Open user data folder to open the user data folder. This might be `C:\Users\User\AppData\Roaming\Godot\app_userdata\CataX` on windows.
+The Helper.save_helper will save and load data when the scene changes or a game is loaded. The saved data is stored in the user data folder. In Godot, go to the menu buttons in the top and click Project -> Open user data folder to open the user data folder. This might be `C:\Users\User\AppData\Roaming\Godot\app_userdata\Dimensionfall` on windows.
 
 When the player presses escape and clicks on `save game` or `return to main menu`, all relevant data is stored. 
 - The overmap seed is generated once and saved when the game starts. After that the overmap state is saved and loaded
 - The player inventory is serialized trough the Gloot addon and de-serialized when a game is loaded
 - The game is keeping track of the player's equipment in ItemManager.player_equipment, which is then saved and loaded into json
 - The player's stats are just read from the player's node and saved as a dictionary into a json file which is loaded at a later moment.
-- The map that the player is currently playing on is saved when returning to the main menu. Each chunk is unloaded and saved to a dictionary called Helper.loaded_chunk_data. This dictionary is then saved into a JSON file for the current coordinate on the overmap, which will be stored in a file like `C:\Users\User\AppData\Roaming\Godot\app_userdata\CataX\save\2024-05-25T213346\map_x1_y4\map.json`
+- The map that the player is currently playing on is saved when returning to the main menu. Each chunk is unloaded and saved to a dictionary called Helper.loaded_chunk_data. This dictionary is then saved into a JSON file for the current coordinate on the overmap, which will be stored in a file like `C:\Users\User\AppData\Roaming\Godot\app_userdata\Dimensionfall\save\2024-05-25T213346\map_x1_y4\map.json`
 
 When the player presses the load game button on the main menu, the `_on_load_game_button_pressed` function in scene_selector is called and all the previously saved data is loaded. 
