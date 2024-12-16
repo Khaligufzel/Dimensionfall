@@ -15,10 +15,20 @@ var selected_brush: Control:
 		tile_brush_selection_change.emit(selected_brush)
 
 func _ready():
+	# Load the saved selected mod or default to "Core"
+	selectedmod = load_selected_mod()
+
+	# Populate the selectmods OptionButton
 	populate_select_mods()
+
+	# Select the saved mod or default to the first option
+	select_mod_from_saved_or_default()
+
+	# Load relevant data for the selected mod
 	loadMobs()
 	loadTiles()
 	loadFurniture()
+
 
 # Adds available mods to the OptionButton
 func populate_select_mods() -> void:
@@ -29,15 +39,20 @@ func populate_select_mods() -> void:
 	for mod_id in mod_ids:
 		selectmods.add_item(mod_id)
 
+
 # This function selects a mod id for loadTiles() and other functions to reload.
 func _on_select_mods_item_selected(index):
-	selectedmod = selectmods.get_item_text(selectmods.selected)
+	selectedmod = selectmods.get_item_text(index)
+	save_selected_mod()  # Save the newly selected mod
+
+	# Refresh the UI with the new selection
 	Helper.free_all_children(self)
 	instanced_brushes.clear()
 	loadMobs()
 	loadTiles()
 	loadFurniture()
-	
+
+
 # this function will read all files in Gamedata.mods.by_id(selectedmod).mobs and creates tilebrushes for each tile in the list. It will make separate lists for each category that the mobs belong to.
 func loadMobs():
 	# Combine mobs and mobgroups into a single list
@@ -194,3 +209,48 @@ func load_collapse_state(header: String) -> bool:
 	else:
 		print("Failed to load settings for:", header, "with error:", err)
 		return false
+
+
+# Save the selected mod into the settings.cfg
+func save_selected_mod():
+	var config = ConfigFile.new()
+	var path = "user://settings.cfg"
+
+	# Load existing settings
+	var err = config.load(path)
+	if err != OK and err != ERR_FILE_NOT_FOUND:
+		print("Failed to load settings for saving:", err)
+		return
+
+	# Save the selected mod
+	config.set_value("mapeditor", "selected_mod", selectedmod)
+	if config.save(path) != OK:
+		print("Failed to save selected mod.")
+
+# Load the selected mod from settings.cfg or default to "Core"
+func load_selected_mod() -> String:
+	var config = ConfigFile.new()
+	var path = "user://settings.cfg"
+
+	# Load the config file
+	var err = config.load(path)
+	if err == OK:
+		# Return the saved mod or default to "Core"
+		return config.get_value("mapeditor", "selected_mod", "Core")
+	else:
+		print("Failed to load selected mod. Defaulting to 'Core':", err)
+		return "Core"
+
+func select_mod_from_saved_or_default():
+	var mod_index = -1
+	for i in range(selectmods.get_item_count()):
+		if selectmods.get_item_text(i) == selectedmod:
+			mod_index = i
+			break
+
+	# If the mod is found, select it; otherwise, default to the first mod
+	if mod_index >= 0:
+		selectmods.select(mod_index)
+	else:
+		selectedmod = "Core"  # Fallback to "Core"
+		selectmods.select(0)
