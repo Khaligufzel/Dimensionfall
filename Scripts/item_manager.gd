@@ -159,26 +159,33 @@ func count_items(items: Array) -> Dictionary:
 func initialize_inventory() -> InventoryStacked:
 	var newInventory = InventoryStacked.new()
 	newInventory.capacity = 1000
-	newInventory.item_protoset = load("res://ItemProtosets.tres")
+	newInventory.item_protoset = item_protosets
 	return newInventory
 
+
 func create_starting_items():
+	var starting_items_group: RItemgroup = Runtimedata.itemgroups.by_id("starting_items")
+	if not starting_items_group:
+		return
+	for item: RItemgroup.Item in starting_items_group.items:
+		playerInventory.create_and_add_item(item.id)
+	
 	# Create starting equipment. The items are not added to the playerInventory, 
 	# only to the equipment slots.
-	player_equipment.EquipmentItemList["feet"] = playerInventory.create_item("boots")
-	player_equipment.EquipmentItemList["hands"] = playerInventory.create_item("gloves_leather")
-	player_equipment.EquipmentItemList["head"] = playerInventory.create_item("hat_baseball")
-	player_equipment.EquipmentItemList["legs"] = playerInventory.create_item("jeans")
-	player_equipment.EquipmentItemList["torso"] = playerInventory.create_item("jacket")
-	player_equipment.EquipmentItemList["back"] = playerInventory.create_item("mailbag")
-
-	if playerInventory.get_children() == []:
-		playerInventory.create_and_add_item("bottle_plastic_water")
-		playerInventory.create_and_add_item("bread")
-		playerInventory.create_and_add_item("apple")
-		playerInventory.create_and_add_item("can_soda")
-		playerInventory.create_and_add_item("bandage_basic")
-		playerInventory.create_and_add_item("bottle_antibiotics")
+	#player_equipment.EquipmentItemList["feet"] = playerInventory.create_item("boots")
+	#player_equipment.EquipmentItemList["hands"] = playerInventory.create_item("gloves_leather")
+	#player_equipment.EquipmentItemList["head"] = playerInventory.create_item("hat_baseball")
+	#player_equipment.EquipmentItemList["legs"] = playerInventory.create_item("jeans")
+	#player_equipment.EquipmentItemList["torso"] = playerInventory.create_item("jacket")
+	#player_equipment.EquipmentItemList["back"] = playerInventory.create_item("mailbag")
+#
+	#if playerInventory.get_children() == []:
+		#playerInventory.create_and_add_item("bottle_plastic_water")
+		#playerInventory.create_and_add_item("bread")
+		#playerInventory.create_and_add_item("apple")
+		#playerInventory.create_and_add_item("can_soda")
+		#playerInventory.create_and_add_item("bandage_basic")
+		#playerInventory.create_and_add_item("bottle_antibiotics")
 
 
 

@@ -11,23 +11,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/plank.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Plank 2x4\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"mob_loot\",
-					\"destroyed_furniture_medium\",
-					\"disassembled_furniture_medium\",
-					\"debris_urban\"
-				],
-				\"items\": [
-					\"cutting_board\",
-					\"rolling_pin\"
-				]
-			}
-		},
 		\"sprite\": \"plank.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 300,
 		\"weight\": 2
 	},
@@ -37,24 +22,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/steel_scrap.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Steel scrap\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\",
-					\"mob_loot\",
-					\"destroyed_furniture_medium\",
-					\"disassembled_furniture_medium\",
-					\"debris_urban\"
-				],
-				\"items\": [
-					\"pistol_magazine\",
-					\"screwdriver\"
-				]
-			}
-		},
 		\"sprite\": \"steel_scrap.png\",
 		\"stack_size\": 2,
-		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.25
 	},
@@ -67,22 +36,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/9mm.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"bullet 9mm\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\",
-					\"mob_loot\",
-					\"test_items\",
-					\"M4A1_gun_ammo\"
-				],
-				\"items\": [
-					\"pistol_magazine\"
-				]
-			}
-		},
 		\"sprite\": \"9mm.png\",
 		\"stack_size\": 20,
-		\"two_handed\": false,
 		\"volume\": 0.1,
 		\"weight\": 0.01
 	},
@@ -91,9 +46,6 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 10,
-				\"flags\": {
-					\"requires_light\": true
-				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,
@@ -114,32 +66,13 @@ json_data = "[
 				}
 			}
 		],
-		\"Magazine\": {
-			\"current_ammo\": 19,
-			\"max_ammo\": 20,
-			\"used_ammo\": \"bullet_9mm\"
-		},
 		\"description\": \"In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets\",
 		\"id\": \"pistol_magazine\",
 		\"image\": \"./Mods/Dimensionfall/Items/pistol_magazine.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Pistol magazine\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\",
-					\"mob_loot\",
-					\"test_items\",
-					\"M4A1_gun_ammo\"
-				],
-				\"quests\": [
-					\"starter_tutorial_00\"
-				]
-			}
-		},
 		\"sprite\": \"pistol_magazine.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.25
 	},
@@ -163,18 +96,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/pistol_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Pistol 9mm\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\",
-					\"test_items\",
-					\"police_station_locker\"
-				]
-			}
-		},
 		\"sprite\": \"pistol_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 150,
 		\"weight\": 2
 	},
@@ -198,19 +121,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/rifle_64_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"M4a1 rifle\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"M4A1_gun_ammo\"
-				],
-				\"quests\": [
-					\"starter_tutorial_00\"
-				]
-			}
-		},
 		\"sprite\": \"rifle_64_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": true,
 		\"volume\": 300,
 		\"weight\": 4
 	},
@@ -234,40 +146,19 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/chugunov_mpap_32_28.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Chugunov MPAP\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"police_station_locker\"
-				]
-			}
-		},
 		\"sprite\": \"chugunov_mpap_32_28.png\",
 		\"stack_size\": 1,
-		\"two_handed\": true,
 		\"volume\": 150,
 		\"weight\": 3
 	},
 	{
-		\"Magazine\": {
-			\"current_ammo\": 30,
-			\"max_ammo\": 30,
-			\"used_ammo\": \"bullet_7.62x26\"
-		},
 		\"description\": \"A magazine to be loaded into a Chuganov MPAP\",
 		\"id\": \"chugunov_mpap_magazine\",
 		\"image\": \"./Mods/Dimensionfall/Items/chugunov_mpap_magazine_16_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Chuganov MPAP magazine\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"police_station_locker\"
-				]
-			}
-		},
 		\"sprite\": \"chugunov_mpap_magazine_16_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.25
 	},
@@ -277,21 +168,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/bottle_empty_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Empty plastic bottle\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"kitchen_cupboard\",
-					\"urban_litter\",
-					\"zombie_loot\"
-				],
-				\"items\": [
-					\"screwdriver\"
-				]
-			}
-		},
 		\"sprite\": \"bottle_empty_32.png\",
 		\"stack_size\": 2,
-		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.1
 	},
@@ -309,23 +187,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/bottle_water_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Plastic bottle with water\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"kitchen_cupboard\",
-					\"cabinet_general\",
-					\"refridgerator\",
-					\"vending_machine_drinks\",
-					\"zombie_loot\"
-				],
-				\"quests\": [
-					\"quest_holy_crusade_01\"
-				]
-			}
-		},
 		\"sprite\": \"bottle_water_32.png\",
 		\"stack_size\": 2,
-		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.25
 	},
@@ -343,19 +206,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/canned_food_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Canned food\\t\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"kitchen_cupboard\"
-				],
-				\"quests\": [
-					\"quest_holy_crusade_01\"
-				]
-			}
-		},
 		\"sprite\": \"canned_food_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 30,
 		\"weight\": 0.25
 	},
@@ -375,7 +227,6 @@ json_data = "[
 		\"name\": \"Machete\",
 		\"sprite\": \"machete_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 4
 	},
@@ -387,7 +238,6 @@ json_data = "[
 		\"name\": \"Basic wooden arrow\",
 		\"sprite\": \"arrow_basic_32.png\",
 		\"stack_size\": 5,
-		\"two_handed\": false,
 		\"volume\": 1,
 		\"weight\": 0.1
 	},
@@ -397,16 +247,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/hammer_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Hammer\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\"
-				]
-			}
-		},
 		\"sprite\": \"hammer_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 2
 	},
@@ -415,9 +257,6 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 1,
-				\"flags\": {
-					\"requires_light\": true
-				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,
@@ -435,19 +274,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/screwdriver_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Screwdriver\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\",
-					\"kitchen_cupboard\",
-					\"electronics_store_small\",
-					\"electronics_store_mixed\"
-				]
-			}
-		},
 		\"sprite\": \"screwdriver_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 20,
 		\"weight\": 0.5
 	},
@@ -487,21 +315,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/bandage_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Bandage\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\",
-					\"kitchen_cupboard\",
-					\"police_station_locker\"
-				],
-				\"quests\": [
-					\"quest_holy_crusade_01\"
-				]
-			}
-		},
 		\"sprite\": \"bandage_32.png\",
 		\"stack_size\": 3,
-		\"two_handed\": false,
 		\"volume\": 1,
 		\"weight\": 0.1
 	},
@@ -541,24 +356,14 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/antibiotics_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Bottle of antibiotics\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"kitchen_cupboard\"
-				],
-				\"quests\": [
-					\"quest_holy_crusade_01\"
-				]
-			}
-		},
 		\"sprite\": \"antibiotics_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.1
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"torso\"
 		},
 		\"description\": \"A piece of clothing to wear on the torso. It will keep you warm and offers a bit of protection.\",
@@ -566,22 +371,14 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/jacket_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Jacket\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"jacket_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 1
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"feet\"
 		},
 		\"description\": \"Comfortable footwear to keep your feet safe\",
@@ -589,19 +386,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/boots_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Boots\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\",
-					\"clothing_general\",
-					\"zombie_loot\",
-					\"police_station_locker\"
-				]
-			}
-		},
 		\"sprite\": \"boots_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 1
 	},
@@ -613,7 +399,6 @@ json_data = "[
 		\"name\": \"Jerrycan of gasoline\",
 		\"sprite\": \"jerrycan_gas_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 400,
 		\"weight\": 10
 	},
@@ -623,16 +408,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/can_oil_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Can of oil\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\"
-				]
-			}
-		},
 		\"sprite\": \"can_oil_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 2
 	},
@@ -642,17 +419,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/battery_powered_radio_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Handheld radio\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"electronics_store_small\",
-					\"electronics_store_mixed\"
-				]
-			}
-		},
 		\"sprite\": \"battery_powered_radio_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 1
 	},
@@ -662,22 +430,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/flashlight_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Flashlight\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\",
-					\"electronics_store_small\",
-					\"electronics_store_mixed\",
-					\"police_station_locker\"
-				],
-				\"quests\": [
-					\"quest_holy_crusade_01\"
-				]
-			}
-		},
 		\"sprite\": \"flashlight_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 0.5
 	},
@@ -687,19 +441,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/can_beer_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Can of beer\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"kitchen_cupboard\",
-					\"refridgerator\",
-					\"vending_machine_drinks\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"can_beer_32.png\",
 		\"stack_size\": 2,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.5
 	},
@@ -709,23 +452,14 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/sigarrette_pack_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Pack of sigarrettes\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"vending_machine_snacks\",
-					\"urban_litter\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"sigarrette_pack_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.1
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"head\"
 		},
 		\"description\": \"A piece of clothing that offers protection from environmental hazards\",
@@ -733,21 +467,14 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/gasmask_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Gas mask\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"police_station_locker\"
-				]
-			}
-		},
 		\"sprite\": \"gasmask_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 80,
 		\"weight\": 1
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"torso\"
 		},
 		\"description\": \"A piece of clothing that offers protection from ballistic forces\",
@@ -755,16 +482,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/vest_ballistic_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Ballistic vest\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"police_station_locker\"
-				]
-			}
-		},
 		\"sprite\": \"vest_ballistic_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 150,
 		\"weight\": 4
 	},
@@ -774,16 +493,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/compass_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Compass\",
-		\"references\": {
-			\"core\": {
-				\"quests\": [
-					\"quest_holy_crusade_01\"
-				]
-			}
-		},
 		\"sprite\": \"compass_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 6,
 		\"weight\": 0.1
 	},
@@ -793,19 +504,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/battery_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Small battery\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\",
-					\"electronics_store_small\",
-					\"electronics_store_mixed\",
-					\"loot_electronic\"
-				]
-			}
-		},
 		\"sprite\": \"battery_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 0.01,
 		\"weight\": 0.1
 	},
@@ -815,16 +515,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/solar_panel_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Solar panel\",
-		\"references\": {
-			\"core\": {
-				\"quests\": [
-					\"quest_radio_signal_01\"
-				]
-			}
-		},
 		\"sprite\": \"solar_panel_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 500,
 		\"weight\": 10
 	},
@@ -836,7 +528,6 @@ json_data = "[
 		\"name\": \"Paper map\",
 		\"sprite\": \"map_paper_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.1
 	},
@@ -848,7 +539,6 @@ json_data = "[
 		\"name\": \"Tarp\",
 		\"sprite\": \"tarp_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 150,
 		\"weight\": 3
 	},
@@ -860,7 +550,6 @@ json_data = "[
 		\"name\": \"Tent\",
 		\"sprite\": \"tent_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 600,
 		\"weight\": 9
 	},
@@ -870,16 +559,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/survival_guide_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Basic survival guide\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"urban_litter\"
-				]
-			}
-		},
 		\"sprite\": \"survival_guide_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.1
 	},
@@ -889,16 +570,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/book_novel_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Novel\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"cabinet_general\"
-				]
-			}
-		},
 		\"sprite\": \"book_novel_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.4
 	},
@@ -938,16 +611,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/bottle_disinfectant_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Bottle of disinfectant\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"kitchen_cupboard\"
-				]
-			}
-		},
 		\"sprite\": \"bottle_disinfectant_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.1
 	},
@@ -957,18 +622,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/radio_two_way_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Two way radio\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"electronics_store_small\",
-					\"electronics_store_mixed\",
-					\"police_station_locker\"
-				]
-			}
-		},
 		\"sprite\": \"radio_two_way_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 1
 	},
@@ -980,7 +635,6 @@ json_data = "[
 		\"name\": \"Firestarter\",
 		\"sprite\": \"firestarter_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.2
 	},
@@ -992,7 +646,6 @@ json_data = "[
 		\"name\": \"Small fishing kit\",
 		\"sprite\": \"kit_fishing_small_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.4
 	},
@@ -1004,7 +657,6 @@ json_data = "[
 		\"name\": \"Kitchen Knife\",
 		\"sprite\": \"kitchen_knife_64_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 0.4
 	},
@@ -1016,7 +668,6 @@ json_data = "[
 		\"name\": \"Portable Stove\",
 		\"sprite\": \"portable_stove_64_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 200,
 		\"weight\": 3
 	},
@@ -1028,7 +679,6 @@ json_data = "[
 		\"name\": \"Cooking Pot\",
 		\"sprite\": \"cooking_pot_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 350,
 		\"weight\": 3
 	},
@@ -1040,7 +690,6 @@ json_data = "[
 		\"name\": \"Can opener\",
 		\"sprite\": \"can_opener_64_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 60,
 		\"weight\": 0.2
 	},
@@ -1049,9 +698,6 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 10,
-				\"flags\": {
-					\"requires_light\": true
-				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,
@@ -1075,7 +721,6 @@ json_data = "[
 		\"name\": \"Cutting Board\",
 		\"sprite\": \"cutting_board_64_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 200,
 		\"weight\": 1
 	},
@@ -1087,7 +732,6 @@ json_data = "[
 		\"name\": \"Mixing Bowl\",
 		\"sprite\": \"mixing_bowl_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 250,
 		\"weight\": 0.5
 	},
@@ -1099,7 +743,6 @@ json_data = "[
 		\"name\": \"Tea Kettle\",
 		\"sprite\": \"tea_kettle_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 200,
 		\"weight\": 1
 	},
@@ -1111,7 +754,6 @@ json_data = "[
 		\"name\": \"Spice Rack\",
 		\"sprite\": \"spice_rack_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 150,
 		\"weight\": 1
 	},
@@ -1123,7 +765,6 @@ json_data = "[
 		\"name\": \"Measuring Cup\",
 		\"sprite\": \"measuring_cup_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 0.3
 	},
@@ -1132,9 +773,6 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 10,
-				\"flags\": {
-					\"requires_light\": true
-				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,
@@ -1158,7 +796,6 @@ json_data = "[
 		\"name\": \"Rolling Pin\",
 		\"sprite\": \"rolling_pin_64_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 150,
 		\"weight\": 0.5
 	},
@@ -1170,7 +807,6 @@ json_data = "[
 		\"name\": \"Frying Pan\",
 		\"sprite\": \"frying_pan_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 200,
 		\"weight\": 2
 	},
@@ -1182,7 +818,6 @@ json_data = "[
 		\"name\": \"Colander\",
 		\"sprite\": \"steel_colander_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 200,
 		\"weight\": 0.7
 	},
@@ -1194,7 +829,6 @@ json_data = "[
 		\"name\": \"Peeler\",
 		\"sprite\": \"peeler_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.1
 	},
@@ -1206,7 +840,6 @@ json_data = "[
 		\"name\": \"Grater\",
 		\"sprite\": \"grater_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.3
 	},
@@ -1216,17 +849,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/toaster_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Toaster\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"electronics_store_medium\",
-					\"electronics_store_mixed\"
-				]
-			}
-		},
 		\"sprite\": \"toaster_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 300,
 		\"weight\": 1.5
 	},
@@ -1236,17 +860,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/blender_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Blender\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"electronics_store_medium\",
-					\"electronics_store_mixed\"
-				]
-			}
-		},
 		\"sprite\": \"blender_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 300,
 		\"weight\": 2
 	},
@@ -1256,17 +871,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/coffeemaker_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Coffee Maker\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"electronics_store_medium\",
-					\"electronics_store_mixed\"
-				]
-			}
-		},
 		\"sprite\": \"coffeemaker_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 300,
 		\"weight\": 2.5
 	},
@@ -1276,17 +882,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/microwave_oven_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Microwave Oven\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"electronics_store_medium\",
-					\"electronics_store_mixed\"
-				]
-			}
-		},
 		\"sprite\": \"microwave_oven_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 400,
 		\"weight\": 12
 	},
@@ -1298,7 +895,6 @@ json_data = "[
 		\"name\": \"Dish Rack\",
 		\"sprite\": \"dish_rack_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 400,
 		\"weight\": 1
 	},
@@ -1308,17 +904,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/pressure_cooker_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Pressure Cooker\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"electronics_store_medium\",
-					\"electronics_store_mixed\"
-				]
-			}
-		},
 		\"sprite\": \"pressure_cooker_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 400,
 		\"weight\": 5
 	},
@@ -1328,17 +915,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/bread_maker_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Bread Maker\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"electronics_store_medium\",
-					\"electronics_store_mixed\"
-				]
-			}
-		},
 		\"sprite\": \"bread_maker_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 300,
 		\"weight\": 5
 	},
@@ -1348,16 +926,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/nails_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Nails\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"debris_urban\"
-				]
-			}
-		},
 		\"sprite\": \"nails_32.png\",
 		\"stack_size\": 10,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.1
 	},
@@ -1367,17 +937,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/log_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Log\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"tree_destroyed\",
-					\"generic_forest_finds\"
-				]
-			}
-		},
 		\"sprite\": \"log_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": true,
 		\"volume\": 500,
 		\"weight\": 10
 	},
@@ -1387,16 +948,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/screw_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Screw\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"debris_urban\"
-				]
-			}
-		},
 		\"sprite\": \"screw_32.png\",
 		\"stack_size\": 10,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.1
 	},
@@ -1406,17 +959,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/branches_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Branch\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"tree_destroyed\",
-					\"generic_forest_finds\"
-				]
-			}
-		},
 		\"sprite\": \"branches_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 2
 	},
@@ -1426,18 +970,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/leaves_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Leaf\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"tree_destroyed\",
-					\"generic_field_finds\",
-					\"generic_forest_finds\"
-				]
-			}
-		},
 		\"sprite\": \"leaves_32.png\",
 		\"stack_size\": 5,
-		\"two_handed\": false,
 		\"volume\": 1,
 		\"weight\": 0.01
 	},
@@ -1447,16 +981,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/pine_branch_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Pine Branch\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_forest_finds\"
-				]
-			}
-		},
 		\"sprite\": \"pine_branch_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 2
 	},
@@ -1468,7 +994,6 @@ json_data = "[
 		\"name\": \"Clay\",
 		\"sprite\": \"clay_32.png\",
 		\"stack_size\": 5,
-		\"two_handed\": false,
 		\"volume\": 20,
 		\"weight\": 1
 	},
@@ -1480,7 +1005,6 @@ json_data = "[
 		\"name\": \"Soil\",
 		\"sprite\": \"soil_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 200,
 		\"weight\": 5
 	},
@@ -1492,7 +1016,6 @@ json_data = "[
 		\"name\": \"Hinge\",
 		\"sprite\": \"hinge_32.png\",
 		\"stack_size\": 5,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.2
 	},
@@ -1502,18 +1025,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/plant_remnants_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Plant Remnants\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"tree_destroyed\",
-					\"generic_field_finds\",
-					\"generic_forest_finds\"
-				]
-			}
-		},
 		\"sprite\": \"plant_remnants_32.png\",
 		\"stack_size\": 5,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.1
 	},
@@ -1523,19 +1036,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/electrical_components_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Electrical Components\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"electronics_store_small\",
-					\"electronics_store_mixed\",
-					\"electronics_damaged\",
-					\"loot_electronic\"
-				]
-			}
-		},
 		\"sprite\": \"electrical_components_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 20,
 		\"weight\": 0.5
 	},
@@ -1545,19 +1047,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/plastic_parts_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Plastic Parts\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"debris_urban\",
-					\"urban_litter\",
-					\"electronics_damaged\",
-					\"loot_electronic\"
-				]
-			}
-		},
 		\"sprite\": \"plastic_parts_32.png\",
 		\"stack_size\": 10,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.3
 	},
@@ -1567,16 +1058,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/ceramic_fragments_32.png\",
 		\"max_stack_size\": 30,
 		\"name\": \"Ceramic Fragments\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"debris_urban\"
-				]
-			}
-		},
 		\"sprite\": \"ceramic_fragments_32.png\",
 		\"stack_size\": 5,
-		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 1
 	},
@@ -1586,19 +1069,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/metal_parts_32.png\",
 		\"max_stack_size\": 50,
 		\"name\": \"Metal Parts\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"debris_urban\",
-					\"urban_litter\",
-					\"electronics_damaged\",
-					\"loot_electronic\"
-				]
-			}
-		},
 		\"sprite\": \"metal_parts_32.png\",
 		\"stack_size\": 10,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.5
 	},
@@ -1610,7 +1082,6 @@ json_data = "[
 		\"name\": \"Jar of Parsley\",
 		\"sprite\": \"jar_parsley_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 60,
 		\"weight\": 0.5
 	},
@@ -1628,16 +1099,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/tofu_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Tofu\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"tofu_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 30,
 		\"weight\": 0.5
 	},
@@ -1659,16 +1122,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/bottle_yogurt_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Bottle of Yogurt\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"bottle_yogurt_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 0.3
 	},
@@ -1692,7 +1147,6 @@ json_data = "[
 		\"name\": \"Jar of Pickles\",
 		\"sprite\": \"jar_pickles_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 1
 	},
@@ -1716,7 +1170,6 @@ json_data = "[
 		\"name\": \"Condensed Milk\",
 		\"sprite\": \"condensed_milk_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 60,
 		\"weight\": 0.8
 	},
@@ -1756,16 +1209,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/insulin_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Insulin\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"insulin_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.1
 	},
@@ -1805,16 +1250,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/epipen_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"EpiPen\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"epipen_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.1
 	},
@@ -1832,16 +1269,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/bag_bacon_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Bag of Bacon\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"bag_bacon_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 30,
 		\"weight\": 0.5
 	},
@@ -1861,7 +1290,6 @@ json_data = "[
 		\"name\": \"Wine Bottle\",
 		\"sprite\": \"wine_bottle_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 90,
 		\"weight\": 1.5
 	},
@@ -1881,7 +1309,6 @@ json_data = "[
 		\"name\": \"Bread\",
 		\"sprite\": \"bread_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 90,
 		\"weight\": 0.5
 	},
@@ -1891,16 +1318,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/syringe_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Syringe\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"syringe_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.05
 	},
@@ -1918,16 +1337,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/slice_of_pizza_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Slice of Pizza\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"slice_of_pizza_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.3
 	},
@@ -1945,16 +1356,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/vacuum_sealed_fish_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Vacuum Sealed Fish\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"vacuum_sealed_fish_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.8
 	},
@@ -1976,16 +1379,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/tomato_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Tomato\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"tomato_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.2
 	},
@@ -2007,16 +1402,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/lettuce_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Lettuce\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"lettuce_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 90,
 		\"weight\": 0.3
 	},
@@ -2028,7 +1415,6 @@ json_data = "[
 		\"name\": \"Protein Powder\",
 		\"sprite\": \"protein_powder_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 1
 	},
@@ -2046,17 +1432,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/chocolate_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Chocolate\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"vending_machine_snacks\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"chocolate_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 25,
 		\"weight\": 0.2
 	},
@@ -2076,7 +1453,6 @@ json_data = "[
 		\"name\": \"Jar of Olives\",
 		\"sprite\": \"jar_olives_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 40,
 		\"weight\": 0.5
 	},
@@ -2088,7 +1464,6 @@ json_data = "[
 		\"name\": \"Jar of Basil\",
 		\"sprite\": \"jar_basil_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 25,
 		\"weight\": 0.5
 	},
@@ -2108,7 +1483,6 @@ json_data = "[
 		\"name\": \"Jar of Mustard\",
 		\"sprite\": \"jar_mustard_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 25,
 		\"weight\": 0.3
 	},
@@ -2128,7 +1502,6 @@ json_data = "[
 		\"name\": \"Bottle of Ketchup\",
 		\"sprite\": \"bottle_ketchup_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 60,
 		\"weight\": 0.3
 	},
@@ -2146,16 +1519,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/stale_bread_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Stale Bread\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"urban_litter\"
-				]
-			}
-		},
 		\"sprite\": \"stale_bread_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 90,
 		\"weight\": 0.5
 	},
@@ -2195,20 +1560,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/painkiller_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Painkiller\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"first_aid\",
-					\"zombie_loot\"
-				],
-				\"quests\": [
-					\"quest_holy_crusade_01\"
-				]
-			}
-		},
 		\"sprite\": \"painkiller_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.1
 	},
@@ -2232,7 +1585,6 @@ json_data = "[
 		\"name\": \"Orange\",
 		\"sprite\": \"orange_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.2
 	},
@@ -2254,16 +1606,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/apple_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Apple\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"apple_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.2
 	},
@@ -2283,7 +1627,6 @@ json_data = "[
 		\"name\": \"Potato\",
 		\"sprite\": \"potato_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.3
 	},
@@ -2301,16 +1644,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/carrot_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Carrot\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"carrot_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.2
 	},
@@ -2332,16 +1667,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/eggs_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Eggs\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"eggs_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.6
 	},
@@ -2359,16 +1686,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/butter_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Butter\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"butter_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 20,
 		\"weight\": 0.4
 	},
@@ -2386,18 +1705,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/can_energydrink_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Energy Drink\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\",
-					\"vending_machine_drinks\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"can_energydrink_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.3
 	},
@@ -2415,18 +1724,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/can_soda_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Soda\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\",
-					\"vending_machine_drinks\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"can_soda_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.3
 	},
@@ -2444,21 +1743,14 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/cheese_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Cheese\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"refridgerator\"
-				]
-			}
-		},
 		\"sprite\": \"cheese_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 40,
 		\"weight\": 0.5
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"torso\"
 		},
 		\"description\": \"A basic cotton T-shirt, comfortable and versatile.\",
@@ -2466,17 +1758,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/t_shirt_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"T-shirt\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"t_shirt_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 90,
 		\"weight\": 0.5
 	},
@@ -2495,17 +1778,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/jeans_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Jeans\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"jeans_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 1
 	},
@@ -2517,7 +1791,6 @@ json_data = "[
 		\"name\": \"Silver Spoon\",
 		\"sprite\": \"spoon_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.1
 	},
@@ -2529,7 +1802,6 @@ json_data = "[
 		\"name\": \"Silver Fork\",
 		\"sprite\": \"fork_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.1
 	},
@@ -2541,7 +1813,6 @@ json_data = "[
 		\"name\": \"Butter Knife\",
 		\"sprite\": \"butter_knife_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.1
 	},
@@ -2553,7 +1824,6 @@ json_data = "[
 		\"name\": \"Hand Whisk\",
 		\"sprite\": \"hand_wisk_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 80,
 		\"weight\": 0.2
 	},
@@ -2565,7 +1835,6 @@ json_data = "[
 		\"name\": \"Soup Ladle\",
 		\"sprite\": \"soup_ladle_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 0.3
 	},
@@ -2577,12 +1846,12 @@ json_data = "[
 		\"name\": \"Kitchen Tongs\",
 		\"sprite\": \"kitchen_tongs_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 60,
 		\"weight\": 0.3
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"head\"
 		},
 		\"description\": \"A simple baseball cap to shield your eyes from the sun.\",
@@ -2590,22 +1859,14 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/baseball_cap_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Baseball Cap\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"baseball_cap_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.2
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"torso\"
 		},
 		\"description\": \"A cozy wool sweater, ideal for cold weather.\",
@@ -2613,22 +1874,14 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/sweater_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Sweater\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"sweater_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 150,
 		\"weight\": 1
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"head\"
 		},
 		\"description\": \"A long scarf to keep your neck warm in chilly conditions.\",
@@ -2636,22 +1889,14 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/scarf_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Scarf\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"scarf_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 90,
 		\"weight\": 1
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"hands\"
 		},
 		\"description\": \"A pair of sturdy leather gloves, providing good protection for your hands.\",
@@ -2659,23 +1904,14 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/leather_gloves_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Leather Gloves\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\",
-					\"zombie_loot\",
-					\"police_station_locker\"
-				]
-			}
-		},
 		\"sprite\": \"leather_gloves_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 60,
 		\"weight\": 1
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"legs\"
 		},
 		\"description\": \"Comfortable shorts for warm weather and easy movement.\",
@@ -2683,21 +1919,14 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/shorts_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Shorts\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"shorts_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 60,
 		\"weight\": 0.4
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"legs\"
 		},
 		\"description\": \"A fine mesh sieve for straining liquids or sifting dry ingredients.\",
@@ -2707,12 +1936,12 @@ json_data = "[
 		\"name\": \"Strainer Sieve\",
 		\"sprite\": \"strainer_sieve_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 0.3
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"feet\"
 		},
 		\"description\": \"A pair of warm wool socks to keep your feet dry and comfortable.\",
@@ -2720,16 +1949,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/socks_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Socks\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"socks_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.3
 	},
@@ -2741,7 +1962,6 @@ json_data = "[
 		\"name\": \"Kitchen Scissors\",
 		\"sprite\": \"kitchen_scizzors_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 0.2,
 		\"weight\": 0.15
 	},
@@ -2753,7 +1973,6 @@ json_data = "[
 		\"name\": \"Cheese Grater\",
 		\"sprite\": \"cheese_grater_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 150,
 		\"weight\": 0.3
 	},
@@ -2765,7 +1984,6 @@ json_data = "[
 		\"name\": \"Pizza Cutter\",
 		\"sprite\": \"pizza_cutter_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 30,
 		\"weight\": 0.2
 	},
@@ -2777,7 +1995,6 @@ json_data = "[
 		\"name\": \"Basting Brush\",
 		\"sprite\": \"basting_brush_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 60,
 		\"weight\": 0.1
 	},
@@ -2789,7 +2006,6 @@ json_data = "[
 		\"name\": \"Apple Corer\",
 		\"sprite\": \"apple_corer_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 30,
 		\"weight\": 0.1
 	},
@@ -2801,7 +2017,6 @@ json_data = "[
 		\"name\": \"Garlic Press\",
 		\"sprite\": \"garlic_press_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 80,
 		\"weight\": 0.3
 	},
@@ -2813,7 +2028,6 @@ json_data = "[
 		\"name\": \"Silver Knife\",
 		\"sprite\": \"silver_knife_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.1
 	},
@@ -2825,7 +2039,6 @@ json_data = "[
 		\"name\": \"Measuring Spoon Set\",
 		\"sprite\": \"measuring_spoon_set_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 90,
 		\"weight\": 0.3
 	},
@@ -2835,16 +2048,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/stick_small_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Small Stick\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_forest_finds\"
-				]
-			}
-		},
 		\"sprite\": \"stick_small_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 40,
 		\"weight\": 0.5
 	},
@@ -2854,16 +2059,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/rock_large_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Large Rock\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"debris_rock\"
-				]
-			}
-		},
 		\"sprite\": \"rock_large_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 150,
 		\"weight\": 10
 	},
@@ -2873,16 +2070,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/wild_herbs_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Wild Herbs\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_forest_finds\"
-				]
-			}
-		},
 		\"sprite\": \"wild_herbs_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.1
 	},
@@ -2904,19 +2093,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/berries_wild_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Wild Berries\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_forest_finds\"
-				],
-				\"quests\": [
-					\"starter_tutorial_00\"
-				]
-			}
-		},
 		\"sprite\": \"berries_wild_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.05
 	},
@@ -2934,16 +2112,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/mushroom_forest_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Forest Mushrooms\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_forest_finds\"
-				]
-			}
-		},
 		\"sprite\": \"mushroom_forest_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.05
 	},
@@ -2953,16 +2123,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/pinecone_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Pinecone\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_forest_finds\"
-				]
-			}
-		},
 		\"sprite\": \"pinecone_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 40,
 		\"weight\": 0.05
 	},
@@ -2984,16 +2146,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/egg_bird_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Bird Egg\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_forest_finds\"
-				]
-			}
-		},
 		\"sprite\": \"egg_bird_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.1
 	},
@@ -3003,16 +2157,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/flower_wild_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Wild Flower\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_field_finds\"
-				]
-			}
-		},
 		\"sprite\": \"flower_wild_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 60,
 		\"weight\": 0.1
 	},
@@ -3022,16 +2168,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/acorn_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Acorn\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_forest_finds\"
-				]
-			}
-		},
 		\"sprite\": \"acorn_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.02
 	},
@@ -3041,19 +2179,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/pebble_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Pebble\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_field_finds\",
-					\"generic_forest_finds\",
-					\"debris_rock\",
-					\"urban_litter\"
-				]
-			}
-		},
 		\"sprite\": \"pebble_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.2
 	},
@@ -3065,7 +2192,6 @@ json_data = "[
 		\"name\": \"Quartz Crystal\",
 		\"sprite\": \"quartz_crystal_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 90,
 		\"weight\": 2
 	},
@@ -3075,17 +2201,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/gravel_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Gravel\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"debris_rock\",
-					\"debris_urban\"
-				]
-			}
-		},
 		\"sprite\": \"gravel_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.2
 	},
@@ -3095,18 +2212,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/rock_medium_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Medium Rock\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_field_finds\",
-					\"debris_rock\",
-					\"debris_urban\"
-				]
-			}
-		},
 		\"sprite\": \"rock_medium_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 2
 	},
@@ -3116,18 +2223,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/rock_small_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Small Rock\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_field_finds\",
-					\"generic_forest_finds\",
-					\"debris_rock\"
-				]
-			}
-		},
 		\"sprite\": \"rock_small_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.2
 	},
@@ -3145,17 +2242,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/stick_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Stick\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_forest_finds\",
-					\"destroyed_furniture_medium\"
-				]
-			}
-		},
 		\"sprite\": \"stick_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 100,
 		\"weight\": 1
 	},
@@ -3173,24 +2261,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/stick_long_32.png\",
 		\"max_stack_size\": 2,
 		\"name\": \"Long Stick\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"tree_destroyed\",
-					\"generic_forest_finds\",
-					\"test_items\"
-				],
-				\"items\": [
-					\"stone_spear\"
-				],
-				\"quests\": [
-					\"starter_tutorial_00\"
-				]
-			}
-		},
 		\"sprite\": \"stick_long_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": true,
 		\"volume\": 200,
 		\"weight\": 5
 	},
@@ -3200,23 +2272,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/rock_sharp_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Sharp Stone\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"generic_field_finds\",
-					\"test_items\"
-				],
-				\"items\": [
-					\"stone_spear\"
-				],
-				\"quests\": [
-					\"starter_tutorial_00\"
-				]
-			}
-		},
 		\"sprite\": \"rock_sharp_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 50,
 		\"weight\": 0.8
 	},
@@ -3225,9 +2282,6 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 10,
-				\"flags\": {
-					\"requires_light\": false
-				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,
@@ -3257,16 +2311,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/spear_stone_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Stone Spear\",
-		\"references\": {
-			\"core\": {
-				\"quests\": [
-					\"starter_tutorial_00\"
-				]
-			}
-		},
 		\"sprite\": \"spear_stone_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": true,
 		\"volume\": 200,
 		\"weight\": 4
 	},
@@ -3285,17 +2331,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/waistbag_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Waist Bag\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"waistbag_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 30,
 		\"weight\": 0.3
 	},
@@ -3314,17 +2351,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/mailbag_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Mail Bag\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"mailbag_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 80,
 		\"weight\": 0.7
 	},
@@ -3343,17 +2371,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/backpack_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Backpack\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"clothing_general\",
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"backpack_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 120,
 		\"weight\": 1.2
 	},
@@ -3365,7 +2384,6 @@ json_data = "[
 		\"name\": \"Brick\",
 		\"sprite\": \"brick_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 60,
 		\"weight\": 2
 	},
@@ -3377,7 +2395,6 @@ json_data = "[
 		\"name\": \"Damaged Brick\",
 		\"sprite\": \"brick_damaged_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 60,
 		\"weight\": 1.8
 	},
@@ -3387,16 +2404,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/concrete_slab_damaged_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Damaged Concrete Slab\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"debris_urban\"
-				]
-			}
-		},
 		\"sprite\": \"concrete_slab_damaged_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": true,
 		\"volume\": 400,
 		\"weight\": 20
 	},
@@ -3406,17 +2415,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/glass_shards_32.png\",
 		\"max_stack_size\": 100,
 		\"name\": \"Glass Shards\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"debris_urban\",
-					\"urban_litter\"
-				]
-			}
-		},
 		\"sprite\": \"glass_shards_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.05
 	},
@@ -3426,16 +2426,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/rusted_metal_sheets_32.png\",
 		\"max_stack_size\": 20,
 		\"name\": \"Rusted Metal Sheets\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"debris_urban\"
-				]
-			}
-		},
 		\"sprite\": \"rusted_metal_sheets_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 150,
 		\"weight\": 5
 	},
@@ -3455,20 +2447,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/antidote_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Bottle of antidote\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"test_items\",
-					\"kitchen_cupboard\"
-				],
-				\"quests\": [
-					\"quest_holy_crusade_01\"
-				]
-			}
-		},
 		\"sprite\": \"antidote_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.1
 	},
@@ -3478,19 +2458,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/transmitter_broken_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Damaged transmitter\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"electronics_damaged\"
-				],
-				\"quests\": [
-					\"quest_radio_signal_01\"
-				]
-			}
-		},
 		\"sprite\": \"transmitter_broken_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 80,
 		\"weight\": 1
 	},
@@ -3500,20 +2469,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/cirquit_board_32.png\",
 		\"max_stack_size\": 5,
 		\"name\": \"Circuit Board\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"loot_electronic\",
-					\"electronics_store_small\"
-				],
-				\"quests\": [
-					\"quest_radio_signal_01\"
-				]
-			}
-		},
 		\"sprite\": \"cirquit_board_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 20,
 		\"weight\": 0.5
 	},
@@ -3522,9 +2479,6 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 10,
-				\"flags\": {
-					\"requires_light\": false
-				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,
@@ -3558,22 +2512,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/transmitter_32.png\",
 		\"max_stack_size\": 1,
 		\"name\": \"Transmitter\",
-		\"references\": {
-			\"core\": {
-				\"items\": [
-					\"damaged_transmitter\",
-					\"electrical_components\",
-					\"plastic_parts\",
-					\"circuit_board\"
-				],
-				\"quests\": [
-					\"quest_radio_signal_01\"
-				]
-			}
-		},
 		\"sprite\": \"transmitter_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 80,
 		\"weight\": 1
 	},
@@ -3585,7 +2525,6 @@ json_data = "[
 		\"name\": \"Radio tower key\",
 		\"sprite\": \"metallic_key_32.png\",
 		\"stack_size\": 2,
-		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.25
 	},
@@ -3595,21 +2534,14 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/wallet_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Wallet\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"wallet_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.1
 	},
 	{
 		\"Wearable\": {
+			\"player_attributes\": [],
 			\"slot\": \"hands\"
 		},
 		\"description\": \"A worn leather wallet containing faded photographs and a few crumpled bills\",
@@ -3617,16 +2549,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/watch_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Wallet\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"watch_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.1
 	},
@@ -3652,16 +2576,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/rotten_flesh_chunk_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Chunk of Rotten Flesh\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"rotten_flesh_chunk_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.25
 	},
@@ -3671,16 +2587,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/zombie_bone_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Zombie Bone\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"zombie_bone_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 15,
 		\"weight\": 0.1
 	},
@@ -3706,16 +2614,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/zombie_eye_32.png\",
 		\"max_stack_size\": 10,
 		\"name\": \"Zombie Eye\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"zombie_eye_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 5,
 		\"weight\": 0.05
 	},
@@ -3741,16 +2641,8 @@ json_data = "[
 		\"image\": \"./Mods/Dimensionfall/Items/zombie_organ_32.png\",
 		\"max_stack_size\": 3,
 		\"name\": \"Decayed Organ\",
-		\"references\": {
-			\"core\": {
-				\"itemgroups\": [
-					\"zombie_loot\"
-				]
-			}
-		},
 		\"sprite\": \"zombie_organ_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 25,
 		\"weight\": 0.25
 	},
@@ -3762,7 +2654,6 @@ json_data = "[
 		\"name\": \"Kindling Bundle\",
 		\"sprite\": \"kindling_bundle_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 30,
 		\"weight\": 0.3
 	},
@@ -3774,7 +2665,6 @@ json_data = "[
 		\"name\": \"Charcoal Chunk\",
 		\"sprite\": \"charcoal_chunk_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": false,
 		\"volume\": 10,
 		\"weight\": 0.5
 	},
@@ -3786,7 +2676,6 @@ json_data = "[
 		\"name\": \"Wood Bundle\",
 		\"sprite\": \"branches_32.png\",
 		\"stack_size\": 1,
-		\"two_handed\": true,
 		\"volume\": 150,
 		\"weight\": 10
 	}

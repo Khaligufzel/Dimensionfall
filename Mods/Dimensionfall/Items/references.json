@@ -1,27 +1,62 @@
 {
-	"branch": {
+	"apple": {
 		"itemgroups": [
-			"tree_forage"
+			"starting_items"
 		]
 	},
-	"leaf": {
+	"bandage_basic": {
 		"itemgroups": [
-			"tree_forage"
+			"starting_items"
 		]
 	},
-	"long_stick": {
+	"boots": {
 		"itemgroups": [
-			"tree_forage"
+			"starting_items"
 		]
 	},
-	"pine_branch": {
+	"bottle_antibiotics": {
 		"itemgroups": [
-			"tree_forage"
+			"starting_items"
 		]
 	},
-	"stick": {
+	"bottle_plastic_water": {
 		"itemgroups": [
-			"tree_forage"
+			"starting_items"
+		]
+	},
+	"bread": {
+		"itemgroups": [
+			"starting_items"
+		]
+	},
+	"can_soda": {
+		"itemgroups": [
+			"starting_items"
+		]
+	},
+	"gloves_leather": {
+		"itemgroups": [
+			"starting_items"
+		]
+	},
+	"hat_baseball": {
+		"itemgroups": [
+			"starting_items"
+		]
+	},
+	"jacket": {
+		"itemgroups": [
+			"starting_items"
+		]
+	},
+	"jeans": {
+		"itemgroups": [
+			"starting_items"
+		]
+	},
+	"mailbag": {
+		"itemgroups": [
+			"starting_items"
 		]
 	}
 }

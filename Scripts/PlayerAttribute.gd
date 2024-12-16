@@ -73,6 +73,7 @@ class DefaultMode:
 		depletion_timer.timeout.connect(_on_deplete_tick)
 		player.add_child(depletion_timer)
 		depletion_timer.start()
+		_on_deplete_tick() #Deplete once right away
 
 	# Stop depletion when min value is reached
 	func stop_depletion():
@@ -113,6 +114,12 @@ class DefaultMode:
 	# Function that gets called every tick to decrease the attribute
 	func _on_deplete_tick():
 		modify_current_amount(-depletion_rate)
+		
+		# Check if depleting_effect is set to "stun"
+		if depleting_effect == "stun":
+			# Call the add_stun function on the player, passing the depletion rate
+			if player.has_method("add_stun"):
+				player.add_stun(depletion_rate)
 
 		# Check if depleting_effect is set to "drain other attributes"
 		if depleting_effect == "drain other attributes" and not drain_attributes.is_empty():

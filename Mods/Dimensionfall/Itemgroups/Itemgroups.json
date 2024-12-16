@@ -1554,5 +1554,87 @@
 		"name": "Tree foraging",
 		"sprite": "plant_remnants_32.png",
 		"use_sprite": false
+	},
+	{
+		"description": "A special itemgroup that will spawn these items in the player inventory on game start",
+		"id": "starting_items",
+		"items": [
+			{
+				"id": "boots",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "gloves_leather",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "hat_baseball",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "jeans",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "mailbag",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "bottle_plastic_water",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "bread",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "apple",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "can_soda",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "bandage_basic",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "bottle_antibiotics",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			},
+			{
+				"id": "jacket",
+				"max": 1,
+				"min": 1,
+				"probability": 100
+			}
+		],
+		"mode": "Collection",
+		"name": "Starting items",
+		"sprite": "jacket_32.png",
+		"use_sprite": false
 	}
 ]

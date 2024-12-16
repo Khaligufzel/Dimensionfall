@@ -99,6 +99,8 @@ func _on_player_attribute_changed(player_node: CharacterBody3D, attr: PlayerAttr
 				var display = AttributeDisplay.new(attribute)
 				attribute_displays[attribute.id] = display
 				attributeContainer.add_child(display.hbox)
+				# Update only the specific attribute display
+				attribute_displays[attribute.id].update(attribute)
 
 
 # Utility function to clear all children in a container
