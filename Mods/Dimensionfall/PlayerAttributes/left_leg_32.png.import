@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://klsm84pec1af"
-path="res://.godot/imported/waterbottle_32.png-c03075e71e96a17e86ddc15ae9fc6407.ctex"
+uid="uid://c47idmjme38s4"
+path="res://.godot/imported/left_leg_32.png-037aa77a07baeebec606f4eb18ef67c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/PlayerAttributes/waterbottle_32.png"
-dest_files=["res://.godot/imported/waterbottle_32.png-c03075e71e96a17e86ddc15ae9fc6407.ctex"]
+source_file="res://Mods/Dimensionfall/PlayerAttributes/left_leg_32.png"
+dest_files=["res://.godot/imported/left_leg_32.png-037aa77a07baeebec606f4eb18ef67c9.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsuosvhs6yhp7"
-path="res://.godot/imported/right_leg_32.png-8c7de26bc9a581145fca9799f2259830.ctex"
+uid="uid://chsga77pdna36"
+path="res://.godot/imported/apple_32.png-4274bb3b42fd4c6cc403cf8a6aaeec5b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Core/PlayerAttributes/right_leg_32.png"
-dest_files=["res://.godot/imported/right_leg_32.png-8c7de26bc9a581145fca9799f2259830.ctex"]
+source_file="res://Mods/Dimensionfall/PlayerAttributes/apple_32.png"
+dest_files=["res://.godot/imported/apple_32.png-4274bb3b42fd4c6cc403cf8a6aaeec5b.ctex"]
 
 [params]
 
