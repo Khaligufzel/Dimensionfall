@@ -88,7 +88,7 @@ func _get_attributes_from_ui() -> Array:
 
 # Add a new attribute entry to the attributes_container
 func _add_attribute_entry(attribute: Dictionary) -> void:
-	var dattribute: DPlayerAttribute = ditem.parent.playerattributes.by_id(attribute.id)
+	var dattribute: DPlayerAttribute = Gamedata.mods.by_id(ditem.parent.mod_id).playerattributes.by_id(attribute.id)
 	var sprite: Texture = dattribute.sprite
 	var attribute_name = attribute.id
 	var amount = attribute.amount
@@ -156,7 +156,7 @@ func _can_drop_attribute_data(_newpos, data) -> bool:
 		return false
 
 	# Fetch attribute by ID from the Gamedata to ensure it exists and is valid
-	if not ditem.parent.playerattributes.has_id(data["id"]):
+	if not Gamedata.mods.by_id(ditem.parent.mod_id).playerattributes.has_id(data["id"]):
 		return false
 
 	# Check if the attribute ID already exists in the attributes grid
@@ -184,7 +184,7 @@ func _handle_attribute_drop(dropped_data, _newpos) -> void:
 	# dropped_data is a Dictionary that includes an 'id'
 	if dropped_data and "id" in dropped_data:
 		var attribute_id = dropped_data["id"]
-		if not ditem.parent.playerattributes.has_id(attribute_id):
+		if not Gamedata.mods.by_id(ditem.parent.mod_id).playerattributes.has_id(attribute_id):
 			print_debug("No attribute data found for ID: " + attribute_id)
 			return
 		
