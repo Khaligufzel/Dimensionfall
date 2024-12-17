@@ -150,6 +150,9 @@
 			"M4A1_gun_ammo",
 			"test_items",
 			"police_station_locker"
+		],
+		"items": [
+			"pistol_magazine"
 		]
 	},
 	"butter": {
@@ -625,6 +628,9 @@
 			"disassembled_furniture_medium",
 			"debris_urban",
 			"loot_electronic"
+		],
+		"items": [
+			"pistol_magazine"
 		]
 	},
 	"stick": {

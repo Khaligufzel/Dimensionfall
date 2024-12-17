@@ -1,0 +1,22 @@
+{
+	"fabrication": {
+		"items": [
+			"pistol_magazine"
+		]
+	},
+	"handguns": {
+		"items": [
+			"pistol_9mm"
+		]
+	},
+	"rifle": {
+		"items": [
+			"rifle_m4a1"
+		]
+	},
+	"smg": {
+		"items": [
+			"chugunov_mpap"
+		]
+	}
+}
