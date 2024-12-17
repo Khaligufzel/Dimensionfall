@@ -1,7 +1,27 @@
 {
+	"bashing": {
+		"items": [
+			"long_stick",
+			"stick"
+		]
+	},
+	"cutting": {
+		"items": [
+			"machete",
+			"stone_spear"
+		]
+	},
+	"electronics": {
+		"items": [
+			"transmitter"
+		]
+	},
 	"fabrication": {
 		"items": [
-			"pistol_magazine"
+			"pistol_magazine",
+			"cutting_board",
+			"rolling_pin",
+			"stone_spear"
 		]
 	},
 	"handguns": {

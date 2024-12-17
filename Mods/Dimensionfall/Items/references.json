@@ -105,6 +105,9 @@
 			"kitchen_cupboard",
 			"urban_litter",
 			"zombie_loot"
+		],
+		"items": [
+			"screwdriver"
 		]
 	},
 	"bottle_plastic_water": {
@@ -232,6 +235,9 @@
 			"electronics_store_small",
 			"loot_electronic"
 		],
+		"items": [
+			"transmitter"
+		],
 		"quests": [
 			"quest_radio_signal_01"
 		]
@@ -256,6 +262,9 @@
 		"itemgroups": [
 			"electronics_damaged"
 		],
+		"items": [
+			"transmitter"
+		],
 		"quests": [
 			"quest_radio_signal_01"
 		]
@@ -271,6 +280,9 @@
 			"electronics_store_mixed",
 			"electronics_damaged",
 			"loot_electronic"
+		],
+		"items": [
+			"transmitter"
 		]
 	},
 	"epipen": {
@@ -396,6 +408,9 @@
 			"generic_forest_finds",
 			"tree_forage"
 		],
+		"items": [
+			"stone_spear"
+		],
 		"quests": [
 			"starter_tutorial_00"
 		]
@@ -498,6 +513,10 @@
 			"destroyed_furniture_medium",
 			"disassembled_furniture_medium",
 			"debris_urban"
+		],
+		"items": [
+			"cutting_board",
+			"rolling_pin"
 		]
 	},
 	"plant_remnants": {
@@ -513,6 +532,9 @@
 			"urban_litter",
 			"debris_urban",
 			"loot_electronic"
+		],
+		"items": [
+			"transmitter"
 		]
 	},
 	"pressure_cooker": {
@@ -577,6 +599,9 @@
 			"test_items",
 			"generic_field_finds"
 		],
+		"items": [
+			"stone_spear"
+		],
 		"quests": [
 			"starter_tutorial_00"
 		]
@@ -630,7 +655,8 @@
 			"loot_electronic"
 		],
 		"items": [
-			"pistol_magazine"
+			"pistol_magazine",
+			"screwdriver"
 		]
 	},
 	"stick": {
