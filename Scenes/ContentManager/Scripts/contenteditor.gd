@@ -24,8 +24,34 @@ var selectedMod: String = "Core"
 
 # This function will load the contents of the data into the contentListInstance
 func _ready():
-	populate_select_mods()  # Populate the select_mods OptionButton
+	# Load the saved selected mod or default to "Core"
+	selectedMod = load_selected_mod()
+
+	# Populate the select_mods OptionButton
+	populate_select_mods()
+
+	# Use the refactored function to select the mod
+	select_mod_from_saved_or_default(selectedMod)
+
+	# Refresh lists with the loaded or default mod
 	refresh_lists()
+
+
+func select_mod_from_saved_or_default(selected_mod: String) -> void:
+	# Find the index of the saved mod in the OptionButton
+	var mod_index = -1
+	for i in range(select_mods.get_item_count()):
+		if select_mods.get_item_text(i) == selected_mod:
+			mod_index = i
+			break
+
+	# If the mod is found, select it; otherwise, default to the first mod
+	if mod_index >= 0:
+		select_mods.select(mod_index)
+	else:
+		selectedMod = "Core"  # Fallback to "Core" if the mod doesn't exist
+		select_mods.select(0)
+
 
 func refresh_lists() -> void:
 	# Clear existing content in the VBoxContainer
@@ -54,7 +80,6 @@ func refresh_lists() -> void:
 	populate_type_selector_menu_button()
 
 
-
 # Clears the select_mods OptionButton and populates it with mod IDs from Gamedata.mods
 func populate_select_mods() -> void:
 	select_mods.clear()  # Remove all existing options from the OptionButton
@@ -63,13 +88,6 @@ func populate_select_mods() -> void:
 	# Iterate through Gamedata.mods and add each mod ID as an option
 	for mod_id in mod_ids:
 		select_mods.add_item(mod_id)
-
-	# Set the first item as the default selection (if any mods exist)
-	if mod_ids.size() > 0:
-		selectedMod = mod_ids[0]  # Default to the first mod ID
-		select_mods.select(0)
-	else:
-		selectedMod = ""  # No mods available, clear the selectedMod
 
 
 func load_content_list(type: DMod.ContentType, strHeader: String):
@@ -290,6 +308,31 @@ func save_item_state(item_text: String, is_checked: bool):
 func _on_select_mods_item_selected(index: int) -> void:
 	# Read the mod ID from the select_mods OptionButton
 	selectedMod = select_mods.get_item_text(index)
-	
+
+	# Save the selected mod
+	save_selected_mod(selectedMod)
+
 	# Refresh the lists with the new mod ID
 	refresh_lists()
+
+
+### PERSISTENCE ###
+
+# Saves the currently selected mod to a configuration file.
+func save_selected_mod(mod_id: String) -> void:
+	var config = ConfigFile.new()
+	var path = "user://settings.cfg"
+	if config.load(path) != OK:
+		print_debug("Failed to load settings for saving selected mod.")
+	config.set_value("mapeditor", "selected_mod", mod_id)
+	if config.save(path) != OK:
+		print_debug("Failed to save settings.")
+
+
+# Loads the selected mod from a configuration file or defaults to "Core".
+func load_selected_mod() -> String:
+	var config = ConfigFile.new()
+	var path = "user://settings.cfg"
+	if config.load(path) != OK:
+		print_debug("Failed to load settings, defaulting to 'Core'.")
+	return config.get_value("mapeditor", "selected_mod", "Core")
