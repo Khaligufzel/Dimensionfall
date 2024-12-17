@@ -1,5 +1,10 @@
 extends Control
 
+
+# This script is intended to be used in the Selectable_Sprite_Widget widget.
+# The goal is to show the user a sprite that can be clicked on
+# This may be used in lists or flow containers, like the Sprite_Selector_Popup
+
 signal selectableSprite_clicked(clicked_sprite: Control)
 signal selectableSprite_double_clicked(clicked_sprite: Control)
 var selected: bool = false
@@ -18,6 +23,7 @@ func _on_texture_rect_gui_input(event):
 				selectableSprite_clicked.emit(self)
 			last_click_time = current_time
 
+
 func set_sprite_texture(res: Resource) -> void:
 	var texture: Texture
 	if res is BaseMaterial3D:
@@ -27,12 +33,22 @@ func set_sprite_texture(res: Resource) -> void:
 
 	if texture:
 		$SpriteImage.texture = texture
-		# Set the minimum size of the widget based on the texture size
+		# Set the minimum size to the texture size, but ensure it's at least 64x64
 		var texture_size = texture.get_size()
-		custom_minimum_size = Vector2(texture_size.x, texture_size.y)
+		custom_minimum_size = Vector2(max(texture_size.x, 64), max(texture_size.y, 64))
+
+		# Set the tooltip with the name or path of the texture
+		if texture.resource_path and texture.resource_path != "":
+			tooltip_text = texture.resource_path
+		else:
+			tooltip_text = "Texture"
+
 	else:
 		$SpriteImage.texture = null
-		custom_minimum_size = Vector2(0, custom_minimum_size.y)  # Reset to no minimum width
+		# Reset to minimum size with a minimum height of 64
+		custom_minimum_size = Vector2(0, 64)
+		tooltip_text = ""  # Clear the tooltip
+
 
 func get_texture() -> Resource:
 	return $SpriteImage.texture
