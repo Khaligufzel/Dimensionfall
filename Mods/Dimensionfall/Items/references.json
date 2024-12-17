@@ -1,7 +1,19 @@
 {
+	"acorn": {
+		"itemgroups": [
+			"generic_forest_finds"
+		]
+	},
 	"apple": {
 		"itemgroups": [
-			"refridgerator"
+			"refridgerator",
+			"starting_items"
+		]
+	},
+	"backpack": {
+		"itemgroups": [
+			"clothing_general",
+			"zombie_loot"
 		]
 	},
 	"bag_bacon": {
@@ -11,33 +23,86 @@
 	},
 	"bandage_basic": {
 		"itemgroups": [
-			"kitchen_cupboard"
+			"kitchen_cupboard",
+			"cabinet_general",
+			"starting_items",
+			"police_station_locker",
+			"first_aid"
+		]
+	},
+	"battery_small": {
+		"itemgroups": [
+			"cabinet_general",
+			"electronics_store_small",
+			"electronics_store_mixed",
+			"loot_electronic"
+		]
+	},
+	"berries_wild": {
+		"itemgroups": [
+			"generic_forest_finds"
+		]
+	},
+	"bird_egg": {
+		"itemgroups": [
+			"generic_forest_finds"
+		]
+	},
+	"blender": {
+		"itemgroups": [
+			"electronics_store_medium",
+			"electronics_store_mixed"
+		]
+	},
+	"book_novel": {
+		"itemgroups": [
+			"cabinet_general"
+		]
+	},
+	"boots": {
+		"itemgroups": [
+			"cabinet_general",
+			"clothing_general",
+			"starting_items",
+			"zombie_loot",
+			"police_station_locker"
 		]
 	},
 	"bottle_antibiotics": {
 		"itemgroups": [
-			"kitchen_cupboard"
+			"kitchen_cupboard",
+			"starting_items",
+			"first_aid"
 		]
 	},
 	"bottle_antidote": {
 		"itemgroups": [
-			"kitchen_cupboard"
+			"kitchen_cupboard",
+			"test_items",
+			"first_aid"
 		]
 	},
 	"bottle_disinfectant": {
 		"itemgroups": [
-			"kitchen_cupboard"
+			"kitchen_cupboard",
+			"first_aid"
 		]
 	},
 	"bottle_plastic_empty": {
 		"itemgroups": [
-			"kitchen_cupboard"
+			"kitchen_cupboard",
+			"urban_litter",
+			"zombie_loot"
 		]
 	},
 	"bottle_plastic_water": {
 		"itemgroups": [
 			"refridgerator",
-			"kitchen_cupboard"
+			"kitchen_cupboard",
+			"cabinet_general",
+			"vending_machine_drinks",
+			"starting_items",
+			"zombie_loot"
 		]
 	},
 	"bottle_yogurt": {
@@ -45,9 +110,31 @@
 			"refridgerator"
 		]
 	},
+	"branch": {
+		"itemgroups": [
+			"tree_destroyed",
+			"generic_forest_finds",
+			"tree_forage"
+		]
+	},
+	"bread": {
+		"itemgroups": [
+			"starting_items"
+		]
+	},
+	"bread_maker": {
+		"itemgroups": [
+			"electronics_store_medium",
+			"electronics_store_mixed"
+		]
+	},
 	"bullet_9mm": {
 		"itemgroups": [
-			"mob_loot"
+			"mob_loot",
+			"cabinet_general",
+			"M4A1_gun_ammo",
+			"test_items",
+			"police_station_locker"
 		]
 	},
 	"butter": {
@@ -58,17 +145,29 @@
 	"can_beer": {
 		"itemgroups": [
 			"refridgerator",
-			"kitchen_cupboard"
+			"kitchen_cupboard",
+			"vending_machine_drinks",
+			"zombie_loot"
 		]
 	},
 	"can_energydrink": {
 		"itemgroups": [
-			"refridgerator"
+			"refridgerator",
+			"vending_machine_drinks",
+			"zombie_loot"
+		]
+	},
+	"can_oil": {
+		"itemgroups": [
+			"cabinet_general"
 		]
 	},
 	"can_soda": {
 		"itemgroups": [
-			"refridgerator"
+			"refridgerator",
+			"vending_machine_drinks",
+			"starting_items",
+			"zombie_loot"
 		]
 	},
 	"canned_food": {
@@ -81,9 +180,52 @@
 			"refridgerator"
 		]
 	},
+	"ceramic_fragments": {
+		"itemgroups": [
+			"debris_urban"
+		]
+	},
 	"cheese": {
 		"itemgroups": [
 			"refridgerator"
+		]
+	},
+	"chocolate": {
+		"itemgroups": [
+			"vending_machine_snacks",
+			"zombie_loot"
+		]
+	},
+	"chugunov_mpap": {
+		"itemgroups": [
+			"police_station_locker"
+		]
+	},
+	"chugunov_mpap_magazine": {
+		"itemgroups": [
+			"police_station_locker"
+		]
+	},
+	"circuit_board": {
+		"itemgroups": [
+			"electronics_store_small",
+			"loot_electronic"
+		]
+	},
+	"coffee_maker": {
+		"itemgroups": [
+			"electronics_store_medium",
+			"electronics_store_mixed"
+		]
+	},
+	"damaged_concrete_slab": {
+		"itemgroups": [
+			"debris_urban"
+		]
+	},
+	"damaged_transmitter": {
+		"itemgroups": [
+			"electronics_damaged"
 		]
 	},
 	"eggs": {
@@ -91,9 +233,114 @@
 			"refridgerator"
 		]
 	},
+	"electrical_components": {
+		"itemgroups": [
+			"electronics_store_small",
+			"electronics_store_mixed",
+			"electronics_damaged",
+			"loot_electronic"
+		]
+	},
+	"epipen": {
+		"itemgroups": [
+			"zombie_loot"
+		]
+	},
+	"flashlight_basic": {
+		"itemgroups": [
+			"cabinet_general",
+			"electronics_store_small",
+			"electronics_store_mixed",
+			"police_station_locker"
+		]
+	},
+	"flower_wild": {
+		"itemgroups": [
+			"generic_field_finds"
+		]
+	},
+	"gas_mask": {
+		"itemgroups": [
+			"police_station_locker"
+		]
+	},
+	"glass_shards": {
+		"itemgroups": [
+			"urban_litter",
+			"debris_urban"
+		]
+	},
+	"gloves_leather": {
+		"itemgroups": [
+			"clothing_general",
+			"starting_items",
+			"zombie_loot",
+			"police_station_locker"
+		]
+	},
+	"gravel": {
+		"itemgroups": [
+			"debris_urban",
+			"debris_rock"
+		]
+	},
+	"guide_survival_basic": {
+		"itemgroups": [
+			"urban_litter"
+		]
+	},
+	"hammer": {
+		"itemgroups": [
+			"cabinet_general"
+		]
+	},
+	"hat_baseball": {
+		"itemgroups": [
+			"clothing_general",
+			"starting_items",
+			"zombie_loot"
+		]
+	},
+	"herbs_wild": {
+		"itemgroups": [
+			"generic_forest_finds"
+		]
+	},
+	"insulin": {
+		"itemgroups": [
+			"zombie_loot"
+		]
+	},
+	"jacket": {
+		"itemgroups": [
+			"clothing_general",
+			"starting_items",
+			"zombie_loot"
+		]
+	},
+	"jeans": {
+		"itemgroups": [
+			"clothing_general",
+			"starting_items",
+			"zombie_loot"
+		]
+	},
 	"kiwi": {
 		"itemgroups": [
 			"refridgerator"
+		]
+	},
+	"large_rock": {
+		"itemgroups": [
+			"debris_rock"
+		]
+	},
+	"leaf": {
+		"itemgroups": [
+			"tree_destroyed",
+			"generic_forest_finds",
+			"generic_field_finds",
+			"tree_forage"
 		]
 	},
 	"lettuce": {
@@ -101,19 +348,193 @@
 			"refridgerator"
 		]
 	},
+	"log": {
+		"itemgroups": [
+			"tree_destroyed",
+			"generic_forest_finds"
+		]
+	},
+	"long_stick": {
+		"itemgroups": [
+			"tree_destroyed",
+			"test_items",
+			"generic_forest_finds",
+			"tree_forage"
+		]
+	},
+	"mailbag": {
+		"itemgroups": [
+			"clothing_general",
+			"starting_items",
+			"zombie_loot"
+		]
+	},
+	"medium_rock": {
+		"itemgroups": [
+			"generic_field_finds",
+			"debris_urban",
+			"debris_rock"
+		]
+	},
+	"metal_parts": {
+		"itemgroups": [
+			"electronics_damaged",
+			"urban_litter",
+			"debris_urban",
+			"loot_electronic"
+		]
+	},
+	"microwave_oven": {
+		"itemgroups": [
+			"electronics_store_medium",
+			"electronics_store_mixed"
+		]
+	},
+	"mushrooms_forest": {
+		"itemgroups": [
+			"generic_forest_finds"
+		]
+	},
+	"nails": {
+		"itemgroups": [
+			"debris_urban"
+		]
+	},
+	"pack_sigarrettes": {
+		"itemgroups": [
+			"vending_machine_snacks",
+			"urban_litter",
+			"zombie_loot"
+		]
+	},
+	"painkiller": {
+		"itemgroups": [
+			"zombie_loot",
+			"first_aid"
+		]
+	},
+	"pebble": {
+		"itemgroups": [
+			"generic_forest_finds",
+			"generic_field_finds",
+			"urban_litter",
+			"debris_rock"
+		]
+	},
+	"pine_branch": {
+		"itemgroups": [
+			"generic_forest_finds",
+			"tree_forage"
+		]
+	},
+	"pinecone": {
+		"itemgroups": [
+			"generic_forest_finds"
+		]
+	},
+	"pistol_9mm": {
+		"itemgroups": [
+			"cabinet_general",
+			"test_items",
+			"police_station_locker"
+		]
+	},
 	"pistol_magazine": {
 		"itemgroups": [
-			"mob_loot"
+			"mob_loot",
+			"cabinet_general",
+			"M4A1_gun_ammo",
+			"test_items",
+			"police_station_locker"
 		]
 	},
 	"plank_2x4": {
 		"itemgroups": [
-			"mob_loot"
+			"mob_loot",
+			"destroyed_furniture_medium",
+			"disassembled_furniture_medium",
+			"debris_urban"
+		]
+	},
+	"plant_remnants": {
+		"itemgroups": [
+			"tree_destroyed",
+			"generic_forest_finds",
+			"generic_field_finds"
+		]
+	},
+	"plastic_parts": {
+		"itemgroups": [
+			"electronics_damaged",
+			"urban_litter",
+			"debris_urban",
+			"loot_electronic"
+		]
+	},
+	"pressure_cooker": {
+		"itemgroups": [
+			"electronics_store_medium",
+			"electronics_store_mixed"
+		]
+	},
+	"radio_handheld": {
+		"itemgroups": [
+			"electronics_store_small",
+			"electronics_store_mixed"
+		]
+	},
+	"radio_two_way": {
+		"itemgroups": [
+			"electronics_store_small",
+			"electronics_store_mixed",
+			"police_station_locker"
+		]
+	},
+	"rifle_m4a1": {
+		"itemgroups": [
+			"M4A1_gun_ammo",
+			"police_station_locker"
+		]
+	},
+	"rotten_flesh_chunk": {
+		"itemgroups": [
+			"zombie_loot"
+		]
+	},
+	"rusted_metal_sheets": {
+		"itemgroups": [
+			"debris_urban"
+		]
+	},
+	"scarf": {
+		"itemgroups": [
+			"clothing_general",
+			"zombie_loot"
+		]
+	},
+	"screw": {
+		"itemgroups": [
+			"debris_urban"
 		]
 	},
 	"screwdriver": {
 		"itemgroups": [
-			"kitchen_cupboard"
+			"kitchen_cupboard",
+			"cabinet_general",
+			"electronics_store_small",
+			"electronics_store_mixed"
+		]
+	},
+	"sharp_stone": {
+		"itemgroups": [
+			"test_items",
+			"generic_field_finds"
+		]
+	},
+	"shorts": {
+		"itemgroups": [
+			"clothing_general",
+			"zombie_loot"
 		]
 	},
 	"slice_of_pizza": {
@@ -121,9 +542,61 @@
 			"refridgerator"
 		]
 	},
+	"small_rock": {
+		"itemgroups": [
+			"generic_forest_finds",
+			"generic_field_finds",
+			"debris_rock"
+		]
+	},
+	"small_stick": {
+		"itemgroups": [
+			"generic_forest_finds"
+		]
+	},
+	"socks": {
+		"itemgroups": [
+			"clothing_general",
+			"zombie_loot"
+		]
+	},
+	"stale_bread": {
+		"itemgroups": [
+			"urban_litter"
+		]
+	},
 	"steel_scrap": {
 		"itemgroups": [
-			"mob_loot"
+			"mob_loot",
+			"cabinet_general",
+			"destroyed_furniture_medium",
+			"disassembled_furniture_medium",
+			"debris_urban",
+			"loot_electronic"
+		]
+	},
+	"stick": {
+		"itemgroups": [
+			"destroyed_furniture_medium",
+			"generic_forest_finds",
+			"tree_forage"
+		]
+	},
+	"sweater": {
+		"itemgroups": [
+			"clothing_general",
+			"zombie_loot"
+		]
+	},
+	"syringe": {
+		"itemgroups": [
+			"zombie_loot"
+		]
+	},
+	"toaster": {
+		"itemgroups": [
+			"electronics_store_medium",
+			"electronics_store_mixed"
 		]
 	},
 	"tofu": {
@@ -136,6 +609,12 @@
 			"refridgerator"
 		]
 	},
+	"tshirt": {
+		"itemgroups": [
+			"clothing_general",
+			"zombie_loot"
+		]
+	},
 	"uncooked_meat": {
 		"itemgroups": [
 			"refridgerator"
@@ -144,6 +623,42 @@
 	"vacuum_sealed_fish": {
 		"itemgroups": [
 			"refridgerator"
+		]
+	},
+	"vest_ballistic": {
+		"itemgroups": [
+			"police_station_locker"
+		]
+	},
+	"waistbag": {
+		"itemgroups": [
+			"clothing_general",
+			"zombie_loot"
+		]
+	},
+	"wallet": {
+		"itemgroups": [
+			"zombie_loot"
+		]
+	},
+	"wrist_watch": {
+		"itemgroups": [
+			"zombie_loot"
+		]
+	},
+	"zombie_bone": {
+		"itemgroups": [
+			"zombie_loot"
+		]
+	},
+	"zombie_eye": {
+		"itemgroups": [
+			"zombie_loot"
+		]
+	},
+	"zombie_organ": {
+		"itemgroups": [
+			"zombie_loot"
 		]
 	}
 }
