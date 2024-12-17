@@ -3783,5 +3783,49 @@
 		"two_handed": true,
 		"volume": 150,
 		"weight": 10
-	}
+	},
+    {
+        "Food": {
+            "attributes": [
+                {
+                    "amount": 3,
+                    "id": "food"
+                },
+                {
+                    "amount": 4,
+                    "id": "water"
+                }
+            ]
+        },
+        "description": "A fresh, juicy kiwi, rich in vitamins and fiber.",
+        "id": "kiwi",
+        "image": "./Mods/Dimensionfall/Items/kiwi_32.png",
+        "max_stack_size": 20,
+        "name": "Kiwi",
+        "sprite": "kiwi_32.png",
+        "stack_size": 1,
+        "two_handed": false,
+        "volume": 8,
+        "weight": 0.2
+    },
+    {
+        "Food": {
+            "attributes": [
+                {
+                    "amount": 15,
+                    "id": "food"
+                }
+            ]
+        },
+        "description": "A piece of uncooked meat, which needs to be cooked before consumption. High in calories but potentially risky if eaten raw.",
+        "id": "uncooked_meat",
+        "image": "./Mods/Dimensionfall/Items/uncooked_meat_32.png",
+        "max_stack_size": 10,
+        "name": "Uncooked Meat",
+        "sprite": "uncooked_meat_32.png",
+        "stack_size": 1,
+        "two_handed": false,
+        "volume": 20,
+        "weight": 0.5
+    }
 ]

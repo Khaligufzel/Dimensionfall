@@ -334,6 +334,18 @@
 				"max": 1,
 				"min": 1,
 				"probability": 20
+			},
+			{
+				"id": "kiwi",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "uncooked_meat",
+				"max": 1,
+				"min": 1,
+				"probability": 20
 			}
 		],
 		"mode": "Collection",

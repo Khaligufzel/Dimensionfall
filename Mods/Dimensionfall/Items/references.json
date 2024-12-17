@@ -1,62 +1,92 @@
 {
 	"apple": {
 		"itemgroups": [
-			"starting_items"
+			"refridgerator"
 		]
 	},
-	"bandage_basic": {
+	"bag_bacon": {
 		"itemgroups": [
-			"starting_items"
-		]
-	},
-	"boots": {
-		"itemgroups": [
-			"starting_items"
-		]
-	},
-	"bottle_antibiotics": {
-		"itemgroups": [
-			"starting_items"
+			"refridgerator"
 		]
 	},
 	"bottle_plastic_water": {
 		"itemgroups": [
-			"starting_items"
+			"refridgerator"
 		]
 	},
-	"bread": {
+	"bottle_yogurt": {
 		"itemgroups": [
-			"starting_items"
+			"refridgerator"
+		]
+	},
+	"butter": {
+		"itemgroups": [
+			"refridgerator"
+		]
+	},
+	"can_beer": {
+		"itemgroups": [
+			"refridgerator"
+		]
+	},
+	"can_energydrink": {
+		"itemgroups": [
+			"refridgerator"
 		]
 	},
 	"can_soda": {
 		"itemgroups": [
-			"starting_items"
+			"refridgerator"
 		]
 	},
-	"gloves_leather": {
+	"carrot": {
 		"itemgroups": [
-			"starting_items"
+			"refridgerator"
 		]
 	},
-	"hat_baseball": {
+	"cheese": {
 		"itemgroups": [
-			"starting_items"
+			"refridgerator"
 		]
 	},
-	"jacket": {
+	"eggs": {
 		"itemgroups": [
-			"starting_items"
+			"refridgerator"
 		]
 	},
-	"jeans": {
+	"kiwi": {
 		"itemgroups": [
-			"starting_items"
+			"refridgerator"
 		]
 	},
-	"mailbag": {
+	"lettuce": {
 		"itemgroups": [
-			"starting_items"
+			"refridgerator"
+		]
+	},
+	"slice_of_pizza": {
+		"itemgroups": [
+			"refridgerator"
+		]
+	},
+	"tofu": {
+		"itemgroups": [
+			"refridgerator"
+		]
+	},
+	"tomato": {
+		"itemgroups": [
+			"refridgerator"
+		]
+	},
+	"uncooked_meat": {
+		"itemgroups": [
+			"refridgerator"
+		]
+	},
+	"vacuum_sealed_fish": {
+		"itemgroups": [
+			"refridgerator"
 		]
 	}
 }
