@@ -9,14 +9,45 @@
 			"refridgerator"
 		]
 	},
+	"bandage_basic": {
+		"itemgroups": [
+			"kitchen_cupboard"
+		]
+	},
+	"bottle_antibiotics": {
+		"itemgroups": [
+			"kitchen_cupboard"
+		]
+	},
+	"bottle_antidote": {
+		"itemgroups": [
+			"kitchen_cupboard"
+		]
+	},
+	"bottle_disinfectant": {
+		"itemgroups": [
+			"kitchen_cupboard"
+		]
+	},
+	"bottle_plastic_empty": {
+		"itemgroups": [
+			"kitchen_cupboard"
+		]
+	},
 	"bottle_plastic_water": {
 		"itemgroups": [
-			"refridgerator"
+			"refridgerator",
+			"kitchen_cupboard"
 		]
 	},
 	"bottle_yogurt": {
 		"itemgroups": [
 			"refridgerator"
+		]
+	},
+	"bullet_9mm": {
+		"itemgroups": [
+			"mob_loot"
 		]
 	},
 	"butter": {
@@ -26,7 +57,8 @@
 	},
 	"can_beer": {
 		"itemgroups": [
-			"refridgerator"
+			"refridgerator",
+			"kitchen_cupboard"
 		]
 	},
 	"can_energydrink": {
@@ -37,6 +69,11 @@
 	"can_soda": {
 		"itemgroups": [
 			"refridgerator"
+		]
+	},
+	"canned_food": {
+		"itemgroups": [
+			"kitchen_cupboard"
 		]
 	},
 	"carrot": {
@@ -64,9 +101,29 @@
 			"refridgerator"
 		]
 	},
+	"pistol_magazine": {
+		"itemgroups": [
+			"mob_loot"
+		]
+	},
+	"plank_2x4": {
+		"itemgroups": [
+			"mob_loot"
+		]
+	},
+	"screwdriver": {
+		"itemgroups": [
+			"kitchen_cupboard"
+		]
+	},
 	"slice_of_pizza": {
 		"itemgroups": [
 			"refridgerator"
+		]
+	},
+	"steel_scrap": {
+		"itemgroups": [
+			"mob_loot"
 		]
 	},
 	"tofu": {

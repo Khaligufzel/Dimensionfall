@@ -23,6 +23,16 @@ func _init(new_mod_id: String) -> void:
 	spritePath = "./Mods/" + mod_id + "/Items/"
 	load_sprites()
 	load_items_from_disk()
+	load_references()
+
+
+# Load references from references.json
+func load_references() -> void:
+	var path = dataPath + "references.json"
+	if FileAccess.file_exists(path):
+		references = Helper.json_helper.load_json_dictionary_file(path)
+	else:
+		references = {}  # Initialize an empty references dictionary if the file doesn't exist
 
 
 # Load all itemdata from disk into memory
