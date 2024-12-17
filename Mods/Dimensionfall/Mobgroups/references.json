@@ -1,0 +1,8 @@
+{
+	"basic_zombies": {
+		"quests": [
+			"quest_holy_crusade_01",
+			"starter_tutorial_00"
+		]
+	}
+}
