@@ -113,6 +113,9 @@
 		],
 		"mobgroups": [
 			"security_robots"
+		],
+		"quests": [
+			"quest_radio_signal_01"
 		]
 	},
 	"heavy_zombie": {

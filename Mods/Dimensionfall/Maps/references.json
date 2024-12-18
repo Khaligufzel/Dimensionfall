@@ -35,6 +35,9 @@
 	"abandoned_building": {
 		"overmapareas": [
 			"city"
+		],
+		"quests": [
+			"quest_radio_signal_01"
 		]
 	},
 	"city_square": {
@@ -108,6 +111,9 @@
 	"radio_tower": {
 		"overmapareas": [
 			"city"
+		],
+		"quests": [
+			"quest_radio_signal_01"
 		]
 	},
 	"skyscraper": {

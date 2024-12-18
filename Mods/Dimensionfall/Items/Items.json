@@ -5,20 +5,6 @@
 		"image": "./Mods/Dimensionfall/Items/plank.png",
 		"max_stack_size": 3,
 		"name": "Plank 2x4",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"mob_loot",
-					"destroyed_furniture_medium",
-					"disassembled_furniture_medium",
-					"debris_urban"
-				],
-				"items": [
-					"cutting_board",
-					"rolling_pin"
-				]
-			}
-		},
 		"sprite": "plank.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -31,21 +17,6 @@
 		"image": "./Mods/Dimensionfall/Items/steel_scrap.png",
 		"max_stack_size": 100,
 		"name": "Steel scrap",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general",
-					"mob_loot",
-					"destroyed_furniture_medium",
-					"disassembled_furniture_medium",
-					"debris_urban"
-				],
-				"items": [
-					"pistol_magazine",
-					"screwdriver"
-				]
-			}
-		},
 		"sprite": "steel_scrap.png",
 		"stack_size": 2,
 		"two_handed": false,
@@ -61,19 +32,6 @@
 		"image": "./Mods/Dimensionfall/Items/9mm.png",
 		"max_stack_size": 100,
 		"name": "bullet 9mm",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general",
-					"mob_loot",
-					"test_items",
-					"M4A1_gun_ammo"
-				],
-				"items": [
-					"pistol_magazine"
-				]
-			}
-		},
 		"sprite": "9mm.png",
 		"stack_size": 20,
 		"two_handed": false,
@@ -118,19 +76,6 @@
 		"image": "./Mods/Dimensionfall/Items/pistol_magazine.png",
 		"max_stack_size": 1,
 		"name": "Pistol magazine",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general",
-					"mob_loot",
-					"test_items",
-					"M4A1_gun_ammo"
-				],
-				"quests": [
-					"starter_tutorial_00"
-				]
-			}
-		},
 		"sprite": "pistol_magazine.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -157,15 +102,6 @@
 		"image": "./Mods/Dimensionfall/Items/pistol_32.png",
 		"max_stack_size": 1,
 		"name": "Pistol 9mm",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general",
-					"test_items",
-					"police_station_locker"
-				]
-			}
-		},
 		"sprite": "pistol_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -192,16 +128,6 @@
 		"image": "./Mods/Dimensionfall/Items/rifle_64_32.png",
 		"max_stack_size": 1,
 		"name": "M4a1 rifle",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"M4A1_gun_ammo"
-				],
-				"quests": [
-					"starter_tutorial_00"
-				]
-			}
-		},
 		"sprite": "rifle_64_32.png",
 		"stack_size": 1,
 		"two_handed": true,
@@ -228,13 +154,6 @@
 		"image": "./Mods/Dimensionfall/Items/chugunov_mpap_32_28.png",
 		"max_stack_size": 1,
 		"name": "Chugunov MPAP",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"police_station_locker"
-				]
-			}
-		},
 		"sprite": "chugunov_mpap_32_28.png",
 		"stack_size": 1,
 		"two_handed": true,
@@ -252,13 +171,6 @@
 		"image": "./Mods/Dimensionfall/Items/chugunov_mpap_magazine_16_32.png",
 		"max_stack_size": 1,
 		"name": "Chuganov MPAP magazine",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"police_station_locker"
-				]
-			}
-		},
 		"sprite": "chugunov_mpap_magazine_16_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -271,18 +183,6 @@
 		"image": "./Mods/Dimensionfall/Items/bottle_empty_32.png",
 		"max_stack_size": 10,
 		"name": "Empty plastic bottle",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"kitchen_cupboard",
-					"urban_litter",
-					"zombie_loot"
-				],
-				"items": [
-					"screwdriver"
-				]
-			}
-		},
 		"sprite": "bottle_empty_32.png",
 		"stack_size": 2,
 		"two_handed": false,
@@ -303,20 +203,6 @@
 		"image": "./Mods/Dimensionfall/Items/bottle_water_32.png",
 		"max_stack_size": 10,
 		"name": "Plastic bottle with water",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"kitchen_cupboard",
-					"cabinet_general",
-					"refridgerator",
-					"vending_machine_drinks",
-					"zombie_loot"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
-				]
-			}
-		},
 		"sprite": "bottle_water_32.png",
 		"stack_size": 2,
 		"two_handed": false,
@@ -337,16 +223,6 @@
 		"image": "./Mods/Dimensionfall/Items/canned_food_32.png",
 		"max_stack_size": 5,
 		"name": "Canned food\t",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"kitchen_cupboard"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
-				]
-			}
-		},
 		"sprite": "canned_food_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -391,13 +267,6 @@
 		"image": "./Mods/Dimensionfall/Items/hammer_32.png",
 		"max_stack_size": 1,
 		"name": "Hammer",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general"
-				]
-			}
-		},
 		"sprite": "hammer_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -429,16 +298,6 @@
 		"image": "./Mods/Dimensionfall/Items/screwdriver_32.png",
 		"max_stack_size": 1,
 		"name": "Screwdriver",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general",
-					"kitchen_cupboard",
-					"electronics_store_small",
-					"electronics_store_mixed"
-				]
-			}
-		},
 		"sprite": "screwdriver_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -481,18 +340,6 @@
 		"image": "./Mods/Dimensionfall/Items/bandage_32.png",
 		"max_stack_size": 20,
 		"name": "Bandage",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general",
-					"kitchen_cupboard",
-					"police_station_locker"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
-				]
-			}
-		},
 		"sprite": "bandage_32.png",
 		"stack_size": 3,
 		"two_handed": false,
@@ -535,16 +382,6 @@
 		"image": "./Mods/Dimensionfall/Items/antibiotics_32.png",
 		"max_stack_size": 5,
 		"name": "Bottle of antibiotics",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"kitchen_cupboard"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
-				]
-			}
-		},
 		"sprite": "antibiotics_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -560,14 +397,6 @@
 		"image": "./Mods/Dimensionfall/Items/jacket_32.png",
 		"max_stack_size": 1,
 		"name": "Jacket",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"clothing_general",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "jacket_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -583,16 +412,6 @@
 		"image": "./Mods/Dimensionfall/Items/boots_32.png",
 		"max_stack_size": 1,
 		"name": "Boots",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general",
-					"clothing_general",
-					"zombie_loot",
-					"police_station_locker"
-				]
-			}
-		},
 		"sprite": "boots_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -617,13 +436,6 @@
 		"image": "./Mods/Dimensionfall/Items/can_oil_32.png",
 		"max_stack_size": 1,
 		"name": "Can of oil",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general"
-				]
-			}
-		},
 		"sprite": "can_oil_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -636,14 +448,6 @@
 		"image": "./Mods/Dimensionfall/Items/battery_powered_radio_32.png",
 		"max_stack_size": 1,
 		"name": "Handheld radio",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"electronics_store_small",
-					"electronics_store_mixed"
-				]
-			}
-		},
 		"sprite": "battery_powered_radio_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -656,19 +460,6 @@
 		"image": "./Mods/Dimensionfall/Items/flashlight_32.png",
 		"max_stack_size": 1,
 		"name": "Flashlight",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general",
-					"electronics_store_small",
-					"electronics_store_mixed",
-					"police_station_locker"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
-				]
-			}
-		},
 		"sprite": "flashlight_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -681,16 +472,6 @@
 		"image": "./Mods/Dimensionfall/Items/can_beer_32.png",
 		"max_stack_size": 5,
 		"name": "Can of beer",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"kitchen_cupboard",
-					"refridgerator",
-					"vending_machine_drinks",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "can_beer_32.png",
 		"stack_size": 2,
 		"two_handed": false,
@@ -703,15 +484,6 @@
 		"image": "./Mods/Dimensionfall/Items/sigarrette_pack_32.png",
 		"max_stack_size": 5,
 		"name": "Pack of sigarrettes",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"vending_machine_snacks",
-					"urban_litter",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "sigarrette_pack_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -727,13 +499,6 @@
 		"image": "./Mods/Dimensionfall/Items/gasmask_32.png",
 		"max_stack_size": 1,
 		"name": "Gas mask",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"police_station_locker"
-				]
-			}
-		},
 		"sprite": "gasmask_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -749,13 +514,6 @@
 		"image": "./Mods/Dimensionfall/Items/vest_ballistic_32.png",
 		"max_stack_size": 1,
 		"name": "Ballistic vest",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"police_station_locker"
-				]
-			}
-		},
 		"sprite": "vest_ballistic_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -768,13 +526,6 @@
 		"image": "./Mods/Dimensionfall/Items/compass_32.png",
 		"max_stack_size": 1,
 		"name": "Compass",
-		"references": {
-			"core": {
-				"quests": [
-					"quest_holy_crusade_01"
-				]
-			}
-		},
 		"sprite": "compass_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -787,16 +538,6 @@
 		"image": "./Mods/Dimensionfall/Items/battery_32.png",
 		"max_stack_size": 20,
 		"name": "Small battery",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general",
-					"electronics_store_small",
-					"electronics_store_mixed",
-					"loot_electronic"
-				]
-			}
-		},
 		"sprite": "battery_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -809,13 +550,6 @@
 		"image": "./Mods/Dimensionfall/Items/solar_panel_32.png",
 		"max_stack_size": 1,
 		"name": "Solar panel",
-		"references": {
-			"core": {
-				"quests": [
-					"quest_radio_signal_01"
-				]
-			}
-		},
 		"sprite": "solar_panel_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -864,13 +598,6 @@
 		"image": "./Mods/Dimensionfall/Items/survival_guide_32.png",
 		"max_stack_size": 5,
 		"name": "Basic survival guide",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"urban_litter"
-				]
-			}
-		},
 		"sprite": "survival_guide_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -883,13 +610,6 @@
 		"image": "./Mods/Dimensionfall/Items/book_novel_32.png",
 		"max_stack_size": 5,
 		"name": "Novel",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"cabinet_general"
-				]
-			}
-		},
 		"sprite": "book_novel_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -932,13 +652,6 @@
 		"image": "./Mods/Dimensionfall/Items/bottle_disinfectant_32.png",
 		"max_stack_size": 5,
 		"name": "Bottle of disinfectant",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"kitchen_cupboard"
-				]
-			}
-		},
 		"sprite": "bottle_disinfectant_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -951,15 +664,6 @@
 		"image": "./Mods/Dimensionfall/Items/radio_two_way_32.png",
 		"max_stack_size": 1,
 		"name": "Two way radio",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"electronics_store_small",
-					"electronics_store_mixed",
-					"police_station_locker"
-				]
-			}
-		},
 		"sprite": "radio_two_way_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1210,14 +914,6 @@
 		"image": "./Mods/Dimensionfall/Items/toaster_32.png",
 		"max_stack_size": 1,
 		"name": "Toaster",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"electronics_store_medium",
-					"electronics_store_mixed"
-				]
-			}
-		},
 		"sprite": "toaster_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1230,14 +926,6 @@
 		"image": "./Mods/Dimensionfall/Items/blender_32.png",
 		"max_stack_size": 1,
 		"name": "Blender",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"electronics_store_medium",
-					"electronics_store_mixed"
-				]
-			}
-		},
 		"sprite": "blender_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1250,14 +938,6 @@
 		"image": "./Mods/Dimensionfall/Items/coffeemaker_32.png",
 		"max_stack_size": 1,
 		"name": "Coffee Maker",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"electronics_store_medium",
-					"electronics_store_mixed"
-				]
-			}
-		},
 		"sprite": "coffeemaker_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1270,14 +950,6 @@
 		"image": "./Mods/Dimensionfall/Items/microwave_oven_32.png",
 		"max_stack_size": 1,
 		"name": "Microwave Oven",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"electronics_store_medium",
-					"electronics_store_mixed"
-				]
-			}
-		},
 		"sprite": "microwave_oven_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1302,14 +974,6 @@
 		"image": "./Mods/Dimensionfall/Items/pressure_cooker_32.png",
 		"max_stack_size": 1,
 		"name": "Pressure Cooker",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"electronics_store_medium",
-					"electronics_store_mixed"
-				]
-			}
-		},
 		"sprite": "pressure_cooker_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1322,14 +986,6 @@
 		"image": "./Mods/Dimensionfall/Items/bread_maker_32.png",
 		"max_stack_size": 1,
 		"name": "Bread Maker",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"electronics_store_medium",
-					"electronics_store_mixed"
-				]
-			}
-		},
 		"sprite": "bread_maker_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1342,13 +998,6 @@
 		"image": "./Mods/Dimensionfall/Items/nails_32.png",
 		"max_stack_size": 100,
 		"name": "Nails",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"debris_urban"
-				]
-			}
-		},
 		"sprite": "nails_32.png",
 		"stack_size": 10,
 		"two_handed": false,
@@ -1361,14 +1010,6 @@
 		"image": "./Mods/Dimensionfall/Items/log_32.png",
 		"max_stack_size": 3,
 		"name": "Log",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"tree_destroyed",
-					"generic_forest_finds"
-				]
-			}
-		},
 		"sprite": "log_32.png",
 		"stack_size": 1,
 		"two_handed": true,
@@ -1381,13 +1022,6 @@
 		"image": "./Mods/Dimensionfall/Items/screw_32.png",
 		"max_stack_size": 100,
 		"name": "Screw",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"debris_urban"
-				]
-			}
-		},
 		"sprite": "screw_32.png",
 		"stack_size": 10,
 		"two_handed": false,
@@ -1400,14 +1034,6 @@
 		"image": "./Mods/Dimensionfall/Items/branches_32.png",
 		"max_stack_size": 10,
 		"name": "Branch",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"tree_destroyed",
-					"generic_forest_finds"
-				]
-			}
-		},
 		"sprite": "branches_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1420,15 +1046,6 @@
 		"image": "./Mods/Dimensionfall/Items/leaves_32.png",
 		"max_stack_size": 50,
 		"name": "Leaf",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"tree_destroyed",
-					"generic_field_finds",
-					"generic_forest_finds"
-				]
-			}
-		},
 		"sprite": "leaves_32.png",
 		"stack_size": 5,
 		"two_handed": false,
@@ -1441,13 +1058,6 @@
 		"image": "./Mods/Dimensionfall/Items/pine_branch_32.png",
 		"max_stack_size": 10,
 		"name": "Pine Branch",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_forest_finds"
-				]
-			}
-		},
 		"sprite": "pine_branch_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1496,15 +1106,6 @@
 		"image": "./Mods/Dimensionfall/Items/plant_remnants_32.png",
 		"max_stack_size": 50,
 		"name": "Plant Remnants",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"tree_destroyed",
-					"generic_field_finds",
-					"generic_forest_finds"
-				]
-			}
-		},
 		"sprite": "plant_remnants_32.png",
 		"stack_size": 5,
 		"two_handed": false,
@@ -1517,16 +1118,6 @@
 		"image": "./Mods/Dimensionfall/Items/electrical_components_32.png",
 		"max_stack_size": 20,
 		"name": "Electrical Components",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"electronics_store_small",
-					"electronics_store_mixed",
-					"electronics_damaged",
-					"loot_electronic"
-				]
-			}
-		},
 		"sprite": "electrical_components_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1539,16 +1130,6 @@
 		"image": "./Mods/Dimensionfall/Items/plastic_parts_32.png",
 		"max_stack_size": 50,
 		"name": "Plastic Parts",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"debris_urban",
-					"urban_litter",
-					"electronics_damaged",
-					"loot_electronic"
-				]
-			}
-		},
 		"sprite": "plastic_parts_32.png",
 		"stack_size": 10,
 		"two_handed": false,
@@ -1561,13 +1142,6 @@
 		"image": "./Mods/Dimensionfall/Items/ceramic_fragments_32.png",
 		"max_stack_size": 30,
 		"name": "Ceramic Fragments",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"debris_urban"
-				]
-			}
-		},
 		"sprite": "ceramic_fragments_32.png",
 		"stack_size": 5,
 		"two_handed": false,
@@ -1580,16 +1154,6 @@
 		"image": "./Mods/Dimensionfall/Items/metal_parts_32.png",
 		"max_stack_size": 50,
 		"name": "Metal Parts",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"debris_urban",
-					"urban_litter",
-					"electronics_damaged",
-					"loot_electronic"
-				]
-			}
-		},
 		"sprite": "metal_parts_32.png",
 		"stack_size": 10,
 		"two_handed": false,
@@ -1622,13 +1186,6 @@
 		"image": "./Mods/Dimensionfall/Items/tofu_32.png",
 		"max_stack_size": 5,
 		"name": "Tofu",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "tofu_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1653,13 +1210,6 @@
 		"image": "./Mods/Dimensionfall/Items/bottle_yogurt_32.png",
 		"max_stack_size": 10,
 		"name": "Bottle of Yogurt",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "bottle_yogurt_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1750,13 +1300,6 @@
 		"image": "./Mods/Dimensionfall/Items/insulin_32.png",
 		"max_stack_size": 5,
 		"name": "Insulin",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "insulin_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1799,13 +1342,6 @@
 		"image": "./Mods/Dimensionfall/Items/epipen_32.png",
 		"max_stack_size": 5,
 		"name": "EpiPen",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "epipen_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1826,13 +1362,6 @@
 		"image": "./Mods/Dimensionfall/Items/bag_bacon_32.png",
 		"max_stack_size": 10,
 		"name": "Bag of Bacon",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "bag_bacon_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1885,13 +1414,6 @@
 		"image": "./Mods/Dimensionfall/Items/syringe_32.png",
 		"max_stack_size": 20,
 		"name": "Syringe",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "syringe_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1912,13 +1434,6 @@
 		"image": "./Mods/Dimensionfall/Items/slice_of_pizza_32.png",
 		"max_stack_size": 10,
 		"name": "Slice of Pizza",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "slice_of_pizza_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1939,13 +1454,6 @@
 		"image": "./Mods/Dimensionfall/Items/vacuum_sealed_fish_32.png",
 		"max_stack_size": 10,
 		"name": "Vacuum Sealed Fish",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "vacuum_sealed_fish_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -1970,13 +1478,6 @@
 		"image": "./Mods/Dimensionfall/Items/tomato_32.png",
 		"max_stack_size": 20,
 		"name": "Tomato",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "tomato_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2001,13 +1502,6 @@
 		"image": "./Mods/Dimensionfall/Items/lettuce_32.png",
 		"max_stack_size": 10,
 		"name": "Lettuce",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "lettuce_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2040,14 +1534,6 @@
 		"image": "./Mods/Dimensionfall/Items/chocolate_32.png",
 		"max_stack_size": 10,
 		"name": "Chocolate",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"vending_machine_snacks",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "chocolate_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2140,13 +1626,6 @@
 		"image": "./Mods/Dimensionfall/Items/stale_bread_32.png",
 		"max_stack_size": 5,
 		"name": "Stale Bread",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"urban_litter"
-				]
-			}
-		},
 		"sprite": "stale_bread_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2189,17 +1668,6 @@
 		"image": "./Mods/Dimensionfall/Items/painkiller_32.png",
 		"max_stack_size": 20,
 		"name": "Painkiller",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"first_aid",
-					"zombie_loot"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
-				]
-			}
-		},
 		"sprite": "painkiller_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2248,13 +1716,6 @@
 		"image": "./Mods/Dimensionfall/Items/apple_32.png",
 		"max_stack_size": 20,
 		"name": "Apple",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "apple_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2295,13 +1756,6 @@
 		"image": "./Mods/Dimensionfall/Items/carrot_32.png",
 		"max_stack_size": 20,
 		"name": "Carrot",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "carrot_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2326,13 +1780,6 @@
 		"image": "./Mods/Dimensionfall/Items/eggs_32.png",
 		"max_stack_size": 5,
 		"name": "Eggs",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "eggs_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2353,13 +1800,6 @@
 		"image": "./Mods/Dimensionfall/Items/butter_32.png",
 		"max_stack_size": 10,
 		"name": "Butter",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "butter_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2380,15 +1820,6 @@
 		"image": "./Mods/Dimensionfall/Items/can_energydrink_32.png",
 		"max_stack_size": 20,
 		"name": "Energy Drink",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator",
-					"vending_machine_drinks",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "can_energydrink_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2409,15 +1840,6 @@
 		"image": "./Mods/Dimensionfall/Items/can_soda_32.png",
 		"max_stack_size": 20,
 		"name": "Soda",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator",
-					"vending_machine_drinks",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "can_soda_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2438,13 +1860,6 @@
 		"image": "./Mods/Dimensionfall/Items/cheese_32.png",
 		"max_stack_size": 10,
 		"name": "Cheese",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"refridgerator"
-				]
-			}
-		},
 		"sprite": "cheese_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2460,14 +1875,6 @@
 		"image": "./Mods/Dimensionfall/Items/t_shirt_32.png",
 		"max_stack_size": 1,
 		"name": "T-shirt",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"clothing_general",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "t_shirt_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2489,14 +1896,6 @@
 		"image": "./Mods/Dimensionfall/Items/jeans_32.png",
 		"max_stack_size": 1,
 		"name": "Jeans",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"clothing_general",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "jeans_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2584,14 +1983,6 @@
 		"image": "./Mods/Dimensionfall/Items/baseball_cap_32.png",
 		"max_stack_size": 1,
 		"name": "Baseball Cap",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"clothing_general",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "baseball_cap_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2607,14 +1998,6 @@
 		"image": "./Mods/Dimensionfall/Items/sweater_32.png",
 		"max_stack_size": 1,
 		"name": "Sweater",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"clothing_general",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "sweater_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2630,14 +2013,6 @@
 		"image": "./Mods/Dimensionfall/Items/scarf_32.png",
 		"max_stack_size": 1,
 		"name": "Scarf",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"clothing_general",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "scarf_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2653,15 +2028,6 @@
 		"image": "./Mods/Dimensionfall/Items/leather_gloves_32.png",
 		"max_stack_size": 1,
 		"name": "Leather Gloves",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"clothing_general",
-					"zombie_loot",
-					"police_station_locker"
-				]
-			}
-		},
 		"sprite": "leather_gloves_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2677,13 +2043,6 @@
 		"image": "./Mods/Dimensionfall/Items/shorts_32.png",
 		"max_stack_size": 1,
 		"name": "Shorts",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "shorts_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2714,13 +2073,6 @@
 		"image": "./Mods/Dimensionfall/Items/socks_32.png",
 		"max_stack_size": 1,
 		"name": "Socks",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "socks_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2829,13 +2181,6 @@
 		"image": "./Mods/Dimensionfall/Items/stick_small_32.png",
 		"max_stack_size": 5,
 		"name": "Small Stick",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_forest_finds"
-				]
-			}
-		},
 		"sprite": "stick_small_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2848,13 +2193,6 @@
 		"image": "./Mods/Dimensionfall/Items/rock_large_32.png",
 		"max_stack_size": 1,
 		"name": "Large Rock",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"debris_rock"
-				]
-			}
-		},
 		"sprite": "rock_large_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2867,13 +2205,6 @@
 		"image": "./Mods/Dimensionfall/Items/wild_herbs_32.png",
 		"max_stack_size": 10,
 		"name": "Wild Herbs",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_forest_finds"
-				]
-			}
-		},
 		"sprite": "wild_herbs_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2898,16 +2229,6 @@
 		"image": "./Mods/Dimensionfall/Items/berries_wild_32.png",
 		"max_stack_size": 100,
 		"name": "Wild Berries",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_forest_finds"
-				],
-				"quests": [
-					"starter_tutorial_00"
-				]
-			}
-		},
 		"sprite": "berries_wild_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2928,13 +2249,6 @@
 		"image": "./Mods/Dimensionfall/Items/mushroom_forest_32.png",
 		"max_stack_size": 10,
 		"name": "Forest Mushrooms",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_forest_finds"
-				]
-			}
-		},
 		"sprite": "mushroom_forest_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2947,13 +2261,6 @@
 		"image": "./Mods/Dimensionfall/Items/pinecone_32.png",
 		"max_stack_size": 10,
 		"name": "Pinecone",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_forest_finds"
-				]
-			}
-		},
 		"sprite": "pinecone_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2978,13 +2285,6 @@
 		"image": "./Mods/Dimensionfall/Items/egg_bird_32.png",
 		"max_stack_size": 10,
 		"name": "Bird Egg",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_forest_finds"
-				]
-			}
-		},
 		"sprite": "egg_bird_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -2997,13 +2297,6 @@
 		"image": "./Mods/Dimensionfall/Items/flower_wild_32.png",
 		"max_stack_size": 10,
 		"name": "Wild Flower",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_field_finds"
-				]
-			}
-		},
 		"sprite": "flower_wild_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3016,13 +2309,6 @@
 		"image": "./Mods/Dimensionfall/Items/acorn_32.png",
 		"max_stack_size": 100,
 		"name": "Acorn",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_forest_finds"
-				]
-			}
-		},
 		"sprite": "acorn_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3035,16 +2321,6 @@
 		"image": "./Mods/Dimensionfall/Items/pebble_32.png",
 		"max_stack_size": 100,
 		"name": "Pebble",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_field_finds",
-					"generic_forest_finds",
-					"debris_rock",
-					"urban_litter"
-				]
-			}
-		},
 		"sprite": "pebble_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3069,14 +2345,6 @@
 		"image": "./Mods/Dimensionfall/Items/gravel_32.png",
 		"max_stack_size": 100,
 		"name": "Gravel",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"debris_rock",
-					"debris_urban"
-				]
-			}
-		},
 		"sprite": "gravel_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3089,15 +2357,6 @@
 		"image": "./Mods/Dimensionfall/Items/rock_medium_32.png",
 		"max_stack_size": 10,
 		"name": "Medium Rock",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_field_finds",
-					"debris_rock",
-					"debris_urban"
-				]
-			}
-		},
 		"sprite": "rock_medium_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3110,15 +2369,6 @@
 		"image": "./Mods/Dimensionfall/Items/rock_small_32.png",
 		"max_stack_size": 20,
 		"name": "Small Rock",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_field_finds",
-					"generic_forest_finds",
-					"debris_rock"
-				]
-			}
-		},
 		"sprite": "rock_small_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3139,14 +2389,6 @@
 		"image": "./Mods/Dimensionfall/Items/stick_32.png",
 		"max_stack_size": 3,
 		"name": "Stick",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_forest_finds",
-					"destroyed_furniture_medium"
-				]
-			}
-		},
 		"sprite": "stick_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3167,21 +2409,6 @@
 		"image": "./Mods/Dimensionfall/Items/stick_long_32.png",
 		"max_stack_size": 2,
 		"name": "Long Stick",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"tree_destroyed",
-					"generic_forest_finds",
-					"test_items"
-				],
-				"items": [
-					"stone_spear"
-				],
-				"quests": [
-					"starter_tutorial_00"
-				]
-			}
-		},
 		"sprite": "stick_long_32.png",
 		"stack_size": 1,
 		"two_handed": true,
@@ -3194,20 +2421,6 @@
 		"image": "./Mods/Dimensionfall/Items/rock_sharp_32.png",
 		"max_stack_size": 5,
 		"name": "Sharp Stone",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"generic_field_finds",
-					"test_items"
-				],
-				"items": [
-					"stone_spear"
-				],
-				"quests": [
-					"starter_tutorial_00"
-				]
-			}
-		},
 		"sprite": "rock_sharp_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3251,13 +2464,6 @@
 		"image": "./Mods/Dimensionfall/Items/spear_stone_32.png",
 		"max_stack_size": 1,
 		"name": "Stone Spear",
-		"references": {
-			"core": {
-				"quests": [
-					"starter_tutorial_00"
-				]
-			}
-		},
 		"sprite": "spear_stone_32.png",
 		"stack_size": 1,
 		"two_handed": true,
@@ -3279,14 +2485,6 @@
 		"image": "./Mods/Dimensionfall/Items/waistbag_32.png",
 		"max_stack_size": 1,
 		"name": "Waist Bag",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"clothing_general",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "waistbag_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3308,14 +2506,6 @@
 		"image": "./Mods/Dimensionfall/Items/mailbag_32.png",
 		"max_stack_size": 1,
 		"name": "Mail Bag",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"clothing_general",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "mailbag_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3337,14 +2527,6 @@
 		"image": "./Mods/Dimensionfall/Items/backpack_32.png",
 		"max_stack_size": 1,
 		"name": "Backpack",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"clothing_general",
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "backpack_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3381,13 +2563,6 @@
 		"image": "./Mods/Dimensionfall/Items/concrete_slab_damaged_32.png",
 		"max_stack_size": 1,
 		"name": "Damaged Concrete Slab",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"debris_urban"
-				]
-			}
-		},
 		"sprite": "concrete_slab_damaged_32.png",
 		"stack_size": 1,
 		"two_handed": true,
@@ -3400,14 +2575,6 @@
 		"image": "./Mods/Dimensionfall/Items/glass_shards_32.png",
 		"max_stack_size": 100,
 		"name": "Glass Shards",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"debris_urban",
-					"urban_litter"
-				]
-			}
-		},
 		"sprite": "glass_shards_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3420,13 +2587,6 @@
 		"image": "./Mods/Dimensionfall/Items/rusted_metal_sheets_32.png",
 		"max_stack_size": 20,
 		"name": "Rusted Metal Sheets",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"debris_urban"
-				]
-			}
-		},
 		"sprite": "rusted_metal_sheets_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3449,17 +2609,6 @@
 		"image": "./Mods/Dimensionfall/Items/antidote_32.png",
 		"max_stack_size": 5,
 		"name": "Bottle of antidote",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"test_items",
-					"kitchen_cupboard"
-				],
-				"quests": [
-					"quest_holy_crusade_01"
-				]
-			}
-		},
 		"sprite": "antidote_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3472,16 +2621,6 @@
 		"image": "./Mods/Dimensionfall/Items/transmitter_broken_32.png",
 		"max_stack_size": 1,
 		"name": "Damaged transmitter",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"electronics_damaged"
-				],
-				"quests": [
-					"quest_radio_signal_01"
-				]
-			}
-		},
 		"sprite": "transmitter_broken_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3494,17 +2633,6 @@
 		"image": "./Mods/Dimensionfall/Items/cirquit_board_32.png",
 		"max_stack_size": 5,
 		"name": "Circuit Board",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"loot_electronic",
-					"electronics_store_small"
-				],
-				"quests": [
-					"quest_radio_signal_01"
-				]
-			}
-		},
 		"sprite": "cirquit_board_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3552,19 +2680,6 @@
 		"image": "./Mods/Dimensionfall/Items/transmitter_32.png",
 		"max_stack_size": 1,
 		"name": "Transmitter",
-		"references": {
-			"core": {
-				"items": [
-					"damaged_transmitter",
-					"electrical_components",
-					"plastic_parts",
-					"circuit_board"
-				],
-				"quests": [
-					"quest_radio_signal_01"
-				]
-			}
-		},
 		"sprite": "transmitter_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3589,13 +2704,6 @@
 		"image": "./Mods/Dimensionfall/Items/wallet_32.png",
 		"max_stack_size": 3,
 		"name": "Wallet",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "wallet_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3611,13 +2719,6 @@
 		"image": "./Mods/Dimensionfall/Items/watch_32.png",
 		"max_stack_size": 3,
 		"name": "Wallet",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "watch_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3646,13 +2747,6 @@
 		"image": "./Mods/Dimensionfall/Items/rotten_flesh_chunk_32.png",
 		"max_stack_size": 10,
 		"name": "Chunk of Rotten Flesh",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "rotten_flesh_chunk_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3665,13 +2759,6 @@
 		"image": "./Mods/Dimensionfall/Items/zombie_bone_32.png",
 		"max_stack_size": 10,
 		"name": "Zombie Bone",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "zombie_bone_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3700,13 +2787,6 @@
 		"image": "./Mods/Dimensionfall/Items/zombie_eye_32.png",
 		"max_stack_size": 10,
 		"name": "Zombie Eye",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "zombie_eye_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3735,13 +2815,6 @@
 		"image": "./Mods/Dimensionfall/Items/zombie_organ_32.png",
 		"max_stack_size": 3,
 		"name": "Decayed Organ",
-		"references": {
-			"core": {
-				"itemgroups": [
-					"zombie_loot"
-				]
-			}
-		},
 		"sprite": "zombie_organ_32.png",
 		"stack_size": 1,
 		"two_handed": false,
@@ -3784,48 +2857,48 @@
 		"volume": 150,
 		"weight": 10
 	},
-    {
-        "Food": {
-            "attributes": [
-                {
-                    "amount": 3,
-                    "id": "food"
-                },
-                {
-                    "amount": 4,
-                    "id": "water"
-                }
-            ]
-        },
-        "description": "A fresh, juicy kiwi, rich in vitamins and fiber.",
-        "id": "kiwi",
-        "image": "./Mods/Dimensionfall/Items/kiwi_32.png",
-        "max_stack_size": 20,
-        "name": "Kiwi",
-        "sprite": "kiwi_32.png",
-        "stack_size": 1,
-        "two_handed": false,
-        "volume": 8,
-        "weight": 0.2
-    },
-    {
-        "Food": {
-            "attributes": [
-                {
-                    "amount": 15,
-                    "id": "food"
-                }
-            ]
-        },
-        "description": "A piece of uncooked meat, which needs to be cooked before consumption. High in calories but potentially risky if eaten raw.",
-        "id": "uncooked_meat",
-        "image": "./Mods/Dimensionfall/Items/uncooked_meat_32.png",
-        "max_stack_size": 10,
-        "name": "Uncooked Meat",
-        "sprite": "uncooked_meat_32.png",
-        "stack_size": 1,
-        "two_handed": false,
-        "volume": 20,
-        "weight": 0.5
-    }
+	{
+		"Food": {
+			"attributes": [
+				{
+					"amount": 3,
+					"id": "food"
+				},
+				{
+					"amount": 4,
+					"id": "water"
+				}
+			]
+		},
+		"description": "A fresh, juicy kiwi, rich in vitamins and fiber.",
+		"id": "kiwi",
+		"image": "./Mods/Dimensionfall/Items/kiwi_32.png",
+		"max_stack_size": 20,
+		"name": "Kiwi",
+		"sprite": "kiwi_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 8,
+		"weight": 0.2
+	},
+	{
+		"Food": {
+			"attributes": [
+				{
+					"amount": 15,
+					"id": "food"
+				}
+			]
+		},
+		"description": "A piece of uncooked meat, which needs to be cooked before consumption. High in calories but potentially risky if eaten raw.",
+		"id": "uncooked_meat",
+		"image": "./Mods/Dimensionfall/Items/uncooked_meat_32.png",
+		"max_stack_size": 10,
+		"name": "Uncooked Meat",
+		"sprite": "uncooked_meat_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 20,
+		"weight": 0.5
+	}
 ]

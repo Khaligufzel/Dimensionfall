@@ -1,0 +1,42 @@
+{
+	"bashing": {
+		"items": [
+			"long_stick",
+			"stick"
+		]
+	},
+	"cutting": {
+		"items": [
+			"machete",
+			"stone_spear"
+		]
+	},
+	"electronics": {
+		"items": [
+			"transmitter"
+		]
+	},
+	"fabrication": {
+		"items": [
+			"pistol_magazine",
+			"cutting_board",
+			"rolling_pin",
+			"stone_spear"
+		]
+	},
+	"handguns": {
+		"items": [
+			"pistol_9mm"
+		]
+	},
+	"rifle": {
+		"items": [
+			"rifle_m4a1"
+		]
+	},
+	"smg": {
+		"items": [
+			"chugunov_mpap"
+		]
+	}
+}

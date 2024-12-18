@@ -17,7 +17,6 @@ var image: String
 var stack_size: int
 var max_stack_size: int
 var two_handed: bool
-var references: Dictionary = {}
 var parent: DItems
 
 # Other properties per type
@@ -391,7 +390,6 @@ func _init(data: Dictionary, myparent: DItems):
 	stack_size = data.get("stack_size", 1)
 	max_stack_size = data.get("max_stack_size", 1)
 	two_handed = data.get("two_handed", false)
-	references = data.get("references", {})
 
 	# Initialize Craft and Magazine subclasses if they exist in data
 	if data.has("Craft"):
@@ -449,8 +447,6 @@ func get_data() -> Dictionary:
 		"max_stack_size": max_stack_size,
 		"two_handed": two_handed
 	}
-	if not references.is_empty():
-		data["references"] = references
 
 	# Add Craft and Magazine data if they exist
 	if craft:
@@ -683,20 +679,6 @@ func delete():
 	# Remove the reference of this item from each skill
 	for skill_id in skill_ids.keys():
 		Gamedata.mods.remove_reference(DMod.ContentType.SKILLS, skill_id, DMod.ContentType.ITEMS, id)
-
-
-# Executes a callable function on each reference of the given type
-# module = name of the mod. for example "core"
-# type = the type of reference we want to handle. For example "itemgroup"
-# callable = a function to execute on each reference ID
-# We will check if data has the [module] and [type] properties and execute the callable on each found ID
-func execute_callable_on_references_of_type(module: String, type: String, callable: Callable):
-	# Check if it contains the specified 'module' and 'type'
-	if references.has(module) and references[module].has(type):
-		# If the type exists, execute the callable on each ID found under this type
-		for ref_id in references[module][type]:
-			callable.call(ref_id)
-
 
 
 # Function to remove all instances of a skill from the item

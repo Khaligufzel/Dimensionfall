@@ -1,3 +1,113 @@
 {
-
+	"food": {
+		"items": [
+			"condensed_milk",
+			"jar_pickles",
+			"bottle_yogurt",
+			"tofu",
+			"lettuce",
+			"tomato",
+			"vacuum_sealed_fish",
+			"slice_of_pizza",
+			"bread",
+			"bag_bacon",
+			"orange",
+			"stale_bread",
+			"bottle_ketchup",
+			"jar_mustard",
+			"jar_olives",
+			"chocolate",
+			"cheese",
+			"butter",
+			"eggs",
+			"carrot",
+			"potato",
+			"apple",
+			"mushrooms_forest",
+			"berries_wild",
+			"bird_egg",
+			"uncooked_meat",
+			"kiwi",
+			"zombie_organ",
+			"zombie_eye",
+			"rotten_flesh_chunk"
+		]
+	},
+	"head_health": {
+		"items": [
+			"bottle_disinfectant",
+			"epipen",
+			"insulin",
+			"painkiller"
+		]
+	},
+	"left_arm_health": {
+		"items": [
+			"bottle_disinfectant",
+			"epipen",
+			"insulin",
+			"painkiller"
+		]
+	},
+	"left_leg_health": {
+		"items": [
+			"bottle_disinfectant",
+			"epipen",
+			"insulin",
+			"painkiller"
+		]
+	},
+	"poison": {
+		"items": [
+			"bottle_antidote",
+			"zombie_organ",
+			"zombie_eye",
+			"rotten_flesh_chunk"
+		]
+	},
+	"right_arm_health": {
+		"items": [
+			"bottle_disinfectant",
+			"epipen",
+			"insulin",
+			"painkiller"
+		]
+	},
+	"right_leg_health": {
+		"items": [
+			"bottle_disinfectant",
+			"epipen",
+			"insulin",
+			"painkiller"
+		]
+	},
+	"torso_health": {
+		"items": [
+			"bottle_disinfectant",
+			"epipen",
+			"insulin",
+			"painkiller"
+		]
+	},
+	"water": {
+		"items": [
+			"condensed_milk",
+			"jar_pickles",
+			"bottle_yogurt",
+			"lettuce",
+			"tomato",
+			"wine_bottle",
+			"orange",
+			"can_soda",
+			"can_energydrink",
+			"eggs",
+			"apple",
+			"berries_wild",
+			"bird_egg",
+			"kiwi",
+			"zombie_organ",
+			"zombie_eye",
+			"rotten_flesh_chunk"
+		]
+	}
 }
