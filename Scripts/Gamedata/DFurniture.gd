@@ -241,9 +241,24 @@ func get_sprite_path() -> String:
 # -------------------------------
 
 func on_data_changed(old_furniture: DFurniture):
+	# Existing reference updates for container, destruction, and disassembly
 	_update_references("container_group", old_furniture.function.container_group, function.container_group)
 	_update_references("destruction_group", old_furniture.destruction.group, destruction.group)
 	_update_references("disassembly_group", old_furniture.disassembly.group, disassembly.group)
+
+	# Handle crafting item references
+	var old_items = old_furniture.crafting.items
+	var current_items = crafting.items
+
+	# Remove references for items no longer in the list
+	for old_item in old_items:
+		if old_item not in current_items:
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, old_item, DMod.ContentType.FURNITURES, id)
+
+	# Add references for new items
+	for current_item in current_items:
+		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, current_item, DMod.ContentType.FURNITURES, id)
+
 
 func _update_references(reference_type: String, old_value: String, new_value: String):
 	if old_value != new_value:
@@ -257,15 +272,25 @@ func _update_references(reference_type: String, old_value: String, new_value: St
 # -------------------------------
 
 func delete():
+	# Check to see if any mod has a copy of this furniture. If one or more remain, we can keep references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.FURNITURES, id)
+	if all_results.size() > 1:
+		parent.remove_reference(id)  # Erase the reference for the ID in this mod
+		return
+
 	_remove_references("container_group", function.container_group)
 	_remove_references("destruction_group", destruction.group)
 	_remove_references("disassembly_group", disassembly.group)
 
+	# Remove item references for crafting items
+	for item in crafting.items:
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item, DMod.ContentType.FURNITURES, id)
+
 	# Remove from all referencing maps
 	for map_id in parent.references.get(id, {}).get("maps", []):
-		 # Loop over every DMap instance in every mod that has the same id as map_id
 		for map_data: DMap in Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, map_id):
 			map_data.remove_entity_from_map("furniture", id)
+
 
 func _remove_references(reference_type: String, value: String):
 	if value != "":
@@ -283,3 +308,13 @@ func remove_itemgroup(itemgroup_id: String):
 	if disassembly.group == itemgroup_id:
 		disassembly.group = ""
 	parent.save_furnitures_to_disk()
+
+# Removes an item by its ID from crafting.items and updates references
+func remove_item_from_crafting(item_id: String):
+	if item_id in crafting.items:
+		# Remove the reference
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.FURNITURES, id)
+		# Remove the item from the crafting list
+		crafting.items.erase(item_id)
+		# Save the updated furniture state
+		parent.save_furnitures_to_disk()

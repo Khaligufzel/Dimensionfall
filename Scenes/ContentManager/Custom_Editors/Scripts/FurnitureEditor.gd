@@ -565,8 +565,10 @@ func update_item_list():
 	# Clear existing items from the grid
 	Helper.free_all_children(items_grid_container)
 
+	if not dfurniture.crafting:
+		return
 	# Add items back into the grid
-	for item_id in dfurniture.items:
+	for item_id in dfurniture.crafting.items:
 		_handle_item_load(item_id)
 
 # Handles adding an item to the grid during load
