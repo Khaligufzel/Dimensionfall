@@ -242,9 +242,9 @@ func get_sprite_path() -> String:
 
 func on_data_changed(old_furniture: DFurniture):
 	# Existing reference updates for container, destruction, and disassembly
-	_update_references("container_group", old_furniture.function.container_group, function.container_group)
-	_update_references("destruction_group", old_furniture.destruction.group, destruction.group)
-	_update_references("disassembly_group", old_furniture.disassembly.group, disassembly.group)
+	_update_references(old_furniture.function.container_group, function.container_group)
+	_update_references(old_furniture.destruction.group, destruction.group)
+	_update_references(old_furniture.disassembly.group, disassembly.group)
 
 	# Handle crafting item references
 	var old_items = old_furniture.crafting.items
@@ -260,7 +260,7 @@ func on_data_changed(old_furniture: DFurniture):
 		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, current_item, DMod.ContentType.FURNITURES, id)
 
 
-func _update_references(reference_type: String, old_value: String, new_value: String):
+func _update_references(old_value: String, new_value: String):
 	if old_value != new_value:
 		if old_value != "":
 			Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, old_value, DMod.ContentType.FURNITURES, id)

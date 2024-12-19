@@ -481,7 +481,8 @@ text = "Hint"
 [node name="HintLabelLabel" type="Label" parent="VBoxContainer/TabContainer/Crafting"]
 layout_mode = 2
 text = "Configure the items that can be crafted in this furniture. This will allow the 
-furniture to act as a crafting station. Only craftable items can be added to the list."
+furniture to act as a crafting station. Only craftable items can be added to the list.
+Note: When you add an item, the furniture is automatically marked as a container."
 
 [node name="ItemsLabel" type="Label" parent="VBoxContainer/TabContainer/Crafting"]
 layout_mode = 2

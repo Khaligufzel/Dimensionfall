@@ -538,6 +538,11 @@ func _handle_item_drop(dropped_data: Dictionary) -> void:
 	items_grid_container.add_child(item_label)
 	items_grid_container.add_child(delete_button)
 
+	# Ensure the furniture is marked as a container
+	if not dfurniture.function.is_container:
+		dfurniture.function.is_container = true
+		containerCheckBox.button_pressed = true  # Reflect the change in the UI
+
 
 # Handle the deletion of an item from the items_grid_container
 func _on_delete_item_button_pressed(item_id: String) -> void:
