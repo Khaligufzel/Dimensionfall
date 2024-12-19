@@ -695,3 +695,8 @@ func remove_playerattribute(playerattribute_id: String):
 func remove_wearableslot(wearableslot_id: String):
 	if wearable and wearable.slot == wearableslot_id:
 		wearable = null
+
+# Function to check if the item is craftable
+func is_craftable() -> bool:
+	# Check if the craft property is not null and has at least one recipe
+	return craft != null and craft.recipes.size() > 0

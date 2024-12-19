@@ -473,6 +473,10 @@ func _can_item_drop(_newpos: Vector2, data: Dictionary) -> bool:
 	# Validate that the item exists in Gamedata
 	if not Gamedata.mods.by_id(data["mod_id"]).items.has_id(data["id"]):
 		return false
+	
+	var ditem: DItem = Gamedata.mods.by_id(data["mod_id"]).items.by_id(data["id"])
+	if not ditem.is_craftable():
+		return false
 
 	# Check for duplicate items in the grid container
 	for child in items_grid_container.get_children():
@@ -501,7 +505,7 @@ func _handle_item_drop(dropped_data: Dictionary) -> void:
 	# Create components for the dropped item row
 	var item_icon = TextureRect.new()
 	item_icon.texture = item_sprite
-	item_icon.custom_minimum_size = Vector2(64, 64)  # Ensure a minimum size for the icon
+	item_icon.custom_minimum_size = Vector2(32, 32)  # Ensure a minimum size for the icon
 
 	var item_label = Label.new()
 	item_label.text = item_id
