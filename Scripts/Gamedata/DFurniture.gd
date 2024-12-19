@@ -60,6 +60,7 @@ var function: Function
 var support_shape: SupportShape
 var destruction: Destruction
 var disassembly: Disassembly
+var crafting: Crafting
 var parent: DFurnitures
 
 # -------------------------------
@@ -162,6 +163,18 @@ class Disassembly:
 			result["sprite"] = sprite
 		return result
 
+# Crafting Property
+class Crafting:
+	var items: Array[String] = []
+
+	# Constructor to initialize crafting data from a dictionary
+	func _init(data: Dictionary):
+		items = data.get("items", [])
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		return {"items": items}
+
 # -------------------------------
 # Initialization
 # -------------------------------
@@ -184,6 +197,7 @@ func _initialize_properties(data: Dictionary):
 	support_shape = SupportShape.new(data.get("support_shape", {}))
 	destruction = Destruction.new(data.get("destruction", {}))
 	disassembly = Disassembly.new(data.get("disassembly", {}))
+	crafting = Crafting.new(data.get("crafting", {}))  # Initialize Crafting inner class
 
 # -------------------------------
 # Data Retrieval
@@ -213,6 +227,9 @@ func get_data() -> Dictionary:
 
 	if not disassembly.get_data().is_empty():
 		result["disassembly"] = disassembly.get_data()
+
+	if not crafting.get_data().is_empty(): # Add crafting data if it exists
+		result["crafting"] = crafting.get_data()
 
 	return result
 
