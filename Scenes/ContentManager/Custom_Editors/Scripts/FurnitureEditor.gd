@@ -97,9 +97,7 @@ func load_furniture_data():
 	if DescriptionTextEdit:
 		DescriptionTextEdit.text = dfurniture.description
 	if CategoriesList:
-		CategoriesList.clear_list()
-		for category in dfurniture.categories:
-			CategoriesList.add_item_to_list(category)
+		_update_categories()
 	if moveableCheckboxButton:
 		moveableCheckboxButton.button_pressed = dfurniture.moveable
 		_on_moveable_checkbox_toggled(dfurniture.moveable)
@@ -152,6 +150,12 @@ func load_furniture_data():
 
 	# Call the function to load the support shape data
 	load_support_shape_option()
+
+
+func _update_categories():
+		CategoriesList.clear_list()
+		for category in dfurniture.categories:
+			CategoriesList.add_item_to_list(category)
 
 
 # Function to load support shape data into the form
