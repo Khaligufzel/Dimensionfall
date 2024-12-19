@@ -169,3 +169,17 @@ func remove_skill_from_all_items(skill_id: String) -> void:
 	for item: DItem in itemdict.values():
 		item.remove_skill(skill_id)
 	save_items_to_disk()
+
+
+# Returns an array of references for the item id
+# The return value might look like this:
+#{
+#	"itemgroups": [
+#		"refridgerator",
+#		"starting_items"
+#	]
+#}
+func get_references_by_id(item_id: String) -> Dictionary:
+	if not references.has(item_id):
+		return {}
+	return references.get(item_id, {})

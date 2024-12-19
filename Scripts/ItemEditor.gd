@@ -87,8 +87,9 @@ func load_item_data() -> void:
 				 # Set button_pressed to true if contentData has the property
 				child.button_pressed = true 
 	refresh_tab_visibility()
-	# TODO: Update the reference editor to use the DMods references
-	references_editor.reference_data = {}
+
+	var myreferences: Dictionary = ditem.parent.get_references_by_id(ditem.id)
+	references_editor.reference_data = myreferences
 
 
 #The editor is closed, destroy the instance
