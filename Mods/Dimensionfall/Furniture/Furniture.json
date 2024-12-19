@@ -43,6 +43,11 @@
 			"Kitchen",
 			"Indoor"
 		],
+		"crafting": {
+			"items": [
+				"cutting_board"
+			]
+		},
 		"description": "One of the central pieces of fruniture that make up a kitchen",
 		"destruction": {
 			"group": "destroyed_furniture_medium",
@@ -64,8 +69,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 100
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -92,8 +96,7 @@
 			"radius_scale": 50,
 			"shape": "Cylinder",
 			"transparent": false
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -120,8 +123,7 @@
 			"radius_scale": 50,
 			"shape": "Cylinder",
 			"transparent": false
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -148,8 +150,7 @@
 			"radius_scale": 50,
 			"shape": "Cylinder",
 			"transparent": false
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -173,8 +174,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -216,8 +216,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -245,8 +244,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -270,8 +268,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -300,8 +297,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -324,8 +320,7 @@
 			"radius_scale": 40,
 			"shape": "Cylinder",
 			"transparent": false
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -352,8 +347,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -377,8 +371,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -406,8 +399,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -431,8 +423,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -473,8 +464,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 80
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -515,8 +505,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -540,8 +529,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 80
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -565,8 +553,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -589,8 +576,7 @@
 			"radius_scale": 20,
 			"shape": "Cylinder",
 			"transparent": false
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -614,8 +600,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 80
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -638,8 +623,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 90
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -685,8 +669,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -713,8 +696,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -760,8 +742,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 80
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -787,8 +768,7 @@
 			"shape": "Box",
 			"transparent": true,
 			"width_scale": 80
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -834,8 +814,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 90
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -858,8 +837,7 @@
 			"shape": "Box",
 			"transparent": true,
 			"width_scale": 100
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -886,8 +864,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -911,8 +888,7 @@
 			"shape": "Box",
 			"transparent": true,
 			"width_scale": 95
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -937,8 +913,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 100
-		},
-		"weight": 1
+		}
 	},
 	{
 		"categories": [
@@ -963,8 +938,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 100
-		},
-		"weight": 1
+		}
 	},
 	{
 		"Function": {
@@ -991,8 +965,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 80
-		},
-		"weight": 5
+		}
 	},
 	{
 		"Function": {
@@ -1019,8 +992,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 60
-		},
-		"weight": 2
+		}
 	},
 	{
 		"categories": [
@@ -1043,8 +1015,7 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 100
-		},
-		"weight": 8
+		}
 	},
 	{
 		"categories": [
@@ -1067,7 +1038,6 @@
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 50
-		},
-		"weight": 3
+		}
 	}
 ]

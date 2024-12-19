@@ -253,7 +253,7 @@ func _on_save_button_button_up():
 		if item_label is Label:
 			new_items.append(item_label.text)
 
-	dfurniture.items = new_items  # Update furniture's item list with IDs
+	dfurniture.crafting.items = new_items  # Update furniture's item list with IDs
 
 	dfurniture.on_data_changed(olddata)
 	data_changed.emit()
@@ -569,24 +569,4 @@ func update_item_list():
 		return
 	# Add items back into the grid
 	for item_id in dfurniture.crafting.items:
-		_handle_item_load(item_id)
-
-# Handles adding an item to the grid during load
-func _handle_item_load(item_id: String) -> void:
-	var item_sprite = Gamedata.mods.get_content_by_id(DMod.ContentType.ITEMS, item_id).sprite
-
-	var item_icon = TextureRect.new()
-	item_icon.texture = item_sprite
-	item_icon.custom_minimum_size = Vector2(32, 32)
-
-	var item_label = Label.new()
-	item_label.text = item_id
-
-	var delete_button = Button.new()
-	delete_button.text = "X"
-	delete_button.tooltip_text = "Remove this item"
-	delete_button.button_up.connect(_on_delete_item_button_pressed.bind(item_id))
-
-	items_grid_container.add_child(item_icon)
-	items_grid_container.add_child(item_label)
-	items_grid_container.add_child(delete_button)
+		_handle_item_drop({"id":item_id})

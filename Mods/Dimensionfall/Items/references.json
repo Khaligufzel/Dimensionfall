@@ -253,6 +253,11 @@
 			"quest_holy_crusade_01"
 		]
 	},
+	"cutting_board": {
+		"furnitures": [
+			"countertop_wood"
+		]
+	},
 	"damaged_concrete_slab": {
 		"itemgroups": [
 			"debris_urban"
