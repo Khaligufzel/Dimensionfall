@@ -150,6 +150,7 @@ func load_furniture_data():
 
 	# Call the function to load the support shape data
 	load_support_shape_option()
+	update_item_list()
 
 
 func _update_categories():
@@ -241,6 +242,19 @@ func _on_save_button_button_up():
 	handle_container_option()
 	handle_destruction_option()
 	handle_disassembly_option()
+
+	# Collect item IDs from the grid container
+	var new_items: Array[String] = []
+	var num_children = items_grid_container.get_child_count()
+	var num_columns = items_grid_container.columns
+
+	for i in range(0, num_children, num_columns):
+		var item_label = items_grid_container.get_child(i + 1)  # Second child is the label with item ID
+		if item_label is Label:
+			new_items.append(item_label.text)
+
+	dfurniture.items = new_items  # Update furniture's item list with IDs
+
 	dfurniture.on_data_changed(olddata)
 	data_changed.emit()
 	olddata = DFurniture.new(dfurniture.get_data().duplicate(true), null)
@@ -544,3 +558,33 @@ func _on_delete_item_button_pressed(item_id: String) -> void:
 	for child in children_to_remove:
 		items_grid_container.remove_child(child)
 		child.queue_free()
+
+
+# Refreshes the items list in the grid container
+func update_item_list():
+	# Clear existing items from the grid
+	Helper.free_all_children(items_grid_container)
+
+	# Add items back into the grid
+	for item_id in dfurniture.items:
+		_handle_item_load(item_id)
+
+# Handles adding an item to the grid during load
+func _handle_item_load(item_id: String) -> void:
+	var item_sprite = Gamedata.mods.get_content_by_id(DMod.ContentType.ITEMS, item_id).sprite
+
+	var item_icon = TextureRect.new()
+	item_icon.texture = item_sprite
+	item_icon.custom_minimum_size = Vector2(32, 32)
+
+	var item_label = Label.new()
+	item_label.text = item_id
+
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.tooltip_text = "Remove this item"
+	delete_button.button_up.connect(_on_delete_item_button_pressed.bind(item_id))
+
+	items_grid_container.add_child(item_icon)
+	items_grid_container.add_child(item_label)
+	items_grid_container.add_child(delete_button)
