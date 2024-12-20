@@ -175,6 +175,22 @@ class FurnitureContainer:
 		material = Runtimedata.items.get_shader_material_by_id(item_id)
 		sprite_mesh.material = material  # Update the mesh material
 
+	# Takes an item_id and quantity and adds it to the inventory
+	func add_item_to_inventory(item_id: String, quantity: int):
+		# Fetch the individual item data for verification
+		var ritem: RItem = Runtimedata.items.by_id(item_id)
+		# Check if the item data is valid before adding
+		if ritem and quantity > 0:
+			while quantity > 0:
+				# Calculate the stack size for this iteration, limited by max_stack_size
+				var stack_size = min(quantity, ritem.max_stack_size)
+				# Create and add the item to the inventory
+				var item = inventory.create_and_add_item(item_id)
+				# Set the item stack size
+				InventoryStacked.set_item_stack_size(item, stack_size)
+				# Decrease the remaining quantity
+				quantity -= stack_size
+
 
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
@@ -651,7 +667,7 @@ func _add_items_to_inventory_collection_mode(items: Array[RItemgroup.Item]) -> b
 			item_added = true # An item is about to be added
 			# Determine quantity to add based on min and max
 			var quantity = randi_range(item_object.minc, item_object.maxc)
-			_add_item_to_inventory(item_id, quantity)
+			container.add_item_to_inventory(item_id, quantity)
 	return item_added
 
 
@@ -673,27 +689,10 @@ func _add_items_to_inventory_distribution_mode(items: Array[RItemgroup.Item]) ->
 		if random_value < cumulative_probability:
 			var item_id = item_object.id
 			var quantity = randi_range(item_object.minc, item_object.maxc)
-			_add_item_to_inventory(item_id, quantity)
+			container.add_item_to_inventory(item_id, quantity)
 			return true  # One item is added, return immediately
 
 	return false  # In case no item is added, though this is highly unlikely
-
-
-# Takes an item_id and quantity and adds it to the inventory
-func _add_item_to_inventory(item_id: String, quantity: int):
-	# Fetch the individual item data for verification
-	var ritem: RItem = Runtimedata.items.by_id(item_id)
-	# Check if the item data is valid before adding
-	if ritem and quantity > 0:
-		while quantity > 0:
-			# Calculate the stack size for this iteration, limited by max_stack_size
-			var stack_size = min(quantity, ritem.max_stack_size)
-			# Create and add the item to the inventory
-			var item = container.get_inventory().create_and_add_item(item_id)
-			# Set the item stack size
-			InventoryStacked.set_item_stack_size(item, stack_size)
-			# Decrease the remaining quantity
-			quantity -= stack_size
 
 
 # Signal handler for item removed
