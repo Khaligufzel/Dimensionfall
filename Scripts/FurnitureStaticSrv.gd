@@ -32,6 +32,7 @@ var door_state: String = "Closed"  # Default state
 
 # Variables to manage the container if this furniture is a container
 var container: FurnitureContainer
+var crafting_container: CraftingContainer
 
 # Variables to manage health and damage
 var current_health: float = 100.0  # Default health
@@ -365,6 +366,40 @@ class FurnitureContainer:
 		return container_data
 
 
+class CraftingContainer:
+	var inventory: InventoryStacked
+
+	func _init():
+		_initialize_inventory()
+
+	# Initializes the inventory with default capacity and item prototypes
+	func _initialize_inventory():
+		inventory = InventoryStacked.new()
+		inventory.capacity = 500  # Adjust capacity as needed for crafting
+		inventory.item_protoset = ItemManager.item_protosets
+
+	# Retrieves the inventory instance
+	func get_inventory() -> InventoryStacked:
+		return inventory
+
+	# Serializes the inventory data for saving
+	func serialize() -> Dictionary:
+		var crafting_data: Dictionary = {}
+		var inventory_data = inventory.serialize()
+
+		# Include inventory data only if it contains items
+		if not inventory_data.is_empty():
+			crafting_data["items"] = inventory_data
+
+		return crafting_data
+
+	# Deserializes and restores the inventory from saved data
+	func deserialize(data: Dictionary):
+		if data.has("items"):
+			inventory.deserialize(data["items"])
+
+
+
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
 	furniture_position = furniturepos
@@ -395,6 +430,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	create_sprite_instance()
 	update_door_visuals()  # Set initial door visuals based on its state
 	add_container()  # Adds container if the furniture is a container
+	add_crafting_container() # Adds crafting container if the furniture is a crafting station
 
 
 # If this furniture is a container, it will add a container node to the furniture.
@@ -413,6 +449,11 @@ func add_container():
 
 func is_container() -> bool:
 	return rfurniture.function.is_container
+
+# Wether or not this furniture is a crafting station.
+# Returns true if it is a container and has crafting recipes (items)
+func is_crafting_station() -> bool:
+	return is_container() and rfurniture.crafting.get_items().size() > 0
 
 
 # Function to calculate the size of the furniture
@@ -695,6 +736,12 @@ func get_data() -> Dictionary:
 			newfurniturejson["Function"] = {}
 		newfurniturejson["Function"]["container"] = container.serialize()
 
+	# Crafting container functionality
+	if crafting_container:
+		if "Function" not in newfurniturejson:
+			newfurniturejson["Function"] = {}
+		newfurniturejson["Function"]["crafting_container"] = crafting_container.serialize()
+
 	return newfurniturejson
 
 
@@ -811,3 +858,11 @@ func show_miss_indicator():
 func regenerate():
 	if container:
 		container.regenerate()
+
+func add_crafting_container():
+	if is_crafting_station():
+		crafting_container = CraftingContainer.new()
+
+func deserialize_crafting_container(data: Dictionary):
+	if crafting_container:
+		crafting_container.deserialize(data.get("crafting_container", {}))
