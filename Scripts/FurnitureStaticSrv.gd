@@ -412,8 +412,14 @@ class CraftingContainer:
 			inventory.deserialize(data["items"])
 		if data.has("crafting_queue"):
 			crafting_queue = data["crafting_queue"]
-
-
+	
+	# Transfers all items to the given FurnitureContainer
+	func transfer_all_items_to_furniture(furniture_container: Object) -> void:
+		# Transfer items from crafting container to furniture container
+		var items = inventory.get_items()
+		var furniture_inventory = furniture_container.get_inventory()
+		for item in items:
+			inventory.transfer_automerge(item, furniture_inventory)
 
 
 # Function to initialize the furniture object
@@ -881,3 +887,60 @@ func add_crafting_container():
 func deserialize_crafting_container(data: Dictionary):
 	if crafting_container:
 		crafting_container.deserialize(data.get("crafting_container", {}))
+
+
+# Function to transfer an item between containers dynamically
+func transfer_item_between_containers(source_container: Object, item_id: String, quantity: int) -> bool:
+	# Determine source and target inventories based on the source container type
+	var source_inventory: InventoryStacked
+	var target_inventory: InventoryStacked
+
+	if source_container is FurnitureContainer and crafting_container:
+		source_inventory = source_container.get_inventory()
+		target_inventory = crafting_container.get_inventory()
+	elif source_container is CraftingContainer and container:
+		source_inventory = source_container.get_inventory()
+		target_inventory = container.get_inventory()
+	else:
+		return false  # Either containers are not initialized or type is invalid
+
+	# Get the items from the source inventory
+	var items = source_inventory.get_items_by_id(item_id)
+	if items.is_empty():
+		return false  # Item not found in source
+
+	# Transfer the items
+	for item in items:
+		var stack_size = InventoryStacked.get_item_stack_size(item)
+		if stack_size > quantity:
+			# Split the stack and transfer only the required quantity
+			var split_item = source_inventory.split(item, quantity)
+			return target_inventory.transfer_autosplitmerge(split_item, target_inventory)
+		else:
+			# Transfer the whole stack
+			if target_inventory.transfer_autosplitmerge(item, target_inventory):
+				quantity -= stack_size  # Adjust the remaining quantity to transfer
+				if quantity <= 0:
+					return true
+	return false
+
+
+# Function to check for the presence of an item in a container
+func has_item_in_container(container: Object, item_id: String) -> bool:
+	if container and container.has_method("get_inventory"):
+		var target_inventory = container.get_inventory()
+		return target_inventory.has_item_by_id(item_id) if target_inventory else false
+	return false
+
+
+# Function to count the amount of an item in a container
+func get_item_count_in_container(container: Object, item_id: String) -> int:
+	if container and container.has_method("get_inventory"):
+		var target_inventory = container.get_inventory()
+		if target_inventory:
+			var items = target_inventory.get_items_by_id(item_id)
+			var total_count = 0
+			for item in items:
+				total_count += InventoryStacked.get_item_stack_size(item)
+			return total_count
+	return 0
