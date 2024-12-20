@@ -139,6 +139,17 @@ class Disassembly:
 			disassemblydata["sprite"] = sprite
 		return disassemblydata
 
+# Crafting Property
+class Crafting:
+	var items: Array = []
+
+	# Constructor to initialize crafting data from a dictionary
+	func _init(data: Dictionary):
+		items = data.get("items", [])
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		return {"items": items} if items.size() > 0 else {}
 
 # Properties defined in the furniture
 var id: String
@@ -153,6 +164,7 @@ var function: Function
 var support_shape: SupportShape
 var destruction: Destruction
 var disassembly: Disassembly
+var crafting: Crafting
 var sprite: Texture
 var parent: RFurnitures  # Reference to the list containing all runtime furnitures for this mod
 
@@ -179,6 +191,7 @@ func overwrite_from_dfurniture(dfurniture: DFurniture) -> void:
 	support_shape = SupportShape.new(dfurniture.support_shape.get_data())
 	destruction = Destruction.new(dfurniture.destruction.get_data())
 	disassembly = Disassembly.new(dfurniture.disassembly.get_data())
+	crafting = Crafting.new(dfurniture.crafting.get_data())
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -210,5 +223,9 @@ func get_data() -> Dictionary:
 	var disassemblydata: Dictionary = disassembly.get_data()
 	if not disassemblydata.is_empty():
 		data["disassembly"] = disassemblydata
+
+	var craftingdata: Dictionary = crafting.get_data()
+	if not craftingdata.is_empty():
+		data["crafting"] = craftingdata
 
 	return data
