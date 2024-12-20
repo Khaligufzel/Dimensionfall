@@ -132,7 +132,7 @@ func get_items_by_type(item_type: String) -> Array[DItem]:
 	return filtered_items
 
 
-# Removes the reference from the selected itemgroup
+# Removes the reference of the selected item
 func remove_reference(itemid: String):
 	references.erase(itemid)
 	Gamedata.mods.save_references(self)

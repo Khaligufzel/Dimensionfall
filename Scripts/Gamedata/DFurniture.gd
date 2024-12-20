@@ -42,6 +42,9 @@ extends RefCounted
 #		"weight": 1
 #	}
 
+# Constants for defaults
+const DEFAULT_CONTAINER_REGEN = -1.0
+const DEFAULT_COLOR = "ffffffff"
 
 # This class represents a piece of furniture with its properties
 var id: String
@@ -57,53 +60,54 @@ var function: Function
 var support_shape: SupportShape
 var destruction: Destruction
 var disassembly: Disassembly
+var crafting: Crafting
 var parent: DFurnitures
 
+# -------------------------------
+# Inner Classes for Nested Data
+# -------------------------------
 
-# Inner class to handle the Function property
+# Function Property
 class Function:
-	var door: String  # Can be "None", "Open" or "Closed"
-	var is_container: bool
-	var container_group: String
-	var container_regeneration_time: float  # Time in days for container regeneration (-1.0 if it doesn't regenerate)
+	var door: String = "None"  # Can be "None", "Open" or "Closed"
+	var is_container: bool = false
+	var container_group: String = ""
+	var container_regeneration_time: float = DEFAULT_CONTAINER_REGEN   # Time in days for container regeneration (-1.0 if it doesn't regenerate)
 
-	# Constructor to initialize function properties from a dictionary
 	func _init(data: Dictionary):
 		door = data.get("door", "None")
 		is_container = data.get("is_container", false)
 		container_group = data.get("container_group", "")
-		container_regeneration_time = data.get("container_regeneration_time", -1.0)  # Default to -1.0
+		container_regeneration_time = data.get("container_regeneration_time", DEFAULT_CONTAINER_REGEN)
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		var functiondata: Dictionary = {}
+		var result = {}
 		if is_container:
-			functiondata["is_container"] = is_container
-			if not container_group == "":
-				functiondata["container_group"] = container_group
-			if container_regeneration_time != -1:  # Only include if not the default
-				functiondata["container_regeneration_time"] = container_regeneration_time
-		if not door == "None":
-			functiondata["door"] = door
-		return functiondata  # Potentially return an empty dictionary
+			result["is_container"] = is_container
+			if container_group != "":
+				result["container_group"] = container_group
+			if container_regeneration_time != DEFAULT_CONTAINER_REGEN:
+				result["container_regeneration_time"] = container_regeneration_time
+		if door != "None":
+			result["door"] = door
+		return result # Potentially return an empty dictionary
 
-
-# Inner class to handle the Support Shape property
+# Support Shape Property
 class SupportShape:
-	var color: String
-	var depth_scale: float
-	var height: float
-	var shape: String
-	var transparent: bool
-	var width_scale: float
-	var radius_scale: float
+	var color: String = DEFAULT_COLOR
+	var depth_scale: float = 100.0
+	var height: float = 0.5
+	var shape: String = "Box"
+	var transparent: bool = false
+	var width_scale: float = 100.0
+	var radius_scale: float = 100.0
 
-	# Constructor to initialize support shape properties from a dictionary
 	func _init(data: Dictionary):
 		set_data(data)
 
 	func set_data(data: Dictionary):
-		color = data.get("color", "ffffffff")
+		color = data.get("color", DEFAULT_COLOR)
 		depth_scale = data.get("depth_scale", 100.0)
 		height = data.get("height", 0.5)
 		shape = data.get("shape", "Box")
@@ -111,67 +115,76 @@ class SupportShape:
 		width_scale = data.get("width_scale", 100.0)
 		radius_scale = data.get("radius_scale", 100.0)
 
-	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		var shapedata: Dictionary = {
+		var result = {
 			"color": color,
 			"height": height,
 			"shape": shape,
 			"transparent": transparent
 		}
 		if shape == "Box":
-			shapedata["width_scale"] = width_scale
-			shapedata["depth_scale"] = depth_scale
+			result["width_scale"] = width_scale
+			result["depth_scale"] = depth_scale
 		elif shape == "Cylinder":
-			shapedata["radius_scale"] = radius_scale
-		return shapedata
+			result["radius_scale"] = radius_scale
+		return result
 
-
-# Inner class to handle the Destruction property
+# Destruction Property
 class Destruction:
-	var group: String
-	var sprite: String
+	var group: String = ""
+	var sprite: String = ""
 
-	# Constructor to initialize destruction properties from a dictionary
 	func _init(data: Dictionary):
 		group = data.get("group", "")
 		sprite = data.get("sprite", "")
 
-	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		var destructiondata: Dictionary = {}
-		if not group == "":
-			destructiondata["group"] = group
-		if not sprite == "":
-			destructiondata["sprite"] = sprite
-		return destructiondata # Potentially return an empty dictionary
+		var result = {}
+		if group != "":
+			result["group"] = group
+		if sprite != "":
+			result["sprite"] = sprite
+		return result
 
-
-# Inner class to handle the Disassembly property
+# Disassembly Property
 class Disassembly:
-	var group: String
-	var sprite: String
+	var group: String = ""
+	var sprite: String = ""
 
-	# Constructor to initialize disassembly properties from a dictionary
 	func _init(data: Dictionary):
 		group = data.get("group", "")
 		sprite = data.get("sprite", "")
 
+	func get_data() -> Dictionary:
+		var result = {}
+		if group != "":
+			result["group"] = group
+		if sprite != "":
+			result["sprite"] = sprite
+		return result
+
+# Crafting Property
+class Crafting:
+	var items: Array = []
+
+	# Constructor to initialize crafting data from a dictionary
+	func _init(data: Dictionary):
+		items = data.get("items", [])
+
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
-		var disassemblydata: Dictionary = {}
-		if not group == "":
-			disassemblydata["group"] = group
-		if not sprite == "":
-			disassemblydata["sprite"] = sprite
-		return disassemblydata # Potentially return an empty dictionary
+		return {"items": items} if items.size() > 0 else {}
 
+# -------------------------------
+# Initialization
+# -------------------------------
 
-# Constructor to initialize itemgroup properties from a dictionary
-# myparent: The list containing all itemgroups for this mod
 func _init(data: Dictionary, myparent: DFurnitures):
 	parent = myparent
-	id = data.get("id", 0)
+	_initialize_properties(data)
+
+func _initialize_properties(data: Dictionary):
+	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
 	categories = data.get("categories", [])
@@ -179,98 +192,115 @@ func _init(data: Dictionary, myparent: DFurnitures):
 	weight = data.get("weight", 1.0)
 	edgesnapping = data.get("edgesnapping", "")
 	spriteid = data.get("sprite", "")
-	function = Function.new(data.get("Function", {}))  # Initialize Function inner class
-	support_shape = SupportShape.new(data.get("support_shape", {}))  # Initialize SupportShape inner class
-	destruction = Destruction.new(data.get("destruction", {}))  # Initialize Destruction inner class
-	disassembly = Disassembly.new(data.get("disassembly", {}))  # Initialize Disassembly inner class
+	sprite = null  # Sprite is loaded lazily if required
+	function = Function.new(data.get("Function", {}))
+	support_shape = SupportShape.new(data.get("support_shape", {}))
+	destruction = Destruction.new(data.get("destruction", {}))
+	disassembly = Disassembly.new(data.get("disassembly", {}))
+	crafting = Crafting.new(data.get("crafting", {}))  # Initialize Crafting inner class
 
+# -------------------------------
+# Data Retrieval
+# -------------------------------
 
-# Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
-	var data: Dictionary = {
+	var result = {
 		"id": id,
 		"name": name,
 		"description": description,
 		"categories": categories,
 		"moveable": moveable,
-		"weight": weight,
 		"edgesnapping": edgesnapping,
 		"sprite": spriteid
 	}
 	# Save the weight only if moveable true, otherwise erase it.
 	if moveable:
-		data["weight"] = weight
+		result["weight"] = weight
 	else: # Support shape only applies to static furniture
-		data["support_shape"] = support_shape.get_data()
-		
-	var functiondata: Dictionary = function.get_data()
-	if not functiondata.is_empty():
-		data["Function"] = functiondata
-		
-	var destructiondata: Dictionary = destruction.get_data()
-	if not destructiondata.is_empty():
-		data["destruction"] = destructiondata
-		
-	var disassemblydata: Dictionary = disassembly.get_data()
-	if not disassemblydata.is_empty():
-		data["disassembly"] = disassemblydata
-	return data
+		result["support_shape"] = support_shape.get_data()
 
+	if not function.get_data().is_empty():
+		result["Function"] = function.get_data()
 
-# Returns the path of the sprite
+	if not destruction.get_data().is_empty():
+		result["destruction"] = destruction.get_data()
+
+	if not disassembly.get_data().is_empty():
+		result["disassembly"] = disassembly.get_data()
+
+	if not crafting.get_data().is_empty(): # Add crafting data if it exists
+		result["crafting"] = crafting.get_data()
+
+	return result
+
 func get_sprite_path() -> String:
 	return parent.spritePath + spriteid
 
+# -------------------------------
+# Change Handlers
+# -------------------------------
 
-# Handles furniture changes and updates references if necessary
-func on_data_changed(olddfurniture: DFurniture):
-	var old_container_group = olddfurniture.function.container_group
-	var new_container_group = function.container_group
-	var old_destruction_group = olddfurniture.destruction.group
-	var old_disassembly_group = olddfurniture.disassembly.group
+func on_data_changed(old_furniture: DFurniture):
+	# Existing reference updates for container, destruction, and disassembly
+	_update_references(old_furniture.function.container_group, function.container_group)
+	_update_references(old_furniture.destruction.group, destruction.group)
+	_update_references(old_furniture.disassembly.group, disassembly.group)
 
-	if not old_container_group == new_container_group:
-		# Remove from old group if necessary
-		if old_container_group != "":
-			Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, old_container_group, DMod.ContentType.FURNITURES, id)
-		if new_container_group != "":
-			Gamedata.mods.add_reference(DMod.ContentType.ITEMGROUPS, new_container_group, DMod.ContentType.FURNITURES, id)
-		
-	if not old_destruction_group == destruction.group:
-		# Remove from old group if necessary
-		if old_destruction_group != "":
-			Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, old_destruction_group, DMod.ContentType.FURNITURES, id)
-		if destruction.group != "":
-			Gamedata.mods.add_reference(DMod.ContentType.ITEMGROUPS, destruction.group, DMod.ContentType.FURNITURES, id)
-		
-	if not old_disassembly_group == disassembly.group:
-		# Remove from old group if necessary
-		if old_disassembly_group != "":
-			Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, old_disassembly_group, DMod.ContentType.FURNITURES, id)
-		if disassembly.group != "":
-			Gamedata.mods.add_reference(DMod.ContentType.ITEMGROUPS, disassembly.group, DMod.ContentType.FURNITURES, id)
+	# Handle crafting item references
+	var old_items = old_furniture.crafting.items
+	var current_items = crafting.items
+
+	# Remove references for items no longer in the list
+	for old_item in old_items:
+		if old_item not in current_items:
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, old_item, DMod.ContentType.FURNITURES, id)
+
+	# Add references for new items
+	for current_item in current_items:
+		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, current_item, DMod.ContentType.FURNITURES, id)
 
 
-# Some furniture is being deleted from the data
-# We have to remove it from everything that references it
+func _update_references(old_value: String, new_value: String):
+	if old_value != new_value:
+		if old_value != "":
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, old_value, DMod.ContentType.FURNITURES, id)
+		if new_value != "":
+			Gamedata.mods.add_reference(DMod.ContentType.ITEMGROUPS, new_value, DMod.ContentType.FURNITURES, id)
+
+# -------------------------------
+# Deletion and Cleanup
+# -------------------------------
+
 func delete():
-	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, function.container_group, DMod.ContentType.FURNITURES, id)
-	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, destruction.group, DMod.ContentType.FURNITURES, id)
-	Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, disassembly.group, DMod.ContentType.FURNITURES, id)
-	
-	# Get a list of all maps that reference this mob
-	var myreferences: Dictionary = parent.references.get(id, {})
-	var mapsdata: Array = myreferences.get("maps", [])
-	
-	# Remove references to maps
-	for mymap: String in mapsdata:
-		var mymaps: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, mymap)
-		for dmap: DMap in mymaps: # Loop over every DMap instance in every mod that has the same id as mymap
-			dmap.remove_entity_from_map("furniture", id)
+	# Check to see if any mod has a copy of this furniture. If one or more remain, we can keep references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.FURNITURES, id)
+	if all_results.size() > 1:
+		parent.remove_reference(id)  # Erase the reference for the ID in this mod
+		return
+
+	_remove_references("container_group", function.container_group)
+	_remove_references("destruction_group", destruction.group)
+	_remove_references("disassembly_group", disassembly.group)
+
+	# Remove item references for crafting items
+	for item in crafting.items:
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item, DMod.ContentType.FURNITURES, id)
+
+	# Remove from all referencing maps
+	for map_id in parent.references.get(id, {}).get("maps", []):
+		for map_data: DMap in Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, map_id):
+			map_data.remove_entity_from_map("furniture", id)
 
 
-# Removes any instance of an itemgroup from the furniture
-func remove_itemgroup(itemgroup_id: String) -> void:
+func _remove_references(reference_type: String, value: String):
+	if value != "":
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, value, DMod.ContentType.FURNITURES, id)
+
+# -------------------------------
+# Utility Functions
+# -------------------------------
+
+func remove_itemgroup(itemgroup_id: String):
 	if function.container_group == itemgroup_id:
 		function.container_group = ""
 	if destruction.group == itemgroup_id:
@@ -278,3 +308,13 @@ func remove_itemgroup(itemgroup_id: String) -> void:
 	if disassembly.group == itemgroup_id:
 		disassembly.group = ""
 	parent.save_furnitures_to_disk()
+
+# Removes an item by its ID from crafting.items and updates references
+func remove_item_from_crafting(item_id: String):
+	if item_id in crafting.items:
+		# Remove the reference
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.FURNITURES, id)
+		# Remove the item from the crafting list
+		crafting.items.erase(item_id)
+		# Save the updated furniture state
+		parent.save_furnitures_to_disk()

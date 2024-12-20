@@ -5,6 +5,11 @@ extends RefCounted
 # This script is intended to be used inside the GameData autoload singleton
 # This script handles the data for one item. You can access it through Gamedata.mods.by_id("Core").items
 
+# Constants for default values
+const DEFAULT_WEIGHT = 1.0
+const DEFAULT_VOLUME = 1.0
+const DEFAULT_STACK_SIZE = 1
+
 # This class represents a piece of item with its properties
 var id: String
 var name: String
@@ -378,59 +383,42 @@ class Wearable:
 
 # Constructor to initialize item properties from a dictionary
 # myparent: The list containing all items for this mod
-func _init(data: Dictionary, myparent: DItems):
-	parent = myparent
+func _init(data: Dictionary, parent_container: DItems):
+	parent = parent_container
+	_initialize_general_properties(data)
+	_initialize_specialized_properties(data)
+
+
+# --- Initialization Functions ---
+# Initialize general item properties from data
+func _initialize_general_properties(data: Dictionary) -> void:
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
-	weight = data.get("weight", 1.0)
-	volume = data.get("volume", 1.0)
+	weight = data.get("weight", DEFAULT_WEIGHT)
+	volume = data.get("volume", DEFAULT_VOLUME)
 	spriteid = data.get("sprite", "")
 	image = data.get("image", "")
-	stack_size = data.get("stack_size", 1)
-	max_stack_size = data.get("max_stack_size", 1)
+	stack_size = data.get("stack_size", DEFAULT_STACK_SIZE)
+	max_stack_size = data.get("max_stack_size", DEFAULT_STACK_SIZE)
 	two_handed = data.get("two_handed", false)
 
-	# Initialize Craft and Magazine subclasses if they exist in data
-	if data.has("Craft"):
-		craft = Craft.new(data["Craft"])
-	else:
-		craft = null
 
-	if data.has("Magazine"):
-		magazine = Magazine.new(data["Magazine"])
-	else:
-		magazine = null
+# Initialize specialized item properties
+func _initialize_specialized_properties(data: Dictionary) -> void:
+	craft = _initialize_subclass(data, "Craft", Craft)
+	magazine = _initialize_subclass(data, "Magazine", Magazine)
+	ranged = _initialize_subclass(data, "Ranged", Ranged)
+	melee = _initialize_subclass(data, "Melee", Melee)
+	food = _initialize_subclass(data, "Food", Food)
+	medical = _initialize_subclass(data, "Medical", Medical)
+	ammo = _initialize_subclass(data, "Ammo", Ammo)
+	wearable = _initialize_subclass(data, "Wearable", Wearable)
 
-	if data.has("Ranged"):
-		ranged = Ranged.new(data["Ranged"])
-	else:
-		ranged = null
 
-	if data.has("Melee"):
-		melee = Melee.new(data["Melee"])
-	else:
-		melee = null
-
-	if data.has("Food"):
-		food = Food.new(data["Food"])
-	else:
-		food = null
-
-	if data.has("Medical"):
-		medical = Medical.new(data["Medical"])
-	else:
-		medical = null
-
-	if data.has("Ammo"):
-		ammo = Ammo.new(data["Ammo"])
-	else:
-		ammo = null
-
-	if data.has("Wearable"):
-		wearable = Wearable.new(data["Wearable"])
-	else:
-		wearable = null
+# Helper to initialize a subclass if data is present
+func _initialize_subclass(data: Dictionary, key: String, cls: Object) -> Object:
+	return cls.new(data[key]) if data.has(key) else null
 
 
 # Get data function to return a dictionary with all properties
@@ -644,6 +632,7 @@ func delete():
 		mod.itemgroups.remove_item_by_id(id)
 		mod.items.remove_item_from_all_recipes(id)
 		mod.quests.remove_item_from_all_quests(id)
+		mod.furnitures.remove_item_from_all_furniture(id)
 	
 	if food and not food.attributes.is_empty():
 		for food_attribute in food.attributes:
@@ -707,3 +696,8 @@ func remove_playerattribute(playerattribute_id: String):
 func remove_wearableslot(wearableslot_id: String):
 	if wearable and wearable.slot == wearableslot_id:
 		wearable = null
+
+# Function to check if the item is craftable
+func is_craftable() -> bool:
+	# Check if the craft property is not null and has at least one recipe
+	return craft != null and craft.recipes.size() > 0

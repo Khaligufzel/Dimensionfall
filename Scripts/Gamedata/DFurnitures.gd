@@ -128,3 +128,16 @@ func is_moveable(id: String) -> bool:
 func remove_itemgroup_from_all_furniture(itemgroup_id: String):
 	for furniture in furnituredict.values():
 		furniture.remove_itemgroup(itemgroup_id)
+
+
+# Remove the provided item from all furniture
+# This will erase it from crating.items
+func remove_item_from_all_furniture(item_id: String):
+	for furniture in furnituredict.values():
+		furniture.remove_item_from_crafting(item_id)
+
+
+# Removes the reference of the selected furniture
+func remove_reference(furniture_id: String):
+	references.erase(furniture_id)
+	Gamedata.mods.save_references(self)
