@@ -347,6 +347,15 @@ class FurnitureContainer:
 			return myitemgroup
 		return ""
 
+	# Deserialize container data if available
+	func deserialize_container_data(container_json: Dictionary):
+		if not container_json.has("Function"):
+			return
+		if not container_json.Function.has("container"):
+			return
+		if "items" in container_json["Function"]["container"]:
+			inventory.deserialize(container_json["Function"]["container"]["items"])
+
 
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
@@ -703,13 +712,7 @@ func get_data() -> Dictionary:
 
 # It will deserialize the container data if the furniture is not new.
 func deserialize_container_data():
-	if "items" in furnitureJSON["Function"]["container"]:
-		deserialize_and_apply_items(furnitureJSON["Function"]["container"]["items"])
-
-
-# Function to deserialize inventory and apply the correct sprite
-func deserialize_and_apply_items(items_data: Dictionary):
-	container.get_inventory().deserialize(items_data)
+	container.deserialize_container_data(furnitureJSON)
 
 
 # When the furniture is destroyed, it leaves a wreck behind
