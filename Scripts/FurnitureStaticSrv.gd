@@ -126,6 +126,10 @@ class FurnitureContainer:
 	var furniture_transform: FurnitureTransform
 	var world3d: World3D
 
+	# Regeneration-related variables
+	var regeneration_interval: float = -1.0  # Default to -1 (no regeneration)
+	var last_time_checked: float = 0.0  # Tracks the last time regeneration was checked
+
 	func _init(parent_furniture: FurnitureStaticSrv):
 		furniture_transform = parent_furniture.furniture_transform
 		world3d = parent_furniture.myworld3d
@@ -222,7 +226,6 @@ class FurnitureContainer:
 				add_item_to_inventory(item_id, quantity)
 		return item_added
 
-
 	# Takes a list of items and adds one to the inventory based on probabilities in Distribution mode.
 	func _add_items_to_inventory_distribution_mode(items: Array[RItemgroup.Item]) -> bool:
 		var total_probability = 0
@@ -265,6 +268,39 @@ class FurnitureContainer:
 
 		# Update container visuals
 		set_random_inventory_item_texture()
+
+	func check_regeneration_functionality(furnitureJSON: Dictionary, rfurniture: RFurniture, is_new_furniture: bool):
+		if not rfurniture.function:
+			return
+		if rfurniture.function.container_regeneration_time:
+			regeneration_interval = rfurniture.function.container_regeneration_time
+
+		if not is_new_furniture:
+			# Ensure the last_time_checked and itemgroup are properly set
+			if furnitureJSON.has("Function") and furnitureJSON["Function"].has("container"):
+				if furnitureJSON.Function.container.has("container_last_time_checked"):
+					last_time_checked = furnitureJSON.Function.container.container_last_time_checked
+				if furnitureJSON.Function.container.has("container_itemgroup"):
+					itemgroup = furnitureJSON.Function.container.container_itemgroup
+			else:
+				last_time_checked = 0.0  # Default if not found in saved data
+
+	func regenerate():
+		# Check if the container regenerates
+		if regeneration_interval <= -1:
+			return
+
+		# Get the total days passed and calculate the days since last check
+		var total_days_passed: float = Helper.time_helper.get_days_since_start()
+		var days_passed: float = total_days_passed - last_time_checked
+
+		# Check if enough days have passed to regenerate
+		if days_passed >= regeneration_interval:
+			# Update the last time checked
+			last_time_checked = total_days_passed
+
+			# Regenerate items
+			_reset_inventory_and_regenerate_items()
 
 
 # Function to initialize the furniture object
@@ -543,23 +579,10 @@ func check_door_functionality():
 		door_state = "Closed"  # Default if not found in saved data
 
 
-# Function to check if this furniture acts as a door
+# Function to check if this furniture's container regenerates
 func check_regeneration_functionality():
-	if not rfurniture.function:
-		return
-	if not rfurniture.function.container_regeneration_time:
-		return
-	regeneration_interval = rfurniture.function.container_regeneration_time
-	
-	if not is_new_furniture():
-		# Ensure the door_state is properly set
-		if furnitureJSON.has("Function") and furnitureJSON["Function"].has("container"):
-			if furnitureJSON.Function.container.has("container_last_time_checked"):
-				last_time_checked = furnitureJSON.Function.container.container_last_time_checked
-			if furnitureJSON.Function.container.has("container_itemgroup"):
-				container.itemgroup = furnitureJSON.Function.container.container_itemgroup
-		else:
-			last_time_checked = 0.0  # Default if not found in saved data
+	if container:
+		container.check_regeneration_functionality(furnitureJSON, rfurniture, is_new_furniture())
 
 
 # Function to interact with the furniture (e.g., toggling door state)
@@ -727,6 +750,7 @@ func create_loot():
 		# If no item was added we set the sprite to an empty container
 		container._on_item_removed(null)
 
+
 # Returns the inventorystacked that this container holds
 func get_inventory() -> InventoryStacked:
 	return container.get_inventory()
@@ -757,7 +781,6 @@ func get_hit(attack: Dictionary):
 	else:
 		# Attack misses, create a visual indicator
 		show_miss_indicator()
-
 
 
 # Function to handle furniture destruction
@@ -800,18 +823,5 @@ func show_miss_indicator():
 # Regenerate the container if the interval is more then -1
 # This function is run by FurnitureStaticSpawner when the player enters proximity
 func regenerate():
-	# Check if the signal refers to this container and if it regenerates
-	if regeneration_interval <= -1:
-		return
-
-	# Get the total days passed and calculate the days since last check
-	var total_days_passed: float = Helper.time_helper.get_days_since_start()
-	var days_passed: float = total_days_passed - last_time_checked
-
-	# Check if enough days have passed to regenerate
-	if days_passed >= regeneration_interval:
-		# Update the last time checked
-		last_time_checked = total_days_passed
-
-		# Regenerate items if the container has an itemgroup
-		container._reset_inventory_and_regenerate_items()
+	if container:
+		container.regenerate()
