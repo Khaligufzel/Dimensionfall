@@ -429,9 +429,9 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 	furniture_transform = FurnitureTransform.new(furniturepos, furniture_rotation, furniture_size)
 
-	if is_new_furniture():
+	if _is_new_furniture():
 		furniture_transform.correct_new_position()
-		apply_edge_snapping_if_needed()
+		_apply_edge_snapping_if_needed()
 		set_new_rotation(furniture_rotation) # Apply rotation after setting up the shape and visual instance
 
 	check_door_functionality()  # Check if this furniture is a door
@@ -448,19 +448,18 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	add_container()  # Adds container if the furniture is a container
 	add_crafting_container() # Adds crafting container if the furniture is a crafting station
 
-
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
 	if is_container():
 		container = FurnitureContainer.new(self)
 		container.create_container_sprite_instance()
-		if is_new_furniture():
+		if _is_new_furniture():
 			container.create_loot(furnitureJSON, rfurniture)
 		else:
 			container.deserialize_container_data(furnitureJSON)
 			container.set_random_inventory_item_texture()
 		# Check if this furniture regenerates the items
-		container.check_regeneration_functionality(furnitureJSON, rfurniture, is_new_furniture())
+		container.check_regeneration_functionality(furnitureJSON, rfurniture, _is_new_furniture())
 
 
 func is_container() -> bool:
@@ -542,9 +541,9 @@ func create_sprite_instance():
 
 
 # Now, update methods that involve position, rotation, and size
-func apply_edge_snapping_if_needed():
+func _apply_edge_snapping_if_needed():
 	if not rfurniture.edgesnapping == "None":
-		var new_position = apply_edge_snapping(
+		var new_position = _apply_edge_snapping(
 			rfurniture.edgesnapping
 		)
 		furniture_transform.set_position(new_position)
@@ -587,7 +586,7 @@ func set_collision_layers_and_masks():
 # If edge snapping has been set in the furniture editor, we will apply it here.
 # The direction refers to the 'backside' of the furniture, which will be facing the edge of the block
 # This is needed to put furniture against the wall, or get a fence at the right edge
-func apply_edge_snapping(direction: String) -> Vector3:
+func _apply_edge_snapping(direction: String) -> Vector3:
 	# Block size, a block is 1x1 meters
 	var blockSize = Vector3(1.0, 1.0, 1.0)
 	var newpos = furniture_transform.get_position()
@@ -646,7 +645,7 @@ func get_my_rotation() -> int:
 
 
 # Helper function to determine if the furniture is new
-func is_new_furniture() -> bool:
+func _is_new_furniture() -> bool:
 	return not furnitureJSON.has("global_position_x")
 
 
