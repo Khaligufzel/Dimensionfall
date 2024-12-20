@@ -38,11 +38,6 @@ var current_health: float = 100.0  # Default health
 var is_animating_hit: bool = false  # Flag to prevent multiple hit animations
 var original_material_color: Color = Color(1, 1, 1)  # Store the original material color
 
-# Store the container timer state
-var last_time_checked: float = 0.0  # To track the last time the container was checked
-var regeneration_interval: float = -1.0  # In-game days for regeneration interval
-
-
 signal about_to_be_destroyed(me: FurnitureStaticSrv)
 
 
@@ -355,6 +350,21 @@ class FurnitureContainer:
 			return
 		if "items" in container_json["Function"]["container"]:
 			inventory.deserialize(container_json["Function"]["container"]["items"])
+	
+	# Serialize the container data for saving
+	func serialize() -> Dictionary:
+		var container_data: Dictionary = {}
+		var container_inventory_data = inventory.serialize()
+
+		# Only include inventory data if it has items
+		if not container_inventory_data.is_empty():
+			container_data["items"] = container_inventory_data
+
+		# Add other container-specific fields
+		container_data["container_last_time_checked"] = last_time_checked
+		container_data["container_itemgroup"] = itemgroup
+
+		return container_data
 
 
 # Function to initialize the furniture object
@@ -692,20 +702,11 @@ func get_data() -> Dictionary:
 	if is_door:
 		newfurniturejson["Function"] = {"door": door_state}
 	
-	# Check if this furniture has a container attached and if it has items
-	if container and container.get_inventory():
-		# Initialize the 'Function' sub-dictionary if not already present
+	# Container functionality
+	if container:
 		if "Function" not in newfurniturejson:
 			newfurniturejson["Function"] = {}
-		var containerdata = container.get_inventory().serialize()
-		# If there are no items in the inventory, keep an empty object. Else,
-		# keep an object with the items key and the serialized items
-		var containerobject = {} if containerdata.is_empty() else {"items": containerdata}
-		
-		# Add the last_time_checked to the container data
-		containerobject["container_last_time_checked"] = last_time_checked
-		containerobject["container_itemgroup"] = container.itemgroup
-		newfurniturejson["Function"]["container"] = containerobject
+		newfurniturejson["Function"]["container"] = container.serialize()
 
 	return newfurniturejson
 
