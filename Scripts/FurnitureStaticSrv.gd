@@ -207,6 +207,45 @@ class FurnitureContainer:
 	func _on_item_added(_item: InventoryItem):
 		set_random_inventory_item_texture() # Update to a new sprite
 
+	# Takes a list of items and adds them to the inventory in Collection mode.
+	func _add_items_to_inventory_collection_mode(items: Array[RItemgroup.Item]) -> bool:
+		var item_added: bool = false
+		# Loop over each item object in the itemgroup's 'items' property
+		for item_object: RItemgroup.Item in items:
+			# Each item_object is expected to be a dictionary with id, probability, min, max
+			var item_id = item_object.id
+			var item_probability = item_object.probability
+			if randi_range(0, 100) <= item_probability:
+				item_added = true # An item is about to be added
+				# Determine quantity to add based on min and max
+				var quantity = randi_range(item_object.minc, item_object.maxc)
+				add_item_to_inventory(item_id, quantity)
+		return item_added
+
+
+	# Takes a list of items and adds one to the inventory based on probabilities in Distribution mode.
+	func _add_items_to_inventory_distribution_mode(items: Array[RItemgroup.Item]) -> bool:
+		var total_probability = 0
+		# Calculate the total probability
+		for item_object in items:
+			total_probability += item_object.probability
+
+		# Generate a random value between 0 and total_probability - 1
+		var random_value = randi_range(0, total_probability - 1)
+		var cumulative_probability = 0
+
+		# Iterate through items to select one based on the random value
+		for item_object: RItemgroup.Item in items:
+			cumulative_probability += item_object.probability
+			# Check if the random value falls within the current item's range
+			if random_value < cumulative_probability:
+				var item_id = item_object.id
+				var quantity = randi_range(item_object.minc, item_object.maxc)
+				add_item_to_inventory(item_id, quantity)
+				return true  # One item is added, return immediately
+
+		return false  # In case no item is added, though this is highly unlikely
+
 
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
@@ -656,9 +695,9 @@ func create_loot():
 	if ritemgroup:
 		var groupmode: String = ritemgroup.mode  # can be "Collection" or "Distribution".
 		if groupmode == "Collection":
-			item_added = _add_items_to_inventory_collection_mode(ritemgroup.items)
+			item_added = container._add_items_to_inventory_collection_mode(ritemgroup.items)
 		elif groupmode == "Distribution":
-			item_added = _add_items_to_inventory_distribution_mode(ritemgroup.items)
+			item_added = container._add_items_to_inventory_distribution_mode(ritemgroup.items)
 
 	# Set the material if items were added
 	if item_added:
@@ -667,46 +706,6 @@ func create_loot():
 	else:
 		# If no item was added we set the sprite to an empty container
 		container._on_item_removed(null)
-
-
-# Takes a list of items and adds them to the inventory in Collection mode.
-func _add_items_to_inventory_collection_mode(items: Array[RItemgroup.Item]) -> bool:
-	var item_added: bool = false
-	# Loop over each item object in the itemgroup's 'items' property
-	for item_object: RItemgroup.Item in items:
-		# Each item_object is expected to be a dictionary with id, probability, min, max
-		var item_id = item_object.id
-		var item_probability = item_object.probability
-		if randi_range(0, 100) <= item_probability:
-			item_added = true # An item is about to be added
-			# Determine quantity to add based on min and max
-			var quantity = randi_range(item_object.minc, item_object.maxc)
-			container.add_item_to_inventory(item_id, quantity)
-	return item_added
-
-
-# Takes a list of items and adds one to the inventory based on probabilities in Distribution mode.
-func _add_items_to_inventory_distribution_mode(items: Array[RItemgroup.Item]) -> bool:
-	var total_probability = 0
-	# Calculate the total probability
-	for item_object in items:
-		total_probability += item_object.probability
-
-	# Generate a random value between 0 and total_probability - 1
-	var random_value = randi_range(0, total_probability - 1)
-	var cumulative_probability = 0
-
-	# Iterate through items to select one based on the random value
-	for item_object: RItemgroup.Item in items:
-		cumulative_probability += item_object.probability
-		# Check if the random value falls within the current item's range
-		if random_value < cumulative_probability:
-			var item_id = item_object.id
-			var quantity = randi_range(item_object.minc, item_object.maxc)
-			container.add_item_to_inventory(item_id, quantity)
-			return true  # One item is added, return immediately
-
-	return false  # In case no item is added, though this is highly unlikely
 
 # Returns the inventorystacked that this container holds
 func get_inventory() -> InventoryStacked:
@@ -811,9 +810,9 @@ func _reset_inventory_and_regenerate_items():
 	if ritemgroup:
 		var group_mode: String = ritemgroup.mode  # can be "Collection" or "Distribution"
 		if group_mode == "Collection":
-			_add_items_to_inventory_collection_mode(ritemgroup.items)
+			container._add_items_to_inventory_collection_mode(ritemgroup.items)
 		elif group_mode == "Distribution":
-			_add_items_to_inventory_distribution_mode(ritemgroup.items)
+			container._add_items_to_inventory_distribution_mode(ritemgroup.items)
 
 	# Update container visuals
 	container.set_random_inventory_item_texture()
