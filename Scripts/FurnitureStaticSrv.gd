@@ -135,6 +135,8 @@ class FurnitureContainer:
 		inventory = InventoryStacked.new()
 		inventory.capacity = 1000
 		inventory.item_protoset = ItemManager.item_protosets
+		inventory.item_removed.connect(_on_item_removed)
+		inventory.item_added.connect(_on_item_added)
 	
 	func get_inventory() -> InventoryStacked:
 		return inventory
@@ -191,6 +193,20 @@ class FurnitureContainer:
 				# Decrease the remaining quantity
 				quantity -= stack_size
 
+	# Signal handler for item removed
+	# We don't want empty containers on the map, but we do want them as children of furniture
+	# So we delete empty containers if they are a child of the tree root.
+	func _on_item_removed(_item: InventoryItem):
+		# Check if there are any items left in the inventory
+		if inventory.get_items().size() == 0:
+			material = Gamedata.materials.container  # Use shared empty container material
+			sprite_mesh.material = material  # Update the mesh material
+		else:  # There are still items in the container
+			set_random_inventory_item_texture()  # Update to a new sprite
+
+	func _on_item_added(_item: InventoryItem):
+		set_random_inventory_item_texture() # Update to a new sprite
+
 
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
@@ -244,8 +260,6 @@ func is_container() -> bool:
 # Creates a new InventoryStacked to hold items in it
 func _create_inventory():
 	container = FurnitureContainer.new(self)
-	container.get_inventory().item_removed.connect(_on_item_removed)
-	container.get_inventory().item_added.connect(_on_item_added)
 
 
 # If there is an itemgroup assigned to the furniture, it will be added to the container.
@@ -631,7 +645,7 @@ func can_be_disassembled() -> bool:
 func create_loot():
 	itemgroup = populate_container_from_itemgroup()
 	if not itemgroup or itemgroup == "":
-		_on_item_removed(null)
+		container._on_item_removed(null)
 		return
 	# A flag to track whether items were added
 	var item_added: bool = false
@@ -652,7 +666,7 @@ func create_loot():
 		container.sprite_mesh.material = container.material  # Update the mesh material
 	else:
 		# If no item was added we set the sprite to an empty container
-		_on_item_removed(null)
+		container._on_item_removed(null)
 
 
 # Takes a list of items and adds them to the inventory in Collection mode.
@@ -693,22 +707,6 @@ func _add_items_to_inventory_distribution_mode(items: Array[RItemgroup.Item]) ->
 			return true  # One item is added, return immediately
 
 	return false  # In case no item is added, though this is highly unlikely
-
-
-# Signal handler for item removed
-# We don't want empty containers on the map, but we do want them as children of furniture
-# So we delete empty containers if they are a child of the tree root.
-func _on_item_removed(_item: InventoryItem):
-	# Check if there are any items left in the inventory
-	if container.get_inventory().get_items().size() == 0:
-		container.material = Gamedata.materials.container  # Use shared empty container material
-		container.sprite_mesh.material = container.material  # Update the mesh material
-	else:  # There are still items in the container
-		container.set_random_inventory_item_texture()  # Update to a new sprite
-
-
-func _on_item_added(_item: InventoryItem):
-	container.set_random_inventory_item_texture() # Update to a new sprite
 
 # Returns the inventorystacked that this container holds
 func get_inventory() -> InventoryStacked:
