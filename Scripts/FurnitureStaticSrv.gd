@@ -32,7 +32,6 @@ var door_state: String = "Closed"  # Default state
 
 # Variables to manage the container if this furniture is a container
 var container: FurnitureContainer
-var itemgroup: String # The ID of an itemgroup that it creates loot from
 
 # Variables to manage health and damage
 var current_health: float = 100.0  # Default health
@@ -120,6 +119,7 @@ class FurnitureTransform:
 # Inner Container Class
 class FurnitureContainer:
 	var inventory: InventoryStacked
+	var itemgroup: String # The ID of an itemgroup that it creates loot from
 	var sprite_mesh: PlaneMesh
 	var sprite_instance: RID # RID to the quadmesh that displays the containersprite
 	var material: ShaderMaterial
@@ -537,7 +537,7 @@ func check_regeneration_functionality():
 			if furnitureJSON.Function.container.has("container_last_time_checked"):
 				last_time_checked = furnitureJSON.Function.container.container_last_time_checked
 			if furnitureJSON.Function.container.has("container_itemgroup"):
-				itemgroup = furnitureJSON.Function.container.container_itemgroup
+				container.itemgroup = furnitureJSON.Function.container.container_itemgroup
 		else:
 			last_time_checked = 0.0  # Default if not found in saved data
 
@@ -623,7 +623,7 @@ func get_data() -> Dictionary:
 		
 		# Add the last_time_checked to the container data
 		containerobject["container_last_time_checked"] = last_time_checked
-		containerobject["container_itemgroup"] = itemgroup
+		containerobject["container_itemgroup"] = container.itemgroup
 		newfurniturejson["Function"]["container"] = containerobject
 
 	return newfurniturejson
@@ -682,14 +682,14 @@ func can_be_disassembled() -> bool:
 # Will add item to the inventory based on the assigned itemgroup
 # Only new furniture will have an itemgroup assigned, not previously saved furniture.
 func create_loot():
-	itemgroup = populate_container_from_itemgroup()
-	if not itemgroup or itemgroup == "":
+	container.itemgroup = populate_container_from_itemgroup()
+	if not container.itemgroup or container.itemgroup == "":
 		container._on_item_removed(null)
 		return
 	# A flag to track whether items were added
 	var item_added: bool = false
 	# Attempt to retrieve the itemgroup data from Gamedata
-	var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(itemgroup)
+	var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(container.itemgroup)
 	
 	# Check if the itemgroup data exists and has items
 	if ritemgroup:
@@ -799,14 +799,14 @@ func regenerate():
 
 # Add this function to handle inventory reset and item regeneration
 func _reset_inventory_and_regenerate_items():
-	if not itemgroup or itemgroup == "":
+	if not container.itemgroup or container.itemgroup == "":
 		return  # Do nothing if no itemgroup is present
 
 	# Clear existing inventory
 	container.get_inventory().clear()
 
 	# Populate inventory with items from the itemgroup
-	var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(itemgroup)
+	var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(container.itemgroup)
 	if ritemgroup:
 		var group_mode: String = ritemgroup.mode  # can be "Collection" or "Distribution"
 		if group_mode == "Collection":
