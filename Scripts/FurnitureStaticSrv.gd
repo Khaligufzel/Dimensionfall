@@ -126,9 +126,9 @@ class FurnitureContainer:
 	var furniture_transform: FurnitureTransform
 	var world3d: World3D
 
-	func _init(newfurniture_transform: FurnitureTransform, newworld3d: World3D):
-		furniture_transform = newfurniture_transform
-		world3d = newworld3d
+	func _init(parent_furniture: FurnitureStaticSrv):
+		furniture_transform = parent_furniture.furniture_transform
+		world3d = parent_furniture.myworld3d
 		_initialize_inventory()
 
 	func _initialize_inventory():
@@ -212,7 +212,7 @@ func is_container() -> bool:
 
 # Creates a new InventoryStacked to hold items in it
 func _create_inventory():
-	container = FurnitureContainer.new(furniture_transform, myworld3d)
+	container = FurnitureContainer.new(self)
 	container.get_inventory().item_removed.connect(_on_item_removed)
 	container.get_inventory().item_added.connect(_on_item_added)
 
