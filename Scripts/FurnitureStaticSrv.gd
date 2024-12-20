@@ -368,6 +368,7 @@ class FurnitureContainer:
 
 class CraftingContainer:
 	var inventory: InventoryStacked
+	var crafting_queue: Array[String] = []  # Queue of item IDs to be crafted
 
 	func _init():
 		_initialize_inventory()
@@ -382,7 +383,16 @@ class CraftingContainer:
 	func get_inventory() -> InventoryStacked:
 		return inventory
 
-	# Serializes the inventory data for saving
+	# Adds an item ID to the crafting queue
+	func add_to_crafting_queue(item_id: String):
+		crafting_queue.append(item_id)
+
+	# Removes the first item from the crafting queue
+	func remove_from_crafting_queue():
+		if not crafting_queue.is_empty():
+			crafting_queue.pop_front()
+
+	# Serializes the inventory and crafting queue data for saving
 	func serialize() -> Dictionary:
 		var crafting_data: Dictionary = {}
 		var inventory_data = inventory.serialize()
@@ -391,12 +401,18 @@ class CraftingContainer:
 		if not inventory_data.is_empty():
 			crafting_data["items"] = inventory_data
 
+		# Include crafting queue
+		crafting_data["crafting_queue"] = crafting_queue
+
 		return crafting_data
 
-	# Deserializes and restores the inventory from saved data
+	# Deserializes and restores the inventory and crafting queue from saved data
 	func deserialize(data: Dictionary):
 		if data.has("items"):
 			inventory.deserialize(data["items"])
+		if data.has("crafting_queue"):
+			crafting_queue = data["crafting_queue"]
+
 
 
 
