@@ -303,6 +303,51 @@ class FurnitureContainer:
 			_reset_inventory_and_regenerate_items()
 
 
+	# Will add item to the inventory based on the assigned itemgroup
+	# Only new furniture will have an itemgroup assigned, not previously saved furniture.
+	func create_loot(furnitureJSON: Dictionary, rfurniture: RFurniture):
+		itemgroup = populate_container_from_itemgroup(furnitureJSON, rfurniture)
+		if not itemgroup or itemgroup == "":
+			_on_item_removed(null)
+			return
+		# A flag to track whether items were added
+		var item_added: bool = false
+		# Attempt to retrieve the itemgroup data from Gamedata
+		var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(itemgroup)
+		
+		# Check if the itemgroup data exists and has items
+		if ritemgroup:
+			var groupmode: String = ritemgroup.mode  # can be "Collection" or "Distribution".
+			if groupmode == "Collection":
+				item_added = _add_items_to_inventory_collection_mode(ritemgroup.items)
+			elif groupmode == "Distribution":
+				item_added = _add_items_to_inventory_distribution_mode(ritemgroup.items)
+
+		# Set the material if items were added
+		if item_added:
+			material = Gamedata.materials.container_filled  # Use filled container material
+			sprite_mesh.material = material  # Update the mesh material
+		else:
+			# If no item was added we set the sprite to an empty container
+			_on_item_removed(null)
+
+	# If there is an itemgroup assigned to the furniture, it will be added to the container.
+	# It will check both furnitureJSON and dfurniture for itemgroup information.
+	# The function will return the id of the itemgroup so that the container may use it
+	func populate_container_from_itemgroup(furnitureJSON: Dictionary, rfurniture: RFurniture) -> String:
+		# Check if furnitureJSON contains an itemgroups array
+		if furnitureJSON.has("itemgroups"):
+			var itemgroups_array = furnitureJSON["itemgroups"]
+			if itemgroups_array.size() > 0:
+				return itemgroups_array.pick_random()
+		
+		# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
+		var myitemgroup = rfurniture.function.container_group
+		if myitemgroup:
+			return myitemgroup
+		return ""
+
+
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
 	furniture_position = furniturepos
@@ -342,7 +387,7 @@ func add_container():
 		_create_inventory()
 		container.create_container_sprite_instance()
 		if is_new_furniture():
-			create_loot()
+			container.create_loot(furnitureJSON, rfurniture)
 		else:
 			deserialize_container_data()
 			container.set_random_inventory_item_texture()
@@ -356,22 +401,6 @@ func is_container() -> bool:
 func _create_inventory():
 	container = FurnitureContainer.new(self)
 
-
-# If there is an itemgroup assigned to the furniture, it will be added to the container.
-# It will check both furnitureJSON and dfurniture for itemgroup information.
-# The function will return the id of the itemgroup so that the container may use it
-func populate_container_from_itemgroup() -> String:
-	# Check if furnitureJSON contains an itemgroups array
-	if furnitureJSON.has("itemgroups"):
-		var itemgroups_array = furnitureJSON["itemgroups"]
-		if itemgroups_array.size() > 0:
-			return itemgroups_array.pick_random()
-	
-	# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
-	var myitemgroup = rfurniture.function.container_group
-	if myitemgroup:
-		return myitemgroup
-	return ""
 
 # Function to calculate the size of the furniture
 func calculate_furniture_size() -> Vector3:
@@ -720,35 +749,6 @@ func can_be_destroyed() -> bool:
 # Check if the furniture can be disassembled
 func can_be_disassembled() -> bool:
 	return not rfurniture.disassembly.get_data().is_empty()
-
-
-# Will add item to the inventory based on the assigned itemgroup
-# Only new furniture will have an itemgroup assigned, not previously saved furniture.
-func create_loot():
-	container.itemgroup = populate_container_from_itemgroup()
-	if not container.itemgroup or container.itemgroup == "":
-		container._on_item_removed(null)
-		return
-	# A flag to track whether items were added
-	var item_added: bool = false
-	# Attempt to retrieve the itemgroup data from Gamedata
-	var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(container.itemgroup)
-	
-	# Check if the itemgroup data exists and has items
-	if ritemgroup:
-		var groupmode: String = ritemgroup.mode  # can be "Collection" or "Distribution".
-		if groupmode == "Collection":
-			item_added = container._add_items_to_inventory_collection_mode(ritemgroup.items)
-		elif groupmode == "Distribution":
-			item_added = container._add_items_to_inventory_distribution_mode(ritemgroup.items)
-
-	# Set the material if items were added
-	if item_added:
-		container.material = Gamedata.materials.container_filled  # Use filled container material
-		container.sprite_mesh.material = container.material  # Update the mesh material
-	else:
-		# If no item was added we set the sprite to an empty container
-		container._on_item_removed(null)
 
 
 # Returns the inventorystacked that this container holds
