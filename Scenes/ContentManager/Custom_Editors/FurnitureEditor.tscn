@@ -79,10 +79,9 @@ text = "Save"
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 2
+current_tab = 0
 
 [node name="General" type="GridContainer" parent="VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
@@ -470,6 +469,7 @@ means no light passes trough and it will cast a shadow."
 text = "Enable for transparency, letting light pass trough"
 
 [node name="Crafting" type="GridContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 columns = 2
 metadata/_tab_index = 2
