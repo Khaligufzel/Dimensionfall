@@ -123,8 +123,12 @@ class FurnitureContainer:
 	var sprite_mesh: PlaneMesh
 	var sprite_instance: RID # RID to the quadmesh that displays the containersprite
 	var material: ShaderMaterial
+	var furniture_transform: FurnitureTransform
+	var world3d: World3D
 
-	func _init():
+	func _init(newfurniture_transform: FurnitureTransform, newworld3d: World3D):
+		furniture_transform = newfurniture_transform
+		world3d = newworld3d
 		_initialize_inventory()
 
 	func _initialize_inventory():
@@ -134,6 +138,27 @@ class FurnitureContainer:
 	
 	func get_inventory() -> InventoryStacked:
 		return inventory
+
+	# Function to create an additional sprite to represent the container
+	func create_container_sprite_instance():
+		# Calculate the size for the container sprite
+		var furniture_size_v2 = furniture_transform.get_sizeV2()
+		var smallest_dimension = min(furniture_size_v2.x, furniture_size_v2.y)
+		var container_sprite_size = Vector2(smallest_dimension, smallest_dimension) * 0.8
+
+		sprite_mesh = PlaneMesh.new()
+		sprite_mesh.size = container_sprite_size
+
+		sprite_mesh.material = material
+
+		sprite_instance = RenderingServer.instance_create()
+		RenderingServer.instance_set_base(sprite_instance, sprite_mesh)
+		RenderingServer.instance_set_scenario(sprite_instance, world3d.scenario)
+
+		# Position the container sprite slightly above the main sprite
+		var container_sprite_transform = furniture_transform.get_sprite_transform()
+		container_sprite_transform.origin.y += 0.2  # Adjust height as needed
+		RenderingServer.instance_set_transform(sprite_instance, container_sprite_transform)
 
 
 # Function to initialize the furniture object
@@ -173,7 +198,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 func add_container():
 	if is_container():
 		_create_inventory()
-		create_container_sprite_instance()
+		container.create_container_sprite_instance()
 		if is_new_furniture():
 			create_loot()
 		else:
@@ -187,7 +212,7 @@ func is_container() -> bool:
 
 # Creates a new InventoryStacked to hold items in it
 func _create_inventory():
-	container = FurnitureContainer.new()
+	container = FurnitureContainer.new(furniture_transform, myworld3d)
 	container.get_inventory().item_removed.connect(_on_item_removed)
 	container.get_inventory().item_added.connect(_on_item_added)
 
@@ -275,28 +300,6 @@ func create_sprite_instance():
 
 	# Set the transform for the quad instance slightly above the box mesh
 	RenderingServer.instance_set_transform(quad_instance, furniture_transform.get_sprite_transform())
-
-
-# Function to create an additional sprite to represent the container
-func create_container_sprite_instance():
-	# Calculate the size for the container sprite
-	var furniture_size_v2 = furniture_transform.get_sizeV2()
-	var smallest_dimension = min(furniture_size_v2.x, furniture_size_v2.y)
-	var container_sprite_size = Vector2(smallest_dimension, smallest_dimension) * 0.8
-
-	container.sprite_mesh = PlaneMesh.new()
-	container.sprite_mesh.size = container_sprite_size
-
-	container.sprite_mesh.material = container.material
-
-	container.sprite_instance = RenderingServer.instance_create()
-	RenderingServer.instance_set_base(container.sprite_instance, container.sprite_mesh)
-	RenderingServer.instance_set_scenario(container.sprite_instance, myworld3d.scenario)
-
-	# Position the container sprite slightly above the main sprite
-	var container_sprite_transform = furniture_transform.get_sprite_transform()
-	container_sprite_transform.origin.y += 0.2  # Adjust height as needed
-	RenderingServer.instance_set_transform(container.sprite_instance, container_sprite_transform)
 
 
 # Now, update methods that involve position, rotation, and size
