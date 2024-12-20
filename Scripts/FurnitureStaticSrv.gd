@@ -246,6 +246,26 @@ class FurnitureContainer:
 
 		return false  # In case no item is added, though this is highly unlikely
 
+	# Add this function to handle inventory reset and item regeneration
+	func _reset_inventory_and_regenerate_items():
+		if not itemgroup or itemgroup == "":
+			return  # Do nothing if no itemgroup is present
+
+		# Clear existing inventory
+		inventory.clear()
+
+		# Populate inventory with items from the itemgroup
+		var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(itemgroup)
+		if ritemgroup:
+			var group_mode: String = ritemgroup.mode  # can be "Collection" or "Distribution"
+			if group_mode == "Collection":
+				_add_items_to_inventory_collection_mode(ritemgroup.items)
+			elif group_mode == "Distribution":
+				_add_items_to_inventory_distribution_mode(ritemgroup.items)
+
+		# Update container visuals
+		set_random_inventory_item_texture()
+
 
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
@@ -794,25 +814,4 @@ func regenerate():
 		last_time_checked = total_days_passed
 
 		# Regenerate items if the container has an itemgroup
-		_reset_inventory_and_regenerate_items()
-
-
-# Add this function to handle inventory reset and item regeneration
-func _reset_inventory_and_regenerate_items():
-	if not container.itemgroup or container.itemgroup == "":
-		return  # Do nothing if no itemgroup is present
-
-	# Clear existing inventory
-	container.get_inventory().clear()
-
-	# Populate inventory with items from the itemgroup
-	var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(container.itemgroup)
-	if ritemgroup:
-		var group_mode: String = ritemgroup.mode  # can be "Collection" or "Distribution"
-		if group_mode == "Collection":
-			container._add_items_to_inventory_collection_mode(ritemgroup.items)
-		elif group_mode == "Distribution":
-			container._add_items_to_inventory_distribution_mode(ritemgroup.items)
-
-	# Update container visuals
-	container.set_random_inventory_item_texture()
+		container._reset_inventory_and_regenerate_items()
