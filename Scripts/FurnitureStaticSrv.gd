@@ -34,7 +34,7 @@ var is_door: bool = false
 var door_state: String = "Closed"  # Default state
 
 # Variables to manage the container if this furniture is a container
-var inventory: InventoryStacked
+var container: FurnitureContainer
 var itemgroup: String # The ID of an itemgroup that it creates loot from
 
 # Variables to manage health and damage
@@ -120,6 +120,22 @@ class FurnitureTransform:
 		posy += 0.5+(0.5*height)
 
 
+# Inner Container Class
+class FurnitureContainer:
+	var inventory: InventoryStacked
+
+	func _init():
+		_initialize_inventory()
+
+	func _initialize_inventory():
+		inventory = InventoryStacked.new()
+		inventory.capacity = 1000
+		inventory.item_protoset = ItemManager.item_protosets
+	
+	func get_inventory() -> InventoryStacked:
+		return inventory
+
+
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
 	furniture_position = furniturepos
@@ -168,13 +184,12 @@ func add_container():
 func is_container() -> bool:
 	return rfurniture.function.is_container
 
+
 # Creates a new InventoryStacked to hold items in it
 func _create_inventory():
-	inventory = InventoryStacked.new()
-	inventory.capacity = 1000
-	inventory.item_protoset = ItemManager.item_protosets
-	inventory.item_removed.connect(_on_item_removed)
-	inventory.item_added.connect(_on_item_added)
+	container = FurnitureContainer.new()
+	container.get_inventory().item_removed.connect(_on_item_removed)
+	container.get_inventory().item_added.connect(_on_item_added)
 
 
 # If there is an itemgroup assigned to the furniture, it will be added to the container.
@@ -509,11 +524,11 @@ func get_data() -> Dictionary:
 		newfurniturejson["Function"] = {"door": door_state}
 	
 	# Check if this furniture has a container attached and if it has items
-	if inventory:
+	if container.get_inventory():
 		# Initialize the 'Function' sub-dictionary if not already present
 		if "Function" not in newfurniturejson:
 			newfurniturejson["Function"] = {}
-		var containerdata = inventory.serialize()
+		var containerdata = container.get_inventory().serialize()
 		# If there are no items in the inventory, keep an empty object. Else,
 		# keep an object with the items key and the serialized items
 		var containerobject = {} if containerdata.is_empty() else {"items": containerdata}
@@ -534,7 +549,7 @@ func deserialize_container_data():
 
 # Function to deserialize inventory and apply the correct sprite
 func deserialize_and_apply_items(items_data: Dictionary):
-	inventory.deserialize(items_data)
+	container.get_inventory().deserialize(items_data)
 
 
 # When the furniture is destroyed, it leaves a wreck behind
@@ -561,8 +576,8 @@ func add_corpse(pos: Vector3):
 		Helper.map_manager.level_generator.get_tree().get_root().add_child.call_deferred(newItem)
 		
 		# Check if inventory has items and insert them into the new item
-		if inventory:
-			for item in inventory.get_items():
+		if container.get_inventory():
+			for item in container.get_inventory().get_items():
 				newItem.insert_item(item)
 
 
@@ -655,7 +670,7 @@ func _add_item_to_inventory(item_id: String, quantity: int):
 			# Calculate the stack size for this iteration, limited by max_stack_size
 			var stack_size = min(quantity, ritem.max_stack_size)
 			# Create and add the item to the inventory
-			var item = inventory.create_and_add_item(item_id)
+			var item = container.get_inventory().create_and_add_item(item_id)
 			# Set the item stack size
 			InventoryStacked.set_item_stack_size(item, stack_size)
 			# Decrease the remaining quantity
@@ -667,7 +682,7 @@ func _add_item_to_inventory(item_id: String, quantity: int):
 # So we delete empty containers if they are a child of the tree root.
 func _on_item_removed(_item: InventoryItem):
 	# Check if there are any items left in the inventory
-	if inventory.get_items().size() == 0:
+	if container.get_inventory().get_items().size() == 0:
 		container_material = Gamedata.materials.container  # Use shared empty container material
 		container_sprite_mesh.material = container_material  # Update the mesh material
 	else:  # There are still items in the container
@@ -679,7 +694,7 @@ func _on_item_added(_item: InventoryItem):
 
 # Returns the inventorystacked that this container holds
 func get_inventory() -> InventoryStacked:
-	return inventory
+	return container.get_inventory()
 
 
 func get_sprite() -> Texture:
@@ -688,7 +703,7 @@ func get_sprite() -> Texture:
 
 # Sets the sprite_3d texture to a texture of a random item in the container's inventory
 func set_random_inventory_item_texture():
-	var items: Array[InventoryItem] = inventory.get_items()
+	var items: Array[InventoryItem] = container.get_inventory().get_items()
 	if items.size() == 0:
 		container_sprite_mesh.material = Gamedata.materials.container # set empty container
 		return
@@ -789,7 +804,7 @@ func _reset_inventory_and_regenerate_items():
 		return  # Do nothing if no itemgroup is present
 
 	# Clear existing inventory
-	inventory.clear()
+	container.get_inventory().clear()
 
 	# Populate inventory with items from the itemgroup
 	var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(itemgroup)
