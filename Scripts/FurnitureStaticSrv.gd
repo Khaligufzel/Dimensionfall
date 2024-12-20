@@ -265,8 +265,6 @@ class FurnitureContainer:
 		set_random_inventory_item_texture()
 
 	func check_regeneration_functionality(furnitureJSON: Dictionary, rfurniture: RFurniture, is_new_furniture: bool):
-		if not rfurniture.function:
-			return
 		if rfurniture.function.container_regeneration_time:
 			regeneration_interval = rfurniture.function.container_regeneration_time
 
@@ -386,7 +384,6 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 		set_new_rotation(furniture_rotation) # Apply rotation after setting up the shape and visual instance
 
 	check_door_functionality()  # Check if this furniture is a door
-	check_regeneration_functionality()  # Check if this furniture regenerates the items
 
 	if rfurniture.support_shape.shape == "Box":
 		create_box_shape()
@@ -403,22 +400,19 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
 	if is_container():
-		_create_inventory()
+		container = FurnitureContainer.new(self)
 		container.create_container_sprite_instance()
 		if is_new_furniture():
 			container.create_loot(furnitureJSON, rfurniture)
 		else:
-			deserialize_container_data()
+			container.deserialize_container_data(furnitureJSON)
 			container.set_random_inventory_item_texture()
+		# Check if this furniture regenerates the items
+		container.check_regeneration_functionality(furnitureJSON, rfurniture, is_new_furniture())
 
 
 func is_container() -> bool:
 	return rfurniture.function.is_container
-
-
-# Creates a new InventoryStacked to hold items in it
-func _create_inventory():
-	container = FurnitureContainer.new(self)
 
 
 # Function to calculate the size of the furniture
@@ -627,12 +621,6 @@ func check_door_functionality():
 		door_state = "Closed"  # Default if not found in saved data
 
 
-# Function to check if this furniture's container regenerates
-func check_regeneration_functionality():
-	if container:
-		container.check_regeneration_functionality(furnitureJSON, rfurniture, is_new_furniture())
-
-
 # Function to interact with the furniture (e.g., toggling door state)
 func interact():
 	if is_door:
@@ -687,7 +675,6 @@ func apply_transform_to_instance(rotation_angle: int, position_offset: Vector3):
 	PhysicsServer3D.body_set_state(collider, PhysicsServer3D.BODY_STATE_TRANSFORM, mesh_transform)
 
 
-
 # Returns this furniture's data for saving, including door state, container state, and last checked time
 func get_data() -> Dictionary:
 	var newfurniturejson = {
@@ -709,11 +696,6 @@ func get_data() -> Dictionary:
 		newfurniturejson["Function"]["container"] = container.serialize()
 
 	return newfurniturejson
-
-
-# It will deserialize the container data if the furniture is not new.
-func deserialize_container_data():
-	container.deserialize_container_data(furnitureJSON)
 
 
 # When the furniture is destroyed, it leaves a wreck behind
