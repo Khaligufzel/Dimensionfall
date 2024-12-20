@@ -18,16 +18,13 @@ var collider: RID
 var shape: RID
 var mesh_instance: RID  # Variable to store the mesh instance RID
 var quad_instance: RID # RID to the quadmesh that displays the sprite
-var container_sprite_instance: RID # RID to the quadmesh that displays the containersprite
 var myworld3d: World3D
 
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect
 var sprite_texture: Texture2D  # Variable to store the sprite texture
 var sprite_material: ShaderMaterial
-var container_material: ShaderMaterial
 var quad_mesh: PlaneMesh # Shows the sprite of the furniture
-var container_sprite_mesh: PlaneMesh
 
 # Variables to manage door functionality
 var is_door: bool = false
@@ -123,6 +120,9 @@ class FurnitureTransform:
 # Inner Container Class
 class FurnitureContainer:
 	var inventory: InventoryStacked
+	var sprite_mesh: PlaneMesh
+	var sprite_instance: RID # RID to the quadmesh that displays the containersprite
+	var material: ShaderMaterial
 
 	func _init():
 		_initialize_inventory()
@@ -284,19 +284,19 @@ func create_container_sprite_instance():
 	var smallest_dimension = min(furniture_size_v2.x, furniture_size_v2.y)
 	var container_sprite_size = Vector2(smallest_dimension, smallest_dimension) * 0.8
 
-	container_sprite_mesh = PlaneMesh.new()
-	container_sprite_mesh.size = container_sprite_size
+	container.sprite_mesh = PlaneMesh.new()
+	container.sprite_mesh.size = container_sprite_size
 
-	container_sprite_mesh.material = container_material
+	container.sprite_mesh.material = container.material
 
-	container_sprite_instance = RenderingServer.instance_create()
-	RenderingServer.instance_set_base(container_sprite_instance, container_sprite_mesh)
-	RenderingServer.instance_set_scenario(container_sprite_instance, myworld3d.scenario)
+	container.sprite_instance = RenderingServer.instance_create()
+	RenderingServer.instance_set_base(container.sprite_instance, container.sprite_mesh)
+	RenderingServer.instance_set_scenario(container.sprite_instance, myworld3d.scenario)
 
 	# Position the container sprite slightly above the main sprite
 	var container_sprite_transform = furniture_transform.get_sprite_transform()
 	container_sprite_transform.origin.y += 0.2  # Adjust height as needed
-	RenderingServer.instance_set_transform(container_sprite_instance, container_sprite_transform)
+	RenderingServer.instance_set_transform(container.sprite_instance, container_sprite_transform)
 
 
 # Now, update methods that involve position, rotation, and size
@@ -414,7 +414,8 @@ func free_resources():
 	# Free the mesh instance RID if it exists
 	RenderingServer.free_rid(mesh_instance)
 	RenderingServer.free_rid(quad_instance)
-	RenderingServer.free_rid(container_sprite_instance)
+	if container:
+		RenderingServer.free_rid(container.sprite_instance)
 
 	# Free the collider shape and body RIDs if they exist
 	PhysicsServer3D.free_rid(shape)
@@ -524,7 +525,7 @@ func get_data() -> Dictionary:
 		newfurniturejson["Function"] = {"door": door_state}
 	
 	# Check if this furniture has a container attached and if it has items
-	if container.get_inventory():
+	if container and container.get_inventory():
 		# Initialize the 'Function' sub-dictionary if not already present
 		if "Function" not in newfurniturejson:
 			newfurniturejson["Function"] = {}
@@ -613,8 +614,8 @@ func create_loot():
 
 	# Set the material if items were added
 	if item_added:
-		container_material = Gamedata.materials.container_filled  # Use filled container material
-		container_sprite_mesh.material = container_material  # Update the mesh material
+		container.material = Gamedata.materials.container_filled  # Use filled container material
+		container.sprite_mesh.material = container.material  # Update the mesh material
 	else:
 		# If no item was added we set the sprite to an empty container
 		_on_item_removed(null)
@@ -683,8 +684,8 @@ func _add_item_to_inventory(item_id: String, quantity: int):
 func _on_item_removed(_item: InventoryItem):
 	# Check if there are any items left in the inventory
 	if container.get_inventory().get_items().size() == 0:
-		container_material = Gamedata.materials.container  # Use shared empty container material
-		container_sprite_mesh.material = container_material  # Update the mesh material
+		container.material = Gamedata.materials.container  # Use shared empty container material
+		container.sprite_mesh.material = container.material  # Update the mesh material
 	else:  # There are still items in the container
 		set_random_inventory_item_texture()  # Update to a new sprite
 
@@ -705,7 +706,7 @@ func get_sprite() -> Texture:
 func set_random_inventory_item_texture():
 	var items: Array[InventoryItem] = container.get_inventory().get_items()
 	if items.size() == 0:
-		container_sprite_mesh.material = Gamedata.materials.container # set empty container
+		container.sprite_mesh.material = Gamedata.materials.container # set empty container
 		return
 	
 	# Pick a random item from the inventory
@@ -713,8 +714,8 @@ func set_random_inventory_item_texture():
 	var item_id = random_item.prototype_id
 	
 	# Get the ShaderMaterial for the item
-	container_material = Runtimedata.items.get_shader_material_by_id(item_id)
-	container_sprite_mesh.material = container_material  # Update the mesh material
+	container.material = Runtimedata.items.get_shader_material_by_id(item_id)
+	container.sprite_mesh.material = container.material  # Update the mesh material
 
 
 # Replace animate_hit with show_hit_indicator
