@@ -160,6 +160,21 @@ class FurnitureContainer:
 		container_sprite_transform.origin.y += 0.2  # Adjust height as needed
 		RenderingServer.instance_set_transform(sprite_instance, container_sprite_transform)
 
+	# Sets the sprite_3d texture to a texture of a random item in the container's inventory
+	func set_random_inventory_item_texture():
+		var items: Array[InventoryItem] = inventory.get_items()
+		if items.size() == 0:
+			sprite_mesh.material = Gamedata.materials.container # set empty container
+			return
+		
+		# Pick a random item from the inventory
+		var random_item: InventoryItem = items.pick_random()
+		var item_id = random_item.prototype_id
+		
+		# Get the ShaderMaterial for the item
+		material = Runtimedata.items.get_shader_material_by_id(item_id)
+		sprite_mesh.material = material  # Update the mesh material
+
 
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
@@ -203,7 +218,7 @@ func add_container():
 			create_loot()
 		else:
 			deserialize_container_data()
-			set_random_inventory_item_texture()
+			container.set_random_inventory_item_texture()
 
 
 func is_container() -> bool:
@@ -690,11 +705,11 @@ func _on_item_removed(_item: InventoryItem):
 		container.material = Gamedata.materials.container  # Use shared empty container material
 		container.sprite_mesh.material = container.material  # Update the mesh material
 	else:  # There are still items in the container
-		set_random_inventory_item_texture()  # Update to a new sprite
+		container.set_random_inventory_item_texture()  # Update to a new sprite
 
 
 func _on_item_added(_item: InventoryItem):
-	set_random_inventory_item_texture() # Update to a new sprite
+	container.set_random_inventory_item_texture() # Update to a new sprite
 
 # Returns the inventorystacked that this container holds
 func get_inventory() -> InventoryStacked:
@@ -703,22 +718,6 @@ func get_inventory() -> InventoryStacked:
 
 func get_sprite() -> Texture:
 	return rfurniture.sprite
-
-
-# Sets the sprite_3d texture to a texture of a random item in the container's inventory
-func set_random_inventory_item_texture():
-	var items: Array[InventoryItem] = container.get_inventory().get_items()
-	if items.size() == 0:
-		container.sprite_mesh.material = Gamedata.materials.container # set empty container
-		return
-	
-	# Pick a random item from the inventory
-	var random_item: InventoryItem = items.pick_random()
-	var item_id = random_item.prototype_id
-	
-	# Get the ShaderMaterial for the item
-	container.material = Runtimedata.items.get_shader_material_by_id(item_id)
-	container.sprite_mesh.material = container.material  # Update the mesh material
 
 
 # Replace animate_hit with show_hit_indicator
@@ -820,4 +819,4 @@ func _reset_inventory_and_regenerate_items():
 			_add_items_to_inventory_distribution_mode(ritemgroup.items)
 
 	# Update container visuals
-	set_random_inventory_item_texture()
+	container.set_random_inventory_item_texture()
