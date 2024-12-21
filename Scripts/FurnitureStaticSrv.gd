@@ -456,14 +456,17 @@ class CraftingContainer:
 
 	# Core logic to process the crafting queue
 	func _process_crafting_queue(elapsed_time: float):
-		var items_to_craft = int(elapsed_time / crafting_time_per_item)
-		if items_to_craft == 0:
-			return
+		# Process items in the queue based on elapsed time
+		while elapsed_time > 0 and not crafting_queue.is_empty():
+			var item_id = crafting_queue[0]  # Peek the first item
+			var craft_time = _get_craft_time_by_id(item_id) if item_id else 10.0  # Default to 10 seconds if lookup fails
 
-		for i in range(items_to_craft):
-			if crafting_queue.is_empty():
-				break
-			_craft_next_item()
+			# If enough time has passed, craft the item
+			if elapsed_time >= craft_time:
+				elapsed_time -= craft_time
+				_craft_next_item()
+			else:
+				break  # Not enough time to craft the next item
 
 	# Crafts the next item in the queue
 	func _craft_next_item():
@@ -471,7 +474,15 @@ class CraftingContainer:
 			return
 
 		var item_id = crafting_queue.pop_front()
-		inventory.create_and_add_item(item_id)
+		if item_id:
+			inventory.create_and_add_item(item_id)
+		else:
+			print("Error: Failed to craft item. Item ID is invalid.")
+
+	# Retrieves the crafting time for a specific item by its ID
+	func _get_craft_time_by_id(item_id: String) -> float:
+		var first_recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
+		return first_recipe.craft_time if first_recipe else 10.0  # Default to 10 seconds
 
 
 # Function to initialize the furniture object
