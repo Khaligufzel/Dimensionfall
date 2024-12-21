@@ -397,27 +397,38 @@ class CraftingContainer:
 		if not crafting_queue.is_empty():
 			crafting_queue.pop_front()
 
-	# Serializes the inventory and crafting queue data for saving
+	# Serializes the inventory, crafting queue, and time-related variables for saving
 	func serialize() -> Dictionary:
 		var crafting_data: Dictionary = {}
+		
+		# Serialize the inventory if it contains items
 		var inventory_data = inventory.serialize()
-
-		# Include inventory data only if it contains items
 		if not inventory_data.is_empty():
 			crafting_data["items"] = inventory_data
 
-		# Include crafting queue
+		# Serialize the crafting queue
 		crafting_data["crafting_queue"] = crafting_queue
+
+		# Serialize time-related variables
+		crafting_data["last_update_time"] = last_update_time
+		crafting_data["is_active"] = is_active
 
 		return crafting_data
 
-	# Deserializes and restores the inventory and crafting queue from saved data
+	# Deserializes and restores the inventory, crafting queue, and time-related variables from saved data
 	func deserialize(data: Dictionary):
+		# Deserialize the inventory if present
 		if data.has("items"):
 			inventory.deserialize(data["items"])
+
+		# Deserialize the crafting queue
 		if data.has("crafting_queue"):
 			crafting_queue = data["crafting_queue"]
-	
+
+		# Deserialize time-related variables
+		last_update_time = data.get("last_update_time", 0.0)  # Default to 0 if not present
+		is_active = data.get("is_active", false)  # Default to inactive if not present
+
 	# Transfers all items to the given FurnitureContainer
 	func transfer_all_items_to_furniture(furniture_container: Object) -> void:
 		# Transfer items from crafting container to furniture container
