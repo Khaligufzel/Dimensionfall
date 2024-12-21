@@ -99,6 +99,8 @@ func _on_context_menu_item_selected(id):
 
 
 func _disconnect_inventory_signals():
+	if not myInventory:
+		return
 	if myInventory.item_added.is_connected(_on_inventory_item_added):
 		myInventory.item_added.disconnect(_on_inventory_item_added)
 	if myInventory.item_removed.is_connected(_on_inventory_item_removed):

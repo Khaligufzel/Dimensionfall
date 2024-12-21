@@ -85,7 +85,7 @@ func _populate_crafting_recipe_container():
 	if not furniture_instance:
 		return
 	
-	var crafting_items: Array[String] = furniture_instance.get_crafting_items()
+	var crafting_items: Array = furniture_instance.rfurniture.get_crafting_items()
 	Helper.free_all_children(crafting_recipe_container)
 	
 	for item_id in crafting_items:
@@ -129,7 +129,7 @@ func _add_item_to_crafting_queue_container(item_id: String):
 
 # Populates the crafting_queue_container with items from the current queue
 func _populate_crafting_queue_container():
-	if not furniture_instance:
+	if not furniture_instance or not furniture_instance.crafting_container:
 		return
 	
 	var crafting_queue: Array[String] = furniture_instance.crafting_container.crafting_queue
