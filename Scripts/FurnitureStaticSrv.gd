@@ -1045,3 +1045,6 @@ func remove_from_crafting_queue() -> void:
 # Forward the crafting_queue_updated signal
 func _on_crafting_queue_updated(current_queue: Array[String]):
 	crafting_queue_updated.emit(current_queue)  # Emit signal after updating the queue
+
+func get_furniture_name() -> String:
+	return rfurniture.name

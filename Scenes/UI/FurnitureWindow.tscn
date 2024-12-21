@@ -5,7 +5,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]
 
-[node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "furniture_namer_label", "crafting_queue_container", "crafting_recipe_container")]
+[node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "furniture_name_label", "crafting_queue_container", "crafting_recipe_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iww5n")
 furniture_container_view = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/FurnitureContainerView")
-furniture_namer_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/FurnitureNamerLabel")
+furniture_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/FurnitureNameLabel")
 crafting_queue_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CraftingQueueContainer")
 crafting_recipe_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CraftingRecipeContainer")
 
@@ -33,7 +33,7 @@ layout_mode = 2
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="FurnitureNamerLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="FurnitureNameLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 36

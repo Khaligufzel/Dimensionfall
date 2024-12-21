@@ -6,19 +6,26 @@ extends Control
 
 
 @export var furniture_container_view: Control = null
-@export var furniture_namer_label: Label = null
+@export var furniture_name_label: Label = null
 @export var crafting_queue_container: GridContainer = null
 @export var crafting_recipe_container: GridContainer = null
 
 # The current furniture that the player is interacting with
 var furniture_instance: FurnitureStaticSrv = null:
 	set(value):
+		# Disconnect from the previous furniture_instance's signal if connected
+		if furniture_instance and furniture_instance.crafting_queue_updated.is_connected(_on_crafting_queue_updated):
+			furniture_instance.crafting_queue_updated.disconnect(_on_crafting_queue_updated)
+		
 		if value:
 			furniture_instance = value
-			furniture_instance.crafting_queue_updated.connect(_on_crafting_queue_updated)  # Connect signal
+			# Connect to the new furniture_instance's signal
+			furniture_instance.crafting_queue_updated.connect(_on_crafting_queue_updated)
 			furniture_container_view.set_inventory(furniture_instance.get_inventory())
 			_populate_crafting_recipe_container()
 			_populate_crafting_queue_container()
+			furniture_name_label.text = furniture_instance.get_furniture_name()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -73,7 +80,7 @@ func _add_item_to_crafting_recipe_container(item_id: String):
 	
 	# Create and add button
 	var queue_button = Button.new()
-	queue_button.text = "Queue (Craft: %s sec)".format(craft_time)
+	queue_button.text = "Queue (Craft: " + str(craft_time) + " sec)"
 	queue_button.button_up.connect(_on_queue_button_pressed.bind(item_id))
 	item_container.add_child(queue_button)
 	
