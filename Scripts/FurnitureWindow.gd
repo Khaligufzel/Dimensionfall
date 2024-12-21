@@ -15,6 +15,7 @@ var furniture_instance: FurnitureStaticSrv = null:
 	set(value):
 		if value:
 			furniture_instance = value
+			furniture_container_view.set_inventory(furniture_instance.get_inventory())
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,3 +32,8 @@ func _on_container_exited_proximity(exited_furniture_instance: FurnitureStaticSr
 	if exited_furniture_instance == furniture_instance:
 		furniture_instance = null
 		self.hide()
+
+# The user has pressed the close window button
+func _on_close_menu_button_button_up() -> void:
+	furniture_instance = null
+	self.hide()
