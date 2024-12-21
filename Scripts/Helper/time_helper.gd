@@ -10,11 +10,11 @@ var _elapsed_time: float = 0.0  # Total elapsed time for the current game sessio
 var _is_tracking_time: bool = false  # Flag to track if we are actively counting time
 var _last_tick_time: int = 0  # The last recorded tick time (in milliseconds)
 
-# Time constants
-const daytime: int = 20  # Daytime in real-life minutes
-const nighttime: int = 15  # Nighttime in real-life minutes
-const day_duration: int = daytime + nighttime  # Total duration of a day in real-life minutes
-const in_game_day_minutes: int = 24 * 60  # In-game minutes in a full day (1440)
+# --- Constants ---
+const DAYTIME_MINUTES: int = 20  # Daytime in real-life minutes
+const NIGHTTIME_MINUTES: int = 15  # Nighttime in real-life minutes
+const DAY_DURATION_MINUTES: int = DAYTIME_MINUTES + NIGHTTIME_MINUTES  # Total real-life minutes per day
+const IN_GAME_DAY_MINUTES: int = 24 * 60  # Total in-game minutes in a day
 
 # Signal to notify when an in-game minute has passed
 signal minute_passed(current_time: String)
@@ -52,7 +52,7 @@ func _on_game_started():
 	# Calculate the real-life time equivalent to 8 in-game hours
 	var in_game_hours = 8
 	var in_game_minutes = in_game_hours * 60  # 8 hours * 60 minutes
-	_elapsed_time = (in_game_minutes / float(in_game_day_minutes)) * day_duration * 60  # Convert to real-life seconds
+	_elapsed_time = (in_game_minutes / float(IN_GAME_DAY_MINUTES)) * DAY_DURATION_MINUTES * 60  # Convert to real-life seconds
 	
 	_start_tracking_time()
 
@@ -99,7 +99,7 @@ func get_time_difference(past_time: float) -> float:
 
 # Returns the number of in-game days since the start
 func get_days_since_start() -> float:
-	return float(_elapsed_time / (day_duration * 60))  # Convert minutes to seconds
+	return float(_elapsed_time / (DAY_DURATION_MINUTES * 60))  # Convert minutes to seconds
 
 
 # The current time string, representing the time of day
@@ -120,22 +120,22 @@ func get_day_progress_percentage() -> float:
 	var current_minutes_of_day = get_current_in_game_minutes()
 
 	# Calculate percentage of the day completed
-	return (current_minutes_of_day / float(in_game_day_minutes)) * 100.0
+	return (current_minutes_of_day / float(IN_GAME_DAY_MINUTES)) * 100.0
 
 
 # Returns the current number of in-game minutes in an in-game day, a value between 0 and 1440
 func get_current_in_game_minutes() -> int:
 	# Convert day_duration to seconds to match _elapsed_time
-	var day_duration_seconds = day_duration * 60.0
+	var day_duration_seconds = DAY_DURATION_MINUTES * 60.0
 
 	# Scale real-life elapsed time to in-game time
-	var scaled_elapsed_time = (_elapsed_time / day_duration_seconds) * in_game_day_minutes
+	var scaled_elapsed_time = (_elapsed_time / day_duration_seconds) * IN_GAME_DAY_MINUTES
 
 	# Convert the scaled time into a whole number of in-game minutes
 	var total_in_game_minutes: int = int(scaled_elapsed_time)
 
 	# Wrap the total minutes into a single in-game day
-	var current_minutes_of_day: int = total_in_game_minutes % in_game_day_minutes
+	var current_minutes_of_day: int = total_in_game_minutes % IN_GAME_DAY_MINUTES
 
 	# Return the current in-game minute of the day
 	return current_minutes_of_day
@@ -150,4 +150,4 @@ func get_time_in_hr() -> float:
 	var current_minutes_of_day = get_current_in_game_minutes()
 	
 	# Map the current in-game minutes (0 to 1440) to animation frames (0 to 24)
-	return float(current_minutes_of_day) / in_game_day_minutes * 24.0
+	return float(current_minutes_of_day) / IN_GAME_DAY_MINUTES * 24.0
