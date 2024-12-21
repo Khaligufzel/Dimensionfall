@@ -252,7 +252,10 @@ func _check_for_interaction() -> void:
 	var result = Helper.raycast(adjusted_global_position, raycast_target, layer, [self])
 
 	if result:
-		Helper.signal_broker.player_interacted.emit(result.position, result.rid)
+		# Check the distance to the result position
+		var distance_to_result = adjusted_global_position.distance_to(result.position)
+		if distance_to_result <= 1.5:
+			Helper.signal_broker.player_interacted.emit(result.position, result.rid)
 
 
 # The player gets hit by an attack
