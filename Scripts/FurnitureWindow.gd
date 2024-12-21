@@ -16,6 +16,7 @@ var furniture_instance: FurnitureStaticSrv = null:
 		if value:
 			furniture_instance = value
 			furniture_container_view.set_inventory(furniture_instance.get_inventory())
+			_populate_crafting_recipe_container()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,3 +38,57 @@ func _on_container_exited_proximity(exited_furniture_instance: FurnitureStaticSr
 func _on_close_menu_button_button_up() -> void:
 	furniture_instance = null
 	self.hide()
+
+
+# Retrieves the crafting time for a specific item by its ID
+func _get_craft_time_by_id(item_id: String) -> float:
+	var first_recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
+	return first_recipe.craft_time if first_recipe else 10.0  # Default to 10 seconds
+
+
+# Adds an item to the crafting_recipe_container
+func _add_item_to_crafting_recipe_container(item_id: String):
+	# Get item details
+	var ritem: RItem = Runtimedata.items.by_id(item_id)
+	if not ritem:
+		return
+	
+	var craft_time: float = _get_craft_time_by_id(item_id)
+	
+	# Create item container
+	var item_container = HBoxContainer.new()
+	
+	# Create and add icon
+	var icon = TextureRect.new()
+	icon.texture = ritem.sprite
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	item_container.add_child(icon)
+	
+	# Create and add label
+	var label = Label.new()
+	label.text = ritem.name
+	item_container.add_child(label)
+	
+	# Create and add button
+	var queue_button = Button.new()
+	queue_button.text = "Queue (Craft: %s sec)".format(craft_time)
+	queue_button.button_up.connect(_on_queue_button_pressed.bind(item_id))
+	item_container.add_child(queue_button)
+	
+	# Add the item container to the recipe container
+	crafting_recipe_container.add_child(item_container)
+
+# Populates the crafting_recipe_container with items from furniture_instance
+func _populate_crafting_recipe_container():
+	if not furniture_instance:
+		return
+	
+	var crafting_items: Array[String] = furniture_instance.get_crafting_items()
+	Helper.free_all_children(crafting_recipe_container)
+	
+	for item_id in crafting_items:
+		_add_item_to_crafting_recipe_container(item_id)
+
+# Callback for queue button pressed
+func _on_queue_button_pressed(item_id: String):
+	print("Item queued: %s".format(item_id))
