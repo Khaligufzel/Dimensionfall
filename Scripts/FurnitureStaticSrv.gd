@@ -761,6 +761,8 @@ func check_door_functionality():
 func interact():
 	if is_door:
 		toggle_door()
+	else:
+		Helper.signal_broker.furniture_interacted.emit(self)
 
 # Function to toggle the door state
 func toggle_door():

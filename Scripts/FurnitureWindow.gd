@@ -18,4 +18,16 @@ var furniture_instance: FurnitureStaticSrv = null:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	Helper.signal_broker.furniture_interacted.connect(_on_furniture_interacted)
+	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
+
+# Some furniture has been interacted with. We will show this window
+func _on_furniture_interacted(new_furniture_instance: FurnitureStaticSrv):
+	furniture_instance = new_furniture_instance
+	self.show()
+
+# Some furniture has left proximity. If it's the currently interacted furniture, we hide the window
+func _on_container_exited_proximity(exited_furniture_instance: FurnitureStaticSrv):
+	if exited_furniture_instance == furniture_instance:
+		furniture_instance = null
+		self.hide()
