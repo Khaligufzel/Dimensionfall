@@ -28,21 +28,27 @@ func _ready():
 	Helper.signal_broker.game_loaded.connect(_on_game_loaded)
 	Helper.signal_broker.game_ended.connect(_on_game_ended)
 
+
 func _process(_delta: float):
 	if _is_tracking_time:
-		# Update elapsed time based on ticks for precision
-		var current_ticks = Time.get_ticks_msec()
-		_elapsed_time += (current_ticks - _last_tick_time) / 1000.0  # Convert ms to seconds
-		_last_tick_time = current_ticks
+		_update_elapsed_time()
+		_emit_minute_if_needed()
 
-		# Get the current in-game minute
-		var current_in_game_minutes = get_current_in_game_minutes()
 
-		# Emit signal if a new in-game minute has passed
-		if current_in_game_minutes != _last_emitted_minute:
-			_last_emitted_minute = current_in_game_minutes
-			var current_time: String = get_current_time()  # Optionally still provide the formatted string
-			minute_passed.emit(current_time)
+# Updates the elapsed time based on ticks for precise time tracking.
+func _update_elapsed_time():
+	var current_ticks = Time.get_ticks_msec()
+	_elapsed_time += (current_ticks - _last_tick_time) / 1000.0  # Convert milliseconds to seconds
+	_last_tick_time = current_ticks
+
+
+# Emits the `minute_passed` signal if a new in-game minute has elapsed.
+func _emit_minute_if_needed():
+	var current_in_game_minutes = get_current_in_game_minutes()
+	if current_in_game_minutes != _last_emitted_minute:
+		_last_emitted_minute = current_in_game_minutes
+		var current_time = get_current_time()
+		minute_passed.emit(current_time)
 
 
 # --- Signal Handlers ---
