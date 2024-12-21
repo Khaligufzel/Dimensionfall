@@ -150,6 +150,9 @@ class Crafting:
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
 		return {"items": items} if items.size() > 0 else {}
+		
+	func get_items() -> Array:
+		return items
 
 # Properties defined in the furniture
 var id: String

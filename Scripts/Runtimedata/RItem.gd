@@ -65,6 +65,9 @@ class Craft:
 		for recipe in recipes:
 			data.append(recipe.get_data())
 		return data
+	
+	func get_first_recipe() -> CraftRecipe:
+		return recipes[0] if recipes.size() > 0 else null
 
 class Ranged:
 	var firing_speed: float
@@ -248,3 +251,7 @@ func get_data() -> Dictionary:
 	if wearable:
 		data["Wearable"] = wearable.get_data()
 	return data
+
+
+func get_first_recipe() -> CraftRecipe:
+	return craft.get_first_recipe() if craft else null

@@ -144,3 +144,6 @@ func save_items_protoset() -> void:
 	for item: RItem in itemdict.values():
 		save_data.append(item.get_data())
 	update_item_protoset_json_data("res://ItemProtosets.tres", JSON.stringify(save_data, "\t"))
+
+func get_first_recipe_by_id(item_id: String) -> RItem.CraftRecipe:
+	return by_id(item_id).get_first_recipe()
