@@ -40,6 +40,7 @@ var is_animating_hit: bool = false  # Flag to prevent multiple hit animations
 var original_material_color: Color = Color(1, 1, 1)  # Store the original material color
 
 signal about_to_be_destroyed(me: FurnitureStaticSrv)
+signal crafting_queue_updated(current_queue: Array[String])
 
 
 # Inner class to keep track of position, rotation and size and keep it central
@@ -373,6 +374,7 @@ class CraftingContainer:
 	var last_update_time: float = 0.0  # Last time the crafting queue was updated
 	var crafting_time_per_item: float = 10.0  # Time (in seconds) to craft one item
 	var is_active: bool = false  # Whether the crafting queue is actively processing
+	signal crafting_queue_updated(current_queue: Array[String])
 
 
 	func _init():
@@ -391,11 +393,13 @@ class CraftingContainer:
 	# Adds an item ID to the crafting queue
 	func add_to_crafting_queue(item_id: String):
 		crafting_queue.append(item_id)
+		crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
 
 	# Removes the first item from the crafting queue
 	func remove_from_crafting_queue():
 		if not crafting_queue.is_empty():
 			crafting_queue.pop_front()
+			crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
 
 	# Serializes the inventory, crafting queue, and time-related variables for saving
 	func serialize() -> Dictionary:
@@ -485,6 +489,7 @@ class CraftingContainer:
 			return
 
 		var item_id = crafting_queue.pop_front()
+		crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
 		if item_id:
 			inventory.create_and_add_item(item_id)
 		else:
@@ -959,6 +964,7 @@ func regenerate():
 func add_crafting_container():
 	if is_crafting_station():
 		crafting_container = CraftingContainer.new()
+		crafting_container.crafting_queue_updated.connect(_on_crafting_queue_updated)
 
 func deserialize_crafting_container(data: Dictionary):
 	if crafting_container:
@@ -1028,5 +1034,14 @@ func _process(_delta: float):
 		crafting_container.process_active_crafting()
 
 
+# Add an item to the crafting queue. This might happen from a button in the furniture window
 func add_to_crafting_queue(item_id: String) -> void:
 	crafting_container.add_to_crafting_queue(item_id)
+
+# Remove the first item from the crafting queue
+func remove_from_crafting_queue() -> void:
+	crafting_container.remove_from_crafting_queue()
+
+# Forward the crafting_queue_updated signal
+func _on_crafting_queue_updated(current_queue: Array[String]):
+	crafting_queue_updated.emit(current_queue)  # Emit signal after updating the queue
