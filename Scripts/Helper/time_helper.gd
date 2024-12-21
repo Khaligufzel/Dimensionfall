@@ -23,10 +23,7 @@ var _last_emitted_minute: int = -1
 
 
 func _ready():
-	# Connect signals for game state changes
-	Helper.signal_broker.game_started.connect(_on_game_started)
-	Helper.signal_broker.game_loaded.connect(_on_game_loaded)
-	Helper.signal_broker.game_ended.connect(_on_game_ended)
+	_connect_signals() # Connect signals for game state changes
 
 
 func _process(_delta: float):
@@ -34,6 +31,14 @@ func _process(_delta: float):
 		_update_elapsed_time()
 		_emit_minute_if_needed()
 
+
+# --- Private Methods ---
+
+# Connects signals for game lifecycle events.
+func _connect_signals():
+	Helper.signal_broker.game_started.connect(_on_game_started)
+	Helper.signal_broker.game_loaded.connect(_on_game_loaded)
+	Helper.signal_broker.game_ended.connect(_on_game_ended)
 
 # Updates the elapsed time based on ticks for precise time tracking.
 func _update_elapsed_time():
@@ -129,23 +134,12 @@ func get_day_progress_percentage() -> float:
 	return (current_minutes_of_day / float(IN_GAME_DAY_MINUTES)) * 100.0
 
 
-# Returns the current number of in-game minutes in an in-game day, a value between 0 and 1440
+# Returns the current number of in-game minutes into the day (0-1440).
 func get_current_in_game_minutes() -> int:
-	# Convert day_duration to seconds to match _elapsed_time
-	var day_duration_seconds = DAY_DURATION_MINUTES * 60.0
+	var day_seconds = DAY_DURATION_MINUTES * 60.0
+	var scaled_minutes = (_elapsed_time / day_seconds) * IN_GAME_DAY_MINUTES
+	return int(scaled_minutes) % IN_GAME_DAY_MINUTES
 
-	# Scale real-life elapsed time to in-game time
-	var scaled_elapsed_time = (_elapsed_time / day_duration_seconds) * IN_GAME_DAY_MINUTES
-
-	# Convert the scaled time into a whole number of in-game minutes
-	var total_in_game_minutes: int = int(scaled_elapsed_time)
-
-	# Wrap the total minutes into a single in-game day
-	var current_minutes_of_day: int = total_in_game_minutes % IN_GAME_DAY_MINUTES
-
-	# Return the current in-game minute of the day
-	return current_minutes_of_day
-	
 
 # Returns a number representing the current hour. For example:
 # Midnight will return 0.0
