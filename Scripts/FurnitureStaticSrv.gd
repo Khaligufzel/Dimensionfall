@@ -493,7 +493,7 @@ class CraftingContainer:
 	# Retrieves the crafting time for a specific item by its ID
 	func _get_craft_time_by_id(item_id: String) -> float:
 		var first_recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
-		return first_recipe.craft_time if first_recipe else 10.0  # Default to 10 seconds
+		return first_recipe.craft_time if first_recipe else 10  # Default to 10 seconds
 
 
 # Function to initialize the furniture object
@@ -1002,17 +1002,17 @@ func transfer_item_between_containers(source_container: Object, item_id: String,
 
 
 # Function to check for the presence of an item in a container
-func has_item_in_container(container: Object, item_id: String) -> bool:
-	if container and container.has_method("get_inventory"):
-		var target_inventory = container.get_inventory()
+func has_item_in_container(mycontainer: Object, item_id: String) -> bool:
+	if mycontainer and mycontainer.has_method("get_inventory"):
+		var target_inventory = mycontainer.get_inventory()
 		return target_inventory.has_item_by_id(item_id) if target_inventory else false
 	return false
 
 
 # Function to count the amount of an item in a container
-func get_item_count_in_container(container: Object, item_id: String) -> int:
-	if container and container.has_method("get_inventory"):
-		var target_inventory = container.get_inventory()
+func get_item_count_in_container(mycontainer: Object, item_id: String) -> int:
+	if mycontainer and mycontainer.has_method("get_inventory"):
+		var target_inventory = mycontainer.get_inventory()
 		if target_inventory:
 			var items = target_inventory.get_items_by_id(item_id)
 			var total_count = 0
@@ -1026,3 +1026,7 @@ func get_item_count_in_container(container: Object, item_id: String) -> int:
 func _process(_delta: float):
 	if crafting_container and crafting_container.is_active:
 		crafting_container.process_active_crafting()
+
+
+func add_to_crafting_queue(item_id: String) -> void:
+	crafting_container.add_to_crafting_queue(item_id)

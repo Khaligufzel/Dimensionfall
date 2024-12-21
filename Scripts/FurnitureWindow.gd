@@ -91,4 +91,4 @@ func _populate_crafting_recipe_container():
 
 # Callback for queue button pressed
 func _on_queue_button_pressed(item_id: String):
-	print("Item queued: %s".format(item_id))
+	furniture_instance.add_to_crafting_queue(item_id)
