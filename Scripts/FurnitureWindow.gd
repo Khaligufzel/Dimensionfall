@@ -74,25 +74,18 @@ func _get_craft_time(item_id: String) -> float:
 	return recipe.craft_time if recipe else 10  # Default to 10 seconds.
 
 # Adds a crafting recipe item to the UI.
-# Adds a crafting recipe item to the UI.
 func _add_recipe_item(item_id: String):
 	var item_data: RItem = Runtimedata.items.by_id(item_id)
 	if not item_data:
 		return
 
-	# Create a container for the recipe item
-	var item_container = HBoxContainer.new()
-
-	# Create and add the icon
+	# Add the icon directly to the container
 	var icon = _create_icon(item_data.sprite)
-	item_container.add_child(icon)
+	crafting_recipe_container.add_child(icon)
 
-	# Create and add the button
+	# Add the button directly to the container
 	var button = _create_button(item_data.name, _on_recipe_button_pressed.bind(item_id))
-	item_container.add_child(button)
-
-	# Add the item container to the recipe container
-	crafting_recipe_container.add_child(item_container)
+	crafting_recipe_container.add_child(button)
 
 
 # Populates the crafting recipes UI.
@@ -159,7 +152,6 @@ func _create_button(text: String, callback: Callable) -> Button:
 	button.button_up.connect(callback)
 	return button
 
-# Handles the recipe button being pressed. Updates the Recipe panel.
 # Handles the recipe button being pressed. Updates the Recipe panel.
 func _on_recipe_button_pressed(item_id: String):
 	var item_data: RItem = Runtimedata.items.by_id(item_id)
