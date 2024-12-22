@@ -374,6 +374,8 @@ class CraftingContainer:
 	var last_update_time: float = 0.0  # Last time the crafting queue was updated
 	var crafting_time_per_item: float = 10.0  # Time (in seconds) to craft one item
 	var is_active: bool = false  # Whether the crafting queue is actively processing
+	# Class variable to track remaining crafting time for the current item
+	var current_craft_time: float = 0.0
 	signal crafting_queue_updated(current_queue: Array[String])
 
 
@@ -472,17 +474,23 @@ class CraftingContainer:
 
 	# Core logic to process the crafting queue
 	func _process_crafting_queue(elapsed_time: float):
-		# Process items in the queue based on elapsed time
 		while elapsed_time > 0 and not crafting_queue.is_empty():
-			var item_id = crafting_queue[0]  # Peek the first item
-			var craft_time = _get_craft_time_by_id(item_id) if item_id else 10.0  # Default to 10 seconds if lookup fails
+			# If there's no current crafting time, initialize it with the first item's craft time
+			if current_craft_time <= 0:
+				var item_id = crafting_queue[0]  # Peek the first item
+				current_craft_time = _get_craft_time_by_id(item_id) if item_id else 10.0  # Default to 10 seconds if lookup fails
 
-			# If enough time has passed, craft the item
-			if elapsed_time >= craft_time:
-				elapsed_time -= craft_time
-				_craft_next_item()
+			# Subtract the elapsed time from the current crafting time
+			current_craft_time -= elapsed_time
+
+			if current_craft_time <= 0:
+				# Crafting is complete for this item
+				elapsed_time = -current_craft_time  # Carry over any excess time
+				current_craft_time = 0  # Reset for the next item
+				_craft_next_item()  # Process the next item in the queue
 			else:
-				break  # Not enough time to craft the next item
+				# Not enough time to finish the current item, exit the loop
+				elapsed_time = 0
 
 	# Crafts the next item in the queue
 	func _craft_next_item():
