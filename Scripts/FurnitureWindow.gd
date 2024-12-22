@@ -16,6 +16,8 @@ var furniture_instance: FurnitureStaticSrv = null:
 		if furniture_instance:
 			_connect_furniture_signals()
 			_update_furniture_ui()
+			# Show or hide crafting container based on whether this furniture is a crafting station
+			crafting_v_box_container.visible = furniture_instance.is_crafting_station()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,7 +34,8 @@ func _update_furniture_ui():
 # Connects necessary signals from the furniture_instance.
 func _connect_furniture_signals():
 	furniture_instance.crafting_queue_updated.connect(_on_crafting_queue_updated)
-	furniture_instance.about_to_be_destroyed.connect(_on_furniture_about_to_be_destroyed)
+	if not furniture_instance.about_to_be_destroyed.is_connected(_on_furniture_about_to_be_destroyed):
+		furniture_instance.about_to_be_destroyed.connect(_on_furniture_about_to_be_destroyed)
 
 # Disconnects signals from the previous furniture_instance.
 func _disconnect_furniture_signals():
@@ -59,7 +62,7 @@ func _on_close_menu_button_button_up() -> void:
 # Retrieves the crafting time for a specific item by ID.
 func _get_craft_time(item_id: String) -> float:
 	var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
-	return recipe.craft_time if recipe else 10.0  # Default to 10 seconds.
+	return recipe.craft_time if recipe else 10  # Default to 10 seconds.
 
 # Adds a crafting recipe item to the UI.
 func _add_recipe_item(item_id: String):
@@ -111,7 +114,7 @@ func _on_queue_button_pressed(item_id: String):
 	furniture_instance.add_to_crafting_queue(item_id)
 
 # Handles the delete button being pressed.
-func _on_delete_button_pressed(item_id: String):
+func _on_delete_button_pressed(_item_id: String):
 	furniture_instance.crafting_container.remove_from_crafting_queue()
 
 # Handles furniture destruction signal.

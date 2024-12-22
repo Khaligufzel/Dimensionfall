@@ -11,7 +11,7 @@ bg_color = Color(0.556228, 0.609571, 0.644407, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qpvm"]
 bg_color = Color(0.67826, 0.567447, 0.588873, 1)
 
-[node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "furniture_name_label", "crafting_queue_container", "crafting_recipe_container")]
+[node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "furniture_name_label", "crafting_queue_container", "crafting_recipe_container", "crafting_v_box_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +23,7 @@ furniture_container_view = NodePath("PanelContainer/VBoxContainer/HBoxContainer/
 furniture_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/FurnitureNameLabel")
 crafting_queue_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2/CraftingQueueContainer")
 crafting_recipe_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CraftingRecipeContainer")
+crafting_v_box_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
