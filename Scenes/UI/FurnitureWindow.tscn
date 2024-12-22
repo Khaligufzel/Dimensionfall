@@ -145,11 +145,13 @@ text = "Add to queue"
 
 [node name="ItemNameLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "ItemName"
 
 [node name="ItemDescriptionLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
 custom_minimum_size = Vector2(100, 64)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "ItemDescription"
 autowrap_mode = 3
 

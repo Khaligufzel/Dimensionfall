@@ -73,6 +73,7 @@ func _get_craft_time(item_id: String) -> float:
 	return recipe.craft_time if recipe else 10  # Default to 10 seconds.
 
 # Adds a crafting recipe item to the UI.
+# Adds a crafting recipe item to the UI.
 func _add_recipe_item(item_id: String):
 	var item_data: RItem = Runtimedata.items.by_id(item_id)
 	if not item_data:
@@ -86,7 +87,7 @@ func _add_recipe_item(item_id: String):
 	item_container.add_child(icon)
 
 	# Create and add the button
-	var button = _create_button(item_data.name, _on_queue_button_pressed.bind(item_id))
+	var button = _create_button(item_data.name, _on_recipe_button_pressed.bind(item_id))
 	item_container.add_child(button)
 
 	# Add the item container to the recipe container
@@ -156,3 +157,36 @@ func _create_button(text: String, callback: Callable) -> Button:
 	button.text = text
 	button.button_up.connect(callback)
 	return button
+
+# Handles the recipe button being pressed. Updates the Recipe panel.
+func _on_recipe_button_pressed(item_id: String):
+	var item_data: RItem = Runtimedata.items.by_id(item_id)
+	if not item_data:
+		return
+
+	# Update the Recipe panel controls with the selected item's details
+	item_name_label.text = item_data.name
+	item_description_label.text = item_data.description
+	item_craft_time_label.text = "Craft Time: " + str(_get_craft_time(item_id)) + " seconds"
+
+	# Clear and populate the ingredients list
+	Helper.free_all_children(ingredients_grid_container)
+	var item_recipe: RItem.CraftRecipe = item_data.get_first_recipe()
+	if item_recipe:
+		for ingredient in item_recipe.required_resources:
+			var ingredient_id: String = ingredient.id
+			var ingredient_amount: int = ingredient.amount
+			var ingredient_data: RItem = Runtimedata.items.by_id(ingredient_id)
+
+			if ingredient_data:
+				# Add the sprite (icon)
+				var ingredient_icon = _create_icon(ingredient_data.sprite)
+				ingredients_grid_container.add_child(ingredient_icon)
+
+				# Add the name
+				var ingredient_label = _create_label(ingredient_data.name)
+				ingredients_grid_container.add_child(ingredient_label)
+
+				# Add the amount
+				var amount_label = _create_label("x" + str(ingredient_amount))
+				ingredients_grid_container.add_child(amount_label)
