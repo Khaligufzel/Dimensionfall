@@ -14,13 +14,15 @@ extends Control
 var furniture_instance: FurnitureStaticSrv = null:
 	set(value):
 		# Disconnect from the previous furniture_instance's signal if connected
-		if furniture_instance and furniture_instance.crafting_queue_updated.is_connected(_on_crafting_queue_updated):
-			furniture_instance.crafting_queue_updated.disconnect(_on_crafting_queue_updated)
+		if furniture_instance:
+			if furniture_instance.crafting_queue_updated.is_connected(_on_crafting_queue_updated):
+				furniture_instance.crafting_queue_updated.disconnect(_on_crafting_queue_updated)
 		
 		if value:
 			furniture_instance = value
 			# Connect to the new furniture_instance's signal
 			furniture_instance.crafting_queue_updated.connect(_on_crafting_queue_updated)
+			furniture_instance.about_to_be_destroyed.connect(_on_furniture_about_to_be_destroyed)
 			furniture_container_view.set_inventory(furniture_instance.get_inventory())
 			_populate_crafting_recipe_container()
 			_populate_crafting_queue_container()
@@ -38,7 +40,7 @@ func _on_furniture_interacted(new_furniture_instance: FurnitureStaticSrv):
 	self.show()
 
 # Some furniture has left proximity. If it's the currently interacted furniture, we hide the window
-func _on_container_exited_proximity(exited_furniture_instance: FurnitureStaticSrv):
+func _on_container_exited_proximity(exited_furniture_instance: Node3D):
 	if exited_furniture_instance == furniture_instance:
 		furniture_instance = null
 		self.hide()
@@ -153,3 +155,9 @@ func _on_crafting_queue_updated(_current_queue: Array[String]):
 func _on_delete_button_pressed(_item_id: String):
 	# Remove the item from the queue
 	furniture_instance.crafting_container.remove_from_crafting_queue()
+
+func _on_furniture_about_to_be_destroyed(furniture: FurnitureStaticSrv):
+	# Disconnect from the previous furniture_instance's signal if connected
+	if furniture_instance and furniture_instance == furniture and furniture_instance.crafting_queue_updated.is_connected(_on_crafting_queue_updated):
+		furniture_instance.crafting_queue_updated.disconnect(_on_crafting_queue_updated)
+		furniture_instance = null

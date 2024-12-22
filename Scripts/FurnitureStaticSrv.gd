@@ -376,6 +376,7 @@ class CraftingContainer:
 	var is_active: bool = false  # Whether the crafting queue is actively processing
 	# Class variable to track remaining crafting time for the current item
 	var current_craft_time: float = 0.0
+	var furniturecontainer: FurnitureContainer
 	signal crafting_queue_updated(current_queue: Array[String])
 
 
@@ -492,15 +493,19 @@ class CraftingContainer:
 				# Not enough time to finish the current item, exit the loop
 				elapsed_time = 0
 
-	# Crafts the next item in the queue
+	# Crafts the next item in the queue and adds it to the FurnitureContainer's inventory
 	func _craft_next_item():
 		if crafting_queue.is_empty():
-			return
+			return  # Exit if the crafting queue is empty
 
-		var item_id = crafting_queue.pop_front()
+		var item_id = crafting_queue.pop_front()  # Get the first item in the queue
 		crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
+
 		if item_id:
-			inventory.create_and_add_item(item_id)
+			if furniturecontainer:  # Ensure the FurnitureContainer exists
+				furniturecontainer.add_item_to_inventory(item_id, 1)  # Add one of the crafted item to the container's inventory
+			else:
+				print("Error: FurnitureContainer not initialized. Cannot add crafted item.")
 		else:
 			print("Error: Failed to craft item. Item ID is invalid.")
 
@@ -984,6 +989,7 @@ func on_exited_item_detector():
 func add_crafting_container():
 	if is_crafting_station():
 		crafting_container = CraftingContainer.new()
+		crafting_container.furniturecontainer = container
 		crafting_container.crafting_queue_updated.connect(_on_crafting_queue_updated)
 
 func deserialize_crafting_container(data: Dictionary):
