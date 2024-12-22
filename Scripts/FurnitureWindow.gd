@@ -1,163 +1,141 @@
 extends Control
 
-# This script is used in the FurnitureWindow.tscn scene. 
-# It supports the UI in controlling a StaticFurnitureSrv when the player interacts with it
-# It shows the furniture details and if it's a crafting station, it allows for crafting
-
+# This script supports the UI for controlling a FurnitureStaticSrv when the player interacts with it.
+# It displays furniture details and handles crafting functionalities.
 
 @export var furniture_container_view: Control = null
 @export var furniture_name_label: Label = null
 @export var crafting_queue_container: GridContainer = null
 @export var crafting_recipe_container: GridContainer = null
+@export var crafting_v_box_container: VBoxContainer = null
 
-# The current furniture that the player is interacting with
 var furniture_instance: FurnitureStaticSrv = null:
 	set(value):
-		# Disconnect from the previous furniture_instance's signal if connected
+		_disconnect_furniture_signals()
+		furniture_instance = value
 		if furniture_instance:
-			if furniture_instance.crafting_queue_updated.is_connected(_on_crafting_queue_updated):
-				furniture_instance.crafting_queue_updated.disconnect(_on_crafting_queue_updated)
-		
-		if value:
-			furniture_instance = value
-			# Connect to the new furniture_instance's signal
-			furniture_instance.crafting_queue_updated.connect(_on_crafting_queue_updated)
-			furniture_instance.about_to_be_destroyed.connect(_on_furniture_about_to_be_destroyed)
-			furniture_container_view.set_inventory(furniture_instance.get_inventory())
-			_populate_crafting_recipe_container()
-			_populate_crafting_queue_container()
-			furniture_name_label.text = furniture_instance.get_furniture_name()
-
+			_connect_furniture_signals()
+			_update_furniture_ui()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Helper.signal_broker.furniture_interacted.connect(_on_furniture_interacted)
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
 
-# Some furniture has been interacted with. We will show this window
+# Updates UI elements based on the current furniture_instance.
+func _update_furniture_ui():
+	furniture_container_view.set_inventory(furniture_instance.get_inventory())
+	furniture_name_label.text = furniture_instance.get_furniture_name()
+	_populate_crafting_recipe_container()
+	_populate_crafting_queue_container()
+
+# Connects necessary signals from the furniture_instance.
+func _connect_furniture_signals():
+	furniture_instance.crafting_queue_updated.connect(_on_crafting_queue_updated)
+	furniture_instance.about_to_be_destroyed.connect(_on_furniture_about_to_be_destroyed)
+
+# Disconnects signals from the previous furniture_instance.
+func _disconnect_furniture_signals():
+	if furniture_instance:
+		if furniture_instance.crafting_queue_updated.is_connected(_on_crafting_queue_updated):
+			furniture_instance.crafting_queue_updated.disconnect(_on_crafting_queue_updated)
+
+# Callback for furniture interaction.
 func _on_furniture_interacted(new_furniture_instance: FurnitureStaticSrv):
 	furniture_instance = new_furniture_instance
 	self.show()
 
-# Some furniture has left proximity. If it's the currently interacted furniture, we hide the window
+# Callback for furniture exiting proximity.
 func _on_container_exited_proximity(exited_furniture_instance: Node3D):
 	if exited_furniture_instance == furniture_instance:
 		furniture_instance = null
 		self.hide()
 
-# The user has pressed the close window button
+# Closes the UI when the close button is pressed.
 func _on_close_menu_button_button_up() -> void:
 	furniture_instance = null
 	self.hide()
 
+# Retrieves the crafting time for a specific item by ID.
+func _get_craft_time(item_id: String) -> float:
+	var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
+	return recipe.craft_time if recipe else 10.0  # Default to 10 seconds.
 
-# Retrieves the crafting time for a specific item by its ID
-func _get_craft_time_by_id(item_id: String) -> float:
-	var first_recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
-	return first_recipe.craft_time if first_recipe else 10  # Default to 10 seconds
-
-
-# Adds an item to the crafting_recipe_container
-func _add_item_to_crafting_recipe_container(item_id: String):
-	# Get item details
-	var ritem: RItem = Runtimedata.items.by_id(item_id)
-	if not ritem:
+# Adds a crafting recipe item to the UI.
+func _add_recipe_item(item_id: String):
+	var item_data: RItem = Runtimedata.items.by_id(item_id)
+	if not item_data:
 		return
-	
-	var craft_time: float = _get_craft_time_by_id(item_id)
-	
-	# Create item container
+
+	var craft_time = _get_craft_time(item_id)
 	var item_container = HBoxContainer.new()
 	
-	# Create and add icon
-	var icon = TextureRect.new()
-	icon.texture = ritem.sprite
-	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	item_container.add_child(icon)
-	
-	# Create and add label
-	var label = Label.new()
-	label.text = ritem.name
-	item_container.add_child(label)
-	
-	# Create and add button
-	var queue_button = Button.new()
-	queue_button.text = "Queue (Craft: " + str(craft_time) + " sec)"
-	queue_button.button_up.connect(_on_queue_button_pressed.bind(item_id))
-	item_container.add_child(queue_button)
-	
-	# Add the item container to the recipe container
+	item_container.add_child(_create_icon(item_data.sprite))
+	item_container.add_child(_create_label(item_data.name))
+	item_container.add_child(_create_button("Queue (Craft: " + str(craft_time) + " sec)", _on_queue_button_pressed.bind(item_id)))
+
 	crafting_recipe_container.add_child(item_container)
 
-# Populates the crafting_recipe_container with items from furniture_instance
+# Populates the crafting recipes UI.
 func _populate_crafting_recipe_container():
 	if not furniture_instance:
 		return
-	
-	var crafting_items: Array = furniture_instance.rfurniture.get_crafting_items()
 	Helper.free_all_children(crafting_recipe_container)
-	
-	for item_id in crafting_items:
-		_add_item_to_crafting_recipe_container(item_id)
+	for item_id in furniture_instance.rfurniture.get_crafting_items():
+		_add_recipe_item(item_id)
 
-# Callback for queue button pressed
-func _on_queue_button_pressed(item_id: String):
-	furniture_instance.add_to_crafting_queue(item_id)
-
-
-# Adds an item to the crafting_queue_container
-func _add_item_to_crafting_queue_container(item_id: String):
-	# Get item details
-	var ritem: RItem = Runtimedata.items.by_id(item_id)
-	if not ritem:
+# Adds a crafting queue item to the UI.
+func _add_queue_item(item_id: String):
+	var item_data: RItem = Runtimedata.items.by_id(item_id)
+	if not item_data:
 		return
-	
-	# Create and add icon
-	var icon = TextureRect.new()
-	icon.texture = ritem.sprite
-	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	crafting_queue_container.add_child(icon)
-	
-	# Create and add label
-	var label = Label.new()
-	label.text = ritem.name
-	crafting_queue_container.add_child(label)
-	
-	# Create and add delete button
-	var delete_button = Button.new()
-	delete_button.text = "Remove"
-	delete_button.button_up.connect(_on_delete_button_pressed.bind(item_id))
-	crafting_queue_container.add_child(delete_button)
 
+	crafting_queue_container.add_child(_create_icon(item_data.sprite))
+	crafting_queue_container.add_child(_create_label(item_data.name))
+	crafting_queue_container.add_child(_create_button("Remove", _on_delete_button_pressed.bind(item_id)))
 
-# Populates the crafting_queue_container with items from the current queue
+# Populates the crafting queue UI.
 func _populate_crafting_queue_container():
 	if not furniture_instance or not furniture_instance.crafting_container:
 		return
-	
-	# Get the crafting queue from the furniture_instance
-	var crafting_queue: Array[String] = furniture_instance.crafting_container.crafting_queue
-	
-	# Clear all existing children in the crafting_queue_container
 	Helper.free_all_children(crafting_queue_container)
-	
-	# Add each item in the crafting queue to the container
-	for item_id in crafting_queue:
-		_add_item_to_crafting_queue_container(item_id)
+	for item_id in furniture_instance.crafting_container.crafting_queue:
+		_add_queue_item(item_id)
 
-
-# Callback for crafting_queue_updated signal
+# Handles updates to the crafting queue.
 func _on_crafting_queue_updated(_current_queue: Array[String]):
 	_populate_crafting_queue_container()
 
+# Handles the queue button being pressed.
+func _on_queue_button_pressed(item_id: String):
+	furniture_instance.add_to_crafting_queue(item_id)
 
-# Callback for delete button pressed
-func _on_delete_button_pressed(_item_id: String):
-	# Remove the item from the queue
+# Handles the delete button being pressed.
+func _on_delete_button_pressed(item_id: String):
 	furniture_instance.crafting_container.remove_from_crafting_queue()
 
+# Handles furniture destruction signal.
 func _on_furniture_about_to_be_destroyed(furniture: FurnitureStaticSrv):
-	# Disconnect from the previous furniture_instance's signal if connected
-	if furniture_instance and furniture_instance == furniture and furniture_instance.crafting_queue_updated.is_connected(_on_crafting_queue_updated):
-		furniture_instance.crafting_queue_updated.disconnect(_on_crafting_queue_updated)
+	if furniture == furniture_instance:
+		_disconnect_furniture_signals()
 		furniture_instance = null
+
+# Utility function to create a TextureRect for item icons.
+func _create_icon(texture: Texture) -> TextureRect:
+	var icon = TextureRect.new()
+	icon.texture = texture
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	return icon
+
+# Utility function to create a Label for item names.
+func _create_label(text: String) -> Label:
+	var label = Label.new()
+	label.text = text
+	return label
+
+# Utility function to create a Button with a connected callback.
+func _create_button(text: String, callback: Callable) -> Button:
+	var button = Button.new()
+	button.text = text
+	button.button_up.connect(callback)
+	return button

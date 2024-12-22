@@ -1,9 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://sewnt37ji4s1"]
+[gd_scene load_steps=6 format=3 uid="uid://sewnt37ji4s1"]
 
 [ext_resource type="Script" path="res://Scripts/FurnitureWindow.gd" id="1_iww5n"]
 [ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="2_rwvfx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4fsb"]
+bg_color = Color(0.556228, 0.609571, 0.644407, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qpvm"]
+bg_color = Color(0.67826, 0.567447, 0.588873, 1)
 
 [node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "furniture_name_label", "crafting_queue_container", "crafting_recipe_container")]
 layout_mode = 3
@@ -13,10 +19,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iww5n")
-furniture_container_view = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/FurnitureContainerView")
+furniture_container_view = NodePath("PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/FurnitureContainerView")
 furniture_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/FurnitureNameLabel")
-crafting_queue_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CraftingQueueContainer")
-crafting_recipe_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CraftingRecipeContainer")
+crafting_queue_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2/CraftingQueueContainer")
+crafting_recipe_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CraftingRecipeContainer")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -48,37 +54,66 @@ text = "   X   "
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="InventoryVBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="InventoryLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="InventoryLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Inventory"
 
-[node name="FurnitureContainerView" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("2_rwvfx")]
+[node name="FurnitureContainerView" parent="PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer" instance=ExtResource("2_rwvfx")]
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CraftingVBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CraftingLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="CraftingLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Crafting"
 
-[node name="CraftingQueueContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_c4fsb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="RecipesLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Available recipes:"
+horizontal_alignment = 1
+
+[node name="CraftingRecipeContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 3
 
-[node name="RecipesLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Available recipes:"
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_4qpvm")
 
-[node name="CraftingRecipeContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Current queue"
+horizontal_alignment = 1
+
+[node name="CraftingQueueContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 3
