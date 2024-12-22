@@ -32,6 +32,7 @@ var door_state: String = "Closed"  # Default state
 
 # Variables to manage the container if this furniture is a container
 var container: FurnitureContainer
+var crafting_container: CraftingContainer
 
 # Variables to manage health and damage
 var current_health: float = 100.0  # Default health
@@ -365,6 +366,136 @@ class FurnitureContainer:
 		return container_data
 
 
+class CraftingContainer:
+	var inventory: InventoryStacked
+	var crafting_queue: Array[String] = []  # Queue of item IDs to be crafted
+	# Variables to manage crafting
+	var last_update_time: float = 0.0  # Last time the crafting queue was updated
+	var crafting_time_per_item: float = 10.0  # Time (in seconds) to craft one item
+	var is_active: bool = false  # Whether the crafting queue is actively processing
+
+
+	func _init():
+		_initialize_inventory()
+
+	# Initializes the inventory with default capacity and item prototypes
+	func _initialize_inventory():
+		inventory = InventoryStacked.new()
+		inventory.capacity = 500  # Adjust capacity as needed for crafting
+		inventory.item_protoset = ItemManager.item_protosets
+
+	# Retrieves the inventory instance
+	func get_inventory() -> InventoryStacked:
+		return inventory
+
+	# Adds an item ID to the crafting queue
+	func add_to_crafting_queue(item_id: String):
+		crafting_queue.append(item_id)
+
+	# Removes the first item from the crafting queue
+	func remove_from_crafting_queue():
+		if not crafting_queue.is_empty():
+			crafting_queue.pop_front()
+
+	# Serializes the inventory, crafting queue, and time-related variables for saving
+	func serialize() -> Dictionary:
+		var crafting_data: Dictionary = {}
+		
+		# Serialize the inventory if it contains items
+		var inventory_data = inventory.serialize()
+		if not inventory_data.is_empty():
+			crafting_data["items"] = inventory_data
+
+		# Serialize the crafting queue
+		crafting_data["crafting_queue"] = crafting_queue
+
+		# Serialize time-related variables
+		crafting_data["last_update_time"] = last_update_time
+		crafting_data["is_active"] = is_active
+
+		return crafting_data
+
+	# Deserializes and restores the inventory, crafting queue, and time-related variables from saved data
+	func deserialize(data: Dictionary):
+		# Deserialize the inventory if present
+		if data.has("items"):
+			inventory.deserialize(data["items"])
+
+		# Deserialize the crafting queue
+		if data.has("crafting_queue"):
+			crafting_queue = data["crafting_queue"]
+
+		# Deserialize time-related variables
+		last_update_time = data.get("last_update_time", 0.0)  # Default to 0 if not present
+		is_active = data.get("is_active", false)  # Default to inactive if not present
+
+	# Transfers all items to the given FurnitureContainer
+	func transfer_all_items_to_furniture(furniture_container: Object) -> void:
+		# Transfer items from crafting container to furniture container
+		var items = inventory.get_items()
+		var furniture_inventory = furniture_container.get_inventory()
+		for item in items:
+			inventory.transfer_automerge(item, furniture_inventory)
+	
+	# Activates the crafting queue for real-time updates
+	func activate_crafting():
+		is_active = true
+		last_update_time = Helper.time_helper.get_current_ticks()
+
+	# Deactivates the crafting queue and calculates passive progress
+	func deactivate_crafting():
+		is_active = false
+		_process_passive_crafting()
+
+	# Processes the crafting queue in real-time (active mode)
+	func process_active_crafting():
+		if not is_active:
+			return
+
+		var current_time = Helper.time_helper.get_current_ticks()
+		var elapsed_time = current_time - last_update_time
+		last_update_time = current_time
+
+		_process_crafting_queue(elapsed_time)
+
+	# Processes the crafting queue during passive mode
+	func _process_passive_crafting():
+		var elapsed_time = Helper.time_helper.get_time_difference(last_update_time)
+		last_update_time = Helper.time_helper.get_current_ticks()
+
+		_process_crafting_queue(elapsed_time)
+
+	# Core logic to process the crafting queue
+	func _process_crafting_queue(elapsed_time: float):
+		# Process items in the queue based on elapsed time
+		while elapsed_time > 0 and not crafting_queue.is_empty():
+			var item_id = crafting_queue[0]  # Peek the first item
+			var craft_time = _get_craft_time_by_id(item_id) if item_id else 10.0  # Default to 10 seconds if lookup fails
+
+			# If enough time has passed, craft the item
+			if elapsed_time >= craft_time:
+				elapsed_time -= craft_time
+				_craft_next_item()
+			else:
+				break  # Not enough time to craft the next item
+
+	# Crafts the next item in the queue
+	func _craft_next_item():
+		if crafting_queue.is_empty():
+			return
+
+		var item_id = crafting_queue.pop_front()
+		if item_id:
+			inventory.create_and_add_item(item_id)
+		else:
+			print("Error: Failed to craft item. Item ID is invalid.")
+
+	# Retrieves the crafting time for a specific item by its ID
+	func _get_craft_time_by_id(item_id: String) -> float:
+		var first_recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
+		return first_recipe.craft_time if first_recipe else 10.0  # Default to 10 seconds
+
+
 # Function to initialize the furniture object
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
 	furniture_position = furniturepos
@@ -378,9 +509,9 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 	furniture_transform = FurnitureTransform.new(furniturepos, furniture_rotation, furniture_size)
 
-	if is_new_furniture():
+	if _is_new_furniture():
 		furniture_transform.correct_new_position()
-		apply_edge_snapping_if_needed()
+		_apply_edge_snapping_if_needed()
 		set_new_rotation(furniture_rotation) # Apply rotation after setting up the shape and visual instance
 
 	check_door_functionality()  # Check if this furniture is a door
@@ -395,24 +526,29 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	create_sprite_instance()
 	update_door_visuals()  # Set initial door visuals based on its state
 	add_container()  # Adds container if the furniture is a container
-
+	add_crafting_container() # Adds crafting container if the furniture is a crafting station
 
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
 	if is_container():
 		container = FurnitureContainer.new(self)
 		container.create_container_sprite_instance()
-		if is_new_furniture():
+		if _is_new_furniture():
 			container.create_loot(furnitureJSON, rfurniture)
 		else:
 			container.deserialize_container_data(furnitureJSON)
 			container.set_random_inventory_item_texture()
 		# Check if this furniture regenerates the items
-		container.check_regeneration_functionality(furnitureJSON, rfurniture, is_new_furniture())
+		container.check_regeneration_functionality(furnitureJSON, rfurniture, _is_new_furniture())
 
 
 func is_container() -> bool:
 	return rfurniture.function.is_container
+
+# Wether or not this furniture is a crafting station.
+# Returns true if it is a container and has crafting recipes (items)
+func is_crafting_station() -> bool:
+	return is_container() and rfurniture.crafting.get_items().size() > 0
 
 
 # Function to calculate the size of the furniture
@@ -485,9 +621,9 @@ func create_sprite_instance():
 
 
 # Now, update methods that involve position, rotation, and size
-func apply_edge_snapping_if_needed():
+func _apply_edge_snapping_if_needed():
 	if not rfurniture.edgesnapping == "None":
-		var new_position = apply_edge_snapping(
+		var new_position = _apply_edge_snapping(
 			rfurniture.edgesnapping
 		)
 		furniture_transform.set_position(new_position)
@@ -530,7 +666,7 @@ func set_collision_layers_and_masks():
 # If edge snapping has been set in the furniture editor, we will apply it here.
 # The direction refers to the 'backside' of the furniture, which will be facing the edge of the block
 # This is needed to put furniture against the wall, or get a fence at the right edge
-func apply_edge_snapping(direction: String) -> Vector3:
+func _apply_edge_snapping(direction: String) -> Vector3:
 	# Block size, a block is 1x1 meters
 	var blockSize = Vector3(1.0, 1.0, 1.0)
 	var newpos = furniture_transform.get_position()
@@ -589,7 +725,7 @@ func get_my_rotation() -> int:
 
 
 # Helper function to determine if the furniture is new
-func is_new_furniture() -> bool:
+func _is_new_furniture() -> bool:
 	return not furnitureJSON.has("global_position_x")
 
 
@@ -694,6 +830,12 @@ func get_data() -> Dictionary:
 		if "Function" not in newfurniturejson:
 			newfurniturejson["Function"] = {}
 		newfurniturejson["Function"]["container"] = container.serialize()
+
+	# Crafting container functionality
+	if crafting_container:
+		if "Function" not in newfurniturejson:
+			newfurniturejson["Function"] = {}
+		newfurniturejson["Function"]["crafting_container"] = crafting_container.serialize()
 
 	return newfurniturejson
 
@@ -811,3 +953,74 @@ func show_miss_indicator():
 func regenerate():
 	if container:
 		container.regenerate()
+
+func add_crafting_container():
+	if is_crafting_station():
+		crafting_container = CraftingContainer.new()
+
+func deserialize_crafting_container(data: Dictionary):
+	if crafting_container:
+		crafting_container.deserialize(data.get("crafting_container", {}))
+
+
+# Function to transfer an item between containers dynamically
+func transfer_item_between_containers(source_container: Object, item_id: String, quantity: int) -> bool:
+	# Determine source and target inventories based on the source container type
+	var source_inventory: InventoryStacked
+	var target_inventory: InventoryStacked
+
+	if source_container is FurnitureContainer and crafting_container:
+		source_inventory = source_container.get_inventory()
+		target_inventory = crafting_container.get_inventory()
+	elif source_container is CraftingContainer and container:
+		source_inventory = source_container.get_inventory()
+		target_inventory = container.get_inventory()
+	else:
+		return false  # Either containers are not initialized or type is invalid
+
+	# Get the items from the source inventory
+	var items = source_inventory.get_items_by_id(item_id)
+	if items.is_empty():
+		return false  # Item not found in source
+
+	# Transfer the items
+	for item in items:
+		var stack_size = InventoryStacked.get_item_stack_size(item)
+		if stack_size > quantity:
+			# Split the stack and transfer only the required quantity
+			var split_item = source_inventory.split(item, quantity)
+			return target_inventory.transfer_autosplitmerge(split_item, target_inventory)
+		else:
+			# Transfer the whole stack
+			if target_inventory.transfer_autosplitmerge(item, target_inventory):
+				quantity -= stack_size  # Adjust the remaining quantity to transfer
+				if quantity <= 0:
+					return true
+	return false
+
+
+# Function to check for the presence of an item in a container
+func has_item_in_container(container: Object, item_id: String) -> bool:
+	if container and container.has_method("get_inventory"):
+		var target_inventory = container.get_inventory()
+		return target_inventory.has_item_by_id(item_id) if target_inventory else false
+	return false
+
+
+# Function to count the amount of an item in a container
+func get_item_count_in_container(container: Object, item_id: String) -> int:
+	if container and container.has_method("get_inventory"):
+		var target_inventory = container.get_inventory()
+		if target_inventory:
+			var items = target_inventory.get_items_by_id(item_id)
+			var total_count = 0
+			for item in items:
+				total_count += InventoryStacked.get_item_stack_size(item)
+			return total_count
+	return 0
+
+
+# Updates crafting queue during active mode (called in _process loop)
+func _process(_delta: float):
+	if crafting_container and crafting_container.is_active:
+		crafting_container.process_active_crafting()
