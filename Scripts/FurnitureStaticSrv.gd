@@ -394,6 +394,8 @@ class CraftingContainer:
 	func add_to_crafting_queue(item_id: String):
 		crafting_queue.append(item_id)
 		crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
+		if is_active:
+			activate_crafting()
 
 	# Removes the first item from the crafting queue
 	func remove_from_crafting_queue():
@@ -444,19 +446,18 @@ class CraftingContainer:
 	# Activates the crafting queue for real-time updates
 	func activate_crafting():
 		is_active = true
-		last_update_time = Helper.time_helper.get_current_ticks()
+		#last_update_time = Helper.time_helper.get_elapsed_time()
 
-	# Deactivates the crafting queue and calculates passive progress
+	# Deactivates the crafting queue
 	func deactivate_crafting():
 		is_active = false
-		_process_passive_crafting()
 
 	# Processes the crafting queue in real-time (active mode)
 	func process_active_crafting():
 		if not is_active:
 			return
 
-		var current_time = Helper.time_helper.get_current_ticks()
+		var current_time = Helper.time_helper.get_elapsed_time()
 		var elapsed_time = current_time - last_update_time
 		last_update_time = current_time
 
@@ -465,7 +466,7 @@ class CraftingContainer:
 	# Processes the crafting queue during passive mode
 	func _process_passive_crafting():
 		var elapsed_time = Helper.time_helper.get_time_difference(last_update_time)
-		last_update_time = Helper.time_helper.get_current_ticks()
+		last_update_time = Helper.time_helper.get_elapsed_time()
 
 		_process_crafting_queue(elapsed_time)
 
@@ -961,6 +962,17 @@ func regenerate():
 	if container:
 		container.regenerate()
 
+# When this furniture enters the item detector, it means the player is close
+func on_entered_item_detector():
+	regenerate()
+	if crafting_container and not crafting_container.is_active:
+		crafting_container.activate_crafting()  # Start active crafting
+
+# When this furniture exits the item detector, it means the player is away
+func on_exited_item_detector():
+	if crafting_container and crafting_container.is_active:
+		crafting_container.deactivate_crafting()  # Stop active crafting
+
 func add_crafting_container():
 	if is_crafting_station():
 		crafting_container = CraftingContainer.new()
@@ -1028,8 +1040,10 @@ func get_item_count_in_container(mycontainer: Object, item_id: String) -> int:
 	return 0
 
 
-# Updates crafting queue during active mode (called in _process loop)
-func _process(_delta: float):
+# Since this furniture node is not in the tree, we will respond to the 
+# Helper.time_manager.minute_passed signal, which is connected in the 
+# FurnitureStaticSpawner script.
+func on_minute_passed(_current_time: String):
 	if crafting_container and crafting_container.is_active:
 		crafting_container.process_active_crafting()
 
