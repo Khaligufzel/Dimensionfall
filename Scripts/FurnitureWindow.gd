@@ -52,7 +52,7 @@ func _on_close_menu_button_button_up() -> void:
 # Retrieves the crafting time for a specific item by its ID
 func _get_craft_time_by_id(item_id: String) -> float:
 	var first_recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
-	return first_recipe.craft_time if first_recipe else 10.0  # Default to 10 seconds
+	return first_recipe.craft_time if first_recipe else 10  # Default to 10 seconds
 
 
 # Adds an item to the crafting_recipe_container
@@ -110,28 +110,22 @@ func _add_item_to_crafting_queue_container(item_id: String):
 	if not ritem:
 		return
 	
-	# Create item container
-	var item_container = HBoxContainer.new()
-	
 	# Create and add icon
 	var icon = TextureRect.new()
 	icon.texture = ritem.sprite
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	item_container.add_child(icon)
+	crafting_queue_container.add_child(icon)
 	
 	# Create and add label
 	var label = Label.new()
 	label.text = ritem.name
-	item_container.add_child(label)
+	crafting_queue_container.add_child(label)
 	
 	# Create and add delete button
 	var delete_button = Button.new()
 	delete_button.text = "Remove"
 	delete_button.button_up.connect(_on_delete_button_pressed.bind(item_id))
-	item_container.add_child(delete_button)
-	
-	# Add the item container to the queue container
-	crafting_queue_container.add_child(item_container)
+	crafting_queue_container.add_child(delete_button)
 
 
 # Populates the crafting_queue_container with items from the current queue
@@ -139,19 +133,23 @@ func _populate_crafting_queue_container():
 	if not furniture_instance or not furniture_instance.crafting_container:
 		return
 	
+	# Get the crafting queue from the furniture_instance
 	var crafting_queue: Array[String] = furniture_instance.crafting_container.crafting_queue
+	
+	# Clear all existing children in the crafting_queue_container
 	Helper.free_all_children(crafting_queue_container)
 	
+	# Add each item in the crafting queue to the container
 	for item_id in crafting_queue:
 		_add_item_to_crafting_queue_container(item_id)
 
 
 # Callback for crafting_queue_updated signal
-func _on_crafting_queue_updated():
+func _on_crafting_queue_updated(_current_queue: Array[String]):
 	_populate_crafting_queue_container()
 
 
 # Callback for delete button pressed
-func _on_delete_button_pressed(item_id: String):
+func _on_delete_button_pressed(_item_id: String):
 	# Remove the item from the queue
 	furniture_instance.crafting_container.remove_from_crafting_queue()
