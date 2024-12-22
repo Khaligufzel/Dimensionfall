@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://sewnt37ji4s1"]
+[gd_scene load_steps=7 format=3 uid="uid://sewnt37ji4s1"]
 
 [ext_resource type="Script" path="res://Scripts/FurnitureWindow.gd" id="1_iww5n"]
 [ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="2_rwvfx"]
@@ -11,7 +11,10 @@ bg_color = Color(0.556228, 0.609571, 0.644407, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qpvm"]
 bg_color = Color(0.67826, 0.567447, 0.588873, 1)
 
-[node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "furniture_name_label", "crafting_queue_container", "crafting_recipe_container", "crafting_v_box_container")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tl3co"]
+bg_color = Color(0.563549, 0.621184, 0.54067, 1)
+
+[node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "furniture_name_label", "crafting_queue_container", "crafting_recipe_container", "crafting_v_box_container", "recipe_panel_container", "item_name_label", "item_description_label", "item_craft_time_label", "ingredients_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,6 +27,11 @@ furniture_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/Fur
 crafting_queue_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2/CraftingQueueContainer")
 crafting_recipe_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CraftingRecipeContainer")
 crafting_v_box_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer")
+recipe_panel_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer")
+item_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/ItemNameLabel")
+item_description_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/ItemDescriptionLabel")
+item_craft_time_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/ItemCraftTimeLabel")
+ingredients_grid_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/IngredientsVBoxContainer/IngredientsGridContainer")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -115,6 +123,49 @@ text = "Current queue"
 horizontal_alignment = 1
 
 [node name="CraftingQueueContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="RecipePanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_tl3co")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer"]
+layout_mode = 2
+
+[node name="ItemInfoVBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddToQueueButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
+layout_mode = 2
+text = "Add to queue"
+
+[node name="ItemNameLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
+layout_mode = 2
+text = "ItemName"
+
+[node name="ItemDescriptionLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
+custom_minimum_size = Vector2(100, 64)
+layout_mode = 2
+text = "ItemDescription"
+autowrap_mode = 3
+
+[node name="ItemCraftTimeLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
+layout_mode = 2
+text = "ItemCraftTime"
+
+[node name="IngredientsVBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IngredientsLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/IngredientsVBoxContainer"]
+layout_mode = 2
+text = "Ingredients:"
+
+[node name="IngredientsGridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/IngredientsVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 3

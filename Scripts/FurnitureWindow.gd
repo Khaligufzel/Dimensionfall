@@ -9,6 +9,14 @@ extends Control
 @export var crafting_recipe_container: GridContainer = null
 @export var crafting_v_box_container: VBoxContainer = null
 
+# Recipe panel controls:
+@export var recipe_panel_container: PanelContainer = null
+@export var item_name_label: Label = null
+@export var item_description_label: Label = null
+@export var item_craft_time_label: Label = null
+@export var ingredients_grid_container: GridContainer = null
+
+
 var furniture_instance: FurnitureStaticSrv = null:
 	set(value):
 		_disconnect_furniture_signals()
@@ -70,14 +78,20 @@ func _add_recipe_item(item_id: String):
 	if not item_data:
 		return
 
-	var craft_time = _get_craft_time(item_id)
+	# Create a container for the recipe item
 	var item_container = HBoxContainer.new()
-	
-	item_container.add_child(_create_icon(item_data.sprite))
-	item_container.add_child(_create_label(item_data.name))
-	item_container.add_child(_create_button("Queue (Craft: " + str(craft_time) + " sec)", _on_queue_button_pressed.bind(item_id)))
 
+	# Create and add the icon
+	var icon = _create_icon(item_data.sprite)
+	item_container.add_child(icon)
+
+	# Create and add the button
+	var button = _create_button(item_data.name, _on_queue_button_pressed.bind(item_id))
+	item_container.add_child(button)
+
+	# Add the item container to the recipe container
 	crafting_recipe_container.add_child(item_container)
+
 
 # Populates the crafting recipes UI.
 func _populate_crafting_recipe_container():
@@ -95,7 +109,7 @@ func _add_queue_item(item_id: String):
 
 	crafting_queue_container.add_child(_create_icon(item_data.sprite))
 	crafting_queue_container.add_child(_create_label(item_data.name))
-	crafting_queue_container.add_child(_create_button("Remove", _on_delete_button_pressed.bind(item_id)))
+	crafting_queue_container.add_child(_create_button("X", _on_delete_button_pressed.bind(item_id)))
 
 # Populates the crafting queue UI.
 func _populate_crafting_queue_container():
