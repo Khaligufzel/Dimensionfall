@@ -15,6 +15,7 @@ extends Control
 @export var item_description_label: Label = null
 @export var item_craft_time_label: Label = null
 @export var ingredients_grid_container: GridContainer = null
+@export var add_to_queue_button: Button = null
 
 
 var furniture_instance: FurnitureStaticSrv = null:
@@ -159,6 +160,7 @@ func _create_button(text: String, callback: Callable) -> Button:
 	return button
 
 # Handles the recipe button being pressed. Updates the Recipe panel.
+# Handles the recipe button being pressed. Updates the Recipe panel.
 func _on_recipe_button_pressed(item_id: String):
 	var item_data: RItem = Runtimedata.items.by_id(item_id)
 	if not item_data:
@@ -168,6 +170,11 @@ func _on_recipe_button_pressed(item_id: String):
 	item_name_label.text = item_data.name
 	item_description_label.text = item_data.description
 	item_craft_time_label.text = "Craft Time: " + str(_get_craft_time(item_id)) + " seconds"
+
+	# Connect the add_to_queue_button to _on_queue_button_pressed with the item_id
+	if add_to_queue_button.button_up.is_connected(_on_queue_button_pressed):
+		add_to_queue_button.button_up.disconnect(_on_queue_button_pressed)  # Disconnect previous signal
+	add_to_queue_button.button_up.connect(_on_queue_button_pressed.bind(item_id))
 
 	# Clear and populate the ingredients list
 	Helper.free_all_children(ingredients_grid_container)
