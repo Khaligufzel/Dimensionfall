@@ -8,6 +8,18 @@ extends Control
 @export var save_button: Button
 @export var loadingscreen: Control
 
+# References to the other menus
+@export var building_menu: GridContainer = null
+@export var crafting_menu: Panel = null
+@export var overmap: Control = null
+@export var furniture_window: Control = null
+@export var inventory_window: Control = null
+@export var character_window: Control = null
+@export var quest_window: Control = null
+
+
+
+
 # A boolean variable used in an "if" statement to check if the game is paused or not.
 var game_paused: bool = false
 
@@ -22,9 +34,25 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_action_just_pressed("escape") and game_paused == false:
-		_toggle_menu()
+		# Check if any other window is visible
+		var other_windows = [
+			building_menu, 
+			crafting_menu, 
+			overmap, 
+			furniture_window, 
+			inventory_window, 
+			character_window, 
+			quest_window
+		]
+		for window in other_windows:
+			if window and window.visible:
+				window.hide()  # Hide the visible window
+				return  # Prevent opening the escape menu; wait for another press
+		
+		_toggle_menu()  # Show the escape menu if no other windows are visible
 	elif Input.is_action_just_pressed("escape") and game_paused == true:
 		_resume_game()
+
 
 
 # Called when the save button is pressed.
