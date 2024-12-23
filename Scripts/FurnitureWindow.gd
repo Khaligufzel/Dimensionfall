@@ -222,6 +222,12 @@ func _add_ingredient_to_list(ingredient: Dictionary):
 		amount_label.modulate = Color(1, 0, 0)  # Set text color to red
 	ingredients_grid_container.add_child(amount_label)
 
+	# Add the "+" button
+	var add_button = _create_button("+", func() -> void:
+		print("ingredient added!"))
+	ingredients_grid_container.add_child(add_button)
+
+
 # Displays the first recipe in the recipe panel if available
 func _display_first_recipe():
 	if not furniture_instance:

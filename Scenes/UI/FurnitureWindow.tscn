@@ -171,6 +171,6 @@ text = "Ingredients:"
 [node name="IngredientsGridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/IngredientsVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-columns = 3
+columns = 4
 
 [connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer2/CloseMenuButton" to="." method="_on_close_menu_button_button_up"]

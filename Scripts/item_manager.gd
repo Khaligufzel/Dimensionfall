@@ -618,3 +618,39 @@ func subtract_from_max_inventory_volume(amount: int) -> void:
 func set_max_inventory_volume(new_volume: int) -> void:
 	player_max_inventory_volume = max(0, new_volume)  # Ensure it doesn't go below 0
 	player_max_inventory_volume_changed.emit()
+
+
+# Function to get InventoryItems from allAccessibleItems that are not present in the provided InventoryStacked.
+func get_items_not_in_inventory(inventory: InventoryStacked) -> Array:
+	var inventory_items = inventory.get_items()
+	var inventory_item_set = {}
+
+	# Add all InventoryItem instances from the provided inventory to a set for comparison.
+	for item in inventory_items:
+		inventory_item_set[item] = true
+
+	# Filter out InventoryItems from allAccessibleItems that are in the provided inventory.
+	var items_not_in_inventory = []
+	for accessible_item in allAccessibleItems:
+		if not inventory_item_set.has(accessible_item):
+			items_not_in_inventory.append(accessible_item)
+
+	return items_not_in_inventory
+
+# Function to check if the total stack size of a specific item ID in items not present in the provided inventory exceeds a given amount.
+func has_sufficient_amount_not_in_inventory(inventory: InventoryStacked, item_id: String, required_amount: int) -> bool:
+	# Get items not in the provided inventory
+	var items_not_in_inventory = get_items_not_in_inventory(inventory)
+
+	# Calculate the total stack size of the specified item ID
+	var total_amount = 0
+	for item in items_not_in_inventory:
+		if item.prototype_id == item_id:
+			total_amount += InventoryStacked.get_item_stack_size(item)
+
+		# If the total amount already exceeds the required amount, return true
+		if total_amount >= required_amount:
+			return true
+
+	# Return false if the total amount is less than the required amount
+	return false
