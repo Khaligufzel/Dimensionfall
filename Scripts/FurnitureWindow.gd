@@ -163,7 +163,7 @@ func _on_recipe_button_pressed(item_id: String):
 	# Update the Recipe panel controls with the selected item's details
 	_update_recipe_panel(item_data, item_id)
 	_connect_add_to_queue_button(item_id)
-	_populate_ingredients_list(item_data)
+	_refresh_ingredient_list(item_data)
 
 
 # Updates the recipe panel controls with the selected item's details.
@@ -181,7 +181,7 @@ func _connect_add_to_queue_button(item_id: String):
 
 
 # Populates the ingredients list with inventory availability and required amounts.
-func _populate_ingredients_list(item_data: RItem):
+func _refresh_ingredient_list(item_data: RItem):
 	Helper.free_all_children(ingredients_grid_container)
 	var item_recipe: RItem.CraftRecipe = item_data.get_first_recipe()
 	if not item_recipe:
@@ -194,7 +194,7 @@ func _populate_ingredients_list(item_data: RItem):
 # Adds a single ingredient to the ingredients list.
 func _add_ingredient_to_list(ingredient: Dictionary):
 	var ingredient_id: String = ingredient.id
-	var ingredient_amount: int = ingredient.amount
+	var required_amount: int = ingredient.amount
 	var ingredient_data: RItem = Runtimedata.items.by_id(ingredient_id)
 	if not ingredient_data:
 		return
@@ -204,11 +204,11 @@ func _add_ingredient_to_list(ingredient: Dictionary):
 
 	# Add UI elements for the ingredient
 	_add_ingredient_icon(ingredient_data.sprite)
-	_add_ingredient_name_label(ingredient_data.name, available_amount, ingredient_amount)
-	_add_ingredient_amount_label(available_amount, ingredient_amount)
+	_add_ingredient_name_label(ingredient_data.name, available_amount, required_amount)
+	_add_ingredient_amount_label(available_amount, required_amount)
 
 	# Add the "+" button with proper color and state
-	_add_ingredient_add_button(ingredient_id, ingredient_amount)
+	_add_ingredient_add_button(ingredient_id, required_amount)
 
 
 # Get the available amount of the ingredient in the inventory.

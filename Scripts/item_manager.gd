@@ -441,13 +441,9 @@ func remove_required_resources_for_recipe(recipe: RItem.CraftRecipe, items_sourc
 
 # Helper function to remove a specific amount of a resource by ID.
 func remove_resource(item_id: String, amount: int, items_source: Array[InventoryItem]) -> bool:
-	var items_to_modify = []
+	# Use the filter method to get items matching the item_id
+	var items_to_modify = items_source.filter(func(item): return item.prototype_id == item_id)
 	var amount_to_remove = amount
-
-	# Collect all items that match the item_id from the provided source
-	for item in items_source:
-		if item.prototype_id == item_id:
-			items_to_modify.append(item)
 
 	# Try to remove the required amount from the collected items
 	for item in items_to_modify:
@@ -657,3 +653,46 @@ func _gather_all_accessible_items() -> Array[InventoryItem]:
 	for inventory: InventoryStacked in proximityInventories.values():
 		items += inventory.get_items()
 	return items
+
+
+# Function to transfer items from the list returned by get_items_not_in_inventory to a target inventory.
+# It will attempt to transfer as close as possible to the required amount.
+# Function to transfer items from the list returned by get_items_not_in_inventory to a target inventory.
+# Uses `transfer_automerge` to transfer items and attempts to meet the required amount.
+func transfer_items_to_inventory(target_inventory: InventoryStacked, item_id: String, required_amount: int) -> void:
+	# Get items not in the target inventory
+	var items_not_in_inventory = get_items_not_in_inventory(target_inventory)
+	var items_to_transfer = items_not_in_inventory.filter(func(item): return item.prototype_id == item_id)
+
+	var amount_transferred = 0
+
+	for item in items_to_transfer:
+		if amount_transferred >= required_amount:
+			break  # Stop if the required amount is reached
+
+		var stack_size = InventoryStacked.get_item_stack_size(item)
+		var transferable_amount = min(required_amount - amount_transferred, stack_size)
+
+		# Temporarily adjust the item's stack size to match the transferable amount
+		var original_stack_size = stack_size
+		if transferable_amount < stack_size:
+			InventoryStacked.set_item_stack_size(item, transferable_amount)
+
+		# Attempt to transfer the item
+		var transfer_successful = target_inventory.transfer_automerge(item, target_inventory)
+
+		if transfer_successful:
+			amount_transferred += transferable_amount
+		else:
+			# Restore the original stack size if the transfer failed
+			InventoryStacked.set_item_stack_size(item, original_stack_size)
+
+		# If only part of the item stack was transferred, restore the remaining stack size
+		if transferable_amount < original_stack_size:
+			InventoryStacked.set_item_stack_size(item, original_stack_size - transferable_amount)
+		else:
+			# If the entire item stack was transferred, remove the item
+			item.get_inventory().remove_item(item)
+
+	# Update the accessible items list after the transfer
+	update_accessible_items_list()
