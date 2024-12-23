@@ -657,42 +657,36 @@ func _gather_all_accessible_items() -> Array[InventoryItem]:
 
 # Function to transfer items from the list returned by get_items_not_in_inventory to a target inventory.
 # It will attempt to transfer as close as possible to the required amount.
-# Function to transfer items from the list returned by get_items_not_in_inventory to a target inventory.
-# Uses `transfer_automerge` to transfer items and attempts to meet the required amount.
 func transfer_items_to_inventory(target_inventory: InventoryStacked, item_id: String, required_amount: int) -> void:
-	# Get items not in the target inventory
-	var items_not_in_inventory = get_items_not_in_inventory(target_inventory)
-	var items_to_transfer = items_not_in_inventory.filter(func(item): return item.prototype_id == item_id)
+	# Use the filter method to get items matching the item_id
+	var items_to_modify = get_items_not_in_inventory(target_inventory).filter(func(item): return item.prototype_id == item_id)
+	
+	var amount_to_transfer = required_amount
 
-	var amount_transferred = 0
+	# Iterate through the items and transfer the required amount
+	for item in items_to_modify:
+		if amount_to_transfer <= 0:
+			break  # Stop if we've transferred enough
 
-	for item in items_to_transfer:
-		if amount_transferred >= required_amount:
-			break  # Stop if the required amount is reached
+		var current_stack_size = InventoryStacked.get_item_stack_size(item)
+		if current_stack_size <= amount_to_transfer:
+			# If the current stack size is less than or equal to the amount we need to transfer,
+			# transfer this item completely.
 
-		var stack_size = InventoryStacked.get_item_stack_size(item)
-		var transferable_amount = min(required_amount - amount_transferred, stack_size)
-
-		# Temporarily adjust the item's stack size to match the transferable amount
-		var original_stack_size = stack_size
-		if transferable_amount < stack_size:
-			InventoryStacked.set_item_stack_size(item, transferable_amount)
-
-		# Attempt to transfer the item
-		var transfer_successful = target_inventory.transfer_automerge(item, target_inventory)
-
-		if transfer_successful:
-			amount_transferred += transferable_amount
+			if target_inventory.transfer_automerge(item, target_inventory):
+				amount_to_transfer -= current_stack_size
+			else:
+				print_debug("Failed to transfer full stack. Skipping item.")
 		else:
-			# Restore the original stack size if the transfer failed
-			InventoryStacked.set_item_stack_size(item, original_stack_size)
+			# If the current stack has more than we need, split the stack and transfer the split item
+			var split_item = item.get_inventory().split(item, amount_to_transfer)
 
-		# If only part of the item stack was transferred, restore the remaining stack size
-		if transferable_amount < original_stack_size:
-			InventoryStacked.set_item_stack_size(item, original_stack_size - transferable_amount)
-		else:
-			# If the entire item stack was transferred, remove the item
-			item.get_inventory().remove_item(item)
+			# Attempt to transfer the split item
+			if split_item and target_inventory.transfer_automerge(split_item, target_inventory):
+				amount_to_transfer -= amount_to_transfer
+			else:
+				# If transfer failed, merge the split item back into the original stack
+				item.get_inventory().merge(split_item)
 
-	# Update the accessible items list after the transfer
+	# Update the accessible items list after transfer
 	update_accessible_items_list()
