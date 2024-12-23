@@ -112,12 +112,7 @@ func _ready():
 # items_removed = all items that were removed, or had their count decreased
 func update_accessible_items_list() -> void:
 	var old_items = allAccessibleItems.duplicate(true)  # Make a deep copy of the current list
-	var new_items: Array[InventoryItem] = []
-
-	new_items += playerInventory.get_items()
-	for inventory: InventoryStacked in proximityInventories.values():
-		if is_instance_valid(inventory):
-			new_items += inventory.get_items()
+	var new_items: Array[InventoryItem] = _gather_all_accessible_items()
 
 	# Use dictionaries to count occurrences since item references won't work across different inventories
 	var old_count = count_items(old_items)
@@ -654,3 +649,11 @@ func has_sufficient_amount_not_in_inventory(inventory: InventoryStacked, item_id
 
 	# Return false if the total amount is less than the required amount
 	return false
+
+# --- Item Helpers ---
+func _gather_all_accessible_items() -> Array[InventoryItem]:
+	var items: Array[InventoryItem] = []
+	items += playerInventory.get_items()
+	for inventory: InventoryStacked in proximityInventories.values():
+		items += inventory.get_items()
+	return items
