@@ -188,11 +188,11 @@ func _refresh_ingredient_list(item_data: RItem):
 		return
 
 	for ingredient in item_recipe.required_resources:
-		_add_ingredient_to_list(ingredient)
+		_add_ingredient_to_list(ingredient, item_data)
 
 
 # Adds a single ingredient to the ingredients list.
-func _add_ingredient_to_list(ingredient: Dictionary):
+func _add_ingredient_to_list(ingredient: Dictionary, recipe_item: RItem):
 	var ingredient_id: String = ingredient.id
 	var required_amount: int = ingredient.amount
 	var ingredient_data: RItem = Runtimedata.items.by_id(ingredient_id)
@@ -208,7 +208,7 @@ func _add_ingredient_to_list(ingredient: Dictionary):
 	_add_ingredient_amount_label(available_amount, required_amount)
 
 	# Add the "+" button with proper color and state
-	_add_ingredient_add_button(ingredient_id, required_amount)
+	_add_ingredient_add_button(ingredient_id, required_amount, recipe_item)
 
 
 # Get the available amount of the ingredient in the inventory.
@@ -229,8 +229,8 @@ func _add_ingredient_icon(sprite: Texture):
 
 
 # Add the ingredient name label and set its color based on availability.
-func _add_ingredient_name_label(name: String, available: int, required: int):
-	var label = _create_label(name)
+func _add_ingredient_name_label(ingredient_name: String, available: int, required: int):
+	var label = _create_label(ingredient_name)
 	if available < required:
 		label.modulate = Color(1, 0, 0)  # Red if insufficient
 	ingredients_grid_container.add_child(label)
@@ -245,18 +245,26 @@ func _add_ingredient_amount_label(available: int, required: int):
 
 
 # Add the "+" button for the ingredient and set its color and state.
-func _add_ingredient_add_button(ingredient_id: String, required_amount: int):
-	var has_sufficient_outside = has_sufficient_ingredient_outside_inventory(ingredient_id, required_amount)
+# Updates the button's functionality in `_add_ingredient_add_button`.
+func _add_ingredient_add_button(ingredient_id: String, required_amount: int, recipe_item: RItem):
 	var button = _create_button("+", func() -> void:
-		print("ingredient added!"))
+		if furniture_instance:
+			# Call transfer_items_to_inventory to transfer items to the furniture inventory
+			ItemManager.transfer_items_to_inventory(
+				furniture_instance.get_inventory(),
+				ingredient_id,
+				required_amount
+			)
+		# Update the UI after transfer using the recipe item ID
+		_refresh_ingredient_list(recipe_item)
+	)
 
-	if has_sufficient_outside:
-		button.modulate = Color(0, 1, 0)  # Green color
-		button.disabled = false
-	else:
-		button.modulate = Color(1, 0, 0)  # Red color
-		button.disabled = true
+	# Determine button state based on ingredient availability outside the inventory
+	var has_sufficient_outside = has_sufficient_ingredient_outside_inventory(ingredient_id, required_amount)
+	button.modulate = Color(0, 1, 0) if has_sufficient_outside else Color(1, 0, 0)
+	button.disabled = not has_sufficient_outside
 
+	# Add the button to the grid container
 	ingredients_grid_container.add_child(button)
 
 
