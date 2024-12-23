@@ -27,6 +27,8 @@ var furniture_instance: FurnitureStaticSrv = null:
 			_update_furniture_ui()
 			# Show or hide crafting container based on whether this furniture is a crafting station
 			crafting_v_box_container.visible = furniture_instance.is_crafting_station()
+			# Automatically display the first recipe in the panel if available
+			_display_first_recipe()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -219,3 +221,12 @@ func _add_ingredient_to_list(ingredient: Dictionary):
 	if available_amount < ingredient_amount:
 		amount_label.modulate = Color(1, 0, 0)  # Set text color to red
 	ingredients_grid_container.add_child(amount_label)
+
+# Displays the first recipe in the recipe panel if available
+func _display_first_recipe():
+	if not furniture_instance:
+		return
+	
+	var crafting_items = furniture_instance.rfurniture.get_crafting_items()
+	if crafting_items.size() > 0:
+		_on_recipe_button_pressed(crafting_items[0])  # Call with the first recipe ID
