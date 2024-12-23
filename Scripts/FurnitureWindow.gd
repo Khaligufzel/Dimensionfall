@@ -159,33 +159,63 @@ func _on_recipe_button_pressed(item_id: String):
 		return
 
 	# Update the Recipe panel controls with the selected item's details
+	_update_recipe_panel(item_data, item_id)
+	_connect_add_to_queue_button(item_id)
+	_populate_ingredients_list(item_data)
+
+
+# Updates the recipe panel controls with the selected item's details.
+func _update_recipe_panel(item_data: RItem, item_id: String):
 	item_name_label.text = item_data.name
 	item_description_label.text = item_data.description
 	item_craft_time_label.text = "Craft Time: " + str(_get_craft_time(item_id)) + " seconds"
 
-	# Connect the add_to_queue_button to _on_queue_button_pressed with the item_id
+
+# Connects the "Add to Queue" button to the _on_queue_button_pressed function.
+func _connect_add_to_queue_button(item_id: String):
 	if add_to_queue_button.button_up.is_connected(_on_queue_button_pressed):
 		add_to_queue_button.button_up.disconnect(_on_queue_button_pressed)  # Disconnect previous signal
 	add_to_queue_button.button_up.connect(_on_queue_button_pressed.bind(item_id))
 
-	# Clear and populate the ingredients list
+
+# Populates the ingredients list with inventory availability and required amounts.
+func _populate_ingredients_list(item_data: RItem):
 	Helper.free_all_children(ingredients_grid_container)
 	var item_recipe: RItem.CraftRecipe = item_data.get_first_recipe()
-	if item_recipe:
-		for ingredient in item_recipe.required_resources:
-			var ingredient_id: String = ingredient.id
-			var ingredient_amount: int = ingredient.amount
-			var ingredient_data: RItem = Runtimedata.items.by_id(ingredient_id)
+	if not item_recipe:
+		return
 
-			if ingredient_data:
-				# Add the sprite (icon)
-				var ingredient_icon = _create_icon(ingredient_data.sprite)
-				ingredients_grid_container.add_child(ingredient_icon)
+	for ingredient in item_recipe.required_resources:
+		_add_ingredient_to_list(ingredient)
 
-				# Add the name
-				var ingredient_label = _create_label(ingredient_data.name)
-				ingredients_grid_container.add_child(ingredient_label)
 
-				# Add the amount
-				var amount_label = _create_label("x" + str(ingredient_amount))
-				ingredients_grid_container.add_child(amount_label)
+# Adds a single ingredient to the ingredients list with availability and required amounts.
+func _add_ingredient_to_list(ingredient: Dictionary):
+	var ingredient_id: String = ingredient.id
+	var ingredient_amount: int = ingredient.amount
+	var ingredient_data: RItem = Runtimedata.items.by_id(ingredient_id)
+	if not ingredient_data:
+		return
+
+	# Calculate available amount using get_items_by_id and get_item_stack_size
+	var inventory = furniture_instance.get_inventory()
+	var available_amount: int = 0
+	if inventory.has_item_by_id(ingredient_id):
+		var items: Array = inventory.get_items_by_id(ingredient_id)
+		for item in items:
+			available_amount += InventoryStacked.get_item_stack_size(item)
+
+	# Add the sprite (icon)
+	ingredients_grid_container.add_child(_create_icon(ingredient_data.sprite))
+
+	# Add the name, coloring it red if not enough is available
+	var ingredient_label = _create_label(ingredient_data.name)
+	if available_amount < ingredient_amount:
+		ingredient_label.modulate = Color(1, 0, 0)  # Set text color to red
+	ingredients_grid_container.add_child(ingredient_label)
+
+	# Add the amount, showing available and required; color it red if insufficient
+	var amount_label = _create_label(str(available_amount) + " / " + str(ingredient_amount))
+	if available_amount < ingredient_amount:
+		amount_label.modulate = Color(1, 0, 0)  # Set text color to red
+	ingredients_grid_container.add_child(amount_label)
