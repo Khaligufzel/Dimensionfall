@@ -387,7 +387,7 @@ func on_crafting_menu_start_craft(item: DItem, recipe: RItem.CraftRecipe):
 		if item_volume > remaining_volume:
 			craft_failed.emit(item, recipe, "Not enough space in inventory!")
 			return # The item is too big to fit in the player inventory
-		if not remove_required_resources_for_recipe(recipe):
+		if not remove_required_resources_for_recipe(recipe, allAccessibleItems):
 			craft_failed.emit(item, recipe, "Failed to remove resources!")
 			return
 		var newitem = playerInventory.create_and_add_item(item_id)
@@ -423,29 +423,29 @@ func has_sufficient_item_amount(item_id: String, required_amount: int) -> bool:
 
 
 # Function to remove the required resources for a given recipe from the inventory.
-func remove_required_resources_for_recipe(recipe: RItem.CraftRecipe) -> bool:
+func remove_required_resources_for_recipe(recipe: RItem.CraftRecipe, items_source: Array[InventoryItem]) -> bool:
 	if "required_resources" not in recipe:
 		print("Recipe does not contain required resources.")
 		return false
 
 	# Loop through each resource and amount required by the recipe.
 	for resource in recipe.required_resources:
-		# Check if the inventory has a sufficient amount of each required resource.
-		if not remove_resource(resource.get("id"), resource.get("amount")):
+		# Check if the source has a sufficient amount of each required resource.
+		if not remove_resource(resource.get("id"), resource.get("amount"), items_source):
 			print_debug("Failed to remove required resource:", resource.get("id"), \
 			"needed amount:", resource.get("amount"))
 			return false  # Return false if we fail to remove the required amount for any resource.
 
-	return true  # If all resources are successfully removed, return true.
+	return true  # If all resources are successfully removed, return true
 
 
 # Helper function to remove a specific amount of a resource by ID.
-func remove_resource(item_id: String, amount: int) -> bool:
+func remove_resource(item_id: String, amount: int, items_source: Array[InventoryItem]) -> bool:
 	var items_to_modify = []
 	var amount_to_remove = amount
 
-	# Collect all items that match the item_id
-	for item in allAccessibleItems:
+	# Collect all items that match the item_id from the provided source
+	for item in items_source:
 		if item.prototype_id == item_id:
 			items_to_modify.append(item)
 
@@ -462,7 +462,7 @@ func remove_resource(item_id: String, amount: int) -> bool:
 			if not item.get_inventory().remove_item(item):
 				return false  # Return false if we fail to remove the item.
 			else:
-				allAccessibleItems.erase(item)  # Ensure to update the accessible items list
+				update_accessible_items_list()
 		else:
 			# If the current item stack has more than we need, reduce its stack size.
 			var new_stack_size = current_stack_size - amount_to_remove
