@@ -191,7 +191,7 @@ func _populate_ingredients_list(item_data: RItem):
 		_add_ingredient_to_list(ingredient)
 
 
-# Adds a single ingredient to the ingredients list with availability and required amounts.
+# Adds a single ingredient to the ingredients list.
 func _add_ingredient_to_list(ingredient: Dictionary):
 	var ingredient_id: String = ingredient.id
 	var ingredient_amount: int = ingredient.amount
@@ -199,33 +199,66 @@ func _add_ingredient_to_list(ingredient: Dictionary):
 	if not ingredient_data:
 		return
 
-	# Calculate available amount using get_items_by_id and get_item_stack_size
+	# Calculate available and required amounts
+	var available_amount: int = _get_available_ingredient_amount(ingredient_id)
+
+	# Add UI elements for the ingredient
+	_add_ingredient_icon(ingredient_data.sprite)
+	_add_ingredient_name_label(ingredient_data.name, available_amount, ingredient_amount)
+	_add_ingredient_amount_label(available_amount, ingredient_amount)
+
+	# Add the "+" button with proper color and state
+	_add_ingredient_add_button(ingredient_id, ingredient_amount)
+
+
+# Get the available amount of the ingredient in the inventory.
+func _get_available_ingredient_amount(ingredient_id: String) -> int:
 	var inventory = furniture_instance.get_inventory()
 	var available_amount: int = 0
 	if inventory.has_item_by_id(ingredient_id):
 		var items: Array = inventory.get_items_by_id(ingredient_id)
 		for item in items:
 			available_amount += InventoryStacked.get_item_stack_size(item)
+	return available_amount
 
-	# Add the sprite (icon)
-	ingredients_grid_container.add_child(_create_icon(ingredient_data.sprite))
 
-	# Add the name, coloring it red if not enough is available
-	var ingredient_label = _create_label(ingredient_data.name)
-	if available_amount < ingredient_amount:
-		ingredient_label.modulate = Color(1, 0, 0)  # Set text color to red
-	ingredients_grid_container.add_child(ingredient_label)
+# Add the icon for the ingredient to the ingredients grid container.
+func _add_ingredient_icon(sprite: Texture):
+	var icon = _create_icon(sprite)
+	ingredients_grid_container.add_child(icon)
 
-	# Add the amount, showing available and required; color it red if insufficient
-	var amount_label = _create_label(str(available_amount) + " / " + str(ingredient_amount))
-	if available_amount < ingredient_amount:
-		amount_label.modulate = Color(1, 0, 0)  # Set text color to red
-	ingredients_grid_container.add_child(amount_label)
 
-	# Add the "+" button
-	var add_button = _create_button("+", func() -> void:
+# Add the ingredient name label and set its color based on availability.
+func _add_ingredient_name_label(name: String, available: int, required: int):
+	var label = _create_label(name)
+	if available < required:
+		label.modulate = Color(1, 0, 0)  # Red if insufficient
+	ingredients_grid_container.add_child(label)
+
+
+# Add the ingredient amount label and set its color based on availability.
+func _add_ingredient_amount_label(available: int, required: int):
+	var label = _create_label(str(available) + " / " + str(required))
+	if available < required:
+		label.modulate = Color(1, 0, 0)  # Red if insufficient
+	ingredients_grid_container.add_child(label)
+
+
+# Add the "+" button for the ingredient and set its color and state.
+func _add_ingredient_add_button(ingredient_id: String, required_amount: int):
+	var has_sufficient_outside = has_sufficient_ingredient_outside_inventory(ingredient_id, required_amount)
+	var button = _create_button("+", func() -> void:
 		print("ingredient added!"))
-	ingredients_grid_container.add_child(add_button)
+
+	if has_sufficient_outside:
+		button.modulate = Color(0, 1, 0)  # Green color
+		button.disabled = false
+	else:
+		button.modulate = Color(1, 0, 0)  # Red color
+		button.disabled = true
+
+	ingredients_grid_container.add_child(button)
+
 
 
 # Displays the first recipe in the recipe panel if available
@@ -236,3 +269,16 @@ func _display_first_recipe():
 	var crafting_items = furniture_instance.rfurniture.get_crafting_items()
 	if crafting_items.size() > 0:
 		_on_recipe_button_pressed(crafting_items[0])  # Call with the first recipe ID
+
+
+# Function to check if the amount of a specific ingredient is sufficient outside the given inventory.
+# Calls ItemManager.has_sufficient_amount_not_in_inventory and returns the result.
+func has_sufficient_ingredient_outside_inventory(item_id: String, amount: int) -> bool:
+	if not furniture_instance:
+		return false  # Ensure furniture_instance is valid
+
+	# Get the inventory of the furniture_instance
+	var inventory = furniture_instance.get_inventory()
+	
+	# Call ItemManager.has_sufficient_amount_not_in_inventory and return the result
+	return ItemManager.has_sufficient_amount_not_in_inventory(inventory, item_id, amount)
