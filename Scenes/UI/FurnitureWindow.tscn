@@ -14,7 +14,7 @@ bg_color = Color(0.67826, 0.567447, 0.588873, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tl3co"]
 bg_color = Color(0.563549, 0.621184, 0.54067, 1)
 
-[node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "furniture_name_label", "crafting_queue_container", "crafting_recipe_container", "crafting_v_box_container", "recipe_panel_container", "item_name_label", "item_description_label", "item_craft_time_label", "ingredients_grid_container", "add_to_queue_button")]
+[node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "furniture_name_label", "crafting_queue_container", "crafting_recipe_container", "crafting_v_box_container", "craft_status_label", "craft_status_timer", "recipe_panel_container", "item_name_label", "item_description_label", "item_craft_time_label", "ingredients_grid_container", "add_to_queue_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +27,8 @@ furniture_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/Fur
 crafting_queue_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2/CraftingQueueContainer")
 crafting_recipe_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CraftingRecipeContainer")
 crafting_v_box_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer")
+craft_status_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2/CraftStatusLabel")
+craft_status_timer = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2/CraftStatusTimer")
 recipe_panel_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer")
 item_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/ItemNameLabel")
 item_description_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/ItemDescriptionLabel")
@@ -80,10 +82,19 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CraftingLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
+layout_mode = 2
+
+[node name="CraftingLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Crafting"
+
+[node name="CraftStatusTimer" type="Timer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2"]
+
+[node name="CraftStatusLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Time remaining:"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
 layout_mode = 2

@@ -8,6 +8,9 @@ extends Control
 @export var crafting_queue_container: GridContainer = null
 @export var crafting_recipe_container: GridContainer = null
 @export var crafting_v_box_container: VBoxContainer = null
+@export var craft_status_label: Label = null
+@export var craft_status_timer: Timer = null
+
 
 # Recipe panel controls:
 @export var recipe_panel_container: PanelContainer = null
@@ -39,6 +42,9 @@ func _ready():
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
 	# Connect to the ItemManager.allAccessibleItems_changed signal
 	ItemManager.allAccessibleItems_changed.connect(_on_all_accessible_items_changed)
+	# Ensure the timer starts when the UI is shown
+	craft_status_timer.timeout.connect(_update_craft_status_label)
+	craft_status_timer.start()
 
 
 # Updates UI elements based on the current furniture_instance.
@@ -47,6 +53,7 @@ func _update_furniture_ui():
 	furniture_name_label.text = furniture_instance.get_furniture_name()
 	_populate_crafting_recipe_container()
 	_populate_crafting_queue_container()
+	_update_craft_status_label()
 
 # Connects necessary signals from the furniture_instance.
 func _connect_furniture_signals():
@@ -139,6 +146,7 @@ func _populate_crafting_queue_container():
 # Handles updates to the crafting queue.
 func _on_crafting_queue_updated(_current_queue: Array[FurnitureStaticSrv.QueueItem]):
 	_populate_crafting_queue_container()
+	_update_craft_status_label()
 
 
 # Handles the queue button being pressed.
@@ -329,3 +337,25 @@ func _on_all_accessible_items_changed(_items_added: Array, _items_removed: Array
 func _on_inventory_contents_changed():
 	if furniture_instance:
 		_refresh_ingredient_list(Runtimedata.items.by_id(current_item_id))
+		_update_craft_status_label()
+
+
+# Updates the crafting status label based on the crafting queue and resources.
+func _update_craft_status_label():
+	if not furniture_instance or not furniture_instance.crafting_container:
+		craft_status_label.text = "Queue empty"
+		return
+
+	var crafting_queue = furniture_instance.crafting_container.crafting_queue
+	if crafting_queue.is_empty():
+		craft_status_label.text = "Queue empty"
+	else:
+		# Get the first item in the queue and its time remaining
+		var queue_item = crafting_queue[0]
+		var time_remaining = floor(queue_item.time_remaining)  # Round down to whole seconds
+		
+		var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(queue_item.id)
+		if not furniture_instance.crafting_container.are_all_ingredients_available(recipe):
+			craft_status_label.text = "Waiting for resources"
+		else:
+			craft_status_label.text = "Time remaining: " + str(time_remaining) + " seconds"
