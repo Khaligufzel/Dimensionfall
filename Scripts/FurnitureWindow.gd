@@ -17,11 +17,14 @@ extends Control
 @export var ingredients_grid_container: GridContainer = null
 @export var add_to_queue_button: Button = null
 
+# Tracks the currently selected item ID in the crafting recipe panel
+var current_item_id: String = ""
 
 var furniture_instance: FurnitureStaticSrv = null:
 	set(value):
 		_disconnect_furniture_signals()
 		furniture_instance = value
+		current_item_id = ""  # Reset current_item_id when furniture changes
 		if furniture_instance:
 			_connect_furniture_signals()
 			_update_furniture_ui()
@@ -34,6 +37,9 @@ var furniture_instance: FurnitureStaticSrv = null:
 func _ready():
 	Helper.signal_broker.furniture_interacted.connect(_on_furniture_interacted)
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
+	# Connect to the ItemManager.allAccessibleItems_changed signal
+	ItemManager.allAccessibleItems_changed.connect(_on_all_accessible_items_changed)
+
 
 # Updates UI elements based on the current furniture_instance.
 func _update_furniture_ui():
@@ -156,6 +162,7 @@ func _create_button(text: String, callback: Callable) -> Button:
 
 # Handles the recipe button being pressed. Updates the Recipe panel.
 func _on_recipe_button_pressed(item_id: String):
+	current_item_id = item_id  # Update the currently selected item ID
 	var item_data: RItem = Runtimedata.items.by_id(item_id)
 	if not item_data:
 		return
@@ -164,6 +171,7 @@ func _on_recipe_button_pressed(item_id: String):
 	_update_recipe_panel(item_data, item_id)
 	_connect_add_to_queue_button(item_id)
 	_refresh_ingredient_list(item_data)
+
 
 
 # Updates the recipe panel controls with the selected item's details.
@@ -178,6 +186,31 @@ func _connect_add_to_queue_button(item_id: String):
 	if add_to_queue_button.button_up.is_connected(_on_queue_button_pressed):
 		add_to_queue_button.button_up.disconnect(_on_queue_button_pressed)  # Disconnect previous signal
 	add_to_queue_button.button_up.connect(_on_queue_button_pressed.bind(item_id))
+
+	# Update the button's status based on the inventory
+	_update_add_to_queue_button_status(item_id)
+
+
+# Checks and updates the disabled status of the "Add to Queue" button based on inventory.
+func _update_add_to_queue_button_status(item_id: String):
+	# Retrieve the recipe for the current item
+	var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
+	if not recipe:
+		add_to_queue_button.disabled = true
+		return
+
+	# Check if all required ingredients are available in the FurnitureContainer
+	var all_ingredients_available = true
+	for ingredient in recipe.required_resources:
+		var ingredient_id = ingredient.id
+		var required_amount = ingredient.amount
+		var available_amount = _get_available_ingredient_amount(ingredient_id)
+		if available_amount < required_amount:
+			all_ingredients_available = false
+			break
+
+	# Enable or disable the button based on availability
+	add_to_queue_button.disabled = not all_ingredients_available
 
 
 # Populates the ingredients list with inventory availability and required amounts.
@@ -211,7 +244,7 @@ func _add_ingredient_to_list(ingredient: Dictionary, recipe_item: RItem):
 	_add_ingredient_add_button(ingredient_id, required_amount, recipe_item)
 
 
-# Get the available amount of the ingredient in the inventory.
+# Get the available amount of the ingredient in the FurnitureContainer inventory.
 func _get_available_ingredient_amount(ingredient_id: String) -> int:
 	var inventory = furniture_instance.get_inventory()
 	var available_amount: int = 0
@@ -268,7 +301,6 @@ func _add_ingredient_add_button(ingredient_id: String, required_amount: int, rec
 	ingredients_grid_container.add_child(button)
 
 
-
 # Displays the first recipe in the recipe panel if available
 func _display_first_recipe():
 	if not furniture_instance:
@@ -276,6 +308,7 @@ func _display_first_recipe():
 	
 	var crafting_items = furniture_instance.rfurniture.get_crafting_items()
 	if crafting_items.size() > 0:
+		current_item_id = crafting_items[0]  # Update current_item_id to the first recipe
 		_on_recipe_button_pressed(crafting_items[0])  # Call with the first recipe ID
 
 
@@ -290,3 +323,9 @@ func has_sufficient_ingredient_outside_inventory(item_id: String, amount: int) -
 	
 	# Call ItemManager.has_sufficient_amount_not_in_inventory and return the result
 	return ItemManager.has_sufficient_amount_not_in_inventory(inventory, item_id, amount)
+
+
+# Called when allAccessibleItems_changed signal is emitted.
+func _on_all_accessible_items_changed(items_added: Array, items_removed: Array):
+	if furniture_instance and current_item_id:
+		_update_add_to_queue_button_status(current_item_id)
