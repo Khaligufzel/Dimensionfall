@@ -406,6 +406,7 @@ class CraftingContainer:
 	func remove_from_crafting_queue():
 		if not crafting_queue.is_empty():
 			crafting_queue.pop_front()
+			transfer_all_items_to_furniture()
 			crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
 
 	# Serializes the inventory, crafting queue, and time-related variables for saving
@@ -441,10 +442,10 @@ class CraftingContainer:
 		is_active = data.get("is_active", false)  # Default to inactive if not present
 
 	# Transfers all items to the given FurnitureContainer
-	func transfer_all_items_to_furniture(furniture_container: Object) -> void:
+	func transfer_all_items_to_furniture() -> void:
 		# Transfer items from crafting container to furniture container
 		var items = inventory.get_items()
-		var furniture_inventory = furniture_container.get_inventory()
+		var furniture_inventory = furniturecontainer.get_inventory()
 		for item in items:
 			inventory.transfer_automerge(item, furniture_inventory)
 	
@@ -488,7 +489,7 @@ class CraftingContainer:
 						return
 
 				# Initialize crafting time if ingredients are available
-				current_craft_time = recipe.craft_time if recipe else 10.0  # Default to 10 seconds if lookup fails
+				current_craft_time = recipe.craft_time if recipe else 10  # Default to 10 seconds if lookup fails
 
 			# Subtract the elapsed time from the current crafting time
 			current_craft_time -= elapsed_time
@@ -513,10 +514,12 @@ class CraftingContainer:
 		if item_id:
 			if furniturecontainer:  # Ensure the FurnitureContainer exists
 				furniturecontainer.add_item_to_inventory(item_id, 1)  # Add one of the crafted item to the container's inventory
+				inventory.clear()  # Clear the crafting inventory after crafting the item
 			else:
 				print("Error: FurnitureContainer not initialized. Cannot add crafted item.")
 		else:
 			print("Error: Failed to craft item. Item ID is invalid.")
+
 
 	# Retrieves the crafting time for a specific item by its ID
 	func _get_craft_time_by_id(item_id: String) -> float:

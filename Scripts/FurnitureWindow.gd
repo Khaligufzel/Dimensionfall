@@ -136,11 +136,13 @@ func _on_queue_button_pressed(item_id: String):
 func _on_delete_button_pressed(_item_id: String):
 	furniture_instance.crafting_container.remove_from_crafting_queue()
 
+
 # Handles furniture destruction signal.
 func _on_furniture_about_to_be_destroyed(furniture: FurnitureStaticSrv):
 	if furniture == furniture_instance:
 		_disconnect_furniture_signals()
 		furniture_instance = null
+
 
 # Utility function to create a TextureRect for item icons.
 func _create_icon(texture: Texture) -> TextureRect:
