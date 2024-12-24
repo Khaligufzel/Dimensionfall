@@ -460,13 +460,35 @@ class CraftingContainer:
 		last_update_time = data.get("last_update_time", 0.0)  # Default to 0 if not present
 		is_active = data.get("is_active", false)  # Default to inactive if not present
 
+
 	# Transfers all items to the given FurnitureContainer
 	func transfer_all_items_to_furniture() -> void:
-		# Transfer items from crafting container to furniture container
+		print("Starting transfer of all items to furniture container.")
+		
+		# Retrieve all items from the crafting container inventory
 		var items = inventory.get_items()
+		print("Items in crafting container inventory before transfer: ", items)
+		
+		# Get the inventory of the target furniture container
 		var furniture_inventory = furniturecontainer.get_inventory()
-		for item in items:
-			inventory.transfer_automerge(item, furniture_inventory)
+		print("Furniture container inventory: ", furniture_inventory)
+
+		# Loop through each item and transfer it
+		for item in items.duplicate():  # Duplicate the list to avoid modification during iteration
+			print("Transferring item: ", item, " | Stack size: ", InventoryStacked.get_item_stack_size(item))
+			
+			# Perform the transfer
+			var success = inventory.transfer_automerge(item, furniture_inventory)
+			if success:
+				print("Successfully transferred item: ", item)
+			else:
+				print("Failed to transfer item: ", item)
+		
+		# Print remaining items in crafting inventory after transfer
+		var remaining_items = inventory.get_items()
+		print("Items remaining in crafting container inventory after transfer: ", remaining_items)
+		print("Completed transfer of all items to furniture container.")
+
 	
 	# Activates the crafting queue for real-time updates
 	func activate_crafting():
