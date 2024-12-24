@@ -54,11 +54,24 @@ func _connect_furniture_signals():
 	if not furniture_instance.about_to_be_destroyed.is_connected(_on_furniture_about_to_be_destroyed):
 		furniture_instance.about_to_be_destroyed.connect(_on_furniture_about_to_be_destroyed)
 
+	# Connect inventory contents_changed signal
+	var my_inventory = furniture_instance.get_inventory()
+	if my_inventory.contents_changed.is_connected(_on_inventory_contents_changed):
+		my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
+	my_inventory.contents_changed.connect(_on_inventory_contents_changed)
+
+
 # Disconnects signals from the previous furniture_instance.
 func _disconnect_furniture_signals():
 	if furniture_instance:
 		if furniture_instance.crafting_queue_updated.is_connected(_on_crafting_queue_updated):
 			furniture_instance.crafting_queue_updated.disconnect(_on_crafting_queue_updated)
+		
+		# Disconnect inventory contents_changed signal
+		var my_inventory = furniture_instance.get_inventory()
+		if my_inventory.contents_changed.is_connected(_on_inventory_contents_changed):
+			my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
+
 
 # Callback for furniture interaction.
 func _on_furniture_interacted(new_furniture_instance: FurnitureStaticSrv):
@@ -206,6 +219,8 @@ func _update_add_to_queue_button_status():
 
 # Populates the ingredients list with inventory availability and required amounts.
 func _refresh_ingredient_list(item_data: RItem):
+	if not item_data:
+		return  # Exit if no valid item_data is provided
 	Helper.free_all_children(ingredients_grid_container)
 	var item_recipe: RItem.CraftRecipe = item_data.get_first_recipe()
 	if not item_recipe:
@@ -309,3 +324,8 @@ func has_sufficient_ingredient_outside_inventory(item_id: String, amount: int) -
 func _on_all_accessible_items_changed(_items_added: Array, _items_removed: Array):
 	if furniture_instance and current_item_id:
 		_update_add_to_queue_button_status()
+
+# Callback for when the inventory contents change.
+func _on_inventory_contents_changed():
+	if furniture_instance:
+		_refresh_ingredient_list(Runtimedata.items.by_id(current_item_id))
