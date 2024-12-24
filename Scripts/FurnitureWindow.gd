@@ -175,7 +175,6 @@ func _on_recipe_button_pressed(item_id: String):
 	_refresh_ingredient_list(item_data)
 
 
-
 # Updates the recipe panel controls with the selected item's details.
 func _update_recipe_panel(item_data: RItem, item_id: String):
 	item_name_label.text = item_data.name
@@ -199,16 +198,7 @@ func _update_add_to_queue_button_status(item_id: String):
 	if not recipe:
 		add_to_queue_button.disabled = true
 		return
-	add_to_queue_button.disabled = not _are_all_ingredients_available(recipe)
-
-
-# --- INGREDIENT VALIDATION ---
-func _are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
-	for ingredient in recipe.required_resources:
-		var available = _get_available_ingredient_amount(ingredient.id)
-		if available < ingredient.amount:
-			return false
-	return true
+	add_to_queue_button.disabled = not furniture_instance.are_all_ingredients_available(recipe)
 
 
 # Populates the ingredients list with inventory availability and required amounts.
@@ -231,7 +221,7 @@ func _add_ingredient_to_list(ingredient: Dictionary, recipe_item: RItem):
 		return
 
 	# Calculate available and required amounts
-	var available_amount: int = _get_available_ingredient_amount(ingredient_id)
+	var available_amount: int = furniture_instance.get_available_ingredient_amount(ingredient_id)
 
 	# Add UI elements for the ingredient
 	_add_ingredient_icon(ingredient_data.sprite)
@@ -240,17 +230,6 @@ func _add_ingredient_to_list(ingredient: Dictionary, recipe_item: RItem):
 
 	# Add the "+" button with proper color and state
 	_add_ingredient_add_button(ingredient_id, required_amount, recipe_item)
-
-
-# Get the available amount of the ingredient in the FurnitureContainer inventory.
-func _get_available_ingredient_amount(ingredient_id: String) -> int:
-	var inventory = furniture_instance.get_inventory()
-	var available_amount: int = 0
-	if inventory.has_item_by_id(ingredient_id):
-		var items: Array = inventory.get_items_by_id(ingredient_id)
-		for item in items:
-			available_amount += InventoryStacked.get_item_stack_size(item)
-	return available_amount
 
 
 # Add the icon for the ingredient to the ingredients grid container.

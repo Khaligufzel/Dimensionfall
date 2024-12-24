@@ -1095,3 +1095,22 @@ func _on_crafting_queue_updated(current_queue: Array[String]):
 
 func get_furniture_name() -> String:
 	return rfurniture.name
+
+
+# Get the available amount of the ingredient in the FurnitureContainer inventory.
+func get_available_ingredient_amount(ingredient_id: String) -> int:
+	var inventory = container.get_inventory()
+	var available_amount: int = 0
+	if inventory.has_item_by_id(ingredient_id):
+		var items: Array = inventory.get_items_by_id(ingredient_id)
+		for item in items:
+			available_amount += InventoryStacked.get_item_stack_size(item)
+	return available_amount
+
+
+func are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
+	for ingredient in recipe.required_resources:
+		var available = get_available_ingredient_amount(ingredient.id)
+		if available < ingredient.amount:
+			return false
+	return true
