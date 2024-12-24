@@ -232,3 +232,8 @@ func get_data() -> Dictionary:
 		data["crafting"] = craftingdata
 
 	return data
+
+
+# Returns the list of items from crafting
+func get_crafting_items() -> Array:
+	return crafting.get_items() if crafting else []

@@ -230,7 +230,6 @@ func _input(event):
 	if event.is_action_pressed("interact"):
 		_check_for_interaction()
 
-
 # Check if player can interact with an object
 func _check_for_interaction() -> void:
 	var layer = pow(2, 1 - 1) + pow(2, 2 - 1) + pow(2, 3 - 1)
@@ -240,10 +239,23 @@ func _check_for_interaction() -> void:
 		return
 
 	var world_mouse_position = raycast.position
-	var result = Helper.raycast(global_position, global_position + (Vector3(world_mouse_position.x - global_position.x, 0, world_mouse_position.z - global_position.z)).normalized() * interact_range, layer, [self])
+	
+	# Lower the y-value of global_position by 0.5
+	# This is required to interact with short furniture
+	var adjusted_global_position = global_position - Vector3(0, 0.5, 0)
+	var raycast_target = adjusted_global_position + (Vector3(
+		world_mouse_position.x - adjusted_global_position.x,
+		0,
+		world_mouse_position.z - adjusted_global_position.z
+	)).normalized() * interact_range
+
+	var result = Helper.raycast(adjusted_global_position, raycast_target, layer, [self])
 
 	if result:
-		Helper.signal_broker.player_interacted.emit(result.position, result.rid)
+		# Check the distance to the result position
+		var distance_to_result = adjusted_global_position.distance_to(result.position)
+		if distance_to_result <= 1.5:
+			Helper.signal_broker.player_interacted.emit(result.position, result.rid)
 
 
 # The player gets hit by an attack

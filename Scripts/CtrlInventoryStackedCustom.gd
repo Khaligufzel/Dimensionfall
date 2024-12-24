@@ -99,6 +99,8 @@ func _on_context_menu_item_selected(id):
 
 
 func _disconnect_inventory_signals():
+	if not myInventory:
+		return
 	if myInventory.item_added.is_connected(_on_inventory_item_added):
 		myInventory.item_added.disconnect(_on_inventory_item_added)
 	if myInventory.item_removed.is_connected(_on_inventory_item_removed):
@@ -660,7 +662,7 @@ func _get_drag_data(_newpos):
 
 # This function should return true if the dragged data can be dropped here
 func _can_drop_data(_newpos, data) -> bool:
-	return data is Array[InventoryItem]
+	return data is Array[InventoryItem] and myInventory
 
 
 # This function handles the data being dropped
@@ -728,6 +730,8 @@ func _on_inventory_operation_started():
 
 func _on_inventory_operation_finished():
 	ui_updates_enabled = true
+	if not myInventory:
+		return
 	# Optionally, refresh UI components that might have pending updates
 	update_ui_post_operation()
 

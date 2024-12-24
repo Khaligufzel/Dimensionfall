@@ -62,6 +62,12 @@ signal container_exited_proximity(container: Node3D)
 @warning_ignore("unused_signal")
 signal furniture_changed_chunk(me: FurniturePhysicsSrv, new_chunk_pos: Vector2)
 
+# When the user has interacted with a furniture. Only sent if:
+# The furniture is static and
+# The furniture's not a door
+@warning_ignore("unused_signal")
+signal furniture_interacted(me: FurniturePhysicsSrv)
+
 
 # When a body entered the player's item detector area3d. This is used to see
 # if a container is in proximity of the player. The body_rid is the collider

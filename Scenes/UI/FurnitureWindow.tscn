@@ -1,0 +1,86 @@
+[gd_scene load_steps=4 format=3 uid="uid://sewnt37ji4s1"]
+
+[ext_resource type="Script" path="res://Scripts/FurnitureWindow.gd" id="1_iww5n"]
+[ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="2_rwvfx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]
+
+[node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "furniture_name_label", "crafting_queue_container", "crafting_recipe_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iww5n")
+furniture_container_view = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/FurnitureContainerView")
+furniture_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/FurnitureNameLabel")
+crafting_queue_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CraftingQueueContainer")
+crafting_recipe_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/CraftingRecipeContainer")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bu1vc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FurnitureNameLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+text = "FurnitureName"
+
+[node name="CloseMenuButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+tooltip_text = "Close menu"
+text = "   X   "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InventoryLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Inventory"
+
+[node name="FurnitureContainerView" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("2_rwvfx")]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CraftingLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Crafting"
+
+[node name="CraftingQueueContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="RecipesLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Available recipes:"
+
+[node name="CraftingRecipeContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer2/CloseMenuButton" to="." method="_on_close_menu_button_button_up"]
