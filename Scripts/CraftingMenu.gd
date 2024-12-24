@@ -99,7 +99,7 @@ func _on_recipe_button_pressed(recipe: RItem.CraftRecipe):
 	start_crafting_button.disabled = not CraftingRecipesManager.can_craft_recipe(recipe)
 
 
-# New function to update required items display
+# Function to update required items display
 func update_required_items_display(recipe: RItem.CraftRecipe):
 	# Clear previous required items display
 	for element in required_items.get_children():
