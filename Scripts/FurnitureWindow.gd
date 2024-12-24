@@ -112,7 +112,7 @@ func _add_queue_item(queue_item: FurnitureStaticSrv.QueueItem):
 
 	crafting_queue_container.add_child(_create_icon(item_data.sprite))
 	crafting_queue_container.add_child(_create_label(item_data.name))
-	crafting_queue_container.add_child(_create_button("X", _on_delete_button_pressed.bind(queue_item)))
+	crafting_queue_container.add_child(_create_button("X", _on_delete_queue_item_button_pressed.bind(queue_item)))
 
 
 # Populates the crafting queue UI.
@@ -133,8 +133,8 @@ func _on_queue_button_pressed(item_id: String):
 	furniture_instance.add_to_crafting_queue(item_id)
 
 
-# Handles the delete button being pressed.
-func _on_delete_button_pressed(queue_item: FurnitureStaticSrv.QueueItem):
+# Handles the delete button being pressed on a queued item.
+func _on_delete_queue_item_button_pressed(queue_item: FurnitureStaticSrv.QueueItem):
 	furniture_instance.remove_from_crafting_queue(queue_item)
 
 
@@ -192,11 +192,11 @@ func _connect_add_to_queue_button(item_id: String):
 	add_to_queue_button.button_up.connect(_on_queue_button_pressed.bind(item_id))
 
 	# Update the button's status based on the inventory
-	_update_add_to_queue_button_status(item_id)
+	_update_add_to_queue_button_status()
 
 
 # Checks and updates the disabled status of the "Add to Queue" button based on inventory.
-func _update_add_to_queue_button_status(item_id: String):
+func _update_add_to_queue_button_status():
 	var recipe = Runtimedata.items.get_first_recipe_by_id(current_item_id)
 	if not recipe:
 		add_to_queue_button.disabled = true
@@ -306,6 +306,6 @@ func has_sufficient_ingredient_outside_inventory(item_id: String, amount: int) -
 
 
 # Called when allAccessibleItems_changed signal is emitted.
-func _on_all_accessible_items_changed(items_added: Array, items_removed: Array):
+func _on_all_accessible_items_changed(_items_added: Array, _items_removed: Array):
 	if furniture_instance and current_item_id:
-		_update_add_to_queue_button_status(current_item_id)
+		_update_add_to_queue_button_status()
