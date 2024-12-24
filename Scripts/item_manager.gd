@@ -112,12 +112,7 @@ func _ready():
 # items_removed = all items that were removed, or had their count decreased
 func update_accessible_items_list() -> void:
 	var old_items = allAccessibleItems.duplicate(true)  # Make a deep copy of the current list
-	var new_items: Array[InventoryItem] = []
-
-	new_items += playerInventory.get_items()
-	for inventory: InventoryStacked in proximityInventories.values():
-		if is_instance_valid(inventory):
-			new_items += inventory.get_items()
+	var new_items: Array[InventoryItem] = _gather_all_accessible_items()
 
 	# Use dictionaries to count occurrences since item references won't work across different inventories
 	var old_count = count_items(old_items)
@@ -392,7 +387,7 @@ func on_crafting_menu_start_craft(item: DItem, recipe: RItem.CraftRecipe):
 		if item_volume > remaining_volume:
 			craft_failed.emit(item, recipe, "Not enough space in inventory!")
 			return # The item is too big to fit in the player inventory
-		if not remove_required_resources_for_recipe(recipe):
+		if not remove_required_resources_for_recipe(recipe, allAccessibleItems):
 			craft_failed.emit(item, recipe, "Failed to remove resources!")
 			return
 		var newitem = playerInventory.create_and_add_item(item_id)
@@ -428,31 +423,27 @@ func has_sufficient_item_amount(item_id: String, required_amount: int) -> bool:
 
 
 # Function to remove the required resources for a given recipe from the inventory.
-func remove_required_resources_for_recipe(recipe: RItem.CraftRecipe) -> bool:
+func remove_required_resources_for_recipe(recipe: RItem.CraftRecipe, items_source: Array[InventoryItem]) -> bool:
 	if "required_resources" not in recipe:
 		print("Recipe does not contain required resources.")
 		return false
 
 	# Loop through each resource and amount required by the recipe.
 	for resource in recipe.required_resources:
-		# Check if the inventory has a sufficient amount of each required resource.
-		if not remove_resource(resource.get("id"), resource.get("amount")):
+		# Check if the source has a sufficient amount of each required resource.
+		if not remove_resource(resource.get("id"), resource.get("amount"), items_source):
 			print_debug("Failed to remove required resource:", resource.get("id"), \
 			"needed amount:", resource.get("amount"))
 			return false  # Return false if we fail to remove the required amount for any resource.
 
-	return true  # If all resources are successfully removed, return true.
+	return true  # If all resources are successfully removed, return true
 
 
 # Helper function to remove a specific amount of a resource by ID.
-func remove_resource(item_id: String, amount: int) -> bool:
-	var items_to_modify = []
+func remove_resource(item_id: String, amount: int, items_source: Array[InventoryItem]) -> bool:
+	# Use the filter method to get items matching the item_id
+	var items_to_modify = items_source.filter(func(item): return item.prototype_id == item_id)
 	var amount_to_remove = amount
-
-	# Collect all items that match the item_id
-	for item in allAccessibleItems:
-		if item.prototype_id == item_id:
-			items_to_modify.append(item)
 
 	# Try to remove the required amount from the collected items
 	for item in items_to_modify:
@@ -467,7 +458,7 @@ func remove_resource(item_id: String, amount: int) -> bool:
 			if not item.get_inventory().remove_item(item):
 				return false  # Return false if we fail to remove the item.
 			else:
-				allAccessibleItems.erase(item)  # Ensure to update the accessible items list
+				update_accessible_items_list()
 		else:
 			# If the current item stack has more than we need, reduce its stack size.
 			var new_stack_size = current_stack_size - amount_to_remove
@@ -618,3 +609,84 @@ func subtract_from_max_inventory_volume(amount: int) -> void:
 func set_max_inventory_volume(new_volume: int) -> void:
 	player_max_inventory_volume = max(0, new_volume)  # Ensure it doesn't go below 0
 	player_max_inventory_volume_changed.emit()
+
+
+# Function to get InventoryItems from allAccessibleItems that are not present in the provided InventoryStacked.
+func get_items_not_in_inventory(inventory: InventoryStacked) -> Array:
+	var inventory_items = inventory.get_items()
+	var inventory_item_set = {}
+
+	# Add all InventoryItem instances from the provided inventory to a set for comparison.
+	for item in inventory_items:
+		inventory_item_set[item] = true
+
+	# Filter out InventoryItems from allAccessibleItems that are in the provided inventory.
+	var items_not_in_inventory = []
+	for accessible_item in allAccessibleItems:
+		if not inventory_item_set.has(accessible_item):
+			items_not_in_inventory.append(accessible_item)
+
+	return items_not_in_inventory
+
+# Function to check if the total stack size of a specific item ID in items not present in the provided inventory exceeds a given amount.
+func has_sufficient_amount_not_in_inventory(inventory: InventoryStacked, item_id: String, required_amount: int) -> bool:
+	# Get items not in the provided inventory
+	var items_not_in_inventory = get_items_not_in_inventory(inventory)
+
+	# Calculate the total stack size of the specified item ID
+	var total_amount = 0
+	for item in items_not_in_inventory:
+		if item.prototype_id == item_id:
+			total_amount += InventoryStacked.get_item_stack_size(item)
+
+		# If the total amount already exceeds the required amount, return true
+		if total_amount >= required_amount:
+			return true
+
+	# Return false if the total amount is less than the required amount
+	return false
+
+# --- Item Helpers ---
+func _gather_all_accessible_items() -> Array[InventoryItem]:
+	var items: Array[InventoryItem] = []
+	items += playerInventory.get_items()
+	for inventory: InventoryStacked in proximityInventories.values():
+		items += inventory.get_items()
+	return items
+
+
+# Function to transfer items from the list returned by get_items_not_in_inventory to a target inventory.
+# It will attempt to transfer as close as possible to the required amount.
+func transfer_items_to_inventory(target_inventory: InventoryStacked, item_id: String, required_amount: int) -> void:
+	# Use the filter method to get items matching the item_id
+	var items_to_modify = get_items_not_in_inventory(target_inventory).filter(func(item): return item.prototype_id == item_id)
+	
+	var amount_to_transfer = required_amount
+
+	# Iterate through the items and transfer the required amount
+	for item in items_to_modify:
+		if amount_to_transfer <= 0:
+			break  # Stop if we've transferred enough
+
+		var current_stack_size = InventoryStacked.get_item_stack_size(item)
+		if current_stack_size <= amount_to_transfer:
+			# If the current stack size is less than or equal to the amount we need to transfer,
+			# transfer this item completely.
+
+			if target_inventory.transfer_automerge(item, target_inventory):
+				amount_to_transfer -= current_stack_size
+			else:
+				print_debug("Failed to transfer full stack. Skipping item.")
+		else:
+			# If the current stack has more than we need, split the stack and transfer the split item
+			var split_item = item.get_inventory().split(item, amount_to_transfer)
+
+			# Attempt to transfer the split item
+			if split_item and target_inventory.transfer_automerge(split_item, target_inventory):
+				amount_to_transfer -= amount_to_transfer
+			else:
+				# If transfer failed, merge the split item back into the original stack
+				item.get_inventory().merge(split_item)
+
+	# Update the accessible items list after transfer
+	update_accessible_items_list()
