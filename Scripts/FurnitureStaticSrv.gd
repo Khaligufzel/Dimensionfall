@@ -40,7 +40,7 @@ var is_animating_hit: bool = false  # Flag to prevent multiple hit animations
 var original_material_color: Color = Color(1, 1, 1)  # Store the original material color
 
 signal about_to_be_destroyed(me: FurnitureStaticSrv)
-signal crafting_queue_updated(current_queue: Array[String])
+signal crafting_queue_updated(current_queue: Array[QueueItem])
 
 
 # Inner class to keep track of position, rotation and size and keep it central
@@ -367,9 +367,21 @@ class FurnitureContainer:
 		return container_data
 
 
+# Class representing a queued item for the CraftingContainer
+class QueueItem:
+	var id: String
+	var quantity: int = 1  # Optional if you want to handle multiple items per queue entry
+	var additional_data: Dictionary = {}  # For any extra metadata if needed
+
+	func _init(id: String, quantity: int = 1, additional_data: Dictionary = {}):
+		self.id = id
+		self.quantity = quantity
+		self.additional_data = additional_data
+
+
 class CraftingContainer:
 	var inventory: InventoryStacked
-	var crafting_queue: Array[String] = []  # Queue of item IDs to be crafted
+	var crafting_queue: Array[QueueItem] = []  # Queue of QueueItem instances
 	# Variables to manage crafting
 	var last_update_time: float = 0.0  # Last time the crafting queue was updated
 	var crafting_time_per_item: float = 10.0  # Time (in seconds) to craft one item
@@ -396,18 +408,22 @@ class CraftingContainer:
 		return inventory
 
 	# Adds an item ID to the crafting queue
-	func add_to_crafting_queue(item_id: String):
-		crafting_queue.append(item_id)
+	func add_to_crafting_queue(item_id: String, quantity: int = 1):
+		var new_item = QueueItem.new(item_id, quantity)
+		crafting_queue.append(new_item)
 		crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
 		if is_active:
 			activate_crafting()
 
 	# Removes the first item from the crafting queue
-	func remove_from_crafting_queue():
-		if not crafting_queue.is_empty():
-			crafting_queue.pop_front()
-			transfer_all_items_to_furniture()
+	func remove_from_crafting_queue(queue_item: QueueItem):
+		if crafting_queue.has(queue_item):
+			crafting_queue.erase(queue_item)  # Remove the specific instance
+			transfer_all_items_to_furniture()  # Clear crafting inventory if applicable
 			crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
+		else:
+			print("Error: Queue item not found.")
+
 
 	# Serializes the inventory, crafting queue, and time-related variables for saving
 	func serialize() -> Dictionary:
@@ -479,8 +495,8 @@ class CraftingContainer:
 		while elapsed_time > 0 and not crafting_queue.is_empty():
 			# If there's no current crafting time, initialize it with the first item's craft time
 			if current_craft_time <= 0:
-				var item_id = crafting_queue[0]  # Peek the first item
-				var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
+				var queue_item: QueueItem = crafting_queue[0]  # Peek the first item
+				var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(queue_item.id)
 
 				# Check and request missing ingredients
 				if not are_all_ingredients_available(recipe):
@@ -508,17 +524,17 @@ class CraftingContainer:
 		if crafting_queue.is_empty():
 			return  # Exit if the crafting queue is empty
 
-		var item_id = crafting_queue.pop_front()  # Get the first item in the queue
+		var queue_item: QueueItem = crafting_queue.pop_front()  # Get the first item in the queue
 		crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
 
-		if item_id:
+		if queue_item:
 			if furniturecontainer:  # Ensure the FurnitureContainer exists
-				furniturecontainer.add_item_to_inventory(item_id, 1)  # Add one of the crafted item to the container's inventory
+				furniturecontainer.add_item_to_inventory(queue_item.id, 1)  # Add one of the crafted item to the container's inventory
 				inventory.clear()  # Clear the crafting inventory after crafting the item
 			else:
 				print("Error: FurnitureContainer not initialized. Cannot add crafted item.")
 		else:
-			print("Error: Failed to craft item. Item ID is invalid.")
+			print("Error: Failed to craft item. queue_item is invalid.")
 
 
 	# Retrieves the crafting time for a specific item by its ID
@@ -1120,12 +1136,14 @@ func add_to_crafting_queue(item_id: String) -> void:
 
 
 # Remove the first item from the crafting queue
-func remove_from_crafting_queue() -> void:
-	crafting_container.remove_from_crafting_queue()
+func remove_from_crafting_queue(queue_item: QueueItem) -> void:
+	crafting_container.remove_from_crafting_queue(queue_item)
+
 
 # Forward the crafting_queue_updated signal
-func _on_crafting_queue_updated(current_queue: Array[String]):
+func _on_crafting_queue_updated(current_queue: Array[QueueItem]):
 	crafting_queue_updated.emit(current_queue)  # Emit signal after updating the queue
+
 
 func get_furniture_name() -> String:
 	return rfurniture.name

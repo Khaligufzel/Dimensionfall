@@ -105,14 +105,15 @@ func _populate_crafting_recipe_container():
 		_add_recipe_item(item_id)
 
 # Adds a crafting queue item to the UI.
-func _add_queue_item(item_id: String):
-	var item_data: RItem = Runtimedata.items.by_id(item_id)
+func _add_queue_item(queue_item: FurnitureStaticSrv.QueueItem):
+	var item_data: RItem = Runtimedata.items.by_id(queue_item.id)
 	if not item_data:
 		return
 
 	crafting_queue_container.add_child(_create_icon(item_data.sprite))
 	crafting_queue_container.add_child(_create_label(item_data.name))
-	crafting_queue_container.add_child(_create_button("X", _on_delete_button_pressed.bind(item_id)))
+	crafting_queue_container.add_child(_create_button("X", _on_delete_button_pressed.bind(queue_item)))
+
 
 # Populates the crafting queue UI.
 func _populate_crafting_queue_container():
@@ -123,7 +124,7 @@ func _populate_crafting_queue_container():
 		_add_queue_item(item_id)
 
 # Handles updates to the crafting queue.
-func _on_crafting_queue_updated(_current_queue: Array[String]):
+func _on_crafting_queue_updated(_current_queue: Array[FurnitureStaticSrv.QueueItem]):
 	_populate_crafting_queue_container()
 
 
@@ -133,8 +134,8 @@ func _on_queue_button_pressed(item_id: String):
 
 
 # Handles the delete button being pressed.
-func _on_delete_button_pressed(_item_id: String):
-	furniture_instance.crafting_container.remove_from_crafting_queue()
+func _on_delete_button_pressed(queue_item: FurnitureStaticSrv.QueueItem):
+	furniture_instance.remove_from_crafting_queue(queue_item)
 
 
 # Handles furniture destruction signal.
