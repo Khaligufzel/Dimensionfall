@@ -905,6 +905,11 @@ func get_inventory() -> InventoryStacked:
 	return container.get_inventory()
 
 
+# Returns the inventorystacked that this crafting container holds
+func get_crafting_inventory() -> InventoryStacked:
+	return crafting_container.get_inventory()
+
+
 func get_sprite() -> Texture:
 	return rfurniture.sprite
 
@@ -1064,7 +1069,21 @@ func on_minute_passed(_current_time: String):
 
 # Add an item to the crafting queue. This might happen from a button in the furniture window
 func add_to_crafting_queue(item_id: String) -> void:
+	var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
+	if not recipe:
+		return  # Exit if the recipe is not found.
+
+	var source_inventory = container  # The inventory holding the required items.
+
+	# Transfer each required ingredient from the source to the crafting inventory.
+	for ingredient in recipe.required_resources:
+		var ingredient_id: String = ingredient.id
+		var required_amount: int = ingredient.amount
+		transfer_item_between_containers(source_inventory, ingredient_id, required_amount)
+
+	# Add the item to the crafting queue after transferring all required ingredients.
 	crafting_container.add_to_crafting_queue(item_id)
+
 
 # Remove the first item from the crafting queue
 func remove_from_crafting_queue() -> void:

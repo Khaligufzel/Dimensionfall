@@ -126,9 +126,11 @@ func _populate_crafting_queue_container():
 func _on_crafting_queue_updated(_current_queue: Array[String]):
 	_populate_crafting_queue_container()
 
+
 # Handles the queue button being pressed.
 func _on_queue_button_pressed(item_id: String):
 	furniture_instance.add_to_crafting_queue(item_id)
+
 
 # Handles the delete button being pressed.
 func _on_delete_button_pressed(_item_id: String):
