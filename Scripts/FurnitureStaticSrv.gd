@@ -377,11 +377,13 @@ class CraftingContainer:
 	# Class variable to track remaining crafting time for the current item
 	var current_craft_time: float = 0.0
 	var furniturecontainer: FurnitureContainer
+	var furniture_parent: FurnitureStaticSrv
 	signal crafting_queue_updated(current_queue: Array[String])
 
 
 	func _init():
 		_initialize_inventory()
+		furniture_parent = null
 
 	# Initializes the inventory with default capacity and item prototypes
 	func _initialize_inventory():
@@ -463,14 +465,12 @@ class CraftingContainer:
 		var current_time = Helper.time_helper.get_elapsed_time()
 		var elapsed_time = current_time - last_update_time
 		last_update_time = current_time
-
 		_process_crafting_queue(elapsed_time)
 
 	# Processes the crafting queue during passive mode
 	func _process_passive_crafting():
 		var elapsed_time = Helper.time_helper.get_time_difference(last_update_time)
 		last_update_time = Helper.time_helper.get_elapsed_time()
-
 		_process_crafting_queue(elapsed_time)
 
 	# Core logic to process the crafting queue
@@ -479,7 +479,16 @@ class CraftingContainer:
 			# If there's no current crafting time, initialize it with the first item's craft time
 			if current_craft_time <= 0:
 				var item_id = crafting_queue[0]  # Peek the first item
-				current_craft_time = _get_craft_time_by_id(item_id) if item_id else 10.0  # Default to 10 seconds if lookup fails
+				var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
+
+				# Check and request missing ingredients
+				if not are_all_ingredients_available(recipe):
+					if not request_missing_ingredients(recipe):
+						# Exit the loop early to wait for the next update
+						return
+
+				# Initialize crafting time if ingredients are available
+				current_craft_time = recipe.craft_time if recipe else 10.0  # Default to 10 seconds if lookup fails
 
 			# Subtract the elapsed time from the current crafting time
 			current_craft_time -= elapsed_time
@@ -513,6 +522,40 @@ class CraftingContainer:
 	func _get_craft_time_by_id(item_id: String) -> float:
 		var first_recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
 		return first_recipe.craft_time if first_recipe else 10  # Default to 10 seconds
+
+	# Requests missing ingredients from the parent FurnitureStaticSrv
+	func request_missing_ingredients(recipe: RItem.CraftRecipe) -> bool:
+		if not recipe:
+			print("Error: Recipe not provided.")
+			return false
+
+		var all_present = true
+		for ingredient in recipe.required_resources:
+			var missing_amount = ingredient.amount - get_available_ingredient_amount(ingredient.id)
+			if missing_amount > 0:
+				all_present = false
+				if furniture_parent:
+					furniture_parent.transfer_item_between_containers(furniturecontainer, ingredient.id, missing_amount)
+				else:
+					print("Error: Parent FurnitureStaticSrv is not set.")
+					return false
+		return all_present
+
+	# Get the available amount of the ingredient in the FurnitureContainer inventory.
+	func get_available_ingredient_amount(ingredient_id: String) -> int:
+		var available_amount: int = 0
+		if inventory.has_item_by_id(ingredient_id):
+			var items: Array = inventory.get_items_by_id(ingredient_id)
+			for item in items:
+				available_amount += InventoryStacked.get_item_stack_size(item)
+		return available_amount
+
+	func are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
+		for ingredient in recipe.required_resources:
+			var available = get_available_ingredient_amount(ingredient.id)
+			if available < ingredient.amount:
+				return false
+		return true
 
 
 # Function to initialize the furniture object
@@ -995,6 +1038,7 @@ func add_crafting_container():
 	if is_crafting_station():
 		crafting_container = CraftingContainer.new()
 		crafting_container.furniturecontainer = container
+		crafting_container.furniture_parent = self
 		crafting_container.crafting_queue_updated.connect(_on_crafting_queue_updated)
 
 func deserialize_crafting_container(data: Dictionary):
@@ -1069,19 +1113,6 @@ func on_minute_passed(_current_time: String):
 
 # Add an item to the crafting queue. This might happen from a button in the furniture window
 func add_to_crafting_queue(item_id: String) -> void:
-	var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
-	if not recipe:
-		return  # Exit if the recipe is not found.
-
-	var source_inventory = container  # The inventory holding the required items.
-
-	# Transfer each required ingredient from the source to the crafting inventory.
-	for ingredient in recipe.required_resources:
-		var ingredient_id: String = ingredient.id
-		var required_amount: int = ingredient.amount
-		transfer_item_between_containers(source_inventory, ingredient_id, required_amount)
-
-	# Add the item to the crafting queue after transferring all required ingredients.
 	crafting_container.add_to_crafting_queue(item_id)
 
 
