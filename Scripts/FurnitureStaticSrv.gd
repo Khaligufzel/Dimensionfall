@@ -411,7 +411,7 @@ class CraftingContainer:
 	func add_to_crafting_queue(item_id: String, quantity: int = 1):
 		var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
 		if not recipe:
-			print("Error: No recipe found for item: ", item_id)
+			print_debug("Error: No recipe found for item: ", item_id)
 			return
 
 		var new_item = QueueItem.new(item_id, quantity)
@@ -426,7 +426,7 @@ class CraftingContainer:
 			transfer_all_items_to_furniture()  # Clear crafting inventory if applicable
 			crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
 		else:
-			print("Error: Queue item not found.")
+			print_debug("Error: Queue item not found.")
 
 	# Serializes the inventory, crafting queue, and time-related variables for saving
 	func serialize() -> Dictionary:
@@ -463,31 +463,19 @@ class CraftingContainer:
 
 	# Transfers all items to the given FurnitureContainer
 	func transfer_all_items_to_furniture() -> void:
-		print("Starting transfer of all items to furniture container.")
 		
 		# Retrieve all items from the crafting container inventory
 		var items = inventory.get_items()
-		print("Items in crafting container inventory before transfer: ", items)
 		
 		# Get the inventory of the target furniture container
 		var furniture_inventory = furniturecontainer.get_inventory()
-		print("Furniture container inventory: ", furniture_inventory)
 
 		# Loop through each item and transfer it
 		for item in items.duplicate():  # Duplicate the list to avoid modification during iteration
-			print("Transferring item: ", item, " | Stack size: ", InventoryStacked.get_item_stack_size(item))
-			
-			# Perform the transfer
-			var success = inventory.transfer_automerge(item, furniture_inventory)
-			if success:
-				print("Successfully transferred item: ", item)
-			else:
-				print("Failed to transfer item: ", item)
+			inventory.transfer_automerge(item, furniture_inventory)
 		
 		# Print remaining items in crafting inventory after transfer
 		var remaining_items = inventory.get_items()
-		print("Items remaining in crafting container inventory after transfer: ", remaining_items)
-		print("Completed transfer of all items to furniture container.")
 
 	
 	# Activates the crafting queue for real-time updates
@@ -517,19 +505,15 @@ class CraftingContainer:
 
 	# Core logic to process the crafting queue
 	func _process_crafting_queue(elapsed_time: float):
-		print("Starting to process crafting queue. Elapsed time: ", elapsed_time)
-		
 		while elapsed_time > 0 and not crafting_queue.is_empty():
-			print("Elapsed time remaining: ", elapsed_time, " | Current crafting queue: ", crafting_queue)
-
+			
 			# Get the first item in the queue
 			var queue_item: QueueItem = crafting_queue[0]
-			print("Processing queue item: ", queue_item)
-
+			
 			# Retrieve the recipe for the current item
 			var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(queue_item.id)
 			if not recipe:
-				print("No recipe found for item: ", queue_item.id, " | Skipping...")
+				print_debug("No recipe found for item: ", queue_item.id, " | Skipping...")
 				crafting_queue.pop_front()  # Remove invalid item from queue
 				continue
 
@@ -541,12 +525,10 @@ class CraftingContainer:
 
 			# Subtract elapsed time from the current item's remaining time
 			if elapsed_time >= queue_item.time_remaining:
-				print("Crafting complete for item: ", queue_item.id)
 				elapsed_time -= queue_item.time_remaining  # Carry over excess time
 				_craft_next_item()  # Finalize crafting and move to the next item
 			else:
 				queue_item.time_remaining -= elapsed_time
-				print("Updated time_remaining for item: ", queue_item.id, " | Remaining time: ", queue_item.time_remaining)
 				elapsed_time = 0  # No more time left to process in this frame
 
 	# Crafts the next item in the queue and adds it to the FurnitureContainer's inventory
@@ -561,11 +543,10 @@ class CraftingContainer:
 			if furniturecontainer:  # Ensure the FurnitureContainer exists
 				inventory.clear()  # Clear the crafting inventory after crafting the item
 				furniturecontainer.add_item_to_inventory(queue_item.id, queue_item.quantity)  # Add crafted item
-				print("Crafted item added to inventory: ", queue_item.id)
 			else:
-				print("Error: FurnitureContainer not initialized. Cannot add crafted item.")
+				print_debug("Error: FurnitureContainer not initialized. Cannot add crafted item.")
 		else:
-			print("Error: Failed to craft item. queue_item is invalid.")
+			print_debug("Error: Failed to craft item. queue_item is invalid.")
 
 	# Retrieves the crafting time for a specific item by its ID
 	func _get_craft_time_by_id(item_id: String) -> float:
@@ -575,7 +556,7 @@ class CraftingContainer:
 	# Requests missing ingredients from the parent FurnitureStaticSrv
 	func request_missing_ingredients(recipe: RItem.CraftRecipe) -> bool:
 		if not recipe:
-			print("Error: Recipe not provided.")
+			print_debug("Error: Recipe not provided.")
 			return false
 
 		var all_present = true
@@ -586,43 +567,27 @@ class CraftingContainer:
 				if furniture_parent:
 					furniture_parent.transfer_item_between_containers(furniturecontainer, ingredient.id, missing_amount)
 				else:
-					print("Error: Parent FurnitureStaticSrv is not set.")
+					print_debug("Error: Parent FurnitureStaticSrv is not set.")
 					return false
 		return all_present
 
 	# Get the available amount of the ingredient in the FurnitureContainer inventory.
 	func get_available_ingredient_amount(ingredient_id: String) -> int:
 		var available_amount: int = 0
-		print("Checking available amount for ingredient_id: ", ingredient_id)
 		
 		if inventory.has_item_by_id(ingredient_id):
-			print("Inventory has items with ingredient_id: ", ingredient_id)
 			var items: Array = inventory.get_items_by_id(ingredient_id)
-			print("Items retrieved: ", items)
 			
 			for item in items:
 				var stack_size = InventoryStacked.get_item_stack_size(item)
 				available_amount += stack_size
-				print("Item: ", item, " | Stack size: ", stack_size, " | Running total: ", available_amount)
-		else:
-			print("Inventory does not have items with ingredient_id: ", ingredient_id)
-		
-		print("Total available amount for ingredient_id ", ingredient_id, ": ", available_amount)
 		return available_amount
 
 	func are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
-		print("Checking if all ingredients are available for recipe: ", recipe)
-		
 		for ingredient in recipe.required_resources:
-			print("Checking ingredient: ", ingredient)
 			var available = get_available_ingredient_amount(ingredient.id)
-			print("Ingredient ID: ", ingredient.id, " | Available: ", available, " | Required: ", ingredient.amount)
-			
 			if available < ingredient.amount:
-				print("Not enough of ingredient: ", ingredient.id, " | Available: ", available, " | Required: ", ingredient.amount)
 				return false
-		
-		print("All ingredients are available for the recipe.")
 		return true
 
 
