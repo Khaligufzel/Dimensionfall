@@ -193,24 +193,20 @@ func _connect_add_to_queue_button(item_id: String):
 
 # Checks and updates the disabled status of the "Add to Queue" button based on inventory.
 func _update_add_to_queue_button_status(item_id: String):
-	# Retrieve the recipe for the current item
-	var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
+	var recipe = Runtimedata.items.get_first_recipe_by_id(current_item_id)
 	if not recipe:
 		add_to_queue_button.disabled = true
 		return
+	add_to_queue_button.disabled = not _are_all_ingredients_available(recipe)
 
-	# Check if all required ingredients are available in the FurnitureContainer
-	var all_ingredients_available = true
+
+# --- INGREDIENT VALIDATION ---
+func _are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
 	for ingredient in recipe.required_resources:
-		var ingredient_id = ingredient.id
-		var required_amount = ingredient.amount
-		var available_amount = _get_available_ingredient_amount(ingredient_id)
-		if available_amount < required_amount:
-			all_ingredients_available = false
-			break
-
-	# Enable or disable the button based on availability
-	add_to_queue_button.disabled = not all_ingredients_available
+		var available = _get_available_ingredient_amount(ingredient.id)
+		if available < ingredient.amount:
+			return false
+	return true
 
 
 # Populates the ingredients list with inventory availability and required amounts.
