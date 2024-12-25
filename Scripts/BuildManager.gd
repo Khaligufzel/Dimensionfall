@@ -36,7 +36,7 @@ func on_construction_clicked(construction_data: Dictionary):
 		print_debug("tried to construct, but not enough planks")
 		return
 		
-	if not ItemManager.remove_resource("plank_2x4",2):
+	if not ItemManager.remove_resource("plank_2x4",2, ItemManager.allAccessibleItems):
 		return
 	var chunk: Chunk = LevelGenerator.get_chunk_from_position(construction_data.pos)
 	if chunk:
