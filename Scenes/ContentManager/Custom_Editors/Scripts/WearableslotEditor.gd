@@ -11,6 +11,8 @@ extends Control
 @export var NameTextEdit: TextEdit = null
 @export var DescriptionTextEdit: TextEdit = null
 @export var slotSelector: Popup = null
+@export var starting_item_text_edit: HBoxContainer = null
+
 
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the slot data array should be saved to disk
@@ -40,6 +42,7 @@ func load_slot_data() -> void:
 		NameTextEdit.text = dwearableslot.name
 	if DescriptionTextEdit != null:
 		DescriptionTextEdit.text = dwearableslot.description
+	starting_item_text_edit.set_text(dwearableslot.starting_item)
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -55,6 +58,8 @@ func _on_save_button_button_up() -> void:
 	dwearableslot.name = NameTextEdit.text
 	dwearableslot.description = DescriptionTextEdit.text
 	dwearableslot.sprite = slotImageDisplay.texture
+	dwearableslot.starting_item = starting_item_text_edit.get_text()
+	
 	dwearableslot.save_to_disk()
 	data_changed.emit()
 	olddata = DWearableSlot.new(dwearableslot.get_data().duplicate(true), null)

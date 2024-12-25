@@ -7,6 +7,7 @@ extends RefCounted
 #		"description": "Holds equipment on your torso",
 #		"id": "torso",
 #		"name": "Torso",
+#       "starting_item": "boots_fancy",
 #		"references": {
 #			"core": {
 #				"items": [
@@ -25,6 +26,7 @@ var name: String
 var description: String
 var spriteid: String
 var sprite: Texture
+var starting_item: String
 var parent: DWearableSlots
 
 # Constructor to initialize quest properties from a dictionary
@@ -35,6 +37,7 @@ func _init(data: Dictionary, myparent: DWearableSlots):
 	name = data.get("name", "")
 	description = data.get("description", "")
 	spriteid = data.get("sprite", "")
+	starting_item = data.get("starting_item", "")
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -44,6 +47,8 @@ func get_data() -> Dictionary:
 		"description": description,
 		"sprite": spriteid
 	}
+	if starting_item:
+		data["starting_item"] = starting_item
 	return data
 
 # Method to save any changes to the wearable slot back to disk

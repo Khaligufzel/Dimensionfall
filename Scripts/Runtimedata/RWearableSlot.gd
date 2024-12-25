@@ -9,6 +9,7 @@ extends RefCounted
 #     "id": "torso",
 #     "name": "Torso",
 #     "sprite": "wearableslot_torso_32.png",
+#     "starting_item": "boots_fancy",
 #     "references": {
 #         "core": {
 #             "items": [
@@ -26,6 +27,7 @@ var name: String
 var description: String
 var spriteid: String
 var sprite: Texture
+var starting_item: String
 var parent: RWearableSlots  # Reference to the list containing all runtime wearable slots for this mod
 
 # Constructor to initialize wearable slot properties from a dictionary
@@ -43,6 +45,7 @@ func overwrite_from_dwearableslot(dwearableslot: DWearableSlot) -> void:
 	description = dwearableslot.description
 	spriteid = dwearableslot.spriteid
 	sprite = dwearableslot.sprite
+	starting_item = dwearableslot.starting_item
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -52,4 +55,6 @@ func get_data() -> Dictionary:
 		"description": description,
 		"sprite": spriteid
 	}
+	if starting_item:
+		data["starting_item"] = starting_item
 	return data
