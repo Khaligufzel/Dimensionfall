@@ -8,6 +8,9 @@ extends Control
 @export var crafting_queue_container: GridContainer = null
 @export var crafting_recipe_container: GridContainer = null
 @export var crafting_v_box_container: VBoxContainer = null
+@export var craft_status_label: Label = null
+@export var craft_status_timer: Timer = null
+
 
 # Recipe panel controls:
 @export var recipe_panel_container: PanelContainer = null
@@ -39,6 +42,9 @@ func _ready():
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
 	# Connect to the ItemManager.allAccessibleItems_changed signal
 	ItemManager.allAccessibleItems_changed.connect(_on_all_accessible_items_changed)
+	# Ensure the timer starts when the UI is shown
+	craft_status_timer.timeout.connect(_update_craft_status_label)
+	craft_status_timer.start()
 
 
 # Updates UI elements based on the current furniture_instance.
@@ -47,6 +53,7 @@ func _update_furniture_ui():
 	furniture_name_label.text = furniture_instance.get_furniture_name()
 	_populate_crafting_recipe_container()
 	_populate_crafting_queue_container()
+	_update_craft_status_label()
 
 # Connects necessary signals from the furniture_instance.
 func _connect_furniture_signals():
@@ -54,11 +61,24 @@ func _connect_furniture_signals():
 	if not furniture_instance.about_to_be_destroyed.is_connected(_on_furniture_about_to_be_destroyed):
 		furniture_instance.about_to_be_destroyed.connect(_on_furniture_about_to_be_destroyed)
 
+	# Connect inventory contents_changed signal
+	var my_inventory = furniture_instance.get_inventory()
+	if my_inventory.contents_changed.is_connected(_on_inventory_contents_changed):
+		my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
+	my_inventory.contents_changed.connect(_on_inventory_contents_changed)
+
+
 # Disconnects signals from the previous furniture_instance.
 func _disconnect_furniture_signals():
 	if furniture_instance:
 		if furniture_instance.crafting_queue_updated.is_connected(_on_crafting_queue_updated):
 			furniture_instance.crafting_queue_updated.disconnect(_on_crafting_queue_updated)
+		
+		# Disconnect inventory contents_changed signal
+		var my_inventory = furniture_instance.get_inventory()
+		if my_inventory.contents_changed.is_connected(_on_inventory_contents_changed):
+			my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
+
 
 # Callback for furniture interaction.
 func _on_furniture_interacted(new_furniture_instance: FurnitureStaticSrv):
@@ -105,14 +125,15 @@ func _populate_crafting_recipe_container():
 		_add_recipe_item(item_id)
 
 # Adds a crafting queue item to the UI.
-func _add_queue_item(item_id: String):
-	var item_data: RItem = Runtimedata.items.by_id(item_id)
+func _add_queue_item(queue_item: FurnitureStaticSrv.QueueItem):
+	var item_data: RItem = Runtimedata.items.by_id(queue_item.id)
 	if not item_data:
 		return
 
 	crafting_queue_container.add_child(_create_icon(item_data.sprite))
 	crafting_queue_container.add_child(_create_label(item_data.name))
-	crafting_queue_container.add_child(_create_button("X", _on_delete_button_pressed.bind(item_id)))
+	crafting_queue_container.add_child(_create_button("X", _on_delete_queue_item_button_pressed.bind(queue_item)))
+
 
 # Populates the crafting queue UI.
 func _populate_crafting_queue_container():
@@ -123,8 +144,9 @@ func _populate_crafting_queue_container():
 		_add_queue_item(item_id)
 
 # Handles updates to the crafting queue.
-func _on_crafting_queue_updated(_current_queue: Array[String]):
+func _on_crafting_queue_updated(_current_queue: Array[FurnitureStaticSrv.QueueItem]):
 	_populate_crafting_queue_container()
+	_update_craft_status_label()
 
 
 # Handles the queue button being pressed.
@@ -132,9 +154,9 @@ func _on_queue_button_pressed(item_id: String):
 	furniture_instance.add_to_crafting_queue(item_id)
 
 
-# Handles the delete button being pressed.
-func _on_delete_button_pressed(_item_id: String):
-	furniture_instance.crafting_container.remove_from_crafting_queue()
+# Handles the delete button being pressed on a queued item.
+func _on_delete_queue_item_button_pressed(queue_item: FurnitureStaticSrv.QueueItem):
+	furniture_instance.remove_from_crafting_queue(queue_item)
 
 
 # Handles furniture destruction signal.
@@ -191,11 +213,11 @@ func _connect_add_to_queue_button(item_id: String):
 	add_to_queue_button.button_up.connect(_on_queue_button_pressed.bind(item_id))
 
 	# Update the button's status based on the inventory
-	_update_add_to_queue_button_status(item_id)
+	_update_add_to_queue_button_status()
 
 
 # Checks and updates the disabled status of the "Add to Queue" button based on inventory.
-func _update_add_to_queue_button_status(item_id: String):
+func _update_add_to_queue_button_status():
 	var recipe = Runtimedata.items.get_first_recipe_by_id(current_item_id)
 	if not recipe:
 		add_to_queue_button.disabled = true
@@ -205,6 +227,8 @@ func _update_add_to_queue_button_status(item_id: String):
 
 # Populates the ingredients list with inventory availability and required amounts.
 func _refresh_ingredient_list(item_data: RItem):
+	if not item_data:
+		return  # Exit if no valid item_data is provided
 	Helper.free_all_children(ingredients_grid_container)
 	var item_recipe: RItem.CraftRecipe = item_data.get_first_recipe()
 	if not item_recipe:
@@ -305,6 +329,33 @@ func has_sufficient_ingredient_outside_inventory(item_id: String, amount: int) -
 
 
 # Called when allAccessibleItems_changed signal is emitted.
-func _on_all_accessible_items_changed(items_added: Array, items_removed: Array):
+func _on_all_accessible_items_changed(_items_added: Array, _items_removed: Array):
 	if furniture_instance and current_item_id:
-		_update_add_to_queue_button_status(current_item_id)
+		_update_add_to_queue_button_status()
+
+# Callback for when the inventory contents change.
+func _on_inventory_contents_changed():
+	if furniture_instance:
+		_refresh_ingredient_list(Runtimedata.items.by_id(current_item_id))
+		_update_craft_status_label()
+
+
+# Updates the crafting status label based on the crafting queue and resources.
+func _update_craft_status_label():
+	if not furniture_instance or not furniture_instance.crafting_container:
+		craft_status_label.text = "Queue empty"
+		return
+
+	var crafting_queue = furniture_instance.crafting_container.crafting_queue
+	if crafting_queue.is_empty():
+		craft_status_label.text = "Queue empty"
+	else:
+		# Get the first item in the queue and its time remaining
+		var queue_item = crafting_queue[0]
+		var time_remaining = floor(queue_item.time_remaining)  # Round down to whole seconds
+		
+		var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(queue_item.id)
+		if not furniture_instance.crafting_container.are_all_ingredients_available(recipe):
+			craft_status_label.text = "Waiting for resources"
+		else:
+			craft_status_label.text = "Time remaining: " + str(time_remaining) + " seconds"
