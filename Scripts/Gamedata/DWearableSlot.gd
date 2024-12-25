@@ -58,12 +58,34 @@ func save_to_disk():
 
 # Some wearableslot has been changed
 # INFO if the wearableslot reference other entities, update them here
-func changed(_olddata: DItemgroup):
+func changed(olddata: DItemgroup):
+	_update_references(olddata.starting_item, starting_item)
 	parent.save_wearableslots_to_disk()
+
+
+func _update_references(old_value: String, new_value: String):
+	if old_value != new_value:
+		if old_value != "":
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, old_value, DMod.ContentType.WEARABLESLOTS, id)
+		if new_value != "":
+			Gamedata.mods.add_reference(DMod.ContentType.ITEMS, new_value, DMod.ContentType.WEARABLESLOTS, id)
 
 
 # A wearableslot is being deleted from the data
 # We have to remove it from everything that references it
 func delete():
+	# Check to see if any mod has a copy of this furniture. If one or more remain, we can keep references
+	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.WEARABLESLOTS, id)
+	if all_results.size() > 1:
+		parent.remove_reference(id)  # Erase the reference for the ID in this mod
+		return
+
 	for mod: DMod in Gamedata.mods.get_all_mods():
 		mod.items.remove_wearableslot_from_all_items(id)
+	Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, starting_item, DMod.ContentType.WEARABLESLOTS, id)
+
+
+func remove_item(item_id: String):
+	if starting_item == item_id:
+		starting_item = ""
+	parent.save_furnitures_to_disk()

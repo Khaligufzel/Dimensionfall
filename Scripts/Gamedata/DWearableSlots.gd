@@ -98,7 +98,6 @@ func append_new(newwearableslot: DWearableSlot) -> void:
 	save_wearableslots_to_disk()
 
 
-
 func delete_by_id(wearableslotid: String) -> void:
 	wearableslotdict[wearableslotid].delete()
 	wearableslotdict.erase(wearableslotid)
@@ -124,37 +123,14 @@ func sprite_by_file(spritefile: String) -> Texture:
 	return sprites[spritefile]
 
 
-# Removes the reference from the selected wearableslot
-func remove_reference(wearableslotid: String, module: String, type: String, refid: String):
-	var mywearableslot: DWearableSlot = wearableslotdict[wearableslotid]
-	mywearableslot.remove_reference(module, type, refid)
+# Removes the reference of the selected wearableslot
+func remove_reference(wearableslot_id: String):
+	references.erase(wearableslot_id)
+	Gamedata.mods.save_references(self)
 
 
-# Adds a reference to the references list
-# For example, add "grass_field" to references.Core.maps
-# wearableslotid: The id of the wearableslot to add the reference to
-# module: the mod that the entity belongs to, for example "Core"
-# type: The type of entity, for example "maps"
-# refid: The id of the entity to reference, for example "grass_field"
-func add_reference(wearableslotid: String, module: String, type: String, refid: String):
-	var mywearableslot: DWearableSlot = wearableslotdict[wearableslotid]
-	mywearableslot.add_reference(module, type, refid)
-
-
-# Helper function to update references if they have changed.
-# old: an entity id that is present in the old data
-# new: an entity id that is present in the new data
-# refid: The entity that's referenced in old and/or new
-# type: The type of entity that will be referenced
-# Example usage: update_reference(old_wearableslot, new_wearableslot, "furniture", furniture_id)
-# This example will remove furniture_id from the old_wearableslot's references and
-# add the furniture_id to the new_wearableslot's refrences
-func update_reference(old: String, new: String, type: String, refid: String) -> void:
-	if old == new:
-		return  # No change detected, exit early
-
-	# Remove from old group if necessary
-	if old != "":
-		remove_reference(old, "core", type, refid)
-	if new != "":
-		add_reference(new, "core", type, refid)
+# Remove the provided item from all wearableslot
+# This will erase it from starting_item
+func remove_item_from_all_wearableslot(item_id: String):
+	for wearableslot in wearableslotdict.values():
+		wearableslot.remove_item(item_id)
