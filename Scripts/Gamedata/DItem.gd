@@ -633,6 +633,7 @@ func delete():
 		mod.items.remove_item_from_all_recipes(id)
 		mod.quests.remove_item_from_all_quests(id)
 		mod.furnitures.remove_item_from_all_furniture(id)
+		mod.wearableslots.remove_item_from_all_wearableslot(id)
 	
 	if food and not food.attributes.is_empty():
 		for food_attribute in food.attributes:

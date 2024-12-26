@@ -11,6 +11,8 @@ extends Control
 @export var NameTextEdit: TextEdit = null
 @export var DescriptionTextEdit: TextEdit = null
 @export var slotSelector: Popup = null
+@export var starting_item_text_edit: HBoxContainer = null
+
 
 # This signal will be emitted when the user presses the save button
 # This signal should alert Gamedata that the slot data array should be saved to disk
@@ -29,6 +31,9 @@ var dwearableslot: DWearableSlot = null:
 		olddata = DWearableSlot.new(dwearableslot.get_data().duplicate(true), null)
 
 
+func _ready():
+	set_drop_functions()
+
 # This function updates the form based on the DWearableSlot that has been loaded
 func load_slot_data() -> void:
 	if slotImageDisplay != null and dwearableslot.spriteid:
@@ -40,6 +45,7 @@ func load_slot_data() -> void:
 		NameTextEdit.text = dwearableslot.name
 	if DescriptionTextEdit != null:
 		DescriptionTextEdit.text = dwearableslot.description
+	starting_item_text_edit.set_text(dwearableslot.starting_item)
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -55,6 +61,8 @@ func _on_save_button_button_up() -> void:
 	dwearableslot.name = NameTextEdit.text
 	dwearableslot.description = DescriptionTextEdit.text
 	dwearableslot.sprite = slotImageDisplay.texture
+	dwearableslot.starting_item = starting_item_text_edit.get_text()
+	
 	dwearableslot.save_to_disk()
 	data_changed.emit()
 	olddata = DWearableSlot.new(dwearableslot.get_data().duplicate(true), null)
@@ -69,3 +77,45 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var slotTexture: Resource = clicked_sprite.get_texture()
 	slotImageDisplay.texture = slotTexture
 	PathTextLabel.text = slotTexture.resource_path.get_file()
+
+
+# Set the drop funcitons on the required item and item progression controls
+# This enables them to receive drop data
+func set_drop_functions():
+	starting_item_text_edit.drop_function = item_drop
+	starting_item_text_edit.can_drop_function = can_item_drop
+
+
+# Called when the user has successfully dropped data onto the starting_item_text_edit
+# We have to check the dropped_data for the id property
+func item_drop(dropped_data: Dictionary) -> void:
+	# Assuming dropped_data is a Dictionary that includes an 'id'
+	if dropped_data and "id" in dropped_data:
+		var item_id = dropped_data["id"]
+		if not Gamedata.mods.by_id(dropped_data["mod_id"]).items.has_id(item_id):
+			print_debug("No item data found for ID: " + item_id)
+			return
+		starting_item_text_edit.set_text(item_id)
+	else:
+		print_debug("Dropped data does not contain an 'id' key.")
+
+
+func can_item_drop(dropped_data: Dictionary):
+	# Check if the data dictionary has the 'id' property
+	if not dropped_data or not dropped_data.has("id"):
+		return false
+	
+	var ditems: DItems = Gamedata.mods.by_id(dropped_data["mod_id"]).items
+	# Fetch item data by ID from the Gamedata to ensure it exists and is valid
+	if not ditems.has_id(dropped_data["id"]):
+		return false
+
+	var ditem: DItem = ditems.by_id(dropped_data["id"])
+	if not ditem.wearable:
+		return false
+	
+	# The item has to fit in this slot
+	if not ditem.wearable.slot == dwearableslot.id:
+		return false
+	# If all checks pass, return true
+	return true

@@ -69,7 +69,6 @@
 		"itemgroups": [
 			"cabinet_general",
 			"clothing_general",
-			"starting_items",
 			"zombie_loot",
 			"police_station_locker"
 		]
@@ -325,7 +324,6 @@
 	"gloves_leather": {
 		"itemgroups": [
 			"clothing_general",
-			"starting_items",
 			"zombie_loot",
 			"police_station_locker"
 		]
@@ -349,7 +347,6 @@
 	"hat_baseball": {
 		"itemgroups": [
 			"clothing_general",
-			"starting_items",
 			"zombie_loot"
 		]
 	},
@@ -366,14 +363,12 @@
 	"jacket": {
 		"itemgroups": [
 			"clothing_general",
-			"starting_items",
 			"zombie_loot"
 		]
 	},
 	"jeans": {
 		"itemgroups": [
 			"clothing_general",
-			"starting_items",
 			"zombie_loot"
 		]
 	},
@@ -423,7 +418,6 @@
 	"mailbag": {
 		"itemgroups": [
 			"clothing_general",
-			"starting_items",
 			"zombie_loot"
 		]
 	},

@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://767oi7u7wkm5"]
+[gd_scene load_steps=5 format=3 uid="uid://767oi7u7wkm5"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/WearableslotEditor.gd" id="1_j4ii6"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_8f3xi"]
+[ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="3_14upu"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_qjob6"]
 
-[node name="WearableEditor" type="Control" node_paths=PackedStringArray("slotImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "slotSelector")]
+[node name="WearableEditor" type="Control" node_paths=PackedStringArray("slotImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "slotSelector", "starting_item_text_edit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +19,7 @@ PathTextLabel = NodePath("VBoxContainer/FormGrid/PathTextLabel")
 NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 slotSelector = NodePath("Sprite_selector")
+starting_item_text_edit = NodePath("VBoxContainer/FormGrid/StartingItemDropEnabledTextEdit")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -100,6 +102,18 @@ size_flags_stretch_ratio = 0.9
 focus_previous = NodePath("../NameTextEdit")
 placeholder_text = "Holds equipment on your torso"
 wrap_mode = 1
+
+[node name="StartingItemLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Starting item"
+
+[node name="StartingItemDropEnabledTextEdit" parent="VBoxContainer/FormGrid" instance=ExtResource("3_14upu")]
+layout_mode = 2
+size_flags_vertical = 1
+tooltip_text = "Drag an item from the item list to the left to select it as a starting item 
+for this slot. The player will start the game with that item in the slot. The 
+item has to be \"wearable\" and have this slot configured as the fitting slot."
+myplaceholdertext = "Drop a starting item for this slot here. It has to fit the slot."
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_qjob6")]
 visible = false

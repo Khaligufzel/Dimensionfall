@@ -167,21 +167,8 @@ func create_starting_items():
 	
 	# Create starting equipment. The items are not added to the playerInventory, 
 	# only to the equipment slots.
-	#player_equipment.EquipmentItemList["feet"] = playerInventory.create_item("boots")
-	#player_equipment.EquipmentItemList["hands"] = playerInventory.create_item("gloves_leather")
-	#player_equipment.EquipmentItemList["head"] = playerInventory.create_item("hat_baseball")
-	#player_equipment.EquipmentItemList["legs"] = playerInventory.create_item("jeans")
-	#player_equipment.EquipmentItemList["torso"] = playerInventory.create_item("jacket")
-	#player_equipment.EquipmentItemList["back"] = playerInventory.create_item("mailbag")
-#
-	#if playerInventory.get_children() == []:
-		#playerInventory.create_and_add_item("bottle_plastic_water")
-		#playerInventory.create_and_add_item("bread")
-		#playerInventory.create_and_add_item("apple")
-		#playerInventory.create_and_add_item("can_soda")
-		#playerInventory.create_and_add_item("bandage_basic")
-		#playerInventory.create_and_add_item("bottle_antibiotics")
-
+	for wearableslot: RWearableSlot in Runtimedata.wearableslots.get_all().values():
+		player_equipment.EquipmentItemList[wearableslot.id] = playerInventory.create_item(wearableslot.starting_item)
 
 
 # The actual reloading is executed on the item

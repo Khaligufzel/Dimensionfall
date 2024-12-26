@@ -1572,36 +1572,6 @@
 		"id": "starting_items",
 		"items": [
 			{
-				"id": "boots",
-				"max": 1,
-				"min": 1,
-				"probability": 100
-			},
-			{
-				"id": "gloves_leather",
-				"max": 1,
-				"min": 1,
-				"probability": 100
-			},
-			{
-				"id": "hat_baseball",
-				"max": 1,
-				"min": 1,
-				"probability": 100
-			},
-			{
-				"id": "jeans",
-				"max": 1,
-				"min": 1,
-				"probability": 100
-			},
-			{
-				"id": "mailbag",
-				"max": 1,
-				"min": 1,
-				"probability": 100
-			},
-			{
 				"id": "bottle_plastic_water",
 				"max": 1,
 				"min": 1,
@@ -1633,12 +1603,6 @@
 			},
 			{
 				"id": "bottle_antibiotics",
-				"max": 1,
-				"min": 1,
-				"probability": 100
-			},
-			{
-				"id": "jacket",
 				"max": 1,
 				"min": 1,
 				"probability": 100
