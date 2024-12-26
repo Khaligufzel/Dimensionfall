@@ -398,6 +398,8 @@ func _populate_inventory_list():
 
 
 func _update_bars(changedItem: InventoryItem, action: String):
+	if not myInventory:
+		return
 	var total_weight = 0
 	var total_volume = 0
 	for item in myInventory.get_children():

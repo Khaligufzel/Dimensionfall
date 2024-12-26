@@ -110,8 +110,10 @@ text = "Starting item"
 [node name="StartingItemDropEnabledTextEdit" parent="VBoxContainer/FormGrid" instance=ExtResource("3_14upu")]
 layout_mode = 2
 size_flags_vertical = 1
-tooltip_text = "Drag an item from the item list to the left to select it as a starting item for this slot. The player will start the game with that item in the slot."
-myplaceholdertext = "Drop a starting item for this slot here"
+tooltip_text = "Drag an item from the item list to the left to select it as a starting item 
+for this slot. The player will start the game with that item in the slot. The 
+item has to be \"wearable\" and have this slot configured as the fitting slot."
+myplaceholdertext = "Drop a starting item for this slot here. It has to fit the slot."
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_qjob6")]
 visible = false
