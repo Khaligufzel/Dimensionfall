@@ -24,7 +24,8 @@
 			"RockyHill_SW",
 			"generichouse_corner",
 			"forest_basic_00",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"forest_camp_00"
 		]
 	},
 	"Tree_00": {
@@ -54,7 +55,8 @@
 			"RockyHill_SW",
 			"generichouse_corner",
 			"forest_basic_00",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"forest_camp_00"
 		]
 	},
 	"WillowTree_00": {
@@ -84,7 +86,8 @@
 			"RockyHill_SW",
 			"generichouse_corner",
 			"forest_basic_00",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"forest_camp_00"
 		]
 	},
 	"bathtub": {
@@ -160,6 +163,16 @@
 			"generichouse_t"
 		]
 	},
+	"campfire_off": {
+		"maps": [
+			"forest_camp_00"
+		]
+	},
+	"campfire_on": {
+		"maps": [
+			"forest_camp_00"
+		]
+	},
 	"cash_register": {
 		"maps": [
 			"store_groceries",
@@ -199,7 +212,8 @@
 			"abandoned_building",
 			"RockyHill_SW",
 			"generichouse_corner",
-			"generichouse_t"
+			"generichouse_t",
+			"forest_camp_00"
 		]
 	},
 	"clothing_rack": {
@@ -247,7 +261,8 @@
 			"radio_tower",
 			"city_square",
 			"parking_garage",
-			"abandoned_building"
+			"abandoned_building",
+			"forest_camp_00"
 		]
 	},
 	"display_case": {
@@ -418,7 +433,8 @@
 	},
 	"table_picknic": {
 		"maps": [
-			"Generichouse"
+			"Generichouse",
+			"forest_camp_00"
 		]
 	},
 	"table_round_wood": {

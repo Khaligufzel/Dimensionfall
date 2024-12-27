@@ -30,7 +30,8 @@
 			"subway_station",
 			"skyscraper",
 			"city_square",
-			"abandoned_building"
+			"abandoned_building",
+			"forest_camp_00"
 		]
 	},
 	"electronics_damaged": {
@@ -84,7 +85,8 @@
 			"forest_road_t",
 			"forest_road_straight",
 			"forest_road_corner",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"kitchen_cupboard": {

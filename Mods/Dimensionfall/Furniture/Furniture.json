@@ -419,7 +419,7 @@
 		"support_shape": {
 			"color": "8d492eff",
 			"depth_scale": 95,
-			"height": 0.5,
+			"height": 0.4,
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
