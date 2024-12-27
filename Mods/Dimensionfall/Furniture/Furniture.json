@@ -1039,5 +1039,56 @@
 			"transparent": false,
 			"width_scale": 50
 		}
+	},
+	{
+		"Function": {
+			"container_group": "tree_forage",
+			"is_container": true
+		},
+		"categories": [
+			"Survival",
+			"Crafting"
+		],
+		"description": "A campfire that is not lit. Useful for cooking or staying warm once ignited.",
+		"destruction": {
+			"group": "tree_destroyed"
+		},
+		"edgesnapping": "None",
+		"id": "campfire_off",
+		"moveable": false,
+		"name": "Unlit Campfire",
+		"sprite": "campfire_off_64.png",
+		"support_shape": {
+			"color": "a7491cff",
+			"height": 0.2,
+			"radius_scale": 80,
+			"shape": "Cylinder",
+			"transparent": true
+		}
+	},
+	{
+		"Function": {
+			"is_container": true
+		},
+		"categories": [
+			"Survival",
+			"Crafting"
+		],
+		"description": "A lit campfire providing light, warmth, and a way to cook food.",
+		"destruction": {
+			"group": "tree_destroyed"
+		},
+		"edgesnapping": "None",
+		"id": "campfire_on",
+		"moveable": false,
+		"name": "Lit Campfire",
+		"sprite": "campfire_on_64.png",
+		"support_shape": {
+			"color": "ff4500ff",
+			"height": 0.2,
+			"radius_scale": 80,
+			"shape": "Cylinder",
+			"transparent": true
+		}
 	}
 ]

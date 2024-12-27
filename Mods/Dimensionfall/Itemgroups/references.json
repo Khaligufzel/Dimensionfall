@@ -113,11 +113,18 @@
 			"store_groceries"
 		]
 	},
+	"tree_destroyed": {
+		"furnitures": [
+			"campfire_off",
+			"campfire_on"
+		]
+	},
 	"tree_forage": {
 		"furnitures": [
 			"Tree_00",
 			"PineTree_00",
-			"WillowTree_00"
+			"WillowTree_00",
+			"campfire_off"
 		]
 	},
 	"urban_litter": {
