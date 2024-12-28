@@ -399,7 +399,7 @@ func add_brushes_from_area(entity_list: Array, entity_type: String = "entity"):
 		# Get the appropriate sprite based on the entity type
 		match newtype:
 			"tile":
-				properties["texture"] = Gamedata.mods.by_id("Core").tiles.sprite_by_id(entity["id"])
+				properties["texture"] = Gamedata.mods.get_content_by_id(DMod.ContentType.TILES,entity["id"]).sprite
 			"mob":
 				properties["texture"] = Gamedata.mods.get_content_by_id(DMod.ContentType.MOBS,entity["id"]).sprite
 			"furniture":

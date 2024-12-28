@@ -188,7 +188,8 @@
 			"abandoned_building",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"dirt_light_01": {
@@ -209,7 +210,8 @@
 			"generichouse_corner",
 			"abandoned_building",
 			"field_grass_hill_00",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"dirt_light_02": {
@@ -227,7 +229,8 @@
 			"forest_road_corner",
 			"abandoned_building",
 			"field_grass_hill_00",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"dirt_light_grass_north_00": {
@@ -393,7 +396,8 @@
 			"forest_road_t",
 			"forest_road_straight",
 			"forest_road_corner",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"forest_underbrush_01": {
@@ -402,7 +406,8 @@
 			"forest_road_t",
 			"forest_road_straight",
 			"forest_road_corner",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"forest_underbrush_02": {
@@ -411,7 +416,8 @@
 			"forest_road_t",
 			"forest_road_straight",
 			"forest_road_corner",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"forest_underbrush_03": {
@@ -421,7 +427,8 @@
 			"forest_road_straight",
 			"forest_road_corner",
 			"RockyHill_SW",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"forest_underbrush_04": {
@@ -430,7 +437,8 @@
 			"forest_road_t",
 			"forest_road_straight",
 			"forest_road_corner",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"forest_underbrush_05": {
@@ -439,7 +447,8 @@
 			"forest_road_t",
 			"forest_road_straight",
 			"forest_road_corner",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"grass_dirt_00": {
@@ -474,7 +483,8 @@
 			"RockyHill_SW",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"grass_dirt_01": {
@@ -509,7 +519,8 @@
 			"RockyHill_SW",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"grass_dirt_02": {
@@ -543,7 +554,8 @@
 			"RockyHill_SW",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"grass_dirt_center_00": {
@@ -645,7 +657,8 @@
 			"generichouse_corner",
 			"RockyHill_SW",
 			"field_grass_hill_00",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"forest_camp_00"
 		]
 	},
 	"grass_flowers_03": {
@@ -675,7 +688,8 @@
 			"generichouse_corner",
 			"RockyHill_SW",
 			"field_grass_hill_00",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"forest_camp_00"
 		]
 	},
 	"grass_medium_dirt_00": {
@@ -712,7 +726,8 @@
 			"abandoned_building",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"grass_medium_dirt_01": {
@@ -749,7 +764,8 @@
 			"abandoned_building",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"grass_medium_dirt_02": {
@@ -785,7 +801,8 @@
 			"abandoned_building",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"forest_basic_00"
+			"forest_basic_00",
+			"forest_camp_00"
 		]
 	},
 	"grass_plain": {
@@ -823,7 +840,8 @@
 			"generichouse_corner",
 			"RockyHill_SW",
 			"field_grass_hill_00",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"forest_camp_00"
 		]
 	},
 	"grass_ramp_00": {
