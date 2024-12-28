@@ -11,7 +11,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujqyk"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "weightLabel", "weightSpinBox", "edgeSnappingOptionButton", "doorOptionButton", "containerCheckBox", "containerTextEdit", "regeneration_label", "regeneration_spin_box", "destroyHboxContainer", "canDestroyCheckbox", "destructionTextEdit", "destructionImageDisplay", "destructionSpriteNameLabel", "disassemblyHboxContainer", "canDisassembleCheckbox", "disassemblyTextEdit", "disassemblyImageDisplay", "disassemblySpriteNameLabel", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "items_grid_container")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furniture_image_display", "id_label", "name_edit", "description_edit", "categories_list", "furniture_selector", "image_name_label", "moveable_checkbox", "weight_label", "weight_spinbox", "edge_snapping_option", "door_option", "container_checkbox", "container_text_edit", "regeneration_label", "regeneration_spin_box", "destroy_container", "can_destroy_checkbox", "destruction_text_edit", "destruction_image_display", "destruction_sprite_label", "disassembly_container", "can_disassemble_checkbox", "disassembly_text_edit", "disassembly_image_display", "disassembly_sprite_label", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "items_grid_container", "construction_items_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,32 +20,32 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wqqit")
 tab_container = NodePath("VBoxContainer/TabContainer")
-furnitureImageDisplay = NodePath("VBoxContainer/TabContainer/General/FurnitureImageDisplay")
-IDTextLabel = NodePath("VBoxContainer/TabContainer/General/IDTextLabel")
-NameTextEdit = NodePath("VBoxContainer/TabContainer/General/NameTextEdit")
-DescriptionTextEdit = NodePath("VBoxContainer/TabContainer/General/DescriptionTextEdit")
-CategoriesList = NodePath("VBoxContainer/TabContainer/General/Editable_Item_List")
-furnitureSelector = NodePath("Sprite_selector")
-imageNameStringLabel = NodePath("VBoxContainer/TabContainer/General/ImageNameStringLabel")
-moveableCheckboxButton = NodePath("VBoxContainer/TabContainer/General/MoveableHboxContainer/UnmoveableCheckBox")
-weightLabel = NodePath("VBoxContainer/TabContainer/General/MoveableHboxContainer/WeightLabel")
-weightSpinBox = NodePath("VBoxContainer/TabContainer/General/MoveableHboxContainer/WeightSpinBox")
-edgeSnappingOptionButton = NodePath("VBoxContainer/TabContainer/General/SnappingOptionButton")
-doorOptionButton = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/DoorOptionButton")
-containerCheckBox = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/ContainerCheckBox")
-containerTextEdit = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/ContainerTextEdit")
+furniture_image_display = NodePath("VBoxContainer/TabContainer/General/FurnitureImageDisplay")
+id_label = NodePath("VBoxContainer/TabContainer/General/IDTextLabel")
+name_edit = NodePath("VBoxContainer/TabContainer/General/NameTextEdit")
+description_edit = NodePath("VBoxContainer/TabContainer/General/DescriptionTextEdit")
+categories_list = NodePath("VBoxContainer/TabContainer/General/Editable_Item_List")
+furniture_selector = NodePath("Sprite_selector")
+image_name_label = NodePath("VBoxContainer/TabContainer/General/ImageNameStringLabel")
+moveable_checkbox = NodePath("VBoxContainer/TabContainer/General/MoveableHboxContainer/UnmoveableCheckBox")
+weight_label = NodePath("VBoxContainer/TabContainer/General/MoveableHboxContainer/WeightLabel")
+weight_spinbox = NodePath("VBoxContainer/TabContainer/General/MoveableHboxContainer/WeightSpinBox")
+edge_snapping_option = NodePath("VBoxContainer/TabContainer/General/SnappingOptionButton")
+door_option = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/DoorOptionButton")
+container_checkbox = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/ContainerCheckBox")
+container_text_edit = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/ContainerTextEdit")
 regeneration_label = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/RegenerationLabel")
 regeneration_spin_box = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/RegenerationSpinBox")
-destroyHboxContainer = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer")
-canDestroyCheckbox = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/CanDestroyCheckBox")
-destructionTextEdit = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/DestructionTextEdit")
-destructionImageDisplay = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/DestructionImageDisplay")
-destructionSpriteNameLabel = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/DestructionSpriteNameLabel")
-disassemblyHboxContainer = NodePath("VBoxContainer/TabContainer/General/DisassembleHboxContainer")
-canDisassembleCheckbox = NodePath("VBoxContainer/TabContainer/General/DisassembleHboxContainer/CanDisassembleCheckBox")
-disassemblyTextEdit = NodePath("VBoxContainer/TabContainer/General/DisassembleHboxContainer/DisassemblyTextEdit")
-disassemblyImageDisplay = NodePath("VBoxContainer/TabContainer/General/DisassembleHboxContainer/DisassembleImageDisplay")
-disassemblySpriteNameLabel = NodePath("VBoxContainer/TabContainer/General/DisassembleHboxContainer/DisassembleSpriteNameLabel")
+destroy_container = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer")
+can_destroy_checkbox = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/CanDestroyCheckBox")
+destruction_text_edit = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/DestructionTextEdit")
+destruction_image_display = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/DestructionImageDisplay")
+destruction_sprite_label = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/DestructionSpriteNameLabel")
+disassembly_container = NodePath("VBoxContainer/TabContainer/General/DisassembleHboxContainer")
+can_disassemble_checkbox = NodePath("VBoxContainer/TabContainer/General/DisassembleHboxContainer/CanDisassembleCheckBox")
+disassembly_text_edit = NodePath("VBoxContainer/TabContainer/General/DisassembleHboxContainer/DisassemblyTextEdit")
+disassembly_image_display = NodePath("VBoxContainer/TabContainer/General/DisassembleHboxContainer/DisassembleImageDisplay")
+disassembly_sprite_label = NodePath("VBoxContainer/TabContainer/General/DisassembleHboxContainer/DisassembleSpriteNameLabel")
 support_shape_option_button = NodePath("VBoxContainer/TabContainer/Shape/SupportShapeOptionButton")
 width_scale_label = NodePath("VBoxContainer/TabContainer/Shape/WidthScaleLabel")
 depth_scale_label = NodePath("VBoxContainer/TabContainer/Shape/DepthScaleLabel")
@@ -58,6 +58,7 @@ color_picker = NodePath("VBoxContainer/TabContainer/Shape/HBoxContainer/ColorPic
 sprite_texture_rect = NodePath("VBoxContainer/TabContainer/Shape/HBoxContainer/SpriteTextureRect")
 transparent_check_box = NodePath("VBoxContainer/TabContainer/Shape/TransparentCheckBox")
 items_grid_container = NodePath("VBoxContainer/TabContainer/Crafting/ItemsPanelContainer/ItemsScrollContainer/ItemsGridContainer")
+construction_items_grid_container = NodePath("VBoxContainer/TabContainer/Construction/ConstructionItemsPanelContainer/ConstructionItemsScrollContainer/ConstructionItemsVBoxContainer/ConstructionItemsGridContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
