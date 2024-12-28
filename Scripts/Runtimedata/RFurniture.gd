@@ -32,6 +32,12 @@ extends RefCounted
 #     "disassembly": {
 #         "group": "wood_parts",
 #         "sprite": "wood_parts_32.png"
+#     },
+#     "crafting": {
+#         "items": ["wood_parts", "steel_parts]
+#     },
+#     "construction": {
+#         "items": ["wood_planks", "nails]
 #     }
 # }
 
@@ -154,6 +160,22 @@ class Crafting:
 	func get_items() -> Array:
 		return items
 
+# Construction Property
+class Construction:
+	var items: Array = []
+
+	# Constructor to initialize construction data from a dictionary
+	func _init(data: Dictionary):
+		items = data.get("items", [])
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		return {"items": items} if items.size() > 0 else {}
+
+	func get_items() -> Array:
+		return items
+
+
 # Properties defined in the furniture
 var id: String
 var name: String
@@ -168,6 +190,7 @@ var support_shape: SupportShape
 var destruction: Destruction
 var disassembly: Disassembly
 var crafting: Crafting
+var construction: Construction
 var sprite: Texture
 var parent: RFurnitures  # Reference to the list containing all runtime furnitures for this mod
 
@@ -195,6 +218,7 @@ func overwrite_from_dfurniture(dfurniture: DFurniture) -> void:
 	destruction = Destruction.new(dfurniture.destruction.get_data())
 	disassembly = Disassembly.new(dfurniture.disassembly.get_data())
 	crafting = Crafting.new(dfurniture.crafting.get_data())
+	construction = Construction.new(dfurniture.construction.get_data())
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -231,9 +255,17 @@ func get_data() -> Dictionary:
 	if not craftingdata.is_empty():
 		data["crafting"] = craftingdata
 
+	var constructiondata: Dictionary = construction.get_data()
+	if not constructiondata.is_empty():
+		data["construction"] = constructiondata
+
 	return data
 
 
 # Returns the list of items from crafting
 func get_crafting_items() -> Array:
 	return crafting.get_items() if crafting else []
+
+# Returns the list of items from construction
+func get_construction_items() -> Array:
+	return construction.get_items() if construction else []
