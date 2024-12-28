@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cng4m3os6smj8"]
+[gd_scene load_steps=9 format=3 uid="uid://cng4m3os6smj8"]
 
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="1_gm4uu"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/FurnitureEditor.gd" id="1_wqqit"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://lqavxdrjc078" path="res://Mods/Dimensionfall/Furniture/wardrobe_80_40.png" id="5_61cds"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61e60"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujqyk"]
 
 [node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furnitureImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "furnitureSelector", "imageNameStringLabel", "moveableCheckboxButton", "weightLabel", "weightSpinBox", "edgeSnappingOptionButton", "doorOptionButton", "containerCheckBox", "containerTextEdit", "regeneration_label", "regeneration_spin_box", "destroyHboxContainer", "canDestroyCheckbox", "destructionTextEdit", "destructionImageDisplay", "destructionSpriteNameLabel", "disassemblyHboxContainer", "canDisassembleCheckbox", "disassemblyTextEdit", "disassemblyImageDisplay", "disassemblySpriteNameLabel", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "items_grid_container")]
 layout_mode = 3
@@ -79,9 +81,10 @@ text = "Save"
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 3
 
 [node name="General" type="GridContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
@@ -495,13 +498,50 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_61e60")
 
 [node name="ItemsScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Crafting/ItemsPanelContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
 [node name="ItemsGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Crafting/ItemsPanelContainer/ItemsScrollContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 3
+
+[node name="Construction" type="GridContainer" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+columns = 2
+metadata/_tab_index = 3
+
+[node name="HintLabel" type="Label" parent="VBoxContainer/TabContainer/Construction"]
+layout_mode = 2
+text = "Hint"
+
+[node name="HintTextLabel" type="Label" parent="VBoxContainer/TabContainer/Construction"]
+layout_mode = 2
+text = "Configure the items that the player neerds to construct this furniture."
+
+[node name="ItemsLabel" type="Label" parent="VBoxContainer/TabContainer/Construction"]
+layout_mode = 2
+text = "Items"
+
+[node name="ConstructionItemsPanelContainer" type="PanelContainer" parent="VBoxContainer/TabContainer/Construction"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ujqyk")
+
+[node name="ConstructionItemsScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Construction/ConstructionItemsPanelContainer"]
+layout_mode = 2
+
+[node name="ConstructionItemsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Construction/ConstructionItemsPanelContainer/ConstructionItemsScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ConstructionItemsGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Construction/ConstructionItemsPanelContainer/ConstructionItemsScrollContainer/ConstructionItemsVBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_o3k3a")]
 visible = false
