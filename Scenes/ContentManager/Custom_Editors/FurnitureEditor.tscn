@@ -11,7 +11,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujqyk"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furniture_image_display", "id_label", "name_edit", "description_edit", "categories_list", "furniture_selector", "image_name_label", "moveable_checkbox", "weight_label", "weight_spinbox", "edge_snapping_option", "door_option", "container_checkbox", "container_text_edit", "regeneration_label", "regeneration_spin_box", "destroy_container", "can_destroy_checkbox", "destruction_text_edit", "destruction_image_display", "destruction_sprite_label", "disassembly_container", "can_disassemble_checkbox", "disassembly_text_edit", "disassembly_image_display", "disassembly_sprite_label", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "items_grid_container", "construction_items_grid_container")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furniture_image_display", "id_label", "name_edit", "description_edit", "categories_list", "furniture_selector", "image_name_label", "moveable_checkbox", "weight_label", "weight_spinbox", "edge_snapping_option", "door_option", "container_checkbox", "container_text_edit", "regeneration_label", "regeneration_spin_box", "destroy_container", "can_destroy_checkbox", "destruction_text_edit", "destruction_image_display", "destruction_sprite_label", "disassembly_container", "can_disassemble_checkbox", "disassembly_text_edit", "disassembly_image_display", "disassembly_sprite_label", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "crafting_items_container", "construction_items_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,8 +57,8 @@ heigth_spin_box = NodePath("VBoxContainer/TabContainer/Shape/HeigthSpinBox")
 color_picker = NodePath("VBoxContainer/TabContainer/Shape/HBoxContainer/ColorPicker")
 sprite_texture_rect = NodePath("VBoxContainer/TabContainer/Shape/HBoxContainer/SpriteTextureRect")
 transparent_check_box = NodePath("VBoxContainer/TabContainer/Shape/TransparentCheckBox")
-items_grid_container = NodePath("VBoxContainer/TabContainer/Crafting/ItemsPanelContainer/ItemsScrollContainer/ItemsGridContainer")
-construction_items_grid_container = NodePath("VBoxContainer/TabContainer/Construction/ConstructionItemsPanelContainer/ConstructionItemsScrollContainer/ConstructionItemsVBoxContainer/ConstructionItemsGridContainer")
+crafting_items_container = NodePath("VBoxContainer/TabContainer/Crafting/ItemsPanelContainer/ItemsScrollContainer/ItemsGridContainer")
+construction_items_container = NodePath("VBoxContainer/TabContainer/Construction/ConstructionItemsPanelContainer/ConstructionItemsScrollContainer/ConstructionItemsVBoxContainer/ConstructionItemsGridContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

@@ -50,9 +50,9 @@ extends Control
 @export var transparent_check_box: CheckBox
 
 # Container for items that can be crafted
-@export var items_grid_container: GridContainer = null
+@export var crafting_items_container: GridContainer = null
 # Container for items that are requires to construct this furniture.
-@export var construction_items_grid_container: GridContainer = null
+@export var construction_items_container: GridContainer = null
 
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
@@ -84,7 +84,7 @@ func _ready():
 	
 	# Connect the toggle signal to the function
 	moveable_checkbox.toggled.connect(_on_moveable_checkbox_toggled)
-	items_grid_container.set_drag_forwarding(Callable(), _can_item_drop, _item_drop)
+	crafting_items_container.set_drag_forwarding(Callable(), _can_item_drop, _item_drop)
 
 
 func load_furniture_data():
@@ -247,8 +247,8 @@ func _on_save_button_button_up():
 	handle_disassembly_option()
 
 	# Save crafting and construction items
-	save_crafting_items()
-	save_construction_items()
+	_save_crafting_items()
+	_save_construction_items()
 
 	dfurniture.on_data_changed(olddata)
 	data_changed.emit()
@@ -383,7 +383,7 @@ func set_drop_functions():
 	destruction_text_edit.drop_function = itemgroup_drop.bind(destruction_text_edit)
 	destruction_text_edit.can_drop_function = can_itemgroup_drop
 	
-	construction_items_grid_container.set_drag_forwarding(Callable(), _can_construction_item_drop, _construction_item_drop)
+	construction_items_container.set_drag_forwarding(Callable(), _can_construction_item_drop, _construction_item_drop)
 
 
 # When the furniture_image_display is clicked, the user will be prompted to select an image from
@@ -479,7 +479,7 @@ func _on_unmoveable_check_box_toggled(toggled_on):
 		regeneration_spin_box.visible = true
 
 
-# Check if the dragged item can be dropped into the items_grid_container
+# Check if the dragged item can be dropped into the crafting_items_container
 func _can_item_drop(_newpos: Vector2, data: Dictionary) -> bool:
 	# Validate that data is a dictionary and contains the required "id" key
 	if not data or not data.has("id"):
@@ -494,14 +494,14 @@ func _can_item_drop(_newpos: Vector2, data: Dictionary) -> bool:
 		return false
 
 	# Check for duplicate items in the grid container
-	for child in items_grid_container.get_children():
+	for child in crafting_items_container.get_children():
 		if child is Label and child.text == data["id"]:
 			return false  # Item already exists
 
 	return true  # Passed all validation checks
 
 
-# Handle the drop of an item into the items_grid_container
+# Handle the drop of an item into the crafting_items_container
 func _item_drop(_newpos: Vector2, data: Dictionary) -> void:
 	# Validate if the item can be dropped
 	if not _can_item_drop(_newpos, data):
@@ -531,9 +531,9 @@ func _handle_item_drop(dropped_data: Dictionary) -> void:
 	delete_button.button_up.connect(_on_delete_item_button_pressed.bind(item_id))
 
 	# Add components to the grid container
-	items_grid_container.add_child(item_icon)
-	items_grid_container.add_child(item_label)
-	items_grid_container.add_child(delete_button)
+	crafting_items_container.add_child(item_icon)
+	crafting_items_container.add_child(item_label)
+	crafting_items_container.add_child(delete_button)
 
 	# Ensure the furniture is marked as a container
 	if not dfurniture.function.is_container:
@@ -541,31 +541,31 @@ func _handle_item_drop(dropped_data: Dictionary) -> void:
 		container_checkbox.button_pressed = true  # Reflect the change in the UI
 
 
-# Handle the deletion of an item from the items_grid_container
+# Handle the deletion of an item from the crafting_items_container
 func _on_delete_item_button_pressed(item_id: String) -> void:
 	# Determine the number of columns in the grid container
-	var num_columns = items_grid_container.columns
+	var num_columns = crafting_items_container.columns
 	var children_to_remove = []
 
 	# Find and queue the row containing the matching item ID
-	for i in range(items_grid_container.get_child_count()):
-		var child = items_grid_container.get_child(i)
+	for i in range(crafting_items_container.get_child_count()):
+		var child = crafting_items_container.get_child(i)
 		if child is Label and child.text == item_id:
 			var start_index = i - (i % num_columns)
 			for j in range(num_columns):
-				children_to_remove.append(items_grid_container.get_child(start_index + j))
+				children_to_remove.append(crafting_items_container.get_child(start_index + j))
 			break
 
 	# Remove and free the queued children
 	for child in children_to_remove:
-		items_grid_container.remove_child(child)
+		crafting_items_container.remove_child(child)
 		child.queue_free()
 
 
 # Refreshes the items list in the grid container
 func update_item_list():
 	# Clear existing items from the grid
-	Helper.free_all_children(items_grid_container)
+	Helper.free_all_children(crafting_items_container)
 
 	if not dfurniture.crafting:
 		return
@@ -574,7 +574,7 @@ func update_item_list():
 		_handle_item_drop({"id":item_id})
 
 
-# Check if the dragged item can be dropped into the construction_items_grid_container
+# Check if the dragged item can be dropped into the construction_items_container
 func _can_construction_item_drop(_newpos: Vector2, data: Dictionary) -> bool:
 	# Validate that data is a dictionary and contains the required "id" key
 	if not data or not data.has("id"):
@@ -585,13 +585,13 @@ func _can_construction_item_drop(_newpos: Vector2, data: Dictionary) -> bool:
 		return false
 	
 	# Check for duplicate items in the grid container
-	for child in construction_items_grid_container.get_children():
+	for child in construction_items_container.get_children():
 		if child is Label and child.text == data["id"]:
 			return false  # Item already exists
 
 	return true  # Passed all validation checks
 
-# Handle the drop of an item into the construction_items_grid_container
+# Handle the drop of an item into the construction_items_container
 func _construction_item_drop(_newpos: Vector2, data: Dictionary) -> void:
 	# Validate if the item can be dropped
 	if not _can_construction_item_drop(_newpos, data):
@@ -620,29 +620,29 @@ func _handle_construction_item_drop(dropped_data: Dictionary) -> void:
 	delete_button.button_up.connect(_on_delete_construction_item_button_pressed.bind(item_id))
 
 	# Add components to the grid container
-	construction_items_grid_container.add_child(item_icon)
-	construction_items_grid_container.add_child(item_label)
-	construction_items_grid_container.add_child(delete_button)
+	construction_items_container.add_child(item_icon)
+	construction_items_container.add_child(item_label)
+	construction_items_container.add_child(delete_button)
 
 
-# Handle the deletion of an item from the construction_items_grid_container
+# Handle the deletion of an item from the construction_items_container
 func _on_delete_construction_item_button_pressed(item_id: String) -> void:
 	# Determine the number of columns in the grid container
-	var num_columns = construction_items_grid_container.columns
+	var num_columns = construction_items_container.columns
 	var children_to_remove = []
 
 	# Find and queue the row containing the matching item ID
-	for i in range(construction_items_grid_container.get_child_count()):
-		var child = construction_items_grid_container.get_child(i)
+	for i in range(construction_items_container.get_child_count()):
+		var child = construction_items_container.get_child(i)
 		if child is Label and child.text == item_id:
 			var start_index = i - (i % num_columns)
 			for j in range(num_columns):
-				children_to_remove.append(construction_items_grid_container.get_child(start_index + j))
+				children_to_remove.append(construction_items_container.get_child(start_index + j))
 			break
 
 	# Remove and free the queued children
 	for child in children_to_remove:
-		construction_items_grid_container.remove_child(child)
+		construction_items_container.remove_child(child)
 		child.queue_free()
 
 	# Remove the item ID from dfurniture.construction.items
@@ -653,7 +653,7 @@ func _on_delete_construction_item_button_pressed(item_id: String) -> void:
 # Refreshes the items list in the construction grid container
 func update_construction_item_list():
 	# Clear existing items from the grid
-	Helper.free_all_children(construction_items_grid_container)
+	Helper.free_all_children(construction_items_container)
 
 	if not dfurniture.construction or not dfurniture.construction.items:
 		return
@@ -662,31 +662,17 @@ func update_construction_item_list():
 	for item_id in dfurniture.construction.items:
 		_handle_construction_item_drop({"id": item_id})
 
+# Saves the crafting items from crafting_items_container into dfurniture.crafting.items
+func _save_crafting_items():
+	dfurniture.crafting.items = _extract_items_from_container(crafting_items_container)
 
-# Saves the crafting items from items_grid_container into dfurniture.crafting.items
-func save_crafting_items():
-	var new_items: Array[String] = []
-	var num_children = items_grid_container.get_child_count()
-	var num_columns = items_grid_container.columns
+# Saves the construction items from construction_items_container into dfurniture.construction.items
+func _save_construction_items():
+	dfurniture.construction.items = _extract_items_from_container(construction_items_container)
 
-	for i in range(0, num_children, num_columns):
-		var item_label = items_grid_container.get_child(i + 1)  # Second child is the label with item ID
-		if item_label is Label:
-			new_items.append(item_label.text)
-
-	dfurniture.crafting.items = new_items  # Update furniture's crafting item list
-
-# Saves the construction items from construction_items_grid_container into dfurniture.construction.items
-func save_construction_items():
-	var new_items: Array[String] = []
-	var num_children = construction_items_grid_container.get_child_count()
-	var num_columns = construction_items_grid_container.columns
-
-	for i in range(0, num_children, num_columns):
-		var item_label = construction_items_grid_container.get_child(i + 1)  # Second child is the label with item ID
-		if item_label is Label:
-			new_items.append(item_label.text)
-
-	if not dfurniture.construction:
-		dfurniture.construction = {}  # Initialize if not present
-	dfurniture.construction.items = new_items  # Update furniture's construction item list
+func _extract_items_from_container(container: GridContainer) -> Array[String]:
+	var items = []
+	for child in container.get_children():
+		if child is Label:
+			items.append(child.text)
+	return items
