@@ -624,12 +624,6 @@ func _handle_construction_item_drop(dropped_data: Dictionary) -> void:
 	construction_items_grid_container.add_child(item_label)
 	construction_items_grid_container.add_child(delete_button)
 
-	# Ensure the construction items are properly recorded
-	if not dfurniture.construction:
-		dfurniture.construction = {}  # Initialize if not already present
-	if not dfurniture.construction.items:
-		dfurniture.construction.items = []
-	dfurniture.construction.items.append(item_id)
 
 # Handle the deletion of an item from the construction_items_grid_container
 func _on_delete_construction_item_button_pressed(item_id: String) -> void:
