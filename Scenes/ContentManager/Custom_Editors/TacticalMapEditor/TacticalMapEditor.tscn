@@ -154,17 +154,31 @@ tileScene = ExtResource("8_pt28t")
 mapEditor = NodePath("../../../../../..")
 buttonRotateRight = NodePath("../../../../Toolbar/RotateRight")
 
-[node name="EntitiesContainer" type="VBoxContainer" parent="HSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="SelectModOptionButton" type="OptionButton" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "Core"
+
+[node name="EntitiesContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer" node_paths=PackedStringArray("select_mod_option_button")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 script = ExtResource("9_u8o0i")
 scrolling_Flow_Container = ExtResource("10_lnsqy")
 tileBrush = ExtResource("11_bh5ke")
+select_mod_option_button = NodePath("../SelectModOptionButton")
 
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="HSplitContainer/MapeditorContainer/Toolbar/SaveButton" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/TileGrid" method="save_map_json_file"]
 [connection signal="value_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapWidth" to="." method="_on_map_width_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/MapeditorContainer/Toolbar/MapHeight" to="." method="_on_map_height_value_changed"]
 [connection signal="pressed" from="HSplitContainer/MapeditorContainer/Toolbar/RotateRight" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/TileGrid" method="_on_rotate_right_pressed"]
-[connection signal="tile_brush_selection_change" from="HSplitContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/TileGrid" method="_on_entities_container_tile_brush_selection_change"]
+[connection signal="item_selected" from="HSplitContainer/VBoxContainer/SelectModOptionButton" to="HSplitContainer/VBoxContainer/EntitiesContainer" method="_on_select_mod_option_button_item_selected"]
+[connection signal="tile_brush_selection_change" from="HSplitContainer/VBoxContainer/EntitiesContainer" to="HSplitContainer/MapeditorContainer/HBoxContainer/MapScrollWindow/PanWindow/TileGrid" method="_on_entities_container_tile_brush_selection_change"]
