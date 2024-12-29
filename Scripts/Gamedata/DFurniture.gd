@@ -170,6 +170,7 @@ class Disassembly:
 			result["sprite"] = sprite
 		return result
 
+
 # Crafting Property
 class Crafting:
 	var items: Array = []
@@ -181,6 +182,7 @@ class Crafting:
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
 		return {"items": items} if items.size() > 0 else {}
+
 
 # Construction Property
 class Construction:

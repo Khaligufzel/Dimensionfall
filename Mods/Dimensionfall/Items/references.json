@@ -507,6 +507,9 @@
 		]
 	},
 	"plank_2x4": {
+		"furnitures": [
+			"countertop_wood"
+		],
 		"itemgroups": [
 			"mob_loot",
 			"destroyed_furniture_medium",
@@ -645,6 +648,9 @@
 		]
 	},
 	"steel_scrap": {
+		"furnitures": [
+			"countertop_wood"
+		],
 		"itemgroups": [
 			"mob_loot",
 			"cabinet_general",

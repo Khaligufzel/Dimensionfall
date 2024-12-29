@@ -690,7 +690,7 @@ func _save_construction_items():
 	dfurniture.construction.items = new_items  # Update furniture's construction items
 
 
-func _extract_items_from_container(container: GridContainer) -> Array[String]:
+func _extract_items_from_container(container: GridContainer) -> Array:
 	var items = []
 	for child in container.get_children():
 		if child is Label:

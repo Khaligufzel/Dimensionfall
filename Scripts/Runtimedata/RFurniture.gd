@@ -162,17 +162,18 @@ class Crafting:
 
 # Construction Property
 class Construction:
-	var items: Array = []
+	var items: Dictionary = {}
 
 	# Constructor to initialize construction data from a dictionary
 	func _init(data: Dictionary):
-		items = data.get("items", [])
+		items = data.get("items", {})  # Initialize as an empty dictionary if not present
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
 		return {"items": items} if items.size() > 0 else {}
 
-	func get_items() -> Array:
+	# Get items function to return the dictionary of items
+	func get_items() -> Dictionary:
 		return items
 
 

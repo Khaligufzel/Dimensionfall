@@ -82,10 +82,9 @@ text = "Save"
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 3
+current_tab = 0
 
 [node name="General" type="GridContainer" parent="VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
@@ -510,6 +509,7 @@ size_flags_vertical = 3
 columns = 3
 
 [node name="Construction" type="GridContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 columns = 2
 metadata/_tab_index = 3
@@ -543,7 +543,7 @@ size_flags_vertical = 3
 [node name="ConstructionItemsGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Construction/ConstructionItemsPanelContainer/ConstructionItemsScrollContainer/ConstructionItemsVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-columns = 3
+columns = 4
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_o3k3a")]
 visible = false
