@@ -614,6 +614,12 @@ func _handle_construction_item_drop(dropped_data: Dictionary) -> void:
 	var item_label = Label.new()
 	item_label.text = item_id
 
+	# Add a SpinBox to allow setting the required amount
+	var amount_spinbox = SpinBox.new()
+	amount_spinbox.min_value = 1
+	amount_spinbox.value = dfurniture.construction.items.get(item_id, 1)  # Default to 1 if not set
+	amount_spinbox.custom_minimum_size = Vector2(50, 32)
+
 	var delete_button = Button.new()
 	delete_button.text = "X"
 	delete_button.tooltip_text = "Remove this item"
@@ -622,7 +628,9 @@ func _handle_construction_item_drop(dropped_data: Dictionary) -> void:
 	# Add components to the grid container
 	construction_items_container.add_child(item_icon)
 	construction_items_container.add_child(item_label)
+	construction_items_container.add_child(amount_spinbox)
 	construction_items_container.add_child(delete_button)
+
 
 
 # Handle the deletion of an item from the construction_items_container
@@ -659,8 +667,9 @@ func update_construction_item_list():
 		return
 
 	# Add items back into the grid
-	for item_id in dfurniture.construction.items:
+	for item_id in dfurniture.construction.items.keys():
 		_handle_construction_item_drop({"id": item_id})
+
 
 # Saves the crafting items from crafting_items_container into dfurniture.crafting.items
 func _save_crafting_items():
@@ -668,7 +677,18 @@ func _save_crafting_items():
 
 # Saves the construction items from construction_items_container into dfurniture.construction.items
 func _save_construction_items():
-	dfurniture.construction.items = _extract_items_from_container(construction_items_container)
+	var new_items: Dictionary = {}
+	var num_children = construction_items_container.get_child_count()
+	var num_columns = construction_items_container.columns
+
+	for i in range(0, num_children, num_columns):
+		var item_label = construction_items_container.get_child(i + 1)  # Second child is the label with item ID
+		var amount_spinbox = construction_items_container.get_child(i + 2)  # Third child is the SpinBox
+		if item_label is Label and amount_spinbox is SpinBox:
+			new_items[item_label.text] = int(amount_spinbox.value)
+
+	dfurniture.construction.items = new_items  # Update furniture's construction items
+
 
 func _extract_items_from_container(container: GridContainer) -> Array[String]:
 	var items = []

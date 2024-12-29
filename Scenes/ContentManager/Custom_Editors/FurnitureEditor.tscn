@@ -543,6 +543,7 @@ size_flags_vertical = 3
 [node name="ConstructionItemsGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Construction/ConstructionItemsPanelContainer/ConstructionItemsScrollContainer/ConstructionItemsVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+columns = 3
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_o3k3a")]
 visible = false

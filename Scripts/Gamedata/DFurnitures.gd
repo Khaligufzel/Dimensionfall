@@ -135,6 +135,7 @@ func remove_itemgroup_from_all_furniture(itemgroup_id: String):
 func remove_item_from_all_furniture(item_id: String):
 	for furniture in furnituredict.values():
 		furniture.remove_item_from_crafting(item_id)
+		furniture.remove_item_from_construction(item_id)
 
 
 # Removes the reference of the selected furniture
