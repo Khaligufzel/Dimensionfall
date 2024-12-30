@@ -39,7 +39,13 @@ extends RefCounted
 #			"transparent": false,
 #			"width_scale": 100
 #		},
-#		"weight": 1
+#		"weight": 1,
+#		"crafting": {
+#			"items": ["wood_parts", "steel_parts]
+#		},
+#		"construction": {
+#			"items": {"wood_planks": 4, "nails": 8}
+#		}
 #	}
 
 # Constants for defaults
@@ -61,6 +67,7 @@ var support_shape: SupportShape
 var destruction: Destruction
 var disassembly: Disassembly
 var crafting: Crafting
+var construction: Construction
 var parent: DFurnitures
 
 # -------------------------------
@@ -163,6 +170,7 @@ class Disassembly:
 			result["sprite"] = sprite
 		return result
 
+
 # Crafting Property
 class Crafting:
 	var items: Array = []
@@ -174,6 +182,32 @@ class Crafting:
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
 		return {"items": items} if items.size() > 0 else {}
+
+
+# Construction Property
+class Construction:
+	var items: Dictionary = {}
+
+	# Constructor to initialize construction data from a dictionary
+	func _init(data: Dictionary):
+		items = data.get("items", {})  # Initialize as an empty dictionary if not present
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		return {"items": items} if items.size() > 0 else {}
+
+	# Get items function to return the dictionary of items
+	func get_items() -> Dictionary:
+		return items
+
+	# Add an item with the required amount
+	func add_item(item_id: String, amount: int) -> void:
+		items[item_id] = amount
+
+	# Remove an item by ID
+	func remove_item(item_id: String) -> void:
+		items.erase(item_id)
+
 
 # -------------------------------
 # Initialization
@@ -198,6 +232,7 @@ func _initialize_properties(data: Dictionary):
 	destruction = Destruction.new(data.get("destruction", {}))
 	disassembly = Disassembly.new(data.get("disassembly", {}))
 	crafting = Crafting.new(data.get("crafting", {}))  # Initialize Crafting inner class
+	construction = Construction.new(data.get("construction", {}))  # Initialize Construction with a dictionary
 
 # -------------------------------
 # Data Retrieval
@@ -231,6 +266,9 @@ func get_data() -> Dictionary:
 	if not crafting.get_data().is_empty(): # Add crafting data if it exists
 		result["crafting"] = crafting.get_data()
 
+	if not construction.get_data().is_empty():  # Add construction data if it exists
+		result["construction"] = construction.get_data()
+
 	return result
 
 func get_sprite_path() -> String:
@@ -247,8 +285,21 @@ func on_data_changed(old_furniture: DFurniture):
 	_update_references(old_furniture.disassembly.group, disassembly.group)
 
 	# Handle crafting item references
-	var old_items = old_furniture.crafting.items
-	var current_items = crafting.items
+	var old_items: Array = old_furniture.crafting.items
+	var current_items: Array = crafting.items
+
+	# Remove references for items no longer in the list
+	for old_item in old_items:
+		if old_item not in current_items:
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, old_item, DMod.ContentType.FURNITURES, id)
+
+	# Add references for new items
+	for current_item in current_items:
+		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, current_item, DMod.ContentType.FURNITURES, id)
+
+	# Handle construction item references
+	old_items = old_furniture.construction.items.keys()  # Get old construction item IDs
+	current_items = construction.items.keys()  # Get current construction item IDs
 
 	# Remove references for items no longer in the list
 	for old_item in old_items:
@@ -316,5 +367,15 @@ func remove_item_from_crafting(item_id: String):
 		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.FURNITURES, id)
 		# Remove the item from the crafting list
 		crafting.items.erase(item_id)
+		# Save the updated furniture state
+		parent.save_furnitures_to_disk()
+
+# Removes an item by its ID from construction.items and updates references
+func remove_item_from_construction(item_id: String):
+	if item_id in construction.items:
+		# Remove the reference
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.FURNITURES, id)
+		# Remove the item from the construction list
+		construction.remove_item(item_id)
 		# Save the updated furniture state
 		parent.save_furnitures_to_disk()

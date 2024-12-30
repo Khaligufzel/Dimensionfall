@@ -43,6 +43,12 @@
 			"Kitchen",
 			"Indoor"
 		],
+		"construction": {
+			"items": {
+				"plank_2x4": 4,
+				"steel_scrap": 6
+			}
+		},
 		"crafting": {
 			"items": [
 				"cutting_board"

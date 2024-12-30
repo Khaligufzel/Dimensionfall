@@ -7,34 +7,34 @@ extends Control
 
 @export var tab_container: TabContainer
 
-@export var furnitureImageDisplay: TextureRect = null
-@export var IDTextLabel: Label = null
-@export var NameTextEdit: TextEdit = null
-@export var DescriptionTextEdit: TextEdit = null
-@export var CategoriesList: Control = null
-@export var furnitureSelector: Popup = null
-@export var imageNameStringLabel: Label = null
-@export var moveableCheckboxButton: CheckBox = null # The player can push it if selected
-@export var weightLabel: Label = null
-@export var weightSpinBox: SpinBox = null # The wight considered when pushing
-@export var edgeSnappingOptionButton: OptionButton = null # Apply edge snapping if selected
-@export var doorOptionButton: OptionButton = null # Maks the furniture as a door
-@export var containerCheckBox: CheckBox = null # Marks the furniture as a container
-@export var containerTextEdit: HBoxContainer = null # Might contain the id of a loot group
+@export var furniture_image_display: TextureRect = null
+@export var id_label: Label = null
+@export var name_edit: TextEdit = null
+@export var description_edit: TextEdit = null
+@export var categories_list: Control = null
+@export var furniture_selector: Popup = null
+@export var image_name_label: Label = null
+@export var moveable_checkbox: CheckBox = null # The player can push it if selected
+@export var weight_label: Label = null
+@export var weight_spinbox: SpinBox = null # The wight considered when pushing
+@export var edge_snapping_option: OptionButton = null # Apply edge snapping if selected
+@export var door_option: OptionButton = null # Maks the furniture as a door
+@export var container_checkbox: CheckBox = null # Marks the furniture as a container
+@export var container_text_edit: HBoxContainer = null # Might contain the id of a loot group
 @export var regeneration_label: Label = null
 @export var regeneration_spin_box: SpinBox = null # The time in days before regeneration
 
-@export var destroyHboxContainer: HBoxContainer = null # contains destroy controls
-@export var canDestroyCheckbox: CheckBox = null # If the furniture can be destroyed or not
-@export var destructionTextEdit: HBoxContainer = null # Might contain the id of a loot group
-@export var destructionImageDisplay: TextureRect = null # What it looks like when destroyed
-@export var destructionSpriteNameLabel: Label = null # The name of the destroyed sprite
+@export var destroy_container: HBoxContainer = null # contains destroy controls
+@export var can_destroy_checkbox: CheckBox = null # If the furniture can be destroyed or not
+@export var destruction_text_edit: HBoxContainer = null # Might contain the id of a loot group
+@export var destruction_image_display: TextureRect = null # What it looks like when destroyed
+@export var destruction_sprite_label: Label = null # The name of the destroyed sprite
 
-@export var disassemblyHboxContainer: HBoxContainer = null # contains destroy controls
-@export var canDisassembleCheckbox: CheckBox = null # If the furniture can be disassembled or not
-@export var disassemblyTextEdit: HBoxContainer = null # Might contain the id of a loot group
-@export var disassemblyImageDisplay: TextureRect = null # What it looks like when disassembled
-@export var disassemblySpriteNameLabel: Label = null # The name of the disassembly sprite
+@export var disassembly_container: HBoxContainer = null # contains destroy controls
+@export var can_disassemble_checkbox: CheckBox = null # If the furniture can be disassembled or not
+@export var disassembly_text_edit: HBoxContainer = null # Might contain the id of a loot group
+@export var disassembly_image_display: TextureRect = null # What it looks like when disassembled
+@export var disassembly_sprite_label: Label = null # The name of the disassembly sprite
 
 # Controls for the shape:
 @export var support_shape_option_button: OptionButton
@@ -50,7 +50,9 @@ extends Control
 @export var transparent_check_box: CheckBox
 
 # Container for items that can be crafted
-@export var items_grid_container: GridContainer = null
+@export var crafting_items_container: GridContainer = null
+# Container for items that are requires to construct this furniture.
+@export var construction_items_container: GridContainer = null
 
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
@@ -68,7 +70,7 @@ var dfurniture: DFurniture:
 	set(value):
 		dfurniture = value
 		load_furniture_data()
-		furnitureSelector.sprites_collection = dfurniture.parent.sprites
+		furniture_selector.sprites_collection = dfurniture.parent.sprites
 		if not data_changed.is_connected(dfurniture.parent.on_data_changed):
 			data_changed.connect(dfurniture.parent.on_data_changed)
 		olddata = DFurniture.new(dfurniture.get_data().duplicate(true), null)
@@ -76,67 +78,67 @@ var dfurniture: DFurniture:
 
 func _ready():
 	# For properly using the tab key to switch elements
-	control_elements = [furnitureImageDisplay,NameTextEdit,DescriptionTextEdit]
+	control_elements = [furniture_image_display,name_edit,description_edit]
 	#data_changed.connect(dfurniture.parent.on_data_changed)
 	set_drop_functions()
 	
 	# Connect the toggle signal to the function
-	moveableCheckboxButton.toggled.connect(_on_moveable_checkbox_toggled)
-	items_grid_container.set_drag_forwarding(Callable(), _can_item_drop, _item_drop)
+	moveable_checkbox.toggled.connect(_on_moveable_checkbox_toggled)
+	crafting_items_container.set_drag_forwarding(Callable(), _can_item_drop, _item_drop)
 
 
 func load_furniture_data():
-	if furnitureImageDisplay and dfurniture.sprite:
-		furnitureImageDisplay.texture = dfurniture.sprite
-		imageNameStringLabel.text = dfurniture.spriteid
-		update_sprite_texture_rect(furnitureImageDisplay.texture)
-	if IDTextLabel:
-		IDTextLabel.text = dfurniture.id
-	if NameTextEdit:
-		NameTextEdit.text = dfurniture.name
-	if DescriptionTextEdit:
-		DescriptionTextEdit.text = dfurniture.description
-	if CategoriesList:
+	if furniture_image_display and dfurniture.sprite:
+		furniture_image_display.texture = dfurniture.sprite
+		image_name_label.text = dfurniture.spriteid
+		update_sprite_texture_rect(furniture_image_display.texture)
+	if id_label:
+		id_label.text = dfurniture.id
+	if name_edit:
+		name_edit.text = dfurniture.name
+	if description_edit:
+		description_edit.text = dfurniture.description
+	if categories_list:
 		_update_categories()
-	if moveableCheckboxButton:
-		moveableCheckboxButton.button_pressed = dfurniture.moveable
+	if moveable_checkbox:
+		moveable_checkbox.button_pressed = dfurniture.moveable
 		_on_moveable_checkbox_toggled(dfurniture.moveable)
-	if weightSpinBox:
-		weightSpinBox.value = dfurniture.weight
-	if edgeSnappingOptionButton:
-		select_option_by_string(edgeSnappingOptionButton, dfurniture.edgesnapping)
-	if doorOptionButton:
+	if weight_spinbox:
+		weight_spinbox.value = dfurniture.weight
+	if edge_snapping_option:
+		select_option_by_string(edge_snapping_option, dfurniture.edgesnapping)
+	if door_option:
 		update_door_option(dfurniture.function.door)
 
 	if not dfurniture.destruction.get_data().is_empty():
-		canDestroyCheckbox.button_pressed = true
-		destructionTextEdit.set_text(dfurniture.destruction.group)
+		can_destroy_checkbox.button_pressed = true
+		destruction_text_edit.set_text(dfurniture.destruction.group)
 		if not dfurniture.destruction.sprite == "":
-			destructionImageDisplay.texture = dfurniture.parent.sprite_by_file(dfurniture.destruction.sprite)
-		destructionSpriteNameLabel.text = dfurniture.destruction.sprite
-		set_visibility_for_children(destructionTextEdit, true)
+			destruction_image_display.texture = dfurniture.parent.sprite_by_file(dfurniture.destruction.sprite)
+		destruction_sprite_label.text = dfurniture.destruction.sprite
+		set_visibility_for_children(destruction_text_edit, true)
 	else:
-		canDestroyCheckbox.button_pressed = false
-		set_visibility_for_children(destructionTextEdit, false)
+		can_destroy_checkbox.button_pressed = false
+		set_visibility_for_children(destruction_text_edit, false)
 
 	if not dfurniture.disassembly.get_data().is_empty():
-		canDisassembleCheckbox.button_pressed = true
-		disassemblyTextEdit.set_text(dfurniture.disassembly.group)
-		disassemblyImageDisplay.texture = dfurniture.parent.sprite_by_file(dfurniture.disassembly.sprite)
-		disassemblySpriteNameLabel.text = dfurniture.disassembly.sprite
-		set_visibility_for_children(disassemblyTextEdit, true)
+		can_disassemble_checkbox.button_pressed = true
+		disassembly_text_edit.set_text(dfurniture.disassembly.group)
+		disassembly_image_display.texture = dfurniture.parent.sprite_by_file(dfurniture.disassembly.sprite)
+		disassembly_sprite_label.text = dfurniture.disassembly.sprite
+		set_visibility_for_children(disassembly_text_edit, true)
 	else:
-		canDisassembleCheckbox.button_pressed = false
-		set_visibility_for_children(disassemblyTextEdit, false)
+		can_disassemble_checkbox.button_pressed = false
+		set_visibility_for_children(disassembly_text_edit, false)
 
 	# Load container data if it exists within the 'Function' property
 	if dfurniture.function.is_container:
-		containerCheckBox.button_pressed = true  # Check the container checkbox
+		container_checkbox.button_pressed = true  # Check the container checkbox
 		var itemgroup: String = dfurniture.function.container_group
 		if not itemgroup == "":
-			containerTextEdit.set_text(itemgroup)
+			container_text_edit.set_text(itemgroup)
 		else:
-			containerTextEdit.mytextedit.clear()  # Clear the text edit if no itemgroup is specified
+			container_text_edit.mytextedit.clear()  # Clear the text edit if no itemgroup is specified
 		
 		# Load regeneration time if applicable
 		if dfurniture.function.container_regeneration_time >= 0.0:
@@ -144,19 +146,20 @@ func load_furniture_data():
 		else:
 			regeneration_spin_box.value = -1.0  # Default to -1.0 if no regeneration time is set
 	else:
-		containerCheckBox.button_pressed = false  # Uncheck the container checkbox
-		containerTextEdit.mytextedit.clear()  # Clear the text edit as no container data is present
+		container_checkbox.button_pressed = false  # Uncheck the container checkbox
+		container_text_edit.mytextedit.clear()  # Clear the text edit as no container data is present
 		regeneration_spin_box.value = -1.0  # Reset regeneration spin box
 
 	# Call the function to load the support shape data
 	load_support_shape_option()
 	update_item_list()
+	update_construction_item_list()
 
 
 func _update_categories():
-		CategoriesList.clear_list()
+		categories_list.clear_list()
 		for category in dfurniture.categories:
-			CategoriesList.add_item_to_list(category)
+			categories_list.add_item_to_list(category)
 
 
 # Function to load support shape data into the form
@@ -195,10 +198,10 @@ func load_support_shape_option():
 
 
 func update_door_option(door_state):
-	var items = doorOptionButton.get_item_count()
+	var items = door_option.get_item_count()
 	for i in range(items):
-		if doorOptionButton.get_item_text(i) == door_state or (door_state not in ["Open", "Closed"] and doorOptionButton.get_item_text(i) == "None"):
-			doorOptionButton.selected = i
+		if door_option.get_item_text(i) == door_state or (door_state not in ["Open", "Closed"] and door_option.get_item_text(i) == "None"):
+			door_option.selected = i
 			return
 	print_debug("No matching door state option found: " + door_state)
 
@@ -227,14 +230,14 @@ func update_sprite_texture_rect(texture: Texture):
 
 # This function takes all data from the form elements and stores them in the dfurniture.
 func _on_save_button_button_up():
-	dfurniture.spriteid = imageNameStringLabel.text
-	dfurniture.sprite = furnitureImageDisplay.texture
-	dfurniture.name = NameTextEdit.text
-	dfurniture.description = DescriptionTextEdit.text
-	dfurniture.categories = CategoriesList.get_items()
-	dfurniture.moveable = moveableCheckboxButton.button_pressed
-	dfurniture.weight = weightSpinBox.value
-	dfurniture.edgesnapping = edgeSnappingOptionButton.get_item_text(edgeSnappingOptionButton.selected)
+	dfurniture.spriteid = image_name_label.text
+	dfurniture.sprite = furniture_image_display.texture
+	dfurniture.name = name_edit.text
+	dfurniture.description = description_edit.text
+	dfurniture.categories = categories_list.get_items()
+	dfurniture.moveable = moveable_checkbox.button_pressed
+	dfurniture.weight = weight_spinbox.value
+	dfurniture.edgesnapping = edge_snapping_option.get_item_text(edge_snapping_option.selected)
 
 	# Handle saving or erasing the support shape data
 	handle_support_shape_option()
@@ -243,17 +246,9 @@ func _on_save_button_button_up():
 	handle_destruction_option()
 	handle_disassembly_option()
 
-	# Collect item IDs from the grid container
-	var new_items: Array[String] = []
-	var num_children = items_grid_container.get_child_count()
-	var num_columns = items_grid_container.columns
-
-	for i in range(0, num_children, num_columns):
-		var item_label = items_grid_container.get_child(i + 1)  # Second child is the label with item ID
-		if item_label is Label:
-			new_items.append(item_label.text)
-
-	dfurniture.crafting.items = new_items  # Update furniture's item list with IDs
+	# Save crafting and construction items
+	_save_crafting_items()
+	_save_construction_items()
 
 	dfurniture.on_data_changed(olddata)
 	data_changed.emit()
@@ -262,7 +257,7 @@ func _on_save_button_button_up():
 
 # Function to handle saving or erasing the support shape data
 func handle_support_shape_option():
-	if not moveableCheckboxButton.button_pressed:
+	if not moveable_checkbox.button_pressed:
 		var shape = support_shape_option_button.get_item_text(support_shape_option_button.selected)
 		dfurniture.support_shape.shape = shape
 		dfurniture.support_shape.height = heigth_spin_box.value
@@ -278,14 +273,14 @@ func handle_support_shape_option():
 # If the door function is set, we save the value to contentData
 # Else, if the door state is set to none, we erase the value from contentdata
 func handle_door_option():
-	var door_state = doorOptionButton.get_item_text(doorOptionButton.selected)
+	var door_state = door_option.get_item_text(door_option.selected)
 	dfurniture.function.door = door_state
 
 
 func handle_container_option():
-	if containerCheckBox.is_pressed():
+	if container_checkbox.is_pressed():
 		dfurniture.function.is_container = true
-		dfurniture.function.container_group = containerTextEdit.get_text()
+		dfurniture.function.container_group = container_text_edit.get_text()
 		# Save the regeneration time
 		dfurniture.function.container_regeneration_time = regeneration_spin_box.value
 	else:
@@ -296,18 +291,18 @@ func handle_container_option():
 
 
 func handle_destruction_option():
-	if canDestroyCheckbox.is_pressed():
-		dfurniture.destruction.group = destructionTextEdit.get_text()
-		dfurniture.destruction.sprite = destructionSpriteNameLabel.text
+	if can_destroy_checkbox.is_pressed():
+		dfurniture.destruction.group = destruction_text_edit.get_text()
+		dfurniture.destruction.sprite = destruction_sprite_label.text
 	else:
 		dfurniture.destruction.group = ""
 		dfurniture.destruction.sprite = ""
 
 
 func handle_disassembly_option():
-	if canDestroyCheckbox.is_pressed():
-		dfurniture.disassembly.group = disassemblyTextEdit.get_text()
-		dfurniture.disassembly.sprite = disassemblySpriteNameLabel.text
+	if can_destroy_checkbox.is_pressed():
+		dfurniture.disassembly.group = disassembly_text_edit.get_text()
+		dfurniture.disassembly.sprite = disassembly_sprite_label.text
 	else:
 		dfurniture.disassembly.group = ""
 		dfurniture.disassembly.sprite = ""
@@ -329,7 +324,7 @@ func _input(event):
 
 func _on_container_check_box_toggled(toggled_on):
 	if not toggled_on:
-		containerTextEdit.mytextedit.clear()
+		container_text_edit.mytextedit.clear()
 
 
 # Called when the user has successfully dropped data onto the ItemGroupTextEdit
@@ -350,12 +345,12 @@ func itemgroup_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) ->
 			return
 		texteditcontrol.set_text(itemgroup_id)
 		# If it's the container group, we always set the container checkbox to true
-		if texteditcontrol == containerTextEdit:
-			containerCheckBox.button_pressed = true
-		if texteditcontrol == destructionTextEdit:
-			canDestroyCheckbox.button_pressed = true
-		if texteditcontrol == disassemblyTextEdit:
-			canDisassembleCheckbox.button_pressed = true
+		if texteditcontrol == container_text_edit:
+			container_checkbox.button_pressed = true
+		if texteditcontrol == destruction_text_edit:
+			can_destroy_checkbox.button_pressed = true
+		if texteditcontrol == disassembly_text_edit:
+			can_disassemble_checkbox.button_pressed = true
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
 
@@ -381,43 +376,45 @@ func can_itemgroup_drop(dropped_data: Dictionary):
 
 
 func set_drop_functions():
-	containerTextEdit.drop_function = itemgroup_drop.bind(containerTextEdit)
-	containerTextEdit.can_drop_function = can_itemgroup_drop
-	disassemblyTextEdit.drop_function = itemgroup_drop.bind(disassemblyTextEdit)
-	disassemblyTextEdit.can_drop_function = can_itemgroup_drop
-	destructionTextEdit.drop_function = itemgroup_drop.bind(destructionTextEdit)
-	destructionTextEdit.can_drop_function = can_itemgroup_drop
+	container_text_edit.drop_function = itemgroup_drop.bind(container_text_edit)
+	container_text_edit.can_drop_function = can_itemgroup_drop
+	disassembly_text_edit.drop_function = itemgroup_drop.bind(disassembly_text_edit)
+	disassembly_text_edit.can_drop_function = can_itemgroup_drop
+	destruction_text_edit.drop_function = itemgroup_drop.bind(destruction_text_edit)
+	destruction_text_edit.can_drop_function = can_itemgroup_drop
+	
+	construction_items_container.set_drag_forwarding(Callable(), _can_construction_item_drop, _construction_item_drop)
 
 
-# When the furnitureImageDisplay is clicked, the user will be prompted to select an image from
-# "res://Mods/Core/Furnitures/". The texture of the furnitureImageDisplay will change to the selected image
+# When the furniture_image_display is clicked, the user will be prompted to select an image from
+# "res://Mods/Core/Furnitures/". The texture of the furniture_image_display will change to the selected image
 func _on_furniture_image_display_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		current_image_display = "furniture"
-		furnitureSelector.show()
+		furniture_selector.show()
 
 func _on_disassemble_image_display_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		current_image_display = "disassemble"
-		furnitureSelector.show()
+		furniture_selector.show()
 
 func _on_destruction_image_display_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		current_image_display = "destruction"
-		furnitureSelector.show()
+		furniture_selector.show()
 
 func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	var furnitureTexture: Resource = clicked_sprite.get_texture()
 	if current_image_display == "furniture":
-		furnitureImageDisplay.texture = furnitureTexture
-		imageNameStringLabel.text = furnitureTexture.resource_path.get_file()
+		furniture_image_display.texture = furnitureTexture
+		image_name_label.text = furnitureTexture.resource_path.get_file()
 		update_sprite_texture_rect(furnitureTexture)
 	elif current_image_display == "disassemble":
-		disassemblyImageDisplay.texture = furnitureTexture
-		disassemblySpriteNameLabel.text = furnitureTexture.resource_path.get_file()
+		disassembly_image_display.texture = furnitureTexture
+		disassembly_sprite_label.text = furnitureTexture.resource_path.get_file()
 	elif current_image_display == "destruction":
-		destructionImageDisplay.texture = furnitureTexture
-		destructionSpriteNameLabel.text = furnitureTexture.resource_path.get_file()
+		destruction_image_display.texture = furnitureTexture
+		destruction_sprite_label.text = furnitureTexture.resource_path.get_file()
 
 
 # Utility function to set the visibility of all children of the given container except the first one
@@ -427,23 +424,23 @@ func set_visibility_for_children(container: Control, isvisible: bool):
 
 func _on_can_destroy_check_box_toggled(toggled_on):
 	if not toggled_on:
-		destructionTextEdit.mytextedit.clear()
-		destructionSpriteNameLabel.text = ""
-		destructionImageDisplay.texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
-	set_visibility_for_children(destructionTextEdit, toggled_on)
+		destruction_text_edit.mytextedit.clear()
+		destruction_sprite_label.text = ""
+		destruction_image_display.texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
+	set_visibility_for_children(destruction_text_edit, toggled_on)
 
 func _on_can_disassemble_check_box_toggled(toggled_on):
 	if not toggled_on:
-		disassemblyTextEdit.mytextedit.clear()
-		disassemblySpriteNameLabel.text = ""
-		disassemblyImageDisplay.texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
-	set_visibility_for_children(disassemblyHboxContainer, toggled_on)
+		disassembly_text_edit.mytextedit.clear()
+		disassembly_sprite_label.text = ""
+		disassembly_image_display.texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
+	set_visibility_for_children(disassembly_container, toggled_on)
 
 
 # Function to handle the toggle state of the checkbox
 func _on_moveable_checkbox_toggled(button_pressed):
-	weightLabel.visible = button_pressed
-	weightSpinBox.visible = button_pressed
+	weight_label.visible = button_pressed
+	weight_spinbox.visible = button_pressed
 
 
 # When the user selects a shape from the optionbutton
@@ -482,7 +479,7 @@ func _on_unmoveable_check_box_toggled(toggled_on):
 		regeneration_spin_box.visible = true
 
 
-# Check if the dragged item can be dropped into the items_grid_container
+# Check if the dragged item can be dropped into the crafting_items_container
 func _can_item_drop(_newpos: Vector2, data: Dictionary) -> bool:
 	# Validate that data is a dictionary and contains the required "id" key
 	if not data or not data.has("id"):
@@ -497,14 +494,14 @@ func _can_item_drop(_newpos: Vector2, data: Dictionary) -> bool:
 		return false
 
 	# Check for duplicate items in the grid container
-	for child in items_grid_container.get_children():
+	for child in crafting_items_container.get_children():
 		if child is Label and child.text == data["id"]:
 			return false  # Item already exists
 
 	return true  # Passed all validation checks
 
 
-# Handle the drop of an item into the items_grid_container
+# Handle the drop of an item into the crafting_items_container
 func _item_drop(_newpos: Vector2, data: Dictionary) -> void:
 	# Validate if the item can be dropped
 	if not _can_item_drop(_newpos, data):
@@ -534,44 +531,168 @@ func _handle_item_drop(dropped_data: Dictionary) -> void:
 	delete_button.button_up.connect(_on_delete_item_button_pressed.bind(item_id))
 
 	# Add components to the grid container
-	items_grid_container.add_child(item_icon)
-	items_grid_container.add_child(item_label)
-	items_grid_container.add_child(delete_button)
+	crafting_items_container.add_child(item_icon)
+	crafting_items_container.add_child(item_label)
+	crafting_items_container.add_child(delete_button)
 
 	# Ensure the furniture is marked as a container
 	if not dfurniture.function.is_container:
 		dfurniture.function.is_container = true
-		containerCheckBox.button_pressed = true  # Reflect the change in the UI
+		container_checkbox.button_pressed = true  # Reflect the change in the UI
 
 
-# Handle the deletion of an item from the items_grid_container
+# Handle the deletion of an item from the crafting_items_container
 func _on_delete_item_button_pressed(item_id: String) -> void:
 	# Determine the number of columns in the grid container
-	var num_columns = items_grid_container.columns
+	var num_columns = crafting_items_container.columns
 	var children_to_remove = []
 
 	# Find and queue the row containing the matching item ID
-	for i in range(items_grid_container.get_child_count()):
-		var child = items_grid_container.get_child(i)
+	for i in range(crafting_items_container.get_child_count()):
+		var child = crafting_items_container.get_child(i)
 		if child is Label and child.text == item_id:
 			var start_index = i - (i % num_columns)
 			for j in range(num_columns):
-				children_to_remove.append(items_grid_container.get_child(start_index + j))
+				children_to_remove.append(crafting_items_container.get_child(start_index + j))
 			break
 
 	# Remove and free the queued children
 	for child in children_to_remove:
-		items_grid_container.remove_child(child)
+		crafting_items_container.remove_child(child)
 		child.queue_free()
 
 
 # Refreshes the items list in the grid container
 func update_item_list():
 	# Clear existing items from the grid
-	Helper.free_all_children(items_grid_container)
+	Helper.free_all_children(crafting_items_container)
 
 	if not dfurniture.crafting:
 		return
 	# Add items back into the grid
 	for item_id in dfurniture.crafting.items:
 		_handle_item_drop({"id":item_id})
+
+
+# Check if the dragged item can be dropped into the construction_items_container
+func _can_construction_item_drop(_newpos: Vector2, data: Dictionary) -> bool:
+	# Validate that data is a dictionary and contains the required "id" key
+	if not data or not data.has("id"):
+		return false
+
+	# Validate that the item exists in Gamedata
+	if not Gamedata.mods.by_id(data["mod_id"]).items.has_id(data["id"]):
+		return false
+	
+	# Check for duplicate items in the grid container
+	for child in construction_items_container.get_children():
+		if child is Label and child.text == data["id"]:
+			return false  # Item already exists
+
+	return true  # Passed all validation checks
+
+# Handle the drop of an item into the construction_items_container
+func _construction_item_drop(_newpos: Vector2, data: Dictionary) -> void:
+	# Validate if the item can be dropped
+	if not _can_construction_item_drop(_newpos, data):
+		return
+
+	# Handle the drop and add the item to the grid
+	_handle_construction_item_drop(data)
+
+# Function to handle adding the dropped item to the construction grid container
+func _handle_construction_item_drop(dropped_data: Dictionary) -> void:
+	# Retrieve item details from Gamedata
+	var item_id = dropped_data["id"]
+	var item_sprite = Gamedata.mods.get_content_by_id(DMod.ContentType.ITEMS, item_id).sprite
+
+	# Create components for the dropped item row
+	var item_icon = TextureRect.new()
+	item_icon.texture = item_sprite
+	item_icon.custom_minimum_size = Vector2(32, 32)  # Ensure a minimum size for the icon
+
+	var item_label = Label.new()
+	item_label.text = item_id
+
+	# Add a SpinBox to allow setting the required amount
+	var amount_spinbox = SpinBox.new()
+	amount_spinbox.min_value = 1
+	amount_spinbox.value = dfurniture.construction.items.get(item_id, 1)  # Default to 1 if not set
+	amount_spinbox.custom_minimum_size = Vector2(50, 32)
+
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.tooltip_text = "Remove this item"
+	delete_button.button_up.connect(_on_delete_construction_item_button_pressed.bind(item_id))
+
+	# Add components to the grid container
+	construction_items_container.add_child(item_icon)
+	construction_items_container.add_child(item_label)
+	construction_items_container.add_child(amount_spinbox)
+	construction_items_container.add_child(delete_button)
+
+
+
+# Handle the deletion of an item from the construction_items_container
+func _on_delete_construction_item_button_pressed(item_id: String) -> void:
+	# Determine the number of columns in the grid container
+	var num_columns = construction_items_container.columns
+	var children_to_remove = []
+
+	# Find and queue the row containing the matching item ID
+	for i in range(construction_items_container.get_child_count()):
+		var child = construction_items_container.get_child(i)
+		if child is Label and child.text == item_id:
+			var start_index = i - (i % num_columns)
+			for j in range(num_columns):
+				children_to_remove.append(construction_items_container.get_child(start_index + j))
+			break
+
+	# Remove and free the queued children
+	for child in children_to_remove:
+		construction_items_container.remove_child(child)
+		child.queue_free()
+
+	# Remove the item ID from dfurniture.construction.items
+	if dfurniture.construction and dfurniture.construction.items:
+		dfurniture.construction.items.erase(item_id)
+
+
+# Refreshes the items list in the construction grid container
+func update_construction_item_list():
+	# Clear existing items from the grid
+	Helper.free_all_children(construction_items_container)
+
+	if not dfurniture.construction or not dfurniture.construction.items:
+		return
+
+	# Add items back into the grid
+	for item_id in dfurniture.construction.items.keys():
+		_handle_construction_item_drop({"id": item_id})
+
+
+# Saves the crafting items from crafting_items_container into dfurniture.crafting.items
+func _save_crafting_items():
+	dfurniture.crafting.items = _extract_items_from_container(crafting_items_container)
+
+# Saves the construction items from construction_items_container into dfurniture.construction.items
+func _save_construction_items():
+	var new_items: Dictionary = {}
+	var num_children = construction_items_container.get_child_count()
+	var num_columns = construction_items_container.columns
+
+	for i in range(0, num_children, num_columns):
+		var item_label = construction_items_container.get_child(i + 1)  # Second child is the label with item ID
+		var amount_spinbox = construction_items_container.get_child(i + 2)  # Third child is the SpinBox
+		if item_label is Label and amount_spinbox is SpinBox:
+			new_items[item_label.text] = int(amount_spinbox.value)
+
+	dfurniture.construction.items = new_items  # Update furniture's construction items
+
+
+func _extract_items_from_container(container: GridContainer) -> Array:
+	var items = []
+	for child in container.get_children():
+		if child is Label:
+			items.append(child.text)
+	return items
