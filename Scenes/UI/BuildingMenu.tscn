@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://clpbtb0qfrk5j"]
+
+[ext_resource type="Script" path="res://Scripts/BuildingMenu.gd" id="1_wcwjs"]
+
+[node name="BuildingMenu" type="GridContainer"]
+offset_right = 186.0
+offset_bottom = 33.0
+columns = 4
+script = ExtResource("1_wcwjs")
+
+[node name="Concrete" type="Button" parent="."]
+layout_mode = 2
+text = "Concrete (2x plank)"

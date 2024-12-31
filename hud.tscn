@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=20 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dcgwgmsmi7mjn" path="res://Textures/bar_border.png" id="3_y43f5"]
 [ext_resource type="PackedScene" uid="uid://b6ooia1084wfx" path="res://Scenes/UI/AttributesWindow.tscn" id="6_6e87o"]
 [ext_resource type="PackedScene" uid="uid://drjw0yaxf8x1p" path="res://Scenes/UI/QuestTrackerUI.tscn" id="7_bbed4"]
+[ext_resource type="PackedScene" uid="uid://clpbtb0qfrk5j" path="res://Scenes/UI/BuildingMenu.tscn" id="9_v36fg"]
 [ext_resource type="PackedScene" uid="uid://sewnt37ji4s1" path="res://Scenes/UI/FurnitureWindow.tscn" id="11_40vt2"]
 [ext_resource type="PackedScene" uid="uid://bxyvtsslfr7kt" path="res://Scenes/UI/CraftingMenu.tscn" id="13_wjtvq"]
 [ext_resource type="PackedScene" uid="uid://cgxw4cu430nst" path="res://Scenes/UI/CharacterWindow.tscn" id="17_2f357"]
@@ -155,15 +156,8 @@ theme_override_font_sizes/font_size = 49
 text = "11:20"
 vertical_alignment = 1
 
-[node name="BuildingMenu" type="GridContainer" parent="."]
+[node name="BuildingMenu" parent="." instance=ExtResource("9_v36fg")]
 visible = false
-offset_right = 186.0
-offset_bottom = 33.0
-columns = 4
-
-[node name="Concrete" type="Button" parent="BuildingMenu"]
-layout_mode = 2
-text = "Concrete (2x plank)"
 
 [node name="CraftingMenu" parent="." instance=ExtResource("13_wjtvq")]
 visible = false
@@ -221,4 +215,3 @@ visible = false
 [connection signal="timeout" from="ProgressBar/ProgressBarTimer" to="." method="_on_progress_bar_timer_timeout"]
 [connection signal="mouse_entered" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="OutsideOfHUD" to="OutsideOfHUD" method="_on_mouse_exited"]
-[connection signal="button_down" from="BuildingMenu/Concrete" to="." method="_on_concrete_button_down"]
