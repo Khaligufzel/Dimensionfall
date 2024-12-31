@@ -7,6 +7,9 @@ extends MeshInstance3D
 @export var player: Node3D
 @export var sceneCam: Camera3D
 @export var buildmanager: Node3D
+@export var construction_ghost_area_3d: Area3D = null
+@export var construction_ghost_collision_shape_3d: CollisionShape3D = null
+
 const CONSTRUCTION_GHOST_MATERIAL: Material = preload("res://Defaults/Blocks/Materials/construction_ghost_material.tres")
 
 # Settings
@@ -16,6 +19,7 @@ var build_range = 5.0  # Maximum build range from the player
 var construction_data: Dictionary
 # Offset for the ConstructionGhost's position
 var position_offset: Vector3 = Vector3.ZERO
+var has_obstacle: bool = false # Tracks whether there is an obstacle
 
 signal construction_clicked(data: Dictionary)
 
@@ -52,6 +56,7 @@ func _process(_delta):
 	
 	# Update the position of the construction ghost with the offset applied
 	global_transform.origin = Vector3(snapped_x, snapped_y, snapped_z) + position_offset
+	construction_ghost_area_3d.global_transform.origin = Vector3(snapped_x, snapped_y, snapped_z)
 
 
 # Calculate the 3D position based on the mouse's 2D position and the player's Y offset
@@ -65,8 +70,9 @@ func get_mouse_3d_position() -> Vector3:
 	return Vector3(mouse_position.x, player.global_position.y + y_offset, mouse_position.z)
 
 
+# Input handling to check for obstacles and other criteria before emitting the signal
 func _input(event):
-	if !visible:
+	if !visible or has_obstacle:
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		construction_data = {"pos": global_transform.origin}
@@ -142,3 +148,17 @@ func set_mesh_rotation(myrotation: int) -> void:
 func reset_rotation_to_default() -> void:
 	# Reset the rotation to 0
 	set_mesh_rotation(0)
+
+
+# Called when a body enters the construction ghost's area
+func _on_construction_ghost_area_3d_body_entered(body: Node3D) -> void:
+	# Mark that an obstacle is present
+	has_obstacle = true
+	print_debug("Obstacle detected: ", body.name)
+
+# Called when a body exits the construction ghost's area
+func _on_construction_ghost_area_3d_body_exited(body: Node3D) -> void:
+	# Check if no other obstacles remain in the area
+	if construction_ghost_area_3d.get_overlapping_bodies().size() == 0:
+		has_obstacle = false
+		print_debug("Obstacle cleared: ", body.name)
