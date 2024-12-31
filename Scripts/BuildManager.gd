@@ -43,18 +43,34 @@ func start_building():
 # Connects from the ConstructionGhost.gd script. 
 # Example construction data: {"pos": global_transform.origin}
 func on_construction_clicked(construction_data: Dictionary):
-	var numberofplanks: int = ItemManager.get_accessibleitem_amount("plank_2x4")
-	if numberofplanks < 2:
-		print_debug("tried to construct, but not enough planks")
+	# Ensure construction_type and construction_choice are set
+	if construction_type == "" or construction_choice == "":
+		print_debug("Construction type or choice is not set. Aborting.")
 		return
+
+	# Handle block construction
+	if construction_type == "block":
+		var numberofplanks: int = ItemManager.get_accessibleitem_amount("plank_2x4")
+		if numberofplanks < 2:
+			print_debug("Tried to construct, but not enough planks")
+			return
 		
-	if not ItemManager.remove_resource("plank_2x4",2, ItemManager.allAccessibleItems):
-		return
-	var chunk: Chunk = LevelGenerator.get_chunk_from_position(construction_data.pos)
-	if chunk:
-		var local_position = calculate_local_position(construction_data.pos, chunk.position)
-		chunk.add_block("concrete_00", local_position)
-		print_debug("Block placed at local position: ", local_position, " in chunk at ", chunk.position, " with type ", construction_data.id)
+		if not ItemManager.remove_resource("plank_2x4", 2, ItemManager.allAccessibleItems):
+			return
+
+		var chunk: Chunk = LevelGenerator.get_chunk_from_position(construction_data.pos)
+		if chunk:
+			var local_position = calculate_local_position(construction_data.pos, chunk.position)
+			chunk.add_block("concrete_00", local_position)
+			print_debug("Block placed at local position: ", local_position, " in chunk at ", chunk.position, " with type ", construction_data.id)
+
+	# Handle furniture construction
+	elif construction_type == "furniture":
+		print_debug("Furniture construction chosen. Type: ", construction_type, ", Choice: ", construction_choice)
+
+	# Handle unknown construction types
+	else:
+		print_debug("Unknown construction type: ", construction_type)
 
 
 func calculate_local_position(global_pos: Vector3, chunk_pos: Vector3) -> Vector3:

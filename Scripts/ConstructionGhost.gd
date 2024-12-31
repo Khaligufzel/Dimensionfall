@@ -1,9 +1,13 @@
 extends MeshInstance3D
 
+# This script belongs to the ConstructionGhost node in the level_generation.tscn scene
+# This script controls the constructionghost for the player so it will aid him in constructing something
+
 # Reference to the player node
 @export var player: Node3D
 @export var sceneCam: Camera3D
 @export var buildmanager: Node3D
+const CONSTRUCTION_GHOST_MATERIAL: Material = preload("res://Defaults/Blocks/Materials/construction_ghost_material.tres")
 
 # Settings
 var grid_size = 1.0
@@ -65,3 +69,13 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		construction_data = {"pos": global_transform.origin}
 		construction_clicked.emit(construction_data)
+
+
+# Sets the material of the ConstructionGhost
+func set_material(new_material: Material) -> void:
+	if mesh:
+		mesh.surface_set_material(0, new_material)  # Assuming the ghost mesh has a single surface
+
+# Resets the material to the default CONSTRUCTION_GHOST_MATERIAL
+func reset_material_to_default() -> void:
+	set_material(CONSTRUCTION_GHOST_MATERIAL)
