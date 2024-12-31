@@ -8,6 +8,8 @@ offset_bottom = 33.0
 columns = 4
 script = ExtResource("1_wcwjs")
 
-[node name="Concrete" type="Button" parent="."]
+[node name="Concrete" type="OptionButton" parent="."]
 layout_mode = 2
-text = "Concrete (2x plank)"
+selected = 0
+item_count = 1
+popup/item_0/text = "concrete_wall"

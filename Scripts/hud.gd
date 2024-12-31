@@ -29,14 +29,8 @@ var progress_bar_timer_max_time : float
 
 var is_progress_bar_well_progressing_i_guess = false
 
-signal construction_chosen
-
-
 
 @export var item_protoset : ItemProtoset
-
-func test():
-	print("TESTING 123 123!")
 	
 func _process(_delta):
 	if is_progress_bar_well_progressing_i_guess:
@@ -90,10 +84,6 @@ func _input(event):
 
 func _on_player_update_stamina_hud(stamina):
 	get_node(stamina_HUD).text = str(round(stamina)) + "%"
-
-
-func _on_concrete_button_down():
-	construction_chosen.emit("concrete_wall")
 
 
 func start_progress_bar(time : float):

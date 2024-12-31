@@ -127,3 +127,15 @@ func _on_game_ended():
 
 func is_moveable(id: String) -> bool:
 	return by_id(id).moveable
+
+
+# Returns a list of all RFurniture instances that have construction items
+func get_constructable_furnitures() -> Array[RFurniture]:
+	var constructable_furnitures: Array[RFurniture] = []
+	
+	for furniture in furnituredict.values():
+		# Check if the furniture has construction items
+		if not furniture.get_construction_items().is_empty():
+			constructable_furnitures.append(furniture)
+	
+	return constructable_furnitures
