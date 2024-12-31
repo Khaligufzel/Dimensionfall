@@ -16,6 +16,11 @@ signal inventory_window_visibility_changed(inventoryWindow: Control)
 # Nodes can use this signal to interrupt actions
 signal build_window_visibility_changed(buildWindow: Control)
 
+# Emitted when the user selects an option in the BuildingMenu.tscn scene
+# type: One of "block" or "furniture". Choice: can be "concrete_wall" or some furniture id
+@warning_ignore("unused_signal")
+signal construction_chosen(type: String, choice: String)
+
 # Signalled when an items were used
 # It can be one or more items. It's up to the receiver to figure it out
 @warning_ignore("unused_signal")

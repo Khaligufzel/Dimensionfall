@@ -63,5 +63,5 @@ func _input(event):
 	if !visible:
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		construction_data = {"pos": global_transform.origin, "id": "concrete_00"}
+		construction_data = {"pos": global_transform.origin}
 		construction_clicked.emit(construction_data)

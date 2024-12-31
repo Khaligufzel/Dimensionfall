@@ -2,6 +2,8 @@ extends Node3D
 
 @export var construction_ghost: MeshInstance3D
 var is_building = false
+var construction_type: String = "block"
+var construction_choice: String = ""
 
 @export var LevelGenerator: Node3D
 @export var hud: NodePath
@@ -9,6 +11,7 @@ var is_building = false
 func _ready():
 	# Connect the build menu visibility_changed signal to a local method
 	Helper.signal_broker.build_window_visibility_changed.connect(_on_build_menu_visibility_change)
+	Helper.signal_broker.construction_chosen.connect(_on_hud_construction_chosen)
 
 func _process(_delta):
 	if is_building:
@@ -22,14 +25,23 @@ func cancel_building():
 	is_building = false
 	General.is_allowed_to_shoot = true
 	construction_ghost.visible = false
+	construction_type = ""
+	construction_choice = ""
 
-func _on_hud_construction_chosen(_construction: String):
+# When the user selects an option in the BuildingMenu.tscn scene
+# type: One of "block" or "furniture". Choice: can be "concrete_wall" or some furniture id
+func _on_hud_construction_chosen(type: String, choice: String):
+	construction_type = type
+	construction_choice = choice
 	start_building()
 
 func start_building():
 	is_building = true
 	General.is_allowed_to_shoot = false
 
+
+# Connects from the ConstructionGhost.gd script. 
+# Example construction data: {"pos": global_transform.origin}
 func on_construction_clicked(construction_data: Dictionary):
 	var numberofplanks: int = ItemManager.get_accessibleitem_amount("plank_2x4")
 	if numberofplanks < 2:
@@ -41,8 +53,9 @@ func on_construction_clicked(construction_data: Dictionary):
 	var chunk: Chunk = LevelGenerator.get_chunk_from_position(construction_data.pos)
 	if chunk:
 		var local_position = calculate_local_position(construction_data.pos, chunk.position)
-		chunk.add_block(construction_data.id, local_position)
+		chunk.add_block("concrete_00", local_position)
 		print_debug("Block placed at local position: ", local_position, " in chunk at ", chunk.position, " with type ", construction_data.id)
+
 
 func calculate_local_position(global_pos: Vector3, chunk_pos: Vector3) -> Vector3:
 	# Calculate local position within the chunk

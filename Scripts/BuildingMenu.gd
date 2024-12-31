@@ -4,8 +4,6 @@ extends GridContainer
 var is_building_menu_open = false
 @export var construction_option_button: OptionButton = null
 
-signal construction_chosen(type: String, choice: String)
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -34,6 +32,6 @@ func _on_construction_option_button_item_selected(_index: int) -> void:
 
 	# Determine the type and emit the signal
 	if selected_text == "concrete_wall":
-		construction_chosen.emit("block", "concrete_wall")
+		Helper.signal_broker.construction_chosen.emit("block", "concrete_wall")
 	else:
-		construction_chosen.emit("furniture", selected_text)
+		Helper.signal_broker.construction_chosen.emit("furniture", selected_text)
