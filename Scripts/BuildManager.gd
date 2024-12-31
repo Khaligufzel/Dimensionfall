@@ -33,7 +33,9 @@ func cancel_building():
 func _on_hud_construction_chosen(type: String, choice: String):
 	construction_type = type
 	construction_choice = choice
+	update_construction_ghost_material()  # Update the ghost material based on the new selection
 	start_building()
+
 
 func start_building():
 	is_building = true
@@ -90,3 +92,24 @@ func set_building_state(visible: bool):
 	is_building = visible
 	if not visible:
 		General.is_allowed_to_shoot = true
+
+
+# Updates the material of the construction ghost based on the construction type and choice
+func update_construction_ghost_material():
+	if construction_type == "block":
+		# Reset to the default material for blocks
+		construction_ghost.reset_material_to_default()
+	elif construction_type == "furniture":
+		# Get the RFurniture instance by its ID
+		var rfurniture: RFurniture = Runtimedata.rfurnitures.by_id(construction_choice)
+		if rfurniture:
+			# Retrieve the sprite material and set it to the construction ghost
+			var furniture_sprite_material = rfurniture.sprite
+			construction_ghost.set_material(furniture_sprite_material)
+		else:
+			print_debug("RFurniture with ID ", construction_choice, " not found. Resetting material.")
+			construction_ghost.reset_material_to_default()
+	else:
+		# Handle unknown construction types by resetting to the default material
+		print_debug("Unknown construction type: ", construction_type, ". Resetting material.")
+		construction_ghost.reset_material_to_default()

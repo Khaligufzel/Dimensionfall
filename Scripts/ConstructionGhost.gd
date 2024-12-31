@@ -14,6 +14,8 @@ var grid_size = 1.0
 var y_offset = 0.0  # Offset relative to the player's position in the Y-axis
 var build_range = 5.0  # Maximum build range from the player
 var construction_data: Dictionary
+# Offset for the ConstructionGhost's position
+var position_offset: Vector3 = Vector3.ZERO
 
 signal construction_clicked(data: Dictionary)
 
@@ -48,8 +50,8 @@ func _process(_delta):
 	var snapped_z = round(mouse_position.z / grid_size) * grid_size
 	var snapped_y = round(mouse_position.y / grid_size) * grid_size
 	
-	# Update the position of the constructionghost
-	global_transform.origin = Vector3(snapped_x, snapped_y, snapped_z)
+	# Update the position of the construction ghost with the offset applied
+	global_transform.origin = Vector3(snapped_x, snapped_y, snapped_z) + position_offset
 
 
 # Calculate the 3D position based on the mouse's 2D position and the player's Y offset
@@ -79,3 +81,64 @@ func set_material(new_material: Material) -> void:
 # Resets the material to the default CONSTRUCTION_GHOST_MATERIAL
 func reset_material_to_default() -> void:
 	set_material(CONSTRUCTION_GHOST_MATERIAL)
+
+
+# Sets the size of the ConstructionGhost mesh, which is a PlaneMesh
+func set_mesh_size(size: Vector2) -> void:
+	if mesh:
+		mesh.set_size = size
+
+# Resets the size of the ConstructionGhost mesh to the default size (Vector2(1, 1))
+func reset_mesh_size_to_default() -> void:
+	set_mesh_size(Vector2(1, 1))
+
+
+# Applies edge snapping and updates the position offset
+func _apply_edge_snapping(direction: String) -> Vector3:
+	# Block size, each block is 1x1 meter
+	var block_size = Vector3(1.0, 1.0, 1.0)
+	var offset = Vector3.ZERO
+
+	# Retrieve the furniture size from the mesh
+	var furniture_size = mesh.size if mesh else Vector3.ONE
+
+	# Adjust offset based on the edge-snapping direction
+	match direction:
+		"North":
+			offset.z -= block_size.z / 2 - furniture_size.z / 2
+		"South":
+			offset.z += block_size.z / 2 - furniture_size.z / 2
+		"East":
+			offset.x += block_size.x / 2 - furniture_size.x / 2
+		"West":
+			offset.x -= block_size.x / 2 - furniture_size.x / 2
+		_:
+			pass  # No adjustment for undefined directions
+
+	return offset
+
+
+# Sets the position offset of the ConstructionGhost
+func set_position_offset(edge_snapping_direction: String = "") -> void:
+	# Reset the position offset
+	position_offset = Vector3.ZERO
+
+	# Apply edge snapping if direction is provided
+	if edge_snapping_direction != "":
+		position_offset += _apply_edge_snapping(edge_snapping_direction)
+
+
+# Resets the position offset of the ConstructionGhost
+func reset_position_offset_to_default() -> void:
+	# Reset the offset to zero (default)
+	position_offset = Vector3.ZERO
+
+# Sets the rotation of the ConstructionGhost mesh
+func set_mesh_rotation(myrotation: int) -> void:
+	# Set the rotation offset to the desired value
+	rotation.y = myrotation
+
+# Resets the rotation of the ConstructionGhost mesh to the default (no rotation)
+func reset_rotation_to_default() -> void:
+	# Reset the rotation to 0
+	set_mesh_rotation(0)
