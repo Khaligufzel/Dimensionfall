@@ -2,14 +2,17 @@
 
 [ext_resource type="Script" path="res://Scripts/BuildingMenu.gd" id="1_wcwjs"]
 
-[node name="BuildingMenu" type="GridContainer"]
+[node name="BuildingMenu" type="GridContainer" node_paths=PackedStringArray("construction_option_button")]
 offset_right = 186.0
 offset_bottom = 33.0
 columns = 4
 script = ExtResource("1_wcwjs")
+construction_option_button = NodePath("ConstructionOptionButton")
 
-[node name="Concrete" type="OptionButton" parent="."]
+[node name="ConstructionOptionButton" type="OptionButton" parent="."]
 layout_mode = 2
 selected = 0
 item_count = 1
 popup/item_0/text = "concrete_wall"
+
+[connection signal="item_selected" from="ConstructionOptionButton" to="." method="_on_construction_option_button_item_selected"]
