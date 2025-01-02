@@ -20,6 +20,7 @@ var construction_data: Dictionary
 # Offset for the ConstructionGhost's position
 var position_offset: Vector3 = Vector3.ZERO
 var has_obstacle: bool = false # Tracks whether there is an obstacle
+var current_rotation: int = 0
 
 signal construction_clicked(data: Dictionary)
 
@@ -72,12 +73,21 @@ func get_mouse_3d_position() -> Vector3:
 
 # Input handling to check for obstacles and other criteria before emitting the signal
 func _input(event):
-	if !visible or has_obstacle:
-		#print_debug("has_obstacle = " + str(has_obstacle))
+	if not visible:
 		return
+
+	# Handle left mouse button click for placing construction
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		construction_data = {"pos": global_transform.origin}
+		if has_obstacle:
+			return
+		construction_data = {"pos": global_transform.origin, "rotation": current_rotation}
 		construction_clicked.emit(construction_data)
+	
+	# Handle "r" key press for rotating the construction ghost
+	if event is InputEventKey and event.is_pressed() and event.keycode == KEY_R:
+		# Increment the current rotation by 90 degrees
+		var new_rotation = (current_rotation + 90) % 360
+		set_mesh_rotation(new_rotation)
 
 
 # Sets the material of the ConstructionGhost
@@ -143,7 +153,8 @@ func reset_position_offset_to_default() -> void:
 # Sets the rotation of the ConstructionGhost mesh
 func set_mesh_rotation(myrotation: int) -> void:
 	# Set the rotation offset to the desired value
-	rotation.y = myrotation
+	current_rotation = myrotation
+	rotation_degrees.y = myrotation
 
 # Resets the rotation of the ConstructionGhost mesh to the default (no rotation)
 func reset_rotation_to_default() -> void:

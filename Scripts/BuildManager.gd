@@ -71,7 +71,13 @@ func on_construction_clicked(construction_data: Dictionary):
 	# Handle furniture construction
 	elif construction_type == "furniture":
 		construction_data.pos.y -= 1
-		chunk.spawn_furniture({"json": {"id": construction_choice, "rotation": 0}, "pos": construction_data.pos})
+		# Because Godot can be strange with rotation sometimes we have to translate the rotation
+		var myrotation = construction_data.rotation
+		if myrotation == 90:
+			myrotation = 270
+		elif myrotation == 270:
+			myrotation = 90
+		chunk.spawn_furniture({"json": {"id": construction_choice, "rotation": myrotation}, "pos": construction_data.pos})
 		print_debug("Furniture construction chosen. Type: ", construction_type, ", Choice: ", construction_choice, ", construction_data.pos: ", str(construction_data.pos))
 
 	# Handle unknown construction types
