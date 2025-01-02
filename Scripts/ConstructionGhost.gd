@@ -93,7 +93,7 @@ func reset_material_to_default() -> void:
 # Sets the size of the ConstructionGhost mesh, which is a PlaneMesh
 func set_mesh_size(size: Vector2) -> void:
 	if mesh:
-		mesh.set_size = size
+		mesh.set_size(size)
 
 # Resets the size of the ConstructionGhost mesh to the default size (Vector2(1, 1))
 func reset_mesh_size_to_default() -> void:
@@ -163,3 +163,9 @@ func _on_construction_ghost_area_3d_body_exited(body: Node3D) -> void:
 	if construction_ghost_area_3d.get_overlapping_bodies().size() == 0:
 		has_obstacle = false
 		print_debug("Obstacle cleared: ", body.name)
+
+func reset_to_default():
+	reset_rotation_to_default()
+	reset_position_offset_to_default()
+	reset_mesh_size_to_default()
+	reset_material_to_default()

@@ -33,7 +33,7 @@ func cancel_building():
 func _on_hud_construction_chosen(type: String, choice: String):
 	construction_type = type
 	construction_choice = choice
-	update_construction_ghost_material()  # Update the ghost material based on the new selection
+	update_construction_ghost()  # Update the ghost based on the new selection
 	start_building()
 
 
@@ -91,29 +91,36 @@ func _on_build_menu_visibility_change(buildmenu):
 	# Update construction ghost visibility based on build menu visibility
 	set_building_state(buildmenu.is_visible())
 
-func set_building_state(visible: bool):
-	construction_ghost.visible = visible
-	is_building = visible
-	if not visible:
+func set_building_state(isvisible: bool):
+	construction_ghost.visible = isvisible
+	is_building = isvisible
+	if not isvisible:
 		General.is_allowed_to_shoot = true
 
 
 # Updates the material of the construction ghost based on the construction type and choice
-func update_construction_ghost_material():
-	if construction_type == "block":
-		# Reset to the default material for blocks
-		construction_ghost.reset_material_to_default()
-	elif construction_type == "furniture":
+func update_construction_ghost():
+	construction_ghost.reset_to_default() # Resets size, rotation, material, offset
+	if construction_type == "furniture":
 		# Get the RFurniture instance by its ID
 		var rfurniture: RFurniture = Runtimedata.furnitures.by_id(construction_choice)
 		if rfurniture:
 			# Retrieve the sprite material and set it to the construction ghost
 			var furniture_sprite_material = Runtimedata.furnitures.get_shader_material_by_id(construction_choice)
 			construction_ghost.set_material(furniture_sprite_material)
+			construction_ghost.set_mesh_size(calculate_furniture_size(rfurniture))
 		else:
 			print_debug("RFurniture with ID ", construction_choice, " not found. Resetting material.")
-			construction_ghost.reset_material_to_default()
 	else:
 		# Handle unknown construction types by resetting to the default material
 		print_debug("Unknown construction type: ", construction_type, ". Resetting material.")
-		construction_ghost.reset_material_to_default()
+
+
+# Function to calculate the size of the furniture
+func calculate_furniture_size(rfurniture: RFurniture) -> Vector2:
+	var sprite_texture = rfurniture.sprite
+	if sprite_texture:
+		var sprite_width = sprite_texture.get_width() / 100.0 # Convert pixels to meters
+		var sprite_depth = sprite_texture.get_height() / 100.0 # Convert pixels to meters
+		return Vector2(sprite_width, sprite_depth)  # Use height from support shape
+	return Vector2(0.5, 0.5)  # Default size if texture is not set
