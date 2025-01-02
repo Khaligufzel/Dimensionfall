@@ -70,8 +70,9 @@ func on_construction_clicked(construction_data: Dictionary):
 
 	# Handle furniture construction
 	elif construction_type == "furniture":
+		construction_data.pos.y -= 1
 		chunk.spawn_furniture({"json": {"id": construction_choice, "rotation": 0}, "pos": construction_data.pos})
-		print_debug("Furniture construction chosen. Type: ", construction_type, ", Choice: ", construction_choice)
+		print_debug("Furniture construction chosen. Type: ", construction_type, ", Choice: ", construction_choice, ", construction_data.pos: ", str(construction_data.pos))
 
 	# Handle unknown construction types
 	else:
@@ -104,10 +105,10 @@ func update_construction_ghost_material():
 		construction_ghost.reset_material_to_default()
 	elif construction_type == "furniture":
 		# Get the RFurniture instance by its ID
-		var rfurniture: RFurniture = Runtimedata.rfurnitures.by_id(construction_choice)
+		var rfurniture: RFurniture = Runtimedata.furnitures.by_id(construction_choice)
 		if rfurniture:
 			# Retrieve the sprite material and set it to the construction ghost
-			var furniture_sprite_material = rfurniture.sprite
+			var furniture_sprite_material = Runtimedata.furnitures.get_shader_material_by_id(construction_choice)
 			construction_ghost.set_material(furniture_sprite_material)
 		else:
 			print_debug("RFurniture with ID ", construction_choice, " not found. Resetting material.")

@@ -56,7 +56,7 @@ func _process(_delta):
 	
 	# Update the position of the construction ghost with the offset applied
 	global_transform.origin = Vector3(snapped_x, snapped_y, snapped_z) + position_offset
-	construction_ghost_area_3d.global_transform.origin = Vector3(snapped_x, snapped_y, snapped_z)
+	construction_ghost_area_3d.global_transform.origin = Vector3(snapped_x, snapped_y+0.5, snapped_z)
 
 
 # Calculate the 3D position based on the mouse's 2D position and the player's Y offset
@@ -73,6 +73,7 @@ func get_mouse_3d_position() -> Vector3:
 # Input handling to check for obstacles and other criteria before emitting the signal
 func _input(event):
 	if !visible or has_obstacle:
+		#print_debug("has_obstacle = " + str(has_obstacle))
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		construction_data = {"pos": global_transform.origin}
