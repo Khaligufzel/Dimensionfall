@@ -50,6 +50,10 @@ func on_construction_clicked(construction_data: Dictionary):
 		print_debug("Construction type or choice is not set. Aborting.")
 		return
 
+	var chunk: Chunk = LevelGenerator.get_chunk_from_position(construction_data.pos)
+	if not chunk:
+		return
+
 	# Handle block construction
 	if construction_type == "block":
 		var numberofplanks: int = ItemManager.get_accessibleitem_amount("plank_2x4")
@@ -60,14 +64,13 @@ func on_construction_clicked(construction_data: Dictionary):
 		if not ItemManager.remove_resource("plank_2x4", 2, ItemManager.allAccessibleItems):
 			return
 
-		var chunk: Chunk = LevelGenerator.get_chunk_from_position(construction_data.pos)
-		if chunk:
-			var local_position = calculate_local_position(construction_data.pos, chunk.position)
-			chunk.add_block("concrete_00", local_position)
-			print_debug("Block placed at local position: ", local_position, " in chunk at ", chunk.position, " with type ", construction_data.id)
+		var local_position = calculate_local_position(construction_data.pos, chunk.position)
+		chunk.add_block("concrete_00", local_position)
+		print_debug("Block placed at local position: ", local_position, " in chunk at ", chunk.position, " with type ", construction_data.id)
 
 	# Handle furniture construction
 	elif construction_type == "furniture":
+		chunk.spawn_furniture({"json": {"id": construction_choice, "rotation": 0}, "pos": construction_data.pos})
 		print_debug("Furniture construction chosen. Type: ", construction_type, ", Choice: ", construction_choice)
 
 	# Handle unknown construction types

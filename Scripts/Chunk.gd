@@ -170,7 +170,6 @@ func process_level_data() -> Dictionary:
 	return processed_leveldata
 
 
-
 # Creates a dictionary of all block positions with a local x,y and z position
 # This function works with new mapdata
 func create_block_position_dictionary_new_arraymesh() -> Dictionary:
@@ -1393,3 +1392,12 @@ func rotate_level_clockwise(level_data: Array) -> Array:
 				new_level_data[new_index]["furniture"]["rotation"] = (furniture_rotation + 90) % 360
 
 	return new_level_data
+
+
+# Spawns a furniture onto the chunk. 
+# furniture_data example: {"json": {"id": "kitchen_cupboard", "rotation": 0}, "pos": Vector3(12,2,189)}
+func spawn_furniture(furniture_data: Dictionary):
+	if not furniture_data.has("json") or not furniture_data.has("pos"):
+		print_debug("Invalid data structure. Expected keys: 'json', 'pos'.")
+		return
+	furniture_static_spawner.spawn_furniture(furniture_data)
