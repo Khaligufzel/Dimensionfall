@@ -85,3 +85,18 @@ func get_random_mob_id() -> String:
 			return mob_id  # Return the selected mob ID
 
 	return ""  # Fallback in case of an error, should not be reached
+
+
+# Retrieves all maps associated with the mob group, including maps from its mobs.
+func get_maps() -> Array:
+	# Get a list of all maps that reference this mob
+	var mymaps: Array = referenced_maps.duplicate()
+	var modreferencedmaps: Array = []
+	# We check the reference for each mob in each mod
+	# Collect maps from each mob in the group
+	for mob_id in mobs.keys():
+		modreferencedmaps = Runtimedata.mobs.by_id(mob_id).referenced_maps # Get the maps from the references
+		mymaps = Helper.json_helper.merge_unique(mymaps, modreferencedmaps) # Merge with current list
+	
+	# Return the map data, or an empty array if no data is found
+	return mymaps if mymaps else []
