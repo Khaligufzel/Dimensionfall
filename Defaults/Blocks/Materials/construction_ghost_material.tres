@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://ot2fpooebty0"]
 
-[ext_resource type="Texture2D" uid="uid://bpjkd6sssic7b" path="res://Mods/Core/Tiles/2.png" id="1_2cd6c"]
+[ext_resource type="Texture2D" uid="uid://bpjkd6sssic7b" path="res://Mods/Dimensionfall/Tiles/2.png" id="1_2cd6c"]
 
 [resource]
 albedo_color = Color(0, 0.768627, 0.768627, 0.545098)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=35 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
 [ext_resource type="PackedScene" path="res://day_night.tscn" id="3_0lu7f"]
+[ext_resource type="Material" uid="uid://ot2fpooebty0" path="res://Defaults/Blocks/Materials/construction_ghost_material.tres" id="4_ujcgp"]
 [ext_resource type="Script" path="res://Scripts/ConstructionGhost.gd" id="5_iwiv4"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
 [ext_resource type="Texture2D" uid="uid://d33h00t0fl7x" path="res://Defaults/Player/VestDude01.png" id="7_jr4x1"]
@@ -31,7 +32,10 @@ ambient_light_energy = 0.0
 reflected_light_source = 1
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_usfn3"]
+material = ExtResource("4_ujcgp")
 size = Vector2(1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qial8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gsdb"]
 albedo_color = Color(0, 1, 0, 1)
@@ -92,7 +96,7 @@ construction_ghost = NodePath("ConstructionGhost")
 LevelGenerator = NodePath("../LevelGenerator")
 hud = NodePath("../../HUD")
 
-[node name="ConstructionGhost" type="MeshInstance3D" parent="TacticalMap/BuildManager" node_paths=PackedStringArray("player", "sceneCam", "buildmanager")]
+[node name="ConstructionGhost" type="MeshInstance3D" parent="TacticalMap/BuildManager" node_paths=PackedStringArray("player", "sceneCam", "buildmanager", "construction_ghost_area_3d", "construction_ghost_collision_shape_3d")]
 editor_description = "Visualizes the construction of blocks and slopes for the player"
 visible = false
 cast_shadow = 0
@@ -101,6 +105,14 @@ script = ExtResource("5_iwiv4")
 player = NodePath("../../Entities/Player")
 sceneCam = NodePath("../../Entities/Player/Camera3D")
 buildmanager = NodePath("..")
+construction_ghost_area_3d = NodePath("../ConstructionGhostArea3D")
+construction_ghost_collision_shape_3d = NodePath("../ConstructionGhostArea3D/ConstructionGhostCollisionShape3D")
+
+[node name="ConstructionGhostArea3D" type="Area3D" parent="TacticalMap/BuildManager"]
+collision_mask = 191
+
+[node name="ConstructionGhostCollisionShape3D" type="CollisionShape3D" parent="TacticalMap/BuildManager/ConstructionGhostArea3D"]
+shape = SubResource("BoxShape3D_qial8")
 
 [node name="Entities" type="Node3D" parent="TacticalMap"]
 
@@ -193,6 +205,7 @@ reload_audio_player = NodePath("../../Shooting/ReloadAudio")
 
 [node name="MeleeRange" type="Area3D" parent="TacticalMap/Entities/Player/Sprite3D2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.277026)
+collision_layer = 0
 collision_mask = 14
 
 [node name="MeleeCollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player/Sprite3D2/MeleeRange"]
@@ -258,6 +271,8 @@ bus = &"Music"
 [node name="TestCamera" type="Camera3D" parent="."]
 transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, -20.8475, 0.21176, -31.9964)
 
+[connection signal="body_entered" from="TacticalMap/BuildManager/ConstructionGhostArea3D" to="TacticalMap/BuildManager/ConstructionGhost" method="_on_construction_ghost_area_3d_body_entered"]
+[connection signal="body_exited" from="TacticalMap/BuildManager/ConstructionGhostArea3D" to="TacticalMap/BuildManager/ConstructionGhost" method="_on_construction_ghost_area_3d_body_exited"]
 [connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
 [connection signal="ammo_changed" from="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" to="HUD" method="_on_shooting_ammo_changed"]
 [connection signal="ammo_changed" from="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" to="HUD" method="_on_shooting_ammo_changed"]
@@ -267,4 +282,3 @@ transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 
 [connection signal="area_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_exited"]
 [connection signal="body_shape_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_body_shape_entered"]
 [connection signal="body_shape_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_body_shape_exited"]
-[connection signal="construction_chosen" from="HUD" to="TacticalMap/BuildManager" method="_on_hud_construction_chosen"]

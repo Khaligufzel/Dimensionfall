@@ -268,5 +268,5 @@ func get_crafting_items() -> Array:
 	return crafting.get_items() if crafting else []
 
 # Returns the list of items from construction
-func get_construction_items() -> Array:
-	return construction.get_items() if construction else []
+func get_construction_items() -> Dictionary:
+	return construction.get_items() if construction else {}

@@ -29,6 +29,7 @@ func _ready():
 
 
 # Function to spawn a FurnitureStaticSrv at a given position with given furniture data
+# furniture_data example: {"json": {"id": "kitchen_cupboard", "rotation": 0}, "pos": Vector3(12,2,189)}
 func spawn_furniture(furniture_data: Dictionary) -> void:
 	# Get the position using the helper function
 	var myposition: Vector3

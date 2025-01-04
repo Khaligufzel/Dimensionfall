@@ -18,8 +18,6 @@ extends Control
 @export var quest_window: Control = null
 
 
-
-
 # A boolean variable used in an "if" statement to check if the game is paused or not.
 var game_paused: bool = false
 
