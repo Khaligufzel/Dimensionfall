@@ -289,7 +289,7 @@ func play_footstep_audio():
 # The player has selected one or more items in the inventory and selected
 # 'use' from the context menu.
 func _on_food_item_used(usedItem: InventoryItem) -> void:
-	var food = DItem.Food.new(usedItem.get_property("Food"))
+	var food = RItem.Food.new(usedItem.get_property("Food"))
 	var was_used: bool = false
 
 	for attribute in food.attributes:
@@ -305,7 +305,7 @@ func _on_food_item_used(usedItem: InventoryItem) -> void:
 # 'use' from the context menu.
 func _on_medical_item_used(usedItem: InventoryItem) -> void:
 	
-	var medical = DItem.Medical.new(usedItem.get_property("Medical"))
+	var medical = RItem.Medical.new(usedItem.get_property("Medical"))
 	var was_used: bool = false
 
 	# Step 1: Apply specific amounts to each attribute
@@ -346,8 +346,8 @@ func _apply_specific_attribute_amounts(medattributes: Array) -> bool:
 
 
 # Function to apply the general medical amount from the pool
-# See the DItem class and its Medical subclass for the properties of DItem.Medical
-func _apply_general_medical_amount(medical: DItem.Medical) -> bool:
+# See the RItem class and its Medical subclass for the properties of RItem.Medical
+func _apply_general_medical_amount(medical: RItem.Medical) -> bool:
 	var was: Dictionary = {"used": false}  # Keep track of whether the item was used
 	var pool = medical.amount
 
@@ -520,7 +520,7 @@ func add_skill_xp(skill_id: String, xp: float) -> void:
 
 # The player has succesfully crafted an item. Get the skill id and xp from
 # the recipe and add it to the player's skill xp
-func _on_craft_successful(_item: DItem, recipe: DItem.CraftRecipe):
+func _on_craft_successful(_item: RItem, recipe: RItem.CraftRecipe):
 	if recipe.skill_progression:
 		add_skill_xp(recipe.skill_progression.id, recipe.skill_progression.xp)
 
@@ -575,7 +575,7 @@ func _modify_player_attribute_on_equip(wearableItem: InventoryItem, is_equipping
 		return
 
 	# Get the Wearable data from the item
-	var dwearable: DItem.Wearable = DItem.Wearable.new(wearableItem.get_property("Wearable"))
+	var dwearable: RItem.Wearable = RItem.Wearable.new(wearableItem.get_property("Wearable"))
 
 	# Get the list of player attributes from the wearable
 	var myattributes: Array = dwearable.player_attributes

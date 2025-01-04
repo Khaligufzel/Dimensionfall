@@ -237,11 +237,11 @@ func display_feedback(message: String, color: Color):
 	timer.start()
 
 
-func _on_craft_successful(_item: DItem, _recipe: DItem.CraftRecipe):
+func _on_craft_successful(_item: RItem, _recipe: RItem.CraftRecipe):
 	var color = Color(0.4, 1, 0.4)  # Brighter green color with more white
 	display_feedback("craft succesful!", color)
 
 
-func _on_craft_failed(_item: DItem, _recipe: DItem.CraftRecipe, reason: String):
+func _on_craft_failed(_item: RItem, _recipe: RItem.CraftRecipe, reason: String):
 	var color = Color(1, 0, 0)  # Red color
 	display_feedback(reason, color)
