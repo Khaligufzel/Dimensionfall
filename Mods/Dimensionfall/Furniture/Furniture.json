@@ -36,8 +36,7 @@
 	{
 		"Function": {
 			"container_group": "kitchen_cupboard",
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -111,7 +110,7 @@
 			"container_group": "tree_forage",
 			"container_regeneration_time": 10,
 			"is_container": true,
-			"random_container_sprite": false
+			"random_container_sprite": true
 		},
 		"categories": [
 			"Nature"
@@ -139,7 +138,7 @@
 			"container_group": "tree_forage",
 			"container_regeneration_time": 10,
 			"is_container": true,
-			"random_container_sprite": false
+			"random_container_sprite": true
 		},
 		"categories": [
 			"Nature"
@@ -231,8 +230,7 @@
 	{
 		"Function": {
 			"container_group": "cabinet_general",
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -284,8 +282,7 @@
 	{
 		"Function": {
 			"container_group": "refridgerator",
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -388,8 +385,7 @@
 	{
 		"Function": {
 			"container_group": "clothing_general",
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -640,8 +636,7 @@
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -661,8 +656,7 @@
 	{
 		"Function": {
 			"container_group": "refridgerator",
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -689,8 +683,7 @@
 	{
 		"Function": {
 			"container_group": "vending_machine_drinks",
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -717,8 +710,7 @@
 	{
 		"Function": {
 			"container_group": "clothing_general",
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -737,8 +729,7 @@
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -790,8 +781,7 @@
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -811,8 +801,7 @@
 	{
 		"Function": {
 			"container_group": "cabinet_general",
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -861,8 +850,7 @@
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -963,8 +951,7 @@
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -991,8 +978,7 @@
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Urban",
@@ -1066,8 +1052,7 @@
 	{
 		"Function": {
 			"container_group": "tree_forage",
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Survival",
@@ -1092,8 +1077,7 @@
 	},
 	{
 		"Function": {
-			"is_container": true,
-			"random_container_sprite": false
+			"is_container": true
 		},
 		"categories": [
 			"Survival",
