@@ -320,8 +320,11 @@ class FurnitureContainer:
 
 		# Set the material if items were added
 		if item_added:
-			material = Gamedata.materials.container_filled  # Use filled container material
-			sprite_mesh.material = material  # Update the mesh material
+			if rfurniture.function.random_container_sprite:
+				set_random_inventory_item_texture()
+			else:
+				material = Gamedata.materials.container_filled  # Use filled container material
+				sprite_mesh.material = material  # Update the mesh material
 		else:
 			# If no item was added we set the sprite to an empty container
 			_on_item_removed(null)

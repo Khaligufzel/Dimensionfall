@@ -13,7 +13,8 @@ extends RefCounted
 #		"sprite": "countertop_100_52.png",
 #		"Function": {
 #			"container_group": "kitchen_cupboard",
-#			"is_container": true,
+#			"is_container": true,,
+#			"random_container_sprite": false,
 #			"container_regeneration_time": -1
 #		},
 #		"categories": [
@@ -78,12 +79,14 @@ var parent: DFurnitures
 class Function:
 	var door: String = "None"  # Can be "None", "Open" or "Closed"
 	var is_container: bool = false
+	var random_container_sprite: bool = false
 	var container_group: String = ""
 	var container_regeneration_time: float = DEFAULT_CONTAINER_REGEN   # Time in days for container regeneration (-1.0 if it doesn't regenerate)
 
 	func _init(data: Dictionary):
 		door = data.get("door", "None")
 		is_container = data.get("is_container", false)
+		random_container_sprite = data.get("random_container_sprite", false)
 		container_group = data.get("container_group", "")
 		container_regeneration_time = data.get("container_regeneration_time", DEFAULT_CONTAINER_REGEN)
 
@@ -92,6 +95,8 @@ class Function:
 		var result = {}
 		if is_container:
 			result["is_container"] = is_container
+			if random_container_sprite != false:
+				result["random_container_sprite"] = random_container_sprite
 			if container_group != "":
 				result["container_group"] = container_group
 			if container_regeneration_time != DEFAULT_CONTAINER_REGEN:
