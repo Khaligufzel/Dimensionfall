@@ -87,6 +87,7 @@ func _ready():
 	# Connect the toggle signal to the function
 	moveable_checkbox.toggled.connect(_on_moveable_checkbox_toggled)
 	crafting_items_container.set_drag_forwarding(Callable(), _can_item_drop, _item_drop)
+	container_text_edit.text_changed.connect(_on_container_text_edit_text_changed)
 
 
 func load_furniture_data():
@@ -155,7 +156,7 @@ func load_furniture_data():
 		container_text_edit.mytextedit.clear()  # Clear the text edit as no container data is present
 		regeneration_spin_box.value = -1.0  # Reset regeneration spin box
 		random_container_sprite_check_box.button_pressed = false  # Reset the checkbox
-
+	update_container_controls_visibility()
 
 	# Call the function to load the support shape data
 	load_support_shape_option()
@@ -708,3 +709,16 @@ func _extract_items_from_container(container: GridContainer) -> Array:
 		if child is Label:
 			items.append(child.text)
 	return items
+
+
+func update_container_controls_visibility():
+	# Check if container_text_edit has a value
+	var has_value = container_text_edit.get_text() != ""
+	
+	# Toggle visibility based on value
+	regeneration_label.visible = has_value
+	regeneration_spin_box.visible = has_value
+	random_container_sprite_check_box.visible = has_value
+
+func _on_container_text_edit_text_changed(_new_text: String):
+	update_container_controls_visibility()
