@@ -77,8 +77,22 @@ func on_construction_clicked(construction_data: Dictionary):
 			myrotation = 270
 		elif myrotation == 270:
 			myrotation = 90
-		chunk.spawn_furniture({"json": {"id": construction_choice, "rotation": myrotation}, "pos": construction_data.pos})
-		print_debug("Furniture construction chosen. Type: ", construction_type, ", Choice: ", construction_choice, ", construction_data.pos: ", str(construction_data.pos))
+
+		# Translate the position to negate the chunk's `mypos`
+		construction_data.pos -= chunk.mypos
+
+		# Spawn the furniture with the adjusted position
+		chunk.spawn_furniture({
+			"json": {"id": construction_choice, "rotation": myrotation},
+			"pos": construction_data.pos
+		})
+
+		print_debug(
+			"Furniture construction chosen. Type: ", construction_type,
+			", Choice: ", construction_choice,
+			", Adjusted construction_data.pos: ", str(construction_data.pos)
+		)
+
 
 	# Handle unknown construction types
 	else:
@@ -115,6 +129,8 @@ func update_construction_ghost():
 			var furniture_sprite_material = Runtimedata.furnitures.get_shader_material_by_id(construction_choice)
 			construction_ghost.set_material(furniture_sprite_material)
 			construction_ghost.set_mesh_size(calculate_furniture_size(rfurniture))
+			if not rfurniture.edgesnapping == "None":
+				construction_ghost.set_position_offset(rfurniture.edgesnapping)
 		else:
 			print_debug("RFurniture with ID ", construction_choice, " not found. Resetting material.")
 	else:

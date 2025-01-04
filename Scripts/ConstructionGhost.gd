@@ -80,7 +80,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if has_obstacle:
 			return
-		construction_data = {"pos": global_transform.origin, "rotation": current_rotation}
+		construction_data = {"pos": global_transform.origin-position_offset, "rotation": current_rotation}
 		construction_clicked.emit(construction_data)
 	
 	# Handle "r" key press for rotating the construction ghost
@@ -110,8 +110,7 @@ func reset_mesh_size_to_default() -> void:
 	set_mesh_size(Vector2(1, 1))
 
 
-# Applies edge snapping and updates the position offset
-func _apply_edge_snapping(direction: String) -> Vector3:
+func apply_edge_snapping(direction: String) -> Vector3:
 	# Block size, each block is 1x1 meter
 	var block_size = Vector3(1.0, 1.0, 1.0)
 	var offset = Vector3.ZERO
@@ -122,9 +121,9 @@ func _apply_edge_snapping(direction: String) -> Vector3:
 	# Adjust offset based on the edge-snapping direction
 	match direction:
 		"North":
-			offset.z -= block_size.z / 2 - furniture_size.z / 2
+			offset.z -= block_size.z / 2 - furniture_size.y / 2
 		"South":
-			offset.z += block_size.z / 2 - furniture_size.z / 2
+			offset.z += block_size.z / 2 - furniture_size.y / 2
 		"East":
 			offset.x += block_size.x / 2 - furniture_size.x / 2
 		"West":
@@ -132,17 +131,36 @@ func _apply_edge_snapping(direction: String) -> Vector3:
 		_:
 			pass  # No adjustment for undefined directions
 
+	# Apply rotation to the offset
+	offset = rotate_offset_around_center(offset)
+
 	return offset
 
+# Function to apply rotation to the offset
+func rotate_offset_around_center(offset: Vector3) -> Vector3:
+	var myrotation = current_rotation
+	if myrotation == 90:
+		myrotation = 270
+	elif myrotation == 270:
+		myrotation = 90
+	var radians = deg_to_rad(myrotation)  # Convert current rotation to radians
+	return Vector3(
+		offset.x * cos(radians) - offset.z * sin(radians),  # Rotate XZ plane
+		offset.y,                                           # Y remains unchanged
+		offset.x * sin(radians) + offset.z * cos(radians)
+	)
 
+
+var edge_snapping_direction: String
 # Sets the position offset of the ConstructionGhost
-func set_position_offset(edge_snapping_direction: String = "") -> void:
+func set_position_offset(my_direction: String = "") -> void:
+	edge_snapping_direction = my_direction
 	# Reset the position offset
 	position_offset = Vector3.ZERO
 
 	# Apply edge snapping if direction is provided
 	if edge_snapping_direction != "":
-		position_offset += _apply_edge_snapping(edge_snapping_direction)
+		position_offset += apply_edge_snapping(edge_snapping_direction)
 
 
 # Resets the position offset of the ConstructionGhost
@@ -151,10 +169,16 @@ func reset_position_offset_to_default() -> void:
 	position_offset = Vector3.ZERO
 
 # Sets the rotation of the ConstructionGhost mesh
-func set_mesh_rotation(myrotation: int) -> void:
-	# Set the rotation offset to the desired value
-	current_rotation = myrotation
-	rotation_degrees.y = myrotation
+func set_mesh_rotation(new_rotation: int) -> void:
+	# Update the current rotation
+	current_rotation = new_rotation % 360
+
+	# Update the ghost's rotation
+	rotation_degrees.y = current_rotation
+
+	# Recalculate the position offset based on the new rotation
+	set_position_offset(edge_snapping_direction)
+
 
 # Resets the rotation of the ConstructionGhost mesh to the default (no rotation)
 func reset_rotation_to_default() -> void:
