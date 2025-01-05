@@ -362,7 +362,7 @@ func _on_items_used(usedItems: Array[InventoryItem]) -> void:
 # The user has pressed a button to start crafting
 # recipe: The currently selected recipe in the crafting menu
 # item: The currently selected item in the itemlist in the crafting menu
-func on_crafting_menu_start_craft(item: DItem, recipe: RItem.CraftRecipe):
+func on_crafting_menu_start_craft(item: RItem, recipe: RItem.CraftRecipe):
 	if recipe and item:
 		# If the player doesn't have the resources, return
 		if not CraftingRecipesManager.can_craft_recipe(recipe):
