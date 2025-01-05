@@ -46,6 +46,8 @@ var is_disabled: bool = false  # Tracks whether the widget is disabled
 @export var myplaceholdertext: String = "drop your data here"
 @export var button: Button = null
 
+signal text_changed(new_text: String)
+
 
 func _ready():
 	mytextedit.placeholder_text = myplaceholdertext
@@ -74,10 +76,12 @@ func _handle_item_drop(dropped_data, _newpos) -> void:
 
 func _on_button_button_up():
 	mytextedit.clear()
+	text_changed.emit("")
 
 
 func set_text(newtext: String):
 	mytextedit.text = newtext
+	text_changed.emit(newtext)
 
 
 func get_text():

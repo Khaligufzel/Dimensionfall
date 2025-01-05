@@ -81,7 +81,8 @@
 		"Function": {
 			"container_group": "tree_forage",
 			"container_regeneration_time": 10,
-			"is_container": true
+			"is_container": true,
+			"random_container_sprite": true
 		},
 		"categories": [
 			"Nature"
@@ -108,7 +109,8 @@
 		"Function": {
 			"container_group": "tree_forage",
 			"container_regeneration_time": 10,
-			"is_container": true
+			"is_container": true,
+			"random_container_sprite": true
 		},
 		"categories": [
 			"Nature"
@@ -135,7 +137,8 @@
 		"Function": {
 			"container_group": "tree_forage",
 			"container_regeneration_time": 10,
-			"is_container": true
+			"is_container": true,
+			"random_container_sprite": true
 		},
 		"categories": [
 			"Nature"

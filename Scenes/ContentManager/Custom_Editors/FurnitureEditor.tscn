@@ -11,7 +11,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujqyk"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furniture_image_display", "id_label", "name_edit", "description_edit", "categories_list", "furniture_selector", "image_name_label", "moveable_checkbox", "weight_label", "weight_spinbox", "edge_snapping_option", "door_option", "container_checkbox", "container_text_edit", "regeneration_label", "regeneration_spin_box", "destroy_container", "can_destroy_checkbox", "destruction_text_edit", "destruction_image_display", "destruction_sprite_label", "disassembly_container", "can_disassemble_checkbox", "disassembly_text_edit", "disassembly_image_display", "disassembly_sprite_label", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "crafting_items_container", "construction_items_container")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furniture_image_display", "id_label", "name_edit", "description_edit", "categories_list", "furniture_selector", "image_name_label", "moveable_checkbox", "weight_label", "weight_spinbox", "edge_snapping_option", "door_option", "container_checkbox", "container_text_edit", "regeneration_label", "regeneration_spin_box", "random_container_sprite_check_box", "destroy_container", "can_destroy_checkbox", "destruction_text_edit", "destruction_image_display", "destruction_sprite_label", "disassembly_container", "can_disassemble_checkbox", "disassembly_text_edit", "disassembly_image_display", "disassembly_sprite_label", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "crafting_items_container", "construction_items_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,6 +36,7 @@ container_checkbox = NodePath("VBoxContainer/TabContainer/General/FunctionContro
 container_text_edit = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/ContainerTextEdit")
 regeneration_label = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/RegenerationLabel")
 regeneration_spin_box = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/RegenerationSpinBox")
+random_container_sprite_check_box = NodePath("VBoxContainer/TabContainer/General/FunctionControlContainer/RandomContainerSpriteCheckBox")
 destroy_container = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer")
 can_destroy_checkbox = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/CanDestroyCheckBox")
 destruction_text_edit = NodePath("VBoxContainer/TabContainer/General/DestructionHBoxContainer/DestructionTextEdit")
@@ -343,6 +344,14 @@ contents of the itemgroup when it is
 spawned. If container is not checked on, it
 will not act as a container."
 myplaceholdertext = "Drag an itemgroup from the left to here"
+
+[node name="RandomContainerSpriteCheckBox" type="CheckBox" parent="VBoxContainer/TabContainer/General/FunctionControlContainer"]
+layout_mode = 2
+tooltip_text = "Determines the initial sprite for the container.
+On: Will pick a random item from the itemgroup and display the item's sprite as the container sprite
+Off: Uses the default container sprite.
+Recommendation: Off for inorganic furniture like cupboards. On for organic furniture like trees."
+text = "Random sprite"
 
 [node name="RegenerationLabel" type="Label" parent="VBoxContainer/TabContainer/General/FunctionControlContainer"]
 layout_mode = 2

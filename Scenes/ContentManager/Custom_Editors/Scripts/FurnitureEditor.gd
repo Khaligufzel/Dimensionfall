@@ -23,6 +23,8 @@ extends Control
 @export var container_text_edit: HBoxContainer = null # Might contain the id of a loot group
 @export var regeneration_label: Label = null
 @export var regeneration_spin_box: SpinBox = null # The time in days before regeneration
+@export var random_container_sprite_check_box: CheckBox = null
+
 
 @export var destroy_container: HBoxContainer = null # contains destroy controls
 @export var can_destroy_checkbox: CheckBox = null # If the furniture can be destroyed or not
@@ -85,6 +87,7 @@ func _ready():
 	# Connect the toggle signal to the function
 	moveable_checkbox.toggled.connect(_on_moveable_checkbox_toggled)
 	crafting_items_container.set_drag_forwarding(Callable(), _can_item_drop, _item_drop)
+	container_text_edit.text_changed.connect(_on_container_text_edit_text_changed)
 
 
 func load_furniture_data():
@@ -145,10 +148,15 @@ func load_furniture_data():
 			regeneration_spin_box.value = dfurniture.function.container_regeneration_time
 		else:
 			regeneration_spin_box.value = -1.0  # Default to -1.0 if no regeneration time is set
+
+		# Load the random container sprite checkbox value
+		random_container_sprite_check_box.button_pressed = dfurniture.function.random_container_sprite
 	else:
 		container_checkbox.button_pressed = false  # Uncheck the container checkbox
 		container_text_edit.mytextedit.clear()  # Clear the text edit as no container data is present
 		regeneration_spin_box.value = -1.0  # Reset regeneration spin box
+		random_container_sprite_check_box.button_pressed = false  # Reset the checkbox
+	update_container_controls_visibility()
 
 	# Call the function to load the support shape data
 	load_support_shape_option()
@@ -283,11 +291,16 @@ func handle_container_option():
 		dfurniture.function.container_group = container_text_edit.get_text()
 		# Save the regeneration time
 		dfurniture.function.container_regeneration_time = regeneration_spin_box.value
+		# Save the random container sprite checkbox value
+		dfurniture.function.random_container_sprite = random_container_sprite_check_box.button_pressed
 	else:
 		dfurniture.function.is_container = false
 		dfurniture.function.container_group = ""
 		# Reset the regeneration time
 		dfurniture.function.container_regeneration_time = -1
+		# Reset the random container sprite checkbox value
+		dfurniture.function.random_container_sprite = false
+
 
 
 func handle_destruction_option():
@@ -696,3 +709,16 @@ func _extract_items_from_container(container: GridContainer) -> Array:
 		if child is Label:
 			items.append(child.text)
 	return items
+
+
+func update_container_controls_visibility():
+	# Check if container_text_edit has a value
+	var has_value = container_text_edit.get_text() != ""
+	
+	# Toggle visibility based on value
+	regeneration_label.visible = has_value
+	regeneration_spin_box.visible = has_value
+	random_container_sprite_check_box.visible = has_value
+
+func _on_container_text_edit_text_changed(_new_text: String):
+	update_container_controls_visibility()
