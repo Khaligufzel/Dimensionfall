@@ -190,14 +190,12 @@ func reset_rotation_to_default() -> void:
 func _on_construction_ghost_area_3d_body_entered(body: Node3D) -> void:
 	# Mark that an obstacle is present
 	has_obstacle = true
-	print_debug("Obstacle detected: ", body.name)
 
 # Called when a body exits the construction ghost's area
 func _on_construction_ghost_area_3d_body_exited(body: Node3D) -> void:
 	# Check if no other obstacles remain in the area
 	if construction_ghost_area_3d.get_overlapping_bodies().size() == 0:
 		has_obstacle = false
-		print_debug("Obstacle cleared: ", body.name)
 
 func reset_to_default():
 	reset_rotation_to_default()
