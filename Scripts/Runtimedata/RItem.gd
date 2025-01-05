@@ -69,6 +69,28 @@ class Craft:
 	func get_first_recipe() -> CraftRecipe:
 		return recipes[0] if recipes.size() > 0 else null
 
+
+# Inner class to handle the Magazine property
+class Magazine:
+	var current_ammo: int
+	var max_ammo: int
+	var used_ammo: String
+
+	# Constructor to initialize magazine properties from a dictionary
+	func _init(data: Dictionary):
+		current_ammo = int(data.get("current_ammo", 0))
+		max_ammo = int(data.get("max_ammo", 0))
+		used_ammo = data.get("used_ammo", "")
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		return {
+			"current_ammo": current_ammo,
+			"max_ammo": max_ammo,
+			"used_ammo": used_ammo
+		}
+
+
 class Ranged:
 	var firing_speed: float
 	var firing_range: int
@@ -179,6 +201,7 @@ var image: String
 var sprite: Texture
 var spriteid: String
 var craft: Craft
+var magazine: Magazine
 var ranged: Ranged
 var melee: Melee
 var food: Food
@@ -217,6 +240,7 @@ func overwrite_from_ditem(ditem: DItem) -> void:
 	
 	craft = Craft.new(ditem.craft.get_data()) if ditem.craft else null
 	ranged = Ranged.new(ditem.ranged.get_data()) if ditem.ranged else null
+	magazine = Magazine.new(ditem.magazine.get_data()) if ditem.magazine else null
 	melee = Melee.new(ditem.melee.get_data()) if ditem.melee else null
 	food = Food.new(ditem.food.get_data()) if ditem.food else null
 	medical = Medical.new(ditem.medical.get_data()) if ditem.medical else null
@@ -238,6 +262,8 @@ func get_data() -> Dictionary:
 	}
 	if craft:
 		data["Craft"] = craft.get_data()
+	if magazine:
+		data["Magazine"] = magazine.get_data()
 	if ranged:
 		data["Ranged"] = ranged.get_data()
 	if melee:

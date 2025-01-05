@@ -66,6 +66,11 @@ json_data = "[
 				}
 			}
 		],
+		\"Magazine\": {
+			\"current_ammo\": 19,
+			\"max_ammo\": 20,
+			\"used_ammo\": \"bullet_9mm\"
+		},
 		\"description\": \"In order for your pistol to fire a bullet, it needs to have a magazine loaded with bullets\",
 		\"id\": \"pistol_magazine\",
 		\"image\": \"./Mods/Dimensionfall/Items/pistol_magazine.png\",
@@ -152,6 +157,11 @@ json_data = "[
 		\"weight\": 3
 	},
 	{
+		\"Magazine\": {
+			\"current_ammo\": 30,
+			\"max_ammo\": 30,
+			\"used_ammo\": \"bullet_7.62x26\"
+		},
 		\"description\": \"A magazine to be loaded into a Chuganov MPAP\",
 		\"id\": \"chugunov_mpap_magazine\",
 		\"image\": \"./Mods/Dimensionfall/Items/chugunov_mpap_magazine_16_32.png\",

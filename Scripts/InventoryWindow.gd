@@ -129,7 +129,7 @@ func _set_tooltip_size(description: String):
 
 # Adds text to the tooltip to display the effects the item has on the attributes
 func _append_food_attributes(item: InventoryItem, description: String) -> String:
-	var dfood = DItem.Food.new(item.get_property("Food", {}))
+	var dfood = RItem.Food.new(item.get_property("Food", {}))
 	if dfood.attributes:
 		description += "\n\nEffects (Food):\n"  # Add a section for food attributes
 		for attribute in dfood.attributes:
@@ -141,7 +141,7 @@ func _append_food_attributes(item: InventoryItem, description: String) -> String
 
 # Adds text to the tooltip to display the effects the item has on the attributes
 func _append_medical_attributes(item: InventoryItem, description: String) -> String:
-	var dmedical = DItem.Medical.new(item.get_property("Medical", {}))
+	var dmedical = RItem.Medical.new(item.get_property("Medical", {}))
 	if dmedical.attributes or dmedical.amount > 0:
 		description += "\n\nEffects (Medical):\n"  # Add a section for medical attributes
 		if dmedical.attributes:
@@ -166,7 +166,7 @@ func _append_medical_attributes(item: InventoryItem, description: String) -> Str
 
 # Add text to the tooltip to display the Melee attributes
 func _append_melee_attributes(item: InventoryItem, description: String) -> String:
-	var dmelee = DItem.Melee.new(item.get_property("Melee", {}))
+	var dmelee = RItem.Melee.new(item.get_property("Melee", {}))
 	if dmelee.damage > 0 or dmelee.reach > 0 or dmelee.used_skill:
 		description += "\n\nAttributes (Melee):\n"  # Add a section for melee attributes
 		if dmelee.damage > 0:
@@ -179,7 +179,7 @@ func _append_melee_attributes(item: InventoryItem, description: String) -> Strin
 
 # Add text to the tooltip to display the Ranged attributes
 func _append_ranged_attributes(item: InventoryItem, description: String) -> String:
-	var dranged = DItem.Ranged.new(item.get_property("Ranged", {}))
+	var dranged = RItem.Ranged.new(item.get_property("Ranged", {}))
 	if dranged.firing_speed > 0 or dranged.firing_range > 0 or dranged.recoil > 0 or dranged.reload_speed > 0 or dranged.used_ammo != "" or dranged.used_skill:
 		description += "\n\nAttributes (Ranged):\n"  # Add a section for ranged attributes
 		if dranged.firing_speed > 0:
