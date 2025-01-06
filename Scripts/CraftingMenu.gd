@@ -21,6 +21,7 @@ var item_buttons = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.visibility_changed.connect(_on_visibility_changed)
 	start_craft.connect(ItemManager.on_crafting_menu_start_craft)
 	ItemManager.allAccessibleItems_changed.connect(_on_allAccessibleItems_changed)
 	Helper.signal_broker.player_skill_changed.connect(_on_player_skill_changed)
@@ -245,3 +246,11 @@ func _on_craft_successful(_item: RItem, _recipe: RItem.CraftRecipe):
 func _on_craft_failed(_item: RItem, _recipe: RItem.CraftRecipe, reason: String):
 	var color = Color(1, 0, 0)  # Red color
 	display_feedback(reason, color)
+
+
+# Check if the window is visible and update the ui
+func _on_visibility_changed():
+	if visible:
+		# If there's an active recipe, refresh the required items display
+		if active_recipe != null:
+			update_required_items_display(active_recipe)
