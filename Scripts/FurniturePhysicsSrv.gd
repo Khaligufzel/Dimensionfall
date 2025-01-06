@@ -370,7 +370,7 @@ func add_corpse(pos: Vector3) -> void:
 	
 	var fursprite = rfurniture.destruction.sprite
 	if fursprite:
-		itemdata["texture_id"] = fursprite
+		itemdata["containertexture"] = fursprite
 
 	var myitemgroup = rfurniture.destruction.group
 	if myitemgroup:

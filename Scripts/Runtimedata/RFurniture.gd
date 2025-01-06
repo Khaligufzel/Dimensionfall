@@ -113,40 +113,34 @@ class SupportShape:
 # Inner class to handle the Destruction property
 class Destruction:
 	var group: String
-	var sprite: String
+	var sprite: Texture
 
 	# Constructor to initialize destruction properties from a dictionary
 	func _init(data: Dictionary):
 		group = data.get("group", "")
-		sprite = data.get("sprite", "")
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
 		var destructiondata: Dictionary = {}
 		if not group == "":
 			destructiondata["group"] = group
-		if not sprite == "":
-			destructiondata["sprite"] = sprite
 		return destructiondata
 
 
 # Inner class to handle the Disassembly property
 class Disassembly:
 	var group: String
-	var sprite: String
+	var sprite: Texture
 
 	# Constructor to initialize disassembly properties from a dictionary
 	func _init(data: Dictionary):
 		group = data.get("group", "")
-		sprite = data.get("sprite", "")
 
 	# Get data function to return a dictionary with all properties
 	func get_data() -> Dictionary:
 		var disassemblydata: Dictionary = {}
 		if not group == "":
 			disassemblydata["group"] = group
-		if not sprite == "":
-			disassemblydata["sprite"] = sprite
 		return disassemblydata
 
 # Crafting Property
@@ -221,7 +215,9 @@ func overwrite_from_dfurniture(dfurniture: DFurniture) -> void:
 	function = Function.new(dfurniture.function.get_data())
 	support_shape = SupportShape.new(dfurniture.support_shape.get_data())
 	destruction = Destruction.new(dfurniture.destruction.get_data())
+	destruction.sprite = dfurniture.parent.sprite_by_file(dfurniture.destruction.sprite)
 	disassembly = Disassembly.new(dfurniture.disassembly.get_data())
+	disassembly.sprite = dfurniture.parent.sprite_by_file(dfurniture.disassembly.sprite)
 	crafting = Crafting.new(dfurniture.crafting.get_data())
 	construction = Construction.new(dfurniture.construction.get_data())
 
